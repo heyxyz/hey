@@ -53,7 +53,7 @@ const Highlights: FC = () => {
     return (
       <EmptyState
         message="No posts yet!"
-        icon={<LightBulbIcon className="text-brand h-8 w-8" />}
+        icon={<LightBulbIcon className="text-brand-500 h-8 w-8" />}
       />
     );
   }

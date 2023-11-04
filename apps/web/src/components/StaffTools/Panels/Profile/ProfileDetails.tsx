@@ -58,28 +58,28 @@ const ProfileDetails: FC<ProfileDetailsProps> = ({ profile }) => {
       </div>
       <div className="mt-3 space-y-2 font-bold">
         <MetaDetails
-          icon={<CursorArrowRaysIcon className="lt-text-gray-500 h-4 w-4" />}
+          icon={<CursorArrowRaysIcon className="ld-text-gray-500 h-4 w-4" />}
           value={humanize(data.events)}
           title="Total events"
         >
           {humanize(data.events)}
         </MetaDetails>
         <MetaDetails
-          icon={<MapPinIcon className="lt-text-gray-500 h-4 w-4" />}
+          icon={<MapPinIcon className="ld-text-gray-500 h-4 w-4" />}
           value={data.city}
           title="Location"
         >
           {data.city}, {data.region}, {data.country}
         </MetaDetails>
         <MetaDetails
-          icon={<ComputerDesktopIcon className="lt-text-gray-500 h-4 w-4" />}
+          icon={<ComputerDesktopIcon className="ld-text-gray-500 h-4 w-4" />}
           value={data.os}
           title="OS"
         >
           {data.os}
         </MetaDetails>
         <MetaDetails
-          icon={<GlobeAltIcon className="lt-text-gray-500 h-4 w-4" />}
+          icon={<GlobeAltIcon className="ld-text-gray-500 h-4 w-4" />}
           value={data.browser}
           title="Browser"
         >

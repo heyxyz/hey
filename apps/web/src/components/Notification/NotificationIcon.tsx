@@ -13,7 +13,7 @@ const NotificationIcon: FC = () => {
   return (
     <Link
       href="/notifications"
-      className="min-w-[40px] items-start justify-center rounded-md p-1 hover:bg-gray-300/20 md:flex"
+      className="outline-brand-500 items-start justify-center rounded-md px-2 py-1 hover:bg-gray-300/20 md:flex"
       onClick={() => {
         if (latestNotificationId) {
           setLastOpenedNotificationId(latestNotificationId);

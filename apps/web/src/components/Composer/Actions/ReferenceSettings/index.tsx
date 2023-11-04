@@ -57,7 +57,7 @@ const ReferenceSettings: FC = () => {
     >
       <div className="flex items-center justify-between space-x-2">
         <div className="flex items-center space-x-1.5">
-          <div className="text-brand">{icon}</div>
+          <div className="text-brand-500">{icon}</div>
           <div>{title}</div>
         </div>
         {selected ? <CheckCircleIcon className="w-5 text-green-500" /> : null}
@@ -83,8 +83,12 @@ const ReferenceSettings: FC = () => {
         placement="top"
         content={getSelectedReferenceModuleTooltipText()}
       >
-        <Menu.Button as={motion.button} whileTap={{ scale: 0.9 }}>
-          <div className="text-brand">
+        <Menu.Button
+          as={motion.button}
+          className="outline-brand-500 rounded-full outline-offset-8"
+          whileTap={{ scale: 0.9 }}
+        >
+          <div className="text-brand-500">
             {isEveryone ? <GlobeAltIcon className="w-5" /> : null}
             {isMyFollowers ? <UsersIcon className="w-5" /> : null}
             {isMyFollows ? <UserPlusIcon className="w-5" /> : null}

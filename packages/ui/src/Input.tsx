@@ -34,7 +34,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   const id = useId();
 
   const iconStyles = [
-    'text-zinc-500 [&>*]:peer-focus:text-brand [&>*]:h-5',
+    'text-zinc-500 [&>*]:peer-focus:text-brand-500 [&>*]:h-5',
     { '!text-red-500 [&>*]:peer-focus:!text-red-500': error }
   ];
 
@@ -50,7 +50,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       ) : null}
       <div className="flex">
         {prefix ? (
-          <span className="lt-text-gray-500 inline-flex items-center rounded-l-xl border border-r-0 border-gray-300 bg-gray-100 px-3 dark:border-gray-700 dark:bg-gray-900">
+          <span className="ld-text-gray-500 inline-flex items-center rounded-l-xl border border-r-0 border-gray-300 bg-gray-100 px-3 dark:border-gray-700 dark:bg-gray-900">
             {prefix}
           </span>
         ) : null}

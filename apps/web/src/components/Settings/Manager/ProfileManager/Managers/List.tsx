@@ -165,7 +165,7 @@ const List: FC = () => {
     return (
       <EmptyState
         message="No profile managers added!"
-        icon={<UserCircleIcon className="text-brand h-8 w-8" />}
+        icon={<UserCircleIcon className="text-brand-500 h-8 w-8" />}
         hideCard
       />
     );

@@ -126,33 +126,32 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
   return (
     <div
       className={cn(
-        hasReacted ? 'text-brand-500' : 'lt-text-gray-500',
+        hasReacted ? 'text-brand-500' : 'ld-text-gray-500',
         'flex items-center space-x-1'
       )}
     >
       <motion.button
+        className={cn(
+          hasReacted
+            ? 'hover:bg-brand-300/20 outline-brand-500'
+            : 'outline-gray-400 hover:bg-gray-300/20',
+          'rounded-full p-1.5 outline-offset-2'
+        )}
         whileTap={{ scale: 0.9 }}
         onClick={createLike}
         aria-label="Like"
       >
-        <div
-          className={cn(
-            hasReacted ? 'hover:bg-brand-300/20' : 'hover:bg-gray-300/20',
-            'rounded-full p-1.5'
-          )}
+        <Tooltip
+          placement="top"
+          content={hasReacted ? 'Unlike' : 'Like'}
+          withDelay
         >
-          <Tooltip
-            placement="top"
-            content={hasReacted ? 'Unlike' : 'Like'}
-            withDelay
-          >
-            {hasReacted ? (
-              <HeartIconSolid className={iconClassName} />
-            ) : (
-              <HeartIcon className={iconClassName} />
-            )}
-          </Tooltip>
-        </div>
+          {hasReacted ? (
+            <HeartIconSolid className={iconClassName} />
+          ) : (
+            <HeartIcon className={iconClassName} />
+          )}
+        </Tooltip>
       </motion.button>
       {reactionCount > 0 && !showCount ? (
         <span className="text-[11px] sm:text-xs">

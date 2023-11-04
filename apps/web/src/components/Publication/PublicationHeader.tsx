@@ -51,11 +51,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
         'relative flex justify-between space-x-1.5'
       )}
     >
-      <span
-        className="max-w-full"
-        onClick={stopEventPropagation}
-        aria-hidden="true"
-      >
+      <span className="max-w-full" onClick={stopEventPropagation}>
         {quoted ? (
           <SmallUserProfile
             profile={profile}
@@ -73,14 +69,14 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
         ) : null}
         {quoted && isNew ? (
           <button
-            className="rounded-full border p-1.5 hover:bg-gray-300/20"
+            className="outline-brand-500 rounded-full border p-1.5 hover:bg-gray-300/20"
             onClick={(event) => {
               stopEventPropagation(event);
               setQuotedPublication(null);
             }}
             aria-label="Remove Quote"
           >
-            <XMarkIcon className="lt-text-gray-500 w-[15px] sm:w-[18px]" />
+            <XMarkIcon className="ld-text-gray-500 w-[15px] sm:w-[18px]" />
           </button>
         ) : null}
       </div>

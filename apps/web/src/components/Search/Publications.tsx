@@ -56,7 +56,7 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
             No publications for <b>&ldquo;{query}&rdquo;</b>
           </span>
         }
-        icon={<RectangleStackIcon className="text-brand h-8 w-8" />}
+        icon={<RectangleStackIcon className="text-brand-500 h-8 w-8" />}
       />
     );
   }

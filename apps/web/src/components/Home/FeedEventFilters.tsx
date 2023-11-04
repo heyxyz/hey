@@ -23,9 +23,9 @@ const FeedEventFilters: FC = () => {
 
   return (
     <Menu as="div" className="relative">
-      <Menu.Button className="rounded-md p-1 hover:bg-gray-300/20">
+      <Menu.Button className="outline-brand-500 rounded-md p-1 hover:bg-gray-300/20">
         <Tooltip placement="top" content="Filter">
-          <AdjustmentsVerticalIcon className="text-brand h-5 w-5" />
+          <AdjustmentsVerticalIcon className="text-brand-500 h-5 w-5" />
         </Tooltip>
       </Menu.Button>
       <MenuTransition>

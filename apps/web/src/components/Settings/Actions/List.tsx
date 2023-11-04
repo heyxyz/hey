@@ -54,7 +54,7 @@ const List: FC = () => {
     return (
       <EmptyState
         message="You have no actions on your account!"
-        icon={<QueueListIcon className="text-brand h-8 w-8" />}
+        icon={<QueueListIcon className="text-brand-500 h-8 w-8" />}
         hideCard
       />
     );
@@ -65,7 +65,7 @@ const List: FC = () => {
       {profileActionHistory?.map((action) => (
         <Card key={action.id} className="space-y-1 p-5" forceRounded>
           <b>{action.actionType.toLowerCase()}</b>
-          <div className="lt-text-gray-500 text-sm">
+          <div className="ld-text-gray-500 text-sm">
             {action.txHash ? (
               <span>
                 <span>Hash: </span>

@@ -32,9 +32,8 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
 
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <div
-      className="lt-text-gray-500 flex cursor-pointer items-center space-x-2.5 text-sm"
+      className="ld-text-gray-500 flex cursor-pointer items-center space-x-2.5 text-sm"
       onClick={() => setShowMutualFollowersModal?.(true)}
-      aria-hidden="true"
     >
       <div className="contents -space-x-2">
         {profiles?.map((profile) => (

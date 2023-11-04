@@ -97,7 +97,6 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
             )}
             key={index}
             onClick={stopEventPropagation}
-            aria-hidden="true"
           >
             {isVideo ? (
               <>

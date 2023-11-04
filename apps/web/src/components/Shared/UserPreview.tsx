@@ -114,7 +114,7 @@ const UserPreview: FC<UserPreviewProps> = ({
         <div className="flex max-w-sm items-center gap-1 truncate">
           <div className="text-md">{getProfile(profile).displayName}</div>
           {isVerified(profile.id) ? (
-            <CheckBadgeIcon className="text-brand h-4 w-4" />
+            <CheckBadgeIcon className="text-brand-500 h-4 w-4" />
           ) : null}
           {hasMisused(profile.id) ? (
             <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
@@ -128,7 +128,7 @@ const UserPreview: FC<UserPreviewProps> = ({
       <>
         <div className="flex items-center justify-between px-3.5 pb-1 pt-4">
           <UserAvatar />
-          <div onClick={stopEventPropagation} aria-hidden="false">
+          <div onClick={stopEventPropagation}>
             {!profile.operations.isFollowedByMe.value ? (
               following ? null : profile.followModule?.__typename ===
                 'FeeFollowModuleSettings' ? (
@@ -163,7 +163,7 @@ const UserPreview: FC<UserPreviewProps> = ({
               <div className="text-base">
                 {nFormatter(profile.stats.following)}
               </div>
-              <div className="lt-text-gray-500 text-sm">
+              <div className="ld-text-gray-500 text-sm">
                 {plur('Following', profile.stats.following)}
               </div>
             </div>
@@ -171,7 +171,7 @@ const UserPreview: FC<UserPreviewProps> = ({
               <div className="text-base">
                 {nFormatter(profile.stats.followers)}
               </div>
-              <div className="lt-text-gray-500 text-sm">
+              <div className="ld-text-gray-500 text-sm">
                 {plur('Follower', profile.stats.followers)}
               </div>
             </div>

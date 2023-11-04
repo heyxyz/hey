@@ -51,7 +51,7 @@ const List: FC = () => {
     return (
       <EmptyState
         message="You are not blocking any profiles!"
-        icon={<NoSymbolIcon className="text-brand h-8 w-8" />}
+        icon={<NoSymbolIcon className="text-brand-500 h-8 w-8" />}
         hideCard
       />
     );

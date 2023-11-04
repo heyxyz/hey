@@ -82,7 +82,7 @@ const Feed: FC<FeedProps> = ({
     return (
       <EmptyState
         message="No posts yet!"
-        icon={<RectangleStackIcon className="text-brand h-8 w-8" />}
+        icon={<RectangleStackIcon className="text-brand-500 h-8 w-8" />}
       />
     );
   }

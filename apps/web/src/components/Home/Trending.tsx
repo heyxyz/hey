@@ -66,7 +66,7 @@ const Trending: FC = () => {
                 }
               >
                 <div className="font-bold">{tag?.tag}</div>
-                <div className="lt-text-gray-500 text-[12px]">
+                <div className="ld-text-gray-500 text-[12px]">
                   {nFormatter(tag?.total)} {plur('Publication', tag?.total)}
                 </div>
               </Link>

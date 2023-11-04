@@ -14,8 +14,8 @@ const initialConfig = {
       italic: 'italic',
       code: 'text-sm bg-gray-300 rounded-lg dark:bg-gray-700 px-[5px] py-[2px]'
     },
-    link: 'text-brand',
-    hashtag: 'text-brand'
+    link: 'text-brand-500',
+    hashtag: 'text-brand-500'
   },
   nodes: [CodeNode, MentionNode, HashtagNode, AutoLinkNode, LinkNode],
   editorState: null,

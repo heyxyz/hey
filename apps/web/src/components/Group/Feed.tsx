@@ -61,7 +61,7 @@ const Feed: FC<FeedProps> = ({ group }) => {
             <span>don't have any publications yet</span>
           </div>
         }
-        icon={<RectangleStackIcon className="text-brand h-8 w-8" />}
+        icon={<RectangleStackIcon className="text-brand-500 h-8 w-8" />}
       />
     );
   }

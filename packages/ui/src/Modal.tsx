@@ -41,10 +41,7 @@ export const Modal: FC<ModalProps> = ({
           >
             <Dialog.Overlay className="fixed inset-0 bg-gray-500/75 transition-opacity dark:bg-gray-900/80" />
           </Transition.Child>
-          <span
-            className="hidden sm:inline-block sm:h-screen sm:align-middle"
-            aria-hidden="true"
-          />
+          <span className="hidden sm:inline-block sm:h-screen sm:align-middle" />
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-100"
@@ -72,7 +69,7 @@ export const Modal: FC<ModalProps> = ({
                   {onClose ? (
                     <button
                       type="button"
-                      className="rounded-full p-1 text-gray-800 hover:bg-gray-200 dark:text-gray-100 dark:hover:bg-gray-700"
+                      className="outline-brand-500 rounded-full p-1 text-gray-800 hover:bg-gray-200 dark:text-gray-100 dark:hover:bg-gray-700"
                       onClick={onClose}
                     >
                       <XMarkIcon className="h-5 w-5" />

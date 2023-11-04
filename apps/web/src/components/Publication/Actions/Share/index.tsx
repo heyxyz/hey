@@ -8,8 +8,9 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Spinner, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import { motion } from 'framer-motion';
 import type { FC } from 'react';
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMirrorOrQuoteOptimisticStore } from 'src/store/OptimisticActions/useMirrorOrQuoteOptimisticStore';
 
 import Mirror from './Mirror';
@@ -52,37 +53,37 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
   return (
     <div className="flex items-center space-x-1">
       <Menu as="div" className="relative">
-        <Menu.Button as={Fragment}>
-          <button
-            className={cn(
-              hasQuotedOrMirrored
-                ? 'text-brand hover:bg-brand-300/20'
-                : 'lt-text-gray-500 hover:bg-gray-300/20',
-              'rounded-full p-1.5'
-            )}
-            onClick={stopEventPropagation}
-            aria-label="Mirror"
-          >
-            {isLoading ? (
-              <Spinner
-                variant={hasQuotedOrMirrored ? 'success' : 'primary'}
-                size="xs"
-                className="mr-0.5"
-              />
-            ) : (
-              <Tooltip
-                placement="top"
-                content={
-                  mirrorOrQuoteCount > 0
-                    ? `${humanize(mirrorOrQuoteCount)} Mirrors`
-                    : 'Mirror'
-                }
-                withDelay
-              >
-                <ArrowsRightLeftIcon className={iconClassName} />
-              </Tooltip>
-            )}
-          </button>
+        <Menu.Button
+          as={motion.button}
+          className={cn(
+            hasQuotedOrMirrored
+              ? 'text-brand-500 hover:bg-brand-300/20 outline-brand-500'
+              : 'ld-text-gray-500 outline-gray-400 hover:bg-gray-300/20',
+            'rounded-full p-1.5 outline-offset-2'
+          )}
+          whileTap={{ scale: 0.9 }}
+          onClick={stopEventPropagation}
+          aria-label="Mirror"
+        >
+          {isLoading ? (
+            <Spinner
+              variant={hasQuotedOrMirrored ? 'success' : 'primary'}
+              size="xs"
+              className="mr-0.5"
+            />
+          ) : (
+            <Tooltip
+              placement="top"
+              content={
+                mirrorOrQuoteCount > 0
+                  ? `${humanize(mirrorOrQuoteCount)} Mirrors`
+                  : 'Mirror'
+              }
+              withDelay
+            >
+              <ArrowsRightLeftIcon className={iconClassName} />
+            </Tooltip>
+          )}
         </Menu.Button>
         <MenuTransition>
           <Menu.Items
@@ -101,7 +102,7 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
       {mirrorOrQuoteCount > 0 && !showCount ? (
         <span
           className={cn(
-            hasQuotedOrMirrored ? 'text-brand' : 'lt-text-gray-500',
+            hasQuotedOrMirrored ? 'text-brand-500' : 'ld-text-gray-500',
             'text-[11px] sm:text-xs'
           )}
         >

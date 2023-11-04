@@ -28,12 +28,11 @@ const FeedFocusType: FC<FeedFocusTypeProps> = ({ focus, setFocus }) => {
       }}
       className={cn(
         { '!bg-brand-500 !text-white': focus === type },
-        'text-brand rounded-full px-3 py-1.5 text-xs sm:px-4',
+        'text-brand-500 rounded-full px-3 py-1.5 text-xs sm:px-4',
         'border-brand-300 dark:border-brand-500 border',
         'bg-brand-100 dark:bg-brand-300/20'
       )}
       aria-label={name}
-      aria-selected={focus === type}
     >
       {name}
     </button>
