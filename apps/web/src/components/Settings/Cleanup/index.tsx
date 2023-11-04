@@ -49,7 +49,7 @@ const CleanupSettings: NextPage = () => {
             <div className="flex items-center justify-between">
               <div className="space-y-1">
                 <b>Optimistic publications</b>
-                <div className="lt-text-gray-500 text-xs font-bold">
+                <div className="ld-text-gray-500 text-xs font-bold">
                   Clean your posts or comments that are not indexed
                 </div>
               </div>
@@ -60,7 +60,7 @@ const CleanupSettings: NextPage = () => {
             <div className="flex items-center justify-between">
               <div className="space-y-1">
                 <b>Timeline settings</b>
-                <div className="lt-text-gray-500 text-xs font-bold">
+                <div className="ld-text-gray-500 text-xs font-bold">
                   Clean your timeline filter settings
                 </div>
               </div>

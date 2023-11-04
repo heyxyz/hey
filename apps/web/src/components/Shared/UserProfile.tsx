@@ -84,7 +84,7 @@ const UserProfile: FC<UserProfileProps> = ({
       <div>
         <Slug className="text-sm" slug={getProfile(profile).slugWithPrefix} />
         {timestamp ? (
-          <span className="lt-text-gray-500">
+          <span className="ld-text-gray-500">
             <span className="mx-1.5">·</span>
             <span className="text-xs">{getTwitterFormat(timestamp)}</span>
           </span>

@@ -17,7 +17,7 @@ const SettingsHelper: FC<SettingsHelperProps> = ({
         {icon}
         <div>{heading}</div>
       </div>
-      <div className="lt-text-gray-500">{description}</div>
+      <div className="ld-text-gray-500">{description}</div>
     </div>
   );
 };

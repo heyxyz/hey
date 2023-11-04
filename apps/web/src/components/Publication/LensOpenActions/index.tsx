@@ -52,7 +52,7 @@ const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
     <>
       <div
         className={cn(
-          hasActed ? 'text-brand-500' : 'lt-text-gray-500',
+          hasActed ? 'text-brand-500' : 'ld-text-gray-500',
           'flex items-center space-x-1'
         )}
       >

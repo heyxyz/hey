@@ -32,7 +32,7 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         }}
       >
         <div className="text-xl">{humanize(profile.stats.following)}</div>
-        <div className="lt-text-gray-500">
+        <div className="ld-text-gray-500">
           {plur('Following', profile.stats.following)}
         </div>
       </button>
@@ -47,7 +47,7 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         }}
       >
         <div className="text-xl">{humanize(profile.stats.followers)}</div>
-        <div className="lt-text-gray-500">
+        <div className="ld-text-gray-500">
           {plur('Follower', profile.stats.followers)}
         </div>
       </button>
