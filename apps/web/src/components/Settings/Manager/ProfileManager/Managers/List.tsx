@@ -131,7 +131,9 @@ const List: FC = () => {
     }
   };
 
-  const profileManagers = data?.profileManagers.items;
+  const profileManagers = data?.profileManagers.items.filter(
+    (item) => !item.isLensManager
+  );
   const pageInfo = data?.profileManagers?.pageInfo;
   const hasMore = pageInfo?.next;
 
