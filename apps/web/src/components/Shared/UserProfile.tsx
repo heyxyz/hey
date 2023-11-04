@@ -72,7 +72,18 @@ const UserProfile: FC<UserProfileProps> = ({
     <>
       <div className="flex max-w-sm items-center">
         <div className={cn(isBig ? 'font-bold' : 'text-md', 'grid')}>
-          <div className="truncate">{getProfile(profile).displayName}</div>
+          {linkToProfile && profile.id ? (
+            <Link
+              href={getProfile(profile).link}
+              className="outline-brand-500 outline-offset-2"
+            >
+              <div className="truncate hover:underline">
+                {getProfile(profile).displayName}
+              </div>
+            </Link>
+          ) : (
+            <div className="truncate">{getProfile(profile).displayName}</div>
+          )}
         </div>
         {isVerified(profile.id) ? (
           <CheckBadgeIcon className="text-brand ml-1 h-4 w-4" />
@@ -82,7 +93,19 @@ const UserProfile: FC<UserProfileProps> = ({
         ) : null}
       </div>
       <div>
-        <Slug className="text-sm" slug={getProfile(profile).slugWithPrefix} />
+        {linkToProfile && profile.id ? (
+          <Link
+            href={getProfile(profile).link}
+            className="outline-brand-500 outline-offset-2"
+          >
+            <Slug
+              className="text-sm"
+              slug={getProfile(profile).slugWithPrefix}
+            />
+          </Link>
+        ) : (
+          <Slug className="text-sm" slug={getProfile(profile).slugWithPrefix} />
+        )}
         {timestamp ? (
           <span className="lt-text-gray-500">
             <span className="mx-1.5">·</span>
@@ -101,7 +124,16 @@ const UserProfile: FC<UserProfileProps> = ({
         showUserPreview={showUserPreview}
       >
         <div className="mr-8 flex items-center space-x-3">
-          <UserAvatar />
+          {linkToProfile && profile.id ? (
+            <Link
+              href={getProfile(profile).link}
+              className="outline-brand-500 rounded-full"
+            >
+              <UserAvatar />
+            </Link>
+          ) : (
+            <UserAvatar />
+          )}
           <div>
             <UserName />
             {showBio && profile?.metadata?.bio ? (
@@ -127,13 +159,7 @@ const UserProfile: FC<UserProfileProps> = ({
 
   return (
     <div className="flex items-center justify-between">
-      {linkToProfile && profile.id ? (
-        <Link href={getProfile(profile).link}>
-          <UserInfo />
-        </Link>
-      ) : (
-        <UserInfo />
-      )}
+      <UserInfo />
       {showFollow ? (
         following ? null : profile?.followModule?.type ===
           FollowModuleType.FeeFollowModule ? (

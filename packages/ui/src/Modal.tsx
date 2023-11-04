@@ -69,7 +69,7 @@ export const Modal: FC<ModalProps> = ({
                   {onClose ? (
                     <button
                       type="button"
-                      className="rounded-full p-1 text-gray-800 hover:bg-gray-200 dark:text-gray-100 dark:hover:bg-gray-700"
+                      className="outline-brand-500 rounded-full p-1 text-gray-800 hover:bg-gray-200 dark:text-gray-100 dark:hover:bg-gray-700"
                       onClick={onClose}
                     >
                       <XMarkIcon className="h-5 w-5" />

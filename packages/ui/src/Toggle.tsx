@@ -17,7 +17,7 @@ export const Toggle: FC<ToggleProps> = ({ on, setOn }) => {
       }}
       className={cn(
         on ? 'bg-brand-500' : 'bg-gray-200 dark:bg-gray-700',
-        'inline-flex h-[22px] w-[42.5px] min-w-[42.5px] cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none'
+        'outline-brand-500 inline-flex h-[22px] w-[42.5px] min-w-[42.5px] cursor-pointer rounded-full border-2 border-transparent outline-offset-4 transition-colors duration-200 ease-in-out'
       )}
     >
       <span
