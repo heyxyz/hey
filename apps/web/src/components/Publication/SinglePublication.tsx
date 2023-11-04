@@ -38,7 +38,9 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   isFirst = false,
   isLast = false
 }) => {
-  const { setViewedPublication } = useLeafwatchStore();
+  const setViewedPublication = useLeafwatchStore(
+    (state) => state.setViewedPublication
+  );
 
   const firstComment = feedItem?.comments?.[0];
   const rootPublication = feedItem
