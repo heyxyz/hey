@@ -52,7 +52,7 @@ const HeyMembershipNft: FC = () => {
   const updateHeyMemberNftStatus = async () => {
     try {
       toast.promise(
-        axios.patch(
+        axios.post(
           `${PREFERENCES_WORKER_URL}/updateHeyMemberNftStatus`,
           undefined,
           {
