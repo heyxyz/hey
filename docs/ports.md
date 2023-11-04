@@ -8,7 +8,7 @@ The following ports are exposed by the repository
 | 4784 | Prerender app              | http://localhost:4784 | https://prerender.hey.xyz      |
 | 8082 | STS token generator worker | http://localhost:8082 | https://sts.hey.xyz            |
 | 8083 | Metadata worker            | http://localhost:8083 | https://metadata.hey.xyz       |
-| 8084 | Freshdesk worker           | http://localhost:8084 | https://freshdesk.hey.xyz      |
+| 8084 | Websocket worker           | http://localhost:8084 | https://ws.hey.xyz             |
 | 8085 | Snapshot relay worker      | http://localhost:8085 | https://snapshot-relay.hey.xyz |
 | 8086 | ENS resolver worker        | http://localhost:8086 | https://ens.hey.xyz            |
 | 8087 | Oembed worker              | http://localhost:8087 | https://oembed.hey.xyz         |
