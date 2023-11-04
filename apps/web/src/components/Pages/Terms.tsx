@@ -3,11 +3,11 @@ import Footer from '@components/Shared/Footer';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
+import type { NextPage } from 'next';
 import Link from 'next/link';
-import type { FC } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
 
-const Terms: FC = () => {
+const Terms: NextPage = () => {
   const updatedAt = 'December 11, 2022';
 
   useEffectOnce(() => {
