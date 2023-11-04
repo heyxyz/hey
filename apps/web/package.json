@@ -50,7 +50,7 @@
     "next-themes": "^0.2.1",
     "plur": "^5.1.0",
     "plyr-react": "^5.3.0",
-    "rc-slider": "^10.3.1",
+    "rc-slider": "^10.4.0",
     "react": "^18.2.0",
     "react-activity-calendar": "^2.0.2",
     "react-cool-inview": "^3.0.1",
@@ -68,7 +68,7 @@
     "use-resize-observer": "^9.1.0",
     "usehooks-ts": "^2.9.1",
     "uuid": "^9.0.1",
-    "viem": "^1.18.3",
+    "viem": "^1.18.4",
     "wagmi": "^1.4.5",
     "zod": "^3.22.4",
     "zustand": "^4.4.6"
