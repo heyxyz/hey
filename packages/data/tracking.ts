@@ -117,10 +117,7 @@ export const SETTINGS = {
   },
   PROFILE: {
     UPDATE: 'Update profile',
-    SET_NFT_PICTURE: 'Set NFT profile picture',
-    SET_PICTURE: 'Set profile picture',
-    SET_STATUS: 'Set profile status',
-    CLEAR_STATUS: 'Clear profile status'
+    SET_PICTURE: 'Set profile picture'
   },
   PREFERENCES: {
     TOGGLE_HIGH_SIGNAL_NOTIFICATION_FILTER:
