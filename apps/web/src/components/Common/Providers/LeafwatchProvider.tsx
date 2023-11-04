@@ -8,7 +8,9 @@ import { v4 as uuid } from 'uuid';
 
 const LeafwatchProvider: FC = () => {
   const { viewerId, setViewerId } = useLeafwatchPersistStore();
-  const { viewedPublication } = useLeafwatchStore();
+  const viewedPublication = useLeafwatchStore(
+    (state) => state.viewedPublication
+  );
 
   const { sendJsonMessage, readyState } = useWebSocket(WEBSOCKET_WORKER_URL);
 
