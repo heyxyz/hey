@@ -37,7 +37,7 @@ const Navbar: FC = () => {
       <Link
         href={url}
         className={cn(
-          'cursor-pointer rounded-md px-2 py-1 text-left text-sm font-bold tracking-wide md:px-3',
+          'outline-brand-500 cursor-pointer rounded-md px-2 py-1 text-left text-sm font-bold tracking-wide md:px-3',
           {
             'bg-gray-200 text-black dark:bg-gray-800 dark:text-white': current,
             'text-gray-700 hover:bg-gray-200 hover:text-black dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white':
@@ -82,7 +82,10 @@ const Navbar: FC = () => {
                 <MagnifyingGlassIcon className="h-6 w-6" />
               )}
             </button>
-            <Link href="/" className="hidden md:block">
+            <Link
+              href="/"
+              className="outline-brand-500 hidden rounded-full outline-offset-8 md:block"
+            >
               <img
                 className="h-8 w-8"
                 height={32}
