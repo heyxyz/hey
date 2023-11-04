@@ -6,6 +6,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev --port 4783",
+    "export": "next export",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --fix --ext .ts,.tsx",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
