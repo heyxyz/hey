@@ -13,6 +13,7 @@ import type { ReactNode } from 'react';
 import ErrorBoundary from '../ErrorBoundary';
 import Layout from '../Layout';
 import FeaturedGroupsProvider from './FeaturedGroupsProvider';
+import LeafwatchProvider from './LeafwatchProvider';
 import LensSubscriptionsProvider from './LensSubscriptionsProvider';
 import PreferencesProvider from './PreferencesProvider';
 import Web3Provider from './Web3Provider';
@@ -31,6 +32,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
       <Web3Provider>
         <ApolloProvider client={lensApolloClient}>
           <LensSubscriptionsProvider />
+          <LeafwatchProvider />
           <QueryClientProvider client={queryClient}>
             <PreferencesProvider />
             <FeaturedGroupsProvider />
