@@ -16,7 +16,7 @@ import getSignature from '@hey/lib/getSignature';
 import { Alert } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC, useState } from 'react';
+import { type FC, memo, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/useAppStore';
@@ -225,4 +225,4 @@ const BlockOrUnBlockProfile: FC = () => {
   );
 };
 
-export default BlockOrUnBlockProfile;
+export default memo(BlockOrUnBlockProfile);

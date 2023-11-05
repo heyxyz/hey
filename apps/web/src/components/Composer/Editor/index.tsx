@@ -21,7 +21,7 @@ import {
   INSERT_PARAGRAPH_COMMAND
 } from 'lexical';
 import type { FC } from 'react';
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import useUploadAttachments from 'src/hooks/useUploadAttachments';
 import { usePublicationStore } from 'src/store/usePublicationStore';
@@ -94,4 +94,4 @@ const Editor: FC = () => {
   );
 };
 
-export default Editor;
+export default memo(Editor);

@@ -1,7 +1,7 @@
 import Profiles from '@components/Shared/Profiles';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import type { OpenActionProfileActed } from '@hey/lens';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 interface ActedProps {
   acted: OpenActionProfileActed[];
@@ -25,4 +25,4 @@ const Acted: FC<ActedProps> = ({ acted }) => {
   );
 };
 
-export default Acted;
+export default memo(Acted);

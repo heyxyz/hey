@@ -3,7 +3,7 @@ import { HOME } from '@hey/data/tracking';
 import { Modal, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 
 import List from './List';
 
@@ -35,4 +35,4 @@ const Algorithms: FC = () => {
   );
 };
 
-export default Algorithms;
+export default memo(Algorithms);

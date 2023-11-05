@@ -5,6 +5,7 @@ import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
+import { memo } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 import { useEffectOnce } from 'usehooks-ts';
 
@@ -45,4 +46,4 @@ const BlockedSettings: NextPage = () => {
   );
 };
 
-export default BlockedSettings;
+export default memo(BlockedSettings);

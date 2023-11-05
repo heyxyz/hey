@@ -3,7 +3,7 @@ import { Bars3BottomLeftIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { Button, Card, Input, Modal, Tooltip } from '@hey/ui';
 import plur from 'plur';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { usePublicationStore } from 'src/store/usePublicationStore';
 
 const PollEditor: FC = () => {
@@ -133,4 +133,4 @@ const PollEditor: FC = () => {
   );
 };
 
-export default PollEditor;
+export default memo(PollEditor);

@@ -1,5 +1,5 @@
 import { Alert } from '@hey/ui';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 
 interface DiscardProps {
@@ -28,4 +28,4 @@ const Discard: FC<DiscardProps> = ({ onDiscard }) => {
   );
 };
 
-export default Discard;
+export default memo(Discard);
