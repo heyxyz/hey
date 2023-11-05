@@ -9,7 +9,6 @@ import {
   usePublicationsQuery
 } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
-import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { type FC, memo } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -151,10 +150,6 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
           isFirst={index === 0}
           isLast={index === publications.length - 1}
           publication={publication as AnyPublication}
-          views={getPublicationViewCountById(
-            publicationViews,
-            publication as AnyPublication
-          )}
           showThread={
             type !== ProfileFeedType.Media && type !== ProfileFeedType.Collects
           }

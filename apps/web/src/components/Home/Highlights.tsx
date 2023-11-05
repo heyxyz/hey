@@ -4,7 +4,6 @@ import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import { LightBulbIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication, FeedHighlightsRequest } from '@hey/lens';
 import { LimitType, useFeedHighlightsQuery } from '@hey/lens';
-import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { type FC } from 'react';
@@ -90,10 +89,6 @@ const Highlights: FC = () => {
             isFirst={index === 0}
             isLast={index === publications.length - 1}
             publication={publication as AnyPublication}
-            views={getPublicationViewCountById(
-              publicationViews,
-              publication as AnyPublication
-            )}
           />
         ))}
         {hasMore ? <span ref={observe} /> : null}

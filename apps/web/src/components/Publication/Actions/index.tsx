@@ -1,9 +1,11 @@
 import { type AnyPublication } from '@hey/lens';
+import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
 import isOpenActionAllowed from '@hey/lib/isOpenActionAllowed';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { type FC, memo } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
+import { useImpressionsStore } from 'src/store/useImpressionsStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 
 import OpenAction from '../LensOpenActions';
@@ -15,13 +17,11 @@ import Views from './Views';
 
 interface PublicationActionsProps {
   publication: AnyPublication;
-  views?: number;
   showCount?: boolean;
 }
 
 const PublicationActions: FC<PublicationActionsProps> = ({
   publication,
-  views,
   showCount = false
 }) => {
   const targetPublication = isMirrorPublication(publication)
@@ -29,6 +29,9 @@ const PublicationActions: FC<PublicationActionsProps> = ({
     : publication;
   const currentProfile = useAppStore((state) => state.currentProfile);
   const gardenerMode = usePreferencesStore((state) => state.gardenerMode);
+  const publicationViews = useImpressionsStore(
+    (state) => state.publicationViews
+  );
   const hasOpenAction = (targetPublication.openActionModules?.length || 0) > 0;
 
   const canMirror = currentProfile
@@ -36,6 +39,10 @@ const PublicationActions: FC<PublicationActionsProps> = ({
     : true;
   const canAct =
     hasOpenAction && isOpenActionAllowed(targetPublication.openActionModules);
+  const views = getPublicationViewCountById(
+    publicationViews,
+    targetPublication
+  );
 
   return (
     <span
@@ -50,7 +57,7 @@ const PublicationActions: FC<PublicationActionsProps> = ({
       {canAct ? (
         <OpenAction publication={publication} showCount={showCount} />
       ) : null}
-      {views && gardenerMode ? (
+      {views > 0 && gardenerMode ? (
         <Views views={views} showCount={showCount} />
       ) : null}
       {gardenerMode ? (
