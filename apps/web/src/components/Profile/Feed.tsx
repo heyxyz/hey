@@ -10,12 +10,11 @@ import {
 } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
-import type { PublicationViewCount } from '@hey/types/hey';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import getPublicationsViews from '@lib/getPublicationsViews';
-import { type FC, useState } from 'react';
+import { type FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { ProfileFeedType } from 'src/enums';
+import { useImpressionsStore } from 'src/store/useImpressionsStore';
 import { useProfileFeedStore } from 'src/store/useProfileFeedStore';
 
 interface FeedProps {
@@ -31,7 +30,12 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
   const mediaFeedFilters = useProfileFeedStore(
     (state) => state.mediaFeedFilters
   );
-  const [views, setViews] = useState<PublicationViewCount[] | []>([]);
+  const publicationViews = useImpressionsStore(
+    (state) => state.publicationViews
+  );
+  const fetchAndStoreViews = useImpressionsStore(
+    (state) => state.fetchAndStoreViews
+  );
 
   const getMediaFilters = () => {
     let filters: PublicationMetadataMainFocusType[] = [];
@@ -45,13 +49,6 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
       filters.push(PublicationMetadataMainFocusType.Audio);
     }
     return filters;
-  };
-
-  const fetchAndStoreViews = async (ids: string[]) => {
-    if (ids.length) {
-      const viewsResponse = await getPublicationsViews(ids);
-      setViews((prev) => [...prev, ...viewsResponse]);
-    }
   };
 
   // Variables
@@ -155,7 +152,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
           isLast={index === publications.length - 1}
           publication={publication as AnyPublication}
           views={getPublicationViewCountById(
-            views,
+            publicationViews,
             publication as AnyPublication
           )}
           showThread={

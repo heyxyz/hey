@@ -8,25 +8,22 @@ import type {
 } from '@hey/lens';
 import { LimitType, usePublicationBookmarksQuery } from '@hey/lens';
 import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
-import type { PublicationViewCount } from '@hey/types/hey';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import getPublicationsViews from '@lib/getPublicationsViews';
-import { type FC, useState } from 'react';
+import { type FC } from 'react';
 import { useInView } from 'react-cool-inview';
+import { useImpressionsStore } from 'src/store/useImpressionsStore';
 
 interface FeedProps {
   focus?: PublicationMetadataMainFocusType;
 }
 
 const Feed: FC<FeedProps> = ({ focus }) => {
-  const [views, setViews] = useState<PublicationViewCount[] | []>([]);
-
-  const fetchAndStoreViews = async (ids: string[]) => {
-    if (ids.length) {
-      const viewsResponse = await getPublicationsViews(ids);
-      setViews((prev) => [...prev, ...viewsResponse]);
-    }
-  };
+  const publicationViews = useImpressionsStore(
+    (state) => state.publicationViews
+  );
+  const fetchAndStoreViews = useImpressionsStore(
+    (state) => state.fetchAndStoreViews
+  );
 
   // Variables
   const request: PublicationBookmarksRequest = {
@@ -92,7 +89,7 @@ const Feed: FC<FeedProps> = ({ focus }) => {
           isLast={index === publications.length - 1}
           publication={publication as AnyPublication}
           views={getPublicationViewCountById(
-            views,
+            publicationViews,
             publication as AnyPublication
           )}
         />

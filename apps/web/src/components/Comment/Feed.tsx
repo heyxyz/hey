@@ -12,11 +12,10 @@ import {
 import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { OptmisticPublicationType } from '@hey/types/enums';
-import type { PublicationViewCount } from '@hey/types/hey';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import getPublicationsViews from '@lib/getPublicationsViews';
-import { type FC, useState } from 'react';
+import { type FC } from 'react';
 import { useInView } from 'react-cool-inview';
+import { useImpressionsStore } from 'src/store/useImpressionsStore';
 import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
 
 interface FeedProps {
@@ -28,14 +27,12 @@ const Feed: FC<FeedProps> = ({ publication }) => {
     ? publication?.mirrorOn?.id
     : publication?.id;
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
-  const [views, setViews] = useState<PublicationViewCount[] | []>([]);
-
-  const fetchAndStoreViews = async (ids: string[]) => {
-    if (ids.length) {
-      const viewsResponse = await getPublicationsViews(ids);
-      setViews((prev) => [...prev, ...viewsResponse]);
-    }
-  };
+  const publicationViews = useImpressionsStore(
+    (state) => state.publicationViews
+  );
+  const fetchAndStoreViews = useImpressionsStore(
+    (state) => state.fetchAndStoreViews
+  );
 
   // Variables
   const request: PublicationsRequest = {
@@ -118,7 +115,10 @@ const Feed: FC<FeedProps> = ({ publication }) => {
               isFirst={index === 0}
               isLast={index === comments.length - 1}
               publication={comment as Comment}
-              views={getPublicationViewCountById(views, comment as Comment)}
+              views={getPublicationViewCountById(
+                publicationViews,
+                comment as Comment
+              )}
               showType={false}
             />
           )

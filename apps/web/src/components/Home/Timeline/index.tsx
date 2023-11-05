@@ -6,12 +6,11 @@ import type { AnyPublication, FeedItem, FeedRequest } from '@hey/lens';
 import { FeedEventItemType, useFeedQuery } from '@hey/lens';
 import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
 import { OptmisticPublicationType } from '@hey/types/enums';
-import type { PublicationViewCount } from '@hey/types/hey';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import getPublicationsViews from '@lib/getPublicationsViews';
-import { type FC, useState } from 'react';
+import { type FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/useAppStore';
+import { useImpressionsStore } from 'src/store/useImpressionsStore';
 import { useTimelinePersistStore } from 'src/store/useTimelinePersistStore';
 import { useTimelineStore } from 'src/store/useTimelineStore';
 import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
@@ -26,7 +25,12 @@ const Timeline: FC = () => {
     (state) => state.seeThroughProfile
   );
 
-  const [views, setViews] = useState<PublicationViewCount[] | []>([]);
+  const publicationViews = useImpressionsStore(
+    (state) => state.publicationViews
+  );
+  const fetchAndStoreViews = useImpressionsStore(
+    (state) => state.fetchAndStoreViews
+  );
 
   const getFeedEventItems = () => {
     const filters: FeedEventItemType[] = [];
@@ -43,13 +47,6 @@ const Timeline: FC = () => {
       filters.push(FeedEventItemType.Reaction, FeedEventItemType.Comment);
     }
     return filters;
-  };
-
-  const fetchAndStoreViews = async (ids: string[]) => {
-    if (ids.length) {
-      const viewsResponse = await getPublicationsViews(ids);
-      setViews((prev) => [...prev, ...viewsResponse]);
-    }
   };
 
   // Variables
@@ -133,7 +130,7 @@ const Timeline: FC = () => {
             feedItem={publication as FeedItem}
             publication={publication.root as AnyPublication}
             views={getPublicationViewCountById(
-              views,
+              publicationViews,
               publication.root as AnyPublication
             )}
           />
