@@ -28,6 +28,7 @@ const Tags: FC<TagsProps> = ({
       <meta httpEquiv="content-language" content="en" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="description" content={description} />
+      <link rel="canonical" href={url} />
       {/* General OG */}
       <meta property="og:url" content={url} />
       <meta property="og:site_name" content={APP_NAME} />
