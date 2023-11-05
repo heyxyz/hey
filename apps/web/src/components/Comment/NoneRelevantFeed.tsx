@@ -7,9 +7,12 @@ import {
   usePublicationsQuery
 } from '@hey/lens';
 import { Card } from '@hey/ui';
+import { motion } from 'framer-motion';
 import type { FC } from 'react';
-import { useState } from 'react';
-import { useInView } from 'react-cool-inview';
+import { useRef, useState } from 'react';
+import { type StateSnapshot, Virtuoso } from 'react-virtuoso';
+
+let virtuosoState: any = { ranges: [], screenTop: 0 };
 
 interface NoneRelevantFeedProps {
   publication?: AnyPublication;
@@ -21,6 +24,8 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publication }) => {
       ? publication?.mirrorOn?.id
       : publication?.id;
   const [showMore, setShowMore] = useState(false);
+
+  const virtuosoRef = useRef<any>();
 
   // Variables
   const request: PublicationsRequest = {
@@ -44,17 +49,23 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publication }) => {
   const hasMore = pageInfo?.next;
   const totalComments = comments?.length;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } }
-      });
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    });
+  };
+
+  const onScrolling = (scrolling: boolean) => {
+    virtuosoRef?.current?.getState((state: StateSnapshot) => {
+      if (!scrolling) {
+        virtuosoState = { ...state };
+      }
+    });
+  };
 
   if (totalComments === 0) {
     return null;
@@ -72,18 +83,43 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publication }) => {
       </Card>
       {showMore ? (
         <Card className="divide-y-[1px] dark:divide-gray-700">
-          {comments?.map((comment, index) =>
-            comment?.__typename === 'Comment' && comment.isHidden ? null : (
-              <SinglePublication
-                key={`${publicationId}_${index}`}
-                isFirst={index === 0}
-                isLast={index === comments.length - 1}
-                publication={comment as Comment}
-                showType={false}
-              />
-            )
-          )}
-          {hasMore ? <span ref={observe} /> : null}
+          {comments?.length ? (
+            <Virtuoso
+              useWindowScroll
+              restoreStateFrom={
+                virtuosoState.ranges.length === 0
+                  ? virtuosoRef?.current?.getState(
+                      (state: StateSnapshot) => state
+                    )
+                  : virtuosoState
+              }
+              ref={virtuosoRef}
+              isScrolling={(scrolling) => onScrolling(scrolling)}
+              data={comments.filter(
+                (comment) =>
+                  comment?.__typename === 'Comment' && !comment.isHidden
+              )}
+              endReached={onEndReached}
+              className="virtual-feed-list"
+              itemContent={(index, comment) => {
+                return (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <SinglePublication
+                      key={`${publicationId}_${index}`}
+                      isFirst={index === 0}
+                      isLast={index === comments.length - 1}
+                      publication={comment as Comment}
+                      showType={false}
+                    />
+                  </motion.div>
+                );
+              }}
+            />
+          ) : null}
         </Card>
       ) : null}
     </>
