@@ -36,7 +36,10 @@ export default async (request: WorkerRequest) => {
       data: [string][][];
     } = await clickhouseResponse.json();
 
-    return response({ success: true, impressions: json.data?.[0]?.[1] || 0 });
+    return response({
+      success: true,
+      impressions: Number(json.data?.[0]?.[1]) || 0
+    });
   } catch (error) {
     throw error;
   }
