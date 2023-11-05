@@ -3,7 +3,7 @@ import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
 import isOpenActionAllowed from '@hey/lib/isOpenActionAllowed';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 import { useImpressionsStore } from 'src/store/useImpressionsStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
@@ -67,4 +67,4 @@ const PublicationActions: FC<PublicationActionsProps> = ({
   );
 };
 
-export default memo(PublicationActions);
+export default PublicationActions;

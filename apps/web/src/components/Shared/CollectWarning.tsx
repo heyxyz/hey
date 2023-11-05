@@ -2,7 +2,7 @@ import Slug from '@components/Shared/Slug';
 import { StarIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { Card } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 interface CollectWarningProps {
   handle: string;
@@ -40,4 +40,4 @@ const CollectWarning: FC<CollectWarningProps> = ({
   );
 };
 
-export default memo(CollectWarning);
+export default CollectWarning;

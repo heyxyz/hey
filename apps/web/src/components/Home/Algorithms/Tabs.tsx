@@ -3,7 +3,7 @@ import type { HomeFeedType } from '@hey/data/enums';
 import { HOME } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { type Dispatch, type FC, memo, type SetStateAction } from 'react';
+import { type Dispatch, type FC, type SetStateAction } from 'react';
 import { useEnabledAlgorithmsPersistStore } from 'src/store/useEnabledAlgorithmsPersistStore';
 
 interface FeedTypeProps {
@@ -52,4 +52,4 @@ const Tabs: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
   );
 };
 
-export default memo(Tabs);
+export default Tabs;

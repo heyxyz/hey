@@ -8,7 +8,7 @@ import type {
 } from '@hey/lens';
 import { LimitType, usePublicationBookmarksQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useImpressionsStore } from 'src/store/useImpressionsStore';
 
@@ -91,4 +91,4 @@ const Feed: FC<FeedProps> = ({ focus }) => {
   );
 };
 
-export default memo(Feed);
+export default Feed;

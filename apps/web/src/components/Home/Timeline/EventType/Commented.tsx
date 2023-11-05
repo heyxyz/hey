@@ -1,6 +1,6 @@
 import ThreadBody from '@components/Publication/ThreadBody';
 import type { FeedItem } from '@hey/lens';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 interface CommentedProps {
   feedItem: FeedItem;
@@ -23,4 +23,4 @@ const Commented: FC<CommentedProps> = ({ feedItem }) => {
   ) : null;
 };
 
-export default memo(Commented);
+export default Commented;

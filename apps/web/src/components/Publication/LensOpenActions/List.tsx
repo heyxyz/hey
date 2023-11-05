@@ -4,7 +4,7 @@ import getOpenActionModuleData from '@hey/lib/getOpenActionModuleData';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card } from '@hey/ui';
 import type { FC } from 'react';
-import { memo, useState } from 'react';
+import { useState } from 'react';
 
 import CollectModule from './CollectModule';
 import CollectModulePreview from './CollectModule/Preview';
@@ -99,4 +99,4 @@ const List: FC<ListProps> = ({ publication }) => {
   );
 };
 
-export default memo(List);
+export default List;

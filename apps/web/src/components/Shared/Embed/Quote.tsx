@@ -1,6 +1,6 @@
 import QuotedPublication from '@components/Publication/QuotedPublication';
 import type { PrimaryPublication } from '@hey/lens';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 import Wrapper from './Wrapper';
 
@@ -20,4 +20,4 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
   );
 };
 
-export default memo(Quote);
+export default Quote;

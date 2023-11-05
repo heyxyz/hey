@@ -1,6 +1,6 @@
 import { LockClosedIcon } from '@heroicons/react/24/outline';
 import { Card } from '@hey/ui';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 interface EncryptedPublicationProps {
   type?: string;
@@ -19,4 +19,4 @@ const EncryptedPublication: FC<EncryptedPublicationProps> = ({
   );
 };
 
-export default memo(EncryptedPublication);
+export default EncryptedPublication;

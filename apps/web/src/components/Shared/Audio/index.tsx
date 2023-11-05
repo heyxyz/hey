@@ -6,7 +6,7 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Leafwatch } from '@lib/leafwatch';
 import type { APITypes } from 'plyr-react';
 import type { ChangeEvent, FC } from 'react';
-import { memo, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { usePublicationStore } from 'src/store/usePublicationStore';
 import { object, string } from 'zod';
 
@@ -143,4 +143,4 @@ const Audio: FC<AudioProps> = ({
   );
 };
 
-export default memo(Audio);
+export default Audio;

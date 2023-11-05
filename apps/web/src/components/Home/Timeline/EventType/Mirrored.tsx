@@ -1,7 +1,7 @@
 import Profiles from '@components/Shared/Profiles';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import type { Mirror } from '@hey/lens';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 interface MirroredProps {
   mirrors: Mirror[];
@@ -25,4 +25,4 @@ const Mirrored: FC<MirroredProps> = ({ mirrors }) => {
   );
 };
 
-export default memo(Mirrored);
+export default Mirrored;

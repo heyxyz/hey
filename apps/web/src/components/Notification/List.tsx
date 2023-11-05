@@ -16,7 +16,7 @@ import {
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { NotificationTabType } from 'src/enums';
 import { useNotificationPersistStore } from 'src/store/useNotificationPersistStore';
@@ -174,4 +174,4 @@ const List: FC<ListProps> = ({ feedType }) => {
   );
 };
 
-export default memo(List);
+export default List;

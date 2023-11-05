@@ -1,6 +1,6 @@
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import cn from '@hey/ui/cn';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 
 interface SwitchProfileProps {
@@ -31,4 +31,4 @@ const SwitchProfile: FC<SwitchProfileProps> = ({ className = '' }) => {
   );
 };
 
-export default memo(SwitchProfile);
+export default SwitchProfile;

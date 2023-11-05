@@ -9,7 +9,7 @@ import {
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
 interface ProfilesProps {
@@ -88,4 +88,4 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
   );
 };
 
-export default memo(Profiles);
+export default Profiles;

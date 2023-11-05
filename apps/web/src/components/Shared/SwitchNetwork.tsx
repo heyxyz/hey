@@ -2,7 +2,7 @@ import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { SYSTEM } from '@hey/data/tracking';
 import { Button } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import toast from 'react-hot-toast';
 import { useSwitchNetwork } from 'wagmi';
 
@@ -44,4 +44,4 @@ const SwitchNetwork: FC<SwitchNetworkProps> = ({
   );
 };
 
-export default memo(SwitchNetwork);
+export default SwitchNetwork;

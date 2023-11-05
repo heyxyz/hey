@@ -2,7 +2,7 @@ import Markup from '@components/Shared/Markup';
 import type { AnyPublication } from '@hey/lens';
 import getMentions from '@hey/lib/getMentions';
 import type { ZoraNft } from '@hey/types/nft';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import { create } from 'zustand';
 
 import Metadata from './Metadata';
@@ -56,4 +56,4 @@ const Mint: FC<MintProps> = ({ nft, zoraLink, publication, onCompleted }) => {
   );
 };
 
-export default memo(Mint);
+export default Mint;

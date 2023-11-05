@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Component, memo } from 'react';
+import { Component } from 'react';
 import Custom500 from 'src/pages/500';
 
 interface ErrorBoundaryProps {
@@ -32,4 +32,4 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 }
 
-export default memo(ErrorBoundary);
+export default ErrorBoundary;

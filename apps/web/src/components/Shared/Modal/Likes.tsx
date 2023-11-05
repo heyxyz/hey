@@ -9,7 +9,7 @@ import {
 } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
 import Loader from '../Loader';
@@ -96,4 +96,4 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
   );
 };
 
-export default memo(Likes);
+export default Likes;

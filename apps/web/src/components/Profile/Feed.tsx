@@ -10,7 +10,7 @@ import {
 } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { ProfileFeedType } from 'src/enums';
 import { useImpressionsStore } from 'src/store/useImpressionsStore';
@@ -157,4 +157,4 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
   );
 };
 
-export default memo(Feed);
+export default Feed;

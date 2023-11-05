@@ -4,7 +4,7 @@ import type { Amount } from '@hey/lens';
 import getUniswapURL from '@hey/lib/getUniswapURL';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 import WrapWmatic from './WrapWmatic';
 
@@ -46,4 +46,4 @@ const NoBalanceError: FC<NoBalanceErrorProps> = ({ moduleAmount }) => {
   );
 };
 
-export default memo(NoBalanceError);
+export default NoBalanceError;

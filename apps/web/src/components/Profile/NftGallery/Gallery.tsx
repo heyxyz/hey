@@ -18,7 +18,7 @@ import { useApolloClient } from '@hey/lens/apollo';
 import { Button } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import type { FC } from 'react';
-import { memo, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/useAppStore';
 import type { NftGalleryItem } from 'src/store/useNftGalleryStore';
@@ -243,4 +243,4 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
   );
 };
 
-export default memo(Gallery);
+export default Gallery;

@@ -6,7 +6,7 @@ import type {
   UnlonelyChannelMetadata,
   UnlonelyNfcMetadata
 } from '@hey/types/nft';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 import BasePaintCanvas from './BasePaintCanvas';
 import UnlonelyChannel from './UnlonelyChannel';
@@ -50,4 +50,4 @@ const Nft: FC<NftProps> = ({ mintLink, publication }) => {
   ) : null;
 };
 
-export default memo(Nft);
+export default Nft;

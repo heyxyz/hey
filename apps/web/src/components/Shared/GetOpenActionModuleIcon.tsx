@@ -5,7 +5,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { type OpenActionModule, OpenActionModuleType } from '@hey/lens';
 import cn from '@hey/ui/cn';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 interface GetOpenActionModuleIconProps {
   module?: OpenActionModule;
@@ -26,4 +26,4 @@ const GetOpenActionModuleIcon: FC<GetOpenActionModuleIconProps> = ({
   }
 };
 
-export default memo(GetOpenActionModuleIcon);
+export default GetOpenActionModuleIcon;

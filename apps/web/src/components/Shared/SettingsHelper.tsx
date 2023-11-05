@@ -1,4 +1,4 @@
-import { type FC, memo, type ReactNode } from 'react';
+import { type FC, type ReactNode } from 'react';
 
 interface SettingsHelperProps {
   icon?: ReactNode;
@@ -22,4 +22,4 @@ const SettingsHelper: FC<SettingsHelperProps> = ({
   );
 };
 
-export default memo(SettingsHelper);
+export default SettingsHelper;

@@ -1,5 +1,5 @@
 import { Card } from '@hey/ui';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 import UserProfileShimmer from './UserProfileShimmer';
 
@@ -27,4 +27,4 @@ const UserProfilesShimmer: FC<UserProfilesShimmerProps> = ({
   );
 };
 
-export default memo(UserProfilesShimmer);
+export default UserProfilesShimmer;

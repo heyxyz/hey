@@ -7,7 +7,7 @@ import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import type { ChangeEvent, FC, Ref } from 'react';
-import { memo, useState } from 'react';
+import { useState } from 'react';
 
 interface CoverImageProps {
   isNew: boolean;
@@ -89,4 +89,4 @@ const CoverImage: FC<CoverImageProps> = ({
   );
 };
 
-export default memo(CoverImage);
+export default CoverImage;

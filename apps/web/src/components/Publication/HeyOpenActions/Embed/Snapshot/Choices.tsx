@@ -17,7 +17,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import plur from 'plur';
 import type { FC } from 'react';
-import { memo, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/useAppStore';
 import { useSignTypedData } from 'wagmi';
@@ -232,4 +232,4 @@ const Choices: FC<ChoicesProps> = ({
   );
 };
 
-export default memo(Choices);
+export default Choices;

@@ -1,5 +1,5 @@
 import cn from '@hey/ui/cn';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 interface UserProfileShimmerProps {
   showFollow?: boolean;
@@ -30,4 +30,4 @@ const UserProfileShimmer: FC<UserProfileShimmerProps> = ({
   );
 };
 
-export default memo(UserProfileShimmer);
+export default UserProfileShimmer;

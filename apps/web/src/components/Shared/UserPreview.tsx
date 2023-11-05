@@ -17,7 +17,7 @@ import isVerified from '@lib/isVerified';
 import Tippy from '@tippyjs/react';
 import plur from 'plur';
 import type { FC, ReactNode } from 'react';
-import { memo, useState } from 'react';
+import { useState } from 'react';
 
 import Markup from './Markup';
 import Follow from './Profile/Follow';
@@ -200,4 +200,4 @@ const UserPreview: FC<UserPreviewProps> = ({
   );
 };
 
-export default memo(UserPreview);
+export default UserPreview;

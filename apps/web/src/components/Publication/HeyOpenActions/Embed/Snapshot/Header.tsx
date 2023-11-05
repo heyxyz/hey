@@ -4,7 +4,7 @@ import type { Proposal } from '@hey/snapshot';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import urlcat from 'urlcat';
 
 interface HeaderProps {
@@ -52,4 +52,4 @@ const Header: FC<HeaderProps> = ({ proposal }) => {
   );
 };
 
-export default memo(Header);
+export default Header;

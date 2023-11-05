@@ -4,7 +4,7 @@ import {
   PublicationReportingSensitiveSubreason,
   PublicationReportingSpamSubreason
 } from '@hey/lens';
-import { type Dispatch, type FC, memo, type SetStateAction } from 'react';
+import { type Dispatch, type FC, type SetStateAction } from 'react';
 
 interface ReasonProps {
   setType: Dispatch<SetStateAction<string>>;
@@ -233,4 +233,4 @@ const Reason: FC<ReasonProps> = ({
   );
 };
 
-export default memo(Reason);
+export default Reason;

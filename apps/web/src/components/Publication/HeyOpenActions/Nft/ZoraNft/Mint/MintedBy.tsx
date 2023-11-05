@@ -1,5 +1,5 @@
 import SmallWalletProfile from '@components/Shared/SmallWalletProfile';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import type { Address } from 'viem';
 
 interface MintedByProps {
@@ -20,4 +20,4 @@ const MintedBy: FC<MintedByProps> = ({ address }) => {
   );
 };
 
-export default memo(MintedBy);
+export default MintedBy;

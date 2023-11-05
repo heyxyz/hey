@@ -3,7 +3,7 @@ import { ClockIcon } from '@heroicons/react/24/outline';
 import type { CollectModuleType } from '@hey/types/hey';
 import { Input } from '@hey/ui';
 import { getNumberOfDaysFromDate, getTimeAddedNDay } from '@lib/formatTime';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import { useCollectModuleStore } from 'src/store/useCollectModuleStore';
 
 interface TimeLimitConfigProps {
@@ -47,4 +47,4 @@ const TimeLimitConfig: FC<TimeLimitConfigProps> = ({ setCollectType }) => {
   );
 };
 
-export default memo(TimeLimitConfig);
+export default TimeLimitConfig;

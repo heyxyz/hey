@@ -15,7 +15,7 @@ import {
 } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
-import { memo, useState } from 'react';
+import { useState } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
 import { object, string } from 'zod';
 
@@ -127,4 +127,4 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
   );
 };
 
-export default memo(ReportPublication);
+export default ReportPublication;

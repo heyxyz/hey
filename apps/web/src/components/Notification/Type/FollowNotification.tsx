@@ -3,7 +3,6 @@ import { FollowNotification } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import plur from 'plur';
 import type { FC } from 'react';
-import { memo } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
@@ -49,4 +48,4 @@ const FollowNotification: FC<FollowNotificationProps> = ({ notification }) => {
   );
 };
 
-export default memo(FollowNotification);
+export default FollowNotification;

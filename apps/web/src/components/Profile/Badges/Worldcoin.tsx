@@ -2,7 +2,7 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import { Tooltip } from '@hey/ui';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 interface WorldcoinProps {
   profile: Profile;
@@ -34,4 +34,4 @@ const Worldcoin: FC<WorldcoinProps> = ({ profile }) => {
   );
 };
 
-export default memo(Worldcoin);
+export default Worldcoin;

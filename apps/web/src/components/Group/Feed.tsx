@@ -10,7 +10,7 @@ import {
 } from '@hey/lens';
 import type { Group } from '@hey/types/hey';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useImpressionsStore } from 'src/store/useImpressionsStore';
 
@@ -97,4 +97,4 @@ const Feed: FC<FeedProps> = ({ group }) => {
   );
 };
 
-export default memo(Feed);
+export default Feed;

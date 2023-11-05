@@ -1,7 +1,7 @@
 import Profiles from '@components/Shared/Profiles';
 import { HeartIcon } from '@heroicons/react/24/outline';
 import type { ReactionEvent } from '@hey/lens';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 interface LikedProps {
   reactions: ReactionEvent[];
@@ -29,4 +29,4 @@ const Liked: FC<LikedProps> = ({ reactions }) => {
   );
 };
 
-export default memo(Liked);
+export default Liked;

@@ -2,7 +2,7 @@ import { EXPLORE } from '@hey/data/tracking';
 import { PublicationMetadataMainFocusType } from '@hey/lens';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { type Dispatch, type FC, memo, type SetStateAction } from 'react';
+import { type Dispatch, type FC, type SetStateAction } from 'react';
 
 interface FeedLinkProps {
   name: string;
@@ -49,4 +49,4 @@ const FeedFocusType: FC<FeedFocusTypeProps> = ({ focus, setFocus }) => {
   );
 };
 
-export default memo(FeedFocusType);
+export default FeedFocusType;
