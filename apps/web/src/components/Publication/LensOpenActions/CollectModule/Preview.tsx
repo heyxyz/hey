@@ -6,7 +6,7 @@ import getTokenImage from '@hey/lib/getTokenImage';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card } from '@hey/ui';
 import plur from 'plur';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import { useOpenActionOptimisticStore } from 'src/store/OptimisticActions/useOpenActionOptimisticStore';
 
 interface CollectModulePreviewProps {
@@ -106,4 +106,4 @@ const CollectModulePreview: FC<CollectModulePreviewProps> = ({
   return null;
 };
 
-export default CollectModulePreview;
+export default memo(CollectModulePreview);
