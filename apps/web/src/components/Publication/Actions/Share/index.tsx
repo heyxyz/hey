@@ -22,11 +22,15 @@ interface PublicationMenuProps {
 }
 
 const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
-  const {
-    getMirrorOrQuoteCountByPublicationId,
-    hasQuotedOrMirroredByMe,
-    setMirrorOrQuoteConfig
-  } = useMirrorOrQuoteOptimisticStore();
+  const getMirrorOrQuoteCountByPublicationId = useMirrorOrQuoteOptimisticStore(
+    (state) => state.getMirrorOrQuoteCountByPublicationId
+  );
+  const hasQuotedOrMirroredByMe = useMirrorOrQuoteOptimisticStore(
+    (state) => state.hasQuotedOrMirroredByMe
+  );
+  const setMirrorOrQuoteConfig = useMirrorOrQuoteOptimisticStore(
+    (state) => state.setMirrorOrQuoteConfig
+  );
   const [isLoading, setIsLoading] = useState(false);
 
   const targetPublication = isMirrorPublication(publication)

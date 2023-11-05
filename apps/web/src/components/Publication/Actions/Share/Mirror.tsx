@@ -40,12 +40,21 @@ interface MirrorProps {
 
 const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const {
-    getMirrorOrQuoteCountByPublicationId,
-    hasQuotedOrMirroredByMe,
-    setMirrorOrQuoteConfig
-  } = useMirrorOrQuoteOptimisticStore();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
+  const getMirrorOrQuoteCountByPublicationId = useMirrorOrQuoteOptimisticStore(
+    (state) => state.getMirrorOrQuoteCountByPublicationId
+  );
+  const hasQuotedOrMirroredByMe = useMirrorOrQuoteOptimisticStore(
+    (state) => state.hasQuotedOrMirroredByMe
+  );
+  const setMirrorOrQuoteConfig = useMirrorOrQuoteOptimisticStore(
+    (state) => state.setMirrorOrQuoteConfig
+  );
+  const lensHubOnchainSigNonce = useNonceStore(
+    (state) => state.lensHubOnchainSigNonce
+  );
+  const setLensHubOnchainSigNonce = useNonceStore(
+    (state) => state.setLensHubOnchainSigNonce
+  );
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;

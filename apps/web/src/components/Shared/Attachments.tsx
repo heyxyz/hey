@@ -7,7 +7,7 @@ import { Image, LightBox } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 
 import Audio from './Audio';
 import Video from './Video';
@@ -153,4 +153,4 @@ const Attachments: FC<AttachmentsProps> = ({ attachments, asset }) => {
   );
 };
 
-export default Attachments;
+export default memo(Attachments);

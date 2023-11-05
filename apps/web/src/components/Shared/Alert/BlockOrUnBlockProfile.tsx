@@ -26,12 +26,21 @@ import { useContractWrite, useSignTypedData } from 'wagmi';
 
 const BlockOrUnBlockProfile: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const {
-    showBlockOrUnblockAlert,
-    setShowBlockOrUnblockAlert,
-    blockingorUnblockingProfile
-  } = useGlobalAlertStateStore();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
+  const showBlockOrUnblockAlert = useGlobalAlertStateStore(
+    (state) => state.showBlockOrUnblockAlert
+  );
+  const setShowBlockOrUnblockAlert = useGlobalAlertStateStore(
+    (state) => state.setShowBlockOrUnblockAlert
+  );
+  const blockingorUnblockingProfile = useGlobalAlertStateStore(
+    (state) => state.blockingorUnblockingProfile
+  );
+  const lensHubOnchainSigNonce = useNonceStore(
+    (state) => state.lensHubOnchainSigNonce
+  );
+  const setLensHubOnchainSigNonce = useNonceStore(
+    (state) => state.setLensHubOnchainSigNonce
+  );
 
   const [isLoading, setIsLoading] = useState(false);
   const [hasBlocked, setHasBlocked] = useState(

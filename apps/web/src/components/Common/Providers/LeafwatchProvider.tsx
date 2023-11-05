@@ -7,7 +7,8 @@ import { useEffectOnce, useInterval, useUpdateEffect } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
 
 const LeafwatchProvider: FC = () => {
-  const { viewerId, setViewerId } = useLeafwatchPersistStore();
+  const viewerId = useLeafwatchPersistStore((state) => state.viewerId);
+  const setViewerId = useLeafwatchPersistStore((state) => state.setViewerId);
   const viewedPublication = useLeafwatchStore(
     (state) => state.viewedPublication
   );

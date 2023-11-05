@@ -24,7 +24,9 @@ const LensSubscriptionsProvider: FC = () => {
   const setLatestNotificationId = useNotificationPersistStore(
     (state) => state.setLatestNotificationId
   );
-  const { setLensHubOnchainSigNonce } = useNonceStore();
+  const setLensHubOnchainSigNonce = useNonceStore(
+    (state) => state.setLensHubOnchainSigNonce
+  );
   const { address } = useAccount();
 
   const { sendJsonMessage, lastMessage, readyState } = useWebSocket(

@@ -26,9 +26,16 @@ interface LayoutProps {
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   const { resolvedTheme } = useTheme();
-  const { setCurrentProfile } = useAppStore();
-  const { loadingPreferences, resetPreferences } = usePreferencesStore();
-  const { setLensHubOnchainSigNonce } = useNonceStore();
+  const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
+  const loadingPreferences = usePreferencesStore(
+    (state) => state.loadingPreferences
+  );
+  const resetPreferences = usePreferencesStore(
+    (state) => state.resetPreferences
+  );
+  const setLensHubOnchainSigNonce = useNonceStore(
+    (state) => state.setLensHubOnchainSigNonce
+  );
 
   const isMounted = useIsMounted();
   const { connector } = useAccount();

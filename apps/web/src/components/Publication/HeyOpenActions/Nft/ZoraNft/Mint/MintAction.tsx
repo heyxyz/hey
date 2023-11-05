@@ -47,7 +47,9 @@ const MintAction: FC<MintActionProps> = ({
   publication,
   onCompleted
 }) => {
-  const { quantity, setCanMintOnHey } = useZoraMintStore();
+  const quantity = useZoraMintStore((state) => state.quantity);
+  const setCanMintOnHey = useZoraMintStore((state) => state.setCanMintOnHey);
+
   const chain = useChainId();
   const { address, isDisconnected } = useAccount();
 

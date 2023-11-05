@@ -21,15 +21,21 @@ interface UsePublicationMetadataProps {
 }
 
 const usePublicationMetadata = () => {
-  const {
-    attachments,
-    audioPublication,
-    videoThumbnail,
-    videoDurationInSeconds,
-    publicationContent,
-    showLiveVideoEditor,
-    liveVideoConfig
-  } = usePublicationStore();
+  const attachments = usePublicationStore((state) => state.attachments);
+  const audioPublication = usePublicationStore(
+    (state) => state.audioPublication
+  );
+  const videoThumbnail = usePublicationStore((state) => state.videoThumbnail);
+  const videoDurationInSeconds = usePublicationStore(
+    (state) => state.videoDurationInSeconds
+  );
+  const publicationContent = usePublicationStore(
+    (state) => state.publicationContent
+  );
+  const showLiveVideoEditor = usePublicationStore(
+    (state) => state.showLiveVideoEditor
+  );
+  const liveVideoConfig = usePublicationStore((state) => state.liveVideoConfig);
 
   const attachmentsHasAudio = attachments[0]?.type === 'Audio';
   const attachmentsHasVideo = attachments[0]?.type === 'Video';

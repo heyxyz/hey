@@ -12,7 +12,10 @@ interface PriceProps {
 }
 
 const Price: FC<PriceProps> = ({ nft }) => {
-  const { quantity, setQuantity, canMintOnHey } = useZoraMintStore();
+  const quantity = useZoraMintStore((state) => state.quantity);
+  const setQuantity = useZoraMintStore((state) => state.setQuantity);
+  const canMintOnHey = useZoraMintStore((state) => state.canMintOnHey);
+
   const { data: usdPrice, isLoading } = useQuery({
     queryKey: ['getRedstonePrice'],
     queryFn: async () => await getRedstonePrice('ETH'),

@@ -2,7 +2,7 @@ import { type AnyPublication } from '@hey/lens';
 import isOpenActionAllowed from '@hey/lib/isOpenActionAllowed';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 
@@ -60,4 +60,4 @@ const PublicationActions: FC<PublicationActionsProps> = ({
   );
 };
 
-export default PublicationActions;
+export default memo(PublicationActions);
