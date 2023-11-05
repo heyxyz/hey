@@ -6,12 +6,11 @@ import type { AnyPublication, FeedHighlightsRequest } from '@hey/lens';
 import { LimitType, useFeedHighlightsQuery } from '@hey/lens';
 import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
 import { OptmisticPublicationType } from '@hey/types/enums';
-import type { PublicationViewCount } from '@hey/types/hey';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import getPublicationsViews from '@lib/getPublicationsViews';
-import { type FC, useState } from 'react';
+import { type FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/useAppStore';
+import { useImpressionsStore } from 'src/store/useImpressionsStore';
 import { useTimelineStore } from 'src/store/useTimelineStore';
 import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
 
@@ -21,14 +20,12 @@ const Highlights: FC = () => {
   const seeThroughProfile = useTimelineStore(
     (state) => state.seeThroughProfile
   );
-  const [views, setViews] = useState<PublicationViewCount[] | []>([]);
-
-  const fetchAndStoreViews = async (ids: string[]) => {
-    if (ids.length) {
-      const viewsResponse = await getPublicationsViews(ids);
-      setViews((prev) => [...prev, ...viewsResponse]);
-    }
-  };
+  const publicationViews = useImpressionsStore(
+    (state) => state.publicationViews
+  );
+  const fetchAndStoreViews = useImpressionsStore(
+    (state) => state.fetchAndStoreViews
+  );
 
   // Variables
   const request: FeedHighlightsRequest = {
@@ -94,7 +91,7 @@ const Highlights: FC = () => {
             isLast={index === publications.length - 1}
             publication={publication as AnyPublication}
             views={getPublicationViewCountById(
-              views,
+              publicationViews,
               publication as AnyPublication
             )}
           />
