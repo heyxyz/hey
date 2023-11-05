@@ -5,6 +5,7 @@ import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
+import { memo } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/useAppStore';
 import { useEffectOnce } from 'usehooks-ts';
@@ -45,4 +46,4 @@ const DangerSettings: NextPage = () => {
   );
 };
 
-export default DangerSettings;
+export default memo(DangerSettings);
