@@ -10,7 +10,6 @@ import {
 } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { memo } from 'react';
 
 const BottomNavigation = () => {
   const router = useRouter();
@@ -45,4 +44,4 @@ const BottomNavigation = () => {
   );
 };
 
-export default memo(BottomNavigation);
+export default BottomNavigation;

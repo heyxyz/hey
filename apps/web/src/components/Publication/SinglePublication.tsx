@@ -3,7 +3,7 @@ import PublicationWrapper from '@components/Shared/PublicationWrapper';
 import type { AnyPublication, FeedItem } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useLeafwatchStore } from 'src/store/useLeafwatchStore';
 
@@ -112,4 +112,4 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   );
 };
 
-export default memo(SinglePublication);
+export default SinglePublication;

@@ -15,7 +15,7 @@ import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
-import { type FC, memo, useEffect } from 'react';
+import { type FC, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { useBookmarkOptimisticStore } from 'src/store/OptimisticActions/useBookmarkOptimisticStore';
 
@@ -164,4 +164,4 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
   );
 };
 
-export default memo(Bookmark);
+export default Bookmark;

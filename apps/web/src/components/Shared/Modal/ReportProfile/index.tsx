@@ -4,7 +4,7 @@ import { PROFILE } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
 import { Button, Card, Form, Radio, TextArea, useZodForm } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import toast from 'react-hot-toast';
 import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 import { object, string, z } from 'zod';
@@ -104,4 +104,4 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
   );
 };
 
-export default memo(ReportProfile);
+export default ReportProfile;

@@ -10,7 +10,7 @@ import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import type { ChangeEvent, FC } from 'react';
-import { memo, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDebounce, useOnClickOutside } from 'usehooks-ts';
 
 import UserProfile from '../UserProfile';
@@ -141,4 +141,4 @@ const Search: FC<SearchProps> = ({
   );
 };
 
-export default memo(Search);
+export default Search;

@@ -6,7 +6,6 @@ import { Image } from '@hey/ui';
 import {
   type Dispatch,
   type FC,
-  memo,
   type ReactNode,
   type SetStateAction
 } from 'react';
@@ -107,4 +106,4 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
   return null;
 };
 
-export default memo(MutualFollowers);
+export default MutualFollowers;

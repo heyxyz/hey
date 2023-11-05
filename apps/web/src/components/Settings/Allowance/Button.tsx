@@ -11,7 +11,7 @@ import errorToast from '@lib/errorToast';
 import getAllowanceModule from '@lib/getAllowanceModule';
 import { Leafwatch } from '@lib/leafwatch';
 import type { Dispatch, FC, SetStateAction } from 'react';
-import { memo, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useSendTransaction, useWaitForTransaction } from 'wagmi';
 
@@ -156,4 +156,4 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
   );
 };
 
-export default memo(AllowanceButton);
+export default AllowanceButton;

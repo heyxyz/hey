@@ -5,7 +5,6 @@ import getPublicationData from '@hey/lib/getPublicationData';
 import Link from 'next/link';
 import plur from 'plur';
 import type { FC } from 'react';
-import { memo } from 'react';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
@@ -61,4 +60,4 @@ const ReactionNotification: FC<ReactionNotificationProps> = ({
   );
 };
 
-export default memo(ReactionNotification);
+export default ReactionNotification;

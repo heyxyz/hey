@@ -1,6 +1,6 @@
 import { UserIcon } from '@heroicons/react/24/outline';
 import cn from '@hey/ui/cn';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 interface YourProfileProps {
   className?: string;
@@ -22,4 +22,4 @@ const YourProfile: FC<YourProfileProps> = ({ className = '' }) => {
   );
 };
 
-export default memo(YourProfile);
+export default YourProfile;

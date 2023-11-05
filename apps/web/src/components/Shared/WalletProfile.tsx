@@ -5,7 +5,7 @@ import getStampFyiURL from '@hey/lib/getStampFyiURL';
 import imageKit from '@hey/lib/imageKit';
 import { Image } from '@hey/ui';
 import Link from 'next/link';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import useEnsName from 'src/hooks/useEnsName';
 import type { Address } from 'viem';
 
@@ -51,4 +51,4 @@ const WalletProfile: FC<WalletProfileProps> = ({ address }) => {
   );
 };
 
-export default memo(WalletProfile);
+export default WalletProfile;

@@ -52,7 +52,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
 import uploadToArweave from '@lib/uploadToArweave';
 import type { ChangeEvent, FC } from 'react';
-import { memo, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/useAppStore';
@@ -529,4 +529,4 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   );
 };
 
-export default memo(ProfileSettingsForm);
+export default ProfileSettingsForm;

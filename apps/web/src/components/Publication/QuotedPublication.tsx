@@ -1,6 +1,6 @@
 import PublicationWrapper from '@components/Shared/PublicationWrapper';
 import type { PrimaryPublication } from '@hey/lens';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
@@ -30,4 +30,4 @@ const QuotedPublication: FC<QuotedPublicationProps> = ({
   );
 };
 
-export default memo(QuotedPublication);
+export default QuotedPublication;

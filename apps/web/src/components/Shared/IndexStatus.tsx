@@ -6,7 +6,7 @@ import {
 import { Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import type { FC } from 'react';
-import { memo, useState } from 'react';
+import { useState } from 'react';
 import type { Address } from 'viem';
 
 interface IndexStatusProps {
@@ -74,4 +74,4 @@ const IndexStatus: FC<IndexStatusProps> = ({
   );
 };
 
-export default memo(IndexStatus);
+export default IndexStatus;

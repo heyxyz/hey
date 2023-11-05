@@ -6,7 +6,7 @@ import imageKit from '@hey/lib/imageKit';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import useEnsName from 'src/hooks/useEnsName';
 import type { Address } from 'viem';
 
@@ -53,4 +53,4 @@ const SmallWalletProfile: FC<SmallWalletProfileProps> = ({
   );
 };
 
-export default memo(SmallWalletProfile);
+export default SmallWalletProfile;

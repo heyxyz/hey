@@ -6,7 +6,7 @@ import { Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import plur from 'plur';
 import type { FC } from 'react';
-import { memo, useState } from 'react';
+import { useState } from 'react';
 
 import Followers from './Followers';
 import Following from './Following';
@@ -71,4 +71,4 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
   );
 };
 
-export default memo(Followerings);
+export default Followerings;

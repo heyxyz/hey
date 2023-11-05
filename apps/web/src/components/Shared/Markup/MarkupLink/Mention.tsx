@@ -3,7 +3,7 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { MarkupLinkProps } from '@hey/types/misc';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 import Slug from '../../Slug';
 import UserPreview from '../../UserPreview';
@@ -64,4 +64,4 @@ const Mention: FC<MarkupLinkProps> = ({ title, mentions }) => {
   );
 };
 
-export default memo(Mention);
+export default Mention;

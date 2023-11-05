@@ -1,7 +1,7 @@
 import { Regex } from '@hey/data/regex';
 import type { ProfileMentioned } from '@hey/lens';
 import trimify from '@hey/lib/trimify';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
 // @ts-expect-error
@@ -52,4 +52,4 @@ const Markup: FC<MarkupProps> = ({
   );
 };
 
-export default memo(Markup);
+export default Markup;

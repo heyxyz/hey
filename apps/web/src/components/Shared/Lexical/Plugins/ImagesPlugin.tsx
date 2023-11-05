@@ -1,7 +1,7 @@
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { mergeRegister } from '@lexical/utils';
 import { COMMAND_PRIORITY_NORMAL, PASTE_COMMAND } from 'lexical';
-import { type ClipboardEvent, memo } from 'react';
+import { type ClipboardEvent } from 'react';
 import { useUpdateEffect } from 'usehooks-ts';
 
 interface ImagesPluginProps {
@@ -44,4 +44,4 @@ const ImagesPlugin = (props: ImagesPluginProps): JSX.Element | null => {
   return null;
 };
 
-export default memo(ImagesPlugin);
+export default ImagesPlugin;

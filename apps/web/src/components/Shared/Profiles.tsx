@@ -1,6 +1,6 @@
 import FallbackProfileName from '@components/Shared/FallbackProfileName';
 import type { Profile } from '@hey/lens';
-import { type FC, memo, type ReactNode } from 'react';
+import { type FC, type ReactNode } from 'react';
 
 interface ProfileCirclesProps {
   profiles: Profile[];
@@ -69,4 +69,4 @@ const Profiles: FC<ProfileCirclesProps> = ({ profiles, context }) => {
   return null;
 };
 
-export default memo(Profiles);
+export default Profiles;

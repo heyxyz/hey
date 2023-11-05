@@ -4,7 +4,7 @@ import { Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
 import type { Dispatch, FC, SetStateAction } from 'react';
-import { memo, useRef } from 'react';
+import { useRef } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';
 
 import List from './List';
@@ -56,4 +56,4 @@ const EmojiPicker: FC<EmojiPickerProps> = ({
   );
 };
 
-export default memo(EmojiPicker);
+export default EmojiPicker;

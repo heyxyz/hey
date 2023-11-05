@@ -1,5 +1,5 @@
 import cn from '@hey/ui/cn';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 interface SlugProps {
   slug: string;
@@ -27,4 +27,4 @@ const Slug: FC<SlugProps> = ({
   );
 };
 
-export default memo(Slug);
+export default Slug;

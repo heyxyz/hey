@@ -1,6 +1,6 @@
 import { ShieldCheckIcon } from '@heroicons/react/24/outline';
 import cn from '@hey/ui/cn';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 interface ModProps {
   className?: string;
@@ -22,4 +22,4 @@ const Mod: FC<ModProps> = ({ className = '' }) => {
   );
 };
 
-export default memo(Mod);
+export default Mod;

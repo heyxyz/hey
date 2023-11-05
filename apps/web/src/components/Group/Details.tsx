@@ -10,7 +10,7 @@ import { formatDate } from '@lib/formatTime';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
-import { memo, useState } from 'react';
+import { useState } from 'react';
 import urlcat from 'urlcat';
 
 interface DetailsProps {
@@ -165,4 +165,4 @@ const Details: FC<DetailsProps> = ({ group }) => {
   );
 };
 
-export default memo(Details);
+export default Details;

@@ -1,4 +1,4 @@
-import { type ChangeEventHandler, type FC, memo } from 'react';
+import { type ChangeEventHandler, type FC } from 'react';
 
 interface ChooseFileProps {
   onChange: ChangeEventHandler<HTMLInputElement>;
@@ -20,4 +20,4 @@ const ChooseFile: FC<ChooseFileProps> = ({ onChange }) => {
   );
 };
 
-export default memo(ChooseFile);
+export default ChooseFile;

@@ -9,7 +9,7 @@ import humanize from '@hey/lib/humanize';
 import type { ZoraNft } from '@hey/types/nft';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 interface MetadataProps {
   nft: ZoraNft;
@@ -56,4 +56,4 @@ const Metadata: FC<MetadataProps> = ({ nft, zoraLink }) => {
   );
 };
 
-export default memo(Metadata);
+export default Metadata;

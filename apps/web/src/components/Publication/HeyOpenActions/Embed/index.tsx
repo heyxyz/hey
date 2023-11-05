@@ -1,6 +1,6 @@
 import getEmbed from '@hey/lib/embeds/getEmbed';
 import type { SnapshotMetadata } from '@hey/types/embed';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 import Snapshot from './Snapshot';
 
@@ -22,4 +22,4 @@ const Embed: FC<EmbedProps> = ({ embed }) => {
   ) : null;
 };
 
-export default memo(Embed);
+export default Embed;

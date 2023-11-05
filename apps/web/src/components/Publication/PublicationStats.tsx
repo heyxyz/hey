@@ -16,7 +16,7 @@ import { Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import plur from 'plur';
 import type { FC } from 'react';
-import { memo, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useBookmarkOptimisticStore } from 'src/store/OptimisticActions/useBookmarkOptimisticStore';
 import { useMirrorOrQuoteOptimisticStore } from 'src/store/OptimisticActions/useMirrorOrQuoteOptimisticStore';
 import { useOpenActionOptimisticStore } from 'src/store/OptimisticActions/useOpenActionOptimisticStore';
@@ -254,4 +254,4 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
   );
 };
 
-export default memo(PublicationStats);
+export default PublicationStats;

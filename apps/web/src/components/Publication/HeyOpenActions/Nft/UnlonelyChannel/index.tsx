@@ -13,7 +13,7 @@ import { Button, Card, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import useUnlonelyChannel from 'src/hooks/unlonely/useUnlonelyChannel';
 import urlcat from 'urlcat';
 
@@ -112,4 +112,4 @@ const UnlonelyChannel: FC<UnlonelyChannelProps> = ({
   );
 };
 
-export default memo(UnlonelyChannel);
+export default UnlonelyChannel;

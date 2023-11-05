@@ -2,7 +2,7 @@ import GetOpenActionModuleIcon from '@components/Shared/GetOpenActionModuleIcon'
 import type { OpenActionModule } from '@hey/lens';
 import getOpenActionModuleData from '@hey/lib/getOpenActionModuleData';
 import { Card } from '@hey/ui';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 interface CollectModulePreviewProps {
   module: OpenActionModule;
@@ -35,4 +35,4 @@ const UnknownModulePreview: FC<CollectModulePreviewProps> = ({ module }) => {
   return null;
 };
 
-export default memo(UnknownModulePreview);
+export default UnknownModulePreview;

@@ -1,7 +1,7 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { StarIcon } from '@heroicons/react/24/outline';
 import { Input } from '@hey/ui';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import { useCollectModuleStore } from 'src/store/useCollectModuleStore';
 
 interface CollectLimitConfigProps {
@@ -47,4 +47,4 @@ const CollectLimitConfig: FC<CollectLimitConfigProps> = ({
   );
 };
 
-export default memo(CollectLimitConfig);
+export default CollectLimitConfig;

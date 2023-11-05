@@ -10,7 +10,7 @@ import type { Profile } from '@hey/lens';
 import humanize from '@hey/lib/humanize';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 import MetaDetails from '../MetaDetails';
 
@@ -90,4 +90,4 @@ const ProfileDetails: FC<ProfileDetailsProps> = ({ profile }) => {
   );
 };
 
-export default memo(ProfileDetails);
+export default ProfileDetails;

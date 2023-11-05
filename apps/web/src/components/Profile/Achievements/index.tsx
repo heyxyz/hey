@@ -1,5 +1,5 @@
 import type { Profile } from '@hey/lens';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 import Streaks from './Streaks';
 import StreaksList from './StreaksList';
@@ -17,4 +17,4 @@ const Achievements: FC<AchievementsProps> = ({ profile }) => {
   );
 };
 
-export default memo(Achievements);
+export default Achievements;

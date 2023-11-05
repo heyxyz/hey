@@ -16,7 +16,7 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { memo, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/useAppStore';
@@ -195,4 +195,4 @@ const Unfollow: FC<UnfollowProps> = ({
   );
 };
 
-export default memo(Unfollow);
+export default Unfollow;

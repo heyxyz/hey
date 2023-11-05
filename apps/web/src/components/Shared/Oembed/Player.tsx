@@ -1,5 +1,5 @@
 import type { OG } from '@hey/types/misc';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 interface PlayerProps {
   og: OG;
@@ -16,4 +16,4 @@ const Player: FC<PlayerProps> = ({ og }) => {
   );
 };
 
-export default memo(Player);
+export default Player;

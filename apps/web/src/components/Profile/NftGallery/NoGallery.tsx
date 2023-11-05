@@ -3,7 +3,7 @@ import type { Profile } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { Button } from '@hey/ui';
 import type { FC } from 'react';
-import { memo, useState } from 'react';
+import { useState } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 
 import Create from './Create';
@@ -79,4 +79,4 @@ const NoGallery: FC<NoGalleryProps> = ({ profile }) => {
   );
 };
 
-export default memo(NoGallery);
+export default NoGallery;
