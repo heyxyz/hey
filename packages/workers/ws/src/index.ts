@@ -24,7 +24,7 @@ const handleSession = async (websocket: any, env: Env) => {
 const handleRequest = async (request: Request, env: Env) => {
   const upgradeHeader = request.headers.get('Upgrade');
   if (upgradeHeader !== 'websocket') {
-    return new Response('Expected websocket', { status: 400 });
+    return new Response('Expected websocket', { status: 200 });
   }
 
   const [client, server] = Object.values(new WebSocketPair());
