@@ -12,10 +12,14 @@ import {
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { type FC } from 'react';
-import { useInView } from 'react-cool-inview';
+import { motion } from 'framer-motion';
+import { type FC, useRef } from 'react';
+import type { StateSnapshot } from 'react-virtuoso';
+import { Virtuoso } from 'react-virtuoso';
 import { useImpressionsStore } from 'src/store/useImpressionsStore';
 import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
+
+let virtuosoState: any = { ranges: [], screenTop: 0 };
 
 interface FeedProps {
   publication: AnyPublication;
@@ -29,6 +33,8 @@ const Feed: FC<FeedProps> = ({ publication }) => {
   const fetchAndStoreViews = useImpressionsStore(
     (state) => state.fetchAndStoreViews
   );
+
+  const virtuosoRef = useRef<any>();
 
   // Variables
   const request: PublicationsRequest = {
@@ -67,19 +73,25 @@ const Feed: FC<FeedProps> = ({ publication }) => {
   const hiddenRemovedComments = comments?.length - hiddenCount;
   const totalComments = hiddenRemovedComments + queuedCount;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      const { data } = await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } }
-      });
-      const ids = data?.publications?.items?.map((p) => p.id) || [];
-      await fetchAndStoreViews(ids);
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    const { data } = await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    });
+    const ids = data?.publications?.items?.map((p) => p.id) || [];
+    await fetchAndStoreViews(ids);
+  };
+
+  const onScrolling = (scrolling: boolean) => {
+    virtuosoRef?.current?.getState((state: StateSnapshot) => {
+      if (!scrolling) {
+        virtuosoState = { ...state };
+      }
+    });
+  };
 
   if (loading) {
     return <PublicationsShimmer />;
@@ -104,18 +116,43 @@ const Feed: FC<FeedProps> = ({ publication }) => {
         <QueuedPublication key={txn.id} txn={txn} />
       ))}
       <Card className="divide-y-[1px] dark:divide-gray-700">
-        {comments?.map((comment, index) =>
-          comment?.__typename !== 'Comment' || comment.isHidden ? null : (
-            <SinglePublication
-              key={`${comment.id}`}
-              isFirst={index === 0}
-              isLast={index === comments.length - 1}
-              publication={comment as Comment}
-              showType={false}
-            />
-          )
-        )}
-        {hasMore ? <span ref={observe} /> : null}
+        {comments?.length ? (
+          <Virtuoso
+            useWindowScroll
+            restoreStateFrom={
+              virtuosoState.ranges.length === 0
+                ? virtuosoRef?.current?.getState(
+                    (state: StateSnapshot) => state
+                  )
+                : virtuosoState
+            }
+            ref={virtuosoRef}
+            isScrolling={(scrolling) => onScrolling(scrolling)}
+            data={comments.filter(
+              (comment) =>
+                comment?.__typename === 'Comment' && !comment.isHidden
+            )}
+            endReached={onEndReached}
+            className="virtual-feed-list"
+            itemContent={(index, comment) => {
+              return (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  <SinglePublication
+                    key={`${comment.id}`}
+                    isFirst={index === 0}
+                    isLast={index === comments.length - 1}
+                    publication={comment as Comment}
+                    showType={false}
+                  />
+                </motion.div>
+              );
+            }}
+          />
+        ) : null}
       </Card>
     </>
   );

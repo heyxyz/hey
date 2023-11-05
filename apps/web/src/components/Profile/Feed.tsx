@@ -10,11 +10,15 @@ import {
 } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { type FC } from 'react';
-import { useInView } from 'react-cool-inview';
+import { motion } from 'framer-motion';
+import { type FC, useRef } from 'react';
+import type { StateSnapshot } from 'react-virtuoso';
+import { Virtuoso } from 'react-virtuoso';
 import { ProfileFeedType } from 'src/enums';
 import { useImpressionsStore } from 'src/store/useImpressionsStore';
 import { useProfileFeedStore } from 'src/store/useProfileFeedStore';
+
+let virtuosoState: any = { ranges: [], screenTop: 0 };
 
 interface FeedProps {
   profile: Profile;
@@ -32,6 +36,8 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
   const fetchAndStoreViews = useImpressionsStore(
     (state) => state.fetchAndStoreViews
   );
+
+  const virtuosoRef = useRef<any>();
 
   const getMediaFilters = () => {
     let filters: PublicationMetadataMainFocusType[] = [];
@@ -87,22 +93,28 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
   const pageInfo = data?.publications?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      const { data } = await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } }
-      });
-      const ids =
-        data?.publications?.items?.map((p) => {
-          return p.__typename === 'Mirror' ? p.mirrorOn?.id : p.id;
-        }) || [];
-      await fetchAndStoreViews(ids);
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    const { data } = await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    });
+    const ids =
+      data?.publications?.items?.map((p) => {
+        return p.__typename === 'Mirror' ? p.mirrorOn?.id : p.id;
+      }) || [];
+    await fetchAndStoreViews(ids);
+  };
+
+  const onScrolling = (scrolling: boolean) => {
+    virtuosoRef?.current?.getState((state: StateSnapshot) => {
+      if (!scrolling) {
+        virtuosoState = { ...state };
+      }
+    });
+  };
 
   if (loading) {
     return <PublicationsShimmer />;
@@ -141,18 +153,41 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
 
   return (
     <Card className="divide-y-[1px] dark:divide-gray-700">
-      {publications?.map((publication, index) => (
-        <SinglePublication
-          key={`${publication.id}_${index}`}
-          isFirst={index === 0}
-          isLast={index === publications.length - 1}
-          publication={publication as AnyPublication}
-          showThread={
-            type !== ProfileFeedType.Media && type !== ProfileFeedType.Collects
+      {publications?.length ? (
+        <Virtuoso
+          useWindowScroll
+          restoreStateFrom={
+            virtuosoState.ranges.length === 0
+              ? virtuosoRef?.current?.getState((state: StateSnapshot) => state)
+              : virtuosoState
           }
+          ref={virtuosoRef}
+          isScrolling={(scrolling) => onScrolling(scrolling)}
+          data={publications}
+          endReached={onEndReached}
+          className="virtual-feed-list"
+          itemContent={(index, publication) => {
+            return (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <SinglePublication
+                  key={`${publication.id}_${index}`}
+                  publication={publication as AnyPublication}
+                  isFirst={index === 0}
+                  isLast={index === publications.length - 1}
+                  showThread={
+                    type !== ProfileFeedType.Media &&
+                    type !== ProfileFeedType.Collects
+                  }
+                />
+              </motion.div>
+            );
+          }}
         />
-      ))}
-      {hasMore ? <span ref={observe} /> : null}
+      ) : null}
     </Card>
   );
 };

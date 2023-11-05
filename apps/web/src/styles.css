@@ -195,7 +195,7 @@ ul {
 }
 
 /* react-virtuoso - Virtual notifications list */
-.virtual-notification-list {
+.virtual-feed-list {
   @apply [&>div>div]:divide-y;
   @apply [&>div>div]:dark:divide-gray-700;
 }
