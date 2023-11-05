@@ -1,6 +1,6 @@
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
-import { LENSHUB_PROXY } from '@hey/data/constants';
+import { ADDRESS_PLACEHOLDER, LENSHUB_PROXY } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { Regex } from '@hey/data/regex';
 import { SETTINGS } from '@hey/data/tracking';
@@ -161,7 +161,7 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
         <Input
           label="Manager address"
           type="text"
-          placeholder="0x3A5bd...5e3"
+          placeholder={ADDRESS_PLACEHOLDER}
           {...form.register('manager')}
         />
       </div>
