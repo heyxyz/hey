@@ -19,6 +19,7 @@ const MetaTags: FC<MetaTagsProps> = ({
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover"
       />
+      <link rel="canonical" href="https://hey.xyz" />
 
       <meta property="og:url" content="https://hey.xyz" />
       <meta property="og:site_name" content={APP_NAME} />
