@@ -1,7 +1,7 @@
 import { GROUPS_WORKER_URL } from '@hey/data/constants';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 
 const FeaturedGroupsProvider: FC = () => {
@@ -23,4 +23,4 @@ const FeaturedGroupsProvider: FC = () => {
   return null;
 };
 
-export default FeaturedGroupsProvider;
+export default memo(FeaturedGroupsProvider);

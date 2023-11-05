@@ -2,7 +2,7 @@ import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
 import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 
@@ -67,4 +67,4 @@ const PreferencesProvider: FC = () => {
   return null;
 };
 
-export default PreferencesProvider;
+export default memo(PreferencesProvider);

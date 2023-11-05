@@ -8,7 +8,7 @@ import {
 } from '@hey/lens';
 import { Card } from '@hey/ui';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 
 interface NoneRelevantFeedProps {
@@ -90,4 +90,4 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publication }) => {
   );
 };
 
-export default NoneRelevantFeed;
+export default memo(NoneRelevantFeed);

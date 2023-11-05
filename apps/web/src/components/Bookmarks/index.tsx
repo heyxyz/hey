@@ -10,7 +10,7 @@ import type { PublicationMetadataMainFocusType } from '@hey/lens';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import { useEffectOnce } from 'usehooks-ts';
@@ -46,4 +46,4 @@ const Bookmarks: NextPage = () => {
   );
 };
 
-export default Bookmarks;
+export default memo(Bookmarks);

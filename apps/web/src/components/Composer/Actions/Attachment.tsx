@@ -13,7 +13,7 @@ import {
 } from '@lens-protocol/metadata';
 import { motion } from 'framer-motion';
 import type { ChangeEvent, FC } from 'react';
-import { useId, useRef, useState } from 'react';
+import { memo, useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import useUploadAttachments from 'src/hooks/useUploadAttachments';
 import { usePublicationStore } from 'src/store/usePublicationStore';
@@ -186,4 +186,4 @@ const Attachment: FC = () => {
   );
 };
 
-export default Attachment;
+export default memo(Attachment);

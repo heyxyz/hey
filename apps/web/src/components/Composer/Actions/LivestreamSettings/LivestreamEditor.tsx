@@ -9,7 +9,7 @@ import { IS_MAINNET, LIVE_WORKER_URL } from '@hey/data/constants';
 import { Card, Spinner, Tooltip } from '@hey/ui';
 import axios from 'axios';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import toast from 'react-hot-toast';
 import { hydrateAuthTokens } from 'src/store/useAuthPersistStore';
 import { usePublicationStore } from 'src/store/usePublicationStore';
@@ -136,4 +136,4 @@ const LivestreamEditor: FC = () => {
   );
 };
 
-export default LivestreamEditor;
+export default memo(LivestreamEditor);
