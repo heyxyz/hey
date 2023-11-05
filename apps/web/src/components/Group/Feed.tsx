@@ -8,7 +8,6 @@ import {
   LimitType,
   useExplorePublicationsQuery
 } from '@hey/lens';
-import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
 import type { Group } from '@hey/types/hey';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { type FC, memo } from 'react';
@@ -94,10 +93,6 @@ const Feed: FC<FeedProps> = ({ group }) => {
           isFirst={index === 0}
           isLast={index === publications.length - 1}
           publication={publication as AnyPublication}
-          views={getPublicationViewCountById(
-            publicationViews,
-            publication as AnyPublication
-          )}
         />
       ))}
       {hasMore ? <span ref={observe} /> : null}

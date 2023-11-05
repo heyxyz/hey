@@ -7,7 +7,6 @@ import type {
   PublicationMetadataMainFocusType
 } from '@hey/lens';
 import { LimitType, usePublicationBookmarksQuery } from '@hey/lens';
-import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { type FC, memo } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -88,10 +87,6 @@ const Feed: FC<FeedProps> = ({ focus }) => {
           isFirst={index === 0}
           isLast={index === publications.length - 1}
           publication={publication as AnyPublication}
-          views={getPublicationViewCountById(
-            publicationViews,
-            publication as AnyPublication
-          )}
         />
       ))}
       {hasMore ? <span ref={observe} /> : null}
