@@ -1,11 +1,15 @@
 import {
   ComputerDesktopIcon,
   CursorArrowRaysIcon,
+  EyeIcon,
   GlobeAltIcon,
   MapPinIcon
 } from '@heroicons/react/24/outline';
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
-import { LEAFWATCH_WORKER_URL } from '@hey/data/constants';
+import {
+  ACHIEVEMENTS_WORKER_URL,
+  LEAFWATCH_WORKER_URL
+} from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import humanize from '@hey/lib/humanize';
 import { useQuery } from '@tanstack/react-query';
@@ -40,13 +44,35 @@ const ProfileDetails: FC<ProfileDetailsProps> = ({ profile }) => {
     }
   };
 
-  const { data } = useQuery({
+  const { data: leafwatchDetails } = useQuery({
     queryKey: ['getProfileDetails', profile.id],
     queryFn: getProfileDetails,
     enabled: Boolean(profile.id)
   });
 
-  if (!data) {
+  const getUserImpressions = async (): Promise<{
+    impressions: number;
+  } | null> => {
+    try {
+      const response = await axios.get(
+        `${ACHIEVEMENTS_WORKER_URL}/userImpressions`,
+        { params: { id: profile.id } }
+      );
+      const { data } = response;
+
+      return data;
+    } catch (error) {
+      return null;
+    }
+  };
+
+  const { data: impressionDetails } = useQuery({
+    queryKey: ['getUserImpressions', profile.id],
+    queryFn: getUserImpressions,
+    enabled: Boolean(profile.id)
+  });
+
+  if (!leafwatchDetails || !impressionDetails) {
     return null;
   }
 
@@ -58,32 +84,40 @@ const ProfileDetails: FC<ProfileDetailsProps> = ({ profile }) => {
       </div>
       <div className="mt-3 space-y-2 font-bold">
         <MetaDetails
+          icon={<EyeIcon className="ld-text-gray-500 h-4 w-4" />}
+          value={humanize(impressionDetails.impressions)}
+          title="Impressions"
+        >
+          {humanize(impressionDetails.impressions)}
+        </MetaDetails>
+        <MetaDetails
           icon={<CursorArrowRaysIcon className="ld-text-gray-500 h-4 w-4" />}
-          value={humanize(data.events)}
+          value={humanize(leafwatchDetails.events)}
           title="Total events"
         >
-          {humanize(data.events)}
+          {humanize(leafwatchDetails.events)}
         </MetaDetails>
         <MetaDetails
           icon={<MapPinIcon className="ld-text-gray-500 h-4 w-4" />}
-          value={data.city}
+          value={leafwatchDetails.city}
           title="Location"
         >
-          {data.city}, {data.region}, {data.country}
+          {leafwatchDetails.city}, {leafwatchDetails.region},{' '}
+          {leafwatchDetails.country}
         </MetaDetails>
         <MetaDetails
           icon={<ComputerDesktopIcon className="ld-text-gray-500 h-4 w-4" />}
-          value={data.os}
+          value={leafwatchDetails.os}
           title="OS"
         >
-          {data.os}
+          {leafwatchDetails.os}
         </MetaDetails>
         <MetaDetails
           icon={<GlobeAltIcon className="ld-text-gray-500 h-4 w-4" />}
-          value={data.browser}
+          value={leafwatchDetails.browser}
           title="Browser"
         >
-          {data.browser} {data.version}
+          {leafwatchDetails.browser} {leafwatchDetails.version}
         </MetaDetails>
       </div>
     </>
