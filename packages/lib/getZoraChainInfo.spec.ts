@@ -1,3 +1,4 @@
+import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { describe, expect, test } from 'vitest';
 
 import getZoraChainInfo from './getZoraChainInfo';
@@ -7,7 +8,7 @@ describe('getZoraChainInfo', () => {
     const chainNumber = 1;
     const expectedInfo = {
       name: 'Ethereum',
-      logo: 'https://zora.co/assets/icon/ethereum-eth-logo.svg'
+      logo: `${STATIC_IMAGES_URL}/chains/ethereum.svg`
     };
 
     expect(getZoraChainInfo(chainNumber)).toEqual(expectedInfo);
@@ -17,7 +18,7 @@ describe('getZoraChainInfo', () => {
     const chainNumber = 5;
     const expectedInfo = {
       name: 'Goerli',
-      logo: 'https://zora.co/assets/icon/ethereum-eth-logo.svg'
+      logo: `${STATIC_IMAGES_URL}/chains/ethereum.svg`
     };
 
     expect(getZoraChainInfo(chainNumber)).toEqual(expectedInfo);
@@ -27,7 +28,7 @@ describe('getZoraChainInfo', () => {
     const chainNumber = 10;
     const expectedInfo = {
       name: 'Optimism',
-      logo: 'https://zora.co/assets/icon/optimism-ethereum-op-logo.svg'
+      logo: `${STATIC_IMAGES_URL}/chains/optimism.svg`
     };
 
     expect(getZoraChainInfo(chainNumber)).toEqual(expectedInfo);
@@ -37,7 +38,7 @@ describe('getZoraChainInfo', () => {
     const chainNumber = 420;
     const expectedInfo = {
       name: 'Optimism Testnet',
-      logo: 'https://zora.co/assets/icon/optimism-ethereum-op-logo.svg'
+      logo: `${STATIC_IMAGES_URL}/chains/optimism.svg`
     };
 
     expect(getZoraChainInfo(chainNumber)).toEqual(expectedInfo);
@@ -47,7 +48,7 @@ describe('getZoraChainInfo', () => {
     const chainNumber = 7777777;
     const expectedInfo = {
       name: 'Zora',
-      logo: 'https://zora.co/assets/icon/zora-logo.svg'
+      logo: `${STATIC_IMAGES_URL}/chains/zora.svg`
     };
 
     expect(getZoraChainInfo(chainNumber)).toEqual(expectedInfo);
@@ -57,7 +58,7 @@ describe('getZoraChainInfo', () => {
     const chainNumber = 999;
     const expectedInfo = {
       name: 'Zora Testnet',
-      logo: 'https://zora.co/assets/icon/zora-logo.svg'
+      logo: `${STATIC_IMAGES_URL}/chains/zora.svg`
     };
 
     expect(getZoraChainInfo(chainNumber)).toEqual(expectedInfo);
@@ -67,7 +68,7 @@ describe('getZoraChainInfo', () => {
     const chainNumber = 8453;
     const expectedInfo = {
       name: 'Base',
-      logo: 'https://zora.co/assets/icon/base-logo.svg'
+      logo: `${STATIC_IMAGES_URL}/chains/base.svg`
     };
 
     expect(getZoraChainInfo(chainNumber)).toEqual(expectedInfo);
@@ -77,7 +78,7 @@ describe('getZoraChainInfo', () => {
     const chainNumber = 84531;
     const expectedInfo = {
       name: 'Base Testnet',
-      logo: 'https://zora.co/assets/icon/base-logo.svg'
+      logo: `${STATIC_IMAGES_URL}/chains/base.svg`
     };
 
     expect(getZoraChainInfo(chainNumber)).toEqual(expectedInfo);
@@ -87,7 +88,7 @@ describe('getZoraChainInfo', () => {
     const chainNumber = 424;
     const expectedInfo = {
       name: 'PGN Network',
-      logo: 'https://zora.co/assets/icon/pgn-logo.svg'
+      logo: `${STATIC_IMAGES_URL}/chains/pgn.svg`
     };
 
     expect(getZoraChainInfo(chainNumber)).toEqual(expectedInfo);
@@ -97,7 +98,7 @@ describe('getZoraChainInfo', () => {
     const chainNumber = 123;
     const expectedInfo = {
       name: 'Ethereum',
-      logo: 'https://zora.co/assets/icon/ethereum-eth-logo.svg'
+      logo: `${STATIC_IMAGES_URL}/chains/ethereum.svg`
     };
 
     expect(getZoraChainInfo(chainNumber)).toEqual(expectedInfo);
