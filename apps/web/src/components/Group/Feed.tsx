@@ -19,9 +19,6 @@ interface FeedProps {
 }
 
 const Feed: FC<FeedProps> = ({ group }) => {
-  const publicationViews = useImpressionsStore(
-    (state) => state.publicationViews
-  );
   const fetchAndStoreViews = useImpressionsStore(
     (state) => state.fetchAndStoreViews
   );

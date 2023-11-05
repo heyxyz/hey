@@ -26,9 +26,6 @@ const Feed: FC<FeedProps> = ({ publication }) => {
     ? publication?.mirrorOn?.id
     : publication?.id;
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
-  const publicationViews = useImpressionsStore(
-    (state) => state.publicationViews
-  );
   const fetchAndStoreViews = useImpressionsStore(
     (state) => state.fetchAndStoreViews
   );
