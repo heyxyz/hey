@@ -1,5 +1,5 @@
+import getPublicationsViews from '@hey/lib/getPublicationsViews';
 import type { PublicationViewCount } from '@hey/types/hey';
-import getPublicationsViews from '@lib/getPublicationsViews';
 import { create } from 'zustand';
 
 interface ImpressionsState {
