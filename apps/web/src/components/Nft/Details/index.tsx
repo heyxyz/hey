@@ -1,7 +1,7 @@
 import Footer from '@components/Shared/Footer';
 import type { OpenSeaNft } from '@hey/types/opensea-nft';
 import { Card, GridItemFour } from '@hey/ui';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 import NftTitle from './Title';
 import NftTraits from './Traits';
@@ -36,4 +36,4 @@ const NftDetails: FC<NftDetailsProps> = ({ nft }) => {
   );
 };
 
-export default NftDetails;
+export default memo(NftDetails);

@@ -11,7 +11,7 @@ import {
 import getProfile from '@hey/lib/getProfile';
 import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { type FC } from 'react';
+import { type FC, memo } from 'react';
 import { useInView } from 'react-cool-inview';
 import { ProfileFeedType } from 'src/enums';
 import { useImpressionsStore } from 'src/store/useImpressionsStore';
@@ -165,4 +165,4 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
   );
 };
 
-export default Feed;
+export default memo(Feed);

@@ -5,7 +5,7 @@ import { GARDENER } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import { toast } from 'react-hot-toast';
 import { hydrateAuthTokens } from 'src/store/useAuthPersistStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
@@ -61,4 +61,4 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
   );
 };
 
-export default GardenerMode;
+export default memo(GardenerMode);

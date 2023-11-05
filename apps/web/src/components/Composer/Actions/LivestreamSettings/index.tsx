@@ -1,7 +1,7 @@
 import { VideoCameraIcon } from '@heroicons/react/24/outline';
 import { Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import { usePublicationStore } from 'src/store/usePublicationStore';
 
 const LivestreamSettings: FC = () => {
@@ -32,4 +32,4 @@ const LivestreamSettings: FC = () => {
   );
 };
 
-export default memo(LivestreamSettings);
+export default LivestreamSettings;

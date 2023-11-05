@@ -1,5 +1,5 @@
 import { WEBSOCKET_WORKER_URL } from '@hey/data/constants';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import useWebSocket from 'react-use-websocket';
 import { useLeafwatchPersistStore } from 'src/store/useLeafwatchPersistStore';
 import { useLeafwatchStore } from 'src/store/useLeafwatchStore';
@@ -42,4 +42,4 @@ const LeafwatchProvider: FC = () => {
   return null;
 };
 
-export default memo(LeafwatchProvider);
+export default LeafwatchProvider;

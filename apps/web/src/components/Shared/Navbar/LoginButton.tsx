@@ -1,7 +1,7 @@
 import { AUTH } from '@hey/data/tracking';
 import { Button } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 
 interface LoginButtonProps {
@@ -34,4 +34,4 @@ const LoginButton: FC<LoginButtonProps> = ({ isBig = false }) => {
   );
 };
 
-export default LoginButton;
+export default memo(LoginButton);

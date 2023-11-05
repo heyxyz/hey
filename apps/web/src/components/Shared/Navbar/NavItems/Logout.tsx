@@ -6,7 +6,7 @@ import errorToast from '@lib/errorToast';
 import getCurrentSessionId from '@lib/getCurrentSessionId';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { signOut } from 'src/store/useAuthPersistStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import { useDisconnect } from 'wagmi';
@@ -76,4 +76,4 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
   );
 };
 
-export default Logout;
+export default memo(Logout);

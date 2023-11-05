@@ -2,7 +2,7 @@ import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import type { Profile } from '@hey/lens';
 import { useProfileQuery } from '@hey/lens';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 interface StaffPickedProfileProps {
   id: string;
@@ -25,4 +25,4 @@ const StaffPickedProfile: FC<StaffPickedProfileProps> = ({ id }) => {
   return <UserProfile profile={data.profile as Profile} />;
 };
 
-export default StaffPickedProfile;
+export default memo(StaffPickedProfile);

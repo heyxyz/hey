@@ -5,7 +5,7 @@ import type { AnyPublication } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import type { FC } from 'react';
-import { Fragment } from 'react';
+import { Fragment, memo } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 
 import Bookmark from './Bookmark';
@@ -62,4 +62,4 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
   );
 };
 
-export default PublicationMenu;
+export default memo(PublicationMenu);

@@ -2,7 +2,7 @@ import { GlobeAltIcon, HashtagIcon } from '@heroicons/react/24/outline';
 import { GIT_COMMIT_SHA, IS_MAINNET, IS_PRODUCTION } from '@hey/data/constants';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
-import type { FC, ReactNode } from 'react';
+import { type FC, memo, type ReactNode } from 'react';
 import urlcat from 'urlcat';
 
 import Performance from './Performance';
@@ -55,4 +55,4 @@ const StaffBar: FC = () => {
   );
 };
 
-export default StaffBar;
+export default memo(StaffBar);

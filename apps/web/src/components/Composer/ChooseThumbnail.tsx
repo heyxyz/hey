@@ -5,7 +5,7 @@ import getFileFromDataURL from '@hey/lib/getFileFromDataURL';
 import { Spinner } from '@hey/ui';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import type { ChangeEvent, FC } from 'react';
-import { memo, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/usePublicationStore';
 import { useUpdateEffect } from 'usehooks-ts';
@@ -188,4 +188,4 @@ const ChooseThumbnail: FC = () => {
   );
 };
 
-export default memo(ChooseThumbnail);
+export default ChooseThumbnail;

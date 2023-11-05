@@ -8,7 +8,7 @@ import ImageCropper from '@hey/image-cropper/ImageCropper';
 import type { Area, Point, Size } from '@hey/image-cropper/types';
 import Slider from 'rc-slider';
 import type { Dispatch, FC } from 'react';
-import { useRef, useState } from 'react';
+import { memo, useRef, useState } from 'react';
 import useResizeObserver from 'use-resize-observer';
 import { useUpdateEffect } from 'usehooks-ts';
 
@@ -84,4 +84,4 @@ const ImageCropperController: FC<ImageCropperControllerProps> = ({
   );
 };
 
-export default ImageCropperController;
+export default memo(ImageCropperController);

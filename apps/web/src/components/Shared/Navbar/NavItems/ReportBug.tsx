@@ -4,7 +4,7 @@ import {
 } from '@heroicons/react/24/outline';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import urlcat from 'urlcat';
 
 interface ReportBugProps {
@@ -36,4 +36,4 @@ const ReportBug: FC<ReportBugProps> = ({ onClick, className = '' }) => {
   );
 };
 
-export default ReportBug;
+export default memo(ReportBug);

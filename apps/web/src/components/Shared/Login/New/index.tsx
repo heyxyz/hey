@@ -14,7 +14,7 @@ import {
   useZodForm
 } from '@hey/ui';
 import errorToast from '@lib/errorToast';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import { useAccount } from 'wagmi';
 import { object, string } from 'zod';
 
@@ -115,4 +115,4 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
   );
 };
 
-export default NewProfile;
+export default memo(NewProfile);

@@ -11,7 +11,7 @@ import { Card } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 
 interface StatusProps {
@@ -95,4 +95,4 @@ const SetProfile: FC = () => {
   );
 };
 
-export default SetProfile;
+export default memo(SetProfile);

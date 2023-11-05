@@ -13,7 +13,7 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import { toast } from 'react-hot-toast';
 
 interface NotInterestedProps {
@@ -111,4 +111,4 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
   );
 };
 
-export default NotInterested;
+export default memo(NotInterested);

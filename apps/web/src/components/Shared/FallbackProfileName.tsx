@@ -2,7 +2,7 @@ import type { Profile } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
-import type { FC, ReactNode } from 'react';
+import { type FC, memo, type ReactNode } from 'react';
 
 import Slug from './Slug';
 
@@ -40,4 +40,4 @@ const FallbackProfileName: FC<FallbackProfileNameProps> = ({
   );
 };
 
-export default FallbackProfileName;
+export default memo(FallbackProfileName);

@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import type { FC, ReactNode } from 'react';
+import { type FC, memo, type ReactNode } from 'react';
 
 import cn from '../cn';
 
@@ -66,4 +66,4 @@ const TabButton: FC<TabButtonProps> = ({
   );
 };
 
-export default TabButton;
+export default memo(TabButton);

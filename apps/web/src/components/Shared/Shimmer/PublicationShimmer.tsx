@@ -1,5 +1,5 @@
 import cn from '@hey/ui/cn';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 import SmallUserProfileShimmer from './SmallUserProfileShimmer';
 import UserProfileShimmer from './UserProfileShimmer';
@@ -36,4 +36,4 @@ const PublicationShimmer: FC<PublicationShimmerProps> = ({
   );
 };
 
-export default PublicationShimmer;
+export default memo(PublicationShimmer);

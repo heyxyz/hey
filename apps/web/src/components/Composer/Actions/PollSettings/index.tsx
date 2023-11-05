@@ -1,7 +1,7 @@
 import { Bars3BottomLeftIcon } from '@heroicons/react/24/solid';
 import { Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import { usePublicationStore } from 'src/store/usePublicationStore';
 
 const PollSettings: FC = () => {
@@ -29,4 +29,4 @@ const PollSettings: FC = () => {
   );
 };
 
-export default memo(PollSettings);
+export default PollSettings;
