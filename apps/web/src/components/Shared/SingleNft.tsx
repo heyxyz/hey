@@ -2,7 +2,7 @@ import { PLACEHOLDER_IMAGE, RARIBLE_URL } from '@hey/data/constants';
 import type { Nft } from '@hey/lens';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import { Card } from '@hey/ui';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import { CHAIN_ID } from 'src/constants';
 
 interface SingleNftProps {
@@ -73,4 +73,4 @@ const SingleNft: FC<SingleNftProps> = ({ nft, linkToDetail = true }) => {
   );
 };
 
-export default SingleNft;
+export default memo(SingleNft);

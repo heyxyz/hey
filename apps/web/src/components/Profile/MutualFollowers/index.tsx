@@ -3,7 +3,13 @@ import { LimitType, useMutualFollowersQuery } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
-import type { Dispatch, FC, ReactNode, SetStateAction } from 'react';
+import {
+  type Dispatch,
+  type FC,
+  memo,
+  type ReactNode,
+  type SetStateAction
+} from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 
 interface MutualFollowersProps {
@@ -101,4 +107,4 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
   return null;
 };
 
-export default MutualFollowers;
+export default memo(MutualFollowers);

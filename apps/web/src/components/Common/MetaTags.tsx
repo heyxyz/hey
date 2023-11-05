@@ -1,6 +1,6 @@
 import { APP_NAME, DEFAULT_OG, DESCRIPTION } from '@hey/data/constants';
 import Head from 'next/head';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 interface MetaTagsProps {
   title?: string;
@@ -47,4 +47,4 @@ const MetaTags: FC<MetaTagsProps> = ({
   );
 };
 
-export default MetaTags;
+export default memo(MetaTags);

@@ -2,7 +2,7 @@ import { APP_NAME, WALLETCONNECT_PROJECT_ID } from '@hey/data/constants';
 import { CoinbaseWalletConnector } from '@wagmi/connectors/coinbaseWallet';
 import { InjectedConnector } from '@wagmi/connectors/injected';
 import { WalletConnectConnector } from '@wagmi/connectors/walletConnect';
-import type { FC, ReactNode } from 'react';
+import { type FC, memo, type ReactNode } from 'react';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import {
   base,
@@ -57,4 +57,4 @@ const Web3Provider: FC<Web3ProviderProps> = ({ children }) => {
   return <WagmiConfig config={wagmiConfig}>{children}</WagmiConfig>;
 };
 
-export default Web3Provider;
+export default memo(Web3Provider);

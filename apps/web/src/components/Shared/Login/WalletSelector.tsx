@@ -19,7 +19,7 @@ import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import type { Dispatch, FC, SetStateAction } from 'react';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
@@ -261,4 +261,4 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   );
 };
 
-export default WalletSelector;
+export default memo(WalletSelector);

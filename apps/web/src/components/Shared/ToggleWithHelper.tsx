@@ -1,5 +1,5 @@
 import { Toggle } from '@hey/ui';
-import type { FC, ReactNode } from 'react';
+import { type FC, memo, type ReactNode } from 'react';
 
 interface ToggleWithHelperProps {
   on: boolean;
@@ -30,4 +30,4 @@ const ToggleWithHelper: FC<ToggleWithHelperProps> = ({
   );
 };
 
-export default ToggleWithHelper;
+export default memo(ToggleWithHelper);

@@ -5,7 +5,7 @@ import type { Profile, ProfilesRequest } from '@hey/lens';
 import { LimitType, useProfilesQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
 import Loader from '../Loader';
@@ -92,4 +92,4 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
   );
 };
 
-export default Mirrors;
+export default memo(Mirrors);

@@ -1,7 +1,7 @@
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import { Tooltip } from '@hey/ui';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 interface EnsProps {
   profile: Profile;
@@ -32,4 +32,4 @@ const Ens: FC<EnsProps> = ({ profile }) => {
   );
 };
 
-export default Ens;
+export default memo(Ens);

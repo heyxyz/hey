@@ -2,7 +2,7 @@ import { TicketIcon } from '@heroicons/react/24/outline';
 import type { InvitedResult } from '@hey/lens';
 import { EmptyState } from '@hey/ui';
 import plur from 'plur';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 import Profile from './Profile';
 
@@ -45,4 +45,4 @@ const Invited: FC<InvitedProps> = ({ invitedProfiles }) => {
   );
 };
 
-export default Invited;
+export default memo(Invited);

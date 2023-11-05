@@ -1,7 +1,7 @@
 import type { IGif } from '@hey/types/giphy';
 import { Input } from '@hey/ui';
 import type { Dispatch, FC, SetStateAction } from 'react';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { useDebounce } from 'usehooks-ts';
 
 import Categories from './Categories';
@@ -45,4 +45,4 @@ const GifSelector: FC<GifSelectorProps> = ({
   );
 };
 
-export default GifSelector;
+export default memo(GifSelector);

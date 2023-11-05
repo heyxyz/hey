@@ -1,6 +1,6 @@
 import type { FeedItem } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 import Acted from './Acted';
 import Combined from './Combined';
@@ -49,4 +49,4 @@ const ActionType: FC<ActionTypeProps> = ({ feedItem }) => {
   );
 };
 
-export default ActionType;
+export default memo(ActionType);

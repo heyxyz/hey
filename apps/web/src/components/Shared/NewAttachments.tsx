@@ -5,7 +5,7 @@ import type { NewAttachment } from '@hey/types/misc';
 import { Button, Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import type { FC } from 'react';
-import { useRef } from 'react';
+import { memo, useRef } from 'react';
 import { usePublicationStore } from 'src/store/usePublicationStore';
 import { useUpdateEffect } from 'usehooks-ts';
 
@@ -161,4 +161,4 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
   ) : null;
 };
 
-export default NewAttachments;
+export default memo(NewAttachments);

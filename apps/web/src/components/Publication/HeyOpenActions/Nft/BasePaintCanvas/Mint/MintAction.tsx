@@ -13,7 +13,7 @@ import type { BasePaintCanvas } from '@hey/types/nft';
 import { Button, Spinner } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import { useUpdateEffect } from 'usehooks-ts';
 import { parseEther } from 'viem';
 import { base } from 'viem/chains';
@@ -157,4 +157,4 @@ const MintAction: FC<MintActionProps> = ({
   );
 };
 
-export default MintAction;
+export default memo(MintAction);

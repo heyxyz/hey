@@ -34,7 +34,7 @@ import isVerified from '@lib/isVerified';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import urlcat from 'urlcat';
@@ -315,4 +315,4 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
   );
 };
 
-export default Details;
+export default memo(Details);

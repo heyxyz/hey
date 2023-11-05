@@ -14,7 +14,7 @@ import type { Profile } from '@hey/lens';
 import { Card } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 interface StreaksListProps {
   profile: Profile;
@@ -120,4 +120,4 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
   );
 };
 
-export default StreaksList;
+export default memo(StreaksList);

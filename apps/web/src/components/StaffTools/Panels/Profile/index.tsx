@@ -19,7 +19,7 @@ import { Card } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Link from 'next/link';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 import MetaDetails from '../MetaDetails';
 import Access from './Access';
@@ -146,4 +146,4 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
   );
 };
 
-export default ProfileStaffTool;
+export default memo(ProfileStaffTool);

@@ -1,5 +1,5 @@
 import type { Comment } from '@hey/lens';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 import ThreadBody from '../ThreadBody';
 
@@ -19,4 +19,4 @@ const Commented: FC<CommentedProps> = ({ publication }) => {
   );
 };
 
-export default Commented;
+export default memo(Commented);

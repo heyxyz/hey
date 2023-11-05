@@ -1,7 +1,7 @@
 import { LifebuoyIcon } from '@heroicons/react/24/outline';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 interface ContactProps {
   onClick?: () => void;
@@ -24,4 +24,4 @@ const Contact: FC<ContactProps> = ({ onClick, className = '' }) => {
   );
 };
 
-export default Contact;
+export default memo(Contact);

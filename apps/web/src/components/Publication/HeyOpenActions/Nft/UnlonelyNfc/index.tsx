@@ -8,7 +8,7 @@ import type { UnlonelyNfcMetadata } from '@hey/types/nft';
 import { Button, Card, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import useUnlonelyNfc from 'src/hooks/unlonely/useUnlonelyNfc';
 import urlcat from 'urlcat';
 
@@ -92,4 +92,4 @@ const UnlonelyNfc: FC<UnlonelyNfcProps> = ({ nftMetadata, publication }) => {
   );
 };
 
-export default UnlonelyNfc;
+export default memo(UnlonelyNfc);

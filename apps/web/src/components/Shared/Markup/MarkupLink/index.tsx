@@ -1,4 +1,5 @@
 import type { MarkupLinkProps } from '@hey/types/misc';
+import { memo } from 'react';
 
 import ExternalLink from './ExternalLink';
 import Hashtag from './Hashtag';
@@ -20,4 +21,4 @@ const MarkupLink = ({ title, mentions }: MarkupLinkProps) => {
   return <ExternalLink title={title} />;
 };
 
-export default MarkupLink;
+export default memo(MarkupLink);

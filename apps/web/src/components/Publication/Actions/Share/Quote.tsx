@@ -3,7 +3,7 @@ import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
 import { type AnyPublication, TriStateValue } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 import { usePublicationStore } from 'src/store/usePublicationStore';
 
@@ -52,4 +52,4 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
   );
 };
 
-export default Quote;
+export default memo(Quote);

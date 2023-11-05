@@ -14,7 +14,7 @@ import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/useAppStore';
 import { useNonceStore } from 'src/store/useNonceStore';
@@ -151,4 +151,4 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   );
 };
 
-export default ToggleLensManager;
+export default memo(ToggleLensManager);

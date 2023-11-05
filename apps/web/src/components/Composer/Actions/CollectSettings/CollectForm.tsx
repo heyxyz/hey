@@ -7,7 +7,7 @@ import {
 import isValidEthAddress from '@hey/lib/isValidEthAddress';
 import type { CollectModuleType } from '@hey/types/hey';
 import { Button, ErrorMessage, Spinner } from '@hey/ui';
-import type { Dispatch, FC, SetStateAction } from 'react';
+import { type Dispatch, type FC, memo, type SetStateAction } from 'react';
 import { useCollectModuleStore } from 'src/store/useCollectModuleStore';
 
 import AmountConfig from './AmountConfig';
@@ -139,4 +139,4 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   );
 };
 
-export default CollectForm;
+export default memo(CollectForm);

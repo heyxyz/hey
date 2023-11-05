@@ -3,7 +3,7 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import getGroupByTag from '@lib/getGroupByTag';
 import Link from 'next/link';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 interface FeaturedGroupProps {
   tags: PublicationMetadata['tags'];
@@ -32,4 +32,4 @@ const FeaturedGroup: FC<FeaturedGroupProps> = ({ tags, className = '' }) => {
   );
 };
 
-export default FeaturedGroup;
+export default memo(FeaturedGroup);

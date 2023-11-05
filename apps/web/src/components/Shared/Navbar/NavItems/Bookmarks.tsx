@@ -1,7 +1,7 @@
 import { BookmarkIcon } from '@heroicons/react/24/outline';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 interface BookmarksProps {
   onClick?: () => void;
@@ -24,4 +24,4 @@ const Bookmarks: FC<BookmarksProps> = ({ onClick, className = '' }) => {
   );
 };
 
-export default Bookmarks;
+export default memo(Bookmarks);

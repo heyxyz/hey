@@ -13,7 +13,7 @@ import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { type FC } from 'react';
+import { type FC, memo } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useImpressionsStore } from 'src/store/useImpressionsStore';
 import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
@@ -129,4 +129,4 @@ const Feed: FC<FeedProps> = ({ publication }) => {
   );
 };
 
-export default Feed;
+export default memo(Feed);
