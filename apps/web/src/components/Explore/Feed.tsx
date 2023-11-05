@@ -106,8 +106,8 @@ const Feed: FC<FeedProps> = ({
               : virtuosoState
           }
           ref={virtuosoRef}
-          isScrolling={(scrolling) => onScrolling(scrolling)}
           data={publications}
+          isScrolling={onScrolling}
           endReached={onEndReached}
           className="virtual-feed-list"
           itemContent={(index, publication) => {

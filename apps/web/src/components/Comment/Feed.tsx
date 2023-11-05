@@ -127,11 +127,11 @@ const Feed: FC<FeedProps> = ({ publication }) => {
                 : virtuosoState
             }
             ref={virtuosoRef}
-            isScrolling={(scrolling) => onScrolling(scrolling)}
             data={comments.filter(
               (comment) =>
                 comment?.__typename === 'Comment' && !comment.isHidden
             )}
+            isScrolling={onScrolling}
             endReached={onEndReached}
             className="virtual-feed-list"
             itemContent={(index, comment) => {
