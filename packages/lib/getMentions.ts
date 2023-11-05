@@ -2,6 +2,10 @@ import { Regex } from '@hey/data/regex';
 import type { ProfileMentioned } from '@hey/lens';
 
 const getMentions = (text: string): ProfileMentioned[] | [] => {
+  if (!text) {
+    return [];
+  }
+
   const mentions = text.match(Regex.mention);
   const processedMentions = mentions?.map((mention) => {
     const splited = mention.split('/');
