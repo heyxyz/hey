@@ -49,6 +49,7 @@ import { useAppStore } from 'src/store/useAppStore';
 import { useCollectModuleStore } from 'src/store/useCollectModuleStore';
 import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 import { useNonceStore } from 'src/store/useNonceStore';
+import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import { usePublicationStore } from 'src/store/usePublicationStore';
 import { useReferenceModuleStore } from 'src/store/useReferenceModuleStore';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
@@ -142,6 +143,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   // Reference module store
   const { selectedReferenceModule, onlyFollowers, degreesOfSeparation } =
     useReferenceModuleStore();
+
+  // Preferences store
+  const isStaff = usePreferencesStore((state) => state.isStaff);
 
   // States
   const [isLoading, setIsLoading] = useState(false);
@@ -530,7 +534,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         </div>
       ) : null}
       {showPollEditor ? <PollEditor /> : null}
-      {showLiveVideoEditor ? <LivestreamEditor /> : null}
+      {showLiveVideoEditor && isStaff ? <LivestreamEditor /> : null}
       {quotedPublication ? (
         <Wrapper className="m-5" zeroPadding>
           <QuotedPublication
