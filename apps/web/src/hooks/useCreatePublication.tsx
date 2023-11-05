@@ -60,8 +60,11 @@ const useCreatePublication = ({
   const setLensHubOnchainSigNonce = useNonceStore(
     (state) => state.setLensHubOnchainSigNonce
   );
-  const { publicationContent } = usePublicationStore();
-  const { txnQueue, setTxnQueue } = useTransactionPersistStore();
+  const publicationContent = usePublicationStore(
+    (state) => state.publicationContent
+  );
+  const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
+  const setTxnQueue = useTransactionPersistStore((state) => state.setTxnQueue);
   const { canBroadcast } = checkDispatcherPermissions(currentProfile);
 
   const isComment = Boolean(commentOn);
