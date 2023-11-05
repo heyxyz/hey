@@ -75,11 +75,15 @@ interface CollectModuleProps {
 }
 
 const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
-  const {
-    setOpenActionPublicationConfig,
-    hasActedByMe,
-    getOpenActionCountByPublicationId
-  } = useOpenActionOptimisticStore();
+  const setOpenActionPublicationConfig = useOpenActionOptimisticStore(
+    (state) => state.setOpenActionPublicationConfig
+  );
+  const hasActedByMe = useOpenActionOptimisticStore(
+    (state) => state.hasActedByMe
+  );
+  const getOpenActionCountByPublicationId = useOpenActionOptimisticStore(
+    (state) => state.getOpenActionCountByPublicationId
+  );
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce
   );

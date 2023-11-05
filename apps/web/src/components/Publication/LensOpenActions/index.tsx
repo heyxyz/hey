@@ -22,11 +22,16 @@ interface OpenActionProps {
 }
 
 const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
-  const {
-    getOpenActionCountByPublicationId,
-    hasActedByMe,
-    setOpenActionPublicationConfig
-  } = useOpenActionOptimisticStore();
+  const getOpenActionCountByPublicationId = useOpenActionOptimisticStore(
+    (state) => state.getOpenActionCountByPublicationId
+  );
+  const hasActedByMe = useOpenActionOptimisticStore(
+    (state) => state.hasActedByMe
+  );
+  const setOpenActionPublicationConfig = useOpenActionOptimisticStore(
+    (state) => state.setOpenActionPublicationConfig
+  );
+
   const [showOpenActionModal, setShowOpenActionModal] = useState(false);
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
