@@ -23,10 +23,6 @@ const Timeline: FC = () => {
   const seeThroughProfile = useTimelineStore(
     (state) => state.seeThroughProfile
   );
-
-  const publicationViews = useImpressionsStore(
-    (state) => state.publicationViews
-  );
   const fetchAndStoreViews = useImpressionsStore(
     (state) => state.fetchAndStoreViews
   );

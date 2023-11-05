@@ -29,9 +29,6 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
   const mediaFeedFilters = useProfileFeedStore(
     (state) => state.mediaFeedFilters
   );
-  const publicationViews = useImpressionsStore(
-    (state) => state.publicationViews
-  );
   const fetchAndStoreViews = useImpressionsStore(
     (state) => state.fetchAndStoreViews
   );

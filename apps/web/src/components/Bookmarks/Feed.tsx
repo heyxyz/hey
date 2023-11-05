@@ -17,9 +17,6 @@ interface FeedProps {
 }
 
 const Feed: FC<FeedProps> = ({ focus }) => {
-  const publicationViews = useImpressionsStore(
-    (state) => state.publicationViews
-  );
   const fetchAndStoreViews = useImpressionsStore(
     (state) => state.fetchAndStoreViews
   );
