@@ -81,8 +81,11 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
   const { data, loading, error, fetchMore } = usePublicationsQuery({
     variables: { request },
     skip: !profile?.id,
-    onCompleted: async (data) => {
-      const ids = data?.publications?.items?.map((p) => p.id) || [];
+    onCompleted: async ({ publications }) => {
+      const ids =
+        publications?.items?.map((p) => {
+          return p.__typename === 'Mirror' ? p.mirrorOn?.id : p.id;
+        }) || [];
       await fetchAndStoreViews(ids);
     }
   });
@@ -97,10 +100,13 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
         return;
       }
 
-      const pageItem = await fetchMore({
+      const { data } = await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      const ids = pageItem?.data?.publications?.items?.map((p) => p.id) || [];
+      const ids =
+        data?.publications?.items?.map((p) => {
+          return p.__typename === 'Mirror' ? p.mirrorOn?.id : p.id;
+        }) || [];
       await fetchAndStoreViews(ids);
     }
   });
@@ -148,7 +154,10 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
           isFirst={index === 0}
           isLast={index === publications.length - 1}
           publication={publication as AnyPublication}
-          views={getPublicationViewCountById(views, publication.id)}
+          views={getPublicationViewCountById(
+            views,
+            publication as AnyPublication
+          )}
           showThread={
             type !== ProfileFeedType.Media && type !== ProfileFeedType.Collects
           }

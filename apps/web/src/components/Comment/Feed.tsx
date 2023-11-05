@@ -52,8 +52,8 @@ const Feed: FC<FeedProps> = ({ publication }) => {
   const { data, loading, error, fetchMore } = usePublicationsQuery({
     variables: { request },
     skip: !publicationId,
-    onCompleted: async (data) => {
-      const ids = data?.publications?.items?.map((p) => p.id) || [];
+    onCompleted: async ({ publications }) => {
+      const ids = publications?.items?.map((p) => p.id) || [];
       await fetchAndStoreViews(ids);
     }
   });
@@ -80,10 +80,10 @@ const Feed: FC<FeedProps> = ({ publication }) => {
         return;
       }
 
-      const pageItem = await fetchMore({
+      const { data } = await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      const ids = pageItem?.data?.publications?.items?.map((p) => p.id) || [];
+      const ids = data?.publications?.items?.map((p) => p.id) || [];
       await fetchAndStoreViews(ids);
     }
   });
@@ -118,7 +118,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
               isFirst={index === 0}
               isLast={index === comments.length - 1}
               publication={comment as Comment}
-              views={getPublicationViewCountById(views, comment.id)}
+              views={getPublicationViewCountById(views, comment as Comment)}
               showType={false}
             />
           )
