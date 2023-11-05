@@ -4,7 +4,6 @@ import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import { UserGroupIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication, FeedItem, FeedRequest } from '@hey/lens';
 import { FeedEventItemType, useFeedQuery } from '@hey/lens';
-import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { type FC } from 'react';
@@ -129,10 +128,6 @@ const Timeline: FC = () => {
             isLast={index === publications.length - 1}
             feedItem={publication as FeedItem}
             publication={publication.root as AnyPublication}
-            views={getPublicationViewCountById(
-              publicationViews,
-              publication.root as AnyPublication
-            )}
           />
         ))}
         {hasMore ? <span ref={observe} /> : null}

@@ -9,7 +9,6 @@ import {
   LimitType,
   usePublicationsQuery
 } from '@hey/lens';
-import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
@@ -115,10 +114,6 @@ const Feed: FC<FeedProps> = ({ publication }) => {
               isFirst={index === 0}
               isLast={index === comments.length - 1}
               publication={comment as Comment}
-              views={getPublicationViewCountById(
-                publicationViews,
-                comment as Comment
-              )}
               showType={false}
             />
           )
