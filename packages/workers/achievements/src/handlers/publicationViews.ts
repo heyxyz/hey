@@ -9,7 +9,7 @@ type ExtensionRequest = {
 };
 
 const validationSchema = object({
-  ids: array(string().max(100, { message: 'Too many addresses!' }))
+  ids: array(string().max(2000, { message: 'Too many ids!' }))
 });
 
 export default async (request: WorkerRequest) => {
@@ -37,7 +37,7 @@ export default async (request: WorkerRequest) => {
           SELECT publication_id, COUNT(*) AS count
           FROM impressions
           WHERE publication_id IN (${ids.map((id) => `'${id}'`).join(',')})
-          GROUP BY publication_id;        
+          GROUP BY publication_id;
         `
       }
     );
