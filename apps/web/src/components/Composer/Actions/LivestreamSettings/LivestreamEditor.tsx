@@ -15,12 +15,16 @@ import { hydrateAuthTokens } from 'src/store/useAuthPersistStore';
 import { usePublicationStore } from 'src/store/usePublicationStore';
 
 const LivestreamEditor: FC = () => {
-  const {
-    liveVideoConfig,
-    setLiveVideoConfig,
-    setShowLiveVideoEditor,
-    resetLiveVideoConfig
-  } = usePublicationStore();
+  const liveVideoConfig = usePublicationStore((state) => state.liveVideoConfig);
+  const setLiveVideoConfig = usePublicationStore(
+    (state) => state.setLiveVideoConfig
+  );
+  const setShowLiveVideoEditor = usePublicationStore(
+    (state) => state.setShowLiveVideoEditor
+  );
+  const resetLiveVideoConfig = usePublicationStore(
+    (state) => state.resetLiveVideoConfig
+  );
 
   const [creating, setCreating] = useState(false);
 

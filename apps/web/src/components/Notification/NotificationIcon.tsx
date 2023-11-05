@@ -4,11 +4,15 @@ import type { FC } from 'react';
 import { useNotificationPersistStore } from 'src/store/useNotificationPersistStore';
 
 const NotificationIcon: FC = () => {
-  const {
-    latestNotificationId,
-    lastOpenedNotificationId,
-    setLastOpenedNotificationId
-  } = useNotificationPersistStore();
+  const latestNotificationId = useNotificationPersistStore(
+    (state) => state.latestNotificationId
+  );
+  const lastOpenedNotificationId = useNotificationPersistStore(
+    (state) => state.lastOpenedNotificationId
+  );
+  const setLastOpenedNotificationId = useNotificationPersistStore(
+    (state) => state.setLastOpenedNotificationId
+  );
 
   return (
     <Link

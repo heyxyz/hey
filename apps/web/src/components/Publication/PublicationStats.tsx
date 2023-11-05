@@ -26,14 +26,30 @@ interface PublicationStatsProps {
 }
 
 const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
-  const { getReactionCountByPublicationId, setReactionConfig } =
-    useReactionOptimisticStore();
-  const { getMirrorOrQuoteCountByPublicationId, setMirrorOrQuoteConfig } =
-    useMirrorOrQuoteOptimisticStore();
-  const { getOpenActionCountByPublicationId, setOpenActionPublicationConfig } =
-    useOpenActionOptimisticStore();
-  const { getBookmarkCountByPublicationId, setBookmarkConfig } =
-    useBookmarkOptimisticStore();
+  const getReactionCountByPublicationId = useReactionOptimisticStore(
+    (state) => state.getReactionCountByPublicationId
+  );
+  const setReactionConfig = useReactionOptimisticStore(
+    (state) => state.setReactionConfig
+  );
+  const getMirrorOrQuoteCountByPublicationId = useMirrorOrQuoteOptimisticStore(
+    (state) => state.getMirrorOrQuoteCountByPublicationId
+  );
+  const setMirrorOrQuoteConfig = useMirrorOrQuoteOptimisticStore(
+    (state) => state.setMirrorOrQuoteConfig
+  );
+  const getOpenActionCountByPublicationId = useOpenActionOptimisticStore(
+    (state) => state.getOpenActionCountByPublicationId
+  );
+  const setOpenActionPublicationConfig = useOpenActionOptimisticStore(
+    (state) => state.setOpenActionPublicationConfig
+  );
+  const getBookmarkCountByPublicationId = useBookmarkOptimisticStore(
+    (state) => state.getBookmarkCountByPublicationId
+  );
+  const setBookmarkConfig = useBookmarkOptimisticStore(
+    (state) => state.setBookmarkConfig
+  );
 
   const [showMirrorsModal, setShowMirrorsModal] = useState(false);
   const [showQuotesModal, setShowQuotesModal] = useState(false);
