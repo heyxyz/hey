@@ -4,7 +4,7 @@ import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 import type { Profile } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { FC } from 'react';
-import { Fragment, memo } from 'react';
+import { Fragment } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 
 import Block from './Block';
@@ -47,4 +47,4 @@ const ProfileMenu: FC<ProfileMenuProps> = ({ profile }) => {
   );
 };
 
-export default memo(ProfileMenu);
+export default ProfileMenu;

@@ -10,7 +10,7 @@ import {
   isMirrorPublication
 } from '@hey/lib/publicationHelpers';
 import { Card } from '@hey/ui';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 import MetaDetails from './MetaDetails';
 
@@ -82,4 +82,4 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
   );
 };
 
-export default memo(PublicationStaffTool);
+export default PublicationStaffTool;

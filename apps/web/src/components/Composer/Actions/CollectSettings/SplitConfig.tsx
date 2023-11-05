@@ -11,7 +11,7 @@ import { OpenActionModuleType } from '@hey/lens';
 import isValidEthAddress from '@hey/lib/isValidEthAddress';
 import splitNumber from '@hey/lib/splitNumber';
 import { Button, Input } from '@hey/ui';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 import { useCollectModuleStore } from 'src/store/useCollectModuleStore';
 
@@ -184,4 +184,4 @@ const SplitConfig: FC<SplitConfigProps> = ({
   );
 };
 
-export default memo(SplitConfig);
+export default SplitConfig;

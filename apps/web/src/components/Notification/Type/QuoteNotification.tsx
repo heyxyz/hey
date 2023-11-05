@@ -4,7 +4,6 @@ import { QuoteNotification } from '@hey/lens';
 import getPublicationData from '@hey/lib/getPublicationData';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { memo } from 'react';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
@@ -49,4 +48,4 @@ const QuoteNotification: FC<QuoteNotificationProps> = ({ notification }) => {
   );
 };
 
-export default memo(QuoteNotification);
+export default QuoteNotification;

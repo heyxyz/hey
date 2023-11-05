@@ -3,7 +3,7 @@ import { PROFILE } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
 import { useDismissRecommendedProfilesMutation } from '@hey/lens';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 interface DismissRecommendedProfileProps {
   profile: Profile;
@@ -39,4 +39,4 @@ const DismissRecommendedProfile: FC<DismissRecommendedProfileProps> = ({
   );
 };
 
-export default memo(DismissRecommendedProfile);
+export default DismissRecommendedProfile;

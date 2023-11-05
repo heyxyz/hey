@@ -1,5 +1,5 @@
 import type { ApprovedModuleAllowanceAmountQuery } from '@hey/lens';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 import Module from './Module';
 
@@ -17,4 +17,4 @@ const Allowance: FC<AllowanceProps> = ({ allowance }) => {
   );
 };
 
-export default memo(Allowance);
+export default Allowance;

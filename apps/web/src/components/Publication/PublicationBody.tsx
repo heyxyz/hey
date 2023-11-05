@@ -14,7 +14,7 @@ import type { OG } from '@hey/types/misc';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { memo, useState } from 'react';
+import { useState } from 'react';
 import { isIOS, isMobile } from 'react-device-detect';
 
 import EncryptedPublication from './EncryptedPublication';
@@ -137,4 +137,4 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   );
 };
 
-export default memo(PublicationBody);
+export default PublicationBody;

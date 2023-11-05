@@ -1,6 +1,6 @@
 import { Cog6ToothIcon } from '@heroicons/react/24/outline';
 import cn from '@hey/ui/cn';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 interface SettingsProps {
   className?: string;
@@ -22,4 +22,4 @@ const Settings: FC<SettingsProps> = ({ className = '' }) => {
   );
 };
 
-export default memo(Settings);
+export default Settings;

@@ -7,7 +7,7 @@ import {
 } from '@heroicons/react/24/outline';
 import humanize from '@hey/lib/humanize';
 import type { BasePaintCanvas } from '@hey/types/nft';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import { formatEther } from 'viem';
 
 interface MetadataProps {
@@ -60,4 +60,4 @@ const Metadata: FC<MetadataProps> = ({ canvas }) => {
   );
 };
 
-export default memo(Metadata);
+export default Metadata;

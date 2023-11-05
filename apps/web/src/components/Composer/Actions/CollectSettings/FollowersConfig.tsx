@@ -1,6 +1,6 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { UserGroupIcon } from '@heroicons/react/24/outline';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import { useCollectModuleStore } from 'src/store/useCollectModuleStore';
 
 interface FollowersConfigProps {
@@ -25,4 +25,4 @@ const FollowersConfig: FC<FollowersConfigProps> = ({ setCollectType }) => {
   );
 };
 
-export default memo(FollowersConfig);
+export default FollowersConfig;

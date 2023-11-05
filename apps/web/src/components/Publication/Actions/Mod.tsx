@@ -2,7 +2,7 @@ import { ShieldCheckIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication } from '@hey/lens';
 import { Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import { useGlobalAlertStateStore } from 'src/store/useGlobalAlertStateStore';
 
 interface ModProps {
@@ -32,4 +32,4 @@ const Mod: FC<ModProps> = ({ publication, isFullPublication = false }) => {
   );
 };
 
-export default memo(Mod);
+export default Mod;

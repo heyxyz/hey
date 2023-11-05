@@ -8,7 +8,7 @@ import { LimitType, useNftsQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { ErrorMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import { toast } from 'react-hot-toast';
 import { VirtuosoGrid } from 'react-virtuoso';
 import { CHAIN_ID } from 'src/constants';
@@ -199,4 +199,4 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
   );
 };
 
-export default memo(Picker);
+export default Picker;

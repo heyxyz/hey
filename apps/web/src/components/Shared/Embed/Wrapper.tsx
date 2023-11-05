@@ -1,7 +1,7 @@
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Card } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { type FC, memo, type ReactNode } from 'react';
+import { type FC, type ReactNode } from 'react';
 
 interface WrapperProps {
   children: ReactNode;
@@ -23,4 +23,4 @@ const Wrapper: FC<WrapperProps> = ({
   </Card>
 );
 
-export default memo(Wrapper);
+export default Wrapper;

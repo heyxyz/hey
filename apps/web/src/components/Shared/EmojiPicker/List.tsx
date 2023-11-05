@@ -8,7 +8,7 @@ import cn from '@hey/ui/cn';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { ChangeEvent, FC } from 'react';
-import { memo, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
 
 import Loader from '../Loader';
@@ -107,4 +107,4 @@ const List: FC<ListProps> = ({ setEmoji }) => {
   );
 };
 
-export default memo(List);
+export default List;

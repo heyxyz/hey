@@ -54,7 +54,7 @@ import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import plur from 'plur';
 import type { FC } from 'react';
-import { memo, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useOpenActionOptimisticStore } from 'src/store/OptimisticActions/useOpenActionOptimisticStore';
@@ -539,4 +539,4 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
   );
 };
 
-export default memo(CollectModule);
+export default CollectModule;

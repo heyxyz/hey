@@ -7,7 +7,7 @@ import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
 import getToastOptions from '@lib/getToastOptions';
 import Head from 'next/head';
 import { useTheme } from 'next-themes';
-import { type FC, memo, type ReactNode } from 'react';
+import { type FC, type ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { useAppStore } from 'src/store/useAppStore';
 import { hydrateAuthTokens, signOut } from 'src/store/useAuthPersistStore';
@@ -107,4 +107,4 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   );
 };
 
-export default memo(Layout);
+export default Layout;

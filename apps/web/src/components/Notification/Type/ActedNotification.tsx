@@ -6,7 +6,6 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import Link from 'next/link';
 import plur from 'plur';
 import type { FC } from 'react';
-import { memo } from 'react';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
@@ -64,4 +63,4 @@ const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
   );
 };
 
-export default memo(ActedNotification);
+export default ActedNotification;

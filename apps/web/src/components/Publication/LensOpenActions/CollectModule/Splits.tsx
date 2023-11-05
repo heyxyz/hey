@@ -7,7 +7,7 @@ import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import getStampFyiURL from '@hey/lib/getStampFyiURL';
 import Link from 'next/link';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 interface SplitsProps {
   recipients: RecipientDataOutput[];
@@ -81,4 +81,4 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
   );
 };
 
-export default memo(Splits);
+export default Splits;

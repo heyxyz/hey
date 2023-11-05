@@ -1,6 +1,6 @@
 import { Transition } from '@headlessui/react';
 import type { FC, ReactNode } from 'react';
-import { Fragment, memo } from 'react';
+import { Fragment } from 'react';
 
 interface MenuTransitionProps {
   children: ReactNode;
@@ -24,4 +24,4 @@ const MenuTransition: FC<MenuTransitionProps> = ({ children, show }) => {
   );
 };
 
-export default memo(MenuTransition);
+export default MenuTransition;

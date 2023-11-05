@@ -8,7 +8,7 @@ import {
   useSearchPublicationsQuery
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import { useInView } from 'react-cool-inview';
 
 interface PublicationsProps {
@@ -80,4 +80,4 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
   );
 };
 
-export default memo(Publications);
+export default Publications;

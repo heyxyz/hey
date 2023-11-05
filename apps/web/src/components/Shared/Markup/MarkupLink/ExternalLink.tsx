@@ -2,7 +2,7 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import truncateUrl from '@hey/lib/truncateUrl';
 import type { MarkupLinkProps } from '@hey/types/misc';
 import Link from 'next/link';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 const ExternalLink: FC<MarkupLinkProps> = ({ title }) => {
   let href = title;
@@ -27,4 +27,4 @@ const ExternalLink: FC<MarkupLinkProps> = ({ title }) => {
   );
 };
 
-export default memo(ExternalLink);
+export default ExternalLink;

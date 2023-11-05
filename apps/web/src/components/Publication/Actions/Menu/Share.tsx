@@ -5,7 +5,7 @@ import type { AnyPublication } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 import toast from 'react-hot-toast';
 
 interface ShareProps {
@@ -41,4 +41,4 @@ const Share: FC<ShareProps> = ({ publication }) => {
   );
 };
 
-export default memo(Share);
+export default Share;

@@ -1,5 +1,5 @@
 import cn from '@hey/ui/cn';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 interface SmallUserProfileShimmerProps {
   smallAvatar?: boolean;
@@ -22,4 +22,4 @@ const SmallUserProfileShimmer: FC<SmallUserProfileShimmerProps> = ({
   );
 };
 
-export default memo(SmallUserProfileShimmer);
+export default SmallUserProfileShimmer;

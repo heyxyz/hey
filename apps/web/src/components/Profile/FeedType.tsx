@@ -10,7 +10,7 @@ import { IS_MAINNET } from '@hey/data/constants';
 import { PROFILE } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { type Dispatch, type FC, memo, type SetStateAction } from 'react';
+import { type Dispatch, type FC, type SetStateAction } from 'react';
 import { ProfileFeedType } from 'src/enums';
 
 import MediaFilter from './Filters/MediaFilter';
@@ -85,4 +85,4 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
   );
 };
 
-export default memo(FeedType);
+export default FeedType;

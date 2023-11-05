@@ -1,7 +1,7 @@
 import { EyeSlashIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import { Card } from '@hey/ui';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 interface NotSupportedPublicationProps {
   type?: string;
@@ -22,4 +22,4 @@ const NotSupportedPublication: FC<NotSupportedPublicationProps> = ({
   );
 };
 
-export default memo(NotSupportedPublication);
+export default NotSupportedPublication;

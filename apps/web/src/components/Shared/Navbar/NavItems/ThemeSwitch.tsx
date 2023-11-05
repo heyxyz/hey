@@ -3,7 +3,7 @@ import { SYSTEM } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { useTheme } from 'next-themes';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 interface ThemeSwitchProps {
   onClick?: () => void;
@@ -49,4 +49,4 @@ const ThemeSwitch: FC<ThemeSwitchProps> = ({ onClick, className = '' }) => {
   );
 };
 
-export default memo(ThemeSwitch);
+export default ThemeSwitch;

@@ -11,7 +11,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
 import plur from 'plur';
 import type { FC } from 'react';
-import { memo, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useOpenActionOptimisticStore } from 'src/store/OptimisticActions/useOpenActionOptimisticStore';
 
 import List from './List';
@@ -108,4 +108,4 @@ const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
   );
 };
 
-export default memo(OpenAction);
+export default OpenAction;

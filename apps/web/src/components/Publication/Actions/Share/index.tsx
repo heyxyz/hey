@@ -10,7 +10,7 @@ import { Spinner, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
-import { memo, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMirrorOrQuoteOptimisticStore } from 'src/store/OptimisticActions/useMirrorOrQuoteOptimisticStore';
 
 import Mirror from './Mirror';
@@ -117,4 +117,4 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
   );
 };
 
-export default memo(ShareMenu);
+export default ShareMenu;

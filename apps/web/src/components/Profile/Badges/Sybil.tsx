@@ -2,7 +2,7 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import { Tooltip } from '@hey/ui';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 interface SybilProps {
   profile: Profile;
@@ -42,4 +42,4 @@ const Sybil: FC<SybilProps> = ({ profile }) => {
   );
 };
 
-export default memo(Sybil);
+export default Sybil;

@@ -5,7 +5,7 @@ import { Spinner, Toggle } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { FC, ReactNode } from 'react';
-import { memo, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { hydrateAuthTokens } from 'src/store/useAuthPersistStore';
 
@@ -165,4 +165,4 @@ const Access: FC<RankProps> = ({ profile }) => {
   );
 };
 
-export default memo(Access);
+export default Access;
