@@ -9,7 +9,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
 import type { AnyPublication } from '@hey/lens';
-import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
+import getPublicationsViews from '@hey/lib/getPublicationsViews';
 import nFormatter from '@hey/lib/nFormatter';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Modal } from '@hey/ui';
@@ -21,7 +21,6 @@ import { useBookmarkOptimisticStore } from 'src/store/OptimisticActions/useBookm
 import { useMirrorOrQuoteOptimisticStore } from 'src/store/OptimisticActions/useMirrorOrQuoteOptimisticStore';
 import { useOpenActionOptimisticStore } from 'src/store/OptimisticActions/useOpenActionOptimisticStore';
 import { useReactionOptimisticStore } from 'src/store/OptimisticActions/useReactionOptimisticStore';
-import { useImpressionsStore } from 'src/store/useImpressionsStore';
 
 interface PublicationStatsProps {
   publication: AnyPublication;
@@ -52,10 +51,8 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
   const setBookmarkConfig = useBookmarkOptimisticStore(
     (state) => state.setBookmarkConfig
   );
-  const publicationViews = useImpressionsStore(
-    (state) => state.publicationViews
-  );
 
+  const [views, setViews] = useState<number | null>(null);
   const [showMirrorsModal, setShowMirrorsModal] = useState(false);
   const [showQuotesModal, setShowQuotesModal] = useState(false);
   const [showLikesModal, setShowLikesModal] = useState(false);
@@ -64,10 +61,6 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
-  const views = getPublicationViewCountById(
-    publicationViews,
-    targetPublication
-  );
 
   useEffect(() => {
     setReactionConfig(targetPublication.id, {
@@ -89,6 +82,11 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
     setBookmarkConfig(targetPublication.id, {
       countBookmarks: targetPublication.stats.bookmarks,
       bookmarked: targetPublication.operations.hasBookmarked
+    });
+
+    // Get Views
+    getPublicationsViews([targetPublication.id]).then((viewsResponse) => {
+      setViews(viewsResponse?.[0]?.views);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [targetPublication]);
@@ -245,7 +243,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             {plur('Bookmark', bookmarksCount)}
           </span>
         ) : null}
-        {views > 0 ? (
+        {views && views > 0 ? (
           <span>
             <b className="text-black dark:text-white">{nFormatter(views)}</b>{' '}
             {plur('View', views)}

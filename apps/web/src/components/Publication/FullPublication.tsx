@@ -22,6 +22,7 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
   const setViewedPublication = useLeafwatchStore(
     (state) => state.setViewedPublication
   );
+
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
