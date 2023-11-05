@@ -9,6 +9,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
 import type { AnyPublication } from '@hey/lens';
+import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
 import nFormatter from '@hey/lib/nFormatter';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Modal } from '@hey/ui';
@@ -20,6 +21,7 @@ import { useBookmarkOptimisticStore } from 'src/store/OptimisticActions/useBookm
 import { useMirrorOrQuoteOptimisticStore } from 'src/store/OptimisticActions/useMirrorOrQuoteOptimisticStore';
 import { useOpenActionOptimisticStore } from 'src/store/OptimisticActions/useOpenActionOptimisticStore';
 import { useReactionOptimisticStore } from 'src/store/OptimisticActions/useReactionOptimisticStore';
+import { useImpressionsStore } from 'src/store/useImpressionsStore';
 
 interface PublicationStatsProps {
   publication: AnyPublication;
@@ -50,6 +52,9 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
   const setBookmarkConfig = useBookmarkOptimisticStore(
     (state) => state.setBookmarkConfig
   );
+  const publicationViews = useImpressionsStore(
+    (state) => state.publicationViews
+  );
 
   const [showMirrorsModal, setShowMirrorsModal] = useState(false);
   const [showQuotesModal, setShowQuotesModal] = useState(false);
@@ -59,6 +64,10 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
+  const views = getPublicationViewCountById(
+    publicationViews,
+    targetPublication
+  );
 
   useEffect(() => {
     setReactionConfig(targetPublication.id, {
@@ -234,6 +243,12 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
               {nFormatter(bookmarksCount)}
             </b>{' '}
             {plur('Bookmark', bookmarksCount)}
+          </span>
+        ) : null}
+        {views > 0 ? (
+          <span>
+            <b className="text-black dark:text-white">{nFormatter(views)}</b>{' '}
+            {plur('View', views)}
           </span>
         ) : null}
       </div>

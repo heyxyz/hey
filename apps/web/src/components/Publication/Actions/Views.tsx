@@ -10,9 +10,9 @@ interface ViewsProps {
 }
 
 const Views: FC<ViewsProps> = ({ views, showCount }) => {
-  const iconClassName = showCount
-    ? 'w-[17px] sm:w-[20px]'
-    : 'w-[15px] sm:w-[18px]';
+  if (showCount) {
+    return null;
+  }
 
   return (
     <div className="ld-text-gray-500 flex items-center space-x-1">
@@ -22,7 +22,7 @@ const Views: FC<ViewsProps> = ({ views, showCount }) => {
         aria-label="Views"
       >
         <Tooltip placement="top" content="Views" withDelay>
-          <ChartBarIcon className={iconClassName} />
+          <ChartBarIcon className="w-[15px] sm:w-[18px]" />
         </Tooltip>
       </motion.button>
       <span className="text-[11px] sm:text-xs">{nFormatter(views)}</span>

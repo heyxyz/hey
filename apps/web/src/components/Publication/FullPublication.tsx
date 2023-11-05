@@ -3,6 +3,8 @@ import getAppName from '@hey/lib/getAppName';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { formatDate } from '@lib/formatTime';
 import { type FC, memo } from 'react';
+import { useLeafwatchStore } from 'src/store/useLeafwatchStore';
+import { useEffectOnce } from 'usehooks-ts';
 
 import PublicationActions from './Actions';
 import FeaturedGroup from './FeaturedGroup';
@@ -17,11 +19,20 @@ interface FullPublicationProps {
 }
 
 const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
+  const setViewedPublication = useLeafwatchStore(
+    (state) => state.setViewedPublication
+  );
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
 
   const { metadata, createdAt } = targetPublication;
+
+  useEffectOnce(() => {
+    if (targetPublication.id) {
+      setViewedPublication(targetPublication.id);
+    }
+  });
 
   return (
     <article className="p-5">
