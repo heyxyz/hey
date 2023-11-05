@@ -6,6 +6,7 @@ import haveUsedHey from './handlers/haveUsedHey';
 import publicationViews from './handlers/publicationViews';
 import streaksCalendar from './handlers/streaksCalendar';
 import streaksList from './handlers/streaksList';
+import userImpressions from './handlers/userImpressions';
 import buildRequest from './helpers/buildRequest';
 import type { Env, WorkerRequest } from './types';
 
@@ -26,6 +27,7 @@ router
     })
   )
   .post('/publicationViews', publicationViews)
+  .get('/userImpressions', userImpressions)
   .get('/haveUsedHey/:id', haveUsedHey)
   .get('/streaks/:id', streaksCalendar)
   .get('/streaks/:id/:date', streaksList)
