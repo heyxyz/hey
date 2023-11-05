@@ -1,7 +1,7 @@
 import { GIPHY_KEY } from '@hey/data/constants';
 import type { IGif } from '@hey/types/giphy';
 import axios from 'axios';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import { useInfiniteQuery } from 'wagmi';
 
 interface CategoriesProps {
@@ -78,4 +78,4 @@ const Gifs: FC<CategoriesProps> = ({
   );
 };
 
-export default Gifs;
+export default memo(Gifs);

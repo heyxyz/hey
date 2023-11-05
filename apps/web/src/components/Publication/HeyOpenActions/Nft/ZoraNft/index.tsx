@@ -11,7 +11,7 @@ import { Button, Card, Modal, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import useZoraNft from 'src/hooks/zora/useZoraNft';
 import urlcat from 'urlcat';
 
@@ -141,4 +141,4 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
   );
 };
 
-export default ZoraNft;
+export default memo(ZoraNft);

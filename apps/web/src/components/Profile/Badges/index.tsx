@@ -1,5 +1,5 @@
 import type { Profile } from '@hey/lens';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 import Ens from './Ens';
 import ProofOfHumanity from './ProofOfHumanity';
@@ -34,4 +34,4 @@ const Badges: FC<BadgesProps> = ({ profile }) => {
   );
 };
 
-export default Badges;
+export default memo(Badges);

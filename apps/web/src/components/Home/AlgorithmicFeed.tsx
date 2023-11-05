@@ -8,7 +8,7 @@ import getAlgorithmicFeed from '@hey/lib/getAlgorithmicFeed';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/useAppStore';
 
@@ -96,4 +96,4 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
   );
 };
 
-export default AlgorithmicFeed;
+export default memo(AlgorithmicFeed);

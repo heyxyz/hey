@@ -2,7 +2,7 @@ import { TicketIcon } from '@heroicons/react/24/outline';
 import { INVITE } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 
 interface InvitesProps {
@@ -33,4 +33,4 @@ const Invites: FC<InvitesProps> = ({ className = '' }) => {
   );
 };
 
-export default Invites;
+export default memo(Invites);

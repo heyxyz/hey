@@ -2,7 +2,7 @@ import { PUBLICATION } from '@hey/data/tracking';
 import { useHidePublicationMutation } from '@hey/lens';
 import { Alert } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import type { FC } from 'react';
+import { type FC } from 'react';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/useGlobalAlertStateStore';
 

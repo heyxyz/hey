@@ -14,7 +14,7 @@ import {
 } from '@hey/lens';
 import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { type FC } from 'react';
+import { type FC, memo } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useImpressionsStore } from 'src/store/useImpressionsStore';
 
@@ -106,4 +106,4 @@ const Feed: FC<FeedProps> = ({
   );
 };
 
-export default Feed;
+export default memo(Feed);

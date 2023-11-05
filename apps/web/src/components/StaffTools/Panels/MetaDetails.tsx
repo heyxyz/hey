@@ -1,5 +1,5 @@
 import cn from '@hey/ui/cn';
-import type { FC, ReactNode } from 'react';
+import { type FC, memo, type ReactNode } from 'react';
 import { toast } from 'react-hot-toast';
 
 interface MetaDetailsProps {
@@ -40,4 +40,4 @@ const MetaDetails: FC<MetaDetailsProps> = ({
   </div>
 );
 
-export default MetaDetails;
+export default memo(MetaDetails);

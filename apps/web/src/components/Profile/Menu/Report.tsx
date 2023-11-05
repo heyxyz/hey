@@ -1,7 +1,7 @@
 import { FlagIcon } from '@heroicons/react/24/outline';
 import type { Profile } from '@hey/lens';
 import cn from '@hey/ui/cn';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 
 interface ReportProfileProps {
@@ -29,4 +29,4 @@ const Report: FC<ReportProfileProps> = ({ profile }) => {
   );
 };
 
-export default Report;
+export default memo(Report);

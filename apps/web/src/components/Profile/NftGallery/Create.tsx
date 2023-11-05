@@ -12,7 +12,7 @@ import trimify from '@hey/lib/trimify';
 import { Button, Input, Modal, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import type { Dispatch, FC, SetStateAction } from 'react';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/useAppStore';
 import { useNftGalleryStore } from 'src/store/useNftGalleryStore';
@@ -262,4 +262,4 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
   );
 };
 
-export default Create;
+export default memo(Create);

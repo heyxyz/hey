@@ -4,7 +4,7 @@ import type { AnyPublication } from '@hey/lens';
 import getAppName from '@hey/lib/getAppName';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Tooltip } from '@hey/ui';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 interface SourceProps {
   publication: AnyPublication;
@@ -34,4 +34,4 @@ const Source: FC<SourceProps> = ({ publication }) => {
   );
 };
 
-export default Source;
+export default memo(Source);

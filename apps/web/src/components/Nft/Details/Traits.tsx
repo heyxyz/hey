@@ -1,6 +1,6 @@
 import type { OpenSeaNft } from '@hey/types/opensea-nft';
 import { Card } from '@hey/ui';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 interface NftTraitsProps {
   nft: OpenSeaNft;
@@ -26,4 +26,4 @@ const NftTraits: FC<NftTraitsProps> = ({ nft }) => {
   );
 };
 
-export default NftTraits;
+export default memo(NftTraits);

@@ -3,7 +3,7 @@ import type { Profile } from '@hey/lens';
 import getMentions from '@hey/lib/getMentions';
 import getMisuseDetails from '@hey/lib/getMisuseDetails';
 import { Card } from '@hey/ui';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 interface ScamWarningProps {
   profile: Profile;
@@ -41,4 +41,4 @@ const ScamWarning: FC<ScamWarningProps> = ({ profile }) => {
   );
 };
 
-export default ScamWarning;
+export default memo(ScamWarning);

@@ -11,7 +11,7 @@ import { useApolloClient } from '@hey/lens/apollo';
 import getMentions from '@hey/lib/getMentions';
 import type { OptimisticTransaction } from '@hey/types/misc';
 import { Card, Tooltip } from '@hey/ui';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
 
@@ -95,4 +95,4 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
   );
 };
 
-export default QueuedPublication;
+export default memo(QueuedPublication);

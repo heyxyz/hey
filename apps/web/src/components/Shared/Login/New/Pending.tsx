@@ -5,7 +5,7 @@ import {
 } from '@hey/lens';
 import { Spinner } from '@hey/ui';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 
 interface PendingProps {
   txId: string;
@@ -53,4 +53,4 @@ const Pending: FC<PendingProps> = ({ txId }) => {
   );
 };
 
-export default Pending;
+export default memo(Pending);

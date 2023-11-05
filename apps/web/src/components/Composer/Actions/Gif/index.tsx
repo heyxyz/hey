@@ -7,7 +7,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { usePublicationStore } from 'src/store/usePublicationStore';
 
 const GifSelector = dynamic(() => import('./GifSelector'), {
@@ -54,4 +54,4 @@ const Gif: FC<GiphyProps> = ({ setGifAttachment }) => {
   );
 };
 
-export default Gif;
+export default memo(Gif);

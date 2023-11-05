@@ -7,7 +7,7 @@ import { LimitType, useFollowersQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { useAppStore } from 'src/store/useAppStore';
 
@@ -101,4 +101,4 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
   );
 };
 
-export default Followers;
+export default memo(Followers);

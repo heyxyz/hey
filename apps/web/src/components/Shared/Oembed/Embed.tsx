@@ -6,7 +6,7 @@ import type { OG } from '@hey/types/misc';
 import { Card, Image } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 interface EmbedProps {
   og: OG;
@@ -85,4 +85,4 @@ const Embed: FC<EmbedProps> = ({ og, publicationId }) => {
   );
 };
 
-export default Embed;
+export default memo(Embed);

@@ -1,5 +1,5 @@
 import { Card } from '@hey/ui';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 interface HiddenPublicationProps {
   type?: string;
@@ -15,4 +15,4 @@ const HiddenPublication: FC<HiddenPublicationProps> = ({
   );
 };
 
-export default HiddenPublication;
+export default memo(HiddenPublication);

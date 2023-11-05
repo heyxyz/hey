@@ -7,7 +7,7 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import toast from 'react-hot-toast';
 
 interface CopyPostTextProps {
@@ -52,4 +52,4 @@ const CopyPostText: FC<CopyPostTextProps> = ({ publication }) => {
   );
 };
 
-export default CopyPostText;
+export default memo(CopyPostText);

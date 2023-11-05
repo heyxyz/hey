@@ -7,7 +7,7 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { MarkupLinkProps } from '@hey/types/misc';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 const Hashtag: FC<MarkupLinkProps> = ({ title }) => {
   if (!title) {
@@ -45,4 +45,4 @@ const Hashtag: FC<MarkupLinkProps> = ({ title }) => {
   );
 };
 
-export default Hashtag;
+export default memo(Hashtag);

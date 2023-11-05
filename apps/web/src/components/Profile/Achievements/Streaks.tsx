@@ -4,7 +4,7 @@ import getProfile from '@hey/lib/getProfile';
 import { Card } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import type { Activity } from 'react-activity-calendar';
 import ActivityCalendar from 'react-activity-calendar';
 
@@ -56,4 +56,4 @@ const Streaks: FC<StreaksProps> = ({ profile }) => {
   );
 };
 
-export default Streaks;
+export default memo(Streaks);

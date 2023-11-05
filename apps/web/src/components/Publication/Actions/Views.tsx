@@ -2,7 +2,7 @@ import { ChartBarIcon } from '@heroicons/react/24/outline';
 import nFormatter from '@hey/lib/nFormatter';
 import { Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
-import { type FC } from 'react';
+import { type FC, memo } from 'react';
 
 interface ViewsProps {
   views: number;
@@ -30,4 +30,4 @@ const Views: FC<ViewsProps> = ({ views, showCount }) => {
   );
 };
 
-export default Views;
+export default memo(Views);

@@ -2,7 +2,7 @@ import 'tippy.js/dist/tippy.css';
 
 import { InformationCircleIcon } from '@heroicons/react/24/outline';
 import Tippy from '@tippyjs/react';
-import type { FC, ReactNode } from 'react';
+import { type FC, memo, type ReactNode } from 'react';
 
 interface HelpTooltipProps {
   children: ReactNode;
@@ -27,4 +27,4 @@ const HelpTooltip: FC<HelpTooltipProps> = ({ children }) => {
   );
 };
 
-export default HelpTooltip;
+export default memo(HelpTooltip);

@@ -10,7 +10,7 @@ import { BrowserPush } from '@lib/browserPush';
 import getCurrentSessionId from '@lib/getCurrentSessionId';
 import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
 import getPushNotificationData from '@lib/getPushNotificationData';
-import type { FC } from 'react';
+import { type FC } from 'react';
 import useWebSocket from 'react-use-websocket';
 import { isSupported, share } from 'shared-zustand';
 import { signOut } from 'src/store/useAuthPersistStore';
