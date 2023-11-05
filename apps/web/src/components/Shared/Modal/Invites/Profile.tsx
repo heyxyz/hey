@@ -5,7 +5,7 @@ import formatAddress from '@hey/lib/formatAddress';
 import getProfile from '@hey/lib/getProfile';
 import { formatDate } from '@lib/formatTime';
 import Link from 'next/link';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 interface ProfileProps {
   invite: InvitedResult;
@@ -31,4 +31,4 @@ const Profile: FC<ProfileProps> = ({ invite }) => {
   );
 };
 
-export default Profile;
+export default memo(Profile);

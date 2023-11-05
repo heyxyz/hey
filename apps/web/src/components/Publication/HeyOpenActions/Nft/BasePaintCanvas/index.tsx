@@ -9,7 +9,7 @@ import { Button, Card, Modal, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import useBasePaintCanvas from 'src/hooks/basepaint/useBasePaintCanvas';
 import urlcat from 'urlcat';
 
@@ -159,4 +159,4 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
   );
 };
 
-export default BasePaintCanvas;
+export default memo(BasePaintCanvas);

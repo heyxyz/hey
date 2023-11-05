@@ -5,7 +5,7 @@ import type { AnyPublication, Profile } from '@hey/lens';
 import { useProfilesQuery } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card, ErrorMessage } from '@hey/ui';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 interface RelevantPeopleProps {
   publication: AnyPublication;
@@ -67,4 +67,4 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
   );
 };
 
-export default RelevantPeople;
+export default memo(RelevantPeople);

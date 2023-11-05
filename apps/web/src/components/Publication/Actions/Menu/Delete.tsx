@@ -3,7 +3,7 @@ import { TrashIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import { useGlobalAlertStateStore } from 'src/store/useGlobalAlertStateStore';
 
 interface DeleteProps {
@@ -37,4 +37,4 @@ const Delete: FC<DeleteProps> = ({ publication }) => {
   );
 };
 
-export default Delete;
+export default memo(Delete);

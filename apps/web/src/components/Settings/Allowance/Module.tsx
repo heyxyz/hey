@@ -4,7 +4,7 @@ import { Card } from '@hey/ui';
 import getAllowanceModule from '@lib/getAllowanceModule';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 
 import AllowanceButton from './Button';
 
@@ -45,4 +45,4 @@ const Module: FC<ModuleProps> = ({ module }) => {
   );
 };
 
-export default Module;
+export default memo(Module);

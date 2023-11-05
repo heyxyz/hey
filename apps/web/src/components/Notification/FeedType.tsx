@@ -8,7 +8,7 @@ import {
 import { NOTIFICATION } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import type { Dispatch, FC, SetStateAction } from 'react';
+import { type Dispatch, type FC, memo, type SetStateAction } from 'react';
 import { NotificationTabType } from 'src/enums';
 
 interface FeedTypeProps {
@@ -67,4 +67,4 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
   );
 };
 
-export default FeedType;
+export default memo(FeedType);

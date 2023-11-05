@@ -3,7 +3,7 @@ import type { ZoraNft } from '@hey/types/nft';
 import { HelpTooltip } from '@hey/ui';
 import getRedstonePrice from '@lib/getRedstonePrice';
 import { useQuery } from '@tanstack/react-query';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 import { useZoraMintStore } from '.';
 
@@ -105,4 +105,4 @@ const Price: FC<PriceProps> = ({ nft }) => {
   );
 };
 
-export default Price;
+export default memo(Price);

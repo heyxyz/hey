@@ -5,7 +5,7 @@ import { useProposalQuery } from '@hey/snapshot';
 import { snapshotApolloClient } from '@hey/snapshot/apollo';
 import type { SnapshotMetadata } from '@hey/types/embed';
 import { Spinner } from '@hey/ui';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 
 import Wrapper from '../../../../Shared/Embed/Wrapper';
@@ -75,4 +75,4 @@ const Snapshot: FC<SnapshotProps> = ({ embedMetadata }) => {
   );
 };
 
-export default Snapshot;
+export default memo(Snapshot);

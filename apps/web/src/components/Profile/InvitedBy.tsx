@@ -4,7 +4,7 @@ import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import Link from 'next/link';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 interface InvitedByProps {
   profile: Profile;
@@ -31,4 +31,4 @@ const InvitedBy: FC<InvitedByProps> = ({ profile }) => {
   );
 };
 
-export default InvitedBy;
+export default memo(InvitedBy);

@@ -1,7 +1,7 @@
 import Profiles from '@components/Shared/Profiles';
 import { SparklesIcon } from '@heroicons/react/24/outline';
 import type { FeedItem } from '@hey/lens';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 interface CombinedProps {
   feedItem: FeedItem;
@@ -57,4 +57,4 @@ const Combined: FC<CombinedProps> = ({ feedItem }) => {
   );
 };
 
-export default Combined;
+export default memo(Combined);

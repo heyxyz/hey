@@ -8,7 +8,7 @@ import {
 } from '@livepeer/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from 'next-themes';
-import type { ReactNode } from 'react';
+import { memo, type ReactNode } from 'react';
 
 import ErrorBoundary from '../ErrorBoundary';
 import Layout from '../Layout';
@@ -48,4 +48,4 @@ const Providers = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export default Providers;
+export default memo(Providers);

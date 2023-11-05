@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 
 type TimeLeft = {
   days: number;
@@ -70,4 +70,4 @@ const CountdownTimer: FC<CountdownTimerProps> = ({ targetDate }) => {
   );
 };
 
-export default CountdownTimer;
+export default memo(CountdownTimer);

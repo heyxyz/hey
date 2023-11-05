@@ -2,7 +2,7 @@ import { GIPHY_KEY } from '@hey/data/constants';
 import type { Category } from '@hey/types/giphy';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 interface CategoriesProps {
   setSearchText: (searchText: string) => void;
@@ -52,4 +52,4 @@ const Categories: FC<CategoriesProps> = ({ setSearchText }) => {
   );
 };
 
-export default Categories;
+export default memo(Categories);

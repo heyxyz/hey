@@ -2,7 +2,7 @@ import { OEMBED_WORKER_URL } from '@hey/data/constants';
 import type { OG } from '@hey/types/misc';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import urlcat from 'urlcat';
 
 import Embed from './Embed';
@@ -56,4 +56,4 @@ const Oembed: FC<OembedProps> = ({ url, publicationId, onData }) => {
   );
 };
 
-export default Oembed;
+export default memo(Oembed);

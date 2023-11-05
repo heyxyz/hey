@@ -4,7 +4,7 @@ import type { Profile } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import { useGlobalAlertStateStore } from 'src/store/useGlobalAlertStateStore';
 
 interface BlockProps {
@@ -42,4 +42,4 @@ const Block: FC<BlockProps> = ({ profile }) => {
   );
 };
 
-export default Block;
+export default memo(Block);

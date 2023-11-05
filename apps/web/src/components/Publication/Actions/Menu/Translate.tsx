@@ -8,7 +8,7 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import urlcat from 'urlcat';
 
 interface TranslateProps {
@@ -53,4 +53,4 @@ const Translate: FC<TranslateProps> = ({ publication }) => {
   );
 };
 
-export default Translate;
+export default memo(Translate);

@@ -1,6 +1,6 @@
 import PublicationWrapper from '@components/Shared/PublicationWrapper';
 import type { AnyPublication } from '@hey/lens';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 import PublicationActions from './Actions';
 import HiddenPublication from './HiddenPublication';
@@ -32,4 +32,4 @@ const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
   );
 };
 
-export default ThreadBody;
+export default memo(ThreadBody);

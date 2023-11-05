@@ -6,7 +6,7 @@ import { FollowModuleType, type Profile } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { Button, Image } from '@hey/ui';
-import type { Dispatch, FC, SetStateAction } from 'react';
+import { type Dispatch, type FC, memo, type SetStateAction } from 'react';
 
 interface FollowModalProps {
   profile: Profile;
@@ -70,4 +70,4 @@ const FollowModal: FC<FollowModalProps> = ({
   );
 };
 
-export default FollowModal;
+export default memo(FollowModal);

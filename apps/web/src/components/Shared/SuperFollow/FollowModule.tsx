@@ -27,7 +27,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { Dispatch, FC, SetStateAction } from 'react';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/useAppStore';
@@ -347,4 +347,4 @@ const FollowModule: FC<FollowModuleProps> = ({
   );
 };
 
-export default FollowModule;
+export default memo(FollowModule);

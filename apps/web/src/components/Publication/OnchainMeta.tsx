@@ -8,7 +8,7 @@ import type { AnyPublication } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card } from '@hey/ui';
 import Link from 'next/link';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import urlcat from 'urlcat';
 
 interface MetaProps {
@@ -90,4 +90,4 @@ const OnchainMeta: FC<OnchainMetaProps> = ({ publication }) => {
   );
 };
 
-export default OnchainMeta;
+export default memo(OnchainMeta);

@@ -7,7 +7,7 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import plur from 'plur';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { object, string } from 'zod';
 
@@ -104,4 +104,4 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
   );
 };
 
-export default Invite;
+export default memo(Invite);

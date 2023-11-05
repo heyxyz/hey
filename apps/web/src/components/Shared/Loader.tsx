@@ -1,5 +1,5 @@
 import { Spinner } from '@hey/ui';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 interface LoaderProps {
   message?: string;
@@ -14,4 +14,4 @@ const Loader: FC<LoaderProps> = ({ message }) => {
   );
 };
 
-export default Loader;
+export default memo(Loader);

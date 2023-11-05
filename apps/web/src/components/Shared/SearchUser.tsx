@@ -6,7 +6,7 @@ import {
 } from '@hey/lens';
 import { Card, Input, Spinner } from '@hey/ui';
 import { motion } from 'framer-motion';
-import type { ChangeEvent, FC } from 'react';
+import { type ChangeEvent, type FC, memo } from 'react';
 
 import SmallUserProfile from './SmallUserProfile';
 
@@ -91,4 +91,4 @@ const SearchUser: FC<SearchUserProps> = ({
   );
 };
 
-export default SearchUser;
+export default memo(SearchUser);

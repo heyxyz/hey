@@ -11,7 +11,7 @@ import type { Profile } from '@hey/lens';
 import { formatDate } from '@lib/formatTime';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import urlcat from 'urlcat';
 
 import MetaDetails from '../MetaDetails';
@@ -165,4 +165,4 @@ const Rank: FC<RankProps> = ({ profile }) => {
   );
 };
 
-export default Rank;
+export default memo(Rank);

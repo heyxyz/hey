@@ -24,7 +24,7 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import { toast } from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useMirrorOrQuoteOptimisticStore } from 'src/store/OptimisticActions/useMirrorOrQuoteOptimisticStore';
@@ -268,4 +268,4 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
   );
 };
 
-export default Mirror;
+export default memo(Mirror);

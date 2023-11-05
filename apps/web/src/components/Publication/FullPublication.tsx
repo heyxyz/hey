@@ -2,7 +2,7 @@ import type { AnyPublication } from '@hey/lens';
 import getAppName from '@hey/lib/getAppName';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { formatDate } from '@lib/formatTime';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 import PublicationActions from './Actions';
 import FeaturedGroup from './FeaturedGroup';
@@ -56,4 +56,4 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
   );
 };
 
-export default FullPublication;
+export default memo(FullPublication);

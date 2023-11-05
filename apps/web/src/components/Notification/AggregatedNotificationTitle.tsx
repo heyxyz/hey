@@ -1,6 +1,6 @@
 import type { Profile } from '@hey/lens';
 import Link from 'next/link';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 import { NotificationProfileName } from './Profile';
 
@@ -32,4 +32,4 @@ const AggregatedNotificationTitle: FC<AggregatedNotificationTitleProps> = ({
   );
 };
 
-export default AggregatedNotificationTitle;
+export default memo(AggregatedNotificationTitle);

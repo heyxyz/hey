@@ -6,7 +6,7 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 
 interface CommentProps {
   publication: AnyPublication;
@@ -48,4 +48,4 @@ const Comment: FC<CommentProps> = ({ publication, showCount }) => {
   );
 };
 
-export default Comment;
+export default memo(Comment);
