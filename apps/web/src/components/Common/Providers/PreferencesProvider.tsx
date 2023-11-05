@@ -9,16 +9,18 @@ import { usePreferencesStore } from 'src/store/usePreferencesStore';
 const PreferencesProvider: FC = () => {
   const currentSessionProfileId = getCurrentSessionProfileId();
   const setVerifiedMembers = useAppStore((state) => state.setVerifiedMembers);
-  const {
-    setIsStaff,
-    setIsGardener,
-    setIsLensMember,
-    setStaffMode,
-    setGardenerMode,
-    setIsPride,
-    setHighSignalNotificationFilter,
-    setLoadingPreferences
-  } = usePreferencesStore();
+  const setIsStaff = usePreferencesStore((state) => state.setIsStaff);
+  const setIsGardener = usePreferencesStore((state) => state.setIsGardener);
+  const setIsLensMember = usePreferencesStore((state) => state.setIsLensMember);
+  const setStaffMode = usePreferencesStore((state) => state.setStaffMode);
+  const setGardenerMode = usePreferencesStore((state) => state.setGardenerMode);
+  const setIsPride = usePreferencesStore((state) => state.setIsPride);
+  const setHighSignalNotificationFilter = usePreferencesStore(
+    (state) => state.setHighSignalNotificationFilter
+  );
+  const setLoadingPreferences = usePreferencesStore(
+    (state) => state.setLoadingPreferences
+  );
 
   const fetchPreferences = async () => {
     try {

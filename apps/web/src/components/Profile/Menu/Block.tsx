@@ -12,7 +12,9 @@ interface BlockProps {
 }
 
 const Block: FC<BlockProps> = ({ profile }) => {
-  const { setShowBlockOrUnblockAlert } = useGlobalAlertStateStore();
+  const setShowBlockOrUnblockAlert = useGlobalAlertStateStore(
+    (state) => state.setShowBlockOrUnblockAlert
+  );
   const isBlockedByMe = profile.operations.isBlockedByMe.value;
 
   return (

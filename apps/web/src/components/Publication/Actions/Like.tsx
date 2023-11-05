@@ -28,9 +28,16 @@ interface LikeProps {
 
 const Like: FC<LikeProps> = ({ publication, showCount }) => {
   const { pathname } = useRouter();
-  const { getReactionCountByPublicationId, hasReactedByMe, setReactionConfig } =
-    useReactionOptimisticStore();
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const getReactionCountByPublicationId = useReactionOptimisticStore(
+    (state) => state.getReactionCountByPublicationId
+  );
+  const hasReactedByMe = useReactionOptimisticStore(
+    (state) => state.hasReactedByMe
+  );
+  const setReactionConfig = useReactionOptimisticStore(
+    (state) => state.setReactionConfig
+  );
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;

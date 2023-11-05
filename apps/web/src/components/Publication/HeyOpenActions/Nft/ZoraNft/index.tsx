@@ -24,9 +24,11 @@ interface ZoraNftProps {
 }
 
 const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
+  const setQuantity = useZoraMintStore((state) => state.setQuantity);
+  const setCanMintOnHey = useZoraMintStore((state) => state.setCanMintOnHey);
+
   const { chain, address, token } = nftMetadata;
   const [showMintModal, setShowMintModal] = useState(false);
-  const { setQuantity, setCanMintOnHey } = useZoraMintStore();
 
   const {
     data: nft,

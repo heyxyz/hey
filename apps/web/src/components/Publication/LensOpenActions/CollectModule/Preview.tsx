@@ -21,7 +21,9 @@ const CollectModulePreview: FC<CollectModulePreviewProps> = ({
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
-  const { getOpenActionCountByPublicationId } = useOpenActionOptimisticStore();
+  const getOpenActionCountByPublicationId = useOpenActionOptimisticStore(
+    (state) => state.getOpenActionCountByPublicationId
+  );
 
   if (
     module.__typename === 'SimpleCollectOpenActionSettings' ||

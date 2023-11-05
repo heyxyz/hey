@@ -4,16 +4,20 @@ import type { FC } from 'react';
 import { useNotificationPersistStore } from 'src/store/useNotificationPersistStore';
 
 const NotificationIcon: FC = () => {
-  const {
-    latestNotificationId,
-    lastOpenedNotificationId,
-    setLastOpenedNotificationId
-  } = useNotificationPersistStore();
+  const latestNotificationId = useNotificationPersistStore(
+    (state) => state.latestNotificationId
+  );
+  const lastOpenedNotificationId = useNotificationPersistStore(
+    (state) => state.lastOpenedNotificationId
+  );
+  const setLastOpenedNotificationId = useNotificationPersistStore(
+    (state) => state.setLastOpenedNotificationId
+  );
 
   return (
     <Link
       href="/notifications"
-      className="outline-brand-500 items-start justify-center rounded-md px-2 py-1 hover:bg-gray-300/20 md:flex"
+      className="outline-brand-500 hidden items-start justify-center rounded-md px-2 py-1 hover:bg-gray-300/20 md:flex"
       onClick={() => {
         if (latestNotificationId) {
           setLastOpenedNotificationId(latestNotificationId);

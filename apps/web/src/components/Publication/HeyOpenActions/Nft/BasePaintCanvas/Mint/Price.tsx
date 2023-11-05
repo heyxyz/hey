@@ -10,7 +10,9 @@ interface PriceProps {
 }
 
 const Price: FC<PriceProps> = ({ openEditionPrice }) => {
-  const { quantity, setQuantity } = useBasePaintMintStore();
+  const quantity = useBasePaintMintStore((state) => state.quantity);
+  const setQuantity = useBasePaintMintStore((state) => state.setQuantity);
+
   const { data: usdPrice, isLoading } = useQuery({
     queryKey: ['getRedstonePrice'],
     queryFn: async () => await getRedstonePrice('ETH'),

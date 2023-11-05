@@ -40,7 +40,8 @@ const MintAction: FC<MintActionProps> = ({
   openEditionPrice,
   publication
 }) => {
-  const { quantity } = useBasePaintMintStore();
+  const quantity = useBasePaintMintStore((state) => state.quantity);
+
   const chain = useChainId();
   const { isDisconnected } = useAccount();
 

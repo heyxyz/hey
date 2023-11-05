@@ -5,7 +5,7 @@ import type { AnyPublication, FeedItem } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import { usePublicationStore } from 'src/store/usePublicationStore';
 
@@ -84,4 +84,4 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
   );
 };
 
-export default PublicationHeader;
+export default memo(PublicationHeader);

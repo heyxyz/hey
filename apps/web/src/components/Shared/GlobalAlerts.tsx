@@ -7,12 +7,18 @@ import BlockOrUnBlockProfile from './Alert/BlockOrUnBlockProfile';
 import DeletePublication from './Alert/DeletePublication';
 
 const GlobalAlerts: FC = () => {
-  const {
-    showModActionAlert,
-    setShowModActionAlert,
-    modingPublication,
-    blockingorUnblockingProfile
-  } = useGlobalAlertStateStore();
+  const showModActionAlert = useGlobalAlertStateStore(
+    (state) => state.showModActionAlert
+  );
+  const setShowModActionAlert = useGlobalAlertStateStore(
+    (state) => state.setShowModActionAlert
+  );
+  const modingPublication = useGlobalAlertStateStore(
+    (state) => state.modingPublication
+  );
+  const blockingorUnblockingProfile = useGlobalAlertStateStore(
+    (state) => state.blockingorUnblockingProfile
+  );
 
   return (
     <>

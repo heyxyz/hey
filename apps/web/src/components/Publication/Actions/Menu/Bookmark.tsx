@@ -25,11 +25,15 @@ interface BookmarkProps {
 
 const Bookmark: FC<BookmarkProps> = ({ publication }) => {
   const { pathname } = useRouter();
-  const {
-    getBookmarkCountByPublicationId,
-    hasBookmarkedByMe,
-    setBookmarkConfig
-  } = useBookmarkOptimisticStore();
+  const getBookmarkCountByPublicationId = useBookmarkOptimisticStore(
+    (state) => state.getBookmarkCountByPublicationId
+  );
+  const hasBookmarkedByMe = useBookmarkOptimisticStore(
+    (state) => state.hasBookmarkedByMe
+  );
+  const setBookmarkConfig = useBookmarkOptimisticStore(
+    (state) => state.setBookmarkConfig
+  );
 
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn

@@ -112,37 +112,62 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   );
 
   // Nonce store
-  const { lensHubOnchainSigNonce } = useNonceStore();
+  const lensHubOnchainSigNonce = useNonceStore(
+    (state) => state.lensHubOnchainSigNonce
+  );
 
   // Publication store
-  const {
-    publicationContent,
-    setPublicationContent,
-    quotedPublication,
-    setQuotedPublication,
-    audioPublication,
-    attachments,
-    setAttachments,
-    addAttachments,
-    isUploading,
-    videoThumbnail,
-    setVideoThumbnail,
-    showPollEditor,
-    setShowPollEditor,
-    resetPollConfig,
-    pollConfig,
-    showLiveVideoEditor,
-    setShowLiveVideoEditor,
-    resetLiveVideoConfig
-  } = usePublicationStore();
+  const publicationContent = usePublicationStore(
+    (state) => state.publicationContent
+  );
+  const setPublicationContent = usePublicationStore(
+    (state) => state.setPublicationContent
+  );
+  const quotedPublication = usePublicationStore(
+    (state) => state.quotedPublication
+  );
+  const setQuotedPublication = usePublicationStore(
+    (state) => state.setQuotedPublication
+  );
+  const audioPublication = usePublicationStore(
+    (state) => state.audioPublication
+  );
+  const attachments = usePublicationStore((state) => state.attachments);
+  const setAttachments = usePublicationStore((state) => state.setAttachments);
+  const addAttachments = usePublicationStore((state) => state.addAttachments);
+  const isUploading = usePublicationStore((state) => state.isUploading);
+  const videoThumbnail = usePublicationStore((state) => state.videoThumbnail);
+  const setVideoThumbnail = usePublicationStore(
+    (state) => state.setVideoThumbnail
+  );
+  const showPollEditor = usePublicationStore((state) => state.showPollEditor);
+  const setShowPollEditor = usePublicationStore(
+    (state) => state.setShowPollEditor
+  );
+  const resetPollConfig = usePublicationStore((state) => state.resetPollConfig);
+  const pollConfig = usePublicationStore((state) => state.pollConfig);
+  const showLiveVideoEditor = usePublicationStore(
+    (state) => state.showLiveVideoEditor
+  );
+  const setShowLiveVideoEditor = usePublicationStore(
+    (state) => state.setShowLiveVideoEditor
+  );
+  const resetLiveVideoConfig = usePublicationStore(
+    (state) => state.resetLiveVideoConfig
+  );
 
   // Collect module store
-  const { collectModule, reset: resetCollectSettings } =
-    useCollectModuleStore();
+  const collectModule = useCollectModuleStore((state) => state.collectModule);
+  const resetCollectSettings = useCollectModuleStore((state) => state.reset);
 
   // Reference module store
-  const { selectedReferenceModule, onlyFollowers, degreesOfSeparation } =
-    useReferenceModuleStore();
+  const selectedReferenceModule = useReferenceModuleStore(
+    (state) => state.selectedReferenceModule
+  );
+  const onlyFollowers = useReferenceModuleStore((state) => state.onlyFollowers);
+  const degreesOfSeparation = useReferenceModuleStore(
+    (state) => state.degreesOfSeparation
+  );
 
   // Preferences store
   const isStaff = usePreferencesStore((state) => state.isStaff);
