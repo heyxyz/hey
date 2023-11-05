@@ -12,8 +12,11 @@ import {
   LimitType,
   useExplorePublicationsQuery
 } from '@hey/lens';
+import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
+import type { PublicationViewCount } from '@hey/types/hey';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import type { FC } from 'react';
+import getPublicationsViews from '@lib/getPublicationsViews';
+import { type FC, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 
 interface FeedProps {
@@ -25,6 +28,15 @@ const Feed: FC<FeedProps> = ({
   focus,
   feedType = ExplorePublicationsOrderByType.LensCurated
 }) => {
+  const [views, setViews] = useState<PublicationViewCount[] | []>([]);
+
+  const fetchAndStoreViews = async (ids: string[]) => {
+    if (ids.length) {
+      const viewsResponse = await getPublicationsViews(ids);
+      setViews((prev) => [...prev, ...viewsResponse]);
+    }
+  };
+
   // Variables
   const request: ExplorePublicationRequest = {
     where: {
@@ -36,7 +48,11 @@ const Feed: FC<FeedProps> = ({
   };
 
   const { data, loading, error, fetchMore } = useExplorePublicationsQuery({
-    variables: { request }
+    variables: { request },
+    onCompleted: async ({ explorePublications }) => {
+      const ids = explorePublications?.items?.map((p) => p.id) || [];
+      await fetchAndStoreViews(ids);
+    }
   });
 
   const publications = data?.explorePublications?.items;
@@ -49,9 +65,11 @@ const Feed: FC<FeedProps> = ({
         return;
       }
 
-      await fetchMore({
+      const { data } = await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
+      const ids = data?.explorePublications?.items?.map((p) => p.id) || [];
+      await fetchAndStoreViews(ids);
     }
   });
 
@@ -80,6 +98,10 @@ const Feed: FC<FeedProps> = ({
           isFirst={index === 0}
           isLast={index === publications.length - 1}
           publication={publication as AnyPublication}
+          views={getPublicationViewCountById(
+            views,
+            publication as AnyPublication
+          )}
         />
       ))}
       {hasMore ? <span ref={observe} /> : null}
