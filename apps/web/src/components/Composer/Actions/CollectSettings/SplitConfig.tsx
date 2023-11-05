@@ -7,6 +7,7 @@ import {
   UsersIcon,
   XCircleIcon
 } from '@heroicons/react/24/outline';
+import { ADDRESS_PLACEHOLDER } from '@hey/data/constants';
 import { OpenActionModuleType } from '@hey/lens';
 import isValidEthAddress from '@hey/lib/isValidEthAddress';
 import splitNumber from '@hey/lib/splitNumber';
@@ -99,7 +100,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
             {recipients.map((recipient, index) => (
               <div key={index} className="flex items-center space-x-2 text-sm">
                 <SearchUser
-                  placeholder="0x3A5bd...5e3 or wagmi"
+                  placeholder={`${ADDRESS_PLACEHOLDER} or wagmi`}
                   value={recipient.recipient}
                   onChange={(event) =>
                     updateRecipient(index, event.target.value)
