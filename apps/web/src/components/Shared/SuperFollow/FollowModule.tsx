@@ -58,7 +58,12 @@ const FollowModule: FC<FollowModuleProps> = ({
   superFollowSource
 }) => {
   const { pathname } = useRouter();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
+  const lensHubOnchainSigNonce = useNonceStore(
+    (state) => state.lensHubOnchainSigNonce
+  );
+  const setLensHubOnchainSigNonce = useNonceStore(
+    (state) => state.setLensHubOnchainSigNonce
+  );
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [isLoading, setIsLoading] = useState(false);
   const [allowed, setAllowed] = useState(true);

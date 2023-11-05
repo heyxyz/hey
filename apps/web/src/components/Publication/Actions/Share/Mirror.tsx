@@ -45,7 +45,12 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     hasQuotedOrMirroredByMe,
     setMirrorOrQuoteConfig
   } = useMirrorOrQuoteOptimisticStore();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
+  const lensHubOnchainSigNonce = useNonceStore(
+    (state) => state.lensHubOnchainSigNonce
+  );
+  const setLensHubOnchainSigNonce = useNonceStore(
+    (state) => state.setLensHubOnchainSigNonce
+  );
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
