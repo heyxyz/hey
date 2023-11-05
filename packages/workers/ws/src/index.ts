@@ -1,3 +1,4 @@
+import consumeImpression from './helpers/consumeImpression';
 import ingestImpression from './helpers/ingestImpression';
 import type { Env } from './types';
 
@@ -14,7 +15,7 @@ const handleSession = async (websocket: any, env: Env) => {
       websocket.send(JSON.stringify({ type: 'connection_ack' }));
     } else if (message.type === 'start') {
       const payload = JSON.parse(message.payload);
-      await ingestImpression(payload, websocket, env);
+      await consumeImpression(payload, websocket, env);
     } else {
       websocket.send(JSON.stringify({ error: 'Unknown message received' }));
     }
@@ -39,5 +40,9 @@ const handleRequest = async (request: Request, env: Env) => {
 export default {
   async fetch(request: Request, env: Env) {
     return await handleRequest(request, env);
+  },
+  async queue(batch: MessageBatch<any>, env: Env) {
+    const messages: string[] = batch.messages.map((msg) => msg.body);
+    await ingestImpression(messages, env);
   }
 };
