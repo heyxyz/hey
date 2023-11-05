@@ -3,7 +3,6 @@ import ImageCropperController from '@components/Shared/ImageCropperController';
 import { PencilIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import {
-  ARWEAVE_GATEWAY,
   AVATAR,
   COVER,
   LENSHUB_PROXY,
@@ -56,7 +55,6 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/useAppStore';
-import urlcat from 'urlcat';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import type { z } from 'zod';
 import { object, string, union } from 'zod';
@@ -257,10 +255,10 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
           Boolean(trimify(m.value))
         );
       const metadata = profileMetadata(preparedProfileMetadata);
-      const hash = await uploadToArweave(metadata);
+      const arweaveId = await uploadToArweave(metadata);
 
       const request: OnchainSetProfileMetadataRequest = {
-        metadataURI: urlcat(`${ARWEAVE_GATEWAY}/:hash`, { hash })
+        metadataURI: `ar://${arweaveId}`
       };
 
       if (canUseLensManager) {
