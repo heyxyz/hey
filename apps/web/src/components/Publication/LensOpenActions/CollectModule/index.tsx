@@ -75,12 +75,21 @@ interface CollectModuleProps {
 }
 
 const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
-  const {
-    setOpenActionPublicationConfig,
-    hasActedByMe,
-    getOpenActionCountByPublicationId
-  } = useOpenActionOptimisticStore();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
+  const setOpenActionPublicationConfig = useOpenActionOptimisticStore(
+    (state) => state.setOpenActionPublicationConfig
+  );
+  const hasActedByMe = useOpenActionOptimisticStore(
+    (state) => state.hasActedByMe
+  );
+  const getOpenActionCountByPublicationId = useOpenActionOptimisticStore(
+    (state) => state.getOpenActionCountByPublicationId
+  );
+  const lensHubOnchainSigNonce = useNonceStore(
+    (state) => state.lensHubOnchainSigNonce
+  );
+  const setLensHubOnchainSigNonce = useNonceStore(
+    (state) => state.setLensHubOnchainSigNonce
+  );
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   const targetPublication = isMirrorPublication(publication)

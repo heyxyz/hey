@@ -18,37 +18,76 @@ import SwitchProfiles from './SwitchProfiles';
 
 const GlobalModals: FC = () => {
   // Report modal state
-  const {
-    showPublicationReportModal,
-    reportingPublication,
-    setShowPublicationReportModal,
-    showProfileSwitchModal,
-    setShowProfileSwitchModal,
-    showNewPostModal,
-    setShowNewPostModal,
-    showAuthModal,
-    setShowAuthModal,
-    showWrongNetworkModal,
-    setShowWrongNetworkModal,
-    showInvitesModal,
-    setShowInvitesModal,
-    showReportProfileModal,
-    reportingProfile,
-    setShowReportProfileModal,
-    setShowDiscardModal
-  } = useGlobalModalStateStore();
+  const showPublicationReportModal = useGlobalModalStateStore(
+    (state) => state.showPublicationReportModal
+  );
+  const reportingPublication = useGlobalModalStateStore(
+    (state) => state.reportingPublication
+  );
+  const setShowPublicationReportModal = useGlobalModalStateStore(
+    (state) => state.setShowPublicationReportModal
+  );
+  const showProfileSwitchModal = useGlobalModalStateStore(
+    (state) => state.showProfileSwitchModal
+  );
+  const setShowProfileSwitchModal = useGlobalModalStateStore(
+    (state) => state.setShowProfileSwitchModal
+  );
+  const showNewPostModal = useGlobalModalStateStore(
+    (state) => state.showNewPostModal
+  );
+  const setShowNewPostModal = useGlobalModalStateStore(
+    (state) => state.setShowNewPostModal
+  );
+  const showAuthModal = useGlobalModalStateStore(
+    (state) => state.showAuthModal
+  );
+  const setShowAuthModal = useGlobalModalStateStore(
+    (state) => state.setShowAuthModal
+  );
+  const showWrongNetworkModal = useGlobalModalStateStore(
+    (state) => state.showWrongNetworkModal
+  );
+  const setShowWrongNetworkModal = useGlobalModalStateStore(
+    (state) => state.setShowWrongNetworkModal
+  );
+  const showInvitesModal = useGlobalModalStateStore(
+    (state) => state.showInvitesModal
+  );
+  const setShowInvitesModal = useGlobalModalStateStore(
+    (state) => state.setShowInvitesModal
+  );
+  const showReportProfileModal = useGlobalModalStateStore(
+    (state) => state.showReportProfileModal
+  );
+  const reportingProfile = useGlobalModalStateStore(
+    (state) => state.reportingProfile
+  );
+  const setShowReportProfileModal = useGlobalModalStateStore(
+    (state) => state.setShowReportProfileModal
+  );
+  const setShowDiscardModal = useGlobalModalStateStore(
+    (state) => state.setShowDiscardModal
+  );
 
-  const {
-    publicationContent,
-    attachments,
-    isUploading,
-    videoDurationInSeconds,
-    videoThumbnail,
-    audioPublication,
-    quotedPublication,
-    showPollEditor,
-    pollConfig
-  } = usePublicationStore();
+  // Publication store
+  const publicationContent = usePublicationStore(
+    (state) => state.publicationContent
+  );
+  const attachments = usePublicationStore((state) => state.attachments);
+  const isUploading = usePublicationStore((state) => state.isUploading);
+  const videoDurationInSeconds = usePublicationStore(
+    (state) => state.videoDurationInSeconds
+  );
+  const videoThumbnail = usePublicationStore((state) => state.videoThumbnail);
+  const audioPublication = usePublicationStore(
+    (state) => state.audioPublication
+  );
+  const quotedPublication = usePublicationStore(
+    (state) => state.quotedPublication
+  );
+  const showPollEditor = usePublicationStore((state) => state.showPollEditor);
+  const pollConfig = usePublicationStore((state) => state.pollConfig);
 
   const checkIfPublicationNotDrafted = () => {
     if (

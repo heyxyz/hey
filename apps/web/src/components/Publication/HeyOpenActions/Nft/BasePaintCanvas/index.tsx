@@ -27,7 +27,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
 }) => {
   const { id } = nftMetadata;
   const [showMintModal, setShowMintModal] = useState(false);
-  const { setQuantity } = useBasePaintMintStore();
+  const setQuantity = useBasePaintMintStore((state) => state.setQuantity);
 
   const {
     data: canvas,
