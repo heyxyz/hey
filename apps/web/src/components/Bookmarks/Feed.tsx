@@ -7,8 +7,11 @@ import type {
   PublicationMetadataMainFocusType
 } from '@hey/lens';
 import { LimitType, usePublicationBookmarksQuery } from '@hey/lens';
+import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
+import type { PublicationViewCount } from '@hey/types/hey';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import type { FC } from 'react';
+import getPublicationsViews from '@lib/getPublicationsViews';
+import { type FC, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 
 interface FeedProps {
@@ -16,6 +19,15 @@ interface FeedProps {
 }
 
 const Feed: FC<FeedProps> = ({ focus }) => {
+  const [views, setViews] = useState<PublicationViewCount[] | []>([]);
+
+  const fetchAndStoreViews = async (ids: string[]) => {
+    if (ids.length) {
+      const viewsResponse = await getPublicationsViews(ids);
+      setViews((prev) => [...prev, ...viewsResponse]);
+    }
+  };
+
   // Variables
   const request: PublicationBookmarksRequest = {
     where: { metadata: { ...(focus && { mainContentFocus: [focus] }) } },
@@ -23,7 +35,14 @@ const Feed: FC<FeedProps> = ({ focus }) => {
   };
 
   const { data, loading, error, fetchMore } = usePublicationBookmarksQuery({
-    variables: { request }
+    variables: { request },
+    onCompleted: async ({ publicationBookmarks }) => {
+      const ids =
+        publicationBookmarks?.items?.map((p) => {
+          return p.__typename === 'Mirror' ? p.mirrorOn?.id : p.id;
+        }) || [];
+      await fetchAndStoreViews(ids);
+    }
   });
 
   const publications = data?.publicationBookmarks?.items;
@@ -36,9 +55,14 @@ const Feed: FC<FeedProps> = ({ focus }) => {
         return;
       }
 
-      await fetchMore({
+      const { data } = await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
+      const ids =
+        data?.publicationBookmarks?.items?.map((p) => {
+          return p.__typename === 'Mirror' ? p.mirrorOn?.id : p.id;
+        }) || [];
+      await fetchAndStoreViews(ids);
     }
   });
 
@@ -67,6 +91,10 @@ const Feed: FC<FeedProps> = ({ focus }) => {
           isFirst={index === 0}
           isLast={index === publications.length - 1}
           publication={publication as AnyPublication}
+          views={getPublicationViewCountById(
+            views,
+            publication as AnyPublication
+          )}
         />
       ))}
       {hasMore ? <span ref={observe} /> : null}
