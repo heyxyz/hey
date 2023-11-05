@@ -13,6 +13,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { StateSnapshot } from 'react-virtuoso';
 import { Virtuoso } from 'react-virtuoso';
 import { useAppStore } from 'src/store/useAppStore';
+import { useImpressionsStore } from 'src/store/useImpressionsStore';
 
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
@@ -22,6 +23,10 @@ interface AlgorithmicFeedProps {
 
 const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const fetchAndStoreViews = useImpressionsStore(
+    (state) => state.fetchAndStoreViews
+  );
+
   const [displayedPublications, setDisplayedPublications] = useState<any[]>([]);
 
   const virtuosoRef = useRef<any>();
@@ -51,7 +56,14 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
   const { data, loading, error } = usePublicationsQuery({
     variables: { request },
     skip: !publicationIds,
-    fetchPolicy: 'no-cache'
+    fetchPolicy: 'no-cache',
+    onCompleted: async ({ publications }) => {
+      const ids =
+        publications?.items?.map((p) => {
+          return p.__typename === 'Mirror' ? p.mirrorOn?.id : p.id;
+        }) || [];
+      await fetchAndStoreViews(ids);
+    }
   });
 
   const publications = [
