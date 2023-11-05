@@ -4,9 +4,12 @@ import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import { LightBulbIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication, FeedHighlightsRequest } from '@hey/lens';
 import { LimitType, useFeedHighlightsQuery } from '@hey/lens';
+import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
 import { OptmisticPublicationType } from '@hey/types/enums';
+import type { PublicationViewCount } from '@hey/types/hey';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import type { FC } from 'react';
+import getPublicationsViews from '@lib/getPublicationsViews';
+import { type FC, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/useAppStore';
 import { useTimelineStore } from 'src/store/useTimelineStore';
@@ -18,6 +21,14 @@ const Highlights: FC = () => {
   const seeThroughProfile = useTimelineStore(
     (state) => state.seeThroughProfile
   );
+  const [views, setViews] = useState<PublicationViewCount[] | []>([]);
+
+  const fetchAndStoreViews = async (ids: string[]) => {
+    if (ids.length) {
+      const viewsResponse = await getPublicationsViews(ids);
+      setViews((prev) => [...prev, ...viewsResponse]);
+    }
+  };
 
   // Variables
   const request: FeedHighlightsRequest = {
@@ -26,7 +37,11 @@ const Highlights: FC = () => {
   };
 
   const { data, loading, error, fetchMore } = useFeedHighlightsQuery({
-    variables: { request }
+    variables: { request },
+    onCompleted: async ({ feedHighlights }) => {
+      const ids = feedHighlights?.items?.map((p) => p.id) || [];
+      await fetchAndStoreViews(ids);
+    }
   });
 
   const publications = data?.feedHighlights?.items;
@@ -39,9 +54,11 @@ const Highlights: FC = () => {
         return;
       }
 
-      await fetchMore({
+      const { data } = await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
+      const ids = data?.feedHighlights?.items?.map((p) => p.id) || [];
+      await fetchAndStoreViews(ids);
     }
   });
 
@@ -76,6 +93,10 @@ const Highlights: FC = () => {
             isFirst={index === 0}
             isLast={index === publications.length - 1}
             publication={publication as AnyPublication}
+            views={getPublicationViewCountById(
+              views,
+              publication as AnyPublication
+            )}
           />
         ))}
         {hasMore ? <span ref={observe} /> : null}
