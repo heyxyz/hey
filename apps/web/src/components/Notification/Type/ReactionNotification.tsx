@@ -5,6 +5,8 @@ import getPublicationData from '@hey/lib/getPublicationData';
 import Link from 'next/link';
 import plur from 'plur';
 import type { FC } from 'react';
+import { useLeafwatchStore } from 'src/store/useLeafwatchStore';
+import { useEffectOnce } from 'usehooks-ts';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
@@ -16,6 +18,10 @@ interface ReactionNotificationProps {
 const ReactionNotification: FC<ReactionNotificationProps> = ({
   notification
 }) => {
+  const setViewedPublication = useLeafwatchStore(
+    (state) => state.setViewedPublication
+  );
+
   const metadata = notification?.publication.metadata;
   const filteredContent = getPublicationData(metadata)?.content || '';
   const reactions = notification?.reactions;
@@ -27,6 +33,12 @@ const ReactionNotification: FC<ReactionNotificationProps> = ({
     ? `and ${length} ${plur('other', length)} liked your`
     : 'liked your';
   const type = notification?.publication.__typename;
+
+  useEffectOnce(() => {
+    if (notification?.publication) {
+      setViewedPublication(notification?.publication.id);
+    }
+  });
 
   return (
     <div className="space-y-2">
