@@ -8,9 +8,13 @@ import type {
 } from '@hey/lens';
 import { LimitType, usePublicationBookmarksQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { type FC } from 'react';
-import { useInView } from 'react-cool-inview';
+import { motion } from 'framer-motion';
+import { type FC, useRef } from 'react';
+import type { StateSnapshot } from 'react-virtuoso';
+import { Virtuoso } from 'react-virtuoso';
 import { useImpressionsStore } from 'src/store/useImpressionsStore';
+
+let virtuosoState: any = { ranges: [], screenTop: 0 };
 
 interface FeedProps {
   focus?: PublicationMetadataMainFocusType;
@@ -20,6 +24,8 @@ const Feed: FC<FeedProps> = ({ focus }) => {
   const fetchAndStoreViews = useImpressionsStore(
     (state) => state.fetchAndStoreViews
   );
+
+  const virtuosoRef = useRef<any>();
 
   // Variables
   const request: PublicationBookmarksRequest = {
@@ -42,22 +48,28 @@ const Feed: FC<FeedProps> = ({ focus }) => {
   const pageInfo = data?.publicationBookmarks?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      const { data } = await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } }
-      });
-      const ids =
-        data?.publicationBookmarks?.items?.map((p) => {
-          return p.__typename === 'Mirror' ? p.mirrorOn?.id : p.id;
-        }) || [];
-      await fetchAndStoreViews(ids);
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    const { data } = await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    });
+    const ids =
+      data?.publicationBookmarks?.items?.map((p) => {
+        return p.__typename === 'Mirror' ? p.mirrorOn?.id : p.id;
+      }) || [];
+    await fetchAndStoreViews(ids);
+  };
+
+  const onScrolling = (scrolling: boolean) => {
+    virtuosoRef?.current?.getState((state: StateSnapshot) => {
+      if (!scrolling) {
+        virtuosoState = { ...state };
+      }
+    });
+  };
 
   if (loading) {
     return <PublicationsShimmer />;
@@ -78,15 +90,37 @@ const Feed: FC<FeedProps> = ({ focus }) => {
 
   return (
     <Card className="divide-y-[1px] dark:divide-gray-700">
-      {publications?.map((publication, index) => (
-        <SinglePublication
-          key={`${publication.id}_${index}`}
-          isFirst={index === 0}
-          isLast={index === publications.length - 1}
-          publication={publication as AnyPublication}
+      {publications?.length ? (
+        <Virtuoso
+          useWindowScroll
+          restoreStateFrom={
+            virtuosoState.ranges.length === 0
+              ? virtuosoRef?.current?.getState((state: StateSnapshot) => state)
+              : virtuosoState
+          }
+          ref={virtuosoRef}
+          isScrolling={(scrolling) => onScrolling(scrolling)}
+          data={publications}
+          endReached={onEndReached}
+          className="virtual-feed-list"
+          itemContent={(index, publication) => {
+            return (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <SinglePublication
+                  key={`${publication.id}_${index}`}
+                  isFirst={index === 0}
+                  isLast={index === publications.length - 1}
+                  publication={publication as AnyPublication}
+                />
+              </motion.div>
+            );
+          }}
         />
-      ))}
-      {hasMore ? <span ref={observe} /> : null}
+      ) : null}
     </Card>
   );
 };
