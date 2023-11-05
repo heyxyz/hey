@@ -7,10 +7,14 @@ import { LimitType, usePublicationsQuery } from '@hey/lens';
 import getAlgorithmicFeed from '@hey/lib/getAlgorithmicFeed';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
+import { motion } from 'framer-motion';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
-import { useInView } from 'react-cool-inview';
+import { useEffect, useRef, useState } from 'react';
+import type { StateSnapshot } from 'react-virtuoso';
+import { Virtuoso } from 'react-virtuoso';
 import { useAppStore } from 'src/store/useAppStore';
+
+let virtuosoState: any = { ranges: [], screenTop: 0 };
 
 interface AlgorithmicFeedProps {
   feedType: HomeFeedType;
@@ -19,6 +23,8 @@ interface AlgorithmicFeedProps {
 const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [displayedPublications, setDisplayedPublications] = useState<any[]>([]);
+
+  const virtuosoRef = useRef<any>();
 
   const limit = LimitType.TwentyFive;
   const offset = displayedPublications.length;
@@ -53,16 +59,19 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
     ...(data?.publications?.items || [])
   ];
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView) {
-        return;
-      }
-      if (publications.length != displayedPublications.length) {
-        setDisplayedPublications(publications);
-      }
+  const onEndReached = async () => {
+    if (publications.length != displayedPublications.length) {
+      setDisplayedPublications(publications);
     }
-  });
+  };
+
+  const onScrolling = (scrolling: boolean) => {
+    virtuosoRef?.current?.getState((state: StateSnapshot) => {
+      if (!scrolling) {
+        virtuosoState = { ...state };
+      }
+    });
+  };
 
   if (publications.length == 0 && (algoLoading || loading)) {
     return <PublicationsShimmer />;
@@ -83,15 +92,37 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
 
   return (
     <Card className="divide-y-[1px] dark:divide-gray-700">
-      {publications?.map((publication, index) => (
-        <SinglePublication
-          key={`${publication.id}_${index}`}
-          isFirst={index === 0}
-          isLast={index === publications.length - 1}
-          publication={publication as AnyPublication}
+      {publications?.length ? (
+        <Virtuoso
+          useWindowScroll
+          restoreStateFrom={
+            virtuosoState.ranges.length === 0
+              ? virtuosoRef?.current?.getState((state: StateSnapshot) => state)
+              : virtuosoState
+          }
+          ref={virtuosoRef}
+          data={publications}
+          isScrolling={onScrolling}
+          endReached={onEndReached}
+          className="virtual-feed-list"
+          itemContent={(index, publication) => {
+            return (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <SinglePublication
+                  key={`${publication.id}_${index}`}
+                  isFirst={index === 0}
+                  isLast={index === publications.length - 1}
+                  publication={publication as AnyPublication}
+                />
+              </motion.div>
+            );
+          }}
         />
-      ))}
-      <span ref={observe} />
+      ) : null}
     </Card>
   );
 };
