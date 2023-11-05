@@ -1,4 +1,4 @@
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
+import { ADDRESS_PLACEHOLDER, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
 import { INVITE } from '@hey/data/tracking';
 import { useInviteMutation } from '@hey/lens';
@@ -92,7 +92,7 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
           <Input
             className="text-sm"
             type="text"
-            placeholder="0x3A5bd...5e3"
+            placeholder={ADDRESS_PLACEHOLDER}
             {...form.register('address')}
           />
           <Button type="submit" disabled={inviting}>

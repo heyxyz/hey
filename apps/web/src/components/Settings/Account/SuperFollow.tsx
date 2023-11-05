@@ -1,6 +1,10 @@
 import { StarIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
-import { DEFAULT_COLLECT_TOKEN, LENSHUB_PROXY } from '@hey/data/constants';
+import {
+  ADDRESS_PLACEHOLDER,
+  DEFAULT_COLLECT_TOKEN,
+  LENSHUB_PROXY
+} from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { Regex } from '@hey/data/regex';
 import { SETTINGS } from '@hey/data/tracking';
@@ -225,7 +229,7 @@ const SuperFollow: FC = () => {
         <Input
           label="Funds recipient"
           type="text"
-          placeholder="0x3A5bd...5e3"
+          placeholder={ADDRESS_PLACEHOLDER}
           {...form.register('recipient')}
         />
         <div className="ml-auto">

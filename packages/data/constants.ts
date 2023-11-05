@@ -16,6 +16,7 @@ export const LIT_PROTOCOL_ENVIRONMENT = getEnvConfig().litProtocolEnvironment;
 export const IS_MAINNET = API_URL === LensEndpoint.Mainnet;
 export const ADMIN_ADDRESS = '0x03ba34f6ea1496fa316873cf8350a3f7ead317ef';
 export const REWARDS_ADDRESS = '0xf618330f51fa54ce5951d627ee150c0fdadeba43';
+export const ADDRESS_PLACEHOLDER = '0x03Ba3...7EF';
 
 // Snapshot
 export const HEY_POLLS_SPACE = 'polls.lenster.xyz';
