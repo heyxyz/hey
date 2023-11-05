@@ -1,6 +1,6 @@
 import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
 import { Card } from '@hey/ui';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 const CommentWarning: FC = () => {
   return (
@@ -11,4 +11,4 @@ const CommentWarning: FC = () => {
   );
 };
 
-export default memo(CommentWarning);
+export default CommentWarning;

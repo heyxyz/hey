@@ -6,7 +6,6 @@ import { PAGEVIEW } from '@hey/data/tracking';
 import { Button, Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
-import { memo } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/useAppStore';
 import { useEffectOnce } from 'usehooks-ts';
@@ -76,4 +75,4 @@ const CleanupSettings: NextPage = () => {
   );
 };
 
-export default memo(CleanupSettings);
+export default CleanupSettings;

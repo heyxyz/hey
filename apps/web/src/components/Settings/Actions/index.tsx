@@ -5,7 +5,6 @@ import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
-import { memo } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 import { useEffectOnce } from 'usehooks-ts';
 
@@ -43,4 +42,4 @@ const ActionsSettings: NextPage = () => {
   );
 };
 
-export default memo(ActionsSettings);
+export default ActionsSettings;

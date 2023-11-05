@@ -22,7 +22,7 @@ import {
 import isVerified from '@lib/isVerified';
 import type { TextNode } from 'lexical';
 import type { FC } from 'react';
-import { memo, useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';
 import { useUpdateEffect } from 'usehooks-ts';
 
@@ -303,4 +303,4 @@ const MentionsPlugin: FC = () => {
   );
 };
 
-export default memo(MentionsPlugin);
+export default MentionsPlugin;

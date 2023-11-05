@@ -1,5 +1,5 @@
 import { StarIcon } from '@heroicons/react/24/solid';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 const Beta: FC = () => {
   return (
@@ -10,4 +10,4 @@ const Beta: FC = () => {
   );
 };
 
-export default memo(Beta);
+export default Beta;

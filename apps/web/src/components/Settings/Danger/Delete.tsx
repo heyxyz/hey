@@ -12,7 +12,7 @@ import { Button, Card, Modal, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
-import { memo, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/useAppStore';
@@ -154,4 +154,4 @@ const DeleteSettings: FC = () => {
   );
 };
 
-export default memo(DeleteSettings);
+export default DeleteSettings;

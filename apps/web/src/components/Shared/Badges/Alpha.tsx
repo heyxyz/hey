@@ -1,5 +1,5 @@
 import { PuzzlePieceIcon } from '@heroicons/react/24/outline';
-import { type FC, memo } from 'react';
+import { type FC } from 'react';
 
 const Alpha: FC = () => {
   return (
@@ -10,4 +10,4 @@ const Alpha: FC = () => {
   );
 };
 
-export default memo(Alpha);
+export default Alpha;

@@ -11,7 +11,7 @@ import { ReferenceModuleType } from '@hey/lens';
 import { Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
-import { type FC, memo, type ReactNode } from 'react';
+import { type FC, type ReactNode } from 'react';
 import { useReferenceModuleStore } from 'src/store/useReferenceModuleStore';
 
 const ReferenceSettings: FC = () => {
@@ -159,4 +159,4 @@ const ReferenceSettings: FC = () => {
   );
 };
 
-export default memo(ReferenceSettings);
+export default ReferenceSettings;
