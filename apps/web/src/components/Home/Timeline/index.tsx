@@ -6,13 +6,16 @@ import type { AnyPublication, FeedItem, FeedRequest } from '@hey/lens';
 import { FeedEventItemType, useFeedQuery } from '@hey/lens';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { type FC } from 'react';
-import { useInView } from 'react-cool-inview';
+import { motion } from 'framer-motion';
+import { type FC, useRef } from 'react';
+import { type StateSnapshot, Virtuoso } from 'react-virtuoso';
 import { useAppStore } from 'src/store/useAppStore';
 import { useImpressionsStore } from 'src/store/useImpressionsStore';
 import { useTimelinePersistStore } from 'src/store/useTimelinePersistStore';
 import { useTimelineStore } from 'src/store/useTimelineStore';
 import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
+
+let virtuosoState: any = { ranges: [], screenTop: 0 };
 
 const Timeline: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -26,6 +29,8 @@ const Timeline: FC = () => {
   const fetchAndStoreViews = useImpressionsStore(
     (state) => state.fetchAndStoreViews
   );
+
+  const virtuosoRef = useRef<any>();
 
   const getFeedEventItems = () => {
     const filters: FeedEventItemType[] = [];
@@ -71,26 +76,32 @@ const Timeline: FC = () => {
   const pageInfo = data?.feed?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      const { data } = await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } }
-      });
-      const ids =
-        data.feed?.items?.flatMap((p) => {
-          return [
-            p.root.id,
-            p.comments?.[0]?.id,
-            p.root.__typename === 'Comment' && p.root.commentOn?.id
-          ].filter((id) => id);
-        }) || [];
-      await fetchAndStoreViews(ids);
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    const { data } = await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    });
+    const ids =
+      data.feed?.items?.flatMap((p) => {
+        return [
+          p.root.id,
+          p.comments?.[0]?.id,
+          p.root.__typename === 'Comment' && p.root.commentOn?.id
+        ].filter((id) => id);
+      }) || [];
+    await fetchAndStoreViews(ids);
+  };
+
+  const onScrolling = (scrolling: boolean) => {
+    virtuosoRef?.current?.getState((state: StateSnapshot) => {
+      if (!scrolling) {
+        virtuosoState = { ...state };
+      }
+    });
+  };
 
   if (loading) {
     return <PublicationsShimmer />;
@@ -117,16 +128,40 @@ const Timeline: FC = () => {
         ) : null
       )}
       <Card className="divide-y-[1px] dark:divide-gray-700">
-        {publications?.map((publication, index) => (
-          <SinglePublication
-            key={`${publication.root.__typename}_${index}`}
-            isFirst={index === 0}
-            isLast={index === publications.length - 1}
-            feedItem={publication as FeedItem}
-            publication={publication.root as AnyPublication}
+        {publications?.length ? (
+          <Virtuoso
+            useWindowScroll
+            restoreStateFrom={
+              virtuosoState.ranges.length === 0
+                ? virtuosoRef?.current?.getState(
+                    (state: StateSnapshot) => state
+                  )
+                : virtuosoState
+            }
+            ref={virtuosoRef}
+            isScrolling={(scrolling) => onScrolling(scrolling)}
+            data={publications}
+            endReached={onEndReached}
+            className="virtual-feed-list"
+            itemContent={(index, publication) => {
+              return (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  <SinglePublication
+                    key={`${publication.root.__typename}_${index}`}
+                    isFirst={index === 0}
+                    isLast={index === publications.length - 1}
+                    feedItem={publication as FeedItem}
+                    publication={publication.root as AnyPublication}
+                  />
+                </motion.div>
+              );
+            }}
           />
-        ))}
-        {hasMore ? <span ref={observe} /> : null}
+        ) : null}
       </Card>
     </>
   );
