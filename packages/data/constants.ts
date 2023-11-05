@@ -76,7 +76,9 @@ export const OEMBED_WORKER_URL = IS_PRODUCTION
 export const LEAFWATCH_WORKER_URL = IS_PRODUCTION
   ? 'https://leafwatch.hey.xyz'
   : 'http://localhost:8088';
-export const ACHIEVEMENTS_WORKER_URL = 'https://achievements.hey.xyz';
+export const ACHIEVEMENTS_WORKER_URL = IS_PRODUCTION
+  ? 'https://achievements.hey.xyz'
+  : 'http://localhost:8089';
 export const FEEDS_WORKER_URL = IS_PRODUCTION
   ? 'https://feeds.hey.xyz'
   : 'http://localhost:8090';
