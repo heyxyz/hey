@@ -16,7 +16,7 @@ import { Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import plur from 'plur';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useBookmarkOptimisticStore } from 'src/store/OptimisticActions/useBookmarkOptimisticStore';
 import { useMirrorOrQuoteOptimisticStore } from 'src/store/OptimisticActions/useMirrorOrQuoteOptimisticStore';
 import { useOpenActionOptimisticStore } from 'src/store/OptimisticActions/useOpenActionOptimisticStore';
@@ -27,30 +27,14 @@ interface PublicationStatsProps {
 }
 
 const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
-  const getReactionCountByPublicationId = useReactionOptimisticStore(
-    (state) => state.getReactionCountByPublicationId
-  );
-  const setReactionConfig = useReactionOptimisticStore(
-    (state) => state.setReactionConfig
-  );
-  const getMirrorOrQuoteCountByPublicationId = useMirrorOrQuoteOptimisticStore(
-    (state) => state.getMirrorOrQuoteCountByPublicationId
-  );
-  const setMirrorOrQuoteConfig = useMirrorOrQuoteOptimisticStore(
-    (state) => state.setMirrorOrQuoteConfig
-  );
-  const getOpenActionCountByPublicationId = useOpenActionOptimisticStore(
-    (state) => state.getOpenActionCountByPublicationId
-  );
-  const setOpenActionPublicationConfig = useOpenActionOptimisticStore(
-    (state) => state.setOpenActionPublicationConfig
-  );
-  const getBookmarkCountByPublicationId = useBookmarkOptimisticStore(
-    (state) => state.getBookmarkCountByPublicationId
-  );
-  const setBookmarkConfig = useBookmarkOptimisticStore(
-    (state) => state.setBookmarkConfig
-  );
+  const { getReactionCountByPublicationId, setReactionConfig } =
+    useReactionOptimisticStore();
+  const { getMirrorOrQuoteCountByPublicationId, setMirrorOrQuoteConfig } =
+    useMirrorOrQuoteOptimisticStore();
+  const { getOpenActionCountByPublicationId, setOpenActionPublicationConfig } =
+    useOpenActionOptimisticStore();
+  const { getBookmarkCountByPublicationId, setBookmarkConfig } =
+    useBookmarkOptimisticStore();
 
   const [views, setViews] = useState<number | null>(null);
   const [showMirrorsModal, setShowMirrorsModal] = useState(false);
@@ -254,4 +238,4 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
   );
 };
 
-export default PublicationStats;
+export default memo(PublicationStats);
