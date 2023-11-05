@@ -1,4 +1,5 @@
 import { ChartBarIcon } from '@heroicons/react/24/outline';
+import humanize from '@hey/lib/humanize';
 import nFormatter from '@hey/lib/nFormatter';
 import { Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
@@ -21,7 +22,7 @@ const Views: FC<ViewsProps> = ({ views, showCount }) => {
         whileTap={{ scale: 0.9 }}
         aria-label="Views"
       >
-        <Tooltip placement="top" content="Views" withDelay>
+        <Tooltip placement="top" content={`${humanize(views)} Views`} withDelay>
           <ChartBarIcon className="w-[15px] sm:w-[18px]" />
         </Tooltip>
       </motion.button>
