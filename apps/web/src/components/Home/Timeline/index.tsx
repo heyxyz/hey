@@ -4,9 +4,12 @@ import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import { UserGroupIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication, FeedItem, FeedRequest } from '@hey/lens';
 import { FeedEventItemType, useFeedQuery } from '@hey/lens';
+import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
 import { OptmisticPublicationType } from '@hey/types/enums';
+import type { PublicationViewCount } from '@hey/types/hey';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import type { FC } from 'react';
+import getPublicationsViews from '@lib/getPublicationsViews';
+import { type FC, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/useAppStore';
 import { useTimelinePersistStore } from 'src/store/useTimelinePersistStore';
@@ -22,6 +25,8 @@ const Timeline: FC = () => {
   const seeThroughProfile = useTimelineStore(
     (state) => state.seeThroughProfile
   );
+
+  const [views, setViews] = useState<PublicationViewCount[] | []>([]);
 
   const getFeedEventItems = () => {
     const filters: FeedEventItemType[] = [];
@@ -40,6 +45,13 @@ const Timeline: FC = () => {
     return filters;
   };
 
+  const fetchAndStoreViews = async (ids: string[]) => {
+    if (ids.length) {
+      const viewsResponse = await getPublicationsViews(ids);
+      setViews((prev) => [...prev, ...viewsResponse]);
+    }
+  };
+
   // Variables
   const request: FeedRequest = {
     where: {
@@ -49,7 +61,18 @@ const Timeline: FC = () => {
   };
 
   const { data, loading, error, fetchMore } = useFeedQuery({
-    variables: { request }
+    variables: { request },
+    onCompleted: async ({ feed }) => {
+      const ids =
+        feed?.items?.flatMap((p) => {
+          return [
+            p.root.id,
+            p.comments?.[0]?.id,
+            p.root.__typename === 'Comment' && p.root.commentOn?.id
+          ].filter((id) => id);
+        }) || [];
+      await fetchAndStoreViews(ids);
+    }
   });
 
   const publications = data?.feed?.items;
@@ -62,9 +85,18 @@ const Timeline: FC = () => {
         return;
       }
 
-      await fetchMore({
+      const { data } = await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
+      const ids =
+        data.feed?.items?.flatMap((p) => {
+          return [
+            p.root.id,
+            p.comments?.[0]?.id,
+            p.root.__typename === 'Comment' && p.root.commentOn?.id
+          ].filter((id) => id);
+        }) || [];
+      await fetchAndStoreViews(ids);
     }
   });
 
@@ -100,6 +132,10 @@ const Timeline: FC = () => {
             isLast={index === publications.length - 1}
             feedItem={publication as FeedItem}
             publication={publication.root as AnyPublication}
+            views={getPublicationViewCountById(
+              views,
+              publication.root as AnyPublication
+            )}
           />
         ))}
         {hasMore ? <span ref={observe} /> : null}
