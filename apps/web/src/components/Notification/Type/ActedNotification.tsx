@@ -6,6 +6,8 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import Link from 'next/link';
 import plur from 'plur';
 import type { FC } from 'react';
+import { useLeafwatchStore } from 'src/store/useLeafwatchStore';
+import { useEffectOnce } from 'usehooks-ts';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
@@ -15,6 +17,10 @@ interface ActedNotificationProps {
 }
 
 const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
+  const setViewedPublication = useLeafwatchStore(
+    (state) => state.setViewedPublication
+  );
+
   const publication = notification?.publication;
   const targetPublication = isMirrorPublication(publication)
     ? publication.mirrorOn
@@ -30,6 +36,12 @@ const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
     ? `and ${length} ${plur('other', length)} acted on your`
     : 'acted on your';
   const type = notification?.publication.__typename;
+
+  useEffectOnce(() => {
+    if (notification?.publication) {
+      setViewedPublication(notification?.publication.id);
+    }
+  });
 
   return (
     <div className="space-y-2">
