@@ -8,9 +8,11 @@ import {
   LimitType,
   useExplorePublicationsQuery
 } from '@hey/lens';
-import type { Group } from '@hey/types/hey';
+import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
+import type { Group, PublicationViewCount } from '@hey/types/hey';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import type { FC } from 'react';
+import getPublicationsViews from '@lib/getPublicationsViews';
+import { type FC, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 
 interface FeedProps {
@@ -18,6 +20,16 @@ interface FeedProps {
 }
 
 const Feed: FC<FeedProps> = ({ group }) => {
+  const [views, setViews] = useState<PublicationViewCount[] | []>([]);
+
+  const fetchAndStoreViews = async (ids: string[]) => {
+    if (ids.length) {
+      const viewsResponse = await getPublicationsViews(ids);
+      setViews((prev) => [...prev, ...viewsResponse]);
+    }
+  };
+
+  // Variables
   const request: ExplorePublicationRequest = {
     where: {
       publicationTypes: [ExplorePublicationType.Post],
@@ -29,7 +41,11 @@ const Feed: FC<FeedProps> = ({ group }) => {
 
   const { data, loading, error, fetchMore } = useExplorePublicationsQuery({
     variables: { request },
-    skip: !group.id
+    skip: !group.id,
+    onCompleted: async ({ explorePublications }) => {
+      const ids = explorePublications?.items?.map((p) => p.id) || [];
+      await fetchAndStoreViews(ids);
+    }
   });
 
   const publications = data?.explorePublications?.items;
@@ -42,9 +58,11 @@ const Feed: FC<FeedProps> = ({ group }) => {
         return;
       }
 
-      await fetchMore({
+      const { data } = await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
+      const ids = data?.explorePublications?.items?.map((p) => p.id) || [];
+      await fetchAndStoreViews(ids);
     }
   });
 
@@ -78,6 +96,10 @@ const Feed: FC<FeedProps> = ({ group }) => {
           isFirst={index === 0}
           isLast={index === publications.length - 1}
           publication={publication as AnyPublication}
+          views={getPublicationViewCountById(
+            views,
+            publication as AnyPublication
+          )}
         />
       ))}
       {hasMore ? <span ref={observe} /> : null}
