@@ -1,20 +1,24 @@
 import type { Env } from '../types';
 
-const ingestImpression = async (payload: any, env: Env) => {
-  const values = payload
-    .map((msg: any) => `('${msg.viewer_id}', '${msg.publication_id}')`)
-    .join(', ');
+const ingestImpression = (payload: any, websocket: any, env: Env) => {
+  if (payload.viewer_id && payload.publication_id) {
+    const { viewer_id, publication_id } = payload;
+    fetch(env.CLICKHOUSE_REST_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: `
+          INSERT INTO impressions (
+            viewer_id,
+            publication_id
+          ) VALUES (
+            '${viewer_id}',
+            '${publication_id}'
+          )
+        `
+    });
 
-  await fetch(env.CLICKHOUSE_REST_ENDPOINT, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: `
-      INSERT INTO impressions (
-        viewer_id,
-        publication_id
-      ) VALUES ${values};
-    `
-  });
+    websocket.send(JSON.stringify({ id: crypto.randomUUID() }));
+  }
 };
 
 export default ingestImpression;

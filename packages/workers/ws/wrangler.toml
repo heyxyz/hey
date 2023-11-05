@@ -7,14 +7,5 @@ routes = [
 	{ pattern = "ws.hey.xyz", custom_domain = true }
 ]
 
-[[queues.producers]]
-  queue = "leafwatch-impressions"
-	binding = "IMPRESSIONS_QUEUE"
-
-[[queues.consumers]]
-  queue = "leafwatch-impressions"
-	max_batch_size = 1
-  max_batch_timeout = 30
-
 [env.production.vars]
 CLICKHOUSE_REST_ENDPOINT = ""
