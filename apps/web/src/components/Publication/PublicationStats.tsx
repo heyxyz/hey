@@ -36,7 +36,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
   const { getBookmarkCountByPublicationId, setBookmarkConfig } =
     useBookmarkOptimisticStore();
 
-  const [views, setViews] = useState<number | null>(null);
+  const [views, setViews] = useState<number>(0);
   const [showMirrorsModal, setShowMirrorsModal] = useState(false);
   const [showQuotesModal, setShowQuotesModal] = useState(false);
   const [showLikesModal, setShowLikesModal] = useState(false);
@@ -93,7 +93,8 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
     commentsCount > 0 ||
     reactionsCount > 0 ||
     openActionsCount > 0 ||
-    bookmarksCount > 0;
+    bookmarksCount > 0 ||
+    views > 0;
 
   if (!showStats) {
     return null;
@@ -227,7 +228,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             {plur('Bookmark', bookmarksCount)}
           </span>
         ) : null}
-        {views && views > 0 ? (
+        {views > 0 ? (
           <span>
             <b className="text-black dark:text-white">{nFormatter(views)}</b>{' '}
             {plur('View', views)}
