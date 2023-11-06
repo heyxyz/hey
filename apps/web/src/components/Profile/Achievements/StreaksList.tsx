@@ -8,7 +8,7 @@ import {
   UserPlusIcon
 } from '@heroicons/react/24/outline';
 import { CalendarIcon } from '@heroicons/react/24/solid';
-import { ACHIEVEMENTS_WORKER_URL } from '@hey/data/constants';
+import { STATS_WORKER_URL } from '@hey/data/constants';
 import { PROFILE, PUBLICATION } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
 import { Card } from '@hey/ui';
@@ -24,7 +24,7 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
   const fetchStreaksList = async () => {
     try {
       const response = await axios.get(
-        `${ACHIEVEMENTS_WORKER_URL}/streaks/${profile.id}/latest`
+        `${STATS_WORKER_URL}/streaks/${profile.id}/latest`
       );
 
       return response.data.data;

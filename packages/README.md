@@ -20,7 +20,7 @@ This folder contains all the shared packages that are used in the Hey project.
   - [ENS Resolver](../packages/workers/ens/README.md) - Resolve Ethereum address to ENS names
   - [Oembed](../packages/workers/oembed/README.md) - Create rich embeds for URLs also proxy images
   - [Leafwatch](../packages/workers/leafwatch/README.md) - Telemetry for Hey
-  - [Achievements](../packages/workers/achievements/README.md) - Achievements API for Hey
+  - [Stats](../packages/workers/stats/README.md) - Stats API for Hey
   - [Invite](../packages/workers/invite/README.md) - Invite API for Hey
   - [Feeds](../packages/workers/feeds/README.md) - Feeds API for Hey
   - [Access](../packages/workers/access/README.md) - Access API for Hey
