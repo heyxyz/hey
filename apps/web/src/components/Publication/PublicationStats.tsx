@@ -17,19 +17,12 @@ import { Leafwatch } from '@lib/leafwatch';
 import plur from 'plur';
 import type { FC } from 'react';
 import { memo, useEffect, useState } from 'react';
-import { useMirrorOrQuoteOptimisticStore } from 'src/store/OptimisticActions/useMirrorOrQuoteOptimisticStore';
-import { useOpenActionOptimisticStore } from 'src/store/OptimisticActions/useOpenActionOptimisticStore';
 
 interface PublicationStatsProps {
   publication: AnyPublication;
 }
 
 const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
-  const { getMirrorOrQuoteCountByPublicationId, setMirrorOrQuoteConfig } =
-    useMirrorOrQuoteOptimisticStore();
-  const { getOpenActionCountByPublicationId, setOpenActionPublicationConfig } =
-    useOpenActionOptimisticStore();
-
   const [views, setViews] = useState<number>(0);
   const [showMirrorsModal, setShowMirrorsModal] = useState(false);
   const [showQuotesModal, setShowQuotesModal] = useState(false);
@@ -41,19 +34,6 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
     : publication;
 
   useEffect(() => {
-    setMirrorOrQuoteConfig(targetPublication.id, {
-      // We done substracting quotes because quotes are counted separately
-      countMirrorOrQuote:
-        targetPublication.stats.mirrors - targetPublication.stats.quotes,
-      mirroredOrQuoted:
-        targetPublication.operations.hasMirrored ||
-        targetPublication.operations.hasQuoted
-    });
-    setOpenActionPublicationConfig(targetPublication.id, {
-      countOpenActions: targetPublication.stats.countOpenActions,
-      acted: targetPublication.operations.hasActed.value
-    });
-
     // Get Views
     getPublicationsViews([targetPublication.id]).then((viewsResponse) => {
       setViews(viewsResponse?.[0]?.views);
@@ -61,25 +41,18 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [targetPublication]);
 
-  const mirrorOrQuoteCount = getMirrorOrQuoteCountByPublicationId(
-    targetPublication.id
-  );
-  const openActionsCount = getOpenActionCountByPublicationId(
-    targetPublication.id
-  );
-  const bookmarksCount = targetPublication.stats.bookmarks;
-  const reactionsCount = targetPublication.stats.reactions;
-  const quotesCount = targetPublication.stats.quotes;
-  const commentsCount = targetPublication.stats.comments;
   const publicationId = targetPublication.id;
+  const { comments, reactions, mirrors, quotes, countOpenActions, bookmarks } =
+    targetPublication.stats;
+  const shares = mirrors + quotes;
 
   const showStats =
-    mirrorOrQuoteCount > 0 ||
-    quotesCount > 0 ||
-    commentsCount > 0 ||
-    reactionsCount > 0 ||
-    openActionsCount > 0 ||
-    bookmarksCount > 0 ||
+    comments > 0 ||
+    reactions > 0 ||
+    shares > 0 ||
+    quotes > 0 ||
+    countOpenActions > 0 ||
+    bookmarks > 0 ||
     views > 0;
 
   if (!showStats) {
@@ -90,15 +63,13 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
     <>
       <div className="divider" />
       <div className="ld-text-gray-500 flex flex-wrap items-center gap-6 py-3 text-sm sm:gap-8">
-        {commentsCount > 0 ? (
+        {comments > 0 ? (
           <span>
-            <b className="text-black dark:text-white">
-              {nFormatter(commentsCount)}
-            </b>{' '}
-            {plur('Comment', commentsCount)}
+            <b className="text-black dark:text-white">{nFormatter(comments)}</b>{' '}
+            {plur('Comment', comments)}
           </span>
         ) : null}
-        {mirrorOrQuoteCount > 0 ? (
+        {shares > 0 ? (
           <>
             <button
               type="button"
@@ -110,10 +81,8 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
                 });
               }}
             >
-              <b className="text-black dark:text-white">
-                {nFormatter(mirrorOrQuoteCount)}
-              </b>{' '}
-              {plur('Mirror', commentsCount)}
+              <b className="text-black dark:text-white">{nFormatter(shares)}</b>{' '}
+              {plur('Mirror', shares)}
             </button>
             <Modal
               title="Mirrored by"
@@ -125,7 +94,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             </Modal>
           </>
         ) : null}
-        {quotesCount > 0 ? (
+        {quotes > 0 ? (
           <>
             <button
               type="button"
@@ -137,10 +106,8 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
                 });
               }}
             >
-              <b className="text-black dark:text-white">
-                {nFormatter(quotesCount)}
-              </b>{' '}
-              {plur('Quote', quotesCount)}
+              <b className="text-black dark:text-white">{nFormatter(quotes)}</b>{' '}
+              {plur('Quote', quotes)}
             </button>
             <Modal
               title="Quoted by"
@@ -152,7 +119,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             </Modal>
           </>
         ) : null}
-        {reactionsCount > 0 ? (
+        {reactions > 0 ? (
           <>
             <button
               type="button"
@@ -165,9 +132,9 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
               }}
             >
               <b className="text-black dark:text-white">
-                {nFormatter(reactionsCount)}
+                {nFormatter(reactions)}
               </b>{' '}
-              {plur('Like', reactionsCount)}
+              {plur('Like', reactions)}
             </button>
             <Modal
               title="Liked by"
@@ -179,7 +146,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             </Modal>
           </>
         ) : null}
-        {openActionsCount > 0 ? (
+        {countOpenActions > 0 ? (
           <>
             <button
               type="button"
@@ -192,9 +159,9 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
               }}
             >
               <b className="text-black dark:text-white">
-                {nFormatter(openActionsCount)}
+                {nFormatter(countOpenActions)}
               </b>{' '}
-              {plur('Collect', openActionsCount)}
+              {plur('Collect', countOpenActions)}
             </button>
             <Modal
               title="Collected by"
@@ -206,12 +173,12 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             </Modal>
           </>
         ) : null}
-        {bookmarksCount > 0 ? (
+        {bookmarks > 0 ? (
           <span>
             <b className="text-black dark:text-white">
-              {nFormatter(bookmarksCount)}
+              {nFormatter(bookmarks)}
             </b>{' '}
-            {plur('Bookmark', bookmarksCount)}
+            {plur('Bookmark', bookmarks)}
           </span>
         ) : null}
         {views > 0 ? (
