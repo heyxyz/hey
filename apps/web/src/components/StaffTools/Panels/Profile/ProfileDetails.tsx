@@ -6,10 +6,7 @@ import {
   MapPinIcon
 } from '@heroicons/react/24/outline';
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
-import {
-  ACHIEVEMENTS_WORKER_URL,
-  LEAFWATCH_WORKER_URL
-} from '@hey/data/constants';
+import { LEAFWATCH_WORKER_URL, STATS_WORKER_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import humanize from '@hey/lib/humanize';
 import { useQuery } from '@tanstack/react-query';
@@ -50,13 +47,15 @@ const ProfileDetails: FC<ProfileDetailsProps> = ({ profile }) => {
     enabled: Boolean(profile.id)
   });
 
-  const getUserImpressions = async (): Promise<{
+  const getProfileImpressions = async (): Promise<{
     impressions: number;
   } | null> => {
     try {
       const response = await axios.get(
-        `${ACHIEVEMENTS_WORKER_URL}/userImpressions`,
-        { params: { id: profile.id } }
+        `${STATS_WORKER_URL}/profileImpressions`,
+        {
+          params: { id: profile.id }
+        }
       );
       const { data } = response;
 
@@ -67,8 +66,8 @@ const ProfileDetails: FC<ProfileDetailsProps> = ({ profile }) => {
   };
 
   const { data: impressionDetails } = useQuery({
-    queryKey: ['getUserImpressions', profile.id],
-    queryFn: getUserImpressions,
+    queryKey: ['getProfileImpressions', profile.id],
+    queryFn: getProfileImpressions,
     enabled: Boolean(profile.id)
   });
 
