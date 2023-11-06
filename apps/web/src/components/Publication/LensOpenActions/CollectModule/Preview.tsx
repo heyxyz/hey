@@ -7,7 +7,6 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card } from '@hey/ui';
 import plur from 'plur';
 import { type FC } from 'react';
-import { useOpenActionOptimisticStore } from 'src/store/OptimisticActions/useOpenActionOptimisticStore';
 
 interface CollectModulePreviewProps {
   module: OpenActionModule;
@@ -21,9 +20,7 @@ const CollectModulePreview: FC<CollectModulePreviewProps> = ({
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
-  const getOpenActionCountByPublicationId = useOpenActionOptimisticStore(
-    (state) => state.getOpenActionCountByPublicationId
-  );
+  const { countOpenActions } = targetPublication.stats;
 
   if (
     module.__typename === 'SimpleCollectOpenActionSettings' ||
@@ -34,7 +31,6 @@ const CollectModulePreview: FC<CollectModulePreviewProps> = ({
     const endTimestamp = module?.endsAt;
     const amount = parseFloat(module?.amount?.value || '0');
     const currency = module?.amount?.asset?.symbol;
-    const mints = getOpenActionCountByPublicationId(targetPublication.id);
 
     return (
       <Card className="flex p-5" forceRounded>
@@ -52,7 +48,7 @@ const CollectModulePreview: FC<CollectModulePreviewProps> = ({
             <div className="space-x-1.5">
               {module.collectLimit ? (
                 <b className="w-fit rounded-full bg-gray-500 px-3 py-0.5 text-xs text-white">
-                  {module.collectLimit || 0 - mints} left
+                  {module.collectLimit || 0 - countOpenActions} left
                 </b>
               ) : null}
               {module.referralFee ? (
@@ -85,9 +81,9 @@ const CollectModulePreview: FC<CollectModulePreviewProps> = ({
               <span>FREE</span>
             </div>
           )}
-          {mints > 0 && (
+          {countOpenActions > 0 && (
             <div className="ld-text-gray-500">
-              {mints} {plur('mint', mints)}
+              {countOpenActions} {plur('mint', countOpenActions)}
             </div>
           )}
           {endTimestamp ? (

@@ -11,8 +11,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
 import plur from 'plur';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
-import { useOpenActionOptimisticStore } from 'src/store/OptimisticActions/useOpenActionOptimisticStore';
+import { useState } from 'react';
 
 import List from './List';
 
@@ -22,32 +21,13 @@ interface OpenActionProps {
 }
 
 const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
-  const getOpenActionCountByPublicationId = useOpenActionOptimisticStore(
-    (state) => state.getOpenActionCountByPublicationId
-  );
-  const hasActedByMe = useOpenActionOptimisticStore(
-    (state) => state.hasActedByMe
-  );
-  const setOpenActionPublicationConfig = useOpenActionOptimisticStore(
-    (state) => state.setOpenActionPublicationConfig
-  );
-
   const [showOpenActionModal, setShowOpenActionModal] = useState(false);
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
-  const hasActed = hasActedByMe(targetPublication.id);
-  const openActionCount = getOpenActionCountByPublicationId(
-    targetPublication.id
-  );
 
-  useEffect(() => {
-    setOpenActionPublicationConfig(targetPublication.id, {
-      countOpenActions: targetPublication.stats.countOpenActions,
-      acted: targetPublication.operations.hasActed.value
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [publication]);
+  const hasActed = targetPublication.operations.hasActed.value;
+  const { countOpenActions } = targetPublication.stats;
 
   const iconClassName = showCount
     ? 'w-[17px] sm:w-[20px]'
@@ -77,9 +57,9 @@ const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
         >
           <Tooltip
             placement="top"
-            content={`${humanize(openActionCount)} ${plur(
+            content={`${humanize(countOpenActions)} ${plur(
               'Action',
-              openActionCount
+              countOpenActions
             )}`}
             withDelay
           >
@@ -90,9 +70,9 @@ const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
             )}
           </Tooltip>
         </motion.button>
-        {openActionCount > 0 && !showCount ? (
+        {countOpenActions > 0 && !showCount ? (
           <span className="text-[11px] sm:text-xs">
-            {nFormatter(openActionCount)}
+            {nFormatter(countOpenActions)}
           </span>
         ) : null}
       </div>
