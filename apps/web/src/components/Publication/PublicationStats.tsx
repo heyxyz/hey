@@ -17,7 +17,6 @@ import { Leafwatch } from '@lib/leafwatch';
 import plur from 'plur';
 import type { FC } from 'react';
 import { memo, useEffect, useState } from 'react';
-import { useBookmarkOptimisticStore } from 'src/store/OptimisticActions/useBookmarkOptimisticStore';
 import { useMirrorOrQuoteOptimisticStore } from 'src/store/OptimisticActions/useMirrorOrQuoteOptimisticStore';
 import { useOpenActionOptimisticStore } from 'src/store/OptimisticActions/useOpenActionOptimisticStore';
 
@@ -30,8 +29,6 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
     useMirrorOrQuoteOptimisticStore();
   const { getOpenActionCountByPublicationId, setOpenActionPublicationConfig } =
     useOpenActionOptimisticStore();
-  const { getBookmarkCountByPublicationId, setBookmarkConfig } =
-    useBookmarkOptimisticStore();
 
   const [views, setViews] = useState<number>(0);
   const [showMirrorsModal, setShowMirrorsModal] = useState(false);
@@ -56,10 +53,6 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
       countOpenActions: targetPublication.stats.countOpenActions,
       acted: targetPublication.operations.hasActed.value
     });
-    setBookmarkConfig(targetPublication.id, {
-      countBookmarks: targetPublication.stats.bookmarks,
-      bookmarked: targetPublication.operations.hasBookmarked
-    });
 
     // Get Views
     getPublicationsViews([targetPublication.id]).then((viewsResponse) => {
@@ -74,7 +67,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
   const openActionsCount = getOpenActionCountByPublicationId(
     targetPublication.id
   );
-  const bookmarksCount = getBookmarkCountByPublicationId(targetPublication.id);
+  const bookmarksCount = targetPublication.stats.bookmarks;
   const reactionsCount = targetPublication.stats.reactions;
   const quotesCount = targetPublication.stats.quotes;
   const commentsCount = targetPublication.stats.comments;
