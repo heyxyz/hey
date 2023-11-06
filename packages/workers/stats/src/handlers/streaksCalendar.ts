@@ -1,3 +1,4 @@
+import createClickhouseClient from '@hey/clickhouse/createClickhouseClient';
 import { Errors } from '@hey/data/errors';
 import response from '@hey/lib/response';
 
@@ -13,36 +14,30 @@ export default async (request: WorkerRequest) => {
   }
 
   try {
-    const clickhouseResponse = await fetch(
-      `${request.env.CLICKHOUSE_REST_ENDPOINT}&default_format=JSONCompact`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        cf: { cacheTtl: 600, cacheEverything: true },
-        body: `
-          SELECT
-            date(created) AS event_date,
-            count(*) AS event_count
-          FROM events
-          WHERE actor = '${id}' AND created >= now() - INTERVAL 1 YEAR
-          AND name IN (${filteredEvents.map((name) => `'${name}'`).join(',')})
-          GROUP BY event_date
-          ORDER BY event_date;
-        `
-      }
-    );
+    const client = createClickhouseClient(request.env.CLICKHOUSE_PASSWORD);
+    const rows = await client.query({
+      query: `
+        SELECT
+          date(created) AS event_date,
+          count(*) AS event_count
+        FROM events
+        WHERE actor = '${id}' AND created >= now() - INTERVAL 1 YEAR
+        AND name IN (${filteredEvents.map((name) => `'${name}'`).join(',')})
+        GROUP BY event_date
+        ORDER BY event_date;
+      `,
+      format: 'JSONEachRow'
+    });
 
-    if (clickhouseResponse.status !== 200) {
-      return response({ success: false, error: Errors.StatusCodeIsNot200 });
-    }
+    const result = await rows.json<
+      Array<{
+        event_date: string;
+        event_count: number;
+      }>
+    >();
 
-    const json: {
-      data: [string, string][];
-    } = await clickhouseResponse.json();
-
-    // Populate the dates with 0s for the dates that have no events or no date in the DB
-    const eventData = json.data.reduce((acc: any, [date, count]) => {
-      acc[date] = Number(count);
+    const eventData = result.reduce((acc: any, { event_date, event_count }) => {
+      acc[event_date] = Number(event_count);
       return acc;
     }, {});
 
@@ -50,6 +45,7 @@ export default async (request: WorkerRequest) => {
 
     return response({ success: true, data: allDatesData });
   } catch (error) {
+    console.log(error);
     throw error;
   }
 };

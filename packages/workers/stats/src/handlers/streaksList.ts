@@ -1,3 +1,4 @@
+import createClickhouseClient from '@hey/clickhouse/createClickhouseClient';
 import { Errors } from '@hey/data/errors';
 import response from '@hey/lib/response';
 
@@ -12,47 +13,46 @@ export default async (request: WorkerRequest) => {
   }
 
   try {
-    const query = `
-      SELECT
-        id,
-        name,
-        created
-      FROM events
-      WHERE actor = '${id}' AND created >= now() - INTERVAL 1 YEAR
-      AND name IN (${filteredEvents.map((name) => `'${name}'`).join(',')})
-      ${
-        date === 'latest'
-          ? `
-        AND DATE(created) = (
-          SELECT MAX(DATE(created))
-          FROM events
-          WHERE actor = '${id}' 
-          AND created >= now() - INTERVAL 1 YEAR
-          AND name IN (${filteredEvents.map((name) => `'${name}'`).join(',')})
-        )
-      `
-          : ''
-      };
-    `;
+    const client = createClickhouseClient(request.env.CLICKHOUSE_PASSWORD);
+    const rows = await client.query({
+      query: `
+        SELECT
+          id,
+          name,
+          created
+        FROM events
+        WHERE actor = '${id}' AND created >= now() - INTERVAL 1 YEAR
+        AND name IN (${filteredEvents.map((name) => `'${name}'`).join(',')})
+        ${
+          date === 'latest'
+            ? `
+          AND DATE(created) = (
+            SELECT MAX(DATE(created))
+            FROM events
+            WHERE actor = '${id}' 
+            AND created >= now() - INTERVAL 1 YEAR
+            AND name IN (${filteredEvents.map((name) => `'${name}'`).join(',')})
+          )
+        `
+            : ''
+        };
+      `,
+      format: 'JSONEachRow'
+    });
 
-    const clickhouseResponse = await fetch(
-      `${request.env.CLICKHOUSE_REST_ENDPOINT}&default_format=JSONCompact`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        cf: { cacheTtl: 600, cacheEverything: true },
-        body: query
-      }
-    );
+    const result = await rows.json<
+      Array<{
+        id: string;
+        name: string;
+        created: string;
+      }>
+    >();
 
-    if (clickhouseResponse.status !== 200) {
-      return response({ success: false, error: Errors.StatusCodeIsNot200 });
-    }
-
-    const json: {
-      data: [string, string, string][];
-    } = await clickhouseResponse.json();
-    const list = json.data.map(([id, event, date]) => ({ id, event, date }));
+    const list = result.map(({ id, name, created }) => ({
+      id,
+      event: name,
+      date: created
+    }));
 
     return response({
       success: true,

@@ -1,0 +1,20 @@
+{
+  "name": "@hey/clickhouse",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0",
+  "scripts": {
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --fix --ext .ts",
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "typecheck": "tsc --pretty"
+  },
+  "dependencies": {
+    "@clickhouse/client-web": "^0.2.5"
+  },
+  "devDependencies": {
+    "@hey/config": "workspace:*",
+    "typescript": "^5.2.2"
+  }
+}

@@ -1,3 +1,4 @@
+import createClickhouseClient from '@hey/clickhouse/createClickhouseClient';
 import { Errors } from '@hey/data/errors';
 import response from '@hey/lib/response';
 
@@ -11,27 +12,17 @@ export default async (request: WorkerRequest) => {
   }
 
   try {
-    const clickhouseResponse = await fetch(
-      `${request.env.CLICKHOUSE_REST_ENDPOINT}&default_format=JSONCompact`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        cf: { cacheTtl: 600, cacheEverything: true },
-        body: `SELECT count(*) FROM events WHERE actor = '${id}';`
-      }
-    );
+    const client = createClickhouseClient(request.env.CLICKHOUSE_PASSWORD);
+    const rows = await client.query({
+      query: `SELECT count(*) as count FROM events WHERE actor = '${id}';`,
+      format: 'JSONEachRow'
+    });
 
-    if (clickhouseResponse.status !== 200) {
-      return response({ success: false, error: Errors.StatusCodeIsNot200 });
-    }
-
-    const json: {
-      data: [string][];
-    } = await clickhouseResponse.json();
+    const result = await rows.json<Array<{ count: number }>>();
 
     return response({
       success: true,
-      haveUsedHey: parseInt(json.data[0][0]) > 0
+      haveUsedHey: Number(result[0].count) > 0
     });
   } catch (error) {
     throw error;
