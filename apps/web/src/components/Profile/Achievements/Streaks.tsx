@@ -1,4 +1,4 @@
-import { ACHIEVEMENTS_WORKER_URL } from '@hey/data/constants';
+import { STATS_WORKER_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { Card } from '@hey/ui';
@@ -16,7 +16,7 @@ const Streaks: FC<StreaksProps> = ({ profile }) => {
   const fetchStreaks = async () => {
     try {
       const response = await axios.get(
-        `${ACHIEVEMENTS_WORKER_URL}/streaks/${profile.id}`
+        `${STATS_WORKER_URL}/streaks/${profile.id}`
       );
 
       const outputData = Object.entries(response.data.data).map(

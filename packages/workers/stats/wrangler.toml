@@ -1,11 +1,11 @@
-name = "achievements"
+name = "stats"
 main = "src/index.ts"
 compatibility_date = "2023-01-25"
 keep_vars = true
 node_compat = true
 
 routes = [
-	{ pattern = "achievements.hey.xyz", custom_domain = true }
+	{ pattern = "stats.hey.xyz", custom_domain = true }
 ]
 
 [placement]
