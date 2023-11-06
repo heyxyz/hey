@@ -71,8 +71,8 @@ const ViewPublication: NextPage = () => {
   return (
     <GridLayout>
       <MetaTags
-        title={`${publication.__typename} by ${
-          getProfile(publication.by).slugWithPrefix
+        title={`${targetPublication.__typename} by ${
+          getProfile(targetPublication.by).slugWithPrefix
         } • ${APP_NAME}`}
       />
       <GridItemEight className="space-y-5">
