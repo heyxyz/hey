@@ -281,6 +281,19 @@ importers:
         specifier: ^5.2.2
         version: 5.2.2
 
+  packages/clickhouse:
+    dependencies:
+      '@clickhouse/client-web':
+        specifier: ^0.2.5
+        version: 0.2.5
+    devDependencies:
+      '@hey/config':
+        specifier: workspace:*
+        version: link:../config
+      typescript:
+        specifier: ^5.2.2
+        version: 5.2.2
+
   packages/config:
     devDependencies:
       '@typescript-eslint/eslint-plugin':
@@ -975,6 +988,9 @@ importers:
 
   packages/workers/stats:
     dependencies:
+      '@hey/clickhouse':
+        specifier: workspace:*
+        version: link:../../clickhouse
       '@hey/data':
         specifier: workspace:*
         version: link:../../data
@@ -2298,6 +2314,16 @@ packages:
     resolution: {integrity: sha512-pNLrz0D0MguzFLJisBUv+XOTkpRpRTIMI7/r2QwTWI2MR5VJ7Hysd6ug6DBWksKFy7TK3hCf+qejufdJSN5X+A==}
     dependencies:
       rfc4648: 1.5.3
+    dev: false
+
+  /@clickhouse/client-common@0.2.5:
+    resolution: {integrity: sha512-V36SiMSbI4XyK3yzXfl5wpSnTEVNvz43l1WhQJZD6/9OMRTk0D8zi6dslR3ya+SCT+a9AXVCxxVBrcC4rAd6gg==}
+    dev: false
+
+  /@clickhouse/client-web@0.2.5:
+    resolution: {integrity: sha512-pjclXyW35HDqoI/Tpnh5Zm1wsH8FUYZyHSqpuyQ3fmUfpVUhxHlkr9dETH0UZpfxTR7p0OaAlCXyA87LV11GGg==}
+    dependencies:
+      '@clickhouse/client-common': 0.2.5
     dev: false
 
   /@cloudflare/kv-asset-handler@0.2.0:

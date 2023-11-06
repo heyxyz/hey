@@ -1,4 +1,4 @@
-import { Errors } from '@hey/data/errors';
+import createClickhouseClient from '@hey/clickhouse/createClickhouseClient';
 import response from '@hey/lib/response';
 
 import type { WorkerRequest } from '../types';
@@ -11,52 +11,48 @@ export default async (request: WorkerRequest) => {
   }
 
   try {
-    const clickhouseResponse = await fetch(
-      `${request.env.CLICKHOUSE_REST_ENDPOINT}&default_format=JSONCompact`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        cf: { cacheTtl: 600, cacheEverything: true },
-        body: `
-          WITH toYear(now()) AS current_year
+    const client = createClickhouseClient(request.env.CLICKHOUSE_PASSWORD);
+    const rows = await client.query({
+      query: `
+        WITH toYear(now()) AS current_year
+        SELECT
+          day,
+          impressions,
+          totalImpressions
+        FROM (
           SELECT
-            day,
-            impressions,
-            totalImpressions
-          FROM (
-            SELECT
-              toDayOfYear(viewed_at) AS day,
-              count() AS impressions
-            FROM impressions
-            WHERE splitByString('-', publication_id)[1] = '${id}'
-              AND toYear(viewed_at) = current_year
-            GROUP BY day
-          ) AS dailyImpressions
-          CROSS JOIN (
-            SELECT count() AS totalImpressions
-            FROM impressions
-            WHERE splitByString('-', publication_id)[1] = '${id}'
-              AND toYear(viewed_at) = current_year
-          ) AS total
-          ORDER BY day
-        `
-      }
-    );
+            toDayOfYear(viewed_at) AS day,
+            count() AS impressions
+          FROM impressions
+          WHERE splitByString('-', publication_id)[1] = '${id}'
+            AND toYear(viewed_at) = current_year
+          GROUP BY day
+        ) AS dailyImpressions
+        CROSS JOIN (
+          SELECT count() AS totalImpressions
+          FROM impressions
+          WHERE splitByString('-', publication_id)[1] = '${id}'
+            AND toYear(viewed_at) = current_year
+        ) AS total
+        ORDER BY day
+      `,
+      format: 'JSONEachRow'
+    });
 
-    if (clickhouseResponse.status !== 200) {
-      return response({ success: false, error: Errors.StatusCodeIsNot200 });
-    }
-
-    const json: {
-      data: [string][][];
-    } = await clickhouseResponse.json();
+    const result = await rows.json<
+      Array<{
+        day: number;
+        impressions: number;
+        totalImpressions: number;
+      }>
+    >();
 
     return response({
       success: true,
-      totalImpressions: Number(json.data?.[0]?.[2]) || 0,
-      yearlyImpressions: json.data.map((item) => ({
-        day: item[0],
-        impressions: Number(item[1])
+      totalImpressions: result[0].totalImpressions,
+      yearlyImpressions: result.map((row) => ({
+        day: row.day,
+        impressions: row.impressions
       }))
     });
   } catch (error) {
