@@ -1,3 +1,4 @@
+import createClickhouseClient from '@hey/clickhouse/createClickhouseClient';
 import { Errors } from '@hey/data/errors';
 import { ALL_EVENTS } from '@hey/data/tracking';
 import response from '@hey/lib/response';
@@ -77,58 +78,34 @@ export default async (request: WorkerRequest) => {
     const utmTerm = parsedUrl.searchParams.get('utm_term') || null;
     const utmContent = parsedUrl.searchParams.get('utm_content') || null;
 
-    const clickhouseResponse = await fetch(
-      request.env.CLICKHOUSE_REST_ENDPOINT,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: `
-        INSERT INTO events (
+    const client = createClickhouseClient(request.env.CLICKHOUSE_PASSWORD);
+    const result = await client.insert({
+      table: 'events',
+      values: [
+        {
           name,
-          actor,
-          properties,
-          url,
-          city,
-          country,
-          region,
-          referrer,
-          platform,
-          browser,
-          browser_version,
-          os,
-          utm_source,
-          utm_medium,
-          utm_campaign,
-          utm_term,
-          utm_content
-        ) VALUES (
-          '${name}',
-          ${actor ? `'${actor}'` : null},
-          ${properties ? `'${JSON.stringify(properties)}'` : null},
-          ${url ? `'${url}'` : null},
-          ${ipData?.city ? `'${ipData?.city}'` : null},
-          ${ipData?.country ? `'${ipData?.country}'` : null},
-          ${ipData?.regionName ? `'${ipData?.regionName}'` : null},
-          ${referrer ? `'${referrer}'` : null},
-          ${platform ? `'${platform}'` : null},
-          ${ua.browser.name ? `'${ua.browser.name}'` : null},
-          ${ua.browser.version ? `'${ua.os.version}'` : null},
-          ${ua.os.name ? `'${ua.os.name}'` : null},
-          ${utmSource ? `'${utmSource}'` : null},
-          ${utmMedium ? `'${utmMedium}'` : null},
-          ${utmCampaign ? `'${utmCampaign}'` : null},
-          ${utmTerm ? `'${utmTerm}'` : null},
-          ${utmContent ? `'${utmContent}'` : null}
-        )
-      `
-      }
-    );
+          actor: actor || null,
+          properties: properties || null,
+          url: url || null,
+          city: ipData?.city || null,
+          country: ipData?.country || null,
+          region: ipData?.regionName || null,
+          referrer: referrer || null,
+          platform: platform || null,
+          browser: ua.browser.name || null,
+          browser_version: ua.browser.version || null,
+          os: ua.os.name || null,
+          utm_source: utmSource || null,
+          utm_medium: utmMedium || null,
+          utm_campaign: utmCampaign || null,
+          utm_term: utmTerm || null,
+          utm_content: utmContent || null
+        }
+      ],
+      format: 'JSONEachRow'
+    });
 
-    if (clickhouseResponse.status !== 200) {
-      return response({ success: false, error: Errors.StatusCodeIsNot200 });
-    }
-
-    return response({ success: true });
+    return response({ success: true, id: result.query_id });
   } catch (error) {
     throw error;
   }
