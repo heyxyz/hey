@@ -127,7 +127,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
               <b className="text-black dark:text-white">
                 {nFormatter(mirrorOrQuoteCount)}
               </b>{' '}
-              {plur('Mirror', commentsCount)}
+              {plur('Mirror', mirrorOrQuoteCount)}
             </button>
             <Modal
               title="Mirrored by"
