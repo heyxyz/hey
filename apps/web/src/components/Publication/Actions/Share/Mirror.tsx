@@ -1,3 +1,4 @@
+import { useApolloClient } from '@apollo/client';
 import { Menu } from '@headlessui/react';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
@@ -24,10 +25,9 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC } from 'react';
+import { type FC, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useMirrorOrQuoteOptimisticStore } from 'src/store/OptimisticActions/useMirrorOrQuoteOptimisticStore';
 import { useAppStore } from 'src/store/useAppStore';
 import { useNonceStore } from 'src/store/useNonceStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -40,15 +40,6 @@ interface MirrorProps {
 
 const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const getMirrorOrQuoteCountByPublicationId = useMirrorOrQuoteOptimisticStore(
-    (state) => state.getMirrorOrQuoteCountByPublicationId
-  );
-  const hasQuotedOrMirroredByMe = useMirrorOrQuoteOptimisticStore(
-    (state) => state.hasQuotedOrMirroredByMe
-  );
-  const setMirrorOrQuoteConfig = useMirrorOrQuoteOptimisticStore(
-    (state) => state.setMirrorOrQuoteConfig
-  );
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce
   );
@@ -59,15 +50,33 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     ? publication?.mirrorOn
     : publication;
 
+  const [hasMirrored, setHasMirrored] = useState(
+    targetPublication.operations.hasMirrored
+  );
+  const [shares, setShares] = useState(
+    targetPublication.stats.mirrors + targetPublication.stats.quotes
+  );
+
   const handleWrongNetwork = useHandleWrongNetwork();
+  const { cache } = useApolloClient();
 
   const { isSponsored, canUseLensManager, canBroadcast } =
     checkDispatcherPermissions(currentProfile);
 
-  const hasQuotedOrMirrored = hasQuotedOrMirroredByMe(targetPublication.id);
-  const mirrorOrQuoteCount = getMirrorOrQuoteCountByPublicationId(
-    targetPublication.id
-  );
+  const updateCache = () => {
+    cache.modify({
+      id: cache.identify(targetPublication),
+      fields: {
+        operations: (existingValue) => {
+          return { ...existingValue, hasMirrored: !hasMirrored };
+        }
+      }
+    });
+    cache.modify({
+      id: cache.identify(targetPublication.stats),
+      fields: { mirrors: () => (hasMirrored ? shares - 1 : shares + 1) }
+    });
+  };
 
   const onError = (error?: any) => {
     setIsLoading(false);
@@ -89,10 +98,9 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     }
 
     setIsLoading(false);
-    setMirrorOrQuoteConfig(targetPublication.id, {
-      countMirrorOrQuote: mirrorOrQuoteCount + 1,
-      mirroredOrQuoted: true
-    });
+    setHasMirrored(true);
+    setShares(shares + 1);
+    updateCache();
     toast.success('Post has been mirrored!');
     Leafwatch.track(PUBLICATION.MIRROR, {
       publication_id: publication.id
@@ -253,7 +261,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
       className={({ active }) =>
         cn(
           { 'dropdown-active': active },
-          hasQuotedOrMirrored ? 'text-green-500' : '',
+          hasMirrored ? 'text-green-500' : '',
           'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm'
         )
       }
@@ -262,7 +270,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     >
       <div className="flex items-center space-x-2">
         <ArrowsRightLeftIcon className="h-4 w-4" />
-        <div>{hasQuotedOrMirrored ? 'Mirrored' : 'Mirror'}</div>
+        <div>{hasMirrored ? 'Mirrored' : 'Mirror'}</div>
       </div>
     </Menu.Item>
   );
