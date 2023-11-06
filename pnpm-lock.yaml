@@ -673,6 +673,9 @@ importers:
 
   packages/workers/leafwatch:
     dependencies:
+      '@hey/clickhouse':
+        specifier: workspace:*
+        version: link:../../clickhouse
       '@hey/data':
         specifier: workspace:*
         version: link:../../data

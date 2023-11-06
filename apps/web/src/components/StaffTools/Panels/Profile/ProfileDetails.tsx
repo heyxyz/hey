@@ -6,7 +6,7 @@ import {
   MapPinIcon
 } from '@heroicons/react/24/outline';
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
-import { LEAFWATCH_WORKER_URL, STATS_WORKER_URL } from '@hey/data/constants';
+import { STATS_WORKER_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import humanize from '@hey/lib/humanize';
 import { useQuery } from '@tanstack/react-query';
@@ -30,7 +30,7 @@ const ProfileDetails: FC<ProfileDetailsProps> = ({ profile }) => {
     version: string;
   } | null> => {
     try {
-      const response = await axios.get(`${LEAFWATCH_WORKER_URL}/profile`, {
+      const response = await axios.get(`${STATS_WORKER_URL}/profileDetails`, {
         params: { id: profile.id }
       });
       const { data } = response;
