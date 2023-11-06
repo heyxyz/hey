@@ -1,4 +1,4 @@
-import { WEBSOCKET_WORKER_URL } from '@hey/data/constants';
+import { IS_MAINNET, WEBSOCKET_WORKER_URL } from '@hey/data/constants';
 import { type FC } from 'react';
 import useWebSocket from 'react-use-websocket';
 import { useLeafwatchPersistStore } from 'src/store/useLeafwatchPersistStore';
@@ -27,7 +27,7 @@ const LeafwatchProvider: FC = () => {
   }, 10000);
 
   useUpdateEffect(() => {
-    if (readyState === 1 && viewedPublication) {
+    if (readyState === 1 && viewedPublication && IS_MAINNET) {
       sendJsonMessage({
         id: '1',
         type: 'start',
