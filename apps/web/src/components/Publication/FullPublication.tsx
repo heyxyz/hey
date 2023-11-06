@@ -37,7 +37,7 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
 
   return (
     <article className="p-5">
-      <PublicationType publication={targetPublication} showType />
+      <PublicationType publication={publication} showType />
       <div>
         <PublicationHeader publication={targetPublication} />
         <div className="ml-[53px]">
