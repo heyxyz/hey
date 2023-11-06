@@ -13,4 +13,4 @@ mode = "smart"
 
 [env.production.vars]
 RELEASE = ""
-CLICKHOUSE_REST_ENDPOINT = ""
+CLICKHOUSE_PASSWORD = ""

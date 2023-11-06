@@ -1,3 +1,4 @@
+import createClickhouseClient from '@hey/clickhouse/createClickhouseClient';
 import { Errors } from '@hey/data/errors';
 import response from '@hey/lib/response';
 import { array, object, string } from 'zod';
@@ -27,37 +28,27 @@ export default async (request: WorkerRequest) => {
   const { ids } = body as ExtensionRequest;
 
   try {
-    const clickhouseResponse = await fetch(
-      `${request.env.CLICKHOUSE_REST_ENDPOINT}&default_format=JSONCompact`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        cf: { cacheTtl: 600, cacheEverything: true },
-        body: `
-          SELECT publication_id, COUNT(*) AS count
-          FROM impressions
-          WHERE publication_id IN (${ids.map((id) => `'${id}'`).join(',')})
-          GROUP BY publication_id;
-        `
-      }
-    );
+    const client = createClickhouseClient(request.env.CLICKHOUSE_PASSWORD);
+    const rows = await client.query({
+      query: `
+        SELECT publication_id, COUNT(*) AS count
+        FROM impressions
+        WHERE publication_id IN (${ids.map((id) => `'${id}'`).join(',')})
+        GROUP BY publication_id;
+      `,
+      format: 'JSONEachRow'
+    });
 
-    if (clickhouseResponse.status !== 200) {
-      return response({ success: false, error: Errors.StatusCodeIsNot200 });
-    }
+    const result =
+      await rows.json<Array<{ publication_id: string; count: number }>>();
 
-    const json: {
-      data: [string][][];
-    } = await clickhouseResponse.json();
-
-    const viewCounts = json.data.map(([id, views]) => ({
-      id: id,
-      views: Number(views)
+    const viewCounts = result.map((row) => ({
+      id: row.publication_id,
+      views: Number(row.count)
     }));
 
     return response({ success: true, views: viewCounts });
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };
