@@ -46,10 +46,10 @@ export default async (request: WorkerRequest) => {
 
     return response({
       success: true,
-      totalImpressions: result[0].totalImpressions,
+      totalImpressions: Number(result[0].totalImpressions),
       yearlyImpressions: result.map((row) => ({
         day: row.day,
-        impressions: row.impressions
+        impressions: Number(row.impressions)
       }))
     });
   } catch (error) {
