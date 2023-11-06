@@ -13,7 +13,7 @@ The following ports are exposed by the repository
 | 8086 | ENS resolver worker        | http://localhost:8086 | https://ens.hey.xyz            |
 | 8087 | Oembed worker              | http://localhost:8087 | https://oembed.hey.xyz         |
 | 8088 | Leafwatch worker           | http://localhost:8088 | https://leafwatch.hey.xyz      |
-| 8089 | Achievements worker        | http://localhost:8089 | https://achievements.hey.xyz   |
+| 8089 | Stats worker               | http://localhost:8089 | https://stats.hey.xyz          |
 | 8090 | Feeds gateway              | http://localhost:8090 | https://feeds.hey.xyz          |
 | 8091 | Preferences worker         | http://localhost:8091 | https://preferences.hey.xyz    |
 | 8092 | Groups worker              | http://localhost:8092 | https://groups.hey.xyz         |
