@@ -1,3 +1,4 @@
+import { useApolloClient } from '@apollo/client';
 import { Menu } from '@headlessui/react';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
@@ -49,18 +50,33 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     ? publication?.mirrorOn
     : publication;
 
-  const [hasShared, setHasShared] = useState(
-    targetPublication.operations.hasMirrored ||
-      targetPublication.operations.hasQuoted
+  const [hasMirrored, setHasMirrored] = useState(
+    targetPublication.operations.hasMirrored
   );
   const [shares, setShares] = useState(
     targetPublication.stats.mirrors + targetPublication.stats.quotes
   );
 
   const handleWrongNetwork = useHandleWrongNetwork();
+  const { cache } = useApolloClient();
 
   const { isSponsored, canUseLensManager, canBroadcast } =
     checkDispatcherPermissions(currentProfile);
+
+  const updateCache = () => {
+    cache.modify({
+      id: cache.identify(targetPublication),
+      fields: {
+        operations: (existingValue) => {
+          return { ...existingValue, hasMirrored: !hasMirrored };
+        }
+      }
+    });
+    cache.modify({
+      id: cache.identify(targetPublication.stats),
+      fields: { mirrors: () => (hasMirrored ? shares - 1 : shares + 1) }
+    });
+  };
 
   const onError = (error?: any) => {
     setIsLoading(false);
@@ -82,8 +98,9 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     }
 
     setIsLoading(false);
-    setHasShared(true);
+    setHasMirrored(true);
     setShares(shares + 1);
+    updateCache();
     toast.success('Post has been mirrored!');
     Leafwatch.track(PUBLICATION.MIRROR, {
       publication_id: publication.id
@@ -244,7 +261,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
       className={({ active }) =>
         cn(
           { 'dropdown-active': active },
-          hasShared ? 'text-green-500' : '',
+          hasMirrored ? 'text-green-500' : '',
           'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm'
         )
       }
@@ -253,7 +270,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     >
       <div className="flex items-center space-x-2">
         <ArrowsRightLeftIcon className="h-4 w-4" />
-        <div>{hasShared ? 'Mirrored or Quoted' : 'Mirror or Quote'}</div>
+        <div>{hasMirrored ? 'Mirrored' : 'Mirror'}</div>
       </div>
     </Menu.Item>
   );
