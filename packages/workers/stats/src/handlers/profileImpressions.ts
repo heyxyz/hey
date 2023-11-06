@@ -39,13 +39,10 @@ export default async (request: WorkerRequest) => {
       format: 'JSONEachRow'
     });
 
-    const result = await rows.json<
-      Array<{
-        day: number;
-        impressions: number;
-        totalImpressions: number;
-      }>
-    >();
+    const result =
+      await rows.json<
+        Array<{ day: number; impressions: number; totalImpressions: number }>
+      >();
 
     return response({
       success: true,

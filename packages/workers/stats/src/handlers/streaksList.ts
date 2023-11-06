@@ -40,13 +40,8 @@ export default async (request: WorkerRequest) => {
       format: 'JSONEachRow'
     });
 
-    const result = await rows.json<
-      Array<{
-        id: string;
-        name: string;
-        created: string;
-      }>
-    >();
+    const result =
+      await rows.json<Array<{ id: string; name: string; created: string }>>();
 
     const list = result.map(({ id, name, created }) => ({
       id,

@@ -29,12 +29,8 @@ export default async (request: WorkerRequest) => {
       format: 'JSONEachRow'
     });
 
-    const result = await rows.json<
-      Array<{
-        event_date: string;
-        event_count: number;
-      }>
-    >();
+    const result =
+      await rows.json<Array<{ event_date: string; event_count: number }>>();
 
     const eventData = result.reduce((acc: any, { event_date, event_count }) => {
       acc[event_date] = Number(event_count);
