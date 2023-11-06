@@ -1,3 +1,4 @@
+import { useApolloClient } from '@apollo/client';
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import CollectWarning from '@components/Shared/CollectWarning';
 import CountdownTimer from '@components/Shared/CountdownTimer';
@@ -57,7 +58,6 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useOpenActionOptimisticStore } from 'src/store/OptimisticActions/useOpenActionOptimisticStore';
 import { useAppStore } from 'src/store/useAppStore';
 import { useNonceStore } from 'src/store/useNonceStore';
 import {
@@ -75,22 +75,13 @@ interface CollectModuleProps {
 }
 
 const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
-  const setOpenActionPublicationConfig = useOpenActionOptimisticStore(
-    (state) => state.setOpenActionPublicationConfig
-  );
-  const hasActedByMe = useOpenActionOptimisticStore(
-    (state) => state.hasActedByMe
-  );
-  const getOpenActionCountByPublicationId = useOpenActionOptimisticStore(
-    (state) => state.getOpenActionCountByPublicationId
-  );
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce
   );
   const setLensHubOnchainSigNonce = useNonceStore(
     (state) => state.setLensHubOnchainSigNonce
   );
-  const currentProfile = useAppStore((state) => state.currentProfile);
 
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
@@ -99,13 +90,15 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
   const [allowed, setAllowed] = useState(true);
+  const [hasActed, setHasActed] = useState(
+    targetPublication.operations.hasActed.value
+  );
+  const [countOpenActions, setCountOpenActions] = useState(
+    targetPublication.stats.countOpenActions
+  );
   const { address } = useAccount();
   const handleWrongNetwork = useHandleWrongNetwork();
-
-  const openActionCount = getOpenActionCountByPublicationId(
-    targetPublication.id
-  );
-  const hasActed = hasActedByMe(targetPublication.id);
+  const { cache } = useApolloClient();
 
   // Lens manager
   const { canUseLensManager, canBroadcast } =
@@ -125,7 +118,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
   const assetDecimals = collectModule?.amount?.asset?.decimals;
   const referralFee = collectModule?.referralFee;
   const isLimitedCollectAllCollected = collectLimit
-    ? openActionCount >= collectLimit
+    ? countOpenActions >= collectLimit
     : false;
   const isCollectExpired = endTimestamp
     ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
@@ -141,6 +134,29 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
   const canUseManager =
     canUseLensManager && !collectModule?.followerOnly && isFreeCollectModule;
 
+  const updateCache = () => {
+    cache.modify({
+      id: cache.identify(targetPublication),
+      fields: {
+        operations: (existingValue) => {
+          return { ...existingValue, hasActed: { value: !hasActed } };
+        }
+      }
+    });
+    cache.modify({
+      id: cache.identify(targetPublication.stats),
+      fields: {
+        countOpenActions: () =>
+          hasActed ? countOpenActions - 1 : countOpenActions + 1
+      }
+    });
+  };
+
+  const onError = (error: any) => {
+    setIsLoading(false);
+    errorToast(error);
+  };
+
   const onCompleted = (
     __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
   ) => {
@@ -151,20 +167,14 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
       return;
     }
 
-    setOpenActionPublicationConfig(targetPublication.id, {
-      countOpenActions: openActionCount + 1,
-      acted: true
-    });
+    setHasActed(true);
+    setCountOpenActions(countOpenActions + 1);
+    updateCache();
     toast.success('Collected successfully!');
     Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
       publication_id: targetPublication?.id,
       collect_module: collectModule?.type
     });
-  };
-
-  const onError = (error: any) => {
-    setIsLoading(false);
-    errorToast(error);
   };
 
   const { signTypedDataAsync } = useSignTypedData({ onError });
@@ -183,7 +193,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
     }
   });
 
-  const percentageCollected = (openActionCount / collectLimit) * 100;
+  const percentageCollected = (countOpenActions / collectLimit) * 100;
 
   const { data: allowanceData, loading: allowanceLoading } =
     useApprovedModuleAllowanceAmountQuery({
@@ -424,7 +434,8 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
                 type="button"
                 onClick={() => setShowCollectorsModal(!showCollectorsModal)}
               >
-                {humanize(openActionCount)} {plur('collector', openActionCount)}
+                {humanize(countOpenActions)}{' '}
+                {plur('collector', countOpenActions)}
               </button>
               <Modal
                 title="Collected by"
@@ -439,7 +450,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
               <div className="flex items-center space-x-2">
                 <PhotoIcon className="ld-text-gray-500 h-4 w-4" />
                 <div className="font-bold">
-                  {collectLimit - openActionCount} available
+                  {collectLimit - countOpenActions} available
                 </div>
               </div>
             ) : null}
