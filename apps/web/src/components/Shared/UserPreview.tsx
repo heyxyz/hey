@@ -120,7 +120,14 @@ const UserPreview: FC<UserPreviewProps> = ({
             <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
           ) : null}
         </div>
-        <Slug className="text-sm" slug={getProfile(profile).slugWithPrefix} />
+        <span>
+          <Slug className="text-sm" slug={getProfile(profile).slugWithPrefix} />
+          {profile.operations.isFollowingMe.value ? (
+            <span className="ml-2 rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
+              Follows you
+            </span>
+          ) : null}
+        </span>
       </>
     );
 
