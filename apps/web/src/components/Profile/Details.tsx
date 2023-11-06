@@ -114,9 +114,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             className="text-sm sm:text-base"
             slug={getProfile(profile).slugWithPrefix}
           />
-          {currentProfile &&
-          currentProfile?.id !== profile.id &&
-          profile.operations.isFollowingMe.value ? (
+          {profile.operations.isFollowingMe.value ? (
             <div className="rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
               Follows you
             </div>
