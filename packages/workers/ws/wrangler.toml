@@ -8,4 +8,4 @@ routes = [
 ]
 
 [env.production.vars]
-CLICKHOUSE_REST_ENDPOINT = ""
+CLICKHOUSE_PASSWORD = ""

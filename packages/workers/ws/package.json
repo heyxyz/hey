@@ -12,6 +12,9 @@
     "typecheck": "tsc --pretty",
     "worker:deploy": "wrangler deploy"
   },
+  "dependencies": {
+    "@hey/clickhouse": "workspace:*"
+  },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20231025.0",
     "@hey/config": "workspace:*",
