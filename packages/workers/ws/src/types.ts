@@ -1,3 +1,3 @@
 export interface Env {
-  CLICKHOUSE_REST_ENDPOINT: string;
+  CLICKHOUSE_PASSWORD: string;
 }
