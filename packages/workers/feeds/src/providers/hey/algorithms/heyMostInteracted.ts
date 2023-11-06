@@ -1,9 +1,9 @@
+import createClickhouseClient from '@hey/clickhouse/createClickhouseClient';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
 
 import randomizeIds from '../../../helpers/randomizeIds';
 import type { Env } from '../../../types';
-import clickhouseQuery from '../clickhouseQuery';
 
 const interactionAndWeights = {
   [PUBLICATION.COLLECT_MODULE.COLLECT]: 10,
@@ -38,32 +38,41 @@ const heyMostInteracted = async (
   }
 
   try {
-    const query = `
-      SELECT
+    const client = createClickhouseClient(env.CLICKHOUSE_PASSWORD);
+    const rows = await client.query({
+      query: `
+        SELECT
           JSONExtractString(properties, 'publication_id') AS publication_id,
           SUM(CASE 
             ${generateWeightedCaseStatement()}
             ELSE 0
           END) AS weighted_interaction_count
-      FROM
-          events
-      WHERE
+        FROM
+            events
+        WHERE
           name IN (${interactionEvents.map((name) => `'${name}'`).join(',')})
           AND JSONHas(properties, 'publication_id')
           AND created >= now() - INTERVAL 1 DAY
-      GROUP BY
+        GROUP BY
           publication_id
-      HAVING
+        HAVING
           publication_id IS NOT NULL
-      AND
+        AND
           publication_id != ''
-      ORDER BY
+        ORDER BY
           weighted_interaction_count DESC
-      LIMIT ${limit}
-      OFFSET ${offset};
-    `;
-    const response = await clickhouseQuery(query, env);
-    const ids = response.map((row) => row[0]);
+        LIMIT ${limit}
+        OFFSET ${offset};
+      `,
+      format: 'JSONEachRow'
+    });
+
+    const result =
+      await rows.json<
+        Array<{ publication_id: string; weighted_interaction_count: number }>
+      >();
+
+    const ids = result.map((row) => row.publication_id);
 
     return randomizeIds(ids);
   } catch {
