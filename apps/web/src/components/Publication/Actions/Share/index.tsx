@@ -10,8 +10,7 @@ import { Spinner, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
-import { useMirrorOrQuoteOptimisticStore } from 'src/store/OptimisticActions/useMirrorOrQuoteOptimisticStore';
+import { useState } from 'react';
 
 import Mirror from './Mirror';
 import Quote from './Quote';
@@ -22,35 +21,15 @@ interface PublicationMenuProps {
 }
 
 const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
-  const getMirrorOrQuoteCountByPublicationId = useMirrorOrQuoteOptimisticStore(
-    (state) => state.getMirrorOrQuoteCountByPublicationId
-  );
-  const hasQuotedOrMirroredByMe = useMirrorOrQuoteOptimisticStore(
-    (state) => state.hasQuotedOrMirroredByMe
-  );
-  const setMirrorOrQuoteConfig = useMirrorOrQuoteOptimisticStore(
-    (state) => state.setMirrorOrQuoteConfig
-  );
   const [isLoading, setIsLoading] = useState(false);
-
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
-  const hasQuotedOrMirrored = hasQuotedOrMirroredByMe(targetPublication.id);
-  const mirrorOrQuoteCount = getMirrorOrQuoteCountByPublicationId(
-    targetPublication.id
-  );
-
-  useEffect(() => {
-    setMirrorOrQuoteConfig(targetPublication.id, {
-      countMirrorOrQuote:
-        targetPublication.stats.mirrors + targetPublication.stats.quotes,
-      mirroredOrQuoted:
-        targetPublication.operations.hasMirrored ||
-        targetPublication.operations.hasQuoted
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [publication]);
+  const hasShared =
+    targetPublication.operations.hasMirrored ||
+    targetPublication.operations.hasQuoted;
+  const shares =
+    targetPublication.stats.mirrors + targetPublication.stats.quotes;
 
   const iconClassName = 'w-[15px] sm:w-[18px]';
 
@@ -60,7 +39,7 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
         <Menu.Button
           as={motion.button}
           className={cn(
-            hasQuotedOrMirrored
+            hasShared
               ? 'text-brand-500 hover:bg-brand-300/20 outline-brand-500'
               : 'ld-text-gray-500 outline-gray-400 hover:bg-gray-300/20',
             'rounded-full p-1.5 outline-offset-2'
@@ -71,7 +50,7 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
         >
           {isLoading ? (
             <Spinner
-              variant={hasQuotedOrMirrored ? 'success' : 'primary'}
+              variant={hasShared ? 'success' : 'primary'}
               size="xs"
               className="mr-0.5"
             />
@@ -79,9 +58,9 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
             <Tooltip
               placement="top"
               content={
-                mirrorOrQuoteCount > 0
-                  ? `${humanize(mirrorOrQuoteCount)} Mirrors`
-                  : 'Mirror'
+                shares > 0
+                  ? `${humanize(shares)} Mirrors and Quotes`
+                  : 'Mirror or Quote'
               }
               withDelay
             >
@@ -103,14 +82,14 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
           </Menu.Items>
         </MenuTransition>
       </Menu>
-      {mirrorOrQuoteCount > 0 && !showCount ? (
+      {shares > 0 && !showCount ? (
         <span
           className={cn(
-            hasQuotedOrMirrored ? 'text-brand-500' : 'ld-text-gray-500',
+            hasShared ? 'text-brand-500' : 'ld-text-gray-500',
             'text-[11px] sm:text-xs'
           )}
         >
-          {nFormatter(mirrorOrQuoteCount)}
+          {nFormatter(shares)}
         </span>
       ) : null}
     </div>
