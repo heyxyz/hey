@@ -1,3 +1,4 @@
+import type { ApolloCache } from '@apollo/client';
 import { HeartIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data/errors';
@@ -16,9 +17,8 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
-import { type FC, useEffect } from 'react';
+import { type FC, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useReactionOptimisticStore } from 'src/store/OptimisticActions/useReactionOptimisticStore';
 import { useAppStore } from 'src/store/useAppStore';
 
 interface LikeProps {
@@ -29,29 +29,31 @@ interface LikeProps {
 const Like: FC<LikeProps> = ({ publication, showCount }) => {
   const { pathname } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const getReactionCountByPublicationId = useReactionOptimisticStore(
-    (state) => state.getReactionCountByPublicationId
-  );
-  const hasReactedByMe = useReactionOptimisticStore(
-    (state) => state.hasReactedByMe
-  );
-  const setReactionConfig = useReactionOptimisticStore(
-    (state) => state.setReactionConfig
-  );
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
 
-  const hasReacted = hasReactedByMe(targetPublication.id);
-  const reactionCount = getReactionCountByPublicationId(targetPublication.id);
+  const [hasReacted, setHasReacted] = useState(
+    targetPublication.operations.hasReacted
+  );
+  const [reactions, setReactions] = useState(targetPublication.stats.reactions);
 
-  useEffect(() => {
-    setReactionConfig(targetPublication.id, {
-      countReaction: targetPublication.stats.reactions,
-      reacted: targetPublication.operations.hasReacted
+  const updateCache = (cache: ApolloCache<any>) => {
+    cache.modify({
+      id: cache.identify(targetPublication),
+      fields: {
+        operations: (existingValue) => {
+          return { ...existingValue, hasReacted: !hasReacted };
+        }
+      }
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [publication]);
+    cache.modify({
+      id: cache.identify(targetPublication.stats),
+      fields: {
+        reactions: () => (hasReacted ? reactions - 1 : reactions + 1)
+      }
+    });
+  };
 
   const onError = (error: any) => {
     errorToast(error);
@@ -81,23 +83,21 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
       Leafwatch.track(PUBLICATION.LIKE, eventProperties);
     },
     onError: (error) => {
-      setReactionConfig(targetPublication.id, {
-        countReaction: reactionCount - 1,
-        reacted: !hasReacted
-      });
+      setHasReacted(!hasReacted);
+      setReactions(reactions - 1);
       onError(error);
-    }
+    },
+    update: updateCache
   });
 
   const [removeReaction] = useRemoveReactionMutation({
     onCompleted: () => Leafwatch.track(PUBLICATION.UNLIKE, eventProperties),
     onError: (error) => {
-      setReactionConfig(targetPublication.id, {
-        countReaction: reactionCount + 1,
-        reacted: !hasReacted
-      });
+      setHasReacted(!hasReacted);
+      setReactions(reactions + 1);
       onError(error);
-    }
+    },
+    update: updateCache
   });
 
   const createLike = async () => {
@@ -112,17 +112,13 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
     };
 
     if (hasReacted) {
-      setReactionConfig(targetPublication.id, {
-        countReaction: reactionCount - 1,
-        reacted: false
-      });
+      setHasReacted(false);
+      setReactions(reactions - 1);
       return await removeReaction({ variables: { request } });
     }
 
-    setReactionConfig(targetPublication.id, {
-      countReaction: reactionCount + 1,
-      reacted: true
-    });
+    setHasReacted(true);
+    setReactions(reactions + 1);
     return await addReaction({ variables: { request } });
   };
 
@@ -160,10 +156,8 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
           )}
         </Tooltip>
       </motion.button>
-      {reactionCount > 0 && !showCount ? (
-        <span className="text-[11px] sm:text-xs">
-          {nFormatter(reactionCount)}
-        </span>
+      {reactions > 0 && !showCount ? (
+        <span className="text-[11px] sm:text-xs">{nFormatter(reactions)}</span>
       ) : null}
     </div>
   );

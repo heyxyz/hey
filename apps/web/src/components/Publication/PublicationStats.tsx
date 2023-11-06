@@ -20,15 +20,12 @@ import { memo, useEffect, useState } from 'react';
 import { useBookmarkOptimisticStore } from 'src/store/OptimisticActions/useBookmarkOptimisticStore';
 import { useMirrorOrQuoteOptimisticStore } from 'src/store/OptimisticActions/useMirrorOrQuoteOptimisticStore';
 import { useOpenActionOptimisticStore } from 'src/store/OptimisticActions/useOpenActionOptimisticStore';
-import { useReactionOptimisticStore } from 'src/store/OptimisticActions/useReactionOptimisticStore';
 
 interface PublicationStatsProps {
   publication: AnyPublication;
 }
 
 const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
-  const { getReactionCountByPublicationId, setReactionConfig } =
-    useReactionOptimisticStore();
   const { getMirrorOrQuoteCountByPublicationId, setMirrorOrQuoteConfig } =
     useMirrorOrQuoteOptimisticStore();
   const { getOpenActionCountByPublicationId, setOpenActionPublicationConfig } =
@@ -47,10 +44,6 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
     : publication;
 
   useEffect(() => {
-    setReactionConfig(targetPublication.id, {
-      countReaction: targetPublication.stats.reactions,
-      reacted: targetPublication.operations.hasReacted
-    });
     setMirrorOrQuoteConfig(targetPublication.id, {
       // We done substracting quotes because quotes are counted separately
       countMirrorOrQuote:
@@ -75,7 +68,6 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [targetPublication]);
 
-  const reactionsCount = getReactionCountByPublicationId(targetPublication.id);
   const mirrorOrQuoteCount = getMirrorOrQuoteCountByPublicationId(
     targetPublication.id
   );
@@ -83,6 +75,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
     targetPublication.id
   );
   const bookmarksCount = getBookmarkCountByPublicationId(targetPublication.id);
+  const reactionsCount = targetPublication.stats.reactions;
   const quotesCount = targetPublication.stats.quotes;
   const commentsCount = targetPublication.stats.comments;
   const publicationId = targetPublication.id;
