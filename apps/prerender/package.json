@@ -26,7 +26,7 @@
   "devDependencies": {
     "@hey/config": "workspace:*",
     "@hey/lens": "workspace:*",
-    "@types/react": "^18.2.35",
+    "@types/react": "^18.2.36",
     "typescript": "^5.2.2"
   }
 }
