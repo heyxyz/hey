@@ -73,7 +73,6 @@ const SinglePublication: FC<SinglePublicationProps> = ({
       )}
       publication={rootPublication}
     >
-      <span ref={observe} />
       {feedItem ? (
         <ActionType feedItem={feedItem} />
       ) : (
@@ -84,7 +83,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
         />
       )}
       <PublicationHeader publication={rootPublication} feedItem={feedItem} />
-      <div className="ml-[53px]">
+      <div className="ml-[53px]" ref={observe}>
         {publication.isHidden ? (
           <HiddenPublication type={publication.__typename} />
         ) : (
