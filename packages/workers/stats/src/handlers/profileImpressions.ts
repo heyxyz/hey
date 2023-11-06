@@ -18,12 +18,27 @@ export default async (request: WorkerRequest) => {
         headers: { 'Content-Type': 'application/json' },
         cf: { cacheTtl: 600, cacheEverything: true },
         body: `
+          WITH toYear(now()) AS current_year
           SELECT
-            splitByString('-', publication_id)[1] AS user_id_extracted,
-            count() AS impressions
-          FROM impressions
-          WHERE splitByString('-', publication_id)[1] = '${id}'
-          GROUP BY user_id_extracted;
+            day,
+            impressions,
+            totalImpressions
+          FROM (
+            SELECT
+              toDayOfYear(viewed_at) AS day,
+              count() AS impressions
+            FROM impressions
+            WHERE splitByString('-', publication_id)[1] = '${id}'
+              AND toYear(viewed_at) = current_year
+            GROUP BY day
+          ) AS dailyImpressions
+          CROSS JOIN (
+            SELECT count() AS totalImpressions
+            FROM impressions
+            WHERE splitByString('-', publication_id)[1] = '${id}'
+              AND toYear(viewed_at) = current_year
+          ) AS total
+          ORDER BY day
         `
       }
     );
@@ -38,7 +53,11 @@ export default async (request: WorkerRequest) => {
 
     return response({
       success: true,
-      impressions: Number(json.data?.[0]?.[1]) || 0
+      totalImpressions: Number(json.data?.[0]?.[2]) || 0,
+      yearlyImpressions: json.data.map((item) => ({
+        day: item[0],
+        impressions: Number(item[1])
+      }))
     });
   } catch (error) {
     throw error;
