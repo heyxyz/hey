@@ -10,5 +10,5 @@ routes = [
 
 [env.production.vars]
 RELEASE = ""
-CLICKHOUSE_REST_ENDPOINT = ""
+CLICKHOUSE_PASSWORD = ""
 IPAPI_KEY = ""
