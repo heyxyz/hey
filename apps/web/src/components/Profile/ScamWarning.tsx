@@ -20,6 +20,7 @@ const ScamWarning: FC<ScamWarningProps> = ({ profile }) => {
     <Card
       as="aside"
       className="mb-4 space-y-2.5 border-red-400 !bg-red-300/20 p-5 text-red-600"
+      forceRounded
     >
       <div className="flex items-center space-x-2 font-bold">
         <p>Profile is marked as {misuseDetails.type.toLowerCase()}!</p>
