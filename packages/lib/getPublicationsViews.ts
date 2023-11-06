@@ -1,4 +1,4 @@
-import { ACHIEVEMENTS_WORKER_URL } from '@hey/data/constants';
+import { STATS_WORKER_URL } from '@hey/data/constants';
 import axios from 'axios';
 
 /**
@@ -8,10 +8,9 @@ import axios from 'axios';
  */
 const getPublicationsViews = async (ids: string[]) => {
   try {
-    const response = await axios.post(
-      `${ACHIEVEMENTS_WORKER_URL}/publicationViews`,
-      { ids }
-    );
+    const response = await axios.post(`${STATS_WORKER_URL}/publicationViews`, {
+      ids
+    });
 
     return response.data?.views;
   } catch {
