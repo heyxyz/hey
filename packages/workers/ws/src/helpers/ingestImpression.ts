@@ -12,7 +12,9 @@ const ingestImpression = async (payload: any, websocket: any, env: Env) => {
       format: 'JSONEachRow'
     });
 
-    websocket.send(JSON.stringify({ id: result.query_id }));
+    websocket.send(
+      JSON.stringify({ id: publication_id, query: result.query_id })
+    );
   }
 };
 
