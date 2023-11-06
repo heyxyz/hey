@@ -48,7 +48,7 @@ const ProfileDetails: FC<ProfileDetailsProps> = ({ profile }) => {
   });
 
   const getProfileImpressions = async (): Promise<{
-    impressions: number;
+    totalImpressions: number;
   } | null> => {
     try {
       const response = await axios.get(
@@ -84,10 +84,10 @@ const ProfileDetails: FC<ProfileDetailsProps> = ({ profile }) => {
       <div className="mt-3 space-y-2 font-bold">
         <MetaDetails
           icon={<EyeIcon className="ld-text-gray-500 h-4 w-4" />}
-          value={humanize(impressionDetails.impressions)}
+          value={humanize(impressionDetails.totalImpressions)}
           title="Impressions"
         >
-          {humanize(impressionDetails.impressions)}
+          {humanize(impressionDetails.totalImpressions)}
         </MetaDetails>
         <MetaDetails
           icon={<CursorArrowRaysIcon className="ld-text-gray-500 h-4 w-4" />}
