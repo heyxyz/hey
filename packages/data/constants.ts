@@ -63,7 +63,7 @@ export const METADATA_WORKER_URL = IS_PRODUCTION
   ? 'https://metadata.hey.xyz'
   : 'http://localhost:8083';
 export const WEBSOCKET_WORKER_URL = IS_PRODUCTION
-  ? 'wss://ws.hey.xyz'
+  ? 'wss://impressions.hey.xyz'
   : 'ws://localhost:8084';
 export const SNAPSHOR_RELAY_WORKER_URL = IS_PRODUCTION
   ? 'https://snapshot-relay.hey.xyz'
