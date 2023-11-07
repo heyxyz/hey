@@ -24,18 +24,20 @@ wss.on('connection', (ws) => {
   ws.on('message', async (data) => {
     try {
       const message = JSON.parse(data.toString());
-      const parsedData: {
-        id: string;
-        type: 'connection_init' | 'start';
-        payload: string;
-      } = message;
-      await ingestImpression(JSON.parse(parsedData.payload), ws);
+      if (message.type === 'connection_init') {
+        ws.send(JSON.stringify({ type: 'connection_ack' }));
+      } else if (message.type === 'start') {
+        const payload = JSON.parse(message.payload);
+        await ingestImpression(payload, ws);
+      } else {
+        ws.send(JSON.stringify({ error: 'Unknown message received' }));
+      }
     } catch (error) {
       ws.send(JSON.stringify({ error: 'Invalid data received' }));
     }
   });
 });
 
-server.listen(8888, () => {
-  console.log('Listening to 8888');
+server.listen(5001, () => {
+  console.log('Listening to 5001');
 });
