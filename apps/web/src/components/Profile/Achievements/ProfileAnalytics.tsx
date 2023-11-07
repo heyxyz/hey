@@ -1,15 +1,12 @@
 import { ChartBarSquareIcon } from '@heroicons/react/24/outline';
 import { STATS_WORKER_URL } from '@hey/data/constants';
-import { PAGEVIEW } from '@hey/data/tracking';
+import type { Profile } from '@hey/lens';
 import humanize from '@hey/lib/humanize';
 import { Card, ErrorMessage, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { FC } from 'react';
-import { useAppStore } from 'src/store/useAppStore';
-import { useEffectOnce } from 'usehooks-ts';
 
 interface AnalyticsData {
   last_7_days: number;
@@ -73,20 +70,18 @@ interface ProfileAnalyticsData {
   link_clicks: AnalyticsData;
 }
 
-const ProfileAnalytics: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+interface ProfileAnalyticsProps {
+  profile: Profile;
+}
 
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'analytics' });
-  });
-
+const ProfileAnalytics: FC<ProfileAnalyticsProps> = ({ profile }) => {
   const fetchProfileAnalytics =
     async (): Promise<ProfileAnalyticsData | null> => {
       try {
         const response = await axios.get(`${STATS_WORKER_URL}/profile`, {
           params: {
-            id: currentProfile?.id,
-            handle: currentProfile?.handle?.localName
+            id: profile?.id,
+            handle: profile?.handle?.localName
           }
         });
         const { data } = response;
@@ -100,7 +95,7 @@ const ProfileAnalytics: FC = () => {
   const { data, isLoading, error } = useQuery({
     queryKey: ['fetchProfileAnalytics'],
     queryFn: fetchProfileAnalytics,
-    enabled: Boolean(currentProfile?.id)
+    enabled: Boolean(profile?.id)
   });
 
   if (isLoading) {
@@ -120,12 +115,12 @@ const ProfileAnalytics: FC = () => {
 
   return (
     <Card>
-      <div className="m-5 flex items-center space-x-2">
+      <div className="flex items-center space-x-2 px-6 py-5 text-lg font-bold">
         <ChartBarSquareIcon className="text-brand-500 h-6 w-6" />
-        <div className="text-lg font-bold">Profile Analytics</div>
+        <span>Profile Analytics</span>
       </div>
       <div className="divider" />
-      <div className="m-5 grid grid-cols-2 gap-6">
+      <div className="m-6 grid grid-cols-2 gap-6">
         <Stat title="Impressions" data={data?.impressions} />
         <Stat title="Profile Views" data={data?.profile_views} />
         <Stat title="Follows" data={data?.follows} />
@@ -134,6 +129,7 @@ const ProfileAnalytics: FC = () => {
         <Stat title="Mirrors" data={data?.mirrors} />
         <Stat title="Link clicks" data={data?.link_clicks} />
       </div>
+      <div className="mx-6 mb-6 text-xs">Metrics shown for the last 7 days</div>
     </Card>
   );
 };
