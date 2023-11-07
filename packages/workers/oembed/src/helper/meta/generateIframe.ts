@@ -1,7 +1,7 @@
 const knownSites = [
   'youtube.com',
   'youtu.be',
-  'lenstube.xyz',
+  'tape.xyz',
   'open.spotify.com',
   'soundcloud.com',
   'oohlala.xyz'
@@ -19,8 +19,8 @@ const soundCloudRegex =
   /^ht{2}ps?:\/{2}soundcloud\.com(?:\/[\dA-Za-z-]+){2}(\?si=[\dA-Za-z]+)?$/;
 const youtubeRegex =
   /^https?:\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w-]+)(?:\?.*)?$/;
-const lenstubeRegex =
-  /^https?:\/\/lenstube\.xyz\/watch\/[\dA-Za-z-]+(\?si=[\dA-Za-z]+)?$/;
+const tapeRegex =
+  /^https?:\/\/tape\.xyz\/watch\/[\dA-Za-z-]+(\?si=[\dA-Za-z]+)?$/;
 
 const generateIframe = (
   embedUrl: string | null,
@@ -43,8 +43,8 @@ const generateIframe = (
       }
 
       return null;
-    case 'lenstube.xyz':
-      if (lenstubeRegex.test(url)) {
+    case 'tape.xyz':
+      if (tapeRegex.test(url)) {
         return `<iframe src="${pickedUrl}" ${universalSize} allow="accelerometer; encrypted-media" allowfullscreen></iframe>`;
       }
 
