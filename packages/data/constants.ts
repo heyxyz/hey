@@ -62,42 +62,44 @@ export const STS_GENERATOR_WORKER_URL = IS_PRODUCTION
 export const METADATA_WORKER_URL = IS_PRODUCTION
   ? 'https://metadata.hey.xyz'
   : 'http://localhost:8083';
-export const WEBSOCKET_WORKER_URL = IS_PRODUCTION
-  ? 'wss://impressions.hey.xyz'
-  : 'ws://localhost:8084';
 export const SNAPSHOR_RELAY_WORKER_URL = IS_PRODUCTION
   ? 'https://snapshot-relay.hey.xyz'
-  : 'http://localhost:8085';
+  : 'http://localhost:8084';
 export const ENS_WORKER_URL = IS_PRODUCTION
   ? 'https://ens.hey.xyz'
-  : 'http://localhost:8086';
+  : 'http://localhost:8085';
 export const OEMBED_WORKER_URL = IS_PRODUCTION
   ? 'https://oembed.hey.xyz'
-  : 'http://localhost:8087';
+  : 'http://localhost:8086';
 export const LEAFWATCH_WORKER_URL = IS_PRODUCTION
   ? 'https://leafwatch.hey.xyz'
-  : 'http://localhost:8088';
+  : 'http://localhost:8087';
 export const STATS_WORKER_URL = IS_PRODUCTION
   ? 'https://stats.hey.xyz'
-  : 'http://localhost:8089';
+  : 'http://localhost:8088';
 export const FEEDS_WORKER_URL = IS_PRODUCTION
   ? 'https://feeds.hey.xyz'
-  : 'http://localhost:8090';
+  : 'http://localhost:8089';
 export const PREFERENCES_WORKER_URL = IS_PRODUCTION
   ? 'https://preferences.hey.xyz'
-  : 'http://localhost:8091';
+  : 'http://localhost:8090';
 export const GROUPS_WORKER_URL = IS_PRODUCTION
   ? 'https://groups.hey.xyz'
-  : 'http://localhost:8092';
+  : 'http://localhost:8091';
 export const NFT_WORKER_URL = IS_PRODUCTION
   ? 'https://nft.hey.xyz'
-  : 'http://localhost:8093';
+  : 'http://localhost:8092';
 export const STAFF_PICKS_WORKER_URL = IS_PRODUCTION
   ? 'https://staff-picks.hey.xyz'
-  : 'http://localhost:8094';
+  : 'http://localhost:8093';
 export const LIVE_WORKER_URL = IS_PRODUCTION
   ? 'https://live.hey.xyz'
-  : 'http://localhost:8095';
+  : 'http://localhost:8094';
+
+// Services
+export const IMPRESSIONS_SERVICE_URL = IS_PRODUCTION
+  ? 'wss://impressions.hey.xyz'
+  : 'ws://localhost:5001';
 
 // Tokens / Keys
 export const OPENSEA_KEY = '8b95f9e6d52b42fe8c19ddea847c0f5d';
