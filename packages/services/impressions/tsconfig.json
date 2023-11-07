@@ -2,6 +2,8 @@
   "extends": "@hey/config/base.tsconfig.json",
   "compilerOptions": {
     "module": "commonjs",
-    "types": ["node"]
-  }
+    "types": ["node"],
+    "outDir": "dist"
+  },
+  "exclude": ["dist"]
 }
