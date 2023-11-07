@@ -1,6 +1,7 @@
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import * as dotenv from 'dotenv';
+import type { Request, Response } from 'express';
 import express from 'express';
 import http from 'http';
 import WebSocket from 'ws';
@@ -16,12 +17,13 @@ app.use(bodyParser.json());
 
 const wss = new WebSocket.Server({ server });
 
-app.get('/', (req, res) => {
+app.get('/', (_: Request, res: Response) => {
   res.send('Impressions service');
 });
 
 wss.on('connection', (ws) => {
   ws.on('message', async (data) => {
+    console.log('Client connected');
     try {
       const message = JSON.parse(data.toString());
       if (message.type === 'connection_init') {
