@@ -3,6 +3,7 @@ const allowedTypes = [
   'AudioMetadataV3',
   'ImageMetadataV3',
   'TextOnlyMetadataV3',
+  'LinkMetadataV3',
   'VideoMetadataV3',
   'MintMetadataV3',
   'EmbedMetadataV3',
