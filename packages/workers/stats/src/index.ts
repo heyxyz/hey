@@ -3,6 +3,7 @@ import response from '@hey/lib/response';
 import { createCors, error, Router, status } from 'itty-router';
 
 import haveUsedHey from './handlers/haveUsedHey';
+import profile from './handlers/profile';
 import profileDetails from './handlers/profileDetails';
 import profileImpressions from './handlers/profileImpressions';
 import publicationViews from './handlers/publicationViews';
@@ -29,6 +30,7 @@ router
   )
   .post('/publicationViews', publicationViews)
   .get('/profileImpressions', profileImpressions)
+  .get('/profile', profile)
   .get('/profileDetails', profileDetails)
   .get('/haveUsedHey/:id', haveUsedHey)
   .get('/streaks/:id', streaksCalendar)
