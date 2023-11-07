@@ -13,6 +13,7 @@ const ingestImpression = async (payload: any, ws: any) => {
       values: [{ viewer_id, publication_id }],
       format: 'JSONEachRow'
     });
+    console.log('Ingested impression', result.query_id);
 
     ws.send(JSON.stringify({ id: publication_id, query: result.query_id }));
   }
