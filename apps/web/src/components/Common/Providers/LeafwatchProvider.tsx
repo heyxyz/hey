@@ -1,4 +1,4 @@
-import { IS_MAINNET, WEBSOCKET_WORKER_URL } from '@hey/data/constants';
+import { IMPRESSIONS_SERVICE_URL, IS_MAINNET } from '@hey/data/constants';
 import { type FC } from 'react';
 import useWebSocket from 'react-use-websocket';
 import { useLeafwatchPersistStore } from 'src/store/useLeafwatchPersistStore';
@@ -13,7 +13,7 @@ const LeafwatchProvider: FC = () => {
     (state) => state.viewedPublication
   );
 
-  const { sendJsonMessage, readyState } = useWebSocket(WEBSOCKET_WORKER_URL);
+  const { sendJsonMessage, readyState } = useWebSocket(IMPRESSIONS_SERVICE_URL);
 
   useEffectOnce(() => {
     sendJsonMessage({ type: 'connection_init' });
