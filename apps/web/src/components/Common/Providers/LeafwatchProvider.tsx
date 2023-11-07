@@ -13,7 +13,10 @@ const LeafwatchProvider: FC = () => {
     (state) => state.viewedPublication
   );
 
-  const { sendJsonMessage, readyState } = useWebSocket(IMPRESSIONS_SERVICE_URL);
+  const { sendJsonMessage, readyState } = useWebSocket(
+    IMPRESSIONS_SERVICE_URL,
+    { reconnectAttempts: 5, reconnectInterval: 5000 }
+  );
 
   useEffectOnce(() => {
     sendJsonMessage({ type: 'connection_init' });
