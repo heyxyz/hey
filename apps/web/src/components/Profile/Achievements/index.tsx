@@ -1,6 +1,7 @@
 import type { Profile } from '@hey/lens';
 import { type FC } from 'react';
 
+import ProfileAnalytics from './ProfileAnalytics';
 import Streaks from './Streaks';
 import StreaksList from './StreaksList';
 
@@ -13,6 +14,7 @@ const Achievements: FC<AchievementsProps> = ({ profile }) => {
     <div className="space-y-4">
       <Streaks profile={profile} />
       <StreaksList profile={profile} />
+      <ProfileAnalytics profile={profile} />
     </div>
   );
 };

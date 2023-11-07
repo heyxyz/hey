@@ -11,7 +11,7 @@ import { CalendarIcon } from '@heroicons/react/24/solid';
 import { STATS_WORKER_URL } from '@hey/data/constants';
 import { PROFILE, PUBLICATION } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
-import { Card } from '@hey/ui';
+import { Card, Spinner } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
@@ -85,8 +85,11 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
 
   if (isLoading) {
     return (
-      <Card className="p-6">
-        <div>Loading</div>
+      <Card className="p-5">
+        <div className="space-y-2 px-5 py-3.5 text-center font-bold">
+          <Spinner size="md" className="mx-auto" />
+          <div>Loading events</div>
+        </div>
       </Card>
     );
   }
@@ -106,7 +109,7 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
         <span>Latest events</span>
       </div>
       <div className="divider" />
-      <div className="space-y-4 p-6">
+      <div className="m-6 space-y-4">
         {data.map((streak: { id: string; event: string; date: string }) => (
           <div key={streak.id} className="flex items-center space-x-2">
             <EventIcon event={streak.event} />
