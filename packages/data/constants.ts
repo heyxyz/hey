@@ -55,7 +55,7 @@ export const EVER_API = 'https://endpoint.4everland.co';
 export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/logo.jpeg`;
 export const PLACEHOLDER_IMAGE = `${STATIC_IMAGES_URL}/placeholder.webp`;
 
-// Workers
+// Workers (Cloudflare)
 export const STS_GENERATOR_WORKER_URL = IS_PRODUCTION
   ? 'https://sts.hey.xyz'
   : 'http://localhost:8082';
@@ -96,7 +96,7 @@ export const LIVE_WORKER_URL = IS_PRODUCTION
   ? 'https://live.hey.xyz'
   : 'http://localhost:8094';
 
-// Services
+// Services (Railway)
 export const IMPRESSIONS_SERVICE_URL = IS_PRODUCTION
   ? 'wss://impressions.hey.xyz'
   : 'ws://localhost:5001';
