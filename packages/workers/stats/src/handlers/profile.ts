@@ -74,6 +74,16 @@ export default async (request: WorkerRequest) => {
           name = 'New comment' AND
           splitByChar('-', assumeNotNull(JSONExtractString(properties, 'comment_on')))[1] = '${id}' AND
           created < now()
+        UNION ALL
+        SELECT 
+          'link_clicks',
+          countIf(created >= now() - INTERVAL 7 DAY) AS last_7_days,
+          countIf(created >= now() - INTERVAL 14 DAY) AS last_14_days
+        FROM events
+        WHERE
+          name = 'Click publication oembed' AND
+          splitByChar('-', assumeNotNull(JSONExtractString(properties, 'publication_id')))[1] = '${id}' AND
+          created < now()
       `,
       format: 'JSONEachRow'
     });
