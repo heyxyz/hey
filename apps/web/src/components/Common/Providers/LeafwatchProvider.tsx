@@ -15,7 +15,11 @@ const LeafwatchProvider: FC = () => {
 
   const { sendJsonMessage, readyState } = useWebSocket(
     IMPRESSIONS_SERVICE_URL,
-    { reconnectAttempts: 5, reconnectInterval: 5000 }
+    {
+      reconnectAttempts: 5,
+      reconnectInterval: 5000,
+      shouldReconnect: () => true
+    }
   );
 
   useEffectOnce(() => {
