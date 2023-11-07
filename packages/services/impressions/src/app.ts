@@ -37,5 +37,5 @@ wss.on('connection', (ws) => {
 });
 
 server.listen(8888, () => {
-  console.log('Listening to 5000');
+  console.log('Listening to 8888');
 });
