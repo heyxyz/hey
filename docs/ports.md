@@ -7,10 +7,10 @@ The following ports are exposed by the repository
 | 4783 | Web app                    | http://localhost:4783 | https://hey.xyz                |
 | 4784 | Prerender app              | http://localhost:4784 | https://prerender.hey.xyz      |
 | 5001 | Impressions service        | http://localhost:5001 | https://impressions.hey.xyz    |
+| 5002 | ENS resolver service       | http://localhost:5002 | https://ens.hey.xyz            |
 | 8082 | STS token generator worker | http://localhost:8082 | https://sts.hey.xyz            |
 | 8083 | Metadata worker            | http://localhost:8083 | https://metadata.hey.xyz       |
 | 8084 | Snapshot relay worker      | http://localhost:8084 | https://snapshot-relay.hey.xyz |
-| 8085 | ENS resolver worker        | http://localhost:8085 | https://ens.hey.xyz            |
 | 8086 | Oembed worker              | http://localhost:8086 | https://oembed.hey.xyz         |
 | 8087 | Leafwatch worker           | http://localhost:8087 | https://leafwatch.hey.xyz      |
 | 8088 | Stats worker               | http://localhost:8088 | https://stats.hey.xyz          |

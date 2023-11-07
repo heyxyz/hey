@@ -1,11 +1,10 @@
 import { Errors } from '@hey/data/errors';
-import response from '@hey/lib/response';
+import type { Request, Response } from 'express';
 import { createPublicClient, http } from 'viem';
 import { mainnet } from 'viem/chains';
 import { array, object, string } from 'zod';
 
 import { resolverAbi } from '../resolverAbi';
-import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
   addresses: string[];
@@ -17,16 +16,16 @@ const validationSchema = object({
   })
 });
 
-export default async (request: WorkerRequest) => {
-  const body = await request.json();
+export default async (request: Request, response: Response) => {
+  const { body } = request;
   if (!body) {
-    return response({ success: false, error: Errors.NoBody });
+    return response.json({ success: false, error: Errors.NoBody });
   }
 
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
-    return response({ success: false, error: validation.error.issues });
+    return response.json({ success: false, error: validation.error.issues });
   }
 
   const { addresses } = body as ExtensionRequest;
@@ -44,8 +43,9 @@ export default async (request: WorkerRequest) => {
       functionName: 'getNames'
     });
 
-    return response({ success: true, data });
+    return response.json({ success: true, data });
   } catch (error) {
+    console.error(error);
     throw error;
   }
 };

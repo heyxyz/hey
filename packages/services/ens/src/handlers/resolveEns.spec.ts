@@ -3,18 +3,17 @@ import { describe, expect, test } from 'vitest';
 import { TEST_URL } from '../constants';
 
 describe('resolveEns', () => {
-  test('should return welcome message', async () => {
-    const getRequest = await fetch(TEST_URL);
-    const response: {
-      message: string;
-    } = await getRequest.json();
+  test('should return ok for health', async () => {
+    const getRequest = await fetch(`${TEST_URL}/health`);
+    const response = await getRequest.text();
 
-    expect(response.message).toContain('gm, to ens service 👋');
+    expect(response).toContain('OK');
   });
 
   test('should return resolved address', async () => {
     const postRequest = await fetch(TEST_URL, {
       method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         addresses: [
           '0x03ba34f6ea1496fa316873cf8350a3f7ead317ef',

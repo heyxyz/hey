@@ -65,9 +65,6 @@ export const METADATA_WORKER_URL = IS_PRODUCTION
 export const SNAPSHOR_RELAY_WORKER_URL = IS_PRODUCTION
   ? 'https://snapshot-relay.hey.xyz'
   : 'http://localhost:8084';
-export const ENS_WORKER_URL = IS_PRODUCTION
-  ? 'https://ens.hey.xyz'
-  : 'http://localhost:8085';
 export const OEMBED_WORKER_URL = IS_PRODUCTION
   ? 'https://oembed.hey.xyz'
   : 'http://localhost:8086';
@@ -100,6 +97,9 @@ export const LIVE_WORKER_URL = IS_PRODUCTION
 export const IMPRESSIONS_SERVICE_URL = IS_PRODUCTION
   ? 'wss://impressions.hey.xyz'
   : 'ws://localhost:5001';
+export const ENS_SERVICE_URL = IS_PRODUCTION
+  ? 'https://ens.hey.xyz'
+  : 'http://localhost:5002';
 
 // Tokens / Keys
 export const OPENSEA_KEY = '8b95f9e6d52b42fe8c19ddea847c0f5d';
