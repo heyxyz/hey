@@ -23,7 +23,6 @@ app.get('/', (_: Request, res: Response) => {
 
 wss.on('connection', (ws) => {
   ws.on('message', async (data) => {
-    console.log('Client connected');
     try {
       const message = JSON.parse(data.toString());
       if (message.type === 'connection_init') {
@@ -35,6 +34,7 @@ wss.on('connection', (ws) => {
         ws.send(JSON.stringify({ error: 'Unknown message received' }));
       }
     } catch (error) {
+      console.error(error);
       ws.send(JSON.stringify({ error: 'Invalid data received' }));
     }
   });
