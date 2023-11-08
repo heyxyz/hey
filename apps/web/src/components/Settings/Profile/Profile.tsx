@@ -251,9 +251,9 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
         ]
       };
       preparedProfileMetadata.attributes =
-        preparedProfileMetadata.attributes?.filter((m) =>
-          Boolean(trimify(m.value))
-        );
+        preparedProfileMetadata.attributes?.filter((m) => {
+          return m.key !== '' && Boolean(trimify(m.value));
+        });
       const metadata = profileMetadata(preparedProfileMetadata);
       const arweaveId = await uploadToArweave(metadata);
 
