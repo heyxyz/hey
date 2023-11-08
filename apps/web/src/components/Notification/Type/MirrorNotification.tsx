@@ -2,10 +2,10 @@ import Markup from '@components/Shared/Markup';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/solid';
 import { MirrorNotification } from '@hey/lens';
 import getPublicationData from '@hey/lib/getPublicationData';
+import pushToImpressions from '@lib/pushToImpressions';
 import Link from 'next/link';
 import plur from 'plur';
 import type { FC } from 'react';
-import { useLeafwatchPersistStore } from 'src/store/useLeafwatchPersistStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
@@ -16,7 +16,6 @@ interface MirrorNotificationProps {
 }
 
 const MirrorNotification: FC<MirrorNotificationProps> = ({ notification }) => {
-  const viewerId = useLeafwatchPersistStore((state) => state.viewerId);
   const metadata = notification?.publication.metadata;
   const filteredContent = getPublicationData(metadata)?.content || '';
   const mirrors = notification?.mirrors;
@@ -30,13 +29,7 @@ const MirrorNotification: FC<MirrorNotificationProps> = ({ notification }) => {
   const type = notification?.publication.__typename;
 
   useEffectOnce(() => {
-    if (notification?.publication.id && navigator.serviceWorker.controller) {
-      navigator.serviceWorker.controller.postMessage({
-        type: 'PUBLICATION_VISIBLE',
-        id: notification.publication.id,
-        viewerId
-      });
-    }
+    pushToImpressions(notification.publication.id);
   });
 
   return (
