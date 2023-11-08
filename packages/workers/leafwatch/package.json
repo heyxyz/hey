@@ -24,7 +24,7 @@
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20231025.0",
     "@hey/config": "workspace:*",
-    "@types/ua-parser-js": "^0.7.38",
+    "@types/ua-parser-js": "^0.7.39",
     "typescript": "^5.2.2",
     "wrangler": "^3.15.0"
   }
