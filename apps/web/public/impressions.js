@@ -1,33 +1,27 @@
-const postsEndpoint = 'https://ens.hey.xyz';
-const postsVisibilityInterval = 5000;
-let visiblePostsSet = new Set();
+const impressionsEndpoint = 'https://impressions.hey.xyz/ingest';
+const publicationsVisibilityInterval = 5000;
+let visiblePublicationsSet = new Set();
 
-function sendVisiblePostsToServer() {
-  const postsToSend = Array.from(visiblePostsSet);
+function sendVisiblePublicationsToServer() {
+  const publicationsToSend = Array.from(visiblePublicationsSet);
 
-  if (postsToSend.length > 0) {
-    visiblePostsSet.clear();
-    fetch(postsEndpoint, {
+  if (publicationsToSend.length > 0) {
+    visiblePublicationsSet.clear();
+    fetch(impressionsEndpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ visiblePosts: postsToSend }),
+      body: JSON.stringify({ ids: publicationsToSend }),
       keepalive: true
     })
-      .then((response) => {
-        if (!response.ok) {
-          console.error('Failed to send visible posts:', response);
-        }
-      })
-      .catch((error) => {
-        console.error('Error sending visible posts:', error);
-      });
+      .then(() => {})
+      .catch(() => {});
   }
 }
 
-setInterval(sendVisiblePostsToServer, postsVisibilityInterval);
+setInterval(sendVisiblePublicationsToServer, publicationsVisibilityInterval);
 
 self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'POST_VISIBLE') {
-    visiblePostsSet.add(event.data.postId);
+  if (event.data && event.data.type === 'PUBLICATION_VISIBLE') {
+    visiblePublicationsSet.add(event.data.id);
   }
 });
