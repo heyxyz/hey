@@ -3,6 +3,7 @@ import getAppName from '@hey/lib/getAppName';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { formatDate } from '@lib/formatTime';
 import { type FC } from 'react';
+import { useLeafwatchPersistStore } from 'src/store/useLeafwatchPersistStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import PublicationActions from './Actions';
@@ -18,6 +19,7 @@ interface FullPublicationProps {
 }
 
 const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
+  const viewerId = useLeafwatchPersistStore((state) => state.viewerId);
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
@@ -28,7 +30,8 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
     if (targetPublication.id && navigator.serviceWorker.controller) {
       navigator.serviceWorker.controller.postMessage({
         type: 'PUBLICATION_VISIBLE',
-        id: targetPublication.id
+        id: targetPublication.id,
+        viewerId
       });
     }
   });
