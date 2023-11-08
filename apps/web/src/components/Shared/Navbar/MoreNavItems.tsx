@@ -5,7 +5,6 @@ import { useAppStore } from 'src/store/useAppStore';
 
 import MenuTransition from '../MenuTransition';
 import Bookmarks from './NavItems/Bookmarks';
-import Contact from './NavItems/Contact';
 import ReportBug from './NavItems/ReportBug';
 
 const MoreNavItems: FC = () => {
@@ -45,14 +44,6 @@ const MoreNavItems: FC = () => {
                   <div className="divider" />
                 </>
               ) : null}
-              <Menu.Item
-                as="div"
-                className={({ active }: { active: boolean }) =>
-                  cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
-                }
-              >
-                <Contact />
-              </Menu.Item>
               <Menu.Item
                 as="div"
                 className={({ active }: { active: boolean }) =>
