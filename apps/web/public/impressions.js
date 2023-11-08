@@ -1,4 +1,4 @@
-const impressionsEndpoint = 'https://impressions.hey.xyz';
+const impressionsEndpoint = 'https://impressions.hey.xyz/ingest';
 const publicationsVisibilityInterval = 5000;
 let visiblePublicationsSet = new Set();
 
