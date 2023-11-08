@@ -48,6 +48,3 @@ yarn-error.log*
 
 # Service Workers
 sw.js
-sw.js.map
-workbox-*.js
-workbox-*.js.map

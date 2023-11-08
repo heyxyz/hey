@@ -1,12 +1,14 @@
+declare let self: ServiceWorkerGlobalScope;
+
 const impressionsEndpoint = 'https://impressions.hey.xyz/ingest';
 const publicationsVisibilityInterval = 5000;
-let viewerId = null;
+let viewerId: string | null = null;
 let visiblePublicationsSet = new Set();
 
-function sendVisiblePublicationsToServer() {
+const sendVisiblePublicationsToServer = () => {
   const publicationsToSend = Array.from(visiblePublicationsSet);
 
-  if (publicationsToSend.length > 0) {
+  if (publicationsToSend.length > 0 && viewerId) {
     visiblePublicationsSet.clear();
     fetch(impressionsEndpoint, {
       method: 'POST',
@@ -20,13 +22,22 @@ function sendVisiblePublicationsToServer() {
       .then(() => {})
       .catch(() => {});
   }
-}
+};
 
 setInterval(sendVisiblePublicationsToServer, publicationsVisibilityInterval);
 
+const handleActivate = async (): Promise<void> => {
+  await self.clients.claim();
+};
+
 self.addEventListener('message', (event) => {
+  // Impression tracking
   if (event.data && event.data.type === 'PUBLICATION_VISIBLE') {
     visiblePublicationsSet.add(event.data.id);
     viewerId = event.data.viewerId;
   }
 });
+
+self.addEventListener('activate', (event) => event.waitUntil(handleActivate()));
+
+export {};
