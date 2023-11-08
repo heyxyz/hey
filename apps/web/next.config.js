@@ -3,7 +3,8 @@ const withPWA = require('next-pwa')({
   dest: 'public',
   register: true,
   sw: 'sw.js',
-  mode: 'production'
+  mode: 'production',
+  importScripts: ['impressions.js']
 });
 
 /** @type {import('next').NextConfig} */
