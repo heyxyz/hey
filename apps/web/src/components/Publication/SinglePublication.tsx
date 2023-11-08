@@ -58,8 +58,11 @@ const SinglePublication: FC<SinglePublicationProps> = ({
         return;
       }
 
-      if (rootPublication.id) {
-        setViewedPublication(rootPublication.id);
+      if (rootPublication.id && navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage({
+          type: 'POST_VISIBLE',
+          postId: rootPublication.id
+        });
       }
     }
   });
