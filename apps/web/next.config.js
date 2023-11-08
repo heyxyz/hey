@@ -1,11 +1,4 @@
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
-const withPWA = require('next-pwa')({
-  dest: 'public',
-  register: true,
-  sw: 'sw.js',
-  mode: 'production',
-  importScripts: ['impressions.js']
-});
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -58,4 +51,4 @@ const nextConfig = {
   }
 };
 
-module.exports = withPWA(nextConfig);
+module.exports = nextConfig;

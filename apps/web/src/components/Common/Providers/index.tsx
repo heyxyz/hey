@@ -16,6 +16,7 @@ import FeaturedGroupsProvider from './FeaturedGroupsProvider';
 import LeafwatchProvider from './LeafwatchProvider';
 import LensSubscriptionsProvider from './LensSubscriptionsProvider';
 import PreferencesProvider from './PreferencesProvider';
+import ServiceWorkerProvider from './ServiceWorkerProvider';
 import Web3Provider from './Web3Provider';
 
 const lensApolloClient = apolloClient(authLink);
@@ -29,10 +30,11 @@ const queryClient = new QueryClient({
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <ErrorBoundary>
+      <ServiceWorkerProvider />
+      <LeafwatchProvider />
       <Web3Provider>
         <ApolloProvider client={lensApolloClient}>
           <LensSubscriptionsProvider />
-          <LeafwatchProvider />
           <QueryClientProvider client={queryClient}>
             <PreferencesProvider />
             <FeaturedGroupsProvider />
