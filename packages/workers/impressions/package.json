@@ -1,38 +1,31 @@
 {
-  "name": "@hey/impressions",
+  "name": "@workers/impressions",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
-  "main": "index.js",
   "scripts": {
-    "build": "rimraf dist && tsc -p .",
-    "dev": "nodemon src/app.ts",
+    "dev": "wrangler dev --port 8094",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
-    "start": "node dist/app.js",
-    "typecheck": "tsc --pretty"
+    "typecheck": "tsc --pretty",
+    "worker:deploy": "wrangler deploy --var RELEASE:\"$(git rev-parse HEAD)\""
   },
   "dependencies": {
-    "@clickhouse/client": "^0.2.5",
-    "body-parser": "^1.20.1",
-    "cors": "^2.8.5",
-    "dotenv": "^16.3.1",
-    "express": "^4.18.2",
-    "http": "0.0.1-security",
-    "rimraf": "^5.0.5",
-    "ws": "^8.14.2"
+    "@hey/clickhouse": "workspace:*",
+    "@hey/data": "workspace:*",
+    "@hey/lib": "workspace:*",
+    "itty-router": "^4.0.23",
+    "ua-parser-js": "^1.0.37",
+    "urlcat": "^3.1.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20231025.0",
     "@hey/config": "workspace:*",
-    "@types/body-parser": "^1.19.2",
-    "@types/cors": "^2.8.13",
-    "@types/express": "^4.17.15",
-    "@types/node": "^20.9.0",
-    "@types/ws": "^8.5.9",
-    "nodemon": "^3.0.1",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.2.2"
+    "@types/ua-parser-js": "^0.7.39",
+    "typescript": "^5.2.2",
+    "wrangler": "^3.15.0"
   }
 }

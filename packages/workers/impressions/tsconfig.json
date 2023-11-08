@@ -1,10 +1,6 @@
 {
   "extends": "@hey/config/base.tsconfig.json",
   "compilerOptions": {
-    "module": "commonjs",
-    "types": ["node"],
-    "noEmit": false,
-    "outDir": "dist"
-  },
-  "exclude": ["dist"]
+    "types": ["@cloudflare/workers-types"]
+  }
 }
