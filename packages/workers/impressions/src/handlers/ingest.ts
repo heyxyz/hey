@@ -11,7 +11,7 @@ type ExtensionRequest = {
 };
 
 const validationSchema = object({
-  viewer_id: string(),
+  viewer_id: string().uuid(),
   ids: array(string())
 });
 
