@@ -4,6 +4,7 @@ import { QuoteNotification } from '@hey/lens';
 import getPublicationData from '@hey/lib/getPublicationData';
 import Link from 'next/link';
 import type { FC } from 'react';
+import { useLeafwatchPersistStore } from 'src/store/useLeafwatchPersistStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
@@ -14,6 +15,7 @@ interface QuoteNotificationProps {
 }
 
 const QuoteNotification: FC<QuoteNotificationProps> = ({ notification }) => {
+  const viewerId = useLeafwatchPersistStore((state) => state.viewerId);
   const metadata = notification?.quote.metadata;
   const filteredContent = getPublicationData(metadata)?.content || '';
   const firstProfile = notification.quote.by;
@@ -25,7 +27,8 @@ const QuoteNotification: FC<QuoteNotificationProps> = ({ notification }) => {
     if (notification?.quote.id && navigator.serviceWorker.controller) {
       navigator.serviceWorker.controller.postMessage({
         type: 'PUBLICATION_VISIBLE',
-        id: notification.quote.id
+        id: notification.quote.id,
+        viewerId
       });
     }
   });
