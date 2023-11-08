@@ -5,6 +5,7 @@ import getPublicationData from '@hey/lib/getPublicationData';
 import Link from 'next/link';
 import plur from 'plur';
 import type { FC } from 'react';
+import { useLeafwatchPersistStore } from 'src/store/useLeafwatchPersistStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
@@ -17,6 +18,7 @@ interface ReactionNotificationProps {
 const ReactionNotification: FC<ReactionNotificationProps> = ({
   notification
 }) => {
+  const viewerId = useLeafwatchPersistStore((state) => state.viewerId);
   const metadata = notification?.publication.metadata;
   const filteredContent = getPublicationData(metadata)?.content || '';
   const reactions = notification?.reactions;
@@ -33,7 +35,8 @@ const ReactionNotification: FC<ReactionNotificationProps> = ({
     if (notification?.publication.id && navigator.serviceWorker.controller) {
       navigator.serviceWorker.controller.postMessage({
         type: 'PUBLICATION_VISIBLE',
-        id: notification.publication.id
+        id: notification.publication.id,
+        viewerId
       });
     }
   });
