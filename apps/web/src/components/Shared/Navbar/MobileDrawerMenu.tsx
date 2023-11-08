@@ -13,7 +13,6 @@ import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import Slug from '../Slug';
 import AppVersion from './NavItems/AppVersion';
 import Bookmarks from './NavItems/Bookmarks';
-import Contact from './NavItems/Contact';
 import GardenerMode from './NavItems/GardenerMode';
 import Invites from './NavItems/Invites';
 import Logout from './NavItems/Logout';
@@ -100,13 +99,7 @@ const MobileDrawerMenu: FC = () => {
         </div>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
-          <div>
-            <Contact className={cn(itemClass, 'px-4')} onClick={closeDrawer} />
-            <ReportBug
-              className={cn(itemClass, 'px-4')}
-              onClick={closeDrawer}
-            />
-          </div>
+          <ReportBug className={cn(itemClass, 'px-4')} onClick={closeDrawer} />
           <div className="divider" />
         </div>
 
