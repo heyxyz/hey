@@ -5,7 +5,6 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
 import { type FC } from 'react';
 import { useInView } from 'react-cool-inview';
-import { useLeafwatchStore } from 'src/store/useLeafwatchStore';
 
 import PublicationActions from './Actions';
 import ModAction from './Actions/ModAction';
@@ -38,10 +37,6 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   isFirst = false,
   isLast = false
 }) => {
-  const setViewedPublication = useLeafwatchStore(
-    (state) => state.setViewedPublication
-  );
-
   const firstComment = feedItem?.comments?.[0];
   const rootPublication = feedItem
     ? firstComment
@@ -60,8 +55,8 @@ const SinglePublication: FC<SinglePublicationProps> = ({
 
       if (rootPublication.id && navigator.serviceWorker.controller) {
         navigator.serviceWorker.controller.postMessage({
-          type: 'POST_VISIBLE',
-          postId: rootPublication.id
+          type: 'PUBLICATION_VISIBLE',
+          id: rootPublication.id
         });
       }
     }
