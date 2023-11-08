@@ -96,11 +96,6 @@ export const LIVE_WORKER_URL = IS_PRODUCTION
   ? 'https://live.hey.xyz'
   : 'http://localhost:8094';
 
-// Services (Railway)
-export const IMPRESSIONS_SERVICE_URL = IS_PRODUCTION
-  ? 'wss://impressions.hey.xyz'
-  : 'ws://localhost:5001';
-
 // Tokens / Keys
 export const OPENSEA_KEY = '8b95f9e6d52b42fe8c19ddea847c0f5d';
 export const WALLETCONNECT_PROJECT_ID = 'cd542acc70c2b548030f9901a52e70c8';
