@@ -1,10 +1,10 @@
 export enum FeatureFlag {
-  Spaces = 'spaces'
+  LiveStream = 'live-stream'
 }
 
 export const featureFlags = [
   {
-    key: FeatureFlag.Spaces,
-    enabledFor: ['0x0d']
+    key: FeatureFlag.LiveStream,
+    enabledFor: ['0x98e0', '0x01e3ab']
   }
 ];
