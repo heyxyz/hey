@@ -16,7 +16,6 @@ import {
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { LensHub } from '@hey/abis';
 import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
 import type {
   ActOnOpenActionLensManagerRequest,
@@ -220,7 +219,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
     enabled: Boolean(amount)
   });
 
-  const { data: balanceData, isLoading: balanceLoading } = useBalance({
+  const { data: balanceData } = useBalance({
     address,
     token: assetAddress,
     formatUnits: assetDecimals,
@@ -254,7 +253,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
       return;
     }
 
-    return write({ args: [typedData.value] });
+    return write?.({ args: [typedData.value] });
   };
 
   // Act Typed Data
@@ -321,10 +320,6 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
   };
 
   const createCollect = async () => {
-    if (!currentProfile) {
-      return toast.error(Errors.SignWallet);
-    }
-
     if (handleWrongNetwork()) {
       return;
     }
@@ -493,10 +488,8 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
           ) : null}
         </div>
         <div className="flex items-center space-x-2">
-          {currentProfile &&
-          (!hasActed ||
-            (!isFreeCollectModule && !isSimpleFreeCollectModule)) ? (
-            allowanceLoading || balanceLoading ? (
+          {!hasActed || (!isFreeCollectModule && !isSimpleFreeCollectModule) ? (
+            allowanceLoading ? (
               <div className="shimmer mt-5 h-[34px] w-28 rounded-lg" />
             ) : allowed ? (
               hasAmount ? (
