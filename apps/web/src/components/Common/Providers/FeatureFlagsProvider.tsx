@@ -8,9 +8,6 @@ import { usePreferencesStore } from 'src/store/usePreferencesStore';
 const FeatureFlagsProvider: FC = () => {
   const currentSessionProfileId = getCurrentSessionProfileId();
   const setFeatureFlags = usePreferencesStore((state) => state.setFeatureFlags);
-  const setLoadingPreferences = usePreferencesStore(
-    (state) => state.setLoadingPreferences
-  );
 
   const fetchFeatureFlags = async () => {
     try {
@@ -23,10 +20,7 @@ const FeatureFlagsProvider: FC = () => {
 
         setFeatureFlags(data?.features || []);
       }
-    } catch {
-    } finally {
-      setLoadingPreferences(false);
-    }
+    } catch {}
   };
 
   useQuery({
