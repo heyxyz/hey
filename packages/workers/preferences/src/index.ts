@@ -3,6 +3,7 @@ import response from '@hey/lib/response';
 import validateLensAccount from '@hey/lib/worker-middlewares/validateLensAccount';
 import { createCors, error, Router, status } from 'itty-router';
 
+import getAllFeatureFlags from './handlers/getAllFeatureFlags';
 import getFeatureFlags from './handlers/getFeatureFlags';
 import getHeyMemberNftStatus from './handlers/getHeyMemberNftStatus';
 import getPreferences from './handlers/getPreferences';
@@ -32,6 +33,7 @@ router
   )
   .get('/get/:id', getPreferences)
   .get('/getFeatureFlags', getFeatureFlags)
+  .get('/getAllFeatureFlags', getAllFeatureFlags)
   .get('/getHeyMemberNftStatus/:id', getHeyMemberNftStatus)
   .get('/verified', getVerified)
   .post('/update', validateLensAccount, updatePreferences)
