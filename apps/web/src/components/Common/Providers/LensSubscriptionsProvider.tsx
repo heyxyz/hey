@@ -6,6 +6,7 @@ import {
   type UserSigNonces,
   UserSigNoncesDocument
 } from '@hey/lens';
+import isValidEthAddress from '@hey/lib/isValidEthAddress';
 import { BrowserPush } from '@lib/browserPush';
 import getCurrentSessionId from '@lib/getCurrentSessionId';
 import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
@@ -40,14 +41,16 @@ const LensSubscriptionsProvider: FC = () => {
 
   useUpdateEffect(() => {
     if (readyState === 1 && currentSessionProfileId && address) {
-      sendJsonMessage({
-        id: '1',
-        type: 'start',
-        payload: {
-          variables: { for: currentSessionProfileId },
-          query: NewNotificationDocument
-        }
-      });
+      if (!isValidEthAddress(currentSessionProfileId)) {
+        sendJsonMessage({
+          id: '1',
+          type: 'start',
+          payload: {
+            variables: { for: currentSessionProfileId },
+            query: NewNotificationDocument
+          }
+        });
+      }
       sendJsonMessage({
         id: '2',
         type: 'start',
