@@ -1,9 +1,12 @@
+import isValidEthAddress from '@hey/lib/isValidEthAddress';
+import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 
 import LoginButton from './LoginButton';
 import SignedUser from './SignedUser';
+import WalletUser from './WalletUser';
 
 export const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
   <Link href={href} {...rest}>
@@ -13,12 +16,18 @@ export const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
 
 const MenuItems: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const profileId = getCurrentSessionProfileId();
 
-  if (!currentProfile) {
-    return <LoginButton />;
+  if (Boolean(currentProfile)) {
+    return <SignedUser />;
   }
 
-  return <SignedUser />;
+  // If the profileId is a valid eth address, we can assume that address don't have a profile yet
+  if (isValidEthAddress(profileId)) {
+    return <WalletUser />;
+  }
+
+  return <LoginButton />;
 };
 
 export default MenuItems;
