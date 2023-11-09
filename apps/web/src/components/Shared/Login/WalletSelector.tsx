@@ -38,13 +38,9 @@ import UserProfile from '../UserProfile';
 
 interface WalletSelectorProps {
   setHasConnected?: Dispatch<SetStateAction<boolean>>;
-  setHasProfile?: Dispatch<SetStateAction<boolean>>;
 }
 
-const WalletSelector: FC<WalletSelectorProps> = ({
-  setHasConnected,
-  setHasProfile
-}) => {
+const WalletSelector: FC<WalletSelectorProps> = ({ setHasConnected }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [loggingInProfileId, setLoggingInProfileId] = useState<string | null>(
     null
@@ -82,12 +78,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
         profilesManagedRequest: request,
         lastLoggedInProfileRequest: request
       },
-      skip: !address,
-      onCompleted: ({ profilesManaged }) => {
-        if (profilesManaged.items.length <= 0) {
-          setHasProfile?.(false);
-        }
-      }
+      skip: !address
     });
 
   const onConnect = async (connector: Connector) => {
@@ -102,13 +93,15 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     } catch {}
   };
 
-  const handleSign = async (id: string) => {
+  const handleSign = async (id?: string) => {
     try {
-      setLoggingInProfileId(id);
+      setLoggingInProfileId(id || null);
       setIsLoading(true);
       // Get challenge
       const challenge = await loadChallenge({
-        variables: { request: { for: id, signedBy: address } }
+        variables: {
+          request: { ...(id && { for: id }), signedBy: address }
+        }
       });
 
       if (!challenge?.data?.challenge?.text) {
@@ -147,14 +140,16 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     <div className="space-y-3">
       <div className="space-y-2.5">
         {chain === CHAIN_ID ? (
-          <Card className="w-full divide-y dark:divide-gray-700">
-            {profilesManagedLoading ? (
+          profilesManagedLoading ? (
+            <Card className="w-full dark:divide-gray-700">
               <div className="space-y-2 p-4 text-center text-sm font-bold">
                 <Spinner size="sm" className="mx-auto" />
                 <div>Loading profiles managed by you...</div>
               </div>
-            ) : (
-              profiles.map((profile) => (
+            </Card>
+          ) : profiles.length > 0 ? (
+            <Card className="w-full dark:divide-gray-700">
+              {profiles.map((profile) => (
                 <div
                   key={profile.id}
                   className="flex items-center justify-between p-3"
@@ -178,9 +173,25 @@ const WalletSelector: FC<WalletSelectorProps> = ({
                     Login
                   </Button>
                 </div>
-              ))
-            )}
-          </Card>
+              ))}
+            </Card>
+          ) : (
+            <div>
+              <Button
+                onClick={() => handleSign()}
+                icon={
+                  isLoading ? (
+                    <Spinner size="xs" />
+                  ) : (
+                    <ArrowRightCircleIcon className="h-4 w-4" />
+                  )
+                }
+                disabled={isLoading}
+              >
+                Sign in with Lens
+              </Button>
+            </div>
+          )
         ) : (
           <SwitchNetwork toChainId={CHAIN_ID} />
         )}

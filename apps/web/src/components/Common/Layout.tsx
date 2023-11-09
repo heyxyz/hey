@@ -53,10 +53,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     variables: { request: { forProfileId: currentSessionProfileId } },
     skip: !currentSessionProfileId,
     onCompleted: ({ profile, userSigNonces }) => {
-      if (!profile) {
-        return logout();
-      }
-
       setCurrentProfile(profile as Profile);
       setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce);
     }
