@@ -1,8 +1,8 @@
-import isValidEthAddress from '@hey/lib/isValidEthAddress';
 import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
+import { isAddress } from 'viem';
 
 import LoginButton from './LoginButton';
 import SignedUser from './SignedUser';
@@ -23,7 +23,7 @@ const MenuItems: FC = () => {
   }
 
   // If the profileId is a valid eth address, we can assume that address don't have a profile yet
-  if (isValidEthAddress(profileId)) {
+  if (isAddress(profileId)) {
     return <WalletUser />;
   }
 

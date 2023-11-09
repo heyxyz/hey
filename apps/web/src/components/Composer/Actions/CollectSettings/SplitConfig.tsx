@@ -9,12 +9,12 @@ import {
 } from '@heroicons/react/24/outline';
 import { ADDRESS_PLACEHOLDER } from '@hey/data/constants';
 import { OpenActionModuleType } from '@hey/lens';
-import isValidEthAddress from '@hey/lib/isValidEthAddress';
 import splitNumber from '@hey/lib/splitNumber';
 import { Button, Input } from '@hey/ui';
 import { type FC } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 import { useCollectModuleStore } from 'src/store/useCollectModuleStore';
+import { isAddress } from 'viem';
 
 interface SplitConfigProps {
   isRecipientsDuplicated: () => boolean;
@@ -108,10 +108,10 @@ const SplitConfig: FC<SplitConfigProps> = ({
                   onProfileSelected={(profile) =>
                     updateRecipient(index, profile.ownedBy.address)
                   }
-                  hideDropdown={isValidEthAddress(recipient.recipient)}
+                  hideDropdown={isAddress(recipient.recipient)}
                   error={
                     recipient.recipient.length > 0 &&
-                    !isValidEthAddress(recipient.recipient)
+                    !isAddress(recipient.recipient)
                   }
                 />
                 <div className="w-1/3">
