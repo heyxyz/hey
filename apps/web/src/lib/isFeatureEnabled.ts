@@ -1,5 +1,5 @@
 import type { FeatureFlag } from '@hey/data/feature-flags';
-import { featureFlags } from '@hey/data/feature-flags';
+import { featureFlags } from 'src/store/usePreferencesStore';
 
 import getCurrentSessionProfileId from './getCurrentSessionProfileId';
 
@@ -14,9 +14,8 @@ const isFeatureEnabled = (key: FeatureFlag) => {
   if (!currentSessionProfileId) {
     return false;
   }
-  const feature = featureFlags.find((f) => f.key === key);
 
-  return feature?.enabledFor.includes(currentSessionProfileId);
+  return featureFlags().includes(key);
 };
 
 export default isFeatureEnabled;

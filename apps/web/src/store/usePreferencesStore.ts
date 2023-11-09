@@ -19,6 +19,8 @@ interface PreferencesState {
   setHighSignalNotificationFilter: (
     highSignalNotificationFilter: boolean
   ) => void;
+  featureFlags: string[];
+  setFeatureFlags: (featureFlags: string[]) => void;
   resetPreferences: () => void;
 }
 
@@ -41,6 +43,8 @@ export const usePreferencesStore = create<PreferencesState>((set) => ({
   highSignalNotificationFilter: false,
   setHighSignalNotificationFilter: (highSignalNotificationFilter) =>
     set(() => ({ highSignalNotificationFilter })),
+  featureFlags: [],
+  setFeatureFlags: (featureFlags) => set(() => ({ featureFlags })),
   resetPreferences: () =>
     set(() => ({
       isStaff: false,
@@ -49,6 +53,9 @@ export const usePreferencesStore = create<PreferencesState>((set) => ({
       staffMode: false,
       gardenerMode: false,
       isPride: false,
-      highSignalNotificationFilter: false
+      highSignalNotificationFilter: false,
+      featureFlags: []
     }))
 }));
+
+export const featureFlags = () => usePreferencesStore.getState().featureFlags;
