@@ -5,10 +5,14 @@ import { type FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 
 interface LoginButtonProps {
+  title?: string;
   isBig?: boolean;
 }
 
-const LoginButton: FC<LoginButtonProps> = ({ isBig = false }) => {
+const LoginButton: FC<LoginButtonProps> = ({
+  title = 'Login',
+  isBig = false
+}) => {
   const setShowAuthModal = useGlobalModalStateStore(
     (state) => state.setShowAuthModal
   );
@@ -29,7 +33,7 @@ const LoginButton: FC<LoginButtonProps> = ({ isBig = false }) => {
         Leafwatch.track(AUTH.LOGIN);
       }}
     >
-      Login
+      {title}
     </Button>
   );
 };
