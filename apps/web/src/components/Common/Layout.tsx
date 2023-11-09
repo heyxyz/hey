@@ -14,6 +14,7 @@ import { hydrateAuthTokens, signOut } from 'src/store/useAuthPersistStore';
 import { useNonceStore } from 'src/store/useNonceStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import { useEffectOnce, useIsMounted } from 'usehooks-ts';
+import { isAddress } from 'viem';
 import { useAccount, useDisconnect } from 'wagmi';
 
 import GlobalModals from '../Shared/GlobalModals';
@@ -51,7 +52,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   const { loading } = useCurrentProfileQuery({
     variables: { request: { forProfileId: currentSessionProfileId } },
-    skip: !currentSessionProfileId,
+    skip: isAddress(currentSessionProfileId),
     onCompleted: ({ profile, userSigNonces }) => {
       setCurrentProfile(profile as Profile);
       setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce);
