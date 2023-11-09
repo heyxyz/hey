@@ -67,7 +67,7 @@ const Timeline: FC = () => {
     }
   });
 
-  const publications = data?.feed?.items;
+  const feed = data?.feed?.items;
   const pageInfo = data?.feed?.pageInfo;
   const hasMore = pageInfo?.next;
 
@@ -96,7 +96,7 @@ const Timeline: FC = () => {
     return <PublicationsShimmer />;
   }
 
-  if (publications?.length === 0) {
+  if (feed?.length === 0) {
     return (
       <EmptyState
         message="No posts yet!"
@@ -117,13 +117,13 @@ const Timeline: FC = () => {
         ) : null
       )}
       <Card className="divide-y-[1px] dark:divide-gray-700">
-        {publications?.map((publication, index) => (
+        {feed?.map((feedItem, index) => (
           <SinglePublication
-            key={`${publication.root.__typename}_${index}`}
+            key={feedItem.id}
             isFirst={index === 0}
-            isLast={index === publications.length - 1}
-            feedItem={publication as FeedItem}
-            publication={publication.root as AnyPublication}
+            isLast={index === feed.length - 1}
+            feedItem={feedItem as FeedItem}
+            publication={feedItem.root as AnyPublication}
           />
         ))}
         {hasMore ? <span ref={observe} /> : null}
