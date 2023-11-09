@@ -26,7 +26,10 @@ const PreferencesProvider: FC = () => {
     try {
       if (Boolean(currentSessionProfileId)) {
         const response = await axios.get(
-          `${PREFERENCES_WORKER_URL}/get/${currentSessionProfileId}`
+          `${PREFERENCES_WORKER_URL}/getPreferences`,
+          {
+            params: { id: currentSessionProfileId }
+          }
         );
         const { data } = response;
 
