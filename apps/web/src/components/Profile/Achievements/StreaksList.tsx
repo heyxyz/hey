@@ -23,9 +23,9 @@ interface StreaksListProps {
 const StreaksList: FC<StreaksListProps> = ({ profile }) => {
   const fetchStreaksList = async () => {
     try {
-      const response = await axios.get(
-        `${STATS_WORKER_URL}/streaks/${profile.id}/latest`
-      );
+      const response = await axios.get(`${STATS_WORKER_URL}/streaksList`, {
+        params: { id: profile.id, date: 'latest' }
+      });
 
       return response.data.data;
     } catch (error) {

@@ -6,7 +6,8 @@ import filteredEvents from '../helpers/filteredNames';
 import type { WorkerRequest } from '../types';
 
 export default async (request: WorkerRequest) => {
-  const { id, date } = request.params;
+  const id = request.query.id as string;
+  const date = request.query.date as string;
 
   if (!id) {
     return response({ success: false, error: Errors.NoBody });
