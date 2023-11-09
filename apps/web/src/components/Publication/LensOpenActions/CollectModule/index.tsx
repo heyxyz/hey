@@ -3,6 +3,7 @@ import AllowanceButton from '@components/Settings/Allowance/Button';
 import CollectWarning from '@components/Shared/CollectWarning';
 import CountdownTimer from '@components/Shared/CountdownTimer';
 import Collectors from '@components/Shared/Modal/Collectors';
+import LoginButton from '@components/Shared/Navbar/LoginButton';
 import NoBalanceError from '@components/Shared/NoBalanceError';
 import Slug from '@components/Shared/Slug';
 import {
@@ -47,6 +48,7 @@ import humanize from '@hey/lib/humanize';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Button, Modal, Spinner, Tooltip, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
+import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
 import getOpenActionActOnKey from '@lib/getOpenActionActOnKey';
 import getRedstonePrice from '@lib/getRedstonePrice';
 import { Leafwatch } from '@lib/leafwatch';
@@ -81,6 +83,8 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
   const setLensHubOnchainSigNonce = useNonceStore(
     (state) => state.setLensHubOnchainSigNonce
   );
+
+  const profileId = getCurrentSessionProfileId();
 
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
@@ -488,49 +492,56 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
           ) : null}
         </div>
         <div className="flex items-center space-x-2">
-          {!hasActed || (!isFreeCollectModule && !isSimpleFreeCollectModule) ? (
-            allowanceLoading ? (
-              <div className="shimmer mt-5 h-[34px] w-28 rounded-lg" />
-            ) : allowed ? (
-              hasAmount ? (
-                !isLimitedCollectAllCollected && !isCollectExpired ? (
-                  <Button
-                    className="mt-5"
-                    onClick={createCollect}
-                    disabled={isLoading}
-                    icon={
-                      isLoading ? (
-                        <Spinner size="xs" />
-                      ) : (
-                        <RectangleStackIcon className="h-4 w-4" />
-                      )
+          {profileId ? (
+            !hasActed ||
+            (!isFreeCollectModule && !isSimpleFreeCollectModule) ? (
+              allowanceLoading ? (
+                <div className="shimmer mt-5 h-[34px] w-28 rounded-lg" />
+              ) : allowed ? (
+                hasAmount ? (
+                  !isLimitedCollectAllCollected && !isCollectExpired ? (
+                    <Button
+                      className="mt-5"
+                      onClick={createCollect}
+                      disabled={isLoading}
+                      icon={
+                        isLoading ? (
+                          <Spinner size="xs" />
+                        ) : (
+                          <RectangleStackIcon className="h-4 w-4" />
+                        )
+                      }
+                    >
+                      Collect now
+                    </Button>
+                  ) : null
+                ) : (
+                  <WarningMessage
+                    className="mt-5 w-full"
+                    message={
+                      <NoBalanceError moduleAmount={collectModule.amount} />
                     }
-                  >
-                    Collect now
-                  </Button>
-                ) : null
+                  />
+                )
               ) : (
-                <WarningMessage
-                  className="mt-5 w-full"
-                  message={
-                    <NoBalanceError moduleAmount={collectModule.amount} />
-                  }
-                />
+                <span className="mt-5">
+                  <AllowanceButton
+                    title="Allow collect module"
+                    module={
+                      allowanceData
+                        ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult
+                    }
+                    allowed={allowed}
+                    setAllowed={setAllowed}
+                  />
+                </span>
               )
-            ) : (
-              <span className="mt-5">
-                <AllowanceButton
-                  title="Allow collect module"
-                  module={
-                    allowanceData
-                      ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult
-                  }
-                  allowed={allowed}
-                  setAllowed={setAllowed}
-                />
-              </span>
-            )
-          ) : null}
+            ) : null
+          ) : (
+            <div className="mt-5">
+              <LoginButton />
+            </div>
+          )}
         </div>
         {targetPublication.operations.hasActed.value ? (
           <div className="mt-3 flex items-center space-x-1.5 font-bold text-green-500">
