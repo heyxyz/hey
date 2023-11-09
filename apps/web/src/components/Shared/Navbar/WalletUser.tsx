@@ -18,14 +18,17 @@ import ThemeSwitch from './NavItems/ThemeSwitch';
 
 const WalletUser: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const address = getCurrentSessionProfileId();
-  const { ens } = useEnsName({ address, enabled: Boolean(address) });
+  const currentSessionProfileId = getCurrentSessionProfileId();
+  const { ens } = useEnsName({
+    address: currentSessionProfileId,
+    enabled: Boolean(currentSessionProfileId)
+  });
 
   const Avatar = () => (
     <Image
-      src={getStampFyiURL(address)}
+      src={getStampFyiURL(currentSessionProfileId)}
       className="h-8 w-8 cursor-pointer rounded-full border dark:border-gray-700"
-      alt={address}
+      alt={currentSessionProfileId}
     />
   );
 

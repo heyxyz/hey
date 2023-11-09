@@ -13,14 +13,14 @@ if (typeof Worker !== 'undefined') {
  */
 export const Leafwatch = {
   track: (name: string, properties?: Record<string, unknown>) => {
-    const actor = getCurrentSessionProfileId();
+    const currentSessionProfileId = getCurrentSessionProfileId();
     const { referrer } = document;
     const referrerDomain = referrer ? new URL(referrer).hostname : null;
 
     worker.postMessage({
       name,
       properties,
-      actor,
+      actor: currentSessionProfileId,
       referrer: referrerDomain,
       url: window.location.href,
       platform: 'web'
