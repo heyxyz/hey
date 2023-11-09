@@ -6,7 +6,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { ZoraCreator1155Impl, ZoraERC721Drop } from '@hey/abis';
-import { APP_NAME, REWARDS_ADDRESS } from '@hey/data/constants';
+import { APP_NAME, REWARDS_ADDRESS, ZERO_ADDRESS } from '@hey/data/constants';
 import { ZORA_FIXED_PRICE_SALE_STRATEGY } from '@hey/data/contracts';
 import { PUBLICATION } from '@hey/data/tracking';
 import type { AnyPublication } from '@hey/lens';
@@ -54,7 +54,7 @@ const MintAction: FC<MintActionProps> = ({
   const { address, isDisconnected } = useAccount();
 
   const nftAddress = nft.address;
-  const recipient = address as Address;
+  const recipient = (address || ZERO_ADDRESS) as Address;
   const comment = `Minted from ${APP_NAME}`;
   const mintReferral = REWARDS_ADDRESS;
   const nftPriceInEth = parseInt(nft.price) / 10 ** 18;
