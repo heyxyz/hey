@@ -601,9 +601,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             </>
           ) : null}
           <PollSettings />
-          {!isComment && isFeatureEnabled(FeatureFlag.LiveStream) && (
-            <LivestreamSettings />
-          )}
+          {!isComment &&
+            (isStaff || isFeatureEnabled(FeatureFlag.LiveStream)) && (
+              <LivestreamSettings />
+            )}
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
