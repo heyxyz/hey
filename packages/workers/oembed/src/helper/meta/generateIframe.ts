@@ -4,7 +4,8 @@ const knownSites = [
   'tape.xyz',
   'open.spotify.com',
   'soundcloud.com',
-  'oohlala.xyz'
+  'oohlala.xyz',
+  'lvpr.tv'
 ];
 
 const pickUrlSites = ['open.spotify.com'];
