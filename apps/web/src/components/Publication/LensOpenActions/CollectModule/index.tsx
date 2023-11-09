@@ -84,7 +84,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
     (state) => state.setLensHubOnchainSigNonce
   );
 
-  const profileId = getCurrentSessionProfileId();
+  const currentSessionProfileId = getCurrentSessionProfileId();
 
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
@@ -492,7 +492,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
           ) : null}
         </div>
         <div className="flex items-center space-x-2">
-          {profileId ? (
+          {currentSessionProfileId ? (
             !hasActed ||
             (!isFreeCollectModule && !isSimpleFreeCollectModule) ? (
               allowanceLoading ? (
