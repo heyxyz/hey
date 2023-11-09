@@ -539,7 +539,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
             ) : null
           ) : (
             <div className="mt-5">
-              <LoginButton />
+              <LoginButton title="Login to Collect" />
             </div>
           )}
         </div>
