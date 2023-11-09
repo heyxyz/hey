@@ -29,9 +29,9 @@ interface ProfileStaffToolProps {
 const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
   const getHaveUsedHey = async () => {
     try {
-      const response = await axios.get(
-        `${STATS_WORKER_URL}/haveUsedHey/${profile.id}`
-      );
+      const response = await axios.get(`${STATS_WORKER_URL}/haveUsedHey`, {
+        params: { id: profile.id }
+      });
 
       return response.data.haveUsedHey;
     } catch (error) {

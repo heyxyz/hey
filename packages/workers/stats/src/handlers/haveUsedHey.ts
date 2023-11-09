@@ -5,7 +5,7 @@ import response from '@hey/lib/response';
 import type { WorkerRequest } from '../types';
 
 export default async (request: WorkerRequest) => {
-  const { id } = request.params;
+  const id = request.query.id as string;
 
   if (!id) {
     return response({ success: false, error: Errors.NoBody });
