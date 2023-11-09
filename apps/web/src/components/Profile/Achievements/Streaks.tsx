@@ -15,9 +15,9 @@ interface StreaksProps {
 const Streaks: FC<StreaksProps> = ({ profile }) => {
   const fetchStreaks = async () => {
     try {
-      const response = await axios.get(
-        `${STATS_WORKER_URL}/streaks/${profile.id}`
-      );
+      const response = await axios.get(`${STATS_WORKER_URL}/streaksCalendar`, {
+        params: { id: profile.id }
+      });
 
       const outputData = Object.entries(response.data.data).map(
         ([date, count]: any) => ({
