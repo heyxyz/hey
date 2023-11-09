@@ -6,6 +6,7 @@ import { IS_MAINNET } from '@hey/data/constants';
 import { HomeFeedType } from '@hey/data/enums';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useState } from 'react';
@@ -31,20 +32,23 @@ const Home: NextPage = () => {
     HomeFeedType.FOLLOWING
   );
 
+  const address = getCurrentSessionProfileId();
+
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'home' });
   });
 
-  const loggedIn = Boolean(currentProfile);
-  const loggedOut = !loggedIn;
+  const loggedInWithProfile = Boolean(currentProfile);
+  const loggedInWithWallet = Boolean(address);
+  const loggedOut = !loggedInWithProfile;
 
   return (
     <>
       <MetaTags />
-      {!currentProfile ? <Hero /> : null}
+      {loggedOut && !loggedInWithWallet && <Hero />}
       <GridLayout>
         <GridItemEight className="space-y-5">
-          {currentProfile ? (
+          {loggedInWithProfile ? (
             <>
               <NewPost />
               <div className="space-y-3">
@@ -66,9 +70,9 @@ const Home: NextPage = () => {
         <GridItemFour>
           {/* <Gitcoin /> */}
           {loggedOut && <Waitlist />}
-          {loggedIn && <HeyMembershipNft />}
+          {loggedInWithProfile && <HeyMembershipNft />}
           {/* Onboarding steps */}
-          {loggedIn && (
+          {loggedInWithProfile && (
             <>
               <EnableLensManager />
               <SetProfile />
@@ -76,7 +80,7 @@ const Home: NextPage = () => {
           )}
           {/* Recommendations */}
           {IS_MAINNET && <StaffPicks />}
-          {loggedIn && <RecommendedProfiles />}
+          {loggedInWithProfile && <RecommendedProfiles />}
           <Footer />
         </GridItemFour>
       </GridLayout>
