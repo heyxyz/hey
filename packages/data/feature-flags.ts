@@ -1,3 +1,4 @@
 export enum FeatureFlag {
-  LiveStream = 'live-stream'
+  LiveStream = 'live-stream',
+  Spaces = 'spaces'
 }
