@@ -24,9 +24,12 @@ const HeyMembershipNft: FC = () => {
     token: ''
   });
 
-  const fetchPreferences = async (): Promise<MembershipNft> => {
+  const fetchHeyMemberNftStatus = async (): Promise<MembershipNft> => {
     const response = await axios.get(
-      `${PREFERENCES_WORKER_URL}/getHeyMemberNftStatus/${currentProfile?.ownedBy.address}`
+      `${PREFERENCES_WORKER_URL}/getHeyMemberNftStatus`,
+      {
+        params: { id: currentProfile?.ownedBy.address }
+      }
     );
     const { data } = response;
 
@@ -34,9 +37,9 @@ const HeyMembershipNft: FC = () => {
   };
 
   const { data, isLoading, refetch } = useQuery(
-    ['getHeyMemberNftStatus', currentProfile?.id],
-    () => fetchPreferences(),
-    { enabled: Boolean(currentProfile?.id) }
+    ['getHeyMemberNftStatus', currentProfile?.ownedBy.address],
+    () => fetchHeyMemberNftStatus(),
+    { enabled: Boolean(currentProfile?.ownedBy.address) }
   );
 
   if (isLoading) {
