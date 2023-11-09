@@ -44,7 +44,10 @@ const Access: FC<RankProps> = ({ profile }) => {
   const getPreferences = async () => {
     try {
       const response = await axios.get(
-        `${PREFERENCES_WORKER_URL}/get/${profile.id}`
+        `${PREFERENCES_WORKER_URL}/getPreferences`,
+        {
+          params: { id: profile.id }
+        }
       );
       const { data } = response;
 

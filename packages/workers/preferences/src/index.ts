@@ -31,7 +31,7 @@ router
       version: request.env.RELEASE ?? 'unknown'
     })
   )
-  .get('/get/:id', getPreferences)
+  .get('/getPreferences', getPreferences)
   .get('/getFeatureFlags', getFeatureFlags)
   .get('/getAllFeatureFlags', getAllFeatureFlags)
   .get('/getHeyMemberNftStatus/:id', getHeyMemberNftStatus)
