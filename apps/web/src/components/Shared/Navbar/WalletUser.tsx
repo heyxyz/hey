@@ -8,7 +8,6 @@ import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
 import type { FC } from 'react';
 import useEnsName from 'src/hooks/useEnsName';
 import { useAppStore } from 'src/store/useAppStore';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
 
 import MenuTransition from '../MenuTransition';
 import Slug from '../Slug';
@@ -19,11 +18,7 @@ import ThemeSwitch from './NavItems/ThemeSwitch';
 
 const WalletUser: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const isStaff = usePreferencesStore((state) => state.isStaff);
-  const isGardener = usePreferencesStore((state) => state.isGardener);
-
   const address = getCurrentSessionProfileId();
-
   const { ens } = useEnsName({ address, enabled: Boolean(address) });
 
   const Avatar = () => (
