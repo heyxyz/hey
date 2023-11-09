@@ -11,7 +11,6 @@ import type {
 import {
   useAuthenticateMutation,
   useChallengeLazyQuery,
-  useProfileLazyQuery,
   useProfilesManagedQuery
 } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
@@ -62,7 +61,6 @@ const SwitchProfiles: FC = () => {
     fetchPolicy: 'no-cache'
   });
   const [authenticate] = useAuthenticateMutation();
-  const [getUserProfile] = useProfileLazyQuery();
 
   if (loading) {
     return <Loader message="Loading Profiles" />;
@@ -95,16 +93,7 @@ const SwitchProfiles: FC = () => {
       const accessToken = auth.data?.authenticate.accessToken;
       const refreshToken = auth.data?.authenticate.refreshToken;
       signIn({ accessToken, refreshToken });
-
-      // Get authed profiles
-      const { data: loadedProfile } = await getUserProfile({
-        variables: { request: { forProfileId: id } }
-      });
-
-      const switchedProfile = loadedProfile?.profile;
-      Leafwatch.track(PROFILE.SWITCH_PROFILE, {
-        switch_profile_to: switchedProfile?.id
-      });
+      Leafwatch.track(PROFILE.SWITCH_PROFILE, { switch_profile_to: id });
       location.reload();
     } catch (error) {
       onError(error);
