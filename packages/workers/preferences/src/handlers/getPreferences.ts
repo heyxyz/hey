@@ -5,7 +5,7 @@ import createSupabaseClient from '@hey/supabase/createSupabaseClient';
 import type { WorkerRequest } from '../types';
 
 export default async (request: WorkerRequest) => {
-  const id = request.params.id as string;
+  const id = request.query.id as string;
 
   if (!id) {
     return response({ success: false, error: Errors.NoBody });
