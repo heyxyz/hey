@@ -413,6 +413,7 @@ export type Space = {
   followersCount7d?: Maybe<Scalars['Int']['output']>;
   github?: Maybe<Scalars['String']['output']>;
   guidelines?: Maybe<Scalars['String']['output']>;
+  hibernated?: Maybe<Scalars['Boolean']['output']>;
   id: Scalars['String']['output'];
   location?: Maybe<Scalars['String']['output']>;
   members?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
