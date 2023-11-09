@@ -5,6 +5,6 @@ export enum FeatureFlag {
 export const featureFlags = [
   {
     key: FeatureFlag.LiveStream,
-    enabledFor: ['0x98e0', '0x01e3ab']
+    enabledFor: ['0x98e0']
   }
 ];
