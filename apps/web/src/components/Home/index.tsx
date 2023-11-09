@@ -32,14 +32,14 @@ const Home: NextPage = () => {
     HomeFeedType.FOLLOWING
   );
 
-  const address = getCurrentSessionProfileId();
+  const currentSessionProfileId = getCurrentSessionProfileId();
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'home' });
   });
 
   const loggedInWithProfile = Boolean(currentProfile);
-  const loggedInWithWallet = Boolean(address);
+  const loggedInWithWallet = Boolean(currentSessionProfileId);
   const loggedOut = !loggedInWithProfile;
 
   return (

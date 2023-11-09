@@ -16,14 +16,14 @@ export const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
 
 const MenuItems: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const profileId = getCurrentSessionProfileId();
+  const currentSessionProfileId = getCurrentSessionProfileId();
 
   if (Boolean(currentProfile)) {
     return <SignedUser />;
   }
 
-  // If the profileId is a valid eth address, we can assume that address don't have a profile yet
-  if (isAddress(profileId)) {
+  // If the currentSessionProfileId is a valid eth address, we can assume that address don't have a profile yet
+  if (isAddress(currentSessionProfileId)) {
     return <WalletUser />;
   }
 
