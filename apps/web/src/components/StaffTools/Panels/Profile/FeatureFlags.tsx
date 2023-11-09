@@ -1,15 +1,20 @@
 import { FlagIcon } from '@heroicons/react/24/outline';
 import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
+import { Modal } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import type { FC } from 'react';
+import { type FC, useState } from 'react';
+
+import UpdateFeatureFlags from './UpdateFeatureFlags';
 
 interface FeatureFlagsProps {
   profile: Profile;
 }
 
 const FeatureFlags: FC<FeatureFlagsProps> = ({ profile }) => {
+  const [showFeatureFlagsModal, setShowFeatureFlagsModal] = useState(false);
+
   const getFeatureFlags = async (): Promise<string[]> => {
     try {
       const response = await axios.get(
@@ -50,6 +55,20 @@ const FeatureFlags: FC<FeatureFlagsProps> = ({ profile }) => {
         ) : (
           <div>No feature flags</div>
         )}
+        <button
+          className="text-sm underline"
+          onClick={() => setShowFeatureFlagsModal(true)}
+        >
+          Update feature flags
+        </button>
+        <Modal
+          show={showFeatureFlagsModal}
+          onClose={() => setShowFeatureFlagsModal(false)}
+          title="Update feature flags"
+          icon={<FlagIcon className="text-brand-500 h-5 w-5" />}
+        >
+          <UpdateFeatureFlags flags={flags} profile={profile} />
+        </Modal>
       </div>
     </>
   );

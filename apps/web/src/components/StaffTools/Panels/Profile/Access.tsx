@@ -4,23 +4,12 @@ import type { Profile } from '@hey/lens';
 import { Spinner, Toggle } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import type { FC, ReactNode } from 'react';
+import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { hydrateAuthTokens } from 'src/store/useAuthPersistStore';
 
-const Wrapper = ({
-  children,
-  title
-}: {
-  children: ReactNode;
-  title: ReactNode;
-}) => (
-  <span className="flex items-center space-x-2 text-sm">
-    <span>{children}</span>
-    <span>{title}</span>
-  </span>
-);
+import ToggleWrapper from './ToggleWrapper';
 
 enum Type {
   VERIFIED = 'VERIFIED',
@@ -114,52 +103,52 @@ const Access: FC<RankProps> = ({ profile }) => {
       </div>
       <div className="mt-3 space-y-2 font-bold">
         {preferences ? (
-          <Wrapper title="Verified member">
+          <ToggleWrapper title="Verified member">
             <Toggle
               setOn={() => staffUpdatePreferences(Type.VERIFIED)}
               on={isVerified}
             />
-          </Wrapper>
+          </ToggleWrapper>
         ) : (
-          <Wrapper title="Verified member">
+          <ToggleWrapper title="Verified member">
             <Spinner size="xs" />
-          </Wrapper>
+          </ToggleWrapper>
         )}
         {preferences ? (
-          <Wrapper title="Staff member">
+          <ToggleWrapper title="Staff member">
             <Toggle
               setOn={() => staffUpdatePreferences(Type.STAFF)}
               on={isStaff}
             />
-          </Wrapper>
+          </ToggleWrapper>
         ) : (
-          <Wrapper title="Staff member">
+          <ToggleWrapper title="Staff member">
             <Spinner size="xs" />
-          </Wrapper>
+          </ToggleWrapper>
         )}
         {preferences ? (
-          <Wrapper title="Gardener member">
+          <ToggleWrapper title="Gardener member">
             <Toggle
               setOn={() => staffUpdatePreferences(Type.GARDENER)}
               on={isGardener}
             />
-          </Wrapper>
+          </ToggleWrapper>
         ) : (
-          <Wrapper title="Gardener member">
+          <ToggleWrapper title="Gardener member">
             <Spinner size="xs" />
-          </Wrapper>
+          </ToggleWrapper>
         )}
         {preferences ? (
-          <Wrapper title="Lens Team member">
+          <ToggleWrapper title="Lens Team member">
             <Toggle
               setOn={() => staffUpdatePreferences(Type.TUSTED_MEMBER)}
               on={isLensMember}
             />
-          </Wrapper>
+          </ToggleWrapper>
         ) : (
-          <Wrapper title="Trusted member">
+          <ToggleWrapper title="Trusted member">
             <Spinner size="xs" />
-          </Wrapper>
+          </ToggleWrapper>
         )}
       </div>
     </>
