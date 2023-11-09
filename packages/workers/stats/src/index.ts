@@ -32,7 +32,7 @@ router
   .get('/profileImpressions', profileImpressions)
   .get('/profile', profile)
   .get('/profileDetails', profileDetails)
-  .get('/haveUsedHey/:id', haveUsedHey)
+  .get('/haveUsedHey', haveUsedHey)
   .get('/streaks/:id', streaksCalendar)
   .get('/streaks/:id/:date', streaksList)
   .all('*', () => error(404));
