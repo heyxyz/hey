@@ -34,7 +34,7 @@ router
   .get('/profileDetails', profileDetails)
   .get('/haveUsedHey', haveUsedHey)
   .get('/streaksCalendar', streaksCalendar)
-  .get('/streaks/:id/:date', streaksList)
+  .get('/streaksList', streaksList)
   .all('*', () => error(404));
 
 export default {
