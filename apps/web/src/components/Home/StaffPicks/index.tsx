@@ -26,7 +26,7 @@ const StaffPicks: FC = () => {
   const fetchStaffPicks = async (): Promise<StaffPick[]> => {
     const response: {
       data: { result: StaffPick[] };
-    } = await axios.get(`${STAFF_PICKS_WORKER_URL}/all`);
+    } = await axios.get(`${STAFF_PICKS_WORKER_URL}/getStaffPicks`);
 
     return response.data.result;
   };
