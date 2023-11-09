@@ -1,4 +1,4 @@
-import isValidEthAddress from './isValidEthAddress';
+import { isAddress } from 'viem';
 
 /**
  * Format the given Ethereum address by displaying only the first and last few characters.
@@ -12,7 +12,7 @@ const formatAddress = (address: string | null, slice = 4): string => {
     return '';
   }
 
-  if (isValidEthAddress(address)) {
+  if (isAddress(address)) {
     return `${address.slice(0, slice + 2)}…${address.slice(
       address.length - slice
     )}`;

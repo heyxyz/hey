@@ -6,7 +6,6 @@ import {
   type UserSigNonces,
   UserSigNoncesDocument
 } from '@hey/lens';
-import isValidEthAddress from '@hey/lib/isValidEthAddress';
 import { BrowserPush } from '@lib/browserPush';
 import getCurrentSessionId from '@lib/getCurrentSessionId';
 import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
@@ -18,6 +17,7 @@ import { signOut } from 'src/store/useAuthPersistStore';
 import { useNonceStore } from 'src/store/useNonceStore';
 import { useNotificationPersistStore } from 'src/store/useNotificationPersistStore';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
+import { isAddress } from 'viem';
 import { useAccount } from 'wagmi';
 
 const LensSubscriptionsProvider: FC = () => {
@@ -41,7 +41,7 @@ const LensSubscriptionsProvider: FC = () => {
 
   useUpdateEffect(() => {
     if (readyState === 1 && currentSessionProfileId && address) {
-      if (!isValidEthAddress(currentSessionProfileId)) {
+      if (!isAddress(currentSessionProfileId)) {
         sendJsonMessage({
           id: '1',
           type: 'start',

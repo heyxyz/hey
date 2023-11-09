@@ -4,11 +4,11 @@ import {
   LimitType,
   useEnabledCurrenciesQuery
 } from '@hey/lens';
-import isValidEthAddress from '@hey/lib/isValidEthAddress';
 import type { CollectModuleType } from '@hey/types/hey';
 import { Button, ErrorMessage, Spinner } from '@hey/ui';
 import { type Dispatch, type FC, type SetStateAction } from 'react';
 import { useCollectModuleStore } from 'src/store/useCollectModuleStore';
+import { isAddress } from 'viem';
 
 import AmountConfig from './AmountConfig';
 import CollectLimitConfig from './CollectLimitConfig';
@@ -35,8 +35,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
     (recipient) => !recipient.recipient
   );
   const hasInvalidEthAddressInRecipients = recipients.some(
-    (recipient) =>
-      recipient.recipient && !isValidEthAddress(recipient.recipient)
+    (recipient) => recipient.recipient && !isAddress(recipient.recipient)
   );
   const isRecipientsDuplicated = () => {
     const recipientsSet = new Set(
