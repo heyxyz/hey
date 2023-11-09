@@ -9,6 +9,24 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      features: {
+        Row: {
+          enabled: boolean;
+          id: string;
+          key: string;
+        };
+        Insert: {
+          enabled?: boolean;
+          id?: string;
+          key: string;
+        };
+        Update: {
+          enabled?: boolean;
+          id?: string;
+          key?: string;
+        };
+        Relationships: [];
+      };
       groups: {
         Row: {
           avatar: string;
@@ -71,6 +89,32 @@ export interface Database {
           id?: string;
         };
         Relationships: [];
+      };
+      'profile-features': {
+        Row: {
+          enabled: boolean;
+          feature_id: string;
+          profile_id: string;
+        };
+        Insert: {
+          enabled?: boolean;
+          feature_id: string;
+          profile_id: string;
+        };
+        Update: {
+          enabled?: boolean;
+          feature_id?: string;
+          profile_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'profile-features_feature_id_fkey';
+            columns: ['feature_id'];
+            isOneToOne: false;
+            referencedRelation: 'features';
+            referencedColumns: ['id'];
+          }
+        ];
       };
       rights: {
         Row: {
