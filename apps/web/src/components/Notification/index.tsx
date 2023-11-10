@@ -5,7 +5,7 @@ import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { NotificationFeedType } from 'src/enums';
 import { useAppStore } from 'src/store/useAppStore';
 import { useEffectOnce } from 'usehooks-ts';
 
@@ -18,18 +18,24 @@ const Notification: FC = () => {
     query: { type }
   } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [feedType, setFeedType] = useState(
-    type &&
-      ['all', 'mentions', 'comments', 'likes', 'collects'].includes(
-        type as string
-      )
-      ? type.toString().toUpperCase()
-      : 'ALL'
-  );
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'notifications' });
   });
+
+  const lowerCaseNotificationFeedType = [
+    NotificationFeedType.All.toLowerCase(),
+    NotificationFeedType.Mentions.toLowerCase(),
+    NotificationFeedType.Comments.toLowerCase(),
+    NotificationFeedType.Likes.toLowerCase(),
+    NotificationFeedType.Collects.toLowerCase()
+  ];
+
+  const feedType = type
+    ? lowerCaseNotificationFeedType.includes(type as string)
+      ? type.toString().toUpperCase()
+      : NotificationFeedType.All
+    : NotificationFeedType.All;
 
   if (!currentProfile) {
     return <NotLoggedIn />;
@@ -40,7 +46,7 @@ const Notification: FC = () => {
       <MetaTags title={`Notifications • ${APP_NAME}`} />
       <div className="w-full max-w-4xl space-y-3">
         <div className="flex flex-wrap justify-between gap-3 pb-2">
-          <FeedType setFeedType={setFeedType} feedType={feedType} />
+          <FeedType feedType={feedType} />
           <Settings />
         </div>
         <List feedType={feedType} />
