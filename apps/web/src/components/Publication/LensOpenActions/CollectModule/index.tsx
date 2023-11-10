@@ -201,11 +201,15 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
       : profileUserFunctionName,
     onSuccess: () => {
       onCompleted();
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+      if (!isWalletUser) {
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+      }
     },
     onError: (error) => {
       onError(error);
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+      if (!isWalletUser) {
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+      }
     }
   });
 
