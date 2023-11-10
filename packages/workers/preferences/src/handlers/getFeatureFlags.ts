@@ -16,7 +16,7 @@ export default async (request: WorkerRequest) => {
 
     const { data, error } = await client
       .from('profile-features')
-      .select('*, features!inner(*)')
+      .select('profile_id, enabled, features!inner(key, enabled)')
       .eq('features.enabled', true)
       .eq('profile_id', id)
       .eq('enabled', true);

@@ -2,22 +2,26 @@ import Loader from '@components/Shared/Loader';
 import { FlagIcon } from '@heroicons/react/24/outline';
 import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
+import type { Features } from '@hey/types/hey';
 import { EmptyState, Toggle } from '@hey/ui';
+import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
-import { featureFlags } from 'src/store/usePreferencesStore';
+import toast from 'react-hot-toast';
 
 import ToggleWrapper from './ToggleWrapper';
 
 interface UpdateFeatureFlagsProps {
   profile: Profile;
   flags: string[];
+  setFlags: (flags: string[]) => void;
 }
 
 const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
   profile,
-  flags
+  flags,
+  setFlags
 }) => {
   const getAllFeatureFlags = async (): Promise<
     | {
@@ -51,7 +55,7 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
   }
 
   const allFlags = allFeatureFlags || [];
-  const enabledFlags = featureFlags();
+  const enabledFlags = flags;
 
   if (allFlags.length === 0) {
     return (
@@ -63,12 +67,40 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
     );
   }
 
+  const updateFeatureFlag = async (flag: Features) => {
+    const { id, key } = flag;
+    const enabled = !enabledFlags.includes(key);
+
+    toast.promise(
+      axios.post(
+        `${PREFERENCES_WORKER_URL}/updateFeatureFlag`,
+        { id, profile_id: profile.id, enabled },
+        { headers: getAuthWorkerHeaders() }
+      ),
+      {
+        loading: 'Updating feature flag...',
+        success: () => {
+          setFlags(
+            enabled
+              ? [...enabledFlags, key]
+              : enabledFlags.filter((f) => f !== key)
+          );
+          return 'Feature flag updated';
+        },
+        error: 'Error updating feature flag'
+      }
+    );
+  };
+
   return (
     <div className="p-5">
       <div className="space-y-2 font-bold">
         {allFlags.map((flag) => (
           <ToggleWrapper key={flag.key} title={flag.key}>
-            <Toggle on={enabledFlags.includes(flag.key)} setOn={() => {}} />
+            <Toggle
+              on={enabledFlags.includes(flag.key)}
+              setOn={() => updateFeatureFlag(flag)}
+            />
           </ToggleWrapper>
         ))}
       </div>
