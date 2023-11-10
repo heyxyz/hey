@@ -14,3 +14,11 @@ export enum ProfileFeedType {
   Gallery = 'GALLERY',
   Stats = 'STATS'
 }
+
+export enum NotificationFeedType {
+  All = 'ALL',
+  Mentions = 'MENTIONS',
+  Comments = 'COMMENTS',
+  Likes = 'LIKES',
+  Collects = 'COLLECTS'
+}

@@ -8,17 +8,15 @@ import {
 import { NOTIFICATION } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { type Dispatch, type FC, type SetStateAction } from 'react';
+import { type FC } from 'react';
 import { NotificationTabType } from 'src/enums';
 
 interface FeedTypeProps {
-  setFeedType: Dispatch<SetStateAction<string>>;
   feedType: string;
 }
 
-const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
+const FeedType: FC<FeedTypeProps> = ({ feedType }) => {
   const switchTab = (type: string) => {
-    setFeedType(type);
     Leafwatch.track(NOTIFICATION.SWITCH_NOTIFICATION_TAB, {
       notification_type: type.toLowerCase()
     });
