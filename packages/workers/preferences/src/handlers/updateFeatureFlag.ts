@@ -51,7 +51,7 @@ export default async (request: WorkerRequest) => {
         throw upsertError;
       }
 
-      return response({ success: true });
+      return response({ success: true, enabled });
     }
 
     const { error: deleteError } = await client
@@ -65,7 +65,7 @@ export default async (request: WorkerRequest) => {
       throw deleteError;
     }
 
-    return response({ success: true });
+    return response({ success: true, enabled });
   } catch (error) {
     throw error;
   }

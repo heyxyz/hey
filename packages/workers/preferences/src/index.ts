@@ -37,14 +37,14 @@ router
   .get('/getAllFeatureFlags', getAllFeatureFlags)
   .get('/getHeyMemberNftStatus', getHeyMemberNftStatus)
   .get('/verified', getVerified)
-  .post('/update', validateLensAccount, updatePreferences)
+  .post('/updatePreferences', validateLensAccount, updatePreferences)
   .post(
     '/updateHeyMemberNftStatus',
     validateLensAccount,
     updateHeyMemberNftStatus
   )
-  .post('/staffMode', validateLensAccount, updateStaffMode)
-  .post('/gardenerMode', validateLensAccount, updateGardenerMode)
+  .post('/updateStaffMode', validateLensAccount, updateStaffMode)
+  .post('/updateGardenerMode', validateLensAccount, updateGardenerMode)
   .post('/updateFeatureFlag', validateLensAccount, updateFeatureFlag)
   .all('*', () => error(404));
 

@@ -1,12 +1,12 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { SwatchIcon } from '@heroicons/react/24/outline';
-import { IS_MAINNET, PREFERENCES_WORKER_URL } from '@hey/data/constants';
+import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
+import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
-import { hydrateAuthTokens } from 'src/store/useAuthPersistStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 
 const HighSignalNotificationFilter: FC = () => {
@@ -20,14 +20,9 @@ const HighSignalNotificationFilter: FC = () => {
   const toggleHighSignalNotificationFilter = () => {
     toast.promise(
       axios.post(
-        `${PREFERENCES_WORKER_URL}/update`,
+        `${PREFERENCES_WORKER_URL}/updatePreferences`,
         { highSignalNotificationFilter: !highSignalNotificationFilter },
-        {
-          headers: {
-            'X-Access-Token': hydrateAuthTokens().accessToken,
-            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
-          }
-        }
+        { headers: getAuthWorkerHeaders() }
       ),
       {
         loading: 'Updating preference settings...',

@@ -5,13 +5,13 @@ import {
   VideoCameraIcon
 } from '@heroicons/react/24/outline';
 import { XCircleIcon } from '@heroicons/react/24/solid';
-import { IS_MAINNET, LIVE_WORKER_URL } from '@hey/data/constants';
+import { LIVE_WORKER_URL } from '@hey/data/constants';
 import { Card, Spinner, Tooltip } from '@hey/ui';
+import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { hydrateAuthTokens } from 'src/store/useAuthPersistStore';
 import { usePublicationStore } from 'src/store/usePublicationStore';
 
 const LivestreamEditor: FC = () => {
@@ -34,12 +34,7 @@ const LivestreamEditor: FC = () => {
       const response = await axios.post(
         `${LIVE_WORKER_URL}/create`,
         undefined,
-        {
-          headers: {
-            'X-Access-Token': hydrateAuthTokens().accessToken,
-            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
-          }
-        }
+        { headers: getAuthWorkerHeaders() }
       );
       const { data } = response;
       setLiveVideoConfig({

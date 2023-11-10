@@ -1,13 +1,13 @@
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
-import { IS_MAINNET, PREFERENCES_WORKER_URL } from '@hey/data/constants';
+import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import { Spinner, Toggle } from '@hey/ui';
+import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { hydrateAuthTokens } from 'src/store/useAuthPersistStore';
 
 import ToggleWrapper from './ToggleWrapper';
 
@@ -58,7 +58,7 @@ const Access: FC<RankProps> = ({ profile }) => {
   const staffUpdatePreferences = async (type: AccessType) => {
     toast.promise(
       axios.post(
-        `${PREFERENCES_WORKER_URL}/update`,
+        `${PREFERENCES_WORKER_URL}/updatePreferences`,
         {
           ...(type === Type.VERIFIED && { isVerified: !isVerified }),
           ...(type === Type.STAFF && { isStaff: !isStaff }),
@@ -68,12 +68,7 @@ const Access: FC<RankProps> = ({ profile }) => {
           }),
           updateByAdmin: true
         },
-        {
-          headers: {
-            'X-Access-Token': hydrateAuthTokens().accessToken,
-            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
-          }
-        }
+        { headers: getAuthWorkerHeaders() }
       ),
       {
         loading: 'Updating access...',

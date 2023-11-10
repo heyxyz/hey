@@ -14,8 +14,9 @@ interface FeatureFlagsProps {
 
 const FeatureFlags: FC<FeatureFlagsProps> = ({ profile }) => {
   const [showFeatureFlagsModal, setShowFeatureFlagsModal] = useState(false);
+  const [flags, setFlags] = useState<string[]>([]);
 
-  const getFeatureFlags = async (): Promise<string[]> => {
+  const getFeatureFlags = async () => {
     try {
       const response = await axios.get(
         `${PREFERENCES_WORKER_URL}/getFeatureFlags`,
@@ -23,19 +24,18 @@ const FeatureFlags: FC<FeatureFlagsProps> = ({ profile }) => {
       );
       const { data } = response;
 
-      return data?.features || [];
+      setFlags(data?.features || []);
+      return true;
     } catch (error) {
-      return [];
+      return false;
     }
   };
 
-  const { data: featureFlags, isLoading } = useQuery({
+  const { isLoading } = useQuery({
     queryKey: ['getFeatureFlags', profile.id],
     queryFn: getFeatureFlags,
     enabled: Boolean(profile.id)
   });
-
-  const flags = featureFlags || [];
 
   return (
     <>
@@ -67,7 +67,11 @@ const FeatureFlags: FC<FeatureFlagsProps> = ({ profile }) => {
           title="Update feature flags"
           icon={<FlagIcon className="text-brand-500 h-5 w-5" />}
         >
-          <UpdateFeatureFlags flags={flags} profile={profile} />
+          <UpdateFeatureFlags
+            profile={profile}
+            flags={flags}
+            setFlags={setFlags}
+          />
         </Modal>
       </div>
     </>
