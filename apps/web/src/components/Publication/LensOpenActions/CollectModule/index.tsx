@@ -15,8 +15,12 @@ import {
   UsersIcon
 } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { LensHub } from '@hey/abis';
-import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@hey/data/constants';
+import { LensHub, PublicAct } from '@hey/abis';
+import {
+  LENSHUB_PROXY,
+  POLYGONSCAN_URL,
+  PUBLICACT_PROXY
+} from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import type {
   ActOnOpenActionLensManagerRequest,
@@ -61,6 +65,7 @@ import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/useAppStore';
 import { useNonceStore } from 'src/store/useNonceStore';
+import { isAddress } from 'viem';
 import {
   useAccount,
   useBalance,
@@ -85,6 +90,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
   );
 
   const currentSessionProfileId = getCurrentSessionProfileId();
+  const isWalletUser = isAddress(currentSessionProfileId);
 
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
@@ -182,10 +188,17 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
 
   const { signTypedDataAsync } = useSignTypedData({ onError });
 
+  const walletUserFunctionName = 'publicCollect';
+  const profileUserFunctionName = isLegacyCollectModule
+    ? 'collectLegacy'
+    : 'act';
+
   const { write } = useContractWrite({
-    address: LENSHUB_PROXY,
-    abi: LensHub,
-    functionName: isLegacyCollectModule ? 'collectLegacy' : 'act',
+    address: isWalletUser ? PUBLICACT_PROXY : LENSHUB_PROXY,
+    abi: (isWalletUser ? PublicAct : LensHub) as any,
+    functionName: isWalletUser
+      ? walletUserFunctionName
+      : profileUserFunctionName,
     onSuccess: () => {
       onCompleted();
       setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
@@ -208,7 +221,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
           referenceModules: []
         }
       },
-      skip: !assetAddress || !currentProfile,
+      skip: !assetAddress || !currentSessionProfileId,
       onCompleted: ({ approvedModuleAllowanceAmount }) => {
         const allowedAmount = parseFloat(
           approvedModuleAllowanceAmount[0]?.allowance.value
