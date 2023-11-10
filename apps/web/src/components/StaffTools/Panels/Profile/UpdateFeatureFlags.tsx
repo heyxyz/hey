@@ -7,7 +7,7 @@ import { EmptyState, Toggle } from '@hey/ui';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { type FC } from 'react';
+import { type FC, useState } from 'react';
 import toast from 'react-hot-toast';
 
 interface UpdateFeatureFlagsProps {
@@ -21,6 +21,8 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
   flags,
   setFlags
 }) => {
+  const [updating, setUpdating] = useState(false);
+
   const getAllFeatureFlags = async (): Promise<Features[] | []> => {
     try {
       const response = await axios.get(
@@ -62,6 +64,7 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
     const { id, key } = flag;
     const enabled = !enabledFlags.includes(key);
 
+    setUpdating(true);
     toast.promise(
       axios.post(
         `${PREFERENCES_WORKER_URL}/updateFeatureFlag`,
@@ -71,6 +74,7 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
       {
         loading: 'Updating feature flag...',
         success: () => {
+          setUpdating(false);
           setFlags(
             enabled
               ? [...enabledFlags, key]
@@ -78,7 +82,10 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
           );
           return 'Feature flag updated';
         },
-        error: 'Error updating feature flag'
+        error: () => {
+          setUpdating(false);
+          return 'Failed to update feature flag';
+        }
       }
     );
   };
@@ -91,6 +98,7 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
             <Toggle
               on={enabledFlags.includes(flag.key)}
               setOn={() => updateFeatureFlag(flag)}
+              disabled={updating}
             />
             <div className="flex flex-col space-y-0.5">
               <div className="font-bold">{flag.name}</div>
