@@ -9,7 +9,6 @@ import { usePreferencesStore } from 'src/store/usePreferencesStore';
 const PreferencesProvider: FC = () => {
   const currentSessionProfileId = getCurrentSessionProfileId();
   const setVerifiedMembers = useAppStore((state) => state.setVerifiedMembers);
-  const setIsStaff = usePreferencesStore((state) => state.setIsStaff);
   const setIsGardener = usePreferencesStore((state) => state.setIsGardener);
   const setIsLensMember = usePreferencesStore((state) => state.setIsLensMember);
   const setStaffMode = usePreferencesStore((state) => state.setStaffMode);
@@ -33,7 +32,6 @@ const PreferencesProvider: FC = () => {
         );
         const { data } = response;
 
-        setIsStaff(data.result?.is_staff || false);
         setIsGardener(data.result?.is_gardener || false);
         setIsLensMember(data.result?.is_lens_member || false);
         setStaffMode(data.result?.staff_mode || false);

@@ -26,7 +26,6 @@ interface RankProps {
 
 const Access: FC<RankProps> = ({ profile }) => {
   const [isVerified, setIsVerified] = useState(false);
-  const [isStaff, setIsStaff] = useState(false);
   const [isGardener, setIsGardener] = useState(false);
   const [isLensMember, setIsLensMember] = useState(false);
 
@@ -39,7 +38,6 @@ const Access: FC<RankProps> = ({ profile }) => {
       const { data } = response;
 
       setIsVerified(data.result?.is_verified || false);
-      setIsStaff(data.result?.is_staff || false);
       setIsGardener(data.result?.is_gardener || false);
       setIsLensMember(data.result?.is_lens_member || false);
 
@@ -62,7 +60,6 @@ const Access: FC<RankProps> = ({ profile }) => {
         {
           id: profile.id,
           ...(type === Type.VERIFIED && { isVerified: !isVerified }),
-          ...(type === Type.STAFF && { isStaff: !isStaff }),
           ...(type === Type.GARDENER && { isGardener: !isGardener }),
           ...(type === Type.TUSTED_MEMBER && {
             isLensMember: !isLensMember
@@ -76,8 +73,6 @@ const Access: FC<RankProps> = ({ profile }) => {
         success: () => {
           if (type === Type.VERIFIED) {
             setIsVerified(!isVerified);
-          } else if (type === Type.STAFF) {
-            setIsStaff(!isStaff);
           } else if (type === Type.GARDENER) {
             setIsGardener(!isGardener);
           } else if (type === Type.TUSTED_MEMBER) {
@@ -107,18 +102,6 @@ const Access: FC<RankProps> = ({ profile }) => {
           </ToggleWrapper>
         ) : (
           <ToggleWrapper title="Verified member">
-            <Spinner size="xs" />
-          </ToggleWrapper>
-        )}
-        {preferences ? (
-          <ToggleWrapper title="Staff member">
-            <Toggle
-              setOn={() => staffUpdatePreferences(Type.STAFF)}
-              on={isStaff}
-            />
-          </ToggleWrapper>
-        ) : (
-          <ToggleWrapper title="Staff member">
             <Spinner size="xs" />
           </ToggleWrapper>
         )}

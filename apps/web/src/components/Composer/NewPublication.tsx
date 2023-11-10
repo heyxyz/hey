@@ -51,7 +51,6 @@ import { useAppStore } from 'src/store/useAppStore';
 import { useCollectModuleStore } from 'src/store/useCollectModuleStore';
 import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 import { useNonceStore } from 'src/store/useNonceStore';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import { usePublicationStore } from 'src/store/usePublicationStore';
 import { useReferenceModuleStore } from 'src/store/useReferenceModuleStore';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
@@ -170,9 +169,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const degreesOfSeparation = useReferenceModuleStore(
     (state) => state.degreesOfSeparation
   );
-
-  // Preferences store
-  const isStaff = usePreferencesStore((state) => state.isStaff);
 
   // States
   const [isLoading, setIsLoading] = useState(false);
@@ -601,10 +597,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             </>
           ) : null}
           <PollSettings />
-          {!isComment &&
-            (isStaff || isFeatureEnabled(FeatureFlag.LiveStream)) && (
-              <LivestreamSettings />
-            )}
+          {!isComment && isFeatureEnabled(FeatureFlag.LiveStream) && (
+            <LivestreamSettings />
+          )}
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button

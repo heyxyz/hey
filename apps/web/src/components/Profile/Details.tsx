@@ -19,6 +19,7 @@ import {
   RARIBLE_URL,
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import { FollowUnfollowSource } from '@hey/data/tracking';
 import getEnvConfig from '@hey/data/utils/getEnvConfig';
 import type { Profile } from '@hey/lens';
@@ -30,6 +31,7 @@ import getProfile from '@hey/lib/getProfile';
 import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import hasMisused from '@hey/lib/hasMisused';
 import { Button, Image, LightBox, Modal, Tooltip } from '@hey/ui';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import isVerified from '@lib/isVerified';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
@@ -55,7 +57,6 @@ interface DetailsProps {
 
 const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const isStaff = usePreferencesStore((state) => state.isStaff);
   const staffMode = usePreferencesStore((state) => state.staffMode);
   const [showMutualFollowersModal, setShowMutualFollowersModal] =
     useState(false);
@@ -308,7 +309,9 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
         </>
       ) : null}
       <Badges profile={profile} />
-      {isStaff && staffMode ? <ProfileStaffTool profile={profile} /> : null}
+      {isFeatureEnabled(FeatureFlag.Staff) && staffMode ? (
+        <ProfileStaffTool profile={profile} />
+      ) : null}
     </div>
   );
 };
