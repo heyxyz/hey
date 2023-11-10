@@ -36,19 +36,6 @@ const ViewProfile: NextPage = () => {
     isReady
   } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const lowerCaseProfileFeedType = [
-    ProfileFeedType.Feed.toLowerCase(),
-    ProfileFeedType.Replies.toLowerCase(),
-    ProfileFeedType.Media.toLowerCase(),
-    ProfileFeedType.Collects.toLowerCase(),
-    ProfileFeedType.Gallery.toLowerCase(),
-    ProfileFeedType.Stats.toLowerCase()
-  ];
-  const [feedType, setFeedType] = useState(
-    type && lowerCaseProfileFeedType.includes(type as string)
-      ? type.toString().toUpperCase()
-      : ProfileFeedType.Feed
-  );
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'profile' });
@@ -109,6 +96,21 @@ const ViewProfile: NextPage = () => {
     return <Custom500 />;
   }
 
+  const lowerCaseProfileFeedType = [
+    ProfileFeedType.Feed.toLowerCase(),
+    ProfileFeedType.Replies.toLowerCase(),
+    ProfileFeedType.Media.toLowerCase(),
+    ProfileFeedType.Collects.toLowerCase(),
+    ProfileFeedType.Gallery.toLowerCase(),
+    ProfileFeedType.Stats.toLowerCase()
+  ];
+
+  const feedType = type
+    ? lowerCaseProfileFeedType.includes(type as string)
+      ? type.toString().toUpperCase()
+      : ProfileFeedType.Feed
+    : ProfileFeedType.Feed;
+
   return (
     <>
       <Modal show={showFollowModal} onClose={() => setShowFollowModal(false)}>
@@ -138,7 +140,7 @@ const ViewProfile: NextPage = () => {
           />
         </GridItemFour>
         <GridItemEight className="space-y-5">
-          <FeedType setFeedType={setFeedType} feedType={feedType} />
+          <FeedType feedType={feedType} />
           {currentProfile?.id === profile?.id ? <NewPost /> : null}
           {feedType === ProfileFeedType.Feed ||
           feedType === ProfileFeedType.Replies ||
