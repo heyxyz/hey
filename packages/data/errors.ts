@@ -9,5 +9,6 @@ export enum Errors {
   InvalidProfileId = 'Invalid profile id!',
   InvalidAddress = 'Invalid address!',
   NotAdmin = 'You are not admin!',
+  NotStaff = 'You are not staff!',
   NoBody = 'No body provided!'
 }
