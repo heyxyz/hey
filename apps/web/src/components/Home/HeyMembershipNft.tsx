@@ -1,9 +1,10 @@
 import Mint from '@components/Publication/HeyOpenActions/Nft/ZoraNft/Mint';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
-import { IS_MAINNET, PREFERENCES_WORKER_URL } from '@hey/data/constants';
+import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
 import { MISCELLANEOUS, PUBLICATION } from '@hey/data/tracking';
 import type { MembershipNft } from '@hey/types/hey';
 import { Button, Card, Modal } from '@hey/ui';
+import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import type { FC } from 'react';
@@ -11,7 +12,6 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useZoraNft from 'src/hooks/zora/useZoraNft';
 import { useAppStore } from 'src/store/useAppStore';
-import { hydrateAuthTokens } from 'src/store/useAuthPersistStore';
 import { useQuery } from 'wagmi';
 
 const HeyMembershipNft: FC = () => {
@@ -58,12 +58,7 @@ const HeyMembershipNft: FC = () => {
         axios.post(
           `${PREFERENCES_WORKER_URL}/updateHeyMemberNftStatus`,
           undefined,
-          {
-            headers: {
-              'X-Access-Token': hydrateAuthTokens().accessToken,
-              'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
-            }
-          }
+          { headers: getAuthWorkerHeaders() }
         ),
         {
           loading: 'Updating...',
