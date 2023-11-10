@@ -10,8 +10,6 @@ import axios from 'axios';
 import { type FC } from 'react';
 import toast from 'react-hot-toast';
 
-import ToggleWrapper from './ToggleWrapper';
-
 interface UpdateFeatureFlagsProps {
   profile: Profile;
   flags: string[];
@@ -23,14 +21,7 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
   flags,
   setFlags
 }) => {
-  const getAllFeatureFlags = async (): Promise<
-    | {
-        id: string;
-        key: string;
-        enabled: boolean;
-      }[]
-    | []
-  > => {
+  const getAllFeatureFlags = async (): Promise<Features[] | []> => {
     try {
       const response = await axios.get(
         `${PREFERENCES_WORKER_URL}/getAllFeatureFlags`,
@@ -54,10 +45,10 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
     return <Loader message="Loading feature flags" />;
   }
 
-  const allFlags = allFeatureFlags || [];
+  const availableFlags = allFeatureFlags || [];
   const enabledFlags = flags;
 
-  if (allFlags.length === 0) {
+  if (availableFlags.length === 0) {
     return (
       <EmptyState
         message="No feature flags"
@@ -93,17 +84,24 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
   };
 
   return (
-    <div className="p-5">
-      <div className="space-y-2 font-bold">
-        {allFlags.map((flag) => (
-          <ToggleWrapper key={flag.key} title={flag.key}>
+    <div className="divide-y dark:divide-gray-700">
+      {availableFlags.map((flag) => (
+        <div key={flag.id} className="space-y-3 p-5">
+          <div className="flex items-center space-x-3">
             <Toggle
               on={enabledFlags.includes(flag.key)}
               setOn={() => updateFeatureFlag(flag)}
             />
-          </ToggleWrapper>
-        ))}
-      </div>
+            <div className="flex flex-col space-y-0.5">
+              <div className="font-bold">{flag.name}</div>
+              <code className="ld-text-gray-500 text-xs font-bold">
+                {flag.key}
+              </code>
+            </div>
+          </div>
+          <div>{flag.description}</div>
+        </div>
+      ))}
     </div>
   );
 };
