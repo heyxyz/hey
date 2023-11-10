@@ -3,12 +3,13 @@ import { adminAddresses } from '@hey/data/staffs';
 import response from '@hey/lib/response';
 import createSupabaseClient from '@hey/supabase/createSupabaseClient';
 import jwt from '@tsndr/cloudflare-worker-jwt';
-import { boolean, object } from 'zod';
+import { boolean, object, string } from 'zod';
 
 import { VERIFIED_KV_KEY } from '../constants';
 import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
+  id?: string;
   isStaff?: boolean;
   isGardener?: boolean;
   isLensMember?: boolean;
@@ -19,6 +20,7 @@ type ExtensionRequest = {
 };
 
 const validationSchema = object({
+  id: string().optional(),
   isStaff: boolean().optional(),
   isGardener: boolean().optional(),
   isLensMember: boolean().optional(),
@@ -42,6 +44,7 @@ export default async (request: WorkerRequest) => {
   }
 
   const {
+    id,
     isGardener,
     isStaff,
     isLensMember,
@@ -62,7 +65,7 @@ export default async (request: WorkerRequest) => {
     const { data, error } = await client
       .from('rights')
       .upsert({
-        id: payload.id,
+        id: updateByAdmin ? id : payload.id,
         ...(updateByAdmin && {
           is_staff: isStaff,
           is_gardener: isGardener,

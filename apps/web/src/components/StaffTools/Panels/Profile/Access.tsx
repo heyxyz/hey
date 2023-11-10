@@ -60,6 +60,7 @@ const Access: FC<RankProps> = ({ profile }) => {
       axios.post(
         `${PREFERENCES_WORKER_URL}/updatePreferences`,
         {
+          id: profile.id,
           ...(type === Type.VERIFIED && { isVerified: !isVerified }),
           ...(type === Type.STAFF && { isStaff: !isStaff }),
           ...(type === Type.GARDENER && { isGardener: !isGardener }),
