@@ -41,6 +41,21 @@ const ViewProfile: NextPage = () => {
     Leafwatch.track(PAGEVIEW, { page: 'profile' });
   });
 
+  const lowerCaseProfileFeedType = [
+    ProfileFeedType.Feed.toLowerCase(),
+    ProfileFeedType.Replies.toLowerCase(),
+    ProfileFeedType.Media.toLowerCase(),
+    ProfileFeedType.Collects.toLowerCase(),
+    ProfileFeedType.Gallery.toLowerCase(),
+    ProfileFeedType.Stats.toLowerCase()
+  ];
+
+  const feedType = type
+    ? lowerCaseProfileFeedType.includes(type as string)
+      ? type.toString().toUpperCase()
+      : ProfileFeedType.Feed
+    : ProfileFeedType.Feed;
+
   const { data, loading, error } = useProfileQuery({
     variables: {
       request: {
@@ -95,21 +110,6 @@ const ViewProfile: NextPage = () => {
   if (error) {
     return <Custom500 />;
   }
-
-  const lowerCaseProfileFeedType = [
-    ProfileFeedType.Feed.toLowerCase(),
-    ProfileFeedType.Replies.toLowerCase(),
-    ProfileFeedType.Media.toLowerCase(),
-    ProfileFeedType.Collects.toLowerCase(),
-    ProfileFeedType.Gallery.toLowerCase(),
-    ProfileFeedType.Stats.toLowerCase()
-  ];
-
-  const feedType = type
-    ? lowerCaseProfileFeedType.includes(type as string)
-      ? type.toString().toUpperCase()
-      : ProfileFeedType.Feed
-    : ProfileFeedType.Feed;
 
   return (
     <>
