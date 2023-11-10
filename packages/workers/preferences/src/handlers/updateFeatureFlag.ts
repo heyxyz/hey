@@ -44,7 +44,7 @@ export default async (request: WorkerRequest) => {
     if (enabled) {
       const { error: upsertError } = await client
         .from('profile-features')
-        .upsert({ feature_id: id, profile_id: profile_id, enabled })
+        .upsert({ feature_id: id, profile_id: profile_id })
         .select();
 
       if (upsertError) {
