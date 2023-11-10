@@ -8,6 +8,7 @@ import getFeatureFlags from './handlers/getFeatureFlags';
 import getHeyMemberNftStatus from './handlers/getHeyMemberNftStatus';
 import getPreferences from './handlers/getPreferences';
 import getVerified from './handlers/getVerified';
+import updateFeatureFlag from './handlers/updateFeatureFlag';
 import updateGardenerMode from './handlers/updateGardenerMode';
 import updateHeyMemberNftStatus from './handlers/updateHeyMemberNftStatus';
 import updatePreferences from './handlers/updatePreferences';
@@ -44,6 +45,7 @@ router
   )
   .post('/staffMode', validateLensAccount, updateStaffMode)
   .post('/gardenerMode', validateLensAccount, updateGardenerMode)
+  .post('/updateFeatureFlag', validateLensAccount, updateFeatureFlag)
   .all('*', () => error(404));
 
 export default {
