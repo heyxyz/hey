@@ -5,6 +5,7 @@ import axios from 'axios';
 import { type FC } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
+import { isAddress } from 'viem';
 
 const PreferencesProvider: FC = () => {
   const currentSessionProfileId = getCurrentSessionProfileId();
@@ -19,7 +20,10 @@ const PreferencesProvider: FC = () => {
 
   const fetchPreferences = async () => {
     try {
-      if (Boolean(currentSessionProfileId)) {
+      if (
+        Boolean(currentSessionProfileId) &&
+        !isAddress(currentSessionProfileId)
+      ) {
         const response = await axios.get(
           `${PREFERENCES_WORKER_URL}/getPreferences`,
           {

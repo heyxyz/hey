@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
 import { useFeatureFlagsStore } from 'src/store/useFeatureFlagsStore';
+import { isAddress } from 'viem';
 
 const FeatureFlagsProvider: FC = () => {
   const currentSessionProfileId = getCurrentSessionProfileId();
@@ -21,7 +22,10 @@ const FeatureFlagsProvider: FC = () => {
 
   const fetchFeatureFlags = async () => {
     try {
-      if (Boolean(currentSessionProfileId)) {
+      if (
+        Boolean(currentSessionProfileId) &&
+        !isAddress(currentSessionProfileId)
+      ) {
         const response = await axios.get(
           `${PREFERENCES_WORKER_URL}/getFeatureFlags`,
           { params: { id: currentSessionProfileId } }
