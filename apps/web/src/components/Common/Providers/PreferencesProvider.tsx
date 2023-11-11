@@ -9,7 +9,6 @@ import { usePreferencesStore } from 'src/store/usePreferencesStore';
 const PreferencesProvider: FC = () => {
   const currentSessionProfileId = getCurrentSessionProfileId();
   const setVerifiedMembers = useAppStore((state) => state.setVerifiedMembers);
-  const setIsLensMember = usePreferencesStore((state) => state.setIsLensMember);
   const setIsPride = usePreferencesStore((state) => state.setIsPride);
   const setHighSignalNotificationFilter = usePreferencesStore(
     (state) => state.setHighSignalNotificationFilter
@@ -29,7 +28,6 @@ const PreferencesProvider: FC = () => {
         );
         const { data } = response;
 
-        setIsLensMember(data.result?.is_lens_member || false);
         setIsPride(data.result?.is_pride || false);
         setHighSignalNotificationFilter(
           data.result?.high_signal_notification_filter || false

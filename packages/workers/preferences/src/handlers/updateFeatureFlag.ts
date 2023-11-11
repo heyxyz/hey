@@ -1,10 +1,9 @@
 import { Errors } from '@hey/data/errors';
-import { adminAddresses } from '@hey/data/staffs';
 import response from '@hey/lib/response';
 import createSupabaseClient from '@hey/supabase/createSupabaseClient';
-import jwt from '@tsndr/cloudflare-worker-jwt';
 import { boolean, object, string } from 'zod';
 
+import { VERIFIED_FEATURE_ID, VERIFIED_KV_KEY } from '../constants';
 import validateIsStaff from '../helpers/validateIsStaff';
 import type { WorkerRequest } from '../types';
 
@@ -26,7 +25,6 @@ export default async (request: WorkerRequest) => {
     return response({ success: false, error: Errors.NoBody });
   }
 
-  const accessToken = request.headers.get('X-Access-Token');
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
@@ -40,12 +38,13 @@ export default async (request: WorkerRequest) => {
   const { id, profile_id, enabled } = body as ExtensionRequest;
 
   try {
-    const { payload } = jwt.decode(accessToken as string);
-    if (!adminAddresses.includes(payload.evmAddress)) {
-      return response({ success: false, error: Errors.NotAdmin });
+    const client = createSupabaseClient(request.env.SUPABASE_KEY);
+
+    if (id === VERIFIED_FEATURE_ID) {
+      // Clear cache in Cloudflare KV
+      await request.env.PREFERENCES.delete(VERIFIED_KV_KEY);
     }
 
-    const client = createSupabaseClient(request.env.SUPABASE_KEY);
     if (enabled) {
       const { error: upsertError } = await client
         .from('profile-features')
