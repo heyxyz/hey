@@ -5,17 +5,18 @@ import FeedFocusType from '@components/Shared/FeedFocusType';
 import Footer from '@components/Shared/Footer';
 import { Tab } from '@headlessui/react';
 import { APP_NAME } from '@hey/data/constants';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import { EXPLORE, PAGEVIEW } from '@hey/data/tracking';
 import type { PublicationMetadataMainFocusType } from '@hey/lens';
 import { ExplorePublicationsOrderByType } from '@hey/lens';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import Feed from './Feed';
@@ -23,7 +24,6 @@ import Feed from './Feed';
 const Explore: NextPage = () => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const isLensMember = usePreferencesStore((state) => state.isLensMember);
   const [focus, setFocus] = useState<PublicationMetadataMainFocusType>();
 
   useEffectOnce(() => {
@@ -92,7 +92,7 @@ const Explore: NextPage = () => {
         </Tab.Group>
       </GridItemEight>
       <GridItemFour>
-        {isLensMember ? <Trending /> : null}
+        {isFeatureEnabled(FeatureFlag.LensMember) ? <Trending /> : null}
         {currentProfile ? <RecommendedProfiles /> : null}
         <Footer />
       </GridItemFour>
