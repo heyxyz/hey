@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
+import { useFeatureFlagsStore } from 'src/store/useFeatureFlagsStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 
 import MenuItems from './MenuItems';
@@ -18,7 +19,7 @@ import StaffBar from './StaffBar';
 const Navbar: FC = () => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const staffMode = usePreferencesStore((state) => state.staffMode);
+  const staffMode = useFeatureFlagsStore((state) => state.staffMode);
   const isPride = usePreferencesStore((state) => state.isPride);
   const [showSearch, setShowSearch] = useState(false);
 

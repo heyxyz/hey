@@ -9,11 +9,6 @@ import { usePreferencesStore } from 'src/store/usePreferencesStore';
 const PreferencesProvider: FC = () => {
   const currentSessionProfileId = getCurrentSessionProfileId();
   const setVerifiedMembers = useAppStore((state) => state.setVerifiedMembers);
-  const setIsStaff = usePreferencesStore((state) => state.setIsStaff);
-  const setIsGardener = usePreferencesStore((state) => state.setIsGardener);
-  const setIsLensMember = usePreferencesStore((state) => state.setIsLensMember);
-  const setStaffMode = usePreferencesStore((state) => state.setStaffMode);
-  const setGardenerMode = usePreferencesStore((state) => state.setGardenerMode);
   const setIsPride = usePreferencesStore((state) => state.setIsPride);
   const setHighSignalNotificationFilter = usePreferencesStore(
     (state) => state.setHighSignalNotificationFilter
@@ -33,11 +28,6 @@ const PreferencesProvider: FC = () => {
         );
         const { data } = response;
 
-        setIsStaff(data.result?.is_staff || false);
-        setIsGardener(data.result?.is_gardener || false);
-        setIsLensMember(data.result?.is_lens_member || false);
-        setStaffMode(data.result?.staff_mode || false);
-        setGardenerMode(data.result?.gardener_mode || false);
         setIsPride(data.result?.is_pride || false);
         setHighSignalNotificationFilter(
           data.result?.high_signal_notification_filter || false
@@ -56,7 +46,7 @@ const PreferencesProvider: FC = () => {
 
   const fetchVerifiedMembers = async () => {
     try {
-      const response = await axios.get(`${PREFERENCES_WORKER_URL}/verified`);
+      const response = await axios.get(`${PREFERENCES_WORKER_URL}/getVerified`);
       const { data } = response;
       setVerifiedMembers(data.result || []);
     } catch {}

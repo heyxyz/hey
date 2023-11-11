@@ -4,6 +4,8 @@ import createSupabaseClient from '@hey/supabase/createSupabaseClient';
 import jwt from '@tsndr/cloudflare-worker-jwt';
 import { boolean, object } from 'zod';
 
+import { STAFF_MODE_FEATURE_ID } from '../constants';
+import validateIsStaff from '../helpers/validateIsStaff';
 import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
@@ -27,25 +29,40 @@ export default async (request: WorkerRequest) => {
     return response({ success: false, error: validation.error.issues });
   }
 
+  if (!(await validateIsStaff(request))) {
+    return response({ success: false, error: Errors.NotStaff });
+  }
+
   const { enabled } = body as ExtensionRequest;
 
   try {
     const { payload } = jwt.decode(accessToken as string);
+    const profile_id = payload.id;
     const client = createSupabaseClient(request.env.SUPABASE_KEY);
 
-    const { data, error } = await client
-      .from('rights')
-      .update({ staff_mode: enabled })
-      .eq('is_staff', true)
-      .eq('id', payload.id)
-      .select()
-      .single();
+    if (enabled) {
+      const { error: upsertError } = await client
+        .from('profile-features')
+        .upsert({ feature_id: STAFF_MODE_FEATURE_ID, profile_id });
 
-    if (error) {
-      throw error;
+      if (upsertError) {
+        throw upsertError;
+      }
+
+      return response({ success: true, enabled });
     }
 
-    return response({ success: true, result: data });
+    const { error: deleteError } = await client
+      .from('profile-features')
+      .delete()
+      .eq('feature_id', STAFF_MODE_FEATURE_ID)
+      .eq('profile_id', profile_id);
+
+    if (deleteError) {
+      throw deleteError;
+    }
+
+    return response({ success: true, enabled });
   } catch (error) {
     throw error;
   }

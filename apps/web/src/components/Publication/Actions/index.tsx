@@ -5,8 +5,8 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { type FC, memo } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
+import { useFeatureFlagsStore } from 'src/store/useFeatureFlagsStore';
 import { useImpressionsStore } from 'src/store/useImpressionsStore';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
 
 import OpenAction from '../LensOpenActions';
 import Comment from './Comment';
@@ -28,7 +28,7 @@ const PublicationActions: FC<PublicationActionsProps> = ({
     ? publication.mirrorOn
     : publication;
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const gardenerMode = usePreferencesStore((state) => state.gardenerMode);
+  const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
   const publicationViews = useImpressionsStore(
     (state) => state.publicationViews
   );

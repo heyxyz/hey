@@ -4,6 +4,8 @@ import createSupabaseClient from '@hey/supabase/createSupabaseClient';
 import jwt from '@tsndr/cloudflare-worker-jwt';
 import { boolean, object } from 'zod';
 
+import { GARDENER_MODE_FEATURE_ID } from '../constants';
+import validateIsGardener from '../helpers/validateIsGardener';
 import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
@@ -27,25 +29,40 @@ export default async (request: WorkerRequest) => {
     return response({ success: false, error: validation.error.issues });
   }
 
+  if (!(await validateIsGardener(request))) {
+    return response({ success: false, error: Errors.NotGarnder });
+  }
+
   const { enabled } = body as ExtensionRequest;
 
   try {
     const { payload } = jwt.decode(accessToken as string);
+    const profile_id = payload.id;
     const client = createSupabaseClient(request.env.SUPABASE_KEY);
 
-    const { data, error } = await client
-      .from('rights')
-      .update({ gardener_mode: enabled })
-      .eq('is_gardener', true)
-      .eq('id', payload.id)
-      .select()
-      .single();
+    if (enabled) {
+      const { error: upsertError } = await client
+        .from('profile-features')
+        .upsert({ feature_id: GARDENER_MODE_FEATURE_ID, profile_id });
 
-    if (error) {
-      throw error;
+      if (upsertError) {
+        throw upsertError;
+      }
+
+      return response({ success: true, enabled });
     }
 
-    return response({ success: true, result: data });
+    const { error: deleteError } = await client
+      .from('profile-features')
+      .delete()
+      .eq('feature_id', GARDENER_MODE_FEATURE_ID)
+      .eq('profile_id', profile_id);
+
+    if (deleteError) {
+      throw deleteError;
+    }
+
+    return response({ success: true, enabled });
   } catch (error) {
     throw error;
   }
