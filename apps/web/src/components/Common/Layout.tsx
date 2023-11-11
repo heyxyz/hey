@@ -60,7 +60,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   const { loading } = useCurrentProfileQuery({
     variables: { request: { forProfileId: currentSessionProfileId } },
-    skip: isAddress(currentSessionProfileId),
+    skip: !currentSessionProfileId || isAddress(currentSessionProfileId),
     onCompleted: ({ profile, userSigNonces }) => {
       setCurrentProfile(profile as Profile);
       setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce);
