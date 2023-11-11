@@ -10,5 +10,6 @@ export enum Errors {
   InvalidAddress = 'Invalid address!',
   NotAdmin = 'You are not admin!',
   NotStaff = 'You are not staff!',
+  NotGarnder = 'You are not gardener!',
   NoBody = 'No body provided!'
 }

@@ -10,7 +10,6 @@ import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
   id?: string;
-  isGardener?: boolean;
   isLensMember?: boolean;
   isVerified?: boolean;
   isPride?: boolean;
@@ -20,7 +19,6 @@ type ExtensionRequest = {
 
 const validationSchema = object({
   id: string().optional(),
-  isGardener: boolean().optional(),
   isLensMember: boolean().optional(),
   isVerified: boolean().optional(),
   isPride: boolean().optional(),
@@ -43,7 +41,6 @@ export default async (request: WorkerRequest) => {
 
   const {
     id,
-    isGardener,
     isLensMember,
     updateByAdmin,
     isVerified,
@@ -64,7 +61,6 @@ export default async (request: WorkerRequest) => {
       .upsert({
         id: updateByAdmin ? id : payload.id,
         ...(updateByAdmin && {
-          is_gardener: isGardener,
           is_lens_member: isLensMember,
           is_verified: isVerified
         }),
