@@ -437,6 +437,9 @@ importers:
       '@hey/lens':
         specifier: workspace:*
         version: link:../lens
+      '@hey/supabase':
+        specifier: workspace:*
+        version: link:../supabase
       '@hey/types':
         specifier: workspace:*
         version: link:../types
