@@ -1,11 +1,15 @@
 import { Errors } from '@hey/data/errors';
 import response from '@hey/lib/response';
+import validateIsGardener from '@hey/lib/worker-middlewares/validateIsGardener';
+import validateIsStaff from '@hey/lib/worker-middlewares/validateIsStaff';
 import validateLensAccount from '@hey/lib/worker-middlewares/validateLensAccount';
 import { createCors, error, Router, status } from 'itty-router';
 
 import getAllFeatureFlags from './handlers/getAllFeatureFlags';
 import getFeatureFlags from './handlers/getFeatureFlags';
 import getHeyMemberNftStatus from './handlers/getHeyMemberNftStatus';
+import getIsGardener from './handlers/getIsGardener';
+import getIsStaff from './handlers/getIsStaff';
 import getPreferences from './handlers/getPreferences';
 import getVerified from './handlers/getVerified';
 import updateFeatureFlag from './handlers/updateFeatureFlag';
@@ -36,6 +40,8 @@ router
   .get('/getFeatureFlags', getFeatureFlags)
   .get('/getAllFeatureFlags', getAllFeatureFlags)
   .get('/getHeyMemberNftStatus', getHeyMemberNftStatus)
+  .get('/getIsStaff', getIsStaff)
+  .get('/getIsGardener', getIsGardener)
   .get('/verified', getVerified)
   .post('/updatePreferences', validateLensAccount, updatePreferences)
   .post(
@@ -43,9 +49,24 @@ router
     validateLensAccount,
     updateHeyMemberNftStatus
   )
-  .post('/updateStaffMode', validateLensAccount, updateStaffMode)
-  .post('/updateGardenerMode', validateLensAccount, updateGardenerMode)
-  .post('/updateFeatureFlag', validateLensAccount, updateFeatureFlag)
+  .post(
+    '/updateStaffMode',
+    validateLensAccount,
+    validateIsStaff,
+    updateStaffMode
+  )
+  .post(
+    '/updateGardenerMode',
+    validateLensAccount,
+    validateIsGardener,
+    updateGardenerMode
+  )
+  .post(
+    '/updateFeatureFlag',
+    validateLensAccount,
+    validateIsStaff,
+    updateFeatureFlag
+  )
   .all('*', () => error(404));
 
 export default {

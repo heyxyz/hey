@@ -11,25 +11,28 @@ export interface Database {
     Tables: {
       features: {
         Row: {
-          description: string | null;
+          description: string;
           enabled: boolean;
           id: string;
           key: string;
-          name: string | null;
+          name: string;
+          priority: number;
         };
         Insert: {
-          description?: string | null;
+          description: string;
           enabled?: boolean;
           id?: string;
           key: string;
-          name?: string | null;
+          name: string;
+          priority?: number;
         };
         Update: {
-          description?: string | null;
+          description?: string;
           enabled?: boolean;
           id?: string;
           key?: string;
-          name?: string | null;
+          name?: string;
+          priority?: number;
         };
         Relationships: [];
       };

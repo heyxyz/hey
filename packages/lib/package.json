@@ -14,6 +14,7 @@
   "dependencies": {
     "@hey/data": "workspace:*",
     "@hey/lens": "workspace:*",
+    "@hey/supabase": "workspace:*",
     "@hey/types": "workspace:*",
     "axios": "^1.6.1",
     "urlcat": "^3.1.0",
