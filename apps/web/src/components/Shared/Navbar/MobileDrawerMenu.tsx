@@ -1,14 +1,15 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import type { Profile } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
 
 import Slug from '../Slug';
 import AppVersion from './NavItems/AppVersion';
@@ -26,8 +27,6 @@ import YourProfile from './NavItems/YourProfile';
 
 const MobileDrawerMenu: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const isStaff = usePreferencesStore((state) => state.isStaff);
-  const isGardener = usePreferencesStore((state) => state.isGardener);
   const setShowMobileDrawer = useGlobalModalStateStore(
     (state) => state.setShowMobileDrawer
   );
@@ -84,7 +83,7 @@ const MobileDrawerMenu: FC = () => {
               className={cn(itemClass, 'px-4')}
               onClick={closeDrawer}
             />
-            {isGardener ? (
+            {isFeatureEnabled(FeatureFlag.Gardener) ? (
               <Link href="/mod" onClick={closeDrawer}>
                 <Mod className={cn(itemClass, 'px-4')} />
               </Link>
@@ -112,7 +111,7 @@ const MobileDrawerMenu: FC = () => {
             />
           </div>
           <div className="divider" />
-          {isGardener ? (
+          {isFeatureEnabled(FeatureFlag.Gardener) ? (
             <>
               <div
                 onClick={closeDrawer}
@@ -123,7 +122,7 @@ const MobileDrawerMenu: FC = () => {
               <div className="divider" />
             </>
           ) : null}
-          {isStaff ? (
+          {isFeatureEnabled(FeatureFlag.Staff) ? (
             <>
               <div
                 onClick={closeDrawer}

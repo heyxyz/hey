@@ -36,7 +36,7 @@ router
   .get('/getFeatureFlags', getFeatureFlags)
   .get('/getAllFeatureFlags', getAllFeatureFlags)
   .get('/getHeyMemberNftStatus', getHeyMemberNftStatus)
-  .get('/verified', getVerified)
+  .get('/getVerified', getVerified)
   .post('/updatePreferences', validateLensAccount, updatePreferences)
   .post(
     '/updateHeyMemberNftStatus',

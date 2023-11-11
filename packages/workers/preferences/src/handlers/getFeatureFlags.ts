@@ -25,7 +25,7 @@ export default async (request: WorkerRequest) => {
       throw error;
     }
 
-    const features = data.map((feature) => feature.features?.key);
+    const features = data.map((feature: any) => feature.features?.key);
 
     return response({ success: true, features });
   } catch (error) {
