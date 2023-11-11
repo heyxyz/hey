@@ -3,10 +3,6 @@ import { create } from 'zustand';
 interface PreferencesState {
   loadingPreferences: boolean;
   setLoadingPreferences: (loadingPreferences: boolean) => void;
-  isStaff: boolean;
-  setIsStaff: (isStaff: boolean) => void;
-  isGardener: boolean;
-  setIsGardener: (isGardener: boolean) => void;
   isLensMember: boolean;
   setIsLensMember: (isLensMember: boolean) => void;
   staffMode: boolean;
@@ -28,10 +24,6 @@ export const usePreferencesStore = create<PreferencesState>((set) => ({
   loadingPreferences: true,
   setLoadingPreferences: (loadingPreferences) =>
     set(() => ({ loadingPreferences })),
-  isStaff: false,
-  setIsStaff: (isStaff) => set(() => ({ isStaff })),
-  isGardener: false,
-  setIsGardener: (isGardener) => set(() => ({ isGardener })),
   isLensMember: false,
   setIsLensMember: (isLensMember) => set(() => ({ isLensMember })),
   staffMode: false,
@@ -47,8 +39,6 @@ export const usePreferencesStore = create<PreferencesState>((set) => ({
   setFeatureFlags: (featureFlags) => set(() => ({ featureFlags })),
   resetPreferences: () =>
     set(() => ({
-      isStaff: false,
-      isGardener: false,
       isLensMember: false,
       staffMode: false,
       gardenerMode: false,

@@ -5,6 +5,7 @@ import jwt from '@tsndr/cloudflare-worker-jwt';
 import { boolean, object } from 'zod';
 
 import { STAFF_MODE_FEATURE_ID } from '../constants';
+import validateIsStaff from '../helpers/validateIsStaff';
 import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
@@ -26,6 +27,10 @@ export default async (request: WorkerRequest) => {
 
   if (!validation.success) {
     return response({ success: false, error: validation.error.issues });
+  }
+
+  if (!(await validateIsStaff(request))) {
+    return response({ success: false, error: Errors.NotStaff });
   }
 
   const { enabled } = body as ExtensionRequest;

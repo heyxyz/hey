@@ -5,6 +5,7 @@ import createSupabaseClient from '@hey/supabase/createSupabaseClient';
 import jwt from '@tsndr/cloudflare-worker-jwt';
 import { boolean, object, string } from 'zod';
 
+import validateIsStaff from '../helpers/validateIsStaff';
 import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
@@ -30,6 +31,10 @@ export default async (request: WorkerRequest) => {
 
   if (!validation.success) {
     return response({ success: false, error: validation.error.issues });
+  }
+
+  if (!(await validateIsStaff(request))) {
+    return response({ success: false, error: Errors.NotStaff });
   }
 
   const { id, profile_id, enabled } = body as ExtensionRequest;
