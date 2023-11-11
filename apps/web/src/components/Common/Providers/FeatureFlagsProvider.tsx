@@ -4,13 +4,20 @@ import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
+import { useFeatureFlagsStore } from 'src/store/useFeatureFlagsStore';
 
 const FeatureFlagsProvider: FC = () => {
   const currentSessionProfileId = getCurrentSessionProfileId();
-  const setFeatureFlags = usePreferencesStore((state) => state.setFeatureFlags);
-  const setStaffMode = usePreferencesStore((state) => state.setStaffMode);
-  const setGardenerMode = usePreferencesStore((state) => state.setGardenerMode);
+  const setFeatureFlags = useFeatureFlagsStore(
+    (state) => state.setFeatureFlags
+  );
+  const setStaffMode = useFeatureFlagsStore((state) => state.setStaffMode);
+  const setGardenerMode = useFeatureFlagsStore(
+    (state) => state.setGardenerMode
+  );
+  const setLoadingFeatureFlags = useFeatureFlagsStore(
+    (state) => state.setLoadingFeatureFlags
+  );
 
   const fetchFeatureFlags = async () => {
     try {
@@ -29,7 +36,10 @@ const FeatureFlagsProvider: FC = () => {
         setStaffMode(data?.features.includes(FeatureFlag.StaffMode));
         setGardenerMode(data?.features.includes(FeatureFlag.GardenerMode));
       }
-    } catch {}
+    } catch {
+    } finally {
+      setLoadingFeatureFlags(false);
+    }
   };
 
   useQuery({
