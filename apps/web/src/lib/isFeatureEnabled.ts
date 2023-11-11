@@ -1,5 +1,5 @@
 import type { FeatureFlag } from '@hey/data/feature-flags';
-import { featureFlags } from 'src/store/usePreferencesStore';
+import { featureFlags } from 'src/store/useFeatureFlagsStore';
 
 import getCurrentSessionProfileId from './getCurrentSessionProfileId';
 

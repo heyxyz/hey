@@ -46,7 +46,7 @@ const PreferencesProvider: FC = () => {
 
   const fetchVerifiedMembers = async () => {
     try {
-      const response = await axios.get(`${PREFERENCES_WORKER_URL}/verified`);
+      const response = await axios.get(`${PREFERENCES_WORKER_URL}/getVerified`);
       const { data } = response;
       setVerifiedMembers(data.result || []);
     } catch {}

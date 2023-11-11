@@ -8,15 +8,15 @@ import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { type FC } from 'react';
 import { toast } from 'react-hot-toast';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
+import { useFeatureFlagsStore } from 'src/store/useFeatureFlagsStore';
 
 interface StaffModeProps {
   className?: string;
 }
 
 const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
-  const staffMode = usePreferencesStore((state) => state.staffMode);
-  const setStaffMode = usePreferencesStore((state) => state.setStaffMode);
+  const staffMode = useFeatureFlagsStore((state) => state.staffMode);
+  const setStaffMode = useFeatureFlagsStore((state) => state.setStaffMode);
 
   const toggleStaffMode = async () => {
     toast.promise(
