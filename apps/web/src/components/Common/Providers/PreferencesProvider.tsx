@@ -9,10 +9,7 @@ import { usePreferencesStore } from 'src/store/usePreferencesStore';
 const PreferencesProvider: FC = () => {
   const currentSessionProfileId = getCurrentSessionProfileId();
   const setVerifiedMembers = useAppStore((state) => state.setVerifiedMembers);
-  const setIsGardener = usePreferencesStore((state) => state.setIsGardener);
   const setIsLensMember = usePreferencesStore((state) => state.setIsLensMember);
-  const setStaffMode = usePreferencesStore((state) => state.setStaffMode);
-  const setGardenerMode = usePreferencesStore((state) => state.setGardenerMode);
   const setIsPride = usePreferencesStore((state) => state.setIsPride);
   const setHighSignalNotificationFilter = usePreferencesStore(
     (state) => state.setHighSignalNotificationFilter
@@ -32,10 +29,7 @@ const PreferencesProvider: FC = () => {
         );
         const { data } = response;
 
-        setIsGardener(data.result?.is_gardener || false);
         setIsLensMember(data.result?.is_lens_member || false);
-        setStaffMode(data.result?.staff_mode || false);
-        setGardenerMode(data.result?.gardener_mode || false);
         setIsPride(data.result?.is_pride || false);
         setHighSignalNotificationFilter(
           data.result?.high_signal_notification_filter || false

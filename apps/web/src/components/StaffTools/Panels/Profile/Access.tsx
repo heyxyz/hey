@@ -13,8 +13,6 @@ import ToggleWrapper from './ToggleWrapper';
 
 enum Type {
   VERIFIED = 'VERIFIED',
-  STAFF = 'STAFF',
-  GARDENER = 'GARDENER',
   TUSTED_MEMBER = 'TUSTED_MEMBER'
 }
 
@@ -26,7 +24,6 @@ interface RankProps {
 
 const Access: FC<RankProps> = ({ profile }) => {
   const [isVerified, setIsVerified] = useState(false);
-  const [isGardener, setIsGardener] = useState(false);
   const [isLensMember, setIsLensMember] = useState(false);
 
   const getPreferences = async () => {
@@ -38,7 +35,6 @@ const Access: FC<RankProps> = ({ profile }) => {
       const { data } = response;
 
       setIsVerified(data.result?.is_verified || false);
-      setIsGardener(data.result?.is_gardener || false);
       setIsLensMember(data.result?.is_lens_member || false);
 
       return data.success;
@@ -60,7 +56,6 @@ const Access: FC<RankProps> = ({ profile }) => {
         {
           id: profile.id,
           ...(type === Type.VERIFIED && { isVerified: !isVerified }),
-          ...(type === Type.GARDENER && { isGardener: !isGardener }),
           ...(type === Type.TUSTED_MEMBER && {
             isLensMember: !isLensMember
           }),
@@ -73,8 +68,6 @@ const Access: FC<RankProps> = ({ profile }) => {
         success: () => {
           if (type === Type.VERIFIED) {
             setIsVerified(!isVerified);
-          } else if (type === Type.GARDENER) {
-            setIsGardener(!isGardener);
           } else if (type === Type.TUSTED_MEMBER) {
             setIsLensMember(!isLensMember);
           }
@@ -102,18 +95,6 @@ const Access: FC<RankProps> = ({ profile }) => {
           </ToggleWrapper>
         ) : (
           <ToggleWrapper title="Verified member">
-            <Spinner size="xs" />
-          </ToggleWrapper>
-        )}
-        {preferences ? (
-          <ToggleWrapper title="Gardener member">
-            <Toggle
-              setOn={() => staffUpdatePreferences(Type.GARDENER)}
-              on={isGardener}
-            />
-          </ToggleWrapper>
-        ) : (
-          <ToggleWrapper title="Gardener member">
             <Spinner size="xs" />
           </ToggleWrapper>
         )}

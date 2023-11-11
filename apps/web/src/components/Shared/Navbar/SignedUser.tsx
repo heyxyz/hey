@@ -9,7 +9,6 @@ import isFeatureEnabled from '@lib/isFeatureEnabled';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
 
 import MenuTransition from '../MenuTransition';
 import Slug from '../Slug';
@@ -28,7 +27,6 @@ import YourProfile from './NavItems/YourProfile';
 
 const SignedUser: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const isGardener = usePreferencesStore((state) => state.isGardener);
   const setShowMobileDrawer = useGlobalModalStateStore(
     (state) => state.setShowMobileDrawer
   );
@@ -112,7 +110,7 @@ const SignedUser: FC = () => {
             >
               <Settings />
             </Menu.Item>
-            {isGardener ? (
+            {isFeatureEnabled(FeatureFlag.Gardener) ? (
               <Menu.Item
                 as={NextLink}
                 href="/mod"
@@ -148,7 +146,7 @@ const SignedUser: FC = () => {
             >
               <ThemeSwitch />
             </Menu.Item>
-            {isGardener ? (
+            {isFeatureEnabled(FeatureFlag.Gardener) ? (
               <Menu.Item
                 as="div"
                 className={({ active }) =>
