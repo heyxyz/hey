@@ -1,13 +1,14 @@
 import { Menu } from '@headlessui/react';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import type { Profile } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
 
 import MenuTransition from '../MenuTransition';
 import Slug from '../Slug';
@@ -26,8 +27,6 @@ import YourProfile from './NavItems/YourProfile';
 
 const SignedUser: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const isStaff = usePreferencesStore((state) => state.isStaff);
-  const isGardener = usePreferencesStore((state) => state.isGardener);
   const setShowMobileDrawer = useGlobalModalStateStore(
     (state) => state.setShowMobileDrawer
   );
@@ -111,7 +110,7 @@ const SignedUser: FC = () => {
             >
               <Settings />
             </Menu.Item>
-            {isGardener ? (
+            {isFeatureEnabled(FeatureFlag.Gardener) ? (
               <Menu.Item
                 as={NextLink}
                 href="/mod"
@@ -147,7 +146,7 @@ const SignedUser: FC = () => {
             >
               <ThemeSwitch />
             </Menu.Item>
-            {isGardener ? (
+            {isFeatureEnabled(FeatureFlag.Gardener) ? (
               <Menu.Item
                 as="div"
                 className={({ active }) =>
@@ -160,7 +159,7 @@ const SignedUser: FC = () => {
                 <GardenerMode />
               </Menu.Item>
             ) : null}
-            {isStaff ? (
+            {isFeatureEnabled(FeatureFlag.Staff) ? (
               <Menu.Item
                 as="div"
                 className={({ active }) =>

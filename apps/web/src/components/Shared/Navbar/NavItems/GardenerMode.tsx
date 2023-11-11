@@ -8,15 +8,17 @@ import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { type FC } from 'react';
 import { toast } from 'react-hot-toast';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
+import { useFeatureFlagsStore } from 'src/store/useFeatureFlagsStore';
 
 interface ModModeProps {
   className?: string;
 }
 
 const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
-  const gardenerMode = usePreferencesStore((state) => state.gardenerMode);
-  const setGardenerMode = usePreferencesStore((state) => state.setGardenerMode);
+  const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
+  const setGardenerMode = useFeatureFlagsStore(
+    (state) => state.setGardenerMode
+  );
 
   const toggleModMode = () => {
     toast.promise(

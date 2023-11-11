@@ -11,6 +11,7 @@ import { type FC, type ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { useAppStore } from 'src/store/useAppStore';
 import { hydrateAuthTokens, signOut } from 'src/store/useAuthPersistStore';
+import { useFeatureFlagsStore } from 'src/store/useFeatureFlagsStore';
 import { useNonceStore } from 'src/store/useNonceStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import { useEffectOnce, useIsMounted } from 'usehooks-ts';
@@ -34,6 +35,12 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const resetPreferences = usePreferencesStore(
     (state) => state.resetPreferences
   );
+  const loadingFeatureFlags = useFeatureFlagsStore(
+    (state) => state.loadingFeatureFlags
+  );
+  const resetFeatureFlags = useFeatureFlagsStore(
+    (state) => state.resetFeatureFlags
+  );
   const setLensHubOnchainSigNonce = useNonceStore(
     (state) => state.setLensHubOnchainSigNonce
   );
@@ -46,6 +53,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   const logout = () => {
     resetPreferences();
+    resetFeatureFlags();
     signOut();
     disconnect?.();
   };
@@ -75,7 +83,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     validateAuthentication();
   });
 
-  if (loading || loadingPreferences || !isMounted()) {
+  if (loading || loadingPreferences || loadingFeatureFlags || !isMounted()) {
     return <Loading />;
   }
 

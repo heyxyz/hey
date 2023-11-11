@@ -7,7 +7,10 @@ export default async (request: WorkerRequest) => {
   try {
     const client = createSupabaseClient(request.env.SUPABASE_KEY);
 
-    const { data, error } = await client.from('features').select('*');
+    const { data, error } = await client
+      .from('features')
+      .select('*')
+      .order('priority', { ascending: false });
 
     if (error) {
       throw error;
