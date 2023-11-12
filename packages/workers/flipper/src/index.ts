@@ -3,10 +3,12 @@ import response from '@hey/lib/response';
 import validateLensAccount from '@hey/lib/worker-middlewares/validateLensAccount';
 import { createCors, error, Router, status } from 'itty-router';
 
-import getHeyMemberNftStatus from './handlers/getHeyMemberNftStatus';
-import getPreferences from './handlers/getPreferences';
-import updateHeyMemberNftStatus from './handlers/updateHeyMemberNftStatus';
-import updatePreferences from './handlers/updatePreferences';
+import getAllFeatureFlags from './handlers/getAllFeatureFlags';
+import getFeatureFlags from './handlers/getFeatureFlags';
+import getVerified from './handlers/getVerified';
+import updateFeatureFlag from './handlers/updateFeatureFlag';
+import updateGardenerMode from './handlers/updateGardenerMode';
+import updateStaffMode from './handlers/updateStaffMode';
 import buildRequest from './helpers/buildRequest';
 import type { Env, WorkerRequest } from './types';
 
@@ -22,18 +24,16 @@ router
   .head('*', () => status(200))
   .get('/', (request: WorkerRequest) =>
     response({
-      message: 'gm, to preferences service 👋',
+      message: 'gm, to flipper service 👋',
       version: request.env.RELEASE ?? 'unknown'
     })
   )
-  .get('/getPreferences', getPreferences)
-  .get('/getHeyMemberNftStatus', getHeyMemberNftStatus)
-  .post('/updatePreferences', validateLensAccount, updatePreferences)
-  .post(
-    '/updateHeyMemberNftStatus',
-    validateLensAccount,
-    updateHeyMemberNftStatus
-  )
+  .get('/getVerified', getVerified)
+  .get('/getFeatureFlags', getFeatureFlags)
+  .get('/getAllFeatureFlags', getAllFeatureFlags)
+  .post('/updateStaffMode', validateLensAccount, updateStaffMode)
+  .post('/updateGardenerMode', validateLensAccount, updateGardenerMode)
+  .post('/updateFeatureFlag', validateLensAccount, updateFeatureFlag)
   .all('*', () => error(404));
 
 export default {
