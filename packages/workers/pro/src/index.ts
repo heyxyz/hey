@@ -3,6 +3,7 @@ import response from '@hey/lib/response';
 import { createCors, error, Router, status } from 'itty-router';
 
 import getProEnabled from './handlers/getProEnabled';
+import recycleProProfiles from './handlers/recycleProProfiles';
 import buildRequest from './helpers/buildRequest';
 import type { Env, WorkerRequest } from './types';
 
@@ -23,6 +24,7 @@ router
     })
   )
   .get('/getProEnabled', getProEnabled)
+  .delete('/recycleProProfiles', recycleProProfiles)
   .all('*', () => error(404));
 
 export default {
