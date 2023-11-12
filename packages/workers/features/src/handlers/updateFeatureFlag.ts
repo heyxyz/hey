@@ -38,13 +38,12 @@ export default async (request: WorkerRequest) => {
   const { id, profile_id, enabled } = body as ExtensionRequest;
 
   try {
-    const client = createSupabaseClient(request.env.SUPABASE_KEY);
-
     if (id === VERIFIED_FEATURE_ID) {
       // Clear cache in Cloudflare KV
       await request.env.FEATURES.delete(VERIFIED_KV_KEY);
     }
 
+    const client = createSupabaseClient(request.env.SUPABASE_KEY);
     if (enabled) {
       const { error: upsertError } = await client
         .from('profile-features')
@@ -71,6 +70,7 @@ export default async (request: WorkerRequest) => {
 
     return response({ success: true, enabled });
   } catch (error) {
+    console.error(error);
     throw error;
   }
 };
