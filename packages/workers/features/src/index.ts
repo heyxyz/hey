@@ -24,7 +24,7 @@ router
   .head('*', () => status(200))
   .get('/', (request: WorkerRequest) =>
     response({
-      message: 'gm, to flipper service 👋',
+      message: 'gm, to features service 👋',
       version: request.env.RELEASE ?? 'unknown'
     })
   )
