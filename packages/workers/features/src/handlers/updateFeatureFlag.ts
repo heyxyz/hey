@@ -3,7 +3,11 @@ import response from '@hey/lib/response';
 import createSupabaseClient from '@hey/supabase/createSupabaseClient';
 import { boolean, object, string } from 'zod';
 
-import { VERIFIED_FEATURE_ID, VERIFIED_KV_KEY } from '../constants';
+import {
+  PRO_FEATURE_ID,
+  VERIFIED_FEATURE_ID,
+  VERIFIED_KV_KEY
+} from '../constants';
 import validateIsStaff from '../helpers/validateIsStaff';
 import type { WorkerRequest } from '../types';
 
@@ -38,17 +42,27 @@ export default async (request: WorkerRequest) => {
   const { id, profile_id, enabled } = body as ExtensionRequest;
 
   try {
-    const client = createSupabaseClient(request.env.SUPABASE_KEY);
-
     if (id === VERIFIED_FEATURE_ID) {
       // Clear cache in Cloudflare KV
       await request.env.FEATURES.delete(VERIFIED_KV_KEY);
     }
 
+    let expiresAt = null;
+
+    // Enable free trial for 7 days
+    if (id === PRO_FEATURE_ID) {
+      expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toDateString();
+    }
+
+    const client = createSupabaseClient(request.env.SUPABASE_KEY);
     if (enabled) {
       const { error: upsertError } = await client
         .from('profile-features')
-        .upsert({ feature_id: id, profile_id: profile_id })
+        .upsert({
+          feature_id: id,
+          profile_id: profile_id,
+          expires_at: expiresAt
+        })
         .select();
 
       if (upsertError) {
@@ -71,6 +85,7 @@ export default async (request: WorkerRequest) => {
 
     return response({ success: true, enabled });
   } catch (error) {
+    console.error(error);
     throw error;
   }
 };
