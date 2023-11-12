@@ -15,7 +15,7 @@ export default async (request: WorkerRequest) => {
     const client = createSupabaseClient(request.env.SUPABASE_KEY);
     const { data } = await client
       .from('pro')
-      .select('*')
+      .select('id')
       .eq('profile_id', id)
       .single();
 
