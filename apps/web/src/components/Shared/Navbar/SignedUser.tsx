@@ -130,7 +130,7 @@ const SignedUser: FC = () => {
             >
               <Invites />
             </Menu.Item>
-            {isFeatureEnabled(FeatureFlag.ProImplementation) && (
+            {isFeatureEnabled(FeatureFlag.Pro) && (
               <Menu.Item
                 as={NextLink}
                 href="/pro"

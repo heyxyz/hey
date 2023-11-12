@@ -6,8 +6,7 @@ export enum FeatureFlag {
   GardenerMode = 'gardener-mode',
   LensMember = 'lens-member',
   Verified = 'verified',
-  Pro = 'pro',
   // Flags
   LiveStream = 'live-stream',
-  ProImplementation = 'pro-implementation'
+  Pro = 'pro'
 }

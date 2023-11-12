@@ -14,6 +14,7 @@ import { hydrateAuthTokens, signOut } from 'src/store/useAuthPersistStore';
 import { useFeatureFlagsStore } from 'src/store/useFeatureFlagsStore';
 import { useNonceStore } from 'src/store/useNonceStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
+import { useProStore } from 'src/store/useProStore';
 import { useEffectOnce, useIsMounted } from 'usehooks-ts';
 import { isAddress } from 'viem';
 import { useAccount, useDisconnect } from 'wagmi';
@@ -41,6 +42,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const resetFeatureFlags = useFeatureFlagsStore(
     (state) => state.resetFeatureFlags
   );
+  const loadingPro = useProStore((state) => state.loadingPro);
+  const resetPro = useProStore((state) => state.resetPro);
   const setLensHubOnchainSigNonce = useNonceStore(
     (state) => state.setLensHubOnchainSigNonce
   );
@@ -54,6 +57,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const logout = () => {
     resetPreferences();
     resetFeatureFlags();
+    resetPro();
     signOut();
     disconnect?.();
   };
@@ -83,7 +87,13 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     validateAuthentication();
   });
 
-  if (loading || loadingPreferences || loadingFeatureFlags || !isMounted()) {
+  if (
+    loading ||
+    loadingPreferences ||
+    loadingFeatureFlags ||
+    loadingPro ||
+    !isMounted()
+  ) {
     return <Loading />;
   }
 

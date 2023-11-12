@@ -14,12 +14,12 @@ export default async (request: WorkerRequest) => {
   try {
     const client = createSupabaseClient(request.env.SUPABASE_KEY);
     const { data } = await client
-      .from('rights')
+      .from('pro')
       .select('*')
-      .eq('id', id)
+      .eq('profile_id', id)
       .single();
 
-    return response({ success: true, result: data });
+    return response({ success: true, enabled: Boolean(data) });
   } catch (error) {
     throw error;
   }
