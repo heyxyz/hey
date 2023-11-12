@@ -1,4 +1,4 @@
-import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
+import { FLIPPER_WORKER_URL } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
 import { useQuery } from '@tanstack/react-query';
@@ -27,7 +27,7 @@ const FeatureFlagsProvider: FC = () => {
         !isAddress(currentSessionProfileId)
       ) {
         const response = await axios.get(
-          `${PREFERENCES_WORKER_URL}/getFeatureFlags`,
+          `${FLIPPER_WORKER_URL}/getFeatureFlags`,
           { params: { id: currentSessionProfileId } }
         );
         const {

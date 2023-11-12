@@ -1,6 +1,6 @@
 import Loader from '@components/Shared/Loader';
 import { FlagIcon } from '@heroicons/react/24/outline';
-import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
+import { FLIPPER_WORKER_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import type { Features } from '@hey/types/hey';
 import { EmptyState, Toggle } from '@hey/ui';
@@ -26,7 +26,7 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
   const getAllFeatureFlags = async (): Promise<Features[] | []> => {
     try {
       const response = await axios.get(
-        `${PREFERENCES_WORKER_URL}/getAllFeatureFlags`,
+        `${FLIPPER_WORKER_URL}/getAllFeatureFlags`,
         { params: { id: profile.id } }
       );
       const { data } = response;
@@ -67,7 +67,7 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
     setUpdating(true);
     toast.promise(
       axios.post(
-        `${PREFERENCES_WORKER_URL}/updateFeatureFlag`,
+        `${FLIPPER_WORKER_URL}/updateFeatureFlag`,
         { id, profile_id: profile.id, enabled },
         { headers: getAuthWorkerHeaders() }
       ),
