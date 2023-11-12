@@ -3,11 +3,7 @@ import response from '@hey/lib/response';
 import createSupabaseClient from '@hey/supabase/createSupabaseClient';
 import { boolean, object, string } from 'zod';
 
-import {
-  PRO_FEATURE_ID,
-  VERIFIED_FEATURE_ID,
-  VERIFIED_KV_KEY
-} from '../constants';
+import { VERIFIED_FEATURE_ID, VERIFIED_KV_KEY } from '../constants';
 import validateIsStaff from '../helpers/validateIsStaff';
 import type { WorkerRequest } from '../types';
 
@@ -47,22 +43,11 @@ export default async (request: WorkerRequest) => {
       await request.env.FEATURES.delete(VERIFIED_KV_KEY);
     }
 
-    let expiresAt = null;
-
-    // Enable free trial for 7 days
-    if (id === PRO_FEATURE_ID) {
-      expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toDateString();
-    }
-
     const client = createSupabaseClient(request.env.SUPABASE_KEY);
     if (enabled) {
       const { error: upsertError } = await client
         .from('profile-features')
-        .upsert({
-          feature_id: id,
-          profile_id: profile_id,
-          expires_at: expiresAt
-        })
+        .upsert({ feature_id: id, profile_id: profile_id })
         .select();
 
       if (upsertError) {
