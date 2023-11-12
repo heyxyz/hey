@@ -18,7 +18,7 @@ const Pro: NextPage = () => {
     Leafwatch.track(PAGEVIEW, { page: 'pro' });
   });
 
-  if (!currentProfile || !isFeatureEnabled(FeatureFlag.ProImplementation)) {
+  if (!currentProfile || !isFeatureEnabled(FeatureFlag.Pro)) {
     return <NotLoggedIn />;
   }
 

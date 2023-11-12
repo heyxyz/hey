@@ -99,18 +99,45 @@ export interface Database {
         };
         Relationships: [];
       };
+      pro: {
+        Row: {
+          created_at: string;
+          expires_at: string | null;
+          hash: string | null;
+          id: string;
+          profile_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          expires_at?: string | null;
+          hash?: string | null;
+          id?: string;
+          profile_id: string;
+        };
+        Update: {
+          created_at?: string;
+          expires_at?: string | null;
+          hash?: string | null;
+          id?: string;
+          profile_id?: string;
+        };
+        Relationships: [];
+      };
       'profile-features': {
         Row: {
+          created_at: string;
           enabled: boolean;
           feature_id: string;
           profile_id: string;
         };
         Insert: {
+          created_at?: string;
           enabled?: boolean;
           feature_id: string;
           profile_id: string;
         };
         Update: {
+          created_at?: string;
           enabled?: boolean;
           feature_id?: string;
           profile_id?: string;
