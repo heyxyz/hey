@@ -18,6 +18,7 @@ import GardenerMode from './NavItems/GardenerMode';
 import Invites from './NavItems/Invites';
 import Logout from './NavItems/Logout';
 import Mod from './NavItems/Mod';
+import Pro from './NavItems/Pro';
 import ReportBug from './NavItems/ReportBug';
 import Settings from './NavItems/Settings';
 import StaffMode from './NavItems/StaffMode';
@@ -89,6 +90,9 @@ const MobileDrawerMenu: FC = () => {
               </Link>
             ) : null}
             <Invites className={cn(itemClass, 'px-4')} />
+            {isFeatureEnabled(FeatureFlag.ProImplementation) && (
+              <Pro className={cn(itemClass, 'px-4')} onClick={closeDrawer} />
+            )}
             <ThemeSwitch
               className={cn(itemClass, 'px-4')}
               onClick={closeDrawer}
