@@ -25,9 +25,7 @@ const Invites: FC<InvitesProps> = ({ className = '' }) => {
         Leafwatch.track(INVITE.OPEN_INVITE);
       }}
     >
-      <div>
-        <TicketIcon className="h-4 w-4" />
-      </div>
+      <TicketIcon className="h-4 w-4" />
       <div>Invites</div>
     </button>
   );
