@@ -612,6 +612,40 @@ importers:
         specifier: ^3.15.0
         version: 3.15.0
 
+  packages/workers/features:
+    dependencies:
+      '@hey/data':
+        specifier: workspace:*
+        version: link:../../data
+      '@hey/lib':
+        specifier: workspace:*
+        version: link:../../lib
+      '@hey/supabase':
+        specifier: workspace:*
+        version: link:../../supabase
+      '@tsndr/cloudflare-worker-jwt':
+        specifier: ^2.2.7
+        version: 2.2.7
+      itty-router:
+        specifier: ^4.0.23
+        version: 4.0.23
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
+    devDependencies:
+      '@cloudflare/workers-types':
+        specifier: ^4.20231025.0
+        version: 4.20231025.0
+      '@hey/config':
+        specifier: workspace:*
+        version: link:../../config
+      typescript:
+        specifier: ^5.2.2
+        version: 5.2.2
+      wrangler:
+        specifier: ^3.15.0
+        version: 3.15.0
+
   packages/workers/feeds:
     dependencies:
       '@hey/clickhouse':
@@ -642,40 +676,6 @@ importers:
       vitest:
         specifier: ^0.34.5
         version: 0.34.6
-      wrangler:
-        specifier: ^3.15.0
-        version: 3.15.0
-
-  packages/workers/flipper:
-    dependencies:
-      '@hey/data':
-        specifier: workspace:*
-        version: link:../../data
-      '@hey/lib':
-        specifier: workspace:*
-        version: link:../../lib
-      '@hey/supabase':
-        specifier: workspace:*
-        version: link:../../supabase
-      '@tsndr/cloudflare-worker-jwt':
-        specifier: ^2.2.7
-        version: 2.2.7
-      itty-router:
-        specifier: ^4.0.23
-        version: 4.0.23
-      zod:
-        specifier: ^3.22.4
-        version: 3.22.4
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20231025.0
-        version: 4.20231025.0
-      '@hey/config':
-        specifier: workspace:*
-        version: link:../../config
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
       wrangler:
         specifier: ^3.15.0
         version: 3.15.0

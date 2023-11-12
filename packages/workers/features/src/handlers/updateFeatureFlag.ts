@@ -42,7 +42,7 @@ export default async (request: WorkerRequest) => {
 
     if (id === VERIFIED_FEATURE_ID) {
       // Clear cache in Cloudflare KV
-      await request.env.PREFERENCES.delete(VERIFIED_KV_KEY);
+      await request.env.FEATURES.delete(VERIFIED_KV_KEY);
     }
 
     if (enabled) {

@@ -1,5 +1,5 @@
 import { FlagIcon } from '@heroicons/react/24/outline';
-import { FLIPPER_WORKER_URL } from '@hey/data/constants';
+import { FEATURES_WORKER_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import { Modal } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
@@ -19,7 +19,7 @@ const FeatureFlags: FC<FeatureFlagsProps> = ({ profile }) => {
   const getFeatureFlags = async () => {
     try {
       const response = await axios.get(
-        `${FLIPPER_WORKER_URL}/getFeatureFlags`,
+        `${FEATURES_WORKER_URL}/getFeatureFlags`,
         { params: { id: profile.id } }
       );
       const { data } = response;
