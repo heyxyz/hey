@@ -132,9 +132,10 @@ const SignedUser: FC = () => {
             </Menu.Item>
             {isFeatureEnabled(FeatureFlag.ProImplementation) && (
               <Menu.Item
-                as="div"
+                as={NextLink}
+                href="/pro"
                 className={({ active }: { active: boolean }) =>
-                  cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
+                  cn({ 'dropdown-active': active }, 'menu-item')
                 }
               >
                 <Pro />
