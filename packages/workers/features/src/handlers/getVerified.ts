@@ -6,7 +6,7 @@ import type { WorkerRequest } from '../types';
 
 export default async (request: WorkerRequest) => {
   try {
-    const cache = await request.env.PREFERENCES.get(VERIFIED_KV_KEY);
+    const cache = await request.env.FEATURES.get(VERIFIED_KV_KEY);
 
     if (!cache) {
       const client = createSupabaseClient(request.env.SUPABASE_KEY);
@@ -22,7 +22,7 @@ export default async (request: WorkerRequest) => {
       }
 
       const ids = data.map((item) => item.profile_id);
-      await request.env.PREFERENCES.put(VERIFIED_KV_KEY, JSON.stringify(ids));
+      await request.env.FEATURES.put(VERIFIED_KV_KEY, JSON.stringify(ids));
 
       return response({ success: true, result: ids });
     }
