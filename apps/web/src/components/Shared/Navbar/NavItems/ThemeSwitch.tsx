@@ -17,7 +17,7 @@ const ThemeSwitch: FC<ThemeSwitchProps> = ({ onClick, className = '' }) => {
     <button
       type="button"
       className={cn(
-        'flex w-full px-2 py-1.5 text-left text-sm text-gray-700 dark:text-gray-200',
+        'flex w-full items-center space-x-1.5 px-2 py-1.5 text-left text-sm text-gray-700 dark:text-gray-200',
         className
       )}
       onClick={() => {
@@ -28,23 +28,17 @@ const ThemeSwitch: FC<ThemeSwitchProps> = ({ onClick, className = '' }) => {
         onClick?.();
       }}
     >
-      <div className="flex items-center space-x-1.5">
-        {theme === 'light' ? (
-          <>
-            <div>
-              <MoonIcon className="h-4 w-4" />
-            </div>
-            <div>Dark mode</div>
-          </>
-        ) : (
-          <>
-            <div>
-              <SunIcon className="h-4 w-4" />
-            </div>
-            <div>Light mode</div>
-          </>
-        )}
-      </div>
+      {theme === 'light' ? (
+        <>
+          <MoonIcon className="h-4 w-4" />
+          <div>Dark mode</div>
+        </>
+      ) : (
+        <>
+          <SunIcon className="h-4 w-4" />
+          <div>Light mode</div>
+        </>
+      )}
     </button>
   );
 };
