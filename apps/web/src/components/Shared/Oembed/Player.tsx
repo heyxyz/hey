@@ -7,7 +7,7 @@ interface PlayerProps {
 
 const Player: FC<PlayerProps> = ({ og }) => {
   return (
-    <div className="mt-4 w-5/6 text-sm">
+    <div className="mt-4 w-5/6 text-sm oembed-player">
       <div
         className="oembed-player"
         dangerouslySetInnerHTML={{ __html: og.html as string }}
