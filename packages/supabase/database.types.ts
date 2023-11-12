@@ -101,17 +101,23 @@ export interface Database {
       };
       'profile-features': {
         Row: {
+          created_at: string;
           enabled: boolean;
+          expires_at: string | null;
           feature_id: string;
           profile_id: string;
         };
         Insert: {
+          created_at?: string;
           enabled?: boolean;
+          expires_at?: string | null;
           feature_id: string;
           profile_id: string;
         };
         Update: {
+          created_at?: string;
           enabled?: boolean;
+          expires_at?: string | null;
           feature_id?: string;
           profile_id?: string;
         };
