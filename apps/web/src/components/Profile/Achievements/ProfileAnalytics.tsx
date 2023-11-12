@@ -68,6 +68,7 @@ interface ProfileAnalyticsData {
   profile_views: AnalyticsData;
   comments: AnalyticsData;
   link_clicks: AnalyticsData;
+  collects: AnalyticsData;
 }
 
 interface ProfileAnalyticsProps {
@@ -128,6 +129,7 @@ const ProfileAnalytics: FC<ProfileAnalyticsProps> = ({ profile }) => {
         <Stat title="Comments" data={data?.comments} />
         <Stat title="Mirrors" data={data?.mirrors} />
         <Stat title="Link clicks" data={data?.link_clicks} />
+        <Stat title="Collects" data={data?.collects} />
       </div>
       <div className="mx-6 mb-6 text-xs">Metrics shown for the last 7 days</div>
     </Card>
