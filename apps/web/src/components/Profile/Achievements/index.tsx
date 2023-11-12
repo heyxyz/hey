@@ -1,7 +1,6 @@
-import { FeatureFlag } from '@hey/data/feature-flags';
 import type { Profile } from '@hey/lens';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { type FC } from 'react';
+import { useProStore } from 'src/store/useProStore';
 
 import ProfileAnalytics from './ProfileAnalytics';
 import Streaks from './Streaks';
@@ -12,13 +11,13 @@ interface AchievementsProps {
 }
 
 const Achievements: FC<AchievementsProps> = ({ profile }) => {
+  const isPro = useProStore((state) => state.isPro);
+
   return (
     <div className="space-y-4">
       <Streaks profile={profile} />
       <StreaksList profile={profile} />
-      {isFeatureEnabled(FeatureFlag.Pro) && (
-        <ProfileAnalytics profile={profile} />
-      )}
+      {isPro && <ProfileAnalytics profile={profile} />}
     </div>
   );
 };
