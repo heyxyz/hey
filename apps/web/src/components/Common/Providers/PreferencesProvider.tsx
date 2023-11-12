@@ -1,5 +1,5 @@
 import {
-  FLIPPER_WORKER_URL,
+  FEATURES_WORKER_URL,
   PREFERENCES_WORKER_URL
 } from '@hey/data/constants';
 import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
@@ -53,7 +53,7 @@ const PreferencesProvider: FC = () => {
 
   const fetchVerifiedMembers = async () => {
     try {
-      const response = await axios.get(`${FLIPPER_WORKER_URL}/getVerified`);
+      const response = await axios.get(`${FEATURES_WORKER_URL}/getVerified`);
       const { data } = response;
       setVerifiedMembers(data.result || []);
     } catch {}
