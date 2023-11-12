@@ -127,37 +127,19 @@ export interface Database {
       };
       rights: {
         Row: {
-          gardener_mode: boolean;
           high_signal_notification_filter: boolean;
           id: string;
-          is_gardener: boolean;
-          is_lens_member: boolean;
           is_pride: boolean;
-          is_staff: boolean;
-          is_verified: boolean;
-          staff_mode: boolean;
         };
         Insert: {
-          gardener_mode?: boolean;
           high_signal_notification_filter?: boolean;
           id: string;
-          is_gardener?: boolean;
-          is_lens_member?: boolean;
           is_pride?: boolean;
-          is_staff?: boolean;
-          is_verified?: boolean;
-          staff_mode?: boolean;
         };
         Update: {
-          gardener_mode?: boolean;
           high_signal_notification_filter?: boolean;
           id?: string;
-          is_gardener?: boolean;
-          is_lens_member?: boolean;
           is_pride?: boolean;
-          is_staff?: boolean;
-          is_verified?: boolean;
-          staff_mode?: boolean;
         };
         Relationships: [];
       };

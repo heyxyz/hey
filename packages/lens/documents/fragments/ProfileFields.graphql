@@ -18,6 +18,15 @@ fragment ProfileFields on Profile {
   interests
   invitedBy {
     id
+    handle {
+      ...HandleInfoFields
+    }
+    ownedBy {
+      ...NetworkAddressFields
+    }
+    metadata {
+      ...ProfileMetadataFields
+    }
   }
   invitesLeft
   onchainIdentity {
