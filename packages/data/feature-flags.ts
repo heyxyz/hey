@@ -1,4 +1,5 @@
 export enum FeatureFlag {
+  // Static flags
   Staff = 'staff',
   StaffMode = 'staff-mode',
   Gardener = 'gardener',
@@ -6,5 +7,7 @@ export enum FeatureFlag {
   LensMember = 'lens-member',
   Verified = 'verified',
   Pro = 'pro',
-  LiveStream = 'live-stream'
+  // Flags
+  LiveStream = 'live-stream',
+  ProImplementation = 'pro-implementation'
 }
