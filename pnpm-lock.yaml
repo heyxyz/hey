@@ -612,6 +612,40 @@ importers:
         specifier: ^3.15.0
         version: 3.15.0
 
+  packages/workers/features:
+    dependencies:
+      '@hey/data':
+        specifier: workspace:*
+        version: link:../../data
+      '@hey/lib':
+        specifier: workspace:*
+        version: link:../../lib
+      '@hey/supabase':
+        specifier: workspace:*
+        version: link:../../supabase
+      '@tsndr/cloudflare-worker-jwt':
+        specifier: ^2.2.7
+        version: 2.2.7
+      itty-router:
+        specifier: ^4.0.23
+        version: 4.0.23
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
+    devDependencies:
+      '@cloudflare/workers-types':
+        specifier: ^4.20231025.0
+        version: 4.20231025.0
+      '@hey/config':
+        specifier: workspace:*
+        version: link:../../config
+      typescript:
+        specifier: ^5.2.2
+        version: 5.2.2
+      wrangler:
+        specifier: ^3.15.0
+        version: 3.15.0
+
   packages/workers/feeds:
     dependencies:
       '@hey/clickhouse':
@@ -4555,6 +4589,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
+      napi-wasm: 1.1.0
     dev: false
     bundledDependencies:
       - napi-wasm
@@ -11115,6 +11150,10 @@ packages:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
+
+  /napi-wasm@1.1.0:
+    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
+    dev: false
 
   /natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
