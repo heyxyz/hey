@@ -130,8 +130,8 @@ importers:
         specifier: ^0.12.2
         version: 0.12.2(lexical@0.12.2)
       '@livepeer/react':
-        specifier: ^3.0.2
-        version: 3.0.2(@types/react-dom@18.2.15)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^3.0.3
+        version: 3.0.3(@types/react-dom@18.2.15)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
       '@tanstack/react-query':
         specifier: ^5.8.2
         version: 5.8.3(react-dom@18.2.0)(react@18.2.0)
@@ -4211,12 +4211,12 @@ packages:
       '@lit-labs/ssr-dom-shim': 1.1.2
     dev: false
 
-  /@livepeer/core-react@2.0.2(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-OYNJ80mvKmuQMg8TXaRZ7lL9mTV15zO84qjgpje7/R8H2JWn0XIuYf/rBRbnhur13SGz86+rkcvvJNF4GWpT1A==}
+  /@livepeer/core-react@2.0.3(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-J0DNyB+TSsQ4sBMCpbzH3M/5NTShpBysVV/b8UAWAck1o9ZQyx2Ux46iCvdUZPPkDQVhHfx9VtwaBrrO8lW/8w==}
     peerDependencies:
       react: '>=17.0.0'
     dependencies:
-      '@livepeer/core': 2.0.2(@types/react@18.2.37)(react@18.2.0)
+      '@livepeer/core': 2.0.3(@types/react@18.2.37)(react@18.2.0)
       '@tanstack/query-async-storage-persister': 4.29.23
       '@tanstack/query-core': 4.29.23
       '@tanstack/react-query': 4.29.23(react-dom@18.2.0)(react@18.2.0)
@@ -4232,15 +4232,15 @@ packages:
       - react-native
     dev: false
 
-  /@livepeer/core-web@3.0.2(@types/react@18.2.37)(react@18.2.0):
-    resolution: {integrity: sha512-5RLRpVb2VLVeG016b0XQ87rhhZ/EQXWoqZCdH5pv/3HoeiXFCrGhW4EW5GCW1NUfS1Zxx5WtqDnQSnOqZh84HQ==}
+  /@livepeer/core-web@3.0.3(@types/react@18.2.37)(react@18.2.0):
+    resolution: {integrity: sha512-BGD4lJcsKOCbWawBfQNFmsgvrS5uW0JC8PZ+hsJ3rejX2xfXO6VkpdvldsNXZKPRcw/c8ZlMjsg4ZE4UiJNdbA==}
     peerDependencies:
       react: '>=17.0.0'
     peerDependenciesMeta:
       react:
         optional: true
     dependencies:
-      '@livepeer/core': 2.0.2(@types/react@18.2.37)(react@18.2.0)
+      '@livepeer/core': 2.0.3(@types/react@18.2.37)(react@18.2.0)
       '@stitches/core': 1.2.8
       core-js: 3.33.2
       cross-fetch: 4.0.0
@@ -4255,8 +4255,8 @@ packages:
       - immer
     dev: false
 
-  /@livepeer/core@2.0.2(@types/react@18.2.37)(react@18.2.0):
-    resolution: {integrity: sha512-S5WeQF+C18oYXdB9DKk2vUKYrCfXQ9VPdiUfEN0lqQOerQAN6YA7gowri16MVm3j9HFDykz5euTgNA+hX6SnIg==}
+  /@livepeer/core@2.0.3(@types/react@18.2.37)(react@18.2.0):
+    resolution: {integrity: sha512-rgjQVMgfaKd9fdriJJJcEKkX7D28udywFa6NQ9n/QL0R8x9Zs2G5p8UCXlneJ1IcMO1RNpNBtg4H9hSMDtK4YA==}
     peerDependencies:
       react: '>=17.0.0'
     peerDependenciesMeta:
@@ -4275,8 +4275,8 @@ packages:
       - immer
     dev: false
 
-  /@livepeer/react@3.0.2(@types/react-dom@18.2.15)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-1+uJwTefkQVQlIz42UZtXpk6gwzfzhG/pF/S/f5vVwmyvv84IxWnZridj6xlNly9u+++oeVvR1CfXfg3ezydbw==}
+  /@livepeer/react@3.0.3(@types/react-dom@18.2.15)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-w++AOi0rkPD3TXJGZbevnVEjqkBwmWda2ZuKAnKwo623IomDwd00GMtFFqUy/XlctiS9V/smIWevn4ZfTQJMJg==}
     peerDependencies:
       react: '>=17.0.0'
       react-dom: '>=17.0.0'
@@ -4284,8 +4284,8 @@ packages:
       react-dom:
         optional: true
     dependencies:
-      '@livepeer/core-react': 2.0.2(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
-      '@livepeer/core-web': 3.0.2(@types/react@18.2.37)(react@18.2.0)
+      '@livepeer/core-react': 2.0.3(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
+      '@livepeer/core-web': 3.0.3(@types/react@18.2.37)(react@18.2.0)
       '@radix-ui/react-dialog': 1.0.5(@types/react-dom@18.2.15)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-popover': 1.0.7(@types/react-dom@18.2.15)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-select': 1.2.2(@types/react-dom@18.2.15)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
@@ -4580,6 +4580,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
+      napi-wasm: 1.1.0
     dev: false
     bundledDependencies:
       - napi-wasm
@@ -11140,6 +11141,10 @@ packages:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
+
+  /napi-wasm@1.1.0:
+    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
+    dev: false
 
   /natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
