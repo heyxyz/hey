@@ -1,4 +1,4 @@
-name: Recycle Pro Profiles
+name: Cron - Recycle Pro Profiles
 
 on:
   schedule:
