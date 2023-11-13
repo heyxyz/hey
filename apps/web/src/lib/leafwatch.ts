@@ -29,7 +29,7 @@ export const Leafwatch = {
     worker.onmessage = function (event: MessageEvent) {
       const response = event.data;
       const xhr = new XMLHttpRequest();
-      xhr.open('POST', `${LEAFWATCH_WORKER_URL}/ingest`);
+      xhr.open('POST', `${LEAFWATCH_WORKER_URL}/events`);
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.send(JSON.stringify(response));
     };
