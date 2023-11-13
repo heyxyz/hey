@@ -1,0 +1,19 @@
+name: Recycle Pro Profiles
+
+on:
+  schedule:
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+
+jobs:
+  recycle:
+    name: Recycle
+    runs-on: ubuntu-latest
+    steps:
+      - name: Recycle Pro Profiles
+        env:
+          WORKER_SECRET: ${{ secrets.WORKER_SECRET }}
+        run: |
+          curl -X DELETE \
+            -d '{"secret": "'"$WORKER_SECRET"'"}' \
+            https://pro.hey.xyz/recycleProProfiles
