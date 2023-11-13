@@ -97,10 +97,10 @@ export const LIVE_WORKER_URL = IS_PRODUCTION
   : 'http://localhost:8094';
 export const FEATURES_WORKER_URL = IS_PRODUCTION
   ? 'https://features.hey.xyz'
-  : 'http://localhost:8097';
+  : 'http://localhost:8096';
 export const PRO_WORKER_URL = IS_PRODUCTION
   ? 'https://pro.hey.xyz'
-  : 'http://localhost:8098';
+  : 'http://localhost:8097';
 
 // Tokens / Keys
 export const OPENSEA_KEY = '8b95f9e6d52b42fe8c19ddea847c0f5d';

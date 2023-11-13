@@ -19,7 +19,6 @@ The following ports are exposed by the repository
 | 8092 | NFT worker                 | http://localhost:8092 | https://nft.hey.xyz            |
 | 8093 | Staff Picks worker         | http://localhost:8093 | https://staff-picks.hey.xyz    |
 | 8094 | Live worker                | http://localhost:8094 | https://live.hey.xyz           |
-| 8095 | Impressions worker         | http://localhost:8095 | https://impressions.hey.xyz    |
-| 8096 | Sitemap worker             | http://localhost:8096 | https://sitemap.hey.xyz        |
-| 8097 | Features worker            | http://localhost:8097 | https://features.hey.xyz       |
-| 8098 | Pro worker                 | http://localhost:8098 | https://pro.hey.xyz            |
+| 8095 | Sitemap worker             | http://localhost:8095 | https://sitemap.hey.xyz        |
+| 8096 | Features worker            | http://localhost:8096 | https://features.hey.xyz       |
+| 8097 | Pro worker                 | http://localhost:8097 | https://pro.hey.xyz            |
