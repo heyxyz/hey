@@ -43,8 +43,8 @@ const Publication: FC<PublicationProps> = ({ publication, comments }) => {
   const image = media
     ? sanitizeDStorageUrl(media)
     : profile
-    ? getAvatar(profile)
-    : DEFAULT_OG;
+      ? getAvatar(profile)
+      : DEFAULT_OG;
 
   return (
     <>
@@ -60,14 +60,11 @@ const Publication: FC<PublicationProps> = ({ publication, comments }) => {
         <SinglePublication publication={publication} h1Content />
       </header>
       <div>
-        {comments?.map((comment) => {
-          const { id } = comment;
-          return (
-            <div key={id}>
-              <SinglePublication publication={comment} />
-            </div>
-          );
-        })}
+        {comments?.map((comment) => (
+          <div key={comment.id}>
+            <SinglePublication publication={comment} />
+          </div>
+        ))}
       </div>
     </>
   );
