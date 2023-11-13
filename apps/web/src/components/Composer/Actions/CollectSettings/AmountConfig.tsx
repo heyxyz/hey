@@ -27,8 +27,8 @@ const AmountConfig: FC<AmountConfigProps> = ({
             type: collectModule.amount?.value
               ? OpenActionModuleType.SimpleCollectOpenActionModule
               : collectModule.recipients?.length
-              ? OpenActionModuleType.MultirecipientFeeCollectOpenActionModule
-              : OpenActionModuleType.SimpleCollectOpenActionModule,
+                ? OpenActionModuleType.MultirecipientFeeCollectOpenActionModule
+                : OpenActionModuleType.SimpleCollectOpenActionModule,
             amount: collectModule.amount?.value
               ? null
               : { currency: DEFAULT_COLLECT_TOKEN, value: '1' }

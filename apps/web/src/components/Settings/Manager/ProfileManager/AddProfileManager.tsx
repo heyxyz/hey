@@ -1,8 +1,8 @@
+import SearchUser from '@components/Shared/SearchUser';
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { ADDRESS_PLACEHOLDER, LENSHUB_PROXY } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
-import { Regex } from '@hey/data/regex';
 import { SETTINGS } from '@hey/data/tracking';
 import {
   ChangeProfileManagerActionType,
@@ -11,7 +11,7 @@ import {
 } from '@hey/lens';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
-import { Button, Form, Input, Spinner, useZodForm } from '@hey/ui';
+import { Button, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { type FC, useState } from 'react';
@@ -19,14 +19,8 @@ import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/useAppStore';
 import { useNonceStore } from 'src/store/useNonceStore';
+import { isAddress } from 'viem';
 import { useContractWrite, useSignTypedData } from 'wagmi';
-import { object, string } from 'zod';
-
-const newProfileManagerSchema = object({
-  manager: string()
-    .max(42, { message: 'Ethereum address should be within 42 characters' })
-    .regex(Regex.ethereumAddress, { message: 'Invalid Ethereum address' })
-});
 
 interface AddProfileManagerProps {
   setShowAddManagerModal: (show: boolean) => void;
@@ -42,14 +36,11 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
   const setLensHubOnchainSigNonce = useNonceStore(
     (state) => state.setLensHubOnchainSigNonce
   );
+  const [manager, setManager] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleWrongNetwork = useHandleWrongNetwork();
   const { canBroadcast } = checkDispatcherPermissions(currentProfile);
-
-  const form = useZodForm({
-    schema: newProfileManagerSchema
-  });
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
@@ -58,7 +49,7 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
 
     setIsLoading(false);
     setShowAddManagerModal(false);
-    form.reset();
+    setManager('');
     toast.success('Manager added successfully!');
     Leafwatch.track(SETTINGS.MANAGER.ADD_MANAGER);
   };
@@ -123,7 +114,7 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
       onError
     });
 
-  const addManager = async (manager: string) => {
+  const addManager = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
@@ -150,39 +141,33 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
   };
 
   return (
-    <Form
-      form={form}
-      className="space-y-4 p-5"
-      onSubmit={async ({ manager }) => {
-        await addManager(manager);
-      }}
-    >
-      <div>
-        <Input
-          label="Manager address"
-          type="text"
-          placeholder={ADDRESS_PLACEHOLDER}
-          {...form.register('manager')}
-        />
+    <div className="space-y-4 p-5">
+      <SearchUser
+        placeholder={`${ADDRESS_PLACEHOLDER} or wagmi`}
+        value={manager}
+        onChange={(event) => setManager(event.target.value)}
+        onProfileSelected={(profile) => setManager(profile.ownedBy.address)}
+        hideDropdown={isAddress(manager)}
+        error={manager.length > 0 && !isAddress(manager)}
+      />
+      <div className="flex">
+        <Button
+          className="ml-auto"
+          type="submit"
+          disabled={isLoading || !isAddress(manager)}
+          icon={
+            isLoading ? (
+              <Spinner size="xs" />
+            ) : (
+              <PlusCircleIcon className="h-4 w-4" />
+            )
+          }
+          onClick={addManager}
+        >
+          Add manager
+        </Button>
       </div>
-      <div className="ml-auto">
-        <div className="block space-x-0 space-y-2 sm:flex sm:space-x-2 sm:space-y-0">
-          <Button
-            type="submit"
-            disabled={isLoading}
-            icon={
-              isLoading ? (
-                <Spinner size="xs" />
-              ) : (
-                <PlusCircleIcon className="h-4 w-4" />
-              )
-            }
-          >
-            Add manager
-          </Button>
-        </div>
-      </div>
-    </Form>
+    </div>
   );
 };
 

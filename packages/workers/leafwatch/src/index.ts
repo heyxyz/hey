@@ -2,7 +2,8 @@ import { Errors } from '@hey/data/errors';
 import response from '@hey/lib/response';
 import { createCors, error, Router, status } from 'itty-router';
 
-import ingest from './handlers/ingest';
+import events from './handlers/events';
+import impressions from './handlers/impressions';
 import buildRequest from './helpers/buildRequest';
 import type { Env, WorkerRequest } from './types';
 
@@ -22,7 +23,8 @@ router
       version: request.env.RELEASE ?? 'unknown'
     })
   )
-  .post('/ingest', ingest)
+  .post('/events', events)
+  .post('/impressions', impressions)
   .all('*', () => error(404));
 
 export default {
