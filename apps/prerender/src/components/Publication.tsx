@@ -43,8 +43,8 @@ const Publication: FC<PublicationProps> = ({ publication, comments }) => {
   const image = media
     ? sanitizeDStorageUrl(media)
     : profile
-    ? getAvatar(profile)
-    : DEFAULT_OG;
+      ? getAvatar(profile)
+      : DEFAULT_OG;
 
   return (
     <>

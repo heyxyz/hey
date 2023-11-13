@@ -82,8 +82,8 @@ const useCreatePublication = ({
       type: isComment
         ? OptmisticPublicationType.NewComment
         : isQuote
-        ? OptmisticPublicationType.NewQuote
-        : OptmisticPublicationType.NewPost,
+          ? OptmisticPublicationType.NewQuote
+          : OptmisticPublicationType.NewPost,
       txHash,
       txId,
       content: publicationContent
