@@ -43,8 +43,8 @@ const usePublicationMetadata = () => {
   const cover = attachmentsHasAudio
     ? audioPublication.cover
     : attachmentsHasVideo
-    ? videoThumbnail.url
-    : attachments[0]?.uri;
+      ? videoThumbnail.url
+      : attachments[0]?.uri;
 
   const getMetadata = useCallback(
     ({ baseMetadata }: UsePublicationMetadataProps) => {
