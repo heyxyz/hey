@@ -2,7 +2,6 @@ fragment ProfileMetadataFields on ProfileMetadata {
   displayName
   bio
   rawURI
-  appId
   picture {
     ... on ImageSet {
       ...ImageSetFields
