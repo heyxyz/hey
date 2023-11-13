@@ -9,5 +9,4 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
       uri
     }
   }
-  duration
 }
