@@ -192,8 +192,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const useMomoka = isComment
     ? publication.momoka?.proof
     : isQuote
-      ? quotedPublication?.momoka?.proof
-      : noCollect;
+    ? quotedPublication?.momoka?.proof
+    : noCollect;
 
   const onError = (error?: any) => {
     setIsLoading(false);
@@ -257,8 +257,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       isComment
         ? PUBLICATION.NEW_COMMENT
         : isQuote
-          ? PUBLICATION.NEW_QUOTE
-          : PUBLICATION.NEW_POST,
+        ? PUBLICATION.NEW_QUOTE
+        : PUBLICATION.NEW_POST,
       eventProperties
     );
   };

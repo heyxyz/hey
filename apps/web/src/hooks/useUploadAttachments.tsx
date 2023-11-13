@@ -33,8 +33,8 @@ const useUploadAttachments = () => {
           type: file.type.includes('image')
             ? 'Image'
             : file.type.includes('video')
-              ? 'Video'
-              : 'Audio',
+            ? 'Video'
+            : 'Audio',
           mimeType: file.type,
           uri: URL.createObjectURL(file),
           previewUri: URL.createObjectURL(file),
