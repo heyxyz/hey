@@ -60,14 +60,11 @@ const Publication: FC<PublicationProps> = ({ publication, comments }) => {
         <SinglePublication publication={publication} h1Content />
       </header>
       <div>
-        {comments?.map((comment) => {
-          const { id } = comment;
-          return (
-            <div key={id}>
-              <SinglePublication publication={comment} />
-            </div>
-          );
-        })}
+        {comments?.map((comment) => (
+          <div key={comment.id}>
+            <SinglePublication publication={comment} />
+          </div>
+        ))}
       </div>
     </>
   );
