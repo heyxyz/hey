@@ -1,9 +1,7 @@
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
   id
   rawURI
-  locale
   tags
-  appId
   attributes {
     ...MetadataAttributeFields
   }
@@ -12,13 +10,6 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
   }
   asset {
     ...PublicationMetadataMediaImageFields
-  }
-  asset {
-    image {
-      optimized {
-        uri
-      }
-    }
   }
   title
   content

@@ -3,7 +3,6 @@ query ApprovedAuthentications($request: ApprovedAuthenticationRequest!) {
     items {
       authorizationId
       browser
-      device
       os
       origin
       expiresAt

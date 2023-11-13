@@ -23,7 +23,7 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
     ? publication?.mirrorOn
     : publication;
 
-  const { metadata, createdAt } = targetPublication;
+  const { publishedOn, metadata, createdAt } = targetPublication;
 
   useEffectOnce(() => {
     pushToImpressions(targetPublication.id);
@@ -45,8 +45,8 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
                   <span>
                     {formatDate(new Date(createdAt), 'hh:mm A · MMM D, YYYY')}
                   </span>
-                  {metadata.appId ? (
-                    <span> · Posted via {getAppName(metadata.appId)}</span>
+                  {publishedOn?.id ? (
+                    <span> · Posted via {getAppName(publishedOn.id)}</span>
                   ) : null}
                 </div>
                 <FeaturedGroup tags={metadata.tags} />
