@@ -1,7 +1,6 @@
 fragment MirrorNotificationFields on MirrorNotification {
   id
   mirrors {
-    mirrorId
     profile {
       ...PublicationProfileFields
     }
