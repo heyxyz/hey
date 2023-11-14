@@ -2,7 +2,6 @@ import { Errors } from '@hey/data/errors';
 import response from '@hey/lib/response';
 import { createCors, error, Router, status } from 'itty-router';
 
-import downgradeProfiles from './handlers/downgradeProfiles';
 import getProEnabled from './handlers/getProEnabled';
 import buildRequest from './helpers/buildRequest';
 import type { Env, WorkerRequest } from './types';
@@ -24,7 +23,6 @@ router
     })
   )
   .get('/getProEnabled', getProEnabled)
-  .delete('/downgradeProfiles', downgradeProfiles)
   .all('*', () => error(404));
 
 export default {
