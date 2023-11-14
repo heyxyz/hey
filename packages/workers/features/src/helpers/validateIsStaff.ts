@@ -1,6 +1,6 @@
+import parseJwt from '@hey/lib/parseJwt';
 import response from '@hey/lib/response';
 import createSupabaseClient from '@hey/supabase/createSupabaseClient';
-import jwt from '@tsndr/cloudflare-worker-jwt';
 
 import { STAFF_FEATURE_ID } from '../constants';
 import type { WorkerRequest } from '../types';
@@ -17,7 +17,7 @@ const validateIsStaff = async (request: WorkerRequest) => {
     return response({ success: false, error: 'No proper headers provided!' });
   }
 
-  const { payload } = jwt.decode(accessToken);
+  const payload = parseJwt(accessToken);
   const client = createSupabaseClient(request.env.SUPABASE_KEY);
 
   const { data, error } = await client
