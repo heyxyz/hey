@@ -7,9 +7,6 @@ routes = [
 	{ pattern = "stats.hey.xyz", custom_domain = true }
 ]
 
-[placement]
-mode = "smart"
-
 [env.production.vars]
 RELEASE = ""
 CLICKHOUSE_PASSWORD = ""
