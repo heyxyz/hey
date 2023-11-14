@@ -1,11 +1,14 @@
 name = "preferences"
 main = "src/index.ts"
-compatibility_date = "2023-01-25"
+compatibility_date = "2023-10-25"
 keep_vars = true
-node_compat = true
 
 routes = [
 	{ pattern = "preferences.hey.xyz", custom_domain = true }
+]
+
+kv_namespaces = [
+  { binding = "PREFERENCES", id = "0c2df8f66fcd4704a4463e3db73471ca", preview_id = "0c2df8f66fcd4704a4463e3db73471ca" }
 ]
 
 [env.production.vars]

@@ -22,3 +22,4 @@ The following ports are exposed by the repository
 | 8095 | Sitemap worker             | http://localhost:8095 | https://sitemap.hey.xyz        |
 | 8096 | Features worker            | http://localhost:8096 | https://features.hey.xyz       |
 | 8097 | Pro worker                 | http://localhost:8097 | https://pro.hey.xyz            |
+| 8098 | Internal tools worker      | http://localhost:8098 | https://internal.hey.xyz       |

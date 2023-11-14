@@ -1,6 +1,6 @@
 import Loader from '@components/Shared/Loader';
 import { FlagIcon } from '@heroicons/react/24/outline';
-import { FEATURES_WORKER_URL } from '@hey/data/constants';
+import { INTERNAL_WORKER_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import type { Features } from '@hey/types/hey';
 import { EmptyState, Toggle } from '@hey/ui';
@@ -26,7 +26,7 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
   const getAllFeatureFlags = async (): Promise<Features[] | []> => {
     try {
       const response = await axios.get(
-        `${FEATURES_WORKER_URL}/getAllFeatureFlags`,
+        `${INTERNAL_WORKER_URL}/feature/getAllFeatureFlags`,
         { params: { id: profile.id } }
       );
       const { data } = response;
@@ -67,7 +67,7 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
     setUpdating(true);
     toast.promise(
       axios.post(
-        `${FEATURES_WORKER_URL}/updateFeatureFlag`,
+        `${INTERNAL_WORKER_URL}/feature/updateFeatureFlag`,
         { id, profile_id: profile.id, enabled },
         { headers: getAuthWorkerHeaders() }
       ),
@@ -91,7 +91,7 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
   };
 
   return (
-    <div className="divide-y dark:divide-gray-700">
+    <div className="max-h-[80vh] divide-y overflow-y-auto dark:divide-gray-700">
       {availableFlags.map((flag) => (
         <div key={flag.id} className="space-y-3 p-5">
           <div className="flex items-center space-x-3">

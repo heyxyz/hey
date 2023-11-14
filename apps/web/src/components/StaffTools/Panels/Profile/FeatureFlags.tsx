@@ -1,7 +1,9 @@
 import { FlagIcon } from '@heroicons/react/24/outline';
 import { FEATURES_WORKER_URL } from '@hey/data/constants';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import type { Profile } from '@hey/lens';
 import { Modal } from '@hey/ui';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC, useState } from 'react';
@@ -55,24 +57,28 @@ const FeatureFlags: FC<FeatureFlagsProps> = ({ profile }) => {
         ) : (
           <div>No feature flags</div>
         )}
-        <button
-          className="text-sm underline"
-          onClick={() => setShowFeatureFlagsModal(true)}
-        >
-          Update feature flags
-        </button>
-        <Modal
-          show={showFeatureFlagsModal}
-          onClose={() => setShowFeatureFlagsModal(false)}
-          title="Update feature flags"
-          icon={<FlagIcon className="text-brand-500 h-5 w-5" />}
-        >
-          <UpdateFeatureFlags
-            profile={profile}
-            flags={flags}
-            setFlags={setFlags}
-          />
-        </Modal>
+        {isFeatureEnabled(FeatureFlag.FeatureFlipper) && (
+          <>
+            <button
+              className="text-sm underline"
+              onClick={() => setShowFeatureFlagsModal(true)}
+            >
+              Update feature flags
+            </button>
+            <Modal
+              show={showFeatureFlagsModal}
+              onClose={() => setShowFeatureFlagsModal(false)}
+              title="Update feature flags"
+              icon={<FlagIcon className="text-brand-500 h-5 w-5" />}
+            >
+              <UpdateFeatureFlags
+                profile={profile}
+                flags={flags}
+                setFlags={setFlags}
+              />
+            </Modal>
+          </>
+        )}
       </div>
     </>
   );

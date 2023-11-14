@@ -3,7 +3,7 @@ import response from '@hey/lib/response';
 import createSupabaseClient from '@hey/supabase/createSupabaseClient';
 import { object, string } from 'zod';
 
-import type { WorkerRequest } from '../types';
+import type { WorkerRequest } from '../../types';
 
 type ExtensionRequest = {
   secret: string;

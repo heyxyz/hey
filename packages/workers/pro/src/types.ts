@@ -3,7 +3,6 @@ import type { IRequestStrict } from 'itty-router';
 export interface Env {
   RELEASE: string;
   SUPABASE_KEY: string;
-  SECRET: string;
 }
 
 export type WorkerRequest = {

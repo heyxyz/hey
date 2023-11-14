@@ -1,12 +1,12 @@
 import { Errors } from '@hey/data/errors';
+import parseJwt from '@hey/lib/parseJwt';
 import response from '@hey/lib/response';
 import createSupabaseClient from '@hey/supabase/createSupabaseClient';
-import jwt from '@tsndr/cloudflare-worker-jwt';
 import { boolean, object } from 'zod';
 
-import { STAFF_MODE_FEATURE_ID } from '../constants';
-import validateIsStaff from '../helpers/validateIsStaff';
-import type { WorkerRequest } from '../types';
+import { STAFF_MODE_FEATURE_ID } from '../../constants';
+import validateIsStaff from '../../helpers/validateIsStaff';
+import type { WorkerRequest } from '../../types';
 
 type ExtensionRequest = {
   enabled: boolean;
@@ -36,8 +36,14 @@ export default async (request: WorkerRequest) => {
   const { enabled } = body as ExtensionRequest;
 
   try {
-    const { payload } = jwt.decode(accessToken as string);
+    const payload = parseJwt(accessToken as string);
     const profile_id = payload.id;
+
+    const clearCache = async () => {
+      // Clear profile cache in Cloudflare KV
+      await request.env.FEATURES.delete(`features:${profile_id}`);
+    };
+
     const client = createSupabaseClient(request.env.SUPABASE_KEY);
 
     if (enabled) {
@@ -48,6 +54,7 @@ export default async (request: WorkerRequest) => {
       if (upsertError) {
         throw upsertError;
       }
+      await clearCache();
 
       return response({ success: true, enabled });
     }
@@ -61,6 +68,7 @@ export default async (request: WorkerRequest) => {
     if (deleteError) {
       throw deleteError;
     }
+    await clearCache();
 
     return response({ success: true, enabled });
   } catch (error) {

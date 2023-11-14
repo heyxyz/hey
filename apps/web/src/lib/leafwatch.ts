@@ -1,6 +1,6 @@
 import { LEAFWATCH_WORKER_URL } from '@hey/data/constants';
 
-import getCurrentSessionProfileId from './getCurrentSessionProfileId';
+import getCurrentSession from './getCurrentSession';
 
 let worker: Worker;
 
@@ -13,14 +13,14 @@ if (typeof Worker !== 'undefined') {
  */
 export const Leafwatch = {
   track: (name: string, properties?: Record<string, unknown>) => {
-    const currentSessionProfileId = getCurrentSessionProfileId();
+    const { id: sessionProfileId } = getCurrentSession();
     const { referrer } = document;
     const referrerDomain = referrer ? new URL(referrer).hostname : null;
 
     worker.postMessage({
       name,
       properties,
-      actor: currentSessionProfileId,
+      actor: sessionProfileId,
       referrer: referrerDomain,
       url: window.location.href,
       platform: 'web'
