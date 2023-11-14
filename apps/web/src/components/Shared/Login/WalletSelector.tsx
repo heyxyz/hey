@@ -1,6 +1,11 @@
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
-import { ArrowRightCircleIcon, KeyIcon } from '@heroicons/react/24/outline';
+import {
+  ArrowRightCircleIcon,
+  KeyIcon,
+  UserPlusIcon
+} from '@heroicons/react/24/outline';
 import { XCircleIcon } from '@heroicons/react/24/solid';
+import { IS_MAINNET } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { AUTH } from '@hey/data/tracking';
 import type {
@@ -38,9 +43,13 @@ import UserProfile from '../UserProfile';
 
 interface WalletSelectorProps {
   setHasConnected?: Dispatch<SetStateAction<boolean>>;
+  setShowSignup?: Dispatch<SetStateAction<boolean>>;
 }
 
-const WalletSelector: FC<WalletSelectorProps> = ({ setHasConnected }) => {
+const WalletSelector: FC<WalletSelectorProps> = ({
+  setHasConnected,
+  setShowSignup
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [loggingInProfileId, setLoggingInProfileId] = useState<string | null>(
     null
@@ -194,6 +203,18 @@ const WalletSelector: FC<WalletSelectorProps> = ({ setHasConnected }) => {
           )
         ) : (
           <SwitchNetwork toChainId={CHAIN_ID} />
+        )}
+        {!IS_MAINNET && (
+          <button
+            onClick={() => {
+              setShowSignup?.(true);
+              Leafwatch.track(AUTH.SWITCH_TO_SIGNUP);
+            }}
+            className="flex items-center space-x-1 text-sm underline"
+          >
+            <UserPlusIcon className="h-4 w-4" />
+            <div>Create a testnet account</div>
+          </button>
         )}
         <button
           onClick={() => {
