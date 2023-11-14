@@ -1,1 +1,1 @@
-# Features worker
+# Internal worker
