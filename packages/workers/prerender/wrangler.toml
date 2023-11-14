@@ -1,6 +1,6 @@
 name = "prerender"
 main = "src/index.ts"
-compatibility_date = "2023-01-25"
+compatibility_date = "2023-10-25"
 
 routes = [
   { pattern = "hey.xyz/u/*", zone_name = "hey.xyz" },
