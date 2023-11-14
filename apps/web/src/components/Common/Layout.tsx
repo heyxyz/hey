@@ -12,7 +12,6 @@ import { Toaster } from 'react-hot-toast';
 import { useAppStore } from 'src/store/useAppStore';
 import { hydrateAuthTokens, signOut } from 'src/store/useAuthPersistStore';
 import { useFeatureFlagsStore } from 'src/store/useFeatureFlagsStore';
-import { useNonceStore } from 'src/store/useNonceStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import { useProStore } from 'src/store/useProStore';
 import { useEffectOnce, useIsMounted } from 'usehooks-ts';
@@ -44,9 +43,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   );
   const loadingPro = useProStore((state) => state.loadingPro);
   const resetPro = useProStore((state) => state.resetPro);
-  const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce
-  );
 
   const isMounted = useIsMounted();
   const { connector } = useAccount();
@@ -65,9 +61,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const { loading } = useCurrentProfileQuery({
     variables: { request: { forProfileId: currentSessionProfileId } },
     skip: !currentSessionProfileId || isAddress(currentSessionProfileId),
-    onCompleted: ({ profile, userSigNonces }) => {
+    onCompleted: ({ profile }) => {
       setCurrentProfile(profile as Profile);
-      setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce);
     }
   });
 
