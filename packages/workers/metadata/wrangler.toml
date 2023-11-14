@@ -7,9 +7,6 @@ routes = [
 	{ pattern = "metadata.hey.xyz", custom_domain = true }
 ]
 
-[placement]
-mode = "smart"
-
 [env.production.vars]
 RELEASE = ""
 IRYS_PRIVATE_KEY = ""
