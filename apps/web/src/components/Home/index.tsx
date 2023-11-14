@@ -2,26 +2,25 @@ import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
 import Footer from '@components/Shared/Footer';
+import { IS_MAINNET } from '@hey/data/constants';
 import { HomeFeedType } from '@hey/data/enums';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useState } from 'react';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import AlgorithmicFeed from './AlgorithmicFeed';
 import Tabs from './Algorithms/Tabs';
-import EnableDispatcher from './EnableDispatcher';
-import EnableMessages from './EnableMessages';
+import EnableLensManager from './EnableLensManager';
 import FeedType from './FeedType';
-import ForYou from './ForYou';
 import Hero from './Hero';
 import HeyMembershipNft from './HeyMembershipNft';
 import Highlights from './Highlights';
 import RecommendedProfiles from './RecommendedProfiles';
-import SetDefaultProfile from './SetDefaultProfile';
 import SetProfile from './SetProfile';
 import StaffPicks from './StaffPicks';
 import Timeline from './Timeline';
@@ -33,29 +32,30 @@ const Home: NextPage = () => {
     HomeFeedType.FOLLOWING
   );
 
+  const currentSessionProfileId = getCurrentSessionProfileId();
+
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'home' });
   });
 
-  const loggedIn = Boolean(currentProfile);
-  const loggedOut = !loggedIn;
+  const loggedInWithProfile = Boolean(currentProfile);
+  const loggedInWithWallet = Boolean(currentSessionProfileId);
+  const loggedOut = !loggedInWithProfile;
 
   return (
     <>
       <MetaTags />
-      {!currentProfile ? <Hero /> : null}
+      {loggedOut && !loggedInWithWallet && <Hero />}
       <GridLayout>
         <GridItemEight className="space-y-5">
-          {currentProfile ? (
+          {loggedInWithProfile ? (
             <>
               <NewPost />
               <div className="space-y-3">
                 <FeedType feedType={feedType} setFeedType={setFeedType} />
                 <Tabs feedType={feedType} setFeedType={setFeedType} />
               </div>
-              {feedType === HomeFeedType.FOR_YOU ? (
-                <ForYou />
-              ) : feedType === HomeFeedType.FOLLOWING ? (
+              {feedType === HomeFeedType.FOLLOWING ? (
                 <Timeline />
               ) : feedType === HomeFeedType.HIGHLIGHTS ? (
                 <Highlights />
@@ -70,17 +70,17 @@ const Home: NextPage = () => {
         <GridItemFour>
           {/* <Gitcoin /> */}
           {loggedOut && <Waitlist />}
-          {loggedIn && <HeyMembershipNft />}
-          <StaffPicks />
-          {loggedIn && (
+          {loggedInWithProfile && <HeyMembershipNft />}
+          {/* Onboarding steps */}
+          {loggedInWithProfile && (
             <>
-              <EnableDispatcher />
-              <EnableMessages />
-              <SetDefaultProfile />
+              <EnableLensManager />
               <SetProfile />
-              <RecommendedProfiles />
             </>
           )}
+          {/* Recommendations */}
+          {IS_MAINNET && <StaffPicks />}
+          {loggedInWithProfile && <RecommendedProfiles />}
           <Footer />
         </GridItemFour>
       </GridLayout>

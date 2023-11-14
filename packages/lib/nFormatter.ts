@@ -28,7 +28,7 @@ const nFormatter = (num: number, digits = 1): string => {
 
   // Format the number with the appropriate SI prefix and number of digits
   return item
-    ? num < 10000
+    ? num < 1000
       ? humanize(num)
       : (num / item.value).toFixed(digits).replace(rx, '$1') + item.symbol
     : '0';

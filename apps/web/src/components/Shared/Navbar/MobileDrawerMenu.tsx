@@ -1,37 +1,33 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import type { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { Trans } from '@lingui/macro';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { useAppStore } from 'src/store/app';
-import { useGlobalModalStateStore } from 'src/store/modals';
-import { usePreferencesStore } from 'src/store/preferences';
+import { useAppStore } from 'src/store/useAppStore';
+import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 
 import Slug from '../Slug';
 import AppVersion from './NavItems/AppVersion';
 import Bookmarks from './NavItems/Bookmarks';
-import Contact from './NavItems/Contact';
 import GardenerMode from './NavItems/GardenerMode';
 import Invites from './NavItems/Invites';
 import Logout from './NavItems/Logout';
 import Mod from './NavItems/Mod';
+import Pro from './NavItems/Pro';
 import ReportBug from './NavItems/ReportBug';
 import Settings from './NavItems/Settings';
 import StaffMode from './NavItems/StaffMode';
-import Status from './NavItems/Status';
 import SwitchProfile from './NavItems/SwitchProfile';
 import ThemeSwitch from './NavItems/ThemeSwitch';
 import YourProfile from './NavItems/YourProfile';
 
 const MobileDrawerMenu: FC = () => {
-  const profiles = useAppStore((state) => state.profiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const isStaff = usePreferencesStore((state) => state.isStaff);
-  const isGardener = usePreferencesStore((state) => state.isGardener);
   const setShowMobileDrawer = useGlobalModalStateStore(
     (state) => state.setShowMobileDrawer
   );
@@ -50,22 +46,21 @@ const MobileDrawerMenu: FC = () => {
       <div className="w-full space-y-2">
         <Link
           onClick={closeDrawer}
-          href={`/u/${formatHandle(currentProfile?.handle)}`}
+          href={getProfile(currentProfile).link}
           className="mt-2 flex items-center space-x-2 px-5 py-3 hover:bg-gray-200 dark:hover:bg-gray-800"
         >
           <div className="flex w-full space-x-1.5">
             <Image
               src={getAvatar(currentProfile as Profile)}
               className="h-12 w-12 cursor-pointer rounded-full border dark:border-gray-700"
-              alt={formatHandle(currentProfile?.handle)}
+              alt={currentProfile?.id}
             />
             <div>
-              <Trans>Logged in as</Trans>
+              Logged in as
               <div className="truncate">
                 <Slug
                   className="font-bold"
-                  slug={formatHandle(currentProfile?.handle)}
-                  prefix="@"
+                  slug={getProfile(currentProfile).slugWithPrefix}
                 />
               </div>
             </div>
@@ -73,35 +68,33 @@ const MobileDrawerMenu: FC = () => {
         </Link>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
-          {profiles.length > 1 ? (
-            <SwitchProfile className={cn(itemClass, 'px-4')} />
-          ) : null}
-          <div className="divider" />
-          <Status className={cn(itemClass, 'px-4')} />
+          <SwitchProfile className={cn(itemClass, 'px-4')} />
           <div className="divider" />
         </div>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <div>
-            <Link
-              href={`/u/${formatHandle(currentProfile?.handle)}`}
-              onClick={closeDrawer}
-            >
+            <Link href={getProfile(currentProfile).link} onClick={closeDrawer}>
               <YourProfile className={cn(itemClass, 'px-4')} />
             </Link>
-            <Link href={'/settings'} onClick={closeDrawer}>
+            <Link href="/settings" onClick={closeDrawer}>
               <Settings className={cn(itemClass, 'px-4')} />
             </Link>
             <Bookmarks
               className={cn(itemClass, 'px-4')}
               onClick={closeDrawer}
             />
-            {isGardener ? (
+            {isFeatureEnabled(FeatureFlag.Gardener) ? (
               <Link href="/mod" onClick={closeDrawer}>
                 <Mod className={cn(itemClass, 'px-4')} />
               </Link>
             ) : null}
             <Invites className={cn(itemClass, 'px-4')} />
+            {isFeatureEnabled(FeatureFlag.Pro) && (
+              <Link href="/pro" onClick={closeDrawer}>
+                <Pro className={cn(itemClass, 'px-4')} />
+              </Link>
+            )}
             <ThemeSwitch
               className={cn(itemClass, 'px-4')}
               onClick={closeDrawer}
@@ -111,13 +104,7 @@ const MobileDrawerMenu: FC = () => {
         </div>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
-          <div>
-            <Contact className={cn(itemClass, 'px-4')} onClick={closeDrawer} />
-            <ReportBug
-              className={cn(itemClass, 'px-4')}
-              onClick={closeDrawer}
-            />
-          </div>
+          <ReportBug className={cn(itemClass, 'px-4')} onClick={closeDrawer} />
           <div className="divider" />
         </div>
 
@@ -130,24 +117,22 @@ const MobileDrawerMenu: FC = () => {
             />
           </div>
           <div className="divider" />
-          {isGardener ? (
+          {isFeatureEnabled(FeatureFlag.Gardener) ? (
             <>
               <div
                 onClick={closeDrawer}
                 className="hover:bg-gray-200 dark:hover:bg-gray-800"
-                aria-hidden="true"
               >
                 <GardenerMode className={cn(itemClass, 'px-4 py-3')} />
               </div>
               <div className="divider" />
             </>
           ) : null}
-          {isStaff ? (
+          {isFeatureEnabled(FeatureFlag.Staff) ? (
             <>
               <div
                 onClick={closeDrawer}
                 className="hover:bg-gray-200 dark:hover:bg-gray-800"
-                aria-hidden="true"
               >
                 <StaffMode className={cn(itemClass, 'px-4 py-3')} />
               </div>

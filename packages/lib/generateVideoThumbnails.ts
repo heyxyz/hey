@@ -1,4 +1,4 @@
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
+import { PLACEHOLDER_IMAGE } from '@hey/data/constants';
 
 const canvasImageFromVideo = (
   file: File,
@@ -78,7 +78,7 @@ export const generateVideoThumbnail = (url: string): Promise<string> => {
         };
       };
     } catch (error) {
-      resolve(`${STATIC_IMAGES_URL}/placeholder.webp`);
+      resolve(PLACEHOLDER_IMAGE);
     }
   });
 };

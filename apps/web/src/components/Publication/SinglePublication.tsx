@@ -1,8 +1,11 @@
 import ActionType from '@components/Home/Timeline/EventType';
 import PublicationWrapper from '@components/Shared/PublicationWrapper';
-import type { ElectedMirror, FeedItem, Publication } from '@hey/lens';
+import type { AnyPublication, FeedItem } from '@hey/lens';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
-import type { FC } from 'react';
+import pushToImpressions from '@lib/pushToImpressions';
+import { type FC, memo } from 'react';
+import { useInView } from 'react-cool-inview';
 
 import PublicationActions from './Actions';
 import ModAction from './Actions/ModAction';
@@ -13,7 +16,7 @@ import PublicationHeader from './PublicationHeader';
 import PublicationType from './Type';
 
 interface SinglePublicationProps {
-  publication: Publication;
+  publication: AnyPublication;
   feedItem?: FeedItem;
   showType?: boolean;
   showActions?: boolean;
@@ -35,12 +38,25 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   isFirst = false,
   isLast = false
 }) => {
-  const firstComment = feedItem?.comments && feedItem.comments[0];
+  const firstComment = feedItem?.comments?.[0];
   const rootPublication = feedItem
     ? firstComment
       ? firstComment
       : feedItem?.root
     : publication;
+  const { metadata } = isMirrorPublication(publication)
+    ? publication.mirrorOn
+    : publication;
+
+  const { observe } = useInView({
+    onChange: async ({ inView }) => {
+      if (!inView) {
+        return;
+      }
+
+      pushToImpressions(rootPublication.id);
+    }
+  });
 
   return (
     <PublicationWrapper
@@ -61,8 +77,8 @@ const SinglePublication: FC<SinglePublicationProps> = ({
         />
       )}
       <PublicationHeader publication={rootPublication} feedItem={feedItem} />
-      <div className="ml-[53px]">
-        {publication?.hidden ? (
+      <div className="ml-[53px]" ref={observe}>
+        {publication.isHidden ? (
           <HiddenPublication type={publication.__typename} />
         ) : (
           <>
@@ -72,15 +88,9 @@ const SinglePublication: FC<SinglePublicationProps> = ({
             />
             <div className="flex flex-wrap items-center gap-x-7">
               {showActions ? (
-                <PublicationActions
-                  publication={rootPublication}
-                  electedMirror={feedItem?.electedMirror as ElectedMirror}
-                />
+                <PublicationActions publication={rootPublication} />
               ) : null}
-              <FeaturedGroup
-                className="mt-3"
-                tags={publication.metadata.tags}
-              />
+              <FeaturedGroup className="mt-3" tags={metadata?.tags} />
             </div>
             {showModActions ? (
               <ModAction
@@ -95,4 +105,4 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   );
 };
 
-export default SinglePublication;
+export default memo(SinglePublication);

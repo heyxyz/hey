@@ -3,7 +3,6 @@ import { HomeIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import { Button } from '@hey/ui';
 import heyFont from '@lib/heyFont';
-import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 
@@ -18,13 +17,11 @@ const Custom500: FC = () => {
       <MetaTags title={`500 • ${APP_NAME}`} />
       <div className="py-10 text-center">
         <h1 className="mb-4 text-3xl font-bold">
-          <Trans>Looks like something went wrong!</Trans>
+          Looks like something went wrong!
         </h1>
-        <div className="lt-text-gray-500 mb-4">
-          <Trans>
-            We track these errors automatically, but if the problem persists
-            feel free to contact us. In the meantime, try refreshing.
-          </Trans>
+        <div className="ld-text-gray-500 mb-4">
+          We track these errors automatically, but if the problem persists feel
+          free to contact us. In the meantime, try refreshing.
         </div>
         <Link href="/">
           <Button
@@ -32,7 +29,7 @@ const Custom500: FC = () => {
             size="lg"
             icon={<HomeIcon className="h-4 w-4" />}
           >
-            <Trans>Go to home</Trans>
+            Go to home
           </Button>
         </Link>
       </div>

@@ -4,7 +4,7 @@
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
-    "dev": "wrangler dev --port 8088",
+    "dev": "wrangler dev --port 8087",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
@@ -13,18 +13,19 @@
     "worker:deploy": "wrangler deploy --var RELEASE:\"$(git rev-parse HEAD)\""
   },
   "dependencies": {
+    "@hey/clickhouse": "workspace:*",
     "@hey/data": "workspace:*",
     "@hey/lib": "workspace:*",
     "itty-router": "^4.0.23",
-    "ua-parser-js": "^1.0.36",
+    "ua-parser-js": "^1.0.37",
     "urlcat": "^3.1.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20231010.0",
+    "@cloudflare/workers-types": "^4.20231025.0",
     "@hey/config": "workspace:*",
-    "@types/ua-parser-js": "^0.7.37",
+    "@types/ua-parser-js": "^0.7.39",
     "typescript": "^5.2.2",
-    "wrangler": "^3.13.1"
+    "wrangler": "^3.15.0"
   }
 }

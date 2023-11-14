@@ -3,13 +3,12 @@ import {
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
 import type { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
-import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { formatTime, getTwitterFormat } from '@lib/formatTime';
+import { getTwitterFormat } from '@lib/formatTime';
 import isVerified from '@lib/isVerified';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -21,12 +20,14 @@ interface UserProfileProps {
   profile: Profile;
   timestamp?: Date;
   smallAvatar?: boolean;
+  linkToProfile?: boolean;
 }
 
 const SmallUserProfile: FC<UserProfileProps> = ({
   profile,
   timestamp = '',
-  smallAvatar = false
+  smallAvatar = false,
+  linkToProfile = false
 }) => {
   const UserAvatar = () => (
     <Image
@@ -38,44 +39,43 @@ const SmallUserProfile: FC<UserProfileProps> = ({
       )}
       height={smallAvatar ? 20 : 24}
       width={smallAvatar ? 20 : 24}
-      alt={formatHandle(profile?.handle)}
+      alt={profile.id}
     />
   );
 
   const UserName = () => (
     <div className="flex max-w-full flex-wrap items-center">
       <div className="mr-2 max-w-[75%] truncate">
-        {sanitizeDisplayName(profile?.name) ?? formatHandle(profile?.handle)}
+        {getProfile(profile).displayName}
       </div>
       {isVerified(profile.id) ? (
-        <CheckBadgeIcon className="text-brand mr-1 h-4 w-4" />
+        <CheckBadgeIcon className="text-brand-500 mr-1 h-4 w-4" />
       ) : null}
       {hasMisused(profile.id) ? (
         <ExclamationCircleIcon className="mr-2 h-4 w-4 text-red-500" />
       ) : null}
-      <Slug
-        className="text-sm"
-        slug={formatHandle(profile?.handle)}
-        prefix="@"
-      />
+      <Slug className="text-sm" slug={getProfile(profile).slugWithPrefix} />
       {timestamp ? (
-        <span className="lt-text-gray-500">
+        <span className="ld-text-gray-500">
           <span className="mx-1.5">·</span>
-          <span className="text-xs" title={formatTime(timestamp as Date)}>
-            {getTwitterFormat(timestamp)}
-          </span>
+          <span className="text-xs">{getTwitterFormat(timestamp)}</span>
         </span>
       ) : null}
     </div>
   );
 
-  return (
-    <Link href={`/u/${formatHandle(profile?.handle)}`}>
+  return linkToProfile ? (
+    <Link href={getProfile(profile).link}>
       <div className="flex items-center space-x-2">
         <UserAvatar />
         <UserName />
       </div>
     </Link>
+  ) : (
+    <div className="flex items-center space-x-2">
+      <UserAvatar />
+      <UserName />
+    </div>
   );
 };
 

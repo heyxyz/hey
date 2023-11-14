@@ -2,9 +2,8 @@ import { TicketIcon } from '@heroicons/react/24/outline';
 import { INVITE } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
-import type { FC } from 'react';
-import { useGlobalModalStateStore } from 'src/store/modals';
+import { type FC } from 'react';
+import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 
 interface InvitesProps {
   className?: string;
@@ -26,12 +25,8 @@ const Invites: FC<InvitesProps> = ({ className = '' }) => {
         Leafwatch.track(INVITE.OPEN_INVITE);
       }}
     >
-      <div>
-        <TicketIcon className="h-4 w-4" />
-      </div>
-      <div>
-        <Trans>Invites</Trans>
-      </div>
+      <TicketIcon className="h-4 w-4" />
+      <div>Invites</div>
     </button>
   );
 };

@@ -1,0 +1,10 @@
+mutation LegacyCollect($request: LegacyCollectRequest!) {
+  legacyCollect(request: $request) {
+    ... on RelaySuccess {
+      txId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
+    }
+  }
+}

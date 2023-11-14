@@ -1,17 +1,17 @@
-import type { MetadataOutput } from '@hey/lens';
+import type { PublicationMetadata } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import getGroupByTag from '@lib/getGroupByTag';
 import Link from 'next/link';
-import type { FC } from 'react';
+import { type FC } from 'react';
 
 interface FeaturedGroupProps {
-  tags: MetadataOutput['tags'];
+  tags: PublicationMetadata['tags'];
   className?: string;
 }
 
 const FeaturedGroup: FC<FeaturedGroupProps> = ({ tags, className = '' }) => {
-  const group = getGroupByTag(tags);
+  const group = getGroupByTag(tags || []);
 
   if (!group) {
     return null;

@@ -1,17 +1,11 @@
 import UserProfile from '@components/Shared/UserProfile';
-import WalletProfile from '@components/Shared/WalletProfile';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { FollowUnfollowSource } from '@hey/data/tracking';
-import type {
-  Profile,
-  Wallet,
-  WhoCollectedPublicationRequest
-} from '@hey/lens';
-import { useCollectorsQuery } from '@hey/lens';
+import type { Profile, WhoActedOnPublicationRequest } from '@hey/lens';
+import { LimitType, useWhoActedOnPublicationQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
-import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
-import type { FC } from 'react';
+import { type FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
 import Loader from '../Loader';
@@ -22,18 +16,18 @@ interface CollectorsProps {
 
 const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
   // Variables
-  const request: WhoCollectedPublicationRequest = {
-    publicationId: publicationId,
-    limit: 50
+  const request: WhoActedOnPublicationRequest = {
+    on: publicationId,
+    limit: LimitType.TwentyFive
   };
 
-  const { data, loading, error, fetchMore } = useCollectorsQuery({
+  const { data, loading, error, fetchMore } = useWhoActedOnPublicationQuery({
     variables: { request },
     skip: !publicationId
   });
 
-  const profiles = data?.whoCollectedPublication?.items;
-  const pageInfo = data?.whoCollectedPublication?.pageInfo;
+  const profiles = data?.whoActedOnPublication?.items;
+  const pageInfo = data?.whoActedOnPublication?.pageInfo;
   const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {
@@ -47,15 +41,15 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
   };
 
   if (loading) {
-    return <Loader message={t`Loading collectors`} />;
+    return <Loader message="Loading collectors" />;
   }
 
   if (profiles?.length === 0) {
     return (
       <div className="p-5">
         <EmptyState
-          message={t`No collectors.`}
-          icon={<RectangleStackIcon className="text-brand h-8 w-8" />}
+          message="No collectors."
+          icon={<RectangleStackIcon className="text-brand-500 h-8 w-8" />}
           hideCard
         />
       </div>
@@ -63,20 +57,17 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
   }
 
   return (
-    <div
-      className="max-h-[80vh] overflow-y-auto"
-      data-testid="collectors-modal"
-    >
+    <div className="max-h-[80vh] overflow-y-auto">
       <ErrorMessage
-        className="m-5"
-        title={t`Failed to load collectors`}
+        title="Failed to load collectors"
         error={error}
+        className="m-5"
       />
       <Virtuoso
         className="virtual-profile-list"
         data={profiles}
         endReached={onEndReached}
-        itemContent={(index, wallet) => {
+        itemContent={(index, profile) => {
           return (
             <motion.div
               initial={{ opacity: 0 }}
@@ -84,19 +75,15 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
               exit={{ opacity: 0 }}
               className="p-5"
             >
-              {wallet?.defaultProfile ? (
-                <UserProfile
-                  profile={wallet?.defaultProfile as Profile}
-                  isFollowing={wallet?.defaultProfile?.isFollowedByMe}
-                  followUnfollowPosition={index + 1}
-                  followUnfollowSource={FollowUnfollowSource.COLLECTORS_MODAL}
-                  showBio
-                  showFollow
-                  showUserPreview={false}
-                />
-              ) : (
-                <WalletProfile wallet={wallet as Wallet} />
-              )}
+              <UserProfile
+                profile={profile as Profile}
+                isFollowing={profile.operations.isFollowedByMe.value}
+                followUnfollowPosition={index + 1}
+                followUnfollowSource={FollowUnfollowSource.COLLECTORS_MODAL}
+                showBio
+                showFollow
+                showUserPreview={false}
+              />
             </motion.div>
           );
         }}

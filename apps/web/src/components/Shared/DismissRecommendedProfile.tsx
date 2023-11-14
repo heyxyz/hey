@@ -3,7 +3,7 @@ import { PROFILE } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
 import { useDismissRecommendedProfilesMutation } from '@hey/lens';
 import { Leafwatch } from '@lib/leafwatch';
-import type { FC } from 'react';
+import { type FC } from 'react';
 
 interface DismissRecommendedProfileProps {
   profile: Profile;
@@ -17,7 +17,7 @@ const DismissRecommendedProfile: FC<DismissRecommendedProfileProps> = ({
   dismissPosition
 }) => {
   const [dismissRecommendedProfile] = useDismissRecommendedProfilesMutation({
-    variables: { request: { profileIds: [profile.id] } },
+    variables: { request: { dismiss: [profile.id] } },
     update: (cache) => {
       cache.evict({ id: cache.identify(profile) });
     }

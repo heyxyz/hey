@@ -1,16 +1,15 @@
-import MessageIcon from '@components/Messages/MessageIcon';
 import NotificationIcon from '@components/Notification/NotificationIcon';
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import type { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
+import getProfile from '@hey/lib/getProfile';
 import cn from '@hey/ui/cn';
-import { t } from '@lingui/macro';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useAppStore } from 'src/store/app';
-import { usePreferencesStore } from 'src/store/preferences';
+import { useAppStore } from 'src/store/useAppStore';
+import { useFeatureFlagsStore } from 'src/store/useFeatureFlagsStore';
+import { usePreferencesStore } from 'src/store/usePreferencesStore';
 
 import MenuItems from './MenuItems';
 import MoreNavItems from './MoreNavItems';
@@ -20,12 +19,12 @@ import StaffBar from './StaffBar';
 const Navbar: FC = () => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const staffMode = usePreferencesStore((state) => state.staffMode);
+  const staffMode = useFeatureFlagsStore((state) => state.staffMode);
   const isPride = usePreferencesStore((state) => state.isPride);
   const [showSearch, setShowSearch] = useState(false);
 
   const onProfileSelected = (profile: Profile) => {
-    router.push(`/u/${formatHandle(profile?.handle)}`);
+    router.push(getProfile(profile).link);
   };
 
   interface NavItemProps {
@@ -39,15 +38,13 @@ const Navbar: FC = () => {
       <Link
         href={url}
         className={cn(
-          'cursor-pointer rounded-md px-2 py-1 text-left text-sm font-bold tracking-wide md:px-3',
+          'outline-brand-500 cursor-pointer rounded-md px-2 py-1 text-left text-sm font-bold tracking-wide md:px-3',
           {
             'bg-gray-200 text-black dark:bg-gray-800 dark:text-white': current,
             'text-gray-700 hover:bg-gray-200 hover:text-black dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white':
               !current
           }
         )}
-        aria-current={current ? 'page' : undefined}
-        data-testid={`nav-item-${name.toLowerCase()}`}
       >
         {name}
       </Link>
@@ -59,10 +56,10 @@ const Navbar: FC = () => {
 
     return (
       <>
-        <NavItem url="/" name={t`Home`} current={pathname === '/'} />
+        <NavItem url="/" name="Home" current={pathname === '/'} />
         <NavItem
           url="/explore"
-          name={t`Explore`}
+          name="Explore"
           current={pathname === '/explore'}
         />
         <MoreNavItems />
@@ -86,7 +83,10 @@ const Navbar: FC = () => {
                 <MagnifyingGlassIcon className="h-6 w-6" />
               )}
             </button>
-            <Link href="/" className="hidden md:block">
+            <Link
+              href="/"
+              className="outline-brand-500 hidden rounded-full outline-offset-8 md:block"
+            >
               <img
                 className="h-8 w-8"
                 height={32}
@@ -117,12 +117,7 @@ const Navbar: FC = () => {
             />
           </Link>
           <div className="flex items-center gap-4">
-            {currentProfile ? (
-              <>
-                <MessageIcon />
-                <NotificationIcon />
-              </>
-            ) : null}
+            {currentProfile ? <NotificationIcon /> : null}
             <MenuItems />
           </div>
         </div>

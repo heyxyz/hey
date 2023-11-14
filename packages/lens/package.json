@@ -10,23 +10,22 @@
     "lint:fix": "eslint . --fix --ext .js,.ts,.tsx",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
-    "test:dev": "vitest --run",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@apollo/client": "^3.8.5",
+    "@apollo/client": "^3.8.7",
     "@hey/data": "workspace:*",
-    "axios": "^1.5.1"
+    "axios": "^1.6.1"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.0",
     "@graphql-codegen/fragment-matcher": "^5.0.0",
     "@graphql-codegen/typescript": "^4.0.1",
     "@graphql-codegen/typescript-operations": "^4.0.1",
-    "@graphql-codegen/typescript-react-apollo": "^4.0.0",
+    "@graphql-codegen/typescript-react-apollo": "^4.1.0",
     "@hey/config": "workspace:*",
-    "@types/node": "^20.8.6",
-    "typescript": "^5.2.2",
-    "vitest": "^0.34.5"
+    "@parcel/watcher": "^2.3.0",
+    "@types/node": "^20.9.0",
+    "typescript": "^5.2.2"
   }
 }

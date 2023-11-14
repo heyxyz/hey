@@ -8,14 +8,13 @@ import {
   UserPlusIcon
 } from '@heroicons/react/24/outline';
 import { CalendarIcon } from '@heroicons/react/24/solid';
-import { ACHIEVEMENTS_WORKER_URL } from '@hey/data/constants';
+import { STATS_WORKER_URL } from '@hey/data/constants';
 import { PROFILE, PUBLICATION } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
-import { Card } from '@hey/ui';
-import { t, Trans } from '@lingui/macro';
+import { Card, Spinner } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import type { FC } from 'react';
+import { type FC } from 'react';
 
 interface StreaksListProps {
   profile: Profile;
@@ -24,9 +23,9 @@ interface StreaksListProps {
 const StreaksList: FC<StreaksListProps> = ({ profile }) => {
   const fetchStreaksList = async () => {
     try {
-      const response = await axios.get(
-        `${ACHIEVEMENTS_WORKER_URL}/streaks/${profile.id}/latest`
-      );
+      const response = await axios.get(`${STATS_WORKER_URL}/streaksList`, {
+        params: { id: profile.id, date: 'latest' }
+      });
 
       return response.data.data;
     } catch (error) {
@@ -34,9 +33,10 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
     }
   };
 
-  const { data, isLoading } = useQuery(['streaksList', profile.id], () =>
-    fetchStreaksList().then((res) => res)
-  );
+  const { data, isLoading } = useQuery({
+    queryKey: ['fetchStreaksList', profile.id],
+    queryFn: fetchStreaksList
+  });
 
   const EventIcon = ({ event }: { event: string }) => {
     switch (event) {
@@ -46,9 +46,9 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
       case PUBLICATION.LIKE:
         return <HeartIcon className="h-5 w-5 text-red-500" />;
       case PUBLICATION.NEW_POST:
-        return <PencilSquareIcon className="text-brand h-5 w-5" />;
+        return <PencilSquareIcon className="text-brand-500 h-5 w-5" />;
       case PUBLICATION.NEW_COMMENT:
-        return <ChatBubbleLeftRightIcon className="text-brand h-5 w-5" />;
+        return <ChatBubbleLeftRightIcon className="text-brand-500 h-5 w-5" />;
       case PUBLICATION.MIRROR:
         return <ArrowsRightLeftIcon className="h-5 w-5 text-green-500" />;
       case PUBLICATION.COLLECT_MODULE.COLLECT:
@@ -63,21 +63,21 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
   const EventName = ({ event }: { event: string }) => {
     switch (event) {
       case PROFILE.FOLLOW:
-        return t`Followed a profile`;
+        return 'Followed a profile';
       case PROFILE.SUPER_FOLLOW:
-        return t`Super followed a profile`;
+        return 'Super followed a profile';
       case PUBLICATION.LIKE:
-        return t`Liked a publication`;
+        return 'Liked a publication';
       case PUBLICATION.NEW_POST:
-        return t`Created a new post`;
+        return 'Created a new post';
       case PUBLICATION.NEW_COMMENT:
-        return t`Commented on a publication`;
+        return 'Commented on a publication';
       case PUBLICATION.MIRROR:
-        return t`Mirrored a publication`;
+        return 'Mirrored a publication';
       case PUBLICATION.COLLECT_MODULE.COLLECT:
-        return t`Collected a publication`;
+        return 'Collected a publication';
       case PUBLICATION.WIDGET.SNAPSHOT.VOTE:
-        return t`Voted on a poll`;
+        return 'Voted on a poll';
       default:
         return null;
     }
@@ -85,8 +85,11 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
 
   if (isLoading) {
     return (
-      <Card className="p-6">
-        <div>Loading</div>
+      <Card className="p-5">
+        <div className="space-y-2 px-5 py-3.5 text-center font-bold">
+          <Spinner size="md" className="mx-auto" />
+          <div>Loading events</div>
+        </div>
       </Card>
     );
   }
@@ -102,13 +105,11 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
   return (
     <Card>
       <div className="flex items-center space-x-2 px-6 py-5 text-lg font-bold">
-        <CalendarIcon className="text-brand h-6 w-6" />
-        <span>
-          <Trans>Latest events</Trans>
-        </span>
+        <CalendarIcon className="text-brand-500 h-6 w-6" />
+        <span>Latest events</span>
       </div>
       <div className="divider" />
-      <div className="space-y-4 p-6">
+      <div className="m-6 space-y-4">
         {data.map((streak: { id: string; event: string; date: string }) => (
           <div key={streak.id} className="flex items-center space-x-2">
             <EventIcon event={streak.event} />

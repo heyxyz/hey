@@ -6,12 +6,12 @@ import {
   UserPlusIcon
 } from '@heroicons/react/24/outline';
 import { HashtagIcon } from '@heroicons/react/24/solid';
+import { GITCOIN_PASSPORT_KEY } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import { formatDate } from '@lib/formatTime';
-import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import type { FC } from 'react';
+import { type FC } from 'react';
 import urlcat from 'urlcat';
 
 import MetaDetails from '../MetaDetails';
@@ -26,7 +26,7 @@ const Rank: FC<RankProps> = ({ profile }) => {
       const response = await axios.get(
         urlcat('https://lens-api.k3l.io/profile/rank', {
           strategy,
-          handle: profile.handle
+          handle: profile.handle?.localName
         })
       );
 
@@ -41,11 +41,9 @@ const Rank: FC<RankProps> = ({ profile }) => {
       const response = await axios.get(
         urlcat('https://api.scorer.gitcoin.co/registry/score/:id/:address', {
           id: 335,
-          address: profile.ownedBy
+          address: profile.ownedBy.address
         }),
-        {
-          headers: { 'X-API-Key': 'xn9e7AFv.aEfS0ioNhaVtww1jdwnsWtxnrNHspVsS' }
-        }
+        { headers: { 'X-API-Key': GITCOIN_PASSPORT_KEY } }
       );
 
       return response.data;
@@ -54,42 +52,42 @@ const Rank: FC<RankProps> = ({ profile }) => {
     }
   };
 
-  const { data: followship } = useQuery(
-    ['getRank', profile.id, 'followship'],
-    () => getRank('followship').then((res) => res)
-  );
+  const { data: followship } = useQuery({
+    queryKey: ['getRank', profile.id, 'followship'],
+    queryFn: async () => getRank('followship')
+  });
 
-  const { data: engagement } = useQuery(
-    ['getRank', profile.id, 'engagement'],
-    () => getRank('engagement').then((res) => res)
-  );
+  const { data: engagement } = useQuery({
+    queryKey: ['getRank', profile.id, 'engagement'],
+    queryFn: async () => getRank('engagement')
+  });
 
-  const { data: influencer } = useQuery(
-    ['getRank', profile.id, 'influencer'],
-    () => getRank('influencer').then((res) => res)
-  );
+  const { data: influencer } = useQuery({
+    queryKey: ['getRank', profile.id, 'influencer'],
+    queryFn: async () => getRank('influencer')
+  });
 
-  const { data: creator } = useQuery(['getRank', profile.id, 'creator'], () =>
-    getRank('creator').then((res) => res)
-  );
+  const { data: creator } = useQuery({
+    queryKey: ['getRank', profile.id, 'creator'],
+    queryFn: async () => getRank('creator')
+  });
 
-  const { data: gitcoinScore } = useQuery(['getRank', profile.id], () =>
-    getGitcoinScore().then((res) => res)
-  );
+  const { data: gitcoinScore } = useQuery({
+    queryKey: ['getGitcoinScore', profile.id],
+    queryFn: getGitcoinScore
+  });
 
   return (
     <>
       <div className="mt-5 flex items-center space-x-2 text-yellow-600">
         <HashtagIcon className="h-5 w-5" />
-        <div className="text-lg font-bold">
-          <Trans>Scores</Trans>
-        </div>
+        <div className="text-lg font-bold">Scores</div>
       </div>
       <div className="mt-3 space-y-2">
         <MetaDetails
-          icon={<UserPlusIcon className="lt-text-gray-500 h-4 w-4" />}
+          icon={<UserPlusIcon className="ld-text-gray-500 h-4 w-4" />}
           value={followship?.rank}
-          title={t`Followship Rank`}
+          title="Followship Rank"
         >
           {followship ? (
             followship.rank
@@ -98,9 +96,9 @@ const Rank: FC<RankProps> = ({ profile }) => {
           )}
         </MetaDetails>
         <MetaDetails
-          icon={<HandRaisedIcon className="lt-text-gray-500 h-4 w-4" />}
+          icon={<HandRaisedIcon className="ld-text-gray-500 h-4 w-4" />}
           value={engagement?.rank}
-          title={t`Engagement Rank`}
+          title="Engagement Rank"
         >
           {engagement ? (
             engagement.rank
@@ -109,9 +107,9 @@ const Rank: FC<RankProps> = ({ profile }) => {
           )}
         </MetaDetails>
         <MetaDetails
-          icon={<UserCircleIcon className="lt-text-gray-500 h-4 w-4" />}
+          icon={<UserCircleIcon className="ld-text-gray-500 h-4 w-4" />}
           value={influencer?.rank}
-          title={t`Influencer Rank`}
+          title="Influencer Rank"
         >
           {influencer ? (
             influencer.rank
@@ -120,23 +118,23 @@ const Rank: FC<RankProps> = ({ profile }) => {
           )}
         </MetaDetails>
         <MetaDetails
-          icon={<CurrencyDollarIcon className="lt-text-gray-500 h-4 w-4" />}
+          icon={<CurrencyDollarIcon className="ld-text-gray-500 h-4 w-4" />}
           value={creator?.rank}
-          title={t`Creator Rank`}
+          title="Creator Rank"
         >
           {creator ? creator.rank : <div className="shimmer h-4 w-5 rounded" />}
         </MetaDetails>
         <MetaDetails
-          icon={<CheckCircleIcon className="lt-text-gray-500 h-4 w-4" />}
+          icon={<CheckCircleIcon className="ld-text-gray-500 h-4 w-4" />}
           value={gitcoinScore?.evidence?.rawScore}
-          title={t`Gitcoin Score`}
+          title="Gitcoin Score"
         >
           {gitcoinScore ? (
             <span>
               {parseInt(gitcoinScore?.evidence?.rawScore) > 0 ? (
                 <>
                   {parseFloat(gitcoinScore?.evidence?.rawScore).toFixed(2)}
-                  <span className="lt-text-gray-500 text-xs">
+                  <span className="ld-text-gray-500 text-xs">
                     {' '}
                     (Updated: {formatDate(gitcoinScore?.last_score_timestamp)})
                   </span>
@@ -149,6 +147,19 @@ const Rank: FC<RankProps> = ({ profile }) => {
             <div className="shimmer h-4 w-5 rounded" />
           )}
         </MetaDetails>
+        {gitcoinScore?.stamp_scores &&
+        Object.keys(gitcoinScore?.stamp_scores).length > 0 ? (
+          <div className="ld-text-gray-500 ml-5 space-y-1 text-xs">
+            {Object.keys(gitcoinScore.stamp_scores).map((key) => {
+              return (
+                <div key={key}>
+                  <b className="ml-1">{key}: </b>
+                  {gitcoinScore?.stamp_scores[key]}
+                </div>
+              );
+            })}
+          </div>
+        ) : null}
       </div>
     </>
   );

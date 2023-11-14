@@ -1,10 +1,10 @@
-import { ACHIEVEMENTS_WORKER_URL } from '@hey/data/constants';
+import { STATS_WORKER_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
+import getProfile from '@hey/lib/getProfile';
 import { Card } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import type { FC } from 'react';
+import { type FC } from 'react';
 import type { Activity } from 'react-activity-calendar';
 import ActivityCalendar from 'react-activity-calendar';
 
@@ -15,9 +15,9 @@ interface StreaksProps {
 const Streaks: FC<StreaksProps> = ({ profile }) => {
   const fetchStreaks = async () => {
     try {
-      const response = await axios.get(
-        `${ACHIEVEMENTS_WORKER_URL}/streaks/${profile.id}`
-      );
+      const response = await axios.get(`${STATS_WORKER_URL}/streaksCalendar`, {
+        params: { id: profile.id }
+      });
 
       const outputData = Object.entries(response.data.data).map(
         ([date, count]: any) => ({
@@ -33,9 +33,10 @@ const Streaks: FC<StreaksProps> = ({ profile }) => {
     }
   };
 
-  const { data, isLoading } = useQuery(['streaksCalendar', profile.id], () =>
-    fetchStreaks().then((res) => res)
-  );
+  const { data, isLoading } = useQuery({
+    queryKey: ['fetchStreaks', profile.id],
+    queryFn: fetchStreaks
+  });
 
   return (
     <Card className="p-6">
@@ -45,9 +46,9 @@ const Streaks: FC<StreaksProps> = ({ profile }) => {
         colorScheme="light"
         blockRadius={50}
         labels={{
-          totalCount: `@${formatHandle(
-            profile.handle
-          )} has {{count}} activities in ${new Date().getFullYear()}`
+          totalCount: `${
+            getProfile(profile).slugWithPrefix
+          } has {{count}} activities in ${new Date().getFullYear()}`
         }}
         theme={{ light: ['#FED5D9', '#FB3A5D'] }}
       />

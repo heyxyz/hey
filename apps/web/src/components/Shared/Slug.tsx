@@ -1,5 +1,5 @@
 import cn from '@hey/ui/cn';
-import type { FC } from 'react';
+import { type FC } from 'react';
 
 interface SlugProps {
   slug: string;
@@ -17,7 +17,7 @@ const Slug: FC<SlugProps> = ({
   return (
     <span
       className={cn(
-        useBrandColor ? 'text-brand' : 'lt-text-gray-500',
+        useBrandColor ? 'text-brand-500' : 'ld-text-gray-500',
         className
       )}
     >

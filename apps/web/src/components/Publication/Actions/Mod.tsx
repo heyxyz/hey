@@ -1,13 +1,12 @@
 import { ShieldCheckIcon } from '@heroicons/react/24/outline';
-import type { Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import { Tooltip } from '@hey/ui';
-import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
-import type { FC } from 'react';
-import { useGlobalAlertStateStore } from 'src/store/alerts';
+import { type FC } from 'react';
+import { useGlobalAlertStateStore } from 'src/store/useGlobalAlertStateStore';
 
 interface ModProps {
-  publication: Publication;
+  publication: AnyPublication;
   isFullPublication?: boolean;
 }
 
@@ -21,15 +20,14 @@ const Mod: FC<ModProps> = ({ publication, isFullPublication = false }) => {
 
   return (
     <motion.button
+      className="rounded-full p-1.5 text-yellow-600 outline-offset-2 outline-yellow-500 hover:bg-yellow-400/20"
       whileTap={{ scale: 0.9 }}
       onClick={() => setShowModActionAlert(true, publication)}
       aria-label="Mod"
     >
-      <div className="rounded-full p-1.5 text-yellow-600 hover:bg-yellow-400/20">
-        <Tooltip placement="top" content={t`Mod actions`} withDelay>
-          <ShieldCheckIcon className={iconClassName} />
-        </Tooltip>
-      </div>
+      <Tooltip placement="top" content="Mod actions" withDelay>
+        <ShieldCheckIcon className={iconClassName} />
+      </Tooltip>
     </motion.button>
   );
 };

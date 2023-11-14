@@ -1,0 +1,12 @@
+query CurrentProfile($request: ProfileRequest!) {
+  profile(request: $request) {
+    ...ProfileFields
+    guardian {
+      protected
+      cooldownEndsOn
+    }
+  }
+  userSigNonces {
+    lensHubOnchainSigNonce
+  }
+}

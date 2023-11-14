@@ -2,28 +2,35 @@ import TrendingTagShimmer from '@components/Shared/Shimmer/TrendingTagShimmer';
 import { ArrowTrendingUpIcon } from '@heroicons/react/24/solid';
 import { MISCELLANEOUS } from '@hey/data/tracking';
 import type { TagResult } from '@hey/lens';
-import { TagSortCriteria, useTrendingQuery } from '@hey/lens';
+import {
+  LimitType,
+  TagSortCriteriaType,
+  usePublicationsTagsQuery
+} from '@hey/lens';
 import nFormatter from '@hey/lib/nFormatter';
 import { Card, ErrorMessage } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Plural, t, Trans } from '@lingui/macro';
 import Link from 'next/link';
+import plur from 'plur';
 import type { FC } from 'react';
 
 const Title = () => {
   return (
     <div className="mb-2 flex items-center gap-2 px-5 sm:px-0">
       <ArrowTrendingUpIcon className="h-4 w-4 text-green-500" />
-      <div>
-        <Trans>Trending</Trans>
-      </div>
+      <div>Trending</div>
     </div>
   );
 };
 
 const Trending: FC = () => {
-  const { data, loading, error } = useTrendingQuery({
-    variables: { request: { limit: 7, sort: TagSortCriteria.MostPopular } }
+  const { data, loading, error } = usePublicationsTagsQuery({
+    variables: {
+      request: {
+        orderBy: TagSortCriteriaType.MostPopular,
+        limit: LimitType.Ten
+      }
+    }
   });
 
   if (loading) {
@@ -46,8 +53,8 @@ const Trending: FC = () => {
     <>
       <Title />
       <Card as="aside" className="mb-4 space-y-4 p-5">
-        <ErrorMessage title={t`Failed to load trending`} error={error} />
-        {data?.allPublicationsTags?.items?.map((tag: TagResult) =>
+        <ErrorMessage title="Failed to load trending" error={error} />
+        {data?.publicationsTags?.items?.map((tag: TagResult) =>
           tag?.tag !== '{}' ? (
             <div key={tag?.tag}>
               <Link
@@ -59,14 +66,8 @@ const Trending: FC = () => {
                 }
               >
                 <div className="font-bold">{tag?.tag}</div>
-                <div className="lt-text-gray-500 text-[12px]">
-                  {nFormatter(tag?.total)}{' '}
-                  <Plural
-                    value={tag?.total}
-                    zero="Publication"
-                    one="Publication"
-                    other="Publications"
-                  />
+                <div className="ld-text-gray-500 text-[12px]">
+                  {nFormatter(tag?.total)} {plur('Publication', tag?.total)}
                 </div>
               </Link>
             </div>

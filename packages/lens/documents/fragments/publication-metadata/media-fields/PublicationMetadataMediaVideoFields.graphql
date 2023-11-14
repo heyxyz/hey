@@ -1,0 +1,12 @@
+fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
+  video {
+    optimized {
+      uri
+    }
+  }
+  cover {
+    optimized {
+      uri
+    }
+  }
+}

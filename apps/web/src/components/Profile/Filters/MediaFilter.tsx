@@ -3,9 +3,8 @@ import { Menu } from '@headlessui/react';
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/outline';
 import { Checkbox, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { t } from '@lingui/macro';
 import type { ChangeEvent } from 'react';
-import { useProfileFeedStore } from 'src/store/profile-feed';
+import { useProfileFeedStore } from 'src/store/useProfileFeedStore';
 
 const MediaFilter = () => {
   const mediaFeedFilters = useProfileFeedStore(
@@ -25,8 +24,8 @@ const MediaFilter = () => {
   return (
     <Menu as="div" className="relative">
       <Menu.Button className="rounded-md hover:bg-gray-300/20">
-        <Tooltip placement="top" content={t`Filter`}>
-          <AdjustmentsVerticalIcon className="text-brand h-5 w-5" />
+        <Tooltip placement="top" content="Filter">
+          <AdjustmentsVerticalIcon className="text-brand-500 h-5 w-5" />
         </Tooltip>
       </Menu.Button>
       <MenuTransition>
@@ -47,7 +46,7 @@ const MediaFilter = () => {
               onChange={handleChange}
               checked={mediaFeedFilters.images}
               name="images"
-              label={t`Images`}
+              label="Images"
             />
           </Menu.Item>
           <Menu.Item
@@ -63,7 +62,7 @@ const MediaFilter = () => {
               onChange={handleChange}
               checked={mediaFeedFilters.video}
               name="video"
-              label={t`Video`}
+              label="Video"
             />
           </Menu.Item>
           <Menu.Item
@@ -79,7 +78,7 @@ const MediaFilter = () => {
               onChange={handleChange}
               checked={mediaFeedFilters.audio}
               name="audio"
-              label={t`Audio`}
+              label="Audio"
             />
           </Menu.Item>
         </Menu.Items>

@@ -1,21 +1,20 @@
 import { StarIcon } from '@heroicons/react/24/outline';
 import { PROFILE } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
+import getProfile from '@hey/lib/getProfile';
 import { Button, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useAppStore } from 'src/store/app';
-import { useGlobalModalStateStore } from 'src/store/modals';
+import { useAppStore } from 'src/store/useAppStore';
+import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 
 import Loader from '../Loader';
 import Slug from '../Slug';
 
 const FollowModule = dynamic(() => import('./FollowModule'), {
-  loading: () => <Loader message={t`Loading Super follow`} />
+  loading: () => <Loader message="Loading Super follow" />
 });
 
 interface SuperFollowProps {
@@ -25,8 +24,8 @@ interface SuperFollowProps {
   again?: boolean;
 
   // For data analytics
-  followUnfollowPosition?: number;
-  followUnfollowSource?: string;
+  superFollowPosition?: number;
+  superFollowSource?: string;
 }
 
 const SuperFollow: FC<SuperFollowProps> = ({
@@ -34,8 +33,8 @@ const SuperFollow: FC<SuperFollowProps> = ({
   setFollowing,
   showText = false,
   again = false,
-  followUnfollowPosition,
-  followUnfollowSource
+  superFollowPosition,
+  superFollowSource
 }) => {
   const [showFollowModal, setShowFollowModal] = useState(false);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -59,13 +58,12 @@ const SuperFollow: FC<SuperFollowProps> = ({
         aria-label="Super follow"
         icon={<StarIcon className="h-4 w-4" />}
       >
-        {showText ? t`Super follow` : null}
+        {showText ? 'Super follow' : null}
       </Button>
       <Modal
         title={
           <span>
-            Super follow{' '}
-            <Slug slug={formatHandle(profile?.handle)} prefix="@" />{' '}
+            Super follow <Slug slug={getProfile(profile).slugWithPrefix} />{' '}
             {again ? 'again' : ''}
           </span>
         }
@@ -78,8 +76,8 @@ const SuperFollow: FC<SuperFollowProps> = ({
           setFollowing={setFollowing}
           setShowFollowModal={setShowFollowModal}
           again={again}
-          followUnfollowPosition={followUnfollowPosition}
-          followUnfollowSource={followUnfollowSource}
+          superFollowPosition={superFollowPosition}
+          superFollowSource={superFollowSource}
         />
       </Modal>
     </>

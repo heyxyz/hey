@@ -1,0 +1,23 @@
+fragment ProfileMetadataFields on ProfileMetadata {
+  displayName
+  bio
+  rawURI
+  picture {
+    ... on ImageSet {
+      ...ImageSetFields
+    }
+    ... on NftImage {
+      image {
+        optimized {
+          uri
+        }
+      }
+    }
+  }
+  coverPicture {
+    ...ImageSetFields
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+}

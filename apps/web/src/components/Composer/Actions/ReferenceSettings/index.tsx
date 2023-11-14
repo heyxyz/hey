@@ -7,13 +7,12 @@ import {
   UsersIcon
 } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { ReferenceModules } from '@hey/lens';
+import { ReferenceModuleType } from '@hey/lens';
 import { Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
-import type { FC, ReactNode } from 'react';
-import { useReferenceModuleStore } from 'src/store/reference-module';
+import { type FC, type ReactNode } from 'react';
+import { useReferenceModuleStore } from 'src/store/useReferenceModuleStore';
 
 const ReferenceSettings: FC = () => {
   const selectedReferenceModule = useReferenceModuleStore(
@@ -32,16 +31,17 @@ const ReferenceSettings: FC = () => {
   const setDegreesOfSeparation = useReferenceModuleStore(
     (state) => state.setDegreesOfSeparation
   );
-  const MY_FOLLOWS = t`My follows`;
-  const MY_FOLLOWERS = t`My followers`;
-  const FRIENDS_OF_FRIENDS = t`Friends of friends`;
-  const EVERYONE = t`Everyone`;
+
+  const MY_FOLLOWS = 'My follows';
+  const MY_FOLLOWERS = 'My followers';
+  const FRIENDS_OF_FRIENDS = 'Friends of friends';
+  const EVERYONE = 'Everyone';
 
   const isFollowerOnlyReferenceModule =
-    selectedReferenceModule === ReferenceModules.FollowerOnlyReferenceModule;
+    selectedReferenceModule === ReferenceModuleType.FollowerOnlyReferenceModule;
   const isDegreesOfSeparationReferenceModule =
     selectedReferenceModule ===
-    ReferenceModules.DegreesOfSeparationReferenceModule;
+    ReferenceModuleType.DegreesOfSeparationReferenceModule;
 
   const isEveryone = isFollowerOnlyReferenceModule && !onlyFollowers;
   const isMyFollowers = isFollowerOnlyReferenceModule && onlyFollowers;
@@ -65,7 +65,7 @@ const ReferenceSettings: FC = () => {
     >
       <div className="flex items-center justify-between space-x-2">
         <div className="flex items-center space-x-1.5">
-          <div className="text-brand">{icon}</div>
+          <div className="text-brand-500">{icon}</div>
           <div>{title}</div>
         </div>
         {selected ? <CheckCircleIcon className="w-5 text-green-500" /> : null}
@@ -75,13 +75,13 @@ const ReferenceSettings: FC = () => {
 
   const getSelectedReferenceModuleTooltipText = () => {
     if (isMyFollowers) {
-      return t`My followers can comment and mirror`;
+      return 'My followers can comment and mirror';
     } else if (isMyFollows) {
-      return t`My follows can comment and mirror`;
+      return 'My follows can comment and mirror';
     } else if (isFriendsOfFriends) {
-      return t`Friend of friends can comment and mirror`;
+      return 'Friend of friends can comment and mirror';
     } else {
-      return t`Everyone can comment and mirror`;
+      return 'Everyone can comment and mirror';
     }
   };
 
@@ -91,8 +91,12 @@ const ReferenceSettings: FC = () => {
         placement="top"
         content={getSelectedReferenceModuleTooltipText()}
       >
-        <Menu.Button as={motion.button} whileTap={{ scale: 0.9 }}>
-          <div className="text-brand">
+        <Menu.Button
+          as={motion.button}
+          className="outline-brand-500 rounded-full outline-offset-8"
+          whileTap={{ scale: 0.9 }}
+        >
+          <div className="text-brand-500">
             {isEveryone ? <GlobeAltIcon className="w-5" /> : null}
             {isMyFollowers ? <UsersIcon className="w-5" /> : null}
             {isMyFollows ? <UserPlusIcon className="w-5" /> : null}
@@ -111,7 +115,7 @@ const ReferenceSettings: FC = () => {
             icon={<GlobeAltIcon className="h-4 w-4" />}
             onClick={() => {
               setSelectedReferenceModule(
-                ReferenceModules.FollowerOnlyReferenceModule
+                ReferenceModuleType.FollowerOnlyReferenceModule
               );
               setOnlyFollowers(false);
             }}
@@ -122,7 +126,7 @@ const ReferenceSettings: FC = () => {
             icon={<UsersIcon className="h-4 w-4" />}
             onClick={() => {
               setSelectedReferenceModule(
-                ReferenceModules.FollowerOnlyReferenceModule
+                ReferenceModuleType.FollowerOnlyReferenceModule
               );
               setOnlyFollowers(true);
             }}
@@ -133,7 +137,7 @@ const ReferenceSettings: FC = () => {
             icon={<UserPlusIcon className="h-4 w-4" />}
             onClick={() => {
               setSelectedReferenceModule(
-                ReferenceModules.DegreesOfSeparationReferenceModule
+                ReferenceModuleType.DegreesOfSeparationReferenceModule
               );
               setDegreesOfSeparation(1);
             }}
@@ -144,7 +148,7 @@ const ReferenceSettings: FC = () => {
             icon={<UserGroupIcon className="h-4 w-4" />}
             onClick={() => {
               setSelectedReferenceModule(
-                ReferenceModules.DegreesOfSeparationReferenceModule
+                ReferenceModuleType.DegreesOfSeparationReferenceModule
               );
               setDegreesOfSeparation(2);
             }}

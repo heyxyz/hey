@@ -1,13 +1,13 @@
 import PublicationWrapper from '@components/Shared/PublicationWrapper';
-import type { Publication } from '@hey/lens';
-import type { FC } from 'react';
+import type { PrimaryPublication } from '@hey/lens';
+import { type FC } from 'react';
 
 import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
 import PublicationHeader from './PublicationHeader';
 
 interface QuotedPublicationProps {
-  publication: Publication;
+  publication: PrimaryPublication;
   isNew?: boolean;
 }
 
@@ -21,7 +21,7 @@ const QuotedPublication: FC<QuotedPublicationProps> = ({
       publication={publication}
     >
       <PublicationHeader publication={publication} quoted isNew={isNew} />
-      {publication?.hidden ? (
+      {publication.isHidden ? (
         <HiddenPublication type={publication.__typename} />
       ) : (
         <PublicationBody publication={publication} showMore quoted />

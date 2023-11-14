@@ -5,28 +5,27 @@ import {
   VideoCameraIcon
 } from '@heroicons/react/24/outline';
 import { XCircleIcon } from '@heroicons/react/24/solid';
-import { IS_MAINNET, LIVE_WORKER_URL } from '@hey/data/constants';
-import { Localstorage } from '@hey/data/storage';
+import { LIVE_WORKER_URL } from '@hey/data/constants';
 import { Card, Spinner, Tooltip } from '@hey/ui';
-import { t, Trans } from '@lingui/macro';
+import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import axios from 'axios';
-import { type FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useAppStore } from 'src/store/app';
-import { usePublicationStore } from 'src/store/publication';
+import { usePublicationStore } from 'src/store/usePublicationStore';
 
 const LivestreamEditor: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-  const setShowLiveVideoEditor = usePublicationStore(
-    (state) => state.setShowLiveVideoEditor
-  );
   const liveVideoConfig = usePublicationStore((state) => state.liveVideoConfig);
   const setLiveVideoConfig = usePublicationStore(
     (state) => state.setLiveVideoConfig
   );
+  const setShowLiveVideoEditor = usePublicationStore(
+    (state) => state.setShowLiveVideoEditor
+  );
   const resetLiveVideoConfig = usePublicationStore(
     (state) => state.resetLiveVideoConfig
   );
+
   const [creating, setCreating] = useState(false);
 
   const createLiveStream = async () => {
@@ -34,15 +33,8 @@ const LivestreamEditor: FC = () => {
       setCreating(true);
       const response = await axios.post(
         `${LIVE_WORKER_URL}/create`,
-        {
-          id: currentProfile?.id,
-          isMainnet: IS_MAINNET
-        },
-        {
-          headers: {
-            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
-          }
-        }
+        undefined,
+        { headers: getAuthWorkerHeaders() }
       );
       const { data } = response;
       setLiveVideoConfig({
@@ -51,7 +43,7 @@ const LivestreamEditor: FC = () => {
         streamKey: data.result.streamKey
       });
     } catch {
-      toast.error(t`Error creating live stream`);
+      toast.error('Error creating live stream');
     } finally {
       setCreating(false);
     }
@@ -61,13 +53,11 @@ const LivestreamEditor: FC = () => {
     <Card className="m-5 px-5 py-3" forceRounded>
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2 text-sm">
-          <VideoCameraIcon className="text-brand h-4 w-4" />
-          <b>
-            <Trans>Go Live</Trans>
-          </b>
+          <VideoCameraIcon className="text-brand-500 h-4 w-4" />
+          <b>Go Live</b>
         </div>
         <div className="flex items-center space-x-3">
-          <Tooltip placement="top" content={t`Delete`}>
+          <Tooltip placement="top" content="Delete">
             <button
               className="flex"
               onClick={() => {
@@ -85,32 +75,28 @@ const LivestreamEditor: FC = () => {
           <>
             <Card className="space-y-2 p-3">
               <div className="flex items-center space-x-1">
-                <b>
-                  <Trans>Stream URL:</Trans>
-                </b>
+                <b>Stream URL:</b>
                 <div className="">rtmp://rtmp.livepeer.com/live</div>
                 <button
                   onClick={async () => {
                     await navigator.clipboard.writeText(
                       'rtmp://rtmp.livepeer.com/live'
                     );
-                    toast.success(t`Copied to clipboard!`);
+                    toast.success('Copied to clipboard!');
                   }}
                 >
                   <ClipboardDocumentIcon className="h-4 w-4 text-gray-400" />
                 </button>
               </div>
               <div className="flex items-center space-x-1">
-                <b>
-                  <Trans>Stream Key:</Trans>
-                </b>
+                <b>Stream Key:</b>
                 <div className="">{liveVideoConfig.streamKey}</div>
                 <button
                   onClick={async () => {
                     await navigator.clipboard.writeText(
                       liveVideoConfig.streamKey
                     );
-                    toast.success(t`Copied to clipboard!`);
+                    toast.success('Copied to clipboard!');
                   }}
                 >
                   <ClipboardDocumentIcon className="h-4 w-4 text-gray-400" />
@@ -128,16 +114,12 @@ const LivestreamEditor: FC = () => {
                 {creating ? (
                   <>
                     <Spinner size="xs" />
-                    <div>
-                      <Trans>Creating Live Stream...</Trans>
-                    </div>
+                    <div>Creating Live Stream...</div>
                   </>
                 ) : (
                   <>
-                    <SignalIcon className="text-brand h-5 w-5" />
-                    <div>
-                      <Trans>Create Live Stream</Trans>
-                    </div>
+                    <SignalIcon className="text-brand-500 h-5 w-5" />
+                    <div>Create Live Stream</div>
                   </>
                 )}
               </div>

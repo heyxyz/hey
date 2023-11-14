@@ -1,7 +1,6 @@
 import { ShieldCheckIcon } from '@heroicons/react/24/outline';
 import cn from '@hey/ui/cn';
-import { Trans } from '@lingui/macro';
-import type { FC } from 'react';
+import { type FC } from 'react';
 
 interface ModProps {
   className?: string;
@@ -15,12 +14,8 @@ const Mod: FC<ModProps> = ({ className = '' }) => {
         className
       )}
     >
-      <div>
-        <ShieldCheckIcon className="h-4 w-4" />
-      </div>
-      <div>
-        <Trans>Moderation</Trans>
-      </div>
+      <ShieldCheckIcon className="h-4 w-4" />
+      <div>Moderation</div>
     </div>
   );
 };

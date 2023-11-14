@@ -1,0 +1,19 @@
+fragment ReactionNotificationFields on ReactionNotification {
+  id
+  publication {
+    ... on Post {
+      ...PostFields
+    }
+    ... on Comment {
+      ...CommentBaseFields
+    }
+    ... on Quote {
+      ...QuoteBaseFields
+    }
+  }
+  reactions {
+    profile {
+      ...PublicationProfileFields
+    }
+  }
+}

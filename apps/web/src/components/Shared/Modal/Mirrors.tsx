@@ -1,12 +1,11 @@
 import UserProfile from '@components/Shared/UserProfile';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { FollowUnfollowSource } from '@hey/data/tracking';
-import type { Profile, ProfileQueryRequest } from '@hey/lens';
-import { useProfilesQuery } from '@hey/lens';
+import type { Profile, ProfilesRequest } from '@hey/lens';
+import { LimitType, useProfilesQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
-import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
-import type { FC } from 'react';
+import { type FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
 import Loader from '../Loader';
@@ -17,9 +16,9 @@ interface MirrorsProps {
 
 const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
   // Variables
-  const request: ProfileQueryRequest = {
-    whoMirroredPublicationId: publicationId,
-    limit: 50
+  const request: ProfilesRequest = {
+    where: { whoMirroredPublication: publicationId },
+    limit: LimitType.TwentyFive
   };
 
   const { data, loading, error, fetchMore } = useProfilesQuery({
@@ -42,15 +41,15 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
   };
 
   if (loading) {
-    return <Loader message={t`Loading mirrors`} />;
+    return <Loader message="Loading mirrors" />;
   }
 
   if (profiles?.length === 0) {
     return (
       <div className="p-5">
         <EmptyState
-          message={t`No mirrors.`}
-          icon={<ArrowsRightLeftIcon className="text-brand h-8 w-8" />}
+          message="No mirrors."
+          icon={<ArrowsRightLeftIcon className="text-brand-500 h-8 w-8" />}
           hideCard
         />
       </div>
@@ -58,11 +57,11 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
   }
 
   return (
-    <div className="max-h-[80vh] overflow-y-auto" data-testid="mirrors-modal">
+    <div className="max-h-[80vh] overflow-y-auto">
       <ErrorMessage
-        className="m-5"
-        title={t`Failed to load mirrors`}
+        title="Failed to load mirrors"
         error={error}
+        className="m-5"
       />
       <Virtuoso
         className="virtual-profile-list"
@@ -78,7 +77,7 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
             >
               <UserProfile
                 profile={profile as Profile}
-                isFollowing={profile?.isFollowedByMe}
+                isFollowing={profile.operations.isFollowedByMe.value}
                 followUnfollowPosition={index + 1}
                 followUnfollowSource={FollowUnfollowSource.MIRRORS_MODAL}
                 showBio

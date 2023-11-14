@@ -16,7 +16,7 @@ const useBasePaintCanvas = ({
   loading: boolean;
   error: unknown;
 } => {
-  const loadNftDetails = async () => {
+  const getBasePaintCanvasMetadata = async () => {
     const response = await axios.get(`${NFT_WORKER_URL}/basepaint`, {
       params: { id }
     });
@@ -24,11 +24,11 @@ const useBasePaintCanvas = ({
     return response.data?.canvas;
   };
 
-  const { data, isLoading, error } = useQuery(
-    ['basePaintCanvasMetadata', id],
-    () => loadNftDetails().then((res) => res),
-    { enabled }
-  );
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['getBasePaintCanvasMetadata', id],
+    queryFn: getBasePaintCanvasMetadata,
+    enabled
+  });
 
   return { data, loading: isLoading, error };
 };

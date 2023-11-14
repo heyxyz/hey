@@ -1,34 +1,31 @@
-import { IS_MAINNET, SNAPSHOR_RELAY_WORKER_URL } from '@hey/data/constants';
-import { Localstorage } from '@hey/data/storage';
+import { SNAPSHOR_RELAY_WORKER_URL } from '@hey/data/constants';
+import getProfile from '@hey/lib/getProfile';
+import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import axios from 'axios';
-import { useAppStore } from 'src/store/app';
-import { usePublicationStore } from 'src/store/publication';
+import { useAppStore } from 'src/store/useAppStore';
+import { usePublicationStore } from 'src/store/usePublicationStore';
 
 type CreatePollResponse = string;
 
-const useCreatePoll = (): [createPoll: () => Promise<CreatePollResponse>] => {
+const useCreatePoll = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const pollConfig = usePublicationStore((state) => state.pollConfig);
   const publicationContent = usePublicationStore(
     (state) => state.publicationContent
   );
 
+  // TODO: use useCallback
   const createPoll = async (): Promise<CreatePollResponse> => {
     try {
       const response = await axios.post(
         `${SNAPSHOR_RELAY_WORKER_URL}/createPoll`,
         {
-          title: `Poll by @${currentProfile?.handle}`,
+          title: `Poll by ${getProfile(currentProfile).slugWithPrefix}`,
           description: publicationContent,
           choices: pollConfig.choices,
-          length: pollConfig.length,
-          isMainnet: IS_MAINNET
+          length: pollConfig.length
         },
-        {
-          headers: {
-            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
-          }
-        }
+        { headers: getAuthWorkerHeaders() }
       );
 
       return `${publicationContent}\n\n${response.data.snapshotUrl}`;
@@ -37,7 +34,7 @@ const useCreatePoll = (): [createPoll: () => Promise<CreatePollResponse>] => {
     }
   };
 
-  return [createPoll];
+  return createPoll;
 };
 
 export default useCreatePoll;

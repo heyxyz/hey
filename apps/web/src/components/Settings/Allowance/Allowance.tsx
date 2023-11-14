@@ -1,9 +1,5 @@
-import type {
-  ApprovedAllowanceAmount,
-  ApprovedModuleAllowanceAmountQuery
-} from '@hey/lens';
-import { CollectModules } from '@hey/lens';
-import type { FC } from 'react';
+import type { ApprovedModuleAllowanceAmountQuery } from '@hey/lens';
+import { type FC } from 'react';
 
 import Module from './Module';
 
@@ -14,14 +10,9 @@ interface AllowanceProps {
 const Allowance: FC<AllowanceProps> = ({ allowance }) => {
   return (
     <div className="space-y-4 p-5">
-      {allowance?.approvedModuleAllowanceAmount?.map(
-        (item: ApprovedAllowanceAmount) =>
-          item?.module === CollectModules.RevertCollectModule ? (
-            ''
-          ) : (
-            <Module key={item?.contractAddress} module={item} />
-          )
-      )}
+      {allowance?.approvedModuleAllowanceAmount?.map((item) => (
+        <Module key={item?.moduleContract.address} module={item} />
+      ))}
     </div>
   );
 };

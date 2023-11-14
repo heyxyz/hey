@@ -1,9 +1,8 @@
 import { APP_NAME } from '@hey/data/constants';
-import type { MediaSet, NftImage, Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
-import getStampFyiURL from '@hey/lib/getStampFyiURL';
-import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
+import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import truncateByWords from '@hey/lib/truncateByWords';
 import type { FC } from 'react';
 import { JsonLd } from 'react-schemaorg';
@@ -14,8 +13,8 @@ import SinglePublication from './Shared/SinglePublication';
 import Tags from './Shared/Tags';
 
 interface ProfileProps {
-  profile: Profile & { picture: MediaSet & NftImage };
-  publications: Publication[];
+  profile: Profile;
+  publications: AnyPublication[];
 }
 
 const Profile: FC<ProfileProps> = ({ profile, publications }) => {
@@ -23,15 +22,11 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
     return <DefaultTags />;
   }
 
-  const title = profile?.name
-    ? `${profile?.name} (@${profile?.handle}) • ${APP_NAME}`
-    : `@${profile?.handle} • ${APP_NAME}`;
-  const description = truncateByWords(profile?.bio ?? '', 30);
-  const image = sanitizeDStorageUrl(
-    profile?.picture?.original?.url ??
-      profile?.picture?.uri ??
-      getStampFyiURL(profile?.ownedBy)
-  );
+  const title = `${getProfile(profile).displayName} (${
+    getProfile(profile).slugWithPrefix
+  }) • ${APP_NAME}`;
+  const description = truncateByWords(profile.metadata?.bio ?? '', 30);
+  const image = getAvatar(profile);
 
   return (
     <>
@@ -39,7 +34,7 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
         title={title}
         description={description}
         image={image}
-        url={`${BASE_URL}/u/${formatHandle(profile.handle)}`}
+        url={`${BASE_URL}${getProfile(profile).link}`}
         schema={
           <JsonLd<any>
             item={{
@@ -47,9 +42,9 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
               '@type': 'ProfilePage',
               author: {
                 '@type': 'Person',
-                additionalName: profile.handle,
-                description: profile.bio,
-                givenName: profile.name ?? profile.handle,
+                additionalName: getProfile(profile).slug,
+                description: profile.metadata?.bio,
+                givenName: getProfile(profile).displayName,
                 identifier: profile.id,
                 image: {
                   '@type': 'ImageObject',
@@ -61,22 +56,22 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
                     '@type': 'InteractionCounter',
                     interactionType: 'https://schema.org/FollowAction',
                     name: 'Follows',
-                    userInteractionCount: profile.stats.totalFollowers
+                    userInteractionCount: profile.stats.followers
                   },
                   {
                     '@type': 'InteractionCounter',
                     interactionType: 'https://schema.org/SubscribeAction',
                     name: 'Following',
-                    userInteractionCount: profile.stats.totalFollowing
+                    userInteractionCount: profile.stats.following
                   },
                   {
                     '@type': 'InteractionCounter',
                     interactionType: 'https://schema.org/WriteAction',
                     name: 'Posts',
-                    userInteractionCount: profile.stats.totalPosts
+                    userInteractionCount: profile.stats.posts
                   }
                 ],
-                url: `https://hey.xyz/u/${profile.handle}}`
+                url: `https://hey.xyz/${getProfile(profile).slug}}`
               }
             }}
           />
@@ -84,72 +79,56 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
       />
       <header>
         <img
-          alt={`@${formatHandle(profile.handle)}'s avatar`}
+          alt={`${getProfile(profile).slugWithPrefix}'s avatar`}
           src={image}
           width="64"
         />
-        <h1 data-testid="profile-name">{profile.name ?? profile.handle}</h1>
-        <h2 data-testid="profile-handle">@{formatHandle(profile.handle)}</h2>
-        <h3 data-testid="profile-bio">
-          {truncateByWords(profile?.bio ?? '', 30)}
-        </h3>
+        <h1>{getProfile(profile).displayName}</h1>
+        <h2>{getProfile(profile).slugWithPrefix}</h2>
+        <h3>{truncateByWords(profile.metadata?.bio ?? '', 30)}</h3>
         <div>
-          <div>{profile.stats.totalPosts} Posts</div>
-          <div>{profile.stats.totalComments} Replies</div>
-          <div>{profile.stats.totalFollowing} Following</div>
-          <div>{profile.stats.totalFollowers} Followers</div>
-          <div>{profile.stats.totalMirrors} Mirrors</div>
+          <div>{profile.stats.posts} Posts</div>
+          <div>{profile.stats.comments} Replies</div>
+          <div>{profile.stats.following} Following</div>
+          <div>{profile.stats.followers} Followers</div>
+          <div>{profile.stats.mirrors} Mirrors</div>
         </div>
         <hr />
         <nav>
           <div>
-            <a href={`${BASE_URL}/u/${formatHandle(profile.handle)}`}>Feed</a>
+            <a href={`${BASE_URL}${getProfile(profile).link}`}>Feed</a>
           </div>
           <div>
-            <a
-              href={`${BASE_URL}/u/${formatHandle(
-                profile.handle
-              )}?type=replies`}
-            >
+            <a href={`${BASE_URL}${getProfile(profile).link}?type=replies`}>
               Replies
             </a>
           </div>
           <div>
-            <a
-              href={`${BASE_URL}/u/${formatHandle(profile.handle)}?type=media`}
-            >
+            <a href={`${BASE_URL}${getProfile(profile).link}?type=media`}>
               Media
             </a>
           </div>
           <div>
-            <a
-              href={`${BASE_URL}/u/${formatHandle(
-                profile.handle
-              )}?type=collects`}
-            >
+            <a href={`${BASE_URL}${getProfile(profile).link}?type=collects`}>
               Collected
             </a>
           </div>
           <div>
-            <a
-              href={`${BASE_URL}/u/${formatHandle(
-                profile.handle
-              )}?type=gallery`}
-            >
+            <a href={`${BASE_URL}${getProfile(profile).link}?type=gallery`}>
               Gallery
             </a>
           </div>
         </nav>
         <hr />
       </header>
-      <div data-testid="profile-feed">
+      <div>
         {publications?.map((publication) => {
           const { __typename } = publication;
           return (
             <div
               key={
                 __typename === 'Mirror'
-                  ? publication.mirrorOf.id
+                  ? publication.mirrorOn.id
                   : publication.id
               }
             >

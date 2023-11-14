@@ -7,26 +7,25 @@ import { HOME } from '@hey/data/tracking';
 import type {
   FeedItem,
   FeedRequest,
-  Profile,
-  ProfileSearchResult
+  PaginatedProfileResult,
+  Profile
 } from '@hey/lens';
 import {
-  CustomFiltersTypes,
-  SearchRequestTypes,
-  useSearchProfilesLazyQuery,
-  useSeeThroughProfilesLazyQuery
+  CustomFiltersType,
+  LimitType,
+  useFeedLazyQuery,
+  useSearchProfilesLazyQuery
 } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import { Image, Input, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { ChangeEvent, FC } from 'react';
 import { Fragment, useState } from 'react';
-import { useAppStore } from 'src/store/app';
-import { useTimelineStore } from 'src/store/timeline';
+import { useAppStore } from 'src/store/useAppStore';
+import { useTimelineStore } from 'src/store/useTimelineStore';
 
 const SeeThroughLens: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -45,13 +44,13 @@ const SeeThroughLens: FC = () => {
     let uniqueProfileIds: string[] = [];
     let profiles: Profile[] = [];
     for (const feedItem of feedItems) {
-      const profileId = feedItem.root?.profile.id;
+      const profileId = feedItem.root.by.id;
       if (
         !uniqueProfileIds.includes(profileId) &&
         profileId !== seeThroughProfile?.id &&
         profileId !== currentProfile?.id
       ) {
-        profiles.push(feedItem.root?.profile as Profile);
+        profiles.push(feedItem.root.by as Profile);
         uniqueProfileIds.push(profileId);
       }
     }
@@ -59,19 +58,18 @@ const SeeThroughLens: FC = () => {
   };
 
   const profile = seeThroughProfile ?? currentProfile;
-  const request: FeedRequest = { profileId: profile?.id, limit: 50 };
+  const request: FeedRequest = { where: { for: profile?.id } };
 
   const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] =
     useSearchProfilesLazyQuery();
 
-  const [fetchRecommendedProfiles, { loading, error }] =
-    useSeeThroughProfilesLazyQuery({
-      variables: { request },
-      onCompleted: ({ feed }) => {
-        const feedItems = feed?.items as FeedItem[];
-        setRecommendedProfiles(feedItems);
-      }
-    });
+  const [fetchRecommendedProfiles, { loading, error }] = useFeedLazyQuery({
+    variables: { request },
+    onCompleted: ({ feed }) => {
+      const feedItems = feed?.items as FeedItem[];
+      setRecommendedProfiles(feedItems);
+    }
+  });
 
   const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
     const keyword = evt.target.value;
@@ -79,16 +77,17 @@ const SeeThroughLens: FC = () => {
     searchUsers({
       variables: {
         request: {
-          type: SearchRequestTypes.Profile,
+          where: {
+            customFilters: [CustomFiltersType.Gardeners]
+          },
           query: keyword,
-          customFilters: [CustomFiltersTypes.Gardeners],
-          limit: 5
+          limit: LimitType.TwentyFive
         }
       }
     });
   };
 
-  const search = searchUsersData?.search as ProfileSearchResult;
+  const search = searchUsersData?.searchProfiles as PaginatedProfileResult;
   const searchProfiles = search?.items ?? [];
   const recommendedProfiles = recommendedProfilesToSeeThrough ?? [];
 
@@ -101,7 +100,7 @@ const SeeThroughLens: FC = () => {
     <Menu as="div" className="relative">
       <Menu.Button as={Fragment}>
         <button
-          className="flex items-center space-x-1 rounded-md p-1 text-sm hover:bg-gray-300/20"
+          className="outline-brand-500 flex items-center space-x-1 rounded-md p-1 text-sm hover:bg-gray-300/20"
           onClick={() => fetchRecommendedProfiles()}
         >
           <Image
@@ -110,12 +109,10 @@ const SeeThroughLens: FC = () => {
             width={20}
             height={20}
             className="h-5 w-5 rounded-full border bg-gray-200 dark:border-gray-700"
-            alt={formatHandle(profile?.handle)}
+            alt={profile?.id}
           />
           <span>
-            {seeThroughProfile
-              ? `@${formatHandle(profile?.handle)}`
-              : t`My Feed`}
+            {seeThroughProfile ? getProfile(profile).slugWithPrefix : 'My Feed'}
           </span>
           <ChevronDownIcon className="h-4 w-4" />
         </button>
@@ -125,14 +122,12 @@ const SeeThroughLens: FC = () => {
           static
           className="absolute right-0 z-[5] mt-1 w-64 rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
         >
-          <div className="px-3 pt-2 text-xs">
-            <Trans>👀 See the feed through...</Trans>
-          </div>
+          <div className="px-3 pt-2 text-xs">👀 See the feed through...</div>
           <div className="p-2">
             <Input
               type="text"
               className="px-3 py-2 text-sm"
-              placeholder={t`Search`}
+              placeholder="Search"
               value={searchText}
               autoComplete="off"
               iconRight={
@@ -152,16 +147,14 @@ const SeeThroughLens: FC = () => {
               className="mb-2 mt-1 w-full bg-gray-200 px-3 py-2 text-left text-sm outline-none dark:bg-gray-700"
               onClick={() => setSeeThroughProfile(null)}
             >
-              <Trans>Reset filter to your own feed</Trans>
+              Reset filter to your own feed
             </button>
           )}
           <div className="mx-2 mb-2">
             {searchUsersLoading || loading ? (
               <div className="space-y-2 px-4 py-2 text-center text-sm font-bold">
                 <Spinner size="sm" className="mx-auto" />
-                <div>
-                  <Trans>Searching users</Trans>
-                </div>
+                <div>Searching users</div>
               </div>
             ) : (
               <>
@@ -177,7 +170,7 @@ const SeeThroughLens: FC = () => {
                         'cursor-pointer overflow-hidden rounded-lg p-1'
                       )
                     }
-                    key={profile?.handle}
+                    key={profile.id}
                     onClick={() => {
                       setSeeThroughProfile(profile);
                       setSearchText('');
@@ -194,9 +187,7 @@ const SeeThroughLens: FC = () => {
                   </Menu.Item>
                 ))}
                 {profiles.length === 0 || error ? (
-                  <div className="py-4 text-center">
-                    <Trans>No matching users</Trans>
-                  </div>
+                  <div className="py-4 text-center">No matching users</div>
                 ) : null}
               </>
             )}

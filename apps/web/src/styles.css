@@ -38,23 +38,9 @@ progress::-moz-progress-bar {
   @apply m-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm text-gray-700 dark:text-gray-200;
 }
 
-.text-brand {
-  @apply text-brand-500 dark:text-brand-400/80;
-}
-
 .linkify a {
-  @apply text-brand;
+  @apply text-brand-500;
   @apply hover:text-brand-600 dark:hover:text-brand-500;
-}
-
-.linkify-message a {
-  @apply hover:decoration-2;
-  @apply underline;
-}
-
-/* Override slug color */
-.linkify-message .text-transparent {
-  @apply text-inherit;
 }
 
 .tab-bg {
@@ -108,7 +94,7 @@ progress::-moz-progress-bar {
   @apply border-b dark:border-gray-700;
 }
 
-.lt-text-gray-500 {
+.ld-text-gray-500 {
   @apply text-gray-500 dark:text-gray-200;
 }
 
@@ -139,7 +125,7 @@ iframe {
 }
 
 .toolbar-icons button {
-  @apply hover:bg-brand-100 text-brand rounded-lg p-1.5;
+  @apply hover:bg-brand-100 text-brand-500 rounded-lg p-1.5;
 }
 
 .toolbar-icon {

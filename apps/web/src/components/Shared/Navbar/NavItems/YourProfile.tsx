@@ -1,7 +1,6 @@
 import { UserIcon } from '@heroicons/react/24/outline';
 import cn from '@hey/ui/cn';
-import { Trans } from '@lingui/macro';
-import type { FC } from 'react';
+import { type FC } from 'react';
 
 interface YourProfileProps {
   className?: string;
@@ -15,12 +14,8 @@ const YourProfile: FC<YourProfileProps> = ({ className = '' }) => {
         className
       )}
     >
-      <div>
-        <UserIcon className="h-4 w-4" />
-      </div>
-      <div>
-        <Trans>Your profile</Trans>
-      </div>
+      <UserIcon className="h-4 w-4" />
+      <div>Your profile</div>
     </div>
   );
 };

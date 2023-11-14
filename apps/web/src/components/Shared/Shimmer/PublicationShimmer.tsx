@@ -1,5 +1,5 @@
 import cn from '@hey/ui/cn';
-import type { FC } from 'react';
+import { type FC } from 'react';
 
 import SmallUserProfileShimmer from './SmallUserProfileShimmer';
 import UserProfileShimmer from './UserProfileShimmer';
@@ -15,7 +15,7 @@ const PublicationShimmer: FC<PublicationShimmerProps> = ({
 }) => {
   return (
     <div className="space-y-4 p-5">
-      <div className="flex justify-between">
+      <div className="flex items-center justify-between">
         {quoted ? <SmallUserProfileShimmer /> : <UserProfileShimmer />}
         <div className="shimmer h-5 w-5 rounded-lg" />
       </div>

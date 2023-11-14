@@ -2,7 +2,7 @@ import { GIPHY_KEY } from '@hey/data/constants';
 import type { Category } from '@hey/types/giphy';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import type { FC } from 'react';
+import { type FC } from 'react';
 
 interface CategoriesProps {
   setSearchText: (searchText: string) => void;
@@ -22,12 +22,13 @@ const Categories: FC<CategoriesProps> = ({ setSearchText }) => {
     }
   };
 
-  const { data: categories } = useQuery(['gifCategories'], () =>
-    fetchGiphyCategories().then((res) => res)
-  );
+  const { data: categories } = useQuery({
+    queryKey: ['fetchGiphyCategories'],
+    queryFn: fetchGiphyCategories
+  });
 
   return (
-    <div className="grid w-full w-full grid-cols-2 gap-1 overflow-y-auto">
+    <div className="grid w-full grid-cols-2 gap-1 overflow-y-auto">
       {categories?.map((category: Category) => (
         <button
           type="button"

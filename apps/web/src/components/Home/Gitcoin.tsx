@@ -2,7 +2,6 @@ import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { MISCELLANEOUS } from '@hey/data/tracking';
 import { Card } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 
@@ -19,7 +18,7 @@ const Gitcoin: FC = () => {
       />
       <div className="space-y-3 text-center text-sm">
         <div className="font-bold">
-          Support {APP_NAME} on Gitcoin Grants Round 18
+          Support {APP_NAME} on Gitcoin Grants Round 19
         </div>
         <div>
           <Link
@@ -28,7 +27,7 @@ const Gitcoin: FC = () => {
             target="_blank"
             onClick={() => Leafwatch.track(MISCELLANEOUS.OPEN_GITCOIN)}
           >
-            <Trans>Contribute now</Trans>
+            Contribute now
           </Link>
         </div>
       </div>

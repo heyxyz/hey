@@ -403,6 +403,7 @@ export type Space = {
   categories?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   children?: Maybe<Array<Maybe<Space>>>;
   coingecko?: Maybe<Scalars['String']['output']>;
+  created: Scalars['Int']['output'];
   delegationPortal?: Maybe<DelegationPortal>;
   domain?: Maybe<Scalars['String']['output']>;
   email?: Maybe<Scalars['String']['output']>;
@@ -412,6 +413,7 @@ export type Space = {
   followersCount7d?: Maybe<Scalars['Int']['output']>;
   github?: Maybe<Scalars['String']['output']>;
   guidelines?: Maybe<Scalars['String']['output']>;
+  hibernated?: Maybe<Scalars['Boolean']['output']>;
   id: Scalars['String']['output'];
   location?: Maybe<Scalars['String']['output']>;
   members?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
@@ -459,6 +461,12 @@ export type SpaceVoting = {
 };
 
 export type SpaceWhere = {
+  created?: InputMaybe<Scalars['Int']['input']>;
+  created_gt?: InputMaybe<Scalars['Int']['input']>;
+  created_gte?: InputMaybe<Scalars['Int']['input']>;
+  created_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  created_lt?: InputMaybe<Scalars['Int']['input']>;
+  created_lte?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
   id_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
@@ -732,9 +740,24 @@ export function useProposalLazyQuery(
     options
   );
 }
+export function useProposalSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    ProposalQuery,
+    ProposalQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<ProposalQuery, ProposalQueryVariables>(
+    ProposalDocument,
+    options
+  );
+}
 export type ProposalQueryHookResult = ReturnType<typeof useProposalQuery>;
 export type ProposalLazyQueryHookResult = ReturnType<
   typeof useProposalLazyQuery
+>;
+export type ProposalSuspenseQueryHookResult = ReturnType<
+  typeof useProposalSuspenseQuery
 >;
 export type ProposalQueryResult = Apollo.QueryResult<
   ProposalQuery,

@@ -1,0 +1,10 @@
+mutation ActOnOpenAction($request: ActOnOpenActionLensManagerRequest!) {
+  actOnOpenAction(request: $request) {
+    ... on RelaySuccess {
+      txId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
+    }
+  }
+}

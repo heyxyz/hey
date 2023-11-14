@@ -5,21 +5,30 @@ import {
   PhotoIcon,
   VideoCameraIcon
 } from '@heroicons/react/24/outline';
-import {
-  ALLOWED_AUDIO_TYPES,
-  ALLOWED_IMAGE_TYPES,
-  ALLOWED_MEDIA_TYPES,
-  ALLOWED_VIDEO_TYPES
-} from '@hey/data/constants';
 import { Spinner, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { t } from '@lingui/macro';
+import {
+  MediaAudioMimeType,
+  MediaImageMimeType
+} from '@lens-protocol/metadata';
+import { motion } from 'framer-motion';
 import type { ChangeEvent, FC } from 'react';
-import { Fragment, useId, useRef, useState } from 'react';
+import { useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import useUploadAttachments from 'src/hooks/useUploadAttachments';
-import { usePublicationStore } from 'src/store/publication';
+import { usePublicationStore } from 'src/store/usePublicationStore';
 import { useOnClickOutside } from 'usehooks-ts';
+
+const ImageMimeType = Object.values(MediaImageMimeType);
+const AudioMimeType = Object.values(MediaAudioMimeType);
+const VideoMimeType = [
+  'video/mp4',
+  'video/mpeg',
+  'video/ogg',
+  'video/webm',
+  'video/quicktime'
+];
+
 const Attachment: FC = () => {
   const attachments = usePublicationStore((state) => state.attachments);
   const isUploading = usePublicationStore((state) => state.isUploading);
@@ -31,8 +40,14 @@ const Attachment: FC = () => {
   useOnClickOutside(dropdownRef, () => setShowMenu(false));
 
   const isTypeAllowed = (files: FileList) => {
+    const allowedTypes = [
+      ...ImageMimeType,
+      ...AudioMimeType,
+      ...VideoMimeType
+    ] as string[];
+
     for (const file of files) {
-      if (ALLOWED_MEDIA_TYPES.includes(file.type)) {
+      if (allowedTypes.includes(file.type)) {
         return true;
       }
     }
@@ -49,9 +64,7 @@ const Attachment: FC = () => {
   };
 
   const disableImageUpload = () => {
-    const notImage =
-      attachments[0] &&
-      attachments[0].original.mimeType.slice(0, 5) !== 'image';
+    const notImage = attachments[0] && attachments[0].type !== 'Image';
     const isLimit = !notImage && attachments.length >= 4;
     return notImage || isLimit;
   };
@@ -63,32 +76,36 @@ const Attachment: FC = () => {
     try {
       const { files } = evt.target;
       if (!isUploadAllowed(files as FileList)) {
-        toast.error(t`Exceeded max limit of 1 audio, or 1 video, or 4 images`);
+        toast.error('Exceeded max limit of 1 audio, or 1 video, or 4 images');
         return;
       }
       if (isTypeAllowed(files as FileList)) {
         await handleUploadAttachments(files);
         evt.target.value = '';
       } else {
-        return toast.error(t`File format not allowed.`);
+        return toast.error('File format not allowed.');
       }
     } catch {
-      toast.error(t`Something went wrong while uploading!`);
+      toast.error('Something went wrong while uploading!');
     }
   };
 
   return (
     <Menu as="div">
-      <Menu.Button as={Fragment}>
-        <button onClick={() => setShowMenu(!showMenu)} aria-label="More">
-          {isUploading ? (
-            <Spinner size="sm" />
-          ) : (
-            <Tooltip placement="top" content={t`Media`}>
-              <PhotoIcon className="text-brand h-5 w-5" />
-            </Tooltip>
-          )}
-        </button>
+      <Menu.Button
+        as={motion.button}
+        className="outline-brand-500 rounded-full outline-offset-8"
+        whileTap={{ scale: 0.9 }}
+        onClick={() => setShowMenu(!showMenu)}
+        aria-label="More"
+      >
+        {isUploading ? (
+          <Spinner size="sm" />
+        ) : (
+          <Tooltip placement="top" content="Media">
+            <PhotoIcon className="text-brand-500 h-5 w-5" />
+          </Tooltip>
+        )}
       </Menu.Button>
       <MenuTransition show={showMenu}>
         <Menu.Items
@@ -107,13 +124,13 @@ const Attachment: FC = () => {
             }
             htmlFor={`image_${id}`}
           >
-            <PhotoIcon className="text-brand h-4 w-4" />
+            <PhotoIcon className="text-brand-500 h-4 w-4" />
             <span className="text-sm">Upload image(s)</span>
             <input
               id={`image_${id}`}
               type="file"
               multiple
-              accept={ALLOWED_IMAGE_TYPES.join(',')}
+              accept={ImageMimeType.join(',')}
               className="hidden"
               onChange={handleAttachment}
               disabled={disableImageUpload()}
@@ -130,12 +147,12 @@ const Attachment: FC = () => {
             }
             htmlFor={`video_${id}`}
           >
-            <VideoCameraIcon className="text-brand h-4 w-4" />
+            <VideoCameraIcon className="text-brand-500 h-4 w-4" />
             <span className="text-sm">Upload video</span>
             <input
               id={`video_${id}`}
               type="file"
-              accept={ALLOWED_VIDEO_TYPES.join(',')}
+              accept={VideoMimeType.join(',')}
               className="hidden"
               onChange={handleAttachment}
               disabled={Boolean(attachments.length)}
@@ -152,12 +169,12 @@ const Attachment: FC = () => {
             }
             htmlFor={`audio_${id}`}
           >
-            <MusicalNoteIcon className="text-brand h-4 w-4" />
+            <MusicalNoteIcon className="text-brand-500 h-4 w-4" />
             <span className="text-sm">Upload audio</span>
             <input
               id={`audio_${id}`}
               type="file"
-              accept={ALLOWED_AUDIO_TYPES.join(',')}
+              accept={AudioMimeType.join(',')}
               className="hidden"
               onChange={handleAttachment}
               disabled={Boolean(attachments.length)}

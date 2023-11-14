@@ -1,0 +1,34 @@
+mutation CreateActOnOpenActionTypedData(
+  $options: TypedDataOptions
+  $request: ActOnOpenActionRequest!
+) {
+  createActOnOpenActionTypedData(options: $options, request: $request) {
+    id
+    expiresAt
+    typedData {
+      types {
+        Act {
+          name
+          type
+        }
+      }
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      value {
+        nonce
+        deadline
+        publicationActedProfileId
+        publicationActedId
+        actorProfileId
+        referrerProfileIds
+        referrerPubIds
+        actionModuleAddress
+        actionModuleData
+      }
+    }
+  }
+}

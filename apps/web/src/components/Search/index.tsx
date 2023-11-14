@@ -4,7 +4,6 @@ import { PencilSquareIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Custom404 from 'src/pages/404';
@@ -35,13 +34,13 @@ const Search: NextPage = () => {
           <Sidebar
             items={[
               {
-                title: t`Publications`,
+                title: 'Publications',
                 icon: <PencilSquareIcon className="h-4 w-4" />,
                 url: `/search?q=${searchText}&type=pubs`,
                 active: query.type === 'pubs'
               },
               {
-                title: t`Profiles`,
+                title: 'Profiles',
                 icon: <UsersIcon className="h-4 w-4" />,
                 url: `/search?q=${searchText}&type=profiles`,
                 active: query.type === 'profiles'
@@ -50,8 +49,12 @@ const Search: NextPage = () => {
           />
         </GridItemFour>
         <GridItemEight>
-          {query.type === 'profiles' ? <Profiles query={query.q} /> : null}
-          {query.type === 'pubs' ? <Publications query={query.q} /> : null}
+          {query.type === 'profiles' ? (
+            <Profiles query={query.q as string} />
+          ) : null}
+          {query.type === 'pubs' ? (
+            <Publications query={query.q as string} />
+          ) : null}
         </GridItemEight>
       </GridLayout>
     </>

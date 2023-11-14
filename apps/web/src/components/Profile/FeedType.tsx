@@ -10,20 +10,17 @@ import { IS_MAINNET } from '@hey/data/constants';
 import { PROFILE } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
-import type { Dispatch, FC, SetStateAction } from 'react';
+import { type FC } from 'react';
 import { ProfileFeedType } from 'src/enums';
 
 import MediaFilter from './Filters/MediaFilter';
 
 interface FeedTypeProps {
-  setFeedType: Dispatch<SetStateAction<string>>;
   feedType: string;
 }
 
-const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
+const FeedType: FC<FeedTypeProps> = ({ feedType }) => {
   const switchTab = (type: string) => {
-    setFeedType(type);
     if (type === ProfileFeedType.Stats.toLowerCase()) {
       Leafwatch.track(PROFILE.SWITCH_PROFILE_STATS_TAB);
     } else {
@@ -37,35 +34,35 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
     <div className="flex items-center justify-between">
       <div className="mt-3 flex gap-3 overflow-x-auto px-5 pb-2 sm:mt-0 sm:px-0 md:pb-0">
         <TabButton
-          name={t`Feed`}
+          name="Feed"
           icon={<PencilSquareIcon className="h-4 w-4" />}
           active={feedType === ProfileFeedType.Feed}
           type={ProfileFeedType.Feed.toLowerCase()}
           onClick={() => switchTab(ProfileFeedType.Feed)}
         />
         <TabButton
-          name={t`Replies`}
+          name="Replies"
           icon={<ChatBubbleLeftRightIcon className="h-4 w-4" />}
           active={feedType === ProfileFeedType.Replies}
           type={ProfileFeedType.Replies.toLowerCase()}
           onClick={() => switchTab(ProfileFeedType.Replies)}
         />
         <TabButton
-          name={t`Media`}
+          name="Media"
           icon={<FilmIcon className="h-4 w-4" />}
           active={feedType === ProfileFeedType.Media}
           type={ProfileFeedType.Media.toLowerCase()}
           onClick={() => switchTab(ProfileFeedType.Media)}
         />
         <TabButton
-          name={t`Collected`}
+          name="Collected"
           icon={<RectangleStackIcon className="h-4 w-4" />}
           active={feedType === ProfileFeedType.Collects}
           type={ProfileFeedType.Collects.toLowerCase()}
           onClick={() => switchTab(ProfileFeedType.Collects)}
         />
         <TabButton
-          name={t`Gallery`}
+          name="Gallery"
           icon={<RectangleGroupIcon className="h-4 w-4" />}
           active={feedType === ProfileFeedType.Gallery}
           type={ProfileFeedType.Gallery.toLowerCase()}
@@ -73,7 +70,7 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
         />
         {IS_MAINNET ? (
           <TabButton
-            name={t`Stats`}
+            name="Stats"
             icon={<ChartBarIcon className="h-4 w-4" />}
             active={feedType === ProfileFeedType.Stats}
             type={ProfileFeedType.Stats.toLowerCase()}

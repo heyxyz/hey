@@ -1,0 +1,16 @@
+fragment AudioMetadataV3Fields on AudioMetadataV3 {
+  id
+  rawURI
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  asset {
+    ...PublicationMetadataMediaAudioFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  title
+  content
+}

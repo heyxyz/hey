@@ -1,13 +1,12 @@
 {
   "name": "hey",
-  "version": "2.0.0-beta",
+  "version": "3.0.0-beta",
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
     "build": "turbo run build --parallel",
     "codegen": "turbo run codegen --parallel",
     "dev": "turbo run dev --parallel",
-    "i18n:extract": "turbo run extract",
     "lint": "turbo run lint --parallel",
     "lint:affected": "turbo run lint --parallel --filter=[origin/main]",
     "lint:fix": "turbo run lint:fix --parallel",
@@ -17,7 +16,7 @@
     "prettier:fix": "turbo run prettier:fix --parallel",
     "start": "turbo run start --parallel",
     "test:dev": "turbo run test:dev",
-    "test:e2e": "start-server-and-test start '8083|8086|8087|8091' test:dev",
+    "test:e2e": "start-server-and-test start '8083|8085|8086|8089' test:dev",
     "typecheck": "turbo run typecheck --parallel",
     "typecheck:affected": "turbo run typecheck --parallel --filter=[origin/main]",
     "workers:deploy": "turbo run worker:deploy --parallel"
@@ -28,9 +27,9 @@
   "devDependencies": {
     "husky": "^8.0.3",
     "prettier": "^3.0.3",
-    "prettier-plugin-tailwindcss": "^0.5.6",
-    "start-server-and-test": "^2.0.1",
-    "turbo": "^1.10.15"
+    "prettier-plugin-tailwindcss": "^0.5.7",
+    "start-server-and-test": "^2.0.2",
+    "turbo": "^1.10.16"
   },
   "packageManager": "pnpm@8.6.11",
   "engines": {

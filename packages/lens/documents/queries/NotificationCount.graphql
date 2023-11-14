@@ -1,7 +1,0 @@
-query NotificationCount($request: NotificationRequest!) {
-  notifications(request: $request) {
-    pageInfo {
-      totalCount
-    }
-  }
-}

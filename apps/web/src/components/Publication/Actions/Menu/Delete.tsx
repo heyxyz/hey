@@ -1,13 +1,13 @@
 import { Menu } from '@headlessui/react';
 import { TrashIcon } from '@heroicons/react/24/outline';
-import type { Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
-import type { FC } from 'react';
-import { useGlobalAlertStateStore } from 'src/store/alerts';
+import { type FC } from 'react';
+import { useGlobalAlertStateStore } from 'src/store/useGlobalAlertStateStore';
 
 interface DeleteProps {
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const Delete: FC<DeleteProps> = ({ publication }) => {

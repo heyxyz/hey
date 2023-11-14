@@ -1,0 +1,10 @@
+query WhoHaveBlocked($request: WhoHaveBlockedRequest!) {
+  whoHaveBlocked(request: $request) {
+    items {
+      ...ListProfileFields
+    }
+    pageInfo {
+      next
+    }
+  }
+}

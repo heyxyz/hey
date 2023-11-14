@@ -1,17 +1,17 @@
-import Mint from '@components/Publication/OpenActions/Nft/ZoraNft/Mint';
+import Mint from '@components/Publication/HeyOpenActions/Nft/ZoraNft/Mint';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
-import { Localstorage } from '@hey/data/storage';
 import { MISCELLANEOUS, PUBLICATION } from '@hey/data/tracking';
 import type { MembershipNft } from '@hey/types/hey';
 import { Button, Card, Modal } from '@hey/ui';
+import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
-import { type FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useZoraNft from 'src/hooks/zora/useZoraNft';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 import { useQuery } from 'wagmi';
 
 const HeyMembershipNft: FC = () => {
@@ -24,9 +24,12 @@ const HeyMembershipNft: FC = () => {
     token: ''
   });
 
-  const fetchPreferences = async (): Promise<MembershipNft> => {
+  const fetchHeyMemberNftStatus = async (): Promise<MembershipNft> => {
     const response = await axios.get(
-      `${PREFERENCES_WORKER_URL}/getHeyMemberNftStatus/${currentProfile?.ownedBy}`
+      `${PREFERENCES_WORKER_URL}/getHeyMemberNftStatus`,
+      {
+        params: { id: currentProfile?.ownedBy.address }
+      }
     );
     const { data } = response;
 
@@ -34,9 +37,9 @@ const HeyMembershipNft: FC = () => {
   };
 
   const { data, isLoading, refetch } = useQuery(
-    ['getHeyMemberNftStatus', currentProfile?.id],
-    () => fetchPreferences(),
-    { enabled: Boolean(currentProfile?.id) }
+    ['getHeyMemberNftStatus', currentProfile?.ownedBy.address],
+    () => fetchHeyMemberNftStatus(),
+    { enabled: Boolean(currentProfile?.ownedBy.address) }
   );
 
   if (isLoading) {
@@ -54,24 +57,17 @@ const HeyMembershipNft: FC = () => {
       toast.promise(
         axios.post(
           `${PREFERENCES_WORKER_URL}/updateHeyMemberNftStatus`,
-          {
-            id: currentProfile?.ownedBy,
-            dismissedOrMinted: true
-          },
-          {
-            headers: {
-              'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
-            }
-          }
+          undefined,
+          { headers: getAuthWorkerHeaders() }
         ),
         {
-          loading: t`Updating...`,
+          loading: 'Updating...',
           success: () => {
             refetch();
             setShowMintModal(false);
-            return t`Updated!`;
+            return 'Updated!';
           },
-          error: t`Error updating.`
+          error: 'Error updating.'
         }
       );
     } catch {}
@@ -80,7 +76,7 @@ const HeyMembershipNft: FC = () => {
   return (
     <Card
       as="aside"
-      className="text-brand dark:bg-brand-10/50 !border-brand-500 !bg-brand-50 mb-4"
+      className="text-brand-500 dark:bg-brand-10/50 !border-brand-500 !bg-brand-50 mb-4"
     >
       <img
         src="https://ipfs.decentralized-content.com/ipfs/bafybeib6infyovvtawokys4ejjr4r3qk4soy7jqriejp2wbmttedupsy64"
@@ -89,13 +85,11 @@ const HeyMembershipNft: FC = () => {
       />
       <div className="p-5">
         <div className="mb-1 font-bold">
-          <Trans>Hey Buddy! Grab your special Hey NFT Here.</Trans>
+          Hey Buddy! Grab your special Hey NFT Here.
         </div>
         <div className="text-brand-400 mb-4">
-          <Trans>
-            New or OG, this NFT's for our epic times together. Let's keep the
-            vibe alive!
-          </Trans>
+          New or OG, this NFT's for our epic times together. Let's keep the vibe
+          alive!
         </div>
         <div className="flex flex-col items-center space-y-1.5">
           <Button
@@ -108,12 +102,12 @@ const HeyMembershipNft: FC = () => {
             }}
             disabled={loading}
           >
-            <Trans>Mint now</Trans>
+            Mint now
           </Button>
           <Modal
-            title={t`Mint`}
+            title="Mint"
             show={showMintModal}
-            icon={<CursorArrowRaysIcon className="text-brand h-5 w-5" />}
+            icon={<CursorArrowRaysIcon className="text-brand-500 h-5 w-5" />}
             onClose={() => setShowMintModal(false)}
           >
             <Mint

@@ -1,7 +1,7 @@
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { PAGEVIEW, PUBLICATION } from '@hey/data/tracking';
-import type { Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import { useReportPublicationMutation } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import {
@@ -14,7 +14,6 @@ import {
   useZodForm
 } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
@@ -24,12 +23,12 @@ import Reason from './Reason';
 
 const newReportPublicationSchema = object({
   additionalComments: string().max(260, {
-    message: t`Additional comments should not exceed 260 characters`
+    message: 'Additional comments should not exceed 260 characters'
   })
 });
 
 interface ReportProps {
-  publication: Publication | null;
+  publication: AnyPublication | null;
 }
 
 const ReportPublication: FC<ReportProps> = ({ publication }) => {
@@ -59,7 +58,7 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
     createReport({
       variables: {
         request: {
-          publicationId: publication?.id,
+          for: publication?.id,
           reason: {
             [type]: {
               reason: type.replace('Reason', '').toUpperCase(),
@@ -73,10 +72,10 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
   };
 
   return (
-    <div onClick={stopEventPropagation} aria-hidden="true">
+    <div onClick={stopEventPropagation}>
       {submitData?.reportPublication === null ? (
         <EmptyState
-          message={t`Publication reported successfully!`}
+          message="Publication reported successfully!"
           icon={<CheckCircleIcon className="h-14 w-14 text-green-500" />}
           hideCard
         />
@@ -85,12 +84,12 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
           <Form
             form={form}
             className="space-y-4"
-            onSubmit={({ additionalComments }) => {
-              reportPublication(additionalComments);
-            }}
+            onSubmit={({ additionalComments }) =>
+              reportPublication(additionalComments)
+            }
           >
             {submitError ? (
-              <ErrorMessage title={t`Failed to report`} error={submitError} />
+              <ErrorMessage title="Failed to report" error={submitError} />
             ) : null}
             <Reason
               setType={setType}
@@ -101,8 +100,8 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
             {subReason ? (
               <>
                 <TextArea
-                  label={t`Description`}
-                  placeholder={t`Please provide additional details`}
+                  label="Description"
+                  placeholder="Please provide additional details"
                   {...form.register('additionalComments')}
                 />
                 <Button
@@ -117,7 +116,7 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
                     )
                   }
                 >
-                  <Trans>Report</Trans>
+                  Report
                 </Button>
               </>
             ) : null}

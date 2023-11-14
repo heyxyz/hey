@@ -1,49 +1,41 @@
 import { BoltIcon as BoltIconOutline } from '@heroicons/react/24/outline';
 import { BoltIcon as BoltIconSolid } from '@heroicons/react/24/solid';
-import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
-import { Localstorage } from '@hey/data/storage';
+import { FEATURES_WORKER_URL } from '@hey/data/constants';
 import { GARDENER } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
+import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
-import type { FC } from 'react';
+import { type FC } from 'react';
 import { toast } from 'react-hot-toast';
-import { useAppStore } from 'src/store/app';
-import { usePreferencesStore } from 'src/store/preferences';
+import { useFeatureFlagsStore } from 'src/store/useFeatureFlagsStore';
 
 interface ModModeProps {
   className?: string;
 }
 
 const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-  const gardenerMode = usePreferencesStore((state) => state.gardenerMode);
-  const setGardenerMode = usePreferencesStore((state) => state.setGardenerMode);
+  const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
+  const setGardenerMode = useFeatureFlagsStore(
+    (state) => state.setGardenerMode
+  );
 
   const toggleModMode = () => {
     toast.promise(
       axios.post(
-        `${PREFERENCES_WORKER_URL}/gardenerMode`,
-        {
-          id: currentProfile?.id,
-          enabled: !gardenerMode
-        },
-        {
-          headers: {
-            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
-          }
-        }
+        `${FEATURES_WORKER_URL}/updateGardenerMode`,
+        { enabled: !gardenerMode },
+        { headers: getAuthWorkerHeaders() }
       ),
       {
-        loading: t`Toggling gardener mode...`,
+        loading: 'Toggling gardener mode...',
         success: () => {
           setGardenerMode(!gardenerMode);
           Leafwatch.track(GARDENER.TOGGLE_MODE);
 
-          return t`Gardener mode toggled!`;
+          return 'Gardener mode toggled!';
         },
-        error: t`Failed to toggle gardener mode!`
+        error: 'Failed to toggle gardener mode!'
       }
     );
   };
@@ -61,9 +53,7 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
       ) : (
         <BoltIconOutline className="h-4 w-4 text-red-500" />
       )}
-      <div>
-        <Trans>Gardener mode</Trans>
-      </div>
+      <div>Gardener mode</div>
     </button>
   );
 };

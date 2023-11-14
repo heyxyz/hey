@@ -1,9 +1,12 @@
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import truncateUrl from '@hey/lib/truncateUrl';
 import type { MarkupLinkProps } from '@hey/types/misc';
 import Link from 'next/link';
-import type { FC } from 'react';
+import { type FC } from 'react';
 
-const ExternalLink: FC<MarkupLinkProps> = ({ href, title = href }) => {
+const ExternalLink: FC<MarkupLinkProps> = ({ title }) => {
+  let href = title;
+
   if (!href) {
     return null;
   }
@@ -19,7 +22,7 @@ const ExternalLink: FC<MarkupLinkProps> = ({ href, title = href }) => {
       target={href.includes(location.host) ? '_self' : '_blank'}
       rel="noopener"
     >
-      {title}
+      {title ? truncateUrl(title, 30) : title}
     </Link>
   );
 };

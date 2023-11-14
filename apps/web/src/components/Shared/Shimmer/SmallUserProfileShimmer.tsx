@@ -1,5 +1,5 @@
 import cn from '@hey/ui/cn';
-import type { FC } from 'react';
+import { type FC } from 'react';
 
 interface SmallUserProfileShimmerProps {
   smallAvatar?: boolean;

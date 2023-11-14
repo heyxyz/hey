@@ -1,11 +1,15 @@
 import type { Profile } from '@hey/lens';
-import { useMutualFollowersQuery } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
+import { LimitType, useMutualFollowersQuery } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
-import { Trans } from '@lingui/macro';
-import type { Dispatch, FC, ReactNode, SetStateAction } from 'react';
-import { useAppStore } from 'src/store/app';
+import {
+  type Dispatch,
+  type FC,
+  type ReactNode,
+  type SetStateAction
+} from 'react';
+import { useAppStore } from 'src/store/useAppStore';
 
 interface MutualFollowersProps {
   setShowMutualFollowersModal?: Dispatch<SetStateAction<boolean>>;
@@ -21,43 +25,39 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
   const { data, loading, error } = useMutualFollowersQuery({
     variables: {
       request: {
-        viewingProfileId: profile?.id,
-        yourProfileId: currentProfile?.id,
-        limit: 3
+        viewing: profile?.id,
+        observer: currentProfile?.id,
+        limit: LimitType.Ten
       }
     },
     skip: !profile?.id || !currentProfile?.id
   });
 
-  const profiles = data?.mutualFollowersProfiles?.items ?? [];
-  const totalCount = data?.mutualFollowersProfiles?.pageInfo?.totalCount ?? 0;
+  const profiles = (data?.mutualFollowers?.items as Profile[]) ?? [];
 
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <div
-      className="lt-text-gray-500 flex cursor-pointer items-center space-x-2.5 text-sm"
+      className="ld-text-gray-500 flex cursor-pointer items-center space-x-2.5 text-sm"
       onClick={() => setShowMutualFollowersModal?.(true)}
-      aria-hidden="true"
     >
       <div className="contents -space-x-2">
         {profiles?.map((profile) => (
           <Image
-            key={profile.handle}
+            key={profile.id}
             className="h-5 w-5 rounded-full border dark:border-gray-700"
             src={getAvatar(profile)}
-            alt={formatHandle(profile?.handle)}
+            alt={profile.id}
           />
         ))}
       </div>
       <div>
-        <span>
-          <Trans>Followed by</Trans>{' '}
-        </span>
+        <span>Followed by </span>
         {children}
       </div>
     </div>
   );
 
-  if (totalCount === 0 || loading || error) {
+  if (profiles.length === 0 || loading || error) {
     return null;
   }
 
@@ -68,7 +68,7 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
   if (profiles?.length === 1) {
     return (
       <Wrapper>
-        <span>{profileOne?.name ?? formatHandle(profileOne?.handle)}</span>
+        <span>{getProfile(profileOne).displayName}</span>
       </Wrapper>
     );
   }
@@ -76,24 +76,24 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
   if (profiles?.length === 2) {
     return (
       <Wrapper>
-        <span>{profileOne?.name ?? formatHandle(profileOne?.handle)} and </span>
-        <span>{profileTwo?.name ?? formatHandle(profileTwo?.handle)}</span>
+        <span>{getProfile(profileOne).displayName} and </span>
+        <span>{getProfile(profileTwo).displayName}</span>
       </Wrapper>
     );
   }
 
   if (profiles?.length === 3) {
-    const calculatedCount = totalCount - 3;
+    const calculatedCount = profiles.length - 3;
     const isZero = calculatedCount === 0;
 
     return (
       <Wrapper>
-        <span>{profileOne?.name ?? formatHandle(profileOne?.handle)}, </span>
+        <span>{getProfile(profileOne).displayName}, </span>
         <span>
-          {profileTwo?.name ?? formatHandle(profileTwo?.handle)}
+          {getProfile(profileTwo).displayName}
           {isZero ? ' and ' : ', '}
         </span>
-        <span>{profileThree?.name ?? formatHandle(profileThree?.handle)} </span>
+        <span>{getProfile(profileThree).displayName} </span>
         {!isZero ? (
           <span>
             and {calculatedCount} {calculatedCount === 1 ? 'other' : 'others'}

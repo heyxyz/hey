@@ -1,7 +1,6 @@
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { CHAIN_ID } from 'src/constants';
-import { useGlobalModalStateStore } from 'src/store/modals';
+import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 
 import SwitchNetwork from '../SwitchNetwork';
 
@@ -13,11 +12,9 @@ const WrongNetwork: FC = () => {
   return (
     <div className="p-5">
       <div className="mb-4 space-y-1">
-        <div className="text-xl font-bold">
-          <Trans>Change network</Trans>.
-        </div>
-        <div className="lt-text-gray-500 text-sm">
-          <Trans>Connect to the correct network to continue</Trans>
+        <div className="text-xl font-bold">Change network.</div>
+        <div className="ld-text-gray-500 text-sm">
+          Connect to the correct network to continue
         </div>
       </div>
       <SwitchNetwork

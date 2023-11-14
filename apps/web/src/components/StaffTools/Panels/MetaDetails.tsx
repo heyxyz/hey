@@ -1,6 +1,5 @@
 import cn from '@hey/ui/cn';
-import { t } from '@lingui/macro';
-import type { FC, ReactNode } from 'react';
+import { type FC, type ReactNode } from 'react';
 import { toast } from 'react-hot-toast';
 
 interface MetaDetailsProps {
@@ -25,14 +24,13 @@ const MetaDetails: FC<MetaDetailsProps> = ({
     )}
     onClick={async () => {
       await navigator.clipboard.writeText(value);
-      toast.success(t`Copied to clipboard!`);
+      toast.success('Copied to clipboard!');
     }}
-    aria-hidden="true"
   >
     <div className="flex items-center gap-1">
       {icon}
       {title ? (
-        <div className="lt-text-gray-500">
+        <div className="ld-text-gray-500">
           {title}
           {noFlex ? '' : ':'}
         </div>

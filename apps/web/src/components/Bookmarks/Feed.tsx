@@ -2,44 +2,44 @@ import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { BookmarkIcon } from '@heroicons/react/24/outline';
 import type {
-  Publication,
-  PublicationMainFocus,
-  PublicationsProfileBookmarkedQueryRequest
+  AnyPublication,
+  PublicationBookmarksRequest,
+  PublicationMetadataMainFocusType
 } from '@hey/lens';
-import { usePublicationsProfileBookmarksQuery } from '@hey/lens';
+import { LimitType, usePublicationBookmarksQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { t } from '@lingui/macro';
-import type { FC } from 'react';
+import { type FC } from 'react';
 import { useInView } from 'react-cool-inview';
-import { useAppStore } from 'src/store/app';
+import { useImpressionsStore } from 'src/store/useImpressionsStore';
 
 interface FeedProps {
-  focus?: PublicationMainFocus;
+  focus?: PublicationMetadataMainFocusType;
 }
 
 const Feed: FC<FeedProps> = ({ focus }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const fetchAndStoreViews = useImpressionsStore(
+    (state) => state.fetchAndStoreViews
+  );
 
   // Variables
-  const request: PublicationsProfileBookmarkedQueryRequest = {
-    profileId: currentProfile?.id,
-    metadata: {
-      ...(focus && { mainContentFocus: [focus] })
-    },
-    limit: 30
+  const request: PublicationBookmarksRequest = {
+    where: { metadata: { ...(focus && { mainContentFocus: [focus] }) } },
+    limit: LimitType.TwentyFive
   };
-  const reactionRequest = currentProfile
-    ? { profileId: currentProfile?.id }
-    : null;
-  const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore } =
-    usePublicationsProfileBookmarksQuery({
-      variables: { request, reactionRequest, profileId }
-    });
+  const { data, loading, error, fetchMore } = usePublicationBookmarksQuery({
+    variables: { request },
+    onCompleted: async ({ publicationBookmarks }) => {
+      const ids =
+        publicationBookmarks?.items?.map((p) => {
+          return p.__typename === 'Mirror' ? p.mirrorOn?.id : p.id;
+        }) || [];
+      await fetchAndStoreViews(ids);
+    }
+  });
 
-  const publications = data?.publicationsProfileBookmarks?.items;
-  const pageInfo = data?.publicationsProfileBookmarks?.pageInfo;
+  const publications = data?.publicationBookmarks?.items;
+  const pageInfo = data?.publicationBookmarks?.pageInfo;
   const hasMore = pageInfo?.next;
 
   const { observe } = useInView({
@@ -48,13 +48,14 @@ const Feed: FC<FeedProps> = ({ focus }) => {
         return;
       }
 
-      await fetchMore({
-        variables: {
-          request: { ...request, cursor: pageInfo?.next },
-          reactionRequest,
-          profileId
-        }
+      const { data } = await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next } }
       });
+      const ids =
+        data?.publicationBookmarks?.items?.map((p) => {
+          return p.__typename === 'Mirror' ? p.mirrorOn?.id : p.id;
+        }) || [];
+      await fetchAndStoreViews(ids);
     }
   });
 
@@ -65,29 +66,24 @@ const Feed: FC<FeedProps> = ({ focus }) => {
   if (publications?.length === 0) {
     return (
       <EmptyState
-        message={t`No bookmarks yet!`}
-        icon={<BookmarkIcon className="text-brand h-8 w-8" />}
+        message="No bookmarks yet!"
+        icon={<BookmarkIcon className="text-brand-500 h-8 w-8" />}
       />
     );
   }
 
   if (error) {
-    return (
-      <ErrorMessage title={t`Failed to load bookmark feed`} error={error} />
-    );
+    return <ErrorMessage title="Failed to load bookmark feed" error={error} />;
   }
 
   return (
-    <Card
-      className="divide-y-[1px] dark:divide-gray-700"
-      dataTestId="explore-feed"
-    >
+    <Card className="divide-y-[1px] dark:divide-gray-700">
       {publications?.map((publication, index) => (
         <SinglePublication
           key={`${publication.id}_${index}`}
           isFirst={index === 0}
           isLast={index === publications.length - 1}
-          publication={publication as Publication}
+          publication={publication as AnyPublication}
         />
       ))}
       {hasMore ? <span ref={observe} /> : null}

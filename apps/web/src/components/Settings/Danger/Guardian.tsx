@@ -10,20 +10,15 @@ import { SETTINGS } from '@hey/data/tracking';
 import { Button, Card, Modal, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useAppStore } from 'src/store/app';
-import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-information';
+import { useAppStore } from 'src/store/useAppStore';
 import { useContractWrite } from 'wagmi';
 
 const GuardianSettings: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const profileGuardianInformation = useProfileGuardianInformationStore(
-    (state) => state.profileGuardianInformation
-  );
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
@@ -62,34 +57,30 @@ const GuardianSettings: FC = () => {
     }
   };
 
-  if (!profileGuardianInformation.isProtected) {
+  if (!currentProfile?.guardian?.protected) {
     return null;
   }
 
   return (
     <Card className="space-y-5 p-5">
-      <div className="text-lg font-bold text-red-500">
-        <Trans>Disable profile guardian</Trans>
-      </div>
-      <p>
-        <Trans>
+      <div className="space-y-3">
+        <div className="text-lg font-bold text-red-500">
+          Disable profile guardian
+        </div>
+        <p>
           This will disable the Profile Guardian and allow you to do some
           actions like transfer, burn and approve without restrictions.
-        </Trans>
-      </p>
+        </p>
+      </div>
       <div className="text-lg font-bold">What else you should know</div>
-      <div className="lt-text-gray-500 divide-y text-sm dark:divide-gray-700">
+      <div className="ld-text-gray-500 divide-y text-sm dark:divide-gray-700">
         <p className="pb-3">
-          <Trans>
-            A 7-day Security Cooldown Period need to be elapsed for the Profile
-            Guardian to become effectively disabled.
-          </Trans>
+          A 7-day Security Cooldown Period need to be elapsed for the Profile
+          Guardian to become effectively disabled.
         </p>
         <p className="py-3">
-          <Trans>
-            After the Profile Guardian is effectively disabled, you will be able
-            to execute approvals and transfers without restrictions.
-          </Trans>
+          After the Profile Guardian is effectively disabled, you will be able
+          to execute approvals and transfers without restrictions.
         </p>
       </div>
       {data?.hash ? (
@@ -109,11 +100,11 @@ const GuardianSettings: FC = () => {
           disabled={isLoading}
           onClick={() => setShowWarningModal(true)}
         >
-          {isLoading ? t`Disabling...` : t`Disable now`}
+          {isLoading ? 'Disabling...' : 'Disable now'}
         </Button>
       )}
       <Modal
-        title={t`Danger zone`}
+        title="Danger zone"
         icon={<ExclamationTriangleIcon className="h-5 w-5 text-red-500" />}
         show={showWarningModal}
         onClose={() => setShowWarningModal(false)}
@@ -123,10 +114,8 @@ const GuardianSettings: FC = () => {
             title="Are you sure?"
             message={
               <div className="leading-6">
-                <Trans>
-                  Confirm that you have read all consequences and want to
-                  disable the Profile Guardian.
-                </Trans>
+                Confirm that you have read all consequences and want to disable
+                the Profile Guardian.
               </div>
             }
           />
@@ -138,7 +127,7 @@ const GuardianSettings: FC = () => {
               await handleDisable();
             }}
           >
-            <Trans>Yes, disable</Trans>
+            Yes, disable
           </Button>
         </div>
       </Modal>

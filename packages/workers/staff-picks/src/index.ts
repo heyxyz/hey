@@ -2,10 +2,7 @@ import { Errors } from '@hey/data/errors';
 import response from '@hey/lib/response';
 import { createCors, error, Router, status } from 'itty-router';
 
-import addPick from './handlers/addPick';
-import getStaffPick from './handlers/getStaffPick';
 import getStaffPicks from './handlers/getStaffPicks';
-import removePick from './handlers/removePick';
 import buildRequest from './helpers/buildRequest';
 import type { Env, WorkerRequest } from './types';
 
@@ -25,10 +22,7 @@ router
       version: request.env.RELEASE ?? 'unknown'
     })
   )
-  .get('/get/:id', getStaffPick)
-  .get('/all', getStaffPicks)
-  .post('/addPick', addPick)
-  .post('/removePick', removePick)
+  .get('/getStaffPicks', getStaffPicks)
   .all('*', () => error(404));
 
 export default {

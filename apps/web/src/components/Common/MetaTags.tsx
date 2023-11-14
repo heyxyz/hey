@@ -1,6 +1,6 @@
 import { APP_NAME, DEFAULT_OG, DESCRIPTION } from '@hey/data/constants';
 import Head from 'next/head';
-import type { FC } from 'react';
+import { type FC } from 'react';
 
 interface MetaTagsProps {
   title?: string;
@@ -19,6 +19,7 @@ const MetaTags: FC<MetaTagsProps> = ({
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover"
       />
+      <link rel="canonical" href="https://hey.xyz" />
 
       <meta property="og:url" content="https://hey.xyz" />
       <meta property="og:site_name" content={APP_NAME} />

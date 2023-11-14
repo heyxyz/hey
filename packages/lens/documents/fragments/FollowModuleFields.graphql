@@ -1,0 +1,15 @@
+fragment FollowModuleFields on FollowModule {
+  ... on FeeFollowModuleSettings {
+    type
+    amount {
+      ...AmountFields
+    }
+    recipient
+  }
+  ... on RevertFollowModuleSettings {
+    type
+  }
+  ... on UnknownFollowModuleSettings {
+    type
+  }
+}

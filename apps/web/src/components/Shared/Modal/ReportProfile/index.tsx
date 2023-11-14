@@ -4,10 +4,9 @@ import { PROFILE } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
 import { Button, Card, Form, Radio, TextArea, useZodForm } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
-import type { FC } from 'react';
+import { type FC } from 'react';
 import toast from 'react-hot-toast';
-import { useGlobalModalStateStore } from 'src/store/modals';
+import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 import { object, string, z } from 'zod';
 
 const ReportType = z.enum(['MISLEADING_ACCOUNT', 'UNWANTED_CONTENT']);
@@ -16,7 +15,7 @@ const reportReportProfileSchema = object({
   type: ReportType,
   description: string()
     .max(300, {
-      message: t`Report should not exceed 300 characters`
+      message: 'Report should not exceed 300 characters'
     })
     .optional()
 });
@@ -48,7 +47,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
             profile: profile?.id
           });
           setShowReportProfileModal(false, null);
-          toast.success(t`Reported Successfully!`);
+          toast.success('Reported Successfully!');
         }}
       >
         {profile ? (
@@ -59,12 +58,8 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
 
         <div className="space-y-5">
           <Radio
-            heading={
-              <span className="font-medium">
-                <Trans>Misleading Account</Trans>
-              </span>
-            }
-            description={t`Impersonation or false claims about identity or affiliation`}
+            heading={<span className="font-medium">Misleading Account</span>}
+            description="Impersonation or false claims about identity or affiliation"
             value={ReportType.Enum.MISLEADING_ACCOUNT}
             {...form.register('type')}
             checked={form.watch('type') === ReportType.Enum.MISLEADING_ACCOUNT}
@@ -75,10 +70,10 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
           <Radio
             heading={
               <span className="font-medium">
-                <Trans>Frequently Posts Unwanted Content</Trans>
+                Frequently Posts Unwanted Content
               </span>
             }
-            description={t`Spam; excessive mentions or replies`}
+            description="Spam; excessive mentions or replies"
             value={ReportType.Enum.UNWANTED_CONTENT}
             {...form.register('type')}
             checked={form.watch('type') === ReportType.Enum.UNWANTED_CONTENT}
@@ -90,8 +85,8 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
         <div className="divider my-5" />
         <div>
           <TextArea
-            label={t`Add details to report`}
-            placeholder={t`Enter a reason or any other details here...`}
+            label="Add details to report"
+            placeholder="Enter a reason or any other details here..."
             {...form.register('description')}
           />
         </div>
@@ -102,7 +97,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
           icon={<PencilSquareIcon className="h-4 w-4" />}
           disabled={!form.watch('type')}
         >
-          <Trans>Report</Trans>
+          Report
         </Button>
       </Form>
     </div>
