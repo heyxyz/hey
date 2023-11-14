@@ -1,0 +1,16 @@
+name = "internal"
+main = "src/index.ts"
+compatibility_date = "2023-10-25"
+keep_vars = true
+
+routes = [
+	{ pattern = "internal.hey.xyz", custom_domain = true }
+]
+
+kv_namespaces = [
+  { binding = "FEATURES", id = "7f319321a8b44003b99f9d41e1d7e065", preview_id = "7f319321a8b44003b99f9d41e1d7e065" }
+]
+
+[env.production.vars]
+RELEASE = ""
+SUPABASE_KEY = ""
