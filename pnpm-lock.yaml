@@ -437,9 +437,6 @@ importers:
       '@hey/lens':
         specifier: workspace:*
         version: link:../lens
-      '@hey/supabase':
-        specifier: workspace:*
-        version: link:../supabase
       '@hey/types':
         specifier: workspace:*
         version: link:../types
@@ -691,15 +688,9 @@ importers:
       '@hey/supabase':
         specifier: workspace:*
         version: link:../../supabase
-      '@tsndr/cloudflare-worker-jwt':
-        specifier: ^2.2.7
-        version: 2.2.9
       itty-router:
         specifier: ^4.0.23
         version: 4.0.23
-      zod:
-        specifier: ^3.22.4
-        version: 3.22.4
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20231025.0
@@ -768,9 +759,6 @@ importers:
       itty-router:
         specifier: ^4.0.23
         version: 4.0.23
-      zod:
-        specifier: ^3.22.4
-        version: 3.22.4
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20231025.0
@@ -793,9 +781,6 @@ importers:
       '@hey/irys':
         specifier: workspace:*
         version: link:../../irys
-      '@hey/lens':
-        specifier: workspace:*
-        version: link:../../lens
       '@hey/lib':
         specifier: workspace:*
         version: link:../../lib
@@ -978,18 +963,9 @@ importers:
       fast-xml-parser:
         specifier: ^4.3.2
         version: 4.3.2
-      google-auth-library:
-        specifier: ^9.2.0
-        version: 9.2.0
-      google-spreadsheet:
-        specifier: ^4.1.1
-        version: 4.1.1(google-auth-library@9.2.0)
       itty-router:
         specifier: ^4.0.23
         version: 4.0.23
-      xmlbuilder:
-        specifier: ^15.1.1
-        version: 15.1.1
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20231025.0
@@ -1043,15 +1019,9 @@ importers:
       '@hey/supabase':
         specifier: workspace:*
         version: link:../../supabase
-      '@tsndr/cloudflare-worker-jwt':
-        specifier: ^2.2.7
-        version: 2.2.9
       itty-router:
         specifier: ^4.0.23
         version: 4.0.23
-      zod:
-        specifier: ^3.22.4
-        version: 3.22.4
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20231025.0
@@ -2462,7 +2432,7 @@ packages:
       eth-rpc-errors: 4.0.2
       json-rpc-engine: 6.1.0
       keccak: 3.0.4
-      preact: 10.19.1
+      preact: 10.19.2
       qs: 6.11.2
       rxjs: 6.6.7
       sha.js: 2.4.11
@@ -6775,7 +6745,7 @@ packages:
       '@walletconnect/legacy-types': 2.0.0
       '@walletconnect/legacy-utils': 2.0.0
       copy-to-clipboard: 3.3.3
-      preact: 10.19.1
+      preact: 10.19.2
       qrcode: 1.5.3
     dev: false
 
@@ -7150,6 +7120,7 @@ packages:
       debug: 4.3.4
     transitivePeerDependencies:
       - supports-color
+    dev: true
 
   /agentkeepalive@4.5.0:
     resolution: {integrity: sha512-5GG/5IbQQpC9FpkRGsSvZI5QYeSCzlJHdpBQntCsuTOxhKD8lqKhrleg2Yi7yvMIf82Ycmmqln9U8V9qwEiJew==}
@@ -7498,10 +7469,6 @@ packages:
       bindings: 1.5.0
     dev: false
 
-  /bignumber.js@9.1.2:
-    resolution: {integrity: sha512-2/mKyZH9K85bzOEfhXDBFZTGd1CTs+5IHpeFQo9luiBG7hghdC851Pj2WAhb6E3R6b9tZj/XKhbg4fum+Kepug==}
-    dev: false
-
   /binary-extensions@2.2.0:
     resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
     engines: {node: '>=8'}
@@ -7594,10 +7561,6 @@ packages:
     dependencies:
       node-int64: 0.4.0
     dev: true
-
-  /buffer-equal-constant-time@1.0.1:
-    resolution: {integrity: sha512-zRpUiDwd/xk6ADqPMATG8vc9VPrkck7T07OIx0gnjmJAnHnTVXNQG3vfvWNuiZIkwu9KrKdA1iJKfsfTVxE6NA==}
-    dev: false
 
   /buffer-from@1.1.2:
     resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}
@@ -8389,12 +8352,6 @@ packages:
 
   /duration-js@4.0.0:
     resolution: {integrity: sha512-qoXjOsH97r+NrOa6sK5V2cwBOouVG/LI9jwgwKvjVkyqGpZ72yilWjjzFJYPqqbvNZDwpRMaLEUFE+PTefvOEA==}
-    dev: false
-
-  /ecdsa-sig-formatter@1.0.11:
-    resolution: {integrity: sha512-nagl3RYrbNv6kQkeJIpt6NJZy8twLB/2vtz6yN9Z4vRKHN4/QZJIEbqohALSgwKdnksuY3k5Addp5lg8sVoVcQ==}
-    dependencies:
-      safe-buffer: 5.2.1
     dev: false
 
   /electron-to-chromium@1.4.582:
@@ -9375,30 +9332,6 @@ packages:
     resolution: {integrity: sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==}
     dev: true
 
-  /gaxios@6.1.1:
-    resolution: {integrity: sha512-bw8smrX+XlAoo9o1JAksBwX+hi/RG15J+NTSxmNPIclKC3ZVK6C2afwY8OSdRvOK0+ZLecUJYtj2MmjOt3Dm0w==}
-    engines: {node: '>=14'}
-    dependencies:
-      extend: 3.0.2
-      https-proxy-agent: 7.0.2
-      is-stream: 2.0.1
-      node-fetch: 2.7.0
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
-    dev: false
-
-  /gcp-metadata@6.1.0:
-    resolution: {integrity: sha512-Jh/AIwwgaxan+7ZUUmRLCjtchyDiqh4KjBJ5tW3plBZb5iL/BPcso8A5DlzeD9qlw0duCamnNdpFjxwaT0KyKg==}
-    engines: {node: '>=14'}
-    dependencies:
-      gaxios: 6.1.1
-      json-bigint: 1.0.0
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
-    dev: false
-
   /gensync@1.0.0-beta.2:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
     engines: {node: '>=6.9.0'}
@@ -9542,36 +9475,6 @@ packages:
       csstype: 3.1.2
     dev: false
 
-  /google-auth-library@9.2.0:
-    resolution: {integrity: sha512-1oV3p0JhNEhVbj26eF3FAJcv9MXXQt4S0wcvKZaDbl4oHq5V3UJoSbsGZGQNcjoCdhW4kDSwOs11wLlHog3fgQ==}
-    engines: {node: '>=14'}
-    dependencies:
-      base64-js: 1.5.1
-      ecdsa-sig-formatter: 1.0.11
-      gaxios: 6.1.1
-      gcp-metadata: 6.1.0
-      gtoken: 7.0.1
-      jws: 4.0.0
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
-    dev: false
-
-  /google-spreadsheet@4.1.1(google-auth-library@9.2.0):
-    resolution: {integrity: sha512-Npk/xAMTgxEt/m/X9EXIqdY6CEYGiqUHrSuiLnNSKli5H+wiOQLSLsnfMxcdNPH6aSh6GttZm6QJhrnsxjwpZQ==}
-    peerDependencies:
-      google-auth-library: ^8.8.0 || ^9.0.0
-    peerDependenciesMeta:
-      google-auth-library:
-        optional: true
-    dependencies:
-      axios: 1.6.1
-      google-auth-library: 9.2.0
-      lodash: 4.17.21
-    transitivePeerDependencies:
-      - debug
-    dev: false
-
   /gopd@1.0.1:
     resolution: {integrity: sha512-d65bNlIadxvpb/A2abVdlqKqV563juRnZ1Wtk6s1sIR8uNsXR70xqIzVqxVf1eTqDunwT2MkczEeaezCKTZhwA==}
     dependencies:
@@ -9647,17 +9550,6 @@ packages:
   /graphql@16.8.1:
     resolution: {integrity: sha512-59LZHPdGZVh695Ud9lRzPBVTtlX9ZCV150Er2W43ro37wVof0ctenSaskPPjN7lVTIN8mSZt8PHUNKZuNQUuxw==}
     engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
-
-  /gtoken@7.0.1:
-    resolution: {integrity: sha512-KcFVtoP1CVFtQu0aSk3AyAt2og66PFhZAlkUOuWKwzMLoulHXG5W5wE5xAnHb+yl3/wEFoqGW7/cDGMU8igDZQ==}
-    engines: {node: '>=14.0.0'}
-    dependencies:
-      gaxios: 6.1.1
-      jws: 4.0.0
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
-    dev: false
 
   /h3@1.8.2:
     resolution: {integrity: sha512-1Ca0orJJlCaiFY68BvzQtP2lKLk46kcLAxVM8JgYbtm2cUg6IY7pjpYgWMwUvDO9QI30N5JAukOKoT8KD3Q0PQ==}
@@ -9803,6 +9695,7 @@ packages:
       debug: 4.3.4
     transitivePeerDependencies:
       - supports-color
+    dev: true
 
   /human-signals@2.1.0:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
@@ -10336,12 +10229,6 @@ packages:
     hasBin: true
     dev: true
 
-  /json-bigint@1.0.0:
-    resolution: {integrity: sha512-SiPv/8VpZuWbvLSMtTDU8hEfrZWg/mH/nV/b4o0CYbSxu1UIQPLdwKOCIyLQX+VIPO5vrLX3i8qtqFyhdPSUSQ==}
-    dependencies:
-      bignumber.js: 9.1.2
-    dev: false
-
   /json-buffer@3.0.1:
     resolution: {integrity: sha512-4bV5BfR2mqfQTJm+V5tPPdf+ZpuhiIvTuAB5g8kcrXOZpTT/QwwVRWBywX1ozr6lEuPdbHxwaJlm9G6mI2sfSQ==}
     dev: true
@@ -10426,21 +10313,6 @@ packages:
       object.assign: 4.1.4
       object.values: 1.1.7
     dev: true
-
-  /jwa@2.0.0:
-    resolution: {integrity: sha512-jrZ2Qx916EA+fq9cEAeCROWPTfCwi1IVHqT2tapuqLEVVDKFDENFw1oL+MwrTvH6msKxsd1YTDVw6uKEcsrLEA==}
-    dependencies:
-      buffer-equal-constant-time: 1.0.1
-      ecdsa-sig-formatter: 1.0.11
-      safe-buffer: 5.2.1
-    dev: false
-
-  /jws@4.0.0:
-    resolution: {integrity: sha512-KDncfTmOZoOMTFG4mBlG0qUIOlc03fmzH+ru6RgYVZhPkyiy/92Owlt/8UEN+a4TXR1FQetfIpJE8ApdvdVxTg==}
-    dependencies:
-      jwa: 2.0.0
-      safe-buffer: 5.2.1
-    dev: false
 
   /keccak@3.0.4:
     resolution: {integrity: sha512-3vKuW0jV8J3XNTzvfyicFR5qvxrSAGl7KIhvgOu5cmWwM7tZRj3fMbj/pfIf4be7aznbc+prBWGjywox/g2Y6Q==}
@@ -10663,6 +10535,7 @@ packages:
 
   /lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+    dev: true
 
   /log-symbols@4.1.0:
     resolution: {integrity: sha512-8XPvpAA8uyhfteu8pIvQxpJZ7SYYdpUivZpGy6sFsBuKRY/7rQGavedeB8aK+Zkyq6upMFVL/9AW6vOYzfRyLg==}
@@ -11771,8 +11644,8 @@ packages:
       picocolors: 1.0.0
       source-map-js: 1.0.2
 
-  /preact@10.19.1:
-    resolution: {integrity: sha512-ZSsUr6EFlwWH0btdXMj6+X+hJAZ1v+aUzKlfwBGokKB1ZO6Shz+D16LxQhM8f+E/UgkKbVe2tsWXtGTUMCkGpQ==}
+  /preact@10.19.2:
+    resolution: {integrity: sha512-UA9DX/OJwv6YwP9Vn7Ti/vF80XL+YA5H2l7BpCtUr3ya8LWHFzpiO5R+N7dN16ujpIxhekRFuOOF82bXX7K/lg==}
     dev: false
 
   /prelude-ls@1.2.1:
@@ -14199,11 +14072,6 @@ packages:
     dependencies:
       bufferutil: 4.0.8
       utf-8-validate: 5.0.10
-
-  /xmlbuilder@15.1.1:
-    resolution: {integrity: sha512-yMqGBqtXyeN1e3TGYvgNgDVZ3j84W4cwkOXQswghol6APgZWaff9lnbvN7MHYJOiXsvGPXtjTYJEiC9J2wv9Eg==}
-    engines: {node: '>=8.0'}
-    dev: false
 
   /xtend@4.0.2:
     resolution: {integrity: sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==}
