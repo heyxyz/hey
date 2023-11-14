@@ -2,7 +2,6 @@ name = "pro"
 main = "src/index.ts"
 compatibility_date = "2023-10-25"
 keep_vars = true
-node_compat = true
 
 routes = [
 	{ pattern = "pro.hey.xyz", custom_domain = true }
