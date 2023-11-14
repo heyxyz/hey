@@ -3,7 +3,7 @@ import { PROFILE } from '@hey/data/tracking';
 import { useRevokeAuthenticationMutation } from '@hey/lens';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
-import getCurrentSessionId from '@lib/getCurrentSessionId';
+import getCurrentSession from '@lib/getCurrentSession';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -23,6 +23,7 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
   const [revoking, setRevoking] = useState(false);
 
   const { disconnect } = useDisconnect();
+  const { authorizationId } = getCurrentSession();
 
   const onError = (error: any) => {
     setRevoking(false);
@@ -44,7 +45,7 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
     try {
       setRevoking(true);
       return await revokeAuthentication({
-        variables: { request: { authorizationId: getCurrentSessionId() } }
+        variables: { request: { authorizationId } }
       });
     } catch (error) {
       onError(error);
