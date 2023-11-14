@@ -4,8 +4,8 @@
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
-    "build:sw": "node script/build-sw.mjs",
     "build": "pnpm build:sw; next build",
+    "build:sw": "node script/build-sw.mjs",
     "dev": "next dev --port 4783",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --fix --ext .ts,.tsx",

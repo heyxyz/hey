@@ -17,7 +17,6 @@
   "dependencies": {
     "@hey/data": "workspace:*",
     "@hey/irys": "workspace:*",
-    "@hey/lens": "workspace:*",
     "@hey/lib": "workspace:*",
     "itty-router": "^4.0.23"
   },
