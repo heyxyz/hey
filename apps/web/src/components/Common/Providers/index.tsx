@@ -15,7 +15,6 @@ import Layout from '../Layout';
 import FeaturedGroupsProvider from './FeaturedGroupsProvider';
 import FeatureFlagsProvider from './FeatureFlagsProvider';
 import LeafwatchProvider from './LeafwatchProvider';
-import LensNonceProvider from './LensNonceProvider';
 import LensSubscriptionsProvider from './LensSubscriptionsProvider';
 import PreferencesProvider from './PreferencesProvider';
 import ProProvider from './ProProvider';
@@ -38,7 +37,6 @@ const Providers = ({ children }: { children: ReactNode }) => {
       <Web3Provider>
         <ApolloProvider client={lensApolloClient}>
           <LensSubscriptionsProvider />
-          <LensNonceProvider />
           <QueryClientProvider client={queryClient}>
             <FeatureFlagsProvider />
             <PreferencesProvider />
