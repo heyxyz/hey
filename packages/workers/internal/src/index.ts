@@ -3,11 +3,11 @@ import response from '@hey/lib/response';
 import validateLensAccount from '@hey/lib/worker-middlewares/validateLensAccount';
 import { createCors, error, Router, status } from 'itty-router';
 
-import downgradeProProfiles from './handlers/downgradeProProfiles';
-import getAllFeatureFlags from './handlers/getAllFeatureFlags';
-import updateFeatureFlag from './handlers/updateFeatureFlag';
-import updateGardenerMode from './handlers/updateGardenerMode';
-import updateStaffMode from './handlers/updateStaffMode';
+import getAllFeatureFlags from './handlers/features/getAllFeatureFlags';
+import updateFeatureFlag from './handlers/features/updateFeatureFlag';
+import updateGardenerMode from './handlers/features/updateGardenerMode';
+import updateStaffMode from './handlers/features/updateStaffMode';
+import downgradeProfiles from './handlers/pro/downgradeProfiles';
 import buildRequest from './helpers/buildRequest';
 import type { Env, WorkerRequest } from './types';
 
@@ -16,8 +16,20 @@ const { preflight, corsify } = createCors({
   methods: ['HEAD', 'GET', 'POST']
 });
 
-const router = Router();
+// Feature routes
+const featureRoutes = Router({ base: '/feature' });
+featureRoutes
+  .get('/getAllFeatureFlags', getAllFeatureFlags)
+  .post('/updateStaffMode', validateLensAccount, updateStaffMode)
+  .post('/updateGardenerMode', validateLensAccount, updateGardenerMode)
+  .post('/updateFeatureFlag', validateLensAccount, updateFeatureFlag);
 
+// Pro routes
+const proRoutes = Router({ base: '/pro' });
+proRoutes.delete('/downgradeProfiles', downgradeProfiles);
+
+// Main router
+const router = Router();
 router
   .all('*', preflight)
   .head('*', () => status(200))
@@ -27,11 +39,8 @@ router
       version: request.env.RELEASE ?? 'unknown'
     })
   )
-  .get('/getAllFeatureFlags', getAllFeatureFlags)
-  .post('/updateStaffMode', validateLensAccount, updateStaffMode)
-  .post('/updateGardenerMode', validateLensAccount, updateGardenerMode)
-  .post('/updateFeatureFlag', validateLensAccount, updateFeatureFlag)
-  .delete('/downgradeProProfiles', downgradeProProfiles)
+  .all('/feature/*', featureRoutes.handle)
+  .all('/pro/*', proRoutes.handle)
   .all('*', () => error(404));
 
 export default {
