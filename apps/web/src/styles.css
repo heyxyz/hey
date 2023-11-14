@@ -219,6 +219,21 @@ ul {
   background-size: 250% 100%;
 }
 
+img,
+figure {
+  filter: blur(20px);
+  animation: progressiveLoad 1.5s forwards;
+}
+
+@keyframes progressiveLoad {
+  from {
+    filter: blur(20px);
+  }
+  to {
+    filter: blur(0);
+  }
+}
+
 @keyframes gradient {
   0% {
     background-position: 0%;
