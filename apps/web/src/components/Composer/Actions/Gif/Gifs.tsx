@@ -43,7 +43,7 @@ const Gifs: FC<CategoriesProps> = ({
 
   if (isFetching) {
     return (
-      <div className="grid w-full w-full grid-cols-3 gap-1 overflow-y-auto">
+      <div className="grid w-full grid-cols-3 gap-1 overflow-y-auto">
         {Array.from(Array(12).keys()).map((_, index) => (
           <div
             key={index}
@@ -55,7 +55,7 @@ const Gifs: FC<CategoriesProps> = ({
   }
 
   return (
-    <div className="grid w-full w-full grid-cols-3 gap-1 overflow-y-auto">
+    <div className="grid w-full grid-cols-3 gap-1 overflow-y-auto">
       {gifs?.pages.map((page: any) =>
         page.data.map((gif: IGif) => (
           <button
