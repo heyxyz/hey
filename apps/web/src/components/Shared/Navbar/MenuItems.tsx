@@ -1,4 +1,4 @@
-import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
+import getCurrentSession from '@lib/getCurrentSession';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
@@ -16,14 +16,14 @@ export const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
 
 const MenuItems: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const currentSessionProfileId = getCurrentSessionProfileId();
+  const { id: sessionProfileId } = getCurrentSession();
 
   if (Boolean(currentProfile)) {
     return <SignedUser />;
   }
 
   // If the currentSessionProfileId is a valid eth address, we can assume that address don't have a profile yet
-  if (isAddress(currentSessionProfileId)) {
+  if (isAddress(sessionProfileId)) {
     return <WalletUser />;
   }
 

@@ -1,7 +1,7 @@
 import type { FeatureFlag } from '@hey/data/feature-flags';
 import { featureFlags } from 'src/store/useFeatureFlagsStore';
 
-import getCurrentSessionProfileId from './getCurrentSessionProfileId';
+import getCurrentSession from './getCurrentSession';
 
 /**
  * Checks if a feature is enabled for the current user
@@ -9,9 +9,9 @@ import getCurrentSessionProfileId from './getCurrentSessionProfileId';
  * @returns Whether the feature is enabled
  */
 const isFeatureEnabled = (key: FeatureFlag) => {
-  const currentSessionProfileId = getCurrentSessionProfileId();
+  const { id: sessionProfileId } = getCurrentSession();
 
-  if (!currentSessionProfileId) {
+  if (!sessionProfileId) {
     return false;
   }
 
