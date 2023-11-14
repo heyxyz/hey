@@ -4,7 +4,7 @@ import type { AnyPublication, FeedItem } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
 import pushToImpressions from '@lib/pushToImpressions';
-import { type FC } from 'react';
+import { type FC, memo } from 'react';
 import { useInView } from 'react-cool-inview';
 
 import PublicationActions from './Actions';
@@ -105,4 +105,4 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   );
 };
 
-export default SinglePublication;
+export default memo(SinglePublication);
