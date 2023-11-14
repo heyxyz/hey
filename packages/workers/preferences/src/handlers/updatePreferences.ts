@@ -1,7 +1,7 @@
 import { Errors } from '@hey/data/errors';
+import parseJwt from '@hey/lib/parseJwt';
 import response from '@hey/lib/response';
 import createSupabaseClient from '@hey/supabase/createSupabaseClient';
-import jwt from '@tsndr/cloudflare-worker-jwt';
 import { boolean, object, string } from 'zod';
 
 import type { WorkerRequest } from '../types';
@@ -34,7 +34,7 @@ export default async (request: WorkerRequest) => {
   const { isPride, highSignalNotificationFilter } = body as ExtensionRequest;
 
   try {
-    const { payload } = jwt.decode(accessToken as string);
+    const payload = parseJwt(accessToken as string);
     const client = createSupabaseClient(request.env.SUPABASE_KEY);
 
     const clearCache = async () => {
