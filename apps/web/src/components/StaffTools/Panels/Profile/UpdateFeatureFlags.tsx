@@ -91,7 +91,7 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
   };
 
   return (
-    <div className="divide-y dark:divide-gray-700">
+    <div className="max-h-[80vh] divide-y overflow-y-auto dark:divide-gray-700">
       {availableFlags.map((flag) => (
         <div key={flag.id} className="space-y-3 p-5">
           <div className="flex items-center space-x-3">
