@@ -26,7 +26,7 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
   const getAllFeatureFlags = async (): Promise<Features[] | []> => {
     try {
       const response = await axios.get(
-        `${INTERNAL_WORKER_URL}/getAllFeatureFlags`,
+        `${INTERNAL_WORKER_URL}/feature/getAllFeatureFlags`,
         { params: { id: profile.id } }
       );
       const { data } = response;
@@ -67,7 +67,7 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
     setUpdating(true);
     toast.promise(
       axios.post(
-        `${INTERNAL_WORKER_URL}/updateFeatureFlag`,
+        `${INTERNAL_WORKER_URL}/feature/updateFeatureFlag`,
         { id, profile_id: profile.id, enabled },
         { headers: getAuthWorkerHeaders() }
       ),

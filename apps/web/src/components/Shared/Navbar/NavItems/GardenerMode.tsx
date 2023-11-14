@@ -23,7 +23,7 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
   const toggleModMode = () => {
     toast.promise(
       axios.post(
-        `${INTERNAL_WORKER_URL}/updateGardenerMode`,
+        `${INTERNAL_WORKER_URL}/feature/updateGardenerMode`,
         { enabled: !gardenerMode },
         { headers: getAuthWorkerHeaders() }
       ),

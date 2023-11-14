@@ -21,7 +21,7 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
   const toggleStaffMode = async () => {
     toast.promise(
       axios.post(
-        `${INTERNAL_WORKER_URL}/updateStaffMode`,
+        `${INTERNAL_WORKER_URL}/feature/updateStaffMode`,
         { enabled: !staffMode },
         { headers: getAuthWorkerHeaders() }
       ),
