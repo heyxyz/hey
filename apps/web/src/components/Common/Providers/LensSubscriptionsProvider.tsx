@@ -4,7 +4,8 @@ import {
   NewNotificationSubscriptionDocument,
   type Notification,
   type UserSigNonces,
-  UserSigNoncesSubscriptionDocument
+  UserSigNoncesSubscriptionDocument,
+  useUserSigNoncesQuery
 } from '@hey/lens';
 import { BrowserPush } from '@lib/browserPush';
 import getCurrentSessionId from '@lib/getCurrentSessionId';
@@ -101,6 +102,16 @@ const LensSubscriptionsProvider: FC = () => {
       }
     }
   }, [lastMessage]);
+
+  useUserSigNoncesQuery({
+    onCompleted: (data) => {
+      setLensHubOnchainSigNonce(data.userSigNonces.lensHubOnchainSigNonce);
+      setLensPublicActProxyOnchainSigNonce(
+        data.userSigNonces.lensPublicActProxyOnchainSigNonce
+      );
+    },
+    skip: !currentSessionProfileId
+  });
 
   // Sync zustand stores between tabs
   if (isSupported()) {
