@@ -1,14 +1,9 @@
 import { Errors } from '@hey/data/errors';
 import response from '@hey/lib/response';
-import validateLensAccount from '@hey/lib/worker-middlewares/validateLensAccount';
 import { createCors, error, Router, status } from 'itty-router';
 
-import getAllFeatureFlags from './handlers/getAllFeatureFlags';
 import getFeatureFlags from './handlers/getFeatureFlags';
 import getVerified from './handlers/getVerified';
-import updateFeatureFlag from './handlers/updateFeatureFlag';
-import updateGardenerMode from './handlers/updateGardenerMode';
-import updateStaffMode from './handlers/updateStaffMode';
 import buildRequest from './helpers/buildRequest';
 import type { Env, WorkerRequest } from './types';
 
@@ -30,10 +25,6 @@ router
   )
   .get('/getVerified', getVerified)
   .get('/getFeatureFlags', getFeatureFlags)
-  .get('/getAllFeatureFlags', getAllFeatureFlags)
-  .post('/updateStaffMode', validateLensAccount, updateStaffMode)
-  .post('/updateGardenerMode', validateLensAccount, updateGardenerMode)
-  .post('/updateFeatureFlag', validateLensAccount, updateFeatureFlag)
   .all('*', () => error(404));
 
 export default {

@@ -1,6 +1,6 @@
 import { BoltIcon as BoltIconOutline } from '@heroicons/react/24/outline';
 import { BoltIcon as BoltIconSolid } from '@heroicons/react/24/solid';
-import { FEATURES_WORKER_URL } from '@hey/data/constants';
+import { INTERNAL_WORKER_URL } from '@hey/data/constants';
 import { GARDENER } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
@@ -23,7 +23,7 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
   const toggleModMode = () => {
     toast.promise(
       axios.post(
-        `${FEATURES_WORKER_URL}/updateGardenerMode`,
+        `${INTERNAL_WORKER_URL}/feature/updateGardenerMode`,
         { enabled: !gardenerMode },
         { headers: getAuthWorkerHeaders() }
       ),
