@@ -6,7 +6,7 @@ import type { AnyPublication, FeedItem, FeedRequest } from '@hey/lens';
 import { FeedEventItemType, useFeedQuery } from '@hey/lens';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { type FC } from 'react';
+import { type FC, memo } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/useAppStore';
 import { useImpressionsStore } from 'src/store/useImpressionsStore';
@@ -132,4 +132,4 @@ const Timeline: FC = () => {
   );
 };
 
-export default Timeline;
+export default memo(Timeline);
