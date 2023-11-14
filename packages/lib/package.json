@@ -18,7 +18,7 @@
     "@hey/types": "workspace:*",
     "axios": "^1.6.1",
     "urlcat": "^3.1.0",
-    "viem": "^1.19.0"
+    "viem": "^1.19.1"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
