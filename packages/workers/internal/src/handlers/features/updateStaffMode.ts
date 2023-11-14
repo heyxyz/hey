@@ -4,9 +4,9 @@ import response from '@hey/lib/response';
 import createSupabaseClient from '@hey/supabase/createSupabaseClient';
 import { boolean, object } from 'zod';
 
-import { GARDENER_MODE_FEATURE_ID } from '../constants';
-import validateIsGardener from '../helpers/validateIsGardener';
-import type { WorkerRequest } from '../types';
+import { STAFF_MODE_FEATURE_ID } from '../../constants';
+import validateIsStaff from '../../helpers/validateIsStaff';
+import type { WorkerRequest } from '../../types';
 
 type ExtensionRequest = {
   enabled: boolean;
@@ -29,8 +29,8 @@ export default async (request: WorkerRequest) => {
     return response({ success: false, error: validation.error.issues });
   }
 
-  if (!(await validateIsGardener(request))) {
-    return response({ success: false, error: Errors.NotGarnder });
+  if (!(await validateIsStaff(request))) {
+    return response({ success: false, error: Errors.NotStaff });
   }
 
   const { enabled } = body as ExtensionRequest;
@@ -49,7 +49,7 @@ export default async (request: WorkerRequest) => {
     if (enabled) {
       const { error: upsertError } = await client
         .from('profile-features')
-        .upsert({ feature_id: GARDENER_MODE_FEATURE_ID, profile_id });
+        .upsert({ feature_id: STAFF_MODE_FEATURE_ID, profile_id });
 
       if (upsertError) {
         throw upsertError;
@@ -62,7 +62,7 @@ export default async (request: WorkerRequest) => {
     const { error: deleteError } = await client
       .from('profile-features')
       .delete()
-      .eq('feature_id', GARDENER_MODE_FEATURE_ID)
+      .eq('feature_id', STAFF_MODE_FEATURE_ID)
       .eq('profile_id', profile_id);
 
     if (deleteError) {
