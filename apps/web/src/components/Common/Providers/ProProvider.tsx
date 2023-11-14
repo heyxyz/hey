@@ -1,5 +1,5 @@
 import { PRO_WORKER_URL } from '@hey/data/constants';
-import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
+import getCurrentSession from '@lib/getCurrentSession';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
@@ -7,18 +7,15 @@ import { useProStore } from 'src/store/useProStore';
 import { isAddress } from 'viem';
 
 const ProProvider: FC = () => {
-  const currentSessionProfileId = getCurrentSessionProfileId();
+  const { id: sessionProfileId } = getCurrentSession();
   const setIsPro = useProStore((state) => state.setIsPro);
   const setLoadingPro = useProStore((state) => state.setLoadingPro);
 
   const fetchProEnabled = async () => {
     try {
-      if (
-        Boolean(currentSessionProfileId) &&
-        !isAddress(currentSessionProfileId)
-      ) {
+      if (Boolean(sessionProfileId) && !isAddress(sessionProfileId)) {
         const response = await axios.get(`${PRO_WORKER_URL}/getProEnabled`, {
-          params: { id: currentSessionProfileId }
+          params: { id: sessionProfileId }
         });
         const { data } = response;
         setIsPro(data?.enabled || false);
@@ -30,7 +27,7 @@ const ProProvider: FC = () => {
   };
 
   useQuery({
-    queryKey: ['fetchProEnabled', currentSessionProfileId || ''],
+    queryKey: ['fetchProEnabled', sessionProfileId || ''],
     queryFn: fetchProEnabled
   });
 

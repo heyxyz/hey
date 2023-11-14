@@ -1,6 +1,6 @@
 import { FEATURES_WORKER_URL } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
-import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
+import getCurrentSession from '@lib/getCurrentSession';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
@@ -8,7 +8,7 @@ import { useFeatureFlagsStore } from 'src/store/useFeatureFlagsStore';
 import { isAddress } from 'viem';
 
 const FeatureFlagsProvider: FC = () => {
-  const currentSessionProfileId = getCurrentSessionProfileId();
+  const { id: sessionProfileId } = getCurrentSession();
   const setFeatureFlags = useFeatureFlagsStore(
     (state) => state.setFeatureFlags
   );
@@ -22,13 +22,10 @@ const FeatureFlagsProvider: FC = () => {
 
   const fetchFeatureFlags = async () => {
     try {
-      if (
-        Boolean(currentSessionProfileId) &&
-        !isAddress(currentSessionProfileId)
-      ) {
+      if (Boolean(sessionProfileId) && !isAddress(sessionProfileId)) {
         const response = await axios.get(
           `${FEATURES_WORKER_URL}/getFeatureFlags`,
-          { params: { id: currentSessionProfileId } }
+          { params: { id: sessionProfileId } }
         );
         const {
           data
@@ -47,7 +44,7 @@ const FeatureFlagsProvider: FC = () => {
   };
 
   useQuery({
-    queryKey: ['fetchFeatureFlags', currentSessionProfileId || ''],
+    queryKey: ['fetchFeatureFlags', sessionProfileId || ''],
     queryFn: fetchFeatureFlags
   });
 
