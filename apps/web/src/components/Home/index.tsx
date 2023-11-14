@@ -6,7 +6,7 @@ import { IS_MAINNET } from '@hey/data/constants';
 import { HomeFeedType } from '@hey/data/enums';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
-import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
+import getCurrentSession from '@lib/getCurrentSession';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useState } from 'react';
@@ -32,14 +32,14 @@ const Home: NextPage = () => {
     HomeFeedType.FOLLOWING
   );
 
-  const currentSessionProfileId = getCurrentSessionProfileId();
+  const { id: sessionProfileId } = getCurrentSession();
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'home' });
   });
 
   const loggedInWithProfile = Boolean(currentProfile);
-  const loggedInWithWallet = Boolean(currentSessionProfileId);
+  const loggedInWithWallet = Boolean(sessionProfileId);
   const loggedOut = !loggedInWithProfile;
 
   return (

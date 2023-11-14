@@ -4,7 +4,7 @@ import getProfile from '@hey/lib/getProfile';
 import getStampFyiURL from '@hey/lib/getStampFyiURL';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
+import getCurrentSession from '@lib/getCurrentSession';
 import type { FC } from 'react';
 import useEnsName from 'src/hooks/useEnsName';
 import { useAppStore } from 'src/store/useAppStore';
@@ -18,17 +18,17 @@ import ThemeSwitch from './NavItems/ThemeSwitch';
 
 const WalletUser: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const currentSessionProfileId = getCurrentSessionProfileId();
+  const { id: sessionProfileId } = getCurrentSession();
   const { ens } = useEnsName({
-    address: currentSessionProfileId,
-    enabled: Boolean(currentSessionProfileId)
+    address: sessionProfileId,
+    enabled: Boolean(sessionProfileId)
   });
 
   const Avatar = () => (
     <Image
-      src={getStampFyiURL(currentSessionProfileId)}
+      src={getStampFyiURL(sessionProfileId)}
       className="h-8 w-8 cursor-pointer rounded-full border dark:border-gray-700"
-      alt={currentSessionProfileId}
+      alt={sessionProfileId}
     />
   );
 

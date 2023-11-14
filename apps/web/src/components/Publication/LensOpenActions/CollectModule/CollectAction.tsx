@@ -30,7 +30,7 @@ import getSignature from '@hey/lib/getSignature';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Button, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
-import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
+import getCurrentSession from '@lib/getCurrentSession';
 import getOpenActionActOnKey from '@lib/getOpenActionActOnKey';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
@@ -68,8 +68,8 @@ const CollectAction: FC<CollectActionProps> = ({
     (state) => state.setLensHubOnchainSigNonce
   );
 
-  const currentSessionProfileId = getCurrentSessionProfileId();
-  const isWalletUser = isAddress(currentSessionProfileId);
+  const { id: sessionProfileId } = getCurrentSession();
+  const isWalletUser = isAddress(sessionProfileId);
 
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
@@ -198,7 +198,7 @@ const CollectAction: FC<CollectActionProps> = ({
           referenceModules: []
         }
       },
-      skip: !assetAddress || !currentSessionProfileId,
+      skip: !assetAddress || !sessionProfileId,
       onCompleted: ({ approvedModuleAllowanceAmount }) => {
         const allowedAmount = parseFloat(
           approvedModuleAllowanceAmount[0]?.allowance.value
@@ -351,7 +351,7 @@ const CollectAction: FC<CollectActionProps> = ({
     }
   };
 
-  if (!currentSessionProfileId) {
+  if (!sessionProfileId) {
     return (
       <div className="mt-5">
         <LoginButton title="Login to Collect" />

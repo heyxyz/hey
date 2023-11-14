@@ -3,7 +3,7 @@ import GlobalBanners from '@components/Shared/GlobalBanners';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
 import type { Profile } from '@hey/lens';
 import { useCurrentProfileQuery } from '@hey/lens';
-import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
+import getCurrentSession from '@lib/getCurrentSession';
 import getToastOptions from '@lib/getToastOptions';
 import Head from 'next/head';
 import { useTheme } from 'next-themes';
@@ -48,7 +48,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const { connector } = useAccount();
   const { disconnect } = useDisconnect();
 
-  const currentSessionProfileId = getCurrentSessionProfileId();
+  const { id: sessionProfileId } = getCurrentSession();
 
   const logout = () => {
     resetPreferences();
@@ -59,8 +59,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   };
 
   const { loading } = useCurrentProfileQuery({
-    variables: { request: { forProfileId: currentSessionProfileId } },
-    skip: !currentSessionProfileId || isAddress(currentSessionProfileId),
+    variables: { request: { forProfileId: sessionProfileId } },
+    skip: !sessionProfileId || isAddress(sessionProfileId),
     onCompleted: ({ profile }) => {
       setCurrentProfile(profile as Profile);
     }
