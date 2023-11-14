@@ -12,14 +12,22 @@ export default async (request: WorkerRequest) => {
   }
 
   try {
-    const client = createSupabaseClient(request.env.SUPABASE_KEY);
-    const { data } = await client
-      .from('rights')
-      .select('*')
-      .eq('id', id)
-      .single();
+    const cacheKey = `preferences:${id}`;
+    const cache = await request.env.PREFERENCES.get(cacheKey);
 
-    return response({ success: true, result: data });
+    if (!cache) {
+      const client = createSupabaseClient(request.env.SUPABASE_KEY);
+      const { data } = await client
+        .from('rights')
+        .select('*')
+        .eq('id', id)
+        .single();
+      await request.env.PREFERENCES.put(cacheKey, JSON.stringify(data));
+
+      return response({ success: true, result: data });
+    }
+
+    return response({ success: true, fromKV: true, result: JSON.parse(cache) });
   } catch (error) {
     throw error;
   }
