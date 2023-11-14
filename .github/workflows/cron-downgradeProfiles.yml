@@ -16,4 +16,4 @@ jobs:
         run: |
           curl -X DELETE \
             -d '{"secret": "'"$WORKER_SECRET"'"}' \
-            https://pro.hey.xyz/downgradeProfiles
+            https://internal.hey.xyz/pro/downgradeProfiles
