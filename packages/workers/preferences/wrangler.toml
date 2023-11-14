@@ -7,6 +7,10 @@ routes = [
 	{ pattern = "preferences.hey.xyz", custom_domain = true }
 ]
 
+kv_namespaces = [
+  { binding = "PREFERENCES", id = "0c2df8f66fcd4704a4463e3db73471ca", preview_id = "0c2df8f66fcd4704a4463e3db73471ca" }
+]
+
 [env.production.vars]
 RELEASE = ""
 SUPABASE_KEY = ""
