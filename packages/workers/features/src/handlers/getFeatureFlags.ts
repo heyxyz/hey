@@ -12,22 +12,34 @@ export default async (request: WorkerRequest) => {
   }
 
   try {
-    const client = createSupabaseClient(request.env.SUPABASE_KEY);
+    const cacheKey = `features:${id}`;
+    const cache = await request.env.FEATURES.get(cacheKey);
 
-    const { data, error } = await client
-      .from('profile-features')
-      .select('profile_id, enabled, features!inner(key, enabled)')
-      .eq('features.enabled', true)
-      .eq('profile_id', id)
-      .eq('enabled', true);
+    if (!cache) {
+      const client = createSupabaseClient(request.env.SUPABASE_KEY);
 
-    if (error) {
-      throw error;
+      const { data, error } = await client
+        .from('profile-features')
+        .select('profile_id, enabled, features!inner(key, enabled)')
+        .eq('features.enabled', true)
+        .eq('profile_id', id)
+        .eq('enabled', true);
+
+      if (error) {
+        throw error;
+      }
+
+      const features = data.map((feature: any) => feature.features?.key);
+      await request.env.FEATURES.put(cacheKey, JSON.stringify(features));
+
+      return response({ success: true, features });
     }
 
-    const features = data.map((feature: any) => feature.features?.key);
-
-    return response({ success: true, features });
+    return response({
+      success: true,
+      fromKV: true,
+      features: JSON.parse(cache)
+    });
   } catch (error) {
     throw error;
   }
