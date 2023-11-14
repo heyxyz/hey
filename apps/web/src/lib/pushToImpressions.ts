@@ -4,7 +4,7 @@ import { hydrateLeafwatchViewerId } from 'src/store/useLeafwatchPersistStore';
 const pushToImpressions = (id: string): void => {
   const viewerId = hydrateLeafwatchViewerId();
 
-  if (IS_MAINNET && id && navigator.serviceWorker.controller) {
+  if (IS_MAINNET && id && navigator.serviceWorker?.controller) {
     navigator.serviceWorker.controller.postMessage({
       type: 'PUBLICATION_VISIBLE',
       id,
