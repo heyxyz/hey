@@ -38,6 +38,12 @@ export default async (request: WorkerRequest) => {
   try {
     const { payload } = jwt.decode(accessToken as string);
     const profile_id = payload.id;
+
+    const clearCache = async () => {
+      // Clear profile cache in Cloudflare KV
+      await request.env.FEATURES.delete(`features:${profile_id}`);
+    };
+
     const client = createSupabaseClient(request.env.SUPABASE_KEY);
 
     if (enabled) {
@@ -48,6 +54,7 @@ export default async (request: WorkerRequest) => {
       if (upsertError) {
         throw upsertError;
       }
+      await clearCache();
 
       return response({ success: true, enabled });
     }
@@ -61,6 +68,7 @@ export default async (request: WorkerRequest) => {
     if (deleteError) {
       throw deleteError;
     }
+    await clearCache();
 
     return response({ success: true, enabled });
   } catch (error) {
