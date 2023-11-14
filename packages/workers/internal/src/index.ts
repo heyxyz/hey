@@ -3,6 +3,7 @@ import response from '@hey/lib/response';
 import validateLensAccount from '@hey/lib/worker-middlewares/validateLensAccount';
 import { createCors, error, Router, status } from 'itty-router';
 
+import downgradeProProfiles from './handlers/downgradeProProfiles';
 import getAllFeatureFlags from './handlers/getAllFeatureFlags';
 import updateFeatureFlag from './handlers/updateFeatureFlag';
 import updateGardenerMode from './handlers/updateGardenerMode';
@@ -30,6 +31,7 @@ router
   .post('/updateStaffMode', validateLensAccount, updateStaffMode)
   .post('/updateGardenerMode', validateLensAccount, updateGardenerMode)
   .post('/updateFeatureFlag', validateLensAccount, updateFeatureFlag)
+  .delete('/downgradeProProfiles', downgradeProProfiles)
   .all('*', () => error(404));
 
 export default {
