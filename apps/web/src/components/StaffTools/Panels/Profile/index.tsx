@@ -8,12 +8,10 @@ import {
 } from '@heroicons/react/24/outline';
 import { ShieldCheckIcon } from '@heroicons/react/24/solid';
 import { APP_NAME, IS_MAINNET, STATS_WORKER_URL } from '@hey/data/constants';
-import { FeatureFlag } from '@hey/data/feature-flags';
 import type { Profile } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
 import getFollowModule from '@hey/lib/getFollowModule';
 import { Card } from '@hey/ui';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Link from 'next/link';
@@ -137,9 +135,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         <>
           <ProfileDetails profile={profile} />
           <Rank profile={profile} />
-          {isFeatureEnabled(FeatureFlag.FeatureFlipper) && (
-            <FeatureFlags profile={profile} />
-          )}
+          <FeatureFlags profile={profile} />
         </>
       ) : null}
     </Card>
