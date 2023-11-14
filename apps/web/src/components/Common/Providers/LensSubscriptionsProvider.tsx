@@ -1,10 +1,11 @@
 import { API_URL } from '@hey/data/constants';
 import {
-  AuthorizationRecordRevokedDocument,
-  NewNotificationDocument,
+  AuthorizationRecordRevokedSubscriptionDocument,
+  NewNotificationSubscriptionDocument,
   type Notification,
   type UserSigNonces,
-  UserSigNoncesDocument
+  UserSigNoncesSubscriptionDocument,
+  useUserSigNoncesQuery
 } from '@hey/lens';
 import { BrowserPush } from '@lib/browserPush';
 import getCurrentSessionId from '@lib/getCurrentSessionId';
@@ -28,6 +29,9 @@ const LensSubscriptionsProvider: FC = () => {
   const setLensHubOnchainSigNonce = useNonceStore(
     (state) => state.setLensHubOnchainSigNonce
   );
+  const setLensPublicActProxyOnchainSigNonce = useNonceStore(
+    (state) => state.setLensPublicActProxyOnchainSigNonce
+  );
   const { address } = useAccount();
 
   const { sendJsonMessage, lastMessage, readyState } = useWebSocket(
@@ -47,21 +51,24 @@ const LensSubscriptionsProvider: FC = () => {
           type: 'start',
           payload: {
             variables: { for: currentSessionProfileId },
-            query: NewNotificationDocument
+            query: NewNotificationSubscriptionDocument
           }
         });
       }
       sendJsonMessage({
         id: '2',
         type: 'start',
-        payload: { variables: { address }, query: UserSigNoncesDocument }
+        payload: {
+          variables: { address },
+          query: UserSigNoncesSubscriptionDocument
+        }
       });
       sendJsonMessage({
         id: '3',
         type: 'start',
         payload: {
           variables: { authorizationId: getCurrentSessionId() },
-          query: AuthorizationRecordRevokedDocument
+          query: AuthorizationRecordRevokedSubscriptionDocument
         }
       });
     }
@@ -85,6 +92,9 @@ const LensSubscriptionsProvider: FC = () => {
       if (jsonData.id === '2') {
         const userSigNonces = wsData.userSigNonces as UserSigNonces;
         setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce);
+        setLensPublicActProxyOnchainSigNonce(
+          userSigNonces.lensPublicActProxyOnchainSigNonce
+        );
       }
       if (jsonData.id === '3') {
         signOut();
@@ -93,9 +103,20 @@ const LensSubscriptionsProvider: FC = () => {
     }
   }, [lastMessage]);
 
+  useUserSigNoncesQuery({
+    onCompleted: (data) => {
+      setLensHubOnchainSigNonce(data.userSigNonces.lensHubOnchainSigNonce);
+      setLensPublicActProxyOnchainSigNonce(
+        data.userSigNonces.lensPublicActProxyOnchainSigNonce
+      );
+    },
+    skip: !currentSessionProfileId
+  });
+
   // Sync zustand stores between tabs
   if (isSupported()) {
     share('lensHubOnchainSigNonce', useNonceStore);
+    share('lensPublicActProxyOnchainSigNonce', useNonceStore);
   }
 
   return null;
