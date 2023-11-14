@@ -1,7 +1,7 @@
 import response from '@hey/lib/response';
 import createSupabaseClient from '@hey/supabase/createSupabaseClient';
 
-import type { WorkerRequest } from '../types';
+import type { WorkerRequest } from '../../types';
 
 export default async (request: WorkerRequest) => {
   try {
