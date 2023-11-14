@@ -620,9 +620,6 @@ importers:
       '@hey/supabase':
         specifier: workspace:*
         version: link:../../supabase
-      '@tsndr/cloudflare-worker-jwt':
-        specifier: ^2.2.7
-        version: 2.2.9
       itty-router:
         specifier: ^4.0.23
         version: 4.0.23
@@ -753,9 +750,6 @@ importers:
       '@hey/lib':
         specifier: workspace:*
         version: link:../../lib
-      '@tsndr/cloudflare-worker-jwt':
-        specifier: ^2.2.7
-        version: 2.2.9
       itty-router:
         specifier: ^4.0.23
         version: 4.0.23
@@ -883,9 +877,6 @@ importers:
       '@hey/supabase':
         specifier: workspace:*
         version: link:../../supabase
-      '@tsndr/cloudflare-worker-jwt':
-        specifier: ^2.2.7
-        version: 2.2.9
       itty-router:
         specifier: ^4.0.23
         version: 4.0.23
@@ -4550,6 +4541,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
+      napi-wasm: 1.1.0
     dev: false
     bundledDependencies:
       - napi-wasm
@@ -6142,10 +6134,6 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       tippy.js: 6.3.7
-    dev: false
-
-  /@tsndr/cloudflare-worker-jwt@2.2.9:
-    resolution: {integrity: sha512-G2VYbylsvz39jQ1UyOvpE7rxAn5jqOJzw3aM202B9uL3v6lckwAlkZlCvzXA0l23gQg8RfXDG8TlGmvtmAAfwg==}
     dev: false
 
   /@types/chai-subset@1.3.5:
@@ -11017,6 +11005,10 @@ packages:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
+
+  /napi-wasm@1.1.0:
+    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
+    dev: false
 
   /natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
