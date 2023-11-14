@@ -46,7 +46,7 @@
     "dayjs-twitter": "^0.5.0",
     "dotenv": "^16.3.1",
     "esbuild": "^0.19.5",
-    "framer-motion": "^10.16.4",
+    "framer-motion": "^10.16.5",
     "graphql": "^16.8.1",
     "lexical": "^0.12.2",
     "next": "^14.0.2",
