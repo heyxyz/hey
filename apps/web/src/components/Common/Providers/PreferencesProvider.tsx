@@ -2,7 +2,7 @@ import {
   FEATURES_WORKER_URL,
   PREFERENCES_WORKER_URL
 } from '@hey/data/constants';
-import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
+import getCurrentSession from '@lib/getCurrentSession';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
@@ -11,7 +11,7 @@ import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import { isAddress } from 'viem';
 
 const PreferencesProvider: FC = () => {
-  const currentSessionProfileId = getCurrentSessionProfileId();
+  const { id: sessionProfileId } = getCurrentSession();
   const setVerifiedMembers = useAppStore((state) => state.setVerifiedMembers);
   const setIsPride = usePreferencesStore((state) => state.setIsPride);
   const setHighSignalNotificationFilter = usePreferencesStore(
@@ -23,14 +23,11 @@ const PreferencesProvider: FC = () => {
 
   const fetchPreferences = async () => {
     try {
-      if (
-        Boolean(currentSessionProfileId) &&
-        !isAddress(currentSessionProfileId)
-      ) {
+      if (Boolean(sessionProfileId) && !isAddress(sessionProfileId)) {
         const response = await axios.get(
           `${PREFERENCES_WORKER_URL}/getPreferences`,
           {
-            params: { id: currentSessionProfileId }
+            params: { id: sessionProfileId }
           }
         );
         const { data } = response;
@@ -47,7 +44,7 @@ const PreferencesProvider: FC = () => {
   };
 
   useQuery({
-    queryKey: ['fetchPreferences', currentSessionProfileId || ''],
+    queryKey: ['fetchPreferences', sessionProfileId || ''],
     queryFn: fetchPreferences
   });
 

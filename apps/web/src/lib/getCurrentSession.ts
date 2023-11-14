@@ -1,11 +1,17 @@
 import parseJwt from '@hey/lib/parseJwt';
 import { hydrateAuthTokens } from 'src/store/useAuthPersistStore';
 
-const getCurrentSessionId = (): string => {
+const getCurrentSession = (): {
+  authorizationId: string;
+  id: string;
+} => {
   const { accessToken } = hydrateAuthTokens();
-
   const currentSession = parseJwt(accessToken || '');
-  return currentSession?.authorizationId;
+
+  return {
+    authorizationId: currentSession?.authorizationId,
+    id: currentSession?.id
+  };
 };
 
-export default getCurrentSessionId;
+export default getCurrentSession;
