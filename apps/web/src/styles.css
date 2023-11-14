@@ -104,7 +104,7 @@ progress::-moz-progress-bar {
 
 .oembed-player,
 iframe {
-  @apply rounded-xl flex h-[flex] w-full ;
+  @apply rounded-xl flex h-[flex] w-full mt-4 ;
 }
 
 /** CSS overrides for plyr audio **/
