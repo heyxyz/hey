@@ -37,6 +37,11 @@ export default async (request: WorkerRequest) => {
     const { payload } = jwt.decode(accessToken as string);
     const client = createSupabaseClient(request.env.SUPABASE_KEY);
 
+    const clearCache = async () => {
+      // Clear profile cache in Cloudflare KV
+      await request.env.PREFERENCES.delete(`preferences:${payload.id}`);
+    };
+
     const { data, error } = await client
       .from('rights')
       .upsert({
@@ -50,6 +55,7 @@ export default async (request: WorkerRequest) => {
     if (error) {
       throw error;
     }
+    await clearCache();
 
     return response({ success: true, result: data });
   } catch (error) {
