@@ -3,6 +3,7 @@ const knownSites = [
   'youtu.be',
   'tape.xyz',
   'open.spotify.com',
+  'spotify.link',
   'soundcloud.com',
   'oohlala.xyz'
 ];
@@ -13,6 +14,7 @@ const spotifyTrackUrlRegex =
   /^ht{2}ps?:\/{2}open\.spotify\.com\/track\/[\dA-Za-z]+(\?si=[\dA-Za-z]+)?$/;
 const spotifyPlaylistUrlRegex =
   /^ht{2}ps?:\/{2}open\.spotify\.com\/playlist\/[\dA-Za-z]+(\?si=[\dA-Za-z]+)?$/;
+const spotifyShortLinkRegex = /^https?:\/\/spoti\.fi\/[\dA-Za-z]+$/;
 const oohlalaUrlRegex =
   /^ht{2}ps?:\/{2}oohlala\.xyz\/playlist\/[\dA-Fa-f-]+(\?si=[\dA-Za-z]+)?$/;
 const soundCloudRegex =
@@ -59,6 +61,17 @@ const generateIframe = (
       if (spotifyPlaylistUrlRegex.test(url)) {
         const spotifyUrl = pickedUrl.replace('/playlist', '/embed/playlist');
         return `<iframe src="${spotifyUrl}" ${spotifySize} height="380" allow="encrypted-media"></iframe>`;
+      }
+
+      return null;
+    case 'spotify.link':
+      const spotifyShortLinkSize = `style=max-width:560px; width:100%;`;
+      if (spotifyShortLinkRegex.test(url)) {
+        const spotifyUrl = pickedUrl.replace(
+          'spotify.link',
+          'open.spotify.com'
+        );
+        return `<iframe src="${spotifyUrl}" ${spotifyShortLinkSize} height="155" allow="encrypted-media"></iframe>`;
       }
 
       return null;
