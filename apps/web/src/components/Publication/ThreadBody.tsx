@@ -25,7 +25,8 @@ const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
   });
 
   return (
-    <PublicationWrapper publication={publication} ref={observe}>
+    <PublicationWrapper publication={publication}>
+      <span ref={observe} />
       <PublicationHeader publication={publication} />
       <div className="flex">
         <div className="-my-6 ml-5 mr-8 border-[0.8px] border-gray-300 bg-gray-300 dark:border-gray-700 dark:bg-gray-700" />
