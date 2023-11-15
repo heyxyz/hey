@@ -17,7 +17,14 @@ export default async (request: WorkerRequest) => {
       body: JSON.stringify({
         name: `${payload.id}-${crypto.randomUUID()}`,
         profiles: [
-          { name: '720p0', fps: 0, bitrate: 3000000, width: 1280, height: 720 }
+          { name: '720p0', fps: 0, bitrate: 3000000, width: 1280, height: 720 },
+          {
+            name: '1080p0',
+            fps: 0,
+            bitrate: 6000000,
+            width: 1920,
+            height: 1080
+          }
         ]
       })
     });
