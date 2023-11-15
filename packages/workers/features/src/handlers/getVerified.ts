@@ -1,12 +1,11 @@
 import response from '@hey/lib/response';
 import createSupabaseClient from '@hey/supabase/createSupabaseClient';
 
-import { VERIFIED_KV_KEY } from '../constants';
 import type { WorkerRequest } from '../types';
 
 export default async (request: WorkerRequest) => {
   try {
-    const cache = await request.env.FEATURES.get(VERIFIED_KV_KEY);
+    const cache = await request.env.VERIFIED.get('list');
 
     if (!cache) {
       const client = createSupabaseClient(request.env.SUPABASE_KEY);
@@ -17,7 +16,7 @@ export default async (request: WorkerRequest) => {
       }
 
       const ids = data.map((item) => item.id);
-      await request.env.FEATURES.put(VERIFIED_KV_KEY, JSON.stringify(ids));
+      await request.env.VERIFIED.put('list', JSON.stringify(ids));
 
       return response({ success: true, result: ids });
     }
