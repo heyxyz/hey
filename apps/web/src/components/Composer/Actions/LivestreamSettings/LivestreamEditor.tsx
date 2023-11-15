@@ -95,11 +95,11 @@ const LivestreamEditor: FC = () => {
             <Card className="space-y-2 p-3">
               <div className="flex items-center space-x-1">
                 <b>Stream URL:</b>
-                <div className="">rtmp://rtmp.livepeer.com/live</div>
+                <div className="">rtmp://rtmp.hey.xyz/live</div>
                 <button
                   onClick={async () => {
                     await navigator.clipboard.writeText(
-                      'rtmp://rtmp.livepeer.com/live'
+                      'rtmp://rtmp.hey.xyz/live'
                     );
                     toast.success('Copied to clipboard!');
                   }}
