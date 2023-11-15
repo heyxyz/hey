@@ -35,7 +35,7 @@ const Access: FC<RankProps> = ({ profile }) => {
     toast.promise(
       axios.post(
         `${INTERNAL_WORKER_URL}/verified/updateVerified`,
-        { enabled: !isVerified },
+        { id: profile.id, enabled: !isVerified },
         { headers: getAuthWorkerHeaders() }
       ),
       {
