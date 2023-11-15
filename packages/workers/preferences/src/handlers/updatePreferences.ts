@@ -42,7 +42,7 @@ export default async (request: WorkerRequest) => {
     };
 
     const { data, error } = await client
-      .from('rights')
+      .from('preferences')
       .upsert({
         id: payload.id,
         is_pride: isPride,

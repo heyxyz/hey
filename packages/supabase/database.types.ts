@@ -99,6 +99,24 @@ export interface Database {
         };
         Relationships: [];
       };
+      preferences: {
+        Row: {
+          high_signal_notification_filter: boolean;
+          id: string;
+          is_pride: boolean;
+        };
+        Insert: {
+          high_signal_notification_filter?: boolean;
+          id: string;
+          is_pride?: boolean;
+        };
+        Update: {
+          high_signal_notification_filter?: boolean;
+          id?: string;
+          is_pride?: boolean;
+        };
+        Relationships: [];
+      };
       pro: {
         Row: {
           created_at: string;
@@ -152,24 +170,6 @@ export interface Database {
           }
         ];
       };
-      rights: {
-        Row: {
-          high_signal_notification_filter: boolean;
-          id: string;
-          is_pride: boolean;
-        };
-        Insert: {
-          high_signal_notification_filter?: boolean;
-          id: string;
-          is_pride?: boolean;
-        };
-        Update: {
-          high_signal_notification_filter?: boolean;
-          id?: string;
-          is_pride?: boolean;
-        };
-        Relationships: [];
-      };
       'staff-picks': {
         Row: {
           created_at: string;
@@ -197,7 +197,7 @@ export interface Database {
             foreignKeyName: 'staff-picks_picker_id_fkey';
             columns: ['picker_id'];
             isOneToOne: false;
-            referencedRelation: 'rights';
+            referencedRelation: 'preferences';
             referencedColumns: ['id'];
           }
         ];
