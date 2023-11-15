@@ -32,11 +32,11 @@ export default async (request: WorkerRequest) => {
     return response({ success: false, error: Errors.NotStaff });
   }
 
+  const { id, enabled } = body as ExtensionRequest;
+
   const clearCache = async () => {
     await request.env.VERIFIED.delete('list');
   };
-
-  const { id, enabled } = body as ExtensionRequest;
 
   try {
     const client = createSupabaseClient(request.env.SUPABASE_KEY);

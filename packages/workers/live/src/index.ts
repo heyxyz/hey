@@ -23,7 +23,7 @@ router
       version: request.env.RELEASE ?? 'unknown'
     })
   )
-  .post('/create', validateLensAccount, createStream)
+  .post('/createStream', validateLensAccount, createStream)
   .all('*', () => error(404));
 
 export default {
