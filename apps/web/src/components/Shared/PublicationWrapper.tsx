@@ -31,8 +31,8 @@ const PublicationWrapper: FC<PublicationWrapperProps> = ({
           push(`/posts/${publication?.id}`);
         }
       }}
-      ref={ref}
     >
+      <span ref={ref} />
       {children}
     </motion.article>
   );
