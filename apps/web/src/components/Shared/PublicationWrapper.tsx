@@ -8,12 +8,14 @@ interface PublicationWrapperProps {
   publication: AnyPublication;
   className?: string;
   children: ReactNode[];
+  ref?: any;
 }
 
 const PublicationWrapper: FC<PublicationWrapperProps> = ({
   publication,
   className = '',
-  children
+  children,
+  ref
 }) => {
   const { push } = useRouter();
 
@@ -29,6 +31,7 @@ const PublicationWrapper: FC<PublicationWrapperProps> = ({
           push(`/posts/${publication?.id}`);
         }
       }}
+      ref={ref}
     >
       {children}
     </motion.article>
