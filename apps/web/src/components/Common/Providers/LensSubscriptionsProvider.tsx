@@ -104,12 +104,11 @@ const LensSubscriptionsProvider: FC = () => {
 
   useUserSigNoncesQuery({
     onCompleted: (data) => {
-      setLensHubOnchainSigNonce(data.userSigNonces.lensHubOnchainSigNonce);
       setLensPublicActProxyOnchainSigNonce(
         data.userSigNonces.lensPublicActProxyOnchainSigNonce
       );
     },
-    skip: !sessionProfileId
+    skip: Boolean(sessionProfileId) ? !isAddress(sessionProfileId) : true
   });
 
   // Sync zustand stores between tabs

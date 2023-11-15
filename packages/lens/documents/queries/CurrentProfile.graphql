@@ -6,4 +6,7 @@ query CurrentProfile($request: ProfileRequest!) {
       cooldownEndsOn
     }
   }
+  userSigNonces {
+    lensHubOnchainSigNonce
+  }
 }
