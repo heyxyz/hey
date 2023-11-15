@@ -17,6 +17,7 @@ import AlgorithmicFeed from './AlgorithmicFeed';
 import Tabs from './Algorithms/Tabs';
 import EnableLensManager from './EnableLensManager';
 import FeedType from './FeedType';
+import Gitcoin from './Gitcoin';
 import Hero from './Hero';
 import HeyMembershipNft from './HeyMembershipNft';
 import Highlights from './Highlights';
@@ -68,7 +69,7 @@ const Home: NextPage = () => {
           )}
         </GridItemEight>
         <GridItemFour>
-          {/* <Gitcoin /> */}
+          <Gitcoin />
           {loggedOut && <Waitlist />}
           {loggedInWithProfile && <HeyMembershipNft />}
           {/* Onboarding steps */}
