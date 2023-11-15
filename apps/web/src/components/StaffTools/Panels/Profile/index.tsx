@@ -18,6 +18,7 @@ import Link from 'next/link';
 import { type FC } from 'react';
 
 import MetaDetails from '../MetaDetails';
+import Access from './Access';
 import FeatureFlags from './FeatureFlags';
 import ProfileDetails from './ProfileDetails';
 import Rank from './Rank';
@@ -135,6 +136,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         <>
           <ProfileDetails profile={profile} />
           <Rank profile={profile} />
+          <Access profile={profile} />
           <FeatureFlags profile={profile} />
         </>
       ) : null}

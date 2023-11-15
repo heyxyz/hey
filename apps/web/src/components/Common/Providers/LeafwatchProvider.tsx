@@ -4,12 +4,14 @@ import { useEffectOnce } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
 
 const LeafwatchProvider: FC = () => {
-  const viewerId = useLeafwatchPersistStore((state) => state.viewerId);
-  const setViewerId = useLeafwatchPersistStore((state) => state.setViewerId);
+  const anonymousId = useLeafwatchPersistStore((state) => state.anonymousId);
+  const setAnonymousId = useLeafwatchPersistStore(
+    (state) => state.setAnonymousId
+  );
 
   useEffectOnce(() => {
-    if (!viewerId) {
-      setViewerId(uuid());
+    if (!anonymousId) {
+      setAnonymousId(uuid());
     }
   });
 

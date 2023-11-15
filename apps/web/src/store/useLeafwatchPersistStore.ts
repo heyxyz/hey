@@ -3,23 +3,23 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 interface LeafwatchPersistState {
-  viewerId: string | null;
-  setViewerId: (viewerId: string) => void;
-  hydrateLeafwatchViewerId: () => string | null;
+  anonymousId: string | null;
+  setAnonymousId: (anonymousIdId: string) => void;
+  hydrateLeafwatchAnonymousId: () => string | null;
 }
 
 export const useLeafwatchPersistStore = create(
   persist<LeafwatchPersistState>(
     (set, get) => ({
-      viewerId: null,
-      setViewerId: (viewerId) => set({ viewerId }),
-      hydrateLeafwatchViewerId: () => {
-        return get().viewerId;
+      anonymousId: null,
+      setAnonymousId: (anonymousId) => set({ anonymousId }),
+      hydrateLeafwatchAnonymousId: () => {
+        return get().anonymousId;
       }
     }),
     { name: Localstorage.LeafwatchStore }
   )
 );
 
-export const hydrateLeafwatchViewerId = () =>
-  useLeafwatchPersistStore.getState().hydrateLeafwatchViewerId();
+export const hydrateLeafwatchAnonymousId = () =>
+  useLeafwatchPersistStore.getState().hydrateLeafwatchAnonymousId();

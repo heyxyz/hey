@@ -20,7 +20,7 @@
     "@hey/lib": "workspace:*",
     "@hey/types": "workspace:*",
     "itty-router": "^4.0.23",
-    "linkedom": "^0.16.1"
+    "linkedom": "^0.16.4"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20231025.0",

@@ -38,12 +38,11 @@ export default async (request: WorkerRequest) => {
     const client = createSupabaseClient(request.env.SUPABASE_KEY);
 
     const clearCache = async () => {
-      // Clear profile cache in Cloudflare KV
       await request.env.PREFERENCES.delete(`preferences:${payload.id}`);
     };
 
     const { data, error } = await client
-      .from('rights')
+      .from('preferences')
       .upsert({
         id: payload.id,
         is_pride: isPride,

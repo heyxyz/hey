@@ -8,6 +8,7 @@ import updateFeatureFlag from './handlers/features/updateFeatureFlag';
 import updateGardenerMode from './handlers/features/updateGardenerMode';
 import updateStaffMode from './handlers/features/updateStaffMode';
 import downgradeProfiles from './handlers/pro/downgradeProfiles';
+import updateVerified from './handlers/verified/updateVerified';
 import buildRequest from './helpers/buildRequest';
 import type { Env, WorkerRequest } from './types';
 
@@ -28,6 +29,10 @@ featureRoutes
 const proRoutes = Router({ base: '/pro' });
 proRoutes.delete('/downgradeProfiles', downgradeProfiles);
 
+// Verified routes
+const verifiedRoutes = Router({ base: '/verified' });
+verifiedRoutes.post('/updateVerified', validateLensAccount, updateVerified);
+
 // Main router
 const router = Router();
 router
@@ -41,6 +46,7 @@ router
   )
   .all('/feature/*', featureRoutes.handle)
   .all('/pro/*', proRoutes.handle)
+  .all('/verified/*', verifiedRoutes.handle)
   .all('*', () => error(404));
 
 export default {
