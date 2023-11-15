@@ -14,6 +14,7 @@ export default async (request: WorkerRequest) => {
       const { data } = await client
         .from('staff-picks')
         .select('*')
+        .neq('score', 0)
         .order('score', { ascending: false })
         .limit(10);
 
