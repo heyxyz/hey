@@ -1,17 +1,18 @@
 import { Errors } from '@hey/data/errors';
-import parseJwt from '@hey/lib/parseJwt';
 import response from '@hey/lib/response';
 import createSupabaseClient from '@hey/supabase/createSupabaseClient';
-import { boolean, object } from 'zod';
+import { boolean, object, string } from 'zod';
 
 import validateIsStaff from '../../helpers/validateIsStaff';
 import type { WorkerRequest } from '../../types';
 
 type ExtensionRequest = {
+  id: string;
   enabled: boolean;
 };
 
 const validationSchema = object({
+  id: string(),
   enabled: boolean()
 });
 
@@ -21,7 +22,6 @@ export default async (request: WorkerRequest) => {
     return response({ success: false, error: Errors.NoBody });
   }
 
-  const accessToken = request.headers.get('X-Access-Token');
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
@@ -32,14 +32,11 @@ export default async (request: WorkerRequest) => {
     return response({ success: false, error: Errors.NotStaff });
   }
 
-  const { enabled } = body as ExtensionRequest;
+  const { id, enabled } = body as ExtensionRequest;
 
   try {
-    const payload = parseJwt(accessToken as string);
-    const profile_id = payload.id;
-
     const clearCache = async () => {
-      await request.env.VERIFIED.delete(`list`);
+      await request.env.VERIFIED.delete('list');
     };
 
     const client = createSupabaseClient(request.env.SUPABASE_KEY);
@@ -47,7 +44,7 @@ export default async (request: WorkerRequest) => {
     if (enabled) {
       const { error: upsertError } = await client
         .from('verified')
-        .upsert({ id: profile_id });
+        .upsert({ id });
 
       if (upsertError) {
         throw upsertError;
@@ -60,7 +57,7 @@ export default async (request: WorkerRequest) => {
     const { error: deleteError } = await client
       .from('verified')
       .delete()
-      .eq('id', profile_id);
+      .eq('id', id);
 
     if (deleteError) {
       throw deleteError;
