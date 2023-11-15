@@ -31,8 +31,8 @@ const QuotedPublication: FC<QuotedPublicationProps> = ({
     <PublicationWrapper
       className="cursor-pointer p-5 first:rounded-t-xl last:rounded-b-xl hover:bg-gray-100 dark:hover:bg-gray-900"
       publication={publication}
-      ref={observe}
     >
+      <span ref={observe} />
       <PublicationHeader publication={publication} quoted isNew={isNew} />
       {publication.isHidden ? (
         <HiddenPublication type={publication.__typename} />

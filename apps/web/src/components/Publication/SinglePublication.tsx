@@ -66,8 +66,8 @@ const SinglePublication: FC<SinglePublicationProps> = ({
         'cursor-pointer p-5 hover:bg-gray-100 dark:hover:bg-gray-900'
       )}
       publication={rootPublication}
-      ref={observe}
     >
+      <span ref={observe} />
       {feedItem ? (
         <ActionType feedItem={feedItem} />
       ) : (
