@@ -18,7 +18,7 @@ export default async (request: WorkerRequest) => {
     if (!cache) {
       const client = createSupabaseClient(request.env.SUPABASE_KEY);
       const { data } = await client
-        .from('rights')
+        .from('preferences')
         .select('*')
         .eq('id', id)
         .single();
