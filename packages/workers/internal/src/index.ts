@@ -31,7 +31,7 @@ proRoutes.delete('/downgradeProfiles', downgradeProfiles);
 
 // Verified routes
 const verifiedRoutes = Router({ base: '/verified' });
-proRoutes.post('/updateVerified', validateLensAccount, updateVerified);
+verifiedRoutes.post('/updateVerified', validateLensAccount, updateVerified);
 
 // Main router
 const router = Router();
