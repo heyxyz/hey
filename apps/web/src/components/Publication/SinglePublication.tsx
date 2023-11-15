@@ -66,6 +66,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
         'cursor-pointer p-5 hover:bg-gray-100 dark:hover:bg-gray-900'
       )}
       publication={rootPublication}
+      ref={observe}
     >
       {feedItem ? (
         <ActionType feedItem={feedItem} />
@@ -77,7 +78,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
         />
       )}
       <PublicationHeader publication={rootPublication} feedItem={feedItem} />
-      <div className="ml-[53px]" ref={observe}>
+      <div className="ml-[53px]">
         {publication.isHidden ? (
           <HiddenPublication type={publication.__typename} />
         ) : (
