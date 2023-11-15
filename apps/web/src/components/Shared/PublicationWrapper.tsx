@@ -8,14 +8,12 @@ interface PublicationWrapperProps {
   publication: AnyPublication;
   className?: string;
   children: ReactNode[];
-  ref?: any;
 }
 
 const PublicationWrapper: FC<PublicationWrapperProps> = ({
   publication,
   className = '',
-  children,
-  ref
+  children
 }) => {
   const { push } = useRouter();
 
@@ -32,7 +30,6 @@ const PublicationWrapper: FC<PublicationWrapperProps> = ({
         }
       }}
     >
-      <span ref={ref} />
       {children}
     </motion.article>
   );
