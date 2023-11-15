@@ -1,20 +1,17 @@
 import { Errors } from '@hey/data/errors';
+import parseJwt from '@hey/lib/parseJwt';
 import response from '@hey/lib/response';
 import createSupabaseClient from '@hey/supabase/createSupabaseClient';
-import { boolean, object, string } from 'zod';
+import { boolean, object } from 'zod';
 
 import validateIsStaff from '../../helpers/validateIsStaff';
 import type { WorkerRequest } from '../../types';
 
 type ExtensionRequest = {
-  id: string;
-  profile_id: string;
   enabled: boolean;
 };
 
 const validationSchema = object({
-  id: string(),
-  profile_id: string(),
   enabled: boolean()
 });
 
@@ -24,6 +21,7 @@ export default async (request: WorkerRequest) => {
     return response({ success: false, error: Errors.NoBody });
   }
 
+  const accessToken = request.headers.get('X-Access-Token');
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
@@ -34,40 +32,39 @@ export default async (request: WorkerRequest) => {
     return response({ success: false, error: Errors.NotStaff });
   }
 
-  const { id, profile_id, enabled } = body as ExtensionRequest;
-
-  const clearCache = async () => {
-    await request.env.FEATURES.delete(`features:${profile_id}`);
-  };
+  const { enabled } = body as ExtensionRequest;
 
   try {
+    const payload = parseJwt(accessToken as string);
+    const profile_id = payload.id;
+
+    const clearCache = async () => {
+      await request.env.VERIFIED.delete(`list`);
+    };
+
     const client = createSupabaseClient(request.env.SUPABASE_KEY);
+
     if (enabled) {
       const { error: upsertError } = await client
-        .from('profile-features')
-        .upsert({ feature_id: id, profile_id: profile_id })
-        .select();
+        .from('verified')
+        .upsert({ id: profile_id });
 
       if (upsertError) {
         throw upsertError;
       }
-
       await clearCache();
 
       return response({ success: true, enabled });
     }
 
     const { error: deleteError } = await client
-      .from('profile-features')
+      .from('verified')
       .delete()
-      .eq('feature_id', id)
-      .eq('profile_id', profile_id)
-      .select();
+      .eq('id', profile_id);
 
     if (deleteError) {
       throw deleteError;
     }
-
     await clearCache();
 
     return response({ success: true, enabled });

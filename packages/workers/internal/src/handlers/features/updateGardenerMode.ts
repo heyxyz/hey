@@ -40,7 +40,6 @@ export default async (request: WorkerRequest) => {
     const profile_id = payload.id;
 
     const clearCache = async () => {
-      // Clear profile cache in Cloudflare KV
       await request.env.FEATURES.delete(`features:${profile_id}`);
     };
 
