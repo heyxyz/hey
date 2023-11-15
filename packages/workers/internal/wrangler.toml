@@ -8,7 +8,8 @@ routes = [
 ]
 
 kv_namespaces = [
-  { binding = "FEATURES", id = "7f319321a8b44003b99f9d41e1d7e065", preview_id = "7f319321a8b44003b99f9d41e1d7e065" }
+  { binding = "FEATURES", id = "7f319321a8b44003b99f9d41e1d7e065", preview_id = "7f319321a8b44003b99f9d41e1d7e065" },
+  { binding = "VERIFIED", id = "b73287bbf01249a5b6efbc529593f994", preview_id = "b73287bbf01249a5b6efbc529593f994" }
 ]
 
 [env.production.vars]

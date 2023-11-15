@@ -5,6 +5,7 @@ export interface Env {
   SUPABASE_KEY: string;
   SECRET: string;
   FEATURES: KVNamespace;
+  VERIFIED: KVNamespace;
 }
 
 export type WorkerRequest = {
