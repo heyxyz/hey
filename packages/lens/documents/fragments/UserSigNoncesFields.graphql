@@ -1,4 +1,0 @@
-fragment UserSigNoncesFields on UserSigNonces {
-  lensHubOnchainSigNonce
-  lensPublicActProxyOnchainSigNonce
-}
