@@ -1,5 +1,6 @@
 import { Errors } from '@hey/data/errors';
 import parseJwt from '@hey/lib/parseJwt';
+import { kv } from '@vercel/kv';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import allowCors from 'utils/allowCors';
 import { STAFF_MODE_FEATURE_ID } from 'utils/constants';
@@ -40,6 +41,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const profile_id = payload.id;
     const client = createSupabaseClient();
 
+    const clearCache = async () => {
+      await kv.del(`features:${profile_id}`);
+    };
+
     if (enabled) {
       const { error: upsertError } = await client
         .from('profile-features')
@@ -49,7 +54,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         throw upsertError;
       }
 
-      // await clearCache();
+      await clearCache();
 
       return res.status(200).json({ success: true, enabled });
     }
@@ -64,7 +69,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       throw deleteError;
     }
 
-    // await clearCache();
+    await clearCache();
 
     return res.status(200).json({ success: true, enabled });
   } catch (error) {
