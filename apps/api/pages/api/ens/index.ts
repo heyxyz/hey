@@ -1,32 +1,32 @@
 import { Errors } from '@hey/data/errors';
-import response from '@hey/lib/response';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import allowCors from 'utils/allowCors';
+import { resolverAbi } from 'utils/ens/resolverAbi';
 import { createPublicClient, http } from 'viem';
 import { mainnet } from 'viem/chains';
 import { array, object, string } from 'zod';
-
-import { resolverAbi } from '../resolverAbi';
-import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
   addresses: string[];
 };
 
 const validationSchema = object({
-  addresses: array(string().regex(/^(0x)?[\da-f]{40}$/i)).max(50, {
+  addresses: array(string().regex(/^(0x)?[\da-f]{40}$/i)).max(100, {
     message: 'Too many addresses!'
   })
 });
 
-export default async (request: WorkerRequest) => {
-  const body = await request.json();
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { body } = req;
+
   if (!body) {
-    return response({ success: false, error: Errors.NoBody });
+    return res.status(400).json({ success: false, error: Errors.NoBody });
   }
 
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
-    return response({ success: false, error: validation.error.issues });
+    return res.status(400).json({ success: false, error: Errors.InvalidBody });
   }
 
   const { addresses } = body as ExtensionRequest;
@@ -44,8 +44,10 @@ export default async (request: WorkerRequest) => {
       functionName: 'getNames'
     });
 
-    return response({ success: true, data });
+    return res.status(200).json({ success: true, data });
   } catch (error) {
     throw error;
   }
 };
+
+export default allowCors(handler);
