@@ -19,10 +19,22 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
       const ids = data.map((item) => item.id);
       await kv.set('list', ids);
 
-      return res.status(200).json({ success: true, result: ids });
+      return res
+        .status(200)
+        .setHeader(
+          'Cache-Control',
+          'public, s-maxage=1, stale-while-revalidate=59'
+        )
+        .json({ success: true, result: ids });
     }
 
-    return res.status(200).json({ success: true, fromKv: true, result: cache });
+    return res
+      .status(200)
+      .setHeader(
+        'Cache-Control',
+        'public, s-maxage=1, stale-while-revalidate=59'
+      )
+      .json({ success: true, fromKv: true, result: cache });
   } catch (error) {
     throw error;
   }
