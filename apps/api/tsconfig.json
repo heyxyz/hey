@@ -1,0 +1,11 @@
+{
+  "extends": "@hey/config/react.tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@components*": ["src/components*"],
+      "@lib*": ["src/lib*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts"]
+}
