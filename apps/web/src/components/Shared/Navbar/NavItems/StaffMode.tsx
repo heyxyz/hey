@@ -1,6 +1,6 @@
 import { ShieldCheckIcon as ShieldCheckIconOutline } from '@heroicons/react/24/outline';
 import { ShieldCheckIcon as ShieldCheckIconSolid } from '@heroicons/react/24/solid';
-import { INTERNAL_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
 import { STAFFTOOLS } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
@@ -21,7 +21,7 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
   const toggleStaffMode = async () => {
     toast.promise(
       axios.post(
-        `${INTERNAL_WORKER_URL}/feature/updateStaffMode`,
+        `${HEY_API_URL}/internal/feature/updateStaffMode`,
         { enabled: !staffMode },
         { headers: getAuthWorkerHeaders() }
       ),

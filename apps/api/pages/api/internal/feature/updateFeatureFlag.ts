@@ -1,10 +1,10 @@
 import { Errors } from '@hey/data/errors';
-import response from '@hey/lib/response';
-import createSupabaseClient from '@hey/supabase/createSupabaseClient';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import allowCors from 'utils/allowCors';
+import createSupabaseClient from 'utils/createSupabaseClient';
+import validateIsStaff from 'utils/middlewares/validateIsStaff';
+import validateLensAccount from 'utils/middlewares/validateLensAccount';
 import { boolean, object, string } from 'zod';
-
-import validateIsStaff from '../../helpers/validateIsStaff';
-import type { WorkerRequest } from '../../types';
 
 type ExtensionRequest = {
   id: string;
@@ -18,30 +18,27 @@ const validationSchema = object({
   enabled: boolean()
 });
 
-export default async (request: WorkerRequest) => {
-  const body = await request.json();
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { body } = req;
+
   if (!body) {
-    return response({ success: false, error: Errors.NoBody });
+    return res.status(400).json({ success: false, error: Errors.NoBody });
   }
 
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
-    return response({ success: false, error: validation.error.issues });
+    return res.status(400).json({ success: false, error: Errors.InvalidBody });
   }
 
-  if (!(await validateIsStaff(request))) {
-    return response({ success: false, error: Errors.NotStaff });
+  if (!(await validateLensAccount(req)) && !(await validateIsStaff(req))) {
+    return res.status(400).json({ success: false, error: Errors.NotStaff });
   }
 
   const { id, profile_id, enabled } = body as ExtensionRequest;
 
-  const clearCache = async () => {
-    await request.env.FEATURES.delete(`features:${profile_id}`);
-  };
-
   try {
-    const client = createSupabaseClient(request.env.SUPABASE_KEY);
+    const client = createSupabaseClient();
     if (enabled) {
       const { error: upsertError } = await client
         .from('profile-features')
@@ -52,9 +49,9 @@ export default async (request: WorkerRequest) => {
         throw upsertError;
       }
 
-      await clearCache();
+      // await clearCache();
 
-      return response({ success: true, enabled });
+      return res.status(200).json({ success: true, enabled });
     }
 
     const { error: deleteError } = await client
@@ -68,10 +65,12 @@ export default async (request: WorkerRequest) => {
       throw deleteError;
     }
 
-    await clearCache();
+    // await clearCache();
 
-    return response({ success: true, enabled });
+    return res.status(200).json({ success: true, enabled });
   } catch (error) {
     throw error;
   }
 };
+
+export default allowCors(handler);

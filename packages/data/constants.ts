@@ -39,6 +39,9 @@ export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 export const HANDLE_PREFIX = IS_MAINNET ? 'lens/' : 'test/';
 
 // URLs
+export const HEY_API_URL = IS_PRODUCTION
+  ? 'https://api.hey.xyz'
+  : 'http://localhost:4785';
 export const STATIC_ASSETS_URL = 'https://static-assets.hey.xyz';
 export const LENS_MEDIA_SNAPSHOT_URL =
   'https://ik.imagekit.io/lens/media-snapshot';
@@ -101,9 +104,6 @@ export const FEATURES_WORKER_URL = IS_PRODUCTION
 export const PRO_WORKER_URL = IS_PRODUCTION
   ? 'https://pro.hey.xyz'
   : 'http://localhost:8097';
-export const INTERNAL_WORKER_URL = IS_PRODUCTION
-  ? 'https://internal.hey.xyz'
-  : 'http://localhost:8098';
 
 // Tokens / Keys
 export const OPENSEA_KEY = '8b95f9e6d52b42fe8c19ddea847c0f5d';
