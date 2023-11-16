@@ -20,7 +20,6 @@
     "@hey/lens": "workspace:*",
     "@hey/lib": "workspace:*",
     "@supabase/supabase-js": "^2.38.4",
-    "@vercel/kv": "^1.0.0",
     "axios": "^1.6.2",
     "next": "^14.0.2",
     "react": "^18.2.0",

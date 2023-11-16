@@ -1,4 +1,3 @@
-import { kv } from '@vercel/kv';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import allowCors from 'utils/allowCors';
 import { CACHE_AGE } from 'utils/constants';
@@ -14,7 +13,6 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
     }
 
     const ids = data.map((item) => item.id);
-    await kv.set('list', ids);
 
     return res
       .status(200)
