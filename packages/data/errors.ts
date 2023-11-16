@@ -12,5 +12,6 @@ export enum Errors {
   NotStaff = 'You are not staff!',
   NotGarnder = 'You are not gardener!',
   NoBody = 'No body provided!',
+  InvalidBody = 'Invalid body!',
   InvalidSecret = 'Invalid secret!'
 }

@@ -1,24 +1,23 @@
 import parseJwt from '@hey/lib/parseJwt';
-import response from '@hey/lib/response';
-import createSupabaseClient from '@hey/supabase/createSupabaseClient';
+import type { NextApiRequest } from 'next';
+import createSupabaseClient from 'utils/createSupabaseClient';
 
 import { STAFF_FEATURE_ID } from '../constants';
-import type { WorkerRequest } from '../types';
 
 /**
  * Middleware to validate if the user is staff
  * @param request Incoming worker request
  * @returns Response
  */
-const validateIsStaff = async (request: WorkerRequest) => {
-  const accessToken = request.headers.get('X-Access-Token');
+const validateIsStaff = async (request: NextApiRequest) => {
+  const accessToken = request.headers['x-access-token'] as string;
 
   if (!accessToken) {
-    return response({ success: false, error: 'No proper headers provided!' });
+    return false;
   }
 
   const payload = parseJwt(accessToken);
-  const client = createSupabaseClient(request.env.SUPABASE_KEY);
+  const client = createSupabaseClient();
 
   const { data, error } = await client
     .from('profile-features')
