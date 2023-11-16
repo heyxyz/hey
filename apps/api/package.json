@@ -1,0 +1,36 @@
+{
+  "name": "@hey/api",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0",
+  "scripts": {
+    "codegen": "supabase gen types typescript --project-id nberpnnqcqfnrzjpnisb > utils/database.types.ts; pnpm lint:fix",
+    "build": "next build",
+    "dev": "next dev --port 4785",
+    "lint": "eslint . --ext .js,.ts,.tsx",
+    "lint:fix": "eslint . --fix --ext .js,.ts,.tsx",
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "start": "next start --port 4785",
+    "typecheck": "tsc --pretty"
+  },
+  "dependencies": {
+    "@hey/data": "workspace:*",
+    "@hey/lens": "workspace:*",
+    "@hey/lib": "workspace:*",
+    "@supabase/supabase-js": "^2.38.4",
+    "axios": "^1.6.2",
+    "cors": "^2.8.5",
+    "next": "^14.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@hey/config": "workspace:*",
+    "@hey/lens": "workspace:*",
+    "@types/cors": "^2.8.16",
+    "@types/react": "^18.2.37",
+    "typescript": "^5.2.2"
+  }
+}
