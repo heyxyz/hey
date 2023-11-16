@@ -20,7 +20,6 @@
     "@hey/lib": "workspace:*",
     "@supabase/supabase-js": "^2.38.4",
     "axios": "^1.6.2",
-    "cors": "^2.8.5",
     "next": "^14.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -29,7 +28,6 @@
   "devDependencies": {
     "@hey/config": "workspace:*",
     "@hey/lens": "workspace:*",
-    "@types/cors": "^2.8.16",
     "@types/react": "^18.2.37",
     "typescript": "^5.2.2"
   }
