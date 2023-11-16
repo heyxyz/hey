@@ -1,5 +1,5 @@
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
-import { INTERNAL_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import { Toggle } from '@hey/ui';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
@@ -34,7 +34,7 @@ const Access: FC<RankProps> = ({ profile }) => {
   const updateVerified = async () => {
     toast.promise(
       axios.post(
-        `${INTERNAL_WORKER_URL}/verified/updateVerified`,
+        `${HEY_API_URL}/internal/verified/updateVerified`,
         { id: profile.id, enabled: !isVerified },
         { headers: getAuthWorkerHeaders() }
       ),
