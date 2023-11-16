@@ -59,9 +59,6 @@ export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/logo.jpeg`;
 export const PLACEHOLDER_IMAGE = `${STATIC_IMAGES_URL}/placeholder.webp`;
 
 // Workers (Cloudflare)
-export const STS_GENERATOR_WORKER_URL = IS_PRODUCTION
-  ? 'https://sts.hey.xyz'
-  : 'http://localhost:8082';
 export const METADATA_WORKER_URL = IS_PRODUCTION
   ? 'https://metadata.hey.xyz'
   : 'http://localhost:8083';
