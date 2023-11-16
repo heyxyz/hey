@@ -50,6 +50,9 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
+      viem:
+        specifier: ^1.19.3
+        version: 1.19.3(typescript@5.2.2)(zod@3.22.4)
       zod:
         specifier: ^3.22.4
         version: 3.22.4

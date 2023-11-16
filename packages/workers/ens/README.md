@@ -1,1 +1,0 @@
-# ENS resolver worker
