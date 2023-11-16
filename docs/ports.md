@@ -6,7 +6,6 @@ The following ports are exposed by the repository
 | ---- | -------------------------- | --------------------- | ------------------------------ |
 | 4783 | Web app                    | http://localhost:4783 | https://hey.xyz                |
 | 4784 | Prerender app              | http://localhost:4784 | https://prerender.hey.xyz      |
-| 8082 | STS token generator worker | http://localhost:8082 | https://sts.hey.xyz            |
 | 8083 | Metadata worker            | http://localhost:8083 | https://metadata.hey.xyz       |
 | 8084 | Snapshot relay worker      | http://localhost:8084 | https://snapshot-relay.hey.xyz |
 | 8086 | Oembed worker              | http://localhost:8086 | https://oembed.hey.xyz         |

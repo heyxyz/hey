@@ -15,6 +15,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
+    "@aws-sdk/client-sts": "^3.451.0",
     "@hey/data": "workspace:*",
     "@hey/lens": "workspace:*",
     "@hey/lib": "workspace:*",
