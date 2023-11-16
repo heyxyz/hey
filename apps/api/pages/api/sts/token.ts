@@ -1,7 +1,6 @@
 import { AssumeRoleCommand, STSClient } from '@aws-sdk/client-sts';
-import response from '@hey/lib/response';
-
-import type { WorkerRequest } from '../types';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import allowCors from 'utils/allowCors';
 
 const bucketName = 'hey-media';
 const everEndpoint = 'https://endpoint.4everland.co';
@@ -26,10 +25,10 @@ const params = {
   }`
 };
 
-export default async (request: WorkerRequest) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const accessKeyId = request.env.EVER_ACCESS_KEY;
-    const secretAccessKey = request.env.EVER_ACCESS_SECRET;
+    const accessKeyId = process.env.EVER_ACCESS_KEY as string;
+    const secretAccessKey = process.env.EVER_ACCESS_SECRET as string;
     const stsClient = new STSClient({
       endpoint: everEndpoint,
       region: 'us-west-2',
@@ -42,7 +41,7 @@ export default async (request: WorkerRequest) => {
     });
     const { Credentials: credentials } = await stsClient.send(command);
 
-    return response({
+    return res.status(200).json({
       success: true,
       accessKeyId: credentials?.AccessKeyId,
       secretAccessKey: credentials?.SecretAccessKey,
@@ -52,3 +51,5 @@ export default async (request: WorkerRequest) => {
     throw error;
   }
 };
+
+export default allowCors(handler);
