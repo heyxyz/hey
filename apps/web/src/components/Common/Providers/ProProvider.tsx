@@ -1,4 +1,4 @@
-import { PRO_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
 import getCurrentSession from '@lib/getCurrentSession';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -14,7 +14,7 @@ const ProProvider: FC = () => {
   const fetchProEnabled = async () => {
     try {
       if (Boolean(sessionProfileId) && !isAddress(sessionProfileId)) {
-        const response = await axios.get(`${PRO_WORKER_URL}/getProEnabled`, {
+        const response = await axios.get(`${HEY_API_URL}/pro/getProEnabled`, {
           params: { id: sessionProfileId }
         });
         const { data } = response;
