@@ -6,3 +6,6 @@ export const GARDENER_MODE_FEATURE_ID = '9f66a465-e1d7-4123-b329-ddd14fd85510';
 
 // KVs
 export const KV_VERIFIED_PROFILES = 'verified-profiles';
+
+// Cache
+export const CACHE_AGE = 'public, s-maxage=1, stale-while-revalidate=59';
