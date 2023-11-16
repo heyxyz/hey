@@ -1,7 +1,4 @@
-import {
-  FEATURES_WORKER_URL,
-  PREFERENCES_WORKER_URL
-} from '@hey/data/constants';
+import { HEY_API_URL, PREFERENCES_WORKER_URL } from '@hey/data/constants';
 import getCurrentSession from '@lib/getCurrentSession';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -50,7 +47,7 @@ const PreferencesProvider: FC = () => {
 
   const fetchVerifiedMembers = async () => {
     try {
-      const response = await axios.get(`${FEATURES_WORKER_URL}/getVerified`);
+      const response = await axios.get(`${HEY_API_URL}/feature/getVerified`);
       const { data } = response;
       setVerifiedMembers(data.result || []);
     } catch {}

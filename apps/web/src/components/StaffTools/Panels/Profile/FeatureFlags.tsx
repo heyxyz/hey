@@ -1,5 +1,5 @@
 import { FlagIcon } from '@heroicons/react/24/outline';
-import { FEATURES_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import type { Profile } from '@hey/lens';
 import { Modal } from '@hey/ui';
@@ -21,7 +21,7 @@ const FeatureFlags: FC<FeatureFlagsProps> = ({ profile }) => {
   const getFeatureFlags = async () => {
     try {
       const response = await axios.get(
-        `${FEATURES_WORKER_URL}/getFeatureFlags`,
+        `${HEY_API_URL}/feature/getFeatureFlags`,
         { params: { id: profile.id } }
       );
       const { data } = response;

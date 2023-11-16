@@ -1,4 +1,4 @@
-import { FEATURES_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import getCurrentSession from '@lib/getCurrentSession';
 import { useQuery } from '@tanstack/react-query';
@@ -24,7 +24,7 @@ const FeatureFlagsProvider: FC = () => {
     try {
       if (Boolean(sessionProfileId) && !isAddress(sessionProfileId)) {
         const response = await axios.get(
-          `${FEATURES_WORKER_URL}/getFeatureFlags`,
+          `${HEY_API_URL}/feature/getFeatureFlags`,
           { params: { id: sessionProfileId } }
         );
         const {
