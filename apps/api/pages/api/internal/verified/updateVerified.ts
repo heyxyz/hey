@@ -37,7 +37,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { id, enabled } = body as ExtensionRequest;
 
   const clearCache = async () => {
-    await kv.srem(KV_VERIFIED_PROFILES);
+    await kv.del(KV_VERIFIED_PROFILES);
   };
 
   try {
