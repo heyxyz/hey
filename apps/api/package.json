@@ -23,6 +23,7 @@
     "next": "^14.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "viem": "^1.19.3",
     "zod": "^3.22.4"
   },
   "devDependencies": {
