@@ -31,6 +31,7 @@ const Video: FC<VideoProps> = ({ src, poster, className = '' }) => {
         viewerId={currentProfile?.ownedBy.address}
         controls={{ defaultVolume: 1 }}
         refetchPlaybackInfoInterval={1000 * 60 * 60 * 24}
+        playRecording
         autoUrlUpload={{
           fallback: true,
           ipfsGateway: IPFS_GATEWAY,
