@@ -1,8 +1,6 @@
 import { Errors } from '@hey/data/errors';
-import { kv } from '@vercel/kv';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import allowCors from 'utils/allowCors';
-import { KV_VERIFIED_PROFILES } from 'utils/constants';
 import createSupabaseClient from 'utils/createSupabaseClient';
 import validateIsStaff from 'utils/middlewares/validateIsStaff';
 import { boolean, object, string } from 'zod';
@@ -36,10 +34,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const { id, enabled } = body as ExtensionRequest;
 
-  const clearCache = async () => {
-    await kv.del(KV_VERIFIED_PROFILES);
-  };
-
   try {
     const client = createSupabaseClient();
     if (enabled) {
@@ -50,7 +44,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       if (upsertError) {
         throw upsertError;
       }
-      await clearCache();
 
       return res.status(200).json({ success: true, enabled });
     }
@@ -63,7 +56,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (deleteError) {
       throw deleteError;
     }
-    await clearCache();
 
     return res.status(200).json({ success: true, enabled });
   } catch (error) {
