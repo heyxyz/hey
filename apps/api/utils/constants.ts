@@ -12,8 +12,5 @@ export const GARDENER_MODE_FEATURE_ID = '9f66a465-e1d7-4123-b329-ddd14fd85510';
 export const CACHE_AGE = 'public, s-maxage=1, stale-while-revalidate=59';
 
 // Snapshot
-export const HEY_POLLS_SPACE = 'polls.lenster.xyz';
-export const SNAPSHOT_URL = 'https://snapshot.org';
-export const SNAPSHOT_SEQUNECER_URL = 'https://seq.snapshot.org';
 export const PROPOSAL_CREATOR_ADDRESS =
   '0x81aD96a4bAdE55b3Bfb1Ea84A597FCC6e5e3BEc1';
