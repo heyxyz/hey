@@ -62,9 +62,6 @@ export const PLACEHOLDER_IMAGE = `${STATIC_IMAGES_URL}/placeholder.webp`;
 export const METADATA_WORKER_URL = IS_PRODUCTION
   ? 'https://metadata.hey.xyz'
   : 'http://localhost:8083';
-export const SNAPSHOR_RELAY_WORKER_URL = IS_PRODUCTION
-  ? 'https://snapshot-relay.hey.xyz'
-  : 'http://localhost:8084';
 export const OEMBED_WORKER_URL = IS_PRODUCTION
   ? 'https://oembed.hey.xyz'
   : 'http://localhost:8086';

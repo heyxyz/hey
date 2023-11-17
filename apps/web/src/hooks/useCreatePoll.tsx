@@ -1,4 +1,4 @@
-import { SNAPSHOR_RELAY_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
 import getProfile from '@hey/lib/getProfile';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import axios from 'axios';
@@ -18,7 +18,7 @@ const useCreatePoll = () => {
   const createPoll = async (): Promise<CreatePollResponse> => {
     try {
       const response = await axios.post(
-        `${SNAPSHOR_RELAY_WORKER_URL}/createPoll`,
+        `${HEY_API_URL}/snapshot/createPoll`,
         {
           title: `Poll by ${getProfile(currentProfile).slugWithPrefix}`,
           description: publicationContent,
