@@ -50,7 +50,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       .setHeader('Cache-Control', CACHE_AGE)
       .json({
         success: true,
-        totalImpressions: Number(result[0].totalImpressions),
+        totalImpressions: Number(result[0]?.totalImpressions),
         yearlyImpressions: result.map((row) => ({
           day: row.day,
           impressions: Number(row.impressions)
