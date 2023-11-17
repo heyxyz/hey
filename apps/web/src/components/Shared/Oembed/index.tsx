@@ -1,4 +1,4 @@
-import { OEMBED_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
 import type { OG } from '@hey/types/misc';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -18,7 +18,7 @@ const Oembed: FC<OembedProps> = ({ url, publicationId, onData }) => {
   const { isLoading, error, data } = useQuery({
     queryKey: ['oembed', url],
     queryFn: async () => {
-      const response = await axios.get(`${OEMBED_WORKER_URL}/oembed`, {
+      const response = await axios.get(`${HEY_API_URL}/oembed`, {
         params: { url }
       });
       return response.data.oembed;

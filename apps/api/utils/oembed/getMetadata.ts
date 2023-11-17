@@ -1,7 +1,6 @@
 import type { OG } from '@hey/types/misc';
 import { parseHTML } from 'linkedom';
 
-import type { Env } from '../types';
 import getProxyUrl from './getProxyUrl';
 import generateIframe from './meta/generateIframe';
 import getDescription from './meta/getDescription';
@@ -11,12 +10,8 @@ import getIsLarge from './meta/getIsLarge';
 import getSite from './meta/getSite';
 import getTitle from './meta/getTitle';
 
-const getMetadata = async (url: string, env: Env): Promise<any> => {
+const getMetadata = async (url: string): Promise<any> => {
   const { html } = await fetch(url, {
-    cf: {
-      cacheTtl: 60 * 60 * 24 * 7,
-      cacheEverything: true
-    },
     headers: { 'User-Agent': 'Twitterbot' }
   }).then(async (res) => ({
     html: await res.text()
@@ -25,7 +20,7 @@ const getMetadata = async (url: string, env: Env): Promise<any> => {
   const { document } = parseHTML(html);
   const isLarge = getIsLarge(document) as boolean;
   const image = getImage(document) as string;
-  const proxiedUrl = getProxyUrl(image, isLarge, env);
+  const proxiedUrl = getProxyUrl(image, isLarge);
   const metadata: OG = {
     url,
     title: getTitle(document),

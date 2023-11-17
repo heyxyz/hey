@@ -23,6 +23,7 @@
     "@supabase/supabase-js": "^2.38.4",
     "axios": "^1.6.2",
     "fast-xml-parser": "^4.3.2",
+    "linkedom": "^0.16.4",
     "next": "^14.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -35,6 +36,7 @@
   "devDependencies": {
     "@hey/config": "workspace:*",
     "@hey/lens": "workspace:*",
+    "@hey/types": "workspace:*",
     "@types/react": "^18.2.37",
     "@types/request-ip": "^0.0.41",
     "@types/ua-parser-js": "^0.7.39",
