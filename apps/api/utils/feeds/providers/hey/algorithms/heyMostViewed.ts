@@ -1,8 +1,8 @@
 import { Errors } from '@hey/data/errors';
 import { PAGEVIEW } from '@hey/data/tracking';
-import createClickhouseClient from 'utils/createClickhouseClient';
-import randomizeIds from 'utils/feeds/randomizeIds';
-import removeParamsFromString from 'utils/feeds/removeParamsFromString';
+import createClickhouseClient from '@utils/createClickhouseClient';
+import randomizeIds from '@utils/feeds/randomizeIds';
+import removeParamsFromString from '@utils/feeds/removeParamsFromString';
 
 const heyMostViewed = async (limit: number, offset: number): Promise<any[]> => {
   if (limit > 500) {

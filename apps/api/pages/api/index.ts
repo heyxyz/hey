@@ -1,5 +1,5 @@
+import allowCors from '@utils/allowCors';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import allowCors from 'utils/allowCors';
 
 const handler = (_req: NextApiRequest, res: NextApiResponse) => {
   try {

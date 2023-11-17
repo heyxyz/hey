@@ -1,7 +1,7 @@
 import { AssumeRoleCommand, STSClient } from '@aws-sdk/client-sts';
 import { EVER_API, S3_BUCKET } from '@hey/data/constants';
+import allowCors from '@utils/allowCors';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import allowCors from 'utils/allowCors';
 
 const params = {
   DurationSeconds: 900,

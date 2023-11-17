@@ -1,10 +1,10 @@
 import { Errors } from '@hey/data/errors';
 import parseJwt from '@hey/lib/parseJwt';
+import allowCors from '@utils/allowCors';
+import createRedisClient from '@utils/createRedisClient';
+import createSupabaseClient from '@utils/createSupabaseClient';
+import validateLensAccount from '@utils/middlewares/validateLensAccount';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import allowCors from 'utils/allowCors';
-import createRedisClient from 'utils/createRedisClient';
-import createSupabaseClient from 'utils/createSupabaseClient';
-import validateLensAccount from 'utils/middlewares/validateLensAccount';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const accessToken = req.headers['x-access-token'] as string;

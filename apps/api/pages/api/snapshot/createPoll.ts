@@ -4,12 +4,12 @@ import {
   SNAPSHOT_URL
 } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
+import allowCors from '@utils/allowCors';
+import { PROPOSAL_CREATOR_ADDRESS } from '@utils/constants';
+import publicClient from '@utils/snapshot/publicClient';
+import serializedTypedData from '@utils/snapshot/serializedTypedData';
+import walletClient from '@utils/snapshot/walletClient';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import allowCors from 'utils/allowCors';
-import { PROPOSAL_CREATOR_ADDRESS } from 'utils/constants';
-import publicClient from 'utils/snapshot/publicClient';
-import serializedTypedData from 'utils/snapshot/serializedTypedData';
-import walletClient from 'utils/snapshot/walletClient';
 import { array, number, object, string } from 'zod';
 
 type SnapshotResponse = {
