@@ -8,14 +8,13 @@
 
 ## Backend
 
-- [Cloudflare Workers](https://workers.cloudflare.com/) - Serverless platform
+- [Next API](https://nextjs.org/docs/api-routes/introduction) - API routes
 - [Node.js](https://nodejs.org/en/) - JavaScript runtime
 
 ## Telemetry
 
-- [Leafwatch](../packages/workers/leafwatch/README.md) - Telemetry tracking built in-house by Hey
-- [Google BigQuery](https://cloud.google.com/bigquery) - Data warehouse to store telemetry data
-- [Hex Dashboards](https://hex.tech) - Hex dashboards to visualize telemetry data from BigQuery
+- [Clickhouse](https://clickhouse.tech/) - Database for storing telemetry data
+- [Metabase](https://www.metabase.com/) - Data visualization tool
 
 ## Others
 

@@ -58,11 +58,6 @@ export const EVER_API = 'https://endpoint.4everland.co';
 export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/logo.jpeg`;
 export const PLACEHOLDER_IMAGE = `${STATIC_IMAGES_URL}/placeholder.webp`;
 
-// Workers (Cloudflare)
-export const METADATA_WORKER_URL = IS_PRODUCTION
-  ? 'https://metadata.hey.xyz'
-  : 'http://localhost:8083';
-
 // Tokens / Keys
 export const OPENSEA_KEY = '8b95f9e6d52b42fe8c19ddea847c0f5d';
 export const WALLETCONNECT_PROJECT_ID = 'cd542acc70c2b548030f9901a52e70c8';

@@ -12,24 +12,9 @@ echo "Updating apps/prerender env vars 🌎"
 cd apps/prerender; cp .env.example .env
 cd ../../
 # -------------------------------------
-echo "Updating packages/workers/metadata env vars 🌎"
-cd packages/workers/metadata
-# Generate private key and insert into .dev.vars
-random_hex=$(head -c 32 /dev/urandom | xxd -p -c 32)
-echo "IRYS_PRIVATE_KEY=$random_hex" > .dev.vars
-cd ../../../
-# -------------------------------------
-echo "Updating packages/workers/snapshot-relay env vars 🌎"
-cd packages/workers/snapshot-relay
-random_hex=$(head -c 32 /dev/urandom | xxd -p -c 32)
-echo "TESTNET_PROPOSAL_CREATOR_PRIVATE_KEY=701e559a4db7cc91035084c175ccad9d94f7a014e9e40efd5154bebbc42c944a" > .dev.vars
-cd ../../../
-# -------------------------------------
-echo "Updating packages/workers/oembed env vars 🌎"
-cd packages/workers/oembed
-echo "WORKER_ENV=development" > .dev.vars
-echo "IMAGEKIT_URL=https://ik.imagekit.io/lensterdev" >> .dev.vars
-cd ../../../
+echo "Updating apps/api env vars 🌎"
+cd apps/api; cp .env.example .env
+cd ../../
 # -------------------------------------
 echo "Installing dependencies 📦"
 pnpm install --frozen-lockfile
