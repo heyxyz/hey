@@ -50,6 +50,9 @@ importers:
       fast-xml-parser:
         specifier: ^4.3.2
         version: 4.3.2
+      linkedom:
+        specifier: ^0.16.4
+        version: 0.16.4
       next:
         specifier: ^14.0.2
         version: 14.0.2(react-dom@18.2.0)(react@18.2.0)
@@ -78,6 +81,9 @@ importers:
       '@hey/config':
         specifier: workspace:*
         version: link:../../packages/config
+      '@hey/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       '@types/react':
         specifier: ^18.2.37
         version: 18.2.37
@@ -673,37 +679,6 @@ importers:
         specifier: ^3.15.0
         version: 3.15.0
 
-  packages/workers/nft:
-    dependencies:
-      '@hey/data':
-        specifier: workspace:*
-        version: link:../../data
-      '@hey/lib':
-        specifier: workspace:*
-        version: link:../../lib
-      itty-router:
-        specifier: ^4.0.23
-        version: 4.0.23
-      urlcat:
-        specifier: ^3.1.0
-        version: 3.1.0
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20231025.0
-        version: 4.20231025.0
-      '@hey/config':
-        specifier: workspace:*
-        version: link:../../config
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
-      vitest:
-        specifier: ^0.34.5
-        version: 0.34.6
-      wrangler:
-        specifier: ^3.15.0
-        version: 3.15.0
-
   packages/workers/oembed:
     dependencies:
       '@cfworker/base64url':
@@ -741,153 +716,7 @@ importers:
         specifier: ^3.15.0
         version: 3.15.0
 
-  packages/workers/preferences:
-    dependencies:
-      '@hey/data':
-        specifier: workspace:*
-        version: link:../../data
-      '@hey/lib':
-        specifier: workspace:*
-        version: link:../../lib
-      '@hey/supabase':
-        specifier: workspace:*
-        version: link:../../supabase
-      itty-router:
-        specifier: ^4.0.23
-        version: 4.0.23
-      zod:
-        specifier: ^3.22.4
-        version: 3.22.4
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20231025.0
-        version: 4.20231025.0
-      '@hey/config':
-        specifier: workspace:*
-        version: link:../../config
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
-      wrangler:
-        specifier: ^3.15.0
-        version: 3.15.0
-
   packages/workers/prerender:
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20231025.0
-        version: 4.20231025.0
-      '@hey/config':
-        specifier: workspace:*
-        version: link:../../config
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
-      wrangler:
-        specifier: ^3.15.0
-        version: 3.15.0
-
-  packages/workers/sitemap:
-    dependencies:
-      '@hey/data':
-        specifier: workspace:*
-        version: link:../../data
-      '@hey/lib':
-        specifier: workspace:*
-        version: link:../../lib
-      fast-xml-parser:
-        specifier: ^4.3.2
-        version: 4.3.2
-      itty-router:
-        specifier: ^4.0.23
-        version: 4.0.23
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20231025.0
-        version: 4.20231025.0
-      '@hey/config':
-        specifier: workspace:*
-        version: link:../../config
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
-      wrangler:
-        specifier: ^3.15.0
-        version: 3.15.0
-
-  packages/workers/snapshot-relay:
-    dependencies:
-      '@hey/data':
-        specifier: workspace:*
-        version: link:../../data
-      '@hey/lib':
-        specifier: workspace:*
-        version: link:../../lib
-      itty-router:
-        specifier: ^4.0.23
-        version: 4.0.23
-      viem:
-        specifier: ^1.19.3
-        version: 1.19.3(typescript@5.2.2)(zod@3.22.4)
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20231025.0
-        version: 4.20231025.0
-      '@hey/config':
-        specifier: workspace:*
-        version: link:../../config
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
-      wrangler:
-        specifier: ^3.15.0
-        version: 3.15.0
-
-  packages/workers/staff-picks:
-    dependencies:
-      '@hey/data':
-        specifier: workspace:*
-        version: link:../../data
-      '@hey/lib':
-        specifier: workspace:*
-        version: link:../../lib
-      '@hey/supabase':
-        specifier: workspace:*
-        version: link:../../supabase
-      itty-router:
-        specifier: ^4.0.23
-        version: 4.0.23
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20231025.0
-        version: 4.20231025.0
-      '@hey/config':
-        specifier: workspace:*
-        version: link:../../config
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
-      wrangler:
-        specifier: ^3.15.0
-        version: 3.15.0
-
-  packages/workers/stats:
-    dependencies:
-      '@hey/clickhouse':
-        specifier: workspace:*
-        version: link:../../clickhouse
-      '@hey/data':
-        specifier: workspace:*
-        version: link:../../data
-      '@hey/lib':
-        specifier: workspace:*
-        version: link:../../lib
-      itty-router:
-        specifier: ^4.0.23
-        version: 4.0.23
-      zod:
-        specifier: ^3.22.4
-        version: 3.22.4
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20231025.0
