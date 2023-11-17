@@ -68,9 +68,6 @@ export const SNAPSHOR_RELAY_WORKER_URL = IS_PRODUCTION
 export const OEMBED_WORKER_URL = IS_PRODUCTION
   ? 'https://oembed.hey.xyz'
   : 'http://localhost:8086';
-export const LEAFWATCH_WORKER_URL = IS_PRODUCTION
-  ? 'https://leafwatch.hey.xyz'
-  : 'http://localhost:8087';
 export const STATS_WORKER_URL = IS_PRODUCTION
   ? 'https://stats.hey.xyz'
   : 'http://localhost:8088';

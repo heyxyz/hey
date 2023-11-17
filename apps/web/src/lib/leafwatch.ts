@@ -1,4 +1,4 @@
-import { LEAFWATCH_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
 
 import getCurrentSession from './getCurrentSession';
 
@@ -29,7 +29,7 @@ export const Leafwatch = {
     worker.onmessage = function (event: MessageEvent) {
       const response = event.data;
       const xhr = new XMLHttpRequest();
-      xhr.open('POST', `${LEAFWATCH_WORKER_URL}/events`);
+      xhr.open('POST', `${HEY_API_URL}/leafwatch/events`);
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.send(JSON.stringify(response));
     };
