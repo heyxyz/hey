@@ -20,6 +20,7 @@ const ActivatePro: FC<ActivateProProps> = ({ profile }) => {
 
   const fetchProEnabled = async () => {
     try {
+      setLoading(true);
       const response = await axios.get(`${HEY_API_URL}/pro/getProEnabled`, {
         params: { id: profile.id }
       });
@@ -37,6 +38,7 @@ const ActivatePro: FC<ActivateProProps> = ({ profile }) => {
   });
 
   const updatePro = async () => {
+    setLoading(true);
     toast.promise(
       axios.post(
         `${HEY_API_URL}/internal/pro/activateLifetimePro`,
@@ -47,16 +49,20 @@ const ActivatePro: FC<ActivateProProps> = ({ profile }) => {
         loading: 'Updating pro status...',
         success: () => {
           setIsPro(!isPro);
+          setLoading(false);
           return 'Pro status updated';
         },
-        error: 'Error updating pro status'
+        error: () => {
+          setLoading(false);
+          return 'Error updating pro status';
+        }
       }
     );
   };
 
   return (
     <ToggleWrapper title="Activate Pro">
-      <Toggle setOn={updatePro} on={isPro} />
+      <Toggle setOn={updatePro} on={isPro} disabled={loading} />
     </ToggleWrapper>
   );
 };
