@@ -1,5 +1,5 @@
 import { ChartBarSquareIcon } from '@heroicons/react/24/outline';
-import { STATS_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import humanize from '@hey/lib/humanize';
 import { Card, ErrorMessage, Spinner } from '@hey/ui';
@@ -79,7 +79,7 @@ const ProfileAnalytics: FC<ProfileAnalyticsProps> = ({ profile }) => {
   const fetchProfileAnalytics =
     async (): Promise<ProfileAnalyticsData | null> => {
       try {
-        const response = await axios.get(`${STATS_WORKER_URL}/profile`, {
+        const response = await axios.get(`${HEY_API_URL}/stats/profile`, {
           params: {
             id: profile?.id,
             handle: profile?.handle?.localName

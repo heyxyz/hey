@@ -1,4 +1,4 @@
-import { STATS_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { Card } from '@hey/ui';
@@ -15,7 +15,7 @@ interface StreaksProps {
 const Streaks: FC<StreaksProps> = ({ profile }) => {
   const fetchStreaks = async () => {
     try {
-      const response = await axios.get(`${STATS_WORKER_URL}/streaksCalendar`, {
+      const response = await axios.get(`${HEY_API_URL}/stats/streaksCalendar`, {
         params: { id: profile.id }
       });
 

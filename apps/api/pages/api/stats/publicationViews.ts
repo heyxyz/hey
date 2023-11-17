@@ -1,9 +1,8 @@
-import createClickhouseClient from '@hey/clickhouse/createClickhouseClient';
 import { Errors } from '@hey/data/errors';
-import response from '@hey/lib/response';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import allowCors from 'utils/allowCors';
+import createClickhouseClient from 'utils/createClickhouseClient';
 import { array, object, string } from 'zod';
-
-import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
   ids: string[];
@@ -13,22 +12,23 @@ const validationSchema = object({
   ids: array(string().max(2000, { message: 'Too many ids!' }))
 });
 
-export default async (request: WorkerRequest) => {
-  const body = await request.json();
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { body } = req;
+
   if (!body) {
-    return response({ success: false, error: Errors.NoBody });
+    return res.status(400).json({ success: false, error: Errors.NoBody });
   }
 
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
-    return response({ success: false, error: validation.error.issues });
+    return res.status(400).json({ success: false, error: Errors.InvalidBody });
   }
 
   const { ids } = body as ExtensionRequest;
 
   try {
-    const client = createClickhouseClient(request.env.CLICKHOUSE_PASSWORD);
+    const client = createClickhouseClient();
     const rows = await client.query({
       query: `
         SELECT publication_id, COUNT(*) AS count
@@ -47,8 +47,10 @@ export default async (request: WorkerRequest) => {
       views: Number(row.count)
     }));
 
-    return response({ success: true, views: viewCounts });
+    return res.status(200).json({ success: true, views: viewCounts });
   } catch (error) {
     throw error;
   }
 };
+
+export default allowCors(handler);
