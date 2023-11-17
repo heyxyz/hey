@@ -2,6 +2,7 @@ import { Errors } from '@hey/data/errors';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import allowCors from 'utils/allowCors';
 import { CACHE_AGE } from 'utils/constants';
+import createRedisClient from 'utils/createRedisClient';
 import createSupabaseClient from 'utils/createSupabaseClient';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -12,6 +13,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   try {
+    const redis = createRedisClient();
+    const cache = await redis.get(`preferences:${id}`);
+
+    if (cache) {
+      return res
+        .status(200)
+        .setHeader('Cache-Control', CACHE_AGE)
+        .json({ success: true, cached: true, result: JSON.parse(cache) });
+    }
+
     const client = createSupabaseClient();
     const { data } = await client
       .from('preferences')
