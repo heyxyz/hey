@@ -1,6 +1,7 @@
 import { Errors } from '@hey/data/errors';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import allowCors from 'utils/allowCors';
+import { CACHE_AGE } from 'utils/constants';
 import createClickhouseClient from 'utils/createClickhouseClient';
 import { array, object, string } from 'zod';
 
@@ -47,7 +48,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       views: Number(row.count)
     }));
 
-    return res.status(200).json({ success: true, views: viewCounts });
+    return res
+      .status(200)
+      .setHeader('Cache-Control', CACHE_AGE)
+      .json({ success: true, views: viewCounts });
   } catch (error) {
     throw error;
   }

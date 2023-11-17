@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import allowCors from 'utils/allowCors';
+import { CACHE_AGE } from 'utils/constants';
 import createSupabaseClient from 'utils/createSupabaseClient';
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
@@ -15,7 +16,10 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
       throw error;
     }
 
-    return res.status(200).json({ success: true, features: data });
+    return res
+      .status(200)
+      .setHeader('Cache-Control', CACHE_AGE)
+      .json({ success: true, features: data });
   } catch (error) {
     throw error;
   }
