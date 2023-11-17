@@ -39,10 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
-# cloudflare workers
-.wrangler
-.dev.vars
-
 # JetBrains IDE
 .idea
 
