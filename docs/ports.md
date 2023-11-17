@@ -11,6 +11,5 @@ The following ports are exposed by the repository
 | 8086 | Oembed worker         | http://localhost:8086 | https://oembed.hey.xyz         |
 | 8088 | Stats worker          | http://localhost:8088 | https://stats.hey.xyz          |
 | 8090 | Preferences worker    | http://localhost:8090 | https://preferences.hey.xyz    |
-| 8092 | NFT worker            | http://localhost:8092 | https://nft.hey.xyz            |
 | 8093 | Staff Picks worker    | http://localhost:8093 | https://staff-picks.hey.xyz    |
 | 8095 | Sitemap worker        | http://localhost:8095 | https://sitemap.hey.xyz        |

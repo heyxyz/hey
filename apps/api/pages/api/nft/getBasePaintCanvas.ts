@@ -1,12 +1,13 @@
-import response from '@hey/lib/response';
+import { Errors } from '@hey/data/errors';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import allowCors from 'utils/allowCors';
+import { CACHE_AGE } from 'utils/constants';
 
-import type { WorkerRequest } from '../types';
-
-export default async (request: WorkerRequest) => {
-  const { id } = request.query;
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { id } = req.query;
 
   if (!id) {
-    return response({ success: false, error: 'No id provided' });
+    return res.status(400).json({ success: false, error: Errors.NoBody });
   }
 
   try {
@@ -49,16 +50,21 @@ export default async (request: WorkerRequest) => {
     const numberId = parseInt(id as string);
     const currentCanvas = canvas.data.canvass[0].id;
 
-    return response({
-      success: true,
-      canvas:
-        {
-          canContribute: currentCanvas === numberId,
-          canMint: currentCanvas - 1 === numberId,
-          ...canvas.data.canvas
-        } || null
-    });
+    return res
+      .status(200)
+      .setHeader('Cache-Control', CACHE_AGE)
+      .json({
+        success: true,
+        canvas:
+          {
+            canContribute: currentCanvas === numberId,
+            canMint: currentCanvas - 1 === numberId,
+            ...canvas.data.canvas
+          } || null
+      });
   } catch (error) {
     throw error;
   }
 };
+
+export default allowCors(handler);
