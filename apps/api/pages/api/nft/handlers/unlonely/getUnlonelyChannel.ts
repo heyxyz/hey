@@ -1,12 +1,13 @@
-import response from '@hey/lib/response';
+import { Errors } from '@hey/data/errors';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import allowCors from 'utils/allowCors';
+import { CACHE_AGE } from 'utils/constants';
 
-import type { WorkerRequest } from '../../types';
-
-export default async (request: WorkerRequest) => {
-  const { slug } = request.query;
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { slug } = req.query;
 
   if (!slug) {
-    return response({ success: false, error: 'No slug provided' });
+    return res.status(400).json({ success: false, error: Errors.NoBody });
   }
 
   try {
@@ -38,7 +39,7 @@ export default async (request: WorkerRequest) => {
       data: { getChannelBySlug: any };
     } = await unlonelyResponse.json();
 
-    return response({
+    return res.status(200).setHeader('Cache-Control', CACHE_AGE).json({
       success: true,
       channel: channel.data.getChannelBySlug
     });
@@ -46,3 +47,5 @@ export default async (request: WorkerRequest) => {
     throw error;
   }
 };
+
+export default allowCors(handler);
