@@ -1,9 +1,9 @@
 import { Errors } from '@hey/data/errors';
+import allowCors from '@utils/allowCors';
+import createRedisClient from '@utils/createRedisClient';
+import createSupabaseClient from '@utils/createSupabaseClient';
+import validateIsStaff from '@utils/middlewares/validateIsStaff';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import allowCors from 'utils/allowCors';
-import createRedisClient from 'utils/createRedisClient';
-import createSupabaseClient from 'utils/createSupabaseClient';
-import validateIsStaff from 'utils/middlewares/validateIsStaff';
 import { boolean, object, string } from 'zod';
 
 type ExtensionRequest = {

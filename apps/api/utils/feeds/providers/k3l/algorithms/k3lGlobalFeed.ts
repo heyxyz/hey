@@ -1,5 +1,5 @@
+import randomizeIds from '@utils/feeds/randomizeIds';
 import urlcat from 'urlcat';
-import randomizeIds from 'utils/feeds/randomizeIds';
 
 const k3lGlobalFeed = async (
   strategy: string,

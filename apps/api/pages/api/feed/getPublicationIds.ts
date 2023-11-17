@@ -1,10 +1,10 @@
 import { AlgorithmProvider } from '@hey/data/enums';
 import { Errors } from '@hey/data/errors';
+import allowCors from '@utils/allowCors';
+import { CACHE_AGE } from '@utils/constants';
+import heyFeed from '@utils/feeds/providers/hey/heyFeed';
+import k3lFeed from '@utils/feeds/providers/k3l/k3lFeed';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import allowCors from 'utils/allowCors';
-import { CACHE_AGE } from 'utils/constants';
-import heyFeed from 'utils/feeds/providers/hey/heyFeed';
-import k3lFeed from 'utils/feeds/providers/k3l/k3lFeed';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const provider = req.query.provider as string;

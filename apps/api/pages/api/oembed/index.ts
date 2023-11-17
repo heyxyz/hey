@@ -1,8 +1,8 @@
 import { Errors } from '@hey/data/errors';
+import allowCors from '@utils/allowCors';
+import { CACHE_AGE } from '@utils/constants';
+import getMetadata from '@utils/oembed/getMetadata';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import allowCors from 'utils/allowCors';
-import { CACHE_AGE } from 'utils/constants';
-import getMetadata from 'utils/oembed/getMetadata';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { url } = req.query;

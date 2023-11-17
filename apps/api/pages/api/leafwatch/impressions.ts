@@ -1,7 +1,7 @@
 import { Errors } from '@hey/data/errors';
+import allowCors from '@utils/allowCors';
+import createClickhouseClient from '@utils/createClickhouseClient';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import allowCors from 'utils/allowCors';
-import createClickhouseClient from 'utils/createClickhouseClient';
 import { array, object, string } from 'zod';
 
 type ExtensionRequest = {

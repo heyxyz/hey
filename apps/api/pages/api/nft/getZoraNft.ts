@@ -1,9 +1,9 @@
 import { Errors } from '@hey/data/errors';
 import getZoraChainIsMainnet from '@hey/lib/nft/getZoraChainIsMainnet';
+import allowCors from '@utils/allowCors';
+import { CACHE_AGE } from '@utils/constants';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import urlcat from 'urlcat';
-import allowCors from 'utils/allowCors';
-import { CACHE_AGE } from 'utils/constants';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { chain, address, token } = req.query;

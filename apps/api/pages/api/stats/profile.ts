@@ -1,8 +1,8 @@
 import { Errors } from '@hey/data/errors';
+import allowCors from '@utils/allowCors';
+import { CACHE_AGE } from '@utils/constants';
+import createClickhouseClient from '@utils/createClickhouseClient';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import allowCors from 'utils/allowCors';
-import { CACHE_AGE } from 'utils/constants';
-import createClickhouseClient from 'utils/createClickhouseClient';
 
 interface QueryResult {
   dname: string;

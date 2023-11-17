@@ -1,7 +1,7 @@
 import { Errors } from '@hey/data/errors';
 import { NodeIrys } from '@irys/sdk';
+import allowCors from '@utils/allowCors';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import allowCors from 'utils/allowCors';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { body } = req;

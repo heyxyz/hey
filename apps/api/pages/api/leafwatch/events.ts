@@ -1,12 +1,12 @@
 import { Errors } from '@hey/data/errors';
 import { ALL_EVENTS } from '@hey/data/tracking';
+import allowCors from '@utils/allowCors';
+import createClickhouseClient from '@utils/createClickhouseClient';
+import checkEventExistence from '@utils/leafwatch/checkEventExistence';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import requestIp from 'request-ip';
 import UAParser from 'ua-parser-js';
 import urlcat from 'urlcat';
-import allowCors from 'utils/allowCors';
-import createClickhouseClient from 'utils/createClickhouseClient';
-import checkEventExistence from 'utils/leafwatch/checkEventExistence';
 import { any, object, string } from 'zod';
 
 type ExtensionRequest = {

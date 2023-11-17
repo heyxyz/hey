@@ -1,6 +1,6 @@
 import parseJwt from '@hey/lib/parseJwt';
+import createSupabaseClient from '@utils/createSupabaseClient';
 import type { NextApiRequest } from 'next';
-import createSupabaseClient from 'utils/createSupabaseClient';
 
 import { STAFF_FEATURE_ID } from '../constants';
 

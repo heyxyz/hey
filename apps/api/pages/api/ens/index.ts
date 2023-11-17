@@ -1,7 +1,7 @@
 import { Errors } from '@hey/data/errors';
+import allowCors from '@utils/allowCors';
+import { resolverAbi } from '@utils/ens/resolverAbi';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import allowCors from 'utils/allowCors';
-import { resolverAbi } from 'utils/ens/resolverAbi';
 import { createPublicClient, http } from 'viem';
 import { mainnet } from 'viem/chains';
 import { array, object, string } from 'zod';
