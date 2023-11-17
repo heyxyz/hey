@@ -10,7 +10,6 @@ The following ports are exposed by the repository
 | 8084 | Snapshot relay worker | http://localhost:8084 | https://snapshot-relay.hey.xyz |
 | 8086 | Oembed worker         | http://localhost:8086 | https://oembed.hey.xyz         |
 | 8088 | Stats worker          | http://localhost:8088 | https://stats.hey.xyz          |
-| 8089 | Feeds gateway         | http://localhost:8089 | https://feeds.hey.xyz          |
 | 8090 | Preferences worker    | http://localhost:8090 | https://preferences.hey.xyz    |
 | 8091 | Groups worker         | http://localhost:8091 | https://groups.hey.xyz         |
 | 8092 | NFT worker            | http://localhost:8092 | https://nft.hey.xyz            |
