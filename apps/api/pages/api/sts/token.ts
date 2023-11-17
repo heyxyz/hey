@@ -1,9 +1,7 @@
 import { AssumeRoleCommand, STSClient } from '@aws-sdk/client-sts';
+import { EVER_API, S3_BUCKET } from '@hey/data/constants';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import allowCors from 'utils/allowCors';
-
-const bucketName = 'hey-media';
-const everEndpoint = 'https://endpoint.4everland.co';
 
 const params = {
   DurationSeconds: 900,
@@ -18,7 +16,7 @@ const params = {
           "s3:AbortMultipartUpload"
         ],
         "Resource": [
-          "arn:aws:s3:::${bucketName}/*"
+          "arn:aws:s3:::${S3_BUCKET.HEY_MEDIA}/*"
         ]
       }
     ]
@@ -30,7 +28,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const accessKeyId = process.env.EVER_ACCESS_KEY as string;
     const secretAccessKey = process.env.EVER_ACCESS_SECRET as string;
     const stsClient = new STSClient({
-      endpoint: everEndpoint,
+      endpoint: EVER_API,
       region: 'us-west-2',
       credentials: { accessKeyId, secretAccessKey }
     });

@@ -1,12 +1,12 @@
+import {
+  HEY_POLLS_SPACE,
+  SNAPSHOT_SEQUNECER_URL,
+  SNAPSHOT_URL
+} from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import allowCors from 'utils/allowCors';
-import {
-  HEY_POLLS_SPACE,
-  PROPOSAL_CREATOR_ADDRESS,
-  SNAPSHOT_SEQUNECER_URL,
-  SNAPSHOT_URL
-} from 'utils/constants';
+import { PROPOSAL_CREATOR_ADDRESS } from 'utils/constants';
 import publicClient from 'utils/snapshot/publicClient';
 import serializedTypedData from 'utils/snapshot/serializedTypedData';
 import walletClient from 'utils/snapshot/walletClient';
