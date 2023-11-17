@@ -12,7 +12,6 @@
     "typecheck": { "outputs": [], "outputMode": "errors-only" },
     "codegen": { "outputs": [] },
     "extract": { "outputs": [] },
-    "worker:deploy": { "outputs": [] },
     "dev": { "cache": false, "persistent": true },
     "start": {
       "dependsOn": ["^build"],
