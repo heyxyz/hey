@@ -2,7 +2,7 @@ import GroupProfileShimmer from '@components/Shared/Shimmer/GroupProfileShimmer'
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import { CursorArrowRippleIcon as CursorArrowRippleIconOutline } from '@heroicons/react/24/outline';
 import { CursorArrowRippleIcon as CursorArrowRippleIconSolid } from '@heroicons/react/24/solid';
-import { STAFF_PICKS_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
 import type { StaffPick } from '@hey/types/hey';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import axios from 'axios';
@@ -26,7 +26,7 @@ const StaffPicks: FC = () => {
   const fetchStaffPicks = async (): Promise<StaffPick[]> => {
     const response: {
       data: { result: StaffPick[] };
-    } = await axios.get(`${STAFF_PICKS_WORKER_URL}/getStaffPicks`);
+    } = await axios.get(`${HEY_API_URL}/staff-pick/getStaffPicks`);
 
     return response.data.result;
   };
