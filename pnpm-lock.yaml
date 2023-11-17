@@ -4050,7 +4050,6 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
-      napi-wasm: 1.1.0
     dev: false
     bundledDependencies:
       - napi-wasm
@@ -5430,7 +5429,7 @@ packages:
       fast-stable-stringify: 1.0.0
       jayson: 4.1.0
       node-fetch: 2.7.0
-      rpc-websockets: 7.6.2
+      rpc-websockets: 7.7.0
       superstruct: 0.14.2
     transitivePeerDependencies:
       - bufferutil
@@ -7363,7 +7362,7 @@ packages:
     engines: {node: '>=6.14.2'}
     requiresBuild: true
     dependencies:
-      node-gyp-build: 4.6.1
+      node-gyp-build: 4.7.0
 
   /builtin-modules@3.3.0:
     resolution: {integrity: sha512-zhaCDicdLuWN5UbN5IMnFqNMhNfo919sH85y2/ea+5Yg9TsTkeZxpL+JLbp6cgYFS4sRLp3YV4S6yDuqVWHYOw==}
@@ -10108,7 +10107,7 @@ packages:
     requiresBuild: true
     dependencies:
       node-addon-api: 2.0.2
-      node-gyp-build: 4.6.1
+      node-gyp-build: 4.7.0
       readable-stream: 3.6.2
     dev: false
 
@@ -10801,10 +10800,6 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
-  /napi-wasm@1.1.0:
-    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
-    dev: false
-
   /natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
@@ -10919,8 +10914,8 @@ packages:
     engines: {node: '>= 6.13.0'}
     dev: false
 
-  /node-gyp-build@4.6.1:
-    resolution: {integrity: sha512-24vnklJmyRS8ViBNI8KbtK/r/DmXQMRiOMXTNz2nrTnAYUwjmEEbnnpB/+kt+yWRv73bPsSPRFddrcIbAxSiMQ==}
+  /node-gyp-build@4.7.0:
+    resolution: {integrity: sha512-PbZERfeFdrHQOOXiAKOY0VPbykZy90ndPKk0d+CFDegTKmWp1VgOTz2xACVbr1BjCWxrQp68CXtvNsveFhqDJg==}
     hasBin: true
 
   /node-int64@0.4.0:
@@ -12172,8 +12167,8 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /rpc-websockets@7.6.2:
-    resolution: {integrity: sha512-+M1fOYMPxvOQDHbSItkD/an4fRwPZ1Nft1zv48G84S0TyChG2A1GXmjWkbs3o2NxW+q36H9nM2uLo5yojTrPaA==}
+  /rpc-websockets@7.7.0:
+    resolution: {integrity: sha512-XYMzjxbDI0A9A2wwrx5/RswnZC53Av3bp5IOV9QnUdTuJ7Tstv4+V7vIe37pYYOn2wKYkbzkaeB8+I9oLztLOA==}
     dependencies:
       '@babel/runtime': 7.23.2
       eventemitter3: 4.0.7
@@ -12271,7 +12266,7 @@ packages:
     dependencies:
       elliptic: 6.5.4
       node-addon-api: 5.1.0
-      node-gyp-build: 4.6.1
+      node-gyp-build: 4.7.0
     dev: false
 
   /semver@5.7.2:
@@ -13394,7 +13389,7 @@ packages:
     engines: {node: '>=6.14.2'}
     requiresBuild: true
     dependencies:
-      node-gyp-build: 4.6.1
+      node-gyp-build: 4.7.0
 
   /util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
