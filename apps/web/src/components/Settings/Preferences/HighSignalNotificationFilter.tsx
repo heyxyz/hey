@@ -1,6 +1,6 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { SwatchIcon } from '@heroicons/react/24/outline';
-import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
@@ -20,7 +20,7 @@ const HighSignalNotificationFilter: FC = () => {
   const toggleHighSignalNotificationFilter = () => {
     toast.promise(
       axios.post(
-        `${PREFERENCES_WORKER_URL}/updatePreferences`,
+        `${HEY_API_URL}/preference/updatePreferences`,
         { highSignalNotificationFilter: !highSignalNotificationFilter },
         { headers: getAuthWorkerHeaders() }
       ),

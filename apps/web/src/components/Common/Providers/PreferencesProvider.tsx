@@ -1,4 +1,4 @@
-import { HEY_API_URL, PREFERENCES_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
 import getCurrentSession from '@lib/getCurrentSession';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -22,10 +22,8 @@ const PreferencesProvider: FC = () => {
     try {
       if (Boolean(sessionProfileId) && !isAddress(sessionProfileId)) {
         const response = await axios.get(
-          `${PREFERENCES_WORKER_URL}/getPreferences`,
-          {
-            params: { id: sessionProfileId }
-          }
+          `${HEY_API_URL}/preference/getPreferences`,
+          { params: { id: sessionProfileId } }
         );
         const { data } = response;
 

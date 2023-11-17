@@ -1,6 +1,6 @@
 import Mint from '@components/Publication/HeyOpenActions/Nft/ZoraNft/Mint';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
-import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
 import { MISCELLANEOUS, PUBLICATION } from '@hey/data/tracking';
 import type { MembershipNft } from '@hey/types/hey';
 import { Button, Card, Modal } from '@hey/ui';
@@ -26,7 +26,7 @@ const HeyMembershipNft: FC = () => {
 
   const fetchHeyMemberNftStatus = async (): Promise<MembershipNft> => {
     const response = await axios.get(
-      `${PREFERENCES_WORKER_URL}/getHeyMemberNftStatus`,
+      `${HEY_API_URL}/preference/getHeyMemberNftStatus`,
       { params: { id: address } }
     );
     const { data } = response;
@@ -54,7 +54,7 @@ const HeyMembershipNft: FC = () => {
     try {
       toast.promise(
         axios.post(
-          `${PREFERENCES_WORKER_URL}/updateHeyMemberNftStatus`,
+          `${HEY_API_URL}/preference/updateHeyMemberNftStatus`,
           undefined,
           { headers: getAuthWorkerHeaders() }
         ),

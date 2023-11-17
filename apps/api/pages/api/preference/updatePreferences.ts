@@ -1,10 +1,10 @@
 import { Errors } from '@hey/data/errors';
 import parseJwt from '@hey/lib/parseJwt';
-import response from '@hey/lib/response';
-import createSupabaseClient from '@hey/supabase/createSupabaseClient';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import allowCors from 'utils/allowCors';
+import createSupabaseClient from 'utils/createSupabaseClient';
+import validateLensAccount from 'utils/middlewares/validateLensAccount';
 import { boolean, object, string } from 'zod';
-
-import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
   id?: string;
@@ -18,29 +18,31 @@ const validationSchema = object({
   highSignalNotificationFilter: boolean().optional()
 });
 
-export default async (request: WorkerRequest) => {
-  const body = await request.json();
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { body } = req;
+
   if (!body) {
-    return response({ success: false, error: Errors.NoBody });
+    return res.status(400).json({ success: false, error: Errors.NoBody });
   }
 
-  const accessToken = request.headers.get('X-Access-Token');
+  const accessToken = req.headers['x-access-token'] as string;
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
-    return response({ success: false, error: validation.error.issues });
+    return res.status(400).json({ success: false, error: Errors.InvalidBody });
+  }
+
+  if (!(await validateLensAccount(req))) {
+    return res
+      .status(400)
+      .json({ success: false, error: Errors.InvalidAccesstoken });
   }
 
   const { isPride, highSignalNotificationFilter } = body as ExtensionRequest;
 
   try {
-    const payload = parseJwt(accessToken as string);
-    const client = createSupabaseClient(request.env.SUPABASE_KEY);
-
-    const clearCache = async () => {
-      await request.env.PREFERENCES.delete(`preferences:${payload.id}`);
-    };
-
+    const payload = parseJwt(accessToken);
+    const client = createSupabaseClient();
     const { data, error } = await client
       .from('preferences')
       .upsert({
@@ -54,10 +56,11 @@ export default async (request: WorkerRequest) => {
     if (error) {
       throw error;
     }
-    await clearCache();
 
-    return response({ success: true, result: data });
+    return res.status(200).json({ success: true, result: data });
   } catch (error) {
     throw error;
   }
 };
+
+export default allowCors(handler);
