@@ -74,9 +74,6 @@ export const STATS_WORKER_URL = IS_PRODUCTION
 export const PREFERENCES_WORKER_URL = IS_PRODUCTION
   ? 'https://preferences.hey.xyz'
   : 'http://localhost:8090';
-export const GROUPS_WORKER_URL = IS_PRODUCTION
-  ? 'https://groups.hey.xyz'
-  : 'http://localhost:8091';
 export const NFT_WORKER_URL = IS_PRODUCTION
   ? 'https://nft.hey.xyz'
   : 'http://localhost:8092';
