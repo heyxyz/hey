@@ -6,7 +6,7 @@ import {
   VideoCameraSlashIcon
 } from '@heroicons/react/24/outline';
 import { XCircleIcon } from '@heroicons/react/24/solid';
-import { LIVE_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
 import { Card, Spinner, Tooltip } from '@hey/ui';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import axios from 'axios';
@@ -46,7 +46,7 @@ const LivestreamEditor: FC = () => {
     try {
       setCreating(true);
       const response = await axios.post(
-        `${LIVE_WORKER_URL}/createStream`,
+        `${HEY_API_URL}/live/createStream`,
         { record },
         { headers: getAuthWorkerHeaders() }
       );

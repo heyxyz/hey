@@ -1,9 +1,8 @@
 import { Errors } from '@hey/data/errors';
 import parseJwt from '@hey/lib/parseJwt';
-import response from '@hey/lib/response';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import allowCors from 'utils/allowCors';
 import { boolean, object } from 'zod';
-
-import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
   record: boolean;
@@ -13,28 +12,29 @@ const validationSchema = object({
   record: boolean()
 });
 
-export default async (request: WorkerRequest) => {
-  const body = await request.json();
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { body } = req;
+
   if (!body) {
-    return response({ success: false, error: Errors.NoBody });
+    return res.status(400).json({ success: false, error: Errors.NoBody });
   }
 
-  const accessToken = request.headers.get('X-Access-Token');
+  const accessToken = req.headers['x-access-token'] as string;
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
-    return response({ success: false, error: validation.error.issues });
+    return res.status(400).json({ success: false, error: Errors.InvalidBody });
   }
 
   const { record } = body as ExtensionRequest;
 
   try {
-    const payload = parseJwt(accessToken as string);
+    const payload = parseJwt(accessToken);
     const livepeerResponse = await fetch('https://livepeer.studio/api/stream', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
-        Authorization: `Bearer ${request.env.LIVEPEER_API_KEY}`
+        Authorization: `Bearer ${process.env.LIVEPEER_API_KEY}`
       },
       body: JSON.stringify({
         name: `${payload.id}-${crypto.randomUUID()}`,
@@ -54,8 +54,10 @@ export default async (request: WorkerRequest) => {
 
     const result = await livepeerResponse.json();
 
-    return response({ success: true, result: result });
+    return res.status(200).json({ success: true, result });
   } catch (error) {
     throw error;
   }
 };
+
+export default allowCors(handler);
