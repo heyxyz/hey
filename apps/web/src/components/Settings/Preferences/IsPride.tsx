@@ -1,5 +1,5 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { APP_NAME, PREFERENCES_WORKER_URL } from '@hey/data/constants';
+import { APP_NAME, HEY_API_URL } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
@@ -15,7 +15,7 @@ const IsPride: FC = () => {
   const toggleIsPride = () => {
     toast.promise(
       axios.post(
-        `${PREFERENCES_WORKER_URL}/updatePreferences`,
+        `${HEY_API_URL}/preference/updatePreferences`,
         { isPride: !isPride },
         { headers: getAuthWorkerHeaders() }
       ),
