@@ -29,6 +29,9 @@ importers:
       '@aws-sdk/client-sts':
         specifier: ^3.451.0
         version: 3.451.0
+      '@clickhouse/client-web':
+        specifier: ^0.2.5
+        version: 0.2.5
       '@hey/data':
         specifier: workspace:*
         version: link:../../packages/data
@@ -53,6 +56,15 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
+      request-ip:
+        specifier: ^3.3.0
+        version: 3.3.0
+      ua-parser-js:
+        specifier: ^1.0.37
+        version: 1.0.37
+      urlcat:
+        specifier: ^3.1.0
+        version: 3.1.0
       viem:
         specifier: ^1.19.3
         version: 1.19.3(typescript@5.2.2)(zod@3.22.4)
@@ -66,6 +78,12 @@ importers:
       '@types/react':
         specifier: ^18.2.37
         version: 18.2.37
+      '@types/request-ip':
+        specifier: ^0.0.41
+        version: 0.0.41
+      '@types/ua-parser-js':
+        specifier: ^0.7.39
+        version: 0.7.39
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
@@ -6161,6 +6179,12 @@ packages:
       '@types/scheduler': 0.16.6
       csstype: 3.1.2
 
+  /@types/request-ip@0.0.41:
+    resolution: {integrity: sha512-Qzz0PM2nSZej4lsLzzNfADIORZhhxO7PED0fXpg4FjXiHuJ/lMyUg+YFF5q8x9HPZH3Gl6N+NOM8QZjItNgGKg==}
+    dependencies:
+      '@types/node': 20.9.0
+    dev: true
+
   /@types/scheduler@0.16.6:
     resolution: {integrity: sha512-Vlktnchmkylvc9SnwwwozTv04L/e1NykF5vgoQ0XTmI8DD+wxfjQuHuvHS3p0r2jz2x2ghPs2h1FVeDirIteWA==}
 
@@ -12178,6 +12202,10 @@ packages:
   /remove-trailing-spaces@1.0.8:
     resolution: {integrity: sha512-O3vsMYfWighyFbTd8hk8VaSj9UAGENxAtX+//ugIst2RMk5e03h6RoIS+0ylsFxY1gvmPuAY/PO4It+gPEeySA==}
     dev: true
+
+  /request-ip@3.3.0:
+    resolution: {integrity: sha512-cA6Xh6e0fDBBBwH77SLJaJPBmD3nWVAcF9/XAcsrIHdjhFzFiB5aNQFytdjCGPezU3ROwrR11IddKAM08vohxA==}
+    dev: false
 
   /require-directory@2.1.1:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}

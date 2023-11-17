@@ -1,9 +1,8 @@
-import createClickhouseClient from '@hey/clickhouse/createClickhouseClient';
 import { Errors } from '@hey/data/errors';
-import response from '@hey/lib/response';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import allowCors from 'utils/allowCors';
+import createClickhouseClient from 'utils/createClickhouseClient';
 import { array, object, string } from 'zod';
-
-import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
   viewer_id: string;
@@ -15,34 +14,38 @@ const validationSchema = object({
   ids: array(string())
 });
 
-export default async (request: WorkerRequest) => {
-  const body = await request.json();
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { body } = req;
+
   if (!body) {
-    return response({ success: false, error: Errors.NoBody });
+    return res.status(400).json({ success: false, error: Errors.NoBody });
   }
 
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
-    return response({ success: false, error: validation.error.issues });
+    return res.status(400).json({ success: false, error: Errors.InvalidBody });
   }
 
   const { viewer_id, ids } = body as ExtensionRequest;
+
   try {
     const values = ids.map((id) => ({
       viewer_id,
       publication_id: id
     }));
 
-    const client = createClickhouseClient(request.env.CLICKHOUSE_PASSWORD);
+    const client = createClickhouseClient();
     const result = await client.insert({
       table: 'impressions',
       values,
       format: 'JSONEachRow'
     });
 
-    return response({ success: true, id: result.query_id });
+    return res.status(200).json({ success: true, id: result.query_id });
   } catch (error) {
     throw error;
   }
 };
+
+export default allowCors(handler);

@@ -1,13 +1,13 @@
-import createClickhouseClient from '@hey/clickhouse/createClickhouseClient';
 import { Errors } from '@hey/data/errors';
 import { ALL_EVENTS } from '@hey/data/tracking';
-import response from '@hey/lib/response';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import requestIp from 'request-ip';
 import UAParser from 'ua-parser-js';
 import urlcat from 'urlcat';
+import allowCors from 'utils/allowCors';
+import createClickhouseClient from 'utils/createClickhouseClient';
+import checkEventExistence from 'utils/leafwatch/checkEventExistence';
 import { any, object, string } from 'zod';
-
-import checkEventExistence from '../helpers/checkEventExistence';
-import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
   name: string;
@@ -28,27 +28,28 @@ const validationSchema = object({
   properties: any()
 });
 
-export default async (request: WorkerRequest) => {
-  const body = await request.json();
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { body } = req;
+
   if (!body) {
-    return response({ success: false, error: Errors.NoBody });
+    return res.status(400).json({ success: false, error: Errors.NoBody });
   }
 
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
-    return response({ success: false, error: validation.error.issues });
+    return res.status(400).json({ success: false, error: Errors.InvalidBody });
   }
 
   const { name, actor, url, referrer, platform, properties } =
     body as ExtensionRequest;
 
   if (!checkEventExistence(ALL_EVENTS, name)) {
-    return response({ success: false, error: 'Invalid event!' });
+    return res.status(400).json({ success: false, error: 'Invalid event!' });
   }
 
-  const ip = request.headers.get('cf-connecting-ip');
-  const user_agent = request.headers.get('user-agent');
+  const ip = requestIp.getClientIp(req);
+  const user_agent = req.headers['user-agent'];
 
   try {
     // Extract IP data
@@ -64,11 +65,13 @@ export default async (request: WorkerRequest) => {
       const ipResponse = await fetch(
         urlcat('https://pro.ip-api.com/json/:ip', {
           ip,
-          key: request.env.IPAPI_KEY
+          key: process.env.IPAPI_KEY
         })
       );
       ipData = await ipResponse.json();
-    } catch {}
+    } catch (error) {
+      throw error;
+    }
 
     // Extract UTM parameters
     const parsedUrl = new URL(url);
@@ -78,7 +81,7 @@ export default async (request: WorkerRequest) => {
     const utmTerm = parsedUrl.searchParams.get('utm_term') || null;
     const utmContent = parsedUrl.searchParams.get('utm_content') || null;
 
-    const client = createClickhouseClient(request.env.CLICKHOUSE_PASSWORD);
+    const client = createClickhouseClient();
     const result = await client.insert({
       table: 'events',
       values: [
@@ -105,8 +108,10 @@ export default async (request: WorkerRequest) => {
       format: 'JSONEachRow'
     });
 
-    return response({ success: true, id: result.query_id });
+    return res.status(200).json({ success: true, id: result.query_id });
   } catch (error) {
     throw error;
   }
 };
+
+export default allowCors(handler);
