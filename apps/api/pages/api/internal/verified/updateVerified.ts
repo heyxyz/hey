@@ -1,6 +1,7 @@
 import { Errors } from '@hey/data/errors';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import allowCors from 'utils/allowCors';
+import createRedisClient from 'utils/createRedisClient';
 import createSupabaseClient from 'utils/createSupabaseClient';
 import validateIsStaff from 'utils/middlewares/validateIsStaff';
 import { boolean, object, string } from 'zod';
@@ -35,6 +36,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { id, enabled } = body as ExtensionRequest;
 
   try {
+    const redis = createRedisClient();
     const client = createSupabaseClient();
     if (enabled) {
       const { error: upsertError } = await client
@@ -44,6 +46,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       if (upsertError) {
         throw upsertError;
       }
+
+      // Delete the cache
+      await redis.del('verified');
 
       return res.status(200).json({ success: true, enabled });
     }
@@ -56,6 +61,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (deleteError) {
       throw deleteError;
     }
+
+    // Delete the cache
+    await redis.del('verified');
 
     return res.status(200).json({ success: true, enabled });
   } catch (error) {
