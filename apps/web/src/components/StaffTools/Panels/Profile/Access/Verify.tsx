@@ -1,32 +1,20 @@
-import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
 import { HEY_API_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import { Toggle } from '@hey/ui';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import axios from 'axios';
-import type { FC, ReactNode } from 'react';
+import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { verifiedMembers } from 'src/store/useAppStore';
 
-const Wrapper = ({
-  children,
-  title
-}: {
-  children: ReactNode;
-  title: ReactNode;
-}) => (
-  <span className="flex items-center space-x-2 text-sm">
-    <span>{children}</span>
-    <span>{title}</span>
-  </span>
-);
+import ToggleWrapper from '../ToggleWrapper';
 
-interface RankProps {
+interface VerifyProps {
   profile: Profile;
 }
 
-const Access: FC<RankProps> = ({ profile }) => {
+const Verify: FC<VerifyProps> = ({ profile }) => {
   const [isVerified, setIsVerified] = useState(
     verifiedMembers().includes(profile.id)
   );
@@ -42,7 +30,7 @@ const Access: FC<RankProps> = ({ profile }) => {
         loading: 'Updating verified status...',
         success: () => {
           setIsVerified(!isVerified);
-          return 'Verified!';
+          return 'Verified status updated';
         },
         error: 'Error updating verified status'
       }
@@ -50,18 +38,10 @@ const Access: FC<RankProps> = ({ profile }) => {
   };
 
   return (
-    <>
-      <div className="mt-5 flex items-center space-x-2 text-yellow-600">
-        <AdjustmentsVerticalIcon className="h-5 w-5" />
-        <div className="text-lg font-bold">Access</div>
-      </div>
-      <div className="mt-3 space-y-2 font-bold">
-        <Wrapper title="Verified member">
-          <Toggle setOn={updateVerified} on={isVerified} />
-        </Wrapper>
-      </div>
-    </>
+    <ToggleWrapper title="Verified member">
+      <Toggle setOn={updateVerified} on={isVerified} />
+    </ToggleWrapper>
   );
 };
 
-export default Access;
+export default Verify;
