@@ -68,9 +68,6 @@ export const SNAPSHOR_RELAY_WORKER_URL = IS_PRODUCTION
 export const OEMBED_WORKER_URL = IS_PRODUCTION
   ? 'https://oembed.hey.xyz'
   : 'http://localhost:8086';
-export const STAFF_PICKS_WORKER_URL = IS_PRODUCTION
-  ? 'https://staff-picks.hey.xyz'
-  : 'http://localhost:8093';
 
 // Tokens / Keys
 export const OPENSEA_KEY = '8b95f9e6d52b42fe8c19ddea847c0f5d';
