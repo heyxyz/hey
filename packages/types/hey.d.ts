@@ -3,7 +3,8 @@ import type {
   CollectOpenActionModuleType,
   RecipientDataInput
 } from '@hey/lens';
-import type { Database } from '@hey/supabase/database.types';
+
+import type { Database } from './database.types';
 
 export type Group = Database['public']['Tables']['groups']['Row'];
 export type StaffPick = Database['public']['Tables']['staff-picks']['Row'];
