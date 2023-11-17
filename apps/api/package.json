@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-sts": "^3.451.0",
+    "@clickhouse/client-web": "^0.2.5",
     "@hey/data": "workspace:*",
     "@hey/lens": "workspace:*",
     "@hey/lib": "workspace:*",
@@ -24,6 +25,9 @@
     "next": "^14.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "request-ip": "^3.3.0",
+    "ua-parser-js": "^1.0.37",
+    "urlcat": "^3.1.0",
     "viem": "^1.19.3",
     "zod": "^3.22.4"
   },
@@ -31,6 +35,8 @@
     "@hey/config": "workspace:*",
     "@hey/lens": "workspace:*",
     "@types/react": "^18.2.37",
+    "@types/request-ip": "^0.0.41",
+    "@types/ua-parser-js": "^0.7.39",
     "typescript": "^5.2.2"
   }
 }
