@@ -1,1 +1,0 @@
-# Karma3Labs Algorithm

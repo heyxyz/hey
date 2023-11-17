@@ -1,22 +1,16 @@
-import createClickhouseClient from '@hey/clickhouse/createClickhouseClient';
 import { Errors } from '@hey/data/errors';
 import { PAGEVIEW } from '@hey/data/tracking';
+import createClickhouseClient from 'utils/createClickhouseClient';
+import randomizeIds from 'utils/feeds/randomizeIds';
+import removeParamsFromString from 'utils/feeds/removeParamsFromString';
 
-import randomizeIds from '../../../helpers/randomizeIds';
-import removeParamsFromString from '../../../helpers/removeParamsFromString';
-import type { Env } from '../../../types';
-
-const heyMostViewed = async (
-  limit: number,
-  offset: number,
-  env: Env
-): Promise<any[]> => {
+const heyMostViewed = async (limit: number, offset: number): Promise<any[]> => {
   if (limit > 500) {
     throw new Error(Errors.Limit500);
   }
 
   try {
-    const client = createClickhouseClient(env.CLICKHOUSE_PASSWORD);
+    const client = createClickhouseClient();
     const rows = await client.query({
       query: `
         SELECT
