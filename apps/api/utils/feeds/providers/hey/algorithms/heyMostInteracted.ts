@@ -1,9 +1,7 @@
-import createClickhouseClient from '@hey/clickhouse/createClickhouseClient';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
-
-import randomizeIds from '../../../helpers/randomizeIds';
-import type { Env } from '../../../types';
+import createClickhouseClient from 'utils/createClickhouseClient';
+import randomizeIds from 'utils/feeds/randomizeIds';
 
 const interactionAndWeights = {
   [PUBLICATION.COLLECT_MODULE.COLLECT]: 10,
@@ -30,15 +28,14 @@ const generateWeightedCaseStatement = () => {
 
 const heyMostInteracted = async (
   limit: number,
-  offset: number,
-  env: Env
+  offset: number
 ): Promise<any[]> => {
   if (limit > 500) {
     throw new Error(Errors.Limit500);
   }
 
   try {
-    const client = createClickhouseClient(env.CLICKHOUSE_PASSWORD);
+    const client = createClickhouseClient();
     const rows = await client.query({
       query: `
         SELECT
