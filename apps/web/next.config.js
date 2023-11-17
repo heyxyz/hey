@@ -10,7 +10,7 @@ const nextConfig = {
     return [
       {
         source: '/sitemaps/:match*',
-        destination: 'https://api.hey.xyz/sitemap/getProfilesSitemap/:match*'
+        destination: 'https://api.hey.xyz/sitemap/:match*'
       }
     ];
   },
