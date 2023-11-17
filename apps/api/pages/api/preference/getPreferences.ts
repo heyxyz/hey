@@ -29,6 +29,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       .select('*')
       .eq('id', id)
       .single();
+    await redis.set(`preferences:${id}`, JSON.stringify(data));
 
     return res.status(200).setHeader('Cache-Control', CACHE_AGE).json({
       success: true,
