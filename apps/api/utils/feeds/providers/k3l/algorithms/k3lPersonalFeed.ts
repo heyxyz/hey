@@ -1,15 +1,16 @@
 import urlcat from 'urlcat';
+import randomizeIds from 'utils/feeds/randomizeIds';
 
-import randomizeIds from '../../../helpers/randomizeIds';
-
-const k3lGlobalFeed = async (
+const k3lPersonalFeed = async (
   strategy: string,
+  profile: string,
   limit: number,
   offset: number
 ) => {
   try {
     const response = await fetch(
-      urlcat('https://lens-api.k3l.io/feed/:strategy', {
+      urlcat('https://lens-api.k3l.io/feed/personal/:profile/:strategy', {
+        profile,
         strategy,
         limit,
         offset
@@ -27,4 +28,4 @@ const k3lGlobalFeed = async (
   }
 };
 
-export default k3lGlobalFeed;
+export default k3lPersonalFeed;

@@ -71,9 +71,6 @@ export const OEMBED_WORKER_URL = IS_PRODUCTION
 export const STATS_WORKER_URL = IS_PRODUCTION
   ? 'https://stats.hey.xyz'
   : 'http://localhost:8088';
-export const FEEDS_WORKER_URL = IS_PRODUCTION
-  ? 'https://feeds.hey.xyz'
-  : 'http://localhost:8089';
 export const PREFERENCES_WORKER_URL = IS_PRODUCTION
   ? 'https://preferences.hey.xyz'
   : 'http://localhost:8090';
