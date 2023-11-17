@@ -4,7 +4,6 @@
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
-    "codegen": "supabase gen types typescript --project-id nberpnnqcqfnrzjpnisb > utils/database.types.ts; pnpm lint:fix",
     "build": "next build",
     "dev": "next dev --port 4785",
     "lint": "eslint . --ext .js,.ts,.tsx",

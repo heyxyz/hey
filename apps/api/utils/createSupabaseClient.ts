@@ -1,8 +1,8 @@
+// @ts-ignore
+import type { Database } from '@hey/types/database.types';
 import { createClient } from '@supabase/supabase-js';
 
 import { SUPABASE_URL } from './constants';
-// @ts-ignore
-import type { Database } from './database.types';
 
 const createSupabaseClient = () => {
   return createClient<Database>(

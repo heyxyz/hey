@@ -5,6 +5,7 @@
   "license": "AGPL-3.0",
   "main": "index.ts",
   "scripts": {
+    "codegen": "supabase gen types typescript --project-id nberpnnqcqfnrzjpnisb > database.types.ts; pnpm lint:fix",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
@@ -12,8 +13,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@hey/lens": "workspace:*",
-    "@hey/supabase": "workspace:*"
+    "@hey/lens": "workspace:*"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
