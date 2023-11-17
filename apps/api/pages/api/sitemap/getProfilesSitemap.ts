@@ -1,7 +1,12 @@
-import response from '@hey/lib/response';
+import { Errors } from '@hey/data/errors';
 import { XMLBuilder } from 'fast-xml-parser';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import allowCors from 'utils/allowCors';
+import { CACHE_AGE } from 'utils/constants';
 
-import type { WorkerRequest } from '../types';
+export const config = {
+  api: { responseLimit: '8mb' }
+};
 
 interface Url {
   loc: string;
@@ -23,19 +28,16 @@ const buildSitemapXml = (url: Url[]): string => {
   });
 };
 
-export default async (request: WorkerRequest) => {
-  const id = request.query.id as string;
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { id } = req.query;
 
   if (!id) {
-    return response({
-      success: false,
-      message: 'Missing required parameters!'
-    });
+    return res.status(400).json({ success: false, error: Errors.NoBody });
   }
 
   try {
     const range = 'A1:B50000';
-    const apiKey = request.env.GOOGLE_API_KEY;
+    const apiKey = process.env.GOOGLE_API_KEY;
 
     const sheetsResponse = await fetch(
       `https://sheets.googleapis.com/v4/spreadsheets/${id}/values/${range}?key=${apiKey}`
@@ -53,10 +55,14 @@ export default async (request: WorkerRequest) => {
 
     const xml = buildSitemapXml(entries);
 
-    return new Response(xml, {
-      headers: { 'content-type': 'application/xml' }
-    });
+    return res
+      .status(200)
+      .setHeader('Content-Type', 'text/xml')
+      .setHeader('Cache-Control', CACHE_AGE)
+      .send(xml);
   } catch (error) {
     throw error;
   }
 };
+
+export default allowCors(handler);
