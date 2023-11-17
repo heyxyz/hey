@@ -40,7 +40,7 @@ const HeyMembershipNft: FC = () => {
     { enabled: Boolean(address) }
   );
 
-  if (isLoading) {
+  if (isLoading || !address) {
     return null;
   }
 
