@@ -1,6 +1,6 @@
 import { Errors } from '@hey/data/errors';
+import allowCors from '@utils/allowCors';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import allowCors from 'utils/allowCors';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { cid } = req.query;

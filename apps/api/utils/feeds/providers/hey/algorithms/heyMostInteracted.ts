@@ -1,7 +1,7 @@
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
-import createClickhouseClient from 'utils/createClickhouseClient';
-import randomizeIds from 'utils/feeds/randomizeIds';
+import createClickhouseClient from '@utils/createClickhouseClient';
+import randomizeIds from '@utils/feeds/randomizeIds';
 
 const interactionAndWeights = {
   [PUBLICATION.COLLECT_MODULE.COLLECT]: 10,

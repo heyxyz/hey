@@ -1,8 +1,8 @@
 import { Errors } from '@hey/data/errors';
+import allowCors from '@utils/allowCors';
+import { CACHE_AGE } from '@utils/constants';
+import createSupabaseClient from '@utils/createSupabaseClient';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import allowCors from 'utils/allowCors';
-import { CACHE_AGE } from 'utils/constants';
-import createSupabaseClient from 'utils/createSupabaseClient';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { slug } = req.query;

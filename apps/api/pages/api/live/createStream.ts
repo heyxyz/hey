@@ -1,7 +1,7 @@
 import { Errors } from '@hey/data/errors';
 import parseJwt from '@hey/lib/parseJwt';
+import allowCors from '@utils/allowCors';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import allowCors from 'utils/allowCors';
 import { boolean, object } from 'zod';
 
 type ExtensionRequest = {

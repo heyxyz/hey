@@ -1,11 +1,11 @@
 import { Errors } from '@hey/data/errors';
 import parseJwt from '@hey/lib/parseJwt';
+import allowCors from '@utils/allowCors';
+import { GARDENER_MODE_FEATURE_ID } from '@utils/constants';
+import createRedisClient from '@utils/createRedisClient';
+import createSupabaseClient from '@utils/createSupabaseClient';
+import validateIsGardener from '@utils/middlewares/validateIsGardener';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import allowCors from 'utils/allowCors';
-import { GARDENER_MODE_FEATURE_ID } from 'utils/constants';
-import createRedisClient from 'utils/createRedisClient';
-import createSupabaseClient from 'utils/createSupabaseClient';
-import validateIsGardener from 'utils/middlewares/validateIsGardener';
 import { boolean, object } from 'zod';
 
 type ExtensionRequest = {
