@@ -1,4 +1,4 @@
-import { IS_MAINNET, STATS_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
 import axios from 'axios';
 
 /**
@@ -12,7 +12,7 @@ const getPublicationsViews = async (ids: string[]) => {
   }
 
   try {
-    const response = await axios.post(`${STATS_WORKER_URL}/publicationViews`, {
+    const response = await axios.post(`${HEY_API_URL}/stats/publicationViews`, {
       ids
     });
 

@@ -1,20 +1,19 @@
-import createClickhouseClient from '@hey/clickhouse/createClickhouseClient';
 import { Errors } from '@hey/data/errors';
-import response from '@hey/lib/response';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import allowCors from 'utils/allowCors';
+import { CACHE_AGE } from 'utils/constants';
+import createClickhouseClient from 'utils/createClickhouseClient';
+import filteredEvents from 'utils/stats/filteredEvents';
 
-import filteredEvents from '../helpers/filteredNames';
-import type { WorkerRequest } from '../types';
-
-export default async (request: WorkerRequest) => {
-  const id = request.query.id as string;
-  const date = request.query.date as string;
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { id, date } = req.query;
 
   if (!id) {
-    return response({ success: false, error: Errors.NoBody });
+    return res.status(400).json({ success: false, error: Errors.NoBody });
   }
 
   try {
-    const client = createClickhouseClient(request.env.CLICKHOUSE_PASSWORD);
+    const client = createClickhouseClient();
     const rows = await client.query({
       query: `
         SELECT
@@ -50,16 +49,21 @@ export default async (request: WorkerRequest) => {
       date: created
     }));
 
-    return response({
-      success: true,
-      data: list.sort((a, b) => {
-        const dateA = new Date(a.date);
-        const dateB = new Date(b.date);
+    return res
+      .status(200)
+      .setHeader('Cache-Control', CACHE_AGE)
+      .json({
+        success: true,
+        data: list.sort((a, b) => {
+          const dateA = new Date(a.date);
+          const dateB = new Date(b.date);
 
-        return dateB.getTime() - dateA.getTime();
-      })
-    });
+          return dateB.getTime() - dateA.getTime();
+        })
+      });
   } catch (error) {
     throw error;
   }
 };
+
+export default allowCors(handler);

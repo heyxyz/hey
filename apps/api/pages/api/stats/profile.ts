@@ -1,7 +1,8 @@
-import createClickhouseClient from '@hey/clickhouse/createClickhouseClient';
-import response from '@hey/lib/response';
-
-import type { WorkerRequest } from '../types';
+import { Errors } from '@hey/data/errors';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import allowCors from 'utils/allowCors';
+import { CACHE_AGE } from 'utils/constants';
+import createClickhouseClient from 'utils/createClickhouseClient';
 
 interface QueryResult {
   dname: string;
@@ -16,16 +17,15 @@ interface AccumulatedResults {
   };
 }
 
-export default async (request: WorkerRequest) => {
-  const id = request.query.id as string;
-  const handle = request.query.handle as string;
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { id, handle } = req.query;
 
   if (!id || !handle) {
-    return response({ success: false, error: 'No id and handle provided!' });
+    return res.status(400).json({ success: false, error: Errors.NoBody });
   }
 
   try {
-    const client = createClickhouseClient(request.env.CLICKHOUSE_PASSWORD);
+    const client = createClickhouseClient();
 
     // Define each query separately
     const queries: string[] = [
@@ -133,8 +133,13 @@ export default async (request: WorkerRequest) => {
       {}
     );
 
-    return response({ success: true, result: combinedResult });
+    return res
+      .status(200)
+      .setHeader('Cache-Control', CACHE_AGE)
+      .json({ success: true, result: combinedResult });
   } catch (error) {
     throw error;
   }
 };
+
+export default allowCors(handler);

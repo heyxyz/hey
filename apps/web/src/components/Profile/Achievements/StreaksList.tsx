@@ -8,7 +8,7 @@ import {
   UserPlusIcon
 } from '@heroicons/react/24/outline';
 import { CalendarIcon } from '@heroicons/react/24/solid';
-import { STATS_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
 import { PROFILE, PUBLICATION } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
 import { Card, Spinner } from '@hey/ui';
@@ -23,7 +23,7 @@ interface StreaksListProps {
 const StreaksList: FC<StreaksListProps> = ({ profile }) => {
   const fetchStreaksList = async () => {
     try {
-      const response = await axios.get(`${STATS_WORKER_URL}/streaksList`, {
+      const response = await axios.get(`${HEY_API_URL}/stats/streaksList`, {
         params: { id: profile.id, date: 'latest' }
       });
 
