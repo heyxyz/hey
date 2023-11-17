@@ -47,6 +47,9 @@ importers:
       axios:
         specifier: ^1.6.2
         version: 1.6.2
+      fast-xml-parser:
+        specifier: ^4.3.2
+        version: 4.3.2
       next:
         specifier: ^14.0.2
         version: 14.0.2(react-dom@18.2.0)(react@18.2.0)
