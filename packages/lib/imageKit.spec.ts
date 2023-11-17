@@ -12,7 +12,7 @@ describe('imageKit', () => {
     expect(result).toEqual('');
   });
 
-  test('should return the same url if it includes static-assets.hey.xyz', () => {
+  test('should return the same url if it includes pub-9f260f61e62242be9fdb651e940c9138.r2.dev', () => {
     const url = PLACEHOLDER_IMAGE;
     const result = imageKit(url);
     expect(result).toEqual(url);
