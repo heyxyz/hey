@@ -7,7 +7,7 @@ import {
   PhotoIcon
 } from '@heroicons/react/24/outline';
 import { ShieldCheckIcon } from '@heroicons/react/24/solid';
-import { APP_NAME, IS_MAINNET, STATS_WORKER_URL } from '@hey/data/constants';
+import { APP_NAME, HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
 import getFollowModule from '@hey/lib/getFollowModule';
@@ -30,7 +30,7 @@ interface ProfileStaffToolProps {
 const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
   const getHaveUsedHey = async () => {
     try {
-      const response = await axios.get(`${STATS_WORKER_URL}/haveUsedHey`, {
+      const response = await axios.get(`${HEY_API_URL}/stats/haveUsedHey`, {
         params: { id: profile.id }
       });
 

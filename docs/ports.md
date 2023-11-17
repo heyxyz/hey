@@ -9,5 +9,4 @@ The following ports are exposed by the repository
 | 8083 | Metadata worker       | http://localhost:8083 | https://metadata.hey.xyz       |
 | 8084 | Snapshot relay worker | http://localhost:8084 | https://snapshot-relay.hey.xyz |
 | 8086 | Oembed worker         | http://localhost:8086 | https://oembed.hey.xyz         |
-| 8088 | Stats worker          | http://localhost:8088 | https://stats.hey.xyz          |
 | 8093 | Staff Picks worker    | http://localhost:8093 | https://staff-picks.hey.xyz    |
