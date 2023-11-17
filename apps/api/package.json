@@ -17,7 +17,6 @@
     "@aws-sdk/client-sts": "^3.451.0",
     "@clickhouse/client-web": "^0.2.6",
     "@hey/data": "workspace:*",
-    "@hey/lens": "workspace:*",
     "@hey/lib": "workspace:*",
     "@irys/sdk": "^0.0.4",
     "@supabase/supabase-js": "^2.38.4",
@@ -36,7 +35,6 @@
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "@hey/lens": "workspace:*",
     "@hey/types": "workspace:*",
     "@types/react": "^18.2.37",
     "@types/request-ip": "^0.0.41",

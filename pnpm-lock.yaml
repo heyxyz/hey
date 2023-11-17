@@ -35,9 +35,6 @@ importers:
       '@hey/data':
         specifier: workspace:*
         version: link:../../packages/data
-      '@hey/lens':
-        specifier: workspace:*
-        version: link:../../packages/lens
       '@hey/lib':
         specifier: workspace:*
         version: link:../../packages/lib
@@ -181,9 +178,6 @@ importers:
       '@hey/snapshot':
         specifier: workspace:*
         version: link:../../packages/snapshot
-      '@hey/types':
-        specifier: workspace:*
-        version: link:../../packages/types
       '@hey/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -326,6 +320,9 @@ importers:
       '@hey/config':
         specifier: workspace:*
         version: link:../../packages/config
+      '@hey/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       '@tailwindcss/aspect-ratio':
         specifier: ^0.4.2
         version: 0.4.2(tailwindcss@3.3.5)
@@ -4050,6 +4047,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
+      napi-wasm: 1.1.0
     dev: false
     bundledDependencies:
       - napi-wasm
@@ -10799,6 +10797,10 @@ packages:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
+
+  /napi-wasm@1.1.0:
+    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
+    dev: false
 
   /natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
