@@ -2,6 +2,7 @@ import { Errors } from '@hey/data/errors';
 import parseJwt from '@hey/lib/parseJwt';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import allowCors from 'utils/allowCors';
+import createRedisClient from 'utils/createRedisClient';
 import createSupabaseClient from 'utils/createSupabaseClient';
 import validateLensAccount from 'utils/middlewares/validateLensAccount';
 
@@ -16,6 +17,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const payload = parseJwt(accessToken);
+    const redis = createRedisClient();
     const client = createSupabaseClient();
     const { data, error } = await client
       .from('membership-nft')
@@ -26,6 +28,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (error) {
       throw error;
     }
+
+    // Delete the cache
+    await redis.del(`membership-nft:${payload.evmAddress}`);
 
     return res.status(200).json({ success: true, result: data });
   } catch (error) {
