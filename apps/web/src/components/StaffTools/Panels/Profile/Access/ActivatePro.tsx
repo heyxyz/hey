@@ -61,7 +61,7 @@ const ActivatePro: FC<ActivateProProps> = ({ profile }) => {
   };
 
   return (
-    <ToggleWrapper title="Activate Pro">
+    <ToggleWrapper title="Activate Lifetime Pro">
       <Toggle setOn={updatePro} on={isPro} disabled={loading} />
     </ToggleWrapper>
   );
