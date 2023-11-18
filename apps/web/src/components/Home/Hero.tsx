@@ -8,6 +8,7 @@ const Hero: FC = () => {
         <img
           src="/logo.png"
           className="mr-5 h-24 w-24 sm:mr-8 sm:h-36 sm:w-36"
+          alt="Hey Logo"
         />
         <div className="flex-1 space-y-1 tracking-tight sm:max-w-lg">
           <div className="text-2xl font-extrabold sm:text-5xl">
