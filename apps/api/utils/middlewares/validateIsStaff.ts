@@ -3,6 +3,7 @@ import createSupabaseClient from '@utils/createSupabaseClient';
 import type { NextApiRequest } from 'next';
 
 import { STAFF_FEATURE_ID } from '../constants';
+import validateLensAccount from './validateLensAccount';
 
 /**
  * Middleware to validate if the user is staff
@@ -10,6 +11,10 @@ import { STAFF_FEATURE_ID } from '../constants';
  * @returns Response
  */
 const validateIsStaff = async (request: NextApiRequest) => {
+  if (!(await validateLensAccount(request))) {
+    return false;
+  }
+
   const accessToken = request.headers['x-access-token'] as string;
 
   if (!accessToken) {
