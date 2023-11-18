@@ -2,7 +2,8 @@ import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
 import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
-import ActivatePro from './ActivatePro';
+import ActivateLifetimePro from './ActivateLifetimePro';
+import ActivateProTrial from './ActivatePro';
 import Verify from './Verify';
 
 interface RankProps {
@@ -18,7 +19,8 @@ const Access: FC<RankProps> = ({ profile }) => {
       </div>
       <div className="mt-3 space-y-2 font-bold">
         <Verify profile={profile} />
-        <ActivatePro profile={profile} />
+        <ActivateLifetimePro profile={profile} />
+        <ActivateProTrial profile={profile} />
       </div>
     </>
   );
