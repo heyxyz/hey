@@ -10,11 +10,11 @@ import { toast } from 'react-hot-toast';
 
 import ToggleWrapper from '../ToggleWrapper';
 
-interface ActivateProTrialProps {
+interface ActivateLifetimeProProps {
   profile: Profile;
 }
 
-const ActivateProTrial: FC<ActivateProTrialProps> = ({ profile }) => {
+const ActivateLifetimePro: FC<ActivateLifetimeProProps> = ({ profile }) => {
   const [isPro, setIsPro] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -61,10 +61,10 @@ const ActivateProTrial: FC<ActivateProTrialProps> = ({ profile }) => {
   };
 
   return (
-    <ToggleWrapper title="Activate Pro Trial">
+    <ToggleWrapper title="Activate Lifetime Pro">
       <Toggle setOn={updatePro} on={isPro} disabled={loading} />
     </ToggleWrapper>
   );
 };
 
-export default ActivateProTrial;
+export default ActivateLifetimePro;
