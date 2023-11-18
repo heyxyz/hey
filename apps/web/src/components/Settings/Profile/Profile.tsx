@@ -438,7 +438,10 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
             className="ml-auto"
             type="submit"
             disabled={
-              isLoading || (!form.formState.isDirty && !coverPictureSrc)
+              isLoading ||
+              (!form.formState.isDirty &&
+                !coverPictureSrc &&
+                !profilePictureSrc)
             }
             icon={
               isLoading ? (
