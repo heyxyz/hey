@@ -3,7 +3,6 @@ import allowCors from '@utils/allowCors';
 import createRedisClient from '@utils/createRedisClient';
 import createSupabaseClient from '@utils/createSupabaseClient';
 import validateIsStaff from '@utils/middlewares/validateIsStaff';
-import validateLensAccount from '@utils/middlewares/validateLensAccount';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { boolean, object, string } from 'zod';
 
@@ -32,7 +31,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(400).json({ success: false, error: Errors.InvalidBody });
   }
 
-  if (!(await validateLensAccount(req)) && !(await validateIsStaff(req))) {
+  if (!(await validateIsStaff(req))) {
     return res.status(400).json({ success: false, error: Errors.NotStaff });
   }
 
