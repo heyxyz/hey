@@ -87,6 +87,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   // Cover Picture
+  // TODO: Set default cover picture
   const [coverPictureIpfsUrl, setCoverPictureIpfsUrl] = useState('');
   const [coverPictureSrc, setCoverPictureSrc] = useState('');
   const [showCoverPictureCropModal, setShowCoverPictureCropModal] =
@@ -97,6 +98,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const [uploadingCoverPicture, setUploadingCoverPicture] = useState(false);
 
   // Picture
+  // TODO: Set default profile picture
   const [profilePictureIpfsUrl, setProfilePictureIpfsUrl] = useState('');
   const [profilePictureSrc, setProfilePictureSrc] = useState('');
   const [showProfilePictureCropModal, setShowProfilePictureCropModal] =
