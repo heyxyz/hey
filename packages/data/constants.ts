@@ -39,7 +39,9 @@ export const HANDLE_PREFIX = IS_MAINNET ? 'lens/' : 'test/';
 
 // URLs
 export const HEY_API_URL = IS_PRODUCTION
-  ? 'https://api.hey.xyz'
+  ? IS_MAINNET
+    ? 'https://api.hey.xyz'
+    : 'https://api-testnet.hey.xyz'
   : 'http://localhost:4785';
 export const STATIC_ASSETS_URL =
   'https://pub-9f260f61e62242be9fdb651e940c9138.r2.dev';
