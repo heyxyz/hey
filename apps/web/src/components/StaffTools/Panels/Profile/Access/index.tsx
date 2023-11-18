@@ -3,7 +3,6 @@ import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import ActivateLifetimePro from './ActivateLifetimePro';
-import ActivateProTrial from './ActivatePro';
 import Verify from './Verify';
 
 interface RankProps {
@@ -20,7 +19,6 @@ const Access: FC<RankProps> = ({ profile }) => {
       <div className="mt-3 space-y-2 font-bold">
         <Verify profile={profile} />
         <ActivateLifetimePro profile={profile} />
-        <ActivateProTrial profile={profile} />
       </div>
     </>
   );
