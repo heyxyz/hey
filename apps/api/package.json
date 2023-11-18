@@ -14,7 +14,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.451.0",
+    "@aws-sdk/client-sts": "^3.454.0",
     "@clickhouse/client-web": "^0.2.6",
     "@hey/data": "workspace:*",
     "@hey/lib": "workspace:*",
