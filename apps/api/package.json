@@ -25,7 +25,6 @@
     "@hey/lib": "workspace:*",
     "@irys/sdk": "^0.0.4",
     "@prisma/client": "^5.6.0",
-    "@supabase/supabase-js": "^2.38.4",
     "axios": "^1.6.2",
     "fast-xml-parser": "^4.3.2",
     "ioredis": "^5.3.2",

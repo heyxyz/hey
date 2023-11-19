@@ -2,8 +2,8 @@ import { Errors } from '@hey/data/errors';
 import parseJwt from '@hey/lib/parseJwt';
 import allowCors from '@utils/allowCors';
 import createRedisClient from '@utils/createRedisClient';
-import createSupabaseClient from '@utils/createSupabaseClient';
 import validateLensAccount from '@utils/middlewares/validateLensAccount';
+import prisma from '@utils/prisma';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { boolean, object, string } from 'zod';
 
@@ -44,20 +44,19 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const payload = parseJwt(accessToken);
     const redis = createRedisClient();
-    const client = createSupabaseClient();
-    const { data, error } = await client
-      .from('preferences')
-      .upsert({
-        id: payload.id,
-        is_pride: isPride,
-        high_signal_notification_filter: highSignalNotificationFilter
-      })
-      .select()
-      .single();
 
-    if (error) {
-      throw error;
-    }
+    const data = await prisma.preference.upsert({
+      where: { id: payload.id },
+      update: {
+        isPride: isPride,
+        highSignalNotificationFilter: highSignalNotificationFilter
+      },
+      create: {
+        id: payload.id,
+        isPride: isPride,
+        highSignalNotificationFilter: highSignalNotificationFilter
+      }
+    });
 
     // Delete the cache
     await redis.del(`preferences:${payload.id}`);
