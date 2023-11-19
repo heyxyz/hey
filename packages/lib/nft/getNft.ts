@@ -5,7 +5,12 @@ import getUnlonelyChannel from './getUnlonelyChannel';
 import getUnlonelyNfc from './getUnlonelyNfc';
 import getZoraNFT from './getZoraNft';
 
-export const knownMintHostnames = new Set(['basepaint.art', 'unlonely.app']);
+export const knownMintHostnames = new Set([
+  'zora.co',
+  'testnet.zora.co',
+  'basepaint.art',
+  'unlonely.app'
+]);
 
 /**
  * Get NFT metadata from a list of URLs
