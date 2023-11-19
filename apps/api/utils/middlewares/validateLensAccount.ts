@@ -17,23 +17,30 @@ const validateLensAccount = async (request: NextApiRequest) => {
   }
 
   const isMainnet = network === 'mainnet';
-  const lensResponse = await axios.post(
-    isMainnet ? LensEndpoint.Mainnet : LensEndpoint.Testnet,
-    {
-      query: `
+  try {
+    const lensResponse = await axios.post(
+      isMainnet ? LensEndpoint.Mainnet : LensEndpoint.Testnet,
+      {
+        query: `
         query Verify {
           verify(request: { accessToken: "${accessToken}" })
         }
       `
-    },
-    {
-      headers: { 'Content-Type': 'application/json', 'User-agent': 'Hey.xyz' },
-      withCredentials: true
-    }
-  );
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'User-agent': 'Hey.xyz'
+        },
+        withCredentials: true
+      }
+    );
 
-  if (!lensResponse.data.verify) {
-    return true;
+    if (!lensResponse.data.verify) {
+      return true;
+    }
+  } catch {
+    return false;
   }
 };
 
