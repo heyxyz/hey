@@ -2,7 +2,7 @@ import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { Card, Image } from '@hey/ui';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
@@ -10,7 +10,9 @@ import { usePublicationStore } from 'src/store/usePublicationStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 const NewPost: FC = () => {
-  const { query, isReady, push } = useRouter();
+  const { push } = useRouter();
+  const searchParams = useSearchParams();
+  const query = Object.fromEntries(searchParams);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setShowNewPostModal = useGlobalModalStateStore(
     (state) => state.setShowNewPostModal
@@ -24,7 +26,7 @@ const NewPost: FC = () => {
   };
 
   useEffectOnce(() => {
-    if (isReady && query.text) {
+    if (query.text) {
       const { text, url, via, hashtags } = query;
       let processedHashtags;
 

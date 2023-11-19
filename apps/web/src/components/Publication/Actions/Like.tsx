@@ -16,7 +16,7 @@ import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { type FC, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/useAppStore';
@@ -27,7 +27,7 @@ interface LikeProps {
 }
 
 const Like: FC<LikeProps> = ({ publication, showCount }) => {
-  const { pathname } = useRouter();
+  const pathname = usePathname();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn

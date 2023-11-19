@@ -14,7 +14,7 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { type FC, useState } from 'react';
 import { toast } from 'react-hot-toast';
 
@@ -23,7 +23,7 @@ interface BookmarkProps {
 }
 
 const Bookmark: FC<BookmarkProps> = ({ publication }) => {
-  const { pathname } = useRouter();
+  const pathname = usePathname();
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
