@@ -1,7 +1,7 @@
 import allowCors from '@utils/allowCors';
 import { CACHE_AGE } from '@utils/constants';
 import createRedisClient from '@utils/createRedisClient';
-import createSupabaseClient from '@utils/createSupabaseClient';
+import prisma from '@utils/prisma';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
@@ -16,12 +16,9 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
         .json({ success: true, cached: true, result: JSON.parse(cache) });
     }
 
-    const client = createSupabaseClient();
-    const { data, error } = await client.from('verified').select('*');
-
-    if (error) {
-      throw error;
-    }
+    const data = await prisma.verified.findMany({
+      select: { id: true }
+    });
 
     const ids = data.map((item) => item.id);
     await redis.set('verified', JSON.stringify(ids));

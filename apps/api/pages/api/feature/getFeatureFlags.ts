@@ -2,7 +2,7 @@ import { Errors } from '@hey/data/errors';
 import allowCors from '@utils/allowCors';
 import { CACHE_AGE } from '@utils/constants';
 import createRedisClient from '@utils/createRedisClient';
-import createSupabaseClient from '@utils/createSupabaseClient';
+import prisma from '@utils/prisma';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -23,19 +23,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         .json({ success: true, cached: true, features: JSON.parse(cache) });
     }
 
-    const client = createSupabaseClient();
-    const { data, error } = await client
-      .from('profile-features')
-      .select('profile_id, enabled, features!inner(key, enabled)')
-      .eq('features.enabled', true)
-      .eq('profile_id', id)
-      .eq('enabled', true);
+    const data = await prisma.profileFeature.findMany({
+      where: {
+        profileId: id as string,
+        enabled: true,
+        feature: { enabled: true }
+      },
+      select: {
+        feature: { select: { key: true } }
+      }
+    });
 
-    if (error) {
-      throw error;
-    }
-
-    const features = data.map((feature: any) => feature.features?.key);
+    const features = data.map((feature) => feature.feature.key);
     await redis.set(`features:${id}`, JSON.stringify(features));
 
     return res
