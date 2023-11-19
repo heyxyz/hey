@@ -136,10 +136,10 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         <>
           <ProfileDetails profile={profile} />
           <Rank profile={profile} />
-          <Access profile={profile} />
-          <FeatureFlags profile={profile} />
         </>
       ) : null}
+      <Access profile={profile} />
+      <FeatureFlags profile={profile} />
     </Card>
   );
 };
