@@ -20,7 +20,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
       select: { id: true }
     });
 
-    const ids = data.map((item) => item.id);
+    const ids = data.map((item: any) => item.id);
     await redis.set('verified', JSON.stringify(ids));
 
     return res
