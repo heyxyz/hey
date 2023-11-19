@@ -43,7 +43,7 @@ jobs:
 
       - name: Run Tests 🧪
         env:
-          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
           SECRET: ${{ secrets.SECRET }}
           EVER_ACCESS_KEY: ${{ secrets.EVER_ACCESS_KEY }}
           EVER_ACCESS_SECRET: ${{ secrets.EVER_ACCESS_SECRET }}

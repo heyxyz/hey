@@ -1,6 +1,6 @@
 import { Errors } from '@hey/data/errors';
 import allowCors from '@utils/allowCors';
-import createSupabaseClient from '@utils/createSupabaseClient';
+import prisma from '@utils/prisma';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { object, string } from 'zod';
 
@@ -34,15 +34,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   try {
-    const client = createSupabaseClient();
-    const { error } = await client
-      .from('pro')
-      .delete()
-      .lte('expires_at', new Date().toISOString());
-
-    if (error) {
-      throw error;
-    }
+    await prisma.pro.deleteMany({
+      where: { expiresAt: { lte: new Date().toISOString() } }
+    });
 
     return res.status(200).json({ success: true });
   } catch (error) {

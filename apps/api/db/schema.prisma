@@ -1,0 +1,83 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Verified {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+}
+
+model StaffPick {
+  id        String        @id @default(uuid())
+  type      StaffPickType
+  score     Int           @default(0)
+  createdAt DateTime      @default(now())
+}
+
+model Preference {
+  id                           String   @id @default(uuid())
+  isPride                      Boolean  @default(false)
+  highSignalNotificationFilter Boolean  @default(false)
+  createdAt                    DateTime @default(now())
+}
+
+model MembershipNft {
+  id                String   @id @default(uuid())
+  dismissedOrMinted Boolean  @default(false)
+  createdAt         DateTime @default(now())
+}
+
+model Group {
+  id          String   @id @default(uuid())
+  slug        String   @unique
+  name        String
+  description String
+  avatar      String
+  tags        String[]
+  lens        String?
+  x           String?
+  discord     String?
+  instagram   String?
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model Pro {
+  profileId String    @id
+  hash      String
+  createdAt DateTime  @default(now())
+  expiresAt DateTime?
+}
+
+model Feature {
+  id          String   @id @default(uuid())
+  key         String   @unique
+  name        String
+  description String
+  priority    Int      @default(0)
+  enabled     Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  // Relations
+  profiles ProfileFeature[]
+}
+
+model ProfileFeature {
+  profileId String
+  featureId String
+  feature   Feature  @relation(fields: [featureId], references: [id], onDelete: Cascade)
+  enabled   Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  @@id([profileId, featureId])
+}
+
+enum StaffPickType {
+  PROFILE
+  GROUP
+}
