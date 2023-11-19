@@ -1,3 +1,5 @@
-import SessionsSettings from '@components/Settings/Sessions';
+'use client';
 
-export default SessionsSettings;
+import ProfileSettings from '@components/Settings/Profile';
+
+export default ProfileSettings;
