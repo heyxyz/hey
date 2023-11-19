@@ -4,14 +4,40 @@ import type {
   RecipientDataInput
 } from '@hey/lens';
 
-import type { Database } from './database.types';
-
-export type Group = Database['public']['Tables']['groups']['Row'];
-export type StaffPick = Database['public']['Tables']['staff-picks']['Row'];
-export type Features = Database['public']['Tables']['features']['Row'];
-
-export type MembershipNft =
-  Database['public']['Tables']['membership-nft']['Row'];
+export type Group = {
+  id: string;
+  slug: string;
+  name: string;
+  description: string;
+  avatar: string;
+  tags: string[];
+  lens: string | null;
+  x: string | null;
+  discord: string | null;
+  instagram: string | null;
+  featured: boolean;
+  createdAt: Date;
+};
+export type StaffPick = {
+  id: string;
+  type: 'GROUP' | 'PROFILE';
+  score: number;
+  createdAt: Date;
+};
+export type Features = {
+  id: string;
+  key: string;
+  name: string;
+  description: string;
+  priority: number;
+  enabled: boolean;
+  createdAt: Date;
+};
+export type MembershipNft = {
+  id: string;
+  dismissedOrMinted: boolean;
+  createdAt: Date;
+};
 
 export type CollectModuleType = {
   type?:
