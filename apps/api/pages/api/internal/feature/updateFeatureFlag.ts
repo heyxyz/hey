@@ -1,8 +1,8 @@
 import { Errors } from '@hey/data/errors';
 import allowCors from '@utils/allowCors';
 import createRedisClient from '@utils/createRedisClient';
-import createSupabaseClient from '@utils/createSupabaseClient';
 import validateIsStaff from '@utils/middlewares/validateIsStaff';
+import prisma from '@utils/prisma';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { boolean, object, string } from 'zod';
 
@@ -39,33 +39,20 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const redis = createRedisClient();
-    const client = createSupabaseClient();
+
     if (enabled) {
-      const { error: upsertError } = await client
-        .from('profile-features')
-        .upsert({ feature_id: id, profile_id: profile_id })
-        .select();
-
-      if (upsertError) {
-        throw upsertError;
-      }
-
+      await prisma.profileFeature.create({
+        data: { featureId: id, profileId: profile_id }
+      });
       // Delete the cache
       await redis.del(`features:${profile_id}`);
 
       return res.status(200).json({ success: true, enabled });
     }
 
-    const { error: deleteError } = await client
-      .from('profile-features')
-      .delete()
-      .eq('feature_id', id)
-      .eq('profile_id', profile_id)
-      .select();
-
-    if (deleteError) {
-      throw deleteError;
-    }
+    await prisma.profileFeature.delete({
+      where: { profileId_featureId: { featureId: id, profileId: profile_id } }
+    });
 
     // Delete the cache
     await redis.del(`features:${profile_id}`);

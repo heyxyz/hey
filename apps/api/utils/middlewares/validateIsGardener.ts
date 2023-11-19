@@ -1,5 +1,5 @@
 import parseJwt from '@hey/lib/parseJwt';
-import createSupabaseClient from '@utils/createSupabaseClient';
+import prisma from '@utils/prisma';
 import type { NextApiRequest } from 'next';
 
 import { GARDENER_FEATURE_ID } from '../constants';
@@ -15,32 +15,30 @@ const validateIsGardener = async (request: NextApiRequest) => {
     return false;
   }
 
-  const accessToken = request.headers['x-access-token'] as string;
+  try {
+    const accessToken = request.headers['x-access-token'] as string;
 
-  if (!accessToken) {
+    if (!accessToken) {
+      return false;
+    }
+
+    const payload = parseJwt(accessToken);
+    const data = await prisma.profileFeature.findFirst({
+      where: {
+        profileId: payload.id,
+        featureId: GARDENER_FEATURE_ID,
+        enabled: true
+      }
+    });
+
+    if (data?.enabled) {
+      return true;
+    }
+
+    return false;
+  } catch {
     return false;
   }
-
-  const payload = parseJwt(accessToken);
-  const client = createSupabaseClient();
-
-  const { data, error } = await client
-    .from('profile-features')
-    .select('profile_id, enabled')
-    .eq('profile_id', payload.id)
-    .eq('feature_id', GARDENER_FEATURE_ID)
-    .eq('enabled', true)
-    .single();
-
-  if (error) {
-    return false;
-  }
-
-  if (data.enabled) {
-    return true;
-  }
-
-  return false;
 };
 
 export default validateIsGardener;
