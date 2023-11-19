@@ -34,7 +34,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       }
     });
 
-    const features = data.map((feature) => feature.feature.key);
+    const features = data.map((feature: any) => feature.feature?.key);
     await redis.set(`features:${id}`, JSON.stringify(features));
 
     return res
