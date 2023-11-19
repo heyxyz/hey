@@ -58,13 +58,12 @@ CREATE TABLE "Group" (
 
 -- CreateTable
 CREATE TABLE "Pro" (
-    "id" TEXT NOT NULL,
     "profileId" TEXT NOT NULL,
     "hash" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "expiresAt" TIMESTAMP(3),
 
-    CONSTRAINT "Pro_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Pro_pkey" PRIMARY KEY ("profileId")
 );
 
 -- CreateTable
