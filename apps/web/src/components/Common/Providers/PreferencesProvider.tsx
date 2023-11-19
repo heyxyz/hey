@@ -27,9 +27,9 @@ const PreferencesProvider: FC = () => {
         );
         const { data } = response;
 
-        setIsPride(data.result?.is_pride || false);
+        setIsPride(data.result?.isPride || false);
         setHighSignalNotificationFilter(
-          data.result?.high_signal_notification_filter || false
+          data.result?.highSignalNotificationFilter || false
         );
       }
     } catch {

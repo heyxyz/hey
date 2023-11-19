@@ -10,7 +10,7 @@ describe('preference/getPreferences', () => {
         id: '0x01b69c'
       })
     );
-    expect(data.result.is_pride).toBeTruthy();
-    expect(data.result.high_signal_notification_filter).toBeTruthy();
+    expect(data.result.isPride).toBeTruthy();
+    expect(data.result.highSignalNotificationFilter).toBeTruthy();
   });
 });
