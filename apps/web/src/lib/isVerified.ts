@@ -1,4 +1,3 @@
-import { IS_MAINNET } from '@hey/data/constants';
 import { verifiedMembers } from 'src/store/useAppStore';
 
 /**
@@ -8,7 +7,7 @@ import { verifiedMembers } from 'src/store/useAppStore';
  * @returns True if the profile is verified, false otherwise.
  */
 const isVerified = (id: string): boolean => {
-  return IS_MAINNET ? verifiedMembers().includes(id) : false;
+  return verifiedMembers().includes(id);
 };
 
 export default isVerified;
