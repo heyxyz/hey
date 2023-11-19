@@ -1,6 +1,6 @@
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { type FC, type ReactNode } from 'react';
 
 interface MenuProps {

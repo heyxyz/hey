@@ -1,6 +1,6 @@
 import type { AnyPublication } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { type FC } from 'react';
 
 import Commented from './Commented';

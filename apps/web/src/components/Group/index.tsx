@@ -7,9 +7,9 @@ import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
-import Custom404 from 'src/pages/404';
-import Custom500 from 'src/pages/500';
+import { useRouter } from 'next/navigation';
+import Custom500 from 'src/app/500';
+import Custom404 from 'src/app/not-found';
 import { useEffectOnce } from 'usehooks-ts';
 
 import Details from './Details';

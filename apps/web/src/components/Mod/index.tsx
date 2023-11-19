@@ -21,7 +21,7 @@ import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useState } from 'react';
-import Custom404 from 'src/pages/404';
+import Custom404 from 'src/app/not-found';
 import { useEffectOnce } from 'usehooks-ts';
 
 import Feed from './Feed';

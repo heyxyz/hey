@@ -14,8 +14,8 @@ import cn from '@hey/ui/cn';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 import { useEffectOnce } from 'usehooks-ts';
 
@@ -25,6 +25,15 @@ const Explore: NextPage = () => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [focus, setFocus] = useState<PublicationMetadataMainFocusType>();
+  const searchParams = useSearchParams();
+
+  const [tabIndex, setTabIndex] = useState(
+    Number(searchParams.get('tab')) || 0
+  );
+
+  useEffect(() => {
+    router.replace(`?tab=${tabIndex}`);
+  }, [router, tabIndex]);
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'explore' });
@@ -47,16 +56,7 @@ const Explore: NextPage = () => {
         description={`Explore top commented, collected and latest publications in the ${APP_NAME}.`}
       />
       <GridItemEight className="space-y-5">
-        <Tab.Group
-          defaultIndex={Number(router.query.tab)}
-          onChange={(index) => {
-            router.replace(
-              { query: { ...router.query, tab: index } },
-              undefined,
-              { shallow: true }
-            );
-          }}
-        >
+        <Tab.Group defaultIndex={tabIndex} onChange={setTabIndex}>
           <Tab.List className="divider space-x-8">
             {tabs.map((tab, index) => (
               <Tab

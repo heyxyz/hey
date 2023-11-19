@@ -8,7 +8,7 @@ import {
 import { Card, Input, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import type { ChangeEvent, FC } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useDebounce, useOnClickOutside } from 'usehooks-ts';

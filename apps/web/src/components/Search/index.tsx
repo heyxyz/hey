@@ -5,8 +5,8 @@ import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
-import Custom404 from 'src/pages/404';
+import { useRouter } from 'next/navigation';
+import Custom404 from 'src/app/not-found';
 import { useEffectOnce } from 'usehooks-ts';
 
 import Profiles from './Profiles';

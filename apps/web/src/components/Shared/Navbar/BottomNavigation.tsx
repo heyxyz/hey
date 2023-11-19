@@ -9,7 +9,7 @@ import {
   Squares2X2Icon as Squares2X2IconSolid
 } from '@heroicons/react/24/solid';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 const BottomNavigation = () => {
   const router = useRouter();

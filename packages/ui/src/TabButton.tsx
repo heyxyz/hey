@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { type FC, type ReactNode } from 'react';
 
 import cn from '../cn';
@@ -31,9 +31,7 @@ const TabButton: FC<TabButtonProps> = ({
       type="button"
       onClick={() => {
         if (type) {
-          router.replace({ query: { ...router.query, type } }, undefined, {
-            shallow: true
-          });
+          router.replace(`?type=${type}`);
         }
         onClick();
       }}

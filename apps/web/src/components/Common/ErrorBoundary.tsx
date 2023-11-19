@@ -1,6 +1,7 @@
+'use client';
 import type { ReactNode } from 'react';
 import { Component } from 'react';
-import Custom500 from 'src/pages/500';
+import Custom500 from 'src/app/500';
 
 interface ErrorBoundaryProps {
   children?: ReactNode;

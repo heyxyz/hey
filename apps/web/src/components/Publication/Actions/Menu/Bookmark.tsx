@@ -14,7 +14,7 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { type FC, useState } from 'react';
 import { toast } from 'react-hot-toast';
 

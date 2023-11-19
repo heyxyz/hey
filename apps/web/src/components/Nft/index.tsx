@@ -4,9 +4,9 @@ import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
+import Custom500 from 'src/app/500';
 import useOpenseaNft from 'src/hooks/opensea/useOpenseaNft';
-import Custom500 from 'src/pages/500';
 import { useEffectOnce } from 'usehooks-ts';
 
 import NftDetails from './Details';
