@@ -12,8 +12,8 @@ jobs:
     steps:
       - name: Downgrade Profiles
         env:
-          WORKER_SECRET: ${{ secrets.WORKER_SECRET }}
+          SECRET: ${{ secrets.SECRET }}
         run: |
           curl -X DELETE \
-            -d '{"secret": "'"$WORKER_SECRET"'"}' \
+            -d '{"secret": "'"$SECRET"'"}' \
             https://api.hey.xyz/internal/pro/downgradeProfiles
