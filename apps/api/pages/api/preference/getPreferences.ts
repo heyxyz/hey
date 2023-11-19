@@ -2,7 +2,7 @@ import { Errors } from '@hey/data/errors';
 import allowCors from '@utils/allowCors';
 import { CACHE_AGE } from '@utils/constants';
 import createRedisClient from '@utils/createRedisClient';
-import createSupabaseClient from '@utils/createSupabaseClient';
+import prisma from '@utils/prisma';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -23,12 +23,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         .json({ success: true, cached: true, result: JSON.parse(cache) });
     }
 
-    const client = createSupabaseClient();
-    const { data } = await client
-      .from('preferences')
-      .select('*')
-      .eq('id', id)
-      .single();
+    const data = await prisma.preference.findUnique({
+      where: { id: id as string }
+    });
     await redis.set(`preferences:${id}`, JSON.stringify(data));
 
     return res.status(200).setHeader('Cache-Control', CACHE_AGE).json({
