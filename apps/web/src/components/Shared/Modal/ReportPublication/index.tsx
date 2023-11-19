@@ -1,3 +1,5 @@
+'use client';
+
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { PAGEVIEW, PUBLICATION } from '@hey/data/tracking';
@@ -14,6 +16,8 @@ import {
   useZodForm
 } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
+import { useParams } from 'next/navigation';
+import type { NextPage } from 'next/types';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
@@ -31,7 +35,7 @@ interface ReportProps {
   publication: AnyPublication | null;
 }
 
-const ReportPublication: FC<ReportProps> = ({ publication }) => {
+export const ReportPublication: FC<ReportProps> = ({ publication }) => {
   const [type, setType] = useState('');
   const [subReason, setSubReason] = useState('');
 
@@ -127,4 +131,11 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
   );
 };
 
-export default ReportPublication;
+const ReportPublicationPage: NextPage = () => {
+  const params = useParams();
+  const publication =
+    params.publication as unknown as ReportProps['publication'];
+  return <ReportPublication publication={publication} />;
+};
+
+export default ReportPublicationPage;

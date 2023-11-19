@@ -1,3 +1,5 @@
+'use client';
+
 import Unfollow from '@components/Shared/Profile/Unfollow';
 import {
   CheckBadgeIcon,

@@ -1,3 +1,5 @@
+'use client';
+
 import { PLACEHOLDER_IMAGE } from '@hey/data/constants';
 import type {
   DetailedHTMLProps,
