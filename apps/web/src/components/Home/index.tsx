@@ -2,7 +2,6 @@ import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
 import Footer from '@components/Shared/Footer';
-import { IS_MAINNET } from '@hey/data/constants';
 import { HomeFeedType } from '@hey/data/enums';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
@@ -80,7 +79,7 @@ const Home: NextPage = () => {
             </>
           )}
           {/* Recommendations */}
-          {IS_MAINNET && <StaffPicks />}
+          <StaffPicks />
           {loggedInWithProfile && <RecommendedProfiles />}
           <Footer />
         </GridItemFour>
