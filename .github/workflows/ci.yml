@@ -50,7 +50,7 @@ jobs:
           LENS_IPFS_AUTH_KEY: ${{ secrets.LENS_IPFS_AUTH_KEY }}
           CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
-          REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
+          REDIS_URL: ${{ secrets.REDIS_URL }}
           IRYS_PRIVATE_KEY: ${{ secrets.IRYS_PRIVATE_KEY }}
           LIVEPEER_API_KEY: ${{ secrets.LIVEPEER_API_KEY }}
         run: pnpm test:e2e
