@@ -48,8 +48,7 @@ model Group {
 }
 
 model Pro {
-  id        String    @id @default(uuid())
-  profileId String
+  profileId String    @id
   hash      String
   createdAt DateTime  @default(now())
   expiresAt DateTime?

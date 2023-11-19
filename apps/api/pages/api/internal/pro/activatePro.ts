@@ -1,8 +1,8 @@
 import { Errors } from '@hey/data/errors';
 import allowCors from '@utils/allowCors';
 import createRedisClient from '@utils/createRedisClient';
-import createSupabaseClient from '@utils/createSupabaseClient';
 import validateIsStaff from '@utils/middlewares/validateIsStaff';
+import prisma from '@utils/prisma';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { boolean, object, string } from 'zod';
 
@@ -39,34 +39,22 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const redis = createRedisClient();
-    const client = createSupabaseClient();
 
     if (enabled) {
-      const { error: upsertError } = await client.from('pro').upsert({
-        profile_id: id,
-        hash: '0x00',
-        expires_at: '2100-01-01T00:00:00.000Z'
+      await prisma.pro.create({
+        data: {
+          profileId: id,
+          hash: '0x00',
+          expiresAt: '2100-01-01T00:00:00.000Z'
+        }
       });
-
-      if (upsertError) {
-        throw upsertError;
-      }
-
       // Delete the cache
       await redis.del(`pro:${id}`);
 
       return res.status(200).json({ success: true, enabled, trial });
     }
 
-    const { error: deleteError } = await client
-      .from('pro')
-      .delete()
-      .match({ profile_id: id });
-
-    if (deleteError) {
-      throw deleteError;
-    }
-
+    await prisma.pro.delete({ where: { profileId: id } });
     // Delete the cache
     await redis.del(`pro:${id}`);
 
