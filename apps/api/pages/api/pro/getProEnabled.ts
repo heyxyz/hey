@@ -2,7 +2,7 @@ import { Errors } from '@hey/data/errors';
 import allowCors from '@utils/allowCors';
 import { CACHE_AGE } from '@utils/constants';
 import createRedisClient from '@utils/createRedisClient';
-import createSupabaseClient from '@utils/createSupabaseClient';
+import prisma from '@utils/prisma';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -27,12 +27,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         });
     }
 
-    const client = createSupabaseClient();
-    const { data } = await client
-      .from('pro')
-      .select('id')
-      .eq('profile_id', id)
-      .single();
+    const data = await prisma.pro.findFirst({
+      where: { profileId: id as string }
+    });
     await redis.set(`pro:${id}`, JSON.stringify(data));
 
     return res

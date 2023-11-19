@@ -1,20 +1,13 @@
 import allowCors from '@utils/allowCors';
 import { CACHE_AGE } from '@utils/constants';
-import createSupabaseClient from '@utils/createSupabaseClient';
+import prisma from '@utils/prisma';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const client = createSupabaseClient();
-
-    const { data, error } = await client
-      .from('features')
-      .select('*')
-      .order('priority', { ascending: false });
-
-    if (error) {
-      throw error;
-    }
+    const data = await prisma.feature.findMany({
+      orderBy: { priority: 'desc' }
+    });
 
     return res
       .status(200)

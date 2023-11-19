@@ -2,8 +2,8 @@ import { Errors } from '@hey/data/errors';
 import parseJwt from '@hey/lib/parseJwt';
 import allowCors from '@utils/allowCors';
 import createRedisClient from '@utils/createRedisClient';
-import createSupabaseClient from '@utils/createSupabaseClient';
 import validateLensAccount from '@utils/middlewares/validateLensAccount';
+import prisma from '@utils/prisma';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -18,16 +18,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const payload = parseJwt(accessToken);
     const redis = createRedisClient();
-    const client = createSupabaseClient();
-    const { data, error } = await client
-      .from('membership-nft')
-      .upsert({ id: payload.evmAddress, dismissedOrMinted: true })
-      .select()
-      .single();
 
-    if (error) {
-      throw error;
-    }
+    const data = await prisma.membershipNft.upsert({
+      where: { id: payload.id },
+      update: { dismissedOrMinted: true },
+      create: { id: payload.id, dismissedOrMinted: true }
+    });
 
     // Delete the cache
     await redis.del(`membership-nft:${payload.evmAddress}`);

@@ -10,6 +10,10 @@
     "lint:fix": "eslint . --fix --ext .js,.ts,.tsx",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prisma:format": "prisma format --schema ./db/schema.prisma",
+    "prisma:generate": "prisma generate --schema ./db/schema.prisma",
+    "prisma:migrate": "prisma migrate dev --schema ./db/schema.prisma",
+    "prisma:studio": "prisma studio --schema ./db/schema.prisma",
     "start": "next start --port 4785",
     "test:dev": "vitest run",
     "typecheck": "tsc --pretty"
@@ -20,7 +24,7 @@
     "@hey/data": "workspace:*",
     "@hey/lib": "workspace:*",
     "@irys/sdk": "^0.0.4",
-    "@supabase/supabase-js": "^2.38.4",
+    "@prisma/client": "^5.6.0",
     "axios": "^1.6.2",
     "fast-xml-parser": "^4.3.2",
     "ioredis": "^5.3.2",
@@ -40,6 +44,7 @@
     "@types/react": "^18.2.37",
     "@types/request-ip": "^0.0.41",
     "@types/ua-parser-js": "^0.7.39",
+    "prisma": "^5.6.0",
     "typescript": "^5.2.2",
     "vitest": "^0.34.5"
   }

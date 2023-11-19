@@ -1,5 +1,4 @@
 // DB URLs
-export const SUPABASE_URL = 'https://nberpnnqcqfnrzjpnisb.supabase.co';
 export const CLICKHOUSE_URL = 'http://clickhouse.hey.xyz:8123';
 
 // DB Feature IDs
