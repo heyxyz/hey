@@ -6,7 +6,7 @@ import { snapshotApolloClient } from '@hey/snapshot/apollo';
 import type { SnapshotMetadata } from '@hey/types/embed';
 import { Spinner } from '@hey/ui';
 import { type FC } from 'react';
-import { useAppStore } from 'src/store/useAppStore';
+import useProfilePersistStore from 'src/store/useProfilePersistStore';
 
 import Wrapper from '../../../../Shared/Embed/Wrapper';
 import Choices from './Choices';
@@ -17,7 +17,9 @@ interface SnapshotProps {
 }
 
 const Snapshot: FC<SnapshotProps> = ({ embedMetadata }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfilePersistStore(
+    (state) => state.currentProfile
+  );
   const { proposal: proposalId } = embedMetadata;
 
   const { data, loading, error, refetch } = useProposalQuery({

@@ -6,10 +6,12 @@ import { Button, Card } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useAppStore } from 'src/store/useAppStore';
+import useProfilePersistStore from 'src/store/useProfilePersistStore';
 
 const Profile: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfilePersistStore(
+    (state) => state.currentProfile
+  );
   const [profile, setProfile] = useState<TProfile | null>(null);
   const [exporting, setExporting] = useState(false);
   const [fetchCompleted, setFetchCompleted] = useState(false);

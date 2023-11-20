@@ -4,8 +4,8 @@ import getProfile from '@hey/lib/getProfile';
 import { Card, Image } from '@hey/ui';
 import { useRouter, useSearchParams } from 'next/navigation';
 import type { FC } from 'react';
-import { useAppStore } from 'src/store/useAppStore';
 import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
+import useProfilePersistStore from 'src/store/useProfilePersistStore';
 import { usePublicationStore } from 'src/store/usePublicationStore';
 import { useEffectOnce } from 'usehooks-ts';
 
@@ -13,7 +13,11 @@ const NewPost: FC = () => {
   const { push } = useRouter();
   const searchParams = useSearchParams();
   const query = Object.fromEntries(searchParams);
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  
+  const currentProfile = useProfilePersistStore(
+    (state) => state.currentProfile
+  );
+  
   const setShowNewPostModal = useGlobalModalStateStore(
     (state) => state.setShowNewPostModal
   );

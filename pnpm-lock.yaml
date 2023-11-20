@@ -241,6 +241,9 @@ importers:
       graphql:
         specifier: ^16.8.1
         version: 16.8.1
+      idb-keyval:
+        specifier: ^6.2.1
+        version: 6.2.1
       lexical:
         specifier: ^0.12.4
         version: 0.12.4

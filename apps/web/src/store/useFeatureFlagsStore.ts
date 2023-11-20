@@ -1,8 +1,6 @@
 import { create } from 'zustand';
 
 interface FeatureFlagsState {
-  loadingFeatureFlags: boolean;
-  setLoadingFeatureFlags: (loadingFeatureFlags: boolean) => void;
   staffMode: boolean;
   setStaffMode: (staffMode: boolean) => void;
   gardenerMode: boolean;
@@ -13,9 +11,6 @@ interface FeatureFlagsState {
 }
 
 export const useFeatureFlagsStore = create<FeatureFlagsState>((set) => ({
-  loadingFeatureFlags: true,
-  setLoadingFeatureFlags: (loadingFeatureFlags) =>
-    set(() => ({ loadingFeatureFlags })),
   staffMode: false,
   setStaffMode: (staffMode) => set(() => ({ staffMode })),
   gardenerMode: false,

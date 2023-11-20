@@ -5,14 +5,16 @@ import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
-import { useAppStore } from 'src/store/useAppStore';
+import useProfilePersistStore from 'src/store/useProfilePersistStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
 import List from './List';
 
 const ActionsSettings: NextPage = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfilePersistStore(
+    (state) => state.currentProfile
+  );
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'actions' });

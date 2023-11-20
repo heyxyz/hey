@@ -19,9 +19,9 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useAppStore } from 'src/store/useAppStore';
 import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 import { useNonceStore } from 'src/store/useNonceStore';
+import useProfilePersistStore from 'src/store/useProfilePersistStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface FollowProps {
@@ -41,8 +41,11 @@ const Follow: FC<FollowProps> = ({
   followPosition,
   followSource
 }) => {
-  const pathname = usePathname();
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const { pathname } = useRouter();
+  const currentProfile = useProfilePersistStore(
+    (state) => state.currentProfile
+  );
+
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce
   );

@@ -21,6 +21,7 @@ import Custom404 from 'src/app/not-found';
 import { useAppStore } from 'src/store/useAppStore';
 import { useFeatureFlagsStore } from 'src/store/useFeatureFlagsStore';
 import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
+import useProfilePersistStore from 'src/store/useProfilePersistStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import FullPublication from './FullPublication';
@@ -29,7 +30,9 @@ import RelevantPeople from './RelevantPeople';
 import PublicationPageShimmer from './Shimmer';
 
 const ViewPublication: NextPage = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfilePersistStore(
+    (state) => state.currentProfile
+  );
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
   const showNewPostModal = useGlobalModalStateStore(
     (state) => state.showNewPostModal

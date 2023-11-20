@@ -17,13 +17,17 @@ import type { NextPage } from 'next';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
+import useProfilePersistStore from 'src/store/useProfilePersistStore';
+
 import { useEffectOnce } from 'usehooks-ts';
 
 import Feed from './Feed';
 
 const Explore: NextPage = () => {
   const router = useRouter();
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfilePersistStore(
+    (state) => state.currentProfile
+  );
   const [focus, setFocus] = useState<PublicationMetadataMainFocusType>();
   const searchParams = useSearchParams();
 

@@ -30,8 +30,8 @@ import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useAppStore } from 'src/store/useAppStore';
 import { useNonceStore } from 'src/store/useNonceStore';
+import useProfilePersistStore from 'src/store/useProfilePersistStore';
 import { useBalance, useContractWrite, useSignTypedData } from 'wagmi';
 
 import Loader from '../Loader';
@@ -64,7 +64,9 @@ const FollowModule: FC<FollowModuleProps> = ({
   const setLensHubOnchainSigNonce = useNonceStore(
     (state) => state.setLensHubOnchainSigNonce
   );
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfilePersistStore(
+    (state) => state.currentProfile
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [allowed, setAllowed] = useState(true);
 

@@ -12,8 +12,8 @@ import { OpenActionModuleType } from '@hey/lens';
 import splitNumber from '@hey/lib/splitNumber';
 import { Button, Input } from '@hey/ui';
 import { type FC } from 'react';
-import { useAppStore } from 'src/store/useAppStore';
 import { useCollectModuleStore } from 'src/store/useCollectModuleStore';
+import useProfilePersistStore from 'src/store/useProfilePersistStore';
 import { isAddress } from 'viem';
 
 interface SplitConfigProps {
@@ -25,7 +25,9 @@ const SplitConfig: FC<SplitConfigProps> = ({
   isRecipientsDuplicated,
   setCollectType
 }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfilePersistStore(
+    (state) => state.currentProfile
+  );
   const collectModule = useCollectModuleStore((state) => state.collectModule);
 
   const recipients = collectModule.recipients ?? [];
