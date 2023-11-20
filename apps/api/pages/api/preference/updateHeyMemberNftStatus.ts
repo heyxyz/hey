@@ -20,9 +20,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const redis = createRedisClient();
 
     const data = await prisma.membershipNft.upsert({
-      where: { id: payload.id },
+      where: { id: payload.evmAddress },
       update: { dismissedOrMinted: true },
-      create: { id: payload.id, dismissedOrMinted: true }
+      create: { id: payload.evmAddress, dismissedOrMinted: true }
     });
 
     // Delete the cache
