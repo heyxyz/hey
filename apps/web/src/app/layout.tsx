@@ -6,10 +6,9 @@ import type { ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;
-  params: { locale: string };
 }
 
-export default async function LocaleLayout({ children }: Props) {
+export default async function Layout({ children }: Props) {
   return (
     <html lang="en">
       <head>

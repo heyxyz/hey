@@ -1,5 +1,4 @@
 'use client';
-
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { PAGEVIEW, PUBLICATION } from '@hey/data/tracking';

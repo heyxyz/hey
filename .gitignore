@@ -44,4 +44,3 @@ yarn-error.log*
 
 # Service Workers
 sw.js
-pages-old
