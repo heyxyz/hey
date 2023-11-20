@@ -33,7 +33,8 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
     skip: !profile?.id || !currentProfile?.id
   });
 
-  const profiles = (data?.mutualFollowers?.items as Profile[]) ?? [];
+  const profiles =
+    (data?.mutualFollowers?.items.slice(0, 4) as Profile[]) ?? [];
 
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <div
@@ -41,14 +42,16 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
       onClick={() => setShowMutualFollowersModal?.(true)}
     >
       <div className="contents -space-x-2">
-        {profiles?.map((profile) => (
-          <Image
-            key={profile.id}
-            className="h-5 w-5 rounded-full border dark:border-gray-700"
-            src={getAvatar(profile)}
-            alt={profile.id}
-          />
-        ))}
+        {profiles
+          .slice(0, 3)
+          ?.map((profile) => (
+            <Image
+              key={profile.id}
+              className="h-5 w-5 rounded-full border dark:border-gray-700"
+              src={getAvatar(profile)}
+              alt={profile.id}
+            />
+          ))}
       </div>
       <div>
         <span>Followed by </span>
@@ -103,7 +106,14 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
     );
   }
 
-  return null;
+  return (
+    <Wrapper>
+      <span>{getProfile(profileOne).displayName}, </span>
+      <span>{getProfile(profileTwo).displayName}, </span>
+      <span>{getProfile(profileThree).displayName} </span>
+      <span>and others</span>
+    </Wrapper>
+  );
 };
 
 export default MutualFollowers;
