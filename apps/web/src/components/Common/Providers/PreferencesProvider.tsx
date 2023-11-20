@@ -3,7 +3,7 @@ import getCurrentSession from '@lib/getCurrentSession';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
-import { useAppStore } from 'src/store/useAppStore';
+import { useAppStore } from 'src/store/non-persisted/useAppStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import { isAddress } from 'viem';
 

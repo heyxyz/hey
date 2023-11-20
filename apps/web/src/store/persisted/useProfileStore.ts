@@ -3,15 +3,15 @@ import type { Profile } from '@hey/lens';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import createIdbStorage from './lib/createIdbStorage';
+import createIdbStorage from '../lib/createIdbStorage';
 
-interface ProfilePerisistState {
+interface ProfileState {
   currentProfile: Profile | null;
   setCurrentProfile: (currentProfile: Profile | null) => void;
 }
 
-export const useProfilePersistStore = create(
-  persist<ProfilePerisistState>(
+export const useProfileStore = create(
+  persist<ProfileState>(
     (set) => ({
       currentProfile: null,
       setCurrentProfile: (currentProfile) => set(() => ({ currentProfile }))
@@ -23,4 +23,4 @@ export const useProfilePersistStore = create(
   )
 );
 
-export default useProfilePersistStore;
+export default useProfileStore;

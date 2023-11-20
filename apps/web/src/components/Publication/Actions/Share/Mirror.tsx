@@ -28,8 +28,8 @@ import { Leafwatch } from '@lib/leafwatch';
 import { type FC, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useNonceStore } from 'src/store/useNonceStore';
-import useProfilePersistStore from 'src/store/useProfilePersistStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface MirrorProps {
@@ -39,9 +39,7 @@ interface MirrorProps {
 }
 
 const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
-  const currentProfile = useProfilePersistStore(
-    (state) => state.currentProfile
-  );
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce
   );

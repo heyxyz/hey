@@ -2,15 +2,13 @@ import { HEY_API_URL } from '@hey/data/constants';
 import getProfile from '@hey/lib/getProfile';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import axios from 'axios';
-import useProfilePersistStore from 'src/store/useProfilePersistStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { usePublicationStore } from 'src/store/usePublicationStore';
 
 type CreatePollResponse = string;
 
 const useCreatePoll = () => {
-  const currentProfile = useProfilePersistStore(
-    (state) => state.currentProfile
-  );
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const pollConfig = usePublicationStore((state) => state.pollConfig);
   const publicationContent = usePublicationStore(
     (state) => state.publicationContent

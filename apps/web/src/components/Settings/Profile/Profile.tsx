@@ -54,7 +54,7 @@ import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import useProfilePersistStore from 'src/store/useProfilePersistStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import type { z } from 'zod';
 import { object, string, union } from 'zod';
@@ -83,9 +83,7 @@ interface ProfileSettingsFormProps {
 }
 
 const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
-  const currentProfile = useProfilePersistStore(
-    (state) => state.currentProfile
-  );
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const [isLoading, setIsLoading] = useState(false);
 
   // Cover Picture

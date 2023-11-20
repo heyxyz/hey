@@ -1,7 +1,7 @@
 import getCurrentSession from '@lib/getCurrentSession';
 import Link from 'next/link';
 import type { FC } from 'react';
-import useProfilePersistStore from 'src/store/useProfilePersistStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { isAddress } from 'viem';
 
 import LoginButton from './LoginButton';
@@ -15,9 +15,7 @@ export const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
 );
 
 const MenuItems: FC = () => {
-  const currentProfile = useProfilePersistStore(
-    (state) => state.currentProfile
-  );
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const { id: sessionProfileId } = getCurrentSession();
 
   if (Boolean(currentProfile)) {

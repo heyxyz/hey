@@ -7,7 +7,7 @@ import getCurrentSession from '@lib/getCurrentSession';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { signOut } from 'src/store/useAuthPersistStore';
+import { signOut } from 'src/store/persisted/useAuthStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import { useDisconnect } from 'wagmi';
 

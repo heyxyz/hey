@@ -8,16 +8,14 @@ import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { type FC } from 'react';
 import { useInView } from 'react-cool-inview';
+import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 import { useImpressionsStore } from 'src/store/useImpressionsStore';
-import useProfilePersistStore from 'src/store/useProfilePersistStore';
 import { useTimelineStore } from 'src/store/useTimelineStore';
-import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
 
 const Highlights: FC = () => {
-  const currentProfile = useProfilePersistStore(
-    (state) => state.currentProfile
-  );
-  const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const txnQueue = useTransactionStore((state) => state.txnQueue);
   const seeThroughProfile = useTimelineStore(
     (state) => state.seeThroughProfile
   );

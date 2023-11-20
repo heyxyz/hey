@@ -24,13 +24,11 @@ import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
 import type { ChangeEvent, FC } from 'react';
 import { Fragment, useState } from 'react';
-import useProfilePersistStore from 'src/store/useProfilePersistStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useTimelineStore } from 'src/store/useTimelineStore';
 
 const SeeThroughLens: FC = () => {
-  const currentProfile = useProfilePersistStore(
-    (state) => state.currentProfile
-  );
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const seeThroughProfile = useTimelineStore(
     (state) => state.seeThroughProfile
   );

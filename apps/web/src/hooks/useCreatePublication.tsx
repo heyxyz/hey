@@ -32,10 +32,10 @@ import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { useRouter } from 'next/router';
+import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 import { useNonceStore } from 'src/store/useNonceStore';
-import useProfilePersistStore from 'src/store/useProfilePersistStore';
 import { usePublicationStore } from 'src/store/usePublicationStore';
-import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface CreatePublicationProps {
@@ -53,9 +53,7 @@ const useCreatePublication = ({
 }: CreatePublicationProps) => {
   const { push } = useRouter();
   const { cache } = useApolloClient();
-  const currentProfile = useProfilePersistStore(
-    (state) => state.currentProfile
-  );
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce
   );
@@ -65,8 +63,8 @@ const useCreatePublication = ({
   const publicationContent = usePublicationStore(
     (state) => state.publicationContent
   );
-  const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
-  const setTxnQueue = useTransactionPersistStore((state) => state.setTxnQueue);
+  const txnQueue = useTransactionStore((state) => state.txnQueue);
+  const setTxnQueue = useTransactionStore((state) => state.setTxnQueue);
   const { canBroadcast } = checkDispatcherPermissions(currentProfile);
 
   const isComment = Boolean(commentOn);

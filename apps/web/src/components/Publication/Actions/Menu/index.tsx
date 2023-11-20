@@ -6,7 +6,7 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import type { FC } from 'react';
 import { Fragment } from 'react';
-import useProfilePersistStore from 'src/store/useProfilePersistStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import Bookmark from './Bookmark';
 import CopyPostText from './CopyPostText';
@@ -21,9 +21,7 @@ interface PublicationMenuProps {
 }
 
 const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
-  const currentProfile = useProfilePersistStore(
-    (state) => state.currentProfile
-  );
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const iconClassName = 'w-[15px] sm:w-[18px]';
 
   return (

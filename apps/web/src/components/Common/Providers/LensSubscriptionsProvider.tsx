@@ -13,7 +13,7 @@ import getPushNotificationData from '@lib/getPushNotificationData';
 import { type FC } from 'react';
 import useWebSocket from 'react-use-websocket';
 import { isSupported, share } from 'shared-zustand';
-import { signOut } from 'src/store/useAuthPersistStore';
+import { signOut } from 'src/store/persisted/useAuthStore';
 import { useNonceStore } from 'src/store/useNonceStore';
 import { useNotificationPersistStore } from 'src/store/useNotificationPersistStore';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';

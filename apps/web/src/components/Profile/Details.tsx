@@ -37,8 +37,8 @@ import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useFeatureFlagsStore } from 'src/store/useFeatureFlagsStore';
-import useProfilePersistStore from 'src/store/useProfilePersistStore';
 import urlcat from 'urlcat';
 
 import Badges from './Badges';
@@ -56,9 +56,7 @@ interface DetailsProps {
 }
 
 const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
-  const currentProfile = useProfilePersistStore(
-    (state) => state.currentProfile
-  );
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
   const [showMutualFollowersModal, setShowMutualFollowersModal] =
     useState(false);

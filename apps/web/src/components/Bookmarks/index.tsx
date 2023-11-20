@@ -13,15 +13,13 @@ import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useState } from 'react';
-import useProfilePersistStore from 'src/store/useProfilePersistStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import Feed from './Feed';
 
 const Bookmarks: NextPage = () => {
-  const currentProfile = useProfilePersistStore(
-    (state) => state.currentProfile
-  );
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const [focus, setFocus] = useState<PublicationMetadataMainFocusType>();
 
   useEffectOnce(() => {
