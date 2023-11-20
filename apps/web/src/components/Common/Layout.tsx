@@ -31,14 +31,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const { resolvedTheme } = useTheme();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const setCurrentProfile = useProfileStore((state) => state.setCurrentProfile);
-  const loadingPreferences = usePreferencesStore(
-    (state) => state.loadingPreferences
-  );
   const resetPreferences = usePreferencesStore(
     (state) => state.resetPreferences
-  );
-  const loadingFeatureFlags = useFeatureFlagsStore(
-    (state) => state.loadingFeatureFlags
   );
   const resetFeatureFlags = useFeatureFlagsStore(
     (state) => state.resetFeatureFlags
@@ -46,7 +40,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const setLensHubOnchainSigNonce = useNonceStore(
     (state) => state.setLensHubOnchainSigNonce
   );
-  const loadingPro = useProStore((state) => state.loadingPro);
   const resetPro = useProStore((state) => state.resetPro);
 
   const isMounted = useIsMounted();
@@ -88,16 +81,9 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     validateAuthentication();
   });
 
-  // Set profileLoading to true only if currentProfile is null
   const profileLoading = !currentProfile && loading;
 
-  if (
-    profileLoading ||
-    loadingPreferences ||
-    loadingFeatureFlags ||
-    loadingPro ||
-    !isMounted()
-  ) {
+  if (profileLoading || !isMounted()) {
     return <Loading />;
   }
 
