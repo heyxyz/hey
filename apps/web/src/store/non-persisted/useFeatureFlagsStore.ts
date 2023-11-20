@@ -1,8 +1,6 @@
 import { create } from 'zustand';
 
 interface FeatureFlagsState {
-  loadingFeatureFlags: boolean;
-  setLoadingFeatureFlags: (loadingFeatureFlags: boolean) => void;
   staffMode: boolean;
   setStaffMode: (staffMode: boolean) => void;
   gardenerMode: boolean;
@@ -10,12 +8,10 @@ interface FeatureFlagsState {
   featureFlags: string[];
   setFeatureFlags: (featureFlags: string[]) => void;
   resetFeatureFlags: () => void;
+  hydrateFeatureFlags: () => { featureFlags: string[] };
 }
 
-export const useFeatureFlagsStore = create<FeatureFlagsState>((set) => ({
-  loadingFeatureFlags: true,
-  setLoadingFeatureFlags: (loadingFeatureFlags) =>
-    set(() => ({ loadingFeatureFlags })),
+export const useFeatureFlagsStore = create<FeatureFlagsState>((set, get) => ({
   staffMode: false,
   setStaffMode: (staffMode) => set(() => ({ staffMode })),
   gardenerMode: false,
@@ -27,7 +23,13 @@ export const useFeatureFlagsStore = create<FeatureFlagsState>((set) => ({
       staffMode: false,
       gardenerMode: false,
       featureFlags: []
-    }))
+    })),
+  hydrateFeatureFlags: () => {
+    return {
+      featureFlags: get().featureFlags
+    };
+  }
 }));
 
-export const featureFlags = () => useFeatureFlagsStore.getState().featureFlags;
+export const hydrateFeatureFlags = () =>
+  useFeatureFlagsStore.getState().hydrateFeatureFlags();
