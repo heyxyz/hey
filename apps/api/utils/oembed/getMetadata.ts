@@ -1,3 +1,4 @@
+import getFavicon from '@hey/lib/getFavicon';
 import type { OG } from '@hey/types/misc';
 import { parseHTML } from 'linkedom';
 
@@ -27,9 +28,7 @@ const getMetadata = async (url: string): Promise<any> => {
     description: getDescription(document),
     image: proxiedUrl,
     site: getSite(document),
-    favicon: `https://external-content.duckduckgo.com/ip3/${url
-      .replace('https://', '')
-      .replace('http://', '')}.ico`,
+    favicon: getFavicon(url),
     isLarge,
     html: generateIframe(getEmbedUrl(document), url)
   };

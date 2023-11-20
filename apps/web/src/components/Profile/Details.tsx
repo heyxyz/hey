@@ -25,6 +25,7 @@ import getEnvConfig from '@hey/data/utils/getEnvConfig';
 import type { Profile } from '@hey/lens';
 import { FollowModuleType } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
+import getFavicon from '@hey/lib/getFavicon';
 import getMentions from '@hey/lib/getMentions';
 import getMisuseDetails from '@hey/lib/getMisuseDetails';
 import getProfile from '@hey/lib/getProfile';
@@ -235,16 +236,11 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             <MetaDetails
               icon={
                 <img
-                  src={urlcat(
-                    'https://external-content.duckduckgo.com/ip3/:domain.ico',
-                    {
-                      domain: getProfileAttribute(
-                        profile?.metadata?.attributes,
-                        'website'
-                      )
-                        ?.replace('https://', '')
-                        .replace('http://', '')
-                    }
+                  src={getFavicon(
+                    getProfileAttribute(
+                      profile?.metadata?.attributes,
+                      'website'
+                    )
                   )}
                   className="h-4 w-4 rounded-full"
                   height={16}
