@@ -9,11 +9,11 @@ import Head from 'next/head';
 import { useTheme } from 'next-themes';
 import { type FC, type ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { useFeatureFlagsStore } from 'src/store/non-persisted/useFeatureFlagsStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useProStore } from 'src/store/non-persisted/useProStore';
 import { hydrateAuthTokens, signOut } from 'src/store/persisted/useAuthStore';
+import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce, useIsMounted } from 'usehooks-ts';
 import { isAddress } from 'viem';
@@ -34,12 +34,16 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const loadingPreferences = usePreferencesStore(
     (state) => state.loadingPreferences
   );
+  const preferencesLoaded = usePreferencesStore(
+    (state) => state.preferencesLoaded
+  );
   const resetPreferences = usePreferencesStore(
     (state) => state.resetPreferences
   );
   const loadingFeatureFlags = useFeatureFlagsStore(
     (state) => state.loadingFeatureFlags
   );
+  const featuresLoaded = useFeatureFlagsStore((state) => state.featuresLoaded);
   const resetFeatureFlags = useFeatureFlagsStore(
     (state) => state.resetFeatureFlags
   );
@@ -47,6 +51,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     (state) => state.setLensHubOnchainSigNonce
   );
   const loadingPro = useProStore((state) => state.loadingPro);
+  const proLoaded = useProStore((state) => state.proLoaded);
   const resetPro = useProStore((state) => state.resetPro);
 
   const isMounted = useIsMounted();
@@ -88,14 +93,16 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     validateAuthentication();
   });
 
-  // Set profileLoading to true only if currentProfile is null
   const profileLoading = !currentProfile && loading;
+  const featureFlagsLoading = !featuresLoaded && loadingFeatureFlags;
+  const preferencesLoading = !preferencesLoaded && loadingPreferences;
+  const proLoading = !proLoaded && loadingPro;
 
   if (
     profileLoading ||
-    loadingPreferences ||
-    loadingFeatureFlags ||
-    loadingPro ||
+    featureFlagsLoading ||
+    preferencesLoading ||
+    proLoading ||
     !isMounted()
   ) {
     return <Loading />;

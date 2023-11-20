@@ -10,5 +10,8 @@ export const Localstorage = {
 };
 
 export const IndexDB = {
-  ProfileStore: 'profile.store'
+  ProfileStore: 'profile.store',
+  FeatureFlagsStore: 'featureflags.store',
+  PreferencesStore: 'preferences.store',
+  ProStore: 'pro.store'
 };

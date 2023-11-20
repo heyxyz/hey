@@ -4,7 +4,7 @@ import getCurrentSession from '@lib/getCurrentSession';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
-import { useFeatureFlagsStore } from 'src/store/non-persisted/useFeatureFlagsStore';
+import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { isAddress } from 'viem';
 
 const FeatureFlagsProvider: FC = () => {
@@ -18,6 +18,9 @@ const FeatureFlagsProvider: FC = () => {
   );
   const setLoadingFeatureFlags = useFeatureFlagsStore(
     (state) => state.setLoadingFeatureFlags
+  );
+  const setFeaturesLoaded = useFeatureFlagsStore(
+    (state) => state.setFeaturesLoaded
   );
 
   const fetchFeatureFlags = async () => {
@@ -33,6 +36,7 @@ const FeatureFlagsProvider: FC = () => {
           data: { features: string[] };
         } = response;
 
+        setFeaturesLoaded(true);
         setFeatureFlags(data?.features || []);
         setStaffMode(data?.features.includes(FeatureFlag.StaffMode));
         setGardenerMode(data?.features.includes(FeatureFlag.GardenerMode));

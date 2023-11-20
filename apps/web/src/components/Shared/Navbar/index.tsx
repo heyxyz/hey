@@ -7,8 +7,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useFeatureFlagsStore } from 'src/store/non-persisted/useFeatureFlagsStore';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
+import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import MenuItems from './MenuItems';

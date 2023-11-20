@@ -17,6 +17,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const cache = await redis.get(`features:${id}`);
 
     if (cache) {
+      // fake 5s delay
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+
       return res
         .status(200)
         .setHeader('Cache-Control', CACHE_AGE)

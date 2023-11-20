@@ -10,6 +10,7 @@ const ProProvider: FC = () => {
   const { id: sessionProfileId } = getCurrentSession();
   const setIsPro = useProStore((state) => state.setIsPro);
   const setLoadingPro = useProStore((state) => state.setLoadingPro);
+  const setProLoaded = useProStore((state) => state.setProLoaded);
 
   const fetchProEnabled = async () => {
     try {
@@ -18,6 +19,8 @@ const ProProvider: FC = () => {
           params: { id: sessionProfileId }
         });
         const { data } = response;
+
+        setProLoaded(true);
         setIsPro(data?.enabled || false);
       }
     } catch {

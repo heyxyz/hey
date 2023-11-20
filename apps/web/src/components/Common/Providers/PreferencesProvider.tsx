@@ -17,6 +17,9 @@ const PreferencesProvider: FC = () => {
   const setLoadingPreferences = usePreferencesStore(
     (state) => state.setLoadingPreferences
   );
+  const setPreferencesLoaded = usePreferencesStore(
+    (state) => state.setPreferencesLoaded
+  );
 
   const fetchPreferences = async () => {
     try {
@@ -27,6 +30,7 @@ const PreferencesProvider: FC = () => {
         );
         const { data } = response;
 
+        setPreferencesLoaded(true);
         setIsPride(data.result?.isPride || false);
         setHighSignalNotificationFilter(
           data.result?.highSignalNotificationFilter || false
