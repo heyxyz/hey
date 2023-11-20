@@ -1,5 +1,4 @@
-import { IndexDB, Localstorage } from '@hey/data/storage';
-import { delMany } from 'idb-keyval';
+import { Localstorage } from '@hey/data/storage';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -23,7 +22,7 @@ export const useAuthPersistStore = create(
       refreshToken: null,
       signIn: ({ accessToken, refreshToken }) =>
         set({ accessToken, refreshToken }),
-      signOut: async () => {
+      signOut: () => {
         // Clear Localstorage
         const allLocalstorageStores = Object.values(Localstorage).filter(
           (value) => value !== Localstorage.LeafwatchStore
@@ -33,8 +32,7 @@ export const useAuthPersistStore = create(
         }
 
         // Clear IndexedDB
-        const allIndexedDBStores = Object.values(IndexDB);
-        await delMany(allIndexedDBStores);
+        indexedDB.deleteDatabase('keyval-store');
       },
       hydrateAuthTokens: () => {
         return {
