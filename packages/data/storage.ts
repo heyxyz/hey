@@ -5,10 +5,10 @@ export const Localstorage = {
   NotificationStore: 'notification.store',
   TransactionStore: 'transaction.store',
   TimelineStore: 'timeline.store',
-  AlgorithmStore: 'algorithm.store',
   LeafwatchStore: 'leafwatch.store'
 };
 
 export const IndexDB = {
-  ProfileStore: 'profile.store'
+  ProfileStore: 'profile.store',
+  AlgorithmStore: 'algorithm.store'
 };
