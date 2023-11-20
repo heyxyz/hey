@@ -1,12 +1,13 @@
 import '../styles.css';
 
 import Providers from '@components/Common/Providers';
+import heyFont from '@lib/heyFont';
 import type { ReactNode } from 'react';
 
-type Props = {
+interface Props {
   children: ReactNode;
   params: { locale: string };
-};
+}
 
 export default async function LocaleLayout({ children }: Props) {
   return (
@@ -60,7 +61,7 @@ export default async function LocaleLayout({ children }: Props) {
         <link rel="icon" href="/images/icons/iconmain-512x512.png" />
         <meta name="theme-color" content="#ffffff" />
       </head>
-      <body>
+      <body className={heyFont.className}>
         <Providers>{children}</Providers>
       </body>
     </html>

@@ -10,12 +10,7 @@ import type { FC } from 'react';
 
 const Custom500: FC = () => {
   return (
-    <div className="page-center flex-col">
-      <style jsx global>{`
-        body {
-          font-family: ${heyFont.style.fontFamily};
-        }
-      `}</style>
+    <div className={`page-center flex-col ${heyFont.className}`}>
       <MetaTags title={`500 • ${APP_NAME}`} />
       <div className="py-10 text-center">
         <h1 className="mb-4 text-3xl font-bold">
