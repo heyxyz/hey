@@ -14,8 +14,8 @@ import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useTimelineStore } from 'src/store/non-persisted/useTimelineStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import Suggested from './Suggested';
 

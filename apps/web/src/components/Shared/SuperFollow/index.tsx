@@ -7,8 +7,8 @@ import { Leafwatch } from '@lib/leafwatch';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 
 import Loader from '../Loader';
 import Slug from '../Slug';

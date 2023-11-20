@@ -37,8 +37,8 @@ import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
+import { useFeatureFlagsStore } from 'src/store/non-persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useFeatureFlagsStore } from 'src/store/useFeatureFlagsStore';
 import urlcat from 'urlcat';
 
 import Badges from './Badges';

@@ -23,9 +23,9 @@ import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { signIn } from 'src/store/persisted/useAuthStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 import { useAccount, useSignMessage } from 'wagmi';
 
 import Loader from './Loader';

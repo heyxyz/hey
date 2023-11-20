@@ -8,8 +8,8 @@ import cn from '@hey/ui/cn';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import Link from 'next/link';
 import type { FC } from 'react';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 
 import Slug from '../Slug';
 import AppVersion from './NavItems/AppVersion';

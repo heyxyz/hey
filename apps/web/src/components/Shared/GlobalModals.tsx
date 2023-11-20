@@ -7,7 +7,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { Modal } from '@hey/ui';
 import type { FC } from 'react';
-import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { usePublicationStore } from 'src/store/usePublicationStore';
 
 import Login from './Login';

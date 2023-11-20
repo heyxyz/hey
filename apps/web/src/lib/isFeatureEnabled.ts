@@ -1,5 +1,5 @@
 import type { FeatureFlag } from '@hey/data/feature-flags';
-import { featureFlags } from 'src/store/useFeatureFlagsStore';
+import { featureFlags } from 'src/store/non-persisted/useFeatureFlagsStore';
 
 import getCurrentSession from './getCurrentSession';
 

@@ -18,9 +18,9 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
+import { useFeatureFlagsStore } from 'src/store/non-persisted/useFeatureFlagsStore';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useFeatureFlagsStore } from 'src/store/useFeatureFlagsStore';
-import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import FullPublication from './FullPublication';

@@ -7,8 +7,8 @@ import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import type { FC } from 'react';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 
 import MenuTransition from '../MenuTransition';
 import Slug from '../Slug';

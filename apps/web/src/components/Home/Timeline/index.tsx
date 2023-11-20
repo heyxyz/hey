@@ -8,11 +8,11 @@ import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { type FC, memo } from 'react';
 import { useInView } from 'react-cool-inview';
+import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
 import { useTimelineStore } from 'src/store/non-persisted/useTimelineStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useTimelineFilterStore } from 'src/store/persisted/useTimelineFilterStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
-import { useImpressionsStore } from 'src/store/useImpressionsStore';
 
 const Timeline: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);

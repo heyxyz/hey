@@ -19,8 +19,8 @@ import { Leafwatch } from '@lib/leafwatch';
 import { type FC, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
+import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useGlobalAlertStateStore } from 'src/store/useGlobalAlertStateStore';
 import { useNonceStore } from 'src/store/useNonceStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
