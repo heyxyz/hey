@@ -19,6 +19,8 @@ import Custom500 from 'src/app/500';
 import Custom404 from 'src/app/not-found';
 import { ProfileFeedType } from 'src/enums';
 import useProfilePersistStore from 'src/store/useProfilePersistStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
+
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
 import Achievements from './Achievements';
@@ -36,9 +38,7 @@ const ViewProfile: NextPage = () => {
   const type = searchParams.get('type');
   const followIntent = searchParams.get('followIntent');
 
-  const currentProfile = useProfilePersistStore(
-    (state) => state.currentProfile
-  );
+  const currentProfile = useProfileStore((state) => state.currentProfile);
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'profile' });

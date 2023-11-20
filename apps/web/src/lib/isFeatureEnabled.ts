@@ -1,5 +1,5 @@
 import type { FeatureFlag } from '@hey/data/feature-flags';
-import { featureFlags } from 'src/store/useFeatureFlagsStore';
+import { hydrateFeatureFlags } from 'src/store/non-persisted/useFeatureFlagsStore';
 
 import getCurrentSession from './getCurrentSession';
 
@@ -10,12 +10,13 @@ import getCurrentSession from './getCurrentSession';
  */
 const isFeatureEnabled = (key: FeatureFlag) => {
   const { id: sessionProfileId } = getCurrentSession();
+  const { featureFlags } = hydrateFeatureFlags();
 
   if (!sessionProfileId) {
     return false;
   }
 
-  return featureFlags().includes(key);
+  return featureFlags.includes(key);
 };
 
 export default isFeatureEnabled;

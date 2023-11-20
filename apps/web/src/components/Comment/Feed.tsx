@@ -14,8 +14,8 @@ import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { type FC } from 'react';
 import { useInView } from 'react-cool-inview';
-import { useImpressionsStore } from 'src/store/useImpressionsStore';
-import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
+import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
+import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 
 interface FeedProps {
   publication: AnyPublication;
@@ -25,7 +25,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
   const publicationId = isMirrorPublication(publication)
     ? publication?.mirrorOn?.id
     : publication?.id;
-  const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
+  const txnQueue = useTransactionStore((state) => state.txnQueue);
   const fetchAndStoreViews = useImpressionsStore(
     (state) => state.fetchAndStoreViews
   );

@@ -14,8 +14,8 @@ import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
-import useProfilePersistStore from 'src/store/useProfilePersistStore';
-import { useTimelineStore } from 'src/store/useTimelineStore';
+import { useTimelineStore } from 'src/store/non-persisted/useTimelineStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import Suggested from './Suggested';
 
@@ -29,9 +29,7 @@ const Title = () => {
 };
 
 const RecommendedProfiles: FC = () => {
-  const currentProfile = useProfilePersistStore(
-    (state) => state.currentProfile
-  );
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const seeThroughProfile = useTimelineStore(
     (state) => state.seeThroughProfile
   );

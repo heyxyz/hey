@@ -4,19 +4,16 @@ import getProfile from '@hey/lib/getProfile';
 import { Card, Image } from '@hey/ui';
 import { useRouter, useSearchParams } from 'next/navigation';
 import type { FC } from 'react';
-import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
-import useProfilePersistStore from 'src/store/useProfilePersistStore';
-import { usePublicationStore } from 'src/store/usePublicationStore';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 const NewPost: FC = () => {
   const { push } = useRouter();
   const searchParams = useSearchParams();
   const query = Object.fromEntries(searchParams);
-
-  const currentProfile = useProfilePersistStore(
-    (state) => state.currentProfile
-  );
+  const currentProfile = useProfileStore((state) => state.currentProfile);
 
   const setShowNewPostModal = useGlobalModalStateStore(
     (state) => state.setShowNewPostModal

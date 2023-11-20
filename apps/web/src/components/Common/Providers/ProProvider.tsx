@@ -3,7 +3,7 @@ import getCurrentSession from '@lib/getCurrentSession';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
-import { useProStore } from 'src/store/useProStore';
+import { useProStore } from 'src/store/non-persisted/useProStore';
 import { isAddress } from 'viem';
 
 const ProProvider: FC = () => {

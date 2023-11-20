@@ -9,7 +9,7 @@ import getCurrentSession from '@lib/getCurrentSession';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useState } from 'react';
-import useProfilePersistStore from 'src/store/useProfilePersistStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import AlgorithmicFeed from './AlgorithmicFeed';
@@ -27,9 +27,7 @@ import Timeline from './Timeline';
 import Waitlist from './Waitlist';
 
 const Home: NextPage = () => {
-  const currentProfile = useProfilePersistStore(
-    (state) => state.currentProfile
-  );
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const [feedType, setFeedType] = useState<HomeFeedType>(
     HomeFeedType.FOLLOWING
   );

@@ -13,15 +13,15 @@ import getPushNotificationData from '@lib/getPushNotificationData';
 import { type FC } from 'react';
 import useWebSocket from 'react-use-websocket';
 import { isSupported, share } from 'shared-zustand';
-import { signOut } from 'src/store/useAuthPersistStore';
-import { useNonceStore } from 'src/store/useNonceStore';
-import { useNotificationPersistStore } from 'src/store/useNotificationPersistStore';
+import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
+import { signOut } from 'src/store/persisted/useAuthStore';
+import { useNotificationStore } from 'src/store/persisted/useNotificationStore';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { isAddress } from 'viem';
 import { useAccount } from 'wagmi';
 
 const LensSubscriptionsProvider: FC = () => {
-  const setLatestNotificationId = useNotificationPersistStore(
+  const setLatestNotificationId = useNotificationStore(
     (state) => state.setLatestNotificationId
   );
   const setLensHubOnchainSigNonce = useNonceStore(

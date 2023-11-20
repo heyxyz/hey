@@ -18,9 +18,9 @@ import type { NextPage } from 'next';
 import { useParams } from 'next/navigation';
 import Custom500 from 'src/app/500';
 import Custom404 from 'src/app/not-found';
-import { useFeatureFlagsStore } from 'src/store/useFeatureFlagsStore';
-import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
-import useProfilePersistStore from 'src/store/useProfilePersistStore';
+import { useFeatureFlagsStore } from 'src/store/non-persisted/useFeatureFlagsStore';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import FullPublication from './FullPublication';
@@ -29,9 +29,7 @@ import RelevantPeople from './RelevantPeople';
 import PublicationPageShimmer from './Shimmer';
 
 const ViewPublication: NextPage = () => {
-  const currentProfile = useProfilePersistStore(
-    (state) => state.currentProfile
-  );
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
   const showNewPostModal = useGlobalModalStateStore(
     (state) => state.showNewPostModal

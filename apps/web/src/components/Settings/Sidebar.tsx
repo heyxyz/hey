@@ -16,13 +16,11 @@ import {
 } from '@heroicons/react/24/outline';
 import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
-import useProfilePersistStore from 'src/store/useProfilePersistStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useAccount } from 'wagmi';
 
 const SettingsSidebar: FC = () => {
-  const currentProfile = useProfilePersistStore(
-    (state) => state.currentProfile
-  );
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const { address } = useAccount();
   const enabled = currentProfile?.ownedBy.address === address;
 

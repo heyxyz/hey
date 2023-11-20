@@ -17,6 +17,7 @@ import type { NextPage } from 'next';
 import { useState } from 'react';
 import Custom500 from 'src/app/500';
 import useProfilePersistStore from 'src/store/useProfilePersistStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
@@ -36,9 +37,7 @@ const getAllowancePayload = (currency: string) => {
 };
 
 const AllowanceSettings: NextPage = () => {
-  const currentProfile = useProfilePersistStore(
-    (state) => state.currentProfile
-  );
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const [currencyLoading, setCurrencyLoading] = useState(false);
 
   const {
