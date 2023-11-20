@@ -16,9 +16,6 @@ const FeatureFlagsProvider: FC = () => {
   const setGardenerMode = useFeatureFlagsStore(
     (state) => state.setGardenerMode
   );
-  const setLoadingFeatureFlags = useFeatureFlagsStore(
-    (state) => state.setLoadingFeatureFlags
-  );
 
   const fetchFeatureFlags = async () => {
     try {
@@ -37,10 +34,7 @@ const FeatureFlagsProvider: FC = () => {
         setStaffMode(data?.features.includes(FeatureFlag.StaffMode));
         setGardenerMode(data?.features.includes(FeatureFlag.GardenerMode));
       }
-    } catch {
-    } finally {
-      setLoadingFeatureFlags(false);
-    }
+    } catch {}
   };
 
   useQuery({
