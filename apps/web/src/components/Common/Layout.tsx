@@ -9,11 +9,11 @@ import Head from 'next/head';
 import { useTheme } from 'next-themes';
 import { type FC, type ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { useAppStore } from 'src/store/useAppStore';
 import { hydrateAuthTokens, signOut } from 'src/store/useAuthPersistStore';
 import { useFeatureFlagsStore } from 'src/store/useFeatureFlagsStore';
 import { useNonceStore } from 'src/store/useNonceStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
+import useProfilePersistStore from 'src/store/useProfilePersistStore';
 import { useProStore } from 'src/store/useProStore';
 import { useEffectOnce, useIsMounted } from 'usehooks-ts';
 import { isAddress } from 'viem';
@@ -29,7 +29,12 @@ interface LayoutProps {
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   const { resolvedTheme } = useTheme();
-  const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
+  const currentProfile = useProfilePersistStore(
+    (state) => state.currentProfile
+  );
+  const setCurrentProfile = useProfilePersistStore(
+    (state) => state.setCurrentProfile
+  );
   const loadingPreferences = usePreferencesStore(
     (state) => state.loadingPreferences
   );
@@ -87,8 +92,11 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     validateAuthentication();
   });
 
+  // Set profileLoading to true only if currentProfile is null
+  const profileLoading = !currentProfile && loading;
+
   if (
-    loading ||
+    profileLoading ||
     loadingPreferences ||
     loadingFeatureFlags ||
     loadingPro ||

@@ -32,8 +32,8 @@ import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { useRouter } from 'next/router';
-import { useAppStore } from 'src/store/useAppStore';
 import { useNonceStore } from 'src/store/useNonceStore';
+import useProfilePersistStore from 'src/store/useProfilePersistStore';
 import { usePublicationStore } from 'src/store/usePublicationStore';
 import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -53,7 +53,9 @@ const useCreatePublication = ({
 }: CreatePublicationProps) => {
   const { push } = useRouter();
   const { cache } = useApolloClient();
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfilePersistStore(
+    (state) => state.currentProfile
+  );
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce
   );

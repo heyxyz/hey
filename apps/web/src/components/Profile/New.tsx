@@ -7,11 +7,13 @@ import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
-import { useAppStore } from 'src/store/useAppStore';
+import useProfilePersistStore from 'src/store/useProfilePersistStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 const NewProfile: NextPage = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfilePersistStore(
+    (state) => state.currentProfile
+  );
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'new-profile' });

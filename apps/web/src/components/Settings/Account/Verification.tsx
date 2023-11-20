@@ -1,10 +1,13 @@
 import { CheckBadgeIcon } from '@heroicons/react/24/solid';
 import { Card } from '@hey/ui';
 import type { FC } from 'react';
-import { useAppStore, verifiedMembers } from 'src/store/useAppStore';
+import { verifiedMembers } from 'src/store/useAppStore';
+import useProfilePersistStore from 'src/store/useProfilePersistStore';
 
 const Verification: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfilePersistStore(
+    (state) => state.currentProfile
+  );
 
   return (
     <Card className="space-y-2 p-5">

@@ -19,13 +19,15 @@ import { Leafwatch } from '@lib/leafwatch';
 import { type FC, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useAppStore } from 'src/store/useAppStore';
 import { useGlobalAlertStateStore } from 'src/store/useGlobalAlertStateStore';
 import { useNonceStore } from 'src/store/useNonceStore';
+import useProfilePersistStore from 'src/store/useProfilePersistStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 const BlockOrUnBlockProfile: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfilePersistStore(
+    (state) => state.currentProfile
+  );
   const showBlockOrUnblockAlert = useGlobalAlertStateStore(
     (state) => state.showBlockOrUnblockAlert
   );

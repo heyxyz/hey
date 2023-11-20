@@ -12,9 +12,9 @@ import { type FC } from 'react';
 import { toast } from 'react-hot-toast';
 import { VirtuosoGrid } from 'react-virtuoso';
 import { CHAIN_ID } from 'src/constants';
-import { useAppStore } from 'src/store/useAppStore';
 import type { NftGalleryItem } from 'src/store/useNftGalleryStore';
 import { useNftGalleryStore } from 'src/store/useNftGalleryStore';
+import useProfilePersistStore from 'src/store/useProfilePersistStore';
 import { mainnet } from 'wagmi/chains';
 
 interface PickerProps {
@@ -22,7 +22,9 @@ interface PickerProps {
 }
 
 const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfilePersistStore(
+    (state) => state.currentProfile
+  );
   const gallery = useNftGalleryStore((state) => state.gallery);
   const setGallery = useNftGalleryStore((state) => state.setGallery);
 

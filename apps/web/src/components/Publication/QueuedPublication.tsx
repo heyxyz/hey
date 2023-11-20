@@ -12,7 +12,7 @@ import getMentions from '@hey/lib/getMentions';
 import type { OptimisticTransaction } from '@hey/types/misc';
 import { Card, Tooltip } from '@hey/ui';
 import { type FC } from 'react';
-import { useAppStore } from 'src/store/useAppStore';
+import useProfilePersistStore from 'src/store/useProfilePersistStore';
 import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
 
 interface QueuedPublicationProps {
@@ -20,7 +20,9 @@ interface QueuedPublicationProps {
 }
 
 const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfilePersistStore(
+    (state) => state.currentProfile
+  );
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
   const setTxnQueue = useTransactionPersistStore((state) => state.setTxnQueue);
 
