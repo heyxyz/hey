@@ -1,5 +1,5 @@
 import { type FC } from 'react';
-import { useLeafwatchPersistStore } from 'src/store/useLeafwatchPersistStore';
+import { useLeafwatchPersistStore } from 'src/store/persisted/useLeafwatchPersistStore';
 import { useEffectOnce } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
 

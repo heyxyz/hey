@@ -4,7 +4,7 @@ import { HOME } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { type Dispatch, type FC, type SetStateAction } from 'react';
-import { useEnabledAlgorithmsPersistStore } from 'src/store/useEnabledAlgorithmsPersistStore';
+import { useEnabledAlgorithmsPersistStore } from 'src/store/persisted/useEnabledAlgorithmsPersistStore';
 
 interface FeedTypeProps {
   setFeedType: Dispatch<SetStateAction<HomeFeedType>>;

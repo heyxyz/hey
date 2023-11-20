@@ -15,7 +15,7 @@ import useWebSocket from 'react-use-websocket';
 import { isSupported, share } from 'shared-zustand';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { signOut } from 'src/store/persisted/useAuthStore';
-import { useNotificationPersistStore } from 'src/store/useNotificationPersistStore';
+import { useNotificationPersistStore } from 'src/store/persisted/useNotificationPersistStore';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { isAddress } from 'viem';
 import { useAccount } from 'wagmi';
