@@ -1,16 +1,16 @@
 import { BellIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { useNotificationPersistStore } from 'src/store/persisted/useNotificationPersistStore';
+import { useNotificationStore } from 'src/store/persisted/useNotificationStore';
 
 const NotificationIcon: FC = () => {
-  const latestNotificationId = useNotificationPersistStore(
+  const latestNotificationId = useNotificationStore(
     (state) => state.latestNotificationId
   );
-  const lastOpenedNotificationId = useNotificationPersistStore(
+  const lastOpenedNotificationId = useNotificationStore(
     (state) => state.lastOpenedNotificationId
   );
-  const setLastOpenedNotificationId = useNotificationPersistStore(
+  const setLastOpenedNotificationId = useNotificationStore(
     (state) => state.setLastOpenedNotificationId
   );
 

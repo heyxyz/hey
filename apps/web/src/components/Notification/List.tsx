@@ -20,7 +20,7 @@ import { type FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { NotificationTabType } from 'src/enums';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
-import { useNotificationPersistStore } from 'src/store/persisted/useNotificationPersistStore';
+import { useNotificationStore } from 'src/store/persisted/useNotificationStore';
 import { useUpdateEffect } from 'usehooks-ts';
 
 import NotificationShimmer from './Shimmer';
@@ -40,7 +40,7 @@ const List: FC<ListProps> = ({ feedType }) => {
   const highSignalNotificationFilter = usePreferencesStore(
     (state) => state.highSignalNotificationFilter
   );
-  const latestNotificationId = useNotificationPersistStore(
+  const latestNotificationId = useNotificationStore(
     (state) => state.latestNotificationId
   );
 

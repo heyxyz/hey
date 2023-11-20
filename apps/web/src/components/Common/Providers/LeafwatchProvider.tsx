@@ -1,13 +1,11 @@
 import { type FC } from 'react';
-import { useLeafwatchPersistStore } from 'src/store/persisted/useLeafwatchPersistStore';
+import { useLeafwatchStore } from 'src/store/persisted/useLeafwatchStore';
 import { useEffectOnce } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
 
 const LeafwatchProvider: FC = () => {
-  const anonymousId = useLeafwatchPersistStore((state) => state.anonymousId);
-  const setAnonymousId = useLeafwatchPersistStore(
-    (state) => state.setAnonymousId
-  );
+  const anonymousId = useLeafwatchStore((state) => state.anonymousId);
+  const setAnonymousId = useLeafwatchStore((state) => state.setAnonymousId);
 
   useEffectOnce(() => {
     if (!anonymousId) {
