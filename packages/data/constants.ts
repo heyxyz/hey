@@ -67,7 +67,7 @@ export const GIPHY_KEY = 'yNwCXMKkiBrxyyFduF56xCbSuJJM8cMd';
 export const GITCOIN_PASSPORT_KEY = 'xn9e7AFv.aEfS0ioNhaVtww1jdwnsWtxnrNHspVsS';
 
 // Named transforms for ImageKit
-export const AVATAR = 'tr:w-300,h-300';
+export const AVATAR = 'tr:w-250,h-250';
 export const EXPANDED_AVATAR = 'tr:w-1000,h-1000';
 export const COVER = 'tr:w-1500,h-500';
 export const ATTACHMENT = 'tr:w-1000';
