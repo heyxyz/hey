@@ -8,7 +8,7 @@ import cn from '@hey/ui/cn';
 import { Player } from '@livepeer/react';
 import type { FC } from 'react';
 import { memo } from 'react';
-import { useAppStore } from 'src/store/useAppStore';
+import useProfilePersistStore from 'src/store/useProfilePersistStore';
 
 interface VideoProps {
   src: string;
@@ -17,7 +17,9 @@ interface VideoProps {
 }
 
 const Video: FC<VideoProps> = ({ src, poster, className = '' }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfilePersistStore(
+    (state) => state.currentProfile
+  );
 
   return (
     <div className={cn('lp-player', className)} onClick={stopEventPropagation}>

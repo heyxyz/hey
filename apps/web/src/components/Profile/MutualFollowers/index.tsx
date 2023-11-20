@@ -9,7 +9,7 @@ import {
   type ReactNode,
   type SetStateAction
 } from 'react';
-import { useAppStore } from 'src/store/useAppStore';
+import useProfilePersistStore from 'src/store/useProfilePersistStore';
 
 interface MutualFollowersProps {
   setShowMutualFollowersModal?: Dispatch<SetStateAction<boolean>>;
@@ -20,7 +20,9 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
   setShowMutualFollowersModal,
   profile
 }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfilePersistStore(
+    (state) => state.currentProfile
+  );
 
   const { data, loading, error } = useMutualFollowersQuery({
     variables: {

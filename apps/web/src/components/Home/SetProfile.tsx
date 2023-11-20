@@ -12,7 +12,7 @@ import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import { type FC } from 'react';
-import { useAppStore } from 'src/store/useAppStore';
+import useProfilePersistStore from 'src/store/useProfilePersistStore';
 
 interface StatusProps {
   finished: boolean;
@@ -33,7 +33,9 @@ const Status: FC<StatusProps> = ({ finished, title }) => (
 );
 
 const SetProfile: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfilePersistStore(
+    (state) => state.currentProfile
+  );
   const doneSetup =
     Boolean(currentProfile?.metadata?.displayName) &&
     Boolean(currentProfile?.metadata?.bio) &&

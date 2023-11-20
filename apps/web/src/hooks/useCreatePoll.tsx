@@ -2,13 +2,15 @@ import { HEY_API_URL } from '@hey/data/constants';
 import getProfile from '@hey/lib/getProfile';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import axios from 'axios';
-import { useAppStore } from 'src/store/useAppStore';
+import useProfilePersistStore from 'src/store/useProfilePersistStore';
 import { usePublicationStore } from 'src/store/usePublicationStore';
 
 type CreatePollResponse = string;
 
 const useCreatePoll = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfilePersistStore(
+    (state) => state.currentProfile
+  );
   const pollConfig = usePublicationStore((state) => state.pollConfig);
   const publicationContent = usePublicationStore(
     (state) => state.publicationContent

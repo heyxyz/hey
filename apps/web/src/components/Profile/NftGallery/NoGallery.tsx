@@ -4,7 +4,7 @@ import getProfile from '@hey/lib/getProfile';
 import { Button } from '@hey/ui';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useAppStore } from 'src/store/useAppStore';
+import useProfilePersistStore from 'src/store/useProfilePersistStore';
 
 import Create from './Create';
 
@@ -13,7 +13,9 @@ interface NoGalleryProps {
 }
 
 const NoGallery: FC<NoGalleryProps> = ({ profile }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfilePersistStore(
+    (state) => state.currentProfile
+  );
   const [showCreateModal, setShowCreateModal] = useState(false);
 
   const isOwner = profile.id === currentProfile?.id;
