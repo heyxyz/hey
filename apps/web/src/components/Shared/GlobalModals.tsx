@@ -7,8 +7,8 @@ import {
 } from '@heroicons/react/24/outline';
 import { Modal } from '@hey/ui';
 import type { FC } from 'react';
-import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
-import { usePublicationStore } from 'src/store/usePublicationStore';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 
 import Login from './Login';
 import WrongNetwork from './Login/WrongNetwork';

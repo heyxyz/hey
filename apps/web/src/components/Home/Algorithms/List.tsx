@@ -4,16 +4,16 @@ import { HOME } from '@hey/data/tracking';
 import { Toggle, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
-import { useEnabledAlgorithmsPersistStore } from 'src/store/useEnabledAlgorithmsPersistStore';
+import { useEnabledAlgorithmsStore } from 'src/store/persisted/useEnabledAlgorithmsStore';
 
 const List: FC = () => {
-  const enabledAlgorithms = useEnabledAlgorithmsPersistStore(
+  const enabledAlgorithms = useEnabledAlgorithmsStore(
     (state) => state.enabledAlgorithms
   );
-  const enableAlgorithm = useEnabledAlgorithmsPersistStore(
+  const enableAlgorithm = useEnabledAlgorithmsStore(
     (state) => state.enableAlgorithm
   );
-  const disableAlgorithm = useEnabledAlgorithmsPersistStore(
+  const disableAlgorithm = useEnabledAlgorithmsStore(
     (state) => state.disableAlgorithm
   );
 

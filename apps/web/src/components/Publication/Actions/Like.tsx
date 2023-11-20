@@ -19,7 +19,7 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { type FC, useState } from 'react';
 import toast from 'react-hot-toast';
-import useProfilePersistStore from 'src/store/useProfilePersistStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface LikeProps {
   publication: AnyPublication;
@@ -28,9 +28,7 @@ interface LikeProps {
 
 const Like: FC<LikeProps> = ({ publication, showCount }) => {
   const { pathname } = useRouter();
-  const currentProfile = useProfilePersistStore(
-    (state) => state.currentProfile
-  );
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;

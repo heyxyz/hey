@@ -3,7 +3,7 @@ import { MISCELLANEOUS } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { useFeatureFlagsStore } from 'src/store/useFeatureFlagsStore';
+import { useFeatureFlagsStore } from 'src/store/non-persisted/useFeatureFlagsStore';
 import urlcat from 'urlcat';
 
 const Footer: FC = () => {

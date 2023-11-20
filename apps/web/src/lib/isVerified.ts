@@ -1,4 +1,4 @@
-import { verifiedMembers } from 'src/store/useAppStore';
+import { verifiedMembers } from 'src/store/non-persisted/useAppStore';
 
 /**
  * Checks whether a profile is verified or not.

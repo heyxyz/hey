@@ -6,12 +6,10 @@ import { LimitType, useWhoHaveBlockedQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
-import useProfilePersistStore from 'src/store/useProfilePersistStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 const List: FC = () => {
-  const currentProfile = useProfilePersistStore(
-    (state) => state.currentProfile
-  );
+  const currentProfile = useProfileStore((state) => state.currentProfile);
 
   const request: WhoHaveBlockedRequest = { limit: LimitType.TwentyFive };
   const { data, loading, error, fetchMore } = useWhoHaveBlockedQuery({

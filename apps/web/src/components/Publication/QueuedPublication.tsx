@@ -12,19 +12,17 @@ import getMentions from '@hey/lib/getMentions';
 import type { OptimisticTransaction } from '@hey/types/misc';
 import { Card, Tooltip } from '@hey/ui';
 import { type FC } from 'react';
-import useProfilePersistStore from 'src/store/useProfilePersistStore';
-import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 
 interface QueuedPublicationProps {
   txn: OptimisticTransaction;
 }
 
 const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
-  const currentProfile = useProfilePersistStore(
-    (state) => state.currentProfile
-  );
-  const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
-  const setTxnQueue = useTransactionPersistStore((state) => state.setTxnQueue);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const txnQueue = useTransactionStore((state) => state.txnQueue);
+  const setTxnQueue = useTransactionStore((state) => state.setTxnQueue);
 
   const { cache } = useApolloClient();
   const txHash = txn?.txHash;

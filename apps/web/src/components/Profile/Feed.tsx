@@ -13,8 +13,8 @@ import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { type FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { ProfileFeedType } from 'src/enums';
-import { useImpressionsStore } from 'src/store/useImpressionsStore';
-import { useProfileFeedStore } from 'src/store/useProfileFeedStore';
+import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
+import { useProfileFeedStore } from 'src/store/non-persisted/useProfileFeedStore';
 
 interface FeedProps {
   profile: Profile;
