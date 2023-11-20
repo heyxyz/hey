@@ -95,8 +95,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   // Set profileLoading to true only if currentProfile is null
   const profileLoading = !currentProfile && loading;
 
-  console.log('profileLoading', profileLoading);
-
   if (
     profileLoading ||
     loadingPreferences ||
