@@ -43,8 +43,7 @@ export const HEY_API_URL = IS_PRODUCTION
     ? 'https://api.hey.xyz'
     : 'https://api-testnet.hey.xyz'
   : 'http://localhost:4785';
-export const STATIC_ASSETS_URL =
-  'https://pub-9f260f61e62242be9fdb651e940c9138.r2.dev';
+export const STATIC_ASSETS_URL = 'https://hey-assets.b-cdn.net';
 export const LENS_MEDIA_SNAPSHOT_URL =
   'https://ik.imagekit.io/lens/media-snapshot';
 export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
