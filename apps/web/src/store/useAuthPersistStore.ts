@@ -23,12 +23,16 @@ export const useAuthPersistStore = create(
       signIn: ({ accessToken, refreshToken }) =>
         set({ accessToken, refreshToken }),
       signOut: () => {
-        const allValues = Object.values(Localstorage).filter(
+        // Clear Localstorage
+        const allLocalstorageStores = Object.values(Localstorage).filter(
           (value) => value !== Localstorage.LeafwatchStore
         );
-        for (const key of allValues) {
-          localStorage.removeItem(key);
+        for (const store of allLocalstorageStores) {
+          localStorage.removeItem(store);
         }
+
+        // Clear IndexedDB
+        indexedDB.deleteDatabase('keyval-store');
       },
       hydrateAuthTokens: () => {
         return {

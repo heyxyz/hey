@@ -23,15 +23,17 @@ import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useAppStore } from 'src/store/useAppStore';
 import { signIn } from 'src/store/useAuthPersistStore';
 import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
+import useProfilePersistStore from 'src/store/useProfilePersistStore';
 import { useAccount, useSignMessage } from 'wagmi';
 
 import Loader from './Loader';
 
 const SwitchProfiles: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfilePersistStore(
+    (state) => state.currentProfile
+  );
   const setShowProfileSwitchModal = useGlobalModalStateStore(
     (state) => state.setShowProfileSwitchModal
   );

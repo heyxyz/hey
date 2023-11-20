@@ -8,3 +8,7 @@ export const Localstorage = {
   AlgorithmStore: 'algorithm.store',
   LeafwatchStore: 'leafwatch.store'
 };
+
+export const IndexDB = {
+  ProfileStore: 'profile.store'
+};

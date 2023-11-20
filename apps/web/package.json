@@ -47,6 +47,7 @@
     "esbuild": "^0.19.5",
     "framer-motion": "^10.16.5",
     "graphql": "^16.8.1",
+    "idb-keyval": "^6.2.1",
     "lexical": "^0.12.4",
     "next": "^14.0.3",
     "next-themes": "^0.2.1",

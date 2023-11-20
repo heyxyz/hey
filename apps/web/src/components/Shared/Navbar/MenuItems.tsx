@@ -1,7 +1,7 @@
 import getCurrentSession from '@lib/getCurrentSession';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { useAppStore } from 'src/store/useAppStore';
+import useProfilePersistStore from 'src/store/useProfilePersistStore';
 import { isAddress } from 'viem';
 
 import LoginButton from './LoginButton';
@@ -15,7 +15,9 @@ export const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
 );
 
 const MenuItems: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfilePersistStore(
+    (state) => state.currentProfile
+  );
   const { id: sessionProfileId } = getCurrentSession();
 
   if (Boolean(currentProfile)) {
