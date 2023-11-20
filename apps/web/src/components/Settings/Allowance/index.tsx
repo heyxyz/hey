@@ -16,7 +16,6 @@ import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import Custom500 from 'src/app/500';
-import { useAppStore } from 'src/store/useAppStore';
 import useProfilePersistStore from 'src/store/useProfilePersistStore';
 import { useEffectOnce } from 'usehooks-ts';
 

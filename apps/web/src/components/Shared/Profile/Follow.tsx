@@ -41,7 +41,7 @@ const Follow: FC<FollowProps> = ({
   followPosition,
   followSource
 }) => {
-  const { pathname } = useRouter();
+  const pathname = usePathname();
   const currentProfile = useProfilePersistStore(
     (state) => state.currentProfile
   );

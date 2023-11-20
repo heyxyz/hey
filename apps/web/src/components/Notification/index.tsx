@@ -14,7 +14,6 @@ import List from './List';
 import Settings from './Settings';
 
 const Notification: FC = () => {
-
   const searchParams = useSearchParams();
   const type = searchParams.get('type');
   const currentProfile = useProfilePersistStore(

@@ -18,7 +18,6 @@ import type { NextPage } from 'next';
 import { useParams } from 'next/navigation';
 import Custom500 from 'src/app/500';
 import Custom404 from 'src/app/not-found';
-import { useAppStore } from 'src/store/useAppStore';
 import { useFeatureFlagsStore } from 'src/store/useFeatureFlagsStore';
 import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 import useProfilePersistStore from 'src/store/useProfilePersistStore';

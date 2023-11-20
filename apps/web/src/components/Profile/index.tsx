@@ -18,9 +18,7 @@ import { useState } from 'react';
 import Custom500 from 'src/app/500';
 import Custom404 from 'src/app/not-found';
 import { ProfileFeedType } from 'src/enums';
-import { useAppStore } from 'src/store/useAppStore';
 import useProfilePersistStore from 'src/store/useProfilePersistStore';
-
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
 import Achievements from './Achievements';
@@ -37,7 +35,7 @@ const ViewProfile: NextPage = () => {
   const { id, handle } = useParams();
   const type = searchParams.get('type');
   const followIntent = searchParams.get('followIntent');
-        
+
   const currentProfile = useProfilePersistStore(
     (state) => state.currentProfile
   );

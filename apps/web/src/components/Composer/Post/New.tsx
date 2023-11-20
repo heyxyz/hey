@@ -13,11 +13,11 @@ const NewPost: FC = () => {
   const { push } = useRouter();
   const searchParams = useSearchParams();
   const query = Object.fromEntries(searchParams);
-  
+
   const currentProfile = useProfilePersistStore(
     (state) => state.currentProfile
   );
-  
+
   const setShowNewPostModal = useGlobalModalStateStore(
     (state) => state.setShowNewPostModal
   );

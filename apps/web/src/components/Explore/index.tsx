@@ -16,9 +16,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useAppStore } from 'src/store/useAppStore';
 import useProfilePersistStore from 'src/store/useProfilePersistStore';
-
 import { useEffectOnce } from 'usehooks-ts';
 
 import Feed from './Feed';

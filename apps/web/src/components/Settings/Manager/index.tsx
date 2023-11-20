@@ -6,7 +6,6 @@ import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import Custom404 from 'src/app/not-found';
-import { useAppStore } from 'src/store/useAppStore';
 import useProfilePersistStore from 'src/store/useProfilePersistStore';
 import { useEffectOnce } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
