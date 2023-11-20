@@ -13,6 +13,7 @@ export const useAppStore = create<AppState>((set) => ({
   setVerifiedMembers: (verifiedMembers) => set(() => ({ verifiedMembers })),
   featuredGroups: [],
   setFeaturedGroups: (featuredGroups) => set(() => ({ featuredGroups }))
+  // TODO: add hydrateVerifiedMembers and hydrateFeaturedGroups
 }));
 
 export const verifiedMembers = () => useAppStore.getState().verifiedMembers;
