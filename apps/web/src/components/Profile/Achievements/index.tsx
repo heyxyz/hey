@@ -1,6 +1,6 @@
 import type { Profile } from '@hey/lens';
 import { type FC } from 'react';
-import { useProStore } from 'src/store/useProStore';
+import { useProStore } from 'src/store/non-persisted/useProStore';
 
 import ProfileAnalytics from './ProfileAnalytics';
 import Streaks from './Streaks';

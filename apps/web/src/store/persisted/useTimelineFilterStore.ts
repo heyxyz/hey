@@ -2,13 +2,13 @@ import { Localstorage } from '@hey/data/storage';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-interface TimelinePersistState {
+interface TimelineFilterState {
   feedEventFilters: Record<string, boolean>;
   setFeedEventFilters: (feedEventFilters: Record<string, boolean>) => void;
 }
 
-export const useTimelinePersistStore = create(
-  persist<TimelinePersistState>(
+export const useTimelineFilterStore = create(
+  persist<TimelineFilterState>(
     (set) => ({
       feedEventFilters: {
         posts: true,

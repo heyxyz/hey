@@ -47,12 +47,12 @@ import useCreatePoll from 'src/hooks/useCreatePoll';
 import useCreatePublication from 'src/hooks/useCreatePublication';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import usePublicationMetadata from 'src/hooks/usePublicationMetadata';
-import { useCollectModuleStore } from 'src/store/useCollectModuleStore';
-import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
-import { useNonceStore } from 'src/store/useNonceStore';
-import useProfilePersistStore from 'src/store/useProfilePersistStore';
-import { usePublicationStore } from 'src/store/usePublicationStore';
-import { useReferenceModuleStore } from 'src/store/useReferenceModuleStore';
+import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
+import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
 import LivestreamSettings from './Actions/LivestreamSettings';
@@ -97,9 +97,7 @@ interface NewPublicationProps {
 }
 
 const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
-  const currentProfile = useProfilePersistStore(
-    (state) => state.currentProfile
-  );
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
 
   const targetPublication = isMirrorPublication(publication)

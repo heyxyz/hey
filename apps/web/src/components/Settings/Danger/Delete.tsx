@@ -15,14 +15,12 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { signOut } from 'src/store/useAuthPersistStore';
-import useProfilePersistStore from 'src/store/useProfilePersistStore';
+import { signOut } from 'src/store/persisted/useAuthStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useContractWrite, useDisconnect } from 'wagmi';
 
 const DeleteSettings: FC = () => {
-  const currentProfile = useProfilePersistStore(
-    (state) => state.currentProfile
-  );
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { disconnect } = useDisconnect();

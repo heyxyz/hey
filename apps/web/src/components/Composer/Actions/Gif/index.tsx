@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { usePublicationStore } from 'src/store/usePublicationStore';
+import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 
 const GifSelector = dynamic(() => import('./GifSelector'), {
   loading: () => <Loader message="Loading GIFs" />

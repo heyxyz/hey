@@ -28,7 +28,7 @@ import { useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
-import { signIn } from 'src/store/useAuthPersistStore';
+import { signIn } from 'src/store/persisted/useAuthStore';
 import { useIsMounted } from 'usehooks-ts';
 import type { Connector } from 'wagmi';
 import {

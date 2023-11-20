@@ -6,7 +6,7 @@ import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { verifiedMembers } from 'src/store/useAppStore';
+import { verifiedMembers } from 'src/store/non-persisted/useAppStore';
 
 import ToggleWrapper from '../ToggleWrapper';
 

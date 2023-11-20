@@ -8,7 +8,7 @@ interface Tokens {
   refreshToken: string | null;
 }
 
-interface AuthPerisistState {
+interface AuthState {
   accessToken: Tokens['accessToken'];
   refreshToken: Tokens['refreshToken'];
   signIn: (tokens: { accessToken: string; refreshToken: string }) => void;
@@ -16,8 +16,8 @@ interface AuthPerisistState {
   hydrateAuthTokens: () => Tokens;
 }
 
-export const useAuthPersistStore = create(
-  persist<AuthPerisistState>(
+export const useAuthStore = create(
+  persist<AuthState>(
     (set, get) => ({
       accessToken: null,
       refreshToken: null,
@@ -47,10 +47,10 @@ export const useAuthPersistStore = create(
   )
 );
 
-export default useAuthPersistStore;
+export default useAuthStore;
 
 export const signIn = (tokens: { accessToken: string; refreshToken: string }) =>
-  useAuthPersistStore.getState().signIn(tokens);
-export const signOut = () => useAuthPersistStore.getState().signOut();
+  useAuthStore.getState().signIn(tokens);
+export const signOut = () => useAuthStore.getState().signOut();
 export const hydrateAuthTokens = () =>
-  useAuthPersistStore.getState().hydrateAuthTokens();
+  useAuthStore.getState().hydrateAuthTokens();

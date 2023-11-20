@@ -16,7 +16,7 @@ import type { ChangeEvent, FC } from 'react';
 import { useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import useUploadAttachments from 'src/hooks/useUploadAttachments';
-import { usePublicationStore } from 'src/store/usePublicationStore';
+import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 import { useOnClickOutside } from 'usehooks-ts';
 
 const ImageMimeType = Object.values(MediaImageMimeType);

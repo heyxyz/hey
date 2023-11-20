@@ -6,7 +6,7 @@ import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import Custom404 from 'src/pages/404';
-import useProfilePersistStore from 'src/store/useProfilePersistStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
 
@@ -15,9 +15,7 @@ import DeleteSettings from './Delete';
 import GuardianSettings from './Guardian';
 
 const DangerSettings: NextPage = () => {
-  const currentProfile = useProfilePersistStore(
-    (state) => state.currentProfile
-  );
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const { address } = useAccount();
   const disabled = currentProfile?.ownedBy.address !== address;
 

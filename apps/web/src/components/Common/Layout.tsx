@@ -9,12 +9,12 @@ import Head from 'next/head';
 import { useTheme } from 'next-themes';
 import { type FC, type ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { hydrateAuthTokens, signOut } from 'src/store/useAuthPersistStore';
-import { useFeatureFlagsStore } from 'src/store/useFeatureFlagsStore';
-import { useNonceStore } from 'src/store/useNonceStore';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
-import useProfilePersistStore from 'src/store/useProfilePersistStore';
-import { useProStore } from 'src/store/useProStore';
+import { useFeatureFlagsStore } from 'src/store/non-persisted/useFeatureFlagsStore';
+import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
+import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
+import { useProStore } from 'src/store/non-persisted/useProStore';
+import { hydrateAuthTokens, signOut } from 'src/store/persisted/useAuthStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce, useIsMounted } from 'usehooks-ts';
 import { isAddress } from 'viem';
 import { useAccount, useDisconnect } from 'wagmi';
@@ -29,12 +29,8 @@ interface LayoutProps {
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   const { resolvedTheme } = useTheme();
-  const currentProfile = useProfilePersistStore(
-    (state) => state.currentProfile
-  );
-  const setCurrentProfile = useProfilePersistStore(
-    (state) => state.setCurrentProfile
-  );
+  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const setCurrentProfile = useProfileStore((state) => state.setCurrentProfile);
   const loadingPreferences = usePreferencesStore(
     (state) => state.loadingPreferences
   );
