@@ -12,7 +12,7 @@ import { Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
 import { type FC, type ReactNode } from 'react';
-import { useReferenceModuleStore } from 'src/store/useReferenceModuleStore';
+import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
 
 const ReferenceSettings: FC = () => {
   const selectedReferenceModule = useReferenceModuleStore(

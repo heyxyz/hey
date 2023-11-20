@@ -13,7 +13,7 @@ import axios from 'axios';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { usePublicationStore } from 'src/store/usePublicationStore';
+import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 
 interface WrapperProps {
   children: ReactNode;

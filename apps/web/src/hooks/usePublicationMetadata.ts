@@ -13,7 +13,7 @@ import {
 } from '@lens-protocol/metadata';
 import getUserLocale from '@lib/getUserLocale';
 import { useCallback } from 'react';
-import { usePublicationStore } from 'src/store/usePublicationStore';
+import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 import { v4 as uuid } from 'uuid';
 
 interface UsePublicationMetadataProps {

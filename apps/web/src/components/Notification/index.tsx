@@ -6,7 +6,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { NotificationFeedType } from 'src/enums';
-import useProfilePersistStore from 'src/store/useProfilePersistStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import FeedType from './FeedType';
@@ -17,9 +17,7 @@ const Notification: FC = () => {
   const {
     query: { type }
   } = useRouter();
-  const currentProfile = useProfilePersistStore(
-    (state) => state.currentProfile
-  );
+  const currentProfile = useProfileStore((state) => state.currentProfile);
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'notifications' });

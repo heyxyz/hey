@@ -2,14 +2,12 @@ import { APP_NAME } from '@hey/data/constants';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import { Card } from '@hey/ui';
 import type { FC } from 'react';
-import useProfilePersistStore from 'src/store/useProfilePersistStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import ToggleLensManager from './ToggleLensManager';
 
 const LensManager: FC = () => {
-  const currentProfile = useProfilePersistStore(
-    (state) => state.currentProfile
-  );
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const { canUseSignless } = checkDispatcherPermissions(currentProfile);
 
   return (

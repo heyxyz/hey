@@ -9,12 +9,10 @@ import { EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
-import useProfilePersistStore from 'src/store/useProfilePersistStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 const Suggested: FC = () => {
-  const currentProfile = useProfilePersistStore(
-    (state) => state.currentProfile
-  );
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const { data, loading, error } = useProfileRecommendationsQuery({
     variables: { request: { for: currentProfile?.id } }
   });
