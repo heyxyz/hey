@@ -49,10 +49,10 @@ import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import usePublicationMetadata from 'src/hooks/usePublicationMetadata';
 import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
+import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useNonceStore } from 'src/store/useNonceStore';
-import { usePublicationStore } from 'src/store/usePublicationStore';
-import { useReferenceModuleStore } from 'src/store/useReferenceModuleStore';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
 import LivestreamSettings from './Actions/LivestreamSettings';

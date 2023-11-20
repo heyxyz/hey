@@ -12,9 +12,9 @@ import { type FC } from 'react';
 import { toast } from 'react-hot-toast';
 import { VirtuosoGrid } from 'react-virtuoso';
 import { CHAIN_ID } from 'src/constants';
+import type { NftGalleryItem } from 'src/store/non-persisted/useNftGalleryStore';
+import { useNftGalleryStore } from 'src/store/non-persisted/useNftGalleryStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import type { NftGalleryItem } from 'src/store/useNftGalleryStore';
-import { useNftGalleryStore } from 'src/store/useNftGalleryStore';
 import { mainnet } from 'wagmi/chains';
 
 interface PickerProps {

@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
 import { useAppStore } from 'src/store/non-persisted/useAppStore';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
+import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { isAddress } from 'viem';
 
 const PreferencesProvider: FC = () => {

@@ -19,8 +19,8 @@ import { motion } from 'framer-motion';
 import { type FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { NotificationTabType } from 'src/enums';
+import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useNotificationPersistStore } from 'src/store/useNotificationPersistStore';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import { useUpdateEffect } from 'usehooks-ts';
 
 import NotificationShimmer from './Shimmer';

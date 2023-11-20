@@ -5,8 +5,8 @@ import { Card, Image } from '@hey/ui';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { usePublicationStore } from 'src/store/usePublicationStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 const NewPost: FC = () => {
