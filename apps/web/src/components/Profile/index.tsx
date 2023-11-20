@@ -18,9 +18,7 @@ import { useState } from 'react';
 import Custom500 from 'src/app/500';
 import Custom404 from 'src/app/not-found';
 import { ProfileFeedType } from 'src/enums';
-import useProfilePersistStore from 'src/store/useProfilePersistStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
 import Achievements from './Achievements';

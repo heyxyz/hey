@@ -31,20 +31,12 @@ import {
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { OptmisticPublicationType } from '@hey/types/enums';
-
-import { useNonceStore } from 'src/store/useNonceStore';
-import useProfilePersistStore from 'src/store/useProfilePersistStore';
-import { usePublicationStore } from 'src/store/usePublicationStore';
-import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
-
 import { useRouter } from 'next/router';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
-
 import { useContractWrite, useSignTypedData } from 'wagmi';
-
 interface CreatePublicationProps {
   commentOn?: AnyPublication;
   quoteOn?: AnyPublication;
