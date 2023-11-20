@@ -9,12 +9,14 @@ import axios from 'axios';
 import { type FC } from 'react';
 import { toast } from 'react-hot-toast';
 import { useFeatureFlagsStore } from 'src/store/non-persisted/useFeatureFlagsStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface StaffModeProps {
   className?: string;
 }
 
 const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
   const setStaffMode = useFeatureFlagsStore((state) => state.setStaffMode);
 
@@ -28,6 +30,9 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
       {
         loading: 'Toggling staff mode...',
         success: () => {
+          axios.get(`${HEY_API_URL}/feature/getFeatureFlags`, {
+            params: { id: currentProfile?.id }
+          });
           setStaffMode(!staffMode);
           Leafwatch.track(STAFFTOOLS.TOGGLE_MODE);
 
