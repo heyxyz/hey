@@ -16,8 +16,8 @@ import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useAppStore } from 'src/store/useAppStore';
 import { useNonceStore } from 'src/store/useNonceStore';
+import useProfilePersistStore from 'src/store/useProfilePersistStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface ToggleLensManagerProps {
@@ -27,7 +27,9 @@ interface ToggleLensManagerProps {
 const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   buttonSize = 'md'
 }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfilePersistStore(
+    (state) => state.currentProfile
+  );
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce
   );

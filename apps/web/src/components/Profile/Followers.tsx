@@ -9,14 +9,16 @@ import { EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
 import { type FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
-import { useAppStore } from 'src/store/useAppStore';
+import useProfilePersistStore from 'src/store/useProfilePersistStore';
 
 interface FollowersProps {
   profile: Profile;
 }
 
 const Followers: FC<FollowersProps> = ({ profile }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfilePersistStore(
+    (state) => state.currentProfile
+  );
 
   // Variables
   const request: FollowersRequest = {

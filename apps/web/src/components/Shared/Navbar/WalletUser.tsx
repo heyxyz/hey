@@ -7,7 +7,7 @@ import cn from '@hey/ui/cn';
 import getCurrentSession from '@lib/getCurrentSession';
 import type { FC } from 'react';
 import useEnsName from 'src/hooks/useEnsName';
-import { useAppStore } from 'src/store/useAppStore';
+import useProfilePersistStore from 'src/store/useProfilePersistStore';
 
 import MenuTransition from '../MenuTransition';
 import Slug from '../Slug';
@@ -17,7 +17,9 @@ import Logout from './NavItems/Logout';
 import ThemeSwitch from './NavItems/ThemeSwitch';
 
 const WalletUser: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfilePersistStore(
+    (state) => state.currentProfile
+  );
   const { id: sessionProfileId } = getCurrentSession();
   const { ens } = useEnsName({
     address: sessionProfileId,
