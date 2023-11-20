@@ -48,7 +48,7 @@ import useCreatePublication from 'src/hooks/useCreatePublication';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import usePublicationMetadata from 'src/hooks/usePublicationMetadata';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useCollectModuleStore } from 'src/store/useCollectModuleStore';
+import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
 import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 import { useNonceStore } from 'src/store/useNonceStore';
 import { usePublicationStore } from 'src/store/usePublicationStore';

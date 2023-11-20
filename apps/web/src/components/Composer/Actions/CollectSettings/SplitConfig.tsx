@@ -13,7 +13,7 @@ import splitNumber from '@hey/lib/splitNumber';
 import { Button, Input } from '@hey/ui';
 import { type FC } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useCollectModuleStore } from 'src/store/useCollectModuleStore';
+import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
 import { isAddress } from 'viem';
 
 interface SplitConfigProps {

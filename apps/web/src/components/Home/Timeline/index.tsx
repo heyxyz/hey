@@ -8,16 +8,16 @@ import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { type FC, memo } from 'react';
 import { useInView } from 'react-cool-inview';
+import { useTimelineStore } from 'src/store/non-persisted/useTimelineStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useTimelineFilterStore } from 'src/store/persisted/useTimelineFilterStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 import { useImpressionsStore } from 'src/store/useImpressionsStore';
-import { useTimelinePersistStore } from 'src/store/useTimelinePersistStore';
-import { useTimelineStore } from 'src/store/useTimelineStore';
 
 const Timeline: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const txnQueue = useTransactionStore((state) => state.txnQueue);
-  const feedEventFilters = useTimelinePersistStore(
+  const feedEventFilters = useTimelineFilterStore(
     (state) => state.feedEventFilters
   );
   const seeThroughProfile = useTimelineStore(

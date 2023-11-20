@@ -8,10 +8,10 @@ import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { type FC } from 'react';
 import { useInView } from 'react-cool-inview';
+import { useTimelineStore } from 'src/store/non-persisted/useTimelineStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 import { useImpressionsStore } from 'src/store/useImpressionsStore';
-import { useTimelineStore } from 'src/store/useTimelineStore';
 
 const Highlights: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);

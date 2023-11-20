@@ -25,7 +25,7 @@ import { motion } from 'framer-motion';
 import type { ChangeEvent, FC } from 'react';
 import { Fragment, useState } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useTimelineStore } from 'src/store/useTimelineStore';
+import { useTimelineStore } from 'src/store/non-persisted/useTimelineStore';
 
 const SeeThroughLens: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
