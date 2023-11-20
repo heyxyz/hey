@@ -1,7 +1,9 @@
 import type { HomeFeedType } from '@hey/data/enums';
-import { Localstorage } from '@hey/data/storage';
+import { IndexDB } from '@hey/data/storage';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+
+import createIdbStorage from '../lib/createIdbStorage';
 
 interface EnabledAlgorithmsState {
   enabledAlgorithms: HomeFeedType[];
@@ -26,6 +28,9 @@ export const useEnabledAlgorithmsStore = create(
         }));
       }
     }),
-    { name: Localstorage.AlgorithmStore }
+    {
+      name: IndexDB.AlgorithmStore,
+      storage: createIdbStorage()
+    }
   )
 );

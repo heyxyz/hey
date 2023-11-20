@@ -33,7 +33,9 @@ export const useAuthStore = create(
         }
 
         // Clear IndexedDB
-        const allIndexedDBStores = Object.values(IndexDB);
+        const allIndexedDBStores = Object.values(IndexDB).filter(
+          (value) => value !== IndexDB.AlgorithmStore
+        );
         await delMany(allIndexedDBStores);
       },
       hydrateAuthTokens: () => {
