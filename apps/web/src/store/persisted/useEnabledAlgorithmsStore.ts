@@ -3,14 +3,14 @@ import { Localstorage } from '@hey/data/storage';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-interface EnabledAlgorithmsPerisistState {
+interface EnabledAlgorithmsState {
   enabledAlgorithms: HomeFeedType[];
   enableAlgorithm: (algorithm: HomeFeedType) => void;
   disableAlgorithm: (algorithm: HomeFeedType) => void;
 }
 
-export const useEnabledAlgorithmsPersistStore = create(
-  persist<EnabledAlgorithmsPerisistState>(
+export const useEnabledAlgorithmsStore = create(
+  persist<EnabledAlgorithmsState>(
     (set) => ({
       enabledAlgorithms: [],
       enableAlgorithm: (algorithm) => {
