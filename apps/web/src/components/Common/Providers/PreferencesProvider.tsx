@@ -14,9 +14,6 @@ const PreferencesProvider: FC = () => {
   const setHighSignalNotificationFilter = usePreferencesStore(
     (state) => state.setHighSignalNotificationFilter
   );
-  const setLoadingPreferences = usePreferencesStore(
-    (state) => state.setLoadingPreferences
-  );
 
   const fetchPreferences = async () => {
     try {
@@ -32,10 +29,7 @@ const PreferencesProvider: FC = () => {
           data.result?.highSignalNotificationFilter || false
         );
       }
-    } catch {
-    } finally {
-      setLoadingPreferences(false);
-    }
+    } catch {}
   };
 
   useQuery({
