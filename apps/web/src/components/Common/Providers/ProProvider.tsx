@@ -9,7 +9,6 @@ import { isAddress } from 'viem';
 const ProProvider: FC = () => {
   const { id: sessionProfileId } = getCurrentSession();
   const setIsPro = useProStore((state) => state.setIsPro);
-  const setLoadingPro = useProStore((state) => state.setLoadingPro);
 
   const fetchProEnabled = async () => {
     try {
@@ -20,10 +19,7 @@ const ProProvider: FC = () => {
         const { data } = response;
         setIsPro(data?.enabled || false);
       }
-    } catch {
-    } finally {
-      setLoadingPro(false);
-    }
+    } catch {}
   };
 
   useQuery({
