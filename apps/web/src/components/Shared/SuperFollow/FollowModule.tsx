@@ -25,7 +25,7 @@ import { Button, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/router';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -57,7 +57,7 @@ const FollowModule: FC<FollowModuleProps> = ({
   superFollowPosition,
   superFollowSource
 }) => {
-  const pathname = usePathname();
+  const { pathname } = useRouter();
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce
   );

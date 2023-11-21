@@ -1,4 +1,3 @@
-'use client';
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import { HeartIcon } from '@heroicons/react/24/outline';

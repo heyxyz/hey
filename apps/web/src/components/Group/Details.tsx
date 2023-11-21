@@ -1,4 +1,3 @@
-'use client';
 import Markup from '@components/Shared/Markup';
 import Slug from '@components/Shared/Slug';
 import { ClockIcon } from '@heroicons/react/24/outline';
