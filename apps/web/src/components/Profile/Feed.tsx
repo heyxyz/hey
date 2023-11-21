@@ -58,10 +58,18 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
     type === ProfileFeedType.Feed
       ? [PublicationType.Post, PublicationType.Mirror, PublicationType.Quote]
       : type === ProfileFeedType.Replies
-      ? [PublicationType.Comment]
-      : type === ProfileFeedType.Media
-      ? [PublicationType.Post, PublicationType.Comment, PublicationType.Quote]
-      : [PublicationType.Post, PublicationType.Comment, PublicationType.Mirror];
+        ? [PublicationType.Comment]
+        : type === ProfileFeedType.Media
+          ? [
+              PublicationType.Post,
+              PublicationType.Comment,
+              PublicationType.Quote
+            ]
+          : [
+              PublicationType.Post,
+              PublicationType.Comment,
+              PublicationType.Mirror
+            ];
   const metadata =
     type === ProfileFeedType.Media
       ? { mainContentFocus: getMediaFilters() }
@@ -125,12 +133,12 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
       type === ProfileFeedType.Feed
         ? 'has nothing in their feed yet!'
         : type === ProfileFeedType.Media
-        ? 'has no media yet!'
-        : type === ProfileFeedType.Replies
-        ? "hasn't replied yet!"
-        : type === ProfileFeedType.Collects
-        ? "hasn't collected anything yet!"
-        : '';
+          ? 'has no media yet!'
+          : type === ProfileFeedType.Replies
+            ? "hasn't replied yet!"
+            : type === ProfileFeedType.Collects
+              ? "hasn't collected anything yet!"
+              : '';
 
     return (
       <EmptyState
