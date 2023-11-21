@@ -1,6 +1,6 @@
 import type { AnyPublication } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { type FC } from 'react';
 
 import Commented from './Commented';
@@ -17,7 +17,7 @@ const PublicationType: FC<PublicationTypeProps> = ({
   showType,
   showThread = false
 }) => {
-  const pathname = usePathname();
+  const { pathname } = useRouter();
   const type = publication.__typename;
 
   if (!showType) {

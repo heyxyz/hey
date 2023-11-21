@@ -14,7 +14,7 @@ import getSignature from '@hey/lib/getSignature';
 import { Button, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -41,7 +41,7 @@ const Unfollow: FC<UnfollowProps> = ({
   unfollowPosition,
   unfollowSource
 }) => {
-  const pathname = usePathname();
+  const { pathname } = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce

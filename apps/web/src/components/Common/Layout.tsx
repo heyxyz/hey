@@ -5,6 +5,7 @@ import type { Profile } from '@hey/lens';
 import { useCurrentProfileQuery } from '@hey/lens';
 import getCurrentSession from '@lib/getCurrentSession';
 import getToastOptions from '@lib/getToastOptions';
+import Head from 'next/head';
 import { useTheme } from 'next-themes';
 import { type FC, type ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
@@ -88,6 +89,12 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   return (
     <>
+      <Head>
+        <meta
+          name="theme-color"
+          content={resolvedTheme === 'dark' ? '#1b1b1d' : '#ffffff'}
+        />
+      </Head>
       <Toaster
         position="bottom-right"
         containerStyle={{ wordBreak: 'break-word' }}

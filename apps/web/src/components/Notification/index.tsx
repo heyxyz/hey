@@ -3,7 +3,7 @@ import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
-import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { NotificationFeedType } from 'src/enums';
 import useProfileStore from 'src/store/persisted/useProfileStore';
@@ -14,8 +14,9 @@ import List from './List';
 import Settings from './Settings';
 
 const Notification: FC = () => {
-  const searchParams = useSearchParams();
-  const type = searchParams.get('type');
+  const {
+    query: { type }
+  } = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
   useEffectOnce(() => {

@@ -1,4 +1,3 @@
-'use client';
 import type { ApolloCache } from '@apollo/client';
 import { HeartIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
@@ -17,7 +16,7 @@ import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
-import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { type FC, useState } from 'react';
 import toast from 'react-hot-toast';
 import useProfileStore from 'src/store/persisted/useProfileStore';
@@ -28,7 +27,7 @@ interface LikeProps {
 }
 
 const Like: FC<LikeProps> = ({ publication, showCount }) => {
-  const pathname = usePathname();
+  const { pathname } = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
