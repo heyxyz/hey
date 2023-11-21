@@ -16,14 +16,8 @@ export default async function Layout({ children }: Props) {
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 
         {/* Prefetch and Preconnect */}
-        <link
-          rel="preconnect"
-          href="https://pub-9f260f61e62242be9fdb651e940c9138.r2.dev"
-        />
-        <link
-          rel="dns-prefetch"
-          href="https://pub-9f260f61e62242be9fdb651e940c9138.r2.dev"
-        />
+        <link rel="preconnect" href="https://hey-assets.b-cdn.net" />
+        <link rel="dns-prefetch" href="https://hey-assets.b-cdn.net" />
 
         {/* Misc */}
         <meta name="application-name" content="Hey" />
