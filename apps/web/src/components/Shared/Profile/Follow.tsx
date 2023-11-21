@@ -43,7 +43,6 @@ const Follow: FC<FollowProps> = ({
 }) => {
   const pathname = usePathname();
   const currentProfile = useProfileStore((state) => state.currentProfile);
-
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce
   );
