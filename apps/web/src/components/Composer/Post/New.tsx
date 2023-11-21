@@ -14,7 +14,6 @@ const NewPost: FC = () => {
   const searchParams = useSearchParams();
   const query = Object.fromEntries(searchParams);
   const currentProfile = useProfileStore((state) => state.currentProfile);
-
   const setShowNewPostModal = useGlobalModalStateStore(
     (state) => state.setShowNewPostModal
   );
