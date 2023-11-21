@@ -15,9 +15,9 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
-import { useParams } from 'next/navigation';
-import Custom500 from 'src/app/500';
-import Custom404 from 'src/app/not-found';
+import { useRouter } from 'next/router';
+import Custom404 from 'src/pages/404';
+import Custom500 from 'src/pages/500';
 import { useFeatureFlagsStore } from 'src/store/non-persisted/useFeatureFlagsStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
@@ -35,8 +35,10 @@ const ViewPublication: NextPage = () => {
     (state) => state.showNewPostModal
   );
 
-  const searchParams = useParams();
-  const { id } = searchParams;
+  const {
+    query: { id },
+    isReady
+  } = useRouter();
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'publication' });
@@ -47,7 +49,7 @@ const ViewPublication: NextPage = () => {
     skip: !id
   });
 
-  if (loading) {
+  if (!isReady || loading) {
     return <PublicationPageShimmer />;
   }
 

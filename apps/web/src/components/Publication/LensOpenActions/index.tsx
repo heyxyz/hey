@@ -1,4 +1,3 @@
-'use client';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { RectangleStackIcon as RectangleStackIconSolid } from '@heroicons/react/24/solid';
 import { PUBLICATION } from '@hey/data/tracking';

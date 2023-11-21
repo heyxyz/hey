@@ -4,7 +4,7 @@ import type { Profile } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useFeatureFlagsStore } from 'src/store/non-persisted/useFeatureFlagsStore';
@@ -52,7 +52,7 @@ const Navbar: FC = () => {
   };
 
   const NavItems = () => {
-    const pathname = usePathname();
+    const { pathname } = useRouter();
 
     return (
       <>

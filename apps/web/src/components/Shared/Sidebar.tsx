@@ -1,6 +1,6 @@
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { type FC, type ReactNode } from 'react';
 
 interface MenuProps {
@@ -33,7 +33,7 @@ interface SidebarProps {
 }
 
 const Sidebar: FC<SidebarProps> = ({ items }) => {
-  const pathname = usePathname();
+  const { pathname } = useRouter();
   const menuItems = items.map((item) => ({
     ...item,
     enabled: item.enabled ?? true

@@ -9,11 +9,11 @@ import {
   Squares2X2Icon as Squares2X2IconSolid
 } from '@heroicons/react/24/solid';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/router';
 
 const BottomNavigation = () => {
-  const pathname = usePathname();
-  const isActivePath = (path: string) => pathname === path;
+  const router = useRouter();
+  const isActivePath = (path: string) => router.pathname === path;
 
   return (
     <div className="pb-safe fixed inset-x-0 bottom-0 z-[5] border-t border-gray-200 bg-white dark:border-gray-800 dark:bg-black md:hidden">
