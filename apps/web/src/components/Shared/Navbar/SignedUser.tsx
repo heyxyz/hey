@@ -1,13 +1,14 @@
 import { Menu } from '@headlessui/react';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import type { Profile } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import type { FC } from 'react';
-import { useAppStore } from 'src/store/useAppStore';
-import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import MenuTransition from '../MenuTransition';
 import Slug from '../Slug';
@@ -18,6 +19,7 @@ import GardenerMode from './NavItems/GardenerMode';
 import Invites from './NavItems/Invites';
 import Logout from './NavItems/Logout';
 import Mod from './NavItems/Mod';
+import Pro from './NavItems/Pro';
 import Settings from './NavItems/Settings';
 import StaffMode from './NavItems/StaffMode';
 import SwitchProfile from './NavItems/SwitchProfile';
@@ -25,9 +27,7 @@ import ThemeSwitch from './NavItems/ThemeSwitch';
 import YourProfile from './NavItems/YourProfile';
 
 const SignedUser: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-  const isStaff = usePreferencesStore((state) => state.isStaff);
-  const isGardener = usePreferencesStore((state) => state.isGardener);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const setShowMobileDrawer = useGlobalModalStateStore(
     (state) => state.setShowMobileDrawer
   );
@@ -111,7 +111,7 @@ const SignedUser: FC = () => {
             >
               <Settings />
             </Menu.Item>
-            {isGardener ? (
+            {isFeatureEnabled(FeatureFlag.Gardener) ? (
               <Menu.Item
                 as={NextLink}
                 href="/mod"
@@ -130,6 +130,17 @@ const SignedUser: FC = () => {
             >
               <Invites />
             </Menu.Item>
+            {isFeatureEnabled(FeatureFlag.Pro) && (
+              <Menu.Item
+                as={NextLink}
+                href="/pro"
+                className={({ active }: { active: boolean }) =>
+                  cn({ 'dropdown-active': active }, 'menu-item')
+                }
+              >
+                <Pro />
+              </Menu.Item>
+            )}
             <Menu.Item
               as="div"
               className={({ active }) =>
@@ -147,7 +158,7 @@ const SignedUser: FC = () => {
             >
               <ThemeSwitch />
             </Menu.Item>
-            {isGardener ? (
+            {isFeatureEnabled(FeatureFlag.Gardener) ? (
               <Menu.Item
                 as="div"
                 className={({ active }) =>
@@ -160,7 +171,7 @@ const SignedUser: FC = () => {
                 <GardenerMode />
               </Menu.Item>
             ) : null}
-            {isStaff ? (
+            {isFeatureEnabled(FeatureFlag.Staff) ? (
               <Menu.Item
                 as="div"
                 className={({ active }) =>

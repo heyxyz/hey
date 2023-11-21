@@ -3,12 +3,12 @@ import { PROFILE } from '@hey/data/tracking';
 import { useRevokeAuthenticationMutation } from '@hey/lens';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
-import getCurrentSessionId from '@lib/getCurrentSessionId';
+import getCurrentSession from '@lib/getCurrentSession';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { signOut } from 'src/store/useAuthPersistStore';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
+import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
+import { signOut } from 'src/store/persisted/useAuthStore';
 import { useDisconnect } from 'wagmi';
 
 interface LogoutProps {
@@ -23,6 +23,7 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
   const [revoking, setRevoking] = useState(false);
 
   const { disconnect } = useDisconnect();
+  const { authorizationId } = getCurrentSession();
 
   const onError = (error: any) => {
     setRevoking(false);
@@ -44,7 +45,7 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
     try {
       setRevoking(true);
       return await revokeAuthentication({
-        variables: { request: { authorizationId: getCurrentSessionId() } }
+        variables: { request: { authorizationId } }
       });
     } catch (error) {
       onError(error);
@@ -61,17 +62,13 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
         onClick?.();
       }}
       className={cn(
-        'flex w-full px-2 py-1.5 text-left text-sm text-gray-700 dark:text-gray-200',
+        'flex w-full items-center space-x-1.5 px-2 py-1.5 text-left text-sm text-gray-700 dark:text-gray-200',
         className
       )}
       disabled={revoking}
     >
-      <div className="flex items-center space-x-1.5">
-        <div>
-          <ArrowRightOnRectangleIcon className="h-4 w-4" />
-        </div>
-        <div>Logout</div>
-      </div>
+      <ArrowRightOnRectangleIcon className="h-4 w-4" />
+      <div>Logout</div>
     </button>
   );
 };

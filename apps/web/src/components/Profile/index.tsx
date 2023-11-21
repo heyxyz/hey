@@ -18,7 +18,7 @@ import { useState } from 'react';
 import { ProfileFeedType } from 'src/enums';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
-import { useAppStore } from 'src/store/useAppStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
 import Achievements from './Achievements';
@@ -35,7 +35,12 @@ const ViewProfile: NextPage = () => {
     query: { handle, id, type, followIntent },
     isReady
   } = useRouter();
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
+
+  useEffectOnce(() => {
+    Leafwatch.track(PAGEVIEW, { page: 'profile' });
+  });
+
   const lowerCaseProfileFeedType = [
     ProfileFeedType.Feed.toLowerCase(),
     ProfileFeedType.Replies.toLowerCase(),
@@ -44,15 +49,12 @@ const ViewProfile: NextPage = () => {
     ProfileFeedType.Gallery.toLowerCase(),
     ProfileFeedType.Stats.toLowerCase()
   ];
-  const [feedType, setFeedType] = useState(
-    type && lowerCaseProfileFeedType.includes(type as string)
+
+  const feedType = type
+    ? lowerCaseProfileFeedType.includes(type as string)
       ? type.toString().toUpperCase()
       : ProfileFeedType.Feed
-  );
-
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'profile' });
-  });
+    : ProfileFeedType.Feed;
 
   const { data, loading, error } = useProfileQuery({
     variables: {
@@ -138,7 +140,7 @@ const ViewProfile: NextPage = () => {
           />
         </GridItemFour>
         <GridItemEight className="space-y-5">
-          <FeedType setFeedType={setFeedType} feedType={feedType} />
+          <FeedType feedType={feedType} />
           {currentProfile?.id === profile?.id ? <NewPost /> : null}
           {feedType === ProfileFeedType.Feed ||
           feedType === ProfileFeedType.Replies ||

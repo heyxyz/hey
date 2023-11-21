@@ -16,14 +16,14 @@ import Link from 'next/link';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useAppStore } from 'src/store/useAppStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useContractWrite } from 'wagmi';
 
 import CountdownTimer from './CountdownTimer';
 import IndexStatus from './IndexStatus';
 
 const ProtectProfile: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const handleWrongNetwork = useHandleWrongNetwork();
 
   const onError = (error: any) => {

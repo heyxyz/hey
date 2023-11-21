@@ -7,11 +7,7 @@ import {
   PhotoIcon
 } from '@heroicons/react/24/outline';
 import { ShieldCheckIcon } from '@heroicons/react/24/solid';
-import {
-  ACHIEVEMENTS_WORKER_URL,
-  APP_NAME,
-  IS_MAINNET
-} from '@hey/data/constants';
+import { APP_NAME, HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
 import getFollowModule from '@hey/lib/getFollowModule';
@@ -23,6 +19,7 @@ import { type FC } from 'react';
 
 import MetaDetails from '../MetaDetails';
 import Access from './Access';
+import FeatureFlags from './FeatureFlags';
 import ProfileDetails from './ProfileDetails';
 import Rank from './Rank';
 
@@ -33,9 +30,9 @@ interface ProfileStaffToolProps {
 const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
   const getHaveUsedHey = async () => {
     try {
-      const response = await axios.get(
-        `${ACHIEVEMENTS_WORKER_URL}/haveUsedHey/${profile.id}`
-      );
+      const response = await axios.get(`${HEY_API_URL}/stats/haveUsedHey`, {
+        params: { id: profile.id }
+      });
 
       return response.data.haveUsedHey;
     } catch (error) {
@@ -139,9 +136,10 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         <>
           <ProfileDetails profile={profile} />
           <Rank profile={profile} />
-          <Access profile={profile} />
         </>
       ) : null}
+      <Access profile={profile} />
+      <FeatureFlags profile={profile} />
     </Card>
   );
 };

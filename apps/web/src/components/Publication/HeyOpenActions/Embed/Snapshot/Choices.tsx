@@ -19,7 +19,7 @@ import plur from 'plur';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useAppStore } from 'src/store/useAppStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useSignTypedData } from 'wagmi';
 
 import New from '../../../../Shared/Badges/New';
@@ -38,7 +38,7 @@ const Choices: FC<ChoicesProps> = ({
   isHeyPoll = false,
   refetch
 }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const [voteSubmitting, setVoteSubmitting] = useState(false);
   const [selectedPosition, setSelectedPosition] = useState(0);
   const [voteConfig, setVoteConfig] = useState({

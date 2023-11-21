@@ -11,7 +11,6 @@ import type {
 import {
   useAuthenticateMutation,
   useChallengeLazyQuery,
-  useProfileLazyQuery,
   useProfilesManagedQuery
 } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
@@ -24,15 +23,15 @@ import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useAppStore } from 'src/store/useAppStore';
-import { signIn } from 'src/store/useAuthPersistStore';
-import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import { signIn } from 'src/store/persisted/useAuthStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useAccount, useSignMessage } from 'wagmi';
 
 import Loader from './Loader';
 
 const SwitchProfiles: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const setShowProfileSwitchModal = useGlobalModalStateStore(
     (state) => state.setShowProfileSwitchModal
   );
@@ -62,7 +61,6 @@ const SwitchProfiles: FC = () => {
     fetchPolicy: 'no-cache'
   });
   const [authenticate] = useAuthenticateMutation();
-  const [getUserProfile] = useProfileLazyQuery();
 
   if (loading) {
     return <Loader message="Loading Profiles" />;
@@ -95,16 +93,7 @@ const SwitchProfiles: FC = () => {
       const accessToken = auth.data?.authenticate.accessToken;
       const refreshToken = auth.data?.authenticate.refreshToken;
       signIn({ accessToken, refreshToken });
-
-      // Get authed profiles
-      const { data: loadedProfile } = await getUserProfile({
-        variables: { request: { forProfileId: id } }
-      });
-
-      const switchedProfile = loadedProfile?.profile;
-      Leafwatch.track(PROFILE.SWITCH_PROFILE, {
-        switch_profile_to: switchedProfile?.id
-      });
+      Leafwatch.track(PROFILE.SWITCH_PROFILE, { switch_profile_to: id });
       location.reload();
     } catch (error) {
       onError(error);

@@ -1,16 +1,12 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import {
-  APP_NAME,
-  IS_MAINNET,
-  PREFERENCES_WORKER_URL
-} from '@hey/data/constants';
+import { APP_NAME, HEY_API_URL } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
+import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
-import { hydrateAuthTokens } from 'src/store/useAuthPersistStore';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
+import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 
 const IsPride: FC = () => {
   const isPride = usePreferencesStore((state) => state.isPride);
@@ -19,14 +15,9 @@ const IsPride: FC = () => {
   const toggleIsPride = () => {
     toast.promise(
       axios.post(
-        `${PREFERENCES_WORKER_URL}/update`,
+        `${HEY_API_URL}/preference/updatePreferences`,
         { isPride: !isPride },
-        {
-          headers: {
-            'X-Access-Token': hydrateAuthTokens().accessToken,
-            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
-          }
-        }
+        { headers: getAuthWorkerHeaders() }
       ),
       {
         loading: 'Updating pride preference...',

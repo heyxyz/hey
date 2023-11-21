@@ -2,8 +2,8 @@ import type { AnyPublication } from '@hey/lens';
 import getAppName from '@hey/lib/getAppName';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { formatDate } from '@lib/formatTime';
+import pushToImpressions from '@lib/pushToImpressions';
 import { type FC } from 'react';
-import { useLeafwatchStore } from 'src/store/useLeafwatchStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import PublicationActions from './Actions';
@@ -19,25 +19,19 @@ interface FullPublicationProps {
 }
 
 const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
-  const setViewedPublication = useLeafwatchStore(
-    (state) => state.setViewedPublication
-  );
-
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
 
-  const { metadata, createdAt } = targetPublication;
+  const { publishedOn, metadata, createdAt } = targetPublication;
 
   useEffectOnce(() => {
-    if (targetPublication.id) {
-      setViewedPublication(targetPublication.id);
-    }
+    pushToImpressions(targetPublication.id);
   });
 
   return (
     <article className="p-5">
-      <PublicationType publication={targetPublication} showType />
+      <PublicationType publication={publication} showType />
       <div>
         <PublicationHeader publication={targetPublication} />
         <div className="ml-[53px]">
@@ -51,8 +45,8 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
                   <span>
                     {formatDate(new Date(createdAt), 'hh:mm A · MMM D, YYYY')}
                   </span>
-                  {metadata.appId ? (
-                    <span> · Posted via {getAppName(metadata.appId)}</span>
+                  {publishedOn?.id ? (
+                    <span> · Posted via {getAppName(publishedOn.id)}</span>
                   ) : null}
                 </div>
                 <FeaturedGroup tags={metadata.tags} />

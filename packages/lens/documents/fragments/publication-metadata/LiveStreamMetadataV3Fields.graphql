@@ -1,9 +1,7 @@
 fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
   id
   rawURI
-  locale
   tags
-  appId
   attributes {
     ...MetadataAttributeFields
   }

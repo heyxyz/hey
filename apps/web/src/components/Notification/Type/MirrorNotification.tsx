@@ -2,10 +2,10 @@ import Markup from '@components/Shared/Markup';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/solid';
 import { MirrorNotification } from '@hey/lens';
 import getPublicationData from '@hey/lib/getPublicationData';
+import pushToImpressions from '@lib/pushToImpressions';
 import Link from 'next/link';
 import plur from 'plur';
 import type { FC } from 'react';
-import { useLeafwatchStore } from 'src/store/useLeafwatchStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
@@ -16,10 +16,6 @@ interface MirrorNotificationProps {
 }
 
 const MirrorNotification: FC<MirrorNotificationProps> = ({ notification }) => {
-  const setViewedPublication = useLeafwatchStore(
-    (state) => state.setViewedPublication
-  );
-
   const metadata = notification?.publication.metadata;
   const filteredContent = getPublicationData(metadata)?.content || '';
   const mirrors = notification?.mirrors;
@@ -33,9 +29,7 @@ const MirrorNotification: FC<MirrorNotificationProps> = ({ notification }) => {
   const type = notification?.publication.__typename;
 
   useEffectOnce(() => {
-    if (notification?.publication) {
-      setViewedPublication(notification?.publication.id);
-    }
+    pushToImpressions(notification.publication.id);
   });
 
   return (
@@ -44,7 +38,7 @@ const MirrorNotification: FC<MirrorNotificationProps> = ({ notification }) => {
         <ArrowsRightLeftIcon className="text-brand-500/70 h-6 w-6" />
         <div className="flex items-center space-x-1">
           {mirrors.slice(0, 10).map((mirror) => (
-            <div key={mirror.mirrorId}>
+            <div key={mirror.profile.id}>
               <NotificationProfileAvatar profile={mirror.profile} />
             </div>
           ))}

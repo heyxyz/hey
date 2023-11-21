@@ -8,6 +8,5 @@ export const Regex = {
   ethereumAddress: /^(0x)?[\da-f]{40}$/i,
   handle: /^[\da-z]+$/g,
   profileNameValidator: new RegExp('^[^' + RESTRICTED_SYMBOLS + ']+$'),
-  profileNameFilter: new RegExp('[' + RESTRICTED_SYMBOLS + ']', 'gu'),
-  gm: /\bgm\b/i
+  profileNameFilter: new RegExp('[' + RESTRICTED_SYMBOLS + ']', 'gu')
 };

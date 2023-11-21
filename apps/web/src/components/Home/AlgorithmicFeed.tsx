@@ -12,8 +12,8 @@ import type { FC } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import type { StateSnapshot } from 'react-virtuoso';
 import { Virtuoso } from 'react-virtuoso';
-import { useAppStore } from 'src/store/useAppStore';
-import { useImpressionsStore } from 'src/store/useImpressionsStore';
+import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
@@ -22,7 +22,7 @@ interface AlgorithmicFeedProps {
 }
 
 const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const fetchAndStoreViews = useImpressionsStore(
     (state) => state.fetchAndStoreViews
   );

@@ -1,6 +1,10 @@
 import { StarIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
-import { DEFAULT_COLLECT_TOKEN, LENSHUB_PROXY } from '@hey/data/constants';
+import {
+  ADDRESS_PLACEHOLDER,
+  DEFAULT_COLLECT_TOKEN,
+  LENSHUB_PROXY
+} from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { Regex } from '@hey/data/regex';
 import { SETTINGS } from '@hey/data/tracking';
@@ -22,8 +26,8 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useAppStore } from 'src/store/useAppStore';
-import { useNonceStore } from 'src/store/useNonceStore';
+import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';
 
@@ -35,7 +39,7 @@ const newSuperFollowSchema = object({
 });
 
 const SuperFollow: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce
   );
@@ -225,7 +229,7 @@ const SuperFollow: FC = () => {
         <Input
           label="Funds recipient"
           type="text"
-          placeholder="0x3A5bd...5e3"
+          placeholder={ADDRESS_PLACEHOLDER}
           {...form.register('recipient')}
         />
         <div className="ml-auto">

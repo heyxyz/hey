@@ -3,8 +3,8 @@ import PublicationWrapper from '@components/Shared/PublicationWrapper';
 import type { AnyPublication, FeedItem } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
-import { type FC } from 'react';
-import { useLeafwatchStore } from 'src/store/useLeafwatchStore';
+import pushToImpressions from '@lib/pushToImpressions';
+import { type FC, memo } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
 
 import PublicationActions from './Actions';
@@ -38,10 +38,6 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   isFirst = false,
   isLast = false
 }) => {
-  const setViewedPublication = useLeafwatchStore(
-    (state) => state.setViewedPublication
-  );
-
   const firstComment = feedItem?.comments?.[0];
   const rootPublication = feedItem
     ? firstComment
@@ -53,9 +49,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
     : publication;
 
   useEffectOnce(() => {
-    if (rootPublication.id) {
-      setViewedPublication(rootPublication.id);
-    }
+    pushToImpressions(rootPublication.id);
   });
 
   return (
@@ -105,4 +99,4 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   );
 };
 
-export default SinglePublication;
+export default memo(SinglePublication);

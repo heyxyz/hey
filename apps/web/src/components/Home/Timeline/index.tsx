@@ -7,20 +7,21 @@ import { FeedEventItemType, useFeedQuery } from '@hey/lens';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
-import { type FC, useRef } from 'react';
-import { type StateSnapshot, Virtuoso } from 'react-virtuoso';
-import { useAppStore } from 'src/store/useAppStore';
-import { useImpressionsStore } from 'src/store/useImpressionsStore';
-import { useTimelinePersistStore } from 'src/store/useTimelinePersistStore';
-import { useTimelineStore } from 'src/store/useTimelineStore';
-import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
+import { type FC, memo, useRef } from 'react';
+import type { StateSnapshot } from 'react-virtuoso';
+import { Virtuoso } from 'react-virtuoso';
+import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
+import { useTimelineStore } from 'src/store/non-persisted/useTimelineStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useTimelineFilterStore } from 'src/store/persisted/useTimelineFilterStore';
+import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
 const Timeline: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-  const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
-  const feedEventFilters = useTimelinePersistStore(
+  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const txnQueue = useTransactionStore((state) => state.txnQueue);
+  const feedEventFilters = useTimelineFilterStore(
     (state) => state.feedEventFilters
   );
   const seeThroughProfile = useTimelineStore(
@@ -72,7 +73,7 @@ const Timeline: FC = () => {
     }
   });
 
-  const publications = data?.feed?.items;
+  const feed = data?.feed?.items;
   const pageInfo = data?.feed?.pageInfo;
   const hasMore = pageInfo?.next;
 
@@ -107,7 +108,7 @@ const Timeline: FC = () => {
     return <PublicationsShimmer />;
   }
 
-  if (publications?.length === 0) {
+  if (feed?.length === 0) {
     return (
       <EmptyState
         message="No posts yet!"
@@ -128,7 +129,7 @@ const Timeline: FC = () => {
         ) : null
       )}
       <Card className="divide-y-[1px] dark:divide-gray-700">
-        {publications?.length ? (
+        {feed?.length ? (
           <Virtuoso
             useWindowScroll
             restoreStateFrom={
@@ -139,11 +140,11 @@ const Timeline: FC = () => {
                 : virtuosoState
             }
             ref={virtuosoRef}
-            data={publications}
+            data={feed}
             isScrolling={onScrolling}
             endReached={onEndReached}
             className="virtual-feed-list"
-            itemContent={(index, publication) => {
+            itemContent={(index, feedItem) => {
               return (
                 <motion.div
                   initial={{ opacity: 0 }}
@@ -151,11 +152,11 @@ const Timeline: FC = () => {
                   exit={{ opacity: 0 }}
                 >
                   <SinglePublication
-                    key={`${publication.root.__typename}_${index}`}
+                    key={`${feedItem.root.__typename}_${index}`}
                     isFirst={index === 0}
-                    isLast={index === publications.length - 1}
-                    feedItem={publication as FeedItem}
-                    publication={publication.root as AnyPublication}
+                    isLast={index === feed.length - 1}
+                    feedItem={feedItem as FeedItem}
+                    publication={feedItem.root as AnyPublication}
                   />
                 </motion.div>
               );
@@ -167,4 +168,4 @@ const Timeline: FC = () => {
   );
 };
 
-export default Timeline;
+export default memo(Timeline);

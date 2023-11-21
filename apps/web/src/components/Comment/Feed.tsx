@@ -16,8 +16,8 @@ import { motion } from 'framer-motion';
 import { type FC, useRef } from 'react';
 import type { StateSnapshot } from 'react-virtuoso';
 import { Virtuoso } from 'react-virtuoso';
-import { useImpressionsStore } from 'src/store/useImpressionsStore';
-import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
+import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
+import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
@@ -29,7 +29,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
   const publicationId = isMirrorPublication(publication)
     ? publication?.mirrorOn?.id
     : publication?.id;
-  const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
+  const txnQueue = useTransactionStore((state) => state.txnQueue);
   const fetchAndStoreViews = useImpressionsStore(
     (state) => state.fetchAndStoreViews
   );

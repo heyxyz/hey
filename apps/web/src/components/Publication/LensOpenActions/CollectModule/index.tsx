@@ -1,8 +1,6 @@
-import AllowanceButton from '@components/Settings/Allowance/Button';
 import CollectWarning from '@components/Shared/CollectWarning';
 import CountdownTimer from '@components/Shared/CountdownTimer';
 import Collectors from '@components/Shared/Modal/Collectors';
-import NoBalanceError from '@components/Shared/NoBalanceError';
 import Slug from '@components/Shared/Slug';
 import {
   BanknotesIcon,
@@ -12,61 +10,31 @@ import {
   RectangleStackIcon,
   UsersIcon
 } from '@heroicons/react/24/outline';
-import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { LensHub } from '@hey/abis';
-import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { PUBLICATION } from '@hey/data/tracking';
+import { POLYGONSCAN_URL } from '@hey/data/constants';
 import type {
-  ActOnOpenActionLensManagerRequest,
   AnyPublication,
-  ApprovedAllowanceAmountResult,
-  LegacyCollectRequest,
   LegacyMultirecipientFeeCollectModuleSettings,
   LegacySimpleCollectModuleSettings,
   MultirecipientFeeCollectOpenActionSettings,
   OpenActionModule,
   SimpleCollectOpenActionSettings
 } from '@hey/lens';
-import {
-  FollowModuleType,
-  useActOnOpenActionMutation,
-  useApprovedModuleAllowanceAmountQuery,
-  useBroadcastOnchainMutation,
-  useCreateActOnOpenActionTypedDataMutation,
-  useCreateLegacyCollectTypedDataMutation,
-  useLegacyCollectMutation
-} from '@hey/lens';
-import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
+import { FollowModuleType } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
 import getAssetSymbol from '@hey/lib/getAssetSymbol';
 import getProfile from '@hey/lib/getProfile';
-import getSignature from '@hey/lib/getSignature';
+import getRedstonePrice from '@hey/lib/getRedstonePrice';
 import getTokenImage from '@hey/lib/getTokenImage';
 import humanize from '@hey/lib/humanize';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
-import { Button, Modal, Spinner, Tooltip, WarningMessage } from '@hey/ui';
-import errorToast from '@lib/errorToast';
-import getOpenActionActOnKey from '@lib/getOpenActionActOnKey';
-import getRedstonePrice from '@lib/getRedstonePrice';
-import { Leafwatch } from '@lib/leafwatch';
+import { Modal, Tooltip } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import plur from 'plur';
 import type { FC } from 'react';
 import { useState } from 'react';
-import toast from 'react-hot-toast';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useOpenActionOptimisticStore } from 'src/store/OptimisticActions/useOpenActionOptimisticStore';
-import { useAppStore } from 'src/store/useAppStore';
-import { useNonceStore } from 'src/store/useNonceStore';
-import {
-  useAccount,
-  useBalance,
-  useContractWrite,
-  useSignTypedData
-} from 'wagmi';
 
+import CollectAction from './CollectAction';
 import Splits from './Splits';
 
 interface CollectModuleProps {
@@ -75,41 +43,14 @@ interface CollectModuleProps {
 }
 
 const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
-  const setOpenActionPublicationConfig = useOpenActionOptimisticStore(
-    (state) => state.setOpenActionPublicationConfig
-  );
-  const hasActedByMe = useOpenActionOptimisticStore(
-    (state) => state.hasActedByMe
-  );
-  const getOpenActionCountByPublicationId = useOpenActionOptimisticStore(
-    (state) => state.getOpenActionCountByPublicationId
-  );
-  const lensHubOnchainSigNonce = useNonceStore(
-    (state) => state.lensHubOnchainSigNonce
-  );
-  const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce
-  );
-  const currentProfile = useAppStore((state) => state.currentProfile);
-
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
 
-  const [isLoading, setIsLoading] = useState(false);
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
-  const [allowed, setAllowed] = useState(true);
-  const { address } = useAccount();
-  const handleWrongNetwork = useHandleWrongNetwork();
-
-  const openActionCount = getOpenActionCountByPublicationId(
-    targetPublication.id
+  const [countOpenActions, setCountOpenActions] = useState(
+    targetPublication.stats.countOpenActions
   );
-  const hasActed = hasActedByMe(targetPublication.id);
-
-  // Lens manager
-  const { canUseLensManager, canBroadcast } =
-    checkDispatcherPermissions(currentProfile);
 
   const collectModule = openAction as
     | SimpleCollectOpenActionSettings
@@ -121,242 +62,16 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
   const collectLimit = parseInt(collectModule?.collectLimit || '0');
   const amount = parseFloat(collectModule?.amount?.value || '0');
   const currency = collectModule?.amount?.asset?.symbol;
-  const assetAddress = collectModule?.amount?.asset?.contract.address;
-  const assetDecimals = collectModule?.amount?.asset?.decimals;
   const referralFee = collectModule?.referralFee;
-  const isLimitedCollectAllCollected = collectLimit
-    ? openActionCount >= collectLimit
-    : false;
-  const isCollectExpired = endTimestamp
-    ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
-    : false;
-  const isLegacyCollectModule =
-    collectModule.__typename === 'LegacySimpleCollectModuleSettings' ||
-    collectModule.__typename === 'LegacyMultirecipientFeeCollectModuleSettings';
-  const isFreeCollectModule = !amount;
-  const isSimpleFreeCollectModule =
-    collectModule.__typename === 'SimpleCollectOpenActionSettings';
   const isMultirecipientFeeCollectModule =
     collectModule.__typename === 'MultirecipientFeeCollectOpenActionSettings';
-  const canUseManager =
-    canUseLensManager && !collectModule?.followerOnly && isFreeCollectModule;
-
-  const onCompleted = (
-    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
-  ) => {
-    if (
-      __typename === 'RelayError' ||
-      __typename === 'LensProfileManagerRelayError'
-    ) {
-      return;
-    }
-
-    setOpenActionPublicationConfig(targetPublication.id, {
-      countOpenActions: openActionCount + 1,
-      acted: true
-    });
-    toast.success('Collected successfully!');
-    Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
-      publication_id: targetPublication?.id,
-      collect_module: collectModule?.type
-    });
-  };
-
-  const onError = (error: any) => {
-    setIsLoading(false);
-    errorToast(error);
-  };
-
-  const { signTypedDataAsync } = useSignTypedData({ onError });
-
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY,
-    abi: LensHub,
-    functionName: isLegacyCollectModule ? 'collectLegacy' : 'act',
-    onSuccess: () => {
-      onCompleted();
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
-    },
-    onError: (error) => {
-      onError(error);
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
-    }
-  });
-
-  const percentageCollected = (openActionCount / collectLimit) * 100;
-
-  const { data: allowanceData, loading: allowanceLoading } =
-    useApprovedModuleAllowanceAmountQuery({
-      variables: {
-        request: {
-          currencies: assetAddress,
-          followModules: [],
-          openActionModules: [collectModule?.type],
-          referenceModules: []
-        }
-      },
-      skip: !assetAddress || !currentProfile,
-      onCompleted: ({ approvedModuleAllowanceAmount }) => {
-        const allowedAmount = parseFloat(
-          approvedModuleAllowanceAmount[0]?.allowance.value
-        );
-        setAllowed(allowedAmount > amount);
-      }
-    });
+  const percentageCollected = (countOpenActions / collectLimit) * 100;
 
   const { data: usdPrice } = useQuery({
     queryKey: ['getRedstonePrice', currency],
     queryFn: async () => await getRedstonePrice(getAssetSymbol(currency)),
     enabled: Boolean(amount)
   });
-
-  const { data: balanceData, isLoading: balanceLoading } = useBalance({
-    address,
-    token: assetAddress,
-    formatUnits: assetDecimals,
-    watch: true
-  });
-
-  let hasAmount = false;
-  if (balanceData && parseFloat(balanceData?.formatted) < amount) {
-    hasAmount = false;
-  } else {
-    hasAmount = true;
-  }
-
-  const [broadcastOnchain] = useBroadcastOnchainMutation({
-    onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename)
-  });
-
-  const typedDataGenerator = async (generatedData: any) => {
-    const { id, typedData } = generatedData;
-    const signature = await signTypedDataAsync(getSignature(typedData));
-    setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
-
-    if (canBroadcast) {
-      const { data } = await broadcastOnchain({
-        variables: { request: { id, signature } }
-      });
-      if (data?.broadcastOnchain.__typename === 'RelayError') {
-        return write({ args: [typedData.value] });
-      }
-      return;
-    }
-
-    return write({ args: [typedData.value] });
-  };
-
-  // Act Typed Data
-  const [createActOnOpenActionTypedData] =
-    useCreateActOnOpenActionTypedDataMutation({
-      onCompleted: async ({ createActOnOpenActionTypedData }) =>
-        await typedDataGenerator(createActOnOpenActionTypedData),
-      onError
-    });
-
-  // Legacy Collect Typed Data
-  const [createLegacyCollectTypedData] =
-    useCreateLegacyCollectTypedDataMutation({
-      onCompleted: async ({ createLegacyCollectTypedData }) =>
-        await typedDataGenerator(createLegacyCollectTypedData),
-      onError
-    });
-
-  // Act
-  const [actOnOpenAction] = useActOnOpenActionMutation({
-    onCompleted: ({ actOnOpenAction }) =>
-      onCompleted(actOnOpenAction.__typename),
-    onError
-  });
-
-  // Legacy Collect
-  const [legacyCollect] = useLegacyCollectMutation({
-    onCompleted: ({ legacyCollect }) => onCompleted(legacyCollect.__typename),
-    onError
-  });
-
-  // Act via Lens Manager
-  const actViaLensManager = async (
-    request: ActOnOpenActionLensManagerRequest
-  ) => {
-    const { data, errors } = await actOnOpenAction({ variables: { request } });
-
-    if (errors?.toString().includes('has already acted on')) {
-      return;
-    }
-
-    if (
-      !data?.actOnOpenAction ||
-      data?.actOnOpenAction.__typename === 'LensProfileManagerRelayError'
-    ) {
-      return await createActOnOpenActionTypedData({ variables: { request } });
-    }
-  };
-
-  // Collect via Lens Manager
-  const legacyCollectViaLensManager = async (request: LegacyCollectRequest) => {
-    const { data, errors } = await legacyCollect({ variables: { request } });
-
-    if (errors?.toString().includes('has already collected on')) {
-      return;
-    }
-
-    if (
-      !data?.legacyCollect ||
-      data?.legacyCollect.__typename === 'LensProfileManagerRelayError'
-    ) {
-      return await createLegacyCollectTypedData({ variables: { request } });
-    }
-  };
-
-  const createCollect = async () => {
-    if (!currentProfile) {
-      return toast.error(Errors.SignWallet);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
-    }
-
-    try {
-      setIsLoading(true);
-      if (isLegacyCollectModule) {
-        const legcayCollectRequest: LegacyCollectRequest = {
-          on: targetPublication?.id
-        };
-
-        if (canUseManager) {
-          return await legacyCollectViaLensManager(legcayCollectRequest);
-        }
-
-        return await createLegacyCollectTypedData({
-          variables: {
-            options: { overrideSigNonce: lensHubOnchainSigNonce },
-            request: legcayCollectRequest
-          }
-        });
-      }
-
-      const actOnRequest: ActOnOpenActionLensManagerRequest = {
-        for: targetPublication?.id,
-        actOn: { [getOpenActionActOnKey(collectModule?.type)]: true }
-      };
-
-      if (canUseManager) {
-        return await actViaLensManager(actOnRequest);
-      }
-
-      return await createActOnOpenActionTypedData({
-        variables: {
-          options: { overrideSigNonce: lensHubOnchainSigNonce },
-          request: actOnRequest
-        }
-      });
-    } catch (error) {
-      onError(error);
-    }
-  };
 
   return (
     <>
@@ -424,7 +139,8 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
                 type="button"
                 onClick={() => setShowCollectorsModal(!showCollectorsModal)}
               >
-                {humanize(openActionCount)} {plur('collector', openActionCount)}
+                {humanize(countOpenActions)}{' '}
+                {plur('collector', countOpenActions)}
               </button>
               <Modal
                 title="Collected by"
@@ -439,7 +155,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
               <div className="flex items-center space-x-2">
                 <PhotoIcon className="ld-text-gray-500 h-4 w-4" />
                 <div className="font-bold">
-                  {collectLimit - openActionCount} available
+                  {collectLimit - countOpenActions} available
                 </div>
               </div>
             ) : null}
@@ -482,58 +198,13 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
           ) : null}
         </div>
         <div className="flex items-center space-x-2">
-          {currentProfile &&
-          (!hasActed ||
-            (!isFreeCollectModule && !isSimpleFreeCollectModule)) ? (
-            allowanceLoading || balanceLoading ? (
-              <div className="shimmer mt-5 h-[34px] w-28 rounded-lg" />
-            ) : allowed ? (
-              hasAmount ? (
-                !isLimitedCollectAllCollected && !isCollectExpired ? (
-                  <Button
-                    className="mt-5"
-                    onClick={createCollect}
-                    disabled={isLoading}
-                    icon={
-                      isLoading ? (
-                        <Spinner size="xs" />
-                      ) : (
-                        <RectangleStackIcon className="h-4 w-4" />
-                      )
-                    }
-                  >
-                    Collect now
-                  </Button>
-                ) : null
-              ) : (
-                <WarningMessage
-                  className="mt-5 w-full"
-                  message={
-                    <NoBalanceError moduleAmount={collectModule.amount} />
-                  }
-                />
-              )
-            ) : (
-              <span className="mt-5">
-                <AllowanceButton
-                  title="Allow collect module"
-                  module={
-                    allowanceData
-                      ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult
-                  }
-                  allowed={allowed}
-                  setAllowed={setAllowed}
-                />
-              </span>
-            )
-          ) : null}
+          <CollectAction
+            openAction={openAction}
+            publication={publication}
+            countOpenActions={countOpenActions}
+            setCountOpenActions={setCountOpenActions}
+          />
         </div>
-        {targetPublication.operations.hasActed.value ? (
-          <div className="mt-3 flex items-center space-x-1.5 font-bold text-green-500">
-            <CheckCircleIcon className="h-5 w-5" />
-            <div>You already collected this</div>
-          </div>
-        ) : null}
       </div>
     </>
   );

@@ -1,1 +1,0 @@
-# Staff Picks worker

@@ -1,15 +1,14 @@
 import { Menu } from '@headlessui/react';
 import cn from '@hey/ui/cn';
 import type { FC } from 'react';
-import { useAppStore } from 'src/store/useAppStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import MenuTransition from '../MenuTransition';
 import Bookmarks from './NavItems/Bookmarks';
-import Contact from './NavItems/Contact';
 import ReportBug from './NavItems/ReportBug';
 
 const MoreNavItems: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
 
   return (
     <Menu as="div">
@@ -45,14 +44,6 @@ const MoreNavItems: FC = () => {
                   <div className="divider" />
                 </>
               ) : null}
-              <Menu.Item
-                as="div"
-                className={({ active }: { active: boolean }) =>
-                  cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
-                }
-              >
-                <Contact />
-              </Menu.Item>
               <Menu.Item
                 as="div"
                 className={({ active }: { active: boolean }) =>

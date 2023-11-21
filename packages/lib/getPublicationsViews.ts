@@ -1,4 +1,4 @@
-import { ACHIEVEMENTS_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
 import axios from 'axios';
 
 /**
@@ -7,11 +7,14 @@ import axios from 'axios';
  * @returns The number of views of the publication
  */
 const getPublicationsViews = async (ids: string[]) => {
+  if (!IS_MAINNET) {
+    return [];
+  }
+
   try {
-    const response = await axios.post(
-      `${ACHIEVEMENTS_WORKER_URL}/publicationViews`,
-      { ids }
-    );
+    const response = await axios.post(`${HEY_API_URL}/stats/publicationViews`, {
+      ids
+    });
 
     return response.data?.views;
   } catch {

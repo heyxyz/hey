@@ -5,7 +5,7 @@ import type { Erc20 } from '@hey/lens';
 import { OpenActionModuleType } from '@hey/lens';
 import { Input } from '@hey/ui';
 import { type FC } from 'react';
-import { useCollectModuleStore } from 'src/store/useCollectModuleStore';
+import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
 
 interface AmountConfigProps {
   enabledModuleCurrencies?: Erc20[];
@@ -27,8 +27,8 @@ const AmountConfig: FC<AmountConfigProps> = ({
             type: collectModule.amount?.value
               ? OpenActionModuleType.SimpleCollectOpenActionModule
               : collectModule.recipients?.length
-              ? OpenActionModuleType.MultirecipientFeeCollectOpenActionModule
-              : OpenActionModuleType.SimpleCollectOpenActionModule,
+                ? OpenActionModuleType.MultirecipientFeeCollectOpenActionModule
+                : OpenActionModuleType.SimpleCollectOpenActionModule,
             amount: collectModule.amount?.value
               ? null
               : { currency: DEFAULT_COLLECT_TOKEN, value: '1' }

@@ -6,7 +6,7 @@ import {
   hydrateAuthTokens,
   signIn,
   signOut
-} from 'src/store/useAuthPersistStore';
+} from 'src/store/persisted/useAuthStore';
 
 const REFRESH_AUTHENTICATION_MUTATION = `
   mutation Refresh($request: RefreshRequest!) {

@@ -3,10 +3,10 @@ import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { ActedNotification } from '@hey/lens';
 import getPublicationData from '@hey/lib/getPublicationData';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
+import pushToImpressions from '@lib/pushToImpressions';
 import Link from 'next/link';
 import plur from 'plur';
 import type { FC } from 'react';
-import { useLeafwatchStore } from 'src/store/useLeafwatchStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
@@ -17,10 +17,6 @@ interface ActedNotificationProps {
 }
 
 const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
-  const setViewedPublication = useLeafwatchStore(
-    (state) => state.setViewedPublication
-  );
-
   const publication = notification?.publication;
   const targetPublication = isMirrorPublication(publication)
     ? publication.mirrorOn
@@ -38,9 +34,7 @@ const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
   const type = notification?.publication.__typename;
 
   useEffectOnce(() => {
-    if (notification?.publication) {
-      setViewedPublication(notification?.publication.id);
-    }
+    pushToImpressions(notification.publication.id);
   });
 
   return (

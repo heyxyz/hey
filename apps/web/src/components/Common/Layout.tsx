@@ -3,17 +3,20 @@ import GlobalBanners from '@components/Shared/GlobalBanners';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
 import type { Profile } from '@hey/lens';
 import { useCurrentProfileQuery } from '@hey/lens';
-import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
+import getCurrentSession from '@lib/getCurrentSession';
 import getToastOptions from '@lib/getToastOptions';
 import Head from 'next/head';
 import { useTheme } from 'next-themes';
 import { type FC, type ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { useAppStore } from 'src/store/useAppStore';
-import { hydrateAuthTokens, signOut } from 'src/store/useAuthPersistStore';
-import { useNonceStore } from 'src/store/useNonceStore';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
+import { useFeatureFlagsStore } from 'src/store/non-persisted/useFeatureFlagsStore';
+import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
+import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
+import { useProStore } from 'src/store/non-persisted/useProStore';
+import { hydrateAuthTokens, signOut } from 'src/store/persisted/useAuthStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce, useIsMounted } from 'usehooks-ts';
+import { isAddress } from 'viem';
 import { useAccount, useDisconnect } from 'wagmi';
 
 import GlobalModals from '../Shared/GlobalModals';
@@ -26,37 +29,37 @@ interface LayoutProps {
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   const { resolvedTheme } = useTheme();
-  const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
-  const loadingPreferences = usePreferencesStore(
-    (state) => state.loadingPreferences
-  );
+  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const setCurrentProfile = useProfileStore((state) => state.setCurrentProfile);
   const resetPreferences = usePreferencesStore(
     (state) => state.resetPreferences
+  );
+  const resetFeatureFlags = useFeatureFlagsStore(
+    (state) => state.resetFeatureFlags
   );
   const setLensHubOnchainSigNonce = useNonceStore(
     (state) => state.setLensHubOnchainSigNonce
   );
+  const resetPro = useProStore((state) => state.resetPro);
 
   const isMounted = useIsMounted();
   const { connector } = useAccount();
   const { disconnect } = useDisconnect();
 
-  const currentSessionProfileId = getCurrentSessionProfileId();
+  const { id: sessionProfileId } = getCurrentSession();
 
   const logout = () => {
     resetPreferences();
+    resetFeatureFlags();
+    resetPro();
     signOut();
     disconnect?.();
   };
 
   const { loading } = useCurrentProfileQuery({
-    variables: { request: { forProfileId: currentSessionProfileId } },
-    skip: !currentSessionProfileId,
+    variables: { request: { forProfileId: sessionProfileId } },
+    skip: !sessionProfileId || isAddress(sessionProfileId),
     onCompleted: ({ profile, userSigNonces }) => {
-      if (!profile) {
-        return logout();
-      }
-
       setCurrentProfile(profile as Profile);
       setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce);
     }
@@ -78,7 +81,9 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     validateAuthentication();
   });
 
-  if (loading || loadingPreferences || !isMounted()) {
+  const profileLoading = !currentProfile && loading;
+
+  if (profileLoading || !isMounted()) {
     return <Loading />;
   }
 

@@ -3,7 +3,7 @@ import { INVITE } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { type FC } from 'react';
-import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 
 interface InvitesProps {
   className?: string;
@@ -25,9 +25,7 @@ const Invites: FC<InvitesProps> = ({ className = '' }) => {
         Leafwatch.track(INVITE.OPEN_INVITE);
       }}
     >
-      <div>
-        <TicketIcon className="h-4 w-4" />
-      </div>
+      <TicketIcon className="h-4 w-4" />
       <div>Invites</div>
     </button>
   );

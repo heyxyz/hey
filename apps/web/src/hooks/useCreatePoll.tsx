@@ -1,14 +1,14 @@
-import { IS_MAINNET, SNAPSHOR_RELAY_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
 import getProfile from '@hey/lib/getProfile';
+import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import axios from 'axios';
-import { useAppStore } from 'src/store/useAppStore';
-import { hydrateAuthTokens } from 'src/store/useAuthPersistStore';
-import { usePublicationStore } from 'src/store/usePublicationStore';
+import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 type CreatePollResponse = string;
 
 const useCreatePoll = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const pollConfig = usePublicationStore((state) => state.pollConfig);
   const publicationContent = usePublicationStore(
     (state) => state.publicationContent
@@ -18,19 +18,14 @@ const useCreatePoll = () => {
   const createPoll = async (): Promise<CreatePollResponse> => {
     try {
       const response = await axios.post(
-        `${SNAPSHOR_RELAY_WORKER_URL}/createPoll`,
+        `${HEY_API_URL}/snapshot/createPoll`,
         {
           title: `Poll by ${getProfile(currentProfile).slugWithPrefix}`,
           description: publicationContent,
           choices: pollConfig.choices,
           length: pollConfig.length
         },
-        {
-          headers: {
-            'X-Access-Token': hydrateAuthTokens().accessToken,
-            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
-          }
-        }
+        { headers: getAuthWorkerHeaders() }
       );
 
       return `${publicationContent}\n\n${response.data.snapshotUrl}`;

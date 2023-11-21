@@ -1,6 +1,6 @@
 import GroupProfile from '@components/Shared/GroupProfile';
 import GroupProfileShimmer from '@components/Shared/Shimmer/GroupProfileShimmer';
-import { GROUPS_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
 import type { Group } from '@hey/types/hey';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -14,7 +14,9 @@ const StaffPickedGroup: FC<StaffPickedGroupProps> = ({ id }) => {
   const fetchGroup = async (): Promise<Group> => {
     const response: {
       data: { result: Group };
-    } = await axios.get(`${GROUPS_WORKER_URL}/get/${id}`);
+    } = await axios.get(`${HEY_API_URL}/group/getGroup`, {
+      params: { slug: id }
+    });
 
     return response.data?.result;
   };

@@ -15,8 +15,8 @@ import { type FC, useRef } from 'react';
 import type { StateSnapshot } from 'react-virtuoso';
 import { Virtuoso } from 'react-virtuoso';
 import { ProfileFeedType } from 'src/enums';
-import { useImpressionsStore } from 'src/store/useImpressionsStore';
-import { useProfileFeedStore } from 'src/store/useProfileFeedStore';
+import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
+import { useProfileFeedStore } from 'src/store/non-persisted/useProfileFeedStore';
 
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 

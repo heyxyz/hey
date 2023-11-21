@@ -2,20 +2,21 @@ import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
 import Footer from '@components/Shared/Footer';
-import { IS_MAINNET } from '@hey/data/constants';
 import { HomeFeedType } from '@hey/data/enums';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import getCurrentSession from '@lib/getCurrentSession';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useState } from 'react';
-import { useAppStore } from 'src/store/useAppStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import AlgorithmicFeed from './AlgorithmicFeed';
 import Tabs from './Algorithms/Tabs';
 import EnableLensManager from './EnableLensManager';
 import FeedType from './FeedType';
+import Gitcoin from './Gitcoin';
 import Hero from './Hero';
 import HeyMembershipNft from './HeyMembershipNft';
 import Highlights from './Highlights';
@@ -26,25 +27,28 @@ import Timeline from './Timeline';
 import Waitlist from './Waitlist';
 
 const Home: NextPage = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const [feedType, setFeedType] = useState<HomeFeedType>(
     HomeFeedType.FOLLOWING
   );
+
+  const { id: sessionProfileId } = getCurrentSession();
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'home' });
   });
 
-  const loggedIn = Boolean(currentProfile);
-  const loggedOut = !loggedIn;
+  const loggedInWithProfile = Boolean(currentProfile);
+  const loggedInWithWallet = Boolean(sessionProfileId);
+  const loggedOut = !loggedInWithProfile;
 
   return (
     <>
       <MetaTags />
-      {!currentProfile ? <Hero /> : null}
+      {loggedOut && !loggedInWithWallet && <Hero />}
       <GridLayout>
         <GridItemEight className="space-y-5">
-          {currentProfile ? (
+          {loggedInWithProfile ? (
             <>
               <NewPost />
               <div className="space-y-3">
@@ -64,19 +68,19 @@ const Home: NextPage = () => {
           )}
         </GridItemEight>
         <GridItemFour>
-          {/* <Gitcoin /> */}
+          <Gitcoin />
           {loggedOut && <Waitlist />}
-          {loggedIn && <HeyMembershipNft />}
+          {loggedInWithProfile && <HeyMembershipNft />}
           {/* Onboarding steps */}
-          {loggedIn && (
+          {loggedInWithProfile && (
             <>
               <EnableLensManager />
               <SetProfile />
             </>
           )}
           {/* Recommendations */}
-          {IS_MAINNET && <StaffPicks />}
-          {loggedIn && <RecommendedProfiles />}
+          <StaffPicks />
+          {loggedInWithProfile && <RecommendedProfiles />}
           <Footer />
         </GridItemFour>
       </GridLayout>

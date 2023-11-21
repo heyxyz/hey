@@ -4,13 +4,13 @@ import { AdjustmentsVerticalIcon } from '@heroicons/react/24/outline';
 import { Checkbox, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import type { ChangeEvent, FC } from 'react';
-import { useTimelinePersistStore } from 'src/store/useTimelinePersistStore';
+import { useTimelineFilterStore } from 'src/store/persisted/useTimelineFilterStore';
 
 const FeedEventFilters: FC = () => {
-  const feedEventFilters = useTimelinePersistStore(
+  const feedEventFilters = useTimelineFilterStore(
     (state) => state.feedEventFilters
   );
-  const setFeedEventFilters = useTimelinePersistStore(
+  const setFeedEventFilters = useTimelineFilterStore(
     (state) => state.setFeedEventFilters
   );
 

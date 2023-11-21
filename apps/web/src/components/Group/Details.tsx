@@ -157,7 +157,7 @@ const Details: FC<DetailsProps> = ({ group }) => {
             </MetaDetails>
           ) : null}
           <MetaDetails icon={<ClockIcon className="h-4 w-4" />}>
-            {formatDate(new Date(group.created_at))}
+            {formatDate(new Date(group.createdAt))}
           </MetaDetails>
         </div>
       </div>

@@ -1,23 +1,24 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import type { Profile } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { useAppStore } from 'src/store/useAppStore';
-import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import Slug from '../Slug';
 import AppVersion from './NavItems/AppVersion';
 import Bookmarks from './NavItems/Bookmarks';
-import Contact from './NavItems/Contact';
 import GardenerMode from './NavItems/GardenerMode';
 import Invites from './NavItems/Invites';
 import Logout from './NavItems/Logout';
 import Mod from './NavItems/Mod';
+import Pro from './NavItems/Pro';
 import ReportBug from './NavItems/ReportBug';
 import Settings from './NavItems/Settings';
 import StaffMode from './NavItems/StaffMode';
@@ -26,9 +27,7 @@ import ThemeSwitch from './NavItems/ThemeSwitch';
 import YourProfile from './NavItems/YourProfile';
 
 const MobileDrawerMenu: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-  const isStaff = usePreferencesStore((state) => state.isStaff);
-  const isGardener = usePreferencesStore((state) => state.isGardener);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const setShowMobileDrawer = useGlobalModalStateStore(
     (state) => state.setShowMobileDrawer
   );
@@ -85,12 +84,17 @@ const MobileDrawerMenu: FC = () => {
               className={cn(itemClass, 'px-4')}
               onClick={closeDrawer}
             />
-            {isGardener ? (
+            {isFeatureEnabled(FeatureFlag.Gardener) ? (
               <Link href="/mod" onClick={closeDrawer}>
                 <Mod className={cn(itemClass, 'px-4')} />
               </Link>
             ) : null}
             <Invites className={cn(itemClass, 'px-4')} />
+            {isFeatureEnabled(FeatureFlag.Pro) && (
+              <Link href="/pro" onClick={closeDrawer}>
+                <Pro className={cn(itemClass, 'px-4')} />
+              </Link>
+            )}
             <ThemeSwitch
               className={cn(itemClass, 'px-4')}
               onClick={closeDrawer}
@@ -100,13 +104,7 @@ const MobileDrawerMenu: FC = () => {
         </div>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
-          <div>
-            <Contact className={cn(itemClass, 'px-4')} onClick={closeDrawer} />
-            <ReportBug
-              className={cn(itemClass, 'px-4')}
-              onClick={closeDrawer}
-            />
-          </div>
+          <ReportBug className={cn(itemClass, 'px-4')} onClick={closeDrawer} />
           <div className="divider" />
         </div>
 
@@ -119,7 +117,7 @@ const MobileDrawerMenu: FC = () => {
             />
           </div>
           <div className="divider" />
-          {isGardener ? (
+          {isFeatureEnabled(FeatureFlag.Gardener) ? (
             <>
               <div
                 onClick={closeDrawer}
@@ -130,7 +128,7 @@ const MobileDrawerMenu: FC = () => {
               <div className="divider" />
             </>
           ) : null}
-          {isStaff ? (
+          {isFeatureEnabled(FeatureFlag.Staff) ? (
             <>
               <div
                 onClick={closeDrawer}

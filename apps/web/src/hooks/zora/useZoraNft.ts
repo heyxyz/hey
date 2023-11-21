@@ -1,4 +1,4 @@
-import { NFT_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
 import type { ZoraNft } from '@hey/types/nft';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -21,7 +21,7 @@ const useZoraNft = ({
   error: unknown;
 } => {
   const getZoraNftDetails = async () => {
-    const response = await axios.get(`${NFT_WORKER_URL}/zora`, {
+    const response = await axios.get(`${HEY_API_URL}/nft/getZoraNft`, {
       params: { chain, address, token }
     });
 

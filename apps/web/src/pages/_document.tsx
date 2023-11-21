@@ -9,8 +9,8 @@ class HeyDocument extends Document {
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 
           {/* Prefetch and Preconnect */}
-          <link rel="preconnect" href="https://static-assets.hey.xyz" />
-          <link rel="dns-prefetch" href="https://static-assets.hey.xyz" />
+          <link rel="preconnect" href="https://hey-assets.b-cdn.net" />
+          <link rel="dns-prefetch" href="https://hey-assets.b-cdn.net" />
 
           {/* Misc */}
           <meta name="application-name" content="Hey" />

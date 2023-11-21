@@ -15,9 +15,8 @@ import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
-import { type FC, useEffect } from 'react';
+import { type FC, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useBookmarkOptimisticStore } from 'src/store/OptimisticActions/useBookmarkOptimisticStore';
 
 interface BookmarkProps {
   publication: AnyPublication;
@@ -25,32 +24,14 @@ interface BookmarkProps {
 
 const Bookmark: FC<BookmarkProps> = ({ publication }) => {
   const { pathname } = useRouter();
-  const getBookmarkCountByPublicationId = useBookmarkOptimisticStore(
-    (state) => state.getBookmarkCountByPublicationId
-  );
-  const hasBookmarkedByMe = useBookmarkOptimisticStore(
-    (state) => state.hasBookmarkedByMe
-  );
-  const setBookmarkConfig = useBookmarkOptimisticStore(
-    (state) => state.setBookmarkConfig
-  );
-
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
 
-  const hasBookmarked = hasBookmarkedByMe(targetPublication.id);
-  const bookmarksCount = getBookmarkCountByPublicationId(targetPublication.id);
-
-  useEffect(() => {
-    setBookmarkConfig(targetPublication.id, {
-      countBookmarks: targetPublication.stats.bookmarks,
-      bookmarked: targetPublication.operations.hasBookmarked
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [publication]);
-
-  const request: PublicationBookmarkRequest = { on: targetPublication.id };
+  const [hasBookmarked, setHasBookmarked] = useState(
+    targetPublication.operations.hasBookmarked
+  );
+  const [bookmarks, setBookmarks] = useState(targetPublication.stats.bookmarks);
 
   const updateCache = (cache: ApolloCache<any>) => {
     cache.modify({
@@ -64,8 +45,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
     cache.modify({
       id: cache.identify(targetPublication.stats),
       fields: {
-        bookmarks: () =>
-          hasBookmarked ? bookmarksCount - 1 : bookmarksCount + 1
+        bookmarks: () => (hasBookmarked ? bookmarks - 1 : bookmarks + 1)
       }
     });
 
@@ -79,13 +59,13 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
     errorToast(error);
   };
 
+  const request: PublicationBookmarkRequest = { on: targetPublication.id };
+
   const [addPublicationBookmark] = useAddPublicationBookmarkMutation({
     variables: { request },
     onError: (error) => {
-      setBookmarkConfig(targetPublication.id, {
-        countBookmarks: bookmarksCount - 1,
-        bookmarked: !hasBookmarked
-      });
+      setHasBookmarked(!hasBookmarked);
+      setBookmarks(bookmarks - 1);
       onError(error);
     },
     onCompleted: () => {
@@ -101,10 +81,8 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
   const [removePublicationBookmark] = useRemovePublicationBookmarkMutation({
     variables: { request },
     onError: (error) => {
-      setBookmarkConfig(targetPublication.id, {
-        countBookmarks: bookmarksCount + 1,
-        bookmarked: !hasBookmarked
-      });
+      setHasBookmarked(!hasBookmarked);
+      setBookmarks(bookmarks + 1);
       onError(error);
     },
     onCompleted: () => {
@@ -119,17 +97,13 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
 
   const togglePublicationProfileBookmark = async () => {
     if (hasBookmarked) {
-      setBookmarkConfig(targetPublication.id, {
-        countBookmarks: bookmarksCount - 1,
-        bookmarked: false
-      });
+      setHasBookmarked(false);
+      setBookmarks(bookmarks - 1);
       return await removePublicationBookmark();
     }
 
-    setBookmarkConfig(targetPublication.id, {
-      countBookmarks: bookmarksCount + 1,
-      bookmarked: true
-    });
+    setHasBookmarked(true);
+    setBookmarks(bookmarks + 1);
     return await addPublicationBookmark();
   };
 

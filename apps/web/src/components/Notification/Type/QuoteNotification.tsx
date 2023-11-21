@@ -2,9 +2,9 @@ import Markup from '@components/Shared/Markup';
 import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
 import { QuoteNotification } from '@hey/lens';
 import getPublicationData from '@hey/lib/getPublicationData';
+import pushToImpressions from '@lib/pushToImpressions';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { useLeafwatchStore } from 'src/store/useLeafwatchStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
@@ -15,10 +15,6 @@ interface QuoteNotificationProps {
 }
 
 const QuoteNotification: FC<QuoteNotificationProps> = ({ notification }) => {
-  const setViewedPublication = useLeafwatchStore(
-    (state) => state.setViewedPublication
-  );
-
   const metadata = notification?.quote.metadata;
   const filteredContent = getPublicationData(metadata)?.content || '';
   const firstProfile = notification.quote.by;
@@ -27,9 +23,7 @@ const QuoteNotification: FC<QuoteNotificationProps> = ({ notification }) => {
   const type = notification.quote.quoteOn.__typename;
 
   useEffectOnce(() => {
-    if (notification?.quote) {
-      setViewedPublication(notification?.quote.id);
-    }
+    pushToImpressions(notification.quote.id);
   });
 
   return (

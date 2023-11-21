@@ -6,8 +6,8 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { type FC } from 'react';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
-import { usePublicationStore } from 'src/store/usePublicationStore';
+import { useFeatureFlagsStore } from 'src/store/non-persisted/useFeatureFlagsStore';
+import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 
 import PublicationMenu from './Actions/Menu';
 import Source from './Source';
@@ -28,7 +28,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
   const setQuotedPublication = usePublicationStore(
     (state) => state.setQuotedPublication
   );
-  const gardenerMode = usePreferencesStore((state) => state.gardenerMode);
+  const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
 
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn

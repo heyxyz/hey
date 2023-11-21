@@ -5,9 +5,6 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
     }
   }
   cover {
-    optimized {
-      uri
-    }
+    ...EncryptableImageSetFields
   }
-  duration
 }

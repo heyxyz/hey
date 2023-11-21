@@ -1,38 +1,38 @@
 import { ShieldCheckIcon as ShieldCheckIconOutline } from '@heroicons/react/24/outline';
 import { ShieldCheckIcon as ShieldCheckIconSolid } from '@heroicons/react/24/solid';
-import { IS_MAINNET, PREFERENCES_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
 import { STAFFTOOLS } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
+import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { type FC } from 'react';
 import { toast } from 'react-hot-toast';
-import { hydrateAuthTokens } from 'src/store/useAuthPersistStore';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
+import { useFeatureFlagsStore } from 'src/store/non-persisted/useFeatureFlagsStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface StaffModeProps {
   className?: string;
 }
 
 const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
-  const staffMode = usePreferencesStore((state) => state.staffMode);
-  const setStaffMode = usePreferencesStore((state) => state.setStaffMode);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const staffMode = useFeatureFlagsStore((state) => state.staffMode);
+  const setStaffMode = useFeatureFlagsStore((state) => state.setStaffMode);
 
   const toggleStaffMode = async () => {
     toast.promise(
       axios.post(
-        `${PREFERENCES_WORKER_URL}/staffMode`,
+        `${HEY_API_URL}/internal/feature/updateStaffMode`,
         { enabled: !staffMode },
-        {
-          headers: {
-            'X-Access-Token': hydrateAuthTokens().accessToken,
-            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
-          }
-        }
+        { headers: getAuthWorkerHeaders() }
       ),
       {
         loading: 'Toggling staff mode...',
         success: () => {
+          axios.get(`${HEY_API_URL}/feature/getFeatureFlags`, {
+            params: { id: currentProfile?.id }
+          });
           setStaffMode(!staffMode);
           Leafwatch.track(STAFFTOOLS.TOGGLE_MODE);
 

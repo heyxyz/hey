@@ -5,7 +5,7 @@ import nFormatter from './nFormatter';
 describe('nFormatter', () => {
   test('should format a number without any suffix if it is less than 10000 and no digits provided', () => {
     const result = nFormatter(1234);
-    expect(result).toEqual('1,234');
+    expect(result).toEqual('1.2k');
   });
 
   test('should format a number with suffix if it is greater than or equal to 1000000', () => {

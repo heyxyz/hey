@@ -10,16 +10,16 @@ import { motion } from 'framer-motion';
 import { type FC, useRef } from 'react';
 import type { StateSnapshot } from 'react-virtuoso';
 import { Virtuoso } from 'react-virtuoso';
-import { useAppStore } from 'src/store/useAppStore';
-import { useImpressionsStore } from 'src/store/useImpressionsStore';
-import { useTimelineStore } from 'src/store/useTimelineStore';
-import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
+import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
+import { useTimelineStore } from 'src/store/non-persisted/useTimelineStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
 const Highlights: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-  const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const txnQueue = useTransactionStore((state) => state.txnQueue);
   const seeThroughProfile = useTimelineStore(
     (state) => state.seeThroughProfile
   );

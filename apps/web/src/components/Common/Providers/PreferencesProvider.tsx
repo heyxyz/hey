@@ -1,59 +1,45 @@
-import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
-import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
+import { HEY_API_URL } from '@hey/data/constants';
+import getCurrentSession from '@lib/getCurrentSession';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
-import { useAppStore } from 'src/store/useAppStore';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
+import { useAppStore } from 'src/store/non-persisted/useAppStore';
+import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
+import { isAddress } from 'viem';
 
 const PreferencesProvider: FC = () => {
-  const currentSessionProfileId = getCurrentSessionProfileId();
+  const { id: sessionProfileId } = getCurrentSession();
   const setVerifiedMembers = useAppStore((state) => state.setVerifiedMembers);
-  const setIsStaff = usePreferencesStore((state) => state.setIsStaff);
-  const setIsGardener = usePreferencesStore((state) => state.setIsGardener);
-  const setIsLensMember = usePreferencesStore((state) => state.setIsLensMember);
-  const setStaffMode = usePreferencesStore((state) => state.setStaffMode);
-  const setGardenerMode = usePreferencesStore((state) => state.setGardenerMode);
   const setIsPride = usePreferencesStore((state) => state.setIsPride);
   const setHighSignalNotificationFilter = usePreferencesStore(
     (state) => state.setHighSignalNotificationFilter
   );
-  const setLoadingPreferences = usePreferencesStore(
-    (state) => state.setLoadingPreferences
-  );
 
   const fetchPreferences = async () => {
     try {
-      if (Boolean(currentSessionProfileId)) {
+      if (Boolean(sessionProfileId) && !isAddress(sessionProfileId)) {
         const response = await axios.get(
-          `${PREFERENCES_WORKER_URL}/get/${currentSessionProfileId}`
+          `${HEY_API_URL}/preference/getPreferences`,
+          { params: { id: sessionProfileId } }
         );
         const { data } = response;
 
-        setIsStaff(data.result?.is_staff || false);
-        setIsGardener(data.result?.is_gardener || false);
-        setIsLensMember(data.result?.is_lens_member || false);
-        setStaffMode(data.result?.staff_mode || false);
-        setGardenerMode(data.result?.gardener_mode || false);
-        setIsPride(data.result?.is_pride || false);
+        setIsPride(data.result?.isPride || false);
         setHighSignalNotificationFilter(
-          data.result?.high_signal_notification_filter || false
+          data.result?.highSignalNotificationFilter || false
         );
       }
-    } catch {
-    } finally {
-      setLoadingPreferences(false);
-    }
+    } catch {}
   };
 
   useQuery({
-    queryKey: ['fetchPreferences', currentSessionProfileId || ''],
+    queryKey: ['fetchPreferences', sessionProfileId || ''],
     queryFn: fetchPreferences
   });
 
   const fetchVerifiedMembers = async () => {
     try {
-      const response = await axios.get(`${PREFERENCES_WORKER_URL}/verified`);
+      const response = await axios.get(`${HEY_API_URL}/feature/getVerified`);
       const { data } = response;
       setVerifiedMembers(data.result || []);
     } catch {}

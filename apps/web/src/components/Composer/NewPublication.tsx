@@ -8,6 +8,7 @@ import {
   PencilSquareIcon
 } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data/errors';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import { PUBLICATION } from '@hey/data/tracking';
 import type {
   AnyPublication,
@@ -33,6 +34,7 @@ import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import errorToast from '@lib/errorToast';
 import getTextNftUrl from '@lib/getTextNftUrl';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
 import { useUnmountEffect } from 'framer-motion';
@@ -45,13 +47,12 @@ import useCreatePoll from 'src/hooks/useCreatePoll';
 import useCreatePublication from 'src/hooks/useCreatePublication';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import usePublicationMetadata from 'src/hooks/usePublicationMetadata';
-import { useAppStore } from 'src/store/useAppStore';
-import { useCollectModuleStore } from 'src/store/useCollectModuleStore';
-import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
-import { useNonceStore } from 'src/store/useNonceStore';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
-import { usePublicationStore } from 'src/store/usePublicationStore';
-import { useReferenceModuleStore } from 'src/store/useReferenceModuleStore';
+import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
+import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
 import LivestreamSettings from './Actions/LivestreamSettings';
@@ -96,7 +97,7 @@ interface NewPublicationProps {
 }
 
 const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
 
   const targetPublication = isMirrorPublication(publication)
@@ -169,9 +170,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     (state) => state.degreesOfSeparation
   );
 
-  // Preferences store
-  const isStaff = usePreferencesStore((state) => state.isStaff);
-
   // States
   const [isLoading, setIsLoading] = useState(false);
   const [publicationContentError, setPublicationContentError] = useState('');
@@ -194,8 +192,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const useMomoka = isComment
     ? publication.momoka?.proof
     : isQuote
-    ? quotedPublication?.momoka?.proof
-    : noCollect;
+      ? quotedPublication?.momoka?.proof
+      : noCollect;
 
   const onError = (error?: any) => {
     setIsLoading(false);
@@ -259,8 +257,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       isComment
         ? PUBLICATION.NEW_COMMENT
         : isQuote
-        ? PUBLICATION.NEW_QUOTE
-        : PUBLICATION.NEW_POST,
+          ? PUBLICATION.NEW_QUOTE
+          : PUBLICATION.NEW_POST,
       eventProperties
     );
   };
@@ -559,7 +557,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         </div>
       ) : null}
       {showPollEditor ? <PollEditor /> : null}
-      {showLiveVideoEditor && isStaff ? <LivestreamEditor /> : null}
+      {showLiveVideoEditor ? <LivestreamEditor /> : null}
       {quotedPublication ? (
         <Wrapper className="m-5" zeroPadding>
           <QuotedPublication
@@ -599,7 +597,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             </>
           ) : null}
           <PollSettings />
-          {!isComment && <LivestreamSettings />}
+          {!isComment && isFeatureEnabled(FeatureFlag.LiveStream) && (
+            <LivestreamSettings />
+          )}
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button

@@ -19,24 +19,27 @@ import {
   RARIBLE_URL,
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import { FollowUnfollowSource } from '@hey/data/tracking';
 import getEnvConfig from '@hey/data/utils/getEnvConfig';
 import type { Profile } from '@hey/lens';
 import { FollowModuleType } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
+import getFavicon from '@hey/lib/getFavicon';
 import getMentions from '@hey/lib/getMentions';
 import getMisuseDetails from '@hey/lib/getMisuseDetails';
 import getProfile from '@hey/lib/getProfile';
 import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import hasMisused from '@hey/lib/hasMisused';
 import { Button, Image, LightBox, Modal, Tooltip } from '@hey/ui';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import isVerified from '@lib/isVerified';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
-import { useAppStore } from 'src/store/useAppStore';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
+import { useFeatureFlagsStore } from 'src/store/non-persisted/useFeatureFlagsStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import urlcat from 'urlcat';
 
 import Badges from './Badges';
@@ -54,9 +57,8 @@ interface DetailsProps {
 }
 
 const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-  const isStaff = usePreferencesStore((state) => state.isStaff);
-  const staffMode = usePreferencesStore((state) => state.staffMode);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const staffMode = useFeatureFlagsStore((state) => state.staffMode);
   const [showMutualFollowersModal, setShowMutualFollowersModal] =
     useState(false);
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
@@ -114,9 +116,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             className="text-sm sm:text-base"
             slug={getProfile(profile).slugWithPrefix}
           />
-          {currentProfile &&
-          currentProfile?.id !== profile.id &&
-          profile.operations.isFollowingMe.value ? (
+          {profile.operations.isFollowingMe.value ? (
             <div className="rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
               Follows you
             </div>
@@ -236,16 +236,11 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             <MetaDetails
               icon={
                 <img
-                  src={urlcat(
-                    'https://external-content.duckduckgo.com/ip3/:domain.ico',
-                    {
-                      domain: getProfileAttribute(
-                        profile?.metadata?.attributes,
-                        'website'
-                      )
-                        ?.replace('https://', '')
-                        .replace('http://', '')
-                    }
+                  src={getFavicon(
+                    getProfileAttribute(
+                      profile?.metadata?.attributes,
+                      'website'
+                    )
                   )}
                   className="h-4 w-4 rounded-full"
                   height={16}
@@ -310,7 +305,9 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
         </>
       ) : null}
       <Badges profile={profile} />
-      {isStaff && staffMode ? <ProfileStaffTool profile={profile} /> : null}
+      {isFeatureEnabled(FeatureFlag.Staff) && staffMode ? (
+        <ProfileStaffTool profile={profile} />
+      ) : null}
     </div>
   );
 };

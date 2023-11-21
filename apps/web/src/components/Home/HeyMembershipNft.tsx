@@ -1,22 +1,22 @@
 import Mint from '@components/Publication/HeyOpenActions/Nft/ZoraNft/Mint';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
-import { IS_MAINNET, PREFERENCES_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
 import { MISCELLANEOUS, PUBLICATION } from '@hey/data/tracking';
 import type { MembershipNft } from '@hey/types/hey';
 import { Button, Card, Modal } from '@hey/ui';
+import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useZoraNft from 'src/hooks/zora/useZoraNft';
-import { useAppStore } from 'src/store/useAppStore';
-import { hydrateAuthTokens } from 'src/store/useAuthPersistStore';
-import { useQuery } from 'wagmi';
+import { useAccount, useQuery } from 'wagmi';
 
 const HeyMembershipNft: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const [showMintModal, setShowMintModal] = useState(false);
+
+  const { address } = useAccount();
 
   const { data: nft, loading } = useZoraNft({
     chain: 'zora',
@@ -24,9 +24,10 @@ const HeyMembershipNft: FC = () => {
     token: ''
   });
 
-  const fetchPreferences = async (): Promise<MembershipNft> => {
+  const fetchHeyMemberNftStatus = async (): Promise<MembershipNft> => {
     const response = await axios.get(
-      `${PREFERENCES_WORKER_URL}/getHeyMemberNftStatus/${currentProfile?.ownedBy.address}`
+      `${HEY_API_URL}/preference/getHeyMemberNftStatus`,
+      { params: { id: address } }
     );
     const { data } = response;
 
@@ -34,12 +35,12 @@ const HeyMembershipNft: FC = () => {
   };
 
   const { data, isLoading, refetch } = useQuery(
-    ['getHeyMemberNftStatus', currentProfile?.id],
-    () => fetchPreferences(),
-    { enabled: Boolean(currentProfile?.id) }
+    ['getHeyMemberNftStatus', address],
+    () => fetchHeyMemberNftStatus(),
+    { enabled: Boolean(address) }
   );
 
-  if (isLoading) {
+  if (isLoading || !address) {
     return null;
   }
 
@@ -53,14 +54,9 @@ const HeyMembershipNft: FC = () => {
     try {
       toast.promise(
         axios.post(
-          `${PREFERENCES_WORKER_URL}/updateHeyMemberNftStatus`,
+          `${HEY_API_URL}/preference/updateHeyMemberNftStatus`,
           undefined,
-          {
-            headers: {
-              'X-Access-Token': hydrateAuthTokens().accessToken,
-              'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
-            }
-          }
+          { headers: getAuthWorkerHeaders() }
         ),
         {
           loading: 'Updating...',

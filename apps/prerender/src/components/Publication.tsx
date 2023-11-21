@@ -37,14 +37,14 @@ const Publication: FC<PublicationProps> = ({ publication, comments }) => {
     filteredAsset?.uri || filteredAsset?.cover || filteredAttachments[0]?.uri;
   const profile = targetPublication.by;
   const title = `${targetPublication.__typename} by ${
-    getProfile(publication.by).slugWithPrefix
+    getProfile(targetPublication.by).slugWithPrefix
   } • ${APP_NAME}`;
   const description = truncateByWords(filteredContent, 30);
   const image = media
     ? sanitizeDStorageUrl(media)
     : profile
-    ? getAvatar(profile)
-    : DEFAULT_OG;
+      ? getAvatar(profile)
+      : DEFAULT_OG;
 
   return (
     <>
@@ -60,14 +60,11 @@ const Publication: FC<PublicationProps> = ({ publication, comments }) => {
         <SinglePublication publication={publication} h1Content />
       </header>
       <div>
-        {comments?.map((comment) => {
-          const { id } = comment;
-          return (
-            <div key={id}>
-              <SinglePublication publication={comment} />
-            </div>
-          );
-        })}
+        {comments?.map((comment) => (
+          <div key={comment.id}>
+            <SinglePublication publication={comment} />
+          </div>
+        ))}
       </div>
     </>
   );

@@ -7,13 +7,14 @@ import {
   UsersIcon,
   XCircleIcon
 } from '@heroicons/react/24/outline';
+import { ADDRESS_PLACEHOLDER } from '@hey/data/constants';
 import { OpenActionModuleType } from '@hey/lens';
-import isValidEthAddress from '@hey/lib/isValidEthAddress';
 import splitNumber from '@hey/lib/splitNumber';
 import { Button, Input } from '@hey/ui';
 import { type FC } from 'react';
-import { useAppStore } from 'src/store/useAppStore';
-import { useCollectModuleStore } from 'src/store/useCollectModuleStore';
+import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
+import { isAddress } from 'viem';
 
 interface SplitConfigProps {
   isRecipientsDuplicated: () => boolean;
@@ -24,7 +25,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
   isRecipientsDuplicated,
   setCollectType
 }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const collectModule = useCollectModuleStore((state) => state.collectModule);
 
   const recipients = collectModule.recipients ?? [];
@@ -99,7 +100,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
             {recipients.map((recipient, index) => (
               <div key={index} className="flex items-center space-x-2 text-sm">
                 <SearchUser
-                  placeholder="0x3A5bd...5e3 or wagmi"
+                  placeholder={`${ADDRESS_PLACEHOLDER} or wagmi`}
                   value={recipient.recipient}
                   onChange={(event) =>
                     updateRecipient(index, event.target.value)
@@ -107,10 +108,10 @@ const SplitConfig: FC<SplitConfigProps> = ({
                   onProfileSelected={(profile) =>
                     updateRecipient(index, profile.ownedBy.address)
                   }
-                  hideDropdown={isValidEthAddress(recipient.recipient)}
+                  hideDropdown={isAddress(recipient.recipient)}
                   error={
                     recipient.recipient.length > 0 &&
-                    !isValidEthAddress(recipient.recipient)
+                    !isAddress(recipient.recipient)
                   }
                 />
                 <div className="w-1/3">

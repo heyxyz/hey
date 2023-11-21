@@ -15,7 +15,7 @@
   "dependencies": {
     "@apollo/client": "^3.8.7",
     "@hey/data": "workspace:*",
-    "axios": "^1.6.0"
+    "axios": "^1.6.2"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.0",
@@ -25,7 +25,7 @@
     "@graphql-codegen/typescript-react-apollo": "^4.1.0",
     "@hey/config": "workspace:*",
     "@parcel/watcher": "^2.3.0",
-    "@types/node": "^20.8.10",
-    "typescript": "^5.2.2"
+    "@types/node": "^20.9.3",
+    "typescript": "^5.3.2"
   }
 }

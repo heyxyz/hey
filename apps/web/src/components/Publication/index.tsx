@@ -18,9 +18,9 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
-import { useAppStore } from 'src/store/useAppStore';
-import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
+import { useFeatureFlagsStore } from 'src/store/non-persisted/useFeatureFlagsStore';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import FullPublication from './FullPublication';
@@ -29,8 +29,8 @@ import RelevantPeople from './RelevantPeople';
 import PublicationPageShimmer from './Shimmer';
 
 const ViewPublication: NextPage = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-  const staffMode = usePreferencesStore((state) => state.staffMode);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const staffMode = useFeatureFlagsStore((state) => state.staffMode);
   const showNewPostModal = useGlobalModalStateStore(
     (state) => state.showNewPostModal
   );
@@ -71,8 +71,8 @@ const ViewPublication: NextPage = () => {
   return (
     <GridLayout>
       <MetaTags
-        title={`${publication.__typename} by ${
-          getProfile(publication.by).slugWithPrefix
+        title={`${targetPublication.__typename} by ${
+          getProfile(targetPublication.by).slugWithPrefix
         } • ${APP_NAME}`}
       />
       <GridItemEight className="space-y-5">

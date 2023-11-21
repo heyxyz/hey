@@ -13,7 +13,7 @@ import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useAppStore } from 'src/store/useAppStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useSignTypedData } from 'wagmi';
 
 interface VoteProposalProps {
@@ -32,7 +32,7 @@ const VoteProposal: FC<VoteProposalProps> = ({
   setVoteConfig,
   refetch
 }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const [voteSubmitting, setVoteSubmitting] = useState(false);
   const { signTypedDataAsync } = useSignTypedData({});
 

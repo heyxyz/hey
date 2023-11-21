@@ -13,7 +13,7 @@ import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
 import { type FC, useRef } from 'react';
 import { type StateSnapshot, Virtuoso } from 'react-virtuoso';
-import { useImpressionsStore } from 'src/store/useImpressionsStore';
+import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
 
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 

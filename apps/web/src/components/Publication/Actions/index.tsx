@@ -4,9 +4,9 @@ import isOpenActionAllowed from '@hey/lib/isOpenActionAllowed';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { type FC, memo } from 'react';
-import { useAppStore } from 'src/store/useAppStore';
-import { useImpressionsStore } from 'src/store/useImpressionsStore';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
+import { useFeatureFlagsStore } from 'src/store/non-persisted/useFeatureFlagsStore';
+import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import OpenAction from '../LensOpenActions';
 import Comment from './Comment';
@@ -27,8 +27,8 @@ const PublicationActions: FC<PublicationActionsProps> = ({
   const targetPublication = isMirrorPublication(publication)
     ? publication.mirrorOn
     : publication;
-  const currentProfile = useAppStore((state) => state.currentProfile);
-  const gardenerMode = usePreferencesStore((state) => state.gardenerMode);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
   const publicationViews = useImpressionsStore(
     (state) => state.publicationViews
   );
@@ -57,9 +57,7 @@ const PublicationActions: FC<PublicationActionsProps> = ({
       {canAct ? (
         <OpenAction publication={publication} showCount={showCount} />
       ) : null}
-      {views > 0 && gardenerMode ? (
-        <Views views={views} showCount={showCount} />
-      ) : null}
+      {views > 0 ? <Views views={views} showCount={showCount} /> : null}
       {gardenerMode ? (
         <Mod publication={publication} isFullPublication={showCount} />
       ) : null}

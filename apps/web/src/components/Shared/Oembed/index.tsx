@@ -1,9 +1,9 @@
-import { OEMBED_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
+import getFavicon from '@hey/lib/getFavicon';
 import type { OG } from '@hey/types/misc';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
-import urlcat from 'urlcat';
 
 import Embed from './Embed';
 import Player from './Player';
@@ -18,7 +18,7 @@ const Oembed: FC<OembedProps> = ({ url, publicationId, onData }) => {
   const { isLoading, error, data } = useQuery({
     queryKey: ['oembed', url],
     queryFn: async () => {
-      const response = await axios.get(`${OEMBED_WORKER_URL}/oembed`, {
+      const response = await axios.get(`${HEY_API_URL}/oembed`, {
         params: { url }
       });
       return response.data.oembed;
@@ -37,9 +37,7 @@ const Oembed: FC<OembedProps> = ({ url, publicationId, onData }) => {
     title: data?.title,
     description: data?.description,
     site: data?.site,
-    favicon: urlcat('https://external-content.duckduckgo.com/ip3/:domain.ico', {
-      domain: data.url.replace('https://', '').replace('http://', '')
-    }),
+    favicon: getFavicon(data.url),
     image: data?.image,
     isLarge: data?.isLarge,
     html: data?.html

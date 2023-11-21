@@ -3,7 +3,6 @@ import ImageCropperController from '@components/Shared/ImageCropperController';
 import { PencilIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import {
-  ARWEAVE_GATEWAY,
   AVATAR,
   COVER,
   LENSHUB_PROXY,
@@ -55,8 +54,7 @@ import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useAppStore } from 'src/store/useAppStore';
-import urlcat from 'urlcat';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import type { z } from 'zod';
 import { object, string, union } from 'zod';
@@ -85,11 +83,15 @@ interface ProfileSettingsFormProps {
 }
 
 const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const [isLoading, setIsLoading] = useState(false);
 
   // Cover Picture
-  const [coverPictureIpfsUrl, setCoverPictureIpfsUrl] = useState('');
+  const [coverPictureIpfsUrl, setCoverPictureIpfsUrl] = useState(
+    currentProfile?.metadata?.coverPicture?.__typename === 'ImageSet'
+      ? currentProfile?.metadata?.coverPicture?.raw.uri
+      : ''
+  );
   const [coverPictureSrc, setCoverPictureSrc] = useState('');
   const [showCoverPictureCropModal, setShowCoverPictureCropModal] =
     useState(false);
@@ -99,7 +101,13 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const [uploadingCoverPicture, setUploadingCoverPicture] = useState(false);
 
   // Picture
-  const [profilePictureIpfsUrl, setProfilePictureIpfsUrl] = useState('');
+  const [profilePictureIpfsUrl, setProfilePictureIpfsUrl] = useState(
+    currentProfile?.metadata?.picture?.__typename === 'ImageSet'
+      ? currentProfile?.metadata?.picture?.raw.uri
+      : currentProfile?.metadata?.picture?.__typename === 'NftImage'
+        ? currentProfile?.metadata?.picture?.image?.raw.uri
+        : ''
+  );
   const [profilePictureSrc, setProfilePictureSrc] = useState('');
   const [showProfilePictureCropModal, setShowProfilePictureCropModal] =
     useState(false);
@@ -253,14 +261,14 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
         ]
       };
       preparedProfileMetadata.attributes =
-        preparedProfileMetadata.attributes?.filter((m) =>
-          Boolean(trimify(m.value))
-        );
+        preparedProfileMetadata.attributes?.filter((m) => {
+          return m.key !== '' && Boolean(trimify(m.value));
+        });
       const metadata = profileMetadata(preparedProfileMetadata);
-      const hash = await uploadToArweave(metadata);
+      const arweaveId = await uploadToArweave(metadata);
 
       const request: OnchainSetProfileMetadataRequest = {
-        metadataURI: urlcat(`${ARWEAVE_GATEWAY}/:hash`, { hash })
+        metadataURI: `ar://${arweaveId}`
       };
 
       if (canUseLensManager) {
@@ -440,7 +448,10 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
             className="ml-auto"
             type="submit"
             disabled={
-              isLoading || (!form.formState.isDirty && !coverPictureSrc)
+              isLoading ||
+              (!form.formState.isDirty &&
+                !coverPictureSrc &&
+                !profilePictureSrc)
             }
             icon={
               isLoading ? (

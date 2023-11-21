@@ -5,23 +5,23 @@ import LensEndpoint from '../lens-endpoints';
 const getEnvConfig = (): {
   apiEndpoint: string;
   lensHubProxyAddress: `0x${string}`;
+  publicActProxyAddress: `0x${string}`;
   defaultCollectToken: string;
-  litProtocolEnvironment: string;
 } => {
   switch (LENS_NETWORK) {
     case 'testnet':
       return {
         apiEndpoint: LensEndpoint.Testnet,
         lensHubProxyAddress: TestnetContracts.LensHubProxy,
-        defaultCollectToken: TestnetContracts.DefaultToken,
-        litProtocolEnvironment: 'mumbai'
+        publicActProxyAddress: TestnetContracts.PublicActProxy,
+        defaultCollectToken: TestnetContracts.DefaultToken
       };
     default:
       return {
         apiEndpoint: LensEndpoint.Mainnet,
         lensHubProxyAddress: MainnetContracts.LensHubProxy,
-        defaultCollectToken: MainnetContracts.DefaultToken,
-        litProtocolEnvironment: 'polygon'
+        publicActProxyAddress: MainnetContracts.PublicActProxy,
+        defaultCollectToken: MainnetContracts.DefaultToken
       };
   }
 };
