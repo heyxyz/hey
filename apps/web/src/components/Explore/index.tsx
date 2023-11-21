@@ -14,26 +14,20 @@ import cn from '@hey/ui/cn';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { useState } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import Feed from './Feed';
 
 const Explore: NextPage = () => {
-  const router = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const [focus, setFocus] = useState<PublicationMetadataMainFocusType>();
   const searchParams = useSearchParams();
-
   const [tabIndex, setTabIndex] = useState(
     Number(searchParams.get('tab')) || 0
   );
-
-  useEffect(() => {
-    router.replace(`?tab=${tabIndex}`);
-  }, [router, tabIndex]);
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'explore' });

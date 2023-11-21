@@ -30,7 +30,6 @@ interface LikeProps {
 const Like: FC<LikeProps> = ({ publication, showCount }) => {
   const pathname = usePathname();
   const currentProfile = useProfileStore((state) => state.currentProfile);
-
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;

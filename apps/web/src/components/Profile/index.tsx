@@ -35,7 +35,6 @@ const ViewProfile: NextPage = () => {
   const { id, handle } = useParams();
   const type = searchParams.get('type');
   const followIntent = searchParams.get('followIntent');
-
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
   useEffectOnce(() => {

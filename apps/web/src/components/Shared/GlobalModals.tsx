@@ -1,5 +1,5 @@
 import NewPublication from '@components/Composer/NewPublication';
-import { ReportPublication } from '@components/Shared/Modal/ReportPublication';
+import ReportPublication from '@components/Shared/Modal/ReportPublication';
 import {
   ArrowRightCircleIcon,
   ShieldCheckIcon,
