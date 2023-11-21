@@ -1,3 +1,4 @@
+'use client';
 import { apolloClient, ApolloProvider } from '@hey/lens/apollo';
 import authLink from '@lib/authLink';
 import getLivepeerTheme from '@lib/getLivepeerTheme';
