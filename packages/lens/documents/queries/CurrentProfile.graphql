@@ -1,6 +1,29 @@
 query CurrentProfile($request: ProfileRequest!) {
   profile(request: $request) {
     ...ProfileFields
+    metadata {
+      picture {
+        ... on ImageSet {
+          raw {
+            uri
+          }
+        }
+        ... on NftImage {
+          image {
+            raw {
+              uri
+            }
+          }
+        }
+      }
+      coverPicture {
+        ... on ImageSet {
+          raw {
+            uri
+          }
+        }
+      }
+    }
     guardian {
       protected
       cooldownEndsOn
