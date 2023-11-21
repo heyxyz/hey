@@ -150,14 +150,14 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       <div className="space-y-2.5">
         {chain === CHAIN_ID ? (
           profilesManagedLoading ? (
-            <Card className="w-full dark:divide-gray-700">
+            <Card className="w-full dark:divide-gray-700" forceRounded>
               <div className="space-y-2 p-4 text-center text-sm font-bold">
                 <Spinner size="sm" className="mx-auto" />
                 <div>Loading profiles managed by you...</div>
               </div>
             </Card>
           ) : profiles.length > 0 ? (
-            <Card className="w-full dark:divide-gray-700">
+            <Card className="w-full dark:divide-gray-700" forceRounded>
               {profiles.map((profile) => (
                 <div
                   key={profile.id}
