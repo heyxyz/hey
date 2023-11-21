@@ -13,11 +13,11 @@ import getProfile from '@hey/lib/getProfile';
 import { GridItemEight, GridItemFour, GridLayout, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
+import { useParams, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
+import Custom500 from 'src/app/500';
+import Custom404 from 'src/app/not-found';
 import { ProfileFeedType } from 'src/enums';
-import Custom404 from 'src/pages/404';
-import Custom500 from 'src/pages/500';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
@@ -31,10 +31,10 @@ import NftGallery from './NftGallery';
 import ProfilePageShimmer from './Shimmer';
 
 const ViewProfile: NextPage = () => {
-  const {
-    query: { handle, id, type, followIntent },
-    isReady
-  } = useRouter();
+  const searchParams = useSearchParams();
+  const { id, handle } = useParams();
+  const type = searchParams.get('type');
+  const followIntent = searchParams.get('followIntent');
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
   useEffectOnce(() => {
@@ -99,7 +99,7 @@ const ViewProfile: NextPage = () => {
     }
   }, [following]);
 
-  if (!isReady || loading) {
+  if (loading) {
     return <ProfilePageShimmer />;
   }
 
