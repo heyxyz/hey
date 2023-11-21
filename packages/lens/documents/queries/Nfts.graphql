@@ -11,13 +11,7 @@ query Nfts($request: NftsRequest!) {
       metadata {
         name
         image {
-          raw {
-            uri
-          }
-          optimized {
-            uri
-            mimeType
-          }
+          ...ImageSetFields
         }
         animationUrl
       }

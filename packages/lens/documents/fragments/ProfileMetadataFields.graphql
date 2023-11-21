@@ -8,9 +8,7 @@ fragment ProfileMetadataFields on ProfileMetadata {
     }
     ... on NftImage {
       image {
-        optimized {
-          uri
-        }
+        ...ImageSetFields
       }
     }
   }
