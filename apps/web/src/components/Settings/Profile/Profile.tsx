@@ -87,8 +87,11 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   // Cover Picture
-  // TODO: Set default cover picture
-  const [coverPictureIpfsUrl, setCoverPictureIpfsUrl] = useState('');
+  const [coverPictureIpfsUrl, setCoverPictureIpfsUrl] = useState(
+    currentProfile?.metadata?.coverPicture?.__typename === 'ImageSet'
+      ? currentProfile?.metadata?.coverPicture?.raw.uri
+      : ''
+  );
   const [coverPictureSrc, setCoverPictureSrc] = useState('');
   const [showCoverPictureCropModal, setShowCoverPictureCropModal] =
     useState(false);
@@ -98,8 +101,13 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const [uploadingCoverPicture, setUploadingCoverPicture] = useState(false);
 
   // Picture
-  // TODO: Set default profile picture
-  const [profilePictureIpfsUrl, setProfilePictureIpfsUrl] = useState('');
+  const [profilePictureIpfsUrl, setProfilePictureIpfsUrl] = useState(
+    currentProfile?.metadata?.picture?.__typename === 'ImageSet'
+      ? currentProfile?.metadata?.picture?.raw.uri
+      : currentProfile?.metadata?.picture?.__typename === 'NftImage'
+        ? currentProfile?.metadata?.picture?.image?.raw.uri
+        : ''
+  );
   const [profilePictureSrc, setProfilePictureSrc] = useState('');
   const [showProfilePictureCropModal, setShowProfilePictureCropModal] =
     useState(false);
