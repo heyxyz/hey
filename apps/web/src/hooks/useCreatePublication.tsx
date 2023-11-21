@@ -31,7 +31,7 @@ import {
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { OptmisticPublicationType } from '@hey/types/enums';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';

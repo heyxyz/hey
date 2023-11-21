@@ -4,19 +4,20 @@ import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
+import Custom500 from 'src/app/500';
 import useOpenseaNft from 'src/hooks/opensea/useOpenseaNft';
-import Custom500 from 'src/pages/500';
 import { useEffectOnce } from 'usehooks-ts';
 
 import NftDetails from './Details';
 import NftPageShimmer from './Shimmer';
 
 const ViewNft: NextPage = () => {
-  const {
-    query: { chain, address, token },
-    isReady
-  } = useRouter();
+  const searchParams = useSearchParams();
+  const chain = searchParams.get('chain');
+  const address = searchParams.get('address');
+  const token = searchParams.get('token');
+
   const {
     data: nft,
     loading,
@@ -24,8 +25,7 @@ const ViewNft: NextPage = () => {
   } = useOpenseaNft({
     chain: parseInt(chain as string),
     address: address as string,
-    token: token as string,
-    enabled: isReady
+    token: token as string
   });
 
   useEffectOnce(() => {
