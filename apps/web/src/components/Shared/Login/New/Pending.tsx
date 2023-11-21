@@ -1,3 +1,4 @@
+'use client';
 import { XCircleIcon } from '@heroicons/react/24/solid';
 import {
   LensTransactionStatusType,
