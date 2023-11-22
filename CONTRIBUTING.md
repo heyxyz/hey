@@ -46,7 +46,7 @@ We are using [GitHub Issues](https://github.com/heyxyz/hey/issues) to manage our
 
 ## Contribution Prerequisites
 
-- You have [Node](https://nodejs.org/en/) at >= v14.
+- You have [Node](https://nodejs.org/en/) at >= v18.
 - You are familiar with Git.
 
 ## Development Workflow
