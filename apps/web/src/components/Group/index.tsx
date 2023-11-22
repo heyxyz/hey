@@ -7,7 +7,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { NextPage } from 'next';
-import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 import Custom500 from 'src/app/500';
 import Custom404 from 'src/app/not-found';
 import { useEffectOnce } from 'usehooks-ts';
@@ -17,8 +17,10 @@ import Feed from './Feed';
 import GroupPageShimmer from './Shimmer';
 
 const ViewGroup: NextPage = () => {
-  const searchParams = useSearchParams();
-  const slug = searchParams.get('slug');
+  const {
+    query: { slug },
+    isReady
+  } = useRouter();
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'group' });
@@ -40,10 +42,11 @@ const ViewGroup: NextPage = () => {
     error
   } = useQuery({
     queryKey: ['fetchGroup', slug],
-    queryFn: fetchGroup
+    queryFn: fetchGroup,
+    enabled: isReady
   });
 
-  if (isLoading) {
+  if (!isReady || isLoading) {
     return <GroupPageShimmer />;
   }
 

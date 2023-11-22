@@ -7,7 +7,7 @@ import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
-import Custom404 from 'src/pages/404';
+import Custom404 from 'src/app/not-found';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
