@@ -1,5 +1,5 @@
 enum LensEndpoint {
-  Mainnet = 'https://api-v2.lens.dev',
+  Mainnet = 'https://hey.stellate.sh',
   Testnet = 'https://api-v2-mumbai.lens.dev'
 }
 
