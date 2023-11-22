@@ -13,6 +13,7 @@ import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
 import LinkHandle from './LinkHandle';
+import UnlinkHandle from './UnlinkHandle';
 
 const HandlesSettings: NextPage = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
@@ -44,6 +45,8 @@ const HandlesSettings: NextPage = () => {
               used to display your handle on your profile.
             </p>
           </div>
+          <div className="divider my-5" />
+          <UnlinkHandle />
           <div className="divider my-5" />
           <LinkHandle />
         </Card>
