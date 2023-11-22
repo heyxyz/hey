@@ -46,7 +46,7 @@ export type CollectModuleType = {
     | null;
   amount?: AmountInput | null;
   collectLimit?: string | null;
-  referralFee?: number | null;
+  referralFee?: number;
   recipient?: string | null;
   recipients?: RecipientDataInput[];
   followerOnly?: boolean;
