@@ -1,7 +1,11 @@
-import type { ApolloCache } from '@apollo/client';
+import IndexStatus from '@components/Shared/IndexStatus';
 import Loader from '@components/Shared/Loader';
 import Slug from '@components/Shared/Slug';
-import { MinusCircleIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
+import {
+  AtSymbolIcon,
+  MinusCircleIcon,
+  PlusCircleIcon
+} from '@heroicons/react/24/outline';
 import { TokenHandleRegistry } from '@hey/abis';
 import { TOKEN_HANDLE_REGISTRY } from '@hey/data/constants';
 import type {
@@ -11,16 +15,15 @@ import type {
 import {
   useBroadcastOnchainMutation,
   useCreateLinkHandleToProfileTypedDataMutation,
-  useCreateUnlinkHandleFromProfileTypedDataMutation,
   useLinkHandleToProfileMutation,
-  useOwnedHandlesQuery,
-  useUnlinkHandleFromProfileMutation
+  useOwnedHandlesQuery
 } from '@hey/lens';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
-import { Button, Spinner } from '@hey/ui';
+import { Button, EmptyState, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { type FC, useState } from 'react';
+import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
@@ -43,17 +46,6 @@ const LinkHandle: FC = () => {
   const { canUseLensManager, canBroadcast } =
     checkDispatcherPermissions(currentProfile);
 
-  const updateCache = (cache: ApolloCache<any>) => {
-    cache.modify({
-      id: `ProfileOperations:$`,
-      fields: {
-        isBlockedByMe: (existingValue) => {
-          // return { ...existingValue, value: !hasBlocked };
-        }
-      }
-    });
-  };
-
   const onCompleted = (
     __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
   ) => {
@@ -65,11 +57,9 @@ const LinkHandle: FC = () => {
     }
 
     setLinkingOrUnlinkingHandle(null);
+    toast.success('Handle linked successfully!');
     // setHasBlocked(!hasBlocked);
     // setShowBlockOrUnblockAlert(false, null);
-    // toast.success(
-    //   hasBlocked ? 'Blocked successfully!' : 'Unblocked successfully!'
-    // );
     // Leafwatch.track(hasBlocked ? PROFILE.BLOCK : PROFILE.UNBLOCK, {
     //   profile_id: blockingorUnblockingProfile?.id
     // });
@@ -85,66 +75,48 @@ const LinkHandle: FC = () => {
   });
 
   const { signTypedDataAsync } = useSignTypedData({ onError });
-  const { write } = useContractWrite({
+  const { write, data: writeData } = useContractWrite({
     address: TOKEN_HANDLE_REGISTRY,
     abi: TokenHandleRegistry,
-    functionName: 'setBlockStatus',
+    functionName: 'link',
     onSuccess: () => onCompleted(),
     onError
   });
 
-  const [broadcastOnchain] = useBroadcastOnchainMutation({
-    onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename)
-  });
-
-  const typedDataGenerator = async (generatedData: any) => {
-    const { id, typedData } = generatedData;
-    const signature = await signTypedDataAsync(getSignature(typedData));
-    setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
-
-    if (canBroadcast) {
-      const { data } = await broadcastOnchain({
-        variables: { request: { id, signature } }
-      });
-      if (data?.broadcastOnchain.__typename === 'RelayError') {
-        return write({ args: [typedData.value] });
-      }
-      return;
-    }
-
-    return write({ args: [typedData.value] });
-  };
+  const [broadcastOnchain, { data: broadcastData }] =
+    useBroadcastOnchainMutation({
+      onCompleted: ({ broadcastOnchain }) =>
+        onCompleted(broadcastOnchain.__typename)
+    });
 
   const [createLinkHandleToProfileTypedData] =
     useCreateLinkHandleToProfileTypedDataMutation({
-      onCompleted: async ({ createLinkHandleToProfileTypedData }) =>
-        await typedDataGenerator(createLinkHandleToProfileTypedData),
-      onError,
-      update: updateCache
+      onCompleted: async ({ createLinkHandleToProfileTypedData }) => {
+        const { id, typedData } = createLinkHandleToProfileTypedData;
+        const signature = await signTypedDataAsync(getSignature(typedData));
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+
+        if (canBroadcast) {
+          const { data } = await broadcastOnchain({
+            variables: { request: { id, signature } }
+          });
+          if (data?.broadcastOnchain.__typename === 'RelayError') {
+            return write({ args: [typedData.value] });
+          }
+          return;
+        }
+
+        return write({ args: [typedData.value] });
+      },
+      onError
     });
 
-  const [createUnlinkHandleFromProfileTypedData] =
-    useCreateUnlinkHandleFromProfileTypedDataMutation({
-      onCompleted: async ({ createUnlinkHandleFromProfileTypedData }) =>
-        await typedDataGenerator(createUnlinkHandleFromProfileTypedData),
-      onError,
-      update: updateCache
+  const [linkHandleToProfile, { data: linkHandleToProfileData }] =
+    useLinkHandleToProfileMutation({
+      onCompleted: ({ linkHandleToProfile }) =>
+        onCompleted(linkHandleToProfile.__typename),
+      onError
     });
-
-  const [linkHandleToProfile] = useLinkHandleToProfileMutation({
-    onCompleted: ({ linkHandleToProfile }) =>
-      onCompleted(linkHandleToProfile.__typename),
-    onError,
-    update: updateCache
-  });
-
-  const [unlinkHandleFromProfile] = useUnlinkHandleFromProfileMutation({
-    onCompleted: ({ unlinkHandleFromProfile }) =>
-      onCompleted(unlinkHandleFromProfile.__typename),
-    onError,
-    update: updateCache
-  });
 
   const linkHandleToProfileViaLensManager = async (
     request: LinkHandleToProfileRequest
@@ -160,22 +132,7 @@ const LinkHandle: FC = () => {
     }
   };
 
-  const unlinkHandleFromProfileViaLensManager = async (
-    request: UnlinkHandleFromProfileRequest
-  ) => {
-    const { data } = await unlinkHandleFromProfile({ variables: { request } });
-
-    if (
-      data?.unlinkHandleFromProfile.__typename ===
-      'LensProfileManagerRelayError'
-    ) {
-      return await createUnlinkHandleFromProfileTypedData({
-        variables: { request }
-      });
-    }
-  };
-
-  const linkOrUnlink = async (handle: string, link: boolean) => {
+  const linkOrUnlink = async (handle: string) => {
     if (!currentProfile) {
       return;
     }
@@ -190,21 +147,6 @@ const LinkHandle: FC = () => {
         | LinkHandleToProfileRequest
         | UnlinkHandleFromProfileRequest = { handle };
 
-      // Unlink
-      if (link) {
-        if (canUseLensManager) {
-          return await unlinkHandleFromProfileViaLensManager(request);
-        }
-
-        return await createUnlinkHandleFromProfileTypedData({
-          variables: {
-            options: { overrideSigNonce: lensHubOnchainSigNonce },
-            request
-          }
-        });
-      }
-
-      // Link
       if (canUseLensManager) {
         return await linkHandleToProfileViaLensManager(request);
       }
@@ -224,7 +166,27 @@ const LinkHandle: FC = () => {
     return <Loader />;
   }
 
-  const ownedHandles = data?.ownedHandles.items;
+  const ownedHandles = data?.ownedHandles.items.filter(
+    (handle) => !handle.linkedTo
+  );
+
+  if (!ownedHandles?.length) {
+    return (
+      <EmptyState
+        message="No handles found to link!"
+        icon={<AtSymbolIcon className="text-brand-500 h-8 w-8" />}
+        hideCard
+      />
+    );
+  }
+
+  const lensManegaerTxId =
+    linkHandleToProfileData?.linkHandleToProfile.__typename ===
+      'RelaySuccess' && linkHandleToProfileData.linkHandleToProfile.txId;
+  const broadcastTxId =
+    broadcastData?.broadcastOnchain.__typename === 'RelaySuccess' &&
+    broadcastData.broadcastOnchain.txId;
+  const writeHash = writeData?.hash;
 
   return (
     <div className="space-y-6">
@@ -234,24 +196,32 @@ const LinkHandle: FC = () => {
           className="flex items-center justify-between"
         >
           <Slug slug={handle.fullHandle} />
-          <Button
-            icon={
-              linkingOrUnlinkingHandle === handle.fullHandle ? (
-                <Spinner size="xs" />
-              ) : handle.linkedTo ? (
-                <MinusCircleIcon className="h-4 w-4" />
-              ) : (
-                <PlusCircleIcon className="h-4 w-4" />
-              )
-            }
-            onClick={() =>
-              linkOrUnlink(handle.fullHandle, Boolean(handle.linkedTo))
-            }
-            disabled={linkingOrUnlinkingHandle === handle.fullHandle}
-            outline
-          >
-            {handle.linkedTo ? 'Unlink' : 'Link'}
-          </Button>
+          {lensManegaerTxId || broadcastTxId || writeHash ? (
+            <div className="mt-2">
+              <IndexStatus
+                txHash={writeHash}
+                txId={lensManegaerTxId || broadcastTxId}
+                reload
+              />
+            </div>
+          ) : (
+            <Button
+              icon={
+                linkingOrUnlinkingHandle === handle.fullHandle ? (
+                  <Spinner size="xs" />
+                ) : handle.linkedTo ? (
+                  <MinusCircleIcon className="h-4 w-4" />
+                ) : (
+                  <PlusCircleIcon className="h-4 w-4" />
+                )
+              }
+              onClick={() => linkOrUnlink(handle.fullHandle)}
+              disabled={linkingOrUnlinkingHandle === handle.fullHandle}
+              outline
+            >
+              Link
+            </Button>
+          )}
         </div>
       ))}
     </div>
