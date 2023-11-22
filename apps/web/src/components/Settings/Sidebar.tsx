@@ -15,7 +15,9 @@ import {
   SparklesIcon,
   UserIcon
 } from '@heroicons/react/24/outline';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import type { Profile } from '@hey/lens';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import type { FC } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useAccount } from 'wagmi';
@@ -48,7 +50,8 @@ const SettingsSidebar: FC = () => {
           {
             title: 'Handles',
             icon: <AtSymbolIcon className="h-4 w-4" />,
-            url: '/settings/handles'
+            url: '/settings/handles',
+            enabled: isFeatureEnabled(FeatureFlag.HandleSettings)
           },
           {
             title: 'Preferences',

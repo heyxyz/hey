@@ -40,7 +40,7 @@ CREATE TABLE "MembershipNft" (
 
 -- CreateTable
 CREATE TABLE "Group" (
-    "id" TEXT NOT NULL,
+    "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "slug" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "description" TEXT NOT NULL,
@@ -51,9 +51,7 @@ CREATE TABLE "Group" (
     "discord" TEXT,
     "instagram" TEXT,
     "featured" BOOLEAN NOT NULL DEFAULT false,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
-    CONSTRAINT "Group_pkey" PRIMARY KEY ("id")
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- CreateTable
@@ -68,7 +66,7 @@ CREATE TABLE "Pro" (
 
 -- CreateTable
 CREATE TABLE "Feature" (
-    "id" TEXT NOT NULL,
+    "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "key" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "description" TEXT NOT NULL,
@@ -82,7 +80,7 @@ CREATE TABLE "Feature" (
 -- CreateTable
 CREATE TABLE "ProfileFeature" (
     "profileId" TEXT NOT NULL,
-    "featureId" TEXT NOT NULL,
+    "featureId" UUID NOT NULL,
     "enabled" BOOLEAN NOT NULL DEFAULT true,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 

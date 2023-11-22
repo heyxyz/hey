@@ -1,10 +1,13 @@
 import MetaTags from '@components/Common/MetaTags';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME } from '@hey/data/constants';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
+import Custom404 from 'src/pages/404';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
@@ -20,6 +23,10 @@ const HandlesSettings: NextPage = () => {
 
   if (!currentProfile) {
     return <NotLoggedIn />;
+  }
+
+  if (!isFeatureEnabled(FeatureFlag.HandleSettings)) {
+    return <Custom404 />;
   }
 
   return (
