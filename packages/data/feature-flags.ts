@@ -8,5 +8,6 @@ export enum FeatureFlag {
   FeatureFlipper = 'feature-flipper',
   // Flags
   LiveStream = 'live-stream',
-  Pro = 'pro'
+  Pro = 'pro',
+  HandleSettings = 'handle-settings'
 }

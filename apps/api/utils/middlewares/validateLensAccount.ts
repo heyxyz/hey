@@ -22,10 +22,10 @@ const validateLensAccount = async (request: NextApiRequest) => {
       isMainnet ? LensEndpoint.Mainnet : LensEndpoint.Testnet,
       {
         query: `
-        query Verify {
-          verify(request: { accessToken: "${accessToken}" })
-        }
-      `
+          query Verify {
+            verify(request: { accessToken: "${accessToken}" })
+          }
+        `
       },
       {
         headers: {
