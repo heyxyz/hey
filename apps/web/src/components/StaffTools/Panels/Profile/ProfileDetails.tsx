@@ -84,21 +84,18 @@ const ProfileDetails: FC<ProfileDetailsProps> = ({ profile }) => {
       <div className="mt-3 space-y-2 font-bold">
         <MetaDetails
           icon={<EyeIcon className="ld-text-gray-500 h-4 w-4" />}
-          value={humanize(impressionDetails.totalImpressions)}
           title="Impressions"
         >
           {humanize(impressionDetails.totalImpressions)}
         </MetaDetails>
         <MetaDetails
           icon={<CursorArrowRaysIcon className="ld-text-gray-500 h-4 w-4" />}
-          value={humanize(leafwatchDetails.events)}
           title="Total events"
         >
           {humanize(leafwatchDetails.events)}
         </MetaDetails>
         <MetaDetails
           icon={<MapPinIcon className="ld-text-gray-500 h-4 w-4" />}
-          value={leafwatchDetails.city}
           title="Location"
         >
           {leafwatchDetails.city}, {leafwatchDetails.region},{' '}
@@ -106,14 +103,12 @@ const ProfileDetails: FC<ProfileDetailsProps> = ({ profile }) => {
         </MetaDetails>
         <MetaDetails
           icon={<ComputerDesktopIcon className="ld-text-gray-500 h-4 w-4" />}
-          value={leafwatchDetails.os}
           title="OS"
         >
           {leafwatchDetails.os}
         </MetaDetails>
         <MetaDetails
           icon={<GlobeAltIcon className="ld-text-gray-500 h-4 w-4" />}
-          value={leafwatchDetails.browser}
           title="Browser"
         >
           {leafwatchDetails.browser} {leafwatchDetails.version}
