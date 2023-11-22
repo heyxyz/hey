@@ -26,7 +26,7 @@ const Explore: NextPage = () => {
   const [focus, setFocus] = useState<PublicationMetadataMainFocusType>();
   const searchParams = useSearchParams();
   const [tabIndex, setTabIndex] = useState(
-    Number(searchParams.get('tab')) || 0
+    Number(searchParams?.get('tab')) || 0
   );
 
   useEffectOnce(() => {

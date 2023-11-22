@@ -15,7 +15,7 @@ import Settings from './Settings';
 
 const Notification: FC = () => {
   const searchParams = useSearchParams();
-  const type = searchParams.get('type');
+  const type = searchParams?.get('type');
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
   useEffectOnce(() => {

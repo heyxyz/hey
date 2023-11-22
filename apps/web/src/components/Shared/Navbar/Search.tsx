@@ -47,7 +47,7 @@ const Search: FC<SearchProps> = ({
     evt.preventDefault();
     if (pathname === '/search') {
       push(
-        `/search?q=${encodeURIComponent(searchText)}&type=${query.get('type')}`
+        `/search?q=${encodeURIComponent(searchText)}&type=${query?.get('type')}`
       );
     } else {
       push(`/search?q=${encodeURIComponent(searchText)}&type=profiles`);

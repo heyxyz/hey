@@ -75,11 +75,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     // Extract UTM parameters
     const parsedUrl = new URL(url);
-    const utmSource = parsedUrl.searchParams.get('utm_source') || null;
-    const utmMedium = parsedUrl.searchParams.get('utm_medium') || null;
-    const utmCampaign = parsedUrl.searchParams.get('utm_campaign') || null;
-    const utmTerm = parsedUrl.searchParams.get('utm_term') || null;
-    const utmContent = parsedUrl.searchParams.get('utm_content') || null;
+    const utmSource = parsedUrl.searchParams?.get('utm_source') || null;
+    const utmMedium = parsedUrl.searchParams?.get('utm_medium') || null;
+    const utmCampaign = parsedUrl.searchParams?.get('utm_campaign') || null;
+    const utmTerm = parsedUrl.searchParams?.get('utm_term') || null;
+    const utmContent = parsedUrl.searchParams?.get('utm_content') || null;
 
     const client = createClickhouseClient();
     const result = await client.insert({
