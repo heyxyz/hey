@@ -2,6 +2,7 @@ import Sidebar from '@components/Shared/Sidebar';
 import UserProfile from '@components/Shared/UserProfile';
 import {
   AdjustmentsVerticalIcon,
+  AtSymbolIcon,
   BookmarkIcon,
   CircleStackIcon,
   CpuChipIcon,
@@ -43,6 +44,11 @@ const SettingsSidebar: FC = () => {
             title: 'Account',
             icon: <CpuChipIcon className="h-4 w-4" />,
             url: '/settings/account'
+          },
+          {
+            title: 'Handles',
+            icon: <AtSymbolIcon className="h-4 w-4" />,
+            url: '/settings/handles'
           },
           {
             title: 'Preferences',
