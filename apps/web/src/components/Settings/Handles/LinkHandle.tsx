@@ -8,10 +8,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { TokenHandleRegistry } from '@hey/abis';
 import { TOKEN_HANDLE_REGISTRY } from '@hey/data/constants';
-import type {
-  LinkHandleToProfileRequest,
-  UnlinkHandleFromProfileRequest
-} from '@hey/lens';
+import type { LinkHandleToProfileRequest } from '@hey/lens';
 import {
   useBroadcastOnchainMutation,
   useCreateLinkHandleToProfileTypedDataMutation,
@@ -38,9 +35,7 @@ const LinkHandle: FC = () => {
     (state) => state.setLensHubOnchainSigNonce
   );
 
-  const [linkingOrUnlinkingHandle, setLinkingOrUnlinkingHandle] = useState<
-    string | null
-  >(null);
+  const [linkingHandle, setLinkingHandle] = useState<string | null>(null);
 
   const handleWrongNetwork = useHandleWrongNetwork();
   const { canUseLensManager, canBroadcast } =
@@ -56,7 +51,7 @@ const LinkHandle: FC = () => {
       return;
     }
 
-    setLinkingOrUnlinkingHandle(null);
+    setLinkingHandle(null);
     toast.success('Handle linked successfully!');
     // setHasBlocked(!hasBlocked);
     // setShowBlockOrUnblockAlert(false, null);
@@ -66,7 +61,7 @@ const LinkHandle: FC = () => {
   };
 
   const onError = (error: any) => {
-    setLinkingOrUnlinkingHandle(null);
+    setLinkingHandle(null);
     errorToast(error);
   };
 
@@ -132,7 +127,7 @@ const LinkHandle: FC = () => {
     }
   };
 
-  const linkOrUnlink = async (handle: string) => {
+  const link = async (handle: string) => {
     if (!currentProfile) {
       return;
     }
@@ -142,10 +137,8 @@ const LinkHandle: FC = () => {
     }
 
     try {
-      setLinkingOrUnlinkingHandle(handle);
-      const request:
-        | LinkHandleToProfileRequest
-        | UnlinkHandleFromProfileRequest = { handle };
+      setLinkingHandle(handle);
+      const request: LinkHandleToProfileRequest = { handle };
 
       if (canUseLensManager) {
         return await linkHandleToProfileViaLensManager(request);
@@ -207,7 +200,7 @@ const LinkHandle: FC = () => {
           ) : (
             <Button
               icon={
-                linkingOrUnlinkingHandle === handle.fullHandle ? (
+                linkingHandle === handle.fullHandle ? (
                   <Spinner size="xs" />
                 ) : handle.linkedTo ? (
                   <MinusCircleIcon className="h-4 w-4" />
@@ -215,8 +208,8 @@ const LinkHandle: FC = () => {
                   <PlusCircleIcon className="h-4 w-4" />
                 )
               }
-              onClick={() => linkOrUnlink(handle.fullHandle)}
-              disabled={linkingOrUnlinkingHandle === handle.fullHandle}
+              onClick={() => link(handle.fullHandle)}
+              disabled={linkingHandle === handle.fullHandle}
               outline
             >
               Link

@@ -5,7 +5,7 @@ import { toast } from 'react-hot-toast';
 interface MetaDetailsProps {
   children: ReactNode;
   title?: string;
-  value: string;
+  value?: string;
   icon: ReactNode;
   noFlex?: boolean;
 }
@@ -19,10 +19,15 @@ const MetaDetails: FC<MetaDetailsProps> = ({
 }) => (
   <div
     className={cn(
-      noFlex ? '' : 'flex items-center gap-1',
-      'linkify cursor-pointer text-sm font-bold'
+      !noFlex && 'flex items-center gap-1',
+      value && 'cursor-pointer',
+      'linkify text-sm font-bold'
     )}
     onClick={async () => {
+      if (!value) {
+        return;
+      }
+
       await navigator.clipboard.writeText(value);
       toast.success('Copied to clipboard!');
     }}

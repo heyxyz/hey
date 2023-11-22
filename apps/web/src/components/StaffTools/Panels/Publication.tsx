@@ -56,7 +56,6 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
         {targetPublication?.openActionModules?.length ? (
           <MetaDetails
             icon={<RectangleStackIcon className="ld-text-gray-500 h-4 w-4" />}
-            value={JSON.stringify(targetPublication?.openActionModules)}
             title="Open action modules"
             noFlex
           >
@@ -68,7 +67,6 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
         {(targetPublication?.metadata.tags ?? []).length > 0 ? (
           <MetaDetails
             icon={<TagIcon className="ld-text-gray-500 h-4 w-4" />}
-            value={JSON.stringify(targetPublication?.metadata?.tags)}
             title="Tags"
             noFlex
           >
