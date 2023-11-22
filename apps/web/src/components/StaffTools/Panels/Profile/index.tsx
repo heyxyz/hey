@@ -67,7 +67,6 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
                 alt="Logo"
               />
             }
-            value={profile.id}
           >
             Have used {APP_NAME}
           </MetaDetails>
@@ -97,21 +96,18 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         ) : null}
         <MetaDetails
           icon={<HandRaisedIcon className="ld-text-gray-500 h-4 w-4" />}
-          value={profile.signless ? 'Yes' : 'No'}
           title="Has Lens Manager"
         >
           {profile.signless ? 'Yes' : 'No'}
         </MetaDetails>
         <MetaDetails
           icon={<HandRaisedIcon className="ld-text-gray-500 h-4 w-4" />}
-          value={profile.sponsor ? 'Yes' : 'No'}
           title="Gas sponsored"
         >
           {profile.sponsor ? 'Yes' : 'No'}
         </MetaDetails>
         <MetaDetails
           icon={<IdentificationIcon className="ld-text-gray-500 h-4 w-4" />}
-          value={profile.id}
           title="Follow module"
         >
           {getFollowModule(profile?.followModule?.__typename).description}

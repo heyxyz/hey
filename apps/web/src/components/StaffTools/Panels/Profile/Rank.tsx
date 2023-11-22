@@ -86,7 +86,6 @@ const Rank: FC<RankProps> = ({ profile }) => {
       <div className="mt-3 space-y-2">
         <MetaDetails
           icon={<UserPlusIcon className="ld-text-gray-500 h-4 w-4" />}
-          value={followship?.rank}
           title="Followship Rank"
         >
           {followshipLoading ? (
@@ -99,7 +98,6 @@ const Rank: FC<RankProps> = ({ profile }) => {
         </MetaDetails>
         <MetaDetails
           icon={<HandRaisedIcon className="ld-text-gray-500 h-4 w-4" />}
-          value={engagement?.rank}
           title="Engagement Rank"
         >
           {engagementLoading ? (
@@ -112,7 +110,6 @@ const Rank: FC<RankProps> = ({ profile }) => {
         </MetaDetails>
         <MetaDetails
           icon={<UserCircleIcon className="ld-text-gray-500 h-4 w-4" />}
-          value={influencer?.rank}
           title="Influencer Rank"
         >
           {influencerLoading ? (
@@ -125,7 +122,6 @@ const Rank: FC<RankProps> = ({ profile }) => {
         </MetaDetails>
         <MetaDetails
           icon={<CurrencyDollarIcon className="ld-text-gray-500 h-4 w-4" />}
-          value={creator?.rank}
           title="Creator Rank"
         >
           {creatorLoading ? (
@@ -138,7 +134,6 @@ const Rank: FC<RankProps> = ({ profile }) => {
         </MetaDetails>
         <MetaDetails
           icon={<CheckCircleIcon className="ld-text-gray-500 h-4 w-4" />}
-          value={gitcoinScore?.evidence?.rawScore}
           title="Gitcoin Score"
         >
           {gitcoinScoreLoading ? (
