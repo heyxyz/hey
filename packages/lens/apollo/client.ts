@@ -7,6 +7,7 @@ import retryLink from './retryLink';
 
 const apolloClient = (authLink?: ApolloLink) =>
   new ApolloClient({
+    connectToDevTools: true,
     link: authLink
       ? from([authLink, retryLink, httpLink])
       : from([retryLink, httpLink]),

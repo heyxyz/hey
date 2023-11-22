@@ -1,0 +1,29 @@
+mutation CreateLinkHandleToProfileTypedData(
+  $options: TypedDataOptions
+  $request: LinkHandleToProfileRequest!
+) {
+  createLinkHandleToProfileTypedData(options: $options, request: $request) {
+    id
+    expiresAt
+    typedData {
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      types {
+        Link {
+          name
+          type
+        }
+      }
+      value {
+        nonce
+        deadline
+        handleId
+        profileId
+      }
+    }
+  }
+}

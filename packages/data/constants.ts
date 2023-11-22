@@ -10,6 +10,7 @@ export const LENS_NETWORK = process.env.NEXT_PUBLIC_LENS_NETWORK ?? 'mainnet';
 
 export const API_URL = getEnvConfig().apiEndpoint;
 export const LENSHUB_PROXY = getEnvConfig().lensHubProxyAddress;
+export const TOKEN_HANDLE_REGISTRY = getEnvConfig().tokenHandleRegistry;
 export const PUBLICACT_PROXY = getEnvConfig().publicActProxyAddress;
 export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 
