@@ -25,7 +25,7 @@
     "@graphql-codegen/typescript-react-apollo": "^4.1.0",
     "@hey/config": "workspace:*",
     "@parcel/watcher": "^2.3.0",
-    "@types/node": "^20.9.3",
+    "@types/node": "^20.9.4",
     "typescript": "^5.3.2"
   }
 }
