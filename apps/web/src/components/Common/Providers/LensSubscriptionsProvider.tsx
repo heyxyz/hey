@@ -16,7 +16,7 @@ import { isSupported, share } from 'shared-zustand';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { signOut } from 'src/store/persisted/useAuthStore';
 import { useNotificationStore } from 'src/store/persisted/useNotificationStore';
-import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
+import { useEffectOnce, useInterval, useUpdateEffect } from 'usehooks-ts';
 import { isAddress } from 'viem';
 import { useAccount } from 'wagmi';
 
@@ -35,39 +35,43 @@ const LensSubscriptionsProvider: FC = () => {
 
   const { sendJsonMessage, lastMessage, readyState } = useWebSocket(
     API_URL.replace('http', 'ws'),
-    { protocols: ['graphql-ws'] }
+    { protocols: ['graphql-transport-ws'] }
   );
 
   useEffectOnce(() => {
     sendJsonMessage({ type: 'connection_init' });
   });
 
+  useInterval(() => {
+    sendJsonMessage({ type: 'ping' });
+  }, 1000);
+
   useUpdateEffect(() => {
     if (readyState === 1 && sessionProfileId && address) {
       if (!isAddress(sessionProfileId)) {
         sendJsonMessage({
           id: '1',
-          type: 'start',
+          type: 'subscribe',
           payload: {
             variables: { for: sessionProfileId },
-            query: NewNotificationSubscriptionDocument
+            query: NewNotificationSubscriptionDocument.loc?.source.body
           }
         });
       }
       sendJsonMessage({
         id: '2',
-        type: 'start',
+        type: 'subscribe',
         payload: {
           variables: { address },
-          query: UserSigNoncesSubscriptionDocument
+          query: UserSigNoncesSubscriptionDocument.loc?.source.body
         }
       });
       sendJsonMessage({
         id: '3',
-        type: 'start',
+        type: 'subscribe',
         payload: {
           variables: { authorizationId },
-          query: AuthorizationRecordRevokedSubscriptionDocument
+          query: AuthorizationRecordRevokedSubscriptionDocument.loc?.source.body
         }
       });
     }
