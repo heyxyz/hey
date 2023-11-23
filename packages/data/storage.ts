@@ -11,5 +11,6 @@ export const Localstorage = {
 export const IndexDB = {
   ProfileStore: 'profile.store',
   AlgorithmStore: 'algorithm.store',
-  FeatureFlagsStore: 'featureflags.store'
+  FeatureFlagsStore: 'featureflags.store',
+  VerifiedMembersStore: 'verifiedmembers.store'
 };
