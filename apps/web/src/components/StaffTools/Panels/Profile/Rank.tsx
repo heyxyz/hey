@@ -52,27 +52,27 @@ const Rank: FC<RankProps> = ({ profile }) => {
     }
   };
 
-  const { data: followship } = useQuery({
+  const { data: followship, isLoading: followshipLoading } = useQuery({
     queryKey: ['getRank', profile.id, 'followship'],
     queryFn: async () => getRank('followship')
   });
 
-  const { data: engagement } = useQuery({
+  const { data: engagement, isLoading: engagementLoading } = useQuery({
     queryKey: ['getRank', profile.id, 'engagement'],
     queryFn: async () => getRank('engagement')
   });
 
-  const { data: influencer } = useQuery({
+  const { data: influencer, isLoading: influencerLoading } = useQuery({
     queryKey: ['getRank', profile.id, 'influencer'],
     queryFn: async () => getRank('influencer')
   });
 
-  const { data: creator } = useQuery({
+  const { data: creator, isLoading: creatorLoading } = useQuery({
     queryKey: ['getRank', profile.id, 'creator'],
     queryFn: async () => getRank('creator')
   });
 
-  const { data: gitcoinScore } = useQuery({
+  const { data: gitcoinScore, isLoading: gitcoinScoreLoading } = useQuery({
     queryKey: ['getGitcoinScore', profile.id],
     queryFn: getGitcoinScore
   });
@@ -86,50 +86,59 @@ const Rank: FC<RankProps> = ({ profile }) => {
       <div className="mt-3 space-y-2">
         <MetaDetails
           icon={<UserPlusIcon className="ld-text-gray-500 h-4 w-4" />}
-          value={followship?.rank}
           title="Followship Rank"
         >
-          {followship ? (
+          {followshipLoading ? (
+            <div className="shimmer h-4 w-5 rounded" />
+          ) : followship ? (
             followship.rank
           ) : (
-            <div className="shimmer h-4 w-5 rounded" />
+            'Not ranked'
           )}
         </MetaDetails>
         <MetaDetails
           icon={<HandRaisedIcon className="ld-text-gray-500 h-4 w-4" />}
-          value={engagement?.rank}
           title="Engagement Rank"
         >
-          {engagement ? (
+          {engagementLoading ? (
+            <div className="shimmer h-4 w-5 rounded" />
+          ) : engagement ? (
             engagement.rank
           ) : (
-            <div className="shimmer h-4 w-5 rounded" />
+            'Not ranked'
           )}
         </MetaDetails>
         <MetaDetails
           icon={<UserCircleIcon className="ld-text-gray-500 h-4 w-4" />}
-          value={influencer?.rank}
           title="Influencer Rank"
         >
-          {influencer ? (
+          {influencerLoading ? (
+            <div className="shimmer h-4 w-5 rounded" />
+          ) : influencer ? (
             influencer.rank
           ) : (
-            <div className="shimmer h-4 w-5 rounded" />
+            'Not ranked'
           )}
         </MetaDetails>
         <MetaDetails
           icon={<CurrencyDollarIcon className="ld-text-gray-500 h-4 w-4" />}
-          value={creator?.rank}
           title="Creator Rank"
         >
-          {creator ? creator.rank : <div className="shimmer h-4 w-5 rounded" />}
+          {creatorLoading ? (
+            <div className="shimmer h-4 w-5 rounded" />
+          ) : creator ? (
+            creator.rank
+          ) : (
+            'Not ranked'
+          )}
         </MetaDetails>
         <MetaDetails
           icon={<CheckCircleIcon className="ld-text-gray-500 h-4 w-4" />}
-          value={gitcoinScore?.evidence?.rawScore}
           title="Gitcoin Score"
         >
-          {gitcoinScore ? (
+          {gitcoinScoreLoading ? (
+            <div className="shimmer h-4 w-5 rounded" />
+          ) : gitcoinScore ? (
             <span>
               {parseInt(gitcoinScore?.evidence?.rawScore) > 0 ? (
                 <>
@@ -144,7 +153,7 @@ const Rank: FC<RankProps> = ({ profile }) => {
               )}
             </span>
           ) : (
-            <div className="shimmer h-4 w-5 rounded" />
+            'Not scored'
           )}
         </MetaDetails>
         {gitcoinScore?.stamp_scores &&
