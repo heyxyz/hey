@@ -283,9 +283,6 @@ importers:
       react-markdown:
         specifier: ^9.0.0
         version: 9.0.1(@types/react@18.2.38)(react@18.2.0)
-      react-use-websocket:
-        specifier: ^4.5.0
-        version: 4.5.0(react-dom@18.2.0)(react@18.2.0)
       react-virtuoso:
         specifier: ^4.6.2
         version: 4.6.2(react-dom@18.2.0)(react@18.2.0)
@@ -449,13 +446,16 @@ importers:
     dependencies:
       '@apollo/client':
         specifier: ^3.8.7
-        version: 3.8.7(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
+        version: 3.8.7(graphql-ws@5.14.2)(graphql@16.8.1)
       '@hey/data':
         specifier: workspace:*
         version: link:../data
       axios:
         specifier: ^1.6.2
         version: 1.6.2(debug@4.3.4)
+      graphql-ws:
+        specifier: ^5.14.2
+        version: 5.14.2(graphql@16.8.1)
     devDependencies:
       '@graphql-codegen/cli':
         specifier: ^5.0.0
@@ -638,6 +638,41 @@ packages:
       '@jridgewell/gen-mapping': 0.3.3
       '@jridgewell/trace-mapping': 0.3.20
     dev: true
+
+  /@apollo/client@3.8.7(graphql-ws@5.14.2)(graphql@16.8.1):
+    resolution: {integrity: sha512-DnQtFkQrCyxHTSa9gR84YRLmU/al6HeXcLZazVe+VxKBmx/Hj4rV8xWtzfWYX5ijartsqDR7SJgV037MATEecA==}
+    peerDependencies:
+      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
+      graphql-ws: ^5.5.5
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+      subscriptions-transport-ws: ^0.9.0 || ^0.11.0
+    peerDependenciesMeta:
+      graphql-ws:
+        optional: true
+      react:
+        optional: true
+      react-dom:
+        optional: true
+      subscriptions-transport-ws:
+        optional: true
+    dependencies:
+      '@graphql-typed-document-node/core': 3.2.0(graphql@16.8.1)
+      '@wry/context': 0.7.4
+      '@wry/equality': 0.5.7
+      '@wry/trie': 0.4.3
+      graphql: 16.8.1
+      graphql-tag: 2.12.6(graphql@16.8.1)
+      graphql-ws: 5.14.2(graphql@16.8.1)
+      hoist-non-react-statics: 3.3.2
+      optimism: 0.17.5
+      prop-types: 15.8.1
+      response-iterator: 0.2.6
+      symbol-observable: 4.0.0
+      ts-invariant: 0.10.3
+      tslib: 2.6.2
+      zen-observable-ts: 1.2.5
+    dev: false
 
   /@apollo/client@3.8.7(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-DnQtFkQrCyxHTSa9gR84YRLmU/al6HeXcLZazVe+VxKBmx/Hj4rV8xWtzfWYX5ijartsqDR7SJgV037MATEecA==}
@@ -9208,7 +9243,6 @@ packages:
       graphql: '>=0.11 <=16'
     dependencies:
       graphql: 16.8.1
-    dev: true
 
   /graphql@16.8.1:
     resolution: {integrity: sha512-59LZHPdGZVh695Ud9lRzPBVTtlX9ZCV150Er2W43ro37wVof0ctenSaskPPjN7lVTIN8mSZt8PHUNKZuNQUuxw==}
@@ -11798,16 +11832,6 @@ packages:
       invariant: 2.2.4
       react: 18.2.0
       tslib: 2.6.2
-    dev: false
-
-  /react-use-websocket@4.5.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-oxYVLWM3Lv0InCfjW7hG/Hk0hkE0P1SiLd5/I3d5x0W4riAnDUkD4VEu7qNVAqxNjBF3nU7k0jLMOetLXpwfsA==}
-    peerDependencies:
-      react: '>= 18.0.0'
-      react-dom: '>= 18.0.0'
-    dependencies:
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /react-virtuoso@4.6.2(react-dom@18.2.0)(react@18.2.0):
