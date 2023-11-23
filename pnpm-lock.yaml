@@ -75,8 +75,8 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0
       viem:
-        specifier: ^1.19.6
-        version: 1.19.6(typescript@5.3.2)(zod@3.22.4)
+        specifier: ^1.19.7
+        version: 1.19.7(typescript@5.3.2)(zod@3.22.4)
       zod:
         specifier: ^3.22.4
         version: 3.22.4
@@ -209,8 +209,8 @@ importers:
         specifier: ^0.12.4
         version: 0.12.4(lexical@0.12.4)
       '@livepeer/react':
-        specifier: ^3.0.7
-        version: 3.0.7(@types/react-dom@18.2.17)(@types/react@18.2.38)(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^3.0.8
+        version: 3.0.8(@types/react-dom@18.2.17)(@types/react@18.2.38)(react-dom@18.2.0)(react@18.2.0)
       '@tanstack/react-query':
         specifier: ^5.8.4
         version: 5.8.4(react-dom@18.2.0)(react@18.2.0)
@@ -219,7 +219,7 @@ importers:
         version: 4.2.6(react-dom@18.2.0)(react@18.2.0)
       '@wagmi/connectors':
         specifier: ^3.1.5
-        version: 3.1.5(@types/react@18.2.38)(react@18.2.0)(typescript@5.3.2)(viem@1.19.6)(zod@3.22.4)
+        version: 3.1.5(@types/react@18.2.38)(react@18.2.0)(typescript@5.3.2)(viem@1.19.7)(zod@3.22.4)
       axios:
         specifier: ^1.6.2
         version: 1.6.2(debug@4.3.4)
@@ -311,11 +311,11 @@ importers:
         specifier: ^9.0.1
         version: 9.0.1
       viem:
-        specifier: ^1.19.6
-        version: 1.19.6(typescript@5.3.2)(zod@3.22.4)
+        specifier: ^1.19.7
+        version: 1.19.7(typescript@5.3.2)(zod@3.22.4)
       wagmi:
         specifier: ^1.4.7
-        version: 1.4.7(@types/react@18.2.38)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.2)(viem@1.19.6)(zod@3.22.4)
+        version: 1.4.7(@types/react@18.2.38)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.2)(viem@1.19.7)(zod@3.22.4)
       zod:
         specifier: ^3.22.4
         version: 3.22.4
@@ -503,8 +503,8 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0
       viem:
-        specifier: ^1.19.6
-        version: 1.19.6(typescript@5.3.2)(zod@3.22.4)
+        specifier: ^1.19.7
+        version: 1.19.7(typescript@5.3.2)(zod@3.22.4)
     devDependencies:
       '@hey/config':
         specifier: workspace:*
@@ -3596,7 +3596,7 @@ packages:
     peerDependencies:
       react: '>=17.0.0'
     dependencies:
-      '@livepeer/core': 2.0.7(@types/react@18.2.38)(react@18.2.0)
+      '@livepeer/core': 2.0.8(@types/react@18.2.38)(react@18.2.0)
       '@tanstack/query-async-storage-persister': 4.29.23
       '@tanstack/query-core': 4.29.23
       '@tanstack/react-query': 4.29.23(react-dom@18.2.0)(react@18.2.0)
@@ -3612,15 +3612,15 @@ packages:
       - react-native
     dev: false
 
-  /@livepeer/core-web@3.0.7(@types/react@18.2.38)(react@18.2.0):
-    resolution: {integrity: sha512-/wdYyMrlijfJn5AgChdCAiFdmZ9gqpObSA3dV0tBRlc2Edw5AkNAHwsv0McawuSY38yx2NPAaL+OFTmxBmK4aQ==}
+  /@livepeer/core-web@3.0.8(@types/react@18.2.38)(react@18.2.0):
+    resolution: {integrity: sha512-8Rb2rQWXKkzd3ZJ6fDqlzjaJT3jfDMurqOPiBs4DnThQ284kzuZ2YgmbSGAIPTbZ8t/ZbwiPZITq+dUz8/p5dQ==}
     peerDependencies:
       react: '>=17.0.0'
     peerDependenciesMeta:
       react:
         optional: true
     dependencies:
-      '@livepeer/core': 2.0.7(@types/react@18.2.38)(react@18.2.0)
+      '@livepeer/core': 2.0.8(@types/react@18.2.38)(react@18.2.0)
       '@stitches/core': 1.2.8
       core-js: 3.33.3
       cross-fetch: 4.0.0
@@ -3635,8 +3635,8 @@ packages:
       - immer
     dev: false
 
-  /@livepeer/core@2.0.7(@types/react@18.2.38)(react@18.2.0):
-    resolution: {integrity: sha512-MwmFo6nANHRMTbhxOx6zr06hQc3D0OzTqjbxOUDWzzt3k7eoEpgdwOoCNnPVjZhd0IjKX3Chf2PC5sqkQg9ACA==}
+  /@livepeer/core@2.0.8(@types/react@18.2.38)(react@18.2.0):
+    resolution: {integrity: sha512-MXwzDp4PPbwdZUy+cbp1mePAMC3gWxKkNiyoQUAsJ0XWL2HiyHaOnMVe7rO/2Q21Yuhx+JheBnXq1MJlEEOgQw==}
     peerDependencies:
       react: '>=17.0.0'
     peerDependenciesMeta:
@@ -3655,8 +3655,8 @@ packages:
       - immer
     dev: false
 
-  /@livepeer/react@3.0.7(@types/react-dom@18.2.17)(@types/react@18.2.38)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-18cIh3CMZpeB3gTwL3XeLJWScLUONMRNlVHACj9tOlj+dtFyADIz6MmvANm2guxzD9aPYlCrJLzQ6ESkli33Xw==}
+  /@livepeer/react@3.0.8(@types/react-dom@18.2.17)(@types/react@18.2.38)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-L8FW9GXvCKIRSKAV1fDTe1J7kUM+e5da+K7jOd+FLeGvynzClkxEeXOMI2BQ/5x4JGTnoXHJiNgnZ06xfvSM3Q==}
     peerDependencies:
       react: '>=17.0.0'
       react-dom: '>=17.0.0'
@@ -3665,7 +3665,7 @@ packages:
         optional: true
     dependencies:
       '@livepeer/core-react': 2.0.7(@types/react@18.2.38)(react-dom@18.2.0)(react@18.2.0)
-      '@livepeer/core-web': 3.0.7(@types/react@18.2.38)(react@18.2.0)
+      '@livepeer/core-web': 3.0.8(@types/react@18.2.38)(react@18.2.0)
       '@radix-ui/react-dialog': 1.0.5(@types/react-dom@18.2.17)(@types/react@18.2.38)(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-popover': 1.0.7(@types/react-dom@18.2.17)(@types/react@18.2.38)(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-select': 1.2.2(@types/react-dom@18.2.17)(@types/react@18.2.38)(react-dom@18.2.0)(react@18.2.0)
@@ -4964,7 +4964,7 @@ packages:
     resolution: {integrity: sha512-gYw0ki/EAuV1oSyMxpqandHjnthZjYYy+YWpTAzf8BqfXM3ItcZLpjxfg+3+mXW8HIO+3jw6T9iiqEXsqHaMMw==}
     dependencies:
       '@safe-global/safe-gateway-typescript-sdk': 3.13.2
-      viem: 1.19.6(typescript@5.3.2)(zod@3.22.4)
+      viem: 1.19.7(typescript@5.3.2)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -4976,7 +4976,7 @@ packages:
     resolution: {integrity: sha512-XJbEPuaVc7b9n23MqlF6c+ToYIS3f7P2Sel8f3cSBQ9WORE4xrSuvhMpK9fDSFqJ7by/brc+rmJR/5HViRr0/w==}
     dependencies:
       '@safe-global/safe-gateway-typescript-sdk': 3.13.2
-      viem: 1.19.6(typescript@5.3.2)(zod@3.22.4)
+      viem: 1.19.7(typescript@5.3.2)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -6083,7 +6083,7 @@ packages:
       pretty-format: 29.7.0
     dev: true
 
-  /@wagmi/connectors@3.1.5(@types/react@18.2.38)(react@18.2.0)(typescript@5.3.2)(viem@1.19.6)(zod@3.22.4):
+  /@wagmi/connectors@3.1.5(@types/react@18.2.38)(react@18.2.0)(typescript@5.3.2)(viem@1.19.7)(zod@3.22.4):
     resolution: {integrity: sha512-aE4rWZbivqWa9HqjiLDPtwROH2b1Az+lBVMeZ3o/aFxGNGNEkdrSAMOUG15/UFy3VnN6HqGOtTobOBZ10JhfNQ==}
     peerDependencies:
       typescript: '>=5.0.4'
@@ -6103,7 +6103,7 @@ packages:
       abitype: 0.8.7(typescript@5.3.2)(zod@3.22.4)
       eventemitter3: 4.0.7
       typescript: 5.3.2
-      viem: 1.19.6(typescript@5.3.2)(zod@3.22.4)
+      viem: 1.19.7(typescript@5.3.2)(zod@3.22.4)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -6126,7 +6126,7 @@ packages:
       - zod
     dev: false
 
-  /@wagmi/core@1.4.7(@types/react@18.2.38)(react@18.2.0)(typescript@5.3.2)(viem@1.19.6)(zod@3.22.4):
+  /@wagmi/core@1.4.7(@types/react@18.2.38)(react@18.2.0)(typescript@5.3.2)(viem@1.19.7)(zod@3.22.4):
     resolution: {integrity: sha512-PiOIGni8ArQoPmuDylHX38zMt2nPnTYRIluIqiduKyGCM61X/tf10a0rafUMOOphDPudZu1TacNDhCSeoh/LEA==}
     peerDependencies:
       typescript: '>=5.0.4'
@@ -6135,11 +6135,11 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@wagmi/connectors': 3.1.5(@types/react@18.2.38)(react@18.2.0)(typescript@5.3.2)(viem@1.19.6)(zod@3.22.4)
+      '@wagmi/connectors': 3.1.5(@types/react@18.2.38)(react@18.2.0)(typescript@5.3.2)(viem@1.19.7)(zod@3.22.4)
       abitype: 0.8.7(typescript@5.3.2)(zod@3.22.4)
       eventemitter3: 4.0.7
       typescript: 5.3.2
-      viem: 1.19.6(typescript@5.3.2)(zod@3.22.4)
+      viem: 1.19.7(typescript@5.3.2)(zod@3.22.4)
       zustand: 4.4.6(@types/react@18.2.38)(react@18.2.0)
     transitivePeerDependencies:
       - '@azure/app-configuration'
@@ -9126,6 +9126,7 @@ packages:
 
   /glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
+    requiresBuild: true
     dependencies:
       fs.realpath: 1.0.0
       inflight: 1.0.6
@@ -10099,8 +10100,8 @@ packages:
     resolution: {integrity: sha512-giNrnp45H6P4IHFhkKaHEPTF+bKLBWdEIDL/FGjRZf+to7l7TORIBk/23Zdchzt/VGgKGWu950EOvGh53gkVMQ==}
     dev: false
 
-  /lib0@0.2.87:
-    resolution: {integrity: sha512-TbB63XJixvNToW2IHWAFsCJj9tVnajmwjE14p69i51Rx8byOQd2IP4ourE8v4d7vhyO++nVm1sQk3ePslfbucg==}
+  /lib0@0.2.88:
+    resolution: {integrity: sha512-KyroiEvCeZcZEMx5Ys+b4u4eEBbA1ch7XUaBhYpwa/nPMrzTjUhI4RfcytmQfYoTBPcdyx+FX6WFNIoNuJzJfQ==}
     engines: {node: '>=16'}
     hasBin: true
     dependencies:
@@ -12084,6 +12085,7 @@ packages:
   /rimraf@3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
     hasBin: true
+    requiresBuild: true
     dependencies:
       glob: 7.2.3
 
@@ -13399,8 +13401,8 @@ packages:
       vfile-message: 4.0.2
     dev: false
 
-  /viem@1.19.6(typescript@5.3.2)(zod@3.22.4):
-    resolution: {integrity: sha512-WSBHBMurWIWQk2yisOD8hqSA5S56cZu6onty3hzauVjiHMildtVWujF7YT0xjoU40GpFODvJASRR2RFdzgvUUg==}
+  /viem@1.19.7(typescript@5.3.2)(zod@3.22.4):
+    resolution: {integrity: sha512-NFCqU73CTHML9K7G3K8hnDJ9VjHJbH822Z6U2jUGNr0g5486EHMW0gtwnk6ivFP+ru5UewmUKwEvO0p5m0rvnA==}
     peerDependencies:
       typescript: '>=5.0.4'
     peerDependenciesMeta:
@@ -13549,7 +13551,7 @@ packages:
     resolution: {integrity: sha512-aodjPa2wPQFkra1G8CzJBTHXhgk3EVSwxSWXNPr1fgdFLUb8kvLV1iEb6rFgasIsjP82HWI6dsb5Io26DDnasA==}
     dev: false
 
-  /wagmi@1.4.7(@types/react@18.2.38)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.2)(viem@1.19.6)(zod@3.22.4):
+  /wagmi@1.4.7(@types/react@18.2.38)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.2)(viem@1.19.7)(zod@3.22.4):
     resolution: {integrity: sha512-/k8gA9S6RnwU6Qroxs630jAFvRIx+DSKpCP1owgAEGWc7D2bAJHljwRSCRTGENz48HyJ4V3R7KYV1yImxPvM3A==}
     peerDependencies:
       react: '>=17.0.0'
@@ -13562,12 +13564,12 @@ packages:
       '@tanstack/query-sync-storage-persister': 4.36.1
       '@tanstack/react-query': 4.36.1(react-dom@18.2.0)(react@18.2.0)
       '@tanstack/react-query-persist-client': 4.36.1(@tanstack/react-query@4.36.1)
-      '@wagmi/core': 1.4.7(@types/react@18.2.38)(react@18.2.0)(typescript@5.3.2)(viem@1.19.6)(zod@3.22.4)
+      '@wagmi/core': 1.4.7(@types/react@18.2.38)(react@18.2.0)(typescript@5.3.2)(viem@1.19.7)(zod@3.22.4)
       abitype: 0.8.7(typescript@5.3.2)(zod@3.22.4)
       react: 18.2.0
       typescript: 5.3.2
       use-sync-external-store: 1.2.0(react@18.2.0)
-      viem: 1.19.6(typescript@5.3.2)(zod@3.22.4)
+      viem: 1.19.7(typescript@5.3.2)(zod@3.22.4)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -13858,7 +13860,7 @@ packages:
     resolution: {integrity: sha512-1JcyQek1vaMyrDm7Fqfa+pvHg/DURSbVo4VmeN7wjnTKB/lZrfIPhdCj7d8sboK6zLfRBJXegTjc9JlaDd8/Zw==}
     engines: {node: '>=16.0.0', npm: '>=8.0.0'}
     dependencies:
-      lib0: 0.2.87
+      lib0: 0.2.88
     dev: false
 
   /yocto-queue@0.1.0:
