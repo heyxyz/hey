@@ -1,5 +1,5 @@
 import allowCors from '@utils/allowCors';
-import { SWR_CACHE_AGE_30_DAYS } from '@utils/constants';
+import { SWR_CACHE_AGE_1_SEC_30_DAYS } from '@utils/constants';
 import createRedisClient from '@utils/createRedisClient';
 import prisma from '@utils/prisma';
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -12,7 +12,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
     if (cache) {
       return res
         .status(200)
-        .setHeader('Cache-Control', SWR_CACHE_AGE_30_DAYS)
+        .setHeader('Cache-Control', SWR_CACHE_AGE_1_SEC_30_DAYS)
         .json({ success: true, cached: true, result: JSON.parse(cache) });
     }
 
@@ -25,7 +25,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
 
     return res
       .status(200)
-      .setHeader('Cache-Control', SWR_CACHE_AGE_30_DAYS)
+      .setHeader('Cache-Control', SWR_CACHE_AGE_1_SEC_30_DAYS)
       .json({ success: true, result: data });
   } catch (error) {
     throw error;
