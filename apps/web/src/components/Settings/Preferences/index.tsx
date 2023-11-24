@@ -3,6 +3,7 @@ import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import useProfileStore from 'src/store/persisted/useProfileStore';
@@ -42,7 +43,7 @@ const PreferencesSettings: NextPage = () => {
           <div className="divider my-5" />
           <div className="space-y-6">
             <HighSignalNotificationFilter />
-            <PushNotifications />
+            {isFeatureEnabled('push-notifications') && <PushNotifications />}
             <IsPride />
           </div>
         </Card>
