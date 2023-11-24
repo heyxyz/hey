@@ -1,6 +1,6 @@
 import { Errors } from '@hey/data/errors';
 import allowCors from '@utils/allowCors';
-import { CACHE_AGE } from '@utils/constants';
+import { CACHE_AGE_59 } from '@utils/constants';
 import getMetadata from '@utils/oembed/getMetadata';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
@@ -14,7 +14,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     return res
       .status(200)
-      .setHeader('Cache-Control', CACHE_AGE)
+      .setHeader('Cache-Control', CACHE_AGE_59)
       .json({
         success: true,
         oembed: await getMetadata(url as string)

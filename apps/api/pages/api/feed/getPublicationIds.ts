@@ -1,7 +1,7 @@
 import { AlgorithmProvider } from '@hey/data/enums';
 import { Errors } from '@hey/data/errors';
 import allowCors from '@utils/allowCors';
-import { CACHE_AGE } from '@utils/constants';
+import { CACHE_AGE_59 } from '@utils/constants';
 import heyFeed from '@utils/feeds/providers/hey/heyFeed';
 import k3lFeed from '@utils/feeds/providers/k3l/k3lFeed';
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -29,13 +29,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       default:
         return res
           .status(200)
-          .setHeader('Cache-Control', CACHE_AGE)
+          .setHeader('Cache-Control', CACHE_AGE_59)
           .json({ success: false, message: 'Invalid provider' });
     }
 
     return res
       .status(200)
-      .setHeader('Cache-Control', CACHE_AGE)
+      .setHeader('Cache-Control', CACHE_AGE_59)
       .json({ success: true, ids });
   } catch (error) {
     throw error;
