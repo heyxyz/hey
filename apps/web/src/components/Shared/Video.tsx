@@ -1,6 +1,10 @@
 import 'plyr-react/plyr.css';
 
-import { ARWEAVE_GATEWAY, IPFS_GATEWAY } from '@hey/data/constants';
+import {
+  ARWEAVE_GATEWAY,
+  IPFS_GATEWAY,
+  VIDEO_THUMBNAIL
+} from '@hey/data/constants';
 import imageKit from '@hey/lib/imageKit';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
@@ -23,7 +27,7 @@ const Video: FC<VideoProps> = ({ src, poster, className = '' }) => {
     <div className={cn('lp-player', className)} onClick={stopEventPropagation}>
       <Player
         src={src}
-        poster={imageKit(sanitizeDStorageUrl(poster))}
+        poster={imageKit(sanitizeDStorageUrl(poster), VIDEO_THUMBNAIL)}
         objectFit="contain"
         showLoadingSpinner
         showUploadingIndicator
