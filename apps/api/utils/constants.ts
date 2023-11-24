@@ -8,13 +8,9 @@ export const GARDENER_FEATURE_ID = '0a441129-182a-4a3f-83cf-a13c5ad8282b';
 export const GARDENER_MODE_FEATURE_ID = '9f66a465-e1d7-4123-b329-ddd14fd85510';
 
 // Cache
-export const CACHE_AGE_1_MIN = 'public, s-maxage=1, stale-while-revalidate=59';
-export const CACHE_AGE_30_MINS =
-  'public, s-maxage=1, stale-while-revalidate=1800';
-export const CACHE_AGE_1_HOUR =
-  'public, s-maxage=1, stale-while-revalidate=3600';
-export const CACHE_AGE_30_DAYS =
+export const SWR_CACHE_AGE_30_DAYS =
   'public, s-maxage=1, stale-while-revalidate=2592000';
+export const CACHE_AGE_30_DAYS = 'public, s-maxage=2592000';
 
 // Snapshot
 export const PROPOSAL_CREATOR_ADDRESS =
