@@ -1,6 +1,6 @@
 import { Errors } from '@hey/data/errors';
 import allowCors from '@utils/allowCors';
-import { CACHE_AGE_59 } from '@utils/constants';
+import { CACHE_AGE_1_MIN } from '@utils/constants';
 import createClickhouseClient from '@utils/createClickhouseClient';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
@@ -135,7 +135,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     return res
       .status(200)
-      .setHeader('Cache-Control', CACHE_AGE_59)
+      .setHeader('Cache-Control', CACHE_AGE_1_MIN)
       .json({ success: true, result: combinedResult });
   } catch (error) {
     throw error;

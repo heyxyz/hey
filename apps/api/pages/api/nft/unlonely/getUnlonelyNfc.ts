@@ -1,6 +1,6 @@
 import { Errors } from '@hey/data/errors';
 import allowCors from '@utils/allowCors';
-import { CACHE_AGE_59 } from '@utils/constants';
+import { CACHE_AGE_1_MIN } from '@utils/constants';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -44,7 +44,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       data: { getNFC: any };
     } = await unlonelyResponse.json();
 
-    return res.status(200).setHeader('Cache-Control', CACHE_AGE_59).json({
+    return res.status(200).setHeader('Cache-Control', CACHE_AGE_1_MIN).json({
       success: true,
       nfc: nfc.data.getNFC
     });
