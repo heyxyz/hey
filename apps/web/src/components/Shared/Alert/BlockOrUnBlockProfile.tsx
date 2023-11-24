@@ -73,7 +73,8 @@ const BlockOrUnBlockProfile: FC = () => {
     }
 
     setIsLoading(false);
-    setHasBlocked(!hasBlocked);
+    let hasNewBlocked= !hasBlocked
+    setHasBlocked(hasNewBlocked);
     setShowBlockOrUnblockAlert(false, null);
     toast.success(
       hasBlocked ? 'Blocked successfully!' : 'Unblocked successfully!'
