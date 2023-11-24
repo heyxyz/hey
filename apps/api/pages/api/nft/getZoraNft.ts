@@ -1,7 +1,7 @@
 import { Errors } from '@hey/data/errors';
 import getZoraChainIsMainnet from '@hey/lib/nft/getZoraChainIsMainnet';
 import allowCors from '@utils/allowCors';
-import { CACHE_AGE } from '@utils/constants';
+import { CACHE_AGE_59 } from '@utils/constants';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import urlcat from 'urlcat';
 
@@ -24,7 +24,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     return res
       .status(200)
-      .setHeader('Cache-Control', CACHE_AGE)
+      .setHeader('Cache-Control', CACHE_AGE_59)
       .json({ success: true, nft: nft.collection || null });
   } catch (error) {
     throw error;

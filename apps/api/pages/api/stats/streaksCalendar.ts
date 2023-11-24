@@ -1,6 +1,6 @@
 import { Errors } from '@hey/data/errors';
 import allowCors from '@utils/allowCors';
-import { CACHE_AGE } from '@utils/constants';
+import { CACHE_AGE_59 } from '@utils/constants';
 import createClickhouseClient from '@utils/createClickhouseClient';
 import filteredEvents from '@utils/stats/filteredEvents';
 import generateDateRangeDict from '@utils/stats/generateDateRangeDict';
@@ -39,7 +39,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const allDatesData = { ...generateDateRangeDict(), ...eventData };
 
-    return res.status(200).setHeader('Cache-Control', CACHE_AGE).json({
+    return res.status(200).setHeader('Cache-Control', CACHE_AGE_59).json({
       success: true,
       data: allDatesData
     });
