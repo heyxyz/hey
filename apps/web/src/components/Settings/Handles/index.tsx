@@ -1,13 +1,11 @@
 import MetaTags from '@components/Common/MetaTags';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
+import Slug from '@components/Shared/Slug';
 import { APP_NAME } from '@hey/data/constants';
-import { FeatureFlag } from '@hey/data/feature-flags';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
-import Custom404 from 'src/pages/404';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
@@ -26,10 +24,6 @@ const HandlesSettings: NextPage = () => {
     return <NotLoggedIn />;
   }
 
-  if (!isFeatureEnabled(FeatureFlag.HandleSettings)) {
-    return <Custom404 />;
-  }
-
   return (
     <GridLayout>
       <MetaTags title={`Handles settings • ${APP_NAME}`} />
@@ -37,16 +31,31 @@ const HandlesSettings: NextPage = () => {
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
+        {currentProfile.handle ? (
+          <Card className="p-5">
+            <div className="space-y-3">
+              <div className="text-lg font-bold">
+                Unlink <Slug slug={currentProfile.handle?.fullHandle} /> from
+                your profile
+              </div>
+              <p>
+                Unlinking your handle removes it from your profile, ensuring it
+                is no longer publicly displayed or associated with your profile.
+              </p>
+            </div>
+            <div className="divider my-5" />
+            <UnlinkHandle />
+          </Card>
+        ) : null}
         <Card className="p-5">
           <div className="space-y-3">
-            <div className="text-lg font-bold">Link or unlink handles</div>
+            <div className="text-lg font-bold">Link a handle</div>
             <p>
-              You can link or unlink your handles to your profile. This will be
-              used to display your handle on your profile.
+              Linking your handle to your profile showcases it publicly,
+              allowing others to easily identify and connect with you based on
+              your unique online identity.
             </p>
           </div>
-          <div className="divider my-5" />
-          <UnlinkHandle />
           <div className="divider my-5" />
           <LinkHandle />
         </Card>
