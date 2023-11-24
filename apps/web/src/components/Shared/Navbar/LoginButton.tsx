@@ -24,6 +24,7 @@ const LoginButton: FC<LoginButtonProps> = ({
         <img
           className="mr-0.5 h-3"
           height={12}
+          width={19}
           src="/lens.svg"
           alt="Lens Logo"
         />
