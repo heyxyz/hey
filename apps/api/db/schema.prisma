@@ -58,8 +58,6 @@ model Pro {
 model Feature {
   id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   key         String   @unique
-  name        String
-  description String
   priority    Int      @default(0)
   enabled     Boolean  @default(true)
   createdAt   DateTime @default(now())
