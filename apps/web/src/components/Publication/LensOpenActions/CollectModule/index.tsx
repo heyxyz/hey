@@ -80,9 +80,9 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
           placement="top"
           content={`${percentageCollected.toFixed(0)}% Collected`}
         >
-          <div className="h-2.5 w-full rounded-t-xl bg-gray-200 dark:bg-gray-700">
+          <div className="h-2.5 w-full bg-gray-200 dark:bg-gray-700">
             <div
-              className="bg-brand-500 h-2.5 rounded-t-xl"
+              className="bg-brand-500 h-2.5"
               style={{ width: `${percentageCollected}%` }}
             />
           </div>
