@@ -8,6 +8,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { TokenHandleRegistry } from '@hey/abis';
 import { TOKEN_HANDLE_REGISTRY } from '@hey/data/constants';
+import { SETTINGS } from '@hey/data/tracking';
 import type { LinkHandleToProfileRequest } from '@hey/lens';
 import {
   useBroadcastOnchainMutation,
@@ -19,6 +20,7 @@ import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { Button, EmptyState, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
+import { Leafwatch } from '@lib/leafwatch';
 import { type FC, useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
@@ -53,11 +55,7 @@ const LinkHandle: FC = () => {
 
     setLinkingHandle(null);
     toast.success('Handle linked successfully!');
-    // setHasBlocked(!hasBlocked);
-    // setShowBlockOrUnblockAlert(false, null);
-    // Leafwatch.track(hasBlocked ? PROFILE.BLOCK : PROFILE.UNBLOCK, {
-    //   profile_id: blockingorUnblockingProfile?.id
-    // });
+    Leafwatch.track(SETTINGS.HANDLE.LINK);
   };
 
   const onError = (error: any) => {
@@ -188,7 +186,7 @@ const LinkHandle: FC = () => {
           key={handle.fullHandle}
           className="flex items-center justify-between"
         >
-          <Slug slug={handle.fullHandle} />
+          <Slug className="font-bold" slug={handle.fullHandle} />
           {lensManegaerTxId || broadcastTxId || writeHash ? (
             <div className="mt-2">
               <IndexStatus
