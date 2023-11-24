@@ -5,6 +5,7 @@ const nextConfig = {
   transpilePackages: ['data'],
   reactStrictMode: false,
   experimental: { scrollRestoration: true },
+  images: { unoptimized: true },
   async rewrites() {
     return [
       {
