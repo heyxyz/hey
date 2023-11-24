@@ -1,6 +1,6 @@
 import { Errors } from '@hey/data/errors';
 import allowCors from '@utils/allowCors';
-import { CACHE_AGE_30_DAYS } from '@utils/constants';
+import { SWR_CACHE_AGE_30_DAYS } from '@utils/constants';
 import createRedisClient from '@utils/createRedisClient';
 import prisma from '@utils/prisma';
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -19,7 +19,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (cache) {
       return res
         .status(200)
-        .setHeader('Cache-Control', CACHE_AGE_30_DAYS)
+        .setHeader('Cache-Control', SWR_CACHE_AGE_30_DAYS)
         .json({ success: true, cached: true, features: JSON.parse(cache) });
     }
 
@@ -39,7 +39,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     return res
       .status(200)
-      .setHeader('Cache-Control', CACHE_AGE_30_DAYS)
+      .setHeader('Cache-Control', SWR_CACHE_AGE_30_DAYS)
       .json({ success: true, features });
   } catch (error) {
     throw error;

@@ -1,6 +1,6 @@
 import { Errors } from '@hey/data/errors';
 import allowCors from '@utils/allowCors';
-import { CACHE_AGE_1_MIN } from '@utils/constants';
+import { SWR_CACHE_AGE_30_DAYS } from '@utils/constants';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -39,10 +39,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       data: { getChannelBySlug: any };
     } = await unlonelyResponse.json();
 
-    return res.status(200).setHeader('Cache-Control', CACHE_AGE_1_MIN).json({
-      success: true,
-      channel: channel.data.getChannelBySlug
-    });
+    return res
+      .status(200)
+      .setHeader('Cache-Control', SWR_CACHE_AGE_30_DAYS)
+      .json({
+        success: true,
+        channel: channel.data.getChannelBySlug
+      });
   } catch (error) {
     throw error;
   }

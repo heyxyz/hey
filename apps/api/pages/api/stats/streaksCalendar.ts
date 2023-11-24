@@ -1,6 +1,6 @@
 import { Errors } from '@hey/data/errors';
 import allowCors from '@utils/allowCors';
-import { CACHE_AGE_1_MIN } from '@utils/constants';
+import { SWR_CACHE_AGE_30_DAYS } from '@utils/constants';
 import createClickhouseClient from '@utils/createClickhouseClient';
 import filteredEvents from '@utils/stats/filteredEvents';
 import generateDateRangeDict from '@utils/stats/generateDateRangeDict';
@@ -39,10 +39,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const allDatesData = { ...generateDateRangeDict(), ...eventData };
 
-    return res.status(200).setHeader('Cache-Control', CACHE_AGE_1_MIN).json({
-      success: true,
-      data: allDatesData
-    });
+    return res
+      .status(200)
+      .setHeader('Cache-Control', SWR_CACHE_AGE_30_DAYS)
+      .json({
+        success: true,
+        data: allDatesData
+      });
   } catch (error) {
     throw error;
   }

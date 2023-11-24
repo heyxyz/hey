@@ -1,6 +1,6 @@
 import { Errors } from '@hey/data/errors';
 import allowCors from '@utils/allowCors';
-import { CACHE_AGE_1_MIN } from '@utils/constants';
+import { SWR_CACHE_AGE_30_DAYS } from '@utils/constants';
 import { XMLBuilder } from 'fast-xml-parser';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
@@ -58,7 +58,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return res
       .status(200)
       .setHeader('Content-Type', 'text/xml')
-      .setHeader('Cache-Control', CACHE_AGE_1_MIN)
+      .setHeader('Cache-Control', SWR_CACHE_AGE_30_DAYS)
       .send(xml);
   } catch (error) {
     throw error;
