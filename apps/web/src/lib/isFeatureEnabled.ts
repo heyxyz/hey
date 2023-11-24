@@ -8,7 +8,7 @@ import getCurrentSession from './getCurrentSession';
  * @param key The feature flag key
  * @returns Whether the feature is enabled
  */
-const isFeatureEnabled = (key: FeatureFlag) => {
+const isFeatureEnabled = (key: FeatureFlag | string) => {
   const { id: sessionProfileId } = getCurrentSession();
   const { featureFlags } = hydrateFeatureFlags();
 
