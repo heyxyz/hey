@@ -55,6 +55,7 @@ Hey is a cutting-edge social media application that leverages the power of [Lens
 | ------- | ----------------------- |
 | Mainnet | https://hey.xyz         |
 | Testnet | https://testnet.hey.xyz |
+| Staging | https://staging.hey.xyz |
 
 ## ✅ Community
 

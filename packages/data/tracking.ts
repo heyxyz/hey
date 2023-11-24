@@ -120,6 +120,10 @@ export const SETTINGS = {
     UPDATE: 'Update profile',
     SET_PICTURE: 'Set profile picture'
   },
+  HANDLE: {
+    LINK: 'Link handle',
+    UNLINK: 'Unlink handle'
+  },
   PREFERENCES: {
     TOGGLE_HIGH_SIGNAL_NOTIFICATION_FILTER:
       'Toggle high signal notification filter',

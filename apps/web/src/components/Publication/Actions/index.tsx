@@ -4,8 +4,8 @@ import isOpenActionAllowed from '@hey/lib/isOpenActionAllowed';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { type FC, memo } from 'react';
-import { useFeatureFlagsStore } from 'src/store/non-persisted/useFeatureFlagsStore';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
+import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import OpenAction from '../LensOpenActions';

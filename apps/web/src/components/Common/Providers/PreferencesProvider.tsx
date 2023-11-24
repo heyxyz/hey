@@ -3,13 +3,15 @@ import getCurrentSession from '@lib/getCurrentSession';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
-import { useAppStore } from 'src/store/non-persisted/useAppStore';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
+import { useVerifiedMembersStore } from 'src/store/persisted/useVerifiedMembersStore';
 import { isAddress } from 'viem';
 
 const PreferencesProvider: FC = () => {
   const { id: sessionProfileId } = getCurrentSession();
-  const setVerifiedMembers = useAppStore((state) => state.setVerifiedMembers);
+  const setVerifiedMembers = useVerifiedMembersStore(
+    (state) => state.setVerifiedMembers
+  );
   const setIsPride = usePreferencesStore((state) => state.setIsPride);
   const setHighSignalNotificationFilter = usePreferencesStore(
     (state) => state.setHighSignalNotificationFilter

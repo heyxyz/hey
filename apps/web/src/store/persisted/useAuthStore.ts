@@ -34,7 +34,10 @@ export const useAuthStore = create(
 
         // Clear IndexedDB
         const allIndexedDBStores = Object.values(IndexDB).filter(
-          (value) => value !== IndexDB.AlgorithmStore
+          (value) =>
+            value !== IndexDB.AlgorithmStore &&
+            value !== IndexDB.VerifiedMembersStore &&
+            value !== IndexDB.FeaturedGroupsStore
         );
         await delMany(allIndexedDBStores);
       },

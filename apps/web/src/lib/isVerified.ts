@@ -1,4 +1,4 @@
-import { verifiedMembers } from 'src/store/non-persisted/useAppStore';
+import { hydrateVerifiedMembers } from 'src/store/persisted/useVerifiedMembersStore';
 
 /**
  * Checks whether a profile is verified or not.
@@ -7,7 +7,9 @@ import { verifiedMembers } from 'src/store/non-persisted/useAppStore';
  * @returns True if the profile is verified, false otherwise.
  */
 const isVerified = (id: string): boolean => {
-  return verifiedMembers().includes(id);
+  const { verifiedMembers } = hydrateVerifiedMembers();
+
+  return verifiedMembers.includes(id);
 };
 
 export default isVerified;

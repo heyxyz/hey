@@ -18,8 +18,8 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Custom500 from 'src/app/500';
 import Custom404 from 'src/app/not-found';
-import { useFeatureFlagsStore } from 'src/store/non-persisted/useFeatureFlagsStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 

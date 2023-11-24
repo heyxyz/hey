@@ -2,7 +2,7 @@ name: Git Repo Sync
 
 on:
   push:
-    branches: [main, testnet]
+    branches: [main, testnet, staging]
 
 jobs:
   gitlab:

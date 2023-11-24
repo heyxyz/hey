@@ -18,6 +18,14 @@ const getEnvConfig = (): {
         publicActProxyAddress: TestnetContracts.PublicActProxy,
         defaultCollectToken: TestnetContracts.DefaultToken
       };
+    case 'staging':
+      return {
+        apiEndpoint: LensEndpoint.Staging,
+        lensHubProxyAddress: TestnetContracts.LensHubProxy,
+        tokenHandleRegistry: TestnetContracts.TokenHandleRegistry,
+        publicActProxyAddress: TestnetContracts.PublicActProxy,
+        defaultCollectToken: TestnetContracts.DefaultToken
+      };
     default:
       return {
         apiEndpoint: LensEndpoint.Mainnet,
