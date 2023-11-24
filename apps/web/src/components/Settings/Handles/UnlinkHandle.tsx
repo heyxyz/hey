@@ -2,6 +2,7 @@ import IndexStatus from '@components/Shared/IndexStatus';
 import { MinusCircleIcon } from '@heroicons/react/24/outline';
 import { TokenHandleRegistry } from '@hey/abis';
 import { TOKEN_HANDLE_REGISTRY } from '@hey/data/constants';
+import { SETTINGS } from '@hey/data/tracking';
 import type { UnlinkHandleFromProfileRequest } from '@hey/lens';
 import {
   useBroadcastOnchainMutation,
@@ -12,6 +13,7 @@ import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { Button, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
+import { Leafwatch } from '@lib/leafwatch';
 import { type FC, useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
@@ -46,11 +48,7 @@ const UnlinkHandle: FC = () => {
 
     setUnlinking(false);
     toast.success('Handle unlinked successfully!');
-    // setHasBlocked(!hasBlocked);
-    // setShowBlockOrUnblockAlert(false, null);
-    // Leafwatch.track(hasBlocked ? PROFILE.BLOCK : PROFILE.UNBLOCK, {
-    //   profile_id: blockingorUnblockingProfile?.id
-    // });
+    Leafwatch.track(SETTINGS.HANDLE.UNLINK);
   };
 
   const onError = (error: any) => {
@@ -178,7 +176,7 @@ const UnlinkHandle: FC = () => {
           disabled={unlinking}
           outline
         >
-          UnLink
+          Un-link handle
         </Button>
       )}
     </div>
