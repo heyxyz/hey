@@ -3,7 +3,6 @@
   "pipeline": {
     "build": {
       "outputs": ["dist/**", ".next/**"],
-      "dependsOn": ["^codegen"],
       "outputMode": "new-only"
     },
     "lint": { "outputs": [], "outputMode": "errors-only" },
@@ -12,10 +11,9 @@
     "prettier:fix": { "outputs": [], "outputMode": "errors-only" },
     "typecheck": { "outputs": [], "outputMode": "errors-only" },
     "codegen": { "outputs": [] },
-    "extract": { "outputs": [] },
     "dev": { "cache": false, "persistent": true },
     "start": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "^codegen"],
       "cache": false,
       "persistent": true
     },
