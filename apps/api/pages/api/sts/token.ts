@@ -1,6 +1,8 @@
 import { AssumeRoleCommand, STSClient } from '@aws-sdk/client-sts';
 import { EVER_API, S3_BUCKET } from '@hey/data/constants';
+import logger from '@hey/lib/logger';
 import allowCors from '@utils/allowCors';
+import catchedError from '@utils/catchedError';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 const params = {
@@ -38,6 +40,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       RoleSessionName: undefined
     });
     const { Credentials: credentials } = await stsClient.send(command);
+    logger.info('STS token generated');
 
     return res.status(200).json({
       success: true,
@@ -46,7 +49,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       sessionToken: credentials?.SessionToken
     });
   } catch (error) {
-    throw error;
+    return catchedError(res, error);
   }
 };
 

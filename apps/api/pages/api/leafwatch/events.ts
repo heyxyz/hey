@@ -1,6 +1,7 @@
 import { Errors } from '@hey/data/errors';
 import { ALL_EVENTS } from '@hey/data/tracking';
 import allowCors from '@utils/allowCors';
+import catchedError from '@utils/catchedError';
 import createClickhouseClient from '@utils/createClickhouseClient';
 import checkEventExistence from '@utils/leafwatch/checkEventExistence';
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -70,7 +71,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       );
       ipData = await ipResponse.json();
     } catch (error) {
-      throw error;
+      return catchedError(res, error);
     }
 
     // Extract UTM parameters
@@ -110,7 +111,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     return res.status(200).json({ success: true, id: result.query_id });
   } catch (error) {
-    throw error;
+    return catchedError(res, error);
   }
 };
 

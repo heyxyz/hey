@@ -1,6 +1,7 @@
 import { Errors } from '@hey/data/errors';
 import parseJwt from '@hey/lib/parseJwt';
 import allowCors from '@utils/allowCors';
+import catchedError from '@utils/catchedError';
 import createRedisClient from '@utils/createRedisClient';
 import validateLensAccount from '@utils/middlewares/validateLensAccount';
 import prisma from '@utils/prisma';
@@ -30,7 +31,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     return res.status(200).json({ success: true, result: data });
   } catch (error) {
-    throw error;
+    return catchedError(res, error);
   }
 };
 

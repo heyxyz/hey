@@ -1,6 +1,7 @@
 import { AlgorithmProvider } from '@hey/data/enums';
 import { Errors } from '@hey/data/errors';
 import allowCors from '@utils/allowCors';
+import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
 import heyFeed from '@utils/feeds/providers/hey/heyFeed';
 import k3lFeed from '@utils/feeds/providers/k3l/k3lFeed';
@@ -38,7 +39,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       .setHeader('Cache-Control', SWR_CACHE_AGE_1_MIN_30_DAYS)
       .json({ success: true, ids });
   } catch (error) {
-    throw error;
+    return catchedError(res, error);
   }
 };
 
