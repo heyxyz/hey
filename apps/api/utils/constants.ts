@@ -19,7 +19,7 @@ export const CACHE_AGE_30_DAYS = 'public, s-maxage=2592000';
 
 // Snapshot
 export const PROPOSAL_CREATOR_ADDRESS =
-  '0x81aD96a4bAdE55b3Bfb1Ea84A597FCC6e5e3BEc1';
+  '0xF618330F51fa54Ce5951d627Ee150c0fDADeBA43';
 
 // Tests
 export const TEST_ENDPOINT = 'http://0.0.0.0:4785';
