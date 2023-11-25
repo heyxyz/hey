@@ -14,11 +14,7 @@
     "codegen": { "outputs": [] },
     "extract": { "outputs": [] },
     "dev": { "cache": false, "persistent": true },
-    "start": {
-      "dependsOn": ["^build"],
-      "cache": false,
-      "persistent": true
-    },
+    "start": { "cache": false, "persistent": true },
     "test:dev": { "cache": false }
   }
 }
