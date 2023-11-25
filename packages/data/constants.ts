@@ -5,16 +5,17 @@ import getEnvConfig from './utils/getEnvConfig';
 // Environments
 export const IS_PRODUCTION = process.env.NEXT_PUBLIC_IS_PRODUCTION === 'true';
 
-// Lens Network
+// Lens and Hey Env Config
 export const LENS_NETWORK = process.env.NEXT_PUBLIC_LENS_NETWORK ?? 'mainnet';
 
-export const API_URL = getEnvConfig().apiEndpoint;
+export const LENS_API_URL = getEnvConfig().lensApiEndpoint;
+export const HEY_API_URL = getEnvConfig().heyApiEndpoint;
 export const LENSHUB_PROXY = getEnvConfig().lensHubProxyAddress;
 export const TOKEN_HANDLE_REGISTRY = getEnvConfig().tokenHandleRegistry;
 export const PUBLICACT_PROXY = getEnvConfig().publicActProxyAddress;
 export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 
-export const IS_MAINNET = API_URL === LensEndpoint.Mainnet;
+export const IS_MAINNET = LENS_API_URL === LensEndpoint.Mainnet;
 export const REWARDS_ADDRESS = '0xf618330f51fa54ce5951d627ee150c0fdadeba43';
 export const ADDRESS_PLACEHOLDER = '0x03Ba3...7EF';
 
@@ -39,11 +40,6 @@ export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 export const HANDLE_PREFIX = IS_MAINNET ? 'lens/' : 'test/';
 
 // URLs
-export const HEY_API_URL = IS_PRODUCTION
-  ? IS_MAINNET
-    ? 'https://api.hey.xyz'
-    : 'https://api-testnet.hey.xyz'
-  : 'http://localhost:4785';
 export const STATIC_ASSETS_URL = 'https://hey-assets.b-cdn.net';
 export const LENS_MEDIA_SNAPSHOT_URL =
   'https://ik.imagekit.io/lens/media-snapshot';

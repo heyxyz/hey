@@ -1,9 +1,11 @@
 import { LENS_NETWORK } from '../constants';
 import { MainnetContracts, TestnetContracts } from '../contracts';
+import HeyEndpoint from '../hey-endpoints';
 import LensEndpoint from '../lens-endpoints';
 
 const getEnvConfig = (): {
-  apiEndpoint: string;
+  lensApiEndpoint: string;
+  heyApiEndpoint: string;
   lensHubProxyAddress: `0x${string}`;
   tokenHandleRegistry: `0x${string}`;
   publicActProxyAddress: `0x${string}`;
@@ -12,7 +14,8 @@ const getEnvConfig = (): {
   switch (LENS_NETWORK) {
     case 'testnet':
       return {
-        apiEndpoint: LensEndpoint.Testnet,
+        lensApiEndpoint: LensEndpoint.Testnet,
+        heyApiEndpoint: HeyEndpoint.Testnet,
         lensHubProxyAddress: TestnetContracts.LensHubProxy,
         tokenHandleRegistry: TestnetContracts.TokenHandleRegistry,
         publicActProxyAddress: TestnetContracts.PublicActProxy,
@@ -20,7 +23,8 @@ const getEnvConfig = (): {
       };
     case 'staging':
       return {
-        apiEndpoint: LensEndpoint.Staging,
+        lensApiEndpoint: LensEndpoint.Staging,
+        heyApiEndpoint: HeyEndpoint.Staging,
         lensHubProxyAddress: TestnetContracts.LensHubProxy,
         tokenHandleRegistry: TestnetContracts.TokenHandleRegistry,
         publicActProxyAddress: TestnetContracts.PublicActProxy,
@@ -28,7 +32,8 @@ const getEnvConfig = (): {
       };
     default:
       return {
-        apiEndpoint: LensEndpoint.Mainnet,
+        lensApiEndpoint: LensEndpoint.Mainnet,
+        heyApiEndpoint: HeyEndpoint.Mainnet,
         lensHubProxyAddress: MainnetContracts.LensHubProxy,
         tokenHandleRegistry: MainnetContracts.TokenHandleRegistry,
         publicActProxyAddress: MainnetContracts.PublicActProxy,
