@@ -1,4 +1,5 @@
 import { Errors } from '@hey/data/errors';
+import logger from '@hey/lib/logger';
 import allowCors from '@utils/allowCors';
 import catchedError from '@utils/catchedError';
 import createRedisClient from '@utils/createRedisClient';
@@ -51,6 +52,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       });
       // Delete the cache
       await redis.del(`pro:${id}`);
+      logger.info(`Enabled pro for ${id}`);
 
       return res.status(200).json({ success: true, enabled, trial });
     }
@@ -58,6 +60,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     await prisma.pro.delete({ where: { profileId: id } });
     // Delete the cache
     await redis.del(`pro:${id}`);
+    logger.info(`Disabled pro for ${id}`);
 
     return res.status(200).json({ success: true, enabled, trial });
   } catch (error) {

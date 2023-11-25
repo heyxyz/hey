@@ -1,4 +1,5 @@
 import { Errors } from '@hey/data/errors';
+import logger from '@hey/lib/logger';
 import allowCors from '@utils/allowCors';
 import catchedError from '@utils/catchedError';
 import prisma from '@utils/prisma';
@@ -38,6 +39,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     await prisma.pro.deleteMany({
       where: { expiresAt: { lte: new Date().toISOString() } }
     });
+    logger.info('Downgraded expired pro profiles');
 
     return res.status(200).json({ success: true });
   } catch (error) {

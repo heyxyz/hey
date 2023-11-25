@@ -1,4 +1,5 @@
 import { Errors } from '@hey/data/errors';
+import logger from '@hey/lib/logger';
 import { NodeIrys } from '@irys/sdk';
 import allowCors from '@utils/allowCors';
 import catchedError from '@utils/catchedError';
@@ -26,6 +27,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         { name: 'App-Name', value: 'Hey.xyz' }
       ]
     });
+    logger.info(`Uploaded metadata to Irys: ar://${receipt.id}`);
 
     return res.status(200).json({ success: true, id: receipt.id });
   } catch (error) {

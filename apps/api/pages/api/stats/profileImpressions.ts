@@ -1,4 +1,5 @@
 import { Errors } from '@hey/data/errors';
+import logger from '@hey/lib/logger';
 import allowCors from '@utils/allowCors';
 import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
@@ -45,6 +46,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       await rows.json<
         Array<{ day: number; impressions: number; totalImpressions: number }>
       >();
+    logger.info(`Profile impressions fetched for ${id}`);
 
     return res
       .status(200)

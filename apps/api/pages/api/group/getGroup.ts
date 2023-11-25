@@ -1,4 +1,5 @@
 import { Errors } from '@hey/data/errors';
+import logger from '@hey/lib/logger';
 import allowCors from '@utils/allowCors';
 import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_10_MINS_30_DAYS } from '@utils/constants';
@@ -18,6 +19,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const cache = await redis.get(`group:${slug}`);
 
     if (cache) {
+      logger.info('Group fetched from cache');
       return res
         .status(200)
         .setHeader('Cache-Control', SWR_CACHE_AGE_10_MINS_30_DAYS)
@@ -28,6 +30,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       where: { slug: slug as string }
     });
     await redis.set(`group:${slug}`, JSON.stringify(data));
+    logger.info('Group fetched from DB');
 
     return res
       .status(200)
