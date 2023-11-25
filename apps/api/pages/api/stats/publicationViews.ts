@@ -1,4 +1,5 @@
 import { Errors } from '@hey/data/errors';
+import logger from '@hey/lib/logger';
 import allowCors from '@utils/allowCors';
 import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
@@ -48,6 +49,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       id: row.publication_id,
       views: Number(row.count)
     }));
+    logger.info(`Fetched publication views for ${ids.length} publications`);
 
     return res
       .status(200)

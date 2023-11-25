@@ -1,4 +1,5 @@
 import { Errors } from '@hey/data/errors';
+import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import allowCors from '@utils/allowCors';
 import catchedError from '@utils/catchedError';
@@ -28,6 +29,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     // Delete the cache
     await redis.del(`membership-nft:${payload.evmAddress}`);
+    logger.info(`Updated membership nft status for ${payload.evmAddress}`);
 
     return res.status(200).json({ success: true, result: data });
   } catch (error) {

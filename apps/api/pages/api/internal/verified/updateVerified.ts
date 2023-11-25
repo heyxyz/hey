@@ -1,4 +1,5 @@
 import { Errors } from '@hey/data/errors';
+import logger from '@hey/lib/logger';
 import allowCors from '@utils/allowCors';
 import catchedError from '@utils/catchedError';
 import createRedisClient from '@utils/createRedisClient';
@@ -43,6 +44,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       await prisma.verified.create({ data: { id } });
       // Delete the cache
       await redis.del('verified');
+      logger.info(`Enabled verified for ${id}`);
 
       return res.status(200).json({ success: true, enabled });
     }
@@ -50,6 +52,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     await prisma.verified.delete({ where: { id } });
     // Delete the cache
     await redis.del('verified');
+    logger.info(`Disabled verified for ${id}`);
 
     return res.status(200).json({ success: true, enabled });
   } catch (error) {

@@ -1,4 +1,5 @@
 import { Errors } from '@hey/data/errors';
+import logger from '@hey/lib/logger';
 import getZoraChainIsMainnet from '@hey/lib/nft/getZoraChainIsMainnet';
 import allowCors from '@utils/allowCors';
 import catchedError from '@utils/catchedError';
@@ -22,6 +23,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       )
     );
     const nft: { collection: any } = await zoraResponse.json();
+    logger.info(`Nft fetched from Zora ${chain}/${address}:${token}`);
 
     return res
       .status(200)

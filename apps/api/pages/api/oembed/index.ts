@@ -1,4 +1,5 @@
 import { Errors } from '@hey/data/errors';
+import logger from '@hey/lib/logger';
 import allowCors from '@utils/allowCors';
 import catchedError from '@utils/catchedError';
 import { CACHE_AGE_30_DAYS } from '@utils/constants';
@@ -13,6 +14,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   try {
+    logger.info(`Oembed generated for ${url}`);
     return res
       .status(200)
       .setHeader('Cache-Control', CACHE_AGE_30_DAYS)

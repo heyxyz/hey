@@ -1,5 +1,6 @@
 import { Errors } from '@hey/data/errors';
 import { PAGEVIEW } from '@hey/data/tracking';
+import logger from '@hey/lib/logger';
 import createClickhouseClient from '@utils/createClickhouseClient';
 import randomizeIds from '@utils/feeds/randomizeIds';
 import removeParamsFromString from '@utils/feeds/removeParamsFromString';
@@ -41,6 +42,7 @@ const heyMostViewed = async (limit: number, offset: number): Promise<any[]> => {
 
       return removeParamsFromString(id);
     });
+    logger.info(`[Hey] Most viewed: ${ids.length} ids`);
 
     return randomizeIds(ids);
   } catch {

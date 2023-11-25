@@ -1,4 +1,5 @@
 import { Errors } from '@hey/data/errors';
+import logger from '@hey/lib/logger';
 import allowCors from '@utils/allowCors';
 import catchedError from '@utils/catchedError';
 import createClickhouseClient from '@utils/createClickhouseClient';
@@ -42,6 +43,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       values,
       format: 'JSONEachRow'
     });
+    logger.info('Ingested impressions to Leafwatch');
 
     return res.status(200).json({ success: true, id: result.query_id });
   } catch (error) {

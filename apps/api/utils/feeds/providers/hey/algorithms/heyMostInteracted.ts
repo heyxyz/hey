@@ -1,5 +1,6 @@
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
+import logger from '@hey/lib/logger';
 import createClickhouseClient from '@utils/createClickhouseClient';
 import randomizeIds from '@utils/feeds/randomizeIds';
 
@@ -70,6 +71,7 @@ const heyMostInteracted = async (
       >();
 
     const ids = result.map((row) => row.publication_id);
+    logger.info(`[Hey] Most interacted: ${ids.length} ids`);
 
     return randomizeIds(ids);
   } catch {

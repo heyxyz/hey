@@ -1,4 +1,5 @@
 import { Errors } from '@hey/data/errors';
+import logger from '@hey/lib/logger';
 import allowCors from '@utils/allowCors';
 import catchedError from '@utils/catchedError';
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -23,6 +24,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     );
 
     const json: { cid: string } = await ipfsResponse.json();
+    logger.info(`Pinned ${cid} to IPFS`);
 
     return res.status(200).json({ success: true, cid: json.cid });
   } catch (error) {

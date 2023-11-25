@@ -1,3 +1,4 @@
+import logger from '@hey/lib/logger';
 import allowCors from '@utils/allowCors';
 import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
@@ -11,6 +12,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
     const cache = await redis.get('staff-picks');
 
     if (cache) {
+      logger.info('Staff picks fetched from cache');
       return res
         .status(200)
         .setHeader('Cache-Control', SWR_CACHE_AGE_1_MIN_30_DAYS)
@@ -23,6 +25,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
       take: 5
     });
     await redis.set('staff-picks', JSON.stringify(data));
+    logger.info('Staff picks fetched from DB');
 
     return res
       .status(200)
