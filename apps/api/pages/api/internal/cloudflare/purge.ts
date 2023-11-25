@@ -1,5 +1,5 @@
 import { Errors } from '@hey/data/errors';
-import HeyEndpoint from '@hey/data/hey-endpoints';
+import logger from '@hey/lib/logger';
 import allowCors from '@utils/allowCors';
 import catchedError from '@utils/catchedError';
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -15,24 +15,32 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const type = req.body?.type;
-    const evironment = req.body?.environment?.name;
 
     if (type !== 'DEPLOY') {
       return res.status(200).json({ success: true, skipped: true });
     }
 
-    if (!evironment) {
-      return res.status(200).json({ success: false, skipped: true });
-    }
+    const response = await fetch(
+      'https://api.cloudflare.com/client/v4/zones/2fd5485fa6cd159b1d4b39f1af6bb690/purge_cache',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          files: [
+            'https://hey.xyz/*',
+            'https://testnet.hey.xyz/*',
+            'https://staging.hey.xyz/*'
+          ]
+        }),
+        headers: {
+          Authorization: `Bearer ${process.env.CLOUDFLARE_API_KEY}`
+        }
+      }
+    );
 
-    const endpoint =
-      evironment === 'mainnet'
-        ? HeyEndpoint.Mainnet
-        : evironment === 'testnet'
-          ? HeyEndpoint.Testnet
-          : HeyEndpoint.Staging;
+    const json: { result: { id: string } } = await response.json();
+    logger.info(`Purged Cloudflare cache: ${json.result.id}`);
 
-    return res.status(200).json({ success: true, purgedEndpoint: endpoint });
+    return res.status(200).json({ success: true, id: json.result.id });
   } catch (error) {
     return catchedError(res, error);
   }
