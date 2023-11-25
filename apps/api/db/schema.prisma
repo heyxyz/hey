@@ -18,6 +18,9 @@ model StaffPick {
   type      StaffPickType
   score     Int           @default(0)
   createdAt DateTime      @default(now())
+
+  // Indexes
+  @@index([type, score])
 }
 
 model Preference {
@@ -46,6 +49,9 @@ model Group {
   instagram   String?
   featured    Boolean  @default(false)
   createdAt   DateTime @default(now())
+
+  // Indexes
+  @@index([slug, featured])
 }
 
 model Pro {
@@ -53,17 +59,23 @@ model Pro {
   hash      String
   createdAt DateTime  @default(now())
   expiresAt DateTime?
+
+  // Indexes
+  @@index([hash])
 }
 
 model Feature {
-  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  key         String   @unique
-  priority    Int      @default(0)
-  enabled     Boolean  @default(true)
-  createdAt   DateTime @default(now())
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  key       String   @unique
+  priority  Int      @default(0)
+  enabled   Boolean  @default(true)
+  createdAt DateTime @default(now())
 
   // Relations
   profiles ProfileFeature[]
+
+  // Indexes
+  @@index([key, priority])
 }
 
 model ProfileFeature {
@@ -74,6 +86,8 @@ model ProfileFeature {
   createdAt DateTime @default(now())
 
   @@id([profileId, featureId])
+  // Indexes
+  @@index([profileId, featureId])
 }
 
 enum StaffPickType {
