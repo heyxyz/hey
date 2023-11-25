@@ -19,7 +19,7 @@ export const REWARDS_ADDRESS = '0xf618330f51fa54ce5951d627ee150c0fdadeba43';
 export const ADDRESS_PLACEHOLDER = '0x03Ba3...7EF';
 
 // Snapshot
-export const HEY_POLLS_SPACE = 'polls.lenster.xyz';
+export const HEY_POLLS_SPACE = 'polls.hey.xyz';
 export const SNAPSHOT_HUB_URL = 'https://hub.snapshot.org';
 export const SNAPSHOT_SEQUNECER_URL = 'https://seq.snapshot.org';
 export const SNAPSHOT_URL = 'https://snapshot.org';
