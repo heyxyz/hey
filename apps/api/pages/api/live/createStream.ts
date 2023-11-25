@@ -1,6 +1,7 @@
 import { Errors } from '@hey/data/errors';
 import parseJwt from '@hey/lib/parseJwt';
 import allowCors from '@utils/allowCors';
+import catchedError from '@utils/catchedError';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { boolean, object } from 'zod';
 
@@ -56,7 +57,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     return res.status(200).json({ success: true, result });
   } catch (error) {
-    throw error;
+    return catchedError(res, error);
   }
 };
 

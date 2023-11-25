@@ -1,5 +1,7 @@
 import { Errors } from '@hey/data/errors';
+import logger from '@hey/lib/logger';
 import allowCors from '@utils/allowCors';
+import catchedError from '@utils/catchedError';
 import { resolverAbi } from '@utils/ens/resolverAbi';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { createPublicClient, http } from 'viem';
@@ -43,10 +45,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       args: [addresses],
       functionName: 'getNames'
     });
+    logger.info('ENS names fetched');
 
     return res.status(200).json({ success: true, data });
   } catch (error) {
-    throw error;
+    return catchedError(res, error);
   }
 };
 

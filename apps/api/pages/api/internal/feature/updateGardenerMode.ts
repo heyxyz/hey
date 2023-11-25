@@ -1,6 +1,7 @@
 import { Errors } from '@hey/data/errors';
 import parseJwt from '@hey/lib/parseJwt';
 import allowCors from '@utils/allowCors';
+import catchedError from '@utils/catchedError';
 import { GARDENER_MODE_FEATURE_ID } from '@utils/constants';
 import createRedisClient from '@utils/createRedisClient';
 import validateIsGardener from '@utils/middlewares/validateIsGardener';
@@ -64,7 +65,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     return res.status(200).json({ success: true, enabled });
   } catch (error) {
-    throw error;
+    return catchedError(res, error);
   }
 };
 

@@ -1,5 +1,6 @@
 import { Errors } from '@hey/data/errors';
 import allowCors from '@utils/allowCors';
+import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
 import createClickhouseClient from '@utils/createClickhouseClient';
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -57,7 +58,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         }))
       });
   } catch (error) {
-    throw error;
+    return catchedError(res, error);
   }
 };
 

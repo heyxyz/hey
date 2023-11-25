@@ -1,4 +1,6 @@
+import logger from '@hey/lib/logger';
 import allowCors from '@utils/allowCors';
+import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_10_MINS_30_DAYS } from '@utils/constants';
 import createRedisClient from '@utils/createRedisClient';
 import prisma from '@utils/prisma';
@@ -10,6 +12,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
     const cache = await redis.get('verified');
 
     if (cache) {
+      logger.info('Verified profiles fetched from cache');
       return res
         .status(200)
         .setHeader('Cache-Control', SWR_CACHE_AGE_10_MINS_30_DAYS)
@@ -22,13 +25,14 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
 
     const ids = data.map((item: any) => item.id);
     await redis.set('verified', JSON.stringify(ids));
+    logger.info('Verified profiles fetched from DB');
 
     return res
       .status(200)
       .setHeader('Cache-Control', SWR_CACHE_AGE_10_MINS_30_DAYS)
       .json({ success: true, result: ids });
   } catch (error) {
-    throw error;
+    return catchedError(res, error);
   }
 };
 

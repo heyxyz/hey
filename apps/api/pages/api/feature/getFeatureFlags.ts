@@ -1,5 +1,7 @@
 import { Errors } from '@hey/data/errors';
+import logger from '@hey/lib/logger';
 import allowCors from '@utils/allowCors';
+import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
 import createRedisClient from '@utils/createRedisClient';
 import prisma from '@utils/prisma';
@@ -17,6 +19,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const cache = await redis.get(`features:${id}`);
 
     if (cache) {
+      logger.info('Features fetched from cache');
       return res
         .status(200)
         .setHeader('Cache-Control', SWR_CACHE_AGE_1_MIN_30_DAYS)
@@ -36,13 +39,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const features = data.map((feature: any) => feature.feature?.key);
     await redis.set(`features:${id}`, JSON.stringify(features));
+    logger.info('Features fetched from DB');
 
     return res
       .status(200)
       .setHeader('Cache-Control', SWR_CACHE_AGE_1_MIN_30_DAYS)
       .json({ success: true, features });
   } catch (error) {
-    throw error;
+    return catchedError(res, error);
   }
 };
 
