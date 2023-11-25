@@ -1,3 +1,4 @@
+import logger from '@hey/lib/logger';
 import allowCors from '@utils/allowCors';
 import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
@@ -9,6 +10,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
     const data = await prisma.feature.findMany({
       orderBy: { priority: 'desc' }
     });
+    logger.info('All features fetched from DB');
 
     return res
       .status(200)

@@ -4,6 +4,7 @@ import {
   SNAPSHOT_URL
 } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
+import logger from '@hey/lib/logger';
 import allowCors from '@utils/allowCors';
 import catchedError from '@utils/catchedError';
 import { PROPOSAL_CREATOR_ADDRESS } from '@utils/constants';
@@ -116,6 +117,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         .status(400)
         .json({ success: false, response: snapshotResponse });
     }
+    logger.info(`Created a snapshot poll ${snapshotResponse.id}`);
 
     return res.status(200).json({
       success: true,
