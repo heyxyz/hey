@@ -29,9 +29,6 @@ const usePublicationMetadata = () => {
   const videoDurationInSeconds = usePublicationStore(
     (state) => state.videoDurationInSeconds
   );
-  const publicationContent = usePublicationStore(
-    (state) => state.publicationContent
-  );
   const showLiveVideoEditor = usePublicationStore(
     (state) => state.showLiveVideoEditor
   );
@@ -48,7 +45,7 @@ const usePublicationMetadata = () => {
 
   const getMetadata = useCallback(
     ({ baseMetadata }: UsePublicationMetadataProps) => {
-      const urls = getURLs(publicationContent);
+      const urls = getURLs(baseMetadata.content);
 
       const hasAttachments = attachments.length;
       const isImage = attachments[0]?.type === 'Image';
@@ -140,7 +137,6 @@ const usePublicationMetadata = () => {
       videoDurationInSeconds,
       audioPublication,
       cover,
-      publicationContent,
       showLiveVideoEditor,
       liveVideoConfig
     ]
