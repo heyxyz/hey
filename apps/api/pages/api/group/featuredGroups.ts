@@ -1,4 +1,5 @@
 import allowCors from '@utils/allowCors';
+import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_10_MINS_30_DAYS } from '@utils/constants';
 import createRedisClient from '@utils/createRedisClient';
 import prisma from '@utils/prisma';
@@ -27,7 +28,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
       .setHeader('Cache-Control', SWR_CACHE_AGE_10_MINS_30_DAYS)
       .json({ success: true, result: data });
   } catch (error) {
-    throw error;
+    return catchedError(res, error);
   }
 };
 

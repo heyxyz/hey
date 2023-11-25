@@ -1,6 +1,7 @@
 import { Errors } from '@hey/data/errors';
 import { NodeIrys } from '@irys/sdk';
 import allowCors from '@utils/allowCors';
+import catchedError from '@utils/catchedError';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -28,7 +29,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     return res.status(200).json({ success: true, id: receipt.id });
   } catch (error) {
-    throw error;
+    return catchedError(res, error);
   }
 };
 

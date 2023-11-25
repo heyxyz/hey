@@ -1,5 +1,6 @@
 import { Errors } from '@hey/data/errors';
 import allowCors from '@utils/allowCors';
+import catchedError from '@utils/catchedError';
 import createClickhouseClient from '@utils/createClickhouseClient';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { array, object, string } from 'zod';
@@ -44,7 +45,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     return res.status(200).json({ success: true, id: result.query_id });
   } catch (error) {
-    throw error;
+    return catchedError(res, error);
   }
 };
 

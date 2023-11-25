@@ -5,6 +5,7 @@ import {
 } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import allowCors from '@utils/allowCors';
+import catchedError from '@utils/catchedError';
 import { PROPOSAL_CREATOR_ADDRESS } from '@utils/constants';
 import publicClient from '@utils/snapshot/publicClient';
 import serializedTypedData from '@utils/snapshot/serializedTypedData';
@@ -121,7 +122,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       snapshotUrl: `${snapshotUrl}/#/${HEY_POLLS_SPACE}/proposal/${snapshotResponse.id}`
     });
   } catch (error) {
-    throw error;
+    return catchedError(res, error);
   }
 };
 
