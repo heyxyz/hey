@@ -15,10 +15,7 @@ import { array, number, object, string } from 'zod';
 type SnapshotResponse = {
   id: string;
   ipfs: string;
-  relayer: {
-    address: string;
-    receipt: string;
-  };
+  relayer: { address: string; receipt: string };
 };
 
 type ExtensionRequest = {
