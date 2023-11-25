@@ -3,6 +3,7 @@
   "pipeline": {
     "build": {
       "outputs": ["dist/**", ".next/**"],
+      "dependsOn": ["^codegen"],
       "outputMode": "new-only"
     },
     "lint": { "outputs": [], "outputMode": "errors-only" },
