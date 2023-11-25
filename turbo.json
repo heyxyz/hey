@@ -1,6 +1,7 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
+    "codegen": { "outputs": [] },
     "build": {
       "outputs": ["dist/**", ".next/**"],
       "dependsOn": ["^codegen"],
@@ -11,10 +12,9 @@
     "prettier": { "outputs": [], "outputMode": "errors-only" },
     "prettier:fix": { "outputs": [], "outputMode": "errors-only" },
     "typecheck": { "outputs": [], "outputMode": "errors-only" },
-    "codegen": { "outputs": [] },
     "dev": { "cache": false, "persistent": true },
     "start": {
-      "dependsOn": ["^build", "^codegen"],
+      "dependsOn": ["^build"],
       "cache": false,
       "persistent": true
     },
