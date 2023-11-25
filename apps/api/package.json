@@ -9,6 +9,7 @@
     "dev": "next dev --port 4785",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "lint:fix": "eslint . --fix --ext .js,.ts,.tsx",
+    "postinstall": "pnpm codegen",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
     "prisma:format": "prisma format --schema ./db/schema.prisma",
