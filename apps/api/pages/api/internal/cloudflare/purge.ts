@@ -14,12 +14,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   try {
-    const type = req.body?.type;
-
-    if (type !== 'DEPLOY') {
-      return res.status(200).json({ success: true, skipped: true });
-    }
-
     const response = await fetch(
       'https://api.cloudflare.com/client/v4/zones/2fd5485fa6cd159b1d4b39f1af6bb690/purge_cache',
       {
