@@ -23,10 +23,10 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface ChoicesProps {
   poll: Poll;
-  refetch: () => void;
+  setRefetch: (value: boolean) => void;
 }
 
-const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
+const Choices: FC<ChoicesProps> = ({ poll, setRefetch }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const [pollSubmitting, setPollSubmitting] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -51,7 +51,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
         { headers: getAuthWorkerHeaders() }
       );
 
-      refetch?.();
+      setRefetch(true);
       Leafwatch.track(PUBLICATION.WIDGET.POLL.VOTE, { poll_id: id });
       toast.success('Your poll has been casted!');
     } catch {
