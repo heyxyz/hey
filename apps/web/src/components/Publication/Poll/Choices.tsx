@@ -85,7 +85,9 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
               <div className="flex items-center justify-between">
                 <b>{option}</b>
                 <div>
-                  <span className="ld-text-gray-500">{percentage}%</span>
+                  <span className="ld-text-gray-500">
+                    {percentage.toFixed(0)}%
+                  </span>
                 </div>
               </div>
               <div className="flex h-2.5 overflow-hidden rounded-full bg-gray-300 dark:bg-gray-800">
