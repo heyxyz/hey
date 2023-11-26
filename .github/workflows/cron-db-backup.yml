@@ -17,6 +17,7 @@ jobs:
           database_password: ${{ secrets.DB_PASS }}
           database_name: ${{ secrets.DB_NAME }}
           database_host: roundhouse.proxy.rlwy.net:39560
+          database_opts: pg_dump
           access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           storage_bucket: ${{ secrets.AWS_S3_BUCKET }}
