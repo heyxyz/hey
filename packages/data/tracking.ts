@@ -65,10 +65,7 @@ export const PUBLICATION = {
     OPEN_UNISWAP: 'Open Uniswap'
   },
   WIDGET: {
-    SNAPSHOT: {
-      OPEN_CAST_VOTE: 'Snapshot: Open cast vote modal',
-      VOTE: 'Snapshot: Vote'
-    }
+    POLL: { VOTE: 'Vote on poll' }
   },
   OPEN_ACTIONS: {
     ZORA_NFT: {

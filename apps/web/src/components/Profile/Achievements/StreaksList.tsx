@@ -53,7 +53,7 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
         return <ArrowsRightLeftIcon className="h-5 w-5 text-green-500" />;
       case PUBLICATION.COLLECT_MODULE.COLLECT:
         return <RectangleStackIcon className="h-5 w-5 text-pink-500" />;
-      case PUBLICATION.WIDGET.SNAPSHOT.VOTE:
+      case PUBLICATION.WIDGET.POLL.VOTE:
         return <CheckCircleIcon className="h-5 w-5 text-green-500" />;
       default:
         return null;
@@ -76,7 +76,7 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
         return 'Mirrored a publication';
       case PUBLICATION.COLLECT_MODULE.COLLECT:
         return 'Collected a publication';
-      case PUBLICATION.WIDGET.SNAPSHOT.VOTE:
+      case PUBLICATION.WIDGET.POLL.VOTE:
         return 'Voted on a poll';
       default:
         return null;

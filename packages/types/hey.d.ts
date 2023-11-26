@@ -57,3 +57,16 @@ export type PublicationViewCount = {
   id: string;
   views: number;
 };
+
+export type PollOption = {
+  id: string;
+  option: string;
+  percentage: number;
+  responses: number;
+};
+
+export type Poll = {
+  id: string;
+  endedAt: Date;
+  options: PollOption[];
+};

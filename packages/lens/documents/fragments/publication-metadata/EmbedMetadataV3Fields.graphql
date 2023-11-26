@@ -1,13 +1,3 @@
 fragment EmbedMetadataV3Fields on EmbedMetadataV3 {
   id
-  rawURI
-  tags
-  attributes {
-    ...MetadataAttributeFields
-  }
-  embed
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  content
 }
