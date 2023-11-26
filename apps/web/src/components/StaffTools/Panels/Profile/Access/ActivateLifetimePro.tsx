@@ -2,41 +2,29 @@ import { HEY_API_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import { Toggle } from '@hey/ui';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
-import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import ToggleWrapper from '../ToggleWrapper';
 
 interface ActivateLifetimeProProps {
   profile: Profile;
+  isPro: boolean;
 }
 
-const ActivateLifetimePro: FC<ActivateLifetimeProProps> = ({ profile }) => {
-  const [isPro, setIsPro] = useState(false);
+const ActivateLifetimePro: FC<ActivateLifetimeProProps> = ({
+  profile,
+  isPro: enabled
+}) => {
   const [loading, setLoading] = useState(false);
+  const [isPro, setIsPro] = useState(false);
 
-  const fetchProEnabled = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get(
-        `${HEY_API_URL}/preference/getPreferences`,
-        { params: { id: profile.id } }
-      );
-      const { data } = response;
-      setIsPro(data.result?.pro.enabled || false);
-    } catch {
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useQuery({
-    queryKey: ['fetchProEnabled', profile.id || ''],
-    queryFn: fetchProEnabled
-  });
+  useUpdateEffect(() => {
+    setIsPro(enabled);
+  }, [enabled]);
 
   const updatePro = async () => {
     setLoading(true);

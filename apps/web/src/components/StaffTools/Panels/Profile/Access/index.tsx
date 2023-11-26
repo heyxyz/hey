@@ -7,9 +7,10 @@ import Verify from './Verify';
 
 interface RankProps {
   profile: Profile;
+  isPro: boolean;
 }
 
-const Access: FC<RankProps> = ({ profile }) => {
+const Access: FC<RankProps> = ({ profile, isPro }) => {
   return (
     <>
       <div className="mt-5 flex items-center space-x-2 text-yellow-600">
@@ -18,7 +19,7 @@ const Access: FC<RankProps> = ({ profile }) => {
       </div>
       <div className="mt-3 space-y-2 font-bold">
         <Verify profile={profile} />
-        <ActivateLifetimePro profile={profile} />
+        <ActivateLifetimePro profile={profile} isPro={isPro} />
       </div>
     </>
   );
