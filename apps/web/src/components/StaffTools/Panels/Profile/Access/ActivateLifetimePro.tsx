@@ -21,11 +21,12 @@ const ActivateLifetimePro: FC<ActivateLifetimeProProps> = ({ profile }) => {
   const fetchProEnabled = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${HEY_API_URL}/pro/getProEnabled`, {
-        params: { id: profile.id }
-      });
+      const response = await axios.get(
+        `${HEY_API_URL}/preference/getPreferences`,
+        { params: { id: profile.id } }
+      );
       const { data } = response;
-      setIsPro(data?.enabled || false);
+      setIsPro(data.result?.pro.enabled || false);
     } catch {
     } finally {
       setLoading(false);
