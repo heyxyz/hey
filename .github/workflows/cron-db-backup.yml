@@ -10,23 +10,14 @@ jobs:
     name: Backup
     runs-on: ubuntu-latest
     steps:
-      - name: Backup Postgres DB
-        uses: valerianpereira/backup-action@master
+      - name: Backup Postgres DB and Push
+        uses: appleboy/database-backup-action@master
         with:
-          type: db
-          db_type: postgres
-          db_user: ${{ secrets.DB_USER }}
-          db_pass: ${{ secrets.DB_PASS }}
-          db_port: 5432
-          db_name: ${{ secrets.DB_NAME }}
-
-      - name: Push backups to S3 Bucket
-        uses: jakejarvis/s3-sync-action@master
-        with:
-          args: --follow-symlinks
-        env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: 'eu-west-2'
-          SOURCE_DIR: 'public'
+          database_username: ${{ secrets.DB_USER }}
+          database_password: ${{ secrets.DB_PASS }}
+          database_name: ${{ secrets.DB_NAME }}
+          database_host: roundhouse.proxy.rlwy.net:39560
+          access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          storage_bucket: ${{ secrets.AWS_S3_BUCKET }}
+          storage_region: eu-west-2
