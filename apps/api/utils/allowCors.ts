@@ -10,7 +10,7 @@ const allowCors =
     );
     res.setHeader(
       'Access-Control-Allow-Headers',
-      'Accept, Content-Type, X-Lens-Network, X-Access-Token'
+      'Accept, Content-Type, X-Lens-Network, X-Access-Token, X-Skip-Cache'
     );
 
     if (req.method === 'OPTIONS') {
