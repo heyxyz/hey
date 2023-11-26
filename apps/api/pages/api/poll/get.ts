@@ -3,6 +3,7 @@ import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import allowCors from '@utils/allowCors';
 import catchedError from '@utils/catchedError';
+import createRedisClient from '@utils/createRedisClient';
 import prisma from '@utils/prisma';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
@@ -17,6 +18,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const payload = parseJwt(accessToken);
+    const redis = createRedisClient();
+    const cache = await redis.get(`poll:${id}`);
+
+    if (cache) {
+      logger.info('Poll fetched from cache');
+      return res
+        .status(200)
+        .json({ success: true, cached: true, result: JSON.parse(cache) });
+    }
+
     const data = await prisma.poll.findUnique({
       where: { id: id as string },
       select: {
@@ -60,6 +71,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       }))
     };
 
+    await redis.set(`poll:${id}`, JSON.stringify(sanitizedData));
     logger.info('Poll fetched from DB');
 
     return res.status(200).json({ success: true, result: sanitizedData });
