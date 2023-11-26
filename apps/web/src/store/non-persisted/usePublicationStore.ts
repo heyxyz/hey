@@ -44,9 +44,9 @@ interface PublicationState {
   setShowPollEditor: (showPollEditor: boolean) => void;
   pollConfig: {
     length: number;
-    choices: string[];
+    options: string[];
   };
-  setPollConfig: (pollConfig: { length: number; choices: string[] }) => void;
+  setPollConfig: (pollConfig: { length: number; options: string[] }) => void;
   resetPollConfig: () => void;
   showLiveVideoEditor: boolean;
   setShowLiveVideoEditor: (showLiveVideoEditor: boolean) => void;
@@ -117,10 +117,10 @@ export const usePublicationStore = create<PublicationState>((set) => ({
     set(() => ({ uploadedPercentage })),
   showPollEditor: false,
   setShowPollEditor: (showPollEditor) => set(() => ({ showPollEditor })),
-  pollConfig: { length: 7, choices: ['', ''] },
+  pollConfig: { length: 7, options: ['', ''] },
   setPollConfig: (pollConfig) => set(() => ({ pollConfig })),
   resetPollConfig: () =>
-    set(() => ({ pollConfig: { length: 1, choices: ['', ''] } })),
+    set(() => ({ pollConfig: { length: 1, options: ['', ''] } })),
   showLiveVideoEditor: false,
   setShowLiveVideoEditor: (showLiveVideoEditor) =>
     set(() => ({ showLiveVideoEditor })),

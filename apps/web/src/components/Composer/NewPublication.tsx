@@ -30,6 +30,7 @@ import type { IGif } from '@hey/types/giphy';
 import type { NewAttachment } from '@hey/types/misc';
 import { Button, Card, ErrorMessage, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import { MetadataAttributeType } from '@lens-protocol/metadata';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import errorToast from '@lib/errorToast';
@@ -354,19 +355,34 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         );
       }
 
-      let processedPublicationContent =
-        publicationContent.length > 0 ? publicationContent : undefined;
-
+      let pollId;
       if (showPollEditor) {
-        processedPublicationContent = await createPoll();
+        pollId = await createPoll();
       }
+
+      const processedPublicationContent =
+        publicationContent.length > 0 ? publicationContent : undefined;
       const title = hasAudio
         ? audioPublication.title
         : `${getTitlePrefix()} by ${getProfile(currentProfile).slugWithPrefix}`;
+      const hasAttributes = Boolean(pollId);
 
       const baseMetadata = {
         title,
         content: processedPublicationContent,
+        ...(hasAttributes && {
+          attributes: [
+            ...(pollId
+              ? [
+                  {
+                    key: 'pollId',
+                    value: pollId,
+                    type: MetadataAttributeType.STRING
+                  }
+                ]
+              : [])
+          ]
+        }),
         marketplace: {
           name: title,
           description: processedPublicationContent,
@@ -511,8 +527,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   };
 
   const isSubmitDisabledByPoll = showPollEditor
-    ? !pollConfig.choices.length ||
-      pollConfig.choices.some((choice) => !choice.length)
+    ? !pollConfig.options.length ||
+      pollConfig.options.some((option) => !option.length)
     : false;
 
   const onDiscardClick = () => {
