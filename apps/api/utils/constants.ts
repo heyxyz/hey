@@ -16,6 +16,8 @@ export const SWR_CACHE_AGE_10_MINS_30_DAYS =
   'public, s-maxage=600, stale-while-revalidate=2592000';
 // Cache for 30 days
 export const CACHE_AGE_30_DAYS = 'public, s-maxage=2592000';
+// Redis EX
+export const REDIS_EX_8_HOURS = 28800;
 
 // Tests
 export const TEST_ENDPOINT = 'http://0.0.0.0:4785';
