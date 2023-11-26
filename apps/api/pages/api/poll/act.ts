@@ -48,7 +48,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       where: { id: poll }
     });
 
-    if ((pollData?.endedAt as Date).getTime() < Date.now()) {
+    if ((pollData?.endsAt as Date).getTime() < Date.now()) {
       return res.status(400).json({ success: false, error: 'Poll expired.' });
     }
     // End: Check if the poll expired
