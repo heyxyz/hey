@@ -61,6 +61,7 @@ export type PublicationViewCount = {
 export type PollOption = {
   id: string;
   option: string;
+  voted: boolean;
   percentage: number;
   responses: number;
 };
