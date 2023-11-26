@@ -1,7 +1,7 @@
 import logger from '@hey/lib/logger';
 import allowCors from '@utils/allowCors';
 import catchedError from '@utils/catchedError';
-import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
+import { SWR_CACHE_AGE_10_MINS_30_DAYS } from '@utils/constants';
 import createRedisClient from '@utils/createRedisClient';
 import prisma from '@utils/prisma';
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -15,7 +15,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
       logger.info('Staff picks fetched from cache');
       return res
         .status(200)
-        .setHeader('Cache-Control', SWR_CACHE_AGE_1_MIN_30_DAYS)
+        .setHeader('Cache-Control', SWR_CACHE_AGE_10_MINS_30_DAYS)
         .json({ success: true, cached: true, result: JSON.parse(cache) });
     }
 
@@ -29,7 +29,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
 
     return res
       .status(200)
-      .setHeader('Cache-Control', SWR_CACHE_AGE_1_MIN_30_DAYS)
+      .setHeader('Cache-Control', SWR_CACHE_AGE_10_MINS_30_DAYS)
       .json({ success: true, result: data });
   } catch (error) {
     return catchedError(res, error);
