@@ -3,7 +3,6 @@ import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import allowCors from '@utils/allowCors';
 import catchedError from '@utils/catchedError';
-import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
 import createRedisClient from '@utils/createRedisClient';
 import prisma from '@utils/prisma';
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -26,7 +25,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       logger.info('Poll fetched from cache');
       return res
         .status(200)
-        .setHeader('Cache-Control', SWR_CACHE_AGE_1_MIN_30_DAYS)
         .json({ success: true, cached: true, result: JSON.parse(cache) });
     }
 
@@ -76,10 +74,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     await redis.set(`poll:${id}`, JSON.stringify(sanitizedData));
     logger.info('Poll fetched from DB');
 
-    return res
-      .status(200)
-      .setHeader('Cache-Control', SWR_CACHE_AGE_1_MIN_30_DAYS)
-      .json({ success: true, result: sanitizedData });
+    return res.status(200).json({ success: true, result: sanitizedData });
   } catch (error) {
     return catchedError(res, error);
   }
