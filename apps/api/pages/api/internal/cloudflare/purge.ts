@@ -25,9 +25,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       {
         method: 'POST',
         body: JSON.stringify({ purge_everything: true }),
-        headers: {
-          Authorization: `Bearer ${process.env.CLOUDFLARE_API_KEY}`
-        }
+        headers: { Authorization: `Bearer ${process.env.CLOUDFLARE_API_KEY}` }
       }
     );
 
