@@ -24,13 +24,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       'https://api.cloudflare.com/client/v4/zones/2fd5485fa6cd159b1d4b39f1af6bb690/purge_cache',
       {
         method: 'POST',
-        body: JSON.stringify({
-          files: [
-            'https://hey.xyz/*',
-            'https://testnet.hey.xyz/*',
-            'https://staging.hey.xyz/*'
-          ]
-        }),
+        body: JSON.stringify({ purge_everything: true }),
         headers: {
           Authorization: `Bearer ${process.env.CLOUDFLARE_API_KEY}`
         }
