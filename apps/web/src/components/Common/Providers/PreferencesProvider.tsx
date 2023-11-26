@@ -48,7 +48,10 @@ const PreferencesProvider: FC = () => {
           data?.result.features.includes(FeatureFlag.GardenerMode)
         );
       }
-    } catch {}
+      return true;
+    } catch {
+      return false;
+    }
   };
 
   useQuery({
@@ -61,7 +64,10 @@ const PreferencesProvider: FC = () => {
       const response = await axios.get(`${HEY_API_URL}/misc/getVerified`);
       const { data } = response;
       setVerifiedMembers(data.result || []);
-    } catch {}
+      return true;
+    } catch {
+      return false;
+    }
   };
 
   useQuery({
