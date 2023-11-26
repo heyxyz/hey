@@ -32,8 +32,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(400).json({ success: false, error: 'Poll not found.' });
     }
 
-    logger.info('Poll fetched from DB');
-
     const sanitizedData = {
       id: data.id,
       endedAt: data.endedAt,
@@ -42,6 +40,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         responses: option._count.responses
       }))
     };
+
+    logger.info('Poll fetched from DB');
 
     return res
       .status(200)
