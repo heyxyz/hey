@@ -11,9 +11,7 @@ describe('preference/getPreferences', () => {
       })
     );
     expect(data.result.preference.isPride).toBeTruthy();
-    expect(
-      data.result.highSignalNotificationFilter.highSignalNotificationFilter
-    ).toBeTruthy();
+    expect(data.result.preference.highSignalNotificationFilter).toBeTruthy();
     expect(data.result.pro.enabled).toBeTruthy();
   });
 });
