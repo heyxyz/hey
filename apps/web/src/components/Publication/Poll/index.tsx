@@ -4,7 +4,8 @@ import { Spinner } from '@hey/ui';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { type FC } from 'react';
+import { type FC, useState } from 'react';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import Wrapper from '../../Shared/Embed/Wrapper';
 import Choices from './Choices';
@@ -14,11 +15,16 @@ interface SnapshotProps {
 }
 
 const Poll: FC<SnapshotProps> = ({ id }) => {
+  const [refetch, setRefetch] = useState(false);
+
   const fetchPoll = async (): Promise<Poll | null> => {
     try {
       const response = await axios.get(`${HEY_API_URL}/poll/get`, {
         params: { id },
-        headers: { ...getAuthWorkerHeaders(), 'X-Skip-Cache': true }
+        headers: {
+          ...getAuthWorkerHeaders(),
+          ...(refetch && { 'X-Skip-Cache': true })
+        }
       });
       const { data } = response;
 
@@ -28,10 +34,14 @@ const Poll: FC<SnapshotProps> = ({ id }) => {
     }
   };
 
-  const { data, isLoading, error, refetch } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ['fetchPoll', id],
     queryFn: fetchPoll
   });
+
+  useUpdateEffect(() => {
+    fetchPoll();
+  }, [refetch]);
 
   if (isLoading) {
     // TODO: Add skeleton loader here
@@ -48,7 +58,7 @@ const Poll: FC<SnapshotProps> = ({ id }) => {
     return null;
   }
 
-  return <Choices poll={data} refetch={refetch} />;
+  return <Choices poll={data} setRefetch={setRefetch} />;
 };
 
 export default Poll;
