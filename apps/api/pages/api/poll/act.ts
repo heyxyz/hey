@@ -3,6 +3,7 @@ import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import allowCors from '@utils/allowCors';
 import catchedError from '@utils/catchedError';
+import createRedisClient from '@utils/createRedisClient';
 import validateLensAccount from '@utils/middlewares/validateLensAccount';
 import prisma from '@utils/prisma';
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -42,6 +43,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const payload = parseJwt(accessToken);
+    const redis = createRedisClient();
 
     // Begin: Check if the poll expired
     const pollData = await prisma.poll.findUnique({
@@ -72,6 +74,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       data: { profileId: payload.id, optionId: option }
     });
 
+    await redis.del(`poll:${poll}`);
     logger.info(`Responded to a poll ${option}:${data.id}`);
 
     return res.status(200).json({ success: true, id: data.id });
