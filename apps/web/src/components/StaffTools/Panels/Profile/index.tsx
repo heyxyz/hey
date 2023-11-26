@@ -45,6 +45,25 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
     queryFn: getHaveUsedHey
   });
 
+  const fetchPreferences = async () => {
+    try {
+      const response = await axios.get(
+        `${HEY_API_URL}/preference/getPreferences`,
+        { params: { id: profile.id } }
+      );
+      const { data } = response;
+
+      return data.result;
+    } catch {
+      return null;
+    }
+  };
+
+  const { data: preferences, isLoading: preferencesLoading } = useQuery({
+    queryKey: ['fetchPreferences', profile.id || ''],
+    queryFn: fetchPreferences
+  });
+
   return (
     <Card
       as="aside"
@@ -134,8 +153,12 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           <Rank profile={profile} />
         </>
       ) : null}
-      <Access profile={profile} />
-      <FeatureFlags profile={profile} />
+      <Access profile={profile} isPro={preferences?.pro.enabled} />
+      <FeatureFlags
+        profile={profile}
+        features={preferences?.features}
+        loading={preferencesLoading}
+      />
     </Card>
   );
 };

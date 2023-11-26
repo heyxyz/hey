@@ -1,10 +1,12 @@
 import { HEY_API_URL } from '@hey/data/constants';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import getCurrentSession from '@lib/getCurrentSession';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useProStore } from 'src/store/non-persisted/useProStore';
+import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useVerifiedMembersStore } from 'src/store/persisted/useVerifiedMembersStore';
 import { isAddress } from 'viem';
 
@@ -18,6 +20,13 @@ const PreferencesProvider: FC = () => {
     (state) => state.setHighSignalNotificationFilter
   );
   const setIsPro = useProStore((state) => state.setIsPro);
+  const setFeatureFlags = useFeatureFlagsStore(
+    (state) => state.setFeatureFlags
+  );
+  const setStaffMode = useFeatureFlagsStore((state) => state.setStaffMode);
+  const setGardenerMode = useFeatureFlagsStore(
+    (state) => state.setGardenerMode
+  );
 
   const fetchPreferences = async () => {
     try {
@@ -33,6 +42,11 @@ const PreferencesProvider: FC = () => {
           data.result?.preference.highSignalNotificationFilter || false
         );
         setIsPro(data.result?.pro.enabled || false);
+        setFeatureFlags(data?.result.features || []);
+        setStaffMode(data?.result.features.includes(FeatureFlag.StaffMode));
+        setGardenerMode(
+          data?.result.features.includes(FeatureFlag.GardenerMode)
+        );
       }
     } catch {}
   };

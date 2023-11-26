@@ -1,43 +1,30 @@
 import { FlagIcon } from '@heroicons/react/24/outline';
-import { HEY_API_URL } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import type { Profile } from '@hey/lens';
 import { Modal } from '@hey/ui';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import { type FC, useState } from 'react';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import UpdateFeatureFlags from './UpdateFeatureFlags';
 
 interface FeatureFlagsProps {
   profile: Profile;
+  loading: boolean;
+  features: string[];
 }
 
-const FeatureFlags: FC<FeatureFlagsProps> = ({ profile }) => {
+const FeatureFlags: FC<FeatureFlagsProps> = ({
+  profile,
+  loading,
+  features
+}) => {
   const [showFeatureFlagsModal, setShowFeatureFlagsModal] = useState(false);
   const [flags, setFlags] = useState<string[]>([]);
 
-  const getFeatureFlags = async () => {
-    try {
-      const response = await axios.get(
-        `${HEY_API_URL}/feature/getFeatureFlags`,
-        { params: { id: profile.id } }
-      );
-      const { data } = response;
-
-      setFlags(data?.features || []);
-      return true;
-    } catch (error) {
-      return false;
-    }
-  };
-
-  const { isLoading } = useQuery({
-    queryKey: ['getFeatureFlags', profile.id],
-    queryFn: getFeatureFlags,
-    enabled: Boolean(profile.id)
-  });
+  useUpdateEffect(() => {
+    setFlags(features);
+  }, [features]);
 
   return (
     <>
@@ -46,9 +33,9 @@ const FeatureFlags: FC<FeatureFlagsProps> = ({ profile }) => {
         <div className="text-lg font-bold">Feature flags</div>
       </div>
       <div className="mt-3 space-y-2 font-bold">
-        {isLoading ? (
+        {loading ? (
           <div>Loading...</div>
-        ) : flags.length > 0 ? (
+        ) : flags?.length > 0 ? (
           <div>
             {flags.map((flag) => (
               <div key={flag}>{flag}</div>

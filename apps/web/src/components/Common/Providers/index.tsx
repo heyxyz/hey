@@ -13,7 +13,6 @@ import { type ReactNode } from 'react';
 import ErrorBoundary from '../ErrorBoundary';
 import Layout from '../Layout';
 import FeaturedGroupsProvider from './FeaturedGroupsProvider';
-import FeatureFlagsProvider from './FeatureFlagsProvider';
 import LeafwatchProvider from './LeafwatchProvider';
 import LensSubscriptionsProvider from './LensSubscriptionsProvider';
 import PreferencesProvider from './PreferencesProvider';
@@ -37,7 +36,6 @@ const Providers = ({ children }: { children: ReactNode }) => {
         <ApolloProvider client={lensApolloClient}>
           <LensSubscriptionsProvider />
           <QueryClientProvider client={queryClient}>
-            <FeatureFlagsProvider />
             <PreferencesProvider />
             <FeaturedGroupsProvider />
             <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
