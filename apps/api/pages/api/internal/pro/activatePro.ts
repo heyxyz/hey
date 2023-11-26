@@ -51,7 +51,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         }
       });
       // Delete the cache
-      await redis.del(`pro:${id}`);
+      await redis.del(`preferences:${id}`);
       logger.info(`Enabled pro for ${id}`);
 
       return res.status(200).json({ success: true, enabled, trial });
@@ -59,7 +59,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     await prisma.pro.delete({ where: { profileId: id } });
     // Delete the cache
-    await redis.del(`pro:${id}`);
+    await redis.del(`preferences:${id}`);
     logger.info(`Disabled pro for ${id}`);
 
     return res.status(200).json({ success: true, enabled, trial });

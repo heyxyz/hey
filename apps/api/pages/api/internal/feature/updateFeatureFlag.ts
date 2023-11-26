@@ -47,7 +47,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         data: { featureId: id, profileId: profile_id }
       });
       // Delete the cache
-      await redis.del(`features:${profile_id}`);
+      await redis.del(`preferences:${profile_id}`);
       logger.info(`Enabled features for ${profile_id}`);
 
       return res.status(200).json({ success: true, enabled });
@@ -58,7 +58,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     // Delete the cache
-    await redis.del(`features:${profile_id}`);
+    await redis.del(`preferences:${profile_id}`);
     logger.info(`Disabled features for ${profile_id}`);
 
     return res.status(200).json({ success: true, enabled });
