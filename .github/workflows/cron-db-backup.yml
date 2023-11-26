@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Backup Postgres DB and Push
-        uses: appleboy/database-backup-action@master
+        uses: kodermax/database-backup-action@main
         with:
           database_username: ${{ secrets.DB_USER }}
           database_password: ${{ secrets.DB_PASS }}
