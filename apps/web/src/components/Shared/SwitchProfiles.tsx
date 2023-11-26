@@ -24,7 +24,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import { signIn } from 'src/store/persisted/useAuthStore';
+import { signIn, signOut } from 'src/store/persisted/useAuthStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useAccount, useSignMessage } from 'wagmi';
 
@@ -92,6 +92,7 @@ const SwitchProfiles: FC = () => {
       });
       const accessToken = auth.data?.authenticate.accessToken;
       const refreshToken = auth.data?.authenticate.refreshToken;
+      signOut();
       signIn({ accessToken, refreshToken });
       Leafwatch.track(PROFILE.SWITCH_PROFILE, { switch_profile_to: id });
       location.reload();
