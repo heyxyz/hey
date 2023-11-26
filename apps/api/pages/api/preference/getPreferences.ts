@@ -26,14 +26,23 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         .json({ success: true, cached: true, result: JSON.parse(cache) });
     }
 
-    const [preference, pro] = await prisma.$transaction([
+    const [preference, pro, features] = await prisma.$transaction([
       prisma.preference.findUnique({ where: { id: id as string } }),
-      prisma.pro.findFirst({ where: { profileId: id as string } })
+      prisma.pro.findFirst({ where: { profileId: id as string } }),
+      prisma.profileFeature.findMany({
+        where: {
+          profileId: id as string,
+          enabled: true,
+          feature: { enabled: true }
+        },
+        select: { feature: { select: { key: true } } }
+      })
     ]);
 
     const response = {
       preference,
-      pro: { enabled: Boolean(pro) }
+      pro: { enabled: Boolean(pro) },
+      features: features.map((feature: any) => feature.feature?.key)
     };
 
     await redis.set(`preferences:${id}`, JSON.stringify(response));

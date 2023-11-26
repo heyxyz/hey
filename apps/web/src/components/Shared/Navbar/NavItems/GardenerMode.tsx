@@ -32,7 +32,7 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
       {
         loading: 'Toggling gardener mode...',
         success: () => {
-          axios.get(`${HEY_API_URL}/feature/getFeatureFlags`, {
+          axios.get(`${HEY_API_URL}/preference/getPreferences`, {
             params: { id: currentProfile?.id }
           });
           setGardenerMode(!gardenerMode);
