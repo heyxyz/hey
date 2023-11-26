@@ -48,7 +48,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         data: { featureId: STAFF_MODE_FEATURE_ID, profileId: profile_id }
       });
       // Delete the cache
-      await redis.del(`features:${profile_id}`);
+      await redis.del(`preferences:${profile_id}`);
       logger.info(`Enabled staff mode for ${profile_id}`);
 
       return res.status(200).json({ success: true, enabled });
@@ -63,7 +63,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       }
     });
     // Delete the cache
-    await redis.del(`features:${profile_id}`);
+    await redis.del(`preferences:${profile_id}`);
     logger.info(`Disabled staff mode for ${profile_id}`);
 
     return res.status(200).json({ success: true, enabled });
