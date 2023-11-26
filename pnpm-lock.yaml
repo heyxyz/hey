@@ -181,9 +181,6 @@ importers:
       '@hey/lib':
         specifier: workspace:*
         version: link:../../packages/lib
-      '@hey/snapshot':
-        specifier: workspace:*
-        version: link:../../packages/snapshot
       '@hey/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -527,40 +524,6 @@ importers:
       vitest:
         specifier: ^0.34.5
         version: 0.34.6
-
-  packages/snapshot:
-    dependencies:
-      '@apollo/client':
-        specifier: ^3.8.7
-        version: 3.8.7(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
-      '@hey/data':
-        specifier: workspace:*
-        version: link:../data
-    devDependencies:
-      '@graphql-codegen/cli':
-        specifier: ^5.0.0
-        version: 5.0.0(@parcel/watcher@2.3.0)(@types/node@20.10.0)(graphql@16.8.1)(typescript@5.3.2)
-      '@graphql-codegen/fragment-matcher':
-        specifier: ^5.0.0
-        version: 5.0.0(graphql@16.8.1)
-      '@graphql-codegen/typescript':
-        specifier: ^4.0.1
-        version: 4.0.1(graphql@16.8.1)
-      '@graphql-codegen/typescript-operations':
-        specifier: ^4.0.1
-        version: 4.0.1(graphql@16.8.1)
-      '@graphql-codegen/typescript-react-apollo':
-        specifier: ^4.1.0
-        version: 4.1.0(graphql-tag@2.12.6)(graphql@16.8.1)
-      '@hey/config':
-        specifier: workspace:*
-        version: link:../config
-      '@types/node':
-        specifier: ^20.10.0
-        version: 20.10.0
-      typescript:
-        specifier: ^5.3.2
-        version: 5.3.2
 
   packages/types:
     dependencies:

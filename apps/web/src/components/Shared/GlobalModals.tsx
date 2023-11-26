@@ -99,7 +99,7 @@ const GlobalModals: FC = () => {
       videoDurationInSeconds === '' &&
       !showPollEditor &&
       !isUploading &&
-      pollConfig.choices[0] === ''
+      pollConfig.options[0] === ''
     ) {
       return true;
     }

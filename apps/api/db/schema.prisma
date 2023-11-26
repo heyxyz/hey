@@ -97,7 +97,7 @@ model ProfileFeature {
 model Poll {
   id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   createdAt DateTime  @default(now())
-  endedAt   DateTime?
+  endsAt    DateTime?
 
   // Relations
   options PollOption[]

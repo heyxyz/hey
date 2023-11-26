@@ -2,7 +2,6 @@ import { PLACEHOLDER_IMAGE } from '@hey/data/constants';
 import type { PublicationMetadata } from '@hey/lens';
 import type { MetadataAsset } from '@hey/types/misc';
 
-import { knownEmbedHostnames } from './embeds/getEmbed';
 import getAttachmentsData from './getAttachmentsData';
 import removeUrlsByHostnames from './removeUrlsByHostnames';
 
@@ -72,11 +71,6 @@ const getPublicationData = (
           metadata.content,
           new Set(['basepaint.art', 'unlonely.app'])
         ),
-        attachments: getAttachmentsData(metadata.attachments)
-      };
-    case 'EmbedMetadataV3':
-      return {
-        content: removeUrlsByHostnames(metadata.content, knownEmbedHostnames),
         attachments: getAttachmentsData(metadata.attachments)
       };
     case 'LiveStreamMetadataV3':

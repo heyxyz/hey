@@ -17,9 +17,5 @@ export const SWR_CACHE_AGE_10_MINS_30_DAYS =
 // Cache for 30 days
 export const CACHE_AGE_30_DAYS = 'public, s-maxage=2592000';
 
-// Snapshot
-export const PROPOSAL_CREATOR_ADDRESS =
-  '0xF618330F51fa54Ce5951d627Ee150c0fDADeBA43';
-
 // Tests
 export const TEST_ENDPOINT = 'http://0.0.0.0:4785';
