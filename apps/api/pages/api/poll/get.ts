@@ -27,15 +27,26 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         }
       }
     });
+
+    if (!data) {
+      return res.status(400).json({ success: false, error: 'Poll not found.' });
+    }
+
     logger.info('Poll fetched from DB');
+
+    const sanitizedData = {
+      id: data.id,
+      endedAt: data.endedAt,
+      options: data.options.map((option) => ({
+        option: option.option,
+        responses: option._count.responses
+      }))
+    };
 
     return res
       .status(200)
       .setHeader('Cache-Control', SWR_CACHE_AGE_1_MIN_30_DAYS)
-      .json({
-        success: true,
-        result: data
-      });
+      .json({ success: true, result: sanitizedData });
   } catch (error) {
     return catchedError(res, error);
   }
