@@ -1,0 +1,32 @@
+name: Cron - DB Backup
+
+on:
+  schedule:
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+
+jobs:
+  downgrade:
+    name: Backup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Backup Postgres DB
+        uses: valerianpereira/backup-action@master
+        with:
+          type: db
+          db_type: postgres
+          db_user: ${{ secrets.DB_USER }}
+          db_pass: ${{ secrets.DB_PASS }}
+          db_port: 5432
+          db_name: ${{ secrets.DB_NAME }}
+
+      - name: Push backups to S3 Bucket
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --follow-symlinks
+        env:
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: 'eu-west-2'
+          SOURCE_DIR: 'public'
