@@ -7,6 +7,7 @@ import { HEY_API_URL } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
 import humanize from '@hey/lib/humanize';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { Poll } from '@hey/types/hey';
 import { Card, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -61,7 +62,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
   };
 
   return (
-    <Card className="mt-3">
+    <Card className="mt-3" onClick={stopEventPropagation}>
       <div className="space-y-1 p-3">
         {options.map(({ id, option, percentage, voted }) => (
           <button
