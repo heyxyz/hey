@@ -1,7 +1,10 @@
 import logger from '@hey/lib/logger';
 import allowCors from '@utils/allowCors';
 import catchedError from '@utils/catchedError';
-import { SWR_CACHE_AGE_10_MINS_30_DAYS } from '@utils/constants';
+import {
+  REDIS_EX_8_HOURS,
+  SWR_CACHE_AGE_10_MINS_30_DAYS
+} from '@utils/constants';
 import createRedisClient from '@utils/createRedisClient';
 import prisma from '@utils/prisma';
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -24,7 +27,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
     });
 
     const ids = data.map((item: any) => item.id);
-    await redis.set('verified', JSON.stringify(ids));
+    await redis.set('verified', JSON.stringify(ids), 'EX', REDIS_EX_8_HOURS);
     logger.info('Verified profiles fetched from DB');
 
     return res

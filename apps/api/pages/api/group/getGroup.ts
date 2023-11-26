@@ -2,7 +2,10 @@ import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import allowCors from '@utils/allowCors';
 import catchedError from '@utils/catchedError';
-import { SWR_CACHE_AGE_10_MINS_30_DAYS } from '@utils/constants';
+import {
+  REDIS_EX_8_HOURS,
+  SWR_CACHE_AGE_10_MINS_30_DAYS
+} from '@utils/constants';
 import createRedisClient from '@utils/createRedisClient';
 import prisma from '@utils/prisma';
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -29,7 +32,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const data = await prisma.group.findUnique({
       where: { slug: slug as string }
     });
-    await redis.set(`group:${slug}`, JSON.stringify(data));
+    await redis.set(
+      `group:${slug}`,
+      JSON.stringify(data),
+      'EX',
+      REDIS_EX_8_HOURS
+    );
     logger.info('Group fetched from DB');
 
     return res
