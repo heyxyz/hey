@@ -18,7 +18,7 @@ const Poll: FC<SnapshotProps> = ({ id }) => {
     try {
       const response = await axios.get(`${HEY_API_URL}/poll/get`, {
         params: { id },
-        headers: getAuthWorkerHeaders()
+        headers: { ...getAuthWorkerHeaders(), 'X-Skip-Cache': true }
       });
       const { data } = response;
 
