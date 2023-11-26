@@ -1,7 +1,10 @@
 import logger from '@hey/lib/logger';
 import allowCors from '@utils/allowCors';
 import catchedError from '@utils/catchedError';
-import { SWR_CACHE_AGE_10_MINS_30_DAYS } from '@utils/constants';
+import {
+  REDIS_EX_8_HOURS,
+  SWR_CACHE_AGE_10_MINS_30_DAYS
+} from '@utils/constants';
 import createRedisClient from '@utils/createRedisClient';
 import prisma from '@utils/prisma';
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -24,7 +27,12 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
       orderBy: { score: 'desc' },
       take: 5
     });
-    await redis.set('staff-picks', JSON.stringify(data));
+    await redis.set(
+      'staff-picks',
+      JSON.stringify(data),
+      'EX',
+      REDIS_EX_8_HOURS
+    );
     logger.info('Staff picks fetched from DB');
 
     return res

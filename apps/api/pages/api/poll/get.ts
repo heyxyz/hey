@@ -3,6 +3,7 @@ import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import allowCors from '@utils/allowCors';
 import catchedError from '@utils/catchedError';
+import { REDIS_EX_8_HOURS } from '@utils/constants';
 import createRedisClient from '@utils/createRedisClient';
 import prisma from '@utils/prisma';
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -71,7 +72,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       }))
     };
 
-    await redis.set(`poll:${id}`, JSON.stringify(sanitizedData));
+    await redis.set(
+      `poll:${id}`,
+      JSON.stringify(sanitizedData),
+      'EX',
+      REDIS_EX_8_HOURS
+    );
     logger.info('Poll fetched from DB');
 
     return res.status(200).json({ success: true, result: sanitizedData });

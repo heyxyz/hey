@@ -2,7 +2,10 @@ import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import allowCors from '@utils/allowCors';
 import catchedError from '@utils/catchedError';
-import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
+import {
+  REDIS_EX_8_HOURS,
+  SWR_CACHE_AGE_1_MIN_30_DAYS
+} from '@utils/constants';
 import createRedisClient from '@utils/createRedisClient';
 import prisma from '@utils/prisma';
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -45,7 +48,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       features: features.map((feature: any) => feature.feature?.key)
     };
 
-    await redis.set(`preferences:${id}`, JSON.stringify(response));
+    await redis.set(
+      `preferences:${id}`,
+      JSON.stringify(response),
+      'EX',
+      REDIS_EX_8_HOURS
+    );
     logger.info('Profile preferences fetched from DB');
 
     return res
