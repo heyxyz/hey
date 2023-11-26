@@ -63,7 +63,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
   return (
     <Card className="mt-3">
       <div className="space-y-1 p-3">
-        {options.map(({ id, option, percentage }) => (
+        {options.map(({ id, option, percentage, voted }) => (
           <button
             key={id}
             className="flex w-full items-center space-x-2.5 rounded-xl p-2 text-xs hover:bg-gray-100 dark:hover:bg-gray-900 sm:text-sm"
@@ -75,7 +75,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
             ) : (
               <CheckCircleIcon
                 className={cn(
-                  false ? 'text-green-500' : 'text-gray-500',
+                  voted ? 'text-green-500' : 'text-gray-500',
                   'h-6 w-6 '
                 )}
               />
@@ -90,7 +90,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
               <div className="flex h-2.5 overflow-hidden rounded-full bg-gray-300 dark:bg-gray-800">
                 <div
                   style={{ width: `${percentage}%` }}
-                  className={cn(false ? 'bg-green-500' : 'bg-brand-500')}
+                  className={cn(voted ? 'bg-green-500' : 'bg-brand-500')}
                 />
               </div>
             </div>

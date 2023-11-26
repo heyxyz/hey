@@ -1,5 +1,6 @@
 import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
+import parseJwt from '@hey/lib/parseJwt';
 import allowCors from '@utils/allowCors';
 import catchedError from '@utils/catchedError';
 import prisma from '@utils/prisma';
@@ -12,7 +13,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(400).json({ success: false, error: Errors.NoBody });
   }
 
+  const accessToken = req.headers['x-access-token'] as string;
+
   try {
+    const payload = parseJwt(accessToken);
     const data = await prisma.poll.findUnique({
       where: { id: id as string },
       select: {
@@ -22,7 +26,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           select: {
             id: true,
             option: true,
-            _count: { select: { responses: true } }
+            _count: { select: { responses: true } },
+            responses: {
+              where: { profileId: payload.id },
+              select: { id: true }
+            }
           }
         }
       }
@@ -43,6 +51,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       options: data.options.map((option) => ({
         id: option.id,
         option: option.option,
+        voted: option.responses.length > 0,
         percentage:
           totalResponses > 0
             ? (option._count.responses / totalResponses) * 100
