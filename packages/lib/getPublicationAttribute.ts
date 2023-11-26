@@ -1,4 +1,4 @@
-import type { MetadataAttribute } from '@hey/lens';
+import type { Maybe, MetadataAttribute } from '@hey/lens';
 
 /**
  * Returns the attribute value for a given trait type from an array of publication attributes.
@@ -8,7 +8,7 @@ import type { MetadataAttribute } from '@hey/lens';
  * @returns The attribute value.
  */
 const getPublicationAttribute = (
-  attributes: MetadataAttribute[] | undefined,
+  attributes: Maybe<MetadataAttribute[]> | undefined,
   key: string
 ): string => {
   const attribute = attributes?.find((attr) => attr.key === key);
