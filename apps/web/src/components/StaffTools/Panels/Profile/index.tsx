@@ -153,7 +153,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           <Rank profile={profile} />
         </>
       ) : null}
-      <Access profile={profile} isPro={preferences?.pro.enabled} />
+      <Access profile={profile} isPro={preferences?.pro?.enabled} />
       <FeatureFlags
         profile={profile}
         features={preferences?.features}
