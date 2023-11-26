@@ -30,7 +30,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
   const [pollSubmitting, setPollSubmitting] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
-  const { options, endedAt } = poll;
+  const { options, endsAt } = poll;
   const totalResponses = options.reduce((acc, { responses }) => {
     return acc + responses;
   }, 0);
@@ -104,8 +104,8 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
             {humanize(totalResponses ?? 0)} {plur('vote', totalResponses || 0)}
           </span>
           <span>·</span>
-          {new Date(endedAt) > new Date() ? (
-            <span>{getTimetoNow(new Date(endedAt))} left</span>
+          {new Date(endsAt) > new Date() ? (
+            <span>{getTimetoNow(new Date(endsAt))} left</span>
           ) : (
             <span>Poll ended</span>
           )}

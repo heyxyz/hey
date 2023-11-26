@@ -21,7 +21,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       where: { id: id as string },
       select: {
         id: true,
-        endedAt: true,
+        endsAt: true,
         options: {
           select: {
             id: true,
@@ -47,7 +47,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const sanitizedData = {
       id: data.id,
-      endedAt: data.endedAt,
+      endsAt: data.endsAt,
       options: data.options.map((option) => ({
         id: option.id,
         option: option.option,

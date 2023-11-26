@@ -68,6 +68,6 @@ export type PollOption = {
 
 export type Poll = {
   id: string;
-  endedAt: Date;
+  endsAt: Date;
   options: PollOption[];
 };
