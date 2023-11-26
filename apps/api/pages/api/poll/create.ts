@@ -54,7 +54,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             skipDuplicates: true
           }
         },
-        endedAt: new Date(Date.now() + length * 24 * 60 * 60 * 1000)
+        endsAt: new Date(Date.now() + length * 24 * 60 * 60 * 1000)
       }
     });
 
