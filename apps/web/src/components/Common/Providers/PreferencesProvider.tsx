@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
+import { useProStore } from 'src/store/non-persisted/useProStore';
 import { useVerifiedMembersStore } from 'src/store/persisted/useVerifiedMembersStore';
 import { isAddress } from 'viem';
 
@@ -16,6 +17,7 @@ const PreferencesProvider: FC = () => {
   const setHighSignalNotificationFilter = usePreferencesStore(
     (state) => state.setHighSignalNotificationFilter
   );
+  const setIsPro = useProStore((state) => state.setIsPro);
 
   const fetchPreferences = async () => {
     try {
@@ -26,10 +28,11 @@ const PreferencesProvider: FC = () => {
         );
         const { data } = response;
 
-        setIsPride(data.result?.isPride || false);
+        setIsPride(data.result?.preference.isPride || false);
         setHighSignalNotificationFilter(
-          data.result?.highSignalNotificationFilter || false
+          data.result?.preference.highSignalNotificationFilter || false
         );
+        setIsPro(data.result?.pro.enabled || false);
       }
     } catch {}
   };

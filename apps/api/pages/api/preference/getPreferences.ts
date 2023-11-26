@@ -26,10 +26,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         .json({ success: true, cached: true, result: JSON.parse(cache) });
     }
 
-    const data = await prisma.preference.findUnique({
-      where: { id: id as string }
-    });
-    await redis.set(`preferences:${id}`, JSON.stringify(data));
+    const [preference, pro] = await prisma.$transaction([
+      prisma.preference.findUnique({ where: { id: id as string } }),
+      prisma.pro.findFirst({ where: { profileId: id as string } })
+    ]);
+
+    const response = {
+      preference,
+      pro: { enabled: Boolean(pro) }
+    };
+
+    await redis.set(`preferences:${id}`, JSON.stringify(response));
     logger.info('Profile preferences fetched from DB');
 
     return res
@@ -37,7 +44,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       .setHeader('Cache-Control', SWR_CACHE_AGE_1_MIN_30_DAYS)
       .json({
         success: true,
-        result: data
+        result: response
       });
   } catch (error) {
     return catchedError(res, error);
