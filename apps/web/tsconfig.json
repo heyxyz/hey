@@ -3,6 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "target": "ES2020",
+    "types": ["unplugin-fonts/client"],
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable", "ESNext", "webworker"],
     "module": "ESNext",

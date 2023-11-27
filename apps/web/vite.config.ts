@@ -1,6 +1,7 @@
 import react from '@vitejs/plugin-react-swc';
 import * as dotenv from 'dotenv';
 import path from 'path';
+import Unfonts from 'unplugin-fonts/vite';
 import { defineConfig } from 'vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 
@@ -9,7 +10,33 @@ dotenv.config();
 // https://vitejs.dev/config/
 export default defineConfig(() => {
   return {
-    plugins: [nodePolyfills(), react()],
+    plugins: [
+      nodePolyfills(),
+      react(),
+      Unfonts({
+        custom: {
+          preload: true,
+          display: 'swap',
+          families: {
+            'Sofia Pro': {
+              src: './public/fonts/Sofia*',
+              transform(font) {
+                if (font.basename.includes('Reg')) {
+                  font.weight = 400;
+                }
+                if (font.basename.includes('Med')) {
+                  font.weight = 600;
+                }
+                if (font.basename.includes('Bold')) {
+                  font.weight = 800;
+                }
+                return font;
+              }
+            }
+          }
+        }
+      })
+    ],
     resolve: {
       alias: {
         '@lib': path.resolve(__dirname, './src/lib'),

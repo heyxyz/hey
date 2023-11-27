@@ -1,17 +1,15 @@
 import { BRAND_COLOR } from '@hey/data/constants';
 import type { ThemeConfig } from '@livepeer/react';
 
-// import heyFont from './heyFont';
-
 const getLivepeerTheme: ThemeConfig = {
   colors: {
     accent: '#fff',
     progressLeft: BRAND_COLOR,
     loading: BRAND_COLOR
   },
-  // fonts: {
-  //   display: heyFont.style.fontFamily
-  // },
+  fonts: {
+    display: 'Sofia Pro'
+  },
   fontSizes: {
     timeFontSize: '11px'
   },
