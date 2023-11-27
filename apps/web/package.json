@@ -6,7 +6,7 @@
     "build:sw": "node script/build-sw.mjs",
     "build:client": "vite build --outDir dist/client",
     "build": "pnpm run build:sw && pnpm run build:client",
-    "start": "NODE_ENV=production tsx web-server.ts",
+    "start": "NODE_ENV=production tsx server.ts",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
   },
