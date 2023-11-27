@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import { type FC, type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 
