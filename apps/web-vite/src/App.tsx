@@ -8,7 +8,7 @@ import Pro from './pages/pro';
 import Search from './pages/search';
 import Terms from './pages/terms';
 import Thanks from './pages/thanks';
-
+import UserHandler from './pages/u/[handle]';
 import Providers from '@components/Common/Providers';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -27,6 +27,7 @@ function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/thanks" element={<Thanks />} />
+          <Route path="/u/:handle" element={<UserHandler />} />
         </Routes>
       </Providers>
     </BrowserRouter>

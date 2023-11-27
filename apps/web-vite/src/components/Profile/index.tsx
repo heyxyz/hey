@@ -26,10 +26,11 @@ import FeedType from './FeedType';
 import FollowDialog from './FollowDialog';
 import NftGallery from './NftGallery';
 import ProfilePageShimmer from './Shimmer';
-import { useSearchParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 
 const ViewProfile = () => {
   const isReady = true;
+  const { handle } = useParams();
   const [searchParams, _] = useSearchParams();
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
@@ -46,9 +47,10 @@ const ViewProfile = () => {
     ProfileFeedType.Stats.toLowerCase()
   ];
 
-  const feedType = searchParams.get('type')
-    ? lowerCaseProfileFeedType.includes(searchParams.get('type') as string)
-      ? searchParams.get('type').toString().toUpperCase()
+  const type = searchParams.get('type');
+  const feedType = type
+    ? lowerCaseProfileFeedType.includes(type as string)
+      ? type.toString().toUpperCase()
       : ProfileFeedType.Feed
     : ProfileFeedType.Feed;
 
@@ -57,12 +59,10 @@ const ViewProfile = () => {
       request: {
         ...(searchParams.get('id')
           ? { forProfileId: searchParams.get('id') }
-          : { forHandle: `${HANDLE_PREFIX}${searchParams.get('handle')}` })
+          : { forHandle: `${HANDLE_PREFIX}${handle}` })
       }
     },
-    skip: searchParams.get('id')
-      ? !searchParams.get('id')
-      : !searchParams.get('handle')
+    skip: searchParams.get('id') ? !searchParams.get('id') : !handle
   });
 
   const profile = data?.profile as Profile;

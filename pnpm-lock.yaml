@@ -853,6 +853,9 @@ importers:
       react-hook-form:
         specifier: ^7.48.2
         version: 7.48.2(react@18.2.0)
+      react-router-dom:
+        specifier: ^6.20.0
+        version: 6.20.0(react-dom@18.2.0)(react@18.2.0)
       tailwind-merge:
         specifier: ^2.0.0
         version: 2.0.0

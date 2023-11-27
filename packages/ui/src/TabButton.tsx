@@ -1,5 +1,5 @@
-import { useRouter } from 'next/router';
 import { type FC, type ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import cn from '../cn';
 
@@ -24,15 +24,17 @@ const TabButton: FC<TabButtonProps> = ({
   className = '',
   onClick
 }) => {
-  const router = useRouter();
+  const navigate = useNavigate();
 
   return (
     <button
       type="button"
       onClick={() => {
         if (type) {
-          router.replace({ query: { ...router.query, type } }, undefined, {
-            shallow: true
+          const presentURL = new URL(window.location.href);
+          presentURL.searchParams.set('type', type.toString());
+          navigate(presentURL.pathname + presentURL.search, {
+            replace: true
           });
         }
         onClick();
