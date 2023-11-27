@@ -12,7 +12,7 @@ const app = express();
 
 const limiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
-  limit: 150, // Limit each IP to 150 requests per `window`
+  limit: 200, // Limit each IP to 200 requests per `window`
   standardHeaders: 'draft-7',
   legacyHeaders: false
 });
