@@ -1,11 +1,13 @@
-import fs from 'node:fs/promises';
-
 import compression from 'compression';
+import * as dotenv from 'dotenv';
 import express from 'express';
+import { readFileSync } from 'fs';
 import sirv from 'sirv';
 
-const port = import.meta.env.PORT || 4783;
-const base = import.meta.env.BASE || '/';
+dotenv.config();
+
+const port = process.env.PORT || 4783;
+const base = process.env.BASE || '/';
 
 const app = express();
 
@@ -15,11 +17,11 @@ app.use(base, sirv('./dist/client', { extensions: [] }));
 // Serve HTML
 app.use('*', async (req, res) => {
   try {
-    const html = await fs.readFile('./dist/client/index.html', 'utf-8');
+    const html = readFileSync('./dist/client/index.html', 'utf-8');
     res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
-  } catch (e) {
-    console.log(e.stack);
-    res.status(500).end(e.stack);
+  } catch (error) {
+    console.log(error.stack);
+    res.status(500).end(error.stack);
   }
 });
 
