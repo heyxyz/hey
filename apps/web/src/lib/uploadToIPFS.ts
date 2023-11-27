@@ -81,7 +81,7 @@ const uploadToIPFS = async (
         const metadata = result.Metadata;
         const cid = metadata?.['ipfs-hash'];
 
-        axios.post(`${HEY_API_URL}/ipfs/pin?cid=${cid}`);
+        axios.get(`${HEY_API_URL}/ipfs/pin`, { params: { cid } });
 
         return {
           uri: `ipfs://${cid}`,
