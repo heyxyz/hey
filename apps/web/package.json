@@ -6,7 +6,6 @@
     "start": "pnpm preview",
     "build": "pnpm build:sw; vite build",
     "build:sw": "node script/build-sw.mjs",
-    "preview": "vite preview",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
   },
