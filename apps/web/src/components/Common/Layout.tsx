@@ -17,7 +17,7 @@ import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce, useIsMounted } from 'usehooks-ts';
 import { isAddress } from 'viem';
-import { useAccount, useDisconnect } from 'wagmi';
+import { useDisconnect } from 'wagmi';
 
 import GlobalModals from '../Shared/GlobalModals';
 import Loading from '../Shared/Loading';
@@ -43,7 +43,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const resetPro = useProStore((state) => state.resetPro);
 
   const isMounted = useIsMounted();
-  const { connector } = useAccount();
   const { disconnect } = useDisconnect();
 
   const { id: sessionProfileId } = getCurrentSession();
@@ -63,11 +62,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       setCurrentProfile(profile as Profile);
       setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce);
     }
-  });
-
-  useEffectOnce(() => {
-    // Listen for switch account in wallet and logout
-    connector?.addListener('change', () => logout());
   });
 
   const validateAuthentication = () => {
