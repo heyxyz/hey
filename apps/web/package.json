@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "start": "pnpm preview",
+    "start": "vite preview",
     "build": "pnpm build:sw; vite build",
     "build:sw": "node script/build-sw.mjs",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
