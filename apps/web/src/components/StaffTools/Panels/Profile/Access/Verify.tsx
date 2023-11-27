@@ -6,7 +6,7 @@ import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { hydrateVerifiedMembers } from 'src/store/persisted/useVerifiedMembersStore';
+import { hydrateVerifiedMembers } from '@persisted/useVerifiedMembersStore';
 
 import ToggleWrapper from '../ToggleWrapper';
 

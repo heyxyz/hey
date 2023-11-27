@@ -9,7 +9,7 @@ import { EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import useProfileStore from '@persisted/useProfileStore';
 
 const Suggested: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);

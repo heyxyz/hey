@@ -4,18 +4,14 @@ import type { Profile } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { Button, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import dynamic from 'next/dynamic';
 import type { FC } from 'react';
-import { useState } from 'react';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
-
+import { lazy, useState } from 'react';
+import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
+import useProfileStore from '@persisted/useProfileStore';
 import Loader from '../Loader';
 import Slug from '../Slug';
 
-const FollowModule = dynamic(() => import('./FollowModule'), {
-  loading: () => <Loader message="Loading Super follow" />
-});
+const FollowModule = lazy(() => import('./FollowModule'));
 
 interface SuperFollowProps {
   profile: Profile;

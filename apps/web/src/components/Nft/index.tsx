@@ -3,20 +3,16 @@ import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
-import useOpenseaNft from 'src/hooks/opensea/useOpenseaNft';
-import Custom500 from 'src/pages/500';
+import useOpenseaNft from '@hooks/opensea/useOpenseaNft';
+import Custom500 from '@pages/500';
 import { useEffectOnce } from 'usehooks-ts';
-
 import NftDetails from './Details';
 import NftPageShimmer from './Shimmer';
+import { useParams } from 'react-router-dom';
 
-const ViewNft: NextPage = () => {
-  const {
-    query: { chain, address, token },
-    isReady
-  } = useRouter();
+const ViewNft = () => {
+  const isReady = true;
+  const { chain, address, token } = useParams();
   const {
     data: nft,
     loading,

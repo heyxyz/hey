@@ -12,7 +12,7 @@ import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { getTwitterFormat } from '@lib/formatTime';
 import isVerified from '@lib/isVerified';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import type { FC } from 'react';
 import { memo, useState } from 'react';
 
@@ -129,7 +129,7 @@ const UserProfile: FC<UserProfileProps> = ({
     <div className="flex items-center justify-between">
       {linkToProfile && profile.id ? (
         <Link
-          href={getProfile(profile).link}
+          to={getProfile(profile).link}
           className="outline-brand-500 rounded-xl outline-offset-4"
         >
           <UserInfo />

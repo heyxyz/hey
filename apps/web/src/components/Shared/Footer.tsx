@@ -1,9 +1,9 @@
 import { APP_NAME } from '@hey/data/constants';
 import { MISCELLANEOUS } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import type { FC } from 'react';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
+import { useFeatureFlagsStore } from '@persisted/useFeatureFlagsStore';
 import urlcat from 'urlcat';
 
 const Footer: FC = () => {
@@ -17,10 +17,10 @@ const Footer: FC = () => {
         <span className="ld-text-gray-500 font-bold">
           &copy; {new Date().getFullYear()} {APP_NAME}.xyz
         </span>
-        <Link href="/terms">Terms</Link>
-        <Link href="/privacy">Privacy</Link>
+        <Link to="/terms">Terms</Link>
+        <Link to="/privacy">Privacy</Link>
         <Link
-          href="https://hey.xyz/discord"
+          to="https://hey.xyz/discord"
           target="_blank"
           rel="noreferrer noopener"
           onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_DISCORD)}
@@ -28,7 +28,7 @@ const Footer: FC = () => {
           Discord
         </Link>
         <Link
-          href="https://hey.xyz/donate"
+          to="https://hey.xyz/donate"
           target="_blank"
           rel="noreferrer noopener"
           onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_DONATE)}
@@ -36,7 +36,7 @@ const Footer: FC = () => {
           Donate
         </Link>
         <Link
-          href="https://status.hey.xyz"
+          to="https://status.hey.xyz"
           target="_blank"
           rel="noreferrer noopener"
           onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_STATUS)}
@@ -44,16 +44,16 @@ const Footer: FC = () => {
           Status
         </Link>
         <Link
-          href="https://feedback.hey.xyz"
+          to="https://feedback.hey.xyz"
           target="_blank"
           rel="noreferrer noopener"
           onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_FEEDBACK)}
         >
           Feedback
         </Link>
-        <Link href="/thanks">Thanks</Link>
+        <Link to="/thanks">Thanks</Link>
         <Link
-          href="https://github.com/heyxyz/hey"
+          to="https://github.com/heyxyz/hey"
           target="_blank"
           rel="noreferrer noopener"
           onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_GITHUB)}
@@ -61,7 +61,7 @@ const Footer: FC = () => {
           GitHub
         </Link>
         <Link
-          href="https://translate.hey.xyz"
+          to="https://translate.hey.xyz"
           target="_blank"
           rel="noreferrer noopener"
           onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_TRANSLATE)}
@@ -72,7 +72,7 @@ const Footer: FC = () => {
       <div className="mt-2">
         <Link
           className="hover:font-bold"
-          href={urlcat('https://vercel.com', {
+          to={urlcat('https://vercel.com', {
             utm_source: APP_NAME,
             utm_campaign: 'oss'
           })}

@@ -4,7 +4,7 @@ import type { InvitedResult } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
 import getProfile from '@hey/lib/getProfile';
 import { formatDate } from '@lib/formatTime';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { type FC } from 'react';
 
 interface ProfileProps {
@@ -18,7 +18,7 @@ const Profile: FC<ProfileProps> = ({ invite }) => {
       <span>
         <b>
           {invite.profileMinted ? (
-            <Link href={getProfile(invite.profileMinted).link} target="_blank">
+            <Link to={getProfile(invite.profileMinted).link} target="_blank">
               <Slug slug={getProfile(invite.profileMinted).slugWithPrefix} />
             </Link>
           ) : (

@@ -1,5 +1,5 @@
 import parseJwt from '@hey/lib/parseJwt';
-import { hydrateAuthTokens } from 'src/store/persisted/useAuthStore';
+import { hydrateAuthTokens } from '@persisted/useAuthStore';
 
 /**
  * Get current session

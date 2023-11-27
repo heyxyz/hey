@@ -10,7 +10,7 @@ import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import useZoraNft from 'src/hooks/zora/useZoraNft';
+import useZoraNft from '@hooks/zora/useZoraNft';
 import { useAccount, useQuery } from 'wagmi';
 
 const HeyMembershipNft: FC = () => {

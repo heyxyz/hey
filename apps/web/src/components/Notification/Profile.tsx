@@ -9,7 +9,7 @@ import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
 import { Image } from '@hey/ui';
 import isVerified from '@lib/isVerified';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import type { FC } from 'react';
 
 interface NotificationProfileProps {
@@ -21,7 +21,7 @@ export const NotificationProfileAvatar: FC<NotificationProfileProps> = ({
 }) => {
   return (
     <UserPreview handle={profile.handle?.fullHandle} id={profile.id}>
-      <Link href={getProfile(profile).link}>
+      <Link to={getProfile(profile).link}>
         <Image
           src={getAvatar(profile)}
           className="h-7 w-7 rounded-full border bg-gray-200 dark:border-gray-700 sm:h-8 sm:w-8"
@@ -40,7 +40,7 @@ export const NotificationProfileName: FC<NotificationProfileProps> = ({
   return (
     <UserPreview handle={profile.handle?.fullHandle} id={profile.id}>
       <Link
-        href={getProfile(profile).link}
+        to={getProfile(profile).link}
         className="inline-flex items-center space-x-1 font-bold hover:underline"
       >
         <span>{getProfile(profile).displayName}</span>

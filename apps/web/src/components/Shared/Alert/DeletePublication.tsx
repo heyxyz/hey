@@ -4,7 +4,7 @@ import { Alert } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { type FC } from 'react';
 import { toast } from 'react-hot-toast';
-import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
+import { useGlobalAlertStateStore } from '@store/non-persisted/useGlobalAlertStateStore';
 
 const DeletePublication: FC = () => {
   const showPublicationDeleteAlert = useGlobalAlertStateStore(

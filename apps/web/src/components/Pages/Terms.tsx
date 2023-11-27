@@ -3,11 +3,11 @@ import Footer from '@components/Shared/Footer';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
-import type { NextPage } from 'next';
-import Link from 'next/link';
+
+import { Link } from 'react-router-dom';
 import { useEffectOnce } from 'usehooks-ts';
 
-const Terms: NextPage = () => {
+const Terms = () => {
   const updatedAt = 'December 11, 2022';
 
   useEffectOnce(() => {
@@ -208,7 +208,7 @@ const Terms: NextPage = () => {
               </div>
               <p className="linkify leading-7">
                 Your submission of personal information through the Site is
-                governed by our <Link href="/privacy">Privacy Policy</Link>.
+                governed by our <Link to="/privacy">Privacy Policy</Link>.
               </p>
               {/* 7. Personal Information ends */}
               {/* 8. Prohibited Usage begins */}

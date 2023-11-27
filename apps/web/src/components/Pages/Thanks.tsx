@@ -4,9 +4,8 @@ import { HeartIcon } from '@heroicons/react/24/outline';
 import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
-import type { NextPage } from 'next';
-import Link from 'next/link';
-import { useTheme } from 'next-themes';
+import { Link } from 'react-router-dom';
+import { useTheme } from '@hooks/theme';
 import type { FC, ReactNode } from 'react';
 import urlcat from 'urlcat';
 import { useEffectOnce } from 'usehooks-ts';
@@ -41,7 +40,7 @@ const Brand: FC<BrandProps> = ({ name, logo, url, size, type, children }) => {
       <div>
         <Link
           className="font-bold"
-          href={url}
+          to={url}
           target="_blank"
           rel="noreferrer noopener"
         >
@@ -52,7 +51,7 @@ const Brand: FC<BrandProps> = ({ name, logo, url, size, type, children }) => {
   );
 };
 
-const Thanks: NextPage = () => {
+const Thanks = () => {
   return (
     <>
       <MetaTags title={`Thanks • ${APP_NAME}`} />

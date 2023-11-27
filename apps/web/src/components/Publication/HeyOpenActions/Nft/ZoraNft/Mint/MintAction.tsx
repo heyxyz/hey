@@ -14,7 +14,7 @@ import getZoraChainInfo from '@hey/lib/getZoraChainInfo';
 import type { ZoraNft } from '@hey/types/nft';
 import { Button, Spinner } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { type FC } from 'react';
 import { useUpdateEffect } from 'usehooks-ts';
 import type { Address } from 'viem';
@@ -153,7 +153,7 @@ const MintAction: FC<MintActionProps> = ({
         noBalanceError ? (
           <Link
             className="w-full"
-            href="https://app.uniswap.org"
+            to="https://app.uniswap.org"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -175,7 +175,7 @@ const MintAction: FC<MintActionProps> = ({
         ) : (
           <Link
             className="w-full"
-            href={zoraLink}
+            to={zoraLink}
             target="_blank"
             rel="noopener noreferrer"
           >

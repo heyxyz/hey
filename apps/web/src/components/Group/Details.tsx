@@ -7,8 +7,8 @@ import getMentions from '@hey/lib/getMentions';
 import type { Group } from '@hey/types/hey';
 import { Image, LightBox, Tooltip } from '@hey/ui';
 import { formatDate } from '@lib/formatTime';
-import Link from 'next/link';
-import { useTheme } from 'next-themes';
+import { Link } from 'react-router-dom';
+import { useTheme } from '@hooks/theme';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import urlcat from 'urlcat';
@@ -20,7 +20,6 @@ interface DetailsProps {
 const Details: FC<DetailsProps> = ({ group }) => {
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
   const { resolvedTheme } = useTheme();
-
   const MetaDetails = ({
     children,
     icon
@@ -82,7 +81,7 @@ const Details: FC<DetailsProps> = ({ group }) => {
                 />
               }
             >
-              <Link href={`/u/${group.lens}`}>
+              <Link to={`/u/${group.lens}`}>
                 <Slug slug={group.lens} prefix="@" />
               </Link>
             </MetaDetails>
@@ -102,7 +101,7 @@ const Details: FC<DetailsProps> = ({ group }) => {
               }
             >
               <Link
-                href={urlcat('https://x.com/:username', {
+                to={urlcat('https://x.com/:username', {
                   username: group.x
                 })}
                 target="_blank"
@@ -125,7 +124,7 @@ const Details: FC<DetailsProps> = ({ group }) => {
               }
             >
               <Link
-                href={urlcat('https://instagram.com/:username', {
+                to={urlcat('https://instagram.com/:username', {
                   username: group.instagram
                 })}
                 target="_blank"
@@ -148,7 +147,7 @@ const Details: FC<DetailsProps> = ({ group }) => {
               }
             >
               <Link
-                href={group.discord}
+                to={group.discord}
                 target="_blank"
                 rel="noreferrer noopener"
               >

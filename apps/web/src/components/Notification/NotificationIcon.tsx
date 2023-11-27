@@ -1,7 +1,7 @@
 import { BellIcon } from '@heroicons/react/24/outline';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import type { FC } from 'react';
-import { useNotificationStore } from 'src/store/persisted/useNotificationStore';
+import { useNotificationStore } from '@persisted/useNotificationStore';
 
 const NotificationIcon: FC = () => {
   const latestNotificationId = useNotificationStore(
@@ -16,7 +16,7 @@ const NotificationIcon: FC = () => {
 
   return (
     <Link
-      href="/notifications"
+      to="/notifications"
       className="outline-brand-500 hidden items-start justify-center rounded-md px-2 py-1 hover:bg-gray-300/20 md:flex"
       onClick={() => {
         if (latestNotificationId) {

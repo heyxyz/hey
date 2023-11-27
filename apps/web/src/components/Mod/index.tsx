@@ -19,16 +19,16 @@ import {
 } from '@hey/ui';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
-import type { NextPage } from 'next';
+
 import { useState } from 'react';
-import Custom404 from 'src/pages/404';
+import Custom404 from '@pages/404';
 import { useEffectOnce } from 'usehooks-ts';
 
 import Feed from './Feed';
 
 const FILTER_APPS = knownApps;
 
-const Mod: NextPage = () => {
+const Mod = () => {
   const [refresing, setRefreshing] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [publicationTypes, setPublicationTypes] = useState([

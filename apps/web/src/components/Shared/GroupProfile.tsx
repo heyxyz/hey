@@ -3,7 +3,7 @@ import getAvatar from '@hey/lib/getAvatar';
 import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
 import type { Group } from '@hey/types/hey';
 import { Image } from '@hey/ui';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import type { FC } from 'react';
 import { memo } from 'react';
 
@@ -57,7 +57,7 @@ const GroupProfile: FC<GroupProfileProps> = ({
   };
 
   return linkToProfile ? (
-    <Link href={`/g/${group.slug}`}>
+    <Link to={`/g/${group.slug}`}>
       <GroupInfo />
     </Link>
   ) : (

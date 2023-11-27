@@ -14,9 +14,9 @@ import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { signOut } from 'src/store/persisted/useAuthStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
+import { signOut } from '@persisted/useAuthStore';
+import useProfileStore from '@persisted/useProfileStore';
 import { useContractWrite, useDisconnect } from 'wagmi';
 
 const DeleteSettings: FC = () => {

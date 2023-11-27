@@ -12,9 +12,9 @@ import type { UnlonelyChannelMetadata } from '@hey/types/nft';
 import { Button, Card, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { type FC } from 'react';
-import useUnlonelyChannel from 'src/hooks/unlonely/useUnlonelyChannel';
+import useUnlonelyChannel from '@hooks/unlonely/useUnlonelyChannel';
 import urlcat from 'urlcat';
 
 import NftShimmer from './Shimmer';
@@ -87,7 +87,7 @@ const UnlonelyChannel: FC<UnlonelyChannelProps> = ({
           </div>
         </div>
         <Link
-          href={urlcat('https://www.unlonely.app/channels/:slug', {
+          to={urlcat('https://www.unlonely.app/channels/:slug', {
             slug: channel.slug
           })}
           target="_blank"

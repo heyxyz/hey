@@ -4,9 +4,9 @@ import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import type { NextPage } from 'next';
-import Custom404 from 'src/pages/404';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+
+import Custom404 from '@pages/404';
+import useProfileStore from '@persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
 
@@ -14,7 +14,7 @@ import SettingsSidebar from '../Sidebar';
 import DeleteSettings from './Delete';
 import GuardianSettings from './Guardian';
 
-const DangerSettings: NextPage = () => {
+const DangerSettings = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const { address } = useAccount();
   const disabled = currentProfile?.ownedBy.address !== address;

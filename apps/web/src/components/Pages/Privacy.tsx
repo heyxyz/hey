@@ -3,11 +3,11 @@ import Footer from '@components/Shared/Footer';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
-import type { NextPage } from 'next';
-import Link from 'next/link';
+
+import { Link } from 'react-router-dom';
 import { useEffectOnce } from 'usehooks-ts';
 
-const Privacy: NextPage = () => {
+const Privacy = () => {
   const updatedAt = 'October 30, 2023';
 
   useEffectOnce(() => {
@@ -179,7 +179,7 @@ const Privacy: NextPage = () => {
                     or take action with respect to “Do Not Track” signals. For
                     more information on “Do Not Track,” visit{' '}
                     <Link
-                      href="https://allaboutdnt.com"
+                      to="https://allaboutdnt.com"
                       target="_blank"
                       rel="noreferrer"
                     >

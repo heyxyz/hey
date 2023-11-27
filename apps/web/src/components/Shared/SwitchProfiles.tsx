@@ -19,13 +19,13 @@ import { ErrorMessage, Image, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import { signIn, signOut } from 'src/store/persisted/useAuthStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
+import { signIn, signOut } from '@persisted/useAuthStore';
+import useProfileStore from '@persisted/useProfileStore';
 import { useAccount, useSignMessage } from 'wagmi';
 
 import Loader from './Loader';
@@ -144,7 +144,7 @@ const SwitchProfiles: FC = () => {
       ))}
       {!IS_MAINNET ? (
         <Link
-          href="/new/profile"
+          to="/new/profile"
           className="flex w-full cursor-pointer items-center justify-between space-x-2 rounded-lg py-3 pl-3 pr-4 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
           onClick={() => setShowProfileSwitchModal(false)}
         >

@@ -15,7 +15,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import toast from 'react-hot-toast';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import useProfileStore from '@persisted/useProfileStore';
 
 const List: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);

@@ -2,7 +2,7 @@ import { POLYGONSCAN_URL } from '@hey/data/constants';
 import type { ApprovedAllowanceAmountResult } from '@hey/lens';
 import { Card } from '@hey/ui';
 import getAllowanceModule from '@lib/getAllowanceModule';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import type { FC } from 'react';
 import { useState } from 'react';
 
@@ -28,7 +28,7 @@ const Module: FC<ModuleProps> = ({ module }) => {
           {getAllowanceModule(module?.moduleName).name}
         </div>
         <Link
-          href={`${POLYGONSCAN_URL}/address/${module?.moduleContract.address}`}
+          to={`${POLYGONSCAN_URL}/address/${module?.moduleContract.address}`}
           className="ld-text-gray-500 truncate text-sm"
           target="_blank"
           rel="noreferrer noopener"

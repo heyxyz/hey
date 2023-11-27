@@ -5,7 +5,7 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { OG } from '@hey/types/misc';
 import { Card, Image } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { type FC } from 'react';
 
 interface EmbedProps {
@@ -17,7 +17,7 @@ const Embed: FC<EmbedProps> = ({ og, publicationId }) => {
   return (
     <div className="mt-4 text-sm sm:w-4/6">
       <Link
-        href={og.url}
+        to={og.url}
         onClick={(event) => {
           stopEventPropagation(event);
           Leafwatch.track(PUBLICATION.CLICK_OEMBED, {

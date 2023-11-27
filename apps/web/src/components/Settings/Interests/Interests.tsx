@@ -13,7 +13,7 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import sanitizeProfileInterests from '@lib/sanitizeProfileInterests';
 import type { FC } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import useProfileStore from '@persisted/useProfileStore';
 
 import Loader from '../../Shared/Loader';
 

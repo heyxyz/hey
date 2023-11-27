@@ -14,7 +14,7 @@ import getFollowModule from '@hey/lib/getFollowModule';
 import { Card } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { type FC } from 'react';
 
 import MetaDetails from '../MetaDetails';
@@ -137,11 +137,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
             value={profile.metadata.rawURI}
             title="Metadata"
           >
-            <Link
-              href={profile.metadata.rawURI}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <Link to={profile.metadata.rawURI} target="_blank" rel="noreferrer">
               Open
             </Link>
           </MetaDetails>

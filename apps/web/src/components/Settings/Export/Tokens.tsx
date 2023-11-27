@@ -1,6 +1,6 @@
 import { Card } from '@hey/ui';
 import type { FC } from 'react';
-import { hydrateAuthTokens } from 'src/store/persisted/useAuthStore';
+import { hydrateAuthTokens } from '@persisted/useAuthStore';
 
 const Tokens: FC = () => {
   const { accessToken, refreshToken } = hydrateAuthTokens();

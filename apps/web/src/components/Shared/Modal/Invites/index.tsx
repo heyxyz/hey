@@ -3,7 +3,7 @@ import type { InvitedResult } from '@hey/lens';
 import { useInvitedProfilesQuery } from '@hey/lens';
 import { ErrorMessage } from '@hey/ui';
 import type { FC } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import useProfileStore from '@persisted/useProfileStore';
 
 import Invite from './Invite';
 import Invited from './Invited';

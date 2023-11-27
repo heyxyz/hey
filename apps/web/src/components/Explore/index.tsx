@@ -13,16 +13,16 @@ import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
-import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
+import { useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import useProfileStore from '@persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
-
+import { useNavigate } from 'react-router-dom';
 import Feed from './Feed';
 
-const Explore: NextPage = () => {
-  const router = useRouter();
+const Explore = () => {
+  const navigate = useNavigate();
+  const [searchParams, _] = useSearchParams();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const [focus, setFocus] = useState<PublicationMetadataMainFocusType>();
 
@@ -48,13 +48,13 @@ const Explore: NextPage = () => {
       />
       <GridItemEight className="space-y-5">
         <Tab.Group
-          defaultIndex={Number(router.query.tab)}
+          defaultIndex={Number(searchParams.get('tab'))}
           onChange={(index) => {
-            router.replace(
-              { query: { ...router.query, tab: index } },
-              undefined,
-              { shallow: true }
-            );
+            const presentURL = new URL(window.location.href);
+            presentURL.searchParams.set('tab', index.toString());
+            navigate(presentURL.pathname + presentURL.search, {
+              replace: true
+            });
           }}
         >
           <Tab.List className="divider space-x-8">

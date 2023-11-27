@@ -3,28 +3,27 @@ import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import type { Profile } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import cn from '@hey/ui/cn';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
-
+import { usePreferencesStore } from '@store/non-persisted/usePreferencesStore';
+import { useFeatureFlagsStore } from '@persisted/useFeatureFlagsStore';
+import useProfileStore from '@persisted/useProfileStore';
 import MenuItems from './MenuItems';
 import MoreNavItems from './MoreNavItems';
 import Search from './Search';
 import StaffBar from './StaffBar';
 
 const Navbar: FC = () => {
-  const router = useRouter();
+  const navigate = useNavigate();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
   const isPride = usePreferencesStore((state) => state.isPride);
   const [showSearch, setShowSearch] = useState(false);
 
   const onProfileSelected = (profile: Profile) => {
-    router.push(getProfile(profile).link);
+    navigate(getProfile(profile).link);
   };
 
   interface NavItemProps {
@@ -36,7 +35,7 @@ const Navbar: FC = () => {
   const NavItem = ({ url, name, current }: NavItemProps) => {
     return (
       <Link
-        href={url}
+        to={url}
         className={cn(
           'outline-brand-500 cursor-pointer rounded-md px-2 py-1 text-left text-sm font-bold tracking-wide md:px-3',
           {
@@ -52,7 +51,7 @@ const Navbar: FC = () => {
   };
 
   const NavItems = () => {
-    const { pathname } = useRouter();
+    const { pathname } = useLocation();
 
     return (
       <>
@@ -84,7 +83,7 @@ const Navbar: FC = () => {
               )}
             </button>
             <Link
-              href="/"
+              to="/"
               className="outline-brand-500 hidden rounded-full outline-offset-8 md:block"
             >
               <img
@@ -105,7 +104,7 @@ const Navbar: FC = () => {
             </div>
           </div>
           <Link
-            href="/"
+            to="/"
             className={cn('md:hidden', !currentProfile?.id && 'ml-[60px]')}
           >
             <img

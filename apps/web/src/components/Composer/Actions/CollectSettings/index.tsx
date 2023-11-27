@@ -3,7 +3,7 @@ import { Modal, Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
+import { useCollectModuleStore } from '@store/non-persisted/useCollectModuleStore';
 
 import CollectForm from './CollectForm';
 

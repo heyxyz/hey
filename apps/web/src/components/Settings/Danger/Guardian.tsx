@@ -13,8 +13,8 @@ import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
+import useProfileStore from '@persisted/useProfileStore';
 import { useContractWrite } from 'wagmi';
 
 const GuardianSettings: FC = () => {

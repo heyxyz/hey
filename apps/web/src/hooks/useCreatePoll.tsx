@@ -1,7 +1,7 @@
 import { HEY_API_URL } from '@hey/data/constants';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import axios from 'axios';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 
 type CreatePollResponse = string;
 

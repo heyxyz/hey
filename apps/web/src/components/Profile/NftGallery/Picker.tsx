@@ -11,10 +11,10 @@ import cn from '@hey/ui/cn';
 import { type FC } from 'react';
 import { toast } from 'react-hot-toast';
 import { VirtuosoGrid } from 'react-virtuoso';
-import { CHAIN_ID } from 'src/constants';
-import type { NftGalleryItem } from 'src/store/non-persisted/useNftGalleryStore';
-import { useNftGalleryStore } from 'src/store/non-persisted/useNftGalleryStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { CHAIN_ID } from '@constants';
+import type { NftGalleryItem } from '@store/non-persisted/useNftGalleryStore';
+import { useNftGalleryStore } from '@store/non-persisted/useNftGalleryStore';
+import useProfileStore from '@persisted/useProfileStore';
 import { mainnet } from 'wagmi/chains';
 
 interface PickerProps {

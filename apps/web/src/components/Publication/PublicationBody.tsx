@@ -13,7 +13,7 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import removeUrlAtEnd from '@hey/lib/removeUrlAtEnd';
 import type { OG } from '@hey/types/misc';
 import cn from '@hey/ui/cn';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import type { FC } from 'react';
 import { memo, useState } from 'react';
 import { isIOS, isMobile } from 'react-device-detect';
@@ -103,7 +103,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       {canShowMore ? (
         <div className="ld-text-gray-500 mt-4 flex items-center space-x-1 text-sm font-bold">
           <EyeIcon className="h-4 w-4" />
-          <Link href={`/posts/${id}`}>Show more</Link>
+          <Link to={`/posts/${id}`}>Show more</Link>
         </div>
       ) : null}
       {/* Attachments and Quotes */}

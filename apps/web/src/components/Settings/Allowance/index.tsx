@@ -13,10 +13,10 @@ import {
 } from '@hey/lens';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import type { NextPage } from 'next';
+
 import { useState } from 'react';
-import Custom500 from 'src/pages/500';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import Custom500 from '@pages/500';
+import useProfileStore from '@persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
@@ -35,7 +35,7 @@ const getAllowancePayload = (currency: string) => {
   };
 };
 
-const AllowanceSettings: NextPage = () => {
+const AllowanceSettings = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const [currencyLoading, setCurrencyLoading] = useState(false);
 

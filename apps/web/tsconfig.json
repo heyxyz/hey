@@ -2,13 +2,36 @@
   "extends": "@hey/config/react.tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "lib": ["DOM", "DOM.Iterable", "ESNext", "webworker"],
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable", "ESNext", "webworker"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@components*": ["src/components*"],
-      "@lib*": ["src/lib*"],
-      "@gql*": ["src/graphql*"],
-      "@generated*": ["src/generated*"]
+      "@lib/*": ["src/lib/*"],
+      "@enums": ["src/enums.ts"],
+      "@gql/*": ["src/graphql/*"],
+      "@store/*": ["src/store/*"],
+      "@pages/*": ["src/pages/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@constants": ["src/constants.ts"],
+      "@generated/*": ["src/generated/*"],
+      "@components/*": ["src/components/*"],
+      "@persisted/*": ["src/store/persisted/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

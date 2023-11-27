@@ -1,6 +1,6 @@
 import type { AnyPublication } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { useRouter } from 'next/router';
+import { useLocation } from 'react-router-dom';
 import { type FC } from 'react';
 
 import Commented from './Commented';
@@ -17,7 +17,7 @@ const PublicationType: FC<PublicationTypeProps> = ({
   showType,
   showThread = false
 }) => {
-  const { pathname } = useRouter();
+  const location = useLocation();
   const type = publication.__typename;
 
   if (!showType) {
@@ -27,7 +27,8 @@ const PublicationType: FC<PublicationTypeProps> = ({
   return (
     <span onClick={stopEventPropagation}>
       {type === 'Mirror' ? <Mirrored publication={publication} /> : null}
-      {type === 'Comment' && (showThread || pathname === '/posts/[id]') ? (
+      {type === 'Comment' &&
+      (showThread || location.pathname === '/posts/[id]') ? (
         <Commented publication={publication} />
       ) : null}
     </span>

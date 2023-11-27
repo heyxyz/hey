@@ -11,14 +11,13 @@ import type { PublicationMetadataMainFocusType } from '@hey/lens';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
-import type { NextPage } from 'next';
 import { useState } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import useProfileStore from '@persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import Feed from './Feed';
 
-const Bookmarks: NextPage = () => {
+const Bookmarks = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const [focus, setFocus] = useState<PublicationMetadataMainFocusType>();
 

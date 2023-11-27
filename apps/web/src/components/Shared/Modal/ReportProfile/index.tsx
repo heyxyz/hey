@@ -6,7 +6,7 @@ import { Button, Card, Form, Radio, TextArea, useZodForm } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { type FC } from 'react';
 import toast from 'react-hot-toast';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
 import { object, string, z } from 'zod';
 
 const ReportType = z.enum(['MISLEADING_ACCOUNT', 'UNWANTED_CONTENT']);

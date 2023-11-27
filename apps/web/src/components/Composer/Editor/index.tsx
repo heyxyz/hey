@@ -23,8 +23,8 @@ import {
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
-import useUploadAttachments from 'src/hooks/useUploadAttachments';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import useUploadAttachments from '@hooks/useUploadAttachments';
+import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 
 const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS];
 

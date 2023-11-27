@@ -2,7 +2,7 @@ import Markup from '@components/Shared/Markup';
 import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
 import { CommentNotification } from '@hey/lens';
 import getPublicationData from '@hey/lib/getPublicationData';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import type { FC } from 'react';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
@@ -39,7 +39,7 @@ const CommentNotification: FC<CommentNotificationProps> = ({
           linkToType={`/posts/${notification?.comment?.id}`}
         />
         <Link
-          href={`/posts/${notification?.comment?.id}`}
+          to={`/posts/${notification?.comment?.id}`}
           className="ld-text-gray-500 linkify mt-2 line-clamp-2"
         >
           <Markup mentions={notification.comment.profilesMentioned}>

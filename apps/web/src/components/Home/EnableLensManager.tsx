@@ -4,7 +4,7 @@ import { APP_NAME } from '@hey/data/constants';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import { Card } from '@hey/ui';
 import type { FC } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import useProfileStore from '@persisted/useProfileStore';
 import { useAccount } from 'wagmi';
 
 const EnableLensManager: FC = () => {

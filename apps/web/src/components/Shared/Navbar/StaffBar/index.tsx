@@ -1,7 +1,7 @@
 import { GlobeAltIcon, HashtagIcon } from '@heroicons/react/24/outline';
 import { GIT_COMMIT_SHA, IS_MAINNET, IS_PRODUCTION } from '@hey/data/constants';
 import cn from '@hey/ui/cn';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { type FC, type ReactNode } from 'react';
 import urlcat from 'urlcat';
 
@@ -38,7 +38,7 @@ const StaffBar: FC = () => {
         </div>
         {GIT_COMMIT_SHA ? (
           <Link
-            href={urlcat('https://github.com/heyxyz/hey/commit/:sha', {
+            to={urlcat('https://github.com/heyxyz/hey/commit/:sha', {
               sha: GIT_COMMIT_SHA
             })}
             className="flex items-center space-x-1"

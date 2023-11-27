@@ -2,7 +2,7 @@ import type { PublicationMetadata } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import getGroupByTag from '@lib/getGroupByTag';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { type FC } from 'react';
 
 interface FeaturedGroupProps {
@@ -19,7 +19,7 @@ const FeaturedGroup: FC<FeaturedGroupProps> = ({ tags, className = '' }) => {
 
   return (
     <Link
-      href={`/g/${group.slug}`}
+      to={`/g/${group.slug}`}
       className={cn(
         'flex items-center space-x-2 text-xs hover:underline',
         className

@@ -1,5 +1,5 @@
 import type { Group } from '@hey/types/hey';
-import { hydrateFeaturedGroups } from 'src/store/persisted/useFeaturedGroupsStore';
+import { hydrateFeaturedGroups } from '@persisted/useFeaturedGroupsStore';
 
 const getGroupByTag = (tags: string[]): Group | undefined => {
   const { featuredGroups } = hydrateFeaturedGroups();

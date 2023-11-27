@@ -12,8 +12,8 @@ import getMentions from '@hey/lib/getMentions';
 import type { OptimisticTransaction } from '@hey/types/misc';
 import { Card, Tooltip } from '@hey/ui';
 import { type FC } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
+import useProfileStore from '@persisted/useProfileStore';
+import { useTransactionStore } from '@persisted/useTransactionStore';
 
 interface QueuedPublicationProps {
   txn: OptimisticTransaction;

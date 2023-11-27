@@ -7,9 +7,9 @@ import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import getCurrentSession from '@lib/getCurrentSession';
 import { Leafwatch } from '@lib/leafwatch';
-import type { NextPage } from 'next';
+
 import { useState } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import useProfileStore from '@persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import AlgorithmicFeed from './AlgorithmicFeed';
@@ -26,7 +26,7 @@ import StaffPicks from './StaffPicks';
 import Timeline from './Timeline';
 import Waitlist from './Waitlist';
 
-const Home: NextPage = () => {
+const Home = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const [feedType, setFeedType] = useState<HomeFeedType>(
     HomeFeedType.FOLLOWING

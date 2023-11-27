@@ -12,11 +12,11 @@ import {
 } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
+import useProfileStore from '@persisted/useProfileStore';
 import { useContractWrite } from 'wagmi';
 
 import CountdownTimer from './CountdownTimer';
@@ -82,7 +82,7 @@ const ProtectProfile: FC = () => {
                 Your profile protection disabled.
                 <Link
                   className="ml-1.5 underline"
-                  href="https://github.com/lens-protocol/LIPs/blob/main/LIPs/lip-4.md"
+                  to="https://github.com/lens-protocol/LIPs/blob/main/LIPs/lip-4.md"
                   target="_blank"
                 >
                   Learn more

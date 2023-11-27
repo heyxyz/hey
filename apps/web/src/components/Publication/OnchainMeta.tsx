@@ -7,7 +7,7 @@ import {
 import type { AnyPublication } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card } from '@hey/ui';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { type FC } from 'react';
 import urlcat from 'urlcat';
 
@@ -20,7 +20,7 @@ interface MetaProps {
 const Meta: FC<MetaProps> = ({ name, uri, hash }) => (
   <div className="px-5 py-3">
     <Link
-      href={uri}
+      to={uri}
       className="space-y-1"
       target="_blank"
       rel="noreferrer noopener"

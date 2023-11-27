@@ -1,7 +1,7 @@
 import { PLACEHOLDER_IMAGE } from '@hey/data/constants';
 import type { Nft } from '@hey/lens';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import type { FC } from 'react';
 import { memo } from 'react';
 
@@ -51,7 +51,7 @@ const NFTImage: FC<NFTProps> = ({ nft }) => {
 const NftCard: FC<NFTProps> = ({ nft, linkToDetail = false }) => {
   return linkToDetail ? (
     <Link
-      href={`/nft/${nft.contract.chainId}/${nft.contract.address}/${nft.tokenId}`}
+      to={`/nft/${nft.contract.chainId}/${nft.contract.address}/${nft.tokenId}`}
       className="w-full"
     >
       <NFTImage nft={nft} />

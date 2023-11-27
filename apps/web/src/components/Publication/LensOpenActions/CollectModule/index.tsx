@@ -29,7 +29,7 @@ import humanize from '@hey/lib/humanize';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Modal, Tooltip } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import plur from 'plur';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -183,7 +183,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
               <div className="space-x-1.5">
                 <span>Token:</span>
                 <Link
-                  href={`${POLYGONSCAN_URL}/token/${collectModule.contract.address}`}
+                  to={`${POLYGONSCAN_URL}/token/${collectModule.contract.address}`}
                   target="_blank"
                   className="font-bold text-gray-600"
                   rel="noreferrer noopener"

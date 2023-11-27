@@ -34,12 +34,12 @@ import hasMisused from '@hey/lib/hasMisused';
 import { Button, Image, LightBox, Modal, Tooltip } from '@hey/ui';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import isVerified from '@lib/isVerified';
-import Link from 'next/link';
-import { useTheme } from 'next-themes';
+import { Link } from 'react-router-dom';
+import { useTheme } from '@hooks/theme';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useFeatureFlagsStore } from '@persisted/useFeatureFlagsStore';
+import useProfileStore from '@persisted/useProfileStore';
 import urlcat from 'urlcat';
 
 import Badges from './Badges';
@@ -135,7 +135,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
         <Followerings profile={profile} />
         <div className="flex items-center space-x-2">
           {currentProfile?.id === profile.id ? (
-            <Link href="/settings">
+            <Link to="/settings">
               <Button
                 variant="secondary"
                 icon={<Cog6ToothIcon className="h-5 w-5" />}
@@ -201,7 +201,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           <MetaDetails icon={<HashtagIcon className="h-4 w-4" />}>
             <Tooltip content={`#${profile.id}`}>
               <Link
-                href={urlcat(RARIBLE_URL, '/token/polygon/:address::id', {
+                to={urlcat(RARIBLE_URL, '/token/polygon/:address::id', {
                   address: getEnvConfig().lensHubProxyAddress,
                   id: parseInt(profile.id)
                 })}
@@ -250,7 +250,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               }
             >
               <Link
-                href={`https://${getProfileAttribute(
+                to={`https://${getProfileAttribute(
                   profile?.metadata?.attributes,
                   'website'
                 )
@@ -280,7 +280,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               }
             >
               <Link
-                href={urlcat('https://x.com/:username', {
+                to={urlcat('https://x.com/:username', {
                   username: getProfileAttribute(
                     profile?.metadata?.attributes,
                     'x'

@@ -2,7 +2,7 @@ import { MoonIcon, SunIcon } from '@heroicons/react/24/outline';
 import { SYSTEM } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { useTheme } from 'next-themes';
+import { useTheme } from '@hooks/theme';
 import { type FC } from 'react';
 
 interface ThemeSwitchProps {
@@ -12,7 +12,6 @@ interface ThemeSwitchProps {
 
 const ThemeSwitch: FC<ThemeSwitchProps> = ({ onClick, className = '' }) => {
   const { theme, setTheme } = useTheme();
-
   return (
     <button
       type="button"

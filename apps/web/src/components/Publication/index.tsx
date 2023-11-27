@@ -14,13 +14,12 @@ import getProfile from '@hey/lib/getProfile';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
-import Custom404 from 'src/pages/404';
-import Custom500 from 'src/pages/500';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import Custom404 from '@pages/404';
+import Custom500 from '@pages/500';
+import { useFeatureFlagsStore } from '@persisted/useFeatureFlagsStore';
+import useProfileStore from '@persisted/useProfileStore';
+import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
+import { useParams } from 'react-router-dom';
 import { useEffectOnce } from 'usehooks-ts';
 
 import FullPublication from './FullPublication';
@@ -28,17 +27,14 @@ import OnchainMeta from './OnchainMeta';
 import RelevantPeople from './RelevantPeople';
 import PublicationPageShimmer from './Shimmer';
 
-const ViewPublication: NextPage = () => {
+const ViewPublication = () => {
+  const isReady = true;
+  const { id } = useParams();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
   const showNewPostModal = useGlobalModalStateStore(
     (state) => state.showNewPostModal
   );
-
-  const {
-    query: { id },
-    isReady
-  } = useRouter();
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'publication' });

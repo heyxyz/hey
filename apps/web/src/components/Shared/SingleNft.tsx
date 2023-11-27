@@ -3,7 +3,7 @@ import type { Nft } from '@hey/lens';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import { Card } from '@hey/ui';
 import { type FC } from 'react';
-import { CHAIN_ID } from 'src/constants';
+import { CHAIN_ID } from '@constants';
 
 interface SingleNftProps {
   nft: Nft;

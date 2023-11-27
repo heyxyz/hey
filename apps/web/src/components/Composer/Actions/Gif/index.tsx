@@ -1,18 +1,15 @@
-import Loader from '@components/Shared/Loader';
+// import Loader from '@components/Shared/Loader';
 import { GifIcon, PhotoIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
 import type { IGif } from '@hey/types/giphy';
 import { Modal, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
-import dynamic from 'next/dynamic';
 import type { FC } from 'react';
-import { useState } from 'react';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { lazy, useState } from 'react';
+import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 
-const GifSelector = dynamic(() => import('./GifSelector'), {
-  loading: () => <Loader message="Loading GIFs" />
-});
+const GifSelector = lazy(() => import('./GifSelector'));
 
 interface GiphyProps {
   setGifAttachment: (gif: IGif) => void;

@@ -6,10 +6,10 @@ import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import type { FC } from 'react';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
+import useProfileStore from '@persisted/useProfileStore';
 
 import Slug from '../Slug';
 import AppVersion from './NavItems/AppVersion';
@@ -46,7 +46,7 @@ const MobileDrawerMenu: FC = () => {
       <div className="w-full space-y-2">
         <Link
           onClick={closeDrawer}
-          href={getProfile(currentProfile).link}
+          to={getProfile(currentProfile).link}
           className="mt-2 flex items-center space-x-2 px-5 py-3 hover:bg-gray-200 dark:hover:bg-gray-800"
         >
           <div className="flex w-full space-x-1.5">
@@ -74,10 +74,10 @@ const MobileDrawerMenu: FC = () => {
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <div>
-            <Link href={getProfile(currentProfile).link} onClick={closeDrawer}>
+            <Link to={getProfile(currentProfile).link} onClick={closeDrawer}>
               <YourProfile className={cn(itemClass, 'px-4')} />
             </Link>
-            <Link href="/settings" onClick={closeDrawer}>
+            <Link to="/settings" onClick={closeDrawer}>
               <Settings className={cn(itemClass, 'px-4')} />
             </Link>
             <Bookmarks
@@ -85,13 +85,13 @@ const MobileDrawerMenu: FC = () => {
               onClick={closeDrawer}
             />
             {isFeatureEnabled(FeatureFlag.Gardener) ? (
-              <Link href="/mod" onClick={closeDrawer}>
+              <Link to="/mod" onClick={closeDrawer}>
                 <Mod className={cn(itemClass, 'px-4')} />
               </Link>
             ) : null}
             <Invites className={cn(itemClass, 'px-4')} />
             {isFeatureEnabled(FeatureFlag.Pro) && (
-              <Link href="/pro" onClick={closeDrawer}>
+              <Link to="/pro" onClick={closeDrawer}>
                 <Pro className={cn(itemClass, 'px-4')} />
               </Link>
             )}

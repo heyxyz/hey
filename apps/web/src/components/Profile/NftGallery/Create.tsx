@@ -14,8 +14,8 @@ import cn from '@hey/ui/cn';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useNftGalleryStore } from 'src/store/non-persisted/useNftGalleryStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useNftGalleryStore } from '@store/non-persisted/useNftGalleryStore';
+import useProfileStore from '@persisted/useProfileStore';
 
 import Picker from './Picker';
 import ReviewSelection from './ReviewSelection';

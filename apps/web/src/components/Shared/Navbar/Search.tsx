@@ -8,10 +8,10 @@ import {
 import { Card, Input, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/router';
 import type { ChangeEvent, FC } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useDebounce, useOnClickOutside } from 'usehooks-ts';
+import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 
 import UserProfile from '../UserProfile';
 
@@ -26,7 +26,9 @@ const Search: FC<SearchProps> = ({
   onProfileSelected,
   placeholder = 'Search…'
 }) => {
-  const { push, pathname, query } = useRouter();
+  const push = useNavigate();
+  const { pathname } = useLocation();
+  const [searchParams, _] = useSearchParams();
   const [searchText, setSearchText] = useState('');
   const dropdownRef = useRef(null);
   const debouncedSearchText = useDebounce<string>(searchText, 500);
@@ -44,7 +46,11 @@ const Search: FC<SearchProps> = ({
   const handleKeyDown = (evt: ChangeEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (pathname === '/search') {
-      push(`/search?q=${encodeURIComponent(searchText)}&type=${query.type}`);
+      push(
+        `/search?q=${encodeURIComponent(searchText)}&type=${searchParams.get(
+          'type'
+        )}`
+      );
     } else {
       push(`/search?q=${encodeURIComponent(searchText)}&type=profiles`);
     }

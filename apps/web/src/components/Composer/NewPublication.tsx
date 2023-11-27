@@ -40,57 +40,42 @@ import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
 import { useUnmountEffect } from 'framer-motion';
 import { $getRoot } from 'lexical';
-import dynamic from 'next/dynamic';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { lazy, useState } from 'react';
 import toast from 'react-hot-toast';
-import useCreatePoll from 'src/hooks/useCreatePoll';
-import useCreatePublication from 'src/hooks/useCreatePublication';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import usePublicationMetadata from 'src/hooks/usePublicationMetadata';
-import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
-import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import useCreatePoll from '@hooks/useCreatePoll';
+import useCreatePublication from '@hooks/useCreatePublication';
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
+import usePublicationMetadata from '@hooks/usePublicationMetadata';
+import { useCollectModuleStore } from '@store/non-persisted/useCollectModuleStore';
+import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
+import { useNonceStore } from '@store/non-persisted/useNonceStore';
+import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
+import { useReferenceModuleStore } from '@store/non-persisted/useReferenceModuleStore';
+import useProfileStore from '@persisted/useProfileStore';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
-
 import LivestreamSettings from './Actions/LivestreamSettings';
 import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
 import Discard from './Post/Discard';
 
-const Attachment = dynamic(
-  () => import('@components/Composer/Actions/Attachment'),
-  {
-    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
-  }
+const Attachment = lazy(
+  () => import('@components/Composer/Actions/Attachment')
 );
-const EmojiPicker = dynamic(() => import('@components/Shared/EmojiPicker'), {
-  loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
-});
-const Gif = dynamic(() => import('@components/Composer/Actions/Gif'), {
-  loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
-});
-const CollectSettings = dynamic(
-  () => import('@components/Composer/Actions/CollectSettings'),
-  {
-    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
-  }
+const EmojiPicker = lazy(() => import('@components/Shared/EmojiPicker'));
+
+const Gif = lazy(() => import('@components/Composer/Actions/Gif'));
+
+const CollectSettings = lazy(
+  () => import('@components/Composer/Actions/CollectSettings')
 );
-const ReferenceSettings = dynamic(
-  () => import('@components/Composer/Actions/ReferenceSettings'),
-  {
-    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
-  }
+
+const ReferenceSettings = lazy(
+  () => import('@components/Composer/Actions/ReferenceSettings')
 );
-const PollSettings = dynamic(
-  () => import('@components/Composer/Actions/PollSettings'),
-  {
-    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
-  }
+const PollSettings = lazy(
+  () => import('@components/Composer/Actions/PollSettings')
 );
 
 interface NewPublicationProps {

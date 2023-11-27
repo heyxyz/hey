@@ -8,7 +8,7 @@ import { PUBLICATION } from '@hey/data/tracking';
 import humanize from '@hey/lib/humanize';
 import type { ZoraNft } from '@hey/types/nft';
 import { Leafwatch } from '@lib/leafwatch';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { type FC } from 'react';
 
 interface MetadataProps {
@@ -39,7 +39,7 @@ const Metadata: FC<MetadataProps> = ({ nft, zoraLink }) => {
         </div>
       ) : null}
       <Link
-        href={zoraLink}
+        to={zoraLink}
         className="flex items-center space-x-2"
         target="_blank"
         rel="noopener noreferrer"

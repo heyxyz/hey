@@ -2,7 +2,7 @@ import Markup from '@components/Shared/Markup';
 import { AtSymbolIcon } from '@heroicons/react/24/outline';
 import { MentionNotification } from '@hey/lens';
 import getPublicationData from '@hey/lib/getPublicationData';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import type { FC } from 'react';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
@@ -38,7 +38,7 @@ const MentionNotification: FC<MentionNotificationProps> = ({
           linkToType={`/posts/${notification?.publication?.id}`}
         />
         <Link
-          href={`/posts/${notification?.publication?.id}`}
+          to={`/posts/${notification?.publication?.id}`}
           className="ld-text-gray-500 linkify mt-2 line-clamp-2"
         >
           <Markup mentions={notification?.publication.profilesMentioned}>

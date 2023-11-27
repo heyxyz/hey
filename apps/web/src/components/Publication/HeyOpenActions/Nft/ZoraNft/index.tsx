@@ -9,10 +9,10 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { BasicNftMetadata } from '@hey/types/nft';
 import { Button, Card, Modal, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import type { FC } from 'react';
 import { useState } from 'react';
-import useZoraNft from 'src/hooks/zora/useZoraNft';
+import useZoraNft from '@hooks/zora/useZoraNft';
 import urlcat from 'urlcat';
 
 import Mint, { useZoraMintStore } from './Mint';
@@ -118,7 +118,7 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
             </Modal>
           </>
         ) : (
-          <Link href={zoraLink} target="_blank" rel="noopener noreferrer">
+          <Link to={zoraLink} target="_blank" rel="noopener noreferrer">
             <Button
               className="text-sm"
               icon={<CursorArrowRaysIcon className="h-4 w-4" />}

@@ -5,14 +5,14 @@ import { Localstorage } from '@hey/data/storage';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Button, Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import type { NextPage } from 'next';
+
 import toast from 'react-hot-toast';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import useProfileStore from '@persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
 
-const CleanupSettings: NextPage = () => {
+const CleanupSettings = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
   useEffectOnce(() => {

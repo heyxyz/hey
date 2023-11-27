@@ -1,5 +1,5 @@
 import type { Profile } from '@hey/lens';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { type FC } from 'react';
 
 import { NotificationProfileName } from './Profile';
@@ -23,7 +23,7 @@ const AggregatedNotificationTitle: FC<AggregatedNotificationTitleProps> = ({
       <span> {text} </span>
       <span>
         {type ? (
-          <Link href={linkToType} className="hover:underline">
+          <Link to={linkToType} className="hover:underline">
             {type.toLowerCase()}
           </Link>
         ) : null}

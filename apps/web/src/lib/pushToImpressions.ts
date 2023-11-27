@@ -1,5 +1,5 @@
 import { IS_MAINNET } from '@hey/data/constants';
-import { hydrateLeafwatchAnonymousId } from 'src/store/persisted/useLeafwatchStore';
+import { hydrateLeafwatchAnonymousId } from '@persisted/useLeafwatchStore';
 
 import getCurrentSession from './getCurrentSession';
 

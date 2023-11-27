@@ -10,7 +10,7 @@ import { LimitType, usePublicationBookmarksQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { type FC } from 'react';
 import { useInView } from 'react-cool-inview';
-import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
+import { useImpressionsStore } from '@store/non-persisted/useImpressionsStore';
 
 interface FeedProps {
   focus?: PublicationMetadataMainFocusType;

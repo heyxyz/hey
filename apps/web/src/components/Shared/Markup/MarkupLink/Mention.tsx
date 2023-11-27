@@ -2,7 +2,7 @@ import { PUBLICATION } from '@hey/data/tracking';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { MarkupLinkProps } from '@hey/types/misc';
 import { Leafwatch } from '@lib/leafwatch';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { type FC } from 'react';
 
 import Slug from '../../Slug';
@@ -42,7 +42,7 @@ const Mention: FC<MarkupLinkProps> = ({ title, mentions }) => {
 
   return canShowUserPreview(handle) ? (
     <Link
-      href={`/u/${getLocalNameFromFullHandle(handle)}`}
+      to={`/u/${getLocalNameFromFullHandle(handle)}`}
       className="outline-brand-500 outline-offset-2"
       onClick={(event) => {
         stopEventPropagation(event);

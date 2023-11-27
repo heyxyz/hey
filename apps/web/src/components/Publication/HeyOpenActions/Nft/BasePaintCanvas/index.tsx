@@ -7,10 +7,10 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { BasePaintCanvasMetadata } from '@hey/types/nft';
 import { Button, Card, Modal, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import type { FC } from 'react';
 import { useState } from 'react';
-import useBasePaintCanvas from 'src/hooks/basepaint/useBasePaintCanvas';
+import useBasePaintCanvas from '@hooks/basepaint/useBasePaintCanvas';
 import urlcat from 'urlcat';
 
 import Mint, { useBasePaintMintStore } from './Mint';
@@ -112,7 +112,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
           </>
         ) : canContribute ? (
           <Link
-            href={urlcat('https://basepaint.art/mint/:id', { id: canvas.id })}
+            to={urlcat('https://basepaint.art/mint/:id', { id: canvas.id })}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -132,7 +132,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
           </Link>
         ) : (
           <Link
-            href={urlcat('https://opensea.io/assets/base/:contract/:token', {
+            to={urlcat('https://opensea.io/assets/base/:contract/:token', {
               contract: BASEPAINT_CONTRACT,
               token: canvas.id
             })}

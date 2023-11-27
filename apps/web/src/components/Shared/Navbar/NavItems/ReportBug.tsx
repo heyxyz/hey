@@ -3,7 +3,7 @@ import {
   HandRaisedIcon
 } from '@heroicons/react/24/outline';
 import cn from '@hey/ui/cn';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { type FC } from 'react';
 import urlcat from 'urlcat';
 
@@ -15,7 +15,7 @@ interface ReportBugProps {
 const ReportBug: FC<ReportBugProps> = ({ onClick, className = '' }) => {
   return (
     <Link
-      href={urlcat('https://github.com/heyxyz/hey/issues/new', {
+      to={urlcat('https://github.com/heyxyz/hey/issues/new', {
         assignees: 'bigint',
         labels: 'needs review',
         template: 'bug_report.yml'

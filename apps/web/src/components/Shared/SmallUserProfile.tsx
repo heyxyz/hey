@@ -10,7 +10,7 @@ import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { getTwitterFormat } from '@lib/formatTime';
 import isVerified from '@lib/isVerified';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import type { FC } from 'react';
 import { memo } from 'react';
 
@@ -65,7 +65,7 @@ const SmallUserProfile: FC<UserProfileProps> = ({
   );
 
   return linkToProfile ? (
-    <Link href={getProfile(profile).link}>
+    <Link to={getProfile(profile).link}>
       <div className="flex items-center space-x-2">
         <UserAvatar />
         <UserName />

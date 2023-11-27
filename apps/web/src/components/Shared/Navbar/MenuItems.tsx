@@ -1,7 +1,7 @@
 import getCurrentSession from '@lib/getCurrentSession';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import type { FC } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import useProfileStore from '@persisted/useProfileStore';
 import { isAddress } from 'viem';
 
 import LoginButton from './LoginButton';
@@ -9,7 +9,7 @@ import SignedUser from './SignedUser';
 import WalletUser from './WalletUser';
 
 export const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
-  <Link href={href} {...rest}>
+  <Link to={href} {...rest}>
     {children}
   </Link>
 );

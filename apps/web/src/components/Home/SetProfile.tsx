@@ -10,9 +10,9 @@ import { ONBOARDING } from '@hey/data/tracking';
 import { Card } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { type FC } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import useProfileStore from '@persisted/useProfileStore';
 
 interface StatusProps {
   finished: boolean;
@@ -72,7 +72,7 @@ const SetProfile: FC = () => {
             onClick={() =>
               Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE_INTERESTS)
             }
-            href="/settings/interests"
+            to="/settings/interests"
           >
             <Status
               finished={Boolean(currentProfile?.interests?.length)}
@@ -86,7 +86,7 @@ const SetProfile: FC = () => {
         <PencilSquareIcon className="h-4 w-4" />
         <Link
           onClick={() => Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE)}
-          href="/settings"
+          to="/settings"
         >
           Update profile now
         </Link>

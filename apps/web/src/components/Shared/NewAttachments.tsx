@@ -6,7 +6,7 @@ import { Button, Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import type { FC } from 'react';
 import { useRef } from 'react';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 import { useUpdateEffect } from 'usehooks-ts';
 
 import Audio from './Audio';

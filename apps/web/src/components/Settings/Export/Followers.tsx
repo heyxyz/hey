@@ -6,7 +6,7 @@ import { Button, Card } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useState } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import useProfileStore from '@persisted/useProfileStore';
 
 const Followers: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);

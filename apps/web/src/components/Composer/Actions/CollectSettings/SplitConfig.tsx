@@ -12,8 +12,8 @@ import { OpenActionModuleType } from '@hey/lens';
 import splitNumber from '@hey/lib/splitNumber';
 import { Button, Input } from '@hey/ui';
 import { type FC } from 'react';
-import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useCollectModuleStore } from '@store/non-persisted/useCollectModuleStore';
+import useProfileStore from '@persisted/useProfileStore';
 import { isAddress } from 'viem';
 
 interface SplitConfigProps {

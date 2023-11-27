@@ -10,7 +10,7 @@ import {
 import nFormatter from '@hey/lib/nFormatter';
 import { Card, ErrorMessage } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import plur from 'plur';
 import type { FC } from 'react';
 
@@ -58,7 +58,7 @@ const Trending: FC = () => {
           tag?.tag !== '{}' ? (
             <div key={tag?.tag}>
               <Link
-                href={`/search?q=${tag?.tag}&type=pubs`}
+                to={`/search?q=${tag?.tag}&type=pubs`}
                 onClick={() =>
                   Leafwatch.track(MISCELLANEOUS.OPEN_TRENDING_TAG, {
                     trending_tag: tag?.tag

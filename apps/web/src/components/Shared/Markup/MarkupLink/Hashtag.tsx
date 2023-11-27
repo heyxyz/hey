@@ -6,7 +6,7 @@ import isPrideMonth from '@hey/lib/isPrideMonth';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { MarkupLinkProps } from '@hey/types/misc';
 import { Leafwatch } from '@lib/leafwatch';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { type FC } from 'react';
 
 const Hashtag: FC<MarkupLinkProps> = ({ title }) => {
@@ -22,7 +22,7 @@ const Hashtag: FC<MarkupLinkProps> = ({ title }) => {
     <span className="inline-flex items-center space-x-1">
       <span>
         <Link
-          href={`/search?q=${title.slice(1)}&type=pubs&src=link_click`}
+          to={`/search?q=${title.slice(1)}&type=pubs&src=link_click`}
           onClick={(event) => {
             stopEventPropagation(event);
             Leafwatch.track(PUBLICATION.CLICK_HASHTAG, {

@@ -4,7 +4,7 @@ import type { AnyPublication } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { type FC } from 'react';
-import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
+import { useGlobalAlertStateStore } from '@store/non-persisted/useGlobalAlertStateStore';
 
 interface DeleteProps {
   publication: AnyPublication;

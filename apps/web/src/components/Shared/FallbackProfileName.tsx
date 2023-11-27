@@ -1,7 +1,7 @@
 import type { Profile } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import cn from '@hey/ui/cn';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { type FC, type ReactNode } from 'react';
 
 import Slug from './Slug';
@@ -24,7 +24,7 @@ const FallbackProfileName: FC<FallbackProfileNameProps> = ({
   return (
     <>
       <Link
-        href={getProfile(profile).link}
+        to={getProfile(profile).link}
         className={cn('max-w-sm truncate hover:underline', className)}
       >
         <b className="whitespace-nowrap">

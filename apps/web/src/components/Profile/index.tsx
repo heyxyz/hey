@@ -12,15 +12,12 @@ import { FollowModuleType, useProfileQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { GridItemEight, GridItemFour, GridLayout, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { ProfileFeedType } from 'src/enums';
-import Custom404 from 'src/pages/404';
-import Custom500 from 'src/pages/500';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { ProfileFeedType } from '@enums';
+import Custom404 from '@pages/404';
+import Custom500 from '@pages/500';
+import useProfileStore from '@persisted/useProfileStore';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
-
 import Achievements from './Achievements';
 import Cover from './Cover';
 import Details from './Details';
@@ -29,12 +26,12 @@ import FeedType from './FeedType';
 import FollowDialog from './FollowDialog';
 import NftGallery from './NftGallery';
 import ProfilePageShimmer from './Shimmer';
+import { useParams, useSearchParams } from 'react-router-dom';
 
-const ViewProfile: NextPage = () => {
-  const {
-    query: { handle, id, type, followIntent },
-    isReady
-  } = useRouter();
+const ViewProfile = () => {
+  const isReady = true;
+  const { handle, id } = useParams();
+  const [searchParams, _] = useSearchParams();
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
   useEffectOnce(() => {
@@ -50,6 +47,7 @@ const ViewProfile: NextPage = () => {
     ProfileFeedType.Stats.toLowerCase()
   ];
 
+  const type = searchParams.get('type');
   const feedType = type
     ? lowerCaseProfileFeedType.includes(type as string)
       ? type.toString().toUpperCase()
@@ -80,7 +78,7 @@ const ViewProfile: NextPage = () => {
   if (initState && profile) {
     const canFollow =
       followType !== FollowModuleType.RevertFollowModule && !isFollowedByMe;
-    if (followIntent && canFollow) {
+    if (searchParams.get('followIntent') && canFollow) {
       setShowFollowModal(true);
     }
     setFollowing(isFollowedByMe);

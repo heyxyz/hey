@@ -4,7 +4,7 @@ import { HOME } from '@hey/data/tracking';
 import { Toggle, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
-import { useEnabledAlgorithmsStore } from 'src/store/persisted/useEnabledAlgorithmsStore';
+import { useEnabledAlgorithmsStore } from '@persisted/useEnabledAlgorithmsStore';
 
 const List: FC = () => {
   const enabledAlgorithms = useEnabledAlgorithmsStore(

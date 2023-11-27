@@ -16,10 +16,10 @@ import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/router';
 import { type FC, useState } from 'react';
 import toast from 'react-hot-toast';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import useProfileStore from '@persisted/useProfileStore';
+import { useLocation } from 'react-router-dom';
 
 interface LikeProps {
   publication: AnyPublication;
@@ -27,7 +27,7 @@ interface LikeProps {
 }
 
 const Like: FC<LikeProps> = ({ publication, showCount }) => {
-  const { pathname } = useRouter();
+  const location = useLocation();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
@@ -60,13 +60,13 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
   };
 
   const getLikeSource = () => {
-    if (pathname === '/') {
+    if (location.pathname === '/') {
       return 'home_feed';
-    } else if (pathname === '/u/[username]') {
+    } else if (location.pathname === '/u/[username]') {
       return 'profile_feed';
-    } else if (pathname === '/explore') {
+    } else if (location.pathname === '/explore') {
       return 'explore_feed';
-    } else if (pathname === '/posts/[id]') {
+    } else if (location.pathname === '/posts/[id]') {
       return 'post_page';
     } else {
       return;

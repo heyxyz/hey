@@ -1,7 +1,7 @@
 import { Menu } from '@headlessui/react';
 import cn from '@hey/ui/cn';
 import type { FC } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import useProfileStore from '@persisted/useProfileStore';
 
 import MenuTransition from '../MenuTransition';
 import Bookmarks from './NavItems/Bookmarks';

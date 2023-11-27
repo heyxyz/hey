@@ -24,14 +24,14 @@ import getTokenImage from '@hey/lib/getTokenImage';
 import { Button, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
+import { useNonceStore } from '@store/non-persisted/useNonceStore';
+import useProfileStore from '@persisted/useProfileStore';
 import { useBalance, useContractWrite, useSignTypedData } from 'wagmi';
 
 import Loader from '../Loader';
@@ -57,7 +57,7 @@ const FollowModule: FC<FollowModuleProps> = ({
   superFollowPosition,
   superFollowSource
 }) => {
-  const { pathname } = useRouter();
+  const { pathname } = useLocation();
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce
   );
@@ -258,7 +258,7 @@ const FollowModule: FC<FollowModuleProps> = ({
         <div className="space-x-1.5">
           <span>Recipient:</span>
           <Link
-            href={`${POLYGONSCAN_URL}/address/${followModule?.recipient}`}
+            to={`${POLYGONSCAN_URL}/address/${followModule?.recipient}`}
             target="_blank"
             className="font-bold text-gray-600"
             rel="noreferrer noopener"

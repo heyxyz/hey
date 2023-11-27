@@ -3,7 +3,7 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import type { OpenSeaNft } from '@hey/types/opensea-nft';
 import { Card } from '@hey/ui';
 import { type FC } from 'react';
-import useOpenseaCollection from 'src/hooks/opensea/useOpenseaCollection';
+import useOpenseaCollection from '@hooks/opensea/useOpenseaCollection';
 
 interface NftTitleProps {
   nft: OpenSeaNft;

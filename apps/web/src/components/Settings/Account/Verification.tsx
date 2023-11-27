@@ -1,8 +1,8 @@
 import { CheckBadgeIcon } from '@heroicons/react/24/solid';
 import { Card } from '@hey/ui';
 import type { FC } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
-import { hydrateVerifiedMembers } from 'src/store/persisted/useVerifiedMembersStore';
+import useProfileStore from '@persisted/useProfileStore';
+import { hydrateVerifiedMembers } from '@persisted/useVerifiedMembersStore';
 
 const Verification: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);

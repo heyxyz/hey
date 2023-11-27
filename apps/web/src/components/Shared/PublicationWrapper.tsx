@@ -1,7 +1,7 @@
 import type { AnyPublication } from '@hey/lens';
 import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/router';
+import { useNavigate } from 'react-router-dom';
 import { type FC, type ReactNode } from 'react';
 
 interface PublicationWrapperProps {
@@ -15,8 +15,7 @@ const PublicationWrapper: FC<PublicationWrapperProps> = ({
   className = '',
   children
 }) => {
-  const { push } = useRouter();
-
+  const navigate = useNavigate();
   return (
     <motion.article
       initial={{ opacity: 0 }}
@@ -26,7 +25,7 @@ const PublicationWrapper: FC<PublicationWrapperProps> = ({
       onClick={() => {
         const selection = window.getSelection();
         if (!selection || selection.toString().length === 0) {
-          push(`/posts/${publication?.id}`);
+          navigate(`/posts/${publication?.id}`);
         }
       }}
     >

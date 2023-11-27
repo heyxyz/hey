@@ -6,7 +6,7 @@ import formatAddress from '@hey/lib/formatAddress';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import getStampFyiURL from '@hey/lib/getStampFyiURL';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { type FC } from 'react';
 
 interface SplitsProps {
@@ -58,12 +58,12 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
                     alt="Avatar"
                   />
                   {profile ? (
-                    <Link href={getProfile(profile).link}>
+                    <Link to={getProfile(profile).link}>
                       <Slug slug={getProfile(profile).slugWithPrefix} />
                     </Link>
                   ) : (
                     <Link
-                      href={`${POLYGONSCAN_URL}/address/${address}`}
+                      to={`${POLYGONSCAN_URL}/address/${address}`}
                       target="_blank"
                       rel="noreferrer noopener"
                     >

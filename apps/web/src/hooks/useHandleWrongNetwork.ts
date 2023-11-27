@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
-import { CHAIN_ID } from 'src/constants';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import { CHAIN_ID } from '@constants';
+import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
 import { useChainId } from 'wagmi';
 
 const useHandleWrongNetwork = () => {

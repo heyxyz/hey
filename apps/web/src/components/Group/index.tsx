@@ -6,21 +6,19 @@ import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
-import Custom404 from 'src/pages/404';
-import Custom500 from 'src/pages/500';
+
+import Custom404 from '@pages/404';
+import Custom500 from '@pages/500';
 import { useEffectOnce } from 'usehooks-ts';
 
 import Details from './Details';
 import Feed from './Feed';
 import GroupPageShimmer from './Shimmer';
+import { useParams } from 'react-router-dom';
 
-const ViewGroup: NextPage = () => {
-  const {
-    query: { slug },
-    isReady
-  } = useRouter();
+const ViewGroup = () => {
+  const isReady = true;
+  const { slug } = useParams();
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'group' });

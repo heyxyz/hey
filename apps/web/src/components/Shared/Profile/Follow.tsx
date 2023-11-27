@@ -14,14 +14,14 @@ import getSignature from '@hey/lib/getSignature';
 import { Button, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { useRouter } from 'next/router';
+import { useLocation } from 'react-router-dom';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
+import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
+import { useNonceStore } from '@store/non-persisted/useNonceStore';
+import useProfileStore from '@persisted/useProfileStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface FollowProps {
@@ -41,7 +41,7 @@ const Follow: FC<FollowProps> = ({
   followPosition,
   followSource
 }) => {
-  const { pathname } = useRouter();
+  const { pathname } = useLocation();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce

@@ -2,18 +2,18 @@ import MetaTags from '@components/Common/MetaTags';
 import { HomeIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import { Button } from '@hey/ui';
-import heyFont from '@lib/heyFont';
-import Link from 'next/link';
+// import heyFont from '@lib/heyFont';
+import { Link } from 'react-router-dom';
 import type { FC } from 'react';
 
 const Custom500: FC = () => {
   return (
     <div className="page-center flex-col">
-      <style jsx global>{`
+      {/* <style jsx global>{`
         body {
           font-family: ${heyFont.style.fontFamily};
         }
-      `}</style>
+      `}</style> */}
       <MetaTags title={`500 • ${APP_NAME}`} />
       <div className="py-10 text-center">
         <h1 className="mb-4 text-3xl font-bold">
@@ -23,7 +23,7 @@ const Custom500: FC = () => {
           We track these errors automatically, but if the problem persists feel
           free to contact us. In the meantime, try refreshing.
         </div>
-        <Link href="/">
+        <Link to="/">
           <Button
             className="mx-auto flex items-center"
             size="lg"

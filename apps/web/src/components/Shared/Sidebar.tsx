@@ -1,6 +1,6 @@
 import cn from '@hey/ui/cn';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { type FC, type ReactNode } from 'react';
 
 interface MenuProps {
@@ -11,7 +11,7 @@ interface MenuProps {
 
 const Menu: FC<MenuProps> = ({ children, current, url }) => (
   <Link
-    href={url}
+    to={url}
     className={cn(
       { 'bg-brand-100 dark:bg-brand-300/20 text-brand-500 font-bold': current },
       'hover:bg-brand-100/80 hover:text-brand-400 dark:hover:bg-brand-300/30',
@@ -33,7 +33,7 @@ interface SidebarProps {
 }
 
 const Sidebar: FC<SidebarProps> = ({ items }) => {
-  const { pathname } = useRouter();
+  const location = useLocation();
   const menuItems = items.map((item) => ({
     ...item,
     enabled: item.enabled ?? true
@@ -45,7 +45,7 @@ const Sidebar: FC<SidebarProps> = ({ items }) => {
         item?.enabled ? (
           <Menu
             key={item.title}
-            current={pathname === item.url || item.active}
+            current={location.pathname === item.url || item.active}
             url={item.url}
           >
             {item.icon}

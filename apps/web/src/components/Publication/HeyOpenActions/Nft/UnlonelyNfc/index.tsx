@@ -7,9 +7,9 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { UnlonelyNfcMetadata } from '@hey/types/nft';
 import { Button, Card, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { type FC } from 'react';
-import useUnlonelyNfc from 'src/hooks/unlonely/useUnlonelyNfc';
+import useUnlonelyNfc from '@hooks/unlonely/useUnlonelyNfc';
 import urlcat from 'urlcat';
 
 import NftShimmer from './Shimmer';
@@ -67,7 +67,7 @@ const UnlonelyNfc: FC<UnlonelyNfcProps> = ({ nftMetadata, publication }) => {
           <div className="text-sm font-bold">{title}</div>
         </div>
         <Link
-          href={urlcat('https://www.unlonely.app/nfc/:id', {
+          to={urlcat('https://www.unlonely.app/nfc/:id', {
             id: nfc.id
           })}
           target="_blank"

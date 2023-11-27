@@ -5,8 +5,8 @@ import nFormatter from '@hey/lib/nFormatter';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/router';
 import { type FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface CommentProps {
   publication: AnyPublication;
@@ -14,7 +14,7 @@ interface CommentProps {
 }
 
 const Comment: FC<CommentProps> = ({ publication, showCount }) => {
-  const { push } = useRouter();
+  const navigate = useNavigate();
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
@@ -30,7 +30,7 @@ const Comment: FC<CommentProps> = ({ publication, showCount }) => {
         whileTap={{ scale: 0.9 }}
         aria-label="Comment"
         onClick={() => {
-          push(`/posts/${publication.id}`);
+          navigate(`/posts/${publication.id}`);
         }}
       >
         <Tooltip

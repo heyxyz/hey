@@ -1,7 +1,7 @@
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { gql, useQuery } from '@hey/lens/apollo';
 import { Button, Spinner } from '@hey/ui';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { type FC } from 'react';
 
 const HAS_PUBLICATION_INDEXED_QUERY = gql`
@@ -46,7 +46,7 @@ const Pending: FC<PendingProps> = ({
           <div className="text-[40px]">🌿</div>
           <div>{indexed}</div>
           <div className="pt-3">
-            <Link href={`/${urlPrefix}/${data?.publication?.id}`}>
+            <Link to={`/${urlPrefix}/${data?.publication?.id}`}>
               <Button
                 className="mx-auto"
                 icon={<ArrowRightIcon className="mr-1 h-4 w-4" />}

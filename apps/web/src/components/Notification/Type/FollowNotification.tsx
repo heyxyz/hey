@@ -3,7 +3,7 @@ import { FollowNotification } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import plur from 'plur';
 import type { FC } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import useProfileStore from '@persisted/useProfileStore';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';

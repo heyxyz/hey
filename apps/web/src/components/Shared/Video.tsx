@@ -12,7 +12,7 @@ import cn from '@hey/ui/cn';
 import { Player } from '@livepeer/react';
 import type { FC } from 'react';
 import { memo } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import useProfileStore from '@persisted/useProfileStore';
 
 interface VideoProps {
   src: string;

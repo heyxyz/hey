@@ -3,7 +3,7 @@ import type { Profile } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { type FC } from 'react';
 
 interface InvitedByProps {
@@ -15,7 +15,7 @@ const InvitedBy: FC<InvitedByProps> = ({ profile }) => {
     <div>
       <Link
         className="ld-text-gray-500 flex items-center space-x-2 text-sm"
-        href={getProfile(profile).link}
+        to={getProfile(profile).link}
       >
         <Image
           key={profile.id}

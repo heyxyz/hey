@@ -3,7 +3,7 @@ import { PUBLICATION } from '@hey/data/tracking';
 import type { Amount } from '@hey/lens';
 import getUniswapURL from '@hey/lib/getUniswapURL';
 import { Leafwatch } from '@lib/leafwatch';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { type FC } from 'react';
 
 import WrapWmatic from './WrapWmatic';
@@ -27,7 +27,7 @@ const NoBalanceError: FC<NoBalanceErrorProps> = ({ moduleAmount }) => {
         You don't have enough <b>{currency}</b>
       </div>
       <Link
-        href={getUniswapURL(parseFloat(amount), assetAddress)}
+        to={getUniswapURL(parseFloat(amount), assetAddress)}
         onClick={() => Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_UNISWAP)}
         className="flex items-center space-x-1.5 text-xs font-bold text-pink-500"
         target="_blank"

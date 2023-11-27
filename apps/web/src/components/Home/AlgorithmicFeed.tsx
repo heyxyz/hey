@@ -10,7 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-cool-inview';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import useProfileStore from '@persisted/useProfileStore';
 
 interface AlgorithmicFeedProps {
   feedType: HomeFeedType;

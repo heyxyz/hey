@@ -1,7 +1,7 @@
 import { BRAND_COLOR } from '@hey/data/constants';
 import type { ThemeConfig } from '@livepeer/react';
 
-import heyFont from './heyFont';
+// import heyFont from './heyFont';
 
 const getLivepeerTheme: ThemeConfig = {
   colors: {
@@ -9,9 +9,9 @@ const getLivepeerTheme: ThemeConfig = {
     progressLeft: BRAND_COLOR,
     loading: BRAND_COLOR
   },
-  fonts: {
-    display: heyFont.style.fontFamily
-  },
+  // fonts: {
+  //   display: heyFont.style.fontFamily
+  // },
   fontSizes: {
     timeFontSize: '11px'
   },

@@ -14,7 +14,7 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { useRouter } from 'next/router';
+import { useLocation } from 'react-router-dom';
 import { type FC, useState } from 'react';
 import { toast } from 'react-hot-toast';
 
@@ -23,7 +23,7 @@ interface BookmarkProps {
 }
 
 const Bookmark: FC<BookmarkProps> = ({ publication }) => {
-  const { pathname } = useRouter();
+  const location = useLocation();
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
@@ -50,7 +50,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
     });
 
     // Remove bookmarked publication from bookmarks feed
-    if (pathname === '/bookmarks') {
+    if (location.pathname === '/bookmarks') {
       cache.evict({ id: cache.identify(targetPublication) });
     }
   };

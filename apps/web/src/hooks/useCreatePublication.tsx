@@ -31,11 +31,11 @@ import {
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { OptmisticPublicationType } from '@hey/types/enums';
-import { useRouter } from 'next/router';
-import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
+import { useNavigate } from 'react-router-dom';
+import { useNonceStore } from '@store/non-persisted/useNonceStore';
+import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
+import useProfileStore from '@persisted/useProfileStore';
+import { useTransactionStore } from '@persisted/useTransactionStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface CreatePublicationProps {
@@ -51,7 +51,7 @@ const useCreatePublication = ({
   onError,
   onCompleted
 }: CreatePublicationProps) => {
-  const { push } = useRouter();
+  const push = useNavigate();
   const { cache } = useApolloClient();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const lensHubOnchainSigNonce = useNonceStore(

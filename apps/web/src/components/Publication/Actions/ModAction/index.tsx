@@ -11,7 +11,7 @@ import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { type FC, type ReactNode } from 'react';
 import { toast } from 'react-hot-toast';
-import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
+import { useGlobalAlertStateStore } from '@store/non-persisted/useGlobalAlertStateStore';
 
 interface ModActionProps {
   publication: AnyPublication;

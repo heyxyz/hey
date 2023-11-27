@@ -2,7 +2,7 @@ import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { MISCELLANEOUS } from '@hey/data/tracking';
 import { Button, Card } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import type { FC } from 'react';
 
 const Waitlist: FC = () => {
@@ -16,7 +16,7 @@ const Waitlist: FC = () => {
       <div className="space-y-3 text-center">
         <div className="font-bold">Get early access to Lens!</div>
         <div>
-          <Link href="https://waitlist.lens.xyz?utm_source=hey" target="_blank">
+          <Link to="https://waitlist.lens.xyz?utm_source=hey" target="_blank">
             <Button
               variant="black"
               size="lg"

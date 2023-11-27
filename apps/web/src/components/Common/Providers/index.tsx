@@ -7,9 +7,8 @@ import {
   studioProvider
 } from '@livepeer/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ThemeProvider } from 'next-themes';
+import { ThemeProvider } from '@hooks/theme';
 import { type ReactNode } from 'react';
-
 import ErrorBoundary from '../ErrorBoundary';
 import Layout from '../Layout';
 import FeaturedGroupsProvider from './FeaturedGroupsProvider';

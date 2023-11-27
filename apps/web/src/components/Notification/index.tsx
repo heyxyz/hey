@@ -3,20 +3,17 @@ import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
-import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { NotificationFeedType } from 'src/enums';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { NotificationFeedType } from '@enums';
+import useProfileStore from '@persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
-
 import FeedType from './FeedType';
 import List from './List';
 import Settings from './Settings';
+import { useSearchParams } from 'react-router-dom';
 
 const Notification: FC = () => {
-  const {
-    query: { type }
-  } = useRouter();
+  const [searchParams, _] = useSearchParams();
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
   useEffectOnce(() => {
@@ -30,6 +27,8 @@ const Notification: FC = () => {
     NotificationFeedType.Likes.toLowerCase(),
     NotificationFeedType.Collects.toLowerCase()
   ];
+
+  const type = searchParams.get('type');
 
   const feedType = type
     ? lowerCaseNotificationFeedType.includes(type as string)

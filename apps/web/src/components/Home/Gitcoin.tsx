@@ -2,7 +2,7 @@ import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { MISCELLANEOUS } from '@hey/data/tracking';
 import { Card } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import type { FC } from 'react';
 
 const Gitcoin: FC = () => {
@@ -22,7 +22,7 @@ const Gitcoin: FC = () => {
         </div>
         <div>
           <Link
-            href="https://hey.xyz/gitcoin"
+            to="https://hey.xyz/gitcoin"
             className="font-bold underline"
             target="_blank"
             onClick={() => Leafwatch.track(MISCELLANEOUS.OPEN_GITCOIN)}

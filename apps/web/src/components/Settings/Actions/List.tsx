@@ -6,10 +6,10 @@ import { LimitType, useProfileActionHistoryQuery } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { formatDate } from '@lib/formatTime';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import useProfileStore from '@persisted/useProfileStore';
 
 const List: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
@@ -71,7 +71,7 @@ const List: FC = () => {
                 <span>Hash: </span>
                 <Link
                   className="hover:underline"
-                  href={`${POLYGONSCAN_URL}/tx/${action.txHash}`}
+                  to={`${POLYGONSCAN_URL}/tx/${action.txHash}`}
                 >
                   {action.txHash.slice(0, 8 + 2)}…
                   {action.txHash.slice(action.txHash.length - 8)}
@@ -84,7 +84,7 @@ const List: FC = () => {
                 <span>Acted by: </span>
                 <Link
                   className="hover:underline"
-                  href={`${POLYGONSCAN_URL}/address/${action.who}`}
+                  to={`${POLYGONSCAN_URL}/address/${action.who}`}
                 >
                   {formatAddress(action.who)}
                 </Link>

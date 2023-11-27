@@ -4,7 +4,7 @@ import type { AnyPublication } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { type FC } from 'react';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
 
 interface ReportProps {
   publication: AnyPublication;

@@ -7,7 +7,7 @@ import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import type { ChangeEvent, FC } from 'react';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 import { useUpdateEffect } from 'usehooks-ts';
 
 const DEFAULT_THUMBNAIL_INDEX = 0;

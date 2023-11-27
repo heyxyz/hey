@@ -4,7 +4,7 @@ import getProfile from '@hey/lib/getProfile';
 import { Button } from '@hey/ui';
 import type { FC } from 'react';
 import { useState } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import useProfileStore from '@persisted/useProfileStore';
 
 import Create from './Create';
 

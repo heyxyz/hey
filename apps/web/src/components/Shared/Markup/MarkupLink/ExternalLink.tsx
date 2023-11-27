@@ -1,7 +1,7 @@
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import truncateUrl from '@hey/lib/truncateUrl';
 import type { MarkupLinkProps } from '@hey/types/misc';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { type FC } from 'react';
 
 const ExternalLink: FC<MarkupLinkProps> = ({ title }) => {
@@ -17,7 +17,7 @@ const ExternalLink: FC<MarkupLinkProps> = ({ title }) => {
 
   return (
     <Link
-      href={href}
+      to={href}
       onClick={stopEventPropagation}
       target={href.includes(location.host) ? '_self' : '_blank'}
       rel="noopener"

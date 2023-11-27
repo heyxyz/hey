@@ -9,7 +9,7 @@ import {
   type ReactNode,
   type SetStateAction
 } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import useProfileStore from '@persisted/useProfileStore';
 
 interface MutualFollowersProps {
   setShowMutualFollowersModal?: Dispatch<SetStateAction<boolean>>;

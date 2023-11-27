@@ -12,7 +12,7 @@ import type { AnyPublication } from '@hey/lens';
 import type { BasePaintCanvas } from '@hey/types/nft';
 import { Button, Spinner } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { type FC } from 'react';
 import { useUpdateEffect } from 'usehooks-ts';
 import { parseEther } from 'viem';
@@ -109,7 +109,7 @@ const MintAction: FC<MintActionProps> = ({
         noBalanceError ? (
           <Link
             className="w-full"
-            href="https://app.uniswap.org"
+            to="https://app.uniswap.org"
             target="_blank"
             rel="noopener noreferrer"
           >

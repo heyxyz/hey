@@ -5,20 +5,19 @@ import type { Profile } from '@hey/lens';
 import { useCurrentProfileQuery } from '@hey/lens';
 import getCurrentSession from '@lib/getCurrentSession';
 import getToastOptions from '@lib/getToastOptions';
-import Head from 'next/head';
-import { useTheme } from 'next-themes';
+import { Helmet } from 'react-helmet';
+import { useTheme } from '@hooks/theme';
 import { type FC, type ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
-import { useProStore } from 'src/store/non-persisted/useProStore';
-import { hydrateAuthTokens, signOut } from 'src/store/persisted/useAuthStore';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useNonceStore } from '@store/non-persisted/useNonceStore';
+import { usePreferencesStore } from '@store/non-persisted/usePreferencesStore';
+import { useProStore } from '@store/non-persisted/useProStore';
+import { hydrateAuthTokens, signOut } from '@persisted/useAuthStore';
+import { useFeatureFlagsStore } from '@persisted/useFeatureFlagsStore';
+import useProfileStore from '@persisted/useProfileStore';
 import { useEffectOnce, useIsMounted } from 'usehooks-ts';
 import { isAddress } from 'viem';
 import { useAccount, useDisconnect } from 'wagmi';
-
 import GlobalModals from '../Shared/GlobalModals';
 import Loading from '../Shared/Loading';
 import Navbar from '../Shared/Navbar';
@@ -89,12 +88,12 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   return (
     <>
-      <Head>
+      <Helmet>
         <meta
           name="theme-color"
           content={resolvedTheme === 'dark' ? '#1b1b1d' : '#ffffff'}
         />
-      </Head>
+      </Helmet>
       <Toaster
         position="bottom-right"
         containerStyle={{ wordBreak: 'break-word' }}

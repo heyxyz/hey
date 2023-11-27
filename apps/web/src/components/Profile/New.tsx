@@ -6,11 +6,11 @@ import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import type { NextPage } from 'next';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+
+import useProfileStore from '@persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
-const NewProfile: NextPage = () => {
+const NewProfile = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
   useEffectOnce(() => {

@@ -3,7 +3,7 @@ import type { AnyPublication } from '@hey/lens';
 import { Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
 import { type FC } from 'react';
-import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
+import { useGlobalAlertStateStore } from '@store/non-persisted/useGlobalAlertStateStore';
 
 interface ModProps {
   publication: AnyPublication;

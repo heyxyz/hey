@@ -2,15 +2,17 @@ import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { Card, Image } from '@hey/ui';
-import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
+import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
+import useProfileStore from '@persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
+import { useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const NewPost: FC = () => {
-  const { query, isReady, push } = useRouter();
+  const navigate = useNavigate();
+  const [searchParams, _] = useSearchParams();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const setShowNewPostModal = useGlobalModalStateStore(
     (state) => state.setShowNewPostModal
@@ -24,8 +26,12 @@ const NewPost: FC = () => {
   };
 
   useEffectOnce(() => {
-    if (isReady && query.text) {
-      const { text, url, via, hashtags } = query;
+    // isReady
+    if (searchParams.get('text')) {
+      const url = searchParams.get('url');
+      const via = searchParams.get('via');
+      const text = searchParams.get('text');
+      const hashtags = searchParams.get('hashtags');
       let processedHashtags;
 
       if (hashtags) {
@@ -50,7 +56,7 @@ const NewPost: FC = () => {
         <Image
           src={getAvatar(currentProfile)}
           className="h-9 w-9 cursor-pointer rounded-full border bg-gray-200 dark:border-gray-700"
-          onClick={() => push(getProfile(currentProfile).link)}
+          onClick={() => navigate(getProfile(currentProfile).link)}
           alt={currentProfile?.id}
         />
         <button
