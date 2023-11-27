@@ -29,88 +29,6 @@ importers:
       '@aws-sdk/client-sts':
         specifier: ^3.454.0
         version: 3.454.0
-      '@clickhouse/client-web':
-        specifier: ^0.2.6
-        version: 0.2.6
-      '@hey/data':
-        specifier: workspace:*
-        version: link:../../packages/data
-      '@hey/lib':
-        specifier: workspace:*
-        version: link:../../packages/lib
-      '@irys/sdk':
-        specifier: ^0.1.0
-        version: 0.1.0(arweave@1.14.4)
-      '@prisma/client':
-        specifier: ^5.6.0
-        version: 5.6.0(prisma@5.6.0)
-      axios:
-        specifier: ^1.6.2
-        version: 1.6.2(debug@4.3.4)
-      fast-xml-parser:
-        specifier: ^4.3.2
-        version: 4.3.2
-      ioredis:
-        specifier: ^5.3.2
-        version: 5.3.2
-      linkedom:
-        specifier: ^0.16.4
-        version: 0.16.4
-      next:
-        specifier: ^14.0.3
-        version: 14.0.3(react-dom@18.2.0)(react@18.2.0)
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.2.0(react@18.2.0)
-      request-ip:
-        specifier: ^3.3.0
-        version: 3.3.0
-      ua-parser-js:
-        specifier: ^1.0.37
-        version: 1.0.37
-      urlcat:
-        specifier: ^3.1.0
-        version: 3.1.0
-      viem:
-        specifier: ^1.19.9
-        version: 1.19.9(typescript@5.3.2)(zod@3.22.4)
-      zod:
-        specifier: ^3.22.4
-        version: 3.22.4
-    devDependencies:
-      '@hey/config':
-        specifier: workspace:*
-        version: link:../../packages/config
-      '@hey/types':
-        specifier: workspace:*
-        version: link:../../packages/types
-      '@types/react':
-        specifier: ^18.2.38
-        version: 18.2.38
-      '@types/request-ip':
-        specifier: ^0.0.41
-        version: 0.0.41
-      '@types/ua-parser-js':
-        specifier: ^0.7.39
-        version: 0.7.39
-      prisma:
-        specifier: ^5.6.0
-        version: 5.6.0
-      typescript:
-        specifier: ^5.3.2
-        version: 5.3.2
-      vitest:
-        specifier: ^0.34.5
-        version: 0.34.6
-
-  apps/apiv2:
-    dependencies:
-      '@aws-sdk/client-sts':
-        specifier: ^3.454.0
-        version: 3.454.0
       '@clickhouse/client':
         specifier: ^0.2.6
         version: 0.2.6
@@ -1996,12 +1914,6 @@ packages:
 
   /@clickhouse/client-common@0.2.6:
     resolution: {integrity: sha512-T2HwPCKi98vGGtPxcV1q5YH/tET5f1FhdKYxo3AqOdawIMPoymQGzfsxsAL5UpMsfdBYrko6Sjy3RJxt7/gYyg==}
-    dev: false
-
-  /@clickhouse/client-web@0.2.6:
-    resolution: {integrity: sha512-2HO7V1AzIfXZBDxCD1aNH8moPsypWoiQhk92u50DQjoG2T3qtDDRBXLNH1VDNajCfc8KAPU/IY+PQDllo0kGPQ==}
-    dependencies:
-      '@clickhouse/client-common': 0.2.6
     dev: false
 
   /@clickhouse/client@0.2.6:
