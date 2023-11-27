@@ -1,3 +1,4 @@
 module.exports = {
-  extends: [require.resolve('@hey/config/eslint/react.js')]
+  extends: [require.resolve('@hey/config/eslint/base.js')],
+  ignorePatterns: ['**/dist/**/*']
 };
