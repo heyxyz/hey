@@ -26,7 +26,9 @@ export default defineConfig(() => {
     },
     define: {
       global: {},
-      'process.env': process.env
+      'process.env': process.env,
+      'process.env.NEXT_PUBLIC_LENS_NETWORK': `'${process.env.NEXT_PUBLIC_LENS_NETWORK}'`,
+      'process.env.NEXT_PUBLIC_IS_PRODUCTION': `'${process.env.NEXT_PUBLIC_IS_PRODUCTION}'`
     },
     server: {
       host: '0.0.0.0',
