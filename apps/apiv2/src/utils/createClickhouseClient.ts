@@ -1,4 +1,4 @@
-import { createClient } from '@clickhouse/client-web';
+import { createClient } from '@clickhouse/client';
 
 import { CLICKHOUSE_URL } from './constants';
 
