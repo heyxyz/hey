@@ -4,6 +4,7 @@
   "private": true,
   "license": "AGPL-3.0",
   "main": "index.ts",
+  "types": "index.ts",
   "scripts": {
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
