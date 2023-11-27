@@ -3,6 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "start": "pnpm preview",
     "build": "pnpm build:sw; vite build",
     "build:sw": "node script/build-sw.mjs",
     "preview": "vite preview",
