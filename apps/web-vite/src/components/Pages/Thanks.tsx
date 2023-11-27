@@ -4,9 +4,8 @@ import { HeartIcon } from '@heroicons/react/24/outline';
 import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
-
 import { Link } from 'react-router-dom';
-// import { useTheme } from 'next-themes';
+import { useTheme } from '@hooks/theme';
 import type { FC, ReactNode } from 'react';
 import urlcat from 'urlcat';
 import { useEffectOnce } from 'usehooks-ts';
@@ -21,8 +20,7 @@ interface BrandProps {
 }
 
 const Brand: FC<BrandProps> = ({ name, logo, url, size, type, children }) => {
-  // const { resolvedTheme } = useTheme();
-  const resolvedTheme = 'dark';
+  const { resolvedTheme } = useTheme();
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'thanks' });

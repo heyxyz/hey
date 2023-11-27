@@ -35,7 +35,7 @@ import { Button, Image, LightBox, Modal, Tooltip } from '@hey/ui';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import isVerified from '@lib/isVerified';
 import { Link } from 'react-router-dom';
-// import { useTheme } from 'next-themes';
+import { useTheme } from '@hooks/theme';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { useFeatureFlagsStore } from '@persisted/useFeatureFlagsStore';
@@ -62,8 +62,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
   const [showMutualFollowersModal, setShowMutualFollowersModal] =
     useState(false);
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
-  // const { resolvedTheme } = useTheme();
-  const resolvedTheme = 'dark';
+  const { resolvedTheme } = useTheme();
 
   const MetaDetails = ({
     children,

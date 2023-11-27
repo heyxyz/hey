@@ -8,7 +8,7 @@ import type { Group } from '@hey/types/hey';
 import { Image, LightBox, Tooltip } from '@hey/ui';
 import { formatDate } from '@lib/formatTime';
 import { Link } from 'react-router-dom';
-// import { useTheme } from 'next-themes';
+import { useTheme } from '@hooks/theme';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import urlcat from 'urlcat';
@@ -19,9 +19,7 @@ interface DetailsProps {
 
 const Details: FC<DetailsProps> = ({ group }) => {
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
-  const resolvedTheme = 'dark';
-  // const { resolvedTheme } = useTheme();
-
+  const { resolvedTheme } = useTheme();
   const MetaDetails = ({
     children,
     icon

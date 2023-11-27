@@ -28,9 +28,11 @@ const Notification: FC = () => {
     NotificationFeedType.Collects.toLowerCase()
   ];
 
-  const feedType = searchParams.get('type')
-    ? lowerCaseNotificationFeedType.includes(searchParams.get('type') as string)
-      ? searchParams.get('type').toString().toUpperCase()
+  const type = searchParams.get('type');
+
+  const feedType = type
+    ? lowerCaseNotificationFeedType.includes(type as string)
+      ? type.toString().toUpperCase()
       : NotificationFeedType.All
     : NotificationFeedType.All;
 
