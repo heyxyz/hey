@@ -17,7 +17,11 @@ app.use(base, sirv('./dist/client', { extensions: [] }));
 app.use('*', async (req, res) => {
   try {
     const html = readFileSync('./dist/client/index.html', 'utf-8');
-    res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
+    res
+      .status(200)
+      .setHeader('Cache-Control', 'public, s-maxage=2592000')
+      .set({ 'Content-Type': 'text/html' })
+      .end(html);
   } catch (error) {
     console.log(error.stack);
     res.status(500).end(error.stack);
