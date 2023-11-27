@@ -59,6 +59,9 @@ importers:
       express-file-routing:
         specifier: ^3.0.3
         version: 3.0.3(express@4.18.2)
+      express-rate-limit:
+        specifier: ^7.1.4
+        version: 7.1.4(express@4.18.2)
       fast-xml-parser:
         specifier: ^4.3.2
         version: 4.3.2
@@ -9284,6 +9287,15 @@ packages:
     resolution: {integrity: sha512-0936IhPc64moJHAG1Fz3SLCi0Upt6ahsbocrC6hdPUgmHY2018wjVrbln0HP67JoWFUdmmzypYiIHjF898s0hA==}
     peerDependencies:
       express: '>4.1.2'
+    dependencies:
+      express: 4.18.2
+    dev: false
+
+  /express-rate-limit@7.1.4(express@4.18.2):
+    resolution: {integrity: sha512-mv/6z+EwnWpr+MjGVavMGvM4Tl8S/tHmpl9ZsDfrQeHpYy4Hfr0UYdKEf9OOTe280oIr70yPxLRmQ6MfINfJDw==}
+    engines: {node: '>= 16'}
+    peerDependencies:
+      express: 4 || 5 || ^5.0.0-beta.1
     dependencies:
       express: 4.18.2
     dev: false
