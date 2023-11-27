@@ -1,10 +1,13 @@
 {
-  "extends": "@hey/config/react.tsconfig.json",
+  "extends": "@hey/config/base.tsconfig.json",
   "compilerOptions": {
+    "module": "commonjs",
+    "noEmit": false,
+    "outDir": "dist",
     "baseUrl": ".",
     "paths": {
-      "@utils*": ["utils*"]
+      "@utils*": ["src/utils*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts"]
+  "include": ["next-env.d.ts", "**/*.ts", "src"]
 }
