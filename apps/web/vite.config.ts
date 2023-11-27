@@ -32,6 +32,11 @@ export default defineConfig(() => {
       host: '0.0.0.0',
       open: true,
       port: 4783
+    },
+    preview: {
+      host: '0.0.0.0',
+      open: true,
+      port: 4783
     }
   };
 });
