@@ -111,7 +111,7 @@ importers:
       '@aws-sdk/client-sts':
         specifier: ^3.454.0
         version: 3.454.0
-      '@clickhouse/client-web':
+      '@clickhouse/client':
         specifier: ^0.2.6
         version: 0.2.6
       '@hey/data':
@@ -2000,6 +2000,13 @@ packages:
 
   /@clickhouse/client-web@0.2.6:
     resolution: {integrity: sha512-2HO7V1AzIfXZBDxCD1aNH8moPsypWoiQhk92u50DQjoG2T3qtDDRBXLNH1VDNajCfc8KAPU/IY+PQDllo0kGPQ==}
+    dependencies:
+      '@clickhouse/client-common': 0.2.6
+    dev: false
+
+  /@clickhouse/client@0.2.6:
+    resolution: {integrity: sha512-vvy101CNKRHr/M7eML19fIOOSELNpE2kwvBMdqag9ImosK2Lx5e4X8D7jt84EUD1V1JC1Dp2cG36/1JJb8ZC9g==}
+    engines: {node: '>=16'}
     dependencies:
       '@clickhouse/client-common': 0.2.6
     dev: false

@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-sts": "^3.454.0",
-    "@clickhouse/client-web": "^0.2.6",
+    "@clickhouse/client": "^0.2.6",
     "@hey/data": "workspace:*",
     "@hey/lib": "workspace:*",
     "@irys/sdk": "^0.1.0",
