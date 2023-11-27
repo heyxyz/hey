@@ -27,6 +27,11 @@ export default defineConfig(() => {
     define: {
       global: {},
       'process.env': process.env
+    },
+    server: {
+      host: '0.0.0.0',
+      open: true,
+      port: 4783
     }
   };
 });
