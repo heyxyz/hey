@@ -1,0 +1,6 @@
+Contact: https://github.com/heyxyz/hey/security/advisories/new
+Expires: 2022-12-31T18:29:00.000Z
+Acknowledgments: https://github.com/heyxyz/hey/security/advisories?state=published
+Preferred-Languages: en
+Canonical: https://hey.xyz/.well-known/security.txt
+Policy: https://github.com/heyxyz/hey/security/policy

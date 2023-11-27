@@ -1,0 +1,8 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+    <ShortName>Hey</ShortName>
+    <Description>Hey Search</Description>
+    <Url type="text/html" method="get" template="https://hey.xyz/search?q={searchTerms}&#38;type=profiles"/>
+    <Image width="32" height="32">https://hey.xyz/favicon-32x32.png</Image>
+    <InputEncoding>UTF-8</InputEncoding>
+    <moz:SearchForm>https://hey.xyz</moz:SearchForm>
+</OpenSearchDescription>

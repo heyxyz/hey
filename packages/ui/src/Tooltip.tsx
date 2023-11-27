@@ -1,4 +1,4 @@
-import 'tippy.js/dist/tippy.css';
+// import 'tippy.js/dist/tippy.css';
 
 import Tippy from '@tippyjs/react';
 import type { FC, ReactNode } from 'react';

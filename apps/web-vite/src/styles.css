@@ -1,0 +1,229 @@
+@import url('@hey/image-cropper/styles.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  @apply overflow-y-scroll;
+}
+
+body {
+  @apply bg-gray-50;
+  @apply dark:bg-black;
+}
+
+.shimmer {
+  @apply animate-pulse;
+  @apply bg-gray-300;
+  @apply dark:bg-gray-600;
+}
+
+progress::-webkit-progress-bar {
+  background-color: transparent;
+}
+
+progress::-webkit-progress-value {
+  @apply bg-brand-500;
+  transition: width 0.5s ease;
+}
+
+progress::-moz-progress-bar {
+  @apply rounded-bl;
+  @apply bg-brand-500;
+  transition: width 0.5s ease;
+}
+
+.menu-item {
+  @apply m-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm text-gray-700 dark:text-gray-200;
+}
+
+.linkify a {
+  @apply text-brand-500;
+  @apply hover:text-brand-600 dark:hover:text-brand-500;
+}
+
+::-webkit-file-upload-button {
+  @apply mr-2 cursor-pointer rounded-l-xl border-0 px-3 py-2;
+  @apply bg-gray-200 dark:bg-gray-900;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.page-center {
+  @apply flex h-[calc(100vh-65px)] items-center justify-center;
+}
+
+.preview-tippy-content > div {
+  @apply !px-0 !py-0;
+}
+
+.tippy-content {
+  @apply !px-2.5 !py-0.5;
+}
+
+.label {
+  @apply mb-1 font-medium text-gray-800 dark:text-gray-200;
+}
+
+.dropdown-active {
+  @apply bg-gray-100 dark:bg-gray-800;
+}
+
+.divider {
+  @apply border-b dark:border-gray-700;
+}
+
+.ld-text-gray-500 {
+  @apply text-gray-500 dark:text-gray-200;
+}
+
+.text-md {
+  @apply !text-sm sm:!text-base;
+}
+
+.oembed-player,
+iframe {
+  @apply rounded-xl;
+}
+
+/** CSS overrides for plyr audio **/
+.plyr__progress__buffer {
+  @apply !bg-white;
+}
+
+.plyr--audio .plyr__controls {
+  @apply !bg-transparent !text-white;
+}
+
+.plyr--audio .plyr__control {
+  @apply hover:!bg-transparent;
+}
+
+.plyr--audio.plyr--full-ui input[type='range'] {
+  @apply !text-white;
+}
+
+.toolbar-icons button {
+  @apply hover:bg-brand-100 text-brand-500 rounded-lg p-1.5;
+}
+
+.toolbar-icon {
+  @apply flex h-[20px] w-[20px] bg-contain bg-center bg-no-repeat;
+}
+
+i.bold {
+  background-image: url(/assets/type-bold.svg);
+}
+
+i.italic {
+  background-image: url(/assets/type-italic.svg);
+}
+
+i.code {
+  background-image: url(/assets/type-code.svg);
+}
+
+div[data-lexical-editor='true'] {
+  @apply outline-none;
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+#typeahead-menu {
+  @apply z-20;
+}
+
+.rc-slider-rail {
+  @apply bg-brand-500 !important;
+  @apply opacity-30;
+}
+
+.rc-slider-track {
+  @apply bg-brand-500 !important;
+}
+
+.rc-slider-handle {
+  @apply border-brand-500 !important;
+}
+
+.rc-slider-handle-dragging {
+  box-shadow: 0 0 0 5px rgb(139 92 246 / 0.3) !important;
+}
+
+/* Markup styles */
+.markup > p,
+ul {
+  @apply !leading-6 sm:!leading-7;
+  @apply [&:not(:last-child)]:mb-5;
+}
+
+.lp-player {
+  @apply [&>div>div]:shadow-none;
+  @apply [&>div>div]:border;
+  @apply [&>div>div]:border-gray-100;
+  @apply [&>div>div]:dark:border-gray-700;
+}
+
+/* react-virtuoso - Virtual profile list */
+.virtual-profile-list {
+  @apply !h-[80vh];
+  @apply [&>div>div]:divide-y;
+  @apply [&>div>div]:dark:divide-gray-700;
+}
+
+/* react-virtuoso - Virtual notifications list */
+.virtual-notification-list {
+  @apply [&>div>div]:divide-y;
+  @apply [&>div>div]:dark:divide-gray-700;
+}
+
+.pride-text {
+  background: linear-gradient(
+    to right,
+    #dc2626,
+    #ea580c,
+    #ca8a04,
+    #16a34a,
+    #2563eb,
+    #4f46e5,
+    #7c3aed
+  );
+  @apply bg-clip-text text-transparent;
+}
+
+.horizontal-loader > div {
+  background: linear-gradient(
+    5deg,
+    #dc2626,
+    #ea580c,
+    #ca8a04,
+    #16a34a,
+    #2563eb,
+    #4f46e5,
+    #7c3aed
+  );
+  width: 100%;
+  height: 5px;
+  @apply rounded-tl-xl rounded-tr-xl;
+  animation: gradient 4s linear infinite;
+  background-size: 250% 100%;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 500%;
+  }
+}
