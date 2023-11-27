@@ -4,8 +4,8 @@ import compression from 'compression';
 import express from 'express';
 import sirv from 'sirv';
 
-const port = process.env.PORT || 4783;
-const base = process.env.BASE || '/';
+const port = import.meta.env.PORT || 4783;
+const base = import.meta.env.BASE || '/';
 
 const app = express();
 
