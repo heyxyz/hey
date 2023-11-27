@@ -44,3 +44,6 @@ yarn-error.log*
 
 # Service Workers
 sw.js
+
+# Node build artifacts
+dist
