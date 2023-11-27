@@ -1,5 +1,32 @@
 @import url('@hey/image-cropper/styles.css');
 
+@font-face {
+  font-family: Sofia Pro;
+  src: url('https://hey-assets.b-cdn.net/fonts/SofiaProSoftBold-webfont.woff2')
+    format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Sofia Pro;
+  src: url('https://hey-assets.b-cdn.net/fonts/SofiaProSoftMed-webfont.woff2')
+    format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Sofia Pro;
+  src: url('https://hey-assets.b-cdn.net/fonts/SofiaProSoftReg-webfont.woff2')
+    format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
