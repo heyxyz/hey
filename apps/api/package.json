@@ -24,7 +24,7 @@
     "@clickhouse/client-web": "^0.2.6",
     "@hey/data": "workspace:*",
     "@hey/lib": "workspace:*",
-    "@irys/sdk": "^0.0.4",
+    "@irys/sdk": "^0.1.0",
     "@prisma/client": "^5.6.0",
     "axios": "^1.6.2",
     "fast-xml-parser": "^4.3.2",
