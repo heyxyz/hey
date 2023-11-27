@@ -30,7 +30,7 @@ import { useParams, useSearchParams } from 'react-router-dom';
 
 const ViewProfile = () => {
   const isReady = true;
-  const { handle } = useParams();
+  const { handle, id } = useParams();
   const [searchParams, _] = useSearchParams();
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
@@ -57,12 +57,12 @@ const ViewProfile = () => {
   const { data, loading, error } = useProfileQuery({
     variables: {
       request: {
-        ...(searchParams.get('id')
-          ? { forProfileId: searchParams.get('id') }
+        ...(id
+          ? { forProfileId: id }
           : { forHandle: `${HANDLE_PREFIX}${handle}` })
       }
     },
-    skip: searchParams.get('id') ? !searchParams.get('id') : !handle
+    skip: id ? !id : !handle
   });
 
   const profile = data?.profile as Profile;

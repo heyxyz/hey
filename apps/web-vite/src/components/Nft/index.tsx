@@ -8,19 +8,19 @@ import Custom500 from '@pages/500';
 import { useEffectOnce } from 'usehooks-ts';
 import NftDetails from './Details';
 import NftPageShimmer from './Shimmer';
-import { useSearchParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const ViewNft = () => {
   const isReady = true;
-  const [searchParams, _] = useSearchParams();
+  const { chain, address, token } = useParams();
   const {
     data: nft,
     loading,
     error
   } = useOpenseaNft({
-    chain: parseInt(searchParams.get('chain') as string),
-    address: searchParams.get('address') as string,
-    token: searchParams.get('token') as string,
+    chain: parseInt(chain as string),
+    address: address as string,
+    token: token as string,
     enabled: isReady
   });
 

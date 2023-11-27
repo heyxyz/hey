@@ -14,11 +14,11 @@ import { useEffectOnce } from 'usehooks-ts';
 import Details from './Details';
 import Feed from './Feed';
 import GroupPageShimmer from './Shimmer';
-import { useSearchParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const ViewGroup = () => {
-  const [searchParams, _] = useSearchParams();
   const isReady = true;
+  const { slug } = useParams();
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'group' });
@@ -28,7 +28,7 @@ const ViewGroup = () => {
     const response: {
       data: { result: Group };
     } = await axios.get(`${HEY_API_URL}/group/getGroup`, {
-      params: { slug: searchParams.get('slug') }
+      params: { slug }
     });
 
     return response.data?.result;
@@ -39,7 +39,7 @@ const ViewGroup = () => {
     isLoading,
     error
   } = useQuery({
-    queryKey: ['fetchGroup', searchParams.get('slug')],
+    queryKey: ['fetchGroup', slug],
     queryFn: fetchGroup,
     enabled: isReady
   });

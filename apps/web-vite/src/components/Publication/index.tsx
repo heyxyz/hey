@@ -16,19 +16,20 @@ import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Custom404 from '@pages/404';
 import Custom500 from '@pages/500';
-import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
 import { useFeatureFlagsStore } from '@persisted/useFeatureFlagsStore';
 import useProfileStore from '@persisted/useProfileStore';
+import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
+import { useParams } from 'react-router-dom';
 import { useEffectOnce } from 'usehooks-ts';
+
 import FullPublication from './FullPublication';
 import OnchainMeta from './OnchainMeta';
 import RelevantPeople from './RelevantPeople';
 import PublicationPageShimmer from './Shimmer';
-import { useSearchParams } from 'react-router-dom';
 
 const ViewPublication = () => {
   const isReady = true;
-  const [searchParams, _] = useSearchParams();
+  const { id } = useParams();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
   const showNewPostModal = useGlobalModalStateStore(
@@ -40,8 +41,8 @@ const ViewPublication = () => {
   });
 
   const { data, loading, error } = usePublicationQuery({
-    variables: { request: { forId: searchParams.get('id') } },
-    skip: !searchParams.get('id')
+    variables: { request: { forId: id } },
+    skip: !id
   });
 
   if (!isReady || loading) {
