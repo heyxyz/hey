@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs from 'fs';
 import react from '@vitejs/plugin-react-swc';
 import * as dotenv from 'dotenv';
 import path from 'path';
@@ -10,7 +10,7 @@ dotenv.config();
 
 // let entries = fg.sync(['src/components/*'], { deep: 0, onlyDirectories: true });
 
-fs.writeFileSync('./test.txt', '', 'utf8')
+fs.writeFileSync('./test.txt', '', 'utf8');
 
 // https://vitejs.dev/config/
 export default defineConfig(() => {
@@ -61,10 +61,10 @@ export default defineConfig(() => {
             if (id.includes('hey/packages')) {
               return 'packages';
             }
-            fs.appendFileSync('./test.txt', id + '\n', 'utf8')
-          },
+            fs.appendFileSync('./test.txt', id + '\n', 'utf8');
+          }
         }
-      },
+      }
     }
   };
 });
