@@ -5178,9 +5178,8 @@ packages:
       estree-walker: 2.0.2
       picomatch: 2.3.1
 
-  /@rollup/rollup-android-arm-eabi@4.5.2:
-    resolution: {integrity: sha512-ee7BudTwwrglFYSc3UnqInDDjCLWHKrFmGNi4aK7jlEyg4CyPa1DCMrZfsN1O13YT76UFEqXz2CoN7BCGpUlJw==}
-
+  /@rollup/rollup-android-arm-eabi@4.6.0:
+    resolution: {integrity: sha512-keHkkWAe7OtdALGoutLY3utvthkGF+Y17ws9LYT8pxMBYXaCoH/8dXS2uzo6e8+sEhY7y/zi5RFo22Dy2lFpDw==}
     cpu: [arm]
     os: [android]
     requiresBuild: true
@@ -13362,19 +13361,6 @@ packages:
     dependencies:
       '@remix-run/router': 1.13.0
       react: 18.2.0
-    dev: false
-
-  /react-schemaorg@2.0.0(react@18.2.0)(schema-dts@1.1.2)(typescript@5.3.2):
-    resolution: {integrity: sha512-UqciFKA203ewNjn0zC09uYKuJSvMD8L75L1s/cW4rc7cS64w8l7vaI3SYkuoI/nwCBkJRmOkSJedWDUZBlYZwg==}
-    engines: {node: '>=12.0.0'}
-    peerDependencies:
-      react: '>=16.3.0'
-      schema-dts: '>=0.7.4'
-      typescript: '>=3.1.6'
-    dependencies:
-      react: 18.2.0
-      schema-dts: 1.1.2(typescript@5.3.2)
-      typescript: 5.3.2
     dev: false
 
   /react-side-effect@2.1.2(react@18.2.0):
