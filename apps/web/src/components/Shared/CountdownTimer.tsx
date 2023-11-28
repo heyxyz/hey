@@ -19,12 +19,7 @@ const CountdownTimer: FC<CountdownTimerProps> = ({ targetDate }) => {
     const timeDiff = target - now;
 
     if (timeDiff <= 0) {
-      return {
-        days: 0,
-        hours: 0,
-        minutes: 0,
-        seconds: 0
-      };
+      return { days: 0, hours: 0, minutes: 0, seconds: 0 };
     }
 
     const seconds = Math.floor((timeDiff / 1000) % 60);
