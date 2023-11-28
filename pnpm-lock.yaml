@@ -672,6 +672,9 @@ importers:
       tailwind-merge:
         specifier: ^2.0.0
         version: 2.0.0
+      tippy.js:
+        specifier: ^6.3.7
+        version: 6.3.7
       zod:
         specifier: ^3.22.4
         version: 3.22.4

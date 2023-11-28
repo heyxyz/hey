@@ -1,4 +1,4 @@
-// import 'tippy.js/dist/tippy.css';
+import 'tippy.js/dist/tippy.css';
 
 import { InformationCircleIcon } from '@heroicons/react/24/outline';
 import Tippy from '@tippyjs/react';

@@ -24,6 +24,7 @@
     "react-hook-form": "^7.48.2",
     "react-router-dom": "^6.20.0",
     "tailwind-merge": "^2.0.0",
+    "tippy.js": "^6.3.7",
     "zod": "^3.22.4"
   },
   "devDependencies": {
