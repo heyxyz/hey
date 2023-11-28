@@ -6,8 +6,15 @@ import ViteExpress from 'vite-express';
 
 dotenv.config({ override: true });
 
-const app = express().use(cors()).use(express.json()).use('/', router());
+const app = express();
 
-ViteExpress.listen(app, 4785, () =>
-  console.log('Server is listening on port 4785...')
-);
+app.use(express.json({ limit: '1mb' }));
+app.use(cors());
+
+(async () => {
+  app.use('/', await router());
+
+  ViteExpress.listen(app, 4784, () =>
+    console.log('Server is listening on port 4784...')
+  );
+})();

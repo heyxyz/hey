@@ -37,9 +37,9 @@ const PreferencesProvider: FC = () => {
         );
         const { data } = response;
 
-        setIsPride(data.result?.preference.isPride || false);
+        setIsPride(data.result?.preference?.isPride || false);
         setHighSignalNotificationFilter(
-          data.result?.preference.highSignalNotificationFilter || false
+          data.result?.preference?.highSignalNotificationFilter || false
         );
         setIsPro(data.result?.pro.enabled || false);
         setFeatureFlags(data?.result.features || []);

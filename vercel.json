@@ -1,9 +1,0 @@
-{
-  "git": {
-    "deploymentEnabled": {
-      "main": false,
-      "testnet": false,
-      "staging": false
-    }
-  }
-}
