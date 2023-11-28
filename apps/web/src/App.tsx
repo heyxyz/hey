@@ -1,5 +1,5 @@
 import Providers from '@components/Common/Providers';
-import Loader from '@components/Shared/Loader';
+import Loading from '@components/Shared/Loading';
 import * as React from 'react';
 import { Outlet, Route, Routes } from 'react-router-dom';
 
@@ -52,7 +52,7 @@ export default function App() {
           <Route
             index
             element={
-              <React.Suspense fallback={<Loader />}>
+              <React.Suspense fallback={<Loading />}>
                 <Homepage />
               </React.Suspense>
             }
@@ -60,7 +60,7 @@ export default function App() {
           <Route
             path="bookmarks"
             element={
-              <React.Suspense fallback={<Loader />}>
+              <React.Suspense fallback={<Loading />}>
                 <Bookmarks />
               </React.Suspense>
             }
@@ -68,7 +68,7 @@ export default function App() {
           <Route
             path="explore"
             element={
-              <React.Suspense fallback={<Loader />}>
+              <React.Suspense fallback={<Loading />}>
                 <Explore />
               </React.Suspense>
             }
@@ -76,7 +76,7 @@ export default function App() {
           <Route
             path="mod"
             element={
-              <React.Suspense fallback={<Loader />}>
+              <React.Suspense fallback={<Loading />}>
                 <Mod />
               </React.Suspense>
             }
@@ -84,7 +84,7 @@ export default function App() {
           <Route
             path="notifications"
             element={
-              <React.Suspense fallback={<Loader />}>
+              <React.Suspense fallback={<Loading />}>
                 <Notifications />
               </React.Suspense>
             }
@@ -92,7 +92,7 @@ export default function App() {
           <Route
             path="privacy"
             element={
-              <React.Suspense fallback={<Loader />}>
+              <React.Suspense fallback={<Loading />}>
                 <Privacy />
               </React.Suspense>
             }
@@ -100,7 +100,7 @@ export default function App() {
           <Route
             path="pro"
             element={
-              <React.Suspense fallback={<Loader />}>
+              <React.Suspense fallback={<Loading />}>
                 <Pro />
               </React.Suspense>
             }
@@ -108,7 +108,7 @@ export default function App() {
           <Route
             path="search"
             element={
-              <React.Suspense fallback={<Loader />}>
+              <React.Suspense fallback={<Loading />}>
                 <Search />
               </React.Suspense>
             }
@@ -116,7 +116,7 @@ export default function App() {
           <Route
             path="terms"
             element={
-              <React.Suspense fallback={<Loader />}>
+              <React.Suspense fallback={<Loading />}>
                 <Terms />
               </React.Suspense>
             }
@@ -124,7 +124,7 @@ export default function App() {
           <Route
             path="thanks"
             element={
-              <React.Suspense fallback={<Loader />}>
+              <React.Suspense fallback={<Loading />}>
                 <Thanks />
               </React.Suspense>
             }
@@ -132,7 +132,7 @@ export default function App() {
           <Route
             path="g/:slug"
             element={
-              <React.Suspense fallback={<Loader />}>
+              <React.Suspense fallback={<Loading />}>
                 <GroupHandler />
               </React.Suspense>
             }
@@ -140,7 +140,7 @@ export default function App() {
           <Route
             path="new/profile"
             element={
-              <React.Suspense fallback={<Loader />}>
+              <React.Suspense fallback={<Loading />}>
                 <NewProfile />
               </React.Suspense>
             }
@@ -148,7 +148,7 @@ export default function App() {
           <Route
             path="nft/:chain/:address/:token"
             element={
-              <React.Suspense fallback={<Loader />}>
+              <React.Suspense fallback={<Loading />}>
                 <NFTHandler />
               </React.Suspense>
             }
@@ -156,7 +156,7 @@ export default function App() {
           <Route
             path="posts/:id"
             element={
-              <React.Suspense fallback={<Loader />}>
+              <React.Suspense fallback={<Loading />}>
                 <PostsHandler />
               </React.Suspense>
             }
@@ -164,7 +164,7 @@ export default function App() {
           <Route
             path="profile/:id"
             element={
-              <React.Suspense fallback={<Loader />}>
+              <React.Suspense fallback={<Loading />}>
                 <UserHandler />
               </React.Suspense>
             }
@@ -173,7 +173,7 @@ export default function App() {
             <Route
               index
               element={
-                <React.Suspense fallback={<Loader />}>
+                <React.Suspense fallback={<Loading />}>
                   <Settings />
                 </React.Suspense>
               }
@@ -181,7 +181,7 @@ export default function App() {
             <Route
               path="account"
               element={
-                <React.Suspense fallback={<Loader />}>
+                <React.Suspense fallback={<Loading />}>
                   <SettingsAccount />
                 </React.Suspense>
               }
@@ -189,7 +189,7 @@ export default function App() {
             <Route
               path="actions"
               element={
-                <React.Suspense fallback={<Loader />}>
+                <React.Suspense fallback={<Loading />}>
                   <SettingsActions />
                 </React.Suspense>
               }
@@ -197,7 +197,7 @@ export default function App() {
             <Route
               path="allowance"
               element={
-                <React.Suspense fallback={<Loader />}>
+                <React.Suspense fallback={<Loading />}>
                   <SettingsAllowance />
                 </React.Suspense>
               }
@@ -205,7 +205,7 @@ export default function App() {
             <Route
               path="blocked"
               element={
-                <React.Suspense fallback={<Loader />}>
+                <React.Suspense fallback={<Loading />}>
                   <SettingsBlocked />
                 </React.Suspense>
               }
@@ -213,7 +213,7 @@ export default function App() {
             <Route
               path="cleanup"
               element={
-                <React.Suspense fallback={<Loader />}>
+                <React.Suspense fallback={<Loading />}>
                   <SettingsCleanup />
                 </React.Suspense>
               }
@@ -221,7 +221,7 @@ export default function App() {
             <Route
               path="danger"
               element={
-                <React.Suspense fallback={<Loader />}>
+                <React.Suspense fallback={<Loading />}>
                   <SettingsDanger />
                 </React.Suspense>
               }
@@ -229,7 +229,7 @@ export default function App() {
             <Route
               path="export"
               element={
-                <React.Suspense fallback={<Loader />}>
+                <React.Suspense fallback={<Loading />}>
                   <SettingsExport />
                 </React.Suspense>
               }
@@ -237,7 +237,7 @@ export default function App() {
             <Route
               path="handles"
               element={
-                <React.Suspense fallback={<Loader />}>
+                <React.Suspense fallback={<Loading />}>
                   <SettingsHandles />
                 </React.Suspense>
               }
@@ -245,7 +245,7 @@ export default function App() {
             <Route
               path="interests"
               element={
-                <React.Suspense fallback={<Loader />}>
+                <React.Suspense fallback={<Loading />}>
                   <SettingsInterests />
                 </React.Suspense>
               }
@@ -253,7 +253,7 @@ export default function App() {
             <Route
               path="manager"
               element={
-                <React.Suspense fallback={<Loader />}>
+                <React.Suspense fallback={<Loading />}>
                   <SettingsManager />
                 </React.Suspense>
               }
@@ -261,7 +261,7 @@ export default function App() {
             <Route
               path="preferences"
               element={
-                <React.Suspense fallback={<Loader />}>
+                <React.Suspense fallback={<Loading />}>
                   <SettingsPreferences />
                 </React.Suspense>
               }
@@ -269,7 +269,7 @@ export default function App() {
             <Route
               path="sessions"
               element={
-                <React.Suspense fallback={<Loader />}>
+                <React.Suspense fallback={<Loading />}>
                   <SettingsSessions />
                 </React.Suspense>
               }
@@ -278,7 +278,7 @@ export default function App() {
           <Route
             path="u/:handle"
             element={
-              <React.Suspense fallback={<Loader />}>
+              <React.Suspense fallback={<Loading />}>
                 <UserHandler />
               </React.Suspense>
             }
