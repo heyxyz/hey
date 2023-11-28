@@ -4,9 +4,8 @@
   "scripts": {
     "dev": "vite",
     "build:sw": "node script/build-sw.mjs",
-    "build:client": "vite build --outDir dist/client",
-    "build": "pnpm run build:sw && pnpm run build:client",
-    "start": "NODE_ENV=production tsx server.ts",
+    "build": "pnpm run build:sw && vite build",
+    "start": "vite preview",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
   },

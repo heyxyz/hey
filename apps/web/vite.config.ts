@@ -63,9 +63,6 @@ export default defineConfig(() => {
             if (id.includes('plyr')) {
               return '_plyr';
             }
-            if (id.includes('tailwind-merge')) {
-              return '_tailwind-merge';
-            }
           }
         }
       }
