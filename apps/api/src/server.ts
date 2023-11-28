@@ -14,7 +14,7 @@ app.use(cors());
 (async () => {
   app.use('/', await router());
 
-  ViteExpress.listen(app, 4785, () =>
-    console.log('Server is listening on port 4785...')
+  ViteExpress.listen(app, 4784, () =>
+    console.log('Server is listening on port 4784...')
   );
 })();

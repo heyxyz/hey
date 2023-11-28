@@ -8,10 +8,6 @@ echo "Updating apps/web env vars 🌎"
 cd apps/web; cp .env.example .env
 cd ../../
 # -------------------------------------
-echo "Updating apps/prerender env vars 🌎"
-cd apps/prerender; cp .env.example .env
-cd ../../
-# -------------------------------------
 echo "Updating apps/api env vars 🌎"
 cd apps/api; cp .env.example .env
 cd ../../
