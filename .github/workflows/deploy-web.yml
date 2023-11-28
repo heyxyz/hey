@@ -30,7 +30,7 @@ jobs:
       - name: Build 🎁
         run: npx turbo build --scope=@hey/web
 
-      - name: Deploy Mainnet
+      - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2]
         env:
           NEXT_PUBLIC_IS_PRODUCTION: true
@@ -39,4 +39,6 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-2
+
+      - name: Copy files to S3 with the AWS CLI
         run: aws s3 sync ./apps/web/out s3://hey-mainnet/
