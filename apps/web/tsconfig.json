@@ -23,7 +23,6 @@
     "paths": {
       "@lib/*": ["src/lib/*"],
       "@enums": ["src/enums.ts"],
-      "@gql/*": ["src/graphql/*"],
       "@store/*": ["src/store/*"],
       "@pages/*": ["src/pages/*"],
       "@hooks/*": ["src/hooks/*"],
