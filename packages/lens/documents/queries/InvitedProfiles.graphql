@@ -1,6 +1,6 @@
 query InvitedProfiles {
   invitedProfiles {
-    by
+    addressInvited
     when
     profileMinted {
       ...ListProfileFields
