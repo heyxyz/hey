@@ -26,7 +26,7 @@ const SettingsSidebar: FC = () => {
   const enabled = currentProfile?.ownedBy.address === address;
 
   return (
-    <div className="mb-4 space-y-1.5 px-3 sm:px-0">
+    <div className="mb-4 px-3 sm:px-0">
       <div className="pb-3">
         <UserProfile
           profile={currentProfile as Profile}
