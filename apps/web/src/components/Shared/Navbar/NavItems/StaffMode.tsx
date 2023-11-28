@@ -6,10 +6,12 @@ import cn from '@hey/ui/cn';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
-import { type FC } from 'react';
+import { Magic } from 'magic-sdk';
+import { type FC, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useEffectOnce } from 'usehooks-ts';
 
 interface StaffModeProps {
   className?: string;
@@ -19,28 +21,41 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
   const setStaffMode = useFeatureFlagsStore((state) => state.setStaffMode);
+  const [magic, setMagic] = useState<Magic | null>(null);
+
+  useEffectOnce(() => {
+    const magic = new Magic('pk_live_945624918503908C');
+    setMagic(magic);
+  });
 
   const toggleStaffMode = async () => {
-    toast.promise(
-      axios.post(
-        `${HEY_API_URL}/internal/feature/updateStaffMode`,
-        { enabled: !staffMode },
-        { headers: getAuthWorkerHeaders() }
-      ),
-      {
-        loading: 'Toggling staff mode...',
-        success: () => {
-          axios.get(`${HEY_API_URL}/preference/getPreferences`, {
-            params: { id: currentProfile?.id }
+    const authAndSetStaffMode = async () => {
+      try {
+        if (!staffMode) {
+          await magic?.auth.loginWithMagicLink({
+            email: 'yoginth@hey.xyz'
           });
-          setStaffMode(!staffMode);
-          Leafwatch.track(STAFFTOOLS.TOGGLE_MODE);
-
-          return 'Staff mode toggled!';
-        },
-        error: 'Failed to toggle staff mode!'
+        }
+        await axios.get(`${HEY_API_URL}/internal/feature/getStaffMode`, {
+          headers: getAuthWorkerHeaders()
+        });
+      } catch (error) {
+        throw error;
       }
-    );
+    };
+    toast.promise(authAndSetStaffMode(), {
+      loading: 'Toggling staff mode...',
+      success: () => {
+        axios.get(`${HEY_API_URL}/preference/getPreferences`, {
+          params: { id: currentProfile?.id }
+        });
+        setStaffMode(!staffMode);
+        Leafwatch.track(STAFFTOOLS.TOGGLE_MODE);
+
+        return 'Staff mode toggled!';
+      },
+      error: 'Failed to toggle staff mode!'
+    });
   };
 
   return (
