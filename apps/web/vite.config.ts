@@ -1,10 +1,16 @@
+import fs from 'fs'
 import react from '@vitejs/plugin-react-swc';
 import * as dotenv from 'dotenv';
 import path from 'path';
 import { defineConfig } from 'vite';
+import fg from 'fast-glob';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 
 dotenv.config();
+
+// let entries = fg.sync(['src/components/*'], { deep: 0, onlyDirectories: true });
+
+fs.writeFileSync('./test.txt', '', 'utf8')
 
 // https://vitejs.dev/config/
 export default defineConfig(() => {
@@ -45,119 +51,20 @@ export default defineConfig(() => {
         output: {
           chunkFileNames: 'chunk-[name].[hash].js',
           entryFileNames: 'entry-[name].[hash].js',
-          manualChunks: {
-            react: [
-              'react',
-              'react-dom',
-              'react-helmet',
-              'react-virtuoso',
-              'react-hot-toast',
-              'react-router-dom',
-              'react-cool-inview',
-              '@headlessui/react',
-              'react-device-detect',
-              'react-activity-calendar'
-            ],
-            hey_ui: ['@heroicons/react/24/solid', '@hey/ui'],
-            hey_lib: [
-              '@hey/lib/truncateUrl',
-              '@hey/lib/truncateByWords',
-              '@hey/lib/trimify',
-              '@hey/lib/stopEventPropagation',
-              '@hey/lib/splitNumber',
-              '@hey/lib/sanitizeDisplayName',
-              '@hey/lib/sanitizeDStorageUrl',
-              '@hey/lib/resolveEns',
-              '@hey/lib/removeUrlsByHostnames',
-              '@hey/lib/removeUrlAtEnd',
-              '@hey/lib/removeQuoteOn',
-              '@hey/lib/publicationHelpers',
-              '@hey/lib/parseJwt',
-              '@hey/lib/nFormatter',
-              '@hey/lib/isPublicationMetadataTypeAllowed',
-              '@hey/lib/isPrideMonth',
-              '@hey/lib/isOpenActionAllowed',
-              '@hey/lib/imageKit',
-              '@hey/lib/humanize',
-              '@hey/lib/hasMisused',
-              '@hey/lib/getZoraChainInfo',
-              '@hey/lib/getWalletDetails',
-              '@hey/lib/getUniswapURL',
-              '@hey/lib/getURLs',
-              '@hey/lib/getTokenImage',
-              '@hey/lib/getStampFyiURL',
-              '@hey/lib/getSignature',
-              '@hey/lib/getRedstonePrice',
-              '@hey/lib/getPublicationsViews',
-              '@hey/lib/getPublicationViewCountById',
-              '@hey/lib/getPublicationIds',
-              '@hey/lib/getPublicationData',
-              '@hey/lib/getPublicationAttribute',
-              '@hey/lib/getProfileAttribute',
-              '@hey/lib/getProfile',
-              '@hey/lib/getOpenActionModuleData',
-              '@hey/lib/getOpenActionActOnKey',
-              '@hey/lib/getMisuseDetails',
-              '@hey/lib/getMentions',
-              '@hey/lib/getFollowModule',
-              '@hey/lib/getFileFromDataURL',
-              '@hey/lib/getFavicon',
-              '@hey/lib/getAvatar',
-              '@hey/lib/getAttachmentsData',
-              '@hey/lib/getAssetSymbol',
-              '@hey/lib/getAppName',
-              '@hey/lib/getAlgorithmicFeed',
-              '@hey/lib/generateVideoThumbnails',
-              '@hey/lib/formatAddress',
-              '@hey/lib/downloadJson',
-              '@hey/lib/collectModuleParams',
-              '@hey/lib/checkDispatcherPermissions'
-            ],
-            shared_components: [
-              '@components/Shared/WalletProfile',
-              '@components/Shared/Video',
-              '@components/Shared/UserProfile',
-              '@components/Shared/UserPreview',
-              '@components/Shared/ToggleWithHelper',
-              '@components/Shared/SwitchProfiles',
-              '@components/Shared/SwitchNetwork',
-              '@components/Shared/SmallWalletProfile',
-              '@components/Shared/SmallUserProfile',
-              '@components/Shared/Slug',
-              '@components/Shared/SingleNft',
-              '@components/Shared/Sidebar',
-              '@components/Shared/SettingsHelper',
-              '@components/Shared/SearchUser',
-              '@components/Shared/PublicationWrapper',
-              '@components/Shared/ProtectProfile',
-              '@components/Shared/Profiles',
-              '@components/Shared/NotLoggedIn',
-              '@components/Shared/NewAttachments',
-              '@components/Shared/MenuTransition',
-              '@components/Shared/Loading',
-              '@components/Shared/Loader',
-              '@components/Shared/IndexStatus',
-              '@components/Shared/ImageCropperController',
-              '@components/Shared/GroupProfile',
-              '@components/Shared/GlobalModals',
-              '@components/Shared/GlobalBanners',
-              '@components/Shared/GlobalAlerts',
-              '@components/Shared/GetOpenActionModuleIcon',
-              '@components/Shared/Footer',
-              '@components/Shared/FeedFocusType',
-              '@components/Shared/FallbackProfileName',
-              '@components/Shared/DismissRecommendedProfile',
-              '@components/Shared/CountdownTimer',
-              '@components/Shared/CommentWarning',
-              '@components/Shared/CollectWarning',
-              '@components/Shared/ChooseFile',
-              '@components/Shared/Attachments',
-              '@components/Shared/Shimmer/PublicationsShimmer',
-              '@components/Settings/Allowance/Button'
-            ]
-          }
+          manualChunks: (id) => {
+            if (id.includes('node_modules')) {
+              return 'node_modules';
+            }
+            if (id.includes('hey/apps')) {
+              return 'apps';
+            }
+            if (id.includes('hey/packages')) {
+              return 'packages';
+            }
+            fs.appendFileSync('./test.txt', id + '\n', 'utf8')
+          },
         }
-      }
+      },
     }
   };
 });
