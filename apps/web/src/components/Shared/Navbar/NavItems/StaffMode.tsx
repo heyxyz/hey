@@ -31,9 +31,11 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
   const toggleStaffMode = async () => {
     const authAndSetStaffMode = async () => {
       try {
-        await magic?.auth.loginWithMagicLink({
-          email: 'yoginth@hey.xyz'
-        });
+        if (!staffMode) {
+          await magic?.auth.loginWithMagicLink({
+            email: 'yoginth@hey.xyz'
+          });
+        }
         await axios.get(`${HEY_API_URL}/internal/feature/getStaffMode`, {
           headers: getAuthWorkerHeaders()
         });
