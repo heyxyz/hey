@@ -1,5 +1,6 @@
 import Providers from '@components/Common/Providers';
 import Loading from '@components/Shared/Loading';
+import Custom404 from '@pages/404';
 import * as React from 'react';
 import { Outlet, Route, Routes } from 'react-router-dom';
 
@@ -49,7 +50,7 @@ export default function App() {
     <React.Suspense fallback={<Loading />}>
       <Providers>
         <Routes>
-          <Route path="/" element={<Layout />}>
+          <Route errorElement={<Custom404 />} path="/" element={<Layout />}>
             <Route index element={<Homepage />} />
             <Route path="bookmarks" element={<Bookmarks />} />
             <Route path="explore" element={<Explore />} />
@@ -81,6 +82,7 @@ export default function App() {
               <Route path="sessions" element={<SettingsSessions />} />
             </Route>
             <Route path="u/:handle" element={<UserHandler />} />
+            <Route path="*" element={<Custom404 />} />
           </Route>
         </Routes>
       </Providers>
