@@ -26,8 +26,8 @@ export default defineConfig(() => {
     define: {
       global: {},
       'process.env': process.env,
-      'process.env.NEXT_PUBLIC_LENS_NETWORK': `'${process.env.NEXT_PUBLIC_LENS_NETWORK}'`,
-      'process.env.NEXT_PUBLIC_IS_PRODUCTION': `'${process.env.NEXT_PUBLIC_IS_PRODUCTION}'`
+      'process.env.LENS_NETWORK': `'${process.env.LENS_NETWORK}'`,
+      'process.env.IS_PRODUCTION': `'${process.env.IS_PRODUCTION}'`
     },
     server: {
       open: true,
@@ -42,8 +42,6 @@ export default defineConfig(() => {
     build: {
       rollupOptions: {
         output: {
-          chunkFileNames: 'chunk-[name].[hash].js',
-          entryFileNames: 'entry-[name].[hash].js',
           manualChunks: (id) => {
             if (id.includes('date-fns')) {
               return '_date-fns';
