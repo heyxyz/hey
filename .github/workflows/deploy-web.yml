@@ -31,7 +31,7 @@ jobs:
         run: npx turbo build --scope=@hey/web
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2]
+        uses: aws-actions/configure-aws-credentials@v2
         env:
           NEXT_PUBLIC_IS_PRODUCTION: true
           NEXT_PUBLIC_LENS_NETWORK: mainnet
