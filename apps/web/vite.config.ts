@@ -54,6 +54,18 @@ export default defineConfig(() => {
             if (id.includes('livepeer') || id.includes('hls')) {
               return '_livepeer';
             }
+            if (id.includes('bn.js')) {
+              return '_bn';
+            }
+            if (id.includes('zod')) {
+              return '_zod';
+            }
+            if (id.includes('plyr')) {
+              return '_plyr';
+            }
+            if (id.includes('tailwind-merge')) {
+              return '_tailwind-merge';
+            }
           }
         }
       }
