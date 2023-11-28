@@ -1,18 +1,11 @@
-import fs from 'fs';
 import react from '@vitejs/plugin-react-swc';
 import * as dotenv from 'dotenv';
 import path from 'path';
 import { defineConfig } from 'vite';
-import fg from 'fast-glob';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 
 dotenv.config();
 
-// let entries = fg.sync(['src/components/*'], { deep: 0, onlyDirectories: true });
-
-fs.writeFileSync('./test.txt', '', 'utf8');
-
-// https://vitejs.dev/config/
 export default defineConfig(() => {
   return {
     plugins: [nodePolyfills(), react()],
@@ -52,16 +45,15 @@ export default defineConfig(() => {
           chunkFileNames: 'chunk-[name].[hash].js',
           entryFileNames: 'entry-[name].[hash].js',
           manualChunks: (id) => {
-            if (id.includes('node_modules')) {
-              return 'node_modules';
+            if (id.includes('date-fns')) {
+              return '_date-fns';
             }
-            if (id.includes('hey/apps')) {
-              return 'apps';
+            if (id.includes('@aws-sdk')) {
+              return '_aws_sdk';
             }
-            if (id.includes('hey/packages')) {
-              return 'packages';
+            if (id.includes('livepeer') || id.includes('hls')) {
+              return '_livepeer';
             }
-            fs.appendFileSync('./test.txt', id + '\n', 'utf8');
           }
         }
       }
