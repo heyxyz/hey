@@ -29,6 +29,7 @@ enum StaffPickType {
 
 model Preference {
   id                           String   @id
+  email                        String?  @unique
   isPride                      Boolean  @default(false)
   highSignalNotificationFilter Boolean  @default(false)
   createdAt                    DateTime @default(now())
