@@ -28,7 +28,7 @@ jobs:
         run: script/bootstrap
 
       - name: Build 🎁
-        run: pnpm build
+        run: npx turbo build --scope=@hey/web
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -39,4 +39,4 @@ jobs:
 
       - name: Copy files to S3 with the AWS CLI
         run: |
-          aws s3 sync ./out s3://hey-mainnet/
+          aws s3 sync ./apps/web/out s3://hey-mainnet/
