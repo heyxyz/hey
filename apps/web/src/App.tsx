@@ -46,245 +46,303 @@ function Layout() {
 
 export default function App() {
   return (
-    <Providers>
-      <Routes>
-        <Route path="/" element={<Layout />}>
+    // <Providers>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route
+          index
+          element={
+            <React.Suspense fallback={<Loading />}>
+              <Providers>
+                <Homepage />
+              </Providers>
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="bookmarks"
+          element={
+            <React.Suspense fallback={<Loading />}>
+              <Providers>
+                <Bookmarks />
+              </Providers>
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="explore"
+          element={
+            <React.Suspense fallback={<Loading />}>
+              <Providers>
+                <Explore />
+              </Providers>
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="mod"
+          element={
+            <React.Suspense fallback={<Loading />}>
+              <Providers>
+                <Mod />
+              </Providers>
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="notifications"
+          element={
+            <React.Suspense fallback={<Loading />}>
+              <Providers>
+                <Notifications />
+              </Providers>
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="privacy"
+          element={
+            <React.Suspense fallback={<Loading />}>
+              <Providers>
+                <Privacy />
+              </Providers>
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="pro"
+          element={
+            <React.Suspense fallback={<Loading />}>
+              <Providers>
+                <Pro />
+              </Providers>
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="search"
+          element={
+            <React.Suspense fallback={<Loading />}>
+              <Providers>
+                <Search />
+              </Providers>
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="terms"
+          element={
+            <React.Suspense fallback={<Loading />}>
+              <Providers>
+                <Terms />
+              </Providers>
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="thanks"
+          element={
+            <React.Suspense fallback={<Loading />}>
+              <Providers>
+                <Thanks />
+              </Providers>
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="g/:slug"
+          element={
+            <React.Suspense fallback={<Loading />}>
+              <Providers>
+                <GroupHandler />
+              </Providers>
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="new/profile"
+          element={
+            <React.Suspense fallback={<Loading />}>
+              <Providers>
+                <NewProfile />
+              </Providers>
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="nft/:chain/:address/:token"
+          element={
+            <React.Suspense fallback={<Loading />}>
+              <Providers>
+                <NFTHandler />
+              </Providers>
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="posts/:id"
+          element={
+            <React.Suspense fallback={<Loading />}>
+              <Providers>
+                <PostsHandler />
+              </Providers>
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="profile/:id"
+          element={
+            <React.Suspense fallback={<Loading />}>
+              <Providers>
+                <UserHandler />
+              </Providers>
+            </React.Suspense>
+          }
+        />
+        <Route path="settings" element={<Layout />}>
           <Route
             index
             element={
               <React.Suspense fallback={<Loading />}>
-                <Homepage />
-              </React.Suspense>
-            }
-          />
-          <Route
-            path="bookmarks"
-            element={
-              <React.Suspense fallback={<Loading />}>
-                <Bookmarks />
-              </React.Suspense>
-            }
-          />
-          <Route
-            path="explore"
-            element={
-              <React.Suspense fallback={<Loading />}>
-                <Explore />
-              </React.Suspense>
-            }
-          />
-          <Route
-            path="mod"
-            element={
-              <React.Suspense fallback={<Loading />}>
-                <Mod />
-              </React.Suspense>
-            }
-          />
-          <Route
-            path="notifications"
-            element={
-              <React.Suspense fallback={<Loading />}>
-                <Notifications />
-              </React.Suspense>
-            }
-          />
-          <Route
-            path="privacy"
-            element={
-              <React.Suspense fallback={<Loading />}>
-                <Privacy />
-              </React.Suspense>
-            }
-          />
-          <Route
-            path="pro"
-            element={
-              <React.Suspense fallback={<Loading />}>
-                <Pro />
-              </React.Suspense>
-            }
-          />
-          <Route
-            path="search"
-            element={
-              <React.Suspense fallback={<Loading />}>
-                <Search />
-              </React.Suspense>
-            }
-          />
-          <Route
-            path="terms"
-            element={
-              <React.Suspense fallback={<Loading />}>
-                <Terms />
-              </React.Suspense>
-            }
-          />
-          <Route
-            path="thanks"
-            element={
-              <React.Suspense fallback={<Loading />}>
-                <Thanks />
-              </React.Suspense>
-            }
-          />
-          <Route
-            path="g/:slug"
-            element={
-              <React.Suspense fallback={<Loading />}>
-                <GroupHandler />
-              </React.Suspense>
-            }
-          />
-          <Route
-            path="new/profile"
-            element={
-              <React.Suspense fallback={<Loading />}>
-                <NewProfile />
-              </React.Suspense>
-            }
-          />
-          <Route
-            path="nft/:chain/:address/:token"
-            element={
-              <React.Suspense fallback={<Loading />}>
-                <NFTHandler />
-              </React.Suspense>
-            }
-          />
-          <Route
-            path="posts/:id"
-            element={
-              <React.Suspense fallback={<Loading />}>
-                <PostsHandler />
-              </React.Suspense>
-            }
-          />
-          <Route
-            path="profile/:id"
-            element={
-              <React.Suspense fallback={<Loading />}>
-                <UserHandler />
-              </React.Suspense>
-            }
-          />
-          <Route path="settings" element={<Layout />}>
-            <Route
-              index
-              element={
-                <React.Suspense fallback={<Loading />}>
+                <Providers>
                   <Settings />
-                </React.Suspense>
-              }
-            />
-            <Route
-              path="account"
-              element={
-                <React.Suspense fallback={<Loading />}>
-                  <SettingsAccount />
-                </React.Suspense>
-              }
-            />
-            <Route
-              path="actions"
-              element={
-                <React.Suspense fallback={<Loading />}>
-                  <SettingsActions />
-                </React.Suspense>
-              }
-            />
-            <Route
-              path="allowance"
-              element={
-                <React.Suspense fallback={<Loading />}>
-                  <SettingsAllowance />
-                </React.Suspense>
-              }
-            />
-            <Route
-              path="blocked"
-              element={
-                <React.Suspense fallback={<Loading />}>
-                  <SettingsBlocked />
-                </React.Suspense>
-              }
-            />
-            <Route
-              path="cleanup"
-              element={
-                <React.Suspense fallback={<Loading />}>
-                  <SettingsCleanup />
-                </React.Suspense>
-              }
-            />
-            <Route
-              path="danger"
-              element={
-                <React.Suspense fallback={<Loading />}>
-                  <SettingsDanger />
-                </React.Suspense>
-              }
-            />
-            <Route
-              path="export"
-              element={
-                <React.Suspense fallback={<Loading />}>
-                  <SettingsExport />
-                </React.Suspense>
-              }
-            />
-            <Route
-              path="handles"
-              element={
-                <React.Suspense fallback={<Loading />}>
-                  <SettingsHandles />
-                </React.Suspense>
-              }
-            />
-            <Route
-              path="interests"
-              element={
-                <React.Suspense fallback={<Loading />}>
-                  <SettingsInterests />
-                </React.Suspense>
-              }
-            />
-            <Route
-              path="manager"
-              element={
-                <React.Suspense fallback={<Loading />}>
-                  <SettingsManager />
-                </React.Suspense>
-              }
-            />
-            <Route
-              path="preferences"
-              element={
-                <React.Suspense fallback={<Loading />}>
-                  <SettingsPreferences />
-                </React.Suspense>
-              }
-            />
-            <Route
-              path="sessions"
-              element={
-                <React.Suspense fallback={<Loading />}>
-                  <SettingsSessions />
-                </React.Suspense>
-              }
-            />
-          </Route>
+                </Providers>
+              </React.Suspense>
+            }
+          />
           <Route
-            path="u/:handle"
+            path="account"
             element={
               <React.Suspense fallback={<Loading />}>
-                <UserHandler />
+                <Providers>
+                  <SettingsAccount />
+                </Providers>
+              </React.Suspense>
+            }
+          />
+          <Route
+            path="actions"
+            element={
+              <React.Suspense fallback={<Loading />}>
+                <Providers>
+                  <SettingsActions />
+                </Providers>
+              </React.Suspense>
+            }
+          />
+          <Route
+            path="allowance"
+            element={
+              <React.Suspense fallback={<Loading />}>
+                <Providers>
+                  <SettingsAllowance />
+                </Providers>
+              </React.Suspense>
+            }
+          />
+          <Route
+            path="blocked"
+            element={
+              <React.Suspense fallback={<Loading />}>
+                <Providers>
+                  <SettingsBlocked />
+                </Providers>
+              </React.Suspense>
+            }
+          />
+          <Route
+            path="cleanup"
+            element={
+              <React.Suspense fallback={<Loading />}>
+                <Providers>
+                  <SettingsCleanup />
+                </Providers>
+              </React.Suspense>
+            }
+          />
+          <Route
+            path="danger"
+            element={
+              <React.Suspense fallback={<Loading />}>
+                <Providers>
+                  <SettingsDanger />
+                </Providers>
+              </React.Suspense>
+            }
+          />
+          <Route
+            path="export"
+            element={
+              <React.Suspense fallback={<Loading />}>
+                <Providers>
+                  <SettingsExport />
+                </Providers>
+              </React.Suspense>
+            }
+          />
+          <Route
+            path="handles"
+            element={
+              <React.Suspense fallback={<Loading />}>
+                <Providers>
+                  <SettingsHandles />
+                </Providers>
+              </React.Suspense>
+            }
+          />
+          <Route
+            path="interests"
+            element={
+              <React.Suspense fallback={<Loading />}>
+                <Providers>
+                  <SettingsInterests />
+                </Providers>
+              </React.Suspense>
+            }
+          />
+          <Route
+            path="manager"
+            element={
+              <React.Suspense fallback={<Loading />}>
+                <Providers>
+                  <SettingsManager />
+                </Providers>
+              </React.Suspense>
+            }
+          />
+          <Route
+            path="preferences"
+            element={
+              <React.Suspense fallback={<Loading />}>
+                <Providers>
+                  <SettingsPreferences />
+                </Providers>
+              </React.Suspense>
+            }
+          />
+          <Route
+            path="sessions"
+            element={
+              <React.Suspense fallback={<Loading />}>
+                <Providers>
+                  <SettingsSessions />
+                </Providers>
               </React.Suspense>
             }
           />
         </Route>
-      </Routes>
-    </Providers>
+        <Route
+          path="u/:handle"
+          element={
+            <React.Suspense fallback={<Loading />}>
+              <Providers>
+                <UserHandler />
+              </Providers>
+            </React.Suspense>
+          }
+        />
+      </Route>
+    </Routes>
+    // </Providers>
   );
 }
