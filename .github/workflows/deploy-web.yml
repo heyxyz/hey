@@ -28,13 +28,13 @@ jobs:
         run: script/bootstrap
 
       - name: Build 🎁
+        env:
+          NEXT_PUBLIC_IS_PRODUCTION: true
+          NEXT_PUBLIC_LENS_NETWORK: mainnet
         run: npx turbo build --scope=@hey/web
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
-        env:
-          NEXT_PUBLIC_IS_PRODUCTION: true
-          NEXT_PUBLIC_LENS_NETWORK: mainnet
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -42,3 +42,6 @@ jobs:
 
       - name: Copy files to S3 with the AWS CLI
         run: aws s3 sync ./apps/web/out s3://hey-mainnet/
+
+      - name: Invalidate CloudFront Cache
+        run: aws cloudfront create-invalidation --distribution-id ESNBVZGL4XF2U --paths "/*"
