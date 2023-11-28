@@ -1,3 +1,4 @@
+import CountdownTimer from '@components/Shared/CountdownTimer';
 import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { MISCELLANEOUS } from '@hey/data/tracking';
 import { Card } from '@hey/ui';
@@ -19,6 +20,9 @@ const Gitcoin: FC = () => {
       <div className="space-y-3 text-center text-sm">
         <div className="font-bold">
           Support {APP_NAME} on Gitcoin Grants Round 19
+        </div>
+        <div className="text-lg font-bold tracking-wide">
+          <CountdownTimer targetDate={new Date(1701302340 * 1000).toString()} />
         </div>
         <div>
           <Link
