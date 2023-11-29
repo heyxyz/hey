@@ -11,12 +11,16 @@ type ExtensionRequest = {
   id?: string;
   isPride?: boolean;
   highSignalNotificationFilter?: boolean;
+  email?: string;
+  marketingOptIn?: boolean;
 };
 
 const validationSchema = object({
   id: string().optional(),
   isPride: boolean().optional(),
-  highSignalNotificationFilter: boolean().optional()
+  highSignalNotificationFilter: boolean().optional(),
+  email: string().optional(),
+  marketingOptIn: boolean().optional()
 });
 
 export const post: Handler = async (req, res) => {
@@ -39,21 +43,21 @@ export const post: Handler = async (req, res) => {
       .json({ success: false, error: Errors.InvalidAccesstoken });
   }
 
-  const { isPride, highSignalNotificationFilter } = body as ExtensionRequest;
+  const { isPride, highSignalNotificationFilter, email, marketingOptIn } =
+    body as ExtensionRequest;
 
   try {
     const payload = parseJwt(accessToken);
 
     const data = await prisma.preference.upsert({
       where: { id: payload.id },
-      update: {
-        isPride: isPride,
-        highSignalNotificationFilter: highSignalNotificationFilter
-      },
+      update: { isPride, highSignalNotificationFilter, email, marketingOptIn },
       create: {
         id: payload.id,
-        isPride: isPride,
-        highSignalNotificationFilter: highSignalNotificationFilter
+        isPride,
+        highSignalNotificationFilter,
+        email,
+        marketingOptIn
       }
     });
 
