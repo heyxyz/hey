@@ -7,7 +7,7 @@ import validateLensAccount from './validateLensAccount';
 
 /**
  * Middleware to validate if the user is gardener
- * @param request Incoming worker request
+ * @param request Incoming request
  * @returns Response
  */
 const validateIsGardener = async (request: Request) => {

@@ -2,14 +2,14 @@ import parseJwt from '@hey/lib/parseJwt';
 import type { Request } from 'express';
 
 import validateIsStaff from './validateIsStaff';
-import validateLensAccount from './validateLensAccount';
 
 /**
- * Middleware to validate Lens access token
+ * Middleware to validate if the user is staff or the owner of the profile
  * @param request Incoming request
+ * @param id Profile id
  * @returns Response
  */
-const allowOwnerAndStaffOnly = async (request: Request, id: string) => {
+const validateIsOwnerOrStaff = async (request: Request, id: string) => {
   const accessToken = request.headers['x-access-token'] as string;
 
   if (!accessToken) {
@@ -18,10 +18,6 @@ const allowOwnerAndStaffOnly = async (request: Request, id: string) => {
 
   try {
     const payload = parseJwt(accessToken);
-
-    if (!(await validateLensAccount(request))) {
-      return false;
-    }
 
     // Check if the user is staff or the owner of the profile
     if (payload.id !== id && !(await validateIsStaff(request))) {
@@ -32,4 +28,4 @@ const allowOwnerAndStaffOnly = async (request: Request, id: string) => {
   }
 };
 
-export default allowOwnerAndStaffOnly;
+export default validateIsOwnerOrStaff;
