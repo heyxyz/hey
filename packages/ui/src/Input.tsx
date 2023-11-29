@@ -1,10 +1,9 @@
-import { lazy, forwardRef, useId, Suspense } from 'react';
+import { forwardRef, useId } from 'react';
 import type { ComponentProps, ReactNode } from 'react';
 
 import cn from '../cn';
 import { FieldError } from './Form';
-
-const HelpTooltip = lazy(() => import('./HelpTooltip'));
+import HelpTooltip from './HelpTooltip';
 
 interface InputProps extends Omit<ComponentProps<'input'>, 'prefix'> {
   label?: string;
@@ -44,9 +43,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           <div className="font-medium text-gray-800 dark:text-gray-200">
             {label}
           </div>
-          <Suspense>
-            <HelpTooltip>{helper}</HelpTooltip>
-          </Suspense>
+          <HelpTooltip>{helper}</HelpTooltip>
         </div>
       ) : null}
       <div className="flex">
