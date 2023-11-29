@@ -3,9 +3,9 @@ import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import catchedError from '@utils/catchedError';
 import { GARDENER_MODE_FEATURE_ID } from '@utils/constants';
-import createRedisClient from '@utils/createRedisClient';
 import validateIsGardener from '@utils/middlewares/validateIsGardener';
 import prisma from '@utils/prisma';
+import redisPool from '@utils/redisPool';
 import type { Handler } from 'express';
 import { boolean, object } from 'zod';
 
@@ -40,7 +40,7 @@ export const post: Handler = async (req, res) => {
   try {
     const payload = parseJwt(accessToken);
     const profile_id = payload.id;
-    const redis = createRedisClient();
+    const redis = await redisPool.getConnection();
 
     if (enabled) {
       await prisma.profileFeature.create({

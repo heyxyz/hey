@@ -1,13 +1,13 @@
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_10_MINS_30_DAYS } from '@utils/constants';
-import createRedisClient from '@utils/createRedisClient';
 import prisma from '@utils/prisma';
+import redisPool from '@utils/redisPool';
 import type { Handler } from 'express';
 
 export const get: Handler = async (_req, res) => {
   try {
-    const redis = createRedisClient();
+    const redis = await redisPool.getConnection();
     const cache = await redis.get('featured-groups');
 
     if (cache) {
