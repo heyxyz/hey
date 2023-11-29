@@ -1,10 +1,7 @@
 import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
-import {
-  REDIS_EX_8_HOURS,
-  SWR_CACHE_AGE_1_MIN_30_DAYS
-} from '@utils/constants';
+import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
 import createRedisClient from '@utils/createRedisClient';
 import prisma from '@utils/prisma';
 import type { Handler } from 'express';
@@ -31,12 +28,7 @@ export const get: Handler = async (req, res) => {
     const data = await prisma.membershipNft.findUnique({
       where: { id: id as string }
     });
-    await redis.set(
-      `membership-nft:${id}`,
-      JSON.stringify(data),
-      'EX',
-      REDIS_EX_8_HOURS
-    );
+    await redis.set(`membership-nft:${id}`, JSON.stringify(data));
     logger.info('Membership NFT status fetched from DB');
 
     return res
