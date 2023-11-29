@@ -9,6 +9,7 @@ import { lazy, useState, Suspense } from 'react';
 import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
 import useProfileStore from '@persisted/useProfileStore';
 import Slug from '../Slug';
+import Loader from '../Loader';
 
 const FollowModule = lazy(() => import('./FollowModule'));
 
@@ -66,7 +67,7 @@ const SuperFollow: FC<SuperFollowProps> = ({
         show={showFollowModal}
         onClose={() => setShowFollowModal(false)}
       >
-        <Suspense>
+        <Suspense fallback={<Loader message="Loading Super follow" />}>
           <FollowModule
             profile={profile}
             setFollowing={setFollowing}

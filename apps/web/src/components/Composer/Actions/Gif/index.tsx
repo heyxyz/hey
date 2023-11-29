@@ -1,4 +1,4 @@
-// import Loader from '@components/Shared/Loader';
+import Loader from '@components/Shared/Loader';
 import { GifIcon, PhotoIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
 import type { IGif } from '@hey/types/giphy';
@@ -6,7 +6,7 @@ import { Modal, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
-import { lazy, useState } from 'react';
+import { lazy, useState, Suspense } from 'react';
 import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 
 const GifSelector = lazy(() => import('./GifSelector'));
@@ -42,10 +42,12 @@ const Gif: FC<GiphyProps> = ({ setGifAttachment }) => {
         show={showModal}
         onClose={() => setShowModal(false)}
       >
-        <GifSelector
-          setShowModal={setShowModal}
-          setGifAttachment={setGifAttachment}
-        />
+        <Suspense fallback={<Loader message="Loading GIFs" />}>
+          <GifSelector
+            setShowModal={setShowModal}
+            setGifAttachment={setGifAttachment}
+          />
+        </Suspense>
       </Modal>
     </>
   );

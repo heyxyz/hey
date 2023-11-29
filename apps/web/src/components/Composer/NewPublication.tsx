@@ -569,10 +569,14 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       ) : null}
       <div className="block items-center px-5 sm:flex">
         <div className="flex items-center space-x-4">
-          <Suspense>
+          <Suspense
+            fallback={<div className="shimmer mb-1 h-5 w-5 rounded-lg" />}
+          >
             <Attachment />
           </Suspense>
-          <Suspense>
+          <Suspense
+            fallback={<div className="shimmer mb-1 h-5 w-5 rounded-lg" />}
+          >
             <EmojiPicker
               emojiClassName="text-brand-500"
               setShowEmojiPicker={setShowEmojiPicker}
@@ -594,16 +598,26 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
               }}
             />
           </Suspense>
-          <Suspense>
+          <Suspense
+            fallback={<div className="shimmer mb-1 h-5 w-5 rounded-lg" />}
+          >
             <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
           </Suspense>
           {!publication?.momoka?.proof ? (
-            <Suspense>
-              <CollectSettings />
-              <ReferenceSettings />
-            </Suspense>
+            <>
+              <Suspense
+                fallback={<div className="shimmer mb-1 h-5 w-5 rounded-lg" />}
+              >
+                <CollectSettings />
+              </Suspense>
+              <Suspense
+                fallback={<div className="shimmer mb-1 h-5 w-5 rounded-lg" />}
+              >
+                <ReferenceSettings />
+              </Suspense>
+            </>
           ) : null}
-          <Suspense>
+          <Suspense fallback={<div className="shimmer mb-1 h-5 w-5 rounded-lg" />}>
             <PollSettings />
           </Suspense>
           {!isComment && isFeatureEnabled(FeatureFlag.LiveStream) && (
