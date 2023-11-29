@@ -23,6 +23,8 @@ const validateIsOwnerOrStaff = async (request: Request, id: string) => {
     if (payload.id !== id && !(await validateIsStaff(request))) {
       return false;
     }
+
+    return true;
   } catch {
     return false;
   }
