@@ -9,5 +9,5 @@
       "@utils*": ["src/utils*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "src"]
+  "include": ["**/*.ts", "src"]
 }

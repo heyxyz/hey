@@ -41,7 +41,7 @@ import uploadToArweave from '@lib/uploadToArweave';
 import { useUnmountEffect } from 'framer-motion';
 import { $getRoot } from 'lexical';
 import type { FC } from 'react';
-import { lazy, useState } from 'react';
+import { lazy, useState, Suspense } from 'react';
 import toast from 'react-hot-toast';
 import useCreatePoll from '@hooks/useCreatePoll';
 import useCreatePublication from '@hooks/useCreatePublication';
@@ -569,35 +569,43 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       ) : null}
       <div className="block items-center px-5 sm:flex">
         <div className="flex items-center space-x-4">
-          <Attachment />
-          <EmojiPicker
-            emojiClassName="text-brand-500"
-            setShowEmojiPicker={setShowEmojiPicker}
-            showEmojiPicker={showEmojiPicker}
-            setEmoji={(emoji) => {
-              setShowEmojiPicker(false);
-              editor.update(() => {
-                // @ts-ignore
-                const index = editor?._editorState?._selection?.focus?.offset;
-                const updatedContent =
-                  publicationContent.substring(0, index) +
-                  emoji +
-                  publicationContent.substring(
-                    index,
-                    publicationContent.length
-                  );
-                $convertFromMarkdownString(updatedContent);
-              });
-            }}
-          />
-          <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
+          <Suspense>
+            <Attachment />
+          </Suspense>
+          <Suspense>
+            <EmojiPicker
+              emojiClassName="text-brand-500"
+              setShowEmojiPicker={setShowEmojiPicker}
+              showEmojiPicker={showEmojiPicker}
+              setEmoji={(emoji) => {
+                setShowEmojiPicker(false);
+                editor.update(() => {
+                  // @ts-ignore
+                  const index = editor?._editorState?._selection?.focus?.offset;
+                  const updatedContent =
+                    publicationContent.substring(0, index) +
+                    emoji +
+                    publicationContent.substring(
+                      index,
+                      publicationContent.length
+                    );
+                  $convertFromMarkdownString(updatedContent);
+                });
+              }}
+            />
+          </Suspense>
+          <Suspense>
+            <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
+          </Suspense>
           {!publication?.momoka?.proof ? (
-            <>
+            <Suspense>
               <CollectSettings />
               <ReferenceSettings />
-            </>
+            </Suspense>
           ) : null}
-          <PollSettings />
+          <Suspense>
+            <PollSettings />
+          </Suspense>
           {!isComment && isFeatureEnabled(FeatureFlag.LiveStream) && (
             <LivestreamSettings />
           )}

@@ -6,8 +6,6 @@ node_modules
 # testing
 coverage
 
-# next.js
-.next/
 out/
 .swc
 build

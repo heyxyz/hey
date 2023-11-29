@@ -1,8 +1,8 @@
 import { Dialog, Transition } from '@headlessui/react';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import Link from 'next/link';
 import type { FC } from 'react';
 import { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 
 interface LightBoxProps {
   show: boolean;
@@ -52,11 +52,11 @@ export const LightBox: FC<LightBoxProps> = ({ show, url, onClose }) => {
             {url ? (
               <div className="mt-1">
                 <Link
-                  className="text-sm text-gray-200 hover:underline"
-                  href={url}
+                  to={url}
                   target="_blank"
                   rel="noreferrer noopener"
                   onClick={stopEventPropagation}
+                  className="text-sm text-gray-200 hover:underline"
                 >
                   Open original
                 </Link>

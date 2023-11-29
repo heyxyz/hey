@@ -2,7 +2,6 @@ version = 1
 
 exclude_patterns = [
   "node_modules",
-  ".next",
   ".github",
   ".husky",
   ".vscode",

@@ -5,7 +5,7 @@ import getProfile from '@hey/lib/getProfile';
 import { Button, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
-import { lazy, useState } from 'react';
+import { lazy, useState, Suspense } from 'react';
 import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
 import useProfileStore from '@persisted/useProfileStore';
 import Slug from '../Slug';
@@ -66,14 +66,16 @@ const SuperFollow: FC<SuperFollowProps> = ({
         show={showFollowModal}
         onClose={() => setShowFollowModal(false)}
       >
-        <FollowModule
-          profile={profile}
-          setFollowing={setFollowing}
-          setShowFollowModal={setShowFollowModal}
-          again={again}
-          superFollowPosition={superFollowPosition}
-          superFollowSource={superFollowSource}
-        />
+        <Suspense>
+          <FollowModule
+            profile={profile}
+            setFollowing={setFollowing}
+            setShowFollowModal={setShowFollowModal}
+            again={again}
+            superFollowPosition={superFollowPosition}
+            superFollowSource={superFollowSource}
+          />
+        </Suspense>
       </Modal>
     </>
   );
