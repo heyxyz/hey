@@ -231,9 +231,6 @@ importers:
       esbuild:
         specifier: ^0.19.8
         version: 0.19.8
-      express:
-        specifier: ^4.17.1
-        version: 4.18.2
       framer-motion:
         specifier: ^10.16.5
         version: 10.16.5(react-dom@18.2.0)(react@18.2.0)
@@ -340,9 +337,6 @@ importers:
       '@tailwindcss/forms':
         specifier: ^0.5.6
         version: 0.5.7(tailwindcss@3.3.5)
-      '@types/express':
-        specifier: ^4.17.15
-        version: 4.17.21
       '@types/node':
         specifier: ^20.10.0
         version: 20.10.0
