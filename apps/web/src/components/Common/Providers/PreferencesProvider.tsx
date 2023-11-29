@@ -1,5 +1,6 @@
 import { HEY_API_URL } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
+import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import getCurrentSession from '@lib/getCurrentSession';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -30,7 +31,10 @@ const PreferencesProvider: FC = () => {
       if (Boolean(sessionProfileId) && !isAddress(sessionProfileId)) {
         const response = await axios.get(
           `${HEY_API_URL}/preference/getPreferences`,
-          { params: { id: sessionProfileId } }
+          {
+            params: { id: sessionProfileId },
+            headers: getAuthWorkerHeaders()
+          }
         );
         const { data } = response;
 
