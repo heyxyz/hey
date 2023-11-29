@@ -15,7 +15,7 @@ const vite = await createServer({
 
 const renderPreloadLink = (file) => {
   if (file.endsWith('.js')) return `<script defer nomodule src="${file}">`;
-}
+};
 
 const prerender = async () => {
   const { renderBody, renderHead } = await vite.ssrLoadModule(
@@ -45,7 +45,7 @@ const prerender = async () => {
   });
   for (let o of new Set(Object.values(manifest).flat())) {
     if (!seen.has(o)) {
-      const tmp = renderPreloadLink(o)
+      const tmp = renderPreloadLink(o);
       if (tmp) $('body').append(tmp);
     }
   }
