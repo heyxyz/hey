@@ -43,9 +43,9 @@ export default defineConfig(() => {
             if (id.includes('bn.js')) {
               return randomChunkNames[3];
             }
-            if (id.includes('zod')) {
-              return randomChunkNames[4];
-            }
+            // if (id.includes('zod')) {
+            //   return randomChunkNames[4];
+            // }
             if (id.includes('plyr')) {
               return randomChunkNames[5];
             }
