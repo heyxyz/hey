@@ -30,9 +30,7 @@ export const post: Handler = async (req, res) => {
   }
 
   if (!(await validateLensAccount(req))) {
-    return res
-      .status(400)
-      .json({ success: false, error: Errors.InvalidAccesstoken });
+    return res.status(400).json({ success: false, error: Errors.NotAllowed });
   }
 
   const { options, length } = body as ExtensionRequest;
