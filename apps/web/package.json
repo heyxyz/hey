@@ -2,6 +2,8 @@
   "name": "@hey/web",
   "type": "module",
   "scripts": {
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --fix --ext .ts,.tsx",
     "dev": "vite",
     "build:sw": "node script/build-sw.mjs",
     "build": "pnpm run build:sw && vite build --ssrManifest && tsx prerender.ts",
