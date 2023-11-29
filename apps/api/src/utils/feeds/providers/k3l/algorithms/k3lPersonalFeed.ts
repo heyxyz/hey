@@ -1,4 +1,5 @@
 import randomizeIds from '@utils/feeds/randomizeIds';
+// @ts-ignore
 import urlcat from 'urlcat';
 
 const k3lPersonalFeed = async (

@@ -4,6 +4,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { Link } from 'react-router-dom';
 import type { FC } from 'react';
 import { useFeatureFlagsStore } from '@persisted/useFeatureFlagsStore';
+// @ts-ignore
 import urlcat from 'urlcat';
 
 const Footer: FC = () => {

@@ -12,9 +12,10 @@ import Publications from './Publications';
 
 const Search = () => {
   const [searchParams, _] = useSearchParams();
-  const searchText = Array.isArray(searchParams.get('q'))
-    ? encodeURIComponent(searchParams.get('q').join(' '))
-    : encodeURIComponent(searchParams.get('q') || '');
+  const qSearchParam = searchParams.get('q');
+  const searchText = Array.isArray(qSearchParam)
+    ? encodeURIComponent(qSearchParam.join(' '))
+    : encodeURIComponent(qSearchParam || '');
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'search' });

@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import type { FC } from 'react';
 import { useState } from 'react';
 import useZoraNft from '@hooks/zora/useZoraNft';
+// @ts-ignore
 import urlcat from 'urlcat';
 
 import Mint, { useZoraMintStore } from './Mint';

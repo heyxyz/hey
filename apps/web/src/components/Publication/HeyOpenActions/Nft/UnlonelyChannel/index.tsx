@@ -15,6 +15,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { Link } from 'react-router-dom';
 import { type FC } from 'react';
 import useUnlonelyChannel from '@hooks/unlonely/useUnlonelyChannel';
+// @ts-ignore
 import urlcat from 'urlcat';
 
 import NftShimmer from './Shimmer';

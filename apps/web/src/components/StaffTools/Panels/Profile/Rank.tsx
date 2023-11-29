@@ -12,6 +12,7 @@ import { formatDate } from '@lib/formatTime';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
+// @ts-ignore
 import urlcat from 'urlcat';
 
 import MetaDetails from '../MetaDetails';

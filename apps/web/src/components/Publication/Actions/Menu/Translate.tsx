@@ -9,6 +9,7 @@ import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { Link } from 'react-router-dom';
 import { type FC } from 'react';
+// @ts-ignore
 import urlcat from 'urlcat';
 
 interface TranslateProps {
@@ -36,6 +37,7 @@ const Translate: FC<TranslateProps> = ({ publication }) => {
           'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
         )
       }
+      // @ts-ignore
       href={getGoogleTranslateUrl(filteredContent || '')}
       onClick={(event) => {
         stopEventPropagation(event);

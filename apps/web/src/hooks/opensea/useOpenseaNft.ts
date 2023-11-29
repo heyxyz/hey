@@ -2,6 +2,7 @@ import { OPENSEA_KEY } from '@hey/data/constants';
 import type { OpenSeaNft } from '@hey/types/opensea-nft';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+// @ts-ignore
 import urlcat from 'urlcat';
 
 interface UseOpenseaNftProps {

@@ -7,6 +7,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { Link } from 'react-router-dom';
 import { useTheme } from '@hooks/theme';
 import type { FC, ReactNode } from 'react';
+// @ts-ignore
 import urlcat from 'urlcat';
 import { useEffectOnce } from 'usehooks-ts';
 

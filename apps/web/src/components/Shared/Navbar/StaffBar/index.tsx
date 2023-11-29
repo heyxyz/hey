@@ -3,6 +3,7 @@ import { GIT_COMMIT_SHA, IS_MAINNET, IS_PRODUCTION } from '@hey/data/constants';
 import cn from '@hey/ui/cn';
 import { Link } from 'react-router-dom';
 import { type FC, type ReactNode } from 'react';
+// @ts-ignore
 import urlcat from 'urlcat';
 
 import Performance from './Performance';

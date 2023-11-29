@@ -7,7 +7,8 @@
     "build": "pnpm run build:sw && vite build --ssrManifest && tsx prerender.ts",
     "start": "vite preview",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
-    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "typecheck": "tsc --pretty"
   },
   "dependencies": {
     "@apollo/client": "^3.8.7",

@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { useTheme } from '@hooks/theme';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
+// @ts-ignore
 import urlcat from 'urlcat';
 
 interface DetailsProps {

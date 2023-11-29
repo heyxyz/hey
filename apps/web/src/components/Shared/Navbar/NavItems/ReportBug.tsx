@@ -5,6 +5,7 @@ import {
 import cn from '@hey/ui/cn';
 import { Link } from 'react-router-dom';
 import { type FC } from 'react';
+// @ts-ignore
 import urlcat from 'urlcat';
 
 interface ReportBugProps {

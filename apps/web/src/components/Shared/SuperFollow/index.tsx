@@ -8,7 +8,6 @@ import type { FC } from 'react';
 import { lazy, useState } from 'react';
 import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
 import useProfileStore from '@persisted/useProfileStore';
-import Loader from '../Loader';
 import Slug from '../Slug';
 
 const FollowModule = lazy(() => import('./FollowModule'));

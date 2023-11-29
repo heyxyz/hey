@@ -9,6 +9,7 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card } from '@hey/ui';
 import { Link } from 'react-router-dom';
 import { type FC } from 'react';
+// @ts-ignore
 import urlcat from 'urlcat';
 
 interface MetaProps {

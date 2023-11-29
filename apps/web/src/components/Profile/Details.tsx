@@ -40,6 +40,7 @@ import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { useFeatureFlagsStore } from '@persisted/useFeatureFlagsStore';
 import useProfileStore from '@persisted/useProfileStore';
+// @ts-ignore
 import urlcat from 'urlcat';
 
 import Badges from './Badges';

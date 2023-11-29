@@ -1,3 +1,4 @@
+// @ts-ignore
 import urlcat from 'urlcat';
 
 /**

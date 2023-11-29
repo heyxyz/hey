@@ -4,6 +4,7 @@ import getZoraChainIsMainnet from '@hey/lib/nft/getZoraChainIsMainnet';
 import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_10_MINS_30_DAYS } from '@utils/constants';
 import type { Handler } from 'express';
+// @ts-ignore
 import urlcat from 'urlcat';
 
 export const get: Handler = async (req, res) => {

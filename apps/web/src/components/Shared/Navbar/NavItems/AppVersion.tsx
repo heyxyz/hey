@@ -1,6 +1,7 @@
 import { APP_VERSION } from '@hey/data/constants';
 import { Link } from 'react-router-dom';
 import { type FC } from 'react';
+// @ts-ignore
 import urlcat from 'urlcat';
 
 interface AppVersionProps {

@@ -197,7 +197,7 @@ const Theme: React.FC<ThemeProviderProps> = ({
   );
   const attrs = !value ? themes : Object.values(value);
 
-  const applyTheme = useCallback((theme) => {
+  const applyTheme = useCallback((theme: string) => {
     let resolved = theme;
     if (!resolved) return;
 
@@ -236,7 +236,7 @@ const Theme: React.FC<ThemeProviderProps> = ({
   }, []);
 
   const setTheme = useCallback(
-    (theme) => {
+    (theme: any) => {
       const newTheme = typeof theme === 'function' ? theme(theme) : theme;
       setThemeState(newTheme);
 
@@ -291,7 +291,8 @@ const Theme: React.FC<ThemeProviderProps> = ({
 
   // Whenever theme or forcedTheme changes, apply it
   useEffect(() => {
-    applyTheme(forcedTheme ?? theme);
+    const updateTheme = forcedTheme ?? theme;
+    if (updateTheme) applyTheme(updateTheme);
   }, [forcedTheme, theme]);
 
   const providerValue = useMemo(

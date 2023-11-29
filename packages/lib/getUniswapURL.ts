@@ -1,4 +1,5 @@
 import { IS_MAINNET } from '@hey/data/constants';
+// @ts-ignore
 import urlcat from 'urlcat';
 
 /**

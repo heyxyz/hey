@@ -7,6 +7,7 @@ import checkEventExistence from '@utils/leafwatch/checkEventExistence';
 import type { Handler } from 'express';
 import requestIp from 'request-ip';
 import UAParser from 'ua-parser-js';
+// @ts-ignore
 import urlcat from 'urlcat';
 import { any, object, string } from 'zod';
 
