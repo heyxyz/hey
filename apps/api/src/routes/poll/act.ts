@@ -2,9 +2,9 @@ import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import catchedError from '@utils/catchedError';
-import createRedisClient from '@utils/createRedisClient';
 import validateLensAccount from '@utils/middlewares/validateLensAccount';
 import prisma from '@utils/prisma';
+import redisPool from '@utils/redisPool';
 import type { Handler } from 'express';
 import { object, string } from 'zod';
 
@@ -42,7 +42,7 @@ export const post: Handler = async (req, res) => {
 
   try {
     const payload = parseJwt(accessToken);
-    const redis = createRedisClient();
+    const redis = await redisPool.getConnection();
 
     // Begin: Check if the poll expired
     const pollData = await prisma.poll.findUnique({
