@@ -4,7 +4,6 @@ import parseJwt from '@hey/lib/parseJwt';
 import catchedError from '@utils/catchedError';
 import validateLensAccount from '@utils/middlewares/validateLensAccount';
 import prisma from '@utils/prisma';
-import redisPool from '@utils/redisPool';
 import type { Handler } from 'express';
 
 export const post: Handler = async (req, res) => {
@@ -18,16 +17,12 @@ export const post: Handler = async (req, res) => {
 
   try {
     const payload = parseJwt(accessToken);
-    const redis = await redisPool.getConnection();
 
     const data = await prisma.membershipNft.upsert({
       where: { id: payload.evmAddress },
       update: { dismissedOrMinted: true },
       create: { id: payload.evmAddress, dismissedOrMinted: true }
     });
-
-    // Delete the cache
-    await redis.del(`membership-nft:${payload.evmAddress}`);
     logger.info(`Updated membership nft status for ${payload.evmAddress}`);
 
     return res.status(200).json({ success: true, result: data });

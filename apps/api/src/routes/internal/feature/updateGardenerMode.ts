@@ -5,7 +5,6 @@ import catchedError from '@utils/catchedError';
 import { GARDENER_MODE_FEATURE_ID } from '@utils/constants';
 import validateIsGardener from '@utils/middlewares/validateIsGardener';
 import prisma from '@utils/prisma';
-import redisPool from '@utils/redisPool';
 import type { Handler } from 'express';
 import { boolean, object } from 'zod';
 
@@ -40,14 +39,11 @@ export const post: Handler = async (req, res) => {
   try {
     const payload = parseJwt(accessToken);
     const profile_id = payload.id;
-    const redis = await redisPool.getConnection();
 
     if (enabled) {
       await prisma.profileFeature.create({
         data: { featureId: GARDENER_MODE_FEATURE_ID, profileId: profile_id }
       });
-      // Delete the cache
-      await redis.del(`preferences:${profile_id}`);
       logger.info(`Enabled gardener mode for ${profile_id}`);
 
       return res.status(200).json({ success: true, enabled });
@@ -61,8 +57,6 @@ export const post: Handler = async (req, res) => {
         }
       }
     });
-    // Delete the cache
-    await redis.del(`preferences:${profile_id}`);
     logger.info(`Disabled gardener mode for ${profile_id}`);
 
     return res.status(200).json({ success: true, enabled });
