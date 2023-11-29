@@ -3,7 +3,6 @@ import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import validateIsStaff from '@utils/middlewares/validateIsStaff';
 import prisma from '@utils/prisma';
-import redisPool from '@utils/redisPool';
 import type { Handler } from 'express';
 import { boolean, object, string } from 'zod';
 
@@ -39,8 +38,6 @@ export const post: Handler = async (req, res) => {
   const { id, enabled, trial } = body as ExtensionRequest;
 
   try {
-    const redis = await redisPool.getConnection();
-
     if (enabled) {
       await prisma.pro.create({
         data: {
@@ -49,16 +46,12 @@ export const post: Handler = async (req, res) => {
           expiresAt: '2100-01-01T00:00:00.000Z'
         }
       });
-      // Delete the cache
-      await redis.del(`preferences:${id}`);
       logger.info(`Enabled pro for ${id}`);
 
       return res.status(200).json({ success: true, enabled, trial });
     }
 
     await prisma.pro.delete({ where: { profileId: id } });
-    // Delete the cache
-    await redis.del(`preferences:${id}`);
     logger.info(`Disabled pro for ${id}`);
 
     return res.status(200).json({ success: true, enabled, trial });

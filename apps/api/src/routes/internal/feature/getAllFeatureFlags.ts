@@ -9,7 +9,7 @@ export const get: Handler = async (_req, res) => {
     const data = await prisma.feature.findMany({
       orderBy: { priority: 'desc' }
     });
-    logger.info('All features fetched from DB');
+    logger.info('All features fetched');
 
     return res
       .status(200)
