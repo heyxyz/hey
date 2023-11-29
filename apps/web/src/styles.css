@@ -2,9 +2,9 @@
 
 @font-face {
   font-family: Sofia Pro;
-  src: url('https://hey-assets.b-cdn.net/fonts/SofiaProSoftBold-webfont.woff2')
+  src: url('https://hey-assets.b-cdn.net/fonts/SofiaProSoftReg-webfont.woff2')
     format('woff2');
-  font-weight: 800;
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
@@ -13,18 +13,27 @@
   font-family: Sofia Pro;
   src: url('https://hey-assets.b-cdn.net/fonts/SofiaProSoftMed-webfont.woff2')
     format('woff2');
-  font-weight: 600;
-  font-style: normal;
+  font-weight: 500;
+  font-style: medium;
   font-display: swap;
 }
 
 @font-face {
   font-family: Sofia Pro;
-  src: url('https://hey-assets.b-cdn.net/fonts/SofiaProSoftReg-webfont.woff2')
+  src: url('https://hey-assets.b-cdn.net/fonts/SofiaProSoftBold-webfont.woff2')
     format('woff2');
-  font-weight: 400;
-  font-style: normal;
+  font-weight: 700;
+  font-style: bold;
   font-display: swap;
+}
+
+@font-face {
+  font-family: _font_fallback;
+  src: local('Arial');
+  ascent-override: 99.97%;
+  descent-override: 25.46%;
+  line-gap-override: 0%;
+  size-adjust: 102.53%;
 }
 
 @tailwind base;
@@ -38,7 +47,7 @@ html {
 body {
   @apply bg-gray-50;
   @apply dark:bg-black;
-  font-family: 'Sofia Pro';
+  font-family: 'Sofia Pro', '_font_fallback', sans-serif;
 }
 
 .shimmer {
