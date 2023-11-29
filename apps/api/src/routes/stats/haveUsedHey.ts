@@ -19,7 +19,7 @@ export const get: Handler = async (req, res) => {
       format: 'JSONEachRow'
     });
     const result = await rows.json<Array<{ count: number }>>();
-    logger.info('Have used hey status fetched from DB');
+    logger.info('Have used hey status fetched');
 
     return res
       .status(200)

@@ -3,7 +3,6 @@ import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import validateIsStaff from '@utils/middlewares/validateIsStaff';
 import prisma from '@utils/prisma';
-import redisPool from '@utils/redisPool';
 import type { Handler } from 'express';
 import { boolean, object, string } from 'zod';
 
@@ -39,14 +38,10 @@ export const post: Handler = async (req, res) => {
   const { id, profile_id, enabled } = body as ExtensionRequest;
 
   try {
-    const redis = await redisPool.getConnection();
-
     if (enabled) {
       await prisma.profileFeature.create({
         data: { featureId: id, profileId: profile_id }
       });
-      // Delete the cache
-      await redis.del(`preferences:${profile_id}`);
       logger.info(`Enabled features for ${profile_id}`);
 
       return res.status(200).json({ success: true, enabled });
@@ -55,9 +50,6 @@ export const post: Handler = async (req, res) => {
     await prisma.profileFeature.delete({
       where: { profileId_featureId: { featureId: id, profileId: profile_id } }
     });
-
-    // Delete the cache
-    await redis.del(`preferences:${profile_id}`);
     logger.info(`Disabled features for ${profile_id}`);
 
     return res.status(200).json({ success: true, enabled });

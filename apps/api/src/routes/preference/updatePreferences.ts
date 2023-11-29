@@ -4,7 +4,6 @@ import parseJwt from '@hey/lib/parseJwt';
 import catchedError from '@utils/catchedError';
 import validateLensAccount from '@utils/middlewares/validateLensAccount';
 import prisma from '@utils/prisma';
-import redisPool from '@utils/redisPool';
 import type { Handler } from 'express';
 import { boolean, object, string } from 'zod';
 
@@ -44,7 +43,6 @@ export const post: Handler = async (req, res) => {
 
   try {
     const payload = parseJwt(accessToken);
-    const redis = await redisPool.getConnection();
 
     const data = await prisma.preference.upsert({
       where: { id: payload.id },
@@ -59,8 +57,6 @@ export const post: Handler = async (req, res) => {
       }
     });
 
-    // Delete the cache
-    await redis.del(`preferences:${payload.id}`);
     logger.info(`Updated preferences for ${payload.id}`);
 
     return res.status(200).json({ success: true, result: data });

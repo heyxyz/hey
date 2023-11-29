@@ -3,7 +3,6 @@ import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import catchedError from '@utils/catchedError';
 import prisma from '@utils/prisma';
-import redisPool from '@utils/redisPool';
 import type { Handler } from 'express';
 
 export const get: Handler = async (req, res) => {
@@ -17,15 +16,6 @@ export const get: Handler = async (req, res) => {
 
   try {
     const payload = parseJwt(accessToken);
-    const redis = await redisPool.getConnection();
-    const cache = await redis.get(`poll:${id}`);
-
-    if (cache) {
-      logger.info('Poll fetched from cache');
-      return res
-        .status(200)
-        .json({ success: true, cached: true, result: JSON.parse(cache) });
-    }
 
     const data = await prisma.poll.findUnique({
       where: { id: id as string },
@@ -70,8 +60,7 @@ export const get: Handler = async (req, res) => {
       }))
     };
 
-    await redis.set(`poll:${id}`, JSON.stringify(sanitizedData));
-    logger.info('Poll fetched from DB');
+    logger.info('Poll fetched');
 
     return res.status(200).json({ success: true, result: sanitizedData });
   } catch (error) {

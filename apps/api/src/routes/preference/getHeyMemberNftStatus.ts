@@ -3,7 +3,6 @@ import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
 import prisma from '@utils/prisma';
-import redisPool from '@utils/redisPool';
 import type { Handler } from 'express';
 
 export const get: Handler = async (req, res) => {
@@ -14,22 +13,10 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const redis = await redisPool.getConnection();
-    const cache = await redis.get(`membership-nft:${id}`);
-
-    if (cache) {
-      logger.info('Membership NFT status fetched from cache');
-      return res
-        .status(200)
-        .setHeader('Cache-Control', SWR_CACHE_AGE_1_MIN_30_DAYS)
-        .json({ success: true, cached: true, result: JSON.parse(cache) });
-    }
-
     const data = await prisma.membershipNft.findUnique({
       where: { id: id as string }
     });
-    await redis.set(`membership-nft:${id}`, JSON.stringify(data));
-    logger.info('Membership NFT status fetched from DB');
+    logger.info('Membership NFT status fetched');
 
     return res
       .status(200)
