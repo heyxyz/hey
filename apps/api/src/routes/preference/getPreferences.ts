@@ -2,6 +2,7 @@ import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
+import allowOwnerAndStaffOnly from '@utils/middlewares/allowOwnerAndStaffOnly';
 import prisma from '@utils/prisma';
 import type { Handler } from 'express';
 
@@ -10,6 +11,10 @@ export const get: Handler = async (req, res) => {
 
   if (!id) {
     return res.status(400).json({ success: false, error: Errors.NoBody });
+  }
+
+  if (!(await allowOwnerAndStaffOnly(req, id as string))) {
+    return res.status(400).json({ success: false, error: Errors.NotAllowed });
   }
 
   try {
