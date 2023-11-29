@@ -617,7 +617,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
               </Suspense>
             </>
           ) : null}
-          <Suspense fallback={<div className="shimmer mb-1 h-5 w-5 rounded-lg" />}>
+          <Suspense
+            fallback={<div className="shimmer mb-1 h-5 w-5 rounded-lg" />}
+          >
             <PollSettings />
           </Suspense>
           {!isComment && isFeatureEnabled(FeatureFlag.LiveStream) && (
