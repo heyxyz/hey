@@ -47,7 +47,8 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
       loading: 'Toggling staff mode...',
       success: () => {
         axios.get(`${HEY_API_URL}/preference/getPreferences`, {
-          params: { id: currentProfile?.id }
+          params: { id: currentProfile?.id },
+          headers: getAuthWorkerHeaders()
         });
         setStaffMode(!staffMode);
         Leafwatch.track(STAFFTOOLS.TOGGLE_MODE);
