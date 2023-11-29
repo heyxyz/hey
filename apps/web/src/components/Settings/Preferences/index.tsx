@@ -28,7 +28,7 @@ const PreferencesSettings: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Cleanup settings • ${APP_NAME}`} />
+      <MetaTags title={`Preferences settings • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsSidebar />
       </GridItemFour>
