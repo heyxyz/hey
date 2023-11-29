@@ -15,10 +15,7 @@ const PreferencesProvider: FC = () => {
   const setVerifiedMembers = useVerifiedMembersStore(
     (state) => state.setVerifiedMembers
   );
-  const setIsPride = usePreferencesStore((state) => state.setIsPride);
-  const setHighSignalNotificationFilter = usePreferencesStore(
-    (state) => state.setHighSignalNotificationFilter
-  );
+  const setPreferences = usePreferencesStore((state) => state.setPreferences);
   const setIsPro = useProStore((state) => state.setIsPro);
   const setFeatureFlags = useFeatureFlagsStore(
     (state) => state.setFeatureFlags
@@ -37,10 +34,13 @@ const PreferencesProvider: FC = () => {
         );
         const { data } = response;
 
-        setIsPride(data.result?.preference?.isPride || false);
-        setHighSignalNotificationFilter(
-          data.result?.preference?.highSignalNotificationFilter || false
-        );
+        setPreferences({
+          isPride: data.result?.preference?.isPride || false,
+          highSignalNotificationFilter:
+            data.result?.preference?.highSignalNotificationFilter || false,
+          email: data.result?.preference?.email || '',
+          marketingOptIn: data.result?.preference?.marketingOptIn || false
+        });
         setIsPro(data.result?.pro.enabled || false);
         setFeatureFlags(data?.result.features || []);
         setStaffMode(data?.result.features.includes(FeatureFlag.StaffMode));
