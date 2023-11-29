@@ -1,24 +1,28 @@
 import { create } from 'zustand';
 
-interface PreferencesState {
+export type Preferences = {
   isPride: boolean;
-  setIsPride: (isPride: boolean) => void;
   highSignalNotificationFilter: boolean;
-  setHighSignalNotificationFilter: (
-    highSignalNotificationFilter: boolean
-  ) => void;
+  email: string | null;
+  marketingOptIn: boolean;
+};
+
+const DefaultPreferences: Preferences = {
+  isPride: false,
+  highSignalNotificationFilter: false,
+  email: null,
+  marketingOptIn: false
+};
+
+interface PreferencesState {
+  preferences: Preferences;
+  setPreferences: (preferences: Preferences) => void;
   resetPreferences: () => void;
 }
 
 export const usePreferencesStore = create<PreferencesState>((set) => ({
-  isPride: false,
-  setIsPride: (isPride) => set(() => ({ isPride })),
-  highSignalNotificationFilter: false,
-  setHighSignalNotificationFilter: (highSignalNotificationFilter) =>
-    set(() => ({ highSignalNotificationFilter })),
-  resetPreferences: () =>
-    set(() => ({
-      isPride: false,
-      highSignalNotificationFilter: false
-    }))
+  preferences: DefaultPreferences,
+  setPreferences: (preferences) =>
+    set(() => ({ preferences: { ...preferences } })),
+  resetPreferences: () => set(() => ({ preferences: DefaultPreferences }))
 }));

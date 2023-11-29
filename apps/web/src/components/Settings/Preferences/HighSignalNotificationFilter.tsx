@@ -5,50 +5,59 @@ import { SETTINGS } from '@hey/data/tracking';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
-import type { FC } from 'react';
+import { type FC, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 
 const HighSignalNotificationFilter: FC = () => {
-  const highSignalNotificationFilter = usePreferencesStore(
-    (state) => state.highSignalNotificationFilter
-  );
-  const setHighSignalNotificationFilter = usePreferencesStore(
-    (state) => state.setHighSignalNotificationFilter
-  );
+  const preferences = usePreferencesStore((state) => state.preferences);
+  const setPreferences = usePreferencesStore((state) => state.setPreferences);
+  const [updating, setUpdating] = useState(false);
 
   const toggleHighSignalNotificationFilter = () => {
     toast.promise(
       axios.post(
         `${HEY_API_URL}/preference/updatePreferences`,
-        { highSignalNotificationFilter: !highSignalNotificationFilter },
+        {
+          highSignalNotificationFilter:
+            !preferences.highSignalNotificationFilter
+        },
         { headers: getAuthWorkerHeaders() }
       ),
       {
         loading: 'Updating preference settings...',
         success: () => {
-          setHighSignalNotificationFilter(!highSignalNotificationFilter);
+          setUpdating(false);
+          setPreferences({
+            ...preferences,
+            highSignalNotificationFilter:
+              !preferences.highSignalNotificationFilter
+          });
           Leafwatch.track(
             SETTINGS.PREFERENCES.TOGGLE_HIGH_SIGNAL_NOTIFICATION_FILTER,
             {
-              enabled: !highSignalNotificationFilter
+              enabled: !preferences.highSignalNotificationFilter
             }
           );
 
           return 'Notification preference updated';
         },
-        error: 'Error updating notification preference'
+        error: () => {
+          setUpdating(false);
+          return 'Error updating notification preference';
+        }
       }
     );
   };
 
   return (
     <ToggleWithHelper
-      on={highSignalNotificationFilter}
+      on={preferences.highSignalNotificationFilter}
       setOn={toggleHighSignalNotificationFilter}
       heading="Notification Signal filter"
       description="Turn on high-signal notification filter"
       icon={<SwatchIcon className="h-4 w-4" />}
+      disabled={updating}
     />
   );
 };
