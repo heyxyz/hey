@@ -2,7 +2,6 @@ import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import catchedError from '@utils/catchedError';
-import { REDIS_EX_8_HOURS } from '@utils/constants';
 import createRedisClient from '@utils/createRedisClient';
 import prisma from '@utils/prisma';
 import type { Handler } from 'express';
@@ -71,12 +70,7 @@ export const get: Handler = async (req, res) => {
       }))
     };
 
-    await redis.set(
-      `poll:${id}`,
-      JSON.stringify(sanitizedData),
-      'EX',
-      REDIS_EX_8_HOURS
-    );
+    await redis.set(`poll:${id}`, JSON.stringify(sanitizedData));
     logger.info('Poll fetched from DB');
 
     return res.status(200).json({ success: true, result: sanitizedData });

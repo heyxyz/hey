@@ -1,10 +1,7 @@
 import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
-import {
-  REDIS_EX_8_HOURS,
-  SWR_CACHE_AGE_1_MIN_30_DAYS
-} from '@utils/constants';
+import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
 import createRedisClient from '@utils/createRedisClient';
 import prisma from '@utils/prisma';
 import type { Handler } from 'express';
@@ -47,12 +44,7 @@ export const get: Handler = async (req, res) => {
       features: features.map((feature: any) => feature.feature?.key)
     };
 
-    await redis.set(
-      `preferences:${id}`,
-      JSON.stringify(response),
-      'EX',
-      REDIS_EX_8_HOURS
-    );
+    await redis.set(`preferences:${id}`, JSON.stringify(response));
     logger.info('Profile preferences fetched from DB');
 
     return res

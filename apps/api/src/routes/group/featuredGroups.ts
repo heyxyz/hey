@@ -1,9 +1,6 @@
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
-import {
-  REDIS_EX_8_HOURS,
-  SWR_CACHE_AGE_10_MINS_30_DAYS
-} from '@utils/constants';
+import { SWR_CACHE_AGE_10_MINS_30_DAYS } from '@utils/constants';
 import createRedisClient from '@utils/createRedisClient';
 import prisma from '@utils/prisma';
 import type { Handler } from 'express';
@@ -25,12 +22,7 @@ export const get: Handler = async (_req, res) => {
       where: { featured: true },
       orderBy: { createdAt: 'desc' }
     });
-    await redis.set(
-      'featured-groups',
-      JSON.stringify(data),
-      'EX',
-      REDIS_EX_8_HOURS
-    );
+    await redis.set('featured-groups', JSON.stringify(data));
     logger.info('Featured groups fetched from DB');
 
     return res
