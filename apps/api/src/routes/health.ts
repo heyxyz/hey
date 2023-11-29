@@ -1,5 +1,4 @@
 import createClickhouseClient from '@utils/createClickhouseClient';
-import createRedisClient from '@utils/createRedisClient';
 import prisma from '@utils/prisma';
 import type { Handler } from 'express';
 
@@ -8,11 +7,6 @@ export const get: Handler = async (req, res) => {
     // Postgres
     const db = await prisma.feature.count();
 
-    // Redis
-    const redis = createRedisClient();
-    await redis.set('ping', 'pong');
-    const cache = await redis.get('ping');
-
     // Clickhouse
     const clickhouse = createClickhouseClient();
     const rows = await clickhouse.query({
@@ -20,7 +14,7 @@ export const get: Handler = async (req, res) => {
       format: 'JSONEachRow'
     });
 
-    if (db <= 0 || cache !== 'pong' || !rows.json) {
+    if (db <= 0 || !rows.json) {
       return res.status(500).json({ success: false });
     }
 

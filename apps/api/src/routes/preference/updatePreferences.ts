@@ -2,7 +2,6 @@ import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import catchedError from '@utils/catchedError';
-import createRedisClient from '@utils/createRedisClient';
 import validateLensAccount from '@utils/middlewares/validateLensAccount';
 import prisma from '@utils/prisma';
 import type { Handler } from 'express';
@@ -12,12 +11,16 @@ type ExtensionRequest = {
   id?: string;
   isPride?: boolean;
   highSignalNotificationFilter?: boolean;
+  email?: string;
+  marketingOptIn?: boolean;
 };
 
 const validationSchema = object({
   id: string().optional(),
   isPride: boolean().optional(),
-  highSignalNotificationFilter: boolean().optional()
+  highSignalNotificationFilter: boolean().optional(),
+  email: string().optional(),
+  marketingOptIn: boolean().optional()
 });
 
 export const post: Handler = async (req, res) => {
@@ -35,32 +38,27 @@ export const post: Handler = async (req, res) => {
   }
 
   if (!(await validateLensAccount(req))) {
-    return res
-      .status(400)
-      .json({ success: false, error: Errors.InvalidAccesstoken });
+    return res.status(400).json({ success: false, error: Errors.NotAllowed });
   }
 
-  const { isPride, highSignalNotificationFilter } = body as ExtensionRequest;
+  const { isPride, highSignalNotificationFilter, email, marketingOptIn } =
+    body as ExtensionRequest;
 
   try {
     const payload = parseJwt(accessToken);
-    const redis = createRedisClient();
 
     const data = await prisma.preference.upsert({
       where: { id: payload.id },
-      update: {
-        isPride: isPride,
-        highSignalNotificationFilter: highSignalNotificationFilter
-      },
+      update: { isPride, highSignalNotificationFilter, email, marketingOptIn },
       create: {
         id: payload.id,
-        isPride: isPride,
-        highSignalNotificationFilter: highSignalNotificationFilter
+        isPride,
+        highSignalNotificationFilter,
+        email,
+        marketingOptIn
       }
     });
 
-    // Delete the cache
-    await redis.del(`preferences:${payload.id}`);
     logger.info(`Updated preferences for ${payload.id}`);
 
     return res.status(200).json({ success: true, result: data });

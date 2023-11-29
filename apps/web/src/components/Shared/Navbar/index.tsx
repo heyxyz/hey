@@ -19,7 +19,7 @@ const Navbar: FC = () => {
   const navigate = useNavigate();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
-  const isPride = usePreferencesStore((state) => state.isPride);
+  const preferences = usePreferencesStore((state) => state.preferences);
   const [showSearch, setShowSearch] = useState(false);
 
   const onProfileSelected = (profile: Profile) => {
@@ -90,7 +90,7 @@ const Navbar: FC = () => {
                 className="h-8 w-8"
                 height={32}
                 width={32}
-                src={isPride ? '/pride.png' : '/logo.png'}
+                src={preferences.isPride ? '/pride.png' : '/logo.png'}
                 alt="Logo"
               />
             </Link>
@@ -111,7 +111,7 @@ const Navbar: FC = () => {
               className="h-7 w-7"
               height={32}
               width={32}
-              src={isPride ? '/pride.png' : '/logo.png'}
+              src={preferences.isPride ? '/pride.png' : '/logo.png'}
               alt="Logo"
             />
           </Link>

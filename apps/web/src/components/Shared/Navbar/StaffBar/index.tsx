@@ -1,4 +1,5 @@
 import { GlobeAltIcon, HashtagIcon } from '@heroicons/react/24/outline';
+import { ShieldCheckIcon } from '@heroicons/react/24/solid';
 import { GIT_COMMIT_SHA, IS_MAINNET, IS_PRODUCTION } from '@hey/data/constants';
 import cn from '@hey/ui/cn';
 import { Link } from 'react-router-dom';
@@ -20,7 +21,7 @@ export const Badge: FC<BadgeProps> = ({ children }) => (
 
 const StaffBar: FC = () => {
   return (
-    <div className="bg-gray-200 px-3 py-1 text-sm dark:bg-gray-800">
+    <div className="flex items-center justify-between bg-gray-200 px-3 py-1 text-sm dark:bg-gray-800">
       <div className="mr-5 flex flex-wrap items-center gap-2">
         <Performance />
         <div className="flex items-center space-x-1">
@@ -52,6 +53,10 @@ const StaffBar: FC = () => {
           </Link>
         ) : null}
       </div>
+      <Link href="/staff" className="flex items-center space-x-2">
+        <ShieldCheckIcon className="h-4 w-4 text-green-600" />
+        <span className="hidden sm:block">Dashboard</span>
+      </Link>
     </div>
   );
 };

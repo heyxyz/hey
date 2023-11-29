@@ -33,7 +33,8 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
         loading: 'Toggling gardener mode...',
         success: () => {
           axios.get(`${HEY_API_URL}/preference/getPreferences`, {
-            params: { id: currentProfile?.id }
+            params: { id: currentProfile?.id },
+            headers: getAuthWorkerHeaders()
           });
           setGardenerMode(!gardenerMode);
           Leafwatch.track(GARDENER.TOGGLE_MODE);

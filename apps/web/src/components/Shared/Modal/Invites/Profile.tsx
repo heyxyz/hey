@@ -22,7 +22,7 @@ const Profile: FC<ProfileProps> = ({ invite }) => {
               <Slug slug={getProfile(invite.profileMinted).slugWithPrefix} />
             </Link>
           ) : (
-            formatAddress(invite.by)
+            formatAddress(invite.addressInvited)
           )}
         </b>{' '}
         invited on {formatDate(invite.when)}

@@ -10,6 +10,7 @@ import useProfileStore from '@persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
+import Email from './Email';
 import HighSignalNotificationFilter from './HighSignalNotificationFilter';
 import IsPride from './IsPride';
 import PushNotifications from './PushNotifications';
@@ -27,7 +28,7 @@ const PreferencesSettings = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Cleanup settings • ${APP_NAME}`} />
+      <MetaTags title={`Preferences settings • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsSidebar />
       </GridItemFour>
@@ -45,6 +46,8 @@ const PreferencesSettings = () => {
             <HighSignalNotificationFilter />
             {isFeatureEnabled('push-notifications') && <PushNotifications />}
             <IsPride />
+            <div className="divider my-5" />
+            {isFeatureEnabled('email') && <Email />}
           </div>
         </Card>
       </GridItemEight>

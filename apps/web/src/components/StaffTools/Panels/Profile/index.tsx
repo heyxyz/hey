@@ -12,6 +12,7 @@ import type { Profile } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
 import getFollowModule from '@hey/lib/getFollowModule';
 import { Card } from '@hey/ui';
+import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -49,7 +50,10 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
     try {
       const response = await axios.get(
         `${HEY_API_URL}/preference/getPreferences`,
-        { params: { id: profile.id } }
+        {
+          params: { id: profile.id },
+          headers: getAuthWorkerHeaders()
+        }
       );
       const { data } = response;
 

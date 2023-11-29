@@ -1,5 +1,6 @@
 import { HEY_API_URL } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
+import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import getCurrentSession from '@lib/getCurrentSession';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -15,10 +16,7 @@ const PreferencesProvider: FC = () => {
   const setVerifiedMembers = useVerifiedMembersStore(
     (state) => state.setVerifiedMembers
   );
-  const setIsPride = usePreferencesStore((state) => state.setIsPride);
-  const setHighSignalNotificationFilter = usePreferencesStore(
-    (state) => state.setHighSignalNotificationFilter
-  );
+  const setPreferences = usePreferencesStore((state) => state.setPreferences);
   const setIsPro = useProStore((state) => state.setIsPro);
   const setFeatureFlags = useFeatureFlagsStore(
     (state) => state.setFeatureFlags
@@ -33,14 +31,20 @@ const PreferencesProvider: FC = () => {
       if (Boolean(sessionProfileId) && !isAddress(sessionProfileId)) {
         const response = await axios.get(
           `${HEY_API_URL}/preference/getPreferences`,
-          { params: { id: sessionProfileId } }
+          {
+            params: { id: sessionProfileId },
+            headers: getAuthWorkerHeaders()
+          }
         );
         const { data } = response;
 
-        setIsPride(data.result?.preference?.isPride || false);
-        setHighSignalNotificationFilter(
-          data.result?.preference?.highSignalNotificationFilter || false
-        );
+        setPreferences({
+          isPride: data.result?.preference?.isPride || false,
+          highSignalNotificationFilter:
+            data.result?.preference?.highSignalNotificationFilter || false,
+          email: data.result?.preference?.email || '',
+          marketingOptIn: data.result?.preference?.marketingOptIn || false
+        });
         setIsPro(data.result?.pro.enabled || false);
         setFeatureFlags(data?.result.features || []);
         setStaffMode(data?.result.features.includes(FeatureFlag.StaffMode));

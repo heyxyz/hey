@@ -2,7 +2,6 @@ import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import catchedError from '@utils/catchedError';
-import createRedisClient from '@utils/createRedisClient';
 import validateLensAccount from '@utils/middlewares/validateLensAccount';
 import prisma from '@utils/prisma';
 import type { Handler } from 'express';
@@ -33,16 +32,13 @@ export const post: Handler = async (req, res) => {
   }
 
   if (!(await validateLensAccount(req))) {
-    return res
-      .status(400)
-      .json({ success: false, error: Errors.InvalidAccesstoken });
+    return res.status(400).json({ success: false, error: Errors.NotAllowed });
   }
 
   const { poll, option } = body as ExtensionRequest;
 
   try {
     const payload = parseJwt(accessToken);
-    const redis = createRedisClient();
 
     // Begin: Check if the poll expired
     const pollData = await prisma.poll.findUnique({
@@ -73,7 +69,6 @@ export const post: Handler = async (req, res) => {
       data: { profileId: payload.id, optionId: option }
     });
 
-    await redis.del(`poll:${poll}`);
     logger.info(`Responded to a poll ${option}:${data.id}`);
 
     return res.status(200).json({ success: true, id: data.id });
