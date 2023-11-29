@@ -2,8 +2,8 @@ import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
-import createRedisClient from '@utils/createRedisClient';
 import prisma from '@utils/prisma';
+import redisPool from '@utils/redisPool';
 import type { Handler } from 'express';
 
 export const get: Handler = async (req, res) => {
@@ -14,7 +14,7 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const redis = createRedisClient();
+    const redis = await redisPool.getConnection();
     const cache = await redis.get(`membership-nft:${id}`);
 
     if (cache) {

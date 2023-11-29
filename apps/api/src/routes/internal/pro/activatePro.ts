@@ -1,9 +1,9 @@
 import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
-import createRedisClient from '@utils/createRedisClient';
 import validateIsStaff from '@utils/middlewares/validateIsStaff';
 import prisma from '@utils/prisma';
+import redisPool from '@utils/redisPool';
 import type { Handler } from 'express';
 import { boolean, object, string } from 'zod';
 
@@ -39,7 +39,7 @@ export const post: Handler = async (req, res) => {
   const { id, enabled, trial } = body as ExtensionRequest;
 
   try {
-    const redis = createRedisClient();
+    const redis = await redisPool.getConnection();
 
     if (enabled) {
       await prisma.pro.create({
