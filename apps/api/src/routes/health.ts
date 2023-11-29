@@ -1,6 +1,6 @@
 import createClickhouseClient from '@utils/createClickhouseClient';
-import createRedisClient from '@utils/createRedisClient';
 import prisma from '@utils/prisma';
+import redisPool from '@utils/redisPool';
 import type { Handler } from 'express';
 
 export const get: Handler = async (req, res) => {
@@ -9,7 +9,7 @@ export const get: Handler = async (req, res) => {
     const db = await prisma.feature.count();
 
     // Redis
-    const redis = createRedisClient();
+    const redis = await redisPool.getConnection();
     await redis.set('ping', 'pong');
     const cache = await redis.get('ping');
 

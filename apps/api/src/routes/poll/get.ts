@@ -2,8 +2,8 @@ import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import catchedError from '@utils/catchedError';
-import createRedisClient from '@utils/createRedisClient';
 import prisma from '@utils/prisma';
+import redisPool from '@utils/redisPool';
 import type { Handler } from 'express';
 
 export const get: Handler = async (req, res) => {
@@ -17,7 +17,7 @@ export const get: Handler = async (req, res) => {
 
   try {
     const payload = parseJwt(accessToken);
-    const redis = createRedisClient();
+    const redis = await redisPool.getConnection();
     const cache = await redis.get(`poll:${id}`);
 
     if (cache) {
