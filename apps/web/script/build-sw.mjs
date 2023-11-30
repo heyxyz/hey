@@ -2,16 +2,18 @@ import { join } from 'path';
 import dotenv from 'dotenv';
 import esbuild from 'esbuild';
 import { readFileSync } from 'fs';
+import * as cheerio from 'cheerio';
 
 dotenv.config();
 
-const outfile = join(process.cwd(), 'dist', 'sw.js');
+const appDir = process.cwd();
+
+const outfile = join(appDir, 'dist', 'sw.js');
 const manifest = JSON.parse(
-  readFileSync(
-    join(process.cwd(), 'dist', '.vite', 'ssr-manifest.json'),
-    'utf8'
-  )
+  readFileSync(join(appDir, 'dist', '.vite', 'ssr-manifest.json'), 'utf8')
 );
+const buffer = readFileSync(join(appDir, 'dist', 'index.html'));
+const $ = cheerio.load(buffer);
 
 esbuild.build({
   target: 'es2020',
@@ -24,6 +26,10 @@ esbuild.build({
   minify: true,
   define: {
     SW_UNQIUE_BUILD_ID: `'${new Date().getTime()}'`,
-    SW_CACHE_JSON: `'${[...new Set(Object.values(manifest).flat())].join(',')}'`
+    SW_CACHE_JSON: `'${[
+      ...new Set(
+        [...Object.values(manifest), $('[type="module"]').attr('src')].flat()
+      )
+    ].join(',')}'`
   }
 });
