@@ -10,12 +10,12 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useZoraNft from 'src/hooks/zora/useZoraNft';
-import { useAccount, useQuery } from 'wagmi';
+import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useQuery } from 'wagmi';
 
 const HeyMembershipNft: FC = () => {
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const [showMintModal, setShowMintModal] = useState(false);
-
-  const { address } = useAccount();
 
   const { data: nft, loading } = useZoraNft({
     chain: 'zora',
@@ -23,10 +23,10 @@ const HeyMembershipNft: FC = () => {
     token: ''
   });
 
-  const fetchHeyMemberNftStatus = async (): Promise<boolean> => {
+  const getHeyMemberNftStatus = async (): Promise<boolean> => {
     const response = await axios.get(
       `${HEY_API_URL}/preference/getHeyMemberNftStatus`,
-      { params: { id: address } }
+      { params: { id: currentProfile?.id } }
     );
     const { data } = response;
 
@@ -37,13 +37,11 @@ const HeyMembershipNft: FC = () => {
     data: dismissedOrMinted,
     isLoading,
     refetch
-  } = useQuery(
-    ['getHeyMemberNftStatus', address],
-    () => fetchHeyMemberNftStatus(),
-    { enabled: Boolean(address) }
+  } = useQuery(['getHeyMemberNftStatus', currentProfile?.id], () =>
+    getHeyMemberNftStatus()
   );
 
-  if (!address || isLoading || dismissedOrMinted) {
+  if (isLoading || dismissedOrMinted) {
     return null;
   }
 
