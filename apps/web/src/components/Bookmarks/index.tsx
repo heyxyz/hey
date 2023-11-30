@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
-import RecommendedProfiles from '@components/Home/RecommendedProfiles';
+import RecommendedProfiles from '@components/Home/Sidebar/RecommendedProfiles';
 import Trending from '@components/Home/Trending';
 import FeedFocusType from '@components/Shared/FeedFocusType';
 import Footer from '@components/Shared/Footer';
