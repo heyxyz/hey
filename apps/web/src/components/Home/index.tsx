@@ -1,7 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
-import Footer from '@components/Shared/Footer';
 import { HomeFeedType } from '@hey/data/enums';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
@@ -14,17 +13,11 @@ import { useEffectOnce } from 'usehooks-ts';
 
 import AlgorithmicFeed from './AlgorithmicFeed';
 import Tabs from './Algorithms/Tabs';
-import EnableLensManager from './EnableLensManager';
 import FeedType from './FeedType';
-import Gitcoin from './Gitcoin';
 import Hero from './Hero';
-import HeyMembershipNft from './HeyMembershipNft';
 import Highlights from './Highlights';
-import RecommendedProfiles from './RecommendedProfiles';
-import SetProfile from './SetProfile';
-import StaffPicks from './StaffPicks';
+import Sidebar from './Sidebar';
 import Timeline from './Timeline';
-import Waitlist from './Waitlist';
 
 const Home: NextPage = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
@@ -68,20 +61,7 @@ const Home: NextPage = () => {
           )}
         </GridItemEight>
         <GridItemFour>
-          <Gitcoin />
-          {loggedOut && <Waitlist />}
-          {loggedInWithProfile && <HeyMembershipNft />}
-          {/* Onboarding steps */}
-          {loggedInWithProfile && (
-            <>
-              <EnableLensManager />
-              <SetProfile />
-            </>
-          )}
-          {/* Recommendations */}
-          <StaffPicks />
-          {loggedInWithProfile && <RecommendedProfiles />}
-          <Footer />
+          <Sidebar />
         </GridItemFour>
       </GridLayout>
     </>
