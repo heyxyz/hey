@@ -3,6 +3,7 @@ import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import catchedError from '@utils/catchedError';
 import type { Handler } from 'express';
+import { v4 as uuid } from 'uuid';
 import { boolean, object } from 'zod';
 
 type ExtensionRequest = {
@@ -38,7 +39,7 @@ export const post: Handler = async (req, res) => {
         Authorization: `Bearer ${process.env.LIVEPEER_API_KEY}`
       },
       body: JSON.stringify({
-        name: `${payload.id}-${crypto.randomUUID()}`,
+        name: `${payload.id}-${uuid()}`,
         record,
         profiles: [
           { name: '720p0', fps: 0, bitrate: 3000000, width: 1280, height: 720 },
