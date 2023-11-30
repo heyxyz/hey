@@ -28,8 +28,10 @@ export const APP_VERSION = packageJson.version;
 export const BRAND_COLOR = '#FB3A5D';
 
 // Git
-export const GIT_COMMIT_SHA =
-  process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.slice(0, 7);
+export const GIT_COMMIT_SHA = process.env.VITE_VERCEL_GIT_COMMIT_SHA?.slice(
+  0,
+  7
+);
 
 // Misc
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
