@@ -37,8 +37,7 @@ const Translate: FC<TranslateProps> = ({ publication }) => {
           'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
         )
       }
-      // @ts-ignore
-      href={getGoogleTranslateUrl(filteredContent || '')}
+      to={getGoogleTranslateUrl(filteredContent || '')}
       onClick={(event) => {
         stopEventPropagation(event);
         Leafwatch.track(PUBLICATION.TRANSLATE, {
