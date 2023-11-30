@@ -7,14 +7,10 @@
   ],
   "headers": [
     {
-      "source": "/:path*/:file.:ext(js|mjs|cjs|css|png|ico|svg|jpg|jpeg|gif|ttf|woff|woff2|otf)",
+      "source": "/:path*",
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        },
-        {
-          "key": "Vercel-CDN-Cache-Control",
           "value": "public, max-age=31536000, immutable"
         }
       ]
