@@ -7,7 +7,7 @@ import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import toast from 'react-hot-toast';
 import useZoraNft from 'src/hooks/zora/useZoraNft';
 import useProfileStore from 'src/store/persisted/useProfileStore';
@@ -16,6 +16,7 @@ import { useQuery } from 'wagmi';
 const HeyMembershipNft: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const [showMintModal, setShowMintModal] = useState(false);
+  const [dismissedOrMinted, setDismissedOrMinted] = useState(true);
 
   const { data: nft, loading } = useZoraNft({
     chain: 'zora',
@@ -29,19 +30,18 @@ const HeyMembershipNft: FC = () => {
       { params: { id: currentProfile?.id } }
     );
     const { data } = response;
+    setDismissedOrMinted(data.result.dismissedOrMinted);
 
     return data.result.dismissedOrMinted;
   };
 
-  const {
-    data: dismissedOrMinted,
-    isLoading,
-    refetch
-  } = useQuery(['getHeyMemberNftStatus', currentProfile?.id], () =>
-    getHeyMemberNftStatus()
+  useQuery(
+    ['getHeyMemberNftStatus', currentProfile?.id],
+    () => getHeyMemberNftStatus(),
+    { enabled: Boolean(currentProfile?.id) }
   );
 
-  if (isLoading || dismissedOrMinted) {
+  if (dismissedOrMinted) {
     return null;
   }
 
@@ -56,9 +56,8 @@ const HeyMembershipNft: FC = () => {
         {
           loading: 'Updating...',
           success: () => {
+            setDismissedOrMinted(true);
             setShowMintModal(false);
-            refetch();
-            location.reload();
             return 'Updated!';
           },
           error: 'Error updating.'
@@ -125,4 +124,4 @@ const HeyMembershipNft: FC = () => {
   );
 };
 
-export default HeyMembershipNft;
+export default memo(HeyMembershipNft);

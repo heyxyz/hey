@@ -17,7 +17,7 @@ import { useState } from 'react';
 import { useTimelineStore } from 'src/store/non-persisted/useTimelineStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
-import Suggested from './Suggested';
+import Suggested from '../Suggested';
 
 const Title = () => {
   return (
