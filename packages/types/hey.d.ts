@@ -71,3 +71,16 @@ export type Poll = {
   endsAt: Date;
   options: PollOption[];
 };
+
+export type Preferences = {
+  preference?: {
+    id: string;
+    email: string | null;
+    marketingOptIn: boolean;
+    isPride: boolean;
+    highSignalNotificationFilter: boolean;
+    createdAt: Date;
+  } | null;
+  pro: { enabled: boolean };
+  features: string[];
+};

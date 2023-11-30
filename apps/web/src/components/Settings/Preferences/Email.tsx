@@ -22,7 +22,7 @@ const Email: FC = () => {
   const form = useZodForm({
     schema: updateEmailSchema,
     defaultValues: {
-      email: 'test'
+      email: preferences.email || ''
     }
   });
 
