@@ -86,6 +86,9 @@ importers:
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0
+      uuid:
+        specifier: ^9.0.1
+        version: 9.0.1
       viem:
         specifier: ^1.19.10
         version: 1.19.10(typescript@5.3.2)(zod@3.22.4)
@@ -120,6 +123,9 @@ importers:
       '@types/ua-parser-js':
         specifier: ^0.7.39
         version: 0.7.39
+      '@types/uuid':
+        specifier: ^9.0.7
+        version: 9.0.7
       nodemon:
         specifier: ^3.0.1
         version: 3.0.1
