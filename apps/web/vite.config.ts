@@ -11,6 +11,7 @@ const chunkDefinitions = [
   { name: 'aws-sdk', criterion: '@aws-sdk' },
   { name: 'livepeer-hls', criterion: ['livepeer', 'hls'] },
   { name: 'bn', criterion: 'bn.js' },
+  { name: 'zod', criterion: ['zod', 'chroma-js'] },
   { name: 'plyr', criterion: 'plyr' }
 ];
 

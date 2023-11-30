@@ -27,15 +27,6 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: _font_fallback;
-  src: local('Arial');
-  ascent-override: 99.97%;
-  descent-override: 25.46%;
-  line-gap-override: 0%;
-  size-adjust: 102.53%;
-}
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -47,7 +38,7 @@ html {
 body {
   @apply bg-gray-50;
   @apply dark:bg-black;
-  font-family: 'Sofia Pro', '_font_fallback', sans-serif;
+  font-family: Sofia Pro, _font_fallback, sans-serif;
 }
 
 .shimmer {

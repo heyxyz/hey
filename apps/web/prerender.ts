@@ -4,6 +4,8 @@ import htmlMinifier from 'html-minifier';
 import { join } from 'path';
 import { createServer } from 'vite';
 
+import { getFallbackMetricsFromFontFile } from './font';
+
 const appDir = process.cwd();
 
 const vite = await createServer({
@@ -31,6 +33,15 @@ const prerender = async () => {
   $('head').prepend(headRendered.link.toString());
   $('[data-react-helmet]').removeAttr('data-react-helmet');
   $('#root').html(renderBody());
+
+  // Optimize Fonts
+  const fontFallback = getFallbackMetricsFromFontFile(
+    join(process.cwd(), 'fonts', 'SofiaProSoftReg-webfont.woff2'),
+    'sans-serif'
+  );
+  $('head').prepend(
+    `<style> @font-face { font-family: _font_fallback; src: local('${fontFallback.fallbackFont}'); ascent-override: ${fontFallback.ascentOverride}; descent-override: ${fontFallback.descentOverride}; line-gap-override: ${fontFallback.lineGapOverride}; size-adjust: ${fontFallback.sizeAdjust}; } </style>`
+  );
 
   // Add preloads
   // const manifest = JSON.parse(

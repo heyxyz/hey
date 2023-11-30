@@ -6,10 +6,10 @@ import getPreferences from '@hey/lib/api/getPreferences';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import { usePreferencesStore } from '@store/non-persisted/usePreferencesStore';
+import useProfileStore from '@store/persisted/useProfileStore';
 import axios from 'axios';
 import { type FC, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import useProfileStore from '@store/persisted/useProfileStore';
 
 const HighSignalNotificationFilter: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
