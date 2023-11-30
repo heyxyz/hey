@@ -2,7 +2,6 @@ import Mint from '@components/Publication/HeyOpenActions/Nft/ZoraNft/Mint';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import { MISCELLANEOUS, PUBLICATION } from '@hey/data/tracking';
-import type { MembershipNft } from '@hey/types/hey';
 import { Button, Card, Modal } from '@hey/ui';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
@@ -24,29 +23,27 @@ const HeyMembershipNft: FC = () => {
     token: ''
   });
 
-  const fetchHeyMemberNftStatus = async (): Promise<MembershipNft> => {
+  const fetchHeyMemberNftStatus = async (): Promise<boolean> => {
     const response = await axios.get(
       `${HEY_API_URL}/preference/getHeyMemberNftStatus`,
       { params: { id: address } }
     );
     const { data } = response;
 
-    return data.result;
+    return data.result.minted;
   };
 
-  const { data, isLoading, refetch } = useQuery(
+  const {
+    data: minted,
+    isLoading,
+    refetch
+  } = useQuery(
     ['getHeyMemberNftStatus', address],
     () => fetchHeyMemberNftStatus(),
     { enabled: Boolean(address) }
   );
 
-  if (isLoading || !address) {
-    return null;
-  }
-
-  const dismissedOrMinted = data?.dismissedOrMinted;
-
-  if (dismissedOrMinted) {
+  if (!address || isLoading || minted) {
     return null;
   }
 
@@ -61,8 +58,9 @@ const HeyMembershipNft: FC = () => {
         {
           loading: 'Updating...',
           success: () => {
-            refetch();
             setShowMintModal(false);
+            refetch();
+            location.reload();
             return 'Updated!';
           },
           error: 'Error updating.'
