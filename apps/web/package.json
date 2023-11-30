@@ -6,7 +6,7 @@
     "lint:fix": "eslint . --fix --ext .ts,.tsx",
     "dev": "vite",
     "build:sw": "node script/build-sw.mjs",
-    "build": "pnpm run build:sw && vite build --ssrManifest && tsx prerender.ts",
+    "build": "vite build --ssrManifest && pnpm run build:sw && tsx prerender.ts",
     "start": "vite preview",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",

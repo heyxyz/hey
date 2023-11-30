@@ -1,9 +1,17 @@
+import { join } from 'path';
 import dotenv from 'dotenv';
 import esbuild from 'esbuild';
+import { readFileSync } from 'fs';
 
 dotenv.config();
 
-const outfile = 'public/sw.js';
+const outfile = join(process.cwd(), 'dist', 'sw.js');
+const manifest = JSON.parse(
+  readFileSync(
+    join(process.cwd(), 'dist', '.vite', 'ssr-manifest.json'),
+    'utf8'
+  )
+);
 
 esbuild.build({
   target: 'es2020',
@@ -13,5 +21,9 @@ esbuild.build({
   allowOverwrite: true,
   format: 'esm',
   bundle: true,
-  minify: true
+  minify: true,
+  define: {
+    SW_UNQIUE_BUILD_ID: `'${new Date().getTime()}'`,
+    SW_CACHE_JSON: `'${[...new Set(Object.values(manifest).flat())].join(',')}'`
+  }
 });
