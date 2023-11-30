@@ -1,6 +1,7 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { HEY_API_URL } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
+import getPreferences from '@hey/lib/api/getPreferences';
 import { Button, Form, Input, useZodForm } from '@hey/ui';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
@@ -8,6 +9,7 @@ import axios from 'axios';
 import { type FC, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { object, string } from 'zod';
 
 const updateEmailSchema = object({
@@ -15,6 +17,7 @@ const updateEmailSchema = object({
 });
 
 const Email: FC = () => {
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const preferences = usePreferencesStore((state) => state.preferences);
   const setPreferences = usePreferencesStore((state) => state.setPreferences);
   const [updating, setUpdating] = useState(false);
@@ -22,7 +25,7 @@ const Email: FC = () => {
   const form = useZodForm({
     schema: updateEmailSchema,
     defaultValues: {
-      email: 'test'
+      email: preferences.email || ''
     }
   });
 
@@ -37,6 +40,7 @@ const Email: FC = () => {
       {
         loading: 'Updating email preference...',
         success: () => {
+          getPreferences(currentProfile?.id, getAuthWorkerHeaders());
           setUpdating(false);
           Leafwatch.track(SETTINGS.PREFERENCES.UPDATE_EMAIL);
           return 'Email preference updated';

@@ -1,5 +1,6 @@
 import { HEY_API_URL } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
+import getPreferences from '@hey/lib/api/getPreferences';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import getCurrentSession from '@lib/getCurrentSession';
 import { useFeatureFlagsStore } from '@persisted/useFeatureFlagsStore';
@@ -29,27 +30,23 @@ const PreferencesProvider: FC = () => {
   const fetchPreferences = async () => {
     try {
       if (Boolean(sessionProfileId) && !isAddress(sessionProfileId)) {
-        const response = await axios.get(
-          `${HEY_API_URL}/preference/getPreferences`,
-          {
-            params: { id: sessionProfileId },
-            headers: getAuthWorkerHeaders()
-          }
+        const preferences = await getPreferences(
+          sessionProfileId,
+          getAuthWorkerHeaders()
         );
-        const { data } = response;
 
         setPreferences({
-          isPride: data.result?.preference?.isPride || false,
+          isPride: preferences.preference?.isPride || false,
           highSignalNotificationFilter:
-            data.result?.preference?.highSignalNotificationFilter || false,
-          email: data.result?.preference?.email || '',
-          marketingOptIn: data.result?.preference?.marketingOptIn || false
+            preferences.preference?.highSignalNotificationFilter || false,
+          email: preferences.preference?.email || '',
+          marketingOptIn: preferences.preference?.marketingOptIn || false
         });
-        setIsPro(data.result?.pro.enabled || false);
-        setFeatureFlags(data?.result.features || []);
-        setStaffMode(data?.result.features.includes(FeatureFlag.StaffMode));
+        setIsPro(preferences.pro.enabled);
+        setFeatureFlags(preferences.features);
+        setStaffMode(preferences.features.includes(FeatureFlag.StaffMode));
         setGardenerMode(
-          data?.result.features.includes(FeatureFlag.GardenerMode)
+          preferences?.features.includes(FeatureFlag.GardenerMode)
         );
       }
       return true;

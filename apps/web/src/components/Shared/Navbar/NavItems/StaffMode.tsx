@@ -2,6 +2,7 @@ import { ShieldCheckIcon as ShieldCheckIconOutline } from '@heroicons/react/24/o
 import { ShieldCheckIcon as ShieldCheckIconSolid } from '@heroicons/react/24/solid';
 import { HEY_API_URL } from '@hey/data/constants';
 import { STAFFTOOLS } from '@hey/data/tracking';
+import getPreferences from '@hey/lib/api/getPreferences';
 import cn from '@hey/ui/cn';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
@@ -11,6 +12,7 @@ import axios from 'axios';
 import { Magic } from 'magic-sdk';
 import { type FC, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { usePreferencesStore } from '@store/non-persisted/usePreferencesStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 interface StaffModeProps {
@@ -21,6 +23,7 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
   const setStaffMode = useFeatureFlagsStore((state) => state.setStaffMode);
+  const preferences = usePreferencesStore((state) => state.preferences);
   const [magic, setMagic] = useState<Magic | null>(null);
 
   useEffectOnce(() => {
@@ -30,10 +33,14 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
 
   const toggleStaffMode = async () => {
     const authAndSetStaffMode = async () => {
+      if (!preferences.email) {
+        return toast.error('Please set your email first!');
+      }
+
       try {
         if (!staffMode) {
           await magic?.auth.loginWithMagicLink({
-            email: 'yoginth@hey.xyz'
+            email: preferences.email
           });
         }
         await axios.get(`${HEY_API_URL}/internal/feature/getStaffMode`, {
@@ -46,10 +53,7 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
     toast.promise(authAndSetStaffMode(), {
       loading: 'Toggling staff mode...',
       success: () => {
-        axios.get(`${HEY_API_URL}/preference/getPreferences`, {
-          params: { id: currentProfile?.id },
-          headers: getAuthWorkerHeaders()
-        });
+        getPreferences(currentProfile?.id, getAuthWorkerHeaders());
         setStaffMode(!staffMode);
         Leafwatch.track(STAFFTOOLS.TOGGLE_MODE);
 

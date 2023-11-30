@@ -2,6 +2,7 @@ import { BoltIcon as BoltIconOutline } from '@heroicons/react/24/outline';
 import { BoltIcon as BoltIconSolid } from '@heroicons/react/24/solid';
 import { HEY_API_URL } from '@hey/data/constants';
 import { GARDENER } from '@hey/data/tracking';
+import getPreferences from '@hey/lib/api/getPreferences';
 import cn from '@hey/ui/cn';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
@@ -32,10 +33,7 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
       {
         loading: 'Toggling gardener mode...',
         success: () => {
-          axios.get(`${HEY_API_URL}/preference/getPreferences`, {
-            params: { id: currentProfile?.id },
-            headers: getAuthWorkerHeaders()
-          });
+          getPreferences(currentProfile?.id, getAuthWorkerHeaders());
           setGardenerMode(!gardenerMode);
           Leafwatch.track(GARDENER.TOGGLE_MODE);
 
