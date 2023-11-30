@@ -13,9 +13,9 @@ const vite = await createServer({
   appType: 'custom'
 });
 
-const renderPreloadLink = (file) => {
-  if (file.endsWith('.js')) return `<script defer nomodule src="${file}">`;
-};
+// const renderPreloadLink = (file) => {
+//   if (file.endsWith('.js')) return `<script defer nomodule src="${file}">`;
+// };
 
 const prerender = async () => {
   const { renderBody, renderHead } = await vite.ssrLoadModule(
@@ -33,22 +33,22 @@ const prerender = async () => {
   $('#root').html(renderBody());
 
   // Add preloads
-  const manifest = JSON.parse(
-    readFileSync(join(appDir, 'dist', '.vite', 'ssr-manifest.json'), 'utf8')
-  );
-  const seen = new Set();
-  $('[href*=".js"]').each((i, el) => {
-    seen.add($(el).attr('href'));
-  });
-  $('[src*=".js"]').each((i, el) => {
-    seen.add($(el).attr('src'));
-  });
-  for (let o of new Set(Object.values(manifest).flat())) {
-    if (!seen.has(o)) {
-      const tmp = renderPreloadLink(o);
-      if (tmp) $('body').append(tmp);
-    }
-  }
+  // const manifest = JSON.parse(
+  //   readFileSync(join(appDir, 'dist', '.vite', 'ssr-manifest.json'), 'utf8')
+  // );
+  // const seen = new Set();
+  // $('[href*=".js"]').each((i, el) => {
+  //   seen.add($(el).attr('href'));
+  // });
+  // $('[src*=".js"]').each((i, el) => {
+  //   seen.add($(el).attr('src'));
+  // });
+  // for (let o of new Set(Object.values(manifest).flat())) {
+  //   if (!seen.has(o)) {
+  //     const tmp = renderPreloadLink(o);
+  //     if (tmp) $('body').append(tmp);
+  //   }
+  // }
 
   // Prerendered HTML
   writeFileSync(
