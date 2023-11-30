@@ -30,11 +30,11 @@ const HeyMembershipNft: FC = () => {
     );
     const { data } = response;
 
-    return data.result.minted;
+    return data.result.dismissedOrMinted;
   };
 
   const {
-    data: minted,
+    data: dismissedOrMinted,
     isLoading,
     refetch
   } = useQuery(
@@ -43,7 +43,7 @@ const HeyMembershipNft: FC = () => {
     { enabled: Boolean(address) }
   );
 
-  if (!address || isLoading || minted) {
+  if (!address || isLoading || dismissedOrMinted) {
     return null;
   }
 
