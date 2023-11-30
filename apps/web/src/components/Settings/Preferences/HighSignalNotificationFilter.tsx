@@ -2,14 +2,17 @@ import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { SwatchIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
+import getPreferences from '@hey/lib/api/getPreferences';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { type FC, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 const HighSignalNotificationFilter: FC = () => {
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const preferences = usePreferencesStore((state) => state.preferences);
   const setPreferences = usePreferencesStore((state) => state.setPreferences);
   const [updating, setUpdating] = useState(false);
@@ -27,6 +30,7 @@ const HighSignalNotificationFilter: FC = () => {
       {
         loading: 'Updating preference settings...',
         success: () => {
+          getPreferences(currentProfile?.id, getAuthWorkerHeaders());
           setUpdating(false);
           setPreferences({
             ...preferences,
