@@ -23,7 +23,7 @@ export const get: Handler = async (req, res) => {
       .setHeader('Cache-Control', SWR_CACHE_AGE_1_MIN_30_DAYS)
       .json({
         success: true,
-        result: data
+        result: { minted: data?.dismissedOrMinted ? true : false }
       });
   } catch (error) {
     return catchedError(res, error);
