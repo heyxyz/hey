@@ -1,13 +1,12 @@
+import type { Preferences } from '@hey/types/hey';
 import { create } from 'zustand';
 
-export type Preferences = {
-  isPride: boolean;
-  highSignalNotificationFilter: boolean;
-  email: string | null;
-  marketingOptIn: boolean;
-};
+export type ExtendedPreference = Omit<
+  NonNullable<Preferences['preference']>,
+  'id' | 'createdAt'
+>;
 
-const DefaultPreferences: Preferences = {
+const DefaultPreferences: ExtendedPreference = {
   isPride: false,
   highSignalNotificationFilter: false,
   email: null,
@@ -15,8 +14,8 @@ const DefaultPreferences: Preferences = {
 };
 
 interface PreferencesState {
-  preferences: Preferences;
-  setPreferences: (preferences: Preferences) => void;
+  preferences: ExtendedPreference;
+  setPreferences: (preferences: ExtendedPreference) => void;
   resetPreferences: () => void;
 }
 
