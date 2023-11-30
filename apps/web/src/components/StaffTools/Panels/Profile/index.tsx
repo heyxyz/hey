@@ -9,6 +9,7 @@ import {
 import { ShieldCheckIcon } from '@heroicons/react/24/solid';
 import { APP_NAME, HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
+import getPreferences from '@hey/lib/api/getPreferences';
 import formatAddress from '@hey/lib/formatAddress';
 import getFollowModule from '@hey/lib/getFollowModule';
 import { Card } from '@hey/ui';
@@ -46,26 +47,9 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
     queryFn: getHaveUsedHey
   });
 
-  const fetchPreferences = async () => {
-    try {
-      const response = await axios.get(
-        `${HEY_API_URL}/preference/getPreferences`,
-        {
-          params: { id: profile.id },
-          headers: getAuthWorkerHeaders()
-        }
-      );
-      const { data } = response;
-
-      return data.result;
-    } catch {
-      return null;
-    }
-  };
-
   const { data: preferences, isLoading: preferencesLoading } = useQuery({
     queryKey: ['fetchPreferences', profile.id || ''],
-    queryFn: fetchPreferences
+    queryFn: () => getPreferences(profile.id, getAuthWorkerHeaders())
   });
 
   return (
@@ -157,10 +141,10 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           <Rank profile={profile} />
         </>
       ) : null}
-      <Access profile={profile} isPro={preferences?.pro?.enabled} />
+      <Access profile={profile} isPro={preferences?.pro.enabled || false} />
       <FeatureFlags
         profile={profile}
-        features={preferences?.features}
+        features={preferences?.features || []}
         loading={preferencesLoading}
       />
     </Card>
