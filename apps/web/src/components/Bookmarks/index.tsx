@@ -11,8 +11,8 @@ import type { PublicationMetadataMainFocusType } from '@hey/lens';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
-import { useState } from 'react';
 import useProfileStore from '@persisted/useProfileStore';
+import { useState } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
 
 import Feed from './Feed';

@@ -1,7 +1,6 @@
 import cn from '@hey/ui/cn';
-import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
 import { type FC, type ReactNode } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 interface MenuProps {
   children: ReactNode;

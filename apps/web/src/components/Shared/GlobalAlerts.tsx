@@ -1,7 +1,7 @@
 import ModAction from '@components/Publication/Actions/ModAction';
 import { Alert } from '@hey/ui';
-import type { FC } from 'react';
 import { useGlobalAlertStateStore } from '@store/non-persisted/useGlobalAlertStateStore';
+import type { FC } from 'react';
 
 import BlockOrUnBlockProfile from './Alert/BlockOrUnBlockProfile';
 import DeletePublication from './Alert/DeletePublication';

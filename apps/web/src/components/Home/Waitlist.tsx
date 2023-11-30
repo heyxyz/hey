@@ -2,8 +2,8 @@ import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { MISCELLANEOUS } from '@hey/data/tracking';
 import { Button, Card } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Link } from 'react-router-dom';
 import type { FC } from 'react';
+import { Link } from 'react-router-dom';
 
 const Waitlist: FC = () => {
   return (

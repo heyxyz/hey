@@ -14,12 +14,12 @@ import cn from '@hey/ui/cn';
 import { getTimetoNow } from '@lib/formatTime';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
+import useProfileStore from '@persisted/useProfileStore';
 import axios from 'axios';
 import plur from 'plur';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import useProfileStore from '@persisted/useProfileStore';
 
 interface ChoicesProps {
   poll: Poll;

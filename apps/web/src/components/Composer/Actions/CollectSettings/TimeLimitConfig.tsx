@@ -3,8 +3,8 @@ import { ClockIcon } from '@heroicons/react/24/outline';
 import type { CollectModuleType } from '@hey/types/hey';
 import { Input } from '@hey/ui';
 import { getNumberOfDaysFromDate, getTimeAddedNDay } from '@lib/formatTime';
-import { type FC } from 'react';
 import { useCollectModuleStore } from '@store/non-persisted/useCollectModuleStore';
+import { type FC } from 'react';
 
 interface TimeLimitConfigProps {
   setCollectType: (data: CollectModuleType) => void;
@@ -19,7 +19,7 @@ const TimeLimitConfig: FC<TimeLimitConfigProps> = ({ setCollectType }) => {
         on={Boolean(collectModule.endsAt)}
         setOn={() =>
           setCollectType({
-            endsAt: Boolean(collectModule.endsAt) ? null : getTimeAddedNDay(1)
+            endsAt: collectModule.endsAt ? null : getTimeAddedNDay(1)
           })
         }
         heading="Time limit"

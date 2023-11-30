@@ -3,8 +3,8 @@ import { HandRaisedIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import { Card } from '@hey/ui';
-import type { FC } from 'react';
 import useProfileStore from '@persisted/useProfileStore';
+import type { FC } from 'react';
 import { useAccount } from 'wagmi';
 
 const EnableLensManager: FC = () => {

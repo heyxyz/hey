@@ -1,3 +1,4 @@
+import { ProfileFeedType } from '@enums';
 import {
   ChartBarIcon,
   ChatBubbleLeftRightIcon,
@@ -11,7 +12,6 @@ import { PROFILE } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { type FC } from 'react';
-import { ProfileFeedType } from '@enums';
 
 import MediaFilter from './Filters/MediaFilter';
 

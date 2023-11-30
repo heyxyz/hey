@@ -2,8 +2,8 @@ import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { OpenActionModuleType } from '@hey/lens';
 import { Input } from '@hey/ui';
-import { type FC } from 'react';
 import { useCollectModuleStore } from '@store/non-persisted/useCollectModuleStore';
+import { type FC } from 'react';
 
 interface ReferralConfigProps {
   setCollectType: (data: any) => void;

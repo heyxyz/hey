@@ -3,8 +3,8 @@ import type { Profile } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
-import { Link } from 'react-router-dom';
 import { type FC } from 'react';
+import { Link } from 'react-router-dom';
 
 interface InvitedByProps {
   profile: Profile;

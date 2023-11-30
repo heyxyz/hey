@@ -4,10 +4,10 @@ import type { AnyPublication, Profile } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Leafwatch } from '@lib/leafwatch';
+import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 import type { APITypes } from 'plyr-react';
 import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';
-import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 import { object, string } from 'zod';
 
 import CoverImage from './CoverImage';

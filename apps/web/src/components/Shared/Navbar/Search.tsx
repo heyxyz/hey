@@ -10,8 +10,8 @@ import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
 import type { ChangeEvent, FC } from 'react';
 import { useEffect, useRef, useState } from 'react';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useDebounce, useOnClickOutside } from 'usehooks-ts';
-import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 
 import UserProfile from '../UserProfile';
 

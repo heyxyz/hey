@@ -6,9 +6,9 @@ import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import type { FC } from 'react';
-import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
 import useProfileStore from '@persisted/useProfileStore';
+import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
+import type { FC } from 'react';
 
 import MenuTransition from '../MenuTransition';
 import Slug from '../Slug';

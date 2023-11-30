@@ -4,10 +4,10 @@ import { HEY_API_URL } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
+import { usePreferencesStore } from '@store/non-persisted/usePreferencesStore';
 import axios from 'axios';
 import { type FC, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { usePreferencesStore } from '@store/non-persisted/usePreferencesStore';
 
 const HighSignalNotificationFilter: FC = () => {
   const preferences = usePreferencesStore((state) => state.preferences);

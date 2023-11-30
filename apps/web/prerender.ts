@@ -1,8 +1,8 @@
-import { join } from 'path';
 import * as cheerio from 'cheerio';
-import { createServer } from 'vite';
+import { readFileSync, writeFileSync } from 'fs';
 import htmlMinifier from 'html-minifier';
-import { writeFileSync, readFileSync } from 'fs';
+import { join } from 'path';
+import { createServer } from 'vite';
 
 const appDir = process.cwd();
 

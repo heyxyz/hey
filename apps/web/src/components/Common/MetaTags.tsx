@@ -1,6 +1,6 @@
+import { APP_NAME, DEFAULT_OG, DESCRIPTION } from '@hey/data/constants';
 import { type FC } from 'react';
 import { Helmet } from 'react-helmet';
-import { APP_NAME, DEFAULT_OG, DESCRIPTION } from '@hey/data/constants';
 
 interface MetaTagsProps {
   title?: string;

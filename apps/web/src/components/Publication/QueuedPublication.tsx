@@ -11,9 +11,9 @@ import { useApolloClient } from '@hey/lens/apollo';
 import getMentions from '@hey/lib/getMentions';
 import type { OptimisticTransaction } from '@hey/types/misc';
 import { Card, Tooltip } from '@hey/ui';
-import { type FC } from 'react';
 import useProfileStore from '@persisted/useProfileStore';
 import { useTransactionStore } from '@persisted/useTransactionStore';
+import { type FC } from 'react';
 
 interface QueuedPublicationProps {
   txn: OptimisticTransaction;

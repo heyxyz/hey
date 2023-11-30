@@ -1,6 +1,6 @@
-import type { FC } from 'react';
 import { CHAIN_ID } from '@constants';
 import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
+import type { FC } from 'react';
 
 import SwitchNetwork from '../SwitchNetwork';
 

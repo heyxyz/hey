@@ -17,15 +17,15 @@ import {
 import { useApolloClient } from '@hey/lens/apollo';
 import { Button } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import type { FC } from 'react';
-import { useState } from 'react';
-import { toast } from 'react-hot-toast';
+import useProfileStore from '@persisted/useProfileStore';
 import type { NftGalleryItem } from '@store/non-persisted/useNftGalleryStore';
 import {
   GALLERY_DEFAULTS,
   useNftGalleryStore
 } from '@store/non-persisted/useNftGalleryStore';
-import useProfileStore from '@persisted/useProfileStore';
+import type { FC } from 'react';
+import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 import Create from './Create';
 import NftCard from './NftCard';

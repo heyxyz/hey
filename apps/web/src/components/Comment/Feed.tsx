@@ -12,10 +12,10 @@ import {
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
+import { useTransactionStore } from '@persisted/useTransactionStore';
+import { useImpressionsStore } from '@store/non-persisted/useImpressionsStore';
 import { type FC } from 'react';
 import { useInView } from 'react-cool-inview';
-import { useImpressionsStore } from '@store/non-persisted/useImpressionsStore';
-import { useTransactionStore } from '@persisted/useTransactionStore';
 
 interface FeedProps {
   publication: AnyPublication;

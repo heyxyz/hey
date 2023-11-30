@@ -2,13 +2,12 @@ import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { Card, Image } from '@hey/ui';
-import type { FC } from 'react';
+import useProfileStore from '@persisted/useProfileStore';
 import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
 import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
-import useProfileStore from '@persisted/useProfileStore';
+import type { FC } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useEffectOnce } from 'usehooks-ts';
-import { useSearchParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 
 const NewPost: FC = () => {
   const navigate = useNavigate();

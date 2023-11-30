@@ -8,8 +8,8 @@ import { PUBLICATION } from '@hey/data/tracking';
 import humanize from '@hey/lib/humanize';
 import type { ZoraNft } from '@hey/types/nft';
 import { Leafwatch } from '@lib/leafwatch';
-import { Link } from 'react-router-dom';
 import { type FC } from 'react';
+import { Link } from 'react-router-dom';
 
 interface MetadataProps {
   nft: ZoraNft;

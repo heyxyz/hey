@@ -3,8 +3,8 @@ import type { HomeFeedType } from '@hey/data/enums';
 import { HOME } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { type Dispatch, type FC, type SetStateAction } from 'react';
 import { useEnabledAlgorithmsStore } from '@persisted/useEnabledAlgorithmsStore';
+import { type Dispatch, type FC, type SetStateAction } from 'react';
 
 interface FeedTypeProps {
   setFeedType: Dispatch<SetStateAction<HomeFeedType>>;

@@ -13,10 +13,10 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import removeUrlAtEnd from '@hey/lib/removeUrlAtEnd';
 import type { OG } from '@hey/types/misc';
 import cn from '@hey/ui/cn';
-import { Link } from 'react-router-dom';
 import type { FC } from 'react';
 import { memo, useState } from 'react';
 import { isIOS, isMobile } from 'react-device-detect';
+import { Link } from 'react-router-dom';
 
 import EncryptedPublication from './EncryptedPublication';
 import Nft from './HeyOpenActions/Nft';

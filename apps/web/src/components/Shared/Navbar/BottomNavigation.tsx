@@ -8,8 +8,7 @@ import {
   HomeIcon as HomeIconSolid,
   Squares2X2Icon as Squares2X2IconSolid
 } from '@heroicons/react/24/solid';
-import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const BottomNavigation = () => {
   const location = useLocation();

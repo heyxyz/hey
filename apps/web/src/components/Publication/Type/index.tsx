@@ -1,7 +1,7 @@
 import type { AnyPublication } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { useLocation } from 'react-router-dom';
 import { type FC } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import Commented from './Commented';
 import Mirrored from './Mirrored';

@@ -12,9 +12,9 @@ import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { getTwitterFormat } from '@lib/formatTime';
 import isVerified from '@lib/isVerified';
-import { Link } from 'react-router-dom';
 import type { FC } from 'react';
 import { memo, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import Markup from './Markup';
 import Follow from './Profile/Follow';

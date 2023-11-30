@@ -7,8 +7,8 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { Link } from 'react-router-dom';
 import { type FC } from 'react';
+import { Link } from 'react-router-dom';
 // @ts-ignore
 import urlcat from 'urlcat';
 

@@ -2,13 +2,14 @@ import MetaTags from '@components/Common/MetaTags';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridLayout } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import useOpenseaNft from '@hooks/opensea/useOpenseaNft';
+import { Leafwatch } from '@lib/leafwatch';
 import Custom500 from '@pages/500';
+import { useParams } from 'react-router-dom';
 import { useEffectOnce } from 'usehooks-ts';
+
 import NftDetails from './Details';
 import NftPageShimmer from './Shimmer';
-import { useParams } from 'react-router-dom';
 
 const ViewNft = () => {
   const isReady = true;

@@ -12,16 +12,16 @@ import type { ApolloCache } from '@hey/lens/apollo';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { Button, Spinner } from '@hey/ui';
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { useLocation } from 'react-router-dom';
+import useProfileStore from '@persisted/useProfileStore';
+import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
+import { useNonceStore } from '@store/non-persisted/useNonceStore';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
-import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
-import { useNonceStore } from '@store/non-persisted/useNonceStore';
-import useProfileStore from '@persisted/useProfileStore';
+import { useLocation } from 'react-router-dom';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface UnfollowProps {

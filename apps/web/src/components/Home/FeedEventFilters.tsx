@@ -3,8 +3,8 @@ import { Menu } from '@headlessui/react';
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/outline';
 import { Checkbox, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import type { ChangeEvent, FC } from 'react';
 import { useTimelineFilterStore } from '@persisted/useTimelineFilterStore';
+import type { ChangeEvent, FC } from 'react';
 
 const FeedEventFilters: FC = () => {
   const feedEventFilters = useTimelineFilterStore(

@@ -4,13 +4,13 @@ import { HEY_API_URL } from '@hey/data/constants';
 import { MISCELLANEOUS, PUBLICATION } from '@hey/data/tracking';
 import type { MembershipNft } from '@hey/types/hey';
 import { Button, Card, Modal } from '@hey/ui';
+import useZoraNft from '@hooks/zora/useZoraNft';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import useZoraNft from '@hooks/zora/useZoraNft';
 import { useAccount, useQuery } from 'wagmi';
 
 const HeyMembershipNft: FC = () => {

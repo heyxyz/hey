@@ -5,9 +5,9 @@ import getStampFyiURL from '@hey/lib/getStampFyiURL';
 import imageKit from '@hey/lib/imageKit';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { Link } from 'react-router-dom';
-import { type FC } from 'react';
 import useEnsName from '@hooks/useEnsName';
+import { type FC } from 'react';
+import { Link } from 'react-router-dom';
 import type { Address } from 'viem';
 
 interface SmallWalletProfileProps {

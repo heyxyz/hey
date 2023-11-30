@@ -10,9 +10,9 @@ import {
 import nFormatter from '@hey/lib/nFormatter';
 import { Card, ErrorMessage } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Link } from 'react-router-dom';
 import plur from 'plur';
 import type { FC } from 'react';
+import { Link } from 'react-router-dom';
 
 const Title = () => {
   return (

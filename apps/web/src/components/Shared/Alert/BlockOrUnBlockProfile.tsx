@@ -14,14 +14,14 @@ import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getProfile from '@hey/lib/getProfile';
 import getSignature from '@hey/lib/getSignature';
 import { Alert } from '@hey/ui';
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC, useState } from 'react';
-import { toast } from 'react-hot-toast';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
+import useProfileStore from '@persisted/useProfileStore';
 import { useGlobalAlertStateStore } from '@store/non-persisted/useGlobalAlertStateStore';
 import { useNonceStore } from '@store/non-persisted/useNonceStore';
-import useProfileStore from '@persisted/useProfileStore';
+import { type FC, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 const BlockOrUnBlockProfile: FC = () => {

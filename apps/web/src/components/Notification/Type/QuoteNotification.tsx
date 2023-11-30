@@ -3,8 +3,8 @@ import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
 import { QuoteNotification } from '@hey/lens';
 import getPublicationData from '@hey/lib/getPublicationData';
 import pushToImpressions from '@lib/pushToImpressions';
-import { Link } from 'react-router-dom';
 import type { FC } from 'react';
+import { Link } from 'react-router-dom';
 import { useEffectOnce } from 'usehooks-ts';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';

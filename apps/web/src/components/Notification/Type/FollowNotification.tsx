@@ -1,9 +1,9 @@
 import { UserPlusIcon } from '@heroicons/react/24/outline';
 import { FollowNotification } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
+import useProfileStore from '@persisted/useProfileStore';
 import plur from 'plur';
 import type { FC } from 'react';
-import useProfileStore from '@persisted/useProfileStore';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';

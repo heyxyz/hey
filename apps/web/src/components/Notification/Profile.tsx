@@ -9,8 +9,8 @@ import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
 import { Image } from '@hey/ui';
 import isVerified from '@lib/isVerified';
-import { Link } from 'react-router-dom';
 import type { FC } from 'react';
+import { Link } from 'react-router-dom';
 
 interface NotificationProfileProps {
   profile: Profile;

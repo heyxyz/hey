@@ -15,10 +15,10 @@ import { Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
+import useProfileStore from '@persisted/useProfileStore';
 import { motion } from 'framer-motion';
 import { type FC, useState } from 'react';
 import toast from 'react-hot-toast';
-import useProfileStore from '@persisted/useProfileStore';
 import { useLocation } from 'react-router-dom';
 
 interface LikeProps {

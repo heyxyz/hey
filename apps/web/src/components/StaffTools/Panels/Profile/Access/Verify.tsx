@@ -2,11 +2,11 @@ import { HEY_API_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import { Toggle } from '@hey/ui';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import { hydrateVerifiedMembers } from '@persisted/useVerifiedMembersStore';
 import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { hydrateVerifiedMembers } from '@persisted/useVerifiedMembersStore';
 
 import ToggleWrapper from '../ToggleWrapper';
 

@@ -4,9 +4,9 @@ import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
+import useProfileStore from '@persisted/useProfileStore';
 import type { FC } from 'react';
 import { Fragment } from 'react';
-import useProfileStore from '@persisted/useProfileStore';
 
 import Bookmark from './Bookmark';
 import CopyPostText from './CopyPostText';

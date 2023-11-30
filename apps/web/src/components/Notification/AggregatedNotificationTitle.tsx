@@ -1,6 +1,6 @@
 import type { Profile } from '@hey/lens';
-import { Link } from 'react-router-dom';
 import { type FC } from 'react';
+import { Link } from 'react-router-dom';
 
 import { NotificationProfileName } from './Profile';
 

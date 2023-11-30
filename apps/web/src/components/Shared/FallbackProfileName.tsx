@@ -1,8 +1,8 @@
 import type { Profile } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import cn from '@hey/ui/cn';
-import { Link } from 'react-router-dom';
 import { type FC, type ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 
 import Slug from './Slug';
 

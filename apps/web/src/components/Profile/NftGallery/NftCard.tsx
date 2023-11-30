@@ -1,9 +1,9 @@
 import { PLACEHOLDER_IMAGE } from '@hey/data/constants';
 import type { Nft } from '@hey/lens';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
-import { Link } from 'react-router-dom';
 import type { FC } from 'react';
 import { memo } from 'react';
+import { Link } from 'react-router-dom';
 
 interface NFTProps {
   nft: Nft;

@@ -2,8 +2,8 @@ import Slug from '@components/Shared/Slug';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import type { OpenSeaNft } from '@hey/types/opensea-nft';
 import { Card } from '@hey/ui';
-import { type FC } from 'react';
 import useOpenseaCollection from '@hooks/opensea/useOpenseaCollection';
+import { type FC } from 'react';
 
 interface NftTitleProps {
   nft: OpenSeaNft;

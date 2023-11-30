@@ -1,16 +1,17 @@
 import MetaTags from '@components/Common/MetaTags';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
+import { NotificationFeedType } from '@enums';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
-import type { FC } from 'react';
-import { NotificationFeedType } from '@enums';
 import useProfileStore from '@persisted/useProfileStore';
+import type { FC } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useEffectOnce } from 'usehooks-ts';
+
 import FeedType from './FeedType';
 import List from './List';
 import Settings from './Settings';
-import { useSearchParams } from 'react-router-dom';
 
 const Notification: FC = () => {
   const [searchParams, _] = useSearchParams();

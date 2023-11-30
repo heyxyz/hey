@@ -4,12 +4,13 @@ import type { Profile } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { Button, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import type { FC } from 'react';
-import { lazy, useState, Suspense } from 'react';
-import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
 import useProfileStore from '@persisted/useProfileStore';
-import Slug from '../Slug';
+import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
+import type { FC } from 'react';
+import { lazy, Suspense, useState } from 'react';
+
 import Loader from '../Loader';
+import Slug from '../Slug';
 
 const FollowModule = lazy(() => import('./FollowModule'));
 

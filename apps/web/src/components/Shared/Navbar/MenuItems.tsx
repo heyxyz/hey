@@ -1,7 +1,7 @@
 import getCurrentSession from '@lib/getCurrentSession';
-import { Link } from 'react-router-dom';
-import type { FC } from 'react';
 import useProfileStore from '@persisted/useProfileStore';
+import type { FC } from 'react';
+import { Link } from 'react-router-dom';
 import { isAddress } from 'viem';
 
 import LoginButton from './LoginButton';
@@ -18,7 +18,7 @@ const MenuItems: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const { id: sessionProfileId } = getCurrentSession();
 
-  if (Boolean(currentProfile)) {
+  if (currentProfile) {
     return <SignedUser />;
   }
 

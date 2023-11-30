@@ -3,7 +3,6 @@ import Footer from '@components/Shared/Footer';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
-
 import { Link } from 'react-router-dom';
 import { useEffectOnce } from 'usehooks-ts';
 

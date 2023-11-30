@@ -1,8 +1,8 @@
 import { VideoCameraIcon } from '@heroicons/react/24/outline';
 import { Tooltip } from '@hey/ui';
+import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 import { motion } from 'framer-motion';
 import { type FC } from 'react';
-import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 
 const LivestreamSettings: FC = () => {
   const showLiveVideoEditor = usePublicationStore(

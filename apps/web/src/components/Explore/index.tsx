@@ -13,11 +13,11 @@ import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
-import { useSearchParams } from 'react-router-dom';
-import { useState } from 'react';
 import useProfileStore from '@persisted/useProfileStore';
+import { useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useEffectOnce } from 'usehooks-ts';
-import { useNavigate } from 'react-router-dom';
+
 import Feed from './Feed';
 
 const Explore = () => {

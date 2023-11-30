@@ -13,10 +13,9 @@ import {
 } from '@hey/lens';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-
-import { useState } from 'react';
 import Custom500 from '@pages/500';
 import useProfileStore from '@persisted/useProfileStore';
+import { useState } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';

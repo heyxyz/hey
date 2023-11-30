@@ -2,8 +2,8 @@ import { TicketIcon } from '@heroicons/react/24/outline';
 import { INVITE } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC } from 'react';
 import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
+import { type FC } from 'react';
 
 interface InvitesProps {
   className?: string;

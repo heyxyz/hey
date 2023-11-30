@@ -4,10 +4,10 @@ import { generateVideoThumbnails } from '@hey/lib/generateVideoThumbnails';
 import getFileFromDataURL from '@hey/lib/getFileFromDataURL';
 import { Spinner } from '@hey/ui';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
+import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 import type { ChangeEvent, FC } from 'react';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 import { useUpdateEffect } from 'usehooks-ts';
 
 const DEFAULT_THUMBNAIL_INDEX = 0;

@@ -30,15 +30,15 @@ import getOpenActionActOnKey from '@hey/lib/getOpenActionActOnKey';
 import getSignature from '@hey/lib/getSignature';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Button, Spinner, WarningMessage } from '@hey/ui';
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
 import errorToast from '@lib/errorToast';
 import getCurrentSession from '@lib/getCurrentSession';
 import { Leafwatch } from '@lib/leafwatch';
+import useProfileStore from '@persisted/useProfileStore';
+import { useNonceStore } from '@store/non-persisted/useNonceStore';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
-import { useNonceStore } from '@store/non-persisted/useNonceStore';
-import useProfileStore from '@persisted/useProfileStore';
 import { isAddress } from 'viem';
 import {
   useAccount,

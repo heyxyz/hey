@@ -3,9 +3,9 @@ import { ArrowsRightLeftIcon } from '@heroicons/react/24/solid';
 import { MirrorNotification } from '@hey/lens';
 import getPublicationData from '@hey/lib/getPublicationData';
 import pushToImpressions from '@lib/pushToImpressions';
-import { Link } from 'react-router-dom';
 import plur from 'plur';
 import type { FC } from 'react';
+import { Link } from 'react-router-dom';
 import { useEffectOnce } from 'usehooks-ts';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';

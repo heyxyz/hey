@@ -10,8 +10,8 @@ import {
   video
 } from '@lens-protocol/metadata';
 import getUserLocale from '@lib/getUserLocale';
-import { useCallback } from 'react';
 import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
+import { useCallback } from 'react';
 import { v4 as uuid } from 'uuid';
 
 interface UsePublicationMetadataProps {

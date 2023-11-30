@@ -6,11 +6,11 @@ import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
 import getMentions from '@hey/lib/getMentions';
 import type { Group } from '@hey/types/hey';
 import { Image, LightBox, Tooltip } from '@hey/ui';
-import { formatDate } from '@lib/formatTime';
-import { Link } from 'react-router-dom';
 import { useTheme } from '@hooks/theme';
+import { formatDate } from '@lib/formatTime';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 // @ts-ignore
 import urlcat from 'urlcat';
 

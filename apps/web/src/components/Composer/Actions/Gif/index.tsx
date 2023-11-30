@@ -4,10 +4,10 @@ import { PUBLICATION } from '@hey/data/tracking';
 import type { IGif } from '@hey/types/giphy';
 import { Modal, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
+import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
-import { lazy, useState, Suspense } from 'react';
-import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
+import { lazy, Suspense, useState } from 'react';
 
 const GifSelector = lazy(() => import('./GifSelector'));
 

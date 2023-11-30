@@ -4,8 +4,8 @@ import type { InvitedResult } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
 import getProfile from '@hey/lib/getProfile';
 import { formatDate } from '@lib/formatTime';
-import { Link } from 'react-router-dom';
 import { type FC } from 'react';
+import { Link } from 'react-router-dom';
 
 interface ProfileProps {
   invite: InvitedResult;

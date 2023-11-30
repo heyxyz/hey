@@ -4,9 +4,9 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { NewAttachment } from '@hey/types/misc';
 import { Button, Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 import type { FC } from 'react';
 import { useRef } from 'react';
-import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 import { useUpdateEffect } from 'usehooks-ts';
 
 import Audio from './Audio';

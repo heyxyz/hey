@@ -3,8 +3,8 @@ import { PUBLICATION } from '@hey/data/tracking';
 import type { Amount } from '@hey/lens';
 import getUniswapURL from '@hey/lib/getUniswapURL';
 import { Leafwatch } from '@lib/leafwatch';
-import { Link } from 'react-router-dom';
 import { type FC } from 'react';
+import { Link } from 'react-router-dom';
 
 import WrapWmatic from './WrapWmatic';
 

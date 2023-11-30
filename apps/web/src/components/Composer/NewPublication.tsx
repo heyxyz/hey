@@ -30,6 +30,10 @@ import type { IGif } from '@hey/types/giphy';
 import type { NewAttachment } from '@hey/types/misc';
 import { Button, Card, ErrorMessage, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import useCreatePoll from '@hooks/useCreatePoll';
+import useCreatePublication from '@hooks/useCreatePublication';
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
+import usePublicationMetadata from '@hooks/usePublicationMetadata';
 import { MetadataAttributeType } from '@lens-protocol/metadata';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -38,22 +42,19 @@ import getTextNftUrl from '@lib/getTextNftUrl';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
-import { useUnmountEffect } from 'framer-motion';
-import { $getRoot } from 'lexical';
-import type { FC } from 'react';
-import { lazy, useState, Suspense } from 'react';
-import toast from 'react-hot-toast';
-import useCreatePoll from '@hooks/useCreatePoll';
-import useCreatePublication from '@hooks/useCreatePublication';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
-import usePublicationMetadata from '@hooks/usePublicationMetadata';
+import useProfileStore from '@persisted/useProfileStore';
 import { useCollectModuleStore } from '@store/non-persisted/useCollectModuleStore';
 import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
 import { useNonceStore } from '@store/non-persisted/useNonceStore';
 import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 import { useReferenceModuleStore } from '@store/non-persisted/useReferenceModuleStore';
-import useProfileStore from '@persisted/useProfileStore';
+import { useUnmountEffect } from 'framer-motion';
+import { $getRoot } from 'lexical';
+import type { FC } from 'react';
+import { lazy, Suspense, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
+
 import LivestreamSettings from './Actions/LivestreamSettings';
 import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
@@ -380,7 +381,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       const arweaveId = await uploadToArweave(metadata);
 
       // Payload for the open action module
-      let openActionModules = [];
+      const openActionModules = [];
       if (collectModule.type) {
         openActionModules.push({
           collectOpenAction: collectModuleParams(collectModule, currentProfile)

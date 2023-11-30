@@ -6,12 +6,12 @@ import type { AnyPublication, FeedHighlightsRequest } from '@hey/lens';
 import { LimitType, useFeedHighlightsQuery } from '@hey/lens';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { type FC } from 'react';
-import { useInView } from 'react-cool-inview';
-import { useImpressionsStore } from '@store/non-persisted/useImpressionsStore';
-import { useTimelineStore } from '@store/non-persisted/useTimelineStore';
 import useProfileStore from '@persisted/useProfileStore';
 import { useTransactionStore } from '@persisted/useTransactionStore';
+import { useImpressionsStore } from '@store/non-persisted/useImpressionsStore';
+import { useTimelineStore } from '@store/non-persisted/useTimelineStore';
+import { type FC } from 'react';
+import { useInView } from 'react-cool-inview';
 
 const Highlights: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);

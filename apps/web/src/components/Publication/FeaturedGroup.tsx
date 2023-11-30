@@ -2,8 +2,8 @@ import type { PublicationMetadata } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import getGroupByTag from '@lib/getGroupByTag';
-import { Link } from 'react-router-dom';
 import { type FC } from 'react';
+import { Link } from 'react-router-dom';
 
 interface FeaturedGroupProps {
   tags: PublicationMetadata['tags'];

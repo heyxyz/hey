@@ -3,13 +3,13 @@ import { LimitType, useMutualFollowersQuery } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
+import useProfileStore from '@persisted/useProfileStore';
 import {
   type Dispatch,
   type FC,
   type ReactNode,
   type SetStateAction
 } from 'react';
-import useProfileStore from '@persisted/useProfileStore';
 
 interface MutualFollowersProps {
   setShowMutualFollowersModal?: Dispatch<SetStateAction<boolean>>;

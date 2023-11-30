@@ -9,9 +9,9 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
+import { useGlobalAlertStateStore } from '@store/non-persisted/useGlobalAlertStateStore';
 import { type FC, type ReactNode } from 'react';
 import { toast } from 'react-hot-toast';
-import { useGlobalAlertStateStore } from '@store/non-persisted/useGlobalAlertStateStore';
 
 interface ModActionProps {
   publication: AnyPublication;

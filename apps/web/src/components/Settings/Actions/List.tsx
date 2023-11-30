@@ -6,10 +6,10 @@ import { LimitType, useProfileActionHistoryQuery } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { formatDate } from '@lib/formatTime';
-import { Link } from 'react-router-dom';
+import useProfileStore from '@persisted/useProfileStore';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
-import useProfileStore from '@persisted/useProfileStore';
+import { Link } from 'react-router-dom';
 
 const List: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);

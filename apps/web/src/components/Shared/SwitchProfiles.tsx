@@ -19,13 +19,13 @@ import { ErrorMessage, Image, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { Link } from 'react-router-dom';
+import { signIn, signOut } from '@persisted/useAuthStore';
+import useProfileStore from '@persisted/useProfileStore';
+import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
-import { signIn, signOut } from '@persisted/useAuthStore';
-import useProfileStore from '@persisted/useProfileStore';
+import { Link } from 'react-router-dom';
 import { useAccount, useSignMessage } from 'wagmi';
 
 import Loader from './Loader';

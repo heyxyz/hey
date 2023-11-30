@@ -5,9 +5,9 @@ import type { AnyPublication, FeedItem } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
-import { type FC } from 'react';
-import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 import { useFeatureFlagsStore } from '@persisted/useFeatureFlagsStore';
+import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
+import { type FC } from 'react';
 
 import PublicationMenu from './Actions/Menu';
 import Source from './Source';

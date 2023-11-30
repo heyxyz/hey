@@ -1,6 +1,7 @@
 import NftShimmer from '@components/Shared/Shimmer/NftShimmer';
 import NftsShimmer from '@components/Shared/Shimmer/NftsShimmer';
 import SingleNft from '@components/Shared/SingleNft';
+import { CHAIN_ID } from '@constants';
 import { CheckIcon, RectangleStackIcon } from '@heroicons/react/24/outline';
 import { IS_MAINNET } from '@hey/data/constants';
 import type { Nft, NftsRequest } from '@hey/lens';
@@ -8,13 +9,12 @@ import { LimitType, useNftsQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { ErrorMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import useProfileStore from '@persisted/useProfileStore';
+import type { NftGalleryItem } from '@store/non-persisted/useNftGalleryStore';
+import { useNftGalleryStore } from '@store/non-persisted/useNftGalleryStore';
 import { type FC } from 'react';
 import { toast } from 'react-hot-toast';
 import { VirtuosoGrid } from 'react-virtuoso';
-import { CHAIN_ID } from '@constants';
-import type { NftGalleryItem } from '@store/non-persisted/useNftGalleryStore';
-import { useNftGalleryStore } from '@store/non-persisted/useNftGalleryStore';
-import useProfileStore from '@persisted/useProfileStore';
 import { mainnet } from 'wagmi/chains';
 
 interface PickerProps {

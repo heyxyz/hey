@@ -5,10 +5,10 @@ import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import getCurrentSession from '@lib/getCurrentSession';
 import { Leafwatch } from '@lib/leafwatch';
+import { signOut } from '@persisted/useAuthStore';
+import { usePreferencesStore } from '@store/non-persisted/usePreferencesStore';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { usePreferencesStore } from '@store/non-persisted/usePreferencesStore';
-import { signOut } from '@persisted/useAuthStore';
 import { useDisconnect } from 'wagmi';
 
 interface LogoutProps {

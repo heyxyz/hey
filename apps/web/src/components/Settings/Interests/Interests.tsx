@@ -12,8 +12,8 @@ import { Button } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import sanitizeProfileInterests from '@lib/sanitizeProfileInterests';
-import type { FC } from 'react';
 import useProfileStore from '@persisted/useProfileStore';
+import type { FC } from 'react';
 
 import Loader from '../../Shared/Loader';
 

@@ -4,9 +4,10 @@ import { PencilSquareIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { useSearchParams } from 'react-router-dom';
 import Custom404 from '@pages/404';
+import { useSearchParams } from 'react-router-dom';
 import { useEffectOnce } from 'usehooks-ts';
+
 import Profiles from './Profiles';
 import Publications from './Publications';
 

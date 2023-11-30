@@ -6,10 +6,10 @@ import type { FollowingRequest, Profile } from '@hey/lens';
 import { LimitType, useFollowingQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { EmptyState, ErrorMessage } from '@hey/ui';
+import useProfileStore from '@persisted/useProfileStore';
 import { motion } from 'framer-motion';
 import { type FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
-import useProfileStore from '@persisted/useProfileStore';
 
 interface FollowingProps {
   profile: Profile;

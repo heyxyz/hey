@@ -9,14 +9,14 @@ import { Errors } from '@hey/data/errors';
 import { SETTINGS } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
 import { Button, Card, Modal, Spinner, WarningMessage } from '@hey/ui';
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
+import { signOut } from '@persisted/useAuthStore';
+import useProfileStore from '@persisted/useProfileStore';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
-import { signOut } from '@persisted/useAuthStore';
-import useProfileStore from '@persisted/useProfileStore';
 import { useContractWrite, useDisconnect } from 'wagmi';
 
 const DeleteSettings: FC = () => {

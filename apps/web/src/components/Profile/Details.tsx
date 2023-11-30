@@ -32,14 +32,14 @@ import getProfile from '@hey/lib/getProfile';
 import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import hasMisused from '@hey/lib/hasMisused';
 import { Button, Image, LightBox, Modal, Tooltip } from '@hey/ui';
+import { useTheme } from '@hooks/theme';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import isVerified from '@lib/isVerified';
-import { Link } from 'react-router-dom';
-import { useTheme } from '@hooks/theme';
-import type { FC, ReactNode } from 'react';
-import { useState } from 'react';
 import { useFeatureFlagsStore } from '@persisted/useFeatureFlagsStore';
 import useProfileStore from '@persisted/useProfileStore';
+import type { FC, ReactNode } from 'react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 // @ts-ignore
 import urlcat from 'urlcat';
 

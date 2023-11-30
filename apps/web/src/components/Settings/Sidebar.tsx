@@ -16,8 +16,8 @@ import {
   UserIcon
 } from '@heroicons/react/24/outline';
 import type { Profile } from '@hey/lens';
-import type { FC } from 'react';
 import useProfileStore from '@persisted/useProfileStore';
+import type { FC } from 'react';
 import { useAccount } from 'wagmi';
 
 const SettingsSidebar: FC = () => {

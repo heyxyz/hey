@@ -3,7 +3,6 @@
 
 import React, {
   createContext,
-  Fragment,
   memo,
   useCallback,
   useContext,
@@ -26,11 +25,13 @@ const defaultThemes = ['light', 'dark'];
 
 // Helpers
 const getTheme = (key: string, fallback?: string) => {
-  if (isServer) return undefined;
+  if (isServer) {
+    return;
+  }
   let theme;
   try {
     theme = localStorage.getItem(key) || undefined;
-  } catch (e) {
+  } catch (error) {
     // Unsupported
   }
   return theme || fallback;
@@ -57,7 +58,9 @@ const disableAnimation = () => {
 };
 
 const getSystemTheme = (e?: MediaQueryList | MediaQueryListEvent) => {
-  if (!e) e = window.matchMedia(MEDIA);
+  if (!e) {
+    e = window.matchMedia(MEDIA);
+  }
   const isDark = e.matches;
   const systemTheme = isDark ? 'dark' : 'light';
   return systemTheme;
@@ -199,7 +202,9 @@ const Theme: React.FC<ThemeProviderProps> = ({
 
   const applyTheme = useCallback((theme: string) => {
     let resolved = theme;
-    if (!resolved) return;
+    if (!resolved) {
+      return;
+    }
 
     // If theme is system, resolve it before setting theme
     if (theme === 'system' && enableSystem) {
@@ -243,7 +248,7 @@ const Theme: React.FC<ThemeProviderProps> = ({
       // Save to storage
       try {
         localStorage.setItem(storageKey, newTheme);
-      } catch (e) {
+      } catch (error) {
         // Unsupported
       }
     },
@@ -292,7 +297,9 @@ const Theme: React.FC<ThemeProviderProps> = ({
   // Whenever theme or forcedTheme changes, apply it
   useEffect(() => {
     const updateTheme = forcedTheme ?? theme;
-    if (updateTheme) applyTheme(updateTheme);
+    if (updateTheme) {
+      applyTheme(updateTheme);
+    }
   }, [forcedTheme, theme]);
 
   const providerValue = useMemo(
@@ -333,11 +340,14 @@ const Theme: React.FC<ThemeProviderProps> = ({
   );
 };
 
+Theme.displayName = 'Theme';
+ThemeScript.displayName = 'ThemeScript';
+
 export const ThemeProvider: React.FC<ThemeProviderProps> = (props) => {
   const context = useContext(ThemeContext);
   // Ignore nested context providers, just passthrough children
   if (context) {
-    return <Fragment>{props.children}</Fragment>;
+    return props.children;
   }
   return <Theme {...props} />;
 };

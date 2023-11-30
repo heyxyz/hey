@@ -1,6 +1,6 @@
 import { APP_VERSION } from '@hey/data/constants';
-import { Link } from 'react-router-dom';
 import { type FC } from 'react';
+import { Link } from 'react-router-dom';
 // @ts-ignore
 import urlcat from 'urlcat';
 

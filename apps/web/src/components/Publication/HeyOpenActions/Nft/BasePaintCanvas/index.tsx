@@ -6,11 +6,11 @@ import type { AnyPublication } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { BasePaintCanvasMetadata } from '@hey/types/nft';
 import { Button, Card, Modal, Tooltip } from '@hey/ui';
+import useBasePaintCanvas from '@hooks/basepaint/useBasePaintCanvas';
 import { Leafwatch } from '@lib/leafwatch';
-import { Link } from 'react-router-dom';
 import type { FC } from 'react';
 import { useState } from 'react';
-import useBasePaintCanvas from '@hooks/basepaint/useBasePaintCanvas';
+import { Link } from 'react-router-dom';
 // @ts-ignore
 import urlcat from 'urlcat';
 

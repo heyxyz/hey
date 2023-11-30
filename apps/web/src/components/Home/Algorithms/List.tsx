@@ -3,8 +3,8 @@ import { algorithms } from '@hey/data/algorithms';
 import { HOME } from '@hey/data/tracking';
 import { Toggle, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import type { FC } from 'react';
 import { useEnabledAlgorithmsStore } from '@persisted/useEnabledAlgorithmsStore';
+import type { FC } from 'react';
 
 const List: FC = () => {
   const enabledAlgorithms = useEnabledAlgorithmsStore(

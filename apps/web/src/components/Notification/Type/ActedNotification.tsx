@@ -4,9 +4,9 @@ import { ActedNotification } from '@hey/lens';
 import getPublicationData from '@hey/lib/getPublicationData';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import pushToImpressions from '@lib/pushToImpressions';
-import { Link } from 'react-router-dom';
 import plur from 'plur';
 import type { FC } from 'react';
+import { Link } from 'react-router-dom';
 import { useEffectOnce } from 'usehooks-ts';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';

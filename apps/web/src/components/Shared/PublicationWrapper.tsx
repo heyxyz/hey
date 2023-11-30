@@ -1,8 +1,8 @@
 import type { AnyPublication } from '@hey/lens';
 import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
 import { type FC, type ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface PublicationWrapperProps {
   publication: AnyPublication;

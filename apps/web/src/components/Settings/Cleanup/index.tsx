@@ -5,9 +5,8 @@ import { Localstorage } from '@hey/data/storage';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Button, Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-
-import toast from 'react-hot-toast';
 import useProfileStore from '@persisted/useProfileStore';
+import toast from 'react-hot-toast';
 import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';

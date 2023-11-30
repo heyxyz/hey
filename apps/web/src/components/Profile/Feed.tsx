@@ -1,5 +1,6 @@
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
+import { ProfileFeedType } from '@enums';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication, Profile, PublicationsRequest } from '@hey/lens';
 import {
@@ -10,11 +11,10 @@ import {
 } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { type FC } from 'react';
-import { useInView } from 'react-cool-inview';
-import { ProfileFeedType } from '@enums';
 import { useImpressionsStore } from '@store/non-persisted/useImpressionsStore';
 import { useProfileFeedStore } from '@store/non-persisted/useProfileFeedStore';
+import { type FC } from 'react';
+import { useInView } from 'react-cool-inview';
 
 interface FeedProps {
   profile: Profile;
@@ -34,7 +34,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
   );
 
   const getMediaFilters = () => {
-    let filters: PublicationMetadataMainFocusType[] = [];
+    const filters: PublicationMetadataMainFocusType[] = [];
     if (mediaFeedFilters.images) {
       filters.push(PublicationMetadataMainFocusType.Image);
     }

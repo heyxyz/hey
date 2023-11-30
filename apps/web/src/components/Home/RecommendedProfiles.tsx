@@ -11,11 +11,11 @@ import type { Profile } from '@hey/lens';
 import { useProfileRecommendationsQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
+import useProfileStore from '@persisted/useProfileStore';
+import { useTimelineStore } from '@store/non-persisted/useTimelineStore';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useTimelineStore } from '@store/non-persisted/useTimelineStore';
-import useProfileStore from '@persisted/useProfileStore';
 
 import Suggested from './Suggested';
 

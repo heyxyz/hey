@@ -19,9 +19,8 @@ import {
 } from '@hey/ui';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
-
-import { useState } from 'react';
 import Custom404 from '@pages/404';
+import { useState } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
 
 import Feed from './Feed';

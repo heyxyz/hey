@@ -11,7 +11,7 @@ interface StaffPickedProfileProps {
 const StaffPickedProfile: FC<StaffPickedProfileProps> = ({ id }) => {
   const { data, loading } = useProfileQuery({
     variables: { request: { forProfileId: id } },
-    skip: !Boolean(id)
+    skip: !id
   });
 
   if (loading) {

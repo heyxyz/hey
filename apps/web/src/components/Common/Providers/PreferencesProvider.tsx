@@ -2,13 +2,13 @@ import { HEY_API_URL } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import getCurrentSession from '@lib/getCurrentSession';
+import { useFeatureFlagsStore } from '@persisted/useFeatureFlagsStore';
+import { useVerifiedMembersStore } from '@persisted/useVerifiedMembersStore';
+import { usePreferencesStore } from '@store/non-persisted/usePreferencesStore';
+import { useProStore } from '@store/non-persisted/useProStore';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
-import { usePreferencesStore } from '@store/non-persisted/usePreferencesStore';
-import { useProStore } from '@store/non-persisted/useProStore';
-import { useFeatureFlagsStore } from '@persisted/useFeatureFlagsStore';
-import { useVerifiedMembersStore } from '@persisted/useVerifiedMembersStore';
 import { isAddress } from 'viem';
 
 const PreferencesProvider: FC = () => {

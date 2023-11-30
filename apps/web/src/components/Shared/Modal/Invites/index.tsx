@@ -2,8 +2,8 @@ import Loader from '@components/Shared/Loader';
 import type { InvitedResult } from '@hey/lens';
 import { useInvitedProfilesQuery } from '@hey/lens';
 import { ErrorMessage } from '@hey/ui';
-import type { FC } from 'react';
 import useProfileStore from '@persisted/useProfileStore';
+import type { FC } from 'react';
 
 import Invite from './Invite';
 import Invited from './Invited';

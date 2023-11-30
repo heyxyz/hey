@@ -1,8 +1,8 @@
 import { AUTH } from '@hey/data/tracking';
 import { Button } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC } from 'react';
 import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
+import { type FC } from 'react';
 
 interface LoginButtonProps {
   title?: string;

@@ -8,11 +8,11 @@ import {
 import { BrowserPush } from '@lib/browserPush';
 import getCurrentSession from '@lib/getCurrentSession';
 import getPushNotificationData from '@lib/getPushNotificationData';
-import { type FC } from 'react';
-import { isSupported, share } from 'shared-zustand';
-import { useNonceStore } from '@store/non-persisted/useNonceStore';
 import { signOut } from '@persisted/useAuthStore';
 import { useNotificationStore } from '@persisted/useNotificationStore';
+import { useNonceStore } from '@store/non-persisted/useNonceStore';
+import { type FC } from 'react';
+import { isSupported, share } from 'shared-zustand';
 import { useUpdateEffect } from 'usehooks-ts';
 import { isAddress } from 'viem';
 import { useAccount } from 'wagmi';
@@ -94,7 +94,7 @@ const LensSubscriptionsProvider: FC = () => {
         data.userSigNonces.lensPublicActProxyOnchainSigNonce
       );
     },
-    skip: Boolean(sessionProfileId) ? !isAddress(sessionProfileId) : true
+    skip: sessionProfileId ? !isAddress(sessionProfileId) : true
   });
 
   // Sync zustand stores between tabs

@@ -2,9 +2,9 @@ import { POLYGONSCAN_URL } from '@hey/data/constants';
 import type { ApprovedAllowanceAmountResult } from '@hey/lens';
 import { Card } from '@hey/ui';
 import getAllowanceModule from '@lib/getAllowanceModule';
-import { Link } from 'react-router-dom';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import AllowanceButton from './Button';
 

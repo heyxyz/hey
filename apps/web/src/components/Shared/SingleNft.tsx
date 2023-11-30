@@ -1,9 +1,9 @@
+import { CHAIN_ID } from '@constants';
 import { PLACEHOLDER_IMAGE, RARIBLE_URL } from '@hey/data/constants';
 import type { Nft } from '@hey/lens';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import { Card } from '@hey/ui';
 import { type FC } from 'react';
-import { CHAIN_ID } from '@constants';
 
 interface SingleNftProps {
   nft: Nft;

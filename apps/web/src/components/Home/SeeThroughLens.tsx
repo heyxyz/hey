@@ -21,11 +21,11 @@ import getProfile from '@hey/lib/getProfile';
 import { Image, Input, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
+import useProfileStore from '@persisted/useProfileStore';
+import { useTimelineStore } from '@store/non-persisted/useTimelineStore';
 import { motion } from 'framer-motion';
 import type { ChangeEvent, FC } from 'react';
 import { Fragment, useState } from 'react';
-import { useTimelineStore } from '@store/non-persisted/useTimelineStore';
-import useProfileStore from '@persisted/useProfileStore';
 
 const SeeThroughLens: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
@@ -41,8 +41,8 @@ const SeeThroughLens: FC = () => {
   const [searchText, setSearchText] = useState('');
 
   const setRecommendedProfiles = (feedItems: FeedItem[]) => {
-    let uniqueProfileIds: string[] = [];
-    let profiles: Profile[] = [];
+    const uniqueProfileIds: string[] = [];
+    const profiles: Profile[] = [];
     for (const feedItem of feedItems) {
       const profileId = feedItem.root.by.id;
       if (

@@ -1,3 +1,4 @@
+import { NotificationTabType } from '@enums';
 import { BellIcon } from '@heroicons/react/24/outline';
 import type {
   ActedNotification as ActedNotificationType,
@@ -15,12 +16,11 @@ import {
   useNotificationsQuery
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
+import { useNotificationStore } from '@persisted/useNotificationStore';
+import { usePreferencesStore } from '@store/non-persisted/usePreferencesStore';
 import { motion } from 'framer-motion';
 import { type FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
-import { NotificationTabType } from '@enums';
-import { usePreferencesStore } from '@store/non-persisted/usePreferencesStore';
-import { useNotificationStore } from '@persisted/useNotificationStore';
 import { useUpdateEffect } from 'usehooks-ts';
 
 import NotificationShimmer from './Shimmer';

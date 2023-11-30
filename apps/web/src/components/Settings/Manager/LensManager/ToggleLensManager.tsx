@@ -13,11 +13,11 @@ import { Button, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
+import useProfileStore from '@persisted/useProfileStore';
+import { useNonceStore } from '@store/non-persisted/useNonceStore';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useNonceStore } from '@store/non-persisted/useNonceStore';
-import useProfileStore from '@persisted/useProfileStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface ToggleLensManagerProps {

@@ -3,7 +3,7 @@ declare let self: ServiceWorkerGlobalScope;
 const impressionsEndpoint = 'https://api.hey.xyz/leafwatch/impressions';
 const publicationsVisibilityInterval = 5000;
 let viewerId: string | null = null;
-let visiblePublicationsSet = new Set();
+const visiblePublicationsSet = new Set();
 
 const sendVisiblePublicationsToServer = () => {
   const publicationsToSend = Array.from(visiblePublicationsSet);

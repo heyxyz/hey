@@ -1,5 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
+import { ProfileFeedType } from '@enums';
 import {
   APP_NAME,
   HANDLE_PREFIX,
@@ -12,12 +13,13 @@ import { FollowModuleType, useProfileQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { GridItemEight, GridItemFour, GridLayout, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { useState } from 'react';
-import { ProfileFeedType } from '@enums';
 import Custom404 from '@pages/404';
 import Custom500 from '@pages/500';
 import useProfileStore from '@persisted/useProfileStore';
+import { useState } from 'react';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
+
 import Achievements from './Achievements';
 import Cover from './Cover';
 import Details from './Details';
@@ -26,7 +28,6 @@ import FeedType from './FeedType';
 import FollowDialog from './FollowDialog';
 import NftGallery from './NftGallery';
 import ProfilePageShimmer from './Shimmer';
-import { useParams, useSearchParams } from 'react-router-dom';
 
 const ViewProfile = () => {
   const isReady = true;

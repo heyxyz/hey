@@ -38,6 +38,7 @@ import {
   TextArea,
   useZodForm
 } from '@hey/ui';
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
 import type {
   MetadataAttribute,
   ProfileOptions
@@ -50,11 +51,10 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
 import uploadToArweave from '@lib/uploadToArweave';
+import useProfileStore from '@persisted/useProfileStore';
 import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
-import useProfileStore from '@persisted/useProfileStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import type { z } from 'zod';
 import { object, string, union } from 'zod';

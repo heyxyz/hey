@@ -4,9 +4,9 @@ import { NoSymbolIcon } from '@heroicons/react/24/outline';
 import type { Profile, WhoHaveBlockedRequest } from '@hey/lens';
 import { LimitType, useWhoHaveBlockedQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
+import useProfileStore from '@persisted/useProfileStore';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
-import useProfileStore from '@persisted/useProfileStore';
 
 const List: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);

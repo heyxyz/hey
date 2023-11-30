@@ -1,8 +1,9 @@
-import Custom404 from '@pages/404';
 import Providers from '@components/Common/Providers';
+import Custom404 from '@pages/404';
 import { Outlet, Route, Routes } from 'react-router-dom';
 
 import Bookmarks from './pages/bookmarks';
+import Explore from './pages/explore';
 import GroupHandler from './pages/g/[slug]';
 import Homepage from './pages/index';
 import Mod from './pages/mod';
@@ -29,7 +30,6 @@ import SettingsSessions from './pages/settings/sessions';
 import Terms from './pages/terms';
 import Thanks from './pages/thanks';
 import UserHandler from './pages/u/[handle]';
-import Explore from './pages/explore';
 
 function Layout() {
   return <Outlet />;

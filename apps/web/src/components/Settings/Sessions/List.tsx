@@ -11,11 +11,11 @@ import { Button, Card, EmptyState, ErrorMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { formatDate } from '@lib/formatTime';
 import { Leafwatch } from '@lib/leafwatch';
+import useProfileStore from '@persisted/useProfileStore';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import toast from 'react-hot-toast';
-import useProfileStore from '@persisted/useProfileStore';
 
 const List: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);

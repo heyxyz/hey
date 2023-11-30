@@ -1,9 +1,9 @@
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { Modal, Tooltip } from '@hey/ui';
+import { useCollectModuleStore } from '@store/non-persisted/useCollectModuleStore';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useCollectModuleStore } from '@store/non-persisted/useCollectModuleStore';
 
 import CollectForm from './CollectForm';
 

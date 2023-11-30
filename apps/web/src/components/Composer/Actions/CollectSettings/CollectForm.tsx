@@ -6,8 +6,8 @@ import {
 } from '@hey/lens';
 import type { CollectModuleType } from '@hey/types/hey';
 import { Button, ErrorMessage, Spinner } from '@hey/ui';
-import { type Dispatch, type FC, type SetStateAction } from 'react';
 import { useCollectModuleStore } from '@store/non-persisted/useCollectModuleStore';
+import { type Dispatch, type FC, type SetStateAction } from 'react';
 import { isAddress } from 'viem';
 
 import AmountConfig from './AmountConfig';

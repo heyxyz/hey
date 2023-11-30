@@ -29,10 +29,10 @@ import humanize from '@hey/lib/humanize';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Modal, Tooltip } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
-import { Link } from 'react-router-dom';
 import plur from 'plur';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import CollectAction from './CollectAction';
 import Splits from './Splits';
@@ -75,7 +75,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
 
   return (
     <>
-      {Boolean(collectLimit) ? (
+      {collectLimit ? (
         <Tooltip
           placement="top"
           content={`${percentageCollected.toFixed(0)}% Collected`}

@@ -1,7 +1,7 @@
 import { BookmarkIcon } from '@heroicons/react/24/outline';
 import cn from '@hey/ui/cn';
-import { Link } from 'react-router-dom';
 import { type FC } from 'react';
+import { Link } from 'react-router-dom';
 
 interface BookmarksProps {
   onClick?: () => void;

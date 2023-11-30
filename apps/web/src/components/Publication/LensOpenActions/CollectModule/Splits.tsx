@@ -6,8 +6,8 @@ import formatAddress from '@hey/lib/formatAddress';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import getStampFyiURL from '@hey/lib/getStampFyiURL';
-import { Link } from 'react-router-dom';
 import { type FC } from 'react';
+import { Link } from 'react-router-dom';
 
 interface SplitsProps {
   recipients: RecipientDataOutput[];

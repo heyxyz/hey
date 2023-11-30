@@ -1,8 +1,8 @@
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import truncateUrl from '@hey/lib/truncateUrl';
 import type { MarkupLinkProps } from '@hey/types/misc';
-import { Link } from 'react-router-dom';
 import { type FC } from 'react';
+import { Link } from 'react-router-dom';
 
 const ExternalLink: FC<MarkupLinkProps> = ({ title }) => {
   let href = title;

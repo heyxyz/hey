@@ -3,13 +3,13 @@ import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import type { Profile } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import cn from '@hey/ui/cn';
-import { Link } from 'react-router-dom';
-import { useLocation, useNavigate } from 'react-router-dom';
-import type { FC } from 'react';
-import { useState } from 'react';
-import { usePreferencesStore } from '@store/non-persisted/usePreferencesStore';
 import { useFeatureFlagsStore } from '@persisted/useFeatureFlagsStore';
 import useProfileStore from '@persisted/useProfileStore';
+import { usePreferencesStore } from '@store/non-persisted/usePreferencesStore';
+import type { FC } from 'react';
+import { useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+
 import MenuItems from './MenuItems';
 import MoreNavItems from './MoreNavItems';
 import Search from './Search';

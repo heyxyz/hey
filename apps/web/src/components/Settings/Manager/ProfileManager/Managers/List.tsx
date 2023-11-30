@@ -15,14 +15,14 @@ import { useApolloClient } from '@hey/lens/apollo';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { Button, EmptyState, ErrorMessage, Spinner } from '@hey/ui';
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
+import useProfileStore from '@persisted/useProfileStore';
+import { useNonceStore } from '@store/non-persisted/useNonceStore';
 import { type FC, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import toast from 'react-hot-toast';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
-import { useNonceStore } from '@store/non-persisted/useNonceStore';
-import useProfileStore from '@persisted/useProfileStore';
 import type { Address } from 'viem';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 

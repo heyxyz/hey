@@ -10,9 +10,9 @@ import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { getTwitterFormat } from '@lib/formatTime';
 import isVerified from '@lib/isVerified';
-import { Link } from 'react-router-dom';
 import type { FC } from 'react';
 import { memo } from 'react';
+import { Link } from 'react-router-dom';
 
 import Slug from './Slug';
 

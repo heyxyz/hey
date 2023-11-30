@@ -7,9 +7,8 @@ import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import getCurrentSession from '@lib/getCurrentSession';
 import { Leafwatch } from '@lib/leafwatch';
-
-import { useState } from 'react';
 import useProfileStore from '@persisted/useProfileStore';
+import { useState } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
 
 import AlgorithmicFeed from './AlgorithmicFeed';

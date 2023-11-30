@@ -10,9 +10,9 @@ import { ONBOARDING } from '@hey/data/tracking';
 import { Card } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { Link } from 'react-router-dom';
-import { type FC } from 'react';
 import useProfileStore from '@persisted/useProfileStore';
+import { type FC } from 'react';
+import { Link } from 'react-router-dom';
 
 interface StatusProps {
   finished: boolean;

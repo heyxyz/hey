@@ -6,13 +6,13 @@ import type { AnyPublication, FeedItem, FeedRequest } from '@hey/lens';
 import { FeedEventItemType, useFeedQuery } from '@hey/lens';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { type FC, memo } from 'react';
-import { useInView } from 'react-cool-inview';
-import { useImpressionsStore } from '@store/non-persisted/useImpressionsStore';
-import { useTimelineStore } from '@store/non-persisted/useTimelineStore';
 import useProfileStore from '@persisted/useProfileStore';
 import { useTimelineFilterStore } from '@persisted/useTimelineFilterStore';
 import { useTransactionStore } from '@persisted/useTransactionStore';
+import { useImpressionsStore } from '@store/non-persisted/useImpressionsStore';
+import { useTimelineStore } from '@store/non-persisted/useTimelineStore';
+import { type FC, memo } from 'react';
+import { useInView } from 'react-cool-inview';
 
 const Timeline: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
