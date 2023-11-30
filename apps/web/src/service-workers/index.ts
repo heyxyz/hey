@@ -1,12 +1,9 @@
 declare let self: ServiceWorkerGlobalScope;
 
-const CACHE_NAME_PREFIX = 'my-cache';
-// @ts-ignore
-const FILES_TO_CACHE_WITH_SW = SW_CACHE_JSON.split(',');
+const CACHE_NAME_PREFIX = '_hey_cache';
 // @ts-ignore
 const CACHE_VERSION = `v${SW_UNQIUE_BUILD_ID}`;
-const CACHE_NAME = `${CACHE_NAME_PREFIX}-${CACHE_VERSION}`;
-const assetPathPrefix = '/assets/';
+const CACHE_NAME = `${CACHE_NAME_PREFIX}_${CACHE_VERSION}`;
 
 const impressionsEndpoint = 'https://api.hey.xyz/leafwatch/impressions';
 const publicationsVisibilityInterval = 5000;
@@ -64,13 +61,8 @@ self.addEventListener('fetch', (event) => {
         }
         // Clone the response because it's a stream and can only be consumed once
         const responseToCache = fetchResponse.clone();
-        // Dynamically cache assets with the "/assets/" path
-        if (
-          FILES_TO_CACHE_WITH_SW.includes(
-            new URL(event.request.url).pathname
-          ) &&
-          event.request.url.includes(assetPathPrefix)
-        ) {
+        // Cache everything that has the header immutable in it
+        if (fetchResponse.headers.get('Cache-Control')?.includes('immutable')) {
           caches.open(CACHE_NAME).then((cache) => {
             cache.put(event.request, fetchResponse);
           });
