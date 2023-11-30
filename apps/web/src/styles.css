@@ -38,7 +38,10 @@ html {
 body {
   @apply bg-gray-50;
   @apply dark:bg-black;
-  font-family: Sofia Pro, _font_fallback, sans-serif;
+  font-family:
+    Sofia Pro,
+    _font_fallback,
+    sans-serif;
 }
 
 .shimmer {
