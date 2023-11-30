@@ -6,13 +6,12 @@ import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
-import type { NextPage } from 'next';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import StaffSidebar from './Sidebar';
 
-const Staff: NextPage = () => {
+const Staff = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
   useEffectOnce(() => {

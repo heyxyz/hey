@@ -53,7 +53,7 @@ const StaffBar: FC = () => {
           </Link>
         ) : null}
       </div>
-      <Link href="/staff" className="flex items-center space-x-2">
+      <Link to="/staff" className="flex items-center space-x-2">
         <ShieldCheckIcon className="h-4 w-4 text-green-600" />
         <span className="hidden sm:block">Dashboard</span>
       </Link>
