@@ -39,7 +39,9 @@ function optimizeFontSteps(singleFamilyFont, $) {
   // Set font-family and fallback font on HTML
   $('head').prepend(
     `<style>
-      ${singleFamilyFont.selector} { font-family: ${fallbackFont.fontName}, ${fallbackName}, ${singleFamilyFont.fallback}; }
+      ${singleFamilyFont.selector} {
+        font-family: ${fallbackFont.fontName}, ${fallbackName}, ${singleFamilyFont.fallback};
+      }
       @font-face {
         font-family: ${fallbackName};
         size-adjust: ${fallbackFont.sizeAdjust};
