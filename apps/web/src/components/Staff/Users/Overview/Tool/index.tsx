@@ -12,15 +12,15 @@ import type { Profile } from '@hey/lens';
 import getPreferences from '@hey/lib/api/getPreferences';
 import formatAddress from '@hey/lib/formatAddress';
 import getFollowModule from '@hey/lib/getFollowModule';
-import { Card } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
 import { Link } from 'react-router-dom';
 
+import UserProfile from '@/components/Shared/UserProfile';
 import getAuthWorkerHeaders from '@/lib/getAuthWorkerHeaders';
 
-import MetaDetails from '../MetaDetails';
+import MetaDetails from '../../../../Shared/Staff/MetaDetails';
 import Access from './Access';
 import FeatureFlags from './FeatureFlags';
 import ProfileDetails from './ProfileDetails';
@@ -48,20 +48,24 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
     queryFn: getHaveUsedHey
   });
 
-  const { data: preferences, isLoading: preferencesLoading } = useQuery({
+  const { data: preferences } = useQuery({
     queryKey: ['fetchPreferences', profile.id || ''],
     queryFn: () => getPreferences(profile.id, getAuthWorkerHeaders())
   });
 
   return (
-    <Card
-      as="aside"
-      className="mt-5 border-yellow-400 !bg-yellow-300/20 p-5"
-      forceRounded
-    >
+    <div>
+      <UserProfile
+        profile={profile}
+        isBig
+        showBio
+        linkToProfile
+        showUserPreview={false}
+      />
+      <div className="divider my-5 border-dashed border-yellow-600" />
       <div className="flex items-center space-x-2 text-yellow-600">
         <ShieldCheckIcon className="h-5 w-5" />
-        <div className="text-lg font-bold">Staff tool</div>
+        <div className="text-lg font-bold">Profile Overview</div>
       </div>
       <div className="mt-3 space-y-2">
         {haveUsedHey ? (
@@ -139,12 +143,8 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         </>
       ) : null}
       <Access profile={profile} isPro={preferences?.pro?.enabled || false} />
-      <FeatureFlags
-        profile={profile}
-        features={preferences?.features || []}
-        loading={preferencesLoading}
-      />
-    </Card>
+      <FeatureFlags profile={profile} features={preferences?.features || []} />
+    </div>
   );
 };
 

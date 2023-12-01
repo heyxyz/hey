@@ -14,9 +14,8 @@ import { type FC } from 'react';
 // @ts-ignore
 import urlcat from 'urlcat';
 
+import MetaDetails from '@/components/Shared/Staff/MetaDetails';
 import { formatDate } from '@/lib/formatTime';
-
-import MetaDetails from '../MetaDetails';
 
 interface RankProps {
   profile: Profile;

@@ -18,7 +18,7 @@ import { Leafwatch } from '@/lib/leafwatch';
 import { useTimelineStore } from '@/store/non-persisted/useTimelineStore';
 import useProfileStore from '@/store/persisted/useProfileStore';
 
-import Suggested from './Suggested';
+import Suggested from '../Suggested';
 
 const Title = () => {
   return (

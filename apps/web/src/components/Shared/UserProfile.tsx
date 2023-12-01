@@ -31,7 +31,6 @@ interface UserProfileProps {
   showBio?: boolean;
   showFollow?: boolean;
   showUnfollow?: boolean;
-  showStatus?: boolean;
   showUserPreview?: boolean;
   timestamp?: Date;
 

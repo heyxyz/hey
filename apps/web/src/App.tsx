@@ -28,6 +28,8 @@ import SettingsInterests from './pages/settings/interests';
 import SettingsManager from './pages/settings/manager';
 import SettingsPreferences from './pages/settings/preferences';
 import SettingsSessions from './pages/settings/sessions';
+import StaffHome from './pages/staff/index';
+import StaffUsers from './pages/staff/users/index';
 import Terms from './pages/terms';
 import Thanks from './pages/thanks';
 import UserHandler from './pages/u/[handle]';
@@ -71,6 +73,11 @@ export default function App() {
             <Route path="manager" element={<SettingsManager />} />
             <Route path="preferences" element={<SettingsPreferences />} />
             <Route path="sessions" element={<SettingsSessions />} />
+          </Route>
+          <Route path="staff" element={<Layout />}>
+            <Route index element={<StaffHome />} />
+            <Route path="users" element={<StaffUsers />} />
+            <Route path="users/:id" element={<StaffUsers />} />
           </Route>
           <Route path="*" element={<Custom404 />} />
         </Route>

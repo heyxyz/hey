@@ -34,23 +34,31 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
 
   const toggleStaffMode = async () => {
     const authAndSetStaffMode = async () => {
-      if (!preferences.email) {
-        return toast.error('Please set your email first!');
-      }
-
       try {
         if (!staffMode) {
-          await magic?.auth.loginWithMagicLink({
+          if (!preferences.email) {
+            throw new Error();
+          }
+
+          const response = await magic?.auth.loginWithMagicLink({
             email: preferences.email
           });
+
+          if (!response) {
+            throw new Error();
+          }
         }
-        await axios.get(`${HEY_API_URL}/internal/feature/getStaffMode`, {
-          headers: getAuthWorkerHeaders()
-        });
+
+        await axios.post(
+          `${HEY_API_URL}/internal/feature/updateStaffMode`,
+          { enabled: !staffMode },
+          { headers: getAuthWorkerHeaders() }
+        );
       } catch (error) {
         throw error;
       }
     };
+
     toast.promise(authAndSetStaffMode(), {
       loading: 'Toggling staff mode...',
       success: () => {
