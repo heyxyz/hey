@@ -3,7 +3,8 @@
   "compilerOptions": {
     "composite": true,
     "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "noEmit": false
   },
   "include": ["vite.config.ts", "src/vite-env.d.ts"]
 }
