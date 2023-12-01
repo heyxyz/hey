@@ -10,6 +10,7 @@ import { useFeatureFlagsStore } from '@/store/persisted/useFeatureFlagsStore';
 import useProfileStore from '@/store/persisted/useProfileStore';
 
 import StaffSidebar from '../Sidebar';
+import List from './List';
 
 const Users = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
@@ -30,7 +31,7 @@ const Users = () => {
         <StaffSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        <Card className="p-5">Users WIP</Card>
+        <List />
       </GridItemEight>
     </GridLayout>
   );
