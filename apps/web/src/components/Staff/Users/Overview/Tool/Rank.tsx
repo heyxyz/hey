@@ -14,7 +14,7 @@ import axios from 'axios';
 import { type FC } from 'react';
 import urlcat from 'urlcat';
 
-import MetaDetails from '../MetaDetails';
+import MetaDetails from '../../../../Shared/Staff/MetaDetails';
 
 interface RankProps {
   profile: Profile;
