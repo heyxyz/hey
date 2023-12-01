@@ -7,7 +7,7 @@
   ],
   "headers": [
     {
-      "source": "/:path*",
+      "source": "/:path*/:file.:ext(js|mjs|cjs|css|png|ico|svg|jpg|jpeg|gif|ttf|woff|woff2|otf)",
       "headers": [
         {
           "key": "Cache-Control",
