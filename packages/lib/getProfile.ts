@@ -9,13 +9,15 @@ const getProfile = (
   slugWithPrefix: string;
   displayName: string;
   link: string;
+  staffLink?: string;
 } => {
   if (!profile) {
     return {
       slug: '...',
       slugWithPrefix: '...',
       displayName: '...',
-      link: ''
+      link: '',
+      staffLink: ''
     };
   }
 
@@ -28,7 +30,8 @@ const getProfile = (
     displayName: sanitizeDisplayName(profile.metadata?.displayName) || slug,
     link: profile.handle
       ? `/u/${profile.handle.localName}`
-      : `/profile/${profile.id}`
+      : `/profile/${profile.id}`,
+    staffLink: `/staff/users/${profile.id}`
   };
 };
 

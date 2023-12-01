@@ -2,7 +2,6 @@ const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  productionBrowserSourceMaps: true,
   transpilePackages: ['data'],
   reactStrictMode: false,
   experimental: { scrollRestoration: true },
@@ -10,7 +9,7 @@ const nextConfig = {
     return [
       {
         source: '/sitemaps/:match*',
-        destination: 'https://sitemap.hey.xyz/:match*'
+        destination: 'https://api.hey.xyz/sitemap/:match*'
       }
     ];
   },
@@ -27,9 +26,14 @@ const nextConfig = {
         permanent: true
       },
       {
+        source: '/u/lens/:username*',
+        destination: '/u/:username*',
+        permanent: true
+      },
+      {
         source: '/gitcoin',
         destination:
-          'https://explorer.gitcoin.co/#/round/10/0x8de918f0163b2021839a8d84954dd7e8e151326d/0x8de918f0163b2021839a8d84954dd7e8e151326d-2',
+          'https://explorer.gitcoin.co/#/round/424/0xd4cc0dd193c7dc1d665ae244ce12d7fab337a008/0xd4cc0dd193c7dc1d665ae244ce12d7fab337a008-4',
         permanent: true
       }
     ];

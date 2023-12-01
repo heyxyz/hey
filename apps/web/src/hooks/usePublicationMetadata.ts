@@ -1,10 +1,8 @@
 import { APP_NAME } from '@hey/data/constants';
-import getEmbed from '@hey/lib/embeds/getEmbed';
 import getURLs from '@hey/lib/getURLs';
 import getNft from '@hey/lib/nft/getNft';
 import {
   audio,
-  embed,
   image,
   liveStream,
   mint,
@@ -13,7 +11,7 @@ import {
 } from '@lens-protocol/metadata';
 import getUserLocale from '@lib/getUserLocale';
 import { useCallback } from 'react';
-import { usePublicationStore } from 'src/store/usePublicationStore';
+import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 import { v4 as uuid } from 'uuid';
 
 interface UsePublicationMetadataProps {
@@ -28,9 +26,6 @@ const usePublicationMetadata = () => {
   const videoThumbnail = usePublicationStore((state) => state.videoThumbnail);
   const videoDurationInSeconds = usePublicationStore(
     (state) => state.videoDurationInSeconds
-  );
-  const publicationContent = usePublicationStore(
-    (state) => state.publicationContent
   );
   const showLiveVideoEditor = usePublicationStore(
     (state) => state.showLiveVideoEditor
@@ -48,14 +43,13 @@ const usePublicationMetadata = () => {
 
   const getMetadata = useCallback(
     ({ baseMetadata }: UsePublicationMetadataProps) => {
-      const urls = getURLs(publicationContent);
+      const urls = getURLs(baseMetadata.content);
 
       const hasAttachments = attachments.length;
       const isImage = attachments[0]?.type === 'Image';
       const isAudio = attachments[0]?.type === 'Audio';
       const isVideo = attachments[0]?.type === 'Video';
       const isMint = Boolean(getNft(urls)?.mintLink);
-      const isEmbed = Boolean(getEmbed(urls)?.embed);
       const isLiveStream = Boolean(showLiveVideoEditor && liveVideoConfig.id);
 
       const localBaseMetadata = {
@@ -77,13 +71,6 @@ const usePublicationMetadata = () => {
             ...localBaseMetadata,
             ...(hasAttachments && { attachments: attachmentsToBeUploaded }),
             mintLink: getNft(urls)?.mintLink
-          });
-        case isEmbed:
-          return embed({
-            ...baseMetadata,
-            ...localBaseMetadata,
-            ...(hasAttachments && { attachments: attachmentsToBeUploaded }),
-            embed: getEmbed(urls)?.embed
           });
         case isLiveStream:
           return liveStream({
@@ -140,7 +127,6 @@ const usePublicationMetadata = () => {
       videoDurationInSeconds,
       audioPublication,
       cover,
-      publicationContent,
       showLiveVideoEditor,
       liveVideoConfig
     ]

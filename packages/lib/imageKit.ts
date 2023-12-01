@@ -16,7 +16,7 @@ const imageKit = (url: string, name?: string): string => {
     const splitedUrl = url.split('/');
     const path = splitedUrl[splitedUrl.length - 1];
 
-    return name ? `${LENS_MEDIA_SNAPSHOT_URL}/${name}/${path}` : url;
+    return name ? `${LENS_MEDIA_SNAPSHOT_URL}/${name},q-80/${path}` : url;
   }
 
   return url;

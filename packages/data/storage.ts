@@ -5,6 +5,13 @@ export const Localstorage = {
   NotificationStore: 'notification.store',
   TransactionStore: 'transaction.store',
   TimelineStore: 'timeline.store',
-  AlgorithmStore: 'algorithm.store',
   LeafwatchStore: 'leafwatch.store'
+};
+
+export const IndexDB = {
+  ProfileStore: 'profile.store',
+  AlgorithmStore: 'algorithm.store',
+  FeatureFlagsStore: 'featureflags.store',
+  VerifiedMembersStore: 'verifiedmembers.store',
+  FeaturedGroupsStore: 'featuredgroups.store'
 };

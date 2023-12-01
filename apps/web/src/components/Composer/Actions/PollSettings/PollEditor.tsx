@@ -4,7 +4,7 @@ import { Button, Card, Input, Modal, Tooltip } from '@hey/ui';
 import plur from 'plur';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { usePublicationStore } from 'src/store/usePublicationStore';
+import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 
 const PollEditor: FC = () => {
   const setShowPollEditor = usePublicationStore(
@@ -88,24 +88,24 @@ const PollEditor: FC = () => {
         </div>
       </div>
       <div className="mt-3 space-y-2">
-        {pollConfig.choices.map((choice, index) => (
+        {pollConfig.options.map((choice, index) => (
           <div key={index} className="flex items-center space-x-2 text-sm">
             <Input
               placeholder={`Choice ${index + 1}`}
               value={choice}
               onChange={(event) => {
-                const newChoices = [...pollConfig.choices];
-                newChoices[index] = event.target.value;
-                setPollConfig({ ...pollConfig, choices: newChoices });
+                const newOptions = [...pollConfig.options];
+                newOptions[index] = event.target.value;
+                setPollConfig({ ...pollConfig, options: newOptions });
               }}
               iconRight={
                 index > 1 ? (
                   <button
                     className="flex"
                     onClick={() => {
-                      const newChoices = [...pollConfig.choices];
-                      newChoices.splice(index, 1);
-                      setPollConfig({ ...pollConfig, choices: newChoices });
+                      const newOptions = [...pollConfig.options];
+                      newOptions.splice(index, 1);
+                      setPollConfig({ ...pollConfig, options: newOptions });
                     }}
                   >
                     <XMarkIcon className="h-5 w-5 text-red-500" />
@@ -115,13 +115,13 @@ const PollEditor: FC = () => {
             />
           </div>
         ))}
-        {pollConfig.choices.length !== 10 ? (
+        {pollConfig.options.length !== 10 ? (
           <button
             className="text-brand-500 mt-2 flex items-center space-x-2 text-sm"
             onClick={() => {
-              const newChoices = [...pollConfig.choices];
-              newChoices.push('');
-              setPollConfig({ ...pollConfig, choices: newChoices });
+              const newOptions = [...pollConfig.options];
+              newOptions.push('');
+              setPollConfig({ ...pollConfig, options: newOptions });
             }}
           >
             <PlusIcon className="h-4 w-4" />

@@ -2,7 +2,7 @@ import { AUTH } from '@hey/data/tracking';
 import { Button } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { type FC } from 'react';
-import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 
 interface LoginButtonProps {
   title?: string;
@@ -24,6 +24,7 @@ const LoginButton: FC<LoginButtonProps> = ({
         <img
           className="mr-0.5 h-3"
           height={12}
+          width={19}
           src="/lens.svg"
           alt="Lens Logo"
         />

@@ -2,9 +2,7 @@ import { PLACEHOLDER_IMAGE } from '@hey/data/constants';
 import type { PublicationMetadata } from '@hey/lens';
 import type { MetadataAsset } from '@hey/types/misc';
 
-import { knownEmbedHostnames } from './embeds/getEmbed';
 import getAttachmentsData from './getAttachmentsData';
-import { knownMintHostnames } from './nft/getNft';
 import removeUrlsByHostnames from './removeUrlsByHostnames';
 
 const getPublicationData = (
@@ -69,12 +67,10 @@ const getPublicationData = (
       };
     case 'MintMetadataV3':
       return {
-        content: removeUrlsByHostnames(metadata.content, knownMintHostnames),
-        attachments: getAttachmentsData(metadata.attachments)
-      };
-    case 'EmbedMetadataV3':
-      return {
-        content: removeUrlsByHostnames(metadata.content, knownEmbedHostnames),
+        content: removeUrlsByHostnames(
+          metadata.content,
+          new Set(['basepaint.art', 'unlonely.app'])
+        ),
         attachments: getAttachmentsData(metadata.attachments)
       };
     case 'LiveStreamMetadataV3':

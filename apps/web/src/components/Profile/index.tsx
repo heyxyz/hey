@@ -18,7 +18,7 @@ import { useState } from 'react';
 import { ProfileFeedType } from 'src/enums';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
-import { useAppStore } from 'src/store/useAppStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
 import Achievements from './Achievements';
@@ -35,7 +35,7 @@ const ViewProfile: NextPage = () => {
     query: { handle, id, type, followIntent },
     isReady
   } = useRouter();
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'profile' });

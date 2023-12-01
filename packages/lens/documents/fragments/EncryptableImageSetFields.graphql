@@ -1,0 +1,5 @@
+fragment EncryptableImageSetFields on EncryptableImageSet {
+  optimized {
+    uri
+  }
+}

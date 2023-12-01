@@ -14,8 +14,8 @@ import cn from '@hey/ui/cn';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useAppStore } from 'src/store/useAppStore';
-import { useNftGalleryStore } from 'src/store/useNftGalleryStore';
+import { useNftGalleryStore } from 'src/store/non-persisted/useNftGalleryStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import Picker from './Picker';
 import ReviewSelection from './ReviewSelection';
@@ -35,7 +35,7 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
   const [currentStep, setCurrentStep] = useState<CreateSteps>(CreateSteps.NAME);
   const gallery = useNftGalleryStore((state) => state.gallery);
   const setGallery = useNftGalleryStore((state) => state.setGallery);
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
 
   const { cache } = useApolloClient();
   const [createGallery, { loading }] = useCreateNftGalleryMutation();

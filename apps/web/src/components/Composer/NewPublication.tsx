@@ -30,6 +30,7 @@ import type { IGif } from '@hey/types/giphy';
 import type { NewAttachment } from '@hey/types/misc';
 import { Button, Card, ErrorMessage, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import { MetadataAttributeType } from '@lens-protocol/metadata';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import errorToast from '@lib/errorToast';
@@ -47,12 +48,12 @@ import useCreatePoll from 'src/hooks/useCreatePoll';
 import useCreatePublication from 'src/hooks/useCreatePublication';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import usePublicationMetadata from 'src/hooks/usePublicationMetadata';
-import { useAppStore } from 'src/store/useAppStore';
-import { useCollectModuleStore } from 'src/store/useCollectModuleStore';
-import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
-import { useNonceStore } from 'src/store/useNonceStore';
-import { usePublicationStore } from 'src/store/usePublicationStore';
-import { useReferenceModuleStore } from 'src/store/useReferenceModuleStore';
+import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
+import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
 import LivestreamSettings from './Actions/LivestreamSettings';
@@ -97,7 +98,7 @@ interface NewPublicationProps {
 }
 
 const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
 
   const targetPublication = isMirrorPublication(publication)
@@ -354,19 +355,34 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         );
       }
 
-      let processedPublicationContent =
-        publicationContent.length > 0 ? publicationContent : undefined;
-
+      let pollId;
       if (showPollEditor) {
-        processedPublicationContent = await createPoll();
+        pollId = await createPoll();
       }
+
+      const processedPublicationContent =
+        publicationContent.length > 0 ? publicationContent : undefined;
       const title = hasAudio
         ? audioPublication.title
         : `${getTitlePrefix()} by ${getProfile(currentProfile).slugWithPrefix}`;
+      const hasAttributes = Boolean(pollId);
 
       const baseMetadata = {
         title,
         content: processedPublicationContent,
+        ...(hasAttributes && {
+          attributes: [
+            ...(pollId
+              ? [
+                  {
+                    key: 'pollId',
+                    value: pollId,
+                    type: MetadataAttributeType.STRING
+                  }
+                ]
+              : [])
+          ]
+        }),
         marketplace: {
           name: title,
           description: processedPublicationContent,
@@ -511,8 +527,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   };
 
   const isSubmitDisabledByPoll = showPollEditor
-    ? !pollConfig.choices.length ||
-      pollConfig.choices.some((choice) => !choice.length)
+    ? !pollConfig.options.length ||
+      pollConfig.options.some((option) => !option.length)
     : false;
 
   const onDiscardClick = () => {

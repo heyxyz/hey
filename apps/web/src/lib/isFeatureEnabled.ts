@@ -1,21 +1,22 @@
 import type { FeatureFlag } from '@hey/data/feature-flags';
-import { featureFlags } from 'src/store/useFeatureFlagsStore';
+import { hydrateFeatureFlags } from 'src/store/persisted/useFeatureFlagsStore';
 
-import getCurrentSessionProfileId from './getCurrentSessionProfileId';
+import getCurrentSession from './getCurrentSession';
 
 /**
  * Checks if a feature is enabled for the current user
  * @param key The feature flag key
  * @returns Whether the feature is enabled
  */
-const isFeatureEnabled = (key: FeatureFlag) => {
-  const currentSessionProfileId = getCurrentSessionProfileId();
+const isFeatureEnabled = (key: FeatureFlag | string) => {
+  const { id: sessionProfileId } = getCurrentSession();
+  const { featureFlags } = hydrateFeatureFlags();
 
-  if (!currentSessionProfileId) {
+  if (!sessionProfileId) {
     return false;
   }
 
-  return featureFlags().includes(key);
+  return featureFlags.includes(key);
 };
 
 export default isFeatureEnabled;

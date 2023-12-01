@@ -1,6 +1,10 @@
 import 'plyr-react/plyr.css';
 
-import { ARWEAVE_GATEWAY, IPFS_GATEWAY } from '@hey/data/constants';
+import {
+  ARWEAVE_GATEWAY,
+  IPFS_GATEWAY,
+  VIDEO_THUMBNAIL
+} from '@hey/data/constants';
 import imageKit from '@hey/lib/imageKit';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
@@ -8,7 +12,7 @@ import cn from '@hey/ui/cn';
 import { Player } from '@livepeer/react';
 import type { FC } from 'react';
 import { memo } from 'react';
-import { useAppStore } from 'src/store/useAppStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface VideoProps {
   src: string;
@@ -17,13 +21,13 @@ interface VideoProps {
 }
 
 const Video: FC<VideoProps> = ({ src, poster, className = '' }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
 
   return (
     <div className={cn('lp-player', className)} onClick={stopEventPropagation}>
       <Player
         src={src}
-        poster={imageKit(sanitizeDStorageUrl(poster))}
+        poster={imageKit(sanitizeDStorageUrl(poster), VIDEO_THUMBNAIL)}
         objectFit="contain"
         showLoadingSpinner
         showUploadingIndicator

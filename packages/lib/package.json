@@ -14,15 +14,18 @@
   "dependencies": {
     "@hey/data": "workspace:*",
     "@hey/lens": "workspace:*",
-    "@hey/supabase": "workspace:*",
     "@hey/types": "workspace:*",
-    "axios": "^1.6.1",
+    "axios": "^1.6.2",
+    "omit-deep": "^0.3.0",
+    "pino": "^8.16.2",
+    "pino-pretty": "^10.2.3",
     "urlcat": "^3.1.0",
-    "viem": "^1.19.1"
+    "viem": "^1.19.10"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "typescript": "^5.2.2",
+    "@types/omit-deep": "^0.3.2",
+    "typescript": "^5.3.2",
     "vitest": "^0.34.5"
   }
 }

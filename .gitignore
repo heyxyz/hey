@@ -39,12 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
-# cloudflare workers
-.wrangler
-.dev.vars
-
 # JetBrains IDE
 .idea
 
 # Service Workers
 sw.js
+
+# Node build artifacts
+dist

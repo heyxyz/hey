@@ -7,9 +7,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useAppStore } from 'src/store/useAppStore';
-import { useFeatureFlagsStore } from 'src/store/useFeatureFlagsStore';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
+import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
+import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import MenuItems from './MenuItems';
 import MoreNavItems from './MoreNavItems';
@@ -18,9 +18,9 @@ import StaffBar from './StaffBar';
 
 const Navbar: FC = () => {
   const router = useRouter();
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
-  const isPride = usePreferencesStore((state) => state.isPride);
+  const preferences = usePreferencesStore((state) => state.preferences);
   const [showSearch, setShowSearch] = useState(false);
 
   const onProfileSelected = (profile: Profile) => {
@@ -91,7 +91,7 @@ const Navbar: FC = () => {
                 className="h-8 w-8"
                 height={32}
                 width={32}
-                src={isPride ? '/pride.png' : '/logo.png'}
+                src={preferences.isPride ? '/pride.png' : '/logo.png'}
                 alt="Logo"
               />
             </Link>
@@ -112,7 +112,7 @@ const Navbar: FC = () => {
               className="h-7 w-7"
               height={32}
               width={32}
-              src={isPride ? '/pride.png' : '/logo.png'}
+              src={preferences.isPride ? '/pride.png' : '/logo.png'}
               alt="Logo"
             />
           </Link>

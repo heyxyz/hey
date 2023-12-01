@@ -1,14 +1,14 @@
 import { Menu } from '@headlessui/react';
 import cn from '@hey/ui/cn';
 import type { FC } from 'react';
-import { useAppStore } from 'src/store/useAppStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import MenuTransition from '../MenuTransition';
 import Bookmarks from './NavItems/Bookmarks';
 import ReportBug from './NavItems/ReportBug';
 
 const MoreNavItems: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
 
   return (
     <Menu as="div">

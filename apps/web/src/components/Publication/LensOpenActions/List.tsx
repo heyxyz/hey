@@ -7,7 +7,6 @@ import type { FC } from 'react';
 import { useState } from 'react';
 
 import CollectModule from './CollectModule';
-import CollectModulePreview from './CollectModule/Preview';
 import UnknownModulePreview from './UnknownModule/Preview';
 
 interface ListProps {
@@ -29,39 +28,41 @@ const List: FC<ListProps> = ({ publication }) => {
   const selectedOpenAction = openActions?.[selectedOpenActionIndex || 0];
 
   return (
-    <div className="p-5">
+    <div>
       {openActionScreen === 'LIST' ? (
-        <div className="space-y-4">
-          {openActions?.map((action, index) => (
-            <button
-              key={action.type}
-              className="w-full"
-              disabled={
-                action.type === OpenActionModuleType.UnknownOpenActionModule
-              }
-              onClick={() => {
-                selectedSetOpenActionIndex(index);
-                setOpenActionScreen('ACTION');
-              }}
-            >
-              {(action.type ===
-                OpenActionModuleType.SimpleCollectOpenActionModule ||
-                action.type ===
-                  OpenActionModuleType.MultirecipientFeeCollectOpenActionModule ||
-                action.type ===
-                  OpenActionModuleType.LegacySimpleCollectModule ||
-                action.type ===
-                  OpenActionModuleType.LegacyMultirecipientFeeCollectModule) && (
-                <CollectModulePreview
-                  module={action}
-                  publication={publication}
-                />
-              )}
-              {action.type === OpenActionModuleType.UnknownOpenActionModule && (
-                <UnknownModulePreview module={action} />
-              )}
-            </button>
-          ))}
+        <div className="gap-y-4 divide-y dark:divide-gray-700">
+          {openActions?.map((action, index) =>
+            action.type ===
+              OpenActionModuleType.SimpleCollectOpenActionModule ||
+            action.type ===
+              OpenActionModuleType.MultirecipientFeeCollectOpenActionModule ||
+            action.type === OpenActionModuleType.LegacySimpleCollectModule ||
+            action.type ===
+              OpenActionModuleType.LegacyMultirecipientFeeCollectModule ? (
+              <CollectModule
+                key={action.type}
+                publication={publication}
+                openAction={action}
+              />
+            ) : (
+              <button
+                key={action.type}
+                className="w-full p-5"
+                disabled={
+                  action.type === OpenActionModuleType.UnknownOpenActionModule
+                }
+                onClick={() => {
+                  selectedSetOpenActionIndex(index);
+                  setOpenActionScreen('ACTION');
+                }}
+              >
+                {action.type ===
+                  OpenActionModuleType.UnknownOpenActionModule && (
+                  <UnknownModulePreview module={action} />
+                )}
+              </button>
+            )
+          )}
         </div>
       ) : (
         <div>

@@ -1,62 +1,74 @@
-import {
-  FEATURES_WORKER_URL,
-  PREFERENCES_WORKER_URL
-} from '@hey/data/constants';
-import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
+import { HEY_API_URL } from '@hey/data/constants';
+import { FeatureFlag } from '@hey/data/feature-flags';
+import getPreferences from '@hey/lib/api/getPreferences';
+import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import getCurrentSession from '@lib/getCurrentSession';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
-import { useAppStore } from 'src/store/useAppStore';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
+import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
+import { useProStore } from 'src/store/non-persisted/useProStore';
+import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
+import { useVerifiedMembersStore } from 'src/store/persisted/useVerifiedMembersStore';
 import { isAddress } from 'viem';
 
 const PreferencesProvider: FC = () => {
-  const currentSessionProfileId = getCurrentSessionProfileId();
-  const setVerifiedMembers = useAppStore((state) => state.setVerifiedMembers);
-  const setIsPride = usePreferencesStore((state) => state.setIsPride);
-  const setHighSignalNotificationFilter = usePreferencesStore(
-    (state) => state.setHighSignalNotificationFilter
+  const { id: sessionProfileId } = getCurrentSession();
+  const setVerifiedMembers = useVerifiedMembersStore(
+    (state) => state.setVerifiedMembers
   );
-  const setLoadingPreferences = usePreferencesStore(
-    (state) => state.setLoadingPreferences
+  const setPreferences = usePreferencesStore((state) => state.setPreferences);
+  const setIsPro = useProStore((state) => state.setIsPro);
+  const setFeatureFlags = useFeatureFlagsStore(
+    (state) => state.setFeatureFlags
+  );
+  const setStaffMode = useFeatureFlagsStore((state) => state.setStaffMode);
+  const setGardenerMode = useFeatureFlagsStore(
+    (state) => state.setGardenerMode
   );
 
   const fetchPreferences = async () => {
     try {
-      if (
-        Boolean(currentSessionProfileId) &&
-        !isAddress(currentSessionProfileId)
-      ) {
-        const response = await axios.get(
-          `${PREFERENCES_WORKER_URL}/getPreferences`,
-          {
-            params: { id: currentSessionProfileId }
-          }
+      if (Boolean(sessionProfileId) && !isAddress(sessionProfileId)) {
+        const preferences = await getPreferences(
+          sessionProfileId,
+          getAuthWorkerHeaders()
         );
-        const { data } = response;
 
-        setIsPride(data.result?.is_pride || false);
-        setHighSignalNotificationFilter(
-          data.result?.high_signal_notification_filter || false
+        setPreferences({
+          isPride: preferences.preference?.isPride || false,
+          highSignalNotificationFilter:
+            preferences.preference?.highSignalNotificationFilter || false,
+          email: preferences.preference?.email || '',
+          marketingOptIn: preferences.preference?.marketingOptIn || false
+        });
+        setIsPro(preferences.pro.enabled);
+        setFeatureFlags(preferences.features);
+        setStaffMode(preferences.features.includes(FeatureFlag.StaffMode));
+        setGardenerMode(
+          preferences?.features.includes(FeatureFlag.GardenerMode)
         );
       }
+      return true;
     } catch {
-    } finally {
-      setLoadingPreferences(false);
+      return false;
     }
   };
 
   useQuery({
-    queryKey: ['fetchPreferences', currentSessionProfileId || ''],
+    queryKey: ['fetchPreferences', sessionProfileId || ''],
     queryFn: fetchPreferences
   });
 
   const fetchVerifiedMembers = async () => {
     try {
-      const response = await axios.get(`${FEATURES_WORKER_URL}/getVerified`);
+      const response = await axios.get(`${HEY_API_URL}/misc/getVerified`);
       const { data } = response;
       setVerifiedMembers(data.result || []);
-    } catch {}
+      return true;
+    } catch {
+      return false;
+    }
   };
 
   useQuery({

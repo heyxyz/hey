@@ -1,34 +1,26 @@
-import { SNAPSHOR_RELAY_WORKER_URL } from '@hey/data/constants';
-import getProfile from '@hey/lib/getProfile';
+import { HEY_API_URL } from '@hey/data/constants';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import axios from 'axios';
-import { useAppStore } from 'src/store/useAppStore';
-import { usePublicationStore } from 'src/store/usePublicationStore';
+import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 
 type CreatePollResponse = string;
 
 const useCreatePoll = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const pollConfig = usePublicationStore((state) => state.pollConfig);
-  const publicationContent = usePublicationStore(
-    (state) => state.publicationContent
-  );
 
   // TODO: use useCallback
   const createPoll = async (): Promise<CreatePollResponse> => {
     try {
       const response = await axios.post(
-        `${SNAPSHOR_RELAY_WORKER_URL}/createPoll`,
+        `${HEY_API_URL}/poll/create`,
         {
-          title: `Poll by ${getProfile(currentProfile).slugWithPrefix}`,
-          description: publicationContent,
-          choices: pollConfig.choices,
+          options: pollConfig.options,
           length: pollConfig.length
         },
         { headers: getAuthWorkerHeaders() }
       );
 
-      return `${publicationContent}\n\n${response.data.snapshotUrl}`;
+      return response.data.id;
     } catch (error) {
       throw error;
     }

@@ -26,7 +26,7 @@ const FeaturedGroup: FC<FeaturedGroupProps> = ({ tags, className = '' }) => {
       )}
       onClick={(e) => stopEventPropagation(e)}
     >
-      <img src={group.avatar} className="h-4 w-4 rounded" />
+      <img src={group.avatar} className="h-4 w-4 rounded" alt={group.name} />
       <div className="font-bold">{group.name}</div>
     </Link>
   );

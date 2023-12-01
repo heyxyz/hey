@@ -21,13 +21,13 @@ import { type FC, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useAppStore } from 'src/store/useAppStore';
-import { useNonceStore } from 'src/store/useNonceStore';
+import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import type { Address } from 'viem';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 const List: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce
   );

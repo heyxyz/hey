@@ -1,9 +1,10 @@
 import type { Group } from '@hey/types/hey';
-import { featuredGroups } from 'src/store/useAppStore';
+import { hydrateFeaturedGroups } from 'src/store/persisted/useFeaturedGroupsStore';
 
 const getGroupByTag = (tags: string[]): Group | undefined => {
+  const { featuredGroups } = hydrateFeaturedGroups();
   for (const tag of tags) {
-    const group = featuredGroups().find((group) => group.tags?.includes(tag));
+    const group = featuredGroups.find((group) => group.tags?.includes(tag));
     if (group) {
       return group;
     }

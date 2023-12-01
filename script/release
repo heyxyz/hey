@@ -6,7 +6,7 @@
 git config user.name bigint
 git config user.email bigint@hey.xyz
 
-branches=("testnet")
+branches=("testnet" "staging")
 
 for branch in "${branches[@]}"
 do

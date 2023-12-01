@@ -25,10 +25,9 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
-import { isMobile } from 'react-device-detect';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
-import { signIn } from 'src/store/useAuthPersistStore';
+import { signIn } from 'src/store/persisted/useAuthStore';
 import { useIsMounted } from 'usehooks-ts';
 import type { Connector } from 'wagmi';
 import {
@@ -150,14 +149,14 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       <div className="space-y-2.5">
         {chain === CHAIN_ID ? (
           profilesManagedLoading ? (
-            <Card className="w-full dark:divide-gray-700">
+            <Card className="w-full dark:divide-gray-700" forceRounded>
               <div className="space-y-2 p-4 text-center text-sm font-bold">
                 <Spinner size="sm" className="mx-auto" />
                 <div>Loading profiles managed by you...</div>
               </div>
             </Card>
           ) : profiles.length > 0 ? (
-            <Card className="w-full dark:divide-gray-700">
+            <Card className="w-full dark:divide-gray-700" forceRounded>
               {profiles.map((profile) => (
                 <div
                   key={profile.id}
@@ -236,53 +235,49 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     </div>
   ) : (
     <div className="inline-block w-full space-y-3 overflow-hidden text-left align-middle">
-      {connectors
-        .filter((connector) => {
-          return isMobile ? connector.id !== 'injected' : true;
-        })
-        .map((connector) => {
-          return (
-            <button
-              type="button"
-              key={connector.id}
-              className={cn(
-                {
-                  'hover:bg-gray-100 dark:hover:bg-gray-700':
-                    connector.id !== activeConnector?.id
-                },
-                'flex w-full items-center justify-between space-x-2.5 overflow-hidden rounded-xl border px-4 py-3 outline-none dark:border-gray-700'
-              )}
-              onClick={() => onConnect(connector)}
-              disabled={
-                isMounted()
-                  ? !connector.ready || connector.id === activeConnector?.id
-                  : false
-              }
-            >
-              <span>
-                {isMounted()
-                  ? connector.id === 'injected'
-                    ? 'Browser Wallet'
-                    : getWalletDetails(connector.name).name
-                  : getWalletDetails(connector.name).name}
-                {isMounted() ? !connector.ready && ' (unsupported)' : ''}
-              </span>
-              <div className="flex items-center space-x-4">
-                {isConnectLoading && pendingConnector?.id === connector.id ? (
-                  <Spinner className="mr-0.5" size="xs" />
-                ) : null}
-                <img
-                  src={getWalletDetails(connector.name).logo}
-                  draggable={false}
-                  className="h-6 w-6"
-                  height={24}
-                  width={24}
-                  alt={connector.id}
-                />
-              </div>
-            </button>
-          );
-        })}
+      {connectors.map((connector) => {
+        return (
+          <button
+            type="button"
+            key={connector.id}
+            className={cn(
+              {
+                'hover:bg-gray-100 dark:hover:bg-gray-700':
+                  connector.id !== activeConnector?.id
+              },
+              'flex w-full items-center justify-between space-x-2.5 overflow-hidden rounded-xl border px-4 py-3 outline-none dark:border-gray-700'
+            )}
+            onClick={() => onConnect(connector)}
+            disabled={
+              isMounted()
+                ? !connector.ready || connector.id === activeConnector?.id
+                : false
+            }
+          >
+            <span>
+              {isMounted()
+                ? connector.id === 'injected'
+                  ? 'Browser Wallet'
+                  : getWalletDetails(connector.name).name
+                : getWalletDetails(connector.name).name}
+              {isMounted() ? !connector.ready && ' (unsupported)' : ''}
+            </span>
+            <div className="flex items-center space-x-4">
+              {isConnectLoading && pendingConnector?.id === connector.id ? (
+                <Spinner className="mr-0.5" size="xs" />
+              ) : null}
+              <img
+                src={getWalletDetails(connector.name).logo}
+                draggable={false}
+                className="h-6 w-6"
+                height={24}
+                width={24}
+                alt={connector.id}
+              />
+            </div>
+          </button>
+        );
+      })}
       {error?.message ? (
         <div className="flex items-center space-x-1 text-red-500">
           <XCircleIcon className="h-5 w-5" />

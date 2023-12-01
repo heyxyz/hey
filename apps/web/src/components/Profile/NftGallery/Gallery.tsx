@@ -20,12 +20,12 @@ import cn from '@hey/ui/cn';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useAppStore } from 'src/store/useAppStore';
-import type { NftGalleryItem } from 'src/store/useNftGalleryStore';
+import type { NftGalleryItem } from 'src/store/non-persisted/useNftGalleryStore';
 import {
   GALLERY_DEFAULTS,
   useNftGalleryStore
-} from 'src/store/useNftGalleryStore';
+} from 'src/store/non-persisted/useNftGalleryStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import Create from './Create';
 import NftCard from './NftCard';
@@ -38,7 +38,7 @@ interface GalleryProps {
 const Gallery: FC<GalleryProps> = ({ galleries }) => {
   const [isRearrange, setIsRearrange] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const galleryStore = useNftGalleryStore((state) => state.gallery);
   const setGallery = useNftGalleryStore((state) => state.setGallery);
 

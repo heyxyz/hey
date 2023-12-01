@@ -4,11 +4,11 @@ import getOpenActionModuleData from '@hey/lib/getOpenActionModuleData';
 import { Card } from '@hey/ui';
 import { type FC } from 'react';
 
-interface CollectModulePreviewProps {
+interface UnknownModulePreviewProps {
   module: OpenActionModule;
 }
 
-const UnknownModulePreview: FC<CollectModulePreviewProps> = ({ module }) => {
+const UnknownModulePreview: FC<UnknownModulePreviewProps> = ({ module }) => {
   if (module.__typename === 'UnknownOpenActionModuleSettings') {
     const contract = module?.contract.address;
 

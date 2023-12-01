@@ -5,8 +5,8 @@
 </div>
 <br>
 <div align="center">
-    <a href="https://hey.xyz/u/yoginth">
-        <img src="https://lens-badge.vercel.app/api/badge/yoginth.lens" alt="Lens">
+    <a href="https://hey.xyz/u/hey">
+        <img src="https://lens-badge.vercel.app/api/badge/lens/hey" alt="Lens">
     </a>
     <a href="https://vercel.com/heyxyz?utm_source=Hey&utm_campaign=oss">
         <img src="https://therealsujitk-vercel-badge.vercel.app/?app=heyxyz" alt="Vercel">
@@ -55,6 +55,7 @@ Hey is a cutting-edge social media application that leverages the power of [Lens
 | ------- | ----------------------- |
 | Mainnet | https://hey.xyz         |
 | Testnet | https://testnet.hey.xyz |
+| Staging | https://staging.hey.xyz |
 
 ## ✅ Community
 

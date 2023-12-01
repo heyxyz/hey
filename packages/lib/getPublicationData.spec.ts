@@ -108,19 +108,6 @@ describe('getPublicationData', () => {
     });
   });
 
-  test('should return correct data for EmbedMetadataV3', () => {
-    const metadata: any = {
-      __typename: 'EmbedMetadataV3',
-      content: 'This is an embed publication',
-      attachments: ['attachment1', 'attachment2']
-    };
-    const result = getPublicationData(metadata);
-    expect(result).toEqual({
-      content: 'This is an embed publication',
-      attachments: expect.any(Array)
-    });
-  });
-
   test('should return correct data for LiveStreamMetadataV3', () => {
     const metadata: any = {
       __typename: 'LiveStreamMetadataV3',

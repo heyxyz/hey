@@ -6,8 +6,6 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
     }
   }
   cover {
-    optimized {
-      uri
-    }
+    ...EncryptableImageSetFields
   }
 }

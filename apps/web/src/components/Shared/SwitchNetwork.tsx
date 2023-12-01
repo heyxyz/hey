@@ -3,7 +3,6 @@ import { SYSTEM } from '@hey/data/tracking';
 import { Button } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { type FC } from 'react';
-import toast from 'react-hot-toast';
 import { useSwitchNetwork } from 'wagmi';
 
 interface SwitchNetworkProps {
@@ -29,11 +28,7 @@ const SwitchNetwork: FC<SwitchNetworkProps> = ({
       icon={<ArrowsRightLeftIcon className="h-4 w-4" />}
       onClick={() => {
         onSwitch?.();
-        if (switchNetwork) {
-          switchNetwork(toChainId);
-        } else {
-          toast.error('Please change your network wallet!');
-        }
+        switchNetwork?.(toChainId);
         Leafwatch.track(SYSTEM.SWITCH_NETWORK, {
           chain: toChainId
         });

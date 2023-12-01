@@ -1,4 +1,4 @@
-import { FEEDS_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
 import axios from 'axios';
 
 /**
@@ -16,7 +16,7 @@ const getPublicationIds = async (
   profile?: string
 ) => {
   try {
-    const response = await axios.get(`${FEEDS_WORKER_URL}/ids`, {
+    const response = await axios.get(`${HEY_API_URL}/feed/getPublicationIds`, {
       params: {
         provider,
         strategy,

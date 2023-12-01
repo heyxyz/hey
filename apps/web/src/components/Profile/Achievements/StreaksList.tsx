@@ -8,7 +8,7 @@ import {
   UserPlusIcon
 } from '@heroicons/react/24/outline';
 import { CalendarIcon } from '@heroicons/react/24/solid';
-import { STATS_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
 import { PROFILE, PUBLICATION } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
 import { Card, Spinner } from '@hey/ui';
@@ -23,7 +23,7 @@ interface StreaksListProps {
 const StreaksList: FC<StreaksListProps> = ({ profile }) => {
   const fetchStreaksList = async () => {
     try {
-      const response = await axios.get(`${STATS_WORKER_URL}/streaksList`, {
+      const response = await axios.get(`${HEY_API_URL}/stats/streaksList`, {
         params: { id: profile.id, date: 'latest' }
       });
 
@@ -53,7 +53,7 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
         return <ArrowsRightLeftIcon className="h-5 w-5 text-green-500" />;
       case PUBLICATION.COLLECT_MODULE.COLLECT:
         return <RectangleStackIcon className="h-5 w-5 text-pink-500" />;
-      case PUBLICATION.WIDGET.SNAPSHOT.VOTE:
+      case PUBLICATION.WIDGET.POLL.VOTE:
         return <CheckCircleIcon className="h-5 w-5 text-green-500" />;
       default:
         return null;
@@ -76,7 +76,7 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
         return 'Mirrored a publication';
       case PUBLICATION.COLLECT_MODULE.COLLECT:
         return 'Collected a publication';
-      case PUBLICATION.WIDGET.SNAPSHOT.VOTE:
+      case PUBLICATION.WIDGET.POLL.VOTE:
         return 'Voted on a poll';
       default:
         return null;

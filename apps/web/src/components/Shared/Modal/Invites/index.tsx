@@ -3,13 +3,13 @@ import type { InvitedResult } from '@hey/lens';
 import { useInvitedProfilesQuery } from '@hey/lens';
 import { ErrorMessage } from '@hey/ui';
 import type { FC } from 'react';
-import { useAppStore } from 'src/store/useAppStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import Invite from './Invite';
 import Invited from './Invited';
 
 const Invites: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const { data, loading, error, refetch } = useInvitedProfilesQuery();
 
   if (loading) {

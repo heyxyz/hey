@@ -2,6 +2,7 @@ import Sidebar from '@components/Shared/Sidebar';
 import UserProfile from '@components/Shared/UserProfile';
 import {
   AdjustmentsVerticalIcon,
+  AtSymbolIcon,
   BookmarkIcon,
   CircleStackIcon,
   CpuChipIcon,
@@ -16,16 +17,16 @@ import {
 } from '@heroicons/react/24/outline';
 import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
-import { useAppStore } from 'src/store/useAppStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useAccount } from 'wagmi';
 
 const SettingsSidebar: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const { address } = useAccount();
   const enabled = currentProfile?.ownedBy.address === address;
 
   return (
-    <div className="mb-4 space-y-1.5 px-3 sm:px-0">
+    <div className="mb-4 px-3 sm:px-0">
       <div className="pb-3">
         <UserProfile
           profile={currentProfile as Profile}
@@ -43,6 +44,11 @@ const SettingsSidebar: FC = () => {
             title: 'Account',
             icon: <CpuChipIcon className="h-4 w-4" />,
             url: '/settings/account'
+          },
+          {
+            title: 'Handles',
+            icon: <AtSymbolIcon className="h-4 w-4" />,
+            url: '/settings/handles'
           },
           {
             title: 'Preferences',

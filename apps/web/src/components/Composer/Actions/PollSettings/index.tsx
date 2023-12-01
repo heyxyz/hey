@@ -2,7 +2,7 @@ import { Bars3BottomLeftIcon } from '@heroicons/react/24/solid';
 import { Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
 import { type FC } from 'react';
-import { usePublicationStore } from 'src/store/usePublicationStore';
+import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 
 const PollSettings: FC = () => {
   const showPollEditor = usePublicationStore((state) => state.showPollEditor);

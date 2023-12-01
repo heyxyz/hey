@@ -1,20 +1,23 @@
 import { BoltIcon as BoltIconOutline } from '@heroicons/react/24/outline';
 import { BoltIcon as BoltIconSolid } from '@heroicons/react/24/solid';
-import { FEATURES_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
 import { GARDENER } from '@hey/data/tracking';
+import getPreferences from '@hey/lib/api/getPreferences';
 import cn from '@hey/ui/cn';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { type FC } from 'react';
 import { toast } from 'react-hot-toast';
-import { useFeatureFlagsStore } from 'src/store/useFeatureFlagsStore';
+import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface ModModeProps {
   className?: string;
 }
 
 const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
   const setGardenerMode = useFeatureFlagsStore(
     (state) => state.setGardenerMode
@@ -23,13 +26,14 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
   const toggleModMode = () => {
     toast.promise(
       axios.post(
-        `${FEATURES_WORKER_URL}/updateGardenerMode`,
+        `${HEY_API_URL}/internal/feature/updateGardenerMode`,
         { enabled: !gardenerMode },
         { headers: getAuthWorkerHeaders() }
       ),
       {
         loading: 'Toggling gardener mode...',
         success: () => {
+          getPreferences(currentProfile?.id, getAuthWorkerHeaders());
           setGardenerMode(!gardenerMode);
           Leafwatch.track(GARDENER.TOGGLE_MODE);
 

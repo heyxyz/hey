@@ -19,8 +19,8 @@ import { motion } from 'framer-motion';
 import { type FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { NotificationTabType } from 'src/enums';
-import { useNotificationPersistStore } from 'src/store/useNotificationPersistStore';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
+import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
+import { useNotificationStore } from 'src/store/persisted/useNotificationStore';
 import { useUpdateEffect } from 'usehooks-ts';
 
 import NotificationShimmer from './Shimmer';
@@ -37,10 +37,8 @@ interface ListProps {
 }
 
 const List: FC<ListProps> = ({ feedType }) => {
-  const highSignalNotificationFilter = usePreferencesStore(
-    (state) => state.highSignalNotificationFilter
-  );
-  const latestNotificationId = useNotificationPersistStore(
+  const preferences = usePreferencesStore((state) => state.preferences);
+  const latestNotificationId = useNotificationStore(
     (state) => state.latestNotificationId
   );
 
@@ -65,7 +63,7 @@ const List: FC<ListProps> = ({ feedType }) => {
   const request: NotificationRequest = {
     where: {
       customFilters: [CustomFiltersType.Gardeners],
-      highSignalFilter: highSignalNotificationFilter,
+      highSignalFilter: preferences.highSignalNotificationFilter,
       notificationTypes: getNotificationType()
     }
   };

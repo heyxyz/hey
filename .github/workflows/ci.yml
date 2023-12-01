@@ -42,4 +42,5 @@ jobs:
         run: pnpm build
 
       - name: Run Tests 🧪
-        run: pnpm test:e2e
+        env:
+        run: pnpm test:dev

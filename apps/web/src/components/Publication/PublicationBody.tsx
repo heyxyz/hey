@@ -5,6 +5,7 @@ import Oembed from '@components/Shared/Oembed';
 import Video from '@components/Shared/Video';
 import { EyeIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication } from '@hey/lens';
+import getPublicationAttribute from '@hey/lib/getPublicationAttribute';
 import getPublicationData from '@hey/lib/getPublicationData';
 import getURLs from '@hey/lib/getURLs';
 import isPublicationMetadataTypeAllowed from '@hey/lib/isPublicationMetadataTypeAllowed';
@@ -18,9 +19,9 @@ import { memo, useState } from 'react';
 import { isIOS, isMobile } from 'react-device-detect';
 
 import EncryptedPublication from './EncryptedPublication';
-import Embed from './HeyOpenActions/Embed';
 import Nft from './HeyOpenActions/Nft';
 import NotSupportedPublication from './NotSupportedPublication';
+import Poll from './Poll';
 
 interface PublicationBodyProps {
   publication: AnyPublication;
@@ -69,18 +70,14 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   const showNft = metadata.__typename === 'MintMetadataV3';
   // Show live if it's there
   const showLive = metadata.__typename === 'LiveStreamMetadataV3';
-  // Show embed if it's there
-  const showEmbed = metadata.__typename === 'EmbedMetadataV3';
   // Show attachments if it's there
   const showAttachments = filteredAttachments.length > 0 || filteredAsset;
-  // Show oembed if no NFT, no attachments, no snapshot, no quoted publication
+  // Show poll
+  const pollId = getPublicationAttribute(metadata.attributes, 'pollId');
+  const showPoll = Boolean(pollId);
+  // Show oembed if no NFT, no attachments, no quoted publication
   const showOembed =
-    hasURLs &&
-    !showNft &&
-    !showLive &&
-    !showEmbed &&
-    !showAttachments &&
-    !quoted;
+    hasURLs && !showNft && !showLive && !showAttachments && !quoted;
 
   // Remove URL at the end if oembed is there
   const onOembedData = (data: OG) => {
@@ -113,8 +110,8 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       {showAttachments ? (
         <Attachments attachments={filteredAttachments} asset={filteredAsset} />
       ) : null}
-      {/* Open actions */}
-      {showEmbed ? <Embed embed={metadata.embed} /> : null}
+      {/* Poll */}
+      {showPoll ? <Poll id={pollId} /> : null}
       {showNft ? (
         <Nft mintLink={metadata.mintLink} publication={publication} />
       ) : null}

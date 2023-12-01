@@ -65,10 +65,7 @@ export const PUBLICATION = {
     OPEN_UNISWAP: 'Open Uniswap'
   },
   WIDGET: {
-    SNAPSHOT: {
-      OPEN_CAST_VOTE: 'Snapshot: Open cast vote modal',
-      VOTE: 'Snapshot: Vote'
-    }
+    POLL: { VOTE: 'Vote on poll' }
   },
   OPEN_ACTIONS: {
     ZORA_NFT: {
@@ -120,11 +117,16 @@ export const SETTINGS = {
     UPDATE: 'Update profile',
     SET_PICTURE: 'Set profile picture'
   },
+  HANDLE: {
+    LINK: 'Link handle',
+    UNLINK: 'Unlink handle'
+  },
   PREFERENCES: {
     TOGGLE_HIGH_SIGNAL_NOTIFICATION_FILTER:
       'Toggle high signal notification filter',
     TOGGLE_IS_PRIDE: 'Toggle is pride',
-    TOGGLE_PUSH_NOTIFICATIONS: 'Toggle push notifications'
+    TOGGLE_PUSH_NOTIFICATIONS: 'Toggle push notifications',
+    UPDATE_EMAIL: 'Update email'
   },
   MANAGER: {
     TOGGLE: 'Toggle lens manager',

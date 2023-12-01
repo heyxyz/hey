@@ -4,6 +4,7 @@
   "private": true,
   "license": "AGPL-3.0",
   "main": "index.ts",
+  "types": "index.ts",
   "scripts": {
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
@@ -14,8 +15,8 @@
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "@types/node": "^20.9.0",
-    "typescript": "^5.2.2",
+    "@types/node": "^20.10.1",
+    "typescript": "^5.3.2",
     "vitest": "^0.34.5"
   }
 }

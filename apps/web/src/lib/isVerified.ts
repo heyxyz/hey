@@ -1,5 +1,4 @@
-import { IS_MAINNET } from '@hey/data/constants';
-import { verifiedMembers } from 'src/store/useAppStore';
+import { hydrateVerifiedMembers } from 'src/store/persisted/useVerifiedMembersStore';
 
 /**
  * Checks whether a profile is verified or not.
@@ -8,7 +7,9 @@ import { verifiedMembers } from 'src/store/useAppStore';
  * @returns True if the profile is verified, false otherwise.
  */
 const isVerified = (id: string): boolean => {
-  return IS_MAINNET ? verifiedMembers().includes(id) : false;
+  const { verifiedMembers } = hydrateVerifiedMembers();
+
+  return verifiedMembers.includes(id);
 };
 
 export default isVerified;

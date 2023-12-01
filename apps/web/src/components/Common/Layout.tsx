@@ -3,21 +3,21 @@ import GlobalBanners from '@components/Shared/GlobalBanners';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
 import type { Profile } from '@hey/lens';
 import { useCurrentProfileQuery } from '@hey/lens';
-import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
+import getCurrentSession from '@lib/getCurrentSession';
 import getToastOptions from '@lib/getToastOptions';
 import Head from 'next/head';
 import { useTheme } from 'next-themes';
 import { type FC, type ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { useAppStore } from 'src/store/useAppStore';
-import { hydrateAuthTokens, signOut } from 'src/store/useAuthPersistStore';
-import { useFeatureFlagsStore } from 'src/store/useFeatureFlagsStore';
-import { useNonceStore } from 'src/store/useNonceStore';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
-import { useProStore } from 'src/store/useProStore';
+import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
+import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
+import { useProStore } from 'src/store/non-persisted/useProStore';
+import { hydrateAuthTokens, signOut } from 'src/store/persisted/useAuthStore';
+import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce, useIsMounted } from 'usehooks-ts';
 import { isAddress } from 'viem';
-import { useAccount, useDisconnect } from 'wagmi';
+import { useDisconnect } from 'wagmi';
 
 import GlobalModals from '../Shared/GlobalModals';
 import Loading from '../Shared/Loading';
@@ -29,30 +29,23 @@ interface LayoutProps {
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   const { resolvedTheme } = useTheme();
-  const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
-  const loadingPreferences = usePreferencesStore(
-    (state) => state.loadingPreferences
-  );
+  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const setCurrentProfile = useProfileStore((state) => state.setCurrentProfile);
   const resetPreferences = usePreferencesStore(
     (state) => state.resetPreferences
-  );
-  const loadingFeatureFlags = useFeatureFlagsStore(
-    (state) => state.loadingFeatureFlags
   );
   const resetFeatureFlags = useFeatureFlagsStore(
     (state) => state.resetFeatureFlags
   );
-  const loadingPro = useProStore((state) => state.loadingPro);
-  const resetPro = useProStore((state) => state.resetPro);
   const setLensHubOnchainSigNonce = useNonceStore(
     (state) => state.setLensHubOnchainSigNonce
   );
+  const resetPro = useProStore((state) => state.resetPro);
 
   const isMounted = useIsMounted();
-  const { connector } = useAccount();
   const { disconnect } = useDisconnect();
 
-  const currentSessionProfileId = getCurrentSessionProfileId();
+  const { id: sessionProfileId } = getCurrentSession();
 
   const logout = () => {
     resetPreferences();
@@ -63,17 +56,12 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   };
 
   const { loading } = useCurrentProfileQuery({
-    variables: { request: { forProfileId: currentSessionProfileId } },
-    skip: !currentSessionProfileId || isAddress(currentSessionProfileId),
+    variables: { request: { forProfileId: sessionProfileId } },
+    skip: !sessionProfileId || isAddress(sessionProfileId),
     onCompleted: ({ profile, userSigNonces }) => {
       setCurrentProfile(profile as Profile);
       setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce);
     }
-  });
-
-  useEffectOnce(() => {
-    // Listen for switch account in wallet and logout
-    connector?.addListener('change', () => logout());
   });
 
   const validateAuthentication = () => {
@@ -87,13 +75,9 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     validateAuthentication();
   });
 
-  if (
-    loading ||
-    loadingPreferences ||
-    loadingFeatureFlags ||
-    loadingPro ||
-    !isMounted()
-  ) {
+  const profileLoading = !currentProfile && loading;
+
+  if (profileLoading || !isMounted()) {
     return <Loading />;
   }
 
