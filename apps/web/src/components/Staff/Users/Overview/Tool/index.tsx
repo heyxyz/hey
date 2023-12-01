@@ -22,7 +22,8 @@ import { type FC } from 'react';
 import MetaDetails from '../../../../Shared/Staff/MetaDetails';
 import Access from './Access';
 import FeatureFlags from './FeatureFlags';
-import ProfileDetails from './ProfileDetails';
+import LeafwatchDetails from './LeafwatchDetails';
+import OnchainIdentities from './OnchainIdentities';
 import Rank from './Rank';
 
 interface ProfileStaffToolProps {
@@ -139,13 +140,19 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           </MetaDetails>
         ) : null}
       </div>
+      <div className="divider my-5 border-dashed border-yellow-600" />
+      <OnchainIdentities profile={profile} />
+      <div className="divider my-5 border-dashed border-yellow-600" />
       {IS_MAINNET ? (
         <>
-          <ProfileDetails profile={profile} />
+          <LeafwatchDetails profile={profile} />
+          <div className="divider my-5 border-dashed border-yellow-600" />
           <Rank profile={profile} />
+          <div className="divider my-5 border-dashed border-yellow-600" />
         </>
       ) : null}
       <Access profile={profile} isPro={preferences?.pro?.enabled || false} />
+      <div className="divider my-5 border-dashed border-yellow-600" />
       <FeatureFlags profile={profile} features={preferences?.features || []} />
     </div>
   );
