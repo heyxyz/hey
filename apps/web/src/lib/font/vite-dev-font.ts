@@ -13,7 +13,18 @@ export default {
         ${j.selector} {
           font-family: ${fontName};
         }
-      </style>`
+      </style>
+      <script>
+        const showErrorOverlay = err => {
+          const ErrorOverlay = customElements.get('vite-error-overlay')
+          if (!ErrorOverlay) { return }
+          console.log(err)
+          const overlay = new ErrorOverlay(err)
+          document.body.appendChild(overlay)
+        }
+        window.addEventListener('error', showErrorOverlay)
+      </script>
+      `
       );
       for (const i of j.src) {
         html = html.replace(
