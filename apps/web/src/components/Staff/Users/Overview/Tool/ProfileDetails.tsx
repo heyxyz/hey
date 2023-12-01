@@ -13,7 +13,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
 
-import MetaDetails from '../MetaDetails';
+import MetaDetails from '../../../../Shared/Staff/MetaDetails';
 
 interface ProfileDetailsProps {
   profile: Profile;

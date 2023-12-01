@@ -12,7 +12,7 @@ import {
 import { Card } from '@hey/ui';
 import { type FC } from 'react';
 
-import MetaDetails from './MetaDetails';
+import MetaDetails from '../../Shared/Staff/MetaDetails';
 
 interface PublicationStaffToolProps {
   publication: AnyPublication;
