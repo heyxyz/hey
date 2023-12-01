@@ -29,7 +29,7 @@ const OnchainIdentities: FC<OnchainIdentitiesProps> = ({ profile }) => {
           title="ENS name"
           value={onchainIdentity.ens?.name}
         >
-          {onchainIdentity.ens?.name}
+          {onchainIdentity.ens?.name || 'No ENS name'}
         </MetaDetails>
         <MetaDetails
           icon={<UserCircleIcon className="ld-text-gray-500 h-4 w-4" />}
