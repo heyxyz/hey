@@ -56,6 +56,7 @@ export default function App() {
           <Route path="nft/:chain/:address/:token" element={<NFTHandler />} />
           <Route path="posts/:id" element={<PostsHandler />} />
           <Route path="profile/:id" element={<UserHandler />} />
+          <Route path="u/:handle" element={<UserHandler />} />
           <Route path="settings" element={<Layout />}>
             <Route index element={<Settings />} />
             <Route path="account" element={<SettingsAccount />} />
@@ -71,7 +72,6 @@ export default function App() {
             <Route path="preferences" element={<SettingsPreferences />} />
             <Route path="sessions" element={<SettingsSessions />} />
           </Route>
-          <Route path="u/:handle" element={<UserHandler />} />
           <Route path="*" element={<Custom404 />} />
         </Route>
       </Routes>
