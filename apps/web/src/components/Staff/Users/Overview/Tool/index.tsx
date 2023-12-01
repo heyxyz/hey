@@ -146,11 +146,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         </>
       ) : null}
       <Access profile={profile} isPro={preferences?.pro?.enabled || false} />
-      <FeatureFlags
-        profile={profile}
-        features={preferences?.features || []}
-        loading={preferencesLoading}
-      />
+      <FeatureFlags profile={profile} features={preferences?.features || []} />
     </div>
   );
 };
