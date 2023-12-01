@@ -5,10 +5,11 @@ import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
-import useProfileStore from '@persisted/useProfileStore';
-import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
 import type { FC } from 'react';
+
+import isFeatureEnabled from '@/lib/isFeatureEnabled';
+import { useGlobalModalStateStore } from '@/store/non-persisted/useGlobalModalStateStore';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 import MenuTransition from '../MenuTransition';
 import Slug from '../Slug';

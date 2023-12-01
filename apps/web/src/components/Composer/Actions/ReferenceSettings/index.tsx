@@ -1,4 +1,3 @@
-import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import {
   GlobeAltIcon,
@@ -10,9 +9,11 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { ReferenceModuleType } from '@hey/lens';
 import { Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { useReferenceModuleStore } from '@store/non-persisted/useReferenceModuleStore';
 import { motion } from 'framer-motion';
 import { type FC, type ReactNode } from 'react';
+
+import MenuTransition from '@/components/Shared/MenuTransition';
+import { useReferenceModuleStore } from '@/store/non-persisted/useReferenceModuleStore';
 
 const ReferenceSettings: FC = () => {
   const selectedReferenceModule = useReferenceModuleStore(

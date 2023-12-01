@@ -1,9 +1,10 @@
-import Loader from '@components/Shared/Loader';
 import type { InvitedResult } from '@hey/lens';
 import { useInvitedProfilesQuery } from '@hey/lens';
 import { ErrorMessage } from '@hey/ui';
-import useProfileStore from '@persisted/useProfileStore';
 import type { FC } from 'react';
+
+import Loader from '@/components/Shared/Loader';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 import Invite from './Invite';
 import Invited from './Invited';

@@ -1,8 +1,3 @@
-import Attachments from '@components/Shared/Attachments';
-import Quote from '@components/Shared/Embed/Quote';
-import Markup from '@components/Shared/Markup';
-import Oembed from '@components/Shared/Oembed';
-import Video from '@components/Shared/Video';
 import { EyeIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication } from '@hey/lens';
 import getPublicationAttribute from '@hey/lib/getPublicationAttribute';
@@ -17,6 +12,12 @@ import type { FC } from 'react';
 import { memo, useState } from 'react';
 import { isIOS, isMobile } from 'react-device-detect';
 import { Link } from 'react-router-dom';
+
+import Attachments from '@/components/Shared/Attachments';
+import Quote from '@/components/Shared/Embed/Quote';
+import Markup from '@/components/Shared/Markup';
+import Oembed from '@/components/Shared/Oembed';
+import Video from '@/components/Shared/Video';
 
 import EncryptedPublication from './EncryptedPublication';
 import Nft from './HeyOpenActions/Nft';

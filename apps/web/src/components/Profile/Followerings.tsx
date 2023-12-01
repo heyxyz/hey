@@ -3,10 +3,11 @@ import { PROFILE } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
 import humanize from '@hey/lib/humanize';
 import { Modal } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import plur from 'plur';
 import type { FC } from 'react';
 import { useState } from 'react';
+
+import { Leafwatch } from '@/lib/leafwatch';
 
 import Followers from './Followers';
 import Following from './Following';

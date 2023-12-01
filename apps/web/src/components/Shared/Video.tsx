@@ -10,9 +10,10 @@ import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { Player } from '@livepeer/react';
-import useProfileStore from '@persisted/useProfileStore';
 import type { FC } from 'react';
 import { memo } from 'react';
+
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 interface VideoProps {
   src: string;

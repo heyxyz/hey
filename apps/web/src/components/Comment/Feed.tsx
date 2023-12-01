@@ -1,6 +1,3 @@
-import QueuedPublication from '@components/Publication/QueuedPublication';
-import SinglePublication from '@components/Publication/SinglePublication';
-import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication, Comment, PublicationsRequest } from '@hey/lens';
 import {
@@ -12,10 +9,14 @@ import {
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { useTransactionStore } from '@persisted/useTransactionStore';
-import { useImpressionsStore } from '@store/non-persisted/useImpressionsStore';
 import { type FC } from 'react';
 import { useInView } from 'react-cool-inview';
+
+import QueuedPublication from '@/components/Publication/QueuedPublication';
+import SinglePublication from '@/components/Publication/SinglePublication';
+import PublicationsShimmer from '@/components/Shared/Shimmer/PublicationsShimmer';
+import { useImpressionsStore } from '@/store/non-persisted/useImpressionsStore';
+import { useTransactionStore } from '@/store/persisted/useTransactionStore';
 
 interface FeedProps {
   publication: AnyPublication;

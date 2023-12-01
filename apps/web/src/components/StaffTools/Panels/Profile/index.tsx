@@ -13,11 +13,12 @@ import getPreferences from '@hey/lib/api/getPreferences';
 import formatAddress from '@hey/lib/formatAddress';
 import getFollowModule from '@hey/lib/getFollowModule';
 import { Card } from '@hey/ui';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
 import { Link } from 'react-router-dom';
+
+import getAuthWorkerHeaders from '@/lib/getAuthWorkerHeaders';
 
 import MetaDetails from '../MetaDetails';
 import Access from './Access';

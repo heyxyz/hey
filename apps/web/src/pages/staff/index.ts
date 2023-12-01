@@ -1,3 +1,3 @@
-import Staff from '@components/Staff';
+import Staff from '@/components/Staff';
 
 export default Staff;

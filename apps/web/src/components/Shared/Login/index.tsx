@@ -1,8 +1,9 @@
-import Signup from '@components/Shared/Login/New';
-import WalletSelector from '@components/Shared/Login/WalletSelector';
 import { APP_NAME } from '@hey/data/constants';
 import type { FC } from 'react';
 import { useState } from 'react';
+
+import Signup from '@/components/Shared/Login/New';
+import WalletSelector from '@/components/Shared/Login/WalletSelector';
 
 const Login: FC = () => {
   const [hasConnected, setHasConnected] = useState(false);

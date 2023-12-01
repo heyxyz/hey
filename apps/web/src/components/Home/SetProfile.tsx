@@ -1,4 +1,3 @@
-import New from '@components/Shared/Badges/New';
 import {
   MinusCircleIcon,
   PencilSquareIcon,
@@ -9,10 +8,12 @@ import { APP_NAME } from '@hey/data/constants';
 import { ONBOARDING } from '@hey/data/tracking';
 import { Card } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { Leafwatch } from '@lib/leafwatch';
-import useProfileStore from '@persisted/useProfileStore';
 import { type FC } from 'react';
 import { Link } from 'react-router-dom';
+
+import New from '@/components/Shared/Badges/New';
+import { Leafwatch } from '@/lib/leafwatch';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 interface StatusProps {
   finished: boolean;

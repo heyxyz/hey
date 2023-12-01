@@ -1,7 +1,8 @@
-import Profiles from '@components/Shared/Profiles';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import type { OpenActionProfileActed } from '@hey/lens';
 import { type FC } from 'react';
+
+import Profiles from '@/components/Shared/Profiles';
 
 interface ActedProps {
   acted: OpenActionProfileActed[];

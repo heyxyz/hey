@@ -1,18 +1,19 @@
-import Markup from '@components/Shared/Markup';
-import Slug from '@components/Shared/Slug';
 import { ClockIcon } from '@heroicons/react/24/outline';
 import { FireIcon } from '@heroicons/react/24/solid';
 import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
 import getMentions from '@hey/lib/getMentions';
 import type { Group } from '@hey/types/hey';
 import { Image, LightBox, Tooltip } from '@hey/ui';
-import { useTheme } from '@hooks/theme';
-import { formatDate } from '@lib/formatTime';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 // @ts-ignore
 import urlcat from 'urlcat';
+
+import Markup from '@/components/Shared/Markup';
+import Slug from '@/components/Shared/Slug';
+import { useTheme } from '@/hooks/theme';
+import { formatDate } from '@/lib/formatTime';
 
 interface DetailsProps {
   group: Group;

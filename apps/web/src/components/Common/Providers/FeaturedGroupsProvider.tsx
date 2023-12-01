@@ -1,8 +1,9 @@
 import { HEY_API_URL } from '@hey/data/constants';
-import { useFeaturedGroupsStore } from '@persisted/useFeaturedGroupsStore';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
+
+import { useFeaturedGroupsStore } from '@/store/persisted/useFeaturedGroupsStore';
 
 const FeaturedGroupsProvider: FC = () => {
   const setFeaturedGroups = useFeaturedGroupsStore(

@@ -1,4 +1,3 @@
-import Video from '@components/Shared/Video';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
@@ -6,12 +5,14 @@ import type { AnyPublication } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { UnlonelyNfcMetadata } from '@hey/types/nft';
 import { Button, Card, Tooltip } from '@hey/ui';
-import useUnlonelyNfc from '@hooks/unlonely/useUnlonelyNfc';
-import { Leafwatch } from '@lib/leafwatch';
 import { type FC } from 'react';
 import { Link } from 'react-router-dom';
 // @ts-ignore
 import urlcat from 'urlcat';
+
+import Video from '@/components/Shared/Video';
+import useUnlonelyNfc from '@/hooks/unlonely/useUnlonelyNfc';
+import { Leafwatch } from '@/lib/leafwatch';
 
 import NftShimmer from './Shimmer';
 

@@ -1,7 +1,8 @@
 import { BellIcon } from '@heroicons/react/24/outline';
-import { useNotificationStore } from '@persisted/useNotificationStore';
 import type { FC } from 'react';
 import { Link } from 'react-router-dom';
+
+import { useNotificationStore } from '@/store/persisted/useNotificationStore';
 
 const NotificationIcon: FC = () => {
   const latestNotificationId = useNotificationStore(

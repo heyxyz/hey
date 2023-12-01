@@ -1,9 +1,10 @@
-import Markup from '@components/Shared/Markup';
 import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
 import { CommentNotification } from '@hey/lens';
 import getPublicationData from '@hey/lib/getPublicationData';
 import type { FC } from 'react';
 import { Link } from 'react-router-dom';
+
+import Markup from '@/components/Shared/Markup';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';

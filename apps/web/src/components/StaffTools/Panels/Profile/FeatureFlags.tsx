@@ -2,9 +2,10 @@ import { FlagIcon } from '@heroicons/react/24/outline';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import type { Profile } from '@hey/lens';
 import { Modal } from '@hey/ui';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { type FC, useState } from 'react';
 import { useUpdateEffect } from 'usehooks-ts';
+
+import isFeatureEnabled from '@/lib/isFeatureEnabled';
 
 import UpdateFeatureFlags from './UpdateFeatureFlags';
 

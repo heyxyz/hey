@@ -1,13 +1,14 @@
-import ChooseThumbnail from '@components/Composer/ChooseThumbnail';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { NewAttachment } from '@hey/types/misc';
 import { Button, Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 import type { FC } from 'react';
 import { useRef } from 'react';
 import { useUpdateEffect } from 'usehooks-ts';
+
+import ChooseThumbnail from '@/components/Composer/ChooseThumbnail';
+import { usePublicationStore } from '@/store/non-persisted/usePublicationStore';
 
 import Audio from './Audio';
 

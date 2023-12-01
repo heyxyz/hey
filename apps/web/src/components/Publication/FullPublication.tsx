@@ -1,10 +1,11 @@
 import type { AnyPublication } from '@hey/lens';
 import getAppName from '@hey/lib/getAppName';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
-import { formatDate } from '@lib/formatTime';
-import pushToImpressions from '@lib/pushToImpressions';
 import { type FC } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
+
+import { formatDate } from '@/lib/formatTime';
+import pushToImpressions from '@/lib/pushToImpressions';
 
 import PublicationActions from './Actions';
 import FeaturedGroup from './FeaturedGroup';

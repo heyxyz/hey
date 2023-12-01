@@ -1,9 +1,10 @@
-import MetaTags from '@components/Common/MetaTags';
 import { HomeIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import { Button } from '@hey/ui';
 import type { FC } from 'react';
 import { Link } from 'react-router-dom';
+
+import MetaTags from '@/components/Common/MetaTags';
 
 const Custom500: FC = () => {
   return (

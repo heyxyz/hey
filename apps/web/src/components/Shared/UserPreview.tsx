@@ -13,11 +13,12 @@ import nFormatter from '@hey/lib/nFormatter';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import truncateByWords from '@hey/lib/truncateByWords';
 import { Image } from '@hey/ui';
-import isVerified from '@lib/isVerified';
 import Tippy from '@tippyjs/react';
 import plur from 'plur';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
+
+import isVerified from '@/lib/isVerified';
 
 import Markup from './Markup';
 import Follow from './Profile/Follow';

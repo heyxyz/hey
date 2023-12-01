@@ -1,9 +1,10 @@
-import SingleNft from '@components/Shared/SingleNft';
 import { RectangleStackIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import type { Nft } from '@hey/lens';
 import { EmptyState } from '@hey/ui';
-import type { NftGalleryItem } from '@store/non-persisted/useNftGalleryStore';
-import { useNftGalleryStore } from '@store/non-persisted/useNftGalleryStore';
+
+import SingleNft from '@/components/Shared/SingleNft';
+import type { NftGalleryItem } from '@/store/non-persisted/useNftGalleryStore';
+import { useNftGalleryStore } from '@/store/non-persisted/useNftGalleryStore';
 
 const ReviewSelection = () => {
   const gallery = useNftGalleryStore((state) => state.gallery);

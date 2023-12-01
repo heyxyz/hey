@@ -4,13 +4,14 @@ import { HEY_API_URL } from '@hey/data/constants';
 import { GARDENER } from '@hey/data/tracking';
 import getPreferences from '@hey/lib/api/getPreferences';
 import cn from '@hey/ui/cn';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
-import { Leafwatch } from '@lib/leafwatch';
-import { useFeatureFlagsStore } from '@persisted/useFeatureFlagsStore';
-import useProfileStore from '@persisted/useProfileStore';
 import axios from 'axios';
 import { type FC } from 'react';
 import { toast } from 'react-hot-toast';
+
+import getAuthWorkerHeaders from '@/lib/getAuthWorkerHeaders';
+import { Leafwatch } from '@/lib/leafwatch';
+import { useFeatureFlagsStore } from '@/store/persisted/useFeatureFlagsStore';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 interface ModModeProps {
   className?: string;

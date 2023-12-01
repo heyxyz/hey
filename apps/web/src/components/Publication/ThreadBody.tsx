@@ -1,8 +1,9 @@
-import PublicationWrapper from '@components/Shared/PublicationWrapper';
 import type { AnyPublication } from '@hey/lens';
-import pushToImpressions from '@lib/pushToImpressions';
 import { type FC } from 'react';
 import { useInView } from 'react-cool-inview';
+
+import PublicationWrapper from '@/components/Shared/PublicationWrapper';
+import pushToImpressions from '@/lib/pushToImpressions';
 
 import PublicationActions from './Actions';
 import HiddenPublication from './HiddenPublication';

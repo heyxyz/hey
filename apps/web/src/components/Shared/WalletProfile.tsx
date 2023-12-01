@@ -4,10 +4,11 @@ import formatAddress from '@hey/lib/formatAddress';
 import getStampFyiURL from '@hey/lib/getStampFyiURL';
 import imageKit from '@hey/lib/imageKit';
 import { Image } from '@hey/ui';
-import useEnsName from '@hooks/useEnsName';
 import { type FC } from 'react';
 import { Link } from 'react-router-dom';
 import type { Address } from 'viem';
+
+import useEnsName from '@/hooks/useEnsName';
 
 import Slug from './Slug';
 

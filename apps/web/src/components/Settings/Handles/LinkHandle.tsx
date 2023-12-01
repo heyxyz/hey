@@ -1,6 +1,3 @@
-import IndexStatus from '@components/Shared/IndexStatus';
-import Loader from '@components/Shared/Loader';
-import Slug from '@components/Shared/Slug';
 import {
   AtSymbolIcon,
   MinusCircleIcon,
@@ -19,14 +16,18 @@ import {
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { Button, EmptyState, Spinner } from '@hey/ui';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
-import useProfileStore from '@persisted/useProfileStore';
-import { useNonceStore } from '@store/non-persisted/useNonceStore';
 import { type FC, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useContractWrite, useSignTypedData } from 'wagmi';
+
+import IndexStatus from '@/components/Shared/IndexStatus';
+import Loader from '@/components/Shared/Loader';
+import Slug from '@/components/Shared/Slug';
+import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork';
+import errorToast from '@/lib/errorToast';
+import { Leafwatch } from '@/lib/leafwatch';
+import { useNonceStore } from '@/store/non-persisted/useNonceStore';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 const LinkHandle: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);

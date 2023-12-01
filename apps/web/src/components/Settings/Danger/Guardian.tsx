@@ -1,4 +1,3 @@
-import IndexStatus from '@components/Shared/IndexStatus';
 import {
   ExclamationTriangleIcon,
   LockOpenIcon
@@ -8,14 +7,16 @@ import { LENSHUB_PROXY } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { SETTINGS } from '@hey/data/tracking';
 import { Button, Card, Modal, Spinner, WarningMessage } from '@hey/ui';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
-import useProfileStore from '@persisted/useProfileStore';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useContractWrite } from 'wagmi';
+
+import IndexStatus from '@/components/Shared/IndexStatus';
+import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork';
+import errorToast from '@/lib/errorToast';
+import { Leafwatch } from '@/lib/leafwatch';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 const GuardianSettings: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);

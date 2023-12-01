@@ -3,12 +3,13 @@ import { PUBLICATION } from '@hey/data/tracking';
 import type { AnyPublication, Profile } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Leafwatch } from '@lib/leafwatch';
-import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 import type { APITypes } from 'plyr-react';
 import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';
 import { object, string } from 'zod';
+
+import { Leafwatch } from '@/lib/leafwatch';
+import { usePublicationStore } from '@/store/non-persisted/usePublicationStore';
 
 import CoverImage from './CoverImage';
 import Player from './Player';

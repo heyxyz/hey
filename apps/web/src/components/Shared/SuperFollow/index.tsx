@@ -3,11 +3,12 @@ import { PROFILE } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { Button, Modal } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
-import useProfileStore from '@persisted/useProfileStore';
-import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
 import type { FC } from 'react';
 import { lazy, Suspense, useState } from 'react';
+
+import { Leafwatch } from '@/lib/leafwatch';
+import { useGlobalModalStateStore } from '@/store/non-persisted/useGlobalModalStateStore';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 import Loader from '../Loader';
 import Slug from '../Slug';

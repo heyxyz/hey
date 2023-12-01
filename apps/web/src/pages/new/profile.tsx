@@ -1,3 +1,3 @@
-import NewProfile from '@components/Profile/New';
+import NewProfile from '@/components/Profile/New';
 
 export default NewProfile;

@@ -9,11 +9,12 @@ import {
 } from '@hey/lens';
 import { useApolloClient } from '@hey/lens/apollo';
 import { Button } from '@hey/ui';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
-import sanitizeProfileInterests from '@lib/sanitizeProfileInterests';
-import useProfileStore from '@persisted/useProfileStore';
 import type { FC } from 'react';
+
+import errorToast from '@/lib/errorToast';
+import { Leafwatch } from '@/lib/leafwatch';
+import sanitizeProfileInterests from '@/lib/sanitizeProfileInterests';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 import Loader from '../../Shared/Loader';
 

@@ -1,7 +1,4 @@
 import { useApolloClient } from '@apollo/client';
-import AllowanceButton from '@components/Settings/Allowance/Button';
-import LoginButton from '@components/Shared/Navbar/LoginButton';
-import NoBalanceError from '@components/Shared/NoBalanceError';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { LensHub, PublicAct } from '@hey/abis';
 import { LENSHUB_PROXY, PUBLICACT_PROXY } from '@hey/data/constants';
@@ -30,12 +27,6 @@ import getOpenActionActOnKey from '@hey/lib/getOpenActionActOnKey';
 import getSignature from '@hey/lib/getSignature';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Button, Spinner, WarningMessage } from '@hey/ui';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
-import errorToast from '@lib/errorToast';
-import getCurrentSession from '@lib/getCurrentSession';
-import { Leafwatch } from '@lib/leafwatch';
-import useProfileStore from '@persisted/useProfileStore';
-import { useNonceStore } from '@store/non-persisted/useNonceStore';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -46,6 +37,16 @@ import {
   useContractWrite,
   useSignTypedData
 } from 'wagmi';
+
+import AllowanceButton from '@/components/Settings/Allowance/Button';
+import LoginButton from '@/components/Shared/Navbar/LoginButton';
+import NoBalanceError from '@/components/Shared/NoBalanceError';
+import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork';
+import errorToast from '@/lib/errorToast';
+import getCurrentSession from '@/lib/getCurrentSession';
+import { Leafwatch } from '@/lib/leafwatch';
+import { useNonceStore } from '@/store/non-persisted/useNonceStore';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 interface CollectActionProps {
   publication: AnyPublication;

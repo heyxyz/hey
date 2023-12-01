@@ -23,14 +23,15 @@ import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
-import useProfileStore from '@persisted/useProfileStore';
-import { useNonceStore } from '@store/non-persisted/useNonceStore';
 import { type FC, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useContractWrite, useSignTypedData } from 'wagmi';
+
+import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork';
+import errorToast from '@/lib/errorToast';
+import { Leafwatch } from '@/lib/leafwatch';
+import { useNonceStore } from '@/store/non-persisted/useNonceStore';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 interface MirrorProps {
   publication: AnyPublication;

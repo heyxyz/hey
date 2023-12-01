@@ -1,4 +1,3 @@
-import Video from '@components/Shared/Video';
 import {
   ClipboardDocumentIcon,
   SignalIcon,
@@ -8,12 +7,14 @@ import {
 import { XCircleIcon } from '@heroicons/react/24/solid';
 import { HEY_API_URL } from '@hey/data/constants';
 import { Card, Spinner, Tooltip } from '@hey/ui';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
-import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 import axios from 'axios';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+
+import Video from '@/components/Shared/Video';
+import getAuthWorkerHeaders from '@/lib/getAuthWorkerHeaders';
+import { usePublicationStore } from '@/store/non-persisted/usePublicationStore';
 
 interface WrapperProps {
   children: ReactNode;

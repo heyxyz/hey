@@ -5,9 +5,10 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { MetadataAsset } from '@hey/types/misc';
 import { Image, LightBox } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { memo, useState } from 'react';
+
+import { Leafwatch } from '@/lib/leafwatch';
 
 import Audio from './Audio';
 import Video from './Video';

@@ -7,11 +7,12 @@ import nFormatter from '@hey/lib/nFormatter';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Modal, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
 import plur from 'plur';
 import type { FC } from 'react';
 import { useState } from 'react';
+
+import { Leafwatch } from '@/lib/leafwatch';
 
 import List from './List';
 

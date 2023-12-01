@@ -1,4 +1,3 @@
-import SearchUser from '@components/Shared/SearchUser';
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { ADDRESS_PLACEHOLDER, LENSHUB_PROXY } from '@hey/data/constants';
@@ -12,15 +11,17 @@ import {
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { Button, Spinner } from '@hey/ui';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
-import useProfileStore from '@persisted/useProfileStore';
-import { useNonceStore } from '@store/non-persisted/useNonceStore';
 import { type FC, useState } from 'react';
 import toast from 'react-hot-toast';
 import { isAddress } from 'viem';
 import { useContractWrite, useSignTypedData } from 'wagmi';
+
+import SearchUser from '@/components/Shared/SearchUser';
+import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork';
+import errorToast from '@/lib/errorToast';
+import { Leafwatch } from '@/lib/leafwatch';
+import { useNonceStore } from '@/store/non-persisted/useNonceStore';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 interface AddProfileManagerProps {
   setShowAddManagerModal: (show: boolean) => void;

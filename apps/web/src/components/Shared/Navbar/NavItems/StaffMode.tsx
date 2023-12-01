@@ -4,16 +4,17 @@ import { HEY_API_URL } from '@hey/data/constants';
 import { STAFFTOOLS } from '@hey/data/tracking';
 import getPreferences from '@hey/lib/api/getPreferences';
 import cn from '@hey/ui/cn';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
-import { Leafwatch } from '@lib/leafwatch';
-import { useFeatureFlagsStore } from '@persisted/useFeatureFlagsStore';
-import useProfileStore from '@persisted/useProfileStore';
-import { usePreferencesStore } from '@store/non-persisted/usePreferencesStore';
 import axios from 'axios';
 import { Magic } from 'magic-sdk';
 import { type FC, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useEffectOnce } from 'usehooks-ts';
+
+import getAuthWorkerHeaders from '@/lib/getAuthWorkerHeaders';
+import { Leafwatch } from '@/lib/leafwatch';
+import { usePreferencesStore } from '@/store/non-persisted/usePreferencesStore';
+import { useFeatureFlagsStore } from '@/store/persisted/useFeatureFlagsStore';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 interface StaffModeProps {
   className?: string;

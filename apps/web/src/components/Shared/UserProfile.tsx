@@ -1,4 +1,3 @@
-import Unfollow from '@components/Shared/Profile/Unfollow';
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
@@ -10,11 +9,13 @@ import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { getTwitterFormat } from '@lib/formatTime';
-import isVerified from '@lib/isVerified';
 import type { FC } from 'react';
 import { memo, useState } from 'react';
 import { Link } from 'react-router-dom';
+
+import Unfollow from '@/components/Shared/Profile/Unfollow';
+import { getTwitterFormat } from '@/lib/formatTime';
+import isVerified from '@/lib/isVerified';
 
 import Markup from './Markup';
 import Follow from './Profile/Follow';

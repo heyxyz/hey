@@ -1,15 +1,16 @@
-import MetaTags from '@components/Common/MetaTags';
 import { APP_NAME, HEY_API_URL } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import type { Group } from '@hey/types/hey';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
-import Custom404 from '@pages/404';
-import Custom500 from '@pages/500';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useEffectOnce } from 'usehooks-ts';
+
+import MetaTags from '@/components/Common/MetaTags';
+import { Leafwatch } from '@/lib/leafwatch';
+import Custom404 from '@/pages/404';
+import Custom500 from '@/pages/500';
 
 import Details from './Details';
 import Feed from './Feed';

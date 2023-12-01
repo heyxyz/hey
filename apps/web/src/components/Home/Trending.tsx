@@ -1,4 +1,3 @@
-import TrendingTagShimmer from '@components/Shared/Shimmer/TrendingTagShimmer';
 import { ArrowTrendingUpIcon } from '@heroicons/react/24/solid';
 import { MISCELLANEOUS } from '@hey/data/tracking';
 import type { TagResult } from '@hey/lens';
@@ -9,10 +8,12 @@ import {
 } from '@hey/lens';
 import nFormatter from '@hey/lib/nFormatter';
 import { Card, ErrorMessage } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import plur from 'plur';
 import type { FC } from 'react';
 import { Link } from 'react-router-dom';
+
+import TrendingTagShimmer from '@/components/Shared/Shimmer/TrendingTagShimmer';
+import { Leafwatch } from '@/lib/leafwatch';
 
 const Title = () => {
   return (

@@ -1,5 +1,3 @@
-import UserProfilesShimmer from '@components/Shared/Shimmer/UserProfilesShimmer';
-import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
 import type { Profile, ProfileSearchRequest } from '@hey/lens';
 import {
@@ -11,6 +9,9 @@ import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
 import { type FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
+
+import UserProfilesShimmer from '@/components/Shared/Shimmer/UserProfilesShimmer';
+import UserProfile from '@/components/Shared/UserProfile';
 
 interface ProfilesProps {
   query: string;

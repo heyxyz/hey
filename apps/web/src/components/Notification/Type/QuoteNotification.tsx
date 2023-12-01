@@ -1,11 +1,12 @@
-import Markup from '@components/Shared/Markup';
 import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
 import { QuoteNotification } from '@hey/lens';
 import getPublicationData from '@hey/lib/getPublicationData';
-import pushToImpressions from '@lib/pushToImpressions';
 import type { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useEffectOnce } from 'usehooks-ts';
+
+import Markup from '@/components/Shared/Markup';
+import pushToImpressions from '@/lib/pushToImpressions';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';

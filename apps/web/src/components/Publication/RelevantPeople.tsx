@@ -1,11 +1,12 @@
-import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
-import UserProfile from '@components/Shared/UserProfile';
 import { FollowUnfollowSource } from '@hey/data/tracking';
 import type { AnyPublication, Profile } from '@hey/lens';
 import { useProfilesQuery } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card, ErrorMessage } from '@hey/ui';
 import { type FC } from 'react';
+
+import UserProfileShimmer from '@/components/Shared/Shimmer/UserProfileShimmer';
+import UserProfile from '@/components/Shared/UserProfile';
 
 interface RelevantPeopleProps {
   publication: AnyPublication;

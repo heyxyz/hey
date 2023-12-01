@@ -3,9 +3,10 @@ import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
 import { type AnyPublication, TriStateValue } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
-import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
-import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 import { type FC } from 'react';
+
+import { useGlobalModalStateStore } from '@/store/non-persisted/useGlobalModalStateStore';
+import { usePublicationStore } from '@/store/non-persisted/usePublicationStore';
 
 interface QuoteProps {
   publication: AnyPublication;

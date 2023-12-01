@@ -3,10 +3,11 @@ import type { Profile as TProfile, ProfileRequest } from '@hey/lens';
 import { useProfileLazyQuery } from '@hey/lens';
 import downloadJson from '@hey/lib/downloadJson';
 import { Button, Card } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
-import useProfileStore from '@persisted/useProfileStore';
 import type { FC } from 'react';
 import { useState } from 'react';
+
+import { Leafwatch } from '@/lib/leafwatch';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 const Profile: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);

@@ -1,16 +1,17 @@
-import SinglePublication from '@components/Publication/SinglePublication';
-import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { SparklesIcon } from '@heroicons/react/24/outline';
 import type { HomeFeedType } from '@hey/data/enums';
 import type { AnyPublication, PublicationsRequest } from '@hey/lens';
 import { LimitType, usePublicationsQuery } from '@hey/lens';
 import getAlgorithmicFeed from '@hey/lib/getAlgorithmicFeed';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import useProfileStore from '@persisted/useProfileStore';
 import { useQuery } from '@tanstack/react-query';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-cool-inview';
+
+import SinglePublication from '@/components/Publication/SinglePublication';
+import PublicationsShimmer from '@/components/Shared/Shimmer/PublicationsShimmer';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 interface AlgorithmicFeedProps {
   feedType: HomeFeedType;

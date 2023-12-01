@@ -1,8 +1,9 @@
-import getCurrentSession from '@lib/getCurrentSession';
-import useProfileStore from '@persisted/useProfileStore';
 import type { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { isAddress } from 'viem';
+
+import getCurrentSession from '@/lib/getCurrentSession';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 import LoginButton from './LoginButton';
 import SignedUser from './SignedUser';

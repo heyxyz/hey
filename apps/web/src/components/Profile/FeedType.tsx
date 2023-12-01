@@ -10,8 +10,9 @@ import {
 import { IS_MAINNET } from '@hey/data/constants';
 import { PROFILE } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import { type FC } from 'react';
+
+import { Leafwatch } from '@/lib/leafwatch';
 
 import MediaFilter from './Filters/MediaFilter';
 

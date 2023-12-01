@@ -1,11 +1,12 @@
 import { APP_NAME } from '@hey/data/constants';
 import { MISCELLANEOUS } from '@hey/data/tracking';
-import { Leafwatch } from '@lib/leafwatch';
-import { useFeatureFlagsStore } from '@persisted/useFeatureFlagsStore';
 import type { FC } from 'react';
 import { Link } from 'react-router-dom';
 // @ts-ignore
 import urlcat from 'urlcat';
+
+import { Leafwatch } from '@/lib/leafwatch';
+import { useFeatureFlagsStore } from '@/store/persisted/useFeatureFlagsStore';
 
 const Footer: FC = () => {
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);

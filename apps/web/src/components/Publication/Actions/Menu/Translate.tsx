@@ -6,11 +6,12 @@ import getPublicationData from '@hey/lib/getPublicationData';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
-import { Leafwatch } from '@lib/leafwatch';
 import { type FC } from 'react';
 import { Link } from 'react-router-dom';
 // @ts-ignore
 import urlcat from 'urlcat';
+
+import { Leafwatch } from '@/lib/leafwatch';
 
 interface TranslateProps {
   publication: AnyPublication;

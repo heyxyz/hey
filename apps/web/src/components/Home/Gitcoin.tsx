@@ -1,10 +1,11 @@
-import CountdownTimer from '@components/Shared/CountdownTimer';
 import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { MISCELLANEOUS } from '@hey/data/tracking';
 import { Card } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { Link } from 'react-router-dom';
+
+import CountdownTimer from '@/components/Shared/CountdownTimer';
+import { Leafwatch } from '@/lib/leafwatch';
 
 const Gitcoin: FC = () => {
   return (

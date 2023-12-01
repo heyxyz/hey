@@ -1,11 +1,12 @@
-import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import type { Erc20 } from '@hey/lens';
 import { OpenActionModuleType } from '@hey/lens';
 import { Input } from '@hey/ui';
-import { useCollectModuleStore } from '@store/non-persisted/useCollectModuleStore';
 import { type FC } from 'react';
+
+import ToggleWithHelper from '@/components/Shared/ToggleWithHelper';
+import { useCollectModuleStore } from '@/store/non-persisted/useCollectModuleStore';
 
 interface AmountConfigProps {
   enabledModuleCurrencies?: Erc20[];

@@ -11,10 +11,11 @@ import type { ApolloCache } from '@hey/lens/apollo';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import { type FC } from 'react';
 import { toast } from 'react-hot-toast';
+
+import errorToast from '@/lib/errorToast';
+import { Leafwatch } from '@/lib/leafwatch';
 
 interface NotInterestedProps {
   publication: AnyPublication;

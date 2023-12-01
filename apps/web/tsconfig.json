@@ -5,10 +5,7 @@
     "target": "ES2020",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable", "ESNext", "webworker"],
-    "module": "ESNext",
-    "skipLibCheck": true,
     /* Bundler mode */
-    "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -20,15 +17,9 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@lib/*": ["src/lib/*"],
+      "@/*": ["src/*"],
       "@enums": ["src/enums.ts"],
-      "@store/*": ["src/store/*"],
-      "@pages/*": ["src/pages/*"],
-      "@hooks/*": ["src/hooks/*"],
       "@constants": ["src/constants.ts"],
-      "@generated/*": ["src/generated/*"],
-      "@components/*": ["src/components/*"],
-      "@persisted/*": ["src/store/persisted/*"]
     }
   },
   "include": ["src"],

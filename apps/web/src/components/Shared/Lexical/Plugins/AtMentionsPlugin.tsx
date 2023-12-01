@@ -19,12 +19,13 @@ import {
   MenuOption,
   useBasicTypeaheadTriggerMatch
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
-import isVerified from '@lib/isVerified';
 import type { TextNode } from 'lexical';
 import type { FC } from 'react';
 import { useCallback, useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';
 import { useUpdateEffect } from 'usehooks-ts';
+
+import isVerified from '@/lib/isVerified';
 
 import { $createMentionNode } from '../Nodes/MentionsNode';
 

@@ -1,5 +1,3 @@
-import Sidebar from '@components/Shared/Sidebar';
-import UserProfile from '@components/Shared/UserProfile';
 import {
   AdjustmentsVerticalIcon,
   AtSymbolIcon,
@@ -16,9 +14,12 @@ import {
   UserIcon
 } from '@heroicons/react/24/outline';
 import type { Profile } from '@hey/lens';
-import useProfileStore from '@persisted/useProfileStore';
 import type { FC } from 'react';
 import { useAccount } from 'wagmi';
+
+import Sidebar from '@/components/Shared/Sidebar';
+import UserProfile from '@/components/Shared/UserProfile';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 const SettingsSidebar: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);

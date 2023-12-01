@@ -1,5 +1,3 @@
-import Loader from '@components/Shared/Loader';
-import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
 import type {
   LastLoggedInProfileRequest,
@@ -11,6 +9,9 @@ import { EmptyState, ErrorMessage } from '@hey/ui';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAccount } from 'wagmi';
+
+import Loader from '@/components/Shared/Loader';
+import UserProfile from '@/components/Shared/UserProfile';
 
 const List: FC = () => {
   const { address } = useAccount();

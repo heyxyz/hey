@@ -1,18 +1,19 @@
-import QueuedPublication from '@components/Publication/QueuedPublication';
-import SinglePublication from '@components/Publication/SinglePublication';
-import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { UserGroupIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication, FeedItem, FeedRequest } from '@hey/lens';
 import { FeedEventItemType, useFeedQuery } from '@hey/lens';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import useProfileStore from '@persisted/useProfileStore';
-import { useTimelineFilterStore } from '@persisted/useTimelineFilterStore';
-import { useTransactionStore } from '@persisted/useTransactionStore';
-import { useImpressionsStore } from '@store/non-persisted/useImpressionsStore';
-import { useTimelineStore } from '@store/non-persisted/useTimelineStore';
 import { type FC, memo } from 'react';
 import { useInView } from 'react-cool-inview';
+
+import QueuedPublication from '@/components/Publication/QueuedPublication';
+import SinglePublication from '@/components/Publication/SinglePublication';
+import PublicationsShimmer from '@/components/Shared/Shimmer/PublicationsShimmer';
+import { useImpressionsStore } from '@/store/non-persisted/useImpressionsStore';
+import { useTimelineStore } from '@/store/non-persisted/useTimelineStore';
+import useProfileStore from '@/store/persisted/useProfileStore';
+import { useTimelineFilterStore } from '@/store/persisted/useTimelineFilterStore';
+import { useTransactionStore } from '@/store/persisted/useTransactionStore';
 
 const Timeline: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);

@@ -1,14 +1,15 @@
-import NotificationIcon from '@components/Notification/NotificationIcon';
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import type { Profile } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import cn from '@hey/ui/cn';
-import { useFeatureFlagsStore } from '@persisted/useFeatureFlagsStore';
-import useProfileStore from '@persisted/useProfileStore';
-import { usePreferencesStore } from '@store/non-persisted/usePreferencesStore';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+
+import NotificationIcon from '@/components/Notification/NotificationIcon';
+import { usePreferencesStore } from '@/store/non-persisted/usePreferencesStore';
+import { useFeatureFlagsStore } from '@/store/persisted/useFeatureFlagsStore';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 import MenuItems from './MenuItems';
 import MoreNavItems from './MoreNavItems';

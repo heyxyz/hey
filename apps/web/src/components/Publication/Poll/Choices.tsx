@@ -1,4 +1,3 @@
-import Beta from '@components/Shared/Badges/Beta';
 import {
   Bars3BottomLeftIcon,
   CheckCircleIcon
@@ -11,15 +10,17 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { Poll } from '@hey/types/hey';
 import { Card, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { getTimetoNow } from '@lib/formatTime';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
-import { Leafwatch } from '@lib/leafwatch';
-import useProfileStore from '@persisted/useProfileStore';
 import axios from 'axios';
 import plur from 'plur';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+
+import Beta from '@/components/Shared/Badges/Beta';
+import { getTimetoNow } from '@/lib/formatTime';
+import getAuthWorkerHeaders from '@/lib/getAuthWorkerHeaders';
+import { Leafwatch } from '@/lib/leafwatch';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 interface ChoicesProps {
   poll: Poll;

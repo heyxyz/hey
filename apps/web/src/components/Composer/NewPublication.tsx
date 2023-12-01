@@ -1,8 +1,3 @@
-import QuotedPublication from '@components/Publication/QuotedPublication';
-import { AudioPublicationSchema } from '@components/Shared/Audio';
-import Wrapper from '@components/Shared/Embed/Wrapper';
-import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
-import NewAttachments from '@components/Shared/NewAttachments';
 import {
   ChatBubbleLeftRightIcon,
   PencilSquareIcon
@@ -30,30 +25,36 @@ import type { IGif } from '@hey/types/giphy';
 import type { NewAttachment } from '@hey/types/misc';
 import { Button, Card, ErrorMessage, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import useCreatePoll from '@hooks/useCreatePoll';
-import useCreatePublication from '@hooks/useCreatePublication';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
-import usePublicationMetadata from '@hooks/usePublicationMetadata';
 import { MetadataAttributeType } from '@lens-protocol/metadata';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import errorToast from '@lib/errorToast';
-import getTextNftUrl from '@lib/getTextNftUrl';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Leafwatch } from '@lib/leafwatch';
-import uploadToArweave from '@lib/uploadToArweave';
-import useProfileStore from '@persisted/useProfileStore';
-import { useCollectModuleStore } from '@store/non-persisted/useCollectModuleStore';
-import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
-import { useNonceStore } from '@store/non-persisted/useNonceStore';
-import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
-import { useReferenceModuleStore } from '@store/non-persisted/useReferenceModuleStore';
 import { useUnmountEffect } from 'framer-motion';
 import { $getRoot } from 'lexical';
 import type { FC } from 'react';
 import { lazy, Suspense, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
+
+import QuotedPublication from '@/components/Publication/QuotedPublication';
+import { AudioPublicationSchema } from '@/components/Shared/Audio';
+import Wrapper from '@/components/Shared/Embed/Wrapper';
+import withLexicalContext from '@/components/Shared/Lexical/withLexicalContext';
+import NewAttachments from '@/components/Shared/NewAttachments';
+import useCreatePoll from '@/hooks/useCreatePoll';
+import useCreatePublication from '@/hooks/useCreatePublication';
+import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork';
+import usePublicationMetadata from '@/hooks/usePublicationMetadata';
+import errorToast from '@/lib/errorToast';
+import getTextNftUrl from '@/lib/getTextNftUrl';
+import isFeatureEnabled from '@/lib/isFeatureEnabled';
+import { Leafwatch } from '@/lib/leafwatch';
+import uploadToArweave from '@/lib/uploadToArweave';
+import { useCollectModuleStore } from '@/store/non-persisted/useCollectModuleStore';
+import { useGlobalModalStateStore } from '@/store/non-persisted/useGlobalModalStateStore';
+import { useNonceStore } from '@/store/non-persisted/useNonceStore';
+import { usePublicationStore } from '@/store/non-persisted/usePublicationStore';
+import { useReferenceModuleStore } from '@/store/non-persisted/useReferenceModuleStore';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 import LivestreamSettings from './Actions/LivestreamSettings';
 import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
@@ -62,21 +63,21 @@ import Editor from './Editor';
 import Discard from './Post/Discard';
 
 const Attachment = lazy(
-  () => import('@components/Composer/Actions/Attachment')
+  () => import('@/components/Composer/Actions/Attachment')
 );
-const EmojiPicker = lazy(() => import('@components/Shared/EmojiPicker'));
+const EmojiPicker = lazy(() => import('@/components/Shared/EmojiPicker'));
 
-const Gif = lazy(() => import('@components/Composer/Actions/Gif'));
+const Gif = lazy(() => import('@/components/Composer/Actions/Gif'));
 
 const CollectSettings = lazy(
-  () => import('@components/Composer/Actions/CollectSettings')
+  () => import('@/components/Composer/Actions/CollectSettings')
 );
 
 const ReferenceSettings = lazy(
-  () => import('@components/Composer/Actions/ReferenceSettings')
+  () => import('@/components/Composer/Actions/ReferenceSettings')
 );
 const PollSettings = lazy(
-  () => import('@components/Composer/Actions/PollSettings')
+  () => import('@/components/Composer/Actions/PollSettings')
 );
 
 interface NewPublicationProps {

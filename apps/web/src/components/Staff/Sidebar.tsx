@@ -1,4 +1,3 @@
-import Sidebar from '@components/Shared/Sidebar';
 import {
   ClipboardIcon,
   ExclamationTriangleIcon,
@@ -7,6 +6,8 @@ import {
   UsersIcon
 } from '@heroicons/react/24/outline';
 import type { FC } from 'react';
+
+import Sidebar from '@/components/Shared/Sidebar';
 
 const StaffSidebar: FC = () => {
   return (

@@ -1,7 +1,3 @@
-import Collectors from '@components/Shared/Modal/Collectors';
-import Likes from '@components/Shared/Modal/Likes';
-import Mirrors from '@components/Shared/Modal/Mirrors';
-import Quotes from '@components/Shared/Modal/Quotes';
 import {
   ArrowsRightLeftIcon,
   HeartIcon,
@@ -13,10 +9,15 @@ import getPublicationsViews from '@hey/lib/getPublicationsViews';
 import nFormatter from '@hey/lib/nFormatter';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Modal } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import plur from 'plur';
 import type { FC } from 'react';
 import { memo, useEffect, useState } from 'react';
+
+import Collectors from '@/components/Shared/Modal/Collectors';
+import Likes from '@/components/Shared/Modal/Likes';
+import Mirrors from '@/components/Shared/Modal/Mirrors';
+import Quotes from '@/components/Shared/Modal/Quotes';
+import { Leafwatch } from '@/lib/leafwatch';
 
 interface PublicationStatsProps {
   publication: AnyPublication;

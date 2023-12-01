@@ -4,9 +4,10 @@ import { PUBLICATION } from '@hey/data/tracking';
 import type { AnyPublication } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
-import { Leafwatch } from '@lib/leafwatch';
 import { type FC } from 'react';
 import toast from 'react-hot-toast';
+
+import { Leafwatch } from '@/lib/leafwatch';
 
 interface ShareProps {
   publication: AnyPublication;

@@ -3,13 +3,14 @@ import { Regex } from '@hey/data/regex';
 import { INVITE } from '@hey/data/tracking';
 import { useInviteMutation } from '@hey/lens';
 import { Button, Form, Input, useZodForm } from '@hey/ui';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import plur from 'plur';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { object, string } from 'zod';
+
+import errorToast from '@/lib/errorToast';
+import { Leafwatch } from '@/lib/leafwatch';
 
 const inviteSchema = object({
   address: string()

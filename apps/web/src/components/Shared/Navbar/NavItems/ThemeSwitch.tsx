@@ -1,9 +1,10 @@
 import { MoonIcon, SunIcon } from '@heroicons/react/24/outline';
 import { SYSTEM } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
-import { useTheme } from '@hooks/theme';
-import { Leafwatch } from '@lib/leafwatch';
 import { type FC } from 'react';
+
+import { useTheme } from '@/hooks/theme';
+import { Leafwatch } from '@/lib/leafwatch';
 
 interface ThemeSwitchProps {
   onClick?: () => void;

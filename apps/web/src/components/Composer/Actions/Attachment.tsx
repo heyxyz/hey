@@ -1,4 +1,3 @@
-import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import {
   MusicalNoteIcon,
@@ -7,17 +6,19 @@ import {
 } from '@heroicons/react/24/outline';
 import { Spinner, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import useUploadAttachments from '@hooks/useUploadAttachments';
 import {
   MediaAudioMimeType,
   MediaImageMimeType
 } from '@lens-protocol/metadata';
-import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 import { motion } from 'framer-motion';
 import type { ChangeEvent, FC } from 'react';
 import { useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useOnClickOutside } from 'usehooks-ts';
+
+import MenuTransition from '@/components/Shared/MenuTransition';
+import useUploadAttachments from '@/hooks/useUploadAttachments';
+import { usePublicationStore } from '@/store/non-persisted/usePublicationStore';
 
 const ImageMimeType = Object.values(MediaImageMimeType);
 const AudioMimeType = Object.values(MediaAudioMimeType);

@@ -1,5 +1,3 @@
-import Markup from '@components/Shared/Markup';
-import SmallUserProfile from '@components/Shared/SmallUserProfile';
 import type { Profile } from '@hey/lens';
 import {
   LensTransactionStatusType,
@@ -11,9 +9,12 @@ import { useApolloClient } from '@hey/lens/apollo';
 import getMentions from '@hey/lib/getMentions';
 import type { OptimisticTransaction } from '@hey/types/misc';
 import { Card, Tooltip } from '@hey/ui';
-import useProfileStore from '@persisted/useProfileStore';
-import { useTransactionStore } from '@persisted/useTransactionStore';
 import { type FC } from 'react';
+
+import Markup from '@/components/Shared/Markup';
+import SmallUserProfile from '@/components/Shared/SmallUserProfile';
+import useProfileStore from '@/store/persisted/useProfileStore';
+import { useTransactionStore } from '@/store/persisted/useTransactionStore';
 
 interface QueuedPublicationProps {
   txn: OptimisticTransaction;

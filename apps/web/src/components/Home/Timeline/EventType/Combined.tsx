@@ -1,7 +1,8 @@
-import Profiles from '@components/Shared/Profiles';
 import { SparklesIcon } from '@heroicons/react/24/outline';
 import type { FeedItem } from '@hey/lens';
 import { type FC } from 'react';
+
+import Profiles from '@/components/Shared/Profiles';
 
 interface CombinedProps {
   feedItem: FeedItem;

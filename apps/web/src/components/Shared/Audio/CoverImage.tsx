@@ -4,10 +4,11 @@ import imageKit from '@hey/lib/imageKit';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import { Image, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import errorToast from '@lib/errorToast';
-import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import type { ChangeEvent, FC, Ref } from 'react';
 import { useState } from 'react';
+
+import errorToast from '@/lib/errorToast';
+import { uploadFileToIPFS } from '@/lib/uploadToIPFS';
 
 interface CoverImageProps {
   isNew: boolean;

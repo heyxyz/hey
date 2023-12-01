@@ -10,14 +10,15 @@ import {
   GridLayout,
   Spinner
 } from '@hey/ui';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
-import useProfileStore from '@persisted/useProfileStore';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { useContractWrite } from 'wagmi';
+
+import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork';
+import errorToast from '@/lib/errorToast';
+import { Leafwatch } from '@/lib/leafwatch';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 import CountdownTimer from './CountdownTimer';
 import IndexStatus from './IndexStatus';

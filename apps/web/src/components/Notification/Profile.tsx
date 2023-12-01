@@ -1,4 +1,3 @@
-import UserPreview from '@components/Shared/UserPreview';
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
@@ -8,9 +7,11 @@ import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
 import { Image } from '@hey/ui';
-import isVerified from '@lib/isVerified';
 import type { FC } from 'react';
 import { Link } from 'react-router-dom';
+
+import UserPreview from '@/components/Shared/UserPreview';
+import isVerified from '@/lib/isVerified';
 
 interface NotificationProfileProps {
   profile: Profile;

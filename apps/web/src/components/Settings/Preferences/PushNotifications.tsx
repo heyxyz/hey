@@ -1,9 +1,10 @@
-import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { BellIcon } from '@heroicons/react/24/outline';
 import { SETTINGS } from '@hey/data/tracking';
-import { Leafwatch } from '@lib/leafwatch';
 import { type FC, useState } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
+
+import ToggleWithHelper from '@/components/Shared/ToggleWithHelper';
+import { Leafwatch } from '@/lib/leafwatch';
 
 const PushNotifications: FC = () => {
   const [pushNotificationsEnabled, setPushNotificationsEnabled] =

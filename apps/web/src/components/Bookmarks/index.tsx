@@ -1,19 +1,20 @@
-import MetaTags from '@components/Common/MetaTags';
-import RecommendedProfiles from '@components/Home/RecommendedProfiles';
-import Trending from '@components/Home/Trending';
-import FeedFocusType from '@components/Shared/FeedFocusType';
-import Footer from '@components/Shared/Footer';
-import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import { PAGEVIEW } from '@hey/data/tracking';
 import type { PublicationMetadataMainFocusType } from '@hey/lens';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Leafwatch } from '@lib/leafwatch';
-import useProfileStore from '@persisted/useProfileStore';
 import { useState } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
+
+import MetaTags from '@/components/Common/MetaTags';
+import RecommendedProfiles from '@/components/Home/RecommendedProfiles';
+import Trending from '@/components/Home/Trending';
+import FeedFocusType from '@/components/Shared/FeedFocusType';
+import Footer from '@/components/Shared/Footer';
+import NotLoggedIn from '@/components/Shared/NotLoggedIn';
+import isFeatureEnabled from '@/lib/isFeatureEnabled';
+import { Leafwatch } from '@/lib/leafwatch';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 import Feed from './Feed';
 

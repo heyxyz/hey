@@ -1,9 +1,10 @@
 import { ShieldCheckIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication } from '@hey/lens';
 import { Tooltip } from '@hey/ui';
-import { useGlobalAlertStateStore } from '@store/non-persisted/useGlobalAlertStateStore';
 import { motion } from 'framer-motion';
 import { type FC } from 'react';
+
+import { useGlobalAlertStateStore } from '@/store/non-persisted/useGlobalAlertStateStore';
 
 interface ModProps {
   publication: AnyPublication;

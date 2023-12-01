@@ -8,12 +8,13 @@ import {
 import { HashtagIcon } from '@heroicons/react/24/solid';
 import { GITCOIN_PASSPORT_KEY } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
-import { formatDate } from '@lib/formatTime';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
 // @ts-ignore
 import urlcat from 'urlcat';
+
+import { formatDate } from '@/lib/formatTime';
 
 import MetaDetails from '../MetaDetails';
 

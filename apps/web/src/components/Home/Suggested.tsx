@@ -1,15 +1,16 @@
-import DismissRecommendedProfile from '@components/Shared/DismissRecommendedProfile';
-import Loader from '@components/Shared/Loader';
-import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
 import { FollowUnfollowSource } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
 import { useProfileRecommendationsQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
-import useProfileStore from '@persisted/useProfileStore';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
+
+import DismissRecommendedProfile from '@/components/Shared/DismissRecommendedProfile';
+import Loader from '@/components/Shared/Loader';
+import UserProfile from '@/components/Shared/UserProfile';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 const Suggested: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);

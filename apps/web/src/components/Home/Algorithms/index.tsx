@@ -1,9 +1,10 @@
 import { SparklesIcon } from '@heroicons/react/24/outline';
 import { HOME } from '@hey/data/tracking';
 import { Modal, Tooltip } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useState } from 'react';
+
+import { Leafwatch } from '@/lib/leafwatch';
 
 import List from './List';
 

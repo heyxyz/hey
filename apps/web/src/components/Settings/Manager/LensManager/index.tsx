@@ -1,8 +1,9 @@
 import { APP_NAME } from '@hey/data/constants';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import { Card } from '@hey/ui';
-import useProfileStore from '@persisted/useProfileStore';
 import type { FC } from 'react';
+
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 import ToggleLensManager from './ToggleLensManager';
 

@@ -5,9 +5,10 @@ import {
   rectSortingStrategy,
   SortableContext
 } from '@dnd-kit/sortable';
-import { useNftGalleryStore } from '@store/non-persisted/useNftGalleryStore';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
+
+import { useNftGalleryStore } from '@/store/non-persisted/useNftGalleryStore';
 
 import DraggableCard from './DraggableCard';
 

@@ -5,17 +5,18 @@ import {
   useUserSigNoncesQuery,
   useUserSigNoncesSubscriptionSubscription
 } from '@hey/lens';
-import { BrowserPush } from '@lib/browserPush';
-import getCurrentSession from '@lib/getCurrentSession';
-import getPushNotificationData from '@lib/getPushNotificationData';
-import { signOut } from '@persisted/useAuthStore';
-import { useNotificationStore } from '@persisted/useNotificationStore';
-import { useNonceStore } from '@store/non-persisted/useNonceStore';
 import { type FC } from 'react';
 import { isSupported, share } from 'shared-zustand';
 import { useUpdateEffect } from 'usehooks-ts';
 import { isAddress } from 'viem';
 import { useAccount } from 'wagmi';
+
+import { BrowserPush } from '@/lib/browserPush';
+import getCurrentSession from '@/lib/getCurrentSession';
+import getPushNotificationData from '@/lib/getPushNotificationData';
+import { useNonceStore } from '@/store/non-persisted/useNonceStore';
+import { signOut } from '@/store/persisted/useAuthStore';
+import { useNotificationStore } from '@/store/persisted/useNotificationStore';
 
 const LensSubscriptionsProvider: FC = () => {
   const setLatestNotificationId = useNotificationStore(

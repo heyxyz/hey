@@ -1,4 +1,3 @@
-import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import {
   CollectOpenActionModuleType,
   LimitType,
@@ -6,9 +5,11 @@ import {
 } from '@hey/lens';
 import type { CollectModuleType } from '@hey/types/hey';
 import { Button, ErrorMessage, Spinner } from '@hey/ui';
-import { useCollectModuleStore } from '@store/non-persisted/useCollectModuleStore';
 import { type Dispatch, type FC, type SetStateAction } from 'react';
 import { isAddress } from 'viem';
+
+import ToggleWithHelper from '@/components/Shared/ToggleWithHelper';
+import { useCollectModuleStore } from '@/store/non-persisted/useCollectModuleStore';
 
 import AmountConfig from './AmountConfig';
 import CollectLimitConfig from './CollectLimitConfig';

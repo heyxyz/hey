@@ -1,5 +1,3 @@
-import MenuTransition from '@components/Shared/MenuTransition';
-import UserProfile from '@components/Shared/UserProfile';
 import { Menu } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
@@ -20,12 +18,15 @@ import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { Image, Input, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { Leafwatch } from '@lib/leafwatch';
-import useProfileStore from '@persisted/useProfileStore';
-import { useTimelineStore } from '@store/non-persisted/useTimelineStore';
 import { motion } from 'framer-motion';
 import type { ChangeEvent, FC } from 'react';
 import { Fragment, useState } from 'react';
+
+import MenuTransition from '@/components/Shared/MenuTransition';
+import UserProfile from '@/components/Shared/UserProfile';
+import { Leafwatch } from '@/lib/leafwatch';
+import { useTimelineStore } from '@/store/non-persisted/useTimelineStore';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 const SeeThroughLens: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);

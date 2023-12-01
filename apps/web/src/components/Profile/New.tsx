@@ -1,13 +1,14 @@
-import MetaTags from '@components/Common/MetaTags';
-import Signup from '@components/Shared/Login/New';
-import NotLoggedIn from '@components/Shared/NotLoggedIn';
-import SettingsHelper from '@components/Shared/SettingsHelper';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
-import useProfileStore from '@persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
+
+import MetaTags from '@/components/Common/MetaTags';
+import Signup from '@/components/Shared/Login/New';
+import NotLoggedIn from '@/components/Shared/NotLoggedIn';
+import SettingsHelper from '@/components/Shared/SettingsHelper';
+import { Leafwatch } from '@/lib/leafwatch';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 const NewProfile = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);

@@ -1,10 +1,11 @@
 import { InboxIcon } from '@heroicons/react/24/outline';
 import type { Amount } from '@hey/lens';
 import { Button, Spinner } from '@hey/ui';
-import errorToast from '@lib/errorToast';
 import { type FC, useState } from 'react';
 import { parseEther } from 'viem';
 import { useContractWrite } from 'wagmi';
+
+import errorToast from '@/lib/errorToast';
 
 import IndexStatus from '../IndexStatus';
 

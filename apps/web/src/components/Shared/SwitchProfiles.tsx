@@ -17,16 +17,17 @@ import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { ErrorMessage, Image, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
-import { signIn, signOut } from '@persisted/useAuthStore';
-import useProfileStore from '@persisted/useProfileStore';
-import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { useAccount, useSignMessage } from 'wagmi';
+
+import errorToast from '@/lib/errorToast';
+import { Leafwatch } from '@/lib/leafwatch';
+import { useGlobalModalStateStore } from '@/store/non-persisted/useGlobalModalStateStore';
+import { signIn, signOut } from '@/store/persisted/useAuthStore';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 import Loader from './Loader';
 

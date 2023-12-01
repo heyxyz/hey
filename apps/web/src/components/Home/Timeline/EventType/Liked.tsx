@@ -1,7 +1,8 @@
-import Profiles from '@components/Shared/Profiles';
 import { HeartIcon } from '@heroicons/react/24/outline';
 import type { ReactionEvent } from '@hey/lens';
 import { type FC } from 'react';
+
+import Profiles from '@/components/Shared/Profiles';
 
 interface LikedProps {
   reactions: ReactionEvent[];

@@ -2,14 +2,15 @@ import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
 import { PROFILE } from '@hey/data/tracking';
 import { useRevokeAuthenticationMutation } from '@hey/lens';
 import cn from '@hey/ui/cn';
-import errorToast from '@lib/errorToast';
-import getCurrentSession from '@lib/getCurrentSession';
-import { Leafwatch } from '@lib/leafwatch';
-import { signOut } from '@persisted/useAuthStore';
-import { usePreferencesStore } from '@store/non-persisted/usePreferencesStore';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useDisconnect } from 'wagmi';
+
+import errorToast from '@/lib/errorToast';
+import getCurrentSession from '@/lib/getCurrentSession';
+import { Leafwatch } from '@/lib/leafwatch';
+import { usePreferencesStore } from '@/store/non-persisted/usePreferencesStore';
+import { signOut } from '@/store/persisted/useAuthStore';
 
 interface LogoutProps {
   onClick?: () => void;

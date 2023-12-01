@@ -1,11 +1,12 @@
-import ToggleLensManager from '@components/Settings/Manager/LensManager/ToggleLensManager';
 import { HandRaisedIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import { Card } from '@hey/ui';
-import useProfileStore from '@persisted/useProfileStore';
 import type { FC } from 'react';
 import { useAccount } from 'wagmi';
+
+import ToggleLensManager from '@/components/Settings/Manager/LensManager/ToggleLensManager';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 const EnableLensManager: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);

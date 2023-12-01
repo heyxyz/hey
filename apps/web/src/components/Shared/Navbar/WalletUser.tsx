@@ -4,10 +4,11 @@ import getProfile from '@hey/lib/getProfile';
 import getStampFyiURL from '@hey/lib/getStampFyiURL';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import useEnsName from '@hooks/useEnsName';
-import getCurrentSession from '@lib/getCurrentSession';
-import useProfileStore from '@persisted/useProfileStore';
 import type { FC } from 'react';
+
+import useEnsName from '@/hooks/useEnsName';
+import getCurrentSession from '@/lib/getCurrentSession';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 import MenuTransition from '../MenuTransition';
 import Slug from '../Slug';

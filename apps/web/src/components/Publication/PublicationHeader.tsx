@@ -1,13 +1,14 @@
-import SmallUserProfile from '@components/Shared/SmallUserProfile';
-import UserProfile from '@components/Shared/UserProfile';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication, FeedItem } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
-import { useFeatureFlagsStore } from '@persisted/useFeatureFlagsStore';
-import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 import { type FC } from 'react';
+
+import SmallUserProfile from '@/components/Shared/SmallUserProfile';
+import UserProfile from '@/components/Shared/UserProfile';
+import { usePublicationStore } from '@/store/non-persisted/usePublicationStore';
+import { useFeatureFlagsStore } from '@/store/persisted/useFeatureFlagsStore';
 
 import PublicationMenu from './Actions/Menu';
 import Source from './Source';

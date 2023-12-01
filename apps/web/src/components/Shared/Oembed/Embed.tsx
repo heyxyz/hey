@@ -4,9 +4,10 @@ import imageKit from '@hey/lib/imageKit';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { OG } from '@hey/types/misc';
 import { Card, Image } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import { type FC } from 'react';
 import { Link } from 'react-router-dom';
+
+import { Leafwatch } from '@/lib/leafwatch';
 
 interface EmbedProps {
   og: OG;

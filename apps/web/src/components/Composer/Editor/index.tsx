@@ -1,10 +1,4 @@
-import MentionsPlugin from '@components/Shared/Lexical/Plugins/AtMentionsPlugin';
-import LexicalAutoLinkPlugin from '@components/Shared/Lexical/Plugins/AutoLinkPlugin';
-import EmojiPickerPlugin from '@components/Shared/Lexical/Plugins/EmojiPicker';
-import ImagesPlugin from '@components/Shared/Lexical/Plugins/ImagesPlugin';
-import ToolbarPlugin from '@components/Shared/Lexical/Plugins/ToolbarPlugin';
 import { Errors } from '@hey/data/errors';
-import useUploadAttachments from '@hooks/useUploadAttachments';
 import {
   $convertToMarkdownString,
   TEXT_FORMAT_TRANSFORMERS
@@ -16,7 +10,6 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
-import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 import {
   COMMAND_PRIORITY_NORMAL,
   INSERT_LINE_BREAK_COMMAND,
@@ -25,6 +18,14 @@ import {
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+
+import MentionsPlugin from '@/components/Shared/Lexical/Plugins/AtMentionsPlugin';
+import LexicalAutoLinkPlugin from '@/components/Shared/Lexical/Plugins/AutoLinkPlugin';
+import EmojiPickerPlugin from '@/components/Shared/Lexical/Plugins/EmojiPicker';
+import ImagesPlugin from '@/components/Shared/Lexical/Plugins/ImagesPlugin';
+import ToolbarPlugin from '@/components/Shared/Lexical/Plugins/ToolbarPlugin';
+import useUploadAttachments from '@/hooks/useUploadAttachments';
+import { usePublicationStore } from '@/store/non-persisted/usePublicationStore';
 
 const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS];
 

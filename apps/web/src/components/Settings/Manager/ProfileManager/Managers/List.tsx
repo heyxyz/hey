@@ -1,5 +1,3 @@
-import Loader from '@components/Shared/Loader';
-import WalletProfile from '@components/Shared/WalletProfile';
 import { MinusCircleIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { LENSHUB_PROXY } from '@hey/data/constants';
@@ -15,16 +13,19 @@ import { useApolloClient } from '@hey/lens/apollo';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { Button, EmptyState, ErrorMessage, Spinner } from '@hey/ui';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
-import useProfileStore from '@persisted/useProfileStore';
-import { useNonceStore } from '@store/non-persisted/useNonceStore';
 import { type FC, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import toast from 'react-hot-toast';
 import type { Address } from 'viem';
 import { useContractWrite, useSignTypedData } from 'wagmi';
+
+import Loader from '@/components/Shared/Loader';
+import WalletProfile from '@/components/Shared/WalletProfile';
+import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork';
+import errorToast from '@/lib/errorToast';
+import { Leafwatch } from '@/lib/leafwatch';
+import { useNonceStore } from '@/store/non-persisted/useNonceStore';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 const List: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);

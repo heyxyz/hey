@@ -1,9 +1,3 @@
-import Markup from '@components/Shared/Markup';
-import Follow from '@components/Shared/Profile/Follow';
-import Unfollow from '@components/Shared/Profile/Unfollow';
-import Slug from '@components/Shared/Slug';
-import SuperFollow from '@components/Shared/SuperFollow';
-import ProfileStaffTool from '@components/StaffTools/Panels/Profile';
 import {
   Cog6ToothIcon,
   HashtagIcon,
@@ -32,16 +26,23 @@ import getProfile from '@hey/lib/getProfile';
 import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import hasMisused from '@hey/lib/hasMisused';
 import { Button, Image, LightBox, Modal, Tooltip } from '@hey/ui';
-import { useTheme } from '@hooks/theme';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
-import isVerified from '@lib/isVerified';
-import { useFeatureFlagsStore } from '@persisted/useFeatureFlagsStore';
-import useProfileStore from '@persisted/useProfileStore';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 // @ts-ignore
 import urlcat from 'urlcat';
+
+import Markup from '@/components/Shared/Markup';
+import Follow from '@/components/Shared/Profile/Follow';
+import Unfollow from '@/components/Shared/Profile/Unfollow';
+import Slug from '@/components/Shared/Slug';
+import SuperFollow from '@/components/Shared/SuperFollow';
+import ProfileStaffTool from '@/components/StaffTools/Panels/Profile';
+import { useTheme } from '@/hooks/theme';
+import isFeatureEnabled from '@/lib/isFeatureEnabled';
+import isVerified from '@/lib/isVerified';
+import { useFeatureFlagsStore } from '@/store/persisted/useFeatureFlagsStore';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 import Badges from './Badges';
 import Followerings from './Followerings';

@@ -1,3 +1,3 @@
-import ViewNft from '@components/Nft';
+import ViewNft from '@/components/Nft';
 
 export default ViewNft;

@@ -1,4 +1,3 @@
-import Video from '@components/Shared/Video';
 import {
   CursorArrowRaysIcon,
   SignalIcon,
@@ -11,12 +10,14 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { UnlonelyChannelMetadata } from '@hey/types/nft';
 import { Button, Card, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import useUnlonelyChannel from '@hooks/unlonely/useUnlonelyChannel';
-import { Leafwatch } from '@lib/leafwatch';
 import { type FC } from 'react';
 import { Link } from 'react-router-dom';
 // @ts-ignore
 import urlcat from 'urlcat';
+
+import Video from '@/components/Shared/Video';
+import useUnlonelyChannel from '@/hooks/unlonely/useUnlonelyChannel';
+import { Leafwatch } from '@/lib/leafwatch';
 
 import NftShimmer from './Shimmer';
 

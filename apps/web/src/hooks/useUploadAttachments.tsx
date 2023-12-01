@@ -1,9 +1,10 @@
 import type { NewAttachment } from '@hey/types/misc';
-import uploadToIPFS from '@lib/uploadToIPFS';
-import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 import { useCallback } from 'react';
 import { toast } from 'react-hot-toast';
 import { v4 as uuid } from 'uuid';
+
+import uploadToIPFS from '@/lib/uploadToIPFS';
+import { usePublicationStore } from '@/store/non-persisted/usePublicationStore';
 
 const useUploadAttachments = () => {
   const addAttachments = usePublicationStore((state) => state.addAttachments);

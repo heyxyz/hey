@@ -1,5 +1,3 @@
-import SinglePublication from '@components/Publication/SinglePublication';
-import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { BookmarkIcon } from '@heroicons/react/24/outline';
 import type {
   AnyPublication,
@@ -8,9 +6,12 @@ import type {
 } from '@hey/lens';
 import { LimitType, usePublicationBookmarksQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { useImpressionsStore } from '@store/non-persisted/useImpressionsStore';
 import { type FC } from 'react';
 import { useInView } from 'react-cool-inview';
+
+import SinglePublication from '@/components/Publication/SinglePublication';
+import PublicationsShimmer from '@/components/Shared/Shimmer/PublicationsShimmer';
+import { useImpressionsStore } from '@/store/non-persisted/useImpressionsStore';
 
 interface FeedProps {
   focus?: PublicationMetadataMainFocusType;

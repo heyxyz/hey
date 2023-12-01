@@ -1,12 +1,13 @@
-import MetaTags from '@components/Common/MetaTags';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridLayout } from '@hey/ui';
-import useOpenseaNft from '@hooks/opensea/useOpenseaNft';
-import { Leafwatch } from '@lib/leafwatch';
-import Custom500 from '@pages/500';
 import { useParams } from 'react-router-dom';
 import { useEffectOnce } from 'usehooks-ts';
+
+import MetaTags from '@/components/Common/MetaTags';
+import useOpenseaNft from '@/hooks/opensea/useOpenseaNft';
+import { Leafwatch } from '@/lib/leafwatch';
+import Custom500 from '@/pages/500';
 
 import NftDetails from './Details';
 import NftPageShimmer from './Shimmer';

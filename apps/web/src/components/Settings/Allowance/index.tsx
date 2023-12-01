@@ -1,6 +1,3 @@
-import MetaTags from '@components/Common/MetaTags';
-import Loader from '@components/Shared/Loader';
-import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME, DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import type { Erc20 } from '@hey/lens';
@@ -12,11 +9,15 @@ import {
   useEnabledCurrenciesQuery
 } from '@hey/lens';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
-import Custom500 from '@pages/500';
-import useProfileStore from '@persisted/useProfileStore';
 import { useState } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
+
+import MetaTags from '@/components/Common/MetaTags';
+import Loader from '@/components/Shared/Loader';
+import NotLoggedIn from '@/components/Shared/NotLoggedIn';
+import { Leafwatch } from '@/lib/leafwatch';
+import Custom500 from '@/pages/500';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 import SettingsSidebar from '../Sidebar';
 import Allowance from './Allowance';

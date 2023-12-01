@@ -1,14 +1,15 @@
-import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { APP_NAME, HEY_API_URL } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
 import getPreferences from '@hey/lib/api/getPreferences';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
-import { Leafwatch } from '@lib/leafwatch';
-import { usePreferencesStore } from '@store/non-persisted/usePreferencesStore';
 import axios from 'axios';
 import { type FC, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import useProfileStore from 'src/store/persisted/useProfileStore';
+
+import ToggleWithHelper from '@/components/Shared/ToggleWithHelper';
+import getAuthWorkerHeaders from '@/lib/getAuthWorkerHeaders';
+import { Leafwatch } from '@/lib/leafwatch';
+import { usePreferencesStore } from '@/store/non-persisted/usePreferencesStore';
 
 const IsPride: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);

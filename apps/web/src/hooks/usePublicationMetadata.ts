@@ -9,10 +9,11 @@ import {
   textOnly,
   video
 } from '@lens-protocol/metadata';
-import getUserLocale from '@lib/getUserLocale';
-import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 import { useCallback } from 'react';
 import { v4 as uuid } from 'uuid';
+
+import getUserLocale from '@/lib/getUserLocale';
+import { usePublicationStore } from '@/store/non-persisted/usePublicationStore';
 
 interface UsePublicationMetadataProps {
   baseMetadata: any;

@@ -1,5 +1,6 @@
 import type { FeatureFlag } from '@hey/data/feature-flags';
-import { hydrateFeatureFlags } from '@persisted/useFeatureFlagsStore';
+
+import { hydrateFeatureFlags } from '@/store/persisted/useFeatureFlagsStore';
 
 import getCurrentSession from './getCurrentSession';
 

@@ -1,6 +1,7 @@
-import Providers from '@components/Common/Providers';
-import Custom404 from '@pages/404';
 import { Outlet, Route, Routes } from 'react-router-dom';
+
+import Providers from '@/components/Common/Providers';
+import Custom404 from '@/pages/404';
 
 import Bookmarks from './pages/bookmarks';
 import Explore from './pages/explore';

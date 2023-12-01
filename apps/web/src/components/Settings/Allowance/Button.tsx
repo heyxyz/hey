@@ -7,13 +7,14 @@ import { SETTINGS } from '@hey/data/tracking';
 import type { ApprovedAllowanceAmountResult } from '@hey/lens';
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from '@hey/lens';
 import { Button, Modal, Spinner, WarningMessage } from '@hey/ui';
-import errorToast from '@lib/errorToast';
-import getAllowanceModule from '@lib/getAllowanceModule';
-import { Leafwatch } from '@lib/leafwatch';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useSendTransaction, useWaitForTransaction } from 'wagmi';
+
+import errorToast from '@/lib/errorToast';
+import getAllowanceModule from '@/lib/getAllowanceModule';
+import { Leafwatch } from '@/lib/leafwatch';
 
 interface AllowanceButtonProps {
   title?: string;

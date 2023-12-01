@@ -1,9 +1,10 @@
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { SYSTEM } from '@hey/data/tracking';
 import { Button } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import { type FC } from 'react';
 import { useSwitchNetwork } from 'wagmi';
+
+import { Leafwatch } from '@/lib/leafwatch';
 
 interface SwitchNetworkProps {
   toChainId: number;

@@ -1,11 +1,12 @@
-import Slug from '@components/Shared/Slug';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import type { InvitedResult } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
 import getProfile from '@hey/lib/getProfile';
-import { formatDate } from '@lib/formatTime';
 import { type FC } from 'react';
 import { Link } from 'react-router-dom';
+
+import Slug from '@/components/Shared/Slug';
+import { formatDate } from '@/lib/formatTime';
 
 interface ProfileProps {
   invite: InvitedResult;

@@ -1,9 +1,10 @@
-import Markup from '@components/Shared/Markup';
 import type { Profile } from '@hey/lens';
 import getMentions from '@hey/lib/getMentions';
 import getMisuseDetails from '@hey/lib/getMisuseDetails';
 import { Card } from '@hey/ui';
 import { type FC } from 'react';
+
+import Markup from '@/components/Shared/Markup';
 
 interface ScamWarningProps {
   profile: Profile;

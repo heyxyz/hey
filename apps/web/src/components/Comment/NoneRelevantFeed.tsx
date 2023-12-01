@@ -1,4 +1,3 @@
-import SinglePublication from '@components/Publication/SinglePublication';
 import type { AnyPublication, Comment, PublicationsRequest } from '@hey/lens';
 import {
   CommentRankingFilterType,
@@ -10,6 +9,8 @@ import { Card } from '@hey/ui';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
+
+import SinglePublication from '@/components/Publication/SinglePublication';
 
 interface NoneRelevantFeedProps {
   publication?: AnyPublication;

@@ -2,9 +2,10 @@ import { GlobeAmericasIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import { algorithms } from '@hey/data/algorithms';
 import { HOME } from '@hey/data/tracking';
 import { Toggle, Tooltip } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
-import { useEnabledAlgorithmsStore } from '@persisted/useEnabledAlgorithmsStore';
 import type { FC } from 'react';
+
+import { Leafwatch } from '@/lib/leafwatch';
+import { useEnabledAlgorithmsStore } from '@/store/persisted/useEnabledAlgorithmsStore';
 
 const List: FC = () => {
   const enabledAlgorithms = useEnabledAlgorithmsStore(

@@ -1,4 +1,3 @@
-import Slug from '@components/Shared/Slug';
 import { POLYGONSCAN_URL } from '@hey/data/constants';
 import type { Profile, RecipientDataOutput } from '@hey/lens';
 import { useProfilesQuery } from '@hey/lens';
@@ -8,6 +7,8 @@ import getProfile from '@hey/lib/getProfile';
 import getStampFyiURL from '@hey/lib/getStampFyiURL';
 import { type FC } from 'react';
 import { Link } from 'react-router-dom';
+
+import Slug from '@/components/Shared/Slug';
 
 interface SplitsProps {
   recipients: RecipientDataOutput[];

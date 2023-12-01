@@ -1,13 +1,14 @@
-import UserProfile from '@components/Shared/UserProfile';
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { PROFILE } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
 import { Button, Card, Form, Radio, TextArea, useZodForm } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
-import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
 import { type FC } from 'react';
 import toast from 'react-hot-toast';
 import { object, string, z } from 'zod';
+
+import UserProfile from '@/components/Shared/UserProfile';
+import { Leafwatch } from '@/lib/leafwatch';
+import { useGlobalModalStateStore } from '@/store/non-persisted/useGlobalModalStateStore';
 
 const ReportType = z.enum(['MISLEADING_ACCOUNT', 'UNWANTED_CONTENT']);
 

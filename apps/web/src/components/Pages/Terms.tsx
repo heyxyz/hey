@@ -1,10 +1,11 @@
-import MetaTags from '@components/Common/MetaTags';
-import Footer from '@components/Shared/Footer';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import { Leafwatch } from '@lib/leafwatch';
 import { Link } from 'react-router-dom';
 import { useEffectOnce } from 'usehooks-ts';
+
+import MetaTags from '@/components/Common/MetaTags';
+import Footer from '@/components/Shared/Footer';
+import { Leafwatch } from '@/lib/leafwatch';
 
 const Terms = () => {
   const updatedAt = 'December 11, 2022';

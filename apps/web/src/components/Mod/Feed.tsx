@@ -1,5 +1,3 @@
-import SinglePublication from '@components/Publication/SinglePublication';
-import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import type {
   AnyPublication,
@@ -17,6 +15,9 @@ import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import { useInView } from 'react-cool-inview';
+
+import SinglePublication from '@/components/Publication/SinglePublication';
+import PublicationsShimmer from '@/components/Shared/Shimmer/PublicationsShimmer';
 
 interface FeedProps {
   refresh: boolean;

@@ -6,9 +6,10 @@ import getPublicationData from '@hey/lib/getPublicationData';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
-import { Leafwatch } from '@lib/leafwatch';
 import { type FC } from 'react';
 import toast from 'react-hot-toast';
+
+import { Leafwatch } from '@/lib/leafwatch';
 
 interface CopyPostTextProps {
   publication: AnyPublication;

@@ -1,6 +1,3 @@
-import DismissRecommendedProfile from '@components/Shared/DismissRecommendedProfile';
-import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
-import UserProfile from '@components/Shared/UserProfile';
 import {
   EllipsisHorizontalCircleIcon,
   UsersIcon
@@ -10,12 +7,16 @@ import { FollowUnfollowSource, MISCELLANEOUS } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
 import { useProfileRecommendationsQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
-import useProfileStore from '@persisted/useProfileStore';
-import { useTimelineStore } from '@store/non-persisted/useTimelineStore';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
+
+import DismissRecommendedProfile from '@/components/Shared/DismissRecommendedProfile';
+import UserProfileShimmer from '@/components/Shared/Shimmer/UserProfileShimmer';
+import UserProfile from '@/components/Shared/UserProfile';
+import { Leafwatch } from '@/lib/leafwatch';
+import { useTimelineStore } from '@/store/non-persisted/useTimelineStore';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 import Suggested from './Suggested';
 

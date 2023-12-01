@@ -1,5 +1,6 @@
 import { IS_MAINNET } from '@hey/data/constants';
-import { hydrateAuthTokens } from '@persisted/useAuthStore';
+
+import { hydrateAuthTokens } from '@/store/persisted/useAuthStore';
 
 const getAuthWorkerHeaders = () => {
   return {

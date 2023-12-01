@@ -8,8 +8,9 @@ import {
 } from '@heroicons/react/24/outline';
 import { NOTIFICATION } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import { type FC } from 'react';
+
+import { Leafwatch } from '@/lib/leafwatch';
 
 interface FeedTypeProps {
   feedType: string;

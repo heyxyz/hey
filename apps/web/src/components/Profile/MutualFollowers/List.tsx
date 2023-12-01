@@ -1,15 +1,16 @@
-import Loader from '@components/Shared/Loader';
-import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
 import { FollowUnfollowSource } from '@hey/data/tracking';
 import type { MutualFollowersRequest, Profile } from '@hey/lens';
 import { LimitType, useMutualFollowersQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { EmptyState, ErrorMessage } from '@hey/ui';
-import useProfileStore from '@persisted/useProfileStore';
 import { motion } from 'framer-motion';
 import { type FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
+
+import Loader from '@/components/Shared/Loader';
+import UserProfile from '@/components/Shared/UserProfile';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 interface MutualFollowersListProps {
   profile: Profile;

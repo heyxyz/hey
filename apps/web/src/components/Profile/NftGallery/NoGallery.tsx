@@ -2,9 +2,10 @@ import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { Button } from '@hey/ui';
-import useProfileStore from '@persisted/useProfileStore';
 import type { FC } from 'react';
 import { useState } from 'react';
+
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 import Create from './Create';
 

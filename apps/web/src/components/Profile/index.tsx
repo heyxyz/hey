@@ -1,5 +1,3 @@
-import MetaTags from '@components/Common/MetaTags';
-import NewPost from '@components/Composer/Post/New';
 import { ProfileFeedType } from '@enums';
 import {
   APP_NAME,
@@ -12,13 +10,16 @@ import type { Profile } from '@hey/lens';
 import { FollowModuleType, useProfileQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { GridItemEight, GridItemFour, GridLayout, Modal } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
-import Custom404 from '@pages/404';
-import Custom500 from '@pages/500';
-import useProfileStore from '@persisted/useProfileStore';
 import { useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
+
+import MetaTags from '@/components/Common/MetaTags';
+import NewPost from '@/components/Composer/Post/New';
+import { Leafwatch } from '@/lib/leafwatch';
+import Custom404 from '@/pages/404';
+import Custom500 from '@/pages/500';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 import Achievements from './Achievements';
 import Cover from './Cover';

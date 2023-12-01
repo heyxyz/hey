@@ -1,4 +1,3 @@
-import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication } from '@hey/lens';
@@ -11,6 +10,8 @@ import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
+
+import MenuTransition from '@/components/Shared/MenuTransition';
 
 import Mirror from './Mirror';
 import Quote from './Quote';

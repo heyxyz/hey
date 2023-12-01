@@ -1,17 +1,18 @@
-import QueuedPublication from '@components/Publication/QueuedPublication';
-import SinglePublication from '@components/Publication/SinglePublication';
-import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { LightBulbIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication, FeedHighlightsRequest } from '@hey/lens';
 import { LimitType, useFeedHighlightsQuery } from '@hey/lens';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import useProfileStore from '@persisted/useProfileStore';
-import { useTransactionStore } from '@persisted/useTransactionStore';
-import { useImpressionsStore } from '@store/non-persisted/useImpressionsStore';
-import { useTimelineStore } from '@store/non-persisted/useTimelineStore';
 import { type FC } from 'react';
 import { useInView } from 'react-cool-inview';
+
+import QueuedPublication from '@/components/Publication/QueuedPublication';
+import SinglePublication from '@/components/Publication/SinglePublication';
+import PublicationsShimmer from '@/components/Shared/Shimmer/PublicationsShimmer';
+import { useImpressionsStore } from '@/store/non-persisted/useImpressionsStore';
+import { useTimelineStore } from '@/store/non-persisted/useTimelineStore';
+import useProfileStore from '@/store/persisted/useProfileStore';
+import { useTransactionStore } from '@/store/persisted/useTransactionStore';
 
 const Highlights: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);

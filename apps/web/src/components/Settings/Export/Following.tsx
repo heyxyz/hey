@@ -3,10 +3,11 @@ import type { FollowingRequest } from '@hey/lens';
 import { LimitType, useFollowingLazyQuery } from '@hey/lens';
 import downloadJson from '@hey/lib/downloadJson';
 import { Button, Card } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
-import useProfileStore from '@persisted/useProfileStore';
 import type { FC } from 'react';
 import { useState } from 'react';
+
+import { Leafwatch } from '@/lib/leafwatch';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 const Following: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);

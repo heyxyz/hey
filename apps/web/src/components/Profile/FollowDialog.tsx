@@ -1,12 +1,13 @@
-import Follow from '@components/Shared/Profile/Follow';
-import Slug from '@components/Shared/Slug';
-import SuperFollow from '@components/Shared/SuperFollow';
 import { FollowUnfollowSource } from '@hey/data/tracking';
 import { FollowModuleType, type Profile } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { Button, Image } from '@hey/ui';
 import { type Dispatch, type FC, type SetStateAction } from 'react';
+
+import Follow from '@/components/Shared/Profile/Follow';
+import Slug from '@/components/Shared/Slug';
+import SuperFollow from '@/components/Shared/SuperFollow';
 
 interface FollowModalProps {
   profile: Profile;

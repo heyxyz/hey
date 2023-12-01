@@ -1,8 +1,9 @@
-import Slug from '@components/Shared/Slug';
 import { StarIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { Card } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { type FC } from 'react';
+
+import Slug from '@/components/Shared/Slug';
 
 interface CollectWarningProps {
   handle: string;

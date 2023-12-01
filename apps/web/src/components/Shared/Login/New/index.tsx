@@ -13,10 +13,11 @@ import {
   Spinner,
   useZodForm
 } from '@hey/ui';
-import errorToast from '@lib/errorToast';
 import { type FC } from 'react';
 import { useAccount } from 'wagmi';
 import { object, string } from 'zod';
+
+import errorToast from '@/lib/errorToast';
 
 import Pending from './Pending';
 

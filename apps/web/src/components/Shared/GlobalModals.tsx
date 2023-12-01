@@ -1,14 +1,15 @@
-import NewPublication from '@components/Composer/NewPublication';
-import ReportPublication from '@components/Shared/Modal/ReportPublication';
 import {
   ArrowRightCircleIcon,
   ShieldCheckIcon,
   TicketIcon
 } from '@heroicons/react/24/outline';
 import { Modal } from '@hey/ui';
-import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
-import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 import type { FC } from 'react';
+
+import NewPublication from '@/components/Composer/NewPublication';
+import ReportPublication from '@/components/Shared/Modal/ReportPublication';
+import { useGlobalModalStateStore } from '@/store/non-persisted/useGlobalModalStateStore';
+import { usePublicationStore } from '@/store/non-persisted/usePublicationStore';
 
 import Login from './Login';
 import WrongNetwork from './Login/WrongNetwork';

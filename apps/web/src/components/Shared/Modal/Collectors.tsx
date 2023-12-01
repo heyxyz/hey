@@ -1,4 +1,3 @@
-import UserProfile from '@components/Shared/UserProfile';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { FollowUnfollowSource } from '@hey/data/tracking';
 import type { Profile, WhoActedOnPublicationRequest } from '@hey/lens';
@@ -7,6 +6,8 @@ import { EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
 import { type FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
+
+import UserProfile from '@/components/Shared/UserProfile';
 
 import Loader from '../Loader';
 

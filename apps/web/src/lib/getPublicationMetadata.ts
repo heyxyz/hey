@@ -1,8 +1,9 @@
 import { APP_NAME } from '@hey/data/constants';
 import type { NewAttachment } from '@hey/types/misc';
 import { audio, image, textOnly, video } from '@lens-protocol/metadata';
-import getUserLocale from '@lib/getUserLocale';
 import { v4 as uuid } from 'uuid';
+
+import getUserLocale from '@/lib/getUserLocale';
 
 interface GetPublicationMetadataProps {
   baseMetadata: any;

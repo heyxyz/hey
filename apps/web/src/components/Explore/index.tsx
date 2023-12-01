@@ -1,8 +1,3 @@
-import MetaTags from '@components/Common/MetaTags';
-import RecommendedProfiles from '@components/Home/RecommendedProfiles';
-import Trending from '@components/Home/Trending';
-import FeedFocusType from '@components/Shared/FeedFocusType';
-import Footer from '@components/Shared/Footer';
 import { Tab } from '@headlessui/react';
 import { APP_NAME } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
@@ -11,12 +6,18 @@ import type { PublicationMetadataMainFocusType } from '@hey/lens';
 import { ExplorePublicationsOrderByType } from '@hey/lens';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Leafwatch } from '@lib/leafwatch';
-import useProfileStore from '@persisted/useProfileStore';
 import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useEffectOnce } from 'usehooks-ts';
+
+import MetaTags from '@/components/Common/MetaTags';
+import RecommendedProfiles from '@/components/Home/RecommendedProfiles';
+import Trending from '@/components/Home/Trending';
+import FeedFocusType from '@/components/Shared/FeedFocusType';
+import Footer from '@/components/Shared/Footer';
+import isFeatureEnabled from '@/lib/isFeatureEnabled';
+import { Leafwatch } from '@/lib/leafwatch';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 import Feed from './Feed';
 

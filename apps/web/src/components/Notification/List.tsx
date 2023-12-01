@@ -16,12 +16,13 @@ import {
   useNotificationsQuery
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { useNotificationStore } from '@persisted/useNotificationStore';
-import { usePreferencesStore } from '@store/non-persisted/usePreferencesStore';
 import { motion } from 'framer-motion';
 import { type FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { useUpdateEffect } from 'usehooks-ts';
+
+import { usePreferencesStore } from '@/store/non-persisted/usePreferencesStore';
+import { useNotificationStore } from '@/store/persisted/useNotificationStore';
 
 import NotificationShimmer from './Shimmer';
 import ActedNotification from './Type/ActedNotification';

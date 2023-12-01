@@ -1,10 +1,11 @@
 import { PUBLICATION } from '@hey/data/tracking';
 import { useHidePublicationMutation } from '@hey/lens';
 import { Alert } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
-import { useGlobalAlertStateStore } from '@store/non-persisted/useGlobalAlertStateStore';
 import { type FC } from 'react';
 import { toast } from 'react-hot-toast';
+
+import { Leafwatch } from '@/lib/leafwatch';
+import { useGlobalAlertStateStore } from '@/store/non-persisted/useGlobalAlertStateStore';
 
 const DeletePublication: FC = () => {
   const showPublicationDeleteAlert = useGlobalAlertStateStore(

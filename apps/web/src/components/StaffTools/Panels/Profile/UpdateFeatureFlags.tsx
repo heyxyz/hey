@@ -1,14 +1,15 @@
-import Loader from '@components/Shared/Loader';
 import { FlagIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import type { Features } from '@hey/types/hey';
 import { EmptyState, Toggle } from '@hey/ui';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC, useState } from 'react';
 import toast from 'react-hot-toast';
+
+import Loader from '@/components/Shared/Loader';
+import getAuthWorkerHeaders from '@/lib/getAuthWorkerHeaders';
 
 interface UpdateFeatureFlagsProps {
   profile: Profile;

@@ -8,11 +8,12 @@ import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { getTwitterFormat } from '@lib/formatTime';
-import isVerified from '@lib/isVerified';
 import type { FC } from 'react';
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
+
+import { getTwitterFormat } from '@/lib/formatTime';
+import isVerified from '@/lib/isVerified';
 
 import Slug from './Slug';
 

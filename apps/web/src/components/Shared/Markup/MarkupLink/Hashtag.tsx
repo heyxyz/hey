@@ -5,9 +5,10 @@ import { PUBLICATION } from '@hey/data/tracking';
 import isPrideMonth from '@hey/lib/isPrideMonth';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { MarkupLinkProps } from '@hey/types/misc';
-import { Leafwatch } from '@lib/leafwatch';
 import { type FC } from 'react';
 import { Link } from 'react-router-dom';
+
+import { Leafwatch } from '@/lib/leafwatch';
 
 const Hashtag: FC<MarkupLinkProps> = ({ title }) => {
   if (!title) {

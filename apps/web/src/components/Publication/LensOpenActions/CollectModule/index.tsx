@@ -1,7 +1,3 @@
-import CollectWarning from '@components/Shared/CollectWarning';
-import CountdownTimer from '@components/Shared/CountdownTimer';
-import Collectors from '@components/Shared/Modal/Collectors';
-import Slug from '@components/Shared/Slug';
 import {
   BanknotesIcon,
   ClockIcon,
@@ -33,6 +29,11 @@ import plur from 'plur';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+
+import CollectWarning from '@/components/Shared/CollectWarning';
+import CountdownTimer from '@/components/Shared/CountdownTimer';
+import Collectors from '@/components/Shared/Modal/Collectors';
+import Slug from '@/components/Shared/Slug';
 
 import CollectAction from './CollectAction';
 import Splits from './Splits';

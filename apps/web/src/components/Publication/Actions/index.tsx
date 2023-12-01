@@ -3,10 +3,11 @@ import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
 import isOpenActionAllowed from '@hey/lib/isOpenActionAllowed';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { useFeatureFlagsStore } from '@persisted/useFeatureFlagsStore';
-import useProfileStore from '@persisted/useProfileStore';
-import { useImpressionsStore } from '@store/non-persisted/useImpressionsStore';
 import { type FC, memo } from 'react';
+
+import { useImpressionsStore } from '@/store/non-persisted/useImpressionsStore';
+import { useFeatureFlagsStore } from '@/store/persisted/useFeatureFlagsStore';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 import OpenAction from '../LensOpenActions';
 import Comment from './Comment';

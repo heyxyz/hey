@@ -5,11 +5,12 @@ import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
-import useProfileStore from '@persisted/useProfileStore';
-import { useGlobalModalStateStore } from '@store/non-persisted/useGlobalModalStateStore';
 import type { FC } from 'react';
 import { Link } from 'react-router-dom';
+
+import isFeatureEnabled from '@/lib/isFeatureEnabled';
+import { useGlobalModalStateStore } from '@/store/non-persisted/useGlobalModalStateStore';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 import Slug from '../Slug';
 import AppVersion from './NavItems/AppVersion';

@@ -1,12 +1,13 @@
-import Loader from '@components/Shared/Loader';
-import UserProfile from '@components/Shared/UserProfile';
 import { NoSymbolIcon } from '@heroicons/react/24/outline';
 import type { Profile, WhoHaveBlockedRequest } from '@hey/lens';
 import { LimitType, useWhoHaveBlockedQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
-import useProfileStore from '@persisted/useProfileStore';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
+
+import Loader from '@/components/Shared/Loader';
+import UserProfile from '@/components/Shared/UserProfile';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 const List: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);

@@ -1,5 +1,3 @@
-import GroupProfileShimmer from '@components/Shared/Shimmer/GroupProfileShimmer';
-import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import { CursorArrowRippleIcon as CursorArrowRippleIconOutline } from '@heroicons/react/24/outline';
 import { CursorArrowRippleIcon as CursorArrowRippleIconSolid } from '@heroicons/react/24/solid';
 import { HEY_API_URL } from '@hey/data/constants';
@@ -9,6 +7,9 @@ import axios from 'axios';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useQuery } from 'wagmi';
+
+import GroupProfileShimmer from '@/components/Shared/Shimmer/GroupProfileShimmer';
+import UserProfileShimmer from '@/components/Shared/Shimmer/UserProfileShimmer';
 
 import StaffPickedGroup from './StaffPickedGroup';
 import StaffPickedProfile from './StaffPickedProfile';

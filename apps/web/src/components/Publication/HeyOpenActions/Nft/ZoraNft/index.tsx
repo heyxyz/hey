@@ -8,13 +8,14 @@ import getZoraChainInfo from '@hey/lib/getZoraChainInfo';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { BasicNftMetadata } from '@hey/types/nft';
 import { Button, Card, Modal, Tooltip } from '@hey/ui';
-import useZoraNft from '@hooks/zora/useZoraNft';
-import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 // @ts-ignore
 import urlcat from 'urlcat';
+
+import useZoraNft from '@/hooks/zora/useZoraNft';
+import { Leafwatch } from '@/lib/leafwatch';
 
 import Mint, { useZoraMintStore } from './Mint';
 import NftShimmer from './Shimmer';

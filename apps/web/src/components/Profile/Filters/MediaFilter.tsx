@@ -1,10 +1,11 @@
-import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/outline';
 import { Checkbox, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { useProfileFeedStore } from '@store/non-persisted/useProfileFeedStore';
 import type { ChangeEvent } from 'react';
+
+import MenuTransition from '@/components/Shared/MenuTransition';
+import { useProfileFeedStore } from '@/store/non-persisted/useProfileFeedStore';
 
 const MediaFilter = () => {
   const mediaFeedFilters = useProfileFeedStore(

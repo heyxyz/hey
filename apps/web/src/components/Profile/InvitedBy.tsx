@@ -1,10 +1,11 @@
-import Slug from '@components/Shared/Slug';
 import type { Profile } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import { type FC } from 'react';
 import { Link } from 'react-router-dom';
+
+import Slug from '@/components/Shared/Slug';
 
 interface InvitedByProps {
   profile: Profile;

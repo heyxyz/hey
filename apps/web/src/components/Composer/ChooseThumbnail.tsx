@@ -1,14 +1,15 @@
-import ThumbnailsShimmer from '@components/Shared/Shimmer/ThumbnailsShimmer';
 import { CheckCircleIcon, PhotoIcon } from '@heroicons/react/24/outline';
 import { generateVideoThumbnails } from '@hey/lib/generateVideoThumbnails';
 import getFileFromDataURL from '@hey/lib/getFileFromDataURL';
 import { Spinner } from '@hey/ui';
-import { uploadFileToIPFS } from '@lib/uploadToIPFS';
-import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 import type { ChangeEvent, FC } from 'react';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useUpdateEffect } from 'usehooks-ts';
+
+import ThumbnailsShimmer from '@/components/Shared/Shimmer/ThumbnailsShimmer';
+import { uploadFileToIPFS } from '@/lib/uploadToIPFS';
+import { usePublicationStore } from '@/store/non-persisted/usePublicationStore';
 
 const DEFAULT_THUMBNAIL_INDEX = 0;
 export const THUMBNAIL_GENERATE_COUNT = 4;

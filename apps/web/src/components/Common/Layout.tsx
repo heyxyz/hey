@@ -1,23 +1,24 @@
-import GlobalAlerts from '@components/Shared/GlobalAlerts';
-import GlobalBanners from '@components/Shared/GlobalBanners';
-import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
 import type { Profile } from '@hey/lens';
 import { useCurrentProfileQuery } from '@hey/lens';
-import { useTheme } from '@hooks/theme';
-import getCurrentSession from '@lib/getCurrentSession';
-import getToastOptions from '@lib/getToastOptions';
-import { hydrateAuthTokens, signOut } from '@persisted/useAuthStore';
-import { useFeatureFlagsStore } from '@persisted/useFeatureFlagsStore';
-import useProfileStore from '@persisted/useProfileStore';
-import { useNonceStore } from '@store/non-persisted/useNonceStore';
-import { usePreferencesStore } from '@store/non-persisted/usePreferencesStore';
-import { useProStore } from '@store/non-persisted/useProStore';
 import { type FC, type ReactNode } from 'react';
 import { Helmet } from 'react-helmet';
 import { Toaster } from 'react-hot-toast';
 import { useEffectOnce, useIsMounted } from 'usehooks-ts';
 import { isAddress } from 'viem';
 import { useDisconnect } from 'wagmi';
+
+import GlobalAlerts from '@/components/Shared/GlobalAlerts';
+import GlobalBanners from '@/components/Shared/GlobalBanners';
+import BottomNavigation from '@/components/Shared/Navbar/BottomNavigation';
+import { useTheme } from '@/hooks/theme';
+import getCurrentSession from '@/lib/getCurrentSession';
+import getToastOptions from '@/lib/getToastOptions';
+import { useNonceStore } from '@/store/non-persisted/useNonceStore';
+import { usePreferencesStore } from '@/store/non-persisted/usePreferencesStore';
+import { useProStore } from '@/store/non-persisted/useProStore';
+import { hydrateAuthTokens, signOut } from '@/store/persisted/useAuthStore';
+import { useFeatureFlagsStore } from '@/store/persisted/useFeatureFlagsStore';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 import GlobalModals from '../Shared/GlobalModals';
 import Loading from '../Shared/Loading';

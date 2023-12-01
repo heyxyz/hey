@@ -1,5 +1,3 @@
-import MetaTags from '@components/Common/MetaTags';
-import Footer from '@components/Shared/Footer';
 import { apps as knownApps } from '@hey/data/apps';
 import { APP_NAME } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
@@ -17,11 +15,14 @@ import {
   GridItemFour,
   GridLayout
 } from '@hey/ui';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Leafwatch } from '@lib/leafwatch';
-import Custom404 from '@pages/404';
 import { useState } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
+
+import MetaTags from '@/components/Common/MetaTags';
+import Footer from '@/components/Shared/Footer';
+import isFeatureEnabled from '@/lib/isFeatureEnabled';
+import { Leafwatch } from '@/lib/leafwatch';
+import Custom404 from '@/pages/404';
 
 import Feed from './Feed';
 

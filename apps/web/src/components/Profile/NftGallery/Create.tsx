@@ -11,11 +11,12 @@ import { useApolloClient } from '@hey/lens/apollo';
 import trimify from '@hey/lib/trimify';
 import { Button, Input, Modal, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import useProfileStore from '@persisted/useProfileStore';
-import { useNftGalleryStore } from '@store/non-persisted/useNftGalleryStore';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+
+import { useNftGalleryStore } from '@/store/non-persisted/useNftGalleryStore';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 import Picker from './Picker';
 import ReviewSelection from './ReviewSelection';

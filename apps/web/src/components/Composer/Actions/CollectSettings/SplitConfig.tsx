@@ -1,6 +1,3 @@
-import Beta from '@components/Shared/Badges/Beta';
-import SearchUser from '@components/Shared/SearchUser';
-import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import {
   ArrowsRightLeftIcon,
   PlusIcon,
@@ -11,10 +8,14 @@ import { ADDRESS_PLACEHOLDER } from '@hey/data/constants';
 import { OpenActionModuleType } from '@hey/lens';
 import splitNumber from '@hey/lib/splitNumber';
 import { Button, Input } from '@hey/ui';
-import useProfileStore from '@persisted/useProfileStore';
-import { useCollectModuleStore } from '@store/non-persisted/useCollectModuleStore';
 import { type FC } from 'react';
 import { isAddress } from 'viem';
+
+import Beta from '@/components/Shared/Badges/Beta';
+import SearchUser from '@/components/Shared/SearchUser';
+import ToggleWithHelper from '@/components/Shared/ToggleWithHelper';
+import { useCollectModuleStore } from '@/store/non-persisted/useCollectModuleStore';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 interface SplitConfigProps {
   isRecipientsDuplicated: () => boolean;

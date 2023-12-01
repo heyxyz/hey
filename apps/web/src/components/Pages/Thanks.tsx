@@ -1,15 +1,16 @@
-import MetaTags from '@components/Common/MetaTags';
-import Footer from '@components/Shared/Footer';
 import { HeartIcon } from '@heroicons/react/24/outline';
 import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import { useTheme } from '@hooks/theme';
-import { Leafwatch } from '@lib/leafwatch';
 import type { FC, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 // @ts-ignore
 import urlcat from 'urlcat';
 import { useEffectOnce } from 'usehooks-ts';
+
+import MetaTags from '@/components/Common/MetaTags';
+import Footer from '@/components/Shared/Footer';
+import { useTheme } from '@/hooks/theme';
+import { Leafwatch } from '@/lib/leafwatch';
 
 interface BrandProps {
   name: string;

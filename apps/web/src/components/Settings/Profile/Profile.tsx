@@ -1,5 +1,3 @@
-import ChooseFile from '@components/Shared/ChooseFile';
-import ImageCropperController from '@components/Shared/ImageCropperController';
 import { PencilIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import {
@@ -38,7 +36,6 @@ import {
   TextArea,
   useZodForm
 } from '@hey/ui';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
 import type {
   MetadataAttribute,
   ProfileOptions
@@ -47,17 +44,21 @@ import {
   MetadataAttributeType,
   profile as profileMetadata
 } from '@lens-protocol/metadata';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
-import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
-import uploadToArweave from '@lib/uploadToArweave';
-import useProfileStore from '@persisted/useProfileStore';
 import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import type { z } from 'zod';
 import { object, string, union } from 'zod';
+
+import ChooseFile from '@/components/Shared/ChooseFile';
+import ImageCropperController from '@/components/Shared/ImageCropperController';
+import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork';
+import errorToast from '@/lib/errorToast';
+import { Leafwatch } from '@/lib/leafwatch';
+import uploadCroppedImage, { readFile } from '@/lib/profilePictureUtils';
+import uploadToArweave from '@/lib/uploadToArweave';
+import useProfileStore from '@/store/persisted/useProfileStore';
 
 const editProfileSchema = object({
   name: string()

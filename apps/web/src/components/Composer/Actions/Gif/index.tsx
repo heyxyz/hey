@@ -1,13 +1,14 @@
-import Loader from '@components/Shared/Loader';
 import { GifIcon, PhotoIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
 import type { IGif } from '@hey/types/giphy';
 import { Modal, Tooltip } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
-import { usePublicationStore } from '@store/non-persisted/usePublicationStore';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { lazy, Suspense, useState } from 'react';
+
+import Loader from '@/components/Shared/Loader';
+import { Leafwatch } from '@/lib/leafwatch';
+import { usePublicationStore } from '@/store/non-persisted/usePublicationStore';
 
 const GifSelector = lazy(() => import('./GifSelector'));
 

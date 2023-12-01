@@ -1,5 +1,3 @@
-import WalletSelector from '@components/Shared/Login/WalletSelector';
-import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import {
   CurrencyDollarIcon,
   CursorArrowRaysIcon
@@ -13,7 +11,6 @@ import type { AnyPublication } from '@hey/lens';
 import getZoraChainInfo from '@hey/lib/getZoraChainInfo';
 import type { ZoraNft } from '@hey/types/nft';
 import { Button, Spinner } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import { type FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useUpdateEffect } from 'usehooks-ts';
@@ -26,6 +23,10 @@ import {
   usePrepareContractWrite,
   useWaitForTransaction
 } from 'wagmi';
+
+import WalletSelector from '@/components/Shared/Login/WalletSelector';
+import SwitchNetwork from '@/components/Shared/SwitchNetwork';
+import { Leafwatch } from '@/lib/leafwatch';
 
 import { useZoraMintStore } from '.';
 
