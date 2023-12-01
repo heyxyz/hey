@@ -1,6 +1,8 @@
 // Ref
 // https://github.com/vercel/next.js/blob/canary/packages/font/src/local
 
+import type { Font } from 'fontkit';
+
 const NORMAL_WEIGHT = 400;
 const BOLD_WEIGHT = 700;
 
@@ -69,7 +71,7 @@ function getDistanceFromNormalWeight(weight?: string) {
  * - If two font files have the same distance from normal weight, the thinner one will most likely be the bulk of the text
  */
 export function pickFontFileForFallbackGeneration<
-  T extends { style?: string; weight?: string }
+  T extends { style?: string; weight?: string; metadata: Font }
 >(fontFiles: T[]): T {
   return fontFiles.reduce((usedFontFile, currentFontFile) => {
     if (!usedFontFile) {

@@ -8,13 +8,16 @@ function getFontForSrc(fontname: string, weight: string, style: string) {
   };
 }
 
-export const heyFont = {
-  src: [
-    getFontForSrc('SofiaProSoftReg-webfont.woff2', '400', 'normal'),
-    getFontForSrc('SofiaProSoftMed-webfont.woff2', '500', 'medium'),
-    getFontForSrc('SofiaProSoftBold-webfont.woff2', '700', 'bold')
-  ],
-  fallback: 'sans-serif',
-  preload: true,
-  display: 'swap'
-};
+export const heyFont = [
+  {
+    src: [
+      getFontForSrc('SofiaProSoftReg-webfont.woff2', '400', 'normal'),
+      getFontForSrc('SofiaProSoftMed-webfont.woff2', '500', 'medium'),
+      getFontForSrc('SofiaProSoftBold-webfont.woff2', '700', 'bold')
+    ],
+    fallback: 'sans-serif',
+    preload: true,
+    display: 'swap',
+    selector: 'body'
+  }
+];
