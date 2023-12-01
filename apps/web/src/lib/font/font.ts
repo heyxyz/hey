@@ -1,8 +1,7 @@
 // Ref
-// https://github.com/vercel/next.js/blob/canary/packages/font/src/local/get-fallback-metrics-from-font-file.ts
+// https://github.com/vercel/next.js/blob/canary/packages/font/src/local
 
 import type { Font } from 'fontkit';
-import { openSync } from 'fontkit';
 
 // The font metadata of the fallback fonts, retrieved with fontkit on system font files
 // The average width is calculated with the calcAverageWidth function below
@@ -17,6 +16,10 @@ const DEFAULT_SERIF_FONT = {
   azAvgWidth: 854.3953488372093,
   unitsPerEm: 2048
 };
+
+export function getFontType(path: string) {
+  return path.split('.').pop()?.toLowerCase();
+}
 
 /**
  * Calculate the average character width of a font file.
@@ -76,11 +79,7 @@ function formatOverrideValue(val: number) {
  * https://developer.chrome.com/blog/font-fallbacks/
  * https://docs.google.com/document/d/e/2PACX-1vRsazeNirATC7lIj2aErSHpK26hZ6dA9GsQ069GEbq5fyzXEhXbvByoftSfhG82aJXmrQ_sJCPBqcx_/pub
  */
-export function getFallbackMetricsFromFontFile(
-  fontPath: string,
-  category = 'serif'
-) {
-  const font = openSync(fontPath);
+export function getFallbackMetricsFromFontFile(font: Font, category = 'serif') {
   const fallbackFont =
     category === 'serif' ? DEFAULT_SERIF_FONT : DEFAULT_SANS_SERIF_FONT;
 
@@ -93,6 +92,10 @@ export function getFallbackMetricsFromFontFile(
     ? azAvgWidth / unitsPerEm / fallbackFontAvgWidth
     : 1;
   return {
+    fontName:
+      '_local_' +
+      new Date().getTime() +
+      (Math.random() + 1).toString(36).substring(0, 4).replace('.', ''),
     ascentOverride: formatOverrideValue(ascent / (unitsPerEm * sizeAdjust)),
     descentOverride: formatOverrideValue(descent / (unitsPerEm * sizeAdjust)),
     lineGapOverride: formatOverrideValue(lineGap / (unitsPerEm * sizeAdjust)),

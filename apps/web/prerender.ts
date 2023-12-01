@@ -1,10 +1,16 @@
 import * as cheerio from 'cheerio';
+import { openSync } from 'fontkit';
 import { readFileSync, writeFileSync } from 'fs';
 import htmlMinifier from 'html-minifier';
-import { join } from 'path';
+import { join, relative } from 'path';
 import { createServer } from 'vite';
 
-import { getFallbackMetricsFromFontFile } from './font';
+import {
+  getFallbackMetricsFromFontFile,
+  getFontType
+} from './src/lib/font/font';
+import { pickFontFileForFallbackGeneration } from './src/lib/font/pick-font-file-for-fallback-generation';
+import { heyFont } from './src/lib/heyFont';
 
 const appDir = process.cwd();
 
@@ -14,10 +20,6 @@ const vite = await createServer({
   },
   appType: 'custom'
 });
-
-// const renderPreloadLink = (file) => {
-//   if (file.endsWith('.js')) return `<script defer nomodule src="${file}">`;
-// };
 
 const prerender = async () => {
   const { renderBody, renderHead } = await vite.ssrLoadModule(
@@ -34,32 +36,58 @@ const prerender = async () => {
   $('[data-react-helmet]').removeAttr('data-react-helmet');
   $('#root').html(renderBody());
 
-  // Optimize Fonts
-  const fontFallback = getFallbackMetricsFromFontFile(
-    join(process.cwd(), 'fonts', 'SofiaProSoftReg-webfont.woff2'),
-    'sans-serif'
+  // Fallback Font Tag
+  const { metadata } = pickFontFileForFallbackGeneration(
+    heyFont.src.map((i) => ({
+      style: i.style,
+      weight: i.weight,
+      metadata: openSync(i.path)
+    }))
   );
-  $('head').prepend(
-    `<style> @font-face { font-family: _font_fallback; src: local('${fontFallback.fallbackFont}'); ascent-override: ${fontFallback.ascentOverride}; descent-override: ${fontFallback.descentOverride}; line-gap-override: ${fontFallback.lineGapOverride}; size-adjust: ${fontFallback.sizeAdjust}; } </style>`
+  const fallbackFont = getFallbackMetricsFromFontFile(
+    metadata,
+    heyFont.fallback
   );
 
-  // Add preloads
-  // const manifest = JSON.parse(
-  //   readFileSync(join(appDir, 'dist', '.vite', 'ssr-manifest.json'), 'utf8')
-  // );
-  // const seen = new Set();
-  // $('[href*=".js"]').each((i, el) => {
-  //   seen.add($(el).attr('href'));
-  // });
-  // $('[src*=".js"]').each((i, el) => {
-  //   seen.add($(el).attr('src'));
-  // });
-  // for (let o of new Set(Object.values(manifest).flat())) {
-  //   if (!seen.has(o)) {
-  //     const tmp = renderPreloadLink(o);
-  //     if (tmp) $('body').append(tmp);
-  //   }
-  // }
+  // Set font-family on HTML
+  $('head').prepend(
+    `<style> body { font-family: ${fallbackFont.fontName}, _font_fallback, ${heyFont.fallback}; } </style>`
+  );
+
+  // Set the fallback font
+  $('head').prepend(
+    `<style>
+      @font-face { font-family: _font_fallback; size-adjust: ${fallbackFont.sizeAdjust}; src: local('${fallbackFont.fallbackFont}'); ascent-override: ${fallbackFont.ascentOverride}; descent-override: ${fallbackFont.descentOverride}; line-gap-override: ${fallbackFont.lineGapOverride}; }
+    </style>`
+  );
+
+  // Prepend all fonts
+  for (const i of heyFont.src) {
+    $('head').prepend(
+      `<style> @font-face { font-style: ${i.style}; font-weight: ${
+        i.weight
+      }; font-display: ${heyFont.display}; font-family: ${
+        fallbackFont.fontName
+      }; src: url(/${relative(
+        join(process.cwd(), 'public'),
+        i.path
+      )}); } </style>`
+    );
+  }
+
+  // If preload is enabled, insert preload scripts
+  if (heyFont.preload) {
+    for (const i of heyFont.src) {
+      $('head').prepend(
+        `<link as="font" crossorigin="anonymous" type="font/${getFontType(
+          i.path
+        )}" rel="preload" href="/${relative(
+          join(process.cwd(), 'public'),
+          i.path
+        )}" />`
+      );
+    }
+  }
 
   // Prerendered HTML
   writeFileSync(

@@ -7,9 +7,6 @@ const getLivepeerTheme: ThemeConfig = {
     progressLeft: BRAND_COLOR,
     loading: BRAND_COLOR
   },
-  fonts: {
-    display: 'Sofia Pro'
-  },
   fontSizes: {
     timeFontSize: '11px'
   },

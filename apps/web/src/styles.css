@@ -1,32 +1,5 @@
 @import url('@hey/image-cropper/styles.css');
 
-@font-face {
-  font-family: Sofia Pro;
-  src: url('https://hey-assets.b-cdn.net/fonts/SofiaProSoftReg-webfont.woff2')
-    format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Sofia Pro;
-  src: url('https://hey-assets.b-cdn.net/fonts/SofiaProSoftMed-webfont.woff2')
-    format('woff2');
-  font-weight: 500;
-  font-style: medium;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Sofia Pro;
-  src: url('https://hey-assets.b-cdn.net/fonts/SofiaProSoftBold-webfont.woff2')
-    format('woff2');
-  font-weight: 700;
-  font-style: bold;
-  font-display: swap;
-}
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -38,10 +11,6 @@ html {
 body {
   @apply bg-gray-50;
   @apply dark:bg-black;
-  font-family:
-    Sofia Pro,
-    _font_fallback,
-    sans-serif;
 }
 
 .shimmer {
