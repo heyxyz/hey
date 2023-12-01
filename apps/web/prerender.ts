@@ -15,13 +15,11 @@ import { heyFont } from './src/lib/heyFont';
 const appDir = process.cwd();
 
 const vite = await createServer({
-  server: {
-    middlewareMode: true
-  },
+  server: { middlewareMode: true },
   appType: 'custom'
 });
 
-function optimizeFontSteps(singleFamilyFont, $) {
+const optimizeFontSteps = (singleFamilyFont, $) => {
   const fallbackName = '_font_fallback_' + new Date().getTime();
   // Fallback Font Tag
   const { metadata } = pickFontFileForFallbackGeneration(
@@ -80,7 +78,7 @@ function optimizeFontSteps(singleFamilyFont, $) {
       );
     }
   }
-}
+};
 
 const prerender = async () => {
   const { renderBody, renderHead } = await vite.ssrLoadModule(
