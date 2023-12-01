@@ -15,11 +15,11 @@ import { type FC } from 'react';
 
 import MetaDetails from '../../../../Shared/Staff/MetaDetails';
 
-interface ProfileDetailsProps {
+interface LeafwatchDetailsProps {
   profile: Profile;
 }
 
-const ProfileDetails: FC<ProfileDetailsProps> = ({ profile }) => {
+const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profile }) => {
   const getProfileDetails = async (): Promise<{
     region: string;
     city: string;
@@ -118,4 +118,4 @@ const ProfileDetails: FC<ProfileDetailsProps> = ({ profile }) => {
   );
 };
 
-export default ProfileDetails;
+export default LeafwatchDetails;
