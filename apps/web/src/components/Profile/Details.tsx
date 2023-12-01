@@ -181,16 +181,6 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
 
           <ProfileMenu profile={profile} />
         </div>
-        {staffMode ? (
-          <Button
-            variant="warning"
-            onClick={() => push(getProfile(profile).staffLink as string)}
-            icon={<ShieldCheckIcon className="h-5 w-5" />}
-            outline
-          >
-            Staff
-          </Button>
-        ) : null}
         {currentProfile?.id !== profile.id ? (
           <>
             <MutualFollowers
@@ -209,6 +199,18 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
         ) : null}
         <div className="divider w-full" />
         <div className="space-y-2">
+          {staffMode ? (
+            <MetaDetails
+              icon={<ShieldCheckIcon className="h-4 w-4 text-yellow-600" />}
+            >
+              <Link
+                className="text-yellow-600"
+                href={getProfile(profile).staffLink as string}
+              >
+                Open in Staff Tools
+              </Link>
+            </MetaDetails>
+          ) : null}
           <MetaDetails icon={<HashtagIcon className="h-4 w-4" />}>
             <Tooltip content={`#${profile.id}`}>
               <Link

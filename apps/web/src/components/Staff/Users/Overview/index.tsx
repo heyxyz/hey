@@ -2,7 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import Loader from '@components/Shared/Loader';
 import ProfileStaffTool from '@components/Staff/Users/Overview/Tool';
 import { UserIcon } from '@heroicons/react/24/outline';
-import { APP_NAME, HANDLE_PREFIX } from '@hey/data/constants';
+import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
 import { useProfileQuery } from '@hey/lens';
@@ -26,7 +26,7 @@ import StaffSidebar from '../../Sidebar';
 
 const Overview: NextPage = () => {
   const {
-    query: { handle, id },
+    query: { id },
     isReady
   } = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
@@ -40,14 +40,8 @@ const Overview: NextPage = () => {
   });
 
   const { data, loading, error } = useProfileQuery({
-    variables: {
-      request: {
-        ...(id
-          ? { forProfileId: id }
-          : { forHandle: `${HANDLE_PREFIX}${handle}` })
-      }
-    },
-    skip: id ? !id : !handle || !isReady
+    variables: { request: { forProfileId: id } },
+    skip: !id || !isReady
   });
   const profile = data?.profile as Profile;
 
@@ -62,14 +56,14 @@ const Overview: NextPage = () => {
         <StaffSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        <Card className="border-yellow-400 !bg-yellow-300/20 p-5">
+        <Card className="border-dashed border-yellow-600 !bg-yellow-300/20 p-5">
           {loading ? (
             <Loader message="Loading profile" />
           ) : !profile ? (
             <EmptyState
               message="No profile found"
               hideCard
-              icon={<UserIcon className="text-brand-500 h-8 w-8" />}
+              icon={<UserIcon className="h-8 w-8 text-yellow-600" />}
             />
           ) : error ? (
             <ErrorMessage error={error} />

@@ -31,9 +31,7 @@ const getProfile = (
     link: profile.handle
       ? `/u/${profile.handle.localName}`
       : `/profile/${profile.id}`,
-    staffLink: profile.handle
-      ? `/staff/users/${profile.handle.localName}`
-      : `/staff/users/${profile.id}`
+    staffLink: `/staff/users/${profile.id}`
   };
 };
 
