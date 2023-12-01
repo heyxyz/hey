@@ -1,6 +1,3 @@
-import Loader from '@components/Shared/Loader';
-import SearchUser from '@components/Shared/SearchUser';
-import UserProfile from '@components/Shared/UserProfile';
 import { ArrowPathIcon, UsersIcon } from '@heroicons/react/24/outline';
 import type { ExploreProfilesRequest, Profile } from '@hey/lens';
 import {
@@ -11,11 +8,15 @@ import {
 } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { useRouter } from 'next/router';
 import { type FC, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import Loader from '@/components/Shared/Loader';
+import SearchUser from '@/components/Shared/SearchUser';
+import UserProfile from '@/components/Shared/UserProfile';
 
 const List: FC = () => {
-  const { push } = useRouter();
+  const push = useNavigate();
   const [value, setValue] = useState('');
 
   // Variables

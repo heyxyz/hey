@@ -1,6 +1,6 @@
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { useEffectOnce } from 'usehooks-ts';
 
 import MetaTags from '@/components/Common/MetaTags';
