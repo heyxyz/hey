@@ -4,6 +4,7 @@ import result from '../../generated';
 import { profilesManagedKeyFields } from '../lib/keyFields';
 import createActedOnPublicationFieldPolicy from './createActedOnPublicationFieldPolicy';
 import createApprovedAuthenticationsFieldPolicy from './createApprovedAuthenticationsFieldPolicy';
+import createExploreProfilesFieldPolicy from './createExploreProfilesFieldPolicy';
 import createExplorePublicationsFieldPolicy from './createExplorePublicationsFieldPolicy';
 import createFeedFieldPolicy from './createFeedFieldPolicy';
 import createFeedHighlightsFieldPolicy from './createFeedHighlightsFieldPolicy';
@@ -30,6 +31,7 @@ const cache = new InMemoryCache({
         feed: createFeedFieldPolicy(),
         feedHighlights: createFeedHighlightsFieldPolicy(),
         explorePublications: createExplorePublicationsFieldPolicy(),
+        exploreProfiles: createExploreProfilesFieldPolicy(),
         publications: createPublicationsFieldPolicy(),
         publicationsProfileBookmarks: createPublicationsFieldPolicy(),
         nfts: createNftsFieldPolicy(),
