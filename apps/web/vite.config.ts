@@ -4,6 +4,8 @@ import { defineConfig } from 'vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
+import devFont from './src/lib/font/vite-dev-font';
+
 dotenv.config();
 
 const chunkDefinitions = [
@@ -17,7 +19,7 @@ const chunkDefinitions = [
 
 export default defineConfig(() => {
   return {
-    plugins: [nodePolyfills(), react(), tsconfigPaths()],
+    plugins: [nodePolyfills(), react(), tsconfigPaths(), devFont],
     define: {
       'process.env.LENS_NETWORK': `'${process.env.LENS_NETWORK}'`,
       'process.env.IS_PRODUCTION': `'${process.env.IS_PRODUCTION}'`
