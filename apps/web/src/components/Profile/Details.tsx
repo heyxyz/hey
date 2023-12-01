@@ -3,11 +3,11 @@ import Follow from '@components/Shared/Profile/Follow';
 import Unfollow from '@components/Shared/Profile/Unfollow';
 import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
-import ProfileStaffTool from '@components/StaffTools/Panels/Profile';
 import {
   Cog6ToothIcon,
   HashtagIcon,
   MapPinIcon,
+  ShieldCheckIcon,
   UsersIcon
 } from '@heroicons/react/24/outline';
 import {
@@ -19,7 +19,6 @@ import {
   RARIBLE_URL,
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
-import { FeatureFlag } from '@hey/data/feature-flags';
 import { FollowUnfollowSource } from '@hey/data/tracking';
 import getEnvConfig from '@hey/data/utils/getEnvConfig';
 import type { Profile } from '@hey/lens';
@@ -32,7 +31,6 @@ import getProfile from '@hey/lib/getProfile';
 import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import hasMisused from '@hey/lib/hasMisused';
 import { Button, Image, LightBox, Modal, Tooltip } from '@hey/ui';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import isVerified from '@lib/isVerified';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
@@ -178,6 +176,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               />
             )
           ) : null}
+
           <ProfileMenu profile={profile} />
         </div>
         {currentProfile?.id !== profile.id ? (
@@ -198,6 +197,18 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
         ) : null}
         <div className="divider w-full" />
         <div className="space-y-2">
+          {staffMode ? (
+            <MetaDetails
+              icon={<ShieldCheckIcon className="h-4 w-4 text-yellow-600" />}
+            >
+              <Link
+                className="text-yellow-600"
+                href={getProfile(profile).staffLink as string}
+              >
+                Open in Staff Tools
+              </Link>
+            </MetaDetails>
+          ) : null}
           <MetaDetails icon={<HashtagIcon className="h-4 w-4" />}>
             <Tooltip content={`#${profile.id}`}>
               <Link
@@ -305,9 +316,6 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
         </>
       ) : null}
       <Badges profile={profile} />
-      {isFeatureEnabled(FeatureFlag.Staff) && staffMode ? (
-        <ProfileStaffTool profile={profile} />
-      ) : null}
     </div>
   );
 };

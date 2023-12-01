@@ -1,14 +1,15 @@
 import Loader from '@components/Shared/Loader';
-import { FlagIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import type { Features } from '@hey/types/hey';
-import { EmptyState, Toggle } from '@hey/ui';
+import { Toggle } from '@hey/ui';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC, useState } from 'react';
 import toast from 'react-hot-toast';
+
+import ToggleWrapper from './ToggleWrapper';
 
 interface UpdateFeatureFlagsProps {
   profile: Profile;
@@ -50,16 +51,6 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
   const availableFlags = allFeatureFlags || [];
   const enabledFlags = flags;
 
-  if (availableFlags.length === 0) {
-    return (
-      <EmptyState
-        message="No feature flags"
-        icon={<FlagIcon className="text-brand-500 h-8 w-8" />}
-        hideCard
-      />
-    );
-  }
-
   const updateFeatureFlag = async (flag: Features) => {
     const { id, key } = flag;
     const enabled = !enabledFlags.includes(key);
@@ -91,16 +82,15 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
   };
 
   return (
-    <div className="max-h-[80vh] space-y-4 overflow-y-auto p-5">
+    <div className="space-y-2 font-bold">
       {availableFlags.map((flag) => (
-        <div key={flag.id} className="flex items-center space-x-3">
+        <ToggleWrapper key={flag.id} title={flag.key}>
           <Toggle
             on={enabledFlags.includes(flag.key)}
             setOn={() => updateFeatureFlag(flag)}
             disabled={updating}
           />
-          <code className="ld-text-gray-500 text-sm font-bold">{flag.key}</code>
-        </div>
+        </ToggleWrapper>
       ))}
     </div>
   );
