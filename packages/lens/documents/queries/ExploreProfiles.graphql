@@ -1,0 +1,10 @@
+query ExploreProfiles($request: ExploreProfilesRequest!) {
+  exploreProfiles(request: $request) {
+    items {
+      ...ProfileFields
+    }
+    pageInfo {
+      next
+    }
+  }
+}
