@@ -49,7 +49,9 @@ self.addEventListener('fetch', (event) => {
       // Clone the request because it's a stream and can only be consumed once
       const fetchRequest = event.request.clone();
       // Cache hit - return the response from the cache
-      if (response) return response;
+      if (response) {
+        return response;
+      }
       return fetch(fetchRequest).then((fetchResponse) => {
         // Check if we received a valid response
         if (

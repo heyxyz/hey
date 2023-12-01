@@ -6,13 +6,12 @@ import { Button, Card, Modal } from '@hey/ui';
 import useZoraNft from '@hooks/zora/useZoraNft';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
+import useProfileStore from '@persisted/useProfileStore';
 import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useQuery } from 'wagmi';
-import useZoraNft from '@hooks/zora/useZoraNft';
-import useProfileStore from '@persisted/useProfileStore';
 
 const HeyMembershipNft: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
