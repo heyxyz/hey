@@ -1,12 +1,12 @@
 import { join } from 'path';
 
-function getFontForSrc(fontname: string, weight: string, style: string) {
+const getFontForSrc = (fontname: string, weight: string, style: string) => {
   return {
     path: join(process.cwd(), 'public', 'fonts', fontname),
     weight,
     style
   };
-}
+};
 
 export const heyFont = [
   {
