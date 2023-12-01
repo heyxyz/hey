@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import Custom404 from 'src/pages/404';
@@ -10,6 +10,7 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import StaffSidebar from '../Sidebar';
+import List from './List';
 
 const Users: NextPage = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
@@ -30,7 +31,7 @@ const Users: NextPage = () => {
         <StaffSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        <Card className="p-5">Users WIP</Card>
+        <List />
       </GridItemEight>
     </GridLayout>
   );
