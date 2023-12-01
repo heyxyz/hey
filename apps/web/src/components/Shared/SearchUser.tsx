@@ -19,6 +19,7 @@ interface SearchUserProps {
   error?: boolean;
 }
 
+// TODO: Rename to SearchProfiles
 const SearchUser: FC<SearchUserProps> = ({
   onProfileSelected,
   onChange,

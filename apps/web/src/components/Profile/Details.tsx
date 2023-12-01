@@ -203,7 +203,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             >
               <Link
                 className="text-yellow-600"
-                href={getProfile(profile).staffLink as string}
+                href={getProfile(profile).staffLink}
               >
                 Open in Staff Tools
               </Link>
