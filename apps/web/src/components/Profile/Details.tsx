@@ -3,7 +3,6 @@ import Follow from '@components/Shared/Profile/Follow';
 import Unfollow from '@components/Shared/Profile/Unfollow';
 import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
-import ProfileStaffTool from '@components/StaffTools/Panels/Profile';
 import {
   Cog6ToothIcon,
   HashtagIcon,
@@ -19,7 +18,6 @@ import {
   RARIBLE_URL,
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
-import { FeatureFlag } from '@hey/data/feature-flags';
 import { FollowUnfollowSource } from '@hey/data/tracking';
 import getEnvConfig from '@hey/data/utils/getEnvConfig';
 import type { Profile } from '@hey/lens';
@@ -32,13 +30,11 @@ import getProfile from '@hey/lib/getProfile';
 import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import hasMisused from '@hey/lib/hasMisused';
 import { Button, Image, LightBox, Modal, Tooltip } from '@hey/ui';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import isVerified from '@lib/isVerified';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import urlcat from 'urlcat';
 
@@ -58,7 +54,6 @@ interface DetailsProps {
 
 const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const staffMode = useFeatureFlagsStore((state) => state.staffMode);
   const [showMutualFollowersModal, setShowMutualFollowersModal] =
     useState(false);
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
@@ -305,9 +300,6 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
         </>
       ) : null}
       <Badges profile={profile} />
-      {isFeatureEnabled(FeatureFlag.Staff) && staffMode ? (
-        <ProfileStaffTool profile={profile} />
-      ) : null}
     </div>
   );
 };
