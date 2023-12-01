@@ -355,9 +355,6 @@ importers:
       '@types/uuid':
         specifier: ^9.0.7
         version: 9.0.7
-      '@typescript-eslint/eslint-plugin':
-        specifier: ^6.10.0
-        version: 6.13.1(@typescript-eslint/parser@6.13.1)(eslint@8.54.0)(typescript@5.3.2)
       '@typescript-eslint/parser':
         specifier: ^6.10.0
         version: 6.13.1(eslint@8.54.0)(typescript@5.3.2)
@@ -367,9 +364,6 @@ importers:
       autoprefixer:
         specifier: ^10.4.16
         version: 10.4.16(postcss@8.4.31)
-      eslint:
-        specifier: ^8.53.0
-        version: 8.54.0
       fontkit:
         specifier: ^2.0.2
         version: 2.0.2
