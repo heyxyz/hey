@@ -9,7 +9,7 @@ const getProfile = (
   slugWithPrefix: string;
   displayName: string;
   link: string;
-  staffLink?: string;
+  staffLink: string;
 } => {
   if (!profile) {
     return {
