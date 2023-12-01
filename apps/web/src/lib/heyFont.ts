@@ -1,37 +1,18 @@
 import { join } from 'path';
 
+function getFontForSrc(fontname: string, weight: string, style: string) {
+  return {
+    path: join(process.cwd(), 'public', 'fonts', fontname),
+    weight,
+    style
+  };
+}
+
 export const heyFont = {
   src: [
-    {
-      path: join(
-        process.cwd(),
-        'public',
-        'fonts',
-        'SofiaProSoftReg-webfont.woff2'
-      ),
-      weight: '400',
-      style: 'normal'
-    },
-    {
-      path: join(
-        process.cwd(),
-        'public',
-        'fonts',
-        'SofiaProSoftMed-webfont.woff2'
-      ),
-      weight: '500',
-      style: 'medium'
-    },
-    {
-      path: join(
-        process.cwd(),
-        'public',
-        'fonts',
-        'SofiaProSoftBold-webfont.woff2'
-      ),
-      weight: '700',
-      style: 'bold'
-    }
+    getFontForSrc('SofiaProSoftReg-webfont.woff2', '400', 'normal'),
+    getFontForSrc('SofiaProSoftMed-webfont.woff2', '500', 'medium'),
+    getFontForSrc('SofiaProSoftBold-webfont.woff2', '700', 'bold')
   ],
   fallback: 'sans-serif',
   preload: true,

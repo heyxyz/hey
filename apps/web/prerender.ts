@@ -49,16 +49,9 @@ const prerender = async () => {
     heyFont.fallback
   );
 
-  // Set font-family on HTML
+  // Set font-family and fallback font on HTML
   $('head').prepend(
-    `<style> body { font-family: ${fallbackFont.fontName}, _font_fallback, ${heyFont.fallback}; } </style>`
-  );
-
-  // Set the fallback font
-  $('head').prepend(
-    `<style>
-      @font-face { font-family: _font_fallback; size-adjust: ${fallbackFont.sizeAdjust}; src: local('${fallbackFont.fallbackFont}'); ascent-override: ${fallbackFont.ascentOverride}; descent-override: ${fallbackFont.descentOverride}; line-gap-override: ${fallbackFont.lineGapOverride}; }
-    </style>`
+    `<style> body { font-family: ${fallbackFont.fontName}, _font_fallback, ${heyFont.fallback}; } @font-face { font-family: _font_fallback; size-adjust: ${fallbackFont.sizeAdjust}; src: local('${fallbackFont.fallbackFont}'); ascent-override: ${fallbackFont.ascentOverride}; descent-override: ${fallbackFont.descentOverride}; line-gap-override: ${fallbackFont.lineGapOverride}; }</style>`
   );
 
   // Prepend all fonts
