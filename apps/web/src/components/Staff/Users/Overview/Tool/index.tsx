@@ -47,7 +47,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
     queryFn: getHaveUsedHey
   });
 
-  const { data: preferences, isLoading: preferencesLoading } = useQuery({
+  const { data: preferences } = useQuery({
     queryKey: ['fetchPreferences', profile.id || ''],
     queryFn: () => getPreferences(profile.id, getAuthWorkerHeaders())
   });

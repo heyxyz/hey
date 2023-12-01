@@ -33,7 +33,6 @@ import hasMisused from '@hey/lib/hasMisused';
 import { Button, Image, LightBox, Modal, Tooltip } from '@hey/ui';
 import isVerified from '@lib/isVerified';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
@@ -56,7 +55,6 @@ interface DetailsProps {
 }
 
 const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
-  const { push } = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
   const [showMutualFollowersModal, setShowMutualFollowersModal] =
