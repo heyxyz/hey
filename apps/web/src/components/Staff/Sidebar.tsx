@@ -1,8 +1,8 @@
 import Sidebar from '@components/Shared/Sidebar';
 import {
+  AdjustmentsHorizontalIcon,
   ClipboardIcon,
   ExclamationTriangleIcon,
-  PuzzlePieceIcon,
   UserIcon,
   UsersIcon
 } from '@heroicons/react/24/outline';
@@ -34,9 +34,9 @@ const StaffSidebar: FC = () => {
             url: '/staff/abuse'
           },
           {
-            title: 'Control Panel',
-            icon: <PuzzlePieceIcon className="h-4 w-4" />,
-            url: '/staff/control-panel'
+            title: 'Feature flags',
+            icon: <AdjustmentsHorizontalIcon className="h-4 w-4" />,
+            url: '/staff/feature-flags'
           }
         ]}
       />
