@@ -18,12 +18,14 @@ export type Group = {
   featured: boolean;
   createdAt: Date;
 };
+
 export type StaffPick = {
   id: string;
   type: 'GROUP' | 'PROFILE';
   score: number;
   createdAt: Date;
 };
+
 export type Features = {
   id: string;
   key: string;
@@ -31,6 +33,7 @@ export type Features = {
   enabled: boolean;
   createdAt: Date;
 };
+
 export type MembershipNft = {
   id: string;
   dismissedOrMinted: boolean;
