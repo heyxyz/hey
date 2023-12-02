@@ -1,15 +1,13 @@
-import type { NextRequest } from 'next/server';
-import { NextResponse } from 'next/server';
+import { rewrite } from '@vercel/edge';
 
-export function middleware(request: NextRequest) {
+export default function handler(request: Request) {
   // const url = new URL(request.url);
-  const requestHeaders = new Headers(request.headers);
-  const userAgent = requestHeaders.get('user-agent');
+  const userAgent = request.headers.get('user-agent');
   if (
     userAgent?.match(/twitterbot|linkedinbot|whatsapp|slackbot|telegrambot/i)
   ) {
-    // Use url.pathname here
-    return NextResponse.rewrite(new URL('/', 'https://rishi.app'));
+    // return rewrite(new URL(url.pathname, 'https://my-og-service.railway.app'));
+    return rewrite(new URL('/', 'https://rishi.app'));
   }
 }
 

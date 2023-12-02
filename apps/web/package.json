@@ -38,6 +38,7 @@
     "@livepeer/react": "^3.0.8",
     "@tanstack/react-query": "^5.12.0",
     "@tippyjs/react": "^4.2.6",
+    "@vercel/edge": "^1.1.1",
     "@wagmi/connectors": "^3.1.5",
     "axios": "^1.6.2",
     "dayjs": "^1.11.10",
