@@ -2,6 +2,7 @@ import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import prisma from '@utils/prisma';
+import { invalidBody, noBody } from '@utils/responses';
 import type { Handler } from 'express';
 import { object, string } from 'zod';
 
@@ -17,13 +18,13 @@ export const post: Handler = async (req, res) => {
   const { body } = req;
 
   if (!body) {
-    return res.status(400).json({ success: false, error: Errors.NoBody });
+    return noBody(res);
   }
 
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
-    return res.status(400).json({ success: false, error: Errors.InvalidBody });
+    return invalidBody(res);
   }
 
   const { secret } = body as ExtensionRequest;

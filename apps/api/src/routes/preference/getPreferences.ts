@@ -1,20 +1,20 @@
-import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
 import validateIsOwnerOrStaff from '@utils/middlewares/validateIsOwnerOrStaff';
 import prisma from '@utils/prisma';
+import { noBody, notAllowed } from '@utils/responses';
 import type { Handler } from 'express';
 
 export const get: Handler = async (req, res) => {
   const { id } = req.query;
 
   if (!id) {
-    return res.status(400).json({ success: false, error: Errors.NoBody });
+    return noBody(res);
   }
 
   if (!(await validateIsOwnerOrStaff(req, id as string))) {
-    return res.status(400).json({ success: false, error: Errors.NotAllowed });
+    return notAllowed(res);
   }
 
   try {

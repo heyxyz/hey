@@ -1,9 +1,9 @@
-import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import catchedError from '@utils/catchedError';
 import validateLensAccount from '@utils/middlewares/validateLensAccount';
 import prisma from '@utils/prisma';
+import { invalidBody, noBody, notAllowed } from '@utils/responses';
 import type { Handler } from 'express';
 import { boolean, object, string } from 'zod';
 
@@ -27,18 +27,18 @@ export const post: Handler = async (req, res) => {
   const { body } = req;
 
   if (!body) {
-    return res.status(400).json({ success: false, error: Errors.NoBody });
+    return noBody(res);
   }
 
   const accessToken = req.headers['x-access-token'] as string;
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
-    return res.status(400).json({ success: false, error: Errors.InvalidBody });
+    return invalidBody(res);
   }
 
   if (!(await validateLensAccount(req))) {
-    return res.status(400).json({ success: false, error: Errors.NotAllowed });
+    return notAllowed(res);
   }
 
   const { isPride, highSignalNotificationFilter, email, marketingOptIn } =

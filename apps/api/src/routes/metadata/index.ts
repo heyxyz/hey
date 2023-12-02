@@ -1,14 +1,14 @@
-import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import { NodeIrys } from '@irys/sdk';
 import catchedError from '@utils/catchedError';
+import { noBody } from '@utils/responses';
 import type { Handler } from 'express';
 
 export const post: Handler = async (req, res) => {
   const { body } = req;
 
   if (!body) {
-    return res.status(400).json({ success: false, error: Errors.NoBody });
+    return noBody(res);
   }
 
   try {
