@@ -11,6 +11,7 @@ import {
 } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { type FC, useState } from 'react';
 
@@ -60,13 +61,16 @@ const List: FC = () => {
           <div className="space-y-5">
             {profiles?.map((profile) => (
               <div key={profile.id}>
-                <UserProfile
-                  profile={profile as Profile}
-                  isBig
-                  showUserPreview={false}
-                  showBio
-                  timestamp={profile.createdAt}
-                />
+                <Link href={getProfile(profile as Profile).staffLink}>
+                  <UserProfile
+                    profile={profile as Profile}
+                    isBig
+                    showUserPreview={false}
+                    showBio
+                    linkToProfile={false}
+                    timestamp={profile.createdAt}
+                  />
+                </Link>
               </div>
             ))}
           </div>

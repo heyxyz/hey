@@ -14,7 +14,7 @@ const StaffSidebar: FC = () => {
       <Sidebar
         items={[
           {
-            title: 'Overview',
+            title: 'Overview 🚧',
             icon: <ClipboardIcon className="h-4 w-4" />,
             url: '/staff'
           },
@@ -24,12 +24,12 @@ const StaffSidebar: FC = () => {
             url: '/staff/users'
           },
           {
-            title: 'Groups',
+            title: 'Groups 🚧',
             icon: <UsersIcon className="h-4 w-4" />,
             url: '/staff/groups'
           },
           {
-            title: 'Abuse',
+            title: 'Abuse 🚧',
             icon: <ExclamationTriangleIcon className="h-4 w-4" />,
             url: '/staff/abuse'
           },

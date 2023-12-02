@@ -36,7 +36,7 @@ const Sidebar: FC<SidebarProps> = ({ items }) => {
   const { pathname } = useRouter();
   const menuItems = items.map((item) => ({
     ...item,
-    enabled: item.enabled ?? true
+    enabled: item.enabled || true
   }));
 
   return (
