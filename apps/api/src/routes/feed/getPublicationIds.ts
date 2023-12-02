@@ -1,9 +1,9 @@
 import { AlgorithmProvider } from '@hey/data/enums';
-import { Errors } from '@hey/data/errors';
 import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
 import heyFeed from '@utils/feeds/providers/hey/heyFeed';
 import k3lFeed from '@utils/feeds/providers/k3l/k3lFeed';
+import { noBody } from '@utils/responses';
 import type { Handler } from 'express';
 
 export const get: Handler = async (req, res) => {
@@ -14,7 +14,7 @@ export const get: Handler = async (req, res) => {
   const offset = (parseInt(req.query?.offset as string) || 0) as number;
 
   if (!provider || !strategy) {
-    return res.status(400).json({ success: false, error: Errors.NoBody });
+    return noBody(res);
   }
 
   try {

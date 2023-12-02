@@ -1,7 +1,7 @@
-import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
+import { noBody } from '@utils/responses';
 import type { Handler } from 'express';
 import { XMLBuilder } from 'fast-xml-parser';
 
@@ -33,7 +33,7 @@ export const get: Handler = async (req, res) => {
   const { id } = req.query;
 
   if (!id) {
-    return res.status(400).json({ success: false, error: Errors.NoBody });
+    return noBody(res);
   }
 
   try {

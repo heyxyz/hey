@@ -1,15 +1,15 @@
-import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_10_MINS_30_DAYS } from '@utils/constants';
 import prisma from '@utils/prisma';
+import { noBody } from '@utils/responses';
 import type { Handler } from 'express';
 
 export const get: Handler = async (req, res) => {
   const { slug } = req.query;
 
   if (!slug) {
-    return res.status(400).json({ success: false, error: Errors.NoBody });
+    return noBody(res);
   }
 
   try {
