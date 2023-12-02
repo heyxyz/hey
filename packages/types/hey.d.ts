@@ -27,8 +27,6 @@ export type StaffPick = {
 export type Features = {
   id: string;
   key: string;
-  name: string;
-  description: string;
   priority: number;
   enabled: boolean;
   createdAt: Date;
