@@ -92,11 +92,13 @@ const List: FC = () => {
                     flag.createdAt
                   )} with priority ${flag.priority}`}
                 />
-                <Button
-                  onClick={() => deleteFeatureFlag(flag.id)}
-                  icon={<TrashIcon className="h-4 w-4" />}
-                  outline
-                />
+                {flag.priority === 0 && (
+                  <Button
+                    onClick={() => deleteFeatureFlag(flag.id)}
+                    icon={<TrashIcon className="h-4 w-4" />}
+                    outline
+                  />
+                )}
               </div>
             ))}
           </div>
