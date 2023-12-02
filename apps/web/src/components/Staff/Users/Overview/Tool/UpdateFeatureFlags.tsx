@@ -28,8 +28,8 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
   const getAllFeatureFlags = async (): Promise<Features[] | []> => {
     try {
       const response = await axios.get(
-        `${HEY_API_URL}/internal/feature/getAllFeatureFlags`,
-        { params: { id: profile.id } }
+        `${HEY_API_URL}/internal/feature/getAll`,
+        { headers: getAuthWorkerHeaders() }
       );
       const { data } = response;
 
@@ -40,9 +40,8 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
   };
 
   const { data: allFeatureFlags, isLoading } = useQuery({
-    queryKey: ['getAllFeatureFlags', profile.id],
-    queryFn: getAllFeatureFlags,
-    enabled: Boolean(profile.id)
+    queryKey: ['getAllFeatureFlags'],
+    queryFn: getAllFeatureFlags
   });
 
   if (isLoading) {
@@ -59,7 +58,7 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
     setUpdating(true);
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/feature/updateFeatureFlag`,
+        `${HEY_API_URL}/internal/feature/updateProfile`,
         { id, profile_id: profile.id, enabled },
         { headers: getAuthWorkerHeaders() }
       ),

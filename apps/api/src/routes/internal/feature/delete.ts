@@ -1,17 +1,17 @@
-import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
+import validateIsStaff from '@utils/middlewares/validateIsStaff';
 import prisma from '@utils/prisma';
-import { invalidBody, noBody } from '@utils/responses';
+import { invalidBody, noBody, notAllowed } from '@utils/responses';
 import type { Handler } from 'express';
 import { object, string } from 'zod';
 
 type ExtensionRequest = {
-  secret: string;
+  id: string;
 };
 
 const validationSchema = object({
-  secret: string()
+  id: string()
 });
 
 export const post: Handler = async (req, res) => {
@@ -27,19 +27,17 @@ export const post: Handler = async (req, res) => {
     return invalidBody(res);
   }
 
-  const { secret } = body as ExtensionRequest;
-
-  if (secret !== process.env.SECRET) {
-    return res
-      .status(400)
-      .json({ success: false, error: Errors.InvalidSecret });
+  if (!(await validateIsStaff(req))) {
+    return notAllowed(res);
   }
 
+  const { id } = body as ExtensionRequest;
+
   try {
-    await prisma.pro.deleteMany({
-      where: { expiresAt: { lte: new Date().toISOString() } }
+    await prisma.feature.delete({
+      where: { id }
     });
-    logger.info('Downgraded expired pro profiles');
+    logger.info(`Deleted a feature flag ${id}`);
 
     return res.status(200).json({ success: true });
   } catch (error) {

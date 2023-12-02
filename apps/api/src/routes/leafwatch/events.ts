@@ -1,9 +1,9 @@
-import { Errors } from '@hey/data/errors';
 import { ALL_EVENTS } from '@hey/data/tracking';
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import createClickhouseClient from '@utils/createClickhouseClient';
 import checkEventExistence from '@utils/leafwatch/checkEventExistence';
+import { invalidBody, noBody } from '@utils/responses';
 import type { Handler } from 'express';
 import requestIp from 'request-ip';
 import UAParser from 'ua-parser-js';
@@ -34,13 +34,13 @@ export const post: Handler = async (req, res) => {
   const { body } = req;
 
   if (!body) {
-    return res.status(400).json({ success: false, error: Errors.NoBody });
+    return noBody(res);
   }
 
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
-    return res.status(400).json({ success: false, error: Errors.InvalidBody });
+    return invalidBody(res);
   }
 
   const { name, actor, url, referrer, platform, properties } =

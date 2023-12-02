@@ -1,15 +1,15 @@
-import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import catchedError from '@utils/catchedError';
 import prisma from '@utils/prisma';
+import { noBody } from '@utils/responses';
 import type { Handler } from 'express';
 
 export const get: Handler = async (req, res) => {
   const { id } = req.query;
 
   if (!id) {
-    return res.status(400).json({ success: false, error: Errors.NoBody });
+    return noBody(res);
   }
 
   const accessToken = req.headers['x-access-token'] as string;

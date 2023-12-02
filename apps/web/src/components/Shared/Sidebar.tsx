@@ -35,7 +35,7 @@ const Sidebar: FC<SidebarProps> = ({ items }) => {
   const location = useLocation();
   const menuItems = items.map((item) => ({
     ...item,
-    enabled: item.enabled ?? true
+    enabled: item.enabled || true
   }));
 
   return (

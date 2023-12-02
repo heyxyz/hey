@@ -9,7 +9,7 @@ import {
 import getProfile from '@hey/lib/getProfile';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { type FC, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import Loader from '@/components/Shared/Loader';
 import SearchUser from '@/components/Shared/SearchUser';
@@ -49,25 +49,28 @@ const List: FC = () => {
       <div className="p-5">
         {loading ? (
           <Loader message="Loading profiles..." />
+        ) : error ? (
+          <ErrorMessage title="Failed to load profiles" error={error} />
         ) : !profiles ? (
           <EmptyState
             message={<span>No profiles</span>}
             icon={<UsersIcon className="text-brand-500 h-8 w-8" />}
             hideCard
           />
-        ) : error ? (
-          <ErrorMessage title="Failed to load profiles" error={error} />
         ) : (
           <div className="space-y-5">
             {profiles?.map((profile) => (
               <div key={profile.id}>
-                <UserProfile
-                  profile={profile as Profile}
-                  isBig
-                  showUserPreview={false}
-                  showBio
-                  timestamp={profile.createdAt}
-                />
+                <Link to={getProfile(profile as Profile).staffLink}>
+                  <UserProfile
+                    profile={profile as Profile}
+                    isBig
+                    showUserPreview={false}
+                    showBio
+                    linkToProfile={false}
+                    timestamp={profile.createdAt}
+                  />
+                </Link>
               </div>
             ))}
           </div>

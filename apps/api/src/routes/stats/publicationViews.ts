@@ -1,8 +1,8 @@
-import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
 import createClickhouseClient from '@utils/createClickhouseClient';
+import { invalidBody, noBody } from '@utils/responses';
 import type { Handler } from 'express';
 import { array, object, string } from 'zod';
 
@@ -18,13 +18,13 @@ export const post: Handler = async (req, res) => {
   const { body } = req;
 
   if (!body) {
-    return res.status(400).json({ success: false, error: Errors.NoBody });
+    return noBody(res);
   }
 
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
-    return res.status(400).json({ success: false, error: Errors.InvalidBody });
+    return invalidBody(res);
   }
 
   const { ids } = body as ExtensionRequest;

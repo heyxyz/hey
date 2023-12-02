@@ -1,7 +1,7 @@
 import {
+  AdjustmentsHorizontalIcon,
   ClipboardIcon,
   ExclamationTriangleIcon,
-  PuzzlePieceIcon,
   UserIcon,
   UsersIcon
 } from '@heroicons/react/24/outline';
@@ -15,7 +15,7 @@ const StaffSidebar: FC = () => {
       <Sidebar
         items={[
           {
-            title: 'Overview',
+            title: 'Overview 🚧',
             icon: <ClipboardIcon className="h-4 w-4" />,
             url: '/staff'
           },
@@ -25,19 +25,19 @@ const StaffSidebar: FC = () => {
             url: '/staff/users'
           },
           {
-            title: 'Groups',
+            title: 'Groups 🚧',
             icon: <UsersIcon className="h-4 w-4" />,
             url: '/staff/groups'
           },
           {
-            title: 'Abuse',
+            title: 'Abuse 🚧',
             icon: <ExclamationTriangleIcon className="h-4 w-4" />,
             url: '/staff/abuse'
           },
           {
-            title: 'Control Panel',
-            icon: <PuzzlePieceIcon className="h-4 w-4" />,
-            url: '/staff/control-panel'
+            title: 'Feature flags',
+            icon: <AdjustmentsHorizontalIcon className="h-4 w-4" />,
+            url: '/staff/feature-flags'
           }
         ]}
       />
