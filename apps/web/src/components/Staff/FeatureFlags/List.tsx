@@ -31,7 +31,7 @@ const List: FC = () => {
 
       return data?.features || [];
     } catch (error) {
-      return [];
+      throw error;
     }
   };
 
@@ -70,6 +70,8 @@ const List: FC = () => {
       <div className="p-5">
         {isLoading ? (
           <Loader message="Loading profiles..." />
+        ) : error ? (
+          <ErrorMessage title="Failed to load feature flags" error={error} />
         ) : !flags ? (
           <EmptyState
             message={<span>No feature flags found</span>}
@@ -78,8 +80,6 @@ const List: FC = () => {
             }
             hideCard
           />
-        ) : error ? (
-          <ErrorMessage title="Failed to load feature flags" error={error} />
         ) : (
           <div className="space-y-5">
             {flags?.map((flag) => (

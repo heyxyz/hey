@@ -48,14 +48,14 @@ const List: FC = () => {
       <div className="p-5">
         {loading ? (
           <Loader message="Loading profiles..." />
+        ) : error ? (
+          <ErrorMessage title="Failed to load profiles" error={error} />
         ) : !profiles ? (
           <EmptyState
             message={<span>No profiles</span>}
             icon={<UsersIcon className="text-brand-500 h-8 w-8" />}
             hideCard
           />
-        ) : error ? (
-          <ErrorMessage title="Failed to load profiles" error={error} />
         ) : (
           <div className="space-y-5">
             {profiles?.map((profile) => (
