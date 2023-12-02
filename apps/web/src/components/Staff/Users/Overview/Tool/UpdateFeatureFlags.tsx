@@ -28,7 +28,7 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
     try {
       const response = await axios.get(
         `${HEY_API_URL}/internal/feature/getAllFeatureFlags`,
-        { params: { id: profile.id } }
+        { params: { id: profile.id }, headers: getAuthWorkerHeaders() }
       );
       const { data } = response;
 
