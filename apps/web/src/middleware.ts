@@ -1,7 +1,6 @@
-import type { NextRequest } from 'next/server';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-export default function middleware(request: NextRequest) {
+export function middleware(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   const userAgent = requestHeaders.get('user-agent');
   if (
@@ -13,5 +12,5 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/posts/:path', '/u/:path', '/u/lens/:path']
+  matcher: ['/posts/:path*', '/u/:path*', '/u/lens/:path*']
 };
