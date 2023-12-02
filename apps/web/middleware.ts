@@ -1,7 +1,7 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
-export function middleware(request: NextRequest) {
+export default function middleware(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   const userAgent = requestHeaders.get('user-agent');
   if (
@@ -10,7 +10,6 @@ export function middleware(request: NextRequest) {
     // return NextResponse.rewrite(new URL(url.pathname, 'https://my-og-service.railway.app'));
     return NextResponse.rewrite(new URL('/', 'https://rishi.app'));
   }
-  return NextResponse.next();
 }
 
 export const config = {
