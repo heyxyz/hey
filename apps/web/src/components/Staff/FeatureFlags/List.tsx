@@ -6,7 +6,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import type { Features } from '@hey/types/hey';
-import { Button, Card, EmptyState, ErrorMessage } from '@hey/ui';
+import { Button, Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
 import { formatDate } from '@lib/formatTime';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { useQuery } from '@tanstack/react-query';
@@ -14,13 +14,16 @@ import axios from 'axios';
 import { type FC, useState } from 'react';
 import toast from 'react-hot-toast';
 
+import Create from './Create';
+
 const List: FC = () => {
+  const [showCreateModal, setShowCreateModal] = useState(false);
   const [flags, setFlags] = useState<Features[] | []>([]);
 
   const getAllFeatureFlags = async (): Promise<Features[] | []> => {
     try {
       const response = await axios.get(
-        `${HEY_API_URL}/internal/feature/getAllFeatureFlags`,
+        `${HEY_API_URL}/internal/feature/getAll`,
         { headers: getAuthWorkerHeaders() }
       );
       const { data } = response;
@@ -40,7 +43,7 @@ const List: FC = () => {
   const deleteFeatureFlag = async (id: string) => {
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/feature/deleteFeatureFlag`,
+        `${HEY_API_URL}/internal/feature/delete`,
         { id },
         { headers: getAuthWorkerHeaders() }
       ),
@@ -59,7 +62,9 @@ const List: FC = () => {
     <Card>
       <div className="flex items-center justify-between space-x-5 p-5">
         <div className="text-lg font-bold">Feature Flags</div>
-        <Button>Create</Button>
+        <Button onClick={() => setShowCreateModal(!showCreateModal)}>
+          Create
+        </Button>
       </div>
       <div className="divider" />
       <div className="p-5">
@@ -97,6 +102,17 @@ const List: FC = () => {
           </div>
         )}
       </div>
+      <Modal
+        title="Create feature flag"
+        show={showCreateModal}
+        onClose={() => setShowCreateModal(!showCreateModal)}
+      >
+        <Create
+          flags={flags}
+          setFlags={setFlags}
+          setShowCreateModal={setShowCreateModal}
+        />
+      </Modal>
     </Card>
   );
 };
