@@ -1,7 +1,7 @@
-import { Errors } from '@hey/data';
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import { resolverAbi } from '@utils/ens/resolverAbi';
+import { invalidBody, noBody } from '@utils/responses';
 import type { Handler } from 'express';
 import { createPublicClient, http } from 'viem';
 import { mainnet } from 'viem/chains';
@@ -21,13 +21,13 @@ export const post: Handler = async (req, res) => {
   const { body } = req;
 
   if (!body) {
-    return res.status(400).json({ success: false, error: Errors.NoBody });
+    return noBody(res);
   }
 
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
-    return res.status(400).json({ success: false, error: Errors.InvalidBody });
+    return invalidBody(res);
   }
 
   const { addresses } = body as ExtensionRequest;

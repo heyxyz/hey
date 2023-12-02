@@ -1,7 +1,7 @@
-import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import catchedError from '@utils/catchedError';
+import { invalidBody, noBody } from '@utils/responses';
 import type { Handler } from 'express';
 import { v4 as uuid } from 'uuid';
 import { boolean, object } from 'zod';
@@ -18,14 +18,14 @@ export const post: Handler = async (req, res) => {
   const { body } = req;
 
   if (!body) {
-    return res.status(400).json({ success: false, error: Errors.NoBody });
+    return noBody(res);
   }
 
   const accessToken = req.headers['x-access-token'] as string;
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
-    return res.status(400).json({ success: false, error: Errors.InvalidBody });
+    return invalidBody(res);
   }
 
   const { record } = body as ExtensionRequest;

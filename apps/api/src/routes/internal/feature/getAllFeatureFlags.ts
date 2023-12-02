@@ -1,10 +1,16 @@
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
+import validateIsStaff from '@utils/middlewares/validateIsStaff';
 import prisma from '@utils/prisma';
+import { notAllowed } from '@utils/responses';
 import type { Handler } from 'express';
 
-export const get: Handler = async (_req, res) => {
+export const get: Handler = async (req, res) => {
+  if (!(await validateIsStaff(req))) {
+    return notAllowed(res);
+  }
+
   try {
     const data = await prisma.feature.findMany({
       orderBy: { priority: 'desc' }

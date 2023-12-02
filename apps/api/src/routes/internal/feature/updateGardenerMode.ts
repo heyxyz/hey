@@ -1,10 +1,10 @@
-import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import catchedError from '@utils/catchedError';
 import { GARDENER_MODE_FEATURE_ID } from '@utils/constants';
 import validateIsGardener from '@utils/middlewares/validateIsGardener';
 import prisma from '@utils/prisma';
+import { invalidBody, noBody, notAllowed } from '@utils/responses';
 import type { Handler } from 'express';
 import { boolean, object } from 'zod';
 
@@ -20,18 +20,18 @@ export const post: Handler = async (req, res) => {
   const { body } = req;
 
   if (!body) {
-    return res.status(400).json({ success: false, error: Errors.NoBody });
+    return noBody(res);
   }
 
   const accessToken = req.headers['x-access-token'] as string;
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
-    return res.status(400).json({ success: false, error: Errors.InvalidBody });
+    return invalidBody(res);
   }
 
   if (!(await validateIsGardener(req))) {
-    return res.status(400).json({ success: false, error: Errors.NotGarnder });
+    return notAllowed(res);
   }
 
   const { enabled } = body as ExtensionRequest;

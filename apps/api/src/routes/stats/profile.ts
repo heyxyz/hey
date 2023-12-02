@@ -1,8 +1,8 @@
-import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
 import createClickhouseClient from '@utils/createClickhouseClient';
+import { noBody } from '@utils/responses';
 import type { Handler } from 'express';
 
 interface QueryResult {
@@ -22,7 +22,7 @@ export const get: Handler = async (req, res) => {
   const { id, handle } = req.query;
 
   if (!id || !handle) {
-    return res.status(400).json({ success: false, error: Errors.NoBody });
+    return noBody(res);
   }
 
   try {
