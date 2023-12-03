@@ -8,20 +8,19 @@ import {
 import { Errors } from '@hey/data/errors';
 import { Regex } from '@hey/data/regex';
 import { SETTINGS } from '@hey/data/tracking';
-import type { Erc20 } from '@hey/lens';
 import {
   FollowModuleType,
-  LimitType,
   useBroadcastOnchainMutation,
-  useCreateSetFollowModuleTypedDataMutation,
-  useEnabledCurrenciesQuery
+  useCreateSetFollowModuleTypedDataMutation
 } from '@hey/lens';
+import getAllTokens from '@hey/lib/api/getAllTokens';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import getTokenImage from '@hey/lib/getTokenImage';
 import { Button, Card, Form, Input, Spinner, useZodForm } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
+import { useQuery } from '@tanstack/react-query';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -77,11 +76,13 @@ const SuperFollow: FC = () => {
     errorToast(error);
   };
 
+  const { data: enabledTokens, isLoading: enabledTokensLoading } = useQuery({
+    queryKey: ['getAllTokens'],
+    queryFn: () => getAllTokens()
+  });
+
   const { signTypedDataAsync } = useSignTypedData({
     onError
-  });
-  const { data: currencyData, loading } = useEnabledCurrenciesQuery({
-    variables: { request: { limit: LimitType.TwentyFive } }
   });
 
   const { write } = useContractWrite({
@@ -160,7 +161,7 @@ const SuperFollow: FC = () => {
     }
   };
 
-  if (loading) {
+  if (enabledTokensLoading) {
     return (
       <Card>
         <div className="space-y-2 p-5 py-10 text-center">
@@ -198,12 +199,12 @@ const SuperFollow: FC = () => {
               setSelectedCurrencySymbol(currency[1]);
             }}
           >
-            {currencyData?.currencies.items?.map((currency: Erc20) => (
+            {enabledTokens?.map((token) => (
               <option
-                key={currency.contract.address}
-                value={`${currency.contract.address}-${currency.symbol}`}
+                key={token.contractAddress}
+                value={`${token.contractAddress}-${token.symbol}`}
               >
-                {currency.name}
+                {token.name}
               </option>
             ))}
           </select>
