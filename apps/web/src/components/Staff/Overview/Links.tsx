@@ -64,6 +64,19 @@ const Links: FC = () => {
           />
         </ul>
       </div>
+      <div>
+        <p className="mb-4 font-bold">Forms 📜</p>
+        <ul className="linkify mb-3 mt-0 list-disc space-y-1 pl-5">
+          <ListItem
+            title="Token Allowlist Request"
+            link="https://hey.xyz/-/token-request"
+          />
+          <ListItem
+            title="Verification Request"
+            link="https://hey.xyz/-/verification-request"
+          />
+        </ul>
+      </div>
     </div>
   );
 };
