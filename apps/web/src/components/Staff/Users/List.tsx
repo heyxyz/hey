@@ -26,7 +26,7 @@ const List: FC = () => {
   // Variables
   const request: ExploreProfilesRequest = {
     orderBy,
-    limit: LimitType.TwentyFive
+    limit: LimitType.Fifty
   };
 
   const { data, loading, error, fetchMore, refetch } = useExploreProfilesQuery({
