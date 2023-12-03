@@ -51,7 +51,7 @@ const List: FC = () => {
           <Loader message="Loading profiles..." />
         ) : error ? (
           <ErrorMessage title="Failed to load profiles" error={error} />
-        ) : !profiles ? (
+        ) : !profiles?.length ? (
           <EmptyState
             message={<span>No profiles</span>}
             icon={<UsersIcon className="text-brand-500 h-8 w-8" />}
