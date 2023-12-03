@@ -1,6 +1,7 @@
 import Loader from '@components/Shared/Loader';
 import { HEY_API_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
+import getAllFeatureFlags from '@hey/lib/api/getAllFeatureFlags';
 import type { Features } from '@hey/types/hey';
 import { Toggle } from '@hey/ui';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
@@ -24,22 +25,9 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
 }) => {
   const [updating, setUpdating] = useState(false);
 
-  const getAllFeatureFlags = async (): Promise<Features[] | []> => {
-    try {
-      const response = await axios.get(`${HEY_API_URL}/internal/feature/all`, {
-        headers: getAuthWorkerHeaders()
-      });
-      const { data } = response;
-
-      return data?.features || [];
-    } catch (error) {
-      return [];
-    }
-  };
-
   const { data: allFeatureFlags, isLoading } = useQuery({
     queryKey: ['getAllFeatureFlags'],
-    queryFn: getAllFeatureFlags
+    queryFn: () => getAllFeatureFlags(getAuthWorkerHeaders())
   });
 
   if (isLoading) {
