@@ -43,9 +43,9 @@ const AllowanceSettings: NextPage = () => {
   });
 
   const {
-    data: enabledTokens,
-    isLoading: enabledTokensLoading,
-    error: enabledTokensError
+    data: allowedTokens,
+    isLoading: allowedTokensLoading,
+    error: allowedTokensError
   } = useQuery({
     queryKey: ['getAllTokens'],
     queryFn: () => getAllTokens()
@@ -54,10 +54,10 @@ const AllowanceSettings: NextPage = () => {
   const { data, loading, error, refetch } =
     useApprovedModuleAllowanceAmountQuery({
       variables: { request: getAllowancePayload(DEFAULT_COLLECT_TOKEN) },
-      skip: !currentProfile?.id || enabledTokensLoading
+      skip: !currentProfile?.id || allowedTokensLoading
     });
 
-  if (error || enabledTokensError) {
+  if (error || allowedTokensError) {
     return <Custom500 />;
   }
 
@@ -92,10 +92,10 @@ const AllowanceSettings: NextPage = () => {
                 }).finally(() => setCurrencyLoading(false));
               }}
             >
-              {enabledTokensLoading ? (
+              {allowedTokensLoading ? (
                 <option>Loading...</option>
               ) : (
-                enabledTokens?.map((token) => (
+                allowedTokens?.map((token) => (
                   <option
                     key={token.contractAddress}
                     value={token.contractAddress}
@@ -106,7 +106,7 @@ const AllowanceSettings: NextPage = () => {
               )}
             </select>
           </div>
-          {loading || enabledTokensLoading || currencyLoading ? (
+          {loading || allowedTokensLoading || currencyLoading ? (
             <div className="py-5">
               <Loader />
             </div>
