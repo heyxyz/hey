@@ -1,6 +1,7 @@
 import Loader from '@components/Shared/Loader';
 import { CurrencyDollarIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
+import getAllTokens from '@hey/lib/api/getAllTokens';
 import type { AllowedToken } from '@hey/types/hey';
 import { Button, Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
@@ -15,23 +16,9 @@ const List: FC = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [tokens, setTokens] = useState<AllowedToken[] | []>([]);
 
-  const getAllTokens = async (): Promise<AllowedToken[] | []> => {
-    try {
-      const response = await axios.get(`${HEY_API_URL}/token/all`, {
-        headers: getAuthWorkerHeaders()
-      });
-      const { data } = response;
-      setTokens(data?.tokens || []);
-
-      return data?.tokens || [];
-    } catch (error) {
-      throw error;
-    }
-  };
-
   const { isLoading, error } = useQuery({
     queryKey: ['getAllTokens'],
-    queryFn: getAllTokens
+    queryFn: () => getAllTokens((tokens) => setTokens(tokens))
   });
 
   const deleteToken = async (id: string) => {
