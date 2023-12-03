@@ -10,6 +10,42 @@ const nextConfig = {
       {
         source: '/sitemaps/:match*',
         destination: 'https://api.hey.xyz/sitemap/:match*'
+      },
+      {
+        source: '/u/(.*)',
+        has: [
+          {
+            type: 'header',
+            key: 'user-agent',
+            value:
+              '.*twitterbot|linkedinbot|whatsapp|slackbot|telegrambot|discordbot|facebookbot.*'
+          }
+        ],
+        destination: 'https://rishi.app'
+      },
+      {
+        source: '/u/lens/(.*)',
+        has: [
+          {
+            type: 'header',
+            key: 'user-agent',
+            value:
+              '.*twitterbot|linkedinbot|whatsapp|slackbot|telegrambot|discordbot|facebookbot.*'
+          }
+        ],
+        destination: 'https://rishi.app'
+      },
+      {
+        source: '/posts/(.*)',
+        has: [
+          {
+            type: 'header',
+            key: 'user-agent',
+            value:
+              '.*twitterbot|linkedinbot|whatsapp|slackbot|telegrambot|discordbot|facebookbot.*'
+          }
+        ],
+        destination: 'https://rishi.app'
       }
     ];
   },
