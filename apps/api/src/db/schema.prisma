@@ -132,3 +132,12 @@ model PollResponse {
   // Indexes
   @@index([optionId])
 }
+
+model AllowedToken {
+  id              String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name            String
+  symbol          String
+  decimals        Int      @default(18)
+  contractAddress String   @unique
+  createdAt       DateTime @default(now())
+}
