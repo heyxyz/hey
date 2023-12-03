@@ -34,6 +34,14 @@ export type Features = {
   createdAt: Date;
 };
 
+export type AllowedToken = {
+  id: string;
+  name: string;
+  symbol: string;
+  decimals: number;
+  contractAddress: string;
+};
+
 export type MembershipNft = {
   id: string;
   dismissedOrMinted: boolean;
