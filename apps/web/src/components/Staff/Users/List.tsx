@@ -4,7 +4,6 @@ import UserProfile from '@components/Shared/UserProfile';
 import { ArrowPathIcon, UsersIcon } from '@heroicons/react/24/outline';
 import type { ExploreProfilesRequest, Profile } from '@hey/lens';
 import {
-  CustomFiltersType,
   ExploreProfilesOrderByType,
   LimitType,
   useExploreProfilesQuery
@@ -24,7 +23,6 @@ const List: FC = () => {
 
   // Variables
   const request: ExploreProfilesRequest = {
-    where: { customFilters: [CustomFiltersType.Gardeners] },
     orderBy,
     limit: LimitType.TwentyFive
   };
