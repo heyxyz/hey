@@ -3,16 +3,15 @@ import Loader from '@components/Shared/Loader';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME, DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import type { Erc20 } from '@hey/lens';
 import {
   FollowModuleType,
-  LimitType,
   OpenActionModuleType,
-  useApprovedModuleAllowanceAmountQuery,
-  useEnabledCurrenciesQuery
+  useApprovedModuleAllowanceAmountQuery
 } from '@hey/lens';
+import getAllTokens from '@hey/lib/api/getAllTokens';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
+import { useQuery } from '@tanstack/react-query';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import Custom500 from 'src/pages/500';
@@ -39,25 +38,26 @@ const AllowanceSettings: NextPage = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const [currencyLoading, setCurrencyLoading] = useState(false);
 
-  const {
-    data: enabledModules,
-    loading: enabledModulesLoading,
-    error: enabledModulesError
-  } = useEnabledCurrenciesQuery({
-    variables: { request: { limit: LimitType.TwentyFive } }
-  });
-
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'allowance' });
+  });
+
+  const {
+    data: allowedTokens,
+    isLoading: allowedTokensLoading,
+    error: allowedTokensError
+  } = useQuery({
+    queryKey: ['getAllTokens'],
+    queryFn: () => getAllTokens()
   });
 
   const { data, loading, error, refetch } =
     useApprovedModuleAllowanceAmountQuery({
       variables: { request: getAllowancePayload(DEFAULT_COLLECT_TOKEN) },
-      skip: !currentProfile?.id || enabledModulesLoading
+      skip: !currentProfile?.id || allowedTokensLoading
     });
 
-  if (error || enabledModulesError) {
+  if (error || allowedTokensError) {
     return <Custom500 />;
   }
 
@@ -92,21 +92,21 @@ const AllowanceSettings: NextPage = () => {
                 }).finally(() => setCurrencyLoading(false));
               }}
             >
-              {enabledModulesLoading ? (
+              {allowedTokensLoading ? (
                 <option>Loading...</option>
               ) : (
-                enabledModules?.currencies.items.map((currency: Erc20) => (
+                allowedTokens?.map((token) => (
                   <option
-                    key={currency.contract.address}
-                    value={currency.contract.address}
+                    key={token.contractAddress}
+                    value={token.contractAddress}
                   >
-                    {currency.name}
+                    {token.name}
                   </option>
                 ))
               )}
             </select>
           </div>
-          {loading || enabledModulesLoading || currencyLoading ? (
+          {loading || allowedTokensLoading || currencyLoading ? (
             <div className="py-5">
               <Loader />
             </div>
