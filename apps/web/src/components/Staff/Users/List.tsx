@@ -17,12 +17,15 @@ import { type FC, useState } from 'react';
 
 const List: FC = () => {
   const { push } = useRouter();
+  const [orderBy, setOrderBy] = useState<ExploreProfilesOrderByType>(
+    ExploreProfilesOrderByType.LatestCreated
+  );
   const [value, setValue] = useState('');
 
   // Variables
   const request: ExploreProfilesRequest = {
     where: { customFilters: [CustomFiltersType.Gardeners] },
-    orderBy: ExploreProfilesOrderByType.LatestCreated,
+    orderBy,
     limit: LimitType.TwentyFive
   };
 
@@ -41,6 +44,20 @@ const List: FC = () => {
           onChange={(event) => setValue(event.target.value)}
           onProfileSelected={(profile) => push(getProfile(profile).staffLink)}
         />
+
+        <select
+          className="focus:border-brand-500 focus:ring-brand-400 rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"
+          onChange={(e) =>
+            setOrderBy(e.target.value as ExploreProfilesOrderByType)
+          }
+          defaultValue={orderBy}
+        >
+          {Object.values(ExploreProfilesOrderByType).map((orderBy) => (
+            <option key={orderBy} value={orderBy}>
+              {orderBy}
+            </option>
+          ))}
+        </select>
         <button onClick={() => refetch()}>
           <ArrowPathIcon className="h-5 w-5" />
         </button>
