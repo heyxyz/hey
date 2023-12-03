@@ -4,7 +4,7 @@ import type { Handler } from 'express';
 import { createPublicClient, http } from 'viem';
 import { polygon } from 'viem/chains';
 
-export const get: Handler = async (req, res, next) => {
+export const get: Handler = async (req, res) => {
   try {
     const client = createPublicClient({
       chain: polygon,
@@ -18,7 +18,6 @@ export const get: Handler = async (req, res, next) => {
       args: [req.query.id]
     });
 
-    // base64 decode
     const jsonData = JSON.parse(
       Buffer.from(data.split(',')[1], 'base64').toString()
     );
