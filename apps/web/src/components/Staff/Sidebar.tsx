@@ -15,7 +15,7 @@ const StaffSidebar: FC = () => {
       <Sidebar
         items={[
           {
-            title: 'Overview 🚧',
+            title: 'Overview',
             icon: <ClipboardIcon className="h-4 w-4" />,
             url: '/staff'
           },
