@@ -1,5 +1,6 @@
 import { CheckBadgeIcon } from '@heroicons/react/24/solid';
 import { Card } from '@hey/ui';
+import Link from 'next/link';
 import type { FC } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { hydrateVerifiedMembers } from 'src/store/persisted/useVerifiedMembersStore';
@@ -17,7 +18,18 @@ const Verification: FC = () => {
           <CheckBadgeIcon className="text-brand-500 h-5 w-5" />
         </div>
       ) : (
-        <div>No.</div>
+        <div className="linkify">
+          <span>No. </span>
+          <Link
+            href={`/-/verification-request?Lens%20Handle=${currentProfile?.handle?.suggestedFormatted.localName.replace(
+              '@',
+              ''
+            )}`}
+            target="_blank"
+          >
+            Request for profile verification
+          </Link>
+        </div>
       )}
     </Card>
   );
