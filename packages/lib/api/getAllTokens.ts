@@ -4,6 +4,7 @@ import axios from 'axios';
 
 /**
  * Get all allowed tokens
+ * @param callbackFn callback function
  * @returns all allowed tokens
  */
 const getAllTokens = async (
