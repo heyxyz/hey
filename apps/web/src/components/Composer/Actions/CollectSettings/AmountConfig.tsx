@@ -1,19 +1,19 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
-import type { Erc20 } from '@hey/lens';
 import { OpenActionModuleType } from '@hey/lens';
+import type { AllowedToken } from '@hey/types/hey';
 import { Input } from '@hey/ui';
 import { type FC } from 'react';
 import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
 
 interface AmountConfigProps {
-  enabledModuleCurrencies?: Erc20[];
+  allowedTokens?: AllowedToken[];
   setCollectType: (data: any) => void;
 }
 
 const AmountConfig: FC<AmountConfigProps> = ({
-  enabledModuleCurrencies,
+  allowedTokens,
   setCollectType
 }) => {
   const collectModule = useCollectModuleStore((state) => state.collectModule);
@@ -70,16 +70,15 @@ const AmountConfig: FC<AmountConfigProps> = ({
                   });
                 }}
               >
-                {enabledModuleCurrencies?.map((currency: Erc20) => (
+                {allowedTokens?.map((token) => (
                   <option
-                    key={currency.contract.address}
-                    value={currency.contract.address}
+                    key={token.contractAddress}
+                    value={token.contractAddress}
                     selected={
-                      currency.contract.address ===
-                      collectModule.amount?.currency
+                      token.contractAddress === collectModule.amount?.currency
                     }
                   >
-                    {currency.name}
+                    {token.name}
                   </option>
                 ))}
               </select>
