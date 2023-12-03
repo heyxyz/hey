@@ -1,3 +1,4 @@
+import { Regex } from '@hey/data/regex';
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import validateIsStaff from '@utils/middlewares/validateIsStaff';
@@ -7,11 +8,18 @@ import type { Handler } from 'express';
 import { object, string } from 'zod';
 
 type ExtensionRequest = {
-  id: string;
+  name: string;
+  symbol: string;
+  contractAddress: string;
 };
 
 const validationSchema = object({
-  id: string()
+  name: string().min(1).max(100),
+  symbol: string().min(1).max(100),
+  contractAddress: string()
+    .min(1)
+    .max(42)
+    .regex(Regex.ethereumAddress, { message: 'Invalid Ethereum address' })
 });
 
 export const post: Handler = async (req, res) => {
@@ -31,13 +39,15 @@ export const post: Handler = async (req, res) => {
     return notAllowed(res);
   }
 
-  const { id } = body as ExtensionRequest;
+  const { name, symbol, contractAddress } = body as ExtensionRequest;
 
   try {
-    await prisma.feature.delete({ where: { id } });
-    logger.info(`Deleted a feature flag ${id}`);
+    const token = await prisma.allowedToken.create({
+      data: { name, symbol, contractAddress }
+    });
+    logger.info(`Created a token ${token.id}`);
 
-    return res.status(200).json({ success: true });
+    return res.status(200).json({ success: true, token });
   } catch (error) {
     return catchedError(res, error);
   }
