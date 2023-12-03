@@ -4,6 +4,7 @@ import Unfollow from '@components/Shared/Profile/Unfollow';
 import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
 import {
+  ClockIcon,
   Cog6ToothIcon,
   HashtagIcon,
   MapPinIcon,
@@ -31,6 +32,7 @@ import getProfile from '@hey/lib/getProfile';
 import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import hasMisused from '@hey/lib/hasMisused';
 import { Button, Image, LightBox, Modal, Tooltip } from '@hey/ui';
+import { formatDate } from '@lib/formatTime';
 import isVerified from '@lib/isVerified';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
@@ -307,6 +309,9 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               </Link>
             </MetaDetails>
           ) : null}
+          <MetaDetails icon={<ClockIcon className="h-4 w-4" />}>
+            Joined {formatDate(profile.createdAt)}
+          </MetaDetails>
         </div>
       </div>
       {profile.invitedBy ? (
