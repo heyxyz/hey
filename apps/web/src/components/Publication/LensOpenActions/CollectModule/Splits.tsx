@@ -3,7 +3,7 @@ import { POLYGONSCAN_URL } from '@hey/data/constants';
 import type { Profile, RecipientDataOutput } from '@hey/lens';
 import { useProfilesQuery } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
-import getAvatar from '@hey/lib/getAvatar';
+import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import getStampFyiURL from '@hey/lib/getStampFyiURL';
 import Link from 'next/link';
@@ -54,7 +54,11 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
                 <>
                   <img
                     className="h-5 w-5 rounded-full border bg-gray-200 dark:border-gray-700"
-                    src={profile ? getAvatar(profile) : getStampFyiURL(address)}
+                    src={
+                      profile
+                        ? getLennyURL(profile.id)
+                        : getStampFyiURL(address)
+                    }
                     alt="Avatar"
                   />
                   {profile ? (
