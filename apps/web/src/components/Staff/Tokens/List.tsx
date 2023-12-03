@@ -63,9 +63,9 @@ const List: FC = () => {
       <div className="divider" />
       <div className="p-5">
         {isLoading ? (
-          <Loader message="Loading profiles..." />
+          <Loader message="Loading tokens..." />
         ) : error ? (
-          <ErrorMessage title="Failed to load feature flags" error={error} />
+          <ErrorMessage title="Failed to load tokens" error={error} />
         ) : !tokens.length ? (
           <EmptyState
             message={<span>No tokens found</span>}
@@ -98,7 +98,7 @@ const List: FC = () => {
         )}
       </div>
       <Modal
-        title="Create feature flag"
+        title="Create token"
         show={showCreateModal}
         onClose={() => setShowCreateModal(!showCreateModal)}
       >
