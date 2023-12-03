@@ -97,7 +97,7 @@ const List: FC = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="pb-6"
+                  className="pb-7"
                 >
                   <Link href={getProfile(profile as Profile).staffLink}>
                     <UserProfile
