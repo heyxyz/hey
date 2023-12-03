@@ -1,4 +1,5 @@
 import { LensHub } from '@hey/abis';
+import logger from '@hey/lib/logger';
 import { CACHE_AGE_INDEFINITE } from '@utils/constants';
 import type { Handler } from 'express';
 import { createPublicClient, http } from 'viem';
@@ -24,6 +25,7 @@ export const get: Handler = async (req, res) => {
 
     const base64Image = jsonData.image.split(';base64,').pop();
     const svgImage = Buffer.from(base64Image, 'base64').toString('utf-8');
+    logger.info(`Downloaded Lenny avatar for ${req.query.id}`);
 
     return res
       .status(200)
