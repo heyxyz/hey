@@ -71,7 +71,7 @@ const List: FC = () => {
           <Loader message="Loading profiles..." />
         ) : error ? (
           <ErrorMessage title="Failed to load feature flags" error={error} />
-        ) : !flags ? (
+        ) : !flags.length ? (
           <EmptyState
             message={<span>No feature flags found</span>}
             icon={

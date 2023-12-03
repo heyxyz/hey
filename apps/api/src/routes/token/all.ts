@@ -14,7 +14,7 @@ export const get: Handler = async (req, res) => {
     return res
       .status(200)
       .setHeader('Cache-Control', SWR_CACHE_AGE_1_MIN_30_DAYS)
-      .json({ success: true, features: data });
+      .json({ success: true, tokens: data });
   } catch (error) {
     return catchedError(res, error);
   }

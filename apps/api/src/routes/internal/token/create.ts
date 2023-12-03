@@ -5,17 +5,19 @@ import validateIsStaff from '@utils/middlewares/validateIsStaff';
 import prisma from '@utils/prisma';
 import { invalidBody, noBody, notAllowed } from '@utils/responses';
 import type { Handler } from 'express';
-import { object, string } from 'zod';
+import { number, object, string } from 'zod';
 
 type ExtensionRequest = {
   name: string;
   symbol: string;
+  decimals: number;
   contractAddress: string;
 };
 
 const validationSchema = object({
   name: string().min(1).max(100),
   symbol: string().min(1).max(100),
+  decimals: number().min(0).max(18),
   contractAddress: string()
     .min(1)
     .max(42)
@@ -39,11 +41,11 @@ export const post: Handler = async (req, res) => {
     return notAllowed(res);
   }
 
-  const { name, symbol, contractAddress } = body as ExtensionRequest;
+  const { name, symbol, decimals, contractAddress } = body as ExtensionRequest;
 
   try {
     const token = await prisma.allowedToken.create({
-      data: { name, symbol, contractAddress }
+      data: { name, symbol, decimals, contractAddress }
     });
     logger.info(`Created a token ${token.id}`);
 
