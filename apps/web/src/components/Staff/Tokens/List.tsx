@@ -73,7 +73,7 @@ const List: FC = () => {
             hideCard
           />
         ) : (
-          <div className="space-y-5">
+          <div className="space-y-6">
             {tokens?.map((token) => (
               <div key={token.id} className="flex items-center justify-between">
                 <div>
