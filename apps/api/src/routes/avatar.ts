@@ -7,9 +7,10 @@ import { polygon } from 'viem/chains';
 
 export const get: Handler = async (req, res) => {
   try {
+    const alchemyUrl = `https://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`;
     const client = createPublicClient({
       chain: polygon,
-      transport: http()
+      transport: http(alchemyUrl)
     });
 
     const data: any = await client.readContract({
