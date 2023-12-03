@@ -14,6 +14,6 @@ jobs:
         env:
           SECRET: ${{ secrets.SECRET }}
         run: |
-          curl -X DELETE \
+          curl -X POST \
             -d '{"secret": "'"$SECRET"'"}' \
             https://api.hey.xyz/internal/pro/downgradeProfiles
