@@ -10,9 +10,11 @@ import {
 } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { type FC, useState } from 'react';
+import { Virtuoso } from 'react-virtuoso';
 
 const List: FC = () => {
   const { push } = useRouter();
@@ -27,11 +29,23 @@ const List: FC = () => {
     limit: LimitType.TwentyFive
   };
 
-  const { data, loading, error, refetch } = useExploreProfilesQuery({
+  const { data, loading, error, fetchMore, refetch } = useExploreProfilesQuery({
     variables: { request }
   });
 
   const profiles = data?.exploreProfiles.items;
+  const pageInfo = data?.exploreProfiles?.pageInfo;
+  const hasMore = pageInfo?.next;
+
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
+    }
+
+    await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    });
+  };
 
   return (
     <Card>
@@ -73,22 +87,32 @@ const List: FC = () => {
             hideCard
           />
         ) : (
-          <div className="space-y-6">
-            {profiles?.map((profile) => (
-              <div key={profile.id}>
-                <Link href={getProfile(profile as Profile).staffLink}>
-                  <UserProfile
-                    profile={profile as Profile}
-                    isBig
-                    showUserPreview={false}
-                    showBio
-                    linkToProfile={false}
-                    timestamp={profile.createdAt}
-                  />
-                </Link>
-              </div>
-            ))}
-          </div>
+          <Virtuoso
+            useWindowScroll
+            data={profiles}
+            endReached={onEndReached}
+            itemContent={(_, profile) => {
+              return (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="pb-6"
+                >
+                  <Link href={getProfile(profile as Profile).staffLink}>
+                    <UserProfile
+                      profile={profile as Profile}
+                      isBig
+                      showUserPreview={false}
+                      showBio
+                      linkToProfile={false}
+                      timestamp={profile.createdAt}
+                    />
+                  </Link>
+                </motion.div>
+              );
+            }}
+          />
         )}
       </div>
     </Card>
