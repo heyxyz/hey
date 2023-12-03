@@ -136,6 +136,7 @@ model PollResponse {
 model AllowedToken {
   id              String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name            String
+  symbol          String
   contractAddress String   @unique
   createdAt       DateTime @default(now())
 }

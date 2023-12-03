@@ -34,8 +34,8 @@ export const post: Handler = async (req, res) => {
   const { id } = body as ExtensionRequest;
 
   try {
-    await prisma.feature.delete({ where: { id } });
-    logger.info(`Deleted a feature flag ${id}`);
+    await prisma.allowedToken.delete({ where: { id } });
+    logger.info(`Deleted a token ${id}`);
 
     return res.status(200).json({ success: true });
   } catch (error) {
