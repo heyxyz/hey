@@ -68,7 +68,7 @@ const List: FC = () => {
       <div className="divider" />
       <div className="p-5">
         {isLoading ? (
-          <Loader message="Loading profiles..." />
+          <Loader message="Loading feature flags..." />
         ) : error ? (
           <ErrorMessage title="Failed to load feature flags" error={error} />
         ) : !flags.length ? (
