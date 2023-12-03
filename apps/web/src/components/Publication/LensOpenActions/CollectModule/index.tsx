@@ -5,6 +5,7 @@ import Slug from '@components/Shared/Slug';
 import {
   BanknotesIcon,
   ClockIcon,
+  CurrencyDollarIcon,
   PhotoIcon,
   PuzzlePieceIcon,
   RectangleStackIcon,
@@ -20,6 +21,7 @@ import type {
   SimpleCollectOpenActionSettings
 } from '@hey/lens';
 import { FollowModuleType } from '@hey/lens';
+import getAllTokens from '@hey/lib/api/getAllTokens';
 import formatAddress from '@hey/lib/formatAddress';
 import getAssetSymbol from '@hey/lib/getAssetSymbol';
 import getProfile from '@hey/lib/getProfile';
@@ -47,6 +49,11 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
     ? publication?.mirrorOn
     : publication;
 
+  const { data: allowedTokens } = useQuery({
+    queryKey: ['getAllTokens'],
+    queryFn: () => getAllTokens()
+  });
+
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
   const [countOpenActions, setCountOpenActions] = useState(
     targetPublication.stats.countOpenActions
@@ -66,6 +73,8 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
   const isMultirecipientFeeCollectModule =
     collectModule.__typename === 'MultirecipientFeeCollectOpenActionSettings';
   const percentageCollected = (countOpenActions / collectLimit) * 100;
+  const enabledTokens = allowedTokens?.map((t) => t.symbol);
+  const isTokenEnabled = enabledTokens?.includes(currency);
 
   const { data: usdPrice } = useQuery({
     queryKey: ['getRedstonePrice', currency],
@@ -108,18 +117,22 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
         </div>
         {amount ? (
           <div className="flex items-center space-x-1.5 py-2">
-            <img
-              className="h-7 w-7"
-              height={28}
-              width={28}
-              src={getTokenImage(currency)}
-              alt={currency}
-              title={currency}
-            />
+            {isTokenEnabled ? (
+              <img
+                className="h-7 w-7"
+                height={28}
+                width={28}
+                src={getTokenImage(currency)}
+                alt={currency}
+                title={currency}
+              />
+            ) : (
+              <CurrencyDollarIcon className="text-brand-500 h-7 w-7" />
+            )}
             <span className="space-x-1">
               <span className="text-2xl font-bold">{amount}</span>
               <span className="text-xs">{currency}</span>
-              {usdPrice ? (
+              {isTokenEnabled && usdPrice ? (
                 <>
                   <span className="ld-text-gray-500 px-0.5">·</span>
                   <span className="ld-text-gray-500 text-xs font-bold">
