@@ -9,7 +9,7 @@ import {
 import getProfile from '@hey/lib/getProfile';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { type FC, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Loader from '@/components/Shared/Loader';
 import SearchUser from '@/components/Shared/SearchUser';

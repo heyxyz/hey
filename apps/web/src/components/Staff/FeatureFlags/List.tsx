@@ -1,5 +1,3 @@
-import Loader from '@components/Shared/Loader';
-import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import {
   AdjustmentsHorizontalIcon,
   TrashIcon
@@ -7,12 +5,15 @@ import {
 import { HEY_API_URL } from '@hey/data/constants';
 import type { Features } from '@hey/types/hey';
 import { Button, Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
-import { formatDate } from '@lib/formatTime';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC, useState } from 'react';
 import toast from 'react-hot-toast';
+
+import Loader from '@/components/Shared/Loader';
+import ToggleWithHelper from '@/components/Shared/ToggleWithHelper';
+import { formatDate } from '@/lib/formatTime';
+import getAuthWorkerHeaders from '@/lib/getAuthWorkerHeaders';
 
 import Create from './Create';
 

@@ -2,11 +2,12 @@ import { HEY_API_URL } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
 import type { AllowedToken } from '@hey/types/hey';
 import { Button, Form, Input, useZodForm } from '@hey/ui';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import axios from 'axios';
 import { type FC, useState } from 'react';
 import toast from 'react-hot-toast';
 import { object, string } from 'zod';
+
+import getAuthWorkerHeaders from '@/lib/getAuthWorkerHeaders';
 
 const createTokenSchema = object({
   name: string().min(1, { message: 'Name is required' }),

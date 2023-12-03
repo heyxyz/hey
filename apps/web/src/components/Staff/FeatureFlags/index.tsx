@@ -1,18 +1,18 @@
-import MetaTags from '@components/Common/MetaTags';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
-import type { NextPage } from 'next';
 import Custom404 from 'src/pages/404';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
+import MetaTags from '@/components/Common/MetaTags';
+import { Leafwatch } from '@/lib/leafwatch';
+
 import StaffSidebar from '../Sidebar';
 import List from './List';
 
-const FeatureFlags: NextPage = () => {
+const FeatureFlags = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
 
