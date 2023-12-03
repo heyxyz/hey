@@ -27,10 +27,9 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
 
   const getAllFeatureFlags = async (): Promise<Features[] | []> => {
     try {
-      const response = await axios.get(
-        `${HEY_API_URL}/internal/feature/getAll`,
-        { headers: getAuthWorkerHeaders() }
-      );
+      const response = await axios.get(`${HEY_API_URL}/internal/feature/all`, {
+        headers: getAuthWorkerHeaders()
+      });
       const { data } = response;
 
       return data?.features || [];

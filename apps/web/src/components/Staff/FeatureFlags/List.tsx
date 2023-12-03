@@ -22,10 +22,9 @@ const List: FC = () => {
 
   const getAllFeatureFlags = async (): Promise<Features[] | []> => {
     try {
-      const response = await axios.get(
-        `${HEY_API_URL}/internal/feature/getAll`,
-        { headers: getAuthWorkerHeaders() }
-      );
+      const response = await axios.get(`${HEY_API_URL}/internal/feature/all`, {
+        headers: getAuthWorkerHeaders()
+      });
       const { data } = response;
       setFlags(data?.features || []);
 
@@ -69,10 +68,10 @@ const List: FC = () => {
       <div className="divider" />
       <div className="p-5">
         {isLoading ? (
-          <Loader message="Loading profiles..." />
+          <Loader message="Loading feature flags..." />
         ) : error ? (
           <ErrorMessage title="Failed to load feature flags" error={error} />
-        ) : !flags ? (
+        ) : !flags.length ? (
           <EmptyState
             message={<span>No feature flags found</span>}
             icon={

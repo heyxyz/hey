@@ -1,6 +1,7 @@
 import {
   AdjustmentsHorizontalIcon,
   ClipboardIcon,
+  CurrencyDollarIcon,
   ExclamationTriangleIcon,
   UserIcon,
   UsersIcon
@@ -30,14 +31,19 @@ const StaffSidebar: FC = () => {
             url: '/staff/groups'
           },
           {
-            title: 'Abuse 🚧',
-            icon: <ExclamationTriangleIcon className="h-4 w-4" />,
-            url: '/staff/abuse'
+            title: 'Tokens',
+            icon: <CurrencyDollarIcon className="h-4 w-4" />,
+            url: '/staff/tokens'
           },
           {
             title: 'Feature flags',
             icon: <AdjustmentsHorizontalIcon className="h-4 w-4" />,
             url: '/staff/feature-flags'
+          },
+          {
+            title: 'Abuse 🚧',
+            icon: <ExclamationTriangleIcon className="h-4 w-4" />,
+            url: '/staff/abuse'
           }
         ]}
       />
