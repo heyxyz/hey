@@ -38,6 +38,7 @@ export type AllowedToken = {
   id: string;
   name: string;
   symbol: string;
+  decimals: number;
   contractAddress: string;
 };
 
