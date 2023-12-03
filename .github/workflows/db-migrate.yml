@@ -1,0 +1,47 @@
+name: DB Migrate
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  db-migrate:
+    name: DB Migrate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm 🌸
+        uses: pnpm/action-setup@v2.2.4
+
+      - name: Setup node 🍀
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+
+      - name: Install dependencies 📦
+        working-directory: ./apps/api
+        run: pnpm i
+
+      - name: Migrate Staging 🚀
+        working-directory: ./apps/api
+        env:
+          DATABASE_URL: ${{ secrets.STAGING_DATABASE_URL }}
+        run: pnpm prisma:migrate
+
+      - name: Migrate Testnet 🚀
+        working-directory: ./apps/api
+        env:
+          DATABASE_URL: ${{ secrets.TESTNET_DATABASE_URL }}
+        run: pnpm prisma:migrate
+
+      - name: Migrate Mainnet 🚀
+        working-directory: ./apps/api
+        env:
+          DATABASE_URL: ${{ secrets.MAINNET_DATABASE_URL }}
+        run: pnpm prisma:migrate
