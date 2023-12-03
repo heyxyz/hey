@@ -12,7 +12,7 @@ interface ListItemProps {
   link: string;
 }
 
-const ListItem: FC<ListItemsProps> = ({ title, link }) => (
+const ListItem: FC<ListItemProps> = ({ title, link }) => (
   <li>
     <Link href={link} target="_blank" rel="noreferrer" className="underline">
       {title}
