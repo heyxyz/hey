@@ -76,7 +76,7 @@ const SuperFollow: FC = () => {
     errorToast(error);
   };
 
-  const { data: enabledTokens, isLoading: enabledTokensLoading } = useQuery({
+  const { data: allowedTokens, isLoading: allowedTokensLoading } = useQuery({
     queryKey: ['getAllTokens'],
     queryFn: () => getAllTokens()
   });
@@ -161,7 +161,7 @@ const SuperFollow: FC = () => {
     }
   };
 
-  if (enabledTokensLoading) {
+  if (allowedTokensLoading) {
     return (
       <Card>
         <div className="space-y-2 p-5 py-10 text-center">
@@ -199,7 +199,7 @@ const SuperFollow: FC = () => {
               setSelectedCurrencySymbol(currency[1]);
             }}
           >
-            {enabledTokens?.map((token) => (
+            {allowedTokens?.map((token) => (
               <option
                 key={token.contractAddress}
                 value={`${token.contractAddress}-${token.symbol}`}
