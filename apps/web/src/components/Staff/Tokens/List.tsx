@@ -76,7 +76,17 @@ const List: FC = () => {
           <div className="space-y-5">
             {tokens?.map((token) => (
               <div key={token.id} className="flex items-center justify-between">
-                <div>{token.name}</div>
+                <div>
+                  <b>{token.name}</b> ({token.symbol})
+                  <div className="mt-2 text-sm">
+                    <span className="ld-text-gray-500">Decimals: </span>
+                    {token.decimals}
+                  </div>
+                  <div className="text-sm">
+                    <span className="ld-text-gray-500">Contract: </span>
+                    {token.contractAddress}
+                  </div>
+                </div>
                 <Button
                   onClick={() => deleteToken(token.id)}
                   icon={<TrashIcon className="h-4 w-4" />}
