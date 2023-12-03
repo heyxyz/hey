@@ -5,6 +5,7 @@ import {
   TrashIcon
 } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
+import getAllFeatureFlags from '@hey/lib/api/getAllFeatureFlags';
 import type { Features } from '@hey/types/hey';
 import { Button, Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
 import { formatDate } from '@lib/formatTime';
@@ -20,23 +21,10 @@ const List: FC = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [flags, setFlags] = useState<Features[] | []>([]);
 
-  const getAllFeatureFlags = async (): Promise<Features[] | []> => {
-    try {
-      const response = await axios.get(`${HEY_API_URL}/internal/feature/all`, {
-        headers: getAuthWorkerHeaders()
-      });
-      const { data } = response;
-      setFlags(data?.features || []);
-
-      return data?.features || [];
-    } catch (error) {
-      throw error;
-    }
-  };
-
   const { isLoading, error } = useQuery({
     queryKey: ['getAllFeatureFlags'],
-    queryFn: getAllFeatureFlags
+    queryFn: () =>
+      getAllFeatureFlags(getAuthWorkerHeaders(), (flags) => setFlags(flags))
   });
 
   const deleteFeatureFlag = async (id: string) => {
