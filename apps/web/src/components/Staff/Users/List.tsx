@@ -73,7 +73,7 @@ const List: FC = () => {
             hideCard
           />
         ) : (
-          <div className="space-y-5">
+          <div className="space-y-6">
             {profiles?.map((profile) => (
               <div key={profile.id}>
                 <Link href={getProfile(profile as Profile).staffLink}>
