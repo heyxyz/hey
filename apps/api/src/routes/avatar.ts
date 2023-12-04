@@ -2,16 +2,15 @@ import type { Handler } from 'express';
 
 import { LensHub } from '@hey/abis';
 import logger from '@hey/lib/logger';
-import { CACHE_AGE_INDEFINITE } from '@utils/constants';
+import { ALCHEMY_URL, CACHE_AGE_INDEFINITE } from '@utils/constants';
 import { createPublicClient, http } from 'viem';
 import { polygon } from 'viem/chains';
 
 export const get: Handler = async (req, res) => {
   try {
-    const alchemyUrl = `https://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`;
     const client = createPublicClient({
       chain: polygon,
-      transport: http(alchemyUrl)
+      transport: http(ALCHEMY_URL)
     });
 
     const data: any = await client.readContract({
