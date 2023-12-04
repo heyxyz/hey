@@ -8,13 +8,15 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module'
   },
+  extends: ['plugin:perfectionist/recommended-alphabetical'],
   plugins: [
     '@typescript-eslint',
     'unused-imports',
     'simple-import-sort',
     'prettier',
     'unicorn',
-    'import'
+    'import',
+    'perfectionist'
   ],
   rules: {
     curly: 'error',
