@@ -1,4 +1,5 @@
 import type { ApolloLink } from '@apollo/client';
+
 import { ApolloClient, from, split } from '@apollo/client';
 
 import cache from './cache';
@@ -17,11 +18,11 @@ const requestLink = split(
 
 const apolloClient = (authLink?: ApolloLink) =>
   new ApolloClient({
+    cache,
     connectToDevTools: true,
     link: authLink
       ? from([authLink, retryLink, requestLink])
-      : from([retryLink, httpLink]),
-    cache
+      : from([retryLink, httpLink])
   });
 
 export default apolloClient;

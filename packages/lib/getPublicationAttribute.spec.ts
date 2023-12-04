@@ -5,9 +5,9 @@ import getPublicationAttribute from './getPublicationAttribute';
 
 describe('getPublicationAttribute', () => {
   const attributes: MetadataAttribute[] = [
-    { key: 'type', value: 'book', type: MetadataAttributeType.String },
-    { key: 'author', value: 'John Doe', type: MetadataAttributeType.String },
-    { key: 'year', value: '2021', type: MetadataAttributeType.String }
+    { key: 'type', type: MetadataAttributeType.String, value: 'book' },
+    { key: 'author', type: MetadataAttributeType.String, value: 'John Doe' },
+    { key: 'year', type: MetadataAttributeType.String, value: '2021' }
   ];
 
   test('should return empty string if attributes is undefined', () => {
@@ -26,7 +26,7 @@ describe('getPublicationAttribute', () => {
   test('should return the first matching key if there are multiple matches', () => {
     const updatedAttributes = [
       ...attributes,
-      { key: 'author', value: 'Jane Smith', type: MetadataAttributeType.String }
+      { key: 'author', type: MetadataAttributeType.String, value: 'Jane Smith' }
     ];
     expect(getPublicationAttribute(updatedAttributes, 'author')).toBe(
       'John Doe'

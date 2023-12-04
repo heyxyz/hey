@@ -6,13 +6,13 @@ describe('getPublicationData', () => {
   test('should return correct data for ArticleMetadataV3', () => {
     const metadata: any = {
       __typename: 'ArticleMetadataV3',
-      content: 'This is an article',
-      attachments: ['attachment1', 'attachment2']
+      attachments: ['attachment1', 'attachment2'],
+      content: 'This is an article'
     };
     const result = getPublicationData(metadata);
     expect(result).toEqual({
-      content: 'This is an article',
-      attachments: expect.any(Array)
+      attachments: expect.any(Array),
+      content: 'This is an article'
     });
   });
 
@@ -41,83 +41,83 @@ describe('getPublicationData', () => {
   test('should return correct data for ImageMetadataV3', () => {
     const metadata: any = {
       __typename: 'ImageMetadataV3',
-      content: 'This is an image publication',
       asset: { image: { optimized: { uri: 'image-uri' } } },
-      attachments: ['attachment1', 'attachment2']
+      attachments: ['attachment1', 'attachment2'],
+      content: 'This is an image publication'
     };
     const result = getPublicationData(metadata);
     expect(result).toEqual({
-      content: 'This is an image publication',
-      asset: { uri: 'image-uri', type: 'Image' },
-      attachments: expect.any(Array)
+      asset: { type: 'Image', uri: 'image-uri' },
+      attachments: expect.any(Array),
+      content: 'This is an image publication'
     });
   });
 
   test('should return correct data for AudioMetadataV3', () => {
     const metadata: any = {
       __typename: 'AudioMetadataV3',
-      content: 'This is an audio publication',
       asset: {
+        artist: 'Artist Name',
         audio: { optimized: { uri: 'audio-uri' } },
-        cover: { optimized: { uri: 'cover-uri' } },
-        artist: 'Artist Name'
+        cover: { optimized: { uri: 'cover-uri' } }
       },
-      title: 'Audio Title',
-      attachments: ['attachment1', 'attachment2']
+      attachments: ['attachment1', 'attachment2'],
+      content: 'This is an audio publication',
+      title: 'Audio Title'
     };
     const result = getPublicationData(metadata);
     expect(result).toEqual({
-      content: 'This is an audio publication',
       asset: {
-        uri: 'audio-uri',
-        cover: 'cover-uri',
         artist: 'Artist Name',
+        cover: 'cover-uri',
         title: 'Audio Title',
-        type: 'Audio'
-      }
+        type: 'Audio',
+        uri: 'audio-uri'
+      },
+      content: 'This is an audio publication'
     });
   });
 
   test('should return correct data for VideoMetadataV3', () => {
     const metadata: any = {
       __typename: 'VideoMetadataV3',
-      content: 'This is a video publication',
       asset: {
-        video: { optimized: { uri: 'video-uri' } },
-        cover: { optimized: { uri: 'cover-uri' } }
+        cover: { optimized: { uri: 'cover-uri' } },
+        video: { optimized: { uri: 'video-uri' } }
       },
-      attachments: ['attachment1', 'attachment2']
+      attachments: ['attachment1', 'attachment2'],
+      content: 'This is a video publication'
     };
     const result = getPublicationData(metadata);
     expect(result).toEqual({
-      content: 'This is a video publication',
-      asset: { uri: 'video-uri', cover: 'cover-uri', type: 'Video' }
+      asset: { cover: 'cover-uri', type: 'Video', uri: 'video-uri' },
+      content: 'This is a video publication'
     });
   });
 
   test('should return correct data for MintMetadataV3', () => {
     const metadata: any = {
       __typename: 'MintMetadataV3',
-      content: 'This is a mint publication',
-      attachments: ['attachment1', 'attachment2']
+      attachments: ['attachment1', 'attachment2'],
+      content: 'This is a mint publication'
     };
     const result = getPublicationData(metadata);
     expect(result).toEqual({
-      content: 'This is a mint publication',
-      attachments: expect.any(Array)
+      attachments: expect.any(Array),
+      content: 'This is a mint publication'
     });
   });
 
   test('should return correct data for LiveStreamMetadataV3', () => {
     const metadata: any = {
       __typename: 'LiveStreamMetadataV3',
-      content: 'This is a live stream publication',
-      attachments: ['attachment1', 'attachment2']
+      attachments: ['attachment1', 'attachment2'],
+      content: 'This is a live stream publication'
     };
     const result = getPublicationData(metadata);
     expect(result).toEqual({
-      content: 'This is a live stream publication',
-      attachments: expect.any(Array)
+      attachments: expect.any(Array),
+      content: 'This is a live stream publication'
     });
   });
 

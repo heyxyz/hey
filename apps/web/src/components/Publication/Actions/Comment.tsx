@@ -1,5 +1,6 @@
-import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication } from '@hey/lens';
+
+import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
 import humanize from '@hey/lib/humanize';
 import nFormatter from '@hey/lib/nFormatter';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
@@ -26,16 +27,16 @@ const Comment: FC<CommentProps> = ({ publication, showCount }) => {
   return (
     <div className="ld-text-gray-500 flex items-center space-x-1">
       <motion.button
-        className="rounded-full p-1.5 outline-offset-2 outline-gray-400 hover:bg-gray-300/20"
-        whileTap={{ scale: 0.9 }}
         aria-label="Comment"
+        className="rounded-full p-1.5 outline-offset-2 outline-gray-400 hover:bg-gray-300/20"
         onClick={() => {
           push(`/posts/${publication.id}`);
         }}
+        whileTap={{ scale: 0.9 }}
       >
         <Tooltip
-          placement="top"
           content={count > 0 ? `${humanize(count)} Comments` : 'Comment'}
+          placement="top"
           withDelay
         >
           <ChatBubbleLeftRightIcon className={iconClassName} />

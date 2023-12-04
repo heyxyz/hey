@@ -1,6 +1,6 @@
 import type { Document } from 'linkedom';
 
-const getEmbedUrl = (document: Document): string | null => {
+const getEmbedUrl = (document: Document): null | string => {
   const lens =
     document.querySelector('meta[name="lens:player"]') ||
     document.querySelector('meta[property="lens:player"]');

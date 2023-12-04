@@ -1,3 +1,5 @@
+import type { FC } from 'react';
+
 import Unfollow from '@components/Shared/Profile/Unfollow';
 import {
   CheckBadgeIcon,
@@ -13,7 +15,6 @@ import cn from '@hey/ui/cn';
 import { getTwitterFormat } from '@lib/formatTime';
 import isVerified from '@lib/isVerified';
 import Link from 'next/link';
-import type { FC } from 'react';
 import { memo, useState } from 'react';
 
 import Markup from './Markup';
@@ -23,47 +24,47 @@ import SuperFollow from './SuperFollow';
 import UserPreview from './UserPreview';
 
 interface UserProfileProps {
-  profile: Profile;
-  isFollowing?: boolean;
-  isBig?: boolean;
-  linkToProfile?: boolean;
-  showBio?: boolean;
-  showFollow?: boolean;
-  showUnfollow?: boolean;
-  showUserPreview?: boolean;
-  timestamp?: Date;
-
   // For data analytics
   followUnfollowPosition?: number;
   followUnfollowSource?: string;
+  isBig?: boolean;
+  isFollowing?: boolean;
+  linkToProfile?: boolean;
+  profile: Profile;
+  showBio?: boolean;
+  showFollow?: boolean;
+  showUnfollow?: boolean;
+
+  showUserPreview?: boolean;
+  timestamp?: Date;
 }
 
 const UserProfile: FC<UserProfileProps> = ({
-  profile,
-  isFollowing = false,
+  followUnfollowPosition,
+  followUnfollowSource,
   isBig = false,
+  isFollowing = false,
   linkToProfile = true,
+  profile,
   showBio = false,
   showFollow = false,
   showUnfollow = false,
   showUserPreview = true,
-  timestamp = '',
-  followUnfollowPosition,
-  followUnfollowSource
+  timestamp = ''
 }) => {
   const [following, setFollowing] = useState(isFollowing);
 
   const UserAvatar = () => (
     <Image
-      src={getAvatar(profile)}
-      loading="lazy"
+      alt={profile.id}
       className={cn(
         isBig ? 'h-14 w-14' : 'h-10 w-10',
         'rounded-full border bg-gray-200 dark:border-gray-700'
       )}
       height={isBig ? 56 : 40}
+      loading="lazy"
+      src={getAvatar(profile)}
       width={isBig ? 56 : 40}
-      alt={profile.id}
     />
   );
 
@@ -105,13 +106,13 @@ const UserProfile: FC<UserProfileProps> = ({
             <UserName />
             {showBio && profile?.metadata?.bio ? (
               <div
-                // Replace with Tailwind
-                style={{ wordBreak: 'break-word' }}
                 className={cn(
                   isBig ? 'text-base' : 'text-sm',
                   'mt-2',
                   'linkify leading-6'
                 )}
+                // Replace with Tailwind
+                style={{ wordBreak: 'break-word' }}
               >
                 <Markup mentions={getMentions(profile.metadata.bio)}>
                   {profile?.metadata.bio}
@@ -128,8 +129,8 @@ const UserProfile: FC<UserProfileProps> = ({
     <div className="flex items-center justify-between">
       {linkToProfile && profile.id ? (
         <Link
-          href={getProfile(profile).link}
           className="outline-brand-500 rounded-xl outline-offset-4"
+          href={getProfile(profile).link}
         >
           <UserInfo />
         </Link>
@@ -147,10 +148,10 @@ const UserProfile: FC<UserProfileProps> = ({
           />
         ) : (
           <Follow
-            profile={profile}
-            setFollowing={setFollowing}
             followPosition={followUnfollowPosition}
             followSource={followUnfollowSource}
+            profile={profile}
+            setFollowing={setFollowing}
           />
         )
       ) : null}

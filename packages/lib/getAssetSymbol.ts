@@ -7,11 +7,11 @@ type TokenSymbolMap = Record<string, string>;
  * The addresses of commonly-used tokens on the Polygon.
  */
 const TOKEN_SYMBOLS: TokenSymbolMap = {
-  WMATIC: 'MATIC',
-  WETH: 'ETH',
-  USDC: 'USDC',
   DAI: 'DAI',
-  NCT: 'NCT'
+  NCT: 'NCT',
+  USDC: 'USDC',
+  WETH: 'ETH',
+  WMATIC: 'MATIC'
 };
 
 /**

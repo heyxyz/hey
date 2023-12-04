@@ -1,11 +1,12 @@
-import { HEY_API_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
+import type { Activity } from 'react-activity-calendar';
+
+import { HEY_API_URL } from '@hey/data/constants';
 import getProfile from '@hey/lib/getProfile';
 import { Card } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
-import type { Activity } from 'react-activity-calendar';
 import ActivityCalendar from 'react-activity-calendar';
 
 interface StreaksProps {
@@ -21,8 +22,8 @@ const Streaks: FC<StreaksProps> = ({ profile }) => {
 
       const outputData = Object.entries(response.data.data).map(
         ([date, count]: any) => ({
-          date,
           count,
+          date,
           level: count > 0 ? Math.min(Math.floor(count / 10) + 1, 4) : 0
         })
       );
@@ -34,22 +35,22 @@ const Streaks: FC<StreaksProps> = ({ profile }) => {
   };
 
   const { data, isLoading } = useQuery({
-    queryKey: ['fetchStreaks', profile.id],
-    queryFn: fetchStreaks
+    queryFn: fetchStreaks,
+    queryKey: ['fetchStreaks', profile.id]
   });
 
   return (
     <Card className="p-6">
       <ActivityCalendar
-        data={data as Activity[]}
-        loading={isLoading}
-        colorScheme="light"
         blockRadius={50}
+        colorScheme="light"
+        data={data as Activity[]}
         labels={{
           totalCount: `${
             getProfile(profile).slugWithPrefix
           } has {{count}} activities in ${new Date().getFullYear()}`
         }}
+        loading={isLoading}
         theme={{ light: ['#FED5D9', '#FB3A5D'] }}
       />
     </Card>

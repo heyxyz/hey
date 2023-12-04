@@ -25,9 +25,9 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
     limit: LimitType.TwentyFive
   };
 
-  const { data, loading, error, fetchMore } = useWhoReactedPublicationQuery({
-    variables: { request },
-    skip: !publicationId
+  const { data, error, fetchMore, loading } = useWhoReactedPublicationQuery({
+    skip: !publicationId,
+    variables: { request }
   });
 
   const profiles = data?.whoReactedPublication?.items;
@@ -52,9 +52,9 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
     return (
       <div className="p-5">
         <EmptyState
-          message="No likes."
-          icon={<HeartIcon className="text-brand-500 h-8 w-8" />}
           hideCard
+          icon={<HeartIcon className="text-brand-500 h-8 w-8" />}
+          message="No likes."
         />
       </div>
     );
@@ -63,9 +63,9 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
   return (
     <div className="max-h-[80vh] overflow-y-auto">
       <ErrorMessage
-        title="Failed to load likes"
-        error={error}
         className="m-5"
+        error={error}
+        title="Failed to load likes"
       />
       <Virtuoso
         className="virtual-profile-list"
@@ -74,16 +74,16 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
         itemContent={(index, like) => {
           return (
             <motion.div
-              initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
               className="p-5"
+              exit={{ opacity: 0 }}
+              initial={{ opacity: 0 }}
             >
               <UserProfile
-                profile={like.profile as Profile}
-                isFollowing={like.profile.operations.isFollowedByMe.value}
                 followUnfollowPosition={index + 1}
                 followUnfollowSource={FollowUnfollowSource.LIKES_MODAL}
+                isFollowing={like.profile.operations.isFollowedByMe.value}
+                profile={like.profile as Profile}
                 showBio
                 showFollow
                 showUserPreview={false}

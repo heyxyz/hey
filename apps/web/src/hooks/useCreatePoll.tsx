@@ -14,8 +14,8 @@ const useCreatePoll = () => {
       const response = await axios.post(
         `${HEY_API_URL}/poll/create`,
         {
-          options: pollConfig.options,
-          length: pollConfig.length
+          length: pollConfig.length,
+          options: pollConfig.options
         },
         { headers: getAuthWorkerHeaders() }
       );

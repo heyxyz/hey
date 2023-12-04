@@ -1,3 +1,5 @@
+import type { FC } from 'react';
+
 import { Menu } from '@headlessui/react';
 import formatAddress from '@hey/lib/formatAddress';
 import getProfile from '@hey/lib/getProfile';
@@ -5,7 +7,6 @@ import getStampFyiURL from '@hey/lib/getStampFyiURL';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import getCurrentSession from '@lib/getCurrentSession';
-import type { FC } from 'react';
 import useEnsName from 'src/hooks/useEnsName';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
@@ -26,9 +27,9 @@ const WalletUser: FC = () => {
 
   const Avatar = () => (
     <Image
-      src={getStampFyiURL(sessionProfileId)}
-      className="h-8 w-8 cursor-pointer rounded-full border dark:border-gray-700"
       alt={sessionProfileId}
+      className="h-8 w-8 cursor-pointer rounded-full border dark:border-gray-700"
+      src={getStampFyiURL(sessionProfileId)}
     />
   );
 
@@ -39,13 +40,13 @@ const WalletUser: FC = () => {
       </Menu.Button>
       <MenuTransition>
         <Menu.Items
-          static
           className="absolute right-0 mt-2 w-48 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-black"
+          static
         >
           <Menu.Item
             as={NextLink}
-            href={getProfile(currentProfile).link}
             className="m-2 flex items-center rounded-lg px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
+            href={getProfile(currentProfile).link}
           >
             <div className="flex w-full flex-col">
               <div>Logged in as</div>

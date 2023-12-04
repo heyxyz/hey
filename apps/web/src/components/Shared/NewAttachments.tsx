@@ -1,10 +1,11 @@
+import type { NewAttachment } from '@hey/types/misc';
+import type { FC } from 'react';
+
 import ChooseThumbnail from '@components/Composer/ChooseThumbnail';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import type { NewAttachment } from '@hey/types/misc';
 import { Button, Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import type { FC } from 'react';
 import { useRef } from 'react';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 import { useUpdateEffect } from 'usehooks-ts';
@@ -90,8 +91,8 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
                   }`
                 : '',
               {
-                'w-full': isAudio || isVideo,
-                'w-2/3': isImage && attachmentsLength === 1
+                'w-2/3': isImage && attachmentsLength === 1,
+                'w-full': isAudio || isVideo
               },
               'relative'
             )}
@@ -102,53 +103,53 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
               <>
                 <video
                   className="w-full overflow-hidden rounded-xl"
-                  src={attachment.previewUri}
-                  ref={videoRef}
+                  controls
+                  controlsList="nodownload noplaybackrate"
                   disablePictureInPicture
                   disableRemotePlayback
-                  controlsList="nodownload noplaybackrate"
-                  controls
+                  ref={videoRef}
+                  src={attachment.previewUri}
                 />
                 <ChooseThumbnail />
               </>
             ) : isAudio ? (
               <Audio
-                src={attachment.previewUri}
-                poster=""
-                isNew
                 expandCover={() => {}}
+                isNew
+                poster=""
+                src={attachment.previewUri}
               />
             ) : isImage ? (
               <Image
+                alt={attachment.previewUri}
                 className="cursor-pointer rounded-lg border bg-gray-100 object-cover dark:border-gray-700 dark:bg-gray-800"
-                loading="lazy"
                 height={1000}
-                width={1000}
+                loading="lazy"
                 onError={({ currentTarget }) => {
                   currentTarget.src = attachment.previewUri;
                 }}
                 src={attachment.previewUri}
-                alt={attachment.previewUri}
+                width={1000}
               />
             ) : null}
             {!hideDelete &&
               (isVideo ? (
                 <Button
                   className="mt-3"
-                  variant="danger"
-                  size="sm"
                   icon={<XMarkIcon className="h-4 w-4" />}
                   onClick={() => removeAttachment(attachment)}
                   outline
+                  size="sm"
+                  variant="danger"
                 >
                   Cancel Upload
                 </Button>
               ) : (
                 <div className={cn(isAudio ? 'absolute left-2 top-2' : 'm-3')}>
                   <button
-                    type="button"
                     className="rounded-full bg-gray-900 p-1.5 opacity-75"
                     onClick={() => removeAttachment(attachment)}
+                    type="button"
                   >
                     <XMarkIcon className="h-4 w-4 text-white" />
                   </button>

@@ -1,5 +1,6 @@
-import { InboxIcon } from '@heroicons/react/24/outline';
 import type { Amount } from '@hey/lens';
+
+import { InboxIcon } from '@heroicons/react/24/outline';
 import { Button, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { type FC, useState } from 'react';
@@ -25,7 +26,6 @@ const WrapWmatic: FC<WrapWmaticProps> = ({ moduleAmount }) => {
   };
 
   const { data, writeAsync } = useContractWrite({
-    address: assetAddress,
     abi: [
       {
         anonymous: false,
@@ -54,9 +54,10 @@ const WrapWmatic: FC<WrapWmaticProps> = ({ moduleAmount }) => {
         type: 'function'
       }
     ],
+    address: assetAddress,
     functionName: 'deposit',
-    value: parseEther(amount),
-    onError
+    onError,
+    value: parseEther(amount)
   });
 
   const deposit = async () => {
@@ -74,8 +75,8 @@ const WrapWmatic: FC<WrapWmaticProps> = ({ moduleAmount }) => {
     <div className="space-y-1">
       {data?.hash ? (
         <IndexStatus
-          txHash={data.hash}
           message={`Wrapping MATIC to ${currency}...`}
+          txHash={data.hash}
         />
       ) : (
         <>
@@ -83,7 +84,7 @@ const WrapWmatic: FC<WrapWmaticProps> = ({ moduleAmount }) => {
             You don't have enough <b>{currency}</b>
           </div>
           <Button
-            onClick={deposit}
+            disabled={isLoading}
             icon={
               isLoading ? (
                 <Spinner size="xs" />
@@ -91,7 +92,7 @@ const WrapWmatic: FC<WrapWmaticProps> = ({ moduleAmount }) => {
                 <InboxIcon className="h-4 w-4" />
               )
             }
-            disabled={isLoading}
+            onClick={deposit}
           >
             Wrap MATIC to {currency}
           </Button>

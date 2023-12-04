@@ -59,6 +59,7 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
     };
 
     toast.promise(authAndSetStaffMode(), {
+      error: 'Failed to toggle staff mode!',
       loading: 'Toggling staff mode...',
       success: () => {
         getPreferences(currentProfile?.id, getAuthWorkerHeaders());
@@ -66,18 +67,17 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
         Leafwatch.track(STAFFTOOLS.TOGGLE_MODE);
 
         return 'Staff mode toggled!';
-      },
-      error: 'Failed to toggle staff mode!'
+      }
     });
   };
 
   return (
     <button
-      onClick={toggleStaffMode}
       className={cn(
         'flex w-full items-center space-x-1.5 px-2 py-1.5 text-sm text-gray-700 dark:text-gray-200',
         className
       )}
+      onClick={toggleStaffMode}
     >
       {staffMode ? (
         <ShieldCheckIconSolid className="h-4 w-4 text-green-600" />

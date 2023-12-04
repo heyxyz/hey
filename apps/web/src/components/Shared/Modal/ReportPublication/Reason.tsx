@@ -7,17 +7,17 @@ import {
 import { type Dispatch, type FC, type SetStateAction } from 'react';
 
 interface ReasonProps {
-  setType: Dispatch<SetStateAction<string>>;
   setSubReason: Dispatch<SetStateAction<string>>;
-  type: string;
+  setType: Dispatch<SetStateAction<string>>;
   subReason: string;
+  type: string;
 }
 
 const Reason: FC<ReasonProps> = ({
-  setType,
   setSubReason,
-  type,
-  subReason
+  setType,
+  subReason,
+  type
 }) => {
   return (
     <div className="space-y-3">
@@ -31,19 +31,19 @@ const Reason: FC<ReasonProps> = ({
             <option disabled selected>
               Select type
             </option>
-            <option value="illegalReason" selected={type === 'illegalReason'}>
+            <option selected={type === 'illegalReason'} value="illegalReason">
               Illegal
             </option>
-            <option value="fraudReason" selected={type === 'fraudReason'}>
+            <option selected={type === 'fraudReason'} value="fraudReason">
               Fraud
             </option>
             <option
-              value="sensitiveReason"
               selected={type === 'sensitiveReason'}
+              value="sensitiveReason"
             >
               Sensitive
             </option>
-            <option value="spamReason" selected={type === 'spamReason'}>
+            <option selected={type === 'spamReason'} value="spamReason">
               Spam
             </option>
           </select>
@@ -63,49 +63,49 @@ const Reason: FC<ReasonProps> = ({
               {type === 'illegalReason' ? (
                 <>
                   <option
-                    value={PublicationReportingIllegalSubreason.AnimalAbuse}
                     selected={
                       subReason ===
                       PublicationReportingIllegalSubreason.AnimalAbuse
                     }
+                    value={PublicationReportingIllegalSubreason.AnimalAbuse}
                   >
                     Animal Abuse
                   </option>
                   <option
-                    value={PublicationReportingIllegalSubreason.DirectThreat}
                     selected={
                       subReason ===
                       PublicationReportingIllegalSubreason.DirectThreat
                     }
+                    value={PublicationReportingIllegalSubreason.DirectThreat}
                   >
                     Direct Threat
                   </option>
                   <option
-                    value={PublicationReportingIllegalSubreason.HumanAbuse}
                     selected={
                       subReason ===
                       PublicationReportingIllegalSubreason.HumanAbuse
                     }
+                    value={PublicationReportingIllegalSubreason.HumanAbuse}
                   >
                     Human Abuse
                   </option>
                   <option
-                    value={
-                      PublicationReportingIllegalSubreason.ThreatIndividual
-                    }
                     selected={
                       subReason ===
+                      PublicationReportingIllegalSubreason.ThreatIndividual
+                    }
+                    value={
                       PublicationReportingIllegalSubreason.ThreatIndividual
                     }
                   >
                     Threat Individual
                   </option>
                   <option
-                    value={PublicationReportingIllegalSubreason.Violence}
                     selected={
                       subReason ===
                       PublicationReportingIllegalSubreason.Violence
                     }
+                    value={PublicationReportingIllegalSubreason.Violence}
                   >
                     Violence
                   </option>
@@ -114,19 +114,19 @@ const Reason: FC<ReasonProps> = ({
               {type === 'fraudReason' ? (
                 <>
                   <option
-                    value={PublicationReportingFraudSubreason.Scam}
                     selected={
                       subReason === PublicationReportingFraudSubreason.Scam
                     }
+                    value={PublicationReportingFraudSubreason.Scam}
                   >
                     Scam
                   </option>
                   <option
-                    value={PublicationReportingFraudSubreason.Impersonation}
                     selected={
                       subReason ===
                       PublicationReportingFraudSubreason.Impersonation
                     }
+                    value={PublicationReportingFraudSubreason.Impersonation}
                   >
                     Impersonation
                   </option>
@@ -135,19 +135,19 @@ const Reason: FC<ReasonProps> = ({
               {type === 'sensitiveReason' ? (
                 <>
                   <option
-                    value={PublicationReportingSensitiveSubreason.Nsfw}
                     selected={
                       subReason === PublicationReportingSensitiveSubreason.Nsfw
                     }
+                    value={PublicationReportingSensitiveSubreason.Nsfw}
                   >
                     NSFW
                   </option>
                   <option
-                    value={PublicationReportingSensitiveSubreason.Offensive}
                     selected={
                       subReason ===
                       PublicationReportingSensitiveSubreason.Offensive
                     }
+                    value={PublicationReportingSensitiveSubreason.Offensive}
                   >
                     Offensive
                   </option>
@@ -156,70 +156,70 @@ const Reason: FC<ReasonProps> = ({
               {type === 'spamReason' ? (
                 <>
                   <option
-                    value={PublicationReportingSpamSubreason.FakeEngagement}
                     selected={
                       subReason ===
                       PublicationReportingSpamSubreason.FakeEngagement
                     }
+                    value={PublicationReportingSpamSubreason.FakeEngagement}
                   >
                     Fake engagement
                   </option>
                   <option
-                    value={PublicationReportingSpamSubreason.LowSignal}
                     selected={
                       subReason === PublicationReportingSpamSubreason.LowSignal
                     }
+                    value={PublicationReportingSpamSubreason.LowSignal}
                   >
                     Low signal
                   </option>
                   <option
-                    value={PublicationReportingSpamSubreason.ManipulationAlgo}
                     selected={
                       subReason ===
                       PublicationReportingSpamSubreason.ManipulationAlgo
                     }
+                    value={PublicationReportingSpamSubreason.ManipulationAlgo}
                   >
                     Algorithm manipulation
                   </option>
                   <option
-                    value={PublicationReportingSpamSubreason.Misleading}
                     selected={
                       subReason === PublicationReportingSpamSubreason.Misleading
                     }
+                    value={PublicationReportingSpamSubreason.Misleading}
                   >
                     Misleading
                   </option>
                   <option
-                    value={PublicationReportingSpamSubreason.MisuseHashtags}
                     selected={
                       subReason ===
                       PublicationReportingSpamSubreason.MisuseHashtags
                     }
+                    value={PublicationReportingSpamSubreason.MisuseHashtags}
                   >
                     Misuse hashtags
                   </option>
                   <option
-                    value={PublicationReportingSpamSubreason.Repetitive}
                     selected={
                       subReason === PublicationReportingSpamSubreason.Repetitive
                     }
+                    value={PublicationReportingSpamSubreason.Repetitive}
                   >
                     Repetitive
                   </option>
                   <option
-                    value={PublicationReportingSpamSubreason.SomethingElse}
                     selected={
                       subReason ===
                       PublicationReportingSpamSubreason.SomethingElse
                     }
+                    value={PublicationReportingSpamSubreason.SomethingElse}
                   >
                     Something else
                   </option>
                   <option
-                    value={PublicationReportingSpamSubreason.Unrelated}
                     selected={
                       subReason === PublicationReportingSpamSubreason.Unrelated
                     }
+                    value={PublicationReportingSpamSubreason.Unrelated}
                   >
                     Unrelated
                   </option>

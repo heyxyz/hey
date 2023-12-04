@@ -1,6 +1,7 @@
+import type { MarkupLinkProps } from '@hey/types/misc';
+
 import { PUBLICATION } from '@hey/data/tracking';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import type { MarkupLinkProps } from '@hey/types/misc';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import { type FC } from 'react';
@@ -8,7 +9,7 @@ import { type FC } from 'react';
 import Slug from '../../Slug';
 import UserPreview from '../../UserPreview';
 
-const Mention: FC<MarkupLinkProps> = ({ title, mentions }) => {
+const Mention: FC<MarkupLinkProps> = ({ mentions, title }) => {
   const handle = title?.slice(1);
 
   if (!handle) {
@@ -42,8 +43,8 @@ const Mention: FC<MarkupLinkProps> = ({ title, mentions }) => {
 
   return canShowUserPreview(handle) ? (
     <Link
-      href={`/u/${getLocalNameFromFullHandle(handle)}`}
       className="outline-brand-500 outline-offset-2"
+      href={`/u/${getLocalNameFromFullHandle(handle)}`}
       onClick={(event) => {
         stopEventPropagation(event);
         Leafwatch.track(PUBLICATION.CLICK_MENTION, {
@@ -53,14 +54,14 @@ const Mention: FC<MarkupLinkProps> = ({ title, mentions }) => {
     >
       <UserPreview handle={handle}>
         <Slug
-          slug={getLocalNameFromFullHandle(handle)}
           prefix="@"
+          slug={getLocalNameFromFullHandle(handle)}
           useBrandColor
         />
       </UserPreview>
     </Link>
   ) : (
-    <Slug slug={getLocalNameFromFullHandle(handle)} prefix="@" useBrandColor />
+    <Slug prefix="@" slug={getLocalNameFromFullHandle(handle)} useBrandColor />
   );
 };
 

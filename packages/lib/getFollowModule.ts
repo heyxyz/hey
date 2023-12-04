@@ -3,8 +3,8 @@ interface FollowModule {
 }
 
 const FOLLOW_MODULE_MAP: Record<string, FollowModule> = {
-  ProfileFollowModuleSettings: { description: 'Only Lens profiles can follow' },
   FeeFollowModuleSettings: { description: 'Charge to follow' },
+  ProfileFollowModuleSettings: { description: 'Only Lens profiles can follow' },
   RevertFollowModuleSettings: { description: 'No one can follow' }
 };
 

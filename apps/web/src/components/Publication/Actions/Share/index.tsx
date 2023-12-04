@@ -1,7 +1,9 @@
+import type { AnyPublication } from '@hey/lens';
+import type { FC } from 'react';
+
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
-import type { AnyPublication } from '@hey/lens';
 import humanize from '@hey/lib/humanize';
 import nFormatter from '@hey/lib/nFormatter';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
@@ -9,7 +11,6 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Spinner, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
-import type { FC } from 'react';
 import { useState } from 'react';
 
 import Mirror from './Mirror';
@@ -37,6 +38,7 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
     <div className="flex items-center space-x-1">
       <Menu as="div" className="relative">
         <Menu.Button
+          aria-label="Mirror"
           as={motion.button}
           className={cn(
             hasShared
@@ -44,24 +46,23 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
               : 'ld-text-gray-500 outline-gray-400 hover:bg-gray-300/20',
             'rounded-full p-1.5 outline-offset-2'
           )}
-          whileTap={{ scale: 0.9 }}
           onClick={stopEventPropagation}
-          aria-label="Mirror"
+          whileTap={{ scale: 0.9 }}
         >
           {isLoading ? (
             <Spinner
-              variant={hasShared ? 'success' : 'primary'}
-              size="xs"
               className="mr-0.5"
+              size="xs"
+              variant={hasShared ? 'success' : 'primary'}
             />
           ) : (
             <Tooltip
-              placement="top"
               content={
                 shares > 0
                   ? `${humanize(shares)} Mirrors and Quotes`
                   : 'Mirror or Quote'
               }
+              placement="top"
               withDelay
             >
               <ArrowsRightLeftIcon className={iconClassName} />
@@ -74,9 +75,9 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
             static
           >
             <Mirror
+              isLoading={isLoading}
               publication={publication}
               setIsLoading={setIsLoading}
-              isLoading={isLoading}
             />
             <Quote publication={publication} />
           </Menu.Items>

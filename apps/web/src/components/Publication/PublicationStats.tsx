@@ -1,3 +1,6 @@
+import type { AnyPublication } from '@hey/lens';
+import type { FC } from 'react';
+
 import Collectors from '@components/Shared/Modal/Collectors';
 import Likes from '@components/Shared/Modal/Likes';
 import Mirrors from '@components/Shared/Modal/Mirrors';
@@ -8,14 +11,12 @@ import {
   RectangleStackIcon
 } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
-import type { AnyPublication } from '@hey/lens';
 import getPublicationsViews from '@hey/lib/getPublicationsViews';
 import nFormatter from '@hey/lib/nFormatter';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import plur from 'plur';
-import type { FC } from 'react';
 import { memo, useEffect, useState } from 'react';
 
 interface PublicationStatsProps {
@@ -42,7 +43,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
   }, [targetPublication]);
 
   const publicationId = targetPublication.id;
-  const { comments, reactions, mirrors, quotes, countOpenActions, bookmarks } =
+  const { bookmarks, comments, countOpenActions, mirrors, quotes, reactions } =
     targetPublication.stats;
   const shares = mirrors + quotes;
 
@@ -72,7 +73,6 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
         {shares > 0 ? (
           <>
             <button
-              type="button"
               className="outline-brand-500 outline-offset-2"
               onClick={() => {
                 setShowMirrorsModal(true);
@@ -80,15 +80,16 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
                   publication_id: publicationId
                 });
               }}
+              type="button"
             >
               <b className="text-black dark:text-white">{nFormatter(shares)}</b>{' '}
               {plur('Mirror', shares)}
             </button>
             <Modal
-              title="Mirrored by"
               icon={<ArrowsRightLeftIcon className="text-brand-500 h-5 w-5" />}
-              show={showMirrorsModal}
               onClose={() => setShowMirrorsModal(false)}
+              show={showMirrorsModal}
+              title="Mirrored by"
             >
               <Mirrors publicationId={publicationId} />
             </Modal>
@@ -97,7 +98,6 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
         {quotes > 0 ? (
           <>
             <button
-              type="button"
               className="outline-brand-500 outline-offset-2"
               onClick={() => {
                 setShowQuotesModal(true);
@@ -105,15 +105,16 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
                   publication_id: publicationId
                 });
               }}
+              type="button"
             >
               <b className="text-black dark:text-white">{nFormatter(quotes)}</b>{' '}
               {plur('Quote', quotes)}
             </button>
             <Modal
-              title="Quoted by"
               icon={<ArrowsRightLeftIcon className="text-brand-500 h-5 w-5" />}
-              show={showQuotesModal}
               onClose={() => setShowQuotesModal(false)}
+              show={showQuotesModal}
+              title="Quoted by"
             >
               <Quotes publicationId={publicationId} />
             </Modal>
@@ -122,7 +123,6 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
         {reactions > 0 ? (
           <>
             <button
-              type="button"
               className="outline-brand-500 outline-offset-2"
               onClick={() => {
                 setShowLikesModal(true);
@@ -130,6 +130,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
                   publication_id: publicationId
                 });
               }}
+              type="button"
             >
               <b className="text-black dark:text-white">
                 {nFormatter(reactions)}
@@ -137,10 +138,10 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
               {plur('Like', reactions)}
             </button>
             <Modal
-              title="Liked by"
               icon={<HeartIcon className="text-brand-500 h-5 w-5" />}
-              show={showLikesModal}
               onClose={() => setShowLikesModal(false)}
+              show={showLikesModal}
+              title="Liked by"
             >
               <Likes publicationId={publicationId} />
             </Modal>
@@ -149,7 +150,6 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
         {countOpenActions > 0 ? (
           <>
             <button
-              type="button"
               className="outline-brand-500 outline-offset-2"
               onClick={() => {
                 setShowCollectorsModal(true);
@@ -157,6 +157,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
                   publication_id: publicationId
                 });
               }}
+              type="button"
             >
               <b className="text-black dark:text-white">
                 {nFormatter(countOpenActions)}
@@ -164,10 +165,10 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
               {plur('Collect', countOpenActions)}
             </button>
             <Modal
-              title="Collected by"
               icon={<RectangleStackIcon className="text-brand-500 h-5 w-5" />}
-              show={showCollectorsModal}
               onClose={() => setShowCollectorsModal(false)}
+              show={showCollectorsModal}
+              title="Collected by"
             >
               <Collectors publicationId={publicationId} />
             </Modal>

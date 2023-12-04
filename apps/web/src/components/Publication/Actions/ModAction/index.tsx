@@ -1,6 +1,7 @@
+import type { AnyPublication, ReportPublicationRequest } from '@hey/lens';
+
 import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
 import { GARDENER } from '@hey/data/tracking';
-import type { AnyPublication, ReportPublicationRequest } from '@hey/lens';
 import {
   PublicationReportingSpamSubreason,
   useReportPublicationMutation
@@ -14,22 +15,22 @@ import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 
 interface ModActionProps {
-  publication: AnyPublication;
   className?: string;
+  publication: AnyPublication;
 }
 
-const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
+const ModAction: FC<ModActionProps> = ({ className = '', publication }) => {
   const setShowModActionAlert = useGlobalAlertStateStore(
     (state) => state.setShowModActionAlert
   );
   const [createReport, { loading }] = useReportPublicationMutation();
 
   const reportPublication = async ({
-    type,
-    subreason
+    subreason,
+    type
   }: {
-    type: string;
     subreason: string;
+    type: string;
   }) => {
     // Variables
     const request: ReportPublicationRequest = {
@@ -43,17 +44,17 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
     };
 
     return await createReport({
-      variables: { request },
       onCompleted: () => {
         setShowModActionAlert(false, null);
-      }
+      },
+      variables: { request }
     });
   };
 
   interface ReportButtonProps {
     config: {
-      type: string;
       subreason: string;
+      type: string;
     }[];
     icon: ReactNode;
     label: string;
@@ -62,29 +63,29 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
   const ReportButton: FC<ReportButtonProps> = ({ config, icon, label }) => (
     <Button
       disabled={loading}
-      variant="warning"
-      size="sm"
-      outline
       icon={icon}
       onClick={() => {
         toast.promise(
           Promise.all(
-            config.map(async ({ type, subreason }) => {
-              await reportPublication({ type, subreason });
+            config.map(async ({ subreason, type }) => {
+              await reportPublication({ subreason, type });
               Leafwatch.track(GARDENER.REPORT, {
+                report_publication_id: publication?.id,
                 report_reason: type,
-                report_subreason: subreason,
-                report_publication_id: publication?.id
+                report_subreason: subreason
               });
             })
           ),
           {
+            error: 'Error reporting publication',
             loading: 'Reporting publication...',
-            success: 'Publication reported successfully',
-            error: 'Error reporting publication'
+            success: 'Publication reported successfully'
           }
         );
       }}
+      outline
+      size="sm"
+      variant="warning"
     >
       {label}
     </Button>
@@ -98,8 +99,8 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
       <ReportButton
         config={[
           {
-            type: 'spamReason',
-            subreason: PublicationReportingSpamSubreason.FakeEngagement
+            subreason: PublicationReportingSpamSubreason.FakeEngagement,
+            type: 'spamReason'
           }
         ]}
         icon={<DocumentTextIcon className="h-4 w-4" />}
@@ -108,8 +109,8 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
       <ReportButton
         config={[
           {
-            type: 'spamReason',
-            subreason: PublicationReportingSpamSubreason.LowSignal
+            subreason: PublicationReportingSpamSubreason.LowSignal,
+            type: 'spamReason'
           }
         ]}
         icon={<BanknotesIcon className="h-4 w-4" />}
@@ -118,12 +119,12 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
       <ReportButton
         config={[
           {
-            type: 'spamReason',
-            subreason: PublicationReportingSpamSubreason.FakeEngagement
+            subreason: PublicationReportingSpamSubreason.FakeEngagement,
+            type: 'spamReason'
           },
           {
-            type: 'spamReason',
-            subreason: PublicationReportingSpamSubreason.LowSignal
+            subreason: PublicationReportingSpamSubreason.LowSignal,
+            type: 'spamReason'
           }
         ]}
         icon={<BanknotesIcon className="h-4 w-4" />}

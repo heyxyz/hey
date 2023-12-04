@@ -1,6 +1,7 @@
+import type { OpenActionProfileActed } from '@hey/lens';
+
 import Profiles from '@components/Shared/Profiles';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
-import type { OpenActionProfileActed } from '@hey/lens';
 import { type FC } from 'react';
 
 interface ActedProps {
@@ -20,7 +21,7 @@ const Acted: FC<ActedProps> = ({ acted }) => {
   return (
     <div className="ld-text-gray-500 flex items-center space-x-1 pb-4 text-[13px]">
       <RectangleStackIcon className="h-4 w-4" />
-      <Profiles profiles={getCollectedProfiles()} context="acted" />
+      <Profiles context="acted" profiles={getCollectedProfiles()} />
     </div>
   );
 };

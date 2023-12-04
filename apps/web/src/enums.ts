@@ -1,24 +1,24 @@
 export enum NotificationTabType {
   All = 'ALL',
-  Mentions = 'MENTIONS',
+  Collects = 'COLLECTS',
   Comments = 'COMMENTS',
   Likes = 'LIKES',
-  Collects = 'COLLECTS'
+  Mentions = 'MENTIONS'
 }
 
 export enum ProfileFeedType {
-  Feed = 'FEED',
-  Replies = 'REPLIES',
-  Media = 'MEDIA',
   Collects = 'COLLECTS',
+  Feed = 'FEED',
   Gallery = 'GALLERY',
+  Media = 'MEDIA',
+  Replies = 'REPLIES',
   Stats = 'STATS'
 }
 
 export enum NotificationFeedType {
   All = 'ALL',
-  Mentions = 'MENTIONS',
+  Collects = 'COLLECTS',
   Comments = 'COMMENTS',
   Likes = 'LIKES',
-  Collects = 'COLLECTS'
+  Mentions = 'MENTIONS'
 }

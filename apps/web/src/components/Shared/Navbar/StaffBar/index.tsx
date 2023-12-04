@@ -39,20 +39,20 @@ const StaffBar: FC = () => {
         </div>
         {GIT_COMMIT_SHA ? (
           <Link
+            className="flex items-center space-x-1"
             href={urlcat('https://github.com/heyxyz/hey/commit/:sha', {
               sha: GIT_COMMIT_SHA
             })}
-            className="flex items-center space-x-1"
-            title="Git commit SHA"
-            target="_blank"
             rel="noreferrer noopener"
+            target="_blank"
+            title="Git commit SHA"
           >
             <HashtagIcon className="h-4 w-4" />
             <Badge>{GIT_COMMIT_SHA}</Badge>
           </Link>
         ) : null}
       </div>
-      <Link href="/staff" className="flex items-center space-x-2">
+      <Link className="flex items-center space-x-2" href="/staff">
         <ShieldCheckIcon className="h-4 w-4 text-green-600" />
         <span className="hidden sm:block">Dashboard</span>
       </Link>

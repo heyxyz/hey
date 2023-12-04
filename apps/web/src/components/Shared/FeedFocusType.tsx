@@ -19,20 +19,20 @@ interface FeedFocusTypeProps {
 const FeedFocusType: FC<FeedFocusTypeProps> = ({ focus, setFocus }) => {
   const FeedLink: FC<FeedLinkProps> = ({ name, type }) => (
     <button
-      type="button"
-      onClick={() => {
-        setFocus(type as PublicationMetadataMainFocusType);
-        Leafwatch.track(EXPLORE.SWITCH_EXPLORE_FEED_FOCUS, {
-          explore_feed_focus: (type ?? 'all_posts').toLowerCase()
-        });
-      }}
+      aria-label={name}
       className={cn(
         { '!bg-brand-500 !text-white': focus === type },
         'text-brand-500 rounded-full px-3 py-1.5 text-xs sm:px-4',
         'border-brand-300 dark:border-brand-500 border',
         'bg-brand-100 dark:bg-brand-300/20'
       )}
-      aria-label={name}
+      onClick={() => {
+        setFocus(type as PublicationMetadataMainFocusType);
+        Leafwatch.track(EXPLORE.SWITCH_EXPLORE_FEED_FOCUS, {
+          explore_feed_focus: (type ?? 'all_posts').toLowerCase()
+        });
+      }}
+      type="button"
     >
       {name}
     </button>

@@ -1,5 +1,6 @@
-import Footer from '@components/Shared/Footer';
 import type { OpenSeaNft } from '@hey/types/opensea-nft';
+
+import Footer from '@components/Shared/Footer';
 import { Card, GridItemFour } from '@hey/ui';
 import { type FC } from 'react';
 

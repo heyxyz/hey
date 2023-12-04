@@ -12,7 +12,7 @@ export type PickByTypename<
   : never;
 
 export function isMirrorPublication<T extends AnyPublication>(
-  publication: T | null
+  publication: null | T
 ): publication is PickByTypename<T, 'Mirror'> {
   return publication?.__typename === 'Mirror';
 }

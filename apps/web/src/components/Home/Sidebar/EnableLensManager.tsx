@@ -1,9 +1,10 @@
+import type { FC } from 'react';
+
 import ToggleLensManager from '@components/Settings/Manager/LensManager/ToggleLensManager';
 import { HandRaisedIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import { Card } from '@hey/ui';
-import type { FC } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useAccount } from 'wagmi';
 

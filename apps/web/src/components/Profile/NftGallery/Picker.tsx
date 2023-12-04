@@ -1,9 +1,11 @@
+import type { Nft, NftsRequest } from '@hey/lens';
+import type { NftGalleryItem } from 'src/store/non-persisted/useNftGalleryStore';
+
 import NftShimmer from '@components/Shared/Shimmer/NftShimmer';
 import NftsShimmer from '@components/Shared/Shimmer/NftsShimmer';
 import SingleNft from '@components/Shared/SingleNft';
 import { CheckIcon, RectangleStackIcon } from '@heroicons/react/24/outline';
 import { IS_MAINNET } from '@hey/data/constants';
-import type { Nft, NftsRequest } from '@hey/lens';
 import { LimitType, useNftsQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { ErrorMessage } from '@hey/ui';
@@ -12,7 +14,6 @@ import { type FC } from 'react';
 import { toast } from 'react-hot-toast';
 import { VirtuosoGrid } from 'react-virtuoso';
 import { CHAIN_ID } from 'src/constants';
-import type { NftGalleryItem } from 'src/store/non-persisted/useNftGalleryStore';
 import { useNftGalleryStore } from 'src/store/non-persisted/useNftGalleryStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { mainnet } from 'wagmi/chains';
@@ -28,16 +29,16 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
 
   // Variables
   const request: NftsRequest = {
+    limit: LimitType.TwentyFive,
     where: {
       chainIds: IS_MAINNET ? [CHAIN_ID, mainnet.id] : [CHAIN_ID],
       forProfileId: currentProfile?.id
-    },
-    limit: LimitType.TwentyFive
+    }
   };
 
-  const { data, loading, fetchMore, error } = useNftsQuery({
-    variables: { request },
-    skip: !currentProfile?.ownedBy.address
+  const { data, error, fetchMore, loading } = useNftsQuery({
+    skip: !currentProfile?.ownedBy.address,
+    variables: { request }
   });
 
   const nfts = data?.nfts?.items ?? [];
@@ -78,7 +79,7 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
   }
 
   if (error) {
-    return <ErrorMessage title="Failed to load nft feed" error={error} />;
+    return <ErrorMessage error={error} title="Failed to load nft feed" />;
   }
 
   const onSelectItem = (item: Nft) => {
@@ -95,8 +96,8 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
     if (onlyAllowOne) {
       setGallery({
         ...gallery,
-        name: '',
         items: [nft],
+        name: '',
         toAdd: [],
         toRemove: []
       });
@@ -126,10 +127,10 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
       );
       setGallery({
         ...gallery,
-        name: gallery.name,
         items: nfts,
-        toRemove: sanitizeRemoveDuplicates,
-        toAdd: gallery.toAdd
+        name: gallery.name,
+        toAdd: gallery.toAdd,
+        toRemove: sanitizeRemoveDuplicates
       });
     } else {
       // add selection to gallery items
@@ -148,8 +149,8 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
       );
       setGallery({
         ...gallery,
-        name: gallery.name,
         items: [...gallery.items, nft],
+        name: gallery.name,
         toAdd: sanitizeAddDuplicates,
         toRemove: gallery.toRemove
       });
@@ -162,24 +163,21 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
 
   return (
     <VirtuosoGrid
-      style={{ height: '68vh' }}
-      totalCount={nfts.length}
-      data={nfts}
-      listClassName="grid grid-cols-1 gap-4 sm:grid-cols-3 md:grid-cols-4 px-5 my-5"
-      endReached={onEndReached}
       components={{
         ScrollSeekPlaceholder: () => <NftShimmer />
       }}
+      data={nfts}
+      endReached={onEndReached}
       itemContent={(index, nft) => {
         const id = `${nft?.contract.chainId}_${nft?.contract.address}_${nft?.tokenId}`;
         const isSelected = selectedItems.includes(id);
         return (
           <div
-            key={`${id}_${index}`}
             className={cn(
               'relative rounded-xl border-2',
               isSelected ? 'border-brand-500' : 'border-transparent'
             )}
+            key={`${id}_${index}`}
           >
             {isSelected ? (
               <button className="bg-brand-500 absolute right-2 top-2 z-20 rounded-full">
@@ -190,11 +188,14 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
               className="w-full text-left"
               onClick={() => onSelectItem(nft as Nft)}
             >
-              <SingleNft nft={nft as Nft} linkToDetail={false} />
+              <SingleNft linkToDetail={false} nft={nft as Nft} />
             </button>
           </div>
         );
       }}
+      listClassName="grid grid-cols-1 gap-4 sm:grid-cols-3 md:grid-cols-4 px-5 my-5"
+      style={{ height: '68vh' }}
+      totalCount={nfts.length}
     />
   );
 };

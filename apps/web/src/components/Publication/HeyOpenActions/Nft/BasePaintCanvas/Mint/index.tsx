@@ -1,7 +1,8 @@
-import { BasePaint } from '@hey/abis';
-import { BASEPAINT_CONTRACT } from '@hey/data/contracts';
 import type { AnyPublication } from '@hey/lens';
 import type { BasePaintCanvas } from '@hey/types/nft';
+
+import { BasePaint } from '@hey/abis';
+import { BASEPAINT_CONTRACT } from '@hey/data/contracts';
 import { type FC } from 'react';
 import { formatEther } from 'viem';
 import { base } from 'viem/chains';
@@ -29,10 +30,10 @@ interface MintProps {
 
 const Mint: FC<MintProps> = ({ canvas, publication }) => {
   const { data, isSuccess } = useContractRead({
-    address: BASEPAINT_CONTRACT,
     abi: BasePaint,
-    functionName: 'openEditionPrice',
-    chainId: base.id
+    address: BASEPAINT_CONTRACT,
+    chainId: base.id,
+    functionName: 'openEditionPrice'
   });
 
   const openEditionPrice = parseInt(data?.toString() || '0');

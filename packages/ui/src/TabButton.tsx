@@ -4,39 +4,31 @@ import { type FC, type ReactNode } from 'react';
 import cn from '../cn';
 
 interface TabButtonProps {
-  name: string;
-  icon?: ReactNode;
   active: boolean;
-  type?: string;
-  count?: string;
   className?: string;
-  showOnSm?: boolean;
+  count?: string;
+  icon?: ReactNode;
+  name: string;
   onClick: () => void;
+  showOnSm?: boolean;
+  type?: string;
 }
 
 const TabButton: FC<TabButtonProps> = ({
-  name,
-  icon,
   active,
-  type,
-  count,
-  showOnSm = false,
   className = '',
-  onClick
+  count,
+  icon,
+  name,
+  onClick,
+  showOnSm = false,
+  type
 }) => {
   const router = useRouter();
 
   return (
     <button
-      type="button"
-      onClick={() => {
-        if (type) {
-          router.replace({ query: { ...router.query, type } }, undefined, {
-            shallow: true
-          });
-        }
-        onClick();
-      }}
+      aria-label={name}
       className={cn(
         {
           '!text-brand-500 dark:!text-brand-400/80 bg-brand-100 dark:bg-brand-300/20':
@@ -46,7 +38,15 @@ const TabButton: FC<TabButtonProps> = ({
         'hover:bg-brand-100/80 hover:text-brand-400 dark:hover:bg-brand-300/30 outline-brand-500 justify-center',
         className
       )}
-      aria-label={name}
+      onClick={() => {
+        if (type) {
+          router.replace({ query: { ...router.query, type } }, undefined, {
+            shallow: true
+          });
+        }
+        onClick();
+      }}
+      type="button"
     >
       {icon}
       <span className={cn({ 'hidden sm:block': !showOnSm })}>{name}</span>

@@ -1,10 +1,11 @@
+import type { FC } from 'react';
+
 import { XCircleIcon } from '@heroicons/react/24/solid';
 import {
   LensTransactionStatusType,
   useLensTransactionStatusQuery
 } from '@hey/lens';
 import { Spinner } from '@hey/ui';
-import type { FC } from 'react';
 import { useState } from 'react';
 
 interface PendingProps {
@@ -15,8 +16,6 @@ const Pending: FC<PendingProps> = ({ txId }) => {
   const [pollInterval, setPollInterval] = useState(500);
 
   const { data, loading } = useLensTransactionStatusQuery({
-    variables: { request: { forTxId: txId } },
-    pollInterval,
     notifyOnNetworkStatusChange: true,
     onCompleted: ({ lensTransactionStatus }) => {
       if (
@@ -24,7 +23,9 @@ const Pending: FC<PendingProps> = ({ txId }) => {
       ) {
         setPollInterval(0);
       }
-    }
+    },
+    pollInterval,
+    variables: { request: { forTxId: txId } }
   });
 
   return (

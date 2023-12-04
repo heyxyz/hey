@@ -1,9 +1,10 @@
+import type { FC } from 'react';
+
 import Markup from '@components/Shared/Markup';
 import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
 import { CommentNotification } from '@hey/lens';
 import getPublicationData from '@hey/lib/getPublicationData';
 import Link from 'next/link';
-import type { FC } from 'react';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
@@ -34,13 +35,13 @@ const CommentNotification: FC<CommentNotificationProps> = ({
       <div className="ml-9">
         <AggregatedNotificationTitle
           firstProfile={firstProfile}
+          linkToType={`/posts/${notification?.comment?.id}`}
           text={text}
           type={type}
-          linkToType={`/posts/${notification?.comment?.id}`}
         />
         <Link
-          href={`/posts/${notification?.comment?.id}`}
           className="ld-text-gray-500 linkify mt-2 line-clamp-2"
+          href={`/posts/${notification?.comment?.id}`}
         >
           <Markup mentions={notification.comment.profilesMentioned}>
             {filteredContent}

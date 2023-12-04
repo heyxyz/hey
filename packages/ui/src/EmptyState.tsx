@@ -3,15 +3,15 @@ import type { FC, ReactNode } from 'react';
 import { Card } from './Card';
 
 interface EmptyStateProps {
-  message: ReactNode;
-  icon: ReactNode;
   hideCard?: boolean;
+  icon: ReactNode;
+  message: ReactNode;
 }
 
 export const EmptyState: FC<EmptyStateProps> = ({
-  message,
+  hideCard = false,
   icon,
-  hideCard = false
+  message
 }) => {
   return (
     <Card

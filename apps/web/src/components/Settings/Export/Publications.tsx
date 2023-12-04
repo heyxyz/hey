@@ -1,10 +1,11 @@
-import { SETTINGS } from '@hey/data/tracking';
 import type { PublicationsRequest } from '@hey/lens';
+import type { FC } from 'react';
+
+import { SETTINGS } from '@hey/data/tracking';
 import { LimitType, usePublicationsLazyQuery } from '@hey/lens';
 import downloadJson from '@hey/lib/downloadJson';
 import { Button, Card } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import type { FC } from 'react';
 import { useState } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
@@ -15,8 +16,8 @@ const Publications: FC = () => {
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
   const request: PublicationsRequest = {
-    where: { from: currentProfile?.id },
-    limit: LimitType.TwentyFive
+    limit: LimitType.TwentyFive,
+    where: { from: currentProfile?.id }
   };
 
   const [exportPublications] = usePublicationsLazyQuery({
@@ -28,7 +29,6 @@ const Publications: FC = () => {
     setExporting(true);
     const fetchPublications = async (cursor?: string) => {
       const { data } = await exportPublications({
-        variables: { request: { ...request, cursor } },
         onCompleted: (data) => {
           setPublications((prev) => {
             const newPublications = data.publications.items.filter(
@@ -41,7 +41,8 @@ const Publications: FC = () => {
 
             return [...prev, ...newPublications];
           });
-        }
+        },
+        variables: { request: { ...request, cursor } }
       });
 
       if (
@@ -79,7 +80,7 @@ const Publications: FC = () => {
       {fetchCompleted ? (
         <Button onClick={download}>Download publications</Button>
       ) : (
-        <Button onClick={handleExportClick} disabled={exporting}>
+        <Button disabled={exporting} onClick={handleExportClick}>
           {exporting ? 'Exporting...' : 'Export now'}
         </Button>
       )}

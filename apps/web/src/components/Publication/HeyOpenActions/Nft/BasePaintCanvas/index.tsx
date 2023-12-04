@@ -1,14 +1,15 @@
+import type { AnyPublication } from '@hey/lens';
+import type { BasePaintCanvasMetadata } from '@hey/types/nft';
+import type { FC } from 'react';
+
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { BASEPAINT_CONTRACT } from '@hey/data/contracts';
 import { PUBLICATION } from '@hey/data/tracking';
-import type { AnyPublication } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import type { BasePaintCanvasMetadata } from '@hey/types/nft';
 import { Button, Card, Modal, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import type { FC } from 'react';
 import { useState } from 'react';
 import useBasePaintCanvas from 'src/hooks/basepaint/useBasePaintCanvas';
 import urlcat from 'urlcat';
@@ -31,11 +32,11 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
 
   const {
     data: canvas,
-    loading,
-    error
+    error,
+    loading
   } = useBasePaintCanvas({
-    id,
-    enabled: Boolean(id)
+    enabled: Boolean(id),
+    id
   });
 
   if (loading) {
@@ -50,7 +51,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
     return null;
   }
 
-  const { canMint, canContribute, bitmap, theme } = canvas;
+  const { bitmap, canContribute, canMint, theme } = canvas;
 
   return (
     <Card
@@ -59,16 +60,16 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
       onClick={(event) => stopEventPropagation(event)}
     >
       <img
-        src={`data://image/gif;base64,${bitmap.gif}`}
         className="h-[400px] max-h-[400px] w-full rounded-t-xl object-cover"
+        src={`data://image/gif;base64,${bitmap.gif}`}
         style={{ imageRendering: 'pixelated' }}
       />
       <div className="flex items-center justify-between border-t px-3 py-2 dark:border-gray-700">
         <div className="mr-5 flex flex-wrap items-center gap-2">
-          <Tooltip placement="right" content="BasePaint">
+          <Tooltip content="BasePaint" placement="right">
             <img
-              src={`${STATIC_IMAGES_URL}/brands/basepaint.jpeg`}
               className="h-5 w-5 rounded-full"
+              src={`${STATIC_IMAGES_URL}/brands/basepaint.jpeg`}
             />
           </Tooltip>
           <div className="text-sm font-bold">
@@ -77,8 +78,8 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
           <div className="flex items-center space-x-1">
             {canvas.palette.map((color, index) => (
               <span
-                key={index}
                 className="inline-block h-4 w-4"
+                key={index}
                 style={{ backgroundColor: color }}
               />
             ))}
@@ -89,7 +90,6 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
             <Button
               className="text-sm"
               icon={<CursorArrowRaysIcon className="h-4 w-4" />}
-              size="md"
               onClick={() => {
                 setQuantity(1);
                 setShowMintModal(true);
@@ -98,14 +98,15 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
                   { publication_id: publication.id }
                 );
               }}
+              size="md"
             >
               Mint
             </Button>
             <Modal
-              title="Mint on BasePaint"
-              show={showMintModal}
               icon={<CursorArrowRaysIcon className="text-brand-500 h-5 w-5" />}
               onClose={() => setShowMintModal(false)}
+              show={showMintModal}
+              title="Mint on BasePaint"
             >
               <Mint canvas={canvas} publication={publication} />
             </Modal>
@@ -113,19 +114,19 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
         ) : canContribute ? (
           <Link
             href={urlcat('https://basepaint.art/mint/:id', { id: canvas.id })}
-            target="_blank"
             rel="noopener noreferrer"
+            target="_blank"
           >
             <Button
               className="text-sm"
               icon={<CursorArrowRaysIcon className="h-4 w-4" />}
-              size="md"
               onClick={() =>
                 Leafwatch.track(
                   PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.OPEN_LINK,
-                  { publication_id: publication.id, from: 'mint_embed' }
+                  { from: 'mint_embed', publication_id: publication.id }
                 )
               }
+              size="md"
             >
               Contribute
             </Button>
@@ -136,19 +137,19 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
               contract: BASEPAINT_CONTRACT,
               token: canvas.id
             })}
-            target="_blank"
             rel="noopener noreferrer"
+            target="_blank"
           >
             <Button
               className="text-sm"
               icon={<CursorArrowRaysIcon className="h-4 w-4" />}
-              size="md"
               onClick={() =>
                 Leafwatch.track(
                   PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.OPEN_OPENSEA_LINK,
-                  { publication_id: publication.id, from: 'mint_embed' }
+                  { from: 'mint_embed', publication_id: publication.id }
                 )
               }
+              size="md"
             >
               View on OpenSea
             </Button>

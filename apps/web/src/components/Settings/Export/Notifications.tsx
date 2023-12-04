@@ -1,9 +1,10 @@
+import type { FC } from 'react';
+
 import { SETTINGS } from '@hey/data/tracking';
 import { useNotificationsLazyQuery } from '@hey/lens';
 import downloadJson from '@hey/lib/downloadJson';
 import { Button, Card } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import type { FC } from 'react';
 import { useState } from 'react';
 
 const Notifications: FC = () => {
@@ -20,7 +21,6 @@ const Notifications: FC = () => {
     setExporting(true);
     const fetchNotifications = async (cursor?: string) => {
       const { data } = await exportNotificiations({
-        variables: { request: { cursor } },
         onCompleted: (data) => {
           setNotifications((prev) => {
             const newNotifications = data.notifications.items.filter(
@@ -33,7 +33,8 @@ const Notifications: FC = () => {
 
             return [...prev, ...newNotifications];
           });
-        }
+        },
+        variables: { request: { cursor } }
       });
 
       if (
@@ -69,7 +70,7 @@ const Notifications: FC = () => {
       {fetchCompleted ? (
         <Button onClick={download}>Download notifications</Button>
       ) : (
-        <Button onClick={handleExportClick} disabled={exporting}>
+        <Button disabled={exporting} onClick={handleExportClick}>
           {exporting ? 'Exporting...' : 'Export now'}
         </Button>
       )}

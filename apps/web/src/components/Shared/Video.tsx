@@ -1,4 +1,4 @@
-import 'plyr-react/plyr.css';
+import type { FC } from 'react';
 
 import {
   ARWEAVE_GATEWAY,
@@ -10,36 +10,36 @@ import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { Player } from '@livepeer/react';
-import type { FC } from 'react';
+import 'plyr-react/plyr.css';
 import { memo } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface VideoProps {
-  src: string;
-  poster?: string;
   className?: string;
+  poster?: string;
+  src: string;
 }
 
-const Video: FC<VideoProps> = ({ src, poster, className = '' }) => {
+const Video: FC<VideoProps> = ({ className = '', poster, src }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
   return (
     <div className={cn('lp-player', className)} onClick={stopEventPropagation}>
       <Player
-        src={src}
-        poster={imageKit(sanitizeDStorageUrl(poster), VIDEO_THUMBNAIL)}
-        objectFit="contain"
-        showLoadingSpinner
-        showUploadingIndicator
-        showPipButton={false}
-        viewerId={currentProfile?.ownedBy.address}
-        controls={{ defaultVolume: 1 }}
-        refetchPlaybackInfoInterval={1000 * 60 * 60 * 24}
         autoUrlUpload={{
+          arweaveGateway: ARWEAVE_GATEWAY,
           fallback: true,
-          ipfsGateway: IPFS_GATEWAY,
-          arweaveGateway: ARWEAVE_GATEWAY
+          ipfsGateway: IPFS_GATEWAY
         }}
+        controls={{ defaultVolume: 1 }}
+        objectFit="contain"
+        poster={imageKit(sanitizeDStorageUrl(poster), VIDEO_THUMBNAIL)}
+        refetchPlaybackInfoInterval={1000 * 60 * 60 * 24}
+        showLoadingSpinner
+        showPipButton={false}
+        showUploadingIndicator
+        src={src}
+        viewerId={currentProfile?.ownedBy.address}
       />
     </div>
   );

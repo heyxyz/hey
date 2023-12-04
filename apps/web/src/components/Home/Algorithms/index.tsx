@@ -1,8 +1,9 @@
+import type { FC } from 'react';
+
 import { SparklesIcon } from '@heroicons/react/24/outline';
 import { HOME } from '@hey/data/tracking';
 import { Modal, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import type { FC } from 'react';
 import { useState } from 'react';
 
 import List from './List';
@@ -19,15 +20,15 @@ const Algorithms: FC = () => {
           Leafwatch.track(HOME.ALGORITHMS.OPEN_ALGORITHMS);
         }}
       >
-        <Tooltip placement="top" content="Algorithms">
+        <Tooltip content="Algorithms" placement="top">
           <SparklesIcon className="text-brand-500 h-5 w-5" />
         </Tooltip>
       </button>
       <Modal
-        title="Algorithms"
         icon={<SparklesIcon className="text-brand-500 h-5 w-5" />}
-        show={showAlgorithmsModal}
         onClose={() => setShowAlgorithmsModal(false)}
+        show={showAlgorithmsModal}
+        title="Algorithms"
       >
         <List />
       </Modal>

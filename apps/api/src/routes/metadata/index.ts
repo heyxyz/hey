@@ -1,8 +1,9 @@
+import type { Handler } from 'express';
+
 import logger from '@hey/lib/logger';
 import { NodeIrys } from '@irys/sdk';
 import catchedError from '@utils/catchedError';
 import { noBody } from '@utils/responses';
-import type { Handler } from 'express';
 
 export const post: Handler = async (req, res) => {
   const { body } = req;
@@ -15,9 +16,9 @@ export const post: Handler = async (req, res) => {
     const url = 'https://node2.irys.xyz';
     const token = 'matic';
     const client = new NodeIrys({
-      url,
+      key: process.env.IRYS_PRIVATE_KEY,
       token,
-      key: process.env.IRYS_PRIVATE_KEY
+      url
     });
 
     const receipt = await client.upload(JSON.stringify(body), {
@@ -28,7 +29,7 @@ export const post: Handler = async (req, res) => {
     });
     logger.info(`Uploaded metadata to Irys: ar://${receipt.id}`);
 
-    return res.status(200).json({ success: true, id: receipt.id });
+    return res.status(200).json({ id: receipt.id, success: true });
   } catch (error) {
     return catchedError(res, error);
   }

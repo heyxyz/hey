@@ -1,5 +1,6 @@
-import cn from '@hey/ui/cn';
 import type { FC } from 'react';
+
+import cn from '@hey/ui/cn';
 import { useState } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
 
@@ -14,8 +15,8 @@ const Performance: FC = () => {
       const [pageNav] = entryList.getEntriesByType('navigation');
       setTtfb(pageNav.toJSON().responseStart.toFixed(0));
     }).observe({
-      type: 'navigation',
-      buffered: true
+      buffered: true,
+      type: 'navigation'
     });
   });
 
@@ -24,8 +25,8 @@ const Performance: FC = () => {
       <span
         className={cn({
           'text-green-700 dark:text-green-400': ttfb < 200,
-          'text-yellow-700 dark:text-yellow-400': ttfb >= 200 && ttfb < 400,
-          'text-red-700 dark:text-red-400': ttfb >= 400
+          'text-red-700 dark:text-red-400': ttfb >= 400,
+          'text-yellow-700 dark:text-yellow-400': ttfb >= 200 && ttfb < 400
         })}
       >
         {ttfb}ms <span className="text-[10px]">(TTFB)</span>

@@ -16,30 +16,30 @@ const CollectLimitConfig: FC<CollectLimitConfigProps> = ({
   return (
     <div className="pt-5">
       <ToggleWithHelper
+        description="Make the collects exclusive"
+        heading="Limited edition"
+        icon={<StarIcon className="h-4 w-4" />}
         on={Boolean(collectModule.collectLimit)}
         setOn={() =>
           setCollectType({
             collectLimit: collectModule.collectLimit ? null : '1'
           })
         }
-        heading="Limited edition"
-        description="Make the collects exclusive"
-        icon={<StarIcon className="h-4 w-4" />}
       />
       {collectModule.collectLimit ? (
         <div className="pt-4 text-sm">
           <Input
             label="Collect limit"
-            type="number"
-            placeholder="5"
-            min="1"
             max="100000"
-            value={collectModule.collectLimit}
+            min="1"
             onChange={(event) => {
               setCollectType({
                 collectLimit: event.target.value ? event.target.value : '1'
               });
             }}
+            placeholder="5"
+            type="number"
+            value={collectModule.collectLimit}
           />
         </div>
       ) : null}

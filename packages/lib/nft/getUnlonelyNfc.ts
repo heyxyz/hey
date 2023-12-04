@@ -7,7 +7,7 @@ const regex = /https:\/\/www\.unlonely\.app\/nfc\/(\w+)/;
  * @param url URL
  * @returns Unlonely nfc id metadata
  */
-const getUnlonelyNfc = (url: string): UnlonelyNfcMetadata | null => {
+const getUnlonelyNfc = (url: string): null | UnlonelyNfcMetadata => {
   const matches = regex.exec(url);
   if (matches && matches[1]) {
     const id = matches[1];

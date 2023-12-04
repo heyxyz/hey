@@ -1,5 +1,6 @@
-import Slug from '@components/Shared/Slug';
 import type { Profile } from '@hey/lens';
+
+import Slug from '@components/Shared/Slug';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
@@ -18,10 +19,10 @@ const InvitedBy: FC<InvitedByProps> = ({ profile }) => {
         href={getProfile(profile).link}
       >
         <Image
-          key={profile.id}
-          className="h-5 w-5 rounded-full border dark:border-gray-700"
-          src={getAvatar(profile)}
           alt={profile.id}
+          className="h-5 w-5 rounded-full border dark:border-gray-700"
+          key={profile.id}
+          src={getAvatar(profile)}
         />
         <span>
           Invited by <Slug slug={getProfile(profile).slugWithPrefix} />

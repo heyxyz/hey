@@ -1,6 +1,7 @@
+import type { FC } from 'react';
+
 import ModAction from '@components/Publication/Actions/ModAction';
 import { Alert } from '@hey/ui';
-import type { FC } from 'react';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 
 import BlockOrUnBlockProfile from './Alert/BlockOrUnBlockProfile';
@@ -25,10 +26,10 @@ const GlobalAlerts: FC = () => {
       <DeletePublication />
       {modingPublication ? (
         <Alert
-          show={showModActionAlert}
-          title="Mod actions"
           description="Perform mod actions on this publication."
           onClose={() => setShowModActionAlert(false, null)}
+          show={showModActionAlert}
+          title="Mod actions"
         >
           <ModAction publication={modingPublication} />
         </Alert>

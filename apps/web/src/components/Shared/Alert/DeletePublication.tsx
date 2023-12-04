@@ -32,18 +32,18 @@ const DeletePublication: FC = () => {
 
   return (
     <Alert
-      title="Delete Publication?"
-      description="This can't be undone and it will be removed from your profile, the timeline of any accounts that follow you, and from search results."
       confirmText="Delete"
-      show={showPublicationDeleteAlert}
+      description="This can't be undone and it will be removed from your profile, the timeline of any accounts that follow you, and from search results."
       isDestructive
       isPerformingAction={loading}
+      onClose={() => setShowPublicationDeleteAlert(false, null)}
       onConfirm={() =>
         hidePost({
           variables: { request: { for: deletingPublication?.id } }
         })
       }
-      onClose={() => setShowPublicationDeleteAlert(false, null)}
+      show={showPublicationDeleteAlert}
+      title="Delete Publication?"
     />
   );
 };

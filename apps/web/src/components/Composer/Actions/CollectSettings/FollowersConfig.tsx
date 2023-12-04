@@ -13,13 +13,13 @@ const FollowersConfig: FC<FollowersConfigProps> = ({ setCollectType }) => {
   return (
     <div className="pt-5">
       <ToggleWithHelper
+        description="Only followers can collect"
+        heading="Who can collect"
+        icon={<UserGroupIcon className="h-4 w-4" />}
         on={collectModule.followerOnly || false}
         setOn={() =>
           setCollectType({ followerOnly: !collectModule.followerOnly })
         }
-        heading="Who can collect"
-        description="Only followers can collect"
-        icon={<UserGroupIcon className="h-4 w-4" />}
       />
     </div>
   );

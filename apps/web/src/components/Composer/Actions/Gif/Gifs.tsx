@@ -1,5 +1,6 @@
-import { GIPHY_KEY } from '@hey/data/constants';
 import type { IGif } from '@hey/types/giphy';
+
+import { GIPHY_KEY } from '@hey/data/constants';
 import axios from 'axios';
 import { type FC } from 'react';
 import { useInfiniteQuery } from 'wagmi';
@@ -26,7 +27,7 @@ const Gifs: FC<CategoriesProps> = ({
   const fetchGifs = async (input: string, offset: number) => {
     try {
       const response = await axios.get('https://api.giphy.com/v1/gifs/search', {
-        params: { api_key: GIPHY_KEY, q: input, limit: 48, offset }
+        params: { api_key: GIPHY_KEY, limit: 48, offset, q: input }
       });
 
       return response.data;
@@ -36,9 +37,9 @@ const Gifs: FC<CategoriesProps> = ({
   };
 
   const { data: gifs, isFetching } = useInfiniteQuery({
-    queryKey: ['gifs', debouncedGifInput],
+    enabled: !!debouncedGifInput,
     queryFn: ({ pageParam = 0 }) => fetchGifs(debouncedGifInput, pageParam),
-    enabled: !!debouncedGifInput
+    queryKey: ['gifs', debouncedGifInput]
   });
 
   if (isFetching) {
@@ -46,8 +47,8 @@ const Gifs: FC<CategoriesProps> = ({
       <div className="grid w-full grid-cols-3 gap-1 overflow-y-auto">
         {Array.from(Array(12).keys()).map((_, index) => (
           <div
-            key={index}
             className="shimmer h-32 w-full cursor-pointer object-cover"
+            key={index}
           />
         ))}
       </div>
@@ -59,17 +60,17 @@ const Gifs: FC<CategoriesProps> = ({
       {gifs?.pages.map((page: any) =>
         page.data.map((gif: IGif) => (
           <button
-            type="button"
-            key={gif.id}
             className="relative flex outline-none"
+            key={gif.id}
             onClick={() => onSelectGif(gif)}
+            type="button"
           >
             <img
+              alt={gif.slug}
               className="h-32 w-full cursor-pointer object-cover"
+              draggable={false}
               height={128}
               src={gif?.images?.original?.url}
-              alt={gif.slug}
-              draggable={false}
             />
           </button>
         ))

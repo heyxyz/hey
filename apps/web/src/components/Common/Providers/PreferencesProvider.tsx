@@ -36,10 +36,10 @@ const PreferencesProvider: FC = () => {
         );
 
         setPreferences({
-          isPride: preferences.preference?.isPride || false,
+          email: preferences.preference?.email || '',
           highSignalNotificationFilter:
             preferences.preference?.highSignalNotificationFilter || false,
-          email: preferences.preference?.email || '',
+          isPride: preferences.preference?.isPride || false,
           marketingOptIn: preferences.preference?.marketingOptIn || false
         });
         setIsPro(preferences.pro.enabled);
@@ -56,8 +56,8 @@ const PreferencesProvider: FC = () => {
   };
 
   useQuery({
-    queryKey: ['fetchPreferences', sessionProfileId || ''],
-    queryFn: fetchPreferences
+    queryFn: fetchPreferences,
+    queryKey: ['fetchPreferences', sessionProfileId || '']
   });
 
   const fetchVerifiedMembers = async () => {
@@ -72,8 +72,8 @@ const PreferencesProvider: FC = () => {
   };
 
   useQuery({
-    queryKey: ['fetchVerifiedMembers'],
-    queryFn: fetchVerifiedMembers
+    queryFn: fetchVerifiedMembers,
+    queryKey: ['fetchVerifiedMembers']
   });
 
   return null;

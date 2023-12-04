@@ -17,13 +17,13 @@ const Discard: FC<DiscardProps> = ({ onDiscard }) => {
 
   return (
     <Alert
+      confirmText="Discard"
+      description="This can’t be undone and you’ll lose your draft."
       isDestructive
+      onClose={() => setShowDiscardModal(false)}
+      onConfirm={onDiscard}
       show={showDiscardModal}
       title="Discard Post"
-      description="This can’t be undone and you’ll lose your draft."
-      onClose={() => setShowDiscardModal(false)}
-      confirmText="Discard"
-      onConfirm={onDiscard}
     />
   );
 };

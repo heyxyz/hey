@@ -1,3 +1,5 @@
+import type { ZoraNft } from '@hey/types/nft';
+
 import {
   ArrowTopRightOnSquareIcon,
   PuzzlePieceIcon,
@@ -6,7 +8,6 @@ import {
 } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
 import humanize from '@hey/lib/humanize';
-import type { ZoraNft } from '@hey/types/nft';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import { type FC } from 'react';
@@ -39,15 +40,15 @@ const Metadata: FC<MetadataProps> = ({ nft, zoraLink }) => {
         </div>
       ) : null}
       <Link
-        href={zoraLink}
         className="flex items-center space-x-2"
-        target="_blank"
-        rel="noopener noreferrer"
+        href={zoraLink}
         onClick={() => {
           Leafwatch.track(PUBLICATION.OPEN_ACTIONS.ZORA_NFT.OPEN_LINK, {
             from: 'mint_modal_link'
           });
         }}
+        rel="noopener noreferrer"
+        target="_blank"
       >
         <ArrowTopRightOnSquareIcon className="ld-text-gray-500 h-4 w-4" />
         <b>Open in Zora</b>

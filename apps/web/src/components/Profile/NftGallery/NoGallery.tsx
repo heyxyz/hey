@@ -1,8 +1,9 @@
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
+import type { FC } from 'react';
+
+import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import getProfile from '@hey/lib/getProfile';
 import { Button } from '@hey/ui';
-import type { FC } from 'react';
 import { useState } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
@@ -21,36 +22,36 @@ const NoGallery: FC<NoGalleryProps> = ({ profile }) => {
   return (
     <div className="flex flex-col items-center justify-center space-y-4 py-10">
       <div className="grid w-full max-w-sm grid-cols-3 gap-4">
-        <Create showModal={showCreateModal} setShowModal={setShowCreateModal} />
+        <Create setShowModal={setShowCreateModal} showModal={showCreateModal} />
         <div className="bg-brand-100 col-span-2 flex h-[250px] items-center justify-center rounded-xl">
           <img
-            width={80}
-            height={80}
-            className="h-20 w-20"
-            src={`${STATIC_IMAGES_URL}/emojis/pinata.png`}
             alt="Pinata emoji"
+            className="h-20 w-20"
             draggable={false}
+            height={80}
+            src={`${STATIC_IMAGES_URL}/emojis/pinata.png`}
+            width={80}
           />
         </div>
         <div className="space-y-2">
           <div className="bg-brand-100 flex h-[120px] items-center justify-center rounded-xl">
             <img
-              width={56}
-              height={56}
-              className="h-14 w-14"
-              src={`${STATIC_IMAGES_URL}/emojis/sunset.png`}
               alt="Sunset emoji"
+              className="h-14 w-14"
               draggable={false}
+              height={56}
+              src={`${STATIC_IMAGES_URL}/emojis/sunset.png`}
+              width={56}
             />
           </div>
           <div className="bg-brand-100 flex h-[120px] items-center justify-center rounded-xl">
             <img
-              width={56}
-              height={56}
-              className="h-14 w-14"
-              src={`${STATIC_IMAGES_URL}/emojis/sunrise.png`}
               alt="Sunrise emoji"
+              className="h-14 w-14"
               draggable={false}
+              height={56}
+              src={`${STATIC_IMAGES_URL}/emojis/sunrise.png`}
+              width={56}
             />
           </div>
         </div>

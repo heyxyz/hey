@@ -1,8 +1,9 @@
+import type { Handler } from 'express';
+
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
 import prisma from '@utils/prisma';
-import type { Handler } from 'express';
 
 export const get: Handler = async (req, res) => {
   try {
