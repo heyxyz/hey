@@ -1,7 +1,8 @@
+import type { Profile, ProfileSearchRequest } from '@hey/lens';
+
 import UserProfilesShimmer from '@components/Shared/Shimmer/UserProfilesShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
-import type { Profile, ProfileSearchRequest } from '@hey/lens';
 import {
   CustomFiltersType,
   LimitType,
@@ -19,14 +20,14 @@ interface ProfilesProps {
 const Profiles: FC<ProfilesProps> = ({ query }) => {
   // Variables
   const request: ProfileSearchRequest = {
-    where: { customFilters: [CustomFiltersType.Gardeners] },
+    limit: LimitType.TwentyFive,
     query,
-    limit: LimitType.TwentyFive
+    where: { customFilters: [CustomFiltersType.Gardeners] }
   };
 
-  const { data, loading, error, fetchMore } = useSearchProfilesQuery({
-    variables: { request },
-    skip: !query
+  const { data, error, fetchMore, loading } = useSearchProfilesQuery({
+    skip: !query,
+    variables: { request }
   });
 
   const search = data?.searchProfiles;
@@ -51,39 +52,39 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
   if (profiles?.length === 0) {
     return (
       <EmptyState
+        icon={<UsersIcon className="text-brand-500 h-8 w-8" />}
         message={
           <span>
             No profiles for <b>&ldquo;{query}&rdquo;</b>
           </span>
         }
-        icon={<UsersIcon className="text-brand-500 h-8 w-8" />}
       />
     );
   }
 
   if (error) {
-    return <ErrorMessage title="Failed to load profiles" error={error} />;
+    return <ErrorMessage error={error} title="Failed to load profiles" />;
   }
 
   return (
     <Virtuoso
-      useWindowScroll
       className="[&>div>div]:space-y-3"
       data={profiles}
       endReached={onEndReached}
       itemContent={(_, profile) => {
         return (
           <motion.div
-            initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            initial={{ opacity: 0 }}
           >
-            <Card key={profile?.id} className="p-5">
-              <UserProfile profile={profile as Profile} showBio isBig />
+            <Card className="p-5" key={profile?.id}>
+              <UserProfile isBig profile={profile as Profile} showBio />
             </Card>
           </motion.div>
         );
       }}
+      useWindowScroll
     />
   );
 };

@@ -1,8 +1,10 @@
+import type { Profile } from '@hey/lens';
+import type { FC } from 'react';
+
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
-import type { Profile } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
@@ -11,35 +13,34 @@ import cn from '@hey/ui/cn';
 import { getTwitterFormat } from '@lib/formatTime';
 import isVerified from '@lib/isVerified';
 import Link from 'next/link';
-import type { FC } from 'react';
 import { memo } from 'react';
 
 import Slug from './Slug';
 
 interface UserProfileProps {
-  profile: Profile;
-  timestamp?: Date;
-  smallAvatar?: boolean;
   linkToProfile?: boolean;
+  profile: Profile;
+  smallAvatar?: boolean;
+  timestamp?: Date;
 }
 
 const SmallUserProfile: FC<UserProfileProps> = ({
+  linkToProfile = false,
   profile,
-  timestamp = '',
   smallAvatar = false,
-  linkToProfile = false
+  timestamp = ''
 }) => {
   const UserAvatar = () => (
     <Image
-      src={getAvatar(profile)}
-      loading="lazy"
+      alt={profile.id}
       className={cn(
         smallAvatar ? 'h-5 w-5' : 'h-6 w-6',
         'rounded-full border bg-gray-200 dark:border-gray-700'
       )}
       height={smallAvatar ? 20 : 24}
+      loading="lazy"
+      src={getAvatar(profile)}
       width={smallAvatar ? 20 : 24}
-      alt={profile.id}
     />
   );
 

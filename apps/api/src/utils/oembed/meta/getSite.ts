@@ -1,6 +1,6 @@
 import type { Document } from 'linkedom';
 
-const getSite = (document: Document): string | null => {
+const getSite = (document: Document): null | string => {
   const lens =
     document.querySelector('meta[name="lens:site"]') ||
     document.querySelector('meta[property="lens:site"]');

@@ -1,3 +1,5 @@
+import type { Dispatch, FC, SetStateAction } from 'react';
+
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data/errors';
 import {
@@ -11,7 +13,6 @@ import { useApolloClient } from '@hey/lens/apollo';
 import trimify from '@hey/lib/trimify';
 import { Button, Input, Modal, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useNftGalleryStore } from 'src/store/non-persisted/useNftGalleryStore';
@@ -27,11 +28,11 @@ enum CreateSteps {
 }
 
 interface CreateProps {
-  showModal: boolean;
   setShowModal: Dispatch<SetStateAction<boolean>>;
+  showModal: boolean;
 }
 
-const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
+const Create: FC<CreateProps> = ({ setShowModal, showModal }) => {
   const [currentStep, setCurrentStep] = useState<CreateSteps>(CreateSteps.NAME);
   const gallery = useNftGalleryStore((state) => state.gallery);
   const setGallery = useNftGalleryStore((state) => state.setGallery);
@@ -48,7 +49,7 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
   const closeModal = () => {
     setShowModal(false);
     setCurrentStep(CreateSteps.NAME);
-    setGallery({ ...gallery, name: '', items: [] });
+    setGallery({ ...gallery, items: [], name: '' });
   };
 
   const create = async () => {
@@ -87,7 +88,7 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
     try {
       const { data } = await renameGallery({
         variables: {
-          request: { name: gallery.name, galleryId: gallery.id }
+          request: { galleryId: gallery.id, name: gallery.name }
         }
       });
       if (data) {
@@ -205,7 +206,7 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
     ) {
       return (
         <div className="flex items-center space-x-1">
-          <button type="button" onClick={() => setCurrentStep(getBackStep())}>
+          <button onClick={() => setCurrentStep(getBackStep())} type="button">
             <ChevronLeftIcon className="h-4 w-4" />
           </button>
           <span>
@@ -224,23 +225,23 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
 
   return (
     <Modal
+      onClose={closeModal}
+      show={showModal}
       size="lg"
       title={getModalTitle()}
-      show={showModal}
-      onClose={closeModal}
     >
       <div className={cn(currentStep === CreateSteps.NAME ? 'p-5' : 'p-0')}>
         {currentStep === CreateSteps.NAME ? (
           <Input
-            value={gallery.name}
-            placeholder="Gallery name"
             onChange={(event) =>
               setGallery({
                 ...gallery,
-                name: event.target.value,
-                items: gallery.items
+                items: gallery.items,
+                name: event.target.value
               })
             }
+            placeholder="Gallery name"
+            value={gallery.name}
           />
         ) : currentStep === CreateSteps.PICK_NFTS ? (
           <Picker />
@@ -252,8 +253,8 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
         {currentStep === 'NAME' ? <div /> : `${gallery.items.length} selected`}
         <Button
           disabled={loadingNext}
-          onClick={() => onClickNext()}
           icon={loadingNext ? <Spinner size="xs" /> : null}
+          onClick={() => onClickNext()}
         >
           Next
         </Button>

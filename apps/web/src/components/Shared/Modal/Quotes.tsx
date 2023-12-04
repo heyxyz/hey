@@ -1,7 +1,8 @@
+import type { Profile, ProfilesRequest } from '@hey/lens';
+
 import UserProfile from '@components/Shared/UserProfile';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { FollowUnfollowSource } from '@hey/data/tracking';
-import type { Profile, ProfilesRequest } from '@hey/lens';
 import { LimitType, useProfilesQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
@@ -17,13 +18,13 @@ interface QuotesProps {
 const Quotes: FC<QuotesProps> = ({ publicationId }) => {
   // Variables
   const request: ProfilesRequest = {
-    where: { whoQuotedPublication: publicationId },
-    limit: LimitType.TwentyFive
+    limit: LimitType.TwentyFive,
+    where: { whoQuotedPublication: publicationId }
   };
 
-  const { data, loading, error, fetchMore } = useProfilesQuery({
-    variables: { request },
-    skip: !publicationId
+  const { data, error, fetchMore, loading } = useProfilesQuery({
+    skip: !publicationId,
+    variables: { request }
   });
 
   const profiles = data?.profiles?.items;
@@ -48,9 +49,9 @@ const Quotes: FC<QuotesProps> = ({ publicationId }) => {
     return (
       <div className="p-5">
         <EmptyState
-          message="No quotes."
-          icon={<ArrowsRightLeftIcon className="text-brand-500 h-8 w-8" />}
           hideCard
+          icon={<ArrowsRightLeftIcon className="text-brand-500 h-8 w-8" />}
+          message="No quotes."
         />
       </div>
     );
@@ -59,9 +60,9 @@ const Quotes: FC<QuotesProps> = ({ publicationId }) => {
   return (
     <div className="max-h-[80vh] overflow-y-auto">
       <ErrorMessage
-        title="Failed to load quotes"
-        error={error}
         className="m-5"
+        error={error}
+        title="Failed to load quotes"
       />
       <Virtuoso
         className="virtual-profile-list"
@@ -70,16 +71,16 @@ const Quotes: FC<QuotesProps> = ({ publicationId }) => {
         itemContent={(index, profile) => {
           return (
             <motion.div
-              initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
               className="p-5"
+              exit={{ opacity: 0 }}
+              initial={{ opacity: 0 }}
             >
               <UserProfile
-                profile={profile as Profile}
-                isFollowing={profile.operations.isFollowedByMe.value}
                 followUnfollowPosition={index + 1}
                 followUnfollowSource={FollowUnfollowSource.QUOTES_MODAL}
+                isFollowing={profile.operations.isFollowedByMe.value}
+                profile={profile as Profile}
                 showBio
                 showFollow
                 showUserPreview={false}

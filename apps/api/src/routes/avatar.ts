@@ -1,7 +1,8 @@
+import type { Handler } from 'express';
+
 import { LensHub } from '@hey/abis';
 import logger from '@hey/lib/logger';
 import { CACHE_AGE_INDEFINITE } from '@utils/constants';
-import type { Handler } from 'express';
 import { createPublicClient, http } from 'viem';
 import { polygon } from 'viem/chains';
 
@@ -14,10 +15,10 @@ export const get: Handler = async (req, res) => {
     });
 
     const data: any = await client.readContract({
-      address: '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d',
       abi: LensHub,
-      functionName: 'tokenURI',
-      args: [req.query.id]
+      address: '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d',
+      args: [req.query.id],
+      functionName: 'tokenURI'
     });
 
     const jsonData = JSON.parse(

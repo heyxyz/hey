@@ -1,3 +1,5 @@
+import type { NextPage } from 'next';
+
 import MetaTags from '@components/Common/MetaTags';
 import Loader from '@components/Shared/Loader';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
@@ -12,7 +14,6 @@ import getAllTokens from '@hey/lib/api/getAllTokens';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
-import type { NextPage } from 'next';
 import { useState } from 'react';
 import Custom500 from 'src/pages/500';
 import useProfileStore from 'src/store/persisted/useProfileStore';
@@ -24,13 +25,13 @@ import Allowance from './Allowance';
 const getAllowancePayload = (currency: string) => {
   return {
     currencies: [currency],
+    followModules: [FollowModuleType.FeeFollowModule],
     openActionModules: [
       OpenActionModuleType.SimpleCollectOpenActionModule,
       OpenActionModuleType.MultirecipientFeeCollectOpenActionModule,
       OpenActionModuleType.LegacySimpleCollectModule,
       OpenActionModuleType.LegacyMultirecipientFeeCollectModule
-    ],
-    followModules: [FollowModuleType.FeeFollowModule]
+    ]
   };
 };
 
@@ -44,17 +45,17 @@ const AllowanceSettings: NextPage = () => {
 
   const {
     data: allowedTokens,
-    isLoading: allowedTokensLoading,
-    error: allowedTokensError
+    error: allowedTokensError,
+    isLoading: allowedTokensLoading
   } = useQuery({
-    queryKey: ['getAllTokens'],
-    queryFn: () => getAllTokens()
+    queryFn: () => getAllTokens(),
+    queryKey: ['getAllTokens']
   });
 
-  const { data, loading, error, refetch } =
+  const { data, error, loading, refetch } =
     useApprovedModuleAllowanceAmountQuery({
-      variables: { request: getAllowancePayload(DEFAULT_COLLECT_TOKEN) },
-      skip: !currentProfile?.id || allowedTokensLoading
+      skip: !currentProfile?.id || allowedTokensLoading,
+      variables: { request: getAllowancePayload(DEFAULT_COLLECT_TOKEN) }
     });
 
   if (error || allowedTokensError) {

@@ -18,7 +18,7 @@ const ImagesPlugin = (props: ImagesPluginProps): JSX.Element | null => {
         PASTE_COMMAND,
         (event) => {
           if (event) {
-            const { dataTransfer, clipboardData } = event;
+            const { clipboardData, dataTransfer } = event;
 
             // If the clipboard data contains text, we don't want to handle the image paste event.
             if (clipboardData?.getData('Text')) {

@@ -1,16 +1,17 @@
-import { PLACEHOLDER_IMAGE, RARIBLE_URL } from '@hey/data/constants';
 import type { Nft } from '@hey/lens';
+
+import { PLACEHOLDER_IMAGE, RARIBLE_URL } from '@hey/data/constants';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import { Card } from '@hey/ui';
 import { type FC } from 'react';
 import { CHAIN_ID } from 'src/constants';
 
 interface SingleNftProps {
-  nft: Nft;
   linkToDetail?: boolean;
+  nft: Nft;
 }
 
-const SingleNft: FC<SingleNftProps> = ({ nft, linkToDetail = true }) => {
+const SingleNft: FC<SingleNftProps> = ({ linkToDetail = true, nft }) => {
   const nftURL = linkToDetail
     ? `${RARIBLE_URL}/token/${
         nft.contract.chainId === CHAIN_ID ? 'polygon/' : ''
@@ -20,8 +21,8 @@ const SingleNft: FC<SingleNftProps> = ({ nft, linkToDetail = true }) => {
   return (
     <Card forceRounded>
       <div
-        onClick={() => nftURL && window.open(nftURL, '_blank')}
         className="cursor-pointer"
+        onClick={() => nftURL && window.open(nftURL, '_blank')}
       >
         {nft?.metadata?.animationUrl ? (
           <div className="divider h-52 sm:h-60 sm:rounded-t-[10px]">
@@ -29,17 +30,17 @@ const SingleNft: FC<SingleNftProps> = ({ nft, linkToDetail = true }) => {
               <div
                 style={{
                   backgroundImage: `url(${`${PLACEHOLDER_IMAGE}`})`,
-                  backgroundSize: 'contain',
                   backgroundPosition: 'center center',
-                  backgroundRepeat: 'no-repeat'
+                  backgroundRepeat: 'no-repeat',
+                  backgroundSize: 'contain'
                 }}
               />
             ) : (
               <iframe
                 className="h-full w-full rounded-b-none"
-                title={`${nft.contract.address}:${nft.tokenId}`}
                 sandbox=""
                 src={sanitizeDStorageUrl(nft?.metadata?.animationUrl)}
+                title={`${nft.contract.address}:${nft.tokenId}`}
               />
             )}
           </div>
@@ -52,9 +53,9 @@ const SingleNft: FC<SingleNftProps> = ({ nft, linkToDetail = true }) => {
                   ? sanitizeDStorageUrl(nft.metadata.image.optimized.uri)
                   : PLACEHOLDER_IMAGE
               })`,
-              backgroundSize: 'contain',
               backgroundPosition: 'center center',
-              backgroundRepeat: 'no-repeat'
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'contain'
             }}
           />
         )}

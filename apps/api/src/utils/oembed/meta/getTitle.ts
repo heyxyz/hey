@@ -1,6 +1,6 @@
 import type { Document } from 'linkedom';
 
-const getTitle = (document: Document): string | null => {
+const getTitle = (document: Document): null | string => {
   const lens =
     document.querySelector('meta[name="lens:title"]') ||
     document.querySelector('meta[property="lens:title"]');

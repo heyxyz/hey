@@ -1,3 +1,5 @@
+import type { Handler } from 'express';
+
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import catchedError from '@utils/catchedError';
@@ -5,7 +7,6 @@ import { STAFF_MODE_FEATURE_ID } from '@utils/constants';
 import validateIsStaff from '@utils/middlewares/validateIsStaff';
 import prisma from '@utils/prisma';
 import { invalidBody, noBody, notAllowed } from '@utils/responses';
-import type { Handler } from 'express';
 import { boolean, object } from 'zod';
 
 type ExtensionRequest = {
@@ -46,7 +47,7 @@ export const post: Handler = async (req, res) => {
       });
       logger.info(`Enabled staff mode for ${profile_id}`);
 
-      return res.status(200).json({ success: true, enabled });
+      return res.status(200).json({ enabled, success: true });
     }
 
     await prisma.profileFeature.delete({
@@ -59,7 +60,7 @@ export const post: Handler = async (req, res) => {
     });
     logger.info(`Disabled staff mode for ${profile_id}`);
 
-    return res.status(200).json({ success: true, enabled });
+    return res.status(200).json({ enabled, success: true });
   } catch (error) {
     return catchedError(res, error);
   }

@@ -23,9 +23,9 @@ const tapeRegex =
   /^https?:\/\/tape\.xyz\/watch\/[\dA-Za-z-]+(\?si=[\dA-Za-z]+)?$/;
 
 const generateIframe = (
-  embedUrl: string | null,
+  embedUrl: null | string,
   url: string
-): string | null => {
+): null | string => {
   const universalSize = `width="560" height="315"`;
   const parsedUrl = new URL(url);
   const hostname = parsedUrl.hostname.replace('www.', '');

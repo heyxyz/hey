@@ -2,21 +2,21 @@ import { Toggle } from '@hey/ui';
 import { type FC, type ReactNode } from 'react';
 
 interface ToggleWithHelperProps {
+  description: ReactNode;
+  disabled?: boolean;
+  heading?: ReactNode;
+  icon?: ReactNode;
   on: boolean;
   setOn: (on: boolean) => void;
-  heading?: ReactNode;
-  description: ReactNode;
-  icon?: ReactNode;
-  disabled?: boolean;
 }
 
 const ToggleWithHelper: FC<ToggleWithHelperProps> = ({
-  on,
-  setOn,
-  heading,
   description,
+  disabled,
+  heading,
   icon,
-  disabled
+  on,
+  setOn
 }) => {
   return (
     <div className="space-y-2">
@@ -25,7 +25,7 @@ const ToggleWithHelper: FC<ToggleWithHelperProps> = ({
         {heading ? <span>{heading}</span> : null}
       </div>
       <div className="flex items-center space-x-2">
-        <Toggle on={on} setOn={setOn} disabled={disabled} />
+        <Toggle disabled={disabled} on={on} setOn={setOn} />
         <div className="ld-text-gray-500 text-sm font-bold">{description}</div>
       </div>
     </div>

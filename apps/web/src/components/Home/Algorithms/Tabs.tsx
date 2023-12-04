@@ -1,5 +1,6 @@
-import { algorithms } from '@hey/data/algorithms';
 import type { HomeFeedType } from '@hey/data/enums';
+
+import { algorithms } from '@hey/data/algorithms';
 import { HOME } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -7,11 +8,11 @@ import { type Dispatch, type FC, type SetStateAction } from 'react';
 import { useEnabledAlgorithmsStore } from 'src/store/persisted/useEnabledAlgorithmsStore';
 
 interface FeedTypeProps {
-  setFeedType: Dispatch<SetStateAction<HomeFeedType>>;
   feedType: HomeFeedType;
+  setFeedType: Dispatch<SetStateAction<HomeFeedType>>;
 }
 
-const Tabs: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
+const Tabs: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
   const enabledAlgorithms = useEnabledAlgorithmsStore(
     (state) => state.enabledAlgorithms
   );
@@ -28,23 +29,23 @@ const Tabs: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
       {sanitizedEnabledAlgorithms.map((algorithm) => {
         return (
           <TabButton
-            key={algorithm.feedType}
-            name={algorithm.name}
+            active={feedType === algorithm.feedType}
             icon={
               <img
+                alt={algorithm.name}
                 className="h-4 w-4 rounded"
                 src={algorithm.image}
-                alt={algorithm.name}
               />
             }
-            active={feedType === algorithm.feedType}
-            showOnSm
+            key={algorithm.feedType}
+            name={algorithm.name}
             onClick={() => {
               setFeedType(algorithm.feedType as HomeFeedType);
               Leafwatch.track(HOME.ALGORITHMS.SWITCH_ALGORITHMIC_FEED, {
                 algorithm: algorithm.feedType
               });
             }}
+            showOnSm
           />
         );
       })}

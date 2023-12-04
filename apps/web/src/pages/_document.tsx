@@ -6,28 +6,28 @@ class HeyDocument extends Document {
       <Html lang="en">
         <Head>
           <meta charSet="utf-8" />
-          <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+          <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
 
           {/* Prefetch and Preconnect */}
-          <link rel="preconnect" href="https://hey-assets.b-cdn.net" />
-          <link rel="dns-prefetch" href="https://hey-assets.b-cdn.net" />
+          <link href="https://hey-assets.b-cdn.net" rel="preconnect" />
+          <link href="https://hey-assets.b-cdn.net" rel="dns-prefetch" />
 
           {/* Icons */}
-          <link rel="apple-touch-icon" sizes="180x180" href="/ati.png" />
-          <link rel="icon" type="image/png" sizes="32x32" href="/32x32.png" />
-          <link rel="icon" type="image/png" sizes="16x16" href="/16x16.png" />
+          <link href="/ati.png" rel="apple-touch-icon" sizes="180x180" />
+          <link href="/32x32.png" rel="icon" sizes="32x32" type="image/png" />
+          <link href="/16x16.png" rel="icon" sizes="16x16" type="image/png" />
 
           {/* PWA config */}
-          <link rel="manifest" href="/manifest.json" />
-          <meta name="application-name" content="Hey" />
-          <meta name="apple-mobile-web-app-title" content="Hey" />
-          <meta name="mobile-web-app-capable" content="yes" />
-          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <link href="/manifest.json" rel="manifest" />
+          <meta content="Hey" name="application-name" />
+          <meta content="Hey" name="apple-mobile-web-app-title" />
+          <meta content="yes" name="mobile-web-app-capable" />
+          <meta content="yes" name="apple-mobile-web-app-capable" />
           <meta
-            name="apple-mobile-web-app-status-bar-style"
             content="default"
+            name="apple-mobile-web-app-status-bar-style"
           />
-          <meta name="theme-color" content="#ffffff" />
+          <meta content="#ffffff" name="theme-color" />
         </Head>
         <body>
           <Main />

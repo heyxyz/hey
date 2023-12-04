@@ -1,10 +1,12 @@
+import type { Profile } from '@hey/lens';
+import type { NextPage } from 'next';
+
 import MetaTags from '@components/Common/MetaTags';
 import Loader from '@components/Shared/Loader';
 import ProfileStaffTool from '@components/Staff/Users/Overview/Tool';
 import { UserIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import type { Profile } from '@hey/lens';
 import { useProfileQuery } from '@hey/lens';
 import {
   Card,
@@ -15,7 +17,6 @@ import {
   GridLayout
 } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Custom404 from 'src/pages/404';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
@@ -26,8 +27,8 @@ import StaffSidebar from '../../Sidebar';
 
 const Overview: NextPage = () => {
   const {
-    query: { id },
-    isReady
+    isReady,
+    query: { id }
   } = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
@@ -39,9 +40,9 @@ const Overview: NextPage = () => {
     });
   });
 
-  const { data, loading, error } = useProfileQuery({
-    variables: { request: { forProfileId: id } },
-    skip: !id || !isReady
+  const { data, error, loading } = useProfileQuery({
+    skip: !id || !isReady,
+    variables: { request: { forProfileId: id } }
   });
   const profile = data?.profile as Profile;
 
@@ -61,9 +62,9 @@ const Overview: NextPage = () => {
             <Loader message="Loading profile" />
           ) : !profile ? (
             <EmptyState
-              message="No profile found"
               hideCard
               icon={<UserIcon className="h-8 w-8 text-yellow-600" />}
+              message="No profile found"
             />
           ) : error ? (
             <ErrorMessage error={error} />

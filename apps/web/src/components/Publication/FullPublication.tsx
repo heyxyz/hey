@@ -1,4 +1,5 @@
 import type { AnyPublication } from '@hey/lens';
+
 import getAppName from '@hey/lib/getAppName';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { formatDate } from '@lib/formatTime';
@@ -23,7 +24,7 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
     ? publication?.mirrorOn
     : publication;
 
-  const { publishedOn, metadata, createdAt } = targetPublication;
+  const { createdAt, metadata, publishedOn } = targetPublication;
 
   useEffectOnce(() => {
     pushToImpressions(targetPublication.id);

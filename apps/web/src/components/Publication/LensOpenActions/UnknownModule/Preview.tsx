@@ -1,5 +1,6 @@
-import GetOpenActionModuleIcon from '@components/Shared/GetOpenActionModuleIcon';
 import type { OpenActionModule } from '@hey/lens';
+
+import GetOpenActionModuleIcon from '@components/Shared/GetOpenActionModuleIcon';
 import getOpenActionModuleData from '@hey/lib/getOpenActionModuleData';
 import { Card } from '@hey/ui';
 import { type FC } from 'react';
@@ -18,8 +19,8 @@ const UnknownModulePreview: FC<UnknownModulePreviewProps> = ({ module }) => {
           <div className="flex items-center justify-between space-x-2">
             <div className="flex items-center space-x-2">
               <GetOpenActionModuleIcon
-                module={module}
                 className="text-brand-500"
+                module={module}
               />
               <b className="text-lg font-bold">
                 {getOpenActionModuleData(module)?.name}

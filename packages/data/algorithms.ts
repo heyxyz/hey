@@ -2,63 +2,63 @@ import { STATIC_IMAGES_URL } from './constants';
 import { HomeFeedType } from './enums';
 
 export const algorithms: {
-  name: string;
-  feedType: HomeFeedType;
-  description: string;
-  image: string;
   by: string;
+  description: string;
+  feedType: HomeFeedType;
+  image: string;
   isPersonalized?: boolean;
+  name: string;
 }[] = [
   {
-    name: 'Most viewed',
-    feedType: HomeFeedType.HEY_MOSTVIEWED,
+    by: 'Hey',
     description:
       'Most viewed posts sorted by the number of views in the last 24 hours in Hey.',
+    feedType: HomeFeedType.HEY_MOSTVIEWED,
     image: `${STATIC_IMAGES_URL}/algorithms/hey-mostviewed.png`,
-    by: 'Hey'
+    name: 'Most viewed'
   },
   {
-    name: 'Most interacted',
-    feedType: HomeFeedType.HEY_MOSTINTERACTED,
+    by: 'Hey',
     description:
       'Most interacted posts sorted by the number of interactions in the last 24 hours in Hey.',
+    feedType: HomeFeedType.HEY_MOSTINTERACTED,
     image: `${STATIC_IMAGES_URL}/algorithms/hey-mostinteracted.png`,
-    by: 'Hey'
+    name: 'Most interacted'
   },
   {
-    name: 'Recommended',
-    feedType: HomeFeedType.K3L_RECOMMENDED,
-    description: 'New and interesting content powered by AI + EigenTrust.',
-    image: `${STATIC_IMAGES_URL}/algorithms/k3l.png`,
-    by: 'Karma3Labs'
-  },
-  {
-    name: 'Popular',
-    feedType: HomeFeedType.K3L_POPULAR,
-    description: 'Posts sorted by top ranked profiles engagement.',
-    image: `${STATIC_IMAGES_URL}/algorithms/k3l.png`,
-    by: 'Karma3Labs'
-  },
-  {
-    name: 'Recent',
-    feedType: HomeFeedType.K3L_RECENT,
-    description: 'Recent posts sorted by time of posting.',
-    image: `${STATIC_IMAGES_URL}/algorithms/k3l.png`,
-    by: 'Karma3Labs'
-  },
-  {
-    name: 'Crowdsourced',
-    feedType: HomeFeedType.K3L_CROWDSOURCED,
-    description: 'Quality content decided by community engagement',
-    image: `${STATIC_IMAGES_URL}/algorithms/k3l.png`,
-    by: 'Karma3Labs'
-  },
-  {
-    name: 'Following',
-    feedType: HomeFeedType.K3L_FOLLOWING,
-    description: 'Personalized feed based on who you follow.',
-    image: `${STATIC_IMAGES_URL}/algorithms/k3l.png`,
     by: 'Karma3Labs',
-    isPersonalized: true
+    description: 'New and interesting content powered by AI + EigenTrust.',
+    feedType: HomeFeedType.K3L_RECOMMENDED,
+    image: `${STATIC_IMAGES_URL}/algorithms/k3l.png`,
+    name: 'Recommended'
+  },
+  {
+    by: 'Karma3Labs',
+    description: 'Posts sorted by top ranked profiles engagement.',
+    feedType: HomeFeedType.K3L_POPULAR,
+    image: `${STATIC_IMAGES_URL}/algorithms/k3l.png`,
+    name: 'Popular'
+  },
+  {
+    by: 'Karma3Labs',
+    description: 'Recent posts sorted by time of posting.',
+    feedType: HomeFeedType.K3L_RECENT,
+    image: `${STATIC_IMAGES_URL}/algorithms/k3l.png`,
+    name: 'Recent'
+  },
+  {
+    by: 'Karma3Labs',
+    description: 'Quality content decided by community engagement',
+    feedType: HomeFeedType.K3L_CROWDSOURCED,
+    image: `${STATIC_IMAGES_URL}/algorithms/k3l.png`,
+    name: 'Crowdsourced'
+  },
+  {
+    by: 'Karma3Labs',
+    description: 'Personalized feed based on who you follow.',
+    feedType: HomeFeedType.K3L_FOLLOWING,
+    image: `${STATIC_IMAGES_URL}/algorithms/k3l.png`,
+    isPersonalized: true,
+    name: 'Following'
   }
 ];

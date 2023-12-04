@@ -1,3 +1,5 @@
+import type { Handler } from 'express';
+
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
@@ -5,7 +7,6 @@ import createClickhouseClient from '@utils/createClickhouseClient';
 import { noBody } from '@utils/responses';
 import filteredEvents from '@utils/stats/filteredEvents';
 import generateDateRangeDict from '@utils/stats/generateDateRangeDict';
-import type { Handler } from 'express';
 
 export const get: Handler = async (req, res) => {
   const { id } = req.query;
@@ -17,6 +18,7 @@ export const get: Handler = async (req, res) => {
   try {
     const client = createClickhouseClient();
     const rows = await client.query({
+      format: 'JSONEachRow',
       query: `
         SELECT
           date(created) AS event_date,
@@ -26,14 +28,13 @@ export const get: Handler = async (req, res) => {
         AND name IN (${filteredEvents.map((name) => `'${name}'`).join(',')})
         GROUP BY event_date
         ORDER BY event_date;
-      `,
-      format: 'JSONEachRow'
+      `
     });
 
     const result =
-      await rows.json<Array<{ event_date: string; event_count: number }>>();
+      await rows.json<Array<{ event_count: number; event_date: string }>>();
 
-    const eventData = result.reduce((acc: any, { event_date, event_count }) => {
+    const eventData = result.reduce((acc: any, { event_count, event_date }) => {
       acc[event_date] = Number(event_count);
       return acc;
     }, {});
@@ -45,8 +46,8 @@ export const get: Handler = async (req, res) => {
       .status(200)
       .setHeader('Cache-Control', SWR_CACHE_AGE_1_MIN_30_DAYS)
       .json({
-        success: true,
-        data: allDatesData
+        data: allDatesData,
+        success: true
       });
   } catch (error) {
     return catchedError(res, error);

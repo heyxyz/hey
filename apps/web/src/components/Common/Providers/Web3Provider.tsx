@@ -38,8 +38,8 @@ const connectors: any = [
   new InjectedConnector({ chains, options: { shimDisconnect: true } }),
   new CoinbaseWalletConnector({ options: { appName: APP_NAME } }),
   new WalletConnectConnector({
-    options: { projectId: WALLETCONNECT_PROJECT_ID },
-    chains
+    chains,
+    options: { projectId: WALLETCONNECT_PROJECT_ID }
   })
 ];
 

@@ -1,8 +1,9 @@
+import type { AnyPublication, FeedItem, FeedRequest } from '@hey/lens';
+
 import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { UserGroupIcon } from '@heroicons/react/24/outline';
-import type { AnyPublication, FeedItem, FeedRequest } from '@hey/lens';
 import { FeedEventItemType, useFeedQuery } from '@hey/lens';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
@@ -47,13 +48,12 @@ const Timeline: FC = () => {
   // Variables
   const request: FeedRequest = {
     where: {
-      for: seeThroughProfile?.id ?? currentProfile?.id,
-      feedEventItemTypes: getFeedEventItems()
+      feedEventItemTypes: getFeedEventItems(),
+      for: seeThroughProfile?.id ?? currentProfile?.id
     }
   };
 
-  const { data, loading, error, fetchMore } = useFeedQuery({
-    variables: { request },
+  const { data, error, fetchMore, loading } = useFeedQuery({
     onCompleted: async ({ feed }) => {
       const ids =
         feed?.items?.flatMap((p) => {
@@ -64,7 +64,8 @@ const Timeline: FC = () => {
           ].filter((id) => id);
         }) || [];
       await fetchAndStoreViews(ids);
-    }
+    },
+    variables: { request }
   });
 
   const feed = data?.feed?.items;
@@ -99,14 +100,14 @@ const Timeline: FC = () => {
   if (feed?.length === 0) {
     return (
       <EmptyState
-        message="No posts yet!"
         icon={<UserGroupIcon className="text-brand-500 h-8 w-8" />}
+        message="No posts yet!"
       />
     );
   }
 
   if (error) {
-    return <ErrorMessage title="Failed to load timeline" error={error} />;
+    return <ErrorMessage error={error} title="Failed to load timeline" />;
   }
 
   return (
@@ -119,10 +120,10 @@ const Timeline: FC = () => {
       <Card className="divide-y-[1px] dark:divide-gray-700">
         {feed?.map((feedItem, index) => (
           <SinglePublication
-            key={feedItem.id}
+            feedItem={feedItem as FeedItem}
             isFirst={index === 0}
             isLast={index === feed.length - 1}
-            feedItem={feedItem as FeedItem}
+            key={feedItem.id}
             publication={feedItem.root as AnyPublication}
           />
         ))}

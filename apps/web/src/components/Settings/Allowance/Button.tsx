@@ -1,32 +1,33 @@
+import type { ApprovedAllowanceAmountResult } from '@hey/lens';
+import type { Dispatch, FC, SetStateAction } from 'react';
+
 import {
   ExclamationTriangleIcon,
   MinusIcon,
   PlusIcon
 } from '@heroicons/react/24/outline';
 import { SETTINGS } from '@hey/data/tracking';
-import type { ApprovedAllowanceAmountResult } from '@hey/lens';
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from '@hey/lens';
 import { Button, Modal, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import getAllowanceModule from '@lib/getAllowanceModule';
 import { Leafwatch } from '@lib/leafwatch';
-import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useSendTransaction, useWaitForTransaction } from 'wagmi';
 
 interface AllowanceButtonProps {
-  title?: string;
-  module: ApprovedAllowanceAmountResult;
   allowed: boolean;
+  module: ApprovedAllowanceAmountResult;
   setAllowed: Dispatch<SetStateAction<boolean>>;
+  title?: string;
 }
 
 const AllowanceButton: FC<AllowanceButtonProps> = ({
-  title = 'Allow',
-  module,
   allowed,
-  setAllowed
+  module,
+  setAllowed,
+  title = 'Allow'
 }) => {
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [generateModuleCurrencyApprovalData, { loading: queryLoading }] =
@@ -46,6 +47,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
 
   const { isLoading: waitLoading } = useWaitForTransaction({
     hash: txData?.hash,
+    onError,
     onSuccess: () => {
       toast.success(
         allowed
@@ -55,12 +57,11 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
       setShowWarningModal(false);
       setAllowed(!allowed);
       Leafwatch.track(SETTINGS.ALLOWANCE.TOGGLE, {
-        module: module.moduleName,
+        allowed: !allowed,
         currency: module.allowance.asset.symbol,
-        allowed: !allowed
+        module: module.moduleName
       });
-    },
-    onError
+    }
   });
 
   const handleAllowance = (
@@ -81,18 +82,17 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
       const data = res?.data?.generateModuleCurrencyApprovalData;
       sendTransaction?.({
         account: data?.from,
-        to: data?.to,
-        data: data?.data
+        data: data?.data,
+        to: data?.to
       });
     });
   };
 
   return allowed ? (
     <Button
-      variant="warning"
       icon={
         queryLoading || transactionLoading || waitLoading ? (
-          <Spinner variant="warning" size="xs" />
+          <Spinner size="xs" variant="warning" />
         ) : (
           <MinusIcon className="h-4 w-4" />
         )
@@ -104,6 +104,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
           module.moduleName
         )
       }
+      variant="warning"
     >
       Revoke
     </Button>
@@ -116,14 +117,13 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
         {title}
       </Button>
       <Modal
-        title="Warning"
         icon={<ExclamationTriangleIcon className="h-5 w-5 text-yellow-500" />}
-        show={showWarningModal}
         onClose={() => setShowWarningModal(false)}
+        show={showWarningModal}
+        title="Warning"
       >
         <div className="space-y-3 p-5">
           <WarningMessage
-            title="Handle with care!"
             message={
               <div className="leading-6">
                 Please be aware that by allowing this module, the amount
@@ -131,6 +131,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
                 and <b>Super follow</b>.
               </div>
             }
+            title="Handle with care!"
           />
           <Button
             icon={

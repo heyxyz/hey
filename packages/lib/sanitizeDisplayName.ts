@@ -7,8 +7,8 @@ import { Regex } from '@hey/data/regex';
  * @returns Profile name with restricted symbols removed
  */
 const sanitizeDisplayName = (
-  name: string | null | undefined
-): string | null => {
+  name: null | string | undefined
+): null | string => {
   if (!name) {
     return null;
   }

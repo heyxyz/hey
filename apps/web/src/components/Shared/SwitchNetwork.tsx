@@ -6,25 +6,23 @@ import { type FC } from 'react';
 import { useSwitchNetwork } from 'wagmi';
 
 interface SwitchNetworkProps {
-  toChainId: number;
-  title?: string;
   className?: string;
   onSwitch?: () => void;
+  title?: string;
+  toChainId: number;
 }
 
 const SwitchNetwork: FC<SwitchNetworkProps> = ({
-  toChainId,
-  title = 'Switch Network',
   className = '',
-  onSwitch
+  onSwitch,
+  title = 'Switch Network',
+  toChainId
 }) => {
   const { switchNetwork } = useSwitchNetwork();
 
   return (
     <Button
       className={className}
-      type="button"
-      variant="danger"
       icon={<ArrowsRightLeftIcon className="h-4 w-4" />}
       onClick={() => {
         onSwitch?.();
@@ -33,6 +31,8 @@ const SwitchNetwork: FC<SwitchNetworkProps> = ({
           chain: toChainId
         });
       }}
+      type="button"
+      variant="danger"
     >
       {title}
     </Button>

@@ -1,7 +1,8 @@
+import type { AnyPublication, FeedItem } from '@hey/lens';
+
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
 import UserProfile from '@components/Shared/UserProfile';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import type { AnyPublication, FeedItem } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
@@ -13,17 +14,17 @@ import PublicationMenu from './Actions/Menu';
 import Source from './Source';
 
 interface PublicationHeaderProps {
-  publication: AnyPublication;
   feedItem?: FeedItem;
-  quoted?: boolean;
   isNew?: boolean;
+  publication: AnyPublication;
+  quoted?: boolean;
 }
 
 const PublicationHeader: FC<PublicationHeaderProps> = ({
-  publication,
   feedItem,
-  quoted = false,
-  isNew = false
+  isNew = false,
+  publication,
+  quoted = false
 }) => {
   const setQuotedPublication = usePublicationStore(
     (state) => state.setQuotedPublication
@@ -54,9 +55,9 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
       <span className="max-w-full" onClick={stopEventPropagation}>
         {quoted ? (
           <SmallUserProfile
+            linkToProfile
             profile={profile}
             timestamp={timestamp}
-            linkToProfile
           />
         ) : (
           <UserProfile profile={profile} timestamp={timestamp} />
@@ -69,12 +70,12 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
         ) : null}
         {quoted && isNew ? (
           <button
+            aria-label="Remove Quote"
             className="outline-brand-500 rounded-full border p-1.5 hover:bg-gray-300/20"
             onClick={(event) => {
               stopEventPropagation(event);
               setQuotedPublication(null);
             }}
-            aria-label="Remove Quote"
           >
             <XMarkIcon className="ld-text-gray-500 w-[15px] sm:w-[18px]" />
           </button>

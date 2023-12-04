@@ -4,40 +4,40 @@ import HeyEndpoint from '../hey-endpoints';
 import LensEndpoint from '../lens-endpoints';
 
 const getEnvConfig = (): {
-  lensApiEndpoint: string;
-  heyApiEndpoint: string;
-  lensHubProxyAddress: `0x${string}`;
-  tokenHandleRegistry: `0x${string}`;
-  publicActProxyAddress: `0x${string}`;
   defaultCollectToken: string;
+  heyApiEndpoint: string;
+  lensApiEndpoint: string;
+  lensHubProxyAddress: `0x${string}`;
+  publicActProxyAddress: `0x${string}`;
+  tokenHandleRegistry: `0x${string}`;
 } => {
   switch (LENS_NETWORK) {
     case 'testnet':
       return {
-        lensApiEndpoint: LensEndpoint.Testnet,
+        defaultCollectToken: TestnetContracts.DefaultToken,
         heyApiEndpoint: HeyEndpoint.Testnet,
+        lensApiEndpoint: LensEndpoint.Testnet,
         lensHubProxyAddress: TestnetContracts.LensHubProxy,
-        tokenHandleRegistry: TestnetContracts.TokenHandleRegistry,
         publicActProxyAddress: TestnetContracts.PublicActProxy,
-        defaultCollectToken: TestnetContracts.DefaultToken
+        tokenHandleRegistry: TestnetContracts.TokenHandleRegistry
       };
     case 'staging':
       return {
-        lensApiEndpoint: LensEndpoint.Staging,
+        defaultCollectToken: TestnetContracts.DefaultToken,
         heyApiEndpoint: HeyEndpoint.Staging,
+        lensApiEndpoint: LensEndpoint.Staging,
         lensHubProxyAddress: TestnetContracts.LensHubProxy,
-        tokenHandleRegistry: TestnetContracts.TokenHandleRegistry,
         publicActProxyAddress: TestnetContracts.PublicActProxy,
-        defaultCollectToken: TestnetContracts.DefaultToken
+        tokenHandleRegistry: TestnetContracts.TokenHandleRegistry
       };
     default:
       return {
-        lensApiEndpoint: LensEndpoint.Mainnet,
+        defaultCollectToken: MainnetContracts.DefaultToken,
         heyApiEndpoint: HeyEndpoint.Mainnet,
+        lensApiEndpoint: LensEndpoint.Mainnet,
         lensHubProxyAddress: MainnetContracts.LensHubProxy,
-        tokenHandleRegistry: MainnetContracts.TokenHandleRegistry,
         publicActProxyAddress: MainnetContracts.PublicActProxy,
-        defaultCollectToken: MainnetContracts.DefaultToken
+        tokenHandleRegistry: MainnetContracts.TokenHandleRegistry
       };
   }
 };

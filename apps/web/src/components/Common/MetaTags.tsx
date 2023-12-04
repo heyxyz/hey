@@ -3,65 +3,65 @@ import Head from 'next/head';
 import { type FC } from 'react';
 
 interface MetaTagsProps {
-  title?: string;
   description?: string;
+  title?: string;
 }
 
 const MetaTags: FC<MetaTagsProps> = ({
-  title = APP_NAME,
-  description = DESCRIPTION
+  description = DESCRIPTION,
+  title = APP_NAME
 }) => {
   return (
     <Head>
       <title>{title}</title>
-      <meta name="description" content={description} />
+      <meta content={description} name="description" />
       <meta
-        name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover"
+        name="viewport"
       />
-      <link rel="canonical" href="https://hey.xyz" />
+      <link href="https://hey.xyz" rel="canonical" />
 
-      <meta property="og:url" content="https://hey.xyz" />
-      <meta property="og:site_name" content={APP_NAME} />
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
-      <meta property="og:image" content={DEFAULT_OG} />
-      <meta property="og:image:width" content="400" />
-      <meta property="og:image:height" content="400" />
+      <meta content="https://hey.xyz" property="og:url" />
+      <meta content={APP_NAME} property="og:site_name" />
+      <meta content={title} property="og:title" />
+      <meta content={description} property="og:description" />
+      <meta content={DEFAULT_OG} property="og:image" />
+      <meta content="400" property="og:image:width" />
+      <meta content="400" property="og:image:height" />
 
-      <meta property="twitter:card" content="summary" />
-      <meta property="twitter:site" content={APP_NAME} />
-      <meta property="twitter:title" content={title} />
-      <meta property="twitter:description" content={description} />
-      <meta property="twitter:image" content={DEFAULT_OG} />
-      <meta property="twitter:image:width" content="400" />
-      <meta property="twitter:image:height" content="400" />
-      <meta property="twitter:creator" content="heydotxyz" />
+      <meta content="summary" property="twitter:card" />
+      <meta content={APP_NAME} property="twitter:site" />
+      <meta content={title} property="twitter:title" />
+      <meta content={description} property="twitter:description" />
+      <meta content={DEFAULT_OG} property="twitter:image" />
+      <meta content="400" property="twitter:image:width" />
+      <meta content="400" property="twitter:image:height" />
+      <meta content="heydotxyz" property="twitter:creator" />
 
       <link
-        rel="search"
-        type="application/opensearchdescription+xml"
         href="/opensearch.xml"
+        rel="search"
         title={APP_NAME}
+        type="application/opensearchdescription+xml"
       />
 
       {/* Prefetch and Preconnect */}
-      <link rel="preconnect" href="https://hey-assets.b-cdn.net" />
-      <link rel="dns-prefetch" href="https://hey-assets.b-cdn.net" />
+      <link href="https://hey-assets.b-cdn.net" rel="preconnect" />
+      <link href="https://hey-assets.b-cdn.net" rel="dns-prefetch" />
 
       {/* Icons */}
-      <link rel="apple-touch-icon" sizes="180x180" href="/ati.png" />
-      <link rel="icon" type="image/png" sizes="32x32" href="/32x32.png" />
-      <link rel="icon" type="image/png" sizes="16x16" href="/16x16.png" />
+      <link href="/ati.png" rel="apple-touch-icon" sizes="180x180" />
+      <link href="/32x32.png" rel="icon" sizes="32x32" type="image/png" />
+      <link href="/16x16.png" rel="icon" sizes="16x16" type="image/png" />
 
       {/* PWA config */}
-      <link rel="manifest" href="/manifest.json" />
-      <meta name="application-name" content="Hey" />
-      <meta name="apple-mobile-web-app-title" content="Hey" />
-      <meta name="mobile-web-app-capable" content="yes" />
-      <meta name="apple-mobile-web-app-capable" content="yes" />
-      <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-      <meta name="theme-color" content="#ffffff" />
+      <link href="/manifest.json" rel="manifest" />
+      <meta content="Hey" name="application-name" />
+      <meta content="Hey" name="apple-mobile-web-app-title" />
+      <meta content="yes" name="mobile-web-app-capable" />
+      <meta content="yes" name="apple-mobile-web-app-capable" />
+      <meta content="default" name="apple-mobile-web-app-status-bar-style" />
+      <meta content="#ffffff" name="theme-color" />
     </Head>
   );
 };

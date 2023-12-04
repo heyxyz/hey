@@ -1,3 +1,6 @@
+import type { PublicationMetadataMainFocusType } from '@hey/lens';
+import type { NextPage } from 'next';
+
 import MetaTags from '@components/Common/MetaTags';
 import RecommendedProfiles from '@components/Home/Sidebar/RecommendedProfiles';
 import Trending from '@components/Home/Trending';
@@ -7,13 +10,11 @@ import { Tab } from '@headlessui/react';
 import { APP_NAME } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import { EXPLORE, PAGEVIEW } from '@hey/data/tracking';
-import type { PublicationMetadataMainFocusType } from '@hey/lens';
 import { ExplorePublicationsOrderByType } from '@hey/lens';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
-import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
@@ -43,8 +44,8 @@ const Explore: NextPage = () => {
   return (
     <GridLayout>
       <MetaTags
-        title={`Explore • ${APP_NAME}`}
         description={`Explore top commented, collected and latest publications in the ${APP_NAME}.`}
+        title={`Explore • ${APP_NAME}`}
       />
       <GridItemEight className="space-y-5">
         <Tab.Group
@@ -60,13 +61,6 @@ const Explore: NextPage = () => {
           <Tab.List className="divider space-x-8">
             {tabs.map((tab, index) => (
               <Tab
-                key={tab.type}
-                defaultChecked={index === 1}
-                onClick={() => {
-                  Leafwatch.track(EXPLORE.SWITCH_EXPLORE_FEED_TAB, {
-                    explore_feed_type: tab.type.toLowerCase()
-                  });
-                }}
                 className={({ selected }) =>
                   cn(
                     {
@@ -76,6 +70,13 @@ const Explore: NextPage = () => {
                     'ld-text-gray-500 px-4 pb-2 text-xs font-medium outline-none sm:text-sm'
                   )
                 }
+                defaultChecked={index === 1}
+                key={tab.type}
+                onClick={() => {
+                  Leafwatch.track(EXPLORE.SWITCH_EXPLORE_FEED_TAB, {
+                    explore_feed_type: tab.type.toLowerCase()
+                  });
+                }}
               >
                 {tab.name}
               </Tab>
@@ -85,7 +86,7 @@ const Explore: NextPage = () => {
           <Tab.Panels>
             {tabs.map((tab) => (
               <Tab.Panel key={tab.type}>
-                <Feed focus={focus} feedType={tab.type} />
+                <Feed feedType={tab.type} focus={focus} />
               </Tab.Panel>
             ))}
           </Tab.Panels>

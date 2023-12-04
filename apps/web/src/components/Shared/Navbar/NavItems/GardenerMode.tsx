@@ -31,6 +31,7 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
         { headers: getAuthWorkerHeaders() }
       ),
       {
+        error: 'Failed to toggle gardener mode!',
         loading: 'Toggling gardener mode...',
         success: () => {
           getPreferences(currentProfile?.id, getAuthWorkerHeaders());
@@ -38,19 +39,18 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
           Leafwatch.track(GARDENER.TOGGLE_MODE);
 
           return 'Gardener mode toggled!';
-        },
-        error: 'Failed to toggle gardener mode!'
+        }
       }
     );
   };
 
   return (
     <button
-      onClick={toggleModMode}
       className={cn(
         'flex w-full items-center space-x-1.5 px-2 py-1.5 text-sm text-gray-700 dark:text-gray-200',
         className
       )}
+      onClick={toggleModMode}
     >
       {gardenerMode ? (
         <BoltIconSolid className="h-4 w-4 text-green-600" />

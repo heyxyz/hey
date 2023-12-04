@@ -1,7 +1,8 @@
+import type { Group } from '@hey/types/hey';
+
 import GroupProfile from '@components/Shared/GroupProfile';
 import GroupProfileShimmer from '@components/Shared/Shimmer/GroupProfileShimmer';
 import { HEY_API_URL } from '@hey/data/constants';
-import type { Group } from '@hey/types/hey';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
@@ -22,8 +23,8 @@ const StaffPickedGroup: FC<StaffPickedGroupProps> = ({ id }) => {
   };
 
   const { data: group, isLoading } = useQuery({
-    queryKey: ['fetchGroup', id],
-    queryFn: fetchGroup
+    queryFn: fetchGroup,
+    queryKey: ['fetchGroup', id]
   });
 
   if (isLoading) {

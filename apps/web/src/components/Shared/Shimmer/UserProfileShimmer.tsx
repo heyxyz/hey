@@ -2,13 +2,13 @@ import cn from '@hey/ui/cn';
 import { type FC } from 'react';
 
 interface UserProfileShimmerProps {
-  showFollow?: boolean;
   isBig?: boolean;
+  showFollow?: boolean;
 }
 
 const UserProfileShimmer: FC<UserProfileShimmerProps> = ({
-  showFollow = false,
-  isBig = false
+  isBig = false,
+  showFollow = false
 }) => {
   return (
     <div className="flex items-center justify-between py-1">

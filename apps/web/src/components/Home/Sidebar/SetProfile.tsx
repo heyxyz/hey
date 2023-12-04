@@ -69,10 +69,10 @@ const SetProfile: FC = () => {
         <div>
           <Link
             className="flex items-center space-x-2"
+            href="/settings/interests"
             onClick={() =>
               Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE_INTERESTS)
             }
-            href="/settings/interests"
           >
             <Status
               finished={Boolean(currentProfile?.interests?.length)}
@@ -85,8 +85,8 @@ const SetProfile: FC = () => {
       <div className="flex items-center space-x-1.5 text-sm font-bold">
         <PencilSquareIcon className="h-4 w-4" />
         <Link
-          onClick={() => Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE)}
           href="/settings"
+          onClick={() => Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE)}
         >
           Update profile now
         </Link>

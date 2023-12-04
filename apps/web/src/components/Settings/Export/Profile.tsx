@@ -1,16 +1,17 @@
+import type { ProfileRequest, Profile as TProfile } from '@hey/lens';
+import type { FC } from 'react';
+
 import { SETTINGS } from '@hey/data/tracking';
-import type { Profile as TProfile, ProfileRequest } from '@hey/lens';
 import { useProfileLazyQuery } from '@hey/lens';
 import downloadJson from '@hey/lib/downloadJson';
 import { Button, Card } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import type { FC } from 'react';
 import { useState } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 const Profile: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const [profile, setProfile] = useState<TProfile | null>(null);
+  const [profile, setProfile] = useState<null | TProfile>(null);
   const [exporting, setExporting] = useState(false);
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
@@ -19,8 +20,8 @@ const Profile: FC = () => {
   };
 
   const [exportProfile] = useProfileLazyQuery({
-    variables: { request },
-    fetchPolicy: 'network-only'
+    fetchPolicy: 'network-only',
+    variables: { request }
   });
 
   const handleExportClick = () => {
@@ -49,7 +50,7 @@ const Profile: FC = () => {
       {fetchCompleted ? (
         <Button onClick={download}>Download profile</Button>
       ) : (
-        <Button onClick={handleExportClick} disabled={exporting}>
+        <Button disabled={exporting} onClick={handleExportClick}>
           {exporting ? 'Exporting...' : 'Export now'}
         </Button>
       )}

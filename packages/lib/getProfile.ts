@@ -3,20 +3,20 @@ import type { Profile } from '@hey/lens';
 import sanitizeDisplayName from './sanitizeDisplayName';
 
 const getProfile = (
-  profile: Profile | null
+  profile: null | Profile
 ): {
-  slug: string;
-  slugWithPrefix: string;
   displayName: string;
   link: string;
+  slug: string;
+  slugWithPrefix: string;
   staffLink: string;
 } => {
   if (!profile) {
     return {
-      slug: '...',
-      slugWithPrefix: '...',
       displayName: '...',
       link: '',
+      slug: '...',
+      slugWithPrefix: '...',
       staffLink: ''
     };
   }
@@ -25,12 +25,12 @@ const getProfile = (
   const slug = profile.handle?.localName || profile.id;
 
   return {
-    slug,
-    slugWithPrefix: `${prefix}${slug}`,
     displayName: sanitizeDisplayName(profile.metadata?.displayName) || slug,
     link: profile.handle
       ? `/u/${profile.handle.localName}`
       : `/profile/${profile.id}`,
+    slug,
+    slugWithPrefix: `${prefix}${slug}`,
     staffLink: `/staff/users/${profile.id}`
   };
 };

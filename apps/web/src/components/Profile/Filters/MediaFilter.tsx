@@ -1,9 +1,10 @@
+import type { ChangeEvent } from 'react';
+
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/outline';
 import { Checkbox, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import type { ChangeEvent } from 'react';
 import { useProfileFeedStore } from 'src/store/non-persisted/useProfileFeedStore';
 
 const MediaFilter = () => {
@@ -24,14 +25,14 @@ const MediaFilter = () => {
   return (
     <Menu as="div" className="relative">
       <Menu.Button className="rounded-md hover:bg-gray-300/20">
-        <Tooltip placement="top" content="Filter">
+        <Tooltip content="Filter" placement="top">
           <AdjustmentsVerticalIcon className="text-brand-500 h-5 w-5" />
         </Tooltip>
       </Menu.Button>
       <MenuTransition>
         <Menu.Items
-          static
           className="absolute right-0 z-[5] mt-1 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+          static
         >
           <Menu.Item
             as="label"
@@ -43,10 +44,10 @@ const MediaFilter = () => {
             }
           >
             <Checkbox
-              onChange={handleChange}
               checked={mediaFeedFilters.images}
-              name="images"
               label="Images"
+              name="images"
+              onChange={handleChange}
             />
           </Menu.Item>
           <Menu.Item
@@ -59,10 +60,10 @@ const MediaFilter = () => {
             }
           >
             <Checkbox
-              onChange={handleChange}
               checked={mediaFeedFilters.video}
-              name="video"
               label="Video"
+              name="video"
+              onChange={handleChange}
             />
           </Menu.Item>
           <Menu.Item
@@ -75,10 +76,10 @@ const MediaFilter = () => {
             }
           >
             <Checkbox
-              onChange={handleChange}
               checked={mediaFeedFilters.audio}
-              name="audio"
               label="Audio"
+              name="audio"
+              onChange={handleChange}
             />
           </Menu.Item>
         </Menu.Items>

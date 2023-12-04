@@ -28,26 +28,26 @@ const cache = new InMemoryCache({
     ProfilesManagedResult: { keyFields: profilesManagedKeyFields },
     Query: {
       fields: {
+        approvedAuthentications: createApprovedAuthenticationsFieldPolicy(),
+        exploreProfiles: createExploreProfilesFieldPolicy(),
+        explorePublications: createExplorePublicationsFieldPolicy(),
         feed: createFeedFieldPolicy(),
         feedHighlights: createFeedHighlightsFieldPolicy(),
-        explorePublications: createExplorePublicationsFieldPolicy(),
-        exploreProfiles: createExploreProfilesFieldPolicy(),
-        publications: createPublicationsFieldPolicy(),
-        publicationsProfileBookmarks: createPublicationsFieldPolicy(),
-        nfts: createNftsFieldPolicy(),
-        notifications: createNotificationsFieldPolicy(),
         followers: createFollowersFieldPolicy(),
         following: createFollowingFieldPolicy(),
+        mutualFollowersProfiles: createMutualFollowersProfilesFieldPolicy(),
+        nfts: createNftsFieldPolicy(),
+        notifications: createNotificationsFieldPolicy(),
+        profileActionHistory: createProfileActionHistoryFieldPolicy(),
+        profileManagers: createProfileManagersFieldPolicy(),
         profiles: createProfilesFieldPolicy(),
+        profilesManaged: createProfilesManagedFieldPolicy(),
+        publications: createPublicationsFieldPolicy(),
+        publicationsProfileBookmarks: createPublicationsFieldPolicy(),
         searchProfiles: createSearchProfilesFieldPolicy(),
         searchPublications: createSearchPublicationsPolicy(),
         whoActedOnPublication: createActedOnPublicationFieldPolicy(),
-        whoHaveBlocked: createWhoHaveBlockedFieldPolicy(),
-        mutualFollowersProfiles: createMutualFollowersProfilesFieldPolicy(),
-        approvedAuthentications: createApprovedAuthenticationsFieldPolicy(),
-        profileActionHistory: createProfileActionHistoryFieldPolicy(),
-        profileManagers: createProfileManagersFieldPolicy(),
-        profilesManaged: createProfilesManagedFieldPolicy()
+        whoHaveBlocked: createWhoHaveBlockedFieldPolicy()
       }
     }
   }

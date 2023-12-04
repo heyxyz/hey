@@ -1,4 +1,5 @@
 import type { Notification } from '@hey/lens';
+
 import {
   useAuthorizationRecordRevokedSubscriptionSubscription,
   useNewNotificationSubscriptionSubscription,
@@ -34,8 +35,8 @@ const LensSubscriptionsProvider: FC = () => {
   // Begin: New Notification
   const { data: newNotificationData } =
     useNewNotificationSubscriptionSubscription({
-      variables: { for: sessionProfileId },
-      skip: !canUseSubscriptions || isAddress(sessionProfileId)
+      skip: !canUseSubscriptions || isAddress(sessionProfileId),
+      variables: { for: sessionProfileId }
     });
 
   useUpdateEffect(() => {
@@ -53,8 +54,8 @@ const LensSubscriptionsProvider: FC = () => {
 
   // Begin: User Sig Nonces
   const { data: userSigNoncesData } = useUserSigNoncesSubscriptionSubscription({
-    variables: { address },
-    skip: !canUseSubscriptions
+    skip: !canUseSubscriptions,
+    variables: { address }
   });
 
   useUpdateEffect(() => {
@@ -72,8 +73,8 @@ const LensSubscriptionsProvider: FC = () => {
   // Begin: Authorization Record Revoked
   const { data: authorizationRecordRevokedData } =
     useAuthorizationRecordRevokedSubscriptionSubscription({
-      variables: { authorizationId },
-      skip: !canUseSubscriptions
+      skip: !canUseSubscriptions,
+      variables: { authorizationId }
     });
 
   useUpdateEffect(() => {

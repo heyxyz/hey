@@ -1,3 +1,9 @@
+import type {
+  AnyPublication,
+  MomokaMirrorRequest,
+  OnchainMirrorRequest
+} from '@hey/lens';
+
 import { useApolloClient } from '@apollo/client';
 import { Menu } from '@headlessui/react';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
@@ -5,11 +11,6 @@ import { LensHub } from '@hey/abis';
 import { LENSHUB_PROXY } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
-import type {
-  AnyPublication,
-  MomokaMirrorRequest,
-  OnchainMirrorRequest
-} from '@hey/lens';
 import {
   TriStateValue,
   useBroadcastOnchainMutation,
@@ -33,12 +34,12 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface MirrorProps {
+  isLoading: boolean;
   publication: AnyPublication;
   setIsLoading: (isLoading: boolean) => void;
-  isLoading: boolean;
 }
 
-const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
+const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce
@@ -60,21 +61,21 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
   const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
 
-  const { isSponsored, canUseLensManager, canBroadcast } =
+  const { canBroadcast, canUseLensManager, isSponsored } =
     checkDispatcherPermissions(currentProfile);
 
   const updateCache = () => {
     cache.modify({
-      id: cache.identify(targetPublication),
       fields: {
         operations: (existingValue) => {
           return { ...existingValue, hasMirrored: !hasMirrored };
         }
-      }
+      },
+      id: cache.identify(targetPublication)
     });
     cache.modify({
-      id: cache.identify(targetPublication.stats),
-      fields: { mirrors: () => (hasMirrored ? shares - 1 : shares + 1) }
+      fields: { mirrors: () => (hasMirrored ? shares - 1 : shares + 1) },
+      id: cache.identify(targetPublication.stats)
     });
   };
 
@@ -85,10 +86,10 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
 
   const onCompleted = (
     __typename?:
-      | 'RelayError'
-      | 'RelaySuccess'
       | 'CreateMomokaPublicationResult'
       | 'LensProfileManagerRelayError'
+      | 'RelayError'
+      | 'RelaySuccess'
   ) => {
     if (
       __typename === 'RelayError' ||
@@ -110,16 +111,16 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
   const { signTypedDataAsync } = useSignTypedData({ onError });
 
   const { write } = useContractWrite({
-    address: LENSHUB_PROXY,
     abi: LensHub,
+    address: LENSHUB_PROXY,
     functionName: 'mirror',
-    onSuccess: () => {
-      onCompleted();
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
-    },
     onError: (error) => {
       onError(error);
       setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+    },
+    onSuccess: () => {
+      onCompleted();
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
     }
   });
 
@@ -228,7 +229,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
 
     try {
       setIsLoading(true);
-      const request: OnchainMirrorRequest | MomokaMirrorRequest = {
+      const request: MomokaMirrorRequest | OnchainMirrorRequest = {
         mirrorOn: publication?.id
       };
 
@@ -265,8 +266,8 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
           'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm'
         )
       }
-      onClick={createMirror}
       disabled={isLoading}
+      onClick={createMirror}
     >
       <div className="flex items-center space-x-2">
         <ArrowsRightLeftIcon className="h-4 w-4" />

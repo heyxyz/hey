@@ -10,10 +10,10 @@ import urlcat from 'urlcat';
  */
 const getUniswapURL = (amount: number, outputCurrency: string): string => {
   return urlcat('https://app.uniswap.org/#/swap', {
-    exactField: 'output',
+    chain: IS_MAINNET ? 'polygon' : 'polygon_mumbai',
     exactAmount: amount,
-    outputCurrency,
-    chain: IS_MAINNET ? 'polygon' : 'polygon_mumbai'
+    exactField: 'output',
+    outputCurrency
   });
 };
 

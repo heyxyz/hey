@@ -1,10 +1,11 @@
-import { SETTINGS } from '@hey/data/tracking';
 import type { FollowersRequest } from '@hey/lens';
+import type { FC } from 'react';
+
+import { SETTINGS } from '@hey/data/tracking';
 import { LimitType, useFollowersLazyQuery } from '@hey/lens';
 import downloadJson from '@hey/lib/downloadJson';
 import { Button, Card } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import type { FC } from 'react';
 import { useState } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
@@ -15,8 +16,8 @@ const Followers: FC = () => {
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
   const request: FollowersRequest = {
-    of: currentProfile?.id,
-    limit: LimitType.TwentyFive
+    limit: LimitType.TwentyFive,
+    of: currentProfile?.id
   };
 
   const [exportFollowers] = useFollowersLazyQuery({
@@ -28,7 +29,6 @@ const Followers: FC = () => {
     setExporting(true);
     const fetchFollowers = async (cursor?: string) => {
       const { data } = await exportFollowers({
-        variables: { request: { ...request, cursor } },
         onCompleted: (data) => {
           setFollowers((prev) => {
             const newFollowers = data.followers.items.filter((newFollower) => {
@@ -37,7 +37,8 @@ const Followers: FC = () => {
 
             return [...prev, ...newFollowers];
           });
-        }
+        },
+        variables: { request: { ...request, cursor } }
       });
 
       if (
@@ -73,7 +74,7 @@ const Followers: FC = () => {
       {fetchCompleted ? (
         <Button onClick={download}>Download followers</Button>
       ) : (
-        <Button onClick={handleExportClick} disabled={exporting}>
+        <Button disabled={exporting} onClick={handleExportClick}>
           {exporting ? 'Exporting...' : 'Export now'}
         </Button>
       )}

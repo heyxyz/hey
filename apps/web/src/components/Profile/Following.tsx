@@ -1,8 +1,9 @@
+import type { FollowingRequest, Profile } from '@hey/lens';
+
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
 import { FollowUnfollowSource } from '@hey/data/tracking';
-import type { FollowingRequest, Profile } from '@hey/lens';
 import { LimitType, useFollowingQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { EmptyState, ErrorMessage } from '@hey/ui';
@@ -12,11 +13,11 @@ import { Virtuoso } from 'react-virtuoso';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface FollowingProps {
-  profile: Profile;
   onProfileSelected?: (profile: Profile) => void;
+  profile: Profile;
 }
 
-const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
+const Following: FC<FollowingProps> = ({ onProfileSelected, profile }) => {
   // Variables
   const request: FollowingRequest = {
     for: profile.id,
@@ -24,9 +25,9 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
   };
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
-  const { data, loading, error, fetchMore } = useFollowingQuery({
-    variables: { request },
-    skip: !profile?.id
+  const { data, error, fetchMore, loading } = useFollowingQuery({
+    skip: !profile?.id,
+    variables: { request }
   });
 
   const followings = data?.following?.items;
@@ -50,6 +51,8 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
   if (followings?.length === 0) {
     return (
       <EmptyState
+        hideCard
+        icon={<UsersIcon className="text-brand-500 h-8 w-8" />}
         message={
           <div>
             <span className="mr-1 font-bold">
@@ -58,8 +61,6 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
             <span>doesn’t follow anyone.</span>
           </div>
         }
-        icon={<UsersIcon className="text-brand-500 h-8 w-8" />}
-        hideCard
       />
     );
   }
@@ -67,9 +68,9 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
   return (
     <div className="max-h-[80vh] overflow-y-auto">
       <ErrorMessage
-        title="Failed to load following"
-        error={error}
         className="m-5"
+        error={error}
+        title="Failed to load following"
       />
       <Virtuoso
         className="virtual-profile-list"
@@ -78,13 +79,13 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
         itemContent={(index, following) => {
           return (
             <motion.div
-              initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
               className={`p-5 ${
                 onProfileSelected &&
                 'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900'
               }`}
+              exit={{ opacity: 0 }}
+              initial={{ opacity: 0 }}
               onClick={
                 onProfileSelected && following
                   ? () => {
@@ -94,11 +95,11 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
               }
             >
               <UserProfile
-                profile={following as Profile}
-                linkToProfile={!onProfileSelected}
-                isFollowing={following.operations.isFollowedByMe.value}
                 followUnfollowPosition={index + 1}
                 followUnfollowSource={FollowUnfollowSource.FOLLOWING_MODAL}
+                isFollowing={following.operations.isFollowedByMe.value}
+                linkToProfile={!onProfileSelected}
+                profile={following as Profile}
                 showBio
                 showFollow={currentProfile?.id !== following.id}
                 showUnfollow={currentProfile?.id !== following.id}

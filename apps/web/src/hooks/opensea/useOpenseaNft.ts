@@ -1,25 +1,26 @@
-import { OPENSEA_KEY } from '@hey/data/constants';
 import type { OpenSeaNft } from '@hey/types/opensea-nft';
+
+import { OPENSEA_KEY } from '@hey/data/constants';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import urlcat from 'urlcat';
 
 interface UseOpenseaNftProps {
-  chain: number;
   address: string;
-  token: string;
+  chain: number;
   enabled?: boolean;
+  token: string;
 }
 
 const useOpenseaNft = ({
-  chain,
   address,
-  token,
-  enabled
+  chain,
+  enabled,
+  token
 }: UseOpenseaNftProps): {
   data: OpenSeaNft;
-  loading: boolean;
   error: unknown;
+  loading: boolean;
 } => {
   const getOpenSeaChainName = () => {
     switch (chain) {
@@ -41,10 +42,10 @@ const useOpenseaNft = ({
       urlcat(
         'https://api.opensea.io/v2/chains/:chain/contract/:address/nfts/:token',
         {
-          chain: getOpenSeaChainName(),
           address,
-          token,
-          format: 'json'
+          chain: getOpenSeaChainName(),
+          format: 'json',
+          token
         }
       ),
       { headers: { 'X-API-KEY': OPENSEA_KEY } }
@@ -53,13 +54,13 @@ const useOpenseaNft = ({
     return response.data?.nft;
   };
 
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['getOpenseaNftDetails', chain, address, token],
+  const { data, error, isLoading } = useQuery({
+    enabled,
     queryFn: getOpenseaNftDetails,
-    enabled
+    queryKey: ['getOpenseaNftDetails', chain, address, token]
   });
 
-  return { data, loading: isLoading, error };
+  return { data, error, loading: isLoading };
 };
 
 export default useOpenseaNft;

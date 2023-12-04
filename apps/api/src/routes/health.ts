@@ -1,6 +1,7 @@
+import type { Handler } from 'express';
+
 import createClickhouseClient from '@utils/createClickhouseClient';
 import prisma from '@utils/prisma';
-import type { Handler } from 'express';
 
 export const get: Handler = async (req, res) => {
   try {
@@ -10,8 +11,8 @@ export const get: Handler = async (req, res) => {
     // Clickhouse
     const clickhouse = createClickhouseClient();
     const rows = await clickhouse.query({
-      query: 'SELECT count(*) from events;',
-      format: 'JSONEachRow'
+      format: 'JSONEachRow',
+      query: 'SELECT count(*) from events;'
     });
 
     if (db <= 0 || !rows.json) {

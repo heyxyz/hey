@@ -1,10 +1,11 @@
+import type { NextPage } from 'next';
+
 import MetaTags from '@components/Common/MetaTags';
 import Sidebar from '@components/Shared/Sidebar';
 import { PencilSquareIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Custom404 from 'src/pages/404';
 import { useEffectOnce } from 'usehooks-ts';
@@ -22,7 +23,7 @@ const Search: NextPage = () => {
     Leafwatch.track(PAGEVIEW, { page: 'search' });
   });
 
-  if (!query.q || !['pubs', 'profiles'].includes(query.type as string)) {
+  if (!query.q || !['profiles', 'pubs'].includes(query.type as string)) {
     return <Custom404 />;
   }
 
@@ -34,16 +35,16 @@ const Search: NextPage = () => {
           <Sidebar
             items={[
               {
-                title: 'Publications',
+                active: query.type === 'pubs',
                 icon: <PencilSquareIcon className="h-4 w-4" />,
-                url: `/search?q=${searchText}&type=pubs`,
-                active: query.type === 'pubs'
+                title: 'Publications',
+                url: `/search?q=${searchText}&type=pubs`
               },
               {
-                title: 'Profiles',
+                active: query.type === 'profiles',
                 icon: <UsersIcon className="h-4 w-4" />,
-                url: `/search?q=${searchText}&type=profiles`,
-                active: query.type === 'profiles'
+                title: 'Profiles',
+                url: `/search?q=${searchText}&type=profiles`
               }
             ]}
           />

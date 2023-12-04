@@ -1,5 +1,6 @@
-import { HEY_API_URL } from '@hey/data/constants';
 import type { Features } from '@hey/types/hey';
+
+import { HEY_API_URL } from '@hey/data/constants';
 import { Button, Form, Input, useZodForm } from '@hey/ui';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import axios from 'axios';
@@ -33,16 +34,16 @@ const Create: FC<CreateProps> = ({ flags, setFlags, setShowCreateModal }) => {
         { headers: getAuthWorkerHeaders() }
       ),
       {
+        error: () => {
+          setCreating(false);
+          return 'Failed to create feature flag';
+        },
         loading: 'Creating feature flag...',
         success: ({ data }) => {
           setFlags([...flags, data.feature]);
           setCreating(false);
           setShowCreateModal(false);
           return 'Feature flag created';
-        },
-        error: () => {
-          setCreating(false);
-          return 'Failed to create feature flag';
         }
       }
     );
@@ -50,19 +51,19 @@ const Create: FC<CreateProps> = ({ flags, setFlags, setShowCreateModal }) => {
 
   return (
     <Form
-      form={form}
       className="m-5 space-y-4"
+      form={form}
       onSubmit={async ({ key }) => {
         await create(key);
       }}
     >
       <Input
         className="text-sm"
-        type="text"
         placeholder="Key"
+        type="text"
         {...form.register('key')}
       />
-      <Button type="submit" disabled={creating}>
+      <Button disabled={creating} type="submit">
         Create
       </Button>
     </Form>

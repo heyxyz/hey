@@ -1,8 +1,9 @@
+import type { Handler } from 'express';
+
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import { resolverAbi } from '@utils/ens/resolverAbi';
 import { invalidBody, noBody } from '@utils/responses';
-import type { Handler } from 'express';
 import { createPublicClient, http } from 'viem';
 import { mainnet } from 'viem/chains';
 import { array, object, string } from 'zod';
@@ -39,14 +40,14 @@ export const post: Handler = async (req, res) => {
     });
 
     const data = await client.readContract({
-      address: '0x3671ae578e63fdf66ad4f3e12cc0c0d71ac7510c',
       abi: resolverAbi,
+      address: '0x3671ae578e63fdf66ad4f3e12cc0c0d71ac7510c',
       args: [addresses],
       functionName: 'getNames'
     });
     logger.info('ENS names fetched');
 
-    return res.status(200).json({ success: true, data });
+    return res.status(200).json({ data, success: true });
   } catch (error) {
     return catchedError(res, error);
   }

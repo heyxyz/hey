@@ -4,24 +4,24 @@ import { type FC } from 'react';
 import UserProfileShimmer from './UserProfileShimmer';
 
 interface UserProfilesShimmerProps {
-  showFollow?: boolean;
   isBig?: boolean;
+  showFollow?: boolean;
 }
 
 const UserProfilesShimmer: FC<UserProfilesShimmerProps> = ({
-  showFollow = false,
-  isBig = false
+  isBig = false,
+  showFollow = false
 }) => {
   return (
     <div className="space-y-3">
       <Card className="p-5">
-        <UserProfileShimmer showFollow={showFollow} isBig={isBig} />
+        <UserProfileShimmer isBig={isBig} showFollow={showFollow} />
       </Card>
       <Card className="p-5">
-        <UserProfileShimmer showFollow={showFollow} isBig={isBig} />
+        <UserProfileShimmer isBig={isBig} showFollow={showFollow} />
       </Card>
       <Card className="p-5">
-        <UserProfileShimmer showFollow={showFollow} isBig={isBig} />
+        <UserProfileShimmer isBig={isBig} showFollow={showFollow} />
       </Card>
     </div>
   );

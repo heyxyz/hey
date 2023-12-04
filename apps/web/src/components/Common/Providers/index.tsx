@@ -39,7 +39,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
             <PreferencesProvider />
             <FeaturedGroupsProvider />
             <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
-              <ThemeProvider defaultTheme="light" attribute="class">
+              <ThemeProvider attribute="class" defaultTheme="light">
                 <Layout>{children}</Layout>
               </ThemeProvider>
             </LivepeerConfig>

@@ -1,26 +1,26 @@
 import localFont from 'next/font/local';
 
 const heyFont = localFont({
+  display: 'swap',
+  fallback: ['sans-serif'],
+  preload: true,
   src: [
     {
       path: '../../public/fonts/SofiaProSoftReg-webfont.woff2',
-      weight: '400',
-      style: 'normal'
+      style: 'normal',
+      weight: '400'
     },
     {
       path: '../../public/fonts/SofiaProSoftMed-webfont.woff2',
-      weight: '500',
-      style: 'medium'
+      style: 'medium',
+      weight: '500'
     },
     {
       path: '../../public/fonts/SofiaProSoftBold-webfont.woff2',
-      weight: '700',
-      style: 'bold'
+      style: 'bold',
+      weight: '700'
     }
-  ],
-  fallback: ['sans-serif'],
-  preload: true,
-  display: 'swap'
+  ]
 });
 
 export default heyFont;

@@ -1,3 +1,5 @@
+import type { Profile } from '@hey/lens';
+
 import {
   ComputerDesktopIcon,
   CursorArrowRaysIcon,
@@ -7,7 +9,6 @@ import {
 } from '@heroicons/react/24/outline';
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
 import { HEY_API_URL } from '@hey/data/constants';
-import type { Profile } from '@hey/lens';
 import humanize from '@hey/lib/humanize';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -21,12 +22,12 @@ interface LeafwatchDetailsProps {
 
 const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profile }) => {
   const getProfileDetails = async (): Promise<{
-    region: string;
+    browser: string;
     city: string;
     country: string;
     events: number;
     os: string;
-    browser: string;
+    region: string;
     version: string;
   } | null> => {
     try {
@@ -42,9 +43,9 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profile }) => {
   };
 
   const { data: leafwatchDetails } = useQuery({
-    queryKey: ['getProfileDetails', profile.id],
+    enabled: Boolean(profile.id),
     queryFn: getProfileDetails,
-    enabled: Boolean(profile.id)
+    queryKey: ['getProfileDetails', profile.id]
   });
 
   const getProfileImpressions = async (): Promise<{
@@ -66,9 +67,9 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profile }) => {
   };
 
   const { data: impressionDetails } = useQuery({
-    queryKey: ['getProfileImpressions', profile.id],
+    enabled: Boolean(profile.id),
     queryFn: getProfileImpressions,
-    enabled: Boolean(profile.id)
+    queryKey: ['getProfileImpressions', profile.id]
   });
 
   if (!leafwatchDetails || !impressionDetails) {

@@ -1,8 +1,9 @@
+import type { AnyPublication, Comment, PublicationsRequest } from '@hey/lens';
+
 import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
-import type { AnyPublication, Comment, PublicationsRequest } from '@hey/lens';
 import {
   CommentRankingFilterType,
   CustomFiltersType,
@@ -32,23 +33,23 @@ const Feed: FC<FeedProps> = ({ publication }) => {
 
   // Variables
   const request: PublicationsRequest = {
+    limit: LimitType.TwentyFive,
     where: {
       commentOn: {
         id: publicationId,
         ranking: { filter: CommentRankingFilterType.Relevant }
       },
       customFilters: [CustomFiltersType.Gardeners]
-    },
-    limit: LimitType.TwentyFive
+    }
   };
 
-  const { data, loading, error, fetchMore } = usePublicationsQuery({
-    variables: { request },
-    skip: !publicationId,
+  const { data, error, fetchMore, loading } = usePublicationsQuery({
     onCompleted: async ({ publications }) => {
       const ids = publications?.items?.map((p) => p.id) || [];
       await fetchAndStoreViews(ids);
-    }
+    },
+    skip: !publicationId,
+    variables: { request }
   });
 
   const comments = data?.publications?.items ?? [];
@@ -86,14 +87,14 @@ const Feed: FC<FeedProps> = ({ publication }) => {
   }
 
   if (error) {
-    return <ErrorMessage title="Failed to load comment feed" error={error} />;
+    return <ErrorMessage error={error} title="Failed to load comment feed" />;
   }
 
   if (!publication?.isHidden && totalComments === 0) {
     return (
       <EmptyState
-        message="Be the first one to comment!"
         icon={<ChatBubbleLeftRightIcon className="text-brand-500 h-8 w-8" />}
+        message="Be the first one to comment!"
       />
     );
   }
@@ -107,9 +108,9 @@ const Feed: FC<FeedProps> = ({ publication }) => {
         {comments?.map((comment, index) =>
           comment?.__typename !== 'Comment' || comment.isHidden ? null : (
             <SinglePublication
-              key={`${comment.id}`}
               isFirst={index === 0}
               isLast={index === comments.length - 1}
+              key={`${comment.id}`}
               publication={comment as Comment}
               showType={false}
             />

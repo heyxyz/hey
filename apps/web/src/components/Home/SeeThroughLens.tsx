@@ -1,15 +1,17 @@
-import MenuTransition from '@components/Shared/MenuTransition';
-import UserProfile from '@components/Shared/UserProfile';
-import { Menu } from '@headlessui/react';
-import { XMarkIcon } from '@heroicons/react/24/outline';
-import { ChevronDownIcon } from '@heroicons/react/24/solid';
-import { HOME } from '@hey/data/tracking';
 import type {
   FeedItem,
   FeedRequest,
   PaginatedProfileResult,
   Profile
 } from '@hey/lens';
+import type { ChangeEvent, FC } from 'react';
+
+import MenuTransition from '@components/Shared/MenuTransition';
+import UserProfile from '@components/Shared/UserProfile';
+import { Menu } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { ChevronDownIcon } from '@heroicons/react/24/solid';
+import { HOME } from '@hey/data/tracking';
 import {
   CustomFiltersType,
   LimitType,
@@ -22,7 +24,6 @@ import { Image, Input, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
-import type { ChangeEvent, FC } from 'react';
 import { Fragment, useState } from 'react';
 import { useTimelineStore } from 'src/store/non-persisted/useTimelineStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
@@ -63,12 +64,12 @@ const SeeThroughLens: FC = () => {
   const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] =
     useSearchProfilesLazyQuery();
 
-  const [fetchRecommendedProfiles, { loading, error }] = useFeedLazyQuery({
-    variables: { request },
+  const [fetchRecommendedProfiles, { error, loading }] = useFeedLazyQuery({
     onCompleted: ({ feed }) => {
       const feedItems = feed?.items as FeedItem[];
       setRecommendedProfiles(feedItems);
-    }
+    },
+    variables: { request }
   });
 
   const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -77,11 +78,11 @@ const SeeThroughLens: FC = () => {
     searchUsers({
       variables: {
         request: {
+          limit: LimitType.TwentyFive,
+          query: keyword,
           where: {
             customFilters: [CustomFiltersType.Gardeners]
-          },
-          query: keyword,
-          limit: LimitType.TwentyFive
+          }
         }
       }
     });
@@ -104,12 +105,12 @@ const SeeThroughLens: FC = () => {
           onClick={() => fetchRecommendedProfiles()}
         >
           <Image
-            src={getAvatar(profile)}
-            loading="lazy"
-            width={20}
-            height={20}
-            className="h-5 w-5 rounded-full border bg-gray-200 dark:border-gray-700"
             alt={profile?.id}
+            className="h-5 w-5 rounded-full border bg-gray-200 dark:border-gray-700"
+            height={20}
+            loading="lazy"
+            src={getAvatar(profile)}
+            width={20}
           />
           <span>
             {seeThroughProfile ? getProfile(profile).slugWithPrefix : 'My Feed'}
@@ -119,17 +120,14 @@ const SeeThroughLens: FC = () => {
       </Menu.Button>
       <MenuTransition>
         <Menu.Items
-          static
           className="absolute right-0 z-[5] mt-1 w-64 rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+          static
         >
           <div className="px-3 pt-2 text-xs">👀 See the feed through...</div>
           <div className="p-2">
             <Input
-              type="text"
-              className="px-3 py-2 text-sm"
-              placeholder="Search"
-              value={searchText}
               autoComplete="off"
+              className="px-3 py-2 text-sm"
               iconRight={
                 <XMarkIcon
                   className={cn(
@@ -140,6 +138,9 @@ const SeeThroughLens: FC = () => {
                 />
               }
               onChange={handleSearch}
+              placeholder="Search"
+              type="text"
+              value={searchText}
             />
           </div>
           {seeThroughProfile && (
@@ -153,23 +154,23 @@ const SeeThroughLens: FC = () => {
           <div className="mx-2 mb-2">
             {searchUsersLoading || loading ? (
               <div className="space-y-2 px-4 py-2 text-center text-sm font-bold">
-                <Spinner size="sm" className="mx-auto" />
+                <Spinner className="mx-auto" size="sm" />
                 <div>Searching users</div>
               </div>
             ) : (
               <>
                 {profiles.map((profile: Profile) => (
                   <Menu.Item
-                    as={motion.div}
-                    initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
+                    as={motion.div}
                     className={({ active }) =>
                       cn(
                         { 'dropdown-active': active },
                         'cursor-pointer overflow-hidden rounded-lg p-1'
                       )
                     }
+                    exit={{ opacity: 0 }}
+                    initial={{ opacity: 0 }}
                     key={profile.id}
                     onClick={() => {
                       setSeeThroughProfile(profile);

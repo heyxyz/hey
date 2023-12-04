@@ -1,4 +1,5 @@
 import type { PublicationMetadata } from '@hey/lens';
+
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import getGroupByTag from '@lib/getGroupByTag';
@@ -6,11 +7,11 @@ import Link from 'next/link';
 import { type FC } from 'react';
 
 interface FeaturedGroupProps {
-  tags: PublicationMetadata['tags'];
   className?: string;
+  tags: PublicationMetadata['tags'];
 }
 
-const FeaturedGroup: FC<FeaturedGroupProps> = ({ tags, className = '' }) => {
+const FeaturedGroup: FC<FeaturedGroupProps> = ({ className = '', tags }) => {
   const group = getGroupByTag(tags || []);
 
   if (!group) {
@@ -19,14 +20,14 @@ const FeaturedGroup: FC<FeaturedGroupProps> = ({ tags, className = '' }) => {
 
   return (
     <Link
-      href={`/g/${group.slug}`}
       className={cn(
         'flex items-center space-x-2 text-xs hover:underline',
         className
       )}
+      href={`/g/${group.slug}`}
       onClick={(e) => stopEventPropagation(e)}
     >
-      <img src={group.avatar} className="h-4 w-4 rounded" alt={group.name} />
+      <img alt={group.name} className="h-4 w-4 rounded" src={group.avatar} />
       <div className="font-bold">{group.name}</div>
     </Link>
   );

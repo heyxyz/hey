@@ -4,25 +4,26 @@ import type {
   Profile,
   RecipientDataInput
 } from '@hey/lens';
-import { CollectOpenActionModuleType } from '@hey/lens';
 import type { CollectModuleType } from '@hey/types/hey';
+
+import { CollectOpenActionModuleType } from '@hey/lens';
 
 const collectModuleParams = (
   collectModule: CollectModuleType,
   currentProfile: Profile
 ): CollectActionModuleInput | null => {
   const {
-    collectLimit,
-    followerOnly,
     amount,
-    referralFee,
+    collectLimit,
+    endsAt,
+    followerOnly,
     recipients,
-    endsAt
+    referralFee
   } = collectModule;
   const baseCollectModuleParams = {
     collectLimit: collectLimit,
-    followerOnly: followerOnly || false,
-    endsAt: endsAt
+    endsAt: endsAt,
+    followerOnly: followerOnly || false
   };
 
   switch (collectModule.type) {
@@ -31,9 +32,9 @@ const collectModuleParams = (
         simpleCollectOpenAction: {
           ...baseCollectModuleParams,
           ...(amount && {
-            referralFee: referralFee,
             amount: amount,
-            recipient: currentProfile?.ownedBy.address
+            recipient: currentProfile?.ownedBy.address,
+            referralFee: referralFee
           })
         }
       };
@@ -42,8 +43,8 @@ const collectModuleParams = (
         multirecipientCollectOpenAction: {
           ...baseCollectModuleParams,
           amount: amount as AmountInput,
-          referralFee: referralFee,
-          recipients: recipients as RecipientDataInput[]
+          recipients: recipients as RecipientDataInput[],
+          referralFee: referralFee
         }
       };
     default:
