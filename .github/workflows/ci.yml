@@ -42,5 +42,4 @@ jobs:
         run: pnpm build
 
       - name: Run Tests 🧪
-        env:
         run: pnpm test:dev
