@@ -4,18 +4,18 @@ import { toast } from 'react-hot-toast';
 
 interface MetaDetailsProps {
   children: ReactNode;
-  title?: string;
-  value?: string;
   icon: ReactNode;
   noFlex?: boolean;
+  title?: string;
+  value?: string;
 }
 
 const MetaDetails: FC<MetaDetailsProps> = ({
   children,
-  title,
-  value,
   icon,
-  noFlex = false
+  noFlex = false,
+  title,
+  value
 }) => (
   <div
     className={cn(

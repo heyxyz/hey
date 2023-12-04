@@ -1,11 +1,11 @@
 export interface NftProviderWithMintLink {
-  provider: 'zora' | 'basepaint' | 'unlonely-channel' | 'unlonely-nfc';
   mintLink: string;
+  provider: 'basepaint' | 'unlonely-channel' | 'unlonely-nfc' | 'zora';
 }
 
 export interface BasicNftMetadata extends NftProviderWithMintLink {
-  chain: string;
   address: string;
+  chain: string;
   token: string;
 }
 
@@ -22,46 +22,40 @@ export interface UnlonelyNfcMetadata extends NftProviderWithMintLink {
 }
 
 export type NftMetadata =
-  | BasicNftMetadata
   | BasePaintCanvasMetadata
+  | BasicNftMetadata
   | UnlonelyChannelMetadata
   | UnlonelyNfcMetadata;
 
 export interface ZoraNft {
-  chainId: number;
-  name: string;
-  description: string;
-  coverImageUrl: string;
-  mediaUrl: string;
-  tokenId: string;
   address: `0x${string}`;
-  owner: `0x${string}`;
-  creator: `0x${string}`;
-  maxSupply: number;
-  remainingSupply: number;
-  totalMinted: number;
-  isOpenEdition: boolean;
-  price: string;
+  chainId: number;
+  contractStandard: 'ERC1155' | 'ERC721';
   contractType:
-    | 'ERC721_DROP'
-    | 'ERC721_SINGLE_EDITION'
+    | 'ERC1155_COLLECTION_TOKEN'
     | 'ERC1155_COLLECTION'
-    | 'ERC1155_COLLECTION_TOKEN';
-  contractStandard: 'ERC721' | 'ERC1155';
+    | 'ERC721_DROP'
+    | 'ERC721_SINGLE_EDITION';
+  coverImageUrl: string;
+  creator: `0x${string}`;
+  description: string;
+  isOpenEdition: boolean;
+  maxSupply: number;
+  mediaUrl: string;
+  name: string;
+  owner: `0x${string}`;
+  price: string;
+  remainingSupply: number;
+  tokenId: string;
+  totalMinted: number;
 }
 
 export interface BasePaintCanvas {
-  id: number;
-  canContribute: boolean;
-  canMint: boolean;
-  palette: string[];
-  theme: string;
-  totalEarned: string;
-  totalMints: number;
-  pixelsCount: number;
   bitmap: {
     gif: string;
   };
+  canContribute: boolean;
+  canMint: boolean;
   contributions: {
     account: {
       id: string;
@@ -69,27 +63,33 @@ export interface BasePaintCanvas {
       totalPixels: number;
     };
   }[];
+  id: number;
+  palette: string[];
+  pixelsCount: number;
+  theme: string;
+  totalEarned: string;
+  totalMints: number;
 }
 
 export interface UnlonelyChannel {
-  id: number;
-  slug: string;
-  name: string;
   description: string;
-  playbackUrl: string;
+  id: number;
   isLive: boolean;
+  name: string;
+  playbackUrl: string;
+  slug: string;
 }
 
 export interface UnlonelyNfc {
-  id: number;
   createdAt: string;
-  videoLink: string;
-  videoThumbnail: string;
+  id: number;
   openseaLink: string;
-  title: string;
   owner: {
-    username: string;
     FCImageUrl: string;
     lensImageUrl: string;
+    username: string;
   };
+  title: string;
+  videoLink: string;
+  videoThumbnail: string;
 }

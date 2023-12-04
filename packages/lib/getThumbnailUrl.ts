@@ -1,8 +1,9 @@
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import type {
   PublicationMetadataMediaAudio,
   PublicationMetadataMediaVideo
 } from '@hey/lens';
+
+import { STATIC_IMAGES_URL } from '@hey/data/constants';
 
 import sanitizeDStorageUrl from './sanitizeDStorageUrl';
 

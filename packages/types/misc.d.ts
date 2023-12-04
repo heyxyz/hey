@@ -1,76 +1,76 @@
 import type { OptmisticPublicationType } from './enums';
 
 export interface IPFSResponse {
-  uri: string;
   mimeType: string;
+  uri: string;
 }
 
 export interface NewAttachment {
+  file?: File;
   id?: string;
-  type: 'Image' | 'Video' | 'Audio';
-  uri: string;
   mimeType: string;
   previewUri: string;
-  file?: File;
+  type: 'Audio' | 'Image' | 'Video';
+  uri: string;
 }
 
 export interface UserSuggestion {
-  uid: string;
-  id: string;
   display: string;
+  id: string;
   name: string;
   picture: string;
+  uid: string;
 }
 
 export interface OG {
-  url: string;
-  title: string | null;
-  description: string | null;
-  site: string | null;
-  image: string | null;
-  favicon: string | null;
+  description: null | string;
+  favicon: null | string;
+  html: null | string;
+  image: null | string;
   isLarge: boolean | null;
-  html: string | null;
+  site: null | string;
+  title: null | string;
+  url: string;
 }
 
 export interface ProfileInterest {
-  category: { label: string; id: string };
-  subCategories: { label: string; id: string }[];
+  category: { id: string; label: string };
+  subCategories: { id: string; label: string }[];
 }
 
 export interface Emoji {
-  emoji: string;
-  description: string;
-  category: string;
   aliases: string[];
+  category: string;
+  description: string;
+  emoji: string;
   tags: string[];
 }
 
 export interface MessageDescriptor {
-  id?: string;
   comment?: string;
-  message?: string;
   context?: string;
+  id?: string;
+  message?: string;
   values?: Record<string, unknown>;
 }
 
 export interface OptimisticTransaction {
-  type: OptmisticPublicationType;
-  content: string;
   commentOn?: string;
+  content: string;
   txHash?: string;
   txId?: string;
+  type: OptmisticPublicationType;
 }
 
 export interface MarkupLinkProps {
-  title?: string;
   mentions?: ProfileMentioned[];
+  title?: string;
 }
 
 export interface MetadataAsset {
-  type: 'Image' | 'Video' | 'Audio';
-  uri: string;
-  cover?: string;
   artist?: string;
+  cover?: string;
   title?: string;
+  type: 'Audio' | 'Image' | 'Video';
+  uri: string;
 }

@@ -61,16 +61,16 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
 
   const { signTypedDataAsync } = useSignTypedData({ onError });
   const { write } = useContractWrite({
-    address: LENSHUB_PROXY,
     abi: LensHub,
+    address: LENSHUB_PROXY,
     functionName: 'changeDelegatedExecutorsConfig',
-    onSuccess: () => {
-      onCompleted();
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
-    },
     onError: (error) => {
       onError(error);
       setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+    },
+    onSuccess: () => {
+      onCompleted();
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
     }
   });
 
@@ -85,10 +85,10 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
         const signature = await signTypedDataAsync(getSignature(typedData));
         setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
         const {
-          delegatorProfileId,
-          delegatedExecutors,
           approvals,
           configNumber,
+          delegatedExecutors,
+          delegatorProfileId,
           switchToGivenConfig
         } = typedData.value;
         const args = [
@@ -130,7 +130,7 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
           options: { overrideSigNonce: lensHubOnchainSigNonce },
           request: {
             changeManagers: [
-              { address: manager, action: ChangeProfileManagerActionType.Add }
+              { action: ChangeProfileManagerActionType.Add, address: manager }
             ]
           }
         }
@@ -143,17 +143,16 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
   return (
     <div className="space-y-4 p-5">
       <SearchUser
-        placeholder={`${ADDRESS_PLACEHOLDER} or wagmi`}
-        value={manager}
+        error={manager.length > 0 && !isAddress(manager)}
+        hideDropdown={isAddress(manager)}
         onChange={(event) => setManager(event.target.value)}
         onProfileSelected={(profile) => setManager(profile.ownedBy.address)}
-        hideDropdown={isAddress(manager)}
-        error={manager.length > 0 && !isAddress(manager)}
+        placeholder={`${ADDRESS_PLACEHOLDER} or wagmi`}
+        value={manager}
       />
       <div className="flex">
         <Button
           className="ml-auto"
-          type="submit"
           disabled={isLoading || !isAddress(manager)}
           icon={
             isLoading ? (
@@ -163,6 +162,7 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
             )
           }
           onClick={addManager}
+          type="submit"
         >
           Add manager
         </Button>

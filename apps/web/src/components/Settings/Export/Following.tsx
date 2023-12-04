@@ -1,10 +1,11 @@
-import { SETTINGS } from '@hey/data/tracking';
 import type { FollowingRequest } from '@hey/lens';
+import type { FC } from 'react';
+
+import { SETTINGS } from '@hey/data/tracking';
 import { LimitType, useFollowingLazyQuery } from '@hey/lens';
 import downloadJson from '@hey/lib/downloadJson';
 import { Button, Card } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import type { FC } from 'react';
 import { useState } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
@@ -28,7 +29,6 @@ const Following: FC = () => {
     setExporting(true);
     const fetchFollowing = async (cursor?: string) => {
       const { data } = await exportFollowing({
-        variables: { request: { ...request, cursor } },
         onCompleted: (data) => {
           setFollowing((prev) => {
             const newFollowing = data.following.items.filter((newFollowing) => {
@@ -39,7 +39,8 @@ const Following: FC = () => {
 
             return [...prev, ...newFollowing];
           });
-        }
+        },
+        variables: { request: { ...request, cursor } }
       });
 
       if (
@@ -75,7 +76,7 @@ const Following: FC = () => {
       {fetchCompleted ? (
         <Button onClick={download}>Download following</Button>
       ) : (
-        <Button onClick={handleExportClick} disabled={exporting}>
+        <Button disabled={exporting} onClick={handleExportClick}>
           {exporting ? 'Exporting...' : 'Export now'}
         </Button>
       )}

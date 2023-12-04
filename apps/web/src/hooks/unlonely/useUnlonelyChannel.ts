@@ -1,20 +1,21 @@
-import { HEY_API_URL } from '@hey/data/constants';
 import type { UnlonelyChannel } from '@hey/types/nft';
+
+import { HEY_API_URL } from '@hey/data/constants';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 interface UseUnlonelyChannelProps {
-  slug: string;
   enabled?: boolean;
+  slug: string;
 }
 
 const useUnlonelyChannel = ({
-  slug,
-  enabled
+  enabled,
+  slug
 }: UseUnlonelyChannelProps): {
   data: UnlonelyChannel;
-  loading: boolean;
   error: unknown;
+  loading: boolean;
 } => {
   const getUnlonelyChannelDetails = async () => {
     const response = await axios.get(
@@ -25,13 +26,13 @@ const useUnlonelyChannel = ({
     return response.data?.channel;
   };
 
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['getUnlonelyChannelDetails', slug],
+  const { data, error, isLoading } = useQuery({
+    enabled,
     queryFn: getUnlonelyChannelDetails,
-    enabled
+    queryKey: ['getUnlonelyChannelDetails', slug]
   });
 
-  return { data, loading: isLoading, error };
+  return { data, error, loading: isLoading };
 };
 
 export default useUnlonelyChannel;

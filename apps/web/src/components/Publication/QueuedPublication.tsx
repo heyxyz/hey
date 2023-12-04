@@ -1,6 +1,8 @@
+import type { Profile } from '@hey/lens';
+import type { OptimisticTransaction } from '@hey/types/misc';
+
 import Markup from '@components/Shared/Markup';
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
-import type { Profile } from '@hey/lens';
 import {
   LensTransactionStatusType,
   PublicationDocument,
@@ -9,7 +11,6 @@ import {
 } from '@hey/lens';
 import { useApolloClient } from '@hey/lens/apollo';
 import getMentions from '@hey/lib/getMentions';
-import type { OptimisticTransaction } from '@hey/types/misc';
 import { Card, Tooltip } from '@hey/ui';
 import { type FC } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
@@ -52,13 +53,6 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
   });
 
   useLensTransactionStatusQuery({
-    variables: {
-      request: {
-        ...(txHash && { forTxHash: txHash }),
-        ...(txId && { forTxId: txId })
-      }
-    },
-    pollInterval: 1000,
     notifyOnNetworkStatusChange: true,
     onCompleted: async ({ lensTransactionStatus }) => {
       if (lensTransactionStatus?.status === LensTransactionStatusType.Failed) {
@@ -75,13 +69,20 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
         }
         removeTxn();
       }
+    },
+    pollInterval: 1000,
+    variables: {
+      request: {
+        ...(txHash && { forTxHash: txHash }),
+        ...(txId && { forTxId: txId })
+      }
     }
   });
 
   return (
     <Card as="article" className="p-5">
       <div className="flex items-start justify-between pb-4">
-        <SmallUserProfile profile={currentProfile as Profile} linkToProfile />
+        <SmallUserProfile linkToProfile profile={currentProfile as Profile} />
         <Tooltip content="Indexing" placement="top">
           <div className="bg-brand-200 flex h-4 w-4 items-center justify-center rounded-full">
             <div className="bg-brand-500 h-2 w-2 animate-pulse rounded-full" />

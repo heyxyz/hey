@@ -34,47 +34,47 @@ const FeedType: FC<FeedTypeProps> = ({ feedType }) => {
     <div className="flex items-center justify-between">
       <div className="mt-3 flex gap-3 overflow-x-auto px-5 pb-2 sm:mt-0 sm:px-0 md:pb-0">
         <TabButton
-          name="Feed"
-          icon={<PencilSquareIcon className="h-4 w-4" />}
           active={feedType === ProfileFeedType.Feed}
-          type={ProfileFeedType.Feed.toLowerCase()}
+          icon={<PencilSquareIcon className="h-4 w-4" />}
+          name="Feed"
           onClick={() => switchTab(ProfileFeedType.Feed)}
+          type={ProfileFeedType.Feed.toLowerCase()}
         />
         <TabButton
-          name="Replies"
-          icon={<ChatBubbleLeftRightIcon className="h-4 w-4" />}
           active={feedType === ProfileFeedType.Replies}
-          type={ProfileFeedType.Replies.toLowerCase()}
+          icon={<ChatBubbleLeftRightIcon className="h-4 w-4" />}
+          name="Replies"
           onClick={() => switchTab(ProfileFeedType.Replies)}
+          type={ProfileFeedType.Replies.toLowerCase()}
         />
         <TabButton
-          name="Media"
-          icon={<FilmIcon className="h-4 w-4" />}
           active={feedType === ProfileFeedType.Media}
-          type={ProfileFeedType.Media.toLowerCase()}
+          icon={<FilmIcon className="h-4 w-4" />}
+          name="Media"
           onClick={() => switchTab(ProfileFeedType.Media)}
+          type={ProfileFeedType.Media.toLowerCase()}
         />
         <TabButton
-          name="Collected"
-          icon={<RectangleStackIcon className="h-4 w-4" />}
           active={feedType === ProfileFeedType.Collects}
-          type={ProfileFeedType.Collects.toLowerCase()}
+          icon={<RectangleStackIcon className="h-4 w-4" />}
+          name="Collected"
           onClick={() => switchTab(ProfileFeedType.Collects)}
+          type={ProfileFeedType.Collects.toLowerCase()}
         />
         <TabButton
-          name="Gallery"
-          icon={<RectangleGroupIcon className="h-4 w-4" />}
           active={feedType === ProfileFeedType.Gallery}
-          type={ProfileFeedType.Gallery.toLowerCase()}
+          icon={<RectangleGroupIcon className="h-4 w-4" />}
+          name="Gallery"
           onClick={() => switchTab(ProfileFeedType.Gallery)}
+          type={ProfileFeedType.Gallery.toLowerCase()}
         />
         {IS_MAINNET ? (
           <TabButton
-            name="Stats"
-            icon={<ChartBarIcon className="h-4 w-4" />}
             active={feedType === ProfileFeedType.Stats}
-            type={ProfileFeedType.Stats.toLowerCase()}
+            icon={<ChartBarIcon className="h-4 w-4" />}
+            name="Stats"
             onClick={() => switchTab(ProfileFeedType.Stats)}
+            type={ProfileFeedType.Stats.toLowerCase()}
           />
         ) : null}
       </div>

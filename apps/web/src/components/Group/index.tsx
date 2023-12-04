@@ -1,12 +1,13 @@
+import type { Group } from '@hey/types/hey';
+import type { NextPage } from 'next';
+
 import MetaTags from '@components/Common/MetaTags';
 import { APP_NAME, HEY_API_URL } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import type { Group } from '@hey/types/hey';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
@@ -18,8 +19,8 @@ import GroupPageShimmer from './Shimmer';
 
 const ViewGroup: NextPage = () => {
   const {
-    query: { slug },
-    isReady
+    isReady,
+    query: { slug }
   } = useRouter();
 
   useEffectOnce(() => {
@@ -38,12 +39,12 @@ const ViewGroup: NextPage = () => {
 
   const {
     data: group,
-    isLoading,
-    error
+    error,
+    isLoading
   } = useQuery({
-    queryKey: ['fetchGroup', slug],
+    enabled: isReady,
     queryFn: fetchGroup,
-    enabled: isReady
+    queryKey: ['fetchGroup', slug]
   });
 
   if (!isReady || isLoading) {

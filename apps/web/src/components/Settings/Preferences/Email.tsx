@@ -23,10 +23,10 @@ const Email: FC = () => {
   const [updating, setUpdating] = useState(false);
 
   const form = useZodForm({
-    schema: updateEmailSchema,
     defaultValues: {
       email: preferences.email || ''
-    }
+    },
+    schema: updateEmailSchema
   });
 
   const saveSettings = (email: string) => {
@@ -38,16 +38,16 @@ const Email: FC = () => {
         { headers: getAuthWorkerHeaders() }
       ),
       {
+        error: () => {
+          setUpdating(false);
+          return 'Error updating email preference';
+        },
         loading: 'Updating email preference...',
         success: () => {
           getPreferences(currentProfile?.id, getAuthWorkerHeaders());
           setUpdating(false);
           Leafwatch.track(SETTINGS.PREFERENCES.UPDATE_EMAIL);
           return 'Email preference updated';
-        },
-        error: () => {
-          setUpdating(false);
-          return 'Error updating email preference';
         }
       }
     );
@@ -64,14 +64,14 @@ const Email: FC = () => {
       <div className="mt-4">
         <Input
           label="Email"
-          type="email"
           placeholder="Enter your email"
+          type="email"
           {...form.register('email')}
         />
         <div className="mt-4">
           <ToggleWithHelper
-            heading="News about Hey product and feature updates"
             description="You will receive updates on new features and promotions from Hey to your email address"
+            heading="News about Hey product and feature updates"
             on={preferences.marketingOptIn}
             setOn={() =>
               setPreferences({
@@ -81,7 +81,7 @@ const Email: FC = () => {
             }
           />
         </div>
-        <Button className="mt-5" type="submit" disabled={updating}>
+        <Button className="mt-5" disabled={updating} type="submit">
           Save Changes
         </Button>
       </div>

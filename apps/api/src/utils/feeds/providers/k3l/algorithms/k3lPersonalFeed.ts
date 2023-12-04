@@ -10,10 +10,10 @@ const k3lPersonalFeed = async (
   try {
     const response = await fetch(
       urlcat('https://lens-api.k3l.io/feed/personal/:profile/:strategy', {
-        profile,
-        strategy,
         limit,
-        offset
+        offset,
+        profile,
+        strategy
       }),
       { headers: { 'User-Agent': 'Hey.xyz' } }
     );

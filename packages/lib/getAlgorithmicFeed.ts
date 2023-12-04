@@ -1,5 +1,6 @@
-import { AlgorithmProvider, HomeFeedType } from '@hey/data/enums';
 import type { Profile } from '@hey/lens';
+
+import { AlgorithmProvider, HomeFeedType } from '@hey/data/enums';
 
 import getPublicationIds from './getPublicationIds';
 
@@ -11,9 +12,9 @@ import getPublicationIds from './getPublicationIds';
  */
 const getAlgorithmicFeed = async (
   feedType: HomeFeedType,
-  profile: Profile | null,
-  limit: number | null,
-  offset: number | null
+  profile: null | Profile,
+  limit: null | number,
+  offset: null | number
 ) => {
   switch (feedType) {
     case HomeFeedType.K3L_RECOMMENDED:

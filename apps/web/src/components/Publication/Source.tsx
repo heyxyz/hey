@@ -1,6 +1,7 @@
+import type { AnyPublication } from '@hey/lens';
+
 import { apps } from '@hey/data/apps';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import type { AnyPublication } from '@hey/lens';
 import getAppName from '@hey/lib/getAppName';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Tooltip } from '@hey/ui';
@@ -26,9 +27,9 @@ const Source: FC<SourceProps> = ({ publication }) => {
   return (
     <Tooltip content={appName} placement="top">
       <img
+        alt={appName}
         className="w-4"
         src={`${STATIC_IMAGES_URL}/source/${publishedOn?.id}.jpeg`}
-        alt={appName}
       />
     </Tooltip>
   );

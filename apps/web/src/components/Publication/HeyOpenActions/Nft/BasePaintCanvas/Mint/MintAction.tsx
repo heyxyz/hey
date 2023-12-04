@@ -1,3 +1,6 @@
+import type { AnyPublication } from '@hey/lens';
+import type { BasePaintCanvas } from '@hey/types/nft';
+
 import WalletSelector from '@components/Shared/Login/WalletSelector';
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import {
@@ -8,8 +11,6 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { BasePaint } from '@hey/abis';
 import { BASEPAINT_CONTRACT } from '@hey/data/contracts';
 import { PUBLICATION } from '@hey/data/tracking';
-import type { AnyPublication } from '@hey/lens';
-import type { BasePaintCanvas } from '@hey/types/nft';
 import { Button, Spinner } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
@@ -51,20 +52,20 @@ const MintAction: FC<MintActionProps> = ({
 
   const {
     config,
-    isError: isPrepareError,
-    error: prepareError
+    error: prepareError,
+    isError: isPrepareError
   } = usePrepareContractWrite({
-    chainId: base.id,
-    address: nftAddress,
-    functionName: 'mint',
     abi: BasePaint,
+    address: nftAddress,
     args: [day, quantity],
+    chainId: base.id,
+    functionName: 'mint',
     value
   });
   const {
-    write,
     data,
-    isLoading: isContractWriteLoading
+    isLoading: isContractWriteLoading,
+    write
   } = useContractWrite({
     ...config
   });
@@ -80,9 +81,9 @@ const MintAction: FC<MintActionProps> = ({
   useUpdateEffect(() => {
     if (txnData?.transactionHash) {
       Leafwatch.track(PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.MINT, {
-        publication_id: publication.id,
         nft: nftAddress,
         price: openEditionPrice * quantity,
+        publication_id: publication.id,
         quantity
       });
     }
@@ -102,16 +103,16 @@ const MintAction: FC<MintActionProps> = ({
       ) : chain !== base.id ? (
         <SwitchNetwork
           className="mt-5 w-full justify-center"
-          toChainId={base.id}
           title={`Switch to ${base.name}`}
+          toChainId={base.id}
         />
       ) : isPrepareError ? (
         noBalanceError ? (
           <Link
             className="w-full"
             href="https://app.uniswap.org"
-            target="_blank"
             rel="noopener noreferrer"
+            target="_blank"
           >
             <Button
               className="mt-5 w-full justify-center"
@@ -126,7 +127,6 @@ const MintAction: FC<MintActionProps> = ({
         <Button
           className="mt-5 w-full justify-center"
           disabled={!write}
-          onClick={() => write?.()}
           icon={
             isContractWriteLoading ? (
               <Spinner size="xs" />
@@ -134,6 +134,7 @@ const MintAction: FC<MintActionProps> = ({
               <CursorArrowRaysIcon className="h-5 w-5" />
             )
           }
+          onClick={() => write?.()}
         >
           Mint
         </Button>

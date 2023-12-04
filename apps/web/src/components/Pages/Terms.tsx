@@ -1,9 +1,10 @@
+import type { NextPage } from 'next';
+
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
-import type { NextPage } from 'next';
 import Link from 'next/link';
 import { useEffectOnce } from 'usehooks-ts';
 

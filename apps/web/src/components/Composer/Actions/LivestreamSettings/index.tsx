@@ -16,15 +16,15 @@ const LivestreamSettings: FC = () => {
   );
 
   return (
-    <Tooltip placement="top" content="Go Live">
+    <Tooltip content="Go Live" placement="top">
       <motion.button
-        whileTap={{ scale: 0.9 }}
-        type="button"
+        aria-label="Go Live"
         onClick={() => {
           resetLiveVideoConfig();
           setShowLiveVideoEditor(!showLiveVideoEditor);
         }}
-        aria-label="Go Live"
+        type="button"
+        whileTap={{ scale: 0.9 }}
       >
         <VideoCameraIcon className="text-brand-500 h-5 w-5" />
       </motion.button>

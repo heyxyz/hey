@@ -1,6 +1,7 @@
+import type { Profile } from '@hey/lens';
+
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import type { Profile } from '@hey/lens';
 import { Tooltip } from '@hey/ui';
 import { type FC } from 'react';
 
@@ -32,11 +33,11 @@ const Sybil: FC<SybilProps> = ({ profile }) => {
       placement="top"
     >
       <img
+        alt="Sybil Badge"
         className="drop-shadow-xl"
         height={75}
-        width={75}
         src={`${STATIC_IMAGES_URL}/badges/sybil.png`}
-        alt="Sybil Badge"
+        width={75}
       />
     </Tooltip>
   );

@@ -1,10 +1,11 @@
+import type { FC } from 'react';
+
 import Markup from '@components/Shared/Markup';
 import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
 import { QuoteNotification } from '@hey/lens';
 import getPublicationData from '@hey/lib/getPublicationData';
 import pushToImpressions from '@lib/pushToImpressions';
 import Link from 'next/link';
-import type { FC } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
@@ -37,13 +38,13 @@ const QuoteNotification: FC<QuoteNotificationProps> = ({ notification }) => {
       <div className="ml-9">
         <AggregatedNotificationTitle
           firstProfile={firstProfile}
+          linkToType={`/posts/${notification?.quote?.id}`}
           text={text}
           type={type}
-          linkToType={`/posts/${notification?.quote?.id}`}
         />
         <Link
-          href={`/posts/${notification?.quote?.id}`}
           className="ld-text-gray-500 linkify mt-2 line-clamp-2"
+          href={`/posts/${notification?.quote?.id}`}
         >
           <Markup mentions={notification.quote.profilesMentioned}>
             {filteredContent}

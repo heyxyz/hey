@@ -11,10 +11,10 @@ export const useTimelineFilterStore = create(
   persist<TimelineFilterState>(
     (set) => ({
       feedEventFilters: {
-        posts: true,
         collects: true,
+        likes: false,
         mirrors: true,
-        likes: false
+        posts: true
       },
       setFeedEventFilters: (feedEventFilters) =>
         set(() => ({ feedEventFilters }))

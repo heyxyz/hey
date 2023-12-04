@@ -1,7 +1,8 @@
+import type { AnyPublication, Profile } from '@hey/lens';
+
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { FollowUnfollowSource } from '@hey/data/tracking';
-import type { AnyPublication, Profile } from '@hey/lens';
 import { useProfilesQuery } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card, ErrorMessage } from '@hey/ui';
@@ -21,9 +22,9 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
     (profile) => profile.snapshotHandleMentioned.linkedTo?.nftTokenId
   );
 
-  const { data, loading, error } = useProfilesQuery({
-    variables: { request: { where: { profileIds } } },
-    skip: profileIds.length <= 0
+  const { data, error, loading } = useProfilesQuery({
+    skip: profileIds.length <= 0,
+    variables: { request: { where: { profileIds } } }
   });
 
   if (profileIds.length <= 0) {
@@ -48,18 +49,18 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
 
   return (
     <Card as="aside" className="space-y-4 p-5">
-      <ErrorMessage title="Failed to load relevant people" error={error} />
+      <ErrorMessage error={error} title="Failed to load relevant people" />
       {data?.profiles?.items?.map((profile, index) => (
-        <div key={profile?.id} className="truncate">
+        <div className="truncate" key={profile?.id}>
           <UserProfile
-            profile={profile as Profile}
-            isFollowing={profile.operations.isFollowedByMe.value}
             followUnfollowPosition={index + 1}
             followUnfollowSource={
               FollowUnfollowSource.PUBLICATION_RELEVANT_PROFILES
             }
-            showUserPreview={false}
+            isFollowing={profile.operations.isFollowedByMe.value}
+            profile={profile as Profile}
             showFollow
+            showUserPreview={false}
           />
         </div>
       ))}

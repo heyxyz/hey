@@ -8,13 +8,13 @@ import cn from '@hey/ui/cn';
 import { type FC } from 'react';
 
 interface GetOpenActionModuleIconProps {
-  module?: OpenActionModule;
   className?: string;
+  module?: OpenActionModule;
 }
 
 const GetOpenActionModuleIcon: FC<GetOpenActionModuleIconProps> = ({
-  module,
-  className = ''
+  className = '',
+  module
 }) => {
   switch (module?.type) {
     case OpenActionModuleType.SimpleCollectOpenActionModule:

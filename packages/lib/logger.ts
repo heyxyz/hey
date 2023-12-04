@@ -3,14 +3,14 @@ class Logger {
     return `\x1b[${colorCode}m${level}\x1b[0m: ${message}`;
   }
 
-  info(message: string) {
-    const formattedMessage = this.formatMessage('INFO', message, '1;34');
-    console.log(formattedMessage);
-  }
-
   error(message: string) {
     const formattedMessage = this.formatMessage('ERROR', message, '1;31');
     console.error(formattedMessage);
+  }
+
+  info(message: string) {
+    const formattedMessage = this.formatMessage('INFO', message, '1;34');
+    console.log(formattedMessage);
   }
 }
 

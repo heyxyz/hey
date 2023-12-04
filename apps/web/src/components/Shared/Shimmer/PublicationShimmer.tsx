@@ -5,13 +5,13 @@ import SmallUserProfileShimmer from './SmallUserProfileShimmer';
 import UserProfileShimmer from './UserProfileShimmer';
 
 interface PublicationShimmerProps {
-  showActions?: boolean;
   quoted?: boolean;
+  showActions?: boolean;
 }
 
 const PublicationShimmer: FC<PublicationShimmerProps> = ({
-  showActions = true,
-  quoted = false
+  quoted = false,
+  showActions = true
 }) => {
   return (
     <div className="space-y-4 p-5">

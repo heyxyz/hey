@@ -1,9 +1,10 @@
+import type { NextPage } from 'next';
+
 import MetaTags from '@components/Common/MetaTags';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import useOpenseaNft from 'src/hooks/opensea/useOpenseaNft';
 import Custom500 from 'src/pages/500';
@@ -14,18 +15,18 @@ import NftPageShimmer from './Shimmer';
 
 const ViewNft: NextPage = () => {
   const {
-    query: { chain, address, token },
-    isReady
+    isReady,
+    query: { address, chain, token }
   } = useRouter();
   const {
     data: nft,
-    loading,
-    error
+    error,
+    loading
   } = useOpenseaNft({
-    chain: parseInt(chain as string),
     address: address as string,
-    token: token as string,
-    enabled: isReady
+    chain: parseInt(chain as string),
+    enabled: isReady,
+    token: token as string
   });
 
   useEffectOnce(() => {
@@ -46,12 +47,12 @@ const ViewNft: NextPage = () => {
       <GridItemEight className="space-y-5">
         <Card>
           <img
-            width={500}
-            height={500}
-            className="h-full w-full rounded-xl"
-            src={nft?.image_url.replace('w=500', 'w=1500')}
             alt="nft"
+            className="h-full w-full rounded-xl"
             draggable={false}
+            height={500}
+            src={nft?.image_url.replace('w=500', 'w=1500')}
+            width={500}
           />
         </Card>
       </GridItemEight>

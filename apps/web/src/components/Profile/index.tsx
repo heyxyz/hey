@@ -1,3 +1,6 @@
+import type { Profile } from '@hey/lens';
+import type { NextPage } from 'next';
+
 import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
 import {
@@ -7,12 +10,10 @@ import {
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import type { Profile } from '@hey/lens';
 import { FollowModuleType, useProfileQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { GridItemEight, GridItemFour, GridLayout, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { ProfileFeedType } from 'src/enums';
@@ -32,8 +33,8 @@ import ProfilePageShimmer from './Shimmer';
 
 const ViewProfile: NextPage = () => {
   const {
-    query: { handle, id, type, followIntent },
-    isReady
+    isReady,
+    query: { followIntent, handle, id, type }
   } = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
@@ -56,15 +57,15 @@ const ViewProfile: NextPage = () => {
       : ProfileFeedType.Feed
     : ProfileFeedType.Feed;
 
-  const { data, loading, error } = useProfileQuery({
+  const { data, error, loading } = useProfileQuery({
+    skip: id ? !id : !handle,
     variables: {
       request: {
         ...(id
           ? { forProfileId: id }
           : { forHandle: `${HANDLE_PREFIX}${handle}` })
       }
-    },
-    skip: id ? !id : !handle
+    }
   });
 
   const profile = data?.profile as Profile;
@@ -113,7 +114,7 @@ const ViewProfile: NextPage = () => {
 
   return (
     <>
-      <Modal show={showFollowModal} onClose={() => setShowFollowModal(false)}>
+      <Modal onClose={() => setShowFollowModal(false)} show={showFollowModal}>
         <FollowDialog
           profile={profile as Profile}
           setFollowing={setFollowing}
@@ -134,8 +135,8 @@ const ViewProfile: NextPage = () => {
       <GridLayout className="pt-6">
         <GridItemFour>
           <Details
-            profile={profile as Profile}
             following={Boolean(following)}
+            profile={profile as Profile}
             setFollowing={setFollowing}
           />
         </GridItemFour>

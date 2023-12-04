@@ -1,43 +1,44 @@
 import type { AnyPublication, Profile } from '@hey/lens';
+
 import { create } from 'zustand';
 
 interface GlobalAlertState {
-  showPublicationDeleteAlert: boolean;
+  blockingorUnblockingProfile: null | Profile;
   deletingPublication: AnyPublication | null;
-  setShowPublicationDeleteAlert: (
-    showPublicationDeleteAlert: boolean,
-    deletingPublication: AnyPublication | null
-  ) => void;
-  showModActionAlert: boolean;
   modingPublication: AnyPublication | null;
+  setShowBlockOrUnblockAlert: (
+    showBlockOrUnblockAlert: boolean,
+    blockingorUnblockingProfile: null | Profile
+  ) => void;
   setShowModActionAlert: (
     showModActionAlert: boolean,
     modingPublication: AnyPublication | null
   ) => void;
-  showBlockOrUnblockAlert: boolean;
-  blockingorUnblockingProfile: Profile | null;
-  setShowBlockOrUnblockAlert: (
-    showBlockOrUnblockAlert: boolean,
-    blockingorUnblockingProfile: Profile | null
+  setShowPublicationDeleteAlert: (
+    showPublicationDeleteAlert: boolean,
+    deletingPublication: AnyPublication | null
   ) => void;
+  showBlockOrUnblockAlert: boolean;
+  showModActionAlert: boolean;
+  showPublicationDeleteAlert: boolean;
 }
 
 export const useGlobalAlertStateStore = create<GlobalAlertState>((set) => ({
-  showPublicationDeleteAlert: false,
+  blockingorUnblockingProfile: null,
   deletingPublication: null,
   forceDeletePublication: false,
-  setShowPublicationDeleteAlert: (
-    showPublicationDeleteAlert,
-    deletingPublication
-  ) => set(() => ({ showPublicationDeleteAlert, deletingPublication })),
-  showModActionAlert: false,
   modingPublication: null,
-  setShowModActionAlert: (showModActionAlert, modingPublication) =>
-    set(() => ({ showModActionAlert, modingPublication })),
-  showBlockOrUnblockAlert: false,
-  blockingorUnblockingProfile: null,
   setShowBlockOrUnblockAlert: (
     showBlockOrUnblockAlert,
     blockingorUnblockingProfile
-  ) => set(() => ({ showBlockOrUnblockAlert, blockingorUnblockingProfile }))
+  ) => set(() => ({ blockingorUnblockingProfile, showBlockOrUnblockAlert })),
+  setShowModActionAlert: (showModActionAlert, modingPublication) =>
+    set(() => ({ modingPublication, showModActionAlert })),
+  setShowPublicationDeleteAlert: (
+    showPublicationDeleteAlert,
+    deletingPublication
+  ) => set(() => ({ deletingPublication, showPublicationDeleteAlert })),
+  showBlockOrUnblockAlert: false,
+  showModActionAlert: false,
+  showPublicationDeleteAlert: false
 }));

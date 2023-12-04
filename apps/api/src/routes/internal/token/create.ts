@@ -1,27 +1,28 @@
+import type { Handler } from 'express';
+
 import { Regex } from '@hey/data/regex';
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import validateIsStaff from '@utils/middlewares/validateIsStaff';
 import prisma from '@utils/prisma';
 import { invalidBody, noBody, notAllowed } from '@utils/responses';
-import type { Handler } from 'express';
 import { number, object, string } from 'zod';
 
 type ExtensionRequest = {
+  contractAddress: string;
+  decimals: number;
   name: string;
   symbol: string;
-  decimals: number;
-  contractAddress: string;
 };
 
 const validationSchema = object({
-  name: string().min(1).max(100),
-  symbol: string().min(1).max(100),
-  decimals: number().min(0).max(18),
   contractAddress: string()
     .min(1)
     .max(42)
-    .regex(Regex.ethereumAddress, { message: 'Invalid Ethereum address' })
+    .regex(Regex.ethereumAddress, { message: 'Invalid Ethereum address' }),
+  decimals: number().min(0).max(18),
+  name: string().min(1).max(100),
+  symbol: string().min(1).max(100)
 });
 
 export const post: Handler = async (req, res) => {
@@ -41,11 +42,11 @@ export const post: Handler = async (req, res) => {
     return notAllowed(res);
   }
 
-  const { name, symbol, decimals, contractAddress } = body as ExtensionRequest;
+  const { contractAddress, decimals, name, symbol } = body as ExtensionRequest;
 
   try {
     const token = await prisma.allowedToken.create({
-      data: { name, symbol, decimals, contractAddress }
+      data: { contractAddress, decimals, name, symbol }
     });
     logger.info(`Created a token ${token.id}`);
 

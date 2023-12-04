@@ -3,15 +3,15 @@ import type { FC, ReactNode } from 'react';
 import cn from '../cn';
 
 interface WarningMessageProps {
-  title?: string;
-  message?: ReactNode;
   className?: string;
+  message?: ReactNode;
+  title?: string;
 }
 
 export const WarningMessage: FC<WarningMessageProps> = ({
-  title,
+  className = '',
   message,
-  className = ''
+  title
 }) => {
   if (!message) {
     return null;

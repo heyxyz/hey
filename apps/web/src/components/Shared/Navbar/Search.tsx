@@ -1,5 +1,7 @@
-import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import type { Profile, ProfileSearchRequest } from '@hey/lens';
+import type { ChangeEvent, FC } from 'react';
+
+import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import {
   CustomFiltersType,
   LimitType,
@@ -9,7 +11,6 @@ import { Card, Input, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
-import type { ChangeEvent, FC } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useDebounce, useOnClickOutside } from 'usehooks-ts';
 
@@ -26,7 +27,7 @@ const Search: FC<SearchProps> = ({
   onProfileSelected,
   placeholder = 'Search…'
 }) => {
-  const { push, pathname, query } = useRouter();
+  const { pathname, push, query } = useRouter();
   const [searchText, setSearchText] = useState('');
   const dropdownRef = useRef(null);
   const debouncedSearchText = useDebounce<string>(searchText, 500);
@@ -55,9 +56,9 @@ const Search: FC<SearchProps> = ({
     if (pathname !== '/search' && !hideDropdown && debouncedSearchText) {
       // Variables
       const request: ProfileSearchRequest = {
-        where: { customFilters: [CustomFiltersType.Gardeners] },
+        limit: LimitType.Ten,
         query: debouncedSearchText,
-        limit: LimitType.Ten
+        where: { customFilters: [CustomFiltersType.Gardeners] }
       };
 
       searchUsers({ variables: { request } });
@@ -76,10 +77,7 @@ const Search: FC<SearchProps> = ({
     <div className="w-full">
       <form onSubmit={handleKeyDown}>
         <Input
-          type="text"
           className="px-3 py-2 text-sm"
-          placeholder={placeholder}
-          value={searchText}
           iconLeft={<MagnifyingGlassIcon />}
           iconRight={
             <XMarkIcon
@@ -91,6 +89,9 @@ const Search: FC<SearchProps> = ({
             />
           }
           onChange={handleSearch}
+          placeholder={placeholder}
+          type="text"
+          value={searchText}
         />
       </form>
       {pathname !== '/search' &&
@@ -103,18 +104,18 @@ const Search: FC<SearchProps> = ({
           <Card className="z-[2] max-h-[80vh] overflow-y-auto py-2">
             {searchUsersLoading ? (
               <div className="space-y-2 px-4 py-2 text-center text-sm font-bold">
-                <Spinner size="sm" className="mx-auto" />
+                <Spinner className="mx-auto" size="sm" />
                 <div>Searching users</div>
               </div>
             ) : (
               <>
                 {profiles.map((profile) => (
                   <motion.div
-                    initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    key={profile.id}
                     className="cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    exit={{ opacity: 0 }}
+                    initial={{ opacity: 0 }}
+                    key={profile.id}
                     onClick={() => {
                       if (onProfileSelected) {
                         onProfileSelected(profile);

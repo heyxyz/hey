@@ -7,8 +7,8 @@ import Managed from './Managed';
 import Managers from './Managers';
 
 enum Type {
-  MANAGERS = 'MANAGERS',
-  MANAGED = 'MANAGED'
+  MANAGED = 'MANAGED',
+  MANAGERS = 'MANAGERS'
 }
 
 const ProfileManager: FC = () => {
@@ -20,14 +20,14 @@ const ProfileManager: FC = () => {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <TabButton
-            name="Managers"
             active={type === Type.MANAGERS}
+            name="Managers"
             onClick={() => setType(Type.MANAGERS)}
             showOnSm
           />
           <TabButton
-            name="Managed"
             active={type === Type.MANAGED}
+            name="Managed"
             onClick={() => setType(Type.MANAGED)}
             showOnSm
           />
@@ -41,9 +41,9 @@ const ProfileManager: FC = () => {
               Add manager
             </Button>
             <Modal
+              onClose={() => setShowAddManagerModal(false)}
               show={showAddManagerModal}
               title="Add Profile Manager"
-              onClose={() => setShowAddManagerModal(false)}
             >
               <AddProfileManager
                 setShowAddManagerModal={setShowAddManagerModal}

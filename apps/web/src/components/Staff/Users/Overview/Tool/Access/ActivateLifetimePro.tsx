@@ -1,9 +1,10 @@
-import { HEY_API_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
+import type { FC } from 'react';
+
+import { HEY_API_URL } from '@hey/data/constants';
 import { Toggle } from '@hey/ui';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import axios from 'axios';
-import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useUpdateEffect } from 'usehooks-ts';
@@ -11,13 +12,13 @@ import { useUpdateEffect } from 'usehooks-ts';
 import ToggleWrapper from '../ToggleWrapper';
 
 interface ActivateLifetimeProProps {
-  profile: Profile;
   isPro: boolean;
+  profile: Profile;
 }
 
 const ActivateLifetimePro: FC<ActivateLifetimeProProps> = ({
-  profile,
-  isPro: enabled
+  isPro: enabled,
+  profile
 }) => {
   const [loading, setLoading] = useState(false);
   const [isPro, setIsPro] = useState(false);
@@ -31,19 +32,19 @@ const ActivateLifetimePro: FC<ActivateLifetimeProProps> = ({
     toast.promise(
       axios.post(
         `${HEY_API_URL}/internal/pro/activatePro`,
-        { id: profile.id, enabled: !isPro, trial: false },
+        { enabled: !isPro, id: profile.id, trial: false },
         { headers: getAuthWorkerHeaders() }
       ),
       {
+        error: () => {
+          setLoading(false);
+          return 'Error updating pro status';
+        },
         loading: 'Updating pro status...',
         success: () => {
           setIsPro(!isPro);
           setLoading(false);
           return 'Pro status updated';
-        },
-        error: () => {
-          setLoading(false);
-          return 'Error updating pro status';
         }
       }
     );
@@ -51,7 +52,7 @@ const ActivateLifetimePro: FC<ActivateLifetimeProProps> = ({
 
   return (
     <ToggleWrapper title="Activate Lifetime Pro">
-      <Toggle setOn={updatePro} on={isPro} disabled={loading} />
+      <Toggle disabled={loading} on={isPro} setOn={updatePro} />
     </ToggleWrapper>
   );
 };

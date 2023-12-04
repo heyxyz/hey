@@ -1,27 +1,27 @@
-import 'rc-slider/assets/index.css';
+import type { Area, Point, Size } from '@hey/image-cropper/types';
+import type { Dispatch, FC } from 'react';
 
 import {
   MagnifyingGlassMinusIcon,
   MagnifyingGlassPlusIcon
 } from '@heroicons/react/24/outline';
 import ImageCropper from '@hey/image-cropper/ImageCropper';
-import type { Area, Point, Size } from '@hey/image-cropper/types';
 import Slider from 'rc-slider';
-import type { Dispatch, FC } from 'react';
+import 'rc-slider/assets/index.css';
 import { useRef, useState } from 'react';
 import useResizeObserver from 'use-resize-observer';
 import { useUpdateEffect } from 'usehooks-ts';
 
 interface ImageCropperControllerProps {
-  targetSize: Size;
   imageSrc: string;
   setCroppedAreaPixels: Dispatch<Area>;
+  targetSize: Size;
 }
 
 const ImageCropperController: FC<ImageCropperControllerProps> = ({
-  targetSize,
   imageSrc,
-  setCroppedAreaPixels
+  setCroppedAreaPixels,
+  targetSize
 }) => {
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -44,26 +44,26 @@ const ImageCropperController: FC<ImageCropperControllerProps> = ({
   useUpdateEffect(() => {
     const newWidth = divWidth - borderSize * 2;
     const newHeight = newWidth / aspectRatio;
-    setCropSize({ width: newWidth, height: newHeight });
+    setCropSize({ height: newHeight, width: newWidth });
   }, [divWidth, borderSize, aspectRatio]);
 
   return (
     <div ref={divref}>
       <ImageCropper
-        ref={cropper}
-        image={imageSrc}
-        cropSize={cropSize}
-        targetSize={targetSize}
         borderSize={borderSize}
         cropPositionPercent={crop}
-        zoom={zoom}
-        zoomSpeed={1.2}
+        cropSize={cropSize}
+        image={imageSrc}
         onCropChange={setCrop}
         onCropComplete={setCroppedAreaPixels}
         onZoomChange={(zoomValue, maxZoomValue) => {
           setZoom(zoomValue);
           setMaxZoom(maxZoomValue);
         }}
+        ref={cropper}
+        targetSize={targetSize}
+        zoom={zoom}
+        zoomSpeed={1.2}
       />
       <div
         className="flex py-2"
@@ -72,10 +72,10 @@ const ImageCropperController: FC<ImageCropperControllerProps> = ({
         <MagnifyingGlassMinusIcon className="m-1 h-6 w-6" />
         <Slider
           className="m-2"
-          min={0}
           max={Math.log(maxZoom)}
-          step={0.001}
+          min={0}
           onChange={onSliderChange}
+          step={0.001}
           value={Math.log(zoom)}
         />
         <MagnifyingGlassPlusIcon className="m-1 h-6 w-6" />

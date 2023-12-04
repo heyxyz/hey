@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
+import dayjsTwitter from 'dayjs-twitter';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import utc from 'dayjs/plugin/utc';
-import dayjsTwitter from 'dayjs-twitter';
 
 dayjs.extend(relativeTime);
 dayjs.extend(utc);

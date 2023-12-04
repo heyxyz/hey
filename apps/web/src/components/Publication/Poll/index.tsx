@@ -14,14 +14,14 @@ interface SnapshotProps {
 }
 
 const Poll: FC<SnapshotProps> = ({ id }) => {
-  const fetchPoll = async (): Promise<Poll | null> => {
+  const fetchPoll = async (): Promise<null | Poll> => {
     try {
       const response = await axios.get(`${HEY_API_URL}/poll/get`, {
-        params: { id },
         headers: {
           ...getAuthWorkerHeaders(),
           'X-Skip-Cache': true
-        }
+        },
+        params: { id }
       });
       const { data } = response;
 
@@ -31,9 +31,9 @@ const Poll: FC<SnapshotProps> = ({ id }) => {
     }
   };
 
-  const { data, isLoading, error, refetch } = useQuery({
-    queryKey: ['fetchPoll', id],
-    queryFn: fetchPoll
+  const { data, error, isLoading, refetch } = useQuery({
+    queryFn: fetchPoll,
+    queryKey: ['fetchPoll', id]
   });
 
   if (isLoading) {

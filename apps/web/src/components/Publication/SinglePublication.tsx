@@ -1,6 +1,7 @@
+import type { AnyPublication, FeedItem } from '@hey/lens';
+
 import ActionType from '@components/Home/Timeline/EventType';
 import PublicationWrapper from '@components/Shared/PublicationWrapper';
-import type { AnyPublication, FeedItem } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
 import pushToImpressions from '@lib/pushToImpressions';
@@ -16,27 +17,27 @@ import PublicationHeader from './PublicationHeader';
 import PublicationType from './Type';
 
 interface SinglePublicationProps {
-  publication: AnyPublication;
   feedItem?: FeedItem;
-  showType?: boolean;
-  showActions?: boolean;
-  showModActions?: boolean;
-  showThread?: boolean;
-  showMore?: boolean;
   isFirst?: boolean;
   isLast?: boolean;
+  publication: AnyPublication;
+  showActions?: boolean;
+  showModActions?: boolean;
+  showMore?: boolean;
+  showThread?: boolean;
+  showType?: boolean;
 }
 
 const SinglePublication: FC<SinglePublicationProps> = ({
-  publication,
   feedItem,
-  showType = true,
+  isFirst = false,
+  isLast = false,
+  publication,
   showActions = true,
   showModActions = false,
-  showThread = true,
   showMore = true,
-  isFirst = false,
-  isLast = false
+  showThread = true,
+  showType = true
 }) => {
   const firstComment = feedItem?.comments?.[0];
   const rootPublication = feedItem
@@ -73,11 +74,11 @@ const SinglePublication: FC<SinglePublicationProps> = ({
       ) : (
         <PublicationType
           publication={publication}
-          showType={showType}
           showThread={showThread}
+          showType={showType}
         />
       )}
-      <PublicationHeader publication={rootPublication} feedItem={feedItem} />
+      <PublicationHeader feedItem={feedItem} publication={rootPublication} />
       <div className="ml-[53px]">
         {publication.isHidden ? (
           <HiddenPublication type={publication.__typename} />
@@ -95,8 +96,8 @@ const SinglePublication: FC<SinglePublicationProps> = ({
             </div>
             {showModActions ? (
               <ModAction
-                publication={rootPublication}
                 className="mt-3 max-w-md"
+                publication={rootPublication}
               />
             ) : null}
           </>

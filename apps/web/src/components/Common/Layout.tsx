@@ -1,12 +1,13 @@
+import type { Profile } from '@hey/lens';
+
 import GlobalAlerts from '@components/Shared/GlobalAlerts';
 import GlobalBanners from '@components/Shared/GlobalBanners';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
-import type { Profile } from '@hey/lens';
 import { useCurrentProfileQuery } from '@hey/lens';
 import getCurrentSession from '@lib/getCurrentSession';
 import getToastOptions from '@lib/getToastOptions';
-import Head from 'next/head';
 import { useTheme } from 'next-themes';
+import Head from 'next/head';
 import { type FC, type ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
@@ -56,12 +57,12 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   };
 
   const { loading } = useCurrentProfileQuery({
-    variables: { request: { forProfileId: sessionProfileId } },
-    skip: !sessionProfileId || isAddress(sessionProfileId),
     onCompleted: ({ profile, userSigNonces }) => {
       setCurrentProfile(profile as Profile);
       setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce);
-    }
+    },
+    skip: !sessionProfileId || isAddress(sessionProfileId),
+    variables: { request: { forProfileId: sessionProfileId } }
   });
 
   const validateAuthentication = () => {
@@ -85,13 +86,13 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     <>
       <Head>
         <meta
-          name="theme-color"
           content={resolvedTheme === 'dark' ? '#1b1b1d' : '#ffffff'}
+          name="theme-color"
         />
       </Head>
       <Toaster
-        position="bottom-right"
         containerStyle={{ wordBreak: 'break-word' }}
+        position="bottom-right"
         toastOptions={getToastOptions(resolvedTheme)}
       />
       <GlobalModals />

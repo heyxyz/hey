@@ -1,3 +1,5 @@
+import type { Profile } from '@hey/lens';
+
 import {
   ArrowsRightLeftIcon,
   ChatBubbleLeftRightIcon,
@@ -10,7 +12,6 @@ import {
 import { CalendarIcon } from '@heroicons/react/24/solid';
 import { HEY_API_URL } from '@hey/data/constants';
 import { PROFILE, PUBLICATION } from '@hey/data/tracking';
-import type { Profile } from '@hey/lens';
 import { Card, Spinner } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -24,7 +25,7 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
   const fetchStreaksList = async () => {
     try {
       const response = await axios.get(`${HEY_API_URL}/stats/streaksList`, {
-        params: { id: profile.id, date: 'latest' }
+        params: { date: 'latest', id: profile.id }
       });
 
       return response.data.data;
@@ -34,8 +35,8 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
   };
 
   const { data, isLoading } = useQuery({
-    queryKey: ['fetchStreaksList', profile.id],
-    queryFn: fetchStreaksList
+    queryFn: fetchStreaksList,
+    queryKey: ['fetchStreaksList', profile.id]
   });
 
   const EventIcon = ({ event }: { event: string }) => {
@@ -87,7 +88,7 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
     return (
       <Card className="p-5">
         <div className="space-y-2 px-5 py-3.5 text-center font-bold">
-          <Spinner size="md" className="mx-auto" />
+          <Spinner className="mx-auto" size="md" />
           <div>Loading events</div>
         </div>
       </Card>
@@ -110,8 +111,8 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
       </div>
       <div className="divider" />
       <div className="m-6 space-y-4">
-        {data.map((streak: { id: string; event: string; date: string }) => (
-          <div key={streak.id} className="flex items-center space-x-2">
+        {data.map((streak: { date: string; event: string; id: string }) => (
+          <div className="flex items-center space-x-2" key={streak.id}>
             <EventIcon event={streak.event} />
             <div>
               <EventName event={streak.event} />

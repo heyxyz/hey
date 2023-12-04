@@ -1,5 +1,6 @@
-import { TicketIcon } from '@heroicons/react/24/outline';
 import type { InvitedResult } from '@hey/lens';
+
+import { TicketIcon } from '@heroicons/react/24/outline';
 import { EmptyState } from '@hey/ui';
 import plur from 'plur';
 import { type FC } from 'react';
@@ -14,9 +15,9 @@ const Invited: FC<InvitedProps> = ({ invitedProfiles }) => {
   if (invitedProfiles?.length === 0) {
     return (
       <EmptyState
-        message={<div>You haven't invited anyone.</div>}
-        icon={<TicketIcon className="text-brand-500 h-8 w-8" />}
         hideCard
+        icon={<TicketIcon className="text-brand-500 h-8 w-8" />}
+        message={<div>You haven't invited anyone.</div>}
       />
     );
   }

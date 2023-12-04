@@ -1,4 +1,5 @@
 import type { NewAttachment } from '@hey/types/misc';
+
 import uploadToIPFS from '@lib/uploadToIPFS';
 import { useCallback } from 'react';
 import { toast } from 'react-hot-toast';
@@ -29,16 +30,16 @@ const useUploadAttachments = () => {
         attachmentIds.push(attachmentId);
 
         return {
+          file,
           id: attachmentId,
+          mimeType: file.type,
+          previewUri: URL.createObjectURL(file),
           type: file.type.includes('image')
             ? 'Image'
             : file.type.includes('video')
               ? 'Video'
               : 'Audio',
-          mimeType: file.type,
-          uri: URL.createObjectURL(file),
-          previewUri: URL.createObjectURL(file),
-          file
+          uri: URL.createObjectURL(file)
         };
       });
 
@@ -82,8 +83,8 @@ const useUploadAttachments = () => {
           attachmentsIPFS = previewAttachments.map(
             (attachment: NewAttachment, index: number) => ({
               ...attachment,
-              uri: attachmentsUploaded[index].uri,
-              mimeType: attachmentsUploaded[index].mimeType
+              mimeType: attachmentsUploaded[index].mimeType,
+              uri: attachmentsUploaded[index].uri
             })
           );
           updateAttachments(attachmentsIPFS);

@@ -12,16 +12,16 @@ const PollSettings: FC = () => {
   const resetPollConfig = usePublicationStore((state) => state.resetPollConfig);
 
   return (
-    <Tooltip placement="top" content="Poll">
+    <Tooltip content="Poll" placement="top">
       <motion.button
+        aria-label="Poll"
         className="outline-brand-500 rounded-full outline-offset-8"
-        whileTap={{ scale: 0.9 }}
-        type="button"
         onClick={() => {
           resetPollConfig();
           setShowPollEditor(!showPollEditor);
         }}
-        aria-label="Poll"
+        type="button"
+        whileTap={{ scale: 0.9 }}
       >
         <Bars3BottomLeftIcon className="text-brand-500 h-5 w-5" />
       </motion.button>

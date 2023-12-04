@@ -5,9 +5,9 @@ import removeQuoteOn from './removeQuoteOn';
 describe('removeQuoteOn', () => {
   test('should remove "quoteOn" property from a Quote object', () => {
     const publication: any = {
-      quoteOn: 'Some quote',
       author: 'John Doe',
-      content: 'Lorem ipsum dolor sit amet'
+      content: 'Lorem ipsum dolor sit amet',
+      quoteOn: 'Some quote'
     };
 
     const expectedPublication = {
