@@ -1,8 +1,9 @@
+import type { AllowedToken } from '@hey/types/hey';
+
 import Loader from '@components/Shared/Loader';
 import { CurrencyDollarIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import getAllTokens from '@hey/lib/api/getAllTokens';
-import type { AllowedToken } from '@hey/types/hey';
 import { Button, Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { useQuery } from '@tanstack/react-query';
@@ -14,11 +15,11 @@ import Create from './Create';
 
 const List: FC = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [tokens, setTokens] = useState<AllowedToken[] | []>([]);
+  const [tokens, setTokens] = useState<[] | AllowedToken[]>([]);
 
-  const { isLoading, error } = useQuery({
-    queryKey: ['getAllTokens'],
-    queryFn: () => getAllTokens((tokens) => setTokens(tokens))
+  const { error, isLoading } = useQuery({
+    queryFn: () => getAllTokens((tokens) => setTokens(tokens)),
+    queryKey: ['getAllTokens']
   });
 
   const deleteToken = async (id: string) => {
@@ -29,12 +30,12 @@ const List: FC = () => {
         { headers: getAuthWorkerHeaders() }
       ),
       {
+        error: 'Failed to delete token',
         loading: 'Deleting token...',
         success: () => {
           setTokens(tokens.filter((token) => token.id !== id));
           return 'Token deleted';
-        },
-        error: 'Failed to delete token'
+        }
       }
     );
   };
@@ -52,17 +53,17 @@ const List: FC = () => {
         {isLoading ? (
           <Loader message="Loading tokens..." />
         ) : error ? (
-          <ErrorMessage title="Failed to load tokens" error={error} />
+          <ErrorMessage error={error} title="Failed to load tokens" />
         ) : !tokens.length ? (
           <EmptyState
-            message={<span>No tokens found</span>}
-            icon={<CurrencyDollarIcon className="text-brand-500 h-8 w-8" />}
             hideCard
+            icon={<CurrencyDollarIcon className="text-brand-500 h-8 w-8" />}
+            message={<span>No tokens found</span>}
           />
         ) : (
           <div className="space-y-6">
             {tokens?.map((token) => (
-              <div key={token.id} className="flex items-center justify-between">
+              <div className="flex items-center justify-between" key={token.id}>
                 <div>
                   <b>{token.name}</b> ({token.symbol})
                   <div className="mt-2 text-sm">
@@ -75,8 +76,8 @@ const List: FC = () => {
                   </div>
                 </div>
                 <Button
-                  onClick={() => deleteToken(token.id)}
                   icon={<TrashIcon className="h-4 w-4" />}
+                  onClick={() => deleteToken(token.id)}
                   outline
                 />
               </div>
@@ -85,14 +86,14 @@ const List: FC = () => {
         )}
       </div>
       <Modal
-        title="Create token"
-        show={showCreateModal}
         onClose={() => setShowCreateModal(!showCreateModal)}
+        show={showCreateModal}
+        title="Create token"
       >
         <Create
-          tokens={tokens}
-          setTokens={setTokens}
           setShowCreateModal={setShowCreateModal}
+          setTokens={setTokens}
+          tokens={tokens}
         />
       </Modal>
     </Card>

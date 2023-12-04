@@ -48,14 +48,14 @@ export const computeCroppedArea = (
     mediaSize.width / mediaSize.height < cropSize.width / cropSize.height;
   const cropSizePixels = fitWidth
     ? {
-        width: mediaSize.naturalWidth / zoom,
         height:
-          (mediaSize.naturalWidth * (cropSize.height / cropSize.width)) / zoom
+          (mediaSize.naturalWidth * (cropSize.height / cropSize.width)) / zoom,
+        width: mediaSize.naturalWidth / zoom
       }
     : {
+        height: mediaSize.naturalHeight / zoom,
         width:
-          (mediaSize.naturalHeight * (cropSize.width / cropSize.height)) / zoom,
-        height: mediaSize.naturalHeight / zoom
+          (mediaSize.naturalHeight * (cropSize.width / cropSize.height)) / zoom
       };
 
   const cropAreaCenterPixelX = (-cropPosition.x * mediaScale) / zoom;

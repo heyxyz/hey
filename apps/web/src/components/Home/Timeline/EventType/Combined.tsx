@@ -1,6 +1,7 @@
+import type { FeedItem } from '@hey/lens';
+
 import Profiles from '@components/Shared/Profiles';
 import { SparklesIcon } from '@heroicons/react/24/outline';
-import type { FeedItem } from '@hey/lens';
 import { type FC } from 'react';
 
 interface CombinedProps {
@@ -8,7 +9,7 @@ interface CombinedProps {
 }
 
 const Combined: FC<CombinedProps> = ({ feedItem }) => {
-  const { mirrors, acted, reactions, comments } = feedItem;
+  const { acted, comments, mirrors, reactions } = feedItem;
 
   const mirrorsLength = mirrors.length;
   const actedLength = acted.length;

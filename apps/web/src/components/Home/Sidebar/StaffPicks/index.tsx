@@ -1,13 +1,14 @@
+import type { StaffPick } from '@hey/types/hey';
+import type { FC } from 'react';
+
 import GroupProfileShimmer from '@components/Shared/Shimmer/GroupProfileShimmer';
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import { CursorArrowRippleIcon as CursorArrowRippleIconOutline } from '@heroicons/react/24/outline';
 import { CursorArrowRippleIcon as CursorArrowRippleIconSolid } from '@heroicons/react/24/solid';
 import { HEY_API_URL } from '@hey/data/constants';
-import type { StaffPick } from '@hey/types/hey';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import axios from 'axios';
 import { motion } from 'framer-motion';
-import type { FC } from 'react';
 import { useQuery } from 'wagmi';
 
 import StaffPickedGroup from './StaffPickedGroup';
@@ -33,8 +34,8 @@ const StaffPicks: FC = () => {
 
   const {
     data: picks,
-    isLoading,
-    error
+    error,
+    isLoading
   } = useQuery(['fetchStaffPicks'], () => fetchStaffPicks().then((res) => res));
 
   if (isLoading) {
@@ -57,10 +58,10 @@ const StaffPicks: FC = () => {
       <div className="mb-4">
         <Title />
         <EmptyState
-          message="Nothing here!"
           icon={
             <CursorArrowRippleIconOutline className="text-brand-500 h-8 w-8" />
           }
+          message="Nothing here!"
         />
       </div>
     );
@@ -72,16 +73,16 @@ const StaffPicks: FC = () => {
       <Card as="aside" className="mb-4">
         <div className="space-y-4 p-5">
           <ErrorMessage
-            title="Failed to load recommendations"
             error={error as Error}
+            title="Failed to load recommendations"
           />
           {picks?.map((pick) => (
             <motion.div
-              initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              key={pick.id}
               className="flex items-center space-x-3 truncate"
+              exit={{ opacity: 0 }}
+              initial={{ opacity: 0 }}
+              key={pick.id}
             >
               {pick.type === 'PROFILE' && <StaffPickedProfile id={pick.id} />}
               {pick.type === 'GROUP' && <StaffPickedGroup id={pick.id} />}

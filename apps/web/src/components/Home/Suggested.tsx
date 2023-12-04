@@ -1,19 +1,20 @@
+import type { Profile } from '@hey/lens';
+import type { FC } from 'react';
+
 import DismissRecommendedProfile from '@components/Shared/DismissRecommendedProfile';
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
 import { FollowUnfollowSource } from '@hey/data/tracking';
-import type { Profile } from '@hey/lens';
 import { useProfileRecommendationsQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
-import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 const Suggested: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const { data, loading, error } = useProfileRecommendationsQuery({
+  const { data, error, loading } = useProfileRecommendationsQuery({
     variables: { request: { for: currentProfile?.id } }
   });
 
@@ -24,44 +25,44 @@ const Suggested: FC = () => {
   if (data?.profileRecommendations.items.length === 0) {
     return (
       <EmptyState
-        message="Nothing to suggest"
-        icon={<UsersIcon className="text-brand-500 h-8 w-8" />}
         hideCard
+        icon={<UsersIcon className="text-brand-500 h-8 w-8" />}
+        message="Nothing to suggest"
       />
     );
   }
 
   return (
     <div className="max-h-[80vh] overflow-y-auto">
-      <ErrorMessage title="Failed to load recommendations" error={error} />
+      <ErrorMessage error={error} title="Failed to load recommendations" />
       <Virtuoso
         className="virtual-profile-list"
         data={data?.profileRecommendations.items}
         itemContent={(index, profile) => {
           return (
             <motion.div
-              initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
               className="flex items-center space-x-3 p-5"
+              exit={{ opacity: 0 }}
+              initial={{ opacity: 0 }}
             >
               <div className="w-full">
                 <UserProfile
-                  profile={profile as Profile}
-                  isFollowing={profile.operations.isFollowedByMe.value}
                   followUnfollowPosition={index + 1}
                   followUnfollowSource={
                     FollowUnfollowSource.WHO_TO_FOLLOW_MODAL
                   }
+                  isFollowing={profile.operations.isFollowedByMe.value}
+                  profile={profile as Profile}
                   showBio
                   showFollow
                   showUserPreview={false}
                 />
               </div>
               <DismissRecommendedProfile
-                profile={profile as Profile}
                 dismissPosition={index + 1}
                 dismissSource={FollowUnfollowSource.WHO_TO_FOLLOW_MODAL}
+                profile={profile as Profile}
               />
             </motion.div>
           );

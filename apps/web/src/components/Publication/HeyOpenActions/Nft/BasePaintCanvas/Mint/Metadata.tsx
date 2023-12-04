@@ -1,3 +1,5 @@
+import type { BasePaintCanvas } from '@hey/types/nft';
+
 import {
   CurrencyDollarIcon,
   PaintBrushIcon,
@@ -6,7 +8,6 @@ import {
   UsersIcon
 } from '@heroicons/react/24/outline';
 import humanize from '@hey/lib/humanize';
-import type { BasePaintCanvas } from '@hey/types/nft';
 import { type FC } from 'react';
 import { formatEther } from 'viem';
 
@@ -15,7 +16,7 @@ interface MetadataProps {
 }
 
 const Metadata: FC<MetadataProps> = ({ canvas }) => {
-  const { totalMints, pixelsCount, totalEarned, contributions } = canvas;
+  const { contributions, pixelsCount, totalEarned, totalMints } = canvas;
 
   return (
     <div className="space-y-1.5">
@@ -49,8 +50,8 @@ const Metadata: FC<MetadataProps> = ({ canvas }) => {
         <div className="flex items-center space-x-1">
           {canvas.palette.map((color, index) => (
             <span
-              key={index}
               className="inline-block h-4 w-4"
+              key={index}
               style={{ backgroundColor: color }}
             />
           ))}

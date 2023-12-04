@@ -1,8 +1,9 @@
+import type { Handler } from 'express';
+
 import { AssumeRoleCommand, STSClient } from '@aws-sdk/client-sts';
 import { EVER_API, S3_BUCKET } from '@hey/data/constants';
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
-import type { Handler } from 'express';
 
 const params = {
   DurationSeconds: 900,
@@ -29,9 +30,9 @@ export const get: Handler = async (req, res) => {
     const accessKeyId = process.env.EVER_ACCESS_KEY as string;
     const secretAccessKey = process.env.EVER_ACCESS_SECRET as string;
     const stsClient = new STSClient({
+      credentials: { accessKeyId, secretAccessKey },
       endpoint: EVER_API,
-      region: 'us-west-2',
-      credentials: { accessKeyId, secretAccessKey }
+      region: 'us-west-2'
     });
     const command = new AssumeRoleCommand({
       ...params,
@@ -42,10 +43,10 @@ export const get: Handler = async (req, res) => {
     logger.info('STS token generated');
 
     return res.status(200).json({
-      success: true,
       accessKeyId: credentials?.AccessKeyId,
       secretAccessKey: credentials?.SecretAccessKey,
-      sessionToken: credentials?.SessionToken
+      sessionToken: credentials?.SessionToken,
+      success: true
     });
   } catch (error) {
     return catchedError(res, error);

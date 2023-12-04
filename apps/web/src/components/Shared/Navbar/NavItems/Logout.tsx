@@ -1,3 +1,5 @@
+import type { FC } from 'react';
+
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
 import { PROFILE } from '@hey/data/tracking';
 import { useRevokeAuthenticationMutation } from '@hey/lens';
@@ -5,18 +7,17 @@ import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import getCurrentSession from '@lib/getCurrentSession';
 import { Leafwatch } from '@lib/leafwatch';
-import type { FC } from 'react';
 import { useState } from 'react';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { signOut } from 'src/store/persisted/useAuthStore';
 import { useDisconnect } from 'wagmi';
 
 interface LogoutProps {
-  onClick?: () => void;
   className?: string;
+  onClick?: () => void;
 }
 
-const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
+const Logout: FC<LogoutProps> = ({ className = '', onClick }) => {
   const resetPreferences = usePreferencesStore(
     (state) => state.resetPreferences
   );
@@ -56,16 +57,16 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
 
   return (
     <button
-      type="button"
-      onClick={async () => {
-        await logout();
-        onClick?.();
-      }}
       className={cn(
         'flex w-full items-center space-x-1.5 px-2 py-1.5 text-left text-sm text-gray-700 dark:text-gray-200',
         className
       )}
       disabled={revoking}
+      onClick={async () => {
+        await logout();
+        onClick?.();
+      }}
+      type="button"
     >
       <ArrowRightOnRectangleIcon className="h-4 w-4" />
       <div>Logout</div>

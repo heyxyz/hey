@@ -5,19 +5,19 @@ import createClickhouseClient from '@utils/createClickhouseClient';
 import randomizeIds from '@utils/feeds/randomizeIds';
 
 const interactionAndWeights = {
-  [PUBLICATION.COLLECT_MODULE.COLLECT]: 10,
-  [PUBLICATION.MIRROR]: 8,
-  [PUBLICATION.SHARE]: 6,
-  [PUBLICATION.LIKE]: 5,
   [PUBLICATION.ATTACHMENT.AUDIO.PLAY]: 4,
   [PUBLICATION.ATTACHMENT.IMAGE.OPEN]: 4,
-  [PUBLICATION.TOGGLE_BOOKMARK]: 3,
-  [PUBLICATION.OPEN_MIRRORS]: 2,
-  [PUBLICATION.OPEN_LIKES]: 2,
-  [PUBLICATION.OPEN_COLLECTORS]: 2,
+  [PUBLICATION.CLICK_OEMBED]: 1,
+  [PUBLICATION.COLLECT_MODULE.COLLECT]: 10,
   [PUBLICATION.COPY_TEXT]: 1,
-  [PUBLICATION.TRANSLATE]: 1,
-  [PUBLICATION.CLICK_OEMBED]: 1
+  [PUBLICATION.LIKE]: 5,
+  [PUBLICATION.MIRROR]: 8,
+  [PUBLICATION.OPEN_COLLECTORS]: 2,
+  [PUBLICATION.OPEN_LIKES]: 2,
+  [PUBLICATION.OPEN_MIRRORS]: 2,
+  [PUBLICATION.SHARE]: 6,
+  [PUBLICATION.TOGGLE_BOOKMARK]: 3,
+  [PUBLICATION.TRANSLATE]: 1
 };
 const interactionEvents = Object.keys(interactionAndWeights);
 
@@ -38,6 +38,7 @@ const heyMostInteracted = async (
   try {
     const client = createClickhouseClient();
     const rows = await client.query({
+      format: 'JSONEachRow',
       query: `
         SELECT
           JSONExtractString(properties, 'publication_id') AS publication_id,
@@ -61,8 +62,7 @@ const heyMostInteracted = async (
           weighted_interaction_count DESC
         LIMIT ${limit}
         OFFSET ${offset};
-      `,
-      format: 'JSONEachRow'
+      `
     });
 
     const result =

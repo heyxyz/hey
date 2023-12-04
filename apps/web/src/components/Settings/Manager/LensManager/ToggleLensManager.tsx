@@ -1,3 +1,5 @@
+import type { FC } from 'react';
+
 import IndexStatus from '@components/Shared/IndexStatus';
 import { CheckCircleIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
@@ -13,7 +15,6 @@ import { Button, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
@@ -35,7 +36,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
     (state) => state.setLensHubOnchainSigNonce
   );
   const [isLoading, setIsLoading] = useState(false);
-  const { canUseSignless, canBroadcast } =
+  const { canBroadcast, canUseSignless } =
     checkDispatcherPermissions(currentProfile);
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
@@ -55,16 +56,16 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
 
   const { signTypedDataAsync } = useSignTypedData({ onError });
   const { data: writeData, write } = useContractWrite({
-    address: LENSHUB_PROXY,
     abi: LensHub,
+    address: LENSHUB_PROXY,
     functionName: 'changeDelegatedExecutorsConfig',
-    onSuccess: () => {
-      onCompleted();
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
-    },
     onError: (error) => {
       onError(error);
       setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+    },
+    onSuccess: () => {
+      onCompleted();
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
     }
   });
 
@@ -79,10 +80,10 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
         const { id, typedData } = createChangeProfileManagersTypedData;
         const signature = await signTypedDataAsync(getSignature(typedData));
         const {
-          delegatorProfileId,
-          delegatedExecutors,
           approvals,
           configNumber,
+          delegatedExecutors,
+          delegatorProfileId,
           switchToGivenConfig
         } = typedData.value;
         const args = [
@@ -128,16 +129,15 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
 
   return writeData?.hash || broadcastTxId ? (
     <div className="mt-2">
-      <IndexStatus txHash={writeData?.hash} txId={broadcastTxId} reload />
+      <IndexStatus reload txHash={writeData?.hash} txId={broadcastTxId} />
     </div>
   ) : (
     <Button
-      variant={canUseSignless ? 'danger' : 'primary'}
       className={cn({ 'text-sm': buttonSize === 'sm' }, 'mr-auto')}
       disabled={isLoading}
       icon={
         isLoading ? (
-          <Spinner variant={canUseSignless ? 'danger' : 'primary'} size="xs" />
+          <Spinner size="xs" variant={canUseSignless ? 'danger' : 'primary'} />
         ) : canUseSignless ? (
           <XMarkIcon className="h-4 w-4" />
         ) : (
@@ -145,6 +145,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
         )
       }
       onClick={toggleDispatcher}
+      variant={canUseSignless ? 'danger' : 'primary'}
     >
       {canUseSignless ? 'Disable' : 'Enable'}
     </Button>

@@ -1,10 +1,11 @@
+import type { FC } from 'react';
+
 import MetaTags from '@components/Common/MetaTags';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
-import type { FC } from 'react';
 import { NotificationFeedType } from 'src/enums';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';

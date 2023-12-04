@@ -1,20 +1,21 @@
-import { HEY_API_URL } from '@hey/data/constants';
 import type { UnlonelyNfc } from '@hey/types/nft';
+
+import { HEY_API_URL } from '@hey/data/constants';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 interface UseUnlonelyNfcProps {
-  id: string;
   enabled?: boolean;
+  id: string;
 }
 
 const useUnlonelyNfc = ({
-  id,
-  enabled
+  enabled,
+  id
 }: UseUnlonelyNfcProps): {
   data: UnlonelyNfc;
-  loading: boolean;
   error: unknown;
+  loading: boolean;
 } => {
   const getUnlonelyNfcDetails = async () => {
     const response = await axios.get(
@@ -25,13 +26,13 @@ const useUnlonelyNfc = ({
     return response.data?.nfc;
   };
 
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['getUnlonelyNfcDetails', id],
+  const { data, error, isLoading } = useQuery({
+    enabled,
     queryFn: getUnlonelyNfcDetails,
-    enabled
+    queryKey: ['getUnlonelyNfcDetails', id]
   });
 
-  return { data, loading: isLoading, error };
+  return { data, error, loading: isLoading };
 };
 
 export default useUnlonelyNfc;

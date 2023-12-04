@@ -1,20 +1,21 @@
+import type { Handler } from 'express';
+
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import catchedError from '@utils/catchedError';
 import validateLensAccount from '@utils/middlewares/validateLensAccount';
 import prisma from '@utils/prisma';
 import { invalidBody, noBody, notAllowed } from '@utils/responses';
-import type { Handler } from 'express';
 import { object, string } from 'zod';
 
 type ExtensionRequest = {
-  poll: string;
   option: string;
+  poll: string;
 };
 
 const validationSchema = object({
-  poll: string().uuid(),
-  option: string().uuid()
+  option: string().uuid(),
+  poll: string().uuid()
 });
 
 export const post: Handler = async (req, res) => {
@@ -35,7 +36,7 @@ export const post: Handler = async (req, res) => {
     return notAllowed(res);
   }
 
-  const { poll, option } = body as ExtensionRequest;
+  const { option, poll } = body as ExtensionRequest;
 
   try {
     const payload = parseJwt(accessToken);
@@ -46,15 +47,15 @@ export const post: Handler = async (req, res) => {
     });
 
     if ((pollData?.endsAt as Date).getTime() < Date.now()) {
-      return res.status(400).json({ success: false, error: 'Poll expired.' });
+      return res.status(400).json({ error: 'Poll expired.', success: false });
     }
     // End: Check if the poll expired
 
     // Begin: Check if the poll exists and delete the existing response
     const existingResponse = await prisma.pollResponse.findFirst({
       where: {
-        profileId: payload.id,
-        option: { pollId: poll }
+        option: { pollId: poll },
+        profileId: payload.id
       }
     });
 
@@ -66,12 +67,12 @@ export const post: Handler = async (req, res) => {
     // End: Check if the poll exists and delete the existing response
 
     const data = await prisma.pollResponse.create({
-      data: { profileId: payload.id, optionId: option }
+      data: { optionId: option, profileId: payload.id }
     });
 
     logger.info(`Responded to a poll ${option}:${data.id}`);
 
-    return res.status(200).json({ success: true, id: data.id });
+    return res.status(200).json({ id: data.id, success: true });
   } catch (error) {
     return catchedError(res, error);
   }

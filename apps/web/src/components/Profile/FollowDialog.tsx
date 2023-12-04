@@ -10,8 +10,8 @@ import { type Dispatch, type FC, type SetStateAction } from 'react';
 
 interface FollowModalProps {
   profile: Profile;
-  setShowFollowModal: Dispatch<SetStateAction<boolean>>;
   setFollowing: (following: boolean) => void;
+  setShowFollowModal: Dispatch<SetStateAction<boolean>>;
 }
 
 const FollowModal: FC<FollowModalProps> = ({
@@ -26,9 +26,9 @@ const FollowModal: FC<FollowModalProps> = ({
       <div className="flex justify-between text-lg font-bold">
         <span className="flex">
           <Image
-            src={getAvatar(profile)}
-            className="mr-2 h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
             alt={profile?.id}
+            className="mr-2 h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
+            src={getAvatar(profile)}
           />
           <Slug
             className="flex items-center"
@@ -47,20 +47,20 @@ const FollowModal: FC<FollowModalProps> = ({
           ) : (
             <div className="flex space-x-2">
               <Follow
+                followSource={FollowUnfollowSource.FOLLOW_DIALOG}
                 profile={profile}
                 setFollowing={setFollowing}
-                followSource={FollowUnfollowSource.FOLLOW_DIALOG}
                 showText
               />
             </div>
           )}
           <Button
+            aria-label="Not now"
             className="ml-3 !px-3 !py-1.5 text-sm"
-            outline
             onClick={() => {
               setShowFollowModal(false);
             }}
-            aria-label="Not now"
+            outline
           >
             Not now
           </Button>

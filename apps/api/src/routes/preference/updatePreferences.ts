@@ -1,25 +1,26 @@
+import type { Handler } from 'express';
+
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import catchedError from '@utils/catchedError';
 import validateLensAccount from '@utils/middlewares/validateLensAccount';
 import prisma from '@utils/prisma';
 import { invalidBody, noBody, notAllowed } from '@utils/responses';
-import type { Handler } from 'express';
 import { boolean, object, string } from 'zod';
 
 type ExtensionRequest = {
+  email?: string;
+  highSignalNotificationFilter?: boolean;
   id?: string;
   isPride?: boolean;
-  highSignalNotificationFilter?: boolean;
-  email?: string;
   marketingOptIn?: boolean;
 };
 
 const validationSchema = object({
+  email: string().optional(),
+  highSignalNotificationFilter: boolean().optional(),
   id: string().optional(),
   isPride: boolean().optional(),
-  highSignalNotificationFilter: boolean().optional(),
-  email: string().optional(),
   marketingOptIn: boolean().optional()
 });
 
@@ -41,27 +42,27 @@ export const post: Handler = async (req, res) => {
     return notAllowed(res);
   }
 
-  const { isPride, highSignalNotificationFilter, email, marketingOptIn } =
+  const { email, highSignalNotificationFilter, isPride, marketingOptIn } =
     body as ExtensionRequest;
 
   try {
     const payload = parseJwt(accessToken);
 
     const data = await prisma.preference.upsert({
-      where: { id: payload.id },
-      update: { isPride, highSignalNotificationFilter, email, marketingOptIn },
       create: {
+        email,
+        highSignalNotificationFilter,
         id: payload.id,
         isPride,
-        highSignalNotificationFilter,
-        email,
         marketingOptIn
-      }
+      },
+      update: { email, highSignalNotificationFilter, isPride, marketingOptIn },
+      where: { id: payload.id }
     });
 
     logger.info(`Updated preferences for ${payload.id}`);
 
-    return res.status(200).json({ success: true, result: data });
+    return res.status(200).json({ result: data, success: true });
   } catch (error) {
     return catchedError(res, error);
   }

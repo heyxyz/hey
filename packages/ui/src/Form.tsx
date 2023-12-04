@@ -1,4 +1,3 @@
-import { zodResolver } from '@hookform/resolvers/zod';
 import type { ComponentProps, FC } from 'react';
 import type {
   FieldValues,
@@ -6,8 +5,10 @@ import type {
   UseFormProps,
   UseFormReturn
 } from 'react-hook-form';
-import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import type { TypeOf, ZodSchema } from 'zod';
+
+import { zodResolver } from '@hookform/resolvers/zod';
+import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 
 import cn from '../cn';
 
@@ -54,16 +55,16 @@ export const FieldError: FC<FieldErrorProps> = ({ name }) => {
 
 interface FormProps<T extends FieldValues = Record<string, unknown>>
   extends Omit<ComponentProps<'form'>, 'onSubmit'> {
+  className?: string;
   form: UseFormReturn<T>;
   onSubmit: SubmitHandler<T>;
-  className?: string;
 }
 
 export const Form = <T extends FieldValues>({
-  form,
-  onSubmit,
   children,
-  className = ''
+  className = '',
+  form,
+  onSubmit
 }: FormProps<T>) => {
   return (
     <FormProvider {...form}>

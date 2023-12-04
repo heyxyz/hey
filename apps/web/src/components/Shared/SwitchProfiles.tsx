@@ -1,13 +1,15 @@
-import { UserPlusIcon } from '@heroicons/react/24/outline';
-import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { IS_MAINNET } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { PROFILE } from '@hey/data/tracking';
 import type {
   LastLoggedInProfileRequest,
   Profile,
   ProfileManagersRequest
 } from '@hey/lens';
+import type { FC } from 'react';
+
+import { UserPlusIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
+import { IS_MAINNET } from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
+import { PROFILE } from '@hey/data/tracking';
 import {
   useAuthenticateMutation,
   useChallengeLazyQuery,
@@ -20,7 +22,6 @@ import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
@@ -36,7 +37,7 @@ const SwitchProfiles: FC = () => {
     (state) => state.setShowProfileSwitchModal
   );
   const [isLoading, setIsLoading] = useState(false);
-  const [loggingInProfileId, setLoggingInProfileId] = useState<string | null>(
+  const [loggingInProfileId, setLoggingInProfileId] = useState<null | string>(
     null
   );
 
@@ -48,13 +49,13 @@ const SwitchProfiles: FC = () => {
   const { address } = useAccount();
   const { signMessageAsync } = useSignMessage({ onError });
 
-  const request: ProfileManagersRequest | LastLoggedInProfileRequest = {
+  const request: LastLoggedInProfileRequest | ProfileManagersRequest = {
     for: address
   };
-  const { data, loading, error } = useProfilesManagedQuery({
+  const { data, error, loading } = useProfilesManagedQuery({
     variables: {
-      profilesManagedRequest: request,
-      lastLoggedInProfileRequest: request
+      lastLoggedInProfileRequest: request,
+      profilesManagedRequest: request
     }
   });
   const [loadChallenge] = useChallengeLazyQuery({
@@ -104,27 +105,27 @@ const SwitchProfiles: FC = () => {
   return (
     <div className="max-h-[80vh] overflow-y-auto p-2">
       <ErrorMessage
-        title="Failed to load profiles"
-        error={error}
         className="m-2"
+        error={error}
+        title="Failed to load profiles"
       />
       {profiles.map((profile, index) => (
         <button
-          key={profile?.id}
-          type="button"
           className="flex w-full cursor-pointer items-center justify-between space-x-2 rounded-lg py-3 pl-3 pr-4 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
+          key={profile?.id}
           onClick={async () => {
             const selectedProfile = profiles[index] as Profile;
             await switchProfile(selectedProfile.id);
           }}
+          type="button"
         >
           <span className="flex items-center space-x-2">
             <Image
+              alt={profile.id}
               className="h-6 w-6 rounded-full border dark:border-gray-700"
               height={20}
-              width={20}
               src={getAvatar(profile)}
-              alt={profile.id}
+              width={20}
             />
             <div
               className={cn(
@@ -144,8 +145,8 @@ const SwitchProfiles: FC = () => {
       ))}
       {!IS_MAINNET ? (
         <Link
-          href="/new/profile"
           className="flex w-full cursor-pointer items-center justify-between space-x-2 rounded-lg py-3 pl-3 pr-4 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
+          href="/new/profile"
           onClick={() => setShowProfileSwitchModal(false)}
         >
           <span className="flex items-center space-x-2">

@@ -1,13 +1,14 @@
-import { PLACEHOLDER_IMAGE } from '@hey/data/constants';
 import type { Nft } from '@hey/lens';
+import type { FC } from 'react';
+
+import { PLACEHOLDER_IMAGE } from '@hey/data/constants';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import Link from 'next/link';
-import type { FC } from 'react';
 import { memo } from 'react';
 
 interface NFTProps {
-  nft: Nft;
   linkToDetail?: boolean;
+  nft: Nft;
 }
 
 const NFTImage: FC<NFTProps> = ({ nft }) => {
@@ -17,17 +18,17 @@ const NFTImage: FC<NFTProps> = ({ nft }) => {
         <div
           style={{
             backgroundImage: `url(${`${PLACEHOLDER_IMAGE}`})`,
-            backgroundSize: 'contain',
             backgroundPosition: 'center center',
-            backgroundRepeat: 'no-repeat'
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'contain'
           }}
         />
       ) : (
         <iframe
-          title={`${nft.contract.address}:${nft.tokenId}`}
-          sandbox=""
           className="h-full w-full rounded-xl bg-gray-200 object-cover dark:bg-gray-800"
+          sandbox=""
           src={sanitizeDStorageUrl(nft?.metadata?.animationUrl)}
+          title={`${nft.contract.address}:${nft.tokenId}`}
         />
       )}
     </div>
@@ -40,19 +41,19 @@ const NFTImage: FC<NFTProps> = ({ nft }) => {
             ? sanitizeDStorageUrl(nft.metadata.image?.optimized?.uri)
             : PLACEHOLDER_IMAGE
         })`,
-        backgroundSize: 'contain',
         backgroundPosition: 'center center',
-        backgroundRepeat: 'no-repeat'
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'contain'
       }}
     />
   );
 };
 
-const NftCard: FC<NFTProps> = ({ nft, linkToDetail = false }) => {
+const NftCard: FC<NFTProps> = ({ linkToDetail = false, nft }) => {
   return linkToDetail ? (
     <Link
-      href={`/nft/${nft.contract.chainId}/${nft.contract.address}/${nft.tokenId}`}
       className="w-full"
+      href={`/nft/${nft.contract.chainId}/${nft.contract.address}/${nft.tokenId}`}
     >
       <NFTImage nft={nft} />
     </Link>

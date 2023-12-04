@@ -1,3 +1,6 @@
+import type { AnyPublication } from '@hey/lens';
+import type { NextPage } from 'next';
+
 import Feed from '@components/Comment/Feed';
 import NoneRelevantFeed from '@components/Comment/NoneRelevantFeed';
 import MetaTags from '@components/Common/MetaTags';
@@ -8,13 +11,11 @@ import UserProfile from '@components/Shared/UserProfile';
 import PublicationStaffTool from '@components/StaffTools/Panels/Publication';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import type { AnyPublication } from '@hey/lens';
 import { TriStateValue, usePublicationQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
@@ -36,17 +37,17 @@ const ViewPublication: NextPage = () => {
   );
 
   const {
-    query: { id },
-    isReady
+    isReady,
+    query: { id }
   } = useRouter();
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'publication' });
   });
 
-  const { data, loading, error } = usePublicationQuery({
-    variables: { request: { forId: id } },
-    skip: !id
+  const { data, error, loading } = usePublicationQuery({
+    skip: !id,
+    variables: { request: { forId: id } }
   });
 
   if (!isReady || loading) {
@@ -77,7 +78,7 @@ const ViewPublication: NextPage = () => {
       />
       <GridItemEight className="space-y-5">
         <Card>
-          <FullPublication publication={publication} key={publication?.id} />
+          <FullPublication key={publication?.id} publication={publication} />
         </Card>
         {currentProfile && !publication.isHidden && !showNewPostModal ? (
           canComment ? (

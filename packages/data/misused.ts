@@ -4,31 +4,31 @@ export enum MisuseType {
 }
 
 export const misused: {
+  description: null | string;
   id: string;
+  identifiedOn: null | string;
   type: MisuseType;
-  identifiedOn: string | null;
-  description: string | null;
 }[] = [
   {
+    description:
+      'Original account owner has established a new profile: @web3academy_',
     // web3academy
     id: '0x661b',
-    type: MisuseType.Impersonated,
     identifiedOn: 'June 20, 2023',
-    description:
-      'Original account owner has established a new profile: @web3academy_'
+    type: MisuseType.Impersonated
   },
   {
+    description: 'Original account is @xmtplabs',
     // xmtp_
     id: '0xc358',
-    type: MisuseType.TrademarkViolation,
     identifiedOn: null,
-    description: 'Original account is @xmtplabs'
+    type: MisuseType.TrademarkViolation
   },
   {
+    description: null,
     // safewallet
     id: '0x011c4c',
-    type: MisuseType.TrademarkViolation,
     identifiedOn: 'Jul 17, 2023',
-    description: null
+    type: MisuseType.TrademarkViolation
   }
 ];

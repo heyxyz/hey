@@ -1,5 +1,6 @@
-import PublicationWrapper from '@components/Shared/PublicationWrapper';
 import type { PrimaryPublication } from '@hey/lens';
+
+import PublicationWrapper from '@components/Shared/PublicationWrapper';
 import pushToImpressions from '@lib/pushToImpressions';
 import { type FC } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -9,13 +10,13 @@ import PublicationBody from './PublicationBody';
 import PublicationHeader from './PublicationHeader';
 
 interface QuotedPublicationProps {
-  publication: PrimaryPublication;
   isNew?: boolean;
+  publication: PrimaryPublication;
 }
 
 const QuotedPublication: FC<QuotedPublicationProps> = ({
-  publication,
-  isNew = false
+  isNew = false,
+  publication
 }) => {
   const { observe } = useInView({
     onChange: async ({ inView }) => {
@@ -33,11 +34,11 @@ const QuotedPublication: FC<QuotedPublicationProps> = ({
       publication={publication}
     >
       <span ref={observe} />
-      <PublicationHeader publication={publication} quoted isNew={isNew} />
+      <PublicationHeader isNew={isNew} publication={publication} quoted />
       {publication.isHidden ? (
         <HiddenPublication type={publication.__typename} />
       ) : (
-        <PublicationBody publication={publication} showMore quoted />
+        <PublicationBody publication={publication} quoted showMore />
       )}
     </PublicationWrapper>
   );

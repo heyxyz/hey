@@ -1,4 +1,3 @@
-import { BellIcon } from '@heroicons/react/24/outline';
 import type {
   ActedNotification as ActedNotificationType,
   CommentNotification as CommentNotificationType,
@@ -9,6 +8,8 @@ import type {
   QuoteNotification as QuoteNotificationType,
   ReactionNotification as ReactionNotificationType
 } from '@hey/lens';
+
+import { BellIcon } from '@heroicons/react/24/outline';
 import {
   CustomFiltersType,
   NotificationType,
@@ -68,7 +69,7 @@ const List: FC<ListProps> = ({ feedType }) => {
     }
   };
 
-  const { data, loading, error, fetchMore, refetch } = useNotificationsQuery({
+  const { data, error, fetchMore, loading, refetch } = useNotificationsQuery({
     variables: { request }
   });
 
@@ -102,14 +103,14 @@ const List: FC<ListProps> = ({ feedType }) => {
   }
 
   if (error) {
-    return <ErrorMessage title="Failed to load notifications" error={error} />;
+    return <ErrorMessage error={error} title="Failed to load notifications" />;
   }
 
   if (notifications?.length === 0) {
     return (
       <EmptyState
-        message="Inbox zero!"
         icon={<BellIcon className="text-brand-500 h-8 w-8" />}
+        message="Inbox zero!"
       />
     );
   }
@@ -117,17 +118,16 @@ const List: FC<ListProps> = ({ feedType }) => {
   return (
     <Card>
       <Virtuoso
-        useWindowScroll
         className="virtual-notification-list"
         data={notifications}
         endReached={onEndReached}
         itemContent={(_, notification) => {
           return (
             <motion.div
-              initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
               className="p-5"
+              exit={{ opacity: 0 }}
+              initial={{ opacity: 0 }}
             >
               {notification.__typename === 'FollowNotification' ? (
                 <FollowNotification
@@ -167,6 +167,7 @@ const List: FC<ListProps> = ({ feedType }) => {
             </motion.div>
           );
         }}
+        useWindowScroll
       />
     </Card>
   );

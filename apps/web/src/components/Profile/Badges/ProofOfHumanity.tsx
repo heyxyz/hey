@@ -1,6 +1,7 @@
+import type { Profile } from '@hey/lens';
+
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import type { Profile } from '@hey/lens';
 import { Tooltip } from '@hey/ui';
 import { type FC } from 'react';
 
@@ -24,11 +25,11 @@ const ProofOfHumanity: FC<ProofOfHumanityProps> = ({ profile }) => {
       placement="top"
     >
       <img
+        alt="Proof Of Humanity Badge"
         className="drop-shadow-xl"
         height={75}
-        width={75}
         src={`${STATIC_IMAGES_URL}/badges/poh.png`}
-        alt="Proof Of Humanity Badge"
+        width={75}
       />
     </Tooltip>
   );

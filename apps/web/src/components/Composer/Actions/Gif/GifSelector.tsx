@@ -1,6 +1,7 @@
 import type { IGif } from '@hey/types/giphy';
-import { Input } from '@hey/ui';
 import type { Dispatch, FC, SetStateAction } from 'react';
+
+import { Input } from '@hey/ui';
 import { useState } from 'react';
 import { useDebounce } from 'usehooks-ts';
 
@@ -13,8 +14,8 @@ interface GifSelectorProps {
 }
 
 const GifSelector: FC<GifSelectorProps> = ({
-  setShowModal,
-  setGifAttachment
+  setGifAttachment,
+  setShowModal
 }) => {
   const [searchText, setSearchText] = useState('');
   const debouncedGifInput = useDebounce<string>(searchText, 500);
@@ -23,10 +24,10 @@ const GifSelector: FC<GifSelectorProps> = ({
     <>
       <div className="m-3">
         <Input
-          type="text"
-          placeholder="Search for GIFs"
-          value={searchText}
           onChange={(event) => setSearchText(event.target.value)}
+          placeholder="Search for GIFs"
+          type="text"
+          value={searchText}
         />
       </div>
       <div className="max-h-[45vh] overflow-y-auto rounded-b-xl">

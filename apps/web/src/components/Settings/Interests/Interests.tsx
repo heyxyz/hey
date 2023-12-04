@@ -1,7 +1,9 @@
+import type { ProfileInterestsRequest, ProfileInterestTypes } from '@hey/lens';
+import type { FC } from 'react';
+
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { SETTINGS } from '@hey/data/tracking';
-import type { ProfileInterestsRequest, ProfileInterestTypes } from '@hey/lens';
 import {
   useAddProfileInterestsMutation,
   useProfileInterestsOptionsQuery,
@@ -12,7 +14,6 @@ import { Button } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import sanitizeProfileInterests from '@lib/sanitizeProfileInterests';
-import type { FC } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import Loader from '../../Shared/Loader';
@@ -25,8 +26,8 @@ const Interests: FC = () => {
 
   const updateCache = (interests: string[]) => {
     cache.modify({
-      id: `Profile:${currentProfile?.id}`,
-      fields: { interests: () => interests }
+      fields: { interests: () => interests },
+      id: `Profile:${currentProfile?.id}`
     });
   };
 
@@ -77,13 +78,6 @@ const Interests: FC = () => {
             <div className="flex flex-wrap items-center gap-3">
               {subCategories?.map((subCategory) => (
                 <Button
-                  key={subCategory.id}
-                  variant={
-                    selectedTopics.includes(subCategory.id)
-                      ? 'primary'
-                      : 'secondary'
-                  }
-                  size="sm"
                   className="font-medium capitalize"
                   disabled={
                     !selectedTopics.includes(subCategory.id) &&
@@ -96,23 +90,23 @@ const Interests: FC = () => {
                       <PlusCircleIcon className="h-4 w-4" />
                     )
                   }
+                  key={subCategory.id}
                   onClick={() =>
                     onSelectTopic(subCategory.id as ProfileInterestTypes)
                   }
                   outline
+                  size="sm"
+                  variant={
+                    selectedTopics.includes(subCategory.id)
+                      ? 'primary'
+                      : 'secondary'
+                  }
                 >
                   <div>{subCategory.label}</div>
                 </Button>
               ))}
               {!subCategories.length ? (
                 <Button
-                  key={category.id}
-                  variant={
-                    selectedTopics.includes(category.id)
-                      ? 'primary'
-                      : 'secondary'
-                  }
-                  size="sm"
                   className="font-medium capitalize"
                   disabled={
                     !selectedTopics.includes(category.id) &&
@@ -125,10 +119,17 @@ const Interests: FC = () => {
                       <PlusCircleIcon className="h-4 w-4" />
                     )
                   }
+                  key={category.id}
                   onClick={() =>
                     onSelectTopic(category.id as ProfileInterestTypes)
                   }
                   outline
+                  size="sm"
+                  variant={
+                    selectedTopics.includes(category.id)
+                      ? 'primary'
+                      : 'secondary'
+                  }
                 >
                   <div>{category.label}</div>
                 </Button>

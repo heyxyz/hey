@@ -1,16 +1,17 @@
+import type { AnyPublication } from '@hey/lens';
+import type { BasicNftMetadata } from '@hey/types/nft';
+import type { FC } from 'react';
+
 import {
   CursorArrowRaysIcon,
   RectangleStackIcon
 } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
-import type { AnyPublication } from '@hey/lens';
 import getZoraChainInfo from '@hey/lib/getZoraChainInfo';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import type { BasicNftMetadata } from '@hey/types/nft';
 import { Button, Card, Modal, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import type { FC } from 'react';
 import { useState } from 'react';
 import useZoraNft from 'src/hooks/zora/useZoraNft';
 import urlcat from 'urlcat';
@@ -27,18 +28,18 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
   const setQuantity = useZoraMintStore((state) => state.setQuantity);
   const setCanMintOnHey = useZoraMintStore((state) => state.setCanMintOnHey);
 
-  const { chain, address, token } = nftMetadata;
+  const { address, chain, token } = nftMetadata;
   const [showMintModal, setShowMintModal] = useState(false);
 
   const {
     data: nft,
-    loading,
-    error
+    error,
+    loading
   } = useZoraNft({
-    chain,
     address,
-    token: token,
-    enabled: Boolean(chain && address)
+    chain,
+    enabled: Boolean(chain && address),
+    token: token
   });
 
   if (loading) {
@@ -54,9 +55,9 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
   }
 
   const canMint = [
+    'ERC1155_COLLECTION_TOKEN',
     'ERC721_DROP',
-    'ERC721_SINGLE_EDITION',
-    'ERC1155_COLLECTION_TOKEN'
+    'ERC721_SINGLE_EDITION'
   ].includes(nft.contractType);
 
   const zoraLink = nftMetadata.mintLink;
@@ -68,24 +69,24 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
       onClick={(event) => stopEventPropagation(event)}
     >
       <img
-        src={urlcat('https://remote-image.decentralized-content.com/image', {
-          url: nft.coverImageUrl,
-          w: 1200,
-          q: 75
-        })}
         className="h-[400px] max-h-[400px] w-full rounded-t-xl object-cover"
+        src={urlcat('https://remote-image.decentralized-content.com/image', {
+          q: 75,
+          url: nft.coverImageUrl,
+          w: 1200
+        })}
       />
       <div className="flex items-center justify-between border-t px-3 py-2 dark:border-gray-700">
         <div className="flex items-center space-x-2">
           <Tooltip
-            placement="right"
             content={getZoraChainInfo(nft.chainId).name}
+            placement="right"
           >
-            <img src={getZoraChainInfo(nft.chainId).logo} className="h-5 w-5" />
+            <img className="h-5 w-5" src={getZoraChainInfo(nft.chainId).logo} />
           </Tooltip>
           <div className="text-sm font-bold">{nft.name}</div>
           {nft.contractType === 'ERC1155_COLLECTION' ? (
-            <Tooltip placement="right" content="ERC-1155 Collection">
+            <Tooltip content="ERC-1155 Collection" placement="right">
               <RectangleStackIcon className="h-4 w-4" />
             </Tooltip>
           ) : null}
@@ -95,40 +96,40 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
             <Button
               className="text-sm"
               icon={<CursorArrowRaysIcon className="h-4 w-4" />}
-              size="md"
               onClick={() => {
                 setQuantity(1);
                 setCanMintOnHey(false);
                 setShowMintModal(true);
                 Leafwatch.track(PUBLICATION.OPEN_ACTIONS.ZORA_NFT.OPEN_MINT, {
-                  publication_id: publication.id,
-                  from: 'mint_embed'
+                  from: 'mint_embed',
+                  publication_id: publication.id
                 });
               }}
+              size="md"
             >
               Mint
             </Button>
             <Modal
-              title="Mint on Zora"
-              show={showMintModal}
               icon={<CursorArrowRaysIcon className="text-brand-500 h-5 w-5" />}
               onClose={() => setShowMintModal(false)}
+              show={showMintModal}
+              title="Mint on Zora"
             >
-              <Mint nft={nft} zoraLink={zoraLink} publication={publication} />
+              <Mint nft={nft} publication={publication} zoraLink={zoraLink} />
             </Modal>
           </>
         ) : (
-          <Link href={zoraLink} target="_blank" rel="noopener noreferrer">
+          <Link href={zoraLink} rel="noopener noreferrer" target="_blank">
             <Button
               className="text-sm"
               icon={<CursorArrowRaysIcon className="h-4 w-4" />}
-              size="md"
               onClick={() =>
                 Leafwatch.track(PUBLICATION.OPEN_ACTIONS.ZORA_NFT.OPEN_LINK, {
-                  publication_id: publication.id,
-                  from: 'mint_embed'
+                  from: 'mint_embed',
+                  publication_id: publication.id
                 })
               }
+              size="md"
             >
               {nft.contractType === 'ERC1155_COLLECTION'
                 ? 'Mint all on Zora'

@@ -1,15 +1,16 @@
+import type { FC } from 'react';
+
 import MetaTags from '@components/Common/MetaTags';
 import { HomeIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import { Button } from '@hey/ui';
 import heyFont from '@lib/heyFont';
 import Link from 'next/link';
-import type { FC } from 'react';
 
 const Custom500: FC = () => {
   return (
     <div className="page-center flex-col">
-      <style jsx global>{`
+      <style global jsx>{`
         body {
           font-family: ${heyFont.style.fontFamily};
         }
@@ -26,8 +27,8 @@ const Custom500: FC = () => {
         <Link href="/">
           <Button
             className="mx-auto flex items-center"
-            size="lg"
             icon={<HomeIcon className="h-4 w-4" />}
+            size="lg"
           >
             Go to home
           </Button>

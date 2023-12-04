@@ -1,8 +1,6 @@
 import type { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
-  overwrite: true,
-  schema: 'https://api-v2-mumbai-live.lens.dev',
   customFetch: 'node-fetch',
   documents: './documents/**/*.graphql',
   generates: {
@@ -17,7 +15,9 @@ const config: CodegenConfig = {
   },
   hooks: {
     afterAllFileWrite: ['eslint --fix', 'prettier --write']
-  }
+  },
+  overwrite: true,
+  schema: 'https://api-v2-mumbai-live.lens.dev'
 };
 
 export default config;

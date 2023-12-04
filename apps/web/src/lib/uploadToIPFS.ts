@@ -1,7 +1,8 @@
+import type { IPFSResponse } from '@hey/types/misc';
+
 import { S3 } from '@aws-sdk/client-s3';
 import { Upload } from '@aws-sdk/lib-storage';
 import { EVER_API, HEY_API_URL, S3_BUCKET } from '@hey/data/constants';
-import type { IPFSResponse } from '@hey/types/misc';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
 
@@ -15,14 +16,14 @@ const FALLBACK_TYPE = 'image/jpeg';
 const getS3Client = async (): Promise<S3> => {
   const token = await axios.get(`${HEY_API_URL}/sts/token`);
   const client = new S3({
-    endpoint: EVER_API,
     credentials: {
       accessKeyId: token.data?.accessKeyId,
       secretAccessKey: token.data?.secretAccessKey,
       sessionToken: token.data?.sessionToken
     },
-    region: 'us-west-2',
-    maxAttempts: 10
+    endpoint: EVER_API,
+    maxAttempts: 10,
+    region: 'us-west-2'
   });
 
   client.middlewareStack.addRelativeTo(
@@ -35,9 +36,9 @@ const getS3Client = async (): Promise<S3> => {
     },
     {
       name: 'nullFetchResponseBodyMiddleware',
-      toMiddleware: 'deserializerMiddleware',
+      override: true,
       relation: 'after',
-      override: true
+      toMiddleware: 'deserializerMiddleware'
     }
   );
 
@@ -61,10 +62,10 @@ const uploadToIPFS = async (
       files.map(async (_: any, i: number) => {
         const file = data[i];
         const params = {
-          Bucket: S3_BUCKET.HEY_MEDIA,
-          Key: uuid(),
           Body: file,
-          ContentType: file.type
+          Bucket: S3_BUCKET.HEY_MEDIA,
+          ContentType: file.type,
+          Key: uuid()
         };
         const task = new Upload({
           client,
@@ -84,8 +85,8 @@ const uploadToIPFS = async (
         axios.get(`${HEY_API_URL}/ipfs/pin`, { params: { cid } });
 
         return {
-          uri: `ipfs://${cid}`,
-          mimeType: file.type || FALLBACK_TYPE
+          mimeType: file.type || FALLBACK_TYPE,
+          uri: `ipfs://${cid}`
         };
       })
     );
@@ -110,9 +111,9 @@ export const uploadFileToIPFS = async (
     const ipfsResponse = await uploadToIPFS([file], onProgress);
     const metadata = ipfsResponse[0];
 
-    return { uri: metadata.uri, mimeType: file.type || FALLBACK_TYPE };
+    return { mimeType: file.type || FALLBACK_TYPE, uri: metadata.uri };
   } catch {
-    return { uri: '', mimeType: file.type || FALLBACK_TYPE };
+    return { mimeType: file.type || FALLBACK_TYPE, uri: '' };
   }
 };
 

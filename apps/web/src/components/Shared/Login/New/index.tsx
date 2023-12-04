@@ -67,47 +67,47 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
     <Pending txId={data?.createProfileWithHandle?.txId} />
   ) : (
     <Form
-      form={form}
       className="space-y-4"
+      form={form}
       onSubmit={({ handle }) => signup(handle)}
     >
       {data?.createProfileWithHandle.__typename ===
         'CreateProfileWithHandleErrorResult' &&
       data?.createProfileWithHandle.reason ? (
         <ErrorMessage
-          title="Create profile failed!"
-          error={{
-            name: 'Create profile failed!',
-            message: relayErrorToString(data?.createProfileWithHandle?.reason)
-          }}
           className="mb-3"
+          error={{
+            message: relayErrorToString(data?.createProfileWithHandle?.reason),
+            name: 'Create profile failed!'
+          }}
+          title="Create profile failed!"
         />
       ) : null}
       {isModal ? (
         <div className="mb-2 space-y-4">
           <img
+            alt="Logo"
             className="h-10 w-10"
             height={40}
-            width={40}
             src="/logo.png"
-            alt="Logo"
+            width={40}
           />
           <div className="text-xl font-bold">Sign up to {APP_NAME}</div>
         </div>
       ) : null}
       <Input
         label="Handle"
-        type="text"
         placeholder="gavin"
+        type="text"
         {...form.register('handle')}
       />
       <Button
         className="ml-auto"
-        type="submit"
         disabled={loading}
         icon={
           loading ? <Spinner size="xs" /> : <PlusIcon className="h-4 w-4" />
         }
+        type="submit"
       >
         Sign up
       </Button>

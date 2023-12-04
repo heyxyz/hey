@@ -1,3 +1,5 @@
+import type { FC } from 'react';
+
 import NewPublication from '@components/Composer/NewPublication';
 import ReportPublication from '@components/Shared/Modal/ReportPublication';
 import {
@@ -6,7 +8,6 @@ import {
   TicketIcon
 } from '@heroicons/react/24/outline';
 import { Modal } from '@hey/ui';
-import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 
@@ -109,50 +110,47 @@ const GlobalModals: FC = () => {
   return (
     <>
       <Modal
-        title="Report Publication"
         icon={<ShieldCheckIcon className="text-brand-500 h-5 w-5" />}
-        show={showPublicationReportModal}
         onClose={() =>
           setShowPublicationReportModal(false, reportingPublication)
         }
+        show={showPublicationReportModal}
+        title="Report Publication"
       >
         <ReportPublication publication={reportingPublication} />
       </Modal>
       <Modal
-        title="Report profile"
         icon={<ShieldCheckIcon className="text-brand-500 h-5 w-5" />}
-        show={showReportProfileModal}
         onClose={() => setShowReportProfileModal(false, reportingProfile)}
+        show={showReportProfileModal}
+        title="Report profile"
       >
         <ReportProfile profile={reportingProfile} />
       </Modal>
       <Modal
-        title="Switch Profile"
-        show={showProfileSwitchModal}
         onClose={() => setShowProfileSwitchModal(false)}
+        show={showProfileSwitchModal}
         size="xs"
+        title="Switch Profile"
       >
         <SwitchProfiles />
       </Modal>
       <Modal
-        title="Login"
         icon={<ArrowRightCircleIcon className="text-brand-500 h-5 w-5" />}
-        show={showAuthModal}
         onClose={() => setShowAuthModal(false)}
+        show={showAuthModal}
+        title="Login"
       >
         <Login />
       </Modal>
       <Modal
-        title="Wrong Network"
-        show={showWrongNetworkModal}
         onClose={() => setShowWrongNetworkModal(false)}
+        show={showWrongNetworkModal}
+        title="Wrong Network"
       >
         <WrongNetwork />
       </Modal>
       <Modal
-        title="Create post"
-        size="md"
-        show={showNewPostModal}
         onClose={() => {
           if (checkIfPublicationNotDrafted()) {
             setShowNewPostModal(false);
@@ -160,14 +158,17 @@ const GlobalModals: FC = () => {
             setShowDiscardModal(true);
           }
         }}
+        show={showNewPostModal}
+        size="md"
+        title="Create post"
       >
         <NewPublication />
       </Modal>
       <Modal
-        title="Invites"
         icon={<TicketIcon className="text-brand-500 h-5 w-5" />}
-        show={showInvitesModal}
         onClose={() => setShowInvitesModal(false)}
+        show={showInvitesModal}
+        title="Invites"
       >
         <Invites />
       </Modal>

@@ -1,6 +1,7 @@
+import type { MarkupLinkProps } from '@hey/types/misc';
+
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import truncateUrl from '@hey/lib/truncateUrl';
-import type { MarkupLinkProps } from '@hey/types/misc';
 import Link from 'next/link';
 import { type FC } from 'react';
 
@@ -19,8 +20,8 @@ const ExternalLink: FC<MarkupLinkProps> = ({ title }) => {
     <Link
       href={href}
       onClick={stopEventPropagation}
-      target={href.includes(location.host) ? '_self' : '_blank'}
       rel="noopener"
+      target={href.includes(location.host) ? '_self' : '_blank'}
     >
       {title ? truncateUrl(title, 30) : title}
     </Link>

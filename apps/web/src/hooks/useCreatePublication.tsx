@@ -1,6 +1,3 @@
-import { useApolloClient } from '@apollo/client';
-import { LensHub } from '@hey/abis';
-import { LENSHUB_PROXY } from '@hey/data/constants';
 import type {
   AnyPublication,
   MomokaCommentRequest,
@@ -10,6 +7,10 @@ import type {
   OnchainPostRequest,
   OnchainQuoteRequest
 } from '@hey/lens';
+
+import { useApolloClient } from '@apollo/client';
+import { LensHub } from '@hey/abis';
+import { LENSHUB_PROXY } from '@hey/data/constants';
 import {
   PublicationDocument,
   useBroadcastOnchainMutation,
@@ -40,16 +41,16 @@ import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface CreatePublicationProps {
   commentOn?: AnyPublication;
-  quoteOn?: AnyPublication;
-  onError: (error: any) => void;
   onCompleted: (status?: any) => void;
+  onError: (error: any) => void;
+  quoteOn?: AnyPublication;
 }
 
 const useCreatePublication = ({
   commentOn,
-  quoteOn,
+  onCompleted,
   onError,
-  onCompleted
+  quoteOn
 }: CreatePublicationProps) => {
   const { push } = useRouter();
   const { cache } = useApolloClient();
@@ -79,14 +80,14 @@ const useCreatePublication = ({
   }) => {
     return {
       ...(isComment && { commentOn: commentOn?.id }),
+      content: publicationContent,
+      txHash,
+      txId,
       type: isComment
         ? OptmisticPublicationType.NewComment
         : isQuote
           ? OptmisticPublicationType.NewQuote
-          : OptmisticPublicationType.NewPost,
-      txHash,
-      txId,
-      content: publicationContent
+          : OptmisticPublicationType.NewPost
     };
   };
 
@@ -112,9 +113,13 @@ const useCreatePublication = ({
   });
 
   const { error, write } = useContractWrite({
-    address: LENSHUB_PROXY,
     abi: LensHub,
+    address: LENSHUB_PROXY,
     functionName: isComment ? 'comment' : isQuote ? 'quote' : 'post',
+    onError: (error) => {
+      onError(error);
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+    },
     onSuccess: ({ hash }) => {
       onCompleted();
       setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
@@ -122,10 +127,6 @@ const useCreatePublication = ({
         generateOptimisticPublication({ txHash: hash }),
         ...txnQueue
       ]);
-    },
-    onError: (error) => {
-      onError(error);
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
     }
   });
 
@@ -354,18 +355,18 @@ const useCreatePublication = ({
   };
 
   return {
-    createCommentOnMomka,
-    createQuoteOnMomka,
-    createPostOnMomka,
     createCommentOnChain,
-    createQuoteOnChain,
-    createPostOnChain,
+    createCommentOnMomka,
     createMomokaCommentTypedData,
-    createMomokaQuoteTypedData,
     createMomokaPostTypedData,
+    createMomokaQuoteTypedData,
     createOnchainCommentTypedData,
-    createOnchainQuoteTypedData,
     createOnchainPostTypedData,
+    createOnchainQuoteTypedData,
+    createPostOnChain,
+    createPostOnMomka,
+    createQuoteOnChain,
+    createQuoteOnMomka,
     error
   };
 };

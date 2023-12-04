@@ -1,11 +1,12 @@
 import type { DragEndEvent } from '@dnd-kit/core';
+import type { FC } from 'react';
+
 import { closestCenter, DndContext } from '@dnd-kit/core';
 import {
   arrayMove,
   rectSortingStrategy,
   SortableContext
 } from '@dnd-kit/sortable';
-import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useNftGalleryStore } from 'src/store/non-persisted/useNftGalleryStore';
 
@@ -58,15 +59,15 @@ const ReArrange: FC = () => {
   return (
     <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
       <SortableContext
-        strategy={rectSortingStrategy}
         items={allNfts.map(
           (i) => `${i.contract.chainId}_${i.contract.address}_${i.tokenId}`
         )}
+        strategy={rectSortingStrategy}
       >
         <div className="grid gap-5 py-5 md:grid-cols-3">
           {allNfts.map((item) => {
             const id = `${item.contract.chainId}_${item.contract.address}_${item.tokenId}`;
-            return <DraggableCard key={id} id={id} nft={item} />;
+            return <DraggableCard id={id} key={id} nft={item} />;
           })}
         </div>
       </SortableContext>

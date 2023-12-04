@@ -25,6 +25,10 @@ const IsPride: FC = () => {
         { headers: getAuthWorkerHeaders() }
       ),
       {
+        error: () => {
+          setUpdating(false);
+          return 'Error updating pride preference';
+        },
         loading: 'Updating pride preference...',
         success: () => {
           getPreferences(currentProfile?.id, getAuthWorkerHeaders());
@@ -38,10 +42,6 @@ const IsPride: FC = () => {
           });
 
           return 'Pride preference updated';
-        },
-        error: () => {
-          setUpdating(false);
-          return 'Error updating pride preference';
         }
       }
     );
@@ -49,12 +49,12 @@ const IsPride: FC = () => {
 
   return (
     <ToggleWithHelper
+      description={`Turn this on to show your pride and turn the ${APP_NAME} logo rainbow every day.`}
+      disabled={updating}
+      heading="Celebrate pride every day"
+      icon={<img alt="Pride Logo" className="h-5 w-5" src="/pride.png" />}
       on={preferences.isPride}
       setOn={toggleIsPride}
-      heading="Celebrate pride every day"
-      description={`Turn this on to show your pride and turn the ${APP_NAME} logo rainbow every day.`}
-      icon={<img className="h-5 w-5" src="/pride.png" alt="Pride Logo" />}
-      disabled={updating}
     />
   );
 };

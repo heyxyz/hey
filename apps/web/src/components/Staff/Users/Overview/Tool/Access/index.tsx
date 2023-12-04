@@ -1,16 +1,17 @@
-import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
 import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
+
+import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
 
 import ActivateLifetimePro from './ActivateLifetimePro';
 import Verify from './Verify';
 
 interface RankProps {
-  profile: Profile;
   isPro: boolean;
+  profile: Profile;
 }
 
-const Access: FC<RankProps> = ({ profile, isPro }) => {
+const Access: FC<RankProps> = ({ isPro, profile }) => {
   return (
     <>
       <div className="mt-5 flex items-center space-x-2 text-yellow-600">
@@ -19,7 +20,7 @@ const Access: FC<RankProps> = ({ profile, isPro }) => {
       </div>
       <div className="mt-3 space-y-2 font-bold">
         <Verify profile={profile} />
-        <ActivateLifetimePro profile={profile} isPro={isPro} />
+        <ActivateLifetimePro isPro={isPro} profile={profile} />
       </div>
     </>
   );

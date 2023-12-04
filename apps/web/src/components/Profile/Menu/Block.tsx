@@ -1,6 +1,7 @@
+import type { Profile } from '@hey/lens';
+
 import { Menu } from '@headlessui/react';
 import { NoSymbolIcon } from '@heroicons/react/24/outline';
-import type { Profile } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';

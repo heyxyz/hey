@@ -1,3 +1,5 @@
+import type { NextPage } from 'next';
+
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import { apps as knownApps } from '@hey/data/apps';
@@ -19,7 +21,6 @@ import {
 } from '@hey/ui';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
-import type { NextPage } from 'next';
 import { useState } from 'react';
 import Custom404 from 'src/pages/404';
 import { useEffectOnce } from 'usehooks-ts';
@@ -48,7 +49,7 @@ const Mod: NextPage = () => {
   const [customFilters, setCustomFilters] = useState([
     CustomFiltersType.Gardeners
   ]);
-  const [apps, setApps] = useState<string[] | null>(null);
+  const [apps, setApps] = useState<null | string[]>(null);
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'mod' });
@@ -81,19 +82,19 @@ const Mod: NextPage = () => {
       <MetaTags title={`Mod Center • ${APP_NAME}`} />
       <GridItemEight className="space-y-5">
         <Feed
+          apps={apps}
+          customFilters={customFilters}
+          mainContentFocus={mainContentFocus}
+          publicationTypes={publicationTypes}
           refresh={refresh}
           setRefreshing={setRefreshing}
-          publicationTypes={publicationTypes}
-          mainContentFocus={mainContentFocus}
-          customFilters={customFilters}
-          apps={apps}
         />
       </GridItemEight>
       <GridItemFour>
         <Card className="p-5">
           <Button
-            disabled={refresing}
             className="w-full"
+            disabled={refresing}
             onClick={() => setRefresh(!refresh)}
           >
             Refresh feed
@@ -103,22 +104,22 @@ const Mod: NextPage = () => {
             <span className="font-bold">Publication filters</span>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
               <Checkbox
+                checked={publicationTypes.includes(ExplorePublicationType.Post)}
+                label="Posts"
+                name="posts"
                 onChange={() =>
                   togglePublicationType(ExplorePublicationType.Post)
                 }
-                checked={publicationTypes.includes(ExplorePublicationType.Post)}
-                name="posts"
-                label="Posts"
               />
               <Checkbox
-                onChange={() =>
-                  togglePublicationType(ExplorePublicationType.Quote)
-                }
                 checked={publicationTypes.includes(
                   ExplorePublicationType.Quote
                 )}
-                name="quotes"
                 label="Quotes"
+                name="quotes"
+                onChange={() =>
+                  togglePublicationType(ExplorePublicationType.Quote)
+                }
               />
             </div>
           </div>
@@ -151,7 +152,14 @@ const Mod: NextPage = () => {
             <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
               {Object.keys(PublicationMetadataMainFocusType).map((key) => (
                 <Checkbox
+                  checked={mainContentFocus.includes(
+                    PublicationMetadataMainFocusType[
+                      key as keyof typeof PublicationMetadataMainFocusType
+                    ]
+                  )}
                   key={key}
+                  label={key}
+                  name={key}
                   onChange={() =>
                     toggleMainContentFocus(
                       PublicationMetadataMainFocusType[
@@ -159,13 +167,6 @@ const Mod: NextPage = () => {
                       ]
                     )
                   }
-                  checked={mainContentFocus.includes(
-                    PublicationMetadataMainFocusType[
-                      key as keyof typeof PublicationMetadataMainFocusType
-                    ]
-                  )}
-                  name={key}
-                  label={key}
                 />
               ))}
             </div>
@@ -175,6 +176,9 @@ const Mod: NextPage = () => {
             <span className="font-bold">Custom filters</span>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
               <Checkbox
+                checked={customFilters.includes(CustomFiltersType.Gardeners)}
+                label="Gardeners"
+                name="gardeners"
                 onChange={() => {
                   if (customFilters.includes(CustomFiltersType.Gardeners)) {
                     setCustomFilters(
@@ -189,9 +193,6 @@ const Mod: NextPage = () => {
                     ]);
                   }
                 }}
-                checked={customFilters.includes(CustomFiltersType.Gardeners)}
-                name="gardeners"
-                label="Gardeners"
               />
             </div>
           </div>
@@ -206,7 +207,10 @@ const Mod: NextPage = () => {
             <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
               {FILTER_APPS.map((app) => (
                 <Checkbox
+                  checked={apps?.includes(app)}
                   key={app}
+                  label={app}
+                  name={app}
                   onChange={() => {
                     if (apps?.includes(app)) {
                       setApps(apps.filter((currentApp) => currentApp !== app));
@@ -214,9 +218,6 @@ const Mod: NextPage = () => {
                       setApps([...(apps || []), app]);
                     }
                   }}
-                  checked={apps?.includes(app)}
-                  name={app}
-                  label={app}
                 />
               ))}
             </div>

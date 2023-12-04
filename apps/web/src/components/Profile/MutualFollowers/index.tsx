@@ -1,4 +1,5 @@
 import type { Profile } from '@hey/lens';
+
 import { LimitType, useMutualFollowersQuery } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
@@ -12,25 +13,25 @@ import {
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface MutualFollowersProps {
-  setShowMutualFollowersModal?: Dispatch<SetStateAction<boolean>>;
   profile: Profile;
+  setShowMutualFollowersModal?: Dispatch<SetStateAction<boolean>>;
 }
 
 const MutualFollowers: FC<MutualFollowersProps> = ({
-  setShowMutualFollowersModal,
-  profile
+  profile,
+  setShowMutualFollowersModal
 }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
-  const { data, loading, error } = useMutualFollowersQuery({
+  const { data, error, loading } = useMutualFollowersQuery({
+    skip: !profile?.id || !currentProfile?.id,
     variables: {
       request: {
-        viewing: profile?.id,
+        limit: LimitType.Ten,
         observer: currentProfile?.id,
-        limit: LimitType.Ten
+        viewing: profile?.id
       }
-    },
-    skip: !profile?.id || !currentProfile?.id
+    }
   });
 
   const profiles =
@@ -46,10 +47,10 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
           .slice(0, 3)
           ?.map((profile) => (
             <Image
-              key={profile.id}
-              className="h-5 w-5 rounded-full border dark:border-gray-700"
-              src={getAvatar(profile)}
               alt={profile.id}
+              className="h-5 w-5 rounded-full border dark:border-gray-700"
+              key={profile.id}
+              src={getAvatar(profile)}
             />
           ))}
       </div>

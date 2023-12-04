@@ -3,16 +3,16 @@ import type { ElementType, FC, MouseEvent, ReactNode } from 'react';
 import cn from '../cn';
 
 interface CardProps {
-  children: ReactNode;
   as?: ElementType;
+  children: ReactNode;
   className?: string;
   forceRounded?: boolean;
   onClick?: (event: MouseEvent<HTMLDivElement>) => void;
 }
 
 export const Card: FC<CardProps> = ({
-  children,
   as: Tag = 'div',
+  children,
   className = '',
   forceRounded = false,
   onClick

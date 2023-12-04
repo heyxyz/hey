@@ -6,6 +6,6 @@ interface ProfileFeedState {
 }
 
 export const useProfileFeedStore = create<ProfileFeedState>((set) => ({
-  mediaFeedFilters: { images: true, video: true, audio: true },
+  mediaFeedFilters: { audio: true, images: true, video: true },
   setMediaFeedFilters: (mediaFeedFilters) => set(() => ({ mediaFeedFilters }))
 }));

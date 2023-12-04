@@ -1,4 +1,5 @@
 import type { Profile } from '@hey/lens';
+
 import { type FC } from 'react';
 
 import Ens from './Ens';

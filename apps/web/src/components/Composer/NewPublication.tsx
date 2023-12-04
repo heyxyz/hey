@@ -1,3 +1,17 @@
+import type {
+  AnyPublication,
+  MomokaCommentRequest,
+  MomokaPostRequest,
+  MomokaQuoteRequest,
+  OnchainCommentRequest,
+  OnchainPostRequest,
+  OnchainQuoteRequest,
+  Quote
+} from '@hey/lens';
+import type { IGif } from '@hey/types/giphy';
+import type { NewAttachment } from '@hey/types/misc';
+import type { FC } from 'react';
+
 import QuotedPublication from '@components/Publication/QuotedPublication';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
@@ -10,24 +24,12 @@ import {
 import { Errors } from '@hey/data/errors';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import { PUBLICATION } from '@hey/data/tracking';
-import type {
-  AnyPublication,
-  MomokaCommentRequest,
-  MomokaPostRequest,
-  MomokaQuoteRequest,
-  OnchainCommentRequest,
-  OnchainPostRequest,
-  OnchainQuoteRequest,
-  Quote
-} from '@hey/lens';
 import { ReferenceModuleType } from '@hey/lens';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import collectModuleParams from '@hey/lib/collectModuleParams';
 import getProfile from '@hey/lib/getProfile';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import removeQuoteOn from '@hey/lib/removeQuoteOn';
-import type { IGif } from '@hey/types/giphy';
-import type { NewAttachment } from '@hey/types/misc';
 import { Button, Card, ErrorMessage, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { MetadataAttributeType } from '@lens-protocol/metadata';
@@ -41,7 +43,6 @@ import uploadToArweave from '@lib/uploadToArweave';
 import { useUnmountEffect } from 'framer-motion';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
-import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useCreatePoll from 'src/hooks/useCreatePoll';
@@ -180,7 +181,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const getMetadata = usePublicationMetadata();
   const handleWrongNetwork = useHandleWrongNetwork();
 
-  const { isSponsored, canUseLensManager } =
+  const { canUseLensManager, isSponsored } =
     checkDispatcherPermissions(currentProfile);
 
   const isComment = Boolean(publication);
@@ -203,10 +204,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   const onCompleted = (
     __typename?:
-      | 'RelayError'
-      | 'RelaySuccess'
       | 'CreateMomokaPublicationResult'
       | 'LensProfileManagerRelayError'
+      | 'RelayError'
+      | 'RelaySuccess'
   ) => {
     if (
       __typename === 'RelayError' ||
@@ -227,9 +228,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     resetLiveVideoConfig();
     setAttachments([]);
     setVideoThumbnail({
-      url: '',
       type: '',
-      uploading: false
+      uploading: false,
+      url: ''
     });
     resetCollectSettings();
 
@@ -239,19 +240,19 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
     // Track in leafwatch
     const eventProperties = {
-      // TODO: add encrypted type in future
-      publication_type: 'public',
+      comment_on: isComment ? targetPublication.id : null,
       publication_collect_module: collectModule.type,
+      publication_has_attachments: attachments.length > 0,
+      publication_has_poll: showPollEditor,
+      publication_is_live: showLiveVideoEditor,
       publication_reference_module: selectedReferenceModule,
       publication_reference_module_degrees_of_separation:
         selectedReferenceModule ===
         ReferenceModuleType.DegreesOfSeparationReferenceModule
           ? degreesOfSeparation
           : null,
-      publication_has_attachments: attachments.length > 0,
-      publication_has_poll: showPollEditor,
-      publication_is_live: showLiveVideoEditor,
-      comment_on: isComment ? targetPublication.id : null,
+      // TODO: add encrypted type in future
+      publication_type: 'public',
       quote_on: isQuote ? quotedPublication?.id : null
     };
     Leafwatch.track(
@@ -265,23 +266,23 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   };
 
   const {
-    createCommentOnMomka,
-    createQuoteOnMomka,
-    createPostOnMomka,
     createCommentOnChain,
-    createQuoteOnChain,
-    createPostOnChain,
+    createCommentOnMomka,
     createMomokaCommentTypedData,
-    createMomokaQuoteTypedData,
     createMomokaPostTypedData,
+    createMomokaQuoteTypedData,
     createOnchainCommentTypedData,
-    createOnchainQuoteTypedData,
     createOnchainPostTypedData,
+    createOnchainQuoteTypedData,
+    createPostOnChain,
+    createPostOnMomka,
+    createQuoteOnChain,
+    createQuoteOnMomka,
     error
   } = useCreatePublication({
+    commentOn: targetPublication,
     onCompleted,
     onError,
-    commentOn: targetPublication,
     quoteOn: quotedPublication!
   });
 
@@ -368,26 +369,26 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       const hasAttributes = Boolean(pollId);
 
       const baseMetadata = {
-        title,
         content: processedPublicationContent,
+        title,
         ...(hasAttributes && {
           attributes: [
             ...(pollId
               ? [
                   {
                     key: 'pollId',
-                    value: pollId,
-                    type: MetadataAttributeType.STRING
+                    type: MetadataAttributeType.STRING,
+                    value: pollId
                   }
                 ]
               : [])
           ]
         }),
         marketplace: {
-          name: title,
-          description: processedPublicationContent,
           animation_url: getAnimationUrl() || textNftImageUrl,
-          external_url: `https://hey.xyz${getProfile(currentProfile).link}`
+          description: processedPublicationContent,
+          external_url: `https://hey.xyz${getProfile(currentProfile).link}`,
+          name: title
         }
       };
 
@@ -404,8 +405,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
       // Payload for the Momoka post/comment/quote
       const momokaRequest:
-        | MomokaPostRequest
         | MomokaCommentRequest
+        | MomokaPostRequest
         | MomokaQuoteRequest = {
         ...(isComment && { commentOn: targetPublication.id }),
         ...(isQuote && { quoteOn: quotedPublication?.id }),
@@ -448,8 +449,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
       // Payload for the post/comment/quote
       const onChainRequest:
-        | OnchainPostRequest
         | OnchainCommentRequest
+        | OnchainPostRequest
         | OnchainQuoteRequest = {
         contentURI: `ar://${arweaveId}`,
         ...(isComment && { commentOn: targetPublication.id }),
@@ -463,9 +464,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
               : {
                   degreesOfSeparationReferenceModule: {
                     commentsRestricted: true,
+                    degreesOfSeparation,
                     mirrorsRestricted: true,
-                    quotesRestricted: true,
-                    degreesOfSeparation
+                    quotesRestricted: true
                   }
                 }
         })
@@ -518,10 +519,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   const setGifAttachment = (gif: IGif) => {
     const attachment: NewAttachment = {
-      uri: gif.images.original.url,
       mimeType: 'image/gif',
       previewUri: gif.images.original.url,
-      type: 'Image'
+      type: 'Image',
+      uri: gif.images.original.url
     };
     addAttachments([attachment]);
   };
@@ -544,26 +545,26 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     resetLiveVideoConfig();
     setAttachments([]);
     setVideoThumbnail({
-      url: '',
       type: '',
-      uploading: false
+      uploading: false,
+      url: ''
     });
     resetCollectSettings();
   });
 
   return (
     <Card
-      onClick={() => setShowEmojiPicker(false)}
       className={cn(
         { '!rounded-b-xl !rounded-t-none border-none': !isComment },
         'pb-3'
       )}
+      onClick={() => setShowEmojiPicker(false)}
     >
       {error ? (
         <ErrorMessage
-          title="Transaction failed!"
-          error={error}
           className="!rounded-none"
+          error={error}
+          title="Transaction failed!"
         />
       ) : null}
       <Editor />
@@ -577,8 +578,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       {quotedPublication ? (
         <Wrapper className="m-5" zeroPadding>
           <QuotedPublication
-            publication={removeQuoteOn(quotedPublication as Quote)}
             isNew
+            publication={removeQuoteOn(quotedPublication as Quote)}
           />
         </Wrapper>
       ) : null}
@@ -587,8 +588,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           <Attachment />
           <EmojiPicker
             emojiClassName="text-brand-500"
-            setShowEmojiPicker={setShowEmojiPicker}
-            showEmojiPicker={showEmojiPicker}
             setEmoji={(emoji) => {
               setShowEmojiPicker(false);
               editor.update(() => {
@@ -604,6 +603,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
                 $convertFromMarkdownString(updatedContent);
               });
             }}
+            setShowEmojiPicker={setShowEmojiPicker}
+            showEmojiPicker={showEmojiPicker}
           />
           <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
           {!publication?.momoka?.proof ? (

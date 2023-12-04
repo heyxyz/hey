@@ -2,21 +2,21 @@ import { ReferenceModuleType } from '@hey/lens';
 import { create } from 'zustand';
 
 interface ReferenceModuleState {
-  selectedReferenceModule: ReferenceModuleType;
-  setSelectedReferenceModule: (selectedModule: ReferenceModuleType) => void;
-  onlyFollowers: boolean;
-  setOnlyFollowers: (onlyFollowers: boolean) => void;
   degreesOfSeparation: number;
+  onlyFollowers: boolean;
+  selectedReferenceModule: ReferenceModuleType;
   setDegreesOfSeparation: (degreesOfSeparation: number) => void;
+  setOnlyFollowers: (onlyFollowers: boolean) => void;
+  setSelectedReferenceModule: (selectedModule: ReferenceModuleType) => void;
 }
 
 export const useReferenceModuleStore = create<ReferenceModuleState>((set) => ({
-  selectedReferenceModule: ReferenceModuleType.FollowerOnlyReferenceModule,
-  setSelectedReferenceModule: (selectedReferenceModule) =>
-    set(() => ({ selectedReferenceModule })),
-  onlyFollowers: false,
-  setOnlyFollowers: (onlyFollowers) => set(() => ({ onlyFollowers })),
   degreesOfSeparation: 2,
+  onlyFollowers: false,
+  selectedReferenceModule: ReferenceModuleType.FollowerOnlyReferenceModule,
   setDegreesOfSeparation: (degreesOfSeparation) =>
-    set(() => ({ degreesOfSeparation }))
+    set(() => ({ degreesOfSeparation })),
+  setOnlyFollowers: (onlyFollowers) => set(() => ({ onlyFollowers })),
+  setSelectedReferenceModule: (selectedReferenceModule) =>
+    set(() => ({ selectedReferenceModule }))
 }));

@@ -1,8 +1,9 @@
+import type { Handler } from 'express';
+
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
 import { noBody } from '@utils/responses';
-import type { Handler } from 'express';
 import { XMLBuilder } from 'fast-xml-parser';
 
 export const config = {
@@ -10,21 +11,21 @@ export const config = {
 };
 
 interface Url {
-  loc: string;
   changefreq: string;
+  loc: string;
   priority: string;
 }
 
 const buildSitemapXml = (url: Url[]): string => {
   const builder = new XMLBuilder({
-    suppressEmptyNode: true,
+    format: true,
     ignoreAttributes: false,
     processEntities: true,
-    format: true
+    suppressEmptyNode: true
   });
 
   return builder.build({
-    '?xml': { '@_version': '1.0', '@_encoding': 'UTF-8' },
+    '?xml': { '@_encoding': 'UTF-8', '@_version': '1.0' },
     urlset: { '@_xmlns': 'http://www.sitemaps.org/schemas/sitemap/0.9', url }
   });
 };
@@ -49,8 +50,8 @@ export const get: Handler = async (req, res) => {
     } = await sheetsResponse.json();
     const handles = json.values.map((row) => row[0]);
     const entries: Url[] = handles.map((handle) => ({
-      loc: `https://hey.xyz/u/${handle}`,
       changefreq: 'weekly',
+      loc: `https://hey.xyz/u/${handle}`,
       priority: '1.0'
     }));
 
