@@ -135,7 +135,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
           url={urls[0]}
         />
       ) : null}
-      {metadata.__typename === 'LinkMetadataV3' ? (
+      {showSharingLink ? (
         <Oembed
           onData={() => {}}
           publicationId={publication.id}
