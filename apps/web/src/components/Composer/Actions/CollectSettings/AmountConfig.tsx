@@ -1,8 +1,9 @@
+import type { AllowedToken } from '@hey/types/hey';
+
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import { OpenActionModuleType } from '@hey/lens';
-import type { AllowedToken } from '@hey/types/hey';
 import { Input } from '@hey/ui';
 import { type FC } from 'react';
 import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
@@ -21,33 +22,30 @@ const AmountConfig: FC<AmountConfigProps> = ({
   return (
     <div className="pt-3">
       <ToggleWithHelper
+        description="Get paid whenever someone collects your post"
+        heading="Charge for collecting"
+        icon={<CurrencyDollarIcon className="h-4 w-4" />}
         on={Boolean(collectModule.amount?.value)}
         setOn={() => {
           setCollectType({
+            amount: collectModule.amount?.value
+              ? null
+              : { currency: DEFAULT_COLLECT_TOKEN, value: '1' },
             type: collectModule.amount?.value
               ? OpenActionModuleType.SimpleCollectOpenActionModule
               : collectModule.recipients?.length
                 ? OpenActionModuleType.MultirecipientFeeCollectOpenActionModule
-                : OpenActionModuleType.SimpleCollectOpenActionModule,
-            amount: collectModule.amount?.value
-              ? null
-              : { currency: DEFAULT_COLLECT_TOKEN, value: '1' }
+                : OpenActionModuleType.SimpleCollectOpenActionModule
           });
         }}
-        heading="Charge for collecting"
-        description="Get paid whenever someone collects your post"
-        icon={<CurrencyDollarIcon className="h-4 w-4" />}
       />
       {collectModule.amount?.value ? (
         <div className="pt-4">
           <div className="flex space-x-2 text-sm">
             <Input
               label="Price"
-              type="number"
-              placeholder="0.5"
-              min="0"
               max="100000"
-              value={parseFloat(collectModule.amount.value)}
+              min="0"
               onChange={(event) => {
                 setCollectType({
                   amount: {
@@ -56,6 +54,9 @@ const AmountConfig: FC<AmountConfigProps> = ({
                   }
                 });
               }}
+              placeholder="0.5"
+              type="number"
+              value={parseFloat(collectModule.amount.value)}
             />
             <div>
               <div className="label">Select currency</div>
@@ -73,10 +74,10 @@ const AmountConfig: FC<AmountConfigProps> = ({
                 {allowedTokens?.map((token) => (
                   <option
                     key={token.contractAddress}
-                    value={token.contractAddress}
                     selected={
                       token.contractAddress === collectModule.amount?.currency
                     }
+                    value={token.contractAddress}
                   >
                     {token.name}
                   </option>

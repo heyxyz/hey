@@ -1,10 +1,11 @@
+import type { Group } from '@hey/types/hey';
+import type { FC } from 'react';
+
 import { FireIcon } from '@heroicons/react/24/solid';
 import getAvatar from '@hey/lib/getAvatar';
 import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
-import type { Group } from '@hey/types/hey';
 import { Image } from '@hey/ui';
 import Link from 'next/link';
-import type { FC } from 'react';
 import { memo } from 'react';
 
 import Slug from './Slug';
@@ -20,12 +21,12 @@ const GroupProfile: FC<GroupProfileProps> = ({
 }) => {
   const GroupAvatar = () => (
     <Image
-      src={getAvatar(group)}
-      loading="lazy"
+      alt={group.slug}
       className="h-10 w-10 rounded-lg border bg-gray-200 dark:border-gray-700"
       height={40}
+      loading="lazy"
+      src={getAvatar(group)}
       width={40}
-      alt={group.slug}
     />
   );
 
@@ -40,7 +41,7 @@ const GroupProfile: FC<GroupProfileProps> = ({
         ) : null}
       </div>
       <div>
-        <Slug className="text-sm" slug={group.slug} prefix="g/" />
+        <Slug className="text-sm" prefix="g/" slug={group.slug} />
       </div>
     </>
   );

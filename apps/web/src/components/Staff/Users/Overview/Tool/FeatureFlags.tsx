@@ -1,6 +1,7 @@
+import type { Profile } from '@hey/lens';
+
 import { FlagIcon } from '@heroicons/react/24/outline';
 import { FeatureFlag } from '@hey/data/feature-flags';
-import type { Profile } from '@hey/lens';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { type FC, useState } from 'react';
 import { useUpdateEffect } from 'usehooks-ts';
@@ -8,11 +9,11 @@ import { useUpdateEffect } from 'usehooks-ts';
 import UpdateFeatureFlags from './UpdateFeatureFlags';
 
 interface FeatureFlagsProps {
-  profile: Profile;
   features: string[];
+  profile: Profile;
 }
 
-const FeatureFlags: FC<FeatureFlagsProps> = ({ profile, features }) => {
+const FeatureFlags: FC<FeatureFlagsProps> = ({ features, profile }) => {
   const [flags, setFlags] = useState<string[]>([]);
 
   useUpdateEffect(() => {
@@ -28,8 +29,8 @@ const FeatureFlags: FC<FeatureFlagsProps> = ({ profile, features }) => {
       <div className="mt-3">
         {isFeatureEnabled(FeatureFlag.FeatureFlipper) && (
           <UpdateFeatureFlags
-            profile={profile}
             flags={flags}
+            profile={profile}
             setFlags={setFlags}
           />
         )}

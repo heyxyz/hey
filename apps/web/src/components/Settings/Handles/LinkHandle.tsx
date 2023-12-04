@@ -1,3 +1,5 @@
+import type { LinkHandleToProfileRequest } from '@hey/lens';
+
 import IndexStatus from '@components/Shared/IndexStatus';
 import Loader from '@components/Shared/Loader';
 import Slug from '@components/Shared/Slug';
@@ -9,7 +11,6 @@ import {
 import { TokenHandleRegistry } from '@hey/abis';
 import { TOKEN_HANDLE_REGISTRY } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
-import type { LinkHandleToProfileRequest } from '@hey/lens';
 import {
   useBroadcastOnchainMutation,
   useCreateLinkHandleToProfileTypedDataMutation,
@@ -37,14 +38,14 @@ const LinkHandle: FC = () => {
     (state) => state.setLensHubOnchainSigNonce
   );
 
-  const [linkingHandle, setLinkingHandle] = useState<string | null>(null);
+  const [linkingHandle, setLinkingHandle] = useState<null | string>(null);
 
   const handleWrongNetwork = useHandleWrongNetwork();
-  const { canUseLensManager, canBroadcast } =
+  const { canBroadcast, canUseLensManager } =
     checkDispatcherPermissions(currentProfile);
 
   const onCompleted = (
-    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
+    __typename?: 'LensProfileManagerRelayError' | 'RelayError' | 'RelaySuccess'
   ) => {
     if (
       __typename === 'RelayError' ||
@@ -68,12 +69,12 @@ const LinkHandle: FC = () => {
   });
 
   const { signTypedDataAsync } = useSignTypedData({ onError });
-  const { write, data: writeData } = useContractWrite({
-    address: TOKEN_HANDLE_REGISTRY,
+  const { data: writeData, write } = useContractWrite({
     abi: TokenHandleRegistry,
+    address: TOKEN_HANDLE_REGISTRY,
     functionName: 'link',
-    onSuccess: () => onCompleted(),
-    onError
+    onError,
+    onSuccess: () => onCompleted()
   });
 
   const [broadcastOnchain, { data: broadcastData }] =
@@ -164,9 +165,9 @@ const LinkHandle: FC = () => {
   if (!ownedHandles?.length) {
     return (
       <EmptyState
-        message="No handles found to link!"
-        icon={<AtSymbolIcon className="text-brand-500 h-8 w-8" />}
         hideCard
+        icon={<AtSymbolIcon className="text-brand-500 h-8 w-8" />}
+        message="No handles found to link!"
       />
     );
   }
@@ -183,20 +184,21 @@ const LinkHandle: FC = () => {
     <div className="space-y-6">
       {ownedHandles?.map((handle) => (
         <div
-          key={handle.fullHandle}
           className="flex items-center justify-between"
+          key={handle.fullHandle}
         >
           <Slug className="font-bold" slug={handle.fullHandle} />
           {lensManegaerTxId || broadcastTxId || writeHash ? (
             <div className="mt-2">
               <IndexStatus
+                reload
                 txHash={writeHash}
                 txId={lensManegaerTxId || broadcastTxId}
-                reload
               />
             </div>
           ) : (
             <Button
+              disabled={linkingHandle === handle.fullHandle}
               icon={
                 linkingHandle === handle.fullHandle ? (
                   <Spinner size="xs" />
@@ -207,7 +209,6 @@ const LinkHandle: FC = () => {
                 )
               }
               onClick={() => link(handle.fullHandle)}
-              disabled={linkingHandle === handle.fullHandle}
               outline
             >
               Link

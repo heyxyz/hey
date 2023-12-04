@@ -1,18 +1,19 @@
+import type { FC } from 'react';
+
 import { Dialog, Transition } from '@headlessui/react';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import Link from 'next/link';
-import type { FC } from 'react';
 import { Fragment } from 'react';
 
 interface LightBoxProps {
-  show: boolean;
-  url: string | null;
   onClose: () => void;
+  show: boolean;
+  url: null | string;
 }
 
-export const LightBox: FC<LightBoxProps> = ({ show, url, onClose }) => {
+export const LightBox: FC<LightBoxProps> = ({ onClose, show, url }) => {
   return (
-    <Transition.Root show={show} as={Fragment}>
+    <Transition.Root as={Fragment} show={show}>
       <Dialog
         as="div"
         className="fixed inset-0 z-10 overflow-y-auto"
@@ -42,21 +43,21 @@ export const LightBox: FC<LightBoxProps> = ({ show, url, onClose }) => {
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
             <img
+              alt={url ?? ''}
               className="max-h-screen"
               height={1000}
-              width={1000}
-              src={url ?? ''}
-              alt={url ?? ''}
               onClick={onClose}
+              src={url ?? ''}
+              width={1000}
             />
             {url ? (
               <div className="mt-1">
                 <Link
                   className="text-sm text-gray-200 hover:underline"
                   href={url}
-                  target="_blank"
-                  rel="noreferrer noopener"
                   onClick={stopEventPropagation}
+                  rel="noreferrer noopener"
+                  target="_blank"
                 >
                   Open original
                 </Link>

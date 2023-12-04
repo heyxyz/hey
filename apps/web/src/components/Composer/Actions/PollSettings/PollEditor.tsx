@@ -1,8 +1,9 @@
+import type { FC } from 'react';
+
 import { ClockIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Bars3BottomLeftIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { Button, Card, Input, Modal, Tooltip } from '@hey/ui';
 import plur from 'plur';
-import type { FC } from 'react';
 import { useState } from 'react';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 
@@ -24,57 +25,57 @@ const PollEditor: FC = () => {
         </div>
         <div className="flex items-center space-x-3">
           <Button
-            variant="primary"
-            size="sm"
             icon={<ClockIcon className="h-4 w-4" />}
             onClick={() => setShowPollLengthModal(true)}
             outline
+            size="sm"
+            variant="primary"
           >
             {pollConfig.length} {plur('day', pollConfig.length)}
           </Button>
           <Modal
-            title="Poll length"
             icon={<ClockIcon className="text-brand-500 h-5 w-5" />}
-            show={showPollLengthModal}
             onClose={() => setShowPollLengthModal(false)}
+            show={showPollLengthModal}
+            title="Poll length"
           >
             <div className="p-5">
               <Input
                 label="Poll length (days)"
-                type="number"
-                value={pollConfig.length}
-                min={1}
                 max={30}
+                min={1}
                 onChange={(e) =>
                   setPollConfig({
                     ...pollConfig,
                     length: Number(e.target.value)
                   })
                 }
+                type="number"
+                value={pollConfig.length}
               />
               <div className="flex space-x-2 pt-5">
                 <Button
                   className="ml-auto"
-                  variant="danger"
                   onClick={() => {
                     setPollConfig({ ...pollConfig, length: 7 });
                     setShowPollLengthModal(false);
                   }}
                   outline
+                  variant="danger"
                 >
                   Cancel
                 </Button>
                 <Button
                   className="ml-auto"
-                  variant="primary"
                   onClick={() => setShowPollLengthModal(false)}
+                  variant="primary"
                 >
                   Save
                 </Button>
               </div>
             </div>
           </Modal>
-          <Tooltip placement="top" content="Delete">
+          <Tooltip content="Delete" placement="top">
             <button
               className="flex"
               onClick={() => {
@@ -89,15 +90,8 @@ const PollEditor: FC = () => {
       </div>
       <div className="mt-3 space-y-2">
         {pollConfig.options.map((choice, index) => (
-          <div key={index} className="flex items-center space-x-2 text-sm">
+          <div className="flex items-center space-x-2 text-sm" key={index}>
             <Input
-              placeholder={`Choice ${index + 1}`}
-              value={choice}
-              onChange={(event) => {
-                const newOptions = [...pollConfig.options];
-                newOptions[index] = event.target.value;
-                setPollConfig({ ...pollConfig, options: newOptions });
-              }}
               iconRight={
                 index > 1 ? (
                   <button
@@ -112,6 +106,13 @@ const PollEditor: FC = () => {
                   </button>
                 ) : null
               }
+              onChange={(event) => {
+                const newOptions = [...pollConfig.options];
+                newOptions[index] = event.target.value;
+                setPollConfig({ ...pollConfig, options: newOptions });
+              }}
+              placeholder={`Choice ${index + 1}`}
+              value={choice}
             />
           </div>
         ))}

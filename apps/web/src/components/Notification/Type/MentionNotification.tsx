@@ -1,9 +1,10 @@
+import type { FC } from 'react';
+
 import Markup from '@components/Shared/Markup';
 import { AtSymbolIcon } from '@heroicons/react/24/outline';
 import { MentionNotification } from '@hey/lens';
 import getPublicationData from '@hey/lib/getPublicationData';
 import Link from 'next/link';
-import type { FC } from 'react';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
@@ -33,13 +34,13 @@ const MentionNotification: FC<MentionNotificationProps> = ({
       <div className="ml-9">
         <AggregatedNotificationTitle
           firstProfile={firstProfile}
+          linkToType={`/posts/${notification?.publication?.id}`}
           text={text}
           type={type}
-          linkToType={`/posts/${notification?.publication?.id}`}
         />
         <Link
-          href={`/posts/${notification?.publication?.id}`}
           className="ld-text-gray-500 linkify mt-2 line-clamp-2"
+          href={`/posts/${notification?.publication?.id}`}
         >
           <Markup mentions={notification?.publication.profilesMentioned}>
             {filteredContent}

@@ -1,3 +1,6 @@
+import type { Profile } from '@hey/lens';
+import type { FC, ReactNode } from 'react';
+
 import Markup from '@components/Shared/Markup';
 import Follow from '@components/Shared/Profile/Follow';
 import Unfollow from '@components/Shared/Profile/Unfollow';
@@ -22,7 +25,6 @@ import {
 } from '@hey/data/constants';
 import { FollowUnfollowSource } from '@hey/data/tracking';
 import getEnvConfig from '@hey/data/utils/getEnvConfig';
-import type { Profile } from '@hey/lens';
 import { FollowModuleType } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
 import getFavicon from '@hey/lib/getFavicon';
@@ -34,9 +36,8 @@ import hasMisused from '@hey/lib/hasMisused';
 import { Button, Image, LightBox, Modal, Tooltip } from '@hey/ui';
 import { formatDate } from '@lib/formatTime';
 import isVerified from '@lib/isVerified';
-import Link from 'next/link';
 import { useTheme } from 'next-themes';
-import type { FC, ReactNode } from 'react';
+import Link from 'next/link';
 import { useState } from 'react';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
@@ -51,17 +52,17 @@ import MutualFollowersList from './MutualFollowers/List';
 import ScamWarning from './ScamWarning';
 
 interface DetailsProps {
-  profile: Profile;
   following: boolean;
+  profile: Profile;
   setFollowing: (following: boolean) => void;
 }
 
-const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
+const Details: FC<DetailsProps> = ({ following, profile, setFollowing }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
   const [showMutualFollowersModal, setShowMutualFollowersModal] =
     useState(false);
-  const [expandedImage, setExpandedImage] = useState<string | null>(null);
+  const [expandedImage, setExpandedImage] = useState<null | string>(null);
   const { resolvedTheme } = useTheme();
 
   const MetaDetails = ({
@@ -84,17 +85,17 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
     <div className="mb-4 space-y-5 px-5 sm:px-0">
       <div className="relative -mt-24 h-32 w-32 sm:-mt-32 sm:h-52 sm:w-52">
         <Image
-          onClick={() => setExpandedImage(getAvatar(profile, EXPANDED_AVATAR))}
-          src={getAvatar(profile)}
+          alt={profile.id}
           className="h-32 w-32 cursor-pointer rounded-xl bg-gray-200 ring-8 ring-gray-50 dark:bg-gray-700 dark:ring-black sm:h-52 sm:w-52"
           height={128}
+          onClick={() => setExpandedImage(getAvatar(profile, EXPANDED_AVATAR))}
+          src={getAvatar(profile)}
           width={128}
-          alt={profile.id}
         />
         <LightBox
+          onClose={() => setExpandedImage(null)}
           show={Boolean(expandedImage)}
           url={expandedImage}
-          onClose={() => setExpandedImage(null)}
         />
       </div>
       <div className="space-y-1 py-2">
@@ -137,9 +138,9 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           {currentProfile?.id === profile.id ? (
             <Link href="/settings">
               <Button
-                variant="secondary"
                 icon={<Cog6ToothIcon className="h-5 w-5" />}
                 outline
+                variant="secondary"
               >
                 Edit Profile
               </Button>
@@ -150,15 +151,15 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                 <Unfollow
                   profile={profile}
                   setFollowing={setFollowing}
-                  unfollowSource={FollowUnfollowSource.PROFILE_PAGE}
                   showText
+                  unfollowSource={FollowUnfollowSource.PROFILE_PAGE}
                 />
                 {followType === FollowModuleType.FeeFollowModule ? (
                   <SuperFollow
+                    again
                     profile={profile}
                     setFollowing={setFollowing}
                     superFollowSource={FollowUnfollowSource.PROFILE_PAGE}
-                    again
                   />
                 ) : null}
               </>
@@ -166,14 +167,14 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               <SuperFollow
                 profile={profile}
                 setFollowing={setFollowing}
-                superFollowSource={FollowUnfollowSource.PROFILE_PAGE}
                 showText
+                superFollowSource={FollowUnfollowSource.PROFILE_PAGE}
               />
             ) : (
               <Follow
+                followSource={FollowUnfollowSource.PROFILE_PAGE}
                 profile={profile}
                 setFollowing={setFollowing}
-                followSource={FollowUnfollowSource.PROFILE_PAGE}
                 showText
               />
             )
@@ -184,14 +185,14 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
         {currentProfile?.id !== profile.id ? (
           <>
             <MutualFollowers
-              setShowMutualFollowersModal={setShowMutualFollowersModal}
               profile={profile}
+              setShowMutualFollowersModal={setShowMutualFollowersModal}
             />
             <Modal
-              title="Followers you know"
               icon={<UsersIcon className="text-brand-500 h-5 w-5" />}
-              show={showMutualFollowersModal}
               onClose={() => setShowMutualFollowersModal(false)}
+              show={showMutualFollowersModal}
+              title="Followers you know"
             >
               <MutualFollowersList profile={profile} />
             </Modal>
@@ -218,8 +219,8 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                   address: getEnvConfig().lensHubProxyAddress,
                   id: parseInt(profile.id)
                 })}
-                target="_blank"
                 rel="noreferrer"
+                target="_blank"
               >
                 {parseInt(profile.id)}
               </Link>
@@ -234,11 +235,11 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             <MetaDetails
               icon={
                 <img
-                  src={`${STATIC_IMAGES_URL}/brands/ens.svg`}
+                  alt="ENS Logo"
                   className="h-4 w-4"
                   height={16}
+                  src={`${STATIC_IMAGES_URL}/brands/ens.svg`}
                   width={16}
-                  alt="ENS Logo"
                 />
               }
             >
@@ -249,16 +250,16 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             <MetaDetails
               icon={
                 <img
+                  alt="Website"
+                  className="h-4 w-4 rounded-full"
+                  height={16}
                   src={getFavicon(
                     getProfileAttribute(
                       profile?.metadata?.attributes,
                       'website'
                     )
                   )}
-                  className="h-4 w-4 rounded-full"
-                  height={16}
                   width={16}
-                  alt="Website"
                 />
               }
             >
@@ -269,8 +270,8 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                 )
                   ?.replace('https://', '')
                   .replace('http://', '')}`}
-                target="_blank"
                 rel="noreferrer noopener me"
+                target="_blank"
               >
                 {getProfileAttribute(profile?.metadata?.attributes, 'website')
                   ?.replace('https://', '')
@@ -282,13 +283,13 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             <MetaDetails
               icon={
                 <img
+                  alt="X Logo"
+                  className="h-4 w-4"
+                  height={16}
                   src={`${STATIC_IMAGES_URL}/brands/${
                     resolvedTheme === 'dark' ? 'x-dark.png' : 'x-light.png'
                   }`}
-                  className="h-4 w-4"
-                  height={16}
                   width={16}
-                  alt="X Logo"
                 />
               }
             >
@@ -299,8 +300,8 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                     'x'
                   )?.replace('https://x.com/', '')
                 })}
-                target="_blank"
                 rel="noreferrer noopener"
+                target="_blank"
               >
                 {getProfileAttribute(
                   profile?.metadata?.attributes,

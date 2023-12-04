@@ -1,8 +1,9 @@
+import type { FollowersRequest, Profile } from '@hey/lens';
+
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
 import { FollowUnfollowSource } from '@hey/data/tracking';
-import type { FollowersRequest, Profile } from '@hey/lens';
 import { LimitType, useFollowersQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { EmptyState, ErrorMessage } from '@hey/ui';
@@ -20,13 +21,13 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
 
   // Variables
   const request: FollowersRequest = {
-    of: profile?.id,
-    limit: LimitType.TwentyFive
+    limit: LimitType.TwentyFive,
+    of: profile?.id
   };
 
-  const { data, loading, error, fetchMore } = useFollowersQuery({
-    variables: { request },
-    skip: !profile?.id
+  const { data, error, fetchMore, loading } = useFollowersQuery({
+    skip: !profile?.id,
+    variables: { request }
   });
 
   const followers = data?.followers?.items;
@@ -50,6 +51,8 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
   if (followers?.length === 0) {
     return (
       <EmptyState
+        hideCard
+        icon={<UsersIcon className="text-brand-500 h-8 w-8" />}
         message={
           <div>
             <span className="mr-1 font-bold">
@@ -58,8 +61,6 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
             <span>doesn’t have any followers yet.</span>
           </div>
         }
-        icon={<UsersIcon className="text-brand-500 h-8 w-8" />}
-        hideCard
       />
     );
   }
@@ -67,9 +68,9 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
   return (
     <div className="max-h-[80vh] overflow-y-auto">
       <ErrorMessage
-        title="Failed to load followers"
-        error={error}
         className="m-5"
+        error={error}
+        title="Failed to load followers"
       />
       <Virtuoso
         className="virtual-profile-list"
@@ -78,16 +79,16 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
         itemContent={(index, follower) => {
           return (
             <motion.div
-              initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
               className="p-5"
+              exit={{ opacity: 0 }}
+              initial={{ opacity: 0 }}
             >
               <UserProfile
-                profile={follower as Profile}
-                isFollowing={follower.operations.isFollowedByMe.value}
                 followUnfollowPosition={index + 1}
                 followUnfollowSource={FollowUnfollowSource.FOLLOWERS_MODAL}
+                isFollowing={follower.operations.isFollowedByMe.value}
+                profile={follower as Profile}
                 showBio
                 showFollow={currentProfile?.id !== follower.id}
                 showUnfollow={currentProfile?.id !== follower.id}

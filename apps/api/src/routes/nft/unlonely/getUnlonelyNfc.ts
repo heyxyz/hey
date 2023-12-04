@@ -1,8 +1,9 @@
+import type { Handler } from 'express';
+
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
 import { noBody } from '@utils/responses';
-import type { Handler } from 'express';
 
 export const get: Handler = async (req, res) => {
   const { id } = req.query;
@@ -15,11 +16,6 @@ export const get: Handler = async (req, res) => {
     const unlonelyResponse = await fetch(
       'https://unlonely-vqeii.ondigitalocean.app/graphql',
       {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'User-agent': 'Hey.xyz'
-        },
         body: JSON.stringify({
           query: `
             query GetNFC {
@@ -38,7 +34,12 @@ export const get: Handler = async (req, res) => {
               }
             }
           `
-        })
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          'User-agent': 'Hey.xyz'
+        },
+        method: 'POST'
       }
     );
     const nfc: {
@@ -50,8 +51,8 @@ export const get: Handler = async (req, res) => {
       .status(200)
       .setHeader('Cache-Control', SWR_CACHE_AGE_1_MIN_30_DAYS)
       .json({
-        success: true,
-        nfc: nfc.data.getNFC
+        nfc: nfc.data.getNFC,
+        success: true
       });
   } catch (error) {
     return catchedError(res, error);

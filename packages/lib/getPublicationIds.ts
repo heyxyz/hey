@@ -11,17 +11,17 @@ import axios from 'axios';
 const getPublicationIds = async (
   provider: string,
   strategy: string,
-  limit: number | null,
-  offset: number | null,
+  limit: null | number,
+  offset: null | number,
   profile?: string
 ) => {
   try {
     const response = await axios.get(`${HEY_API_URL}/feed/getPublicationIds`, {
       params: {
-        provider,
-        strategy,
         limit,
         offset,
+        provider,
+        strategy,
         ...(profile ? { profile } : {})
       }
     });

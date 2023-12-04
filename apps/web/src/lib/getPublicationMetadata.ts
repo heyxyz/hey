@@ -1,18 +1,19 @@
-import { APP_NAME } from '@hey/data/constants';
 import type { NewAttachment } from '@hey/types/misc';
+
+import { APP_NAME } from '@hey/data/constants';
 import { audio, image, textOnly, video } from '@lens-protocol/metadata';
 import getUserLocale from '@lib/getUserLocale';
 import { v4 as uuid } from 'uuid';
 
 interface GetPublicationMetadataProps {
-  baseMetadata: any;
   attachments: NewAttachment[];
+  baseMetadata: any;
   cover: string;
 }
 
 const getPublicationMetadata = ({
-  baseMetadata,
   attachments,
+  baseMetadata,
   cover
 }: GetPublicationMetadataProps) => {
   const hasAttachments = attachments.length;
@@ -21,9 +22,9 @@ const getPublicationMetadata = ({
   const hasVideo = attachments[0]?.type === 'Video';
 
   const localBaseMetadata = {
+    appId: APP_NAME,
     id: uuid(),
-    locale: getUserLocale(),
-    appId: APP_NAME
+    locale: getUserLocale()
   };
 
   switch (true) {
@@ -36,15 +37,15 @@ const getPublicationMetadata = ({
       return image({
         ...baseMetadata,
         ...localBaseMetadata,
+        attachments: attachments.map((attachment) => ({
+          cover: cover,
+          item: attachment.uri,
+          type: attachment.mimeType
+        })),
         image: {
           item: attachments[0]?.uri,
           type: attachments[0]?.mimeType
-        },
-        attachments: attachments.map((attachment) => ({
-          item: attachment.uri,
-          type: attachment.mimeType,
-          cover: cover
-        }))
+        }
       });
     case hasAudio:
       return audio({
@@ -57,9 +58,9 @@ const getPublicationMetadata = ({
         ...baseMetadata,
         ...localBaseMetadata,
         video: {
+          duration: 0,
           item: attachments[0]?.uri,
-          type: attachments[0]?.mimeType,
-          duration: 0
+          type: attachments[0]?.mimeType
         }
       });
     default:

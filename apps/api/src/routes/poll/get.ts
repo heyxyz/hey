@@ -1,9 +1,10 @@
+import type { Handler } from 'express';
+
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import catchedError from '@utils/catchedError';
 import prisma from '@utils/prisma';
 import { noBody } from '@utils/responses';
-import type { Handler } from 'express';
 
 export const get: Handler = async (req, res) => {
   const { id } = req.query;
@@ -18,26 +19,26 @@ export const get: Handler = async (req, res) => {
     const payload = parseJwt(accessToken);
 
     const data = await prisma.poll.findUnique({
-      where: { id: id as string },
       select: {
-        id: true,
         endsAt: true,
+        id: true,
         options: {
           select: {
+            _count: { select: { responses: true } },
             id: true,
             option: true,
-            _count: { select: { responses: true } },
             responses: {
-              where: { profileId: payload.id },
-              select: { id: true }
+              select: { id: true },
+              where: { profileId: payload.id }
             }
           }
         }
-      }
+      },
+      where: { id: id as string }
     });
 
     if (!data) {
-      return res.status(400).json({ success: false, error: 'Poll not found.' });
+      return res.status(400).json({ error: 'Poll not found.', success: false });
     }
 
     const totalResponses = data.options.reduce(
@@ -46,23 +47,23 @@ export const get: Handler = async (req, res) => {
     );
 
     const sanitizedData = {
-      id: data.id,
       endsAt: data.endsAt,
+      id: data.id,
       options: data.options.map((option) => ({
         id: option.id,
         option: option.option,
-        voted: option.responses.length > 0,
         percentage:
           totalResponses > 0
             ? (option._count.responses / totalResponses) * 100
             : 0,
-        responses: option._count.responses
+        responses: option._count.responses,
+        voted: option.responses.length > 0
       }))
     };
 
     logger.info('Poll fetched');
 
-    return res.status(200).json({ success: true, result: sanitizedData });
+    return res.status(200).json({ result: sanitizedData, success: true });
   } catch (error) {
     return catchedError(res, error);
   }

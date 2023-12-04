@@ -51,13 +51,13 @@ const ReferenceSettings: FC = () => {
     isDegreesOfSeparationReferenceModule && degreesOfSeparation === 2;
 
   interface ModuleProps {
-    title: string;
     icon: ReactNode;
     onClick: () => void;
     selected: boolean;
+    title: string;
   }
 
-  const Module: FC<ModuleProps> = ({ title, icon, onClick, selected }) => (
+  const Module: FC<ModuleProps> = ({ icon, onClick, selected, title }) => (
     <Menu.Item
       as="a"
       className={cn({ 'dropdown-active': selected }, 'menu-item')}
@@ -88,8 +88,8 @@ const ReferenceSettings: FC = () => {
   return (
     <Menu as="div">
       <Tooltip
-        placement="top"
         content={getSelectedReferenceModuleTooltipText()}
+        placement="top"
       >
         <Menu.Button
           as={motion.button}
@@ -106,12 +106,10 @@ const ReferenceSettings: FC = () => {
       </Tooltip>
       <MenuTransition>
         <Menu.Items
-          static
           className="absolute z-[5] mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+          static
         >
           <Module
-            title={EVERYONE}
-            selected={isEveryone}
             icon={<GlobeAltIcon className="h-4 w-4" />}
             onClick={() => {
               setSelectedReferenceModule(
@@ -119,10 +117,10 @@ const ReferenceSettings: FC = () => {
               );
               setOnlyFollowers(false);
             }}
+            selected={isEveryone}
+            title={EVERYONE}
           />
           <Module
-            title={MY_FOLLOWERS}
-            selected={isMyFollowers}
             icon={<UsersIcon className="h-4 w-4" />}
             onClick={() => {
               setSelectedReferenceModule(
@@ -130,10 +128,10 @@ const ReferenceSettings: FC = () => {
               );
               setOnlyFollowers(true);
             }}
+            selected={isMyFollowers}
+            title={MY_FOLLOWERS}
           />
           <Module
-            title={MY_FOLLOWS}
-            selected={isMyFollows}
             icon={<UserPlusIcon className="h-4 w-4" />}
             onClick={() => {
               setSelectedReferenceModule(
@@ -141,10 +139,10 @@ const ReferenceSettings: FC = () => {
               );
               setDegreesOfSeparation(1);
             }}
+            selected={isMyFollows}
+            title={MY_FOLLOWS}
           />
           <Module
-            title={FRIENDS_OF_FRIENDS}
-            selected={isFriendsOfFriends}
             icon={<UserGroupIcon className="h-4 w-4" />}
             onClick={() => {
               setSelectedReferenceModule(
@@ -152,6 +150,8 @@ const ReferenceSettings: FC = () => {
               );
               setDegreesOfSeparation(2);
             }}
+            selected={isFriendsOfFriends}
+            title={FRIENDS_OF_FRIENDS}
           />
         </Menu.Items>
       </MenuTransition>

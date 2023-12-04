@@ -1,3 +1,6 @@
+import type { FC } from 'react';
+import type { Address } from 'viem';
+
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import {
   LensTransactionStatusType,
@@ -5,33 +8,24 @@ import {
 } from '@hey/lens';
 import { Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import type { FC } from 'react';
 import { useState } from 'react';
-import type { Address } from 'viem';
 
 interface IndexStatusProps {
   message?: string;
+  reload?: boolean;
   txHash?: Address;
   txId?: string;
-  reload?: boolean;
 }
 
 const IndexStatus: FC<IndexStatusProps> = ({
   message = 'Transaction Indexing',
+  reload = false,
   txHash,
-  txId,
-  reload = false
+  txId
 }) => {
   const [hide, setHide] = useState(false);
   const [pollInterval, setPollInterval] = useState(500);
   const { data, loading } = useLensTransactionStatusQuery({
-    variables: {
-      request: {
-        ...(txHash && { forTxHash: txHash }),
-        ...(txId && { forTxId: txId })
-      }
-    },
-    pollInterval,
     notifyOnNetworkStatusChange: true,
     onCompleted: ({ lensTransactionStatus }) => {
       if (
@@ -44,6 +38,13 @@ const IndexStatus: FC<IndexStatusProps> = ({
         setTimeout(() => {
           setHide(true);
         }, 5000);
+      }
+    },
+    pollInterval,
+    variables: {
+      request: {
+        ...(txHash && { forTxHash: txHash }),
+        ...(txId && { forTxId: txId })
       }
     }
   });

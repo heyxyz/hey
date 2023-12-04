@@ -57,9 +57,9 @@ const PublicationActions: FC<PublicationActionsProps> = ({
       {canAct ? (
         <OpenAction publication={publication} showCount={showCount} />
       ) : null}
-      {views > 0 ? <Views views={views} showCount={showCount} /> : null}
+      {views > 0 ? <Views showCount={showCount} views={views} /> : null}
       {gardenerMode ? (
-        <Mod publication={publication} isFullPublication={showCount} />
+        <Mod isFullPublication={showCount} publication={publication} />
       ) : null}
     </span>
   );

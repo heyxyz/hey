@@ -9,9 +9,9 @@ const k3lGlobalFeed = async (
   try {
     const response = await fetch(
       urlcat('https://lens-api.k3l.io/feed/:strategy', {
-        strategy,
         limit,
-        offset
+        offset,
+        strategy
       }),
       { headers: { 'User-Agent': 'Hey.xyz' } }
     );

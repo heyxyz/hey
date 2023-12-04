@@ -1,4 +1,5 @@
 import type { MisuseType } from '@hey/data/misused';
+
 import { misused } from '@hey/data/misused';
 
 /**
@@ -10,10 +11,10 @@ import { misused } from '@hey/data/misused';
 const getMisuseDetails = (
   id: string
 ): {
+  description: null | string;
   id: string;
+  identifiedOn: null | string;
   type: MisuseType;
-  identifiedOn: string | null;
-  description: string | null;
 } | null => {
   const misusedDetails = misused.find((s) => s.id === id);
 

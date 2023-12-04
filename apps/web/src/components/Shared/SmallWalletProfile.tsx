@@ -1,3 +1,5 @@
+import type { Address } from 'viem';
+
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import { POLYGONSCAN_URL } from '@hey/data/constants';
 import formatAddress from '@hey/lib/formatAddress';
@@ -8,7 +10,6 @@ import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import { type FC } from 'react';
 import useEnsName from 'src/hooks/useEnsName';
-import type { Address } from 'viem';
 
 interface SmallWalletProfileProps {
   address: Address;
@@ -24,23 +25,23 @@ const SmallWalletProfile: FC<SmallWalletProfileProps> = ({
   return (
     <div className="flex items-center justify-between">
       <Link
-        href={`${POLYGONSCAN_URL}/address/${address}`}
         className="flex items-center space-x-2"
-        target="_blank"
+        href={`${POLYGONSCAN_URL}/address/${address}`}
         rel="noreferrer noopener"
+        target="_blank"
       >
         <Image
-          onError={({ currentTarget }) => {
-            currentTarget.src = getStampFyiURL(address);
-          }}
-          src={imageKit(getStampFyiURL(address))}
+          alt={address}
           className={cn(
             smallAvatar ? 'h-5 w-5' : 'h-6 w-6',
             'rounded-full border bg-gray-200 dark:border-gray-700'
           )}
           height={smallAvatar ? 20 : 24}
+          onError={({ currentTarget }) => {
+            currentTarget.src = getStampFyiURL(address);
+          }}
+          src={imageKit(getStampFyiURL(address))}
           width={smallAvatar ? 20 : 24}
-          alt={address}
         />
         <div>
           <div className="flex items-center gap-1.5">

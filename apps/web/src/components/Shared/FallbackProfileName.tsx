@@ -1,4 +1,5 @@
 import type { Profile } from '@hey/lens';
+
 import getProfile from '@hey/lib/getProfile';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
@@ -7,14 +8,14 @@ import { type FC, type ReactNode } from 'react';
 import Slug from './Slug';
 
 interface FallbackProfileNameProps {
-  profile?: Profile;
   className?: string;
+  profile?: Profile;
   separator?: ReactNode;
 }
 
 const FallbackProfileName: FC<FallbackProfileNameProps> = ({
-  profile,
   className = '',
+  profile,
   separator = ''
 }) => {
   if (!profile) {
@@ -24,8 +25,8 @@ const FallbackProfileName: FC<FallbackProfileNameProps> = ({
   return (
     <>
       <Link
-        href={getProfile(profile).link}
         className={cn('max-w-sm truncate hover:underline', className)}
+        href={getProfile(profile).link}
       >
         <b className="whitespace-nowrap">
           {profile?.metadata?.displayName ? (

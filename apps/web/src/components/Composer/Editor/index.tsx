@@ -1,3 +1,5 @@
+import type { FC } from 'react';
+
 import MentionsPlugin from '@components/Shared/Lexical/Plugins/AtMentionsPlugin';
 import LexicalAutoLinkPlugin from '@components/Shared/Lexical/Plugins/AutoLinkPlugin';
 import EmojiPickerPlugin from '@components/Shared/Lexical/Plugins/EmojiPicker';
@@ -20,7 +22,6 @@ import {
   INSERT_LINE_BREAK_COMMAND,
   INSERT_PARAGRAPH_COMMAND
 } from 'lexical';
-import type { FC } from 'react';
 import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import useUploadAttachments from 'src/hooks/useUploadAttachments';
@@ -69,12 +70,12 @@ const Editor: FC = () => {
         contentEditable={
           <ContentEditable className="my-4 block min-h-[65px] overflow-auto px-5" />
         }
+        ErrorBoundary={() => <div>{Errors.SomethingWentWrong}</div>}
         placeholder={
           <div className="pointer-events-none absolute top-[65px] whitespace-nowrap px-5 text-gray-400">
             {showPollEditor ? 'Ask a question...' : "What's happening?"}
           </div>
         }
-        ErrorBoundary={() => <div>{Errors.SomethingWentWrong}</div>}
       />
       <OnChangePlugin
         onChange={(editorState) => {

@@ -1,4 +1,5 @@
 import type { Profile, ProfileSearchRequest } from '@hey/lens';
+
 import {
   CustomFiltersType,
   LimitType,
@@ -11,22 +12,22 @@ import { type ChangeEvent, type FC } from 'react';
 import SmallUserProfile from './SmallUserProfile';
 
 interface SearchUserProps {
-  onProfileSelected: (profile: Profile) => void;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  value: string;
-  placeholder?: string;
-  hideDropdown?: boolean;
   error?: boolean;
+  hideDropdown?: boolean;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onProfileSelected: (profile: Profile) => void;
+  placeholder?: string;
+  value: string;
 }
 
 // TODO: Rename to SearchProfiles
 const SearchUser: FC<SearchUserProps> = ({
-  onProfileSelected,
-  onChange,
-  value,
-  placeholder = 'Search…',
+  error = false,
   hideDropdown = false,
-  error = false
+  onChange,
+  onProfileSelected,
+  placeholder = 'Search…',
+  value
 }) => {
   const [searchUsers, { data, loading }] = useSearchProfilesLazyQuery();
 
@@ -35,9 +36,9 @@ const SearchUser: FC<SearchUserProps> = ({
 
     const keyword = event.target.value;
     const request: ProfileSearchRequest = {
-      where: { customFilters: [CustomFiltersType.Gardeners] },
+      limit: LimitType.Ten,
       query: keyword,
-      limit: LimitType.Ten
+      where: { customFilters: [CustomFiltersType.Gardeners] }
     };
 
     searchUsers({ variables: { request } });
@@ -48,29 +49,29 @@ const SearchUser: FC<SearchUserProps> = ({
   return (
     <div className="w-full">
       <Input
-        type="text"
-        placeholder={placeholder}
-        onChange={handleSearch}
-        value={value}
         error={error}
+        onChange={handleSearch}
+        placeholder={placeholder}
+        type="text"
+        value={value}
       />
       {!hideDropdown && value.length > 0 ? (
         <div className="absolute mt-2 flex w-[94%] max-w-md flex-col">
           <Card className="z-[2] max-h-[80vh] overflow-y-auto py-2">
             {loading ? (
               <div className="space-y-2 px-4 py-2 text-center text-sm font-bold">
-                <Spinner size="sm" className="mx-auto" />
+                <Spinner className="mx-auto" size="sm" />
                 <div>Searching users</div>
               </div>
             ) : (
               <>
                 {profiles.slice(0, 7).map((profile) => (
                   <motion.div
-                    initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    key={profile.id}
                     className="cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    exit={{ opacity: 0 }}
+                    initial={{ opacity: 0 }}
+                    key={profile.id}
                     onClick={() => {
                       if (onProfileSelected) {
                         onProfileSelected(profile);

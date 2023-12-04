@@ -1,8 +1,9 @@
+import type { MutualFollowersRequest, Profile } from '@hey/lens';
+
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
 import { FollowUnfollowSource } from '@hey/data/tracking';
-import type { MutualFollowersRequest, Profile } from '@hey/lens';
 import { LimitType, useMutualFollowersQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { EmptyState, ErrorMessage } from '@hey/ui';
@@ -20,14 +21,14 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profile }) => {
 
   // Variables
   const request: MutualFollowersRequest = {
-    viewing: profile.id,
+    limit: LimitType.TwentyFive,
     observer: currentProfile?.id,
-    limit: LimitType.TwentyFive
+    viewing: profile.id
   };
 
-  const { data, loading, error, fetchMore } = useMutualFollowersQuery({
-    variables: { request },
-    skip: !profile.id
+  const { data, error, fetchMore, loading } = useMutualFollowersQuery({
+    skip: !profile.id,
+    variables: { request }
   });
 
   const mutualFollowers = data?.mutualFollowers?.items;
@@ -51,6 +52,8 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profile }) => {
   if (mutualFollowers?.length === 0) {
     return (
       <EmptyState
+        hideCard
+        icon={<UsersIcon className="text-brand-500 h-8 w-8" />}
         message={
           <div>
             <span className="mr-1 font-bold">
@@ -59,8 +62,6 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profile }) => {
             <span>doesn’t have any mutual followers.</span>
           </div>
         }
-        icon={<UsersIcon className="text-brand-500 h-8 w-8" />}
-        hideCard
       />
     );
   }
@@ -68,9 +69,9 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profile }) => {
   return (
     <div className="max-h-[80vh] overflow-y-auto">
       <ErrorMessage
-        title="Failed to load mutual followers"
-        error={error}
         className="m-5"
+        error={error}
+        title="Failed to load mutual followers"
       />
       <Virtuoso
         className="virtual-profile-list"
@@ -79,16 +80,16 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profile }) => {
         itemContent={(index, mutualFollower) => {
           return (
             <motion.div
-              initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
               className="p-5"
+              exit={{ opacity: 0 }}
+              initial={{ opacity: 0 }}
             >
               <UserProfile
-                profile={mutualFollower as Profile}
-                isFollowing={mutualFollower.operations.isFollowedByMe.value}
                 followUnfollowPosition={index + 1}
                 followUnfollowSource={FollowUnfollowSource.FOLLOWERS_MODAL}
+                isFollowing={mutualFollower.operations.isFollowedByMe.value}
+                profile={mutualFollower as Profile}
                 showBio
                 showFollow={currentProfile?.id !== mutualFollower.id}
                 showUnfollow={currentProfile?.id !== mutualFollower.id}

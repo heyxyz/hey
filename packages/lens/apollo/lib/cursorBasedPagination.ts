@@ -21,21 +21,6 @@ export const cursorBasedPagination = <T extends CursorBasedPagination>(
   return {
     keyArgs,
 
-    read(existing: SafeReadonly<T> | undefined) {
-      if (!existing) {
-        return existing;
-      }
-      const { items, pageInfo } = existing;
-
-      return {
-        ...existing,
-        items,
-        pageInfo: {
-          ...pageInfo
-        }
-      } as SafeReadonly<T>;
-    },
-
     merge(existing: Readonly<T> | undefined, incoming: SafeReadonly<T>) {
       if (!existing) {
         return incoming;
@@ -48,6 +33,21 @@ export const cursorBasedPagination = <T extends CursorBasedPagination>(
         ...incoming,
         items: existingItems?.concat(incomingItems),
         pageInfo: incoming.pageInfo
+      } as SafeReadonly<T>;
+    },
+
+    read(existing: SafeReadonly<T> | undefined) {
+      if (!existing) {
+        return existing;
+      }
+      const { items, pageInfo } = existing;
+
+      return {
+        ...existing,
+        items,
+        pageInfo: {
+          ...pageInfo
+        }
       } as SafeReadonly<T>;
     }
   };

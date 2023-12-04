@@ -1,3 +1,5 @@
+import type { FC, ReactNode } from 'react';
+
 import Video from '@components/Shared/Video';
 import {
   ClipboardDocumentIcon,
@@ -10,7 +12,6 @@ import { HEY_API_URL } from '@hey/data/constants';
 import { Card, Spinner, Tooltip } from '@hey/ui';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import axios from 'axios';
-import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
@@ -71,7 +72,7 @@ const LivestreamEditor: FC = () => {
           <b>Go Live</b>
         </div>
         <div className="flex items-center space-x-3">
-          <Tooltip placement="top" content="Delete">
+          <Tooltip content="Delete" placement="top">
             <button
               className="flex"
               onClick={() => {

@@ -1,8 +1,9 @@
+import type { ExploreProfilesRequest, Profile } from '@hey/lens';
+
 import Loader from '@components/Shared/Loader';
 import SearchUser from '@components/Shared/SearchUser';
 import UserProfile from '@components/Shared/UserProfile';
 import { ArrowPathIcon, UsersIcon } from '@heroicons/react/24/outline';
-import type { ExploreProfilesRequest, Profile } from '@hey/lens';
 import {
   ExploreProfilesOrderByType,
   LimitType,
@@ -25,11 +26,11 @@ const List: FC = () => {
 
   // Variables
   const request: ExploreProfilesRequest = {
-    orderBy,
-    limit: LimitType.Fifty
+    limit: LimitType.Fifty,
+    orderBy
   };
 
-  const { data, loading, error, fetchMore, refetch } = useExploreProfilesQuery({
+  const { data, error, fetchMore, loading, refetch } = useExploreProfilesQuery({
     variables: { request }
   });
 
@@ -51,18 +52,18 @@ const List: FC = () => {
     <Card>
       <div className="flex items-center justify-between space-x-5 p-5">
         <SearchUser
-          value={value}
-          placeholder="Search profiles..."
           onChange={(event) => setValue(event.target.value)}
           onProfileSelected={(profile) => push(getProfile(profile).staffLink)}
+          placeholder="Search profiles..."
+          value={value}
         />
 
         <select
           className="focus:border-brand-500 focus:ring-brand-400 rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"
+          defaultValue={orderBy}
           onChange={(e) =>
             setOrderBy(e.target.value as ExploreProfilesOrderByType)
           }
-          defaultValue={orderBy}
         >
           {Object.values(ExploreProfilesOrderByType).map((orderBy) => (
             <option key={orderBy} value={orderBy}>
@@ -79,39 +80,39 @@ const List: FC = () => {
         {loading ? (
           <Loader message="Loading profiles..." />
         ) : error ? (
-          <ErrorMessage title="Failed to load profiles" error={error} />
+          <ErrorMessage error={error} title="Failed to load profiles" />
         ) : !profiles?.length ? (
           <EmptyState
-            message={<span>No profiles</span>}
-            icon={<UsersIcon className="text-brand-500 h-8 w-8" />}
             hideCard
+            icon={<UsersIcon className="text-brand-500 h-8 w-8" />}
+            message={<span>No profiles</span>}
           />
         ) : (
           <Virtuoso
-            useWindowScroll
             data={profiles}
             endReached={onEndReached}
             itemContent={(_, profile) => {
               return (
                 <motion.div
-                  initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
                   className="pb-7"
+                  exit={{ opacity: 0 }}
+                  initial={{ opacity: 0 }}
                 >
                   <Link href={getProfile(profile as Profile).staffLink}>
                     <UserProfile
-                      profile={profile as Profile}
                       isBig
-                      showUserPreview={false}
-                      showBio
                       linkToProfile={false}
+                      profile={profile as Profile}
+                      showBio
+                      showUserPreview={false}
                       timestamp={profile.createdAt}
                     />
                   </Link>
                 </motion.div>
               );
             }}
+            useWindowScroll
           />
         )}
       </div>

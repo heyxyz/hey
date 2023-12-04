@@ -4,8 +4,8 @@ import { CLICKHOUSE_URL } from './constants';
 
 const createClickhouseClient = () => {
   return createClient({
-    host: CLICKHOUSE_URL,
     database: 'default',
+    host: CLICKHOUSE_URL,
     password: process.env.CLICKHOUSE_PASSWORD
   });
 };

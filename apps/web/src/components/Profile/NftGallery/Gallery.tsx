@@ -1,3 +1,7 @@
+import type { Nft, NftGallery } from '@hey/lens';
+import type { FC } from 'react';
+import type { NftGalleryItem } from 'src/store/non-persisted/useNftGalleryStore';
+
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import {
@@ -7,7 +11,6 @@ import {
   TrashIcon
 } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data/errors';
-import type { Nft, NftGallery } from '@hey/lens';
 import {
   NftGalleriesDocument,
   useDeleteNftGalleryMutation,
@@ -17,10 +20,8 @@ import {
 import { useApolloClient } from '@hey/lens/apollo';
 import { Button } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import type { NftGalleryItem } from 'src/store/non-persisted/useNftGalleryStore';
 import {
   GALLERY_DEFAULTS,
   useNftGalleryStore
@@ -59,8 +60,8 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
     try {
       if (confirm('Are you sure you want to delete?')) {
         const normalizedId = cache.identify({
-          id: gallery.id,
-          __typename: 'NftGallery'
+          __typename: 'NftGallery',
+          id: gallery.id
         });
         cache.evict({ id: normalizedId });
         cache.gc();
@@ -76,12 +77,12 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
   const setItemsToGallery = (items: NftGalleryItem[]) => {
     setGallery({
       ...gallery,
-      items,
-      isEdit: true,
-      toAdd: [],
-      toRemove: [],
       alreadySelectedItems: items,
-      reArrangedItems: []
+      isEdit: true,
+      items,
+      reArrangedItems: [],
+      toAdd: [],
+      toRemove: []
     });
   };
 
@@ -110,8 +111,8 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
   const onSaveRearrange = async () => {
     try {
       const updates = galleryStore.reArrangedItems?.map(
-        ({ tokenId, contract, newOrder }, i) => {
-          return { tokenId, contract, newOrder: newOrder ?? i };
+        ({ contract, newOrder, tokenId }, i) => {
+          return { contract, newOrder: newOrder ?? i, tokenId };
         }
       );
 
@@ -148,8 +149,8 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
         </h6>
         {galleryStore?.isEdit ? (
           <Create
-            showModal={showCreateModal}
             setShowModal={setShowCreateModal}
+            showModal={showCreateModal}
           />
         ) : null}
         {isRearrange ? (
@@ -172,18 +173,18 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
             </Menu.Button>
             <MenuTransition>
               <Menu.Items
-                static
                 className="absolute right-0 z-[5] mt-1 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700/80 dark:bg-gray-900"
+                static
               >
                 <Menu.Item
                   as="div"
-                  onClick={onClickEditGallery}
                   className={({ active }) =>
                     cn(
                       { 'dropdown-active': active },
                       'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
                     )
                   }
+                  onClick={onClickEditGallery}
                 >
                   <div className="flex items-center space-x-2">
                     <PencilSquareIcon className="h-4 w-4" />
@@ -192,13 +193,13 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
                 </Menu.Item>
                 <Menu.Item
                   as="div"
-                  onClick={onClickRearrange}
                   className={({ active }) =>
                     cn(
                       { 'dropdown-active': active },
                       'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
                     )
                   }
+                  onClick={onClickRearrange}
                 >
                   <div className="flex items-center space-x-2">
                     <ArrowsPointingOutIcon className="h-4 w-4" />
@@ -207,13 +208,13 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
                 </Menu.Item>
                 <Menu.Item
                   as="div"
-                  onClick={onDelete}
                   className={({ active }) =>
                     cn(
                       { 'dropdown-active': active },
                       'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
                     )
                   }
+                  onClick={onDelete}
                 >
                   <div className="flex items-center space-x-2">
                     <TrashIcon className="h-4 w-4" />
@@ -231,10 +232,10 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
         <div className="grid gap-5 md:grid-cols-3">
           {nfts?.map((nft) => (
             <div
-              key={`${nft?.contract.address}_${nft?.contract.chainId}_${nft?.tokenId}`}
               className="break-inside flex w-full items-center overflow-hidden text-white"
+              key={`${nft?.contract.address}_${nft?.contract.chainId}_${nft?.tokenId}`}
             >
-              <NftCard nft={nft as Nft} linkToDetail />
+              <NftCard linkToDetail nft={nft as Nft} />
             </div>
           ))}
         </div>

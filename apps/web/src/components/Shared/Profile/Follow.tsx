@@ -1,21 +1,22 @@
+import type { FollowRequest, Profile } from '@hey/lens';
+import type { ApolloCache } from '@hey/lens/apollo';
+import type { FC } from 'react';
+
 import { UserPlusIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { LENSHUB_PROXY } from '@hey/data/constants';
 import { PROFILE } from '@hey/data/tracking';
-import type { FollowRequest, Profile } from '@hey/lens';
 import {
   useBroadcastOnchainMutation,
   useCreateFollowTypedDataMutation,
   useFollowMutation
 } from '@hey/lens';
-import type { ApolloCache } from '@hey/lens/apollo';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { Button, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
-import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
@@ -25,21 +26,21 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface FollowProps {
-  profile: Profile;
-  setFollowing: (following: boolean) => void;
-  showText?: boolean;
-
   // For data analytics
   followPosition?: number;
   followSource?: string;
+  profile: Profile;
+
+  setFollowing: (following: boolean) => void;
+  showText?: boolean;
 }
 
 const Follow: FC<FollowProps> = ({
-  profile,
-  showText = false,
-  setFollowing,
   followPosition,
-  followSource
+  followSource,
+  profile,
+  setFollowing,
+  showText = false
 }) => {
   const { pathname } = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
@@ -55,22 +56,22 @@ const Follow: FC<FollowProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
 
-  const { canUseLensManager, canBroadcast } =
+  const { canBroadcast, canUseLensManager } =
     checkDispatcherPermissions(currentProfile);
 
   const updateCache = (cache: ApolloCache<any>) => {
     cache.modify({
-      id: cache.identify(profile.operations),
       fields: {
         isFollowedByMe: (existingValue) => {
           return { ...existingValue, value: true };
         }
-      }
+      },
+      id: cache.identify(profile.operations)
     });
   };
 
   const onCompleted = (
-    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
+    __typename?: 'LensProfileManagerRelayError' | 'RelayError' | 'RelaySuccess'
   ) => {
     if (
       __typename === 'RelayError' ||
@@ -97,11 +98,11 @@ const Follow: FC<FollowProps> = ({
 
   const { signTypedDataAsync } = useSignTypedData({ onError });
   const { write } = useContractWrite({
-    address: LENSHUB_PROXY,
     abi: LensHub,
+    address: LENSHUB_PROXY,
     functionName: 'follow',
-    onSuccess: () => onCompleted(),
-    onError
+    onError,
+    onSuccess: () => onCompleted()
   });
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
@@ -114,10 +115,10 @@ const Follow: FC<FollowProps> = ({
       const signature = await signTypedDataAsync(getSignature(typedData));
       setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
       const {
+        datas,
         followerProfileId,
-        idsOfProfilesToFollow,
         followTokenIds,
-        datas
+        idsOfProfilesToFollow
       } = typedData.value;
       const args = [
         followerProfileId,
@@ -187,13 +188,13 @@ const Follow: FC<FollowProps> = ({
 
   return (
     <Button
-      className="!px-3 !py-1.5 text-sm"
-      onClick={createFollow}
       aria-label="Follow"
+      className="!px-3 !py-1.5 text-sm"
       disabled={isLoading}
       icon={
         isLoading ? <Spinner size="xs" /> : <UserPlusIcon className="h-4 w-4" />
       }
+      onClick={createFollow}
       outline
     >
       {showText ? 'Follow' : null}

@@ -6,19 +6,19 @@ import type { Profile } from '@hey/lens';
  * @returns An object with the permissions
  */
 const checkDispatcherPermissions = (
-  profile: Profile | null
+  profile: null | Profile
 ): {
+  canBroadcast: boolean;
+  canUseLensManager: boolean;
   canUseSignless: boolean;
   isSponsored: boolean;
-  canUseLensManager: boolean;
-  canBroadcast: boolean;
 } => {
   if (!profile) {
     return {
-      canUseSignless: false,
-      isSponsored: false,
+      canBroadcast: false,
       canUseLensManager: false,
-      canBroadcast: false
+      canUseSignless: false,
+      isSponsored: false
     };
   }
 
@@ -27,7 +27,7 @@ const checkDispatcherPermissions = (
   const canUseLensManager = canUseSignless && isSponsored;
   const canBroadcast = isSponsored;
 
-  return { canUseSignless, isSponsored, canUseLensManager, canBroadcast };
+  return { canBroadcast, canUseLensManager, canUseSignless, isSponsored };
 };
 
 export default checkDispatcherPermissions;

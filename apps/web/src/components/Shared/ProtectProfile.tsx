@@ -1,3 +1,5 @@
+import type { FC } from 'react';
+
 import { LockClosedIcon, LockOpenIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { LENSHUB_PROXY } from '@hey/data/constants';
@@ -13,7 +15,6 @@ import {
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import type { FC } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import useProfileStore from 'src/store/persisted/useProfileStore';
@@ -30,14 +31,14 @@ const ProtectProfile: FC = () => {
     errorToast(error);
   };
 
-  const { data, write, isLoading } = useContractWrite({
-    address: LENSHUB_PROXY,
+  const { data, isLoading, write } = useContractWrite({
     abi: LensHub,
+    address: LENSHUB_PROXY,
     functionName: 'enableTokenGuardian',
+    onError,
     onSuccess: () => {
       Leafwatch.track(SETTINGS.DANGER.PROTECT_PROFILE);
-    },
-    onError
+    }
   });
 
   if (!currentProfile?.guardian || currentProfile?.guardian?.protected) {
@@ -101,7 +102,7 @@ const ProtectProfile: FC = () => {
         </GridItemEight>
         <GridItemFour className="mt-5 flex items-center sm:ml-auto sm:mt-0">
           {data?.hash ? (
-            <IndexStatus txHash={data?.hash} reload />
+            <IndexStatus reload txHash={data?.hash} />
           ) : (
             <Button
               disabled={isLoading}

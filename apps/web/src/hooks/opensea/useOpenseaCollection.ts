@@ -1,21 +1,22 @@
-import { OPENSEA_KEY } from '@hey/data/constants';
 import type { OpenSeaCollection } from '@hey/types/opensea-nft';
+
+import { OPENSEA_KEY } from '@hey/data/constants';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import urlcat from 'urlcat';
 
 interface UseOpenseaCollectionProps {
-  slug: string;
   enabled?: boolean;
+  slug: string;
 }
 
 const useOpenseaCollection = ({
-  slug,
-  enabled
+  enabled,
+  slug
 }: UseOpenseaCollectionProps): {
   data: OpenSeaCollection;
-  loading: boolean;
   error: unknown;
+  loading: boolean;
 } => {
   const getOpenseaCollectionDetails = async () => {
     const response = await axios.get(
@@ -26,13 +27,13 @@ const useOpenseaCollection = ({
     return response.data?.collection;
   };
 
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['getOpenseaCollectionDetails', slug],
+  const { data, error, isLoading } = useQuery({
+    enabled,
     queryFn: getOpenseaCollectionDetails,
-    enabled
+    queryKey: ['getOpenseaCollectionDetails', slug]
   });
 
-  return { data, loading: isLoading, error };
+  return { data, error, loading: isLoading };
 };
 
 export default useOpenseaCollection;

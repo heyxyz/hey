@@ -1,5 +1,6 @@
-import QuotedPublication from '@components/Publication/QuotedPublication';
 import type { PrimaryPublication } from '@hey/lens';
+
+import QuotedPublication from '@components/Publication/QuotedPublication';
 import { type FC } from 'react';
 
 import Wrapper from './Wrapper';

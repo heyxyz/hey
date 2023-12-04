@@ -1,15 +1,16 @@
+import type { FC } from 'react';
+
 import Footer from '@components/Shared/Footer';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
-import type { FC } from 'react';
 
 const NftPageShimmer: FC = () => {
   return (
     <GridLayout>
       <GridItemEight className="space-y-5">
         <img
-          width={500}
-          height={500}
           className="shimmer h-full w-full rounded-xl"
+          height={500}
+          width={500}
         />
       </GridItemEight>
       <GridItemFour className="space-y-5">

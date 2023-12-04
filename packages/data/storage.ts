@@ -1,17 +1,17 @@
 // Localstorage keys
 export const Localstorage = {
   AuthStore: 'auth.store',
+  LeafwatchStore: 'leafwatch.store',
   ModeStore: 'mode.store',
   NotificationStore: 'notification.store',
-  TransactionStore: 'transaction.store',
   TimelineStore: 'timeline.store',
-  LeafwatchStore: 'leafwatch.store'
+  TransactionStore: 'transaction.store'
 };
 
 export const IndexDB = {
-  ProfileStore: 'profile.store',
   AlgorithmStore: 'algorithm.store',
+  FeaturedGroupsStore: 'featuredgroups.store',
   FeatureFlagsStore: 'featureflags.store',
-  VerifiedMembersStore: 'verifiedmembers.store',
-  FeaturedGroupsStore: 'featuredgroups.store'
+  ProfileStore: 'profile.store',
+  VerifiedMembersStore: 'verifiedmembers.store'
 };

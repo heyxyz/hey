@@ -28,6 +28,10 @@ const HighSignalNotificationFilter: FC = () => {
         { headers: getAuthWorkerHeaders() }
       ),
       {
+        error: () => {
+          setUpdating(false);
+          return 'Error updating notification preference';
+        },
         loading: 'Updating preference settings...',
         success: () => {
           getPreferences(currentProfile?.id, getAuthWorkerHeaders());
@@ -45,10 +49,6 @@ const HighSignalNotificationFilter: FC = () => {
           );
 
           return 'Notification preference updated';
-        },
-        error: () => {
-          setUpdating(false);
-          return 'Error updating notification preference';
         }
       }
     );
@@ -56,12 +56,12 @@ const HighSignalNotificationFilter: FC = () => {
 
   return (
     <ToggleWithHelper
+      description="Turn on high-signal notification filter"
+      disabled={updating}
+      heading="Notification Signal filter"
+      icon={<SwatchIcon className="h-4 w-4" />}
       on={preferences.highSignalNotificationFilter}
       setOn={toggleHighSignalNotificationFilter}
-      heading="Notification Signal filter"
-      description="Turn on high-signal notification filter"
-      icon={<SwatchIcon className="h-4 w-4" />}
-      disabled={updating}
     />
   );
 };

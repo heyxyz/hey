@@ -1,3 +1,5 @@
+import type { ChangeEvent, FC, Ref } from 'react';
+
 import { PhotoIcon } from '@heroicons/react/24/outline';
 import { ATTACHMENT } from '@hey/data/constants';
 import imageKit from '@hey/lib/imageKit';
@@ -6,23 +8,22 @@ import { Image, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
-import type { ChangeEvent, FC, Ref } from 'react';
 import { useState } from 'react';
 
 interface CoverImageProps {
-  isNew: boolean;
   cover: string;
-  setCover: (previewUri: string, url: string) => void;
-  imageRef: Ref<HTMLImageElement>;
   expandCover: (url: string) => void;
+  imageRef: Ref<HTMLImageElement>;
+  isNew: boolean;
+  setCover: (previewUri: string, url: string) => void;
 }
 
 const CoverImage: FC<CoverImageProps> = ({
-  isNew = false,
   cover,
-  setCover,
+  expandCover,
   imageRef,
-  expandCover
+  isNew = false,
+  setCover
 }) => {
   const [loading, setLoading] = useState(false);
 
@@ -47,25 +48,25 @@ const CoverImage: FC<CoverImageProps> = ({
   return (
     <div className="group relative flex-none overflow-hidden">
       <button
-        type="button"
         className="flex focus:outline-none"
         onClick={() => expandCover(cover ? sanitizeDStorageUrl(cover) : cover)}
+        type="button"
       >
         <Image
+          alt={`attachment-audio-cover-${cover}`}
+          className="h-24 w-24 rounded-xl object-cover md:h-40 md:w-40 md:rounded-none"
+          draggable={false}
           onError={({ currentTarget }) => {
             currentTarget.src = cover ? sanitizeDStorageUrl(cover) : cover;
           }}
-          src={cover ? imageKit(sanitizeDStorageUrl(cover), ATTACHMENT) : cover}
-          className="h-24 w-24 rounded-xl object-cover md:h-40 md:w-40 md:rounded-none"
-          draggable={false}
-          alt={`attachment-audio-cover-${cover}`}
           ref={imageRef}
+          src={cover ? imageKit(sanitizeDStorageUrl(cover), ATTACHMENT) : cover}
         />
       </button>
       {isNew ? (
         <label
           className={cn(
-            { visible: loading && !cover, invisible: cover },
+            { invisible: cover, visible: loading && !cover },
             'absolute top-0 grid h-24 w-24 cursor-pointer place-items-center bg-gray-100 backdrop-blur-lg group-hover:visible dark:bg-gray-900 md:h-40 md:w-40'
           )}
         >
@@ -78,10 +79,10 @@ const CoverImage: FC<CoverImageProps> = ({
             </div>
           )}
           <input
-            type="file"
             accept=".png, .jpg, .jpeg, .svg"
             className="hidden w-full"
             onChange={onChange}
+            type="file"
           />
         </label>
       ) : null}

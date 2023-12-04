@@ -1,6 +1,7 @@
+import type { AllowedToken } from '@hey/types/hey';
+
 import { HEY_API_URL } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
-import type { AllowedToken } from '@hey/types/hey';
 import { Button, Form, Input, useZodForm } from '@hey/ui';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import axios from 'axios';
@@ -9,22 +10,22 @@ import toast from 'react-hot-toast';
 import { object, string } from 'zod';
 
 const createTokenSchema = object({
-  name: string().min(1, { message: 'Name is required' }),
-  symbol: string().min(1, { message: 'Symbol is required' }),
-  decimals: string().min(1, { message: 'Decimals is required' }),
   contractAddress: string()
     .min(1)
     .max(42)
-    .regex(Regex.ethereumAddress, { message: 'Invalid Ethereum address' })
+    .regex(Regex.ethereumAddress, { message: 'Invalid Ethereum address' }),
+  decimals: string().min(1, { message: 'Decimals is required' }),
+  name: string().min(1, { message: 'Name is required' }),
+  symbol: string().min(1, { message: 'Symbol is required' })
 });
 
 interface CreateProps {
-  tokens: AllowedToken[];
-  setTokens: (tokens: any) => void;
   setShowCreateModal: (show: boolean) => void;
+  setTokens: (tokens: any) => void;
+  tokens: AllowedToken[];
 }
 
-const Create: FC<CreateProps> = ({ tokens, setTokens, setShowCreateModal }) => {
+const Create: FC<CreateProps> = ({ setShowCreateModal, setTokens, tokens }) => {
   const [creating, setCreating] = useState(false);
 
   const form = useZodForm({
@@ -41,20 +42,20 @@ const Create: FC<CreateProps> = ({ tokens, setTokens, setShowCreateModal }) => {
     toast.promise(
       axios.post(
         `${HEY_API_URL}/internal/token/create`,
-        { name, symbol, decimals: parseInt(decimals), contractAddress },
+        { contractAddress, decimals: parseInt(decimals), name, symbol },
         { headers: getAuthWorkerHeaders() }
       ),
       {
+        error: () => {
+          setCreating(false);
+          return 'Failed to create token';
+        },
         loading: 'Creating token...',
         success: ({ data }) => {
           setTokens([...tokens, data?.token]);
           setCreating(false);
           setShowCreateModal(false);
           return 'Token created';
-        },
-        error: () => {
-          setCreating(false);
-          return 'Failed to create token';
         }
       }
     );
@@ -62,39 +63,39 @@ const Create: FC<CreateProps> = ({ tokens, setTokens, setShowCreateModal }) => {
 
   return (
     <Form
-      form={form}
       className="m-5 space-y-4"
-      onSubmit={async ({ name, symbol, decimals, contractAddress }) => {
+      form={form}
+      onSubmit={async ({ contractAddress, decimals, name, symbol }) => {
         await create(name, symbol, decimals, contractAddress);
       }}
     >
       <Input
         className="text-sm"
-        type="text"
         placeholder="Name"
+        type="text"
         {...form.register('name')}
       />
       <Input
         className="text-sm"
-        type="text"
         placeholder="Symbol"
+        type="text"
         {...form.register('symbol')}
       />
       <Input
         className="text-sm"
-        type="number"
-        placeholder="1"
-        min="0"
         max="30"
+        min="0"
+        placeholder="1"
+        type="number"
         {...form.register('decimals')}
       />
       <Input
         className="text-sm"
-        type="text"
         placeholder="Contract Address"
+        type="text"
         {...form.register('contractAddress')}
       />
-      <Button type="submit" disabled={creating}>
+      <Button disabled={creating} type="submit">
         Create
       </Button>
     </Form>

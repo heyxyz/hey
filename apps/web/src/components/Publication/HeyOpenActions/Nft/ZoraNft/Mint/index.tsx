@@ -1,7 +1,8 @@
-import Markup from '@components/Shared/Markup';
 import type { AnyPublication } from '@hey/lens';
-import getMentions from '@hey/lib/getMentions';
 import type { ZoraNft } from '@hey/types/nft';
+
+import Markup from '@components/Shared/Markup';
+import getMentions from '@hey/lib/getMentions';
 import { type FC } from 'react';
 import { create } from 'zustand';
 
@@ -11,27 +12,27 @@ import MintedBy from './MintedBy';
 import Price from './Price';
 
 interface ZoraMintState {
-  quantity: number;
-  setQuantity: (quantity: number) => void;
   canMintOnHey: boolean;
+  quantity: number;
   setCanMintOnHey: (canMintOnHey: boolean) => void;
+  setQuantity: (quantity: number) => void;
 }
 
 export const useZoraMintStore = create<ZoraMintState>((set) => ({
-  quantity: 1,
-  setQuantity: (quantity) => set({ quantity }),
   canMintOnHey: false,
-  setCanMintOnHey: (canMintOnHey) => set({ canMintOnHey })
+  quantity: 1,
+  setCanMintOnHey: (canMintOnHey) => set({ canMintOnHey }),
+  setQuantity: (quantity) => set({ quantity })
 }));
 
 interface MintProps {
   nft: ZoraNft;
-  zoraLink: string;
-  publication?: AnyPublication;
   onCompleted?: () => void;
+  publication?: AnyPublication;
+  zoraLink: string;
 }
 
-const Mint: FC<MintProps> = ({ nft, zoraLink, publication, onCompleted }) => {
+const Mint: FC<MintProps> = ({ nft, onCompleted, publication, zoraLink }) => {
   return (
     <div className="p-5">
       <div className="mb-4">
@@ -48,9 +49,9 @@ const Mint: FC<MintProps> = ({ nft, zoraLink, publication, onCompleted }) => {
       <Price nft={nft} />
       <MintAction
         nft={nft}
-        zoraLink={zoraLink}
-        publication={publication}
         onCompleted={onCompleted}
+        publication={publication}
+        zoraLink={zoraLink}
       />
     </div>
   );

@@ -1,6 +1,7 @@
+import type { Profile, RecipientDataOutput } from '@hey/lens';
+
 import Slug from '@components/Shared/Slug';
 import { POLYGONSCAN_URL } from '@hey/data/constants';
-import type { Profile, RecipientDataOutput } from '@hey/lens';
 import { useProfilesQuery } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
 import getAvatar from '@hey/lib/getAvatar';
@@ -15,10 +16,10 @@ interface SplitsProps {
 
 const Splits: FC<SplitsProps> = ({ recipients }) => {
   const { data: recipientProfilesData, loading } = useProfilesQuery({
+    skip: !recipients?.length,
     variables: {
       request: { where: { ownedBy: recipients?.map((r) => r.recipient) } }
-    },
-    skip: !recipients?.length
+    }
   });
 
   if (recipients.length === 0) {
@@ -41,8 +42,8 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
 
         return (
           <div
-            key={address}
             className="flex items-center justify-between text-sm"
+            key={address}
           >
             <div className="flex w-full items-center space-x-2">
               {loading ? (
@@ -53,9 +54,9 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
               ) : (
                 <>
                   <img
+                    alt="Avatar"
                     className="h-5 w-5 rounded-full border bg-gray-200 dark:border-gray-700"
                     src={profile ? getAvatar(profile) : getStampFyiURL(address)}
-                    alt="Avatar"
                   />
                   {profile ? (
                     <Link href={getProfile(profile).link}>
@@ -64,8 +65,8 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
                   ) : (
                     <Link
                       href={`${POLYGONSCAN_URL}/address/${address}`}
-                      target="_blank"
                       rel="noreferrer noopener"
+                      target="_blank"
                     >
                       {formatAddress(address, 6)}
                     </Link>

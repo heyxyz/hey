@@ -1,11 +1,12 @@
-import SinglePublication from '@components/Publication/SinglePublication';
-import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import type {
   AnyPublication,
   ExplorePublicationRequest,
   PublicationMetadataMainFocusType
 } from '@hey/lens';
+
+import SinglePublication from '@components/Publication/SinglePublication';
+import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
+import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import {
   CustomFiltersType,
   ExplorePublicationsOrderByType,
@@ -18,13 +19,13 @@ import { useInView } from 'react-cool-inview';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
 
 interface FeedProps {
-  focus?: PublicationMetadataMainFocusType;
   feedType?: ExplorePublicationsOrderByType;
+  focus?: PublicationMetadataMainFocusType;
 }
 
 const Feed: FC<FeedProps> = ({
-  focus,
-  feedType = ExplorePublicationsOrderByType.LensCurated
+  feedType = ExplorePublicationsOrderByType.LensCurated,
+  focus
 }) => {
   const fetchAndStoreViews = useImpressionsStore(
     (state) => state.fetchAndStoreViews
@@ -32,20 +33,20 @@ const Feed: FC<FeedProps> = ({
 
   // Variables
   const request: ExplorePublicationRequest = {
+    limit: LimitType.TwentyFive,
+    orderBy: feedType,
     where: {
       customFilters: [CustomFiltersType.Gardeners],
       metadata: { ...(focus && { mainContentFocus: [focus] }) }
-    },
-    orderBy: feedType,
-    limit: LimitType.TwentyFive
+    }
   };
 
-  const { data, loading, error, fetchMore } = useExplorePublicationsQuery({
-    variables: { request },
+  const { data, error, fetchMore, loading } = useExplorePublicationsQuery({
     onCompleted: async ({ explorePublications }) => {
       const ids = explorePublications?.items?.map((p) => p.id) || [];
       await fetchAndStoreViews(ids);
-    }
+    },
+    variables: { request }
   });
 
   const publications = data?.explorePublications?.items;
@@ -73,23 +74,23 @@ const Feed: FC<FeedProps> = ({
   if (publications?.length === 0) {
     return (
       <EmptyState
-        message="No posts yet!"
         icon={<RectangleStackIcon className="text-brand-500 h-8 w-8" />}
+        message="No posts yet!"
       />
     );
   }
 
   if (error) {
-    return <ErrorMessage title="Failed to load explore feed" error={error} />;
+    return <ErrorMessage error={error} title="Failed to load explore feed" />;
   }
 
   return (
     <Card className="divide-y-[1px] dark:divide-gray-700">
       {publications?.map((publication, index) => (
         <SinglePublication
-          key={`${publication.id}_${index}`}
           isFirst={index === 0}
           isLast={index === publications.length - 1}
+          key={`${publication.id}_${index}`}
           publication={publication as AnyPublication}
         />
       ))}

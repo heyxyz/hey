@@ -1,8 +1,12 @@
+import type { Profile, ProfileSearchRequest } from '@hey/lens';
+import type { MenuTextMatch } from '@lexical/react/LexicalTypeaheadMenuPlugin';
+import type { TextNode } from 'lexical';
+import type { FC } from 'react';
+
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
-import type { Profile, ProfileSearchRequest } from '@hey/lens';
 import {
   CustomFiltersType,
   LimitType,
@@ -13,15 +17,12 @@ import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
 import cn from '@hey/ui/cn';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import type { MenuTextMatch } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import {
   LexicalTypeaheadMenuPlugin,
   MenuOption,
   useBasicTypeaheadTriggerMatch
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import isVerified from '@lib/isVerified';
-import type { TextNode } from 'lexical';
-import type { FC } from 'react';
 import { useCallback, useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';
 import { useUpdateEffect } from 'usehooks-ts';
@@ -103,10 +104,10 @@ const getPossibleQueryMatch = (text: string): MenuTextMatch | null => {
 };
 
 class MentionTypeaheadOption extends MenuOption {
+  displayHandle: string;
+  handle: string;
   id: string;
   name: string;
-  handle: string;
-  displayHandle: string;
   picture: string;
 
   constructor(
@@ -141,13 +142,13 @@ const MentionsTypeaheadMenuItem: FC<MentionsTypeaheadMenuItemProps> = ({
 }) => {
   return (
     <li
-      key={option.key}
-      tabIndex={-1}
       className="cursor-pointer"
+      key={option.key}
+      onClick={onClick}
+      onMouseEnter={onMouseEnter}
       ref={option.setRefElement}
       role="option"
-      onMouseEnter={onMouseEnter}
-      onClick={onClick}
+      tabIndex={-1}
     >
       <div
         className={cn(
@@ -156,11 +157,11 @@ const MentionsTypeaheadMenuItem: FC<MentionsTypeaheadMenuItemProps> = ({
         )}
       >
         <img
+          alt={option.handle}
           className="h-7 w-7 rounded-full"
           height="32"
-          width="32"
           src={option.picture}
-          alt={option.handle}
+          width="32"
         />
         <div className="flex flex-col truncate">
           <div className="flex items-center space-x-1 text-sm">
@@ -180,7 +181,7 @@ const MentionsTypeaheadMenuItem: FC<MentionsTypeaheadMenuItemProps> = ({
 };
 
 const MentionsPlugin: FC = () => {
-  const [queryString, setQueryString] = useState<string | null>(null);
+  const [queryString, setQueryString] = useState<null | string>(null);
   const [results, setResults] = useState<Record<string, string>[]>([]);
   const [editor] = useLexicalComposerContext();
   const [searchUsers] = useSearchProfilesLazyQuery();
@@ -189,9 +190,9 @@ const MentionsPlugin: FC = () => {
     if (queryString) {
       // Variables
       const request: ProfileSearchRequest = {
-        where: { customFilters: [CustomFiltersType.Gardeners] },
+        limit: LimitType.Ten,
         query: queryString,
-        limit: LimitType.Ten
+        where: { customFilters: [CustomFiltersType.Gardeners] }
       };
 
       searchUsers({ variables: { request } }).then(({ data }) => {
@@ -205,10 +206,10 @@ const MentionsPlugin: FC = () => {
         const profilesResults = profiles.map(
           (user) =>
             ({
+              displayHandle: getProfile(user).slugWithPrefix,
+              handle: user.handle?.fullHandle,
               id: user?.id,
               name: getProfile(user).displayName,
-              handle: user.handle?.fullHandle,
-              displayHandle: getProfile(user).slugWithPrefix,
               picture: getAvatar(user)
             }) as Record<string, string>
         );
@@ -224,7 +225,7 @@ const MentionsPlugin: FC = () => {
   const options = useMemo(
     () =>
       results
-        .map(({ id, name, handle, displayHandle, picture }) => {
+        .map(({ displayHandle, handle, id, name, picture }) => {
           return new MentionTypeaheadOption(
             id,
             name ?? handle,
@@ -240,7 +241,7 @@ const MentionsPlugin: FC = () => {
   const onSelectOption = useCallback(
     (
       selectedOption: MentionTypeaheadOption,
-      nodeToReplace: TextNode | null,
+      nodeToReplace: null | TextNode,
       closeMenu: () => void
     ) => {
       editor.update(() => {
@@ -266,10 +267,6 @@ const MentionsPlugin: FC = () => {
 
   return (
     <LexicalTypeaheadMenuPlugin<MentionTypeaheadOption>
-      onQueryChange={setQueryString}
-      onSelectOption={onSelectOption}
-      triggerFn={checkForMentionMatch}
-      options={options}
       menuRenderFn={(
         anchorElementRef,
         { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }
@@ -282,6 +279,7 @@ const MentionsPlugin: FC = () => {
                     <MentionsTypeaheadMenuItem
                       index={i}
                       isSelected={selectedIndex === i}
+                      key={option.key}
                       onClick={() => {
                         setHighlightedIndex(i);
                         selectOptionAndCleanUp(option);
@@ -289,7 +287,6 @@ const MentionsPlugin: FC = () => {
                       onMouseEnter={() => {
                         setHighlightedIndex(i);
                       }}
-                      key={option.key}
                       option={option}
                     />
                   ))}
@@ -299,6 +296,10 @@ const MentionsPlugin: FC = () => {
             )
           : null
       }
+      onQueryChange={setQueryString}
+      onSelectOption={onSelectOption}
+      options={options}
+      triggerFn={checkForMentionMatch}
     />
   );
 };

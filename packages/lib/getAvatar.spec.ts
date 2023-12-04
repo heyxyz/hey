@@ -8,8 +8,8 @@ describe('getAvatar', () => {
 
   test('should return normal profile optimized avatar url', () => {
     const profile = {
-      ownedBy: { address: '0x03ba34f6ea1496fa316873cf8350a3f7ead317ef' },
-      metadata: { picture: { optimized: { uri: ipfsLink } } }
+      metadata: { picture: { optimized: { uri: ipfsLink } } },
+      ownedBy: { address: '0x03ba34f6ea1496fa316873cf8350a3f7ead317ef' }
     };
     const result = getAvatar(profile);
     expect(result).toBe(ipfsLink);
@@ -17,8 +17,8 @@ describe('getAvatar', () => {
 
   test('should return normal profile optimized raw url', () => {
     const profile = {
-      ownedBy: { address: '0x03ba34f6ea1496fa316873cf8350a3f7ead317ef' },
-      metadata: { picture: { raw: { uri: ipfsLink } } }
+      metadata: { picture: { raw: { uri: ipfsLink } } },
+      ownedBy: { address: '0x03ba34f6ea1496fa316873cf8350a3f7ead317ef' }
     };
     const result = getAvatar(profile);
     expect(result).toBe(ipfsLink);
@@ -26,8 +26,8 @@ describe('getAvatar', () => {
 
   test('should return nft profile optimized avatar url', () => {
     const profile = {
-      ownedBy: { address: '0x03ba34f6ea1496fa316873cf8350a3f7ead317ef' },
-      metadata: { picture: { image: { optimized: { uri: ipfsLink } } } }
+      metadata: { picture: { image: { optimized: { uri: ipfsLink } } } },
+      ownedBy: { address: '0x03ba34f6ea1496fa316873cf8350a3f7ead317ef' }
     };
     const result = getAvatar(profile);
     expect(result).toBe(ipfsLink);
@@ -35,8 +35,8 @@ describe('getAvatar', () => {
 
   test('should return nft profile optimized raw url', () => {
     const profile = {
-      ownedBy: { address: '0x03ba34f6ea1496fa316873cf8350a3f7ead317ef' },
-      metadata: { picture: { image: { raw: { uri: ipfsLink } } } }
+      metadata: { picture: { image: { raw: { uri: ipfsLink } } } },
+      ownedBy: { address: '0x03ba34f6ea1496fa316873cf8350a3f7ead317ef' }
     };
     const result = getAvatar(profile);
     expect(result).toBe(ipfsLink);

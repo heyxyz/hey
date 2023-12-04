@@ -6,16 +6,16 @@ import getProfileAttribute from './getProfileAttribute';
 describe('getProfileAttribute', () => {
   test('should return the attribute value from a trait if key is valid', () => {
     const attributes: MetadataAttribute[] = [
-      { key: 'x', value: '@myx', type: MetadataAttributeType.String },
+      { key: 'x', type: MetadataAttributeType.String, value: '@myx' },
       {
         key: 'location',
-        value: 'New York',
-        type: MetadataAttributeType.String
+        type: MetadataAttributeType.String,
+        value: 'New York'
       },
       {
         key: 'website',
-        value: 'https://www.example.com',
-        type: MetadataAttributeType.String
+        type: MetadataAttributeType.String,
+        value: 'https://www.example.com'
       }
     ];
     expect(getProfileAttribute(attributes, 'location')).toEqual('New York');

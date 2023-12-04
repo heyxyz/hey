@@ -1,7 +1,9 @@
+import type { ApprovedAuthenticationRequest } from '@hey/lens';
+import type { FC } from 'react';
+
 import Loader from '@components/Shared/Loader';
 import { ComputerDesktopIcon, GlobeAltIcon } from '@heroicons/react/24/outline';
 import { SETTINGS } from '@hey/data/tracking';
-import type { ApprovedAuthenticationRequest } from '@hey/lens';
 import {
   LimitType,
   useApprovedAuthenticationsQuery,
@@ -11,7 +13,6 @@ import { Button, Card, EmptyState, ErrorMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { formatDate } from '@lib/formatTime';
 import { Leafwatch } from '@lib/leafwatch';
-import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import toast from 'react-hot-toast';
@@ -21,7 +22,7 @@ const List: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
   const [revoking, setRevoking] = useState(false);
-  const [revokeingSessionId, setRevokeingSessionId] = useState<string | null>(
+  const [revokeingSessionId, setRevokeingSessionId] = useState<null | string>(
     null
   );
 
@@ -62,9 +63,9 @@ const List: FC = () => {
   const request: ApprovedAuthenticationRequest = {
     limit: LimitType.TwentyFive
   };
-  const { data, loading, error, fetchMore } = useApprovedAuthenticationsQuery({
-    variables: { request },
-    skip: !currentProfile?.id
+  const { data, error, fetchMore, loading } = useApprovedAuthenticationsQuery({
+    skip: !currentProfile?.id,
+    variables: { request }
   });
 
   const approvedAuthentications = data?.approvedAuthentications?.items;
@@ -92,15 +93,15 @@ const List: FC = () => {
   }
 
   if (error) {
-    return <ErrorMessage title="Failed to load sessions" error={error} />;
+    return <ErrorMessage error={error} title="Failed to load sessions" />;
   }
 
   if (approvedAuthentications?.length === 0) {
     return (
       <EmptyState
-        message="You are not logged in on any other devices!"
-        icon={<GlobeAltIcon className="text-brand-500 h-8 w-8" />}
         hideCard
+        icon={<GlobeAltIcon className="text-brand-500 h-8 w-8" />}
+        message="You are not logged in on any other devices!"
       />
     );
   }
@@ -109,9 +110,9 @@ const List: FC = () => {
     <div className="space-y-4">
       {approvedAuthentications?.map((session) => (
         <Card
-          key={session.authorizationId}
           className="flex flex-wrap items-start justify-between p-5"
           forceRounded
+          key={session.authorizationId}
         >
           <div>
             <div className="mb-3 flex items-center space-x-2">
@@ -142,11 +143,11 @@ const List: FC = () => {
             </div>
           </div>
           <Button
-            variant="danger"
             disabled={
               revoking && revokeingSessionId === session.authorizationId
             }
             onClick={() => revoke(session.authorizationId)}
+            variant="danger"
           >
             Revoke
           </Button>

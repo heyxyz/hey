@@ -1,6 +1,7 @@
+import type { FC } from 'react';
+
 import { Menu } from '@headlessui/react';
 import cn from '@hey/ui/cn';
-import type { FC } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import MenuTransition from '../MenuTransition';
@@ -28,8 +29,8 @@ const MoreNavItems: FC = () => {
           </Menu.Button>
           <MenuTransition>
             <Menu.Items
-              static
               className="absolute mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+              static
             >
               {currentProfile ? (
                 <>

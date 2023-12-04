@@ -1,4 +1,5 @@
 import type { Comment } from '@hey/lens';
+
 import { type FC } from 'react';
 
 import ThreadBody from '../ThreadBody';
@@ -8,7 +9,7 @@ interface CommentedProps {
 }
 
 const Commented: FC<CommentedProps> = ({ publication }) => {
-  const commentOn: Comment | any = publication?.commentOn;
+  const commentOn: any | Comment = publication?.commentOn;
   const root = commentOn?.root;
 
   return (

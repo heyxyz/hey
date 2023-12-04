@@ -13,6 +13,7 @@ const heyMostViewed = async (limit: number, offset: number): Promise<any[]> => {
   try {
     const client = createClickhouseClient();
     const rows = await client.query({
+      format: 'JSONEachRow',
       query: `
         SELECT
           url,
@@ -29,8 +30,7 @@ const heyMostViewed = async (limit: number, offset: number): Promise<any[]> => {
           view_count DESC
         LIMIT ${limit}
         OFFSET ${offset};
-      `,
-      format: 'JSONEachRow'
+      `
     });
 
     const result =

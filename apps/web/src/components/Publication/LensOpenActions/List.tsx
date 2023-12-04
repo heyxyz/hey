@@ -1,9 +1,10 @@
+import type { FC } from 'react';
+
 import { ArrowLeftIcon } from '@heroicons/react/24/solid';
 import { type AnyPublication, OpenActionModuleType } from '@hey/lens';
 import getOpenActionModuleData from '@hey/lib/getOpenActionModuleData';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card } from '@hey/ui';
-import type { FC } from 'react';
 import { useState } from 'react';
 
 import CollectModule from './CollectModule';
@@ -14,11 +15,11 @@ interface ListProps {
 }
 
 const List: FC<ListProps> = ({ publication }) => {
-  const [openActionScreen, setOpenActionScreen] = useState<'LIST' | 'ACTION'>(
+  const [openActionScreen, setOpenActionScreen] = useState<'ACTION' | 'LIST'>(
     'LIST'
   );
   const [selectedOpenActionIndex, selectedSetOpenActionIndex] = useState<
-    number | null
+    null | number
   >(null);
 
   const targetPublication = isMirrorPublication(publication)
@@ -41,16 +42,16 @@ const List: FC<ListProps> = ({ publication }) => {
               OpenActionModuleType.LegacyMultirecipientFeeCollectModule ? (
               <CollectModule
                 key={action.type}
-                publication={publication}
                 openAction={action}
+                publication={publication}
               />
             ) : (
               <button
-                key={action.type}
                 className="w-full p-5"
                 disabled={
                   action.type === OpenActionModuleType.UnknownOpenActionModule
                 }
+                key={action.type}
                 onClick={() => {
                   selectedSetOpenActionIndex(index);
                   setOpenActionScreen('ACTION');
@@ -89,8 +90,8 @@ const List: FC<ListProps> = ({ publication }) => {
             selectedOpenAction?.__typename ===
               'LegacyMultirecipientFeeCollectModuleSettings' ? (
               <CollectModule
-                publication={publication}
                 openAction={selectedOpenAction}
+                publication={publication}
               />
             ) : null}
           </Card>

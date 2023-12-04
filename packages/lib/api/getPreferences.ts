@@ -1,5 +1,6 @@
-import { HEY_API_URL } from '@hey/data/constants';
 import type { Preferences } from '@hey/types/hey';
+
+import { HEY_API_URL } from '@hey/data/constants';
 import axios from 'axios';
 
 /**
@@ -15,15 +16,15 @@ const getPreferences = async (
   try {
     const response: { data: { result: Preferences } } = await axios.get(
       `${HEY_API_URL}/preference/getPreferences`,
-      { params: { id }, headers }
+      { headers, params: { id } }
     );
 
     return response.data.result;
   } catch {
     return {
+      features: [],
       preference: null,
-      pro: { enabled: false },
-      features: []
+      pro: { enabled: false }
     };
   }
 };
