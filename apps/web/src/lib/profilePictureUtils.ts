@@ -1,5 +1,10 @@
 import { uploadFileToIPFS } from './uploadToIPFS';
 
+/**
+ * Read a file as a base64 string
+ * @param file File
+ * @returns Base64 string
+ */
 export const readFile = (file: Blob): Promise<string> => {
   return new Promise((resolve) => {
     const reader = new FileReader();
@@ -12,6 +17,11 @@ export const readFile = (file: Blob): Promise<string> => {
   });
 };
 
+/**
+ * Upload cropped image to IPFS
+ * @param image Image
+ * @returns IPFS URL
+ */
 const uploadCroppedImage = async (
   image: HTMLCanvasElement
 ): Promise<string> => {
