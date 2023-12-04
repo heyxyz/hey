@@ -35,8 +35,7 @@ export const LensHub = [
             internalType: 'address',
             name: 'newFeeFollowModule',
             type: 'address'
-          },
-          { internalType: 'address', name: 'migrationAdmin', type: 'address' }
+          }
         ],
         internalType: 'struct Types.MigrationParams',
         name: 'migrationParams',
@@ -60,6 +59,7 @@ export const LensHub = [
   { inputs: [], name: 'NonERC721ReceiverImplementer', type: 'error' },
   { inputs: [], name: 'NotEOA', type: 'error' },
   { inputs: [], name: 'NotGovernance', type: 'error' },
+  { inputs: [], name: 'NotHub', type: 'error' },
   { inputs: [], name: 'NotMigrationAdmin', type: 'error' },
   { inputs: [], name: 'NotOwnerOrApproved', type: 'error' },
   { inputs: [], name: 'NotProfileOwner', type: 'error' },
@@ -115,6 +115,120 @@ export const LensHub = [
   {
     anonymous: false,
     inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'fromTokenId',
+        type: 'uint256'
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'toTokenId',
+        type: 'uint256'
+      }
+    ],
+    name: 'BatchMetadataUpdate',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'uint256',
+        name: 'profileId',
+        type: 'uint256'
+      },
+      {
+        indexed: true,
+        internalType: 'uint256',
+        name: 'pubId',
+        type: 'uint256'
+      },
+      {
+        indexed: true,
+        internalType: 'uint256',
+        name: 'collectNFTId',
+        type: 'uint256'
+      },
+      {
+        indexed: false,
+        internalType: 'address',
+        name: 'from',
+        type: 'address'
+      },
+      { indexed: false, internalType: 'address', name: 'to', type: 'address' },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'timestamp',
+        type: 'uint256'
+      }
+    ],
+    name: 'CollectNFTTransferred',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'address',
+        name: 'implementation',
+        type: 'address'
+      },
+      {
+        indexed: false,
+        internalType: 'string',
+        name: 'version',
+        type: 'string'
+      },
+      {
+        indexed: false,
+        internalType: 'bytes20',
+        name: 'gitCommit',
+        type: 'bytes20'
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'timestamp',
+        type: 'uint256'
+      }
+    ],
+    name: 'LensUpgradeVersion',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'wallet',
+        type: 'address'
+      },
+      { indexed: true, internalType: 'bool', name: 'enabled', type: 'bool' },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'tokenGuardianDisablingTimestamp',
+        type: 'uint256'
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'timestamp',
+        type: 'uint256'
+      }
+    ],
+    name: 'TokenGuardianStateChanged',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [
       { indexed: true, internalType: 'address', name: 'from', type: 'address' },
       { indexed: true, internalType: 'address', name: 'to', type: 'address' },
       {
@@ -128,10 +242,98 @@ export const LensHub = [
     type: 'event'
   },
   {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'uint16',
+        name: 'prevTreasuryFee',
+        type: 'uint16'
+      },
+      {
+        indexed: true,
+        internalType: 'uint16',
+        name: 'newTreasuryFee',
+        type: 'uint16'
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'timestamp',
+        type: 'uint256'
+      }
+    ],
+    name: 'TreasuryFeeSet',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'prevTreasury',
+        type: 'address'
+      },
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'newTreasury',
+        type: 'address'
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'timestamp',
+        type: 'uint256'
+      }
+    ],
+    name: 'TreasurySet',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'uint256',
+        name: 'unfollowerProfileId',
+        type: 'uint256'
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'idOfProfileUnfollowed',
+        type: 'uint256'
+      },
+      {
+        indexed: false,
+        internalType: 'address',
+        name: 'transactionExecutor',
+        type: 'address'
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'timestamp',
+        type: 'uint256'
+      }
+    ],
+    name: 'Unfollowed',
+    type: 'event'
+  },
+  {
     inputs: [],
     name: 'DANGER__disableTokenGuardian',
     outputs: [],
     stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'TOKEN_GUARDIAN_COOLDOWN',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
     type: 'function'
   },
   {
@@ -609,6 +811,13 @@ export const LensHub = [
   },
   {
     inputs: [],
+    name: 'emitVersion',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [],
     name: 'enableTokenGuardian',
     outputs: [],
     stateMutability: 'nonpayable',
@@ -717,10 +926,31 @@ export const LensHub = [
     type: 'function'
   },
   {
+    inputs: [{ internalType: 'uint256', name: 'profileId', type: 'uint256' }],
+    name: 'getFollowModule',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
     inputs: [],
     name: 'getFollowNFTImpl',
     outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'getFollowTokenURIContract',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'getGitCommit',
+    outputs: [{ internalType: 'bytes20', name: '', type: 'bytes20' }],
+    stateMutability: 'pure',
     type: 'function'
   },
   {
@@ -782,6 +1012,13 @@ export const LensHub = [
     inputs: [{ internalType: 'bytes32', name: 'handleHash', type: 'bytes32' }],
     name: 'getProfileIdByHandleHash',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'getProfileTokenURIContract',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function'
   },
@@ -881,6 +1118,20 @@ export const LensHub = [
     type: 'function'
   },
   {
+    inputs: [],
+    name: 'getVersion',
+    outputs: [{ internalType: 'string', name: '', type: 'string' }],
+    stateMutability: 'pure',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'uint8', name: 'increment', type: 'uint8' }],
+    name: 'incrementNonce',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
     inputs: [
       { internalType: 'string', name: 'name', type: 'string' },
       { internalType: 'string', name: 'symbol', type: 'string' },
@@ -939,6 +1190,17 @@ export const LensHub = [
       { internalType: 'uint64', name: 'configNumber', type: 'uint64' }
     ],
     name: 'isDelegatedExecutorApproved',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'uint256', name: 'followedProfileId', type: 'uint256' },
+      { internalType: 'address', name: 'followerAddress', type: 'address' },
+      { internalType: 'uint256', name: '', type: 'uint256' }
+    ],
+    name: 'isFollowing',
     outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function'
@@ -1393,6 +1655,19 @@ export const LensHub = [
   },
   {
     inputs: [
+      {
+        internalType: 'address',
+        name: 'followTokenURIContract',
+        type: 'address'
+      }
+    ],
+    name: 'setFollowTokenURIContract',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
       { internalType: 'address', name: 'newGovernance', type: 'address' }
     ],
     name: 'setGovernance',
@@ -1438,6 +1713,19 @@ export const LensHub = [
       }
     ],
     name: 'setProfileMetadataURIWithSig',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'profileTokenURIContract',
+        type: 'address'
+      }
+    ],
+    name: 'setProfileTokenURIContract',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'

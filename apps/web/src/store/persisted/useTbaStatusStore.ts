@@ -26,5 +26,5 @@ export const useTbaStatusStore = create(
   )
 );
 
-export const hydrateFeatureFlags = () =>
+export const hydrateTbaStatus = () =>
   useTbaStatusStore.getState().hydrateTbaStatus();

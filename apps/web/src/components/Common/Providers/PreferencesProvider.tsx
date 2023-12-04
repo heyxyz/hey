@@ -10,13 +10,11 @@ import axios from 'axios';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useProStore } from 'src/store/non-persisted/useProStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useVerifiedMembersStore } from 'src/store/persisted/useVerifiedMembersStore';
 import { isAddress } from 'viem';
 
 const PreferencesProvider: FC = () => {
   const { id: sessionProfileId } = getCurrentSession();
-  const currentProfile = useProfileStore((state) => state.currentProfile);
   const setVerifiedMembers = useVerifiedMembersStore(
     (state) => state.setVerifiedMembers
   );
@@ -79,27 +77,6 @@ const PreferencesProvider: FC = () => {
   useQuery({
     queryFn: fetchVerifiedMembers,
     queryKey: ['fetchVerifiedMembers']
-  });
-
-  // Fetch TBA status
-  const fetchTbaStatus = async () => {
-    try {
-      if (currentProfile?.ownedBy.address) {
-        const response = await axios.get(`${HEY_API_URL}/tba/isTba`, {
-          params: { address: currentProfile.ownedBy.address }
-        });
-        const { data } = response;
-        setIsPro(data.isTba);
-      }
-      return true;
-    } catch {
-      return false;
-    }
-  };
-
-  useQuery({
-    queryFn: fetchTbaStatus,
-    queryKey: ['fetchTbaStatus', sessionProfileId || '']
   });
 
   return null;

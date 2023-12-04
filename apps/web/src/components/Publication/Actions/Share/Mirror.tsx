@@ -61,7 +61,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
   const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
 
-  const { canBroadcast, canUseLensManager, isSponsored } =
+  const { canBroadcast, canUseLensManager, isSponsored, isTba } =
     checkDispatcherPermissions(currentProfile);
 
   const updateCache = () => {
@@ -140,9 +140,9 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     isMomokaPublication = false
   ) => {
     const { id, typedData } = generatedData;
-    const signature = await signTypedDataAsync(getSignature(typedData));
 
     if (canBroadcast) {
+      const signature = await signTypedDataAsync(getSignature(typedData));
       if (isMomokaPublication) {
         return await broadcastOnMomoka({
           variables: { request: { id, signature } }
@@ -221,14 +221,28 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
       return;
     }
 
-    if (publication.momoka?.proof && !isSponsored) {
-      return toast.error(
-        'Momoka is currently in beta - during this time certain actions are not available to all profiles.'
-      );
-    }
-
     try {
       setIsLoading(true);
+
+      // Begin: TBA specific logic
+      if (isTba) {
+        if (publication.momoka?.proof) {
+          setIsLoading(false);
+          return toast.error('Only onchain mirrors are supported!');
+        }
+
+        return await createOnchainMirrorTypedData({
+          variables: { request: { mirrorOn: publication?.id } }
+        });
+      }
+      // End: TBA specific logic
+
+      if (publication.momoka?.proof && !isSponsored) {
+        return toast.error(
+          'Momoka is currently in beta - during this time certain actions are not available to all profiles.'
+        );
+      }
+
       const request: MomokaMirrorRequest | OnchainMirrorRequest = {
         mirrorOn: publication?.id
       };

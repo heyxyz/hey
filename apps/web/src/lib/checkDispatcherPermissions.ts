@@ -1,5 +1,7 @@
 import type { Profile } from '@hey/lens';
 
+import { hydrateTbaStatus } from 'src/store/persisted/useTbaStatusStore';
+
 /**
  * Check if the user can use the lens manager or broadcast
  * @param profile The user's profile
@@ -12,13 +14,17 @@ const checkDispatcherPermissions = (
   canUseLensManager: boolean;
   canUseSignless: boolean;
   isSponsored: boolean;
+  isTba: boolean;
 } => {
-  if (!profile) {
+  const { isTba } = hydrateTbaStatus();
+
+  if (!profile || isTba) {
     return {
       canBroadcast: false,
       canUseLensManager: false,
       canUseSignless: false,
-      isSponsored: false
+      isSponsored: false,
+      isTba
     };
   }
 
@@ -27,7 +33,13 @@ const checkDispatcherPermissions = (
   const canUseLensManager = canUseSignless && isSponsored;
   const canBroadcast = isSponsored;
 
-  return { canBroadcast, canUseLensManager, canUseSignless, isSponsored };
+  return {
+    canBroadcast,
+    canUseLensManager,
+    canUseSignless,
+    isSponsored,
+    isTba
+  };
 };
 
 export default checkDispatcherPermissions;

@@ -17,6 +17,7 @@ import LeafwatchProvider from './LeafwatchProvider';
 import LensSubscriptionsProvider from './LensSubscriptionsProvider';
 import PreferencesProvider from './PreferencesProvider';
 import ServiceWorkerProvider from './ServiceWorkerProvider';
+import TbaStatusProvider from './TbaStatusProvider';
 import Web3Provider from './Web3Provider';
 
 const lensApolloClient = apolloClient(authLink);
@@ -37,6 +38,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
           <LensSubscriptionsProvider />
           <QueryClientProvider client={queryClient}>
             <PreferencesProvider />
+            <TbaStatusProvider />
             <FeaturedGroupsProvider />
             <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
               <ThemeProvider attribute="class" defaultTheme="light">
