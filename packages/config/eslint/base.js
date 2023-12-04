@@ -12,7 +12,6 @@ module.exports = {
   plugins: [
     '@typescript-eslint',
     'unused-imports',
-    'simple-import-sort',
     'prettier',
     'unicorn',
     'import',
@@ -29,8 +28,6 @@ module.exports = {
     '@typescript-eslint/ban-ts-comment': 'off', // turn warn
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/consistent-type-imports': 'error',
-    'simple-import-sort/imports': 'error',
-    'simple-import-sort/exports': 'error',
     'no-use-before-define': 'error',
     'no-unexpected-multiline': 'error',
     'unicorn/better-regex': 'error',
