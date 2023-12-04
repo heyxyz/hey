@@ -1,3 +1,5 @@
+import type { Features } from '@hey/types/hey';
+
 import Loader from '@components/Shared/Loader';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import {
@@ -5,7 +7,7 @@ import {
   TrashIcon
 } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
-import type { Features } from '@hey/types/hey';
+import getAllFeatureFlags from '@hey/lib/api/getAllFeatureFlags';
 import { Button, Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
 import { formatDate } from '@lib/formatTime';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
@@ -18,25 +20,12 @@ import Create from './Create';
 
 const List: FC = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [flags, setFlags] = useState<Features[] | []>([]);
+  const [flags, setFlags] = useState<[] | Features[]>([]);
 
-  const getAllFeatureFlags = async (): Promise<Features[] | []> => {
-    try {
-      const response = await axios.get(`${HEY_API_URL}/internal/feature/all`, {
-        headers: getAuthWorkerHeaders()
-      });
-      const { data } = response;
-      setFlags(data?.features || []);
-
-      return data?.features || [];
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  const { isLoading, error } = useQuery({
-    queryKey: ['getAllFeatureFlags'],
-    queryFn: getAllFeatureFlags
+  const { error, isLoading } = useQuery({
+    queryFn: () =>
+      getAllFeatureFlags(getAuthWorkerHeaders(), (flags) => setFlags(flags)),
+    queryKey: ['getAllFeatureFlags']
   });
 
   const deleteFeatureFlag = async (id: string) => {
@@ -47,12 +36,12 @@ const List: FC = () => {
         { headers: getAuthWorkerHeaders() }
       ),
       {
+        error: 'Failed to delete feature flag',
         loading: 'Deleting feature flag...',
         success: () => {
           setFlags(flags.filter((flag) => flag.id !== id));
           return 'Feature flag deleted';
-        },
-        error: 'Failed to delete feature flag'
+        }
       }
     );
   };
@@ -70,31 +59,31 @@ const List: FC = () => {
         {isLoading ? (
           <Loader message="Loading feature flags..." />
         ) : error ? (
-          <ErrorMessage title="Failed to load feature flags" error={error} />
+          <ErrorMessage error={error} title="Failed to load feature flags" />
         ) : !flags.length ? (
           <EmptyState
-            message={<span>No feature flags found</span>}
+            hideCard
             icon={
               <AdjustmentsHorizontalIcon className="text-brand-500 h-8 w-8" />
             }
-            hideCard
+            message={<span>No feature flags found</span>}
           />
         ) : (
           <div className="space-y-5">
             {flags?.map((flag) => (
-              <div key={flag.id} className="flex items-center justify-between">
+              <div className="flex items-center justify-between" key={flag.id}>
                 <ToggleWithHelper
-                  on={flag.enabled}
-                  setOn={() => {}}
-                  heading={flag.key}
                   description={`Created on ${formatDate(
                     flag.createdAt
                   )} with priority ${flag.priority}`}
+                  heading={flag.key}
+                  on={flag.enabled}
+                  setOn={() => {}}
                 />
                 {flag.priority === 0 && (
                   <Button
-                    onClick={() => deleteFeatureFlag(flag.id)}
                     icon={<TrashIcon className="h-4 w-4" />}
+                    onClick={() => deleteFeatureFlag(flag.id)}
                     outline
                   />
                 )}
@@ -104,9 +93,9 @@ const List: FC = () => {
         )}
       </div>
       <Modal
-        title="Create feature flag"
-        show={showCreateModal}
         onClose={() => setShowCreateModal(!showCreateModal)}
+        show={showCreateModal}
+        title="Create feature flag"
       >
         <Create
           flags={flags}

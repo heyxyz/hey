@@ -1,7 +1,8 @@
+import type { Profile } from '@hey/lens';
+
 import UserProfile from '@components/Shared/UserProfile';
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { PROFILE } from '@hey/data/tracking';
-import type { Profile } from '@hey/lens';
 import { Button, Card, Form, Radio, TextArea, useZodForm } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { type FC } from 'react';
@@ -12,16 +13,16 @@ import { object, string, z } from 'zod';
 const ReportType = z.enum(['MISLEADING_ACCOUNT', 'UNWANTED_CONTENT']);
 
 const reportReportProfileSchema = object({
-  type: ReportType,
   description: string()
     .max(300, {
       message: 'Report should not exceed 300 characters'
     })
-    .optional()
+    .optional(),
+  type: ReportType
 });
 
 interface ReportProfileProps {
-  profile: Profile | null;
+  profile: null | Profile;
 }
 
 const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
@@ -40,7 +41,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
         form={form}
         onSubmit={() => {
           const data = form.getValues();
-          const { type, description } = data;
+          const { description, type } = data;
           Leafwatch.track(PROFILE.REPORT_PROFILE, {
             type,
             ...(description && { description }),
@@ -58,8 +59,8 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
 
         <div className="space-y-5">
           <Radio
-            heading={<span className="font-medium">Misleading Account</span>}
             description="Impersonation or false claims about identity or affiliation"
+            heading={<span className="font-medium">Misleading Account</span>}
             value={ReportType.Enum.MISLEADING_ACCOUNT}
             {...form.register('type')}
             checked={form.watch('type') === ReportType.Enum.MISLEADING_ACCOUNT}
@@ -68,12 +69,12 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
             }}
           />
           <Radio
+            description="Spam; excessive mentions or replies"
             heading={
               <span className="font-medium">
                 Frequently Posts Unwanted Content
               </span>
             }
-            description="Spam; excessive mentions or replies"
             value={ReportType.Enum.UNWANTED_CONTENT}
             {...form.register('type')}
             checked={form.watch('type') === ReportType.Enum.UNWANTED_CONTENT}
@@ -92,10 +93,10 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
         </div>
         <Button
           className="flex w-full justify-center"
+          disabled={!form.watch('type')}
+          icon={<PencilSquareIcon className="h-4 w-4" />}
           type="submit"
           variant="primary"
-          icon={<PencilSquareIcon className="h-4 w-4" />}
-          disabled={!form.watch('type')}
         >
           Report
         </Button>

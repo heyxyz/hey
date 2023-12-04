@@ -1,11 +1,12 @@
 import type { AnyPublication } from '@hey/lens';
-import getNft from '@hey/lib/nft/getNft';
 import type {
   BasePaintCanvasMetadata,
   BasicNftMetadata,
   UnlonelyChannelMetadata,
   UnlonelyNfcMetadata
 } from '@hey/types/nft';
+
+import getNft from '@hey/lib/nft/getNft';
 import { type FC } from 'react';
 
 import BasePaintCanvas from './BasePaintCanvas';

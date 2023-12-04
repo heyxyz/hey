@@ -1,3 +1,5 @@
+import type { FC } from 'react';
+
 import { StarIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import {
@@ -8,21 +10,18 @@ import {
 import { Errors } from '@hey/data/errors';
 import { Regex } from '@hey/data/regex';
 import { SETTINGS } from '@hey/data/tracking';
-import type { Erc20 } from '@hey/lens';
 import {
   FollowModuleType,
-  LimitType,
   useBroadcastOnchainMutation,
-  useCreateSetFollowModuleTypedDataMutation,
-  useEnabledCurrenciesQuery
+  useCreateSetFollowModuleTypedDataMutation
 } from '@hey/lens';
+import getAllTokens from '@hey/lib/api/getAllTokens';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
-import getTokenImage from '@hey/lib/getTokenImage';
 import { Button, Card, Form, Input, Spinner, useZodForm } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import type { FC } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
@@ -50,16 +49,18 @@ const SuperFollow: FC = () => {
   const [selectedCurrency, setSelectedCurrency] = useState(
     DEFAULT_COLLECT_TOKEN
   );
-  const [selectedCurrencySymbol, setSelectedCurrencySymbol] =
-    useState('WMATIC');
   const handleWrongNetwork = useHandleWrongNetwork();
   const { canBroadcast } = checkDispatcherPermissions(currentProfile);
 
   const form = useZodForm({
-    schema: newSuperFollowSchema,
     defaultValues: {
+      amount:
+        currentProfile?.followModule?.__typename === 'FeeFollowModuleSettings'
+          ? currentProfile?.followModule?.amount.value
+          : '',
       recipient: currentProfile?.ownedBy.address
-    }
+    },
+    schema: newSuperFollowSchema
   });
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
@@ -77,24 +78,26 @@ const SuperFollow: FC = () => {
     errorToast(error);
   };
 
+  const { data: allowedTokens, isLoading: allowedTokensLoading } = useQuery({
+    queryFn: () => getAllTokens(),
+    queryKey: ['getAllTokens']
+  });
+
   const { signTypedDataAsync } = useSignTypedData({
     onError
   });
-  const { data: currencyData, loading } = useEnabledCurrenciesQuery({
-    variables: { request: { limit: LimitType.TwentyFive } }
-  });
 
   const { write } = useContractWrite({
-    address: LENSHUB_PROXY,
     abi: LensHub,
+    address: LENSHUB_PROXY,
     functionName: 'setFollowModule',
-    onSuccess: () => {
-      onCompleted();
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
-    },
     onError: (error) => {
       onError(error);
       setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+    },
+    onSuccess: () => {
+      onCompleted();
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
     }
   });
 
@@ -107,7 +110,7 @@ const SuperFollow: FC = () => {
       onCompleted: async ({ createSetFollowModuleTypedData }) => {
         const { id, typedData } = createSetFollowModuleTypedData;
         const signature = await signTypedDataAsync(getSignature(typedData));
-        const { profileId, followModule, followModuleInitData } =
+        const { followModule, followModuleInitData, profileId } =
           typedData.value;
         const args = [profileId, followModule, followModuleInitData];
 
@@ -127,8 +130,8 @@ const SuperFollow: FC = () => {
     });
 
   const setSuperFollow = async (
-    amount: string | null,
-    recipient: string | null
+    amount: null | string,
+    recipient: null | string
   ) => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
@@ -160,11 +163,11 @@ const SuperFollow: FC = () => {
     }
   };
 
-  if (loading) {
+  if (allowedTokensLoading) {
     return (
       <Card>
         <div className="space-y-2 p-5 py-10 text-center">
-          <Spinner size="md" className="mx-auto" />
+          <Spinner className="mx-auto" size="md" />
           <div>Loading Super follow settings</div>
         </div>
       </Card>
@@ -176,8 +179,8 @@ const SuperFollow: FC = () => {
   return (
     <Card>
       <Form
-        form={form}
         className="space-y-4 p-5"
+        form={form}
         onSubmit={async ({ amount, recipient }) => {
           await setSuperFollow(amount, recipient);
         }}
@@ -192,64 +195,54 @@ const SuperFollow: FC = () => {
           <div className="label">Select currency</div>
           <select
             className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"
-            onChange={(e) => {
-              const currency = e.target.value.split('-');
-              setSelectedCurrency(currency[0]);
-              setSelectedCurrencySymbol(currency[1]);
-            }}
+            defaultValue={
+              currentProfile?.followModule?.__typename ===
+              'FeeFollowModuleSettings'
+                ? currentProfile?.followModule?.amount.asset.contract.address
+                : undefined
+            }
+            onChange={(e) => setSelectedCurrency(e.target.value)}
           >
-            {currencyData?.currencies.items?.map((currency: Erc20) => (
-              <option
-                key={currency.contract.address}
-                value={`${currency.contract.address}-${currency.symbol}`}
-              >
-                {currency.name}
+            {allowedTokens?.map((token) => (
+              <option key={token.contractAddress} value={token.contractAddress}>
+                {token.name}
               </option>
             ))}
           </select>
         </div>
         <Input
           label="Follow amount"
-          type="number"
-          step="0.0001"
-          min="0"
           max="100000"
-          prefix={
-            <img
-              className="h-6 w-6"
-              height={24}
-              width={24}
-              src={getTokenImage(selectedCurrencySymbol)}
-              alt={selectedCurrencySymbol}
-            />
-          }
+          min="0"
           placeholder="5"
+          step="0.0001"
+          type="number"
           {...form.register('amount')}
         />
         <Input
           label="Funds recipient"
-          type="text"
           placeholder={ADDRESS_PLACEHOLDER}
+          type="text"
           {...form.register('recipient')}
         />
         <div className="ml-auto">
           <div className="block space-x-0 space-y-2 sm:flex sm:space-x-2 sm:space-y-0">
             {followType === FollowModuleType.FeeFollowModule ? (
               <Button
-                type="button"
-                variant="danger"
-                outline
-                onClick={() => setSuperFollow(null, null)}
                 disabled={isLoading}
                 icon={<XMarkIcon className="h-4 w-4" />}
+                onClick={() => setSuperFollow(null, null)}
+                outline
+                type="button"
+                variant="danger"
               >
                 Disable Super follow
               </Button>
             ) : null}
             <Button
-              type="submit"
               disabled={isLoading}
               icon={<StarIcon className="h-4 w-4" />}
+              type="submit"
             >
               {followType === FollowModuleType.FeeFollowModule
                 ? 'Update Super follow'

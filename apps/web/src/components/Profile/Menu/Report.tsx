@@ -1,5 +1,6 @@
-import { FlagIcon } from '@heroicons/react/24/outline';
 import type { Profile } from '@hey/lens';
+
+import { FlagIcon } from '@heroicons/react/24/outline';
 import cn from '@hey/ui/cn';
 import { type FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
@@ -15,11 +16,11 @@ const Report: FC<ReportProfileProps> = ({ profile }) => {
 
   return (
     <button
-      type="button"
       className={cn(
         'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm hover:bg-gray-300/20'
       )}
       onClick={() => setShowReportProfileModal(true, profile)}
+      type="button"
     >
       <div className="flex items-center space-x-2">
         <FlagIcon className="h-4 w-4" />

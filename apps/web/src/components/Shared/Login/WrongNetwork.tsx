@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+
 import { CHAIN_ID } from 'src/constants';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 
@@ -18,8 +19,8 @@ const WrongNetwork: FC = () => {
         </div>
       </div>
       <SwitchNetwork
-        toChainId={CHAIN_ID}
         onSwitch={() => setShowWrongNetworkModal(false)}
+        toChainId={CHAIN_ID}
       />
     </div>
   );

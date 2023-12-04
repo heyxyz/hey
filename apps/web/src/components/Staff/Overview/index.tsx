@@ -1,15 +1,17 @@
+import type { NextPage } from 'next';
+
 import MetaTags from '@components/Common/MetaTags';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import type { NextPage } from 'next';
 import Custom404 from 'src/pages/404';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import StaffSidebar from '../Sidebar';
+import Links from './Links';
 
 const Overview: NextPage = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
@@ -30,7 +32,9 @@ const Overview: NextPage = () => {
         <StaffSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        <Card className="p-5">Overview WIP</Card>
+        <Card className="p-5">
+          <Links />
+        </Card>
       </GridItemEight>
     </GridLayout>
   );

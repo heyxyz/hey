@@ -1,13 +1,14 @@
+import type { Profile } from '@hey/lens';
+import type { FC } from 'react';
+
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { FeatureFlag } from '@hey/data/feature-flags';
-import type { Profile } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import Link from 'next/link';
-import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
@@ -40,20 +41,20 @@ const MobileDrawerMenu: FC = () => {
 
   return (
     <div className="no-scrollbar fixed inset-0 z-10 h-full w-full overflow-y-auto bg-gray-100 py-4 dark:bg-black md:hidden">
-      <button className="px-5" type="button" onClick={closeDrawer}>
+      <button className="px-5" onClick={closeDrawer} type="button">
         <XMarkIcon className="h-6 w-6" />
       </button>
       <div className="w-full space-y-2">
         <Link
-          onClick={closeDrawer}
-          href={getProfile(currentProfile).link}
           className="mt-2 flex items-center space-x-2 px-5 py-3 hover:bg-gray-200 dark:hover:bg-gray-800"
+          href={getProfile(currentProfile).link}
+          onClick={closeDrawer}
         >
           <div className="flex w-full space-x-1.5">
             <Image
-              src={getAvatar(currentProfile as Profile)}
-              className="h-12 w-12 cursor-pointer rounded-full border dark:border-gray-700"
               alt={currentProfile?.id}
+              className="h-12 w-12 cursor-pointer rounded-full border dark:border-gray-700"
+              src={getAvatar(currentProfile as Profile)}
             />
             <div>
               Logged in as
@@ -112,16 +113,16 @@ const MobileDrawerMenu: FC = () => {
           <div className="divider" />
           <div className="hover:bg-gray-100 dark:hover:bg-gray-800">
             <Logout
-              onClick={closeDrawer}
               className={cn(itemClass, 'px-4 py-3')}
+              onClick={closeDrawer}
             />
           </div>
           <div className="divider" />
           {isFeatureEnabled(FeatureFlag.Gardener) ? (
             <>
               <div
-                onClick={closeDrawer}
                 className="hover:bg-gray-200 dark:hover:bg-gray-800"
+                onClick={closeDrawer}
               >
                 <GardenerMode className={cn(itemClass, 'px-4 py-3')} />
               </div>
@@ -131,8 +132,8 @@ const MobileDrawerMenu: FC = () => {
           {isFeatureEnabled(FeatureFlag.Staff) ? (
             <>
               <div
-                onClick={closeDrawer}
                 className="hover:bg-gray-200 dark:hover:bg-gray-800"
+                onClick={closeDrawer}
               >
                 <StaffMode className={cn(itemClass, 'px-4 py-3')} />
               </div>

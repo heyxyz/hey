@@ -1,20 +1,21 @@
+import type { AnyPublication } from '@hey/lens';
+import type { OG } from '@hey/types/misc';
+import type { FC } from 'react';
+
 import Attachments from '@components/Shared/Attachments';
 import Quote from '@components/Shared/Embed/Quote';
 import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
 import Video from '@components/Shared/Video';
 import { EyeIcon } from '@heroicons/react/24/outline';
-import type { AnyPublication } from '@hey/lens';
 import getPublicationAttribute from '@hey/lib/getPublicationAttribute';
 import getPublicationData from '@hey/lib/getPublicationData';
 import getURLs from '@hey/lib/getURLs';
 import isPublicationMetadataTypeAllowed from '@hey/lib/isPublicationMetadataTypeAllowed';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import removeUrlAtEnd from '@hey/lib/removeUrlAtEnd';
-import type { OG } from '@hey/types/misc';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
-import type { FC } from 'react';
 import { memo, useState } from 'react';
 import { isIOS, isMobile } from 'react-device-detect';
 
@@ -25,14 +26,14 @@ import Poll from './Poll';
 
 interface PublicationBodyProps {
   publication: AnyPublication;
-  showMore?: boolean;
   quoted?: boolean;
+  showMore?: boolean;
 }
 
 const PublicationBody: FC<PublicationBodyProps> = ({
   publication,
-  showMore = false,
-  quoted = false
+  quoted = false,
+  showMore = false
 }) => {
   const targetPublication = isMirrorPublication(publication)
     ? publication.mirrorOn
@@ -75,9 +76,16 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   // Show poll
   const pollId = getPublicationAttribute(metadata.attributes, 'pollId');
   const showPoll = Boolean(pollId);
+  // Show sharing link
+  const showSharingLink = metadata.__typename === 'LinkMetadataV3';
   // Show oembed if no NFT, no attachments, no quoted publication
   const showOembed =
-    hasURLs && !showNft && !showLive && !showAttachments && !quoted;
+    !showSharingLink &&
+    hasURLs &&
+    !showNft &&
+    !showLive &&
+    !showAttachments &&
+    !quoted;
 
   // Remove URL at the end if oembed is there
   const onOembedData = (data: OG) => {
@@ -108,7 +116,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       ) : null}
       {/* Attachments and Quotes */}
       {showAttachments ? (
-        <Attachments attachments={filteredAttachments} asset={filteredAsset} />
+        <Attachments asset={filteredAsset} attachments={filteredAttachments} />
       ) : null}
       {/* Poll */}
       {showPoll ? <Poll id={pollId} /> : null}
@@ -122,9 +130,16 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       ) : null}
       {showOembed ? (
         <Oembed
-          url={urls[0]}
-          publicationId={publication.id}
           onData={onOembedData}
+          publicationId={publication.id}
+          url={urls[0]}
+        />
+      ) : null}
+      {showSharingLink ? (
+        <Oembed
+          onData={() => {}}
+          publicationId={publication.id}
+          url={metadata.sharingLink}
         />
       ) : null}
       {targetPublication.__typename === 'Quote' && (

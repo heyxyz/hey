@@ -1,3 +1,5 @@
+import type { FC } from 'react';
+
 import { ADDRESS_PLACEHOLDER, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
 import { INVITE } from '@hey/data/tracking';
@@ -6,7 +8,6 @@ import { Button, Form, Input, useZodForm } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import plur from 'plur';
-import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { object, string } from 'zod';
@@ -65,9 +66,9 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
     <div className="w-full">
       <div className="flex flex-col items-center justify-center space-y-2 text-center">
         <img
-          src={`${STATIC_IMAGES_URL}/emojis/handshake.png`}
           alt="Invite"
           className="h-16 w-16"
+          src={`${STATIC_IMAGES_URL}/emojis/handshake.png`}
         />
         <div className="text-xl">Invite a Fren</div>
         <p className="ld-text-gray-500">
@@ -83,19 +84,19 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
       </div>
       {totalInvitesLeft !== 0 ? (
         <Form
-          form={form}
           className="mt-5 space-y-4"
+          form={form}
           onSubmit={async ({ address }) => {
             await invite(address);
           }}
         >
           <Input
             className="text-sm"
-            type="text"
             placeholder={ADDRESS_PLACEHOLDER}
+            type="text"
             {...form.register('address')}
           />
-          <Button type="submit" disabled={inviting}>
+          <Button disabled={inviting} type="submit">
             Invite
           </Button>
         </Form>

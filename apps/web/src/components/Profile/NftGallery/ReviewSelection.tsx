@@ -1,8 +1,9 @@
+import type { Nft } from '@hey/lens';
+import type { NftGalleryItem } from 'src/store/non-persisted/useNftGalleryStore';
+
 import SingleNft from '@components/Shared/SingleNft';
 import { RectangleStackIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import type { Nft } from '@hey/lens';
 import { EmptyState } from '@hey/ui';
-import type { NftGalleryItem } from 'src/store/non-persisted/useNftGalleryStore';
 import { useNftGalleryStore } from 'src/store/non-persisted/useNftGalleryStore';
 
 const ReviewSelection = () => {
@@ -38,10 +39,10 @@ const ReviewSelection = () => {
 
     setGallery({
       ...gallery,
-      name: gallery.name,
       items: nfts,
-      toRemove: sanitizeRemoveDuplicates,
-      toAdd: gallery.toAdd
+      name: gallery.name,
+      toAdd: gallery.toAdd,
+      toRemove: sanitizeRemoveDuplicates
     });
   };
 
@@ -50,8 +51,8 @@ const ReviewSelection = () => {
       <div className="p-10">
         <EmptyState
           hideCard
-          message="No collectables selected!"
           icon={<RectangleStackIcon className="text-brand-500 h-8 w-8" />}
+          message="No collectables selected!"
         />
       </div>
     );
@@ -65,12 +66,12 @@ const ReviewSelection = () => {
         >
           <div className="relative rounded-xl">
             <button
-              onClick={() => onRemoveItem(item)}
               className="bg-brand-500 absolute right-2 top-2 rounded-full"
+              onClick={() => onRemoveItem(item)}
             >
               <XMarkIcon className="h-6 w-6 rounded-full bg-white p-1 text-black" />
             </button>
-            <SingleNft nft={item as Nft} linkToDetail={false} />
+            <SingleNft linkToDetail={false} nft={item as Nft} />
           </div>
         </div>
       ))}

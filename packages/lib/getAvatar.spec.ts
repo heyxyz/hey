@@ -1,4 +1,4 @@
-import { IPFS_GATEWAY } from '@hey/data/constants';
+import { HEY_API_URL, IPFS_GATEWAY } from '@hey/data/constants';
 import { describe, expect, test } from 'vitest';
 
 import getAvatar from './getAvatar';
@@ -8,7 +8,6 @@ describe('getAvatar', () => {
 
   test('should return normal profile optimized avatar url', () => {
     const profile = {
-      ownedBy: { address: '0x03ba34f6ea1496fa316873cf8350a3f7ead317ef' },
       metadata: { picture: { optimized: { uri: ipfsLink } } }
     };
     const result = getAvatar(profile);
@@ -17,7 +16,6 @@ describe('getAvatar', () => {
 
   test('should return normal profile optimized raw url', () => {
     const profile = {
-      ownedBy: { address: '0x03ba34f6ea1496fa316873cf8350a3f7ead317ef' },
       metadata: { picture: { raw: { uri: ipfsLink } } }
     };
     const result = getAvatar(profile);
@@ -26,7 +24,6 @@ describe('getAvatar', () => {
 
   test('should return nft profile optimized avatar url', () => {
     const profile = {
-      ownedBy: { address: '0x03ba34f6ea1496fa316873cf8350a3f7ead317ef' },
       metadata: { picture: { image: { optimized: { uri: ipfsLink } } } }
     };
     const result = getAvatar(profile);
@@ -35,7 +32,6 @@ describe('getAvatar', () => {
 
   test('should return nft profile optimized raw url', () => {
     const profile = {
-      ownedBy: { address: '0x03ba34f6ea1496fa316873cf8350a3f7ead317ef' },
       metadata: { picture: { image: { raw: { uri: ipfsLink } } } }
     };
     const result = getAvatar(profile);
@@ -43,13 +39,8 @@ describe('getAvatar', () => {
   });
 
   test("should use profile's ownedBy address to build URL when all else fails", () => {
-    const profile = {
-      ownedBy: { address: '0x03ba34f6ea1496fa316873cf8350a3f7ead317ef' },
-      picture: {}
-    };
+    const profile = { id: '0x0d' };
     const result = getAvatar(profile);
-    expect(result).toBe(
-      `https://cdn.stamp.fyi/avatar/eth:${profile.ownedBy.address}?s=300`
-    );
+    expect(result).toBe(`${HEY_API_URL}/avatar?id=0x0d`);
   });
 });

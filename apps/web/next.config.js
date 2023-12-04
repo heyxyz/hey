@@ -71,6 +71,19 @@ const nextConfig = {
         destination:
           'https://explorer.gitcoin.co/#/round/424/0xd4cc0dd193c7dc1d665ae244ce12d7fab337a008/0xd4cc0dd193c7dc1d665ae244ce12d7fab337a008-4',
         permanent: true
+      },
+      // Forms
+      {
+        source: '/-/token-request',
+        destination:
+          'https://hey.height.app/?taskForm=Token-Allowlist-Request-mwarXOg6ks0A',
+        permanent: true
+      },
+      {
+        source: '/-/verification-request',
+        destination:
+          'https://hey.height.app/?taskForm=Verification-Request-fBxpj55hUMmf',
+        permanent: true
       }
     ];
   },

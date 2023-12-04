@@ -4,13 +4,13 @@ import ExternalLink from './ExternalLink';
 import Hashtag from './Hashtag';
 import Mention from './Mention';
 
-const MarkupLink = ({ title, mentions }: MarkupLinkProps) => {
+const MarkupLink = ({ mentions, title }: MarkupLinkProps) => {
   if (!title) {
     return null;
   }
 
   if (title.startsWith('@')) {
-    return <Mention title={title} mentions={mentions} />;
+    return <Mention mentions={mentions} title={title} />;
   }
 
   if (title.startsWith('#')) {

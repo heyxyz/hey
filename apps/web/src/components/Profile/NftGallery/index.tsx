@@ -1,5 +1,6 @@
-import NftGalleryShimmer from '@components/Shared/Shimmer/NftGalleryShimmer';
 import type { Profile } from '@hey/lens';
+
+import NftGalleryShimmer from '@components/Shared/Shimmer/NftGalleryShimmer';
 import { useNftGalleriesQuery } from '@hey/lens';
 import { type FC } from 'react';
 

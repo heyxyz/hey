@@ -1,16 +1,3 @@
-import CollectWarning from '@components/Shared/CollectWarning';
-import CountdownTimer from '@components/Shared/CountdownTimer';
-import Collectors from '@components/Shared/Modal/Collectors';
-import Slug from '@components/Shared/Slug';
-import {
-  BanknotesIcon,
-  ClockIcon,
-  PhotoIcon,
-  PuzzlePieceIcon,
-  RectangleStackIcon,
-  UsersIcon
-} from '@heroicons/react/24/outline';
-import { POLYGONSCAN_URL } from '@hey/data/constants';
 import type {
   AnyPublication,
   LegacyMultirecipientFeeCollectModuleSettings,
@@ -19,7 +6,24 @@ import type {
   OpenActionModule,
   SimpleCollectOpenActionSettings
 } from '@hey/lens';
+import type { FC } from 'react';
+
+import CollectWarning from '@components/Shared/CollectWarning';
+import CountdownTimer from '@components/Shared/CountdownTimer';
+import Collectors from '@components/Shared/Modal/Collectors';
+import Slug from '@components/Shared/Slug';
+import {
+  BanknotesIcon,
+  ClockIcon,
+  CurrencyDollarIcon,
+  PhotoIcon,
+  PuzzlePieceIcon,
+  RectangleStackIcon,
+  UsersIcon
+} from '@heroicons/react/24/outline';
+import { POLYGONSCAN_URL } from '@hey/data/constants';
 import { FollowModuleType } from '@hey/lens';
+import getAllTokens from '@hey/lib/api/getAllTokens';
 import formatAddress from '@hey/lib/formatAddress';
 import getAssetSymbol from '@hey/lib/getAssetSymbol';
 import getProfile from '@hey/lib/getProfile';
@@ -31,21 +35,25 @@ import { Modal, Tooltip } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import plur from 'plur';
-import type { FC } from 'react';
 import { useState } from 'react';
 
 import CollectAction from './CollectAction';
 import Splits from './Splits';
 
 interface CollectModuleProps {
-  publication: AnyPublication;
   openAction: OpenActionModule;
+  publication: AnyPublication;
 }
 
-const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
+const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
+
+  const { data: allowedTokens } = useQuery({
+    queryFn: () => getAllTokens(),
+    queryKey: ['getAllTokens']
+  });
 
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
   const [countOpenActions, setCountOpenActions] = useState(
@@ -53,10 +61,10 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
   );
 
   const collectModule = openAction as
-    | SimpleCollectOpenActionSettings
-    | MultirecipientFeeCollectOpenActionSettings
+    | LegacyMultirecipientFeeCollectModuleSettings
     | LegacySimpleCollectModuleSettings
-    | LegacyMultirecipientFeeCollectModuleSettings;
+    | MultirecipientFeeCollectOpenActionSettings
+    | SimpleCollectOpenActionSettings;
 
   const endTimestamp = collectModule?.endsAt;
   const collectLimit = parseInt(collectModule?.collectLimit || '0');
@@ -66,19 +74,21 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
   const isMultirecipientFeeCollectModule =
     collectModule.__typename === 'MultirecipientFeeCollectOpenActionSettings';
   const percentageCollected = (countOpenActions / collectLimit) * 100;
+  const enabledTokens = allowedTokens?.map((t) => t.symbol);
+  const isTokenEnabled = enabledTokens?.includes(currency);
 
   const { data: usdPrice } = useQuery({
-    queryKey: ['getRedstonePrice', currency],
+    enabled: Boolean(amount),
     queryFn: async () => await getRedstonePrice(getAssetSymbol(currency)),
-    enabled: Boolean(amount)
+    queryKey: ['getRedstonePrice', currency]
   });
 
   return (
     <>
       {Boolean(collectLimit) ? (
         <Tooltip
-          placement="top"
           content={`${percentageCollected.toFixed(0)}% Collected`}
+          placement="top"
         >
           <div className="h-2.5 w-full bg-gray-200 dark:bg-gray-700">
             <div
@@ -108,18 +118,22 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
         </div>
         {amount ? (
           <div className="flex items-center space-x-1.5 py-2">
-            <img
-              className="h-7 w-7"
-              height={28}
-              width={28}
-              src={getTokenImage(currency)}
-              alt={currency}
-              title={currency}
-            />
+            {isTokenEnabled ? (
+              <img
+                alt={currency}
+                className="h-7 w-7"
+                height={28}
+                src={getTokenImage(currency)}
+                title={currency}
+                width={28}
+              />
+            ) : (
+              <CurrencyDollarIcon className="text-brand-500 h-7 w-7" />
+            )}
             <span className="space-x-1">
               <span className="text-2xl font-bold">{amount}</span>
               <span className="text-xs">{currency}</span>
-              {usdPrice ? (
+              {isTokenEnabled && usdPrice ? (
                 <>
                   <span className="ld-text-gray-500 px-0.5">·</span>
                   <span className="ld-text-gray-500 text-xs font-bold">
@@ -136,17 +150,17 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
               <UsersIcon className="ld-text-gray-500 h-4 w-4" />
               <button
                 className="font-bold"
-                type="button"
                 onClick={() => setShowCollectorsModal(!showCollectorsModal)}
+                type="button"
               >
                 {humanize(countOpenActions)}{' '}
                 {plur('collector', countOpenActions)}
               </button>
               <Modal
-                title="Collected by"
                 icon={<RectangleStackIcon className="text-brand-500 h-5 w-5" />}
-                show={showCollectorsModal}
                 onClose={() => setShowCollectorsModal(false)}
+                show={showCollectorsModal}
+                title="Collected by"
               >
                 <Collectors publicationId={targetPublication.id} />
               </Modal>
@@ -183,10 +197,10 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
               <div className="space-x-1.5">
                 <span>Token:</span>
                 <Link
-                  href={`${POLYGONSCAN_URL}/token/${collectModule.contract.address}`}
-                  target="_blank"
                   className="font-bold text-gray-600"
+                  href={`${POLYGONSCAN_URL}/token/${collectModule.contract.address}`}
                   rel="noreferrer noopener"
+                  target="_blank"
                 >
                   {formatAddress(collectModule.contract.address)}
                 </Link>
@@ -199,9 +213,9 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
         </div>
         <div className="flex items-center space-x-2">
           <CollectAction
+            countOpenActions={countOpenActions}
             openAction={openAction}
             publication={publication}
-            countOpenActions={countOpenActions}
             setCountOpenActions={setCountOpenActions}
           />
         </div>

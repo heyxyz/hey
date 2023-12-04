@@ -11,13 +11,13 @@ const AppVersion: FC<AppVersionProps> = ({ onClick }) => {
   return (
     <div className="px-6 py-3 text-xs">
       <Link
+        className="font-mono"
         href={urlcat('https://github.com/heyxyz/hey/releases/tag/:version', {
           version: `v${APP_VERSION}`
         })}
-        className="font-mono"
-        target="_blank"
-        rel="noreferrer noopener"
         onClick={onClick}
+        rel="noreferrer noopener"
+        target="_blank"
       >
         v{APP_VERSION}
       </Link>

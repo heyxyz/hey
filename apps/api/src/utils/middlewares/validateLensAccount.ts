@@ -1,6 +1,7 @@
+import type { Request } from 'express';
+
 import LensEndpoint from '@hey/data/lens-endpoints';
 import axios from 'axios';
-import type { Request } from 'express';
 
 /**
  * Middleware to validate Lens access token

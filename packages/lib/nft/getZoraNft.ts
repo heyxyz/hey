@@ -1,5 +1,6 @@
-import { REWARDS_ADDRESS } from '@hey/data/constants';
 import type { BasicNftMetadata } from '@hey/types/nft';
+
+import { REWARDS_ADDRESS } from '@hey/data/constants';
 
 import getZoraChainIsMainnet from './getZoraChainIsMainnet';
 
@@ -23,7 +24,7 @@ const getZoraNFT = (url: string): BasicNftMetadata | null => {
       token || ''
     }?referrer=${REWARDS_ADDRESS}`;
 
-    return { chain, address, token, mintLink, provider: 'zora' };
+    return { address, chain, mintLink, provider: 'zora', token };
   }
 
   return null;

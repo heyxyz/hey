@@ -7,7 +7,7 @@ const ThumbnailsShimmer = () => {
   return (
     <>
       {thumbnails.map((e, i) => (
-        <div key={`${e}_${i}`} className="shimmer rounded-lg" />
+        <div className="shimmer rounded-lg" key={`${e}_${i}`} />
       ))}
     </>
   );

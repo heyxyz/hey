@@ -3,15 +3,15 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 interface TransactionState {
-  txnQueue: any[];
   setTxnQueue: (txnQueue: any[]) => void;
+  txnQueue: any[];
 }
 
 export const useTransactionStore = create(
   persist<TransactionState>(
     (set) => ({
-      txnQueue: [],
-      setTxnQueue: (txnQueue) => set(() => ({ txnQueue }))
+      setTxnQueue: (txnQueue) => set(() => ({ txnQueue })),
+      txnQueue: []
     }),
     { name: Localstorage.TransactionStore }
   )

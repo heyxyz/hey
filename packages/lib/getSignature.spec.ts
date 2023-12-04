@@ -20,17 +20,17 @@ describe('getSignature', () => {
 
   test('should remove __typename property from domain, types, and value properties', () => {
     const input = {
-      domain: { key: 'value', __typename: 'Domain' },
-      types: { key: 'value', __typename: 'Types' },
-      value: { key: 'value', __typename: 'Value' }
+      domain: { __typename: 'Domain', key: 'value' },
+      types: { __typename: 'Types', key: 'value' },
+      value: { __typename: 'Value', key: 'value' }
     };
     const result = getSignature(input);
 
     expect(result).toEqual({
-      primaryType: 'key',
       domain: { key: 'value' },
-      types: { key: 'value' },
-      message: { key: 'value' }
+      message: { key: 'value' },
+      primaryType: 'key',
+      types: { key: 'value' }
     });
   });
 });

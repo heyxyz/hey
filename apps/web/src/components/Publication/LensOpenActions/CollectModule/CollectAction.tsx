@@ -1,11 +1,3 @@
-import { useApolloClient } from '@apollo/client';
-import AllowanceButton from '@components/Settings/Allowance/Button';
-import LoginButton from '@components/Shared/Navbar/LoginButton';
-import NoBalanceError from '@components/Shared/NoBalanceError';
-import { RectangleStackIcon } from '@heroicons/react/24/outline';
-import { LensHub, PublicAct } from '@hey/abis';
-import { LENSHUB_PROXY, PUBLICACT_PROXY } from '@hey/data/constants';
-import { PUBLICATION } from '@hey/data/tracking';
 import type {
   ActOnOpenActionLensManagerRequest,
   AnyPublication,
@@ -17,6 +9,16 @@ import type {
   OpenActionModule,
   SimpleCollectOpenActionSettings
 } from '@hey/lens';
+import type { FC } from 'react';
+
+import { useApolloClient } from '@apollo/client';
+import AllowanceButton from '@components/Settings/Allowance/Button';
+import LoginButton from '@components/Shared/Navbar/LoginButton';
+import NoBalanceError from '@components/Shared/NoBalanceError';
+import { RectangleStackIcon } from '@heroicons/react/24/outline';
+import { LensHub, PublicAct } from '@hey/abis';
+import { LENSHUB_PROXY, PUBLICACT_PROXY } from '@hey/data/constants';
+import { PUBLICATION } from '@hey/data/tracking';
 import {
   useActOnOpenActionMutation,
   useApprovedModuleAllowanceAmountQuery,
@@ -33,7 +35,6 @@ import { Button, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import getCurrentSession from '@lib/getCurrentSession';
 import { Leafwatch } from '@lib/leafwatch';
-import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
@@ -48,16 +49,16 @@ import {
 } from 'wagmi';
 
 interface CollectActionProps {
-  publication: AnyPublication;
-  openAction: OpenActionModule;
   countOpenActions: number;
+  openAction: OpenActionModule;
+  publication: AnyPublication;
   setCountOpenActions: (count: number) => void;
 }
 
 const CollectAction: FC<CollectActionProps> = ({
-  publication,
-  openAction,
   countOpenActions,
+  openAction,
+  publication,
   setCountOpenActions
 }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
@@ -85,14 +86,14 @@ const CollectAction: FC<CollectActionProps> = ({
   const { cache } = useApolloClient();
 
   // Lens manager
-  const { canUseLensManager, canBroadcast } =
+  const { canBroadcast, canUseLensManager } =
     checkDispatcherPermissions(currentProfile);
 
   const collectModule = openAction as
-    | SimpleCollectOpenActionSettings
-    | MultirecipientFeeCollectOpenActionSettings
+    | LegacyMultirecipientFeeCollectModuleSettings
     | LegacySimpleCollectModuleSettings
-    | LegacyMultirecipientFeeCollectModuleSettings;
+    | MultirecipientFeeCollectOpenActionSettings
+    | SimpleCollectOpenActionSettings;
 
   const endTimestamp = collectModule?.endsAt;
   const collectLimit = parseInt(collectModule?.collectLimit || '0');
@@ -120,19 +121,19 @@ const CollectAction: FC<CollectActionProps> = ({
 
   const updateCache = () => {
     cache.modify({
-      id: cache.identify(targetPublication),
       fields: {
         operations: (existingValue) => {
           return { ...existingValue, hasActed: { value: !hasActed } };
         }
-      }
+      },
+      id: cache.identify(targetPublication)
     });
     cache.modify({
-      id: cache.identify(targetPublication.stats),
       fields: {
         countOpenActions: () =>
           hasActed ? countOpenActions - 1 : countOpenActions + 1
-      }
+      },
+      id: cache.identify(targetPublication.stats)
     });
   };
 
@@ -142,7 +143,7 @@ const CollectAction: FC<CollectActionProps> = ({
   };
 
   const onCompleted = (
-    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
+    __typename?: 'LensProfileManagerRelayError' | 'RelayError' | 'RelaySuccess'
   ) => {
     if (
       __typename === 'RelayError' ||
@@ -156,8 +157,8 @@ const CollectAction: FC<CollectActionProps> = ({
     updateCache();
     toast.success('Collected successfully!');
     Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
-      publication_id: targetPublication?.id,
-      collect_module: collectModule?.type
+      collect_module: collectModule?.type,
+      publication_id: targetPublication?.id
     });
   };
 
@@ -169,27 +170,34 @@ const CollectAction: FC<CollectActionProps> = ({
     : 'act';
 
   const { write } = useContractWrite({
-    address: isWalletUser ? PUBLICACT_PROXY : LENSHUB_PROXY,
     abi: (isWalletUser ? PublicAct : LensHub) as any,
+    address: isWalletUser ? PUBLICACT_PROXY : LENSHUB_PROXY,
     functionName: isWalletUser
       ? walletUserFunctionName
       : profileUserFunctionName,
-    onSuccess: () => {
-      onCompleted();
-      if (!isWalletUser) {
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
-      }
-    },
     onError: (error) => {
       onError(error);
       if (!isWalletUser) {
         setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+      }
+    },
+    onSuccess: () => {
+      onCompleted();
+      if (!isWalletUser) {
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
       }
     }
   });
 
   const { data: allowanceData, loading: allowanceLoading } =
     useApprovedModuleAllowanceAmountQuery({
+      onCompleted: ({ approvedModuleAllowanceAmount }) => {
+        const allowedAmount = parseFloat(
+          approvedModuleAllowanceAmount[0]?.allowance.value
+        );
+        setAllowed(allowedAmount > amount);
+      },
+      skip: !assetAddress || !sessionProfileId,
       variables: {
         request: {
           currencies: assetAddress,
@@ -197,20 +205,13 @@ const CollectAction: FC<CollectActionProps> = ({
           openActionModules: [collectModule?.type],
           referenceModules: []
         }
-      },
-      skip: !assetAddress || !sessionProfileId,
-      onCompleted: ({ approvedModuleAllowanceAmount }) => {
-        const allowedAmount = parseFloat(
-          approvedModuleAllowanceAmount[0]?.allowance.value
-        );
-        setAllowed(allowedAmount > amount);
       }
     });
 
   const { data: balanceData } = useBalance({
     address,
-    token: assetAddress,
     formatUnits: assetDecimals,
+    token: assetAddress,
     watch: true
   });
 
@@ -332,8 +333,8 @@ const CollectAction: FC<CollectActionProps> = ({
       }
 
       const actOnRequest: ActOnOpenActionLensManagerRequest = {
-        for: targetPublication?.id,
-        actOn: { [getOpenActionActOnKey(collectModule?.type)]: true }
+        actOn: { [getOpenActionActOnKey(collectModule?.type)]: true },
+        for: targetPublication?.id
       };
 
       if (canUseManager) {
@@ -379,13 +380,13 @@ const CollectAction: FC<CollectActionProps> = ({
     return (
       <span className="mt-5">
         <AllowanceButton
-          title="Allow collect module"
+          allowed={allowed}
           module={
             allowanceData
               ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult
           }
-          allowed={allowed}
           setAllowed={setAllowed}
+          title="Allow collect module"
         />
       </span>
     );
@@ -403,7 +404,6 @@ const CollectAction: FC<CollectActionProps> = ({
   return (
     <Button
       className="mt-5"
-      onClick={createCollect}
       disabled={isLoading}
       icon={
         isLoading ? (
@@ -412,6 +412,7 @@ const CollectAction: FC<CollectActionProps> = ({
           <RectangleStackIcon className="h-4 w-4" />
         )
       }
+      onClick={createCollect}
     >
       Collect now
     </Button>

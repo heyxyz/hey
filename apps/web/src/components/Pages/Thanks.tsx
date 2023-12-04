@@ -1,26 +1,27 @@
+import type { NextPage } from 'next';
+import type { FC, ReactNode } from 'react';
+
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import { HeartIcon } from '@heroicons/react/24/outline';
 import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
-import type { NextPage } from 'next';
-import Link from 'next/link';
 import { useTheme } from 'next-themes';
-import type { FC, ReactNode } from 'react';
+import Link from 'next/link';
 import urlcat from 'urlcat';
 import { useEffectOnce } from 'usehooks-ts';
 
 interface BrandProps {
-  name: string;
-  logo: string;
-  url: string;
-  size: number;
-  type: 'svg' | 'png';
   children: ReactNode;
+  logo: string;
+  name: string;
+  size: number;
+  type: 'png' | 'svg';
+  url: string;
 }
 
-const Brand: FC<BrandProps> = ({ name, logo, url, size, type, children }) => {
+const Brand: FC<BrandProps> = ({ children, logo, name, size, type, url }) => {
   const { resolvedTheme } = useTheme();
 
   useEffectOnce(() => {
@@ -30,20 +31,20 @@ const Brand: FC<BrandProps> = ({ name, logo, url, size, type, children }) => {
   return (
     <div className="space-y-5 pt-10">
       <img
+        alt={`${name}'s Logo`}
         className="mx-auto"
-        style={{ height: size }}
         src={`${STATIC_IMAGES_URL}/thanks/${logo}-${
           resolvedTheme === 'dark' ? 'dark' : 'light'
         }.${type}`}
-        alt={`${name}'s Logo`}
+        style={{ height: size }}
       />
       <div className="mx-auto pt-2 sm:w-2/3">{children}</div>
       <div>
         <Link
           className="font-bold"
           href={url}
-          target="_blank"
           rel="noreferrer noopener"
+          target="_blank"
         >
           ➜ Go to {name}
         </Link>
@@ -70,25 +71,25 @@ const Thanks: NextPage = () => {
           <div className="max-w-3/4 relative mx-auto rounded-lg lg:w-2/4">
             <div className="max-w-none space-y-10 divide-y px-5 pb-10 text-center text-gray-900 dark:divide-gray-700 dark:text-gray-200">
               <Brand
-                name="Vercel"
                 logo="vercel"
-                url={urlcat('https://vercel.com', {
-                  utm_source: APP_NAME,
-                  utm_campaign: 'oss'
-                })}
+                name="Vercel"
                 size={40}
                 type="svg"
+                url={urlcat('https://vercel.com', {
+                  utm_campaign: 'oss',
+                  utm_source: APP_NAME
+                })}
               >
                 Vercel combines the best developer experience with an obsessive
                 focus on end-user performance. Vercel platform enables frontend
                 teams to do their best work.
               </Brand>
               <Brand
-                name="4EVERLAND"
                 logo="4everland"
-                url={urlcat('https://4everland.org', { utm_source: APP_NAME })}
+                name="4EVERLAND"
                 size={50}
                 type="png"
+                url={urlcat('https://4everland.org', { utm_source: APP_NAME })}
               >
                 4EVERLAND is a Web 3.0 cloud computing platform that integrates
                 storage, computing, and network core capabilities.

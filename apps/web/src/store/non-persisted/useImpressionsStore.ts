@@ -1,14 +1,14 @@
-import getPublicationsViews from '@hey/lib/getPublicationsViews';
 import type { PublicationViewCount } from '@hey/types/hey';
+
+import getPublicationsViews from '@hey/lib/getPublicationsViews';
 import { create } from 'zustand';
 
 interface ImpressionsState {
-  publicationViews: PublicationViewCount[];
   fetchAndStoreViews: (ids: string[]) => void;
+  publicationViews: PublicationViewCount[];
 }
 
 export const useImpressionsStore = create<ImpressionsState>((set) => ({
-  publicationViews: [],
   fetchAndStoreViews: async (ids) => {
     if (!ids.length) {
       return;
@@ -18,5 +18,6 @@ export const useImpressionsStore = create<ImpressionsState>((set) => ({
     set((state) => ({
       publicationViews: [...state.publicationViews, ...viewsResponse]
     }));
-  }
+  },
+  publicationViews: []
 }));

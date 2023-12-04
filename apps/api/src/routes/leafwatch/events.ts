@@ -1,32 +1,33 @@
+import type { Handler } from 'express';
+
 import { ALL_EVENTS } from '@hey/data/tracking';
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import createClickhouseClient from '@utils/createClickhouseClient';
 import checkEventExistence from '@utils/leafwatch/checkEventExistence';
 import { invalidBody, noBody } from '@utils/responses';
-import type { Handler } from 'express';
 import requestIp from 'request-ip';
 import UAParser from 'ua-parser-js';
 import urlcat from 'urlcat';
 import { any, object, string } from 'zod';
 
 type ExtensionRequest = {
-  name: string;
   actor?: string;
-  url: string;
-  referrer?: string;
-  user_agent?: string;
-  platform: 'web' | 'mobile';
+  name: string;
+  platform: 'mobile' | 'web';
   properties?: string;
+  referrer?: string;
+  url: string;
+  user_agent?: string;
 };
 
 const validationSchema = object({
-  name: string().min(1, { message: 'Name is required!' }),
   actor: string().nullable().optional(),
-  url: string(),
-  referrer: string().nullable().optional(),
+  name: string().min(1, { message: 'Name is required!' }),
   platform: string(),
-  properties: any()
+  properties: any(),
+  referrer: string().nullable().optional(),
+  url: string()
 });
 
 export const post: Handler = async (req, res) => {
@@ -42,11 +43,11 @@ export const post: Handler = async (req, res) => {
     return invalidBody(res);
   }
 
-  const { name, actor, url, referrer, platform, properties } =
+  const { actor, name, platform, properties, referrer, url } =
     body as ExtensionRequest;
 
   if (!checkEventExistence(ALL_EVENTS, name)) {
-    return res.status(400).json({ success: false, error: 'Invalid event!' });
+    return res.status(400).json({ error: 'Invalid event!', success: false });
   }
 
   const ip = requestIp.getClientIp(req);
@@ -84,33 +85,33 @@ export const post: Handler = async (req, res) => {
 
     const client = createClickhouseClient();
     const result = await client.insert({
+      format: 'JSONEachRow',
       table: 'events',
       values: [
         {
-          name,
           actor: actor || null,
-          properties: properties || null,
-          url: url || null,
-          city: ipData?.city || null,
-          country: ipData?.country || null,
-          region: ipData?.regionName || null,
-          referrer: referrer || null,
-          platform: platform || null,
           browser: ua.browser.name || null,
           browser_version: ua.browser.version || null,
+          city: ipData?.city || null,
+          country: ipData?.country || null,
+          name,
           os: ua.os.name || null,
-          utm_source: utmSource || null,
-          utm_medium: utmMedium || null,
+          platform: platform || null,
+          properties: properties || null,
+          referrer: referrer || null,
+          region: ipData?.regionName || null,
+          url: url || null,
           utm_campaign: utmCampaign || null,
-          utm_term: utmTerm || null,
-          utm_content: utmContent || null
+          utm_content: utmContent || null,
+          utm_medium: utmMedium || null,
+          utm_source: utmSource || null,
+          utm_term: utmTerm || null
         }
-      ],
-      format: 'JSONEachRow'
+      ]
     });
     logger.info('Ingested event to Leafwatch');
 
-    return res.status(200).json({ success: true, id: result.query_id });
+    return res.status(200).json({ id: result.query_id, success: true });
   } catch (error) {
     return catchedError(res, error);
   }

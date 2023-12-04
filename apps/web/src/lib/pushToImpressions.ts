@@ -3,14 +3,19 @@ import { hydrateLeafwatchAnonymousId } from 'src/store/persisted/useLeafwatchSto
 
 import getCurrentSession from './getCurrentSession';
 
+/**
+ * Push publication to impressions queue
+ * @param id Publication ID
+ * @returns void
+ */
 const pushToImpressions = (id: string): void => {
   const anonymousId = hydrateLeafwatchAnonymousId();
   const { id: sessionProfileId } = getCurrentSession();
 
   if (IS_MAINNET && id && navigator.serviceWorker?.controller) {
     navigator.serviceWorker.controller.postMessage({
-      type: 'PUBLICATION_VISIBLE',
       id,
+      type: 'PUBLICATION_VISIBLE',
       viewerId: sessionProfileId || anonymousId
     });
   }

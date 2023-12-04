@@ -1,7 +1,9 @@
-import Loader from '@components/Shared/Loader';
-import { HEY_API_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import type { Features } from '@hey/types/hey';
+
+import Loader from '@components/Shared/Loader';
+import { HEY_API_URL } from '@hey/data/constants';
+import getAllFeatureFlags from '@hey/lib/api/getAllFeatureFlags';
 import { Toggle } from '@hey/ui';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { useQuery } from '@tanstack/react-query';
@@ -12,34 +14,21 @@ import toast from 'react-hot-toast';
 import ToggleWrapper from './ToggleWrapper';
 
 interface UpdateFeatureFlagsProps {
-  profile: Profile;
   flags: string[];
+  profile: Profile;
   setFlags: (flags: string[]) => void;
 }
 
 const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
-  profile,
   flags,
+  profile,
   setFlags
 }) => {
   const [updating, setUpdating] = useState(false);
 
-  const getAllFeatureFlags = async (): Promise<Features[] | []> => {
-    try {
-      const response = await axios.get(`${HEY_API_URL}/internal/feature/all`, {
-        headers: getAuthWorkerHeaders()
-      });
-      const { data } = response;
-
-      return data?.features || [];
-    } catch (error) {
-      return [];
-    }
-  };
-
   const { data: allFeatureFlags, isLoading } = useQuery({
-    queryKey: ['getAllFeatureFlags'],
-    queryFn: getAllFeatureFlags
+    queryFn: () => getAllFeatureFlags(getAuthWorkerHeaders()),
+    queryKey: ['getAllFeatureFlags']
   });
 
   if (isLoading) {
@@ -57,10 +46,14 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
     toast.promise(
       axios.post(
         `${HEY_API_URL}/internal/feature/updateProfile`,
-        { id, profile_id: profile.id, enabled },
+        { enabled, id, profile_id: profile.id },
         { headers: getAuthWorkerHeaders() }
       ),
       {
+        error: () => {
+          setUpdating(false);
+          return 'Failed to update feature flag';
+        },
         loading: 'Updating feature flag...',
         success: () => {
           setUpdating(false);
@@ -70,10 +63,6 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
               : enabledFlags.filter((f) => f !== key)
           );
           return 'Feature flag updated';
-        },
-        error: () => {
-          setUpdating(false);
-          return 'Failed to update feature flag';
         }
       }
     );
@@ -84,9 +73,9 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
       {availableFlags.map((flag) => (
         <ToggleWrapper key={flag.id} title={flag.key}>
           <Toggle
+            disabled={updating}
             on={enabledFlags.includes(flag.key)}
             setOn={() => updateFeatureFlag(flag)}
-            disabled={updating}
           />
         </ToggleWrapper>
       ))}

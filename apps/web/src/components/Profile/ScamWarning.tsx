@@ -1,5 +1,6 @@
-import Markup from '@components/Shared/Markup';
 import type { Profile } from '@hey/lens';
+
+import Markup from '@components/Shared/Markup';
 import getMentions from '@hey/lib/getMentions';
 import getMisuseDetails from '@hey/lib/getMisuseDetails';
 import { Card } from '@hey/ui';

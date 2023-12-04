@@ -1,7 +1,9 @@
+import type { AnyPublication } from '@hey/lens';
+import type { FC } from 'react';
+
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { RectangleStackIcon as RectangleStackIconSolid } from '@heroicons/react/24/solid';
 import { PUBLICATION } from '@hey/data/tracking';
-import type { AnyPublication } from '@hey/lens';
 import humanize from '@hey/lib/humanize';
 import nFormatter from '@hey/lib/nFormatter';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
@@ -10,7 +12,6 @@ import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
 import plur from 'plur';
-import type { FC } from 'react';
 import { useState } from 'react';
 
 import List from './List';
@@ -42,25 +43,25 @@ const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
         )}
       >
         <motion.button
+          aria-label="Action"
           className={cn(
             hasActed
               ? 'hover:bg-brand-300/20 outline-brand-500'
               : 'outline-gray-400 hover:bg-gray-300/20',
             'rounded-full p-1.5 outline-offset-2'
           )}
-          whileTap={{ scale: 0.9 }}
           onClick={() => {
             setShowOpenActionModal(true);
             Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
           }}
-          aria-label="Action"
+          whileTap={{ scale: 0.9 }}
         >
           <Tooltip
-            placement="top"
             content={`${humanize(countOpenActions)} ${plur(
               'Action',
               countOpenActions
             )}`}
+            placement="top"
             withDelay
           >
             {hasActed ? (
@@ -77,10 +78,10 @@ const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
         ) : null}
       </div>
       <Modal
-        title="Open Actions"
         icon={<RectangleStackIcon className="text-brand-500 h-5 w-5" />}
-        show={showOpenActionModal}
         onClose={() => setShowOpenActionModal(false)}
+        show={showOpenActionModal}
+        title="Open Actions"
       >
         <List publication={publication} />
       </Modal>

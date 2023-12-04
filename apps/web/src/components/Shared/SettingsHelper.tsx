@@ -1,15 +1,15 @@
 import { type FC, type ReactNode } from 'react';
 
 interface SettingsHelperProps {
-  icon?: ReactNode;
-  heading: string;
   description: string;
+  heading: string;
+  icon?: ReactNode;
 }
 
 const SettingsHelper: FC<SettingsHelperProps> = ({
-  icon,
+  description,
   heading,
-  description
+  icon
 }) => {
   return (
     <div className="lg-ml-0 mb-4 ml-4 w-5/6 space-y-2 md:ml-0">

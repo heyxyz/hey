@@ -1,10 +1,11 @@
+import type { FC } from 'react';
+
 import CountdownTimer from '@components/Shared/CountdownTimer';
 import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { MISCELLANEOUS } from '@hey/data/tracking';
 import { Card } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import type { FC } from 'react';
 
 const Gitcoin: FC = () => {
   return (
@@ -13,9 +14,9 @@ const Gitcoin: FC = () => {
       className="mb-4 space-y-4 !border-[#27bdce] !bg-[#27bdce]/10 p-5 text-[#1396a5] dark:bg-[#27bdce]/50"
     >
       <img
-        src={`${STATIC_IMAGES_URL}/brands/gitcoin.png`}
         alt="Gitcoin emoji"
         className="mx-auto h-14"
+        src={`${STATIC_IMAGES_URL}/brands/gitcoin.png`}
       />
       <div className="space-y-3 text-center text-sm">
         <div className="font-bold">
@@ -26,10 +27,10 @@ const Gitcoin: FC = () => {
         </div>
         <div>
           <Link
-            href="https://hey.xyz/gitcoin"
             className="font-bold underline"
-            target="_blank"
+            href="https://hey.xyz/gitcoin"
             onClick={() => Leafwatch.track(MISCELLANEOUS.OPEN_GITCOIN)}
+            target="_blank"
           >
             Contribute now
           </Link>

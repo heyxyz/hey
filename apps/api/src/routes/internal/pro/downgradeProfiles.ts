@@ -1,9 +1,10 @@
+import type { Handler } from 'express';
+
 import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import prisma from '@utils/prisma';
 import { invalidBody, noBody } from '@utils/responses';
-import type { Handler } from 'express';
 import { object, string } from 'zod';
 
 type ExtensionRequest = {
@@ -32,7 +33,7 @@ export const post: Handler = async (req, res) => {
   if (secret !== process.env.SECRET) {
     return res
       .status(400)
-      .json({ success: false, error: Errors.InvalidSecret });
+      .json({ error: Errors.InvalidSecret, success: false });
   }
 
   try {

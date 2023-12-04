@@ -14,9 +14,9 @@ const Price: FC<PriceProps> = ({ openEditionPrice }) => {
   const setQuantity = useBasePaintMintStore((state) => state.setQuantity);
 
   const { data: usdPrice, isLoading } = useQuery({
-    queryKey: ['getRedstonePrice'],
+    enabled: Boolean(openEditionPrice),
     queryFn: async () => await getRedstonePrice('ETH'),
-    enabled: Boolean(openEditionPrice)
+    queryKey: ['getRedstonePrice']
   });
 
   if (isLoading) {
@@ -41,8 +41,8 @@ const Price: FC<PriceProps> = ({ openEditionPrice }) => {
         </div>
         <div className="flex items-center space-x-3">
           <button
-            disabled={quantity === 1}
             className="rounded-full border p-1.5 hover:bg-gray-100 disabled:opacity-50 dark:border-gray-700"
+            disabled={quantity === 1}
             onClick={() => setQuantity(quantity - 1)}
           >
             <MinusIcon className="h-4 w-4" />

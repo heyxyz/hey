@@ -1,13 +1,13 @@
 export interface Size {
-  width: number;
   height: number;
+  width: number;
 }
 
 export interface MediaSize {
-  width: number;
   height: number;
-  naturalWidth: number;
   naturalHeight: number;
+  naturalWidth: number;
+  width: number;
 }
 
 export interface Point {
@@ -16,8 +16,8 @@ export interface Point {
 }
 
 export interface Area {
-  width: number;
   height: number;
+  width: number;
   x: number;
   y: number;
 }

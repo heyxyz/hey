@@ -1,29 +1,30 @@
+import type { FC, ReactNode } from 'react';
+
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import type { FC, ReactNode } from 'react';
 import { Fragment } from 'react';
 
 import cn from '../cn';
 
 interface ModalProps {
+  children: ReactNode | ReactNode[];
   icon?: ReactNode;
-  title?: ReactNode;
-  size?: 'xs' | 'sm' | 'md' | 'lg';
-  show: boolean;
-  children: ReactNode[] | ReactNode;
   onClose?: () => void;
+  show: boolean;
+  size?: 'lg' | 'md' | 'sm' | 'xs';
+  title?: ReactNode;
 }
 
 export const Modal: FC<ModalProps> = ({
-  icon,
-  title,
-  size = 'sm',
-  show,
   children,
-  onClose
+  icon,
+  onClose,
+  show,
+  size = 'sm',
+  title
 }) => {
   return (
-    <Transition.Root show={show} as={Fragment}>
+    <Transition.Root as={Fragment} show={show}>
       <Dialog
         as="div"
         className="fixed inset-0 z-10 overflow-y-auto"
@@ -68,9 +69,9 @@ export const Modal: FC<ModalProps> = ({
                   </div>
                   {onClose ? (
                     <button
-                      type="button"
                       className="outline-brand-500 rounded-full p-1 text-gray-800 hover:bg-gray-200 dark:text-gray-100 dark:hover:bg-gray-700"
                       onClick={onClose}
+                      type="button"
                     >
                       <XMarkIcon className="h-5 w-5" />
                     </button>

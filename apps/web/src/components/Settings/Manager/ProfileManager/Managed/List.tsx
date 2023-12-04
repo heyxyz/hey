@@ -1,27 +1,28 @@
-import Loader from '@components/Shared/Loader';
-import UserProfile from '@components/Shared/UserProfile';
-import { UsersIcon } from '@heroicons/react/24/outline';
 import type {
   LastLoggedInProfileRequest,
   Profile,
   ProfileManagersRequest
 } from '@hey/lens';
+import type { FC } from 'react';
+
+import Loader from '@components/Shared/Loader';
+import UserProfile from '@components/Shared/UserProfile';
+import { UsersIcon } from '@heroicons/react/24/outline';
 import { useProfilesManagedQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
-import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAccount } from 'wagmi';
 
 const List: FC = () => {
   const { address } = useAccount();
 
-  const request: ProfileManagersRequest | LastLoggedInProfileRequest = {
+  const request: LastLoggedInProfileRequest | ProfileManagersRequest = {
     for: address
   };
-  const { data, loading, error, fetchMore } = useProfilesManagedQuery({
+  const { data, error, fetchMore, loading } = useProfilesManagedQuery({
     variables: {
-      profilesManagedRequest: request,
-      lastLoggedInProfileRequest: request
+      lastLoggedInProfileRequest: request,
+      profilesManagedRequest: request
     }
   });
 
@@ -51,16 +52,16 @@ const List: FC = () => {
 
   if (error) {
     return (
-      <ErrorMessage title="Failed to load managed profiles" error={error} />
+      <ErrorMessage error={error} title="Failed to load managed profiles" />
     );
   }
 
   if (profilesManaged?.length === 0) {
     return (
       <EmptyState
-        message="You are not managing any profiles!"
-        icon={<UsersIcon className="text-brand-500 h-8 w-8" />}
         hideCard
+        icon={<UsersIcon className="text-brand-500 h-8 w-8" />}
+        message="You are not managing any profiles!"
       />
     );
   }

@@ -7,10 +7,11 @@ describe('getProfile', () => {
     const profile = null;
     const result = getProfile(profile);
     expect(result).toEqual({
+      displayName: '...',
+      link: '',
       slug: '...',
       slugWithPrefix: '...',
-      displayName: '...',
-      link: ''
+      staffLink: ''
     });
   });
 
@@ -22,10 +23,11 @@ describe('getProfile', () => {
     };
     const result = getProfile(profile);
     expect(result).toEqual({
+      displayName: 'John Doe',
+      link: '/u/john',
       slug: 'john',
       slugWithPrefix: '@john',
-      displayName: 'John Doe',
-      link: '/u/john'
+      staffLink: '/staff/users/123'
     });
   });
 
@@ -36,10 +38,11 @@ describe('getProfile', () => {
     };
     const result = getProfile(profile);
     expect(result).toEqual({
+      displayName: 'Jane Smith',
+      link: '/profile/456',
       slug: '456',
       slugWithPrefix: '#456',
-      displayName: 'Jane Smith',
-      link: '/profile/456'
+      staffLink: '/staff/users/456'
     });
   });
 });

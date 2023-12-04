@@ -1,9 +1,10 @@
+import type { UnlinkHandleFromProfileRequest } from '@hey/lens';
+
 import IndexStatus from '@components/Shared/IndexStatus';
 import { MinusCircleIcon } from '@heroicons/react/24/outline';
 import { TokenHandleRegistry } from '@hey/abis';
 import { TOKEN_HANDLE_REGISTRY } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
-import type { UnlinkHandleFromProfileRequest } from '@hey/lens';
 import {
   useBroadcastOnchainMutation,
   useCreateUnlinkHandleFromProfileTypedDataMutation,
@@ -33,11 +34,11 @@ const UnlinkHandle: FC = () => {
   const [unlinking, setUnlinking] = useState<boolean>(false);
 
   const handleWrongNetwork = useHandleWrongNetwork();
-  const { canUseLensManager, canBroadcast } =
+  const { canBroadcast, canUseLensManager } =
     checkDispatcherPermissions(currentProfile);
 
   const onCompleted = (
-    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
+    __typename?: 'LensProfileManagerRelayError' | 'RelayError' | 'RelaySuccess'
   ) => {
     if (
       __typename === 'RelayError' ||
@@ -57,12 +58,12 @@ const UnlinkHandle: FC = () => {
   };
 
   const { signTypedDataAsync } = useSignTypedData({ onError });
-  const { write, data: writeData } = useContractWrite({
-    address: TOKEN_HANDLE_REGISTRY,
+  const { data: writeData, write } = useContractWrite({
     abi: TokenHandleRegistry,
+    address: TOKEN_HANDLE_REGISTRY,
     functionName: 'unlink',
-    onSuccess: () => onCompleted(),
-    onError
+    onError,
+    onSuccess: () => onCompleted()
   });
 
   const [broadcastOnchain, { data: broadcastData }] =
@@ -158,13 +159,14 @@ const UnlinkHandle: FC = () => {
       {lensManegaerTxId || broadcastTxId || writeHash ? (
         <div className="mt-2">
           <IndexStatus
+            reload
             txHash={writeHash}
             txId={lensManegaerTxId || broadcastTxId}
-            reload
           />
         </div>
       ) : (
         <Button
+          disabled={unlinking}
           icon={
             unlinking ? (
               <Spinner size="xs" />
@@ -173,7 +175,6 @@ const UnlinkHandle: FC = () => {
             )
           }
           onClick={unlink}
-          disabled={unlinking}
           outline
         >
           Un-link handle

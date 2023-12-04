@@ -4,18 +4,18 @@ import Link from 'next/link';
 import { type FC } from 'react';
 
 interface BookmarksProps {
-  onClick?: () => void;
   className?: string;
+  onClick?: () => void;
 }
 
-const Bookmarks: FC<BookmarksProps> = ({ onClick, className = '' }) => {
+const Bookmarks: FC<BookmarksProps> = ({ className = '', onClick }) => {
   return (
     <Link
-      href="/bookmarks"
       className={cn(
         'flex w-full items-center space-x-1.5 px-2 py-1.5 text-sm text-gray-700 dark:text-gray-200',
         className
       )}
+      href="/bookmarks"
       onClick={onClick}
     >
       <BookmarkIcon className="h-4 w-4" />

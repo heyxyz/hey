@@ -1,10 +1,11 @@
+import type { ChangeEvent, FC } from 'react';
+
 import ThumbnailsShimmer from '@components/Shared/Shimmer/ThumbnailsShimmer';
 import { CheckCircleIcon, PhotoIcon } from '@heroicons/react/24/outline';
 import { generateVideoThumbnails } from '@hey/lib/generateVideoThumbnails';
 import getFileFromDataURL from '@hey/lib/getFileFromDataURL';
 import { Spinner } from '@hey/ui';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
-import type { ChangeEvent, FC } from 'react';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
@@ -36,9 +37,9 @@ const ChooseThumbnail: FC = () => {
       toast.error('Failed to upload thumbnail');
     }
     setVideoThumbnail({
-      url: result.uri,
       type: fileToUpload.type || 'image/jpeg',
-      uploading: false
+      uploading: false,
+      url: result.uri
     });
 
     return result;
@@ -68,8 +69,8 @@ const ChooseThumbnail: FC = () => {
       );
     } else {
       setVideoThumbnail({
-        url: thumbnails[index]?.ipfsUrl,
-        uploading: false
+        uploading: false,
+        url: thumbnails[index]?.ipfsUrl
       });
     }
   };
@@ -132,15 +133,15 @@ const ChooseThumbnail: FC = () => {
       <b>Choose Thumbnail</b>
       <div className="mt-1 grid grid-cols-3 gap-3 py-0.5 md:grid-cols-5">
         <label
-          htmlFor="chooseThumbnail"
           className="max-w-32 flex h-24 w-full flex-none cursor-pointer flex-col items-center justify-center rounded-xl border dark:border-gray-700"
+          htmlFor="chooseThumbnail"
         >
           <input
-            id="chooseThumbnail"
-            type="file"
             accept=".png, .jpg, .jpeg"
             className="hidden w-full"
+            id="chooseThumbnail"
             onChange={handleUpload}
+            type="file"
           />
           {imageUploading ? (
             <Spinner size="sm" />
@@ -158,17 +159,17 @@ const ChooseThumbnail: FC = () => {
 
           return (
             <button
-              key={`${blobUrl}_${index}`}
-              type="button"
-              disabled={isUploading}
-              onClick={() => onSelectThumbnail(index)}
               className="relative"
+              disabled={isUploading}
+              key={`${blobUrl}_${index}`}
+              onClick={() => onSelectThumbnail(index)}
+              type="button"
             >
               <img
-                className="h-24 w-full rounded-xl border object-cover dark:border-gray-700"
-                src={blobUrl}
                 alt="thumbnail"
+                className="h-24 w-full rounded-xl border object-cover dark:border-gray-700"
                 draggable={false}
+                src={blobUrl}
               />
               {ipfsUrl && isSelected && isUploaded ? (
                 <div className="absolute inset-0 grid place-items-center rounded-xl bg-gray-100/10">

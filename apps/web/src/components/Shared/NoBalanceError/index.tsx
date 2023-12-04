@@ -1,6 +1,7 @@
+import type { Amount } from '@hey/lens';
+
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
-import type { Amount } from '@hey/lens';
 import getUniswapURL from '@hey/lib/getUniswapURL';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
@@ -27,18 +28,18 @@ const NoBalanceError: FC<NoBalanceErrorProps> = ({ moduleAmount }) => {
         You don't have enough <b>{currency}</b>
       </div>
       <Link
+        className="flex items-center space-x-1.5 text-xs font-bold text-pink-500"
         href={getUniswapURL(parseFloat(amount), assetAddress)}
         onClick={() => Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_UNISWAP)}
-        className="flex items-center space-x-1.5 text-xs font-bold text-pink-500"
-        target="_blank"
         rel="noreferrer noopener"
+        target="_blank"
       >
         <img
-          src={`${STATIC_IMAGES_URL}/brands/uniswap.png`}
+          alt="Uniswap"
           className="h-5 w-5"
           height={20}
+          src={`${STATIC_IMAGES_URL}/brands/uniswap.png`}
           width={20}
-          alt="Uniswap"
         />
         <div>Swap in Uniswap</div>
       </Link>

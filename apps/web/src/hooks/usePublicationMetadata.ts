@@ -53,15 +53,15 @@ const usePublicationMetadata = () => {
       const isLiveStream = Boolean(showLiveVideoEditor && liveVideoConfig.id);
 
       const localBaseMetadata = {
+        appId: APP_NAME,
         id: uuid(),
-        locale: getUserLocale(),
-        appId: APP_NAME
+        locale: getUserLocale()
       };
 
       const attachmentsToBeUploaded = attachments.map((attachment) => ({
+        cover: cover,
         item: attachment.uri,
-        type: attachment.mimeType,
-        cover: cover
+        type: attachment.mimeType
       }));
 
       switch (true) {
@@ -89,34 +89,34 @@ const usePublicationMetadata = () => {
           return image({
             ...baseMetadata,
             ...localBaseMetadata,
+            attachments: attachmentsToBeUploaded,
             image: {
               item: attachments[0]?.uri,
               type: attachments[0]?.mimeType
-            },
-            attachments: attachmentsToBeUploaded
+            }
           });
         case isAudio:
           return audio({
             ...baseMetadata,
             ...localBaseMetadata,
+            attachments: attachmentsToBeUploaded,
             audio: {
-              item: attachments[0]?.uri,
-              type: attachments[0]?.mimeType,
               artist: audioPublication.artist,
-              cover: audioPublication.cover
-            },
-            attachments: attachmentsToBeUploaded
+              cover: audioPublication.cover,
+              item: attachments[0]?.uri,
+              type: attachments[0]?.mimeType
+            }
           });
         case isVideo:
           return video({
             ...baseMetadata,
             ...localBaseMetadata,
+            attachments: attachmentsToBeUploaded,
             video: {
+              duration: parseInt(videoDurationInSeconds),
               item: attachments[0]?.uri,
-              type: attachments[0]?.mimeType,
-              duration: parseInt(videoDurationInSeconds)
-            },
-            attachments: attachmentsToBeUploaded
+              type: attachments[0]?.mimeType
+            }
           });
         default:
           return null;

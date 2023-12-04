@@ -1,6 +1,6 @@
-import { AVATAR, ZERO_ADDRESS } from '@hey/data/constants';
+import { AVATAR } from '@hey/data/constants';
 
-import getStampFyiURL from './getStampFyiURL';
+import getLennyURL from './getLennyURL';
 import imageKit from './imageKit';
 import sanitizeDStorageUrl from './sanitizeDStorageUrl';
 
@@ -22,7 +22,7 @@ const getAvatar = (profile: any, namedTransform = AVATAR): string => {
     profile?.metadata?.picture?.optimized?.uri ??
     profile?.metadata?.picture?.raw?.uri ??
     // Stamp.fyi Avatar fallbacks
-    getStampFyiURL(profile?.ownedBy.address ?? ZERO_ADDRESS);
+    getLennyURL(profile.id);
 
   return imageKit(sanitizeDStorageUrl(avatarUrl), namedTransform);
 };

@@ -15,23 +15,23 @@ const decoded = (str: string): string => atob(str);
 const parseJwt = (
   token: string
 ): {
-  id: string;
-  evmAddress: string;
-  role: string;
   authorizationId: string;
-  iat: number;
+  evmAddress: string;
   exp: number;
+  iat: number;
+  id: string;
+  role: string;
 } => {
   try {
     return JSON.parse(decoded(token.split('.')[1]));
   } catch {
     return {
-      id: '',
-      evmAddress: '',
-      role: '',
       authorizationId: '',
+      evmAddress: '',
+      exp: 0,
       iat: 0,
-      exp: 0
+      id: '',
+      role: ''
     };
   }
 };

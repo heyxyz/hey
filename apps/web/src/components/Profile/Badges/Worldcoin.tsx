@@ -1,6 +1,7 @@
+import type { Profile } from '@hey/lens';
+
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import type { Profile } from '@hey/lens';
 import { Tooltip } from '@hey/ui';
 import { type FC } from 'react';
 
@@ -24,11 +25,11 @@ const Worldcoin: FC<WorldcoinProps> = ({ profile }) => {
       placement="top"
     >
       <img
+        alt="Worldcoin Badge"
         className="drop-shadow-xl"
         height={75}
-        width={75}
         src={`${STATIC_IMAGES_URL}/badges/worldcoin.png`}
-        alt="Worldcoin Badge"
+        width={75}
       />
     </Tooltip>
   );

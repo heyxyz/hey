@@ -1,4 +1,5 @@
 import type { AnyPublication } from '@hey/lens';
+
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { useRouter } from 'next/router';
 import { type FC } from 'react';
@@ -8,14 +9,14 @@ import Mirrored from './Mirrored';
 
 interface PublicationTypeProps {
   publication: AnyPublication;
-  showType: boolean;
   showThread?: boolean;
+  showType: boolean;
 }
 
 const PublicationType: FC<PublicationTypeProps> = ({
   publication,
-  showType,
-  showThread = false
+  showThread = false,
+  showType
 }) => {
   const { pathname } = useRouter();
   const type = publication.__typename;

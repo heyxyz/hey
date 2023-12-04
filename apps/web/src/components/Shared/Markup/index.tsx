@@ -1,5 +1,6 @@
-import { Regex } from '@hey/data/regex';
 import type { ProfileMentioned } from '@hey/lens';
+
+import { Regex } from '@hey/data/regex';
 import trimify from '@hey/lib/trimify';
 import { type FC } from 'react';
 import ReactMarkdown from 'react-markdown';
@@ -21,14 +22,14 @@ const plugins = [
 
 interface MarkupProps {
   children: string;
-  mentions?: ProfileMentioned[];
   className?: string;
+  mentions?: ProfileMentioned[];
 }
 
 const Markup: FC<MarkupProps> = ({
   children,
-  mentions = [],
-  className = ''
+  className = '',
+  mentions = []
 }) => {
   if (!children) {
     return null;
@@ -36,7 +37,7 @@ const Markup: FC<MarkupProps> = ({
 
   const components = {
     a: (props: any) => {
-      return <MarkupLink title={props.title} mentions={mentions} />;
+      return <MarkupLink mentions={mentions} title={props.title} />;
     },
     code: Code
   };

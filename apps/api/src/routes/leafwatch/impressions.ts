@@ -1,18 +1,19 @@
+import type { Handler } from 'express';
+
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import createClickhouseClient from '@utils/createClickhouseClient';
 import { invalidBody, noBody } from '@utils/responses';
-import type { Handler } from 'express';
 import { array, object, string } from 'zod';
 
 type ExtensionRequest = {
-  viewer_id: string;
   ids: string[];
+  viewer_id: string;
 };
 
 const validationSchema = object({
-  viewer_id: string(),
-  ids: array(string())
+  ids: array(string()),
+  viewer_id: string()
 });
 
 export const post: Handler = async (req, res) => {
@@ -28,23 +29,23 @@ export const post: Handler = async (req, res) => {
     return invalidBody(res);
   }
 
-  const { viewer_id, ids } = body as ExtensionRequest;
+  const { ids, viewer_id } = body as ExtensionRequest;
 
   try {
     const values = ids.map((id) => ({
-      viewer_id,
-      publication_id: id
+      publication_id: id,
+      viewer_id
     }));
 
     const client = createClickhouseClient();
     const result = await client.insert({
+      format: 'JSONEachRow',
       table: 'impressions',
-      values,
-      format: 'JSONEachRow'
+      values
     });
     logger.info('Ingested impressions to Leafwatch');
 
-    return res.status(200).json({ success: true, id: result.query_id });
+    return res.status(200).json({ id: result.query_id, success: true });
   } catch (error) {
     return catchedError(res, error);
   }

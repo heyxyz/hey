@@ -1,11 +1,10 @@
-import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import {
-  CollectOpenActionModuleType,
-  LimitType,
-  useEnabledCurrenciesQuery
-} from '@hey/lens';
 import type { CollectModuleType } from '@hey/types/hey';
+
+import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
+import { CollectOpenActionModuleType } from '@hey/lens';
+import getAllTokens from '@hey/lib/api/getAllTokens';
 import { Button, ErrorMessage, Spinner } from '@hey/ui';
+import { useQuery } from '@tanstack/react-query';
 import { type Dispatch, type FC, type SetStateAction } from 'react';
 import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
 import { isAddress } from 'viem';
@@ -51,14 +50,15 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
     });
   };
 
-  const { data, loading, error } = useEnabledCurrenciesQuery({
-    variables: { request: { limit: LimitType.TwentyFive } }
+  const { data, error, isLoading } = useQuery({
+    queryFn: () => getAllTokens(),
+    queryKey: ['getAllTokens']
   });
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="space-y-2 px-5 py-3.5 text-center font-bold">
-        <Spinner size="md" className="mx-auto" />
+        <Spinner className="mx-auto" size="md" />
         <div>Loading collect settings</div>
       </div>
     );
@@ -67,9 +67,9 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   if (error) {
     return (
       <ErrorMessage
-        title="Failed to load modules"
-        error={error}
         className="m-5"
+        error={error}
+        title="Failed to load modules"
       />
     );
   }
@@ -85,16 +85,13 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   return (
     <div className="space-y-3 p-5">
       <ToggleWithHelper
+        description="This post can be collected"
         on={collectModule.type !== null}
         setOn={toggleCollect}
-        description="This post can be collected"
       />
       {collectModule.type !== null ? (
         <div className="ml-5">
-          <AmountConfig
-            enabledModuleCurrencies={data?.currencies.items}
-            setCollectType={setCollectType}
-          />
+          <AmountConfig allowedTokens={data} setCollectType={setCollectType} />
           {collectModule.amount?.value ? (
             <>
               <ReferralConfig setCollectType={setCollectType} />
@@ -112,11 +109,11 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
       <div className="flex space-x-2 pt-5">
         <Button
           className="ml-auto"
-          variant="danger"
-          outline
           onClick={() => {
             setShowModal(false);
           }}
+          outline
+          variant="danger"
         >
           Cancel
         </Button>

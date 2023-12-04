@@ -1,3 +1,5 @@
+import type { FC } from 'react';
+
 import Markup from '@components/Shared/Markup';
 import { HeartIcon } from '@heroicons/react/24/outline';
 import { ReactionNotification } from '@hey/lens';
@@ -5,7 +7,6 @@ import getPublicationData from '@hey/lib/getPublicationData';
 import pushToImpressions from '@lib/pushToImpressions';
 import Link from 'next/link';
 import plur from 'plur';
-import type { FC } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
@@ -49,13 +50,13 @@ const ReactionNotification: FC<ReactionNotificationProps> = ({
       <div className="ml-9">
         <AggregatedNotificationTitle
           firstProfile={firstProfile}
+          linkToType={`/posts/${notification?.publication?.id}`}
           text={text}
           type={type}
-          linkToType={`/posts/${notification?.publication?.id}`}
         />
         <Link
-          href={`/posts/${notification?.publication?.id}`}
           className="ld-text-gray-500 linkify mt-2 line-clamp-2"
+          href={`/posts/${notification?.publication?.id}`}
         >
           <Markup mentions={notification.publication.profilesMentioned}>
             {filteredContent}

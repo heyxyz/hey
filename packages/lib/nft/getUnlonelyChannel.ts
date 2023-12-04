@@ -7,13 +7,13 @@ const regex = /https:\/\/www\.unlonely\.app\/channels\/(\w+)/;
  * @param url URL
  * @returns Unlonely channel slug metadata
  */
-const getUnlonelyChannel = (url: string): UnlonelyChannelMetadata | null => {
+const getUnlonelyChannel = (url: string): null | UnlonelyChannelMetadata => {
   const matches = regex.exec(url);
   if (matches && matches[1]) {
     const slug = matches[1];
     const mintLink = `https://www.unlonely.app/channels/${slug}`;
 
-    return { slug, mintLink, provider: 'unlonely-channel' };
+    return { mintLink, provider: 'unlonely-channel', slug };
   }
 
   return null;

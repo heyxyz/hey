@@ -1,13 +1,14 @@
-import { IndexDB } from '@hey/data/storage';
 import type { Profile } from '@hey/lens';
+
+import { IndexDB } from '@hey/data/storage';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 import createIdbStorage from '../lib/createIdbStorage';
 
 interface ProfileState {
-  currentProfile: Profile | null;
-  setCurrentProfile: (currentProfile: Profile | null) => void;
+  currentProfile: null | Profile;
+  setCurrentProfile: (currentProfile: null | Profile) => void;
 }
 
 export const useProfileStore = create(

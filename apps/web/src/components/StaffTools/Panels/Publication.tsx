@@ -1,10 +1,11 @@
+import type { AnyPublication } from '@hey/lens';
+
 import {
   HashtagIcon,
   RectangleStackIcon,
   TagIcon
 } from '@heroicons/react/24/outline';
 import { ShieldCheckIcon } from '@heroicons/react/24/solid';
-import type { AnyPublication } from '@hey/lens';
 import {
   isCommentPublication,
   isMirrorPublication
@@ -39,16 +40,16 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
       <div className="mt-3 space-y-2">
         <MetaDetails
           icon={<HashtagIcon className="ld-text-gray-500 h-4 w-4" />}
-          value={publication?.id}
           title="Publication ID"
+          value={publication?.id}
         >
           {publication?.id}
         </MetaDetails>
         {isComment ? (
           <MetaDetails
             icon={<HashtagIcon className="ld-text-gray-500 h-4 w-4" />}
-            value={targetPublication?.commentOn?.id}
             title="Comment on"
+            value={targetPublication?.commentOn?.id}
           >
             {targetPublication?.commentOn?.id}
           </MetaDetails>
@@ -56,8 +57,8 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
         {targetPublication?.openActionModules?.length ? (
           <MetaDetails
             icon={<RectangleStackIcon className="ld-text-gray-500 h-4 w-4" />}
-            title="Open action modules"
             noFlex
+            title="Open action modules"
           >
             {(targetPublication?.openActionModules ?? []).map((module) => (
               <div key={module.__typename}>{module.__typename}</div>
@@ -67,8 +68,8 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
         {(targetPublication?.metadata.tags ?? []).length > 0 ? (
           <MetaDetails
             icon={<TagIcon className="ld-text-gray-500 h-4 w-4" />}
-            title="Tags"
             noFlex
+            title="Tags"
           >
             {(targetPublication?.metadata?.tags ?? []).map((tag) => (
               <div key={tag}>{tag}</div>

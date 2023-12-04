@@ -1,10 +1,11 @@
+import type { AnyPublication } from '@hey/lens';
+import type { UnlonelyNfcMetadata } from '@hey/types/nft';
+
 import Video from '@components/Shared/Video';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
-import type { AnyPublication } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import type { UnlonelyNfcMetadata } from '@hey/types/nft';
 import { Button, Card, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
@@ -24,11 +25,11 @@ const UnlonelyNfc: FC<UnlonelyNfcProps> = ({ nftMetadata, publication }) => {
 
   const {
     data: nfc,
-    loading,
-    error
+    error,
+    loading
   } = useUnlonelyNfc({
-    id,
-    enabled: Boolean(id)
+    enabled: Boolean(id),
+    id
   });
 
   if (loading) {
@@ -52,16 +53,16 @@ const UnlonelyNfc: FC<UnlonelyNfcProps> = ({ nftMetadata, publication }) => {
       onClick={(event) => stopEventPropagation(event)}
     >
       <Video
-        src={videoLink}
-        poster={videoThumbnail}
         className="[&>div>div]:rounded-b-none [&>div>div]:border-0"
+        poster={videoThumbnail}
+        src={videoLink}
       />
       <div className="flex items-center justify-between border-t px-3 py-2 dark:border-gray-700">
         <div className="mr-5 flex flex-wrap items-center gap-2">
-          <Tooltip placement="right" content="Unlonely Nfc">
+          <Tooltip content="Unlonely Nfc" placement="right">
             <img
-              src={`${STATIC_IMAGES_URL}/brands/unlonely.png`}
               className="h-5 w-5 rounded-full"
+              src={`${STATIC_IMAGES_URL}/brands/unlonely.png`}
             />
           </Tooltip>
           <div className="text-sm font-bold">{title}</div>
@@ -70,19 +71,19 @@ const UnlonelyNfc: FC<UnlonelyNfcProps> = ({ nftMetadata, publication }) => {
           href={urlcat('https://www.unlonely.app/nfc/:id', {
             id: nfc.id
           })}
-          target="_blank"
           rel="noopener noreferrer"
+          target="_blank"
         >
           <Button
             className="text-sm"
             icon={<CursorArrowRaysIcon className="h-4 w-4" />}
-            size="md"
             onClick={() =>
               Leafwatch.track(PUBLICATION.OPEN_ACTIONS.UNLONELY_NFC.OPEN_LINK, {
-                publication_id: publication.id,
-                from: 'mint_embed'
+                from: 'mint_embed',
+                publication_id: publication.id
               })
             }
+            size="md"
           >
             Open
           </Button>
