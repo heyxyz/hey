@@ -49,6 +49,7 @@ const getS3Client = async (): Promise<S3> => {
  * Uploads a set of files to the IPFS network via S3 and returns an array of MediaSet objects.
  *
  * @param data Files to upload to IPFS.
+ * @param onProgress Callback to be called when the upload progress changes.
  * @returns Array of MediaSet objects.
  */
 const uploadToIPFS = async (
