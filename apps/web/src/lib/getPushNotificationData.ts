@@ -1,5 +1,10 @@
 import type { Notification } from '@hey/lens';
 
+/**
+ * Get push notification data
+ * @param notification Notification
+ * @returns Push notification data
+ */
 const getPushNotificationData = (
   notification: Notification
 ): {
