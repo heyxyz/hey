@@ -16,9 +16,9 @@ import {
   useCreateSetFollowModuleTypedDataMutation
 } from '@hey/lens';
 import getAllTokens from '@hey/lib/api/getAllTokens';
-import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { Button, Card, Form, Input, Spinner, useZodForm } from '@hey/ui';
+import checkDispatcherPermissions from '@lib/checkDispatcherPermissions';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';

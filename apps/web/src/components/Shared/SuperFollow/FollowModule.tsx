@@ -18,12 +18,12 @@ import {
   useCreateFollowTypedDataMutation,
   useProfileQuery
 } from '@hey/lens';
-import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import formatAddress from '@hey/lib/formatAddress';
 import getProfile from '@hey/lib/getProfile';
 import getSignature from '@hey/lib/getSignature';
 import getTokenImage from '@hey/lib/getTokenImage';
 import { Button, Spinner, WarningMessage } from '@hey/ui';
+import checkDispatcherPermissions from '@lib/checkDispatcherPermissions';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';

@@ -26,7 +26,6 @@ import {
   useCreateOnchainSetProfileMetadataTypedDataMutation,
   useSetProfileMetadataMutation
 } from '@hey/lens';
-import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import getSignature from '@hey/lib/getSignature';
@@ -49,6 +48,7 @@ import {
   MetadataAttributeType,
   profile as profileMetadata
 } from '@lens-protocol/metadata';
+import checkDispatcherPermissions from '@lib/checkDispatcherPermissions';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';

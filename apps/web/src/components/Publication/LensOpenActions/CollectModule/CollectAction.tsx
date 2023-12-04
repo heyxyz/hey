@@ -27,11 +27,11 @@ import {
   useCreateLegacyCollectTypedDataMutation,
   useLegacyCollectMutation
 } from '@hey/lens';
-import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getOpenActionActOnKey from '@hey/lib/getOpenActionActOnKey';
 import getSignature from '@hey/lib/getSignature';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Button, Spinner, WarningMessage } from '@hey/ui';
+import checkDispatcherPermissions from '@lib/checkDispatcherPermissions';
 import errorToast from '@lib/errorToast';
 import getCurrentSession from '@lib/getCurrentSession';
 import { Leafwatch } from '@lib/leafwatch';

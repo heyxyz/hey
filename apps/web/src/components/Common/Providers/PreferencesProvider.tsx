@@ -1,3 +1,5 @@
+import type { FC } from 'react';
+
 import { HEY_API_URL } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import getPreferences from '@hey/lib/api/getPreferences';
@@ -5,15 +7,16 @@ import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import getCurrentSession from '@lib/getCurrentSession';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { type FC } from 'react';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useProStore } from 'src/store/non-persisted/useProStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useVerifiedMembersStore } from 'src/store/persisted/useVerifiedMembersStore';
 import { isAddress } from 'viem';
 
 const PreferencesProvider: FC = () => {
   const { id: sessionProfileId } = getCurrentSession();
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const setVerifiedMembers = useVerifiedMembersStore(
     (state) => state.setVerifiedMembers
   );
@@ -27,6 +30,7 @@ const PreferencesProvider: FC = () => {
     (state) => state.setGardenerMode
   );
 
+  // Fetch preferences
   const fetchPreferences = async () => {
     try {
       if (Boolean(sessionProfileId) && !isAddress(sessionProfileId)) {
@@ -60,6 +64,7 @@ const PreferencesProvider: FC = () => {
     queryKey: ['fetchPreferences', sessionProfileId || '']
   });
 
+  // Fetch verified members
   const fetchVerifiedMembers = async () => {
     try {
       const response = await axios.get(`${HEY_API_URL}/misc/getVerified`);
@@ -74,6 +79,27 @@ const PreferencesProvider: FC = () => {
   useQuery({
     queryFn: fetchVerifiedMembers,
     queryKey: ['fetchVerifiedMembers']
+  });
+
+  // Fetch TBA status
+  const fetchTbaStatus = async () => {
+    try {
+      if (currentProfile?.ownedBy.address) {
+        const response = await axios.get(`${HEY_API_URL}/tba/isTba`, {
+          params: { address: currentProfile.ownedBy.address }
+        });
+        const { data } = response;
+        setIsPro(data.isTba);
+      }
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  useQuery({
+    queryFn: fetchTbaStatus,
+    queryKey: ['fetchTbaStatus', sessionProfileId || '']
   });
 
   return null;

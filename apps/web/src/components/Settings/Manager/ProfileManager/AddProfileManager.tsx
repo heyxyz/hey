@@ -9,9 +9,9 @@ import {
   useBroadcastOnchainMutation,
   useCreateChangeProfileManagersTypedDataMutation
 } from '@hey/lens';
-import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { Button, Spinner } from '@hey/ui';
+import checkDispatcherPermissions from '@lib/checkDispatcherPermissions';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { type FC, useState } from 'react';
