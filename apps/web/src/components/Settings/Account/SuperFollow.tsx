@@ -18,7 +18,6 @@ import {
 import getAllTokens from '@hey/lib/api/getAllTokens';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
-import getTokenImage from '@hey/lib/getTokenImage';
 import { Button, Card, Form, Input, Spinner, useZodForm } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
@@ -50,13 +49,15 @@ const SuperFollow: FC = () => {
   const [selectedCurrency, setSelectedCurrency] = useState(
     DEFAULT_COLLECT_TOKEN
   );
-  const [selectedCurrencySymbol, setSelectedCurrencySymbol] =
-    useState('WMATIC');
   const handleWrongNetwork = useHandleWrongNetwork();
   const { canBroadcast } = checkDispatcherPermissions(currentProfile);
 
   const form = useZodForm({
     defaultValues: {
+      amount:
+        currentProfile?.followModule?.__typename === 'FeeFollowModuleSettings'
+          ? currentProfile?.followModule?.amount.value
+          : '',
       recipient: currentProfile?.ownedBy.address
     },
     schema: newSuperFollowSchema
@@ -194,17 +195,16 @@ const SuperFollow: FC = () => {
           <div className="label">Select currency</div>
           <select
             className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"
-            onChange={(e) => {
-              const currency = e.target.value.split('-');
-              setSelectedCurrency(currency[0]);
-              setSelectedCurrencySymbol(currency[1]);
-            }}
+            defaultValue={
+              currentProfile?.followModule?.__typename ===
+              'FeeFollowModuleSettings'
+                ? currentProfile?.followModule?.amount.asset.contract.address
+                : undefined
+            }
+            onChange={(e) => setSelectedCurrency(e.target.value)}
           >
             {allowedTokens?.map((token) => (
-              <option
-                key={token.contractAddress}
-                value={`${token.contractAddress}-${token.symbol}`}
-              >
+              <option key={token.contractAddress} value={token.contractAddress}>
                 {token.name}
               </option>
             ))}
@@ -215,15 +215,6 @@ const SuperFollow: FC = () => {
           max="100000"
           min="0"
           placeholder="5"
-          prefix={
-            <img
-              alt={selectedCurrencySymbol}
-              className="h-6 w-6"
-              height={24}
-              src={getTokenImage(selectedCurrencySymbol)}
-              width={24}
-            />
-          }
           step="0.0001"
           type="number"
           {...form.register('amount')}
