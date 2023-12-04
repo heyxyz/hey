@@ -76,9 +76,16 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   // Show poll
   const pollId = getPublicationAttribute(metadata.attributes, 'pollId');
   const showPoll = Boolean(pollId);
+  // Show sharing link
+  const showSharingLink = metadata.__typename === 'LinkMetadataV3';
   // Show oembed if no NFT, no attachments, no quoted publication
   const showOembed =
-    hasURLs && !showNft && !showLive && !showAttachments && !quoted;
+    !showSharingLink &&
+    hasURLs &&
+    !showNft &&
+    !showLive &&
+    !showAttachments &&
+    !quoted;
 
   // Remove URL at the end if oembed is there
   const onOembedData = (data: OG) => {
@@ -126,6 +133,13 @@ const PublicationBody: FC<PublicationBodyProps> = ({
           onData={onOembedData}
           publicationId={publication.id}
           url={urls[0]}
+        />
+      ) : null}
+      {metadata.__typename === 'LinkMetadataV3' ? (
+        <Oembed
+          onData={() => {}}
+          publicationId={publication.id}
+          url={metadata.sharingLink}
         />
       ) : null}
       {targetPublication.__typename === 'Quote' && (
