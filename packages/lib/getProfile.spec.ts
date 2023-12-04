@@ -10,7 +10,8 @@ describe('getProfile', () => {
       displayName: '...',
       link: '',
       slug: '...',
-      slugWithPrefix: '...'
+      slugWithPrefix: '...',
+      staffLink: ''
     });
   });
 
@@ -25,7 +26,8 @@ describe('getProfile', () => {
       displayName: 'John Doe',
       link: '/u/john',
       slug: 'john',
-      slugWithPrefix: '@john'
+      slugWithPrefix: '@john',
+      staffLink: '/staff/users/123'
     });
   });
 
@@ -39,7 +41,8 @@ describe('getProfile', () => {
       displayName: 'Jane Smith',
       link: '/profile/456',
       slug: '456',
-      slugWithPrefix: '#456'
+      slugWithPrefix: '#456',
+      staffLink: '/staff/users/456'
     });
   });
 });
