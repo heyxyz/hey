@@ -1,4 +1,5 @@
 import Beta from '@components/Shared/Badges/Beta';
+import SearchUser from '@components/Shared/SearchUser';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import {
   ArrowsRightLeftIcon,
@@ -6,15 +7,14 @@ import {
   UsersIcon,
   XCircleIcon
 } from '@heroicons/react/24/outline';
-import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from '@hey/data/constants';
-import { CollectModules, useProfileLazyQuery } from '@hey/lens';
-import isValidEthAddress from '@hey/lib/isValidEthAddress';
+import { ADDRESS_PLACEHOLDER } from '@hey/data/constants';
+import { OpenActionModuleType } from '@hey/lens';
 import splitNumber from '@hey/lib/splitNumber';
 import { Button, Input } from '@hey/ui';
-import { t, Trans } from '@lingui/macro';
-import type { FC } from 'react';
-import { useAppStore } from 'src/store/app';
-import { useCollectModuleStore } from 'src/store/collect-module';
+import { type FC } from 'react';
+import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
+import { isAddress } from 'viem';
 
 interface SplitConfigProps {
   isRecipientsDuplicated: () => boolean;
@@ -25,14 +25,12 @@ const SplitConfig: FC<SplitConfigProps> = ({
   isRecipientsDuplicated,
   setCollectType
 }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const collectModule = useCollectModuleStore((state) => state.collectModule);
 
   const recipients = collectModule.recipients ?? [];
   const hasRecipients = (recipients ?? []).length > 0;
   const splitTotal = recipients?.reduce((acc, curr) => acc + curr.split, 0);
-
-  const [getProfileByHandle, { loading }] = useProfileLazyQuery();
 
   const splitEvenly = () => {
     const equalSplits = splitNumber(100, recipients.length);
@@ -45,12 +43,6 @@ const SplitConfig: FC<SplitConfigProps> = ({
     setCollectType({
       recipients: [...splits]
     });
-  };
-
-  const getIsHandle = (handle: string) => {
-    return handle === LENSPROTOCOL_HANDLE
-      ? true
-      : handle.includes(HANDLE_SUFFIX);
   };
 
   const onChangeRecipientOrSplit = (
@@ -70,18 +62,11 @@ const SplitConfig: FC<SplitConfigProps> = ({
       });
     };
 
-    if (type === 'recipient' && getIsHandle(value)) {
-      getProfileByHandle({
-        variables: { request: { handle: value } },
-        onCompleted: ({ profile }) => {
-          if (profile) {
-            setCollectType({ recipients: getRecipients(profile.ownedBy) });
-          }
-        }
-      });
-    }
-
     setCollectType({ recipients: getRecipients(value) });
+  };
+
+  const updateRecipient = (index: number, value: string) => {
+    onChangeRecipientOrSplit(index, value, 'recipient');
   };
 
   return (
@@ -92,23 +77,21 @@ const SplitConfig: FC<SplitConfigProps> = ({
           setCollectType({
             type:
               recipients.length > 0
-                ? CollectModules.SimpleCollectModule
-                : CollectModules.MultirecipientFeeCollectModule,
+                ? OpenActionModuleType.SimpleCollectOpenActionModule
+                : OpenActionModuleType.MultirecipientFeeCollectOpenActionModule,
             recipients:
               recipients.length > 0
                 ? []
-                : [{ recipient: currentProfile?.ownedBy, split: 100 }]
+                : [{ recipient: currentProfile?.ownedBy.address, split: 100 }]
           });
         }}
         heading={
           <div className="flex items-center space-x-2">
-            <span>
-              <Trans>Split revenue</Trans>
-            </span>
+            <span>Split revenue</span>
             <Beta />
           </div>
         }
-        description={t`Set multiple recipients for the collect fee`}
+        description="Set multiple recipients for the collect fee"
         icon={<UsersIcon className="h-4 w-4" />}
       />
       {hasRecipients ? (
@@ -116,20 +99,19 @@ const SplitConfig: FC<SplitConfigProps> = ({
           <div className="space-y-2">
             {recipients.map((recipient, index) => (
               <div key={index} className="flex items-center space-x-2 text-sm">
-                <Input
-                  placeholder="0x3A5bd...5e3 or wagmi.lens"
+                <SearchUser
+                  placeholder={`${ADDRESS_PLACEHOLDER} or wagmi`}
                   value={recipient.recipient}
-                  disabled={loading}
+                  onChange={(event) =>
+                    updateRecipient(index, event.target.value)
+                  }
+                  onProfileSelected={(profile) =>
+                    updateRecipient(index, profile.ownedBy.address)
+                  }
+                  hideDropdown={isAddress(recipient.recipient)}
                   error={
                     recipient.recipient.length > 0 &&
-                    !isValidEthAddress(recipient.recipient)
-                  }
-                  onChange={(event) =>
-                    onChangeRecipientOrSplit(
-                      index,
-                      event.target.value,
-                      'recipient'
-                    )
+                    !isAddress(recipient.recipient)
                   }
                 />
                 <div className="w-1/3">
@@ -178,7 +160,6 @@ const SplitConfig: FC<SplitConfigProps> = ({
                 Add recipient
               </Button>
             )}
-
             <Button
               size="sm"
               outline
@@ -190,14 +171,12 @@ const SplitConfig: FC<SplitConfigProps> = ({
           </div>
           {splitTotal > 100 ? (
             <div className="text-sm font-bold text-red-500">
-              <Trans>
-                Splits cannot exceed 100%. Total: <span>{splitTotal}</span>%
-              </Trans>
+              Splits cannot exceed 100%. Total: <span>{splitTotal}</span>%
             </div>
           ) : null}
           {isRecipientsDuplicated() ? (
             <div className="text-sm font-bold text-red-500">
-              <Trans>Duplicate recipient address found</Trans>
+              Duplicate recipient address found
             </div>
           ) : null}
         </div>

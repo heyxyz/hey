@@ -1,4 +1,4 @@
-import { NFT_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
 import type { UnlonelyNfc } from '@hey/types/nft';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -16,19 +16,20 @@ const useUnlonelyNfc = ({
   loading: boolean;
   error: unknown;
 } => {
-  const loadUnlonelyNfcDetails = async () => {
-    const response = await axios.get(`${NFT_WORKER_URL}/unlonely/nfc`, {
-      params: { id }
-    });
+  const getUnlonelyNfcDetails = async () => {
+    const response = await axios.get(
+      `${HEY_API_URL}/nft/unlonely/getUnlonelyNfc`,
+      { params: { id } }
+    );
 
     return response.data?.nfc;
   };
 
-  const { data, isLoading, error } = useQuery(
-    ['loadUnlonelyChannelDetails', id],
-    () => loadUnlonelyNfcDetails().then((res) => res),
-    { enabled }
-  );
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['getUnlonelyNfcDetails', id],
+    queryFn: getUnlonelyNfcDetails,
+    enabled
+  });
 
   return { data, loading: isLoading, error };
 };

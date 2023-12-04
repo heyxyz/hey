@@ -1,0 +1,9 @@
+fragment PublicationStatsFields on PublicationStats {
+  id
+  comments
+  mirrors
+  quotes
+  reactions(request: { type: UPVOTE })
+  countOpenActions
+  bookmarks
+}

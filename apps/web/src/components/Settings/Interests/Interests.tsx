@@ -1,10 +1,11 @@
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { SETTINGS } from '@hey/data/tracking';
+import type { ProfileInterestsRequest, ProfileInterestTypes } from '@hey/lens';
 import {
-  useAddProfileInterestMutation,
-  useProfileInterestsQuery,
-  useRemoveProfileInterestMutation
+  useAddProfileInterestsMutation,
+  useProfileInterestsOptionsQuery,
+  useRemoveProfileInterestsMutation
 } from '@hey/lens';
 import { useApolloClient } from '@hey/lens/apollo';
 import { Button } from '@hey/ui';
@@ -12,14 +13,14 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import sanitizeProfileInterests from '@lib/sanitizeProfileInterests';
 import type { FC } from 'react';
-import { useAppStore } from 'src/store/app';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import Loader from '../../Shared/Loader';
 
 const MAX_TOPICS_ALLOWED = 12;
 
 const Interests: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const { cache } = useApolloClient();
 
   const updateCache = (interests: string[]) => {
@@ -33,32 +34,34 @@ const Interests: FC = () => {
     errorToast(error);
   };
 
-  const { data, loading } = useProfileInterestsQuery();
-  const [addProfileInterests] = useAddProfileInterestMutation({
+  const { data, loading } = useProfileInterestsOptionsQuery({
+    variables: { request: { forProfileId: currentProfile?.id } }
+  });
+  const [addProfileInterests] = useAddProfileInterestsMutation({
     onCompleted: () => Leafwatch.track(SETTINGS.INTERESTS.ADD),
     onError
   });
-  const [removeProfileInterests] = useRemoveProfileInterestMutation({
+  const [removeProfileInterests] = useRemoveProfileInterestsMutation({
     onCompleted: () => Leafwatch.track(SETTINGS.INTERESTS.REMOVE),
     onError
   });
 
-  const interestsData = data?.profileInterests ?? [];
-  const selectedTopics = currentProfile?.interests ?? [];
+  const interestsData = data?.profileInterestsOptions as ProfileInterestTypes[];
+  const selectedTopics = data?.profile?.interests ?? [];
 
-  const onSelectTopic = (topic: string) => {
-    const variables = {
-      request: { profileId: currentProfile?.id, interests: [topic] }
+  const onSelectTopic = (topic: ProfileInterestTypes) => {
+    const request: ProfileInterestsRequest = {
+      interests: [topic]
     };
     if (!selectedTopics.includes(topic)) {
       const interests = [...selectedTopics, topic];
       updateCache(interests);
-      return addProfileInterests({ variables });
+      return addProfileInterests({ variables: { request } });
     }
     const topics = [...selectedTopics];
     topics.splice(topics.indexOf(topic), 1);
     updateCache(topics);
-    return removeProfileInterests({ variables });
+    return removeProfileInterests({ variables: { request } });
   };
 
   if (loading) {
@@ -88,12 +91,14 @@ const Interests: FC = () => {
                   }
                   icon={
                     selectedTopics.includes(subCategory.id) ? (
-                      <CheckCircleIcon className="text-brand h-4 w-4" />
+                      <CheckCircleIcon className="text-brand-500 h-4 w-4" />
                     ) : (
                       <PlusCircleIcon className="h-4 w-4" />
                     )
                   }
-                  onClick={() => onSelectTopic(subCategory.id)}
+                  onClick={() =>
+                    onSelectTopic(subCategory.id as ProfileInterestTypes)
+                  }
                   outline
                 >
                   <div>{subCategory.label}</div>
@@ -115,12 +120,14 @@ const Interests: FC = () => {
                   }
                   icon={
                     selectedTopics.includes(category.id) ? (
-                      <CheckCircleIcon className="text-brand h-4 w-4" />
+                      <CheckCircleIcon className="text-brand-500 h-4 w-4" />
                     ) : (
                       <PlusCircleIcon className="h-4 w-4" />
                     )
                   }
-                  onClick={() => onSelectTopic(category.id)}
+                  onClick={() =>
+                    onSelectTopic(category.id as ProfileInterestTypes)
+                  }
                   outline
                 >
                   <div>{category.label}</div>

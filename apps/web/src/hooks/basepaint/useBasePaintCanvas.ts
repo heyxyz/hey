@@ -1,4 +1,4 @@
-import { NFT_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
 import type { BasePaintCanvas } from '@hey/types/nft';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -16,19 +16,19 @@ const useBasePaintCanvas = ({
   loading: boolean;
   error: unknown;
 } => {
-  const loadNftDetails = async () => {
-    const response = await axios.get(`${NFT_WORKER_URL}/basepaint`, {
+  const getBasePaintCanvasMetadata = async () => {
+    const response = await axios.get(`${HEY_API_URL}/nft/getBasePaintCanvas`, {
       params: { id }
     });
 
     return response.data?.canvas;
   };
 
-  const { data, isLoading, error } = useQuery(
-    ['basePaintCanvasMetadata', id],
-    () => loadNftDetails().then((res) => res),
-    { enabled }
-  );
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['getBasePaintCanvasMetadata', id],
+    queryFn: getBasePaintCanvasMetadata,
+    enabled
+  });
 
   return { data, loading: isLoading, error };
 };

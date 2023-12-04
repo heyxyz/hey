@@ -1,18 +1,17 @@
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
-import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import { Card, Image } from '@hey/ui';
-import { Trans } from '@lingui/macro';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { useAppStore } from 'src/store/app';
-import { useGlobalModalStateStore } from 'src/store/modals';
-import { usePublicationStore } from 'src/store/publication';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 const NewPost: FC = () => {
   const { query, isReady, push } = useRouter();
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const setShowNewPostModal = useGlobalModalStateStore(
     (state) => state.setShowNewPostModal
   );
@@ -51,18 +50,16 @@ const NewPost: FC = () => {
         <Image
           src={getAvatar(currentProfile)}
           className="h-9 w-9 cursor-pointer rounded-full border bg-gray-200 dark:border-gray-700"
-          onClick={() => push(`/u/${currentProfile?.handle}`)}
-          alt={formatHandle(currentProfile?.handle)}
+          onClick={() => push(getProfile(currentProfile).link)}
+          alt={currentProfile?.id}
         />
         <button
-          className="flex w-full items-center space-x-2 rounded-xl border bg-gray-100 px-4 py-2 dark:border-gray-700 dark:bg-gray-900"
+          className="outline-brand-500 flex w-full items-center space-x-2 rounded-xl border bg-gray-100 px-4 py-2 dark:border-gray-700 dark:bg-gray-900"
           type="button"
           onClick={() => openModal()}
         >
           <PencilSquareIcon className="h-5 w-5" />
-          <span>
-            <Trans>What's happening?</Trans>
-          </span>
+          <span>What's happening?</span>
         </button>
       </div>
     </Card>

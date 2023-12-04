@@ -8,7 +8,6 @@ exclude_patterns = [
   ".vscode",
   "pnpm-lock.yaml",
   "packages/lens/generated.ts",
-  "packages/workers/snapshot-relay/generated.ts",
 ]
 
 [[analyzers]]

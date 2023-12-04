@@ -17,13 +17,15 @@ import {
 import { useApolloClient } from '@hey/lens/apollo';
 import { Button } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useAppStore } from 'src/store/app';
-import type { NftGalleryItem } from 'src/store/nft-gallery';
-import { GALLERY_DEFAULTS, useNftGalleryStore } from 'src/store/nft-gallery';
+import type { NftGalleryItem } from 'src/store/non-persisted/useNftGalleryStore';
+import {
+  GALLERY_DEFAULTS,
+  useNftGalleryStore
+} from 'src/store/non-persisted/useNftGalleryStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import Create from './Create';
 import NftCard from './NftCard';
@@ -36,7 +38,7 @@ interface GalleryProps {
 const Gallery: FC<GalleryProps> = ({ galleries }) => {
   const [isRearrange, setIsRearrange] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const galleryStore = useNftGalleryStore((state) => state.gallery);
   const setGallery = useNftGalleryStore((state) => state.setGallery);
 
@@ -48,14 +50,14 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
   const [orderGallery] = useUpdateNftGalleryOrderMutation();
   const [deleteNftGallery] = useDeleteNftGalleryMutation({
     onCompleted: () => {
-      toast.success(t`Gallery deleted`);
+      toast.success('Gallery deleted');
       setGallery(GALLERY_DEFAULTS);
     }
   });
 
   const onDelete = () => {
     try {
-      if (confirm(t`Are you sure you want to delete?`)) {
+      if (confirm('Are you sure you want to delete?')) {
         const normalizedId = cache.identify({
           id: gallery.id,
           __typename: 'NftGallery'
@@ -63,12 +65,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
         cache.evict({ id: normalizedId });
         cache.gc();
         deleteNftGallery({
-          variables: {
-            request: {
-              profileId: currentProfile?.id,
-              galleryId: gallery.id
-            }
-          }
+          variables: { request: { galleryId: gallery.id } }
         });
       }
     } catch (error: any) {
@@ -92,7 +89,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
     const items = nfts.map((nft) => {
       return {
         ...nft,
-        itemId: `${nft.chainId}_${nft.contractAddress}_${nft.tokenId}`
+        itemId: `${nft.contract.chainId}_${nft.contract.address}_${nft.tokenId}`
       };
     });
     setIsRearrange(true);
@@ -104,7 +101,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
     const items = nfts.map((nft) => {
       return {
         ...nft,
-        itemId: `${nft.chainId}_${nft.contractAddress}_${nft.tokenId}`
+        itemId: `${nft.contract.chainId}_${nft.contract.address}_${nft.tokenId}`
       };
     });
     setItemsToGallery(items);
@@ -113,30 +110,26 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
   const onSaveRearrange = async () => {
     try {
       const updates = galleryStore.reArrangedItems?.map(
-        ({ tokenId, contractAddress, chainId, newOrder }, i) => {
-          return { tokenId, contractAddress, chainId, newOrder: newOrder ?? i };
+        ({ tokenId, contract, newOrder }, i) => {
+          return { tokenId, contract, newOrder: newOrder ?? i };
         }
       );
 
       await orderGallery({
         variables: {
-          request: {
-            galleryId: galleryStore.id,
-            profileId: currentProfile?.id,
-            updates
-          }
+          request: { galleryId: galleryStore.id, updates }
         }
       });
 
       const { data } = await fetchNftGalleries({
-        variables: { request: { profileId: currentProfile?.id } }
+        variables: { request: { for: currentProfile?.id } }
       });
 
       cache.modify({
         fields: {
           nftGalleries: () => {
             cache.updateQuery({ query: NftGalleriesDocument }, () => ({
-              data: data?.nftGalleries as NftGallery[]
+              data: data?.nftGalleries
             }));
           }
         }
@@ -166,13 +159,13 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
               size="sm"
               variant="secondary"
             >
-              <Trans>Cancel</Trans>
+              Cancel
             </Button>
             <Button onClick={onSaveRearrange} size="sm">
-              <Trans>Save</Trans>
+              Save
             </Button>
           </div>
-        ) : currentProfile && currentProfile?.id === gallery.profileId ? (
+        ) : currentProfile && currentProfile?.id === gallery.owner ? (
           <Menu as="div" className="relative">
             <Menu.Button className="rounded-md p-1 hover:bg-gray-300/20">
               <EllipsisVerticalIcon className="h-4 w-4" />
@@ -194,9 +187,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
                 >
                   <div className="flex items-center space-x-2">
                     <PencilSquareIcon className="h-4 w-4" />
-                    <div>
-                      <Trans>Edit</Trans>
-                    </div>
+                    <div>Edit</div>
                   </div>
                 </Menu.Item>
                 <Menu.Item
@@ -211,9 +202,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
                 >
                   <div className="flex items-center space-x-2">
                     <ArrowsPointingOutIcon className="h-4 w-4" />
-                    <div>
-                      <Trans>Rearrrange</Trans>
-                    </div>
+                    <div>Rearrrange</div>
                   </div>
                 </Menu.Item>
                 <Menu.Item
@@ -228,9 +217,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
                 >
                   <div className="flex items-center space-x-2">
                     <TrashIcon className="h-4 w-4" />
-                    <div>
-                      <Trans>Delete</Trans>
-                    </div>
+                    <div>Delete</div>
                   </div>
                 </Menu.Item>
               </Menu.Items>
@@ -244,7 +231,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
         <div className="grid gap-5 md:grid-cols-3">
           {nfts?.map((nft) => (
             <div
-              key={`${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`}
+              key={`${nft?.contract.address}_${nft?.contract.chainId}_${nft?.tokenId}`}
               className="break-inside flex w-full items-center overflow-hidden text-white"
             >
               <NftCard nft={nft as Nft} linkToDetail />

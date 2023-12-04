@@ -11,7 +11,9 @@ const getUnlonelyChannel = (url: string): UnlonelyChannelMetadata | null => {
   const matches = regex.exec(url);
   if (matches && matches[1]) {
     const slug = matches[1];
-    return { slug, provider: 'unlonely-channel' };
+    const mintLink = `https://www.unlonely.app/channels/${slug}`;
+
+    return { slug, mintLink, provider: 'unlonely-channel' };
   }
 
   return null;

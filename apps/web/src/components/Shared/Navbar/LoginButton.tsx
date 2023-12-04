@@ -1,15 +1,18 @@
 import { AUTH } from '@hey/data/tracking';
 import { Button } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
-import type { FC } from 'react';
-import { useGlobalModalStateStore } from 'src/store/modals';
+import { type FC } from 'react';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 
 interface LoginButtonProps {
+  title?: string;
   isBig?: boolean;
 }
 
-const LoginButton: FC<LoginButtonProps> = ({ isBig = false }) => {
+const LoginButton: FC<LoginButtonProps> = ({
+  title = 'Login',
+  isBig = false
+}) => {
   const setShowAuthModal = useGlobalModalStateStore(
     (state) => state.setShowAuthModal
   );
@@ -17,14 +20,21 @@ const LoginButton: FC<LoginButtonProps> = ({ isBig = false }) => {
   return (
     <Button
       size={isBig ? 'lg' : 'md'}
-      icon={<img className="mr-0.5 h-3" src="/lens.svg" alt="Lens Logo" />}
+      icon={
+        <img
+          className="mr-0.5 h-3"
+          height={12}
+          width={19}
+          src="/lens.svg"
+          alt="Lens Logo"
+        />
+      }
       onClick={() => {
         setShowAuthModal(true);
         Leafwatch.track(AUTH.LOGIN);
       }}
-      data-testid="login-button"
     >
-      <Trans>Login</Trans>
+      {title}
     </Button>
   );
 };

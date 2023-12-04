@@ -4,33 +4,28 @@ import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
 import { FollowUnfollowSource } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
-import { useRecommendedProfilesQuery } from '@hey/lens';
+import { useProfileRecommendationsQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
-import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
-import { useAppStore } from 'src/store/app';
-import { usePreferencesStore } from 'src/store/preferences';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 const Suggested: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-  const isLensMember = usePreferencesStore((state) => state.isLensMember);
-  const { data, loading, error } = useRecommendedProfilesQuery({
-    variables: {
-      options: { profileId: isLensMember ? currentProfile?.id : null }
-    }
+  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { data, loading, error } = useProfileRecommendationsQuery({
+    variables: { request: { for: currentProfile?.id } }
   });
 
   if (loading) {
-    return <Loader message={t`Loading suggested`} />;
+    return <Loader message="Loading suggested" />;
   }
 
-  if (data?.recommendedProfiles?.length === 0) {
+  if (data?.profileRecommendations.items.length === 0) {
     return (
       <EmptyState
-        message={t`Nothing to suggest`}
-        icon={<UsersIcon className="text-brand h-8 w-8" />}
+        message="Nothing to suggest"
+        icon={<UsersIcon className="text-brand-500 h-8 w-8" />}
         hideCard
       />
     );
@@ -38,10 +33,10 @@ const Suggested: FC = () => {
 
   return (
     <div className="max-h-[80vh] overflow-y-auto">
-      <ErrorMessage title={t`Failed to load recommendations`} error={error} />
+      <ErrorMessage title="Failed to load recommendations" error={error} />
       <Virtuoso
         className="virtual-profile-list"
-        data={data?.recommendedProfiles}
+        data={data?.profileRecommendations.items}
         itemContent={(index, profile) => {
           return (
             <motion.div
@@ -53,7 +48,7 @@ const Suggested: FC = () => {
               <div className="w-full">
                 <UserProfile
                   profile={profile as Profile}
-                  isFollowing={profile?.isFollowedByMe}
+                  isFollowing={profile.operations.isFollowedByMe.value}
                   followUnfollowPosition={index + 1}
                   followUnfollowSource={
                     FollowUnfollowSource.WHO_TO_FOLLOW_MODAL

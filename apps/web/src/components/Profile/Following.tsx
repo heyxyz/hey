@@ -3,14 +3,13 @@ import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
 import { FollowUnfollowSource } from '@hey/data/tracking';
 import type { FollowingRequest, Profile } from '@hey/lens';
-import { useFollowingQuery } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
+import { LimitType, useFollowingQuery } from '@hey/lens';
+import getProfile from '@hey/lib/getProfile';
 import { EmptyState, ErrorMessage } from '@hey/ui';
-import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
-import type { FC } from 'react';
+import { type FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
-import { useAppStore } from 'src/store/app';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface FollowingProps {
   profile: Profile;
@@ -19,8 +18,11 @@ interface FollowingProps {
 
 const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
   // Variables
-  const request: FollowingRequest = { address: profile?.ownedBy, limit: 50 };
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const request: FollowingRequest = {
+    for: profile.id,
+    limit: LimitType.TwentyFive
+  };
+  const currentProfile = useProfileStore((state) => state.currentProfile);
 
   const { data, loading, error, fetchMore } = useFollowingQuery({
     variables: { request },
@@ -42,7 +44,7 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
   };
 
   if (loading) {
-    return <Loader message={t`Loading following`} />;
+    return <Loader message="Loading following" />;
   }
 
   if (followings?.length === 0) {
@@ -51,28 +53,23 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
         message={
           <div>
             <span className="mr-1 font-bold">
-              @{formatHandle(profile?.handle)}
+              {getProfile(profile).slugWithPrefix}
             </span>
-            <span>
-              <Trans>doesn’t follow anyone.</Trans>
-            </span>
+            <span>doesn’t follow anyone.</span>
           </div>
         }
-        icon={<UsersIcon className="text-brand h-8 w-8" />}
+        icon={<UsersIcon className="text-brand-500 h-8 w-8" />}
         hideCard
       />
     );
   }
 
   return (
-    <div
-      className="max-h-[80vh] overflow-y-auto"
-      data-testid="followings-modal"
-    >
+    <div className="max-h-[80vh] overflow-y-auto">
       <ErrorMessage
-        className="m-5"
-        title={t`Failed to load following`}
+        title="Failed to load following"
         error={error}
+        className="m-5"
       />
       <Virtuoso
         className="virtual-profile-list"
@@ -89,23 +86,22 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
                 'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900'
               }`}
               onClick={
-                onProfileSelected && following.profile
+                onProfileSelected && following
                   ? () => {
-                      onProfileSelected(following.profile as Profile);
+                      onProfileSelected(following as Profile);
                     }
                   : undefined
               }
-              aria-hidden="true"
             >
               <UserProfile
-                profile={following?.profile as Profile}
+                profile={following as Profile}
                 linkToProfile={!onProfileSelected}
-                isFollowing={following?.profile?.isFollowedByMe}
+                isFollowing={following.operations.isFollowedByMe.value}
                 followUnfollowPosition={index + 1}
                 followUnfollowSource={FollowUnfollowSource.FOLLOWING_MODAL}
                 showBio
-                showFollow={currentProfile?.id !== following?.profile.id}
-                showUnfollow={currentProfile?.id !== following?.profile.id}
+                showFollow={currentProfile?.id !== following.id}
+                showUnfollow={currentProfile?.id !== following.id}
                 showUserPreview={false}
               />
             </motion.div>

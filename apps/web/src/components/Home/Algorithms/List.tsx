@@ -3,18 +3,17 @@ import { algorithms } from '@hey/data/algorithms';
 import { HOME } from '@hey/data/tracking';
 import { Toggle, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
-import { useEnabledAlgorithmsPersistStore } from 'src/store/enabled-algorithms';
+import { useEnabledAlgorithmsStore } from 'src/store/persisted/useEnabledAlgorithmsStore';
 
 const List: FC = () => {
-  const enabledAlgorithms = useEnabledAlgorithmsPersistStore(
+  const enabledAlgorithms = useEnabledAlgorithmsStore(
     (state) => state.enabledAlgorithms
   );
-  const enableAlgorithm = useEnabledAlgorithmsPersistStore(
+  const enableAlgorithm = useEnabledAlgorithmsStore(
     (state) => state.enableAlgorithm
   );
-  const disableAlgorithm = useEnabledAlgorithmsPersistStore(
+  const disableAlgorithm = useEnabledAlgorithmsStore(
     (state) => state.disableAlgorithm
   );
 
@@ -38,10 +37,10 @@ const List: FC = () => {
                   <Tooltip
                     placement="top"
                     content={
-                      algorithm.isPersonalized ? t`Personalized` : t`Global`
+                      algorithm.isPersonalized ? 'Personalized' : 'Global'
                     }
                   >
-                    <div className="text-brand">
+                    <div className="text-brand-500">
                       {algorithm.isPersonalized ? (
                         <UserCircleIcon className="h-4 w-4" />
                       ) : (
@@ -53,7 +52,7 @@ const List: FC = () => {
                 <div className="text-sm">by {algorithm.by}</div>
               </div>
             </div>
-            <div className="lt-text-gray-500 max-w-sm text-sm">
+            <div className="ld-text-gray-500 max-w-sm text-sm">
               {algorithm.description}
             </div>
           </div>

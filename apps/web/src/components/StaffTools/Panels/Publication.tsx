@@ -4,21 +4,27 @@ import {
   TagIcon
 } from '@heroicons/react/24/outline';
 import { ShieldCheckIcon } from '@heroicons/react/24/solid';
-import type { Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
+import {
+  isCommentPublication,
+  isMirrorPublication
+} from '@hey/lib/publicationHelpers';
 import { Card } from '@hey/ui';
-import { t, Trans } from '@lingui/macro';
-import type { FC } from 'react';
+import { type FC } from 'react';
 
-import MetaDetails from './MetaDetails';
+import MetaDetails from '../../Shared/Staff/MetaDetails';
 
 interface PublicationStaffToolProps {
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
   publication
 }) => {
-  const isComment = publication.__typename === 'Comment';
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
+  const isComment = isCommentPublication(targetPublication);
 
   return (
     <Card
@@ -28,44 +34,43 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
     >
       <div className="flex items-center space-x-2 text-yellow-600">
         <ShieldCheckIcon className="h-5 w-5" />
-        <div className="text-lg font-bold">
-          <Trans>Staff tool</Trans>
-        </div>
+        <div className="text-lg font-bold">Staff tool</div>
       </div>
       <div className="mt-3 space-y-2">
         <MetaDetails
-          icon={<HashtagIcon className="lt-text-gray-500 h-4 w-4" />}
+          icon={<HashtagIcon className="ld-text-gray-500 h-4 w-4" />}
           value={publication?.id}
-          title={t`Publication ID`}
+          title="Publication ID"
         >
           {publication?.id}
         </MetaDetails>
         {isComment ? (
           <MetaDetails
-            icon={<HashtagIcon className="lt-text-gray-500 h-4 w-4" />}
-            value={publication?.commentOn?.id}
-            title={t`Comment on`}
+            icon={<HashtagIcon className="ld-text-gray-500 h-4 w-4" />}
+            value={targetPublication?.commentOn?.id}
+            title="Comment on"
           >
-            {publication?.commentOn?.id}
+            {targetPublication?.commentOn?.id}
           </MetaDetails>
         ) : null}
-        {publication?.collectModule?.type ? (
+        {targetPublication?.openActionModules?.length ? (
           <MetaDetails
-            icon={<RectangleStackIcon className="lt-text-gray-500 h-4 w-4" />}
-            value={publication?.collectModule?.type}
-            title={t`Collect module`}
-          >
-            {publication?.collectModule?.type}
-          </MetaDetails>
-        ) : null}
-        {publication?.metadata.tags.length > 0 ? (
-          <MetaDetails
-            icon={<TagIcon className="lt-text-gray-500 h-4 w-4" />}
-            value={JSON.stringify(publication?.metadata?.tags)}
-            title={t`Tags`}
+            icon={<RectangleStackIcon className="ld-text-gray-500 h-4 w-4" />}
+            title="Open action modules"
             noFlex
           >
-            {publication?.metadata?.tags.map((tag) => (
+            {(targetPublication?.openActionModules ?? []).map((module) => (
+              <div key={module.__typename}>{module.__typename}</div>
+            ))}
+          </MetaDetails>
+        ) : null}
+        {(targetPublication?.metadata.tags ?? []).length > 0 ? (
+          <MetaDetails
+            icon={<TagIcon className="ld-text-gray-500 h-4 w-4" />}
+            title="Tags"
+            noFlex
+          >
+            {(targetPublication?.metadata?.tags ?? []).map((tag) => (
               <div key={tag}>{tag}</div>
             ))}
           </MetaDetails>

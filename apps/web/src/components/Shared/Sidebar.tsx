@@ -1,7 +1,7 @@
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import type { FC, ReactNode } from 'react';
+import { type FC, type ReactNode } from 'react';
 
 interface MenuProps {
   children: ReactNode;
@@ -13,7 +13,7 @@ const Menu: FC<MenuProps> = ({ children, current, url }) => (
   <Link
     href={url}
     className={cn(
-      { 'bg-brand-100 dark:bg-brand-300/20 text-brand font-bold': current },
+      { 'bg-brand-100 dark:bg-brand-300/20 text-brand-500 font-bold': current },
       'hover:bg-brand-100/80 hover:text-brand-400 dark:hover:bg-brand-300/30',
       'flex items-center space-x-2 rounded-lg px-3 py-2'
     )}
@@ -36,11 +36,11 @@ const Sidebar: FC<SidebarProps> = ({ items }) => {
   const { pathname } = useRouter();
   const menuItems = items.map((item) => ({
     ...item,
-    enabled: item.enabled ?? true
+    enabled: item.enabled || true
   }));
 
   return (
-    <div className="mb-4 space-y-1.5 px-3 sm:px-0">
+    <div className="mb-4 space-y-2 px-3 sm:px-0">
       {menuItems.map((item: any) =>
         item?.enabled ? (
           <Menu

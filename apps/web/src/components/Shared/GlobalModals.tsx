@@ -2,58 +2,92 @@ import NewPublication from '@components/Composer/NewPublication';
 import ReportPublication from '@components/Shared/Modal/ReportPublication';
 import {
   ArrowRightCircleIcon,
-  FaceSmileIcon,
   ShieldCheckIcon,
   TicketIcon
 } from '@heroicons/react/24/outline';
 import { Modal } from '@hey/ui';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
-import { useGlobalModalStateStore } from 'src/store/modals';
-import { usePublicationStore } from 'src/store/publication';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 
 import Login from './Login';
 import WrongNetwork from './Login/WrongNetwork';
 import Invites from './Modal/Invites';
 import ReportProfile from './Modal/ReportProfile';
-import Status from './Status';
 import SwitchProfiles from './SwitchProfiles';
 
 const GlobalModals: FC = () => {
   // Report modal state
-  const {
-    showPublicationReportModal,
-    reportingPublication,
-    setShowPublicationReportModal,
-    showStatusModal,
-    setShowStatusModal,
-    showProfileSwitchModal,
-    setShowProfileSwitchModal,
-    showNewPostModal,
-    setShowNewPostModal,
-    showAuthModal,
-    setShowAuthModal,
-    showWrongNetworkModal,
-    setShowWrongNetworkModal,
-    showInvitesModal,
-    setShowInvitesModal,
-    showReportProfileModal,
-    reportingProfile,
-    setShowReportProfileModal,
-    setShowDiscardModal
-  } = useGlobalModalStateStore();
+  const showPublicationReportModal = useGlobalModalStateStore(
+    (state) => state.showPublicationReportModal
+  );
+  const reportingPublication = useGlobalModalStateStore(
+    (state) => state.reportingPublication
+  );
+  const setShowPublicationReportModal = useGlobalModalStateStore(
+    (state) => state.setShowPublicationReportModal
+  );
+  const showProfileSwitchModal = useGlobalModalStateStore(
+    (state) => state.showProfileSwitchModal
+  );
+  const setShowProfileSwitchModal = useGlobalModalStateStore(
+    (state) => state.setShowProfileSwitchModal
+  );
+  const showNewPostModal = useGlobalModalStateStore(
+    (state) => state.showNewPostModal
+  );
+  const setShowNewPostModal = useGlobalModalStateStore(
+    (state) => state.setShowNewPostModal
+  );
+  const showAuthModal = useGlobalModalStateStore(
+    (state) => state.showAuthModal
+  );
+  const setShowAuthModal = useGlobalModalStateStore(
+    (state) => state.setShowAuthModal
+  );
+  const showWrongNetworkModal = useGlobalModalStateStore(
+    (state) => state.showWrongNetworkModal
+  );
+  const setShowWrongNetworkModal = useGlobalModalStateStore(
+    (state) => state.setShowWrongNetworkModal
+  );
+  const showInvitesModal = useGlobalModalStateStore(
+    (state) => state.showInvitesModal
+  );
+  const setShowInvitesModal = useGlobalModalStateStore(
+    (state) => state.setShowInvitesModal
+  );
+  const showReportProfileModal = useGlobalModalStateStore(
+    (state) => state.showReportProfileModal
+  );
+  const reportingProfile = useGlobalModalStateStore(
+    (state) => state.reportingProfile
+  );
+  const setShowReportProfileModal = useGlobalModalStateStore(
+    (state) => state.setShowReportProfileModal
+  );
+  const setShowDiscardModal = useGlobalModalStateStore(
+    (state) => state.setShowDiscardModal
+  );
 
-  const {
-    publicationContent,
-    attachments,
-    isUploading,
-    videoDurationInSeconds,
-    videoThumbnail,
-    audioPublication,
-    quotedPublication,
-    showPollEditor,
-    pollConfig
-  } = usePublicationStore();
+  // Publication store
+  const publicationContent = usePublicationStore(
+    (state) => state.publicationContent
+  );
+  const attachments = usePublicationStore((state) => state.attachments);
+  const isUploading = usePublicationStore((state) => state.isUploading);
+  const videoDurationInSeconds = usePublicationStore(
+    (state) => state.videoDurationInSeconds
+  );
+  const videoThumbnail = usePublicationStore((state) => state.videoThumbnail);
+  const audioPublication = usePublicationStore(
+    (state) => state.audioPublication
+  );
+  const quotedPublication = usePublicationStore(
+    (state) => state.quotedPublication
+  );
+  const showPollEditor = usePublicationStore((state) => state.showPollEditor);
+  const pollConfig = usePublicationStore((state) => state.pollConfig);
 
   const checkIfPublicationNotDrafted = () => {
     if (
@@ -65,7 +99,7 @@ const GlobalModals: FC = () => {
       videoDurationInSeconds === '' &&
       !showPollEditor &&
       !isUploading &&
-      pollConfig.choices[0] === ''
+      pollConfig.options[0] === ''
     ) {
       return true;
     }
@@ -75,8 +109,8 @@ const GlobalModals: FC = () => {
   return (
     <>
       <Modal
-        title={t`Report Publication`}
-        icon={<ShieldCheckIcon className="text-brand h-5 w-5" />}
+        title="Report Publication"
+        icon={<ShieldCheckIcon className="text-brand-500 h-5 w-5" />}
         show={showPublicationReportModal}
         onClose={() =>
           setShowPublicationReportModal(false, reportingPublication)
@@ -85,23 +119,15 @@ const GlobalModals: FC = () => {
         <ReportPublication publication={reportingPublication} />
       </Modal>
       <Modal
-        title={t`Report profile`}
-        icon={<ShieldCheckIcon className="text-brand h-5 w-5" />}
+        title="Report profile"
+        icon={<ShieldCheckIcon className="text-brand-500 h-5 w-5" />}
         show={showReportProfileModal}
         onClose={() => setShowReportProfileModal(false, reportingProfile)}
       >
         <ReportProfile profile={reportingProfile} />
       </Modal>
       <Modal
-        title={t`Set status`}
-        icon={<FaceSmileIcon className="text-brand h-5 w-5" />}
-        show={showStatusModal}
-        onClose={() => setShowStatusModal(false)}
-      >
-        <Status />
-      </Modal>
-      <Modal
-        title={t`Change Profile`}
+        title="Switch Profile"
         show={showProfileSwitchModal}
         onClose={() => setShowProfileSwitchModal(false)}
         size="xs"
@@ -109,24 +135,22 @@ const GlobalModals: FC = () => {
         <SwitchProfiles />
       </Modal>
       <Modal
-        title={t`Login`}
-        icon={<ArrowRightCircleIcon className="text-brand h-5 w-5" />}
+        title="Login"
+        icon={<ArrowRightCircleIcon className="text-brand-500 h-5 w-5" />}
         show={showAuthModal}
         onClose={() => setShowAuthModal(false)}
-        dataTestId="login-modal"
       >
         <Login />
       </Modal>
       <Modal
-        title={t`Wrong Network`}
+        title="Wrong Network"
         show={showWrongNetworkModal}
         onClose={() => setShowWrongNetworkModal(false)}
-        dataTestId="wrong-network-modal"
       >
         <WrongNetwork />
       </Modal>
       <Modal
-        title={t`Create post`}
+        title="Create post"
         size="md"
         show={showNewPostModal}
         onClose={() => {
@@ -140,8 +164,8 @@ const GlobalModals: FC = () => {
         <NewPublication />
       </Modal>
       <Modal
-        title={t`Invites`}
-        icon={<TicketIcon className="text-brand h-5 w-5" />}
+        title="Invites"
+        icon={<TicketIcon className="text-brand-500 h-5 w-5" />}
         show={showInvitesModal}
         onClose={() => setShowInvitesModal(false)}
       >

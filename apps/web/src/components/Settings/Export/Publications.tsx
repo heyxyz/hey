@@ -1,31 +1,25 @@
 import { SETTINGS } from '@hey/data/tracking';
-import type { PublicationsQueryRequest } from '@hey/lens';
-import { PublicationTypes, useProfileFeedLazyQuery } from '@hey/lens';
+import type { PublicationsRequest } from '@hey/lens';
+import { LimitType, usePublicationsLazyQuery } from '@hey/lens';
+import downloadJson from '@hey/lib/downloadJson';
 import { Button, Card } from '@hey/ui';
-import downloadJson from '@lib/downloadJson';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useAppStore } from 'src/store/app';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 const Publications: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const [publications, setPublications] = useState<any[]>([]);
   const [exporting, setExporting] = useState(false);
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
-  const request: PublicationsQueryRequest = {
-    profileId: currentProfile?.id,
-    publicationTypes: [
-      PublicationTypes.Post,
-      PublicationTypes.Comment,
-      PublicationTypes.Mirror
-    ],
-    limit: 50
+  const request: PublicationsRequest = {
+    where: { from: currentProfile?.id },
+    limit: LimitType.TwentyFive
   };
 
-  const [exportPublications] = useProfileFeedLazyQuery({
+  const [exportPublications] = usePublicationsLazyQuery({
     fetchPolicy: 'network-only'
   });
 
@@ -73,28 +67,20 @@ const Publications: FC = () => {
 
   return (
     <Card className="space-y-2 p-5">
-      <div className="text-lg font-bold">
-        <Trans>Export publications</Trans>
-      </div>
+      <div className="text-lg font-bold">Export publications</div>
       <div className="pb-2">
-        <Trans>
-          Export all your posts, comments and mirrors to a JSON file.
-        </Trans>
+        Export all your posts, comments and mirrors to a JSON file.
       </div>
       {publications.length > 0 ? (
         <div className="pb-2">
-          <Trans>
-            Exported <b>{publications.length}</b> publications
-          </Trans>
+          Exported <b>{publications.length}</b> publications
         </div>
       ) : null}
       {fetchCompleted ? (
-        <Button onClick={download}>
-          <Trans>Download publications</Trans>
-        </Button>
+        <Button onClick={download}>Download publications</Button>
       ) : (
         <Button onClick={handleExportClick} disabled={exporting}>
-          {exporting ? <Trans>Exporting...</Trans> : <Trans>Export now</Trans>}
+          {exporting ? 'Exporting...' : 'Export now'}
         </Button>
       )}
     </Card>

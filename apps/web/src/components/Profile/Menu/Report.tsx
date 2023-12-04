@@ -1,9 +1,8 @@
 import { FlagIcon } from '@heroicons/react/24/outline';
 import type { Profile } from '@hey/lens';
 import cn from '@hey/ui/cn';
-import { Trans } from '@lingui/macro';
-import type { FC } from 'react';
-import { useGlobalModalStateStore } from 'src/store/modals';
+import { type FC } from 'react';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 
 interface ReportProfileProps {
   profile: Profile;
@@ -24,9 +23,7 @@ const Report: FC<ReportProfileProps> = ({ profile }) => {
     >
       <div className="flex items-center space-x-2">
         <FlagIcon className="h-4 w-4" />
-        <div>
-          <Trans>Report profile</Trans>
-        </div>
+        <div>Report profile</div>
       </div>
     </button>
   );

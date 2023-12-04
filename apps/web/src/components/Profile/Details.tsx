@@ -1,14 +1,14 @@
-import Message from '@components/Profile/Message';
 import Markup from '@components/Shared/Markup';
 import Follow from '@components/Shared/Profile/Follow';
 import Unfollow from '@components/Shared/Profile/Unfollow';
 import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
-import ProfileStaffTool from '@components/StaffTools/Panels/Profile';
 import {
+  ClockIcon,
   Cog6ToothIcon,
   HashtagIcon,
   MapPinIcon,
+  ShieldCheckIcon,
   UsersIcon
 } from '@heroicons/react/24/outline';
 import {
@@ -23,26 +23,23 @@ import {
 import { FollowUnfollowSource } from '@hey/data/tracking';
 import getEnvConfig from '@hey/data/utils/getEnvConfig';
 import type { Profile } from '@hey/lens';
-import formatAddress from '@hey/lib/formatAddress';
-import formatHandle from '@hey/lib/formatHandle';
+import { FollowModuleType } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
+import getFavicon from '@hey/lib/getFavicon';
+import getMentions from '@hey/lib/getMentions';
 import getMisuseDetails from '@hey/lib/getMisuseDetails';
+import getProfile from '@hey/lib/getProfile';
 import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import hasMisused from '@hey/lib/hasMisused';
-import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
 import { Button, Image, LightBox, Modal, Tooltip } from '@hey/ui';
-import buildConversationId from '@lib/buildConversationId';
-import { buildConversationKey } from '@lib/conversationKey';
+import { formatDate } from '@lib/formatTime';
 import isVerified from '@lib/isVerified';
-import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
-import { useMessageDb } from 'src/hooks/useMessageDb';
-import { useAppStore } from 'src/store/app';
-import { useMessageStore } from 'src/store/message';
-import { usePreferencesStore } from 'src/store/preferences';
+import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import urlcat from 'urlcat';
 
 import Badges from './Badges';
@@ -60,48 +57,27 @@ interface DetailsProps {
 }
 
 const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-  const setConversationKey = useMessageStore(
-    (state) => state.setConversationKey
-  );
-  const isStaff = usePreferencesStore((state) => state.isStaff);
-  const staffMode = usePreferencesStore((state) => state.staffMode);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const staffMode = useFeatureFlagsStore((state) => state.staffMode);
   const [showMutualFollowersModal, setShowMutualFollowersModal] =
     useState(false);
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
   const { resolvedTheme } = useTheme();
 
-  const { persistProfile } = useMessageDb();
-
-  const onMessageClick = () => {
-    if (!currentProfile) {
-      return;
-    }
-    const conversationId = buildConversationId(currentProfile.id, profile.id);
-    const conversationKey = buildConversationKey(
-      profile.ownedBy,
-      conversationId
-    );
-    persistProfile(conversationKey, profile);
-    setConversationKey(conversationKey);
-  };
-
   const MetaDetails = ({
     children,
-    icon,
-    dataTestId = ''
+    icon
   }: {
     children: ReactNode;
     icon: ReactNode;
-    dataTestId?: string;
   }) => (
-    <div className="flex items-center gap-2" data-testid={dataTestId}>
+    <div className="flex items-center gap-2">
       {icon}
       <div className="text-md truncate">{children}</div>
     </div>
   );
 
-  const followType = profile?.followModule?.__typename;
+  const followType = profile?.followModule?.type;
   const misuseDetails = getMisuseDetails(profile.id);
 
   return (
@@ -113,8 +89,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           className="h-32 w-32 cursor-pointer rounded-xl bg-gray-200 ring-8 ring-gray-50 dark:bg-gray-700 dark:ring-black sm:h-52 sm:w-52"
           height={128}
           width={128}
-          alt={formatHandle(profile?.handle)}
-          data-testid="profile-avatar"
+          alt={profile.id}
         />
         <LightBox
           show={Boolean(expandedImage)}
@@ -124,58 +99,35 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
       </div>
       <div className="space-y-1 py-2">
         <div className="flex items-center gap-1.5 text-2xl font-bold">
-          <div className="truncate" data-testid="profile-name">
-            {sanitizeDisplayName(profile?.name) ??
-              formatHandle(profile?.handle)}
-          </div>
+          <div className="truncate">{getProfile(profile).displayName}</div>
           {isVerified(profile.id) ? (
-            <Tooltip content={t`Verified`}>
-              <CheckBadgeIcon
-                className="text-brand h-6 w-6"
-                data-testid="profile-verified-badge"
-              />
+            <Tooltip content="Verified">
+              <CheckBadgeIcon className="text-brand-500 h-6 w-6" />
             </Tooltip>
           ) : null}
           {hasMisused(profile.id) ? (
             <Tooltip content={misuseDetails?.type}>
-              <ExclamationCircleIcon
-                className="h-6 w-6 text-red-500"
-                data-testid="profile-scam-badge"
-              />
+              <ExclamationCircleIcon className="h-6 w-6 text-red-500" />
             </Tooltip>
           ) : null}
         </div>
-        <div
-          className="flex items-center space-x-3"
-          data-testid="profile-handle"
-        >
-          {profile?.name ? (
-            <Slug
-              className="text-sm sm:text-base"
-              slug={formatHandle(profile?.handle)}
-              prefix="@"
-            />
-          ) : (
-            <Slug
-              className="text-sm sm:text-base"
-              slug={formatAddress(profile?.ownedBy)}
-            />
-          )}
-          {currentProfile &&
-          currentProfile?.id !== profile.id &&
-          profile?.isFollowing ? (
+        <div className="flex items-center space-x-3">
+          <Slug
+            className="text-sm sm:text-base"
+            slug={getProfile(profile).slugWithPrefix}
+          />
+          {profile.operations.isFollowingMe.value ? (
             <div className="rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
-              <Trans>Follows you</Trans>
+              Follows you
             </div>
           ) : null}
         </div>
       </div>
-      {profile?.bio ? (
-        <div
-          className="markup linkify text-md mr-0 break-words sm:mr-10"
-          data-testid="profile-bio"
-        >
-          <Markup>{profile?.bio}</Markup>
+      {profile?.metadata?.bio ? (
+        <div className="markup linkify text-md mr-0 break-words sm:mr-10">
+          <Markup mentions={getMentions(profile?.metadata.bio)}>
+            {profile?.metadata.bio}
+          </Markup>
         </div>
       ) : null}
       <div className="space-y-5">
@@ -189,42 +141,44 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                 icon={<Cog6ToothIcon className="h-5 w-5" />}
                 outline
               >
-                <Trans>Edit Profile</Trans>
+                Edit Profile
               </Button>
             </Link>
-          ) : followType !== 'RevertFollowModuleSettings' ? (
+          ) : followType !== FollowModuleType.RevertFollowModule ? (
             following ? (
               <>
                 <Unfollow
                   profile={profile}
                   setFollowing={setFollowing}
+                  unfollowSource={FollowUnfollowSource.PROFILE_PAGE}
                   showText
                 />
-                {followType === 'FeeFollowModuleSettings' ? (
+                {followType === FollowModuleType.FeeFollowModule ? (
                   <SuperFollow
                     profile={profile}
                     setFollowing={setFollowing}
+                    superFollowSource={FollowUnfollowSource.PROFILE_PAGE}
                     again
                   />
                 ) : null}
               </>
-            ) : followType === 'FeeFollowModuleSettings' ? (
+            ) : followType === FollowModuleType.FeeFollowModule ? (
               <SuperFollow
                 profile={profile}
                 setFollowing={setFollowing}
-                followUnfollowSource={FollowUnfollowSource.PROFILE_PAGE}
+                superFollowSource={FollowUnfollowSource.PROFILE_PAGE}
                 showText
               />
             ) : (
               <Follow
                 profile={profile}
                 setFollowing={setFollowing}
-                followUnfollowSource={FollowUnfollowSource.PROFILE_PAGE}
+                followSource={FollowUnfollowSource.PROFILE_PAGE}
                 showText
               />
             )
           ) : null}
-          {currentProfile ? <Message onClick={onMessageClick} /> : null}
+
           <ProfileMenu profile={profile} />
         </div>
         {currentProfile?.id !== profile.id ? (
@@ -234,21 +188,30 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               profile={profile}
             />
             <Modal
-              title={t`Followers you know`}
-              icon={<UsersIcon className="text-brand h-5 w-5" />}
+              title="Followers you know"
+              icon={<UsersIcon className="text-brand-500 h-5 w-5" />}
               show={showMutualFollowersModal}
               onClose={() => setShowMutualFollowersModal(false)}
             >
-              <MutualFollowersList profileId={profile.id} />
+              <MutualFollowersList profile={profile} />
             </Modal>
           </>
         ) : null}
         <div className="divider w-full" />
         <div className="space-y-2">
-          <MetaDetails
-            icon={<HashtagIcon className="h-4 w-4" />}
-            dataTestId="profile-meta-id"
-          >
+          {staffMode ? (
+            <MetaDetails
+              icon={<ShieldCheckIcon className="h-4 w-4 text-yellow-600" />}
+            >
+              <Link
+                className="text-yellow-600"
+                href={getProfile(profile).staffLink}
+              >
+                Open in Staff Tools
+              </Link>
+            </MetaDetails>
+          ) : null}
+          <MetaDetails icon={<HashtagIcon className="h-4 w-4" />}>
             <Tooltip content={`#${profile.id}`}>
               <Link
                 href={urlcat(RARIBLE_URL, '/token/polygon/:address::id', {
@@ -262,15 +225,12 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               </Link>
             </Tooltip>
           </MetaDetails>
-          {getProfileAttribute(profile?.attributes, 'location') ? (
-            <MetaDetails
-              icon={<MapPinIcon className="h-4 w-4" />}
-              dataTestId="profile-meta-location"
-            >
-              {getProfileAttribute(profile?.attributes, 'location')}
+          {getProfileAttribute(profile?.metadata?.attributes, 'location') ? (
+            <MetaDetails icon={<MapPinIcon className="h-4 w-4" />}>
+              {getProfileAttribute(profile?.metadata?.attributes, 'location')}
             </MetaDetails>
           ) : null}
-          {profile?.onChainIdentity?.ens?.name ? (
+          {profile?.onchainIdentity?.ens?.name ? (
             <MetaDetails
               icon={
                 <img
@@ -281,31 +241,30 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                   alt="ENS Logo"
                 />
               }
-              dataTestId="profile-meta-ens"
             >
-              {profile?.onChainIdentity?.ens?.name}
+              {profile?.onchainIdentity?.ens?.name}
             </MetaDetails>
           ) : null}
-          {getProfileAttribute(profile?.attributes, 'website') ? (
+          {getProfileAttribute(profile?.metadata?.attributes, 'website') ? (
             <MetaDetails
               icon={
                 <img
-                  src={urlcat('https://www.google.com/s2/favicons', {
-                    domain: getProfileAttribute(profile?.attributes, 'website')
-                      ?.replace('https://', '')
-                      .replace('http://', '')
-                  })}
+                  src={getFavicon(
+                    getProfileAttribute(
+                      profile?.metadata?.attributes,
+                      'website'
+                    )
+                  )}
                   className="h-4 w-4 rounded-full"
                   height={16}
                   width={16}
                   alt="Website"
                 />
               }
-              dataTestId="profile-meta-website"
             >
               <Link
                 href={`https://${getProfileAttribute(
-                  profile?.attributes,
+                  profile?.metadata?.attributes,
                   'website'
                 )
                   ?.replace('https://', '')
@@ -313,13 +272,13 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                 target="_blank"
                 rel="noreferrer noopener me"
               >
-                {getProfileAttribute(profile?.attributes, 'website')
+                {getProfileAttribute(profile?.metadata?.attributes, 'website')
                   ?.replace('https://', '')
                   .replace('http://', '')}
               </Link>
             </MetaDetails>
           ) : null}
-          {getProfileAttribute(profile?.attributes, 'x') ? (
+          {getProfileAttribute(profile?.metadata?.attributes, 'x') ? (
             <MetaDetails
               icon={
                 <img
@@ -332,25 +291,27 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                   alt="X Logo"
                 />
               }
-              dataTestId="profile-meta-x"
             >
               <Link
                 href={urlcat('https://x.com/:username', {
                   username: getProfileAttribute(
-                    profile?.attributes,
+                    profile?.metadata?.attributes,
                     'x'
                   )?.replace('https://x.com/', '')
                 })}
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                {getProfileAttribute(profile?.attributes, 'x')?.replace(
-                  'https://x.com/',
-                  ''
-                )}
+                {getProfileAttribute(
+                  profile?.metadata?.attributes,
+                  'x'
+                )?.replace('https://x.com/', '')}
               </Link>
             </MetaDetails>
           ) : null}
+          <MetaDetails icon={<ClockIcon className="h-4 w-4" />}>
+            Joined {formatDate(profile.createdAt)}
+          </MetaDetails>
         </div>
       </div>
       {profile.invitedBy ? (
@@ -360,7 +321,6 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
         </>
       ) : null}
       <Badges profile={profile} />
-      {isStaff && staffMode ? <ProfileStaffTool profile={profile} /> : null}
     </div>
   );
 };

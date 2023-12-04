@@ -12,11 +12,10 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@hey/lens": "workspace:*",
-    "@hey/supabase": "workspace:*"
+    "@hey/lens": "workspace:*"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "typescript": "^5.2.2"
+    "typescript": "^5.3.2"
   }
 }

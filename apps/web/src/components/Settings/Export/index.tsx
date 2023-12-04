@@ -4,9 +4,8 @@ import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
-import { useAppStore } from 'src/store/app';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
@@ -18,7 +17,7 @@ import Publications from './Publications';
 import Tokens from './Tokens';
 
 const ExportSettings: NextPage = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'export' });
@@ -30,7 +29,7 @@ const ExportSettings: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={t`Account settings • ${APP_NAME}`} />
+      <MetaTags title={`Account settings • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsSidebar />
       </GridItemFour>

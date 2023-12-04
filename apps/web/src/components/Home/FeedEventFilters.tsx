@@ -3,15 +3,14 @@ import { Menu } from '@headlessui/react';
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/outline';
 import { Checkbox, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { t } from '@lingui/macro';
 import type { ChangeEvent, FC } from 'react';
-import { useTimelinePersistStore } from 'src/store/timeline';
+import { useTimelineFilterStore } from 'src/store/persisted/useTimelineFilterStore';
 
 const FeedEventFilters: FC = () => {
-  const feedEventFilters = useTimelinePersistStore(
+  const feedEventFilters = useTimelineFilterStore(
     (state) => state.feedEventFilters
   );
-  const setFeedEventFilters = useTimelinePersistStore(
+  const setFeedEventFilters = useTimelineFilterStore(
     (state) => state.setFeedEventFilters
   );
 
@@ -24,9 +23,9 @@ const FeedEventFilters: FC = () => {
 
   return (
     <Menu as="div" className="relative">
-      <Menu.Button className="rounded-md p-1 hover:bg-gray-300/20">
-        <Tooltip placement="top" content={t`Filter`}>
-          <AdjustmentsVerticalIcon className="text-brand h-5 w-5" />
+      <Menu.Button className="outline-brand-500 rounded-md p-1 hover:bg-gray-300/20">
+        <Tooltip placement="top" content="Filter">
+          <AdjustmentsVerticalIcon className="text-brand-500 h-5 w-5" />
         </Tooltip>
       </Menu.Button>
       <MenuTransition>
@@ -47,7 +46,7 @@ const FeedEventFilters: FC = () => {
               onChange={handleChange}
               checked={feedEventFilters.posts}
               name="posts"
-              label={t`Show Posts`}
+              label="Show Posts"
             />
           </Menu.Item>
           <Menu.Item
@@ -63,7 +62,7 @@ const FeedEventFilters: FC = () => {
               onChange={handleChange}
               checked={feedEventFilters.mirrors}
               name="mirrors"
-              label={t`Show Mirrors`}
+              label="Show Mirrors"
             />
           </Menu.Item>
           <Menu.Item
@@ -79,7 +78,7 @@ const FeedEventFilters: FC = () => {
               onChange={handleChange}
               checked={feedEventFilters.likes}
               name="likes"
-              label={t`Show Likes`}
+              label="Show Likes"
             />
           </Menu.Item>
         </Menu.Items>

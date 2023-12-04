@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import type { FC, ReactNode } from 'react';
+import { type FC, type ReactNode } from 'react';
 
 import cn from '../cn';
 
@@ -43,10 +43,9 @@ const TabButton: FC<TabButtonProps> = ({
             active
         },
         'flex items-center space-x-2 rounded-lg px-4 py-2 text-sm font-medium text-gray-500 sm:px-3 sm:py-1.5',
-        'hover:bg-brand-100/80 hover:text-brand-400 dark:hover:bg-brand-300/30 justify-center',
+        'hover:bg-brand-100/80 hover:text-brand-400 dark:hover:bg-brand-300/30 outline-brand-500 justify-center',
         className
       )}
-      data-testid={`tab-button-${name.toLowerCase()}`}
       aria-label={name}
     >
       {icon}

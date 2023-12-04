@@ -1,0 +1,95 @@
+fragment OpenActionModulesFields on OpenActionModule {
+  ... on SimpleCollectOpenActionSettings {
+    type
+    contract {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+    }
+    collectLimit
+    followerOnly
+    recipient
+    referralFee
+    endsAt
+  }
+  ... on MultirecipientFeeCollectOpenActionSettings {
+    type
+    contract {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+    }
+    collectLimit
+    referralFee
+    followerOnly
+    endsAt
+    recipients {
+      recipient
+      split
+    }
+  }
+  ... on LegacyFreeCollectModuleSettings {
+    type
+  }
+  ... on LegacyFeeCollectModuleSettings {
+    type
+  }
+  ... on LegacyLimitedFeeCollectModuleSettings {
+    type
+  }
+  ... on LegacyLimitedTimedFeeCollectModuleSettings {
+    type
+  }
+  ... on LegacyRevertCollectModuleSettings {
+    type
+  }
+  ... on LegacyTimedFeeCollectModuleSettings {
+    type
+  }
+  ... on LegacyMultirecipientFeeCollectModuleSettings {
+    type
+    contract {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+    }
+    collectLimit
+    referralFee
+    followerOnly
+    endsAt
+    recipients {
+      recipient
+      split
+    }
+  }
+  ... on LegacySimpleCollectModuleSettings {
+    type
+    contract {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+    }
+    collectLimit
+    followerOnly
+    recipient
+    referralFee
+    endsAt
+  }
+  ... on LegacyERC4626FeeCollectModuleSettings {
+    type
+  }
+  ... on LegacyAaveFeeCollectModuleSettings {
+    type
+  }
+  ... on UnknownOpenActionModuleSettings {
+    type
+    contract {
+      ...NetworkAddressFields
+    }
+    openActionModuleReturnData
+  }
+}

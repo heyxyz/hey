@@ -1,4 +1,3 @@
-import { i18n } from '@lingui/core';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import utc from 'dayjs/plugin/utc';
@@ -18,28 +17,6 @@ export const formatDate = (date?: Date, format = 'MMMM D, YYYY') => {
 };
 
 /**
- * Checks if a date is on the same day as another date.
- * @param date1 The first date to compare.
- * @param date2 The second date to compare.
- * @returns True if the dates are on the same day, false otherwise.
- */
-export const isOnSameDay = (date1?: Date, date2?: Date): boolean => {
-  return dayjs(date1).format('YYYYMMDD') === dayjs(date2).format('YYYYMMDD');
-};
-
-/**
- * Formats a date using the 'medium' date and time styles of the current locale.
- *
- * @param date The date to format.
- * @returns The formatted date and time.
- */
-export const formatTime = (date: Date | undefined): string => {
-  return date
-    ? i18n.date(date, { dateStyle: 'medium', timeStyle: 'medium' })
-    : '';
-};
-
-/**
  * Gets the time resulting from adding a specified number of days to the current date and time, in UTC format.
  *
  * @param day The number of days to add.
@@ -50,33 +27,14 @@ export const getTimeAddedNDay = (day: number) => {
 };
 
 /**
- * Gets the Unix timestamp resulting from adding a specified number of days to the current date and time.
- *
- * @param day The number of days to add.
- * @returns The resulting Unix timestamp.
+ * Gets the number of days between the current date and time and a specified date and time.
+ * @param date The to date to calculate the number of days.
+ * @returns The number of days between the current date and time and the specified date and time.
  */
-export const getTimeAddedNDayUnix = (day: number) => {
-  return dayjs().add(day, 'day').unix();
-};
-
-/**
- * Gets the Unix timestamp resulting from subtracting a specified number of days from the current date and time.
- *
- * @param day The number of days to subtract.
- * @returns The resulting Unix timestamp.
- */
-export const getTimeMinusNDayUnix = (day: number) => {
-  return dayjs().subtract(day, 'day').unix();
-};
-
-/**
- * Formats a date as a string representing the elapsed time between the date and the current time.
- *
- * @param date The date to format.
- * @returns A string representing the elapsed time between the date and the current time.
- */
-export const getTimeFromNow = (date: Date) => {
-  return dayjs(new Date(date)).fromNow();
+export const getNumberOfDaysFromDate = (date: Date) => {
+  const currentDate = dayjs().startOf('day');
+  const targetDate = dayjs(date).startOf('day');
+  return targetDate.diff(currentDate, 'day');
 };
 
 /**

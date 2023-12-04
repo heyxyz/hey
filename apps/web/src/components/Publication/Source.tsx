@@ -1,29 +1,33 @@
 import { apps } from '@hey/data/apps';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import type { Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import getAppName from '@hey/lib/getAppName';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Tooltip } from '@hey/ui';
-import type { FC } from 'react';
+import { type FC } from 'react';
 
 interface SourceProps {
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const Source: FC<SourceProps> = ({ publication }) => {
-  const { appId } = publication;
-  const show = apps.includes(appId);
+  const targetPublication = isMirrorPublication(publication)
+    ? publication.mirrorOn
+    : publication;
+  const { publishedOn } = targetPublication;
+  const show = apps.includes(publishedOn?.id);
 
   if (!show) {
     return null;
   }
 
-  const appName = getAppName(appId);
+  const appName = getAppName(publishedOn?.id);
 
   return (
     <Tooltip content={appName} placement="top">
       <img
-        className="h-4 w-4 rounded-full"
-        src={`${STATIC_IMAGES_URL}/source/${appId}.jpeg`}
+        className="w-4"
+        src={`${STATIC_IMAGES_URL}/source/${publishedOn?.id}.jpeg`}
         alt={appName}
       />
     </Tooltip>

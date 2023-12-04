@@ -1,9 +1,7 @@
 enum LensEndpoint {
-  Mainnet = 'https://api.lens.dev',
-  Testnet = 'https://api-mumbai.lens.dev',
-  Sandbox = 'https://api-sandbox-mumbai.lens.dev',
-  Staging = 'https://staging-api-social-mumbai.lens.crtlkey.com',
-  StagingSandbox = 'https://staging-api-social-mumbai.sandbox.crtlkey.com'
+  Mainnet = 'https://api-v2.lens.dev',
+  Testnet = 'https://api-v2-mumbai-live.lens.dev',
+  Staging = 'https://api-mumbai.lens-v2.crtlkey.com'
 }
 
 export default LensEndpoint;

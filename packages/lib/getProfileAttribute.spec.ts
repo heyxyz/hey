@@ -1,16 +1,22 @@
-import type { Attribute } from '@hey/lens';
+import { type MetadataAttribute, MetadataAttributeType } from '@hey/lens';
 import { describe, expect, test } from 'vitest';
 
 import getProfileAttribute from './getProfileAttribute';
 
 describe('getProfileAttribute', () => {
   test('should return the attribute value from a trait if key is valid', () => {
-    const attributes: Attribute[] = [
-      { key: 'x', value: '@myx' },
-      { key: 'location', value: 'New York' },
-      { key: 'website', value: 'https://www.example.com' },
-      { key: 'statusEmoji', value: '👋' },
-      { key: 'statusMessage', value: 'Hello World!' }
+    const attributes: MetadataAttribute[] = [
+      { key: 'x', value: '@myx', type: MetadataAttributeType.String },
+      {
+        key: 'location',
+        value: 'New York',
+        type: MetadataAttributeType.String
+      },
+      {
+        key: 'website',
+        value: 'https://www.example.com',
+        type: MetadataAttributeType.String
+      }
     ];
     expect(getProfileAttribute(attributes, 'location')).toEqual('New York');
   });

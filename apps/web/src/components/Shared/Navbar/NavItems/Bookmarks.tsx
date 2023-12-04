@@ -1,8 +1,7 @@
 import { BookmarkIcon } from '@heroicons/react/24/outline';
 import cn from '@hey/ui/cn';
-import { Trans } from '@lingui/macro';
 import Link from 'next/link';
-import type { FC } from 'react';
+import { type FC } from 'react';
 
 interface BookmarksProps {
   onClick?: () => void;
@@ -20,9 +19,7 @@ const Bookmarks: FC<BookmarksProps> = ({ onClick, className = '' }) => {
       onClick={onClick}
     >
       <BookmarkIcon className="h-4 w-4" />
-      <div>
-        <Trans>Bookmarks</Trans>
-      </div>
+      <div>Bookmarks</div>
     </Link>
   );
 };

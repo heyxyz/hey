@@ -1,18 +1,27 @@
-import { ApolloClient, from } from '@apollo/client';
+import type { ApolloLink } from '@apollo/client';
+import { ApolloClient, from, split } from '@apollo/client';
 
-import authLink from './authLink';
 import cache from './cache';
 import httpLink from './httpLink';
 import retryLink from './retryLink';
+import wsLink from './wsLink';
 
-const lensApolloWebClient = new ApolloClient({
-  link: from([authLink, retryLink, httpLink]),
-  cache
-});
+const requestLink = split(
+  ({ query }) => {
+    const { kind, operation } = query.definitions[0] as any;
+    return kind === 'OperationDefinition' && operation === 'subscription';
+  },
+  wsLink,
+  httpLink
+);
 
-const lensApolloNodeClient = new ApolloClient({
-  link: from([retryLink, httpLink]),
-  cache
-});
+const apolloClient = (authLink?: ApolloLink) =>
+  new ApolloClient({
+    connectToDevTools: true,
+    link: authLink
+      ? from([authLink, retryLink, requestLink])
+      : from([retryLink, httpLink]),
+    cache
+  });
 
-export { lensApolloNodeClient, lensApolloWebClient };
+export default apolloClient;

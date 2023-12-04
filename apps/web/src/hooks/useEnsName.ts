@@ -1,4 +1,4 @@
-import { resolveEns } from '@lib/resolveEns';
+import { resolveEns } from '@hey/lib/resolveEns';
 import { useQuery } from '@tanstack/react-query';
 
 interface UseEnsNameProps {
@@ -14,17 +14,17 @@ const useEnsName = ({
   loading: boolean;
   error: unknown;
 } => {
-  const loadEnsDetails = async () => {
+  const getEnsDetails = async () => {
     const { data } = await resolveEns([address]);
 
     return data[0].length ? data[0] : address;
   };
 
-  const { data, isLoading, error } = useQuery(
-    ['ensName', address],
-    () => loadEnsDetails().then((res) => res),
-    { enabled }
-  );
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['ensName', address],
+    queryFn: getEnsDetails,
+    enabled
+  });
 
   return { ens: data, loading: isLoading, error };
 };

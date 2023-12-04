@@ -3,9 +3,8 @@ import {
   HandRaisedIcon
 } from '@heroicons/react/24/outline';
 import cn from '@hey/ui/cn';
-import { Trans } from '@lingui/macro';
 import Link from 'next/link';
-import type { FC } from 'react';
+import { type FC } from 'react';
 import urlcat from 'urlcat';
 
 interface ReportBugProps {
@@ -30,9 +29,7 @@ const ReportBug: FC<ReportBugProps> = ({ onClick, className = '' }) => {
     >
       <div className="flex items-center space-x-1.5">
         <HandRaisedIcon className="h-4 w-4" />
-        <div>
-          <Trans>Report a bug</Trans>
-        </div>
+        <div>Report a bug</div>
       </div>
       <ArrowTopRightOnSquareIcon className="h-4 w-4 md:hidden" />
     </Link>

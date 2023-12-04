@@ -1,100 +1,62 @@
 import QuotedPublication from '@components/Publication/QuotedPublication';
-import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
-import EmojiPicker from '@components/Shared/EmojiPicker';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
+import NewAttachments from '@components/Shared/NewAttachments';
 import {
   ChatBubbleLeftRightIcon,
   PencilSquareIcon
 } from '@heroicons/react/24/outline';
-import { LensHub } from '@hey/abis';
-import {
-  ALLOWED_AUDIO_TYPES,
-  ALLOWED_IMAGE_TYPES,
-  ALLOWED_VIDEO_TYPES,
-  APP_NAME,
-  LENSHUB_PROXY,
-  LIT_PROTOCOL_ENVIRONMENT
-} from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import { PUBLICATION } from '@hey/data/tracking';
 import type {
-  CreatePublicCommentRequest,
-  MetadataAttributeInput,
-  Publication,
-  PublicationMetadataMediaInput,
-  PublicationMetadataV2Input
+  AnyPublication,
+  MomokaCommentRequest,
+  MomokaPostRequest,
+  MomokaQuoteRequest,
+  OnchainCommentRequest,
+  OnchainPostRequest,
+  OnchainQuoteRequest,
+  Quote
 } from '@hey/lens';
-import {
-  CollectModules,
-  PublicationDocument,
-  PublicationMainFocus,
-  PublicationMetadataDisplayTypes,
-  ReferenceModules,
-  useBroadcastDataAvailabilityMutation,
-  useBroadcastMutation,
-  useCreateCommentTypedDataMutation,
-  useCreateCommentViaDispatcherMutation,
-  useCreateDataAvailabilityCommentTypedDataMutation,
-  useCreateDataAvailabilityCommentViaDispatcherMutation,
-  useCreateDataAvailabilityPostTypedDataMutation,
-  useCreateDataAvailabilityPostViaDispatcherMutation,
-  useCreatePostTypedDataMutation,
-  useCreatePostViaDispatcherMutation,
-  usePublicationLazyQuery
-} from '@hey/lens';
-import { useApolloClient } from '@hey/lens/apollo';
-import getSignature from '@hey/lib/getSignature';
+import { ReferenceModuleType } from '@hey/lens';
+import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
+import collectModuleParams from '@hey/lib/collectModuleParams';
+import getProfile from '@hey/lib/getProfile';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
+import removeQuoteOn from '@hey/lib/removeQuoteOn';
 import type { IGif } from '@hey/types/giphy';
 import type { NewAttachment } from '@hey/types/misc';
 import { Button, Card, ErrorMessage, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import type {
-  CollectCondition,
-  EncryptedMetadata,
-  FollowCondition,
-  LensEnvironment
-} from '@lens-protocol/sdk-gated';
-import { LensGatedSDK } from '@lens-protocol/sdk-gated';
-import type {
-  AccessConditionOutput,
-  CreatePublicPostRequest
-} from '@lens-protocol/sdk-gated/dist/graphql/types';
+import { MetadataAttributeType } from '@lens-protocol/metadata';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import collectModuleParams from '@lib/collectModuleParams';
 import errorToast from '@lib/errorToast';
 import getTextNftUrl from '@lib/getTextNftUrl';
-import getUserLocale from '@lib/getUserLocale';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
-import { t } from '@lingui/macro';
 import { useUnmountEffect } from 'framer-motion';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { OptmisticPublicationType } from 'src/enums';
 import useCreatePoll from 'src/hooks/useCreatePoll';
-import useEthersWalletClient from 'src/hooks/useEthersWalletClient';
+import useCreatePublication from 'src/hooks/useCreatePublication';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useAccessSettingsStore } from 'src/store/access-settings';
-import { useAppStore } from 'src/store/app';
-import { useCollectModuleStore } from 'src/store/collect-module';
-import { useGlobalModalStateStore } from 'src/store/modals';
-import { useNonceStore } from 'src/store/nonce';
-import { usePreferencesStore } from 'src/store/preferences';
-import { usePublicationStore } from 'src/store/publication';
-import { useReferenceModuleStore } from 'src/store/reference-module';
-import { useTransactionPersistStore } from 'src/store/transaction';
-import urlcat from 'urlcat';
+import usePublicationMetadata from 'src/hooks/usePublicationMetadata';
+import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
+import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
-import { v4 as uuid } from 'uuid';
-import { useContractWrite, usePublicClient, useSignTypedData } from 'wagmi';
 
+import LivestreamSettings from './Actions/LivestreamSettings';
 import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
@@ -106,6 +68,9 @@ const Attachment = dynamic(
     loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
   }
 );
+const EmojiPicker = dynamic(() => import('@components/Shared/EmojiPicker'), {
+  loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+});
 const Gif = dynamic(() => import('@components/Composer/Actions/Gif'), {
   loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
 });
@@ -121,34 +86,24 @@ const ReferenceSettings = dynamic(
     loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
   }
 );
-const AccessSettings = dynamic(
-  () => import('@components/Composer/Actions/AccessSettings'),
-  {
-    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
-  }
-);
 const PollSettings = dynamic(
   () => import('@components/Composer/Actions/PollSettings'),
   {
     loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
   }
 );
-const LivestreamSettings = dynamic(
-  () => import('@components/Composer/Actions/LivestreamSettings'),
-  {
-    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
-  }
-);
 
 interface NewPublicationProps {
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
-  const { push } = useRouter();
-  const { cache } = useApolloClient();
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
+
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
 
   // Modal store
   const setShowNewPostModal = useGlobalModalStateStore(
@@ -158,85 +113,106 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     (state) => state.setShowDiscardModal
   );
 
-  // Preferences store
-  const isStaff = usePreferencesStore((state) => state.isStaff);
-
   // Nonce store
-  const { userSigNonce, setUserSigNonce } = useNonceStore();
+  const lensHubOnchainSigNonce = useNonceStore(
+    (state) => state.lensHubOnchainSigNonce
+  );
 
   // Publication store
-  const {
-    publicationContent,
-    setPublicationContent,
-    quotedPublication,
-    setQuotedPublication,
-    audioPublication,
-    attachments,
-    setAttachments,
-    addAttachments,
-    isUploading,
-    videoThumbnail,
-    setVideoThumbnail,
-    videoDurationInSeconds,
-    showPollEditor,
-    setShowPollEditor,
-    resetPollConfig,
-    pollConfig,
-    showLiveVideoEditor,
-    setShowLiveVideoEditor,
-    resetLiveVideoConfig,
-    liveVideoConfig
-  } = usePublicationStore();
-
-  // Transaction persist store
-  const { txnQueue, setTxnQueue } = useTransactionPersistStore(
-    (state) => state
+  const publicationContent = usePublicationStore(
+    (state) => state.publicationContent
+  );
+  const setPublicationContent = usePublicationStore(
+    (state) => state.setPublicationContent
+  );
+  const quotedPublication = usePublicationStore(
+    (state) => state.quotedPublication
+  );
+  const setQuotedPublication = usePublicationStore(
+    (state) => state.setQuotedPublication
+  );
+  const audioPublication = usePublicationStore(
+    (state) => state.audioPublication
+  );
+  const attachments = usePublicationStore((state) => state.attachments);
+  const setAttachments = usePublicationStore((state) => state.setAttachments);
+  const addAttachments = usePublicationStore((state) => state.addAttachments);
+  const isUploading = usePublicationStore((state) => state.isUploading);
+  const videoThumbnail = usePublicationStore((state) => state.videoThumbnail);
+  const setVideoThumbnail = usePublicationStore(
+    (state) => state.setVideoThumbnail
+  );
+  const showPollEditor = usePublicationStore((state) => state.showPollEditor);
+  const setShowPollEditor = usePublicationStore(
+    (state) => state.setShowPollEditor
+  );
+  const resetPollConfig = usePublicationStore((state) => state.resetPollConfig);
+  const pollConfig = usePublicationStore((state) => state.pollConfig);
+  const showLiveVideoEditor = usePublicationStore(
+    (state) => state.showLiveVideoEditor
+  );
+  const setShowLiveVideoEditor = usePublicationStore(
+    (state) => state.setShowLiveVideoEditor
+  );
+  const resetLiveVideoConfig = usePublicationStore(
+    (state) => state.resetLiveVideoConfig
   );
 
   // Collect module store
-  const { collectModule, reset: resetCollectSettings } = useCollectModuleStore(
-    (state) => state
-  );
+  const collectModule = useCollectModuleStore((state) => state.collectModule);
+  const resetCollectSettings = useCollectModuleStore((state) => state.reset);
 
   // Reference module store
-  const { selectedReferenceModule, onlyFollowers, degreesOfSeparation } =
-    useReferenceModuleStore();
-
-  // Access module store
-  const {
-    restricted,
-    followToView,
-    collectToView,
-    reset: resetAccessSettings
-  } = useAccessSettingsStore();
+  const selectedReferenceModule = useReferenceModuleStore(
+    (state) => state.selectedReferenceModule
+  );
+  const onlyFollowers = useReferenceModuleStore((state) => state.onlyFollowers);
+  const degreesOfSeparation = useReferenceModuleStore(
+    (state) => state.degreesOfSeparation
+  );
 
   // States
   const [isLoading, setIsLoading] = useState(false);
   const [publicationContentError, setPublicationContentError] = useState('');
 
   const [editor] = useLexicalComposerContext();
-  const publicClient = usePublicClient();
-  const { data: walletClient } = useEthersWalletClient();
-  const [createPoll] = useCreatePoll();
+  const createPoll = useCreatePoll();
+  const getMetadata = usePublicationMetadata();
   const handleWrongNetwork = useHandleWrongNetwork();
 
+  const { isSponsored, canUseLensManager } =
+    checkDispatcherPermissions(currentProfile);
+
   const isComment = Boolean(publication);
-  const hasAudio = ALLOWED_AUDIO_TYPES.includes(
-    attachments[0]?.original.mimeType
-  );
-  const hasVideo = ALLOWED_VIDEO_TYPES.includes(
-    attachments[0]?.original.mimeType
-  );
-  const hasLiveVideo =
-    showLiveVideoEditor && liveVideoConfig.playbackId.length > 0;
+  const isQuote = Boolean(quotedPublication);
+  const hasAudio = attachments[0]?.type === 'Audio';
+  const hasVideo = attachments[0]?.type === 'Video';
 
-  // Dispatcher
-  const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
-  const isSponsored = currentProfile?.dispatcher?.sponsor;
+  const noCollect = !collectModule.type;
+  // Use Momoka if the profile the comment or quote has momoka proof and also check collect module has been disabled
+  const useMomoka = isComment
+    ? publication.momoka?.proof
+    : isQuote
+      ? quotedPublication?.momoka?.proof
+      : noCollect;
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
-    if (__typename === 'RelayError') {
-      return;
+  const onError = (error?: any) => {
+    setIsLoading(false);
+    errorToast(error);
+  };
+
+  const onCompleted = (
+    __typename?:
+      | 'RelayError'
+      | 'RelaySuccess'
+      | 'CreateMomokaPublicationResult'
+      | 'LensProfileManagerRelayError'
+  ) => {
+    if (
+      __typename === 'RelayError' ||
+      __typename === 'LensProfileManagerRelayError'
+    ) {
+      return onError();
     }
 
     setIsLoading(false);
@@ -256,7 +232,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       uploading: false
     });
     resetCollectSettings();
-    resetAccessSettings();
 
     if (!isComment) {
       setShowNewPostModal(false);
@@ -264,31 +239,51 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
     // Track in leafwatch
     const eventProperties = {
-      publication_type: restricted ? 'token_gated' : 'public',
+      // TODO: add encrypted type in future
+      publication_type: 'public',
       publication_collect_module: collectModule.type,
       publication_reference_module: selectedReferenceModule,
       publication_reference_module_degrees_of_separation:
         selectedReferenceModule ===
-        ReferenceModules.DegreesOfSeparationReferenceModule
+        ReferenceModuleType.DegreesOfSeparationReferenceModule
           ? degreesOfSeparation
           : null,
       publication_has_attachments: attachments.length > 0,
-      publication_attachment_types:
-        attachments.length > 0
-          ? attachments.map((attachment) => attachment.original.mimeType)
-          : null,
-      publication_has_poll: showPollEditor
+      publication_has_poll: showPollEditor,
+      publication_is_live: showLiveVideoEditor,
+      comment_on: isComment ? targetPublication.id : null,
+      quote_on: isQuote ? quotedPublication?.id : null
     };
     Leafwatch.track(
-      isComment ? PUBLICATION.NEW_COMMENT : PUBLICATION.NEW_POST,
+      isComment
+        ? PUBLICATION.NEW_COMMENT
+        : isQuote
+          ? PUBLICATION.NEW_QUOTE
+          : PUBLICATION.NEW_POST,
       eventProperties
     );
   };
 
-  const onError = (error: any) => {
-    setIsLoading(false);
-    errorToast(error);
-  };
+  const {
+    createCommentOnMomka,
+    createQuoteOnMomka,
+    createPostOnMomka,
+    createCommentOnChain,
+    createQuoteOnChain,
+    createPostOnChain,
+    createMomokaCommentTypedData,
+    createMomokaQuoteTypedData,
+    createMomokaPostTypedData,
+    createOnchainCommentTypedData,
+    createOnchainQuoteTypedData,
+    createOnchainPostTypedData,
+    error
+  } = useCreatePublication({
+    onCompleted,
+    onError,
+    commentOn: targetPublication,
+    quoteOn: quotedPublication!
+  });
 
   useUpdateEffect(() => {
     setPublicationContentError('');
@@ -300,313 +295,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     });
   });
 
-  const generateOptimisticPublication = ({
-    txHash,
-    txId
-  }: {
-    txHash?: string;
-    txId?: string;
-  }) => {
-    return {
-      id: uuid(),
-      ...(isComment && { parent: publication.id }),
-      type: isComment
-        ? OptmisticPublicationType.NewComment
-        : OptmisticPublicationType.NewPost,
-      txHash,
-      txId,
-      content: publicationContent,
-      attachments,
-      title: audioPublication.title,
-      cover: audioPublication.cover,
-      author: audioPublication.author
-    };
-  };
-
-  const { signTypedDataAsync } = useSignTypedData({
-    onError
-  });
-
-  const { error, write } = useContractWrite({
-    address: LENSHUB_PROXY,
-    abi: LensHub,
-    functionName: isComment ? 'comment' : 'post',
-    onSuccess: ({ hash }) => {
-      onCompleted();
-      setUserSigNonce(userSigNonce + 1);
-      setTxnQueue([
-        generateOptimisticPublication({ txHash: hash }),
-        ...txnQueue
-      ]);
-    },
-    onError: (error) => {
-      onError(error);
-      setUserSigNonce(userSigNonce - 1);
-    }
-  });
-
-  const [broadcastDataAvailability] = useBroadcastDataAvailabilityMutation({
-    onCompleted: (data) => {
-      onCompleted();
-      if (data?.broadcastDataAvailability.__typename === 'RelayError') {
-        return toast.error(Errors.SomethingWentWrong);
-      }
-
-      if (
-        data?.broadcastDataAvailability.__typename ===
-        'CreateDataAvailabilityPublicationResult'
-      ) {
-        push(`/posts/${data?.broadcastDataAvailability.id}`);
-      }
-    },
-    onError
-  });
-
-  const [broadcast] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => {
-      onCompleted(broadcast.__typename);
-      if (broadcast.__typename === 'RelayerResult') {
-        setTxnQueue([
-          generateOptimisticPublication({ txId: broadcast.txId }),
-          ...txnQueue
-        ]);
-      }
-    }
-  });
-
-  const [getPublication] = usePublicationLazyQuery({
-    onCompleted: (data) => {
-      if (data?.publication) {
-        cache.modify({
-          fields: {
-            publications: () => {
-              cache.writeQuery({
-                data: { publication: data?.publication },
-                query: PublicationDocument
-              });
-            }
-          }
-        });
-      }
-    }
-  });
-
-  const typedDataGenerator = async (
-    generatedData: any,
-    isDataAvailabilityPublication = false
-  ) => {
-    const { id, typedData } = generatedData;
-    const signature = await signTypedDataAsync(getSignature(typedData));
-    if (isDataAvailabilityPublication) {
-      return await broadcastDataAvailability({
-        variables: { request: { id, signature } }
-      });
-    }
-
-    const { data } = await broadcast({
-      variables: { request: { id, signature } }
-    });
-    if (data?.broadcast.__typename === 'RelayError') {
-      return write({ args: [typedData.value] });
-    }
-  };
-
-  // Normal typed data generation
-  const [createCommentTypedData] = useCreateCommentTypedDataMutation({
-    onCompleted: async ({ createCommentTypedData }) =>
-      await typedDataGenerator(createCommentTypedData),
-    onError
-  });
-
-  const [createPostTypedData] = useCreatePostTypedDataMutation({
-    onCompleted: async ({ createPostTypedData }) =>
-      await typedDataGenerator(createPostTypedData),
-    onError
-  });
-
-  // Data availability typed data generation
-  const [createDataAvailabilityPostTypedData] =
-    useCreateDataAvailabilityPostTypedDataMutation({
-      onCompleted: async ({ createDataAvailabilityPostTypedData }) =>
-        await typedDataGenerator(createDataAvailabilityPostTypedData, true)
-    });
-
-  const [createDataAvailabilityCommentTypedData] =
-    useCreateDataAvailabilityCommentTypedDataMutation({
-      onCompleted: async ({ createDataAvailabilityCommentTypedData }) =>
-        await typedDataGenerator(createDataAvailabilityCommentTypedData, true)
-    });
-
-  const [createCommentViaDispatcher] = useCreateCommentViaDispatcherMutation({
-    onCompleted: ({ createCommentViaDispatcher }) => {
-      onCompleted(createCommentViaDispatcher.__typename);
-      if (createCommentViaDispatcher.__typename === 'RelayerResult') {
-        setTxnQueue([
-          generateOptimisticPublication({
-            txId: createCommentViaDispatcher.txId
-          }),
-          ...txnQueue
-        ]);
-      }
-    },
-    onError
-  });
-
-  const [createPostViaDispatcher] = useCreatePostViaDispatcherMutation({
-    onCompleted: ({ createPostViaDispatcher }) => {
-      onCompleted(createPostViaDispatcher.__typename);
-      if (createPostViaDispatcher.__typename === 'RelayerResult') {
-        setTxnQueue([
-          generateOptimisticPublication({ txId: createPostViaDispatcher.txId }),
-          ...txnQueue
-        ]);
-      }
-    },
-    onError
-  });
-
-  const [createDataAvailabilityPostViaDispatcher] =
-    useCreateDataAvailabilityPostViaDispatcherMutation({
-      onCompleted: (data) => {
-        if (
-          data?.createDataAvailabilityPostViaDispatcher?.__typename ===
-          'RelayError'
-        ) {
-          return;
-        }
-
-        if (
-          data.createDataAvailabilityPostViaDispatcher.__typename ===
-          'CreateDataAvailabilityPublicationResult'
-        ) {
-          onCompleted();
-          const { id } = data.createDataAvailabilityPostViaDispatcher;
-          push(`/posts/${id}`);
-        }
-      },
-      onError
-    });
-
-  const [createDataAvailabilityCommentViaDispatcher] =
-    useCreateDataAvailabilityCommentViaDispatcherMutation({
-      onCompleted: (data) => {
-        if (
-          data?.createDataAvailabilityCommentViaDispatcher?.__typename ===
-          'RelayError'
-        ) {
-          return;
-        }
-
-        if (
-          data.createDataAvailabilityCommentViaDispatcher.__typename ===
-          'CreateDataAvailabilityPublicationResult'
-        ) {
-          onCompleted();
-          const { id } = data.createDataAvailabilityCommentViaDispatcher;
-          getPublication({ variables: { request: { publicationId: id } } });
-        }
-      },
-      onError
-    });
-
-  const createViaDataAvailablityDispatcher = async (request: any) => {
-    const variables = { request };
-
-    if (isComment) {
-      const { data } = await createDataAvailabilityCommentViaDispatcher({
-        variables
-      });
-
-      if (
-        data?.createDataAvailabilityCommentViaDispatcher?.__typename ===
-        'RelayError'
-      ) {
-        await createDataAvailabilityCommentTypedData({ variables });
-      }
-
-      return;
-    }
-
-    const { data } = await createDataAvailabilityPostViaDispatcher({
-      variables
-    });
-
-    if (
-      data?.createDataAvailabilityPostViaDispatcher?.__typename === 'RelayError'
-    ) {
-      await createDataAvailabilityPostTypedData({ variables });
-    }
-
-    return;
-  };
-
-  const createViaDispatcher = async (request: any) => {
-    const variables = {
-      options: { overrideSigNonce: userSigNonce },
-      request
-    };
-
-    if (isComment) {
-      const { data } = await createCommentViaDispatcher({
-        variables: { request }
-      });
-      if (data?.createCommentViaDispatcher?.__typename === 'RelayError') {
-        return await createCommentTypedData({ variables });
-      }
-
-      return;
-    }
-
-    const { data } = await createPostViaDispatcher({ variables: { request } });
-    if (data?.createPostViaDispatcher?.__typename === 'RelayError') {
-      return await createPostTypedData({ variables });
-    }
-
-    return;
-  };
-
-  const getMainContentFocus = () => {
-    if (attachments.length > 0) {
-      if (hasAudio) {
-        return PublicationMainFocus.Audio;
-      } else if (
-        ALLOWED_IMAGE_TYPES.includes(attachments[0]?.original.mimeType)
-      ) {
-        return PublicationMainFocus.Image;
-      } else if (hasVideo) {
-        return PublicationMainFocus.Video;
-      } else {
-        return PublicationMainFocus.TextOnly;
-      }
-    } else {
-      if (hasLiveVideo) {
-        return PublicationMainFocus.Video;
-      }
-
-      return PublicationMainFocus.TextOnly;
-    }
-  };
-
   const getAnimationUrl = () => {
-    if (attachments.length > 0 && (hasAudio || hasVideo)) {
-      return attachments[0]?.original.url;
+    if (attachments.length > 0 || hasAudio || hasVideo) {
+      return attachments[0]?.uri;
     }
 
     return null;
-  };
-
-  const getAttachmentImage = () => {
-    return hasAudio
-      ? audioPublication.cover
-      : hasVideo
-      ? videoThumbnail.url
-      : attachments[0]?.original.url;
-  };
-
-  const getAttachmentImageMimeType = () => {
-    return hasAudio
-      ? audioPublication.coverMimeType
-      : attachments[0]?.original.mimeType;
   };
 
   const getTitlePrefix = () => {
@@ -614,63 +308,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       return 'Video';
     }
 
-    return isComment ? 'Comment' : 'Post';
-  };
-
-  const createTokenGatedMetadata = async (
-    metadata: PublicationMetadataV2Input
-  ) => {
-    // Create the SDK instance
-    const tokenGatedSdk = await LensGatedSDK.create({
-      provider: publicClient as any,
-      signer: walletClient as any,
-      env: LIT_PROTOCOL_ENVIRONMENT as LensEnvironment
-    });
-
-    // Connect to the SDK
-    await tokenGatedSdk.connect({
-      address: currentProfile?.ownedBy,
-      env: LIT_PROTOCOL_ENVIRONMENT as LensEnvironment
-    });
-
-    // Condition for gating the content
-    const collectAccessCondition: CollectCondition = { thisPublication: true };
-    const followAccessCondition: FollowCondition = {
-      profileId: currentProfile?.id
-    };
-
-    // Create the access condition
-    let accessCondition: AccessConditionOutput = {};
-    if (collectToView && followToView) {
-      accessCondition = {
-        and: {
-          criteria: [
-            { collect: collectAccessCondition },
-            { follow: followAccessCondition }
-          ]
-        }
-      };
-    } else if (collectToView) {
-      accessCondition = { collect: collectAccessCondition };
-    } else if (followToView) {
-      accessCondition = { follow: followAccessCondition };
-    }
-
-    // Generate the encrypted metadata and upload it to Arweave
-    const { contentURI } = await tokenGatedSdk.gated.encryptMetadata(
-      metadata,
-      currentProfile?.id,
-      accessCondition,
-      async (data: EncryptedMetadata) => {
-        return await uploadToArweave(data);
-      }
-    );
-
-    return contentURI;
-  };
-
-  const createMetadata = async (metadata: PublicationMetadataV2Input) => {
-    return await uploadToArweave(metadata);
+    return isComment ? 'Comment' : isQuote ? 'Quote' : 'Post';
   };
 
   const createPublication = async () => {
@@ -682,9 +320,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       return;
     }
 
-    if (isComment && publication.isDataAvailability && !isSponsored) {
+    if (isComment && publication.momoka?.proof && !isSponsored) {
       return toast.error(
-        t`Momoka is currently in beta - during this time certain actions are not available to all profiles.`
+        'Momoka is currently in beta - during this time certain actions are not available to all profiles.'
       );
     }
 
@@ -701,190 +339,177 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
       if (publicationContent.length === 0 && attachments.length === 0) {
         return setPublicationContentError(
-          `${isComment ? 'Comment' : 'Post'} should not be empty!`
+          `${
+            isComment ? 'Comment' : isQuote ? 'Quote' : 'Post'
+          } should not be empty!`
         );
       }
 
       setPublicationContentError('');
-      let textNftImageUrl = null;
-      if (
-        !attachments.length &&
-        collectModule.type !== CollectModules.RevertCollectModule
-      ) {
+      let textNftImageUrl;
+      if (!attachments.length && !useMomoka) {
         textNftImageUrl = await getTextNftUrl(
           publicationContent,
-          currentProfile.handle,
+          getProfile(currentProfile).slug,
           new Date().toLocaleString()
         );
       }
 
-      const attributes: MetadataAttributeInput[] = [
-        ...(hasLiveVideo
-          ? [
-              {
-                traitType: 'isLive',
-                displayType: PublicationMetadataDisplayTypes.String,
-                value: 'true'
-              },
-              {
-                traitType: 'liveId',
-                displayType: PublicationMetadataDisplayTypes.String,
-                value: liveVideoConfig.id
-              },
-              {
-                traitType: 'livePlaybackId',
-                displayType: PublicationMetadataDisplayTypes.String,
-                value: liveVideoConfig.playbackId
-              }
-            ]
-          : []),
-        ...(quotedPublication
-          ? [
-              {
-                traitType: 'quotedPublicationId',
-                displayType: PublicationMetadataDisplayTypes.String,
-                value: quotedPublication.id
-              }
-            ]
-          : []),
-        ...(hasAudio
-          ? [
-              {
-                traitType: 'author',
-                displayType: PublicationMetadataDisplayTypes.String,
-                value: audioPublication.author
-              }
-            ]
-          : []),
-        ...(hasVideo
-          ? [
-              {
-                traitType: 'durationInSeconds',
-                displayType: PublicationMetadataDisplayTypes.String,
-                value: videoDurationInSeconds
-              }
-            ]
-          : [])
-      ];
-
-      const attachmentsInput: PublicationMetadataMediaInput[] = hasLiveVideo
-        ? [
-            {
-              item: `https://livepeercdn.studio/hls/${liveVideoConfig.playbackId}/index.m3u8`,
-              type: 'video/mp4'
-            }
-          ]
-        : attachments.map((attachment) => ({
-            item: attachment.original.url,
-            cover: getAttachmentImage(),
-            type: attachment.original.mimeType,
-            altTag: attachment.original.altTag
-          }));
-
-      let processedPublicationContent = publicationContent;
-
+      let pollId;
       if (showPollEditor) {
-        processedPublicationContent = await createPoll();
+        pollId = await createPoll();
       }
 
-      const metadata: PublicationMetadataV2Input = {
-        version: '2.0.0',
-        metadata_id: uuid(),
+      const processedPublicationContent =
+        publicationContent.length > 0 ? publicationContent : undefined;
+      const title = hasAudio
+        ? audioPublication.title
+        : `${getTitlePrefix()} by ${getProfile(currentProfile).slugWithPrefix}`;
+      const hasAttributes = Boolean(pollId);
+
+      const baseMetadata = {
+        title,
         content: processedPublicationContent,
-        external_url: urlcat('https://hey.xyz/:handle', {
-          handle: currentProfile.handle
+        ...(hasAttributes && {
+          attributes: [
+            ...(pollId
+              ? [
+                  {
+                    key: 'pollId',
+                    value: pollId,
+                    type: MetadataAttributeType.STRING
+                  }
+                ]
+              : [])
+          ]
         }),
-        image:
-          attachmentsInput.length > 0 ? getAttachmentImage() : textNftImageUrl,
-        imageMimeType:
-          attachmentsInput.length > 0
-            ? getAttachmentImageMimeType()
-            : textNftImageUrl
-            ? 'image/svg+xml'
-            : null,
-        name: hasAudio
-          ? audioPublication.title
-          : `${getTitlePrefix()} by @${currentProfile?.handle}`,
-        animation_url: getAnimationUrl(),
-        mainContentFocus: getMainContentFocus(),
-        attributes,
-        media: attachmentsInput,
-        locale: getUserLocale(),
-        appId: APP_NAME
+        marketplace: {
+          name: title,
+          description: processedPublicationContent,
+          animation_url: getAnimationUrl() || textNftImageUrl,
+          external_url: `https://hey.xyz${getProfile(currentProfile).link}`
+        }
       };
 
-      const isRevertCollectModule =
-        collectModule.type === CollectModules.RevertCollectModule;
-      const useDataAvailability =
-        !restricted &&
-        (isComment
-          ? publication.isDataAvailability && isRevertCollectModule
-          : isRevertCollectModule);
+      const metadata = getMetadata({ baseMetadata });
+      const arweaveId = await uploadToArweave(metadata);
 
-      let arweaveId = null;
-      if (restricted) {
-        arweaveId = await createTokenGatedMetadata(metadata);
-      } else {
-        arweaveId = await createMetadata(metadata);
+      // Payload for the open action module
+      let openActionModules = [];
+      if (collectModule.type) {
+        openActionModules.push({
+          collectOpenAction: collectModuleParams(collectModule, currentProfile)
+        });
       }
 
-      // Payload for the post/comment
-      const request: CreatePublicPostRequest | CreatePublicCommentRequest = {
-        profileId: currentProfile?.id,
-        contentURI: `ar://${arweaveId}`,
-        ...(isComment && {
-          publicationId:
-            publication.__typename === 'Mirror'
-              ? publication?.mirrorOf?.id
-              : publication?.id
-        }),
-        collectModule: collectModuleParams(collectModule, currentProfile),
-        referenceModule:
-          selectedReferenceModule ===
-          ReferenceModules.FollowerOnlyReferenceModule
-            ? { followerOnlyReferenceModule: onlyFollowers ? true : false }
-            : {
-                degreesOfSeparationReferenceModule: {
-                  commentsRestricted: true,
-                  mirrorsRestricted: true,
-                  degreesOfSeparation
-                }
-              }
-      };
-
-      // Payload for the data availability post/comment
-      const dataAvailablityRequest = {
-        from: currentProfile?.id,
-        ...(isComment && {
-          commentOn:
-            publication.__typename === 'Mirror'
-              ? publication?.mirrorOf?.id
-              : publication?.id
-        }),
+      // Payload for the Momoka post/comment/quote
+      const momokaRequest:
+        | MomokaPostRequest
+        | MomokaCommentRequest
+        | MomokaQuoteRequest = {
+        ...(isComment && { commentOn: targetPublication.id }),
+        ...(isQuote && { quoteOn: quotedPublication?.id }),
         contentURI: `ar://${arweaveId}`
       };
 
-      if (canUseRelay) {
-        if (useDataAvailability && isSponsored) {
-          return await createViaDataAvailablityDispatcher(
-            dataAvailablityRequest
+      if (useMomoka) {
+        if (canUseLensManager) {
+          if (isComment) {
+            return await createCommentOnMomka(
+              momokaRequest as MomokaCommentRequest
+            );
+          }
+
+          if (isQuote) {
+            return await createQuoteOnMomka(
+              momokaRequest as MomokaQuoteRequest
+            );
+          }
+
+          return await createPostOnMomka(momokaRequest);
+        }
+
+        if (isComment) {
+          return await createMomokaCommentTypedData({
+            variables: { request: momokaRequest as MomokaCommentRequest }
+          });
+        }
+
+        if (isQuote) {
+          return await createMomokaQuoteTypedData({
+            variables: { request: momokaRequest as MomokaQuoteRequest }
+          });
+        }
+
+        return await createMomokaPostTypedData({
+          variables: { request: momokaRequest }
+        });
+      }
+
+      // Payload for the post/comment/quote
+      const onChainRequest:
+        | OnchainPostRequest
+        | OnchainCommentRequest
+        | OnchainQuoteRequest = {
+        contentURI: `ar://${arweaveId}`,
+        ...(isComment && { commentOn: targetPublication.id }),
+        ...(isQuote && { quoteOn: quotedPublication?.id }),
+        openActionModules,
+        ...(onlyFollowers && {
+          referenceModule:
+            selectedReferenceModule ===
+            ReferenceModuleType.FollowerOnlyReferenceModule
+              ? { followerOnlyReferenceModule: true }
+              : {
+                  degreesOfSeparationReferenceModule: {
+                    commentsRestricted: true,
+                    mirrorsRestricted: true,
+                    quotesRestricted: true,
+                    degreesOfSeparation
+                  }
+                }
+        })
+      };
+
+      if (canUseLensManager) {
+        if (isComment) {
+          return await createCommentOnChain(
+            onChainRequest as OnchainCommentRequest
           );
         }
 
-        return await createViaDispatcher(request);
+        if (isQuote) {
+          return await createQuoteOnChain(
+            onChainRequest as OnchainQuoteRequest
+          );
+        }
+
+        return await createPostOnChain(onChainRequest);
       }
 
       if (isComment) {
-        return await createCommentTypedData({
+        return await createOnchainCommentTypedData({
           variables: {
-            options: { overrideSigNonce: userSigNonce },
-            request: request as CreatePublicCommentRequest
+            options: { overrideSigNonce: lensHubOnchainSigNonce },
+            request: onChainRequest as OnchainCommentRequest
           }
         });
       }
 
-      return await createPostTypedData({
-        variables: { options: { overrideSigNonce: userSigNonce }, request }
+      if (isQuote) {
+        return await createOnchainQuoteTypedData({
+          variables: {
+            options: { overrideSigNonce: lensHubOnchainSigNonce },
+            request: onChainRequest as OnchainQuoteRequest
+          }
+        });
+      }
+
+      return await createOnchainPostTypedData({
+        variables: {
+          options: { overrideSigNonce: lensHubOnchainSigNonce },
+          request: onChainRequest
+        }
       });
     } catch (error) {
       onError(error);
@@ -893,20 +518,17 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   const setGifAttachment = (gif: IGif) => {
     const attachment: NewAttachment = {
-      id: uuid(),
-      previewItem: gif.images.original.url,
-      original: {
-        url: gif.images.original.url,
-        mimeType: 'image/gif',
-        altTag: gif.title
-      }
+      uri: gif.images.original.url,
+      mimeType: 'image/gif',
+      previewUri: gif.images.original.url,
+      type: 'Image'
     };
     addAttachments([attachment]);
   };
 
   const isSubmitDisabledByPoll = showPollEditor
-    ? !pollConfig.choices.length ||
-      pollConfig.choices.some((choice) => !choice.length)
+    ? !pollConfig.options.length ||
+      pollConfig.options.some((option) => !option.length)
     : false;
 
   const onDiscardClick = () => {
@@ -918,6 +540,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     setPublicationContent('');
     setShowPollEditor(false);
     resetPollConfig();
+    setShowLiveVideoEditor(false);
+    resetLiveVideoConfig();
     setAttachments([]);
     setVideoThumbnail({
       url: '',
@@ -925,7 +549,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       uploading: false
     });
     resetCollectSettings();
-    resetAccessSettings();
   });
 
   return (
@@ -938,9 +561,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     >
       {error ? (
         <ErrorMessage
-          className="!rounded-none"
-          title={t`Transaction failed!`}
+          title="Transaction failed!"
           error={error}
+          className="!rounded-none"
         />
       ) : null}
       <Editor />
@@ -953,19 +576,17 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       {showLiveVideoEditor ? <LivestreamEditor /> : null}
       {quotedPublication ? (
         <Wrapper className="m-5" zeroPadding>
-          <QuotedPublication publication={quotedPublication} isNew />
+          <QuotedPublication
+            publication={removeQuoteOn(quotedPublication as Quote)}
+            isNew
+          />
         </Wrapper>
       ) : null}
       <div className="block items-center px-5 sm:flex">
         <div className="flex items-center space-x-4">
-          {!showLiveVideoEditor && (
-            <>
-              <Attachment />
-              <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
-            </>
-          )}
+          <Attachment />
           <EmojiPicker
-            emojiClassName="text-brand"
+            emojiClassName="text-brand-500"
             setShowEmojiPicker={setShowEmojiPicker}
             showEmojiPicker={showEmojiPicker}
             setEmoji={(emoji) => {
@@ -984,15 +605,15 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
               });
             }}
           />
-          {!publication?.isDataAvailability ? (
+          <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
+          {!publication?.momoka?.proof ? (
             <>
               <CollectSettings />
               <ReferenceSettings />
-              <AccessSettings />
             </>
           ) : null}
           <PollSettings />
-          {!isComment && attachments.length <= 0 && isStaff && (
+          {!isComment && isFeatureEnabled(FeatureFlag.LiveStream) && (
             <LivestreamSettings />
           )}
         </div>
@@ -1015,12 +636,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             }
             onClick={createPublication}
           >
-            {isComment ? t`Comment` : t`Post`}
+            {isComment ? 'Comment' : 'Post'}
           </Button>
         </div>
       </div>
       <div className="px-5">
-        <Attachments attachments={attachments} isNew />
+        <NewAttachments attachments={attachments} />
       </div>
       <Discard onDiscard={onDiscardClick} />
     </Card>

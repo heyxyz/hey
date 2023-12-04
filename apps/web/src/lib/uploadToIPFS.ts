@@ -1,11 +1,7 @@
 import { S3 } from '@aws-sdk/client-s3';
 import { Upload } from '@aws-sdk/lib-storage';
-import {
-  EVER_API,
-  S3_BUCKET,
-  STS_GENERATOR_WORKER_URL
-} from '@hey/data/constants';
-import type { MediaSetWithoutOnChain } from '@hey/types/misc';
+import { EVER_API, HEY_API_URL, S3_BUCKET } from '@hey/data/constants';
+import type { IPFSResponse } from '@hey/types/misc';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
 
@@ -17,7 +13,7 @@ const FALLBACK_TYPE = 'image/jpeg';
  * @returns S3 client instance.
  */
 const getS3Client = async (): Promise<S3> => {
-  const token = await axios.get(`${STS_GENERATOR_WORKER_URL}/token`);
+  const token = await axios.get(`${HEY_API_URL}/sts/token`);
   const client = new S3({
     endpoint: EVER_API,
     credentials: {
@@ -57,7 +53,7 @@ const getS3Client = async (): Promise<S3> => {
 const uploadToIPFS = async (
   data: any,
   onProgress?: (percentage: number) => void
-): Promise<MediaSetWithoutOnChain[]> => {
+): Promise<IPFSResponse[]> => {
   try {
     const files = Array.from(data);
     const client = await getS3Client();
@@ -83,12 +79,13 @@ const uploadToIPFS = async (
         await task.done();
         const result = await client.headObject(params);
         const metadata = result.Metadata;
+        const cid = metadata?.['ipfs-hash'];
+
+        axios.get(`${HEY_API_URL}/ipfs/pin`, { params: { cid } });
 
         return {
-          original: {
-            url: `ipfs://${metadata?.['ipfs-hash']}`,
-            mimeType: file.type || FALLBACK_TYPE
-          }
+          uri: `ipfs://${cid}`,
+          mimeType: file.type || FALLBACK_TYPE
         };
       })
     );
@@ -108,19 +105,14 @@ const uploadToIPFS = async (
 export const uploadFileToIPFS = async (
   file: File,
   onProgress?: (percentage: number) => void
-): Promise<MediaSetWithoutOnChain> => {
+): Promise<IPFSResponse> => {
   try {
     const ipfsResponse = await uploadToIPFS([file], onProgress);
     const metadata = ipfsResponse[0];
 
-    return {
-      original: {
-        url: metadata.original.url,
-        mimeType: file.type || FALLBACK_TYPE
-      }
-    };
+    return { uri: metadata.uri, mimeType: file.type || FALLBACK_TYPE };
   } catch {
-    return { original: { url: '', mimeType: file.type || FALLBACK_TYPE } };
+    return { uri: '', mimeType: file.type || FALLBACK_TYPE };
   }
 };
 

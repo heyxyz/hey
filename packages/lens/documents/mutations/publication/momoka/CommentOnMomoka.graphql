@@ -1,0 +1,10 @@
+mutation CommentOnMomoka($request: MomokaCommentRequest!) {
+  commentOnMomoka(request: $request) {
+    ... on CreateMomokaPublicationResult {
+      id
+    }
+    ... on LensProfileManagerRelayError {
+      reason
+    }
+  }
+}

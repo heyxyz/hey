@@ -1,6 +1,6 @@
 import {
   LENS_MEDIA_SNAPSHOT_URL,
-  STATIC_IMAGES_URL
+  PLACEHOLDER_IMAGE
 } from '@hey/data/constants';
 import { describe, expect, test } from 'vitest';
 
@@ -12,8 +12,8 @@ describe('imageKit', () => {
     expect(result).toEqual('');
   });
 
-  test('should return the same url if it includes static-assets.hey.xyz', () => {
-    const url = `${STATIC_IMAGES_URL}/placeholder.webp`;
+  test('should return the same url if it includes hey-assets.b-cdn.net', () => {
+    const url = PLACEHOLDER_IMAGE;
     const result = imageKit(url);
     expect(result).toEqual(url);
   });
@@ -29,7 +29,7 @@ describe('imageKit', () => {
 
   test('should return the transformed url if it includes LENS_MEDIA_SNAPSHOT_URL', () => {
     const originalUrl = `${LENS_MEDIA_SNAPSHOT_URL}/some-image.jpg`;
-    const transformedUrl = `${LENS_MEDIA_SNAPSHOT_URL}/transformed/some-image.jpg`;
+    const transformedUrl = `${LENS_MEDIA_SNAPSHOT_URL}/transformed,q-80/some-image.jpg`;
 
     expect(imageKit(originalUrl, 'transformed')).toBe(transformedUrl);
   });

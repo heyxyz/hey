@@ -1,4 +1,4 @@
-import { Regex } from '@hey/data/regex';
+import { isAddress } from 'viem';
 
 /**
  * Format the given Ethereum address by displaying only the first and last few characters.
@@ -12,7 +12,7 @@ const formatAddress = (address: string | null, slice = 4): string => {
     return '';
   }
 
-  if (address.match(Regex.ethereumAddress)) {
+  if (isAddress(address)) {
     return `${address.slice(0, slice + 2)}…${address.slice(
       address.length - slice
     )}`;

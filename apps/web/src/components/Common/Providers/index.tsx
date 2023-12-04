@@ -1,4 +1,5 @@
-import { ApolloProvider, lensApolloWebClient } from '@hey/lens/apollo';
+import { apolloClient, ApolloProvider } from '@hey/lens/apollo';
+import authLink from '@lib/authLink';
 import getLivepeerTheme from '@lib/getLivepeerTheme';
 import {
   createReactClient,
@@ -7,20 +8,21 @@ import {
 } from '@livepeer/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from 'next-themes';
-import type { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import ErrorBoundary from '../ErrorBoundary';
 import Layout from '../Layout';
 import FeaturedGroupsProvider from './FeaturedGroupsProvider';
-import LanguageProvider from './LanguageProvider';
+import LeafwatchProvider from './LeafwatchProvider';
+import LensSubscriptionsProvider from './LensSubscriptionsProvider';
 import PreferencesProvider from './PreferencesProvider';
-import UserSigNoncesProvider from './UserSigNoncesProvider';
+import ServiceWorkerProvider from './ServiceWorkerProvider';
 import Web3Provider from './Web3Provider';
 
+const lensApolloClient = apolloClient(authLink);
 const livepeerClient = createReactClient({
   provider: studioProvider({ apiKey: '' })
 });
-
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } }
 });
@@ -28,22 +30,22 @@ const queryClient = new QueryClient({
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <ErrorBoundary>
-      <LanguageProvider>
-        <Web3Provider>
-          <ApolloProvider client={lensApolloWebClient}>
-            <UserSigNoncesProvider />
-            <QueryClientProvider client={queryClient}>
-              <PreferencesProvider />
-              <FeaturedGroupsProvider />
-              <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
-                <ThemeProvider defaultTheme="light" attribute="class">
-                  <Layout>{children}</Layout>
-                </ThemeProvider>
-              </LivepeerConfig>
-            </QueryClientProvider>
-          </ApolloProvider>
-        </Web3Provider>
-      </LanguageProvider>
+      <ServiceWorkerProvider />
+      <LeafwatchProvider />
+      <Web3Provider>
+        <ApolloProvider client={lensApolloClient}>
+          <LensSubscriptionsProvider />
+          <QueryClientProvider client={queryClient}>
+            <PreferencesProvider />
+            <FeaturedGroupsProvider />
+            <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
+              <ThemeProvider defaultTheme="light" attribute="class">
+                <Layout>{children}</Layout>
+              </ThemeProvider>
+            </LivepeerConfig>
+          </QueryClientProvider>
+        </ApolloProvider>
+      </Web3Provider>
     </ErrorBoundary>
   );
 };

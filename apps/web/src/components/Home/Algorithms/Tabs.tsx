@@ -3,8 +3,8 @@ import type { HomeFeedType } from '@hey/data/enums';
 import { HOME } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import type { Dispatch, FC, SetStateAction } from 'react';
-import { useEnabledAlgorithmsPersistStore } from 'src/store/enabled-algorithms';
+import { type Dispatch, type FC, type SetStateAction } from 'react';
+import { useEnabledAlgorithmsStore } from 'src/store/persisted/useEnabledAlgorithmsStore';
 
 interface FeedTypeProps {
   setFeedType: Dispatch<SetStateAction<HomeFeedType>>;
@@ -12,7 +12,7 @@ interface FeedTypeProps {
 }
 
 const Tabs: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
-  const enabledAlgorithms = useEnabledAlgorithmsPersistStore(
+  const enabledAlgorithms = useEnabledAlgorithmsStore(
     (state) => state.enabledAlgorithms
   );
   const sanitizedEnabledAlgorithms = algorithms.filter((a) => {

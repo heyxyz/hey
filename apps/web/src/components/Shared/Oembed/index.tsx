@@ -1,9 +1,9 @@
-import { OEMBED_WORKER_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
+import getFavicon from '@hey/lib/getFavicon';
 import type { OG } from '@hey/types/misc';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import type { FC } from 'react';
-import urlcat from 'urlcat';
+import { type FC } from 'react';
 
 import Embed from './Embed';
 import Player from './Player';
@@ -15,14 +15,16 @@ interface OembedProps {
 }
 
 const Oembed: FC<OembedProps> = ({ url, publicationId, onData }) => {
-  const { isLoading, error, data } = useQuery(
-    [url],
-    () =>
-      axios
-        .get(`${OEMBED_WORKER_URL}/oembed`, { params: { url } })
-        .then((res) => res.data.oembed),
-    { enabled: Boolean(url) }
-  );
+  const { isLoading, error, data } = useQuery({
+    queryKey: ['oembed', url],
+    queryFn: async () => {
+      const response = await axios.get(`${HEY_API_URL}/oembed`, {
+        params: { url }
+      });
+      return response.data.oembed;
+    },
+    enabled: Boolean(url)
+  });
 
   if (isLoading || error || !data) {
     return null;
@@ -35,9 +37,7 @@ const Oembed: FC<OembedProps> = ({ url, publicationId, onData }) => {
     title: data?.title,
     description: data?.description,
     site: data?.site,
-    favicon: urlcat('https://www.google.com/s2/favicons', {
-      domain: data.url
-    }),
+    favicon: getFavicon(data.url),
     image: data?.image,
     isLarge: data?.isLarge,
     html: data?.html

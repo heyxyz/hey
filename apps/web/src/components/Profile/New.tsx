@@ -6,13 +6,12 @@ import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
-import { useAppStore } from 'src/store/app';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 const NewProfile: NextPage = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'new-profile' });
@@ -24,11 +23,11 @@ const NewProfile: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={t`Create Profile • ${APP_NAME}`} />
+      <MetaTags title={`Create Profile • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsHelper
           heading="Create profile"
-          description={t`Create new decentralized profile`}
+          description="Create new decentralized profile"
         />
       </GridItemFour>
       <GridItemEight>

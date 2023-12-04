@@ -1,5 +1,5 @@
 import type { Profile } from '@hey/lens';
-import type { FC } from 'react';
+import { type FC } from 'react';
 
 import Ens from './Ens';
 import ProofOfHumanity from './ProofOfHumanity';
@@ -12,10 +12,10 @@ interface BadgesProps {
 
 const Badges: FC<BadgesProps> = ({ profile }) => {
   const hasOnChainIdentity =
-    profile?.onChainIdentity?.proofOfHumanity ||
-    profile?.onChainIdentity?.sybilDotOrg?.verified ||
-    profile?.onChainIdentity?.ens?.name ||
-    profile?.onChainIdentity?.worldcoin?.isHuman;
+    profile?.onchainIdentity?.proofOfHumanity ||
+    profile?.onchainIdentity?.sybilDotOrg?.verified ||
+    profile?.onchainIdentity?.ens?.name ||
+    profile?.onchainIdentity?.worldcoin?.isHuman;
 
   if (!hasOnChainIdentity) {
     return null;

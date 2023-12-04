@@ -1,0 +1,39 @@
+query Feed($request: FeedRequest!) {
+  feed(request: $request) {
+    items {
+      id
+      root {
+        ... on Post {
+          ...PostFields
+        }
+        ... on Comment {
+          ...CommentFields
+        }
+        ... on Quote {
+          ...QuoteFields
+        }
+      }
+      mirrors {
+        by {
+          ...PublicationProfileFields
+        }
+      }
+      acted {
+        by {
+          ...PublicationProfileFields
+        }
+      }
+      reactions {
+        by {
+          ...PublicationProfileFields
+        }
+      }
+      comments {
+        ...CommentBaseFields
+      }
+    }
+    pageInfo {
+      next
+    }
+  }
+}

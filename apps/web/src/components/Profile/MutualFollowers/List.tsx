@@ -1,84 +1,103 @@
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
+import { UsersIcon } from '@heroicons/react/24/outline';
 import { FollowUnfollowSource } from '@hey/data/tracking';
-import type { MutualFollowersProfilesQueryRequest, Profile } from '@hey/lens';
-import { useMutualFollowersQuery } from '@hey/lens';
-import { ErrorMessage } from '@hey/ui';
-import { t } from '@lingui/macro';
+import type { MutualFollowersRequest, Profile } from '@hey/lens';
+import { LimitType, useMutualFollowersQuery } from '@hey/lens';
+import getProfile from '@hey/lib/getProfile';
+import { EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
-import type { FC } from 'react';
-import { useInView } from 'react-cool-inview';
-import { useAppStore } from 'src/store/app';
+import { type FC } from 'react';
+import { Virtuoso } from 'react-virtuoso';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface MutualFollowersListProps {
-  profileId: string;
+  profile: Profile;
 }
 
-const MutualFollowersList: FC<MutualFollowersListProps> = ({ profileId }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+const MutualFollowersList: FC<MutualFollowersListProps> = ({ profile }) => {
+  const currentProfile = useProfileStore((state) => state.currentProfile);
 
   // Variables
-  const request: MutualFollowersProfilesQueryRequest = {
-    viewingProfileId: profileId,
-    yourProfileId: currentProfile?.id,
-    limit: 50
+  const request: MutualFollowersRequest = {
+    viewing: profile.id,
+    observer: currentProfile?.id,
+    limit: LimitType.TwentyFive
   };
 
   const { data, loading, error, fetchMore } = useMutualFollowersQuery({
     variables: { request },
-    skip: !profileId
+    skip: !profile.id
   });
 
-  const profiles = data?.mutualFollowersProfiles?.items;
-  const pageInfo = data?.mutualFollowersProfiles?.pageInfo;
+  const mutualFollowers = data?.mutualFollowers?.items;
+  const pageInfo = data?.mutualFollowers?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } }
-      });
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    });
+  };
 
   if (loading) {
-    return <Loader message={t`Loading mutual followers`} />;
+    return <Loader message="Loading mutual followers" />;
+  }
+
+  if (mutualFollowers?.length === 0) {
+    return (
+      <EmptyState
+        message={
+          <div>
+            <span className="mr-1 font-bold">
+              {getProfile(profile).slugWithPrefix}
+            </span>
+            <span>doesn’t have any mutual followers.</span>
+          </div>
+        }
+        icon={<UsersIcon className="text-brand-500 h-8 w-8" />}
+        hideCard
+      />
+    );
   }
 
   return (
     <div className="max-h-[80vh] overflow-y-auto">
       <ErrorMessage
-        className="m-5"
-        title={t`Failed to load mutual followers`}
+        title="Failed to load mutual followers"
         error={error}
+        className="m-5"
       />
-
-      <div className="divide-y dark:divide-gray-700">
-        {profiles?.map((profile, index) => (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="p-5"
-            key={profile?.id}
-          >
-            <UserProfile
-              profile={profile as Profile}
-              isFollowing={profile?.isFollowedByMe}
-              followUnfollowPosition={index + 1}
-              followUnfollowSource={FollowUnfollowSource.MUTUAL_FOLLOWERS_MODAL}
-              showBio
-              showFollow
-              showUserPreview={false}
-            />
-          </motion.div>
-        ))}
-      </div>
-      {hasMore ? <span ref={observe} /> : null}
+      <Virtuoso
+        className="virtual-profile-list"
+        data={mutualFollowers}
+        endReached={onEndReached}
+        itemContent={(index, mutualFollower) => {
+          return (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="p-5"
+            >
+              <UserProfile
+                profile={mutualFollower as Profile}
+                isFollowing={mutualFollower.operations.isFollowedByMe.value}
+                followUnfollowPosition={index + 1}
+                followUnfollowSource={FollowUnfollowSource.FOLLOWERS_MODAL}
+                showBio
+                showFollow={currentProfile?.id !== mutualFollower.id}
+                showUnfollow={currentProfile?.id !== mutualFollower.id}
+                showUserPreview={false}
+              />
+            </motion.div>
+          );
+        }}
+      />
     </div>
   );
 };

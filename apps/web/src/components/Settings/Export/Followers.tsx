@@ -1,23 +1,22 @@
 import { SETTINGS } from '@hey/data/tracking';
 import type { FollowersRequest } from '@hey/lens';
-import { useFollowersLazyQuery } from '@hey/lens';
+import { LimitType, useFollowersLazyQuery } from '@hey/lens';
+import downloadJson from '@hey/lib/downloadJson';
 import { Button, Card } from '@hey/ui';
-import downloadJson from '@lib/downloadJson';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useAppStore } from 'src/store/app';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 const Followers: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const [followers, setFollowers] = useState<any[]>([]);
   const [exporting, setExporting] = useState(false);
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
   const request: FollowersRequest = {
-    profileId: currentProfile?.id,
-    limit: 50
+    of: currentProfile?.id,
+    limit: LimitType.TwentyFive
   };
 
   const [exportFollowers] = useFollowersLazyQuery({
@@ -33,10 +32,7 @@ const Followers: FC = () => {
         onCompleted: (data) => {
           setFollowers((prev) => {
             const newFollowers = data.followers.items.filter((newFollower) => {
-              return !prev.some(
-                (follower) =>
-                  follower.wallet.address === newFollower.wallet.address
-              );
+              return !prev.some((follower) => follower.id === newFollower.id);
             });
 
             return [...prev, ...newFollowers];
@@ -67,26 +63,18 @@ const Followers: FC = () => {
 
   return (
     <Card className="space-y-2 p-5">
-      <div className="text-lg font-bold">
-        <Trans>Export followers</Trans>
-      </div>
-      <div className="pb-2">
-        <Trans>Export all your followers to a JSON file.</Trans>
-      </div>
+      <div className="text-lg font-bold">Export followers</div>
+      <div className="pb-2">Export all your followers to a JSON file.</div>
       {followers.length > 0 ? (
         <div className="pb-2">
-          <Trans>
-            Exported <b>{followers.length}</b> followers
-          </Trans>
+          Exported <b>{followers.length}</b> followers
         </div>
       ) : null}
       {fetchCompleted ? (
-        <Button onClick={download}>
-          <Trans>Download followers</Trans>
-        </Button>
+        <Button onClick={download}>Download followers</Button>
       ) : (
         <Button onClick={handleExportClick} disabled={exporting}>
-          {exporting ? <Trans>Exporting...</Trans> : <Trans>Export now</Trans>}
+          {exporting ? 'Exporting...' : 'Export now'}
         </Button>
       )}
     </Card>

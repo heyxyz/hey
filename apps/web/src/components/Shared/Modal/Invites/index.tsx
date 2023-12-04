@@ -1,28 +1,33 @@
 import Loader from '@components/Shared/Loader';
-import { useInvitesQuery } from '@hey/lens';
+import type { InvitedResult } from '@hey/lens';
+import { useInvitedProfilesQuery } from '@hey/lens';
 import { ErrorMessage } from '@hey/ui';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import Invite from './Invite';
 import Invited from './Invited';
 
 const Invites: FC = () => {
-  const { data, loading, error, refetch } = useInvitesQuery();
+  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { data, loading, error, refetch } = useInvitedProfilesQuery();
 
   if (loading) {
-    return <Loader message={t`Loading invites`} />;
+    return <Loader message="Loading invites" />;
   }
 
   if (error) {
-    return <ErrorMessage title={t`Failed to load invites`} error={error} />;
+    return <ErrorMessage title="Failed to load invites" error={error} />;
   }
 
   return (
     <div className="max-h-[80vh] overflow-y-auto p-5">
-      <Invite invitesLeft={data?.invitesLeft ?? 0} refetch={refetch} />
+      <Invite
+        invitesLeft={currentProfile?.invitesLeft ?? 0}
+        refetch={refetch}
+      />
       <div className="divider my-5" />
-      <Invited invited={data?.invited ?? []} />
+      <Invited invitedProfiles={data?.invitedProfiles as InvitedResult[]} />
     </div>
   );
 };

@@ -1,0 +1,13 @@
+{
+  "extends": "@hey/config/base.tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "noEmit": false,
+    "outDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "@utils*": ["src/utils*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "src"]
+}

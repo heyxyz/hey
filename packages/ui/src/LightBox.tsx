@@ -30,10 +30,7 @@ export const LightBox: FC<LightBoxProps> = ({ show, url, onClose }) => {
           >
             <Dialog.Overlay className="fixed inset-0 bg-gray-500/75 transition-opacity" />
           </Transition.Child>
-          <span
-            className="hidden sm:inline-block sm:h-screen sm:align-middle"
-            aria-hidden="true"
-          />
+          <span className="hidden sm:inline-block sm:h-screen sm:align-middle" />
           <Transition.Child
             as="div"
             className="inline-block p-8 text-left align-middle transition-all sm:max-w-3xl"
@@ -51,7 +48,6 @@ export const LightBox: FC<LightBoxProps> = ({ show, url, onClose }) => {
               src={url ?? ''}
               alt={url ?? ''}
               onClick={onClose}
-              aria-hidden="true"
             />
             {url ? (
               <div className="mt-1">
@@ -61,7 +57,6 @@ export const LightBox: FC<LightBoxProps> = ({ show, url, onClose }) => {
                   target="_blank"
                   rel="noreferrer noopener"
                   onClick={stopEventPropagation}
-                  data-testid="lightbox-open-original"
                 >
                   Open original
                 </Link>

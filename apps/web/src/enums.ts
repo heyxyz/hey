@@ -1,9 +1,4 @@
-export enum OptmisticPublicationType {
-  NewPost = 'NEW_POST',
-  NewComment = 'NEW_COMMENT'
-}
-
-export enum NotificationType {
+export enum NotificationTabType {
   All = 'ALL',
   Mentions = 'MENTIONS',
   Comments = 'COMMENTS',
@@ -20,7 +15,10 @@ export enum ProfileFeedType {
   Stats = 'STATS'
 }
 
-export enum MessageTabs {
-  Inbox = 'Inbox',
-  Following = 'Following'
+export enum NotificationFeedType {
+  All = 'ALL',
+  Mentions = 'MENTIONS',
+  Comments = 'COMMENTS',
+  Likes = 'LIKES',
+  Collects = 'COLLECTS'
 }

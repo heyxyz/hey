@@ -1,18 +1,17 @@
 export enum MainnetContracts {
   LensHubProxy = '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d',
-  LensPeriphery = '0xeff187b4190E551FC25a7fA4dFC6cf7fDeF7194f',
+  TokenHandleRegistry = '0xD4F2F33680FCCb36748FA9831851643781608844',
+  PublicActProxy = '0x53582b1b7BE71622E7386D736b6baf87749B7a2B',
   DefaultToken = '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270'
 }
 
 export enum TestnetContracts {
-  LensHubProxy = '0x60Ae865ee4C725cd04353b5AAb364553f56ceF82',
-  LensPeriphery = '0xD5037d72877808cdE7F669563e9389930AF404E8',
+  LensHubProxy = '0xC1E77eE73403B8a7478884915aA599932A677870',
+  TokenHandleRegistry = '0x9cD0d07AB772e42ed3497DD379360daBcD94352A',
+  PublicActProxy = '0xab5607f5447d538fc79bb32364ddecd8f76d7ee8',
   DefaultToken = '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889'
 }
 
-export enum SandboxContracts {
-  LensHubProxy = '0x7582177F9E536aB0b6c721e11f383C326F2Ad1D5',
-  LensPeriphery = '0x5dDD1d6c04E805D830574A31Bf7979D416c6d7c5'
-}
-
 export const BASEPAINT_CONTRACT = '0xba5e05cb26b78eda3a2f8e3b3814726305dcac83';
+export const ZORA_FIXED_PRICE_SALE_STRATEGY =
+  '0x169d9147dFc9409AfA4E558dF2C9ABeebc020182';

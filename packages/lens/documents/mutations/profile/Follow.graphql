@@ -1,0 +1,10 @@
+mutation Follow($request: FollowLensManagerRequest!) {
+  follow(request: $request) {
+    ... on RelaySuccess {
+      txId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
+    }
+  }
+}

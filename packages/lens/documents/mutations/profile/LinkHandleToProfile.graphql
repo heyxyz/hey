@@ -1,0 +1,10 @@
+mutation LinkHandleToProfile($request: LinkHandleToProfileRequest!) {
+  linkHandleToProfile(request: $request) {
+    ... on RelaySuccess {
+      txId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
+    }
+  }
+}

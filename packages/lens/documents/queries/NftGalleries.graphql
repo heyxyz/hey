@@ -1,19 +1,17 @@
 query NftGalleries($request: NftGalleriesRequest!) {
   nftGalleries(request: $request) {
-    id
-    name
-    profileId
     items {
+      id
       name
-      description
-      collectionName
-      contractAddress
-      tokenId
-      chainId
-      originalContent {
-        uri
-        animatedUrl
+      owner
+      items {
+        ...NftFields
       }
+      createdAt
+      updatedAt
+    }
+    pageInfo {
+      next
     }
   }
 }

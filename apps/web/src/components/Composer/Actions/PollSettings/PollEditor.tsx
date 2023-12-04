@@ -1,10 +1,10 @@
 import { ClockIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Bars3BottomLeftIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { Button, Card, Input, Modal, Tooltip } from '@hey/ui';
-import { Plural, t, Trans } from '@lingui/macro';
+import plur from 'plur';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { usePublicationStore } from 'src/store/publication';
+import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 
 const PollEditor: FC = () => {
   const setShowPollEditor = usePublicationStore(
@@ -19,7 +19,7 @@ const PollEditor: FC = () => {
     <Card className="m-5 px-5 py-3" forceRounded>
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2 text-sm">
-          <Bars3BottomLeftIcon className="text-brand h-4 w-4" />
+          <Bars3BottomLeftIcon className="text-brand-500 h-4 w-4" />
           <b>Poll</b>
         </div>
         <div className="flex items-center space-x-3">
@@ -30,23 +30,17 @@ const PollEditor: FC = () => {
             onClick={() => setShowPollLengthModal(true)}
             outline
           >
-            {pollConfig.length}{' '}
-            <Plural
-              value={pollConfig.length}
-              zero="day"
-              one="day"
-              other="days"
-            />
+            {pollConfig.length} {plur('day', pollConfig.length)}
           </Button>
           <Modal
-            title={t`Poll length`}
-            icon={<ClockIcon className="text-brand h-5 w-5" />}
+            title="Poll length"
+            icon={<ClockIcon className="text-brand-500 h-5 w-5" />}
             show={showPollLengthModal}
             onClose={() => setShowPollLengthModal(false)}
           >
             <div className="p-5">
               <Input
-                label={t`Poll length (days)`}
+                label="Poll length (days)"
                 type="number"
                 value={pollConfig.length}
                 min={1}
@@ -68,19 +62,19 @@ const PollEditor: FC = () => {
                   }}
                   outline
                 >
-                  <Trans>Cancel</Trans>
+                  Cancel
                 </Button>
                 <Button
                   className="ml-auto"
                   variant="primary"
                   onClick={() => setShowPollLengthModal(false)}
                 >
-                  <Trans>Save</Trans>
+                  Save
                 </Button>
               </div>
             </div>
           </Modal>
-          <Tooltip placement="top" content={t`Delete`}>
+          <Tooltip placement="top" content="Delete">
             <button
               className="flex"
               onClick={() => {
@@ -94,24 +88,24 @@ const PollEditor: FC = () => {
         </div>
       </div>
       <div className="mt-3 space-y-2">
-        {pollConfig.choices.map((choice, index) => (
+        {pollConfig.options.map((choice, index) => (
           <div key={index} className="flex items-center space-x-2 text-sm">
             <Input
-              placeholder={t`Choice ${index + 1}`}
+              placeholder={`Choice ${index + 1}`}
               value={choice}
               onChange={(event) => {
-                const newChoices = [...pollConfig.choices];
-                newChoices[index] = event.target.value;
-                setPollConfig({ ...pollConfig, choices: newChoices });
+                const newOptions = [...pollConfig.options];
+                newOptions[index] = event.target.value;
+                setPollConfig({ ...pollConfig, options: newOptions });
               }}
               iconRight={
                 index > 1 ? (
                   <button
                     className="flex"
                     onClick={() => {
-                      const newChoices = [...pollConfig.choices];
-                      newChoices.splice(index, 1);
-                      setPollConfig({ ...pollConfig, choices: newChoices });
+                      const newOptions = [...pollConfig.options];
+                      newOptions.splice(index, 1);
+                      setPollConfig({ ...pollConfig, options: newOptions });
                     }}
                   >
                     <XMarkIcon className="h-5 w-5 text-red-500" />
@@ -121,19 +115,17 @@ const PollEditor: FC = () => {
             />
           </div>
         ))}
-        {pollConfig.choices.length !== 10 ? (
+        {pollConfig.options.length !== 10 ? (
           <button
-            className="text-brand mt-2 flex items-center space-x-2 text-sm"
+            className="text-brand-500 mt-2 flex items-center space-x-2 text-sm"
             onClick={() => {
-              const newChoices = [...pollConfig.choices];
-              newChoices.push('');
-              setPollConfig({ ...pollConfig, choices: newChoices });
+              const newOptions = [...pollConfig.options];
+              newOptions.push('');
+              setPollConfig({ ...pollConfig, options: newOptions });
             }}
           >
             <PlusIcon className="h-4 w-4" />
-            <span>
-              <Trans>Add another option</Trans>
-            </span>
+            <span>Add another option</span>
           </button>
         ) : null}
       </div>

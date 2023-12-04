@@ -6,7 +6,7 @@ import type { OG } from '@hey/types/misc';
 import { Card, Image } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import type { FC } from 'react';
+import { type FC } from 'react';
 
 interface EmbedProps {
   og: OG;
@@ -15,10 +15,7 @@ interface EmbedProps {
 
 const Embed: FC<EmbedProps> = ({ og, publicationId }) => {
   return (
-    <div
-      className="mt-4 text-sm sm:w-4/6"
-      data-testid={`normal-oembed-${og.url}`}
-    >
+    <div className="mt-4 text-sm sm:w-4/6">
       <Link
         href={og.url}
         onClick={(event) => {
@@ -61,7 +58,7 @@ const Embed: FC<EmbedProps> = ({ og, publicationId }) => {
                   <div className="truncate font-bold">{og.title}</div>
                 ) : null}
                 {og.description ? (
-                  <div className="lt-text-gray-500 line-clamp-1 whitespace-break-spaces">
+                  <div className="ld-text-gray-500 line-clamp-1 whitespace-break-spaces">
                     {og.description}
                   </div>
                 ) : null}
@@ -76,7 +73,7 @@ const Embed: FC<EmbedProps> = ({ og, publicationId }) => {
                         alt="Favicon"
                       />
                     ) : null}
-                    <div className="lt-text-gray-500 text-xs">{og.site}</div>
+                    <div className="ld-text-gray-500 text-xs">{og.site}</div>
                   </div>
                 ) : null}
               </div>

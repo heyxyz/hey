@@ -1,45 +1,53 @@
 import { InMemoryCache } from '@apollo/client';
 
 import result from '../../generated';
-import { publicationKeyFields } from '../lib';
+import { profilesManagedKeyFields } from '../lib/keyFields';
+import createActedOnPublicationFieldPolicy from './createActedOnPublicationFieldPolicy';
+import createApprovedAuthenticationsFieldPolicy from './createApprovedAuthenticationsFieldPolicy';
+import createExploreProfilesFieldPolicy from './createExploreProfilesFieldPolicy';
 import createExplorePublicationsFieldPolicy from './createExplorePublicationsFieldPolicy';
 import createFeedFieldPolicy from './createFeedFieldPolicy';
 import createFeedHighlightsFieldPolicy from './createFeedHighlightsFieldPolicy';
 import createFollowersFieldPolicy from './createFollowersFieldPolicy';
 import createFollowingFieldPolicy from './createFollowingFieldPolicy';
-import createForYouFieldPolicy from './createForYouFieldPolicy';
 import createMutualFollowersProfilesFieldPolicy from './createMutualFollowersProfilesFieldPolicy';
 import createNftsFieldPolicy from './createNftsFieldPolicy';
 import createNotificationsFieldPolicy from './createNotificationsFieldPolicy';
+import createProfileActionHistoryFieldPolicy from './createProfileActionHistoryFieldPolicy';
+import createProfileManagersFieldPolicy from './createProfileManagersFieldPolicy';
 import createProfilesFieldPolicy from './createProfilesFieldPolicy';
+import createProfilesManagedFieldPolicy from './createProfilesManagedFieldPolicy';
 import createPublicationsFieldPolicy from './createPublicationsFieldPolicy';
-import createSearchFieldPolicy from './createSearchFieldPolicy';
-import createWhoCollectedPublicationFieldPolicy from './createWhoCollectedPublicationFieldPolicy';
-import createWhoReactedPublicationFieldPolicy from './createWhoReactedPublicationFieldPolicy';
+import createSearchProfilesFieldPolicy from './createSearchProfilesFieldPolicy';
+import createSearchPublicationsPolicy from './createSearchPublicationsPolicy';
+import createWhoHaveBlockedFieldPolicy from './createWhoHaveBlockedFieldPolicy';
 
 const cache = new InMemoryCache({
   possibleTypes: result.possibleTypes,
   typePolicies: {
-    Post: { keyFields: publicationKeyFields },
-    Comment: { keyFields: publicationKeyFields },
-    Mirror: { keyFields: publicationKeyFields },
+    ProfilesManagedResult: { keyFields: profilesManagedKeyFields },
     Query: {
       fields: {
         feed: createFeedFieldPolicy(),
         feedHighlights: createFeedHighlightsFieldPolicy(),
-        forYou: createForYouFieldPolicy(),
         explorePublications: createExplorePublicationsFieldPolicy(),
+        exploreProfiles: createExploreProfilesFieldPolicy(),
         publications: createPublicationsFieldPolicy(),
         publicationsProfileBookmarks: createPublicationsFieldPolicy(),
         nfts: createNftsFieldPolicy(),
         notifications: createNotificationsFieldPolicy(),
         followers: createFollowersFieldPolicy(),
         following: createFollowingFieldPolicy(),
-        search: createSearchFieldPolicy(),
         profiles: createProfilesFieldPolicy(),
-        whoCollectedPublication: createWhoCollectedPublicationFieldPolicy(),
-        whoReactedPublication: createWhoReactedPublicationFieldPolicy(),
-        mutualFollowersProfiles: createMutualFollowersProfilesFieldPolicy()
+        searchProfiles: createSearchProfilesFieldPolicy(),
+        searchPublications: createSearchPublicationsPolicy(),
+        whoActedOnPublication: createActedOnPublicationFieldPolicy(),
+        whoHaveBlocked: createWhoHaveBlockedFieldPolicy(),
+        mutualFollowersProfiles: createMutualFollowersProfilesFieldPolicy(),
+        approvedAuthentications: createApprovedAuthenticationsFieldPolicy(),
+        profileActionHistory: createProfileActionHistoryFieldPolicy(),
+        profileManagers: createProfileManagersFieldPolicy(),
+        profilesManaged: createProfilesManagedFieldPolicy()
       }
     }
   }

@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
-import { APP_NAME, GROUPS_WORKER_URL } from '@hey/data/constants';
+import { APP_NAME, HEY_API_URL } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import type { Group } from '@hey/types/hey';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
@@ -29,7 +29,9 @@ const ViewGroup: NextPage = () => {
   const fetchGroup = async (): Promise<Group> => {
     const response: {
       data: { result: Group };
-    } = await axios.get(`${GROUPS_WORKER_URL}/get/${slug}`);
+    } = await axios.get(`${HEY_API_URL}/group/getGroup`, {
+      params: { slug }
+    });
 
     return response.data?.result;
   };
@@ -38,11 +40,13 @@ const ViewGroup: NextPage = () => {
     data: group,
     isLoading,
     error
-  } = useQuery(['fetchGroup', slug], () => fetchGroup().then((res) => res), {
+  } = useQuery({
+    queryKey: ['fetchGroup', slug],
+    queryFn: fetchGroup,
     enabled: isReady
   });
 
-  if (isLoading) {
+  if (!isReady || isLoading) {
     return <GroupPageShimmer />;
   }
 

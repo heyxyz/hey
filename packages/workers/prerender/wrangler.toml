@@ -1,8 +1,0 @@
-name = "prerender"
-main = "src/index.ts"
-compatibility_date = "2023-01-25"
-
-routes = [
-  { pattern = "hey.xyz/u/*", zone_name = "hey.xyz" },
-  { pattern = "hey.xyz/posts/*", zone_name = "hey.xyz" }
-]

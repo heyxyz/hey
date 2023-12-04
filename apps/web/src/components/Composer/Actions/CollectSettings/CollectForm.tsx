@@ -1,11 +1,12 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { CollectModules, useEnabledModulesQuery } from '@hey/lens';
-import isValidEthAddress from '@hey/lib/isValidEthAddress';
+import { CollectOpenActionModuleType } from '@hey/lens';
+import getAllTokens from '@hey/lib/api/getAllTokens';
+import type { CollectModuleType } from '@hey/types/hey';
 import { Button, ErrorMessage, Spinner } from '@hey/ui';
-import { t, Trans } from '@lingui/macro';
-import type { Dispatch, FC, SetStateAction } from 'react';
-import type { CollectModuleType } from 'src/store/collect-module';
-import { useCollectModuleStore } from 'src/store/collect-module';
+import { useQuery } from '@tanstack/react-query';
+import { type Dispatch, type FC, type SetStateAction } from 'react';
+import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
+import { isAddress } from 'viem';
 
 import AmountConfig from './AmountConfig';
 import CollectLimitConfig from './CollectLimitConfig';
@@ -25,16 +26,14 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
     (state) => state.setCollectModule
   );
 
-  const { RevertCollectModule, FreeCollectModule, SimpleCollectModule } =
-    CollectModules;
+  const { SimpleCollectOpenActionModule } = CollectOpenActionModuleType;
   const recipients = collectModule.recipients ?? [];
   const splitTotal = recipients.reduce((acc, curr) => acc + curr.split, 0);
   const hasEmptyRecipients = recipients.some(
     (recipient) => !recipient.recipient
   );
   const hasInvalidEthAddressInRecipients = recipients.some(
-    (recipient) =>
-      recipient.recipient && !isValidEthAddress(recipient.recipient)
+    (recipient) => recipient.recipient && !isAddress(recipient.recipient)
   );
   const isRecipientsDuplicated = () => {
     const recipientsSet = new Set(
@@ -50,15 +49,16 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
     });
   };
 
-  const { error, data, loading } = useEnabledModulesQuery();
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['getAllTokens'],
+    queryFn: () => getAllTokens()
+  });
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="space-y-2 px-5 py-3.5 text-center font-bold">
         <Spinner size="md" className="mx-auto" />
-        <div>
-          <Trans>Loading collect settings</Trans>
-        </div>
+        <div>Loading collect settings</div>
       </div>
     );
   }
@@ -66,16 +66,16 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   if (error) {
     return (
       <ErrorMessage
-        className="p-5"
-        title={t`Failed to load modules`}
+        title="Failed to load modules"
         error={error}
+        className="m-5"
       />
     );
   }
 
   const toggleCollect = () => {
-    if (collectModule.type === RevertCollectModule) {
-      setCollectType({ type: SimpleCollectModule });
+    if (!collectModule.type) {
+      setCollectType({ type: SimpleCollectOpenActionModule });
     } else {
       reset();
     }
@@ -84,16 +84,13 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   return (
     <div className="space-y-3 p-5">
       <ToggleWithHelper
-        on={collectModule.type !== RevertCollectModule}
+        on={collectModule.type !== null}
         setOn={toggleCollect}
-        description={t`This post can be collected`}
+        description="This post can be collected"
       />
-      {collectModule.type !== RevertCollectModule ? (
+      {collectModule.type !== null ? (
         <div className="ml-5">
-          <AmountConfig
-            enabledModuleCurrencies={data?.enabledModuleCurrencies}
-            setCollectType={setCollectType}
-          />
+          <AmountConfig allowedTokens={data} setCollectType={setCollectType} />
           {collectModule.amount?.value ? (
             <>
               <ReferralConfig setCollectType={setCollectType} />
@@ -117,12 +114,12 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
             setShowModal(false);
           }}
         >
-          <Trans>Cancel</Trans>
+          Cancel
         </Button>
         <Button
           disabled={
             (parseFloat(collectModule.amount?.value as string) <= 0 &&
-              collectModule.type !== FreeCollectModule) ||
+              collectModule.type !== null) ||
             splitTotal > 100 ||
             hasEmptyRecipients ||
             hasInvalidEthAddressInRecipients ||
@@ -130,7 +127,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
           }
           onClick={() => setShowModal(false)}
         >
-          <Trans>Save</Trans>
+          Save
         </Button>
       </div>
     </div>

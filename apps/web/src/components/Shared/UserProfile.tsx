@@ -3,15 +3,14 @@ import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
-import type { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
+import { FollowModuleType, type Profile } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
-import getProfileAttribute from '@hey/lib/getProfileAttribute';
+import getMentions from '@hey/lib/getMentions';
+import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
-import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { formatTime, getTwitterFormat } from '@lib/formatTime';
+import { getTwitterFormat } from '@lib/formatTime';
 import isVerified from '@lib/isVerified';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -25,14 +24,12 @@ import UserPreview from './UserPreview';
 
 interface UserProfileProps {
   profile: Profile;
-  followStatusLoading?: boolean;
   isFollowing?: boolean;
   isBig?: boolean;
   linkToProfile?: boolean;
   showBio?: boolean;
   showFollow?: boolean;
   showUnfollow?: boolean;
-  showStatus?: boolean;
   showUserPreview?: boolean;
   timestamp?: Date;
 
@@ -43,26 +40,18 @@ interface UserProfileProps {
 
 const UserProfile: FC<UserProfileProps> = ({
   profile,
-  followStatusLoading = false,
   isFollowing = false,
   isBig = false,
   linkToProfile = true,
   showBio = false,
   showFollow = false,
   showUnfollow = false,
-  showStatus = false,
   showUserPreview = true,
   timestamp = '',
   followUnfollowPosition,
   followUnfollowSource
 }) => {
   const [following, setFollowing] = useState(isFollowing);
-  const statusEmoji = getProfileAttribute(profile?.attributes, 'statusEmoji');
-  const statusMessage = getProfileAttribute(
-    profile?.attributes,
-    'statusMessage'
-  );
-  const hasStatus = statusEmoji && statusMessage;
 
   const UserAvatar = () => (
     <Image
@@ -74,7 +63,7 @@ const UserProfile: FC<UserProfileProps> = ({
       )}
       height={isBig ? 56 : 40}
       width={isBig ? 56 : 40}
-      alt={formatHandle(profile?.handle)}
+      alt={profile.id}
     />
   );
 
@@ -82,39 +71,21 @@ const UserProfile: FC<UserProfileProps> = ({
     <>
       <div className="flex max-w-sm items-center">
         <div className={cn(isBig ? 'font-bold' : 'text-md', 'grid')}>
-          <div className="truncate">
-            {sanitizeDisplayName(profile?.name) ??
-              formatHandle(profile?.handle)}
-          </div>
+          <div className="truncate">{getProfile(profile).displayName}</div>
         </div>
         {isVerified(profile.id) ? (
-          <CheckBadgeIcon className="text-brand ml-1 h-4 w-4" />
+          <CheckBadgeIcon className="text-brand-500 ml-1 h-4 w-4" />
         ) : null}
         {hasMisused(profile.id) ? (
           <ExclamationCircleIcon className="ml-1 h-4 w-4 text-red-500" />
         ) : null}
-        {showStatus && hasStatus ? (
-          <div className="lt-text-gray-500 flex items-center">
-            <span className="mx-1.5">·</span>
-            <span className="flex max-w-[10rem] items-center space-x-1 text-xs">
-              <span>{statusEmoji}</span>
-              <span className="truncate">{statusMessage}</span>
-            </span>
-          </div>
-        ) : null}
       </div>
       <div>
-        <Slug
-          className="text-sm"
-          slug={formatHandle(profile?.handle)}
-          prefix="@"
-        />
+        <Slug className="text-sm" slug={getProfile(profile).slugWithPrefix} />
         {timestamp ? (
-          <span className="lt-text-gray-500">
+          <span className="ld-text-gray-500">
             <span className="mx-1.5">·</span>
-            <span className="text-xs" title={formatTime(timestamp as Date)}>
-              {getTwitterFormat(timestamp)}
-            </span>
+            <span className="text-xs">{getTwitterFormat(timestamp)}</span>
           </span>
         ) : null}
       </div>
@@ -124,16 +95,15 @@ const UserProfile: FC<UserProfileProps> = ({
   const UserInfo: FC = () => {
     return (
       <UserPreview
-        isBig={isBig}
-        profile={profile}
-        followStatusLoading={followStatusLoading}
+        handle={profile.handle?.fullHandle}
+        id={profile.id}
         showUserPreview={showUserPreview}
       >
         <div className="mr-8 flex items-center space-x-3">
           <UserAvatar />
           <div>
             <UserName />
-            {showBio && profile?.bio ? (
+            {showBio && profile?.metadata?.bio ? (
               <div
                 // Replace with Tailwind
                 style={{ wordBreak: 'break-word' }}
@@ -143,7 +113,9 @@ const UserProfile: FC<UserProfileProps> = ({
                   'linkify leading-6'
                 )}
               >
-                <Markup>{profile?.bio}</Markup>
+                <Markup mentions={getMentions(profile.metadata.bio)}>
+                  {profile?.metadata.bio}
+                </Markup>
               </div>
             ) : null}
           </div>
@@ -153,42 +125,43 @@ const UserProfile: FC<UserProfileProps> = ({
   };
 
   return (
-    <div
-      className="flex items-center justify-between"
-      data-testid={`user-profile-${profile.id}`}
-    >
-      {linkToProfile ? (
-        <Link href={`/u/${formatHandle(profile?.handle)}`}>
+    <div className="flex items-center justify-between">
+      {linkToProfile && profile.id ? (
+        <Link
+          href={getProfile(profile).link}
+          className="outline-brand-500 rounded-xl outline-offset-4"
+        >
           <UserInfo />
         </Link>
       ) : (
         <UserInfo />
       )}
       {showFollow ? (
-        followStatusLoading ? (
-          <div className="shimmer h-8 w-10 rounded-lg" />
-        ) : following ? null : profile?.followModule?.__typename ===
-          'FeeFollowModuleSettings' ? (
+        following ? null : profile?.followModule?.type ===
+          FollowModuleType.FeeFollowModule ? (
           <SuperFollow
             profile={profile}
             setFollowing={setFollowing}
-            followUnfollowPosition={followUnfollowPosition}
-            followUnfollowSource={followUnfollowSource}
+            superFollowPosition={followUnfollowPosition}
+            superFollowSource={followUnfollowSource}
           />
         ) : (
           <Follow
             profile={profile}
             setFollowing={setFollowing}
-            followUnfollowPosition={followUnfollowPosition}
-            followUnfollowSource={followUnfollowSource}
+            followPosition={followUnfollowPosition}
+            followSource={followUnfollowSource}
           />
         )
       ) : null}
       {showUnfollow ? (
-        followStatusLoading ? (
-          <div className="shimmer h-8 w-10 rounded-lg" />
-        ) : following ? (
-          <Unfollow profile={profile} setFollowing={setFollowing} />
+        following ? (
+          <Unfollow
+            profile={profile}
+            setFollowing={setFollowing}
+            unfollowPosition={followUnfollowPosition}
+            unfollowSource={followUnfollowSource}
+          />
         ) : null
       ) : null}
     </div>

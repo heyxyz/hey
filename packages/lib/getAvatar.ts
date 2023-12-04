@@ -1,6 +1,6 @@
-import { AVATAR, ZERO_ADDRESS } from '@hey/data/constants';
+import { AVATAR } from '@hey/data/constants';
 
-import getStampFyiURL from './getStampFyiURL';
+import getLennyURL from './getLennyURL';
 import imageKit from './imageKit';
 import sanitizeDStorageUrl from './sanitizeDStorageUrl';
 
@@ -13,10 +13,16 @@ import sanitizeDStorageUrl from './sanitizeDStorageUrl';
  */
 const getAvatar = (profile: any, namedTransform = AVATAR): string => {
   const avatarUrl =
+    // Group Avatar fallbacks
     profile?.avatar ??
-    profile?.picture?.original?.url ??
-    profile?.picture?.uri ??
-    getStampFyiURL(profile?.ownedBy ?? ZERO_ADDRESS);
+    // Lens NFT Avatar fallbacks
+    profile?.metadata?.picture?.image?.optimized?.uri ??
+    profile?.metadata?.picture?.image?.raw?.uri ??
+    // Lens Profile Avatar fallbacks
+    profile?.metadata?.picture?.optimized?.uri ??
+    profile?.metadata?.picture?.raw?.uri ??
+    // Stamp.fyi Avatar fallbacks
+    getLennyURL(profile.id);
 
   return imageKit(sanitizeDStorageUrl(avatarUrl), namedTransform);
 };

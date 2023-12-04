@@ -1,17 +1,17 @@
 // Localstorage keys
 export const Localstorage = {
-  AccessToken: 'accessToken',
-  RefreshToken: 'refreshToken',
-  AppStore: 'app.store',
-  AttachmentStore: 'attachment.store',
-  AttachmentCache: 'attachment-cache.store',
+  AuthStore: 'auth.store',
   ModeStore: 'mode.store',
   NotificationStore: 'notification.store',
-  NonceStore: 'nonce.store',
-  PreferencesStore: 'preferences.store',
   TransactionStore: 'transaction.store',
   TimelineStore: 'timeline.store',
-  MessageStore: 'message.store',
-  LocaleStore: 'locale.store',
-  AlgorithmStore: 'algorithm.store'
+  LeafwatchStore: 'leafwatch.store'
+};
+
+export const IndexDB = {
+  ProfileStore: 'profile.store',
+  AlgorithmStore: 'algorithm.store',
+  FeatureFlagsStore: 'featureflags.store',
+  VerifiedMembersStore: 'verifiedmembers.store',
+  FeaturedGroupsStore: 'featuredgroups.store'
 };
