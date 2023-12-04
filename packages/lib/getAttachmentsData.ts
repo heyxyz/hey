@@ -11,21 +11,21 @@ const getAttachmentsData = (
     switch (attachment.__typename) {
       case 'PublicationMetadataMediaImage':
         return {
-          uri: attachment.image.optimized?.uri,
-          type: 'Image'
+          type: 'Image',
+          uri: attachment.image.optimized?.uri
         };
       case 'PublicationMetadataMediaVideo':
         return {
-          uri: attachment.video.optimized?.uri,
           coverUri: attachment.cover?.optimized?.uri,
-          type: 'Video'
+          type: 'Video',
+          uri: attachment.video.optimized?.uri
         };
       case 'PublicationMetadataMediaAudio':
         return {
-          uri: attachment.audio.optimized?.uri,
-          coverUri: attachment.cover?.optimized?.uri,
           artist: attachment.artist,
-          type: 'Audio'
+          coverUri: attachment.cover?.optimized?.uri,
+          type: 'Audio',
+          uri: attachment.audio.optimized?.uri
         };
       default:
         return [];

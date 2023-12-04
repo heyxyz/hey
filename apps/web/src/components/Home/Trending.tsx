@@ -1,7 +1,9 @@
+import type { TagResult } from '@hey/lens';
+import type { FC } from 'react';
+
 import TrendingTagShimmer from '@components/Shared/Shimmer/TrendingTagShimmer';
 import { ArrowTrendingUpIcon } from '@heroicons/react/24/solid';
 import { MISCELLANEOUS } from '@hey/data/tracking';
-import type { TagResult } from '@hey/lens';
 import {
   LimitType,
   TagSortCriteriaType,
@@ -12,7 +14,6 @@ import { Card, ErrorMessage } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import plur from 'plur';
-import type { FC } from 'react';
 
 const Title = () => {
   return (
@@ -24,11 +25,11 @@ const Title = () => {
 };
 
 const Trending: FC = () => {
-  const { data, loading, error } = usePublicationsTagsQuery({
+  const { data, error, loading } = usePublicationsTagsQuery({
     variables: {
       request: {
-        orderBy: TagSortCriteriaType.MostPopular,
-        limit: LimitType.Ten
+        limit: LimitType.Ten,
+        orderBy: TagSortCriteriaType.MostPopular
       }
     }
   });
@@ -53,7 +54,7 @@ const Trending: FC = () => {
     <>
       <Title />
       <Card as="aside" className="mb-4 space-y-4 p-5">
-        <ErrorMessage title="Failed to load trending" error={error} />
+        <ErrorMessage error={error} title="Failed to load trending" />
         {data?.publicationsTags?.items?.map((tag: TagResult) =>
           tag?.tag !== '{}' ? (
             <div key={tag?.tag}>

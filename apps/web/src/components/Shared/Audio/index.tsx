@@ -1,11 +1,12 @@
+import type { AnyPublication, Profile } from '@hey/lens';
+import type { APITypes } from 'plyr-react';
+import type { ChangeEvent, FC } from 'react';
+
 import { PauseIcon, PlayIcon } from '@heroicons/react/24/solid';
 import { PUBLICATION } from '@hey/data/tracking';
-import type { AnyPublication, Profile } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Leafwatch } from '@lib/leafwatch';
-import type { APITypes } from 'plyr-react';
-import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 import { object, string } from 'zod';
@@ -14,29 +15,29 @@ import CoverImage from './CoverImage';
 import Player from './Player';
 
 export const AudioPublicationSchema = object({
-  title: string().trim().min(1, { message: 'Invalid audio title' }),
   artist: string().trim().min(1, { message: 'Invalid artist name' }),
-  cover: string().trim().min(1, { message: 'Invalid cover image' })
+  cover: string().trim().min(1, { message: 'Invalid cover image' }),
+  title: string().trim().min(1, { message: 'Invalid audio title' })
 });
 
 interface AudioProps {
-  src: string;
-  poster: string;
   artist?: string;
-  title?: string;
-  isNew?: boolean;
-  publication?: AnyPublication;
   expandCover: (url: string) => void;
+  isNew?: boolean;
+  poster: string;
+  publication?: AnyPublication;
+  src: string;
+  title?: string;
 }
 
 const Audio: FC<AudioProps> = ({
-  src,
-  poster,
   artist,
-  title,
+  expandCover,
   isNew = false,
+  poster,
   publication,
-  expandCover
+  src,
+  title
 }) => {
   const audioPublication = usePublicationStore(
     (state) => state.audioPublication
@@ -45,7 +46,7 @@ const Audio: FC<AudioProps> = ({
     (state) => state.setAudioPublication
   );
 
-  const [newPreviewUri, setNewPreviewUri] = useState<string | null>(null);
+  const [newPreviewUri, setNewPreviewUri] = useState<null | string>(null);
   const [playing, setPlaying] = useState(false);
   const playerRef = useRef<APITypes>(null);
   const imageRef = useRef<HTMLImageElement>(null);
@@ -83,19 +84,19 @@ const Audio: FC<AudioProps> = ({
     >
       <div className="flex flex-wrap md:flex-nowrap md:space-x-2">
         <CoverImage
-          isNew={isNew}
           cover={isNew ? (newPreviewUri as string) : poster}
+          expandCover={expandCover}
+          imageRef={imageRef}
+          isNew={isNew}
           setCover={(previewUri, url) => {
             setNewPreviewUri(previewUri);
             setAudioPublication({ ...audioPublication, cover: url });
           }}
-          imageRef={imageRef}
-          expandCover={expandCover}
         />
         <div className="flex w-full flex-col justify-between truncate py-1 md:px-3">
           <div className="mt-3 flex justify-between md:mt-7">
             <div className="flex w-full items-center space-x-2.5 truncate">
-              <button type="button" onClick={handlePlayPause}>
+              <button onClick={handlePlayPause} type="button">
                 {playing && !playerRef.current?.plyr.paused ? (
                   <PauseIcon className="h-[50px] w-[50px] text-gray-100 hover:text-white" />
                 ) : (
@@ -106,20 +107,20 @@ const Audio: FC<AudioProps> = ({
                 {isNew ? (
                   <div className="flex w-full flex-col space-y-1">
                     <input
-                      className="border-none bg-transparent p-0 text-lg text-white placeholder:text-white focus:ring-0"
-                      placeholder="Add title"
-                      name="title"
-                      value={audioPublication.title}
                       autoComplete="off"
+                      className="border-none bg-transparent p-0 text-lg text-white placeholder:text-white focus:ring-0"
+                      name="title"
                       onChange={handleChange}
+                      placeholder="Add title"
+                      value={audioPublication.title}
                     />
                     <input
-                      className="border-none bg-transparent p-0 text-white/70 placeholder:text-white/70 focus:ring-0"
-                      placeholder="Add artist"
-                      name="artist"
-                      value={audioPublication.artist}
-                      onChange={handleChange}
                       autoComplete="off"
+                      className="border-none bg-transparent p-0 text-white/70 placeholder:text-white/70 focus:ring-0"
+                      name="artist"
+                      onChange={handleChange}
+                      placeholder="Add artist"
+                      value={audioPublication.artist}
                     />
                   </div>
                 ) : (
@@ -135,7 +136,7 @@ const Audio: FC<AudioProps> = ({
             </div>
           </div>
           <div className="md:pb-3">
-            <Player src={src} playerRef={playerRef} />
+            <Player playerRef={playerRef} src={src} />
           </div>
         </div>
       </div>

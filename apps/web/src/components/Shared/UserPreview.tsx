@@ -1,9 +1,11 @@
+import type { Profile } from '@hey/lens';
+import type { FC, ReactNode } from 'react';
+
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
 import { FollowUnfollowSource } from '@hey/data/tracking';
-import type { Profile } from '@hey/lens';
 import { useProfileLazyQuery } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
 import getMentions from '@hey/lib/getMentions';
@@ -16,7 +18,6 @@ import { Image } from '@hey/ui';
 import isVerified from '@lib/isVerified';
 import Tippy from '@tippyjs/react';
 import plur from 'plur';
-import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 
 import Markup from './Markup';
@@ -56,10 +57,10 @@ const UserPreview: FC<UserPreviewProps> = ({
 
     setSyntheticLoading(true);
     await loadProfile({
+      onCompleted: (data) => setProfile(data?.profile as Profile),
       variables: {
         request: { ...(id ? { forProfileId: id } : { forHandle: handle }) }
-      },
-      onCompleted: (data) => setProfile(data?.profile as Profile)
+      }
     });
     setTimeout(() => {
       setSyntheticLoading(false);
@@ -100,12 +101,12 @@ const UserPreview: FC<UserPreviewProps> = ({
 
     const UserAvatar = () => (
       <Image
-        src={getAvatar(profile)}
-        loading="lazy"
+        alt={profile.id}
         className="h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
         height={40}
+        loading="lazy"
+        src={getAvatar(profile)}
         width={40}
-        alt={profile.id}
       />
     );
 
@@ -146,9 +147,9 @@ const UserPreview: FC<UserPreviewProps> = ({
                 />
               ) : (
                 <Follow
+                  followSource={FollowUnfollowSource.PROFILE_POPOVER}
                   profile={profile}
                   setFollowing={setFollowing}
-                  followSource={FollowUnfollowSource.PROFILE_POPOVER}
                 />
               )
             ) : null}
@@ -189,17 +190,17 @@ const UserPreview: FC<UserPreviewProps> = ({
   };
 
   return (
-    <span onMouseOver={onPreviewStart} onFocus={onPreviewStart}>
+    <span onFocus={onPreviewStart} onMouseOver={onPreviewStart}>
       <Tippy
+        appendTo={() => document.body}
+        arrow={false}
         className="preview-tippy-content hidden w-64 !rounded-xl border !bg-white !text-black dark:border-gray-700 dark:!bg-black dark:!text-white md:block"
-        placement="bottom-start"
+        content={<Preview />}
         delay={[POPOVER_SHOW_ANIMATION_MS, POPOVER_HIDE_ANIMATION_MS]}
         hideOnClick={false}
-        content={<Preview />}
-        arrow={false}
-        zIndex={1000}
-        appendTo={() => document.body}
         interactive
+        placement="bottom-start"
+        zIndex={1000}
       >
         <span>{children}</span>
       </Tippy>

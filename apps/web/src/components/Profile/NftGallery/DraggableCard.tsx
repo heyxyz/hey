@@ -1,8 +1,9 @@
 import type { UniqueIdentifier } from '@dnd-kit/core';
-import { useSortable } from '@dnd-kit/sortable';
 import type { Nft } from '@hey/lens';
-import { motion } from 'framer-motion';
 import type { FC } from 'react';
+
+import { useSortable } from '@dnd-kit/sortable';
+import { motion } from 'framer-motion';
 import { memo } from 'react';
 
 import NftCard from './NftCard';
@@ -13,7 +14,7 @@ interface CardProps {
 }
 
 const DraggableCard: FC<CardProps> = ({ id, nft }) => {
-  const { attributes, setNodeRef, listeners, transform, isDragging } =
+  const { attributes, isDragging, listeners, setNodeRef, transform } =
     useSortable({
       id,
       transition: null
@@ -21,15 +22,15 @@ const DraggableCard: FC<CardProps> = ({ id, nft }) => {
 
   const animateStyles = transform
     ? {
+        scale: isDragging ? 1.05 : 1,
         x: transform.x,
         y: transform.y,
-        scale: isDragging ? 1.05 : 1,
         zIndex: isDragging ? 1 : 0
       }
     : {
+        scale: 1,
         x: 0,
-        y: 0,
-        scale: 1
+        y: 0
       };
 
   const transitionStyles = {
@@ -47,10 +48,10 @@ const DraggableCard: FC<CardProps> = ({ id, nft }) => {
 
   return (
     <motion.div
-      className="relative cursor-move"
-      ref={setNodeRef}
-      layoutId={String(id)}
       animate={animateStyles}
+      className="relative cursor-move"
+      layoutId={String(id)}
+      ref={setNodeRef}
       transition={transitionStyles}
       {...attributes}
       {...listeners}

@@ -1,7 +1,8 @@
+import type { AnyPublication } from '@hey/lens';
+
 import { Menu } from '@headlessui/react';
 import { LanguageIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
-import type { AnyPublication } from '@hey/lens';
 import getPublicationData from '@hey/lib/getPublicationData';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';

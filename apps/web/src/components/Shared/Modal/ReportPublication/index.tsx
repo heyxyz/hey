@@ -1,7 +1,9 @@
+import type { AnyPublication } from '@hey/lens';
+import type { FC } from 'react';
+
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { PAGEVIEW, PUBLICATION } from '@hey/data/tracking';
-import type { AnyPublication } from '@hey/lens';
 import { useReportPublicationMutation } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import {
@@ -14,7 +16,6 @@ import {
   useZodForm
 } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import type { FC } from 'react';
 import { useState } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
 import { object, string } from 'zod';
@@ -41,7 +42,7 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
 
   const [
     createReport,
-    { data: submitData, loading: submitLoading, error: submitError }
+    { data: submitData, error: submitError, loading: submitLoading }
   ] = useReportPublicationMutation({
     onCompleted: () => {
       Leafwatch.track(PUBLICATION.REPORT, {
@@ -54,18 +55,18 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
     schema: newReportPublicationSchema
   });
 
-  const reportPublication = (additionalComments: string | null) => {
+  const reportPublication = (additionalComments: null | string) => {
     createReport({
       variables: {
         request: {
+          additionalComments,
           for: publication?.id,
           reason: {
             [type]: {
               reason: type.replace('Reason', '').toUpperCase(),
               subreason: subReason
             }
-          },
-          additionalComments
+          }
         }
       }
     });
@@ -75,27 +76,27 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
     <div onClick={stopEventPropagation}>
       {submitData?.reportPublication === null ? (
         <EmptyState
-          message="Publication reported successfully!"
-          icon={<CheckCircleIcon className="h-14 w-14 text-green-500" />}
           hideCard
+          icon={<CheckCircleIcon className="h-14 w-14 text-green-500" />}
+          message="Publication reported successfully!"
         />
       ) : publication ? (
         <div className="p-5">
           <Form
-            form={form}
             className="space-y-4"
+            form={form}
             onSubmit={({ additionalComments }) =>
               reportPublication(additionalComments)
             }
           >
             {submitError ? (
-              <ErrorMessage title="Failed to report" error={submitError} />
+              <ErrorMessage error={submitError} title="Failed to report" />
             ) : null}
             <Reason
-              setType={setType}
               setSubReason={setSubReason}
-              type={type}
+              setType={setType}
               subReason={subReason}
+              type={type}
             />
             {subReason ? (
               <>
@@ -106,7 +107,6 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
                 />
                 <Button
                   className="flex w-full justify-center"
-                  type="submit"
                   disabled={submitLoading}
                   icon={
                     submitLoading ? (
@@ -115,6 +115,7 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
                       <PencilSquareIcon className="h-4 w-4" />
                     )
                   }
+                  type="submit"
                 >
                   Report
                 </Button>

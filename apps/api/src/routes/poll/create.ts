@@ -1,19 +1,20 @@
+import type { Handler } from 'express';
+
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import validateLensAccount from '@utils/middlewares/validateLensAccount';
 import prisma from '@utils/prisma';
 import { invalidBody, noBody, notAllowed } from '@utils/responses';
-import type { Handler } from 'express';
 import { array, number, object, string } from 'zod';
 
 type ExtensionRequest = {
-  options: string[];
   length: number;
+  options: string[];
 };
 
 const validationSchema = object({
-  options: array(string()),
-  length: number()
+  length: number(),
+  options: array(string())
 });
 
 export const post: Handler = async (req, res) => {
@@ -33,31 +34,31 @@ export const post: Handler = async (req, res) => {
     return notAllowed(res);
   }
 
-  const { options, length } = body as ExtensionRequest;
+  const { length, options } = body as ExtensionRequest;
 
   if (length < 1 || length > 30) {
     return res.status(400).json({
-      success: false,
-      error: 'Poll length should be between 1 and 30 days.'
+      error: 'Poll length should be between 1 and 30 days.',
+      success: false
     });
   }
 
   try {
     const data = await prisma.poll.create({
       data: {
+        endsAt: new Date(Date.now() + length * 24 * 60 * 60 * 1000),
         options: {
           createMany: {
             data: options.map((option) => ({ option })),
             skipDuplicates: true
           }
-        },
-        endsAt: new Date(Date.now() + length * 24 * 60 * 60 * 1000)
+        }
       }
     });
 
     logger.info(`Created a poll ${data.id}`);
 
-    return res.status(200).json({ success: true, id: data.id });
+    return res.status(200).json({ id: data.id, success: true });
   } catch (error) {
     return catchedError(res, error);
   }

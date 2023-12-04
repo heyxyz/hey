@@ -1,6 +1,7 @@
+import type { AnyPublication } from '@hey/lens';
+
 import { Menu } from '@headlessui/react';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
-import type { AnyPublication } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { type FC } from 'react';

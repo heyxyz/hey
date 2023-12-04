@@ -2,17 +2,17 @@ import cn from '@hey/ui/cn';
 import { type FC } from 'react';
 
 interface SlugProps {
-  slug: string;
-  prefix?: string;
-  useBrandColor?: boolean;
   className?: string;
+  prefix?: string;
+  slug: string;
+  useBrandColor?: boolean;
 }
 
 const Slug: FC<SlugProps> = ({
-  slug,
+  className = '',
   prefix,
-  useBrandColor = false,
-  className = ''
+  slug,
+  useBrandColor = false
 }) => {
   return (
     <span

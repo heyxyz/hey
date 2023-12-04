@@ -1,16 +1,17 @@
+import type { FC } from 'react';
+
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { Card, Image } from '@hey/ui';
 import { useRouter } from 'next/router';
-import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 const NewPost: FC = () => {
-  const { query, isReady, push } = useRouter();
+  const { isReady, push, query } = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const setShowNewPostModal = useGlobalModalStateStore(
     (state) => state.setShowNewPostModal
@@ -25,7 +26,7 @@ const NewPost: FC = () => {
 
   useEffectOnce(() => {
     if (isReady && query.text) {
-      const { text, url, via, hashtags } = query;
+      const { hashtags, text, url, via } = query;
       let processedHashtags;
 
       if (hashtags) {
@@ -48,15 +49,15 @@ const NewPost: FC = () => {
     <Card className="space-y-3 p-5">
       <div className="flex items-center space-x-3">
         <Image
-          src={getAvatar(currentProfile)}
+          alt={currentProfile?.id}
           className="h-9 w-9 cursor-pointer rounded-full border bg-gray-200 dark:border-gray-700"
           onClick={() => push(getProfile(currentProfile).link)}
-          alt={currentProfile?.id}
+          src={getAvatar(currentProfile)}
         />
         <button
           className="outline-brand-500 flex w-full items-center space-x-2 rounded-xl border bg-gray-100 px-4 py-2 dark:border-gray-700 dark:bg-gray-900"
-          type="button"
           onClick={() => openModal()}
+          type="button"
         >
           <PencilSquareIcon className="h-5 w-5" />
           <span>What's happening?</span>

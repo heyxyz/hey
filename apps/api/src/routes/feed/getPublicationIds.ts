@@ -1,10 +1,11 @@
+import type { Handler } from 'express';
+
 import { AlgorithmProvider } from '@hey/data/enums';
 import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
 import heyFeed from '@utils/feeds/providers/hey/heyFeed';
 import k3lFeed from '@utils/feeds/providers/k3l/k3lFeed';
 import { noBody } from '@utils/responses';
-import type { Handler } from 'express';
 
 export const get: Handler = async (req, res) => {
   const provider = req.query.provider as string;
@@ -30,13 +31,13 @@ export const get: Handler = async (req, res) => {
         return res
           .status(200)
           .setHeader('Cache-Control', SWR_CACHE_AGE_1_MIN_30_DAYS)
-          .json({ success: false, message: 'Invalid provider' });
+          .json({ message: 'Invalid provider', success: false });
     }
 
     return res
       .status(200)
       .setHeader('Cache-Control', SWR_CACHE_AGE_1_MIN_30_DAYS)
-      .json({ success: true, ids });
+      .json({ ids, success: true });
   } catch (error) {
     return catchedError(res, error);
   }

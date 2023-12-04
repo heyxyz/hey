@@ -1,13 +1,14 @@
+import type { ProfileActionHistoryRequest } from '@hey/lens';
+import type { FC } from 'react';
+
 import Loader from '@components/Shared/Loader';
 import { QueueListIcon } from '@heroicons/react/24/outline';
 import { POLYGONSCAN_URL } from '@hey/data/constants';
-import type { ProfileActionHistoryRequest } from '@hey/lens';
 import { LimitType, useProfileActionHistoryQuery } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { formatDate } from '@lib/formatTime';
 import Link from 'next/link';
-import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
@@ -15,9 +16,9 @@ const List: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
   const request: ProfileActionHistoryRequest = { limit: LimitType.TwentyFive };
-  const { data, loading, error, fetchMore } = useProfileActionHistoryQuery({
-    variables: { request },
-    skip: !currentProfile?.id
+  const { data, error, fetchMore, loading } = useProfileActionHistoryQuery({
+    skip: !currentProfile?.id,
+    variables: { request }
   });
 
   const profileActionHistory = data?.profileActionHistory?.items;
@@ -46,16 +47,16 @@ const List: FC = () => {
 
   if (error) {
     return (
-      <ErrorMessage title="Failed to load profile actions" error={error} />
+      <ErrorMessage error={error} title="Failed to load profile actions" />
     );
   }
 
   if (profileActionHistory?.length === 0) {
     return (
       <EmptyState
-        message="You have no actions on your account!"
-        icon={<QueueListIcon className="text-brand-500 h-8 w-8" />}
         hideCard
+        icon={<QueueListIcon className="text-brand-500 h-8 w-8" />}
+        message="You have no actions on your account!"
       />
     );
   }
@@ -63,7 +64,7 @@ const List: FC = () => {
   return (
     <div className="space-y-4">
       {profileActionHistory?.map((action) => (
-        <Card key={action.id} className="space-y-1 p-5" forceRounded>
+        <Card className="space-y-1 p-5" forceRounded key={action.id}>
           <b>{action.actionType.toLowerCase()}</b>
           <div className="ld-text-gray-500 text-sm">
             {action.txHash ? (

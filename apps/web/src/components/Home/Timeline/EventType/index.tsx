@@ -1,4 +1,5 @@
 import type { FeedItem } from '@hey/lens';
+
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { type FC } from 'react';
 
@@ -18,7 +19,7 @@ interface ActionTypeProps {
 }
 
 const ActionType: FC<ActionTypeProps> = ({ feedItem }) => {
-  const { root, mirrors, reactions, acted, comments } = feedItem;
+  const { acted, comments, mirrors, reactions, root } = feedItem;
   const isComment = root.__typename === 'Comment';
   const showThread = isComment || (comments?.length ?? 0) > 0;
 

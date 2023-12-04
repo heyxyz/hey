@@ -1,99 +1,86 @@
 import type { AnyPublication } from '@hey/lens';
 import type { NewAttachment } from '@hey/types/misc';
+
 import { create } from 'zustand';
 
 interface PublicationState {
-  publicationContent: string;
-  setPublicationContent: (publicationContent: string) => void;
-  quotedPublication: AnyPublication | null;
-  setQuotedPublication: (quotedPublication: AnyPublication | null) => void;
-  audioPublication: {
-    title: string;
-    artist: string;
-    cover: string;
-    coverMimeType: string;
-  };
-  setAudioPublication: (audioPublication: {
-    title: string;
-    artist: string;
-    cover: string;
-    coverMimeType: string;
-  }) => void;
-  attachments: NewAttachment[];
-  setAttachments: (attachments: NewAttachment[]) => void;
   addAttachments: (attachments: NewAttachment[]) => void;
-  updateAttachments: (attachments: NewAttachment[]) => void;
-  removeAttachments: (ids: string[]) => void;
-  videoThumbnail: {
-    url?: string;
-    type?: string;
-    uploading?: boolean;
+  attachments: NewAttachment[];
+  audioPublication: {
+    artist: string;
+    cover: string;
+    coverMimeType: string;
+    title: string;
   };
-  setVideoThumbnail: (videoThumbnail: {
-    url?: string;
-    type?: string;
-    uploading?: boolean;
-  }) => void;
-  videoDurationInSeconds: string;
-  setVideoDurationInSeconds: (videoDurationInSeconds: string) => void;
   isUploading: boolean;
-  setIsUploading: (isUploading: boolean) => void;
-  uploadedPercentage: number;
-  setUploadedPercentage: (uploadedPercentage: number) => void;
-  showPollEditor: boolean;
-  setShowPollEditor: (showPollEditor: boolean) => void;
+  liveVideoConfig: {
+    id: string;
+    playbackId: string;
+    streamKey: string;
+  };
   pollConfig: {
     length: number;
     options: string[];
   };
-  setPollConfig: (pollConfig: { length: number; options: string[] }) => void;
+  publicationContent: string;
+  quotedPublication: AnyPublication | null;
+  removeAttachments: (ids: string[]) => void;
+  resetLiveVideoConfig: () => void;
   resetPollConfig: () => void;
-  showLiveVideoEditor: boolean;
-  setShowLiveVideoEditor: (showLiveVideoEditor: boolean) => void;
-  liveVideoConfig: {
-    id: string;
-    streamKey: string;
-    playbackId: string;
-  };
+  setAttachments: (attachments: NewAttachment[]) => void;
+  setAudioPublication: (audioPublication: {
+    artist: string;
+    cover: string;
+    coverMimeType: string;
+    title: string;
+  }) => void;
+  setIsUploading: (isUploading: boolean) => void;
   setLiveVideoConfig: (liveVideoConfig: {
     id: string;
-    streamKey: string;
     playbackId: string;
+    streamKey: string;
   }) => void;
-  resetLiveVideoConfig: () => void;
+  setPollConfig: (pollConfig: { length: number; options: string[] }) => void;
+  setPublicationContent: (publicationContent: string) => void;
+  setQuotedPublication: (quotedPublication: AnyPublication | null) => void;
+  setShowLiveVideoEditor: (showLiveVideoEditor: boolean) => void;
+  setShowPollEditor: (showPollEditor: boolean) => void;
+  setUploadedPercentage: (uploadedPercentage: number) => void;
+  setVideoDurationInSeconds: (videoDurationInSeconds: string) => void;
+  setVideoThumbnail: (videoThumbnail: {
+    type?: string;
+    uploading?: boolean;
+    url?: string;
+  }) => void;
+  showLiveVideoEditor: boolean;
+  showPollEditor: boolean;
+  updateAttachments: (attachments: NewAttachment[]) => void;
+  uploadedPercentage: number;
+  videoDurationInSeconds: string;
+  videoThumbnail: {
+    type?: string;
+    uploading?: boolean;
+    url?: string;
+  };
 }
 
 export const usePublicationStore = create<PublicationState>((set) => ({
-  publicationContent: '',
-  setPublicationContent: (publicationContent) =>
-    set(() => ({ publicationContent })),
-  quotedPublication: null,
-  setQuotedPublication: (quotedPublication) =>
-    set(() => ({ quotedPublication })),
-  audioPublication: {
-    title: '',
-    artist: '',
-    cover: '',
-    coverMimeType: 'image/jpeg'
-  },
-  setAudioPublication: (audioPublication) => set(() => ({ audioPublication })),
-  attachments: [],
-  setAttachments: (attachments) => set(() => ({ attachments })),
   addAttachments: (newAttachments) =>
     set((state) => {
       return { attachments: [...state.attachments, ...newAttachments] };
     }),
-  updateAttachments: (updateAttachments) =>
-    set((state) => {
-      const attachments = [...state.attachments];
-      updateAttachments.map((attachment) => {
-        const index = attachments.findIndex((a) => a.id === attachment.id);
-        if (index !== -1) {
-          attachments[index] = attachment;
-        }
-      });
-      return { attachments };
-    }),
+  attachments: [],
+  audioPublication: {
+    artist: '',
+    cover: '',
+    coverMimeType: 'image/jpeg',
+    title: ''
+  },
+  isUploading: false,
+  liveVideoConfig: { id: '', playbackId: '', streamKey: '' },
+  pollConfig: { length: 7, options: ['', ''] },
+  publicationContent: '',
+  quotedPublication: null,
   removeAttachments: (ids) =>
     set((state) => {
       const attachments = [...state.attachments];
@@ -105,27 +92,41 @@ export const usePublicationStore = create<PublicationState>((set) => ({
       });
       return { attachments };
     }),
-  videoThumbnail: { url: '', type: '', uploading: false },
-  setVideoThumbnail: (videoThumbnail) => set(() => ({ videoThumbnail })),
-  videoDurationInSeconds: '',
-  setVideoDurationInSeconds: (videoDurationInSeconds) =>
-    set(() => ({ videoDurationInSeconds })),
-  isUploading: false,
-  setIsUploading: (isUploading) => set(() => ({ isUploading })),
-  uploadedPercentage: 0,
-  setUploadedPercentage: (uploadedPercentage) =>
-    set(() => ({ uploadedPercentage })),
-  showPollEditor: false,
-  setShowPollEditor: (showPollEditor) => set(() => ({ showPollEditor })),
-  pollConfig: { length: 7, options: ['', ''] },
-  setPollConfig: (pollConfig) => set(() => ({ pollConfig })),
+  resetLiveVideoConfig: () =>
+    set(() => ({ liveVideoConfig: { id: '', playbackId: '', streamKey: '' } })),
   resetPollConfig: () =>
     set(() => ({ pollConfig: { length: 1, options: ['', ''] } })),
-  showLiveVideoEditor: false,
+  setAttachments: (attachments) => set(() => ({ attachments })),
+  setAudioPublication: (audioPublication) => set(() => ({ audioPublication })),
+  setIsUploading: (isUploading) => set(() => ({ isUploading })),
+  setLiveVideoConfig: (liveVideoConfig) => set(() => ({ liveVideoConfig })),
+  setPollConfig: (pollConfig) => set(() => ({ pollConfig })),
+  setPublicationContent: (publicationContent) =>
+    set(() => ({ publicationContent })),
+  setQuotedPublication: (quotedPublication) =>
+    set(() => ({ quotedPublication })),
   setShowLiveVideoEditor: (showLiveVideoEditor) =>
     set(() => ({ showLiveVideoEditor })),
-  liveVideoConfig: { id: '', streamKey: '', playbackId: '' },
-  setLiveVideoConfig: (liveVideoConfig) => set(() => ({ liveVideoConfig })),
-  resetLiveVideoConfig: () =>
-    set(() => ({ liveVideoConfig: { id: '', streamKey: '', playbackId: '' } }))
+  setShowPollEditor: (showPollEditor) => set(() => ({ showPollEditor })),
+  setUploadedPercentage: (uploadedPercentage) =>
+    set(() => ({ uploadedPercentage })),
+  setVideoDurationInSeconds: (videoDurationInSeconds) =>
+    set(() => ({ videoDurationInSeconds })),
+  setVideoThumbnail: (videoThumbnail) => set(() => ({ videoThumbnail })),
+  showLiveVideoEditor: false,
+  showPollEditor: false,
+  updateAttachments: (updateAttachments) =>
+    set((state) => {
+      const attachments = [...state.attachments];
+      updateAttachments.map((attachment) => {
+        const index = attachments.findIndex((a) => a.id === attachment.id);
+        if (index !== -1) {
+          attachments[index] = attachment;
+        }
+      });
+      return { attachments };
+    }),
+  uploadedPercentage: 0,
+  videoDurationInSeconds: '',
+  videoThumbnail: { type: '', uploading: false, url: '' }
 }));

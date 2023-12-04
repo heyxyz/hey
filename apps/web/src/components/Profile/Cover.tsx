@@ -12,15 +12,15 @@ const Cover: FC<CoverProps> = ({ cover }) => {
     <div
       className="h-52 sm:h-80"
       style={{
+        backgroundColor: BRAND_COLOR,
         backgroundImage: `url(${
           cover
             ? imageKit(sanitizeDStorageUrl(cover), COVER)
             : `${STATIC_IMAGES_URL}/patterns/2.svg`
         })`,
-        backgroundColor: BRAND_COLOR,
-        backgroundSize: cover ? 'cover' : '30%',
         backgroundPosition: 'center center',
-        backgroundRepeat: cover ? 'no-repeat' : 'repeat'
+        backgroundRepeat: cover ? 'no-repeat' : 'repeat',
+        backgroundSize: cover ? 'cover' : '30%'
       }}
     />
   );

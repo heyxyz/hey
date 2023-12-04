@@ -1,3 +1,5 @@
+import type { FC } from 'react';
+
 import IndexStatus from '@components/Shared/IndexStatus';
 import {
   ExclamationTriangleIcon,
@@ -10,7 +12,6 @@ import { SETTINGS } from '@hey/data/tracking';
 import { Button, Card, Modal, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
@@ -29,14 +30,14 @@ const GuardianSettings: FC = () => {
   };
 
   const { data, write } = useContractWrite({
-    address: LENSHUB_PROXY,
     abi: LensHub,
+    address: LENSHUB_PROXY,
     functionName: 'DANGER__disableTokenGuardian',
-    onSuccess: () => {
-      Leafwatch.track(SETTINGS.DANGER.UNPROTECT_PROFILE);
-    },
     onError: (error) => {
       onError(error);
+    },
+    onSuccess: () => {
+      Leafwatch.track(SETTINGS.DANGER.UNPROTECT_PROFILE);
     }
   });
 
@@ -85,47 +86,47 @@ const GuardianSettings: FC = () => {
       </div>
       {data?.hash ? (
         <div className="mt-5">
-          <IndexStatus txHash={data.hash} reload />
+          <IndexStatus reload txHash={data.hash} />
         </div>
       ) : (
         <Button
-          variant="danger"
+          disabled={isLoading}
           icon={
             isLoading ? (
-              <Spinner variant="danger" size="xs" />
+              <Spinner size="xs" variant="danger" />
             ) : (
               <LockOpenIcon className="h-5 w-5" />
             )
           }
-          disabled={isLoading}
           onClick={() => setShowWarningModal(true)}
+          variant="danger"
         >
           {isLoading ? 'Disabling...' : 'Disable now'}
         </Button>
       )}
       <Modal
-        title="Danger zone"
         icon={<ExclamationTriangleIcon className="h-5 w-5 text-red-500" />}
-        show={showWarningModal}
         onClose={() => setShowWarningModal(false)}
+        show={showWarningModal}
+        title="Danger zone"
       >
         <div className="space-y-3 p-5">
           <WarningMessage
-            title="Are you sure?"
             message={
               <div className="leading-6">
                 Confirm that you have read all consequences and want to disable
                 the Profile Guardian.
               </div>
             }
+            title="Are you sure?"
           />
           <Button
-            variant="danger"
             icon={<LockOpenIcon className="h-5 w-5" />}
             onClick={async () => {
               setShowWarningModal(false);
               await handleDisable();
             }}
+            variant="danger"
           >
             Yes, disable
           </Button>

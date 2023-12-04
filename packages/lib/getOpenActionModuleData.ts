@@ -1,4 +1,5 @@
 import type { OpenActionModule } from '@hey/lens';
+
 import { OpenActionModuleType } from '@hey/lens';
 
 const getOpenActionModuleData = (

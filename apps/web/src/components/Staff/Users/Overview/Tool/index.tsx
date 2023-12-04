@@ -1,3 +1,5 @@
+import type { Profile } from '@hey/lens';
+
 import UserProfile from '@components/Shared/UserProfile';
 import {
   BanknotesIcon,
@@ -9,7 +11,6 @@ import {
 } from '@heroicons/react/24/outline';
 import { ShieldCheckIcon } from '@heroicons/react/24/solid';
 import { APP_NAME, HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
-import type { Profile } from '@hey/lens';
 import getPreferences from '@hey/lib/api/getPreferences';
 import formatAddress from '@hey/lib/formatAddress';
 import getFollowModule from '@hey/lib/getFollowModule';
@@ -44,22 +45,22 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
   };
 
   const { data: haveUsedHey } = useQuery({
-    queryKey: ['getHaveUsedHey', profile.id],
-    queryFn: getHaveUsedHey
+    queryFn: getHaveUsedHey,
+    queryKey: ['getHaveUsedHey', profile.id]
   });
 
   const { data: preferences } = useQuery({
-    queryKey: ['fetchPreferences', profile.id || ''],
-    queryFn: () => getPreferences(profile.id, getAuthWorkerHeaders())
+    queryFn: () => getPreferences(profile.id, getAuthWorkerHeaders()),
+    queryKey: ['fetchPreferences', profile.id || '']
   });
 
   return (
     <div>
       <UserProfile
-        profile={profile}
         isBig
-        showBio
         linkToProfile
+        profile={profile}
+        showBio
         showUserPreview={false}
       />
       <div className="divider my-5 border-dashed border-yellow-600" />
@@ -72,11 +73,11 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           <MetaDetails
             icon={
               <img
+                alt="Logo"
                 className="h-4 w-4"
                 height={16}
-                width={16}
                 src="/logo.png"
-                alt="Logo"
+                width={16}
               />
             }
           >
@@ -85,23 +86,23 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         ) : null}
         <MetaDetails
           icon={<HashtagIcon className="ld-text-gray-500 h-4 w-4" />}
-          value={profile.id}
           title="Profile ID"
+          value={profile.id}
         >
           {profile.id}
         </MetaDetails>
         <MetaDetails
           icon={<BanknotesIcon className="ld-text-gray-500 h-4 w-4" />}
-          value={profile.ownedBy.address}
           title="Address"
+          value={profile.ownedBy.address}
         >
           {formatAddress(profile.ownedBy.address)}
         </MetaDetails>
         {profile?.followNftAddress ? (
           <MetaDetails
             icon={<PhotoIcon className="ld-text-gray-500 h-4 w-4" />}
-            value={profile.followNftAddress.address}
             title="NFT address"
+            value={profile.followNftAddress.address}
           >
             {formatAddress(profile.followNftAddress.address)}
           </MetaDetails>
@@ -127,13 +128,13 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         {profile?.metadata?.rawURI ? (
           <MetaDetails
             icon={<LinkIcon className="ld-text-gray-500 h-4 w-4" />}
-            value={profile.metadata.rawURI}
             title="Metadata"
+            value={profile.metadata.rawURI}
           >
             <Link
               href={profile.metadata.rawURI}
-              target="_blank"
               rel="noreferrer"
+              target="_blank"
             >
               Open
             </Link>
@@ -151,9 +152,9 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           <div className="divider my-5 border-dashed border-yellow-600" />
         </>
       ) : null}
-      <Access profile={profile} isPro={preferences?.pro?.enabled || false} />
+      <Access isPro={preferences?.pro?.enabled || false} profile={profile} />
       <div className="divider my-5 border-dashed border-yellow-600" />
-      <FeatureFlags profile={profile} features={preferences?.features || []} />
+      <FeatureFlags features={preferences?.features || []} profile={profile} />
     </div>
   );
 };

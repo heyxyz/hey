@@ -1,26 +1,27 @@
+import type { Profile } from '@hey/lens';
+
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { PROFILE } from '@hey/data/tracking';
-import type { Profile } from '@hey/lens';
 import { useDismissRecommendedProfilesMutation } from '@hey/lens';
 import { Leafwatch } from '@lib/leafwatch';
 import { type FC } from 'react';
 
 interface DismissRecommendedProfileProps {
-  profile: Profile;
-  dismissSource?: string;
   dismissPosition?: number;
+  dismissSource?: string;
+  profile: Profile;
 }
 
 const DismissRecommendedProfile: FC<DismissRecommendedProfileProps> = ({
-  profile,
+  dismissPosition,
   dismissSource,
-  dismissPosition
+  profile
 }) => {
   const [dismissRecommendedProfile] = useDismissRecommendedProfilesMutation({
-    variables: { request: { dismiss: [profile.id] } },
     update: (cache) => {
       cache.evict({ id: cache.identify(profile) });
-    }
+    },
+    variables: { request: { dismiss: [profile.id] } }
   });
 
   const handleDismiss = async () => {

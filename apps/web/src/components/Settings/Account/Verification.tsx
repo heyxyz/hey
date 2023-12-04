@@ -1,7 +1,8 @@
+import type { FC } from 'react';
+
 import { CheckBadgeIcon } from '@heroicons/react/24/solid';
 import { Card } from '@hey/ui';
 import Link from 'next/link';
-import type { FC } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { hydrateVerifiedMembers } from 'src/store/persisted/useVerifiedMembersStore';
 

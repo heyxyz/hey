@@ -11,12 +11,12 @@ interface MenuProps {
 
 const Menu: FC<MenuProps> = ({ children, current, url }) => (
   <Link
-    href={url}
     className={cn(
       { 'bg-brand-100 dark:bg-brand-300/20 text-brand-500 font-bold': current },
       'hover:bg-brand-100/80 hover:text-brand-400 dark:hover:bg-brand-300/30',
       'flex items-center space-x-2 rounded-lg px-3 py-2'
     )}
+    href={url}
   >
     {children}
   </Link>
@@ -24,11 +24,11 @@ const Menu: FC<MenuProps> = ({ children, current, url }) => (
 
 interface SidebarProps {
   items: {
-    title: ReactNode;
-    icon: ReactNode;
-    url: string;
     active?: boolean;
     enabled?: boolean;
+    icon: ReactNode;
+    title: ReactNode;
+    url: string;
   }[];
 }
 
@@ -44,8 +44,8 @@ const Sidebar: FC<SidebarProps> = ({ items }) => {
       {menuItems.map((item: any) =>
         item?.enabled ? (
           <Menu
-            key={item.title}
             current={pathname === item.url || item.active}
+            key={item.title}
             url={item.url}
           >
             {item.icon}

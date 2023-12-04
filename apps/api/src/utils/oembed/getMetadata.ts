@@ -1,5 +1,6 @@
-import getFavicon from '@hey/lib/getFavicon';
 import type { OG } from '@hey/types/misc';
+
+import getFavicon from '@hey/lib/getFavicon';
 import { parseHTML } from 'linkedom';
 
 import getProxyUrl from './getProxyUrl';
@@ -23,14 +24,14 @@ const getMetadata = async (url: string): Promise<any> => {
   const image = getImage(document) as string;
   const proxiedUrl = getProxyUrl(image, isLarge);
   const metadata: OG = {
-    url,
-    title: getTitle(document),
     description: getDescription(document),
-    image: proxiedUrl,
-    site: getSite(document),
     favicon: getFavicon(url),
+    html: generateIframe(getEmbedUrl(document), url),
+    image: proxiedUrl,
     isLarge,
-    html: generateIframe(getEmbedUrl(document), url)
+    site: getSite(document),
+    title: getTitle(document),
+    url
   };
 
   return metadata;

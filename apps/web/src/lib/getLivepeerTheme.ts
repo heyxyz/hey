@@ -1,13 +1,14 @@
-import { BRAND_COLOR } from '@hey/data/constants';
 import type { ThemeConfig } from '@livepeer/react';
+
+import { BRAND_COLOR } from '@hey/data/constants';
 
 import heyFont from './heyFont';
 
 const getLivepeerTheme: ThemeConfig = {
   colors: {
     accent: '#fff',
-    progressLeft: BRAND_COLOR,
-    loading: BRAND_COLOR
+    loading: BRAND_COLOR,
+    progressLeft: BRAND_COLOR
   },
   fonts: {
     display: heyFont.style.fontFamily
@@ -15,10 +16,8 @@ const getLivepeerTheme: ThemeConfig = {
   fontSizes: {
     timeFontSize: '11px'
   },
-  space: {
-    timeMarginX: '20px',
-    controlsBottomMarginX: '10px',
-    controlsBottomMarginY: '5px'
+  radii: {
+    containerBorderRadius: '12px'
   },
   sizes: {
     iconButtonSize: '30px',
@@ -27,8 +26,10 @@ const getLivepeerTheme: ThemeConfig = {
     trackActive: '3px',
     trackInactive: '3px'
   },
-  radii: {
-    containerBorderRadius: '12px'
+  space: {
+    controlsBottomMarginX: '10px',
+    controlsBottomMarginY: '5px',
+    timeMarginX: '20px'
   }
 };
 

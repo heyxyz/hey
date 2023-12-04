@@ -1,7 +1,9 @@
+import type { BlockRequest, UnblockRequest } from '@hey/lens';
+import type { ApolloCache } from '@hey/lens/apollo';
+
 import { LensHub } from '@hey/abis';
 import { LENSHUB_PROXY } from '@hey/data/constants';
 import { PROFILE } from '@hey/data/tracking';
-import type { BlockRequest, UnblockRequest } from '@hey/lens';
 import {
   useBlockMutation,
   useBroadcastOnchainMutation,
@@ -9,7 +11,6 @@ import {
   useCreateUnblockProfilesTypedDataMutation,
   useUnblockMutation
 } from '@hey/lens';
-import type { ApolloCache } from '@hey/lens/apollo';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getProfile from '@hey/lib/getProfile';
 import getSignature from '@hey/lib/getSignature';
@@ -48,22 +49,22 @@ const BlockOrUnBlockProfile: FC = () => {
   );
 
   const handleWrongNetwork = useHandleWrongNetwork();
-  const { canUseLensManager, canBroadcast } =
+  const { canBroadcast, canUseLensManager } =
     checkDispatcherPermissions(currentProfile);
 
   const updateCache = (cache: ApolloCache<any>) => {
     cache.modify({
-      id: `ProfileOperations:${blockingorUnblockingProfile?.id}`,
       fields: {
         isBlockedByMe: (existingValue) => {
           return { ...existingValue, value: !hasBlocked };
         }
-      }
+      },
+      id: `ProfileOperations:${blockingorUnblockingProfile?.id}`
     });
   };
 
   const onCompleted = (
-    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
+    __typename?: 'LensProfileManagerRelayError' | 'RelayError' | 'RelaySuccess'
   ) => {
     if (
       __typename === 'RelayError' ||
@@ -90,11 +91,11 @@ const BlockOrUnBlockProfile: FC = () => {
 
   const { signTypedDataAsync } = useSignTypedData({ onError });
   const { write } = useContractWrite({
-    address: LENSHUB_PROXY,
     abi: LensHub,
+    address: LENSHUB_PROXY,
     functionName: 'setBlockStatus',
-    onSuccess: () => onCompleted(),
-    onError
+    onError,
+    onSuccess: () => onCompleted()
   });
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
@@ -211,16 +212,16 @@ const BlockOrUnBlockProfile: FC = () => {
 
   return (
     <Alert
-      title="Block Profile"
+      confirmText={hasBlocked ? 'Unblock' : 'Block'}
       description={`Are you sure you want to ${
         hasBlocked ? 'un-block' : 'block'
       } ${getProfile(blockingorUnblockingProfile).slugWithPrefix}?`}
-      confirmText={hasBlocked ? 'Unblock' : 'Block'}
-      show={showBlockOrUnblockAlert}
       isDestructive
       isPerformingAction={isLoading}
-      onConfirm={blockOrUnblock}
       onClose={() => setShowBlockOrUnblockAlert(false, null)}
+      onConfirm={blockOrUnblock}
+      show={showBlockOrUnblockAlert}
+      title="Block Profile"
     />
   );
 };

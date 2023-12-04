@@ -1,3 +1,7 @@
+import type { AnyPublication } from '@hey/lens';
+import type { ZoraNft } from '@hey/types/nft';
+import type { Address } from 'viem';
+
 import WalletSelector from '@components/Shared/Login/WalletSelector';
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import {
@@ -9,15 +13,12 @@ import { ZoraCreator1155Impl, ZoraERC721Drop } from '@hey/abis';
 import { APP_NAME, REWARDS_ADDRESS, ZERO_ADDRESS } from '@hey/data/constants';
 import { ZORA_FIXED_PRICE_SALE_STRATEGY } from '@hey/data/contracts';
 import { PUBLICATION } from '@hey/data/tracking';
-import type { AnyPublication } from '@hey/lens';
 import getZoraChainInfo from '@hey/lib/getZoraChainInfo';
-import type { ZoraNft } from '@hey/types/nft';
 import { Button, Spinner } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import { type FC } from 'react';
 import { useUpdateEffect } from 'usehooks-ts';
-import type { Address } from 'viem';
 import { encodeAbiParameters, parseAbiParameters, parseEther } from 'viem';
 import {
   useAccount,
@@ -36,16 +37,16 @@ const ALLOWED_ERRORS_FOR_MINTING = [NO_BALANCE_ERROR, MAX_MINT_EXCEEDED_ERROR];
 
 interface MintActionProps {
   nft: ZoraNft;
-  zoraLink: string;
-  publication?: AnyPublication;
   onCompleted?: () => void;
+  publication?: AnyPublication;
+  zoraLink: string;
 }
 
 const MintAction: FC<MintActionProps> = ({
   nft,
-  zoraLink,
+  onCompleted,
   publication,
-  onCompleted
+  zoraLink
 }) => {
   const quantity = useZoraMintStore((state) => state.quantity);
   const setCanMintOnHey = useZoraMintStore((state) => state.setCanMintOnHey);
@@ -78,21 +79,21 @@ const MintAction: FC<MintActionProps> = ({
 
   const {
     config,
-    isFetching: isPrepareFetching,
+    error: prepareError,
     isError: isPrepareError,
-    error: prepareError
+    isFetching: isPrepareFetching
   } = usePrepareContractWrite({
-    chainId: nft.chainId,
-    address: nftAddress,
-    functionName: 'mintWithRewards',
     abi,
+    address: nftAddress,
     args,
+    chainId: nft.chainId,
+    functionName: 'mintWithRewards',
     value
   });
   const {
-    write,
     data,
-    isLoading: isContractWriteLoading
+    isLoading: isContractWriteLoading,
+    write
   } = useContractWrite({ ...config });
   const {
     data: txnData,
@@ -109,10 +110,10 @@ const MintAction: FC<MintActionProps> = ({
       Leafwatch.track(PUBLICATION.OPEN_ACTIONS.ZORA_NFT.MINT, {
         ...(publication && { publication_id: publication.id }),
         chain: nft.chainId,
+        hash: txnData.transactionHash,
         nft: nftAddress,
         price: (nftPriceInEth + mintFee) * quantity,
-        quantity,
-        hash: txnData.transactionHash
+        quantity
       });
     }
   }, [isSuccess]);
@@ -146,16 +147,16 @@ const MintAction: FC<MintActionProps> = ({
       ) : chain !== nft.chainId ? (
         <SwitchNetwork
           className="mt-5 w-full justify-center"
-          toChainId={nft.chainId}
           title={`Switch to ${getZoraChainInfo(nft.chainId).name}`}
+          toChainId={nft.chainId}
         />
       ) : isPrepareError ? (
         noBalanceError ? (
           <Link
             className="w-full"
             href="https://app.uniswap.org"
-            target="_blank"
             rel="noopener noreferrer"
+            target="_blank"
           >
             <Button
               className="mt-5 w-full justify-center"
@@ -176,13 +177,12 @@ const MintAction: FC<MintActionProps> = ({
           <Link
             className="w-full"
             href={zoraLink}
-            target="_blank"
             rel="noopener noreferrer"
+            target="_blank"
           >
             <Button
               className="mt-5 w-full justify-center"
               icon={<CursorArrowRaysIcon className="h-5 w-5" />}
-              size="md"
               onClick={() =>
                 Leafwatch.track(PUBLICATION.OPEN_ACTIONS.ZORA_NFT.OPEN_LINK, {
                   ...(publication && { publication_id: publication.id }),
@@ -190,6 +190,7 @@ const MintAction: FC<MintActionProps> = ({
                   type: saleInactiveError ? 'collect' : 'mint'
                 })
               }
+              size="md"
             >
               {saleInactiveError ? 'Collect on Zora' : 'Mint on Zora'}
             </Button>
@@ -199,7 +200,6 @@ const MintAction: FC<MintActionProps> = ({
         <Button
           className="mt-5 w-full justify-center"
           disabled={!write}
-          onClick={() => write?.()}
           icon={
             isContractWriteLoading ? (
               <Spinner size="xs" />
@@ -207,6 +207,7 @@ const MintAction: FC<MintActionProps> = ({
               <CursorArrowRaysIcon className="h-4 w-4" />
             )
           }
+          onClick={() => write?.()}
         >
           Mint on Zora
         </Button>

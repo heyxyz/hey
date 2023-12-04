@@ -1,6 +1,7 @@
+import type { Request } from 'express';
+
 import parseJwt from '@hey/lib/parseJwt';
 import prisma from '@utils/prisma';
-import type { Request } from 'express';
 
 import { GARDENER_FEATURE_ID } from '../constants';
 import validateLensAccount from './validateLensAccount';
@@ -25,9 +26,9 @@ const validateIsGardener = async (request: Request) => {
     const payload = parseJwt(accessToken);
     const data = await prisma.profileFeature.findFirst({
       where: {
-        profileId: payload.id,
+        enabled: true,
         featureId: GARDENER_FEATURE_ID,
-        enabled: true
+        profileId: payload.id
       }
     });
 

@@ -1,13 +1,14 @@
+import type { HomeFeedType } from '@hey/data/enums';
+import type { AnyPublication, PublicationsRequest } from '@hey/lens';
+import type { FC } from 'react';
+
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { SparklesIcon } from '@heroicons/react/24/outline';
-import type { HomeFeedType } from '@hey/data/enums';
-import type { AnyPublication, PublicationsRequest } from '@hey/lens';
 import { LimitType, usePublicationsQuery } from '@hey/lens';
 import getAlgorithmicFeed from '@hey/lib/getAlgorithmicFeed';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
-import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import useProfileStore from 'src/store/persisted/useProfileStore';
@@ -25,12 +26,12 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
 
   const {
     data: publicationIds,
-    isLoading: algoLoading,
-    error: algoError
+    error: algoError,
+    isLoading: algoLoading
   } = useQuery({
-    queryKey: ['getAlgorithmicFeed', feedType, currentProfile?.id, 25, offset],
     queryFn: async () =>
-      await getAlgorithmicFeed(feedType, currentProfile, 25, offset)
+      await getAlgorithmicFeed(feedType, currentProfile, 25, offset),
+    queryKey: ['getAlgorithmicFeed', feedType, currentProfile?.id, 25, offset]
   });
 
   useEffect(() => {
@@ -38,14 +39,14 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
   }, [feedType, currentProfile?.id]);
 
   const request: PublicationsRequest = {
-    where: { publicationIds },
-    limit
+    limit,
+    where: { publicationIds }
   };
 
-  const { data, loading, error } = usePublicationsQuery({
-    variables: { request },
+  const { data, error, loading } = usePublicationsQuery({
+    fetchPolicy: 'no-cache',
     skip: !publicationIds,
-    fetchPolicy: 'no-cache'
+    variables: { request }
   });
 
   const publications = [
@@ -71,23 +72,23 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
   if (publications?.length === 0) {
     return (
       <EmptyState
-        message="No posts yet!"
         icon={<SparklesIcon className="text-brand-500 h-8 w-8" />}
+        message="No posts yet!"
       />
     );
   }
 
   if (publications.length == 0 && (error || algoError)) {
-    return <ErrorMessage title="Failed to load for you" error={error} />;
+    return <ErrorMessage error={error} title="Failed to load for you" />;
   }
 
   return (
     <Card className="divide-y-[1px] dark:divide-gray-700">
       {publications?.map((publication, index) => (
         <SinglePublication
-          key={`${publication.id}_${index}`}
           isFirst={index === 0}
           isLast={index === publications.length - 1}
+          key={`${publication.id}_${index}`}
           publication={publication as AnyPublication}
         />
       ))}

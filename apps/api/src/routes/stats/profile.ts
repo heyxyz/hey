@@ -1,25 +1,26 @@
+import type { Handler } from 'express';
+
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
 import createClickhouseClient from '@utils/createClickhouseClient';
 import { noBody } from '@utils/responses';
-import type { Handler } from 'express';
 
 interface QueryResult {
   dname: string;
-  last_7_days: string;
   last_14_days: string;
+  last_7_days: string;
 }
 
 interface AccumulatedResults {
   [key: string]: {
-    last_7_days: number;
     last_14_days: number;
+    last_7_days: number;
   };
 }
 
 export const get: Handler = async (req, res) => {
-  const { id, handle } = req.query;
+  const { handle, id } = req.query;
 
   if (!id || !handle) {
     return noBody(res);
@@ -115,7 +116,7 @@ export const get: Handler = async (req, res) => {
     const results = await Promise.all(
       queries.map((query) =>
         client
-          .query({ query, format: 'JSONEachRow' })
+          .query({ format: 'JSONEachRow', query })
           .then((rows) => rows.json<QueryResult[]>())
       )
     );
@@ -125,8 +126,8 @@ export const get: Handler = async (req, res) => {
       (acc: any, resultArray) => {
         for (const row of resultArray) {
           acc[row.dname] = {
-            last_7_days: Number(row.last_7_days),
-            last_14_days: Number(row.last_14_days)
+            last_14_days: Number(row.last_14_days),
+            last_7_days: Number(row.last_7_days)
           };
         }
         return acc;
@@ -138,7 +139,7 @@ export const get: Handler = async (req, res) => {
     return res
       .status(200)
       .setHeader('Cache-Control', SWR_CACHE_AGE_1_MIN_30_DAYS)
-      .json({ success: true, result: combinedResult });
+      .json({ result: combinedResult, success: true });
   } catch (error) {
     return catchedError(res, error);
   }

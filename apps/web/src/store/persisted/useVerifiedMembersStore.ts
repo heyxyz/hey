@@ -5,21 +5,21 @@ import { persist } from 'zustand/middleware';
 import createIdbStorage from '../lib/createIdbStorage';
 
 interface VerifiedMembersState {
-  verifiedMembers: string[];
-  setVerifiedMembers: (verifiedMembers: string[]) => void;
   hydrateVerifiedMembers: () => { verifiedMembers: string[] };
+  setVerifiedMembers: (verifiedMembers: string[]) => void;
+  verifiedMembers: string[];
 }
 
 export const useVerifiedMembersStore = create(
   persist<VerifiedMembersState>(
     (set, get) => ({
-      verifiedMembers: [],
-      setVerifiedMembers: (verifiedMembers) => set(() => ({ verifiedMembers })),
       hydrateVerifiedMembers: () => {
         return {
           verifiedMembers: get().verifiedMembers
         };
-      }
+      },
+      setVerifiedMembers: (verifiedMembers) => set(() => ({ verifiedMembers })),
+      verifiedMembers: []
     }),
     {
       name: IndexDB.VerifiedMembersStore,

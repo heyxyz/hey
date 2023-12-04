@@ -1,19 +1,20 @@
+import type { Handler } from 'express';
+
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import validateIsStaff from '@utils/middlewares/validateIsStaff';
 import prisma from '@utils/prisma';
 import { invalidBody, noBody, notAllowed } from '@utils/responses';
-import type { Handler } from 'express';
 import { boolean, object, string } from 'zod';
 
 type ExtensionRequest = {
-  id: string;
   enabled: boolean;
+  id: string;
 };
 
 const validationSchema = object({
-  id: string(),
-  enabled: boolean()
+  enabled: boolean(),
+  id: string()
 });
 
 export const post: Handler = async (req, res) => {
@@ -33,20 +34,20 @@ export const post: Handler = async (req, res) => {
     return notAllowed(res);
   }
 
-  const { id, enabled } = body as ExtensionRequest;
+  const { enabled, id } = body as ExtensionRequest;
 
   try {
     if (enabled) {
       await prisma.verified.create({ data: { id } });
       logger.info(`Enabled verified for ${id}`);
 
-      return res.status(200).json({ success: true, enabled });
+      return res.status(200).json({ enabled, success: true });
     }
 
     await prisma.verified.delete({ where: { id } });
     logger.info(`Disabled verified for ${id}`);
 
-    return res.status(200).json({ success: true, enabled });
+    return res.status(200).json({ enabled, success: true });
   } catch (error) {
     return catchedError(res, error);
   }

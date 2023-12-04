@@ -1,3 +1,6 @@
+import type { Profile } from '@hey/lens';
+import type { FC } from 'react';
+
 import Sidebar from '@components/Shared/Sidebar';
 import UserProfile from '@components/Shared/UserProfile';
 import {
@@ -15,8 +18,6 @@ import {
   SparklesIcon,
   UserIcon
 } from '@heroicons/react/24/outline';
-import type { Profile } from '@hey/lens';
-import type { FC } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useAccount } from 'wagmi';
 
@@ -36,71 +37,71 @@ const SettingsSidebar: FC = () => {
       <Sidebar
         items={[
           {
-            title: 'Profile',
             icon: <UserIcon className="h-4 w-4" />,
+            title: 'Profile',
             url: '/settings'
           },
           {
-            title: 'Account',
             icon: <CpuChipIcon className="h-4 w-4" />,
+            title: 'Account',
             url: '/settings/account'
           },
           {
-            title: 'Handles',
             icon: <AtSymbolIcon className="h-4 w-4" />,
+            title: 'Handles',
             url: '/settings/handles'
           },
           {
-            title: 'Preferences',
             icon: <AdjustmentsVerticalIcon className="h-4 w-4" />,
+            title: 'Preferences',
             url: '/settings/preferences'
           },
           {
-            title: 'Interests',
             icon: <BookmarkIcon className="h-4 w-4" />,
+            title: 'Interests',
             url: '/settings/interests'
           },
           {
-            title: 'Manager',
+            enabled,
             icon: <FingerPrintIcon className="h-4 w-4" />,
-            url: '/settings/manager',
-            enabled
+            title: 'Manager',
+            url: '/settings/manager'
           },
           {
-            title: 'Allowance',
             icon: <ShareIcon className="h-4 w-4" />,
+            title: 'Allowance',
             url: '/settings/allowance'
           },
           {
-            title: 'Sessions',
             icon: <GlobeAltIcon className="h-4 w-4" />,
+            title: 'Sessions',
             url: '/settings/sessions'
           },
           {
-            title: 'Action History',
             icon: <QueueListIcon className="h-4 w-4" />,
+            title: 'Action History',
             url: '/settings/actions'
           },
           {
-            title: 'Blocked Profiles',
             icon: <NoSymbolIcon className="h-4 w-4" />,
+            title: 'Blocked Profiles',
             url: '/settings/blocked'
           },
           {
-            title: 'Cleanup',
             icon: <SparklesIcon className="h-4 w-4" />,
+            title: 'Cleanup',
             url: '/settings/cleanup'
           },
           {
-            title: 'Export',
             icon: <CircleStackIcon className="h-4 w-4" />,
+            title: 'Export',
             url: '/settings/export'
           },
           {
-            title: <div className="text-red-500">Danger zone</div>,
+            enabled,
             icon: <ExclamationTriangleIcon className="h-4 w-4 text-red-500" />,
-            url: '/settings/danger',
-            enabled
+            title: <div className="text-red-500">Danger zone</div>,
+            url: '/settings/danger'
           }
         ]}
       />

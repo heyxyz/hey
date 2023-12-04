@@ -5,61 +5,61 @@ import type {
 } from '@hey/lens';
 
 export type Group = {
-  id: string;
-  slug: string;
-  name: string;
-  description: string;
   avatar: string;
-  tags: string[];
-  lens: string | null;
-  x: string | null;
-  discord: string | null;
-  instagram: string | null;
-  featured: boolean;
   createdAt: Date;
+  description: string;
+  discord: null | string;
+  featured: boolean;
+  id: string;
+  instagram: null | string;
+  lens: null | string;
+  name: string;
+  slug: string;
+  tags: string[];
+  x: null | string;
 };
 
 export type StaffPick = {
-  id: string;
-  type: 'GROUP' | 'PROFILE';
-  score: number;
   createdAt: Date;
+  id: string;
+  score: number;
+  type: 'GROUP' | 'PROFILE';
 };
 
 export type Features = {
+  createdAt: Date;
+  enabled: boolean;
   id: string;
   key: string;
   priority: number;
-  enabled: boolean;
-  createdAt: Date;
 };
 
 export type AllowedToken = {
+  contractAddress: string;
+  decimals: number;
   id: string;
   name: string;
   symbol: string;
-  decimals: number;
-  contractAddress: string;
 };
 
 export type MembershipNft = {
-  id: string;
-  dismissedOrMinted: boolean;
   createdAt: Date;
+  dismissedOrMinted: boolean;
+  id: string;
 };
 
 export type CollectModuleType = {
-  type?:
-    | CollectOpenActionModuleType.SimpleCollectOpenActionModule
-    | CollectOpenActionModuleType.MultirecipientFeeCollectOpenActionModule
-    | null;
   amount?: AmountInput | null;
-  collectLimit?: string | null;
-  referralFee?: number;
-  recipient?: string | null;
-  recipients?: RecipientDataInput[];
+  collectLimit?: null | string;
+  endsAt?: null | string;
   followerOnly?: boolean;
-  endsAt?: string | null;
+  recipient?: null | string;
+  recipients?: RecipientDataInput[];
+  referralFee?: number;
+  type?:
+    | CollectOpenActionModuleType.MultirecipientFeeCollectOpenActionModule
+    | CollectOpenActionModuleType.SimpleCollectOpenActionModule
+    | null;
 };
 
 export type PublicationViewCount = {
@@ -70,26 +70,26 @@ export type PublicationViewCount = {
 export type PollOption = {
   id: string;
   option: string;
-  voted: boolean;
   percentage: number;
   responses: number;
+  voted: boolean;
 };
 
 export type Poll = {
-  id: string;
   endsAt: Date;
+  id: string;
   options: PollOption[];
 };
 
 export type Preferences = {
+  features: string[];
   preference?: {
-    id: string;
-    email: string | null;
-    marketingOptIn: boolean;
-    isPride: boolean;
-    highSignalNotificationFilter: boolean;
     createdAt: Date;
+    email: null | string;
+    highSignalNotificationFilter: boolean;
+    id: string;
+    isPride: boolean;
+    marketingOptIn: boolean;
   } | null;
   pro: { enabled: boolean };
-  features: string[];
 };

@@ -11,27 +11,27 @@ import FeedEventFilters from './FeedEventFilters';
 import SeeThroughLens from './SeeThroughLens';
 
 interface FeedTypeProps {
-  setFeedType: Dispatch<SetStateAction<HomeFeedType>>;
   feedType: HomeFeedType;
+  setFeedType: Dispatch<SetStateAction<HomeFeedType>>;
 }
 
-const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
+const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
   return (
     <div className="flex flex-wrap items-center justify-between px-1 md:px-0">
       <div className="flex gap-3 overflow-x-auto sm:px-0">
         <TabButton
-          name="Following"
-          icon={<UserGroupIcon className="h-4 w-4" />}
           active={feedType === HomeFeedType.FOLLOWING}
+          icon={<UserGroupIcon className="h-4 w-4" />}
+          name="Following"
           onClick={() => {
             setFeedType(HomeFeedType.FOLLOWING);
             Leafwatch.track(HOME.SWITCH_FOLLOWING_FEED);
           }}
         />
         <TabButton
-          name="Highlights"
-          icon={<LightBulbIcon className="h-4 w-4" />}
           active={feedType === HomeFeedType.HIGHLIGHTS}
+          icon={<LightBulbIcon className="h-4 w-4" />}
+          name="Highlights"
           onClick={() => {
             setFeedType(HomeFeedType.HIGHLIGHTS);
             Leafwatch.track(HOME.SWITCH_HIGHLIGHTS_FEED);

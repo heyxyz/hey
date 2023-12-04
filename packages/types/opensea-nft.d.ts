@@ -1,31 +1,31 @@
 export interface OpenSeaNft {
-  identifier: string;
   collection: string;
   contract: string;
-  token_standard: string;
-  name: string;
-  description: string;
-  image_url: string;
-  metadata_url: string;
   created_at: string;
-  updated_at: string;
+  creator: string;
+  description: string;
+  identifier: string;
+  image_url: string;
   is_disabled: boolean;
   is_nsfw: boolean;
   is_suspicious: boolean;
-  creator: string;
-  traits: {
-    trait_type: string;
-    display_type: string;
-    max_value: string;
-    trait_count: number;
-    order: string;
-    value: string;
-  }[];
+  metadata_url: string;
+  name: string;
   owners: {
     address: string;
     quantity: number;
   }[];
   rarity: null;
+  token_standard: string;
+  traits: {
+    display_type: string;
+    max_value: string;
+    order: string;
+    trait_count: number;
+    trait_type: string;
+    value: string;
+  }[];
+  updated_at: string;
 }
 
 export interface OpenSeaCollection {

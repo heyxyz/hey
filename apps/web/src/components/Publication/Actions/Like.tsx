@@ -1,9 +1,10 @@
 import type { ApolloCache } from '@apollo/client';
+import type { AnyPublication, ReactionRequest } from '@hey/lens';
+
 import { HeartIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
-import type { AnyPublication, ReactionRequest } from '@hey/lens';
 import {
   PublicationReactionType,
   useAddReactionMutation,
@@ -40,18 +41,18 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
 
   const updateCache = (cache: ApolloCache<any>) => {
     cache.modify({
-      id: cache.identify(targetPublication),
       fields: {
         operations: (existingValue) => {
           return { ...existingValue, hasReacted: !hasReacted };
         }
-      }
+      },
+      id: cache.identify(targetPublication)
     });
     cache.modify({
-      id: cache.identify(targetPublication.stats),
       fields: {
         reactions: () => (hasReacted ? reactions - 1 : reactions + 1)
-      }
+      },
+      id: cache.identify(targetPublication.stats)
     });
   };
 
@@ -107,8 +108,8 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
 
     // Variables
     const request: ReactionRequest = {
-      reaction: PublicationReactionType.Upvote,
-      for: targetPublication.id
+      for: targetPublication.id,
+      reaction: PublicationReactionType.Upvote
     };
 
     if (hasReacted) {
@@ -134,19 +135,19 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
       )}
     >
       <motion.button
+        aria-label="Like"
         className={cn(
           hasReacted
             ? 'hover:bg-brand-300/20 outline-brand-500'
             : 'outline-gray-400 hover:bg-gray-300/20',
           'rounded-full p-1.5 outline-offset-2'
         )}
-        whileTap={{ scale: 0.9 }}
         onClick={createLike}
-        aria-label="Like"
+        whileTap={{ scale: 0.9 }}
       >
         <Tooltip
-          placement="top"
           content={hasReacted ? 'Unlike' : 'Like'}
+          placement="top"
           withDelay
         >
           {hasReacted ? (

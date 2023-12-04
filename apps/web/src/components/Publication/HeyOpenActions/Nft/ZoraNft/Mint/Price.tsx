@@ -1,6 +1,7 @@
+import type { ZoraNft } from '@hey/types/nft';
+
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
 import getRedstonePrice from '@hey/lib/getRedstonePrice';
-import type { ZoraNft } from '@hey/types/nft';
 import { HelpTooltip } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import { type FC } from 'react';
@@ -17,9 +18,9 @@ const Price: FC<PriceProps> = ({ nft }) => {
   const canMintOnHey = useZoraMintStore((state) => state.canMintOnHey);
 
   const { data: usdPrice, isLoading } = useQuery({
-    queryKey: ['getRedstonePrice'],
+    enabled: Boolean(nft.price),
     queryFn: async () => await getRedstonePrice('ETH'),
-    enabled: Boolean(nft.price)
+    queryKey: ['getRedstonePrice']
   });
 
   const price = quantity * parseInt(nft.price);
@@ -38,11 +39,11 @@ const Price: FC<PriceProps> = ({ nft }) => {
   const priceInUsd = usdPrice * (nftPriceInEth + platformFeesInEth);
 
   interface FeesProps {
-    title: string;
     eth: number;
+    title: string;
   }
 
-  const Fees: FC<FeesProps> = ({ title, eth }) => (
+  const Fees: FC<FeesProps> = ({ eth, title }) => (
     <div>
       <div>{title}</div>
       <div className="font-bold">
@@ -69,13 +70,13 @@ const Price: FC<PriceProps> = ({ nft }) => {
             <div className="text-xs">+ {platformFeesInEth} ETH mint fee</div>
             <HelpTooltip>
               <div className="space-y-5">
-                <Fees title="Creator Reward" eth={creatorReward} />
+                <Fees eth={creatorReward} title="Creator Reward" />
                 <Fees
-                  title="Create Referral Reward"
                   eth={createReferralReward}
+                  title="Create Referral Reward"
                 />
-                <Fees title="Mint Referral Reward" eth={mintReferralReward} />
-                <Fees title="Zora Fee" eth={zoraFee} />
+                <Fees eth={mintReferralReward} title="Mint Referral Reward" />
+                <Fees eth={zoraFee} title="Zora Fee" />
               </div>
             </HelpTooltip>
           </div>
@@ -85,16 +86,16 @@ const Price: FC<PriceProps> = ({ nft }) => {
         </div>
         <div className="flex items-center space-x-3">
           <button
-            disabled={quantity === 1}
             className="rounded-full border p-1.5 hover:bg-gray-100 disabled:opacity-50 dark:border-gray-700"
+            disabled={quantity === 1}
             onClick={() => setQuantity(quantity - 1)}
           >
             <MinusIcon className="h-4 w-4" />
           </button>
           <span className="text-xl font-bold">{quantity}</span>
           <button
-            disabled={quantity === nft.maxSupply}
             className="rounded-full border p-1.5 hover:bg-gray-100 disabled:opacity-50 dark:border-gray-700"
+            disabled={quantity === nft.maxSupply}
             onClick={() => setQuantity(quantity + 1)}
           >
             <PlusIcon className="h-4 w-4" />

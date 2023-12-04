@@ -1,3 +1,6 @@
+import type { Poll } from '@hey/types/hey';
+import type { FC } from 'react';
+
 import Beta from '@components/Shared/Badges/Beta';
 import {
   Bars3BottomLeftIcon,
@@ -8,7 +11,6 @@ import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
 import humanize from '@hey/lib/humanize';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import type { Poll } from '@hey/types/hey';
 import { Card, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { getTimetoNow } from '@lib/formatTime';
@@ -16,7 +18,6 @@ import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import plur from 'plur';
-import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import useProfileStore from 'src/store/persisted/useProfileStore';
@@ -29,9 +30,9 @@ interface ChoicesProps {
 const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const [pollSubmitting, setPollSubmitting] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [selectedOption, setSelectedOption] = useState<null | string>(null);
 
-  const { options, endsAt } = poll;
+  const { endsAt, options } = poll;
   const totalResponses = options.reduce((acc, { responses }) => {
     return acc + responses;
   }, 0);
@@ -47,7 +48,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
 
       await axios.post(
         `${HEY_API_URL}/poll/act`,
-        { poll: poll.id, option: id },
+        { option: id, poll: poll.id },
         { headers: getAuthWorkerHeaders() }
       );
 
@@ -66,9 +67,9 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
       <div className="space-y-1 p-3">
         {options.map(({ id, option, percentage, voted }) => (
           <button
-            key={id}
             className="flex w-full items-center space-x-2.5 rounded-xl p-2 text-xs hover:bg-gray-100 dark:hover:bg-gray-900 sm:text-sm"
             disabled={pollSubmitting}
+            key={id}
             onClick={() => votePoll(id)}
           >
             {pollSubmitting && id === selectedOption ? (
@@ -92,8 +93,8 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
               </div>
               <div className="flex h-2.5 overflow-hidden rounded-full bg-gray-300 dark:bg-gray-800">
                 <div
-                  style={{ width: `${percentage}%` }}
                   className={cn(voted ? 'bg-green-500' : 'bg-brand-500')}
+                  style={{ width: `${percentage}%` }}
                 />
               </div>
             </div>

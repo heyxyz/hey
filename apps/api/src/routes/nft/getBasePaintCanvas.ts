@@ -1,8 +1,9 @@
+import type { Handler } from 'express';
+
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
 import { noBody } from '@utils/responses';
-import type { Handler } from 'express';
 
 export const get: Handler = async (req, res) => {
   const { id } = req.query;
@@ -13,11 +14,6 @@ export const get: Handler = async (req, res) => {
 
   try {
     const basePaintResponse = await fetch('https://basepaint.art/graphql', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'User-agent': 'Hey.xyz'
-      },
       body: JSON.stringify({
         query: `
           query Canvas {
@@ -40,12 +36,17 @@ export const get: Handler = async (req, res) => {
             }
           }
         `
-      })
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        'User-agent': 'Hey.xyz'
+      },
+      method: 'POST'
     });
     const canvas: {
       data: {
-        canvass: { id: number }[];
         canvas: any;
+        canvass: { id: number }[];
       };
     } = await basePaintResponse.json();
     const numberId = parseInt(id as string);
@@ -56,13 +57,13 @@ export const get: Handler = async (req, res) => {
       .status(200)
       .setHeader('Cache-Control', SWR_CACHE_AGE_1_MIN_30_DAYS)
       .json({
-        success: true,
         canvas:
           {
             canContribute: currentCanvas === numberId,
             canMint: currentCanvas - 1 === numberId,
             ...canvas.data.canvas
-          } || null
+          } || null,
+        success: true
       });
   } catch (error) {
     return catchedError(res, error);

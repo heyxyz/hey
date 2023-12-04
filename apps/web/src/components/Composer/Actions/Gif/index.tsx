@@ -1,12 +1,13 @@
+import type { IGif } from '@hey/types/giphy';
+import type { FC } from 'react';
+
 import Loader from '@components/Shared/Loader';
 import { GifIcon, PhotoIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
-import type { IGif } from '@hey/types/giphy';
 import { Modal, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
-import type { FC } from 'react';
 import { useState } from 'react';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 
@@ -24,30 +25,30 @@ const Gif: FC<GiphyProps> = ({ setGifAttachment }) => {
 
   return (
     <>
-      <Tooltip placement="top" content="GIF">
+      <Tooltip content="GIF" placement="top">
         <motion.button
+          aria-label="Choose GIFs"
           className="outline-brand-500 rounded-full outline-offset-8"
-          whileTap={{ scale: 0.9 }}
-          type="button"
+          disabled={attachments.length >= 4}
           onClick={() => {
             setShowModal(!showModal);
             Leafwatch.track(PUBLICATION.OPEN_GIFS);
           }}
-          disabled={attachments.length >= 4}
-          aria-label="Choose GIFs"
+          type="button"
+          whileTap={{ scale: 0.9 }}
         >
           <GifIcon className="text-brand-500 h-5 w-5" />
         </motion.button>
       </Tooltip>
       <Modal
-        title="Select GIF"
         icon={<PhotoIcon className="text-brand-500 h-5 w-5" />}
-        show={showModal}
         onClose={() => setShowModal(false)}
+        show={showModal}
+        title="Select GIF"
       >
         <GifSelector
-          setShowModal={setShowModal}
           setGifAttachment={setGifAttachment}
+          setShowModal={setShowModal}
         />
       </Modal>
     </>

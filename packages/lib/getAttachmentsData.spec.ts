@@ -1,4 +1,5 @@
 import type { PublicationMetadataMedia } from '@hey/lens';
+
 import { describe, expect, test } from 'vitest';
 
 import getAttachmentsData from './getAttachmentsData';
@@ -13,30 +14,30 @@ describe('getAttachmentsData', () => {
     const attachments: PublicationMetadataMedia[] = [
       {
         __typename: 'PublicationMetadataMediaImage',
-        image: { raw: { uri: 'raw-uri' }, optimized: { uri: 'image-uri' } }
+        image: { optimized: { uri: 'image-uri' }, raw: { uri: 'raw-uri' } }
       }
     ];
     const result = getAttachmentsData(attachments);
-    expect(result).toEqual([{ uri: 'image-uri', type: 'Image' }]);
+    expect(result).toEqual([{ type: 'Image', uri: 'image-uri' }]);
   });
 
   test('should return an array of video attachments', () => {
     const attachments: PublicationMetadataMedia[] = [
       {
         __typename: 'PublicationMetadataMediaVideo',
-        video: {
-          raw: { uri: 'raw-video-uri' },
-          optimized: { uri: 'video-uri' }
-        },
         cover: {
-          raw: { uri: 'raw-cover-uri' },
-          optimized: { uri: 'cover-uri' }
+          optimized: { uri: 'cover-uri' },
+          raw: { uri: 'raw-cover-uri' }
+        },
+        video: {
+          optimized: { uri: 'video-uri' },
+          raw: { uri: 'raw-video-uri' }
         }
       }
     ];
     const result = getAttachmentsData(attachments);
     expect(result).toEqual([
-      { uri: 'video-uri', coverUri: 'cover-uri', type: 'Video' }
+      { coverUri: 'cover-uri', type: 'Video', uri: 'video-uri' }
     ]);
   });
 
@@ -44,24 +45,24 @@ describe('getAttachmentsData', () => {
     const attachments: PublicationMetadataMedia[] = [
       {
         __typename: 'PublicationMetadataMediaAudio',
+        artist: 'John Doe',
         audio: {
-          raw: { uri: 'raw-audio-uri' },
-          optimized: { uri: 'audio-uri' }
+          optimized: { uri: 'audio-uri' },
+          raw: { uri: 'raw-audio-uri' }
         },
         cover: {
-          raw: { uri: 'raw-video-uri' },
-          optimized: { uri: 'cover-uri' }
-        },
-        artist: 'John Doe'
+          optimized: { uri: 'cover-uri' },
+          raw: { uri: 'raw-video-uri' }
+        }
       }
     ];
     const result = getAttachmentsData(attachments);
     expect(result).toEqual([
       {
-        uri: 'audio-uri',
-        coverUri: 'cover-uri',
         artist: 'John Doe',
-        type: 'Audio'
+        coverUri: 'cover-uri',
+        type: 'Audio',
+        uri: 'audio-uri'
       }
     ]);
   });

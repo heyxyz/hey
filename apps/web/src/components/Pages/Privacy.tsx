@@ -1,9 +1,10 @@
+import type { NextPage } from 'next';
+
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
-import type { NextPage } from 'next';
 import Link from 'next/link';
 import { useEffectOnce } from 'usehooks-ts';
 
@@ -180,8 +181,8 @@ const Privacy: NextPage = () => {
                     more information on “Do Not Track,” visit{' '}
                     <Link
                       href="https://allaboutdnt.com"
-                      target="_blank"
                       rel="noreferrer"
+                      target="_blank"
                     >
                       https://allaboutdnt.com
                     </Link>

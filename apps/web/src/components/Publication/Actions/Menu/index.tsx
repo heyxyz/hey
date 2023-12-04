@@ -1,10 +1,11 @@
+import type { AnyPublication } from '@hey/lens';
+import type { FC } from 'react';
+
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
-import type { AnyPublication } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
-import type { FC } from 'react';
 import { Fragment } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
@@ -28,9 +29,9 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
     <Menu as="div" className="relative">
       <Menu.Button as={Fragment}>
         <button
+          aria-label="More"
           className="outline-brand-500 rounded-full p-1.5 hover:bg-gray-300/20"
           onClick={stopEventPropagation}
-          aria-label="More"
         >
           <EllipsisVerticalIcon
             className={cn('ld-text-gray-500', iconClassName)}
@@ -39,8 +40,8 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
       </Menu.Button>
       <MenuTransition>
         <Menu.Items
-          static
           className="absolute right-0 z-[5] mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+          static
         >
           {currentProfile?.id === publication?.by?.id ? (
             <Delete publication={publication} />

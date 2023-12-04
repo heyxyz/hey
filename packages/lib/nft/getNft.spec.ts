@@ -13,8 +13,8 @@ describe('getNft', () => {
       'https://zora.co/collect/eth:0x2e1aa38556cd7eb7855a37f83101ee182c7af9b5/3'
     ];
     expect(getNft(urls)).toContain({
-      chain: 'eth',
       address: '0x2e1aa38556cd7eb7855a37f83101ee182c7af9b5',
+      chain: 'eth',
       token: '3'
     });
   });
@@ -24,8 +24,8 @@ describe('getNft', () => {
       'https://zora.co/collect/eth:0x2e1aa38556cd7eb7855a37f83101ee182c7af9b5'
     ];
     expect(getNft(urls)).toContain({
-      chain: 'eth',
-      address: '0x2e1aa38556cd7eb7855a37f83101ee182c7af9b5'
+      address: '0x2e1aa38556cd7eb7855a37f83101ee182c7af9b5',
+      chain: 'eth'
     });
   });
 
