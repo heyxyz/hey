@@ -222,18 +222,17 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
       return;
     }
 
+    if (publication.momoka?.proof && !isSponsored) {
+      return toast.error(
+        'Momoka is currently in beta - during this time certain actions are not available to all profiles.'
+      );
+    }
+
     try {
       setIsLoading(true);
-
       const request: MomokaMirrorRequest | OnchainMirrorRequest = {
         mirrorOn: publication?.id
       };
-
-      if (publication.momoka?.proof && !isSponsored) {
-        return toast.error(
-          'Momoka is currently in beta - during this time certain actions are not available to all profiles.'
-        );
-      }
 
       if (publication.momoka?.proof) {
         if (canUseLensManager) {
