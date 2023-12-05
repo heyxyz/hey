@@ -1,5 +1,9 @@
+import type { GetServerSidePropsContext } from 'next';
+
 import SEO from '@components/SEO';
-// import { useProfileQuery } from '@hey/lens';
+import { HANDLE_PREFIX } from '@hey/data/constants';
+import { ProfileDocument } from '@hey/lens';
+import { apolloClient } from '@hey/lens/apollo';
 
 export const config = {
   unstable_runtimeJS: false
@@ -16,13 +20,13 @@ const C = ({ id }) => {
 
 export default C;
 
-// @ts-ignore
-export async function getServerSideProps({ params }) {
-  const id = params.user;
-  // const { data, loading } = useProfileQuery({
-  //   skip: !Boolean(id),
-  //   variables: { request: { forProfileId: id } }
-  // });
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const id = context.params?.user;
+  const { data: profileData } = await apolloClient().query({
+    query: ProfileDocument,
+    variables: { request: { forHandle: HANDLE_PREFIX + id } }
+  });
+  console.log(id, profileData);
   return {
     props: {
       id
