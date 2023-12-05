@@ -21,7 +21,6 @@ const FollowModule = dynamic(() => import('./FollowModule'), {
 interface SuperFollowProps {
   again?: boolean;
   profile: Profile;
-  setFollowing: (following: boolean) => void;
   showText?: boolean;
 
   // For data analytics
@@ -32,7 +31,6 @@ interface SuperFollowProps {
 const SuperFollow: FC<SuperFollowProps> = ({
   again = false,
   profile,
-  setFollowing,
   showText = false,
   superFollowPosition,
   superFollowSource
@@ -75,7 +73,6 @@ const SuperFollow: FC<SuperFollowProps> = ({
         <FollowModule
           again={again}
           profile={profile}
-          setFollowing={setFollowing}
           setShowFollowModal={setShowFollowModal}
           superFollowPosition={superFollowPosition}
           superFollowSource={superFollowSource}

@@ -1,5 +1,4 @@
 import type { FollowRequest, Profile } from '@hey/lens';
-import type { ApolloCache } from '@hey/lens/apollo';
 import type { FC } from 'react';
 
 import { UserPlusIcon } from '@heroicons/react/24/outline';
@@ -11,6 +10,7 @@ import {
   useCreateFollowTypedDataMutation,
   useFollowMutation
 } from '@hey/lens';
+import { useApolloClient } from '@hey/lens/apollo';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { Button, Spinner } from '@hey/ui';
@@ -31,7 +31,6 @@ interface FollowProps {
   followSource?: string;
   profile: Profile;
 
-  setFollowing: (following: boolean) => void;
   showText?: boolean;
 }
 
@@ -39,7 +38,6 @@ const Follow: FC<FollowProps> = ({
   followPosition,
   followSource,
   profile,
-  setFollowing,
   showText = false
 }) => {
   const { pathname } = useRouter();
@@ -55,11 +53,12 @@ const Follow: FC<FollowProps> = ({
   );
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
+  const { cache } = useApolloClient();
 
   const { canBroadcast, canUseLensManager } =
     checkDispatcherPermissions(currentProfile);
 
-  const updateCache = (cache: ApolloCache<any>) => {
+  const updateCache = () => {
     cache.modify({
       fields: {
         isFollowedByMe: (existingValue) => {
@@ -80,8 +79,8 @@ const Follow: FC<FollowProps> = ({
       return;
     }
 
+    updateCache();
     setIsLoading(false);
-    setFollowing(true);
     toast.success('Followed successfully!');
     Leafwatch.track(PROFILE.FOLLOW, {
       path: pathname,
@@ -140,14 +139,12 @@ const Follow: FC<FollowProps> = ({
 
       return write({ args });
     },
-    onError,
-    update: updateCache
+    onError
   });
 
   const [follow] = useFollowMutation({
     onCompleted: ({ follow }) => onCompleted(follow.__typename),
-    onError,
-    update: updateCache
+    onError
   });
 
   const followViaLensManager = async (request: FollowRequest) => {
