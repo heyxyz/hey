@@ -14,11 +14,11 @@ const TbaStatusProvider: FC = () => {
   const fetchTbaStatus = async () => {
     try {
       if (Boolean(currentProfile?.ownedBy.address)) {
-        const response = await axios.get(`${HEY_API_URL}/tba/isTba`, {
+        const response = await axios.get(`${HEY_API_URL}/tba/deployed`, {
           params: { address: currentProfile?.ownedBy.address }
         });
         const { data } = response;
-        setIsTba(data.isTba);
+        setIsTba(data.deployed);
       }
       return true;
     } catch {

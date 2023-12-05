@@ -62,7 +62,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
   const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
 
-  const { canBroadcast, canUseLensManager, isSponsored, isTba } =
+  const { canBroadcast, canUseLensManager, isSponsored } =
     checkDispatcherPermissions(currentProfile);
 
   const updateCache = () => {
@@ -228,17 +228,6 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
       const request: MomokaMirrorRequest | OnchainMirrorRequest = {
         mirrorOn: publication?.id
       };
-
-      // Begin: TBA specific logic
-      if (isTba) {
-        if (publication.momoka?.proof) {
-          setIsLoading(false);
-          return toast.error('Only onchain mirrors are supported!');
-        }
-
-        return await createOnchainMirrorTypedData({ variables: { request } });
-      }
-      // End: TBA specific logic
 
       if (publication.momoka?.proof && !isSponsored) {
         return toast.error(
