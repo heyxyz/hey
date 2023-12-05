@@ -28,18 +28,9 @@ import { useContractWrite, useSignTypedData } from 'wagmi';
 interface UnfollowProps {
   profile: Profile;
   showText?: boolean;
-
-  // For data analytics
-  unfollowPosition?: number;
-  unfollowSource?: string;
 }
 
-const Unfollow: FC<UnfollowProps> = ({
-  profile,
-  showText = false,
-  unfollowPosition,
-  unfollowSource
-}) => {
+const Unfollow: FC<UnfollowProps> = ({ profile, showText = false }) => {
   const { pathname } = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const lensHubOnchainSigNonce = useNonceStore(
@@ -82,12 +73,7 @@ const Unfollow: FC<UnfollowProps> = ({
     updateCache();
     setIsLoading(false);
     toast.success('Unfollowed successfully!');
-    Leafwatch.track(PROFILE.UNFOLLOW, {
-      path: pathname,
-      ...(unfollowPosition && { position: unfollowPosition }),
-      ...(unfollowSource && { source: unfollowSource }),
-      target: profile?.id
-    });
+    Leafwatch.track(PROFILE.UNFOLLOW, { path: pathname, target: profile?.id });
   };
 
   const onError = (error: any) => {
