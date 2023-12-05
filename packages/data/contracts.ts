@@ -7,9 +7,9 @@ export enum MainnetContracts {
 
 export enum TestnetContracts {
   DefaultToken = '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889',
-  LensHubProxy = '0xC1E77eE73403B8a7478884915aA599932A677870',
-  PublicActProxy = '0xab5607f5447d538fc79bb32364ddecd8f76d7ee8',
-  TokenHandleRegistry = '0x9cD0d07AB772e42ed3497DD379360daBcD94352A'
+  LensHubProxy = '0x4fbffF20302F3326B20052ab9C217C44F6480900',
+  PublicActProxy = '0x4ed64Eb32C96Df0eA60BB8934798F4DFd3098Ba1',
+  TokenHandleRegistry = '0x66cA05cAc4e8D543028192dD28C0570a0b6e3413'
 }
 
 export const BASEPAINT_CONTRACT = '0xba5e05cb26b78eda3a2f8e3b3814726305dcac83';
