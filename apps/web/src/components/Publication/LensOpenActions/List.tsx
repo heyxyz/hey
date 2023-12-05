@@ -1,7 +1,8 @@
+import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import { ArrowLeftIcon } from '@heroicons/react/24/solid';
-import { type AnyPublication, OpenActionModuleType } from '@hey/lens';
+import { OpenActionModuleType } from '@hey/lens';
 import getOpenActionModuleData from '@hey/lib/getOpenActionModuleData';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card } from '@hey/ui';

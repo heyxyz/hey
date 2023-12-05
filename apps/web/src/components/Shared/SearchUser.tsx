@@ -1,4 +1,5 @@
 import type { Profile, ProfileSearchRequest } from '@hey/lens';
+import type { ChangeEvent, FC } from 'react';
 
 import {
   CustomFiltersType,
@@ -7,7 +8,6 @@ import {
 } from '@hey/lens';
 import { Card, Input, Spinner } from '@hey/ui';
 import { motion } from 'framer-motion';
-import { type ChangeEvent, type FC } from 'react';
 
 import SmallUserProfile from './SmallUserProfile';
 

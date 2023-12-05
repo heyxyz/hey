@@ -1,4 +1,5 @@
 import type { AnyPublication, ReportPublicationRequest } from '@hey/lens';
+import type { FC, ReactNode } from 'react';
 
 import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
 import { GARDENER } from '@hey/data/tracking';
@@ -10,7 +11,6 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import type { FC, ReactNode } from 'react';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 

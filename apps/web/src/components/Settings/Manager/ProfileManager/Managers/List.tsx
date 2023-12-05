@@ -1,4 +1,5 @@
 import type { ProfileManagersRequest } from '@hey/lens';
+import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import Loader from '@components/Shared/Loader';
@@ -19,7 +20,7 @@ import getSignature from '@hey/lib/getSignature';
 import { Button, EmptyState, ErrorMessage, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
