@@ -1,7 +1,5 @@
 ## What does this PR do?
 
-copilot:summary
-
 ## Related issues
 
 Fixes # (issue)
@@ -15,9 +13,3 @@ Fixes # (issue)
 - [ ] This change requires a documentation update
 
 ## Explanation of the changes
-
-copilot:walkthrough
-
-## Emoji
-
-copilot:emoji
