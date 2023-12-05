@@ -6,17 +6,17 @@ export const config = {
   unstable_runtimeJS: false
 };
 
-const UserProfile: NextPage<{ HANDLE: string }> = ({ HANDLE }) => {
-  return <SEO image={`/api/u/${HANDLE}`} />;
+const Post: NextPage<{ POST_ID: string }> = ({ POST_ID }) => {
+  return <SEO image={`/api/post/${POST_ID}`} />;
 };
 
-export default UserProfile;
+export default Post;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const HANDLE = context.params?.handle;
+  const POST_ID = context.params?.id;
   return {
     props: {
-      HANDLE
+      POST_ID
     }
   };
 }
