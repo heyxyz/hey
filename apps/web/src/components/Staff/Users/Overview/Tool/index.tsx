@@ -1,4 +1,5 @@
 import type { Profile } from '@hey/lens';
+import type { FC } from 'react';
 
 import UserProfile from '@components/Shared/UserProfile';
 import {
@@ -18,7 +19,6 @@ import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Link from 'next/link';
-import { type FC } from 'react';
 
 import MetaDetails from '../../../../Shared/Staff/MetaDetails';
 import Access from './Access';

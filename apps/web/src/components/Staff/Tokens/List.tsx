@@ -1,4 +1,5 @@
 import type { AllowedToken } from '@hey/types/hey';
+import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
 import { CurrencyDollarIcon, TrashIcon } from '@heroicons/react/24/outline';
@@ -8,7 +9,7 @@ import { Button, Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 
 import Create from './Create';

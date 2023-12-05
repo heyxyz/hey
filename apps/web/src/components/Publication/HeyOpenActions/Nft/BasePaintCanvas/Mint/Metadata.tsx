@@ -1,4 +1,5 @@
 import type { BasePaintCanvas } from '@hey/types/nft';
+import type { FC } from 'react';
 
 import {
   CurrencyDollarIcon,
@@ -8,7 +9,6 @@ import {
   UsersIcon
 } from '@heroicons/react/24/outline';
 import humanize from '@hey/lib/humanize';
-import { type FC } from 'react';
 import { formatEther } from 'viem';
 
 interface MetadataProps {

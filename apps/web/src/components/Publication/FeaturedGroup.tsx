@@ -1,10 +1,10 @@
 import type { PublicationMetadata } from '@hey/lens';
+import type { FC } from 'react';
 
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import getGroupByTag from '@lib/getGroupByTag';
 import Link from 'next/link';
-import { type FC } from 'react';
 
 interface FeaturedGroupProps {
   className?: string;

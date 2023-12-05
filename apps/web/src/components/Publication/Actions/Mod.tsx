@@ -1,9 +1,9 @@
 import type { AnyPublication } from '@hey/lens';
+import type { FC } from 'react';
 
 import { ShieldCheckIcon } from '@heroicons/react/24/outline';
 import { Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
-import { type FC } from 'react';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 
 interface ModProps {

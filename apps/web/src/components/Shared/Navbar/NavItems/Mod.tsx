@@ -1,6 +1,7 @@
+import type { FC } from 'react';
+
 import { ShieldCheckIcon } from '@heroicons/react/24/outline';
 import cn from '@hey/ui/cn';
-import { type FC } from 'react';
 
 interface ModProps {
   className?: string;

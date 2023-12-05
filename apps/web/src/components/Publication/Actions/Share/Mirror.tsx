@@ -3,6 +3,7 @@ import type {
   MomokaMirrorRequest,
   OnchainMirrorRequest
 } from '@hey/lens';
+import type { FC } from 'react';
 
 import { useApolloClient } from '@apollo/client';
 import { Menu } from '@headlessui/react';
@@ -26,7 +27,7 @@ import cn from '@hey/ui/cn';
 import checkDispatcherPermissions from '@lib/checkDispatcherPermissions';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';

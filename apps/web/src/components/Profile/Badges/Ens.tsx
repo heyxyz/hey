@@ -1,8 +1,8 @@
 import type { Profile } from '@hey/lens';
+import type { FC } from 'react';
 
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { Tooltip } from '@hey/ui';
-import { type FC } from 'react';
 
 interface EnsProps {
   profile: Profile;

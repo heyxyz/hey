@@ -1,5 +1,6 @@
 import type { BlockRequest, UnblockRequest } from '@hey/lens';
 import type { ApolloCache } from '@hey/lens/apollo';
+import type { FC } from 'react';
 
 import { LensHub } from '@hey/abis';
 import { LENSHUB_PROXY } from '@hey/data/constants';
@@ -17,7 +18,7 @@ import { Alert } from '@hey/ui';
 import checkDispatcherPermissions from '@lib/checkDispatcherPermissions';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';

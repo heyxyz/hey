@@ -1,3 +1,5 @@
+import type { FC } from 'react';
+
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
@@ -14,7 +16,6 @@ import {
   useZodForm
 } from '@hey/ui';
 import errorToast from '@lib/errorToast';
-import { type FC } from 'react';
 import { useAccount } from 'wagmi';
 import { object, string } from 'zod';
 

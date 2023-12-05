@@ -1,4 +1,5 @@
 import type { AnyPublication, PublicationSearchRequest } from '@hey/lens';
+import type { FC } from 'react';
 
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
@@ -9,7 +10,6 @@ import {
   useSearchPublicationsQuery
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { type FC } from 'react';
 import { useInView } from 'react-cool-inview';
 
 interface PublicationsProps {

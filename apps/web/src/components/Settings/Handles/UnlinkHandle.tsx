@@ -1,4 +1,5 @@
 import type { UnlinkHandleFromProfileRequest } from '@hey/lens';
+import type { FC } from 'react';
 
 import IndexStatus from '@components/Shared/IndexStatus';
 import { MinusCircleIcon } from '@heroicons/react/24/outline';
@@ -15,7 +16,7 @@ import { Button, Spinner } from '@hey/ui';
 import checkDispatcherPermissions from '@lib/checkDispatcherPermissions';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';

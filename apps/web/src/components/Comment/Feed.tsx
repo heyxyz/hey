@@ -1,4 +1,5 @@
 import type { AnyPublication, Comment, PublicationsRequest } from '@hey/lens';
+import type { FC } from 'react';
 
 import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
@@ -13,7 +14,6 @@ import {
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { type FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';

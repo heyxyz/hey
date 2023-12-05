@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 import { apolloClient, ApolloProvider } from '@hey/lens/apollo';
 import authLink from '@lib/authLink';
 import getLivepeerTheme from '@lib/getLivepeerTheme';
@@ -8,7 +10,6 @@ import {
 } from '@livepeer/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from 'next-themes';
-import { type ReactNode } from 'react';
 
 import ErrorBoundary from '../ErrorBoundary';
 import Layout from '../Layout';
