@@ -21,9 +21,9 @@ const TbaBadge: FC<TbaBadgeProps> = ({ profile }) => {
   }
 
   return (
-    <Tooltip content="Token Bonded Account">
+    <Tooltip content="Token Bounded Account">
       <img
-        alt="Token Bonded Account"
+        alt="Token Bounded Account"
         className="h-6 w-6"
         height={24}
         src={`${STATIC_IMAGES_URL}/brands/tba.svg`}
