@@ -1,8 +1,8 @@
 import type { PrimaryPublication } from '@hey/lens';
+import type { FC } from 'react';
 
 import PublicationWrapper from '@components/Shared/PublicationWrapper';
 import pushToImpressions from '@lib/pushToImpressions';
-import { type FC } from 'react';
 import { useInView } from 'react-cool-inview';
 
 import HiddenPublication from './HiddenPublication';

@@ -1,4 +1,5 @@
 import type { Profile } from '@hey/lens';
+import type { FC } from 'react';
 
 import {
   GlobeAltIcon,
@@ -7,7 +8,6 @@ import {
   UserCircleIcon
 } from '@heroicons/react/24/outline';
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
-import { type FC } from 'react';
 
 import MetaDetails from '../../../../Shared/Staff/MetaDetails';
 

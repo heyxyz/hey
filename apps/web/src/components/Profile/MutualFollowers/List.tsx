@@ -1,4 +1,5 @@
 import type { MutualFollowersRequest, Profile } from '@hey/lens';
+import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
@@ -8,7 +9,6 @@ import { LimitType, useMutualFollowersQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
-import { type FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 

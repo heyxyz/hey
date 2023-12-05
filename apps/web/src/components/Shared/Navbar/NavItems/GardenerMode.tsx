@@ -1,3 +1,5 @@
+import type { FC } from 'react';
+
 import { BoltIcon as BoltIconOutline } from '@heroicons/react/24/outline';
 import { BoltIcon as BoltIconSolid } from '@heroicons/react/24/solid';
 import { HEY_API_URL } from '@hey/data/constants';
@@ -7,7 +9,6 @@ import cn from '@hey/ui/cn';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
-import { type FC } from 'react';
 import { toast } from 'react-hot-toast';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';

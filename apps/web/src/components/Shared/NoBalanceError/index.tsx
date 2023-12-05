@@ -1,11 +1,11 @@
 import type { Amount } from '@hey/lens';
+import type { FC } from 'react';
 
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import getUniswapURL from '@hey/lib/getUniswapURL';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import { type FC } from 'react';
 
 import WrapWmatic from './WrapWmatic';
 

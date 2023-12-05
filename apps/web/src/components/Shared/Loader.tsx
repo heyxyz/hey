@@ -1,5 +1,6 @@
+import type { FC } from 'react';
+
 import { Spinner } from '@hey/ui';
-import { type FC } from 'react';
 
 interface LoaderProps {
   message?: string;

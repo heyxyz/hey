@@ -1,4 +1,5 @@
 import type { AnyPublication } from '@hey/lens';
+import type { FC } from 'react';
 
 import { Menu } from '@headlessui/react';
 import { ClipboardDocumentIcon } from '@heroicons/react/24/outline';
@@ -8,7 +9,6 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC } from 'react';
 import toast from 'react-hot-toast';
 
 interface CopyPostTextProps {

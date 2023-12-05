@@ -1,6 +1,7 @@
+import type { FC } from 'react';
+
 import { BriefcaseIcon } from '@heroicons/react/24/solid';
 import cn from '@hey/ui/cn';
-import { type FC } from 'react';
 
 interface ProProps {
   className?: string;

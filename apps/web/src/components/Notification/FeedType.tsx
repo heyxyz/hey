@@ -1,3 +1,5 @@
+import type { FC } from 'react';
+
 import {
   AtSymbolIcon,
   BellIcon,
@@ -8,7 +10,6 @@ import {
 import { NOTIFICATION } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC } from 'react';
 import { NotificationTabType } from 'src/enums';
 
 interface FeedTypeProps {

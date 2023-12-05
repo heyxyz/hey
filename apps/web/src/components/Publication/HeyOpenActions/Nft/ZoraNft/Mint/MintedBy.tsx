@@ -1,11 +1,11 @@
 import type { Profile } from '@hey/lens';
+import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import SmallUserProfileShimmer from '@components/Shared/Shimmer/SmallUserProfileShimmer';
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
 import SmallWalletProfile from '@components/Shared/SmallWalletProfile';
 import { useDefaultProfileQuery } from '@hey/lens';
-import { type FC } from 'react';
 
 interface MintedByProps {
   address: Address;

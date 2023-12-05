@@ -1,9 +1,9 @@
 import type { Category } from '@hey/types/giphy';
+import type { FC } from 'react';
 
 import { GIPHY_KEY } from '@hey/data/constants';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { type FC } from 'react';
 
 interface CategoriesProps {
   setSearchText: (searchText: string) => void;
