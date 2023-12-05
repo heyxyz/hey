@@ -1,3 +1,5 @@
+import type { FC } from 'react';
+
 import {
   BriefcaseIcon,
   DocumentPlusIcon,
@@ -5,7 +7,6 @@ import {
 } from '@heroicons/react/24/outline';
 import { type OpenActionModule, OpenActionModuleType } from '@hey/lens';
 import cn from '@hey/ui/cn';
-import { type FC } from 'react';
 
 interface GetOpenActionModuleIconProps {
   className?: string;

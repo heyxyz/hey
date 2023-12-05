@@ -1,5 +1,6 @@
 import type { Profile } from '@hey/lens';
 import type { OptimisticTransaction } from '@hey/types/misc';
+import type { FC } from 'react';
 
 import Markup from '@components/Shared/Markup';
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
@@ -12,7 +13,6 @@ import {
 import { useApolloClient } from '@hey/lens/apollo';
 import getMentions from '@hey/lib/getMentions';
 import { Card, Tooltip } from '@hey/ui';
-import { type FC } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 

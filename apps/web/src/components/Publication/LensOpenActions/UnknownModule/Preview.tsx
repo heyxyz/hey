@@ -1,9 +1,9 @@
 import type { OpenActionModule } from '@hey/lens';
+import type { FC } from 'react';
 
 import GetOpenActionModuleIcon from '@components/Shared/GetOpenActionModuleIcon';
 import getOpenActionModuleData from '@hey/lib/getOpenActionModuleData';
 import { Card } from '@hey/ui';
-import { type FC } from 'react';
 
 interface UnknownModulePreviewProps {
   module: OpenActionModule;

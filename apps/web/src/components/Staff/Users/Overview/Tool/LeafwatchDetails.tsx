@@ -1,4 +1,5 @@
 import type { Profile } from '@hey/lens';
+import type { FC } from 'react';
 
 import {
   ComputerDesktopIcon,
@@ -12,7 +13,6 @@ import { HEY_API_URL } from '@hey/data/constants';
 import humanize from '@hey/lib/humanize';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { type FC } from 'react';
 
 import MetaDetails from '../../../../Shared/Staff/MetaDetails';
 

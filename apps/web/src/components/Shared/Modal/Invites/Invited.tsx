@@ -1,9 +1,9 @@
 import type { InvitedResult } from '@hey/lens';
+import type { FC } from 'react';
 
 import { TicketIcon } from '@heroicons/react/24/outline';
 import { EmptyState } from '@hey/ui';
 import plur from 'plur';
-import { type FC } from 'react';
 
 import Profile from './Profile';
 

@@ -3,6 +3,7 @@ import type {
   ExplorePublicationRequest,
   PublicationMetadataMainFocusType
 } from '@hey/lens';
+import type { FC } from 'react';
 
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
@@ -14,7 +15,6 @@ import {
   useExplorePublicationsQuery
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { type FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
 

@@ -1,5 +1,6 @@
 import type { AnyPublication } from '@hey/lens';
 import type { UnlonelyChannelMetadata } from '@hey/types/nft';
+import type { FC } from 'react';
 
 import Video from '@components/Shared/Video';
 import {
@@ -14,7 +15,6 @@ import { Button, Card, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import { type FC } from 'react';
 import useUnlonelyChannel from 'src/hooks/unlonely/useUnlonelyChannel';
 import urlcat from 'urlcat';
 

@@ -1,4 +1,5 @@
 import type { AnyPublication, Profile, PublicationsRequest } from '@hey/lens';
+import type { FC } from 'react';
 
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
@@ -11,7 +12,6 @@ import {
 } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { type FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { ProfileFeedType } from 'src/enums';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';

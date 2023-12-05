@@ -1,5 +1,6 @@
 import type { AnyPublication } from '@hey/lens';
 import type { ZoraNft } from '@hey/types/nft';
+import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import WalletSelector from '@components/Shared/Login/WalletSelector';
@@ -17,7 +18,6 @@ import getZoraChainInfo from '@hey/lib/getZoraChainInfo';
 import { Button, Spinner } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import { type FC } from 'react';
 import { useUpdateEffect } from 'usehooks-ts';
 import { encodeAbiParameters, parseAbiParameters, parseEther } from 'viem';
 import {

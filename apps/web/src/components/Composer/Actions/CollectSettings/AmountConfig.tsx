@@ -1,11 +1,11 @@
 import type { AllowedToken } from '@hey/types/hey';
+import type { FC } from 'react';
 
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import { OpenActionModuleType } from '@hey/lens';
 import { Input } from '@hey/ui';
-import { type FC } from 'react';
 import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
 
 interface AmountConfigProps {

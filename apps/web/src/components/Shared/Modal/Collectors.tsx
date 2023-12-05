@@ -1,4 +1,5 @@
 import type { Profile, WhoActedOnPublicationRequest } from '@hey/lens';
+import type { FC } from 'react';
 
 import UserProfile from '@components/Shared/UserProfile';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
@@ -6,7 +7,6 @@ import { FollowUnfollowSource } from '@hey/data/tracking';
 import { LimitType, useWhoActedOnPublicationQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
-import { type FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
 import Loader from '../Loader';

@@ -1,4 +1,5 @@
 import type { OG } from '@hey/types/misc';
+import type { FC } from 'react';
 
 import { ATTACHMENT } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
@@ -7,7 +8,6 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Card, Image } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import { type FC } from 'react';
 
 interface EmbedProps {
   og: OG;

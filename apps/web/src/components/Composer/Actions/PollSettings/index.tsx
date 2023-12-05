@@ -1,7 +1,8 @@
+import type { FC } from 'react';
+
 import { Bars3BottomLeftIcon } from '@heroicons/react/24/solid';
 import { Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
-import { type FC } from 'react';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 
 const PollSettings: FC = () => {
