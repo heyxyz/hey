@@ -42,6 +42,7 @@ import { useState } from 'react';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import urlcat from 'urlcat';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import Badges from './Badges';
 import Followerings from './Followerings';
@@ -52,16 +53,16 @@ import MutualFollowersList from './MutualFollowers/List';
 import ScamWarning from './ScamWarning';
 
 interface DetailsProps {
-  following: boolean;
   profile: Profile;
-  setFollowing: (following: boolean) => void;
 }
 
-const Details: FC<DetailsProps> = ({ following, profile, setFollowing }) => {
+const Details: FC<DetailsProps> = ({ profile }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
+  const isFollowedByMe = profile.operations.isFollowedByMe.value;
   const [showMutualFollowersModal, setShowMutualFollowersModal] =
     useState(false);
+  const [following, setFollowing] = useState(isFollowedByMe);
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
   const { resolvedTheme } = useTheme();
 
@@ -80,6 +81,10 @@ const Details: FC<DetailsProps> = ({ following, profile, setFollowing }) => {
 
   const followType = profile?.followModule?.type;
   const misuseDetails = getMisuseDetails(profile.id);
+
+  useUpdateEffect(() => {
+    setFollowing(isFollowedByMe);
+  }, [isFollowedByMe]);
 
   return (
     <div className="mb-4 space-y-5 px-5 sm:px-0">

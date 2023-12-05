@@ -112,18 +112,19 @@ const Unfollow: FC<UnfollowProps> = ({
   const [createUnfollowTypedData] = useCreateUnfollowTypedDataMutation({
     onCompleted: async ({ createUnfollowTypedData }) => {
       const { id, typedData } = createUnfollowTypedData;
-      const signature = await signTypedDataAsync(getSignature(typedData));
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
       const { idsOfProfilesToUnfollow, unfollowerProfileId } = typedData.value;
       const args = [unfollowerProfileId, idsOfProfilesToUnfollow];
 
       if (canBroadcast) {
+        const signature = await signTypedDataAsync(getSignature(typedData));
         const { data } = await broadcastOnchain({
           variables: { request: { id, signature } }
         });
         if (data?.broadcastOnchain.__typename === 'RelayError') {
           return write({ args });
         }
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+
         return;
       }
 

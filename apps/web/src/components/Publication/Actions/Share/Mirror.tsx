@@ -148,14 +148,14 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
           variables: { request: { id, signature } }
         });
       }
-
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
       const { data } = await broadcastOnchain({
         variables: { request: { id, signature } }
       });
       if (data?.broadcastOnchain.__typename === 'RelayError') {
         return write({ args: [typedData.value] });
       }
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+
       return;
     }
 

@@ -160,7 +160,6 @@ const FollowModule: FC<FollowModuleProps> = ({
   const [createFollowTypedData] = useCreateFollowTypedDataMutation({
     onCompleted: async ({ createFollowTypedData }) => {
       const { id, typedData } = createFollowTypedData;
-      const signature = await signTypedDataAsync(getSignature(typedData));
       const {
         datas,
         followerProfileId,
@@ -175,12 +174,14 @@ const FollowModule: FC<FollowModuleProps> = ({
       ];
 
       if (canBroadcast) {
+        const signature = await signTypedDataAsync(getSignature(typedData));
         const { data } = await broadcastOnchain({
           variables: { request: { id, signature } }
         });
         if (data?.broadcastOnchain.__typename === 'RelayError') {
           return write({ args });
         }
+
         return;
       }
 

@@ -161,16 +161,18 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
     useCreateOnchainSetProfileMetadataTypedDataMutation({
       onCompleted: async ({ createOnchainSetProfileMetadataTypedData }) => {
         const { id, typedData } = createOnchainSetProfileMetadataTypedData;
-        const signature = await signTypedDataAsync(getSignature(typedData));
         const { metadataURI, profileId } = typedData.value;
 
         if (canBroadcast) {
+          const signature = await signTypedDataAsync(getSignature(typedData));
           const { data } = await broadcastOnchain({
             variables: { request: { id, signature } }
           });
           if (data?.broadcastOnchain.__typename === 'RelayError') {
             return write({ args: [profileId, metadataURI] });
           }
+
+          return;
         }
 
         return write({ args: [profileId, metadataURI] });
