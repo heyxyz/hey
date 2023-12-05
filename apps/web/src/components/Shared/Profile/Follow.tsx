@@ -1,5 +1,4 @@
 import type { FollowRequest, Profile } from '@hey/lens';
-import type { ApolloCache } from '@hey/lens/apollo';
 import type { FC } from 'react';
 
 import { UserPlusIcon } from '@heroicons/react/24/outline';
@@ -11,6 +10,7 @@ import {
   useCreateFollowTypedDataMutation,
   useFollowMutation
 } from '@hey/lens';
+import { useApolloClient } from '@hey/lens/apollo';
 import getSignature from '@hey/lib/getSignature';
 import { Button, Spinner } from '@hey/ui';
 import checkDispatcherPermissions from '@lib/checkDispatcherPermissions';
@@ -26,22 +26,11 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface FollowProps {
-  // For data analytics
-  followPosition?: number;
-  followSource?: string;
   profile: Profile;
-
-  setFollowing: (following: boolean) => void;
   showText?: boolean;
 }
 
-const Follow: FC<FollowProps> = ({
-  followPosition,
-  followSource,
-  profile,
-  setFollowing,
-  showText = false
-}) => {
+const Follow: FC<FollowProps> = ({ profile, showText = false }) => {
   const { pathname } = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const lensHubOnchainSigNonce = useNonceStore(
@@ -55,11 +44,12 @@ const Follow: FC<FollowProps> = ({
   );
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
+  const { cache } = useApolloClient();
 
   const { canBroadcast, canUseLensManager } =
     checkDispatcherPermissions(currentProfile);
 
-  const updateCache = (cache: ApolloCache<any>) => {
+  const updateCache = () => {
     cache.modify({
       fields: {
         isFollowedByMe: (existingValue) => {
@@ -80,15 +70,10 @@ const Follow: FC<FollowProps> = ({
       return;
     }
 
+    updateCache();
     setIsLoading(false);
-    setFollowing(true);
     toast.success('Followed successfully!');
-    Leafwatch.track(PROFILE.FOLLOW, {
-      path: pathname,
-      ...(followPosition && { position: followPosition }),
-      ...(followSource && { source: followSource }),
-      target: profile?.id
-    });
+    Leafwatch.track(PROFILE.FOLLOW, { path: pathname, target: profile?.id });
   };
 
   const onError = (error: any) => {
@@ -140,14 +125,12 @@ const Follow: FC<FollowProps> = ({
 
       return write({ args });
     },
-    onError,
-    update: updateCache
+    onError
   });
 
   const [follow] = useFollowMutation({
     onCompleted: ({ follow }) => onCompleted(follow.__typename),
-    onError,
-    update: updateCache
+    onError
   });
 
   const followViaLensManager = async (request: FollowRequest) => {

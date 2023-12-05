@@ -1,5 +1,4 @@
 import type { Profile, UnfollowRequest } from '@hey/lens';
-import type { ApolloCache } from '@hey/lens/apollo';
 import type { FC } from 'react';
 
 import { UserMinusIcon } from '@heroicons/react/24/outline';
@@ -11,6 +10,7 @@ import {
   useCreateUnfollowTypedDataMutation,
   useUnfollowMutation
 } from '@hey/lens';
+import { useApolloClient } from '@hey/lens/apollo';
 import getSignature from '@hey/lib/getSignature';
 import { Button, Spinner } from '@hey/ui';
 import checkDispatcherPermissions from '@lib/checkDispatcherPermissions';
@@ -27,21 +27,10 @@ import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface UnfollowProps {
   profile: Profile;
-  setFollowing: (following: boolean) => void;
   showText?: boolean;
-
-  // For data analytics
-  unfollowPosition?: number;
-  unfollowSource?: string;
 }
 
-const Unfollow: FC<UnfollowProps> = ({
-  profile,
-  setFollowing,
-  showText = false,
-  unfollowPosition,
-  unfollowSource
-}) => {
+const Unfollow: FC<UnfollowProps> = ({ profile, showText = false }) => {
   const { pathname } = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const lensHubOnchainSigNonce = useNonceStore(
@@ -55,11 +44,12 @@ const Unfollow: FC<UnfollowProps> = ({
   );
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
+  const { cache } = useApolloClient();
 
   const { canBroadcast, canUseLensManager } =
     checkDispatcherPermissions(currentProfile);
 
-  const updateCache = (cache: ApolloCache<any>) => {
+  const updateCache = () => {
     cache.modify({
       fields: {
         isFollowedByMe: (existingValue) => {
@@ -80,15 +70,10 @@ const Unfollow: FC<UnfollowProps> = ({
       return;
     }
 
+    updateCache();
     setIsLoading(false);
-    setFollowing(false);
     toast.success('Unfollowed successfully!');
-    Leafwatch.track(PROFILE.UNFOLLOW, {
-      path: pathname,
-      ...(unfollowPosition && { position: unfollowPosition }),
-      ...(unfollowSource && { source: unfollowSource }),
-      target: profile?.id
-    });
+    Leafwatch.track(PROFILE.UNFOLLOW, { path: pathname, target: profile?.id });
   };
 
   const onError = (error: any) => {
@@ -130,14 +115,12 @@ const Unfollow: FC<UnfollowProps> = ({
 
       return write({ args });
     },
-    onError,
-    update: updateCache
+    onError
   });
 
   const [unfollow] = useUnfollowMutation({
     onCompleted: ({ unfollow }) => onCompleted(unfollow.__typename),
-    onError,
-    update: updateCache
+    onError
   });
 
   const unfollowViaLensManager = async (request: UnfollowRequest) => {
