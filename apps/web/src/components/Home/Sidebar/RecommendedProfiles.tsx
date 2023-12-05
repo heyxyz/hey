@@ -79,7 +79,7 @@ const RecommendedProfiles: FC = () => {
       <Card as="aside">
         <div className="space-y-4 p-5">
           <ErrorMessage error={error} title="Failed to load recommendations" />
-          {recommendedProfiles?.slice(0, 5)?.map((profile, index) => (
+          {recommendedProfiles?.slice(0, 5)?.map((profile) => (
             <motion.div
               animate={{ opacity: 1 }}
               className="flex items-center space-x-3 truncate"
