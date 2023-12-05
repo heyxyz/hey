@@ -1,5 +1,6 @@
-import { Toggle } from '@hey/ui';
 import type { FC, ReactNode } from 'react';
+
+import { Toggle } from '@hey/ui';
 
 interface ToggleWithHelperProps {
   description: ReactNode;

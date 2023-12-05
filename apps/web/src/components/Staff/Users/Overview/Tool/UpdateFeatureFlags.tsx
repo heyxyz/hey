@@ -1,5 +1,6 @@
 import type { Profile } from '@hey/lens';
 import type { Features } from '@hey/types/hey';
+import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
 import { HEY_API_URL } from '@hey/data/constants';
@@ -8,7 +9,7 @@ import { Toggle } from '@hey/ui';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 
 import ToggleWrapper from './ToggleWrapper';
