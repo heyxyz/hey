@@ -15,7 +15,7 @@ import cn from '@hey/ui/cn';
 import { getTwitterFormat } from '@lib/formatTime';
 import isVerified from '@lib/isVerified';
 import Link from 'next/link';
-import { memo, useState } from 'react';
+import { memo } from 'react';
 
 import Markup from './Markup';
 import Follow from './Profile/Follow';
@@ -52,8 +52,6 @@ const UserProfile: FC<UserProfileProps> = ({
   showUserPreview = true,
   timestamp = ''
 }) => {
-  const [following, setFollowing] = useState(isFollowing);
-
   const UserAvatar = () => (
     <Image
       alt={profile.id}
@@ -138,11 +136,10 @@ const UserProfile: FC<UserProfileProps> = ({
         <UserInfo />
       )}
       {showFollow ? (
-        following ? null : profile?.followModule?.type ===
-          FollowModuleType.FeeFollowModule ? (
+        profile.operations.isFollowedByMe.value ? null : profile?.followModule
+            ?.type === FollowModuleType.FeeFollowModule ? (
           <SuperFollow
             profile={profile}
-            setFollowing={setFollowing}
             superFollowPosition={followUnfollowPosition}
             superFollowSource={followUnfollowSource}
           />
@@ -151,15 +148,13 @@ const UserProfile: FC<UserProfileProps> = ({
             followPosition={followUnfollowPosition}
             followSource={followUnfollowSource}
             profile={profile}
-            setFollowing={setFollowing}
           />
         )
       ) : null}
       {showUnfollow ? (
-        following ? (
+        profile.operations.isFollowedByMe.value ? (
           <Unfollow
             profile={profile}
-            setFollowing={setFollowing}
             unfollowPosition={followUnfollowPosition}
             unfollowSource={followUnfollowSource}
           />
