@@ -1,4 +1,4 @@
-import { type ChangeEventHandler, type FC } from 'react';
+import type { ChangeEventHandler, FC } from 'react';
 
 interface ChooseFileProps {
   onChange: ChangeEventHandler<HTMLInputElement>;

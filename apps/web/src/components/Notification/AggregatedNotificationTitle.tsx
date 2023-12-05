@@ -1,7 +1,7 @@
 import type { Profile } from '@hey/lens';
+import type { FC } from 'react';
 
 import Link from 'next/link';
-import { type FC } from 'react';
 
 import { NotificationProfileName } from './Profile';
 

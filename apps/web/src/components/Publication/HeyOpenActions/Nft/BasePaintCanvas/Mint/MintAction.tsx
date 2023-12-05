@@ -1,5 +1,6 @@
 import type { AnyPublication } from '@hey/lens';
 import type { BasePaintCanvas } from '@hey/types/nft';
+import type { FC } from 'react';
 
 import WalletSelector from '@components/Shared/Login/WalletSelector';
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
@@ -14,7 +15,6 @@ import { PUBLICATION } from '@hey/data/tracking';
 import { Button, Spinner } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import { type FC } from 'react';
 import { useUpdateEffect } from 'usehooks-ts';
 import { parseEther } from 'viem';
 import { base } from 'viem/chains';

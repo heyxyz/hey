@@ -1,4 +1,5 @@
 import type { Profile } from '@hey/lens';
+import type { FC } from 'react';
 
 import {
   ArrowsRightLeftIcon,
@@ -15,7 +16,6 @@ import { PROFILE, PUBLICATION } from '@hey/data/tracking';
 import { Card, Spinner } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { type FC } from 'react';
 
 interface StreaksListProps {
   profile: Profile;

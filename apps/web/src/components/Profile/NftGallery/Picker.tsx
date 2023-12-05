@@ -1,4 +1,5 @@
 import type { Nft, NftsRequest } from '@hey/lens';
+import type { FC } from 'react';
 import type { NftGalleryItem } from 'src/store/non-persisted/useNftGalleryStore';
 
 import NftShimmer from '@components/Shared/Shimmer/NftShimmer';
@@ -10,7 +11,6 @@ import { LimitType, useNftsQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { ErrorMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { type FC } from 'react';
 import { toast } from 'react-hot-toast';
 import { VirtuosoGrid } from 'react-virtuoso';
 import { CHAIN_ID } from 'src/constants';

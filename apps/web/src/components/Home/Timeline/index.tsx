@@ -1,4 +1,5 @@
 import type { AnyPublication, FeedItem, FeedRequest } from '@hey/lens';
+import type { FC } from 'react';
 
 import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
@@ -7,7 +8,7 @@ import { UserGroupIcon } from '@heroicons/react/24/outline';
 import { FeedEventItemType, useFeedQuery } from '@hey/lens';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { type FC, memo } from 'react';
+import { memo } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
 import { useTimelineStore } from 'src/store/non-persisted/useTimelineStore';

@@ -1,10 +1,11 @@
+import type { FC } from 'react';
+
 import { HEY_API_URL } from '@hey/data/constants';
 import { Poll } from '@hey/types/hey';
 import { Spinner } from '@hey/ui';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { type FC } from 'react';
 
 import Wrapper from '../../Shared/Embed/Wrapper';
 import Choices from './Choices';

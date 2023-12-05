@@ -1,6 +1,7 @@
+import type { FC } from 'react';
+
 import { Cog6ToothIcon } from '@heroicons/react/24/outline';
 import cn from '@hey/ui/cn';
-import { type FC } from 'react';
 
 interface SettingsProps {
   className?: string;
