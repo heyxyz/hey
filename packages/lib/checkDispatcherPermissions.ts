@@ -27,12 +27,7 @@ const checkDispatcherPermissions = (
   const canUseLensManager = canUseSignless && isSponsored;
   const canBroadcast = isSponsored;
 
-  return {
-    canBroadcast,
-    canUseLensManager,
-    canUseSignless,
-    isSponsored
-  };
+  return { canBroadcast, canUseLensManager, canUseSignless, isSponsored };
 };
 
 export default checkDispatcherPermissions;

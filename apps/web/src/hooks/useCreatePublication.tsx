@@ -29,9 +29,9 @@ import {
   useQuoteOnchainMutation,
   useQuoteOnMomokaMutation
 } from '@hey/lens';
+import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { OptmisticPublicationType } from '@hey/types/enums';
-import checkDispatcherPermissions from '@lib/checkDispatcherPermissions';
 import { useRouter } from 'next/router';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';

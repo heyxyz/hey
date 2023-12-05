@@ -9,16 +9,17 @@ import {
   useBroadcastOnchainMutation,
   useCreateChangeProfileManagersTypedDataMutation
 } from '@hey/lens';
+import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { Button, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import checkDispatcherPermissions from '@lib/checkDispatcherPermissions';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
+import { hydrateTbaStatus } from 'src/store/persisted/useTbaStatusStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface ToggleLensManagerProps {
@@ -36,6 +37,8 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
     (state) => state.setLensHubOnchainSigNonce
   );
   const [isLoading, setIsLoading] = useState(false);
+
+  const { isTba } = hydrateTbaStatus();
   const { canBroadcast, canUseSignless } =
     checkDispatcherPermissions(currentProfile);
 
@@ -94,7 +97,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
           switchToGivenConfig
         ];
 
-        if (canBroadcast) {
+        if (!isTba && canBroadcast) {
           const { data } = await broadcastOnchain({
             variables: { request: { id, signature } }
           });
