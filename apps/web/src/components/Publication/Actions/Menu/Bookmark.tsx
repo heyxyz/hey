@@ -1,4 +1,5 @@
 import type { ApolloCache } from '@hey/lens/apollo';
+import type { FC } from 'react';
 
 import { Menu } from '@headlessui/react';
 import { BookmarkIcon as BookmarkIconOutline } from '@heroicons/react/24/outline';
@@ -16,7 +17,7 @@ import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 
 interface BookmarkProps {
