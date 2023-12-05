@@ -5,7 +5,6 @@ import {
   ChatBubbleLeftRightIcon,
   FilmIcon,
   PencilSquareIcon,
-  RectangleGroupIcon,
   RectangleStackIcon
 } from '@heroicons/react/24/outline';
 import { IS_MAINNET } from '@hey/data/constants';
@@ -61,13 +60,6 @@ const FeedType: FC<FeedTypeProps> = ({ feedType }) => {
           name="Collected"
           onClick={() => switchTab(ProfileFeedType.Collects)}
           type={ProfileFeedType.Collects.toLowerCase()}
-        />
-        <TabButton
-          active={feedType === ProfileFeedType.Gallery}
-          icon={<RectangleGroupIcon className="h-4 w-4" />}
-          name="Gallery"
-          onClick={() => switchTab(ProfileFeedType.Gallery)}
-          type={ProfileFeedType.Gallery.toLowerCase()}
         />
         {IS_MAINNET ? (
           <TabButton
