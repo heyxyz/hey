@@ -3,7 +3,7 @@ import type { Profile } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
-import { type FC, type ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import Slug from './Slug';
 
