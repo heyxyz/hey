@@ -18,6 +18,7 @@ import {
   useCreateFollowTypedDataMutation,
   useProfileQuery
 } from '@hey/lens';
+import { useApolloClient } from '@hey/lens/apollo';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import formatAddress from '@hey/lib/formatAddress';
 import getProfile from '@hey/lib/getProfile';
@@ -42,7 +43,6 @@ import Slug from '../Slug';
 interface FollowModuleProps {
   again: boolean;
   profile: Profile;
-  setFollowing: (following: boolean) => void;
   setShowFollowModal: Dispatch<SetStateAction<boolean>>;
 
   // For data analytics
@@ -53,7 +53,6 @@ interface FollowModuleProps {
 const FollowModule: FC<FollowModuleProps> = ({
   again,
   profile,
-  setFollowing,
   setShowFollowModal,
   superFollowPosition,
   superFollowSource
@@ -70,15 +69,28 @@ const FollowModule: FC<FollowModuleProps> = ({
   const [allowed, setAllowed] = useState(true);
 
   const handleWrongNetwork = useHandleWrongNetwork();
+  const { cache } = useApolloClient();
+
   const { canBroadcast } = checkDispatcherPermissions(currentProfile);
+
+  const updateCache = () => {
+    cache.modify({
+      fields: {
+        isFollowedByMe: (existingValue) => {
+          return { ...existingValue, value: true };
+        }
+      },
+      id: cache.identify(profile.operations)
+    });
+  };
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
       return;
     }
 
+    updateCache();
     setIsLoading(false);
-    setFollowing(true);
     setShowFollowModal(false);
     toast.success('Followed successfully!');
     Leafwatch.track(PROFILE.SUPER_FOLLOW, {
