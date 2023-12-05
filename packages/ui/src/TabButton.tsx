@@ -1,5 +1,6 @@
+import type { FC, ReactNode } from 'react';
+
 import { useRouter } from 'next/router';
-import { type FC, type ReactNode } from 'react';
 
 import cn from '../cn';
 

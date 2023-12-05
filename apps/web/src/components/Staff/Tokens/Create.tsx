@@ -1,11 +1,12 @@
 import type { AllowedToken } from '@hey/types/hey';
+import type { FC } from 'react';
 
 import { HEY_API_URL } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
 import { Button, Form, Input, useZodForm } from '@hey/ui';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import axios from 'axios';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { object, string } from 'zod';
 

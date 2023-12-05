@@ -1,7 +1,8 @@
+import type { FC } from 'react';
+
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { StarIcon } from '@heroicons/react/24/outline';
 import { Input } from '@hey/ui';
-import { type FC } from 'react';
 import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
 
 interface CollectLimitConfigProps {

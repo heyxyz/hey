@@ -1,4 +1,5 @@
 import type { ExploreProfilesRequest, Profile } from '@hey/lens';
+import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
 import SearchUser from '@components/Shared/SearchUser';
@@ -14,7 +15,7 @@ import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
 const List: FC = () => {

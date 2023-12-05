@@ -1,4 +1,5 @@
 import type { AnyPublication } from '@hey/lens';
+import type { FC } from 'react';
 
 import {
   HashtagIcon,
@@ -11,7 +12,6 @@ import {
   isMirrorPublication
 } from '@hey/lib/publicationHelpers';
 import { Card } from '@hey/ui';
-import { type FC } from 'react';
 
 import MetaDetails from '../../Shared/Staff/MetaDetails';
 

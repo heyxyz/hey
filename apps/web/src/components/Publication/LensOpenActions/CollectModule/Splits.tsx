@@ -1,4 +1,5 @@
 import type { Profile, RecipientDataOutput } from '@hey/lens';
+import type { FC } from 'react';
 
 import Slug from '@components/Shared/Slug';
 import { POLYGONSCAN_URL } from '@hey/data/constants';
@@ -8,7 +9,6 @@ import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import getStampFyiURL from '@hey/lib/getStampFyiURL';
 import Link from 'next/link';
-import { type FC } from 'react';
 
 interface SplitsProps {
   recipients: RecipientDataOutput[];

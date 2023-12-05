@@ -1,11 +1,12 @@
 import type { AnyPublication, FeedItem } from '@hey/lens';
+import type { FC } from 'react';
 
 import ActionType from '@components/Home/Timeline/EventType';
 import PublicationWrapper from '@components/Shared/PublicationWrapper';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
 import pushToImpressions from '@lib/pushToImpressions';
-import { type FC, memo } from 'react';
+import { memo } from 'react';
 import { useInView } from 'react-cool-inview';
 
 import PublicationActions from './Actions';

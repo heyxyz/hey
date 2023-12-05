@@ -1,6 +1,7 @@
+import type { FC } from 'react';
+
 import { APP_NAME, DEFAULT_OG, DESCRIPTION } from '@hey/data/constants';
 import Head from 'next/head';
-import { type FC } from 'react';
 
 interface MetaTagsProps {
   description?: string;

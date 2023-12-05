@@ -1,9 +1,9 @@
 import type { Profile } from '@hey/lens';
+import type { FC } from 'react';
 
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { useProfileQuery } from '@hey/lens';
-import { type FC } from 'react';
 
 interface StaffPickedProfileProps {
   id: string;

@@ -1,5 +1,6 @@
 import type { AnyPublication } from '@hey/lens';
 import type { UnlonelyNfcMetadata } from '@hey/types/nft';
+import type { FC } from 'react';
 
 import Video from '@components/Shared/Video';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
@@ -9,7 +10,6 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button, Card, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import { type FC } from 'react';
 import useUnlonelyNfc from 'src/hooks/unlonely/useUnlonelyNfc';
 import urlcat from 'urlcat';
 

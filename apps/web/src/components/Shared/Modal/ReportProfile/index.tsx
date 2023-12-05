@@ -1,11 +1,11 @@
 import type { Profile } from '@hey/lens';
+import type { FC } from 'react';
 
 import UserProfile from '@components/Shared/UserProfile';
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { PROFILE } from '@hey/data/tracking';
 import { Button, Card, Form, Radio, TextArea, useZodForm } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC } from 'react';
 import toast from 'react-hot-toast';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { object, string, z } from 'zod';
