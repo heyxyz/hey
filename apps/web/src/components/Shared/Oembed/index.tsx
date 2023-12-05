@@ -1,10 +1,10 @@
 import type { OG } from '@hey/types/misc';
+import type { FC } from 'react';
 
 import { HEY_API_URL } from '@hey/data/constants';
 import getFavicon from '@hey/lib/getFavicon';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { type FC } from 'react';
 
 import Embed from './Embed';
 import Player from './Player';

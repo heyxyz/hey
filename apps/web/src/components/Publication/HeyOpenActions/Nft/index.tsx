@@ -5,9 +5,9 @@ import type {
   UnlonelyChannelMetadata,
   UnlonelyNfcMetadata
 } from '@hey/types/nft';
+import type { FC } from 'react';
 
 import getNft from '@hey/lib/nft/getNft';
-import { type FC } from 'react';
 
 import BasePaintCanvas from './BasePaintCanvas';
 import UnlonelyChannel from './UnlonelyChannel';

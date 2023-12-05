@@ -1,8 +1,9 @@
+import type { FC } from 'react';
+
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { gql, useQuery } from '@hey/lens/apollo';
 import { Button, Spinner } from '@hey/ui';
 import Link from 'next/link';
-import { type FC } from 'react';
 
 const HAS_PUBLICATION_INDEXED_QUERY = gql`
   query HasPubicationIndexed($request: PublicationQueryRequest!) {

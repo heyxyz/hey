@@ -1,4 +1,5 @@
 import type { AnyPublication } from '@hey/lens';
+import type { FC } from 'react';
 
 import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
 import humanize from '@hey/lib/humanize';
@@ -7,7 +8,6 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
-import { type FC } from 'react';
 
 interface CommentProps {
   publication: AnyPublication;
