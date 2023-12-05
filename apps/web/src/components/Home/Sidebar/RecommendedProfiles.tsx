@@ -9,7 +9,7 @@ import {
   UsersIcon
 } from '@heroicons/react/24/outline';
 import { SparklesIcon } from '@heroicons/react/24/solid';
-import { FollowUnfollowSource, MISCELLANEOUS } from '@hey/data/tracking';
+import { MISCELLANEOUS } from '@hey/data/tracking';
 import { useProfileRecommendationsQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -88,19 +88,9 @@ const RecommendedProfiles: FC = () => {
               key={profile?.id}
             >
               <div className="w-full">
-                <UserProfile
-                  followUnfollowPosition={index + 1}
-                  followUnfollowSource={FollowUnfollowSource.WHO_TO_FOLLOW}
-                  isFollowing={profile.operations.isFollowedByMe.value}
-                  profile={profile as Profile}
-                  showFollow
-                />
+                <UserProfile profile={profile as Profile} showFollow />
               </div>
-              <DismissRecommendedProfile
-                dismissPosition={index + 1}
-                dismissSource={FollowUnfollowSource.WHO_TO_FOLLOW}
-                profile={profile as Profile}
-              />
+              <DismissRecommendedProfile profile={profile as Profile} />
             </motion.div>
           ))}
         </div>

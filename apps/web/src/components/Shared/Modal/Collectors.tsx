@@ -3,7 +3,6 @@ import type { FC } from 'react';
 
 import UserProfile from '@components/Shared/UserProfile';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
-import { FollowUnfollowSource } from '@hey/data/tracking';
 import { LimitType, useWhoActedOnPublicationQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
@@ -68,7 +67,7 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
         className="virtual-profile-list"
         data={profiles}
         endReached={onEndReached}
-        itemContent={(index, profile) => {
+        itemContent={(_, profile) => {
           return (
             <motion.div
               animate={{ opacity: 1 }}
@@ -77,9 +76,6 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
               initial={{ opacity: 0 }}
             >
               <UserProfile
-                followUnfollowPosition={index + 1}
-                followUnfollowSource={FollowUnfollowSource.COLLECTORS_MODAL}
-                isFollowing={profile.operations.isFollowedByMe.value}
                 profile={profile as Profile}
                 showBio
                 showFollow
