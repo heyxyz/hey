@@ -23,7 +23,6 @@ import {
   RARIBLE_URL,
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
-import { FollowUnfollowSource } from '@hey/data/tracking';
 import getEnvConfig from '@hey/data/utils/getEnvConfig';
 import { FollowModuleType } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
@@ -146,31 +145,15 @@ const Details: FC<DetailsProps> = ({ profile }) => {
           ) : followType !== FollowModuleType.RevertFollowModule ? (
             profile.operations.isFollowedByMe.value ? (
               <>
-                <Unfollow
-                  profile={profile}
-                  showText
-                  unfollowSource={FollowUnfollowSource.PROFILE_PAGE}
-                />
+                <Unfollow profile={profile} showText />
                 {followType === FollowModuleType.FeeFollowModule ? (
-                  <SuperFollow
-                    again
-                    profile={profile}
-                    superFollowSource={FollowUnfollowSource.PROFILE_PAGE}
-                  />
+                  <SuperFollow again profile={profile} />
                 ) : null}
               </>
             ) : followType === FollowModuleType.FeeFollowModule ? (
-              <SuperFollow
-                profile={profile}
-                showText
-                superFollowSource={FollowUnfollowSource.PROFILE_PAGE}
-              />
+              <SuperFollow profile={profile} showText />
             ) : (
-              <Follow
-                followSource={FollowUnfollowSource.PROFILE_PAGE}
-                profile={profile}
-                showText
-              />
+              <Follow profile={profile} showText />
             )
           ) : null}
 
