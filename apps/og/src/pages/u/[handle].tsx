@@ -6,6 +6,7 @@ export const config = {
   unstable_runtimeJS: false
 };
 
+// @ts-ignore
 const C: NextPage = ({ HANDLE }) => {
   return (
     <SEO
