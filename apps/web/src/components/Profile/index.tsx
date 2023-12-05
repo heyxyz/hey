@@ -26,7 +26,6 @@ import Cover from './Cover';
 import Details from './Details';
 import Feed from './Feed';
 import FeedType from './FeedType';
-import NftGallery from './NftGallery';
 import ProfilePageShimmer from './Shimmer';
 
 const ViewProfile: NextPage = () => {
@@ -45,7 +44,6 @@ const ViewProfile: NextPage = () => {
     ProfileFeedType.Replies.toLowerCase(),
     ProfileFeedType.Media.toLowerCase(),
     ProfileFeedType.Collects.toLowerCase(),
-    ProfileFeedType.Gallery.toLowerCase(),
     ProfileFeedType.Stats.toLowerCase()
   ];
 
@@ -105,9 +103,6 @@ const ViewProfile: NextPage = () => {
           feedType === ProfileFeedType.Media ||
           feedType === ProfileFeedType.Collects ? (
             <Feed profile={profile as Profile} type={feedType} />
-          ) : null}
-          {feedType === ProfileFeedType.Gallery ? (
-            <NftGallery profile={profile as Profile} />
           ) : null}
           {feedType === ProfileFeedType.Stats && IS_MAINNET ? (
             <Achievements profile={profile as Profile} />
