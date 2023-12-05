@@ -1,3 +1,5 @@
+import type { FC } from 'react';
+
 import New from '@components/Shared/Badges/New';
 import {
   MinusCircleIcon,
@@ -11,7 +13,6 @@ import { Card } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import { type FC } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface StatusProps {

@@ -1,3 +1,5 @@
+import type { FC, ReactNode } from 'react';
+
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import {
@@ -11,7 +13,6 @@ import { ReferenceModuleType } from '@hey/lens';
 import { Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
-import { type FC, type ReactNode } from 'react';
 import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
 
 const ReferenceSettings: FC = () => {

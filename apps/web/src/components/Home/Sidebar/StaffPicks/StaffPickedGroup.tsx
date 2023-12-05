@@ -1,11 +1,11 @@
 import type { Group } from '@hey/types/hey';
+import type { FC } from 'react';
 
 import GroupProfile from '@components/Shared/GroupProfile';
 import GroupProfileShimmer from '@components/Shared/Shimmer/GroupProfileShimmer';
 import { HEY_API_URL } from '@hey/data/constants';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { type FC } from 'react';
 
 interface StaffPickedGroupProps {
   id: string;

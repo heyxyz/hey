@@ -1,6 +1,7 @@
+import type { FC } from 'react';
+
 import { LockClosedIcon } from '@heroicons/react/24/outline';
 import { Card } from '@hey/ui';
-import { type FC } from 'react';
 
 interface EncryptedPublicationProps {
   type?: string;

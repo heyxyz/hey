@@ -1,11 +1,11 @@
 import type { AnyPublication } from '@hey/lens';
+import type { FC } from 'react';
 
 import { apps } from '@hey/data/apps';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import getAppName from '@hey/lib/getAppName';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Tooltip } from '@hey/ui';
-import { type FC } from 'react';
 
 interface SourceProps {
   publication: AnyPublication;

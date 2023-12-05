@@ -1,7 +1,8 @@
+import type { FC, ReactNode } from 'react';
+
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { type FC, type ReactNode } from 'react';
 
 interface MenuProps {
   children: ReactNode;

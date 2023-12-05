@@ -1,7 +1,7 @@
 import type { OpenSeaNft } from '@hey/types/opensea-nft';
+import type { FC } from 'react';
 
 import { Card } from '@hey/ui';
-import { type FC } from 'react';
 
 interface NftTraitsProps {
   nft: OpenSeaNft;

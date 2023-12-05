@@ -1,7 +1,8 @@
+import type { ClipboardEvent } from 'react';
+
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { mergeRegister } from '@lexical/utils';
 import { COMMAND_PRIORITY_NORMAL, PASTE_COMMAND } from 'lexical';
-import { type ClipboardEvent } from 'react';
 import { useUpdateEffect } from 'usehooks-ts';
 
 interface ImagesPluginProps {

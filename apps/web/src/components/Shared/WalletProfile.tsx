@@ -1,3 +1,4 @@
+import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
@@ -7,7 +8,6 @@ import getStampFyiURL from '@hey/lib/getStampFyiURL';
 import imageKit from '@hey/lib/imageKit';
 import { Image } from '@hey/ui';
 import Link from 'next/link';
-import { type FC } from 'react';
 import useEnsName from 'src/hooks/useEnsName';
 
 import Slug from './Slug';

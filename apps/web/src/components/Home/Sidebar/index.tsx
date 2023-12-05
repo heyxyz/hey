@@ -1,5 +1,7 @@
+import type { FC } from 'react';
+
 import Footer from '@components/Shared/Footer';
-import { type FC, memo } from 'react';
+import { memo } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import EnableLensManager from './EnableLensManager';

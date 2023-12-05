@@ -1,4 +1,5 @@
-import { type FC } from 'react';
+import type { FC } from 'react';
+
 import { useEffectOnce } from 'usehooks-ts';
 
 const ServiceWorkerProvider: FC = () => {

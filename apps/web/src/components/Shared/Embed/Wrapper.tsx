@@ -1,7 +1,8 @@
+import type { FC, ReactNode } from 'react';
+
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Card } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { type FC, type ReactNode } from 'react';
 
 interface WrapperProps {
   children: ReactNode;

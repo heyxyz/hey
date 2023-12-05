@@ -1,5 +1,6 @@
 import type { ApolloCache } from '@apollo/client';
 import type { AnyPublication, ReactionRequest } from '@hey/lens';
+import type { FC } from 'react';
 
 import { HeartIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
@@ -18,7 +19,7 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 

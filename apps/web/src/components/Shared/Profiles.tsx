@@ -1,7 +1,7 @@
 import type { Profile } from '@hey/lens';
+import type { FC, ReactNode } from 'react';
 
 import FallbackProfileName from '@components/Shared/FallbackProfileName';
-import { type FC, type ReactNode } from 'react';
 
 interface ProfileCirclesProps {
   context?: string;

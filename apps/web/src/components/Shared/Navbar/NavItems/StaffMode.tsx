@@ -1,3 +1,5 @@
+import type { FC } from 'react';
+
 import { ShieldCheckIcon as ShieldCheckIconOutline } from '@heroicons/react/24/outline';
 import { ShieldCheckIcon as ShieldCheckIconSolid } from '@heroicons/react/24/solid';
 import { HEY_API_URL } from '@hey/data/constants';
@@ -8,7 +10,7 @@ import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { Magic } from 'magic-sdk';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';

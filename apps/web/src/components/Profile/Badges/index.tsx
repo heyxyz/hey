@@ -1,6 +1,5 @@
 import type { Profile } from '@hey/lens';
-
-import { type FC } from 'react';
+import type { FC } from 'react';
 
 import Ens from './Ens';
 import ProofOfHumanity from './ProofOfHumanity';
