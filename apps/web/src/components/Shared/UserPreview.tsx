@@ -63,10 +63,6 @@ const UserPreview: FC<UserPreviewProps> = ({
     }, MINIMUM_LOADING_ANIMATION_MS);
   };
 
-  const [following, setFollowing] = useState(
-    profile?.operations.isFollowedByMe.value
-  );
-
   if (!id && !handle) {
     return null;
   }
