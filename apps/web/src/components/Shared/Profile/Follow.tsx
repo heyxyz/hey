@@ -112,8 +112,6 @@ const Follow: FC<FollowProps> = ({
   const [createFollowTypedData] = useCreateFollowTypedDataMutation({
     onCompleted: async ({ createFollowTypedData }) => {
       const { id, typedData } = createFollowTypedData;
-      const signature = await signTypedDataAsync(getSignature(typedData));
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
       const {
         datas,
         followerProfileId,
@@ -128,12 +126,15 @@ const Follow: FC<FollowProps> = ({
       ];
 
       if (canBroadcast) {
+        const signature = await signTypedDataAsync(getSignature(typedData));
         const { data } = await broadcastOnchain({
           variables: { request: { id, signature } }
         });
         if (data?.broadcastOnchain.__typename === 'RelayError') {
           return write({ args });
         }
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+
         return;
       }
 

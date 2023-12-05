@@ -109,18 +109,19 @@ const SuperFollow: FC = () => {
     useCreateSetFollowModuleTypedDataMutation({
       onCompleted: async ({ createSetFollowModuleTypedData }) => {
         const { id, typedData } = createSetFollowModuleTypedData;
-        const signature = await signTypedDataAsync(getSignature(typedData));
         const { followModule, followModuleInitData, profileId } =
           typedData.value;
         const args = [profileId, followModule, followModuleInitData];
 
         if (canBroadcast) {
+          const signature = await signTypedDataAsync(getSignature(typedData));
           const { data } = await broadcastOnchain({
             variables: { request: { id, signature } }
           });
           if (data?.broadcastOnchain.__typename === 'RelayError') {
             return write({ args });
           }
+
           return;
         }
 
