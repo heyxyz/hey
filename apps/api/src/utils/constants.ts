@@ -21,6 +21,7 @@ export const CACHE_AGE_30_DAYS = 'public, s-maxage=2592000';
 // Cache indefinitely
 export const CACHE_AGE_INDEFINITE = 'public, max-age=31536000, immutable';
 
-export const ALCHEMY_URL = IS_MAINNET
-  ? `https://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`
-  : `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`;
+// RPC
+export const RPC_URL = IS_MAINNET
+  ? 'https://polygon-rpc.com'
+  : 'rpc.ankr.com/polygon_mumbai';
