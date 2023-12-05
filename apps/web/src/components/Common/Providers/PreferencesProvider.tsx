@@ -28,6 +28,7 @@ const PreferencesProvider: FC = () => {
     (state) => state.setGardenerMode
   );
 
+  // Fetch preferences
   const fetchPreferences = async () => {
     try {
       if (Boolean(sessionProfileId) && !isAddress(sessionProfileId)) {
@@ -61,6 +62,7 @@ const PreferencesProvider: FC = () => {
     queryKey: ['fetchPreferences', sessionProfileId || '']
   });
 
+  // Fetch verified members
   const fetchVerifiedMembers = async () => {
     try {
       const response = await axios.get(`${HEY_API_URL}/misc/getVerified`);
