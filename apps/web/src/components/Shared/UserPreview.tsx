@@ -5,14 +5,12 @@ import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
-import { FollowUnfollowSource } from '@hey/data/tracking';
 import { useProfileLazyQuery } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
 import getMentions from '@hey/lib/getMentions';
 import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
 import nFormatter from '@hey/lib/nFormatter';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import truncateByWords from '@hey/lib/truncateByWords';
 import { Image } from '@hey/ui';
 import isVerified from '@lib/isVerified';
@@ -21,9 +19,7 @@ import plur from 'plur';
 import { useState } from 'react';
 
 import Markup from './Markup';
-import Follow from './Profile/Follow';
 import Slug from './Slug';
-import SuperFollow from './SuperFollow';
 
 const MINIMUM_LOADING_ANIMATION_MS = 500;
 const POPOVER_SHOW_ANIMATION_MS = 100;
@@ -133,59 +129,37 @@ const UserPreview: FC<UserPreviewProps> = ({
     );
 
     return (
-      <>
-        <div className="flex items-center justify-between px-3.5 pb-1 pt-4">
-          <UserAvatar />
-          <div onClick={stopEventPropagation}>
-            {!profile.operations.isFollowedByMe.value ? (
-              following ? null : profile.followModule?.__typename ===
-                'FeeFollowModuleSettings' ? (
-                <SuperFollow
-                  profile={profile}
-                  setFollowing={setFollowing}
-                  superFollowSource={FollowUnfollowSource.PROFILE_POPOVER}
-                />
-              ) : (
-                <Follow
-                  followSource={FollowUnfollowSource.PROFILE_POPOVER}
-                  profile={profile}
-                  setFollowing={setFollowing}
-                />
-              )
-            ) : null}
-          </div>
-        </div>
-        <div className="space-y-3 p-4 pt-0">
-          <UserName />
-          <div>
-            {profile.metadata?.bio ? (
-              <div className="linkify mt-2 break-words text-sm leading-6">
-                <Markup mentions={getMentions(profile.metadata.bio)}>
-                  {truncateByWords(profile.metadata.bio, 20)}
-                </Markup>
-              </div>
-            ) : null}
-          </div>
-          <div className="flex items-center space-x-3">
-            <div className="flex items-center space-x-1">
-              <div className="text-base">
-                {nFormatter(profile.stats.following)}
-              </div>
-              <div className="ld-text-gray-500 text-sm">
-                {plur('Following', profile.stats.following)}
-              </div>
+      <div className="space-y-3 p-4">
+        <UserAvatar />
+        <UserName />
+        <div>
+          {profile.metadata?.bio ? (
+            <div className="linkify mt-2 break-words text-sm leading-6">
+              <Markup mentions={getMentions(profile.metadata.bio)}>
+                {truncateByWords(profile.metadata.bio, 20)}
+              </Markup>
             </div>
-            <div className="text-md flex items-center space-x-1">
-              <div className="text-base">
-                {nFormatter(profile.stats.followers)}
-              </div>
-              <div className="ld-text-gray-500 text-sm">
-                {plur('Follower', profile.stats.followers)}
-              </div>
+          ) : null}
+        </div>
+        <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-1">
+            <div className="text-base">
+              {nFormatter(profile.stats.following)}
+            </div>
+            <div className="ld-text-gray-500 text-sm">
+              {plur('Following', profile.stats.following)}
+            </div>
+          </div>
+          <div className="text-md flex items-center space-x-1">
+            <div className="text-base">
+              {nFormatter(profile.stats.followers)}
+            </div>
+            <div className="ld-text-gray-500 text-sm">
+              {plur('Follower', profile.stats.followers)}
             </div>
           </div>
         </div>
-      </>
+      </div>
     );
   };
 

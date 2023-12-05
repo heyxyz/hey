@@ -15,7 +15,7 @@ import cn from '@hey/ui/cn';
 import { getTwitterFormat } from '@lib/formatTime';
 import isVerified from '@lib/isVerified';
 import Link from 'next/link';
-import { memo, useState } from 'react';
+import { memo } from 'react';
 
 import Markup from './Markup';
 import Follow from './Profile/Follow';
@@ -25,10 +25,7 @@ import UserPreview from './UserPreview';
 
 interface UserProfileProps {
   // For data analytics
-  followUnfollowPosition?: number;
-  followUnfollowSource?: string;
   isBig?: boolean;
-  isFollowing?: boolean;
   linkToProfile?: boolean;
   profile: Profile;
   showBio?: boolean;
@@ -40,10 +37,7 @@ interface UserProfileProps {
 }
 
 const UserProfile: FC<UserProfileProps> = ({
-  followUnfollowPosition,
-  followUnfollowSource,
   isBig = false,
-  isFollowing = false,
   linkToProfile = true,
   profile,
   showBio = false,
@@ -52,8 +46,6 @@ const UserProfile: FC<UserProfileProps> = ({
   showUserPreview = true,
   timestamp = ''
 }) => {
-  const [following, setFollowing] = useState(isFollowing);
-
   const UserAvatar = () => (
     <Image
       alt={profile.id}
@@ -138,31 +130,16 @@ const UserProfile: FC<UserProfileProps> = ({
         <UserInfo />
       )}
       {showFollow ? (
-        following ? null : profile?.followModule?.type ===
-          FollowModuleType.FeeFollowModule ? (
-          <SuperFollow
-            profile={profile}
-            setFollowing={setFollowing}
-            superFollowPosition={followUnfollowPosition}
-            superFollowSource={followUnfollowSource}
-          />
+        profile.operations.isFollowedByMe.value ? null : profile?.followModule
+            ?.type === FollowModuleType.FeeFollowModule ? (
+          <SuperFollow profile={profile} />
         ) : (
-          <Follow
-            followPosition={followUnfollowPosition}
-            followSource={followUnfollowSource}
-            profile={profile}
-            setFollowing={setFollowing}
-          />
+          <Follow profile={profile} />
         )
       ) : null}
       {showUnfollow ? (
-        following ? (
-          <Unfollow
-            profile={profile}
-            setFollowing={setFollowing}
-            unfollowPosition={followUnfollowPosition}
-            unfollowSource={followUnfollowSource}
-          />
+        profile.operations.isFollowedByMe.value ? (
+          <Unfollow profile={profile} />
         ) : null
       ) : null}
     </div>

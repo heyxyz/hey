@@ -2,7 +2,6 @@ import type { FC } from 'react';
 
 import UserProfile from '@components/Shared/UserProfile';
 import { HeartIcon } from '@heroicons/react/24/outline';
-import { FollowUnfollowSource } from '@hey/data/tracking';
 import {
   LimitType,
   type Profile,
@@ -72,7 +71,7 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
         className="virtual-profile-list"
         data={profiles}
         endReached={onEndReached}
-        itemContent={(index, like) => {
+        itemContent={(_, like) => {
           return (
             <motion.div
               animate={{ opacity: 1 }}
@@ -81,9 +80,6 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
               initial={{ opacity: 0 }}
             >
               <UserProfile
-                followUnfollowPosition={index + 1}
-                followUnfollowSource={FollowUnfollowSource.LIKES_MODAL}
-                isFollowing={like.profile.operations.isFollowedByMe.value}
                 profile={like.profile as Profile}
                 showBio
                 showFollow

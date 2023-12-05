@@ -4,7 +4,6 @@ import type { FC } from 'react';
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
-import { FollowUnfollowSource } from '@hey/data/tracking';
 import { LimitType, useFollowersQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { EmptyState, ErrorMessage } from '@hey/ui';
@@ -76,7 +75,7 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
         className="virtual-profile-list"
         data={followers}
         endReached={onEndReached}
-        itemContent={(index, follower) => {
+        itemContent={(_, follower) => {
           return (
             <motion.div
               animate={{ opacity: 1 }}
@@ -85,9 +84,6 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
               initial={{ opacity: 0 }}
             >
               <UserProfile
-                followUnfollowPosition={index + 1}
-                followUnfollowSource={FollowUnfollowSource.FOLLOWERS_MODAL}
-                isFollowing={follower.operations.isFollowedByMe.value}
                 profile={follower as Profile}
                 showBio
                 showFollow={currentProfile?.id !== follower.id}
