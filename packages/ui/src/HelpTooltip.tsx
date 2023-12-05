@@ -1,6 +1,7 @@
+import type { FC, ReactNode } from 'react';
+
 import { InformationCircleIcon } from '@heroicons/react/24/outline';
 import Tippy from '@tippyjs/react';
-import { type FC, type ReactNode } from 'react';
 import 'tippy.js/dist/tippy.css';
 
 interface HelpTooltipProps {
