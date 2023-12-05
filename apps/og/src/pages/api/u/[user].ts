@@ -1,5 +1,8 @@
 import type { NextApiHandler } from 'next';
 
+import { HANDLE_PREFIX } from '@hey/data/constants';
+import { ProfileDocument } from '@hey/lens';
+import { apolloClient } from '@hey/lens/apollo';
 import { z } from 'zod';
 
 import { getLayoutAndConfig } from '../../../layouts';
@@ -12,6 +15,17 @@ const imageReq = z.object({
 
 const handler: NextApiHandler = async (req, res) => {
   try {
+    const HANDLE = req.query.user;
+    const { data: profileData } = await apolloClient().query({
+      query: ProfileDocument,
+      variables: { request: { forHandle: HANDLE_PREFIX + HANDLE } }
+    });
+    const HANDLE_PROFILE = profileData.profile;
+    const HANDLE_BIO = HANDLE_PROFILE.metadata.bio;
+    const HANDLE_POSTS_COUNT = HANDLE_PROFILE.stats.posts;
+    const HANDLE_NAME = HANDLE_PROFILE.metadata.displayName;
+    const HANDLE_FOLLOWERS_COUNT = HANDLE_PROFILE.stats.followers;
+    const HANDLE_FOLLOWING_COUNT = HANDLE_PROFILE.stats.following;
     const { fileType, layoutName } = await imageReq.parseAsync(req.query);
 
     const { config, layout } = await getLayoutAndConfig(
