@@ -9,7 +9,6 @@ export enum NotificationTabType {
 export enum ProfileFeedType {
   Collects = 'COLLECTS',
   Feed = 'FEED',
-  Gallery = 'GALLERY',
   Media = 'MEDIA',
   Replies = 'REPLIES',
   Stats = 'STATS'
