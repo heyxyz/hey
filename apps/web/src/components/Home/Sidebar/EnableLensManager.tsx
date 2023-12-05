@@ -11,9 +11,9 @@ import { useAccount } from 'wagmi';
 const EnableLensManager: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const { address } = useAccount();
-  const { canUseSignless } = checkDispatcherPermissions(currentProfile);
+  const { canUseSignless, isTba } = checkDispatcherPermissions(currentProfile);
 
-  if (canUseSignless || currentProfile?.ownedBy.address !== address) {
+  if (isTba || canUseSignless || currentProfile?.ownedBy.address !== address) {
     return null;
   }
 
