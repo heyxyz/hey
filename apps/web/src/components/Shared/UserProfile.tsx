@@ -25,10 +25,7 @@ import UserPreview from './UserPreview';
 
 interface UserProfileProps {
   // For data analytics
-  followUnfollowPosition?: number;
-  followUnfollowSource?: string;
   isBig?: boolean;
-  isFollowing?: boolean;
   linkToProfile?: boolean;
   profile: Profile;
   showBio?: boolean;
@@ -40,10 +37,7 @@ interface UserProfileProps {
 }
 
 const UserProfile: FC<UserProfileProps> = ({
-  followUnfollowPosition,
-  followUnfollowSource,
   isBig = false,
-  isFollowing = false,
   linkToProfile = true,
   profile,
   showBio = false,
@@ -138,26 +132,14 @@ const UserProfile: FC<UserProfileProps> = ({
       {showFollow ? (
         profile.operations.isFollowedByMe.value ? null : profile?.followModule
             ?.type === FollowModuleType.FeeFollowModule ? (
-          <SuperFollow
-            profile={profile}
-            superFollowPosition={followUnfollowPosition}
-            superFollowSource={followUnfollowSource}
-          />
+          <SuperFollow profile={profile} />
         ) : (
-          <Follow
-            followPosition={followUnfollowPosition}
-            followSource={followUnfollowSource}
-            profile={profile}
-          />
+          <Follow profile={profile} />
         )
       ) : null}
       {showUnfollow ? (
         profile.operations.isFollowedByMe.value ? (
-          <Unfollow
-            profile={profile}
-            unfollowPosition={followUnfollowPosition}
-            unfollowSource={followUnfollowSource}
-          />
+          <Unfollow profile={profile} />
         ) : null
       ) : null}
     </div>

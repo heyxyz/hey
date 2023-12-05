@@ -26,20 +26,11 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface FollowProps {
-  // For data analytics
-  followPosition?: number;
-  followSource?: string;
   profile: Profile;
-
   showText?: boolean;
 }
 
-const Follow: FC<FollowProps> = ({
-  followPosition,
-  followSource,
-  profile,
-  showText = false
-}) => {
+const Follow: FC<FollowProps> = ({ profile, showText = false }) => {
   const { pathname } = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const lensHubOnchainSigNonce = useNonceStore(
@@ -82,12 +73,7 @@ const Follow: FC<FollowProps> = ({
     updateCache();
     setIsLoading(false);
     toast.success('Followed successfully!');
-    Leafwatch.track(PROFILE.FOLLOW, {
-      path: pathname,
-      ...(followPosition && { position: followPosition }),
-      ...(followSource && { source: followSource }),
-      target: profile?.id
-    });
+    Leafwatch.track(PROFILE.FOLLOW, { path: pathname, target: profile?.id });
   };
 
   const onError = (error: any) => {

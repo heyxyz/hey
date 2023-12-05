@@ -44,18 +44,12 @@ interface FollowModuleProps {
   again: boolean;
   profile: Profile;
   setShowFollowModal: Dispatch<SetStateAction<boolean>>;
-
-  // For data analytics
-  superFollowPosition?: number;
-  superFollowSource?: string;
 }
 
 const FollowModule: FC<FollowModuleProps> = ({
   again,
   profile,
-  setShowFollowModal,
-  superFollowPosition,
-  superFollowSource
+  setShowFollowModal
 }) => {
   const { pathname } = useRouter();
   const lensHubOnchainSigNonce = useNonceStore(
@@ -95,8 +89,6 @@ const FollowModule: FC<FollowModuleProps> = ({
     toast.success('Followed successfully!');
     Leafwatch.track(PROFILE.SUPER_FOLLOW, {
       path: pathname,
-      ...(superFollowPosition && { position: superFollowPosition }),
-      ...(superFollowSource && { source: superFollowSource }),
       target: profile?.id
     });
   };
