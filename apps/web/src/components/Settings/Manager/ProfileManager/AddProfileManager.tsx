@@ -82,8 +82,6 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
     useCreateChangeProfileManagersTypedDataMutation({
       onCompleted: async ({ createChangeProfileManagersTypedData }) => {
         const { id, typedData } = createChangeProfileManagersTypedData;
-        const signature = await signTypedDataAsync(getSignature(typedData));
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
         const {
           approvals,
           configNumber,
@@ -100,12 +98,15 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
         ];
 
         if (canBroadcast) {
+          const signature = await signTypedDataAsync(getSignature(typedData));
           const { data } = await broadcastOnchain({
             variables: { request: { id, signature } }
           });
           if (data?.broadcastOnchain.__typename === 'RelayError') {
             return write({ args });
           }
+          setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+
           return;
         }
 
