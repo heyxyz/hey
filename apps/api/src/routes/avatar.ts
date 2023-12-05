@@ -1,11 +1,12 @@
 import type { Handler } from 'express';
 
 import { LensHub } from '@hey/abis';
+import { IS_MAINNET, LENSHUB_PROXY } from '@hey/data/constants';
 import logger from '@hey/lib/logger';
 import { ALCHEMY_URL, CACHE_AGE_INDEFINITE } from '@utils/constants';
 import { noBody } from '@utils/responses';
 import { createPublicClient, http } from 'viem';
-import { polygon } from 'viem/chains';
+import { polygon, polygonMumbai } from 'viem/chains';
 
 export const get: Handler = async (req, res) => {
   const { id } = req.query;
@@ -16,13 +17,13 @@ export const get: Handler = async (req, res) => {
 
   try {
     const client = createPublicClient({
-      chain: polygon,
+      chain: IS_MAINNET ? polygon : polygonMumbai,
       transport: http(ALCHEMY_URL)
     });
 
     const data: any = await client.readContract({
       abi: LensHub,
-      address: '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d',
+      address: LENSHUB_PROXY,
       args: [id],
       functionName: 'tokenURI'
     });
