@@ -224,6 +224,10 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     try {
       setIsLoading(true);
 
+      const request: MomokaMirrorRequest | OnchainMirrorRequest = {
+        mirrorOn: publication?.id
+      };
+
       // Begin: TBA specific logic
       if (isTba) {
         if (publication.momoka?.proof) {
@@ -231,9 +235,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
           return toast.error('Only onchain mirrors are supported!');
         }
 
-        return await createOnchainMirrorTypedData({
-          variables: { request: { mirrorOn: publication?.id } }
-        });
+        return await createOnchainMirrorTypedData({ variables: { request } });
       }
       // End: TBA specific logic
 
@@ -242,10 +244,6 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
           'Momoka is currently in beta - during this time certain actions are not available to all profiles.'
         );
       }
-
-      const request: MomokaMirrorRequest | OnchainMirrorRequest = {
-        mirrorOn: publication?.id
-      };
 
       if (publication.momoka?.proof) {
         if (canUseLensManager) {
