@@ -26,7 +26,7 @@ export type StaffPick = {
   type: 'GROUP' | 'PROFILE';
 };
 
-export type Features = {
+export type Feature = {
   createdAt: Date;
   enabled: boolean;
   id: string;
