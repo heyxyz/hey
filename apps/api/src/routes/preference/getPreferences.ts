@@ -19,21 +19,26 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const [preference, pro, features] = await prisma.$transaction([
-      prisma.preference.findUnique({ where: { id: id as string } }),
-      prisma.pro.findFirst({ where: { profileId: id as string } }),
-      prisma.profileFeature.findMany({
-        select: { feature: { select: { key: true } } },
-        where: {
-          enabled: true,
-          feature: { enabled: true },
-          profileId: id as string
-        }
-      })
-    ]);
+    const [preference, pro, features, membershipNft] =
+      await prisma.$transaction([
+        prisma.preference.findUnique({ where: { id: id as string } }),
+        prisma.pro.findFirst({ where: { profileId: id as string } }),
+        prisma.profileFeature.findMany({
+          select: { feature: { select: { key: true } } },
+          where: {
+            enabled: true,
+            feature: { enabled: true },
+            profileId: id as string
+          }
+        }),
+        prisma.membershipNft.findUnique({ where: { id: id as string } })
+      ]);
 
     const response = {
       features: features.map((feature: any) => feature.feature?.key),
+      membershipNft: {
+        dismissedOrMinted: Boolean(membershipNft?.dismissedOrMinted)
+      },
       preference,
       pro: { enabled: Boolean(pro) }
     };
