@@ -7,6 +7,7 @@ import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import getCurrentSession from '@lib/getCurrentSession';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { useMembershipNftStore } from 'src/store/non-persisted/useMembershipNftStore';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useProStore } from 'src/store/non-persisted/useProStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
@@ -27,6 +28,9 @@ const PreferencesProvider: FC = () => {
   const setGardenerMode = useFeatureFlagsStore(
     (state) => state.setGardenerMode
   );
+  const setDismissedOrMinted = useMembershipNftStore(
+    (state) => state.setDismissedOrMinted
+  );
 
   // Fetch preferences
   const fetchPreferences = async () => {
@@ -37,6 +41,7 @@ const PreferencesProvider: FC = () => {
           getAuthWorkerHeaders()
         );
 
+        // Profile preferences
         setPreferences({
           email: preferences.preference?.email || '',
           highSignalNotificationFilter:
@@ -44,12 +49,19 @@ const PreferencesProvider: FC = () => {
           isPride: preferences.preference?.isPride || false,
           marketingOptIn: preferences.preference?.marketingOptIn || false
         });
+
+        // Pro
         setIsPro(preferences.pro.enabled);
+
+        // Feature flags
         setFeatureFlags(preferences.features);
         setStaffMode(preferences.features.includes(FeatureFlag.StaffMode));
         setGardenerMode(
           preferences?.features.includes(FeatureFlag.GardenerMode)
         );
+
+        // Membership NFT
+        setDismissedOrMinted(preferences.membershipNft.dismissedOrMinted);
       }
       return true;
     } catch {

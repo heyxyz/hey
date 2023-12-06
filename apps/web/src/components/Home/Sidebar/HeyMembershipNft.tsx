@@ -11,36 +11,24 @@ import axios from 'axios';
 import { memo, useState } from 'react';
 import toast from 'react-hot-toast';
 import useZoraNft from 'src/hooks/zora/useZoraNft';
+import { useMembershipNftStore } from 'src/store/non-persisted/useMembershipNftStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useQuery } from 'wagmi';
 
 const HeyMembershipNft: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
+  const dismissedOrMinted = useMembershipNftStore(
+    (state) => state.dismissedOrMinted
+  );
+  const setDismissedOrMinted = useMembershipNftStore(
+    (state) => state.setDismissedOrMinted
+  );
   const [showMintModal, setShowMintModal] = useState(false);
-  const [dismissedOrMinted, setDismissedOrMinted] = useState(true);
 
   const { data: nft, loading } = useZoraNft({
     address: '0x8fcfdad5ebdd1ce815aa769bbd7499091ac056d1',
     chain: 'zora',
     token: ''
   });
-
-  const getHeyMemberNftStatus = async (): Promise<boolean> => {
-    const response = await axios.get(
-      `${HEY_API_URL}/preference/getHeyMemberNftStatus`,
-      { params: { id: currentProfile?.id } }
-    );
-    const { data } = response;
-    setDismissedOrMinted(data.result.dismissedOrMinted);
-
-    return data.result.dismissedOrMinted;
-  };
-
-  useQuery(
-    ['getHeyMemberNftStatus', currentProfile?.id],
-    () => getHeyMemberNftStatus(),
-    { enabled: Boolean(currentProfile?.id) }
-  );
 
   if (dismissedOrMinted) {
     return null;
