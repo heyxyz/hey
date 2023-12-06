@@ -25,7 +25,7 @@
     "@hey/data": "workspace:*",
     "@hey/lib": "workspace:*",
     "@irys/sdk": "^0.1.1",
-    "@prisma/client": "^5.6.0",
+    "@prisma/client": "^5.7.0",
     "axios": "^1.6.2",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
@@ -57,7 +57,7 @@
     "@types/ua-parser-js": "^0.7.39",
     "@types/uuid": "^9.0.7",
     "nodemon": "^3.0.2",
-    "prisma": "^5.6.0",
+    "prisma": "^5.7.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.3.2",
     "vite": "^5.0.6"
