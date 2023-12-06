@@ -1,4 +1,4 @@
-import type { Features } from '@hey/types/hey';
+import type { Feature } from '@hey/types/hey';
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
@@ -21,11 +21,13 @@ import Create from './Create';
 
 const List: FC = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [flags, setFlags] = useState<[] | Features[]>([]);
+  const [features, setFeatures] = useState<[] | Feature[]>([]);
 
   const { error, isLoading } = useQuery({
     queryFn: () =>
-      getAllFeatureFlags(getAuthWorkerHeaders(), (flags) => setFlags(flags)),
+      getAllFeatureFlags(getAuthWorkerHeaders(), (features) =>
+        setFeatures(features)
+      ),
     queryKey: ['getAllFeatureFlags']
   });
 
@@ -40,7 +42,7 @@ const List: FC = () => {
         error: 'Failed to delete feature flag',
         loading: 'Deleting feature flag...',
         success: () => {
-          setFlags(flags.filter((flag) => flag.id !== id));
+          setFeatures(features.filter((feature) => feature.id !== id));
           return 'Feature flag deleted';
         }
       }
@@ -61,7 +63,7 @@ const List: FC = () => {
           <Loader message="Loading feature flags..." />
         ) : error ? (
           <ErrorMessage error={error} title="Failed to load feature flags" />
-        ) : !flags.length ? (
+        ) : !features.length ? (
           <EmptyState
             hideCard
             icon={
@@ -71,20 +73,23 @@ const List: FC = () => {
           />
         ) : (
           <div className="space-y-5">
-            {flags?.map((flag) => (
-              <div className="flex items-center justify-between" key={flag.id}>
+            {features?.map((feature) => (
+              <div
+                className="flex items-center justify-between"
+                key={feature.id}
+              >
                 <ToggleWithHelper
                   description={`Created on ${formatDate(
-                    flag.createdAt
-                  )} with priority ${flag.priority}`}
-                  heading={flag.key}
-                  on={flag.enabled}
+                    feature.createdAt
+                  )} with priority ${feature.priority}`}
+                  heading={feature.key}
+                  on={feature.enabled}
                   setOn={() => {}}
                 />
-                {flag.priority === 0 && (
+                {feature.priority === 0 && (
                   <Button
                     icon={<TrashIcon className="h-4 w-4" />}
-                    onClick={() => deleteFeatureFlag(flag.id)}
+                    onClick={() => deleteFeatureFlag(feature.id)}
                     outline
                   />
                 )}
@@ -99,8 +104,8 @@ const List: FC = () => {
         title="Create feature flag"
       >
         <Create
-          flags={flags}
-          setFlags={setFlags}
+          features={features}
+          setFeatures={setFeatures}
           setShowCreateModal={setShowCreateModal}
         />
       </Modal>
