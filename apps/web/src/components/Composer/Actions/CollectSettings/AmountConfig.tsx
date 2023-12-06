@@ -5,7 +5,7 @@ import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import { OpenActionModuleType } from '@hey/lens';
-import { Input } from '@hey/ui';
+import { Input, Select } from '@hey/ui';
 import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
 
 interface AmountConfigProps {
@@ -60,8 +60,7 @@ const AmountConfig: FC<AmountConfigProps> = ({
             />
             <div>
               <div className="label">Select currency</div>
-              <select
-                className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"
+              <Select
                 onChange={(e) => {
                   setCollectType({
                     amount: {
@@ -70,19 +69,11 @@ const AmountConfig: FC<AmountConfigProps> = ({
                     }
                   });
                 }}
-              >
-                {allowedTokens?.map((token) => (
-                  <option
-                    key={token.contractAddress}
-                    selected={
-                      token.contractAddress === collectModule.amount?.currency
-                    }
-                    value={token.contractAddress}
-                  >
-                    {token.name}
-                  </option>
-                ))}
-              </select>
+                options={allowedTokens?.map((token) => ({
+                  label: token.name,
+                  value: token.contractAddress
+                }))}
+              />
             </div>
           </div>
         </div>
