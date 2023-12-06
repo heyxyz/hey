@@ -92,7 +92,7 @@ const Navbar: FC = () => {
                 alt="Logo"
                 className="h-8 w-8"
                 height={32}
-                src={preferences.isPride ? '/pride.png' : '/logo.png'}
+                src={preferences.isPride ? '/pride.webp' : '/logo.webp'}
                 width={32}
               />
             </Link>
@@ -113,7 +113,7 @@ const Navbar: FC = () => {
               alt="Logo"
               className="h-7 w-7"
               height={32}
-              src={preferences.isPride ? '/pride.png' : '/logo.png'}
+              src={preferences.isPride ? '/pride.webp' : '/logo.webp'}
               width={32}
             />
           </Link>

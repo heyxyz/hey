@@ -23,7 +23,7 @@ const LoginButton: FC<LoginButtonProps> = ({
       icon={
         <img
           alt="Lens Logo"
-          className="mr-0.5 h-3"
+          className="mr-0.5 h-3 w-3"
           height={12}
           src="/lens.svg"
           width={19}

@@ -137,7 +137,7 @@ const ChooseThumbnail: FC = () => {
           htmlFor="chooseThumbnail"
         >
           <input
-            accept=".png, .jpg, .jpeg"
+            accept=".png, .webp, .jpg, .jpeg"
             className="hidden w-full"
             id="chooseThumbnail"
             onChange={handleUpload}

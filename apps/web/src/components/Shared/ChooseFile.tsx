@@ -7,7 +7,7 @@ interface ChooseFileProps {
 const ChooseFile: FC<ChooseFileProps> = ({ onChange }) => {
   return (
     <input
-      accept=".png, .jpg, .jpeg, .gif"
+      accept=".png, .webp, .jpg, .jpeg, .gif"
       className="focus:border-brand-400 cursor-pointer rounded-xl border border-gray-300 bg-white pr-1 text-sm text-gray-700 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-white"
       onChange={onChange}
       onClick={(event) => {

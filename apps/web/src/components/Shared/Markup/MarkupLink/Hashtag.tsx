@@ -37,7 +37,7 @@ const Hashtag: FC<MarkupLinkProps> = ({ title }) => {
       {hasHashflag ? (
         <img
           alt={tag}
-          className="!mr-0.5 h-4"
+          className="!mr-0.5 h-4 w-4"
           height={16}
           src={`${STATIC_IMAGES_URL}/hashflags/${hashflags[tag]}.png`}
         />

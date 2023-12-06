@@ -90,7 +90,7 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
             alt="Logo"
             className="h-10 w-10"
             height={40}
-            src="/logo.png"
+            src="/logo.webp"
             width={40}
           />
           <div className="text-xl font-bold">Sign up to {APP_NAME}</div>

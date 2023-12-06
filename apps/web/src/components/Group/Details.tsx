@@ -78,7 +78,7 @@ const Details: FC<DetailsProps> = ({ group }) => {
                   alt={`${APP_NAME} Logo`}
                   className="h-4 w-4"
                   height={16}
-                  src="/logo.png"
+                  src="/logo.webp"
                   width={16}
                 />
               }

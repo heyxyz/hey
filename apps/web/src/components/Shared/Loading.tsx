@@ -12,7 +12,7 @@ const Loading: FC = () => {
         alt="Logo"
         className="h-28 w-28"
         height={112}
-        src={isPrideMonth() ? '/pride.png' : '/logo.png'}
+        src={isPrideMonth() ? '/pride.webp' : '/logo.webp'}
         width={112}
       />
     </div>

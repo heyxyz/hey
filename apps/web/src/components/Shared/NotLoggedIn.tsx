@@ -12,7 +12,7 @@ const NotLoggedIn: FC = () => {
         alt="Logo"
         className="h-20 w-20"
         height={80}
-        src="/logo.png"
+        src="/logo.webp"
         width={80}
       />
       <div className="py-10 text-center">
