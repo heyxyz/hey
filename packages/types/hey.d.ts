@@ -83,6 +83,7 @@ export type Poll = {
 
 export type Preferences = {
   features: string[];
+  membershipNft: { dismissedOrMinted: boolean };
   preference?: {
     createdAt: Date;
     email: null | string;
