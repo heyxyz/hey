@@ -6,8 +6,7 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import MenuTransition from '../MenuTransition';
 import Bookmarks from './NavItems/Bookmarks';
-import ReportBug from './NavItems/ReportBug';
-
+import Support from './NavItems/Support';
 const MoreNavItems: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
@@ -51,7 +50,7 @@ const MoreNavItems: FC = () => {
                   cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
                 }
               >
-                <ReportBug />
+                <Support />
               </Menu.Item>
             </Menu.Items>
           </MenuTransition>
