@@ -11,7 +11,7 @@ import {
   useApprovedModuleAllowanceAmountQuery
 } from '@hey/lens';
 import getAllTokens from '@hey/lib/api/getAllTokens';
-import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import { Card, GridItemEight, GridItemFour, GridLayout, Select } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
@@ -84,28 +84,25 @@ const AllowanceSettings: NextPage = () => {
             </div>
             <div className="divider my-5" />
             <div className="label mt-6">Select currency</div>
-            <select
-              className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"
+            <Select
               onChange={(e) => {
                 setCurrencyLoading(true);
                 refetch({
                   request: getAllowancePayload(e.target.value)
                 }).finally(() => setCurrencyLoading(false));
               }}
-            >
-              {allowedTokensLoading ? (
-                <option>Loading...</option>
-              ) : (
-                allowedTokens?.map((token) => (
-                  <option
-                    key={token.contractAddress}
-                    value={token.contractAddress}
-                  >
-                    {token.name}
-                  </option>
-                ))
-              )}
-            </select>
+              options={
+                allowedTokens?.map((token) => ({
+                  label: token.name,
+                  value: token.contractAddress
+                })) || [
+                  {
+                    label: 'Loading...',
+                    value: 'Loading...'
+                  }
+                ]
+              }
+            />
           </div>
           {loading || allowedTokensLoading || currencyLoading ? (
             <div className="py-5">
