@@ -20,9 +20,9 @@ import Invites from './NavItems/Invites';
 import Logout from './NavItems/Logout';
 import Mod from './NavItems/Mod';
 import Pro from './NavItems/Pro';
-import ReportBug from './NavItems/ReportBug';
 import Settings from './NavItems/Settings';
 import StaffMode from './NavItems/StaffMode';
+import Support from './NavItems/Support';
 import SwitchProfile from './NavItems/SwitchProfile';
 import ThemeSwitch from './NavItems/ThemeSwitch';
 import YourProfile from './NavItems/YourProfile';
@@ -105,7 +105,7 @@ const MobileDrawerMenu: FC = () => {
         </div>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
-          <ReportBug className={cn(itemClass, 'px-4')} onClick={closeDrawer} />
+          <Support className={cn(itemClass, 'px-4')} onClick={closeDrawer} />
           <div className="divider" />
         </div>
 
