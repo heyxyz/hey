@@ -5,12 +5,12 @@
   "license": "AGPL-3.0",
   "scripts": {
     "build": "next build",
-    "dev": "next dev --port 4783",
+    "dev": "next dev --port 4785",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --fix --ext .ts,.tsx",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
-    "start": "next start --port 4783",
+    "start": "next start --port 4785",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
