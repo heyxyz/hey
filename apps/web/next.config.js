@@ -1,3 +1,4 @@
+import { rewrites } from './src/config';
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
 
 /** @type {import('next').NextConfig} */
@@ -6,48 +7,7 @@ const nextConfig = {
   reactStrictMode: false,
   experimental: { scrollRestoration: true },
   async rewrites() {
-    return [
-      {
-        source: '/sitemaps/:match*',
-        destination: 'https://api.hey.xyz/sitemap/:match*'
-      },
-      {
-        source: '/u/(.*)',
-        has: [
-          {
-            type: 'header',
-            key: 'user-agent',
-            value:
-              '.*twitterbot|linkedinbot|whatsapp|slackbot|telegrambot|discordbot|facebookbot.*'
-          }
-        ],
-        destination: 'https://rishi.app'
-      },
-      {
-        source: '/u/lens/(.*)',
-        has: [
-          {
-            type: 'header',
-            key: 'user-agent',
-            value:
-              '.*twitterbot|linkedinbot|whatsapp|slackbot|telegrambot|discordbot|facebookbot.*'
-          }
-        ],
-        destination: 'https://rishi.app'
-      },
-      {
-        source: '/posts/(.*)',
-        has: [
-          {
-            type: 'header',
-            key: 'user-agent',
-            value:
-              '.*twitterbot|linkedinbot|whatsapp|slackbot|telegrambot|discordbot|facebookbot.*'
-          }
-        ],
-        destination: 'https://rishi.app'
-      }
-    ];
+    return rewrites;
   },
   async redirects() {
     return [

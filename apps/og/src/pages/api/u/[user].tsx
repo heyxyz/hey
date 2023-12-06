@@ -14,14 +14,13 @@ const handler: NextApiHandler = async (req, res) => {
     query: ProfileDocument,
     variables: { request: { forHandle: HANDLE_PREFIX + HANDLE } }
   });
-  const HANDLE_PROFILE = profileData.profile;
-  const HANDLE_BIO = HANDLE_PROFILE.metadata.bio;
-  const HANDLE_POSTS_COUNT = HANDLE_PROFILE.stats.posts;
-  const HANDLE_NAME = HANDLE_PROFILE.metadata.displayName;
-  const HANDLE_FOLLOWERS_COUNT = HANDLE_PROFILE.stats.followers;
-  const HANDLE_FOLLOWING_COUNT = HANDLE_PROFILE.stats.following;
-  const HANDLE_PICTURE = HANDLE_PROFILE.metadata.picture.optimized.uri;
-  console.log(HANDLE_BIO);
+  const handProfile = profileData.profile;
+  const handBio = handProfile.metadata.bio;
+  const handlePostsCount = handProfile.stats.posts;
+  const handleName = handProfile.metadata.displayName;
+  const handleFollowersCount = handProfile.stats.followers;
+  const handleFollowingCount = handProfile.stats.following;
+  const handlePicture = handProfile.metadata.picture.optimized.uri;
   const stream = await unstable_createNodejsStream(
     <div
       style={{
@@ -29,14 +28,14 @@ const handler: NextApiHandler = async (req, res) => {
         flexDirection: 'column'
       }}
     >
-      <span>BIO: {HANDLE_BIO}</span>
-      <span>FOLLOWERS_COUNT: {HANDLE_FOLLOWERS_COUNT}</span>
-      <span>POSTS_COUNT: {HANDLE_POSTS_COUNT}</span>
-      <span>NAME: {HANDLE_NAME}</span>
-      <span>FOLLOWING_COUNT: {HANDLE_FOLLOWING_COUNT}</span>
+      <span>BIO: {handBio}</span>
+      <span>FOLLOWERS_COUNT: {handleFollowersCount}</span>
+      <span>POSTS_COUNT: {handlePostsCount}</span>
+      <span>NAME: {handleName}</span>
+      <span>FOLLOWING_COUNT: {handleFollowingCount}</span>
       <img
         height="100"
-        src={HANDLE_PICTURE}
+        src={handlePicture}
         style={{ borderRadius: '9999px' }}
         width="100"
       />

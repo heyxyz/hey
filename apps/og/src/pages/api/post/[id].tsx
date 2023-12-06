@@ -17,13 +17,12 @@ const handler: NextApiHandler = async (req, res) => {
     res.end();
   }
   const { publication } = publicationData;
-  const POST_KIND = publication.__typename;
-  const POST_BY =
-    publication['by']['handle']['suggestedFormatted']['localName'];
-  const POST_BY_PICTURE =
+  const postKind = publication.__typename;
+  const postBy = publication['by']['handle']['suggestedFormatted']['localName'];
+  const postByPicture =
     publication['by']['metadata']['picture']?.optimized?.uri;
-  const POST_CONTENT = publication['metadata']['content'];
-  const POST_STATS = publication['stats'];
+  const postContent = publication['metadata']['content'];
+  const postStats = publication['stats'];
   const stream = await unstable_createNodejsStream(
     <div
       style={{
@@ -32,12 +31,12 @@ const handler: NextApiHandler = async (req, res) => {
       }}
     >
       <span>
-        {POST_KIND} by {POST_BY}
+        {postKind} by {postBy}
       </span>
-      {POST_BY_PICTURE && (
+      {postByPicture && (
         <img
           height="100"
-          src={POST_BY_PICTURE}
+          src={postByPicture}
           style={{ borderRadius: '9999px' }}
           width="100"
         />
@@ -52,14 +51,14 @@ const handler: NextApiHandler = async (req, res) => {
           whiteSpace: 'pre-wrap'
         }}
       >
-        {POST_CONTENT}
+        {postContent}
       </div>
-      {Object.keys(POST_STATS)
+      {Object.keys(postStats)
         .filter((i) => i !== '__typename' && i !== 'id')
-        .filter((i) => POST_STATS[i] > 0)
+        .filter((i) => postStats[i] > 0)
         .map((i) => (
           <div key={i} style={{ display: 'flex' }}>
-            {i}: {POST_STATS[i]}
+            {i}: {postStats[i]}
           </div>
         ))}
     </div>,
