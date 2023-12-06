@@ -123,10 +123,10 @@ const Support: NextPage = () => {
               <Select
                 label="Category"
                 options={[
-                  { label: 'Support', value: 5 },
-                  { label: 'Bug report', value: 4 },
-                  { label: 'Feature request', value: 6 },
-                  { label: 'Other', value: 7 }
+                  { label: 'Support', value: 1 },
+                  { label: 'Bug report', value: 2 },
+                  { label: 'Feature request', value: 3 },
+                  { label: 'Other', value: 4 }
                 ]}
                 {...form.register('type')}
               />
