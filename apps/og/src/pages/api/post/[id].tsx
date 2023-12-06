@@ -5,19 +5,18 @@ import { apolloClient } from '@hey/lens/apollo';
 import { unstable_createNodejsStream } from '@vercel/og';
 
 const handler: NextApiHandler = async (req, res) => {
-  const POST_ID = req.query.id;
-  if (!POST_ID) {
+  const postID = req.query.id;
+  if (!postID) {
     return res.end();
   }
   const { data: publicationData } = await apolloClient().query({
     query: PublicationDocument,
-    variables: { request: { forId: POST_ID } }
+    variables: { request: { forId: postID } }
   });
   if (!publicationData.publication) {
     res.end();
   }
   const { publication } = publicationData;
-  console.log(JSON.stringify(publication));
   const POST_KIND = publication.__typename;
   const POST_BY =
     publication['by']['handle']['suggestedFormatted']['localName'];
