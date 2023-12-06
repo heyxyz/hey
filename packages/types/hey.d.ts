@@ -26,7 +26,7 @@ export type StaffPick = {
   type: 'GROUP' | 'PROFILE';
 };
 
-export type Features = {
+export type Feature = {
   createdAt: Date;
   enabled: boolean;
   id: string;
@@ -83,6 +83,7 @@ export type Poll = {
 
 export type Preferences = {
   features: string[];
+  membershipNft: { dismissedOrMinted: boolean };
   preference?: {
     createdAt: Date;
     email: null | string;
