@@ -1,4 +1,4 @@
-import type { Features } from '@hey/types/hey';
+import type { Feature } from '@hey/types/hey';
 
 import { HEY_API_URL } from '@hey/data/constants';
 import axios from 'axios';
@@ -11,8 +11,8 @@ import axios from 'axios';
  */
 const getAllFeatureFlags = async (
   headers: any,
-  callbackFn?: (flags: Features[]) => void
-): Promise<Features[]> => {
+  callbackFn?: (flags: Feature[]) => void
+): Promise<Feature[]> => {
   try {
     const response = await axios.get(`${HEY_API_URL}/internal/feature/all`, {
       headers

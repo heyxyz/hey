@@ -1,5 +1,5 @@
 import type { Profile } from '@hey/lens';
-import type { Features } from '@hey/types/hey';
+import type { Feature } from '@hey/types/hey';
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
@@ -36,11 +36,11 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
     return <Loader message="Loading feature flags" />;
   }
 
-  const availableFlags = allFeatureFlags || [];
+  const availableFeatures = allFeatureFlags || [];
   const enabledFlags = flags;
 
-  const updateFeatureFlag = async (flag: Features) => {
-    const { id, key } = flag;
+  const updateFeatureFlag = async (feature: Feature) => {
+    const { id, key } = feature;
     const enabled = !enabledFlags.includes(key);
 
     setUpdating(true);
@@ -71,12 +71,12 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
 
   return (
     <div className="space-y-2 font-bold">
-      {availableFlags.map((flag) => (
-        <ToggleWrapper key={flag.id} title={flag.key}>
+      {availableFeatures.map((feature) => (
+        <ToggleWrapper key={feature.id} title={feature.key}>
           <Toggle
             disabled={updating}
-            on={enabledFlags.includes(flag.key)}
-            setOn={() => updateFeatureFlag(flag)}
+            on={enabledFlags.includes(feature.key)}
+            setOn={() => updateFeatureFlag(feature)}
           />
         </ToggleWrapper>
       ))}
