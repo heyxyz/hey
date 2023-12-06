@@ -23,6 +23,7 @@ const getPreferences = async (
   } catch {
     return {
       features: [],
+      membershipNft: { dismissedOrMinted: false },
       preference: null,
       pro: { enabled: false }
     };
