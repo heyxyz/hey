@@ -22,6 +22,7 @@ import Create from './Create';
 const List: FC = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [features, setFeatures] = useState<[] | Feature[]>([]);
+  const [killing, setKilling] = useState(false);
 
   const { error, isLoading } = useQuery({
     queryFn: () =>
@@ -30,6 +31,33 @@ const List: FC = () => {
       ),
     queryKey: ['getAllFeatureFlags']
   });
+
+  const killFeatureFlag = async (id: string, enabled: boolean) => {
+    setKilling(true);
+    toast.promise(
+      axios.post(
+        `${HEY_API_URL}/internal/feature/kill`,
+        { enabled, id },
+        { headers: getAuthWorkerHeaders() }
+      ),
+      {
+        error: () => {
+          setKilling(false);
+          return 'Failed to kill feature flag';
+        },
+        loading: 'Killing feature flag...',
+        success: () => {
+          setKilling(false);
+          setFeatures(
+            features.map((feature) =>
+              feature.id === id ? { ...feature, enabled } : feature
+            )
+          );
+          return 'Feature flag killed';
+        }
+      }
+    );
+  };
 
   const deleteFeatureFlag = async (id: string) => {
     toast.promise(
@@ -82,9 +110,10 @@ const List: FC = () => {
                   description={`Created on ${formatDate(
                     feature.createdAt
                   )} with priority ${feature.priority}`}
+                  disabled={killing}
                   heading={feature.key}
                   on={feature.enabled}
-                  setOn={() => {}}
+                  setOn={() => killFeatureFlag(feature.id, !feature.enabled)}
                 />
                 {feature.priority === 0 && (
                   <Button
