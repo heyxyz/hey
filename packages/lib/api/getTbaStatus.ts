@@ -20,9 +20,9 @@ const getTbaStatus = async (
       params: { address }
     });
     const { data } = response;
-    callbackFn?.(data?.deployed || []);
+    callbackFn?.(data?.deployed || false);
 
-    return data?.deployed || [];
+    return data?.deployed || false;
   } catch (error) {
     throw error;
   }
