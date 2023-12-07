@@ -82,6 +82,7 @@ export const PUBLICATION = {
   TOGGLE_BOOKMARK: 'Toggle publication bookmark',
   TOGGLE_NOT_INTERESTED: 'Toggle publication not interested',
   TRANSLATE: 'Translate publication',
+  UNDO_MIRROR: 'Undo mirror publication',
   UNLIKE: 'Unlike publication',
   WIDGET: {
     POLL: { VOTE: 'Vote on poll' }
