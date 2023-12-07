@@ -4,6 +4,7 @@ import type { FC } from 'react';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import getTbaStatus from '@hey/lib/api/getTbaStatus';
 import { Tooltip } from '@hey/ui';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { useQuery } from '@tanstack/react-query';
 
 interface TbaBadgeProps {
@@ -17,6 +18,10 @@ const TbaBadge: FC<TbaBadgeProps> = ({ profile }) => {
   });
 
   if (!isTba) {
+    return null;
+  }
+
+  if (!isFeatureEnabled('tba')) {
     return null;
   }
 
