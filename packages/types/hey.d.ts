@@ -86,11 +86,9 @@ export type Preferences = {
   membershipNft: { dismissedOrMinted: boolean };
   preference?: {
     createdAt: Date;
-    email: null | string;
     highSignalNotificationFilter: boolean;
     id: string;
     isPride: boolean;
-    marketingOptIn: boolean;
   } | null;
   pro: { enabled: boolean };
 };
