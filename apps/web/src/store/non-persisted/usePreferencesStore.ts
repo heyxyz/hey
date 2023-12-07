@@ -8,10 +8,8 @@ export type ExtendedPreference = Omit<
 >;
 
 const DefaultPreferences: ExtendedPreference = {
-  email: null,
   highSignalNotificationFilter: false,
-  isPride: false,
-  marketingOptIn: false
+  isPride: false
 };
 
 interface PreferencesState {

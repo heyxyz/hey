@@ -82,6 +82,7 @@ export const PUBLICATION = {
   TOGGLE_BOOKMARK: 'Toggle publication bookmark',
   TOGGLE_NOT_INTERESTED: 'Toggle publication not interested',
   TRANSLATE: 'Translate publication',
+  UNDO_MIRROR: 'Undo mirror publication',
   UNLIKE: 'Unlike publication',
   WIDGET: {
     POLL: { VOTE: 'Vote on poll' }
@@ -146,8 +147,7 @@ export const SETTINGS = {
     TOGGLE_HIGH_SIGNAL_NOTIFICATION_FILTER:
       'Toggle high signal notification filter',
     TOGGLE_IS_PRIDE: 'Toggle is pride',
-    TOGGLE_PUSH_NOTIFICATIONS: 'Toggle push notifications',
-    UPDATE_EMAIL: 'Update email'
+    TOGGLE_PUSH_NOTIFICATIONS: 'Toggle push notifications'
   },
   PROFILE: {
     SET_PICTURE: 'Set profile picture',

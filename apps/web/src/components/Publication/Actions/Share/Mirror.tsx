@@ -51,10 +51,8 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
+  const { hasMirrored } = targetPublication.operations;
 
-  const [hasMirrored, setHasMirrored] = useState(
-    targetPublication.operations.hasMirrored
-  );
   const [shares, setShares] = useState(
     targetPublication.stats.mirrors + targetPublication.stats.quotes
   );
@@ -69,13 +67,13 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     cache.modify({
       fields: {
         operations: (existingValue) => {
-          return { ...existingValue, hasMirrored: !hasMirrored };
+          return { ...existingValue, hasMirrored: true };
         }
       },
       id: cache.identify(targetPublication)
     });
     cache.modify({
-      fields: { mirrors: () => (hasMirrored ? shares - 1 : shares + 1) },
+      fields: { mirrors: () => shares + 1 },
       id: cache.identify(targetPublication.stats)
     });
   };
@@ -100,13 +98,10 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     }
 
     setIsLoading(false);
-    setHasMirrored(true);
     setShares(shares + 1);
     updateCache();
     toast.success('Post has been mirrored!');
-    Leafwatch.track(PUBLICATION.MIRROR, {
-      publication_id: publication.id
-    });
+    Leafwatch.track(PUBLICATION.MIRROR, { publication_id: publication.id });
   };
 
   const { signTypedDataAsync } = useSignTypedData({ onError });
@@ -272,7 +267,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     >
       <div className="flex items-center space-x-2">
         <ArrowsRightLeftIcon className="h-4 w-4" />
-        <div>{hasMirrored ? 'Mirrored' : 'Mirror'}</div>
+        <div>{hasMirrored ? 'Mirror again' : 'Mirror'}</div>
       </div>
     </Menu.Item>
   );

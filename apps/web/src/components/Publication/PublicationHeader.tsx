@@ -63,7 +63,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
           <UserProfile profile={profile} timestamp={timestamp} />
         )}
       </span>
-      <div className="!-mr-[7px] flex items-center space-x-1">
+      <div className="flex items-center space-x-1">
         {gardenerMode ? <Source publication={targetPublication} /> : null}
         {!publication.isHidden && !quoted ? (
           <PublicationMenu publication={targetPublication} />
