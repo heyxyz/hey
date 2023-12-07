@@ -16,8 +16,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.8.8",
-    "@aws-sdk/client-s3": "^3.465.0",
-    "@aws-sdk/lib-storage": "^3.465.0",
+    "@aws-sdk/client-s3": "^3.468.0",
+    "@aws-sdk/lib-storage": "^3.468.0",
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
     "@hey/abis": "workspace:*",
@@ -26,13 +26,13 @@
     "@hey/lens": "workspace:*",
     "@hey/lib": "workspace:*",
     "@hey/ui": "workspace:*",
-    "@lens-protocol/metadata": "1.0.5",
-    "@lexical/code": "^0.12.4",
-    "@lexical/hashtag": "^0.12.4",
-    "@lexical/link": "^0.12.4",
-    "@lexical/markdown": "^0.12.4",
-    "@lexical/react": "^0.12.4",
-    "@lexical/utils": "^0.12.4",
+    "@lens-protocol/metadata": "1.1.0",
+    "@lexical/code": "^0.12.5",
+    "@lexical/hashtag": "^0.12.5",
+    "@lexical/link": "^0.12.5",
+    "@lexical/markdown": "^0.12.5",
+    "@lexical/react": "^0.12.5",
+    "@lexical/utils": "^0.12.5",
     "@livepeer/react": "^3.0.8",
     "@tanstack/react-query": "^5.12.2",
     "@tippyjs/react": "^4.2.6",
@@ -45,7 +45,7 @@
     "framer-motion": "^10.16.14",
     "graphql": "^16.8.1",
     "idb-keyval": "^6.2.1",
-    "lexical": "^0.12.4",
+    "lexical": "^0.12.5",
     "magic-sdk": "^21.3.1",
     "next": "^14.0.3",
     "next-themes": "^0.2.1",
@@ -85,6 +85,6 @@
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.32",
     "tailwindcss": "^3.3.6",
-    "typescript": "^5.3.2"
+    "typescript": "^5.3.3"
   }
 }
