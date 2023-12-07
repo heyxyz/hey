@@ -23,10 +23,9 @@ import {
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import Custom404 from 'src/pages/404';
-import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useEffectOnce } from 'usehooks-ts';
 import { object, string } from 'zod';
 
@@ -46,8 +45,6 @@ const newTicketSchema = object({
 });
 
 const Support: NextPage = () => {
-  const preferences = usePreferencesStore((state) => state.preferences);
-
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
@@ -58,13 +55,6 @@ const Support: NextPage = () => {
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'support' });
   });
-
-  useEffect(() => {
-    if (preferences?.email) {
-      form.setValue('email', preferences.email);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [preferences]);
 
   if (!isFeatureEnabled('support')) {
     return <Custom404 />;
@@ -121,7 +111,6 @@ const Support: NextPage = () => {
               }}
             >
               <Input
-                disabled={Boolean(preferences?.email)}
                 label="Email"
                 placeholder="gavin@hooli.com"
                 {...form.register('email')}

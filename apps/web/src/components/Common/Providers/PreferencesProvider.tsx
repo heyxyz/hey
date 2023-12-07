@@ -43,11 +43,9 @@ const PreferencesProvider: FC = () => {
 
         // Profile preferences
         setPreferences({
-          email: preferences.preference?.email || '',
           highSignalNotificationFilter:
             preferences.preference?.highSignalNotificationFilter || false,
-          isPride: preferences.preference?.isPride || false,
-          marketingOptIn: preferences.preference?.marketingOptIn || false
+          isPride: preferences.preference?.isPride || false
         });
 
         // Pro
