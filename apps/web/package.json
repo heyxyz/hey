@@ -47,6 +47,7 @@
     "idb-keyval": "^6.2.1",
     "lexical": "^0.12.5",
     "magic-sdk": "^21.3.1",
+    "million": "^2.6.4",
     "next": "^14.0.3",
     "next-themes": "^0.2.1",
     "plur": "^5.1.0",

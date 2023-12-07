@@ -1,7 +1,7 @@
+import type { FollowNotification } from '@hey/lens';
 import type { FC } from 'react';
 
 import { UserPlusIcon } from '@heroicons/react/24/outline';
-import { FollowNotification } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import plur from 'plur';
 import useProfileStore from 'src/store/persisted/useProfileStore';
@@ -13,7 +13,9 @@ interface FollowNotificationProps {
   notification: FollowNotification;
 }
 
-const FollowNotification: FC<FollowNotificationProps> = ({ notification }) => {
+const FollowNotificationComponent: FC<FollowNotificationProps> = ({
+  notification
+}) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const followers = notification?.followers;
   const firstProfile = followers?.[0];
@@ -49,4 +51,4 @@ const FollowNotification: FC<FollowNotificationProps> = ({ notification }) => {
   );
 };
 
-export default FollowNotification;
+export default FollowNotificationComponent;

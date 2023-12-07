@@ -1,3 +1,4 @@
+const million = require('million/compiler');
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
 
 /** @type {import('next').NextConfig} */
@@ -68,4 +69,6 @@ const nextConfig = {
   }
 };
 
-module.exports = nextConfig;
+module.exports = million.next(
+  nextConfig, { auto: true }
+);
