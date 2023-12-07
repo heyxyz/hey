@@ -16,7 +16,6 @@ const getTbaStatus = async (
   }
 
   try {
-    console.log('getTbaStatus', address);
     const response = await axios.get(`${HEY_API_URL}/tba/deployed`, {
       params: { address }
     });
