@@ -18,7 +18,15 @@ import {
 import getAllTokens from '@hey/lib/api/getAllTokens';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
-import { Button, Card, Form, Input, Spinner, useZodForm } from '@hey/ui';
+import {
+  Button,
+  Card,
+  Form,
+  Input,
+  Select,
+  Spinner,
+  useZodForm
+} from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
@@ -194,8 +202,7 @@ const SuperFollow: FC = () => {
         </p>
         <div className="pt-2">
           <div className="label">Select currency</div>
-          <select
-            className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"
+          <Select
             defaultValue={
               currentProfile?.followModule?.__typename ===
               'FeeFollowModuleSettings'
@@ -203,13 +210,11 @@ const SuperFollow: FC = () => {
                 : undefined
             }
             onChange={(e) => setSelectedCurrency(e.target.value)}
-          >
-            {allowedTokens?.map((token) => (
-              <option key={token.contractAddress} value={token.contractAddress}>
-                {token.name}
-              </option>
-            ))}
-          </select>
+            options={allowedTokens?.map((token) => ({
+              label: token.name,
+              value: token.contractAddress
+            }))}
+          />
         </div>
         <Input
           label="Follow amount"

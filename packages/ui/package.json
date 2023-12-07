@@ -29,6 +29,6 @@
     "@hey/config": "workspace:*",
     "@types/react": "^18.2.42",
     "tailwindcss": "^3.3.6",
-    "typescript": "^5.3.2"
+    "typescript": "^5.3.3"
   }
 }
