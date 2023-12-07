@@ -65,6 +65,14 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
 
   const updateCache = () => {
     cache.modify({
+      fields: {
+        operations: (existingValue) => {
+          return { ...existingValue, hasMirrored: true };
+        }
+      },
+      id: cache.identify(targetPublication)
+    });
+    cache.modify({
       fields: { mirrors: () => shares + 1 },
       id: cache.identify(targetPublication.stats)
     });
