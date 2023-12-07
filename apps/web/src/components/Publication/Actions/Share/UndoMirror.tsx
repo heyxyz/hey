@@ -6,6 +6,8 @@ import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
 import { useHidePublicationMutation } from '@hey/lens';
+import { useApolloClient } from '@hey/lens/apollo';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
@@ -24,6 +26,21 @@ const UndoMirror: FC<MirrorProps> = ({
   setIsLoading
 }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
+
+  const { cache } = useApolloClient();
+
+  const updateCache = () => {
+    cache.modify({
+      fields: { mirrors: () => targetPublication.stats.mirrors - 1 },
+      id: cache.identify(targetPublication.stats)
+    });
+    cache.evict({
+      id: `${publication?.__typename}:${publication?.id}`
+    });
+  };
 
   const onError = (error?: any) => {
     setIsLoading(false);
@@ -35,11 +52,7 @@ const UndoMirror: FC<MirrorProps> = ({
       Leafwatch.track(PUBLICATION.UNDO_MIRROR);
       toast.success('Undone mirror successfully');
     },
-    update: (cache) => {
-      cache.evict({
-        id: `${publication?.__typename}:${publication?.id}`
-      });
-    }
+    update: updateCache
   });
 
   const undoMirror = async () => {
