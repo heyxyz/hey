@@ -21,7 +21,6 @@ import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { hydrateTbaStatus } from 'src/store/persisted/useTbaStatusStore';
 import { isAddress } from 'viem';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
@@ -43,8 +42,6 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
   const [isLoading, setIsLoading] = useState(false);
 
   const handleWrongNetwork = useHandleWrongNetwork();
-
-  const { isTba } = hydrateTbaStatus();
   const { canBroadcast } = checkDispatcherPermissions(currentProfile);
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
@@ -102,7 +99,7 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
           switchToGivenConfig
         ];
 
-        if (!isTba && canBroadcast) {
+        if (canBroadcast) {
           const signature = await signTypedDataAsync(getSignature(typedData));
           const { data } = await broadcastOnchain({
             variables: { request: { id, signature } }
