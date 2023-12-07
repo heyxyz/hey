@@ -6,7 +6,7 @@ interface MembershipNftStoreState {
 }
 
 export const useMembershipNftStore = create<MembershipNftStoreState>((set) => ({
-  dismissedOrMinted: false,
+  dismissedOrMinted: true,
   setDismissedOrMinted: (dismissedOrMinted) =>
     set(() => ({ dismissedOrMinted }))
 }));
