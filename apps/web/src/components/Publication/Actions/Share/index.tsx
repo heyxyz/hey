@@ -15,6 +15,7 @@ import { useState } from 'react';
 
 import Mirror from './Mirror';
 import Quote from './Quote';
+import UndoMirror from './UndoMirror';
 
 interface PublicationMenuProps {
   publication: AnyPublication;
@@ -53,7 +54,7 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
             <Spinner
               className="mr-0.5"
               size="xs"
-              variant={hasShared ? 'success' : 'primary'}
+              variant={hasShared ? 'danger' : 'primary'}
             />
           ) : (
             <Tooltip
@@ -76,10 +77,18 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
           >
             <Mirror
               isLoading={isLoading}
-              publication={publication}
+              publication={targetPublication}
               setIsLoading={setIsLoading}
             />
-            <Quote publication={publication} />
+            {targetPublication.operations.hasMirrored &&
+              targetPublication.id !== publication.id && (
+                <UndoMirror
+                  isLoading={isLoading}
+                  publication={publication}
+                  setIsLoading={setIsLoading}
+                />
+              )}
+            <Quote publication={targetPublication} />
           </Menu.Items>
         </MenuTransition>
       </Menu>
