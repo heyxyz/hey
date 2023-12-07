@@ -20,12 +20,10 @@ import {
   TextArea,
   useZodForm
 } from '@hey/ui';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import Custom404 from 'src/pages/404';
 import { useEffectOnce } from 'usehooks-ts';
 import { object, string } from 'zod';
 
@@ -55,10 +53,6 @@ const Support: NextPage = () => {
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'support' });
   });
-
-  if (!isFeatureEnabled('support')) {
-    return <Custom404 />;
-  }
 
   const createTicket = async (
     email: string,
