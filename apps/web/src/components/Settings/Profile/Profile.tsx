@@ -315,7 +315,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
       }
 
       const ipfsUrl = await uploadCroppedImage(croppedImage);
-      const dataUrl = croppedImage.toDataURL('image/png');
+      const dataUrl = croppedImage.toDataURL('image/webp');
 
       // Update Profile Picture
       if (type === 'avatar') {

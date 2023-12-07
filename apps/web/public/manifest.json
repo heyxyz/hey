@@ -11,12 +11,12 @@
     {
       "src": "/icon-128x128.webp",
       "sizes": "128x128",
-      "type": "image/png"
+      "type": "image/webp"
     },
     {
       "src": "/icon-512x512.webp",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/webp"
     }
   ]
 }
