@@ -8,7 +8,7 @@ describe('getNft', () => {
     expect(getNft(urls)).toBeNull();
   });
 
-  test('should return nft metadata if there are known URLs', () => {
+  test('should return zora nft', () => {
     const urls: string[] = [
       'https://zora.co/collect/eth:0x2e1aa38556cd7eb7855a37f83101ee182c7af9b5/3'
     ];
@@ -19,14 +19,19 @@ describe('getNft', () => {
     });
   });
 
-  test('should return nft metadata if there are known URLs without token', () => {
-    const urls: string[] = [
-      'https://zora.co/collect/eth:0x2e1aa38556cd7eb7855a37f83101ee182c7af9b5'
-    ];
-    expect(getNft(urls)).contains({
-      address: '0x2e1aa38556cd7eb7855a37f83101ee182c7af9b5',
-      chain: 'eth'
-    });
+  test('should return base paint canvas', () => {
+    const urls: string[] = ['https://basepaint.art/mint/44'];
+    expect(getNft(urls)).contains({ id: 44 });
+  });
+
+  test('should return unlonely nfc', () => {
+    const urls: string[] = ['https://www.unlonely.app/nfc/420'];
+    expect(getNft(urls)).contains({ id: '420' });
+  });
+
+  test('should return unlonely channel', () => {
+    const urls: string[] = ['https://www.unlonely.app/channels/hey'];
+    expect(getNft(urls)).contains({ slug: 'hey' });
   });
 
   test('should return null if there are no known URLs', () => {
