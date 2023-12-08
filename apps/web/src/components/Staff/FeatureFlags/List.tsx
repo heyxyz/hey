@@ -114,7 +114,7 @@ const List: FC = () => {
                   heading={
                     <div className="flex items-center space-x-2">
                       <b>{feature.key}</b>
-                      <Badge>{feature.type}</Badge>
+                      <Badge variant="secondary">{feature.type}</Badge>
                     </div>
                   }
                   on={feature.enabled}

@@ -16,11 +16,11 @@ export const Badge = forwardRef<HTMLDivElement, BadgeProps>(function Badge(
   ref
 ) {
   const variantStyles = {
-    'border-black/80 bg-black/80': variant === 'black',
-    'border-brand-500/80 bg-brand-500/80': variant === 'primary',
-    'border-gray-500/80 bg-gray-500/80': variant === 'secondary',
-    'border-red-500/80 bg-red-500/80': variant === 'danger',
-    'border-yellow-500/80 bg-yellow-500/80': variant === 'warning'
+    'border-black/80 bg-black/70': variant === 'black',
+    'border-brand-500/80 bg-brand-500/70': variant === 'primary',
+    'border-gray-500/80 bg-gray-500/70': variant === 'secondary',
+    'border-red-500/80 bg-red-500/70': variant === 'danger',
+    'border-yellow-500/80 bg-yellow-500/70': variant === 'warning'
   };
 
   const sizeStyles = {
