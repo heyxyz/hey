@@ -65,6 +65,9 @@ importers:
       linkedom:
         specifier: ^0.16.4
         version: 0.16.4
+      node-zendesk:
+        specifier: ^5.0.6
+        version: 5.0.6
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -11733,6 +11736,15 @@ packages:
   /node-releases@2.0.14:
     resolution: {integrity: sha512-y10wOWt8yZpqXmOgRo77WaHEmhYQYGNA6y421PKsKYWEK8aW+cqAphborZDhqfyKrbZEN92CN1X2KbafY2s7Yw==}
     dev: true
+
+  /node-zendesk@5.0.6:
+    resolution: {integrity: sha512-KXJpTM48LA4SPQr5C70OuxRRt6lZoXKSqGx924ELOdg1N9ss5H3fWDZNoqKHAJpRAnL4xR/zLwzpnw27cDDV+w==}
+    engines: {node: '>= 18'}
+    dependencies:
+      cross-fetch: 4.0.0
+    transitivePeerDependencies:
+      - encoding
+    dev: false
 
   /nodemon@3.0.2:
     resolution: {integrity: sha512-9qIN2LNTrEzpOPBaWHTm4Asy1LxXLSickZStAQ4IZe7zsoIpD/A7LWxhZV3t4Zu352uBcqVnRsDXSMR2Sc3lTA==}
