@@ -30,7 +30,7 @@ export const Badge = forwardRef<HTMLDivElement, BadgeProps>(function Badge(
   };
 
   return (
-    <div
+    <span
       className={cn(
         variantStyles,
         sizeStyles,
@@ -40,6 +40,6 @@ export const Badge = forwardRef<HTMLDivElement, BadgeProps>(function Badge(
       ref={ref}
     >
       {children}
-    </div>
+    </span>
   );
 });
