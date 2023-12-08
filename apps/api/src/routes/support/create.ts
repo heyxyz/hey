@@ -1,5 +1,6 @@
 import type { Handler } from 'express';
 
+import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import createZendeskClient from '@utils/createZendeskClient';
 import { invalidBody, noBody } from '@utils/responses';
@@ -47,6 +48,7 @@ export const post: Handler = async (req, res) => {
         subject
       }
     });
+    logger.info('Support Ticket created');
 
     return res.status(200).json({ success: true, ticket });
   } catch (error) {
