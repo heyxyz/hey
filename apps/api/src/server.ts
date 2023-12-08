@@ -1,3 +1,4 @@
+import corsConfig from '@utils/express/corsConfig';
 import cors from 'cors';
 import * as dotenv from 'dotenv';
 import express from 'express';
@@ -10,6 +11,7 @@ const app = express();
 
 app.use(express.json({ limit: '1mb' }));
 app.use(cors());
+app.use(cors(corsConfig));
 
 (async () => {
   app.use('/', await router());
