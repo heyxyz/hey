@@ -32,6 +32,7 @@ export type Feature = {
   id: string;
   key: string;
   priority: number;
+  type: 'FEATURE' | 'KILL_SWITCH' | 'MODE' | 'PERMISSION';
 };
 
 export type AllowedToken = {
