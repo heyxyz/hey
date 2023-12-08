@@ -39,6 +39,7 @@ export interface ZoraNft {
   coverImageUrl: string;
   creator: `0x${string}`;
   description: string;
+  entityType: 'CONTRACT' | 'TOKEN';
   isOpenEdition: boolean;
   maxSupply: number;
   mediaUrl: string;

@@ -52,7 +52,6 @@ export const post: Handler = async (req, res) => {
 
     return res.status(200).json({ success: true, ticket: ticket.data });
   } catch (error) {
-    console.log(error);
     return catchedError(res, error);
   }
 };

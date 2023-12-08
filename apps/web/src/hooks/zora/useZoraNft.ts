@@ -8,7 +8,7 @@ interface UseZoraNftProps {
   address: string;
   chain: string;
   enabled?: boolean;
-  token: string;
+  token?: string;
 }
 
 const useZoraNft = ({
@@ -21,12 +21,17 @@ const useZoraNft = ({
   error: unknown;
   loading: boolean;
 } => {
+  // TODO: make this type safe
   const getZoraNftDetails = async () => {
-    const response = await axios.get(`${HEY_API_URL}/nft/getZoraNft`, {
+    const { data } = await axios.get(`${HEY_API_URL}/nft/getZoraNft`, {
       params: { address, chain, token }
     });
 
-    return response.data?.nft;
+    if (data?.nft?.entityType === 'TOKEN' && !token) {
+      return data?.nft.contract;
+    }
+
+    return data?.nft;
   };
 
   const { data, error, isLoading } = useQuery({
