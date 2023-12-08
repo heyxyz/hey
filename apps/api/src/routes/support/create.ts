@@ -50,7 +50,6 @@ export const post: Handler = async (req, res) => {
 
     return res.status(200).json({ success: true, ticket });
   } catch (error) {
-    console.error(error);
     return catchedError(res, error);
   }
 };
