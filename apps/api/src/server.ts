@@ -12,6 +12,7 @@ const app = express();
 app.use(express.json({ limit: '1mb' }));
 app.use(cors());
 app.use(cors(corsConfig));
+app.disable('x-powered-by');
 
 (async () => {
   app.use('/', await router());
