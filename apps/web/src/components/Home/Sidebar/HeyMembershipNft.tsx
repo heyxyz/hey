@@ -26,8 +26,7 @@ const HeyMembershipNft: FC = () => {
 
   const { data: nft, loading } = useZoraNft({
     address: '0x8fcfdad5ebdd1ce815aa769bbd7499091ac056d1',
-    chain: 'zora',
-    token: ''
+    chain: 'zora'
   });
 
   if (dismissedOrMinted) {

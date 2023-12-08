@@ -33,6 +33,10 @@ interface MintProps {
 }
 
 const Mint: FC<MintProps> = ({ nft, onCompleted, publication, zoraLink }) => {
+  if (!nft) {
+    return null;
+  }
+
   return (
     <div className="p-5">
       <div className="mb-4">
