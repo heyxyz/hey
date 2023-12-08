@@ -9,7 +9,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import getAllFeatureFlags from '@hey/lib/api/getAllFeatureFlags';
-import { Button, Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
+import { Badge, Button, Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
 import { formatDate } from '@lib/formatTime';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { useQuery } from '@tanstack/react-query';
@@ -111,11 +111,16 @@ const List: FC = () => {
                     feature.createdAt
                   )} with priority ${feature.priority}`}
                   disabled={killing}
-                  heading={feature.key}
+                  heading={
+                    <div className="flex items-center space-x-2">
+                      <b>{feature.key}</b>
+                      <Badge>{feature.type}</Badge>
+                    </div>
+                  }
                   on={feature.enabled}
                   setOn={() => killFeatureFlag(feature.id, !feature.enabled)}
                 />
-                {feature.priority === 0 && (
+                {feature.type === 'FEATURE' && (
                   <Button
                     icon={<TrashIcon className="h-4 w-4" />}
                     onClick={() => deleteFeatureFlag(feature.id)}
