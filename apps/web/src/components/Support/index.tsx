@@ -15,7 +15,6 @@ import {
   GridItemFour,
   GridLayout,
   Input,
-  Select,
   Spinner,
   TextArea,
   useZodForm
@@ -24,6 +23,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 import { object, string } from 'zod';
 
@@ -38,11 +38,12 @@ const newTicketSchema = object({
     .min(1, { message: 'Subject should not be empty' })
     .max(260, {
       message: 'Subject should not exceed 260 characters'
-    }),
-  type: string()
+    })
 });
 
 const Support: NextPage = () => {
+  const currentProfile = useProfileStore((state) => state.currentProfile);
+
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
@@ -56,7 +57,6 @@ const Support: NextPage = () => {
 
   const createTicket = async (
     email: string,
-    type: string,
     subject: string,
     message: string
   ) => {
@@ -64,9 +64,9 @@ const Support: NextPage = () => {
     try {
       const { data } = await axios.post(`${HEY_API_URL}/support/create`, {
         email,
+        handle: currentProfile?.handle?.suggestedFormatted.localName || email,
         message,
-        subject,
-        type
+        subject
       });
 
       if (data.success) {
@@ -100,24 +100,14 @@ const Support: NextPage = () => {
             <Form
               className="space-y-4 p-5"
               form={form}
-              onSubmit={async ({ email, message, subject, type }) => {
-                await createTicket(email, type, subject, message);
+              onSubmit={async ({ email, message, subject }) => {
+                await createTicket(email, subject, message);
               }}
             >
               <Input
                 label="Email"
                 placeholder="gavin@hooli.com"
                 {...form.register('email')}
-              />
-              <Select
-                label="Category"
-                options={[
-                  { label: 'Support', value: 1 },
-                  { label: 'Bug report', value: 2 },
-                  { label: 'Feature request', value: 3 },
-                  { label: 'Other', value: 4 }
-                ]}
-                {...form.register('type')}
               />
               <Input
                 label="Subject"
