@@ -1,4 +1,5 @@
 import type { AnyPublication, FeedItem } from '@hey/lens';
+import type { FC } from 'react';
 
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
 import UserProfile from '@components/Shared/UserProfile';
@@ -6,7 +7,6 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
-import { type FC } from 'react';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
@@ -63,7 +63,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
           <UserProfile profile={profile} timestamp={timestamp} />
         )}
       </span>
-      <div className="!-mr-[7px] flex items-center space-x-1">
+      <div className="flex items-center space-x-1">
         {gardenerMode ? <Source publication={targetPublication} /> : null}
         {!publication.isHidden && !quoted ? (
           <PublicationMenu publication={targetPublication} />

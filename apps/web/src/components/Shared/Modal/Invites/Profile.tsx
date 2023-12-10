@@ -1,4 +1,5 @@
 import type { InvitedResult } from '@hey/lens';
+import type { FC } from 'react';
 
 import Slug from '@components/Shared/Slug';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
@@ -6,7 +7,6 @@ import formatAddress from '@hey/lib/formatAddress';
 import getProfile from '@hey/lib/getProfile';
 import { formatDate } from '@lib/formatTime';
 import Link from 'next/link';
-import { type FC } from 'react';
 
 interface ProfileProps {
   invite: InvitedResult;

@@ -1,5 +1,6 @@
+import type { FC } from 'react';
+
 import cn from '@hey/ui/cn';
-import { type FC } from 'react';
 
 import SmallUserProfileShimmer from './SmallUserProfileShimmer';
 import UserProfileShimmer from './UserProfileShimmer';

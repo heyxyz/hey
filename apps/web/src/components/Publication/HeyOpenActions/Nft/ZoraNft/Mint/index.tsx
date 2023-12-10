@@ -1,9 +1,9 @@
 import type { AnyPublication } from '@hey/lens';
 import type { ZoraNft } from '@hey/types/nft';
+import type { FC } from 'react';
 
 import Markup from '@components/Shared/Markup';
 import getMentions from '@hey/lib/getMentions';
-import { type FC } from 'react';
 import { create } from 'zustand';
 
 import Metadata from './Metadata';
@@ -33,6 +33,10 @@ interface MintProps {
 }
 
 const Mint: FC<MintProps> = ({ nft, onCompleted, publication, zoraLink }) => {
+  if (!nft) {
+    return null;
+  }
+
   return (
     <div className="p-5">
       <div className="mb-4">

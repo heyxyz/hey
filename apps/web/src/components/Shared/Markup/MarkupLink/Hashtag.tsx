@@ -1,4 +1,5 @@
 import type { MarkupLinkProps } from '@hey/types/misc';
+import type { FC } from 'react';
 
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { hashflags } from '@hey/data/hashflags';
@@ -8,7 +9,6 @@ import isPrideMonth from '@hey/lib/isPrideMonth';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import { type FC } from 'react';
 
 const Hashtag: FC<MarkupLinkProps> = ({ title }) => {
   if (!title) {

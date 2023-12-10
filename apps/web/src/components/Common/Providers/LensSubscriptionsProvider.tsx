@@ -1,4 +1,5 @@
 import type { Notification } from '@hey/lens';
+import type { FC } from 'react';
 
 import {
   useAuthorizationRecordRevokedSubscriptionSubscription,
@@ -9,7 +10,6 @@ import {
 import { BrowserPush } from '@lib/browserPush';
 import getCurrentSession from '@lib/getCurrentSession';
 import getPushNotificationData from '@lib/getPushNotificationData';
-import { type FC } from 'react';
 import { isSupported, share } from 'shared-zustand';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { signOut } from 'src/store/persisted/useAuthStore';

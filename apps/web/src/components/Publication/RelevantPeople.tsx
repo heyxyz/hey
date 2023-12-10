@@ -1,12 +1,11 @@
 import type { AnyPublication, Profile } from '@hey/lens';
+import type { FC } from 'react';
 
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
-import { FollowUnfollowSource } from '@hey/data/tracking';
 import { useProfilesQuery } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card, ErrorMessage } from '@hey/ui';
-import { type FC } from 'react';
 
 interface RelevantPeopleProps {
   publication: AnyPublication;
@@ -50,14 +49,9 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
   return (
     <Card as="aside" className="space-y-4 p-5">
       <ErrorMessage error={error} title="Failed to load relevant people" />
-      {data?.profiles?.items?.map((profile, index) => (
+      {data?.profiles?.items?.map((profile) => (
         <div className="truncate" key={profile?.id}>
           <UserProfile
-            followUnfollowPosition={index + 1}
-            followUnfollowSource={
-              FollowUnfollowSource.PUBLICATION_RELEVANT_PROFILES
-            }
-            isFollowing={profile.operations.isFollowedByMe.value}
             profile={profile as Profile}
             showFollow
             showUserPreview={false}

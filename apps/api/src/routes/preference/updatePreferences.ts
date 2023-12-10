@@ -9,19 +9,15 @@ import { invalidBody, noBody, notAllowed } from '@utils/responses';
 import { boolean, object, string } from 'zod';
 
 type ExtensionRequest = {
-  email?: string;
   highSignalNotificationFilter?: boolean;
   id?: string;
   isPride?: boolean;
-  marketingOptIn?: boolean;
 };
 
 const validationSchema = object({
-  email: string().optional(),
   highSignalNotificationFilter: boolean().optional(),
   id: string().optional(),
-  isPride: boolean().optional(),
-  marketingOptIn: boolean().optional()
+  isPride: boolean().optional()
 });
 
 export const post: Handler = async (req, res) => {
@@ -42,21 +38,14 @@ export const post: Handler = async (req, res) => {
     return notAllowed(res);
   }
 
-  const { email, highSignalNotificationFilter, isPride, marketingOptIn } =
-    body as ExtensionRequest;
+  const { highSignalNotificationFilter, isPride } = body as ExtensionRequest;
 
   try {
     const payload = parseJwt(accessToken);
 
     const data = await prisma.preference.upsert({
-      create: {
-        email,
-        highSignalNotificationFilter,
-        id: payload.id,
-        isPride,
-        marketingOptIn
-      },
-      update: { email, highSignalNotificationFilter, isPride, marketingOptIn },
+      create: { highSignalNotificationFilter, id: payload.id, isPride },
+      update: { highSignalNotificationFilter, isPride },
       where: { id: payload.id }
     });
 

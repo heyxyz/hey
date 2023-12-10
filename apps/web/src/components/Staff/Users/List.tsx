@@ -1,4 +1,5 @@
 import type { ExploreProfilesRequest, Profile } from '@hey/lens';
+import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
 import SearchUser from '@components/Shared/SearchUser';
@@ -10,11 +11,11 @@ import {
   useExploreProfilesQuery
 } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
+import { Card, EmptyState, ErrorMessage, Select } from '@hey/ui';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
 const List: FC = () => {
@@ -57,20 +58,17 @@ const List: FC = () => {
           placeholder="Search profiles..."
           value={value}
         />
-
-        <select
-          className="focus:border-brand-500 focus:ring-brand-400 rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"
+        <Select
+          className="w-auto"
           defaultValue={orderBy}
           onChange={(e) =>
             setOrderBy(e.target.value as ExploreProfilesOrderByType)
           }
-        >
-          {Object.values(ExploreProfilesOrderByType).map((orderBy) => (
-            <option key={orderBy} value={orderBy}>
-              {orderBy}
-            </option>
-          ))}
-        </select>
+          options={Object.values(ExploreProfilesOrderByType).map((orderBy) => ({
+            label: orderBy,
+            value: orderBy
+          }))}
+        />
         <button onClick={() => refetch()}>
           <ArrowPathIcon className="h-5 w-5" />
         </button>

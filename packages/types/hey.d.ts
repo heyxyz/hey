@@ -26,12 +26,13 @@ export type StaffPick = {
   type: 'GROUP' | 'PROFILE';
 };
 
-export type Features = {
+export type Feature = {
   createdAt: Date;
   enabled: boolean;
   id: string;
   key: string;
   priority: number;
+  type: 'FEATURE' | 'KILL_SWITCH' | 'MODE' | 'PERMISSION';
 };
 
 export type AllowedToken = {
@@ -83,13 +84,12 @@ export type Poll = {
 
 export type Preferences = {
   features: string[];
+  membershipNft: { dismissedOrMinted: boolean };
   preference?: {
     createdAt: Date;
-    email: null | string;
     highSignalNotificationFilter: boolean;
     id: string;
     isPride: boolean;
-    marketingOptIn: boolean;
   } | null;
   pro: { enabled: boolean };
 };

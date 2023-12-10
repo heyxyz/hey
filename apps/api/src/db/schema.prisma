@@ -19,7 +19,8 @@ model StaffPick {
   createdAt DateTime      @default(now())
 
   // Indexes
-  @@index([type, score])
+  @@index([type])
+  @@index([score])
 }
 
 enum StaffPickType {
@@ -29,8 +30,6 @@ enum StaffPickType {
 
 model Preference {
   id                           String   @id
-  email                        String?  @unique
-  marketingOptIn               Boolean  @default(false)
   isPride                      Boolean  @default(false)
   highSignalNotificationFilter Boolean  @default(false)
   createdAt                    DateTime @default(now())
@@ -57,7 +56,8 @@ model Group {
   createdAt   DateTime @default(now())
 
   // Indexes
-  @@index([slug, featured])
+  @@index([slug])
+  @@index([featured])
 }
 
 model Pro {
@@ -71,17 +71,26 @@ model Pro {
 }
 
 model Feature {
-  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  key       String   @unique
-  priority  Int      @default(0)
-  enabled   Boolean  @default(true)
-  createdAt DateTime @default(now())
+  id        String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  key       String      @unique
+  priority  Int         @default(0)
+  type      FeatureType @default(FEATURE)
+  enabled   Boolean     @default(true)
+  createdAt DateTime    @default(now())
 
   // Relations
   profiles ProfileFeature[]
 
   // Indexes
-  @@index([key, priority])
+  @@index([priority])
+  @@index([type])
+}
+
+enum FeatureType {
+  FEATURE
+  KILL_SWITCH
+  PERMISSION
+  MODE
 }
 
 model ProfileFeature {

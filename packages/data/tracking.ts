@@ -82,6 +82,7 @@ export const PUBLICATION = {
   TOGGLE_BOOKMARK: 'Toggle publication bookmark',
   TOGGLE_NOT_INTERESTED: 'Toggle publication not interested',
   TRANSLATE: 'Translate publication',
+  UNDO_MIRROR: 'Undo mirror publication',
   UNLIKE: 'Unlike publication',
   WIDGET: {
     POLL: { VOTE: 'Vote on poll' }
@@ -146,8 +147,7 @@ export const SETTINGS = {
     TOGGLE_HIGH_SIGNAL_NOTIFICATION_FILTER:
       'Toggle high signal notification filter',
     TOGGLE_IS_PRIDE: 'Toggle is pride',
-    TOGGLE_PUSH_NOTIFICATIONS: 'Toggle push notifications',
-    UPDATE_EMAIL: 'Update email'
+    TOGGLE_PUSH_NOTIFICATIONS: 'Toggle push notifications'
   },
   PROFILE: {
     SET_PICTURE: 'Set profile picture',
@@ -202,22 +202,6 @@ export const ONBOARDING = {
 };
 
 // enums
-export enum FollowUnfollowSource {
-  COLLECTORS_MODAL = 'collectors_modal',
-  FOLLOW_DIALOG = 'follow_dialog',
-  FOLLOWERS_MODAL = 'followers_modal',
-  FOLLOWING_MODAL = 'following_modal',
-  LIKES_MODAL = 'likes_modal',
-  MIRRORS_MODAL = 'mirrors_modal',
-  MUTUAL_FOLLOWERS_MODAL = 'mutual_followers_modal',
-  PROFILE_PAGE = 'profile_page',
-  PROFILE_POPOVER = 'profile_popover',
-  PUBLICATION_RELEVANT_PROFILES = 'publication_relevant_profiles',
-  QUOTES_MODAL = 'quotes_modal',
-  WHO_TO_FOLLOW = 'who_to_follow',
-  WHO_TO_FOLLOW_MODAL = 'who_to_follow_modal'
-}
-
 export const ALL_EVENTS = {
   PAGEVIEW,
   ...AUTH,

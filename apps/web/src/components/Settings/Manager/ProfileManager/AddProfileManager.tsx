@@ -1,3 +1,5 @@
+import type { FC } from 'react';
+
 import SearchUser from '@components/Shared/SearchUser';
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
@@ -14,11 +16,12 @@ import getSignature from '@hey/lib/getSignature';
 import { Button, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
+import { hydrateTbaStatus } from 'src/store/persisted/useTbaStatusStore';
 import { isAddress } from 'viem';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
@@ -40,6 +43,8 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
   const [isLoading, setIsLoading] = useState(false);
 
   const handleWrongNetwork = useHandleWrongNetwork();
+
+  const { isTba } = hydrateTbaStatus();
   const { canBroadcast } = checkDispatcherPermissions(currentProfile);
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
@@ -82,8 +87,6 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
     useCreateChangeProfileManagersTypedDataMutation({
       onCompleted: async ({ createChangeProfileManagersTypedData }) => {
         const { id, typedData } = createChangeProfileManagersTypedData;
-        const signature = await signTypedDataAsync(getSignature(typedData));
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
         const {
           approvals,
           configNumber,
@@ -99,13 +102,16 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
           switchToGivenConfig
         ];
 
-        if (canBroadcast) {
+        if (!isTba && canBroadcast) {
+          const signature = await signTypedDataAsync(getSignature(typedData));
           const { data } = await broadcastOnchain({
             variables: { request: { id, signature } }
           });
           if (data?.broadcastOnchain.__typename === 'RelayError') {
             return write({ args });
           }
+          setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+
           return;
         }
 

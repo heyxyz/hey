@@ -1,5 +1,6 @@
 import type { Profile } from '@hey/lens';
-import type { Features } from '@hey/types/hey';
+import type { Feature } from '@hey/types/hey';
+import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
 import { HEY_API_URL } from '@hey/data/constants';
@@ -8,7 +9,7 @@ import { Toggle } from '@hey/ui';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 
 import ToggleWrapper from './ToggleWrapper';
@@ -35,11 +36,11 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
     return <Loader message="Loading feature flags" />;
   }
 
-  const availableFlags = allFeatureFlags || [];
+  const availableFeatures = allFeatureFlags || [];
   const enabledFlags = flags;
 
-  const updateFeatureFlag = async (flag: Features) => {
-    const { id, key } = flag;
+  const updateFeatureFlag = async (feature: Feature) => {
+    const { id, key } = feature;
     const enabled = !enabledFlags.includes(key);
 
     setUpdating(true);
@@ -70,12 +71,12 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
 
   return (
     <div className="space-y-2 font-bold">
-      {availableFlags.map((flag) => (
-        <ToggleWrapper key={flag.id} title={flag.key}>
+      {availableFeatures.map((feature) => (
+        <ToggleWrapper key={feature.id} title={feature.key}>
           <Toggle
             disabled={updating}
-            on={enabledFlags.includes(flag.key)}
-            setOn={() => updateFeatureFlag(flag)}
+            on={enabledFlags.includes(feature.key)}
+            setOn={() => updateFeatureFlag(feature)}
           />
         </ToggleWrapper>
       ))}

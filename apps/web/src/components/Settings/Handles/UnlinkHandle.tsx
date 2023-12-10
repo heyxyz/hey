@@ -1,4 +1,5 @@
 import type { UnlinkHandleFromProfileRequest } from '@hey/lens';
+import type { FC } from 'react';
 
 import IndexStatus from '@components/Shared/IndexStatus';
 import { MinusCircleIcon } from '@heroicons/react/24/outline';
@@ -15,7 +16,7 @@ import getSignature from '@hey/lib/getSignature';
 import { Button, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
@@ -76,16 +77,17 @@ const UnlinkHandle: FC = () => {
     useCreateUnlinkHandleFromProfileTypedDataMutation({
       onCompleted: async ({ createUnlinkHandleFromProfileTypedData }) => {
         const { id, typedData } = createUnlinkHandleFromProfileTypedData;
-        const signature = await signTypedDataAsync(getSignature(typedData));
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
 
         if (canBroadcast) {
+          const signature = await signTypedDataAsync(getSignature(typedData));
           const { data } = await broadcastOnchain({
             variables: { request: { id, signature } }
           });
           if (data?.broadcastOnchain.__typename === 'RelayError') {
             return write({ args: [typedData.value] });
           }
+          setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+
           return;
         }
 

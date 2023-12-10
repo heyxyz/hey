@@ -1,4 +1,5 @@
 import type { AnyPublication } from '@hey/lens';
+import type { FC } from 'react';
 
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import {
@@ -9,7 +10,6 @@ import {
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card } from '@hey/ui';
 import Link from 'next/link';
-import { type FC } from 'react';
 import urlcat from 'urlcat';
 
 interface MetaProps {

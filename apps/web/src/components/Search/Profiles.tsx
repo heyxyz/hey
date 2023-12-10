@@ -1,4 +1,5 @@
 import type { Profile, ProfileSearchRequest } from '@hey/lens';
+import type { FC } from 'react';
 
 import UserProfilesShimmer from '@components/Shared/Shimmer/UserProfilesShimmer';
 import UserProfile from '@components/Shared/UserProfile';
@@ -10,7 +11,6 @@ import {
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
-import { type FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
 interface ProfilesProps {

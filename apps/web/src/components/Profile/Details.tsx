@@ -23,7 +23,6 @@ import {
   RARIBLE_URL,
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
-import { FollowUnfollowSource } from '@hey/data/tracking';
 import getEnvConfig from '@hey/data/utils/getEnvConfig';
 import { FollowModuleType } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
@@ -50,14 +49,13 @@ import ProfileMenu from './Menu';
 import MutualFollowers from './MutualFollowers';
 import MutualFollowersList from './MutualFollowers/List';
 import ScamWarning from './ScamWarning';
+import TbaBadge from './TbaBadge';
 
 interface DetailsProps {
-  following: boolean;
   profile: Profile;
-  setFollowing: (following: boolean) => void;
 }
 
-const Details: FC<DetailsProps> = ({ following, profile, setFollowing }) => {
+const Details: FC<DetailsProps> = ({ profile }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
   const [showMutualFollowersModal, setShowMutualFollowersModal] =
@@ -106,6 +104,7 @@ const Details: FC<DetailsProps> = ({ following, profile, setFollowing }) => {
               <CheckBadgeIcon className="text-brand-500 h-6 w-6" />
             </Tooltip>
           ) : null}
+          <TbaBadge profile={profile} />
           {hasMisused(profile.id) ? (
             <Tooltip content={misuseDetails?.type}>
               <ExclamationCircleIcon className="h-6 w-6 text-red-500" />
@@ -146,37 +145,17 @@ const Details: FC<DetailsProps> = ({ following, profile, setFollowing }) => {
               </Button>
             </Link>
           ) : followType !== FollowModuleType.RevertFollowModule ? (
-            following ? (
+            profile.operations.isFollowedByMe.value ? (
               <>
-                <Unfollow
-                  profile={profile}
-                  setFollowing={setFollowing}
-                  showText
-                  unfollowSource={FollowUnfollowSource.PROFILE_PAGE}
-                />
+                <Unfollow profile={profile} showText />
                 {followType === FollowModuleType.FeeFollowModule ? (
-                  <SuperFollow
-                    again
-                    profile={profile}
-                    setFollowing={setFollowing}
-                    superFollowSource={FollowUnfollowSource.PROFILE_PAGE}
-                  />
+                  <SuperFollow again profile={profile} />
                 ) : null}
               </>
             ) : followType === FollowModuleType.FeeFollowModule ? (
-              <SuperFollow
-                profile={profile}
-                setFollowing={setFollowing}
-                showText
-                superFollowSource={FollowUnfollowSource.PROFILE_PAGE}
-              />
+              <SuperFollow profile={profile} showText />
             ) : (
-              <Follow
-                followSource={FollowUnfollowSource.PROFILE_PAGE}
-                profile={profile}
-                setFollowing={setFollowing}
-                showText
-              />
+              <Follow profile={profile} showText />
             )
           ) : null}
 

@@ -1,4 +1,5 @@
 import type { Profile } from '@hey/lens';
+import type { FC } from 'react';
 import type { Activity } from 'react-activity-calendar';
 
 import { HEY_API_URL } from '@hey/data/constants';
@@ -6,7 +7,6 @@ import getProfile from '@hey/lib/getProfile';
 import { Card } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { type FC } from 'react';
 import ActivityCalendar from 'react-activity-calendar';
 
 interface StreaksProps {

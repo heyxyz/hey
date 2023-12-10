@@ -1,4 +1,5 @@
 import type { AnyPublication } from '@hey/lens';
+import type { FC } from 'react';
 
 import { Menu } from '@headlessui/react';
 import { LanguageIcon } from '@heroicons/react/24/outline';
@@ -9,7 +10,6 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import { type FC } from 'react';
 import urlcat from 'urlcat';
 
 interface TranslateProps {

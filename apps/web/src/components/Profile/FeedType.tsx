@@ -1,16 +1,16 @@
+import type { FC } from 'react';
+
 import {
   ChartBarIcon,
   ChatBubbleLeftRightIcon,
   FilmIcon,
   PencilSquareIcon,
-  RectangleGroupIcon,
   RectangleStackIcon
 } from '@heroicons/react/24/outline';
 import { IS_MAINNET } from '@hey/data/constants';
 import { PROFILE } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC } from 'react';
 import { ProfileFeedType } from 'src/enums';
 
 import MediaFilter from './Filters/MediaFilter';
@@ -60,13 +60,6 @@ const FeedType: FC<FeedTypeProps> = ({ feedType }) => {
           name="Collected"
           onClick={() => switchTab(ProfileFeedType.Collects)}
           type={ProfileFeedType.Collects.toLowerCase()}
-        />
-        <TabButton
-          active={feedType === ProfileFeedType.Gallery}
-          icon={<RectangleGroupIcon className="h-4 w-4" />}
-          name="Gallery"
-          onClick={() => switchTab(ProfileFeedType.Gallery)}
-          type={ProfileFeedType.Gallery.toLowerCase()}
         />
         {IS_MAINNET ? (
           <TabButton

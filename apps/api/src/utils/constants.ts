@@ -1,3 +1,5 @@
+import { IS_MAINNET } from '@hey/data/constants';
+
 // DB URLs
 export const CLICKHOUSE_URL = 'http://clickhouse.hey.xyz:8123';
 
@@ -19,4 +21,7 @@ export const CACHE_AGE_30_DAYS = 'public, s-maxage=2592000';
 // Cache indefinitely
 export const CACHE_AGE_INDEFINITE = 'public, max-age=31536000, immutable';
 
-export const ALCHEMY_URL = `https://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`;
+// RPC
+export const RPC_URL = IS_MAINNET
+  ? 'https://polygon-rpc.com'
+  : 'rpc.ankr.com/polygon_mumbai';

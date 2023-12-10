@@ -1,14 +1,13 @@
 import type { MutualFollowersRequest, Profile } from '@hey/lens';
+import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
-import { FollowUnfollowSource } from '@hey/data/tracking';
 import { LimitType, useMutualFollowersQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
-import { type FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
@@ -77,7 +76,7 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profile }) => {
         className="virtual-profile-list"
         data={mutualFollowers}
         endReached={onEndReached}
-        itemContent={(index, mutualFollower) => {
+        itemContent={(_, mutualFollower) => {
           return (
             <motion.div
               animate={{ opacity: 1 }}
@@ -86,9 +85,6 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profile }) => {
               initial={{ opacity: 0 }}
             >
               <UserProfile
-                followUnfollowPosition={index + 1}
-                followUnfollowSource={FollowUnfollowSource.FOLLOWERS_MODAL}
-                isFollowing={mutualFollower.operations.isFollowedByMe.value}
                 profile={mutualFollower as Profile}
                 showBio
                 showFollow={currentProfile?.id !== mutualFollower.id}

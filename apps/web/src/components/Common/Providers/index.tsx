@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 import { apolloClient, ApolloProvider } from '@hey/lens/apollo';
 import authLink from '@lib/authLink';
 import getLivepeerTheme from '@lib/getLivepeerTheme';
@@ -8,7 +10,6 @@ import {
 } from '@livepeer/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from 'next-themes';
-import { type ReactNode } from 'react';
 
 import ErrorBoundary from '../ErrorBoundary';
 import Layout from '../Layout';
@@ -17,6 +18,7 @@ import LeafwatchProvider from './LeafwatchProvider';
 import LensSubscriptionsProvider from './LensSubscriptionsProvider';
 import PreferencesProvider from './PreferencesProvider';
 import ServiceWorkerProvider from './ServiceWorkerProvider';
+import TbaStatusProvider from './TbaStatusProvider';
 import Web3Provider from './Web3Provider';
 
 const lensApolloClient = apolloClient(authLink);
@@ -37,6 +39,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
           <LensSubscriptionsProvider />
           <QueryClientProvider client={queryClient}>
             <PreferencesProvider />
+            <TbaStatusProvider />
             <FeaturedGroupsProvider />
             <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
               <ThemeProvider attribute="class" defaultTheme="light">

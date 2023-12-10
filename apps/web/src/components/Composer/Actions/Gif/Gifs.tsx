@@ -1,8 +1,8 @@
 import type { IGif } from '@hey/types/giphy';
+import type { FC } from 'react';
 
 import { GIPHY_KEY } from '@hey/data/constants';
 import axios from 'axios';
-import { type FC } from 'react';
 import { useInfiniteQuery } from 'wagmi';
 
 interface CategoriesProps {

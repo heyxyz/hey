@@ -1,10 +1,12 @@
+import type { Dispatch, FC, SetStateAction } from 'react';
+
 import {
   PublicationReportingFraudSubreason,
   PublicationReportingIllegalSubreason,
   PublicationReportingSensitiveSubreason,
   PublicationReportingSpamSubreason
 } from '@hey/lens';
-import { type Dispatch, type FC, type SetStateAction } from 'react';
+import { Select } from '@hey/ui';
 
 interface ReasonProps {
   setSubReason: Dispatch<SetStateAction<string>>;
@@ -23,210 +25,188 @@ const Reason: FC<ReasonProps> = ({
     <div className="space-y-3">
       <div>
         <div className="label">Type</div>
-        <div>
-          <select
-            className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"
-            onChange={(e) => setType(e.target.value)}
-          >
-            <option disabled selected>
-              Select type
-            </option>
-            <option selected={type === 'illegalReason'} value="illegalReason">
-              Illegal
-            </option>
-            <option selected={type === 'fraudReason'} value="fraudReason">
-              Fraud
-            </option>
-            <option
-              selected={type === 'sensitiveReason'}
-              value="sensitiveReason"
-            >
-              Sensitive
-            </option>
-            <option selected={type === 'spamReason'} value="spamReason">
-              Spam
-            </option>
-          </select>
-        </div>
+        <Select
+          onChange={(e) => setType(e.target.value)}
+          options={[
+            {
+              disabled: true,
+              label: 'Select type',
+              selected: true,
+              value: 'Select type'
+            },
+            {
+              label: 'Illegal',
+              selected: type === 'illegalReason',
+              value: 'illegalReason'
+            },
+            {
+              label: 'Fraud',
+              selected: type === 'fraudReason',
+              value: 'fraudReason'
+            },
+            {
+              label: 'Sensitive',
+              selected: type === 'sensitiveReason',
+              value: 'sensitiveReason'
+            },
+            {
+              label: 'Spam',
+              selected: type === 'spamReason',
+              value: 'spamReason'
+            }
+          ]}
+        />
       </div>
       {type ? (
         <div>
           <div className="label">Reason</div>
-          <div>
-            <select
-              className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"
-              onChange={(e) => setSubReason(e.target.value)}
-            >
-              <option disabled selected>
-                Select sub reason
-              </option>
-              {type === 'illegalReason' ? (
-                <>
-                  <option
-                    selected={
-                      subReason ===
-                      PublicationReportingIllegalSubreason.AnimalAbuse
+          <Select
+            onChange={(e) => setSubReason(e.target.value)}
+            options={[
+              {
+                disabled: true,
+                label: 'Select reason',
+                selected: true,
+                value: 'Select reason'
+              },
+              ...(type === 'illegalReason'
+                ? [
+                    {
+                      label: 'Animal abuse',
+                      selected:
+                        subReason ===
+                        PublicationReportingIllegalSubreason.AnimalAbuse,
+                      value: PublicationReportingIllegalSubreason.AnimalAbuse
+                    },
+                    {
+                      label: 'Direct threat',
+                      selected:
+                        subReason ===
+                        PublicationReportingIllegalSubreason.DirectThreat,
+                      value: PublicationReportingIllegalSubreason.DirectThreat
+                    },
+                    {
+                      label: 'Human abuse',
+                      selected:
+                        subReason ===
+                        PublicationReportingIllegalSubreason.HumanAbuse,
+                      value: PublicationReportingIllegalSubreason.HumanAbuse
+                    },
+                    {
+                      label: 'Threat individual',
+                      selected:
+                        subReason ===
+                        PublicationReportingIllegalSubreason.ThreatIndividual,
+                      value:
+                        PublicationReportingIllegalSubreason.ThreatIndividual
+                    },
+                    {
+                      label: 'Violence',
+                      selected:
+                        subReason ===
+                        PublicationReportingIllegalSubreason.Violence,
+                      value: PublicationReportingIllegalSubreason.Violence
                     }
-                    value={PublicationReportingIllegalSubreason.AnimalAbuse}
-                  >
-                    Animal Abuse
-                  </option>
-                  <option
-                    selected={
-                      subReason ===
-                      PublicationReportingIllegalSubreason.DirectThreat
+                  ]
+                : []),
+              ...(type === 'fraudReason'
+                ? [
+                    {
+                      label: 'Scam',
+                      selected:
+                        subReason === PublicationReportingFraudSubreason.Scam,
+                      value: PublicationReportingFraudSubreason.Scam
+                    },
+                    {
+                      label: 'Impersonation',
+                      selected:
+                        subReason ===
+                        PublicationReportingFraudSubreason.Impersonation,
+                      value: PublicationReportingFraudSubreason.Impersonation
                     }
-                    value={PublicationReportingIllegalSubreason.DirectThreat}
-                  >
-                    Direct Threat
-                  </option>
-                  <option
-                    selected={
-                      subReason ===
-                      PublicationReportingIllegalSubreason.HumanAbuse
+                  ]
+                : []),
+              ...(type === 'sensitiveReason'
+                ? [
+                    {
+                      label: 'NSFW',
+                      selected:
+                        subReason ===
+                        PublicationReportingSensitiveSubreason.Nsfw,
+                      value: PublicationReportingSensitiveSubreason.Nsfw
+                    },
+                    {
+                      label: 'Offensive',
+                      selected:
+                        subReason ===
+                        PublicationReportingSensitiveSubreason.Offensive,
+                      value: PublicationReportingSensitiveSubreason.Offensive
                     }
-                    value={PublicationReportingIllegalSubreason.HumanAbuse}
-                  >
-                    Human Abuse
-                  </option>
-                  <option
-                    selected={
-                      subReason ===
-                      PublicationReportingIllegalSubreason.ThreatIndividual
+                  ]
+                : []),
+
+              ...(type === 'spamReason'
+                ? [
+                    {
+                      label: 'Fake engagement',
+                      selected:
+                        subReason ===
+                        PublicationReportingSpamSubreason.FakeEngagement,
+                      value: PublicationReportingSpamSubreason.FakeEngagement
+                    },
+                    {
+                      label: 'Low signal',
+                      selected:
+                        subReason ===
+                        PublicationReportingSpamSubreason.LowSignal,
+                      value: PublicationReportingSpamSubreason.LowSignal
+                    },
+                    {
+                      label: 'Algorithm manipulation',
+                      selected:
+                        subReason ===
+                        PublicationReportingSpamSubreason.ManipulationAlgo,
+                      value: PublicationReportingSpamSubreason.ManipulationAlgo
+                    },
+                    {
+                      label: 'Misleading',
+                      selected:
+                        subReason ===
+                        PublicationReportingSpamSubreason.Misleading,
+                      value: PublicationReportingSpamSubreason.Misleading
+                    },
+                    {
+                      label: 'Misuse hashtags',
+                      selected:
+                        subReason ===
+                        PublicationReportingSpamSubreason.MisuseHashtags,
+                      value: PublicationReportingSpamSubreason.MisuseHashtags
+                    },
+                    {
+                      label: 'Repetitive',
+                      selected:
+                        subReason ===
+                        PublicationReportingSpamSubreason.Repetitive,
+                      value: PublicationReportingSpamSubreason.Repetitive
+                    },
+                    {
+                      label: 'Something else',
+                      selected:
+                        subReason ===
+                        PublicationReportingSpamSubreason.SomethingElse,
+                      value: PublicationReportingSpamSubreason.SomethingElse
+                    },
+                    {
+                      label: 'Unrelated',
+                      selected:
+                        subReason ===
+                        PublicationReportingSpamSubreason.Unrelated,
+                      value: PublicationReportingSpamSubreason.Unrelated
                     }
-                    value={
-                      PublicationReportingIllegalSubreason.ThreatIndividual
-                    }
-                  >
-                    Threat Individual
-                  </option>
-                  <option
-                    selected={
-                      subReason ===
-                      PublicationReportingIllegalSubreason.Violence
-                    }
-                    value={PublicationReportingIllegalSubreason.Violence}
-                  >
-                    Violence
-                  </option>
-                </>
-              ) : null}
-              {type === 'fraudReason' ? (
-                <>
-                  <option
-                    selected={
-                      subReason === PublicationReportingFraudSubreason.Scam
-                    }
-                    value={PublicationReportingFraudSubreason.Scam}
-                  >
-                    Scam
-                  </option>
-                  <option
-                    selected={
-                      subReason ===
-                      PublicationReportingFraudSubreason.Impersonation
-                    }
-                    value={PublicationReportingFraudSubreason.Impersonation}
-                  >
-                    Impersonation
-                  </option>
-                </>
-              ) : null}
-              {type === 'sensitiveReason' ? (
-                <>
-                  <option
-                    selected={
-                      subReason === PublicationReportingSensitiveSubreason.Nsfw
-                    }
-                    value={PublicationReportingSensitiveSubreason.Nsfw}
-                  >
-                    NSFW
-                  </option>
-                  <option
-                    selected={
-                      subReason ===
-                      PublicationReportingSensitiveSubreason.Offensive
-                    }
-                    value={PublicationReportingSensitiveSubreason.Offensive}
-                  >
-                    Offensive
-                  </option>
-                </>
-              ) : null}
-              {type === 'spamReason' ? (
-                <>
-                  <option
-                    selected={
-                      subReason ===
-                      PublicationReportingSpamSubreason.FakeEngagement
-                    }
-                    value={PublicationReportingSpamSubreason.FakeEngagement}
-                  >
-                    Fake engagement
-                  </option>
-                  <option
-                    selected={
-                      subReason === PublicationReportingSpamSubreason.LowSignal
-                    }
-                    value={PublicationReportingSpamSubreason.LowSignal}
-                  >
-                    Low signal
-                  </option>
-                  <option
-                    selected={
-                      subReason ===
-                      PublicationReportingSpamSubreason.ManipulationAlgo
-                    }
-                    value={PublicationReportingSpamSubreason.ManipulationAlgo}
-                  >
-                    Algorithm manipulation
-                  </option>
-                  <option
-                    selected={
-                      subReason === PublicationReportingSpamSubreason.Misleading
-                    }
-                    value={PublicationReportingSpamSubreason.Misleading}
-                  >
-                    Misleading
-                  </option>
-                  <option
-                    selected={
-                      subReason ===
-                      PublicationReportingSpamSubreason.MisuseHashtags
-                    }
-                    value={PublicationReportingSpamSubreason.MisuseHashtags}
-                  >
-                    Misuse hashtags
-                  </option>
-                  <option
-                    selected={
-                      subReason === PublicationReportingSpamSubreason.Repetitive
-                    }
-                    value={PublicationReportingSpamSubreason.Repetitive}
-                  >
-                    Repetitive
-                  </option>
-                  <option
-                    selected={
-                      subReason ===
-                      PublicationReportingSpamSubreason.SomethingElse
-                    }
-                    value={PublicationReportingSpamSubreason.SomethingElse}
-                  >
-                    Something else
-                  </option>
-                  <option
-                    selected={
-                      subReason === PublicationReportingSpamSubreason.Unrelated
-                    }
-                    value={PublicationReportingSpamSubreason.Unrelated}
-                  >
-                    Unrelated
-                  </option>
-                </>
-              ) : null}
-            </select>
-          </div>
+                  ]
+                : [])
+            ]}
+          />
         </div>
       ) : null}
     </div>

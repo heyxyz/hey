@@ -1,4 +1,5 @@
 import type { ApolloCache } from '@hey/lens/apollo';
+import type { FC } from 'react';
 
 import { Menu } from '@headlessui/react';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
@@ -14,7 +15,6 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC } from 'react';
 import { toast } from 'react-hot-toast';
 
 interface NotInterestedProps {

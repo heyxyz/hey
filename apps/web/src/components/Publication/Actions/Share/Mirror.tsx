@@ -3,6 +3,7 @@ import type {
   MomokaMirrorRequest,
   OnchainMirrorRequest
 } from '@hey/lens';
+import type { FC } from 'react';
 
 import { useApolloClient } from '@apollo/client';
 import { Menu } from '@headlessui/react';
@@ -26,7 +27,7 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
@@ -50,10 +51,8 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
+  const { hasMirrored } = targetPublication.operations;
 
-  const [hasMirrored, setHasMirrored] = useState(
-    targetPublication.operations.hasMirrored
-  );
   const [shares, setShares] = useState(
     targetPublication.stats.mirrors + targetPublication.stats.quotes
   );
@@ -68,13 +67,13 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     cache.modify({
       fields: {
         operations: (existingValue) => {
-          return { ...existingValue, hasMirrored: !hasMirrored };
+          return { ...existingValue, hasMirrored: true };
         }
       },
       id: cache.identify(targetPublication)
     });
     cache.modify({
-      fields: { mirrors: () => (hasMirrored ? shares - 1 : shares + 1) },
+      fields: { mirrors: () => shares + 1 },
       id: cache.identify(targetPublication.stats)
     });
   };
@@ -99,13 +98,10 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     }
 
     setIsLoading(false);
-    setHasMirrored(true);
     setShares(shares + 1);
     updateCache();
     toast.success('Post has been mirrored!');
-    Leafwatch.track(PUBLICATION.MIRROR, {
-      publication_id: publication.id
-    });
+    Leafwatch.track(PUBLICATION.MIRROR, { publication_id: publication.id });
   };
 
   const { signTypedDataAsync } = useSignTypedData({ onError });
@@ -140,22 +136,22 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     isMomokaPublication = false
   ) => {
     const { id, typedData } = generatedData;
-    const signature = await signTypedDataAsync(getSignature(typedData));
 
     if (canBroadcast) {
+      const signature = await signTypedDataAsync(getSignature(typedData));
       if (isMomokaPublication) {
         return await broadcastOnMomoka({
           variables: { request: { id, signature } }
         });
       }
-
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
       const { data } = await broadcastOnchain({
         variables: { request: { id, signature } }
       });
       if (data?.broadcastOnchain.__typename === 'RelayError') {
         return write({ args: [typedData.value] });
       }
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+
       return;
     }
 
@@ -271,7 +267,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     >
       <div className="flex items-center space-x-2">
         <ArrowsRightLeftIcon className="h-4 w-4" />
-        <div>{hasMirrored ? 'Mirrored' : 'Mirror'}</div>
+        <div>{hasMirrored ? 'Mirror again' : 'Mirror'}</div>
       </div>
     </Menu.Item>
   );

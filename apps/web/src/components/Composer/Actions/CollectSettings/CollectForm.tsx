@@ -1,11 +1,11 @@
 import type { CollectModuleType } from '@hey/types/hey';
+import type { Dispatch, FC, SetStateAction } from 'react';
 
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { CollectOpenActionModuleType } from '@hey/lens';
 import getAllTokens from '@hey/lib/api/getAllTokens';
 import { Button, ErrorMessage, Spinner } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
-import { type Dispatch, type FC, type SetStateAction } from 'react';
 import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
 import { isAddress } from 'viem';
 

@@ -1,10 +1,11 @@
-import type { Features } from '@hey/types/hey';
+import type { Feature } from '@hey/types/hey';
+import type { FC } from 'react';
 
 import { HEY_API_URL } from '@hey/data/constants';
 import { Button, Form, Input, useZodForm } from '@hey/ui';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import axios from 'axios';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { object, string } from 'zod';
 
@@ -13,12 +14,16 @@ const createFeatureSchema = object({
 });
 
 interface CreateProps {
-  flags: Features[];
-  setFlags: (flags: any) => void;
+  features: Feature[];
+  setFeatures: (flags: any) => void;
   setShowCreateModal: (show: boolean) => void;
 }
 
-const Create: FC<CreateProps> = ({ flags, setFlags, setShowCreateModal }) => {
+const Create: FC<CreateProps> = ({
+  features,
+  setFeatures,
+  setShowCreateModal
+}) => {
   const [creating, setCreating] = useState(false);
 
   const form = useZodForm({
@@ -40,7 +45,7 @@ const Create: FC<CreateProps> = ({ flags, setFlags, setShowCreateModal }) => {
         },
         loading: 'Creating feature flag...',
         success: ({ data }) => {
-          setFlags([...flags, data.feature]);
+          setFeatures([...features, data.feature]);
           setCreating(false);
           setShowCreateModal(false);
           return 'Feature flag created';

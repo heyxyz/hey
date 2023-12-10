@@ -5,7 +5,6 @@ import DismissRecommendedProfile from '@components/Shared/DismissRecommendedProf
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
-import { FollowUnfollowSource } from '@hey/data/tracking';
 import { useProfileRecommendationsQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
@@ -38,7 +37,7 @@ const Suggested: FC = () => {
       <Virtuoso
         className="virtual-profile-list"
         data={data?.profileRecommendations.items}
-        itemContent={(index, profile) => {
+        itemContent={(_, profile) => {
           return (
             <motion.div
               animate={{ opacity: 1 }}
@@ -48,22 +47,13 @@ const Suggested: FC = () => {
             >
               <div className="w-full">
                 <UserProfile
-                  followUnfollowPosition={index + 1}
-                  followUnfollowSource={
-                    FollowUnfollowSource.WHO_TO_FOLLOW_MODAL
-                  }
-                  isFollowing={profile.operations.isFollowedByMe.value}
                   profile={profile as Profile}
                   showBio
                   showFollow
                   showUserPreview={false}
                 />
               </div>
-              <DismissRecommendedProfile
-                dismissPosition={index + 1}
-                dismissSource={FollowUnfollowSource.WHO_TO_FOLLOW_MODAL}
-                profile={profile as Profile}
-              />
+              <DismissRecommendedProfile profile={profile as Profile} />
             </motion.div>
           );
         }}

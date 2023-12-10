@@ -1,12 +1,11 @@
 import type { Profile, ProfilesRequest } from '@hey/lens';
+import type { FC } from 'react';
 
 import UserProfile from '@components/Shared/UserProfile';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
-import { FollowUnfollowSource } from '@hey/data/tracking';
 import { LimitType, useProfilesQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
-import { type FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
 import Loader from '../Loader';
@@ -68,7 +67,7 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
         className="virtual-profile-list"
         data={profiles}
         endReached={onEndReached}
-        itemContent={(index, profile) => {
+        itemContent={(_, profile) => {
           return (
             <motion.div
               animate={{ opacity: 1 }}
@@ -77,9 +76,6 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
               initial={{ opacity: 0 }}
             >
               <UserProfile
-                followUnfollowPosition={index + 1}
-                followUnfollowSource={FollowUnfollowSource.MIRRORS_MODAL}
-                isFollowing={profile.operations.isFollowedByMe.value}
                 profile={profile as Profile}
                 showBio
                 showFollow

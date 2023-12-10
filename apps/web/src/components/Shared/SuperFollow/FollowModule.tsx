@@ -18,6 +18,7 @@ import {
   useCreateFollowTypedDataMutation,
   useProfileQuery
 } from '@hey/lens';
+import { useApolloClient } from '@hey/lens/apollo';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import formatAddress from '@hey/lib/formatAddress';
 import getProfile from '@hey/lib/getProfile';
@@ -42,21 +43,13 @@ import Slug from '../Slug';
 interface FollowModuleProps {
   again: boolean;
   profile: Profile;
-  setFollowing: (following: boolean) => void;
   setShowFollowModal: Dispatch<SetStateAction<boolean>>;
-
-  // For data analytics
-  superFollowPosition?: number;
-  superFollowSource?: string;
 }
 
 const FollowModule: FC<FollowModuleProps> = ({
   again,
   profile,
-  setFollowing,
-  setShowFollowModal,
-  superFollowPosition,
-  superFollowSource
+  setShowFollowModal
 }) => {
   const { pathname } = useRouter();
   const lensHubOnchainSigNonce = useNonceStore(
@@ -70,21 +63,32 @@ const FollowModule: FC<FollowModuleProps> = ({
   const [allowed, setAllowed] = useState(true);
 
   const handleWrongNetwork = useHandleWrongNetwork();
+  const { cache } = useApolloClient();
+
   const { canBroadcast } = checkDispatcherPermissions(currentProfile);
+
+  const updateCache = () => {
+    cache.modify({
+      fields: {
+        isFollowedByMe: (existingValue) => {
+          return { ...existingValue, value: true };
+        }
+      },
+      id: cache.identify(profile.operations)
+    });
+  };
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
       return;
     }
 
+    updateCache();
     setIsLoading(false);
-    setFollowing(true);
     setShowFollowModal(false);
     toast.success('Followed successfully!');
     Leafwatch.track(PROFILE.SUPER_FOLLOW, {
       path: pathname,
-      ...(superFollowPosition && { position: superFollowPosition }),
-      ...(superFollowSource && { source: superFollowSource }),
       target: profile?.id
     });
   };
@@ -160,7 +164,6 @@ const FollowModule: FC<FollowModuleProps> = ({
   const [createFollowTypedData] = useCreateFollowTypedDataMutation({
     onCompleted: async ({ createFollowTypedData }) => {
       const { id, typedData } = createFollowTypedData;
-      const signature = await signTypedDataAsync(getSignature(typedData));
       const {
         datas,
         followerProfileId,
@@ -175,12 +178,14 @@ const FollowModule: FC<FollowModuleProps> = ({
       ];
 
       if (canBroadcast) {
+        const signature = await signTypedDataAsync(getSignature(typedData));
         const { data } = await broadcastOnchain({
           variables: { request: { id, signature } }
         });
         if (data?.broadcastOnchain.__typename === 'RelayError') {
           return write({ args });
         }
+
         return;
       }
 

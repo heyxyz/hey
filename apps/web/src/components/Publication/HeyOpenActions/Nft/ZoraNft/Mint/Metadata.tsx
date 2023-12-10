@@ -1,4 +1,5 @@
 import type { ZoraNft } from '@hey/types/nft';
+import type { FC } from 'react';
 
 import {
   ArrowTopRightOnSquareIcon,
@@ -10,7 +11,6 @@ import { PUBLICATION } from '@hey/data/tracking';
 import humanize from '@hey/lib/humanize';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import { type FC } from 'react';
 
 interface MetadataProps {
   nft: ZoraNft;

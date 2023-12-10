@@ -1,3 +1,5 @@
+import type { FC } from 'react';
+
 import { HEY_API_URL } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import getPreferences from '@hey/lib/api/getPreferences';
@@ -5,7 +7,7 @@ import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import getCurrentSession from '@lib/getCurrentSession';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { type FC } from 'react';
+import { useMembershipNftStore } from 'src/store/non-persisted/useMembershipNftStore';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useProStore } from 'src/store/non-persisted/useProStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
@@ -26,7 +28,11 @@ const PreferencesProvider: FC = () => {
   const setGardenerMode = useFeatureFlagsStore(
     (state) => state.setGardenerMode
   );
+  const setDismissedOrMinted = useMembershipNftStore(
+    (state) => state.setDismissedOrMinted
+  );
 
+  // Fetch preferences
   const fetchPreferences = async () => {
     try {
       if (Boolean(sessionProfileId) && !isAddress(sessionProfileId)) {
@@ -35,19 +41,25 @@ const PreferencesProvider: FC = () => {
           getAuthWorkerHeaders()
         );
 
+        // Profile preferences
         setPreferences({
-          email: preferences.preference?.email || '',
           highSignalNotificationFilter:
             preferences.preference?.highSignalNotificationFilter || false,
-          isPride: preferences.preference?.isPride || false,
-          marketingOptIn: preferences.preference?.marketingOptIn || false
+          isPride: preferences.preference?.isPride || false
         });
+
+        // Pro
         setIsPro(preferences.pro.enabled);
+
+        // Feature flags
         setFeatureFlags(preferences.features);
         setStaffMode(preferences.features.includes(FeatureFlag.StaffMode));
         setGardenerMode(
           preferences?.features.includes(FeatureFlag.GardenerMode)
         );
+
+        // Membership NFT
+        setDismissedOrMinted(preferences.membershipNft.dismissedOrMinted);
       }
       return true;
     } catch {
@@ -60,6 +72,7 @@ const PreferencesProvider: FC = () => {
     queryKey: ['fetchPreferences', sessionProfileId || '']
   });
 
+  // Fetch verified members
   const fetchVerifiedMembers = async () => {
     try {
       const response = await axios.get(`${HEY_API_URL}/misc/getVerified`);
