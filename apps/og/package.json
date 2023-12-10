@@ -1,7 +1,5 @@
 {
   "name": "@hey/og",
-  "version": "0.0.0",
-  "private": true,
   "license": "AGPL-3.0",
   "scripts": {
     "build": "next build",
@@ -23,7 +21,8 @@
     "@vercel/og": "^0.5.20",
     "next": "^14.0.3",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-schemaorg": "^2.0.0"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
