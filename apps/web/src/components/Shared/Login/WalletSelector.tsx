@@ -26,11 +26,11 @@ import { Button, Card, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { signIn } from 'src/store/persisted/useAuthStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useIsMounted } from 'usehooks-ts';
 import {
   useAccount,
@@ -53,6 +53,8 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   setHasConnected,
   setShowSignup
 }) => {
+  const setCurrentProfile = useProfileStore((state) => state.setCurrentProfile);
+
   const [isLoading, setIsLoading] = useState(false);
   const [loggingInProfileId, setLoggingInProfileId] = useState<null | string>(
     null
@@ -72,7 +74,6 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     isLoading: isConnectLoading,
     pendingConnector
   } = useConnect({ chainId: CHAIN_ID });
-  const router = useRouter();
 
   const { disconnect } = useDisconnect();
   const { address, connector: activeConnector } = useAccount();
@@ -93,6 +94,8 @@ const WalletSelector: FC<WalletSelectorProps> = ({
         profilesManagedRequest: request
       }
     });
+
+  const allProfiles = profilesManaged?.profilesManaged.items || [];
 
   const onConnect = async (connector: Connector) => {
     try {
@@ -133,13 +136,14 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       const accessToken = auth.data?.authenticate.accessToken;
       const refreshToken = auth.data?.authenticate.refreshToken;
       signIn({ accessToken, refreshToken });
+      setCurrentProfile(
+        allProfiles.find((p) => p.id === loggingInProfileId) as Profile
+      );
       Leafwatch.track(AUTH.SIWL);
       onClose?.(false);
-      router.push('/');
     } catch {}
   };
 
-  const allProfiles = profilesManaged?.profilesManaged.items || [];
   const lastLogin = profilesManaged?.lastLoggedInProfile;
 
   const remainingProfiles = lastLogin

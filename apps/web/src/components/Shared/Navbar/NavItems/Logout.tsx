@@ -7,10 +7,10 @@ import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import getCurrentSession from '@lib/getCurrentSession';
 import { Leafwatch } from '@lib/leafwatch';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { signOut } from 'src/store/persisted/useAuthStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useDisconnect } from 'wagmi';
 
 interface LogoutProps {
@@ -23,7 +23,6 @@ const Logout: FC<LogoutProps> = ({ className = '', onClick }) => {
     (state) => state.resetPreferences
   );
   const [revoking, setRevoking] = useState(false);
-  const router = useRouter();
 
   const { disconnect } = useDisconnect();
   const { authorizationId } = getCurrentSession();
@@ -32,6 +31,7 @@ const Logout: FC<LogoutProps> = ({ className = '', onClick }) => {
     setRevoking(false);
     errorToast(error);
   };
+  const setCurrentProfile = useProfileStore((state) => state.setCurrentProfile);
 
   const [revokeAuthentication] = useRevokeAuthenticationMutation({
     onCompleted: () => {
@@ -39,6 +39,7 @@ const Logout: FC<LogoutProps> = ({ className = '', onClick }) => {
       resetPreferences();
       signOut();
       disconnect?.();
+      setCurrentProfile(null);
     },
     onError
   });
@@ -66,7 +67,6 @@ const Logout: FC<LogoutProps> = ({ className = '', onClick }) => {
       onClick={async () => {
         await logout();
         onClick?.();
-        router.push('/');
       }}
       type="button"
     >

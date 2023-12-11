@@ -22,7 +22,6 @@ import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
@@ -33,6 +32,8 @@ import { useAccount, useSignMessage } from 'wagmi';
 import Loader from './Loader';
 
 const SwitchProfiles: FC = () => {
+  const setCurrentProfile = useProfileStore((state) => state.setCurrentProfile);
+
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const setShowProfileSwitchModal = useGlobalModalStateStore(
     (state) => state.setShowProfileSwitchModal
@@ -46,8 +47,6 @@ const SwitchProfiles: FC = () => {
     setIsLoading(false);
     errorToast(error);
   };
-
-  const router = useRouter();
 
   const { address } = useAccount();
   const { signMessageAsync } = useSignMessage({ onError });
@@ -99,7 +98,7 @@ const SwitchProfiles: FC = () => {
       signOut();
       signIn({ accessToken, refreshToken });
       Leafwatch.track(PROFILE.SWITCH_PROFILE, { switch_profile_to: id });
-      router.push('/');
+      setCurrentProfile(null);
     } catch (error) {
       onError(error);
     }

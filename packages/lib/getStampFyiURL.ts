@@ -7,6 +7,10 @@ import urlcat from 'urlcat';
  * @returns The cdn.stamp.fyi URL.
  */
 const getStampFyiURL = (address: string): string => {
+  // race condition fix when loging out
+  if (!address) {
+    return '';
+  }
   const lowerCaseAddress = address.toLowerCase();
   return urlcat('https://cdn.stamp.fyi/avatar/eth::address', {
     address: lowerCaseAddress,

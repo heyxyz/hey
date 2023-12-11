@@ -18,13 +18,15 @@ export const NextLink = ({ children, href, ...rest }: Record<string, any>) => (
 const MenuItems: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const { id: sessionProfileId } = getCurrentSession();
+  console.log(currentProfile, 'currentProfile');
+  console.log(sessionProfileId, 'sessionProfileId');
 
-  if (currentProfile !== null) {
+  if (Boolean(currentProfile)) {
     return <SignedUser />;
   }
 
   // If the currentSessionProfileId is a valid eth address, we can assume that address don't have a profile yet
-  if (sessionProfileId !== null && isAddress(sessionProfileId)) {
+  if (isAddress(sessionProfileId)) {
     return <WalletUser />;
   }
 

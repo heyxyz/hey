@@ -10,11 +10,11 @@ import {
 import { BrowserPush } from '@lib/browserPush';
 import getCurrentSession from '@lib/getCurrentSession';
 import getPushNotificationData from '@lib/getPushNotificationData';
-import { useRouter } from 'next/router';
 import { isSupported, share } from 'shared-zustand';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { signOut } from 'src/store/persisted/useAuthStore';
 import { useNotificationStore } from 'src/store/persisted/useNotificationStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useUpdateEffect } from 'usehooks-ts';
 import { isAddress } from 'viem';
 import { useAccount, useDisconnect } from 'wagmi';
@@ -22,7 +22,7 @@ import { useAccount, useDisconnect } from 'wagmi';
 const LensSubscriptionsProvider: FC = () => {
   const { disconnect } = useDisconnect();
 
-  const router = useRouter();
+  const setCurrentProfile = useProfileStore((state) => state.setCurrentProfile);
 
   const setLatestNotificationId = useNotificationStore(
     (state) => state.setLatestNotificationId
@@ -90,9 +90,7 @@ const LensSubscriptionsProvider: FC = () => {
     if (!authorizationRecordRevoked) {
       signOut();
       disconnect?.();
-      setTimeout(() => {
-        router.push('/');
-      }, 200);
+      setCurrentProfile(null);
     }
   }, [authorizationRecordRevokedData]);
   // End: Authorization Record Revoked
