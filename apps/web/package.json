@@ -38,6 +38,7 @@
     "@tippyjs/react": "^4.2.6",
     "@wagmi/connectors": "^3.1.8",
     "axios": "^1.6.2",
+    "browser-image-compression": "^2.0.2",
     "dayjs": "^1.11.10",
     "dayjs-twitter": "^0.5.0",
     "dotenv": "^16.3.1",
