@@ -2,10 +2,8 @@ import type { FC } from 'react';
 
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
 import { PROFILE } from '@hey/data/tracking';
-import { useRevokeAuthenticationMutation } from '@hey/lens';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
-import getCurrentSession from '@lib/getCurrentSession';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
@@ -24,30 +22,20 @@ const Logout: FC<LogoutProps> = ({ className = '', onClick }) => {
   const [revoking, setRevoking] = useState(false);
 
   const { disconnect } = useDisconnect();
-  const { authorizationId } = getCurrentSession();
 
   const onError = (error: any) => {
     setRevoking(false);
     errorToast(error);
   };
 
-  const [revokeAuthentication] = useRevokeAuthenticationMutation({
-    onCompleted: () => {
+  const logout = async () => {
+    try {
+      setRevoking(true);
       Leafwatch.track(PROFILE.LOGOUT);
       resetPreferences();
       signOut();
       disconnect?.();
       location.reload();
-    },
-    onError
-  });
-
-  const logout = async () => {
-    try {
-      setRevoking(true);
-      return await revokeAuthentication({
-        variables: { request: { authorizationId } }
-      });
     } catch (error) {
       onError(error);
     } finally {
