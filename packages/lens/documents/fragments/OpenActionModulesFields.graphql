@@ -51,6 +51,16 @@ fragment OpenActionModulesFields on OpenActionModule {
   }
   ... on LegacyLimitedFeeCollectModuleSettings {
     type
+    contract {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+    }
+    collectLimit
+    followerOnly
+    recipient
+    referralFee
   }
   ... on LegacyLimitedTimedFeeCollectModuleSettings {
     type
