@@ -29,6 +29,8 @@ const getAllowanceModule = (
       return { field: 'openActionModule', name: 'Legacy Free collect' };
     case OpenActionModuleType.LegacyFeeCollectModule:
       return { field: 'openActionModule', name: 'Legacy Fee collect' };
+    case OpenActionModuleType.LegacyLimitedFeeCollectModule:
+      return { field: 'openActionModule', name: 'Legacy Limited Fee collect' };
 
     // Follow modules
     case FollowModuleType.FeeFollowModule:
