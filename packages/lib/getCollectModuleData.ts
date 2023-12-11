@@ -2,8 +2,10 @@ import type {
   LegacyFeeCollectModuleSettings,
   LegacyFreeCollectModuleSettings,
   LegacyLimitedFeeCollectModuleSettings,
+  LegacyLimitedTimedFeeCollectModuleSettings,
   LegacyMultirecipientFeeCollectModuleSettings,
   LegacySimpleCollectModuleSettings,
+  LegacyTimedFeeCollectModuleSettings,
   MultirecipientFeeCollectOpenActionSettings,
   RecipientDataOutput,
   SimpleCollectOpenActionSettings
@@ -14,8 +16,10 @@ const getCollectModuleData = (
     | LegacyFeeCollectModuleSettings
     | LegacyFreeCollectModuleSettings
     | LegacyLimitedFeeCollectModuleSettings
+    | LegacyLimitedTimedFeeCollectModuleSettings
     | LegacyMultirecipientFeeCollectModuleSettings
     | LegacySimpleCollectModuleSettings
+    | LegacyTimedFeeCollectModuleSettings
     | MultirecipientFeeCollectOpenActionSettings
     | SimpleCollectOpenActionSettings
 ): {
@@ -73,6 +77,27 @@ const getCollectModuleData = (
         assetAddress: collectModule.amount.asset.contract.address,
         assetDecimals: collectModule.amount.asset.decimals,
         collectLimit: parseInt(collectModule.collectLimit || '0'),
+        followerOnly: collectModule.followerOnly,
+        recipient: collectModule.recipient,
+        referralFee: collectModule.referralFee
+      };
+    case 'LegacyLimitedTimedFeeCollectModuleSettings':
+      return {
+        amount: parseFloat(collectModule.amount.value || '0'),
+        assetAddress: collectModule.amount.asset.contract.address,
+        assetDecimals: collectModule.amount.asset.decimals,
+        collectLimit: parseInt(collectModule.collectLimit || '0'),
+        endsAt: collectModule.endTimestamp,
+        followerOnly: collectModule.followerOnly,
+        recipient: collectModule.recipient,
+        referralFee: collectModule.referralFee
+      };
+    case 'LegacyTimedFeeCollectModuleSettings':
+      return {
+        amount: parseFloat(collectModule.amount.value || '0'),
+        assetAddress: collectModule.amount.asset.contract.address,
+        assetDecimals: collectModule.amount.asset.decimals,
+        endsAt: collectModule.endTimestamp,
         followerOnly: collectModule.followerOnly,
         recipient: collectModule.recipient,
         referralFee: collectModule.referralFee
