@@ -1,11 +1,14 @@
-import type { Maybe, OpenActionModule } from '@hey/lens';
+import {
+  type Maybe,
+  type OpenActionModule,
+  OpenActionModuleType
+} from '@hey/lens';
+
+import allowedOpenActionModules from './allowedOpenActionModules';
 
 const allowedTypes = [
-  'LegacySimpleCollectModule',
-  'LegacyMultirecipientFeeCollectModule',
-  'SimpleCollectOpenActionModule',
-  'MultirecipientFeeCollectOpenActionModule',
-  'UnknownOpenActionModule'
+  ...allowedOpenActionModules,
+  OpenActionModuleType.LegacyFreeCollectModule
 ];
 
 const isOpenActionAllowed = (

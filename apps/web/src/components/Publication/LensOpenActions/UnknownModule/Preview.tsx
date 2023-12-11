@@ -2,7 +2,6 @@ import type { OpenActionModule } from '@hey/lens';
 import type { FC } from 'react';
 
 import GetOpenActionModuleIcon from '@components/Shared/GetOpenActionModuleIcon';
-import getOpenActionModuleData from '@hey/lib/getOpenActionModuleData';
 import { Card } from '@hey/ui';
 
 interface UnknownModulePreviewProps {
@@ -22,9 +21,7 @@ const UnknownModulePreview: FC<UnknownModulePreviewProps> = ({ module }) => {
                 className="text-brand-500"
                 module={module}
               />
-              <b className="text-lg font-bold">
-                {getOpenActionModuleData(module)?.name}
-              </b>
+              <b className="text-lg font-bold">Unknown Module</b>
             </div>
           </div>
           <div className="ld-text-gray-500 text-sm">{contract}</div>
