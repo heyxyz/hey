@@ -59,13 +59,13 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
       if (!inView) {
         return;
       }
-      if (publications.length != displayedPublications.length) {
+      if (publications.length !== displayedPublications.length) {
         setDisplayedPublications(publications);
       }
     }
   });
 
-  if (publications.length == 0 && (algoLoading || loading)) {
+  if (publications.length === 0 && (algoLoading || loading)) {
     return <PublicationsShimmer />;
   }
 
@@ -78,7 +78,7 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
     );
   }
 
-  if (publications.length == 0 && (error || algoError)) {
+  if (publications.length === 0 && (error || algoError)) {
     return <ErrorMessage error={error} title="Failed to load for you" />;
   }
 

@@ -49,7 +49,7 @@ const generateIframe = (
       }
 
       return null;
-    case 'open.spotify.com':
+    case 'open.spotify.com': {
       const spotifySize = `style="max-width: 560px;" width="100%"`;
       if (spotifyTrackUrlRegex.test(url)) {
         const spotifyUrl = pickedUrl.replace('/track', '/embed/track');
@@ -62,6 +62,7 @@ const generateIframe = (
       }
 
       return null;
+    }
     case 'soundcloud.com':
       if (soundCloudRegex.test(url)) {
         return `<iframe src="${pickedUrl}" ${universalSize}></iframe>`;

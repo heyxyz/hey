@@ -1,8 +1,8 @@
+import type { MentionNotification as TMirrorNotification } from '@hey/lens';
 import type { FC } from 'react';
 
 import Markup from '@components/Shared/Markup';
 import { AtSymbolIcon } from '@heroicons/react/24/outline';
-import { MentionNotification } from '@hey/lens';
 import getPublicationData from '@hey/lib/getPublicationData';
 import Link from 'next/link';
 
@@ -10,7 +10,7 @@ import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
 
 interface MentionNotificationProps {
-  notification: MentionNotification;
+  notification: TMirrorNotification;
 }
 
 const MentionNotification: FC<MentionNotificationProps> = ({

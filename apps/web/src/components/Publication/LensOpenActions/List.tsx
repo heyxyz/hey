@@ -19,7 +19,7 @@ const List: FC<ListProps> = ({ publication }) => {
 
   return (
     <div className="gap-y-4 divide-y dark:divide-gray-700">
-      {openActions?.map((action, index) =>
+      {openActions?.map((action) =>
         allowedOpenActionModules.includes(action.type) ? (
           <CollectModule
             key={action.type}
@@ -27,7 +27,7 @@ const List: FC<ListProps> = ({ publication }) => {
             publication={publication}
           />
         ) : (
-          <div className="w-full p-5" key={index}>
+          <div className="w-full p-5" key={action.contract.address}>
             <UnknownModulePreview module={action} />
           </div>
         )

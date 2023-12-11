@@ -26,6 +26,7 @@ const ProfileMenu: FC<ProfileMenuProps> = ({ profile }) => {
           aria-label="More"
           className="rounded-full p-1.5 hover:bg-gray-300/20"
           onClick={stopEventPropagation}
+          type="button"
         >
           <EllipsisVerticalIcon className="ld-text-gray-500 h-5 w-5" />
         </button>

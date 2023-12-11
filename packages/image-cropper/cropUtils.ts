@@ -32,9 +32,7 @@ export const restrictPosition = (
 };
 
 export const getDistanceBetweenPoints = (pointA: Point, pointB: Point) => {
-  return Math.sqrt(
-    Math.pow(pointA.y - pointB.y, 2) + Math.pow(pointA.x - pointB.x, 2)
-  );
+  return Math.sqrt((pointA.y - pointB.y) ** 2 + (pointA.x - pointB.x) ** 2);
 };
 
 export const computeCroppedArea = (

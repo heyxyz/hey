@@ -31,7 +31,7 @@ import { $createMentionNode } from '../Nodes/MentionsNode';
 
 const PUNCTUATION =
   '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
-const NAME = '\\b[A-Z][^\\s' + PUNCTUATION + ']';
+const NAME = `\\b[A-Z][^\\s${PUNCTUATION}]`;
 
 const DocumentMentionsRegex = {
   NAME,
@@ -40,37 +40,18 @@ const DocumentMentionsRegex = {
 
 const PUNC = DocumentMentionsRegex.PUNCTUATION;
 const TRIGGERS = ['@'].join('');
-const VALID_CHARS = '[^' + TRIGGERS + PUNC + '\\s]';
-const VALID_JOINS = '(?:' + '\\.[ |$]|' + ' |' + '[' + PUNC + ']|' + ')';
+const VALID_CHARS = `[^${TRIGGERS}${PUNC}\\s]`;
+const VALID_JOINS = `(?:\\.[ |$]| |[${PUNC}]|)`;
 const LENGTH_LIMIT = 32;
 const ALIAS_LENGTH_LIMIT = 50;
 const SUGGESTION_LIST_LENGTH_LIMIT = 5;
 
 const AtSignMentionsRegex = new RegExp(
-  '(^|\\s|\\()(' +
-    '[' +
-    TRIGGERS +
-    ']' +
-    '((?:' +
-    VALID_CHARS +
-    VALID_JOINS +
-    '){0,' +
-    LENGTH_LIMIT +
-    '})' +
-    ')$'
+  `(^|\\s|\\()([${TRIGGERS}]((?:${VALID_CHARS}${VALID_JOINS}){0,${LENGTH_LIMIT}}))$`
 );
 
 const AtSignMentionsRegexAliasRegex = new RegExp(
-  '(^|\\s|\\()(' +
-    '[' +
-    TRIGGERS +
-    ']' +
-    '((?:' +
-    VALID_CHARS +
-    '){0,' +
-    ALIAS_LENGTH_LIMIT +
-    '})' +
-    ')$'
+  `(^|\\s|\\()([${TRIGGERS}]((?:${VALID_CHARS}){0,${ALIAS_LENGTH_LIMIT}}))$`
 );
 
 const checkForAtSignMentions = (
@@ -147,7 +128,6 @@ const MentionsTypeaheadMenuItem: FC<MentionsTypeaheadMenuItemProps> = ({
       onClick={onClick}
       onMouseEnter={onMouseEnter}
       ref={option.setRefElement}
-      role="option"
       tabIndex={-1}
     >
       <div
@@ -198,12 +178,10 @@ const MentionsPlugin: FC = () => {
       searchUsers({ variables: { request } }).then(({ data }) => {
         const search = data?.searchProfiles;
         const profileSearchResult = search;
-        const profiles = (
-          search && search.hasOwnProperty('items')
-            ? profileSearchResult?.items
-            : []
-        ) as Profile[];
-        const profilesResults = profiles.map(
+        const profiles = Object.prototype.hasOwnProperty.call(search, 'items')
+          ? (profileSearchResult?.items as Profile[])
+          : [];
+        const profilesResults = profiles?.map(
           (user) =>
             ({
               displayHandle: getProfile(user).slugWithPrefix,

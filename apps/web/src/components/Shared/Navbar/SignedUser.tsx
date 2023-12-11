@@ -54,6 +54,7 @@ const SignedUser: FC = () => {
       <button
         className="focus:outline-none md:hidden"
         onClick={() => openMobileMenuDrawer()}
+        type="button"
       >
         <Avatar />
       </button>
