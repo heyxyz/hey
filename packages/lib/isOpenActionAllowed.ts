@@ -8,7 +8,7 @@ import allowedOpenActionModules from './allowedOpenActionModules';
 
 const allowedTypes = [
   ...allowedOpenActionModules,
-  OpenActionModuleType.LegacyFreeCollectModule
+  OpenActionModuleType.UnknownOpenActionModule
 ];
 
 const isOpenActionAllowed = (
