@@ -48,12 +48,15 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   const { id: sessionProfileId } = getCurrentSession();
 
-  const logout = () => {
+  const logout = (reload = false) => {
     resetPreferences();
     resetFeatureFlags();
     resetPro();
     signOut();
     disconnect?.();
+    if (reload) {
+      location.reload();
+    }
   };
 
   const { loading } = useCurrentProfileQuery({
@@ -61,6 +64,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       setCurrentProfile(profile as Profile);
       setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce);
     },
+    onError: () => logout(true),
     skip: !sessionProfileId || isAddress(sessionProfileId),
     variables: { request: { forProfileId: sessionProfileId } }
   });
