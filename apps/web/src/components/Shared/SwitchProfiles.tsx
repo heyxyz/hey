@@ -22,6 +22,7 @@ import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
@@ -45,6 +46,8 @@ const SwitchProfiles: FC = () => {
     setIsLoading(false);
     errorToast(error);
   };
+
+  const router = useRouter();
 
   const { address } = useAccount();
   const { signMessageAsync } = useSignMessage({ onError });
@@ -96,7 +99,7 @@ const SwitchProfiles: FC = () => {
       signOut();
       signIn({ accessToken, refreshToken });
       Leafwatch.track(PROFILE.SWITCH_PROFILE, { switch_profile_to: id });
-      location.reload();
+      router.push('/');
     } catch (error) {
       onError(error);
     }

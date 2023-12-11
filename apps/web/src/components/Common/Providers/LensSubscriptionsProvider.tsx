@@ -10,15 +10,20 @@ import {
 import { BrowserPush } from '@lib/browserPush';
 import getCurrentSession from '@lib/getCurrentSession';
 import getPushNotificationData from '@lib/getPushNotificationData';
+import { useRouter } from 'next/router';
 import { isSupported, share } from 'shared-zustand';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { signOut } from 'src/store/persisted/useAuthStore';
 import { useNotificationStore } from 'src/store/persisted/useNotificationStore';
 import { useUpdateEffect } from 'usehooks-ts';
 import { isAddress } from 'viem';
-import { useAccount } from 'wagmi';
+import { useAccount, useDisconnect } from 'wagmi';
 
 const LensSubscriptionsProvider: FC = () => {
+  const { disconnect } = useDisconnect();
+
+  const router = useRouter();
+
   const setLatestNotificationId = useNotificationStore(
     (state) => state.setLatestNotificationId
   );
@@ -84,7 +89,10 @@ const LensSubscriptionsProvider: FC = () => {
     // Using not null assertion because api returns null if revoked
     if (!authorizationRecordRevoked) {
       signOut();
-      location.reload();
+      disconnect?.();
+      setTimeout(() => {
+        router.push('/');
+      }, 200);
     }
   }, [authorizationRecordRevokedData]);
   // End: Authorization Record Revoked

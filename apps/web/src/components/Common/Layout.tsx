@@ -9,6 +9,7 @@ import getCurrentSession from '@lib/getCurrentSession';
 import getToastOptions from '@lib/getToastOptions';
 import { useTheme } from 'next-themes';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { Toaster } from 'react-hot-toast';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
@@ -29,6 +30,7 @@ interface LayoutProps {
 }
 
 const Layout: FC<LayoutProps> = ({ children }) => {
+  const router = useRouter();
   const { resolvedTheme } = useTheme();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const setCurrentProfile = useProfileStore((state) => state.setCurrentProfile);
@@ -55,7 +57,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     signOut();
     disconnect?.();
     if (reload) {
-      location.reload();
+      router.push('/');
     }
   };
 

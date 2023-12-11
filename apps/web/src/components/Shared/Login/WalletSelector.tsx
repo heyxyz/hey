@@ -26,6 +26,7 @@ import { Button, Card, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
@@ -42,11 +43,13 @@ import {
 import UserProfile from '../UserProfile';
 
 interface WalletSelectorProps {
+  onClose?: (value: boolean) => void;
   setHasConnected?: Dispatch<SetStateAction<boolean>>;
   setShowSignup?: Dispatch<SetStateAction<boolean>>;
 }
 
 const WalletSelector: FC<WalletSelectorProps> = ({
+  onClose,
   setHasConnected,
   setShowSignup
 }) => {
@@ -69,6 +72,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     isLoading: isConnectLoading,
     pendingConnector
   } = useConnect({ chainId: CHAIN_ID });
+  const router = useRouter();
 
   const { disconnect } = useDisconnect();
   const { address, connector: activeConnector } = useAccount();
@@ -130,7 +134,8 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       const refreshToken = auth.data?.authenticate.refreshToken;
       signIn({ accessToken, refreshToken });
       Leafwatch.track(AUTH.SIWL);
-      location.reload();
+      onClose?.(false);
+      router.push('/');
     } catch {}
   };
 

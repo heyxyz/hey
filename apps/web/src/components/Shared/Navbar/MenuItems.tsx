@@ -19,12 +19,12 @@ const MenuItems: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const { id: sessionProfileId } = getCurrentSession();
 
-  if (Boolean(currentProfile)) {
+  if (currentProfile !== null) {
     return <SignedUser />;
   }
 
   // If the currentSessionProfileId is a valid eth address, we can assume that address don't have a profile yet
-  if (isAddress(sessionProfileId)) {
+  if (sessionProfileId !== null && isAddress(sessionProfileId)) {
     return <WalletUser />;
   }
 

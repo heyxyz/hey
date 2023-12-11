@@ -5,7 +5,11 @@ import WalletSelector from '@components/Shared/Login/WalletSelector';
 import { APP_NAME } from '@hey/data/constants';
 import { useState } from 'react';
 
-const Login: FC = () => {
+interface LoginProps {
+  onClose: (value: boolean) => void;
+}
+
+const Login: FC<LoginProps> = ({ onClose }) => {
   const [hasConnected, setHasConnected] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
 
@@ -41,6 +45,7 @@ const Login: FC = () => {
             </div>
           )}
           <WalletSelector
+            onClose={onClose}
             setHasConnected={setHasConnected}
             setShowSignup={setShowSignup}
           />

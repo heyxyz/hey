@@ -141,7 +141,7 @@ const GlobalModals: FC = () => {
         show={showAuthModal}
         title="Login"
       >
-        <Login />
+        <Login onClose={setShowAuthModal} />
       </Modal>
       <Modal
         onClose={() => setShowWrongNetworkModal(false)}

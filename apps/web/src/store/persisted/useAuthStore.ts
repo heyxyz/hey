@@ -30,6 +30,7 @@ export const useAuthStore = create(
       signIn: ({ accessToken, refreshToken }) =>
         set({ accessToken, refreshToken }),
       signOut: async () => {
+        set({ accessToken: null, refreshToken: null });
         // Clear Localstorage
         const allLocalstorageStores = Object.values(Localstorage).filter(
           (value) => value !== Localstorage.LeafwatchStore
