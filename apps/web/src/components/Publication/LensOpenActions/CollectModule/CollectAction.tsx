@@ -3,11 +3,7 @@ import type {
   AnyPublication,
   ApprovedAllowanceAmountResult,
   LegacyCollectRequest,
-  LegacyMultirecipientFeeCollectModuleSettings,
-  LegacySimpleCollectModuleSettings,
-  MultirecipientFeeCollectOpenActionSettings,
-  OpenActionModule,
-  SimpleCollectOpenActionSettings
+  OpenActionModule
 } from '@hey/lens';
 import type { FC } from 'react';
 
@@ -28,6 +24,7 @@ import {
   useLegacyCollectMutation
 } from '@hey/lens';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
+import getCollectModuleData from '@hey/lib/getCollectModuleData';
 import getOpenActionActOnKey from '@hey/lib/getOpenActionActOnKey';
 import getSignature from '@hey/lib/getSignature';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
@@ -89,17 +86,13 @@ const CollectAction: FC<CollectActionProps> = ({
   const { canBroadcast, canUseLensManager } =
     checkDispatcherPermissions(currentProfile);
 
-  const collectModule = openAction as
-    | LegacyMultirecipientFeeCollectModuleSettings
-    | LegacySimpleCollectModuleSettings
-    | MultirecipientFeeCollectOpenActionSettings
-    | SimpleCollectOpenActionSettings;
+  const collectModule = getCollectModuleData(openAction as any);
 
   const endTimestamp = collectModule?.endsAt;
-  const collectLimit = parseInt(collectModule?.collectLimit || '0');
-  const amount = parseFloat(collectModule?.amount?.value || '0');
-  const assetAddress = collectModule?.amount?.asset?.contract.address;
-  const assetDecimals = collectModule?.amount?.asset?.decimals;
+  const collectLimit = collectModule?.collectLimit;
+  const amount = collectModule?.amount as number;
+  const assetAddress = collectModule?.assetAddress as any;
+  const assetDecimals = collectModule?.assetDecimals;
   const isAllCollected = collectLimit
     ? countOpenActions >= collectLimit
     : false;
@@ -107,11 +100,12 @@ const CollectAction: FC<CollectActionProps> = ({
     ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
     : false;
   const isLegacyCollectModule =
-    collectModule.__typename === 'LegacySimpleCollectModuleSettings' ||
-    collectModule.__typename === 'LegacyMultirecipientFeeCollectModuleSettings';
+    openAction.__typename === 'LegacySimpleCollectModuleSettings' ||
+    openAction.__typename === 'LegacyMultirecipientFeeCollectModuleSettings' ||
+    openAction.__typename === 'LegacyFreeCollectModuleSettings';
   const isFreeCollectModule = !amount;
   const isSimpleFreeCollectModule =
-    collectModule.__typename === 'SimpleCollectOpenActionSettings';
+    openAction.__typename === 'SimpleCollectOpenActionSettings';
   const isFollowersOnly = collectModule?.followerOnly;
   const canUseManager =
     canUseLensManager && !collectModule?.followerOnly && isFreeCollectModule;
@@ -157,7 +151,7 @@ const CollectAction: FC<CollectActionProps> = ({
     updateCache();
     toast.success('Collected successfully!');
     Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
-      collect_module: collectModule?.type,
+      collect_module: openAction?.type,
       publication_id: targetPublication?.id
     });
   };
@@ -202,7 +196,7 @@ const CollectAction: FC<CollectActionProps> = ({
         request: {
           currencies: assetAddress,
           followModules: [],
-          openActionModules: [collectModule?.type],
+          openActionModules: [openAction.type],
           referenceModules: []
         }
       }
@@ -334,7 +328,7 @@ const CollectAction: FC<CollectActionProps> = ({
       }
 
       const actOnRequest: ActOnOpenActionLensManagerRequest = {
-        actOn: { [getOpenActionActOnKey(collectModule?.type)]: true },
+        actOn: { [getOpenActionActOnKey(openAction.type)]: true },
         for: targetPublication?.id
       };
 
@@ -393,11 +387,17 @@ const CollectAction: FC<CollectActionProps> = ({
     );
   }
 
-  if (!hasAmount) {
+  if (
+    !hasAmount &&
+    (openAction.__typename === 'SimpleCollectOpenActionSettings' ||
+      openAction.__typename === 'LegacySimpleCollectModuleSettings' ||
+      openAction.__typename === 'MultirecipientFeeCollectOpenActionSettings' ||
+      openAction.__typename === 'LegacyMultirecipientFeeCollectModuleSettings')
+  ) {
     return (
       <WarningMessage
         className="mt-5 w-full"
-        message={<NoBalanceError moduleAmount={collectModule.amount} />}
+        message={<NoBalanceError moduleAmount={openAction.amount} />}
       />
     );
   }

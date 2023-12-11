@@ -32,6 +32,10 @@ fragment OpenActionModulesFields on OpenActionModule {
   }
   ... on LegacyFreeCollectModuleSettings {
     type
+    followerOnly
+    contract {
+      ...NetworkAddressFields
+    }
   }
   ... on LegacyFeeCollectModuleSettings {
     type
