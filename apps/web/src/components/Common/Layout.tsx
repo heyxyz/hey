@@ -4,7 +4,7 @@ import type { FC, ReactNode } from 'react';
 import GlobalAlerts from '@components/Shared/GlobalAlerts';
 import GlobalBanners from '@components/Shared/GlobalBanners';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
-import { useCurrentProfileQuery } from '@hey/lens';
+import { useCurrentProfileQuery, useVerifyLazyQuery } from '@hey/lens';
 import getCurrentSession from '@lib/getCurrentSession';
 import getToastOptions from '@lib/getToastOptions';
 import { useTheme } from 'next-themes';
@@ -65,10 +65,23 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     variables: { request: { forProfileId: sessionProfileId } }
   });
 
-  const validateAuthentication = () => {
+  const [verify] = useVerifyLazyQuery();
+
+  const validateAuthentication = async () => {
     const { accessToken } = hydrateAuthTokens();
+
     if (!accessToken) {
       logout();
+    } else {
+      // If accessToken is invalid, logout and reload the page
+      const verified = await verify({
+        variables: { request: { accessToken } }
+      });
+
+      if (!verified.data?.verify) {
+        logout();
+        location.reload();
+      }
     }
   };
 
