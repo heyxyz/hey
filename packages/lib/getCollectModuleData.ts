@@ -1,4 +1,6 @@
 import type {
+  LegacyFeeCollectModuleSettings,
+  LegacyFreeCollectModuleSettings,
   LegacyMultirecipientFeeCollectModuleSettings,
   LegacySimpleCollectModuleSettings,
   MultirecipientFeeCollectOpenActionSettings,
@@ -8,14 +10,16 @@ import type {
 
 const getCollectModuleData = (
   collectModule:
+    | LegacyFeeCollectModuleSettings
+    | LegacyFreeCollectModuleSettings
     | LegacyMultirecipientFeeCollectModuleSettings
     | LegacySimpleCollectModuleSettings
     | MultirecipientFeeCollectOpenActionSettings
     | SimpleCollectOpenActionSettings
 ): {
-  amount: number;
-  assetAddress: string;
-  assetDecimals: number;
+  amount?: number;
+  assetAddress?: string;
+  assetDecimals?: number;
   collectLimit?: number;
   endsAt?: string;
   followerOnly?: boolean;
@@ -48,7 +52,19 @@ const getCollectModuleData = (
         recipients: collectModule.recipients,
         referralFee: collectModule.referralFee
       };
-
+    case 'LegacyFreeCollectModuleSettings':
+      return {
+        followerOnly: collectModule.followerOnly
+      };
+    case 'LegacyFeeCollectModuleSettings':
+      return {
+        amount: parseFloat(collectModule.amount.value || '0'),
+        assetAddress: collectModule.amount.asset.contract.address,
+        assetDecimals: collectModule.amount.asset.decimals,
+        followerOnly: collectModule.followerOnly,
+        recipient: collectModule.recipient,
+        referralFee: collectModule.referralFee
+      };
     default:
       return null;
   }
