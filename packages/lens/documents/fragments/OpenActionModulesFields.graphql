@@ -64,12 +64,33 @@ fragment OpenActionModulesFields on OpenActionModule {
   }
   ... on LegacyLimitedTimedFeeCollectModuleSettings {
     type
+    contract {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+    }
+    collectLimit
+    followerOnly
+    recipient
+    referralFee
+    endTimestamp
   }
   ... on LegacyRevertCollectModuleSettings {
     type
   }
   ... on LegacyTimedFeeCollectModuleSettings {
     type
+    contract {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+    }
+    followerOnly
+    recipient
+    referralFee
+    endTimestamp
   }
   ... on LegacyMultirecipientFeeCollectModuleSettings {
     type
