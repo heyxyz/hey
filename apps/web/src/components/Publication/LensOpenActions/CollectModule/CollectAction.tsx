@@ -102,7 +102,8 @@ const CollectAction: FC<CollectActionProps> = ({
   const isLegacyCollectModule =
     openAction.__typename === 'LegacySimpleCollectModuleSettings' ||
     openAction.__typename === 'LegacyMultirecipientFeeCollectModuleSettings' ||
-    openAction.__typename === 'LegacyFreeCollectModuleSettings';
+    openAction.__typename === 'LegacyFreeCollectModuleSettings' ||
+    openAction.__typename === 'LegacyFeeCollectModuleSettings';
   const isFreeCollectModule = !amount;
   const isSimpleFreeCollectModule =
     openAction.__typename === 'SimpleCollectOpenActionSettings';
