@@ -23,5 +23,5 @@ export const CACHE_AGE_INDEFINITE = 'public, max-age=31536000, immutable';
 
 // RPC
 export const RPC_URL = IS_MAINNET
-  ? 'https://polygon-rpc.com'
-  : 'rpc.ankr.com/polygon_mumbai';
+  ? 'https://polygon.llamarpc.com'
+  : 'https://rpc.ankr.com/polygon_mumbai';
