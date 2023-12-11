@@ -7,9 +7,9 @@ import { APP_NAME, DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import {
   FollowModuleType,
-  OpenActionModuleType,
   useApprovedModuleAllowanceAmountQuery
 } from '@hey/lens';
+import allowedOpenActionModules from '@hey/lib/allowedOpenActionModules';
 import getAllTokens from '@hey/lib/api/getAllTokens';
 import { Card, GridItemEight, GridItemFour, GridLayout, Select } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -26,12 +26,7 @@ const getAllowancePayload = (currency: string) => {
   return {
     currencies: [currency],
     followModules: [FollowModuleType.FeeFollowModule],
-    openActionModules: [
-      OpenActionModuleType.SimpleCollectOpenActionModule,
-      OpenActionModuleType.MultirecipientFeeCollectOpenActionModule,
-      OpenActionModuleType.LegacySimpleCollectModule,
-      OpenActionModuleType.LegacyMultirecipientFeeCollectModule
-    ]
+    openActionModules: allowedOpenActionModules
   };
 };
 
