@@ -10,7 +10,8 @@ import { useRef } from 'react';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 import { useUpdateEffect } from 'usehooks-ts';
 
-import Audio from './Audio';
+import Audio from '../Shared/Audio';
+import LicensePicker from './LicensePicker';
 
 const getClass = (attachments: number) => {
   if (attachments === 1) {
@@ -136,6 +137,7 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
                 width={1000}
               />
             ) : null}
+            {isVideo || isAudio ? <LicensePicker /> : null}
             {!hideDelete &&
               (isVideo ? (
                 <Button
