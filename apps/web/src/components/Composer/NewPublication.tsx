@@ -12,11 +12,11 @@ import type { IGif } from '@hey/types/giphy';
 import type { NewAttachment } from '@hey/types/misc';
 import type { FC } from 'react';
 
+import NewAttachments from '@components/Composer/NewAttachments';
 import QuotedPublication from '@components/Publication/QuotedPublication';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
-import NewAttachments from '@components/Shared/NewAttachments';
 import {
   ChatBubbleLeftRightIcon,
   PencilSquareIcon
@@ -251,8 +251,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         ReferenceModuleType.DegreesOfSeparationReferenceModule
           ? degreesOfSeparation
           : null,
-      // TODO: add encrypted type in future
-      publication_type: 'public',
       quote_on: isQuote ? quotedPublication?.id : null
     };
     Leafwatch.track(

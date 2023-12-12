@@ -19,18 +19,23 @@ interface UsePublicationMetadataProps {
 }
 
 const usePublicationMetadata = () => {
-  const attachments = usePublicationStore((state) => state.attachments);
-  const audioPublication = usePublicationStore(
-    (state) => state.audioPublication
-  );
-  const videoThumbnail = usePublicationStore((state) => state.videoThumbnail);
-  const videoDurationInSeconds = usePublicationStore(
-    (state) => state.videoDurationInSeconds
-  );
-  const showLiveVideoEditor = usePublicationStore(
-    (state) => state.showLiveVideoEditor
-  );
-  const liveVideoConfig = usePublicationStore((state) => state.liveVideoConfig);
+  const {
+    attachments,
+    audioPublication,
+    license,
+    liveVideoConfig,
+    showLiveVideoEditor,
+    videoDurationInSeconds,
+    videoThumbnail
+  } = usePublicationStore((state) => ({
+    attachments: state.attachments,
+    audioPublication: state.audioPublication,
+    license: state.license,
+    liveVideoConfig: state.liveVideoConfig,
+    showLiveVideoEditor: state.showLiveVideoEditor,
+    videoDurationInSeconds: state.videoDurationInSeconds,
+    videoThumbnail: state.videoThumbnail
+  }));
 
   const attachmentsHasAudio = attachments[0]?.type === 'Audio';
   const attachmentsHasVideo = attachments[0]?.type === 'Video';
@@ -104,7 +109,8 @@ const usePublicationMetadata = () => {
               artist: audioPublication.artist,
               cover: audioPublication.cover,
               item: attachments[0]?.uri,
-              type: attachments[0]?.mimeType
+              type: attachments[0]?.mimeType,
+              ...(license && { license })
             }
           });
         case isVideo:
@@ -115,7 +121,8 @@ const usePublicationMetadata = () => {
             video: {
               duration: parseInt(videoDurationInSeconds),
               item: attachments[0]?.uri,
-              type: attachments[0]?.mimeType
+              type: attachments[0]?.mimeType,
+              ...(license && { license })
             }
           });
         default:
@@ -128,7 +135,8 @@ const usePublicationMetadata = () => {
       audioPublication,
       cover,
       showLiveVideoEditor,
-      liveVideoConfig
+      liveVideoConfig,
+      license
     ]
   );
 
