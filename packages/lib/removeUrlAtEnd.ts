@@ -6,16 +6,16 @@
  */
 const removeUrlAtEnd = (urls: string[], content: string): string => {
   if (urls && urls.length === 1) {
-    content = content.trimEnd();
-    let indexOfUrl = content.indexOf(urls[0]);
-    if (indexOfUrl === content.length - urls[0].length) {
-      return content?.replace(urls[0], '');
-    } else {
-      return content;
+    const trimmedContent = content.trimEnd();
+    const indexOfUrl = trimmedContent.indexOf(urls[0]);
+    if (indexOfUrl === trimmedContent.length - urls[0].length) {
+      return trimmedContent?.replace(urls[0], '');
     }
-  } else {
-    return content;
+
+    return trimmedContent;
   }
+
+  return content;
 };
 
 export default removeUrlAtEnd;

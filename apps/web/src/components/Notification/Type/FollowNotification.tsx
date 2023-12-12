@@ -1,7 +1,7 @@
+import type { FollowNotification as TFollowNotification } from '@hey/lens';
 import type { FC } from 'react';
 
 import { UserPlusIcon } from '@heroicons/react/24/outline';
-import { FollowNotification } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import plur from 'plur';
 import useProfileStore from 'src/store/persisted/useProfileStore';
@@ -10,7 +10,7 @@ import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
 
 interface FollowNotificationProps {
-  notification: FollowNotification;
+  notification: TFollowNotification;
 }
 
 const FollowNotification: FC<FollowNotificationProps> = ({ notification }) => {

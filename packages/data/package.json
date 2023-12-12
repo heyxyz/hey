@@ -8,8 +8,8 @@
   "scripts": {
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
-    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
-    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "biome": "biome check *",
+    "biome:fix": "biome check * --apply",
     "test:dev": "vitest run",
     "typecheck": "tsc --pretty"
   },

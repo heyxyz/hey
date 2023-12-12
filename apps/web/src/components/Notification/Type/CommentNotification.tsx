@@ -1,8 +1,8 @@
+import type { CommentNotification as TCommentNotification } from '@hey/lens';
 import type { FC } from 'react';
 
 import Markup from '@components/Shared/Markup';
 import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
-import { CommentNotification } from '@hey/lens';
 import getPublicationData from '@hey/lib/getPublicationData';
 import Link from 'next/link';
 
@@ -10,7 +10,7 @@ import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
 
 interface CommentNotificationProps {
-  notification: CommentNotification;
+  notification: TCommentNotification;
 }
 
 const CommentNotification: FC<CommentNotificationProps> = ({

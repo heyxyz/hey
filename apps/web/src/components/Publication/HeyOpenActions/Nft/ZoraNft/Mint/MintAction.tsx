@@ -122,8 +122,8 @@ const MintAction: FC<MintActionProps> = ({
     setCanMintOnHey(
       !isPrepareError ||
         (isPrepareError &&
-          ALLOWED_ERRORS_FOR_MINTING.some(
-            (error) => prepareError?.message.includes(error)
+          ALLOWED_ERRORS_FOR_MINTING.some((error) =>
+            prepareError?.message.includes(error)
           ))
     );
   }, [isPrepareFetching]);

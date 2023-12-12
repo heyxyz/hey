@@ -61,6 +61,7 @@ const UnlonelyNfc: FC<UnlonelyNfcProps> = ({ nftMetadata, publication }) => {
         <div className="mr-5 flex flex-wrap items-center gap-2">
           <Tooltip content="Unlonely Nfc" placement="right">
             <img
+              alt="Unlonely"
               className="h-5 w-5 rounded-full"
               src={`${STATIC_IMAGES_URL}/brands/unlonely.png`}
             />

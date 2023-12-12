@@ -62,7 +62,6 @@ const EmojiMenuItem: FC<EmojiMenuItemProps> = ({
       onClick={onClick}
       onMouseEnter={onMouseEnter}
       ref={setRefElement}
-      role="option"
       tabIndex={-1}
     >
       <div className="flex items-center space-x-2">

@@ -25,7 +25,7 @@ const params = {
   }`
 };
 
-export const get: Handler = async (req, res) => {
+export const get: Handler = async (_, res) => {
   try {
     const accessKeyId = process.env.EVER_ACCESS_KEY as string;
     const secretAccessKey = process.env.EVER_ACCESS_SECRET as string;

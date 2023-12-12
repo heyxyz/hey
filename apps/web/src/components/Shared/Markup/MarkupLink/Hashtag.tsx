@@ -16,7 +16,7 @@ const Hashtag: FC<MarkupLinkProps> = ({ title }) => {
   }
 
   const tag = title.slice(1).toLowerCase();
-  const hasHashflag = hashflags.hasOwnProperty(tag);
+  const hasHashflag = Object.prototype.hasOwnProperty.call(hashflags, tag);
   const isPrideHashtag = isPrideMonth() ? prideHashtags.includes(tag) : false;
 
   return (

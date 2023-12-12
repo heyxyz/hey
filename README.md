@@ -11,9 +11,6 @@
     <a href="https://vercel.com/heyxyz?utm_source=Hey&utm_campaign=oss">
         <img src="https://therealsujitk-vercel-badge.vercel.app/?app=heyxyz" alt="Vercel">
     </a>
-    <a href="https://deepsource.io/gh/heyxyz/hey">
-        <img src="https://deepsource.io/gh/heyxyz/hey.svg/?label=active+issues&show_trend=true" alt="GitHub actions">
-    </a>
     <a href="https://www.gitpoap.io/gh/lensterxyz">
         <img src="https://public-api.gitpoap.io/v1/repo/lensterxyz/hey/badge" alt="Gitpoap">
     </a>

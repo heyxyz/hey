@@ -48,9 +48,9 @@ const Combined: FC<CombinedProps> = ({ feedItem }) => {
       <div className="flex items-center space-x-1">
         {actionArray.map((action, index) => (
           <>
-            <span key={index}>{action}</span>
+            <span key={action}>{action}</span>
             {index < actionArray.length - 2 && <span>, </span>}
-            {index == actionArray.length - 2 && <span>and</span>}
+            {index === actionArray.length - 2 && <span>and</span>}
           </>
         ))}
       </div>

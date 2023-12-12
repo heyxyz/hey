@@ -28,7 +28,7 @@ const DismissRecommendedProfile: FC<DismissRecommendedProfileProps> = ({
   };
 
   return (
-    <button onClick={handleDismiss}>
+    <button onClick={handleDismiss} type="reset">
       <XMarkIcon className="h-4 w-4 text-gray-500" />
     </button>
   );

@@ -283,7 +283,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     commentOn: targetPublication,
     onCompleted,
     onError,
-    quoteOn: quotedPublication!
+    quoteOn: quotedPublication as Quote
   });
 
   useUpdateEffect(() => {
@@ -396,7 +396,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       const arweaveId = await uploadToArweave(metadata);
 
       // Payload for the open action module
-      let openActionModules = [];
+      const openActionModules = [];
       if (collectModule.type) {
         openActionModules.push({
           collectOpenAction: collectModuleParams(collectModule, currentProfile)

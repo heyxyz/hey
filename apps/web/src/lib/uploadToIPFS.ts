@@ -27,7 +27,7 @@ const getS3Client = async (): Promise<S3> => {
   });
 
   client.middlewareStack.addRelativeTo(
-    (next: Function) => async (args: any) => {
+    (next: (args: any) => Promise<any>) => async (args: any) => {
       const { response } = await next(args);
       if (response.body == null) {
         response.body = new Uint8Array();
