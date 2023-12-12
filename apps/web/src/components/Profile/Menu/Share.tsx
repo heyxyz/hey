@@ -21,7 +21,7 @@ const Share: FC<ShareProps> = ({ profile }) => {
       className={({ active }) =>
         cn(
           { 'dropdown-active': active },
-          'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
+          'm-2 flex cursor-pointer items-center space-x-2 rounded-lg px-2 py-1.5 text-sm'
         )
       }
       onClick={async (event) => {
@@ -35,10 +35,8 @@ const Share: FC<ShareProps> = ({ profile }) => {
         });
       }}
     >
-      <div className="flex items-center space-x-2">
-        <ClipboardDocumentIcon className="h-4 w-4" />
-        <div>Copy link</div>
-      </div>
+      <ClipboardDocumentIcon className="h-4 w-4" />
+      <div>Copy link</div>
     </Menu.Item>
   );
 };

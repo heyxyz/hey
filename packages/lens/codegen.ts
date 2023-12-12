@@ -1,5 +1,7 @@
 import type { CodegenConfig } from '@graphql-codegen/cli';
 
+import LensEndpoint from '@hey/data/lens-endpoints';
+
 const config: CodegenConfig = {
   customFetch: 'node-fetch',
   documents: './documents/**/*.graphql',
@@ -13,8 +15,11 @@ const config: CodegenConfig = {
       ]
     }
   },
+  hooks: {
+    afterAllFileWrite: ['eslint --fix', 'prettier --write']
+  },
   overwrite: true,
-  schema: 'https://api-v2-mumbai-live.lens.dev'
+  schema: LensEndpoint.Staging
 };
 
 export default config;

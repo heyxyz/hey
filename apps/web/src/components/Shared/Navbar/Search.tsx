@@ -52,7 +52,6 @@ const Search: FC<SearchProps> = ({
     setSearchText('');
   };
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (pathname !== '/search' && !hideDropdown && debouncedSearchText) {
       // Variables
@@ -67,7 +66,7 @@ const Search: FC<SearchProps> = ({
   }, [debouncedSearchText]);
 
   const searchResult = searchUsersData?.searchProfiles;
-  const profiles = searchResult?.items as Profile[];
+  const profiles = (searchResult?.items as Profile[]) || [];
 
   return (
     <div className="w-full">

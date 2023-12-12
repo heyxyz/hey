@@ -73,8 +73,8 @@ const uploadToIPFS = async (
           params
         });
         task.on('httpUploadProgress', (e) => {
-          const loaded = e.loaded ?? 0;
-          const total = e.total ?? 0;
+          const loaded = e.loaded || 0;
+          const total = e.total || 0;
           const progress = (loaded / total) * 100;
           onProgress?.(Math.round(progress));
         });
