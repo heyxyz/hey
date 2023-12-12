@@ -1,45 +1,45 @@
-import type { Profile, ProfileSearchRequest } from '@hey/lens';
-import type { MenuTextMatch } from '@lexical/react/LexicalTypeaheadMenuPlugin';
-import type { TextNode } from 'lexical';
-import type { FC } from 'react';
+import type { Profile, ProfileSearchRequest } from "@hey/lens";
+import type { MenuTextMatch } from "@lexical/react/LexicalTypeaheadMenuPlugin";
+import type { TextNode } from "lexical";
+import type { FC } from "react";
 
 import {
   CheckBadgeIcon,
-  ExclamationCircleIcon
-} from '@heroicons/react/24/solid';
+  ExclamationCircleIcon,
+} from "@heroicons/react/24/solid";
 import {
   CustomFiltersType,
   LimitType,
-  useSearchProfilesLazyQuery
-} from '@hey/lens';
-import getAvatar from '@hey/lib/getAvatar';
-import getProfile from '@hey/lib/getProfile';
-import hasMisused from '@hey/lib/hasMisused';
-import cn from '@hey/ui/cn';
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+  useSearchProfilesLazyQuery,
+} from "@hey/lens";
+import getAvatar from "@hey/lib/getAvatar";
+import getProfile from "@hey/lib/getProfile";
+import hasMisused from "@hey/lib/hasMisused";
+import cn from "@hey/ui/cn";
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import {
   LexicalTypeaheadMenuPlugin,
   MenuOption,
-  useBasicTypeaheadTriggerMatch
-} from '@lexical/react/LexicalTypeaheadMenuPlugin';
-import isVerified from '@lib/isVerified';
-import { useCallback, useMemo, useState } from 'react';
-import * as ReactDOM from 'react-dom';
-import { useUpdateEffect } from 'usehooks-ts';
+  useBasicTypeaheadTriggerMatch,
+} from "@lexical/react/LexicalTypeaheadMenuPlugin";
+import isVerified from "@lib/isVerified";
+import { useCallback, useMemo, useState } from "react";
+import * as ReactDOM from "react-dom";
+import { useUpdateEffect } from "usehooks-ts";
 
-import { $createMentionNode } from '../Nodes/MentionsNode';
+import { $createMentionNode } from "../Nodes/MentionsNode";
 
 const PUNCTUATION =
-  '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
+  "\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%'\"~=<>_:;";
 const NAME = `\\b[A-Z][^\\s${PUNCTUATION}]`;
 
 const DocumentMentionsRegex = {
   NAME,
-  PUNCTUATION
+  PUNCTUATION,
 };
 
 const PUNC = DocumentMentionsRegex.PUNCTUATION;
-const TRIGGERS = ['@'].join('');
+const TRIGGERS = ["@"].join("");
 const VALID_CHARS = `[^${TRIGGERS}${PUNC}\\s]`;
 const VALID_JOINS = `(?:\\.[ |$]| |[${PUNC}]|)`;
 const LENGTH_LIMIT = 32;
@@ -47,16 +47,16 @@ const ALIAS_LENGTH_LIMIT = 50;
 const SUGGESTION_LIST_LENGTH_LIMIT = 5;
 
 const AtSignMentionsRegex = new RegExp(
-  `(^|\\s|\\()([${TRIGGERS}]((?:${VALID_CHARS}${VALID_JOINS}){0,${LENGTH_LIMIT}}))$`
+  `(^|\\s|\\()([${TRIGGERS}]((?:${VALID_CHARS}${VALID_JOINS}){0,${LENGTH_LIMIT}}))$`,
 );
 
 const AtSignMentionsRegexAliasRegex = new RegExp(
-  `(^|\\s|\\()([${TRIGGERS}]((?:${VALID_CHARS}){0,${ALIAS_LENGTH_LIMIT}}))$`
+  `(^|\\s|\\()([${TRIGGERS}]((?:${VALID_CHARS}){0,${ALIAS_LENGTH_LIMIT}}))$`,
 );
 
 const checkForAtSignMentions = (
   text: string,
-  minMatchLength: number
+  minMatchLength: number,
 ): MenuTextMatch | null => {
   let match = AtSignMentionsRegex.exec(text);
 
@@ -71,7 +71,7 @@ const checkForAtSignMentions = (
       return {
         leadOffset: match.index + maybeLeadingWhitespace.length,
         matchingString,
-        replaceableString: match[2]
+        replaceableString: match[2],
       };
     }
   }
@@ -96,7 +96,7 @@ class MentionTypeaheadOption extends MenuOption {
     name: string,
     handle: string,
     displayHandle: string,
-    picture: string
+    picture: string,
   ) {
     super(name);
     this.id = id;
@@ -119,7 +119,7 @@ const MentionsTypeaheadMenuItem: FC<MentionsTypeaheadMenuItemProps> = ({
   isSelected,
   onClick,
   onMouseEnter,
-  option
+  option,
 }) => {
   return (
     <li
@@ -132,8 +132,8 @@ const MentionsTypeaheadMenuItem: FC<MentionsTypeaheadMenuItemProps> = ({
     >
       <div
         className={cn(
-          { 'bg-gray-200 dark:bg-gray-800': isSelected },
-          'm-1.5 flex items-center space-x-2 rounded-xl px-3 py-1 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-800'
+          { "bg-gray-200 dark:bg-gray-800": isSelected },
+          "m-1.5 flex items-center space-x-2 rounded-xl px-3 py-1 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-800",
         )}
       >
         <img
@@ -172,13 +172,13 @@ const MentionsPlugin: FC = () => {
       const request: ProfileSearchRequest = {
         limit: LimitType.Ten,
         query: queryString,
-        where: { customFilters: [CustomFiltersType.Gardeners] }
+        where: { customFilters: [CustomFiltersType.Gardeners] },
       };
 
       searchUsers({ variables: { request } }).then(({ data }) => {
         const search = data?.searchProfiles;
         const profileSearchResult = search;
-        const profiles = Object.prototype.hasOwnProperty.call(search, 'items')
+        const profiles = Object.prototype.hasOwnProperty.call(search, "items")
           ? (profileSearchResult?.items as Profile[])
           : [];
         const profilesResults = profiles?.map(
@@ -188,16 +188,16 @@ const MentionsPlugin: FC = () => {
               handle: user.handle?.fullHandle,
               id: user?.id,
               name: getProfile(user).displayName,
-              picture: getAvatar(user)
-            }) as Record<string, string>
+              picture: getAvatar(user),
+            }) as Record<string, string>,
         );
         setResults(profilesResults);
       });
     }
   }, [queryString]);
 
-  const checkForSlashTriggerMatch = useBasicTypeaheadTriggerMatch('/', {
-    minLength: 0
+  const checkForSlashTriggerMatch = useBasicTypeaheadTriggerMatch("/", {
+    minLength: 0,
   });
 
   const options = useMemo(
@@ -209,29 +209,29 @@ const MentionsPlugin: FC = () => {
             name ?? handle,
             handle,
             displayHandle,
-            picture
+            picture,
           );
         })
         .slice(0, SUGGESTION_LIST_LENGTH_LIMIT),
-    [results]
+    [results],
   );
 
   const onSelectOption = useCallback(
     (
       selectedOption: MentionTypeaheadOption,
       nodeToReplace: null | TextNode,
-      closeMenu: () => void
+      closeMenu: () => void,
     ) => {
       editor.update(() => {
         const mentionNode = $createMentionNode(selectedOption.handle);
         if (nodeToReplace) {
           nodeToReplace.replace(mentionNode);
         }
-        mentionNode.select().insertText(' ');
+        mentionNode.select().insertText(" ");
         closeMenu();
       });
     },
-    [editor]
+    [editor],
   );
 
   const checkForMentionMatch = useCallback(
@@ -240,14 +240,14 @@ const MentionsPlugin: FC = () => {
       const slashMatch = checkForSlashTriggerMatch(text, editor);
       return !slashMatch && mentionMatch ? mentionMatch : null;
     },
-    [checkForSlashTriggerMatch, editor]
+    [checkForSlashTriggerMatch, editor],
   );
 
   return (
     <LexicalTypeaheadMenuPlugin<MentionTypeaheadOption>
       menuRenderFn={(
         anchorElementRef,
-        { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }
+        { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex },
       ) =>
         anchorElementRef.current && results.length
           ? ReactDOM.createPortal(
@@ -270,7 +270,7 @@ const MentionsPlugin: FC = () => {
                   ))}
                 </ul>
               </div>,
-              anchorElementRef.current
+              anchorElementRef.current,
             )
           : null
       }

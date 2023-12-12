@@ -1,4 +1,4 @@
-import type { UnlonelyChannelMetadata } from '@hey/types/nft';
+import type { UnlonelyChannelMetadata } from "@hey/types/nft";
 
 const regex = /https:\/\/www\.unlonely\.app\/channels\/(\w+)/;
 
@@ -13,7 +13,7 @@ const getUnlonelyChannel = (url: string): null | UnlonelyChannelMetadata => {
     const slug = matches[1];
     const mintLink = `https://www.unlonely.app/channels/${slug}`;
 
-    return { mintLink, provider: 'unlonely-channel', slug };
+    return { mintLink, provider: "unlonely-channel", slug };
   }
 
   return null;

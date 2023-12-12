@@ -1,15 +1,15 @@
-import type { QuoteNotification as TQuoteNotification } from '@hey/lens';
-import type { FC } from 'react';
+import type { QuoteNotification as TQuoteNotification } from "@hey/lens";
+import type { FC } from "react";
 
-import Markup from '@components/Shared/Markup';
-import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
-import getPublicationData from '@hey/lib/getPublicationData';
-import pushToImpressions from '@lib/pushToImpressions';
-import Link from 'next/link';
-import { useEffectOnce } from 'usehooks-ts';
+import Markup from "@components/Shared/Markup";
+import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
+import getPublicationData from "@hey/lib/getPublicationData";
+import pushToImpressions from "@lib/pushToImpressions";
+import Link from "next/link";
+import { useEffectOnce } from "usehooks-ts";
 
-import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
-import { NotificationProfileAvatar } from '../Profile';
+import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
+import { NotificationProfileAvatar } from "../Profile";
 
 interface QuoteNotificationProps {
   notification: TQuoteNotification;
@@ -17,10 +17,10 @@ interface QuoteNotificationProps {
 
 const QuoteNotification: FC<QuoteNotificationProps> = ({ notification }) => {
   const metadata = notification?.quote.metadata;
-  const filteredContent = getPublicationData(metadata)?.content || '';
+  const filteredContent = getPublicationData(metadata)?.content || "";
   const firstProfile = notification.quote.by;
 
-  const text = 'quoted your';
+  const text = "quoted your";
   const type = notification.quote.quoteOn.__typename;
 
   useEffectOnce(() => {

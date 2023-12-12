@@ -1,9 +1,9 @@
-import type { ClipboardEvent } from 'react';
+import type { ClipboardEvent } from "react";
 
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { mergeRegister } from '@lexical/utils';
-import { COMMAND_PRIORITY_NORMAL, PASTE_COMMAND } from 'lexical';
-import { useUpdateEffect } from 'usehooks-ts';
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import { mergeRegister } from "@lexical/utils";
+import { COMMAND_PRIORITY_NORMAL, PASTE_COMMAND } from "lexical";
+import { useUpdateEffect } from "usehooks-ts";
 
 interface ImagesPluginProps {
   onPaste: (files: FileList) => void;
@@ -22,7 +22,7 @@ const ImagesPlugin = (props: ImagesPluginProps): JSX.Element | null => {
             const { clipboardData, dataTransfer } = event;
 
             // If the clipboard data contains text, we don't want to handle the image paste event.
-            if (clipboardData?.getData('Text')) {
+            if (clipboardData?.getData("Text")) {
               return false;
             }
 
@@ -37,8 +37,8 @@ const ImagesPlugin = (props: ImagesPluginProps): JSX.Element | null => {
 
           return false;
         },
-        COMMAND_PRIORITY_NORMAL
-      )
+        COMMAND_PRIORITY_NORMAL,
+      ),
     );
   }, [editor, onPaste]);
 

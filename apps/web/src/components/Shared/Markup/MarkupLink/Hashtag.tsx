@@ -1,14 +1,14 @@
-import type { MarkupLinkProps } from '@hey/types/misc';
-import type { FC } from 'react';
+import type { MarkupLinkProps } from "@hey/types/misc";
+import type { FC } from "react";
 
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import { hashflags } from '@hey/data/hashflags';
-import { prideHashtags } from '@hey/data/pride-hashtags';
-import { PUBLICATION } from '@hey/data/tracking';
-import isPrideMonth from '@hey/lib/isPrideMonth';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Leafwatch } from '@lib/leafwatch';
-import Link from 'next/link';
+import { STATIC_IMAGES_URL } from "@hey/data/constants";
+import { hashflags } from "@hey/data/hashflags";
+import { prideHashtags } from "@hey/data/pride-hashtags";
+import { PUBLICATION } from "@hey/data/tracking";
+import isPrideMonth from "@hey/lib/isPrideMonth";
+import stopEventPropagation from "@hey/lib/stopEventPropagation";
+import { Leafwatch } from "@lib/leafwatch";
+import Link from "next/link";
 
 const Hashtag: FC<MarkupLinkProps> = ({ title }) => {
   if (!title) {
@@ -27,7 +27,7 @@ const Hashtag: FC<MarkupLinkProps> = ({ title }) => {
           onClick={(event) => {
             stopEventPropagation(event);
             Leafwatch.track(PUBLICATION.CLICK_HASHTAG, {
-              hashtag: title.slice(1)
+              hashtag: title.slice(1),
             });
           }}
         >

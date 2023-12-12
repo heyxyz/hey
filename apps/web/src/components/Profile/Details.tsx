@@ -1,55 +1,55 @@
-import type { Profile } from '@hey/lens';
-import type { FC, ReactNode } from 'react';
+import type { Profile } from "@hey/lens";
+import type { FC, ReactNode } from "react";
 
-import Markup from '@components/Shared/Markup';
-import Follow from '@components/Shared/Profile/Follow';
-import Unfollow from '@components/Shared/Profile/Unfollow';
-import Slug from '@components/Shared/Slug';
-import SuperFollow from '@components/Shared/SuperFollow';
+import Markup from "@components/Shared/Markup";
+import Follow from "@components/Shared/Profile/Follow";
+import Unfollow from "@components/Shared/Profile/Unfollow";
+import Slug from "@components/Shared/Slug";
+import SuperFollow from "@components/Shared/SuperFollow";
 import {
   ClockIcon,
   Cog6ToothIcon,
   HashtagIcon,
   MapPinIcon,
   ShieldCheckIcon,
-  UsersIcon
-} from '@heroicons/react/24/outline';
+  UsersIcon,
+} from "@heroicons/react/24/outline";
 import {
   CheckBadgeIcon,
-  ExclamationCircleIcon
-} from '@heroicons/react/24/solid';
+  ExclamationCircleIcon,
+} from "@heroicons/react/24/solid";
 import {
   EXPANDED_AVATAR,
   RARIBLE_URL,
-  STATIC_IMAGES_URL
-} from '@hey/data/constants';
-import getEnvConfig from '@hey/data/utils/getEnvConfig';
-import { FollowModuleType } from '@hey/lens';
-import getAvatar from '@hey/lib/getAvatar';
-import getFavicon from '@hey/lib/getFavicon';
-import getMentions from '@hey/lib/getMentions';
-import getMisuseDetails from '@hey/lib/getMisuseDetails';
-import getProfile from '@hey/lib/getProfile';
-import getProfileAttribute from '@hey/lib/getProfileAttribute';
-import hasMisused from '@hey/lib/hasMisused';
-import { Button, Image, LightBox, Modal, Tooltip } from '@hey/ui';
-import { formatDate } from '@lib/formatTime';
-import isVerified from '@lib/isVerified';
-import { useTheme } from 'next-themes';
-import Link from 'next/link';
-import { useState } from 'react';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
-import urlcat from 'urlcat';
+  STATIC_IMAGES_URL,
+} from "@hey/data/constants";
+import getEnvConfig from "@hey/data/utils/getEnvConfig";
+import { FollowModuleType } from "@hey/lens";
+import getAvatar from "@hey/lib/getAvatar";
+import getFavicon from "@hey/lib/getFavicon";
+import getMentions from "@hey/lib/getMentions";
+import getMisuseDetails from "@hey/lib/getMisuseDetails";
+import getProfile from "@hey/lib/getProfile";
+import getProfileAttribute from "@hey/lib/getProfileAttribute";
+import hasMisused from "@hey/lib/hasMisused";
+import { Button, Image, LightBox, Modal, Tooltip } from "@hey/ui";
+import { formatDate } from "@lib/formatTime";
+import isVerified from "@lib/isVerified";
+import { useTheme } from "next-themes";
+import Link from "next/link";
+import { useState } from "react";
+import { useFeatureFlagsStore } from "src/store/persisted/useFeatureFlagsStore";
+import useProfileStore from "src/store/persisted/useProfileStore";
+import urlcat from "urlcat";
 
-import Badges from './Badges';
-import Followerings from './Followerings';
-import InvitedBy from './InvitedBy';
-import ProfileMenu from './Menu';
-import MutualFollowers from './MutualFollowers';
-import MutualFollowersList from './MutualFollowers/List';
-import ScamWarning from './ScamWarning';
-import TbaBadge from './TbaBadge';
+import Badges from "./Badges";
+import Followerings from "./Followerings";
+import InvitedBy from "./InvitedBy";
+import ProfileMenu from "./Menu";
+import MutualFollowers from "./MutualFollowers";
+import MutualFollowersList from "./MutualFollowers/List";
+import ScamWarning from "./ScamWarning";
+import TbaBadge from "./TbaBadge";
 
 interface DetailsProps {
   profile: Profile;
@@ -65,7 +65,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
 
   const MetaDetails = ({
     children,
-    icon
+    icon,
   }: {
     children: ReactNode;
     icon: ReactNode;
@@ -194,9 +194,9 @@ const Details: FC<DetailsProps> = ({ profile }) => {
           <MetaDetails icon={<HashtagIcon className="h-4 w-4" />}>
             <Tooltip content={`#${profile.id}`}>
               <Link
-                href={urlcat(RARIBLE_URL, '/token/polygon/:address::id', {
+                href={urlcat(RARIBLE_URL, "/token/polygon/:address::id", {
                   address: getEnvConfig().lensHubProxyAddress,
-                  id: parseInt(profile.id)
+                  id: parseInt(profile.id),
                 })}
                 rel="noreferrer"
                 target="_blank"
@@ -205,9 +205,9 @@ const Details: FC<DetailsProps> = ({ profile }) => {
               </Link>
             </Tooltip>
           </MetaDetails>
-          {getProfileAttribute('location', profile?.metadata?.attributes) ? (
+          {getProfileAttribute("location", profile?.metadata?.attributes) ? (
             <MetaDetails icon={<MapPinIcon className="h-4 w-4" />}>
-              {getProfileAttribute('location', profile?.metadata?.attributes)}
+              {getProfileAttribute("location", profile?.metadata?.attributes)}
             </MetaDetails>
           ) : null}
           {profile?.onchainIdentity?.ens?.name ? (
@@ -225,7 +225,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
               {profile?.onchainIdentity?.ens?.name}
             </MetaDetails>
           ) : null}
-          {getProfileAttribute('website', profile?.metadata?.attributes) ? (
+          {getProfileAttribute("website", profile?.metadata?.attributes) ? (
             <MetaDetails
               icon={
                 <img
@@ -234,9 +234,9 @@ const Details: FC<DetailsProps> = ({ profile }) => {
                   height={16}
                   src={getFavicon(
                     getProfileAttribute(
-                      'website',
-                      profile?.metadata?.attributes
-                    )
+                      "website",
+                      profile?.metadata?.attributes,
+                    ),
                   )}
                   width={16}
                 />
@@ -244,21 +244,21 @@ const Details: FC<DetailsProps> = ({ profile }) => {
             >
               <Link
                 href={`https://${getProfileAttribute(
-                  'website',
-                  profile?.metadata?.attributes
+                  "website",
+                  profile?.metadata?.attributes,
                 )
-                  ?.replace('https://', '')
-                  .replace('http://', '')}`}
+                  ?.replace("https://", "")
+                  .replace("http://", "")}`}
                 rel="noreferrer noopener me"
                 target="_blank"
               >
-                {getProfileAttribute('website', profile?.metadata?.attributes)
-                  ?.replace('https://', '')
-                  .replace('http://', '')}
+                {getProfileAttribute("website", profile?.metadata?.attributes)
+                  ?.replace("https://", "")
+                  .replace("http://", "")}
               </Link>
             </MetaDetails>
           ) : null}
-          {getProfileAttribute('x', profile?.metadata?.attributes) ? (
+          {getProfileAttribute("x", profile?.metadata?.attributes) ? (
             <MetaDetails
               icon={
                 <img
@@ -266,26 +266,26 @@ const Details: FC<DetailsProps> = ({ profile }) => {
                   className="h-4 w-4"
                   height={16}
                   src={`${STATIC_IMAGES_URL}/brands/${
-                    resolvedTheme === 'dark' ? 'x-dark.png' : 'x-light.png'
+                    resolvedTheme === "dark" ? "x-dark.png" : "x-light.png"
                   }`}
                   width={16}
                 />
               }
             >
               <Link
-                href={urlcat('https://x.com/:username', {
+                href={urlcat("https://x.com/:username", {
                   username: getProfileAttribute(
-                    'x',
-                    profile?.metadata?.attributes
-                  )?.replace('https://x.com/', '')
+                    "x",
+                    profile?.metadata?.attributes,
+                  )?.replace("https://x.com/", ""),
                 })}
                 rel="noreferrer noopener"
                 target="_blank"
               >
                 {getProfileAttribute(
-                  'x',
-                  profile?.metadata?.attributes
-                )?.replace('https://x.com/', '')}
+                  "x",
+                  profile?.metadata?.attributes,
+                )?.replace("https://x.com/", "")}
               </Link>
             </MetaDetails>
           ) : null}

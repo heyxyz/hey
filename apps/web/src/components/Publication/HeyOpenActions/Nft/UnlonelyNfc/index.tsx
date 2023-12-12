@@ -1,19 +1,19 @@
-import type { AnyPublication } from '@hey/lens';
-import type { UnlonelyNfcMetadata } from '@hey/types/nft';
-import type { FC } from 'react';
+import type { AnyPublication } from "@hey/lens";
+import type { UnlonelyNfcMetadata } from "@hey/types/nft";
+import type { FC } from "react";
 
-import Video from '@components/Shared/Video';
-import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import { PUBLICATION } from '@hey/data/tracking';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Button, Card, Tooltip } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
-import Link from 'next/link';
-import useUnlonelyNfc from 'src/hooks/unlonely/useUnlonelyNfc';
-import urlcat from 'urlcat';
+import Video from "@components/Shared/Video";
+import { CursorArrowRaysIcon } from "@heroicons/react/24/outline";
+import { STATIC_IMAGES_URL } from "@hey/data/constants";
+import { PUBLICATION } from "@hey/data/tracking";
+import stopEventPropagation from "@hey/lib/stopEventPropagation";
+import { Button, Card, Tooltip } from "@hey/ui";
+import { Leafwatch } from "@lib/leafwatch";
+import Link from "next/link";
+import useUnlonelyNfc from "src/hooks/unlonely/useUnlonelyNfc";
+import urlcat from "urlcat";
 
-import NftShimmer from './Shimmer';
+import NftShimmer from "./Shimmer";
 
 interface UnlonelyNfcProps {
   nftMetadata: UnlonelyNfcMetadata;
@@ -26,10 +26,10 @@ const UnlonelyNfc: FC<UnlonelyNfcProps> = ({ nftMetadata, publication }) => {
   const {
     data: nfc,
     error,
-    loading
+    loading,
   } = useUnlonelyNfc({
     enabled: Boolean(id),
-    id
+    id,
   });
 
   if (loading) {
@@ -69,8 +69,8 @@ const UnlonelyNfc: FC<UnlonelyNfcProps> = ({ nftMetadata, publication }) => {
           <div className="text-sm font-bold">{title}</div>
         </div>
         <Link
-          href={urlcat('https://www.unlonely.app/nfc/:id', {
-            id: nfc.id
+          href={urlcat("https://www.unlonely.app/nfc/:id", {
+            id: nfc.id,
           })}
           rel="noopener noreferrer"
           target="_blank"
@@ -80,8 +80,8 @@ const UnlonelyNfc: FC<UnlonelyNfcProps> = ({ nftMetadata, publication }) => {
             icon={<CursorArrowRaysIcon className="h-4 w-4" />}
             onClick={() =>
               Leafwatch.track(PUBLICATION.OPEN_ACTIONS.UNLONELY_NFC.OPEN_LINK, {
-                from: 'mint_embed',
-                publication_id: publication.id
+                from: "mint_embed",
+                publication_id: publication.id,
               })
             }
             size="md"

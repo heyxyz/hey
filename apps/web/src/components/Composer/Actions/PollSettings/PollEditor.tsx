@@ -1,15 +1,15 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { ClockIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { Bars3BottomLeftIcon, XCircleIcon } from '@heroicons/react/24/solid';
-import { Button, Card, Input, Modal, Tooltip } from '@hey/ui';
-import plur from 'plur';
-import { useState } from 'react';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { ClockIcon, PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3BottomLeftIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import { Button, Card, Input, Modal, Tooltip } from "@hey/ui";
+import plur from "plur";
+import { useState } from "react";
+import { usePublicationStore } from "src/store/non-persisted/usePublicationStore";
 
 const PollEditor: FC = () => {
   const setShowPollEditor = usePublicationStore(
-    (state) => state.setShowPollEditor
+    (state) => state.setShowPollEditor,
   );
   const pollConfig = usePublicationStore((state) => state.pollConfig);
   const setPollConfig = usePublicationStore((state) => state.setPollConfig);
@@ -31,7 +31,7 @@ const PollEditor: FC = () => {
             size="sm"
             variant="primary"
           >
-            {pollConfig.length} {plur('day', pollConfig.length)}
+            {pollConfig.length} {plur("day", pollConfig.length)}
           </Button>
           <Modal
             icon={<ClockIcon className="text-brand-500 h-5 w-5" />}
@@ -47,7 +47,7 @@ const PollEditor: FC = () => {
                 onChange={(e) =>
                   setPollConfig({
                     ...pollConfig,
-                    length: Number(e.target.value)
+                    length: Number(e.target.value),
                   })
                 }
                 type="number"
@@ -123,7 +123,7 @@ const PollEditor: FC = () => {
             className="text-brand-500 mt-2 flex items-center space-x-2 text-sm"
             onClick={() => {
               const newOptions = [...pollConfig.options];
-              newOptions.push('');
+              newOptions.push("");
               setPollConfig({ ...pollConfig, options: newOptions });
             }}
             type="button"

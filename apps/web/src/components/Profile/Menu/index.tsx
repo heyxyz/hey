@@ -1,16 +1,16 @@
-import type { Profile } from '@hey/lens';
-import type { FC } from 'react';
+import type { Profile } from "@hey/lens";
+import type { FC } from "react";
 
-import MenuTransition from '@components/Shared/MenuTransition';
-import { Menu } from '@headlessui/react';
-import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Fragment } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import MenuTransition from "@components/Shared/MenuTransition";
+import { Menu } from "@headlessui/react";
+import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
+import stopEventPropagation from "@hey/lib/stopEventPropagation";
+import { Fragment } from "react";
+import useProfileStore from "src/store/persisted/useProfileStore";
 
-import Block from './Block';
-import Report from './Report';
-import Share from './Share';
+import Block from "./Block";
+import Report from "./Report";
+import Share from "./Share";
 
 interface ProfileMenuProps {
   profile: Profile;

@@ -1,8 +1,8 @@
 let browserPushWorker: Worker;
 
-if (typeof Worker !== 'undefined') {
+if (typeof Worker !== "undefined") {
   browserPushWorker = new Worker(
-    new URL('./browserPushWorker', import.meta.url)
+    new URL("./browserPushWorker", import.meta.url),
   );
 }
 
@@ -15,10 +15,10 @@ export const BrowserPush = {
 
     browserPushWorker.onmessage = (event: MessageEvent) => {
       const response = event.data;
-      new Notification('Hey', {
+      new Notification("Hey", {
         body: response.title,
-        icon: '/logo.png'
+        icon: "/logo.png",
       });
     };
-  }
+  },
 };

@@ -1,19 +1,19 @@
-import type { Emoji } from '@hey/types/misc';
-import type { TextNode } from 'lexical';
-import type { FC } from 'react';
+import type { Emoji } from "@hey/types/misc";
+import type { TextNode } from "lexical";
+import type { FC } from "react";
 
-import { STATIC_ASSETS_URL } from '@hey/data/constants';
-import cn from '@hey/ui/cn';
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { STATIC_ASSETS_URL } from "@hey/data/constants";
+import cn from "@hey/ui/cn";
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import {
   LexicalTypeaheadMenuPlugin,
   MenuOption,
-  useBasicTypeaheadTriggerMatch
-} from '@lexical/react/LexicalTypeaheadMenuPlugin';
-import { $createTextNode, $getSelection, $isRangeSelection } from 'lexical';
-import { useCallback, useMemo, useState } from 'react';
-import * as ReactDOM from 'react-dom';
-import { useEffectOnce } from 'usehooks-ts';
+  useBasicTypeaheadTriggerMatch,
+} from "@lexical/react/LexicalTypeaheadMenuPlugin";
+import { $createTextNode, $getSelection, $isRangeSelection } from "lexical";
+import { useCallback, useMemo, useState } from "react";
+import * as ReactDOM from "react-dom";
+import { useEffectOnce } from "usehooks-ts";
 
 class EmojiOption extends MenuOption {
   emoji: string;
@@ -25,7 +25,7 @@ class EmojiOption extends MenuOption {
     emoji: string,
     options: {
       keywords?: string[];
-    }
+    },
   ) {
     super(title);
     this.title = title;
@@ -47,15 +47,15 @@ const EmojiMenuItem: FC<EmojiMenuItemProps> = ({
   isSelected,
   onClick,
   onMouseEnter,
-  option
+  option,
 }) => {
   const { emoji, key, setRefElement, title } = option;
 
   return (
     <li
       className={cn(
-        { 'dropdown-active': isSelected },
-        'm-2 cursor-pointer rounded-lg p-2 outline-none'
+        { "dropdown-active": isSelected },
+        "m-2 cursor-pointer rounded-lg p-2 outline-none",
       )}
       id={`typeahead-item-${index}`}
       key={key}
@@ -66,7 +66,7 @@ const EmojiMenuItem: FC<EmojiMenuItemProps> = ({
     >
       <div className="flex items-center space-x-2">
         <span className="text-base">{emoji}</span>
-        <span className="text-sm capitalize">{title.split('_').join(' ')}</span>
+        <span className="text-sm capitalize">{title.split("_").join(" ")}</span>
       </div>
     </li>
   );
@@ -95,25 +95,25 @@ const EmojiPickerPlugin: FC = () => {
         ? emojis.map(
             ({ aliases, emoji, tags }) =>
               new EmojiOption(aliases[0], emoji, {
-                keywords: [...aliases, ...tags]
-              })
+                keywords: [...aliases, ...tags],
+              }),
           )
         : [],
-    [emojis]
+    [emojis],
   );
 
-  const checkForTriggerMatch = useBasicTypeaheadTriggerMatch(':', {
-    minLength: 0
+  const checkForTriggerMatch = useBasicTypeaheadTriggerMatch(":", {
+    minLength: 0,
   });
 
   const options: EmojiOption[] = useMemo(() => {
     return emojiOptions
       .filter((option: EmojiOption) => {
         return queryString !== null
-          ? new RegExp(queryString, 'gi').exec(option.title) ||
+          ? new RegExp(queryString, "gi").exec(option.title) ||
             option.keywords !== null
             ? option.keywords.some((keyword: string) =>
-                new RegExp(queryString, 'gi').exec(keyword)
+                new RegExp(queryString, "gi").exec(keyword),
               )
             : false
           : emojiOptions;
@@ -125,7 +125,7 @@ const EmojiPickerPlugin: FC = () => {
     (
       selectedOption: EmojiOption,
       nodeToRemove: null | TextNode,
-      closeMenu: () => void
+      closeMenu: () => void,
     ) => {
       editor.update(() => {
         const selection = $getSelection();
@@ -143,14 +143,14 @@ const EmojiPickerPlugin: FC = () => {
         closeMenu();
       });
     },
-    [editor]
+    [editor],
   );
 
   return (
     <LexicalTypeaheadMenuPlugin
       menuRenderFn={(
         anchorElementRef,
-        { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }
+        { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex },
       ) => {
         if (anchorElementRef.current === null || options.length === 0) {
           return null;
@@ -176,7 +176,7 @@ const EmojiPickerPlugin: FC = () => {
                   </div>
                 ))}
               </ul>,
-              anchorElementRef.current
+              anchorElementRef.current,
             )
           : null;
       }}

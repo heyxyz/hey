@@ -1,38 +1,38 @@
-import type { ExploreProfilesRequest, Profile } from '@hey/lens';
-import type { FC } from 'react';
+import type { ExploreProfilesRequest, Profile } from "@hey/lens";
+import type { FC } from "react";
 
-import Loader from '@components/Shared/Loader';
-import SearchUser from '@components/Shared/SearchUser';
-import UserProfile from '@components/Shared/UserProfile';
-import { ArrowPathIcon, UsersIcon } from '@heroicons/react/24/outline';
+import Loader from "@components/Shared/Loader";
+import SearchUser from "@components/Shared/SearchUser";
+import UserProfile from "@components/Shared/UserProfile";
+import { ArrowPathIcon, UsersIcon } from "@heroicons/react/24/outline";
 import {
   ExploreProfilesOrderByType,
   LimitType,
-  useExploreProfilesQuery
-} from '@hey/lens';
-import getProfile from '@hey/lib/getProfile';
-import { Card, EmptyState, ErrorMessage, Select } from '@hey/ui';
-import { motion } from 'framer-motion';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import { Virtuoso } from 'react-virtuoso';
+  useExploreProfilesQuery,
+} from "@hey/lens";
+import getProfile from "@hey/lib/getProfile";
+import { Card, EmptyState, ErrorMessage, Select } from "@hey/ui";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { Virtuoso } from "react-virtuoso";
 
 const List: FC = () => {
   const { push } = useRouter();
   const [orderBy, setOrderBy] = useState<ExploreProfilesOrderByType>(
-    ExploreProfilesOrderByType.LatestCreated
+    ExploreProfilesOrderByType.LatestCreated,
   );
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState("");
 
   // Variables
   const request: ExploreProfilesRequest = {
     limit: LimitType.Fifty,
-    orderBy
+    orderBy,
   };
 
   const { data, error, fetchMore, loading, refetch } = useExploreProfilesQuery({
-    variables: { request }
+    variables: { request },
   });
 
   const profiles = data?.exploreProfiles.items;
@@ -45,7 +45,7 @@ const List: FC = () => {
     }
 
     await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next } }
+      variables: { request: { ...request, cursor: pageInfo?.next } },
     });
   };
 
@@ -66,7 +66,7 @@ const List: FC = () => {
           }
           options={Object.values(ExploreProfilesOrderByType).map((orderBy) => ({
             label: orderBy,
-            value: orderBy
+            value: orderBy,
           }))}
         />
         <button onClick={() => refetch()} type="button">

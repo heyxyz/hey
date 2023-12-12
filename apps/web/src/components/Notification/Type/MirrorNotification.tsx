@@ -1,16 +1,16 @@
-import type { MirrorNotification as TMirrorNotification } from '@hey/lens';
-import type { FC } from 'react';
+import type { MirrorNotification as TMirrorNotification } from "@hey/lens";
+import type { FC } from "react";
 
-import Markup from '@components/Shared/Markup';
-import { ArrowsRightLeftIcon } from '@heroicons/react/24/solid';
-import getPublicationData from '@hey/lib/getPublicationData';
-import pushToImpressions from '@lib/pushToImpressions';
-import Link from 'next/link';
-import plur from 'plur';
-import { useEffectOnce } from 'usehooks-ts';
+import Markup from "@components/Shared/Markup";
+import { ArrowsRightLeftIcon } from "@heroicons/react/24/solid";
+import getPublicationData from "@hey/lib/getPublicationData";
+import pushToImpressions from "@lib/pushToImpressions";
+import Link from "next/link";
+import plur from "plur";
+import { useEffectOnce } from "usehooks-ts";
 
-import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
-import { NotificationProfileAvatar } from '../Profile';
+import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
+import { NotificationProfileAvatar } from "../Profile";
 
 interface MirrorNotificationProps {
   notification: TMirrorNotification;
@@ -18,15 +18,15 @@ interface MirrorNotificationProps {
 
 const MirrorNotification: FC<MirrorNotificationProps> = ({ notification }) => {
   const metadata = notification?.publication.metadata;
-  const filteredContent = getPublicationData(metadata)?.content || '';
+  const filteredContent = getPublicationData(metadata)?.content || "";
   const mirrors = notification?.mirrors;
   const firstProfile = mirrors?.[0]?.profile;
   const length = mirrors.length - 1;
   const moreThanOneProfile = length > 1;
 
   const text = moreThanOneProfile
-    ? `and ${length} ${plur('other', length)} mirrored your`
-    : 'mirrored your';
+    ? `and ${length} ${plur("other", length)} mirrored your`
+    : "mirrored your";
   const type = notification?.publication.__typename;
 
   useEffectOnce(() => {

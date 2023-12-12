@@ -1,5 +1,5 @@
-import type { OG } from '@hey/types/misc';
-import type { FC } from 'react';
+import type { OG } from "@hey/types/misc";
+import type { FC } from "react";
 
 interface PlayerProps {
   og: OG;

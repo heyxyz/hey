@@ -1,9 +1,9 @@
-import type { Profile } from '@hey/lens';
-import type { FC } from 'react';
+import type { Profile } from "@hey/lens";
+import type { FC } from "react";
 
-import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
-import UserProfile from '@components/Shared/UserProfile';
-import { useProfileQuery } from '@hey/lens';
+import UserProfileShimmer from "@components/Shared/Shimmer/UserProfileShimmer";
+import UserProfile from "@components/Shared/UserProfile";
+import { useProfileQuery } from "@hey/lens";
 
 interface StaffPickedProfileProps {
   id: string;
@@ -12,7 +12,7 @@ interface StaffPickedProfileProps {
 const StaffPickedProfile: FC<StaffPickedProfileProps> = ({ id }) => {
   const { data, loading } = useProfileQuery({
     skip: !id,
-    variables: { request: { forProfileId: id } }
+    variables: { request: { forProfileId: id } },
   });
 
   if (loading) {

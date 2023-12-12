@@ -1,6 +1,6 @@
 declare let self: ServiceWorkerGlobalScope;
 
-const impressionsEndpoint = 'https://api.hey.xyz/leafwatch/impressions';
+const impressionsEndpoint = "https://api.hey.xyz/leafwatch/impressions";
 const publicationsVisibilityInterval = 5000;
 let viewerId: null | string = null;
 const visiblePublicationsSet = new Set();
@@ -13,11 +13,11 @@ const sendVisiblePublicationsToServer = () => {
     fetch(impressionsEndpoint, {
       body: JSON.stringify({
         ids: publicationsToSend,
-        viewer_id: viewerId
+        viewer_id: viewerId,
       }),
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
       keepalive: true,
-      method: 'POST'
+      method: "POST",
     })
       .then(() => {})
       .catch(() => {});
@@ -30,14 +30,14 @@ const handleActivate = async (): Promise<void> => {
   await self.clients.claim();
 };
 
-self.addEventListener('message', (event) => {
+self.addEventListener("message", (event) => {
   // Impression tracking
-  if (event.data && event.data.type === 'PUBLICATION_VISIBLE') {
+  if (event.data && event.data.type === "PUBLICATION_VISIBLE") {
     visiblePublicationsSet.add(event.data.id);
     viewerId = event.data.viewerId;
   }
 });
 
-self.addEventListener('activate', (event) => event.waitUntil(handleActivate()));
+self.addEventListener("activate", (event) => event.waitUntil(handleActivate()));
 
 export {};

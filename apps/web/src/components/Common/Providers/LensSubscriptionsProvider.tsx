@@ -1,32 +1,32 @@
-import type { Notification } from '@hey/lens';
-import type { FC } from 'react';
+import type { Notification } from "@hey/lens";
+import type { FC } from "react";
 
 import {
   useAuthorizationRecordRevokedSubscriptionSubscription,
   useNewNotificationSubscriptionSubscription,
   useUserSigNoncesQuery,
-  useUserSigNoncesSubscriptionSubscription
-} from '@hey/lens';
-import { BrowserPush } from '@lib/browserPush';
-import getCurrentSession from '@lib/getCurrentSession';
-import getPushNotificationData from '@lib/getPushNotificationData';
-import { isSupported, share } from 'shared-zustand';
-import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import { signOut } from 'src/store/persisted/useAuthStore';
-import { useNotificationStore } from 'src/store/persisted/useNotificationStore';
-import { useUpdateEffect } from 'usehooks-ts';
-import { isAddress } from 'viem';
-import { useAccount } from 'wagmi';
+  useUserSigNoncesSubscriptionSubscription,
+} from "@hey/lens";
+import { BrowserPush } from "@lib/browserPush";
+import getCurrentSession from "@lib/getCurrentSession";
+import getPushNotificationData from "@lib/getPushNotificationData";
+import { isSupported, share } from "shared-zustand";
+import { useNonceStore } from "src/store/non-persisted/useNonceStore";
+import { signOut } from "src/store/persisted/useAuthStore";
+import { useNotificationStore } from "src/store/persisted/useNotificationStore";
+import { useUpdateEffect } from "usehooks-ts";
+import { isAddress } from "viem";
+import { useAccount } from "wagmi";
 
 const LensSubscriptionsProvider: FC = () => {
   const setLatestNotificationId = useNotificationStore(
-    (state) => state.setLatestNotificationId
+    (state) => state.setLatestNotificationId,
   );
   const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce
+    (state) => state.setLensHubOnchainSigNonce,
   );
   const setLensPublicActProxyOnchainSigNonce = useNonceStore(
-    (state) => state.setLensPublicActProxyOnchainSigNonce
+    (state) => state.setLensPublicActProxyOnchainSigNonce,
   );
   const { address } = useAccount();
   const { authorizationId, id: sessionProfileId } = getCurrentSession();
@@ -36,7 +36,7 @@ const LensSubscriptionsProvider: FC = () => {
   const { data: newNotificationData } =
     useNewNotificationSubscriptionSubscription({
       skip: !canUseSubscriptions || isAddress(sessionProfileId),
-      variables: { for: sessionProfileId }
+      variables: { for: sessionProfileId },
     });
 
   useUpdateEffect(() => {
@@ -45,7 +45,7 @@ const LensSubscriptionsProvider: FC = () => {
     if (notification) {
       if (notification && getPushNotificationData(notification)) {
         const notify = getPushNotificationData(notification);
-        BrowserPush.notify({ title: notify?.title || '' });
+        BrowserPush.notify({ title: notify?.title || "" });
       }
       setLatestNotificationId(notification?.id);
     }
@@ -55,7 +55,7 @@ const LensSubscriptionsProvider: FC = () => {
   // Begin: User Sig Nonces
   const { data: userSigNoncesData } = useUserSigNoncesSubscriptionSubscription({
     skip: !canUseSubscriptions,
-    variables: { address }
+    variables: { address },
   });
 
   useUpdateEffect(() => {
@@ -64,7 +64,7 @@ const LensSubscriptionsProvider: FC = () => {
     if (userSigNonces) {
       setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce);
       setLensPublicActProxyOnchainSigNonce(
-        userSigNonces.lensPublicActProxyOnchainSigNonce
+        userSigNonces.lensPublicActProxyOnchainSigNonce,
       );
     }
   }, [userSigNoncesData]);
@@ -74,7 +74,7 @@ const LensSubscriptionsProvider: FC = () => {
   const { data: authorizationRecordRevokedData } =
     useAuthorizationRecordRevokedSubscriptionSubscription({
       skip: !canUseSubscriptions,
-      variables: { authorizationId }
+      variables: { authorizationId },
     });
 
   useUpdateEffect(() => {
@@ -92,16 +92,16 @@ const LensSubscriptionsProvider: FC = () => {
   useUserSigNoncesQuery({
     onCompleted: (data) => {
       setLensPublicActProxyOnchainSigNonce(
-        data.userSigNonces.lensPublicActProxyOnchainSigNonce
+        data.userSigNonces.lensPublicActProxyOnchainSigNonce,
       );
     },
-    skip: sessionProfileId ? !isAddress(sessionProfileId) : true
+    skip: sessionProfileId ? !isAddress(sessionProfileId) : true,
   });
 
   // Sync zustand stores between tabs
   if (isSupported()) {
-    share('lensHubOnchainSigNonce', useNonceStore);
-    share('lensPublicActProxyOnchainSigNonce', useNonceStore);
+    share("lensHubOnchainSigNonce", useNonceStore);
+    share("lensPublicActProxyOnchainSigNonce", useNonceStore);
   }
 
   return null;

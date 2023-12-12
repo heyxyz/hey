@@ -1,18 +1,18 @@
-import type { RefObject } from 'react';
+import type { RefObject } from "react";
 
-import cn from '@hey/ui/cn';
-import normalizeWheel from 'normalize-wheel';
-import { Component, createRef } from 'react';
+import cn from "@hey/ui/cn";
+import normalizeWheel from "normalize-wheel";
+import { Component, createRef } from "react";
 
-import type { Area, MediaSize, Point, Size } from './types';
+import type { Area, MediaSize, Point, Size } from "./types";
 
 import {
   computeCroppedArea,
   getDistanceBetweenPoints,
   getMidpoint,
   restrictPosition,
-  restrictValue
-} from './cropUtils';
+  restrictValue,
+} from "./cropUtils";
 
 interface CropperProps {
   borderSize: number;
@@ -40,34 +40,34 @@ type GestureEvent = UIEvent & {
 class ImageCropper extends Component<CropperProps, State> {
   static defaultProps = {
     zoom: 1,
-    zoomSpeed: 1
+    zoomSpeed: 1,
   };
 
   static getMousePoint = (e: GestureEvent | MouseEvent | React.MouseEvent) => ({
     x: Number(e.clientX),
-    y: Number(e.clientY)
+    y: Number(e.clientY),
   });
   static getTouchPoint = (touch: React.Touch | Touch) => ({
     x: Number(touch.clientX),
-    y: Number(touch.clientY)
+    y: Number(touch.clientY),
   });
   cleanEvents = () => {
-    this.currentDoc.removeEventListener('mousemove', this.onMouseMove);
-    this.currentDoc.removeEventListener('mouseup', this.onDragStopped);
-    this.currentDoc.removeEventListener('touchmove', this.onTouchMove);
-    this.currentDoc.removeEventListener('touchend', this.onDragStopped);
+    this.currentDoc.removeEventListener("mousemove", this.onMouseMove);
+    this.currentDoc.removeEventListener("mouseup", this.onDragStopped);
+    this.currentDoc.removeEventListener("touchmove", this.onTouchMove);
+    this.currentDoc.removeEventListener("touchend", this.onDragStopped);
     this.currentDoc.removeEventListener(
-      'gesturemove',
-      this.onGestureMove as EventListener
+      "gesturemove",
+      this.onGestureMove as EventListener,
     );
     this.currentDoc.removeEventListener(
-      'gestureend',
-      this.onGestureEnd as EventListener
+      "gestureend",
+      this.onGestureEnd as EventListener,
     );
   };
   clearScrollEvent = () => {
     if (this.containerRef) {
-      this.containerRef.removeEventListener('wheel', this.onWheel);
+      this.containerRef.removeEventListener("wheel", this.onWheel);
     }
     if (this.wheelTimer) {
       clearTimeout(this.wheelTimer);
@@ -85,21 +85,21 @@ class ImageCropper extends Component<CropperProps, State> {
       const renderedMediaSize: Size = fitWidth
         ? {
             height: this.props.cropSize.width / mediaAspect,
-            width: this.props.cropSize.width
+            width: this.props.cropSize.width,
           }
         : {
             height: this.props.cropSize.height,
-            width: this.props.cropSize.height * mediaAspect
+            width: this.props.cropSize.height * mediaAspect,
           };
 
       this.mediaSize = {
         ...renderedMediaSize,
         naturalHeight,
-        naturalWidth
+        naturalWidth,
       };
       const cropSize = {
         height: this.props.cropSize.height,
-        width: this.props.cropSize.width
+        width: this.props.cropSize.width,
       };
       this.recomputeCropPosition();
       return cropSize;
@@ -131,19 +131,19 @@ class ImageCropper extends Component<CropperProps, State> {
   getCropData = () => {
     // ensure the crop is correctly restricted after a zoom back (https://github.com/ValentinH/react-easy-crop/issues/6)
     const cropPosition = this.getAbsolutePosition(
-      this.props.cropPositionPercent
+      this.props.cropPositionPercent,
     );
     const restrictedPosition = restrictPosition(
       cropPosition,
       this.mediaSize,
       this.props.cropSize,
-      this.props.zoom
+      this.props.zoom,
     );
     return computeCroppedArea(
       restrictedPosition,
       this.props.cropSize,
       this.mediaSize,
-      this.props.zoom
+      this.props.zoom,
     );
   };
 
@@ -156,22 +156,22 @@ class ImageCropper extends Component<CropperProps, State> {
   getPointOnContainer = ({ x, y }: Point) => {
     const containerRect = this.containerRef?.getBoundingClientRect();
     if (!containerRect) {
-      throw new Error('The Cropper is not mounted');
+      throw new Error("The Cropper is not mounted");
     }
     return {
       x: containerRect.width / 2 - (x - containerRect.left),
-      y: containerRect.height / 2 - (y - containerRect.top)
+      y: containerRect.height / 2 - (y - containerRect.top),
     };
   };
 
   getPointOnMedia = ({ x, y }: Point) => {
     const cropPosition = this.getAbsolutePosition(
-      this.props.cropPositionPercent
+      this.props.cropPositionPercent,
     );
     const { zoom } = this.props;
     return {
       x: (x + cropPosition.x) / zoom,
-      y: (y + cropPosition.y) / zoom
+      y: (y + cropPosition.y) / zoom,
     };
   };
 
@@ -185,7 +185,7 @@ class ImageCropper extends Component<CropperProps, State> {
     height: 0,
     naturalHeight: 0,
     naturalWidth: 0,
-    width: 0
+    width: 0,
   };
 
   onDrag = ({ x, y }: Point) => {
@@ -201,14 +201,14 @@ class ImageCropper extends Component<CropperProps, State> {
       const offsetY = y - this.dragStartPosition.y;
       const requestedPosition = {
         x: this.dragStartCrop.x + offsetX,
-        y: this.dragStartCrop.y + offsetY
+        y: this.dragStartCrop.y + offsetY,
       };
 
       const newPosition = restrictPosition(
         requestedPosition,
         this.mediaSize,
         this.props.cropSize,
-        this.props.zoom
+        this.props.zoom,
       );
       const newPercentPosition = this.getPercentPosition(newPosition);
       this.props.onCropChange(newPercentPosition);
@@ -218,7 +218,7 @@ class ImageCropper extends Component<CropperProps, State> {
   onDragStart = ({ x, y }: Point) => {
     this.dragStartPosition = { x, y };
     this.dragStartCrop = {
-      ...this.getAbsolutePosition(this.props.cropPositionPercent)
+      ...this.getAbsolutePosition(this.props.cropPositionPercent),
     };
   };
 
@@ -247,12 +247,12 @@ class ImageCropper extends Component<CropperProps, State> {
   onGestureStart = (e: GestureEvent) => {
     e.preventDefault();
     this.currentDoc.addEventListener(
-      'gesturechange',
-      this.onGestureMove as EventListener
+      "gesturechange",
+      this.onGestureMove as EventListener,
     );
     this.currentDoc.addEventListener(
-      'gestureend',
-      this.onGestureEnd as EventListener
+      "gestureend",
+      this.onGestureEnd as EventListener,
     );
     this.gestureZoomStart = this.props.zoom;
   };
@@ -269,8 +269,8 @@ class ImageCropper extends Component<CropperProps, State> {
 
   onMouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.preventDefault();
-    this.currentDoc.addEventListener('mousemove', this.onMouseMove);
-    this.currentDoc.addEventListener('mouseup', this.onDragStopped);
+    this.currentDoc.addEventListener("mousemove", this.onMouseMove);
+    this.currentDoc.addEventListener("mouseup", this.onDragStopped);
     this.onDragStart(ImageCropper.getMousePoint(e));
   };
 
@@ -288,10 +288,10 @@ class ImageCropper extends Component<CropperProps, State> {
 
   onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     this.isTouching = true;
-    this.currentDoc.addEventListener('touchmove', this.onTouchMove, {
-      passive: false
+    this.currentDoc.addEventListener("touchmove", this.onTouchMove, {
+      passive: false,
     }); // iOS 11 now defaults to passive: true
-    this.currentDoc.addEventListener('touchend', this.onDragStopped);
+    this.currentDoc.addEventListener("touchend", this.onDragStopped);
 
     if (e.touches.length === 2) {
       this.onPinchStart(e);
@@ -316,7 +316,7 @@ class ImageCropper extends Component<CropperProps, State> {
     }
     this.wheelTimer = this.currentWindow.setTimeout(
       () => this.setState({ hasWheelJustStarted: false }, () => {}),
-      250
+      250,
     );
   };
 
@@ -329,13 +329,13 @@ class ImageCropper extends Component<CropperProps, State> {
 
   recomputeCropPosition = () => {
     const cropPosition = this.getAbsolutePosition(
-      this.props.cropPositionPercent
+      this.props.cropPositionPercent,
     );
     const newPosition = restrictPosition(
       cropPosition,
       this.mediaSize,
       this.props.cropSize,
-      this.props.zoom
+      this.props.zoom,
     );
     const newPercentagePosition = this.getPercentPosition(newPosition);
     this.props.onCropChange(newPercentagePosition);
@@ -349,7 +349,7 @@ class ImageCropper extends Component<CropperProps, State> {
   setNewZoom = (
     zoom: number,
     point: null | Point,
-    { shouldUpdatePosition = true } = {}
+    { shouldUpdatePosition = true } = {},
   ) => {
     if (!this.props.onZoomChange) {
       return;
@@ -364,7 +364,7 @@ class ImageCropper extends Component<CropperProps, State> {
     const minZoom = 1;
     const maxZoom = Math.max(
       minZoom,
-      mediaToTargetSizeRatio * maxOutputBlurryness
+      mediaToTargetSizeRatio * maxOutputBlurryness,
     );
     const newZoom = restrictValue(zoom, minZoom, maxZoom);
 
@@ -375,14 +375,14 @@ class ImageCropper extends Component<CropperProps, State> {
       const zoomTarget = this.getPointOnMedia(zoomPoint);
       const requestedPosition = {
         x: zoomTarget.x * newZoom - zoomPoint.x,
-        y: zoomTarget.y * newZoom - zoomPoint.y
+        y: zoomTarget.y * newZoom - zoomPoint.y,
       };
 
       const newPosition = restrictPosition(
         requestedPosition,
         this.mediaSize,
         this.props.cropSize,
-        newZoom
+        newZoom,
       );
       const newPercentagePosition = this.getPercentPosition(newPosition);
       this.props.onCropChange(newPercentagePosition);
@@ -391,7 +391,7 @@ class ImageCropper extends Component<CropperProps, State> {
   };
 
   state: State = {
-    hasWheelJustStarted: false
+    hasWheelJustStarted: false,
   };
 
   wheelTimer: null | number = null;
@@ -404,12 +404,12 @@ class ImageCropper extends Component<CropperProps, State> {
       if (this.currentDoc.defaultView) {
         this.currentWindow = this.currentDoc.defaultView;
       }
-      this.containerRef.addEventListener('wheel', this.onWheel, {
-        passive: false
+      this.containerRef.addEventListener("wheel", this.onWheel, {
+        passive: false,
       });
       this.containerRef.addEventListener(
-        'gesturestart',
-        this.onGestureStart as EventListener
+        "gesturestart",
+        this.onGestureStart as EventListener,
       );
     }
 
@@ -434,8 +434,8 @@ class ImageCropper extends Component<CropperProps, State> {
   componentWillUnmount() {
     if (this.containerRef) {
       this.containerRef.removeEventListener(
-        'gesturestart',
-        this.preventZoomSafari
+        "gesturestart",
+        this.preventZoomSafari,
       );
     }
     this.cleanEvents();
@@ -472,7 +472,7 @@ class ImageCropper extends Component<CropperProps, State> {
       cropPositionPercent: { x, y },
       cropSize: size,
       image,
-      zoom
+      zoom,
     } = this.props;
     const fitWidth =
       this.mediaSize.naturalWidth / this.mediaSize.naturalHeight <
@@ -483,9 +483,9 @@ class ImageCropper extends Component<CropperProps, State> {
         className="rounded-lg"
         style={{
           height: size.height + borderSize * 2,
-          overflow: 'hidden',
+          overflow: "hidden",
           padding: borderSize,
-          width: size.width + borderSize * 2
+          width: size.width + borderSize * 2,
         }}
       >
         <div
@@ -493,7 +493,7 @@ class ImageCropper extends Component<CropperProps, State> {
           style={{ height: size.height, width: size.width }}
         >
           <div
-            className={cn('reactEasyCrop_Container')}
+            className={cn("reactEasyCrop_Container")}
             onMouseDown={this.onMouseDown}
             onTouchStart={this.onTouchStart}
             // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
@@ -503,10 +503,10 @@ class ImageCropper extends Component<CropperProps, State> {
               <img
                 alt=""
                 className={cn(
-                  'reactEasyCrop_Image',
+                  "reactEasyCrop_Image",
                   fitWidth
-                    ? 'reactEasyCrop_Cover_Horizontal'
-                    : 'reactEasyCrop_Cover_Vertical'
+                    ? "reactEasyCrop_Cover_Horizontal"
+                    : "reactEasyCrop_Cover_Vertical",
                 )}
                 onLoad={this.onMediaLoad}
                 ref={this.imageRef}
@@ -516,14 +516,14 @@ class ImageCropper extends Component<CropperProps, State> {
             )}
             <div
               className={cn(
-                'border-brand-500 border-2',
-                'reactEasyCrop_CropArea'
+                "border-brand-500 border-2",
+                "reactEasyCrop_CropArea",
               )}
               style={{
                 boxShadow: `0 0 0 ${borderSize}px`,
-                color: '#bbba',
+                color: "#bbba",
                 height: size.height,
-                width: size.width
+                width: size.width,
               }}
             />
           </div>

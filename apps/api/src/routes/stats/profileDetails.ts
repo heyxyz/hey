@@ -1,10 +1,10 @@
-import type { Handler } from 'express';
+import type { Handler } from "express";
 
-import logger from '@hey/lib/logger';
-import catchedError from '@utils/catchedError';
-import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
-import createClickhouseClient from '@utils/createClickhouseClient';
-import { noBody } from '@utils/responses';
+import logger from "@hey/lib/logger";
+import catchedError from "@utils/catchedError";
+import { SWR_CACHE_AGE_1_MIN_30_DAYS } from "@utils/constants";
+import createClickhouseClient from "@utils/createClickhouseClient";
+import { noBody } from "@utils/responses";
 
 export const get: Handler = async (req, res) => {
   const { id } = req.query;
@@ -16,7 +16,7 @@ export const get: Handler = async (req, res) => {
   try {
     const client = createClickhouseClient();
     const rows = await client.query({
-      format: 'JSONEachRow',
+      format: "JSONEachRow",
       query: `
         WITH events_counts AS (
           SELECT
@@ -44,27 +44,26 @@ export const get: Handler = async (req, res) => {
         FROM events_counts
         WHERE actor = '${id}'
         GROUP BY actor;
-      `
+      `,
     });
 
-    const result =
-      await rows.json<
-        Array<{
-          actor: string;
-          most_common_browser: string;
-          most_common_browser_version: string;
-          most_common_city: string;
-          most_common_country: string;
-          most_common_os: string;
-          most_common_region: string;
-          number_of_events: string;
-        }>
-      >();
+    const result = await rows.json<
+      Array<{
+        actor: string;
+        most_common_browser: string;
+        most_common_browser_version: string;
+        most_common_city: string;
+        most_common_country: string;
+        most_common_os: string;
+        most_common_region: string;
+        number_of_events: string;
+      }>
+    >();
     logger.info(`Profile details fetched for ${id}`);
 
     return res
       .status(200)
-      .setHeader('Cache-Control', SWR_CACHE_AGE_1_MIN_30_DAYS)
+      .setHeader("Cache-Control", SWR_CACHE_AGE_1_MIN_30_DAYS)
       .json({
         result: result[0]
           ? {
@@ -75,10 +74,10 @@ export const get: Handler = async (req, res) => {
               events: parseInt(result[0].number_of_events),
               os: result[0].most_common_os,
               region: result[0].most_common_region,
-              version: result[0].most_common_browser_version
+              version: result[0].most_common_browser_version,
             }
           : null,
-        success: true
+        success: true,
       });
   } catch (error) {
     return catchedError(res, error);

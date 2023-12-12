@@ -1,16 +1,16 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from "@hey/lens";
 
-import { LimitType, useMutualFollowersQuery } from '@hey/lens';
-import getAvatar from '@hey/lib/getAvatar';
-import getProfile from '@hey/lib/getProfile';
-import { Image } from '@hey/ui';
+import { LimitType, useMutualFollowersQuery } from "@hey/lens";
+import getAvatar from "@hey/lib/getAvatar";
+import getProfile from "@hey/lib/getProfile";
+import { Image } from "@hey/ui";
 import {
   type Dispatch,
   type FC,
   type ReactNode,
-  type SetStateAction
-} from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+  type SetStateAction,
+} from "react";
+import useProfileStore from "src/store/persisted/useProfileStore";
 
 interface MutualFollowersProps {
   profile: Profile;
@@ -19,7 +19,7 @@ interface MutualFollowersProps {
 
 const MutualFollowers: FC<MutualFollowersProps> = ({
   profile,
-  setShowMutualFollowersModal
+  setShowMutualFollowersModal,
 }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
@@ -29,9 +29,9 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
       request: {
         limit: LimitType.Ten,
         observer: currentProfile?.id,
-        viewing: profile?.id
-      }
-    }
+        viewing: profile?.id,
+      },
+    },
   });
 
   const profiles =
@@ -43,14 +43,16 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
       onClick={() => setShowMutualFollowersModal?.(true)}
     >
       <div className="contents -space-x-2">
-        {profiles.slice(0, 3)?.map((profile) => (
-          <Image
-            alt={profile.id}
-            className="h-5 w-5 rounded-full border dark:border-gray-700"
-            key={profile.id}
-            src={getAvatar(profile)}
-          />
-        ))}
+        {profiles
+          .slice(0, 3)
+          ?.map((profile) => (
+            <Image
+              alt={profile.id}
+              className="h-5 w-5 rounded-full border dark:border-gray-700"
+              key={profile.id}
+              src={getAvatar(profile)}
+            />
+          ))}
       </div>
       <div>
         <span>Followed by </span>
@@ -93,12 +95,12 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
         <span>{getProfile(profileOne).displayName}, </span>
         <span>
           {getProfile(profileTwo).displayName}
-          {isZero ? ' and ' : ', '}
+          {isZero ? " and " : ", "}
         </span>
         <span>{getProfile(profileThree).displayName} </span>
         {!isZero ? (
           <span>
-            and {calculatedCount} {calculatedCount === 1 ? 'other' : 'others'}
+            and {calculatedCount} {calculatedCount === 1 ? "other" : "others"}
           </span>
         ) : null}
       </Wrapper>

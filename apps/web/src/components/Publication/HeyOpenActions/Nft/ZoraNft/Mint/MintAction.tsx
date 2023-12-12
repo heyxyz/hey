@@ -1,38 +1,38 @@
-import type { AnyPublication } from '@hey/lens';
-import type { ZoraNft } from '@hey/types/nft';
-import type { FC } from 'react';
-import type { Address } from 'viem';
+import type { AnyPublication } from "@hey/lens";
+import type { ZoraNft } from "@hey/types/nft";
+import type { FC } from "react";
+import type { Address } from "viem";
 
-import WalletSelector from '@components/Shared/Login/WalletSelector';
-import SwitchNetwork from '@components/Shared/SwitchNetwork';
+import WalletSelector from "@components/Shared/Login/WalletSelector";
+import SwitchNetwork from "@components/Shared/SwitchNetwork";
 import {
   CurrencyDollarIcon,
-  CursorArrowRaysIcon
-} from '@heroicons/react/24/outline';
-import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { ZoraCreator1155Impl, ZoraERC721Drop } from '@hey/abis';
-import { APP_NAME, REWARDS_ADDRESS, ZERO_ADDRESS } from '@hey/data/constants';
-import { ZORA_FIXED_PRICE_SALE_STRATEGY } from '@hey/data/contracts';
-import { PUBLICATION } from '@hey/data/tracking';
-import getZoraChainInfo from '@hey/lib/getZoraChainInfo';
-import { Button, Spinner } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
-import Link from 'next/link';
-import { useUpdateEffect } from 'usehooks-ts';
-import { encodeAbiParameters, parseAbiParameters, parseEther } from 'viem';
+  CursorArrowRaysIcon,
+} from "@heroicons/react/24/outline";
+import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import { ZoraCreator1155Impl, ZoraERC721Drop } from "@hey/abis";
+import { APP_NAME, REWARDS_ADDRESS, ZERO_ADDRESS } from "@hey/data/constants";
+import { ZORA_FIXED_PRICE_SALE_STRATEGY } from "@hey/data/contracts";
+import { PUBLICATION } from "@hey/data/tracking";
+import getZoraChainInfo from "@hey/lib/getZoraChainInfo";
+import { Button, Spinner } from "@hey/ui";
+import { Leafwatch } from "@lib/leafwatch";
+import Link from "next/link";
+import { useUpdateEffect } from "usehooks-ts";
+import { encodeAbiParameters, parseAbiParameters, parseEther } from "viem";
 import {
   useAccount,
   useChainId,
   useContractWrite,
   usePrepareContractWrite,
-  useWaitForTransaction
-} from 'wagmi';
+  useWaitForTransaction,
+} from "wagmi";
 
-import { useZoraMintStore } from '.';
+import { useZoraMintStore } from ".";
 
-const NO_BALANCE_ERROR = 'exceeds the balance of the account';
-const MAX_MINT_EXCEEDED_ERROR = 'Purchase_TooManyForAddress';
-const SALE_INACTIVE_ERROR = 'Sale_Inactive';
+const NO_BALANCE_ERROR = "exceeds the balance of the account";
+const MAX_MINT_EXCEEDED_ERROR = "Purchase_TooManyForAddress";
+const SALE_INACTIVE_ERROR = "Sale_Inactive";
 const ALLOWED_ERRORS_FOR_MINTING = [NO_BALANCE_ERROR, MAX_MINT_EXCEEDED_ERROR];
 
 interface MintActionProps {
@@ -46,7 +46,7 @@ const MintAction: FC<MintActionProps> = ({
   nft,
   onCompleted,
   publication,
-  zoraLink
+  zoraLink,
 }) => {
   const quantity = useZoraMintStore((state) => state.quantity);
   const setCanMintOnHey = useZoraMintStore((state) => state.setCanMintOnHey);
@@ -65,43 +65,43 @@ const MintAction: FC<MintActionProps> = ({
     (parseEther(nftPriceInEth.toString()) + mintFeeInEth) * BigInt(quantity);
 
   const abi =
-    nft.contractStandard === 'ERC721' ? ZoraERC721Drop : ZoraCreator1155Impl;
+    nft.contractStandard === "ERC721" ? ZoraERC721Drop : ZoraCreator1155Impl;
   const args =
-    nft.contractStandard === 'ERC721'
+    nft.contractStandard === "ERC721"
       ? [recipient, BigInt(quantity), comment, mintReferral]
       : [
           ZORA_FIXED_PRICE_SALE_STRATEGY,
           parseInt(nft.tokenId),
           BigInt(quantity),
-          encodeAbiParameters(parseAbiParameters('address'), [recipient]),
-          mintReferral
+          encodeAbiParameters(parseAbiParameters("address"), [recipient]),
+          mintReferral,
         ];
 
   const {
     config,
     error: prepareError,
     isError: isPrepareError,
-    isFetching: isPrepareFetching
+    isFetching: isPrepareFetching,
   } = usePrepareContractWrite({
     abi,
     address: nftAddress,
     args,
     chainId: nft.chainId,
-    functionName: 'mintWithRewards',
-    value
+    functionName: "mintWithRewards",
+    value,
   });
   const {
     data,
     isLoading: isContractWriteLoading,
-    write
+    write,
   } = useContractWrite({ ...config });
   const {
     data: txnData,
     isLoading,
-    isSuccess
+    isSuccess,
   } = useWaitForTransaction({
     chainId: nft.chainId,
-    hash: data?.hash
+    hash: data?.hash,
   });
 
   useUpdateEffect(() => {
@@ -113,7 +113,7 @@ const MintAction: FC<MintActionProps> = ({
         hash: txnData.transactionHash,
         nft: nftAddress,
         price: (nftPriceInEth + mintFee) * quantity,
-        quantity
+        quantity,
       });
     }
   }, [isSuccess]);
@@ -122,9 +122,9 @@ const MintAction: FC<MintActionProps> = ({
     setCanMintOnHey(
       !isPrepareError ||
         (isPrepareError &&
-          ALLOWED_ERRORS_FOR_MINTING.some((error) =>
-            prepareError?.message.includes(error)
-          ))
+          ALLOWED_ERRORS_FOR_MINTING.some(
+            (error) => prepareError?.message.includes(error),
+          )),
     );
   }, [isPrepareFetching]);
 
@@ -133,7 +133,7 @@ const MintAction: FC<MintActionProps> = ({
   // Errors
   const noBalanceError = prepareError?.message?.includes(NO_BALANCE_ERROR);
   const maxMintExceededError = prepareError?.message?.includes(
-    MAX_MINT_EXCEEDED_ERROR
+    MAX_MINT_EXCEEDED_ERROR,
   );
   const saleInactiveError =
     prepareError?.message?.includes(SALE_INACTIVE_ERROR);
@@ -186,13 +186,13 @@ const MintAction: FC<MintActionProps> = ({
               onClick={() =>
                 Leafwatch.track(PUBLICATION.OPEN_ACTIONS.ZORA_NFT.OPEN_LINK, {
                   ...(publication && { publication_id: publication.id }),
-                  from: 'mint_modal',
-                  type: saleInactiveError ? 'collect' : 'mint'
+                  from: "mint_modal",
+                  type: saleInactiveError ? "collect" : "mint",
                 })
               }
               size="md"
             >
-              {saleInactiveError ? 'Collect on Zora' : 'Mint on Zora'}
+              {saleInactiveError ? "Collect on Zora" : "Mint on Zora"}
             </Button>
           </Link>
         )

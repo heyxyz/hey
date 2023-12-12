@@ -1,11 +1,11 @@
-import { HEY_API_URL } from '@hey/data/constants';
+import { HEY_API_URL } from "@hey/data/constants";
 
-import getCurrentSession from './getCurrentSession';
+import getCurrentSession from "./getCurrentSession";
 
 let worker: Worker;
 
-if (typeof Worker !== 'undefined') {
-  worker = new Worker(new URL('./leafwatchWorker', import.meta.url));
+if (typeof Worker !== "undefined") {
+  worker = new Worker(new URL("./leafwatchWorker", import.meta.url));
 }
 
 /**
@@ -20,18 +20,18 @@ export const Leafwatch = {
     worker.postMessage({
       actor: sessionProfileId,
       name,
-      platform: 'web',
+      platform: "web",
       properties,
       referrer: referrerDomain,
-      url: window.location.href
+      url: window.location.href,
     });
 
     worker.onmessage = (event: MessageEvent) => {
       const response = event.data;
       const xhr = new XMLHttpRequest();
-      xhr.open('POST', `${HEY_API_URL}/leafwatch/events`);
-      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.open("POST", `${HEY_API_URL}/leafwatch/events`);
+      xhr.setRequestHeader("Content-Type", "application/json");
       xhr.send(JSON.stringify(response));
     };
-  }
+  },
 };

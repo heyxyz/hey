@@ -4,7 +4,7 @@ const generateDateRangeDict = (): { [key: string]: number } => {
 
   const dates: { [key: string]: number } = {};
   while (date < new Date()) {
-    const dateString = date.toISOString().split('T')[0];
+    const dateString = date.toISOString().split("T")[0];
     dates[dateString] = 0;
     date.setDate(date.getDate() + 1);
   }

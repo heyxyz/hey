@@ -1,4 +1,4 @@
-import type { UnlonelyNfcMetadata } from '@hey/types/nft';
+import type { UnlonelyNfcMetadata } from "@hey/types/nft";
 
 const regex = /https:\/\/www\.unlonely\.app\/nfc\/(\w+)/;
 
@@ -13,7 +13,7 @@ const getUnlonelyNfc = (url: string): null | UnlonelyNfcMetadata => {
     const id = matches[1];
     const mintLink = `https://www.unlonely.app/nfc/${id}`;
 
-    return { id, mintLink, provider: 'unlonely-nfc' };
+    return { id, mintLink, provider: "unlonely-nfc" };
   }
 
   return null;

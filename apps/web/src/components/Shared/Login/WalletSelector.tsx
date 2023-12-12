@@ -1,45 +1,45 @@
 import type {
   LastLoggedInProfileRequest,
   Profile,
-  ProfileManagersRequest
-} from '@hey/lens';
-import type { Dispatch, FC, SetStateAction } from 'react';
-import type { Connector } from 'wagmi';
+  ProfileManagersRequest,
+} from "@hey/lens";
+import type { Dispatch, FC, SetStateAction } from "react";
+import type { Connector } from "wagmi";
 
-import SwitchNetwork from '@components/Shared/SwitchNetwork';
+import SwitchNetwork from "@components/Shared/SwitchNetwork";
 import {
   ArrowRightCircleIcon,
   KeyIcon,
-  UserPlusIcon
-} from '@heroicons/react/24/outline';
-import { XCircleIcon } from '@heroicons/react/24/solid';
-import { IS_MAINNET } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { AUTH } from '@hey/data/tracking';
+  UserPlusIcon,
+} from "@heroicons/react/24/outline";
+import { XCircleIcon } from "@heroicons/react/24/solid";
+import { IS_MAINNET } from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import { AUTH } from "@hey/data/tracking";
 import {
   useAuthenticateMutation,
   useChallengeLazyQuery,
-  useProfilesManagedQuery
-} from '@hey/lens';
-import getWalletDetails from '@hey/lib/getWalletDetails';
-import { Button, Card, Spinner } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { CHAIN_ID } from 'src/constants';
-import { signIn } from 'src/store/persisted/useAuthStore';
-import { useIsMounted } from 'usehooks-ts';
+  useProfilesManagedQuery,
+} from "@hey/lens";
+import getWalletDetails from "@hey/lib/getWalletDetails";
+import { Button, Card, Spinner } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import errorToast from "@lib/errorToast";
+import { Leafwatch } from "@lib/leafwatch";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { CHAIN_ID } from "src/constants";
+import { signIn } from "src/store/persisted/useAuthStore";
+import { useIsMounted } from "usehooks-ts";
 import {
   useAccount,
   useChainId,
   useConnect,
   useDisconnect,
-  useSignMessage
-} from 'wagmi';
+  useSignMessage,
+} from "wagmi";
 
-import UserProfile from '../UserProfile';
+import UserProfile from "../UserProfile";
 
 interface WalletSelectorProps {
   setHasConnected?: Dispatch<SetStateAction<boolean>>;
@@ -48,11 +48,11 @@ interface WalletSelectorProps {
 
 const WalletSelector: FC<WalletSelectorProps> = ({
   setHasConnected,
-  setShowSignup
+  setShowSignup,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [loggingInProfileId, setLoggingInProfileId] = useState<null | string>(
-    null
+    null,
   );
 
   const onError = (error: any) => {
@@ -67,27 +67,27 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     connectors,
     error,
     isLoading: isConnectLoading,
-    pendingConnector
+    pendingConnector,
   } = useConnect({ chainId: CHAIN_ID });
 
   const { disconnect } = useDisconnect();
   const { address, connector: activeConnector } = useAccount();
   const { signMessageAsync } = useSignMessage({ onError });
   const [loadChallenge, { error: errorChallenge }] = useChallengeLazyQuery({
-    fetchPolicy: 'no-cache'
+    fetchPolicy: "no-cache",
   });
   const [authenticate, { error: errorAuthenticate }] =
     useAuthenticateMutation();
   const request: LastLoggedInProfileRequest | ProfileManagersRequest = {
-    for: address
+    for: address,
   };
   const { data: profilesManaged, loading: profilesManagedLoading } =
     useProfilesManagedQuery({
       skip: !address,
       variables: {
         lastLoggedInProfileRequest: request,
-        profilesManagedRequest: request
-      }
+        profilesManagedRequest: request,
+      },
     });
 
   const onConnect = async (connector: Connector) => {
@@ -97,7 +97,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
         setHasConnected?.(true);
       }
       Leafwatch.track(AUTH.CONNECT_WALLET, {
-        wallet: connector.name.toLowerCase()
+        wallet: connector.name.toLowerCase(),
       });
     } catch {}
   };
@@ -109,8 +109,8 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       // Get challenge
       const challenge = await loadChallenge({
         variables: {
-          request: { ...(id && { for: id }), signedBy: address }
-        }
+          request: { ...(id && { for: id }), signedBy: address },
+        },
       });
 
       if (!challenge?.data?.challenge?.text) {
@@ -119,12 +119,12 @@ const WalletSelector: FC<WalletSelectorProps> = ({
 
       // Get signature
       const signature = await signMessageAsync({
-        message: challenge?.data?.challenge?.text
+        message: challenge?.data?.challenge?.text,
       });
 
       // Auth user and set cookies
       const auth = await authenticate({
-        variables: { request: { id: challenge.data.challenge.id, signature } }
+        variables: { request: { id: challenge.data.challenge.id, signature } },
       });
       const accessToken = auth.data?.authenticate.accessToken;
       const refreshToken = auth.data?.authenticate.refreshToken;
@@ -243,10 +243,10 @@ const WalletSelector: FC<WalletSelectorProps> = ({
           <button
             className={cn(
               {
-                'hover:bg-gray-100 dark:hover:bg-gray-700':
-                  connector.id !== activeConnector?.id
+                "hover:bg-gray-100 dark:hover:bg-gray-700":
+                  connector.id !== activeConnector?.id,
               },
-              'flex w-full items-center justify-between space-x-2.5 overflow-hidden rounded-xl border px-4 py-3 outline-none dark:border-gray-700'
+              "flex w-full items-center justify-between space-x-2.5 overflow-hidden rounded-xl border px-4 py-3 outline-none dark:border-gray-700",
             )}
             disabled={
               isMounted()
@@ -259,11 +259,11 @@ const WalletSelector: FC<WalletSelectorProps> = ({
           >
             <span>
               {isMounted()
-                ? connector.id === 'injected'
-                  ? 'Browser Wallet'
+                ? connector.id === "injected"
+                  ? "Browser Wallet"
                   : getWalletDetails(connector.name).name
                 : getWalletDetails(connector.name).name}
-              {isMounted() ? !connector.ready && ' (unsupported)' : ''}
+              {isMounted() ? !connector.ready && " (unsupported)" : ""}
             </span>
             <div className="flex items-center space-x-4">
               {isConnectLoading && pendingConnector?.id === connector.id ? (
@@ -284,7 +284,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       {error?.message ? (
         <div className="flex items-center space-x-1 text-red-500">
           <XCircleIcon className="h-5 w-5" />
-          <div>{error?.message ?? 'Failed to connect'}</div>
+          <div>{error?.message ?? "Failed to connect"}</div>
         </div>
       ) : null}
     </div>

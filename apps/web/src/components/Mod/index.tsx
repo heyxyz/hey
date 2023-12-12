@@ -1,31 +1,31 @@
-import type { NextPage } from 'next';
+import type { NextPage } from "next";
 
-import MetaTags from '@components/Common/MetaTags';
-import Footer from '@components/Shared/Footer';
-import { apps as knownApps } from '@hey/data/apps';
-import { APP_NAME } from '@hey/data/constants';
-import { FeatureFlag } from '@hey/data/feature-flags';
-import { PAGEVIEW } from '@hey/data/tracking';
+import MetaTags from "@components/Common/MetaTags";
+import Footer from "@components/Shared/Footer";
+import { apps as knownApps } from "@hey/data/apps";
+import { APP_NAME } from "@hey/data/constants";
+import { FeatureFlag } from "@hey/data/feature-flags";
+import { PAGEVIEW } from "@hey/data/tracking";
 import {
   CustomFiltersType,
   ExplorePublicationType,
-  PublicationMetadataMainFocusType
-} from '@hey/lens';
+  PublicationMetadataMainFocusType,
+} from "@hey/lens";
 import {
   Button,
   Card,
   Checkbox,
   GridItemEight,
   GridItemFour,
-  GridLayout
-} from '@hey/ui';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Leafwatch } from '@lib/leafwatch';
-import { useState } from 'react';
-import Custom404 from 'src/pages/404';
-import { useEffectOnce } from 'usehooks-ts';
+  GridLayout,
+} from "@hey/ui";
+import isFeatureEnabled from "@lib/isFeatureEnabled";
+import { Leafwatch } from "@lib/leafwatch";
+import { useState } from "react";
+import Custom404 from "src/pages/404";
+import { useEffectOnce } from "usehooks-ts";
 
-import Feed from './Feed';
+import Feed from "./Feed";
 
 const FILTER_APPS = knownApps;
 
@@ -34,7 +34,7 @@ const Mod: NextPage = () => {
   const [refresh, setRefresh] = useState(false);
   const [publicationTypes, setPublicationTypes] = useState([
     ExplorePublicationType.Post,
-    ExplorePublicationType.Quote
+    ExplorePublicationType.Quote,
   ]);
   const [mainContentFocus, setMainContentFocus] = useState<
     PublicationMetadataMainFocusType[]
@@ -43,16 +43,16 @@ const Mod: NextPage = () => {
       (key) =>
         PublicationMetadataMainFocusType[
           key as keyof typeof PublicationMetadataMainFocusType
-        ]
-    )
+        ],
+    ),
   );
   const [customFilters, setCustomFilters] = useState([
-    CustomFiltersType.Gardeners
+    CustomFiltersType.Gardeners,
   ]);
   const [apps, setApps] = useState<null | string[]>(null);
 
   useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'mod' });
+    Leafwatch.track(PAGEVIEW, { page: "mod" });
   });
 
   if (!isFeatureEnabled(FeatureFlag.Gardener)) {
@@ -70,7 +70,7 @@ const Mod: NextPage = () => {
   const togglePublicationType = (publicationType: ExplorePublicationType) => {
     if (publicationTypes.includes(publicationType)) {
       setPublicationTypes(
-        publicationTypes.filter((type) => type !== publicationType)
+        publicationTypes.filter((type) => type !== publicationType),
       );
     } else {
       setPublicationTypes([...publicationTypes, publicationType]);
@@ -113,7 +113,7 @@ const Mod: NextPage = () => {
               />
               <Checkbox
                 checked={publicationTypes.includes(
-                  ExplorePublicationType.Quote
+                  ExplorePublicationType.Quote,
                 )}
                 label="Quotes"
                 name="quotes"
@@ -138,16 +138,16 @@ const Mod: NextPage = () => {
                           (key) =>
                             PublicationMetadataMainFocusType[
                               key as keyof typeof PublicationMetadataMainFocusType
-                            ]
-                        )
+                            ],
+                        ),
                       );
                 }}
                 type="button"
               >
                 {mainContentFocus.length ===
                 Object.keys(PublicationMetadataMainFocusType).length
-                  ? 'Unselect all'
-                  : 'Select all'}
+                  ? "Unselect all"
+                  : "Select all"}
               </button>
             </div>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
@@ -156,7 +156,7 @@ const Mod: NextPage = () => {
                   checked={mainContentFocus.includes(
                     PublicationMetadataMainFocusType[
                       key as keyof typeof PublicationMetadataMainFocusType
-                    ]
+                    ],
                   )}
                   key={key}
                   label={key}
@@ -165,7 +165,7 @@ const Mod: NextPage = () => {
                     toggleMainContentFocus(
                       PublicationMetadataMainFocusType[
                         key as keyof typeof PublicationMetadataMainFocusType
-                      ]
+                      ],
                     )
                   }
                 />
@@ -184,13 +184,13 @@ const Mod: NextPage = () => {
                   if (customFilters.includes(CustomFiltersType.Gardeners)) {
                     setCustomFilters(
                       customFilters.filter(
-                        (type) => type !== CustomFiltersType.Gardeners
-                      )
+                        (type) => type !== CustomFiltersType.Gardeners,
+                      ),
                     );
                   } else {
                     setCustomFilters([
                       ...customFilters,
-                      CustomFiltersType.Gardeners
+                      CustomFiltersType.Gardeners,
                     ]);
                   }
                 }}

@@ -1,4 +1,4 @@
-import { OpenActionModuleType } from '@hey/lens';
+import { OpenActionModuleType } from "@hey/lens";
 
 /**
  * Returns the name of the specified module to be used in the actOn key.
@@ -9,11 +9,11 @@ import { OpenActionModuleType } from '@hey/lens';
 const getOpenActionActOnKey = (name: string): string => {
   switch (name) {
     case OpenActionModuleType.SimpleCollectOpenActionModule:
-      return 'simpleCollectOpenAction';
+      return "simpleCollectOpenAction";
     case OpenActionModuleType.MultirecipientFeeCollectOpenActionModule:
-      return 'multirecipientCollectOpenAction';
+      return "multirecipientCollectOpenAction";
     default:
-      return 'unknownOpenAction';
+      return "unknownOpenAction";
   }
 };
 

@@ -1,26 +1,26 @@
-import type { Poll } from '@hey/types/hey';
-import type { FC } from 'react';
+import type { Poll } from "@hey/types/hey";
+import type { FC } from "react";
 
-import Beta from '@components/Shared/Badges/Beta';
+import Beta from "@components/Shared/Badges/Beta";
 import {
   Bars3BottomLeftIcon,
-  CheckCircleIcon
-} from '@heroicons/react/24/solid';
-import { HEY_API_URL } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { PUBLICATION } from '@hey/data/tracking';
-import humanize from '@hey/lib/humanize';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Card, Spinner } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import { getTimetoNow } from '@lib/formatTime';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
-import { Leafwatch } from '@lib/leafwatch';
-import axios from 'axios';
-import plur from 'plur';
-import { useState } from 'react';
-import { toast } from 'react-hot-toast';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+  CheckCircleIcon,
+} from "@heroicons/react/24/solid";
+import { HEY_API_URL } from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import { PUBLICATION } from "@hey/data/tracking";
+import humanize from "@hey/lib/humanize";
+import stopEventPropagation from "@hey/lib/stopEventPropagation";
+import { Card, Spinner } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import { getTimetoNow } from "@lib/formatTime";
+import getAuthWorkerHeaders from "@lib/getAuthWorkerHeaders";
+import { Leafwatch } from "@lib/leafwatch";
+import axios from "axios";
+import plur from "plur";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
+import useProfileStore from "src/store/persisted/useProfileStore";
 
 interface ChoicesProps {
   poll: Poll;
@@ -49,12 +49,12 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
       await axios.post(
         `${HEY_API_URL}/poll/act`,
         { option: id, poll: poll.id },
-        { headers: getAuthWorkerHeaders() }
+        { headers: getAuthWorkerHeaders() },
       );
 
       refetch?.();
       Leafwatch.track(PUBLICATION.WIDGET.POLL.VOTE, { poll_id: id });
-      toast.success('Your poll has been casted!');
+      toast.success("Your poll has been casted!");
     } catch {
       toast.error(Errors.SomethingWentWrong);
     } finally {
@@ -78,8 +78,8 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
             ) : (
               <CheckCircleIcon
                 className={cn(
-                  voted ? 'text-green-500' : 'text-gray-500',
-                  'h-6 w-6 '
+                  voted ? "text-green-500" : "text-gray-500",
+                  "h-6 w-6 ",
                 )}
               />
             )}
@@ -94,7 +94,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
               </div>
               <div className="flex h-2.5 overflow-hidden rounded-full bg-gray-300 dark:bg-gray-800">
                 <div
-                  className={cn(voted ? 'bg-green-500' : 'bg-brand-500')}
+                  className={cn(voted ? "bg-green-500" : "bg-brand-500")}
                   style={{ width: `${percentage}%` }}
                 />
               </div>
@@ -106,7 +106,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
         <div className="flex items-center space-x-2 text-xs text-gray-500">
           <Bars3BottomLeftIcon className="h-4 w-4" />
           <span>
-            {humanize(totalResponses ?? 0)} {plur('vote', totalResponses || 0)}
+            {humanize(totalResponses ?? 0)} {plur("vote", totalResponses || 0)}
           </span>
           <span>·</span>
           {new Date(endsAt) > new Date() ? (

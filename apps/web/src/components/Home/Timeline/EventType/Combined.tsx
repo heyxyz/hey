@@ -1,8 +1,8 @@
-import type { FeedItem } from '@hey/lens';
-import type { FC } from 'react';
+import type { FeedItem } from "@hey/lens";
+import type { FC } from "react";
 
-import Profiles from '@components/Shared/Profiles';
-import { SparklesIcon } from '@heroicons/react/24/outline';
+import Profiles from "@components/Shared/Profiles";
+import { SparklesIcon } from "@heroicons/react/24/outline";
 
 interface CombinedProps {
   feedItem: FeedItem;
@@ -18,27 +18,27 @@ const Combined: FC<CombinedProps> = ({ feedItem }) => {
 
   const getAllProfiles = () => {
     let profiles = [...mirrors, ...acted, ...reactions, ...comments].map(
-      (event) => event.by
+      (event) => event.by,
     );
     profiles = profiles.filter(
       (profile, index, self) =>
-        index === self.findIndex((t) => t.id === profile.id)
+        index === self.findIndex((t) => t.id === profile.id),
     );
     return profiles;
   };
 
   const actionArray = [];
   if (mirrorsLength) {
-    actionArray.push('mirrored');
+    actionArray.push("mirrored");
   }
   if (commentsLength) {
-    actionArray.push('commented');
+    actionArray.push("commented");
   }
   if (actedLength) {
-    actionArray.push('acted');
+    actionArray.push("acted");
   }
   if (reactionsLength) {
-    actionArray.push('liked');
+    actionArray.push("liked");
   }
 
   return (

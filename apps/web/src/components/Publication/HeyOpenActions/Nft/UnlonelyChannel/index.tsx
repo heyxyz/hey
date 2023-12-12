@@ -1,24 +1,24 @@
-import type { AnyPublication } from '@hey/lens';
-import type { UnlonelyChannelMetadata } from '@hey/types/nft';
-import type { FC } from 'react';
+import type { AnyPublication } from "@hey/lens";
+import type { UnlonelyChannelMetadata } from "@hey/types/nft";
+import type { FC } from "react";
 
-import Video from '@components/Shared/Video';
+import Video from "@components/Shared/Video";
 import {
   CursorArrowRaysIcon,
   SignalIcon,
-  SignalSlashIcon
-} from '@heroicons/react/24/outline';
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import { PUBLICATION } from '@hey/data/tracking';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Button, Card, Tooltip } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import { Leafwatch } from '@lib/leafwatch';
-import Link from 'next/link';
-import useUnlonelyChannel from 'src/hooks/unlonely/useUnlonelyChannel';
-import urlcat from 'urlcat';
+  SignalSlashIcon,
+} from "@heroicons/react/24/outline";
+import { STATIC_IMAGES_URL } from "@hey/data/constants";
+import { PUBLICATION } from "@hey/data/tracking";
+import stopEventPropagation from "@hey/lib/stopEventPropagation";
+import { Button, Card, Tooltip } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import { Leafwatch } from "@lib/leafwatch";
+import Link from "next/link";
+import useUnlonelyChannel from "src/hooks/unlonely/useUnlonelyChannel";
+import urlcat from "urlcat";
 
-import NftShimmer from './Shimmer';
+import NftShimmer from "./Shimmer";
 
 interface UnlonelyChannelProps {
   nftMetadata: UnlonelyChannelMetadata;
@@ -27,17 +27,17 @@ interface UnlonelyChannelProps {
 
 const UnlonelyChannel: FC<UnlonelyChannelProps> = ({
   nftMetadata,
-  publication
+  publication,
 }) => {
   const { slug } = nftMetadata;
 
   const {
     data: channel,
     error,
-    loading
+    loading,
   } = useUnlonelyChannel({
     enabled: Boolean(slug),
-    slug
+    slug,
   });
 
   if (loading) {
@@ -76,8 +76,8 @@ const UnlonelyChannel: FC<UnlonelyChannelProps> = ({
           <div className="text-sm font-bold">{name}</div>
           <div
             className={cn(
-              isLive ? 'bg-red-500' : 'bg-gray-500',
-              'flex items-center gap-1 rounded-md px-2 py-0.5 text-xs text-white'
+              isLive ? "bg-red-500" : "bg-gray-500",
+              "flex items-center gap-1 rounded-md px-2 py-0.5 text-xs text-white",
             )}
           >
             {isLive ? (
@@ -85,12 +85,12 @@ const UnlonelyChannel: FC<UnlonelyChannelProps> = ({
             ) : (
               <SignalSlashIcon className="h-3 w-3" />
             )}
-            <span>{isLive ? 'Live' : 'Offline'}</span>
+            <span>{isLive ? "Live" : "Offline"}</span>
           </div>
         </div>
         <Link
-          href={urlcat('https://www.unlonely.app/channels/:slug', {
-            slug: channel.slug
+          href={urlcat("https://www.unlonely.app/channels/:slug", {
+            slug: channel.slug,
           })}
           rel="noopener noreferrer"
           target="_blank"
@@ -101,7 +101,7 @@ const UnlonelyChannel: FC<UnlonelyChannelProps> = ({
             onClick={() =>
               Leafwatch.track(
                 PUBLICATION.OPEN_ACTIONS.UNLONELY_CHANNEL.OPEN_LINK,
-                { from: 'mint_embed', publication_id: publication.id }
+                { from: "mint_embed", publication_id: publication.id },
               )
             }
             size="md"

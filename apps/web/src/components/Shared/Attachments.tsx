@@ -1,43 +1,43 @@
-import type { MetadataAsset } from '@hey/types/misc';
-import type { FC } from 'react';
+import type { MetadataAsset } from "@hey/types/misc";
+import type { FC } from "react";
 
-import { ATTACHMENT } from '@hey/data/constants';
-import { PUBLICATION } from '@hey/data/tracking';
-import imageKit from '@hey/lib/imageKit';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Image, LightBox } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import { Leafwatch } from '@lib/leafwatch';
-import { memo, useState } from 'react';
+import { ATTACHMENT } from "@hey/data/constants";
+import { PUBLICATION } from "@hey/data/tracking";
+import imageKit from "@hey/lib/imageKit";
+import stopEventPropagation from "@hey/lib/stopEventPropagation";
+import { Image, LightBox } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import { Leafwatch } from "@lib/leafwatch";
+import { memo, useState } from "react";
 
-import Audio from './Audio';
-import Video from './Video';
+import Audio from "./Audio";
+import Video from "./Video";
 
 const getClass = (attachments: number) => {
   if (attachments === 1) {
     return {
-      aspect: '',
-      row: 'grid-cols-1 grid-rows-1'
+      aspect: "",
+      row: "grid-cols-1 grid-rows-1",
     };
   }
 
   if (attachments === 2) {
     return {
-      aspect: 'aspect-w-16 aspect-h-12',
-      row: 'grid-cols-2 grid-rows-1'
+      aspect: "aspect-w-16 aspect-h-12",
+      row: "grid-cols-2 grid-rows-1",
     };
   }
 
   if (attachments > 2) {
     return {
-      aspect: 'aspect-w-16 aspect-h-12',
-      row: 'grid-cols-2 grid-rows-2'
+      aspect: "aspect-w-16 aspect-h-12",
+      row: "grid-cols-2 grid-rows-2",
     };
   }
 };
 
 interface MetadataAttachment {
-  type: 'Audio' | 'Image' | 'Video';
+  type: "Audio" | "Image" | "Video";
   uri: string;
 }
 
@@ -50,38 +50,38 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
   const processedAttachments = attachments.slice(0, 4);
 
-  const assetIsImage = asset?.type === 'Image';
-  const assetIsVideo = asset?.type === 'Video';
-  const assetIsAudio = asset?.type === 'Audio';
+  const assetIsImage = asset?.type === "Image";
+  const assetIsVideo = asset?.type === "Video";
+  const assetIsAudio = asset?.type === "Audio";
 
   const attachmentsHasImage = processedAttachments.some(
-    (attachment) => attachment.type === 'Image'
+    (attachment) => attachment.type === "Image",
   );
 
   const determineDisplay = ():
-    | 'displayAudioAsset'
-    | 'displayImageAsset'
-    | 'displayVideoAsset'
+    | "displayAudioAsset"
+    | "displayImageAsset"
+    | "displayVideoAsset"
     | MetadataAttachment[]
     | null => {
     if (assetIsVideo) {
-      return 'displayVideoAsset';
+      return "displayVideoAsset";
     }
 
     if (assetIsAudio) {
-      return 'displayAudioAsset';
+      return "displayAudioAsset";
     }
 
     if (attachmentsHasImage) {
       const imageAttachments = processedAttachments.filter(
-        (attachment) => attachment.type === 'Image'
+        (attachment) => attachment.type === "Image",
       );
 
       return imageAttachments;
     }
 
     if (assetIsImage) {
-      return 'displayImageAsset';
+      return "displayImageAsset";
     }
 
     return null;
@@ -111,9 +111,9 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
 
   return (
     <div className="mt-3">
-      {displayDecision === 'displayImageAsset' && assetIsImage && (
+      {displayDecision === "displayImageAsset" && assetIsImage && (
         <div
-          className={cn(getClass(1)?.aspect, 'w-2/3')}
+          className={cn(getClass(1)?.aspect, "w-2/3")}
           onClick={stopEventPropagation}
         >
           <ImageComponent uri={asset.uri} />
@@ -121,7 +121,7 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
       )}
       {Array.isArray(displayDecision) && (
         <div
-          className={cn('grid gap-2', getClass(displayDecision.length)?.row)}
+          className={cn("grid gap-2", getClass(displayDecision.length)?.row)}
         >
           {displayDecision.map((attachment, index) => {
             return (
@@ -129,10 +129,10 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
                 className={cn(
                   `${getClass(displayDecision.length)?.aspect} ${
                     displayDecision.length === 3 && index === 0
-                      ? 'row-span-2'
-                      : ''
+                      ? "row-span-2"
+                      : ""
                   }`,
-                  { 'w-2/3': displayDecision.length === 1 }
+                  { "w-2/3": displayDecision.length === 1 },
                 )}
                 key={attachment.uri}
                 onClick={stopEventPropagation}
@@ -143,10 +143,10 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
           })}
         </div>
       )}
-      {displayDecision === 'displayVideoAsset' && (
+      {displayDecision === "displayVideoAsset" && (
         <Video poster={asset?.cover} src={asset?.uri as string} />
       )}
-      {displayDecision === 'displayAudioAsset' && (
+      {displayDecision === "displayAudioAsset" && (
         <Audio
           artist={asset?.artist}
           expandCover={setExpandedImage}

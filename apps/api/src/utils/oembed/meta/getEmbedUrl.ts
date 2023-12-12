@@ -1,4 +1,4 @@
-import type { Document } from 'linkedom';
+import type { Document } from "linkedom";
 
 const getEmbedUrl = (document: Document): null | string => {
   const lens =
@@ -14,15 +14,15 @@ const getEmbedUrl = (document: Document): null | string => {
     document.querySelector('meta[property="twitter:player"]');
 
   if (lens) {
-    return lens.getAttribute('content');
+    return lens.getAttribute("content");
   }
 
   if (og) {
-    return og.getAttribute('content');
+    return og.getAttribute("content");
   }
 
   if (twitter) {
-    return twitter.getAttribute('content');
+    return twitter.getAttribute("content");
   }
 
   return null;

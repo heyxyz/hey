@@ -1,21 +1,21 @@
-import type { AnyPublication } from '@hey/lens';
-import type { FC } from 'react';
+import type { AnyPublication } from "@hey/lens";
+import type { FC } from "react";
 
-import MenuTransition from '@components/Shared/MenuTransition';
-import { Menu } from '@headlessui/react';
-import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import cn from '@hey/ui/cn';
-import { Fragment } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import MenuTransition from "@components/Shared/MenuTransition";
+import { Menu } from "@headlessui/react";
+import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
+import stopEventPropagation from "@hey/lib/stopEventPropagation";
+import cn from "@hey/ui/cn";
+import { Fragment } from "react";
+import useProfileStore from "src/store/persisted/useProfileStore";
 
-import Bookmark from './Bookmark';
-import CopyPostText from './CopyPostText';
-import Delete from './Delete';
-import NotInterested from './NotInterested';
-import Report from './Report';
-import Share from './Share';
-import Translate from './Translate';
+import Bookmark from "./Bookmark";
+import CopyPostText from "./CopyPostText";
+import Delete from "./Delete";
+import NotInterested from "./NotInterested";
+import Report from "./Report";
+import Share from "./Share";
+import Translate from "./Translate";
 
 interface PublicationMenuProps {
   publication: AnyPublication;
@@ -23,7 +23,7 @@ interface PublicationMenuProps {
 
 const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const iconClassName = 'w-[15px] sm:w-[18px]';
+  const iconClassName = "w-[15px] sm:w-[18px]";
 
   return (
     <Menu as="div" className="relative">
@@ -35,7 +35,7 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
           type="button"
         >
           <EllipsisVerticalIcon
-            className={cn('ld-text-gray-500', iconClassName)}
+            className={cn("ld-text-gray-500", iconClassName)}
           />
         </button>
       </Menu.Button>
