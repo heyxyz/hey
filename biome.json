@@ -4,7 +4,16 @@
 		"enabled": false
 	},
 	"files": {
-		"maxSize": 100000000
+		"maxSize": 100000000,
+		"ignore": [
+			"dist/*",
+			"sw.js",
+			"*.md",
+			"package.json",
+			"tsconfig.json",
+			"tsconfig.tsbuildinfo",
+			"index.html"
+		]
 	},
 	"javascript": {
 		"formatter": {
@@ -15,15 +24,6 @@
 		}
 	},
 	"linter": {
-		"ignore": [
-			"dist/**/*",
-			"sw.js",
-			"*.md",
-			"package.json",
-			"tsconfig.json",
-			"tsconfig.tsbuildinfo",
-			"index.html"
-		],
 		"enabled": true,
 		"rules": {
 			"a11y": { "useKeyWithClickEvents": "off" },
