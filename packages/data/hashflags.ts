@@ -16,5 +16,6 @@ export const hashflags: Record<string, string> = {
   lens: 'lens',
   lenstube: 'lenstube',
   voted: 'voted',
+  // biome-ignore lint/performance/noAccumulatingSpread: <explanation>
   ...prideHashtags.reduce((acc, cur) => ({ ...acc, [cur]: 'pride' }), {})
 };

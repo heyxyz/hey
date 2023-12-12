@@ -19,12 +19,16 @@ const getClass = (attachments: number) => {
       aspect: '',
       row: 'grid-cols-1 grid-rows-1'
     };
-  } else if (attachments === 2) {
+  }
+
+  if (attachments === 2) {
     return {
       aspect: 'aspect-w-16 aspect-h-12',
       row: 'grid-cols-2 grid-rows-1'
     };
-  } else if (attachments > 2) {
+  }
+
+  if (attachments > 2) {
     return {
       aspect: 'aspect-w-16 aspect-h-12',
       row: 'grid-cols-2 grid-rows-2'
@@ -62,15 +66,21 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
     | null => {
     if (assetIsVideo) {
       return 'displayVideoAsset';
-    } else if (assetIsAudio) {
+    }
+
+    if (assetIsAudio) {
       return 'displayAudioAsset';
-    } else if (attachmentsHasImage) {
+    }
+
+    if (attachmentsHasImage) {
       const imageAttachments = processedAttachments.filter(
         (attachment) => attachment.type === 'Image'
       );
 
       return imageAttachments;
-    } else if (assetIsImage) {
+    }
+
+    if (assetIsImage) {
       return 'displayImageAsset';
     }
 
@@ -124,7 +134,7 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
                   }`,
                   { 'w-2/3': displayDecision.length === 1 }
                 )}
-                key={index}
+                key={attachment.uri}
                 onClick={stopEventPropagation}
               >
                 <ImageComponent uri={attachment.uri} />

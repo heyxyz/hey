@@ -85,7 +85,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
 
   return (
     <>
-      {Boolean(collectLimit) ? (
+      {collectLimit ? (
         <Tooltip
           content={`${percentageCollected.toFixed(0)}% Collected`}
           placement="top"

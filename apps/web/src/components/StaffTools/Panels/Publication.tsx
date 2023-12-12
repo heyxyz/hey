@@ -60,18 +60,18 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
             noFlex
             title="Open action modules"
           >
-            {(targetPublication?.openActionModules ?? []).map((module) => (
+            {(targetPublication?.openActionModules || []).map((module) => (
               <div key={module.__typename}>{module.__typename}</div>
             ))}
           </MetaDetails>
         ) : null}
-        {(targetPublication?.metadata.tags ?? []).length > 0 ? (
+        {(targetPublication?.metadata.tags || []).length > 0 ? (
           <MetaDetails
             icon={<TagIcon className="ld-text-gray-500 h-4 w-4" />}
             noFlex
             title="Tags"
           >
-            {(targetPublication?.metadata?.tags ?? []).map((tag) => (
+            {(targetPublication?.metadata?.tags || []).map((tag) => (
               <div key={tag}>{tag}</div>
             ))}
           </MetaDetails>

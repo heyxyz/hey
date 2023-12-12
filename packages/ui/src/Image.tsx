@@ -17,6 +17,7 @@ export const Image = forwardRef(function Image(
 ) {
   const [imageLoadFailed, setImageLoadFailed] = useState(false);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   const handleError = useCallback(
     (e: SyntheticEvent<HTMLImageElement, Event>) => {
       if (imageLoadFailed) {
@@ -30,6 +31,7 @@ export const Image = forwardRef(function Image(
     [imageLoadFailed, setImageLoadFailed, onError]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     setImageLoadFailed(false);
   }, [props.src]);

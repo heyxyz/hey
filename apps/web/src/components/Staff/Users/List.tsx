@@ -69,7 +69,7 @@ const List: FC = () => {
             value: orderBy
           }))}
         />
-        <button onClick={() => refetch()}>
+        <button onClick={() => refetch()} type="button">
           <ArrowPathIcon className="h-5 w-5" />
         </button>
       </div>

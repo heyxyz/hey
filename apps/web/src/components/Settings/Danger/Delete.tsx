@@ -46,7 +46,7 @@ const DeleteSettings: FC = () => {
     onSuccess: onCompleted
   });
 
-  const handleDelete = async () => {
+  const handleDelete = () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }

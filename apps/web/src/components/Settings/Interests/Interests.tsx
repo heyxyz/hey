@@ -48,7 +48,7 @@ const Interests: FC = () => {
   });
 
   const interestsData = data?.profileInterestsOptions as ProfileInterestTypes[];
-  const selectedTopics = data?.profile?.interests ?? [];
+  const selectedTopics = data?.profile?.interests || [];
 
   const onSelectTopic = (topic: ProfileInterestTypes) => {
     const request: ProfileInterestsRequest = {

@@ -9,7 +9,7 @@ const regex = /https:\/\/www\.unlonely\.app\/nfc\/(\w+)/;
  */
 const getUnlonelyNfc = (url: string): null | UnlonelyNfcMetadata => {
   const matches = regex.exec(url);
-  if (matches && matches[1]) {
+  if (matches?.[1]) {
     const id = matches[1];
     const mintLink = `https://www.unlonely.app/nfc/${id}`;
 

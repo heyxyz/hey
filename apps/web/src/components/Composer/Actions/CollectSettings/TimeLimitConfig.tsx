@@ -23,7 +23,7 @@ const TimeLimitConfig: FC<TimeLimitConfigProps> = ({ setCollectType }) => {
         on={Boolean(collectModule.endsAt)}
         setOn={() =>
           setCollectType({
-            endsAt: Boolean(collectModule.endsAt) ? null : getTimeAddedNDay(1)
+            endsAt: collectModule.endsAt ? null : getTimeAddedNDay(1)
           })
         }
       />

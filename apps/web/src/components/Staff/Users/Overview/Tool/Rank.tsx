@@ -32,7 +32,7 @@ const Rank: FC<RankProps> = ({ profile }) => {
       );
 
       return response.data;
-    } catch (error) {
+    } catch {
       return false;
     }
   };
@@ -48,7 +48,7 @@ const Rank: FC<RankProps> = ({ profile }) => {
       );
 
       return response.data;
-    } catch (error) {
+    } catch {
       return false;
     }
   };

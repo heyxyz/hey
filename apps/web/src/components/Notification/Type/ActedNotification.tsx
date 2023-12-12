@@ -1,8 +1,8 @@
+import type { ActedNotification as TActedNotification } from '@hey/lens';
 import type { FC } from 'react';
 
 import Markup from '@components/Shared/Markup';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
-import { ActedNotification } from '@hey/lens';
 import getPublicationData from '@hey/lib/getPublicationData';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import pushToImpressions from '@lib/pushToImpressions';
@@ -14,7 +14,7 @@ import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
 
 interface ActedNotificationProps {
-  notification: ActedNotification;
+  notification: TActedNotification;
 }
 
 const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {

@@ -77,13 +77,17 @@ const ReferenceSettings: FC = () => {
   const getSelectedReferenceModuleTooltipText = () => {
     if (isMyFollowers) {
       return 'My followers can comment and mirror';
-    } else if (isMyFollows) {
-      return 'My follows can comment and mirror';
-    } else if (isFriendsOfFriends) {
-      return 'Friend of friends can comment and mirror';
-    } else {
-      return 'Everyone can comment and mirror';
     }
+
+    if (isMyFollows) {
+      return 'My follows can comment and mirror';
+    }
+
+    if (isFriendsOfFriends) {
+      return 'Friend of friends can comment and mirror';
+    }
+
+    return 'Everyone can comment and mirror';
   };
 
   return (

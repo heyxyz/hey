@@ -10,20 +10,16 @@ const useCreatePoll = () => {
 
   // TODO: use useCallback
   const createPoll = async (): Promise<CreatePollResponse> => {
-    try {
-      const response = await axios.post(
-        `${HEY_API_URL}/poll/create`,
-        {
-          length: pollConfig.length,
-          options: pollConfig.options
-        },
-        { headers: getAuthWorkerHeaders() }
-      );
+    const response = await axios.post(
+      `${HEY_API_URL}/poll/create`,
+      {
+        length: pollConfig.length,
+        options: pollConfig.options
+      },
+      { headers: getAuthWorkerHeaders() }
+    );
 
-      return response.data.id;
-    } catch (error) {
-      throw error;
-    }
+    return response.data.id;
   };
 
   return createPoll;

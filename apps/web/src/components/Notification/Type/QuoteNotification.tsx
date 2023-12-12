@@ -1,8 +1,8 @@
+import type { QuoteNotification as TQuoteNotification } from '@hey/lens';
 import type { FC } from 'react';
 
 import Markup from '@components/Shared/Markup';
 import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
-import { QuoteNotification } from '@hey/lens';
 import getPublicationData from '@hey/lib/getPublicationData';
 import pushToImpressions from '@lib/pushToImpressions';
 import Link from 'next/link';
@@ -12,7 +12,7 @@ import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
 
 interface QuoteNotificationProps {
-  notification: QuoteNotification;
+  notification: TQuoteNotification;
 }
 
 const QuoteNotification: FC<QuoteNotificationProps> = ({ notification }) => {

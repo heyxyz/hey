@@ -45,6 +45,7 @@ const useUploadAttachments = () => {
     return true;
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   const handleUploadAttachments = useCallback(
     async (attachments: any): Promise<NewAttachment[]> => {
       setIsUploading(true);

@@ -26,8 +26,8 @@ export const cursorBasedPagination = <T extends CursorBasedPagination>(
         return incoming;
       }
 
-      const existingItems = existing.items ?? [];
-      const incomingItems = incoming.items ?? [];
+      const existingItems = existing.items || [];
+      const incomingItems = incoming.items || [];
 
       return {
         ...incoming,

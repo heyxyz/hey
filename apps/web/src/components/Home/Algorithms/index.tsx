@@ -19,6 +19,7 @@ const Algorithms: FC = () => {
           setShowAlgorithmsModal(true);
           Leafwatch.track(HOME.ALGORITHMS.OPEN_ALGORITHMS);
         }}
+        type="button"
       >
         <Tooltip content="Algorithms" placement="top">
           <SparklesIcon className="text-brand-500 h-5 w-5" />

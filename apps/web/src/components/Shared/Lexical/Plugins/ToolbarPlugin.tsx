@@ -48,6 +48,7 @@ const ToolbarPlugin: FC = () => {
           activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
         }}
         title="Bold"
+        type="button"
       >
         <i className="toolbar-icon bold text-brand-500" />
       </button>
@@ -57,6 +58,7 @@ const ToolbarPlugin: FC = () => {
           activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic');
         }}
         title="Italic"
+        type="button"
       >
         <i className="toolbar-icon italic" />
       </button>
@@ -66,6 +68,7 @@ const ToolbarPlugin: FC = () => {
           activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code');
         }}
         title="Code"
+        type="button"
       >
         <i className="toolbar-icon code" />
       </button>

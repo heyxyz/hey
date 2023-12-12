@@ -13,17 +13,13 @@ const getAllFeatureFlags = async (
   headers: any,
   callbackFn?: (flags: Feature[]) => void
 ): Promise<Feature[]> => {
-  try {
-    const response = await axios.get(`${HEY_API_URL}/internal/feature/all`, {
-      headers
-    });
-    const { data } = response;
-    callbackFn?.(data?.features || []);
+  const response = await axios.get(`${HEY_API_URL}/internal/feature/all`, {
+    headers
+  });
+  const { data } = response;
+  callbackFn?.(data?.features || []);
 
-    return data?.features || [];
-  } catch (error) {
-    throw error;
-  }
+  return data?.features || [];
 };
 
 export default getAllFeatureFlags;
