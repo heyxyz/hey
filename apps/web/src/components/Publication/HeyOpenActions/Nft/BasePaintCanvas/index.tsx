@@ -60,6 +60,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
       onClick={(event) => stopEventPropagation(event)}
     >
       <img
+        alt="BasePaint Canvas"
         className="h-[400px] max-h-[400px] w-full rounded-t-xl object-cover"
         src={`data://image/gif;base64,${bitmap.gif}`}
         style={{ imageRendering: 'pixelated' }}
@@ -68,6 +69,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
         <div className="mr-5 flex flex-wrap items-center gap-2">
           <Tooltip content="BasePaint" placement="right">
             <img
+              alt="BasePaint"
               className="h-5 w-5 rounded-full"
               src={`${STATIC_IMAGES_URL}/brands/basepaint.jpeg`}
             />
@@ -76,10 +78,10 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
             Day #{canvas.id}: {theme}
           </div>
           <div className="flex items-center space-x-1">
-            {canvas.palette.map((color, index) => (
+            {canvas.palette.map((color) => (
               <span
                 className="inline-block h-4 w-4"
-                key={index}
+                key={color}
                 style={{ backgroundColor: color }}
               />
             ))}

@@ -16,7 +16,7 @@ interface ThreadBodyProps {
 
 const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
   const { observe } = useInView({
-    onChange: async ({ inView }) => {
+    onChange: ({ inView }) => {
       if (!inView) {
         return;
       }

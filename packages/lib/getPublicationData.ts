@@ -36,7 +36,7 @@ const getPublicationData = (
         attachments: getAttachmentsData(metadata.attachments),
         content: metadata.content
       };
-    case 'AudioMetadataV3':
+    case 'AudioMetadataV3': {
       const audioAttachments = getAttachmentsData(metadata.attachments)[0];
 
       return {
@@ -52,7 +52,8 @@ const getPublicationData = (
         },
         content: metadata.content
       };
-    case 'VideoMetadataV3':
+    }
+    case 'VideoMetadataV3': {
       const videoAttachments = getAttachmentsData(metadata.attachments)[0];
 
       return {
@@ -66,6 +67,7 @@ const getPublicationData = (
         },
         content: metadata.content
       };
+    }
     case 'MintMetadataV3':
       return {
         attachments: getAttachmentsData(metadata.attachments),

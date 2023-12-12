@@ -25,6 +25,7 @@ const Invites: FC<InvitesProps> = ({ className = '' }) => {
         setShowInvitesModal(true);
         Leafwatch.track(INVITE.OPEN_INVITE);
       }}
+      type="button"
     >
       <TicketIcon className="h-4 w-4" />
       <div>Invites</div>

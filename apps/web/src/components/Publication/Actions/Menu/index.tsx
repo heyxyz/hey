@@ -32,6 +32,7 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
           aria-label="More"
           className="outline-brand-500 rounded-full p-1.5 hover:bg-gray-300/20"
           onClick={stopEventPropagation}
+          type="button"
         >
           <EllipsisVerticalIcon
             className={cn('ld-text-gray-500', iconClassName)}

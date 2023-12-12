@@ -71,6 +71,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
             disabled={pollSubmitting}
             key={id}
             onClick={() => votePoll(id)}
+            type="button"
           >
             {pollSubmitting && id === selectedOption ? (
               <Spinner className="mr-1" size="sm" />

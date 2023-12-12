@@ -82,6 +82,7 @@ const PollEditor: FC = () => {
                 resetPollConfig();
                 setShowPollEditor(false);
               }}
+              type="button"
             >
               <XCircleIcon className="h-5 w-5 text-red-400" />
             </button>
@@ -90,7 +91,7 @@ const PollEditor: FC = () => {
       </div>
       <div className="mt-3 space-y-2">
         {pollConfig.options.map((choice, index) => (
-          <div className="flex items-center space-x-2 text-sm" key={index}>
+          <div className="flex items-center space-x-2 text-sm" key={choice}>
             <Input
               iconRight={
                 index > 1 ? (
@@ -101,6 +102,7 @@ const PollEditor: FC = () => {
                       newOptions.splice(index, 1);
                       setPollConfig({ ...pollConfig, options: newOptions });
                     }}
+                    type="button"
                   >
                     <XMarkIcon className="h-5 w-5 text-red-500" />
                   </button>
@@ -124,6 +126,7 @@ const PollEditor: FC = () => {
               newOptions.push('');
               setPollConfig({ ...pollConfig, options: newOptions });
             }}
+            type="button"
           >
             <PlusIcon className="h-4 w-4" />
             <span>Add another option</span>

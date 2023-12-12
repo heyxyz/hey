@@ -64,15 +64,21 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
   const getLikeSource = () => {
     if (pathname === '/') {
       return 'home_feed';
-    } else if (pathname === '/u/[username]') {
-      return 'profile_feed';
-    } else if (pathname === '/explore') {
-      return 'explore_feed';
-    } else if (pathname === '/posts/[id]') {
-      return 'post_page';
-    } else {
-      return;
     }
+
+    if (pathname === '/u/[username]') {
+      return 'profile_feed';
+    }
+
+    if (pathname === '/explore') {
+      return 'explore_feed';
+    }
+
+    if (pathname === '/posts/[id]') {
+      return 'post_page';
+    }
+
+    return;
   };
 
   const eventProperties = {

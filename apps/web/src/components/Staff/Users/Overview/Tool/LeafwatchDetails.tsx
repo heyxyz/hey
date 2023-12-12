@@ -37,7 +37,7 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profile }) => {
       const { data } = response;
 
       return data.result;
-    } catch (error) {
+    } catch {
       return null;
     }
   };
@@ -61,7 +61,7 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profile }) => {
       const { data } = response;
 
       return data;
-    } catch (error) {
+    } catch {
       return null;
     }
   };

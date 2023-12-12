@@ -37,8 +37,8 @@ const Invited: FC<InvitedProps> = ({ invitedProfiles }) => {
         </b>
         !
       </div>
-      {sortedInvited.map((invite, key) => (
-        <div key={key}>
+      {sortedInvited.map((invite) => (
+        <div key={invite.addressInvited}>
           <Profile invite={invite} />
         </div>
       ))}

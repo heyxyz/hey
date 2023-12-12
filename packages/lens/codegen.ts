@@ -13,9 +13,6 @@ const config: CodegenConfig = {
       ]
     }
   },
-  hooks: {
-    afterAllFileWrite: ['eslint --fix', 'prettier --write']
-  },
   overwrite: true,
   schema: 'https://api-v2-mumbai-live.lens.dev'
 };
