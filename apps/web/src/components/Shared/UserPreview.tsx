@@ -79,7 +79,7 @@ const UserPreview: FC<UserPreviewProps> = ({
             <div />
           </div>
           <div className="flex p-3">
-            <div>{handle ?? `#${id}`}</div>
+            <div>{handle || `#${id}`}</div>
           </div>
         </div>
       );

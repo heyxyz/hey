@@ -30,7 +30,7 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
   });
 
   const profiles =
-    (data?.mutualFollowers?.items.slice(0, 4) as Profile[]) ?? [];
+    (data?.mutualFollowers?.items.slice(0, 4) as Profile[]) || [];
 
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <div
