@@ -24,7 +24,7 @@ const Block: FC<BlockProps> = ({ profile }) => {
       className={({ active }) =>
         cn(
           { 'dropdown-active': active },
-          'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
+          'm-2 flex cursor-pointer items-center space-x-2 rounded-lg px-2 py-1.5 text-sm'
         )
       }
       onClick={(event) => {
@@ -32,12 +32,10 @@ const Block: FC<BlockProps> = ({ profile }) => {
         setShowBlockOrUnblockAlert(true, profile);
       }}
     >
-      <div className="flex items-center space-x-2">
-        <NoSymbolIcon className="h-4 w-4" />
-        <div>
-          {isBlockedByMe ? 'Unblock' : 'Block'}{' '}
-          {getProfile(profile).slugWithPrefix}
-        </div>
+      <NoSymbolIcon className="h-4 w-4" />
+      <div>
+        {isBlockedByMe ? 'Unblock' : 'Block'}{' '}
+        {getProfile(profile).slugWithPrefix}
       </div>
     </Menu.Item>
   );

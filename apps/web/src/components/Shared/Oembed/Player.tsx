@@ -10,7 +10,6 @@ const Player: FC<PlayerProps> = ({ og }) => {
     <div className="mt-4 w-5/6 text-sm">
       <div
         className="oembed-player"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: This is a trusted source
         dangerouslySetInnerHTML={{ __html: og.html as string }}
       />
     </div>
