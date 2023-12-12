@@ -1,0 +1,35 @@
+{
+	"$schema": "https://biomejs.dev/schemas/1.4.1/schema.json",
+	"organizeImports": {
+		"enabled": false
+	},
+	"files": {
+		"maxSize": 100000000
+	},
+	"javascript": {
+		"formatter": {
+			"indentWidth": 2,
+			"quoteStyle": "single",
+			"trailingComma": "none",
+			"indentStyle": "space"
+		}
+	},
+	"linter": {
+		"ignore": [
+			"dist/**/*",
+			"sw.js",
+			"*.md",
+			"package.json",
+			"tsconfig.json",
+			"tsconfig.tsbuildinfo",
+			"index.html"
+		],
+		"enabled": true,
+		"rules": {
+			"a11y": { "useKeyWithClickEvents": "off" },
+			"correctness": { "useExhaustiveDependencies": "off" },
+			"suspicious": { "noExplicitAny": "off" },
+			"recommended": true
+		}
+	}
+}

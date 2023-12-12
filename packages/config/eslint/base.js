@@ -12,7 +12,6 @@ module.exports = {
   plugins: [
     '@typescript-eslint',
     'unused-imports',
-    'prettier',
     'unicorn',
     'import',
     'perfectionist'
@@ -20,7 +19,6 @@ module.exports = {
   rules: {
     curly: 'error',
     'no-unused-vars': 'off',
-    'prettier/prettier': 'error',
     'unused-imports/no-unused-imports': 'error',
     'import/no-duplicates': ['error', { considerQueryString: true }],
     'prefer-destructuring': ['error', { VariableDeclarator: { object: true } }],

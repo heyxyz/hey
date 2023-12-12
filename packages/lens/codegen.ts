@@ -14,7 +14,10 @@ const config: CodegenConfig = {
     }
   },
   hooks: {
-    afterAllFileWrite: ['eslint --fix', 'prettier --write']
+    afterAllFileWrite: [
+      'eslint --fix',
+      'biome check --files-max-size=10 --apply'
+    ]
   },
   overwrite: true,
   schema: 'https://api-v2-mumbai-live.lens.dev'

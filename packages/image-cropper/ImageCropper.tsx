@@ -496,6 +496,7 @@ class ImageCropper extends Component<CropperProps, State> {
             className={cn('reactEasyCrop_Container')}
             onMouseDown={this.onMouseDown}
             onTouchStart={this.onTouchStart}
+            // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
             ref={(el) => (this.containerRef = el)}
           >
             {image && (

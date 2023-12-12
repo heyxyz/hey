@@ -202,10 +202,10 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const form = useZodForm({
     defaultValues: {
       bio: profile?.metadata?.bio ?? '',
-      location: getProfileAttribute(profile?.metadata?.attributes, 'location'),
+      location: getProfileAttribute('location', profile?.metadata?.attributes),
       name: profile?.metadata?.displayName ?? '',
-      website: getProfileAttribute(profile?.metadata?.attributes, 'website'),
-      x: getProfileAttribute(profile?.metadata?.attributes, 'x')?.replace(
+      website: getProfileAttribute('website', profile?.metadata?.attributes),
+      x: getProfileAttribute('x', profile?.metadata?.attributes)?.replace(
         /(https:\/\/)?x\.com\//,
         ''
       )

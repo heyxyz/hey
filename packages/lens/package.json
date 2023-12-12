@@ -8,8 +8,8 @@
     "codegen": "graphql-codegen",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "lint:fix": "eslint . --fix --ext .js,.ts,.tsx",
-    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
-    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "biome": "biome check *",
+    "biome:fix": "biome check * --apply",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
