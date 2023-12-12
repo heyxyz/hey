@@ -13,12 +13,11 @@ module.exports = {
   rules: {
     curly: 'error',
     'prefer-destructuring': ['error', { VariableDeclarator: { object: true } }],
+    'no-unexpected-multiline': 'error',
+    'unicorn/better-regex': 'error',
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/consistent-type-imports': 'error',
-    'no-use-before-define': 'error',
-    'no-unexpected-multiline': 'error',
-    'unicorn/better-regex': 'error'
+    '@typescript-eslint/consistent-type-imports': 'error'
   },
   ignorePatterns: ['generated.ts', 'node_modules']
 };
