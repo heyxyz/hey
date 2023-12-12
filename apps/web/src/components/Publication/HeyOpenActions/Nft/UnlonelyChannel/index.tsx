@@ -68,6 +68,7 @@ const UnlonelyChannel: FC<UnlonelyChannelProps> = ({
         <div className="mr-5 flex flex-wrap items-center gap-2">
           <Tooltip content="Unlonely Channel" placement="right">
             <img
+              alt="Unlonely"
               className="h-5 w-5 rounded-full"
               src={`${STATIC_IMAGES_URL}/brands/unlonely.png`}
             />

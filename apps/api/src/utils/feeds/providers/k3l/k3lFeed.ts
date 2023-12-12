@@ -14,7 +14,7 @@ const k3lFeed = async (
     return await k3lPersonalFeed(strategy, profile, limit, offset);
   }
 
-  logger.info(`[K3L] Global feed`);
+  logger.info('[K3L] Global feed');
   return await k3lGlobalFeed(strategy, limit, offset);
 };
 

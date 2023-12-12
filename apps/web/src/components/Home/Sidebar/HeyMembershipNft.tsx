@@ -12,10 +12,8 @@ import { memo, useState } from 'react';
 import toast from 'react-hot-toast';
 import useZoraNft from 'src/hooks/zora/useZoraNft';
 import { useMembershipNftStore } from 'src/store/non-persisted/useMembershipNftStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
 
 const HeyMembershipNft: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
   const dismissedOrMinted = useMembershipNftStore(
     (state) => state.dismissedOrMinted
   );
@@ -103,6 +101,7 @@ const HeyMembershipNft: FC = () => {
               Leafwatch.track(MISCELLANEOUS.DISMISSED_MEMBERSHIP_NFT_BANNER);
               updateHeyMemberNftStatus();
             }}
+            type="button"
           >
             Dismiss
           </button>

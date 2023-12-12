@@ -50,6 +50,7 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
         className
       )}
       onClick={toggleStaffMode}
+      type="button"
     >
       {staffMode ? (
         <ShieldCheckIconSolid className="h-4 w-4 text-green-600" />

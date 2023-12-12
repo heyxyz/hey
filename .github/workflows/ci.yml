@@ -35,8 +35,8 @@ jobs:
       - name: Lint 🪩
         run: pnpm lint:affected
 
-      - name: Prettier ✨
-        run: pnpm prettier:affected
+      - name: Biome ✨
+        run: pnpm biome:affected
 
       - name: Build 🎁
         run: pnpm build

@@ -11,7 +11,7 @@ const sanitizeProfileInterests = (profileInterests: ProfileInterestTypes[]) => {
   if (!profileInterests) {
     return [];
   }
-  const interests: Array<ProfileInterest> = [];
+  const interests: ProfileInterest[] = [];
   const categories = profileInterests.filter(
     (interest) => !interest.includes('__')
   );

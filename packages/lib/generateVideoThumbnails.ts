@@ -49,7 +49,7 @@ export const generateVideoThumbnails = (
         }
         resolve(thumbnailArray);
       };
-    } catch (error) {
+    } catch {
       resolve([]);
     }
   });
@@ -77,7 +77,7 @@ export const generateVideoThumbnail = (url: string): Promise<string> => {
           }, 100);
         };
       };
-    } catch (error) {
+    } catch {
       resolve(PLACEHOLDER_IMAGE);
     }
   });

@@ -29,9 +29,9 @@ const Oembed: FC<OembedProps> = ({ onData, publicationId, url }) => {
 
   if (isLoading || error || !data) {
     return null;
-  } else if (data) {
-    onData(data);
   }
+
+  onData(data);
 
   const og: OG = {
     description: data?.description,

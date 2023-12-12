@@ -35,7 +35,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
   );
 
   const getMediaFilters = () => {
-    let filters: PublicationMetadataMainFocusType[] = [];
+    const filters: PublicationMetadataMainFocusType[] = [];
     if (mediaFeedFilters.images) {
       filters.push(PublicationMetadataMainFocusType.Image);
     }

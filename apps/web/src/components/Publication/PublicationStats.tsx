@@ -39,7 +39,6 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
     getPublicationsViews([targetPublication.id]).then((viewsResponse) => {
       setViews(viewsResponse?.[0]?.views);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [targetPublication]);
 
   const publicationId = targetPublication.id;

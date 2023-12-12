@@ -11,9 +11,9 @@
     "lint:affected": "turbo run lint --parallel --filter=[origin/main]",
     "lint:fix": "turbo run lint:fix --parallel",
     "prepare": "husky install",
-    "prettier": "turbo run prettier --parallel",
-    "prettier:affected": "turbo run prettier --parallel --filter=[origin/main]",
-    "prettier:fix": "turbo run prettier:fix --parallel",
+    "biome": "turbo run biome --parallel",
+    "biome:affected": "turbo run biome --parallel --filter=[origin/main]",
+    "biome:fix": "turbo run biome:fix --parallel",
     "start": "turbo run start --parallel",
     "test:dev": "turbo run test:dev",
     "typecheck": "turbo run typecheck --parallel",
@@ -23,9 +23,8 @@
     "root": true
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.4.1",
     "husky": "^8.0.3",
-    "prettier": "^3.1.1",
-    "prettier-plugin-tailwindcss": "^0.5.9",
     "turbo": "^1.11.1"
   },
   "packageManager": "pnpm@8.10.5",

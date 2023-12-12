@@ -5,7 +5,7 @@ import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
 import prisma from '@utils/prisma';
 
-export const get: Handler = async (req, res) => {
+export const get: Handler = async (_, res) => {
   try {
     const data = await prisma.allowedToken.findMany({
       orderBy: { createdAt: 'desc' }

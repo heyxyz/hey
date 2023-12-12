@@ -48,10 +48,10 @@ const Metadata: FC<MetadataProps> = ({ canvas }) => {
         <SwatchIcon className="ld-text-gray-500 h-4 w-4" />
         <b>Color Palette</b>
         <div className="flex items-center space-x-1">
-          {canvas.palette.map((color, index) => (
+          {canvas.palette.map((color) => (
             <span
               className="inline-block h-4 w-4"
-              key={index}
+              key={color}
               style={{ backgroundColor: color }}
             />
           ))}

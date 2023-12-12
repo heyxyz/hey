@@ -39,7 +39,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
       });
 
       return response.data.haveUsedHey;
-    } catch (error) {
+    } catch {
       return false;
     }
   };

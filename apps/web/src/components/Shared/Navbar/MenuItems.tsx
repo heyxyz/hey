@@ -19,7 +19,7 @@ const MenuItems: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const { id: sessionProfileId } = getCurrentSession();
 
-  if (Boolean(currentProfile)) {
+  if (currentProfile) {
     return <SignedUser />;
   }
 

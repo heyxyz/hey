@@ -5,7 +5,7 @@ import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_10_MINS_30_DAYS } from '@utils/constants';
 import prisma from '@utils/prisma';
 
-export const get: Handler = async (_req, res) => {
+export const get: Handler = async (_, res) => {
   try {
     const data = await prisma.verified.findMany({
       select: { id: true }

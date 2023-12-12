@@ -14,6 +14,7 @@ const Settings: FC = () => {
       <button
         className="mx-3 rounded-md p-1 hover:bg-gray-300/20 sm:mx-0"
         onClick={() => setShowNotificationSettings(true)}
+        type="button"
       >
         <Tooltip content="Notification settings" placement="top">
           <Cog6ToothIcon className="ld-text-gray-500 h-5 w-5" />

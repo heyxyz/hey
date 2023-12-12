@@ -69,7 +69,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     variables: { request: { forProfileId: sessionProfileId } }
   });
 
-  const validateAuthentication = async () => {
+  const validateAuthentication = () => {
     const { accessToken } = hydrateAuthTokens();
 
     if (!accessToken) {

@@ -18,7 +18,7 @@ const Categories: FC<CategoriesProps> = ({ setSearchText }) => {
       );
 
       return response.data.data;
-    } catch (error) {
+    } catch {
       return [];
     }
   };
