@@ -19,13 +19,13 @@ const corsConfig: cors.CorsOptions = {
     ) {
       callback(null, true);
     } else {
-      const errorMessage = 'Not allowed by CORS. Check the allowed origins: https://hey.xyz, https://*.hey.xyz, https://*-heyxyz.vercel.app, http://localhost:4783';
+      const errorMessage =
+        'Not allowed by CORS. Check the allowed origins: https://hey.xyz, https://*.hey.xyz, https://*-heyxyz.vercel.app, http://localhost:4783';
 
       // Using the custom CorsError class
       const errorResponse = new CorsError(errorMessage, 403);
 
       callback(errorResponse);
-
     }
   }
 };
