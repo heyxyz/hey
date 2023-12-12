@@ -52,7 +52,6 @@ const Search: FC<SearchProps> = ({
     setSearchText('');
   };
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (pathname !== '/search' && !hideDropdown && debouncedSearchText) {
       // Variables
