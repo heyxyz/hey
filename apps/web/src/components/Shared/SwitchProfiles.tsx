@@ -113,7 +113,7 @@ const SwitchProfiles: FC = () => {
       <ErrorMessage
         className="m-2"
         error={error}
-        title="Failed to load profiles"
+        title="Failed to switch profiles :("
       />
       {profiles.map((profile, index) => (
         <button
