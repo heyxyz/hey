@@ -14,7 +14,7 @@ const Combined: FC<CombinedProps> = ({ feedItem }) => {
   const mirrorsLength = mirrors.length;
   const actedLength = acted.length;
   const reactionsLength = reactions.length;
-  const commentsLength = comments?.length ?? 0;
+  const commentsLength = comments?.length || 0;
 
   const getAllProfiles = () => {
     let profiles = [...mirrors, ...acted, ...reactions, ...comments].map(

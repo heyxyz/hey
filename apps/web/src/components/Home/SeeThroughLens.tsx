@@ -58,7 +58,7 @@ const SeeThroughLens: FC = () => {
     setRecommendedProfilesToSeeThrough(profiles?.slice(0, 5));
   };
 
-  const profile = seeThroughProfile ?? currentProfile;
+  const profile = seeThroughProfile || currentProfile;
   const request: FeedRequest = { where: { for: profile?.id } };
 
   const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] =

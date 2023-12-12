@@ -201,9 +201,9 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
 
   const form = useZodForm({
     defaultValues: {
-      bio: profile?.metadata?.bio ?? '',
+      bio: profile?.metadata?.bio || '',
       location: getProfileAttribute('location', profile?.metadata?.attributes),
-      name: profile?.metadata?.displayName ?? '',
+      name: profile?.metadata?.displayName || '',
       website: getProfileAttribute('website', profile?.metadata?.attributes),
       x: getProfileAttribute('x', profile?.metadata?.attributes)?.replace(
         /(https:\/\/)?x\.com\//,
@@ -236,7 +236,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
             key,
             type: MetadataAttributeType[type] as any,
             value
-          })) ?? [];
+          })) || [];
 
       const preparedProfileMetadata: ProfileOptions = {
         ...(data.name && { name: data.name }),
