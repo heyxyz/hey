@@ -7,7 +7,6 @@ import type { Quote } from '@hey/lens';
  */
 const removeQuoteOn = (publication: Quote): Quote => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // biome-ignore lint/correctness/noUnusedVariables: We need to remove the `quoteOn` property from the object.
   const { quoteOn, ...rest } = publication;
 
   return rest as Quote;
