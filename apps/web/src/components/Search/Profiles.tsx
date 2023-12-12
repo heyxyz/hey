@@ -1,5 +1,4 @@
 import type { Profile, ProfileSearchRequest } from '@hey/lens';
-import type { FC } from 'react';
 
 import UserProfilesShimmer from '@components/Shared/Shimmer/UserProfilesShimmer';
 import UserProfile from '@components/Shared/UserProfile';
@@ -11,6 +10,7 @@ import {
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
+import { type FC, type ReactNode, useRef } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
 interface ProfilesProps {
@@ -24,6 +24,8 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
     query,
     where: { customFilters: [CustomFiltersType.Gardeners] }
   };
+
+  const profileCache = useRef<Record<string, ReactNode>>({});
 
   const { data, error, fetchMore, loading } = useSearchProfilesQuery({
     skip: !query,
@@ -72,7 +74,11 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
       data={profiles}
       endReached={onEndReached}
       itemContent={(_, profile) => {
-        return (
+        if (profileCache.current[profile?.id]) {
+          return profileCache.current[profile?.id];
+        }
+
+        const profileCard = (
           <motion.div
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -83,6 +89,10 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
             </Card>
           </motion.div>
         );
+
+        profileCache.current[profile?.id] = profileCard;
+
+        return profileCard;
       }}
       useWindowScroll
     />
