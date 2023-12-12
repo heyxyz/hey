@@ -38,7 +38,6 @@ const CountdownTimer: FC<CountdownTimerProps> = ({ targetDate }) => {
 
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(getTimeLeft());
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft(getTimeLeft());
