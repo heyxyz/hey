@@ -34,13 +34,21 @@
 			},
 			"style": {
 				"useSingleCaseStatement": "error",
-				"useFragmentSyntax": "error"
+				"useFragmentSyntax": "error",
+				"noNamespace": "error",
+				"useBlockStatements": "error",
+				"useCollapsedElseIf": "error",
+				"useShorthandArrayType": "error",
+				"useShorthandAssign": "error"
 			},
 			"nursery": {
 				"noUnusedImports": "error",
-				"useGroupedTypeImport": "error"
+				"useGroupedTypeImport": "error",
+				"noImplicitAnyLet": "error"
 			},
-			"suspicious": { "noExplicitAny": "off" },
+			"suspicious": {
+				"noExplicitAny": "off"
+			},
 			"recommended": true
 		}
 	}
