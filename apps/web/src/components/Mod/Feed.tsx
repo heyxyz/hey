@@ -57,7 +57,6 @@ const Feed: FC<FeedProps> = ({
   const pageInfo = data?.explorePublications?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     setRefreshing(true);
     refetch().finally(() => setRefreshing(false));

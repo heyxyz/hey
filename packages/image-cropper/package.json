@@ -6,8 +6,8 @@
   "scripts": {
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --fix --ext .ts,.tsx",
-    "biome": "biome check *",
-    "biome:fix": "biome check * --apply",
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
