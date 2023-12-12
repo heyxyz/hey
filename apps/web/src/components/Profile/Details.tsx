@@ -205,9 +205,9 @@ const Details: FC<DetailsProps> = ({ profile }) => {
               </Link>
             </Tooltip>
           </MetaDetails>
-          {getProfileAttribute(profile?.metadata?.attributes, 'location') ? (
+          {getProfileAttribute('location', profile?.metadata?.attributes) ? (
             <MetaDetails icon={<MapPinIcon className="h-4 w-4" />}>
-              {getProfileAttribute(profile?.metadata?.attributes, 'location')}
+              {getProfileAttribute('location', profile?.metadata?.attributes)}
             </MetaDetails>
           ) : null}
           {profile?.onchainIdentity?.ens?.name ? (
@@ -225,7 +225,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
               {profile?.onchainIdentity?.ens?.name}
             </MetaDetails>
           ) : null}
-          {getProfileAttribute(profile?.metadata?.attributes, 'website') ? (
+          {getProfileAttribute('website', profile?.metadata?.attributes) ? (
             <MetaDetails
               icon={
                 <img
@@ -234,8 +234,8 @@ const Details: FC<DetailsProps> = ({ profile }) => {
                   height={16}
                   src={getFavicon(
                     getProfileAttribute(
-                      profile?.metadata?.attributes,
-                      'website'
+                      'website',
+                      profile?.metadata?.attributes
                     )
                   )}
                   width={16}
@@ -244,21 +244,21 @@ const Details: FC<DetailsProps> = ({ profile }) => {
             >
               <Link
                 href={`https://${getProfileAttribute(
-                  profile?.metadata?.attributes,
-                  'website'
+                  'website',
+                  profile?.metadata?.attributes
                 )
                   ?.replace('https://', '')
                   .replace('http://', '')}`}
                 rel="noreferrer noopener me"
                 target="_blank"
               >
-                {getProfileAttribute(profile?.metadata?.attributes, 'website')
+                {getProfileAttribute('website', profile?.metadata?.attributes)
                   ?.replace('https://', '')
                   .replace('http://', '')}
               </Link>
             </MetaDetails>
           ) : null}
-          {getProfileAttribute(profile?.metadata?.attributes, 'x') ? (
+          {getProfileAttribute('x', profile?.metadata?.attributes) ? (
             <MetaDetails
               icon={
                 <img
@@ -275,16 +275,16 @@ const Details: FC<DetailsProps> = ({ profile }) => {
               <Link
                 href={urlcat('https://x.com/:username', {
                   username: getProfileAttribute(
-                    profile?.metadata?.attributes,
-                    'x'
+                    'x',
+                    profile?.metadata?.attributes
                   )?.replace('https://x.com/', '')
                 })}
                 rel="noreferrer noopener"
                 target="_blank"
               >
                 {getProfileAttribute(
-                  profile?.metadata?.attributes,
-                  'x'
+                  'x',
+                  profile?.metadata?.attributes
                 )?.replace('https://x.com/', '')}
               </Link>
             </MetaDetails>

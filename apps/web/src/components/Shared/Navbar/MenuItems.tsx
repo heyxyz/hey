@@ -21,7 +21,7 @@ const MenuItems: FC = () => {
   console.log(currentProfile, 'currentProfile');
   console.log(sessionProfileId, 'sessionProfileId');
 
-  if (Boolean(currentProfile)) {
+  if (currentProfile) {
     return <SignedUser />;
   }
 

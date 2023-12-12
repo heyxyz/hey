@@ -13,7 +13,9 @@ const getIsLarge = (document: Document): boolean | null => {
   if (lens) {
     const card = lens.getAttribute('content') || '';
     return largeTypes.includes(card);
-  } else if (twitter) {
+  }
+
+  if (twitter) {
     const card = twitter.getAttribute('content') || '';
     return largeTypes.includes(card);
   }

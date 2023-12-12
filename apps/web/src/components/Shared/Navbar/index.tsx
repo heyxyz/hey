@@ -77,6 +77,7 @@ const Navbar: FC = () => {
             <button
               className="inline-flex items-center justify-center rounded-md text-gray-500 focus:outline-none md:hidden"
               onClick={() => setShowSearch(!showSearch)}
+              type="button"
             >
               {showSearch ? (
                 <XMarkIcon className="h-6 w-6" />

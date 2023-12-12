@@ -42,8 +42,8 @@ const SeeThroughLens: FC = () => {
   const [searchText, setSearchText] = useState('');
 
   const setRecommendedProfiles = (feedItems: FeedItem[]) => {
-    let uniqueProfileIds: string[] = [];
-    let profiles: Profile[] = [];
+    const uniqueProfileIds: string[] = [];
+    const profiles: Profile[] = [];
     for (const feedItem of feedItems) {
       const profileId = feedItem.root.by.id;
       if (
@@ -89,8 +89,8 @@ const SeeThroughLens: FC = () => {
   };
 
   const search = searchUsersData?.searchProfiles as PaginatedProfileResult;
-  const searchProfiles = search?.items ?? [];
-  const recommendedProfiles = recommendedProfilesToSeeThrough ?? [];
+  const searchProfiles = search?.items || [];
+  const recommendedProfiles = recommendedProfilesToSeeThrough || [];
 
   const profiles =
     searchProfiles.length && searchText.length
@@ -103,6 +103,7 @@ const SeeThroughLens: FC = () => {
         <button
           className="outline-brand-500 flex items-center space-x-1 rounded-md p-1 text-sm hover:bg-gray-300/20"
           onClick={() => fetchRecommendedProfiles()}
+          type="button"
         >
           <Image
             alt={profile?.id}
@@ -147,6 +148,7 @@ const SeeThroughLens: FC = () => {
             <button
               className="mb-2 mt-1 w-full bg-gray-200 px-3 py-2 text-left text-sm outline-none dark:bg-gray-700"
               onClick={() => setSeeThroughProfile(null)}
+              type="reset"
             >
               Reset filter to your own feed
             </button>

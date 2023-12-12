@@ -5,7 +5,7 @@
  * @returns The humanized number as a string.
  */
 const humanize = (number: number): string => {
-  if (typeof number !== 'number' || isNaN(number)) {
+  if (typeof number !== 'number' || Number.isNaN(number)) {
     return '';
   }
 

@@ -220,6 +220,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
               setShowSignup?.(true);
               Leafwatch.track(AUTH.SWITCH_TO_SIGNUP);
             }}
+            type="button"
           >
             <UserPlusIcon className="h-4 w-4" />
             <div>Create a testnet account</div>
@@ -231,6 +232,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
             disconnect?.();
             Leafwatch.track(AUTH.CHANGE_WALLET);
           }}
+          type="reset"
         >
           <KeyIcon className="h-4 w-4" />
           <div>Change wallet</div>

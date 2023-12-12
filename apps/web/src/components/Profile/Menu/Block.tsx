@@ -27,7 +27,7 @@ const Block: FC<BlockProps> = ({ profile }) => {
           'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
         )
       }
-      onClick={async (event) => {
+      onClick={(event) => {
         stopEventPropagation(event);
         setShowBlockOrUnblockAlert(true, profile);
       }}

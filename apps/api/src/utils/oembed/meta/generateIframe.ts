@@ -37,19 +37,21 @@ const generateIframe = (
 
   switch (hostname) {
     case 'youtube.com':
-    case 'youtu.be':
+    case 'youtu.be': {
       if (youtubeRegex.test(url)) {
         return `<iframe src="${pickedUrl}" ${universalSize} allow="accelerometer; encrypted-media" allowfullscreen></iframe>`;
       }
 
       return null;
-    case 'tape.xyz':
+    }
+    case 'tape.xyz': {
       if (tapeRegex.test(url)) {
         return `<iframe src="${pickedUrl}" ${universalSize} allow="accelerometer; encrypted-media" allowfullscreen></iframe>`;
       }
 
       return null;
-    case 'open.spotify.com':
+    }
+    case 'open.spotify.com': {
       const spotifySize = `style="max-width: 560px;" width="100%"`;
       if (spotifyTrackUrlRegex.test(url)) {
         const spotifyUrl = pickedUrl.replace('/track', '/embed/track');
@@ -62,18 +64,21 @@ const generateIframe = (
       }
 
       return null;
-    case 'soundcloud.com':
+    }
+    case 'soundcloud.com': {
       if (soundCloudRegex.test(url)) {
         return `<iframe src="${pickedUrl}" ${universalSize}></iframe>`;
       }
 
       return null;
-    case 'oohlala.xyz':
+    }
+    case 'oohlala.xyz': {
       if (oohlalaUrlRegex.test(url)) {
         return `<iframe src="${pickedUrl}" ${universalSize}></iframe>`;
       }
 
       return null;
+    }
     default:
       return `<iframe src="${pickedUrl}" width="560"></iframe>`;
   }

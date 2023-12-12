@@ -27,9 +27,9 @@ const ImagesPlugin = (props: ImagesPluginProps): JSX.Element | null => {
             }
 
             // If the clipboard data contains files, we want to handle the image paste event.
-            if (dataTransfer && dataTransfer.files.length) {
+            if (dataTransfer?.files.length) {
               const { files } = dataTransfer;
-              onPaste && onPaste(files);
+              onPaste?.(files);
             }
 
             return true;

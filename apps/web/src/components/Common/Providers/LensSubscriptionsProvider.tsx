@@ -101,7 +101,7 @@ const LensSubscriptionsProvider: FC = () => {
         data.userSigNonces.lensPublicActProxyOnchainSigNonce
       );
     },
-    skip: Boolean(sessionProfileId) ? !isAddress(sessionProfileId) : true
+    skip: sessionProfileId ? !isAddress(sessionProfileId) : true
   });
 
   // Sync zustand stores between tabs

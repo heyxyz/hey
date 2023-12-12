@@ -34,6 +34,7 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
     queryKey: ['getAlgorithmicFeed', feedType, currentProfile?.id, 25, offset]
   });
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     setDisplayedPublications([]);
   }, [feedType, currentProfile?.id]);
@@ -55,17 +56,17 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
   ];
 
   const { observe } = useInView({
-    onChange: async ({ inView }) => {
+    onChange: ({ inView }) => {
       if (!inView) {
         return;
       }
-      if (publications.length != displayedPublications.length) {
+      if (publications.length !== displayedPublications.length) {
         setDisplayedPublications(publications);
       }
     }
   });
 
-  if (publications.length == 0 && (algoLoading || loading)) {
+  if (publications.length === 0 && (algoLoading || loading)) {
     return <PublicationsShimmer />;
   }
 
@@ -78,7 +79,7 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
     );
   }
 
-  if (publications.length == 0 && (error || algoError)) {
+  if (publications.length === 0 && (error || algoError)) {
     return <ErrorMessage error={error} title="Failed to load for you" />;
   }
 

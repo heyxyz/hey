@@ -8,8 +8,8 @@
     },
     "lint": { "outputs": [], "outputMode": "errors-only" },
     "lint:fix": { "outputs": [], "outputMode": "errors-only" },
-    "prettier": { "outputs": [], "outputMode": "errors-only" },
-    "prettier:fix": { "outputs": [], "outputMode": "errors-only" },
+    "biome": { "outputs": [], "outputMode": "errors-only" },
+    "biome:fix": { "outputs": [], "outputMode": "errors-only" },
     "typecheck": { "outputs": [], "outputMode": "errors-only" },
     "dev": { "cache": false, "persistent": true },
     "start": {

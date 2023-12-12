@@ -41,7 +41,7 @@ const GuardianSettings: FC = () => {
     }
   });
 
-  const handleDisable = async () => {
+  const handleDisable = () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }

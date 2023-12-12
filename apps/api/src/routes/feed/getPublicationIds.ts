@@ -21,12 +21,14 @@ export const get: Handler = async (req, res) => {
   try {
     let ids: string[] = [];
     switch (provider) {
-      case AlgorithmProvider.K3L:
+      case AlgorithmProvider.K3L: {
         ids = await k3lFeed(strategy, profile, limit, offset);
         break;
-      case AlgorithmProvider.HEY:
+      }
+      case AlgorithmProvider.HEY: {
         ids = await heyFeed(strategy, limit, offset);
         break;
+      }
       default:
         return res
           .status(200)
