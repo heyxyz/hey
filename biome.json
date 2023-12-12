@@ -9,6 +9,7 @@
 			"dist/*",
 			"sw.js",
 			"*.md",
+			"generated.ts",
 			"package.json",
 			"tsconfig.json",
 			"tsconfig.tsbuildinfo",
