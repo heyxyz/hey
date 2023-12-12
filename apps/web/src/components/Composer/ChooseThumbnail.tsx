@@ -94,7 +94,6 @@ const ChooseThumbnail: FC = () => {
     onSelectThumbnail(selectedThumbnailIndex);
   }, [selectedThumbnailIndex]);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (file) {
       generateThumbnails(file);

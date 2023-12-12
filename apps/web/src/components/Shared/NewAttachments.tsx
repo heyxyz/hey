@@ -105,7 +105,6 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
           >
             {isVideo ? (
               <>
-                {/* biome-ignore lint/a11y/useMediaCaption: Not using any captions */}
                 <video
                   className="w-full overflow-hidden rounded-xl"
                   controls
