@@ -32,6 +32,7 @@
 				"useExhaustiveDependencies": "off",
 				"noUnusedVariables": "error"
 			},
+			"nursery": { "noUnusedImports": "error" },
 			"suspicious": { "noExplicitAny": "off" },
 			"recommended": true
 		}
