@@ -28,7 +28,10 @@
 		"enabled": true,
 		"rules": {
 			"a11y": { "useKeyWithClickEvents": "off" },
-			"correctness": { "useExhaustiveDependencies": "off" },
+			"correctness": {
+				"useExhaustiveDependencies": "off",
+				"noUnusedVariables": "error"
+			},
 			"suspicious": { "noExplicitAny": "off" },
 			"recommended": true
 		}

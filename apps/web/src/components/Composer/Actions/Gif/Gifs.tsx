@@ -31,7 +31,7 @@ const Gifs: FC<CategoriesProps> = ({
       });
 
       return response.data;
-    } catch (error) {
+    } catch {
       return [];
     }
   };
