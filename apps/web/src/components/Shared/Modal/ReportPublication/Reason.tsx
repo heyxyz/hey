@@ -144,7 +144,6 @@ const Reason: FC<ReasonProps> = ({
                     }
                   ]
                 : []),
-
               ...(type === 'spamReason'
                 ? [
                     {
