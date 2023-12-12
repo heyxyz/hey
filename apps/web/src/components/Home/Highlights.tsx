@@ -27,7 +27,7 @@ const Highlights: FC = () => {
   // Variables
   const request: FeedHighlightsRequest = {
     limit: LimitType.TwentyFive,
-    where: { for: seeThroughProfile?.id ?? currentProfile?.id }
+    where: { for: seeThroughProfile?.id || currentProfile?.id }
   };
 
   const { data, error, fetchMore, loading } = useFeedHighlightsQuery({

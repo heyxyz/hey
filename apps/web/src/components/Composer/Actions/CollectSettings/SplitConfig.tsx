@@ -29,8 +29,8 @@ const SplitConfig: FC<SplitConfigProps> = ({
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const collectModule = useCollectModuleStore((state) => state.collectModule);
 
-  const recipients = collectModule.recipients ?? [];
-  const hasRecipients = (recipients ?? []).length > 0;
+  const recipients = collectModule.recipients || [];
+  const hasRecipients = (recipients || []).length > 0;
   const splitTotal = recipients?.reduce((acc, curr) => acc + curr.split, 0);
 
   const splitEvenly = () => {

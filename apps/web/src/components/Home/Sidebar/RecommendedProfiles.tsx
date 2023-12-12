@@ -38,7 +38,7 @@ const RecommendedProfiles: FC = () => {
 
   const { data, error, loading } = useProfileRecommendationsQuery({
     variables: {
-      request: { for: seeThroughProfile?.id ?? currentProfile?.id }
+      request: { for: seeThroughProfile?.id || currentProfile?.id }
     }
   });
 

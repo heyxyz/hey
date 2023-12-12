@@ -14,7 +14,7 @@ const getProfileAttribute = (
   attributes: Maybe<MetadataAttribute[]> = []
 ): string => {
   const attribute = attributes?.find((attr) => attr.key === key);
-  return attribute?.value ?? '';
+  return attribute?.value || '';
 };
 
 export default getProfileAttribute;

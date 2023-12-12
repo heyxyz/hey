@@ -106,7 +106,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
         <div className="flex items-center space-x-2 text-xs text-gray-500">
           <Bars3BottomLeftIcon className="h-4 w-4" />
           <span>
-            {humanize(totalResponses ?? 0)} {plur('vote', totalResponses || 0)}
+            {humanize(totalResponses || 0)} {plur('vote', totalResponses || 0)}
           </span>
           <span>·</span>
           {new Date(endsAt) > new Date() ? (
