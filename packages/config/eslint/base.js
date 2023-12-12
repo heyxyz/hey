@@ -9,10 +9,9 @@ module.exports = {
     sourceType: 'module'
   },
   extends: ['plugin:perfectionist/recommended-alphabetical'],
-  plugins: ['@typescript-eslint', 'unicorn', 'import', 'perfectionist'],
+  plugins: ['@typescript-eslint', 'unicorn', 'perfectionist'],
   rules: {
     curly: 'error',
-    'import/no-duplicates': ['error', { considerQueryString: true }],
     'prefer-destructuring': ['error', { VariableDeclarator: { object: true } }],
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
