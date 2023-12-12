@@ -56,7 +56,7 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
   ];
 
   const { observe } = useInView({
-    onChange: async ({ inView }) => {
+    onChange: ({ inView }) => {
       if (!inView) {
         return;
       }

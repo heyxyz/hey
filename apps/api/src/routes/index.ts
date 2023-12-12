@@ -1,5 +1,5 @@
 import type { Handler } from 'express';
 
-export const get: Handler = async (_, res) => {
-  res.json({ message: 'Hey API ✨' });
+export const get: Handler = (_, res) => {
+  return res.json({ message: 'Hey API ✨' });
 };

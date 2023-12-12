@@ -13,7 +13,8 @@
 			"package.json",
 			"tsconfig.json",
 			"tsconfig.tsbuildinfo",
-			"index.html"
+			"index.html",
+			"next.config.js"
 		]
 	},
 	"javascript": {
@@ -44,7 +45,7 @@
 			"nursery": {
 				"noUnusedImports": "error",
 				"useGroupedTypeImport": "error",
-				"noImplicitAnyLet": "error"
+				"useAwait": "error"
 			},
 			"suspicious": {
 				"noExplicitAny": "off"

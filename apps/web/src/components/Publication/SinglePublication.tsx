@@ -51,7 +51,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
     : publication;
 
   const { observe } = useInView({
-    onChange: async ({ inView }) => {
+    onChange: ({ inView }) => {
       if (!inView) {
         return;
       }
