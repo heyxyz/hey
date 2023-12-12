@@ -19,7 +19,7 @@ export const PROFILE = {
   OPEN_FOLLOWERS: 'Open followers modal',
   OPEN_FOLLOWING: 'Open following modal',
   OPEN_SUPER_FOLLOW: 'Open super follow modal',
-  REPORT_PROFILE: 'Report profile',
+  REPORT: 'Report profile',
   SUPER_FOLLOW: 'Super follow profile',
   SWITCH_PROFILE: 'Switch profile',
   SWITCH_PROFILE_FEED_TAB: 'Switch profile feed tab',

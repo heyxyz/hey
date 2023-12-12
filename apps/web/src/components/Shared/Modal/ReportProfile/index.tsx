@@ -1,24 +1,29 @@
-import type { Profile } from '@hey/lens';
-import type { FC } from 'react';
-
 import UserProfile from '@components/Shared/UserProfile';
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { PROFILE } from '@hey/data/tracking';
-import { Button, Card, Form, Radio, TextArea, useZodForm } from '@hey/ui';
+import { type Profile, useReportProfileMutation } from '@hey/lens';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import {
+  Button,
+  Card,
+  EmptyState,
+  ErrorMessage,
+  Form,
+  Spinner,
+  TextArea,
+  useZodForm
+} from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import toast from 'react-hot-toast';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import { object, string, z } from 'zod';
+import { type FC, useState } from 'react';
+import { object, string } from 'zod';
 
-const ReportType = z.enum(['MISLEADING_ACCOUNT', 'UNWANTED_CONTENT']);
+import Reason from './Reason';
 
 const reportReportProfileSchema = object({
-  description: string()
-    .max(300, {
-      message: 'Report should not exceed 300 characters'
-    })
-    .optional(),
-  type: ReportType
+  additionalComments: string().max(260, {
+    message: 'Additional comments should not exceed 260 characters'
+  })
 });
 
 interface ReportProfileProps {
@@ -26,81 +31,95 @@ interface ReportProfileProps {
 }
 
 const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
-  const setShowReportProfileModal = useGlobalModalStateStore(
-    (state) => state.setShowReportProfileModal
-  );
+  const [type, setType] = useState('');
+  const [subReason, setSubReason] = useState('');
 
   const form = useZodForm({
     schema: reportReportProfileSchema
   });
 
+  const [
+    createReport,
+    { data: submitData, error: submitError, loading: submitLoading }
+  ] = useReportProfileMutation({
+    onCompleted: () => {
+      Leafwatch.track(PROFILE.REPORT, { profile_id: profile?.id });
+    }
+  });
+
+  const reportProfile = (additionalComments: null | string) => {
+    createReport({
+      variables: {
+        request: {
+          additionalComments,
+          for: profile?.id,
+          reason: {
+            [type]: {
+              reason: type.replace('Reason', '').toUpperCase(),
+              subreason: subReason
+            }
+          }
+        }
+      }
+    });
+  };
+
   return (
-    <div className="flex flex-col space-y-2 p-5">
-      <Form
-        className="space-y-4"
-        form={form}
-        onSubmit={() => {
-          const data = form.getValues();
-          const { description, type } = data;
-          Leafwatch.track(PROFILE.REPORT_PROFILE, {
-            type,
-            ...(description && { description }),
-            profile: profile?.id
-          });
-          setShowReportProfileModal(false, null);
-          toast.success('Reported Successfully!');
-        }}
-      >
-        {profile ? (
+    <div onClick={stopEventPropagation}>
+      {submitData?.reportProfile === null ? (
+        <EmptyState
+          hideCard
+          icon={<CheckCircleIcon className="h-14 w-14 text-green-500" />}
+          message="Profile reported successfully!"
+        />
+      ) : profile ? (
+        <div className="p-5">
           <Card className="p-3">
             <UserProfile profile={profile as Profile} showUserPreview={false} />
           </Card>
-        ) : null}
-
-        <div className="space-y-5">
-          <Radio
-            description="Impersonation or false claims about identity or affiliation"
-            heading={<span className="font-medium">Misleading Account</span>}
-            value={ReportType.Enum.MISLEADING_ACCOUNT}
-            {...form.register('type')}
-            checked={form.watch('type') === ReportType.Enum.MISLEADING_ACCOUNT}
-            onChange={() => {
-              form.setValue('type', ReportType.Enum.MISLEADING_ACCOUNT);
-            }}
-          />
-          <Radio
-            description="Spam; excessive mentions or replies"
-            heading={
-              <span className="font-medium">
-                Frequently Posts Unwanted Content
-              </span>
+          <div className="divider my-5" />
+          <Form
+            className="space-y-4"
+            form={form}
+            onSubmit={({ additionalComments }) =>
+              reportProfile(additionalComments)
             }
-            value={ReportType.Enum.UNWANTED_CONTENT}
-            {...form.register('type')}
-            checked={form.watch('type') === ReportType.Enum.UNWANTED_CONTENT}
-            onChange={() => {
-              form.setValue('type', ReportType.Enum.UNWANTED_CONTENT);
-            }}
-          />
+          >
+            {submitError ? (
+              <ErrorMessage error={submitError} title="Failed to report" />
+            ) : null}
+            <Reason
+              setSubReason={setSubReason}
+              setType={setType}
+              subReason={subReason}
+              type={type}
+            />
+            {subReason ? (
+              <>
+                <TextArea
+                  label="Description"
+                  placeholder="Please provide additional details"
+                  {...form.register('additionalComments')}
+                />
+                <Button
+                  className="flex w-full justify-center"
+                  disabled={submitLoading}
+                  icon={
+                    submitLoading ? (
+                      <Spinner size="xs" />
+                    ) : (
+                      <PencilSquareIcon className="h-4 w-4" />
+                    )
+                  }
+                  type="submit"
+                >
+                  Report
+                </Button>
+              </>
+            ) : null}
+          </Form>
         </div>
-        <div className="divider my-5" />
-        <div>
-          <TextArea
-            label="Add details to report"
-            placeholder="Enter a reason or any other details here..."
-            {...form.register('description')}
-          />
-        </div>
-        <Button
-          className="flex w-full justify-center"
-          disabled={!form.watch('type')}
-          icon={<PencilSquareIcon className="h-4 w-4" />}
-          type="submit"
-          variant="primary"
-        >
-          Report
-        </Button>
-      </Form>
+      ) : null}
     </div>
   );
 };
