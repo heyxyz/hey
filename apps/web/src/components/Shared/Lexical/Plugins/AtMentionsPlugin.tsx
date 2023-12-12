@@ -178,9 +178,7 @@ const MentionsPlugin: FC = () => {
       searchUsers({ variables: { request } }).then(({ data }) => {
         const search = data?.searchProfiles;
         const profileSearchResult = search;
-        const profiles = Object.prototype.hasOwnProperty.call(search, 'items')
-          ? (profileSearchResult?.items as Profile[])
-          : [];
+        const profiles = profileSearchResult?.items as Profile[];
         const profilesResults = profiles?.map(
           (user) =>
             ({

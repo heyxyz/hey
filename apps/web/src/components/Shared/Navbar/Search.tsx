@@ -67,13 +67,7 @@ const Search: FC<SearchProps> = ({
   }, [debouncedSearchText]);
 
   const searchResult = searchUsersData?.searchProfiles;
-  const isProfileSearchResult = Object.prototype.hasOwnProperty.call(
-    searchResult,
-    'items'
-  );
-  const profiles = (
-    isProfileSearchResult ? searchResult?.items : []
-  ) as Profile[];
+  const profiles = searchResult?.items as Profile[];
 
   return (
     <div className="w-full">
