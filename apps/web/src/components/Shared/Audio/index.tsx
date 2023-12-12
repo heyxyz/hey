@@ -127,7 +127,7 @@ const Audio: FC<AudioProps> = ({
                   <>
                     <h5 className="truncate text-lg text-white">{title}</h5>
                     <h6 className="truncate text-white/70">
-                      {artist ??
+                      {artist ||
                         getProfile(publication?.by as Profile).displayName}
                     </h6>
                   </>
