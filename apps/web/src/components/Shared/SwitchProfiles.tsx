@@ -98,7 +98,13 @@ const SwitchProfiles: FC = () => {
       Leafwatch.track(PROFILE.SWITCH_PROFILE, { switch_profile_to: id });
       location.reload();
     } catch (error) {
-      onError(error);
+      setIsLoading(false);
+      if (typeof error === 'string' && error.includes('wallet disconnected')) {
+        // Display a message to the user to reconnect the wallet
+        toast.error('Wallet disconnected. Please reconnect your wallet.');
+      } else {
+        onError(error);
+      }
     }
   };
 
