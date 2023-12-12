@@ -3,6 +3,7 @@ import type { FC, ReactNode } from 'react';
 import { APP_NAME, WALLETCONNECT_PROJECT_ID } from '@hey/data/constants';
 import { CoinbaseWalletConnector } from '@wagmi/connectors/coinbaseWallet';
 import { InjectedConnector } from '@wagmi/connectors/injected';
+import { LedgerConnector } from '@wagmi/connectors/ledger';
 import { WalletConnectConnector } from '@wagmi/connectors/walletConnect';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import {
@@ -38,6 +39,10 @@ const { chains, publicClient } = configureChains(
 const connectors: any = [
   new InjectedConnector({ chains, options: { shimDisconnect: true } }),
   new CoinbaseWalletConnector({ options: { appName: APP_NAME } }),
+  new LedgerConnector({
+    chains,
+    options: { projectId: WALLETCONNECT_PROJECT_ID }
+  }),
   new WalletConnectConnector({
     chains,
     options: { projectId: WALLETCONNECT_PROJECT_ID }
