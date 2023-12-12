@@ -89,8 +89,8 @@ const SeeThroughLens: FC = () => {
   };
 
   const search = searchUsersData?.searchProfiles as PaginatedProfileResult;
-  const searchProfiles = search?.items ?? [];
-  const recommendedProfiles = recommendedProfilesToSeeThrough ?? [];
+  const searchProfiles = search?.items || [];
+  const recommendedProfiles = recommendedProfilesToSeeThrough || [];
 
   const profiles =
     searchProfiles.length && searchText.length
