@@ -10,11 +10,11 @@ type Key = 'location' | 'website' | 'x';
  * @returns The attribute value.
  */
 const getProfileAttribute = (
-  attributes: Maybe<MetadataAttribute[]> = [],
-  key: Key
+  key: Key,
+  attributes: Maybe<MetadataAttribute[]> = []
 ): string => {
   const attribute = attributes?.find((attr) => attr.key === key);
-  return attribute?.value ?? '';
+  return attribute?.value || '';
 };
 
 export default getProfileAttribute;

@@ -14,7 +14,7 @@ const Combined: FC<CombinedProps> = ({ feedItem }) => {
   const mirrorsLength = mirrors.length;
   const actedLength = acted.length;
   const reactionsLength = reactions.length;
-  const commentsLength = comments?.length ?? 0;
+  const commentsLength = comments?.length || 0;
 
   const getAllProfiles = () => {
     let profiles = [...mirrors, ...acted, ...reactions, ...comments].map(
@@ -48,9 +48,9 @@ const Combined: FC<CombinedProps> = ({ feedItem }) => {
       <div className="flex items-center space-x-1">
         {actionArray.map((action, index) => (
           <>
-            <span key={index}>{action}</span>
+            <span key={action}>{action}</span>
             {index < actionArray.length - 2 && <span>, </span>}
-            {index == actionArray.length - 2 && <span>and</span>}
+            {index === actionArray.length - 2 && <span>and</span>}
           </>
         ))}
       </div>

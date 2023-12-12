@@ -72,7 +72,7 @@ const Support: NextPage = () => {
       if (data.success) {
         setSubmitted(true);
       } else {
-        toast.error(data?.message ?? Errors.SomethingWentWrong);
+        toast.error(data?.message || Errors.SomethingWentWrong);
       }
     } finally {
       setSubmitting(false);

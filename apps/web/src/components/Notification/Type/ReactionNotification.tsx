@@ -1,8 +1,8 @@
+import type { ReactionNotification as TReactionNotification } from '@hey/lens';
 import type { FC } from 'react';
 
 import Markup from '@components/Shared/Markup';
 import { HeartIcon } from '@heroicons/react/24/outline';
-import { ReactionNotification } from '@hey/lens';
 import getPublicationData from '@hey/lib/getPublicationData';
 import pushToImpressions from '@lib/pushToImpressions';
 import Link from 'next/link';
@@ -13,7 +13,7 @@ import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
 
 interface ReactionNotificationProps {
-  notification: ReactionNotification;
+  notification: TReactionNotification;
 }
 
 const ReactionNotification: FC<ReactionNotificationProps> = ({

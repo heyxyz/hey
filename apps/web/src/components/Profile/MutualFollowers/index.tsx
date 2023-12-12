@@ -1,15 +1,10 @@
 import type { Profile } from '@hey/lens';
+import type { Dispatch, FC, ReactNode, SetStateAction } from 'react';
 
 import { LimitType, useMutualFollowersQuery } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
-import {
-  type Dispatch,
-  type FC,
-  type ReactNode,
-  type SetStateAction
-} from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface MutualFollowersProps {
@@ -35,7 +30,7 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
   });
 
   const profiles =
-    (data?.mutualFollowers?.items.slice(0, 4) as Profile[]) ?? [];
+    (data?.mutualFollowers?.items.slice(0, 4) as Profile[]) || [];
 
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <div
@@ -43,16 +38,14 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
       onClick={() => setShowMutualFollowersModal?.(true)}
     >
       <div className="contents -space-x-2">
-        {profiles
-          .slice(0, 3)
-          ?.map((profile) => (
-            <Image
-              alt={profile.id}
-              className="h-5 w-5 rounded-full border dark:border-gray-700"
-              key={profile.id}
-              src={getAvatar(profile)}
-            />
-          ))}
+        {profiles.slice(0, 3)?.map((profile) => (
+          <Image
+            alt={profile.id}
+            className="h-5 w-5 rounded-full border dark:border-gray-700"
+            key={profile.id}
+            src={getAvatar(profile)}
+          />
+        ))}
       </div>
       <div>
         <span>Followed by </span>

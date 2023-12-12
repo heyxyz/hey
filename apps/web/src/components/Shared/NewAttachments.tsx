@@ -18,12 +18,16 @@ const getClass = (attachments: number) => {
       aspect: 'aspect-w-16 aspect-h-10',
       row: 'grid-cols-1 grid-rows-1'
     };
-  } else if (attachments === 2) {
+  }
+
+  if (attachments === 2) {
     return {
       aspect: 'aspect-w-16 aspect-h-12',
       row: 'grid-cols-2 grid-rows-1'
     };
-  } else if (attachments > 2) {
+  }
+
+  if (attachments > 2) {
     return {
       aspect: 'aspect-w-16 aspect-h-12',
       row: 'grid-cols-2 grid-rows-2'
@@ -96,11 +100,12 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
               },
               'relative'
             )}
-            key={index}
+            key={attachment.id}
             onClick={stopEventPropagation}
           >
             {isVideo ? (
               <>
+                {/* biome-ignore lint/a11y/useMediaCaption: Not using any captions */}
                 <video
                   className="w-full overflow-hidden rounded-xl"
                   controls

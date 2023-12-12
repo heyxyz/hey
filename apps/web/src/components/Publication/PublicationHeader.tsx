@@ -76,6 +76,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
               stopEventPropagation(event);
               setQuotedPublication(null);
             }}
+            type="reset"
           >
             <XMarkIcon className="ld-text-gray-500 w-[15px] sm:w-[18px]" />
           </button>

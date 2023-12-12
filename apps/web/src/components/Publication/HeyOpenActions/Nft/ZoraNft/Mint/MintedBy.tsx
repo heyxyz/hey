@@ -13,7 +13,7 @@ interface MintedByProps {
 
 const MintedBy: FC<MintedByProps> = ({ address }) => {
   const { data, loading } = useDefaultProfileQuery({
-    skip: !Boolean(address),
+    skip: !address,
     variables: { request: { for: address } }
   });
 

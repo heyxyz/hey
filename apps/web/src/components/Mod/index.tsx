@@ -142,6 +142,7 @@ const Mod: NextPage = () => {
                         )
                       );
                 }}
+                type="button"
               >
                 {mainContentFocus.length ===
                 Object.keys(PublicationMetadataMainFocusType).length
@@ -200,7 +201,11 @@ const Mod: NextPage = () => {
           <div className="space-y-2">
             <div className="flex items-center space-x-2">
               <span className="font-bold">Known apps filter</span>
-              <button className="text-xs underline" onClick={() => setApps([])}>
+              <button
+                className="text-xs underline"
+                onClick={() => setApps([])}
+                type="reset"
+              >
                 Reset
               </button>
             </div>

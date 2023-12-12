@@ -27,7 +27,7 @@ const getS3Client = async (): Promise<S3> => {
   });
 
   client.middlewareStack.addRelativeTo(
-    (next: Function) => async (args: any) => {
+    (next: (args: any) => Promise<any>) => async (args: any) => {
       const { response } = await next(args);
       if (response.body == null) {
         response.body = new Uint8Array();
@@ -73,8 +73,8 @@ const uploadToIPFS = async (
           params
         });
         task.on('httpUploadProgress', (e) => {
-          const loaded = e.loaded ?? 0;
-          const total = e.total ?? 0;
+          const loaded = e.loaded || 0;
+          const total = e.total || 0;
           const progress = (loaded / total) * 100;
           onProgress?.(Math.round(progress));
         });

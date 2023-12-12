@@ -69,6 +69,7 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
       onClick={(event) => stopEventPropagation(event)}
     >
       <img
+        alt={nft.name}
         className="h-[400px] max-h-[400px] w-full rounded-t-xl object-cover"
         src={urlcat('https://remote-image.decentralized-content.com/image', {
           q: 75,
@@ -82,7 +83,11 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
             content={getZoraChainInfo(nft.chainId).name}
             placement="right"
           >
-            <img className="h-5 w-5" src={getZoraChainInfo(nft.chainId).logo} />
+            <img
+              alt={getZoraChainInfo(nft.chainId).name}
+              className="h-5 w-5"
+              src={getZoraChainInfo(nft.chainId).logo}
+            />
           </Tooltip>
           <div className="text-sm font-bold">{nft.name}</div>
           {nft.contractType === 'ERC1155_COLLECTION' ? (

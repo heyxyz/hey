@@ -19,7 +19,7 @@ const QuotedPublication: FC<QuotedPublicationProps> = ({
   publication
 }) => {
   const { observe } = useInView({
-    onChange: async ({ inView }) => {
+    onChange: ({ inView }) => {
       if (!inView) {
         return;
       }

@@ -15,9 +15,13 @@ const getImage = (document: Document): null | string => {
 
   if (lens) {
     return lens.getAttribute('content');
-  } else if (og) {
+  }
+
+  if (og) {
     return og.getAttribute('content');
-  } else if (twitter) {
+  }
+
+  if (twitter) {
     return twitter.getAttribute('content');
   }
 

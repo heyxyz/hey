@@ -50,7 +50,7 @@ const Timeline: FC = () => {
   const request: FeedRequest = {
     where: {
       feedEventItemTypes: getFeedEventItems(),
-      for: seeThroughProfile?.id ?? currentProfile?.id
+      for: seeThroughProfile?.id || currentProfile?.id
     }
   };
 

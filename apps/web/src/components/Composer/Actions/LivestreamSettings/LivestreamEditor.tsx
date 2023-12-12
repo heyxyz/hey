@@ -79,6 +79,7 @@ const LivestreamEditor: FC = () => {
                 resetLiveVideoConfig();
                 setShowLiveVideoEditor(false);
               }}
+              type="button"
             >
               <XCircleIcon className="h-5 w-5 text-red-400" />
             </button>
@@ -104,6 +105,7 @@ const LivestreamEditor: FC = () => {
                     );
                     toast.success('Copied to clipboard!');
                   }}
+                  type="button"
                 >
                   <ClipboardDocumentIcon className="h-4 w-4 text-gray-400" />
                 </button>
@@ -118,6 +120,7 @@ const LivestreamEditor: FC = () => {
                     );
                     toast.success('Copied to clipboard!');
                   }}
+                  type="button"
                 >
                   <ClipboardDocumentIcon className="h-4 w-4 text-gray-400" />
                 </button>
@@ -128,7 +131,11 @@ const LivestreamEditor: FC = () => {
             />
           </>
         ) : screen === 'create' ? (
-          <button className="w-full" onClick={() => setScreen('record')}>
+          <button
+            className="w-full"
+            onClick={() => setScreen('record')}
+            type="button"
+          >
             <Wrapper>
               <SignalIcon className="text-brand-500 h-5 w-5" />
               <div>Create Live Stream</div>
@@ -136,13 +143,21 @@ const LivestreamEditor: FC = () => {
           </button>
         ) : (
           <div className="flex items-center space-x-3">
-            <button className="w-full" onClick={() => createLiveStream(true)}>
+            <button
+              className="w-full"
+              onClick={() => createLiveStream(true)}
+              type="button"
+            >
               <Wrapper>
                 <VideoCameraIcon className="text-brand-500 h-5 w-5" />
                 <div>Record</div>
               </Wrapper>
             </button>
-            <button className="w-full" onClick={() => createLiveStream(false)}>
+            <button
+              className="w-full"
+              onClick={() => createLiveStream(false)}
+              type="button"
+            >
               <Wrapper>
                 <VideoCameraSlashIcon className="text-brand-500 h-5 w-5" />
                 <div>Don't Record</div>

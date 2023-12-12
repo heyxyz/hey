@@ -29,7 +29,7 @@ const Streaks: FC<StreaksProps> = ({ profile }) => {
       );
 
       return outputData;
-    } catch (error) {
+    } catch {
       return [];
     }
   };

@@ -29,8 +29,8 @@ const SplitConfig: FC<SplitConfigProps> = ({
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const collectModule = useCollectModuleStore((state) => state.collectModule);
 
-  const recipients = collectModule.recipients ?? [];
-  const hasRecipients = (recipients ?? []).length > 0;
+  const recipients = collectModule.recipients || [];
+  const hasRecipients = (recipients || []).length > 0;
   const splitTotal = recipients?.reduce((acc, curr) => acc + curr.split, 0);
 
   const splitEvenly = () => {
@@ -99,7 +99,10 @@ const SplitConfig: FC<SplitConfigProps> = ({
         <div className="space-y-3 pt-4">
           <div className="space-y-2">
             {recipients.map((recipient, index) => (
-              <div className="flex items-center space-x-2 text-sm" key={index}>
+              <div
+                className="flex items-center space-x-2 text-sm"
+                key={recipient.recipient}
+              >
                 <SearchUser
                   error={
                     recipient.recipient.length > 0 &&
@@ -138,6 +141,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
                       recipients: recipients.filter((_, i) => i !== index)
                     });
                   }}
+                  type="button"
                 >
                   <XCircleIcon className="h-5 w-5 text-red-500" />
                 </button>
