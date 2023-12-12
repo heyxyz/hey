@@ -24,7 +24,7 @@ const Invites: FC = () => {
   return (
     <div className="max-h-[80vh] overflow-y-auto p-5">
       <Invite
-        invitesLeft={currentProfile?.invitesLeft ?? 0}
+        invitesLeft={currentProfile?.invitesLeft || 0}
         refetch={refetch}
       />
       <div className="divider my-5" />

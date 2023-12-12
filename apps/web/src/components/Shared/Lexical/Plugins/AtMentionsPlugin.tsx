@@ -204,7 +204,7 @@ const MentionsPlugin: FC = () => {
         .map(({ displayHandle, handle, id, name, picture }) => {
           return new MentionTypeaheadOption(
             id,
-            name ?? handle,
+            name || handle,
             handle,
             displayHandle,
             picture

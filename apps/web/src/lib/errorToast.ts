@@ -15,7 +15,7 @@ const errorToast = (error: any) => {
   }
 
   toast.error(
-    error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
+    error?.data?.message || error?.message || Errors.SomethingWentWrong
   );
 };
 

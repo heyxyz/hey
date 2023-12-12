@@ -21,13 +21,13 @@ interface ActionTypeProps {
 const ActionType: FC<ActionTypeProps> = ({ feedItem }) => {
   const { acted, comments, mirrors, reactions, root } = feedItem;
   const isComment = root.__typename === 'Comment';
-  const showThread = isComment || (comments?.length ?? 0) > 0;
+  const showThread = isComment || (comments?.length || 0) > 0;
 
   const canCombined = getCanCombined([
-    mirrors?.length ?? 0,
-    reactions?.length ?? 0,
-    acted?.length ?? 0,
-    comments?.length ?? 0
+    mirrors?.length || 0,
+    reactions?.length || 0,
+    acted?.length || 0,
+    comments?.length || 0
   ]);
 
   return (
