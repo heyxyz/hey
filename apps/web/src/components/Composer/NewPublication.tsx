@@ -158,6 +158,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const resetLiveVideoConfig = usePublicationStore(
     (state) => state.resetLiveVideoConfig
   );
+  const setLicense = usePublicationStore((state) => state.setLicense);
 
   // Collect module store
   const collectModule = useCollectModuleStore((state) => state.collectModule);
@@ -233,6 +234,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       url: ''
     });
     resetCollectSettings();
+    setLicense(null);
 
     if (!isComment) {
       setShowNewPostModal(false);
@@ -537,6 +539,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   useUnmountEffect(() => {
     setPublicationContent('');
+    setQuotedPublication(null);
     setShowPollEditor(false);
     resetPollConfig();
     setShowLiveVideoEditor(false);
@@ -548,6 +551,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       url: ''
     });
     resetCollectSettings();
+    setLicense(null);
   });
 
   return (

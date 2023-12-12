@@ -37,7 +37,7 @@ interface PublicationState {
     title: string;
   }) => void;
   setIsUploading: (isUploading: boolean) => void;
-  setLicense: (license: MetadataLicenseType) => void;
+  setLicense: (license: MetadataLicenseType | null) => void;
   setLiveVideoConfig: (liveVideoConfig: {
     id: string;
     playbackId: string;
