@@ -29,8 +29,12 @@
 		"rules": {
 			"a11y": { "useKeyWithClickEvents": "off" },
 			"correctness": {
-				"useExhaustiveDependencies": "off",
+				"useExhaustiveDependencies": "error",
 				"noUnusedVariables": "error"
+			},
+			"style": {
+				"useSingleCaseStatement": "error",
+				"useFragmentSyntax": "error"
 			},
 			"nursery": {
 				"noUnusedImports": "error",

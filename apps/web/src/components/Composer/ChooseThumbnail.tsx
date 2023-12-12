@@ -94,6 +94,7 @@ const ChooseThumbnail: FC = () => {
     onSelectThumbnail(selectedThumbnailIndex);
   }, [selectedThumbnailIndex]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (file) {
       generateThumbnails(file);
@@ -102,7 +103,6 @@ const ChooseThumbnail: FC = () => {
       setSelectedThumbnailIndex(-1);
       setThumbnails([]);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file]);
 
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
