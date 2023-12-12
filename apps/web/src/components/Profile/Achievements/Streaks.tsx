@@ -6,7 +6,7 @@ import getProfile from '@hey/lib/getProfile';
 import { Card } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { type FC, useEffect } from 'react';
+import { type FC } from 'react';
 import ActivityCalendar from 'react-activity-calendar';
 
 interface StreaksProps {
@@ -39,14 +39,12 @@ const Streaks: FC<StreaksProps> = ({ profile }) => {
     queryKey: ['fetchStreaks', profile.id]
   });
 
-  useEffect(() => {
-    const element = document.querySelector(
-      '.react-activity-calendar__scroll-container'
-    );
-    if (element) {
-      element.scrollLeft = element.scrollWidth;
-    }
-  }, []);
+  const element = document.querySelector(
+    '.react-activity-calendar__scroll-container'
+  );
+  if (element) {
+    element.scrollLeft = element.scrollWidth;
+  }
 
   return (
     <Card className="p-6">
