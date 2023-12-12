@@ -67,7 +67,7 @@ const Search: FC<SearchProps> = ({
   }, [debouncedSearchText]);
 
   const searchResult = searchUsersData?.searchProfiles;
-  const profiles = searchResult?.items as Profile[];
+  const profiles = (searchResult?.items as Profile[]) || [];
 
   return (
     <div className="w-full">
