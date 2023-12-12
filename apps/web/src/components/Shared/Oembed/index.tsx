@@ -1,13 +1,13 @@
-import type { OG } from "@hey/types/misc";
-import type { FC } from "react";
+import type { OG } from '@hey/types/misc';
+import type { FC } from 'react';
 
-import { HEY_API_URL } from "@hey/data/constants";
-import getFavicon from "@hey/lib/getFavicon";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { HEY_API_URL } from '@hey/data/constants';
+import getFavicon from '@hey/lib/getFavicon';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
-import Embed from "./Embed";
-import Player from "./Player";
+import Embed from './Embed';
+import Player from './Player';
 
 interface OembedProps {
   onData: (data: OG) => void;
@@ -20,11 +20,11 @@ const Oembed: FC<OembedProps> = ({ onData, publicationId, url }) => {
     enabled: Boolean(url),
     queryFn: async () => {
       const response = await axios.get(`${HEY_API_URL}/oembed`, {
-        params: { url },
+        params: { url }
       });
       return response.data.oembed;
     },
-    queryKey: ["oembed", url],
+    queryKey: ['oembed', url]
   });
 
   if (isLoading || error || !data) {
@@ -41,7 +41,7 @@ const Oembed: FC<OembedProps> = ({ onData, publicationId, url }) => {
     isLarge: data?.isLarge,
     site: data?.site,
     title: data?.title,
-    url: url as string,
+    url: url as string
   };
 
   if (!og.title) {

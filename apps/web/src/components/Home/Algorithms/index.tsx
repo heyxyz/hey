@@ -1,12 +1,12 @@
-import type { FC } from "react";
+import type { FC } from 'react';
 
-import { SparklesIcon } from "@heroicons/react/24/outline";
-import { HOME } from "@hey/data/tracking";
-import { Modal, Tooltip } from "@hey/ui";
-import { Leafwatch } from "@lib/leafwatch";
-import { useState } from "react";
+import { SparklesIcon } from '@heroicons/react/24/outline';
+import { HOME } from '@hey/data/tracking';
+import { Modal, Tooltip } from '@hey/ui';
+import { Leafwatch } from '@lib/leafwatch';
+import { useState } from 'react';
 
-import List from "./List";
+import List from './List';
 
 const Algorithms: FC = () => {
   const [showAlgorithmsModal, setShowAlgorithmsModal] = useState(false);

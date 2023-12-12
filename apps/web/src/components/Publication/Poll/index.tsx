@@ -1,14 +1,14 @@
-import type { Poll as TPoll } from "@hey/types/hey";
-import type { FC } from "react";
+import type { Poll as TPoll } from '@hey/types/hey';
+import type { FC } from 'react';
 
-import { HEY_API_URL } from "@hey/data/constants";
-import { Spinner } from "@hey/ui";
-import getAuthWorkerHeaders from "@lib/getAuthWorkerHeaders";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { HEY_API_URL } from '@hey/data/constants';
+import { Spinner } from '@hey/ui';
+import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
-import Wrapper from "../../Shared/Embed/Wrapper";
-import Choices from "./Choices";
+import Wrapper from '../../Shared/Embed/Wrapper';
+import Choices from './Choices';
 
 interface SnapshotProps {
   id: string;
@@ -20,9 +20,9 @@ const Poll: FC<SnapshotProps> = ({ id }) => {
       const response = await axios.get(`${HEY_API_URL}/poll/get`, {
         headers: {
           ...getAuthWorkerHeaders(),
-          "X-Skip-Cache": true,
+          'X-Skip-Cache': true
         },
-        params: { id },
+        params: { id }
       });
       const { data } = response;
 
@@ -34,7 +34,7 @@ const Poll: FC<SnapshotProps> = ({ id }) => {
 
   const { data, error, isLoading, refetch } = useQuery({
     queryFn: fetchPoll,
-    queryKey: ["fetchPoll", id],
+    queryKey: ['fetchPoll', id]
   });
 
   if (isLoading) {

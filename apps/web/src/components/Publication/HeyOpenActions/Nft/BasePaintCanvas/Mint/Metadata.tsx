@@ -1,15 +1,15 @@
-import type { BasePaintCanvas } from "@hey/types/nft";
-import type { FC } from "react";
+import type { BasePaintCanvas } from '@hey/types/nft';
+import type { FC } from 'react';
 
 import {
   CurrencyDollarIcon,
   PaintBrushIcon,
   QrCodeIcon,
   SwatchIcon,
-  UsersIcon,
-} from "@heroicons/react/24/outline";
-import humanize from "@hey/lib/humanize";
-import { formatEther } from "viem";
+  UsersIcon
+} from '@heroicons/react/24/outline';
+import humanize from '@hey/lib/humanize';
+import { formatEther } from 'viem';
 
 interface MetadataProps {
   canvas: BasePaintCanvas;
@@ -29,7 +29,7 @@ const Metadata: FC<MetadataProps> = ({ canvas }) => {
       <div className="flex items-center space-x-2">
         <PaintBrushIcon className="ld-text-gray-500 h-4 w-4" />
         <b>
-          {contributions.length > 1000 ? "1000+" : contributions.length} artists
+          {contributions.length > 1000 ? '1000+' : contributions.length} artists
         </b>
       </div>
       {pixelsCount > 0 ? (

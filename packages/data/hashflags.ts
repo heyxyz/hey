@@ -1,21 +1,21 @@
-import { prideHashtags } from "./pride-hashtags";
+import { prideHashtags } from './pride-hashtags';
 
 export const hashflags: Record<string, string> = {
-  bhm: "blm",
-  bitcoin: "bitcoin",
-  blacklivesmatter: "blm",
-  blm: "blm",
-  bonsai: "bonsai",
-  btc: "bitcoin",
-  bts: "bts",
-  btsarmy: "btsarmy",
-  eth: "ethereum",
-  ethereum: "ethereum",
-  hashtag: "hashtag",
-  hey: "hey",
-  lens: "lens",
-  lenstube: "lenstube",
-  voted: "voted",
+  bhm: 'blm',
+  bitcoin: 'bitcoin',
+  blacklivesmatter: 'blm',
+  blm: 'blm',
+  bonsai: 'bonsai',
+  btc: 'bitcoin',
+  bts: 'bts',
+  btsarmy: 'btsarmy',
+  eth: 'ethereum',
+  ethereum: 'ethereum',
+  hashtag: 'hashtag',
+  hey: 'hey',
+  lens: 'lens',
+  lenstube: 'lenstube',
+  voted: 'voted',
   // biome-ignore lint/performance/noAccumulatingSpread: <explanation>
-  ...prideHashtags.reduce((acc, cur) => ({ ...acc, [cur]: "pride" }), {}),
+  ...prideHashtags.reduce((acc, cur) => ({ ...acc, [cur]: 'pride' }), {})
 };

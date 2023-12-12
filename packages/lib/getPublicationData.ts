@@ -1,42 +1,42 @@
-import type { PublicationMetadata } from "@hey/lens";
-import type { MetadataAsset } from "@hey/types/misc";
+import type { PublicationMetadata } from '@hey/lens';
+import type { MetadataAsset } from '@hey/types/misc';
 
-import { PLACEHOLDER_IMAGE } from "@hey/data/constants";
+import { PLACEHOLDER_IMAGE } from '@hey/data/constants';
 
-import getAttachmentsData from "./getAttachmentsData";
-import removeUrlsByHostnames from "./removeUrlsByHostnames";
+import getAttachmentsData from './getAttachmentsData';
+import removeUrlsByHostnames from './removeUrlsByHostnames';
 
 const getPublicationData = (
-  metadata: PublicationMetadata,
+  metadata: PublicationMetadata
 ): {
   asset?: MetadataAsset;
   attachments?: {
-    type: "Audio" | "Image" | "Video";
+    type: 'Audio' | 'Image' | 'Video';
     uri: string;
   }[];
   content?: string;
 } | null => {
   switch (metadata.__typename) {
-    case "ArticleMetadataV3":
+    case 'ArticleMetadataV3':
       return {
         attachments: getAttachmentsData(metadata.attachments),
-        content: metadata.content,
+        content: metadata.content
       };
-    case "TextOnlyMetadataV3":
-    case "LinkMetadataV3":
+    case 'TextOnlyMetadataV3':
+    case 'LinkMetadataV3':
       return {
-        content: metadata.content,
+        content: metadata.content
       };
-    case "ImageMetadataV3":
+    case 'ImageMetadataV3':
       return {
         asset: {
-          type: "Image",
-          uri: metadata.asset.image.optimized?.uri,
+          type: 'Image',
+          uri: metadata.asset.image.optimized?.uri
         },
         attachments: getAttachmentsData(metadata.attachments),
-        content: metadata.content,
+        content: metadata.content
       };
-    case "AudioMetadataV3": {
+    case 'AudioMetadataV3': {
       const audioAttachments = getAttachmentsData(metadata.attachments)[0];
 
       return {
@@ -47,13 +47,13 @@ const getPublicationData = (
             audioAttachments?.coverUri ||
             PLACEHOLDER_IMAGE,
           title: metadata.title,
-          type: "Audio",
-          uri: metadata.asset.audio.optimized?.uri || audioAttachments?.uri,
+          type: 'Audio',
+          uri: metadata.asset.audio.optimized?.uri || audioAttachments?.uri
         },
-        content: metadata.content,
+        content: metadata.content
       };
     }
-    case "VideoMetadataV3": {
+    case 'VideoMetadataV3': {
       const videoAttachments = getAttachmentsData(metadata.attachments)[0];
 
       return {
@@ -62,24 +62,24 @@ const getPublicationData = (
             metadata.asset.cover?.optimized?.uri ||
             videoAttachments?.coverUri ||
             PLACEHOLDER_IMAGE,
-          type: "Video",
-          uri: metadata.asset.video.optimized?.uri || videoAttachments?.uri,
+          type: 'Video',
+          uri: metadata.asset.video.optimized?.uri || videoAttachments?.uri
         },
-        content: metadata.content,
+        content: metadata.content
       };
     }
-    case "MintMetadataV3":
+    case 'MintMetadataV3':
       return {
         attachments: getAttachmentsData(metadata.attachments),
         content: removeUrlsByHostnames(
           metadata.content,
-          new Set(["basepaint.art", "unlonely.app"]),
-        ),
+          new Set(['basepaint.art', 'unlonely.app'])
+        )
       };
-    case "LiveStreamMetadataV3":
+    case 'LiveStreamMetadataV3':
       return {
         attachments: getAttachmentsData(metadata.attachments),
-        content: metadata.content,
+        content: metadata.content
       };
     default:
       return null;

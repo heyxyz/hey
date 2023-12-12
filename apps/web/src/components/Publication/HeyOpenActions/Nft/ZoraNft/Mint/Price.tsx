@@ -1,12 +1,12 @@
-import type { ZoraNft } from "@hey/types/nft";
-import type { FC } from "react";
+import type { ZoraNft } from '@hey/types/nft';
+import type { FC } from 'react';
 
-import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
-import getRedstonePrice from "@hey/lib/getRedstonePrice";
-import { HelpTooltip } from "@hey/ui";
-import { useQuery } from "@tanstack/react-query";
+import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
+import getRedstonePrice from '@hey/lib/getRedstonePrice';
+import { HelpTooltip } from '@hey/ui';
+import { useQuery } from '@tanstack/react-query';
 
-import { useZoraMintStore } from ".";
+import { useZoraMintStore } from '.';
 
 interface PriceProps {
   nft: ZoraNft;
@@ -19,8 +19,8 @@ const Price: FC<PriceProps> = ({ nft }) => {
 
   const { data: usdPrice, isLoading } = useQuery({
     enabled: Boolean(nft.price),
-    queryFn: async () => await getRedstonePrice("ETH"),
-    queryKey: ["getRedstonePrice"],
+    queryFn: async () => await getRedstonePrice('ETH'),
+    queryKey: ['getRedstonePrice']
   });
 
   const price = quantity * parseInt(nft.price);

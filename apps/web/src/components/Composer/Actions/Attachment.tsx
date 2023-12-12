@@ -1,33 +1,33 @@
-import type { ChangeEvent, FC } from "react";
+import type { ChangeEvent, FC } from 'react';
 
-import MenuTransition from "@components/Shared/MenuTransition";
-import { Menu } from "@headlessui/react";
+import MenuTransition from '@components/Shared/MenuTransition';
+import { Menu } from '@headlessui/react';
 import {
   MusicalNoteIcon,
   PhotoIcon,
-  VideoCameraIcon,
-} from "@heroicons/react/24/outline";
-import { Spinner, Tooltip } from "@hey/ui";
-import cn from "@hey/ui/cn";
+  VideoCameraIcon
+} from '@heroicons/react/24/outline';
+import { Spinner, Tooltip } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import {
   MediaAudioMimeType,
-  MediaImageMimeType,
-} from "@lens-protocol/metadata";
-import { motion } from "framer-motion";
-import { useId, useRef, useState } from "react";
-import toast from "react-hot-toast";
-import useUploadAttachments from "src/hooks/useUploadAttachments";
-import { usePublicationStore } from "src/store/non-persisted/usePublicationStore";
-import { useOnClickOutside } from "usehooks-ts";
+  MediaImageMimeType
+} from '@lens-protocol/metadata';
+import { motion } from 'framer-motion';
+import { useId, useRef, useState } from 'react';
+import toast from 'react-hot-toast';
+import useUploadAttachments from 'src/hooks/useUploadAttachments';
+import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { useOnClickOutside } from 'usehooks-ts';
 
 const ImageMimeType = Object.values(MediaImageMimeType);
 const AudioMimeType = Object.values(MediaAudioMimeType);
 const VideoMimeType = [
-  "video/mp4",
-  "video/mpeg",
-  "video/ogg",
-  "video/webm",
-  "video/quicktime",
+  'video/mp4',
+  'video/mpeg',
+  'video/ogg',
+  'video/webm',
+  'video/quicktime'
 ];
 
 const Attachment: FC = () => {
@@ -44,7 +44,7 @@ const Attachment: FC = () => {
     const allowedTypes = [
       ...ImageMimeType,
       ...AudioMimeType,
-      ...VideoMimeType,
+      ...VideoMimeType
     ] as string[];
 
     for (const file of files) {
@@ -57,7 +57,7 @@ const Attachment: FC = () => {
   };
 
   const isUploadAllowed = (files: FileList) => {
-    if (files[0]?.type.slice(0, 5) === "image") {
+    if (files[0]?.type.slice(0, 5) === 'image') {
       return attachments.length + files.length <= 4;
     }
 
@@ -65,7 +65,7 @@ const Attachment: FC = () => {
   };
 
   const disableImageUpload = () => {
-    const notImage = attachments[0] && attachments[0].type !== "Image";
+    const notImage = attachments[0] && attachments[0].type !== 'Image';
     const isLimit = !notImage && attachments.length >= 4;
     return notImage || isLimit;
   };
@@ -77,17 +77,17 @@ const Attachment: FC = () => {
     try {
       const { files } = evt.target;
       if (!isUploadAllowed(files as FileList)) {
-        toast.error("Exceeded max limit of 1 audio, or 1 video, or 4 images");
+        toast.error('Exceeded max limit of 1 audio, or 1 video, or 4 images');
         return;
       }
       if (isTypeAllowed(files as FileList)) {
         await handleUploadAttachments(files);
-        evt.target.value = "";
+        evt.target.value = '';
       } else {
-        return toast.error("File format not allowed.");
+        return toast.error('File format not allowed.');
       }
     } catch {
-      toast.error("Something went wrong while uploading!");
+      toast.error('Something went wrong while uploading!');
     }
   };
 
@@ -118,8 +118,8 @@ const Attachment: FC = () => {
             as="label"
             className={({ active }) =>
               cn(
-                { "dropdown-active": active },
-                "menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg",
+                { 'dropdown-active': active },
+                'menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
               )
             }
             disabled={disableImageUpload()}
@@ -128,7 +128,7 @@ const Attachment: FC = () => {
             <PhotoIcon className="text-brand-500 h-4 w-4" />
             <span className="text-sm">Upload image(s)</span>
             <input
-              accept={ImageMimeType.join(",")}
+              accept={ImageMimeType.join(',')}
               className="hidden"
               disabled={disableImageUpload()}
               id={`image_${id}`}
@@ -141,8 +141,8 @@ const Attachment: FC = () => {
             as="label"
             className={({ active }) =>
               cn(
-                { "dropdown-active": active },
-                "menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg",
+                { 'dropdown-active': active },
+                'menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
               )
             }
             disabled={Boolean(attachments.length)}
@@ -151,7 +151,7 @@ const Attachment: FC = () => {
             <VideoCameraIcon className="text-brand-500 h-4 w-4" />
             <span className="text-sm">Upload video</span>
             <input
-              accept={VideoMimeType.join(",")}
+              accept={VideoMimeType.join(',')}
               className="hidden"
               disabled={Boolean(attachments.length)}
               id={`video_${id}`}
@@ -163,8 +163,8 @@ const Attachment: FC = () => {
             as="label"
             className={({ active }) =>
               cn(
-                { "dropdown-active": active },
-                "menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg",
+                { 'dropdown-active': active },
+                'menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
               )
             }
             disabled={Boolean(attachments.length)}
@@ -173,7 +173,7 @@ const Attachment: FC = () => {
             <MusicalNoteIcon className="text-brand-500 h-4 w-4" />
             <span className="text-sm">Upload audio</span>
             <input
-              accept={AudioMimeType.join(",")}
+              accept={AudioMimeType.join(',')}
               className="hidden"
               disabled={Boolean(attachments.length)}
               id={`audio_${id}`}

@@ -1,26 +1,26 @@
-import type { CommentNotification as TCommentNotification } from "@hey/lens";
-import type { FC } from "react";
+import type { CommentNotification as TCommentNotification } from '@hey/lens';
+import type { FC } from 'react';
 
-import Markup from "@components/Shared/Markup";
-import { ChatBubbleLeftRightIcon } from "@heroicons/react/24/outline";
-import getPublicationData from "@hey/lib/getPublicationData";
-import Link from "next/link";
+import Markup from '@components/Shared/Markup';
+import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
+import getPublicationData from '@hey/lib/getPublicationData';
+import Link from 'next/link';
 
-import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
-import { NotificationProfileAvatar } from "../Profile";
+import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
+import { NotificationProfileAvatar } from '../Profile';
 
 interface CommentNotificationProps {
   notification: TCommentNotification;
 }
 
 const CommentNotification: FC<CommentNotificationProps> = ({
-  notification,
+  notification
 }) => {
   const metadata = notification?.comment.metadata;
-  const filteredContent = getPublicationData(metadata)?.content || "";
+  const filteredContent = getPublicationData(metadata)?.content || '';
   const firstProfile = notification.comment.by;
 
-  const text = "commented on your";
+  const text = 'commented on your';
   // TODO: remove ? when we have commentOn field in the comment
   const type = notification.comment.commentOn?.__typename;
 

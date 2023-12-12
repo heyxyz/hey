@@ -2,44 +2,44 @@ import type {
   FeedItem,
   FeedRequest,
   PaginatedProfileResult,
-  Profile,
-} from "@hey/lens";
-import type { ChangeEvent, FC } from "react";
+  Profile
+} from '@hey/lens';
+import type { ChangeEvent, FC } from 'react';
 
-import MenuTransition from "@components/Shared/MenuTransition";
-import UserProfile from "@components/Shared/UserProfile";
-import { Menu } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import { ChevronDownIcon } from "@heroicons/react/24/solid";
-import { HOME } from "@hey/data/tracking";
+import MenuTransition from '@components/Shared/MenuTransition';
+import UserProfile from '@components/Shared/UserProfile';
+import { Menu } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { ChevronDownIcon } from '@heroicons/react/24/solid';
+import { HOME } from '@hey/data/tracking';
 import {
   CustomFiltersType,
   LimitType,
   useFeedLazyQuery,
-  useSearchProfilesLazyQuery,
-} from "@hey/lens";
-import getAvatar from "@hey/lib/getAvatar";
-import getProfile from "@hey/lib/getProfile";
-import { Image, Input, Spinner } from "@hey/ui";
-import cn from "@hey/ui/cn";
-import { Leafwatch } from "@lib/leafwatch";
-import { motion } from "framer-motion";
-import { Fragment, useState } from "react";
-import { useTimelineStore } from "src/store/non-persisted/useTimelineStore";
-import useProfileStore from "src/store/persisted/useProfileStore";
+  useSearchProfilesLazyQuery
+} from '@hey/lens';
+import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
+import { Image, Input, Spinner } from '@hey/ui';
+import cn from '@hey/ui/cn';
+import { Leafwatch } from '@lib/leafwatch';
+import { motion } from 'framer-motion';
+import { Fragment, useState } from 'react';
+import { useTimelineStore } from 'src/store/non-persisted/useTimelineStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 const SeeThroughLens: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const seeThroughProfile = useTimelineStore(
-    (state) => state.seeThroughProfile,
+    (state) => state.seeThroughProfile
   );
   const setSeeThroughProfile = useTimelineStore(
-    (state) => state.setSeeThroughProfile,
+    (state) => state.setSeeThroughProfile
   );
 
   const [recommendedProfilesToSeeThrough, setRecommendedProfilesToSeeThrough] =
     useState<Profile[]>([]);
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState('');
 
   const setRecommendedProfiles = (feedItems: FeedItem[]) => {
     const uniqueProfileIds: string[] = [];
@@ -69,7 +69,7 @@ const SeeThroughLens: FC = () => {
       const feedItems = feed?.items as FeedItem[];
       setRecommendedProfiles(feedItems);
     },
-    variables: { request },
+    variables: { request }
   });
 
   const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -81,10 +81,10 @@ const SeeThroughLens: FC = () => {
           limit: LimitType.TwentyFive,
           query: keyword,
           where: {
-            customFilters: [CustomFiltersType.Gardeners],
-          },
-        },
-      },
+            customFilters: [CustomFiltersType.Gardeners]
+          }
+        }
+      }
     });
   };
 
@@ -114,7 +114,7 @@ const SeeThroughLens: FC = () => {
             width={20}
           />
           <span>
-            {seeThroughProfile ? getProfile(profile).slugWithPrefix : "My Feed"}
+            {seeThroughProfile ? getProfile(profile).slugWithPrefix : 'My Feed'}
           </span>
           <ChevronDownIcon className="h-4 w-4" />
         </button>
@@ -132,10 +132,10 @@ const SeeThroughLens: FC = () => {
               iconRight={
                 <XMarkIcon
                   className={cn(
-                    "cursor-pointer",
-                    searchText ? "visible" : "invisible",
+                    'cursor-pointer',
+                    searchText ? 'visible' : 'invisible'
                   )}
-                  onClick={() => setSearchText("")}
+                  onClick={() => setSearchText('')}
                 />
               }
               onChange={handleSearch}
@@ -167,8 +167,8 @@ const SeeThroughLens: FC = () => {
                     as={motion.div}
                     className={({ active }) =>
                       cn(
-                        { "dropdown-active": active },
-                        "cursor-pointer overflow-hidden rounded-lg p-1",
+                        { 'dropdown-active': active },
+                        'cursor-pointer overflow-hidden rounded-lg p-1'
                       )
                     }
                     exit={{ opacity: 0 }}
@@ -176,9 +176,9 @@ const SeeThroughLens: FC = () => {
                     key={profile.id}
                     onClick={() => {
                       setSeeThroughProfile(profile);
-                      setSearchText("");
+                      setSearchText('');
                       Leafwatch.track(HOME.SELECT_USER_FEED, {
-                        see_through_profile: profile.id,
+                        see_through_profile: profile.id
                       });
                     }}
                   >

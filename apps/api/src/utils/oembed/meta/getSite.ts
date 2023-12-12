@@ -1,4 +1,4 @@
-import type { Document } from "linkedom";
+import type { Document } from 'linkedom';
 
 const getSite = (document: Document): null | string => {
   const lens =
@@ -12,15 +12,15 @@ const getSite = (document: Document): null | string => {
     document.querySelector('meta[property="twitter:site"]');
 
   if (lens) {
-    return lens.getAttribute("content");
+    return lens.getAttribute('content');
   }
 
   if (og) {
-    return og.getAttribute("content");
+    return og.getAttribute('content');
   }
 
   if (twitter) {
-    return twitter.getAttribute("content");
+    return twitter.getAttribute('content');
   }
 
   return null;

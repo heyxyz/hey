@@ -1,21 +1,21 @@
-import type { AnyPublication, Profile, PublicationsRequest } from "@hey/lens";
-import type { FC } from "react";
+import type { AnyPublication, Profile, PublicationsRequest } from '@hey/lens';
+import type { FC } from 'react';
 
-import SinglePublication from "@components/Publication/SinglePublication";
-import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
-import { RectangleStackIcon } from "@heroicons/react/24/outline";
+import SinglePublication from '@components/Publication/SinglePublication';
+import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
+import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   PublicationType,
-  usePublicationsQuery,
-} from "@hey/lens";
-import getProfile from "@hey/lib/getProfile";
-import { Card, EmptyState, ErrorMessage } from "@hey/ui";
-import { useInView } from "react-cool-inview";
-import { ProfileFeedType } from "src/enums";
-import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
-import { useProfileFeedStore } from "src/store/non-persisted/useProfileFeedStore";
+  usePublicationsQuery
+} from '@hey/lens';
+import getProfile from '@hey/lib/getProfile';
+import { Card, EmptyState, ErrorMessage } from '@hey/ui';
+import { useInView } from 'react-cool-inview';
+import { ProfileFeedType } from 'src/enums';
+import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
+import { useProfileFeedStore } from 'src/store/non-persisted/useProfileFeedStore';
 
 interface FeedProps {
   profile: Profile;
@@ -28,10 +28,10 @@ interface FeedProps {
 
 const Feed: FC<FeedProps> = ({ profile, type }) => {
   const mediaFeedFilters = useProfileFeedStore(
-    (state) => state.mediaFeedFilters,
+    (state) => state.mediaFeedFilters
   );
   const fetchAndStoreViews = useImpressionsStore(
-    (state) => state.fetchAndStoreViews,
+    (state) => state.fetchAndStoreViews
   );
 
   const getMediaFilters = () => {
@@ -58,12 +58,12 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
           ? [
               PublicationType.Post,
               PublicationType.Comment,
-              PublicationType.Quote,
+              PublicationType.Quote
             ]
           : [
               PublicationType.Post,
               PublicationType.Comment,
-              PublicationType.Mirror,
+              PublicationType.Mirror
             ];
   const metadata =
     type === ProfileFeedType.Media
@@ -76,20 +76,20 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
       publicationTypes,
       ...(type !== ProfileFeedType.Collects
         ? { from: profile?.id }
-        : { actedBy: profile?.id }),
-    },
+        : { actedBy: profile?.id })
+    }
   };
 
   const { data, error, fetchMore, loading } = usePublicationsQuery({
     onCompleted: async ({ publications }) => {
       const ids =
         publications?.items?.map((p) => {
-          return p.__typename === "Mirror" ? p.mirrorOn?.id : p.id;
+          return p.__typename === 'Mirror' ? p.mirrorOn?.id : p.id;
         }) || [];
       await fetchAndStoreViews(ids);
     },
     skip: !profile?.id,
-    variables: { request },
+    variables: { request }
   });
 
   const publications = data?.publications?.items;
@@ -103,14 +103,14 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
       }
 
       const { data } = await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } },
+        variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       const ids =
         data?.publications?.items?.map((p) => {
-          return p.__typename === "Mirror" ? p.mirrorOn?.id : p.id;
+          return p.__typename === 'Mirror' ? p.mirrorOn?.id : p.id;
         }) || [];
       await fetchAndStoreViews(ids);
-    },
+    }
   });
 
   if (loading) {
@@ -120,14 +120,14 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
   if (publications?.length === 0) {
     const emptyMessage =
       type === ProfileFeedType.Feed
-        ? "has nothing in their feed yet!"
+        ? 'has nothing in their feed yet!'
         : type === ProfileFeedType.Media
-          ? "has no media yet!"
+          ? 'has no media yet!'
           : type === ProfileFeedType.Replies
             ? "hasn't replied yet!"
             : type === ProfileFeedType.Collects
               ? "hasn't collected anything yet!"
-              : "";
+              : '';
 
     return (
       <EmptyState

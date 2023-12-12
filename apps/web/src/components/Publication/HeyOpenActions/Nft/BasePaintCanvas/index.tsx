@@ -1,21 +1,21 @@
-import type { AnyPublication } from "@hey/lens";
-import type { BasePaintCanvasMetadata } from "@hey/types/nft";
-import type { FC } from "react";
+import type { AnyPublication } from '@hey/lens';
+import type { BasePaintCanvasMetadata } from '@hey/types/nft';
+import type { FC } from 'react';
 
-import { CursorArrowRaysIcon } from "@heroicons/react/24/outline";
-import { STATIC_IMAGES_URL } from "@hey/data/constants";
-import { BASEPAINT_CONTRACT } from "@hey/data/contracts";
-import { PUBLICATION } from "@hey/data/tracking";
-import stopEventPropagation from "@hey/lib/stopEventPropagation";
-import { Button, Card, Modal, Tooltip } from "@hey/ui";
-import { Leafwatch } from "@lib/leafwatch";
-import Link from "next/link";
-import { useState } from "react";
-import useBasePaintCanvas from "src/hooks/basepaint/useBasePaintCanvas";
-import urlcat from "urlcat";
+import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
+import { STATIC_IMAGES_URL } from '@hey/data/constants';
+import { BASEPAINT_CONTRACT } from '@hey/data/contracts';
+import { PUBLICATION } from '@hey/data/tracking';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import { Button, Card, Modal, Tooltip } from '@hey/ui';
+import { Leafwatch } from '@lib/leafwatch';
+import Link from 'next/link';
+import { useState } from 'react';
+import useBasePaintCanvas from 'src/hooks/basepaint/useBasePaintCanvas';
+import urlcat from 'urlcat';
 
-import Mint, { useBasePaintMintStore } from "./Mint";
-import NftShimmer from "./Shimmer";
+import Mint, { useBasePaintMintStore } from './Mint';
+import NftShimmer from './Shimmer';
 
 interface BasePaintCanvasProps {
   nftMetadata: BasePaintCanvasMetadata;
@@ -24,7 +24,7 @@ interface BasePaintCanvasProps {
 
 const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
   nftMetadata,
-  publication,
+  publication
 }) => {
   const { id } = nftMetadata;
   const [showMintModal, setShowMintModal] = useState(false);
@@ -33,10 +33,10 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
   const {
     data: canvas,
     error,
-    loading,
+    loading
   } = useBasePaintCanvas({
     enabled: Boolean(id),
-    id,
+    id
   });
 
   if (loading) {
@@ -63,7 +63,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
         alt="BasePaint Canvas"
         className="h-[400px] max-h-[400px] w-full rounded-t-xl object-cover"
         src={`data://image/gif;base64,${bitmap.gif}`}
-        style={{ imageRendering: "pixelated" }}
+        style={{ imageRendering: 'pixelated' }}
       />
       <div className="flex items-center justify-between border-t px-3 py-2 dark:border-gray-700">
         <div className="mr-5 flex flex-wrap items-center gap-2">
@@ -97,7 +97,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
                 setShowMintModal(true);
                 Leafwatch.track(
                   PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.OPEN_MINT,
-                  { publication_id: publication.id },
+                  { publication_id: publication.id }
                 );
               }}
               size="md"
@@ -115,7 +115,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
           </>
         ) : canContribute ? (
           <Link
-            href={urlcat("https://basepaint.art/mint/:id", { id: canvas.id })}
+            href={urlcat('https://basepaint.art/mint/:id', { id: canvas.id })}
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -125,7 +125,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
               onClick={() =>
                 Leafwatch.track(
                   PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.OPEN_LINK,
-                  { from: "mint_embed", publication_id: publication.id },
+                  { from: 'mint_embed', publication_id: publication.id }
                 )
               }
               size="md"
@@ -135,9 +135,9 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
           </Link>
         ) : (
           <Link
-            href={urlcat("https://opensea.io/assets/base/:contract/:token", {
+            href={urlcat('https://opensea.io/assets/base/:contract/:token', {
               contract: BASEPAINT_CONTRACT,
-              token: canvas.id,
+              token: canvas.id
             })}
             rel="noopener noreferrer"
             target="_blank"
@@ -148,7 +148,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
               onClick={() =>
                 Leafwatch.track(
                   PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.OPEN_OPENSEA_LINK,
-                  { from: "mint_embed", publication_id: publication.id },
+                  { from: 'mint_embed', publication_id: publication.id }
                 )
               }
               size="md"

@@ -1,13 +1,13 @@
 const knownSites = [
-  "youtube.com",
-  "youtu.be",
-  "tape.xyz",
-  "open.spotify.com",
-  "soundcloud.com",
-  "oohlala.xyz",
+  'youtube.com',
+  'youtu.be',
+  'tape.xyz',
+  'open.spotify.com',
+  'soundcloud.com',
+  'oohlala.xyz'
 ];
 
-const pickUrlSites = ["open.spotify.com"];
+const pickUrlSites = ['open.spotify.com'];
 
 const spotifyTrackUrlRegex =
   /^ht{2}ps?:\/{2}open\.spotify\.com\/track\/[\dA-Za-z]+(\?si=[\dA-Za-z]+)?$/;
@@ -24,11 +24,11 @@ const tapeRegex =
 
 const generateIframe = (
   embedUrl: null | string,
-  url: string,
+  url: string
 ): null | string => {
   const universalSize = `width="560" height="315"`;
   const parsedUrl = new URL(url);
-  const hostname = parsedUrl.hostname.replace("www.", "");
+  const hostname = parsedUrl.hostname.replace('www.', '');
   const pickedUrl = pickUrlSites.includes(hostname) ? url : embedUrl;
 
   if (!knownSites.includes(hostname) || !pickedUrl) {
@@ -36,40 +36,40 @@ const generateIframe = (
   }
 
   switch (hostname) {
-    case "youtube.com":
-    case "youtu.be":
+    case 'youtube.com':
+    case 'youtu.be':
       if (youtubeRegex.test(url)) {
         return `<iframe src="${pickedUrl}" ${universalSize} allow="accelerometer; encrypted-media" allowfullscreen></iframe>`;
       }
 
       return null;
-    case "tape.xyz":
+    case 'tape.xyz':
       if (tapeRegex.test(url)) {
         return `<iframe src="${pickedUrl}" ${universalSize} allow="accelerometer; encrypted-media" allowfullscreen></iframe>`;
       }
 
       return null;
-    case "open.spotify.com": {
+    case 'open.spotify.com': {
       const spotifySize = `style="max-width: 560px;" width="100%"`;
       if (spotifyTrackUrlRegex.test(url)) {
-        const spotifyUrl = pickedUrl.replace("/track", "/embed/track");
+        const spotifyUrl = pickedUrl.replace('/track', '/embed/track');
         return `<iframe src="${spotifyUrl}" ${spotifySize} height="155" allow="encrypted-media"></iframe>`;
       }
 
       if (spotifyPlaylistUrlRegex.test(url)) {
-        const spotifyUrl = pickedUrl.replace("/playlist", "/embed/playlist");
+        const spotifyUrl = pickedUrl.replace('/playlist', '/embed/playlist');
         return `<iframe src="${spotifyUrl}" ${spotifySize} height="380" allow="encrypted-media"></iframe>`;
       }
 
       return null;
     }
-    case "soundcloud.com":
+    case 'soundcloud.com':
       if (soundCloudRegex.test(url)) {
         return `<iframe src="${pickedUrl}" ${universalSize}></iframe>`;
       }
 
       return null;
-    case "oohlala.xyz":
+    case 'oohlala.xyz':
       if (oohlalaUrlRegex.test(url)) {
         return `<iframe src="${pickedUrl}" ${universalSize}></iframe>`;
       }

@@ -4,14 +4,14 @@ import type {
   LegacySimpleCollectModuleSettings,
   MultirecipientFeeCollectOpenActionSettings,
   OpenActionModule,
-  SimpleCollectOpenActionSettings,
-} from "@hey/lens";
-import type { FC } from "react";
+  SimpleCollectOpenActionSettings
+} from '@hey/lens';
+import type { FC } from 'react';
 
-import CollectWarning from "@components/Shared/CollectWarning";
-import CountdownTimer from "@components/Shared/CountdownTimer";
-import Collectors from "@components/Shared/Modal/Collectors";
-import Slug from "@components/Shared/Slug";
+import CollectWarning from '@components/Shared/CollectWarning';
+import CountdownTimer from '@components/Shared/CountdownTimer';
+import Collectors from '@components/Shared/Modal/Collectors';
+import Slug from '@components/Shared/Slug';
 import {
   BanknotesIcon,
   ClockIcon,
@@ -19,26 +19,26 @@ import {
   PhotoIcon,
   PuzzlePieceIcon,
   RectangleStackIcon,
-  UsersIcon,
-} from "@heroicons/react/24/outline";
-import { POLYGONSCAN_URL } from "@hey/data/constants";
-import { FollowModuleType } from "@hey/lens";
-import getAllTokens from "@hey/lib/api/getAllTokens";
-import formatAddress from "@hey/lib/formatAddress";
-import getAssetSymbol from "@hey/lib/getAssetSymbol";
-import getProfile from "@hey/lib/getProfile";
-import getRedstonePrice from "@hey/lib/getRedstonePrice";
-import getTokenImage from "@hey/lib/getTokenImage";
-import humanize from "@hey/lib/humanize";
-import { isMirrorPublication } from "@hey/lib/publicationHelpers";
-import { Modal, Tooltip } from "@hey/ui";
-import { useQuery } from "@tanstack/react-query";
-import Link from "next/link";
-import plur from "plur";
-import { useState } from "react";
+  UsersIcon
+} from '@heroicons/react/24/outline';
+import { POLYGONSCAN_URL } from '@hey/data/constants';
+import { FollowModuleType } from '@hey/lens';
+import getAllTokens from '@hey/lib/api/getAllTokens';
+import formatAddress from '@hey/lib/formatAddress';
+import getAssetSymbol from '@hey/lib/getAssetSymbol';
+import getProfile from '@hey/lib/getProfile';
+import getRedstonePrice from '@hey/lib/getRedstonePrice';
+import getTokenImage from '@hey/lib/getTokenImage';
+import humanize from '@hey/lib/humanize';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
+import { Modal, Tooltip } from '@hey/ui';
+import { useQuery } from '@tanstack/react-query';
+import Link from 'next/link';
+import plur from 'plur';
+import { useState } from 'react';
 
-import CollectAction from "./CollectAction";
-import Splits from "./Splits";
+import CollectAction from './CollectAction';
+import Splits from './Splits';
 
 interface CollectModuleProps {
   openAction: OpenActionModule;
@@ -52,12 +52,12 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
 
   const { data: allowedTokens } = useQuery({
     queryFn: () => getAllTokens(),
-    queryKey: ["getAllTokens"],
+    queryKey: ['getAllTokens']
   });
 
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
   const [countOpenActions, setCountOpenActions] = useState(
-    targetPublication.stats.countOpenActions,
+    targetPublication.stats.countOpenActions
   );
 
   const collectModule = openAction as
@@ -67,12 +67,12 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
     | SimpleCollectOpenActionSettings;
 
   const endTimestamp = collectModule?.endsAt;
-  const collectLimit = parseInt(collectModule?.collectLimit || "0");
-  const amount = parseFloat(collectModule?.amount?.value || "0");
+  const collectLimit = parseInt(collectModule?.collectLimit || '0');
+  const amount = parseFloat(collectModule?.amount?.value || '0');
   const currency = collectModule?.amount?.asset?.symbol;
   const referralFee = collectModule?.referralFee;
   const isMultirecipientFeeCollectModule =
-    collectModule.__typename === "MultirecipientFeeCollectOpenActionSettings";
+    collectModule.__typename === 'MultirecipientFeeCollectOpenActionSettings';
   const percentageCollected = (countOpenActions / collectLimit) * 100;
   const enabledTokens = allowedTokens?.map((t) => t.symbol);
   const isTokenEnabled = enabledTokens?.includes(currency);
@@ -80,7 +80,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
   const { data: usdPrice } = useQuery({
     enabled: Boolean(amount),
     queryFn: async () => await getRedstonePrice(getAssetSymbol(currency)),
-    queryKey: ["getRedstonePrice", currency],
+    queryKey: ['getRedstonePrice', currency]
   });
 
   return (
@@ -112,7 +112,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
         ) : null}
         <div className="mb-4">
           <div className="text-xl font-bold">
-            {targetPublication.__typename} by{" "}
+            {targetPublication.__typename} by{' '}
             <Slug slug={getProfile(targetPublication.by).slugWithPrefix} />
           </div>
         </div>
@@ -153,8 +153,8 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
                 onClick={() => setShowCollectorsModal(!showCollectorsModal)}
                 type="button"
               >
-                {humanize(countOpenActions)}{" "}
-                {plur("collector", countOpenActions)}
+                {humanize(countOpenActions)}{' '}
+                {plur('collector', countOpenActions)}
               </button>
               <Modal
                 icon={<RectangleStackIcon className="text-brand-500 h-5 w-5" />}

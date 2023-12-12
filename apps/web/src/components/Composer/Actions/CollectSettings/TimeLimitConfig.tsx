@@ -1,11 +1,11 @@
-import type { CollectModuleType } from "@hey/types/hey";
-import type { FC } from "react";
+import type { CollectModuleType } from '@hey/types/hey';
+import type { FC } from 'react';
 
-import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
-import { ClockIcon } from "@heroicons/react/24/outline";
-import { Input } from "@hey/ui";
-import { getNumberOfDaysFromDate, getTimeAddedNDay } from "@lib/formatTime";
-import { useCollectModuleStore } from "src/store/non-persisted/useCollectModuleStore";
+import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
+import { ClockIcon } from '@heroicons/react/24/outline';
+import { Input } from '@hey/ui';
+import { getNumberOfDaysFromDate, getTimeAddedNDay } from '@lib/formatTime';
+import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
 
 interface TimeLimitConfigProps {
   setCollectType: (data: CollectModuleType) => void;
@@ -23,7 +23,7 @@ const TimeLimitConfig: FC<TimeLimitConfigProps> = ({ setCollectType }) => {
         on={Boolean(collectModule.endsAt)}
         setOn={() =>
           setCollectType({
-            endsAt: collectModule.endsAt ? null : getTimeAddedNDay(1),
+            endsAt: collectModule.endsAt ? null : getTimeAddedNDay(1)
           })
         }
       />
@@ -35,7 +35,7 @@ const TimeLimitConfig: FC<TimeLimitConfigProps> = ({ setCollectType }) => {
             min="1"
             onChange={(event) => {
               setCollectType({
-                endsAt: getTimeAddedNDay(Number(event.target.value)),
+                endsAt: getTimeAddedNDay(Number(event.target.value))
               });
             }}
             placeholder="5"

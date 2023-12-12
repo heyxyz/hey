@@ -1,20 +1,20 @@
-import type { Profile, ProfileSearchRequest } from "@hey/lens";
-import type { ChangeEvent, FC } from "react";
+import type { Profile, ProfileSearchRequest } from '@hey/lens';
+import type { ChangeEvent, FC } from 'react';
 
-import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import {
   CustomFiltersType,
   LimitType,
-  useSearchProfilesLazyQuery,
-} from "@hey/lens";
-import { Card, Input, Spinner } from "@hey/ui";
-import cn from "@hey/ui/cn";
-import { motion } from "framer-motion";
-import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
-import { useDebounce, useOnClickOutside } from "usehooks-ts";
+  useSearchProfilesLazyQuery
+} from '@hey/lens';
+import { Card, Input, Spinner } from '@hey/ui';
+import cn from '@hey/ui/cn';
+import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
+import { useDebounce, useOnClickOutside } from 'usehooks-ts';
 
-import UserProfile from "../UserProfile";
+import UserProfile from '../UserProfile';
 
 interface SearchProps {
   hideDropdown?: boolean;
@@ -25,14 +25,14 @@ interface SearchProps {
 const Search: FC<SearchProps> = ({
   hideDropdown = false,
   onProfileSelected,
-  placeholder = "Search…",
+  placeholder = 'Search…'
 }) => {
   const { pathname, push, query } = useRouter();
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState('');
   const dropdownRef = useRef(null);
   const debouncedSearchText = useDebounce<string>(searchText, 500);
 
-  useOnClickOutside(dropdownRef, () => setSearchText(""));
+  useOnClickOutside(dropdownRef, () => setSearchText(''));
 
   const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] =
     useSearchProfilesLazyQuery();
@@ -44,21 +44,21 @@ const Search: FC<SearchProps> = ({
 
   const handleKeyDown = (evt: ChangeEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if (pathname === "/search") {
+    if (pathname === '/search') {
       push(`/search?q=${encodeURIComponent(searchText)}&type=${query.type}`);
     } else {
       push(`/search?q=${encodeURIComponent(searchText)}&type=profiles`);
     }
-    setSearchText("");
+    setSearchText('');
   };
 
   useEffect(() => {
-    if (pathname !== "/search" && !hideDropdown && debouncedSearchText) {
+    if (pathname !== '/search' && !hideDropdown && debouncedSearchText) {
       // Variables
       const request: ProfileSearchRequest = {
         limit: LimitType.Ten,
         query: debouncedSearchText,
-        where: { customFilters: [CustomFiltersType.Gardeners] },
+        where: { customFilters: [CustomFiltersType.Gardeners] }
       };
 
       searchUsers({ variables: { request } });
@@ -69,7 +69,7 @@ const Search: FC<SearchProps> = ({
   const searchResult = searchUsersData?.searchProfiles;
   const isProfileSearchResult = Object.prototype.hasOwnProperty.call(
     searchResult,
-    "items",
+    'items'
   );
   const profiles = (
     isProfileSearchResult ? searchResult?.items : []
@@ -84,10 +84,10 @@ const Search: FC<SearchProps> = ({
           iconRight={
             <XMarkIcon
               className={cn(
-                "cursor-pointer",
-                searchText ? "visible" : "invisible",
+                'cursor-pointer',
+                searchText ? 'visible' : 'invisible'
               )}
-              onClick={() => setSearchText("")}
+              onClick={() => setSearchText('')}
             />
           }
           onChange={handleSearch}
@@ -96,7 +96,7 @@ const Search: FC<SearchProps> = ({
           value={searchText}
         />
       </form>
-      {pathname !== "/search" &&
+      {pathname !== '/search' &&
       !hideDropdown &&
       debouncedSearchText.length > 0 ? (
         <div
@@ -122,7 +122,7 @@ const Search: FC<SearchProps> = ({
                       if (onProfileSelected) {
                         onProfileSelected(profile);
                       }
-                      setSearchText("");
+                      setSearchText('');
                     }}
                   >
                     <UserProfile

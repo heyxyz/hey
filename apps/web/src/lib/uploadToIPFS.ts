@@ -1,12 +1,12 @@
-import type { IPFSResponse } from "@hey/types/misc";
+import type { IPFSResponse } from '@hey/types/misc';
 
-import { S3 } from "@aws-sdk/client-s3";
-import { Upload } from "@aws-sdk/lib-storage";
-import { EVER_API, HEY_API_URL, S3_BUCKET } from "@hey/data/constants";
-import axios from "axios";
-import { v4 as uuid } from "uuid";
+import { S3 } from '@aws-sdk/client-s3';
+import { Upload } from '@aws-sdk/lib-storage';
+import { EVER_API, HEY_API_URL, S3_BUCKET } from '@hey/data/constants';
+import axios from 'axios';
+import { v4 as uuid } from 'uuid';
 
-const FALLBACK_TYPE = "image/jpeg";
+const FALLBACK_TYPE = 'image/jpeg';
 
 /**
  * Returns an S3 client with temporary credentials obtained from the STS service.
@@ -19,11 +19,11 @@ const getS3Client = async (): Promise<S3> => {
     credentials: {
       accessKeyId: token.data?.accessKeyId,
       secretAccessKey: token.data?.secretAccessKey,
-      sessionToken: token.data?.sessionToken,
+      sessionToken: token.data?.sessionToken
     },
     endpoint: EVER_API,
     maxAttempts: 10,
-    region: "us-west-2",
+    region: 'us-west-2'
   });
 
   client.middlewareStack.addRelativeTo(
@@ -35,11 +35,11 @@ const getS3Client = async (): Promise<S3> => {
       return { response };
     },
     {
-      name: "nullFetchResponseBodyMiddleware",
+      name: 'nullFetchResponseBodyMiddleware',
       override: true,
-      relation: "after",
-      toMiddleware: "deserializerMiddleware",
-    },
+      relation: 'after',
+      toMiddleware: 'deserializerMiddleware'
+    }
   );
 
   return client;
@@ -54,7 +54,7 @@ const getS3Client = async (): Promise<S3> => {
  */
 const uploadToIPFS = async (
   data: any,
-  onProgress?: (percentage: number) => void,
+  onProgress?: (percentage: number) => void
 ): Promise<IPFSResponse[]> => {
   try {
     const files = Array.from(data);
@@ -66,13 +66,13 @@ const uploadToIPFS = async (
           Body: file,
           Bucket: S3_BUCKET.HEY_MEDIA,
           ContentType: file.type,
-          Key: uuid(),
+          Key: uuid()
         };
         const task = new Upload({
           client,
-          params,
+          params
         });
-        task.on("httpUploadProgress", (e) => {
+        task.on('httpUploadProgress', (e) => {
           const loaded = e.loaded ?? 0;
           const total = e.total ?? 0;
           const progress = (loaded / total) * 100;
@@ -81,15 +81,15 @@ const uploadToIPFS = async (
         await task.done();
         const result = await client.headObject(params);
         const metadata = result.Metadata;
-        const cid = metadata?.["ipfs-hash"];
+        const cid = metadata?.['ipfs-hash'];
 
         axios.get(`${HEY_API_URL}/ipfs/pin`, { params: { cid } });
 
         return {
           mimeType: file.type || FALLBACK_TYPE,
-          uri: `ipfs://${cid}`,
+          uri: `ipfs://${cid}`
         };
-      }),
+      })
     );
 
     return attachments;
@@ -106,7 +106,7 @@ const uploadToIPFS = async (
  */
 export const uploadFileToIPFS = async (
   file: File,
-  onProgress?: (percentage: number) => void,
+  onProgress?: (percentage: number) => void
 ): Promise<IPFSResponse> => {
   try {
     const ipfsResponse = await uploadToIPFS([file], onProgress);
@@ -114,7 +114,7 @@ export const uploadFileToIPFS = async (
 
     return { mimeType: file.type || FALLBACK_TYPE, uri: metadata.uri };
   } catch {
-    return { mimeType: file.type || FALLBACK_TYPE, uri: "" };
+    return { mimeType: file.type || FALLBACK_TYPE, uri: '' };
   }
 };
 

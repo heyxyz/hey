@@ -1,17 +1,17 @@
-import type { AnyPublication, FeedItem } from "@hey/lens";
-import type { FC } from "react";
+import type { AnyPublication, FeedItem } from '@hey/lens';
+import type { FC } from 'react';
 
-import SmallUserProfile from "@components/Shared/SmallUserProfile";
-import UserProfile from "@components/Shared/UserProfile";
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import { isMirrorPublication } from "@hey/lib/publicationHelpers";
-import stopEventPropagation from "@hey/lib/stopEventPropagation";
-import cn from "@hey/ui/cn";
-import { usePublicationStore } from "src/store/non-persisted/usePublicationStore";
-import { useFeatureFlagsStore } from "src/store/persisted/useFeatureFlagsStore";
+import SmallUserProfile from '@components/Shared/SmallUserProfile';
+import UserProfile from '@components/Shared/UserProfile';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import cn from '@hey/ui/cn';
+import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
-import PublicationMenu from "./Actions/Menu";
-import Source from "./Source";
+import PublicationMenu from './Actions/Menu';
+import Source from './Source';
 
 interface PublicationHeaderProps {
   feedItem?: FeedItem;
@@ -24,10 +24,10 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
   feedItem,
   isNew = false,
   publication,
-  quoted = false,
+  quoted = false
 }) => {
   const setQuotedPublication = usePublicationStore(
-    (state) => state.setQuotedPublication,
+    (state) => state.setQuotedPublication
   );
   const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
 
@@ -48,8 +48,8 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
   return (
     <div
       className={cn(
-        quoted ? "pb-2" : "pb-4",
-        "relative flex justify-between space-x-1.5",
+        quoted ? 'pb-2' : 'pb-4',
+        'relative flex justify-between space-x-1.5'
       )}
     >
       <span className="max-w-full" onClick={stopEventPropagation}>

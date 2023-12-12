@@ -1,16 +1,16 @@
-import type { FC } from "react";
+import type { FC } from 'react';
 
-import cn from "@hey/ui/cn";
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import cn from '@hey/ui/cn';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import {
   $getSelection,
   $isRangeSelection,
   COMMAND_PRIORITY_CRITICAL,
   FORMAT_TEXT_COMMAND,
-  SELECTION_CHANGE_COMMAND,
-} from "lexical";
-import { useCallback, useState } from "react";
-import { useUpdateEffect } from "usehooks-ts";
+  SELECTION_CHANGE_COMMAND
+} from 'lexical';
+import { useCallback, useState } from 'react';
+import { useUpdateEffect } from 'usehooks-ts';
 
 const ToolbarPlugin: FC = () => {
   const [editor] = useLexicalComposerContext();
@@ -22,9 +22,9 @@ const ToolbarPlugin: FC = () => {
   const updateToolbar = useCallback(() => {
     const selection = $getSelection();
     if ($isRangeSelection(selection)) {
-      setIsBold(selection.hasFormat("bold"));
-      setIsItalic(selection.hasFormat("italic"));
-      setIsCode(selection.hasFormat("code"));
+      setIsBold(selection.hasFormat('bold'));
+      setIsItalic(selection.hasFormat('italic'));
+      setIsCode(selection.hasFormat('code'));
     }
   }, []);
 
@@ -36,16 +36,16 @@ const ToolbarPlugin: FC = () => {
         setActiveEditor(newEditor);
         return false;
       },
-      COMMAND_PRIORITY_CRITICAL,
+      COMMAND_PRIORITY_CRITICAL
     );
   }, [editor, updateToolbar]);
 
   return (
     <div className="toolbar-icons divider flex items-center space-x-1 px-5 py-2">
       <button
-        className={cn(isBold && "bg-brand-100", "outline-brand-500")}
+        className={cn(isBold && 'bg-brand-100', 'outline-brand-500')}
         onClick={() => {
-          activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, "bold");
+          activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
         }}
         title="Bold"
         type="button"
@@ -53,9 +53,9 @@ const ToolbarPlugin: FC = () => {
         <i className="toolbar-icon bold text-brand-500" />
       </button>
       <button
-        className={cn(isItalic && "bg-brand-100", "outline-brand-500")}
+        className={cn(isItalic && 'bg-brand-100', 'outline-brand-500')}
         onClick={() => {
-          activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, "italic");
+          activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic');
         }}
         title="Italic"
         type="button"
@@ -63,9 +63,9 @@ const ToolbarPlugin: FC = () => {
         <i className="toolbar-icon italic" />
       </button>
       <button
-        className={cn(isCode && "bg-brand-100", "outline-brand-500")}
+        className={cn(isCode && 'bg-brand-100', 'outline-brand-500')}
         onClick={() => {
-          activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, "code");
+          activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code');
         }}
         title="Code"
         type="button"

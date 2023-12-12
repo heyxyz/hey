@@ -1,36 +1,36 @@
-import type { NewAttachment } from "@hey/types/misc";
-import type { FC } from "react";
+import type { NewAttachment } from '@hey/types/misc';
+import type { FC } from 'react';
 
-import ChooseThumbnail from "@components/Composer/ChooseThumbnail";
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import stopEventPropagation from "@hey/lib/stopEventPropagation";
-import { Button, Image } from "@hey/ui";
-import cn from "@hey/ui/cn";
-import { useRef } from "react";
-import { usePublicationStore } from "src/store/non-persisted/usePublicationStore";
-import { useUpdateEffect } from "usehooks-ts";
+import ChooseThumbnail from '@components/Composer/ChooseThumbnail';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import { Button, Image } from '@hey/ui';
+import cn from '@hey/ui/cn';
+import { useRef } from 'react';
+import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { useUpdateEffect } from 'usehooks-ts';
 
-import Audio from "./Audio";
+import Audio from './Audio';
 
 const getClass = (attachments: number) => {
   if (attachments === 1) {
     return {
-      aspect: "aspect-w-16 aspect-h-10",
-      row: "grid-cols-1 grid-rows-1",
+      aspect: 'aspect-w-16 aspect-h-10',
+      row: 'grid-cols-1 grid-rows-1'
     };
   }
 
   if (attachments === 2) {
     return {
-      aspect: "aspect-w-16 aspect-h-12",
-      row: "grid-cols-2 grid-rows-1",
+      aspect: 'aspect-w-16 aspect-h-12',
+      row: 'grid-cols-2 grid-rows-1'
     };
   }
 
   if (attachments > 2) {
     return {
-      aspect: "aspect-w-16 aspect-h-12",
-      row: "grid-cols-2 grid-rows-2",
+      aspect: 'aspect-w-16 aspect-h-12',
+      row: 'grid-cols-2 grid-rows-2'
     };
   }
 };
@@ -42,11 +42,11 @@ interface NewAttachmentsProps {
 
 const NewAttachments: FC<NewAttachmentsProps> = ({
   attachments = [],
-  hideDelete = false,
+  hideDelete = false
 }) => {
   const setAttachments = usePublicationStore((state) => state.setAttachments);
   const setVideoDurationInSeconds = usePublicationStore(
-    (state) => state.setVideoDurationInSeconds,
+    (state) => state.setVideoDurationInSeconds
   );
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -67,38 +67,38 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
     setAttachments(
       arr.filter((element: any) => {
         return element !== attachment;
-      }),
+      })
     );
   };
 
   const slicedAttachments = attachments?.some(
     (attachment: NewAttachment) =>
-      attachment.type === "Video" || attachment.type === "Audio",
+      attachment.type === 'Video' || attachment.type === 'Audio'
   )
     ? attachments?.slice(0, 1)
     : attachments?.slice(0, 4);
   const attachmentsLength = slicedAttachments?.length;
 
   return attachmentsLength !== 0 ? (
-    <div className={cn(getClass(attachmentsLength)?.row, "mt-3 grid gap-2")}>
+    <div className={cn(getClass(attachmentsLength)?.row, 'mt-3 grid gap-2')}>
       {slicedAttachments?.map((attachment: NewAttachment, index: number) => {
-        const isImage = attachment.type === "Image";
-        const isAudio = attachment.type === "Audio";
-        const isVideo = attachment.type === "Video";
+        const isImage = attachment.type === 'Image';
+        const isAudio = attachment.type === 'Audio';
+        const isVideo = attachment.type === 'Video';
 
         return (
           <div
             className={cn(
               isImage
                 ? `${getClass(attachmentsLength)?.aspect} ${
-                    attachmentsLength === 3 && index === 0 ? "row-span-2" : ""
+                    attachmentsLength === 3 && index === 0 ? 'row-span-2' : ''
                   }`
-                : "",
+                : '',
               {
-                "w-2/3": isImage && attachmentsLength === 1,
-                "w-full": isAudio || isVideo,
+                'w-2/3': isImage && attachmentsLength === 1,
+                'w-full': isAudio || isVideo
               },
-              "relative",
+              'relative'
             )}
             key={attachment.id}
             onClick={stopEventPropagation}
@@ -150,7 +150,7 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
                   Cancel Upload
                 </Button>
               ) : (
-                <div className={cn(isAudio ? "absolute left-2 top-2" : "m-3")}>
+                <div className={cn(isAudio ? 'absolute left-2 top-2' : 'm-3')}>
                   <button
                     className="rounded-full bg-gray-900 p-1.5 opacity-75"
                     onClick={() => removeAttachment(attachment)}

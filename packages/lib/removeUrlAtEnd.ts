@@ -9,7 +9,7 @@ const removeUrlAtEnd = (urls: string[], content: string): string => {
     const trimmedContent = content.trimEnd();
     const indexOfUrl = trimmedContent.indexOf(urls[0]);
     if (indexOfUrl === trimmedContent.length - urls[0].length) {
-      return trimmedContent?.replace(urls[0], "");
+      return trimmedContent?.replace(urls[0], '');
     }
 
     return trimmedContent;

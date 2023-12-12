@@ -1,27 +1,27 @@
-import type { ApolloCache } from "@apollo/client";
-import type { AnyPublication, ReactionRequest } from "@hey/lens";
-import type { FC } from "react";
+import type { ApolloCache } from '@apollo/client';
+import type { AnyPublication, ReactionRequest } from '@hey/lens';
+import type { FC } from 'react';
 
-import { HeartIcon } from "@heroicons/react/24/outline";
-import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
-import { Errors } from "@hey/data/errors";
-import { PUBLICATION } from "@hey/data/tracking";
+import { HeartIcon } from '@heroicons/react/24/outline';
+import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
+import { Errors } from '@hey/data/errors';
+import { PUBLICATION } from '@hey/data/tracking';
 import {
   PublicationReactionType,
   useAddReactionMutation,
-  useRemoveReactionMutation,
-} from "@hey/lens";
-import nFormatter from "@hey/lib/nFormatter";
-import { isMirrorPublication } from "@hey/lib/publicationHelpers";
-import { Tooltip } from "@hey/ui";
-import cn from "@hey/ui/cn";
-import errorToast from "@lib/errorToast";
-import { Leafwatch } from "@lib/leafwatch";
-import { motion } from "framer-motion";
-import { useRouter } from "next/router";
-import { useState } from "react";
-import toast from "react-hot-toast";
-import useProfileStore from "src/store/persisted/useProfileStore";
+  useRemoveReactionMutation
+} from '@hey/lens';
+import nFormatter from '@hey/lib/nFormatter';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
+import { Tooltip } from '@hey/ui';
+import cn from '@hey/ui/cn';
+import errorToast from '@lib/errorToast';
+import { Leafwatch } from '@lib/leafwatch';
+import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface LikeProps {
   publication: AnyPublication;
@@ -36,7 +36,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
     : publication;
 
   const [hasReacted, setHasReacted] = useState(
-    targetPublication.operations.hasReacted,
+    targetPublication.operations.hasReacted
   );
   const [reactions, setReactions] = useState(targetPublication.stats.reactions);
 
@@ -45,15 +45,15 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
       fields: {
         operations: (existingValue) => {
           return { ...existingValue, hasReacted: !hasReacted };
-        },
+        }
       },
-      id: cache.identify(targetPublication),
+      id: cache.identify(targetPublication)
     });
     cache.modify({
       fields: {
-        reactions: () => (hasReacted ? reactions - 1 : reactions + 1),
+        reactions: () => (hasReacted ? reactions - 1 : reactions + 1)
       },
-      id: cache.identify(targetPublication.stats),
+      id: cache.identify(targetPublication.stats)
     });
   };
 
@@ -62,20 +62,20 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
   };
 
   const getLikeSource = () => {
-    if (pathname === "/") {
-      return "home_feed";
+    if (pathname === '/') {
+      return 'home_feed';
     }
 
-    if (pathname === "/u/[username]") {
-      return "profile_feed";
+    if (pathname === '/u/[username]') {
+      return 'profile_feed';
     }
 
-    if (pathname === "/explore") {
-      return "explore_feed";
+    if (pathname === '/explore') {
+      return 'explore_feed';
     }
 
-    if (pathname === "/posts/[id]") {
-      return "post_page";
+    if (pathname === '/posts/[id]') {
+      return 'post_page';
     }
 
     return;
@@ -83,7 +83,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
 
   const eventProperties = {
     publication_id: publication?.id,
-    source: getLikeSource(),
+    source: getLikeSource()
   };
 
   const [addReaction] = useAddReactionMutation({
@@ -95,7 +95,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
       setReactions(reactions - 1);
       onError(error);
     },
-    update: updateCache,
+    update: updateCache
   });
 
   const [removeReaction] = useRemoveReactionMutation({
@@ -105,7 +105,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
       setReactions(reactions + 1);
       onError(error);
     },
-    update: updateCache,
+    update: updateCache
   });
 
   const createLike = async () => {
@@ -116,7 +116,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
     // Variables
     const request: ReactionRequest = {
       for: targetPublication.id,
-      reaction: PublicationReactionType.Upvote,
+      reaction: PublicationReactionType.Upvote
     };
 
     if (hasReacted) {
@@ -131,29 +131,29 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
   };
 
   const iconClassName = showCount
-    ? "w-[17px] sm:w-[20px]"
-    : "w-[15px] sm:w-[18px]";
+    ? 'w-[17px] sm:w-[20px]'
+    : 'w-[15px] sm:w-[18px]';
 
   return (
     <div
       className={cn(
-        hasReacted ? "text-brand-500" : "ld-text-gray-500",
-        "flex items-center space-x-1",
+        hasReacted ? 'text-brand-500' : 'ld-text-gray-500',
+        'flex items-center space-x-1'
       )}
     >
       <motion.button
         aria-label="Like"
         className={cn(
           hasReacted
-            ? "hover:bg-brand-300/20 outline-brand-500"
-            : "outline-gray-400 hover:bg-gray-300/20",
-          "rounded-full p-1.5 outline-offset-2",
+            ? 'hover:bg-brand-300/20 outline-brand-500'
+            : 'outline-gray-400 hover:bg-gray-300/20',
+          'rounded-full p-1.5 outline-offset-2'
         )}
         onClick={createLike}
         whileTap={{ scale: 0.9 }}
       >
         <Tooltip
-          content={hasReacted ? "Unlike" : "Like"}
+          content={hasReacted ? 'Unlike' : 'Like'}
           placement="top"
           withDelay
         >

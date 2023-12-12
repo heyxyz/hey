@@ -1,4 +1,4 @@
-import type { Document } from "linkedom";
+import type { Document } from 'linkedom';
 
 const getIsLarge = (document: Document): boolean | null => {
   const lens =
@@ -8,15 +8,15 @@ const getIsLarge = (document: Document): boolean | null => {
     document.querySelector('meta[name="twitter:card"]') ||
     document.querySelector('meta[property="twitter:card"]');
 
-  const largeTypes = ["summary_large_image", "player"];
+  const largeTypes = ['summary_large_image', 'player'];
 
   if (lens) {
-    const card = lens.getAttribute("content") || "";
+    const card = lens.getAttribute('content') || '';
     return largeTypes.includes(card);
   }
 
   if (twitter) {
-    const card = twitter.getAttribute("content") || "";
+    const card = twitter.getAttribute('content') || '';
     return largeTypes.includes(card);
   }
 

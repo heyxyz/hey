@@ -1,21 +1,21 @@
-import type { FC } from "react";
+import type { FC } from 'react';
 
-import Beta from "@components/Shared/Badges/Beta";
-import SearchUser from "@components/Shared/SearchUser";
-import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
+import Beta from '@components/Shared/Badges/Beta';
+import SearchUser from '@components/Shared/SearchUser';
+import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import {
   ArrowsRightLeftIcon,
   PlusIcon,
   UsersIcon,
-  XCircleIcon,
-} from "@heroicons/react/24/outline";
-import { ADDRESS_PLACEHOLDER } from "@hey/data/constants";
-import { OpenActionModuleType } from "@hey/lens";
-import splitNumber from "@hey/lib/splitNumber";
-import { Button, Input } from "@hey/ui";
-import { useCollectModuleStore } from "src/store/non-persisted/useCollectModuleStore";
-import useProfileStore from "src/store/persisted/useProfileStore";
-import { isAddress } from "viem";
+  XCircleIcon
+} from '@heroicons/react/24/outline';
+import { ADDRESS_PLACEHOLDER } from '@hey/data/constants';
+import { OpenActionModuleType } from '@hey/lens';
+import splitNumber from '@hey/lib/splitNumber';
+import { Button, Input } from '@hey/ui';
+import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
+import { isAddress } from 'viem';
 
 interface SplitConfigProps {
   isRecipientsDuplicated: () => boolean;
@@ -24,7 +24,7 @@ interface SplitConfigProps {
 
 const SplitConfig: FC<SplitConfigProps> = ({
   isRecipientsDuplicated,
-  setCollectType,
+  setCollectType
 }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const collectModule = useCollectModuleStore((state) => state.collectModule);
@@ -38,25 +38,25 @@ const SplitConfig: FC<SplitConfigProps> = ({
     const splits = recipients.map((recipient, i) => {
       return {
         recipient: recipient.recipient,
-        split: equalSplits[i],
+        split: equalSplits[i]
       };
     });
     setCollectType({
-      recipients: [...splits],
+      recipients: [...splits]
     });
   };
 
   const onChangeRecipientOrSplit = (
     index: number,
     value: string,
-    type: "recipient" | "split",
+    type: 'recipient' | 'split'
   ) => {
     const getRecipients = (value: string) => {
       return recipients.map((recipient, i) => {
         if (i === index) {
           return {
             ...recipient,
-            [type]: type === "split" ? parseInt(value) : value,
+            [type]: type === 'split' ? parseInt(value) : value
           };
         }
         return recipient;
@@ -67,7 +67,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
   };
 
   const updateRecipient = (index: number, value: string) => {
-    onChangeRecipientOrSplit(index, value, "recipient");
+    onChangeRecipientOrSplit(index, value, 'recipient');
   };
 
   return (
@@ -91,7 +91,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
             type:
               recipients.length > 0
                 ? OpenActionModuleType.SimpleCollectOpenActionModule
-                : OpenActionModuleType.MultirecipientFeeCollectOpenActionModule,
+                : OpenActionModuleType.MultirecipientFeeCollectOpenActionModule
           });
         }}
       />
@@ -127,7 +127,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
                       onChangeRecipientOrSplit(
                         index,
                         event.target.value,
-                        "split",
+                        'split'
                       )
                     }
                     placeholder="5"
@@ -138,7 +138,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
                 <button
                   onClick={() => {
                     setCollectType({
-                      recipients: recipients.filter((_, i) => i !== index),
+                      recipients: recipients.filter((_, i) => i !== index)
                     });
                   }}
                   type="button"
@@ -156,7 +156,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
                 icon={<PlusIcon className="h-3 w-3" />}
                 onClick={() => {
                   setCollectType({
-                    recipients: [...recipients, { recipient: "", split: 0 }],
+                    recipients: [...recipients, { recipient: '', split: 0 }]
                   });
                 }}
                 outline

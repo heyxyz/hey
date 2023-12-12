@@ -1,20 +1,20 @@
-import type { FC, ReactNode } from "react";
+import type { FC, ReactNode } from 'react';
 
-import Video from "@components/Shared/Video";
+import Video from '@components/Shared/Video';
 import {
   ClipboardDocumentIcon,
   SignalIcon,
   VideoCameraIcon,
-  VideoCameraSlashIcon,
-} from "@heroicons/react/24/outline";
-import { XCircleIcon } from "@heroicons/react/24/solid";
-import { HEY_API_URL } from "@hey/data/constants";
-import { Card, Spinner, Tooltip } from "@hey/ui";
-import getAuthWorkerHeaders from "@lib/getAuthWorkerHeaders";
-import axios from "axios";
-import { useState } from "react";
-import toast from "react-hot-toast";
-import { usePublicationStore } from "src/store/non-persisted/usePublicationStore";
+  VideoCameraSlashIcon
+} from '@heroicons/react/24/outline';
+import { XCircleIcon } from '@heroicons/react/24/solid';
+import { HEY_API_URL } from '@hey/data/constants';
+import { Card, Spinner, Tooltip } from '@hey/ui';
+import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import axios from 'axios';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 
 interface WrapperProps {
   children: ReactNode;
@@ -31,16 +31,16 @@ const Wrapper: FC<WrapperProps> = ({ children }) => {
 const LivestreamEditor: FC = () => {
   const liveVideoConfig = usePublicationStore((state) => state.liveVideoConfig);
   const setLiveVideoConfig = usePublicationStore(
-    (state) => state.setLiveVideoConfig,
+    (state) => state.setLiveVideoConfig
   );
   const setShowLiveVideoEditor = usePublicationStore(
-    (state) => state.setShowLiveVideoEditor,
+    (state) => state.setShowLiveVideoEditor
   );
   const resetLiveVideoConfig = usePublicationStore(
-    (state) => state.resetLiveVideoConfig,
+    (state) => state.resetLiveVideoConfig
   );
 
-  const [screen, setScreen] = useState<"create" | "record">("create");
+  const [screen, setScreen] = useState<'create' | 'record'>('create');
   const [creating, setCreating] = useState(false);
 
   const createLiveStream = async (record: boolean) => {
@@ -49,16 +49,16 @@ const LivestreamEditor: FC = () => {
       const response = await axios.post(
         `${HEY_API_URL}/live/createStream`,
         { record },
-        { headers: getAuthWorkerHeaders() },
+        { headers: getAuthWorkerHeaders() }
       );
       const { data } = response;
       setLiveVideoConfig({
         id: data.result.id,
         playbackId: data.result.playbackId,
-        streamKey: data.result.streamKey,
+        streamKey: data.result.streamKey
       });
     } catch {
-      toast.error("Error creating live stream");
+      toast.error('Error creating live stream');
     } finally {
       setCreating(false);
     }
@@ -101,9 +101,9 @@ const LivestreamEditor: FC = () => {
                 <button
                   onClick={async () => {
                     await navigator.clipboard.writeText(
-                      "rtmp://rtmp.hey.xyz/live",
+                      'rtmp://rtmp.hey.xyz/live'
                     );
-                    toast.success("Copied to clipboard!");
+                    toast.success('Copied to clipboard!');
                   }}
                   type="button"
                 >
@@ -116,9 +116,9 @@ const LivestreamEditor: FC = () => {
                 <button
                   onClick={async () => {
                     await navigator.clipboard.writeText(
-                      liveVideoConfig.streamKey,
+                      liveVideoConfig.streamKey
                     );
-                    toast.success("Copied to clipboard!");
+                    toast.success('Copied to clipboard!');
                   }}
                   type="button"
                 >
@@ -130,10 +130,10 @@ const LivestreamEditor: FC = () => {
               src={`https://livepeercdn.studio/hls/${liveVideoConfig.playbackId}/index.m3u8`}
             />
           </>
-        ) : screen === "create" ? (
+        ) : screen === 'create' ? (
           <button
             className="w-full"
-            onClick={() => setScreen("record")}
+            onClick={() => setScreen('record')}
             type="button"
           >
             <Wrapper>
