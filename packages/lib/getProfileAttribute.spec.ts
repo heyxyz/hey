@@ -20,11 +20,11 @@ describe('getProfileAttribute', () => {
         value: 'https://www.example.com'
       }
     ];
-    expect(getProfileAttribute(attributes, 'location')).toEqual('New York');
+    expect(getProfileAttribute('location', attributes)).toEqual('New York');
   });
 
   test('should return an empty string when attributes are undefined', () => {
     const attributes = undefined;
-    expect(getProfileAttribute(attributes, 'location')).toEqual('');
+    expect(getProfileAttribute('location', attributes)).toEqual('');
   });
 });

@@ -3,7 +3,7 @@ import type { Handler } from 'express';
 import createClickhouseClient from '@utils/createClickhouseClient';
 import prisma from '@utils/prisma';
 
-export const get: Handler = async (req, res) => {
+export const get: Handler = async (_, res) => {
   try {
     // Postgres
     const db = await prisma.feature.count();

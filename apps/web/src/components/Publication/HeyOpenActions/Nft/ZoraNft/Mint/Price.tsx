@@ -89,6 +89,7 @@ const Price: FC<PriceProps> = ({ nft }) => {
             className="rounded-full border p-1.5 hover:bg-gray-100 disabled:opacity-50 dark:border-gray-700"
             disabled={quantity === 1}
             onClick={() => setQuantity(quantity - 1)}
+            type="button"
           >
             <MinusIcon className="h-4 w-4" />
           </button>
@@ -97,6 +98,7 @@ const Price: FC<PriceProps> = ({ nft }) => {
             className="rounded-full border p-1.5 hover:bg-gray-100 disabled:opacity-50 dark:border-gray-700"
             disabled={quantity === nft.maxSupply}
             onClick={() => setQuantity(quantity + 1)}
+            type="button"
           >
             <PlusIcon className="h-4 w-4" />
           </button>

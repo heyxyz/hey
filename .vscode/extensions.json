@@ -1,6 +1,6 @@
 {
   "recommendations": [
-    "esbenp.prettier-vscode",
+    "biomejs.biome",
     "formulahendry.auto-close-tag",
     "mikestead.dotenv",
     "dbaeumer.vscode-eslint",

@@ -59,9 +59,9 @@ const Attachment: FC = () => {
   const isUploadAllowed = (files: FileList) => {
     if (files[0]?.type.slice(0, 5) === 'image') {
       return attachments.length + files.length <= 4;
-    } else {
-      return files.length === 1;
     }
+
+    return files.length === 1;
   };
 
   const disableImageUpload = () => {

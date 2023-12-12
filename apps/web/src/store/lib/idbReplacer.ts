@@ -1,4 +1,4 @@
-const idbReplacer = (_key: String, value: any) => {
+const idbReplacer = (_key: string, value: any) => {
   if (value instanceof Map) {
     return {
       dataType: 'Map',

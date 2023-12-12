@@ -9,7 +9,7 @@ const regex = /https:\/\/basepaint\.art\/mint\/(\d+)/;
  */
 const getBasePaintCanvas = (url: string): BasePaintCanvasMetadata | null => {
   const matches = regex.exec(url);
-  if (matches && matches[1]) {
+  if (matches?.[1]) {
     const id = parseInt(matches[1]);
     const mintLink = `https://basepaint.art/mint/${id}`;
 

@@ -51,7 +51,7 @@ const ProtectProfile: FC = () => {
   ).toISOString();
   const isCoolOffPassed = new Date(coolOffDate).getTime() < Date.now();
 
-  const handleProtect = async () => {
+  const handleProtect = () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
@@ -61,7 +61,7 @@ const ProtectProfile: FC = () => {
     }
 
     try {
-      return await write();
+      return write();
     } catch (error) {
       onError(error);
     }

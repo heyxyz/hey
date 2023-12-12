@@ -52,6 +52,7 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
         className
       )}
       onClick={toggleModMode}
+      type="button"
     >
       {gardenerMode ? (
         <BoltIconSolid className="h-4 w-4 text-green-600" />

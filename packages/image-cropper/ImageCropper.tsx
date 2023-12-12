@@ -414,7 +414,7 @@ class ImageCropper extends Component<CropperProps, State> {
     }
 
     // when rendered via SSR, the image can already be loaded and its onLoad callback will never be called
-    if (this.imageRef.current && this.imageRef.current.complete) {
+    if (this.imageRef.current?.complete) {
       this.onMediaLoad();
     }
   }
@@ -496,6 +496,7 @@ class ImageCropper extends Component<CropperProps, State> {
             className={cn('reactEasyCrop_Container')}
             onMouseDown={this.onMouseDown}
             onTouchStart={this.onTouchStart}
+            // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
             ref={(el) => (this.containerRef = el)}
           >
             {image && (
