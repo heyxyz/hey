@@ -30,7 +30,6 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { signIn } from 'src/store/persisted/useAuthStore';
-import { useIsMounted } from 'usehooks-ts';
 import {
   useAccount,
   useChainId,
@@ -60,7 +59,6 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     errorToast(error);
   };
 
-  const isMounted = useIsMounted();
   const chain = useChainId();
   const {
     connectAsync,
@@ -246,22 +244,15 @@ const WalletSelector: FC<WalletSelectorProps> = ({
               },
               'flex w-full items-center justify-between space-x-2.5 overflow-hidden rounded-xl border px-4 py-3 outline-none dark:border-gray-700'
             )}
-            disabled={
-              isMounted()
-                ? !connector.ready || connector.id === activeConnector?.id
-                : false
-            }
+            disabled={connector.id === activeConnector?.id}
             key={connector.id}
             onClick={() => onConnect(connector)}
             type="button"
           >
             <span>
-              {isMounted()
-                ? connector.id === 'injected'
-                  ? 'Browser Wallet'
-                  : getWalletDetails(connector.name).name
+              {connector.id === 'injected'
+                ? 'Browser Wallet'
                 : getWalletDetails(connector.name).name}
-              {isMounted() ? !connector.ready && ' (unsupported)' : ''}
             </span>
             <div className="flex items-center space-x-4">
               {isConnectLoading && pendingConnector?.id === connector.id ? (
