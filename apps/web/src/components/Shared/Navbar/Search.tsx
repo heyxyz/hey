@@ -63,6 +63,7 @@ const Search: FC<SearchProps> = ({
 
       searchUsers({ variables: { request } });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchText]);
 
   const searchResult = searchUsersData?.searchProfiles;
