@@ -60,6 +60,7 @@ const Feed: FC<FeedProps> = ({
   useEffect(() => {
     setRefreshing(true);
     refetch().finally(() => setRefreshing(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh, publicationTypes, mainContentFocus, customFilters]);
 
   const { observe } = useInView({

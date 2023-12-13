@@ -46,6 +46,7 @@ const CountdownTimer: FC<CountdownTimerProps> = ({ targetDate }) => {
     return () => {
       clearInterval(timer);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const formatTimeValue = (value: number, label: string): string => {
