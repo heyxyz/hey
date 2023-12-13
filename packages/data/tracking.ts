@@ -191,7 +191,6 @@ export const MISCELLANEOUS = {
   OPEN_GITCOIN: 'Open Gitcoin',
   OPEN_LENS_WAITLIST: 'Open Lens waitlist',
   OPEN_RECOMMENDED_PROFILES: 'Open recommended profiles modal',
-  OPEN_TRENDING_TAG: 'Open trending tag',
   SELECT_LOCALE: 'Select locale'
 };
 
