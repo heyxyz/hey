@@ -1,0 +1,41 @@
+query LatestPaidActions($request: PaginatedRequest!) {
+  latestPaidActions(request: $request) {
+    items {
+      ... on FollowPaidAction {
+        followed {
+          ...ProfileFields
+        }
+        latestActed {
+          actedAt
+          profile {
+            ...ProfileFields
+          }
+          txHash
+        }
+      }
+      ... on OpenActionPaidAction {
+        actedOn {
+          ... on Post {
+            ...PostFields
+          }
+          ... on Comment {
+            ...CommentBaseFields
+          }
+          ... on Quote {
+            ...QuoteBaseFields
+          }
+        }
+        latestActed {
+          actedAt
+          profile {
+            ...ProfileFields
+          }
+          txHash
+        }
+      }
+    }
+    pageInfo {
+      next
+    }
+  }
+}

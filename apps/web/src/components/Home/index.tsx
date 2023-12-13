@@ -17,6 +17,7 @@ import Tabs from './Algorithms/Tabs';
 import FeedType from './FeedType';
 import Hero from './Hero';
 import Highlights from './Highlights';
+import PaidActions from './PaidActions';
 import Sidebar from './Sidebar';
 import Timeline from './Timeline';
 
@@ -53,6 +54,8 @@ const Home: NextPage = () => {
                 <Timeline />
               ) : feedType === HomeFeedType.HIGHLIGHTS ? (
                 <Highlights />
+              ) : feedType === HomeFeedType.PAID_ACTIONS ? (
+                <PaidActions />
               ) : (
                 <AlgorithmicFeed feedType={feedType} />
               )}
