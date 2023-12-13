@@ -18,6 +18,7 @@ import { memo } from 'react';
 import Slug from './Slug';
 
 interface UserProfileProps {
+  hideSlug?: boolean;
   linkToProfile?: boolean;
   profile: Profile;
   smallAvatar?: boolean;
@@ -25,6 +26,7 @@ interface UserProfileProps {
 }
 
 const SmallUserProfile: FC<UserProfileProps> = ({
+  hideSlug = false,
   linkToProfile = false,
   profile,
   smallAvatar = false,
@@ -46,7 +48,7 @@ const SmallUserProfile: FC<UserProfileProps> = ({
 
   const UserName = () => (
     <div className="flex max-w-full flex-wrap items-center">
-      <div className="mr-2 max-w-[75%] truncate">
+      <div className={cn(!hideSlug && 'max-w-[75%]', 'mr-2 truncate')}>
         {getProfile(profile).displayName}
       </div>
       {isVerified(profile.id) ? (
@@ -55,7 +57,9 @@ const SmallUserProfile: FC<UserProfileProps> = ({
       {hasMisused(profile.id) ? (
         <ExclamationCircleIcon className="mr-2 h-4 w-4 text-red-500" />
       ) : null}
-      <Slug className="text-sm" slug={getProfile(profile).slugWithPrefix} />
+      {!hideSlug ? (
+        <Slug className="text-sm" slug={getProfile(profile).slugWithPrefix} />
+      ) : null}
       {timestamp ? (
         <span className="ld-text-gray-500">
           <span className="mx-1.5">·</span>
