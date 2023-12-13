@@ -43,7 +43,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
             Leafwatch.track(HOME.SWITCH_HIGHLIGHTS_FEED);
           }}
         />
-        {!isFeatureEnabled('paid-actions-feed') ? (
+        {isFeatureEnabled('paid-actions-feed') ? (
           <TabButton
             active={feedType === HomeFeedType.PAID_ACTIONS}
             icon={<CurrencyDollarIcon className="h-4 w-4" />}
