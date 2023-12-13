@@ -1,4 +1,4 @@
-import type { AnyPublication, PaginatedRequest } from '@hey/lens';
+import type { AnyPublication, LatestActed, PaginatedRequest } from '@hey/lens';
 import type { FC } from 'react';
 
 import SinglePublication from '@components/Publication/SinglePublication';
@@ -58,7 +58,10 @@ const PaidActions: FC = () => {
       {actions?.map((action, index) =>
         action.__typename === 'OpenActionPaidAction' ? (
           <div key={`${action.actedOn?.id}_${index}`}>
-            <OpenActionPaidAction />
+            <OpenActionPaidAction
+              latestActed={action.latestActed as LatestActed[]}
+              publication={action.actedOn as AnyPublication}
+            />
             <div className="divider" />
             <SinglePublication
               isFirst={index === 0}
