@@ -21,6 +21,7 @@ import { isIOS, isMobile } from 'react-device-detect';
 
 import EncryptedPublication from './EncryptedPublication';
 import Nft from './HeyOpenActions/Nft';
+import Metadata from './Metadata';
 import NotSupportedPublication from './NotSupportedPublication';
 import Poll from './Poll';
 
@@ -145,6 +146,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       {targetPublication.__typename === 'Quote' && (
         <Quote publication={targetPublication.quoteOn} />
       )}
+      <Metadata publication={publication} />
     </div>
   );
 };
