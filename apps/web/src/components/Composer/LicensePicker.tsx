@@ -1,6 +1,7 @@
 import type { MetadataLicenseType } from '@lens-protocol/metadata';
 import type { FC } from 'react';
 
+import { FeatureFlag } from '@hey/data/feature-flags';
 import { PublicationMetadataLicenseType } from '@hey/lens';
 import { Select } from '@hey/ui';
 import getLicense from '@lib/getLicence';
@@ -10,7 +11,7 @@ import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore
 const LicensePicker: FC = () => {
   const setLicense = usePublicationStore((state) => state.setLicense);
 
-  if (!isFeatureEnabled('av-license')) {
+  if (!isFeatureEnabled(FeatureFlag.LensMember)) {
     return null;
   }
 
