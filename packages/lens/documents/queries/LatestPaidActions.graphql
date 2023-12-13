@@ -10,6 +10,7 @@ query LatestPaidActions($request: PaginatedRequest!) {
           profile {
             ...ProfileFields
           }
+          txHash
         }
       }
       ... on OpenActionPaidAction {
@@ -29,6 +30,7 @@ query LatestPaidActions($request: PaginatedRequest!) {
           profile {
             ...ProfileFields
           }
+          txHash
         }
       }
     }
