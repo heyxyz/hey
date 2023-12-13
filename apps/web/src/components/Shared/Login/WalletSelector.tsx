@@ -108,9 +108,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       setIsLoading(true);
       // Get challenge
       const challenge = await loadChallenge({
-        variables: {
-          request: { ...(id && { for: id }), signedBy: address }
-        }
+        variables: { request: { ...(id && { for: id }), signedBy: address } }
       });
 
       if (!challenge?.data?.challenge?.text) {
