@@ -7,4 +7,5 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
   cover {
     ...EncryptableImageSetFields
   }
+  license
 }
