@@ -62,6 +62,7 @@ const getPublicationData = (
             metadata.asset.cover?.optimized?.uri ||
             videoAttachments?.coverUri ||
             PLACEHOLDER_IMAGE,
+          license: metadata.asset.license,
           type: 'Video',
           uri: metadata.asset.video.optimized?.uri || videoAttachments?.uri
         },
