@@ -29,10 +29,12 @@ const Metadata: FC<MetadataProps> = ({ publication }) => {
   }
 
   return (
-    <Card className="ld-text-gray-500 mt-2 px-3 py-2 text-sm">
+    <Card className="ld-text-gray-500 mt-2 px-3 py-2 text-sm" forceRounded>
       <div className="flex items-center space-x-2">
-        <ScaleIcon className="h-4 w-4" />
-        <div>{getLicense(filteredAsset.license)}</div>
+        <ScaleIcon className="text-brand-500 h-4 w-4 min-w-max" />
+        <div>
+          Licenced under <b>{getLicense(filteredAsset.license)}</b>
+        </div>
       </div>
     </Card>
   );
