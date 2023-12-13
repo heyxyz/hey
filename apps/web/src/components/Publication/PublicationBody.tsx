@@ -2,6 +2,7 @@ import type { AnyPublication } from '@hey/lens';
 import type { OG } from '@hey/types/misc';
 import type { FC } from 'react';
 
+import LicensePicker from '@components/Composer/LicensePicker';
 import Attachments from '@components/Shared/Attachments';
 import Quote from '@components/Shared/Embed/Quote';
 import Markup from '@components/Shared/Markup';
@@ -146,6 +147,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       {targetPublication.__typename === 'Quote' && (
         <Quote publication={targetPublication.quoteOn} />
       )}
+      <LicensePicker />
       <Metadata publication={publication} />
     </div>
   );
