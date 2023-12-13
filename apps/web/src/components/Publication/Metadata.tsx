@@ -6,7 +6,7 @@ import { FeatureFlag } from '@hey/data/feature-flags';
 import getPublicationData from '@hey/lib/getPublicationData';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card } from '@hey/ui';
-import getLicense from '@lib/getLicence';
+import getAssetLicense from '@lib/getAssetLicense';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { memo } from 'react';
 
@@ -20,12 +20,13 @@ const Metadata: FC<MetadataProps> = ({ publication }) => {
     : publication;
 
   const filteredAsset = getPublicationData(targetPublication.metadata)?.asset;
+  const license = getAssetLicense(filteredAsset?.license);
 
   if (!isFeatureEnabled(FeatureFlag.LensMember)) {
     return null;
   }
 
-  if (!filteredAsset?.license) {
+  if (!license) {
     return null;
   }
 
@@ -37,7 +38,7 @@ const Metadata: FC<MetadataProps> = ({ publication }) => {
       <div className="flex items-center space-x-2">
         <ScaleIcon className="text-brand-500 h-4 w-4 min-w-max" />
         <div>
-          Licenced under <b>{getLicense(filteredAsset.license)}</b>
+          Licence: <b>{license}</b>
         </div>
       </div>
     </Card>

@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import { PublicationMetadataLicenseType } from '@hey/lens';
 import { Select } from '@hey/ui';
-import getLicense from '@lib/getLicence';
+import getAssetLicense from '@lib/getAssetLicense';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 
@@ -20,25 +20,15 @@ const LicensePicker: FC = () => {
       <Select
         label="Choose a license"
         onChange={(e) => setLicense(e.target.value as MetadataLicenseType)}
-        options={[
-          {
-            label: getLicense(PublicationMetadataLicenseType.CcBy),
-            selected: true,
-            value: PublicationMetadataLicenseType.CcBy
-          },
-          {
-            label: getLicense(PublicationMetadataLicenseType.CcByNd),
-            value: PublicationMetadataLicenseType.CcByNd
-          },
-          {
-            label: getLicense(PublicationMetadataLicenseType.CcByNc),
-            value: PublicationMetadataLicenseType.CcByNc
-          },
-          {
-            label: getLicense(PublicationMetadataLicenseType.Cco),
-            value: PublicationMetadataLicenseType.Cco
-          }
-        ]}
+        options={
+          Object.values(PublicationMetadataLicenseType)
+            .filter((license) => getAssetLicense(license))
+            .map((license) => ({
+              label: getAssetLicense(license) as string,
+              selected: true,
+              value: license
+            })) as any
+        }
       />
     </div>
   );
