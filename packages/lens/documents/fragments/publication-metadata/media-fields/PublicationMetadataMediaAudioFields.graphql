@@ -8,4 +8,5 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
   cover {
     ...EncryptableImageSetFields
   }
+  license
 }

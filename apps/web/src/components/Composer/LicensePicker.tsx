@@ -1,14 +1,17 @@
+import type { MetadataLicenseType } from '@lens-protocol/metadata';
 import type { FC } from 'react';
 
+import { FeatureFlag } from '@hey/data/feature-flags';
+import { PublicationMetadataLicenseType } from '@hey/lens';
 import { Select } from '@hey/ui';
-import { MetadataLicenseType } from '@lens-protocol/metadata';
+import getLicense from '@lib/getLicence';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 
 const LicensePicker: FC = () => {
   const setLicense = usePublicationStore((state) => state.setLicense);
 
-  if (!isFeatureEnabled('av-license')) {
+  if (!isFeatureEnabled(FeatureFlag.LensMember)) {
     return null;
   }
 
@@ -19,21 +22,21 @@ const LicensePicker: FC = () => {
         onChange={(e) => setLicense(e.target.value as MetadataLicenseType)}
         options={[
           {
-            label: 'Creative Commons With Attribution',
+            label: getLicense(PublicationMetadataLicenseType.CcBy),
             selected: true,
-            value: MetadataLicenseType.CC_BY
+            value: PublicationMetadataLicenseType.CcBy
           },
           {
-            label: 'Creative Commons With Attribution - No Derivatives',
-            value: MetadataLicenseType.CC_BY_ND
+            label: getLicense(PublicationMetadataLicenseType.CcByNd),
+            value: PublicationMetadataLicenseType.CcByNd
           },
           {
-            label: 'Creative Commons With Attribution - Not for Commercial use',
-            value: MetadataLicenseType.CC_BY_NC
+            label: getLicense(PublicationMetadataLicenseType.CcByNc),
+            value: PublicationMetadataLicenseType.CcByNc
           },
           {
-            label: 'No Rights Reserved',
-            value: MetadataLicenseType.CCO
+            label: getLicense(PublicationMetadataLicenseType.Cco),
+            value: PublicationMetadataLicenseType.Cco
           }
         ]}
       />
