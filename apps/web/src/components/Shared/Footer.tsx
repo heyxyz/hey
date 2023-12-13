@@ -62,12 +62,10 @@ const Footer: FC = () => {
           GitHub
         </Link>
         <Link
-          href="https://translate.hey.xyz"
-          onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_TRANSLATE)}
-          rel="noreferrer noopener"
-          target="_blank"
+          href="/support"
+          onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_SUPPORT)}
         >
-          Translate
+          Support
         </Link>
       </div>
       <div className="mt-2">
