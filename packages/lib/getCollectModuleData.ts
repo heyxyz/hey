@@ -26,6 +26,7 @@ const getCollectModuleData = (
   amount?: number;
   assetAddress?: string;
   assetDecimals?: number;
+  assetSymbol?: string;
   collectLimit?: number;
   endsAt?: string;
   followerOnly?: boolean;
@@ -40,6 +41,7 @@ const getCollectModuleData = (
         amount: parseFloat(collectModule.amount.value || '0'),
         assetAddress: collectModule.amount.asset.contract.address,
         assetDecimals: collectModule.amount.asset.decimals,
+        assetSymbol: collectModule.amount.asset.symbol,
         collectLimit: parseInt(collectModule.collectLimit || '0'),
         endsAt: collectModule.endsAt,
         followerOnly: collectModule.followerOnly,
@@ -52,6 +54,7 @@ const getCollectModuleData = (
         amount: parseFloat(collectModule.amount.value || '0'),
         assetAddress: collectModule.amount.asset.contract.address,
         assetDecimals: collectModule.amount.asset.decimals,
+        assetSymbol: collectModule.amount.asset.symbol,
         collectLimit: parseInt(collectModule.collectLimit || '0'),
         endsAt: collectModule.endsAt,
         followerOnly: collectModule.followerOnly,
@@ -67,6 +70,7 @@ const getCollectModuleData = (
         amount: parseFloat(collectModule.amount.value || '0'),
         assetAddress: collectModule.amount.asset.contract.address,
         assetDecimals: collectModule.amount.asset.decimals,
+        assetSymbol: collectModule.amount.asset.symbol,
         followerOnly: collectModule.followerOnly,
         recipient: collectModule.recipient,
         referralFee: collectModule.referralFee
@@ -76,6 +80,7 @@ const getCollectModuleData = (
         amount: parseFloat(collectModule.amount.value || '0'),
         assetAddress: collectModule.amount.asset.contract.address,
         assetDecimals: collectModule.amount.asset.decimals,
+        assetSymbol: collectModule.amount.asset.symbol,
         collectLimit: parseInt(collectModule.collectLimit || '0'),
         followerOnly: collectModule.followerOnly,
         recipient: collectModule.recipient,
@@ -86,6 +91,7 @@ const getCollectModuleData = (
         amount: parseFloat(collectModule.amount.value || '0'),
         assetAddress: collectModule.amount.asset.contract.address,
         assetDecimals: collectModule.amount.asset.decimals,
+        assetSymbol: collectModule.amount.asset.symbol,
         collectLimit: parseInt(collectModule.collectLimit || '0'),
         endsAt: collectModule.endTimestamp,
         followerOnly: collectModule.followerOnly,
@@ -97,6 +103,7 @@ const getCollectModuleData = (
         amount: parseFloat(collectModule.amount.value || '0'),
         assetAddress: collectModule.amount.asset.contract.address,
         assetDecimals: collectModule.amount.asset.decimals,
+        assetSymbol: collectModule.amount.asset.symbol,
         endsAt: collectModule.endTimestamp,
         followerOnly: collectModule.followerOnly,
         recipient: collectModule.recipient,
