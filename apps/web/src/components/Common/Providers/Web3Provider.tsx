@@ -18,6 +18,7 @@ import {
   zora,
   zoraTestnet
 } from 'wagmi/chains';
+import { SafeConnector } from 'wagmi/connectors/safe';
 import { publicProvider } from 'wagmi/providers/public';
 
 const { chains, publicClient } = configureChains(
@@ -42,6 +43,10 @@ const connectors: any = [
   new LedgerConnector({
     chains,
     options: { projectId: WALLETCONNECT_PROJECT_ID }
+  }),
+  new SafeConnector({
+    chains,
+    options: { allowedDomains: [/app.safe.global$/] }
   }),
   new WalletConnectConnector({
     chains,
