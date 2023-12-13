@@ -8,6 +8,8 @@ import { LimitType, useLatestPaidActionsQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { useInView } from 'react-cool-inview';
 
+import OpenActionPaidAction from './OpenActionPaidAction';
+
 const PaidActions: FC = () => {
   // Variables
   const request: PaginatedRequest = {
@@ -55,12 +57,15 @@ const PaidActions: FC = () => {
     <Card className="divide-y-[1px] dark:divide-gray-700">
       {actions?.map((action, index) =>
         action.__typename === 'OpenActionPaidAction' ? (
-          <SinglePublication
-            isFirst={index === 0}
-            isLast={index === actions.length - 1}
-            key={`${action.actedOn?.id}_${index}`}
-            publication={action.actedOn as AnyPublication}
-          />
+          <div key={`${action.actedOn?.id}_${index}`}>
+            <OpenActionPaidAction />
+            <div className="divider" />
+            <SinglePublication
+              isFirst={index === 0}
+              isLast={index === actions.length - 1}
+              publication={action.actedOn as AnyPublication}
+            />
+          </div>
         ) : null
       )}
       {hasMore ? <span ref={observe} /> : null}
