@@ -10,6 +10,7 @@ import createFeedFieldPolicy from './createFeedFieldPolicy';
 import createFeedHighlightsFieldPolicy from './createFeedHighlightsFieldPolicy';
 import createFollowersFieldPolicy from './createFollowersFieldPolicy';
 import createFollowingFieldPolicy from './createFollowingFieldPolicy';
+import createLatestPaidActionsFieldPolicy from './createLatestPaidActionsFieldPolicy';
 import createMutualFollowersProfilesFieldPolicy from './createMutualFollowersProfilesFieldPolicy';
 import createNftsFieldPolicy from './createNftsFieldPolicy';
 import createNotificationsFieldPolicy from './createNotificationsFieldPolicy';
@@ -35,6 +36,7 @@ const cache = new InMemoryCache({
         feedHighlights: createFeedHighlightsFieldPolicy(),
         followers: createFollowersFieldPolicy(),
         following: createFollowingFieldPolicy(),
+        latestPaidActions: createLatestPaidActionsFieldPolicy(),
         mutualFollowersProfiles: createMutualFollowersProfilesFieldPolicy(),
         nfts: createNftsFieldPolicy(),
         notifications: createNotificationsFieldPolicy(),

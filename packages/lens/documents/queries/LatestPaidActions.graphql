@@ -32,5 +32,8 @@ query LatestPaidActions($request: PaginatedRequest!) {
         }
       }
     }
+    pageInfo {
+      next
+    }
   }
 }
