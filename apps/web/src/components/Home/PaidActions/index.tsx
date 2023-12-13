@@ -54,25 +54,25 @@ const PaidActions: FC = () => {
   }
 
   return (
-    <Card className="divide-y-[1px] dark:divide-gray-700">
+    <div className="space-y-5">
       {actions?.map((action, index) =>
         action.__typename === 'OpenActionPaidAction' ? (
-          <div key={`${action.actedOn?.id}_${index}`}>
+          <Card key={`${action.actedOn?.id}_${index}`}>
             <OpenActionPaidAction
               latestActed={action.latestActed as LatestActed[]}
               publication={action.actedOn as AnyPublication}
             />
             <div className="divider" />
             <SinglePublication
-              isFirst={index === 0}
-              isLast={index === actions.length - 1}
+              isFirst={false}
+              isLast
               publication={action.actedOn as AnyPublication}
             />
-          </div>
+          </Card>
         ) : null
       )}
       {hasMore ? <span ref={observe} /> : null}
-    </Card>
+    </div>
   );
 };
 
