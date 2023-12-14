@@ -11,8 +11,8 @@
     "postinstall": "pnpm codegen",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "lint:fix": "eslint . --fix --ext .js,.ts,.tsx",
-    "biome": "biome check *",
-    "biome:fix": "biome check * --apply",
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
     "prisma:format": "prisma format --schema ./src/db/schema.prisma",
     "prisma:migrate": "prisma migrate dev --schema ./src/db/schema.prisma",
     "prisma:studio": "prisma studio --schema ./src/db/schema.prisma",
@@ -53,7 +53,7 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.15",
     "@types/node": "^20.10.4",
-    "@types/react": "^18.2.43",
+    "@types/react": "^18.2.45",
     "@types/request-ip": "^0.0.41",
     "@types/ua-parser-js": "^0.7.39",
     "@types/uuid": "^9.0.7",
@@ -61,6 +61,6 @@
     "prisma": "^5.7.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.2",
-    "vite": "^5.0.7"
+    "vite": "^5.0.8"
   }
 }

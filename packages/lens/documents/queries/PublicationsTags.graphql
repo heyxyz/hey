@@ -1,8 +1,0 @@
-query PublicationsTags($request: PublicationsTagsRequest!) {
-  publicationsTags(request: $request) {
-    items {
-      tag
-      total
-    }
-  }
-}

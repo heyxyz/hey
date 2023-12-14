@@ -3,7 +3,7 @@ import type { FC } from 'react';
 
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { PAGEVIEW, PUBLICATION } from '@hey/data/tracking';
+import { PUBLICATION } from '@hey/data/tracking';
 import { useReportPublicationMutation } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import {
@@ -17,7 +17,6 @@ import {
 } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
-import { useEffectOnce } from 'usehooks-ts';
 import { object, string } from 'zod';
 
 import Reason from './Reason';
@@ -36,8 +35,8 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
   const [type, setType] = useState('');
   const [subReason, setSubReason] = useState('');
 
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'report' });
+  const form = useZodForm({
+    schema: newReportPublicationSchema
   });
 
   const [
@@ -46,13 +45,9 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
   ] = useReportPublicationMutation({
     onCompleted: () => {
       Leafwatch.track(PUBLICATION.REPORT, {
-        report_publication_id: publication?.id
+        publication_id: publication?.id
       });
     }
-  });
-
-  const form = useZodForm({
-    schema: newReportPublicationSchema
   });
 
   const reportPublication = (additionalComments: null | string) => {

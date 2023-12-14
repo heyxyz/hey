@@ -57,10 +57,10 @@ const Feed: FC<FeedProps> = ({
   const pageInfo = data?.explorePublications?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     setRefreshing(true);
     refetch().finally(() => setRefreshing(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh, publicationTypes, mainContentFocus, customFilters]);
 
   const { observe } = useInView({

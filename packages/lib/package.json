@@ -6,8 +6,8 @@
   "scripts": {
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
-    "biome": "biome check *",
-    "biome:fix": "biome check * --apply",
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
     "test:dev": "vitest run",
     "typecheck": "tsc --pretty"
   },
@@ -17,7 +17,7 @@
     "@hey/types": "workspace:*",
     "axios": "^1.6.2",
     "omit-deep": "^0.3.0",
-    "pino": "^8.16.2",
+    "pino": "^8.17.0",
     "pino-pretty": "^10.2.3",
     "urlcat": "^3.1.0",
     "viem": "^1.19.13"

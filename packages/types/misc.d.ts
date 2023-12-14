@@ -1,3 +1,5 @@
+import type { Maybe, PublicationMetadataLicenseType } from '@hey/lens';
+
 import type { OptmisticPublicationType } from './enums';
 
 export interface IPFSResponse {
@@ -70,6 +72,7 @@ export interface MarkupLinkProps {
 export interface MetadataAsset {
   artist?: string;
   cover?: string;
+  license?: Maybe<PublicationMetadataLicenseType>;
   title?: string;
   type: 'Audio' | 'Image' | 'Video';
   uri: string;

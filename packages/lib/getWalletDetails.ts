@@ -17,6 +17,14 @@ const getWalletDetails = (name: string): WalletDetails => {
       logo: `${STATIC_IMAGES_URL}/wallets/coinbase.svg`,
       name: 'Coinbase Wallet'
     },
+    Ledger: {
+      logo: `${STATIC_IMAGES_URL}/wallets/ledger.svg`,
+      name: 'Ledger'
+    },
+    Safe: {
+      logo: `${STATIC_IMAGES_URL}/wallets/safe.svg`,
+      name: 'Safe'
+    },
     WalletConnect: {
       logo: `${STATIC_IMAGES_URL}/wallets/walletconnect.svg`,
       name: 'WalletConnect'

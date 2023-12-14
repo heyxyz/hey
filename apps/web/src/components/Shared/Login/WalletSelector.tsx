@@ -30,7 +30,6 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { signIn } from 'src/store/persisted/useAuthStore';
-import { useIsMounted } from 'usehooks-ts';
 import {
   useAccount,
   useChainId,
@@ -60,7 +59,6 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     errorToast(error);
   };
 
-  const isMounted = useIsMounted();
   const chain = useChainId();
   const {
     connectAsync,
@@ -108,9 +106,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       setIsLoading(true);
       // Get challenge
       const challenge = await loadChallenge({
-        variables: {
-          request: { ...(id && { for: id }), signedBy: address }
-        }
+        variables: { request: { ...(id && { for: id }), signedBy: address } }
       });
 
       if (!challenge?.data?.challenge?.text) {
@@ -238,49 +234,52 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     </div>
   ) : (
     <div className="inline-block w-full space-y-3 overflow-hidden text-left align-middle">
-      {connectors.map((connector) => {
-        return (
-          <button
-            className={cn(
-              {
-                'hover:bg-gray-100 dark:hover:bg-gray-700':
-                  connector.id !== activeConnector?.id
-              },
-              'flex w-full items-center justify-between space-x-2.5 overflow-hidden rounded-xl border px-4 py-3 outline-none dark:border-gray-700'
-            )}
-            disabled={
-              isMounted()
-                ? !connector.ready || connector.id === activeConnector?.id
-                : false
-            }
-            key={connector.id}
-            onClick={() => onConnect(connector)}
-            type="button"
-          >
-            <span>
-              {isMounted()
-                ? connector.id === 'injected'
+      {connectors
+        .filter((connector) => {
+          if (
+            connector.id === 'safe' &&
+            !document.location.ancestorOrigins[0]?.includes('app.safe.global')
+          ) {
+            return false;
+          }
+          return true;
+        })
+        .map((connector) => {
+          return (
+            <button
+              className={cn(
+                {
+                  'hover:bg-gray-100 dark:hover:bg-gray-700':
+                    connector.id !== activeConnector?.id
+                },
+                'flex w-full items-center justify-between space-x-2.5 overflow-hidden rounded-xl border px-4 py-3 outline-none dark:border-gray-700'
+              )}
+              disabled={connector.id === activeConnector?.id}
+              key={connector.id}
+              onClick={() => onConnect(connector)}
+              type="button"
+            >
+              <span>
+                {connector.id === 'injected'
                   ? 'Browser Wallet'
-                  : getWalletDetails(connector.name).name
-                : getWalletDetails(connector.name).name}
-              {isMounted() ? !connector.ready && ' (unsupported)' : ''}
-            </span>
-            <div className="flex items-center space-x-4">
-              {isConnectLoading && pendingConnector?.id === connector.id ? (
-                <Spinner className="mr-0.5" size="xs" />
-              ) : null}
-              <img
-                alt={connector.id}
-                className="h-6 w-6"
-                draggable={false}
-                height={24}
-                src={getWalletDetails(connector.name).logo}
-                width={24}
-              />
-            </div>
-          </button>
-        );
-      })}
+                  : getWalletDetails(connector.name).name}
+              </span>
+              <div className="flex items-center space-x-4">
+                {isConnectLoading && pendingConnector?.id === connector.id ? (
+                  <Spinner className="mr-0.5" size="xs" />
+                ) : null}
+                <img
+                  alt={connector.id}
+                  className="h-6 w-6"
+                  draggable={false}
+                  height={24}
+                  src={getWalletDetails(connector.name).logo}
+                  width={24}
+                />
+              </div>
+            </button>
+          );
+        })}
       {error?.message ? (
         <div className="flex items-center space-x-1 text-red-500">
           <XCircleIcon className="h-5 w-5" />

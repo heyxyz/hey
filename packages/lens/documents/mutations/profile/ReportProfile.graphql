@@ -1,0 +1,3 @@
+mutation ReportProfile($request: ReportProfileRequest!) {
+  reportProfile(request: $request)
+}

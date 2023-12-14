@@ -34,7 +34,6 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
     queryKey: ['getAlgorithmicFeed', feedType, currentProfile?.id, 25, offset]
   });
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     setDisplayedPublications([]);
   }, [feedType, currentProfile?.id]);

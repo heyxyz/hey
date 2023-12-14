@@ -8,7 +8,8 @@ export enum HomeFeedType {
   K3L_POPULAR = 'K3L_POPULAR',
   // Thirdparty Algorithms
   K3L_RECENT = 'K3L_RECENT',
-  K3L_RECOMMENDED = 'K3L_RECOMMENDED'
+  K3L_RECOMMENDED = 'K3L_RECOMMENDED',
+  PAID_ACTIONS = 'PAID_ACTIONS'
 }
 
 export const AlgorithmProvider = {

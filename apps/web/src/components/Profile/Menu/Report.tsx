@@ -1,6 +1,7 @@
 import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
+import { Menu } from '@headlessui/react';
 import { FlagIcon } from '@heroicons/react/24/outline';
 import cn from '@hey/ui/cn';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
@@ -15,18 +16,19 @@ const Report: FC<ReportProfileProps> = ({ profile }) => {
   );
 
   return (
-    <button
-      className={cn(
-        'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm hover:bg-gray-300/20'
-      )}
+    <Menu.Item
+      as="div"
+      className={({ active }) =>
+        cn(
+          { 'dropdown-active': active },
+          'm-2 flex cursor-pointer items-center space-x-2 rounded-lg px-2 py-1.5 text-sm'
+        )
+      }
       onClick={() => setShowReportProfileModal(true, profile)}
-      type="button"
     >
-      <div className="flex items-center space-x-2">
-        <FlagIcon className="h-4 w-4" />
-        <div>Report profile</div>
-      </div>
-    </button>
+      <FlagIcon className="h-4 w-4" />
+      <div>Report profile</div>
+    </Menu.Item>
   );
 };
 

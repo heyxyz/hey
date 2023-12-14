@@ -19,7 +19,7 @@ export const PROFILE = {
   OPEN_FOLLOWERS: 'Open followers modal',
   OPEN_FOLLOWING: 'Open following modal',
   OPEN_SUPER_FOLLOW: 'Open super follow modal',
-  REPORT_PROFILE: 'Report profile',
+  REPORT: 'Report profile',
   SUPER_FOLLOW: 'Super follow profile',
   SWITCH_PROFILE: 'Switch profile',
   SWITCH_PROFILE_FEED_TAB: 'Switch profile feed tab',
@@ -101,7 +101,8 @@ export const HOME = {
   },
   SELECT_USER_FEED: 'Select user feed',
   SWITCH_FOLLOWING_FEED: 'Switch to following feed',
-  SWITCH_HIGHLIGHTS_FEED: 'Switch to highlights feed'
+  SWITCH_HIGHLIGHTS_FEED: 'Switch to highlights feed',
+  SWITCH_PAID_ACTIONS_FEED: 'Switch to paid actions feed'
 };
 
 export const EXPLORE = {
@@ -185,13 +186,12 @@ export const MISCELLANEOUS = {
     OPEN_FEEDBACK: 'Open feedback',
     OPEN_GITHUB: 'Open GitHub',
     OPEN_STATUS: 'Open status',
-    OPEN_TRANSLATE: 'Open translate',
+    OPEN_SUPPORT: 'Open support',
     OPEN_VERCEL: 'Open Vercel'
   },
   OPEN_GITCOIN: 'Open Gitcoin',
   OPEN_LENS_WAITLIST: 'Open Lens waitlist',
   OPEN_RECOMMENDED_PROFILES: 'Open recommended profiles modal',
-  OPEN_TRENDING_TAG: 'Open trending tag',
   SELECT_LOCALE: 'Select locale'
 };
 

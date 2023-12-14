@@ -3,17 +3,14 @@ import type { NextPage } from 'next';
 
 import MetaTags from '@components/Common/MetaTags';
 import RecommendedProfiles from '@components/Home/Sidebar/RecommendedProfiles';
-import Trending from '@components/Home/Trending';
 import FeedFocusType from '@components/Shared/FeedFocusType';
 import Footer from '@components/Shared/Footer';
 import { Tab } from '@headlessui/react';
 import { APP_NAME } from '@hey/data/constants';
-import { FeatureFlag } from '@hey/data/feature-flags';
 import { EXPLORE, PAGEVIEW } from '@hey/data/tracking';
 import { ExplorePublicationsOrderByType } from '@hey/lens';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -93,7 +90,6 @@ const Explore: NextPage = () => {
         </Tab.Group>
       </GridItemEight>
       <GridItemFour>
-        {isFeatureEnabled(FeatureFlag.LensMember) ? <Trending /> : null}
         {currentProfile ? <RecommendedProfiles /> : null}
         <Footer />
       </GridItemFour>
