@@ -10,7 +10,7 @@ import {
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
-import { type FC, type ReactNode, useRef } from 'react';
+import { type FC, memo } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
 interface ProfilesProps {
@@ -24,8 +24,6 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
     query,
     where: { customFilters: [CustomFiltersType.Gardeners] }
   };
-
-  const profileCache = useRef<Record<string, ReactNode>>({});
 
   const { data, error, fetchMore, loading } = useSearchProfilesQuery({
     skip: !query,
@@ -68,32 +66,31 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
     return <ErrorMessage error={error} title="Failed to load profiles" />;
   }
 
+  // eslint-disable-next-line react/display-name
+  const MemoizedProfileItem = memo(
+    (props: { profile: Profile | undefined }) => {
+      return (
+        <motion.div
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          initial={{ opacity: 0 }}
+        >
+          <Card className="p-5" key={props.profile?.id}>
+            <UserProfile isBig profile={props.profile as Profile} showBio />
+          </Card>
+        </motion.div>
+      );
+    }
+  );
+
   return (
     <Virtuoso
       className="[&>div>div]:space-y-3"
       data={profiles}
       endReached={onEndReached}
-      itemContent={(_, profile) => {
-        if (profileCache.current[profile?.id]) {
-          return profileCache.current[profile?.id];
-        }
-
-        const profileCard = (
-          <motion.div
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            initial={{ opacity: 0 }}
-          >
-            <Card className="p-5" key={profile?.id}>
-              <UserProfile isBig profile={profile as Profile} showBio />
-            </Card>
-          </motion.div>
-        );
-
-        profileCache.current[profile?.id] = profileCard;
-
-        return profileCard;
-      }}
+      itemContent={(_, profile) => (
+        <MemoizedProfileItem profile={profile as Profile} />
+      )}
       useWindowScroll
     />
   );
