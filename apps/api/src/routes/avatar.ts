@@ -1,7 +1,7 @@
 import type { Handler } from 'express';
 
 import { LensHub } from '@hey/abis';
-import { IS_MAINNET, LENSHUB_PROXY } from '@hey/data/constants';
+import { IPFS_GATEWAY, IS_MAINNET, LENSHUB_PROXY } from '@hey/data/constants';
 import logger from '@hey/lib/logger';
 import { CACHE_AGE_INDEFINITE_ON_DISK, RPC_URL } from '@utils/constants';
 import { noBody } from '@utils/responses';
@@ -42,8 +42,7 @@ export const get: Handler = async (req, res) => {
       .type('svg')
       .send(svgImage);
   } catch {
-    const url =
-      'https://i.seadn.io/s/raw/files/b7a5afa354adaf5f988acd8b0ba2409e.jpg';
+    const url = `${IPFS_GATEWAY}Qmb4XppdMDCsS7KCL8nCJo8pukEWeqL4bTghURYwYiG83i/cropped_image.png`;
     return res.status(302).redirect(url);
   }
 };
