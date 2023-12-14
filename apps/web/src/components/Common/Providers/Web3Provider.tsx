@@ -45,7 +45,10 @@ const connectors: any = [
   }),
   new WalletConnectConnector({
     chains,
-    options: { projectId: WALLETCONNECT_PROJECT_ID }
+    options: {
+      projectId: WALLETCONNECT_PROJECT_ID,
+      qrModalOptions: { explorerExcludedWalletIds: 'ALL' }
+    }
   })
 ];
 
