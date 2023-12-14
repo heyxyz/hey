@@ -7,8 +7,10 @@ import {
 } from '@heroicons/react/24/outline';
 import { IS_MAINNET } from '@hey/data/constants';
 import { HomeFeedType } from '@hey/data/enums';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import { HOME } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 
 import Algorithms from './Algorithms';
@@ -42,15 +44,17 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
             Leafwatch.track(HOME.SWITCH_HIGHLIGHTS_FEED);
           }}
         />
-        <TabButton
-          active={feedType === HomeFeedType.PAID_ACTIONS}
-          icon={<CurrencyDollarIcon className="h-4 w-4" />}
-          name="Paid actions"
-          onClick={() => {
-            setFeedType(HomeFeedType.PAID_ACTIONS);
-            Leafwatch.track(HOME.SWITCH_PAID_ACTIONS_FEED);
-          }}
-        />
+        {isFeatureEnabled(FeatureFlag.LensMember) ? (
+          <TabButton
+            active={feedType === HomeFeedType.PAID_ACTIONS}
+            icon={<CurrencyDollarIcon className="h-4 w-4" />}
+            name="Paid actions"
+            onClick={() => {
+              setFeedType(HomeFeedType.PAID_ACTIONS);
+              Leafwatch.track(HOME.SWITCH_PAID_ACTIONS_FEED);
+            }}
+          />
+        ) : null}
       </div>
       <div className="flex items-center space-x-4">
         {feedType === HomeFeedType.FOLLOWING ||
