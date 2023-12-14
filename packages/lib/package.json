@@ -17,10 +17,10 @@
     "@hey/types": "workspace:*",
     "axios": "^1.6.2",
     "omit-deep": "^0.3.0",
-    "pino": "^8.17.0",
-    "pino-pretty": "^10.2.3",
+    "pino": "^8.17.1",
+    "pino-pretty": "^10.3.0",
     "urlcat": "^3.1.0",
-    "viem": "^1.19.14"
+    "viem": "^1.19.15"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
