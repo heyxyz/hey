@@ -42,7 +42,9 @@ const Streaks: FC<StreaksProps> = ({ profile }) => {
   return (
     <Card className="p-6">
       <ActivityCalendar
+        blockMargin={3}
         blockRadius={50}
+        blockSize={11.5}
         colorScheme="light"
         data={data as Activity[]}
         labels={{
