@@ -1,16 +1,18 @@
+import type { Profile } from '@hey/lens';
+
 import {
   BellIcon,
   HomeIcon,
-  Squares2X2Icon,
-  UserIcon
+  Squares2X2Icon
 } from '@heroicons/react/24/outline';
 import {
   BellIcon as BellIconSolid,
   HomeIcon as HomeIconSolid,
-  Squares2X2Icon as Squares2X2IconSolid,
-  UserIcon as UserIconSolid
+  Squares2X2Icon as Squares2X2IconSolid
 } from '@heroicons/react/24/solid';
+import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
+import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -21,6 +23,14 @@ const BottomNavigation = () => {
 
   const router = useRouter();
   const isActivePath = (path: string) => router.pathname === path;
+
+  const Avatar = () => (
+    <Image
+      alt={currentProfile?.id}
+      className="h-6 w-6 cursor-pointer rounded-full border dark:border-gray-700"
+      src={getAvatar(currentProfile as Profile)}
+    />
+  );
 
   return (
     <div className="pb-safe fixed inset-x-0 bottom-0 z-[5] border-t border-gray-200 bg-white dark:border-gray-800 dark:bg-black md:hidden">
@@ -50,11 +60,7 @@ const BottomNavigation = () => {
         </Link>
         {currentProfile && (
           <Link className="mx-auto my-3" href={getProfile(currentProfile).link}>
-            {isActivePath('/u/[handle]') ? (
-              <UserIconSolid className="text-brand-500 h-6 w-6" />
-            ) : (
-              <UserIcon className="h-6 w-6" />
-            )}
+            <Avatar />
           </Link>
         )}
       </div>
