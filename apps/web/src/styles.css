@@ -1,4 +1,4 @@
-@import url('@hey/image-cropper/styles.css');
+@import url("@hey/image-cropper/styles.css");
 
 @tailwind base;
 @tailwind components;
@@ -107,7 +107,7 @@ iframe {
   @apply hover:!bg-transparent;
 }
 
-.plyr--audio.plyr--full-ui input[type='range'] {
+.plyr--audio.plyr--full-ui input[type="range"] {
   @apply !text-white;
 }
 
@@ -131,7 +131,7 @@ i.code {
   background-image: url(/assets/type-code.svg);
 }
 
-div[data-lexical-editor='true'] {
+div[data-lexical-editor="true"] {
   @apply outline-none;
 }
 
@@ -228,6 +228,8 @@ ul {
   }
 }
 
-.react-activity-calendar__scroll-container {
-  overflow-x: hidden !important;
+@media (min-width: 768px) {
+  .react-activity-calendar__calendar {
+    width: 100% !important;
+  }
 }

@@ -39,13 +39,6 @@ const Streaks: FC<StreaksProps> = ({ profile }) => {
     queryKey: ['fetchStreaks', profile.id]
   });
 
-  const element = document.querySelector(
-    '.react-activity-calendar__scroll-container'
-  );
-  if (element) {
-    element.scrollLeft = element.scrollWidth;
-  }
-
   return (
     <Card className="p-6">
       <ActivityCalendar
