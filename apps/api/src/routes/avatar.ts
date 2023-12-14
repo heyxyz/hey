@@ -3,7 +3,7 @@ import type { Handler } from 'express';
 import { LensHub } from '@hey/abis';
 import { IS_MAINNET, LENSHUB_PROXY } from '@hey/data/constants';
 import logger from '@hey/lib/logger';
-import { CACHE_AGE_INDEFINITE, RPC_URL } from '@utils/constants';
+import { CACHE_AGE_INDEFINITE_ON_DISK, RPC_URL } from '@utils/constants';
 import { noBody } from '@utils/responses';
 import { createPublicClient, http } from 'viem';
 import { polygon, polygonMumbai } from 'viem/chains';
@@ -38,7 +38,7 @@ export const get: Handler = async (req, res) => {
 
     return res
       .status(200)
-      .setHeader('Cache-Control', CACHE_AGE_INDEFINITE)
+      .setHeader('Cache-Control', CACHE_AGE_INDEFINITE_ON_DISK)
       .type('svg')
       .send(svgImage);
   } catch {
