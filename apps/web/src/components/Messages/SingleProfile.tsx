@@ -1,6 +1,7 @@
 import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
+import Slug from '@components/Shared/Slug';
 import UserProfile from '@components/Shared/UserProfile';
 import {
   CheckBadgeIcon,
@@ -58,6 +59,10 @@ const SingleProfile: FC<WalletProfileProps> = ({
                 {hasMisused(profile.id) ? (
                   <ExclamationCircleIcon className="ml-1 h-4 w-4 text-red-500" />
                 ) : null}
+                <Slug
+                  className="ml-1 text-sm"
+                  slug={getProfile(profile).slugWithPrefix}
+                />
               </div>
               <div className="ld-text-gray-500 text-sm">
                 {message ? message : <i>No messages</i>}

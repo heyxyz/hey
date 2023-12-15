@@ -1,5 +1,6 @@
 import { HEY_API_URL } from '@hey/data/constants';
 import cn from '@hey/ui/cn';
+import { formatDate } from '@lib/formatTime';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -49,10 +50,9 @@ const Chat: FC = () => {
       </div>
       <div className="divider" />
       <div className="flex h-[calc(83vh)] w-full flex-col-reverse overflow-y-auto p-5">
-        <ul className="space-y-3">
+        <ul className="space-y-6">
           {messages?.map((message, index) => {
             const isFromMe = message.senderId === currentProfile?.id;
-
             return (
               <li
                 className={cn(
@@ -61,8 +61,26 @@ const Chat: FC = () => {
                 )}
                 key={index}
               >
-                <div className="bg-brand-100 max-w-xl rounded-xl px-4 py-2">
-                  <span className="block">{message.content}</span>
+                <div
+                  className={cn(
+                    isFromMe ? ' items-end' : ' items-start',
+                    'flex flex-col'
+                  )}
+                >
+                  <div>
+                    <div className="bg-brand-100 max-w-xl rounded-xl px-4 py-2">
+                      <span className="block">{message.content}</span>
+                    </div>
+                  </div>
+                  <span className="ld-text-gray-500">
+                    <span className="text-xs">
+                      {formatDate(
+                        new Date(message.createdAt),
+                        'MMM D, YYYY, hh:mm A'
+                      )}
+                      {isFromMe && ' · Sent'}
+                    </span>
+                  </span>
                 </div>
               </li>
             );
