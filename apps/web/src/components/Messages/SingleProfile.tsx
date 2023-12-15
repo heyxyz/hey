@@ -49,7 +49,7 @@ const SingleProfile: FC<WalletProfileProps> = ({
               src={getAvatar(profile)}
               width={40}
             />
-            <div>
+            <div className="space-y-1">
               <div className="flex max-w-sm items-center">
                 <div>{getProfile(profile).displayName}</div>
                 {isVerified(profile.id) ? (
@@ -59,7 +59,9 @@ const SingleProfile: FC<WalletProfileProps> = ({
                   <ExclamationCircleIcon className="ml-1 h-4 w-4 text-red-500" />
                 ) : null}
               </div>
-              <div className="ld-text-gray-500 text-sm">{message}</div>
+              <div className="ld-text-gray-500 text-sm">
+                {message ? message : <i>No messages</i>}
+              </div>
             </div>
           </div>
         )
