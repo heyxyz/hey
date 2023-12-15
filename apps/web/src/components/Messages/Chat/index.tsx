@@ -41,8 +41,11 @@ const Chat: FC = () => {
 
   return (
     <div className="col-span-12 h-[calc(100vh-65px)] border-r bg-white md:col-span-12 lg:col-span-8">
-      <div className="p-5">
-        <SingleProfile id={selectedConversation?.profile as string} />
+      <div className="px-5 py-3">
+        <SingleProfile
+          fullProfile
+          id={selectedConversation?.profile as string}
+        />
       </div>
       <div className="divider" />
       <div className="flex h-[calc(83vh)] w-full flex-col-reverse overflow-y-auto p-5">
