@@ -11,7 +11,7 @@ import { type FC, useState } from 'react';
 import { useMessageStore } from 'src/store/persisted/useMessageStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
-const Chats: FC = () => {
+const Conversations: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const { conversations, setConversations, setSelectedConversation } =
     useMessageStore();
@@ -91,4 +91,4 @@ const Chats: FC = () => {
   );
 };
 
-export default Chats;
+export default Conversations;

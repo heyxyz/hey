@@ -8,8 +8,8 @@ import { useMessageStore } from 'src/store/persisted/useMessageStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useInterval } from 'usehooks-ts';
 
+import SingleProfile from '../SingleProfile';
 import Composer from './Composer';
-import SingleProfile from './SingleProfile';
 
 const Chat: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);

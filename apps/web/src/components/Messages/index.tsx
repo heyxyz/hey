@@ -6,7 +6,7 @@ import isFeatureEnabled from '@lib/isFeatureEnabled';
 import Custom404 from 'src/pages/404';
 
 import Chat from './Chat';
-import Chats from './Chats';
+import Conversations from './Conversations';
 
 const Messages: NextPage = () => {
   if (isFeatureEnabled('dm')) {
@@ -17,7 +17,7 @@ const Messages: NextPage = () => {
     <div className="container mx-auto max-w-screen-xl px-0 sm:px-5">
       <div className="grid grid-cols-12">
         <MetaTags title={`Messages • ${APP_NAME}`} />
-        <Chats />
+        <Conversations />
         <Chat />
       </div>
     </div>
