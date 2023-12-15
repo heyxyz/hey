@@ -5,7 +5,13 @@ import { type FC, useState } from 'react';
 import { useMessageStore } from 'src/store/persisted/useMessageStore';
 
 const Composer: FC = () => {
-  const { messages, selectedConversation, setMessages } = useMessageStore();
+  const {
+    conversations,
+    messages,
+    selectedConversation,
+    setConversations,
+    setMessages
+  } = useMessageStore();
 
   const [message, setMessage] = useState<string>('test message');
 
@@ -15,10 +21,26 @@ const Composer: FC = () => {
       conversationId: selectedConversation
     });
 
+    // Update messages to push the new message
     setMessages(
       messages
         ? [...messages, newMessage.data.message]
         : [newMessage.data.message]
+    );
+
+    // Update conversations to show the new message
+    setConversations(
+      conversations?.length
+        ? conversations.map((conversation) => {
+            if (conversation.id === selectedConversation) {
+              return {
+                ...conversation,
+                messages: [newMessage.data.message]
+              };
+            }
+            return conversation;
+          })
+        : []
     );
   };
 
