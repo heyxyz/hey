@@ -32,6 +32,8 @@ const SingleProfile: FC<WalletProfileProps> = ({
   });
 
   const profile = data?.profile as Profile;
+  const truncatedMessage =
+    message?.length || 0 > 35 ? `${message?.slice(0, 35)}...` : message;
 
   return (
     <div className="flex items-center justify-between">
@@ -41,7 +43,7 @@ const SingleProfile: FC<WalletProfileProps> = ({
         fullProfile ? (
           <UserProfile profile={profile} showUserPreview={false} />
         ) : (
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 truncate">
             <Image
               alt={profile.id}
               className="h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
@@ -65,7 +67,7 @@ const SingleProfile: FC<WalletProfileProps> = ({
                 />
               </div>
               <div className="ld-text-gray-500 text-sm">
-                {message ? message : <i>No messages</i>}
+                {message ? truncatedMessage : <i>No messages</i>}
               </div>
             </div>
           </div>

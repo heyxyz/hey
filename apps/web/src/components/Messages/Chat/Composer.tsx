@@ -74,6 +74,7 @@ const Composer: FC = () => {
           hideError
         />
         <Button
+          className="py-2"
           disabled={sending}
           icon={<ArrowRightCircleIcon className="h-5 w-5" />}
           size="lg"
