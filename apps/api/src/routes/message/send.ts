@@ -1,9 +1,11 @@
 import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
+import parseJwt from '@hey/lib/parseJwt';
 import catchedError from '@utils/catchedError';
+import validateLensAccount from '@utils/middlewares/validateLensAccount';
 import prisma from '@utils/prisma';
-import { invalidBody, noBody } from '@utils/responses';
+import { invalidBody, noBody, notAllowed } from '@utils/responses';
 import { object, string } from 'zod';
 
 type MessageRequest = {
@@ -23,10 +25,15 @@ export const post: Handler = async (req, res) => {
     return noBody(res);
   }
 
+  const accessToken = req.headers['x-access-token'] as string;
   const validation = messageValidationSchema.safeParse(body);
 
   if (!validation.success) {
     return invalidBody(res);
+  }
+
+  if (!(await validateLensAccount(req))) {
+    return notAllowed(res);
   }
 
   const { content, conversationId } = body as MessageRequest;
@@ -40,9 +47,12 @@ export const post: Handler = async (req, res) => {
       return res.status(404).json({ error: 'Conversation not found' });
     }
 
+    const payload = parseJwt(accessToken);
+    const profile = payload.id;
+
     // Create the message
     const message = await prisma.message.create({
-      data: { content, conversationId, senderId: '0x0d' }
+      data: { content, conversationId, senderId: profile }
     });
 
     logger.info(`Created a new message ${message.id}`);

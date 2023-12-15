@@ -1,5 +1,6 @@
 import { HEY_API_URL } from '@hey/data/constants';
 import cn from '@hey/ui/cn';
+import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
@@ -16,9 +17,11 @@ const Chat: FC = () => {
 
   const getMessages = async () => {
     try {
-      const response = await axios.post(`${HEY_API_URL}/message/messages`, {
-        conversationId: selectedConversation
-      });
+      const response = await axios.post(
+        `${HEY_API_URL}/message/messages`,
+        { conversationId: selectedConversation },
+        { headers: getAuthWorkerHeaders() }
+      );
       const { data } = response;
       setMessages(data.messages || []);
       return true;

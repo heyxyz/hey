@@ -2,8 +2,9 @@ import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
+import validateLensAccount from '@utils/middlewares/validateLensAccount';
 import prisma from '@utils/prisma';
-import { invalidBody, noBody } from '@utils/responses';
+import { invalidBody, noBody, notAllowed } from '@utils/responses';
 import { object, string } from 'zod';
 
 type MessagesRequest = {
@@ -25,6 +26,10 @@ export const post: Handler = async (req, res) => {
 
   if (!validation.success) {
     return invalidBody(res);
+  }
+
+  if (!(await validateLensAccount(req))) {
+    return notAllowed(res);
   }
 
   const { conversationId } = body as MessagesRequest;

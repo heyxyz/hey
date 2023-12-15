@@ -1,6 +1,7 @@
 import SingleProfile from '@components/Messages/SingleProfile';
 import { HEY_API_URL } from '@hey/data/constants';
 import cn from '@hey/ui/cn';
+import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
@@ -14,10 +15,9 @@ const Chats: FC = () => {
 
   const fetchConversations = async () => {
     try {
-      const response = await axios.post(
-        `${HEY_API_URL}/message/conversations`,
-        { profile: currentProfile?.id }
-      );
+      const response = await axios.get(`${HEY_API_URL}/message/conversations`, {
+        headers: getAuthWorkerHeaders()
+      });
       const { data } = response;
       setConversations(data.conversations || []);
       return true;

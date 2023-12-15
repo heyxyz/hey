@@ -1,35 +1,23 @@
 import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
+import parseJwt from '@hey/lib/parseJwt';
 import catchedError from '@utils/catchedError';
+import validateLensAccount from '@utils/middlewares/validateLensAccount';
 import prisma from '@utils/prisma';
-import { invalidBody, noBody } from '@utils/responses';
-import { object, string } from 'zod';
+import { notAllowed } from '@utils/responses';
 
-type ConversationsRequest = {
-  profile: string;
-};
+export const get: Handler = async (req, res) => {
+  const accessToken = req.headers['x-access-token'] as string;
 
-const conversationsValidationSchema = object({
-  profile: string()
-});
-
-export const post: Handler = async (req, res) => {
-  const { body } = req;
-
-  if (!body) {
-    return noBody(res);
+  if (!(await validateLensAccount(req))) {
+    return notAllowed(res);
   }
-
-  const validation = conversationsValidationSchema.safeParse(body);
-
-  if (!validation.success) {
-    return invalidBody(res);
-  }
-
-  const { profile } = body as ConversationsRequest;
 
   try {
+    const payload = parseJwt(accessToken);
+    const profile = payload.id;
+
     const conversations = await prisma.conversation.findMany({
       include: { messages: { orderBy: { createdAt: 'desc' }, take: 1 } },
       orderBy: { updatedAt: 'desc' },
