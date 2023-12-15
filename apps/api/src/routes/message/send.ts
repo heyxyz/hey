@@ -50,10 +50,16 @@ export const post: Handler = async (req, res) => {
     const payload = parseJwt(accessToken);
     const profile = payload.id;
 
-    // Create the message
-    const message = await prisma.message.create({
-      data: { content, conversationId, senderId: profile }
-    });
+    // Create the message and update the conversation timestamp
+    const [message] = await prisma.$transaction([
+      prisma.message.create({
+        data: { content, conversationId, senderId: profile }
+      }),
+      prisma.conversation.update({
+        data: { updatedAt: new Date() },
+        where: { id: conversationId }
+      })
+    ]);
 
     logger.info(`Created a new message ${message.id}`);
 
