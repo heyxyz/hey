@@ -42,7 +42,7 @@ export const post: Handler = async (req, res) => {
 
     // Create the message
     const message = await prisma.message.create({
-      data: { content, conversationId }
+      data: { content, conversationId, senderId: '0x0d' }
     });
 
     logger.info(`Created a new message ${message.id}`);

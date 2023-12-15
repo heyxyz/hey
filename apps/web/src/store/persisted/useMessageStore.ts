@@ -5,6 +5,7 @@ export interface Message {
   conversationId: string;
   createdAt: string;
   id: string;
+  senderId: string;
 }
 
 export interface Conversation {

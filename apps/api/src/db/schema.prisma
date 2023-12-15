@@ -165,6 +165,7 @@ model Conversation {
 model Message {
   id             String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   content        String
+  senderId       String
   createdAt      DateTime     @default(now())
   conversationId String       @db.Uuid
   conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)

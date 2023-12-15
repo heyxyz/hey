@@ -12,6 +12,7 @@ CREATE TABLE "Conversation" (
 CREATE TABLE "Message" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "content" TEXT NOT NULL,
+    "senderId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "conversationId" UUID NOT NULL,
 

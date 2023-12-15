@@ -45,7 +45,7 @@ const Chat: FC = () => {
       <div className="flex h-[calc(83vh)] w-full flex-col-reverse overflow-y-auto p-5">
         <ul className="space-y-3">
           {messages?.map((message, index) => {
-            const isFromMe = true;
+            const isFromMe = message.senderId === currentProfile?.id;
 
             return (
               <li
