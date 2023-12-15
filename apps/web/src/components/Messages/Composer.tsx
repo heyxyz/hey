@@ -19,7 +19,7 @@ const Composer: FC = () => {
   const sendMessage = async () => {
     const newMessage = await axios.post(
       `${HEY_API_URL}/message/send`,
-      { content: message, conversationId: selectedConversation },
+      { content: message, conversationId: selectedConversation?.id },
       { headers: getAuthWorkerHeaders() }
     );
 
@@ -30,14 +30,14 @@ const Composer: FC = () => {
         : [newMessage.data.message]
     );
 
-    // Update conversations to show the new message
+    // Update conversations to show the latest message
     setConversations(
       conversations?.length
         ? conversations.map((conversation) => {
-            if (conversation.id === selectedConversation) {
+            if (conversation.id === selectedConversation?.id) {
               return {
                 ...conversation,
-                messages: [newMessage.data.message]
+                latestMessages: newMessage.data.message.content
               };
             }
             return conversation;

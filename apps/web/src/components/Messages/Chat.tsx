@@ -19,7 +19,7 @@ const Chat: FC = () => {
     try {
       const response = await axios.post(
         `${HEY_API_URL}/message/messages`,
-        { conversationId: selectedConversation },
+        { conversationId: selectedConversation?.id },
         { headers: getAuthWorkerHeaders() }
       );
       const { data } = response;
@@ -32,7 +32,7 @@ const Chat: FC = () => {
 
   useQuery({
     queryFn: getMessages,
-    queryKey: ['getMessages', currentProfile?.id, selectedConversation]
+    queryKey: ['getMessages', currentProfile?.id, selectedConversation?.id]
   });
 
   useInterval(() => {
@@ -42,7 +42,7 @@ const Chat: FC = () => {
   return (
     <div className="col-span-12 h-[calc(100vh-65px)] border-r bg-white md:col-span-12 lg:col-span-8">
       <div className="p-5">
-        <SingleProfile id="0x0d" />
+        <SingleProfile id={selectedConversation?.profile as string} />
       </div>
       <div className="divider" />
       <div className="flex h-[calc(83vh)] w-full flex-col-reverse overflow-y-auto p-5">

@@ -10,19 +10,25 @@ export interface Message {
 
 export interface Conversation {
   id: string;
-  messages: Message[];
+  latestMessages: string;
+  profile: string;
   recipient: string;
   sender: string;
   updatedAt: string;
 }
 
+interface SelectedConversation {
+  id: string;
+  profile: string;
+}
+
 interface MessageState {
   conversations: Conversation[] | null;
   messages: Message[] | null;
-  selectedConversation: null | string;
+  selectedConversation: null | SelectedConversation;
   setConversations: (conversations: Conversation[]) => void;
   setMessages: (messages: Message[]) => void;
-  setSelectedConversation: (conversation: null | string) => void;
+  setSelectedConversation: (conversation: null | SelectedConversation) => void;
 }
 
 export const useMessageStore = create<MessageState>((set) => ({

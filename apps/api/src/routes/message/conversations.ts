@@ -21,14 +21,23 @@ export const get: Handler = async (req, res) => {
     const conversations = await prisma.conversation.findMany({
       include: { messages: { orderBy: { createdAt: 'desc' }, take: 1 } },
       orderBy: { updatedAt: 'desc' },
-      where: {
-        OR: [{ sender: profile }, { recipient: profile }]
-      }
+      where: { OR: [{ sender: profile }, { recipient: profile }] }
+    });
+
+    const processedConversations = conversations.map((conversation) => {
+      const { messages, ...rest } = conversation;
+      return {
+        ...rest,
+        latestMessages: messages[0].content,
+        profile: rest.sender === profile ? rest.recipient : rest.sender
+      };
     });
 
     logger.info(`Retrieved all conversations for ${profile}`);
 
-    return res.status(200).json({ conversations, success: true });
+    return res
+      .status(200)
+      .json({ conversations: processedConversations, success: true });
   } catch (error) {
     return catchedError(res, error);
   }

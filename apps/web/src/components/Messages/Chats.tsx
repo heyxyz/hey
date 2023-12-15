@@ -39,12 +39,15 @@ const Chats: FC = () => {
             className={cn('cursor-pointer px-5 py-3 hover:bg-gray-100')}
             key={conversation.id}
             onClick={() => {
-              setSelectedConversation(conversation.id);
+              setSelectedConversation({
+                id: conversation.id,
+                profile: conversation.profile
+              });
             }}
           >
             <SingleProfile
-              id={conversation.sender}
-              message={conversation.messages?.[0]?.content}
+              id={conversation.profile}
+              message={conversation.latestMessages}
             />
           </div>
         ))}
