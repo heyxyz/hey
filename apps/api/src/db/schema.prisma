@@ -150,3 +150,22 @@ model AllowedToken {
   contractAddress String   @unique
   createdAt       DateTime @default(now())
 }
+
+model Conversation {
+  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  sender    String
+  recipient String
+  messages  Message[]
+  updatedAt DateTime  @updatedAt
+
+  @@unique([sender, recipient])
+  @@unique([recipient, sender])
+}
+
+model Message {
+  id             String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  content        String
+  createdAt      DateTime     @default(now())
+  conversationId String       @db.Uuid
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+}
