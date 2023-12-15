@@ -1,6 +1,7 @@
 import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
+import parseJwt from '@hey/lib/parseJwt';
 import catchedError from '@utils/catchedError';
 import validateLensAccount from '@utils/middlewares/validateLensAccount';
 import prisma from '@utils/prisma';
@@ -9,21 +10,20 @@ import { object, string } from 'zod';
 
 type ConversationRequest = {
   recipient: string;
-  sender: string;
 };
 
 const conversationValidationSchema = object({
-  recipient: string(),
-  sender: string()
+  recipient: string()
 });
 
-export const get: Handler = async (req, res) => {
+export const post: Handler = async (req, res) => {
   const { body } = req;
 
   if (!body) {
     return noBody(res);
   }
 
+  const accessToken = req.headers['x-access-token'] as string;
   const validation = conversationValidationSchema.safeParse(body);
 
   if (!validation.success) {
@@ -34,9 +34,12 @@ export const get: Handler = async (req, res) => {
     return notAllowed(res);
   }
 
-  const { recipient, sender } = body as ConversationRequest;
+  const { recipient } = body as ConversationRequest;
 
   try {
+    const payload = parseJwt(accessToken);
+    const sender = payload.id;
+
     // Check if a conversation already exists
     let conversation = await prisma.conversation.findFirst({
       include: { messages: { orderBy: { createdAt: 'desc' }, take: 1 } },
@@ -61,7 +64,7 @@ export const get: Handler = async (req, res) => {
 
     const processedConversations = {
       ...conversation,
-      latestMessages: conversation.messages[0].content,
+      latestMessages: conversation.messages[0]?.content || null,
       profile:
         conversation.sender === sender
           ? conversation.recipient

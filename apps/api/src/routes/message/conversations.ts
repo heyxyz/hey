@@ -28,7 +28,7 @@ export const get: Handler = async (req, res) => {
       const { messages, ...rest } = conversation;
       return {
         ...rest,
-        latestMessages: messages[0].content,
+        latestMessages: messages[0]?.content,
         profile: rest.sender === profile ? rest.recipient : rest.sender
       };
     });
