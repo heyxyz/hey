@@ -14,7 +14,7 @@ const conversationsValidationSchema = object({
   profile: string()
 });
 
-export const get: Handler = async (req, res) => {
+export const post: Handler = async (req, res) => {
   const { body } = req;
 
   if (!body) {

@@ -14,7 +14,7 @@ const messagesValidationSchema = object({
   conversationId: string()
 });
 
-export const get: Handler = async (req, res) => {
+export const post: Handler = async (req, res) => {
   const { body } = req;
 
   if (!body) {
@@ -38,14 +38,14 @@ export const get: Handler = async (req, res) => {
       return res.status(404).json({ error: 'Conversation not found' });
     }
 
-    const message = await prisma.message.findMany({
-      orderBy: { createdAt: 'desc' },
+    const messages = await prisma.message.findMany({
+      orderBy: { createdAt: 'asc' },
       where: { conversationId }
     });
 
     logger.info(`Retrieved all messages for ${conversationId}`);
 
-    return res.status(200).json({ message, success: true });
+    return res.status(200).json({ messages, success: true });
   } catch (error) {
     return catchedError(res, error);
   }
