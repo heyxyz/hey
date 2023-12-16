@@ -91,7 +91,7 @@ export const useSendMessage = () => {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [selectedConversation, conversations]
+    [selectedConversation, conversations, messages]
   );
 
   return { sending, sendMessage };
