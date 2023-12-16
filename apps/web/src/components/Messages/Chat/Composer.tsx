@@ -51,13 +51,11 @@ const Composer: FC = () => {
         id: conversation.id,
         profile: conversation.recipient
       });
-    } else {
-      conversation = selectedConversation;
     }
 
     const newMessage = await axios.post(
       `${HEY_API_URL}/message/send`,
-      { content, conversationId: conversation.id },
+      { content, conversationId: selectedConversation?.id || conversation?.id },
       { headers: getAuthWorkerHeaders() }
     );
     setSending(false);
@@ -71,19 +69,31 @@ const Composer: FC = () => {
     );
 
     // Update conversations to show the latest message
-    setConversations(
-      conversations?.length
-        ? conversations.map((conversation) => {
-            if (conversation.id === selectedConversation?.id) {
-              return {
-                ...conversation,
-                latestMessages: newMessage.data.message.content
-              };
-            }
-            return conversation;
-          })
-        : []
-    );
+    if (selectedConversation?.id) {
+      setConversations(
+        conversations?.length
+          ? conversations.map((conversation) => {
+              if (conversation.id === selectedConversation?.id) {
+                return {
+                  ...conversation,
+                  latestMessages: newMessage.data.message.content
+                };
+              }
+              return conversation;
+            })
+          : []
+      );
+    } else {
+      if (conversation) {
+        setConversations([
+          {
+            ...conversation,
+            latestMessages: newMessage.data.message.content
+          },
+          ...(conversations as Conversation[])
+        ]);
+      }
+    }
   };
 
   return (
