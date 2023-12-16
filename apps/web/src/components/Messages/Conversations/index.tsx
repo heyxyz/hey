@@ -1,3 +1,5 @@
+import type { Conversation } from 'src/store/persisted/useMessageStore';
+
 import SingleProfile from '@components/Messages/SingleProfile';
 import SearchUser from '@components/Shared/SearchUser';
 import { HEY_API_URL } from '@hey/data/constants';
@@ -6,6 +8,7 @@ import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC, useState } from 'react';
+import { useInView } from 'react-cool-inview';
 import { useMessageStore } from 'src/store/persisted/useMessageStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
@@ -15,18 +18,28 @@ const Conversations: FC = () => {
     conversations,
     setConversations,
     setMessages,
+    setMessagesPaginationOffset,
     setSelectedConversation
   } = useMessageStore();
   const [searchValue, setSearchValue] = useState<string>('');
+  const [offset, setOffset] = useState<number>(0);
 
-  const fetchAllConversations = async () => {
+  const fetchAllConversations = async (limit: number, offset: number) => {
     try {
-      const response = await axios.get(
+      const response = await axios.post(
         `${HEY_API_URL}/message/conversation/all`,
+        { limit, offset },
         { headers: getAuthWorkerHeaders() }
       );
       const { data } = response;
-      setConversations(data.conversations || []);
+      if (offset === 0) {
+        setConversations(data.conversations);
+      } else {
+        setConversations([
+          ...(conversations as Conversation[]),
+          ...data.conversations
+        ]);
+      }
       return true;
     } catch {
       return false;
@@ -34,8 +47,18 @@ const Conversations: FC = () => {
   };
 
   useQuery({
-    queryFn: fetchAllConversations,
-    queryKey: ['fetchAllConversations', currentProfile?.id]
+    queryFn: async () => await fetchAllConversations(20, offset),
+    queryKey: ['fetchAllConversations', currentProfile?.id, offset]
+  });
+
+  const { observe } = useInView({
+    onChange: ({ inView }) => {
+      if (!inView) {
+        return;
+      }
+
+      setOffset(offset + 20);
+    }
   });
 
   const selectConversation = async (profileId: string) => {
@@ -47,13 +70,14 @@ const Conversations: FC = () => {
     const { data } = response;
     const { conversation } = data;
 
+    setMessagesPaginationOffset(0);
     setMessages([]);
     setSelectedConversation({ id: conversation?.id, profile: profileId });
     setSearchValue('');
   };
 
   return (
-    <div className="col-span-12 h-[calc(100vh-65px)] border-x bg-white md:col-span-12 lg:col-span-4">
+    <div className="col-span-12 h-[calc(100vh-65px)] overflow-y-auto border-x bg-white md:col-span-12 lg:col-span-4">
       <div className="m-5">
         <SearchUser
           onChange={(e) => setSearchValue(e.target.value)}
@@ -63,16 +87,19 @@ const Conversations: FC = () => {
         />
       </div>
       <div>
-        {conversations?.map((conversation) => (
+        {conversations?.map((conversation, _, all) => (
           <div
             className={cn('cursor-pointer px-5 py-3 hover:bg-gray-100')}
             key={conversation.id}
             onClick={() => {
+              setMessagesPaginationOffset(0);
+              setMessages([]);
               setSelectedConversation({
                 id: conversation.id,
                 profile: conversation.profile
               });
             }}
+            ref={all.length === _ + 1 ? observe : null}
           >
             <SingleProfile
               id={conversation.profile}

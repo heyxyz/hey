@@ -5,14 +5,18 @@ import catchedError from '@utils/catchedError';
 import validateLensAccount from '@utils/middlewares/validateLensAccount';
 import prisma from '@utils/prisma';
 import { invalidBody, noBody, notAllowed } from '@utils/responses';
-import { object, string } from 'zod';
+import { number, object, string } from 'zod';
 
 type MessagesRequest = {
   conversationId: string;
+  limit: number;
+  offset: number;
 };
 
 const messagesValidationSchema = object({
-  conversationId: string()
+  conversationId: string(),
+  limit: number(),
+  offset: number()
 });
 
 export const post: Handler = async (req, res) => {
@@ -32,7 +36,7 @@ export const post: Handler = async (req, res) => {
     return notAllowed(res);
   }
 
-  const { conversationId } = body as MessagesRequest;
+  const { conversationId, limit, offset } = body as MessagesRequest;
 
   try {
     const conversationExists = await prisma.conversation.findUnique({
@@ -44,7 +48,9 @@ export const post: Handler = async (req, res) => {
     }
 
     const messages = await prisma.message.findMany({
-      orderBy: { createdAt: 'asc' },
+      orderBy: { createdAt: 'desc' },
+      skip: offset,
+      take: limit,
       where: { conversationId }
     });
 

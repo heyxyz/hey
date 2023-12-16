@@ -59,7 +59,7 @@ export const useSendMessage = () => {
 
       setMessages(
         messages
-          ? [...messages, newMessage.data.message]
+          ? [newMessage.data.message, ...messages]
           : [newMessage.data.message]
       );
 

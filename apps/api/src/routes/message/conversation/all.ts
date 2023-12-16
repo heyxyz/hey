@@ -5,14 +5,38 @@ import parseJwt from '@hey/lib/parseJwt';
 import catchedError from '@utils/catchedError';
 import validateLensAccount from '@utils/middlewares/validateLensAccount';
 import prisma from '@utils/prisma';
-import { notAllowed } from '@utils/responses';
+import { invalidBody, noBody, notAllowed } from '@utils/responses';
+import { number, object } from 'zod';
 
-export const get: Handler = async (req, res) => {
+type ConversationsRequest = {
+  limit: number;
+  offset: number;
+};
+
+const conversationsValidationSchema = object({
+  limit: number().max(100),
+  offset: number().max(100)
+});
+
+export const post: Handler = async (req, res) => {
+  const { body } = req;
+
+  if (!body) {
+    return noBody(res);
+  }
+
   const accessToken = req.headers['x-access-token'] as string;
+  const validation = conversationsValidationSchema.safeParse(body);
+
+  if (!validation.success) {
+    return invalidBody(res);
+  }
 
   if (!(await validateLensAccount(req))) {
     return notAllowed(res);
   }
+
+  const { limit, offset } = body as ConversationsRequest;
 
   try {
     const payload = parseJwt(accessToken);
@@ -21,6 +45,8 @@ export const get: Handler = async (req, res) => {
     const conversations = await prisma.conversation.findMany({
       include: { messages: { orderBy: { createdAt: 'desc' }, take: 1 } },
       orderBy: { updatedAt: 'desc' },
+      skip: offset,
+      take: limit,
       where: { OR: [{ sender: profile }, { recipient: profile }] }
     });
 
