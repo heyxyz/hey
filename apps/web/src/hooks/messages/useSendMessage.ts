@@ -22,7 +22,7 @@ export const useSendMessage = () => {
 
   const createConversation = async (): Promise<Conversation> => {
     const response = await axios.post(
-      `${HEY_API_URL}/message/conversation`,
+      `${HEY_API_URL}/message/conversation/create`,
       { recipient: selectedConversation?.profile },
       { headers: getAuthWorkerHeaders() }
     );

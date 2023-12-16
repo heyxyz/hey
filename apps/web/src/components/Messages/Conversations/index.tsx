@@ -19,11 +19,12 @@ const Conversations: FC = () => {
   } = useMessageStore();
   const [searchValue, setSearchValue] = useState<string>('');
 
-  const fetchConversations = async () => {
+  const fetchAllConversations = async () => {
     try {
-      const response = await axios.get(`${HEY_API_URL}/message/conversations`, {
-        headers: getAuthWorkerHeaders()
-      });
+      const response = await axios.get(
+        `${HEY_API_URL}/message/conversation/all`,
+        { headers: getAuthWorkerHeaders() }
+      );
       const { data } = response;
       setConversations(data.conversations || []);
       return true;
@@ -33,19 +34,22 @@ const Conversations: FC = () => {
   };
 
   useQuery({
-    queryFn: fetchConversations,
-    queryKey: ['fetchConversations', currentProfile?.id]
+    queryFn: fetchAllConversations,
+    queryKey: ['fetchAllConversations', currentProfile?.id]
   });
 
-  const createConversation = async (profileId: string) => {
-    try {
-      setSelectedConversation({ id: null, profile: profileId });
-      setSearchValue('');
-      setMessages([]);
-      return true;
-    } catch {
-      return false;
-    }
+  const selectConversation = async (profileId: string) => {
+    const response = await axios.post(
+      `${HEY_API_URL}/message/conversation/get`,
+      { recipient: profileId },
+      { headers: getAuthWorkerHeaders() }
+    );
+    const { data } = response;
+    const { conversation } = data;
+
+    setMessages([]);
+    setSelectedConversation({ id: conversation?.id, profile: profileId });
+    setSearchValue('');
   };
 
   return (
@@ -53,7 +57,7 @@ const Conversations: FC = () => {
       <div className="m-5">
         <SearchUser
           onChange={(e) => setSearchValue(e.target.value)}
-          onProfileSelected={(profile) => createConversation(profile.id)}
+          onProfileSelected={(profile) => selectConversation(profile.id)}
           placeholder="Search for a profile"
           value={searchValue}
         />

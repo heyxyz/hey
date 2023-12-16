@@ -7,7 +7,6 @@ import axios from 'axios';
 import { type FC } from 'react';
 import { useMessageStore } from 'src/store/persisted/useMessageStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useInterval } from 'usehooks-ts';
 
 import SingleProfile from '../SingleProfile';
 import Composer from './Composer';
@@ -16,14 +15,14 @@ const Chat: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const { messages, selectedConversation, setMessages } = useMessageStore();
 
-  const getMessages = async () => {
+  const fetchAllMessages = async () => {
     try {
       if (!selectedConversation?.id) {
         return false;
       }
 
       const response = await axios.post(
-        `${HEY_API_URL}/message/messages`,
+        `${HEY_API_URL}/message/all`,
         { conversationId: selectedConversation?.id },
         { headers: getAuthWorkerHeaders() }
       );
@@ -36,13 +35,13 @@ const Chat: FC = () => {
   };
 
   useQuery({
-    queryFn: getMessages,
-    queryKey: ['getMessages', currentProfile?.id, selectedConversation?.id]
+    queryFn: fetchAllMessages,
+    queryKey: ['fetchAllMessages', currentProfile?.id, selectedConversation?.id]
   });
 
-  useInterval(() => {
-    getMessages();
-  }, 1000);
+  // useInterval(() => {
+  //   getMessages();
+  // }, 1000);
 
   return (
     <div className="col-span-12 h-[calc(100vh-65px)] border-r bg-white md:col-span-12 lg:col-span-8">
