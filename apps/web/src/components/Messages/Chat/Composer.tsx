@@ -1,3 +1,5 @@
+import type { Conversation } from 'src/store/persisted/useMessageStore';
+
 import { ArrowRightCircleIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import { Button, Form, Input, useZodForm } from '@hey/ui';
@@ -21,7 +23,8 @@ const Composer: FC = () => {
     messages,
     selectedConversation,
     setConversations,
-    setMessages
+    setMessages,
+    setSelectedConversation
   } = useMessageStore();
   const [sending, setSending] = useState(false);
 
@@ -29,10 +32,32 @@ const Composer: FC = () => {
     schema: newMessageSchema
   });
 
+  const createConversation = async (): Promise<Conversation> => {
+    const response = await axios.post(
+      `${HEY_API_URL}/message/conversation`,
+      { recipient: selectedConversation?.profile },
+      { headers: getAuthWorkerHeaders() }
+    );
+    const { data } = response;
+
+    return data.conversation;
+  };
+
   const sendMessage = async (content: string) => {
+    let conversation;
+    if (!selectedConversation?.id) {
+      conversation = await createConversation();
+      setSelectedConversation({
+        id: conversation.id,
+        profile: conversation.recipient
+      });
+    } else {
+      conversation = selectedConversation;
+    }
+
     const newMessage = await axios.post(
       `${HEY_API_URL}/message/send`,
-      { content, conversationId: selectedConversation?.id },
+      { content, conversationId: conversation.id },
       { headers: getAuthWorkerHeaders() }
     );
     setSending(false);

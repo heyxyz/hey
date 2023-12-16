@@ -1,5 +1,3 @@
-import type { Conversation } from 'src/store/persisted/useMessageStore';
-
 import SingleProfile from '@components/Messages/SingleProfile';
 import SearchUser from '@components/Shared/SearchUser';
 import { HEY_API_URL } from '@hey/data/constants';
@@ -13,8 +11,12 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 
 const Conversations: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const { conversations, setConversations, setSelectedConversation } =
-    useMessageStore();
+  const {
+    conversations,
+    setConversations,
+    setMessages,
+    setSelectedConversation
+  } = useMessageStore();
   const [searchValue, setSearchValue] = useState<string>('');
 
   const fetchConversations = async () => {
@@ -37,21 +39,9 @@ const Conversations: FC = () => {
 
   const createConversation = async (profileId: string) => {
     try {
-      const response = await axios.post(
-        `${HEY_API_URL}/message/conversation`,
-        { recipient: profileId },
-        { headers: getAuthWorkerHeaders() }
-      );
-      const { data } = response;
-      setConversations([
-        ...(conversations as Conversation[]),
-        data.conversation
-      ]);
-      setSelectedConversation({
-        id: data.conversation.id,
-        profile: data.conversation.profile
-      });
+      setSelectedConversation({ id: null, profile: profileId });
       setSearchValue('');
+      setMessages([]);
       return true;
     } catch {
       return false;

@@ -18,7 +18,7 @@ export interface Conversation {
 }
 
 interface SelectedConversation {
-  id: string;
+  id: null | string;
   profile: string;
 }
 

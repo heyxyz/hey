@@ -18,6 +18,10 @@ const Chat: FC = () => {
 
   const getMessages = async () => {
     try {
+      if (!selectedConversation?.id) {
+        return false;
+      }
+
       const response = await axios.post(
         `${HEY_API_URL}/message/messages`,
         { conversationId: selectedConversation?.id },
