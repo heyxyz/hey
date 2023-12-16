@@ -58,10 +58,6 @@ const Chat: FC = () => {
     ]
   });
 
-  // useInterval(() => {
-  //   getMessages();
-  // }, 1000);
-
   const { observe } = useInView({
     onChange: ({ inView }) => {
       if (!inView) {
