@@ -21,6 +21,9 @@ export const IS_MAINNET = LENS_API_URL === LensEndpoint.Mainnet;
 export const REWARDS_ADDRESS = '0xf618330f51fa54ce5951d627ee150c0fdadeba43';
 export const ADDRESS_PLACEHOLDER = '0x03Ba3...7EF';
 
+//xmtp
+export const XMTP_ENV = !IS_MAINNET ? 'dev' : 'production';
+
 // Application
 export const APP_NAME = 'Hey';
 export const DESCRIPTION = `${APP_NAME}.xyz is a decentralized, and permissionless social media app built with Lens Protocol 🌿`;

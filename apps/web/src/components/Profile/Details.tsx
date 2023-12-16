@@ -35,9 +35,11 @@ import hasMisused from '@hey/lib/hasMisused';
 import { Button, Image, LightBox, Modal, Tooltip } from '@hey/ui';
 import { formatDate } from '@lib/formatTime';
 import isVerified from '@lib/isVerified';
+import { useCanMessage } from '@xmtp/react-sdk';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useInitializedClient } from 'src/hooks/useInitializedClient';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import urlcat from 'urlcat';
@@ -63,6 +65,8 @@ const Details: FC<DetailsProps> = ({ profile }) => {
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
   const { resolvedTheme } = useTheme();
 
+  const [canMessageUser, setCanMessageUser] = useState<boolean>();
+
   const MetaDetails = ({
     children,
     icon
@@ -78,6 +82,35 @@ const Details: FC<DetailsProps> = ({ profile }) => {
 
   const followType = profile?.followModule?.type;
   const misuseDetails = getMisuseDetails(profile.id);
+
+  // Check if the user does have xmtp profile enabled or not
+  const { canMessage, isLoading } = useCanMessage();
+
+  const { client } = useInitializedClient();
+
+  useEffect(() => {
+    if (!client) {
+      return;
+    }
+    if (isLoading) {
+      return;
+    }
+
+    const checkMessagingCapability = async () => {
+      const peerAddress = profile.ownedBy.address;
+      if (!peerAddress) {
+        return;
+      }
+      const capabilities = await canMessage(peerAddress);
+      if (typeof capabilities === 'object') {
+        const isAllCapabilitiesTrue = capabilities.every(Boolean);
+        setCanMessageUser(isAllCapabilitiesTrue);
+      } else {
+        setCanMessageUser(capabilities);
+      }
+    };
+    checkMessagingCapability();
+  }, [canMessage, client, isLoading, profile]);
 
   return (
     <div className="mb-4 space-y-5 px-5 sm:px-0">
@@ -158,6 +191,18 @@ const Details: FC<DetailsProps> = ({ profile }) => {
               <Follow profile={profile} showText />
             )
           ) : null}
+
+          {/* Chat Button */}
+          {canMessageUser && (
+            <Button
+              aria-label="Message"
+              className="!px-3 !py-1.5 text-sm"
+              disabled={isLoading}
+              outline
+            >
+              Chat
+            </Button>
+          )}
 
           <ProfileMenu profile={profile} />
         </div>

@@ -7,6 +7,7 @@ import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import getCurrentSession from '@lib/getCurrentSession';
 import { Leafwatch } from '@lib/leafwatch';
+import { useClient } from '@xmtp/react-sdk';
 import { useState } from 'react';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { signOut } from 'src/store/persisted/useAuthStore';
@@ -26,6 +27,8 @@ const Logout: FC<LogoutProps> = ({ className = '', onClick }) => {
   const { disconnect } = useDisconnect();
   const { authorizationId } = getCurrentSession();
 
+  const { disconnect: logoutXMTP } = useClient();
+
   const onError = (error: any) => {
     setRevoking(false);
     errorToast(error);
@@ -38,6 +41,7 @@ const Logout: FC<LogoutProps> = ({ className = '', onClick }) => {
       signOut();
       disconnect?.();
       location.reload();
+      logoutXMTP?.();
     },
     onError
   });

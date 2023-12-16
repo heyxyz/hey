@@ -63,6 +63,7 @@ const Navbar: FC = () => {
           name="Explore"
           url="/explore"
         />
+        <NavItem current={pathname === '/chat'} name="Chat" url="/chat" />
         <MoreNavItems />
       </>
     );

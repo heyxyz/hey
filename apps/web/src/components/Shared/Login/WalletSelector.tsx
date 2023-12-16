@@ -13,7 +13,7 @@ import {
   UserPlusIcon
 } from '@heroicons/react/24/outline';
 import { XCircleIcon } from '@heroicons/react/24/solid';
-import { IS_MAINNET } from '@hey/data/constants';
+import { IS_MAINNET, XMTP_ENV } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { AUTH } from '@hey/data/tracking';
 import {
@@ -26,16 +26,19 @@ import { Button, Card, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
+import { Client, useClient } from '@xmtp/react-sdk';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { signIn } from 'src/store/persisted/useAuthStore';
+import useXMTP from 'src/store/persisted/useXMTPKey';
 import {
   useAccount,
   useChainId,
   useConnect,
   useDisconnect,
-  useSignMessage
+  useSignMessage,
+  useWalletClient
 } from 'wagmi';
 
 import UserProfile from '../UserProfile';
@@ -74,6 +77,11 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   const [loadChallenge, { error: errorChallenge }] = useChallengeLazyQuery({
     fetchPolicy: 'no-cache'
   });
+
+  const { setKeys } = useXMTP();
+  const { initialize } = useClient();
+  const { data: signer, status } = useWalletClient();
+
   const [authenticate, { error: errorAuthenticate }] =
     useAuthenticateMutation();
   const request: LastLoggedInProfileRequest | ProfileManagersRequest = {
@@ -117,6 +125,14 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       const signature = await signMessageAsync({
         message: challenge?.data?.challenge?.text
       });
+
+      if (status === 'success' && !!signer) {
+        // Get XMTP keys & Store it in index
+        const keys = await Client.getKeys(signer, { env: XMTP_ENV });
+        setKeys(keys);
+
+        await initialize({ keys, options: { env: XMTP_ENV }, signer });
+      }
 
       // Auth user and set cookies
       const auth = await authenticate({
