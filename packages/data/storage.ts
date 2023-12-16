@@ -6,7 +6,6 @@ export const Localstorage = {
   NotificationStore: 'notification.store',
   TimelineStore: 'timeline.store',
   TransactionStore: 'transaction.store',
-  XMPTStore: 'xmtp.store'
 };
 
 export const IndexDB = {
@@ -15,5 +14,6 @@ export const IndexDB = {
   FeatureFlagsStore: 'featureflags.store',
   ProfileStore: 'profile.store',
   TBAStore: 'tba.store',
-  VerifiedMembersStore: 'verifiedmembers.store'
+  VerifiedMembersStore: 'verifiedmembers.store',
+  XMPTStore: 'xmtp.store'
 };

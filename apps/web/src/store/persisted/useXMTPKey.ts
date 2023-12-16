@@ -1,4 +1,4 @@
-import { Localstorage } from '@hey/data/storage';
+import { IndexDB } from '@hey/data/storage';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -26,7 +26,7 @@ export const useXMTP = create(
       }
     }),
     {
-      name: Localstorage.XMPTStore,
+      name: IndexDB.XMPTStore,
       storage: createIdbStorage()
     }
   )
