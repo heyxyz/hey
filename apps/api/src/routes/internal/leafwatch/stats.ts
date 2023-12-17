@@ -15,7 +15,6 @@ export const get: Handler = async (_, res) => {
           COUNTIf(toDate(created) = yesterday()) AS yesterday,
           COUNTIf(toDate(created) >= toMonday(now())) AS this_week,
           COUNTIf(toDate(created) >= toStartOfMonth(now())) AS this_month,
-          COUNTIf(toDate(created) >= toStartOfYear(now())) AS this_year,
           COUNT(*) AS all_time
         FROM events
       `,
@@ -26,16 +25,15 @@ export const get: Handler = async (_, res) => {
           COUNTIf(toDate(viewed_at) = yesterday()) AS yesterday,
           COUNTIf(toDate(viewed_at) >= toMonday(now())) AS this_week,
           COUNTIf(toDate(viewed_at) >= toStartOfMonth(now())) AS this_month,
-          COUNTIf(toDate(viewed_at) >= toStartOfYear(now())) AS this_year,
           COUNT(*) AS all_time
         FROM impressions
       `,
       `
-        SELECT name, COUNT(*) AS event_count
+        SELECT name, COUNT(*) AS count
         FROM events
         WHERE toDate(created) = today()
         GROUP BY name
-        ORDER BY event_count DESC
+        ORDER BY count DESC
         LIMIT 10
       `,
       `
