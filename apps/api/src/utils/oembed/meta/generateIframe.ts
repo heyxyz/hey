@@ -37,7 +37,13 @@ const generateIframe = (
   }
 
   switch (hostname) {
-    case 'youtube.com':
+    case 'youtube.com': {
+      if (youtubeRegex.test(url)) {
+        return `<iframe src="${pickedUrl}" ${universalSize} style="${className}" allow="accelerometer; encrypted-media" allowfullscreen></iframe>`;
+      }
+
+      return null;
+    }
     case 'youtu.be': {
       if (youtubeRegex.test(url)) {
         return `<iframe src="${pickedUrl}" ${universalSize} style="${className}" allow="accelerometer; encrypted-media" allowfullscreen></iframe>`;
