@@ -1,3 +1,5 @@
+import { CONSTANTS } from '@pushprotocol/restapi';
+
 import packageJson from '../../package.json';
 import LensEndpoint from './lens-endpoints';
 import getEnvConfig from './utils/getEnvConfig';
@@ -20,6 +22,9 @@ export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 export const IS_MAINNET = LENS_API_URL === LensEndpoint.Mainnet;
 export const REWARDS_ADDRESS = '0xf618330f51fa54ce5951d627ee150c0fdadeba43';
 export const ADDRESS_PLACEHOLDER = '0x03Ba3...7EF';
+
+//Push
+export const PUSH_ENV = IS_MAINNET ? CONSTANTS.ENV.PROD : CONSTANTS.ENV.DEV;
 
 // Application
 export const APP_NAME = 'Hey';
