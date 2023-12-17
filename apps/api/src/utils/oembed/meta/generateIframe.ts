@@ -26,8 +26,7 @@ const generateIframe = (
   embedUrl: null | string,
   url: string
 ): null | string => {
-  const universalSize = `width="100%"`;
-  const className = `aspect-ratio: 16/9`;
+  const universalSize = `width="560" height="315"`;
   const parsedUrl = new URL(url);
   const hostname = parsedUrl.hostname.replace('www.', '');
   const pickedUrl = pickUrlSites.includes(hostname) ? url : embedUrl;
@@ -39,21 +38,21 @@ const generateIframe = (
   switch (hostname) {
     case 'youtube.com': {
       if (youtubeRegex.test(url)) {
-        return `<iframe src="${pickedUrl}" ${universalSize} style="${className}" allow="accelerometer; encrypted-media" allowfullscreen></iframe>`;
+        return `<iframe src="${pickedUrl}" ${universalSize} allow="accelerometer; encrypted-media" allowfullscreen></iframe>`;
       }
 
       return null;
     }
     case 'youtu.be': {
       if (youtubeRegex.test(url)) {
-        return `<iframe src="${pickedUrl}" ${universalSize} style="${className}" allow="accelerometer; encrypted-media" allowfullscreen></iframe>`;
+        return `<iframe src="${pickedUrl}" ${universalSize} allow="accelerometer; encrypted-media" allowfullscreen></iframe>`;
       }
 
       return null;
     }
     case 'tape.xyz': {
       if (tapeRegex.test(url)) {
-        return `<iframe src="${pickedUrl}" ${universalSize} style="${className}" allow="accelerometer; encrypted-media" allowfullscreen></iframe>`;
+        return `<iframe src="${pickedUrl}" ${universalSize} allow="accelerometer; encrypted-media" allowfullscreen></iframe>`;
       }
 
       return null;
@@ -74,14 +73,14 @@ const generateIframe = (
     }
     case 'soundcloud.com': {
       if (soundCloudRegex.test(url)) {
-        return `<iframe src="${pickedUrl}" ${universalSize} style="${className}"></iframe>`;
+        return `<iframe src="${pickedUrl}" ${universalSize}></iframe>`;
       }
 
       return null;
     }
     case 'oohlala.xyz': {
       if (oohlalaUrlRegex.test(url)) {
-        return `<iframe src="${pickedUrl}" ${universalSize} style="${className}"></iframe>`;
+        return `<iframe src="${pickedUrl}" ${universalSize}></iframe>`;
       }
 
       return null;
