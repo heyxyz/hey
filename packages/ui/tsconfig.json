@@ -1,3 +1,6 @@
 {
-  "extends": "@hey/config/react.tsconfig.json"
+  "extends": "@hey/config/react.tsconfig.json",
+  "compilerOptions": {
+    "jsx": "preserve"
+  },
 }
