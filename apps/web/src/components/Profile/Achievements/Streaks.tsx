@@ -2,7 +2,7 @@ import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 import type { Activity } from 'react-activity-calendar';
 
-import { HEY_API_URL } from '@hey/data/constants';
+import { BRAND_COLOR, HEY_API_URL } from '@hey/data/constants';
 import getProfile from '@hey/lib/getProfile';
 import { Card } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
@@ -53,7 +53,7 @@ const Streaks: FC<StreaksProps> = ({ profile }) => {
           } has {{count}} activities in ${new Date().getFullYear()}`
         }}
         loading={isLoading}
-        theme={{ light: ['#FED5D9', '#FB3A5D'] }}
+        theme={{ light: ['#FED5D9', BRAND_COLOR] }}
       />
     </Card>
   );
