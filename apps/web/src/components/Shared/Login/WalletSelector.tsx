@@ -6,6 +6,7 @@ import type {
 import type { Dispatch, FC, SetStateAction } from 'react';
 import type { Connector } from 'wagmi';
 
+import { getAccountFromProfile } from '@components/Messages/Push/helper';
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import {
   ArrowRightCircleIcon,
@@ -22,20 +23,27 @@ import {
   useProfilesManagedQuery
 } from '@hey/lens';
 import getWalletDetails from '@hey/lib/getWalletDetails';
+import parseJwt from '@hey/lib/parseJwt';
 import { Button, Card, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
+import * as PushAPI from '@pushprotocol/restapi';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { signIn } from 'src/store/persisted/useAuthStore';
 import {
+  PUSH_ENV,
+  usePushChatStore
+} from 'src/store/persisted/usePushChatStore';
+import {
   useAccount,
   useChainId,
   useConnect,
   useDisconnect,
-  useSignMessage
+  useSignMessage,
+  useWalletClient
 } from 'wagmi';
 
 import UserProfile from '../UserProfile';
@@ -53,6 +61,8 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   const [loggingInProfileId, setLoggingInProfileId] = useState<null | string>(
     null
   );
+  const { data: signer } = useWalletClient();
+  const pushStore = usePushChatStore();
 
   const onError = (error: any) => {
     setIsLoading(false);
@@ -124,10 +134,30 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       });
       const accessToken = auth.data?.authenticate.accessToken;
       const refreshToken = auth.data?.authenticate.refreshToken;
+      const { id: profileID } = parseJwt(accessToken);
+      const account = getAccountFromProfile(profileID);
+      const user = await PushAPI.user.get({
+        account: account,
+        env: PUSH_ENV
+      });
+      console.log(user);
+      const keys = await PushAPI.chat.decryptPGPKey({
+        account: account,
+        encryptedPGPPrivateKey: user.encryptedPrivateKey,
+        env: PUSH_ENV,
+        signer: signer as PushAPI.SignerType
+      });
+      console.log('KEYS', keys);
+
+      // @ts-ignore
+      pushStore.setPgpPrivateKey(keys.decryptedPgpPvtKey);
+
       signIn({ accessToken, refreshToken });
       Leafwatch.track(AUTH.SIWL);
       location.reload();
-    } catch {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const allProfiles = profilesManaged?.profilesManaged.items || [];

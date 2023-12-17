@@ -93,6 +93,13 @@ enum FeatureType {
   MODE
 }
 
+model ChatProfiles {
+  chatPassword String?
+  profileId    String
+  @@id([profileId])
+  @@index([profileId])
+}
+
 model ProfileFeature {
   profileId String
   featureId String   @db.Uuid

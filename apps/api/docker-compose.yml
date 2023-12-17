@@ -1,0 +1,10 @@
+name: hey
+services:
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=hey
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=hey
+    ports:
+      - 5432:5432

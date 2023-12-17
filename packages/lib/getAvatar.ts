@@ -22,7 +22,7 @@ const getAvatar = (profile: any, namedTransform = AVATAR): string => {
     profile?.metadata?.picture?.optimized?.uri ||
     profile?.metadata?.picture?.raw?.uri ||
     // Stamp.fyi Avatar fallbacks
-    getLennyURL(profile.id);
+    getLennyURL(profile?.id);
 
   return imageKit(sanitizeDStorageUrl(avatarUrl), namedTransform);
 };

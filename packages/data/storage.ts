@@ -4,6 +4,7 @@ export const Localstorage = {
   LeafwatchStore: 'leafwatch.store',
   ModeStore: 'mode.store',
   NotificationStore: 'notification.store',
+  PushStore: 'push.store',
   TimelineStore: 'timeline.store',
   TransactionStore: 'transaction.store'
 };

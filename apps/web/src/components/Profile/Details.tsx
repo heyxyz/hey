@@ -37,15 +37,19 @@ import { formatDate } from '@lib/formatTime';
 import isVerified from '@lib/isVerified';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
+import router from 'next/router';
 import { useState } from 'react';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
+import { useLensProfilesStore } from 'src/store/persisted/useLensProfiles';
 import useProfileStore from 'src/store/persisted/useProfileStore';
+import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 import urlcat from 'urlcat';
 
 import Badges from './Badges';
 import Followerings from './Followerings';
 import InvitedBy from './InvitedBy';
 import ProfileMenu from './Menu';
+import Message from './Message';
 import MutualFollowers from './MutualFollowers';
 import MutualFollowersList from './MutualFollowers/List';
 import ScamWarning from './ScamWarning';
@@ -62,6 +66,8 @@ const Details: FC<DetailsProps> = ({ profile }) => {
     useState(false);
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
   const { resolvedTheme } = useTheme();
+  const { setLensProfiles } = useLensProfilesStore();
+  const { setRecipientProfile } = usePushChatStore();
 
   const MetaDetails = ({
     children,
@@ -75,6 +81,13 @@ const Details: FC<DetailsProps> = ({ profile }) => {
       <div className="text-md truncate">{children}</div>
     </div>
   );
+
+  const onMessageClick = () => {
+    const conversationKey = `${profile.ownedBy.address}/${profile.id}`;
+    setLensProfiles(new Map().set(profile.ownedBy.address, profile));
+    setRecipientProfile(profile);
+    router.push(`/messages/${conversationKey}`);
+  };
 
   const followType = profile?.followModule?.type;
   const misuseDetails = getMisuseDetails(profile.id);
@@ -158,6 +171,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
               <Follow profile={profile} showText />
             )
           ) : null}
+          {currentProfile && <Message onClick={onMessageClick} />}
 
           <ProfileMenu profile={profile} />
         </div>
