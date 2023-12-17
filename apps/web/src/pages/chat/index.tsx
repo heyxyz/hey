@@ -122,12 +122,10 @@ const ChatPage = () => {
   }
 
   return (
-    <GridLayout>
+    <div className="overflow-hidden">
       <MetaTags title={`Chat • ${APP_NAME}`} />
-      <GridItemEight>
-        <ChatsView />
-      </GridItemEight>
-    </GridLayout>
+      <ChatsView />
+    </div>
   );
 };
 
