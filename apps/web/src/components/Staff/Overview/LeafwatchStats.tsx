@@ -53,7 +53,7 @@ const LeafwatchStats: FC = () => {
   const { data, error, isLoading } = useQuery({
     queryFn: getStats,
     queryKey: ['getStats'],
-    refetchInterval: 500
+    refetchInterval: 1000
   });
 
   if (isLoading) {
