@@ -1,28 +1,45 @@
-import type { PushAPI } from '@pushprotocol/restapi';
-
+import Loader from '@components/Shared/Loader';
 import { InformationCircleIcon } from '@heroicons/react/24/outline';
+import { PUSH_ENV } from '@hey/data/constants';
 import formatAddress from '@hey/lib/formatAddress';
 import { Button, Spinner } from '@hey/ui';
 import { getTwitterFormat } from '@lib/formatTime';
+import { chat } from '@pushprotocol/restapi';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
-import { useCallback } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
+import usePushStore from 'src/store/persisted/usePushStore';
+import { useWalletClient } from 'wagmi';
 
 import ChatMessageInput from './Input';
 
 const ChatListItemContainer = ({
-  profile,
-  push
+  profile
 }: {
   profile: {
     address: string;
     did: string;
     isRequestProfile: boolean;
     name: string;
+    threadhash?: string;
   };
-  push: PushAPI;
 }) => {
   const { address } = profile;
+
+  const { pgpPvtKey } = usePushStore();
+  const { data: signer } = useWalletClient();
+
+  const ref = useRef<HTMLTextAreaElement | null>(null);
+
+  const baseConfig = useMemo(() => {
+    return {
+      account: signer?.account.address ?? '',
+      env: PUSH_ENV,
+      pgpPrivateKey: pgpPvtKey,
+      threadhash: profile.threadhash ?? ''
+    };
+  }, [signer?.account.address, pgpPvtKey, profile.threadhash]);
+
   const {
     data: messages,
     isLoading: messagesLoading,
@@ -31,18 +48,48 @@ const ChatListItemContainer = ({
     enabled: !!address,
     queryFn: async () => {
       if (!address) {
-        return;
+        return [];
       }
-      return await push.chat.history(address);
+      if (!profile.threadhash) {
+        return [];
+      }
+
+      const { threadHash } = await chat.conversationHash({
+        account: baseConfig.account,
+        conversationId: profile.address,
+        env: PUSH_ENV
+      });
+
+      if (!threadHash) {
+        return [];
+      }
+
+      return await chat.history({
+        ...baseConfig,
+        threadhash: threadHash,
+        toDecrypt: true
+      });
     },
-    queryKey: ['get-messages']
+    queryKey: ['get-messages', profile.did]
   });
 
   const { isPending: sendingMessage, mutateAsync: sendMessage } = useMutation({
     mutationFn: async ({ message }: { message: string }) => {
-      return await push.chat.send(address as string, {
-        content: message,
-        type: 'Text'
+      if (!signer) {
+        return;
+      }
+
+      if (ref.current) {
+        ref.current.value = '';
+      }
+
+      return await chat.send({
+        account: signer?.account.address ?? '',
+        env: PUSH_ENV,
+        message: { content: message, type: 'Text' },
+        pgpPrivateKey: pgpPvtKey,
+        signer: signer,
+        to: profile.address
       });
     },
     mutationKey: ['send-message']
@@ -50,14 +97,14 @@ const ChatListItemContainer = ({
 
   const { isPending: isApproving, mutateAsync: onApprove } = useMutation({
     mutationFn: async (did: string) => {
-      return await push.chat.accept(did);
+      return true;
     },
     mutationKey: ['approve-user']
   });
 
   const { isPending: isRejecting, mutateAsync: onReject } = useMutation({
     mutationFn: async (did: string) => {
-      return await push.chat.reject(did);
+      return true;
     },
     mutationKey: ['approve-user']
   });
@@ -122,10 +169,10 @@ const ChatListItemContainer = ({
         )}
         <div className="border-b-[1px] border-gray-600" />
         <div className="h-screen space-y-3 overflow-y-scroll px-4 py-2">
+          {messagesLoading && <Loader message="Loading messages..." />}
           {messages?.reverse().map((message) => {
             const messageFrom = message.fromDID.split(':').pop() ?? '';
             const isMessageFromProfile = messageFrom !== profile.address;
-            console.log(messageFrom, isMessageFromProfile, 'ib', profile);
             if (!message.messageObj) {
               return '';
             }
@@ -153,7 +200,9 @@ const ChatListItemContainer = ({
         </div>
         <ChatMessageInput
           disabled={profile.isRequestProfile}
+          inputRef={ref}
           onSend={onSendMessage}
+          sending={sendingMessage}
         />
       </div>
     </div>

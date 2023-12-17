@@ -1,16 +1,23 @@
+import type { RefObject } from 'react';
+
 import {
   FaceSmileIcon,
   PaperAirplaneIcon,
   PaperClipIcon
 } from '@heroicons/react/20/solid';
+import { Button, Spinner } from '@hey/ui';
 import { useState } from 'react';
 
 const ChatMessageInput = ({
   disabled,
-  onSend
+  inputRef,
+  onSend,
+  sending
 }: {
   disabled?: boolean;
+  inputRef?: null | RefObject<HTMLTextAreaElement>;
   onSend: (message: string) => void;
+  sending: boolean;
 }) => {
   const [message, setMessage] = useState('');
   return (
@@ -46,18 +53,28 @@ const ChatMessageInput = ({
             name="message"
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Type your message..."
+            ref={inputRef}
             rows={1}
           />
-          <button
-            className="flex h-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
-            onClick={() => onSend(message)}
+          <Button
+            className="flex h-10 items-center justify-center rounded-full border-none text-gray-400 hover:text-gray-500"
+            icon={
+              sending ? (
+                <Spinner size="xs" />
+              ) : (
+                <PaperAirplaneIcon
+                  aria-hidden="true"
+                  className="h-5 w-5 flex-shrink-0 text-[#EF4444]"
+                />
+              )
+            }
+            onClick={() => {
+              onSend(message);
+              setMessage('');
+            }}
+            outline
             type="button"
-          >
-            <PaperAirplaneIcon
-              aria-hidden="true"
-              className="h-5 w-5 flex-shrink-0 text-[#EF4444]"
-            />
-          </button>
+          />
         </div>
       </div>
     </div>

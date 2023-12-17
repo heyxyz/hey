@@ -1,27 +1,42 @@
-import type { PushAPI } from '@pushprotocol/restapi';
-
 import Loader from '@components/Shared/Loader';
 import Search from '@components/Shared/Navbar/Search';
+import { PUSH_ENV } from '@hey/data/constants';
 import formatAddress from '@hey/lib/formatAddress';
 import { Card, GridItemEight, GridItemFour, GridLayout, Image } from '@hey/ui';
+import { chat } from '@pushprotocol/restapi';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo, useState } from 'react';
+import usePushStore from 'src/store/persisted/usePushStore';
+import { useWalletClient } from 'wagmi';
 
 import ChatListItemContainer from './ChatContainer';
 
-const ChatView = ({ user }: { user: PushAPI }) => {
+const ChatView = () => {
   const [selectedProfile, setSelectedProfile] = useState<any>();
 
+  const { pgpPvtKey } = usePushStore();
+  const { data: signer } = useWalletClient();
+
+  const baseConfig = useMemo(() => {
+    return {
+      account: signer?.account.address ?? '',
+      env: PUSH_ENV,
+      pgpPrivateKey: pgpPvtKey
+    };
+  }, [signer, pgpPvtKey]);
+
   const { data: chats, isLoading: fetchingChats } = useQuery({
+    enabled: !!signer?.account,
     queryFn: async () => {
-      return await user.chat.list('CHATS');
+      return await chat.chats(baseConfig);
     },
     queryKey: ['get-chats']
   });
 
   const { data: requests, isLoading: fetchingRequests } = useQuery({
+    enabled: !!signer?.account,
     queryFn: async () => {
-      return await user.chat.list('REQUESTS');
+      return await chat.requests(baseConfig);
     },
     queryKey: ['get-pending-requests']
   });
@@ -46,12 +61,15 @@ const ChatView = ({ user }: { user: PushAPI }) => {
     return [...normalChats, ...requestChats];
   }, [chats, fetchingChats, fetchingRequests, requests]);
 
+  console.log(allChats, 'chats...');
+
   return (
     <GridLayout className="h-80">
       <GridItemFour className="h-80">
         <Card className="max-h-full min-h-[800px] p-4">
           <Search
-            onProfileSelected={(profile) => {
+            onProfileSelected={async (profile) => {
+              // const newChat = await user
               const _profile = {
                 address: profile.ownedBy.address,
                 name: profile.handle?.localName
@@ -71,14 +89,15 @@ const ChatView = ({ user }: { user: PushAPI }) => {
               </div>
               {allChats.map((chat) => {
                 const profile = {
-                  address: chat.wallets.split(':').pop() ?? '',
+                  address: chat.wallets?.split(':').pop() ?? '',
                   did: chat.wallets,
                   handle: chat.name,
-                  isRequestProfile: chat.type === 'request'
+                  isRequestProfile: chat.type === 'request',
+                  threadhash: chat.threadhash
                 };
                 return (
                   <Card
-                    className="cursor-pointer p-2"
+                    className="mb-2 cursor-pointer p-2"
                     key={chat.chatId}
                     onClick={() => {
                       setSelectedProfile(profile);
@@ -109,9 +128,9 @@ const ChatView = ({ user }: { user: PushAPI }) => {
         </Card>
       </GridItemFour>
       <GridItemEight>
-        <Card className="ml-4 max-h-full min-h-[800px] p-4">
+        <Card className="mx-4 max-h-full min-h-[800px] p-4">
           {selectedProfile && (
-            <ChatListItemContainer profile={selectedProfile} push={user} />
+            <ChatListItemContainer profile={selectedProfile} />
           )}
         </Card>
       </GridItemEight>
