@@ -1,5 +1,6 @@
 import type { Handler } from 'express';
 
+import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import createClickhouseClient from '@utils/createClickhouseClient';
 
@@ -64,6 +65,8 @@ export const get: Handler = async (_, res) => {
           .then((rows) => rows.json())
       )
     );
+
+    logger.info('Fetched Leafwatch stats');
 
     return res.status(200).json({
       events: results[0][0],
