@@ -1,13 +1,16 @@
 import type { FC } from 'react';
 
+import Loader from '@components/Shared/Loader';
 import { HEY_API_URL } from '@hey/data/constants';
 import { ErrorMessage } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 import NumberedStat from '../UI/NumberedStat';
+import EventsToday from './EventsToday';
+import ImpressionsToday from './ImpressionsToday';
 
-interface StatsType {
+export interface StatsType {
   events: {
     all_time: string;
     last_60_seconds: string;
@@ -18,7 +21,7 @@ interface StatsType {
   };
   eventsToday: {
     count: string;
-    minute: string;
+    timestamp: string;
   }[];
   impressions: {
     all_time: string;
@@ -30,7 +33,7 @@ interface StatsType {
   };
   impressionsToday: {
     count: string;
-    minute: string;
+    timestamp: string;
   }[];
   topEvents: {
     count: string;
@@ -54,7 +57,11 @@ const LeafwatchStats: FC = () => {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="m-5">
+        <Loader message="Loading stats..." />
+      </div>
+    );
   }
 
   if (error) {
@@ -62,7 +69,7 @@ const LeafwatchStats: FC = () => {
   }
 
   if (!data) {
-    return <div>No data...</div>;
+    return <div className="m-5">No data...</div>;
   }
 
   const { events, impressions } = data;
@@ -97,6 +104,8 @@ const LeafwatchStats: FC = () => {
           <NumberedStat count={impressions.all_time} name="All time" />
         </div>
       </div>
+      <EventsToday eventsToday={data.eventsToday} />
+      <ImpressionsToday impressionsToday={data.impressionsToday} />
     </div>
   );
 };

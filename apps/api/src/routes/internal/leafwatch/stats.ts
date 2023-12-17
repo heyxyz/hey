@@ -38,21 +38,21 @@ export const get: Handler = async (_, res) => {
       `,
       `
         SELECT 
-          toStartOfMinute(created) AS minute,
+          toStartOfInterval(created, INTERVAL 10 MINUTE) AS timestamp,
           COUNT(*) AS count
         FROM events
         WHERE toDate(created) = today()
-        GROUP BY minute
-        ORDER BY minute
+        GROUP BY timestamp
+        ORDER BY timestamp
       `,
       `
         SELECT 
-          toStartOfMinute(viewed_at) AS minute,
+          toStartOfInterval(viewed_at, INTERVAL 10 MINUTE) AS timestamp,
           COUNT(*) AS count
         FROM impressions
         WHERE toDate(viewed_at) = today()
-        GROUP BY minute
-        ORDER BY minute
+        GROUP BY timestamp
+        ORDER BY timestamp
       `
     ];
 
