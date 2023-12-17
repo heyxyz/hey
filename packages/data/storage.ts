@@ -5,7 +5,7 @@ export const Localstorage = {
   ModeStore: 'mode.store',
   NotificationStore: 'notification.store',
   TimelineStore: 'timeline.store',
-  TransactionStore: 'transaction.store',
+  TransactionStore: 'transaction.store'
 };
 
 export const IndexDB = {
