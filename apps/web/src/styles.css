@@ -92,6 +92,9 @@ progress::-moz-progress-bar {
 .oembed-player,
 iframe {
   @apply rounded-xl;
+}
+
+iframe.video-embed {
   @apply aspect-[16/9];
   @apply w-full;
   @apply h-full;

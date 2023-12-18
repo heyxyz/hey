@@ -27,6 +27,7 @@ const generateIframe = (
   url: string
 ): null | string => {
   const universalSize = `width="560" height="315"`;
+  const className = `video-embed`;
   const parsedUrl = new URL(url);
   const hostname = parsedUrl.hostname.replace('www.', '');
   const pickedUrl = pickUrlSites.includes(hostname) ? url : embedUrl;
@@ -38,21 +39,21 @@ const generateIframe = (
   switch (hostname) {
     case 'youtube.com': {
       if (youtubeRegex.test(url)) {
-        return `<iframe src="${pickedUrl}" ${universalSize} allow="accelerometer; encrypted-media" allowfullscreen></iframe>`;
+        return `<iframe src="${pickedUrl}" ${universalSize} class="${className}" allow="accelerometer; encrypted-media" allowfullscreen></iframe>`;
       }
 
       return null;
     }
     case 'youtu.be': {
       if (youtubeRegex.test(url)) {
-        return `<iframe src="${pickedUrl}" ${universalSize} allow="accelerometer; encrypted-media" allowfullscreen></iframe>`;
+        return `<iframe src="${pickedUrl}" ${universalSize} class="${className}" allow="accelerometer; encrypted-media" allowfullscreen></iframe>`;
       }
 
       return null;
     }
     case 'tape.xyz': {
       if (tapeRegex.test(url)) {
-        return `<iframe src="${pickedUrl}" ${universalSize} allow="accelerometer; encrypted-media" allowfullscreen></iframe>`;
+        return `<iframe src="${pickedUrl}" ${universalSize} class="${className}" allow="accelerometer; encrypted-media" allowfullscreen></iframe>`;
       }
 
       return null;
@@ -66,21 +67,21 @@ const generateIframe = (
 
       if (spotifyPlaylistUrlRegex.test(url)) {
         const spotifyUrl = pickedUrl.replace('/playlist', '/embed/playlist');
-        return `<iframe src="${spotifyUrl}" ${spotifySize} height="380" allow="encrypted-media"></iframe>`;
+        return `<iframe src="${spotifyUrl}" ${spotifySize} height="380" class="${className}" allow="encrypted-media"></iframe>`;
       }
 
       return null;
     }
     case 'soundcloud.com': {
       if (soundCloudRegex.test(url)) {
-        return `<iframe src="${pickedUrl}" ${universalSize}></iframe>`;
+        return `<iframe src="${pickedUrl}" ${universalSize} class="${className}"></iframe>`;
       }
 
       return null;
     }
     case 'oohlala.xyz': {
       if (oohlalaUrlRegex.test(url)) {
-        return `<iframe src="${pickedUrl}" ${universalSize}></iframe>`;
+        return `<iframe src="${pickedUrl}" ${universalSize} class="${className}"></iframe>`;
       }
 
       return null;
