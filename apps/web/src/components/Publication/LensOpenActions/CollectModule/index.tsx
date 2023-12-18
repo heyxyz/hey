@@ -32,6 +32,7 @@ import getTokenImage from '@hey/lib/getTokenImage';
 import humanize from '@hey/lib/humanize';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Modal, Tooltip } from '@hey/ui';
+import { formatDate } from '@lib/formatTime';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import plur from 'plur';
@@ -76,6 +77,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
   const percentageCollected = (countOpenActions / collectLimit) * 100;
   const enabledTokens = allowedTokens?.map((t) => t.symbol);
   const isTokenEnabled = enabledTokens?.includes(currency);
+  const isSaleEnded = new Date(endTimestamp) < new Date();
 
   const { data: usdPrice } = useQuery({
     enabled: Boolean(amount),
@@ -184,9 +186,13 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
             <div className="flex items-center space-x-2">
               <ClockIcon className="ld-text-gray-500 h-4 w-4" />
               <div className="space-x-1.5">
-                <span>Sale Ends:</span>
+                <span>{isSaleEnded ? 'Sale ended on:' : 'Sale ends:'}</span>
                 <span className="font-bold text-gray-600">
-                  <CountdownTimer targetDate={endTimestamp} />
+                  {isSaleEnded ? (
+                    `${formatDate(endTimestamp, 'MMM D, YYYY, hh:mm A')}`
+                  ) : (
+                    <CountdownTimer targetDate={endTimestamp} />
+                  )}
                 </span>
               </div>
             </div>
