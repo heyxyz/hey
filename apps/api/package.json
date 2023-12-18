@@ -43,7 +43,7 @@
     "ua-parser-js": "^1.0.37",
     "urlcat": "^3.1.0",
     "uuid": "^9.0.1",
-    "viem": "^1.20.0",
+    "viem": "^1.20.1",
     "vite-express": "*",
     "zod": "^3.22.4"
   },
@@ -52,7 +52,7 @@
     "@hey/types": "workspace:*",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.15",
-    "@types/node": "^20.10.4",
+    "@types/node": "^20.10.5",
     "@types/react": "^18.2.45",
     "@types/request-ip": "^0.0.41",
     "@types/ua-parser-js": "^0.7.39",
