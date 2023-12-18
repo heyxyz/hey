@@ -7,7 +7,7 @@ import { getTwitterFormat } from '@lib/formatTime';
 import { chat } from '@pushprotocol/restapi';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
-import { useCallback, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import useMessageStore from 'src/store/persisted/useMessageStore';
 import { useWalletClient } from 'wagmi';
 
@@ -30,6 +30,7 @@ const ChatListItemContainer = ({
   const { data: signer } = useWalletClient();
 
   const ref = useRef<HTMLTextAreaElement | null>(null);
+  const messageContainerref = useRef<HTMLDivElement | null>(null);
 
   const baseConfig = useMemo(() => {
     return {
@@ -64,11 +65,14 @@ const ChatListItemContainer = ({
         return [];
       }
 
-      return await chat.history({
-        ...baseConfig,
-        threadhash: threadHash,
-        toDecrypt: true
-      });
+      const history =
+        (await chat.history({
+          ...baseConfig,
+          limit: 10,
+          threadhash: threadHash,
+          toDecrypt: true
+        })) ?? [];
+      return history.reverse();
     },
     queryKey: ['get-messages', profile.did]
   });
@@ -120,6 +124,18 @@ const ChatListItemContainer = ({
     [refetchMessages, sendMessage]
   );
 
+  useEffect(() => {
+    // Scroll to the latest messages
+    if (
+      !messagesLoading &&
+      messages?.length !== 0 &&
+      messageContainerref.current
+    ) {
+      messageContainerref.current.scrollTop =
+        messageContainerref.current.scrollHeight;
+    }
+  }, [messages, messagesLoading, messageContainerref]);
+
   return (
     <div className="flex h-[50rem] max-h-screen w-full flex-col justify-between">
       <div className="m-4 flex items-center justify-between bg-white">
@@ -154,13 +170,16 @@ const ChatListItemContainer = ({
         </div>
       )}
       <div className="w-full border-b-[1px]" />
-      <div className="h-screen space-y-3 overflow-y-scroll px-4 py-2">
+      <div
+        className="h-screen space-y-3 overflow-y-scroll px-4 py-2"
+        ref={messageContainerref}
+      >
         {messagesLoading && (
           <div className="flex h-full items-center justify-center">
             <Loader message="Loading messages..." />
           </div>
         )}
-        {messages?.reverse().map((message) => {
+        {messages?.map((message) => {
           const messageFrom = message.fromDID.split(':').pop() ?? '';
           const isMessageFromProfile = messageFrom !== profile.address;
           if (!message.messageObj) {
@@ -180,7 +199,7 @@ const ChatListItemContainer = ({
                 ? message.messageObj
                 : message.messageObj?.content.toString()}
               {message.timestamp && (
-                <span className="ml-auto block w-min">
+                <span className="ml-auto block w-fit text-xs">
                   {getTwitterFormat(dayjs(message.timestamp).toDate())}
                 </span>
               )}

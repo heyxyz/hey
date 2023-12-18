@@ -106,7 +106,12 @@ const ChatView = () => {
                   className="mb-2 cursor-pointer p-4"
                   key={chat.chatId}
                   onClick={() => {
-                    setSelectedProfile(profile);
+                    if (
+                      !selectedProfile ||
+                      selectedProfile.address !== profile.address
+                    ) {
+                      setSelectedProfile(profile);
+                    }
                   }}
                 >
                   <div className="flex">
