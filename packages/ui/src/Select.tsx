@@ -40,7 +40,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
             setSelected(e);
             if (rest.onChange) {
               rest.onChange({
-                target: { value: selected?.value }
+                target: { value: e?.value }
               } as ChangeEvent<HTMLSelectElement>);
             }
           }
