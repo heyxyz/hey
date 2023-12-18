@@ -9,7 +9,7 @@ interface KeyState {
   setPgpPvtKey: (currentPgpPvtKey: string) => void;
 }
 
-export const usePushStore = create(
+export const useMessageStore = create(
   persist<KeyState>(
     (set) => ({
       pgpPvtKey: '',
@@ -23,4 +23,4 @@ export const usePushStore = create(
   )
 );
 
-export default usePushStore;
+export default useMessageStore;

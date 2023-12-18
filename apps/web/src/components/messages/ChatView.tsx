@@ -6,7 +6,7 @@ import { Card, GridItemEight, GridItemFour, GridLayout, Image } from '@hey/ui';
 import { chat } from '@pushprotocol/restapi';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo, useState } from 'react';
-import usePushStore from 'src/store/persisted/usePushStore';
+import useMessageStore from 'src/store/persisted/useMessageStore';
 import { useWalletClient } from 'wagmi';
 
 import ChatListItemContainer from './ChatContainer';
@@ -14,7 +14,7 @@ import ChatListItemContainer from './ChatContainer';
 const ChatView = () => {
   const [selectedProfile, setSelectedProfile] = useState<any>();
 
-  const { pgpPvtKey } = usePushStore();
+  const pgpPvtKey = useMessageStore((state) => state.pgpPvtKey);
   const { data: signer } = useWalletClient();
 
   const baseConfig = useMemo(() => {

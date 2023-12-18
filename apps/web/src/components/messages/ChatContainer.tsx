@@ -8,7 +8,7 @@ import { chat } from '@pushprotocol/restapi';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { useCallback, useMemo, useRef } from 'react';
-import usePushStore from 'src/store/persisted/usePushStore';
+import useMessageStore from 'src/store/persisted/useMessageStore';
 import { useWalletClient } from 'wagmi';
 
 import ChatMessageInput from './Input';
@@ -26,7 +26,7 @@ const ChatListItemContainer = ({
 }) => {
   const { address } = profile;
 
-  const { pgpPvtKey } = usePushStore();
+  const pgpPvtKey = useMessageStore((state) => state.pgpPvtKey);
   const { data: signer } = useWalletClient();
 
   const ref = useRef<HTMLTextAreaElement | null>(null);
