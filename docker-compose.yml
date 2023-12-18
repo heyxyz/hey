@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  web:
+    image: hey-web
+    container_name: hey-web
+    restart: always
+    environment:
+      - NEXT_PUBLIC_IS_PRODUCTION=false
+      - NEXT_PUBLIC_LENS_NETWORK=mainnet # mainnet, testnet, staging
+    ports:
+      - 4783:4783
+    networks:
+      - hey_network
+
+  api:
+    image: hey-api
+    container_name: hey-api
+    restart: always
+    environment:
+      - NEXT_PUBLIC_LENS_NETWORK=mainnet # mainnet, testnet, staging
+      - DATABASE_URL=
+      - CLICKHOUSE_PASSWORD=
+      - SECRET=secret
+      - LIVEPEER_API_KEY=
+      - EVER_ACCESS_KEY=
+      - EVER_ACCESS_SECRET=
+      - LENS_IPFS_AUTH_KEY=
+      - IPAPI_KEY=
+      - GOOGLE_API_KEY=
+      - IRYS_PRIVATE_KEY=
+      - IMAGEKIT_URL=
+      - ZENDESK_API_KEY=
+    ports:
+      - 4784:4784
+    networks:
+      - hey_network
+
+networks:
+  hey_network:
+    external: true
