@@ -15,6 +15,7 @@ type Option = {
   title?: ReactNode;
   value?: string;
 };
+
 interface SelectProps extends ComponentProps<'select'> {
   className?: string;
   label?: string;
