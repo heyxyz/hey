@@ -30,7 +30,9 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
           return false;
         }
         return option.value === rest.defaultValue || option.selected;
-      }) || options?.find((option) => !option.disabled)
+      }) ||
+        options?.find((option) => !option.disabled) ||
+        options?.[0]
     );
 
     return (
