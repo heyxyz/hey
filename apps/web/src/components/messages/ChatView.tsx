@@ -26,7 +26,8 @@ const ChatView = () => {
     return {
       account: signer?.account.address ?? '',
       env: PUSH_ENV,
-      pgpPrivateKey: pgpPvtKey
+      pgpPrivateKey: pgpPvtKey,
+      toDecrypt: true
     };
   }, [signer, pgpPvtKey]);
 
@@ -68,7 +69,6 @@ const ChatView = () => {
     return [...normalChats, ...requestChats];
   }, [chats, isChatsLoading, requests]);
 
-  console.log('>>> isCha', isChatsLoading, allChats);
   if (!isChatsLoading && allChats.length === 0) {
     return (
       <div className="min-w-screen-xl container m-auto flex min-h-[-webkit-calc(100vh-65px)] flex-col items-center justify-center bg-white">
@@ -82,7 +82,7 @@ const ChatView = () => {
       </div>
     );
   }
-
+  console.log('>>? allChats', allChats);
   return (
     <GridLayout
       className="border-x-[1px] bg-white p-0 sm:p-0"
@@ -112,16 +112,18 @@ const ChatView = () => {
                   <div className="flex">
                     <Image
                       alt={chat.chatId}
-                      className="mr-2 h-8 w-8 cursor-pointer rounded-full border dark:border-gray-700"
+                      className="mr-2 h-10 w-10 cursor-pointer rounded-full border dark:border-gray-700"
                       src={chat.profilePicture ?? ''}
                     />
-                    <div key={chat.chatId}>
+                    <div className="w-3/4" key={chat.chatId}>
                       <p>
                         {chat.name
                           ? chat.name
                           : formatAddress(chat.wallets.split(':').pop() ?? '')}
                       </p>
-                      <p>{chat.msg.messageType}</p>
+                      <p className="truncate text-sm text-gray-400">
+                        {chat.msg.messageContent}
+                      </p>
                     </div>
                   </div>
                 </div>
