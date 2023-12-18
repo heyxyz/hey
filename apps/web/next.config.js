@@ -1,5 +1,3 @@
-const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: { scrollRestoration: true },
@@ -12,10 +10,7 @@ const nextConfig = {
           { key: 'Referrer-Policy', value: 'strict-origin' }
         ],
         source: '/(.*)'
-      },
-      { headers, source: '/about' },
-      { headers, source: '/privacy' },
-      { headers, source: '/thanks' }
+      }
     ];
   },
   reactStrictMode: false,
