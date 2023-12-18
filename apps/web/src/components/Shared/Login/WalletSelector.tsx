@@ -234,52 +234,42 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     </div>
   ) : (
     <div className="inline-block w-full space-y-3 overflow-hidden text-left align-middle">
-      {connectors
-        .filter((connector) => {
-          if (
-            connector.id === 'safe' &&
-            !document.location.ancestorOrigins[0]?.includes('app.safe.global')
-          ) {
-            return false;
-          }
-          return true;
-        })
-        .map((connector) => {
-          return (
-            <button
-              className={cn(
-                {
-                  'hover:bg-gray-100 dark:hover:bg-gray-700':
-                    connector.id !== activeConnector?.id
-                },
-                'flex w-full items-center justify-between space-x-2.5 overflow-hidden rounded-xl border px-4 py-3 outline-none dark:border-gray-700'
-              )}
-              disabled={connector.id === activeConnector?.id}
-              key={connector.id}
-              onClick={() => onConnect(connector)}
-              type="button"
-            >
-              <span>
-                {connector.id === 'injected'
-                  ? 'Browser Wallet'
-                  : getWalletDetails(connector.name).name}
-              </span>
-              <div className="flex items-center space-x-4">
-                {isConnectLoading && pendingConnector?.id === connector.id ? (
-                  <Spinner className="mr-0.5" size="xs" />
-                ) : null}
-                <img
-                  alt={connector.id}
-                  className="h-6 w-6"
-                  draggable={false}
-                  height={24}
-                  src={getWalletDetails(connector.name).logo}
-                  width={24}
-                />
-              </div>
-            </button>
-          );
-        })}
+      {connectors.map((connector) => {
+        return (
+          <button
+            className={cn(
+              {
+                'hover:bg-gray-100 dark:hover:bg-gray-700':
+                  connector.id !== activeConnector?.id
+              },
+              'flex w-full items-center justify-between space-x-2.5 overflow-hidden rounded-xl border px-4 py-3 outline-none dark:border-gray-700'
+            )}
+            disabled={connector.id === activeConnector?.id}
+            key={connector.id}
+            onClick={() => onConnect(connector)}
+            type="button"
+          >
+            <span>
+              {connector.id === 'injected'
+                ? 'Browser Wallet'
+                : getWalletDetails(connector.name).name}
+            </span>
+            <div className="flex items-center space-x-4">
+              {isConnectLoading && pendingConnector?.id === connector.id ? (
+                <Spinner className="mr-0.5" size="xs" />
+              ) : null}
+              <img
+                alt={connector.id}
+                className="h-6 w-6"
+                draggable={false}
+                height={24}
+                src={getWalletDetails(connector.name).logo}
+                width={24}
+              />
+            </div>
+          </button>
+        );
+      })}
       {error?.message ? (
         <div className="flex items-center space-x-1 text-red-500">
           <XCircleIcon className="h-5 w-5" />
