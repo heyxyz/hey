@@ -94,7 +94,12 @@ iframe {
   @apply rounded-xl;
 }
 
-iframe.video-embed {
+
+.oembed-player iframe[src*='youtube.com'], 
+.oembed-player iframe[src*='youtu.be'], 
+.oembed-player iframe[src*='tape.xyz'], 
+.oembed-player iframe[src*='soundcloud.com'],
+.oembed-player iframe[src*='ohlala.xyz'] {
   @apply aspect-[16/9];
   @apply w-full;
   @apply h-full;
