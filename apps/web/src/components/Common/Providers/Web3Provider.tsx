@@ -17,7 +17,6 @@ import {
   zora,
   zoraTestnet
 } from 'wagmi/chains';
-import { SafeConnector } from 'wagmi/connectors/safe';
 import { publicProvider } from 'wagmi/providers/public';
 
 const { chains, publicClient } = configureChains(
@@ -39,10 +38,6 @@ const { chains, publicClient } = configureChains(
 const connectors: any = [
   new InjectedConnector({ chains, options: { shimDisconnect: true } }),
   new CoinbaseWalletConnector({ options: { appName: APP_NAME } }),
-  new SafeConnector({
-    chains,
-    options: { allowedDomains: [/app.safe.global$/] }
-  }),
   new WalletConnectConnector({
     chains,
     options: { projectId: WALLETCONNECT_PROJECT_ID }
