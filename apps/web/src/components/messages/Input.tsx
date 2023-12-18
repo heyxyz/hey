@@ -21,9 +21,9 @@ const ChatMessageInput = ({
 }) => {
   const [message, setMessage] = useState('');
   return (
-    <div className="flex items-start space-x-4">
+    <div className="mx-4 my-2 flex space-x-4">
       <div className="min-w-0 flex-1">
-        <div className="flex items-center px-2 ring-2 focus-within:ring-2 focus-within:ring-[#EF4444]">
+        <div className="flex items-center rounded-md px-2 ring-2 ring-gray-300 focus-within:ring-2 focus-within:ring-[#EF4444]">
           <div id="mainIcons">
             <div className="flex items-center space-x-4">
               <button
@@ -46,7 +46,7 @@ const ChatMessageInput = ({
           </div>
           <textarea
             autoFocus={true}
-            className=" block w-full resize-none border-0 bg-transparent py-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+            className="block w-full resize-none border-0 bg-transparent py-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
             defaultValue={''}
             disabled={disabled}
             id="message"

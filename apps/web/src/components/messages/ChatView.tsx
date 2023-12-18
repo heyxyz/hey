@@ -1,8 +1,12 @@
-import Loader from '@components/Shared/Loader';
-import Search from '@components/Shared/Navbar/Search';
 import { PUSH_ENV } from '@hey/data/constants';
 import formatAddress from '@hey/lib/formatAddress';
-import { Card, GridItemEight, GridItemFour, GridLayout, Image } from '@hey/ui';
+import {
+  Button,
+  GridItemEight,
+  GridItemFour,
+  GridLayout,
+  Image
+} from '@hey/ui';
 import { chat } from '@pushprotocol/restapi';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo, useState } from 'react';
@@ -10,6 +14,7 @@ import useMessageStore from 'src/store/persisted/useMessageStore';
 import { useWalletClient } from 'wagmi';
 
 import ChatListItemContainer from './ChatContainer';
+import { ChatShimmer } from './ChatShimmer';
 
 const ChatView = () => {
   const [selectedProfile, setSelectedProfile] = useState<any>();
@@ -41,8 +46,10 @@ const ChatView = () => {
     queryKey: ['get-pending-requests']
   });
 
+  const isChatsLoading = fetchingRequests || fetchingChats;
+
   const allChats = useMemo(() => {
-    if (fetchingRequests || fetchingChats) {
+    if (isChatsLoading) {
       return [];
     }
 
@@ -59,80 +66,84 @@ const ChatView = () => {
       type: 'chat'
     }));
     return [...normalChats, ...requestChats];
-  }, [chats, fetchingChats, fetchingRequests, requests]);
+  }, [chats, isChatsLoading, requests]);
 
-  console.log(allChats, 'chats...');
+  if (!isChatsLoading && allChats.length === 0) {
+    return (
+      <div className="min-w-screen-xl container m-auto flex min-h-[-webkit-calc(100vh-65px)] flex-col items-center justify-center bg-white">
+        <h2 className="text-2xl">Didn't chat yet!</h2>
+        <p className="text-sm text-gray-500">
+          Looks like you haven't started any conversation
+        </p>
+        <Button className="my-4" size="lg">
+          New message
+        </Button>
+      </div>
+    );
+  }
 
   return (
-    <GridLayout className="h-80">
-      <GridItemFour className="h-80">
-        <Card className="max-h-full min-h-[800px] p-4">
-          <Search
-            onProfileSelected={async (profile) => {
-              // const newChat = await user
-              const _profile = {
-                address: profile.ownedBy.address,
-                name: profile.handle?.localName
+    <GridLayout
+      className="border-x-[1px] bg-white p-0 sm:p-0"
+      classNameChild="lg:gap-0"
+    >
+      <GridItemFour className="border-r">
+        {isChatsLoading ? (
+          <ChatShimmer />
+        ) : (
+          <>
+            {allChats.map((chat) => {
+              const profile = {
+                address: chat.wallets?.split(':').pop() ?? '',
+                did: chat.wallets,
+                handle: chat.name,
+                isRequestProfile: chat.type === 'request',
+                threadhash: chat.threadhash
               };
-              setSelectedProfile(_profile);
-            }}
-            placeholder="Search..."
-          />
-          {fetchingChats || fetchingRequests ? (
-            <Loader message="Fetching chats..." />
-          ) : (
-            <>
-              <div className="mt-4">
-                {chats?.length === 0 && requests?.length === 0 && (
-                  <p>No Chats found...</p>
-                )}
-              </div>
-              {allChats.map((chat) => {
-                const profile = {
-                  address: chat.wallets?.split(':').pop() ?? '',
-                  did: chat.wallets,
-                  handle: chat.name,
-                  isRequestProfile: chat.type === 'request',
-                  threadhash: chat.threadhash
-                };
-                return (
-                  <Card
-                    className="mb-2 cursor-pointer p-2"
-                    key={chat.chatId}
-                    onClick={() => {
-                      setSelectedProfile(profile);
-                    }}
-                  >
-                    <div className="flex">
-                      <Image
-                        alt={chat.chatId}
-                        className="mr-2 h-8 w-8 cursor-pointer rounded-full border dark:border-gray-700"
-                        src={chat.profilePicture ?? ''}
-                      />
-                      <div key={chat.chatId}>
-                        <p>
-                          {chat.name
-                            ? chat.name
-                            : formatAddress(
-                                chat.wallets.split(':').pop() ?? ''
-                              )}
-                        </p>
-                        <p>{chat.msg.messageType}</p>
-                      </div>
+              return (
+                <div
+                  className="mb-2 cursor-pointer p-4"
+                  key={chat.chatId}
+                  onClick={() => {
+                    setSelectedProfile(profile);
+                  }}
+                >
+                  <div className="flex">
+                    <Image
+                      alt={chat.chatId}
+                      className="mr-2 h-8 w-8 cursor-pointer rounded-full border dark:border-gray-700"
+                      src={chat.profilePicture ?? ''}
+                    />
+                    <div key={chat.chatId}>
+                      <p>
+                        {chat.name
+                          ? chat.name
+                          : formatAddress(chat.wallets.split(':').pop() ?? '')}
+                      </p>
+                      <p>{chat.msg.messageType}</p>
                     </div>
-                  </Card>
-                );
-              })}
-            </>
-          )}
-        </Card>
+                  </div>
+                </div>
+              );
+            })}
+          </>
+        )}
       </GridItemFour>
       <GridItemEight>
-        <Card className="mx-4 max-h-full min-h-[800px] p-4">
-          {selectedProfile && (
-            <ChatListItemContainer profile={selectedProfile} />
-          )}
-        </Card>
+        {selectedProfile ? (
+          <ChatListItemContainer profile={selectedProfile} />
+        ) : (
+          <div className="flex min-h-[-webkit-calc(100vh-90px)] flex-col items-center justify-center">
+            <h2 className="text-2xl">Select a message</h2>
+            <p className="text-sm text-gray-500">
+              Choose from your existing conversations, start a new one, or just
+              keep swimming.
+            </p>
+            <Button className="my-4" size="lg">
+              New message
+            </Button>
+          </div>
+        )}
       </GridItemEight>
     </GridLayout>
   );
