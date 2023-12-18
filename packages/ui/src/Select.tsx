@@ -1,16 +1,10 @@
-import type { ComponentProps, ReactNode } from 'react';
+import type { ChangeEvent, ComponentProps, ReactNode } from 'react';
 
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { forwardRef, Fragment, useState } from 'react';
 
 import cn from '../cn';
-
-type OptionEvent = {
-  target: {
-    value: string;
-  };
-};
 
 type Option = {
   description?: ReactNode;
@@ -23,32 +17,32 @@ type Option = {
 };
 interface SelectProps extends ComponentProps<'select'> {
   className?: string;
-  defaultValue?: string;
   label?: string;
-  onChange?: (value: OptionEvent) => void;
   options?: Option[];
 }
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
-  function Select(
-    { className = '', defaultValue, label, onChange, options, ...rest },
-    ref
-  ) {
+  function Select({ className = '', label, options, ...rest }, ref) {
     const [selected, setSelected] = useState(
-      options?.find(
-        (option) => option.value === defaultValue || option.selected
-      ) || options?.[0]
+      options?.find((option) => {
+        if (option.disabled) {
+          return false;
+        }
+        return option.value === rest.defaultValue || option.selected;
+      }) || options?.find((option) => !option.disabled)
     );
 
     return (
       <Listbox
-        onChange={(e: Option) => {
-          setSelected(e);
-          onChange?.({
-            target: {
-              value: e.value as string
+        onChange={(e) => {
+          if (!e.disabled) {
+            setSelected(e);
+            if (rest.onChange) {
+              rest.onChange({
+                target: { value: selected?.value }
+              } as ChangeEvent<HTMLSelectElement>);
             }
-          });
+          }
         }}
         ref={ref}
         value={selected}
@@ -59,7 +53,12 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
               {label || 'Select an option'}
             </Listbox.Label>
             <div className="relative mt-2">
-              <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
+              <Listbox.Button
+                className={cn(
+                  'relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6',
+                  className
+                )}
+              >
                 <span className="ml-3 block truncate">
                   {selected?.title || selected?.label}
                 </span>
@@ -83,17 +82,19 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
                     <Listbox.Option
                       className={({ active }) =>
                         cn(
-                          'relative cursor-default select-none py-0.5 pl-3 pr-9',
-                          active ? 'bg-[#Fa4669] text-white' : 'text-gray-900'
+                          'relative cursor-default select-none py-2 pl-3 pr-9',
+                          active && !option.disabled
+                            ? 'bg-[#Fa4669] text-white'
+                            : 'text-gray-900',
+                          option.disabled && 'bg-[#c8c8c8] text-white'
                         )
                       }
                       key={option.key}
                       value={option}
                     >
-                      {/* eslint-disable-next-line perfectionist/sort-objects */}
-                      {({ selected, active }) => (
+                      {({ active, selected }) => (
                         <>
-                          <div className="flex items-center">
+                          <div className="flex flex-col leading-5">
                             <span
                               className={cn(
                                 'ml-3 block truncate',
@@ -105,8 +106,8 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
                             {option?.description && (
                               <span
                                 className={cn(
-                                  'ml-1 block truncate font-thin text-gray-500',
-                                  selected ? 'font-semibold' : 'font-normal'
+                                  'ml-3 block truncate font-normal',
+                                  selected ? 'font-thin' : ''
                                 )}
                               >
                                 {option.description}
