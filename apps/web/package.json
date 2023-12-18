@@ -65,7 +65,6 @@
     "remark-breaks": "^4.0.0",
     "remark-linkify-regex": "^1.2.1",
     "shared-zustand": "^2.0.0",
-    "solid": "link:@heroicons/react/20/solid",
     "strip-markdown": "^6.0.0",
     "urlcat": "^3.1.0",
     "use-resize-observer": "^9.1.0",
