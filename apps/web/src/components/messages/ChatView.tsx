@@ -68,6 +68,7 @@ const ChatView = () => {
     return [...normalChats, ...requestChats];
   }, [chats, isChatsLoading, requests]);
 
+  console.log('>>> isCha', isChatsLoading, allChats);
   if (!isChatsLoading && allChats.length === 0) {
     return (
       <div className="min-w-screen-xl container m-auto flex min-h-[-webkit-calc(100vh-65px)] flex-col items-center justify-center bg-white">

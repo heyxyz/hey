@@ -155,7 +155,11 @@ const ChatListItemContainer = ({
       )}
       <div className="w-full border-b-[1px]" />
       <div className="h-screen space-y-3 overflow-y-scroll px-4 py-2">
-        {messagesLoading && <Loader message="Loading messages..." />}
+        {messagesLoading && (
+          <div className="flex h-full items-center justify-center">
+            <Loader message="Loading messages..." />
+          </div>
+        )}
         {messages?.reverse().map((message) => {
           const messageFrom = message.fromDID.split(':').pop() ?? '';
           const isMessageFromProfile = messageFrom !== profile.address;
