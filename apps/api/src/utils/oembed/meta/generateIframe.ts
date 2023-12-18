@@ -65,7 +65,7 @@ const generateIframe = (
 
       if (spotifyPlaylistUrlRegex.test(url)) {
         const spotifyUrl = pickedUrl.replace('/playlist', '/embed/playlist');
-        return `<iframe src="${spotifyUrl}" ${spotifySize}allow="encrypted-media"></iframe>`;
+        return `<iframe src="${spotifyUrl}" ${spotifySize} height="380" allow="encrypted-media"></iframe>`;
       }
 
       return null;
