@@ -17,7 +17,7 @@ export const useMessageStore = create(
         set(() => ({ pgpPvtKey: currentPgpPvtKey }))
     }),
     {
-      name: IndexDB.PushStore,
+      name: IndexDB.MessageStore,
       storage: createIdbStorage()
     }
   )
