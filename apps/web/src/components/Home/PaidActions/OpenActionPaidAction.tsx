@@ -56,7 +56,7 @@ const OpenActionPaidAction: FC<OpenActionPaidActionProps> = ({
     );
 
   return (
-    <div className="p-5">
+    <div className="px-5 py-3">
       {openActions.map((openAction, index) => (
         <div
           className="flex items-center space-x-2"
