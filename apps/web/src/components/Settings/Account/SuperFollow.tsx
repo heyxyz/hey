@@ -91,6 +91,13 @@ const SuperFollow: FC = () => {
     queryKey: ['getAllTokens']
   });
 
+  const [options] = useState(
+    allowedTokens?.map((token) => ({
+      label: token.name,
+      value: token.contractAddress
+    }))
+  );
+
   const { signTypedDataAsync } = useSignTypedData({
     onError
   });
@@ -210,10 +217,7 @@ const SuperFollow: FC = () => {
                 : undefined
             }
             onChange={(e) => setSelectedCurrency(e.target.value)}
-            options={allowedTokens?.map((token) => ({
-              label: token.name,
-              value: token.contractAddress
-            }))}
+            options={options}
           />
         </div>
         <Input
