@@ -180,7 +180,7 @@ const ChatListItemContainer = ({
           </div>
         )}
         {messages?.map((message) => {
-          const messageFrom = message.fromDID.split(':').pop() ?? '';
+          const messageFrom = message?.fromDID?.split?.(':')?.pop() ?? '';
           const isMessageFromProfile = messageFrom !== profile.address;
           if (!message.messageObj) {
             return '';

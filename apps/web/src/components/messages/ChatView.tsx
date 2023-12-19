@@ -124,7 +124,9 @@ const ChatView = () => {
                       <p>
                         {chat.name
                           ? chat.name
-                          : formatAddress(chat.wallets.split(':').pop() ?? '')}
+                          : formatAddress(
+                              chat?.wallets?.split?.(':')?.pop() ?? ''
+                            )}
                       </p>
                       <p className="truncate text-sm text-gray-400">
                         {chat.msg.messageContent}
