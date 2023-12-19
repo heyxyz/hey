@@ -52,7 +52,7 @@ const ImpressionsToday: FC<ImpressionsTodayProps> = ({ impressionsToday }) => {
                 }
               ],
               labels: impressionsToday.map((impression) =>
-                formatDate(new Date(impression.timestamp), 'hh:mm')
+                formatDate(impression.timestamp, 'hh:mm')
               )
             }}
             options={{
