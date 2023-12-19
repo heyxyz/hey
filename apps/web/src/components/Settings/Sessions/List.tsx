@@ -9,9 +9,9 @@ import {
   useApprovedAuthenticationsQuery,
   useRevokeAuthenticationMutation
 } from '@hey/lens';
+import formatDate from '@hey/lib/datetime/formatDate';
 import { Button, Card, EmptyState, ErrorMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
-import { formatDate } from '@lib/formatTime';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';

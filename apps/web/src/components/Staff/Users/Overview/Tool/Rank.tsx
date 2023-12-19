@@ -1,6 +1,7 @@
 import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
+import MetaDetails from '@components/Shared/Staff/MetaDetails';
 import {
   CheckCircleIcon,
   CurrencyDollarIcon,
@@ -10,12 +11,10 @@ import {
 } from '@heroicons/react/24/outline';
 import { HashtagIcon } from '@heroicons/react/24/solid';
 import { GITCOIN_PASSPORT_KEY } from '@hey/data/constants';
-import { formatDate } from '@lib/formatTime';
+import formatDate from '@hey/lib/datetime/formatDate';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import urlcat from 'urlcat';
-
-import MetaDetails from '../../../../Shared/Staff/MetaDetails';
 
 interface RankProps {
   profile: Profile;

@@ -9,8 +9,8 @@ import {
 } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import getAllFeatureFlags from '@hey/lib/api/getAllFeatureFlags';
+import formatDate from '@hey/lib/datetime/formatDate';
 import { Badge, Button, Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
-import { formatDate } from '@lib/formatTime';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
