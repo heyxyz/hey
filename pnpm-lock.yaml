@@ -222,12 +222,6 @@ importers:
       chart.js:
         specifier: ^4.4.1
         version: 4.4.1
-      dayjs:
-        specifier: ^1.11.10
-        version: 1.11.10
-      dayjs-twitter:
-        specifier: ^0.5.0
-        version: 0.5.0
       dotenv:
         specifier: ^16.3.1
         version: 16.3.1
@@ -504,6 +498,9 @@ importers:
       axios:
         specifier: ^1.6.2
         version: 1.6.2
+      dayjs:
+        specifier: ^1.11.10
+        version: 1.11.10
       omit-deep:
         specifier: ^0.3.0
         version: 0.3.0
@@ -4268,6 +4265,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
+      napi-wasm: 1.1.0
     dev: false
     bundledDependencies:
       - napi-wasm
@@ -8347,12 +8345,6 @@ packages:
     resolution: {integrity: sha512-2P0p0pFGzHS5EMnhdxQi7aJN+iMheud0UhG4dlE1DLAlvL8JHjJJTX/CSm4JXwV0Ka5nGk3zC5mcb5bUQUxxMA==}
     dev: false
 
-  /dayjs-twitter@0.5.0:
-    resolution: {integrity: sha512-SZ7qEUISstBLUXdlGAbLrwr6zfRM9kaCfbq4uVTerM/HXzuHiiGzzUqAJVhxt+3tf69E+ocmQdP6YYpOINv05w==}
-    dependencies:
-      duration-js: 4.0.0
-    dev: false
-
   /dayjs@1.11.10:
     resolution: {integrity: sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ==}
     dev: false
@@ -8630,10 +8622,6 @@ packages:
       inherits: 2.0.4
       readable-stream: 3.6.2
       stream-shift: 1.0.1
-    dev: false
-
-  /duration-js@4.0.0:
-    resolution: {integrity: sha512-qoXjOsH97r+NrOa6sK5V2cwBOouVG/LI9jwgwKvjVkyqGpZ72yilWjjzFJYPqqbvNZDwpRMaLEUFE+PTefvOEA==}
     dev: false
 
   /eastasianwidth@0.2.0:
@@ -11630,6 +11618,10 @@ packages:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
+
+  /napi-wasm@1.1.0:
+    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
+    dev: false
 
   /natural-compare-lite@1.4.0:
     resolution: {integrity: sha512-Tj+HTDSJJKaZnfiuw+iaF9skdPpTo2GtEly5JHnWV/hfv2Qj/9RKsGISQtLh2ox3l5EAGw487hnBee0sIJ6v2g==}

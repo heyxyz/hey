@@ -3,9 +3,9 @@ import type { FC } from 'react';
 
 import Slug from '@components/Shared/Slug';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
+import formatDate from '@hey/lib/datetime/formatDate';
 import formatAddress from '@hey/lib/formatAddress';
 import getProfile from '@hey/lib/getProfile';
-import { formatDate } from '@lib/formatTime';
 import Link from 'next/link';
 
 interface ProfileProps {

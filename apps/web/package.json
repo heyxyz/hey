@@ -40,8 +40,6 @@
     "axios": "^1.6.2",
     "browser-image-compression": "^2.0.2",
     "chart.js": "^4.4.1",
-    "dayjs": "^1.11.10",
-    "dayjs-twitter": "^0.5.0",
     "dotenv": "^16.3.1",
     "esbuild": "^0.19.10",
     "framer-motion": "^10.16.16",
