@@ -52,7 +52,7 @@ const EventsToday: FC<EventsTodayProps> = ({ eventsToday }) => {
                 }
               ],
               labels: eventsToday.map((event) =>
-                formatDate(new Date(event.timestamp), 'hh:mm')
+                formatDate(event.timestamp, 'hh:mm')
               )
             }}
             options={{
