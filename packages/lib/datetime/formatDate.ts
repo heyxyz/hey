@@ -8,8 +8,8 @@ dayjs.extend(relativeTime);
  * @param date The date to format.
  * @returns A string in the application date format.
  */
-const formatDate = (date?: Date, format = 'MMMM D, YYYY') => {
-  return dayjs(date).format(format);
+const formatDate = (date: Date | string, format = 'MMMM D, YYYY') => {
+  return dayjs(new Date(date)).format(format);
 };
 
 export default formatDate;
