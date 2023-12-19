@@ -11,6 +11,7 @@ import { useCallback, useEffect, useMemo, useRef } from 'react';
 import useMessageStore from 'src/store/persisted/useMessageStore';
 import { useWalletClient } from 'wagmi';
 
+import ChatReactionPopover from './ChatReactionPopover';
 import ChatMessageInput from './Input';
 
 const ChatListItemContainer = ({
@@ -188,21 +189,30 @@ const ChatListItemContainer = ({
 
           return (
             <div
-              className={
-                isMessageFromProfile
-                  ? 'text-wrap ml-auto max-w-[40%] rounded-3xl rounded-br-sm bg-[#EF4444] p-4 text-white '
-                  : 'text-wrap max-w-[40%] rounded-3xl rounded-bl-sm bg-gray-300 p-4'
-              }
+              className={`group flex items-center gap-2 ${
+                isMessageFromProfile ? 'flex-row-reverse' : 'flex-row'
+              }`}
               key={message.link}
             >
-              {typeof message.messageObj === 'string'
-                ? message.messageObj
-                : message.messageObj?.content.toString()}
-              {message.timestamp && (
-                <span className="ml-auto block w-fit text-xs">
-                  {getTwitterFormat(dayjs(message.timestamp).toDate())}
-                </span>
-              )}
+              <div
+                className={
+                  isMessageFromProfile
+                    ? 'text-wrap max-w-[75%] rounded-2xl rounded-br-sm bg-[#EF4444] px-4 py-2 text-white'
+                    : 'text-wrap max-w-[75%] rounded-2xl rounded-bl-sm bg-gray-300 px-4 py-2'
+                }
+              >
+                {typeof message.messageObj === 'string'
+                  ? message.messageObj
+                  : message.messageObj?.content.toString()}
+                {message.timestamp && (
+                  <sub className="ml-4 text-right text-xs">
+                    {getTwitterFormat(dayjs(message.timestamp).toDate())}
+                  </sub>
+                )}
+              </div>
+              <div className="hidden group-hover:block">
+                <ChatReactionPopover />
+              </div>
             </div>
           );
         })}
