@@ -24,6 +24,7 @@ interface SelectProps extends ComponentProps<'select'> {
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
   function Select({ className = '', label, options, ...rest }, ref) {
+    const [newOptions] = useState(options);
     const [selected, setSelected] = useState(
       options?.find(
         (option) => option.value === rest.defaultValue || option.selected
@@ -78,7 +79,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
                 show={open}
               >
                 <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-xl bg-white py-1 text-base shadow-sm ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                  {options?.map((option) => (
+                  {newOptions?.map((option) => (
                     <Listbox.Option
                       className={({ active }) =>
                         cn(
