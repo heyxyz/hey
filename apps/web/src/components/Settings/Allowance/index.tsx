@@ -47,6 +47,18 @@ const AllowanceSettings: NextPage = () => {
     queryKey: ['getAllTokens']
   });
 
+  const [options] = useState(
+    allowedTokens?.map((token) => ({
+      label: token.name,
+      value: token.contractAddress
+    })) || [
+      {
+        label: 'Loading...',
+        value: 'Loading...'
+      }
+    ]
+  );
+
   const { data, error, loading, refetch } =
     useApprovedModuleAllowanceAmountQuery({
       skip: !currentProfile?.id || allowedTokensLoading,
@@ -86,17 +98,7 @@ const AllowanceSettings: NextPage = () => {
                   request: getAllowancePayload(e.target.value)
                 }).finally(() => setCurrencyLoading(false));
               }}
-              options={
-                allowedTokens?.map((token) => ({
-                  label: token.name,
-                  value: token.contractAddress
-                })) || [
-                  {
-                    label: 'Loading...',
-                    value: 'Loading...'
-                  }
-                ]
-              }
+              options={options}
             />
           </div>
           {loading || allowedTokensLoading || currencyLoading ? (
