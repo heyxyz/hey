@@ -24,6 +24,7 @@ import {
 import { POLYGONSCAN_URL } from '@hey/data/constants';
 import { FollowModuleType } from '@hey/lens';
 import getAllTokens from '@hey/lib/api/getAllTokens';
+import formatDate from '@hey/lib/datetime/formatDate';
 import formatAddress from '@hey/lib/formatAddress';
 import getAssetSymbol from '@hey/lib/getAssetSymbol';
 import getProfile from '@hey/lib/getProfile';
@@ -32,7 +33,6 @@ import getTokenImage from '@hey/lib/getTokenImage';
 import humanize from '@hey/lib/humanize';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Modal, Tooltip } from '@hey/ui';
-import { formatDate } from '@lib/formatTime';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import plur from 'plur';
