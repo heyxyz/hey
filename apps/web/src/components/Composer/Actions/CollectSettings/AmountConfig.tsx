@@ -1,11 +1,11 @@
 import type { AllowedToken } from '@hey/types/hey';
-import type { FC } from 'react';
 
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import { OpenActionModuleType } from '@hey/lens';
 import { Input, Select } from '@hey/ui';
+import { type FC, useState } from 'react';
 import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
 
 interface AmountConfigProps {
@@ -17,6 +17,12 @@ const AmountConfig: FC<AmountConfigProps> = ({
   allowedTokens,
   setCollectType
 }) => {
+  const [options] = useState(
+    allowedTokens?.map((token) => ({
+      label: token.name,
+      value: token.contractAddress
+    }))
+  );
   const collectModule = useCollectModuleStore((state) => state.collectModule);
 
   return (
@@ -69,10 +75,7 @@ const AmountConfig: FC<AmountConfigProps> = ({
                     }
                   });
                 }}
-                options={allowedTokens?.map((token) => ({
-                  label: token.name,
-                  value: token.contractAddress
-                }))}
+                options={options}
               />
             </div>
           </div>
