@@ -25,26 +25,23 @@ interface SelectProps extends ComponentProps<'select'> {
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
   function Select({ className = '', label, options, ...rest }, ref) {
     const [selected, setSelected] = useState(
-      options?.find((option) => {
-        if (option.disabled) {
-          return false;
-        }
-        return option.value === rest.defaultValue || option.selected;
-      }) ||
-        options?.find((option) => !option.disabled) ||
-        options?.[0]
+      options?.find(
+        (option) => option.value === rest.defaultValue || option.selected
+      ) || options?.[0]
     );
 
     return (
       <Listbox
         onChange={(e) => {
           if (!e.disabled) {
-            setSelected(e);
-            if (rest.onChange) {
-              rest.onChange({
-                target: { value: e?.value }
-              } as ChangeEvent<HTMLSelectElement>);
-            }
+            setSelected(() => {
+              if (rest.onChange) {
+                rest.onChange({
+                  target: { value: e?.value }
+                } as ChangeEvent<HTMLSelectElement>);
+              }
+              return e;
+            });
           }
         }}
         ref={ref}
