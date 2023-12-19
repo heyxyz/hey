@@ -19,12 +19,6 @@ import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
 const List: FC = () => {
-  const [options] = useState(
-    Object.values(ExploreProfilesOrderByType).map((orderBy) => ({
-      label: orderBy,
-      value: orderBy
-    }))
-  );
   const { push } = useRouter();
   const [orderBy, setOrderBy] = useState<ExploreProfilesOrderByType>(
     ExploreProfilesOrderByType.LatestCreated
@@ -70,7 +64,10 @@ const List: FC = () => {
           onChange={(e) =>
             setOrderBy(e.target.value as ExploreProfilesOrderByType)
           }
-          options={options}
+          options={Object.values(ExploreProfilesOrderByType).map((orderBy) => ({
+            label: orderBy,
+            value: orderBy
+          }))}
         />
         <button onClick={() => refetch()} type="button">
           <ArrowPathIcon className="h-5 w-5" />

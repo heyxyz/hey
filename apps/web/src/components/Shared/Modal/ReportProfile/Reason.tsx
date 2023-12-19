@@ -1,9 +1,10 @@
+import type { Dispatch, FC, SetStateAction } from 'react';
+
 import {
   ProfileReportingFraudSubreason,
   ProfileReportingSpamSubreason
 } from '@hey/lens';
 import { Select } from '@hey/ui';
-import { type Dispatch, type FC, type SetStateAction, useState } from 'react';
 
 interface ReasonProps {
   setSubReason: Dispatch<SetStateAction<string>>;
@@ -18,60 +19,30 @@ const Reason: FC<ReasonProps> = ({
   subReason,
   type
 }) => {
-  const [options] = useState({
-    typeOptions: {
-      default: [
-        {
-          disabled: true,
-          label: 'Select type',
-          selected: true,
-          value: 'Select type'
-        },
-        {
-          label: 'Fraud',
-          selected: type === 'fraudReason',
-          value: 'fraudReason'
-        },
-        {
-          label: 'Spam',
-          selected: type === 'spamReason',
-          value: 'spamReason'
-        }
-      ],
-      fraudReason: [
-        {
-          label: 'Impersonation',
-          selected: subReason === ProfileReportingFraudSubreason.Impersonation,
-          value: ProfileReportingFraudSubreason.Impersonation
-        },
-        {
-          label: 'Something else',
-          selected: subReason === ProfileReportingFraudSubreason.SomethingElse,
-          value: ProfileReportingFraudSubreason.SomethingElse
-        }
-      ],
-      spamReason: [
-        {
-          label: 'Repetitive',
-          selected: subReason === ProfileReportingSpamSubreason.Repetitive,
-          value: ProfileReportingSpamSubreason.Repetitive
-        },
-        {
-          label: 'Something else',
-          selected: subReason === ProfileReportingSpamSubreason.SomethingElse,
-          value: ProfileReportingSpamSubreason.SomethingElse
-        }
-      ]
-    }
-  });
-
   return (
     <div className="space-y-3">
       <div>
         <div className="label">Type</div>
         <Select
           onChange={(e) => setType(e.target.value)}
-          options={options.typeOptions.default}
+          options={[
+            {
+              disabled: true,
+              label: 'Select type',
+              selected: true,
+              value: 'Select type'
+            },
+            {
+              label: 'Fraud',
+              selected: type === 'fraudReason',
+              value: 'fraudReason'
+            },
+            {
+              label: 'Spam',
+              selected: type === 'spamReason',
+              value: 'spamReason'
+            }
+          ]}
         />
       </div>
       {type ? (
@@ -87,9 +58,40 @@ const Reason: FC<ReasonProps> = ({
                 value: 'Select reason'
               },
               ...(type === 'fraudReason'
-                ? options.typeOptions.fraudReason
+                ? [
+                    {
+                      label: 'Impersonation',
+                      selected:
+                        subReason ===
+                        ProfileReportingFraudSubreason.Impersonation,
+                      value: ProfileReportingFraudSubreason.Impersonation
+                    },
+                    {
+                      label: 'Something else',
+                      selected:
+                        subReason ===
+                        ProfileReportingFraudSubreason.SomethingElse,
+                      value: ProfileReportingFraudSubreason.SomethingElse
+                    }
+                  ]
                 : []),
-              ...(type === 'spamReason' ? options.typeOptions.spamReason : [])
+              ...(type === 'spamReason'
+                ? [
+                    {
+                      label: 'Repetitive',
+                      selected:
+                        subReason === ProfileReportingSpamSubreason.Repetitive,
+                      value: ProfileReportingSpamSubreason.Repetitive
+                    },
+                    {
+                      label: 'Something else',
+                      selected:
+                        subReason ===
+                        ProfileReportingSpamSubreason.SomethingElse,
+                      value: ProfileReportingSpamSubreason.SomethingElse
+                    }
+                  ]
+                : [])
             ]}
           />
         </div>
