@@ -1,9 +1,9 @@
 import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
+import formatDate from '@hey/lib/datetime/formatDate';
 import getAppName from '@hey/lib/getAppName';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
-import { formatDate } from '@lib/formatTime';
 import pushToImpressions from '@lib/pushToImpressions';
 import { useEffectOnce } from 'usehooks-ts';
 
