@@ -1,0 +1,13 @@
+fragment PublicationMetadataLitEncryptionFields on PublicationMetadataLitEncryption {
+  encryptionKey
+  accessCondition {
+    criteria {
+      ... on SecondTierCondition {
+        ...SecondTierConditionFields
+      }
+      ... on ThirdTierCondition {
+        ...ThirdTierConditionFields
+      }
+    }
+  }
+}
