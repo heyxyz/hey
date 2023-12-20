@@ -47,7 +47,7 @@ const LivestreamEditor: FC = () => {
     try {
       setCreating(true);
       const response = await axios.post(
-        `${HEY_API_URL}/live/createStream`,
+        `${HEY_API_URL}/live/create`,
         { record },
         { headers: getAuthWorkerHeaders() }
       );
