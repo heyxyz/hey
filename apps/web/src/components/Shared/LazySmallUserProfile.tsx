@@ -7,24 +7,20 @@ import SmallUserProfileShimmer from './Shimmer/SmallUserProfileShimmer';
 import SmallUserProfile from './SmallUserProfile';
 
 interface UserProfileProps {
-  hideSlug?: boolean;
   id: string;
   linkToProfile?: boolean;
-  smallAvatar?: boolean;
 }
 
 const LazySmallUserProfile: FC<UserProfileProps> = ({
-  hideSlug = false,
   id,
-  linkToProfile = false,
-  smallAvatar = false
+  linkToProfile = false
 }) => {
   const { data, loading } = useProfileQuery({
     variables: { request: { forProfileId: id } }
   });
 
   if (loading) {
-    return <SmallUserProfileShimmer smallAvatar={smallAvatar} />;
+    return <SmallUserProfileShimmer smallAvatar />;
   }
 
   if (!data?.profile) {
@@ -33,10 +29,9 @@ const LazySmallUserProfile: FC<UserProfileProps> = ({
 
   return (
     <SmallUserProfile
-      hideSlug={hideSlug}
       linkToProfile={linkToProfile}
       profile={data.profile as Profile}
-      smallAvatar={smallAvatar}
+      smallAvatar
     />
   );
 };
