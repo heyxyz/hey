@@ -1,7 +1,6 @@
 import type { FC } from 'react';
 
 import { SecondTierCondition } from '@hey/lens';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 
 import ThirdTierCondition from '../ThirdTierCondition';
 
@@ -10,10 +9,6 @@ interface SecondTierConditionProps {
 }
 
 const SecondTierCondition: FC<SecondTierConditionProps> = ({ condition }) => {
-  if (!isFeatureEnabled('token-gated')) {
-    return null;
-  }
-
   return (
     <div>
       {condition.__typename === 'AndCondition' ? (
@@ -21,7 +16,7 @@ const SecondTierCondition: FC<SecondTierConditionProps> = ({ condition }) => {
           <div className="font-bold">
             Should match all of the following conditions:
           </div>
-          <div>
+          <div className="ml-5 space-y-1.5">
             {condition.criteria.map((criterion) => (
               <ThirdTierCondition
                 condition={criterion}
@@ -35,9 +30,9 @@ const SecondTierCondition: FC<SecondTierConditionProps> = ({ condition }) => {
       {condition.__typename === 'OrCondition' ? (
         <div className="space-y-3">
           <div className="font-bold">
-            Should match any of the following conditions:
+            Should match any one of the following conditions:
           </div>
-          <div>
+          <div className="ml-5 space-y-1.5">
             {condition.criteria.map((criterion) => (
               <ThirdTierCondition
                 condition={criterion}

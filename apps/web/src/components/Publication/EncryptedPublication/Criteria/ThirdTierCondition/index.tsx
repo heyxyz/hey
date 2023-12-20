@@ -1,22 +1,21 @@
 import type { FC } from 'react';
 
 import { ThirdTierCondition } from '@hey/lens';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
+
+import ProfileOwnershipCondition from '../ProfileOwnershipCondition';
 
 interface ThirdTierConditionProps {
   condition: ThirdTierCondition;
 }
 
 const ThirdTierCondition: FC<ThirdTierConditionProps> = ({ condition }) => {
-  if (!isFeatureEnabled('token-gated')) {
-    return null;
-  }
-
   return (
     <div>
-      {condition.__typename}
       {condition.__typename === 'ProfileOwnershipCondition' ? (
-        <span> {condition.profileId}</span>
+        <ProfileOwnershipCondition condition={condition} />
+      ) : null}
+      {condition.__typename === 'NftOwnershipCondition' ? (
+        <div>{condition.contract.address}</div>
       ) : null}
     </div>
   );
