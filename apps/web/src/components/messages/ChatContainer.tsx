@@ -4,7 +4,8 @@ import { PUSH_ENV } from '@hey/data/constants';
 import formatAddress from '@hey/lib/formatAddress';
 import { Button, Spinner } from '@hey/ui';
 import { getTwitterFormat } from '@lib/formatTime';
-import { chat } from '@pushprotocol/restapi';
+import { mapReactionsToMessages } from '@lib/mapReactionsToMessages';
+import { chat, type IMessageIPFSWithCID } from '@pushprotocol/restapi';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
@@ -67,13 +68,14 @@ const ChatListItemContainer = ({
       }
 
       const history =
-        (await chat.history({
+        ((await chat.history({
           ...baseConfig,
-          limit: 10,
+          limit: 30,
           threadhash: threadHash,
           toDecrypt: true
-        })) ?? [];
-      return history.reverse();
+        })) as IMessageIPFSWithCID[]) ?? [];
+
+      return mapReactionsToMessages(history.reverse());
     },
     queryKey: ['get-messages', profile.did]
   });
@@ -181,8 +183,7 @@ const ChatListItemContainer = ({
           </div>
         )}
         {messages?.map((message) => {
-          const messageFrom = message?.fromDID?.split?.(':')?.pop() ?? '';
-          const isMessageFromProfile = messageFrom !== profile.address;
+          const isMessageFromProfile = message.from !== profile.address;
           if (!message.messageObj) {
             return '';
           }
@@ -194,24 +195,42 @@ const ChatListItemContainer = ({
               }`}
               key={message.link}
             >
-              <div
-                className={
-                  isMessageFromProfile
-                    ? 'text-wrap max-w-[75%] rounded-2xl rounded-br-sm bg-[#EF4444] px-4 py-2 text-white'
-                    : 'text-wrap max-w-[75%] rounded-2xl rounded-bl-sm bg-gray-300 px-4 py-2'
-                }
-              >
-                {typeof message.messageObj === 'string'
-                  ? message.messageObj
-                  : message.messageObj?.content.toString()}
-                {message.timestamp && (
-                  <sub className="ml-4 text-right text-xs">
-                    {getTwitterFormat(dayjs(message.timestamp).toDate())}
-                  </sub>
+              <div className="max-w-[75%]">
+                <div
+                  className={
+                    isMessageFromProfile
+                      ? 'text-wrap rounded-2xl rounded-br-sm bg-[#EF4444] px-4 py-2 text-white'
+                      : 'text-wrap rounded-2xl rounded-bl-sm bg-gray-300 px-4 py-2'
+                  }
+                >
+                  {typeof message.messageObj === 'string'
+                    ? message.messageObj
+                    : message.messageObj?.content.toString()}
+                  {message.timestamp && (
+                    <sub className="ml-4 text-right text-xs">
+                      {getTwitterFormat(dayjs(message.timestamp).toDate())}
+                    </sub>
+                  )}
+                </div>
+                {message.reactions && (
+                  <div className="float-right -mt-2 flex gap-1">
+                    {message.reactions.map((reaction, index) => (
+                      <span
+                        className="h-6 w-6 rounded-full bg-[#EF4444] bg-opacity-20 text-center"
+                        key={index}
+                      >
+                        {reaction}
+                      </span>
+                    ))}
+                  </div>
                 )}
               </div>
               <div className="hidden group-hover:block">
-                <ChatReactionPopover />
+                <ChatReactionPopover
+                  reactions={message.reactions}
+                  recipientAddress={profile.address}
+                  reference={message.link}
+                />
               </div>
             </div>
           );

@@ -205,8 +205,8 @@ importers:
         specifier: ^3.1.6
         version: 3.1.6(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)
       '@pushprotocol/restapi':
-        specifier: ^1.4.45
-        version: 1.4.45(@types/react@18.2.45)(ethers@5.7.2)(react@18.2.0)(typescript@5.3.3)(zod@3.22.4)
+        specifier: ^1.5.0
+        version: 1.5.0(@types/react@18.2.45)(ethers@5.7.2)(react@18.2.0)(typescript@5.3.3)(zod@3.22.4)
       '@pushprotocol/socket':
         specifier: ^0.5.3
         version: 0.5.3(ethers@5.7.2)
@@ -417,7 +417,7 @@ importers:
     dependencies:
       '@pushprotocol/restapi':
         specifier: ^1.4.45
-        version: 1.4.45(@types/react@18.2.45)(ethers@5.7.2)(react@18.2.0)(typescript@5.3.3)(zod@3.22.4)
+        version: 1.4.45(ethers@5.7.2)(react@18.2.0)(typescript@5.3.3)
     devDependencies:
       '@hey/config':
         specifier: workspace:*
@@ -4533,8 +4533,43 @@ packages:
     dependencies:
       '@prisma/debug': 5.7.1
 
-  /@pushprotocol/restapi@1.4.45(@types/react@18.2.45)(ethers@5.7.2)(react@18.2.0)(typescript@5.3.3)(zod@3.22.4):
+  /@pushprotocol/restapi@1.4.45(ethers@5.7.2)(react@18.2.0)(typescript@5.3.3):
     resolution: {integrity: sha512-K65WvZV2sbVnr9KZDAU9jj6TUmT+fCUUtNHRSpqytSJGazthAUcwqY614LSb3m5I/QTnDO8MyFjPjnnYtyej8Q==}
+    peerDependencies:
+      ethers: ^5.6.8
+    dependencies:
+      '@ambire/signature-validator': 1.3.1
+      '@metamask/eth-sig-util': 5.1.0
+      '@pushprotocol/socket': 0.5.3(ethers@5.7.2)
+      axios: 0.27.2
+      buffer: 6.0.3
+      crypto-js: 4.2.0
+      ethers: 5.7.2
+      immer: 10.0.3
+      joi: 17.11.0
+      livepeer: 2.9.2(@types/react@18.2.45)(immer@10.0.3)(react@18.2.0)
+      openpgp: 5.11.0
+      simple-peer: 9.11.1
+      socket.io-client: 4.7.2
+      tslib: 2.6.2
+      unique-names-generator: 4.7.1
+      uuid: 9.0.1
+      video-stream-merger: 4.0.1
+      viem: 1.20.2(typescript@5.3.3)(zod@3.22.4)
+    transitivePeerDependencies:
+      - '@types/react'
+      - bufferutil
+      - debug
+      - encoding
+      - react
+      - supports-color
+      - typescript
+      - utf-8-validate
+      - zod
+    dev: false
+
+  /@pushprotocol/restapi@1.5.0(@types/react@18.2.45)(ethers@5.7.2)(react@18.2.0)(typescript@5.3.3)(zod@3.22.4):
+    resolution: {integrity: sha512-zNgTZkvwhZbYEfDD3upb2bU21CRMAlON2osSjWp2L7+0brL8k6/UEo6KEEWpvwDA8D7F1cCAn/Cvdz3/CxJZ3g==}
     peerDependencies:
       ethers: ^5.6.8
     dependencies:

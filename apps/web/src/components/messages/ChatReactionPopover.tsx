@@ -1,10 +1,68 @@
 import { Popover, Transition } from '@headlessui/react';
 import { FaceSmileIcon } from '@heroicons/react/24/solid';
+import { PUSH_ENV } from '@hey/data/constants';
 import { Button } from '@hey/ui';
+import { chat, type Message } from '@pushprotocol/restapi';
+import { useMutation } from '@tanstack/react-query';
 import { Fragment } from 'react';
+import useMessageStore from 'src/store/persisted/useMessageStore';
+import { useWalletClient } from 'wagmi';
 
-const emojis = ['👍', '👎', '❤️', '👏', '😄', '😢'];
-const ChatReactionPopover = () => {
+const emojis = [
+  {
+    action: 'ThumbsUp',
+    emoji: '👍'
+  },
+  {
+    action: 'ThumbsDown',
+    emoji: '👎'
+  },
+  {
+    action: 'Heart',
+    emoji: '❤️'
+  },
+  {
+    action: 'Clap',
+    emoji: '👏'
+  },
+  {
+    action: 'Smile',
+    emoji: '😄'
+  },
+  {
+    action: 'Cry',
+    emoji: '😢'
+  }
+];
+
+interface Props {
+  reactions: string[];
+  recipientAddress: string;
+  reference: string;
+}
+const ChatReactionPopover = ({
+  reactions,
+  recipientAddress,
+  reference
+}: Props) => {
+  const { data: signer } = useWalletClient();
+  const pgpPrivateKey = useMessageStore((state) => state.pgpPvtKey);
+  const { mutateAsync: sendReaction } = useMutation({
+    mutationFn: async (message: Message) => {
+      if (!signer) {
+        return;
+      }
+      return await chat.send({
+        account: signer.account.address,
+        env: PUSH_ENV,
+        message,
+        pgpPrivateKey,
+        to: recipientAddress
+      });
+    },
+    mutationKey: ['send-reaction']
+  });
+
   return (
     <Popover className="relative h-full">
       {({ open }) => (
@@ -32,9 +90,19 @@ const ChatReactionPopover = () => {
                 {emojis.map((emoji) => (
                   <Button
                     className="rounded-full border-0 bg-transparent shadow-none outline-none ring-0"
-                    key={emoji}
+                    key={emoji.action.toLowerCase()}
+                    onClick={() => {
+                      // disallowing duplication emoji reactions
+                      if (!reactions.includes(emoji.emoji)) {
+                        sendReaction({
+                          content: emoji.emoji,
+                          reference,
+                          type: 'Reaction'
+                        });
+                      }
+                    }}
                   >
-                    {emoji}
+                    {emoji.emoji}
                   </Button>
                 ))}
               </div>

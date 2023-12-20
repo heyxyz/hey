@@ -82,7 +82,7 @@ const ChatView = () => {
       </div>
     );
   }
-  console.log('>>? allChats', allChats);
+
   return (
     <GridLayout
       className="border-x-[1px] bg-white p-0 sm:p-0"
