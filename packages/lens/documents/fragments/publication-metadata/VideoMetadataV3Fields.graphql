@@ -13,4 +13,7 @@ fragment VideoMetadataV3Fields on VideoMetadataV3 {
   }
   title
   content
+  encryptedWith {
+    ...PublicationMetadataLitEncryptionFields
+  }
 }

@@ -1,0 +1,7 @@
+fragment NftOwnershipConditionFields on NftOwnershipCondition {
+  contract {
+    ...NetworkAddressFields
+  }
+  contractType
+  tokenIds
+}

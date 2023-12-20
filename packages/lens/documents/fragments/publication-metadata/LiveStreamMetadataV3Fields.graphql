@@ -12,4 +12,7 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
   attachments {
     ...PublicationMetadataMediaFields
   }
+  encryptedWith {
+    ...PublicationMetadataLitEncryptionFields
+  }
 }
