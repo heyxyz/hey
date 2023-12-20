@@ -14,6 +14,9 @@ const ThirdTierCondition: FC<ThirdTierConditionProps> = ({ condition }) => {
       {condition.__typename === 'ProfileOwnershipCondition' ? (
         <ProfileOwnershipCondition condition={condition} />
       ) : null}
+      {condition.__typename === 'NftOwnershipCondition' ? (
+        <div>{condition.contract.address}</div>
+      ) : null}
     </div>
   );
 };
