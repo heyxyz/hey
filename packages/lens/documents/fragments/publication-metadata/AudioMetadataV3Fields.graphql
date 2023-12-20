@@ -13,4 +13,7 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
   }
   title
   content
+  encryptedWith {
+    ...PublicationMetadataLitEncryptionFields
+  }
 }
