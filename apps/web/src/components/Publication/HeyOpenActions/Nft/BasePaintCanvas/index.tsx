@@ -19,7 +19,7 @@ import NftShimmer from './Shimmer';
 
 interface BasePaintCanvasProps {
   nftMetadata: BasePaintCanvasMetadata;
-  publication: AnyPublication;
+  publication?: AnyPublication;
 }
 
 const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
@@ -43,7 +43,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
     return <NftShimmer />;
   }
 
-  if (!canvas) {
+  if (!canvas?.bitmap) {
     return null;
   }
 
@@ -87,75 +87,81 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
             ))}
           </div>
         </div>
-        {canMint ? (
-          <>
-            <Button
-              className="text-sm"
-              icon={<CursorArrowRaysIcon className="h-4 w-4" />}
-              onClick={() => {
-                setQuantity(1);
-                setShowMintModal(true);
-                Leafwatch.track(
-                  PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.OPEN_MINT,
-                  { publication_id: publication.id }
-                );
-              }}
-              size="md"
+        {publication ? (
+          canMint ? (
+            <>
+              <Button
+                className="text-sm"
+                icon={<CursorArrowRaysIcon className="h-4 w-4" />}
+                onClick={() => {
+                  setQuantity(1);
+                  setShowMintModal(true);
+                  Leafwatch.track(
+                    PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.OPEN_MINT,
+                    { publication_id: publication.id }
+                  );
+                }}
+                size="md"
+              >
+                Mint
+              </Button>
+              <Modal
+                icon={
+                  <CursorArrowRaysIcon className="text-brand-500 h-5 w-5" />
+                }
+                onClose={() => setShowMintModal(false)}
+                show={showMintModal}
+                title="Mint on BasePaint"
+              >
+                <Mint canvas={canvas} publication={publication} />
+              </Modal>
+            </>
+          ) : canContribute ? (
+            <Link
+              href={urlcat('https://basepaint.art/mint/:id', { id: canvas.id })}
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              Mint
-            </Button>
-            <Modal
-              icon={<CursorArrowRaysIcon className="text-brand-500 h-5 w-5" />}
-              onClose={() => setShowMintModal(false)}
-              show={showMintModal}
-              title="Mint on BasePaint"
+              <Button
+                className="text-sm"
+                icon={<CursorArrowRaysIcon className="h-4 w-4" />}
+                onClick={() =>
+                  Leafwatch.track(
+                    PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.OPEN_LINK,
+                    { from: 'mint_embed', publication_id: publication.id }
+                  )
+                }
+                size="md"
+              >
+                Contribute
+              </Button>
+            </Link>
+          ) : (
+            <Link
+              href={urlcat('https://opensea.io/assets/base/:contract/:token', {
+                contract: BASEPAINT_CONTRACT,
+                token: canvas.id
+              })}
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              <Mint canvas={canvas} publication={publication} />
-            </Modal>
-          </>
-        ) : canContribute ? (
-          <Link
-            href={urlcat('https://basepaint.art/mint/:id', { id: canvas.id })}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <Button
-              className="text-sm"
-              icon={<CursorArrowRaysIcon className="h-4 w-4" />}
-              onClick={() =>
-                Leafwatch.track(
-                  PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.OPEN_LINK,
-                  { from: 'mint_embed', publication_id: publication.id }
-                )
-              }
-              size="md"
-            >
-              Contribute
-            </Button>
-          </Link>
+              <Button
+                className="text-sm"
+                icon={<CursorArrowRaysIcon className="h-4 w-4" />}
+                onClick={() =>
+                  Leafwatch.track(
+                    PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.OPEN_OPENSEA_LINK,
+                    { from: 'mint_embed', publication_id: publication.id }
+                  )
+                }
+                size="md"
+              >
+                View on OpenSea
+              </Button>
+            </Link>
+          )
         ) : (
-          <Link
-            href={urlcat('https://opensea.io/assets/base/:contract/:token', {
-              contract: BASEPAINT_CONTRACT,
-              token: canvas.id
-            })}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <Button
-              className="text-sm"
-              icon={<CursorArrowRaysIcon className="h-4 w-4" />}
-              onClick={() =>
-                Leafwatch.track(
-                  PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.OPEN_OPENSEA_LINK,
-                  { from: 'mint_embed', publication_id: publication.id }
-                )
-              }
-              size="md"
-            >
-              View on OpenSea
-            </Button>
-          </Link>
+          <div className="h-7" />
         )}
       </div>
     </Card>
