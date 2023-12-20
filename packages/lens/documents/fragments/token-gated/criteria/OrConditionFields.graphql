@@ -1,0 +1,7 @@
+fragment OrConditionFields on OrCondition {
+  criteria {
+    ... on ThirdTierCondition {
+      ...ThirdTierConditionFields
+    }
+  }
+}
