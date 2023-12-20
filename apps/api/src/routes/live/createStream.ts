@@ -1,5 +1,6 @@
 import type { Handler } from 'express';
 
+import { LIVEPEER_KEY } from '@hey/data/constants';
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import catchedError from '@utils/catchedError';
@@ -49,7 +50,7 @@ export const post: Handler = async (req, res) => {
         record
       }),
       headers: {
-        Authorization: `Bearer ${process.env.LIVEPEER_API_KEY}`,
+        Authorization: `Bearer ${LIVEPEER_KEY}`,
         'content-type': 'application/json'
       },
       method: 'POST'
