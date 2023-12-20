@@ -61,6 +61,7 @@ import LivestreamSettings from './Actions/LivestreamSettings';
 import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
+import LinkPreviews from './LinkPreviews';
 import Discard from './Post/Discard';
 
 const Attachment = dynamic(
@@ -584,6 +585,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           />
         </Wrapper>
       ) : null}
+      <LinkPreviews />
       <div className="block items-center px-5 sm:flex">
         <div className="flex items-center space-x-4">
           <Attachment />

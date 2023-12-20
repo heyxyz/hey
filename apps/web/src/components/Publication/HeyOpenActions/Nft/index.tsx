@@ -16,7 +16,7 @@ import ZoraNft from './ZoraNft';
 
 interface NftProps {
   mintLink: string;
-  publication: AnyPublication;
+  publication?: AnyPublication;
 }
 
 const Nft: FC<NftProps> = ({ mintLink, publication }) => {
