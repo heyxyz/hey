@@ -34,7 +34,7 @@ const Video: FC<VideoProps> = ({ className = '', poster, src }) => {
         controls={{ defaultVolume: 1 }}
         objectFit="contain"
         poster={imageKit(sanitizeDStorageUrl(poster), VIDEO_THUMBNAIL)}
-        refetchPlaybackInfoInterval={1000 * 60 * 60 * 24}
+        refetchPlaybackInfoInterval={1000 * 60 * 60 * 24 * 7}
         showLoadingSpinner
         showPipButton={false}
         showUploadingIndicator
