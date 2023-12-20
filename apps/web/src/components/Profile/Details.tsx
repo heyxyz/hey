@@ -25,6 +25,7 @@ import {
 } from '@hey/data/constants';
 import getEnvConfig from '@hey/data/utils/getEnvConfig';
 import { FollowModuleType } from '@hey/lens';
+import formatDate from '@hey/lib/datetime/formatDate';
 import getAvatar from '@hey/lib/getAvatar';
 import getFavicon from '@hey/lib/getFavicon';
 import getMentions from '@hey/lib/getMentions';
@@ -33,7 +34,6 @@ import getProfile from '@hey/lib/getProfile';
 import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import hasMisused from '@hey/lib/hasMisused';
 import { Button, Image, LightBox, Modal, Tooltip } from '@hey/ui';
-import { formatDate } from '@lib/formatTime';
 import isVerified from '@lib/isVerified';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';

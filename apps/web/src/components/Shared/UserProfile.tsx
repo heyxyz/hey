@@ -6,13 +6,13 @@ import {
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
 import { FollowModuleType, type Profile } from '@hey/lens';
+import formatRelativeOrAbsolute from '@hey/lib/datetime/formatRelativeOrAbsolute';
 import getAvatar from '@hey/lib/getAvatar';
 import getMentions from '@hey/lib/getMentions';
 import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { getTwitterFormat } from '@lib/formatTime';
 import isVerified from '@lib/isVerified';
 import Link from 'next/link';
 import { memo } from 'react';
@@ -78,7 +78,9 @@ const UserProfile: FC<UserProfileProps> = ({
         {timestamp ? (
           <span className="ld-text-gray-500">
             <span className="mx-1.5">·</span>
-            <span className="text-xs">{getTwitterFormat(timestamp)}</span>
+            <span className="text-xs">
+              {formatRelativeOrAbsolute(timestamp)}
+            </span>
           </span>
         ) : null}
       </div>

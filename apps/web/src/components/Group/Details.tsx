@@ -6,9 +6,9 @@ import Slug from '@components/Shared/Slug';
 import { ClockIcon } from '@heroicons/react/24/outline';
 import { FireIcon } from '@heroicons/react/24/solid';
 import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
+import formatDate from '@hey/lib/datetime/formatDate';
 import getMentions from '@hey/lib/getMentions';
 import { Image, LightBox, Tooltip } from '@hey/ui';
-import { formatDate } from '@lib/formatTime';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -158,7 +158,7 @@ const Details: FC<DetailsProps> = ({ group }) => {
             </MetaDetails>
           ) : null}
           <MetaDetails icon={<ClockIcon className="h-4 w-4" />}>
-            {formatDate(new Date(group.createdAt))}
+            {formatDate(group.createdAt)}
           </MetaDetails>
         </div>
       </div>

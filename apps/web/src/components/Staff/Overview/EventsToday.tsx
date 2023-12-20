@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import { BRAND_COLOR } from '@hey/data/constants';
-import { formatDate } from '@lib/formatTime';
+import formatDate from '@hey/lib/datetime/formatDate';
 import {
   CategoryScale,
   Chart as ChartJS,
@@ -52,7 +52,7 @@ const EventsToday: FC<EventsTodayProps> = ({ eventsToday }) => {
                 }
               ],
               labels: eventsToday.map((event) =>
-                formatDate(new Date(event.timestamp), 'hh:mm')
+                formatDate(event.timestamp, 'hh:mm')
               )
             }}
             options={{
