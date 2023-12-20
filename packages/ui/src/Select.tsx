@@ -50,13 +50,13 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
       >
         {({ open }) => (
           <>
-            <Listbox.Label className="block text-sm font-medium leading-6 text-gray-900">
+            <Listbox.Label className="block font-medium text-gray-800 dark:text-gray-200">
               {label || ''}
             </Listbox.Label>
-            <div className="relative mt-2">
+            <div className="relative mt-1">
               <Listbox.Button
                 className={cn(
-                  'relative w-full cursor-default rounded-xl bg-white py-2 pl-3 pr-10 text-left text-gray-900 ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-[#Fa4669] sm:text-sm sm:leading-6',
+                  'relative w-full cursor-default rounded-xl bg-white py-[10px] pl-3 pr-10 text-left text-gray-900 ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-[#Fa4669] sm:text-sm sm:leading-6',
                   className
                 )}
               >
