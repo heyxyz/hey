@@ -3,6 +3,8 @@ import type { FC } from 'react';
 
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 
+import SecondTierCondition from './SecondTierCondition';
+
 interface CriteriaProps {
   accessCondition: RootCondition;
 }
@@ -15,38 +17,7 @@ const Criteria: FC<CriteriaProps> = ({ accessCondition }) => {
   return (
     <div>
       {accessCondition?.criteria.map((criterion) => (
-        <div key={criterion.__typename}>
-          {criterion.__typename}
-          {criterion.__typename === 'ProfileOwnershipCondition' ? (
-            <span> {criterion.profileId}</span>
-          ) : null}
-
-          {criterion.__typename === 'AndCondition' ? (
-            <div className="ml-5">
-              {criterion.criteria.map((criterion) => (
-                <div key={criterion.__typename}>
-                  {criterion.__typename}
-                  {criterion.__typename === 'ProfileOwnershipCondition' ? (
-                    <span> {criterion.profileId}</span>
-                  ) : null}
-                </div>
-              ))}
-            </div>
-          ) : null}
-
-          {criterion.__typename === 'OrCondition' ? (
-            <div className="ml-5">
-              {criterion.criteria.map((criterion) => (
-                <div key={criterion.__typename}>
-                  {criterion.__typename}
-                  {criterion.__typename === 'ProfileOwnershipCondition' ? (
-                    <span> {criterion.profileId}</span>
-                  ) : null}
-                </div>
-              ))}
-            </div>
-          ) : null}
-        </div>
+        <SecondTierCondition condition={criterion} key={criterion.__typename} />
       ))}
     </div>
   );
