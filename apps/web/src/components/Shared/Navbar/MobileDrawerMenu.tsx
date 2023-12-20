@@ -42,7 +42,7 @@ const MobileDrawerMenu: FC = () => {
   return (
     <div className="no-scrollbar fixed inset-0 z-10 h-full w-full overflow-y-auto bg-gray-100 py-4 dark:bg-black md:hidden">
       <button className="px-5" onClick={closeDrawer} type="button">
-        <XMarkIcon className="h-6 w-6" />
+        <XMarkIcon className="size-6" />
       </button>
       <div className="w-full space-y-2">
         <Link
@@ -53,7 +53,7 @@ const MobileDrawerMenu: FC = () => {
           <div className="flex w-full space-x-1.5">
             <Image
               alt={currentProfile?.id}
-              className="h-12 w-12 cursor-pointer rounded-full border dark:border-gray-700"
+              className="size-12 cursor-pointer rounded-full border dark:border-gray-700"
               src={getAvatar(currentProfile as Profile)}
             />
             <div>

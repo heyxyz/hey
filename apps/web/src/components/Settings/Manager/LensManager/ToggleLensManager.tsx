@@ -142,9 +142,9 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
         isLoading ? (
           <Spinner size="xs" variant={canUseSignless ? 'danger' : 'primary'} />
         ) : canUseSignless ? (
-          <XMarkIcon className="h-4 w-4" />
+          <XMarkIcon className="size-4" />
         ) : (
-          <CheckCircleIcon className="h-4 w-4" />
+          <CheckCircleIcon className="size-4" />
         )
       }
       onClick={toggleDispatcher}

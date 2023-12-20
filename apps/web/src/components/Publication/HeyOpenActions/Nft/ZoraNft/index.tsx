@@ -85,14 +85,14 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
           >
             <img
               alt={getZoraChainInfo(nft.chainId).name}
-              className="h-5 w-5"
+              className="size-5"
               src={getZoraChainInfo(nft.chainId).logo}
             />
           </Tooltip>
           <div className="text-sm font-bold">{nft.name}</div>
           {nft.contractType === 'ERC1155_COLLECTION' ? (
             <Tooltip content="ERC-1155 Collection" placement="right">
-              <RectangleStackIcon className="h-4 w-4" />
+              <RectangleStackIcon className="size-4" />
             </Tooltip>
           ) : null}
         </div>
@@ -100,7 +100,7 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
           <>
             <Button
               className="text-sm"
-              icon={<CursorArrowRaysIcon className="h-4 w-4" />}
+              icon={<CursorArrowRaysIcon className="size-4" />}
               onClick={() => {
                 setQuantity(1);
                 setCanMintOnHey(false);
@@ -115,7 +115,7 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
               Mint
             </Button>
             <Modal
-              icon={<CursorArrowRaysIcon className="text-brand-500 h-5 w-5" />}
+              icon={<CursorArrowRaysIcon className="text-brand-500 size-5" />}
               onClose={() => setShowMintModal(false)}
               show={showMintModal}
               title="Mint on Zora"
@@ -127,7 +127,7 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
           <Link href={zoraLink} rel="noopener noreferrer" target="_blank">
             <Button
               className="text-sm"
-              icon={<CursorArrowRaysIcon className="h-4 w-4" />}
+              icon={<CursorArrowRaysIcon className="size-4" />}
               onClick={() =>
                 Leafwatch.track(PUBLICATION.OPEN_ACTIONS.ZORA_NFT.OPEN_LINK, {
                   from: 'mint_embed',

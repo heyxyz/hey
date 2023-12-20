@@ -20,12 +20,12 @@ const PollEditor: FC = () => {
     <Card className="m-5 px-5 py-3" forceRounded>
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2 text-sm">
-          <Bars3BottomLeftIcon className="text-brand-500 h-4 w-4" />
+          <Bars3BottomLeftIcon className="text-brand-500 size-4" />
           <b>Poll</b>
         </div>
         <div className="flex items-center space-x-3">
           <Button
-            icon={<ClockIcon className="h-4 w-4" />}
+            icon={<ClockIcon className="size-4" />}
             onClick={() => setShowPollLengthModal(true)}
             outline
             size="sm"
@@ -34,7 +34,7 @@ const PollEditor: FC = () => {
             {pollConfig.length} {plur('day', pollConfig.length)}
           </Button>
           <Modal
-            icon={<ClockIcon className="text-brand-500 h-5 w-5" />}
+            icon={<ClockIcon className="text-brand-500 size-5" />}
             onClose={() => setShowPollLengthModal(false)}
             show={showPollLengthModal}
             title="Poll length"
@@ -84,7 +84,7 @@ const PollEditor: FC = () => {
               }}
               type="button"
             >
-              <XCircleIcon className="h-5 w-5 text-red-400" />
+              <XCircleIcon className="size-5 text-red-400" />
             </button>
           </Tooltip>
         </div>
@@ -104,7 +104,7 @@ const PollEditor: FC = () => {
                     }}
                     type="button"
                   >
-                    <XMarkIcon className="h-5 w-5 text-red-500" />
+                    <XMarkIcon className="size-5 text-red-500" />
                   </button>
                 ) : null
               }
@@ -128,7 +128,7 @@ const PollEditor: FC = () => {
             }}
             type="button"
           >
-            <PlusIcon className="h-4 w-4" />
+            <PlusIcon className="size-4" />
             <span>Add another option</span>
           </button>
         ) : null}

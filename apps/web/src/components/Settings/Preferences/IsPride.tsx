@@ -54,7 +54,7 @@ const IsPride: FC = () => {
       description={`Turn this on to show your pride and turn the ${APP_NAME} logo rainbow every day.`}
       disabled={updating}
       heading="Celebrate pride every day"
-      icon={<img alt="Pride Logo" className="h-5 w-5" src="/pride.png" />}
+      icon={<img alt="Pride Logo" className="size-5" src="/pride.png" />}
       on={preferences.isPride}
       setOn={toggleIsPride}
     />

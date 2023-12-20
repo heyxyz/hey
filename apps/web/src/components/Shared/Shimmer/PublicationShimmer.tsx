@@ -18,7 +18,7 @@ const PublicationShimmer: FC<PublicationShimmerProps> = ({
     <div className="space-y-4 p-5">
       <div className="flex items-center justify-between">
         {quoted ? <SmallUserProfileShimmer /> : <UserProfileShimmer />}
-        <div className="shimmer h-5 w-5 rounded-lg" />
+        <div className="shimmer size-5 rounded-lg" />
       </div>
       <div className={cn(quoted ? '' : 'ml-[52px]', 'space-y-4')}>
         <div className="space-y-2">
@@ -27,9 +27,9 @@ const PublicationShimmer: FC<PublicationShimmerProps> = ({
         </div>
         {showActions ? (
           <div className="flex gap-7 pt-3">
-            <div className="shimmer h-5 w-5 rounded-lg" />
-            <div className="shimmer h-5 w-5 rounded-lg" />
-            <div className="shimmer h-5 w-5 rounded-lg" />
+            <div className="shimmer size-5 rounded-lg" />
+            <div className="shimmer size-5 rounded-lg" />
+            <div className="shimmer size-5 rounded-lg" />
           </div>
         ) : null}
       </div>

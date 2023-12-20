@@ -50,7 +50,7 @@ const NewPost: FC = () => {
       <div className="flex items-center space-x-3">
         <Image
           alt={currentProfile?.id}
-          className="h-9 w-9 cursor-pointer rounded-full border bg-gray-200 dark:border-gray-700"
+          className="size-9 cursor-pointer rounded-full border bg-gray-200 dark:border-gray-700"
           onClick={() => push(getProfile(currentProfile).link)}
           src={getAvatar(currentProfile)}
         />
@@ -59,7 +59,7 @@ const NewPost: FC = () => {
           onClick={() => openModal()}
           type="button"
         >
-          <PencilSquareIcon className="h-5 w-5" />
+          <PencilSquareIcon className="size-5" />
           <span>What's happening?</span>
         </button>
       </div>

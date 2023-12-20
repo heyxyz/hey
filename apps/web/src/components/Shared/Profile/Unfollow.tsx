@@ -168,7 +168,7 @@ const Unfollow: FC<UnfollowProps> = ({ profile, showText = false }) => {
         isLoading ? (
           <Spinner size="xs" variant="danger" />
         ) : (
-          <UserMinusIcon className="h-4 w-4" />
+          <UserMinusIcon className="size-4" />
         )
       }
       onClick={createUnfollow}

@@ -53,9 +53,9 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
       type="button"
     >
       {staffMode ? (
-        <ShieldCheckIconSolid className="h-4 w-4 text-green-600" />
+        <ShieldCheckIconSolid className="size-4 text-green-600" />
       ) : (
-        <ShieldCheckIconOutline className="h-4 w-4 text-red-500" />
+        <ShieldCheckIconOutline className="size-4 text-red-500" />
       )}
       <div>Staff mode</div>
     </button>

@@ -142,7 +142,7 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
               (isVideo ? (
                 <Button
                   className="mt-3"
-                  icon={<XMarkIcon className="h-4 w-4" />}
+                  icon={<XMarkIcon className="size-4" />}
                   onClick={() => removeAttachment(attachment)}
                   outline
                   size="sm"
@@ -157,7 +157,7 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
                     onClick={() => removeAttachment(attachment)}
                     type="button"
                   >
-                    <XMarkIcon className="h-4 w-4 text-white" />
+                    <XMarkIcon className="size-4 text-white" />
                   </button>
                 </div>
               ))}

@@ -70,7 +70,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
           <Tooltip content="BasePaint" placement="right">
             <img
               alt="BasePaint"
-              className="h-5 w-5 rounded-full"
+              className="size-5 rounded-full"
               src={`${STATIC_IMAGES_URL}/brands/basepaint.jpeg`}
             />
           </Tooltip>
@@ -80,7 +80,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
           <div className="flex items-center space-x-1">
             {canvas.palette.map((color) => (
               <span
-                className="inline-block h-4 w-4"
+                className="size-4 inline-block"
                 key={color}
                 style={{ backgroundColor: color }}
               />
@@ -91,7 +91,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
           <>
             <Button
               className="text-sm"
-              icon={<CursorArrowRaysIcon className="h-4 w-4" />}
+              icon={<CursorArrowRaysIcon className="size-4" />}
               onClick={() => {
                 setQuantity(1);
                 setShowMintModal(true);
@@ -105,7 +105,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
               Mint
             </Button>
             <Modal
-              icon={<CursorArrowRaysIcon className="text-brand-500 h-5 w-5" />}
+              icon={<CursorArrowRaysIcon className="text-brand-500 size-5" />}
               onClose={() => setShowMintModal(false)}
               show={showMintModal}
               title="Mint on BasePaint"
@@ -121,7 +121,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
           >
             <Button
               className="text-sm"
-              icon={<CursorArrowRaysIcon className="h-4 w-4" />}
+              icon={<CursorArrowRaysIcon className="size-4" />}
               onClick={() =>
                 Leafwatch.track(
                   PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.OPEN_LINK,
@@ -144,7 +144,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
           >
             <Button
               className="text-sm"
-              icon={<CursorArrowRaysIcon className="h-4 w-4" />}
+              icon={<CursorArrowRaysIcon className="size-4" />}
               onClick={() =>
                 Leafwatch.track(
                   PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.OPEN_OPENSEA_LINK,

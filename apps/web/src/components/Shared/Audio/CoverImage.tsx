@@ -54,7 +54,7 @@ const CoverImage: FC<CoverImageProps> = ({
       >
         <Image
           alt={`attachment-audio-cover-${cover}`}
-          className="h-24 w-24 rounded-xl object-cover md:h-40 md:w-40 md:rounded-none"
+          className="size-24 rounded-xl object-cover md:h-40 md:w-40 md:rounded-none"
           draggable={false}
           onError={({ currentTarget }) => {
             currentTarget.src = cover ? sanitizeDStorageUrl(cover) : cover;
@@ -67,14 +67,14 @@ const CoverImage: FC<CoverImageProps> = ({
         <label
           className={cn(
             { invisible: cover, visible: loading && !cover },
-            'absolute top-0 grid h-24 w-24 cursor-pointer place-items-center bg-gray-100 backdrop-blur-lg group-hover:visible dark:bg-gray-900 md:h-40 md:w-40'
+            'size-24 absolute top-0 grid cursor-pointer place-items-center bg-gray-100 backdrop-blur-lg group-hover:visible dark:bg-gray-900 md:h-40 md:w-40'
           )}
         >
           {loading && !cover ? (
             <Spinner size="sm" />
           ) : (
             <div className="flex flex-col items-center text-sm text-black opacity-60 dark:text-white">
-              <PhotoIcon className="h-5 w-5" />
+              <PhotoIcon className="size-5" />
               <span>Add cover</span>
             </div>
           )}

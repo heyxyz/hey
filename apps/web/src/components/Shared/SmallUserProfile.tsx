@@ -36,7 +36,7 @@ const SmallUserProfile: FC<UserProfileProps> = ({
     <Image
       alt={profile.id}
       className={cn(
-        smallAvatar ? 'h-5 w-5' : 'h-6 w-6',
+        smallAvatar ? 'size-5' : 'size-6',
         'rounded-full border bg-gray-200 dark:border-gray-700'
       )}
       height={smallAvatar ? 20 : 24}
@@ -52,10 +52,10 @@ const SmallUserProfile: FC<UserProfileProps> = ({
         {getProfile(profile).displayName}
       </div>
       {isVerified(profile.id) ? (
-        <CheckBadgeIcon className="text-brand-500 mr-1 h-4 w-4" />
+        <CheckBadgeIcon className="text-brand-500 size-4 mr-1" />
       ) : null}
       {hasMisused(profile.id) ? (
-        <ExclamationCircleIcon className="mr-2 h-4 w-4 text-red-500" />
+        <ExclamationCircleIcon className="size-4 mr-2 text-red-500" />
       ) : null}
       {!hideSlug ? (
         <Slug className="text-sm" slug={getProfile(profile).slugWithPrefix} />

@@ -88,7 +88,7 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
         <div className="mb-2 space-y-4">
           <img
             alt="Logo"
-            className="h-10 w-10"
+            className="size-10"
             height={40}
             src="/logo.png"
             width={40}
@@ -105,9 +105,7 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
       <Button
         className="ml-auto"
         disabled={loading}
-        icon={
-          loading ? <Spinner size="xs" /> : <PlusIcon className="h-4 w-4" />
-        }
+        icon={loading ? <Spinner size="xs" /> : <PlusIcon className="size-4" />}
         type="submit"
       >
         Sign up

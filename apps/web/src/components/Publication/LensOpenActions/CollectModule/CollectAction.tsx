@@ -414,7 +414,7 @@ const CollectAction: FC<CollectActionProps> = ({
         isLoading ? (
           <Spinner size="xs" />
         ) : (
-          <RectangleStackIcon className="h-4 w-4" />
+          <RectangleStackIcon className="size-4" />
         )
       }
       onClick={createCollect}

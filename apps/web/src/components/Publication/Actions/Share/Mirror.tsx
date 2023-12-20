@@ -266,7 +266,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
       onClick={createMirror}
     >
       <div className="flex items-center space-x-2">
-        <ArrowsRightLeftIcon className="h-4 w-4" />
+        <ArrowsRightLeftIcon className="size-4" />
         <div>{hasMirrored ? 'Mirror again' : 'Mirror'}</div>
       </div>
     </Menu.Item>

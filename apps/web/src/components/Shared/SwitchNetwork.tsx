@@ -24,7 +24,7 @@ const SwitchNetwork: FC<SwitchNetworkProps> = ({
   return (
     <Button
       className={className}
-      icon={<ArrowsRightLeftIcon className="h-4 w-4" />}
+      icon={<ArrowsRightLeftIcon className="size-4" />}
       onClick={() => {
         onSwitch?.();
         switchNetwork?.(toChainId);

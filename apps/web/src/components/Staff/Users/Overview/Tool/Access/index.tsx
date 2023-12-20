@@ -15,7 +15,7 @@ const Access: FC<RankProps> = ({ isPro, profile }) => {
   return (
     <>
       <div className="mt-5 flex items-center space-x-2 text-yellow-600">
-        <AdjustmentsVerticalIcon className="h-5 w-5" />
+        <AdjustmentsVerticalIcon className="size-5" />
         <div className="text-lg font-bold">Access</div>
       </div>
       <div className="mt-3 space-y-2 font-bold">

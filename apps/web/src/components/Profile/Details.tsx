@@ -81,10 +81,10 @@ const Details: FC<DetailsProps> = ({ profile }) => {
 
   return (
     <div className="mb-4 space-y-5 px-5 sm:px-0">
-      <div className="relative -mt-24 h-32 w-32 sm:-mt-32 sm:h-52 sm:w-52">
+      <div className="size-32 relative -mt-24 sm:-mt-32 sm:h-52 sm:w-52">
         <Image
           alt={profile.id}
-          className="h-32 w-32 cursor-pointer rounded-xl bg-gray-200 ring-8 ring-gray-50 dark:bg-gray-700 dark:ring-black sm:h-52 sm:w-52"
+          className="size-32 cursor-pointer rounded-xl bg-gray-200 ring-8 ring-gray-50 dark:bg-gray-700 dark:ring-black sm:h-52 sm:w-52"
           height={128}
           onClick={() => setExpandedImage(getAvatar(profile, EXPANDED_AVATAR))}
           src={getAvatar(profile)}
@@ -101,13 +101,13 @@ const Details: FC<DetailsProps> = ({ profile }) => {
           <div className="truncate">{getProfile(profile).displayName}</div>
           {isVerified(profile.id) ? (
             <Tooltip content="Verified">
-              <CheckBadgeIcon className="text-brand-500 h-6 w-6" />
+              <CheckBadgeIcon className="text-brand-500 size-6" />
             </Tooltip>
           ) : null}
           <TbaBadge profile={profile} />
           {hasMisused(profile.id) ? (
             <Tooltip content={misuseDetails?.type}>
-              <ExclamationCircleIcon className="h-6 w-6 text-red-500" />
+              <ExclamationCircleIcon className="size-6 text-red-500" />
             </Tooltip>
           ) : null}
         </div>
@@ -137,7 +137,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
           {currentProfile?.id === profile.id ? (
             <Link href="/settings">
               <Button
-                icon={<Cog6ToothIcon className="h-5 w-5" />}
+                icon={<Cog6ToothIcon className="size-5" />}
                 outline
                 variant="secondary"
               >
@@ -168,7 +168,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
               setShowMutualFollowersModal={setShowMutualFollowersModal}
             />
             <Modal
-              icon={<UsersIcon className="text-brand-500 h-5 w-5" />}
+              icon={<UsersIcon className="text-brand-500 size-5" />}
               onClose={() => setShowMutualFollowersModal(false)}
               show={showMutualFollowersModal}
               title="Followers you know"
@@ -181,7 +181,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
         <div className="space-y-2">
           {staffMode ? (
             <MetaDetails
-              icon={<ShieldCheckIcon className="h-4 w-4 text-yellow-600" />}
+              icon={<ShieldCheckIcon className="size-4 text-yellow-600" />}
             >
               <Link
                 className="text-yellow-600"
@@ -191,7 +191,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
               </Link>
             </MetaDetails>
           ) : null}
-          <MetaDetails icon={<HashtagIcon className="h-4 w-4" />}>
+          <MetaDetails icon={<HashtagIcon className="size-4" />}>
             <Tooltip content={`#${profile.id}`}>
               <Link
                 href={urlcat(RARIBLE_URL, '/token/polygon/:address::id', {
@@ -206,7 +206,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
             </Tooltip>
           </MetaDetails>
           {getProfileAttribute('location', profile?.metadata?.attributes) ? (
-            <MetaDetails icon={<MapPinIcon className="h-4 w-4" />}>
+            <MetaDetails icon={<MapPinIcon className="size-4" />}>
               {getProfileAttribute('location', profile?.metadata?.attributes)}
             </MetaDetails>
           ) : null}
@@ -215,7 +215,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
               icon={
                 <img
                   alt="ENS Logo"
-                  className="h-4 w-4"
+                  className="size-4"
                   height={16}
                   src={`${STATIC_IMAGES_URL}/brands/ens.svg`}
                   width={16}
@@ -230,7 +230,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
               icon={
                 <img
                   alt="Website"
-                  className="h-4 w-4 rounded-full"
+                  className="size-4 rounded-full"
                   height={16}
                   src={getFavicon(
                     getProfileAttribute(
@@ -263,7 +263,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
               icon={
                 <img
                   alt="X Logo"
-                  className="h-4 w-4"
+                  className="size-4"
                   height={16}
                   src={`${STATIC_IMAGES_URL}/brands/${
                     resolvedTheme === 'dark' ? 'x-dark.png' : 'x-light.png'
@@ -289,7 +289,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
               </Link>
             </MetaDetails>
           ) : null}
-          <MetaDetails icon={<ClockIcon className="h-4 w-4" />}>
+          <MetaDetails icon={<ClockIcon className="size-4" />}>
             Joined {formatDate(profile.createdAt)}
           </MetaDetails>
         </div>

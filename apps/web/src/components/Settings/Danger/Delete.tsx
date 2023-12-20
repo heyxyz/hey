@@ -115,7 +115,7 @@ const DeleteSettings: FC = () => {
           isLoading ? (
             <Spinner size="xs" variant="danger" />
           ) : (
-            <TrashIcon className="h-5 w-5" />
+            <TrashIcon className="size-5" />
           )
         }
         onClick={() => setShowWarningModal(true)}
@@ -124,7 +124,7 @@ const DeleteSettings: FC = () => {
         {isLoading ? 'Deleting...' : 'Delete your account'}
       </Button>
       <Modal
-        icon={<ExclamationTriangleIcon className="h-5 w-5 text-red-500" />}
+        icon={<ExclamationTriangleIcon className="size-5 text-red-500" />}
         onClose={() => setShowWarningModal(false)}
         show={showWarningModal}
         title="Danger zone"
@@ -140,7 +140,7 @@ const DeleteSettings: FC = () => {
             title="Are you sure?"
           />
           <Button
-            icon={<TrashIcon className="h-5 w-5" />}
+            icon={<TrashIcon className="size-5" />}
             onClick={async () => {
               setShowWarningModal(false);
               await handleDelete();

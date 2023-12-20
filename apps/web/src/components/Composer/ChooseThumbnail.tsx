@@ -146,7 +146,7 @@ const ChooseThumbnail: FC = () => {
             <Spinner size="sm" />
           ) : (
             <>
-              <PhotoIcon className="mb-1 h-5 w-5" />
+              <PhotoIcon className="size-5 mb-1" />
               <span className="text-sm">Upload</span>
             </>
           )}
@@ -172,7 +172,7 @@ const ChooseThumbnail: FC = () => {
               />
               {ipfsUrl && isSelected && isUploaded ? (
                 <div className="absolute inset-0 grid place-items-center rounded-xl bg-gray-100/10">
-                  <CheckCircleIcon className="h-6 w-6 text-green-500" />
+                  <CheckCircleIcon className="size-6 text-green-500" />
                 </div>
               ) : null}
               {isUploading && isSelected && (

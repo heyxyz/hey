@@ -43,7 +43,7 @@ const Combined: FC<CombinedProps> = ({ feedItem }) => {
 
   return (
     <div className="ld-text-gray-500 flex flex-wrap items-center space-x-1 pb-4 text-[13px] leading-6">
-      <SparklesIcon className="h-4 w-4" />
+      <SparklesIcon className="size-4" />
       <Profiles profiles={getAllProfiles()} />
       <div className="flex items-center space-x-1">
         {actionArray.map((action, index) => (

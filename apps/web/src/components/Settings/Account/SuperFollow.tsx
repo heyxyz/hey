@@ -236,7 +236,7 @@ const SuperFollow: FC = () => {
             {followType === FollowModuleType.FeeFollowModule ? (
               <Button
                 disabled={isLoading}
-                icon={<XMarkIcon className="h-4 w-4" />}
+                icon={<XMarkIcon className="size-4" />}
                 onClick={() => setSuperFollow(null, null)}
                 outline
                 type="button"
@@ -247,7 +247,7 @@ const SuperFollow: FC = () => {
             ) : null}
             <Button
               disabled={isLoading}
-              icon={<StarIcon className="h-4 w-4" />}
+              icon={<StarIcon className="size-4" />}
               type="submit"
             >
               {followType === FollowModuleType.FeeFollowModule

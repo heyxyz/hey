@@ -21,7 +21,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio({
   return (
     <div className={cn('flex items-center space-x-3', className)}>
       <input
-        className="text-brand-500 dark:text-brand-500 h-4 w-4 border focus:ring-0 focus:ring-offset-0"
+        className="text-brand-500 dark:text-brand-500 size-4 border focus:ring-0 focus:ring-offset-0"
         id={id}
         type="radio"
         {...rest}

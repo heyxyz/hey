@@ -37,69 +37,69 @@ const SettingsSidebar: FC = () => {
       <Sidebar
         items={[
           {
-            icon: <UserIcon className="h-4 w-4" />,
+            icon: <UserIcon className="size-4" />,
             title: 'Profile',
             url: '/settings'
           },
           {
-            icon: <CpuChipIcon className="h-4 w-4" />,
+            icon: <CpuChipIcon className="size-4" />,
             title: 'Account',
             url: '/settings/account'
           },
           {
-            icon: <AtSymbolIcon className="h-4 w-4" />,
+            icon: <AtSymbolIcon className="size-4" />,
             title: 'Handles',
             url: '/settings/handles'
           },
           {
-            icon: <AdjustmentsVerticalIcon className="h-4 w-4" />,
+            icon: <AdjustmentsVerticalIcon className="size-4" />,
             title: 'Preferences',
             url: '/settings/preferences'
           },
           {
-            icon: <BookmarkIcon className="h-4 w-4" />,
+            icon: <BookmarkIcon className="size-4" />,
             title: 'Interests',
             url: '/settings/interests'
           },
           {
             enabled,
-            icon: <FingerPrintIcon className="h-4 w-4" />,
+            icon: <FingerPrintIcon className="size-4" />,
             title: 'Manager',
             url: '/settings/manager'
           },
           {
-            icon: <ShareIcon className="h-4 w-4" />,
+            icon: <ShareIcon className="size-4" />,
             title: 'Allowance',
             url: '/settings/allowance'
           },
           {
-            icon: <GlobeAltIcon className="h-4 w-4" />,
+            icon: <GlobeAltIcon className="size-4" />,
             title: 'Sessions',
             url: '/settings/sessions'
           },
           {
-            icon: <QueueListIcon className="h-4 w-4" />,
+            icon: <QueueListIcon className="size-4" />,
             title: 'Action History',
             url: '/settings/actions'
           },
           {
-            icon: <NoSymbolIcon className="h-4 w-4" />,
+            icon: <NoSymbolIcon className="size-4" />,
             title: 'Blocked Profiles',
             url: '/settings/blocked'
           },
           {
-            icon: <SparklesIcon className="h-4 w-4" />,
+            icon: <SparklesIcon className="size-4" />,
             title: 'Cleanup',
             url: '/settings/cleanup'
           },
           {
-            icon: <CircleStackIcon className="h-4 w-4" />,
+            icon: <CircleStackIcon className="size-4" />,
             title: 'Export',
             url: '/settings/export'
           },
           {
             enabled,
-            icon: <ExclamationTriangleIcon className="h-4 w-4 text-red-500" />,
+            icon: <ExclamationTriangleIcon className="size-4 text-red-500" />,
             title: <div className="text-red-500">Danger zone</div>,
             url: '/settings/danger'
           }

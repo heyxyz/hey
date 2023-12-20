@@ -79,37 +79,37 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profile }) => {
   return (
     <>
       <div className="mt-5 flex items-center space-x-2 text-yellow-600">
-        <AdjustmentsVerticalIcon className="h-5 w-5" />
+        <AdjustmentsVerticalIcon className="size-5" />
         <div className="text-lg font-bold">Leafwatch Details</div>
       </div>
       <div className="mt-3 space-y-2 font-bold">
         <MetaDetails
-          icon={<EyeIcon className="ld-text-gray-500 h-4 w-4" />}
+          icon={<EyeIcon className="ld-text-gray-500 size-4" />}
           title="Impressions"
         >
           {humanize(impressionDetails.totalImpressions)}
         </MetaDetails>
         <MetaDetails
-          icon={<CursorArrowRaysIcon className="ld-text-gray-500 h-4 w-4" />}
+          icon={<CursorArrowRaysIcon className="ld-text-gray-500 size-4" />}
           title="Total events"
         >
           {humanize(leafwatchDetails.events)}
         </MetaDetails>
         <MetaDetails
-          icon={<MapPinIcon className="ld-text-gray-500 h-4 w-4" />}
+          icon={<MapPinIcon className="ld-text-gray-500 size-4" />}
           title="Location"
         >
           {leafwatchDetails.city}, {leafwatchDetails.region},{' '}
           {leafwatchDetails.country}
         </MetaDetails>
         <MetaDetails
-          icon={<ComputerDesktopIcon className="ld-text-gray-500 h-4 w-4" />}
+          icon={<ComputerDesktopIcon className="ld-text-gray-500 size-4" />}
           title="OS"
         >
           {leafwatchDetails.os}
         </MetaDetails>
         <MetaDetails
-          icon={<GlobeAltIcon className="ld-text-gray-500 h-4 w-4" />}
+          icon={<GlobeAltIcon className="ld-text-gray-500 size-4" />}
           title="Browser"
         >
           {leafwatchDetails.browser} {leafwatchDetails.version}
