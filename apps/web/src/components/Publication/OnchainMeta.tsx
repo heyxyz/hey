@@ -28,7 +28,7 @@ const Meta: FC<MetaProps> = ({ hash, name, uri }) => (
     >
       <div className="flex items-center space-x-1">
         <div className="text-[10px]">{name}</div>
-        <ArrowTopRightOnSquareIcon className="h-4 w-4" />
+        <ArrowTopRightOnSquareIcon className="size-4" />
       </div>
       <div className="truncate text-xs">{hash}</div>
     </Link>

@@ -58,7 +58,7 @@ const List: FC = () => {
         ) : !tokens.length ? (
           <EmptyState
             hideCard
-            icon={<CurrencyDollarIcon className="text-brand-500 h-8 w-8" />}
+            icon={<CurrencyDollarIcon className="text-brand-500 size-8" />}
             message={<span>No tokens found</span>}
           />
         ) : (
@@ -77,7 +77,7 @@ const List: FC = () => {
                   </div>
                 </div>
                 <Button
-                  icon={<TrashIcon className="h-4 w-4" />}
+                  icon={<TrashIcon className="size-4" />}
                   onClick={() => deleteToken(token.id)}
                   outline
                 />

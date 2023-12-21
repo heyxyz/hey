@@ -160,7 +160,7 @@ const MintAction: FC<MintActionProps> = ({
           >
             <Button
               className="mt-5 w-full justify-center"
-              icon={<CurrencyDollarIcon className="h-5 w-5" />}
+              icon={<CurrencyDollarIcon className="size-5" />}
               size="md"
             >
               You don't have balance
@@ -182,7 +182,7 @@ const MintAction: FC<MintActionProps> = ({
           >
             <Button
               className="mt-5 w-full justify-center"
-              icon={<CursorArrowRaysIcon className="h-5 w-5" />}
+              icon={<CursorArrowRaysIcon className="size-5" />}
               onClick={() =>
                 Leafwatch.track(PUBLICATION.OPEN_ACTIONS.ZORA_NFT.OPEN_LINK, {
                   ...(publication && { publication_id: publication.id }),
@@ -204,7 +204,7 @@ const MintAction: FC<MintActionProps> = ({
             isContractWriteLoading ? (
               <Spinner size="xs" />
             ) : (
-              <CursorArrowRaysIcon className="h-4 w-4" />
+              <CursorArrowRaysIcon className="size-4" />
             )
           }
           onClick={() => write?.()}
@@ -223,7 +223,7 @@ const MintAction: FC<MintActionProps> = ({
       ) : null}
       {isSuccess ? (
         <div className="flex items-center space-x-1.5">
-          <CheckCircleIcon className="h-5 w-5 text-green-500" />
+          <CheckCircleIcon className="size-5 text-green-500" />
           <div>Minted successful</div>
         </div>
       ) : null}

@@ -36,7 +36,7 @@ const NoBalanceError: FC<NoBalanceErrorProps> = ({ moduleAmount }) => {
       >
         <img
           alt="Uniswap"
-          className="h-5 w-5"
+          className="size-5"
           height={20}
           src={`${STATIC_IMAGES_URL}/brands/uniswap.png`}
           width={20}

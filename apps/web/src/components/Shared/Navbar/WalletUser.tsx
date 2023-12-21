@@ -28,7 +28,7 @@ const WalletUser: FC = () => {
   const Avatar = () => (
     <Image
       alt={sessionProfileId}
-      className="h-8 w-8 cursor-pointer rounded-full border dark:border-gray-700"
+      className="size-8 cursor-pointer rounded-full border dark:border-gray-700"
       src={getStampFyiURL(sessionProfileId)}
     />
   );

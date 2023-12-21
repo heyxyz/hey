@@ -90,7 +90,7 @@ const WrapWmatic: FC<WrapWmaticProps> = ({ moduleAmount }) => {
               isLoading ? (
                 <Spinner size="xs" />
               ) : (
-                <InboxIcon className="h-4 w-4" />
+                <InboxIcon className="size-4" />
               )
             }
             onClick={deposit}

@@ -170,7 +170,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
                       isLoading && loggingInProfileId === profile.id ? (
                         <Spinner size="xs" />
                       ) : (
-                        <ArrowRightCircleIcon className="h-4 w-4" />
+                        <ArrowRightCircleIcon className="size-4" />
                       )
                     }
                     onClick={() => handleSign(profile.id)}
@@ -188,7 +188,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
                   isLoading ? (
                     <Spinner size="xs" />
                   ) : (
-                    <ArrowRightCircleIcon className="h-4 w-4" />
+                    <ArrowRightCircleIcon className="size-4" />
                   )
                 }
                 onClick={() => handleSign()}
@@ -209,7 +209,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
             }}
             type="button"
           >
-            <UserPlusIcon className="h-4 w-4" />
+            <UserPlusIcon className="size-4" />
             <div>Create a testnet account</div>
           </button>
         )}
@@ -221,13 +221,13 @@ const WalletSelector: FC<WalletSelectorProps> = ({
           }}
           type="reset"
         >
-          <KeyIcon className="h-4 w-4" />
+          <KeyIcon className="size-4" />
           <div>Change wallet</div>
         </button>
       </div>
       {errorChallenge || errorAuthenticate ? (
         <div className="flex items-center space-x-1 font-bold text-red-500">
-          <XCircleIcon className="h-5 w-5" />
+          <XCircleIcon className="size-5" />
           <div>{Errors.SomethingWentWrong}</div>
         </div>
       ) : null}
@@ -260,7 +260,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
               ) : null}
               <img
                 alt={connector.id}
-                className="h-6 w-6"
+                className="size-6"
                 draggable={false}
                 height={24}
                 src={getWalletDetails(connector.name).logo}
@@ -272,7 +272,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       })}
       {error?.message ? (
         <div className="flex items-center space-x-1 text-red-500">
-          <XCircleIcon className="h-5 w-5" />
+          <XCircleIcon className="size-5" />
           <div>{error?.message || 'Failed to connect'}</div>
         </div>
       ) : null}

@@ -23,7 +23,7 @@ import Suggested from '../Suggested';
 const Title = () => {
   return (
     <div className="mb-2 flex items-center gap-2 px-5 sm:px-0">
-      <SparklesIcon className="h-4 w-4 text-yellow-500" />
+      <SparklesIcon className="size-4 text-yellow-500" />
       <div>Who to follow</div>
     </div>
   );
@@ -62,7 +62,7 @@ const RecommendedProfiles: FC = () => {
       <>
         <Title />
         <EmptyState
-          icon={<UsersIcon className="text-brand-500 h-8 w-8" />}
+          icon={<UsersIcon className="text-brand-500 size-8" />}
           message="No recommendations!"
         />
       </>
@@ -102,12 +102,12 @@ const RecommendedProfiles: FC = () => {
           }}
           type="button"
         >
-          <EllipsisHorizontalCircleIcon className="h-4 w-4" />
+          <EllipsisHorizontalCircleIcon className="size-4" />
           <span>Show more</span>
         </button>
       </Card>
       <Modal
-        icon={<UsersIcon className="text-brand-500 h-5 w-5" />}
+        icon={<UsersIcon className="text-brand-500 size-5" />}
         onClose={() => setShowSuggestedModal(false)}
         show={showSuggestedModal}
         title="Suggested for you"

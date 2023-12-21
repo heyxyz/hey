@@ -94,7 +94,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
         queryLoading || transactionLoading || waitLoading ? (
           <Spinner size="xs" variant="warning" />
         ) : (
-          <MinusIcon className="h-4 w-4" />
+          <MinusIcon className="size-4" />
         )
       }
       onClick={() =>
@@ -111,13 +111,13 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
   ) : (
     <>
       <Button
-        icon={<PlusIcon className="h-4 w-4" />}
+        icon={<PlusIcon className="size-4" />}
         onClick={() => setShowWarningModal(!showWarningModal)}
       >
         {title}
       </Button>
       <Modal
-        icon={<ExclamationTriangleIcon className="h-5 w-5 text-yellow-500" />}
+        icon={<ExclamationTriangleIcon className="size-5 text-yellow-500" />}
         onClose={() => setShowWarningModal(false)}
         show={showWarningModal}
         title="Warning"
@@ -138,7 +138,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
               queryLoading || transactionLoading || waitLoading ? (
                 <Spinner size="xs" />
               ) : (
-                <PlusIcon className="h-4 w-4" />
+                <PlusIcon className="size-4" />
               )
             }
             onClick={() =>

@@ -93,7 +93,7 @@ const Support: NextPage = () => {
           {submitted ? (
             <EmptyState
               hideCard
-              icon={<CheckCircleIcon className="h-14 w-14 text-green-500" />}
+              icon={<CheckCircleIcon className="size-14 text-green-500" />}
               message="We have received your message and will get back to you as soon as possible."
             />
           ) : (
@@ -127,7 +127,7 @@ const Support: NextPage = () => {
                     submitting ? (
                       <Spinner size="xs" />
                     ) : (
-                      <PencilIcon className="h-5 w-5" />
+                      <PencilIcon className="size-5" />
                     )
                   }
                   type="submit"

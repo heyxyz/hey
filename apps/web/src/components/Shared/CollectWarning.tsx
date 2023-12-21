@@ -23,7 +23,7 @@ const CollectWarning: FC<CollectWarningProps> = ({
     >
       {isSuperFollow ? (
         <>
-          <StarIcon className="h-4 w-4 text-pink-500" />
+          <StarIcon className="size-4text-pink-500" />
           <span>Only </span>
           <Slug slug={`${handle}'s`} />
           <span className="text-pink-500"> super followers</span>
@@ -31,7 +31,7 @@ const CollectWarning: FC<CollectWarningProps> = ({
         </>
       ) : (
         <>
-          <UsersIcon className="text-brand-500 h-4 w-4" />
+          <UsersIcon className="text-brand-500 size-4" />
           <span>Only </span>
           <Slug slug={`${handle}'s`} />
           <span> followers can collect</span>

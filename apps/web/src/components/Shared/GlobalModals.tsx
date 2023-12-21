@@ -110,7 +110,7 @@ const GlobalModals: FC = () => {
   return (
     <>
       <Modal
-        icon={<ShieldCheckIcon className="text-brand-500 h-5 w-5" />}
+        icon={<ShieldCheckIcon className="text-brand-500 size-5" />}
         onClose={() =>
           setShowPublicationReportModal(false, reportingPublication)
         }
@@ -120,7 +120,7 @@ const GlobalModals: FC = () => {
         <ReportPublication publication={reportingPublication} />
       </Modal>
       <Modal
-        icon={<ShieldCheckIcon className="text-brand-500 h-5 w-5" />}
+        icon={<ShieldCheckIcon className="text-brand-500 size-5" />}
         onClose={() => setShowReportProfileModal(false, reportingProfile)}
         show={showReportProfileModal}
         title="Report profile"
@@ -136,7 +136,7 @@ const GlobalModals: FC = () => {
         <SwitchProfiles />
       </Modal>
       <Modal
-        icon={<ArrowRightCircleIcon className="text-brand-500 h-5 w-5" />}
+        icon={<ArrowRightCircleIcon className="text-brand-500 size-5" />}
         onClose={() => setShowAuthModal(false)}
         show={showAuthModal}
         title="Login"
@@ -165,7 +165,7 @@ const GlobalModals: FC = () => {
         <NewPublication />
       </Modal>
       <Modal
-        icon={<TicketIcon className="text-brand-500 h-5 w-5" />}
+        icon={<TicketIcon className="text-brand-500 size-5" />}
         onClose={() => setShowInvitesModal(false)}
         show={showInvitesModal}
         title="Invites"

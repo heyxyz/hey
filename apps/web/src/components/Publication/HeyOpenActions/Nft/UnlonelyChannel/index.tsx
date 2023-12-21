@@ -69,7 +69,7 @@ const UnlonelyChannel: FC<UnlonelyChannelProps> = ({
           <Tooltip content="Unlonely Channel" placement="right">
             <img
               alt="Unlonely"
-              className="h-5 w-5 rounded-full"
+              className="size-5 rounded-full"
               src={`${STATIC_IMAGES_URL}/brands/unlonely.png`}
             />
           </Tooltip>
@@ -81,9 +81,9 @@ const UnlonelyChannel: FC<UnlonelyChannelProps> = ({
             )}
           >
             {isLive ? (
-              <SignalIcon className="h-3 w-3 animate-pulse" />
+              <SignalIcon className="size-3 animate-pulse" />
             ) : (
-              <SignalSlashIcon className="h-3 w-3" />
+              <SignalSlashIcon className="size-3" />
             )}
             <span>{isLive ? 'Live' : 'Offline'}</span>
           </div>
@@ -98,7 +98,7 @@ const UnlonelyChannel: FC<UnlonelyChannelProps> = ({
           >
             <Button
               className="text-sm"
-              icon={<CursorArrowRaysIcon className="h-4 w-4" />}
+              icon={<CursorArrowRaysIcon className="size-4" />}
               onClick={() =>
                 Leafwatch.track(
                   PUBLICATION.OPEN_ACTIONS.UNLONELY_CHANNEL.OPEN_LINK,

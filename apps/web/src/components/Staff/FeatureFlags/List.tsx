@@ -95,7 +95,7 @@ const List: FC = () => {
           <EmptyState
             hideCard
             icon={
-              <AdjustmentsHorizontalIcon className="text-brand-500 h-8 w-8" />
+              <AdjustmentsHorizontalIcon className="text-brand-500 size-8" />
             }
             message={<span>No feature flags found</span>}
           />
@@ -122,7 +122,7 @@ const List: FC = () => {
                 />
                 {feature.type === 'FEATURE' && (
                   <Button
-                    icon={<TrashIcon className="h-4 w-4" />}
+                    icon={<TrashIcon className="size-4" />}
                     onClick={() => deleteFeatureFlag(feature.id)}
                     outline
                   />

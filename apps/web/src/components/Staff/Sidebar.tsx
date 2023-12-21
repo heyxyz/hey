@@ -14,22 +14,22 @@ const StaffSidebar: FC = () => {
       <Sidebar
         items={[
           {
-            icon: <ClipboardIcon className="h-4 w-4" />,
+            icon: <ClipboardIcon className="size-4" />,
             title: 'Overview',
             url: '/staff'
           },
           {
-            icon: <UserIcon className="h-4 w-4" />,
+            icon: <UserIcon className="size-4" />,
             title: 'Users',
             url: '/staff/users'
           },
           {
-            icon: <CurrencyDollarIcon className="h-4 w-4" />,
+            icon: <CurrencyDollarIcon className="size-4" />,
             title: 'Tokens',
             url: '/staff/tokens'
           },
           {
-            icon: <AdjustmentsHorizontalIcon className="h-4 w-4" />,
+            icon: <AdjustmentsHorizontalIcon className="size-4" />,
             title: 'Feature flags',
             url: '/staff/feature-flags'
           }

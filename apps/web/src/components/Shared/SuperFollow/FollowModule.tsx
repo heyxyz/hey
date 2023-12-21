@@ -248,7 +248,7 @@ const FollowModule: FC<FollowModuleProps> = ({
       <div className="flex items-center space-x-1.5 py-2">
         <img
           alt={currency}
-          className="h-7 w-7"
+          className="size-7"
           height={28}
           src={getTokenImage(currency)}
           title={assetName}
@@ -260,7 +260,7 @@ const FollowModule: FC<FollowModuleProps> = ({
         </span>
       </div>
       <div className="flex items-center space-x-2">
-        <UserIcon className="ld-text-gray-500 h-4 w-4" />
+        <UserIcon className="ld-text-gray-500 size-4" />
         <div className="space-x-1.5">
           <span>Recipient:</span>
           <Link
@@ -321,7 +321,7 @@ const FollowModule: FC<FollowModuleProps> = ({
                 isLoading ? (
                   <Spinner size="xs" />
                 ) : (
-                  <StarIcon className="h-4 w-4" />
+                  <StarIcon className="size-4" />
                 )
               }
               onClick={createFollow}

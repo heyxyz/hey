@@ -80,7 +80,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
             <Beta />
           </div>
         }
-        icon={<UsersIcon className="h-4 w-4" />}
+        icon={<UsersIcon className="size-4" />}
         on={recipients.length > 0}
         setOn={() => {
           setCollectType({
@@ -143,7 +143,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
                   }}
                   type="button"
                 >
-                  <XCircleIcon className="h-5 w-5 text-red-500" />
+                  <XCircleIcon className="size-5 text-red-500" />
                 </button>
               </div>
             ))}
@@ -153,7 +153,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
               <div />
             ) : (
               <Button
-                icon={<PlusIcon className="h-3 w-3" />}
+                icon={<PlusIcon className="size-3" />}
                 onClick={() => {
                   setCollectType({
                     recipients: [...recipients, { recipient: '', split: 0 }]
@@ -166,7 +166,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
               </Button>
             )}
             <Button
-              icon={<ArrowsRightLeftIcon className="h-3 w-3" />}
+              icon={<ArrowsRightLeftIcon className="size-3" />}
               onClick={splitEvenly}
               outline
               size="sm"

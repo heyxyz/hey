@@ -72,7 +72,7 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
       {submitData?.reportPublication === null ? (
         <EmptyState
           hideCard
-          icon={<CheckCircleIcon className="h-14 w-14 text-green-500" />}
+          icon={<CheckCircleIcon className="size-14 text-green-500" />}
           message="Publication reported successfully!"
         />
       ) : publication ? (
@@ -107,7 +107,7 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
                     submitLoading ? (
                       <Spinner size="xs" />
                     ) : (
-                      <PencilSquareIcon className="h-4 w-4" />
+                      <PencilSquareIcon className="size-4" />
                     )
                   }
                   type="submit"

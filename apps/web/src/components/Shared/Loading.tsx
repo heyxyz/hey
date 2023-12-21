@@ -10,7 +10,7 @@ const Loading: FC = () => {
       <MetaTags />
       <img
         alt="Logo"
-        className="h-28 w-28"
+        className="size-28"
         height={112}
         src={isPrideMonth() ? '/pride.png' : '/logo.png'}
         width={112}

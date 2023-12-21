@@ -28,7 +28,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
       <div className="flex gap-3 overflow-x-auto sm:px-0">
         <TabButton
           active={feedType === HomeFeedType.FOLLOWING}
-          icon={<UserGroupIcon className="h-4 w-4" />}
+          icon={<UserGroupIcon className="size-4" />}
           name="Following"
           onClick={() => {
             setFeedType(HomeFeedType.FOLLOWING);
@@ -37,7 +37,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
         />
         <TabButton
           active={feedType === HomeFeedType.HIGHLIGHTS}
-          icon={<LightBulbIcon className="h-4 w-4" />}
+          icon={<LightBulbIcon className="size-4" />}
           name="Highlights"
           onClick={() => {
             setFeedType(HomeFeedType.HIGHLIGHTS);
@@ -47,7 +47,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
         {isFeatureEnabled(FeatureFlag.LensMember) ? (
           <TabButton
             active={feedType === HomeFeedType.PAID_ACTIONS}
-            icon={<CurrencyDollarIcon className="h-4 w-4" />}
+            icon={<CurrencyDollarIcon className="size-4" />}
             name="Paid actions"
             onClick={() => {
               setFeedType(HomeFeedType.PAID_ACTIONS);

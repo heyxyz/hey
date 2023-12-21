@@ -31,7 +31,7 @@ const Report: FC<ReportProps> = ({ publication }) => {
       }}
     >
       <div className="flex items-center space-x-2">
-        <ExclamationTriangleIcon className="h-4 w-4" />
+        <ExclamationTriangleIcon className="size-4" />
         <div>Report post</div>
       </div>
     </Menu.Item>
