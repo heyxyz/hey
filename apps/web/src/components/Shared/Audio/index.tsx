@@ -98,9 +98,9 @@ const Audio: FC<AudioProps> = ({
             <div className="flex w-full items-center space-x-2.5 truncate">
               <button onClick={handlePlayPause} type="button">
                 {playing && !playerRef.current?.plyr.paused ? (
-                  <PauseIcon className="h-[50px] w-[50px] text-gray-100 hover:text-white" />
+                  <PauseIcon className="size-[50px] text-gray-100 hover:text-white" />
                 ) : (
-                  <PlayIcon className="h-[50px] w-[50px] text-gray-100 hover:text-white" />
+                  <PlayIcon className="size-[50px] text-gray-100 hover:text-white" />
                 )}
               </button>
               <div className="w-full truncate pr-3">
