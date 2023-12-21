@@ -2,8 +2,9 @@ import type { FC } from 'react';
 
 import { ThirdTierCondition } from '@hey/lens';
 
+import EoaOwnershipCondition from '../EoaOwnershipCondition';
+import NftOwnershipCondition from '../NftOwnershipCondition';
 import ProfileOwnershipCondition from '../ProfileOwnershipCondition';
-import EoaOwnershipCondition from '../ProfileOwnershipCondition copy';
 
 interface ThirdTierConditionProps {
   condition: ThirdTierCondition;
@@ -19,7 +20,7 @@ const ThirdTierCondition: FC<ThirdTierConditionProps> = ({ condition }) => {
         <EoaOwnershipCondition condition={condition} />
       ) : null}
       {condition.__typename === 'NftOwnershipCondition' ? (
-        <div>{condition.contract.address}</div>
+        <NftOwnershipCondition condition={condition} />
       ) : null}
     </div>
   );
