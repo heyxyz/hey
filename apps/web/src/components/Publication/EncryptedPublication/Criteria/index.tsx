@@ -14,9 +14,13 @@ const Criteria: FC<CriteriaProps> = ({ accessCondition }) => {
     return null;
   }
 
-  return accessCondition?.criteria.map((criterion) => (
-    <SecondTierCondition condition={criterion} key={criterion.__typename} />
-  ));
+  return (
+    <div>
+      {accessCondition?.criteria.map((criterion) => (
+        <SecondTierCondition condition={criterion} key={criterion.__typename} />
+      ))}
+    </div>
+  );
 };
 
 export default Criteria;
