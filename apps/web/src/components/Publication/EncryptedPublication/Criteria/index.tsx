@@ -15,7 +15,7 @@ const Criteria: FC<CriteriaProps> = ({ accessCondition }) => {
   }
 
   return (
-    <div>
+    <div className="space-y-3">
       {accessCondition?.criteria.map((criterion) => (
         <SecondTierCondition condition={criterion} key={criterion.__typename} />
       ))}
