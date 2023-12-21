@@ -12,7 +12,7 @@ const ProfileOwnershipCondition: FC<ProfileOwnershipConditionProps> = ({
 }) => {
   return (
     <div className="flex items-center space-x-2">
-      <div>Must be owned by</div>
+      <div>Must own the profile:</div>
       <LazySmallUserProfile id={condition.profileId} linkToProfile />
     </div>
   );
