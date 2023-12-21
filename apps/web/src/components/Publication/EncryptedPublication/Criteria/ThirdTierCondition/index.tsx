@@ -11,7 +11,7 @@ interface ThirdTierConditionProps {
 
 const ThirdTierCondition: FC<ThirdTierConditionProps> = ({ condition }) => {
   return (
-    <div>
+    <div className="space-y-1.5">
       {condition.__typename === 'ProfileOwnershipCondition' ? (
         <ProfileOwnershipCondition condition={condition} />
       ) : null}
