@@ -7,6 +7,7 @@ import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
 import { useCurrentProfileQuery } from '@hey/lens';
 import getCurrentSession from '@lib/getCurrentSession';
 import getToastOptions from '@lib/getToastOptions';
+import { watchAccount } from '@wagmi/core';
 import { useTheme } from 'next-themes';
 import Head from 'next/head';
 import { Toaster } from 'react-hot-toast';
@@ -52,8 +53,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     resetPreferences();
     resetFeatureFlags();
     resetPro();
-    signOut();
     disconnect?.();
+    signOut();
     if (reload) {
       location.reload();
     }
@@ -79,6 +80,16 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   useEffectOnce(() => {
     validateAuthentication();
+  });
+
+  useEffectOnce(() => {
+    const unwatch = watchAccount(() => {
+      if (currentProfile?.id) {
+        logout();
+      }
+    });
+
+    return () => unwatch();
   });
 
   const profileLoading = !currentProfile && loading;

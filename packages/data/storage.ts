@@ -8,6 +8,11 @@ export const Localstorage = {
   TransactionStore: 'transaction.store'
 };
 
+export const Cookiestorage = {
+  AccessToken: 'accessToken',
+  RefreshToken: 'refreshToken'
+};
+
 export const IndexDB = {
   AlgorithmStore: 'algorithm.store',
   FeaturedGroupsStore: 'featuredgroups.store',
