@@ -41,7 +41,7 @@ const Pending: FC<PendingProps> = ({ txId }) => {
       ) : data?.lensTransactionStatus?.status ===
         LensTransactionStatusType.Failed ? (
         <div className="space-y-3">
-          <XCircleIcon className="mx-auto h-10 w-10 text-red-500" />
+          <XCircleIcon className="mx-auto size-10 text-red-500" />
           <div>Account creation failed!</div>
         </div>
       ) : (

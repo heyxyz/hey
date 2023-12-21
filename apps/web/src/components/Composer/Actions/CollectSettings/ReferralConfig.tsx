@@ -18,7 +18,7 @@ const ReferralConfig: FC<ReferralConfigProps> = ({ setCollectType }) => {
       <ToggleWithHelper
         description="Share your fee with people who amplify your content"
         heading="Mirror referral reward"
-        icon={<ArrowsRightLeftIcon className="h-4 w-4" />}
+        icon={<ArrowsRightLeftIcon className="size-4" />}
         on={Boolean(collectModule.referralFee)}
         setOn={() =>
           setCollectType({

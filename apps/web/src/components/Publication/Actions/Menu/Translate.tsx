@@ -47,7 +47,7 @@ const Translate: FC<TranslateProps> = ({ publication }) => {
       target="_blank"
     >
       <div className="flex items-center space-x-2">
-        <LanguageIcon className="h-4 w-4" />
+        <LanguageIcon className="size-4" />
         <div>Translate</div>
       </div>
     </Menu.Item>

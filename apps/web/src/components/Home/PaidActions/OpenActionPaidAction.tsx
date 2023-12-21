@@ -65,7 +65,7 @@ const OpenActionPaidAction: FC<OpenActionPaidActionProps> = ({
           <b>Collected for</b>
           <img
             alt={openAction?.assetSymbol}
-            className="h-5 w-5"
+            className="size-5"
             src={getTokenImage(openAction?.assetSymbol as string)}
           />
           <span>

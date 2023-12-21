@@ -67,31 +67,31 @@ import Discard from './Post/Discard';
 const Attachment = dynamic(
   () => import('@components/Composer/Actions/Attachment'),
   {
-    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
   }
 );
 const EmojiPicker = dynamic(() => import('@components/Shared/EmojiPicker'), {
-  loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+  loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
 });
 const Gif = dynamic(() => import('@components/Composer/Actions/Gif'), {
-  loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+  loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
 });
 const CollectSettings = dynamic(
   () => import('@components/Composer/Actions/CollectSettings'),
   {
-    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
   }
 );
 const ReferenceSettings = dynamic(
   () => import('@components/Composer/Actions/ReferenceSettings'),
   {
-    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
   }
 );
 const PollSettings = dynamic(
   () => import('@components/Composer/Actions/PollSettings'),
   {
-    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
   }
 );
 
@@ -633,9 +633,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
               isLoading ? (
                 <Spinner size="xs" />
               ) : isComment ? (
-                <ChatBubbleLeftRightIcon className="h-4 w-4" />
+                <ChatBubbleLeftRightIcon className="size-4" />
               ) : (
-                <PencilSquareIcon className="h-4 w-4" />
+                <PencilSquareIcon className="size-4" />
               )
             }
             onClick={createPublication}

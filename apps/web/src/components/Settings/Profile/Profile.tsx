@@ -459,7 +459,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
               isLoading ? (
                 <Spinner size="xs" />
               ) : (
-                <PencilIcon className="h-4 w-4" />
+                <PencilIcon className="size-4" />
               )
             }
             type="submit"
@@ -493,7 +493,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
               uploadingCoverPicture ? (
                 <Spinner size="xs" />
               ) : (
-                <PencilIcon className="h-4 w-4" />
+                <PencilIcon className="size-4" />
               )
             }
             onClick={() => uploadAndSave('cover')}
@@ -529,7 +529,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
               uploadingProfilePicture ? (
                 <Spinner size="xs" />
               ) : (
-                <PencilIcon className="h-4 w-4" />
+                <PencilIcon className="size-4" />
               )
             }
             onClick={() => uploadAndSave('avatar')}

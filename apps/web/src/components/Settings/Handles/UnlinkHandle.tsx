@@ -173,7 +173,7 @@ const UnlinkHandle: FC = () => {
             unlinking ? (
               <Spinner size="xs" />
             ) : (
-              <MinusCircleIcon className="h-4 w-4" />
+              <MinusCircleIcon className="size-4" />
             )
           }
           onClick={unlink}

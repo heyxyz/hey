@@ -49,7 +49,7 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
       <div className="p-5">
         <EmptyState
           hideCard
-          icon={<RectangleStackIcon className="text-brand-500 h-8 w-8" />}
+          icon={<RectangleStackIcon className="text-brand-500 size-8" />}
           message="No collectors."
         />
       </div>

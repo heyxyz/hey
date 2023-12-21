@@ -33,7 +33,7 @@ const Tabs: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
             icon={
               <img
                 alt={algorithm.name}
-                className="h-4 w-4 rounded"
+                className="size-4 rounded"
                 src={algorithm.image}
               />
             }

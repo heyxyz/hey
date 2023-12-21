@@ -34,7 +34,7 @@ export const ErrorMessage: FC<ErrorMessageProps> = ({
           </h3>
         ) : null}
         <div className="flex items-center space-x-1 text-xs text-red-800">
-          <LifebuoyIcon className="h-4 w-4" />
+          <LifebuoyIcon className="size-4" />
           <Link className="font-bold underline" href="/support">
             Contact Support
           </Link>

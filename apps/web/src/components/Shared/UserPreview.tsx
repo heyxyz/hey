@@ -94,7 +94,7 @@ const UserPreview: FC<UserPreviewProps> = ({
     const UserAvatar = () => (
       <Image
         alt={profile.id}
-        className="h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
+        className="size-10 rounded-full border bg-gray-200 dark:border-gray-700"
         height={40}
         loading="lazy"
         src={getAvatar(profile)}
@@ -107,10 +107,10 @@ const UserPreview: FC<UserPreviewProps> = ({
         <div className="flex max-w-sm items-center gap-1 truncate">
           <div className="text-md">{getProfile(profile).displayName}</div>
           {isVerified(profile.id) ? (
-            <CheckBadgeIcon className="text-brand-500 h-4 w-4" />
+            <CheckBadgeIcon className="text-brand-500 size-4" />
           ) : null}
           {hasMisused(profile.id) ? (
-            <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
+            <ExclamationCircleIcon className="size-4 text-red-500" />
           ) : null}
         </div>
         <span>
@@ -164,7 +164,7 @@ const UserPreview: FC<UserPreviewProps> = ({
       <Tippy
         appendTo={() => document.body}
         arrow={false}
-        className="preview-tippy-content hidden w-64 !rounded-xl border !bg-white !text-black dark:border-gray-700 dark:!bg-black dark:!text-white md:block"
+        className="preview-tippy-content hidden w-64 !rounded-xl border !bg-white !text-black md:block dark:border-gray-700 dark:!bg-black dark:!text-white"
         content={<Preview />}
         delay={[POPOVER_SHOW_ANIMATION_MS, POPOVER_HIDE_ANIMATION_MS]}
         hideOnClick={false}

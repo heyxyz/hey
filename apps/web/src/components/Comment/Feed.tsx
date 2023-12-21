@@ -93,7 +93,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
   if (!publication?.isHidden && totalComments === 0) {
     return (
       <EmptyState
-        icon={<ChatBubbleLeftRightIcon className="text-brand-500 h-8 w-8" />}
+        icon={<ChatBubbleLeftRightIcon className="text-brand-500 size-8" />}
         message="Be the first one to comment!"
       />
     );

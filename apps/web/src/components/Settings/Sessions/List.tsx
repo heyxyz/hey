@@ -100,7 +100,7 @@ const List: FC = () => {
     return (
       <EmptyState
         hideCard
-        icon={<GlobeAltIcon className="text-brand-500 h-8 w-8" />}
+        icon={<GlobeAltIcon className="text-brand-500 size-8" />}
         message="You are not logged in on any other devices!"
       />
     );
@@ -116,7 +116,7 @@ const List: FC = () => {
         >
           <div>
             <div className="mb-3 flex items-center space-x-2">
-              <ComputerDesktopIcon className="h-8 w-8" />
+              <ComputerDesktopIcon className="size-8" />
               <div>
                 {session.browser ? <span>{session.browser}</span> : null}
                 {session.os ? <span> - {session.os}</span> : null}

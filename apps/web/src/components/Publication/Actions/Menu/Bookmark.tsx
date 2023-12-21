@@ -126,12 +126,12 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
       <div className="flex items-center space-x-2">
         {hasBookmarked ? (
           <>
-            <BookmarkIconSolid className="h-4 w-4" />
+            <BookmarkIconSolid className="size-4" />
             <div>Remove Bookmark</div>
           </>
         ) : (
           <>
-            <BookmarkIconOutline className="h-4 w-4" />
+            <BookmarkIconOutline className="size-4" />
             <div>Bookmark</div>
           </>
         )}

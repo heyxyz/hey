@@ -37,11 +37,11 @@ const Gif: FC<GiphyProps> = ({ setGifAttachment }) => {
           type="button"
           whileTap={{ scale: 0.9 }}
         >
-          <GifIcon className="text-brand-500 h-5 w-5" />
+          <GifIcon className="text-brand-500 size-5" />
         </motion.button>
       </Tooltip>
       <Modal
-        icon={<PhotoIcon className="text-brand-500 h-5 w-5" />}
+        icon={<PhotoIcon className="text-brand-500 size-5" />}
         onClose={() => setShowModal(false)}
         show={showModal}
         title="Select GIF"

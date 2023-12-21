@@ -55,7 +55,7 @@ const List: FC = () => {
     return (
       <EmptyState
         hideCard
-        icon={<QueueListIcon className="text-brand-500 h-8 w-8" />}
+        icon={<QueueListIcon className="text-brand-500 size-8" />}
         message="You have no actions on your account!"
       />
     );
