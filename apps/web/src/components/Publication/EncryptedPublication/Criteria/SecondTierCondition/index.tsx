@@ -11,6 +11,8 @@ interface SecondTierConditionProps {
 const SecondTierCondition: FC<SecondTierConditionProps> = ({ condition }) => {
   return (
     <div>
+      <ThirdTierCondition condition={condition as ThirdTierCondition} />
+
       {condition.__typename === 'AndCondition' ? (
         <div className="space-y-3">
           <div className="font-bold">
