@@ -4,6 +4,7 @@ import { ThirdTierCondition } from '@hey/lens';
 
 import CollectCondition from '../CollectCondition';
 import EoaOwnershipCondition from '../EoaOwnershipCondition';
+import FollowCondition from '../FollowCondition';
 import NftOwnershipCondition from '../NftOwnershipCondition';
 import ProfileOwnershipCondition from '../ProfileOwnershipCondition';
 
@@ -14,18 +15,21 @@ interface ThirdTierConditionProps {
 const ThirdTierCondition: FC<ThirdTierConditionProps> = ({ condition }) => {
   return (
     <div className="space-y-1.5">
-      {condition.__typename === 'ProfileOwnershipCondition' ? (
+      {condition.__typename === 'ProfileOwnershipCondition' && (
         <ProfileOwnershipCondition condition={condition} />
-      ) : null}
-      {condition.__typename === 'EoaOwnershipCondition' ? (
+      )}
+      {condition.__typename === 'EoaOwnershipCondition' && (
         <EoaOwnershipCondition condition={condition} />
-      ) : null}
-      {condition.__typename === 'NftOwnershipCondition' ? (
+      )}
+      {condition.__typename === 'NftOwnershipCondition' && (
         <NftOwnershipCondition condition={condition} />
-      ) : null}
-      {condition.__typename === 'CollectCondition' ? (
+      )}
+      {condition.__typename === 'CollectCondition' && (
         <CollectCondition condition={condition} />
-      ) : null}
+      )}
+      {condition.__typename === 'FollowCondition' && (
+        <FollowCondition condition={condition} />
+      )}
     </div>
   );
 };
