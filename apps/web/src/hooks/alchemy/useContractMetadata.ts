@@ -6,7 +6,7 @@ import { Alchemy } from 'alchemy-sdk';
 
 import getAlchemyNetwork from './getAlchemyNetwork';
 
-interface UseZoraNftProps {
+interface UseContractMetadataProps {
   address: string;
   chain: string;
   enabled?: boolean;
@@ -16,7 +16,7 @@ const useContractMetadata = ({
   address,
   chain,
   enabled
-}: UseZoraNftProps): {
+}: UseContractMetadataProps): {
   data: NftContract | undefined;
   error: unknown;
   loading: boolean;
