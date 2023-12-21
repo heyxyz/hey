@@ -81,10 +81,10 @@ const Details: FC<DetailsProps> = ({ profile }) => {
 
   return (
     <div className="mb-4 space-y-5 px-5 sm:px-0">
-      <div className="relative -mt-24 size-32 sm:-mt-32 sm:h-52 sm:w-52">
+      <div className="relative -mt-24 size-32 sm:-mt-32 sm:size-52">
         <Image
           alt={profile.id}
-          className="size-32 cursor-pointer rounded-xl bg-gray-200 ring-8 ring-gray-50 sm:h-52 sm:w-52 dark:bg-gray-700 dark:ring-black"
+          className="size-32 cursor-pointer rounded-xl bg-gray-200 ring-8 ring-gray-50 sm:size-52 dark:bg-gray-700 dark:ring-black"
           height={128}
           onClick={() => setExpandedImage(getAvatar(profile, EXPANDED_AVATAR))}
           src={getAvatar(profile)}
