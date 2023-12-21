@@ -31,23 +31,21 @@ const Logout: FC<LogoutProps> = ({ className = '', onClick }) => {
     errorToast(error);
   };
 
-  const [revokeAuthentication] = useRevokeAuthenticationMutation({
-    onCompleted: () => {
+  const [revokeAuthentication] = useRevokeAuthenticationMutation({ onError });
+
+  const logout = async () => {
+    try {
+      setRevoking(true);
+      if (authorizationId) {
+        await revokeAuthentication({
+          variables: { request: { authorizationId } }
+        });
+      }
       Leafwatch.track(PROFILE.LOGOUT);
       resetPreferences();
       signOut();
       disconnect?.();
       location.reload();
-    },
-    onError
-  });
-
-  const logout = async () => {
-    try {
-      setRevoking(true);
-      return await revokeAuthentication({
-        variables: { request: { authorizationId } }
-      });
     } catch (error) {
       onError(error);
     } finally {
