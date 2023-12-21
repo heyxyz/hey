@@ -176,7 +176,7 @@ const Follow: FC<FollowProps> = ({ profile, showText = false }) => {
       className="!px-3 !py-1.5 text-sm"
       disabled={isLoading}
       icon={
-        isLoading ? <Spinner size="xs" /> : <UserPlusIcon className="h-4 w-4" />
+        isLoading ? <Spinner size="xs" /> : <UserPlusIcon className="size-4" />
       }
       onClick={createFollow}
       outline

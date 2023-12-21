@@ -45,7 +45,7 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
       }}
     >
       <div className="flex items-center space-x-2">
-        <ChatBubbleBottomCenterTextIcon className="h-4 w-4" />
+        <ChatBubbleBottomCenterTextIcon className="size-4" />
         <div>
           {publicationType === 'Comment' ? 'Quote comment' : 'Quote post'}
         </div>

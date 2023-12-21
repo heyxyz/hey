@@ -80,9 +80,9 @@ const Navbar: FC = () => {
               type="button"
             >
               {showSearch ? (
-                <XMarkIcon className="h-6 w-6" />
+                <XMarkIcon className="size-6" />
               ) : (
-                <MagnifyingGlassIcon className="h-6 w-6" />
+                <MagnifyingGlassIcon className="size-6" />
               )}
             </button>
             <Link
@@ -91,7 +91,7 @@ const Navbar: FC = () => {
             >
               <img
                 alt="Logo"
-                className="h-8 w-8"
+                className="size-8"
                 height={32}
                 src={preferences.isPride ? '/pride.png' : '/logo.png'}
                 width={32}
@@ -112,7 +112,7 @@ const Navbar: FC = () => {
           >
             <img
               alt="Logo"
-              className="h-7 w-7"
+              className="size-7"
               height={32}
               src={preferences.isPride ? '/pride.png' : '/logo.png'}
               width={32}

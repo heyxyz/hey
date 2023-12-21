@@ -19,7 +19,7 @@ const ProofOfHumanity: FC<ProofOfHumanityProps> = ({ profile }) => {
       content={
         <span className="flex items-center space-x-1">
           <span>Proof of Humanity verified</span>
-          <CheckCircleIcon className="h-4 w-4" />
+          <CheckCircleIcon className="size-4" />
         </span>
       }
       placement="top"

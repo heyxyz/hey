@@ -55,9 +55,9 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
       type="button"
     >
       {gardenerMode ? (
-        <BoltIconSolid className="h-4 w-4 text-green-600" />
+        <BoltIconSolid className="size-4 text-green-600" />
       ) : (
-        <BoltIconOutline className="h-4 w-4 text-red-500" />
+        <BoltIconOutline className="size-4 text-red-500" />
       )}
       <div>Gardener mode</div>
     </button>

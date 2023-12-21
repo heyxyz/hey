@@ -33,7 +33,7 @@ const SmallWalletProfile: FC<SmallWalletProfileProps> = ({
         <Image
           alt={address}
           className={cn(
-            smallAvatar ? 'h-5 w-5' : 'h-6 w-6',
+            smallAvatar ? 'size-5' : 'size-6',
             'rounded-full border bg-gray-200 dark:border-gray-700'
           )}
           height={smallAvatar ? 20 : 24}
@@ -46,7 +46,7 @@ const SmallWalletProfile: FC<SmallWalletProfileProps> = ({
         <div>
           <div className="flex items-center gap-1.5">
             <div>{loading ? formatAddress(address) : formatAddress(ens)}</div>
-            <ArrowTopRightOnSquareIcon className="h-4 w-4" />
+            <ArrowTopRightOnSquareIcon className="size-4" />
           </div>
         </div>
       </Link>

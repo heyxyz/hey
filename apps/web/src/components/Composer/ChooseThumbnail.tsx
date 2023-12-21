@@ -132,7 +132,7 @@ const ChooseThumbnail: FC = () => {
       <b>Choose Thumbnail</b>
       <div className="mt-1 grid grid-cols-3 gap-3 py-0.5 md:grid-cols-5">
         <label
-          className="max-w-32 flex h-24 w-full flex-none cursor-pointer flex-col items-center justify-center rounded-xl border dark:border-gray-700"
+          className="flex h-24 w-full max-w-32 flex-none cursor-pointer flex-col items-center justify-center rounded-xl border dark:border-gray-700"
           htmlFor="chooseThumbnail"
         >
           <input
@@ -146,7 +146,7 @@ const ChooseThumbnail: FC = () => {
             <Spinner size="sm" />
           ) : (
             <>
-              <PhotoIcon className="mb-1 h-5 w-5" />
+              <PhotoIcon className="mb-1 size-5" />
               <span className="text-sm">Upload</span>
             </>
           )}
@@ -172,7 +172,7 @@ const ChooseThumbnail: FC = () => {
               />
               {ipfsUrl && isSelected && isUploaded ? (
                 <div className="absolute inset-0 grid place-items-center rounded-xl bg-gray-100/10">
-                  <CheckCircleIcon className="h-6 w-6 text-green-500" />
+                  <CheckCircleIcon className="size-6 text-green-500" />
                 </div>
               ) : null}
               {isUploading && isSelected && (

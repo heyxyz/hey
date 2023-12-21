@@ -72,7 +72,7 @@ const ProtectProfile: FC = () => {
       <GridLayout className="!p-5">
         <GridItemEight className="!mb-0 space-y-1">
           <div className="flex items-center space-x-2 text-red-700">
-            <LockOpenIcon className="h-5 w-5" />
+            <LockOpenIcon className="size-5" />
             <div className="text-base font-bold sm:text-lg">
               Attention! Your profile is currently unlocked.
             </div>
@@ -110,7 +110,7 @@ const ProtectProfile: FC = () => {
                 isLoading ? (
                   <Spinner size="xs" />
                 ) : (
-                  <LockClosedIcon className="h-4 w-4" />
+                  <LockClosedIcon className="size-4" />
                 )
               }
               onClick={handleProtect}

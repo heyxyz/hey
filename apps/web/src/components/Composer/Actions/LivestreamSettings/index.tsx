@@ -27,7 +27,7 @@ const LivestreamSettings: FC = () => {
         type="button"
         whileTap={{ scale: 0.9 }}
       >
-        <VideoCameraIcon className="text-brand-500 h-5 w-5" />
+        <VideoCameraIcon className="text-brand-500 size-5" />
       </motion.button>
     </Tooltip>
   );

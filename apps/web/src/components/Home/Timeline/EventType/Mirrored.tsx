@@ -20,7 +20,7 @@ const Mirrored: FC<MirroredProps> = ({ mirrors }) => {
 
   return (
     <div className="ld-text-gray-500 flex items-center space-x-1 pb-4 text-[13px]">
-      <ArrowsRightLeftIcon className="h-4 w-4" />
+      <ArrowsRightLeftIcon className="size-4" />
       <Profiles context="mirrored" profiles={getMirroredProfiles()} />
     </div>
   );

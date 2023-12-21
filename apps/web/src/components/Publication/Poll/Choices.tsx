@@ -67,7 +67,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
       <div className="space-y-1 p-3">
         {options.map(({ id, option, percentage, voted }) => (
           <button
-            className="flex w-full items-center space-x-2.5 rounded-xl p-2 text-xs hover:bg-gray-100 dark:hover:bg-gray-900 sm:text-sm"
+            className="flex w-full items-center space-x-2.5 rounded-xl p-2 text-xs hover:bg-gray-100 sm:text-sm dark:hover:bg-gray-900"
             disabled={pollSubmitting}
             key={id}
             onClick={() => votePoll(id)}
@@ -79,7 +79,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
               <CheckCircleIcon
                 className={cn(
                   voted ? 'text-green-500' : 'text-gray-500',
-                  'h-6 w-6 '
+                  'size-6 '
                 )}
               />
             )}
@@ -104,7 +104,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
       </div>
       <div className="flex items-center justify-between border-t px-5 py-3 dark:border-gray-700 ">
         <div className="flex items-center space-x-2 text-xs text-gray-500">
-          <Bars3BottomLeftIcon className="h-4 w-4" />
+          <Bars3BottomLeftIcon className="size-4" />
           <span>
             {humanize(totalResponses || 0)} {plur('vote', totalResponses || 0)}
           </span>

@@ -24,7 +24,7 @@ const PollSettings: FC = () => {
         type="button"
         whileTap={{ scale: 0.9 }}
       >
-        <Bars3BottomLeftIcon className="text-brand-500 h-5 w-5" />
+        <Bars3BottomLeftIcon className="text-brand-500 size-5" />
       </motion.button>
     </Tooltip>
   );

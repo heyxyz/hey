@@ -36,13 +36,13 @@ const Search: NextPage = () => {
             items={[
               {
                 active: query.type === 'pubs',
-                icon: <PencilSquareIcon className="h-4 w-4" />,
+                icon: <PencilSquareIcon className="size-4" />,
                 title: 'Publications',
                 url: `/search?q=${searchText}&type=pubs`
               },
               {
                 active: query.type === 'profiles',
-                icon: <UsersIcon className="h-4 w-4" />,
+                icon: <UsersIcon className="size-4" />,
                 title: 'Profiles',
                 url: `/search?q=${searchText}&type=profiles`
               }
