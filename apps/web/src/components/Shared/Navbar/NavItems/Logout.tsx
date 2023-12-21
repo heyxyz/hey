@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
+import { ArrowRightStartOnRectangleIcon } from '@heroicons/react/24/outline';
 import { PROFILE } from '@hey/data/tracking';
 import { useRevokeAuthenticationMutation } from '@hey/lens';
 import cn from '@hey/ui/cn';
@@ -66,7 +66,7 @@ const Logout: FC<LogoutProps> = ({ className = '', onClick }) => {
       }}
       type="button"
     >
-      <ArrowRightOnRectangleIcon className="size-4" />
+      <ArrowRightStartOnRectangleIcon className="size-4" />
       <div>Logout</div>
     </button>
   );
