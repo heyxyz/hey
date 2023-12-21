@@ -2,6 +2,7 @@ import type { FC } from 'react';
 
 import { ThirdTierCondition } from '@hey/lens';
 
+import CollectCondition from '../CollectCondition';
 import EoaOwnershipCondition from '../EoaOwnershipCondition';
 import NftOwnershipCondition from '../NftOwnershipCondition';
 import ProfileOwnershipCondition from '../ProfileOwnershipCondition';
@@ -21,6 +22,9 @@ const ThirdTierCondition: FC<ThirdTierConditionProps> = ({ condition }) => {
       ) : null}
       {condition.__typename === 'NftOwnershipCondition' ? (
         <NftOwnershipCondition condition={condition} />
+      ) : null}
+      {condition.__typename === 'CollectCondition' ? (
+        <CollectCondition condition={condition} />
       ) : null}
     </div>
   );
