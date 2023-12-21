@@ -22,8 +22,19 @@ const NftOwnershipCondition: FC<NftOwnershipConditionProps> = ({
       {loading ? (
         <div className="shimmer h-3 w-28 rounded-lg" />
       ) : (
-        <div>
-          {data?.name} ({data?.symbol})
+        <div className="flex items-center space-x-2">
+          {data?.openSeaMetadata.imageUrl ? (
+            <img
+              className="h-5 w-5 rounded"
+              src={data?.openSeaMetadata.imageUrl}
+            />
+          ) : null}
+          <div>
+            {data?.name} ({data?.symbol})
+          </div>
+          {condition?.tokenIds?.length === 1 ? (
+            <div>({condition.tokenIds.map((tokenId) => `#${tokenId}`)})</div>
+          ) : null}
         </div>
       )}
     </div>
