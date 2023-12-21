@@ -84,7 +84,7 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
       <div className="flex items-start justify-between pb-4">
         <SmallUserProfile linkToProfile profile={currentProfile as Profile} />
         <Tooltip content="Indexing" placement="top">
-          <div className="bg-brand-200 size-4 flex items-center justify-center rounded-full">
+          <div className="bg-brand-200 flex size-4 items-center justify-center rounded-full">
             <div className="bg-brand-500 size-2 animate-pulse rounded-full" />
           </div>
         </Tooltip>

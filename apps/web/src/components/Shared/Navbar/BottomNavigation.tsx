@@ -25,7 +25,7 @@ const BottomNavigation = () => {
   const isActivePath = (path: string) => router.pathname === path;
 
   return (
-    <div className="pb-safe fixed inset-x-0 bottom-0 z-[5] border-t border-gray-200 bg-white dark:border-gray-800 dark:bg-black md:hidden">
+    <div className="pb-safe fixed inset-x-0 bottom-0 z-[5] border-t border-gray-200 bg-white md:hidden dark:border-gray-800 dark:bg-black">
       <div
         className={cn('grid', currentProfile ? 'grid-cols-4' : 'grid-cols-3')}
       >

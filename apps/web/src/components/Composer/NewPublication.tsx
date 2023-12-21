@@ -67,31 +67,31 @@ import Discard from './Post/Discard';
 const Attachment = dynamic(
   () => import('@components/Composer/Actions/Attachment'),
   {
-    loading: () => <div className="shimmer size-5 mb-1 rounded-lg" />
+    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
   }
 );
 const EmojiPicker = dynamic(() => import('@components/Shared/EmojiPicker'), {
-  loading: () => <div className="shimmer size-5 mb-1 rounded-lg" />
+  loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
 });
 const Gif = dynamic(() => import('@components/Composer/Actions/Gif'), {
-  loading: () => <div className="shimmer size-5 mb-1 rounded-lg" />
+  loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
 });
 const CollectSettings = dynamic(
   () => import('@components/Composer/Actions/CollectSettings'),
   {
-    loading: () => <div className="shimmer size-5 mb-1 rounded-lg" />
+    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
   }
 );
 const ReferenceSettings = dynamic(
   () => import('@components/Composer/Actions/ReferenceSettings'),
   {
-    loading: () => <div className="shimmer size-5 mb-1 rounded-lg" />
+    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
   }
 );
 const PollSettings = dynamic(
   () => import('@components/Composer/Actions/PollSettings'),
   {
-    loading: () => <div className="shimmer size-5 mb-1 rounded-lg" />
+    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
   }
 );
 

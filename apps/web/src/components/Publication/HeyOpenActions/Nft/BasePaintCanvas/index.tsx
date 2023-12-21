@@ -80,7 +80,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
           <div className="flex items-center space-x-1">
             {canvas.palette.map((color) => (
               <span
-                className="size-4 inline-block"
+                className="inline-block size-4"
                 key={color}
                 style={{ backgroundColor: color }}
               />

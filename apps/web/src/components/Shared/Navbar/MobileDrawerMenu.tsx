@@ -40,7 +40,7 @@ const MobileDrawerMenu: FC = () => {
   const itemClass = 'py-3 hover:bg-gray-100 dark:hover:bg-gray-800';
 
   return (
-    <div className="no-scrollbar fixed inset-0 z-10 h-full w-full overflow-y-auto bg-gray-100 py-4 dark:bg-black md:hidden">
+    <div className="no-scrollbar fixed inset-0 z-10 h-full w-full overflow-y-auto bg-gray-100 py-4 md:hidden dark:bg-black">
       <button className="px-5" onClick={closeDrawer} type="button">
         <XMarkIcon className="size-6" />
       </button>

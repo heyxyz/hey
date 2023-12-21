@@ -67,10 +67,10 @@ const UserProfile: FC<UserProfileProps> = ({
           <div className="truncate">{getProfile(profile).displayName}</div>
         </div>
         {isVerified(profile.id) ? (
-          <CheckBadgeIcon className="text-brand-500 size-4 ml-1" />
+          <CheckBadgeIcon className="text-brand-500 ml-1 size-4" />
         ) : null}
         {hasMisused(profile.id) ? (
-          <ExclamationCircleIcon className="size-4 ml-1 text-red-500" />
+          <ExclamationCircleIcon className="ml-1 size-4 text-red-500" />
         ) : null}
       </div>
       <div>

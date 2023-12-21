@@ -37,7 +37,7 @@ const GroupProfile: FC<GroupProfileProps> = ({
           <div className="truncate">{sanitizeDisplayName(group.name)}</div>
         </div>
         {group.featured ? (
-          <FireIcon className="size-4 ml-1 text-yellow-500" />
+          <FireIcon className="ml-1 size-4 text-yellow-500" />
         ) : null}
       </div>
       <div>

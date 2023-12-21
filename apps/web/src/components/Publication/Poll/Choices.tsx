@@ -67,7 +67,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
       <div className="space-y-1 p-3">
         {options.map(({ id, option, percentage, voted }) => (
           <button
-            className="flex w-full items-center space-x-2.5 rounded-xl p-2 text-xs hover:bg-gray-100 dark:hover:bg-gray-900 sm:text-sm"
+            className="flex w-full items-center space-x-2.5 rounded-xl p-2 text-xs hover:bg-gray-100 sm:text-sm dark:hover:bg-gray-900"
             disabled={pollSubmitting}
             key={id}
             onClick={() => votePoll(id)}

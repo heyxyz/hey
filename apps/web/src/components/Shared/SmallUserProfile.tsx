@@ -52,10 +52,10 @@ const SmallUserProfile: FC<UserProfileProps> = ({
         {getProfile(profile).displayName}
       </div>
       {isVerified(profile.id) ? (
-        <CheckBadgeIcon className="text-brand-500 size-4 mr-1" />
+        <CheckBadgeIcon className="text-brand-500 mr-1 size-4" />
       ) : null}
       {hasMisused(profile.id) ? (
-        <ExclamationCircleIcon className="size-4 mr-2 text-red-500" />
+        <ExclamationCircleIcon className="mr-2 size-4 text-red-500" />
       ) : null}
       {!hideSlug ? (
         <Slug className="text-sm" slug={getProfile(profile).slugWithPrefix} />
