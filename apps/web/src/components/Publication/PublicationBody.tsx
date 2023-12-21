@@ -61,7 +61,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   const [content, setContent] = useState(rawContent);
 
   if (targetPublication.isEncrypted) {
-    return <EncryptedPublication type={targetPublication.__typename} />;
+    return <EncryptedPublication publication={targetPublication} />;
   }
 
   if (!isPublicationMetadataTypeAllowed(metadata.__typename)) {

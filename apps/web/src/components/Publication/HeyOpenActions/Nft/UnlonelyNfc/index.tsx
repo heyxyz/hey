@@ -17,7 +17,7 @@ import NftShimmer from './Shimmer';
 
 interface UnlonelyNfcProps {
   nftMetadata: UnlonelyNfcMetadata;
-  publication: AnyPublication;
+  publication?: AnyPublication;
 }
 
 const UnlonelyNfc: FC<UnlonelyNfcProps> = ({ nftMetadata, publication }) => {
@@ -68,27 +68,34 @@ const UnlonelyNfc: FC<UnlonelyNfcProps> = ({ nftMetadata, publication }) => {
           </Tooltip>
           <div className="text-sm font-bold">{title}</div>
         </div>
-        <Link
-          href={urlcat('https://www.unlonely.app/nfc/:id', {
-            id: nfc.id
-          })}
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <Button
-            className="text-sm"
-            icon={<CursorArrowRaysIcon className="size-4" />}
-            onClick={() =>
-              Leafwatch.track(PUBLICATION.OPEN_ACTIONS.UNLONELY_NFC.OPEN_LINK, {
-                from: 'mint_embed',
-                publication_id: publication.id
-              })
-            }
-            size="md"
+        {publication ? (
+          <Link
+            href={urlcat('https://www.unlonely.app/nfc/:id', {
+              id: nfc.id
+            })}
+            rel="noopener noreferrer"
+            target="_blank"
           >
-            Open
-          </Button>
-        </Link>
+            <Button
+              className="text-sm"
+              icon={<CursorArrowRaysIcon className="size-4" />}
+              onClick={() =>
+                Leafwatch.track(
+                  PUBLICATION.OPEN_ACTIONS.UNLONELY_NFC.OPEN_LINK,
+                  {
+                    from: 'mint_embed',
+                    publication_id: publication.id
+                  }
+                )
+              }
+              size="md"
+            >
+              Open
+            </Button>
+          </Link>
+        ) : (
+          <div className="h-7" />
+        )}
       </div>
     </Card>
   );

@@ -22,7 +22,7 @@ import NftShimmer from './Shimmer';
 
 interface UnlonelyChannelProps {
   nftMetadata: UnlonelyChannelMetadata;
-  publication: AnyPublication;
+  publication?: AnyPublication;
 }
 
 const UnlonelyChannel: FC<UnlonelyChannelProps> = ({
@@ -88,27 +88,31 @@ const UnlonelyChannel: FC<UnlonelyChannelProps> = ({
             <span>{isLive ? 'Live' : 'Offline'}</span>
           </div>
         </div>
-        <Link
-          href={urlcat('https://www.unlonely.app/channels/:slug', {
-            slug: channel.slug
-          })}
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <Button
-            className="text-sm"
-            icon={<CursorArrowRaysIcon className="size-4" />}
-            onClick={() =>
-              Leafwatch.track(
-                PUBLICATION.OPEN_ACTIONS.UNLONELY_CHANNEL.OPEN_LINK,
-                { from: 'mint_embed', publication_id: publication.id }
-              )
-            }
-            size="md"
+        {publication ? (
+          <Link
+            href={urlcat('https://www.unlonely.app/channels/:slug', {
+              slug: channel.slug
+            })}
+            rel="noopener noreferrer"
+            target="_blank"
           >
-            Open
-          </Button>
-        </Link>
+            <Button
+              className="text-sm"
+              icon={<CursorArrowRaysIcon className="size-4" />}
+              onClick={() =>
+                Leafwatch.track(
+                  PUBLICATION.OPEN_ACTIONS.UNLONELY_CHANNEL.OPEN_LINK,
+                  { from: 'mint_embed', publication_id: publication.id }
+                )
+              }
+              size="md"
+            >
+              Open
+            </Button>
+          </Link>
+        ) : (
+          <div className="h-7" />
+        )}
       </div>
     </Card>
   );
