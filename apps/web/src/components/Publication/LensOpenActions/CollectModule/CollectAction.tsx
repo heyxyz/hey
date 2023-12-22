@@ -13,7 +13,11 @@ import LoginButton from '@components/Shared/Navbar/LoginButton';
 import NoBalanceError from '@components/Shared/NoBalanceError';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { LensHub, PublicAct } from '@hey/abis';
-import { LENSHUB_PROXY, PUBLICACT_PROXY } from '@hey/data/constants';
+import {
+  LENSHUB_PROXY,
+  PUBLICACT_PROXY,
+  REFERRER_ID
+} from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import {
   useActOnOpenActionMutation,
@@ -333,7 +337,10 @@ const CollectAction: FC<CollectActionProps> = ({
 
       const actOnRequest: ActOnOpenActionLensManagerRequest = {
         actOn: { [getOpenActionActOnKey(openAction.type)]: true },
-        for: targetPublication?.id
+        for: targetPublication?.id,
+        ...(!isMirrorPublication(publication) && {
+          referrers: [{ profileId: REFERRER_ID }]
+        })
       };
 
       if (canUseManager) {
