@@ -22,7 +22,6 @@ import {
   PencilSquareIcon
 } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data/errors';
-import { FeatureFlag } from '@hey/data/feature-flags';
 import { PUBLICATION } from '@hey/data/tracking';
 import { ReferenceModuleType } from '@hey/lens';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
@@ -617,7 +616,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             </>
           ) : null}
           <PollSettings />
-          {!isComment && isFeatureEnabled(FeatureFlag.LiveStream) && (
+          {!isComment && isFeatureEnabled('live-stream') && (
             <LivestreamSettings />
           )}
         </div>
