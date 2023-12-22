@@ -24,11 +24,20 @@ interface SelectProps extends ComponentProps<'select'> {
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
   function Select({ className = '', label, options, ...rest }, ref) {
-    const [newOptions] = useState(options);
+    const [newOptions] = useState(
+      options || [
+        {
+          disabled: true,
+          label: 'No options available',
+          selected: true,
+          value: 'No options available'
+        }
+      ]
+    );
     const [selected, setSelected] = useState(
-      options?.find(
+      newOptions?.find(
         (option) => option.value === rest.defaultValue || option.selected
-      ) || options?.[0]
+      ) || newOptions?.[0]
     );
 
     return (
