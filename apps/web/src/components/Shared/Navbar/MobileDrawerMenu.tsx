@@ -91,7 +91,7 @@ const MobileDrawerMenu: FC = () => {
               </Link>
             ) : null}
             <Invites className={cn(itemClass, 'px-4')} />
-            {isFeatureEnabled(FeatureFlag.Pro) && (
+            {isFeatureEnabled('pro') && (
               <Link href="/pro" onClick={closeDrawer}>
                 <Pro className={cn(itemClass, 'px-4')} />
               </Link>

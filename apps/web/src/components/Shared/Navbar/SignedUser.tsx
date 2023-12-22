@@ -132,7 +132,7 @@ const SignedUser: FC = () => {
             >
               <Invites />
             </Menu.Item>
-            {isFeatureEnabled(FeatureFlag.Pro) && (
+            {isFeatureEnabled('pro') && (
               <Menu.Item
                 as={NextLink}
                 className={({ active }: { active: boolean }) =>
