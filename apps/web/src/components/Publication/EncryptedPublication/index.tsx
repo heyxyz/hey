@@ -14,8 +14,6 @@ const EncryptedPublication: FC<EncryptedPublicationProps> = ({
   publication
 }) => {
   const type = publication.__typename;
-  const { encryptedWith } = publication.metadata;
-  const accessCondition = encryptedWith?.accessCondition;
 
   return (
     <Card className="!bg-gray-100 dark:!bg-gray-800">
@@ -24,9 +22,7 @@ const EncryptedPublication: FC<EncryptedPublicationProps> = ({
           <LockClosedIcon className="size-4 text-green-500" />
           <span>{type} has been encrypted</span>
         </div>
-        {accessCondition ? (
-          <Criteria accessCondition={accessCondition} />
-        ) : null}
+        <Criteria publication={publication} />
       </div>
     </Card>
   );
