@@ -1,8 +1,6 @@
 import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
-import isFeatureEnabled from '@lib/isFeatureEnabled';
-
 import SecondTierCondition from './SecondTierCondition';
 
 interface CriteriaProps {
@@ -12,10 +10,6 @@ interface CriteriaProps {
 const Criteria: FC<CriteriaProps> = ({ publication }) => {
   const { encryptedWith } = publication.metadata;
   const accessCondition = encryptedWith?.accessCondition;
-
-  if (!isFeatureEnabled('token-gated')) {
-    return null;
-  }
 
   if (!accessCondition) {
     return null;
