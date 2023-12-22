@@ -1,4 +1,4 @@
-import type { RootCondition } from '@hey/lens';
+import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import isFeatureEnabled from '@lib/isFeatureEnabled';
@@ -6,17 +6,36 @@ import isFeatureEnabled from '@lib/isFeatureEnabled';
 import SecondTierCondition from './SecondTierCondition';
 
 interface CriteriaProps {
-  accessCondition: RootCondition;
+  publication: MirrorablePublication;
 }
 
-const Criteria: FC<CriteriaProps> = ({ accessCondition }) => {
+const Criteria: FC<CriteriaProps> = ({ publication }) => {
+  const { encryptedWith } = publication.metadata;
+  const accessCondition = encryptedWith?.accessCondition;
+
   if (!isFeatureEnabled('token-gated')) {
     return null;
   }
 
+  if (!accessCondition) {
+    return null;
+  }
+
+  const getCriteria = (): SecondTierCondition[] => {
+    let { criteria } = accessCondition;
+
+    // Remove duplicates __typename
+    criteria = criteria.filter(
+      (condition, index, self) =>
+        index === self.findIndex((c) => c.__typename === condition.__typename)
+    );
+
+    return criteria;
+  };
+
   return (
     <div className="space-y-3">
-      {accessCondition?.criteria.map((criterion) => (
+      {getCriteria().map((criterion) => (
         <SecondTierCondition condition={criterion} key={criterion.__typename} />
       ))}
     </div>
