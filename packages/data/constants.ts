@@ -37,9 +37,9 @@ export const HANDLE_PREFIX = IS_MAINNET ? 'lens/' : 'test/';
 
 // URLs
 export const STATIC_ASSETS_URL = 'https://hey-assets.b-cdn.net';
+export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
 export const LENS_MEDIA_SNAPSHOT_URL =
   'https://ik.imagekit.io/lens/media-snapshot';
-export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
 export const POLYGONSCAN_URL = IS_MAINNET
   ? 'https://polygonscan.com'
   : 'https://mumbai.polygonscan.com';
