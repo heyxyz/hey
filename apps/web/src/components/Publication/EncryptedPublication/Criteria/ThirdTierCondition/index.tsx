@@ -4,6 +4,7 @@ import { ThirdTierCondition } from '@hey/lens';
 
 import CollectCondition from '../CollectCondition';
 import EoaOwnershipCondition from '../EoaOwnershipCondition';
+import Erc20OwnershipCondition from '../Erc20OwnershipCondition';
 import FollowCondition from '../FollowCondition';
 import NftOwnershipCondition from '../NftOwnershipCondition';
 import ProfileOwnershipCondition from '../ProfileOwnershipCondition';
@@ -29,6 +30,9 @@ const ThirdTierCondition: FC<ThirdTierConditionProps> = ({ condition }) => {
       )}
       {condition.__typename === 'FollowCondition' && (
         <FollowCondition condition={condition} />
+      )}
+      {condition.__typename === 'Erc20OwnershipCondition' && (
+        <Erc20OwnershipCondition condition={condition} />
       )}
     </div>
   );
