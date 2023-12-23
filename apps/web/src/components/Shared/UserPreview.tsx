@@ -12,18 +12,17 @@ import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
 import nFormatter from '@hey/lib/nFormatter';
 import truncateByWords from '@hey/lib/truncateByWords';
-import { Image } from '@hey/ui';
+import { Card, Image } from '@hey/ui';
 import isVerified from '@lib/isVerified';
-import Tippy from '@tippyjs/react';
+import * as HoverCard from '@radix-ui/react-hover-card';
+import { motion } from 'framer-motion';
 import plur from 'plur';
 import { useState } from 'react';
 
 import Markup from './Markup';
 import Slug from './Slug';
 
-const MINIMUM_LOADING_ANIMATION_MS = 500;
-const POPOVER_SHOW_ANIMATION_MS = 100;
-const POPOVER_HIDE_ANIMATION_MS = 0;
+const MINIMUM_LOADING_ANIMATION_MS = 800;
 
 interface UserPreviewProps {
   children: ReactNode;
@@ -161,19 +160,29 @@ const UserPreview: FC<UserPreviewProps> = ({
 
   return (
     <span onFocus={onPreviewStart} onMouseOver={onPreviewStart}>
-      <Tippy
-        appendTo={() => document.body}
-        arrow={false}
-        className="preview-tippy-content hidden w-64 !rounded-xl border !bg-white !text-black md:block dark:border-gray-700 dark:!bg-black dark:!text-white"
-        content={<Preview />}
-        delay={[POPOVER_SHOW_ANIMATION_MS, POPOVER_HIDE_ANIMATION_MS]}
-        hideOnClick={false}
-        interactive
-        placement="bottom-start"
-        zIndex={1000}
-      >
-        <span>{children}</span>
-      </Tippy>
+      <HoverCard.Root>
+        <HoverCard.Trigger asChild>
+          <span>{children}</span>
+        </HoverCard.Trigger>
+        <HoverCard.Portal>
+          <HoverCard.Content
+            asChild
+            className="w-64 z-10"
+            side="bottom"
+            sideOffset={5}
+          >
+            <motion.div
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              initial={{ opacity: 0 }}
+            >
+              <Card forceRounded>
+                <Preview />
+              </Card>
+            </motion.div>
+          </HoverCard.Content>
+        </HoverCard.Portal>
+      </HoverCard.Root>
     </span>
   );
 };
