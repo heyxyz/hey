@@ -22,7 +22,7 @@ import NftShimmer from './Shimmer';
 
 interface UnlonelyChannelProps {
   nftMetadata: UnlonelyChannelMetadata;
-  publication: AnyPublication;
+  publication?: AnyPublication;
 }
 
 const UnlonelyChannel: FC<UnlonelyChannelProps> = ({
@@ -69,7 +69,7 @@ const UnlonelyChannel: FC<UnlonelyChannelProps> = ({
           <Tooltip content="Unlonely Channel" placement="right">
             <img
               alt="Unlonely"
-              className="h-5 w-5 rounded-full"
+              className="size-5 rounded-full"
               src={`${STATIC_IMAGES_URL}/brands/unlonely.png`}
             />
           </Tooltip>
@@ -81,34 +81,38 @@ const UnlonelyChannel: FC<UnlonelyChannelProps> = ({
             )}
           >
             {isLive ? (
-              <SignalIcon className="h-3 w-3 animate-pulse" />
+              <SignalIcon className="size-3 animate-pulse" />
             ) : (
-              <SignalSlashIcon className="h-3 w-3" />
+              <SignalSlashIcon className="size-3" />
             )}
             <span>{isLive ? 'Live' : 'Offline'}</span>
           </div>
         </div>
-        <Link
-          href={urlcat('https://www.unlonely.app/channels/:slug', {
-            slug: channel.slug
-          })}
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <Button
-            className="text-sm"
-            icon={<CursorArrowRaysIcon className="h-4 w-4" />}
-            onClick={() =>
-              Leafwatch.track(
-                PUBLICATION.OPEN_ACTIONS.UNLONELY_CHANNEL.OPEN_LINK,
-                { from: 'mint_embed', publication_id: publication.id }
-              )
-            }
-            size="md"
+        {publication ? (
+          <Link
+            href={urlcat('https://www.unlonely.app/channels/:slug', {
+              slug: channel.slug
+            })}
+            rel="noopener noreferrer"
+            target="_blank"
           >
-            Open
-          </Button>
-        </Link>
+            <Button
+              className="text-sm"
+              icon={<CursorArrowRaysIcon className="size-4" />}
+              onClick={() =>
+                Leafwatch.track(
+                  PUBLICATION.OPEN_ACTIONS.UNLONELY_CHANNEL.OPEN_LINK,
+                  { from: 'mint_embed', publication_id: publication.id }
+                )
+              }
+              size="md"
+            >
+              Open
+            </Button>
+          </Link>
+        ) : (
+          <div className="h-7" />
+        )}
       </div>
     </Card>
   );

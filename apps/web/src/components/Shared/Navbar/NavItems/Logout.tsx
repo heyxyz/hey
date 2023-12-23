@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
+import { ArrowRightStartOnRectangleIcon } from '@heroicons/react/24/outline';
 import { PROFILE } from '@hey/data/tracking';
 import { useRevokeAuthenticationMutation } from '@hey/lens';
 import cn from '@hey/ui/cn';
@@ -31,23 +31,21 @@ const Logout: FC<LogoutProps> = ({ className = '', onClick }) => {
     errorToast(error);
   };
 
-  const [revokeAuthentication] = useRevokeAuthenticationMutation({
-    onCompleted: () => {
+  const [revokeAuthentication] = useRevokeAuthenticationMutation({ onError });
+
+  const logout = async () => {
+    try {
+      setRevoking(true);
+      if (authorizationId) {
+        await revokeAuthentication({
+          variables: { request: { authorizationId } }
+        });
+      }
       Leafwatch.track(PROFILE.LOGOUT);
       resetPreferences();
       signOut();
       disconnect?.();
       location.reload();
-    },
-    onError
-  });
-
-  const logout = async () => {
-    try {
-      setRevoking(true);
-      return await revokeAuthentication({
-        variables: { request: { authorizationId } }
-      });
     } catch (error) {
       onError(error);
     } finally {
@@ -68,7 +66,7 @@ const Logout: FC<LogoutProps> = ({ className = '', onClick }) => {
       }}
       type="button"
     >
-      <ArrowRightOnRectangleIcon className="h-4 w-4" />
+      <ArrowRightStartOnRectangleIcon className="size-4" />
       <div>Logout</div>
     </button>
   );

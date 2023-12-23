@@ -174,7 +174,7 @@ const List: FC = () => {
     return (
       <EmptyState
         hideCard
-        icon={<UserCircleIcon className="text-brand-500 h-8 w-8" />}
+        icon={<UserCircleIcon className="text-brand-500 size-8" />}
         message="No profile managers added!"
       />
     );
@@ -194,7 +194,7 @@ const List: FC = () => {
               removingAddress === manager.address ? (
                 <Spinner size="xs" />
               ) : (
-                <MinusCircleIcon className="h-4 w-4" />
+                <MinusCircleIcon className="size-4" />
               )
             }
             onClick={() => removeManager(manager.address)}

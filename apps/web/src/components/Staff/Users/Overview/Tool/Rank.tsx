@@ -1,6 +1,7 @@
 import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
+import MetaDetails from '@components/Shared/Staff/MetaDetails';
 import {
   CheckCircleIcon,
   CurrencyDollarIcon,
@@ -10,12 +11,10 @@ import {
 } from '@heroicons/react/24/outline';
 import { HashtagIcon } from '@heroicons/react/24/solid';
 import { GITCOIN_PASSPORT_KEY } from '@hey/data/constants';
-import { formatDate } from '@lib/formatTime';
+import formatDate from '@hey/lib/datetime/formatDate';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import urlcat from 'urlcat';
-
-import MetaDetails from '../../../../Shared/Staff/MetaDetails';
 
 interface RankProps {
   profile: Profile;
@@ -81,12 +80,12 @@ const Rank: FC<RankProps> = ({ profile }) => {
   return (
     <>
       <div className="mt-5 flex items-center space-x-2 text-yellow-600">
-        <HashtagIcon className="h-5 w-5" />
+        <HashtagIcon className="size-5" />
         <div className="text-lg font-bold">Scores</div>
       </div>
       <div className="mt-3 space-y-2">
         <MetaDetails
-          icon={<UserPlusIcon className="ld-text-gray-500 h-4 w-4" />}
+          icon={<UserPlusIcon className="ld-text-gray-500 size-4" />}
           title="Followship Rank"
         >
           {followshipLoading ? (
@@ -98,7 +97,7 @@ const Rank: FC<RankProps> = ({ profile }) => {
           )}
         </MetaDetails>
         <MetaDetails
-          icon={<HandRaisedIcon className="ld-text-gray-500 h-4 w-4" />}
+          icon={<HandRaisedIcon className="ld-text-gray-500 size-4" />}
           title="Engagement Rank"
         >
           {engagementLoading ? (
@@ -110,7 +109,7 @@ const Rank: FC<RankProps> = ({ profile }) => {
           )}
         </MetaDetails>
         <MetaDetails
-          icon={<UserCircleIcon className="ld-text-gray-500 h-4 w-4" />}
+          icon={<UserCircleIcon className="ld-text-gray-500 size-4" />}
           title="Influencer Rank"
         >
           {influencerLoading ? (
@@ -122,7 +121,7 @@ const Rank: FC<RankProps> = ({ profile }) => {
           )}
         </MetaDetails>
         <MetaDetails
-          icon={<CurrencyDollarIcon className="ld-text-gray-500 h-4 w-4" />}
+          icon={<CurrencyDollarIcon className="ld-text-gray-500 size-4" />}
           title="Creator Rank"
         >
           {creatorLoading ? (
@@ -134,7 +133,7 @@ const Rank: FC<RankProps> = ({ profile }) => {
           )}
         </MetaDetails>
         <MetaDetails
-          icon={<CheckCircleIcon className="ld-text-gray-500 h-4 w-4" />}
+          icon={<CheckCircleIcon className="ld-text-gray-500 size-4" />}
           title="Gitcoin Score"
         >
           {gitcoinScoreLoading ? (

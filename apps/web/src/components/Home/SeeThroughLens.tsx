@@ -107,7 +107,7 @@ const SeeThroughLens: FC = () => {
         >
           <Image
             alt={profile?.id}
-            className="h-5 w-5 rounded-full border bg-gray-200 dark:border-gray-700"
+            className="size-5 rounded-full border bg-gray-200 dark:border-gray-700"
             height={20}
             loading="lazy"
             src={getAvatar(profile)}
@@ -116,7 +116,7 @@ const SeeThroughLens: FC = () => {
           <span>
             {seeThroughProfile ? getProfile(profile).slugWithPrefix : 'My Feed'}
           </span>
-          <ChevronDownIcon className="h-4 w-4" />
+          <ChevronDownIcon className="size-4" />
         </button>
       </Menu.Button>
       <MenuTransition>

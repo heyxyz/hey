@@ -22,7 +22,6 @@ import {
   PencilSquareIcon
 } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data/errors';
-import { FeatureFlag } from '@hey/data/feature-flags';
 import { PUBLICATION } from '@hey/data/tracking';
 import { ReferenceModuleType } from '@hey/lens';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
@@ -61,36 +60,37 @@ import LivestreamSettings from './Actions/LivestreamSettings';
 import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
+import LinkPreviews from './LinkPreviews';
 import Discard from './Post/Discard';
 
 const Attachment = dynamic(
   () => import('@components/Composer/Actions/Attachment'),
   {
-    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
   }
 );
 const EmojiPicker = dynamic(() => import('@components/Shared/EmojiPicker'), {
-  loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+  loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
 });
 const Gif = dynamic(() => import('@components/Composer/Actions/Gif'), {
-  loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+  loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
 });
 const CollectSettings = dynamic(
   () => import('@components/Composer/Actions/CollectSettings'),
   {
-    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
   }
 );
 const ReferenceSettings = dynamic(
   () => import('@components/Composer/Actions/ReferenceSettings'),
   {
-    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
   }
 );
 const PollSettings = dynamic(
   () => import('@components/Composer/Actions/PollSettings'),
   {
-    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
   }
 );
 
@@ -584,6 +584,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           />
         </Wrapper>
       ) : null}
+      <LinkPreviews />
       <div className="block items-center px-5 sm:flex">
         <div className="flex items-center space-x-4">
           <Attachment />
@@ -615,7 +616,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             </>
           ) : null}
           <PollSettings />
-          {!isComment && isFeatureEnabled(FeatureFlag.LiveStream) && (
+          {!isComment && isFeatureEnabled('live-stream') && (
             <LivestreamSettings />
           )}
         </div>
@@ -631,9 +632,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
               isLoading ? (
                 <Spinner size="xs" />
               ) : isComment ? (
-                <ChatBubbleLeftRightIcon className="h-4 w-4" />
+                <ChatBubbleLeftRightIcon className="size-4" />
               ) : (
-                <PencilSquareIcon className="h-4 w-4" />
+                <PencilSquareIcon className="size-4" />
               )
             }
             onClick={createPublication}

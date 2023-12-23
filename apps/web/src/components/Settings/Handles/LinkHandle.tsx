@@ -167,7 +167,7 @@ const LinkHandle: FC = () => {
     return (
       <EmptyState
         hideCard
-        icon={<AtSymbolIcon className="text-brand-500 h-8 w-8" />}
+        icon={<AtSymbolIcon className="text-brand-500 size-8" />}
         message="No handles found to link!"
       />
     );
@@ -204,9 +204,9 @@ const LinkHandle: FC = () => {
                 linkingHandle === handle.fullHandle ? (
                   <Spinner size="xs" />
                 ) : handle.linkedTo ? (
-                  <MinusCircleIcon className="h-4 w-4" />
+                  <MinusCircleIcon className="size-4" />
                 ) : (
-                  <PlusCircleIcon className="h-4 w-4" />
+                  <PlusCircleIcon className="size-4" />
                 )
               }
               onClick={() => link(handle.fullHandle)}

@@ -31,30 +31,30 @@ const BottomNavigation = () => {
       >
         <Link className="mx-auto my-3" href="/">
           {isActivePath('/') ? (
-            <HomeIconSolid className="text-brand-500 h-6 w-6" />
+            <HomeIconSolid className="text-brand-500 size-6" />
           ) : (
-            <HomeIcon className="h-6 w-6" />
+            <HomeIcon className="size-6" />
           )}
         </Link>
         <Link className="mx-auto my-3" href="/explore">
           {isActivePath('/explore') ? (
-            <Squares2X2IconSolid className="text-brand-500 h-6 w-6" />
+            <Squares2X2IconSolid className="text-brand-500 size-6" />
           ) : (
-            <Squares2X2Icon className="h-6 w-6" />
+            <Squares2X2Icon className="size-6" />
           )}
         </Link>
         <Link className="mx-auto my-3" href="/notifications">
           {isActivePath('/notifications') ? (
-            <BellIconSolid className="text-brand-500 h-6 w-6" />
+            <BellIconSolid className="text-brand-500 size-6" />
           ) : (
-            <BellIcon className="h-6 w-6" />
+            <BellIcon className="size-6" />
           )}
         </Link>
         {currentProfile && (
           <Link className="mx-auto my-3" href={getProfile(currentProfile).link}>
             <Image
               alt={currentProfile?.id}
-              className="h-6 w-6 rounded-full border dark:border-gray-700"
+              className="size-6 rounded-full border dark:border-gray-700"
               src={getAvatar(currentProfile as Profile)}
             />
           </Link>

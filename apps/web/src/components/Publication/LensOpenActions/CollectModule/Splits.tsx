@@ -48,14 +48,14 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
             <div className="flex w-full items-center space-x-2">
               {loading ? (
                 <>
-                  <div className="shimmer h-5 w-5 rounded-full" />
+                  <div className="shimmer size-5 rounded-full" />
                   <div className="shimmer h-3 w-1/4 rounded-full" />
                 </>
               ) : (
                 <>
                   <img
                     alt="Avatar"
-                    className="h-5 w-5 rounded-full border bg-gray-200 dark:border-gray-700"
+                    className="size-5 rounded-full border bg-gray-200 dark:border-gray-700"
                     src={profile ? getAvatar(profile) : getStampFyiURL(address)}
                   />
                   {profile ? (

@@ -23,9 +23,9 @@ interface StatusProps {
 const Status: FC<StatusProps> = ({ finished, title }) => (
   <div className="flex items-center space-x-1.5">
     {finished ? (
-      <CheckCircleIcon className="h-5 w-5 text-green-500" />
+      <CheckCircleIcon className="size-5 text-green-500" />
     ) : (
-      <MinusCircleIcon className="h-5 w-5 text-yellow-500" />
+      <MinusCircleIcon className="size-5 text-yellow-500" />
     )}
     <div className={cn(finished ? 'text-green-500' : 'text-yellow-500')}>
       {title}
@@ -51,7 +51,7 @@ const SetProfile: FC = () => {
       className="mb-4 space-y-4 !border-green-600 !bg-green-50 p-5 text-green-600 dark:bg-green-900"
     >
       <div className="flex items-center space-x-2 font-bold">
-        <PhotoIcon className="h-5 w-5" />
+        <PhotoIcon className="size-5" />
         <p>Setup your {APP_NAME} profile</p>
       </div>
       <div className="space-y-1 text-sm leading-[22px]">
@@ -84,7 +84,7 @@ const SetProfile: FC = () => {
         </div>
       </div>
       <div className="flex items-center space-x-1.5 text-sm font-bold">
-        <PencilSquareIcon className="h-4 w-4" />
+        <PencilSquareIcon className="size-4" />
         <Link
           href="/settings"
           onClick={() => Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE)}

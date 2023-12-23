@@ -67,7 +67,7 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
       <div className="flex flex-col items-center justify-center space-y-2 text-center">
         <img
           alt="Invite"
-          className="h-16 w-16"
+          className="size-16"
           src={`${STATIC_IMAGES_URL}/emojis/handshake.png`}
         />
         <div className="text-xl">Invite a Fren</div>

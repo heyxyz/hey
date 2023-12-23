@@ -41,7 +41,7 @@ const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
   return (
     <div className="space-y-2">
       <div className="flex items-center space-x-3">
-        <RectangleStackIcon className="text-brand-500/70 h-6 w-6" />
+        <RectangleStackIcon className="text-brand-500/70 size-6" />
         <div className="flex items-center space-x-1">
           {actions.slice(0, 10).map((action) => (
             <div key={action.by.id}>

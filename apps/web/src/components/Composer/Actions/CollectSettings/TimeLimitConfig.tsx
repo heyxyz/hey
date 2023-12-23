@@ -3,8 +3,9 @@ import type { FC } from 'react';
 
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { ClockIcon } from '@heroicons/react/24/outline';
+import getNumberOfDaysFromDate from '@hey/lib/datetime/getNumberOfDaysFromDate';
+import getTimeAddedNDay from '@hey/lib/datetime/getTimeAddedNDay';
 import { Input } from '@hey/ui';
-import { getNumberOfDaysFromDate, getTimeAddedNDay } from '@lib/formatTime';
 import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
 
 interface TimeLimitConfigProps {
@@ -19,7 +20,7 @@ const TimeLimitConfig: FC<TimeLimitConfigProps> = ({ setCollectType }) => {
       <ToggleWithHelper
         description="Limit collecting to specific period of time"
         heading="Time limit"
-        icon={<ClockIcon className="h-4 w-4" />}
+        icon={<ClockIcon className="size-4" />}
         on={Boolean(collectModule.endsAt)}
         setOn={() =>
           setCollectType({

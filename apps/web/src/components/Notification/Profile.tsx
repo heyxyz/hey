@@ -25,7 +25,7 @@ export const NotificationProfileAvatar: FC<NotificationProfileProps> = ({
       <Link href={getProfile(profile).link}>
         <Image
           alt={profile.id}
-          className="h-7 w-7 rounded-full border bg-gray-200 sm:h-8 sm:w-8 dark:border-gray-700"
+          className="h-7 w-7 rounded-full border bg-gray-200 dark:border-gray-700 sm:h-8 sm:w-8"
           height={32}
           src={getAvatar(profile)}
           width={32}
@@ -46,10 +46,10 @@ export const NotificationProfileName: FC<NotificationProfileProps> = ({
       >
         <span>{getProfile(profile).displayName}</span>
         {isVerified(profile.id) ? (
-          <CheckBadgeIcon className="text-brand-500 h-4 w-4" />
+          <CheckBadgeIcon className="text-brand-500 size-4" />
         ) : null}
         {hasMisused(profile.id) ? (
-          <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
+          <ExclamationCircleIcon className="size-4 text-red-500" />
         ) : null}
       </Link>
     </UserPreview>

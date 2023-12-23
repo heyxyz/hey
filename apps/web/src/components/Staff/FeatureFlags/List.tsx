@@ -9,8 +9,8 @@ import {
 } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import getAllFeatureFlags from '@hey/lib/api/getAllFeatureFlags';
+import formatDate from '@hey/lib/datetime/formatDate';
 import { Badge, Button, Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
-import { formatDate } from '@lib/formatTime';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -95,7 +95,7 @@ const List: FC = () => {
           <EmptyState
             hideCard
             icon={
-              <AdjustmentsHorizontalIcon className="text-brand-500 h-8 w-8" />
+              <AdjustmentsHorizontalIcon className="text-brand-500 size-8" />
             }
             message={<span>No feature flags found</span>}
           />
@@ -122,7 +122,7 @@ const List: FC = () => {
                 />
                 {feature.type === 'FEATURE' && (
                   <Button
-                    icon={<TrashIcon className="h-4 w-4" />}
+                    icon={<TrashIcon className="size-4" />}
                     onClick={() => deleteFeatureFlag(feature.id)}
                     outline
                   />

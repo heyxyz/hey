@@ -20,7 +20,7 @@ const Sybil: FC<SybilProps> = ({ profile }) => {
         <span>
           <span className="flex items-center space-x-1">
             <span>Sybil verified</span>
-            <CheckCircleIcon className="h-4 w-4" />
+            <CheckCircleIcon className="size-4" />
           </span>
           <span>
             X:{' '}

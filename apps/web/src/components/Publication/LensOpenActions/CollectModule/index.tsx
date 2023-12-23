@@ -24,6 +24,7 @@ import {
 import { POLYGONSCAN_URL } from '@hey/data/constants';
 import { FollowModuleType } from '@hey/lens';
 import getAllTokens from '@hey/lib/api/getAllTokens';
+import formatDate from '@hey/lib/datetime/formatDate';
 import formatAddress from '@hey/lib/formatAddress';
 import getAssetSymbol from '@hey/lib/getAssetSymbol';
 import getProfile from '@hey/lib/getProfile';
@@ -32,7 +33,6 @@ import getTokenImage from '@hey/lib/getTokenImage';
 import humanize from '@hey/lib/humanize';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Modal, Tooltip } from '@hey/ui';
-import { formatDate } from '@lib/formatTime';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import plur from 'plur';
@@ -123,14 +123,14 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
             {isTokenEnabled ? (
               <img
                 alt={currency}
-                className="h-7 w-7"
+                className="size-7"
                 height={28}
                 src={getTokenImage(currency)}
                 title={currency}
                 width={28}
               />
             ) : (
-              <CurrencyDollarIcon className="text-brand-500 h-7 w-7" />
+              <CurrencyDollarIcon className="text-brand-500 size-7" />
             )}
             <span className="space-x-1">
               <span className="text-2xl font-bold">{amount}</span>
@@ -149,7 +149,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
         <div className="space-y-1.5">
           <div className="block items-center space-y-1 sm:flex sm:space-x-5">
             <div className="flex items-center space-x-2">
-              <UsersIcon className="ld-text-gray-500 h-4 w-4" />
+              <UsersIcon className="ld-text-gray-500 size-4" />
               <button
                 className="font-bold"
                 onClick={() => setShowCollectorsModal(!showCollectorsModal)}
@@ -159,7 +159,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
                 {plur('collector', countOpenActions)}
               </button>
               <Modal
-                icon={<RectangleStackIcon className="text-brand-500 h-5 w-5" />}
+                icon={<RectangleStackIcon className="text-brand-500 size-5" />}
                 onClose={() => setShowCollectorsModal(false)}
                 show={showCollectorsModal}
                 title="Collected by"
@@ -169,7 +169,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
             </div>
             {collectLimit ? (
               <div className="flex items-center space-x-2">
-                <PhotoIcon className="ld-text-gray-500 h-4 w-4" />
+                <PhotoIcon className="ld-text-gray-500 size-4" />
                 <div className="font-bold">
                   {collectLimit - countOpenActions} available
                 </div>
@@ -177,14 +177,14 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
             ) : null}
             {referralFee ? (
               <div className="flex items-center space-x-2">
-                <BanknotesIcon className="ld-text-gray-500 h-4 w-4" />
+                <BanknotesIcon className="ld-text-gray-500 size-4" />
                 <div className="font-bold">{referralFee}% referral fee</div>
               </div>
             ) : null}
           </div>
           {endTimestamp ? (
             <div className="flex items-center space-x-2">
-              <ClockIcon className="ld-text-gray-500 h-4 w-4" />
+              <ClockIcon className="ld-text-gray-500 size-4" />
               <div className="space-x-1.5">
                 <span>{isSaleEnded ? 'Sale ended on:' : 'Sale ends:'}</span>
                 <span className="font-bold text-gray-600">
@@ -199,7 +199,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
           ) : null}
           {collectModule.contract.address ? (
             <div className="flex items-center space-x-2">
-              <PuzzlePieceIcon className="ld-text-gray-500 h-4 w-4" />
+              <PuzzlePieceIcon className="ld-text-gray-500 size-4" />
               <div className="space-x-1.5">
                 <span>Token:</span>
                 <Link

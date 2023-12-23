@@ -61,7 +61,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   const [content, setContent] = useState(rawContent);
 
   if (targetPublication.isEncrypted) {
-    return <EncryptedPublication type={targetPublication.__typename} />;
+    return <EncryptedPublication publication={targetPublication} />;
   }
 
   if (!isPublicationMetadataTypeAllowed(metadata.__typename)) {
@@ -111,7 +111,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       </Markup>
       {canShowMore ? (
         <div className="ld-text-gray-500 mt-4 flex items-center space-x-1 text-sm font-bold">
-          <EyeIcon className="h-4 w-4" />
+          <EyeIcon className="size-4" />
           <Link href={`/posts/${id}`}>Show more</Link>
         </div>
       ) : null}

@@ -84,7 +84,7 @@ const UndoMirror: FC<MirrorProps> = ({
       onClick={undoMirror}
     >
       <div className="flex items-center space-x-2">
-        <ArrowsRightLeftIcon className="h-4 w-4" />
+        <ArrowsRightLeftIcon className="size-4" />
         <div>Undo mirror</div>
       </div>
     </Menu.Item>

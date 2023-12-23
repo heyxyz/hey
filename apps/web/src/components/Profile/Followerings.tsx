@@ -53,7 +53,7 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         </div>
       </button>
       <Modal
-        icon={<UsersIcon className="text-brand-500 h-5 w-5" />}
+        icon={<UsersIcon className="text-brand-500 size-5" />}
         onClose={() => setShowFollowingModal(false)}
         show={showFollowingModal}
         title="Following"
@@ -61,7 +61,7 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         <Following profile={profile} />
       </Modal>
       <Modal
-        icon={<UsersIcon className="text-brand-500 h-5 w-5" />}
+        icon={<UsersIcon className="text-brand-500 size-5" />}
         onClose={() => setShowFollowersModal(false)}
         show={showFollowersModal}
         title="Followers"

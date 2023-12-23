@@ -9,11 +9,11 @@ import {
 import { HEY_API_URL } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
+import getTimetoNow from '@hey/lib/datetime/getTimetoNow';
 import humanize from '@hey/lib/humanize';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Card, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { getTimetoNow } from '@lib/formatTime';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
@@ -79,7 +79,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
               <CheckCircleIcon
                 className={cn(
                   voted ? 'text-green-500' : 'text-gray-500',
-                  'h-6 w-6 '
+                  'size-6 '
                 )}
               />
             )}
@@ -104,7 +104,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
       </div>
       <div className="flex items-center justify-between border-t px-5 py-3 dark:border-gray-700 ">
         <div className="flex items-center space-x-2 text-xs text-gray-500">
-          <Bars3BottomLeftIcon className="h-4 w-4" />
+          <Bars3BottomLeftIcon className="size-4" />
           <span>
             {humanize(totalResponses || 0)} {plur('vote', totalResponses || 0)}
           </span>

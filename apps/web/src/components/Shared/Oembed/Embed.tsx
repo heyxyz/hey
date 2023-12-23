@@ -44,7 +44,7 @@ const Embed: FC<EmbedProps> = ({ og, publicationId }) => {
             {!og.isLarge && og.image ? (
               <Image
                 alt="Thumbnail"
-                className="h-36 w-36 rounded-l-xl border-r dark:border-gray-700"
+                className="size-36 rounded-l-xl border-r dark:border-gray-700"
                 height={144}
                 onError={({ currentTarget }) => {
                   currentTarget.src = og.image as string;
@@ -68,7 +68,7 @@ const Embed: FC<EmbedProps> = ({ og, publicationId }) => {
                     {og.favicon ? (
                       <img
                         alt="Favicon"
-                        className="h-4 w-4 rounded-full"
+                        className="size-4 rounded-full"
                         height={16}
                         src={og.favicon}
                         width={16}

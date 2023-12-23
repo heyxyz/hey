@@ -36,7 +36,7 @@ const Metadata: FC<MetadataProps> = ({ publication }) => {
       forceRounded
     >
       <div className="flex items-center space-x-2">
-        <ScaleIcon className="text-brand-500 h-4 w-4 min-w-max" />
+        <ScaleIcon className="text-brand-500 size-4 min-w-max" />
         <div>
           Licence: <b>{license}</b>
         </div>

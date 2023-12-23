@@ -103,7 +103,7 @@ const ModAction: FC<ModActionProps> = ({ className = '', publication }) => {
             type: 'spamReason'
           }
         ]}
-        icon={<DocumentTextIcon className="h-4 w-4" />}
+        icon={<DocumentTextIcon className="size-4" />}
         label="Poor content"
       />
       <ReportButton
@@ -113,7 +113,7 @@ const ModAction: FC<ModActionProps> = ({ className = '', publication }) => {
             type: 'spamReason'
           }
         ]}
-        icon={<BanknotesIcon className="h-4 w-4" />}
+        icon={<BanknotesIcon className="size-4" />}
         label="Stop Sponsor"
       />
       <ReportButton
@@ -127,7 +127,7 @@ const ModAction: FC<ModActionProps> = ({ className = '', publication }) => {
             type: 'spamReason'
           }
         ]}
-        icon={<BanknotesIcon className="h-4 w-4" />}
+        icon={<BanknotesIcon className="size-4" />}
         label="Poor content & Stop Sponsor"
       />
     </span>

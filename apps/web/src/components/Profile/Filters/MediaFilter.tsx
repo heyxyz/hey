@@ -26,7 +26,7 @@ const MediaFilter = () => {
     <Menu as="div" className="relative">
       <Menu.Button className="rounded-md hover:bg-gray-300/20">
         <Tooltip content="Filter" placement="top">
-          <AdjustmentsVerticalIcon className="text-brand-500 h-5 w-5" />
+          <AdjustmentsVerticalIcon className="text-brand-500 size-5" />
         </Tooltip>
       </Menu.Button>
       <MenuTransition>

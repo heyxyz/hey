@@ -109,7 +109,7 @@ const List: FC<ListProps> = ({ feedType }) => {
   if (notifications?.length === 0) {
     return (
       <EmptyState
-        icon={<BellIcon className="text-brand-500 h-8 w-8" />}
+        icon={<BellIcon className="text-brand-500 size-8" />}
         message="Inbox zero!"
       />
     );

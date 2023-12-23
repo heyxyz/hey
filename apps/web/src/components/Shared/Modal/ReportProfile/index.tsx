@@ -69,7 +69,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
       {submitData?.reportProfile === null ? (
         <EmptyState
           hideCard
-          icon={<CheckCircleIcon className="h-14 w-14 text-green-500" />}
+          icon={<CheckCircleIcon className="size-14 text-green-500" />}
           message="Profile reported successfully!"
         />
       ) : profile ? (
@@ -108,7 +108,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
                     submitLoading ? (
                       <Spinner size="xs" />
                     ) : (
-                      <PencilSquareIcon className="h-4 w-4" />
+                      <PencilSquareIcon className="size-4" />
                     )
                   }
                   type="submit"

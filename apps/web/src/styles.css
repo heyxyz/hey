@@ -69,7 +69,7 @@ progress::-moz-progress-bar {
   @apply !px-2.5 !py-0.5;
 }
 
-.tippy-box[data-theme="light"]{
+.tippy-box[data-theme='light'] {
   @apply bg-transparent;
 }
 

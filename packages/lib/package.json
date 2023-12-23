@@ -16,16 +16,17 @@
     "@hey/lens": "workspace:*",
     "@hey/types": "workspace:*",
     "axios": "^1.6.2",
+    "dayjs": "^1.11.10",
     "omit-deep": "^0.3.0",
     "pino": "^8.17.1",
     "pino-pretty": "^10.3.0",
     "urlcat": "^3.1.0",
-    "viem": "^1.20.2"
+    "viem": "^1.20.3"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
     "@types/omit-deep": "^0.3.2",
     "typescript": "^5.3.3",
-    "vitest": "^1.0.4"
+    "vitest": "^1.1.0"
   }
 }

@@ -73,7 +73,7 @@ export const Modal: FC<ModalProps> = ({
                       onClick={onClose}
                       type="button"
                     >
-                      <XMarkIcon className="h-5 w-5" />
+                      <XMarkIcon className="size-5" />
                     </button>
                   ) : null}
                 </div>

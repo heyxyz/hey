@@ -84,7 +84,7 @@ const HeyMembershipNft: FC = () => {
             Mint now
           </Button>
           <Modal
-            icon={<CursorArrowRaysIcon className="text-brand-500 h-5 w-5" />}
+            icon={<CursorArrowRaysIcon className="text-brand-500 size-5" />}
             onClose={() => setShowMintModal(false)}
             show={showMintModal}
             title="Mint"

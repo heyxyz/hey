@@ -61,7 +61,7 @@ const Thanks: NextPage = () => {
         <div className="relative text-center">
           <div className="flex items-center space-x-2 text-3xl font-bold text-white md:text-4xl">
             <div>Thank you!</div>
-            <HeartIcon className="h-7 w-7 text-pink-600" />
+            <HeartIcon className="size-7 text-pink-600" />
           </div>
           <div className="text-white">for supporting our community</div>
         </div>

@@ -39,7 +39,7 @@ const SignedUser: FC = () => {
   const Avatar = () => (
     <Image
       alt={currentProfile?.id}
-      className="h-8 w-8 cursor-pointer rounded-full border dark:border-gray-700"
+      className="size-8 cursor-pointer rounded-full border dark:border-gray-700"
       src={getAvatar(currentProfile as Profile)}
     />
   );
@@ -132,7 +132,7 @@ const SignedUser: FC = () => {
             >
               <Invites />
             </Menu.Item>
-            {isFeatureEnabled(FeatureFlag.Pro) && (
+            {isFeatureEnabled('pro') && (
               <Menu.Item
                 as={NextLink}
                 className={({ active }: { active: boolean }) =>

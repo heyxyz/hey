@@ -5,9 +5,9 @@ import Loader from '@components/Shared/Loader';
 import { QueueListIcon } from '@heroicons/react/24/outline';
 import { POLYGONSCAN_URL } from '@hey/data/constants';
 import { LimitType, useProfileActionHistoryQuery } from '@hey/lens';
+import formatDate from '@hey/lib/datetime/formatDate';
 import formatAddress from '@hey/lib/formatAddress';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { formatDate } from '@lib/formatTime';
 import Link from 'next/link';
 import { useInView } from 'react-cool-inview';
 import useProfileStore from 'src/store/persisted/useProfileStore';
@@ -55,7 +55,7 @@ const List: FC = () => {
     return (
       <EmptyState
         hideCard
-        icon={<QueueListIcon className="text-brand-500 h-8 w-8" />}
+        icon={<QueueListIcon className="text-brand-500 size-8" />}
         message="You have no actions on your account!"
       />
     );

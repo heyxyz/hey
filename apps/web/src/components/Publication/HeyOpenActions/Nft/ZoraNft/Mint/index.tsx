@@ -4,6 +4,7 @@ import type { FC } from 'react';
 
 import Markup from '@components/Shared/Markup';
 import getMentions from '@hey/lib/getMentions';
+import urlcat from 'urlcat';
 import { create } from 'zustand';
 
 import Metadata from './Metadata';
@@ -42,6 +43,14 @@ const Mint: FC<MintProps> = ({ nft, onCompleted, publication, zoraLink }) => {
       <div className="mb-4">
         <div className="mb-1 text-xl font-bold">{nft.name}</div>
         <MintedBy address={nft.creator} />
+        <img
+          className="mb-4 h-[350px] max-h-[350px] w-full rounded-xl border object-cover dark:border-gray-700"
+          src={urlcat('https://remote-image.decentralized-content.com/image', {
+            q: 75,
+            url: nft.coverImageUrl,
+            w: 1200
+          })}
+        />
         <Markup
           className="ld-text-gray-500 line-clamp-4"
           mentions={getMentions(nft.description)}

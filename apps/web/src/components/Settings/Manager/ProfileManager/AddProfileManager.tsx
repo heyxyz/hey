@@ -164,7 +164,7 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
             isLoading ? (
               <Spinner size="xs" />
             ) : (
-              <PlusCircleIcon className="h-4 w-4" />
+              <PlusCircleIcon className="size-4" />
             )
           }
           onClick={addManager}
