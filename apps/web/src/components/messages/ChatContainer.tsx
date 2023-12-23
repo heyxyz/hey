@@ -9,18 +9,18 @@ import {
 import { PUSH_ENV } from '@hey/data/constants';
 import formatAddress from '@hey/lib/formatAddress';
 import { Button, Image, Spinner } from '@hey/ui';
-import { getTwitterFormat } from '@lib/formatTime';
-import { mapReactionsToMessages } from '@lib/mapReactionsToMessages';
+import { transformMessages } from '@lib/mapReactionsToMessages';
 import { chat } from '@pushprotocol/restapi';
 import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import dayjs from 'dayjs';
+import { formatRelative } from 'date-fns';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import useMessageStore from 'src/store/persisted/useMessageStore';
 import { useWalletClient } from 'wagmi';
 
 import ChatReactionPopover from './ChatReactionPopover';
 import ChatMessageInput from './Input';
+import RenderReplyMessage from './RenderReplyMessage';
 
 const ChatListItemContainer = ({
   profile
@@ -81,7 +81,7 @@ const ChatListItemContainer = ({
           toDecrypt: true
         })) as IMessageIPFSWithCID[]) ?? [];
 
-      return mapReactionsToMessages(history.reverse());
+      return transformMessages(history.reverse());
     },
     queryKey: ['get-messages', profile.did]
   });
@@ -138,7 +138,7 @@ const ChatListItemContainer = ({
       } else {
         await sendMessage({
           content: { content: message, type: 'Text' },
-          reference: replyMessage.cid,
+          reference: replyMessage.link,
           type: 'Reply'
         });
       }
@@ -245,7 +245,7 @@ const ChatListItemContainer = ({
                   }
                 >
                   {message.messageType === MessageType.TEXT &&
-                    message.messageContent}
+                    (message.messageObj as any).content}
                   {message.messageType === MessageType.IMAGE && (
                     <Image
                       alt=""
@@ -253,9 +253,16 @@ const ChatListItemContainer = ({
                       src={message.messageContent}
                     />
                   )}
+                  <RenderReplyMessage message={message as unknown as any} />
+                  {/* {message.messageType === MessageType.REPLY &&
+                    console.log(message)}
+                  {message.messageType === MessageType.REPLY &&
+                    (message.messageObj as any).content.messageType ===
+                      MessageType.TEXT &&
+                    (message.messageObj as any).content.messageObj.content} */}
                   {message.timestamp && (
                     <sub className="ml-4 text-right text-xs">
-                      {getTwitterFormat(dayjs(message.timestamp).toDate())}
+                      {formatRelative(message.timestamp, new Date())}
                     </sub>
                   )}
                 </div>

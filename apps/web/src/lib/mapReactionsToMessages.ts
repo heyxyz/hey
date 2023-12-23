@@ -9,24 +9,66 @@ export interface DisplayedMessage {
   messageContent: string;
   messageObj: MessageObj | string;
   messageType: string;
+  parentMessage?: DisplayedMessage | null;
   reactions: string[];
   timestamp: number;
 }
 
 export const transformMessages = (messages: IMessageIPFSWithCID[]) => {
-  const newMessages = new Map();
+  const newMessages = new Map<string, DisplayedMessage>();
 
   const reactionMessages = [];
+  const replyMessages = [];
 
   for (const message of messages) {
     if (message.messageType === MessageType.REACTION) {
       reactionMessages.push(message);
       continue;
     }
-    newMessages.set(message.cid, message);
+
+    if (message.messageType === MessageType.REPLY) {
+      replyMessages.push(message);
+    }
+
+    newMessages.set(message.link ?? message.cid, {
+      cid: message.cid,
+      from: message.fromDID.split?.(':')?.pop() ?? '',
+      link: message.link ?? '',
+      messageContent: message.messageContent,
+      messageObj: message.messageObj ?? '',
+      messageType: message.messageType,
+      parentMessage: null,
+      reactions: [],
+      timestamp: message.timestamp ?? 0
+    });
   }
 
-  console.log(reactionMessages, 'messages...');
+  for (const reactionMessage of reactionMessages) {
+    if (typeof reactionMessage.messageObj === 'string') {
+      continue;
+    }
+    const reactionMessageReference = newMessages.get(
+      (reactionMessage.messageObj as any)?.reference
+    );
+    if (!reactionMessageReference) {
+      continue;
+    }
+    reactionMessageReference.reactions.push(
+      reactionMessage.messageObj?.content as string
+    );
+  }
+
+  for (const reply of replyMessages) {
+    const parentMessage = newMessages.get((reply.messageObj as any)?.reference);
+    const replyMessages = newMessages.get(reply.link ?? '');
+    if (!parentMessage || !replyMessages) {
+      continue;
+    }
+
+    replyMessages['parentMessage'] = parentMessage;
+  }
+
+  return [...newMessages.values()];
 
   //
 };
