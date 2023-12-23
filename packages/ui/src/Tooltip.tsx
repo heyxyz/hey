@@ -1,7 +1,6 @@
 import type { FC, ReactNode } from 'react';
 
 import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css';
 
 interface TooltipProps {
   children: ReactNode;
@@ -20,7 +19,7 @@ export const Tooltip: FC<TooltipProps> = ({
 }) => {
   return (
     <Tippy
-      className="hidden !rounded-lg !text-xs !leading-6 tracking-wide sm:block"
+      className="hidden !rounded-lg !text-xs !leading-6 tracking-wide sm:block bg-gray-700 text-white"
       content={<span className={className}>{content}</span>}
       delay={[withDelay ? 500 : 0, 0]}
       duration={0}

@@ -2,7 +2,6 @@ import type { FC, ReactNode } from 'react';
 
 import { InformationCircleIcon } from '@heroicons/react/24/outline';
 import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css';
 
 interface HelpTooltipProps {
   children: ReactNode;
@@ -15,7 +14,7 @@ const HelpTooltip: FC<HelpTooltipProps> = ({ children }) => {
 
   return (
     <Tippy
-      className="!rounded-xl p-2.5 !leading-5 tracking-wide shadow-lg"
+      className="!rounded-xl p-2.5 !leading-5 tracking-wide shadow-lg bg-gray-700 text-white text-sm"
       content={<span>{children}</span>}
       duration={0}
       placement="top"
