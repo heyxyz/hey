@@ -264,6 +264,9 @@ importers:
       generate-password:
         specifier: ^1.7.1
         version: 1.7.1
+      generate-password-ts:
+        specifier: ^1.6.5
+        version: 1.6.5
       gif-picker-react:
         specifier: ^1.3.2
         version: 1.3.2(react-dom@18.2.0)(react@18.2.0)
@@ -11034,6 +11037,12 @@ packages:
   /functions-have-names@1.2.3:
     resolution: {integrity: sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==}
 
+  /generate-password-ts@1.6.5:
+    resolution: {integrity: sha512-MTvcuBZWQChMlqRVK3PGBmF/QdYkSL3YuTfoxbLy8GExa+VDkB0vybQhXBiT0TsBLvDvTC+7OIT1ptsYFpXpGA==}
+    dependencies:
+      js-crypto-random: 1.0.4
+    dev: false
+
   /generate-password@1.7.1:
     resolution: {integrity: sha512-9bVYY+16m7W7GczRBDqXE+VVuCX+bWNrfYKC/2p2JkZukFb2sKxT6E3zZ3mJGz7GMe5iRK0A/WawSL3jQfJuNQ==}
     dev: false
@@ -12152,6 +12161,16 @@ packages:
 
   /js-cookie@2.2.1:
     resolution: {integrity: sha512-HvdH2LzI/EAZcUwA8+0nKNtWHqS+ZmijLA30RwZA0bo7ToCckjK5MkGhjED9KoRcXO6BaGI3I9UIzSA1FKFPOQ==}
+    dev: false
+
+  /js-crypto-env@1.0.5:
+    resolution: {integrity: sha512-8/UNN3sG8J+yMzqwSNVaobaWhIz4MqZFoOg5OB0DFXqS8eFjj2YvdmLJqIWXPl57Yw10SvYx0DQOtkfsWIV9Aw==}
+    dev: false
+
+  /js-crypto-random@1.0.4:
+    resolution: {integrity: sha512-ldTK4y+ymaXWFL13EUh+Kvl3/UQ2GdfqDbI4ScNYS0/T2knijM9duOXO8qd9e6RYwdrOupyiAu4o538VQnktuw==}
+    dependencies:
+      js-crypto-env: 1.0.5
     dev: false
 
   /js-sha256@0.9.0:

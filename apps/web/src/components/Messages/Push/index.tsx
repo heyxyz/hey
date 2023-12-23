@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import usePushSocket from 'src/hooks/messaging/push/usePushSocket';
 import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 
+import { getAccountFromProfile } from './helper';
 import MessageBody from './MessageBody';
 import MessageHeader from './MessageHeader';
 import Tabs from './Tabs';
@@ -14,6 +15,7 @@ const Message = () => {
   const requestsFeed = usePushChatStore((state) => state.requestsFeed);
   const recipientChats = usePushChatStore((state) => state.recipientChats);
   const pushSocket = usePushSocket();
+  const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
 
   const initialConversation = requestsFeed?.find((item) =>
     item.did.includes(recepientProfile?.ownedBy?.address)
@@ -25,6 +27,19 @@ const Message = () => {
       pushSocket?.disconnect();
     };
   }, []);
+
+  const getChatHistory = async () => {
+    const address = getAccountFromProfile(recepientProfile?.id);
+    // const response = await PushAPI.chat.history({
+    //   account: address,
+    //   pgpPrivateKey: pgpPrivateKey!
+    // });
+    // console.log('chat histyory', response);
+  };
+
+  useEffect(() => {
+    getChatHistory();
+  }, [recepientProfile]);
 
   return (
     <GridLayout classNameChild="md:gap-8">

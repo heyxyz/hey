@@ -1,8 +1,5 @@
-import getAvatar from '@hey/lib/getAvatar';
-import { Image } from '@hey/ui';
-import { chat } from '@pushprotocol/restapi';
+import * as PushAPI from '@pushprotocol/restapi';
 import { useQuery } from '@tanstack/react-query';
-import dayjs from 'dayjs';
 import React from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import {
@@ -15,38 +12,38 @@ import {
   getLensProfile,
   getProfileIdFromDID
 } from './helper';
-
-export const PreviewMessage = ({
-  content,
-  messageType
-}: {
-  content: string;
-  messageType: string;
-}) => {
-  return (
-    <p className="max-w-[150px] truncate text-sm text-gray-500">{content}</p>
-  );
-};
+import Profile from './Profile';
 
 export default function PUSHPreviewChats() {
-  const { setRecipientProfile } = usePushChatStore();
   const { currentProfile } = useProfileStore();
   const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
 
   const { data, isLoading } = useQuery({
     queryFn: async () => {
-      if (typeof chat?.requests === 'undefined') {
+      if (typeof PushAPI?.chat?.requests === 'undefined') {
         return;
       }
-      const chats = await chat?.chats?.({
+      const chats = await PushAPI?.chat?.chats?.({
         account: getAccountFromProfile(currentProfile?.id),
         env: PUSH_ENV,
         pgpPrivateKey: pgpPrivateKey!,
         toDecrypt: true
       });
-      return chats;
+
+      if (chats) {
+        const lensProfiles = await Promise.all(
+          chats.map((chat) =>
+            getLensProfile(getProfileIdFromDID(chat.msg.fromDID))
+          )
+        );
+
+        return chats.map((chat, index) => ({
+          ...chat,
+          lensProfile: lensProfiles[index]
+        }));
+      }
     },
-    queryKey: ['getChats', chat]
+    queryKey: ['getChats', PushAPI]
   });
 
   return (
@@ -54,47 +51,8 @@ export default function PUSHPreviewChats() {
       {!isLoading ? (
         data
           ?.sort((a, b) => b!.msg!.timestamp! - a!.msg!.timestamp!)
-          .map(async (item) => {
-            const lensProfile = await getLensProfile(
-              getProfileIdFromDID(item.msg.fromDID)
-            );
-            return (
-              <div
-                className={`flex h-16 cursor-pointer gap-2.5 rounded-lg  p-2.5 pr-3 transition-all hover:bg-gray-100 ${
-                  lensProfile?.ownedBy.address ===
-                    currentProfile?.ownedBy.address && 'bg-brand-100'
-                }`}
-                key={item?.msg?.link}
-                onClick={() => setRecipientProfile(lensProfile)}
-              >
-                <Image
-                  className="h-12 w-12 rounded-full border bg-gray-200 dark:border-gray-700"
-                  height={40}
-                  loading="lazy"
-                  onError={({ currentTarget }) => {
-                    currentTarget.src = getAvatar(item);
-                  }}
-                  src={getAvatar(item)}
-                  width={40}
-                />
-
-                <div className="flex w-full	justify-between	">
-                  <div>
-                    <p className="bold max-w-[180px] truncate text-base">
-                      {lensProfile?.handle?.localName}
-                    </p>
-                    <p className="max-w-[150px] truncate text-sm text-gray-500">
-                      {item?.msg?.messageContent}
-                    </p>
-                  </div>
-                  <div>
-                    <span className="text-xs text-gray-500">
-                      {dayjs(item?.msg?.timestamp).fromNow()}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            );
+          .map((item) => {
+            return <Profile key={item.chatId} previewMessage={item} />;
           })
       ) : (
         <div className="mt-6 p-1 text-center text-sm font-bold text-gray-300">

@@ -4,7 +4,7 @@ import {
   getAccountFromProfile,
   getProfileIdFromDID
 } from '@components/Messages/Push/helper';
-import PushAPI from '@pushprotocol/restapi';
+import * as PushAPI from '@pushprotocol/restapi';
 import { createSocketConnection, EVENTS } from '@pushprotocol/socket';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import {
@@ -12,13 +12,11 @@ import {
   usePushChatStore
 } from 'src/store/persisted/usePushChatStore';
 
-import useNotification from './useNotification';
-
 const usePushSocket = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
   const setRecipientChat = usePushChatStore((state) => state.setRecipientChat);
-  const { sendNotification } = useNotification();
+  const recipientChats = usePushChatStore((state) => state.recipientChats);
 
   const pushSocket = createSocketConnection({
     env: PUSH_ENV,
@@ -30,23 +28,44 @@ const usePushSocket = () => {
   pushSocket?.on(
     EVENTS.CHAT_RECEIVED_MESSAGE,
     async (message: IMessageIPFS) => {
-      const user = await PushAPI.user.get({
-        account: getAccountFromProfile(currentProfile?.id),
-        env: PUSH_ENV
-      });
+      try {
+        const user = await PushAPI.user.get({
+          account: getAccountFromProfile(currentProfile?.id),
+          env: PUSH_ENV
+        });
 
-      const decryptedMessage = await PushAPI.chat.decryptConversation({
-        connectedUser: user,
-        messages: [message],
-        pgpPrivateKey: pgpPrivateKey!
-      });
-      setRecipientChat(decryptedMessage[0]);
+        const decryptedMessageResponse = await PushAPI.chat.decryptConversation(
+          {
+            connectedUser: user,
+            env: PUSH_ENV,
+            messages: [message],
+            pgpPrivateKey: pgpPrivateKey!
+          }
+        );
+        const decryptedMessage = decryptedMessageResponse[0];
+        const profileID = getProfileIdFromDID(decryptedMessage.fromDID);
 
-      const from = getProfileIdFromDID(decryptedMessage[0].fromDID);
-      const body = decryptedMessage[0].messageContent;
-      sendNotification(`Message From: ${from}`, {
-        body: body
-      });
+        if (
+          recipientChats.find((chat) => chat.link === decryptedMessage.link)
+        ) {
+          return;
+        }
+
+        if (profileID === currentProfile?.id) {
+          return;
+        }
+
+        setRecipientChat(decryptedMessage);
+
+        const from = getProfileIdFromDID(decryptedMessage.fromDID);
+        const body = decryptedMessage.messageContent;
+
+        new Notification(`Message From: ${from}`, {
+          body: body
+        });
+      } catch (error) {
+        console.log('SOCKET ERROR:', error);
+      }
     }
   );
 

@@ -10,16 +10,13 @@ const useNotification = () => {
     return permission === 'granted';
   }, []);
 
-  const sendNotification = useCallback(
-    (title: string, options?: NotificationOptions) => {
-      if (!isNotificationEnabled()) {
-        console.error('Notifications are not enabled');
-        return;
-      }
-      new Notification(title, options);
-    },
-    [isNotificationEnabled]
-  );
+  const sendNotification = (title: string, options?: NotificationOptions) => {
+    if (!isNotificationEnabled()) {
+      console.error('Notifications are not enabled');
+      return;
+    }
+    new Notification(title, options);
+  };
 
   return { askForPermission, isNotificationEnabled, sendNotification };
 };

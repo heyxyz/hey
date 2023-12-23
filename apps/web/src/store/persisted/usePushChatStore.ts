@@ -36,11 +36,13 @@ interface IPushChatStore {
   activeTab: PushTabs;
   clearRecipientChat: () => void;
   deleteRequestFeed: (requestId: string) => void;
+  pgpPassword: null | string;
   pgpPrivateKey: null | string;
-  recipientChats: IMessageIPFS[] | null;
+  recipientChats: [] | IMessageIPFS[];
   recipientProfile: null | Profile;
   requestsFeed: IFeeds[];
   setActiveTab: (tabName: PushTabs) => void;
+  setPgpPassword: (password: string) => void;
   setPgpPrivateKey: (pgpPrivateKey: string) => void;
   setRecipientChat: (chat: IMessageIPFS) => void;
   setRecipientProfile: (profile: Profile) => void;
@@ -60,6 +62,7 @@ export const usePushChatStore = create(
           );
           return { requestsFeed };
         }),
+      pgpPassword: null,
       pgpPrivateKey: null,
       recipientChats: [],
       recipientProfile: null,
@@ -69,12 +72,14 @@ export const usePushChatStore = create(
           return {
             ...state,
             activeTab: PUSH_TABS.CHATS,
+            pgpPassword: null,
             pgpPrivateKey: null,
-            recipientProfile: null
+            recipientChats: []
           };
         }),
       selectedChatType: null,
       setActiveTab: (activeTab) => set(() => ({ activeTab })),
+      setPgpPassword: (pgpPassword) => set(() => ({ pgpPassword })),
       setPgpPrivateKey: (pgpPrivateKey) => set(() => ({ pgpPrivateKey })),
       setRecipientChat: (newChat: IMessageIPFS) =>
         set((state) => {

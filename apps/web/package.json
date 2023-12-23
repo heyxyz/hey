@@ -54,6 +54,7 @@
     "esbuild": "^0.19.9",
     "framer-motion": "^10.16.16",
     "generate-password": "^1.7.1",
+    "generate-password-ts": "^1.6.5",
     "gif-picker-react": "^1.3.2",
     "graphql": "^16.8.1",
     "idb-keyval": "^6.2.1",

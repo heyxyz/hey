@@ -6,6 +6,7 @@ import type {
 import type { MessageType } from '@pushprotocol/restapi/src/lib/constants';
 
 import { chat } from '@pushprotocol/restapi';
+import * as PushAPI from '@pushprotocol/restapi';
 import clsx from 'clsx';
 import React, { useRef } from 'react';
 import toast from 'react-hot-toast';
@@ -15,7 +16,7 @@ import {
   PUSH_ENV,
   usePushChatStore
 } from 'src/store/persisted/usePushChatStore';
-import { useMutation } from 'wagmi';
+import { useMutation, useWalletClient } from 'wagmi';
 
 import Attachment from './Attachment';
 import Composer from './Composer';
@@ -25,7 +26,6 @@ import {
   getProfileIdFromDID
 } from './helper';
 import InitialConversation from './InitialConversation';
-
 const MessageCard = ({
   chat,
   position
@@ -87,9 +87,10 @@ export default function MessageBody({ selectedChat }: MessageBodyProps) {
   const requestsFeed = usePushChatStore((state) => state.requestsFeed);
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const recepientProfie = usePushChatStore((state) => state.recipientProfile);
+  const { data: signer } = useWalletClient();
 
   const approvalRequired = requestsFeed?.find((item) =>
-    item.did.includes(recepientProfie?.ownedBy.address)
+    item.did.includes(recepientProfie?.id)
   );
   const deleteRequestFeed = usePushChatStore(
     (state) => state.deleteRequestFeed
@@ -100,10 +101,22 @@ export default function MessageBody({ selectedChat }: MessageBodyProps) {
   const pushClient = usePushClient();
 
   const approveUser = async (item: IFeeds) => {
-    const address = getProfileIdFromDID(item.did!);
+    const profileId = getProfileIdFromDID(item.did!);
+    const senderAddress = getAccountFromProfile(profileId);
+    const account = getAccountFromProfile(currentProfile?.id);
+
     try {
-      await pushClient?.chat.accept(address);
+      await PushAPI.chat.approve({
+        account: account,
+        env: PUSH_ENV,
+        pgpPrivateKey: pgpPrivateKey,
+        senderAddress: senderAddress,
+        signer: signer,
+        status: 'Approved'
+      });
+      // await pushClient?.chat.accept(address);
       deleteRequestFeed(item.did);
+      setRecipientChat(item.msg);
       setRecipientChat(item.msg);
     } catch (error) {
       console.log(`[ERROR]: REJECT CHAT USER FAILED:`, error);
@@ -168,9 +181,13 @@ export default function MessageBody({ selectedChat }: MessageBodyProps) {
         ref={listInnerRef}
       >
         <div className="flex flex-col gap-2.5">
-          {selectedChat?.map?.((chat, index) => {
-            return <Messages chat={chat} key={index} />;
-          })}
+          {selectedChat.length > 0 ? (
+            selectedChat?.map?.((chat, index) => {
+              return <Messages chat={chat} key={index} />;
+            })
+          ) : (
+            <div>You have no messaging history this user. Say Hi 👋</div>
+          )}
           <div ref={bottomRef} />
         </div>
       </div>
