@@ -202,14 +202,14 @@ importers:
         specifier: ^0.12.5
         version: 0.12.5(lexical@0.12.5)
       '@livepeer/react':
-        specifier: ^3.1.7
-        version: 3.1.7(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^3.1.8
+        version: 3.1.8(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-hover-card':
         specifier: ^1.0.7
         version: 1.0.7(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)
       '@tanstack/react-query':
-        specifier: ^5.14.2
-        version: 5.14.2(react@18.2.0)
+        specifier: ^5.14.6
+        version: 5.14.6(react@18.2.0)
       '@wagmi/connectors':
         specifier: ^3.1.10
         version: 3.1.10(@types/react@18.2.45)(react@18.2.0)(typescript@5.3.3)(viem@1.20.3)(zod@3.22.4)
@@ -3570,12 +3570,12 @@ packages:
       '@lit-labs/ssr-dom-shim': 1.1.2
     dev: false
 
-  /@livepeer/core-react@2.1.7(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-/B4Tj5K+3AYA/J3y8lnVBeOKTHzBtPTmegCY7goTTJE1hJ4RpzUyzmipFyPwk7FDmGOYk1OrhQS7M8ao0w3hhg==}
+  /@livepeer/core-react@2.1.8(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-dW407B2v9bEG96MEsvUDPvdPP0gac4AZ1u56mQK5T4fDLQgncCTqPhXgoCRQOnfKtEy/pPMZrnpC97gC3Hv9lA==}
     peerDependencies:
       react: '>=17.0.0'
     dependencies:
-      '@livepeer/core': 2.1.7(@types/react@18.2.45)(react@18.2.0)
+      '@livepeer/core': 2.1.8(@types/react@18.2.45)(react@18.2.0)
       '@tanstack/query-async-storage-persister': 4.29.23
       '@tanstack/query-core': 4.29.23
       '@tanstack/react-query': 4.29.23(react-dom@18.2.0)(react@18.2.0)
@@ -3591,15 +3591,15 @@ packages:
       - react-native
     dev: false
 
-  /@livepeer/core-web@3.1.7(@types/react@18.2.45)(react@18.2.0):
-    resolution: {integrity: sha512-JJYJFWaAsROovSlIuZxBNHMQeKA4lRVm2q3d1PB6knuDYY/tjgBDPDbCC764CpPSU3I7/4W16BBfZ9xoHQahMA==}
+  /@livepeer/core-web@3.1.8(@types/react@18.2.45)(react@18.2.0):
+    resolution: {integrity: sha512-wJ4S8RbgV7EcNSL3f/73XspI89tgRGhh5TNIc6xlrma2AmtfrJQaV6nO0bGCxo2jfR8egejYkp+x5xSCR9yd2w==}
     peerDependencies:
       react: '>=17.0.0'
     peerDependenciesMeta:
       react:
         optional: true
     dependencies:
-      '@livepeer/core': 2.1.7(@types/react@18.2.45)(react@18.2.0)
+      '@livepeer/core': 2.1.8(@types/react@18.2.45)(react@18.2.0)
       '@stitches/core': 1.2.8
       core-js: 3.34.0
       cross-fetch: 4.0.0
@@ -3614,8 +3614,8 @@ packages:
       - immer
     dev: false
 
-  /@livepeer/core@2.1.7(@types/react@18.2.45)(react@18.2.0):
-    resolution: {integrity: sha512-bmwegTcsymFHVryNOnWFIORJXjtOszEzCY/18NYToqnjwmae3rdN1ej/e5ldtsRIHzmYKM+Rt2d7tdFuJpPBXw==}
+  /@livepeer/core@2.1.8(@types/react@18.2.45)(react@18.2.0):
+    resolution: {integrity: sha512-9fbv/xQ8x8UYjTLncLjKwVIM5txbdXJrrghPWH1ssZBRrslzRQ7jSbeYbF0v2T4QKhmS/yOmjyyyowfU6W128w==}
     peerDependencies:
       react: '>=17.0.0'
     peerDependenciesMeta:
@@ -3634,8 +3634,8 @@ packages:
       - immer
     dev: false
 
-  /@livepeer/react@3.1.7(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-H6MjAK7P1wfEVZzCeEtwSQLJx5F9ogVy0DUKP/DhSj0+ARTUVDKNgUYE6t6g41NVO0Vv17mRru72nqHlxqr00g==}
+  /@livepeer/react@3.1.8(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-owzx/1ghXXYa1Nkj5o1oLcXQnm7o01xz5haWaxZBkBJiHkmnm0lgOUX0GbGivDrV7+do1plAMSNBwj18Y/2Q/Q==}
     peerDependencies:
       react: '>=17.0.0'
       react-dom: '>=17.0.0'
@@ -3643,8 +3643,8 @@ packages:
       react-dom:
         optional: true
     dependencies:
-      '@livepeer/core-react': 2.1.7(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)
-      '@livepeer/core-web': 3.1.7(@types/react@18.2.45)(react@18.2.0)
+      '@livepeer/core-react': 2.1.8(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)
+      '@livepeer/core-web': 3.1.8(@types/react@18.2.45)(react@18.2.0)
       '@radix-ui/react-dialog': 1.0.5(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-popover': 1.0.7(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-select': 1.2.2(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)
@@ -5841,8 +5841,8 @@ packages:
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 
-  /@tanstack/react-query@5.14.2(react@18.2.0):
-    resolution: {integrity: sha512-SbOzV7UBW8ED3tOnyn6kqNGscnOAfoxShYlbvaQo/5528mDZKpvrwoL/1du1/ukSC6RMAiKmx95SrYqlwPzWDw==}
+  /@tanstack/react-query@5.14.6(react@18.2.0):
+    resolution: {integrity: sha512-+INnJdq/904d+K2XQjqdIC58glpNGfQ8Xz93M6WBeJs5FPGFV8SEuFVzPtW/bKZ/Hu7hAiJpbFLDg5Lysvwmuw==}
     peerDependencies:
       react: ^18.0.0
     dependencies:
