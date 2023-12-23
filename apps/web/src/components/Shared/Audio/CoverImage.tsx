@@ -67,7 +67,7 @@ const CoverImage: FC<CoverImageProps> = ({
         <label
           className={cn(
             { invisible: cover, visible: loading && !cover },
-            'absolute top-0 grid h-24 w-24 cursor-pointer place-items-center bg-gray-100 backdrop-blur-lg group-hover:visible dark:bg-gray-900 md:h-40 md:w-40'
+            'absolute top-0 grid h-24 w-24 cursor-pointer place-items-center bg-gray-100 backdrop-blur-lg group-hover:visible md:h-40 md:w-40 dark:bg-gray-900'
           )}
         >
           {loading && !cover ? (

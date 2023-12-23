@@ -84,7 +84,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
       <div className="relative -mt-24 h-32 w-32 sm:-mt-32 sm:h-52 sm:w-52">
         <Image
           alt={profile.id}
-          className="h-32 w-32 cursor-pointer rounded-xl bg-gray-200 ring-8 ring-gray-50 dark:bg-gray-700 dark:ring-black sm:h-52 sm:w-52"
+          className="h-32 w-32 cursor-pointer rounded-xl bg-gray-200 ring-8 ring-gray-50 sm:h-52 sm:w-52 dark:bg-gray-700 dark:ring-black"
           height={128}
           onClick={() => setExpandedImage(getAvatar(profile, EXPANDED_AVATAR))}
           src={getAvatar(profile)}

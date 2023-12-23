@@ -164,7 +164,7 @@ const UserPreview: FC<UserPreviewProps> = ({
       <Tippy
         appendTo={() => document.body}
         arrow={false}
-        className="preview-tippy-content hidden w-64 !rounded-xl border !bg-white !text-black dark:border-gray-700 dark:!bg-black dark:!text-white md:block"
+        className="preview-tippy-content hidden w-64 !rounded-xl border !bg-white !text-black md:block dark:border-gray-700 dark:!bg-black dark:!text-white"
         content={<Preview />}
         delay={[POPOVER_SHOW_ANIMATION_MS, POPOVER_HIDE_ANIMATION_MS]}
         hideOnClick={false}

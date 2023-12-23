@@ -1,5 +1,7 @@
 import type { IMessageIPFSWithCID, MessageObj } from '@pushprotocol/restapi';
 
+import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
+
 export interface DisplayedMessage {
   cid: string;
   from: string;
@@ -13,12 +15,26 @@ export interface DisplayedMessage {
 
 export const transformMessages = (messages: IMessageIPFSWithCID[]) => {
   const newMessages = new Map();
+
+  const reactionMessages = [];
+
+  for (const message of messages) {
+    if (message.messageType === MessageType.REACTION) {
+      reactionMessages.push(message);
+      continue;
+    }
+    newMessages.set(message.cid, message);
+  }
+
+  console.log(reactionMessages, 'messages...');
+
   //
 };
 
 export const mapReactionsToMessages = (
   messages: IMessageIPFSWithCID[]
 ): DisplayedMessage[] => {
+  transformMessages(messages);
   const formattedMessages: DisplayedMessage[] = messages.map((message) => ({
     cid: message.cid,
     from: message.fromDID.split?.(':')?.pop() ?? '',

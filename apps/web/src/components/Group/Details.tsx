@@ -40,7 +40,7 @@ const Details: FC<DetailsProps> = ({ group }) => {
       <div className="relative h-32 w-32 sm:h-52 sm:w-52">
         <Image
           alt={group.slug}
-          className="h-32 w-32 cursor-pointer rounded-xl bg-gray-200 ring-8 ring-gray-50 dark:bg-gray-700 dark:ring-black sm:h-52 sm:w-52"
+          className="h-32 w-32 cursor-pointer rounded-xl bg-gray-200 ring-8 ring-gray-50 sm:h-52 sm:w-52 dark:bg-gray-700 dark:ring-black"
           height={128}
           onClick={() => setExpandedImage(group.avatar)}
           src={group.avatar}
