@@ -1,7 +1,8 @@
 import type { FC, ReactNode } from 'react';
 
 import { InformationCircleIcon } from '@heroicons/react/24/outline';
-import Tippy from '@tippyjs/react';
+
+import { Tooltip } from './Tooltip';
 
 interface HelpTooltipProps {
   children: ReactNode;
@@ -13,16 +14,11 @@ const HelpTooltip: FC<HelpTooltipProps> = ({ children }) => {
   }
 
   return (
-    <Tippy
-      className="!rounded-xl p-2.5 !leading-5 tracking-wide shadow-lg bg-gray-700 text-white text-sm"
-      content={<span>{children}</span>}
-      duration={0}
-      placement="top"
-    >
-      <span>
+    <span className="cursor-pointer">
+      <Tooltip content={<span>{children}</span>} placement="top">
         <InformationCircleIcon className="ld-text-gray-500 size-[15px]" />
-      </span>
-    </Tippy>
+      </Tooltip>
+    </span>
   );
 };
 
