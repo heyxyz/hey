@@ -8,7 +8,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { PUSH_ENV } from '@hey/data/constants';
 import formatAddress from '@hey/lib/formatAddress';
-import { Button, Image, Spinner } from '@hey/ui';
+import { Button, Spinner } from '@hey/ui';
 import { transformMessages } from '@lib/mapReactionsToMessages';
 import { chat } from '@pushprotocol/restapi';
 import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
@@ -20,6 +20,7 @@ import { useWalletClient } from 'wagmi';
 
 import ChatReactionPopover from './ChatReactionPopover';
 import ChatMessageInput from './Input';
+import RenderMessage from './RenderMessage';
 import RenderReplyMessage from './RenderReplyMessage';
 
 const ChatListItemContainer = ({
@@ -244,22 +245,12 @@ const ChatListItemContainer = ({
                       : 'text-wrap rounded-2xl rounded-bl-sm bg-gray-300 px-4 py-2'
                   }
                 >
-                  {message.messageType === MessageType.TEXT &&
-                    (message.messageObj as any).content}
-                  {message.messageType === MessageType.IMAGE && (
-                    <Image
-                      alt=""
-                      key={message.link}
-                      src={message.messageContent}
-                    />
+                  {message.messageType !== MessageType.REPLY && (
+                    <RenderMessage key={message.link} message={message} />
                   )}
-                  <RenderReplyMessage message={message as unknown as any} />
-                  {/* {message.messageType === MessageType.REPLY &&
-                    console.log(message)}
-                  {message.messageType === MessageType.REPLY &&
-                    (message.messageObj as any).content.messageType ===
-                      MessageType.TEXT &&
-                    (message.messageObj as any).content.messageObj.content} */}
+                  {message.messageType === MessageType.REPLY && (
+                    <RenderReplyMessage message={message as unknown as any} />
+                  )}
                   {message.timestamp && (
                     <sub className="ml-4 text-right text-xs">
                       {formatRelative(message.timestamp, new Date())}

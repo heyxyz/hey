@@ -2,6 +2,8 @@ import type { DisplayedMessage } from '@lib/mapReactionsToMessages';
 
 import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
 
+import RenderMessage from './RenderMessage';
+
 const RenderReplyMessage = ({
   message
 }: {
@@ -28,9 +30,11 @@ const RenderReplyMessage = ({
   if (message.messageObj.content.messageType === MessageType.TEXT) {
     return (
       <>
-        <div className="rounded bg-gray-200 p-1.5 text-gray-900">
+        <div className="rounded-lg bg-gray-200 p-1.5 text-gray-900">
           <span className="block text-sm font-bold">Replied To:</span>
-          {message.parentMessage?.messageContent}
+          {message.parentMessage && (
+            <RenderMessage message={message.parentMessage} />
+          )}
         </div>
         {message.messageObj.content.messageObj.content}
       </>

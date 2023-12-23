@@ -7,6 +7,7 @@ import {
   GridLayout,
   Image
 } from '@hey/ui';
+import { getLatestMessagePreviewText } from '@lib/getLatestMessagePreviewText';
 import { chat } from '@pushprotocol/restapi';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
@@ -146,7 +147,7 @@ const ChatView = () => {
                             )}
                       </p>
                       <p className="truncate text-sm text-gray-400">
-                        {chat.msg.messageContent}
+                        {getLatestMessagePreviewText(chat.msg as any)}
                       </p>
                     </div>
                   </div>

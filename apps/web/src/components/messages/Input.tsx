@@ -3,7 +3,7 @@ import type { DisplayedMessage } from '@lib/mapReactionsToMessages';
 import { PaperAirplaneIcon, PaperClipIcon } from '@heroicons/react/20/solid';
 import { FaceSmileIcon } from '@heroicons/react/24/outline';
 import { XCircleIcon } from '@heroicons/react/24/solid';
-import { Button, Spinner, Tooltip } from '@hey/ui';
+import { Button, HeyPopover, Spinner } from '@hey/ui';
 import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
 import EmojiPicker, { EmojiStyle } from 'emoji-picker-react';
 import { useCallback, useRef, useState } from 'react';
@@ -92,46 +92,40 @@ const ChatMessageInput = ({
                 className="flex h-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
                 type="button"
               >
-                <Tooltip
-                  arrow={false}
-                  asPopover
-                  className="overflow-hidden"
+                <HeyPopover
                   content={
-                    <EmojiPicker
-                      autoFocusSearch
-                      emojiStyle={EmojiStyle.NATIVE}
-                      lazyLoadEmojis={true}
-                      onEmojiClick={(emoji) => {
-                        const currentSelection = inputRef.current?.selectionEnd;
-                        if (!currentSelection) {
-                          setMessage((message) => `${message} ${emoji.emoji}`);
-                          return;
-                        }
-                        setMessage((message) => {
-                          const textBeforeSelection = message.substring(
-                            0,
-                            currentSelection
-                          );
-                          const textAfterSelection =
-                            message.substring(currentSelection);
-                          const newMessage = `${textBeforeSelection} ${emoji.emoji} ${textAfterSelection}`;
-                          inputRef.current?.focus({ preventScroll: true });
-
-                          return newMessage;
-                        });
-                      }}
-                      searchPlaceHolder="Search emojis"
+                    <FaceSmileIcon
+                      aria-hidden="true"
+                      className="h-5 w-5 flex-shrink-0"
                     />
                   }
-                  interactive={true}
-                  placement="top"
-                  theme="light"
                 >
-                  <FaceSmileIcon
-                    aria-hidden="true"
-                    className="h-5 w-5 flex-shrink-0"
+                  <EmojiPicker
+                    autoFocusSearch
+                    emojiStyle={EmojiStyle.NATIVE}
+                    lazyLoadEmojis={true}
+                    onEmojiClick={(emoji) => {
+                      const currentSelection = inputRef.current?.selectionEnd;
+                      if (!currentSelection) {
+                        setMessage((message) => `${message} ${emoji.emoji}`);
+                        return;
+                      }
+                      setMessage((message) => {
+                        const textBeforeSelection = message.substring(
+                          0,
+                          currentSelection
+                        );
+                        const textAfterSelection =
+                          message.substring(currentSelection);
+                        const newMessage = `${textBeforeSelection} ${emoji.emoji} ${textAfterSelection}`;
+                        inputRef.current?.focus({ preventScroll: true });
+
+                        return newMessage;
+                      });
+                    }}
+                    searchPlaceHolder="Search emojis"
                   />
-                </Tooltip>
+                </HeyPopover>
               </button>
             </div>
           </div>
