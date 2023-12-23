@@ -1,6 +1,6 @@
 import type { IMessageIPFSWithCID, MessageObj } from '@pushprotocol/restapi';
 
-interface DisplayedMessage {
+export interface DisplayedMessage {
   cid: string;
   from: string;
   link: string;
@@ -10,6 +10,12 @@ interface DisplayedMessage {
   reactions: string[];
   timestamp: number;
 }
+
+export const transformMessages = (messages: IMessageIPFSWithCID[]) => {
+  const newMessages = new Map();
+  //
+};
+
 export const mapReactionsToMessages = (
   messages: IMessageIPFSWithCID[]
 ): DisplayedMessage[] => {

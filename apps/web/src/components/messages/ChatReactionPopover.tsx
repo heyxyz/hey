@@ -65,7 +65,7 @@ const ChatReactionPopover = ({
 
   return (
     <Popover className="relative h-full">
-      {({ open }) => (
+      {() => (
         <>
           <Popover.Button
             className={`

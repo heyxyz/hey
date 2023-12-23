@@ -1,14 +1,21 @@
+import type { DisplayedMessage } from '@lib/mapReactionsToMessages';
+import type { IMessageIPFSWithCID, Message } from '@pushprotocol/restapi';
+
 import Loader from '@components/Shared/Loader';
-import { InformationCircleIcon } from '@heroicons/react/24/outline';
+import {
+  ArrowUturnLeftIcon,
+  InformationCircleIcon
+} from '@heroicons/react/24/outline';
 import { PUSH_ENV } from '@hey/data/constants';
 import formatAddress from '@hey/lib/formatAddress';
-import { Button, Spinner } from '@hey/ui';
+import { Button, Image, Spinner } from '@hey/ui';
 import { getTwitterFormat } from '@lib/formatTime';
 import { mapReactionsToMessages } from '@lib/mapReactionsToMessages';
-import { chat, type IMessageIPFSWithCID } from '@pushprotocol/restapi';
+import { chat } from '@pushprotocol/restapi';
+import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import useMessageStore from 'src/store/persisted/useMessageStore';
 import { useWalletClient } from 'wagmi';
 
@@ -31,7 +38,6 @@ const ChatListItemContainer = ({
   const pgpPvtKey = useMessageStore((state) => state.pgpPvtKey);
   const { data: signer } = useWalletClient();
 
-  const ref = useRef<HTMLTextAreaElement | null>(null);
   const messageContainerref = useRef<HTMLDivElement | null>(null);
 
   const baseConfig = useMemo(() => {
@@ -80,20 +86,22 @@ const ChatListItemContainer = ({
     queryKey: ['get-messages', profile.did]
   });
 
+  console.log(messages, 'message');
+
   const { isPending: sendingMessage, mutateAsync: sendMessage } = useMutation({
-    mutationFn: async ({ message }: { message: string }) => {
+    mutationFn: async (message: Message) => {
       if (!signer) {
         return;
       }
 
-      if (ref.current) {
-        ref.current.value = '';
+      if (!message) {
+        return;
       }
 
       return await chat.send({
         account: signer?.account.address ?? '',
         env: PUSH_ENV,
-        message: { content: message, type: 'Text' },
+        message: message,
         pgpPrivateKey: pgpPvtKey,
         signer: signer,
         to: profile.address
@@ -116,16 +124,49 @@ const ChatListItemContainer = ({
     mutationKey: ['approve-user']
   });
 
+  const [replyMessage, setReplyMessage] = useState<DisplayedMessage | null>(
+    null
+  );
+
   const onSendMessage = useCallback(
     async (message: string) => {
       if (!message) {
         return;
       }
-      await sendMessage({ message });
+      if (!replyMessage) {
+        await sendMessage({ content: message, type: 'Text' });
+      } else {
+        await sendMessage({
+          content: { content: message, type: 'Text' },
+          reference: replyMessage.cid,
+          type: 'Reply'
+        });
+      }
+      setReplyMessage(null);
       await refetchMessages();
+    },
+    [refetchMessages, replyMessage, sendMessage]
+  );
+
+  const onSendAttachment = useCallback(
+    async (file: File) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = async (event) => {
+        const result = event.target?.result;
+        if (!result || typeof result !== 'string') {
+          return;
+        }
+        await sendMessage({ content: result, type: 'Image' });
+        await refetchMessages();
+      };
     },
     [refetchMessages, sendMessage]
   );
+
+  const onRemoveReplyMessage = useCallback(() => {
+    setReplyMessage(null);
+  }, []);
 
   useEffect(() => {
     // Scroll to the latest messages
@@ -140,7 +181,7 @@ const ChatListItemContainer = ({
   }, [messages, messagesLoading, messageContainerref]);
 
   return (
-    <div className="flex h-[50rem] max-h-screen w-full flex-col justify-between">
+    <div className="flex h-[-webkit-calc(100vh-5.5rem)] max-h-screen w-full flex-col justify-between">
       <div className="m-4 flex items-center justify-between bg-white">
         <span>
           <h3 className="text-base font-semibold leading-6 text-gray-900">
@@ -203,9 +244,15 @@ const ChatListItemContainer = ({
                       : 'text-wrap rounded-2xl rounded-bl-sm bg-gray-300 px-4 py-2'
                   }
                 >
-                  {typeof message.messageObj === 'string'
-                    ? message.messageObj
-                    : message.messageObj?.content.toString()}
+                  {message.messageType === MessageType.TEXT &&
+                    message.messageContent}
+                  {message.messageType === MessageType.IMAGE && (
+                    <Image
+                      alt=""
+                      key={message.link}
+                      src={message.messageContent}
+                    />
+                  )}
                   {message.timestamp && (
                     <sub className="ml-4 text-right text-xs">
                       {getTwitterFormat(dayjs(message.timestamp).toDate())}
@@ -232,14 +279,26 @@ const ChatListItemContainer = ({
                   reference={message.link}
                 />
               </div>
+              <div
+                className="hidden cursor-pointer group-hover:block"
+                onClick={() => setReplyMessage(message)}
+                role="button"
+              >
+                <ArrowUturnLeftIcon
+                  aria-hidden="true"
+                  className="h-5 w-5 opacity-100 transition duration-150 ease-in-out"
+                />
+              </div>
             </div>
           );
         })}
       </div>
       <ChatMessageInput
         disabled={profile.isRequestProfile}
-        inputRef={ref}
-        onSend={onSendMessage}
+        onRemoveReplyMessage={onRemoveReplyMessage}
+        onSend={(message) => onSendMessage(message)}
+        onSendAttachment={onSendAttachment}
+        replyMessage={replyMessage}
         sending={sendingMessage}
       />
     </div>

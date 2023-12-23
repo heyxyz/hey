@@ -1,7 +1,8 @@
+import MetaTags from '@components/Common/MetaTags';
 import ChatView from '@components/messages/ChatView';
 import Loader from '@components/Shared/Loader';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
-import { PUSH_ENV } from '@hey/data/constants';
+import { APP_NAME, PUSH_ENV } from '@hey/data/constants';
 import { PushAPI } from '@pushprotocol/restapi';
 import useMessageStore from 'src/store/persisted/useMessageStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
@@ -47,7 +48,14 @@ const ChatPage = () => {
     );
   }
 
-  return pgpPvtKey && <ChatView />;
+  return (
+    pgpPvtKey && (
+      <>
+        <MetaTags title={`Messages • ${APP_NAME}`} />
+        <ChatView />
+      </>
+    )
+  );
 };
 
 export default ChatPage;

@@ -9,9 +9,10 @@ import {
 } from '@hey/ui';
 import { chat } from '@pushprotocol/restapi';
 import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import useMessageStore from 'src/store/persisted/useMessageStore';
-import { useWalletClient } from 'wagmi';
+import { useAccount, useWalletClient } from 'wagmi';
 
 import ChatListItemContainer from './ChatContainer';
 import { ChatShimmer } from './ChatShimmer';
@@ -21,6 +22,10 @@ const ChatView = () => {
 
   const pgpPvtKey = useMessageStore((state) => state.pgpPvtKey);
   const { data: signer } = useWalletClient();
+
+  // Helps to check if the wallet is enabled or not
+  const { status } = useAccount();
+  const { refresh } = useRouter();
 
   const baseConfig = useMemo(() => {
     return {
@@ -68,6 +73,18 @@ const ChatView = () => {
     }));
     return [...normalChats, ...requestChats];
   }, [chats, isChatsLoading, requests]);
+
+  if (status === 'disconnected') {
+    return (
+      <div className="page-center flex flex-col">
+        <h2 className="text-2xl">Your wallet is not connected!</h2>
+        <p className="my-2 text-sm">
+          Please unlock your wallet and refresh the page
+        </p>
+        <Button onClick={refresh}>Refresh</Button>
+      </div>
+    );
+  }
 
   if (!isChatsLoading && allChats.length === 0) {
     return (

@@ -69,6 +69,10 @@ progress::-moz-progress-bar {
   @apply !px-2.5 !py-0.5;
 }
 
+.tippy-box[data-theme="light"]{
+  @apply bg-transparent;
+}
+
 .label {
   @apply mb-1 font-medium text-gray-800 dark:text-gray-200;
 }
