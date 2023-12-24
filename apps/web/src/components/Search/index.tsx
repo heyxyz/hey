@@ -27,27 +27,27 @@ const Search: NextPage = () => {
     return <Custom404 />;
   }
 
+  const settingsSidebarItems = [
+    {
+      active: query.type === 'pubs',
+      icon: <PencilSquareIcon className="size-4" />,
+      title: 'Publications',
+      url: `/search?q=${searchText}&type=pubs`
+    },
+    {
+      active: query.type === 'profiles',
+      icon: <UsersIcon className="size-4" />,
+      title: 'Profiles',
+      url: `/search?q=${searchText}&type=profiles`
+    }
+  ];
+
   return (
     <>
       <MetaTags />
       <GridLayout>
         <GridItemFour>
-          <Sidebar
-            items={[
-              {
-                active: query.type === 'pubs',
-                icon: <PencilSquareIcon className="size-4" />,
-                title: 'Publications',
-                url: `/search?q=${searchText}&type=pubs`
-              },
-              {
-                active: query.type === 'profiles',
-                icon: <UsersIcon className="size-4" />,
-                title: 'Profiles',
-                url: `/search?q=${searchText}&type=profiles`
-              }
-            ]}
-          />
+          <Sidebar items={settingsSidebarItems} />
         </GridItemFour>
         <GridItemEight>
           {query.type === 'profiles' ? (
