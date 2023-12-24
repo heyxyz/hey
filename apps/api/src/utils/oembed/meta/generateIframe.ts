@@ -2,6 +2,7 @@ const knownSites = [
   'youtube.com',
   'youtu.be',
   'tape.xyz',
+  'twitch.tv',
   'open.spotify.com',
   'soundcloud.com',
   'oohlala.xyz'
@@ -21,6 +22,7 @@ const youtubeRegex =
   /^https?:\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w-]+)(?:\?.*)?$/;
 const tapeRegex =
   /^https?:\/\/tape\.xyz\/watch\/[\dA-Za-z-]+(\?si=[\dA-Za-z]+)?$/;
+const twitchRegex = /^https?:\/\/www\.twitch\.tv\/videos\/[\dA-Za-z-]+$/;
 
 const generateIframe = (
   embedUrl: null | string,
@@ -47,6 +49,17 @@ const generateIframe = (
     case 'tape.xyz': {
       if (tapeRegex.test(url)) {
         return `<iframe src="${pickedUrl}" ${universalSize} allow="accelerometer; encrypted-media" allowfullscreen></iframe>`;
+      }
+
+      return null;
+    }
+    case 'twitch.tv': {
+      const twitchEmbedUrl = pickedUrl.replace(
+        '&player=facebook&autoplay=true&parent=meta.tag',
+        '&player=hey&autoplay=false&parent=hey.xyz'
+      );
+      if (twitchRegex.test(url)) {
+        return `<iframe src="${twitchEmbedUrl}" ${universalSize} allowfullscreen></iframe>`;
       }
 
       return null;
