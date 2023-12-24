@@ -384,7 +384,7 @@ importers:
         version: 2.5.0(eslint@8.56.0)(typescript@5.3.3)
       eslint-plugin-prettier:
         specifier: ^5.1.1
-        version: 5.1.1(eslint@8.56.0)(prettier@3.1.1)
+        version: 5.1.2(eslint@8.56.0)(prettier@3.1.1)
       eslint-plugin-react:
         specifier: ^7.33.2
         version: 7.33.2(eslint@8.56.0)
@@ -8969,8 +8969,8 @@ packages:
       - typescript
     dev: true
 
-  /eslint-plugin-prettier@5.1.1(eslint@8.56.0)(prettier@3.1.1):
-    resolution: {integrity: sha512-WQpV3mSmIobb77s4qiCZu3dBrZZ0rj8ckSfBtRrgNK9Wnh2s3eiaxNTWloz1LJ1WtvqZES/PAI7PLvsrGt/CEA==}
+  /eslint-plugin-prettier@5.1.2(eslint@8.56.0)(prettier@3.1.1):
+    resolution: {integrity: sha512-dhlpWc9vOwohcWmClFcA+HjlvUpuyynYs0Rf+L/P6/0iQE6vlHW9l5bkfzN62/Stm9fbq8ku46qzde76T1xlSg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       '@types/eslint': '>=8.0.0'
