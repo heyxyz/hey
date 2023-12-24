@@ -1,12 +1,12 @@
+import type { EoaOwnershipCondition as EoaOwnershipConditionType } from '@hey/lens';
 import type { FC } from 'react';
 
-import { EoaOwnershipCondition } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
 import { Tooltip } from '@hey/ui';
 import useEnsName from 'src/hooks/useEnsName';
 
 interface EoaOwnershipConditionProps {
-  condition: EoaOwnershipCondition;
+  condition: EoaOwnershipConditionType;
 }
 
 const EoaOwnershipCondition: FC<EoaOwnershipConditionProps> = ({

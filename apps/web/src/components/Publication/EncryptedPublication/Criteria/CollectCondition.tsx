@@ -1,10 +1,10 @@
+import type { CollectCondition as CollectConditionType } from '@hey/lens';
 import type { FC } from 'react';
 
-import { CollectCondition } from '@hey/lens';
 import Link from 'next/link';
 
 interface CollectConditionProps {
-  condition: CollectCondition;
+  condition: CollectConditionType;
 }
 
 const CollectCondition: FC<CollectConditionProps> = ({ condition }) => {
