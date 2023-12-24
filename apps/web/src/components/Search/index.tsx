@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 
 import MetaTags from '@components/Common/MetaTags';
 import Sidebar from '@components/Shared/Sidebar';
+import SidebarMenu from '@components/Shared/SidebarMenu';
 import { PencilSquareIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
@@ -27,27 +28,32 @@ const Search: NextPage = () => {
     return <Custom404 />;
   }
 
+  const settingsSidebarItems = [
+    {
+      active: query.type === 'pubs',
+      icon: <PencilSquareIcon className="size-4" />,
+      title: 'Publications',
+      url: `/search?q=${searchText}&type=pubs`
+    },
+    {
+      active: query.type === 'profiles',
+      icon: <UsersIcon className="size-4" />,
+      title: 'Profiles',
+      url: `/search?q=${searchText}&type=profiles`
+    }
+  ];
+
   return (
     <>
       <MetaTags />
       <GridLayout>
         <GridItemFour>
-          <Sidebar
-            items={[
-              {
-                active: query.type === 'pubs',
-                icon: <PencilSquareIcon className="size-4" />,
-                title: 'Publications',
-                url: `/search?q=${searchText}&type=pubs`
-              },
-              {
-                active: query.type === 'profiles',
-                icon: <UsersIcon className="size-4" />,
-                title: 'Profiles',
-                url: `/search?q=${searchText}&type=profiles`
-              }
-            ]}
-          />
+          <div className="hidden lg:block">
+            <Sidebar items={settingsSidebarItems} />
+          </div>
+          <div className="block lg:hidden">
+            <SidebarMenu items={settingsSidebarItems} />
+          </div>
         </GridItemFour>
         <GridItemEight>
           {query.type === 'profiles' ? (
