@@ -1,12 +1,10 @@
+import type { Erc20OwnershipCondition as Erc20OwnershipConditionType } from '@hey/lens';
 import type { FC } from 'react';
 
-import {
-  ComparisonOperatorConditionType,
-  Erc20OwnershipCondition
-} from '@hey/lens';
+import { ComparisonOperatorConditionType } from '@hey/lens';
 
 interface Erc20OwnershipConditionProps {
-  condition: Erc20OwnershipCondition;
+  condition: Erc20OwnershipConditionType;
 }
 
 const Erc20OwnershipCondition: FC<Erc20OwnershipConditionProps> = ({
