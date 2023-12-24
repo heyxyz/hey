@@ -137,11 +137,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
         />
       ) : null}
       {showSharingLink ? (
-        <Oembed
-          onData={() => {}}
-          publicationId={publication.id}
-          url={metadata.sharingLink}
-        />
+        <Oembed publicationId={publication.id} url={metadata.sharingLink} />
       ) : null}
       {targetPublication.__typename === 'Quote' && (
         <Quote publication={targetPublication.quoteOn} />
