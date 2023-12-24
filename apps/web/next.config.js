@@ -1,3 +1,6 @@
+const allowedBots =
+  '.*twitterbot|linkedinbot|whatsapp|slackbot|telegrambot|discordbot|facebookbot|googlebot|bot.*';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: { scrollRestoration: true },
@@ -57,6 +60,16 @@ const nextConfig = {
       {
         destination: 'https://api.hey.xyz/sitemap/:match*',
         source: '/sitemaps/:match*'
+      },
+      {
+        destination: `${process.env.NEXT_PUBLIC_OG_URL}/u/:match*`,
+        has: [{ key: 'user-agent', type: 'header', value: allowedBots }],
+        source: '/u/:match*'
+      },
+      {
+        destination: `${process.env.NEXT_PUBLIC_OG_URL}/posts/:match*`,
+        has: [{ key: 'user-agent', type: 'header', value: allowedBots }],
+        source: '/posts/:match*'
       }
     ];
   },
