@@ -3,12 +3,13 @@ const knownSites = [
   'youtu.be',
   'tape.xyz',
   'twitch.tv',
+  'kick.com',
   'open.spotify.com',
   'soundcloud.com',
   'oohlala.xyz'
 ];
 
-const pickUrlSites = ['open.spotify.com'];
+const pickUrlSites = ['open.spotify.com', 'kick.com'];
 
 const spotifyTrackUrlRegex =
   /^ht{2}ps?:\/{2}open\.spotify\.com\/track\/[\dA-Za-z]+(\?si=[\dA-Za-z]+)?$/;
@@ -23,6 +24,7 @@ const youtubeRegex =
 const tapeRegex =
   /^https?:\/\/tape\.xyz\/watch\/[\dA-Za-z-]+(\?si=[\dA-Za-z]+)?$/;
 const twitchRegex = /^https?:\/\/www\.twitch\.tv\/videos\/[\dA-Za-z-]+$/;
+const kickRegex = /^https?:\/\/kick\.com\/[\dA-Za-z-]+$/;
 
 const generateIframe = (
   embedUrl: null | string,
@@ -60,6 +62,14 @@ const generateIframe = (
       );
       if (twitchRegex.test(url)) {
         return `<iframe src="${twitchEmbedUrl}" ${universalSize} allowfullscreen></iframe>`;
+      }
+
+      return null;
+    }
+    case 'kick.com': {
+      const kickEmbedUrl = pickedUrl.replace('kick.com', 'player.kick.com');
+      if (kickRegex.test(url)) {
+        return `<iframe src="${kickEmbedUrl}" ${universalSize} allowfullscreen></iframe>`;
       }
 
       return null;
