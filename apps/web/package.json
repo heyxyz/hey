@@ -44,6 +44,7 @@
     "axios": "^1.6.2",
     "browser-image-compression": "^2.0.2",
     "chart.js": "^4.4.1",
+    "clsx": "^2.0.0",
     "dotenv": "^16.3.1",
     "emoji-picker-react": "^4.6.0",
     "esbuild": "^0.19.10",

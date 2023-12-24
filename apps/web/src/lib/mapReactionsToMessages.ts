@@ -5,6 +5,7 @@ import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
 export interface DisplayedMessage {
   cid: string;
   from: string;
+  isOptimistic?: boolean;
   link: string;
   messageContent: string;
   messageObj: MessageObj | string;
@@ -14,7 +15,9 @@ export interface DisplayedMessage {
   timestamp: number;
 }
 
-export const transformMessages = (messages: IMessageIPFSWithCID[]) => {
+export const transformMessages = (
+  messages: (IMessageIPFSWithCID & { isOptimistic?: boolean })[]
+) => {
   const newMessages = new Map<string, DisplayedMessage>();
 
   const reactionMessages = [];
@@ -33,6 +36,7 @@ export const transformMessages = (messages: IMessageIPFSWithCID[]) => {
     newMessages.set(message.link ?? message.cid, {
       cid: message.cid,
       from: message.fromDID.split?.(':')?.pop() ?? '',
+      isOptimistic: message.isOptimistic,
       link: message.link ?? '',
       messageContent: message.messageContent,
       messageObj: message.messageObj ?? '',

@@ -12,7 +12,12 @@ import { Button, Spinner } from '@hey/ui';
 import { transformMessages } from '@lib/mapReactionsToMessages';
 import { chat } from '@pushprotocol/restapi';
 import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
-import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQueryClient
+} from '@tanstack/react-query';
+import clsx from 'clsx';
 import { formatRelative } from 'date-fns';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
@@ -23,6 +28,11 @@ import ChatReactionPopover from './ChatReactionPopover';
 import ChatMessageInput from './Input';
 import RenderMessage from './RenderMessage';
 import RenderReplyMessage from './RenderReplyMessage';
+
+type SavedQueryData = {
+  pageParams: string[];
+  pages: IMessageIPFSWithCID[][];
+};
 
 const ChatListItemContainer = ({
   profile
@@ -61,9 +71,12 @@ const ChatListItemContainer = ({
     isLoading: isHistoryLoading
   } = useInfiniteQuery({
     enabled: !!address && !!threadhash,
-    getNextPageParam: (nextPage: IMessageIPFSWithCID[]) => nextPage?.[0]?.link,
+    getNextPageParam: (_, data) => {
+      const flattenData = data.flat(1);
+      return flattenData.pop()?.cid;
+    },
     getPreviousPageParam: (firstPage: IMessageIPFSWithCID[]) =>
-      firstPage.pop()?.link,
+      firstPage?.[0]?.cid,
     initialPageParam: threadhash ?? '',
     queryFn: async ({ pageParam }: { pageParam: string }) => {
       if (!pageParam) {
@@ -88,7 +101,7 @@ const ChatListItemContainer = ({
     historyData?.pages.flatMap((page) => [...page]) ?? []
   );
 
-  console.log('>>> messages', messages);
+  const queryClient = useQueryClient();
 
   const { isPending: sendingMessage, mutateAsync: sendMessage } = useMutation({
     mutationFn: async (message: Message) => {
@@ -109,7 +122,77 @@ const ChatListItemContainer = ({
         to: profile.address
       });
     },
-    mutationKey: ['send-message']
+    mutationKey: ['send-message'],
+    // onError: async (error, newMessage, { previousMessages }) => {
+    //   // const queryKey = ['fetch-messages', profile.did];
+    //   // queryClient.setQueryData(queryKey, previousMessages);
+    // },
+    onMutate: async (message) => {
+      const queryKey = ['fetch-messages', profile.did];
+      await queryClient.cancelQueries({ queryKey });
+
+      const previousMessages = queryClient.getQueryData(
+        queryKey
+      ) as SavedQueryData;
+      const newMessage: IMessageIPFSWithCID & { isOptimistic?: boolean } = {
+        cid: '',
+        encryptedSecret: null,
+        encType: 'pgp',
+        fromCAIP10: `eip155:${signer?.account.address}`,
+        fromDID: `eip155:${signer?.account.address}`,
+        isOptimistic: true,
+        link: '',
+        messageContent:
+          typeof message.content === 'string'
+            ? message.content
+            : 'Not Supported Content',
+        messageObj: message,
+        messageType: message.type as any,
+        signature: '',
+        sigType: '',
+        timestamp: Date.now(),
+        toCAIP10: profile.did,
+        toDID: profile.did
+      };
+      queryClient.setQueryData(queryKey, (old: SavedQueryData) => {
+        old.pages?.[0].unshift(newMessage as any);
+        return old;
+      });
+
+      return { newMessage: newMessage, previousMessages };
+    },
+    onSettled: async (data, error, newMessage, context) => {
+      if (!context) {
+        return;
+      }
+      const queryKey = ['fetch-messages', profile.did];
+      if (error) {
+        queryClient.setQueryData(queryKey, context.previousMessages);
+        return;
+      }
+
+      queryClient.setQueryData(queryKey, (old: SavedQueryData) => {
+        if (!data) {
+          return;
+        }
+        const pagesData = old.pages?.[0];
+        if (!pagesData) {
+          return;
+        }
+        const updatedMessageIndex = pagesData.indexOf(context.newMessage);
+        if (updatedMessageIndex < 0) {
+          return;
+        }
+        delete data.messageObj;
+        delete context.newMessage.isOptimistic;
+        pagesData[updatedMessageIndex] = {
+          ...context.newMessage,
+          ...data,
+          messageContent: context.newMessage.messageContent
+        };
+        return old;
+      });
+    }
   });
 
   const { isPending: isApproving, mutateAsync: onApprove } = useMutation({
@@ -215,7 +298,7 @@ const ChatListItemContainer = ({
       )}
       <div className="w-full border-b-[1px]" />
       <div
-        className="h-screen overflow-y-scroll space-y-3 px-4 py-2"
+        className="h-screen space-y-3 overflow-y-scroll px-4 py-2"
         ref={messageContainerref}
       >
         {isMessagesLoading && !isFetchingNextPage && (
@@ -239,7 +322,7 @@ const ChatListItemContainer = ({
           data={messages}
           firstItemIndex={messages.length - 30}
           initialTopMostItemIndex={ITEM_LIMIT - 1}
-          itemContent={(index, message) => {
+          itemContent={(_, message) => {
             const isMessageFromProfile = message.from !== profile.address;
             if (!message.messageObj) {
               return '';
@@ -253,11 +336,12 @@ const ChatListItemContainer = ({
               >
                 <div className="max-w-[75%]">
                   <div
-                    className={
-                      isMessageFromProfile
-                        ? 'text-wrap rounded-2xl rounded-br-sm bg-[#EF4444] px-4 py-2 items-center my-2 text-white'
-                        : 'text-wrap rounded-2xl rounded-bl-sm bg-gray-300 px-4 py-2 my-2'
-                    }
+                    className={clsx('text-wrap my-2 rounded-2xl px-4 py-2', {
+                      'bg-gray-300': !isMessageFromProfile,
+                      'opacity-80': (message as any).isOptimistic,
+                      'rounded-br-sm bg-[#EF4444] text-white':
+                        isMessageFromProfile
+                    })}
                   >
                     {message.messageType !== MessageType.REPLY && (
                       <RenderMessage key={message.link} message={message} />
