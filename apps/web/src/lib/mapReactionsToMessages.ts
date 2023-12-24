@@ -20,7 +20,7 @@ export const transformMessages = (messages: IMessageIPFSWithCID[]) => {
   const reactionMessages = [];
   const replyMessages = [];
 
-  for (const message of messages) {
+  for (const message of messages.reverse()) {
     if (message.messageType === MessageType.REACTION) {
       reactionMessages.push(message);
       continue;
@@ -56,6 +56,11 @@ export const transformMessages = (messages: IMessageIPFSWithCID[]) => {
     reactionMessageReference.reactions.push(
       reactionMessage.messageObj?.content as string
     );
+
+    // To eliminate duplicate reactions as pagination uses link to retrieve next messages
+    reactionMessageReference.reactions = Array.from(
+      new Set(reactionMessageReference.reactions)
+    );
   }
 
   for (const reply of replyMessages) {
@@ -69,8 +74,6 @@ export const transformMessages = (messages: IMessageIPFSWithCID[]) => {
   }
 
   return [...newMessages.values()];
-
-  //
 };
 
 export const mapReactionsToMessages = (
