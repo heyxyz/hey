@@ -6,15 +6,20 @@ import { PublicationDocument } from '@hey/lens';
 import { apolloClient } from '@hey/lens/apollo';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
+import logger from '@hey/lib/logger';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
+import { headers } from 'next/headers';
 
 type Props = {
   params: { id: string };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id } = params;
+  const headersList = headers();
+  const agent = headersList.get('user-agent');
+  logger.info(`OG request from ${agent} for Publication:${params.id}`);
 
+  const { id } = params;
   const { data } = await apolloClient().query({
     query: PublicationDocument,
     variables: { request: { forId: id } }
@@ -22,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!data.publication) {
     return {
-      title: 'Profile not found'
+      title: 'Publication not found'
     };
   }
 

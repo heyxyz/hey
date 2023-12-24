@@ -6,14 +6,19 @@ import { ProfileDocument } from '@hey/lens';
 import { apolloClient } from '@hey/lens/apollo';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
+import logger from '@hey/lib/logger';
+import { headers } from 'next/headers';
 
 type Props = {
   params: { handle: string };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { handle } = params;
+  const headersList = headers();
+  const agent = headersList.get('user-agent');
+  logger.info(`OG request from ${agent} for Handle:${params.handle}`);
 
+  const { handle } = params;
   const { data } = await apolloClient().query({
     query: ProfileDocument,
     variables: { request: { forHandle: `${HANDLE_PREFIX}${handle}` } }
