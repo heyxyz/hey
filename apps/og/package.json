@@ -4,6 +4,7 @@
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
+    "build": "next build",
     "dev": "next dev --port 4785",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --fix --ext .ts,.tsx",
