@@ -1,17 +1,19 @@
+import type {
+  SecondTierCondition as SecondTierConditionType,
+  ThirdTierCondition as ThirdTierConditionType
+} from '@hey/lens';
 import type { FC } from 'react';
 
-import { SecondTierCondition } from '@hey/lens';
-
-import ThirdTierCondition from '../ThirdTierCondition';
+import ThirdTierCondition from './ThirdTierCondition';
 
 interface SecondTierConditionProps {
-  condition: SecondTierCondition;
+  condition: SecondTierConditionType;
 }
 
 const SecondTierCondition: FC<SecondTierConditionProps> = ({ condition }) => {
   return (
     <div>
-      <ThirdTierCondition condition={condition as ThirdTierCondition} />
+      <ThirdTierCondition condition={condition as ThirdTierConditionType} />
 
       {condition.__typename === 'AndCondition' ? (
         <div className="space-y-3">
@@ -19,10 +21,10 @@ const SecondTierCondition: FC<SecondTierConditionProps> = ({ condition }) => {
             Should match all of the following conditions:
           </div>
           <div className="ml-5 space-y-1.5">
-            {condition.criteria.map((criterion) => (
+            {condition.criteria.map((criterion, index) => (
               <ThirdTierCondition
                 condition={criterion}
-                key={criterion.__typename}
+                key={`${criterion.__typename}-${index}`}
               />
             ))}
           </div>
@@ -35,10 +37,10 @@ const SecondTierCondition: FC<SecondTierConditionProps> = ({ condition }) => {
             Should match any one of the following conditions:
           </div>
           <div className="ml-5 space-y-1.5">
-            {condition.criteria.map((criterion) => (
+            {condition.criteria.map((criterion, index) => (
               <ThirdTierCondition
                 condition={criterion}
-                key={criterion.__typename}
+                key={`${criterion.__typename}-${index}`}
               />
             ))}
           </div>

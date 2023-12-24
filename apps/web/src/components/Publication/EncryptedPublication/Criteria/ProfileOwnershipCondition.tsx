@@ -1,10 +1,10 @@
+import type { ProfileOwnershipCondition as ProfileOwnershipConditionType } from '@hey/lens';
 import type { FC } from 'react';
 
 import LazySmallUserProfile from '@components/Shared/LazySmallUserProfile';
-import { ProfileOwnershipCondition } from '@hey/lens';
 
 interface ProfileOwnershipConditionProps {
-  condition: ProfileOwnershipCondition;
+  condition: ProfileOwnershipConditionType;
 }
 
 const ProfileOwnershipCondition: FC<ProfileOwnershipConditionProps> = ({

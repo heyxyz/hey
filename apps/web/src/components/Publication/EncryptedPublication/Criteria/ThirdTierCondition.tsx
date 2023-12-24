@@ -1,16 +1,15 @@
+import type { ThirdTierCondition as ThirdTierConditionType } from '@hey/lens';
 import type { FC } from 'react';
 
-import { ThirdTierCondition } from '@hey/lens';
-
-import CollectCondition from '../CollectCondition';
-import EoaOwnershipCondition from '../EoaOwnershipCondition';
-import Erc20OwnershipCondition from '../Erc20OwnershipCondition';
-import FollowCondition from '../FollowCondition';
-import NftOwnershipCondition from '../NftOwnershipCondition';
-import ProfileOwnershipCondition from '../ProfileOwnershipCondition';
+import CollectCondition from './CollectCondition';
+import EoaOwnershipCondition from './EoaOwnershipCondition';
+import Erc20OwnershipCondition from './Erc20OwnershipCondition';
+import FollowCondition from './FollowCondition';
+import NftOwnershipCondition from './NftOwnershipCondition';
+import ProfileOwnershipCondition from './ProfileOwnershipCondition';
 
 interface ThirdTierConditionProps {
-  condition: ThirdTierCondition;
+  condition: ThirdTierConditionType;
 }
 
 const ThirdTierCondition: FC<ThirdTierConditionProps> = ({ condition }) => {
