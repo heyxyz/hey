@@ -26,7 +26,7 @@ const generateIframe = (
   embedUrl: null | string,
   url: string
 ): null | string => {
-  const universalSize = `width="560" height="315"`;
+  const universalSize = `width="100%" height="415"`;
   const parsedUrl = new URL(url);
   const hostname = parsedUrl.hostname.replace('www.', '');
   const pickedUrl = pickUrlSites.includes(hostname) ? url : embedUrl;
@@ -52,7 +52,7 @@ const generateIframe = (
       return null;
     }
     case 'open.spotify.com': {
-      const spotifySize = `style="max-width: 560px;" width="100%"`;
+      const spotifySize = `style="max-width: 100%;" width="100%"`;
       if (spotifyTrackUrlRegex.test(url)) {
         const spotifyUrl = pickedUrl.replace('/track', '/embed/track');
         return `<iframe src="${spotifyUrl}" ${spotifySize} height="155" allow="encrypted-media"></iframe>`;
