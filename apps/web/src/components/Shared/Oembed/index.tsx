@@ -42,7 +42,7 @@ const Oembed: FC<OembedProps> = ({ className = '', publicationId, url }) => {
     url: url as string
   };
 
-  if (!og.title) {
+  if (!og.title && !og.html) {
     return null;
   }
 
