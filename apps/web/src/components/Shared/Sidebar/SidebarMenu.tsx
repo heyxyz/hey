@@ -4,8 +4,8 @@ import cn from '@hey/ui/cn';
 import { useRouter } from 'next/router';
 import { type FC, type ReactNode, useState } from 'react';
 
-import MenuTransition from './MenuTransition';
-import { NextLink } from './Navbar/MenuItems';
+import MenuTransition from '../MenuTransition';
+import { NextLink } from '../Navbar/MenuItems';
 
 interface SidebarProps {
   items: {

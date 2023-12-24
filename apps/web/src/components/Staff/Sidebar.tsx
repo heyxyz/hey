@@ -1,7 +1,6 @@
 import type { FC } from 'react';
 
 import Sidebar from '@components/Shared/Sidebar';
-import SidebarMenu from '@components/Shared/SidebarMenu';
 import {
   AdjustmentsHorizontalIcon,
   ClipboardIcon,
@@ -35,12 +34,7 @@ const settingsSidebarItems = [
 const StaffSidebar: FC = () => {
   return (
     <div className="mb-4 px-3 sm:px-0">
-      <div className="hidden lg:block">
-        <Sidebar items={settingsSidebarItems} />
-      </div>
-      <div className="block lg:hidden">
-        <SidebarMenu items={settingsSidebarItems} />
-      </div>
+      <Sidebar items={settingsSidebarItems} />
     </div>
   );
 };

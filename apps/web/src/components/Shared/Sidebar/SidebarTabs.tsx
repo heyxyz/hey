@@ -23,7 +23,7 @@ const Menu: FC<MenuProps> = ({ children, current, url }) => (
   </Link>
 );
 
-interface SidebarProps {
+interface SidebarTabsProps {
   items: {
     active?: boolean;
     enabled?: boolean;
@@ -33,7 +33,7 @@ interface SidebarProps {
   }[];
 }
 
-const Sidebar: FC<SidebarProps> = ({ items }) => {
+const SidebarTabs: FC<SidebarTabsProps> = ({ items }) => {
   const { pathname } = useRouter();
   const menuItems = items.map((item) => ({
     ...item,
@@ -58,4 +58,4 @@ const Sidebar: FC<SidebarProps> = ({ items }) => {
   );
 };
 
-export default Sidebar;
+export default SidebarTabs;

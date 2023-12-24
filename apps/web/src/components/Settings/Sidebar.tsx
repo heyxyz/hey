@@ -2,7 +2,6 @@ import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import Sidebar from '@components/Shared/Sidebar';
-import SidebarMenu from '@components/Shared/SidebarMenu';
 import UserProfile from '@components/Shared/UserProfile';
 import {
   AdjustmentsVerticalIcon,
@@ -105,12 +104,7 @@ const SettingsSidebar: FC = () => {
           showUserPreview={false}
         />
       </div>
-      <div className="hidden lg:block">
-        <Sidebar items={settingsSidebarItems} />
-      </div>
-      <div className="block lg:hidden">
-        <SidebarMenu items={settingsSidebarItems} />
-      </div>
+      <Sidebar items={settingsSidebarItems} />
     </div>
   );
 };

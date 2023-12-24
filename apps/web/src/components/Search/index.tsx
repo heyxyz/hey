@@ -2,7 +2,6 @@ import type { NextPage } from 'next';
 
 import MetaTags from '@components/Common/MetaTags';
 import Sidebar from '@components/Shared/Sidebar';
-import SidebarMenu from '@components/Shared/SidebarMenu';
 import { PencilSquareIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
@@ -48,12 +47,7 @@ const Search: NextPage = () => {
       <MetaTags />
       <GridLayout>
         <GridItemFour>
-          <div className="hidden lg:block">
-            <Sidebar items={settingsSidebarItems} />
-          </div>
-          <div className="block lg:hidden">
-            <SidebarMenu items={settingsSidebarItems} />
-          </div>
+          <Sidebar items={settingsSidebarItems} />
         </GridItemFour>
         <GridItemEight>
           {query.type === 'profiles' ? (
