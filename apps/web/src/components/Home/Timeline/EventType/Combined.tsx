@@ -1,8 +1,8 @@
 import type { FeedItem } from '@hey/lens';
-import type { FC } from 'react';
 
 import Profiles from '@components/Shared/Profiles';
 import { SparklesIcon } from '@heroicons/react/24/outline';
+import { type FC, Fragment } from 'react';
 
 interface CombinedProps {
   feedItem: FeedItem;
@@ -47,11 +47,11 @@ const Combined: FC<CombinedProps> = ({ feedItem }) => {
       <Profiles profiles={getAllProfiles()} />
       <div className="flex items-center space-x-1">
         {actionArray.map((action, index) => (
-          <>
-            <span key={action}>{action}</span>
+          <Fragment key={action}>
+            <span>{action}</span>
             {index < actionArray.length - 2 && <span>, </span>}
             {index === actionArray.length - 2 && <span>and</span>}
-          </>
+          </Fragment>
         ))}
       </div>
     </div>
