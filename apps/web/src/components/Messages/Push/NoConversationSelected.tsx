@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-const PUSHNoConversationSelected: FC = () => {
+const NoConversationSelected: FC = () => {
   return (
     <div className="m-auto">
       <h3 className="mb-2 mt-3 text-lg">
@@ -15,4 +15,4 @@ const PUSHNoConversationSelected: FC = () => {
   );
 };
 
-export default PUSHNoConversationSelected;
+export default NoConversationSelected;

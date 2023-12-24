@@ -16,7 +16,7 @@ const usePushSocket = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
   const setRecipientChat = usePushChatStore((state) => state.setRecipientChat);
-  const recipientChats = usePushChatStore((state) => state.recipientChats);
+  const connectedProfile = usePushChatStore((state) => state.connectedProfile);
 
   const pushSocket = createSocketConnection({
     env: PUSH_ENV,
@@ -29,14 +29,9 @@ const usePushSocket = () => {
     EVENTS.CHAT_RECEIVED_MESSAGE,
     async (message: IMessageIPFS) => {
       try {
-        const user = await PushAPI.user.get({
-          account: getAccountFromProfile(currentProfile?.id),
-          env: PUSH_ENV
-        });
-
         const decryptedMessageResponse = await PushAPI.chat.decryptConversation(
           {
-            connectedUser: user,
+            connectedUser: connectedProfile!,
             env: PUSH_ENV,
             messages: [message],
             pgpPrivateKey: pgpPrivateKey!
@@ -45,24 +40,11 @@ const usePushSocket = () => {
         const decryptedMessage = decryptedMessageResponse[0];
         const profileID = getProfileIdFromDID(decryptedMessage.fromDID);
 
-        if (
-          recipientChats.find((chat) => chat.link === decryptedMessage.link)
-        ) {
-          return;
-        }
-
         if (profileID === currentProfile?.id) {
           return;
         }
 
         setRecipientChat(decryptedMessage);
-
-        const from = getProfileIdFromDID(decryptedMessage.fromDID);
-        const body = decryptedMessage.messageContent;
-
-        new Notification(`Message From: ${from}`, {
-          body: body
-        });
       } catch (error) {
         console.log('SOCKET ERROR:', error);
       }

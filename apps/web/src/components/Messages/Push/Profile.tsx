@@ -1,5 +1,6 @@
 import type { IFeeds } from '@pushprotocol/restapi';
 
+import { PhotoIcon } from '@heroicons/react/24/outline';
 import { Profile, useProfileQuery } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
 import { Image } from '@hey/ui';
@@ -17,7 +18,7 @@ const Profile: React.FC<ProfileProps> = ({ previewMessage }) => {
   const setRecipientProfile = usePushChatStore(
     (state) => state.setRecipientProfile
   );
-  const profileID = getProfileIdFromDID(previewMessage.msg.fromDID);
+  const profileID = getProfileIdFromDID(previewMessage.did);
   const { recipientProfile } = usePushChatStore();
   const { data, loading } = useProfileQuery({
     skip: !profileID,
@@ -56,7 +57,14 @@ const Profile: React.FC<ProfileProps> = ({ previewMessage }) => {
             @{lensProfile?.handle?.localName}
           </p>
           <p className="max-w-[150px] truncate text-sm text-gray-500">
-            {previewMessage.msg.messageContent}
+            {previewMessage.msg.messageType === 'Text' ? (
+              previewMessage.msg.messageContent
+            ) : (
+              <div className="flex gap-2">
+                <PhotoIcon className=" h-6 w-5" />
+                Attachment
+              </div>
+            )}
           </p>
         </div>
         <div>

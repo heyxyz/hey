@@ -7,7 +7,6 @@ import type { MessageType } from '@pushprotocol/restapi/src/lib/constants';
 
 import { chat } from '@pushprotocol/restapi';
 import * as PushAPI from '@pushprotocol/restapi';
-import clsx from 'clsx';
 import React, { useRef } from 'react';
 import toast from 'react-hot-toast';
 import usePushClient from 'src/hooks/messaging/push/usePushClient';
@@ -18,64 +17,10 @@ import {
 } from 'src/store/persisted/usePushChatStore';
 import { useMutation, useWalletClient } from 'wagmi';
 
-import Attachment from './Attachment';
 import Composer from './Composer';
-import {
-  dateToFromNowDaily,
-  getAccountFromProfile,
-  getProfileIdFromDID
-} from './helper';
+import { getAccountFromProfile, getProfileIdFromDID } from './helper';
 import InitialConversation from './InitialConversation';
-const MessageCard = ({
-  chat,
-  position
-}: {
-  chat: IMessageIPFS;
-  position: number;
-}) => {
-  const timestampDate = dateToFromNowDaily(chat.timestamp as number);
-  return (
-    <div className="flex gap-2">
-      <div className="flex flex-1 flex-col">
-        <div
-          className={clsx(
-            position === 0
-              ? 'rounded-xl rounded-tl-sm'
-              : position === 1
-                ? 'self-end rounded-xl rounded-tr-sm bg-violet-500'
-                : 'absolute top-[-16px] ml-11 rounded-xl rounded-tl-sm',
-            'relative w-fit max-w-[80%] border py-3 pl-4 pr-[50px] font-medium'
-          )}
-        >
-          <p
-            className={clsx(
-              position === 1 ? 'text-white' : '',
-              'max-w-[100%] break-words text-sm'
-            )}
-          >
-            {chat.messageContent}
-          </p>
-        </div>
-        <span className="ml-2 flex justify-start">
-          <p className="py-2 text-center text-xs text-gray-500">
-            {timestampDate}
-          </p>
-        </span>
-      </div>
-    </div>
-  );
-};
-
-const Messages = ({ chat }: { chat: IMessageIPFS }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  let position =
-    getProfileIdFromDID(chat.fromDID) !== currentProfile?.id ? 0 : 1;
-
-  if (chat.messageType === 'Text') {
-    return <MessageCard chat={chat} position={position} />;
-  }
-  return <Attachment message={chat} />;
-};
+import Message from './Message';
 
 interface MessageBodyProps {
   selectedChat: IMessageIPFS[];
@@ -114,9 +59,8 @@ export default function MessageBody({ selectedChat }: MessageBodyProps) {
         signer: signer,
         status: 'Approved'
       });
-      // await pushClient?.chat.accept(address);
+
       deleteRequestFeed(item.did);
-      setRecipientChat(item.msg);
       setRecipientChat(item.msg);
     } catch (error) {
       console.log(`[ERROR]: REJECT CHAT USER FAILED:`, error);
@@ -174,22 +118,16 @@ export default function MessageBody({ selectedChat }: MessageBodyProps) {
   };
 
   return (
-    <section className="flex h-full flex-col p-3 pb-3">
-      <div
-        className="flex-grow overflow-auto px-2"
-        // onScroll={onScroll}
-        ref={listInnerRef}
-      >
-        <div className="flex flex-col gap-2.5">
-          {selectedChat.length > 0 ? (
-            selectedChat?.map?.((chat, index) => {
-              return <Messages chat={chat} key={index} />;
-            })
-          ) : (
-            <div>You have no messaging history this user. Say Hi 👋</div>
-          )}
-          <div ref={bottomRef} />
-        </div>
+    <section className="relative flex h-full flex-col p-3 pb-3">
+      <div className="flex-grow overflow-auto px-2" ref={listInnerRef}>
+        {selectedChat.length > 0 ? (
+          selectedChat?.map?.((chat, index) => {
+            return <Message key={index} message={chat} />;
+          })
+        ) : (
+          <div>You have no messaging history this user. Say Hi 👋</div>
+        )}
+        <div ref={bottomRef} />
       </div>
 
       {approvalRequired && (
@@ -199,7 +137,6 @@ export default function MessageBody({ selectedChat }: MessageBodyProps) {
           user={approvalRequired}
         />
       )}
-
       <Composer
         disabledInput={sendMessageMutation.isLoading}
         listRef={listInnerRef}

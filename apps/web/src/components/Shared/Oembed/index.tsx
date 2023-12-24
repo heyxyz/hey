@@ -10,12 +10,13 @@ import Embed from './Embed';
 import Player from './Player';
 
 interface OembedProps {
+  className?: string;
   onData: (data: OG) => void;
   publicationId?: string;
   url?: string;
 }
 
-const Oembed: FC<OembedProps> = ({ onData, publicationId, url }) => {
+const Oembed: FC<OembedProps> = ({ className, onData, publicationId, url }) => {
   const { data, error, isLoading } = useQuery({
     enabled: Boolean(url),
     queryFn: async () => {
@@ -49,9 +50,9 @@ const Oembed: FC<OembedProps> = ({ onData, publicationId, url }) => {
   }
 
   return og.html ? (
-    <Player og={og} />
+    <Player className={className} og={og} />
   ) : (
-    <Embed og={og} publicationId={publicationId} />
+    <Embed className={className} og={og} publicationId={publicationId} />
   );
 };
 

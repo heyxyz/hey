@@ -98,6 +98,10 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   const request: LastLoggedInProfileRequest | ProfileManagersRequest = {
     for: address
   };
+  const setConnectedProfile = usePushChatStore(
+    (state) => state.setConnectedProfile
+  );
+
   const { data: profilesManaged, loading: profilesManagedLoading } =
     useProfilesManagedQuery({
       skip: !address,
@@ -168,6 +172,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       account: account,
       env: PUSH_ENV
     });
+    setConnectedProfile(user);
 
     const pgpPrivateKey = (await PushAPI.chat.decryptPGPKey({
       account: account,

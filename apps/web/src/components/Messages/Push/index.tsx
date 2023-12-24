@@ -8,6 +8,7 @@ import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 import { getAccountFromProfile } from './helper';
 import MessageBody from './MessageBody';
 import MessageHeader from './MessageHeader';
+import NoConversationSelected from './NoConversationSelected';
 import Tabs from './Tabs';
 
 const Message = () => {
@@ -16,7 +17,6 @@ const Message = () => {
   const recipientChats = usePushChatStore((state) => state.recipientChats);
   const pushSocket = usePushSocket();
   const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
-
   const initialConversation = requestsFeed?.find((item) =>
     item.did.includes(recepientProfile?.ownedBy?.address)
   );
@@ -55,12 +55,20 @@ const Message = () => {
       </GridItemFour>
       <GridItemEight className="xs:h-[85vh] xs:mx-2 mb-0 sm:mx-2 sm:h-[76vh] md:col-span-8 md:h-[80vh] xl:h-[84vh]">
         <Card className="flex h-full flex-col justify-between">
-          <MessageHeader profile={recepientProfile!} />
-          <MessageBody
-            selectedChat={
-              initialConversation ? [initialConversation.msg] : recipientChats
-            }
-          />
+          {recepientProfile ? (
+            <>
+              <MessageHeader profile={recepientProfile!} />
+              <MessageBody
+                selectedChat={
+                  initialConversation
+                    ? [initialConversation.msg]
+                    : recipientChats
+                }
+              />
+            </>
+          ) : (
+            <NoConversationSelected />
+          )}
         </Card>
       </GridItemEight>
     </GridLayout>

@@ -5,7 +5,7 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';
 
 import List from './List';
@@ -25,9 +25,19 @@ const EmojiPicker: FC<EmojiPickerProps> = ({
   setShowEmojiPicker,
   showEmojiPicker
 }) => {
-  const listRef = useRef(null);
+  const listRef = useRef<HTMLDivElement | null>(null);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const [showAbove, setShowAbove] = useState(false);
 
   useOnClickOutside(listRef, () => setShowEmojiPicker(false));
+
+  useEffect(() => {
+    if (buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - rect.bottom;
+      setShowAbove(spaceBelow < 500);
+    }
+  }, [showEmojiPicker]);
 
   return (
     <div className="relative" ref={listRef}>
@@ -38,6 +48,7 @@ const EmojiPicker: FC<EmojiPickerProps> = ({
           stopEventPropagation(e);
           setShowEmojiPicker(!showEmojiPicker);
         }}
+        ref={buttonRef}
         whileTap={{ scale: 0.9 }}
       >
         {emoji ? (
@@ -49,7 +60,11 @@ const EmojiPicker: FC<EmojiPickerProps> = ({
         )}
       </motion.button>
       {showEmojiPicker ? (
-        <div className="absolute z-[5] mt-1 w-[300px] rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900">
+        <div
+          className={`absolute z-[5] ${
+            showAbove ? 'top-[-230px]' : 'mt-1'
+          } w-[300px] rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900`}
+        >
           <List setEmoji={setEmoji} />
         </div>
       ) : null}

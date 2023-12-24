@@ -6,17 +6,19 @@ import { PUBLICATION } from '@hey/data/tracking';
 import imageKit from '@hey/lib/imageKit';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Card, Image } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 
 interface EmbedProps {
+  className?: string;
   og: OG;
   publicationId?: string;
 }
 
-const Embed: FC<EmbedProps> = ({ og, publicationId }) => {
+const Embed: FC<EmbedProps> = ({ className, og, publicationId }) => {
   return (
-    <div className="mt-4 text-sm sm:w-4/6">
+    <div className={cn('mt-4 text-sm sm:w-4/6', className)}>
       <Link
         href={og.url}
         onClick={(event) => {

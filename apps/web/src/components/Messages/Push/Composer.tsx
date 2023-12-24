@@ -1,74 +1,22 @@
-import type { ChangeEvent, FC } from 'react';
+import type { IGif } from '@hey/types/giphy';
+import type { NewAttachment } from '@hey/types/misc';
+import type { FC } from 'react';
 
-import { PhotoIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { Button, Card, Image, Input } from '@hey/ui';
+import FileUpload from '@components/Composer/Actions/Attachment';
+import Gif from '@components/Composer/Actions/Gif';
+import NewAttachments from '@components/Composer/NewAttachments';
+import EmojiPicker from '@components/Shared/EmojiPicker';
+import { Button, Input } from '@hey/ui';
 import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
-import { useRef, useState } from 'react';
-import toast from 'react-hot-toast';
-
-import type Attachment from './Attachment';
+import { useState } from 'react';
+import useUploadAttachments from 'src/hooks/useUploadAttachments';
+import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 
 interface ComposerProps {
   disabledInput: boolean;
   listRef: React.RefObject<HTMLDivElement>;
   sendMessage: (messageType: MessageType, content: string) => Promise<void>;
 }
-
-interface Attachment {
-  content: string;
-  mime: string;
-  name: string;
-  size: number;
-}
-
-interface AttachmentPreviewProps {
-  attachment: Attachment;
-  dismissDisabled: boolean;
-  onDismiss: () => void;
-}
-
-const AttachmentPreview: FC<AttachmentPreviewProps> = ({
-  attachment,
-  dismissDisabled,
-  onDismiss
-}) => {
-  const formatBytes = (size: number) => {
-    const units = ['B', 'KB', 'MB', 'GB', 'TB'];
-    let bytes = size;
-    let i;
-    for (i = 0; bytes >= 1024 && i < 4; i++) {
-      bytes /= 1024;
-    }
-    return bytes.toFixed(2) + ' ' + units[i];
-  };
-
-  return (
-    <div className="relative ml-12 inline-block rounded pt-6">
-      <button
-        className="absolute top-2 rounded-full bg-gray-900 p-1.5 opacity-75"
-        disabled={dismissDisabled}
-        onClick={onDismiss}
-        type="button"
-      >
-        <XMarkIcon className="h-4 w-4 text-white" />
-      </button>
-
-      {attachment.mime.startsWith('image/') ? (
-        <Image
-          alt="Image"
-          className="max-h-48 rounded object-contain"
-          src={attachment.content}
-        />
-      ) : (
-        <Card className="p-2">
-          <p>
-            {attachment.name} ({formatBytes(attachment.size)})
-          </p>
-        </Card>
-      )}
-    </div>
-  );
-};
 
 const Composer: FC<ComposerProps> = ({
   disabledInput,
@@ -77,19 +25,23 @@ const Composer: FC<ComposerProps> = ({
 }) => {
   const [message, setMessage] = useState<string>('');
   const [sending, setSending] = useState<boolean>(false);
-  const [attachment, setAttachment] = useState<Attachment | null>(null);
+  const attachments = usePublicationStore((state) => state.attachments);
+  const addAttachments = usePublicationStore((state) => state.addAttachments);
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
+  const { handleUploadAttachments } = useUploadAttachments();
 
-  const canSendMessage = !disabledInput && (attachment || message.length > 0);
+  const canSendMessage =
+    !disabledInput && (attachments.length > 0 || message.length > 0);
 
-  const onDismiss = () => {
-    setAttachment(null);
-
-    const el = fileInputRef.current;
-    if (el) {
-      el.value = '';
+  const isURL = (input: string) => {
+    let url;
+    try {
+      url = new URL(input);
+    } catch (error) {
+      return false;
     }
+    return url.protocol === 'http:' || url.protocol === 'https:';
   };
 
   const handleSend = async () => {
@@ -98,21 +50,27 @@ const Composer: FC<ComposerProps> = ({
     }
     setSending(true);
 
+    const x = await handleUploadAttachments(attachments);
+    console.log(x);
+
     if (message.length > 0) {
-      await sendMessage(MessageType.TEXT, message);
+      const messageType = isURL(message)
+        ? MessageType.MEDIA_EMBED
+        : MessageType.TEXT;
+      await sendMessage(messageType, message);
       setMessage('');
     }
 
-    if (attachment) {
-      await sendMessage(
-        attachment.mime.startsWith('image/')
-          ? MessageType.IMAGE
-          : MessageType.FILE,
-        attachment.content
-      );
-      setAttachment(null);
-      setMessage('');
-    }
+    // if (attachment) {
+    //   await sendMessage(
+    //     attachment.mime.startsWith('image/')
+    //       ? MessageType.IMAGE
+    //       : MessageType.FILE,
+    //     attachment.content
+    //   );
+    //   setAttachment(null);
+    //   setMessage('');
+    // }
 
     listRef.current?.scrollTo({
       behavior: 'smooth',
@@ -132,55 +90,40 @@ const Composer: FC<ComposerProps> = ({
     }
   };
 
-  const file2Base64 = (file: File): Promise<string> => {
-    return new Promise<string>((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result?.toString() || '');
-      reader.onerror = (error) => reject(error);
-    });
+  const setGifAttachment = (gif: IGif) => {
+    const attachment: NewAttachment = {
+      mimeType: 'image/gif',
+      previewUri: gif.images.original.url,
+      type: 'Image',
+      uri: gif.images.original.url
+    };
+    addAttachments([attachment]);
   };
 
-  const onAttachmentChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.length) {
-      const file = e.target.files[0];
-      const fileEncoded = await file2Base64(file);
-
-      // Push Protocol limit nothing we can do about it
-      if (file.size > 1024 * 1024) {
-        return toast.error('File size exceeds 1024KB');
-      }
-      setAttachment({
-        content: fileEncoded,
-        mime: file.type,
-        name: file.name,
-        size: file.size
-      });
-    } else {
-      setAttachment(null);
-    }
+  const setEmoji = (emoji: string) => {
+    setMessage((prevMessage) => prevMessage + emoji);
+    setShowEmojiPicker(false);
   };
 
   return (
-    <div className="border-t dark:border-gray-700">
-      {attachment && !sending ? (
-        <AttachmentPreview
-          attachment={attachment}
-          dismissDisabled={!canSendMessage}
-          onDismiss={onDismiss}
-        />
+    <div className="absolute bottom-0 left-0 right-0 w-full border-t bg-gray-100 dark:border-gray-700">
+      {attachments.length > 0 && !sending ? (
+        <div className="mx-3 !max-w-[340px]">
+          <NewAttachments attachments={attachments} />
+        </div>
       ) : null}
       <div className="flex space-x-4 p-4">
-        <label className="flex cursor-pointer items-center">
-          <PhotoIcon className="text-brand-500 h-6 w-5" />
-          <input
-            accept="*"
-            className="hidden w-full"
-            onChange={onAttachmentChange}
-            ref={fileInputRef}
-            type="file"
+        <div className="flex items-center space-x-4">
+          <FileUpload />
+          <Gif setGifAttachment={setGifAttachment} />
+          <EmojiPicker
+            emojiClassName="text-brand-500"
+            setEmoji={setEmoji}
+            setShowEmojiPicker={setShowEmojiPicker}
+            showEmojiPicker={showEmojiPicker}
           />
-        </label>
+        </div>
+
         <Input
           disabled={disabledInput}
           onChange={(event) => onChangeCallback(event.target.value)}

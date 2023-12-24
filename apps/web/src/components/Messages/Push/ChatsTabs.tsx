@@ -7,11 +7,7 @@ import {
   usePushChatStore
 } from 'src/store/persisted/usePushChatStore';
 
-import {
-  getAccountFromProfile,
-  getLensProfile,
-  getProfileIdFromDID
-} from './helper';
+import { getAccountFromProfile } from './helper';
 import Profile from './Profile';
 
 export default function PUSHPreviewChats() {
@@ -31,16 +27,7 @@ export default function PUSHPreviewChats() {
       });
 
       if (chats) {
-        const lensProfiles = await Promise.all(
-          chats.map((chat) =>
-            getLensProfile(getProfileIdFromDID(chat.msg.fromDID))
-          )
-        );
-
-        return chats.map((chat, index) => ({
-          ...chat,
-          lensProfile: lensProfiles[index]
-        }));
+        return chats;
       }
     },
     queryKey: ['getChats', PushAPI]

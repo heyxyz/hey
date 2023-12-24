@@ -1,5 +1,5 @@
 import type { Profile } from '@hey/lens';
-import type { IFeeds, IMessageIPFS } from '@pushprotocol/restapi';
+import type { IFeeds, IMessageIPFS, IUser } from '@pushprotocol/restapi';
 
 import { IS_MAINNET } from '@hey/data/constants';
 import { Localstorage } from '@hey/data/storage';
@@ -35,17 +35,24 @@ interface IPushChatStore {
   activeReceiptientID: null | string;
   activeTab: PushTabs;
   clearRecipientChat: () => void;
+  connectedProfile: IUser | null;
   deleteRequestFeed: (requestId: string) => void;
+  deleteUnsentMessage: (message: IMessageIPFS) => void;
   pgpPassword: null | string;
   pgpPrivateKey: null | string;
   recipientChats: [] | IMessageIPFS[];
   recipientProfile: null | Profile;
+  replyToMessage: IMessageIPFS | null;
   requestsFeed: IFeeds[];
   setActiveTab: (tabName: PushTabs) => void;
+  setConnectedProfile: (profile: IUser) => void;
   setPgpPassword: (password: string) => void;
   setPgpPrivateKey: (pgpPrivateKey: string) => void;
   setRecipientChat: (chat: IMessageIPFS) => void;
   setRecipientProfile: (profile: Profile) => void;
+  setReplyToMessage: (message: IMessageIPFS) => void;
+  setUnsentMessage: (message: IMessageIPFS) => void;
+  unsentMessages: [] | IMessageIPFS[];
   updateRequestsFeed: (requestsFeed: IFeeds[]) => void;
 }
 
@@ -55,6 +62,7 @@ export const usePushChatStore = create(
       activeReceiptientID: null,
       activeTab: PUSH_TABS.CHATS,
       clearRecipientChat: () => set(() => ({ recipientChats: [] })),
+      connectedProfile: null,
       deleteRequestFeed: (requestID: string) =>
         set((state) => {
           const requestsFeed = state.requestsFeed.filter(
@@ -62,10 +70,18 @@ export const usePushChatStore = create(
           );
           return { requestsFeed };
         }),
+      deleteUnsentMessage: (message: IMessageIPFS) =>
+        set((state) => {
+          const unsentMessages = state.unsentMessages.filter(
+            (unsentMessage) => unsentMessage.link !== message.link
+          );
+          return { unsentMessages };
+        }),
       pgpPassword: null,
       pgpPrivateKey: null,
       recipientChats: [],
       recipientProfile: null,
+      replyToMessage: null,
       requestsFeed: [] as IFeeds[],
       resetPushChatStore: () =>
         set((state) => {
@@ -79,21 +95,40 @@ export const usePushChatStore = create(
         }),
       selectedChatType: null,
       setActiveTab: (activeTab) => set(() => ({ activeTab })),
+      setConnectedProfile: (connectedProfile) =>
+        set(() => ({ connectedProfile })),
       setPgpPassword: (pgpPassword) => set(() => ({ pgpPassword })),
       setPgpPrivateKey: (pgpPrivateKey) => set(() => ({ pgpPrivateKey })),
       setRecipientChat: (newChat: IMessageIPFS) =>
         set((state) => {
-          const recipientChats = [...(state.recipientChats || []), newChat];
+          const recipientChats: IMessageIPFS[] = state.recipientChats || [];
+          if (!recipientChats.find((chat) => chat.link === newChat.link)) {
+            recipientChats.push(newChat);
+          }
           return { recipientChats };
         }),
       setRecipientProfile: (receiptientProfile) =>
         set(() => ({ recipientProfile: receiptientProfile })),
+      setReplyToMessage: (replyToMessage) => set(() => ({ replyToMessage })),
       setRequestFeed: (id: string, newRequestFeed: IFeeds) => {
         set((state) => {
           const requestsFeed = { ...state.requestsFeed, [id]: newRequestFeed };
           return { requestsFeed };
         });
       },
+      setUnsentMessage: (message: IMessageIPFS) =>
+        set((state) => {
+          const unsentMessages: IMessageIPFS[] = state.unsentMessages || [];
+          if (
+            !unsentMessages.find(
+              (unsentMessage) => unsentMessage.link === message.link
+            )
+          ) {
+            unsentMessages.push(message);
+          }
+          return { unsentMessages };
+        }),
+      unsentMessages: [],
       updateRequestsFeed: (requestsFeed) =>
         set((state) => ({ ...state, requestsFeed }))
     }),
