@@ -48,7 +48,7 @@ const SidebarMenu: FC<SidebarProps> = ({ items }) => {
             </Menu.Button>
             <MenuTransition>
               <Menu.Items className="mt-2 absolute w-full z-10" static>
-                <Card>
+                <Card forceRounded>
                   {menuItems.map((item) => (
                     <Menu.Item
                       as={NextLink}
