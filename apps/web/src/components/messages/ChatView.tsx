@@ -75,7 +75,7 @@ const ChatView = () => {
     return [...normalChats, ...requestChats];
   }, [chats, isChatsLoading, requests]);
 
-  if (status === 'disconnected') {
+  if (status !== 'connected') {
     return (
       <div className="page-center flex flex-col">
         <h2 className="text-2xl">Your wallet is not connected!</h2>
