@@ -1,5 +1,4 @@
 import type { AnyPublication } from '@hey/lens';
-import type { OG } from '@hey/types/misc';
 import type { FC } from 'react';
 
 import Attachments from '@components/Shared/Attachments';
@@ -13,10 +12,9 @@ import getPublicationData from '@hey/lib/getPublicationData';
 import getURLs from '@hey/lib/getURLs';
 import isPublicationMetadataTypeAllowed from '@hey/lib/isPublicationMetadataTypeAllowed';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
-import removeUrlAtEnd from '@hey/lib/removeUrlAtEnd';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import { isIOS, isMobile } from 'react-device-detect';
 
 import EncryptedPublication from './EncryptedPublication';
@@ -49,16 +47,14 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   const urls = getURLs(filteredContent);
   const hasURLs = urls.length > 0;
 
-  let rawContent = filteredContent;
+  let content = filteredContent;
 
   if (isIOS && isMobile && canShowMore) {
-    const truncatedRawContent = rawContent?.split('\n')?.[0];
-    if (truncatedRawContent) {
-      rawContent = truncatedRawContent;
+    const truncatedContent = content?.split('\n')?.[0];
+    if (truncatedContent) {
+      content = truncatedContent;
     }
   }
-
-  const [content, setContent] = useState(rawContent);
 
   if (targetPublication.isEncrypted) {
     return <EncryptedPublication publication={targetPublication} />;
@@ -87,16 +83,6 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     !showLive &&
     !showAttachments &&
     !quoted;
-
-  // Remove URL at the end if oembed is there
-  const onOembedData = (data: OG) => {
-    if (showOembed && data?.title) {
-      const updatedContent = removeUrlAtEnd(urls, content);
-      if (updatedContent !== content) {
-        setContent(updatedContent);
-      }
-    }
-  };
 
   return (
     <div className="break-words">
@@ -130,11 +116,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
         </div>
       ) : null}
       {showOembed ? (
-        <Oembed
-          onData={onOembedData}
-          publicationId={publication.id}
-          url={urls[0]}
-        />
+        <Oembed publicationId={publication.id} url={urls[0]} />
       ) : null}
       {showSharingLink ? (
         <Oembed publicationId={publication.id} url={metadata.sharingLink} />
