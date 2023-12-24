@@ -23,10 +23,10 @@ import Pending from './Pending';
 
 const newUserSchema = object({
   handle: string()
-    .min(3, { message: 'Handle should be at least 3 characters' })
+    .min(5, { message: 'Handle should be at least 5 characters' })
     .max(31, { message: 'Handle should not exceed 31 characters' })
     .regex(Regex.handle, {
-      message: 'Handle should only contain alphanumeric characters'
+      message: 'Handle only supports lower case characters, numbers, - and _.'
     })
 });
 
