@@ -14,7 +14,7 @@ import {
   UserPlusIcon
 } from '@heroicons/react/24/outline';
 import { XCircleIcon } from '@heroicons/react/24/solid';
-import { HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
+import { IS_MAINNET } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { AUTH } from '@hey/data/tracking';
 import {
@@ -27,11 +27,8 @@ import parseJwt from '@hey/lib/parseJwt';
 import { Button, Card, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import * as PushAPI from '@pushprotocol/restapi';
-import axios from 'axios';
-import { generate as generatePassword } from 'generate-password-ts';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
@@ -56,12 +53,6 @@ interface WalletSelectorProps {
   setShowSignup?: Dispatch<SetStateAction<boolean>>;
 }
 
-interface HeyPushResponse {
-  chatPassword: string;
-  createProfile?: boolean;
-  success?: boolean;
-}
-
 const WalletSelector: FC<WalletSelectorProps> = ({
   setHasConnected,
   setShowSignup
@@ -71,7 +62,6 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     null
   );
   const { data: signer } = useWalletClient();
-  const pushStore = usePushChatStore();
 
   const onError = (error: any) => {
     setIsLoading(false);
@@ -101,6 +91,8 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   const setConnectedProfile = usePushChatStore(
     (state) => state.setConnectedProfile
   );
+  const setPgpPassword = usePushChatStore((state) => state.setPgpPassword);
+  const setPgpPrivateKey = usePushChatStore((state) => state.setPgpPrivateKey);
 
   const { data: profilesManaged, loading: profilesManagedLoading } =
     useProfilesManagedQuery({
@@ -127,27 +119,20 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     const { id: profileID } = parseJwt(accessToken);
     const account = getAccountFromProfile(profileID);
 
-    const headers = {
-      ...getAuthWorkerHeaders(),
-      'X-Access-Token': accessToken
-    };
+    const user = await PushAPI.user.get({
+      account: account,
+      env: PUSH_ENV
+    });
 
-    const response = await axios.get<HeyPushResponse>(
-      `${HEY_API_URL}/push/get`,
-      {
-        headers: headers
-      }
-    );
+    const password = await signMessageAsync({
+      message: account
+    });
 
-    const password = response.data?.createProfile
-      ? generatePassword({
-          length: 32,
-          numbers: true,
-          symbols: true
-        })
-      : response.data.chatPassword;
+    if (!password) {
+      return setIsLoading(false);
+    }
 
-    if (response.data?.createProfile) {
+    if (!user) {
       await PushAPI.user.create({
         account: account,
         additionalMeta: {
@@ -156,23 +141,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
         env: PUSH_ENV,
         signer: signer as PushAPI.SignerType
       });
-
-      await axios.post(
-        `${HEY_API_URL}/push/create`,
-        {
-          password: password
-        },
-        {
-          headers: headers
-        }
-      );
     }
-
-    const user = await PushAPI.user.get({
-      account: account,
-      env: PUSH_ENV
-    });
-    setConnectedProfile(user);
 
     const pgpPrivateKey = (await PushAPI.chat.decryptPGPKey({
       account: account,
@@ -181,8 +150,10 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       env: PUSH_ENV,
       signer: signer as PushAPI.SignerType
     })) as string;
-    pushStore.setPgpPassword(password);
-    pushStore.setPgpPrivateKey(pgpPrivateKey);
+
+    setConnectedProfile(user);
+    setPgpPassword(password);
+    setPgpPrivateKey(pgpPrivateKey);
   };
 
   const handleSign = async (id?: string) => {

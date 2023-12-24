@@ -50,7 +50,7 @@ interface IPushChatStore {
   setPgpPrivateKey: (pgpPrivateKey: string) => void;
   setRecipientChat: (chat: IMessageIPFS) => void;
   setRecipientProfile: (profile: Profile) => void;
-  setReplyToMessage: (message: IMessageIPFS) => void;
+  setReplyToMessage: (message: IMessageIPFS | null) => void;
   setUnsentMessage: (message: IMessageIPFS) => void;
   unsentMessages: [] | IMessageIPFS[];
   updateRequestsFeed: (requestsFeed: IFeeds[]) => void;
