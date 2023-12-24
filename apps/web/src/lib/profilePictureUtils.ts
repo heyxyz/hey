@@ -34,7 +34,7 @@ const uploadCroppedImage = async (
   const cleanedFile = await imageCompression(file, {
     exifOrientation: 1,
     maxSizeMB: 1,
-    maxWidthOrHeight: 1024,
+    maxWidthOrHeight: 2048,
     useWebWorker: true
   });
   const attachment = await uploadFileToIPFS(cleanedFile);
