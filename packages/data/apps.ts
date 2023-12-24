@@ -14,5 +14,7 @@ export const apps = [
   'lensta',
   'beats',
   'diversehq',
-  'lenspeer'
+  'lenspeer',
+  't2.world',
+  'yup'
 ];
