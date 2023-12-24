@@ -1,10 +1,10 @@
+import type { NftOwnershipCondition as NftOwnershipConditionType } from '@hey/lens';
 import type { FC } from 'react';
 
-import { NftOwnershipCondition } from '@hey/lens';
 import useContractMetadata from 'src/hooks/alchemy/useContractMetadata';
 
 interface NftOwnershipConditionProps {
-  condition: NftOwnershipCondition;
+  condition: NftOwnershipConditionType;
 }
 
 const NftOwnershipCondition: FC<NftOwnershipConditionProps> = ({

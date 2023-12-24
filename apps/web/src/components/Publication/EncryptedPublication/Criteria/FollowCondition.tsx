@@ -1,10 +1,10 @@
+import type { FollowCondition as FollowConditionType } from '@hey/lens';
 import type { FC } from 'react';
 
 import LazySmallUserProfile from '@components/Shared/LazySmallUserProfile';
-import { FollowCondition } from '@hey/lens';
 
 interface FollowConditionProps {
-  condition: FollowCondition;
+  condition: FollowConditionType;
 }
 
 const FollowCondition: FC<FollowConditionProps> = ({ condition }) => {
