@@ -1,5 +1,5 @@
 const allowedBots =
-  '.*twitterbot|linkedinbot|whatsapp|slackbot|telegrambot|discordbot|facebookbot|googlebot|bot.*';
+  '.*(bot|telegram|baidu|bing|yandex|iframely|whatsapp|facebook).*';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
