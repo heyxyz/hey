@@ -145,6 +145,43 @@ importers:
         specifier: ^5.0.10
         version: 5.0.10(@types/node@20.10.5)
 
+  apps/og:
+    dependencies:
+      '@hey/config':
+        specifier: workspace:*
+        version: link:../../packages/config
+      '@hey/data':
+        specifier: workspace:*
+        version: link:../../packages/data
+      '@hey/lens':
+        specifier: workspace:*
+        version: link:../../packages/lens
+      '@hey/lib':
+        specifier: workspace:*
+        version: link:../../packages/lib
+      next:
+        specifier: 14.0.4
+        version: 14.0.4(react-dom@18.2.0)(react@18.2.0)
+      react:
+        specifier: ^18
+        version: 18.2.0
+      react-dom:
+        specifier: ^18
+        version: 18.2.0(react@18.2.0)
+    devDependencies:
+      '@types/node':
+        specifier: ^20
+        version: 20.10.5
+      '@types/react':
+        specifier: ^18
+        version: 18.2.45
+      '@types/react-dom':
+        specifier: ^18
+        version: 18.2.18
+      typescript:
+        specifier: ^5
+        version: 5.3.3
+
   apps/web:
     dependencies:
       '@apollo/client':
@@ -4082,6 +4119,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
+      napi-wasm: 1.1.0
     dev: false
     bundledDependencies:
       - napi-wasm
@@ -11537,6 +11575,10 @@ packages:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
+
+  /napi-wasm@1.1.0:
+    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
+    dev: false
 
   /natural-compare-lite@1.4.0:
     resolution: {integrity: sha512-Tj+HTDSJJKaZnfiuw+iaF9skdPpTo2GtEly5JHnWV/hfv2Qj/9RKsGISQtLh2ox3l5EAGw487hnBee0sIJ6v2g==}
