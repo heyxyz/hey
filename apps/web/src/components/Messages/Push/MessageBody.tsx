@@ -3,10 +3,10 @@ import type {
   IFeeds,
   IMessageIPFS
 } from '@pushprotocol/restapi';
-import type { MessageType } from '@pushprotocol/restapi/src/lib/constants';
 
 import { chat } from '@pushprotocol/restapi';
 import * as PushAPI from '@pushprotocol/restapi';
+import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
 import React, { useRef } from 'react';
 import toast from 'react-hot-toast';
 import usePushClient from 'src/hooks/messaging/push/usePushClient';
@@ -16,6 +16,8 @@ import {
   usePushChatStore
 } from 'src/store/persisted/usePushChatStore';
 import { useMutation, useWalletClient } from 'wagmi';
+
+import type { MessageReactions } from './Reactions';
 
 import Composer from './Composer';
 import { getAccountFromProfile, getProfileIdFromDID } from './helper';
@@ -44,6 +46,10 @@ export default function MessageBody({ selectedChat }: MessageBodyProps) {
   const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
   const setRecipientChat = usePushChatStore((state) => state.setRecipientChat);
   const pushClient = usePushClient();
+
+  const reactions = selectedChat.filter(
+    (chat) => chat.messageType === MessageType.REACTION
+  );
 
   const approveUser = async (item: IFeeds) => {
     const profileId = getProfileIdFromDID(item.did!);
@@ -78,29 +84,24 @@ export default function MessageBody({ selectedChat }: MessageBodyProps) {
 
   const sendMessageMutation = useMutation({
     mutationFn: async (args: ChatSendOptionsType) => {
-      const response = await chat.send({
-        account: args.account,
-        env: args.env,
-        // @ts-ignore
-        message: {
-          content: args.message?.content as string,
-          type: args.message?.type
-        },
-        pgpPrivateKey: args.pgpPrivateKey,
-        to: args.to
-      });
+      const response = await chat.send({ ...args });
       return response;
     },
     mutationKey: ['sendMessage']
   });
 
-  const sendMessage = async (messageType: MessageType, content: string) => {
+  const sendMessage = async (
+    messageType: MessageType,
+    content: string,
+    reference?: string
+  ) => {
     try {
       const sentMessage = await sendMessageMutation.mutateAsync({
         account: getAccountFromProfile(currentProfile?.id),
         env: PUSH_ENV,
         message: {
           content: content,
+          ...(reference ? { reference: reference } : {}),
           // @ts-ignore
           type: messageType
         },
@@ -121,9 +122,23 @@ export default function MessageBody({ selectedChat }: MessageBodyProps) {
     <section className="relative flex h-full flex-col p-3 pb-3">
       <div className="flex-grow overflow-auto px-2" ref={listInnerRef}>
         {selectedChat.length > 0 ? (
-          selectedChat?.map?.((chat, index) => {
-            return <Message key={index} message={chat} />;
-          })
+          selectedChat
+            .filter((chat) => chat.messageType !== MessageType.REACTION)
+            .map?.((chat, index) => {
+              const messageReactions = reactions
+                .filter((reactionChat) => reactionChat.link === chat.cid)
+                .map((item) => item.messageContent) as MessageReactions[];
+              console.log(messageReactions, reactions);
+
+              return (
+                <Message
+                  key={index}
+                  message={chat}
+                  messageReactions={messageReactions}
+                  sendMessage={sendMessage}
+                />
+              );
+            })
         ) : (
           <div>You have no messaging history this user. Say Hi 👋</div>
         )}

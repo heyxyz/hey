@@ -2,18 +2,27 @@ import type { IMessageIPFS } from '@pushprotocol/restapi';
 import type { ReactNode } from 'react';
 
 import { ArrowUturnLeftIcon, FaceSmileIcon } from '@heroicons/react/24/outline';
+import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import React, { useRef, useState } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 
+import type { MessageReactions } from './Reactions';
+
 import Attachment from './Attachment';
 import { dateToFromNowDaily, getProfileIdFromDID } from './helper';
-import { Reactions } from './Reactions';
+import { DisplayReactions, Reactions } from './Reactions';
 
 interface Props {
   message: IMessageIPFS;
+  messageReactions: [] | MessageReactions[];
+  sendMessage: (
+    messageType: MessageType,
+    content: string,
+    reference?: string
+  ) => Promise<void>;
 }
 
 interface ChatAction {
@@ -85,7 +94,7 @@ const MessageCard: React.FC<MessageCardProps> = ({ chat, className }) => {
   return <p className={className}>{chat.messageContent}</p>;
 };
 
-const Message = ({ message }: Props) => {
+const Message = ({ message, messageReactions, sendMessage }: Props) => {
   const [showChatActions, setShowChatActions] = useState(false);
   const [showReactions, setShowReactions] = useState(false);
   const currentProfile = useProfileStore((state) => state.currentProfile);
@@ -134,6 +143,7 @@ const Message = ({ message }: Props) => {
             <Attachment message={message} />
           )}
         </MessageWrapper>
+        <DisplayReactions MessageReactions={messageReactions} />
         <TimeStamp timestamp={message?.timestamp!} />
       </div>
       <div className="mr-3 mt-[-20px] flex">
@@ -166,7 +176,12 @@ const Message = ({ message }: Props) => {
                 setShowReactions(false);
                 setShowChatActions(true);
               }}
-              parentRef={reactionRef}
+              onValue={(value) => {
+                console.log(MessageType.REACTION, value, message.link!);
+                sendMessage(MessageType.REACTION, value, message.link!);
+                setShowReactions(false);
+                setShowChatActions(true);
+              }}
             />
           ) : null}
         </div>

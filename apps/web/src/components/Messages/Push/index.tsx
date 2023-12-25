@@ -1,8 +1,10 @@
 import MetaTags from '@components/Common/MetaTags';
+import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME } from '@hey/data/constants';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { useEffect } from 'react';
 import usePushSocket from 'src/hooks/messaging/push/usePushSocket';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 
 import { getAccountFromProfile } from './helper';
@@ -13,6 +15,7 @@ import Tabs from './Tabs';
 
 const Message = () => {
   const recepientProfile = usePushChatStore((state) => state.recipientProfile);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const requestsFeed = usePushChatStore((state) => state.requestsFeed);
   const recipientChats = usePushChatStore((state) => state.recipientChats);
   const pushSocket = usePushSocket();
@@ -40,6 +43,10 @@ const Message = () => {
   useEffect(() => {
     getChatHistory();
   }, [recepientProfile]);
+
+  if (!currentProfile) {
+    return <NotLoggedIn />;
+  }
 
   return (
     <GridLayout classNameChild="md:gap-8">

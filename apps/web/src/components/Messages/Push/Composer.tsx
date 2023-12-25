@@ -54,7 +54,11 @@ const ReplyMessage = () => {
 interface ComposerProps {
   disabledInput: boolean;
   listRef: React.RefObject<HTMLDivElement>;
-  sendMessage: (messageType: MessageType, content: string) => Promise<void>;
+  sendMessage: (
+    messageType: MessageType,
+    content: string,
+    reference?: string
+  ) => Promise<void>;
 }
 
 const Composer: FC<ComposerProps> = ({
@@ -66,7 +70,7 @@ const Composer: FC<ComposerProps> = ({
   const [sending, setSending] = useState<boolean>(false);
   const attachments = usePublicationStore((state) => state.attachments);
   const addAttachments = usePublicationStore((state) => state.addAttachments);
-
+  const { replyToMessage } = usePushChatStore();
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
   const { handleUploadAttachments } = useUploadAttachments();
 
@@ -96,7 +100,11 @@ const Composer: FC<ComposerProps> = ({
       const messageType = isURL(message)
         ? MessageType.MEDIA_EMBED
         : MessageType.TEXT;
-      await sendMessage(messageType, message);
+      await sendMessage(
+        messageType,
+        message,
+        replyToMessage?.link ?? undefined
+      );
       setMessage('');
     }
 
