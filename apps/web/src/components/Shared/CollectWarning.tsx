@@ -20,6 +20,7 @@ const CollectWarning: FC<CollectWarningProps> = ({
         { 'border-pink-300 !bg-pink-100': isSuperFollow },
         'flex items-center space-x-1.5 p-5 text-sm font-bold text-gray-500'
       )}
+      forceRounded
     >
       {isSuperFollow ? (
         <>
