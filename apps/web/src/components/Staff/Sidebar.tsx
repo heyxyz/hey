@@ -5,6 +5,7 @@ import {
   AdjustmentsHorizontalIcon,
   ClipboardIcon,
   CurrencyDollarIcon,
+  PencilSquareIcon,
   UserIcon
 } from '@heroicons/react/24/outline';
 
@@ -28,6 +29,11 @@ const settingsSidebarItems = [
     icon: <AdjustmentsHorizontalIcon className="size-4" />,
     title: 'Feature flags',
     url: '/staff/feature-flags'
+  },
+  {
+    icon: <PencilSquareIcon className="size-4" />,
+    title: 'Top Publications',
+    url: '/staff/top-publications'
   }
 ];
 
