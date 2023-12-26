@@ -17,7 +17,12 @@
     "start": "turbo run start --parallel",
     "test:dev": "turbo run test:dev",
     "typecheck": "turbo run typecheck --parallel",
-    "typecheck:affected": "turbo run typecheck --parallel --filter=[origin/main]"
+    "typecheck:affected": "turbo run typecheck --parallel --filter=[origin/main]",
+    "docker:network": "docker network create hey_network",
+    "docker:build-api": "docker build -f apps/api/Dockerfile -t hey-api .",
+    "docker:build-web": "docker build -f apps/web/Dockerfile -t hey-web .",
+    "docker:build-og": "docker build -f apps/og/Dockerfile -t hey-og .",
+    "docker:deploy": "docker compose up -d"
   },
   "eslintConfig": {
     "root": true

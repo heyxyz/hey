@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  web:
+    image: hey-web
+    container_name: hey-web
+    restart: always
+    env_file:
+      - ./apps/web/.env
+    ports:
+      - 4783:4783
+    networks:
+      - hey_network
+
+  og:
+    image: hey-og
+    container_name: hey-og
+    restart: always
+    env_file:
+      - ./apps/og/.env
+    ports:
+      - 4785:4785
+    networks:
+      - hey_network
+
+  api:
+    image: hey-api
+    container_name: hey-api
+    restart: always
+    env_file:
+      - ./apps/api/.env
+    ports:
+      - 4784:4784
+    networks:
+      - hey_network
+
+networks:
+  hey_network:
+    external: true
