@@ -6,11 +6,12 @@ import FileUpload from '@components/Composer/Actions/Attachment';
 import Gif from '@components/Composer/Actions/Gif';
 import NewAttachments from '@components/Composer/NewAttachments';
 import EmojiPicker from '@components/Shared/EmojiPicker';
+import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import { Button, Input } from '@hey/ui';
 import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import usePushHooks from 'src/hooks/messaging/push/usePush';
-import useUploadAttachments from 'src/hooks/useUploadAttachments';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 
@@ -21,12 +22,15 @@ const Composer: FC = () => {
   const [sending, setSending] = useState<boolean>(false);
   const attachments = usePublicationStore((state) => state.attachments);
   const addAttachments = usePublicationStore((state) => state.addAttachments);
+  const removeAttachments = usePublicationStore(
+    (state) => state.removeAttachments
+  );
+  const isUploading = usePublicationStore((state) => state.isUploading);
   const { useSendMessage } = usePushHooks();
   const { replyToMessage } = usePushChatStore();
   const { setRecipientChat } = usePushChatStore();
 
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
-  const { handleUploadAttachments } = useUploadAttachments();
 
   const { mutateAsync: sendMessage } = useSendMessage();
 
@@ -42,52 +46,62 @@ const Composer: FC = () => {
     return url.protocol === 'http:' || url.protocol === 'https:';
   };
 
-  const handleSend = async () => {
-    if (!canSendMessage) {
-      return;
-    }
-    setSending(true);
-
-    const x = await handleUploadAttachments(attachments);
-    console.log(x);
-
-    const messageType = isURL(message)
-      ? MessageType.MEDIA_EMBED
-      : MessageType.TEXT;
-
-    const reference = replyToMessage?.link ?? undefined;
-
-    const sentMessage = await sendMessage({
-      content: message,
-      reference: reference,
-      type: messageType
-    });
-
-    setRecipientChat({
-      ...sentMessage,
-      messageContent: message
-    });
-
-    setMessage('');
-
-    // if (attachment) {
-    //   await sendMessage(
-    //     attachment.mime.startsWith('image/')
-    //       ? MessageType.IMAGE
-    //       : MessageType.FILE,
-    //     attachment.content
-    //   );
-    //   setAttachment(null);
-    //   setMessage('');
-    // }
+  const scrollList = () => {
     const messageList = document.getElementById('messages-list');
     messageList?.scrollTo({
       behavior: 'smooth',
       left: 0,
       top: messageList.scrollHeight
     });
+  };
 
-    setSending(false);
+  const handleSend = async () => {
+    if (!canSendMessage) {
+      return;
+    }
+    setSending(true);
+
+    try {
+      const reference = replyToMessage?.link ?? null;
+
+      if (attachments.length > 0) {
+        for (const attachment of attachments) {
+          const sanitizedUrl = sanitizeDStorageUrl(attachment.uri);
+          const sentMessage = await sendMessage({
+            content: sanitizedUrl,
+            reference: reference,
+            type: MessageType.MEDIA_EMBED
+          });
+          removeAttachments([attachment!.id!]);
+          setRecipientChat({
+            ...sentMessage,
+            messageContent: message
+          });
+        }
+        return;
+      }
+
+      const messageType = isURL(message)
+        ? MessageType.MEDIA_EMBED
+        : MessageType.TEXT;
+
+      const sentMessage = await sendMessage({
+        content: message,
+        reference: reference,
+        type: messageType
+      });
+
+      setRecipientChat({
+        ...sentMessage,
+        messageContent: message
+      });
+    } catch (error) {
+      toast.error((error as Error).message);
+    } finally {
+      setMessage('');
+      scrollList();
+      setSending(false);
+    }
   };
 
   const onChangeCallback = (value: string) => {
@@ -145,7 +159,7 @@ const Composer: FC = () => {
         />
         <Button
           aria-label="Send message"
-          disabled={!canSendMessage}
+          disabled={!canSendMessage || isUploading}
           onClick={handleSend}
           variant="primary"
         >

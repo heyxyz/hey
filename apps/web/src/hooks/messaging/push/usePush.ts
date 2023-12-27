@@ -64,7 +64,7 @@ const usePushHooks = () => {
     return useMutation({
       mutationFn: async (message: {
         content: string;
-        reference?: string;
+        reference: null | string;
         type: MessageType;
       }) => {
         const response = await PushAPI.chat.send({
@@ -73,7 +73,7 @@ const usePushHooks = () => {
             content: message.content,
             ...(message.reference ? { reference: message.reference } : {}),
             // @ts-ignore
-            type: reference ? MessageType.REPLY : message.type
+            type: message.reference ? MessageType.REPLY : message.type
           },
           to: recepientAccount
         });

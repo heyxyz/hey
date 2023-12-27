@@ -83,7 +83,7 @@ const uploadToIPFS = async (
         const metadata = result.Metadata;
         const cid = metadata?.['ipfs-hash'];
 
-        axios.get(`${HEY_API_URL}/ipfs/pin`, { params: { cid } });
+        // axios.get(`${HEY_API_URL}/ipfs/pin`, { params: { cid } });
 
         return {
           mimeType: file.type || FALLBACK_TYPE,
