@@ -99,12 +99,9 @@ export const usePushChatStore = create(
         set(() => ({ connectedProfile })),
       setPgpPassword: (pgpPassword) => set(() => ({ pgpPassword })),
       setPgpPrivateKey: (pgpPrivateKey) => set(() => ({ pgpPrivateKey })),
-      setRecipientChat: (newChat: IMessageIPFS) =>
+      setRecipientChat: (chat: IMessageIPFS) =>
         set((state) => {
-          const recipientChats: IMessageIPFS[] = state.recipientChats || [];
-          if (!recipientChats.find((chat) => chat.link === newChat.link)) {
-            recipientChats.push(newChat);
-          }
+          const recipientChats = [...state.recipientChats, chat];
           return { recipientChats };
         }),
       setRecipientProfile: (receiptientProfile) =>

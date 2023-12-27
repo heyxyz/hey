@@ -7,6 +7,7 @@ import usePushSocket from 'src/hooks/messaging/push/usePushSocket';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 
+import Composer from './Composer';
 import { getAccountFromProfile } from './helper';
 import MessageBody from './MessageBody';
 import MessageHeader from './MessageHeader';
@@ -72,6 +73,7 @@ const Message = () => {
                     : recipientChats
                 }
               />
+              <Composer />
             </>
           ) : (
             <NoConversationSelected />

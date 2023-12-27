@@ -32,6 +32,7 @@ import * as PushAPI from '@pushprotocol/restapi';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
+import usePushHooks from 'src/hooks/messaging/push/usePush';
 import { signIn } from 'src/store/persisted/useAuthStore';
 import {
   PUSH_ENV,
@@ -93,6 +94,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   );
   const setPgpPassword = usePushChatStore((state) => state.setPgpPassword);
   const setPgpPrivateKey = usePushChatStore((state) => state.setPgpPrivateKey);
+  const { decryptPGPKey } = usePushHooks();
 
   const { data: profilesManaged, loading: profilesManagedLoading } =
     useProfilesManagedQuery({
@@ -143,14 +145,15 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       });
     }
 
-    const pgpPrivateKey = (await PushAPI.chat.decryptPGPKey({
-      account: account,
-      additionalMeta: { NFTPGP_V1: { password: password } },
-      encryptedPGPPrivateKey: user.encryptedPrivateKey,
-      env: PUSH_ENV,
-      signer: signer as PushAPI.SignerType
-    })) as string;
+    const pgpPrivateKey = await decryptPGPKey(
+      password,
+      account,
+      user.encryptedPrivateKey
+    );
 
+    if (!pgpPrivateKey) {
+      return;
+    }
     setConnectedProfile(user);
     setPgpPassword(password);
     setPgpPrivateKey(pgpPrivateKey);

@@ -6,6 +6,7 @@ import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import React, { useRef, useState } from 'react';
+import usePushHooks from 'src/hooks/messaging/push/usePush';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 
@@ -18,11 +19,7 @@ import { DisplayReactions, Reactions } from './Reactions';
 interface Props {
   message: IMessageIPFS;
   messageReactions: [] | MessageReactions[];
-  sendMessage: (
-    messageType: MessageType,
-    content: string,
-    reference?: string
-  ) => Promise<void>;
+  replyMessage: IMessageIPFS | null;
 }
 
 interface ChatAction {
@@ -94,12 +91,32 @@ const MessageCard: React.FC<MessageCardProps> = ({ chat, className }) => {
   return <p className={className}>{chat.messageContent}</p>;
 };
 
-const Message = ({ message, messageReactions, sendMessage }: Props) => {
+interface ReplyCardProps {
+  chat: IMessageIPFS;
+  handle: string;
+}
+
+const ReplyMessage: React.FC<ReplyCardProps> = ({ chat, handle }) => {
+  return (
+    <div className="relative flex flex-row overflow-hidden rounded-lg bg-gray-300 p-4">
+      <div className="bg-brand-500 absolute left-0 top-0 h-full w-1.5" />
+      <div className="flex flex-col">
+        <span className="text-brand-500 font-medium">{handle}</span>
+        <span className="text-sm">{chat.messageContent}</span>
+      </div>
+    </div>
+  );
+};
+
+const Message = ({ message, messageReactions, replyMessage }: Props) => {
   const [showChatActions, setShowChatActions] = useState(false);
   const [showReactions, setShowReactions] = useState(false);
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const { setReplyToMessage } = usePushChatStore();
+  const recipientProfile = usePushChatStore((state) => state.recipientProfile);
   const reactionRef = useRef<HTMLDivElement | null>(null);
+  const { useSendMessage } = usePushHooks();
+  const { setReplyToMessage } = usePushChatStore();
+  const { mutateAsync: sendMessage } = useSendMessage();
 
   const handleMouseEnter = () => {
     setShowChatActions(true);
@@ -177,8 +194,11 @@ const Message = ({ message, messageReactions, sendMessage }: Props) => {
                 setShowChatActions(true);
               }}
               onValue={(value) => {
-                console.log(MessageType.REACTION, value, message.link!);
-                sendMessage(MessageType.REACTION, value, message.link!);
+                sendMessage({
+                  content: value,
+                  reference: message.link!,
+                  type: MessageType.REACTION
+                });
                 setShowReactions(false);
                 setShowChatActions(true);
               }}

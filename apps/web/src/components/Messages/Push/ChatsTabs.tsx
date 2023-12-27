@@ -1,37 +1,11 @@
-import * as PushAPI from '@pushprotocol/restapi';
-import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
-import {
-  PUSH_ENV,
-  usePushChatStore
-} from 'src/store/persisted/usePushChatStore';
+import usePushHooks from 'src/hooks/messaging/push/usePush';
 
-import { getAccountFromProfile } from './helper';
 import Profile from './Profile';
 
 export default function PUSHPreviewChats() {
-  const { currentProfile } = useProfileStore();
-  const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
-
-  const { data, isLoading } = useQuery({
-    queryFn: async () => {
-      if (typeof PushAPI?.chat?.requests === 'undefined') {
-        return;
-      }
-      const chats = await PushAPI?.chat?.chats?.({
-        account: getAccountFromProfile(currentProfile?.id),
-        env: PUSH_ENV,
-        pgpPrivateKey: pgpPrivateKey!,
-        toDecrypt: true
-      });
-
-      if (chats) {
-        return chats;
-      }
-    },
-    queryKey: ['getChats', PushAPI]
-  });
+  const { useGetChats } = usePushHooks();
+  const { data, isLoading } = useGetChats();
 
   return (
     <section className="flex flex-col gap-2.5	overflow-auto">
