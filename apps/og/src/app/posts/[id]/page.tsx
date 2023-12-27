@@ -6,6 +6,7 @@ import { PublicationDocument } from '@hey/lens';
 import { apolloClient } from '@hey/lens/apollo';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
+import getPublicationData from '@hey/lib/getPublicationData';
 import logger from '@hey/lib/logger';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { headers } from 'next/headers';
@@ -34,14 +35,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const targetPublication = isMirrorPublication(publication)
     ? publication.mirrorOn
     : publication;
-  const profile = targetPublication.by;
+  const { by: profile, metadata } = targetPublication;
+  const filteredContent = getPublicationData(metadata)?.content || '';
 
   const title = `${targetPublication.__typename} by ${
     getProfile(profile).slugWithPrefix
   } • ${APP_NAME}`;
 
   return {
-    description: profile?.metadata?.bio,
+    description: filteredContent,
     metadataBase: new URL(`https://hey.xyz/posts/${targetPublication.id}`),
     openGraph: {
       images: [getAvatar(profile)],
