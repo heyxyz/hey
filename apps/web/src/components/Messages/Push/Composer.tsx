@@ -16,7 +16,7 @@ import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 
 import ReplyMessagePreview from './ReplyMessagePreview';
 
-const Composer: FC<> = () => {
+const Composer: FC = () => {
   const [message, setMessage] = useState<string>('');
   const [sending, setSending] = useState<boolean>(false);
   const attachments = usePublicationStore((state) => state.attachments);
