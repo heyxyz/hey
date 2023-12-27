@@ -1,7 +1,6 @@
-import type { MessageType } from '@pushprotocol/restapi/src/lib/constants';
-
 import { getAccountFromProfile } from '@components/Messages/Push/helper';
 import * as PushAPI from '@pushprotocol/restapi';
+import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import {
@@ -74,7 +73,7 @@ const usePushHooks = () => {
             content: message.content,
             ...(message.reference ? { reference: message.reference } : {}),
             // @ts-ignore
-            type: message.type
+            type: reference ? MessageType.REPLY : message.type
           },
           to: recepientAccount
         });

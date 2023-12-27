@@ -118,7 +118,11 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   };
 
   const handlePushAuth = async (accessToken: string) => {
-    const { id: profileID } = parseJwt(accessToken);
+    const { id: profileID, role } = parseJwt(accessToken);
+
+    if (role === 'wallet') {
+      return;
+    }
     const account = getAccountFromProfile(profileID);
 
     const user = await PushAPI.user.get({
@@ -126,16 +130,22 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       env: PUSH_ENV
     });
 
-    const password = await signMessageAsync({
+    const passwordHex = await signMessageAsync({
       message: account
     });
+
+    // stupid requirement by Push SDK to have special char even if the length is 32 char
+    const PASSWORD_PREFIX = '@HeY';
+    const password = `${PASSWORD_PREFIX}/${passwordHex}`;
 
     if (!password) {
       return setIsLoading(false);
     }
 
+    let pgpPrivateKey: string | undefined;
+
     if (!user) {
-      await PushAPI.user.create({
+      const response = await PushAPI.user.create({
         account: account,
         additionalMeta: {
           NFTPGP_V1: { password: password }
@@ -143,13 +153,15 @@ const WalletSelector: FC<WalletSelectorProps> = ({
         env: PUSH_ENV,
         signer: signer as PushAPI.SignerType
       });
-    }
 
-    const pgpPrivateKey = await decryptPGPKey(
-      password,
-      account,
-      user.encryptedPrivateKey
-    );
+      pgpPrivateKey = response.decryptedPrivateKey;
+    } else {
+      pgpPrivateKey = await decryptPGPKey(
+        password,
+        account,
+        user.encryptedPrivateKey
+      );
+    }
 
     if (!pgpPrivateKey) {
       return;
