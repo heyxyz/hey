@@ -1,12 +1,9 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 
-import { APP_NAME, DESCRIPTION } from '@hey/data/constants';
+import defaultMetadata from 'src/defaultMetadata';
 
-export const metadata: Metadata = {
-  description: DESCRIPTION,
-  title: APP_NAME
-};
+export const metadata: Metadata = defaultMetadata;
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
