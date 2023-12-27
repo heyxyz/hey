@@ -8,6 +8,7 @@ import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import logger from '@hey/lib/logger';
 import { headers } from 'next/headers';
+import defaultMetadata from 'src/defaultMetadata';
 
 type Props = {
   params: { handle: string };
@@ -25,9 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 
   if (!data.profile) {
-    return {
-      title: 'Profile not found'
-    };
+    return defaultMetadata;
   }
 
   const profile = data.profile as Profile;
@@ -45,9 +44,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: 'profile'
     },
     title: title,
-    twitter: {
-      card: 'summary'
-    }
+    twitter: { card: 'summary' }
   };
 }
 
