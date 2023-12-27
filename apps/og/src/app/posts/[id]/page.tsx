@@ -9,6 +9,7 @@ import getProfile from '@hey/lib/getProfile';
 import logger from '@hey/lib/logger';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { headers } from 'next/headers';
+import defaultMetadata from 'src/defaultMetadata';
 
 type Props = {
   params: { id: string };
@@ -26,9 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 
   if (!data.publication) {
-    return {
-      title: 'Publication not found'
-    };
+    return defaultMetadata;
   }
 
   const publication = data.publication as AnyPublication;
@@ -50,9 +49,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: 'article'
     },
     title: title,
-    twitter: {
-      card: 'summary'
-    }
+    twitter: { card: 'summary' }
   };
 }
 
