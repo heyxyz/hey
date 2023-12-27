@@ -44,7 +44,7 @@
 
 ## 🌿 About Hey
 
-Hey is a cutting-edge social media application that leverages the power of [Lens Protocol](http://lens.xyz) 🌿 to create a decentralized and permissionless platform for users to interact, share, and engage with one another. With a focus on privacy, security, and user control, Hey aims to revolutionize the social media landscape by providing a more transparent and equitable digital environment for its users.
+Hey is a cutting-edge social media application that leverages the power of [Lens Protocol](https://lens.xyz) 🌿 to create a decentralized and permissionless platform for users to interact, share, and engage with one another. With a focus on privacy, security, and user control, Hey aims to revolutionize the social media landscape by providing a more transparent and equitable digital environment for its users.
 
 ## 📦 Environments
 

@@ -25,7 +25,7 @@ const buildSitemapXml = (url: Url[]): string => {
   });
 
   return builder.build({
-    urlset: { '@_xmlns': 'http://www.sitemaps.org/schemas/sitemap/0.9', url }
+    urlset: { '@_xmlns': 'https://www.sitemaps.org/schemas/sitemap/0.9', url }
   });
 };
 
