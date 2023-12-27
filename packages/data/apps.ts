@@ -16,5 +16,6 @@ export const apps = [
   'diversehq',
   'lenspeer',
   't2.world',
-  'yup'
+  'yup',
+  'focalize'
 ];
