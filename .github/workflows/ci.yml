@@ -42,4 +42,16 @@ jobs:
         run: pnpm build
 
       - name: Run Tests 🧪
+        env:
+          NEXT_PUBLIC_LENS_NETWORK: staging
+          DATABASE_URL: ${{ secrets.STAGING_DATABASE_URL }}
+          CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
+          SECRET: ${{ secrets.SECRET }}
+          EVER_ACCESS_KEY: ${{ secrets.EVER_ACCESS_KEY }}
+          EVER_ACCESS_SECRET: ${{ secrets.EVER_ACCESS_SECRET }}
+          LENS_IPFS_AUTH_KEY: ${{ secrets.LENS_IPFS_AUTH_KEY }}
+          IPAPI_KEY: ${{ secrets.IPAPI_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          IRYS_PRIVATE_KEY: ${{ secrets.IRYS_PRIVATE_KEY }}
+          IMAGEKIT_URL: ${{ secrets.IMAGEKIT_URL }}
         run: pnpm test:e2e
