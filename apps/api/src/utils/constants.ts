@@ -28,3 +28,6 @@ export const CACHE_AGE_INDEFINITE_ON_DISK =
 export const RPC_URL = IS_MAINNET
   ? 'https://polygon-rpc.com'
   : 'https://rpc.ankr.com/polygon_mumbai';
+
+// Tests
+export const TEST_URL = 'http://localhost:4784';
