@@ -20,7 +20,8 @@ export const get: Handler = async (_, res) => {
     }
 
     return res.status(200).json({ ping: 'pong' });
-  } catch {
+  } catch (error) {
+    console.error('Error in health.ts', error);
     return res.status(500).json({ success: false });
   }
 };
