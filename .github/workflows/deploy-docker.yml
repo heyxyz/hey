@@ -3,6 +3,7 @@ name: Deploy Docker Images
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -54,4 +55,5 @@ jobs:
         run: |
           curl -X POST \
             -d '{"secret": "'"$SECRET"'", "serviceId": "'"$SERVICE_ID"'"}' \
-            https://api.hey.xyz/internal/pro/downgradeProfiles
+            - H "Referer: https://hey.xyz" \
+            https://api.hey.xyz/internal/railway/triggerDeployments
