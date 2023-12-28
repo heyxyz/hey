@@ -68,14 +68,19 @@ const Composer: FC = () => {
         for (const attachment of attachments) {
           const sanitizedUrl = sanitizeDStorageUrl(attachment.uri);
           const sentMessage = await sendMessage({
-            content: sanitizedUrl,
-            reference: reference,
-            type: MessageType.MEDIA_EMBED
+            content: {
+              content: sanitizedUrl,
+              type: MessageType.MEDIA_EMBED
+            },
+            ...(reference !== null && {
+              reference: reference,
+              type: MessageType.REPLY
+            })
           });
           removeAttachments([attachment!.id!]);
           setRecipientChat({
             ...sentMessage,
-            messageContent: message
+            messageContent: sanitizedUrl
           });
         }
         return;
@@ -86,11 +91,12 @@ const Composer: FC = () => {
         : MessageType.TEXT;
 
       const sentMessage = await sendMessage({
-        content: message,
-        reference: reference,
-        type: messageType
+        content: { content: message, type: messageType },
+        ...(reference !== null && {
+          reference: reference,
+          type: MessageType.REPLY
+        })
       });
-
       setRecipientChat({
         ...sentMessage,
         messageContent: message

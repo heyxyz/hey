@@ -195,7 +195,10 @@ const Message = ({ message, messageReactions, replyMessage }: Props) => {
               }}
               onValue={(value) => {
                 sendMessage({
-                  content: value,
+                  content: {
+                    content: value,
+                    type: MessageType.TEXT
+                  },
                   reference: message.link!,
                   type: MessageType.REACTION
                 });

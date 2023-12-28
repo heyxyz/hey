@@ -23,7 +23,7 @@ const usePushHooks = () => {
       account: account,
       env: PUSH_ENV,
       pgpPrivateKey: pgpPrivateKey!,
-      signer: signer
+      signer: signer!
     };
   };
 
@@ -63,27 +63,51 @@ const usePushHooks = () => {
   const useSendMessage = () => {
     return useMutation({
       mutationFn: async (message: {
-        content: string;
-        reference: null | string;
-        type: MessageType;
+        content: {
+          content: string;
+          type: Exclude<MessageType, MessageType.REACTION | MessageType.REPLY>;
+        };
+        reference?: string;
+        type?: MessageType.REACTION | MessageType.REPLY;
       }) => {
+        const messageTypesMap = {
+          default: {
+            message: {
+              content: message.content.content,
+              type: message.content.type
+            }
+          },
+          [MessageType.REACTION]: {
+            message: {
+              content: message.content.content,
+              reference: message.reference
+            },
+            messageType: MessageType.REACTION
+          },
+          [MessageType.REPLY]: {
+            message: {
+              content: {
+                content: message.content.content,
+                type: message.content.type
+              },
+              reference: message.reference,
+              type: MessageType.REPLY
+            }
+          }
+        };
+
+        const computedMessage = messageTypesMap[message.type ?? 'default'];
+        // @ts-ignore
         const response = await PushAPI.chat.send({
           ...getBaseConfig(),
-          message: {
-            content: message.content,
-            ...(message.reference ? { reference: message.reference } : {}),
-            // @ts-ignore
-            type: message.reference ? MessageType.REPLY : message.type
-          },
+          ...computedMessage,
           to: recepientAccount
         });
-
         return response;
       },
       mutationKey: ['sendMessage']
     });
   };
-
   const decryptPGPKey = async (
     password: string,
     account: string,
