@@ -19,7 +19,6 @@ export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 
 export const IS_MAINNET = LENS_API_URL === LensEndpoint.Mainnet;
 export const REWARDS_ADDRESS = '0xf618330f51fa54ce5951d627ee150c0fdadeba43';
-export const REFERRER_ID = IS_MAINNET ? '0x0c' : '0x06';
 export const ADDRESS_PLACEHOLDER = '0x03Ba3...7EF';
 
 // Application
