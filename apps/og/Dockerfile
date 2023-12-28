@@ -17,6 +17,7 @@ RUN npm install -g pnpm
 RUN npm install -g turbo
 
 COPY .gitignore .gitignore
+COPY prettier.config.js prettier.config.js
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/full/ .
 COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
@@ -24,7 +25,6 @@ RUN pnpm install
 
 COPY turbo.json turbo.json
 
-RUN pnpm prettier:fix
 RUN turbo run build --filter=@hey/og...
 #--
 
@@ -34,10 +34,10 @@ WORKDIR /app
 
 RUN npm install -g pnpm
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+RUN addgroup --system --gid 1001 hey
+RUN adduser --system --uid 1001 og
 
-USER nextjs
+USER og
 COPY --from=installer /app .
 
 EXPOSE 4785
