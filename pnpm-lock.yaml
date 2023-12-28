@@ -239,8 +239,8 @@ importers:
         specifier: ^0.12.5
         version: 0.12.5(lexical@0.12.5)
       '@livepeer/react':
-        specifier: ^3.1.8
-        version: 3.1.8(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^3.1.9
+        version: 3.1.9(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-hover-card':
         specifier: ^1.0.7
         version: 1.0.7(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)
@@ -545,8 +545,8 @@ importers:
         specifier: ^8.17.2
         version: 8.17.2
       pino-pretty:
-        specifier: ^10.3.0
-        version: 10.3.0
+        specifier: ^10.3.1
+        version: 10.3.1
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0
@@ -3604,12 +3604,12 @@ packages:
       '@lit-labs/ssr-dom-shim': 1.1.2
     dev: false
 
-  /@livepeer/core-react@2.1.8(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-dW407B2v9bEG96MEsvUDPvdPP0gac4AZ1u56mQK5T4fDLQgncCTqPhXgoCRQOnfKtEy/pPMZrnpC97gC3Hv9lA==}
+  /@livepeer/core-react@2.1.9(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-UGT+sgtL92pdHNAZAbpALT2yK6+hgy0MpXG3WKUUnjmGY9ZM85mq8NsFr8enr5Ah3xEzmWBKh8FgrGgLFrXMUg==}
     peerDependencies:
       react: '>=17.0.0'
     dependencies:
-      '@livepeer/core': 2.1.8(@types/react@18.2.45)(react@18.2.0)
+      '@livepeer/core': 2.1.9(@types/react@18.2.45)(react@18.2.0)
       '@tanstack/query-async-storage-persister': 4.29.23
       '@tanstack/query-core': 4.29.23
       '@tanstack/react-query': 4.29.23(react-dom@18.2.0)(react@18.2.0)
@@ -3625,15 +3625,15 @@ packages:
       - react-native
     dev: false
 
-  /@livepeer/core-web@3.1.8(@types/react@18.2.45)(react@18.2.0):
-    resolution: {integrity: sha512-wJ4S8RbgV7EcNSL3f/73XspI89tgRGhh5TNIc6xlrma2AmtfrJQaV6nO0bGCxo2jfR8egejYkp+x5xSCR9yd2w==}
+  /@livepeer/core-web@3.1.9(@types/react@18.2.45)(react@18.2.0):
+    resolution: {integrity: sha512-UYljKZPaDdqTkVeY8oaCtVgFZ8WtuNBFwbY8CPHCbcZEabIDXA93LIxc/fsyAGnbhrao9rmArPksAnd++ryCMg==}
     peerDependencies:
       react: '>=17.0.0'
     peerDependenciesMeta:
       react:
         optional: true
     dependencies:
-      '@livepeer/core': 2.1.8(@types/react@18.2.45)(react@18.2.0)
+      '@livepeer/core': 2.1.9(@types/react@18.2.45)(react@18.2.0)
       '@stitches/core': 1.2.8
       core-js: 3.34.0
       cross-fetch: 4.0.0
@@ -3648,8 +3648,8 @@ packages:
       - immer
     dev: false
 
-  /@livepeer/core@2.1.8(@types/react@18.2.45)(react@18.2.0):
-    resolution: {integrity: sha512-9fbv/xQ8x8UYjTLncLjKwVIM5txbdXJrrghPWH1ssZBRrslzRQ7jSbeYbF0v2T4QKhmS/yOmjyyyowfU6W128w==}
+  /@livepeer/core@2.1.9(@types/react@18.2.45)(react@18.2.0):
+    resolution: {integrity: sha512-CaId6rSkKdHPhgco+AlkU+DJZa3de6aLVJNwm95P6GhdmopVtsXdR3cq/z1YSsE0wyOHx7EdP50BiD+dQFU1WA==}
     peerDependencies:
       react: '>=17.0.0'
     peerDependenciesMeta:
@@ -3668,8 +3668,8 @@ packages:
       - immer
     dev: false
 
-  /@livepeer/react@3.1.8(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-owzx/1ghXXYa1Nkj5o1oLcXQnm7o01xz5haWaxZBkBJiHkmnm0lgOUX0GbGivDrV7+do1plAMSNBwj18Y/2Q/Q==}
+  /@livepeer/react@3.1.9(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-QhbcWimbCjR5RtMdXVDCCAucjGkN218xGX/YxamDqdyRsBjm+fUrIrNJIcUZov2YAU/iuOGMR3AA+JhFpj+LXA==}
     peerDependencies:
       react: '>=17.0.0'
       react-dom: '>=17.0.0'
@@ -3677,8 +3677,8 @@ packages:
       react-dom:
         optional: true
     dependencies:
-      '@livepeer/core-react': 2.1.8(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)
-      '@livepeer/core-web': 3.1.8(@types/react@18.2.45)(react@18.2.0)
+      '@livepeer/core-react': 2.1.9(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)
+      '@livepeer/core-web': 3.1.9(@types/react@18.2.45)(react@18.2.0)
       '@radix-ui/react-dialog': 1.0.5(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-popover': 1.0.7(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-select': 1.2.2(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)
@@ -7409,7 +7409,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.22.2
-      caniuse-lite: 1.0.30001571
+      caniuse-lite: 1.0.30001572
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -7652,7 +7652,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001571
+      caniuse-lite: 1.0.30001572
       electron-to-chromium: 1.4.616
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.22.2)
@@ -7756,8 +7756,8 @@ packages:
     resolution: {integrity: sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==}
     engines: {node: '>=6'}
 
-  /caniuse-lite@1.0.30001571:
-    resolution: {integrity: sha512-tYq/6MoXhdezDLFZuCO/TKboTzuQ/xR5cFdgXPfDtM7/kchBO3b4VWghE/OAi/DV7tTdhmLjZiZBZi1fA/GheQ==}
+  /caniuse-lite@1.0.30001572:
+    resolution: {integrity: sha512-1Pbh5FLmn5y4+QhNyJE9j3/7dK44dGB83/ZMjv/qJk86TvDbjk0LosiZo0i0WB0Vx607qMX9jYrn1VLHCkN4rw==}
 
   /capital-case@1.0.4:
     resolution: {integrity: sha512-ds37W8CytHgwnhGGTi88pcPyR15qoNkOpYwmMMfnWqqWgESapLqvDx6huFjQ5vqWSn2Z06173XNA7LtMOeUh1A==}
@@ -7915,8 +7915,8 @@ packages:
       consola: 3.2.3
     dev: false
 
-  /classnames@2.4.0:
-    resolution: {integrity: sha512-lWxiIlphgAhTLN657pwU/ofFxsUTOWc2CRIFeoV5st0MGRJHStUnWIUJgDHxjUO/F0mXzGufXIM4Lfu/8h+MpA==}
+  /classnames@2.5.0:
+    resolution: {integrity: sha512-FQuRlyKinxrb5gwJlfVASbSrDlikDJ07426TrfPsdGLvtochowmkbnSFdQGJ2aoXrSetq5KqGV9emvWpy+91xA==}
     dev: false
 
   /clean-regexp@1.0.0:
@@ -11552,7 +11552,7 @@ packages:
       '@next/env': 14.0.4
       '@swc/helpers': 0.5.2
       busboy: 1.6.0
-      caniuse-lite: 1.0.30001571
+      caniuse-lite: 1.0.30001572
       graceful-fs: 4.2.11
       postcss: 8.4.31
       react: 18.2.0
@@ -12077,12 +12077,12 @@ packages:
   /pino-abstract-transport@1.1.0:
     resolution: {integrity: sha512-lsleG3/2a/JIWUtf9Q5gUNErBqwIu1tUKTT3dUzaf5DySw9ra1wcqKjJjLX1VTY64Wk1eEOYsVGSaGfCK85ekA==}
     dependencies:
-      readable-stream: 4.5.1
+      readable-stream: 4.5.2
       split2: 4.2.0
     dev: false
 
-  /pino-pretty@10.3.0:
-    resolution: {integrity: sha512-JthvQW289q3454mhM3/38wFYGWPiBMR28T3CpDNABzoTQOje9UKS7XCJQSnjWF9LQGQkGd8D7h0oq+qwiM3jFA==}
+  /pino-pretty@10.3.1:
+    resolution: {integrity: sha512-az8JbIYeN/1iLj2t0jR9DV48/LQ3RC6hZPpapKPkb84Q+yTidMCpgWxIT3N0flnBDilyBQ1luWNpOeJptjdp/g==}
     hasBin: true
     dependencies:
       colorette: 2.0.20
@@ -12095,7 +12095,7 @@ packages:
       on-exit-leak-free: 2.1.2
       pino-abstract-transport: 1.1.0
       pump: 3.0.0
-      readable-stream: 4.5.1
+      readable-stream: 4.5.2
       secure-json-parse: 2.7.0
       sonic-boom: 3.7.0
       strip-json-comments: 3.1.1
@@ -12551,7 +12551,7 @@ packages:
       react-dom: '>=16.9.0'
     dependencies:
       '@babel/runtime': 7.23.6
-      classnames: 2.4.0
+      classnames: 2.5.0
       rc-util: 5.38.1(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -12797,8 +12797,8 @@ packages:
       string_decoder: 1.3.0
       util-deprecate: 1.0.2
 
-  /readable-stream@4.5.1:
-    resolution: {integrity: sha512-uQjbf34vmf/asGnOHQEw07Q4llgMACQZTWWa4MmICS0IKJoHbLwKCy71H3eR99Dw5iYejc6W+pqZZEeqRtUFAw==}
+  /readable-stream@4.5.2:
+    resolution: {integrity: sha512-yjavECdqeZ3GLXNgRXgeQEdz9fvDDkNKyHnbHRFtOr7/LcfgBcmct7t/ET+HaCTqfh06OzoAxrkN/IfjJBVe+g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dependencies:
       abort-controller: 3.0.0

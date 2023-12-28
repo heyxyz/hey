@@ -334,9 +334,6 @@ const CollectAction: FC<CollectActionProps> = ({
       const actOnRequest: ActOnOpenActionLensManagerRequest = {
         actOn: { [getOpenActionActOnKey(openAction.type)]: true },
         for: targetPublication?.id
-        // ...(!isMirrorPublication(publication) && {
-        //   referrers: [{ profileId: REFERRER_ID }]
-        // })
       };
 
       if (canUseManager) {
