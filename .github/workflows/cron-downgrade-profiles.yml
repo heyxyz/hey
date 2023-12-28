@@ -16,5 +16,5 @@ jobs:
         run: |
           curl -X POST \
             -d '{"secret": "'"$SECRET"'"}' \
-            - H "Referer: https://hey.xyz" \
+            -H "Referer: https://hey.xyz" \
             https://api.hey.xyz/internal/pro/downgradeProfiles
