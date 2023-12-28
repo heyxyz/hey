@@ -13,9 +13,9 @@ export const apps = [
   'wav3s',
   'lensta',
   'beats',
-  'diversehq',
   'lenspeer',
   't2.world',
   'yup',
-  'focalize'
+  'focalize',
+  'bloomers.tv'
 ];
