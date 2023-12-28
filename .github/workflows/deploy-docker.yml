@@ -55,5 +55,5 @@ jobs:
         run: |
           curl -X POST \
             -d '{"secret": "'"$SECRET"'", "serviceId": "'"$SERVICE_ID"'"}' \
-            - H "Referer: https://hey.xyz" \
+            -H "Referer: https://hey.xyz" \
             https://api.hey.xyz/internal/railway/triggerDeployments
