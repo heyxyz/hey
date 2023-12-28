@@ -3,7 +3,7 @@ import axios from 'axios';
 import { describe, expect, test } from 'vitest';
 
 describe('ens/index', () => {
-  test('should return symbol', async () => {
+  test('should return ens names', async () => {
     const response = await axios.post(`${TEST_URL}/ens`, {
       addresses: [
         '0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF',
