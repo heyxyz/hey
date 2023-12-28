@@ -21,6 +21,8 @@ export const get: Handler = async (_, res) => {
 
     return res.status(200).json({ ping: 'pong' });
   } catch (error) {
-    return res.status(500).json({ error, success: false });
+    return res
+      .status(500)
+      .json({ error: JSON.stringify(error), success: false });
   }
 };
