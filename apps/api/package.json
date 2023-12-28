@@ -16,6 +16,7 @@
     "prisma:migrate": "prisma migrate dev --schema ./src/db/schema.prisma",
     "prisma:studio": "prisma studio --schema ./src/db/schema.prisma",
     "start": "NODE_ENV=production tsx src/server.ts",
+    "test:dev": "vitest run",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
@@ -61,6 +62,8 @@
     "prisma": "^5.7.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.2",
-    "vite": "^5.0.10"
+    "vite": "^5.0.10",
+    "vite-tsconfig-paths": "^4.2.2",
+    "vitest": "^1.1.0"
   }
 }

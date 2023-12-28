@@ -42,4 +42,4 @@ jobs:
         run: pnpm build
 
       - name: Run Tests 🧪
-        run: pnpm test:dev
+        run: pnpm test:e2e
