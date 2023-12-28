@@ -54,6 +54,7 @@ jobs:
           SERVICE_ID: '4a2a1bfb-e499-4c71-bf7f-d9ad47443c31'
         run: |
           curl -X POST \
-            -d '{"secret": "'"$SECRET"'", "serviceId": "'"$SERVICE_ID"'"}' \
+            -H "Content-Type: application/json" \
             -H "Referer: https://hey.xyz" \
+            -d '{"secret": "'"$SECRET"'", "serviceId": "'"$SERVICE_ID"'"}' \
             https://api.hey.xyz/internal/railway/triggerDeployments
