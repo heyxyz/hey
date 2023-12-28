@@ -30,4 +30,4 @@ export const RPC_URL = IS_MAINNET
   : 'https://rpc.ankr.com/polygon_mumbai';
 
 // Tests
-export const TEST_URL = 'http://localhost:4784';
+export const TEST_URL = 'http://127.0.0.1:4784';
