@@ -1,11 +1,10 @@
 import { TEST_URL } from '@utils/constants';
-import { describe, test } from 'vitest';
+import axios from 'axios';
+import { describe, expect, test } from 'vitest';
 
 describe('health', () => {
   test('should return pong', async () => {
-    const response = await fetch(`${TEST_URL}/health`);
-    const json = await response.json();
-    console.log(json);
-    // expect(response.data.ping).toEqual('pong');
+    const response = await axios.get(`${TEST_URL}/health`);
+    expect(response.data.ping).toEqual('pong');
   });
 });
