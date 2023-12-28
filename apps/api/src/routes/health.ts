@@ -21,7 +21,6 @@ export const get: Handler = async (_, res) => {
 
     return res.status(200).json({ ping: 'pong' });
   } catch (error) {
-    console.error('Error in health.ts', error);
-    return res.status(500).json({ success: false });
+    return res.status(500).json({ error, success: false });
   }
 };
