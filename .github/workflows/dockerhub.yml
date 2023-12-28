@@ -2,8 +2,7 @@ name: Build and Push to Docker Hub
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   deploy:
@@ -24,7 +23,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push web image
+      - name: Build and push Web image
         uses: docker/build-push-action@v5
         with:
           context: .
@@ -32,7 +31,7 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/web:latest
 
-      - name: Build and push api image
+      - name: Build and push API image
         uses: docker/build-push-action@v5
         with:
           context: .
@@ -40,7 +39,7 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/api:latest
 
-      - name: Build and push og image
+      - name: Build and push OG image
         uses: docker/build-push-action@v5
         with:
           context: .
