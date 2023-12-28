@@ -39,9 +39,9 @@ export const post: Handler = async (req, res) => {
   }
 
   const environments = [
-    '7211f8ea-d802-46b8-96bb-a260d9b4888c',
-    '057b8889-2d38-4a7f-8033-4263b2731547',
-    '057b8889-2d38-4a7f-8033-4263b2731547'
+    '7211f8ea-d802-46b8-96bb-a260d9b4888c', // mainnet
+    'daf09dab-8ed9-4987-a2bf-bfce34fe49e9', // testnet
+    '3531fbe2-a703-421c-889f-4fe1f011e535' // staging
   ];
 
   const triggerApiDeployment = async (environmentId: string) => {
