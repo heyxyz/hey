@@ -22,6 +22,11 @@ const Translate: FC<TranslateProps> = ({ publication }) => {
     : publication;
   const filteredContent =
     getPublicationData(targetPublication.metadata)?.content || '';
+
+  if (filteredContent.length < 1) {
+    return null;
+  }
+
   const getGoogleTranslateUrl = (text: string): string => {
     return encodeURI(
       urlcat('https://translate.google.com/#auto|en|:text', { text })
