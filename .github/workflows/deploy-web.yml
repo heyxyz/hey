@@ -30,4 +30,4 @@ jobs:
           context: .
           file: ./apps/web/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/web:latest
+          tags: heyxyz/web:latest

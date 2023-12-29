@@ -30,7 +30,7 @@ jobs:
           context: .
           file: ./apps/api/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/api:latest
+          tags: heyxyz/api:latest
 
       - name: Trigger API Deployment 🚀
         env:
