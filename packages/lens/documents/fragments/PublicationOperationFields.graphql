@@ -9,9 +9,4 @@ fragment PublicationOperationFields on PublicationOperations {
   canMirror
   hasMirrored
   hasQuoted
-  canDecrypt {
-    extraDetails
-    reasons
-    result
-  }
 }
