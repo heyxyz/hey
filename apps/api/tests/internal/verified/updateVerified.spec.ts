@@ -1,4 +1,3 @@
-import { TEST_LENS_ID } from '@hey/data/constants';
 import getAuthWorkerHeadersForTest from '@hey/lib/getAuthWorkerHeadersForTest';
 import { TEST_URL } from '@utils/constants';
 import axios from 'axios';
@@ -8,7 +7,7 @@ describe('internal/verified/updateVerified', () => {
   test('should update verified status', async () => {
     const response = await axios.post(
       `${TEST_URL}/internal/verified/updateVerified`,
-      { enabled: true, id: TEST_LENS_ID },
+      { enabled: true, id: Math.random().toString() },
       { headers: await getAuthWorkerHeadersForTest() }
     );
 
