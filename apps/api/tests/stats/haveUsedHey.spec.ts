@@ -7,6 +7,7 @@ describe('stats/haveUsedHey', () => {
     const response = await axios.get(`${TEST_URL}/stats/haveUsedHey`, {
       params: { id: '0x0d' }
     });
+
     expect(response.data.haveUsedHey).toBeTruthy();
   });
 
@@ -14,6 +15,7 @@ describe('stats/haveUsedHey', () => {
     const response = await axios.get(`${TEST_URL}/stats/haveUsedHey`, {
       params: { id: '0x00' }
     });
+
     expect(response.data.haveUsedHey).toBeFalsy();
   });
 });
