@@ -7,9 +7,7 @@ describe('live/create', () => {
   test('should return created live stream', async () => {
     const response = await axios.post(
       `${TEST_URL}/live/create`,
-      {
-        record: true
-      },
+      { record: true },
       { headers: await getAuthWorkerHeadersForTest() }
     );
 
