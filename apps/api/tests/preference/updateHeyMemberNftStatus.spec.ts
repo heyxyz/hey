@@ -4,7 +4,7 @@ import axios from 'axios';
 import { describe, expect, test } from 'vitest';
 
 describe('preference/updateHeyMemberNftStatus', () => {
-  test('should return profile preferences', async () => {
+  test('should update profile membership nft status', async () => {
     const response = await axios.post(
       `${TEST_URL}/preference/updateHeyMemberNftStatus`,
       undefined,
