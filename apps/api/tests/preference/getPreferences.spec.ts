@@ -17,5 +17,9 @@ describe('preference/getPreferences', () => {
     );
     expect(response.data.result.pro).toHaveProperty('enabled');
     expect(response.data.result.preference.id).toEqual(TEST_LENS_ID);
+    expect(
+      response.data.result.preference.highSignalNotificationFilter
+    ).toBeTruthy();
+    expect(response.data.result.preference.isPride).toBeTruthy();
   });
 });
