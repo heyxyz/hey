@@ -80,9 +80,6 @@ const uploadToIPFS = async (
         const metadata = result.Metadata;
         const cid = metadata?.['ipfs-hash'];
 
-        // Pin the file to the Lens IPFS network.
-        axios.get(`${HEY_API_URL}/ipfs/pin`, { params: { cid } });
-
         return { mimeType: file.type || FALLBACK_TYPE, uri: `ipfs://${cid}` };
       })
     );
