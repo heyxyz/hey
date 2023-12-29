@@ -34,7 +34,7 @@ const SidebarMenu: FC<SidebarProps> = ({ items }) => {
           <>
             <Menu.Button
               className={cn(
-                'focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800 text-left px-3 py-2 flex items-center space-x-2',
+                'focus:border-brand-500 focus:ring-brand-400 flex w-full items-center space-x-2 rounded-xl border border-gray-300 bg-white px-3 py-2 text-left outline-none dark:border-gray-700 dark:bg-gray-800',
                 {
                   'bg-gray-200 text-black dark:bg-gray-800 dark:text-white':
                     open,
@@ -47,7 +47,7 @@ const SidebarMenu: FC<SidebarProps> = ({ items }) => {
               <div>{selectedItem.title}</div>
             </Menu.Button>
             <MenuTransition>
-              <Menu.Items className="mt-2 absolute w-full z-10" static>
+              <Menu.Items className="absolute z-10 mt-2 w-full" static>
                 <Card forceRounded>
                   {menuItems.map((item) => (
                     <Menu.Item
@@ -57,7 +57,7 @@ const SidebarMenu: FC<SidebarProps> = ({ items }) => {
                           {
                             'dropdown-active': active || selectedItem === item
                           },
-                          'm-2 p-2 rounded-lg flex items-center space-x-2'
+                          'm-2 flex items-center space-x-2 rounded-lg p-2'
                         )
                       }
                       href={item.url}

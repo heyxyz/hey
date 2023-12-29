@@ -22,13 +22,13 @@ const UnknownModulePreview: FC<UnknownModulePreviewProps> = ({ module }) => {
       <Card className="flex bg-gray-50 p-5" forceRounded>
         <div className="w-full space-y-1.5 text-left">
           <div className="flex items-center justify-between space-x-2">
-            <div className="flex items-center space-x-2 w-full">
+            <div className="flex w-full items-center space-x-2">
               <GetOpenActionModuleIcon
                 className="text-brand-500"
                 module={module}
               />
               {loading ? (
-                <div className="shimmer h-4 my-1.5 w-4/12 rounded-full" />
+                <div className="shimmer my-1.5 h-4 w-4/12 rounded-full" />
               ) : (
                 <b className="text-lg font-bold">
                   {data?.moduleMetadata?.metadata.title || 'Unknown Module'}

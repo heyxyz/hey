@@ -25,7 +25,7 @@ export const Tooltip: FC<TooltipProps> = ({
         </RadixTooltip.Trigger>
         <RadixTooltip.Portal>
           <RadixTooltip.Content
-            className="hidden !rounded-lg !text-xs !leading-6 tracking-wide sm:block bg-gray-700 text-white px-3 py-0.5 z-10"
+            className="z-10 hidden !rounded-lg bg-gray-700 px-3 py-0.5 !text-xs !leading-6 tracking-wide text-white sm:block"
             side={placement}
             sideOffset={5}
           >
