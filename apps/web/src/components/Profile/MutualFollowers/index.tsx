@@ -5,16 +5,19 @@ import { LimitType, useMutualFollowersQuery } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface MutualFollowersProps {
   profile: Profile;
   setShowMutualFollowersModal?: Dispatch<SetStateAction<boolean>>;
+  viaPopover?: boolean;
 }
 
 const MutualFollowers: FC<MutualFollowersProps> = ({
   profile,
-  setShowMutualFollowersModal
+  setShowMutualFollowersModal,
+  viaPopover = false
 }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
@@ -34,7 +37,10 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
 
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <div
-      className="ld-text-gray-500 flex cursor-pointer items-center space-x-2.5 text-sm"
+      className={cn(
+        viaPopover ? 'text-xs' : 'text-sm',
+        'ld-text-gray-500 flex cursor-pointer items-center space-x-2.5'
+      )}
       onClick={() => setShowMutualFollowersModal?.(true)}
     >
       <div className="contents -space-x-2">
