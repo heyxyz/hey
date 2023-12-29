@@ -1,6 +1,7 @@
 import type { Profile } from '@hey/lens';
 import type { FC, ReactNode } from 'react';
 
+import MutualFollowers from '@components/Profile/MutualFollowers';
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
@@ -93,11 +94,11 @@ const UserPreview: FC<UserPreviewProps> = ({
     const UserAvatar = () => (
       <Image
         alt={profile.id}
-        className="size-10 rounded-full border bg-gray-200 dark:border-gray-700"
-        height={40}
+        className="size-12 rounded-full border bg-gray-200 dark:border-gray-700"
+        height={48}
         loading="lazy"
         src={getAvatar(profile)}
-        width={40}
+        width={48}
       />
     );
 
@@ -154,6 +155,13 @@ const UserPreview: FC<UserPreviewProps> = ({
             </div>
           </div>
         </div>
+        <div className="!text-xs">
+          <MutualFollowers
+            profile={profile}
+            setShowMutualFollowersModal={() => {}}
+            viaPopover
+          />
+        </div>
       </div>
     );
   };
@@ -167,7 +175,7 @@ const UserPreview: FC<UserPreviewProps> = ({
         <HoverCard.Portal>
           <HoverCard.Content
             asChild
-            className="z-10 w-64"
+            className="z-10 w-72"
             side="bottom"
             sideOffset={5}
           >
