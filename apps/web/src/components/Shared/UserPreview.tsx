@@ -167,7 +167,7 @@ const UserPreview: FC<UserPreviewProps> = ({
         <HoverCard.Portal>
           <HoverCard.Content
             asChild
-            className="w-64 z-10"
+            className="z-10 w-64"
             side="bottom"
             sideOffset={5}
           >
