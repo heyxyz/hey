@@ -1,4 +1,4 @@
-import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
+import { EnvelopeIcon } from '@heroicons/react/24/outline';
 import { Button } from '@hey/ui';
 
 type Props = {};
@@ -6,12 +6,12 @@ type Props = {};
 const Chat = (props: Props) => {
   return (
     <Button
-      aria-label="Chat"
+      aria-label="Message"
       className="text-brand-900 border-brand-900 hover:bg-brand-200 !px-3 !py-1.5 text-sm"
-      icon={<ChatBubbleLeftRightIcon className="size-4" />}
+      icon={<EnvelopeIcon className="size-4" />}
       outline
     >
-      Chat
+      Message
     </Button>
   );
 };
