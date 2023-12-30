@@ -16,14 +16,14 @@
 docker login -u <username> -p <access_token>
 ```
 
-### Installing dockerctl
+### Installing deployctl
 
 ```
-sudo curl -sSL https://raw.githubusercontent.com/heyxyz/hey/main/script/clean >> /usr/local/bin/dockerctl
+sudo curl -sSL https://raw.githubusercontent.com/heyxyz/hey/main/script/clean >> /usr/local/bin/deployctl
 ```
 ```
-sudo chmod +x /usr/local/bin/dockerctl
+sudo chmod +x /usr/local/bin/deployctl
 ```
-- `dockerctl api` to start the API containers
-- `dockerctl web` to start the Web containers
-- `dockerctl og` to start the OG containers
+- `deployctl api` to start the API containers
+- `deployctl web` to start the Web containers
+- `deployctl og` to start the OG containers
