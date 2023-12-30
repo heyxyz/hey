@@ -4,6 +4,7 @@ import type { FC } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import getAvatar from '@hey/lib/getAvatar';
+import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -54,6 +55,9 @@ const MobileDrawerMenu: FC = () => {
             <Image
               alt={currentProfile?.id}
               className="size-12 cursor-pointer rounded-full border dark:border-gray-700"
+              onError={({ currentTarget }) => {
+                currentTarget.src = getLennyURL(currentProfile?.id);
+              }}
               src={getAvatar(currentProfile as Profile)}
             />
             <div>
