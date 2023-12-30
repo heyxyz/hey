@@ -8,6 +8,7 @@ import {
 } from '@heroicons/react/24/solid';
 import { useProfileLazyQuery } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
+import getLennyURL from '@hey/lib/getLennyURL';
 import getMentions from '@hey/lib/getMentions';
 import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
@@ -97,6 +98,9 @@ const UserPreview: FC<UserPreviewProps> = ({
         className="size-12 rounded-full border bg-gray-200 dark:border-gray-700"
         height={48}
         loading="lazy"
+        onError={({ currentTarget }) => {
+          currentTarget.src = getLennyURL(profile.id);
+        }}
         src={getAvatar(profile)}
         width={48}
       />
