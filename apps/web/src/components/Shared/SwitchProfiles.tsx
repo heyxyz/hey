@@ -16,6 +16,7 @@ import {
   useProfilesManagedQuery
 } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
+import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import { ErrorMessage, Image, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -124,6 +125,9 @@ const SwitchProfiles: FC = () => {
               alt={profile.id}
               className="size-6 rounded-full border dark:border-gray-700"
               height={20}
+              onError={({ currentTarget }) => {
+                currentTarget.src = getLennyURL(profile.id);
+              }}
               src={getAvatar(profile)}
               width={20}
             />
