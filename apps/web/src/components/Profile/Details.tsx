@@ -2,6 +2,7 @@ import type { Profile } from '@hey/lens';
 import type { FC, ReactNode } from 'react';
 
 import Markup from '@components/Shared/Markup';
+import Chat from '@components/Shared/Profile/Chat';
 import Follow from '@components/Shared/Profile/Follow';
 import Unfollow from '@components/Shared/Profile/Unfollow';
 import Slug from '@components/Shared/Slug';
@@ -162,6 +163,8 @@ const Details: FC<DetailsProps> = ({ profile }) => {
               <Follow profile={profile} showText />
             )
           ) : null}
+
+          <Chat />
 
           <ProfileMenu profile={profile} />
         </div>
