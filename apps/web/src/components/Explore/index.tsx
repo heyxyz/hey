@@ -1,12 +1,10 @@
 import type { PublicationMetadataMainFocusType } from '@hey/lens';
 import type { NextPage } from 'next';
 
-import MetaTags from '@components/Common/MetaTags';
 import RecommendedProfiles from '@components/Home/Sidebar/RecommendedProfiles';
 import FeedFocusType from '@components/Shared/FeedFocusType';
 import Footer from '@components/Shared/Footer';
 import { Tab } from '@headlessui/react';
-import { APP_NAME } from '@hey/data/constants';
 import { EXPLORE, PAGEVIEW } from '@hey/data/tracking';
 import { ExplorePublicationsOrderByType } from '@hey/lens';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
@@ -40,10 +38,6 @@ const Explore: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags
-        description={`Explore top commented, collected and latest publications in the ${APP_NAME}.`}
-        title={`Explore • ${APP_NAME}`}
-      />
       <GridItemEight className="space-y-5">
         <Tab.Group
           defaultIndex={Number(router.query.tab)}

@@ -1,6 +1,5 @@
 import type { NextPage } from 'next';
 
-import MetaTags from '@components/Common/MetaTags';
 import Sidebar from '@components/Shared/Sidebar';
 import { PencilSquareIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { PAGEVIEW } from '@hey/data/tracking';
@@ -43,22 +42,19 @@ const Search: NextPage = () => {
   ];
 
   return (
-    <>
-      <MetaTags />
-      <GridLayout>
-        <GridItemFour>
-          <Sidebar items={settingsSidebarItems} />
-        </GridItemFour>
-        <GridItemEight>
-          {query.type === 'profiles' ? (
-            <Profiles query={query.q as string} />
-          ) : null}
-          {query.type === 'pubs' ? (
-            <Publications query={query.q as string} />
-          ) : null}
-        </GridItemEight>
-      </GridLayout>
-    </>
+    <GridLayout>
+      <GridItemFour>
+        <Sidebar items={settingsSidebarItems} />
+      </GridItemFour>
+      <GridItemEight>
+        {query.type === 'profiles' ? (
+          <Profiles query={query.q as string} />
+        ) : null}
+        {query.type === 'pubs' ? (
+          <Publications query={query.q as string} />
+        ) : null}
+      </GridItemEight>
+    </GridLayout>
   );
 };
 
