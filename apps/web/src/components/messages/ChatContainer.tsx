@@ -20,7 +20,7 @@ import {
 import clsx from 'clsx';
 import { formatRelative } from 'date-fns';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Virtuoso } from 'react-virtuoso';
+import { Virtuoso, type VirtuosoHandle } from 'react-virtuoso';
 import useMessageStore from 'src/store/persisted/useMessageStore';
 import { useWalletClient } from 'wagmi';
 
@@ -103,97 +103,99 @@ const ChatListItemContainer = ({
 
   const queryClient = useQueryClient();
 
-  const { isPending: sendingMessage, mutateAsync: sendMessage } = useMutation({
-    mutationFn: async (message: Message) => {
-      if (!signer) {
-        return;
-      }
-
-      if (!message) {
-        return;
-      }
-
-      return await chat.send({
-        account: signer?.account.address ?? '',
-        env: PUSH_ENV,
-        message: message,
-        pgpPrivateKey: pgpPvtKey,
-        signer: signer,
-        to: profile.address
-      });
-    },
-    mutationKey: ['send-message'],
-    // onError: async (error, newMessage, { previousMessages }) => {
-    //   // const queryKey = ['fetch-messages', profile.did];
-    //   // queryClient.setQueryData(queryKey, previousMessages);
-    // },
-    onMutate: async (message) => {
-      const queryKey = ['fetch-messages', profile.did];
-      await queryClient.cancelQueries({ queryKey });
-
-      const previousMessages = queryClient.getQueryData(
-        queryKey
-      ) as SavedQueryData;
-      const newMessage: IMessageIPFSWithCID & { isOptimistic?: boolean } = {
-        cid: '',
-        encryptedSecret: null,
-        encType: 'pgp',
-        fromCAIP10: `eip155:${signer?.account.address}`,
-        fromDID: `eip155:${signer?.account.address}`,
-        isOptimistic: true,
-        link: '',
-        messageContent:
-          typeof message.content === 'string'
-            ? message.content
-            : 'Not Supported Content',
-        messageObj: message,
-        messageType: message.type as any,
-        signature: '',
-        sigType: '',
-        timestamp: Date.now(),
-        toCAIP10: profile.did,
-        toDID: profile.did
-      };
-      queryClient.setQueryData(queryKey, (old: SavedQueryData) => {
-        old.pages?.[0].unshift(newMessage as any);
-        return old;
-      });
-
-      return { newMessage: newMessage, previousMessages };
-    },
-    onSettled: async (data, error, newMessage, context) => {
-      if (!context) {
-        return;
-      }
-      const queryKey = ['fetch-messages', profile.did];
-      if (error) {
-        queryClient.setQueryData(queryKey, context.previousMessages);
-        return;
-      }
-
-      queryClient.setQueryData(queryKey, (old: SavedQueryData) => {
-        if (!data) {
+  const { isPending: isSendingMessage, mutateAsync: sendMessage } = useMutation(
+    {
+      mutationFn: async (message: Message) => {
+        if (!signer) {
           return;
         }
-        const pagesData = old.pages?.[0];
-        if (!pagesData) {
+
+        if (!message) {
           return;
         }
-        const updatedMessageIndex = pagesData.indexOf(context.newMessage);
-        if (updatedMessageIndex < 0) {
-          return;
-        }
-        delete data.messageObj;
-        delete context.newMessage.isOptimistic;
-        pagesData[updatedMessageIndex] = {
-          ...context.newMessage,
-          ...data,
-          messageContent: context.newMessage.messageContent
+
+        return await chat.send({
+          account: signer?.account.address ?? '',
+          env: PUSH_ENV,
+          message: message,
+          pgpPrivateKey: pgpPvtKey,
+          signer: signer,
+          to: profile.address
+        });
+      },
+      mutationKey: ['send-message'],
+      // onError: async (error, newMessage, { previousMessages }) => {
+      //   // const queryKey = ['fetch-messages', profile.did];
+      //   // queryClient.setQueryData(queryKey, previousMessages);
+      // },
+      onMutate: async (message) => {
+        const queryKey = ['fetch-messages', profile.did];
+        await queryClient.cancelQueries({ queryKey });
+
+        const previousMessages = queryClient.getQueryData(
+          queryKey
+        ) as SavedQueryData;
+        const newMessage: IMessageIPFSWithCID & { isOptimistic?: boolean } = {
+          cid: '',
+          encryptedSecret: null,
+          encType: 'pgp',
+          fromCAIP10: `eip155:${signer?.account.address}`,
+          fromDID: `eip155:${signer?.account.address}`,
+          isOptimistic: true,
+          link: '',
+          messageContent:
+            typeof message.content === 'string'
+              ? message.content
+              : 'Not Supported Content',
+          messageObj: message,
+          messageType: message.type as any,
+          signature: '',
+          sigType: '',
+          timestamp: Date.now(),
+          toCAIP10: profile.did,
+          toDID: profile.did
         };
-        return old;
-      });
+        queryClient.setQueryData(queryKey, (old: SavedQueryData) => {
+          old.pages?.[0].unshift(newMessage as any);
+          return old;
+        });
+
+        return { newMessage: newMessage, previousMessages };
+      },
+      onSettled: async (data, error, newMessage, context) => {
+        if (!context) {
+          return;
+        }
+        const queryKey = ['fetch-messages', profile.did];
+        if (error) {
+          queryClient.setQueryData(queryKey, context.previousMessages);
+          return;
+        }
+
+        queryClient.setQueryData(queryKey, (old: SavedQueryData) => {
+          if (!data) {
+            return;
+          }
+          const pagesData = old.pages?.[0];
+          if (!pagesData) {
+            return;
+          }
+          const updatedMessageIndex = pagesData.indexOf(context.newMessage);
+          if (updatedMessageIndex < 0) {
+            return;
+          }
+          delete data.messageObj;
+          delete context.newMessage.isOptimistic;
+          pagesData[updatedMessageIndex] = {
+            ...context.newMessage,
+            ...data,
+            messageContent: context.newMessage.messageContent
+          };
+          return old;
+        });
+      }
     }
-  });
+  );
 
   const { isPending: isApproving, mutateAsync: onApprove } = useMutation({
     mutationFn: async (did: string) => {
@@ -241,7 +243,10 @@ const ChatListItemContainer = ({
         if (!result || typeof result !== 'string') {
           return;
         }
-        await sendMessage({ content: result, type: 'Image' });
+        await sendMessage({
+          content: result,
+          type: 'Image'
+        });
       };
     },
     [sendMessage]
@@ -262,6 +267,8 @@ const ChatListItemContainer = ({
         messageContainerref.current.scrollHeight;
     }
   }, [messages, isMessagesLoading, messageContainerref]);
+
+  const virtuosoRef = useRef<VirtuosoHandle>(null);
 
   return (
     <div className="flex h-[-webkit-calc(100vh-5.5rem)] max-h-screen w-full flex-col justify-between">
@@ -301,7 +308,7 @@ const ChatListItemContainer = ({
         className="h-screen space-y-3 overflow-y-scroll px-4 py-2"
         ref={messageContainerref}
       >
-        {isMessagesLoading && !isFetchingNextPage && (
+        {isHistoryFetching && !isFetchingNextPage && (
           <div className="flex h-full items-center justify-center">
             <Loader message="Loading messages..." />
           </div>
@@ -320,7 +327,11 @@ const ChatListItemContainer = ({
             }
           }}
           data={messages}
-          firstItemIndex={messages.length - 30}
+          firstItemIndex={
+            messages.length - ITEM_LIMIT < 0
+              ? 10000
+              : messages.length - ITEM_LIMIT
+          }
           initialTopMostItemIndex={ITEM_LIMIT - 1}
           itemContent={(_, message) => {
             const isMessageFromProfile = message.from !== profile.address;
@@ -338,7 +349,7 @@ const ChatListItemContainer = ({
                   <div
                     className={clsx('text-wrap my-2 rounded-2xl px-4 py-2', {
                       'bg-gray-300': !isMessageFromProfile,
-                      'opacity-80': (message as any).isOptimistic,
+                      'opacity-80': message.isOptimistic,
                       'rounded-br-sm bg-[#EF4444] text-white':
                         isMessageFromProfile
                     })}
@@ -388,16 +399,22 @@ const ChatListItemContainer = ({
               </div>
             );
           }}
+          ref={virtuosoRef}
           startReached={() => fetchNextPage()}
         />
       </div>
       <ChatMessageInput
         disabled={profile.isRequestProfile}
         onRemoveReplyMessage={onRemoveReplyMessage}
-        onSend={(message) => onSendMessage(message)}
+        onSend={(message) => {
+          onSendMessage(message);
+          virtuosoRef.current?.scrollToIndex?.({
+            align: 'end',
+            index: messages.length + 1
+          });
+        }}
         onSendAttachment={onSendAttachment}
         replyMessage={replyMessage}
-        sending={sendingMessage}
       />
     </div>
   );

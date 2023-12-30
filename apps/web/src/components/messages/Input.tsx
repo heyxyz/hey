@@ -3,7 +3,7 @@ import type { DisplayedMessage } from '@lib/mapReactionsToMessages';
 import { PaperAirplaneIcon, PaperClipIcon } from '@heroicons/react/20/solid';
 import { FaceSmileIcon } from '@heroicons/react/24/outline';
 import { XCircleIcon } from '@heroicons/react/24/solid';
-import { Button, HeyPopover, Spinner } from '@hey/ui';
+import { Button, HeyPopover } from '@hey/ui';
 import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
 import EmojiPicker, { EmojiStyle } from 'emoji-picker-react';
 import { useCallback, useRef, useState } from 'react';
@@ -13,15 +13,13 @@ const ChatMessageInput = ({
   onRemoveReplyMessage,
   onSend,
   onSendAttachment,
-  replyMessage,
-  sending
+  replyMessage
 }: {
   disabled?: boolean;
   onRemoveReplyMessage?: () => void;
   onSend: (message: string) => void;
   onSendAttachment: (file: File) => void;
   replyMessage: DisplayedMessage | null;
-  sending: boolean;
 }) => {
   const [message, setMessage] = useState('');
 
@@ -70,7 +68,7 @@ const ChatMessageInput = ({
                 <span className="sr-only">Attach a file</span>
               </button>
               <input
-                accept="image/*"
+                accept="image/*,audio/*,video/*"
                 className="hidden"
                 id="chatAttachments"
                 onChange={(event) => {
@@ -143,16 +141,12 @@ const ChatMessageInput = ({
             value={message}
           />
           <Button
-            className="flex h-10 items-center justify-center rounded-full border-none text-gray-400 hover:text-gray-500"
+            className="flex h-8 items-center justify-center rounded-full border-0 text-gray-400 hover:text-gray-500 shadow-none"
             icon={
-              sending ? (
-                <Spinner size="xs" />
-              ) : (
-                <PaperAirplaneIcon
-                  aria-hidden="true"
-                  className="h-5 w-5 flex-shrink-0 text-[#EF4444]"
-                />
-              )
+              <PaperAirplaneIcon
+                aria-hidden="true"
+                className="h-5 w-5 flex-shrink-0 text-[#EF4444]"
+              />
             }
             onClick={() => {
               onSend(message);
