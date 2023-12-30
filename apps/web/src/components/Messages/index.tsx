@@ -1,3 +1,4 @@
+import getProfileById from '@hey/lib/getProfileById';
 import { GridItemEight, GridLayout } from '@hey/ui';
 import { useRouter } from 'next/router';
 
@@ -9,6 +10,11 @@ const Messages = (props: Props) => {
     query: { handle, id, type }
   } = useRouter();
 
+  if (typeof id === 'string') {
+    const profile = id && getProfileById(id);
+    console.log({ MESSAGES: profile });
+    console.log({ id });
+  }
   return (
     <div>
       <GridLayout>

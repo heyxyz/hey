@@ -26,6 +26,7 @@
     "@hey/lens": "workspace:*",
     "@hey/lib": "workspace:*",
     "@hey/ui": "workspace:*",
+    "@lens-protocol/client": "2.0.0-alpha.27",
     "@lens-protocol/metadata": "1.1.5",
     "@lexical/code": "^0.12.5",
     "@lexical/hashtag": "^0.12.5",
