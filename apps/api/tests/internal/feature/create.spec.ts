@@ -4,7 +4,7 @@ import axios from 'axios';
 import { describe, expect, test } from 'vitest';
 
 describe('internal/feature/create', async () => {
-  test('should create a poll', async () => {
+  test('should create a feature', async () => {
     const response = await axios.post(
       `${TEST_URL}/internal/feature/create`,
       { key: Math.random().toString() },
