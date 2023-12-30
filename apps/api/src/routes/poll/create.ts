@@ -53,12 +53,13 @@ export const post: Handler = async (req, res) => {
             skipDuplicates: true
           }
         }
-      }
+      },
+      select: { createdAt: true, endsAt: true, id: true, options: true }
     });
 
     logger.info(`Created a poll ${data.id}`);
 
-    return res.status(200).json({ id: data.id, success: true });
+    return res.status(200).json({ poll: data, success: true });
   } catch (error) {
     return catchedError(res, error);
   }
