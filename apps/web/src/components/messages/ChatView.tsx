@@ -72,7 +72,11 @@ const ChatView = () => {
       ...item,
       type: 'chat'
     }));
-    return [...normalChats, ...requestChats];
+    return (
+      [...normalChats, ...requestChats]
+        // Filtering groups out
+        .filter((each) => !each.groupInformation)
+    );
   }, [chats, isChatsLoading, requests]);
 
   if (status !== 'connected') {
