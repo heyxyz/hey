@@ -11,6 +11,7 @@ import {
   Squares2X2Icon as Squares2X2IconSolid
 } from '@heroicons/react/24/solid';
 import getAvatar from '@hey/lib/getAvatar';
+import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -55,6 +56,9 @@ const BottomNavigation = () => {
             <Image
               alt={currentProfile?.id}
               className="size-6 rounded-full border dark:border-gray-700"
+              onError={({ currentTarget }) => {
+                currentTarget.src = getLennyURL(currentProfile.id);
+              }}
               src={getAvatar(currentProfile as Profile)}
             />
           </Link>
