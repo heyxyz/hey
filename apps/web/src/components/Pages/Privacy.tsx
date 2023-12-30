@@ -1,6 +1,5 @@
 import type { NextPage } from 'next';
 
-import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
@@ -17,7 +16,6 @@ const Privacy: NextPage = () => {
 
   return (
     <>
-      <MetaTags title={`Privacy Policy • ${APP_NAME}`} />
       <div className="bg-brand-400 flex h-48 w-full items-center justify-center">
         <div className="relative text-center">
           <h1 className="text-3xl font-bold text-white md:text-4xl">
