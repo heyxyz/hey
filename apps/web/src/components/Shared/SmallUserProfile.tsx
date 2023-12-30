@@ -7,6 +7,7 @@ import {
 } from '@heroicons/react/24/solid';
 import formatRelativeOrAbsolute from '@hey/lib/datetime/formatRelativeOrAbsolute';
 import getAvatar from '@hey/lib/getAvatar';
+import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
 import { Image } from '@hey/ui';
@@ -41,6 +42,9 @@ const SmallUserProfile: FC<UserProfileProps> = ({
       )}
       height={smallAvatar ? 20 : 24}
       loading="lazy"
+      onError={({ currentTarget }) => {
+        currentTarget.src = getLennyURL(profile.id);
+      }}
       src={getAvatar(profile)}
       width={smallAvatar ? 20 : 24}
     />

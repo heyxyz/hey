@@ -3,6 +3,7 @@ import type { Dispatch, FC, ReactNode, SetStateAction } from 'react';
 
 import { LimitType, useMutualFollowersQuery } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
+import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -44,16 +45,17 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
       onClick={() => setShowMutualFollowersModal?.(true)}
     >
       <div className="contents -space-x-2">
-        {profiles
-          .slice(0, 3)
-          ?.map((profile) => (
-            <Image
-              alt={profile.id}
-              className="size-5 rounded-full border dark:border-gray-700"
-              key={profile.id}
-              src={getAvatar(profile)}
-            />
-          ))}
+        {profiles.slice(0, 3)?.map((profile) => (
+          <Image
+            alt={profile.id}
+            className="size-5 rounded-full border dark:border-gray-700"
+            key={profile.id}
+            onError={({ currentTarget }) => {
+              currentTarget.src = getLennyURL(profile.id);
+            }}
+            src={getAvatar(profile)}
+          />
+        ))}
       </div>
       <div>
         <span>Followed by </span>

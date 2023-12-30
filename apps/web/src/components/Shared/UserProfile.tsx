@@ -8,6 +8,7 @@ import {
 import { FollowModuleType, type Profile } from '@hey/lens';
 import formatRelativeOrAbsolute from '@hey/lib/datetime/formatRelativeOrAbsolute';
 import getAvatar from '@hey/lib/getAvatar';
+import getLennyURL from '@hey/lib/getLennyURL';
 import getMentions from '@hey/lib/getMentions';
 import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
@@ -55,6 +56,9 @@ const UserProfile: FC<UserProfileProps> = ({
       )}
       height={isBig ? 56 : 40}
       loading="lazy"
+      onError={({ currentTarget }) => {
+        currentTarget.src = getLennyURL(profile.id);
+      }}
       src={getAvatar(profile)}
       width={isBig ? 56 : 40}
     />
