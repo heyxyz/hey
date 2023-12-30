@@ -164,7 +164,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
             )
           ) : null}
 
-          <Chat />
+          <Chat id={profile.id} />
 
           <ProfileMenu profile={profile} />
         </div>
