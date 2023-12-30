@@ -33,6 +33,7 @@ case $SERVICE in
     echo "Starting API Mainnet 🚀"
     docker run -d \
       --name api-mainnet \
+      --restart always \
       -p 4784:4784 \
       -e NEXT_PUBLIC_LENS_NETWORK=mainnet \
       -e DATABASE_URL=$DATABASE_URL_MAINNET \
@@ -50,7 +51,8 @@ case $SERVICE in
     echo "Starting API Testnet 🚀"
     docker run -d \
       --name api-testnet \
-      -p 5784:5784 \
+      --restart always \
+      -p 5784:4784 \
       -e NEXT_PUBLIC_LENS_NETWORK=testnet \
       -e DATABASE_URL=$DATABASE_URL_TESTNET \
       -e CLICKHOUSE_PASSWORD=$CLICKHOUSE_PASSWORD \
@@ -67,7 +69,8 @@ case $SERVICE in
     echo "Starting API Staging 🚀"
     docker run -d \
       --name api-staging \
-      -p 6784:6784 \
+      --restart always \
+      -p 6784:4784 \
       -e NEXT_PUBLIC_LENS_NETWORK=staging \
       -e DATABASE_URL=$DATABASE_URL_STAGING \
       -e CLICKHOUSE_PASSWORD=$CLICKHOUSE_PASSWORD \
@@ -108,7 +111,7 @@ case $SERVICE in
     docker run -d \
       --name web-testnet \
       --restart always \
-      -p 5783:5783 \
+      -p 5783:4783 \
       -e NEXT_PUBLIC_IS_PRODUCTION=true \
       -e NEXT_PUBLIC_LENS_NETWORK=testnet \
       -e NEXT_PUBLIC_OG_URL=$NEXT_PUBLIC_OG_URL heyxyz/web:latest
@@ -117,7 +120,7 @@ case $SERVICE in
     docker run -d \
       --name web-staging \
       --restart always \
-      -p 6783:6783 \
+      -p 6783:4783 \
       -e NEXT_PUBLIC_IS_PRODUCTION=false \
       -e NEXT_PUBLIC_LENS_NETWORK=staging \
       -e NEXT_PUBLIC_OG_URL=$NEXT_PUBLIC_OG_URL heyxyz/web:latest
@@ -139,19 +142,22 @@ case $SERVICE in
     echo "Starting OG Mainnet 🚀"
     docker run -d \
       --name og-mainnet \
+      --restart always \
       -p 4785:4785 \
       -e NEXT_PUBLIC_LENS_NETWORK=mainnet heyxyz/og:latest
 
     echo "Starting OG Testnet 🚀"
     docker run -d \
       --name og-testnet \
-      -p 5785:5785 \
+      --restart always \
+      -p 5785:4785 \
       -e NEXT_PUBLIC_LENS_NETWORK=testnet heyxyz/og:latest
 
     echo "Starting OG Staging 🚀"
     docker run -d \
       --name og-staging \
-      -p 6785:6785 \
+      --restart always \
+      -p 6785:4785 \
       -e NEXT_PUBLIC_LENS_NETWORK=staging heyxyz/og:latest
     ;;
 esac
