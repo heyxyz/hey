@@ -39,31 +39,4 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          script: |
-            docker stop og-mainnet || true
-            docker stop og-testnet || true
-            docker stop og-staging || true
-
-            docker rm og-mainnet || true
-            docker rm og-testnet || true
-            docker rm og-staging || true
-
-            docker pull heyxyz/og:latest
-
-            echo "Starting OG Mainnet 🚀"
-            docker run -d \
-              --name og-mainnet \
-              -p 4785:4785 \
-              -e NEXT_PUBLIC_LENS_NETWORK=mainnet heyxyz/og:latest
-
-            echo "Starting OG Testnet 🚀"
-            docker run -d \
-              --name og-testnet \
-              -p 5785:5785 \
-              -e NEXT_PUBLIC_LENS_NETWORK=testnet heyxyz/og:latest
-
-            echo "Starting OG Staging 🚀"
-            docker run -d \
-              --name og-staging \
-              -p 6785:6785 \
-              -e NEXT_PUBLIC_LENS_NETWORK=staging heyxyz/og:latest
+          script: deployctl og
