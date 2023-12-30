@@ -53,6 +53,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
+          envs: DATABASE_URL_MAINNET,DATABASE_URL_TESTNET,DATABASE_URL_STAGING,CLICKHOUSE_PASSWORD,SECRET,EVER_ACCESS_KEY,EVER_ACCESS_SECRET,LENS_IPFS_AUTH_KEY,IPAPI_KEY,GOOGLE_API_KEY,IRYS_PRIVATE_KEY,IMAGEKIT_URL,ZENDESK_API_KEY
           script: |
             docker stop api-mainnet || true
             docker stop api-testnet || true

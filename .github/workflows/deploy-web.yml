@@ -41,6 +41,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
+          envs: NEXT_PUBLIC_OG_URL
           script: |
             docker stop web-mainnet || true
             docker stop web-testnet || true

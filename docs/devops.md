@@ -15,4 +15,3 @@ docker login -u <username> -p <access_token>
 ```
 
 - Add the environment variables to the GitHub secrets
-
