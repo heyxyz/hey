@@ -11,6 +11,6 @@ describe('poll/create', async () => {
       { headers: await getAuthWorkerHeadersForTest() }
     );
 
-    expect(response.data.id).toHaveLength(36);
+    expect(response.data.poll.id).toHaveLength(36);
   });
 });
