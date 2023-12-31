@@ -25,9 +25,14 @@ const Attachment: FC<AttachmentProps> = ({ message }) => {
   const [contentType, setContentType] = useState<null | string>(null);
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
 
+  const attachmentURI =
+    typeof message.messageObj === 'string'
+      ? message.messageObj
+      : (message.messageObj?.content as string);
+
   useEffect(() => {
     if (message.messageType === MessageType.MEDIA_EMBED) {
-      fetch(message.messageContent, { method: 'HEAD' })
+      fetch(attachmentURI, { method: 'HEAD' })
         .then((response) => {
           setContentType(response.headers.get('Content-Type'));
         })
@@ -35,17 +40,17 @@ const Attachment: FC<AttachmentProps> = ({ message }) => {
           console.error('Error:', error);
         });
     }
-  }, [message]);
+  }, [attachmentURI]);
 
   const renderFile = () => {
-    const fileData = handleFile(message.messageContent, 'attachment', '');
+    const fileData = handleFile(attachmentURI, 'attachment', '');
     return (
       <Card className="flex flex-col gap-2">
         <p>Attachment ({fileData.size} bytes)</p>
         <Button
           onClick={() => {
             const link = document.createElement('a');
-            link.href = message.messageContent;
+            link.href = attachmentURI;
             link.download = fileData.name;
             document.body.appendChild(link);
             link.click();
@@ -59,7 +64,10 @@ const Attachment: FC<AttachmentProps> = ({ message }) => {
   };
 
   const renderImage = () => {
-    const uri = message.messageContent;
+    const uri =
+      typeof message.messageObj === 'string'
+        ? message.messageObj
+        : (message.messageObj?.content as string);
     return (
       <>
         <Image
@@ -87,17 +95,13 @@ const Attachment: FC<AttachmentProps> = ({ message }) => {
 
   const renderMedia = () => {
     if (contentType?.startsWith('video/')) {
-      return <Video src={message.messageContent} />;
+      return <Video src={attachmentURI} />;
     }
     if (contentType?.startsWith('image/')) {
       return renderImage();
     }
     return (
-      <Oembed
-        className="sm:w-full"
-        onData={() => {}}
-        url={message.messageContent}
-      />
+      <Oembed className="sm:w-full" onData={() => {}} url={attachmentURI} />
     );
   };
 

@@ -18,21 +18,20 @@ import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 import ReplyPreview from './ReplyPreview';
 
 const Composer: FC = () => {
+  const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
   const [sending, setSending] = useState<boolean>(false);
+  const { useSendMessage } = usePushHooks();
+  const { mutateAsync: sendMessage } = useSendMessage();
+
   const attachments = usePublicationStore((state) => state.attachments);
   const addAttachments = usePublicationStore((state) => state.addAttachments);
   const removeAttachments = usePublicationStore(
     (state) => state.removeAttachments
   );
   const isUploading = usePublicationStore((state) => state.isUploading);
-  const { useSendMessage } = usePushHooks();
-  const { replyToMessage } = usePushChatStore();
-  const { setRecipientChat } = usePushChatStore();
-
-  const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
-
-  const { mutateAsync: sendMessage } = useSendMessage();
+  const replyToMessage = usePushChatStore((state) => state.replyToMessage);
+  const setRecipientChat = usePushChatStore((state) => state.setRecipientChat);
 
   const canSendMessage = attachments.length > 0 || message.length > 0;
 
@@ -80,7 +79,11 @@ const Composer: FC = () => {
           removeAttachments([attachment!.id!]);
           setRecipientChat({
             ...sentMessage,
-            messageContent: sanitizedUrl
+            messageObj: {
+              // @ts-expect-error
+              content: sanitizedUrl,
+              type: MessageType.MEDIA_EMBED
+            }
           });
         }
         return;
@@ -99,7 +102,11 @@ const Composer: FC = () => {
       });
       setRecipientChat({
         ...sentMessage,
-        messageContent: message
+        messageObj: {
+          // @ts-expect-error
+          content: message,
+          type: messageType
+        }
       });
     } catch (error) {
       toast.error((error as Error).message);

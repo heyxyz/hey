@@ -37,14 +37,22 @@ export default function Messages({ selectedChat }: MessageBodyProps) {
       ref={listInnerRef}
     >
       {selectedChat
-        .filter((chat) => chat.messageType !== MessageType.REACTION)
+        .filter(
+          (chat) =>
+            chat.messageType !== MessageType.REACTION &&
+            chat.messageType !== MessageType.REPLY
+        )
         .map?.((chat) => {
           const messageReactions = reactions
             .filter(
               (reactionChat) =>
                 reactionChat.link === (chat as IMessageIPFSWithCID).cid
             )
-            .map((item) => item.messageContent) as MessageReactions[];
+            .map((item) =>
+              typeof item.messageObj === 'string'
+                ? item.messageObj
+                : (item.messageObj?.content as string)
+            ) as MessageReactions[];
 
           const replyMessage = replies.find(
             (reactionChat) =>

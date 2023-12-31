@@ -34,13 +34,20 @@ interface MessageCardProps {
 }
 
 const MessageCard: React.FC<MessageCardProps> = ({ chat, className }) => {
-  return <p className={className}>{chat.messageContent}</p>;
+  return (
+    <p className={className}>
+      {typeof chat.messageObj === 'string'
+        ? chat.messageObj
+        : (chat.messageObj?.content as string)}
+    </p>
+  );
 };
 
 const Message = ({ message, messageReactions, replyMessage }: Props) => {
   const [showChatActions, setShowChatActions] = useState(false);
   const [showReactions, setShowReactions] = useState(false);
   const currentProfile = useProfileStore((state) => state.currentProfile);
+  const setRecipientChat = usePushChatStore((state) => state.setRecipientChat);
   const recipientProfile = usePushChatStore((state) => state.recipientProfile);
   const reactionRef = useRef<HTMLDivElement | null>(null);
   const { useSendMessage } = usePushHooks();
@@ -56,21 +63,21 @@ const Message = ({ message, messageReactions, replyMessage }: Props) => {
   };
 
   const messageOrigin =
-    getProfileIdFromDID(message.fromDID) !== currentProfile?.id
+    getProfileIdFromDID(message.fromDID) === currentProfile?.id
       ? MessageOrigin.Sender
       : MessageOrigin.Receiver;
 
   return (
     <div
       className={clsx('flex items-center', {
-        'flex-row-reverse': messageOrigin === MessageOrigin.Receiver
+        'flex-row-reverse': messageOrigin === MessageOrigin.Sender
       })}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <div
         className={clsx('flex-col', {
-          'self-end': messageOrigin === MessageOrigin.Sender
+          'self-end': messageOrigin === MessageOrigin.Receiver
         })}
       >
         <MessageWrapper
@@ -81,7 +88,7 @@ const Message = ({ message, messageReactions, replyMessage }: Props) => {
             <MessageCard
               chat={message}
               className={clsx(
-                messageOrigin === MessageOrigin.Receiver ? 'text-white' : '',
+                messageOrigin === MessageOrigin.Sender ? 'text-white' : '',
                 'max-w-[100%] break-words text-sm'
               )}
             />
@@ -90,7 +97,10 @@ const Message = ({ message, messageReactions, replyMessage }: Props) => {
           )}
         </MessageWrapper>
         <DisplayReactions MessageReactions={messageReactions} />
-        <TimeStamp timestamp={message?.timestamp!} />
+        <TimeStamp
+          messageOrigin={messageOrigin}
+          timestamp={message?.timestamp!}
+        />
       </div>
       <div className="mr-3 mt-[-20px] flex">
         <ChatAction
@@ -122,14 +132,22 @@ const Message = ({ message, messageReactions, replyMessage }: Props) => {
                 setShowReactions(false);
                 setShowChatActions(true);
               }}
-              onValue={(value) => {
-                sendMessage({
+              onValue={async (value) => {
+                const sentMessage = await sendMessage({
                   content: {
                     content: value,
                     type: MessageType.TEXT
                   },
                   reference: message.link!,
                   type: MessageType.REACTION
+                });
+
+                setRecipientChat({
+                  ...sentMessage,
+                  messageObj: {
+                    content: value,
+                    reference: message.link!
+                  }
                 });
                 setShowReactions(false);
                 setShowChatActions(true);
