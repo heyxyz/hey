@@ -19,7 +19,7 @@ docker login -u <username> -p <access_token>
 ### Installing deployctl
 
 ```
-sudo curl -sSL https://raw.githubusercontent.com/heyxyz/hey/main/script/clean >> /usr/local/bin/deployctl
+sudo curl -sSL https://raw.githubusercontent.com/heyxyz/hey/main/script/deployctl >> /usr/local/bin/deployctl
 ```
 ```
 sudo chmod +x /usr/local/bin/deployctl
