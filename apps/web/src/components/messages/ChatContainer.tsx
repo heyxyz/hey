@@ -91,9 +91,11 @@ const ChatListItemContainer = ({
         })) as unknown as IMessageIPFSWithCID[]) ?? [];
 
       return history;
-      // return transformMessages(history);
     },
-    queryKey: ['fetch-messages', profile.did]
+    queryKey: ['fetch-messages', profile.did],
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60 * 10
   });
 
   const isMessagesLoading = isHistoryFetching && !isHistoryLoading;
@@ -320,7 +322,7 @@ const ChatListItemContainer = ({
               if (hasNextPage && isFetchingNextPage) {
                 return (
                   <div className="flex h-full items-center justify-center">
-                    <Loader message="Loading messages..." />
+                    <Loader message="Loading more messages..." />
                   </div>
                 );
               }
@@ -400,7 +402,10 @@ const ChatListItemContainer = ({
             );
           }}
           ref={virtuosoRef}
-          startReached={() => fetchNextPage()}
+          startReached={async () => {
+            await fetchNextPage();
+            return false;
+          }}
         />
       </div>
       <ChatMessageInput
