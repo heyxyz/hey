@@ -46,7 +46,7 @@ const ChatListItemContainer = ({
   };
 }) => {
   const ITEM_LIMIT = 30;
-  const { address, threadhash } = useMemo(() => profile, [profile]);
+  const { address, threadhash } = profile;
 
   const pgpPvtKey = useMessageStore((state) => state.pgpPvtKey);
   const { data: signer } = useWalletClient();
@@ -93,7 +93,7 @@ const ChatListItemContainer = ({
       return history;
       // return transformMessages(history);
     },
-    queryKey: ['fetch-messages', profile.address]
+    queryKey: ['fetch-messages', profile.did]
   });
 
   const isMessagesLoading = isHistoryFetching && !isHistoryLoading;
@@ -176,7 +176,7 @@ const ChatListItemContainer = ({
           if (!data) {
             return;
           }
-          const pagesData = old.pages?.[0];
+          const pagesData = old?.pages?.[0];
           if (!pagesData) {
             return;
           }
