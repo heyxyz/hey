@@ -8,9 +8,9 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 
 import Composer from './Composer';
+import Header from './Header';
 import { getAccountFromProfile } from './helper';
-import MessageBody from './MessageBody';
-import MessageHeader from './MessageHeader';
+import Messages from './Message';
 import NoConversationSelected from './NoConversationSelected';
 import Tabs from './Tabs';
 
@@ -65,8 +65,8 @@ const Message = () => {
         <Card className="flex h-full flex-col justify-between">
           {recepientProfile ? (
             <>
-              <MessageHeader profile={recepientProfile!} />
-              <MessageBody
+              <Header profile={recepientProfile!} />
+              <Messages
                 selectedChat={
                   initialConversation
                     ? [initialConversation.msg]

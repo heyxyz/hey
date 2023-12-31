@@ -4,16 +4,16 @@ import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
 import React, { useRef } from 'react';
 import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 
-import type { MessageReactions } from './Reactions';
+import type { MessageReactions } from '../Actions/Reactions';
 
+import Message from './Card';
 import InitialConversation from './InitialConversation';
-import Message from './Message';
 
 interface MessageBodyProps {
   selectedChat: IMessageIPFS[];
 }
 
-export default function MessageBody({ selectedChat }: MessageBodyProps) {
+export default function Messages({ selectedChat }: MessageBodyProps) {
   const listInnerRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const requestsFeed = usePushChatStore((state) => state.requestsFeed);

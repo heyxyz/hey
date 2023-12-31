@@ -3,9 +3,9 @@ import { Card } from '@hey/ui';
 import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
 import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 
-import Attachment from './Attachment';
+import Attachment from '../Message/Attachment';
 
-const ReplyMessagePreview = () => {
+const ReplyPreview = () => {
   const { replyToMessage, setReplyToMessage } = usePushChatStore();
   const { recipientProfile } = usePushChatStore();
   return replyToMessage ? (
@@ -40,4 +40,4 @@ const ReplyMessagePreview = () => {
   ) : null;
 };
 
-export default ReplyMessagePreview;
+export default ReplyPreview;

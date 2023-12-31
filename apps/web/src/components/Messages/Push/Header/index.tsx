@@ -9,7 +9,7 @@ interface MessageHeaderProps {
   profile?: Profile;
 }
 
-export default function MessageHeader({ profile }: MessageHeaderProps) {
+export default function Header({ profile }: MessageHeaderProps) {
   return (
     <section className="flex w-full justify-between border-b px-5	py-2.5">
       <div className="flex items-center">

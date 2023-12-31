@@ -5,7 +5,7 @@ import {
   usePushChatStore
 } from 'src/store/persisted/usePushChatStore';
 
-import Profile from './Profile';
+import Profile from '../Header/Profile';
 
 export default function PUSHPreviewRequests() {
   const pageRef = useRef<HTMLDivElement>(null);

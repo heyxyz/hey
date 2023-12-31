@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 import React from 'react';
 import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 
-import { getProfileIdFromDID } from './helper';
+import { getProfileIdFromDID } from '../helper';
 
 interface ProfileProps {
   previewMessage: IFeeds;

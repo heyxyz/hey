@@ -15,7 +15,7 @@ import usePushHooks from 'src/hooks/messaging/push/usePush';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 
-import ReplyMessagePreview from './ReplyMessagePreview';
+import ReplyPreview from './ReplyPreview';
 
 const Composer: FC = () => {
   const [message, setMessage] = useState<string>('');
@@ -142,7 +142,7 @@ const Composer: FC = () => {
         </div>
       ) : null}
       <div>
-        <ReplyMessagePreview />
+        <ReplyPreview />
       </div>
       <div className="flex space-x-4 p-4">
         <div className="flex items-center space-x-4">

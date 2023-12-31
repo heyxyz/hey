@@ -38,6 +38,8 @@ const usePushSocket = () => {
         if (profileID === currentProfile?.id) {
           return;
         }
+        setRecipientChat(decryptedMessage);
+        sendNotification(`New Message from ${profileID}`);
 
         const messageList = document.getElementById('messages-list');
         messageList?.scrollTo({
@@ -45,9 +47,6 @@ const usePushSocket = () => {
           left: 0,
           top: messageList.scrollHeight
         });
-
-        setRecipientChat(decryptedMessage);
-        sendNotification(`New Message from ${profileID}`);
       } catch (error) {
         console.log('SOCKET ERROR:', error);
       }

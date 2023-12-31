@@ -1,20 +1,21 @@
 import type { IMessageIPFS } from '@pushprotocol/restapi';
-import type { ReactNode } from 'react';
 
 import { ArrowUturnLeftIcon, FaceSmileIcon } from '@heroicons/react/24/outline';
 import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
 import clsx from 'clsx';
-import { motion } from 'framer-motion';
 import React, { useRef, useState } from 'react';
 import usePushHooks from 'src/hooks/messaging/push/usePush';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 
-import type { MessageReactions } from './Reactions';
+import type { MessageReactions } from '../Actions/Reactions';
 
+import { ChatAction } from '../Actions/ChatAction';
+import { DisplayReactions, Reactions } from '../Actions/Reactions';
+import { getProfileIdFromDID } from '../helper';
 import Attachment from './Attachment';
-import { dateToFromNowDaily, getProfileIdFromDID } from './helper';
-import { DisplayReactions, Reactions } from './Reactions';
+import TimeStamp from './TimeStamp';
+import { MessageWrapper } from './Wrapper';
 
 interface Props {
   message: IMessageIPFS;
@@ -22,65 +23,10 @@ interface Props {
   replyMessage: IMessageIPFS | null;
 }
 
-interface ChatAction {
-  children: ReactNode;
-  onClick: () => void;
-  showAction: boolean;
-}
-
-enum MessageOrigin {
+export enum MessageOrigin {
   Receiver = 'receiver',
   Sender = 'sender'
 }
-
-const ChatAction: React.FC<ChatAction> = ({
-  children,
-  onClick,
-  showAction
-}) => (
-  <motion.div
-    animate={{ opacity: showAction ? 1 : 0 }}
-    className="border-brand-400 ml-4 flex h-6 w-6 cursor-pointer items-center justify-center rounded-full border"
-    initial={{ opacity: 1 }}
-    onClick={onClick}
-  >
-    {children}
-  </motion.div>
-);
-
-interface MessageWrapperProps {
-  children: ReactNode;
-  isAttachment: boolean;
-  messageOrigin: MessageOrigin;
-}
-
-const MessageWrapper: React.FC<MessageWrapperProps> = ({
-  children,
-  isAttachment,
-  messageOrigin
-}) => {
-  return (
-    <div
-      className={clsx('relative w-fit max-w-fit font-medium', {
-        'border py-3 pl-4 pr-[50px]': !isAttachment,
-        'rounded-xl rounded-tl-sm': messageOrigin === MessageOrigin.Sender,
-        'rounded-xl rounded-tr-sm bg-violet-500':
-          messageOrigin === MessageOrigin.Receiver
-      })}
-    >
-      {children}
-    </div>
-  );
-};
-
-interface TimestampProps {
-  timestamp: number;
-}
-
-const TimeStamp: React.FC<TimestampProps> = ({ timestamp }) => {
-  const timestampDate = dateToFromNowDaily(timestamp);
-  return <p className="text-xs text-gray-500">{timestampDate}</p>;
-};
 
 interface MessageCardProps {
   chat: IMessageIPFS;
@@ -89,23 +35,6 @@ interface MessageCardProps {
 
 const MessageCard: React.FC<MessageCardProps> = ({ chat, className }) => {
   return <p className={className}>{chat.messageContent}</p>;
-};
-
-interface ReplyCardProps {
-  chat: IMessageIPFS;
-  handle: string;
-}
-
-const ReplyMessage: React.FC<ReplyCardProps> = ({ chat, handle }) => {
-  return (
-    <div className="relative flex flex-row overflow-hidden rounded-lg bg-gray-300 p-4">
-      <div className="bg-brand-500 absolute left-0 top-0 h-full w-1.5" />
-      <div className="flex flex-col">
-        <span className="text-brand-500 font-medium">{handle}</span>
-        <span className="text-sm">{chat.messageContent}</span>
-      </div>
-    </div>
-  );
 };
 
 const Message = ({ message, messageReactions, replyMessage }: Props) => {
