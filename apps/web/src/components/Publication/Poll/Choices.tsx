@@ -56,7 +56,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
       Leafwatch.track(PUBLICATION.WIDGET.POLL.VOTE, { poll_id: id });
       toast.success('Your poll has been casted!');
     } catch {
-      toast.error(Errors.SomethingWentWrong);
+      toast.error(Errors.PollExpired);
     } finally {
       setPollSubmitting(false);
     }
