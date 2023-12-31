@@ -46,7 +46,7 @@ const ChatListItemContainer = ({
   };
 }) => {
   const ITEM_LIMIT = 30;
-  const { address, threadhash } = profile;
+  const { address, threadhash } = useMemo(() => profile, [profile]);
 
   const pgpPvtKey = useMessageStore((state) => state.pgpPvtKey);
   const { data: signer } = useWalletClient();
@@ -93,7 +93,7 @@ const ChatListItemContainer = ({
       return history;
       // return transformMessages(history);
     },
-    queryKey: ['fetch-messages', profile.did]
+    queryKey: ['fetch-messages', profile.address]
   });
 
   const isMessagesLoading = isHistoryFetching && !isHistoryLoading;
@@ -156,7 +156,7 @@ const ChatListItemContainer = ({
           toDID: profile.did
         };
         queryClient.setQueryData(queryKey, (old: SavedQueryData) => {
-          old.pages?.[0].unshift(newMessage as any);
+          old?.pages?.[0].unshift(newMessage as any);
           return old;
         });
 
@@ -408,6 +408,7 @@ const ChatListItemContainer = ({
         onRemoveReplyMessage={onRemoveReplyMessage}
         onSend={(message) => {
           onSendMessage(message);
+          // scroll to the latest
           virtuosoRef.current?.scrollToIndex?.({
             align: 'end',
             index: messages.length + 1

@@ -1,3 +1,4 @@
+import SearchUser from '@components/Shared/SearchUser';
 import { PUSH_ENV } from '@hey/data/constants';
 import formatAddress from '@hey/lib/formatAddress';
 import {
@@ -8,7 +9,7 @@ import {
   Image
 } from '@hey/ui';
 import { getLatestMessagePreviewText } from '@lib/getLatestMessagePreviewText';
-import { chat } from '@pushprotocol/restapi';
+import { chat, user } from '@pushprotocol/restapi';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
@@ -19,6 +20,7 @@ import ChatListItemContainer from './ChatContainer';
 import { ChatShimmer } from './ChatShimmer';
 
 const ChatView = () => {
+  const [searchValue, setSearchValue] = useState('');
   const [selectedProfile, setSelectedProfile] = useState<any>();
 
   const pgpPvtKey = useMessageStore((state) => state.pgpPvtKey);
@@ -115,6 +117,25 @@ const ChatView = () => {
           <ChatShimmer />
         ) : (
           <>
+            <div className="p-2">
+              <SearchUser
+                onChange={(event) => setSearchValue(event.target.value)}
+                onProfileSelected={async (profile) => {
+                  const userProfile = await user.get({
+                    account: profile.ownedBy.address
+                  });
+
+                  setSelectedProfile({
+                    address: userProfile.wallets?.split(':').pop() ?? '',
+                    did: userProfile.wallets,
+                    handle: userProfile.name,
+                    isRequestProfile: false
+                  });
+                }}
+                placeholder="Search profiles..."
+                value={searchValue}
+              />
+            </div>
             {allChats.map((chat) => {
               const profile = {
                 address: chat.wallets?.split(':').pop() ?? '',
