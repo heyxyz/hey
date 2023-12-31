@@ -4,7 +4,7 @@ export enum Errors {
   Limit500 = 'Limit must be less than 500!',
   NoBody = 'No body provided!',
   NotAllowed = 'Not allowed!',
-  PollExpired = 'Poll expired!',
+  PollExpired = 'Sorry, this poll has already expired.',
   SignWallet = 'Please sign in your wallet.',
   SomethingWentWrong = 'Something went wrong!'
 }
