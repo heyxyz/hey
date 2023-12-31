@@ -24,6 +24,6 @@ sudo curl -sSL https://raw.githubusercontent.com/heyxyz/hey/main/script/deployct
 ```
 sudo chmod +x /usr/local/bin/deployctl
 ```
-- `deployctl api` to start the API containers
-- `deployctl web` to start the Web containers
-- `deployctl og` to start the OG containers
+- `deployctl api` to restart the API containers with latest image
+- `deployctl web` to restart the Web containers with latest image
+- `deployctl og` to restart the OG containers with latest image
