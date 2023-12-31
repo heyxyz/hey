@@ -40,5 +40,6 @@ RUN adduser --system --uid 1001 api
 USER api
 COPY --from=installer /app .
 
+EXPOSE 4784
 CMD pnpm --filter @hey/api run start
 #--

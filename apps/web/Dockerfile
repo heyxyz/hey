@@ -42,5 +42,6 @@ RUN adduser --system --uid 1001 web
 USER web
 COPY --from=installer /app .
 
+EXPOSE 4783
 CMD pnpm --filter @hey/web run start
 #--

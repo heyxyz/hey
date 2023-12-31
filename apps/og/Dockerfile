@@ -40,5 +40,6 @@ RUN adduser --system --uid 1001 og
 USER og
 COPY --from=installer /app .
 
+EXPOSE 4785
 CMD pnpm --filter @hey/og run start
 #--
