@@ -1,6 +1,5 @@
 import type { NextPage } from 'next';
 
-import MetaTags from '@components/Common/MetaTags';
 import SettingsHelper from '@components/Shared/SettingsHelper';
 import { CheckCircleIcon, PencilIcon } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data';
@@ -81,7 +80,6 @@ const Support: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Support • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsHelper
           description="Contact us to help you get the issue resolved."

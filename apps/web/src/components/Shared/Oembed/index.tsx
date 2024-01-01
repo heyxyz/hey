@@ -11,17 +11,11 @@ import Player from './Player';
 
 interface OembedProps {
   className?: string;
-  onData?: (data: OG) => void;
   publicationId?: string;
   url?: string;
 }
 
-const Oembed: FC<OembedProps> = ({
-  className = '',
-  onData,
-  publicationId,
-  url
-}) => {
+const Oembed: FC<OembedProps> = ({ className = '', publicationId, url }) => {
   const { data, error, isLoading } = useQuery({
     enabled: Boolean(url),
     queryFn: async () => {
@@ -37,8 +31,6 @@ const Oembed: FC<OembedProps> = ({
     return null;
   }
 
-  onData?.(data);
-
   const og: OG = {
     description: data?.description,
     favicon: getFavicon(data.url),
@@ -50,7 +42,7 @@ const Oembed: FC<OembedProps> = ({
     url: url as string
   };
 
-  if (!og.title) {
+  if (!og.title && !og.html) {
     return null;
   }
 

@@ -19,7 +19,7 @@ const useCreatePoll = () => {
       { headers: getAuthWorkerHeaders() }
     );
 
-    return response.data.id;
+    return response.data.poll.id;
   };
 
   return createPoll;

@@ -16,7 +16,7 @@ interface EmbedProps {
 
 const Embed: FC<EmbedProps> = ({ og, publicationId }) => {
   return (
-    <div className="mt-4 text-sm sm:w-4/6">
+    <div className="mt-4 w-full text-sm md:w-4/6">
       <Link
         href={og.url}
         onClick={(event) => {
@@ -44,7 +44,7 @@ const Embed: FC<EmbedProps> = ({ og, publicationId }) => {
             {!og.isLarge && og.image ? (
               <Image
                 alt="Thumbnail"
-                className="size-36 rounded-l-xl border-r dark:border-gray-700"
+                className="size-28 rounded-l-xl border-r md:size-36 dark:border-gray-700"
                 height={144}
                 onError={({ currentTarget }) => {
                   currentTarget.src = og.image as string;
@@ -64,7 +64,7 @@ const Embed: FC<EmbedProps> = ({ og, publicationId }) => {
                   </div>
                 ) : null}
                 {og.site ? (
-                  <div className="flex items-center space-x-2 pt-1.5">
+                  <div className="hidden items-center space-x-2 pt-1.5 md:flex">
                     {og.favicon ? (
                       <img
                         alt="Favicon"

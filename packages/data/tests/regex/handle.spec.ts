@@ -13,22 +13,23 @@ describe('handle regex', () => {
     expect(validate('handle123')).toBe(true);
     expect(validate('username')).toBe(true);
     expect(validate('abc123')).toBe(true);
-  });
-
-  test('should fail for underscore', () => {
-    expect(validate('john_doe_123')).toBe(false);
-  });
-
-  test('should fail for uppercase letters', () => {
-    expect(validate('Abc123')).toBe(false);
-    expect(validate('Handle')).toBe(false);
-    expect(validate('TestUser')).toBe(false);
+    expect(validate('john_doe_123')).toBe(true);
+    expect(validate('john-doe-123')).toBe(true);
+    expect(validate('Abc123')).toBe(true);
   });
 
   test('should fail for special characters', () => {
     expect(validate('handle@user')).toBe(false);
     expect(validate('user*name')).toBe(false);
     expect(validate('name#123')).toBe(false);
+  });
+
+  test('should fail for less than 5 characters', () => {
+    expect(validate('hand')).toBe(false);
+  });
+
+  test('should fail for more than 31 characters', () => {
+    expect(validate('handlehandlehandlehandlehandlehandle')).toBe(false);
   });
 
   test('should fail for empty string', () => {

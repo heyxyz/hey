@@ -1,4 +1,7 @@
-import type { MirrorablePublication } from '@hey/lens';
+import type {
+  MirrorablePublication,
+  SecondTierCondition as SecondTierConditionType
+} from '@hey/lens';
 import type { FC } from 'react';
 
 import SecondTierCondition from './SecondTierCondition';
@@ -15,7 +18,7 @@ const Criteria: FC<CriteriaProps> = ({ publication }) => {
     return null;
   }
 
-  const getCriteria = (): SecondTierCondition[] => {
+  const getCriteria = (): SecondTierConditionType[] => {
     let { criteria } = accessCondition;
 
     // Remove duplicates __typename
@@ -29,8 +32,11 @@ const Criteria: FC<CriteriaProps> = ({ publication }) => {
 
   return (
     <div className="space-y-3">
-      {getCriteria().map((criterion) => (
-        <SecondTierCondition condition={criterion} key={criterion.__typename} />
+      {getCriteria().map((criterion, index) => (
+        <SecondTierCondition
+          condition={criterion}
+          key={`${criterion.__typename}-${index}`}
+        />
       ))}
     </div>
   );

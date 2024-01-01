@@ -75,7 +75,7 @@ const Price: FC<PriceProps> = ({ nft }) => {
                   eth={createReferralReward}
                   title="Create Referral Reward"
                 />
-                <Fees eth={mintReferralReward} title="Mint Referral Reward" />
+                <Fees eth={mintReferralReward} title="Hey Fee" />
                 <Fees eth={zoraFee} title="Zora Fee" />
               </div>
             </HelpTooltip>

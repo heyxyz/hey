@@ -19,6 +19,7 @@ import {
   useSearchProfilesLazyQuery
 } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
+import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import { Image, Input, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -110,6 +111,9 @@ const SeeThroughLens: FC = () => {
             className="size-5 rounded-full border bg-gray-200 dark:border-gray-700"
             height={20}
             loading="lazy"
+            onError={({ currentTarget }) => {
+              currentTarget.src = getLennyURL(profile?.id);
+            }}
             src={getAvatar(profile)}
             width={20}
           />

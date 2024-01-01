@@ -64,7 +64,7 @@ const HeyMembershipNft: FC = () => {
       />
       <div className="p-5">
         <div className="mb-1 font-bold">
-          Hey Buddy! Grab your special Hey NFT Here.
+          Hey! Grab your special Hey NFT here.
         </div>
         <div className="text-brand-400 mb-4">
           New or OG, this NFT's for our epic times together. Let's keep the vibe

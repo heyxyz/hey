@@ -15,11 +15,9 @@
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "@types/node": "^20.10.5",
+    "@types/node": "^20.10.6",
     "typescript": "^5.3.3",
-    "vitest": "^1.0.4"
-  },
-  "dependencies": {
+    "vitest": "^1.1.1",
     "@pushprotocol/restapi": "^1.4.45"
   }
 }

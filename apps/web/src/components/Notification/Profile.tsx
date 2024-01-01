@@ -7,6 +7,7 @@ import {
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
 import getAvatar from '@hey/lib/getAvatar';
+import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
 import { Image } from '@hey/ui';
@@ -27,6 +28,9 @@ export const NotificationProfileAvatar: FC<NotificationProfileProps> = ({
           alt={profile.id}
           className="h-7 w-7 rounded-full border bg-gray-200 dark:border-gray-700 sm:h-8 sm:w-8"
           height={32}
+          onError={({ currentTarget }) => {
+            currentTarget.src = getLennyURL(profile.id);
+          }}
           src={getAvatar(profile)}
           width={32}
         />

@@ -2,12 +2,14 @@ const knownSites = [
   'youtube.com',
   'youtu.be',
   'tape.xyz',
+  'twitch.tv',
+  'kick.com',
   'open.spotify.com',
   'soundcloud.com',
   'oohlala.xyz'
 ];
 
-const pickUrlSites = ['open.spotify.com'];
+const pickUrlSites = ['open.spotify.com', 'kick.com'];
 
 const spotifyTrackUrlRegex =
   /^ht{2}ps?:\/{2}open\.spotify\.com\/track\/[\dA-Za-z]+(\?si=[\dA-Za-z]+)?$/;
@@ -21,12 +23,14 @@ const youtubeRegex =
   /^https?:\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w-]+)(?:\?.*)?$/;
 const tapeRegex =
   /^https?:\/\/tape\.xyz\/watch\/[\dA-Za-z-]+(\?si=[\dA-Za-z]+)?$/;
+const twitchRegex = /^https?:\/\/www\.twitch\.tv\/videos\/[\dA-Za-z-]+$/;
+const kickRegex = /^https?:\/\/kick\.com\/[\dA-Za-z-]+$/;
 
 const generateIframe = (
   embedUrl: null | string,
   url: string
 ): null | string => {
-  const universalSize = `width="560" height="315"`;
+  const universalSize = `width="100%" height="415"`;
   const parsedUrl = new URL(url);
   const hostname = parsedUrl.hostname.replace('www.', '');
   const pickedUrl = pickUrlSites.includes(hostname) ? url : embedUrl;
@@ -51,8 +55,27 @@ const generateIframe = (
 
       return null;
     }
+    case 'twitch.tv': {
+      const twitchEmbedUrl = pickedUrl.replace(
+        '&player=facebook&autoplay=true&parent=meta.tag',
+        '&player=hey&autoplay=false&parent=hey.xyz'
+      );
+      if (twitchRegex.test(url)) {
+        return `<iframe src="${twitchEmbedUrl}" ${universalSize} allowfullscreen></iframe>`;
+      }
+
+      return null;
+    }
+    case 'kick.com': {
+      const kickEmbedUrl = pickedUrl.replace('kick.com', 'player.kick.com');
+      if (kickRegex.test(url)) {
+        return `<iframe src="${kickEmbedUrl}" ${universalSize} allowfullscreen></iframe>`;
+      }
+
+      return null;
+    }
     case 'open.spotify.com': {
-      const spotifySize = `style="max-width: 560px;" width="100%"`;
+      const spotifySize = `style="max-width: 100%;" width="100%"`;
       if (spotifyTrackUrlRegex.test(url)) {
         const spotifyUrl = pickedUrl.replace('/track', '/embed/track');
         return `<iframe src="${spotifyUrl}" ${spotifySize} height="155" allow="encrypted-media"></iframe>`;

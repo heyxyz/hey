@@ -31,7 +31,7 @@ const ActivateLifetimePro: FC<ActivateLifetimeProProps> = ({
     setLoading(true);
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/pro/activatePro`,
+        `${HEY_API_URL}/internal/pro/activate`,
         { enabled: !isPro, id: profile.id, trial: false },
         { headers: getAuthWorkerHeaders() }
       ),

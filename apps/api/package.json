@@ -16,17 +16,18 @@
     "prisma:migrate": "prisma migrate dev --schema ./src/db/schema.prisma",
     "prisma:studio": "prisma studio --schema ./src/db/schema.prisma",
     "start": "NODE_ENV=production tsx src/server.ts",
+    "test:dev": "vitest run",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.478.0",
+    "@aws-sdk/client-sts": "^3.484.0",
     "@clickhouse/client": "^0.2.7",
     "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
     "@hey/lib": "workspace:*",
     "@irys/sdk": "^0.1.1",
     "@prisma/client": "^5.7.1",
-    "axios": "^1.6.2",
+    "axios": "^1.6.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.1",
@@ -43,7 +44,7 @@
     "ua-parser-js": "^1.0.37",
     "urlcat": "^3.1.0",
     "uuid": "^9.0.1",
-    "viem": "^1.20.3",
+    "viem": "^1.21.3",
     "vite-express": "^0.12.0",
     "zod": "^3.22.4"
   },
@@ -52,8 +53,8 @@
     "@hey/types": "workspace:*",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.15",
-    "@types/node": "^20.10.5",
-    "@types/react": "^18.2.45",
+    "@types/node": "^20.10.6",
+    "@types/react": "^18.2.46",
     "@types/request-ip": "^0.0.41",
     "@types/ua-parser-js": "^0.7.39",
     "@types/uuid": "^9.0.7",
@@ -61,6 +62,8 @@
     "prisma": "^5.7.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.2",
-    "vite": "^5.0.10"
+    "vite": "^5.0.10",
+    "vite-tsconfig-paths": "^4.2.3",
+    "vitest": "^1.1.1"
   }
 }

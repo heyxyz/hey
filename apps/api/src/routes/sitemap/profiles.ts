@@ -25,8 +25,7 @@ const buildSitemapXml = (url: Url[]): string => {
   });
 
   return builder.build({
-    '?xml': { '@_encoding': 'UTF-8', '@_version': '1.0' },
-    urlset: { '@_xmlns': 'http://www.sitemaps.org/schemas/sitemap/0.9', url }
+    urlset: { '@_xmlns': 'https://www.sitemaps.org/schemas/sitemap/0.9', url }
   });
 };
 

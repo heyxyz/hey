@@ -28,6 +28,7 @@ import { FollowModuleType } from '@hey/lens';
 import formatDate from '@hey/lib/datetime/formatDate';
 import getAvatar from '@hey/lib/getAvatar';
 import getFavicon from '@hey/lib/getFavicon';
+import getLennyURL from '@hey/lib/getLennyURL';
 import getMentions from '@hey/lib/getMentions';
 import getMisuseDetails from '@hey/lib/getMisuseDetails';
 import getProfile from '@hey/lib/getProfile';
@@ -87,6 +88,9 @@ const Details: FC<DetailsProps> = ({ profile }) => {
           className="size-32 cursor-pointer rounded-xl bg-gray-200 ring-8 ring-gray-50 sm:size-52 dark:bg-gray-700 dark:ring-black"
           height={128}
           onClick={() => setExpandedImage(getAvatar(profile, EXPANDED_AVATAR))}
+          onError={({ currentTarget }) => {
+            currentTarget.src = getLennyURL(profile.id);
+          }}
           src={getAvatar(profile)}
           width={128}
         />

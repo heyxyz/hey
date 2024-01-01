@@ -20,8 +20,6 @@ export const PUBLICACT_PROXY = getEnvConfig().publicActProxyAddress;
 export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 
 export const IS_MAINNET = LENS_API_URL === LensEndpoint.Mainnet;
-export const REWARDS_ADDRESS = '0xf618330f51fa54ce5951d627ee150c0fdadeba43';
-export const REFERRER_ID = IS_MAINNET ? '0x0c' : '0x06';
 export const ADDRESS_PLACEHOLDER = '0x03Ba3...7EF';
 
 //Push
@@ -39,6 +37,11 @@ export const GIT_COMMIT_SHA =
 
 // Misc
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
+export const REWARDS_ADDRESS = '0xf618330f51fa54ce5951d627ee150c0fdadeba43';
+export const TEST_WALLET_ADDRESS = '0xb9C6e304545386E95d5c4ab183EE97A13555A49d';
+export const TEST_PK =
+  '0x8b33302ca865bc1ed65bc02b71dd02067bd3dae3da2f8bb0d95b16509e9ac71e';
+export const TEST_LENS_ID = '0x0383';
 export const HANDLE_PREFIX = IS_MAINNET ? 'lens/' : 'test/';
 
 // URLs

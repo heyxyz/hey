@@ -2,6 +2,7 @@ import type { FC } from 'react';
 
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import getAvatar from '@hey/lib/getAvatar';
+import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import { Card, Image } from '@hey/ui';
 import { useRouter } from 'next/router';
@@ -52,6 +53,9 @@ const NewPost: FC = () => {
           alt={currentProfile?.id}
           className="size-9 cursor-pointer rounded-full border bg-gray-200 dark:border-gray-700"
           onClick={() => push(getProfile(currentProfile).link)}
+          onError={({ currentTarget }) => {
+            currentTarget.src = getLennyURL(currentProfile?.id);
+          }}
           src={getAvatar(currentProfile)}
         />
         <button
