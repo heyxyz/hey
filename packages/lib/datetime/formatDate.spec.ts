@@ -4,16 +4,16 @@ import formatDate from './formatDate';
 
 describe('formatDate', () => {
   test('should correctly format a given date in default format', () => {
-    const exampleDate = new Date('2023-12-01');
+    const exampleDate = new Date('2024-12-01');
     const result = formatDate(exampleDate);
-    const expectedResult = 'December 1, 2023';
+    const expectedResult = 'December 1, 2024';
     expect(result).toBe(expectedResult);
   });
 
   test('should correctly format a given date in a custom format', () => {
-    const exampleDate = new Date('2023-12-01');
+    const exampleDate = new Date('2024-12-01');
     const result = formatDate(exampleDate, 'YYYY-MM-DD');
-    const expectedResult = '2023-12-01';
+    const expectedResult = '2024-12-01';
     expect(result).toBe(expectedResult);
   });
 
