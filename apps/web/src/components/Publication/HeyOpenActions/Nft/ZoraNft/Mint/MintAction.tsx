@@ -3,7 +3,7 @@ import type { ZoraNft } from '@hey/types/nft';
 import type { FC } from 'react';
 import type { Address } from 'viem';
 
-import LoginButton from '@components/Shared/Navbar/LoginButton';
+import WalletSelector from '@components/Shared/Login/WalletSelector';
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import {
   CurrencyDollarIcon,
@@ -141,11 +141,8 @@ const MintAction: FC<MintActionProps> = ({
   return !mintingOrSuccess ? (
     <div className="flex">
       {isDisconnected ? (
-        <div className="mt-5 w-full">
-          <LoginButton
-            className="w-full justify-center"
-            title="Login to Continue"
-          />
+        <div className="mt-5 w-full justify-center">
+          <WalletSelector />
         </div>
       ) : chain !== nft.chainId ? (
         <SwitchNetwork

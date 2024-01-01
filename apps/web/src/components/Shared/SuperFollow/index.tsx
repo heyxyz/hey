@@ -8,7 +8,7 @@ import { Button, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
-import useLogin from 'src/hooks/useLogin';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import Loader from '../Loader';
@@ -31,7 +31,9 @@ const SuperFollow: FC<SuperFollowProps> = ({
 }) => {
   const [showFollowModal, setShowFollowModal] = useState(false);
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const { setOpenLoginModal } = useLogin();
+  const setShowAuthModal = useGlobalModalStateStore(
+    (state) => state.setShowAuthModal
+  );
 
   return (
     <>
@@ -41,7 +43,7 @@ const SuperFollow: FC<SuperFollowProps> = ({
         icon={<StarIcon className="size-4" />}
         onClick={() => {
           if (!currentProfile) {
-            setOpenLoginModal(true);
+            setShowAuthModal(true);
             return;
           }
           setShowFollowModal(!showFollowModal);
