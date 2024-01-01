@@ -1,5 +1,6 @@
 import type { IGif } from '@hey/types/giphy';
 import type { NewAttachment } from '@hey/types/misc';
+import type { IMessageIPFSWithCID } from '@pushprotocol/restapi';
 import type { FC } from 'react';
 
 import FileUpload from '@components/Composer/Actions/Attachment';
@@ -65,7 +66,7 @@ const Composer: FC = () => {
     setSending(true);
 
     try {
-      const reference = replyToMessage?.cid ?? null;
+      const reference = (replyToMessage as IMessageIPFSWithCID)?.cid ?? null;
 
       if (attachments.length > 0) {
         for (const attachment of attachments) {
