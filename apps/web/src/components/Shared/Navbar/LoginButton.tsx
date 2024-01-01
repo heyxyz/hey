@@ -3,7 +3,9 @@ import type { FC } from 'react';
 import { AUTH } from '@hey/data/tracking';
 import { Button } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
+import { useModal } from 'connectkit';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import { useAccount } from 'wagmi';
 
 interface LoginButtonProps {
   isBig?: boolean;
@@ -17,6 +19,10 @@ const LoginButton: FC<LoginButtonProps> = ({
   const setShowAuthModal = useGlobalModalStateStore(
     (state) => state.setShowAuthModal
   );
+  const { isConnected } = useAccount();
+  const { setOpen } = useModal({
+    onConnect: () => setShowAuthModal(true)
+  });
 
   return (
     <Button
@@ -30,7 +36,11 @@ const LoginButton: FC<LoginButtonProps> = ({
         />
       }
       onClick={() => {
-        setShowAuthModal(true);
+        if (isConnected) {
+          setShowAuthModal(true);
+        } else {
+          setOpen(true);
+        }
         Leafwatch.track(AUTH.LOGIN);
       }}
       size={isBig ? 'lg' : 'md'}
