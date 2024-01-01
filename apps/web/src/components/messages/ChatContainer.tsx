@@ -349,7 +349,7 @@ const ChatListItemContainer = ({
               >
                 <div className="max-w-[75%]">
                   <div
-                    className={clsx('text-wrap my-2 rounded-2xl px-4 py-2', {
+                    className={clsx('my-2 text-wrap rounded-2xl px-4 py-2', {
                       'bg-gray-300': !isMessageFromProfile,
                       'opacity-80': message.isOptimistic,
                       'rounded-br-sm bg-[#EF4444] text-white':

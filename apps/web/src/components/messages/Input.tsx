@@ -141,7 +141,7 @@ const ChatMessageInput = ({
             value={message}
           />
           <Button
-            className="flex h-8 items-center justify-center rounded-full border-0 text-gray-400 hover:text-gray-500 shadow-none"
+            className="flex h-8 items-center justify-center rounded-full border-0 text-gray-400 shadow-none hover:text-gray-500"
             icon={
               <PaperAirplaneIcon
                 aria-hidden="true"
