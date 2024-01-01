@@ -59,8 +59,9 @@ const Messages = ({ selectedChat }: MessageBodyProps) => {
   const getMessageReactions = (chat: IMessageIPFS): MessageReactions[] => {
     return reactions
       .filter(
-        (reactionChat) =>
-          reactionChat.link === (chat as IMessageIPFSWithCID).cid
+        (reaction) =>
+          // @ts-expect-error
+          reaction.messageObj?.reference === (chat as IMessageIPFSWithCID).cid
       )
       .map((item) =>
         typeof item.messageObj === 'string'
@@ -74,10 +75,7 @@ const Messages = ({ selectedChat }: MessageBodyProps) => {
     return isReplyMessage ? transformReplyToMessage(chat) : chat;
   };
 
-  const getReplyMessage = (
-    chat: IMessageIPFS,
-    selectedChat: IMessageIPFS[]
-  ): IMessageIPFS | null => {
+  const getReplyMessage = (chat: IMessageIPFS): IMessageIPFS | null => {
     const isReplyMessage = chat.messageType === MessageType.REPLY;
     const replyMessage = selectedChat.find(
       (message) =>
@@ -96,7 +94,7 @@ const Messages = ({ selectedChat }: MessageBodyProps) => {
       {userChats.map((message) => {
         const messageReactions = getMessageReactions(message);
         const primaryMessage = getPrimaryMessage(message);
-        const replyMessage = getReplyMessage(message, selectedChat);
+        const replyMessage = getReplyMessage(message);
 
         return (
           <Message

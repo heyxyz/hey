@@ -1,4 +1,4 @@
-import type { IMessageIPFS } from '@pushprotocol/restapi';
+import type { IMessageIPFS, IMessageIPFSWithCID } from '@pushprotocol/restapi';
 
 import { ArrowUturnLeftIcon, FaceSmileIcon } from '@heroicons/react/24/outline';
 import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
@@ -51,6 +51,7 @@ const Message = ({ message, messageReactions, replyMessage }: Props) => {
   const setRecipientChat = usePushChatStore((state) => state.setRecipientChat);
   const recipientProfile = usePushChatStore((state) => state.recipientProfile);
   const reactionRef = useRef<HTMLDivElement | null>(null);
+  const { decryptConversation } = usePushHooks();
   const { useSendMessage } = usePushHooks();
   const { setReplyToMessage } = usePushChatStore();
   const { mutateAsync: sendMessage } = useSendMessage();
@@ -149,17 +150,11 @@ const Message = ({ message, messageReactions, replyMessage }: Props) => {
                     content: value,
                     type: MessageType.TEXT
                   },
-                  reference: message.link!,
+                  reference: (message as IMessageIPFSWithCID).cid!,
                   type: MessageType.REACTION
                 });
-
-                setRecipientChat({
-                  ...sentMessage,
-                  messageObj: {
-                    content: value,
-                    reference: message.link!
-                  }
-                });
+                const decryptedMessage = await decryptConversation(sentMessage);
+                setRecipientChat(decryptedMessage);
                 setShowReactions(false);
                 setShowChatActions(true);
               }}
