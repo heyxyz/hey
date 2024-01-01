@@ -18,7 +18,7 @@ import {
 } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 
-const { chains, publicClient } = configureChains(
+const { chains } = configureChains(
   [
     polygon,
     polygonMumbai,
@@ -39,9 +39,7 @@ const config = createConfig(
     alchemyId: ALCHEMY_API_KEY,
     appIcon: '/logo.png',
     appName: 'Hey',
-    autoConnect: true,
     chains,
-    publicClient,
     walletConnectProjectId: WALLETCONNECT_PROJECT_ID
   })
 );
