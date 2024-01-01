@@ -12,7 +12,7 @@ import {
   UserPlusIcon
 } from '@heroicons/react/24/outline';
 import { XCircleIcon } from '@heroicons/react/24/solid';
-import { IS_MAINNET } from '@hey/data/constants';
+import { APP_NAME, IS_MAINNET } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { AUTH } from '@hey/data/tracking';
 import {
@@ -32,7 +32,7 @@ import { useAccount, useChainId, useDisconnect, useSignMessage } from 'wagmi';
 import UserProfile from '../UserProfile';
 
 interface WalletSelectorProps {
-  setShowSignup?: Dispatch<SetStateAction<boolean>>;
+  setShowSignup: Dispatch<SetStateAction<boolean>>;
 }
 
 const WalletSelector: FC<WalletSelectorProps> = ({ setShowSignup }) => {
@@ -111,9 +111,10 @@ const WalletSelector: FC<WalletSelectorProps> = ({ setShowSignup }) => {
   return (
     <div className="space-y-3">
       <div className="mb-5 space-y-1">
-        <div className="text-xl font-bold">Login to Lens Profile</div>
+        <div className="text-xl font-bold">Please sign the message.</div>
         <div className="ld-text-gray-500 text-sm">
-          Login with one of your available Lens profiles.
+          {APP_NAME} uses this signature to verify that you're the owner of this
+          address.
         </div>
       </div>
       <div className="space-y-2.5">
