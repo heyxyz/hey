@@ -1,7 +1,7 @@
 import type { FC, ReactNode } from 'react';
 
-import { WALLETCONNECT_PROJECT_ID } from '@hey/data/constants';
-import heyFont from '@lib/heyFont';
+import { ALCHEMY_API_KEY, WALLETCONNECT_PROJECT_ID } from '@hey/data/constants';
+import connectkitTheme from '@lib/connectkitTheme';
 import { ConnectKitProvider, getDefaultConfig } from 'connectkit';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import {
@@ -36,7 +36,8 @@ const { chains } = configureChains(
 
 const config = createConfig(
   getDefaultConfig({
-    alchemyId: process.env.ALCHEMY_ID,
+    alchemyId: ALCHEMY_API_KEY,
+    appIcon: '/logo.png',
     appName: 'Hey',
     chains,
     walletConnectProjectId: WALLETCONNECT_PROJECT_ID
@@ -51,9 +52,7 @@ const Web3Provider: FC<Web3ProviderProps> = ({ children }) => {
   return (
     <WagmiConfig config={config}>
       <ConnectKitProvider
-        customTheme={{
-          '--ck-font-family': heyFont.style.fontFamily
-        }}
+        customTheme={connectkitTheme}
         debugMode
         options={{
           hideNoWalletCTA: true,
