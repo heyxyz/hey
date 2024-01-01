@@ -4,6 +4,7 @@ import type {
   ProfileManagersRequest
 } from '@hey/lens';
 import type { Dispatch, FC, SetStateAction } from 'react';
+import type { Connector } from 'wagmi';
 
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import {
@@ -12,7 +13,7 @@ import {
   UserPlusIcon
 } from '@heroicons/react/24/outline';
 import { XCircleIcon } from '@heroicons/react/24/solid';
-import { APP_NAME, IS_MAINNET } from '@hey/data/constants';
+import { IS_MAINNET } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { AUTH } from '@hey/data/tracking';
 import {
@@ -20,22 +21,34 @@ import {
   useChallengeLazyQuery,
   useProfilesManagedQuery
 } from '@hey/lens';
+import getWalletDetails from '@hey/lib/getWalletDetails';
 import { Button, Card, Spinner } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { signIn } from 'src/store/persisted/useAuthStore';
-import { useAccount, useChainId, useDisconnect, useSignMessage } from 'wagmi';
+import {
+  useAccount,
+  useChainId,
+  useConnect,
+  useDisconnect,
+  useSignMessage
+} from 'wagmi';
 
 import UserProfile from '../UserProfile';
 
 interface WalletSelectorProps {
-  setShowSignup: Dispatch<SetStateAction<boolean>>;
+  setHasConnected?: Dispatch<SetStateAction<boolean>>;
+  setShowSignup?: Dispatch<SetStateAction<boolean>>;
 }
 
-const WalletSelector: FC<WalletSelectorProps> = ({ setShowSignup }) => {
+const WalletSelector: FC<WalletSelectorProps> = ({
+  setHasConnected,
+  setShowSignup
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [loggingInProfileId, setLoggingInProfileId] = useState<null | string>(
     null
@@ -46,9 +59,17 @@ const WalletSelector: FC<WalletSelectorProps> = ({ setShowSignup }) => {
     errorToast(error);
   };
 
-  const { disconnect } = useDisconnect();
   const chain = useChainId();
-  const { address } = useAccount();
+  const {
+    connectAsync,
+    connectors,
+    error,
+    isLoading: isConnectLoading,
+    pendingConnector
+  } = useConnect({ chainId: CHAIN_ID });
+
+  const { disconnect } = useDisconnect();
+  const { address, connector: activeConnector } = useAccount();
   const { signMessageAsync } = useSignMessage({ onError });
   const [loadChallenge, { error: errorChallenge }] = useChallengeLazyQuery({
     fetchPolicy: 'no-cache'
@@ -66,6 +87,18 @@ const WalletSelector: FC<WalletSelectorProps> = ({ setShowSignup }) => {
         profilesManagedRequest: request
       }
     });
+
+  const onConnect = async (connector: Connector) => {
+    try {
+      const account = await connectAsync({ connector });
+      if (account) {
+        setHasConnected?.(true);
+      }
+      Leafwatch.track(AUTH.CONNECT_WALLET, {
+        wallet: connector.name.toLowerCase()
+      });
+    } catch {}
+  };
 
   const handleSign = async (id?: string) => {
     try {
@@ -108,15 +141,8 @@ const WalletSelector: FC<WalletSelectorProps> = ({ setShowSignup }) => {
     ? [lastLogin, ...remainingProfiles]
     : remainingProfiles;
 
-  return (
+  return activeConnector?.id ? (
     <div className="space-y-3">
-      <div className="mb-5 space-y-1">
-        <div className="text-xl font-bold">Please sign the message.</div>
-        <div className="ld-text-gray-500 text-sm">
-          {APP_NAME} uses this signature to verify that you're the owner of this
-          address.
-        </div>
-      </div>
       <div className="space-y-2.5">
         {chain === CHAIN_ID ? (
           profilesManagedLoading ? (
@@ -191,18 +217,63 @@ const WalletSelector: FC<WalletSelectorProps> = ({ setShowSignup }) => {
           className="flex items-center space-x-1 text-sm underline"
           onClick={() => {
             disconnect?.();
-            Leafwatch.track(AUTH.LOGOUT_WALLET);
+            Leafwatch.track(AUTH.CHANGE_WALLET);
           }}
           type="reset"
         >
           <KeyIcon className="size-4" />
-          <div>Logout from wallet</div>
+          <div>Change wallet</div>
         </button>
       </div>
       {errorChallenge || errorAuthenticate ? (
         <div className="flex items-center space-x-1 font-bold text-red-500">
           <XCircleIcon className="size-5" />
           <div>{Errors.SomethingWentWrong}</div>
+        </div>
+      ) : null}
+    </div>
+  ) : (
+    <div className="inline-block w-full space-y-3 overflow-hidden text-left align-middle">
+      {connectors.map((connector) => {
+        return (
+          <button
+            className={cn(
+              {
+                'hover:bg-gray-100 dark:hover:bg-gray-700':
+                  connector.id !== activeConnector?.id
+              },
+              'flex w-full items-center justify-between space-x-2.5 overflow-hidden rounded-xl border px-4 py-3 outline-none dark:border-gray-700'
+            )}
+            disabled={connector.id === activeConnector?.id}
+            key={connector.id}
+            onClick={() => onConnect(connector)}
+            type="button"
+          >
+            <span>
+              {connector.id === 'injected'
+                ? 'Browser Wallet'
+                : getWalletDetails(connector.name).name}
+            </span>
+            <div className="flex items-center space-x-4">
+              {isConnectLoading && pendingConnector?.id === connector.id ? (
+                <Spinner className="mr-0.5" size="xs" />
+              ) : null}
+              <img
+                alt={connector.id}
+                className="size-6"
+                draggable={false}
+                height={24}
+                src={getWalletDetails(connector.name).logo}
+                width={24}
+              />
+            </div>
+          </button>
+        );
+      })}
+      {error?.message ? (
+        <div className="flex items-center space-x-1 text-red-500">
+          <XCircleIcon className="size-5" />
+          <div>{error?.message || 'Failed to connect'}</div>
         </div>
       ) : null}
     </div>

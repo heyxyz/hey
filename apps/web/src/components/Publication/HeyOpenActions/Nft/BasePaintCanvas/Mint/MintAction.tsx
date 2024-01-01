@@ -2,7 +2,7 @@ import type { AnyPublication } from '@hey/lens';
 import type { BasePaintCanvas } from '@hey/types/nft';
 import type { FC } from 'react';
 
-import LoginButton from '@components/Shared/Navbar/LoginButton';
+import WalletSelector from '@components/Shared/Login/WalletSelector';
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import {
   CurrencyDollarIcon,
@@ -98,10 +98,7 @@ const MintAction: FC<MintActionProps> = ({
     <div className="flex">
       {isDisconnected ? (
         <div className="mt-5 w-full justify-center">
-          <LoginButton
-            className="w-full justify-center"
-            title="Login to Continue"
-          />
+          <WalletSelector />
         </div>
       ) : chain !== base.id ? (
         <SwitchNetwork
