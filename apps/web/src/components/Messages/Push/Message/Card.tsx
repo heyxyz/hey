@@ -14,6 +14,7 @@ import { ChatAction } from '../Actions/ChatAction';
 import { DisplayReactions, Reactions } from '../Actions/Reactions';
 import { getProfileIdFromDID } from '../helper';
 import Attachment from './Attachment';
+import ReplyMessage from './ReplyCard';
 import TimeStamp from './TimeStamp';
 import { MessageWrapper } from './Wrapper';
 
@@ -84,6 +85,16 @@ const Message = ({ message, messageReactions, replyMessage }: Props) => {
           isAttachment={message.messageType !== 'Text'}
           messageOrigin={messageOrigin}
         >
+          {replyMessage ? (
+            <ReplyMessage
+              chat={replyMessage}
+              handle={
+                messageOrigin === MessageOrigin.Receiver
+                  ? currentProfile?.handle?.localName!
+                  : recipientProfile?.handle?.localName!
+              }
+            />
+          ) : null}
           {message.messageType === 'Text' ? (
             <MessageCard
               chat={message}

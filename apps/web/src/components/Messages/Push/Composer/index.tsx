@@ -22,6 +22,7 @@ const Composer: FC = () => {
   const [message, setMessage] = useState<string>('');
   const [sending, setSending] = useState<boolean>(false);
   const { useSendMessage } = usePushHooks();
+  const { decryptConversation } = usePushHooks();
   const { mutateAsync: sendMessage } = useSendMessage();
 
   const attachments = usePublicationStore((state) => state.attachments);
@@ -32,6 +33,9 @@ const Composer: FC = () => {
   const isUploading = usePublicationStore((state) => state.isUploading);
   const replyToMessage = usePushChatStore((state) => state.replyToMessage);
   const setRecipientChat = usePushChatStore((state) => state.setRecipientChat);
+  const setReplyToMessage = usePushChatStore(
+    (state) => state.setReplyToMessage
+  );
 
   const canSendMessage = attachments.length > 0 || message.length > 0;
 
@@ -61,7 +65,7 @@ const Composer: FC = () => {
     setSending(true);
 
     try {
-      const reference = replyToMessage?.link ?? null;
+      const reference = replyToMessage?.cid ?? null;
 
       if (attachments.length > 0) {
         for (const attachment of attachments) {
@@ -76,15 +80,10 @@ const Composer: FC = () => {
               type: MessageType.REPLY
             })
           });
+          const decryptedMessage = await decryptConversation(sentMessage);
+          setReplyToMessage(null);
           removeAttachments([attachment!.id!]);
-          setRecipientChat({
-            ...sentMessage,
-            messageObj: {
-              // @ts-expect-error
-              content: sanitizedUrl,
-              type: MessageType.MEDIA_EMBED
-            }
-          });
+          setRecipientChat(decryptedMessage);
         }
         return;
       }
@@ -100,14 +99,9 @@ const Composer: FC = () => {
           type: MessageType.REPLY
         })
       });
-      setRecipientChat({
-        ...sentMessage,
-        messageObj: {
-          // @ts-expect-error
-          content: message,
-          type: messageType
-        }
-      });
+      const decryptedMessage = await decryptConversation(sentMessage);
+      setReplyToMessage(null);
+      setRecipientChat(decryptedMessage);
     } catch (error) {
       toast.error((error as Error).message);
     } finally {

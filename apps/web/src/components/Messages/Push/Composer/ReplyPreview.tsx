@@ -6,8 +6,12 @@ import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 import Attachment from '../Message/Attachment';
 
 const ReplyPreview = () => {
-  const { replyToMessage, setReplyToMessage } = usePushChatStore();
-  const { recipientProfile } = usePushChatStore();
+  const replyToMessage = usePushChatStore((state) => state.replyToMessage);
+  const setReplyToMessage = usePushChatStore(
+    (state) => state.setReplyToMessage
+  );
+  const recipientProfile = usePushChatStore((state) => state.recipientProfile);
+
   return replyToMessage ? (
     <div className="flex items-center justify-between p-2">
       <Card className="relative flex w-full flex-row items-center justify-between overflow-hidden p-2">

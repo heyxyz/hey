@@ -40,7 +40,6 @@ import Link from 'next/link';
 import router from 'next/router';
 import { useState } from 'react';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import { useLensProfilesStore } from 'src/store/persisted/useLensProfiles';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 import urlcat from 'urlcat';
@@ -66,7 +65,6 @@ const Details: FC<DetailsProps> = ({ profile }) => {
     useState(false);
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
   const { resolvedTheme } = useTheme();
-  const { setLensProfiles } = useLensProfilesStore();
   const { setRecipientProfile } = usePushChatStore();
 
   const MetaDetails = ({
@@ -84,7 +82,6 @@ const Details: FC<DetailsProps> = ({ profile }) => {
 
   const onMessageClick = () => {
     const conversationKey = `${profile.ownedBy.address}/${profile.id}`;
-    setLensProfiles(new Map().set(profile.ownedBy.address, profile));
     setRecipientProfile(profile);
     router.push(`/messages/${conversationKey}`);
   };
