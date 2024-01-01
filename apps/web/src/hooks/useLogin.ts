@@ -1,3 +1,5 @@
+import { AUTH } from '@hey/data/tracking';
+import { Leafwatch } from '@lib/leafwatch';
 import { useModal } from 'connectkit';
 import { useCallback } from 'react';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
@@ -13,7 +15,12 @@ const useLogin = (): UseLoginProps => {
   );
   const { isConnected } = useAccount();
   const { setOpen } = useModal({
-    onConnect: () => setShowAuthModal(true)
+    onConnect: ({ connectorId }) => {
+      setShowAuthModal(true);
+      Leafwatch.track(AUTH.CONNECT_WALLET, {
+        wallet: connectorId?.toLowerCase()
+      });
+    }
   });
 
   const setOpenLoginModal = useCallback(
