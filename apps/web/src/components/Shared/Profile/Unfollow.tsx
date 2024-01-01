@@ -20,7 +20,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import useLogin from 'src/hooks/useLogin';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -39,10 +39,12 @@ const Unfollow: FC<UnfollowProps> = ({ profile, showText = false }) => {
   const setLensHubOnchainSigNonce = useNonceStore(
     (state) => state.setLensHubOnchainSigNonce
   );
+  const setShowAuthModal = useGlobalModalStateStore(
+    (state) => state.setShowAuthModal
+  );
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
-  const { setOpenLoginModal } = useLogin();
 
   const { canBroadcast, canUseLensManager } =
     checkDispatcherPermissions(currentProfile);
@@ -130,7 +132,7 @@ const Unfollow: FC<UnfollowProps> = ({ profile, showText = false }) => {
 
   const createUnfollow = async () => {
     if (!currentProfile) {
-      setOpenLoginModal(true);
+      setShowAuthModal(true);
       return;
     }
 
