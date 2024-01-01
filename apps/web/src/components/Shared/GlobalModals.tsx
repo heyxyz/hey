@@ -10,7 +10,6 @@ import {
 import { Modal } from '@hey/ui';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
-import { useAccount } from 'wagmi';
 
 import Login from './Login';
 import WrongNetwork from './Login/WrongNetwork';
@@ -71,8 +70,6 @@ const GlobalModals: FC = () => {
   const setShowDiscardModal = useGlobalModalStateStore(
     (state) => state.setShowDiscardModal
   );
-
-  const { connector: activeConnector } = useAccount();
 
   // Publication store
   const publicationContent = usePublicationStore(
@@ -138,16 +135,14 @@ const GlobalModals: FC = () => {
       >
         <SwitchProfiles />
       </Modal>
-      {activeConnector?.id && (
-        <Modal
-          icon={<ArrowRightCircleIcon className="text-brand-500 size-5" />}
-          onClose={() => setShowAuthModal(false)}
-          show={showAuthModal}
-          title="Login"
-        >
-          <Login />
-        </Modal>
-      )}
+      <Modal
+        icon={<ArrowRightCircleIcon className="text-brand-500 size-5" />}
+        onClose={() => setShowAuthModal(false)}
+        show={showAuthModal}
+        title="Login"
+      >
+        <Login />
+      </Modal>
       <Modal
         onClose={() => setShowWrongNetworkModal(false)}
         show={showWrongNetworkModal}

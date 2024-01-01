@@ -10,7 +10,7 @@ html {
 
 body {
   @apply bg-gray-50;
-  @apply !pr-0 dark:bg-black;
+  @apply dark:bg-black;
 }
 
 .shimmer {
