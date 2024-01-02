@@ -8,7 +8,7 @@ import {
   PauseIcon,
   PlayIcon
 } from '@heroicons/react/24/solid';
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
+import { REWARDS_ADDRESS, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import humanize from '@hey/lib/humanize';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
@@ -17,6 +17,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import { type FC, useRef, useState } from 'react';
 import useSoundRelease from 'src/hooks/sound/useSoundRelease';
+import urlcat from 'urlcat';
 
 import NftShimmer from './Shimmer';
 
@@ -163,7 +164,14 @@ const SoundRelease: FC<SoundReleaseProps> = ({ nftMetadata, publication }) => {
           </Tooltip>
           <div className="text-sm font-bold">{title}</div>
         </div>
-        <Link href={mintLink} rel="noopener noreferrer" target="_blank">
+        <Link
+          href={urlcat(mintLink, {
+            referral: REWARDS_ADDRESS,
+            referral_source: 'link'
+          })}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
           <Button
             className="text-sm"
             icon={<CursorArrowRaysIcon className="size-4" />}
