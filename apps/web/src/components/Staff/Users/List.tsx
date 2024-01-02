@@ -2,7 +2,7 @@ import type { ExploreProfilesRequest, Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
-import SearchUser from '@components/Shared/SearchUser';
+import SearchProfiles from '@components/Shared/SearchProfiles';
 import UserProfile from '@components/Shared/UserProfile';
 import { ArrowPathIcon, UsersIcon } from '@heroicons/react/24/outline';
 import {
@@ -52,7 +52,7 @@ const List: FC = () => {
   return (
     <Card>
       <div className="flex items-center justify-between space-x-5 p-5">
-        <SearchUser
+        <SearchProfiles
           onChange={(event) => setValue(event.target.value)}
           onProfileSelected={(profile) => push(getProfile(profile).staffLink)}
           placeholder="Search profiles..."
