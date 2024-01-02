@@ -20,8 +20,8 @@ import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useContractWrite } from 'wagmi';
 
-import CountdownTimer from './CountdownTimer';
-import IndexStatus from './IndexStatus';
+import CountdownTimer from '../CountdownTimer';
+import IndexStatus from '../IndexStatus';
 
 const ProtectProfile: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
