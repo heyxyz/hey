@@ -4,7 +4,7 @@ datasource db {
 }
 
 generator client {
-  provider      = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 model Verified {
@@ -35,6 +35,17 @@ model Preference {
   createdAt                    DateTime @default(now())
 }
 
+model ProfileRestriction {
+  id          String   @id
+  isFlagged   Boolean  @default(false)
+  isSuspended Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Indexes
+  @@index([isFlagged, isSuspended])
+}
+
 model MembershipNft {
   id                String   @id
   dismissedOrMinted Boolean  @default(false)
@@ -42,7 +53,7 @@ model MembershipNft {
 }
 
 model Group {
-  id          String   @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   slug        String   @unique
   name        String
   description String

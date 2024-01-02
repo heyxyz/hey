@@ -92,4 +92,5 @@ export type Preferences = {
     isPride: boolean;
   } | null;
   pro: { enabled: boolean };
+  restrictions: { isFlagged: boolean; isSuspended: boolean };
 };

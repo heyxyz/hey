@@ -19,7 +19,7 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const [preference, pro, features, membershipNft] =
+    const [preference, pro, features, membershipNft, restriction] =
       await prisma.$transaction([
         prisma.preference.findUnique({ where: { id: id as string } }),
         prisma.pro.findFirst({ where: { profileId: id as string } }),
@@ -31,7 +31,8 @@ export const get: Handler = async (req, res) => {
             profileId: id as string
           }
         }),
-        prisma.membershipNft.findUnique({ where: { id: id as string } })
+        prisma.membershipNft.findUnique({ where: { id: id as string } }),
+        prisma.profileRestriction.findUnique({ where: { id: id as string } })
       ]);
 
     const response = {
@@ -40,7 +41,11 @@ export const get: Handler = async (req, res) => {
         dismissedOrMinted: Boolean(membershipNft?.dismissedOrMinted)
       },
       preference,
-      pro: { enabled: Boolean(pro) }
+      pro: { enabled: Boolean(pro) },
+      restrictions: {
+        isFlagged: Boolean(restriction?.isFlagged),
+        isSuspended: Boolean(restriction?.isSuspended)
+      }
     };
 
     logger.info('Profile preferences fetched');

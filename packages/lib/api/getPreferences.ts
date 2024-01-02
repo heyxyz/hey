@@ -25,7 +25,8 @@ const getPreferences = async (
       features: [],
       membershipNft: { dismissedOrMinted: false },
       preference: null,
-      pro: { enabled: false }
+      pro: { enabled: false },
+      restrictions: { isFlagged: false, isSuspended: false }
     };
   }
 };

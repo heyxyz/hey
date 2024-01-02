@@ -9,6 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useMembershipNftStore } from 'src/store/non-persisted/useMembershipNftStore';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useProStore } from 'src/store/non-persisted/useProStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useVerifiedMembersStore } from 'src/store/persisted/useVerifiedMembersStore';
@@ -20,6 +21,7 @@ const PreferencesProvider: FC = () => {
     (state) => state.setVerifiedMembers
   );
   const setPreferences = usePreferencesStore((state) => state.setPreferences);
+  const setRestriction = useProfileRestriction((state) => state.setRestriction);
   const setIsPro = useProStore((state) => state.setIsPro);
   const setFeatureFlags = useFeatureFlagsStore(
     (state) => state.setFeatureFlags
@@ -50,6 +52,12 @@ const PreferencesProvider: FC = () => {
 
         // Pro
         setIsPro(preferences.pro.enabled);
+
+        // Restriction
+        setRestriction({
+          isFlagged: preferences.restrictions?.isFlagged,
+          isSuspended: preferences.restrictions?.isSuspended
+        });
 
         // Feature flags
         setFeatureFlags(preferences.features);
