@@ -43,7 +43,7 @@
     "chart.js": "^4.4.1",
     "dotenv": "^16.3.1",
     "esbuild": "^0.19.11",
-    "framer-motion": "^10.16.16",
+    "framer-motion": "^10.17.0",
     "graphql": "^16.8.1",
     "idb-keyval": "^6.2.1",
     "lexical": "^0.12.5",

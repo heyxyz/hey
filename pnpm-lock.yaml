@@ -66,8 +66,8 @@ importers:
         specifier: ^4.3.2
         version: 4.3.2
       linkedom:
-        specifier: ^0.16.5
-        version: 0.16.5
+        specifier: ^0.16.6
+        version: 0.16.6
       node-zendesk:
         specifier: ^5.0.7
         version: 5.0.7
@@ -278,8 +278,8 @@ importers:
         specifier: ^0.19.11
         version: 0.19.11
       framer-motion:
-        specifier: ^10.16.16
-        version: 10.16.16(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^10.17.0
+        version: 10.17.0(react-dom@18.2.0)(react@18.2.0)
       graphql:
         specifier: ^16.8.1
         version: 16.8.1
@@ -2779,7 +2779,7 @@ packages:
     dependencies:
       '@ardatan/sync-fetch': 0.0.1
       '@graphql-tools/utils': 10.0.12(graphql@16.8.1)
-      '@whatwg-node/fetch': 0.9.14
+      '@whatwg-node/fetch': 0.9.15
       graphql: 16.8.1
       tslib: 2.6.2
     transitivePeerDependencies:
@@ -2856,7 +2856,7 @@ packages:
     dependencies:
       '@graphql-tools/utils': 10.0.12(graphql@16.8.1)
       '@repeaterjs/repeater': 3.0.5
-      '@whatwg-node/fetch': 0.9.14
+      '@whatwg-node/fetch': 0.9.15
       extract-files: 11.0.0
       graphql: 16.8.1
       meros: 1.3.0(@types/node@20.10.6)
@@ -2924,7 +2924,7 @@ packages:
       '@graphql-tools/executor-http': 1.0.5(@types/node@20.10.6)(graphql@16.8.1)
       '@graphql-tools/graphql-tag-pluck': 8.1.0(graphql@16.8.1)
       '@graphql-tools/utils': 10.0.12(graphql@16.8.1)
-      '@whatwg-node/fetch': 0.9.14
+      '@whatwg-node/fetch': 0.9.15
       graphql: 16.8.1
       tslib: 2.6.2
       value-or-promise: 1.0.12
@@ -3044,7 +3044,7 @@ packages:
       '@graphql-tools/utils': 10.0.12(graphql@16.8.1)
       '@types/js-yaml': 4.0.9
       '@types/json-stable-stringify': 1.0.36
-      '@whatwg-node/fetch': 0.9.14
+      '@whatwg-node/fetch': 0.9.15
       chalk: 4.1.2
       debug: 4.3.4(supports-color@5.5.0)
       dotenv: 16.3.1
@@ -3123,7 +3123,7 @@ packages:
       '@graphql-tools/utils': 10.0.12(graphql@16.8.1)
       '@graphql-tools/wrap': 10.0.1(graphql@16.8.1)
       '@types/ws': 8.5.10
-      '@whatwg-node/fetch': 0.9.14
+      '@whatwg-node/fetch': 0.9.15
       graphql: 16.8.1
       isomorphic-ws: 5.0.0(ws@8.16.0)
       tslib: 2.6.2
@@ -6917,8 +6917,8 @@ packages:
       web-streams-polyfill: 3.2.1
     dev: true
 
-  /@whatwg-node/fetch@0.9.14:
-    resolution: {integrity: sha512-wurZC82zzZwXRDSW0OS9l141DynaJQh7Yt0FD1xZ8niX7/Et/7RoiLiltbVU1fSF1RR9z6ndEaTUQBAmddTm1w==}
+  /@whatwg-node/fetch@0.9.15:
+    resolution: {integrity: sha512-2wIUcolUthZt0nsPRj+pT7K9h/EO3t/j09IBuq0FtITCsASc2fRCmRw2JHS6hk9fzUQrz2+YYrA1ZDpV7+vLsQ==}
     engines: {node: '>=16.0.0'}
     dependencies:
       '@whatwg-node/node-fetch': 0.5.3
@@ -9590,8 +9590,8 @@ packages:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
     dev: true
 
-  /framer-motion@10.16.16(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-je6j91rd7NmUX7L1XHouwJ4v3R+SO4umso2LUcgOct3rHZ0PajZ80ETYZTajzEXEl9DlKyzjyt4AvGQ+lrebOw==}
+  /framer-motion@10.17.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-92brXaYasyEwaPV7tnHnc6MKxdN84CxWE1aZ80q/mlS+wQo0rxp/pmjGt5hdAEK5RCKJsWToI+MyIcGoA91Msg==}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
@@ -10829,8 +10829,8 @@ packages:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
     dev: true
 
-  /linkedom@0.16.5:
-    resolution: {integrity: sha512-FtcuLuxDtlKWWilm5Z0HgmrfMwO0tOfC6tu47fRXj2/KGEeDSh4ihiDwFKZSbJj6zh520r8XZjZ7v2Jb30HAQA==}
+  /linkedom@0.16.6:
+    resolution: {integrity: sha512-vJ8oadtJe3DM4FNW15Fj5NLIJlJk+AOypoRxzq9prLx+gAKvHYcTfV98pzOoRkwx4ZvvYzqT1bcDKluHH72apg==}
     dependencies:
       css-select: 5.1.0
       cssom: 0.5.0
