@@ -21,6 +21,7 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface LikeProps {
@@ -31,6 +32,7 @@ interface LikeProps {
 const Like: FC<LikeProps> = ({ publication, showCount }) => {
   const { pathname } = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { isSuspended } = useProfileRestriction();
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
@@ -111,6 +113,10 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
   const createLike = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
+    }
+
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
     }
 
     // Variables

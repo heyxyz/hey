@@ -5,5 +5,6 @@ export enum Errors {
   NoBody = 'No body provided!',
   NotAllowed = 'Not allowed!',
   SignWallet = 'Please sign in your wallet.',
-  SomethingWentWrong = 'Something went wrong!'
+  SomethingWentWrong = 'Something went wrong!',
+  Suspended = 'Your profile has been suspended!'
 }
