@@ -56,6 +56,7 @@ const List: FC = () => {
           onChange={(event) => setValue(event.target.value)}
           onProfileSelected={(profile) => push(getProfile(profile).staffLink)}
           placeholder="Search profiles..."
+          skipGardeners
           value={value}
         />
         <Select
