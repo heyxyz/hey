@@ -138,7 +138,7 @@ const SoundRelease: FC<SoundReleaseProps> = ({ nftMetadata, publication }) => {
           <div className="flex items-end space-x-1">
             {peaks?.map((peak, index) => (
               <div
-                className="w-2 bg-gray-100/50"
+                className="w-2 rounded-t-lg bg-gray-100/50"
                 key={`peak-${index}`}
                 style={{
                   height: `${peak}px`
