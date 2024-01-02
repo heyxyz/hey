@@ -103,7 +103,9 @@ const SoundRelease: FC<SoundReleaseProps> = ({ nftMetadata, publication }) => {
               alt={`sound-release-cover-${coverImage.url}`}
               className="size-40 rounded-xl object-cover"
               draggable={false}
+              height={160}
               src={coverImage.url}
+              width={160}
             />
             <div className="flex w-full flex-col justify-between truncate px-3">
               <div className="mt-3 flex justify-between md:mt-7">
