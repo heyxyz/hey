@@ -19,7 +19,7 @@ export const get: Handler = async (req, res) => {
         body: JSON.stringify({
           operationName: 'GetNFC',
           query: `
-            query GetNFC($id: String!) {
+            query GetNFC($id: ID!) {
               getNFC(id: $id) {
                 id
                 createdAt 
