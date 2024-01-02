@@ -24,6 +24,7 @@ import MetaDetails from '../../../../Shared/Staff/MetaDetails';
 import Access from './Access';
 import FeatureFlags from './FeatureFlags';
 import LeafwatchDetails from './LeafwatchDetails';
+import ManagedProfiles from './ManagedProfiles';
 import OnchainIdentities from './OnchainIdentities';
 import Rank from './Rank';
 import Restrictions from './Restrictions';
@@ -167,6 +168,8 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           />
         </>
       ) : null}
+      <div className="divider my-5 border-dashed border-yellow-600" />
+      <ManagedProfiles profile={profile} />
     </div>
   );
 };
