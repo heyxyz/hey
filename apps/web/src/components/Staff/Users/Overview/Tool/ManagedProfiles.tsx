@@ -4,14 +4,12 @@ import SmallUserProfile from '@components/Shared/SmallUserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
 import { type Profile, useProfilesManagedQuery } from '@hey/lens';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 interface ManagedProfilesProps {
   profile: Profile;
 }
 
 const ManagedProfiles: FC<ManagedProfilesProps> = ({ profile }) => {
-  const { push } = useRouter();
   const { data, loading } = useProfilesManagedQuery({
     variables: {
       lastLoggedInProfileRequest: { for: profile.ownedBy.address },
