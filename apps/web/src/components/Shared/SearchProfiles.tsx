@@ -11,7 +11,7 @@ import { motion } from 'framer-motion';
 
 import SmallUserProfile from './SmallUserProfile';
 
-interface SearchUserProps {
+interface SearchProfilesProps {
   error?: boolean;
   hideDropdown?: boolean;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -20,8 +20,7 @@ interface SearchUserProps {
   value: string;
 }
 
-// TODO: Rename to SearchProfiles
-const SearchUser: FC<SearchUserProps> = ({
+const SearchProfiles: FC<SearchProfilesProps> = ({
   error = false,
   hideDropdown = false,
   onChange,
@@ -93,4 +92,4 @@ const SearchUser: FC<SearchUserProps> = ({
   );
 };
 
-export default SearchUser;
+export default SearchProfiles;
