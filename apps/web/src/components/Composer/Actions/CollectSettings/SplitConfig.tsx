@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import Beta from '@components/Shared/Badges/Beta';
-import SearchUser from '@components/Shared/SearchUser';
+import SearchProfiles from '@components/Shared/SearchProfiles';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import {
   ArrowsRightLeftIcon,
@@ -103,7 +103,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
                 className="flex items-center space-x-2 text-sm"
                 key={recipient.recipient}
               >
-                <SearchUser
+                <SearchProfiles
                   error={
                     recipient.recipient.length > 0 &&
                     !isAddress(recipient.recipient)
