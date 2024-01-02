@@ -5,9 +5,8 @@ import { HEY_API_URL } from '@hey/data/constants';
 import { Toggle } from '@hey/ui';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import axios from 'axios';
-import { type FC, useState } from 'react';
+import { type FC, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useUpdateEffect } from 'usehooks-ts';
 
 import ToggleWrapper from './ToggleWrapper';
 
@@ -21,7 +20,7 @@ const Restrictions: FC<RestrictionsProps> = ({ id, restrictions }) => {
   const [isFlagged, setIsFlagged] = useState(false);
   const [isSuspended, setIsSuspended] = useState(false);
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     if (restrictions) {
       setIsFlagged(restrictions.isFlagged);
       setIsSuspended(restrictions.isSuspended);
