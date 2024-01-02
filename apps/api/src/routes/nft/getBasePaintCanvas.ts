@@ -15,12 +15,13 @@ export const get: Handler = async (req, res) => {
   try {
     const basePaintResponse = await fetch('https://basepaint.art/graphql', {
       body: JSON.stringify({
+        operationName: 'Canvas',
         query: `
-          query Canvas {
+          query Canvas($id: Int!) {
             canvass(first: 1, orderDirection: "ASC") {
               id
             }
-            canvas(id: ${id}) {
+            canvas(id: $id) {
               id
               palette
               theme
@@ -35,7 +36,10 @@ export const get: Handler = async (req, res) => {
               }
             }
           }
-        `
+        `,
+        variables: {
+          id: parseInt(id as string)
+        }
       }),
       headers: {
         'Content-Type': 'application/json',

@@ -48,14 +48,16 @@ export const post: Handler = async (req, res) => {
     const response = await axios.post(
       'https://backboard.railway.app/graphql/v2',
       {
+        operationName: 'ServiceInstanceRedeploy',
         query: `
-          mutation {
+          mutation ServiceInstanceRedeploy($serviceId: String!, $environmentId: String!) {
             serviceInstanceRedeploy(
-              serviceId: "${serviceId}",
-              environmentId: "${environmentId}"
+              serviceId: $serviceId
+              environmentId: $environmentId
             )
           }
-        `
+        `,
+        variables: { environmentId, serviceId }
       },
       { headers: { Authorization: `Bearer ${process.env.RAILWAY_TOKEN}` } }
     );
