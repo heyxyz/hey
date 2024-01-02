@@ -17,9 +17,10 @@ export const get: Handler = async (req, res) => {
       'https://unlonely-vqeii.ondigitalocean.app/graphql',
       {
         body: JSON.stringify({
+          operationName: 'GetNFC',
           query: `
-            query GetNFC {
-              getNFC(id: "${id}") {
+            query GetNFC($id: String!) {
+              getNFC(id: $id) {
                 id
                 createdAt 
                 videoLink
@@ -33,7 +34,8 @@ export const get: Handler = async (req, res) => {
                 }
               }
             }
-          `
+          `,
+          variables: { id }
         }),
         headers: {
           'Content-Type': 'application/json',
