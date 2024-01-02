@@ -17,9 +17,10 @@ export const get: Handler = async (req, res) => {
       'https://unlonely-vqeii.ondigitalocean.app/graphql',
       {
         body: JSON.stringify({
+          operationName: 'GetChannelBySlug',
           query: `
-            query GetChannelBySlug {
-              getChannelBySlug(slug: "${slug}") {
+            query GetChannelBySlug($slug: String!) {
+              getChannelBySlug(slug: $slug) {
                 id
                 slug
                 name
@@ -28,7 +29,8 @@ export const get: Handler = async (req, res) => {
                 isLive
               }
             }
-          `
+          `,
+          variables: { slug }
         }),
         headers: {
           'Content-Type': 'application/json',
