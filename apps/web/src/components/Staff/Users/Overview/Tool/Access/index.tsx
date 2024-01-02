@@ -6,12 +6,12 @@ import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
 import ActivateLifetimePro from './ActivateLifetimePro';
 import Verify from './Verify';
 
-interface RankProps {
+interface AccessProps {
   isPro: boolean;
   profile: Profile;
 }
 
-const Access: FC<RankProps> = ({ isPro, profile }) => {
+const Access: FC<AccessProps> = ({ isPro, profile }) => {
   return (
     <>
       <div className="mt-5 flex items-center space-x-2 text-yellow-600">
