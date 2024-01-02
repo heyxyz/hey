@@ -44,7 +44,7 @@ export const post: Handler = async (req, res) => {
       update: { isFlagged, isSuspended, updatedAt: new Date() },
       where: { id: id }
     });
-    logger.info(`Disabled pro for ${id}`);
+    logger.info(`Updated restrictions for ${id}`);
 
     return res.status(200).json({ restrictions, success: true });
   } catch (error) {
