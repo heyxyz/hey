@@ -39,7 +39,7 @@ const SearchProfiles: FC<SearchProfilesProps> = ({
     const request: ProfileSearchRequest = {
       limit: LimitType.Ten,
       query: keyword,
-      ...(skipGardeners && {
+      ...(!skipGardeners && {
         where: { customFilters: [CustomFiltersType.Gardeners] }
       })
     };
