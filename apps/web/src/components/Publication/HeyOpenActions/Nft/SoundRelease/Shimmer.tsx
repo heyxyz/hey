@@ -5,7 +5,7 @@ import { Card } from '@hey/ui';
 const NftShimmer: FC = () => {
   return (
     <Card className="mt-3" forceRounded>
-      <div className="shimmer h-[230px] w-full rounded-t-xl" />
+      <div className="shimmer h-[240px] w-full rounded-t-xl" />
       <div className="flex items-center justify-between px-3 py-2">
         <div className="flex flex-wrap items-center gap-2">
           <div className="shimmer size-5 rounded-full" />
