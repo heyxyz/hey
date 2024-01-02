@@ -10,7 +10,6 @@ import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { Player } from '@livepeer/react';
-import 'plyr-react/plyr.css';
 import { memo } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
