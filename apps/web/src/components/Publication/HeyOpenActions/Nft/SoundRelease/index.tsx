@@ -154,7 +154,7 @@ const SoundRelease: FC<SoundReleaseProps> = ({ nftMetadata, publication }) => {
             <img
               alt="Sound"
               className="size-5 rounded-full"
-              src={`${STATIC_IMAGES_URL}/brands/unlonely.png`}
+              src={`${STATIC_IMAGES_URL}/brands/sound.png`}
             />
           </Tooltip>
           <div className="text-sm font-bold">{title}</div>
