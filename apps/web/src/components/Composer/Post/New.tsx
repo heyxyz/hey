@@ -7,13 +7,15 @@ import getProfile from '@hey/lib/getProfile';
 import { Card, Image } from '@hey/ui';
 import { useRouter } from 'next/router';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce } from 'usehooks-ts';
+import { useUpdateEffect } from 'usehooks-ts';
 
 const NewPost: FC = () => {
   const { isReady, push, query } = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { isSuspended } = useProfileRestriction();
   const setShowNewPostModal = useGlobalModalStateStore(
     (state) => state.setShowNewPostModal
   );
@@ -22,10 +24,14 @@ const NewPost: FC = () => {
   );
 
   const openModal = () => {
+    if (isSuspended) {
+      return;
+    }
+
     setShowNewPostModal(true);
   };
 
-  useEffectOnce(() => {
+  useUpdateEffect(() => {
     if (isReady && query.text) {
       const { hashtags, text, url, via } = query;
       let processedHashtags;
@@ -41,10 +47,14 @@ const NewPost: FC = () => {
         processedHashtags ? ` ${processedHashtags} ` : ''
       }${url ? `\n\n${url}` : ''}${via ? `\n\nvia @${via}` : ''}`;
 
-      setShowNewPostModal(true);
+      openModal();
       setPublicationContent(content);
     }
-  });
+  }, [isReady]);
+
+  if (isSuspended) {
+    return null;
+  }
 
   return (
     <Card className="space-y-3 p-5">
