@@ -60,6 +60,9 @@ export const PUBLICATION = {
       OPEN_MINT: 'Open BasePaint mint modal',
       OPEN_OPENSEA_LINK: 'Open BasePaint OpenSea link'
     },
+    SOUND_RELEASE: {
+      OPEN_LINK: 'Open Sound Release link'
+    },
     UNLONELY_CHANNEL: {
       OPEN_LINK: 'Open Unlonely Channel link'
     },
