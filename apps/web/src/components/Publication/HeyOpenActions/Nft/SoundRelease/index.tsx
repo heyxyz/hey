@@ -123,7 +123,9 @@ const SoundRelease: FC<SoundReleaseProps> = ({ nftMetadata, publication }) => {
                       <img
                         alt="Artist"
                         className="size-4 rounded-full"
+                        height={16}
                         src={artist.user.avatar.url}
+                        width={16}
                       />
                       <div>{artist.name}</div>
                       <span>•</span>
