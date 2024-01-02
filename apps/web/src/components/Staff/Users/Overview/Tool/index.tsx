@@ -26,6 +26,7 @@ import FeatureFlags from './FeatureFlags';
 import LeafwatchDetails from './LeafwatchDetails';
 import OnchainIdentities from './OnchainIdentities';
 import Rank from './Rank';
+import Restrictions from './Restrictions';
 
 interface ProfileStaffToolProps {
   profile: Profile;
@@ -152,9 +153,20 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           <div className="divider my-5 border-dashed border-yellow-600" />
         </>
       ) : null}
-      <Access isPro={preferences?.pro?.enabled || false} profile={profile} />
-      <div className="divider my-5 border-dashed border-yellow-600" />
-      <FeatureFlags features={preferences?.features || []} profile={profile} />
+      {preferences ? (
+        <>
+          <Access isPro={preferences.pro?.enabled || false} profile={profile} />
+          <Restrictions
+            id={profile.id}
+            restrictions={preferences.restrictions}
+          />
+          <div className="divider my-5 border-dashed border-yellow-600" />
+          <FeatureFlags
+            features={preferences.features || []}
+            profile={profile}
+          />
+        </>
+      ) : null}
     </div>
   );
 };
