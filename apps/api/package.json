@@ -33,7 +33,7 @@
     "express": "^4.17.1",
     "express-file-routing": "^3.0.3",
     "fast-xml-parser": "^4.3.2",
-    "linkedom": "^0.16.5",
+    "linkedom": "^0.16.6",
     "node-zendesk": "^5.0.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
