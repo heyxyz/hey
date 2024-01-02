@@ -17,6 +17,7 @@ interface RestrictionsProps {
 }
 
 const Restrictions: FC<RestrictionsProps> = ({ id, restrictions }) => {
+  const [disabled, setDisabled] = useState(false);
   const [isFlagged, setIsFlagged] = useState(false);
   const [isSuspended, setIsSuspended] = useState(false);
 
@@ -31,6 +32,7 @@ const Restrictions: FC<RestrictionsProps> = ({ id, restrictions }) => {
     isFlagged: boolean,
     isSuspended: boolean
   ) => {
+    setDisabled(true);
     toast.promise(
       axios.post(
         `${HEY_API_URL}/internal/restrictions/update`,
@@ -38,9 +40,13 @@ const Restrictions: FC<RestrictionsProps> = ({ id, restrictions }) => {
         { headers: getAuthWorkerHeaders() }
       ),
       {
-        error: 'Error updating restriction',
+        error: () => {
+          setDisabled(false);
+          return 'Error updating restriction';
+        },
         loading: 'Updating restriction...',
         success: () => {
+          setDisabled(false);
           setIsFlagged(isFlagged);
           setIsSuspended(isSuspended);
 
@@ -59,12 +65,14 @@ const Restrictions: FC<RestrictionsProps> = ({ id, restrictions }) => {
       <div className="mt-3 space-y-2 font-bold">
         <ToggleWrapper title="Is Flagged">
           <Toggle
+            disabled={disabled}
             on={isFlagged}
             setOn={() => updateRestriction(!isFlagged, isSuspended)}
           />
         </ToggleWrapper>
         <ToggleWrapper title="Is Suspended">
           <Toggle
+            disabled={disabled}
             on={isSuspended}
             setOn={() => updateRestriction(isFlagged, !isSuspended)}
           />
