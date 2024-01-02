@@ -82,10 +82,7 @@ const UnlonelyNfc: FC<UnlonelyNfcProps> = ({ nftMetadata, publication }) => {
               onClick={() =>
                 Leafwatch.track(
                   PUBLICATION.OPEN_ACTIONS.UNLONELY_NFC.OPEN_LINK,
-                  {
-                    from: 'mint_embed',
-                    publication_id: publication.id
-                  }
+                  { from: 'mint_embed', publication_id: publication.id }
                 )
               }
               size="md"

@@ -2,6 +2,7 @@ import type { AnyPublication } from '@hey/lens';
 import type {
   BasePaintCanvasMetadata,
   BasicNftMetadata,
+  SoundReleaseMetadata,
   UnlonelyChannelMetadata,
   UnlonelyNfcMetadata
 } from '@hey/types/nft';
@@ -10,6 +11,7 @@ import type { FC } from 'react';
 import getNft from '@hey/lib/nft/getNft';
 
 import BasePaintCanvas from './BasePaintCanvas';
+import SoundRelease from './SoundRelease';
 import UnlonelyChannel from './UnlonelyChannel';
 import UnlonelyNfc from './UnlonelyNfc';
 import ZoraNft from './ZoraNft';
@@ -46,6 +48,11 @@ const Nft: FC<NftProps> = ({ mintLink, publication }) => {
   ) : provider === 'unlonely-nfc' ? (
     <UnlonelyNfc
       nftMetadata={nftMetadata as UnlonelyNfcMetadata}
+      publication={publication}
+    />
+  ) : provider === 'sound-release' ? (
+    <SoundRelease
+      nftMetadata={nftMetadata as SoundReleaseMetadata}
       publication={publication}
     />
   ) : null;
