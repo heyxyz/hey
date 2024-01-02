@@ -3,6 +3,7 @@ import type { FC } from 'react';
 
 import { UserMinusIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
+import { Errors } from '@hey/data';
 import { LENSHUB_PROXY } from '@hey/data/constants';
 import { PROFILE } from '@hey/data/tracking';
 import {
@@ -22,6 +23,7 @@ import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
@@ -33,6 +35,7 @@ interface UnfollowProps {
 const Unfollow: FC<UnfollowProps> = ({ profile, showText = false }) => {
   const { pathname } = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { isSuspended } = useProfileRestriction();
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce
   );
@@ -134,6 +137,10 @@ const Unfollow: FC<UnfollowProps> = ({ profile, showText = false }) => {
     if (!currentProfile) {
       setShowAuthModal(true);
       return;
+    }
+
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
     }
 
     if (handleWrongNetwork()) {
