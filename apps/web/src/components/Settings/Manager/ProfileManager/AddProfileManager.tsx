@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import SearchUser from '@components/Shared/SearchUser';
+import SearchProfiles from '@components/Shared/SearchProfiles';
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { ADDRESS_PLACEHOLDER, LENSHUB_PROXY } from '@hey/data/constants';
@@ -148,7 +148,7 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
 
   return (
     <div className="space-y-4 p-5">
-      <SearchUser
+      <SearchProfiles
         error={manager.length > 0 && !isAddress(manager)}
         hideDropdown={isAddress(manager)}
         onChange={(event) => setManager(event.target.value)}
