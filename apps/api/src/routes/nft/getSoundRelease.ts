@@ -19,21 +19,14 @@ export const get: Handler = async (req, res) => {
         query: `
           query MintedRelease($releaseSlug: String!, $soundHandle: String!) {
             mintedRelease(releaseSlug: $releaseSlug, soundHandle: $soundHandle) {
-              id
               title
-              titleSlug
-              type
-              externalUrl
-              behindTheMusic
-              webappUri
               numSold
-              contractAddress
-              totalSupply
-              isFirstPhaseCompleted
+              coverImage {
+                url
+                dominantColor
+              }
               track {
-                id
-                duration
-                title
+                normalizedPeaks
                 audio {
                   audio256k {
                     url
@@ -41,11 +34,9 @@ export const get: Handler = async (req, res) => {
                 }
               }
               artist {
-                id
-                soundHandle
+                name
                 user {
                   avatar {
-                    id
                     url
                   }
                 }
@@ -53,10 +44,7 @@ export const get: Handler = async (req, res) => {
             }
           }
         `,
-        variables: {
-          releaseSlug: slug,
-          soundHandle: handle
-        }
+        variables: { releaseSlug: slug, soundHandle: handle }
       }),
       headers: {
         'Content-Type': 'application/json',
