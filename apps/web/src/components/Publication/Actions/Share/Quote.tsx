@@ -3,10 +3,13 @@ import type { FC } from 'react';
 
 import { Menu } from '@headlessui/react';
 import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
+import { Errors } from '@hey/data';
 import { TriStateValue } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
+import toast from 'react-hot-toast';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 
 interface QuoteProps {
@@ -25,6 +28,7 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
   const setQuotedPublication = usePublicationStore(
     (state) => state.setQuotedPublication
   );
+  const { isSuspended } = useProfileRestriction();
 
   if (targetPublication.operations.canQuote === TriStateValue.No) {
     return null;
@@ -40,6 +44,10 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
         )
       }
       onClick={() => {
+        if (isSuspended) {
+          return toast.error(Errors.Suspended);
+        }
+
         setQuotedPublication(publication);
         setShowNewPostModal(true);
       }}
