@@ -20,6 +20,7 @@ import { useRouter } from 'next/router';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
@@ -31,6 +32,7 @@ import PublicationPageShimmer from './Shimmer';
 
 const ViewPublication: NextPage = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { isSuspended } = useProfileRestriction();
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
   const showNewPostModal = useGlobalModalStateStore(
     (state) => state.showNewPostModal
@@ -80,7 +82,10 @@ const ViewPublication: NextPage = () => {
         <Card>
           <FullPublication key={publication?.id} publication={publication} />
         </Card>
-        {currentProfile && !publication.isHidden && !showNewPostModal ? (
+        {currentProfile &&
+        !publication.isHidden &&
+        !showNewPostModal &&
+        !isSuspended ? (
           canComment ? (
             <NewPublication publication={publication} />
           ) : (
