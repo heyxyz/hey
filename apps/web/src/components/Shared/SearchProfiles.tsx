@@ -17,6 +17,7 @@ interface SearchProfilesProps {
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onProfileSelected: (profile: Profile) => void;
   placeholder?: string;
+  skipGardeners?: boolean;
   value: string;
 }
 
@@ -26,6 +27,7 @@ const SearchProfiles: FC<SearchProfilesProps> = ({
   onChange,
   onProfileSelected,
   placeholder = 'Search…',
+  skipGardeners = false,
   value
 }) => {
   const [searchUsers, { data, loading }] = useSearchProfilesLazyQuery();
@@ -37,7 +39,9 @@ const SearchProfiles: FC<SearchProfilesProps> = ({
     const request: ProfileSearchRequest = {
       limit: LimitType.Ten,
       query: keyword,
-      where: { customFilters: [CustomFiltersType.Gardeners] }
+      ...(skipGardeners && {
+        where: { customFilters: [CustomFiltersType.Gardeners] }
+      })
     };
 
     searchUsers({ variables: { request } });
