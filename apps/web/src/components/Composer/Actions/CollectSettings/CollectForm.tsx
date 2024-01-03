@@ -55,7 +55,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
     queryKey: ['getAllTokens']
   });
 
-  if (!isLoading) {
+  if (isLoading) {
     return (
       <div className="m-5 space-y-2 text-center font-bold">
         <Spinner className="mx-auto" size="md" />
