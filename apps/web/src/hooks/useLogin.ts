@@ -16,6 +16,7 @@ const useLogin = (): UseLoginProps => {
   const { isConnected } = useAccount();
   const { setOpen } = useModal({
     onConnect: ({ connectorId }) => {
+      console.log('useLogin');
       setShowAuthModal(true);
       Leafwatch.track(AUTH.CONNECT_WALLET, {
         wallet: connectorId?.toLowerCase()
