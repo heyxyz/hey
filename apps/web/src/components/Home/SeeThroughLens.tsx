@@ -128,7 +128,7 @@ const SeeThroughLens: FC = () => {
           className="absolute right-0 z-[5] mt-1 w-64 rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
           static
         >
-          <div className="px-3 pt-2 text-xs">👀 See the feed through...</div>
+          <div className="mx-3 mt-2 text-xs">👀 See the feed through...</div>
           <div className="p-2">
             <Input
               autoComplete="off"
