@@ -1,8 +1,7 @@
-import { AUTH } from '@hey/data/tracking';
-import { Leafwatch } from '@lib/leafwatch';
 import { useModal } from 'connectkit';
 import { useCallback } from 'react';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import { useUpdateEffect } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
 
 interface UseLoginProps {
@@ -14,15 +13,13 @@ const useLogin = (): UseLoginProps => {
     (state) => state.setShowAuthModal
   );
   const { isConnected } = useAccount();
-  const { setOpen } = useModal({
-    onConnect: ({ connectorId }) => {
-      console.log('useLogin');
+  const { open, setOpen } = useModal();
+
+  useUpdateEffect(() => {
+    if (open && !isConnected) {
       setShowAuthModal(true);
-      Leafwatch.track(AUTH.CONNECT_WALLET, {
-        wallet: connectorId?.toLowerCase()
-      });
     }
-  });
+  }, [isConnected, open]);
 
   const setOpenLoginModal = useCallback(
     (open: boolean) => {
