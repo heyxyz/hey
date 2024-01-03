@@ -155,7 +155,7 @@ div[data-lexical-editor='true'] {
 /* Markup styles */
 .markup > p,
 ul {
-  @apply !leading-6 sm:!leading-[26px];
+  @apply leading-6 sm:leading-[26px];
   @apply [&:not(:last-child)]:mb-4;
 }
 
