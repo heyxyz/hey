@@ -56,6 +56,7 @@ import uploadToArweave from '@lib/uploadToArweave';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string, union } from 'zod';
@@ -85,6 +86,7 @@ interface ProfileSettingsFormProps {
 
 const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { isSuspended } = useProfileRestriction();
   const [isLoading, setIsLoading] = useState(false);
 
   // Cover Picture
@@ -216,6 +218,10 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const editProfile = async (data: FormData) => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
+    }
+
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
     }
 
     if (handleWrongNetwork()) {
