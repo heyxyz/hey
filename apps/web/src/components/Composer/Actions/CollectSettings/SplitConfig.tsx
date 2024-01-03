@@ -99,10 +99,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
         <div className="space-y-3 pt-4">
           <div className="space-y-2">
             {recipients.map((recipient, index) => (
-              <div
-                className="flex items-center space-x-2 text-sm"
-                key={recipient.recipient}
-              >
+              <div className="flex items-center space-x-2 text-sm" key={index}>
                 <SearchProfiles
                   error={
                     recipient.recipient.length > 0 &&
