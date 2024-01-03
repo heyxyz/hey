@@ -81,8 +81,11 @@ const Audio: FC<AudioProps> = ({
     <div
       className="bg-brand-500 overflow-hidden rounded-xl border px-3.5 pt-3.5 md:p-0 dark:border-gray-700"
       onClick={stopEventPropagation}
+      style={{
+        backgroundImage: `url(${isNew ? newPreviewUri : poster})`
+      }}
     >
-      <div className="flex flex-wrap md:flex-nowrap md:space-x-2">
+      <div className="flex flex-wrap backdrop-blur-2xl backdrop-brightness-50 md:flex-nowrap md:space-x-2">
         <CoverImage
           cover={isNew ? (newPreviewUri as string) : poster}
           expandCover={expandCover}
