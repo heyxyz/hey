@@ -3,6 +3,7 @@ import type { FC } from 'react';
 
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
+import { Errors } from '@hey/data';
 import { PUBLICATION } from '@hey/data/tracking';
 import { useReportPublicationMutation } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
@@ -15,8 +16,11 @@ import {
   TextArea,
   useZodForm
 } from '@hey/ui';
+import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { object, string } from 'zod';
 
 import Reason from './Reason';
@@ -32,6 +36,7 @@ interface ReportProps {
 }
 
 const ReportPublication: FC<ReportProps> = ({ publication }) => {
+  const { isSuspended } = useProfileRestriction();
   const [type, setType] = useState('');
   const [subReason, setSubReason] = useState('');
 
@@ -50,21 +55,29 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
     }
   });
 
-  const reportPublication = (additionalComments: null | string) => {
-    createReport({
-      variables: {
-        request: {
-          additionalComments,
-          for: publication?.id,
-          reason: {
-            [type]: {
-              reason: type.replace('Reason', '').toUpperCase(),
-              subreason: subReason
+  const reportPublication = async (additionalComments: null | string) => {
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
+    }
+
+    try {
+      return await createReport({
+        variables: {
+          request: {
+            additionalComments,
+            for: publication?.id,
+            reason: {
+              [type]: {
+                reason: type.replace('Reason', '').toUpperCase(),
+                subreason: subReason
+              }
             }
           }
         }
-      }
-    });
+      });
+    } catch (error) {
+      errorToast(error);
+    }
   };
 
   return (
