@@ -1,9 +1,8 @@
 import type { FC, ReactNode } from 'react';
 
-import { APP_NAME, WALLETCONNECT_PROJECT_ID } from '@hey/data/constants';
-import { CoinbaseWalletConnector } from '@wagmi/connectors/coinbaseWallet';
-import { InjectedConnector } from '@wagmi/connectors/injected';
-import { WalletConnectConnector } from '@wagmi/connectors/walletConnect';
+import { ALCHEMY_API_KEY, WALLETCONNECT_PROJECT_ID } from '@hey/data/constants';
+import connectkitTheme from '@lib/connectkitTheme';
+import { ConnectKitProvider, getDefaultConfig } from 'connectkit';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import {
   base,
@@ -19,7 +18,7 @@ import {
 } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 
-const { chains, publicClient } = configureChains(
+const { chains } = configureChains(
   [
     polygon,
     polygonMumbai,
@@ -35,27 +34,39 @@ const { chains, publicClient } = configureChains(
   [publicProvider()]
 );
 
-const connectors: any = [
-  new InjectedConnector({ chains, options: { shimDisconnect: true } }),
-  new CoinbaseWalletConnector({ options: { appName: APP_NAME } }),
-  new WalletConnectConnector({
+const config = createConfig(
+  getDefaultConfig({
+    alchemyId: ALCHEMY_API_KEY,
+    appIcon: '/logo.png',
+    appName: 'Hey',
     chains,
-    options: { projectId: WALLETCONNECT_PROJECT_ID }
+    walletConnectProjectId: WALLETCONNECT_PROJECT_ID
   })
-];
-
-const wagmiConfig = createConfig({
-  autoConnect: true,
-  connectors,
-  publicClient
-});
+);
 
 interface Web3ProviderProps {
   children: ReactNode;
 }
 
 const Web3Provider: FC<Web3ProviderProps> = ({ children }) => {
-  return <WagmiConfig config={wagmiConfig}>{children}</WagmiConfig>;
+  return (
+    <WagmiConfig config={config}>
+      <ConnectKitProvider
+        customTheme={connectkitTheme}
+        debugMode
+        options={{
+          hideNoWalletCTA: true,
+          hideQuestionMarkCTA: true,
+          hideTooltips: true,
+          initialChainId: polygon.id,
+          reducedMotion: true
+        }}
+        theme="minimal"
+      >
+        {children}
+      </ConnectKitProvider>
+    </WagmiConfig>
+  );
 };
 
 export default Web3Provider;

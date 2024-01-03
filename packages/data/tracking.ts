@@ -2,10 +2,10 @@
 
 export const PAGEVIEW = 'Pageview';
 export const AUTH = {
-  CHANGE_WALLET: 'Change wallet',
   CONNECT_WALLET: 'Connect wallet',
   LOGIN: 'User login',
   LOGOUT: 'User logout',
+  LOGOUT_WALLET: 'Logout wallet',
   SIWL: 'Sign in with Lens',
   SWITCH_TO_SIGNUP: 'Switch to signup'
 };

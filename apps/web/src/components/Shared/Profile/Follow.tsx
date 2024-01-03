@@ -21,7 +21,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import useLogin from 'src/hooks/useLogin';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
@@ -42,12 +42,10 @@ const Follow: FC<FollowProps> = ({ profile, showText = false }) => {
   const setLensHubOnchainSigNonce = useNonceStore(
     (state) => state.setLensHubOnchainSigNonce
   );
-  const setShowAuthModal = useGlobalModalStateStore(
-    (state) => state.setShowAuthModal
-  );
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
+  const { setOpenLoginModal } = useLogin();
 
   const { canBroadcast, canUseLensManager } =
     checkDispatcherPermissions(currentProfile);
@@ -146,7 +144,7 @@ const Follow: FC<FollowProps> = ({ profile, showText = false }) => {
 
   const createFollow = async () => {
     if (!currentProfile) {
-      setShowAuthModal(true);
+      setOpenLoginModal(true);
       return;
     }
 
