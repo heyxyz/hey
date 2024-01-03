@@ -80,7 +80,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
             <Beta />
           </div>
         }
-        icon={<UsersIcon className="size-4" />}
+        icon={<UsersIcon className="size-5" />}
         on={recipients.length > 0}
         setOn={() => {
           setCollectType({
@@ -99,10 +99,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
         <div className="space-y-3 pt-4">
           <div className="space-y-2">
             {recipients.map((recipient, index) => (
-              <div
-                className="flex items-center space-x-2 text-sm"
-                key={recipient.recipient}
-              >
+              <div className="flex items-center space-x-2 text-sm" key={index}>
                 <SearchProfiles
                   error={
                     recipient.recipient.length > 0 &&
