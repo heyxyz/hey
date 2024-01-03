@@ -6,6 +6,7 @@ import Loader from '@components/Shared/Loader';
 import WalletProfile from '@components/Shared/WalletProfile';
 import { MinusCircleIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
+import { Errors } from '@hey/data';
 import { LENSHUB_PROXY } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
 import {
@@ -25,11 +26,13 @@ import { useInView } from 'react-cool-inview';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 const List: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { isSuspended } = useProfileRestriction();
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce
   );
@@ -117,6 +120,10 @@ const List: FC = () => {
     });
 
   const removeManager = async (address: Address) => {
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
+    }
+
     if (handleWrongNetwork()) {
       return;
     }

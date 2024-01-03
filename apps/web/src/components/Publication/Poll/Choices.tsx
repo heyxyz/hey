@@ -20,6 +20,7 @@ import axios from 'axios';
 import plur from 'plur';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface ChoicesProps {
@@ -29,6 +30,7 @@ interface ChoicesProps {
 
 const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { isSuspended } = useProfileRestriction();
   const [pollSubmitting, setPollSubmitting] = useState(false);
   const [selectedOption, setSelectedOption] = useState<null | string>(null);
 
@@ -40,6 +42,10 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
   const votePoll = async (id: string) => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
+    }
+
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
     }
 
     try {

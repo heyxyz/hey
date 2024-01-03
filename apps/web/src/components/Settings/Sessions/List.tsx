@@ -3,6 +3,7 @@ import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
 import { ComputerDesktopIcon, GlobeAltIcon } from '@heroicons/react/24/outline';
+import { Errors } from '@hey/data';
 import { SETTINGS } from '@hey/data/tracking';
 import {
   LimitType,
@@ -16,11 +17,12 @@ import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import toast from 'react-hot-toast';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 const List: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
-
+  const { isSuspended } = useProfileRestriction();
   const [revoking, setRevoking] = useState(false);
   const [revokeingSessionId, setRevokeingSessionId] = useState<null | string>(
     null
@@ -48,6 +50,10 @@ const List: FC = () => {
   });
 
   const revoke = async (authorizationId: string) => {
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
+    }
+
     try {
       setRevoking(true);
       setRevokeingSessionId(authorizationId);
