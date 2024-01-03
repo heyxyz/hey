@@ -49,12 +49,11 @@ const Web3Provider: FC<Web3ProviderProps> = ({ children }) => {
         customTheme={connectkitTheme}
         options={{
           hideNoWalletCTA: true,
-          hideQuestionMarkCTA: true,
           hideTooltips: true,
           initialChainId: polygon.id,
           reducedMotion: true
         }}
-        theme="minimal"
+        theme="soft"
       >
         {children}
       </ConnectKitProvider>
