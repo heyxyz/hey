@@ -13,6 +13,7 @@ import LoginButton from '@components/Shared/Navbar/LoginButton';
 import NoBalanceError from '@components/Shared/NoBalanceError';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { LensHub, PublicAct } from '@hey/abis';
+import { Errors } from '@hey/data';
 import { LENSHUB_PROXY, PUBLICACT_PROXY } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import {
@@ -36,6 +37,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { isAddress } from 'viem';
 import {
@@ -59,6 +61,7 @@ const CollectAction: FC<CollectActionProps> = ({
   setCountOpenActions
 }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { isSuspended } = useProfileRestriction();
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce
   );
@@ -308,6 +311,10 @@ const CollectAction: FC<CollectActionProps> = ({
   };
 
   const createCollect = async () => {
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
+    }
+
     if (handleWrongNetwork()) {
       return;
     }
