@@ -28,7 +28,7 @@ const MoreNavItems: FC = () => {
           </Menu.Button>
           <MenuTransition>
             <Menu.Items
-              className="absolute mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+              className="absolute mt-2 rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
               static
             >
               {currentProfile ? (
