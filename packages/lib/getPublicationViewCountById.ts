@@ -1,7 +1,4 @@
-import type { AnyPublication } from '@hey/lens';
 import type { PublicationViewCount } from '@hey/types/hey';
-
-import { isMirrorPublication } from './publicationHelpers';
 
 /**
  * Get the number of views of a publication
@@ -11,12 +8,8 @@ import { isMirrorPublication } from './publicationHelpers';
  */
 const getPublicationViewCountById = (
   views: PublicationViewCount[],
-  publication: AnyPublication
+  id: string
 ) => {
-  const id = isMirrorPublication(publication)
-    ? publication.mirrorOn.id
-    : publication.id;
-
   return views.find((v) => v.id === id)?.views || 0;
 };
 
