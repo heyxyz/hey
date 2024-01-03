@@ -68,7 +68,7 @@ const Editor: FC = () => {
       <ToolbarPlugin />
       <RichTextPlugin
         contentEditable={
-          <ContentEditable className="my-4 block min-h-[65px] overflow-auto px-5" />
+          <ContentEditable className="my-4 block min-h-[65px] overflow-auto px-5 leading-6 sm:leading-[26px]" />
         }
         ErrorBoundary={() => <div>{Errors.SomethingWentWrong}</div>}
         placeholder={
