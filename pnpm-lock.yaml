@@ -273,7 +273,7 @@ importers:
         version: 4.4.1
       connectkit:
         specifier: ^1.5.3
-        version: 1.5.3(@babel/core@7.23.7)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(viem@1.21.3)(wagmi@1.4.12)
+        version: 1.5.3(@babel/core@7.23.7)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(viem@1.21.4)(wagmi@1.4.12)
       dotenv:
         specifier: ^16.3.1
         version: 16.3.1
@@ -8122,7 +8122,7 @@ packages:
   /concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
-  /connectkit@1.5.3(@babel/core@7.23.7)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(viem@1.21.3)(wagmi@1.4.12):
+  /connectkit@1.5.3(@babel/core@7.23.7)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(viem@1.21.4)(wagmi@1.4.12):
     resolution: {integrity: sha512-vXneVOa+oit5Migoxca2QkgVBHaROItzb2kW13o7aUrcEcecYIGZjsizsVM2YvIdKihyWs+zJFrlED4g8zAMew==}
     engines: {node: '>=12.4'}
     peerDependencies:
@@ -8141,8 +8141,8 @@ packages:
       react-use-measure: 2.1.1(react-dom@18.2.0)(react@18.2.0)
       resize-observer-polyfill: 1.5.1
       styled-components: 5.3.11(@babel/core@7.23.7)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)
-      viem: 1.21.3(typescript@5.3.3)(zod@3.22.4)
-      wagmi: 1.4.12(@types/react@18.2.46)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(viem@1.21.3)(zod@3.22.4)
+      viem: 1.21.4(typescript@5.3.3)(zod@3.22.4)
+      wagmi: 1.4.12(@types/react@18.2.46)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(viem@1.21.4)(zod@3.22.4)
     transitivePeerDependencies:
       - '@babel/core'
       - react-is
