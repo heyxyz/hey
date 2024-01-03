@@ -53,7 +53,7 @@ const PollEditor: FC = () => {
                 type="number"
                 value={pollConfig.length}
               />
-              <div className="flex space-x-2 pt-5">
+              <div className="mt-5 flex space-x-2">
                 <Button
                   className="ml-auto"
                   onClick={() => {
