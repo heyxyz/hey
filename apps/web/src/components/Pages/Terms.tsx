@@ -314,7 +314,7 @@ const Terms: NextPage = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center pb-6 pt-2">
+        <div className="mb-6 mt-2 flex justify-center">
           <Footer />
         </div>
       </div>
