@@ -20,11 +20,11 @@ const AmountConfig: FC<AmountConfigProps> = ({
   const collectModule = useCollectModuleStore((state) => state.collectModule);
 
   return (
-    <div className="pt-3">
+    <div>
       <ToggleWithHelper
         description="Get paid whenever someone collects your post"
         heading="Charge for collecting"
-        icon={<CurrencyDollarIcon className="size-4" />}
+        icon={<CurrencyDollarIcon className="size-5" />}
         on={Boolean(collectModule.amount?.value)}
         setOn={() => {
           setCollectType({
@@ -58,7 +58,7 @@ const AmountConfig: FC<AmountConfigProps> = ({
               type="number"
               value={parseFloat(collectModule.amount.value)}
             />
-            <div>
+            <div className="w-5/6">
               <div className="label">Select currency</div>
               <Select
                 onChange={(e) => {

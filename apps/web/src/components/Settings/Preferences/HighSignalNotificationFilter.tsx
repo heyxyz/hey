@@ -61,7 +61,7 @@ const HighSignalNotificationFilter: FC = () => {
       description="Turn on high-signal notification filter"
       disabled={updating}
       heading="Notification Signal filter"
-      icon={<SwatchIcon className="size-4" />}
+      icon={<SwatchIcon className="size-5" />}
       on={preferences.highSignalNotificationFilter}
       setOn={toggleHighSignalNotificationFilter}
     />
