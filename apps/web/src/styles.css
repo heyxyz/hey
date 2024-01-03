@@ -155,8 +155,8 @@ div[data-lexical-editor='true'] {
 /* Markup styles */
 .markup > p,
 ul {
-  @apply !leading-6 sm:!leading-7;
-  @apply [&:not(:last-child)]:mb-5;
+  @apply !leading-6 sm:!leading-[26px];
+  @apply [&:not(:last-child)]:mb-4;
 }
 
 .lp-player {
