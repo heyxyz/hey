@@ -33,6 +33,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useBalance, useContractWrite, useSignTypedData } from 'wagmi';
 
@@ -59,6 +60,7 @@ const FollowModule: FC<FollowModuleProps> = ({
     (state) => state.setLensHubOnchainSigNonce
   );
   const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { isSuspended } = useProfileRestriction();
   const [isLoading, setIsLoading] = useState(false);
   const [allowed, setAllowed] = useState(true);
 
@@ -197,6 +199,10 @@ const FollowModule: FC<FollowModuleProps> = ({
   const createFollow = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
+    }
+
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
     }
 
     if (handleWrongNetwork()) {

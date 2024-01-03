@@ -10,6 +10,7 @@ import {
   PlusCircleIcon
 } from '@heroicons/react/24/outline';
 import { TokenHandleRegistry } from '@hey/abis';
+import { Errors } from '@hey/data';
 import { TOKEN_HANDLE_REGISTRY } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
 import {
@@ -27,11 +28,13 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 const LinkHandle: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { isSuspended } = useProfileRestriction();
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce
   );
@@ -130,6 +133,10 @@ const LinkHandle: FC = () => {
   const link = async (handle: string) => {
     if (!currentProfile) {
       return;
+    }
+
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
     }
 
     if (handleWrongNetwork()) {

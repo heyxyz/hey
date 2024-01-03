@@ -4,6 +4,7 @@ import type { FC } from 'react';
 import IndexStatus from '@components/Shared/IndexStatus';
 import { MinusCircleIcon } from '@heroicons/react/24/outline';
 import { TokenHandleRegistry } from '@hey/abis';
+import { Errors } from '@hey/data';
 import { TOKEN_HANDLE_REGISTRY } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
 import {
@@ -20,11 +21,13 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 const UnlinkHandle: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { isSuspended } = useProfileRestriction();
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce
   );
@@ -121,6 +124,10 @@ const UnlinkHandle: FC = () => {
   const unlink = async () => {
     if (!currentProfile) {
       return;
+    }
+
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
     }
 
     if (handleWrongNetwork()) {
