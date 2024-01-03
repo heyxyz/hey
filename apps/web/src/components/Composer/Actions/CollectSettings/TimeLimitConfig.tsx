@@ -20,7 +20,7 @@ const TimeLimitConfig: FC<TimeLimitConfigProps> = ({ setCollectType }) => {
       <ToggleWithHelper
         description="Limit collecting to specific period of time"
         heading="Time limit"
-        icon={<ClockIcon className="size-4" />}
+        icon={<ClockIcon className="size-5" />}
         on={Boolean(collectModule.endsAt)}
         setOn={() =>
           setCollectType({
