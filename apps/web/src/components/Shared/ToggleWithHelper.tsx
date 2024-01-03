@@ -20,15 +20,15 @@ const ToggleWithHelper: FC<ToggleWithHelperProps> = ({
   setOn
 }) => {
   return (
-    <div className="space-y-2">
-      <div className="flex items-center space-x-2">
+    <div className="flex items-center justify-between">
+      <div className="flex items-center space-x-3 space-y-1">
         {icon ? <span className="text-brand-500">{icon}</span> : null}
-        {heading ? <span>{heading}</span> : null}
+        <div>
+          {heading ? <b>{heading}</b> : null}
+          <div className="ld-text-gray-500 text-sm">{description}</div>
+        </div>
       </div>
-      <div className="flex items-center space-x-2">
-        <Toggle disabled={disabled} on={on} setOn={setOn} />
-        <div className="ld-text-gray-500 text-sm font-bold">{description}</div>
-      </div>
+      <Toggle disabled={disabled} on={on} setOn={setOn} />
     </div>
   );
 };

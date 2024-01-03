@@ -83,30 +83,40 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   };
 
   return (
-    <div className="space-y-3 p-5">
-      <ToggleWithHelper
-        description="This post can be collected"
-        on={collectModule.type !== null}
-        setOn={toggleCollect}
-      />
+    <>
+      <div className="p-5">
+        <ToggleWithHelper
+          description="This post can be collected"
+          heading="Collect settings"
+          on={collectModule.type !== null}
+          setOn={toggleCollect}
+        />
+      </div>
+      <div className="divider" />
       {collectModule.type !== null ? (
-        <div className="ml-5">
-          <AmountConfig allowedTokens={data} setCollectType={setCollectType} />
-          {collectModule.amount?.value ? (
-            <>
-              <ReferralConfig setCollectType={setCollectType} />
-              <SplitConfig
-                isRecipientsDuplicated={isRecipientsDuplicated}
-                setCollectType={setCollectType}
-              />
-            </>
-          ) : null}
-          <CollectLimitConfig setCollectType={setCollectType} />
-          <TimeLimitConfig setCollectType={setCollectType} />
-          <FollowersConfig setCollectType={setCollectType} />
-        </div>
+        <>
+          <div className="p-5">
+            <AmountConfig
+              allowedTokens={data}
+              setCollectType={setCollectType}
+            />
+            {collectModule.amount?.value ? (
+              <>
+                <ReferralConfig setCollectType={setCollectType} />
+                <SplitConfig
+                  isRecipientsDuplicated={isRecipientsDuplicated}
+                  setCollectType={setCollectType}
+                />
+              </>
+            ) : null}
+            <CollectLimitConfig setCollectType={setCollectType} />
+            <TimeLimitConfig setCollectType={setCollectType} />
+            <FollowersConfig setCollectType={setCollectType} />
+          </div>
+          <div className="divider" />
+        </>
       ) : null}
-      <div className="flex space-x-2 pt-5">
+      <div className="flex space-x-2 p-5">
         <Button
           className="ml-auto"
           onClick={() => {
@@ -131,7 +141,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
           Save
         </Button>
       </div>
-    </div>
+    </>
   );
 };
 
