@@ -43,7 +43,7 @@ const PublicationActions: FC<PublicationActionsProps> = ({
     hasOpenAction && isOpenActionAllowed(targetPublication.openActionModules);
   const views = getPublicationViewCountById(
     publicationViews,
-    targetPublication
+    targetPublication.id
   );
 
   return (

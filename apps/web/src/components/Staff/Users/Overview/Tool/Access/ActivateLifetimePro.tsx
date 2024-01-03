@@ -5,9 +5,8 @@ import { HEY_API_URL } from '@hey/data/constants';
 import { Toggle } from '@hey/ui';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useUpdateEffect } from 'usehooks-ts';
 
 import ToggleWrapper from '../ToggleWrapper';
 
@@ -23,7 +22,7 @@ const ActivateLifetimePro: FC<ActivateLifetimeProProps> = ({
   const [loading, setLoading] = useState(false);
   const [isPro, setIsPro] = useState(false);
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     setIsPro(enabled);
   }, [enabled]);
 
