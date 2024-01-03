@@ -620,7 +620,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             <LivestreamSettings />
           )}
         </div>
-        <div className="ml-auto pt-2 sm:pt-0">
+        <div className="ml-auto mt-2 sm:mt-0">
           <Button
             disabled={
               isLoading ||
