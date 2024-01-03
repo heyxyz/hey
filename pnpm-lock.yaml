@@ -254,8 +254,8 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(@types/react-dom@18.2.18)(@types/react@18.2.46)(react-dom@18.2.0)(react@18.2.0)
       '@tanstack/react-query':
-        specifier: ^5.17.0
-        version: 5.17.0(react@18.2.0)
+        specifier: ^5.17.1
+        version: 5.17.1(react@18.2.0)
       '@wagmi/connectors':
         specifier: ^3.1.10
         version: 3.1.10(@types/react@18.2.46)(react@18.2.0)(typescript@5.3.3)(viem@1.21.4)(zod@3.22.4)
@@ -278,8 +278,8 @@ importers:
         specifier: ^0.19.11
         version: 0.19.11
       framer-motion:
-        specifier: ^10.17.0
-        version: 10.17.0(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^10.17.2
+        version: 10.17.2(react-dom@18.2.0)(react@18.2.0)
       graphql:
         specifier: ^16.8.1
         version: 16.8.1
@@ -5829,8 +5829,8 @@ packages:
     resolution: {integrity: sha512-DJSilV5+ytBP1FbFcEJovv4rnnm/CokuVvrBEtW/Va9DvuJ3HksbXUJEpI0aV1KtuL4ZoO9AVE6PyNLzF7tLeA==}
     dev: false
 
-  /@tanstack/query-core@5.17.0:
-    resolution: {integrity: sha512-LoBaPtbMY26kRS+ohII4thTsWkJJsXKGitOLikTo2aqPA4yy7cfFJITs8DRnuERT7tLF5xfG9Lnm33Vp/38Vmw==}
+  /@tanstack/query-core@5.17.1:
+    resolution: {integrity: sha512-kUXozQmU7NBtzX5dM6qfFNZN+YK/9Ct37hnG/ogdgI4mExIx7VH/qRepsPhKfNrJz2w81/JykmM3Uug6sVpUSw==}
     dev: false
 
   /@tanstack/query-persist-client-core@4.29.23:
@@ -5905,12 +5905,12 @@ packages:
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 
-  /@tanstack/react-query@5.17.0(react@18.2.0):
-    resolution: {integrity: sha512-iNSn6ZA7mHUjrT0a271eKoa1oR1HznlrGbb475awft1kuP3zrhyUCrI8tlGowOr7zRoAxJholjwxO+gfz1IObw==}
+  /@tanstack/react-query@5.17.1(react@18.2.0):
+    resolution: {integrity: sha512-4JYgX0kU+pvwVQi5eRiHGvBK7WnahEl6lmaxd32ZVSKmByAxLgaewoxBR03cdDNse8lUD2zGOe0sx3M/EGRlmA==}
     peerDependencies:
       react: ^18.0.0
     dependencies:
-      '@tanstack/query-core': 5.17.0
+      '@tanstack/query-core': 5.17.1
       react: 18.2.0
     dev: false
 
@@ -9590,8 +9590,8 @@ packages:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
     dev: true
 
-  /framer-motion@10.17.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-92brXaYasyEwaPV7tnHnc6MKxdN84CxWE1aZ80q/mlS+wQo0rxp/pmjGt5hdAEK5RCKJsWToI+MyIcGoA91Msg==}
+  /framer-motion@10.17.2(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-ZfWwAFWgc3xCnJIyzV0y+DI3W/Hfxn/2ySLF6qu9Pa3chNcHzqaWt+G8iExhXuLK0A1gunooiOC0qddlX5BY1A==}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
