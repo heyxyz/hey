@@ -80,7 +80,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
             <Beta />
           </div>
         }
-        icon={<UsersIcon className="size-4" />}
+        icon={<UsersIcon className="size-5" />}
         on={recipients.length > 0}
         setOn={() => {
           setCollectType({

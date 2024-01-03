@@ -17,9 +17,9 @@ const CollectLimitConfig: FC<CollectLimitConfigProps> = ({
   return (
     <div className="pt-5">
       <ToggleWithHelper
-        description="Make the collects exclusive"
-        heading="Limited edition"
-        icon={<StarIcon className="size-4" />}
+        description="Make collects limited edition"
+        heading="Exclusive content"
+        icon={<StarIcon className="size-5" />}
         on={Boolean(collectModule.collectLimit)}
         setOn={() =>
           setCollectType({
