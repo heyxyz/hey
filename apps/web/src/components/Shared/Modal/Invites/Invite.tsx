@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 
+import { Errors } from '@hey/data';
 import { ADDRESS_PLACEHOLDER, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
 import { INVITE } from '@hey/data/tracking';
@@ -10,6 +11,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import plur from 'plur';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { object, string } from 'zod';
 
 const inviteSchema = object({
@@ -24,6 +26,7 @@ interface InviteProps {
 }
 
 const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
+  const { isSuspended } = useProfileRestriction();
   const [inviting, setInviting] = useState(false);
   const [totalInvitesLeft, setTotalInvitesLeft] = useState(invitesLeft);
 
@@ -51,6 +54,10 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
   });
 
   const invite = async (address: string) => {
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
+    }
+
     try {
       setInviting(true);
 
