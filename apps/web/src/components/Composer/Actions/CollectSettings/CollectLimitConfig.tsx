@@ -15,7 +15,7 @@ const CollectLimitConfig: FC<CollectLimitConfigProps> = ({
   const collectModule = useCollectModuleStore((state) => state.collectModule);
 
   return (
-    <div className="pt-5">
+    <div className="mt-5">
       <ToggleWithHelper
         description="Make collects limited edition"
         heading="Exclusive content"
@@ -28,7 +28,7 @@ const CollectLimitConfig: FC<CollectLimitConfigProps> = ({
         }
       />
       {collectModule.collectLimit ? (
-        <div className="pt-4 text-sm">
+        <div className="ml-8 mt-4 text-sm">
           <Input
             label="Collect limit"
             max="100000"

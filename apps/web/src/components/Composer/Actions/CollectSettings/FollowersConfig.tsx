@@ -12,7 +12,7 @@ const FollowersConfig: FC<FollowersConfigProps> = ({ setCollectType }) => {
   const collectModule = useCollectModuleStore((state) => state.collectModule);
 
   return (
-    <div className="pt-5">
+    <div className="mt-5">
       <ToggleWithHelper
         description="Only followers can collect"
         heading="Exclusivity"

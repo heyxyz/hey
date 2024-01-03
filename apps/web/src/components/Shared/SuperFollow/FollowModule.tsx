@@ -279,7 +279,7 @@ const FollowModule: FC<FollowModuleProps> = ({
           </Link>
         </div>
       </div>
-      <div className="space-y-2 pt-5">
+      <div className="mt-5 space-y-2">
         <div className="text-lg font-bold">Perks you get</div>
         <ul className="ld-text-gray-500 space-y-1 text-sm">
           <li className="flex space-x-2 leading-6 tracking-normal">

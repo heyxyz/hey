@@ -40,7 +40,7 @@ const AmountConfig: FC<AmountConfigProps> = ({
         }}
       />
       {collectModule.amount?.value ? (
-        <div className="pt-4">
+        <div className="ml-8 mt-4">
           <div className="flex space-x-2 text-sm">
             <Input
               label="Price"

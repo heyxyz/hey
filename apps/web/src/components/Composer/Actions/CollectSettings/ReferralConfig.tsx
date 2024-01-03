@@ -14,7 +14,7 @@ const ReferralConfig: FC<ReferralConfigProps> = ({ setCollectType }) => {
   const collectModule = useCollectModuleStore((state) => state.collectModule);
 
   return (
-    <div className="pt-5">
+    <div className="mt-5">
       <ToggleWithHelper
         description="Share your fee with people who amplify your content"
         heading="Mirror referral reward"
@@ -30,7 +30,7 @@ const ReferralConfig: FC<ReferralConfigProps> = ({ setCollectType }) => {
         }
       />
       {collectModule.referralFee ? (
-        <div className="flex space-x-2 pt-4 text-sm">
+        <div className="ml-8 mt-4 flex space-x-2 text-sm">
           <Input
             iconRight="%"
             label="Referral fee"

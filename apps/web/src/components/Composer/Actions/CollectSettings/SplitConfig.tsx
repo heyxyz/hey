@@ -71,7 +71,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
   };
 
   return (
-    <div className="pt-5">
+    <div className="mt-5">
       <ToggleWithHelper
         description="Set multiple recipients for the collect fee"
         heading={
@@ -96,7 +96,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
         }}
       />
       {hasRecipients ? (
-        <div className="space-y-3 pt-4">
+        <div className="ml-8 mt-4 space-y-3">
           <div className="space-y-2">
             {recipients.map((recipient, index) => (
               <div className="flex items-center space-x-2 text-sm" key={index}>

@@ -16,7 +16,7 @@ const TimeLimitConfig: FC<TimeLimitConfigProps> = ({ setCollectType }) => {
   const collectModule = useCollectModuleStore((state) => state.collectModule);
 
   return (
-    <div className="pt-5">
+    <div className="mt-5">
       <ToggleWithHelper
         description="Limit collecting to specific period of time"
         heading="Time limit"
@@ -29,7 +29,7 @@ const TimeLimitConfig: FC<TimeLimitConfigProps> = ({ setCollectType }) => {
         }
       />
       {collectModule.endsAt ? (
-        <div className="pt-4 text-sm">
+        <div className="ml-8 mt-4 text-sm">
           <Input
             label="Number of days"
             max="100"
