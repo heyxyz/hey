@@ -91,7 +91,7 @@ const ViewProfile: NextPage = () => {
           `${STATIC_IMAGES_URL}/patterns/2.svg`
         }
       />
-      <GridLayout className="pt-6">
+      <GridLayout>
         <GridItemFour>
           <Details profile={profile as Profile} />
         </GridItemFour>
