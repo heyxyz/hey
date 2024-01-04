@@ -1,5 +1,5 @@
 import type { Profile, ProfileSearchRequest } from '@hey/lens';
-import type { ChangeEvent, FC } from 'react';
+import type { ChangeEvent, FC, Ref } from 'react';
 
 import {
   CustomFiltersType,
@@ -14,6 +14,7 @@ import SmallUserProfile from './SmallUserProfile';
 interface SearchUserProps {
   error?: boolean;
   hideDropdown?: boolean;
+  inputRef?: Ref<HTMLInputElement>;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onProfileSelected: (profile: Profile) => void;
   placeholder?: string;
@@ -24,6 +25,7 @@ interface SearchUserProps {
 const SearchUser: FC<SearchUserProps> = ({
   error = false,
   hideDropdown = false,
+  inputRef,
   onChange,
   onProfileSelected,
   placeholder = 'Search…',
@@ -52,6 +54,7 @@ const SearchUser: FC<SearchUserProps> = ({
         error={error}
         onChange={handleSearch}
         placeholder={placeholder}
+        ref={inputRef}
         type="text"
         value={value}
       />
