@@ -22,7 +22,8 @@ export const get: Handler = async (req, res) => {
         SELECT region, country, COUNT(*) AS count
         FROM impressions
         WHERE publication_id = '${id}'
-        GROUP BY region, country;
+        GROUP BY region, country
+        ORDER BY count DESC;
       `
     });
 
