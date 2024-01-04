@@ -108,7 +108,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       {/* Poll */}
       {showPoll ? <Poll id={pollId} /> : null}
       {showNft ? (
-        <Nft mintLink={metadata.mintLink} publication={publication} />
+        <Nft mintLink={metadata.mintLink} publicationId={publication.id} />
       ) : null}
       {showLive ? (
         <div className="mt-3">
@@ -124,7 +124,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       {targetPublication.__typename === 'Quote' && (
         <Quote publication={targetPublication.quoteOn} />
       )}
-      <Metadata publication={publication} />
+      <Metadata metadata={targetPublication.metadata} />
     </div>
   );
 };

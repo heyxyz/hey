@@ -64,7 +64,9 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
         )}
       </span>
       <div className="flex items-center space-x-1">
-        {gardenerMode ? <Source publication={targetPublication} /> : null}
+        {gardenerMode ? (
+          <Source publishedOn={targetPublication.publishedOn?.id} />
+        ) : null}
         {!publication.isHidden && !quoted ? (
           <PublicationMenu publication={targetPublication} />
         ) : null}

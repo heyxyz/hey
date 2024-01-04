@@ -92,15 +92,20 @@ const ViewPublication: NextPage = () => {
             <CommentWarning />
           )
         ) : null}
-        <Feed publication={publication} />
-        <NoneRelevantFeed publication={publication} />
+        <Feed
+          isHidden={publication.isHidden}
+          publicationId={targetPublication.id}
+        />
+        <NoneRelevantFeed publicationId={targetPublication.id} />
       </GridItemEight>
       <GridItemFour className="space-y-5">
         <Card as="aside" className="p-5">
           <UserProfile profile={targetPublication.by} showBio />
         </Card>
-        <RelevantPeople publication={publication} />
-        <OnchainMeta publication={publication} />
+        <RelevantPeople
+          profilesMentioned={targetPublication.profilesMentioned}
+        />
+        <OnchainMeta publication={targetPublication} />
         {staffMode ? <PublicationStaffTool publication={publication} /> : null}
         <Footer />
       </GridItemFour>

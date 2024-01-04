@@ -1,4 +1,3 @@
-import type { AnyPublication } from '@hey/lens';
 import type { UnlonelyChannelMetadata } from '@hey/types/nft';
 import type { FC } from 'react';
 
@@ -22,12 +21,12 @@ import NftShimmer from './Shimmer';
 
 interface UnlonelyChannelProps {
   nftMetadata: UnlonelyChannelMetadata;
-  publication?: AnyPublication;
+  publicationId: string;
 }
 
 const UnlonelyChannel: FC<UnlonelyChannelProps> = ({
   nftMetadata,
-  publication
+  publicationId
 }) => {
   const { slug } = nftMetadata;
 
@@ -88,7 +87,7 @@ const UnlonelyChannel: FC<UnlonelyChannelProps> = ({
             <span>{isLive ? 'Live' : 'Offline'}</span>
           </div>
         </div>
-        {publication ? (
+        {publicationId ? (
           <Link
             href={urlcat('https://www.unlonely.app/channels/:slug', {
               slug: channel.slug
@@ -102,7 +101,7 @@ const UnlonelyChannel: FC<UnlonelyChannelProps> = ({
               onClick={() =>
                 Leafwatch.track(
                   PUBLICATION.OPEN_ACTIONS.UNLONELY_CHANNEL.OPEN_LINK,
-                  { from: 'mint_embed', publication_id: publication.id }
+                  { from: 'mint_embed', publication_id: publicationId }
                 )
               }
               size="md"

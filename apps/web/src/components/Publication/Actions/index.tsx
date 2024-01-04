@@ -51,11 +51,11 @@ const PublicationActions: FC<PublicationActionsProps> = ({
       className="-ml-2 mt-3 flex flex-wrap items-center gap-x-6 gap-y-1 sm:gap-8"
       onClick={stopEventPropagation}
     >
-      <Comment publication={publication} showCount={showCount} />
+      <Comment publication={targetPublication} showCount={showCount} />
       {canMirror ? (
         <ShareMenu publication={publication} showCount={showCount} />
       ) : null}
-      <Like publication={publication} showCount={showCount} />
+      <Like publication={targetPublication} showCount={showCount} />
       {canAct ? (
         <OpenAction publication={publication} showCount={showCount} />
       ) : null}
@@ -67,7 +67,10 @@ const PublicationActions: FC<PublicationActionsProps> = ({
         />
       ) : null}
       {gardenerMode ? (
-        <Mod isFullPublication={showCount} publication={publication} />
+        <Mod
+          isFullPublication={showCount}
+          publicationId={targetPublication.id}
+        />
       ) : null}
     </span>
   );
