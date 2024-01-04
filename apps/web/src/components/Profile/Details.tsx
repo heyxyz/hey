@@ -168,7 +168,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
         {currentProfile?.id !== profile.id ? (
           <>
             <MutualFollowers
-              profile={profile}
+              profileId={profile.id}
               setShowMutualFollowersModal={setShowMutualFollowersModal}
             />
             <Modal
@@ -177,7 +177,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
               show={showMutualFollowersModal}
               title="Followers you know"
             >
-              <MutualFollowersList profile={profile} />
+              <MutualFollowersList profileId={profile.id} />
             </Modal>
           </>
         ) : null}

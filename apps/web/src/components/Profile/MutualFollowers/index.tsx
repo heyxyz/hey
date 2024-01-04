@@ -10,25 +10,25 @@ import cn from '@hey/ui/cn';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface MutualFollowersProps {
-  profile: Profile;
+  profileId: string;
   setShowMutualFollowersModal?: Dispatch<SetStateAction<boolean>>;
   viaPopover?: boolean;
 }
 
 const MutualFollowers: FC<MutualFollowersProps> = ({
-  profile,
+  profileId,
   setShowMutualFollowersModal,
   viaPopover = false
 }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
   const { data, error, loading } = useMutualFollowersQuery({
-    skip: !profile?.id || !currentProfile?.id,
+    skip: !profileId || !currentProfile?.id,
     variables: {
       request: {
         limit: LimitType.Ten,
         observer: currentProfile?.id,
-        viewing: profile?.id
+        viewing: profileId
       }
     }
   });
