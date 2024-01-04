@@ -1,4 +1,3 @@
-import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import { HEY_API_URL } from '@hey/data/constants';
@@ -12,20 +11,20 @@ import { hydrateVerifiedMembers } from 'src/store/persisted/useVerifiedMembersSt
 import ToggleWrapper from '../ToggleWrapper';
 
 interface VerifyProps {
-  profile: Profile;
+  profileId: string;
 }
 
-const Verify: FC<VerifyProps> = ({ profile }) => {
+const Verify: FC<VerifyProps> = ({ profileId }) => {
   const { verifiedMembers } = hydrateVerifiedMembers();
   const [isVerified, setIsVerified] = useState(
-    verifiedMembers.includes(profile.id)
+    verifiedMembers.includes(profileId)
   );
 
   const updateVerified = async () => {
     toast.promise(
       axios.post(
         `${HEY_API_URL}/internal/verified/updateVerified`,
-        { enabled: !isVerified, id: profile.id },
+        { enabled: !isVerified, id: profileId },
         { headers: getAuthWorkerHeaders() }
       ),
       {

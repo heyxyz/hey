@@ -1,4 +1,4 @@
-import type { Profile } from '@hey/lens';
+import type { ProfileOnchainIdentity } from '@hey/lens';
 import type { FC } from 'react';
 
 import {
@@ -12,12 +12,10 @@ import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
 import MetaDetails from '../../../../Shared/Staff/MetaDetails';
 
 interface OnchainIdentitiesProps {
-  profile: Profile;
+  onchainIdentity: ProfileOnchainIdentity;
 }
 
-const OnchainIdentities: FC<OnchainIdentitiesProps> = ({ profile }) => {
-  const { onchainIdentity } = profile;
-
+const OnchainIdentities: FC<OnchainIdentitiesProps> = ({ onchainIdentity }) => {
   return (
     <>
       <div className="mt-5 flex items-center space-x-2 text-yellow-600">

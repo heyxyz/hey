@@ -1,4 +1,3 @@
-import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
@@ -8,13 +7,13 @@ import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { useQuery } from '@tanstack/react-query';
 
 interface TbaBadgeProps {
-  profile: Profile;
+  address: string;
 }
 
-const TbaBadge: FC<TbaBadgeProps> = ({ profile }) => {
+const TbaBadge: FC<TbaBadgeProps> = ({ address }) => {
   const { data: isTba } = useQuery({
-    queryFn: () => getTbaStatus(profile.ownedBy.address),
-    queryKey: ['getTbaStatus', profile.ownedBy.address]
+    queryFn: () => getTbaStatus(address),
+    queryKey: ['getTbaStatus', address]
   });
 
   if (!isTba) {
