@@ -4,6 +4,7 @@ import type { FC, ReactNode } from 'react';
 import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
+import { useNativeNavigation } from 'src/store/non-persisted/useNativeNavigation';
 
 interface PublicationWrapperProps {
   children: ReactNode[];
@@ -16,6 +17,9 @@ const PublicationWrapper: FC<PublicationWrapperProps> = ({
   className = '',
   publication
 }) => {
+  const setPreLoadedPublication = useNativeNavigation(
+    (state) => state.setPreLoadedPublication
+  );
   const { push } = useRouter();
 
   return (
@@ -27,6 +31,7 @@ const PublicationWrapper: FC<PublicationWrapperProps> = ({
       onClick={() => {
         const selection = window.getSelection();
         if (!selection || selection.toString().length === 0) {
+          setPreLoadedPublication(publication);
           push(`/posts/${publication?.id}`);
         }
       }}
