@@ -4,6 +4,7 @@ import NewPublication from '@components/Composer/NewPublication';
 import ReportPublication from '@components/Shared/Modal/ReportPublication';
 import {
   ArrowRightCircleIcon,
+  EyeIcon,
   ShieldCheckIcon,
   TicketIcon
 } from '@heroicons/react/24/outline';
@@ -15,6 +16,7 @@ import Login from './Login';
 import WrongNetwork from './Login/WrongNetwork';
 import Invites from './Modal/Invites';
 import ReportProfile from './Modal/ReportProfile';
+import Views from './Modal/Views';
 import SwitchProfiles from './SwitchProfiles';
 
 const GlobalModals: FC = () => {
@@ -69,6 +71,12 @@ const GlobalModals: FC = () => {
   );
   const setShowDiscardModal = useGlobalModalStateStore(
     (state) => state.setShowDiscardModal
+  );
+  const setShowPublicationStatsModal = useGlobalModalStateStore(
+    (state) => state.setShowPublicationStatsModal
+  );
+  const showPublicationStatsModal = useGlobalModalStateStore(
+    (state) => state.showPublicationStatsModal
   );
 
   // Publication store
@@ -171,6 +179,14 @@ const GlobalModals: FC = () => {
         title="Invites"
       >
         <Invites />
+      </Modal>
+      <Modal
+        icon={<EyeIcon className="text-brand-500 size-5" />}
+        onClose={() => setShowPublicationStatsModal(false, null)}
+        show={showPublicationStatsModal}
+        title="Views"
+      >
+        <Views />
       </Modal>
     </>
   );

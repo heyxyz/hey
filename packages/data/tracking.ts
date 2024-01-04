@@ -80,6 +80,7 @@ export const PUBLICATION = {
   OPEN_LIKES: 'Open likes modal',
   OPEN_MIRRORS: 'Open mirrors modal',
   OPEN_QUOTES: 'Open quotes modal',
+  OPEN_VIEWS: 'Open views modal',
   REPORT: 'Report publication',
   SHARE: 'Share publication',
   TOGGLE_BOOKMARK: 'Toggle publication bookmark',
