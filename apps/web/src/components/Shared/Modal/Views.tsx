@@ -10,9 +10,9 @@ import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModal
 
 import Loader from '../Loader';
 
-interface PublicationLocationStat {
+interface PublicationCountriesStat {
+  country: string;
   countryCode: string;
-  location: string;
   views: number;
 }
 
@@ -21,12 +21,12 @@ const Views: FC = () => {
     (state) => state.statsPublicationId
   );
 
-  const getViewsLocationStats = async (): Promise<
-    null | PublicationLocationStat[]
+  const getViewsCountriesStats = async (): Promise<
+    null | PublicationCountriesStat[]
   > => {
     try {
       const response = await axios.get(
-        `${HEY_API_URL}/stats/publication/location`,
+        `${HEY_API_URL}/stats/publication/countries`,
         { params: { id: statsPublicationId } }
       );
       const { data } = response;
@@ -38,8 +38,8 @@ const Views: FC = () => {
   };
 
   const { data, error, isFetching } = useQuery({
-    queryFn: () => getViewsLocationStats(),
-    queryKey: ['getViewsLocationStats']
+    queryFn: getViewsCountriesStats,
+    queryKey: ['getViewsCountriesStats']
   });
 
   if (isFetching) {
@@ -80,7 +80,7 @@ const Views: FC = () => {
               className="h-4"
               src={`${STATIC_IMAGES_URL}/flags/${stat.countryCode}.svg`}
             />
-            <div>{stat.location}</div>
+            <div>{stat.country}</div>
           </div>
           <div>
             <span className="font-bold">{stat.views} </span>
