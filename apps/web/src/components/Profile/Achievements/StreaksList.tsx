@@ -1,4 +1,3 @@
-import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import {
@@ -18,14 +17,14 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 interface StreaksListProps {
-  profile: Profile;
+  profileId: string;
 }
 
-const StreaksList: FC<StreaksListProps> = ({ profile }) => {
+const StreaksList: FC<StreaksListProps> = ({ profileId }) => {
   const fetchStreaksList = async () => {
     try {
       const response = await axios.get(`${HEY_API_URL}/stats/streaksList`, {
-        params: { date: 'latest', id: profile.id }
+        params: { date: 'latest', id: profileId }
       });
 
       return response.data.data;
@@ -36,7 +35,7 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
 
   const { data, isLoading } = useQuery({
     queryFn: fetchStreaksList,
-    queryKey: ['fetchStreaksList', profile.id]
+    queryKey: ['fetchStreaksList', profileId]
   });
 
   const EventIcon = ({ event }: { event: string }) => {
