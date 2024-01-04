@@ -1,4 +1,4 @@
-import type { AnyPublication, Profile, PublicationsRequest } from '@hey/lens';
+import type { AnyPublication, PublicationsRequest } from '@hey/lens';
 import type { FC } from 'react';
 
 import SinglePublication from '@components/Publication/SinglePublication';
@@ -10,7 +10,6 @@ import {
   PublicationType,
   usePublicationsQuery
 } from '@hey/lens';
-import getProfile from '@hey/lib/getProfile';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { useInView } from 'react-cool-inview';
 import { ProfileFeedType } from 'src/enums';
@@ -18,7 +17,8 @@ import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore
 import { useProfileFeedStore } from 'src/store/non-persisted/useProfileFeedStore';
 
 interface FeedProps {
-  profile: Profile;
+  handle: string;
+  profileId: string;
   type:
     | ProfileFeedType.Collects
     | ProfileFeedType.Feed
@@ -26,7 +26,7 @@ interface FeedProps {
     | ProfileFeedType.Replies;
 }
 
-const Feed: FC<FeedProps> = ({ profile, type }) => {
+const Feed: FC<FeedProps> = ({ handle, profileId, type }) => {
   const mediaFeedFilters = useProfileFeedStore(
     (state) => state.mediaFeedFilters
   );
@@ -75,8 +75,8 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
       metadata,
       publicationTypes,
       ...(type !== ProfileFeedType.Collects
-        ? { from: profile?.id }
-        : { actedBy: profile?.id })
+        ? { from: [profileId] }
+        : { actedBy: profileId })
     }
   };
 
@@ -88,7 +88,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
         }) || [];
       await fetchAndStoreViews(ids);
     },
-    skip: !profile?.id,
+    skip: !profileId,
     variables: { request }
   });
 
@@ -134,9 +134,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
         icon={<RectangleStackIcon className="text-brand-500 size-8" />}
         message={
           <div>
-            <span className="mr-1 font-bold">
-              {getProfile(profile).slugWithPrefix}
-            </span>
+            <span className="mr-1 font-bold">{handle}</span>
             <span>{emptyMessage}</span>
           </div>
         }
