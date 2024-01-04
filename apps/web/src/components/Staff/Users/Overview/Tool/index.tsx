@@ -144,32 +144,39 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         ) : null}
       </div>
       <div className="divider my-5 border-dashed border-yellow-600" />
-      <OnchainIdentities profile={profile} />
+      <OnchainIdentities onchainIdentity={profile.onchainIdentity} />
       <div className="divider my-5 border-dashed border-yellow-600" />
       {IS_MAINNET ? (
         <>
-          <LeafwatchDetails profile={profile} />
+          <LeafwatchDetails profileId={profile.id} />
           <div className="divider my-5 border-dashed border-yellow-600" />
-          <Rank profile={profile} />
+          <Rank
+            address={profile.ownedBy.address}
+            handle={profile.handle?.localName}
+            profileId={profile.id}
+          />
           <div className="divider my-5 border-dashed border-yellow-600" />
         </>
       ) : null}
       {preferences ? (
         <>
-          <Access isPro={preferences.pro?.enabled || false} profile={profile} />
+          <Access
+            isPro={preferences.pro?.enabled || false}
+            profileId={profile.id}
+          />
           <Restrictions
-            id={profile.id}
+            profileId={profile.id}
             restrictions={preferences.restrictions}
           />
           <div className="divider my-5 border-dashed border-yellow-600" />
           <FeatureFlags
             features={preferences.features || []}
-            profile={profile}
+            profileId={profile.id}
           />
         </>
       ) : null}
       <div className="divider my-5 border-dashed border-yellow-600" />
-      <ManagedProfiles profile={profile} />
+      <ManagedProfiles address={profile.ownedBy.address} />
     </div>
   );
 };

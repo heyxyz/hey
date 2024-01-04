@@ -6,14 +6,14 @@ import { type Profile, useProfilesManagedQuery } from '@hey/lens';
 import Link from 'next/link';
 
 interface ManagedProfilesProps {
-  profile: Profile;
+  address: string;
 }
 
-const ManagedProfiles: FC<ManagedProfilesProps> = ({ profile }) => {
+const ManagedProfiles: FC<ManagedProfilesProps> = ({ address }) => {
   const { data, loading } = useProfilesManagedQuery({
     variables: {
-      lastLoggedInProfileRequest: { for: profile.ownedBy.address },
-      profilesManagedRequest: { for: profile.ownedBy.address }
+      lastLoggedInProfileRequest: { for: address },
+      profilesManagedRequest: { for: address }
     }
   });
 

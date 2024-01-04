@@ -1,4 +1,3 @@
-import type { Profile } from '@hey/lens';
 import type { Feature } from '@hey/types/hey';
 import type { FC } from 'react';
 
@@ -16,13 +15,13 @@ import ToggleWrapper from './ToggleWrapper';
 
 interface UpdateFeatureFlagsProps {
   flags: string[];
-  profile: Profile;
+  profileId: string;
   setFlags: (flags: string[]) => void;
 }
 
 const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
   flags,
-  profile,
+  profileId,
   setFlags
 }) => {
   const [updating, setUpdating] = useState(false);
@@ -47,7 +46,7 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
     toast.promise(
       axios.post(
         `${HEY_API_URL}/internal/feature/updateProfile`,
-        { enabled, id, profile_id: profile.id },
+        { enabled, id, profile_id: profileId },
         { headers: getAuthWorkerHeaders() }
       ),
       {

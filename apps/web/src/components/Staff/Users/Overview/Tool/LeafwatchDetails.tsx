@@ -1,4 +1,3 @@
-import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import {
@@ -17,10 +16,10 @@ import axios from 'axios';
 import MetaDetails from '../../../../Shared/Staff/MetaDetails';
 
 interface LeafwatchDetailsProps {
-  profile: Profile;
+  profileId: string;
 }
 
-const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profile }) => {
+const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
   const getProfileDetails = async (): Promise<{
     browser: string;
     city: string;
@@ -32,7 +31,7 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profile }) => {
   } | null> => {
     try {
       const response = await axios.get(`${HEY_API_URL}/stats/profileDetails`, {
-        params: { id: profile.id }
+        params: { id: profileId }
       });
       const { data } = response;
 
@@ -43,9 +42,9 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profile }) => {
   };
 
   const { data: leafwatchDetails } = useQuery({
-    enabled: Boolean(profile.id),
+    enabled: Boolean(profileId),
     queryFn: getProfileDetails,
-    queryKey: ['getProfileDetails', profile.id]
+    queryKey: ['getProfileDetails', profileId]
   });
 
   const getProfileImpressions = async (): Promise<{
@@ -54,9 +53,7 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profile }) => {
     try {
       const response = await axios.get(
         `${HEY_API_URL}/stats/profileImpressions`,
-        {
-          params: { id: profile.id }
-        }
+        { params: { id: profileId } }
       );
       const { data } = response;
 
@@ -67,9 +64,9 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profile }) => {
   };
 
   const { data: impressionDetails } = useQuery({
-    enabled: Boolean(profile.id),
+    enabled: Boolean(profileId),
     queryFn: getProfileImpressions,
-    queryKey: ['getProfileImpressions', profile.id]
+    queryKey: ['getProfileImpressions', profileId]
   });
 
   if (!leafwatchDetails || !impressionDetails) {

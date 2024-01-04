@@ -1,4 +1,3 @@
-import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import { FlagIcon } from '@heroicons/react/24/outline';
@@ -8,10 +7,10 @@ import UpdateFeatureFlags from './UpdateFeatureFlags';
 
 interface FeatureFlagsProps {
   features: string[];
-  profile: Profile;
+  profileId: string;
 }
 
-const FeatureFlags: FC<FeatureFlagsProps> = ({ features, profile }) => {
+const FeatureFlags: FC<FeatureFlagsProps> = ({ features, profileId }) => {
   const [flags, setFlags] = useState<string[]>([]);
 
   useEffect(() => {
@@ -27,7 +26,7 @@ const FeatureFlags: FC<FeatureFlagsProps> = ({ features, profile }) => {
       <div className="mt-3">
         <UpdateFeatureFlags
           flags={flags}
-          profile={profile}
+          profileId={profileId}
           setFlags={setFlags}
         />
       </div>
