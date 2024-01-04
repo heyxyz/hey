@@ -2,7 +2,7 @@ import type { FC } from 'react';
 
 import Mint from '@components/Publication/HeyOpenActions/Nft/ZoraNft/Mint';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
-import { HEY_API_URL } from '@hey/data/constants';
+import { HEY_API_URL, ZERO_PUBLICATION_ID } from '@hey/data/constants';
 import { MISCELLANEOUS, PUBLICATION } from '@hey/data/tracking';
 import { Button, Card, Modal } from '@hey/ui';
 import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
@@ -92,6 +92,7 @@ const HeyMembershipNft: FC = () => {
             <Mint
               nft={nft}
               onCompleted={updateHeyMemberNftStatus}
+              publicationId={ZERO_PUBLICATION_ID}
               zoraLink="https://zora.co/collect/zora:0x8fcfdad5ebdd1ce815aa769bbd7499091ac056d1"
             />
           </Modal>
