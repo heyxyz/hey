@@ -52,7 +52,7 @@ const Footer: FC = () => {
         >
           Feedback
         </Link>
-        <Link href="/thanks">Thanks</Link>
+        <Link href="/rules">Rules</Link>
         <Link
           href="https://github.com/heyxyz/hey"
           onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_GITHUB)}
