@@ -19,33 +19,22 @@ export const get: Handler = async (req, res) => {
     const rows = await client.query({
       format: 'JSONEachRow',
       query: `
-        SELECT region, country, COUNT(*) AS count
+        SELECT country, COUNT(*) AS count
         FROM impressions
         WHERE publication_id = '${id}'
-        GROUP BY region, country
+        GROUP BY country
         ORDER BY count DESC;
       `
     });
 
-    const result =
-      await rows.json<
-        Array<{ count: number; country: string; region: string }>
-      >();
-
-    const getLoaction = (row: { country: string; region: string }): string => {
-      if (!row.region || !row.country) {
-        return 'Unknown';
-      }
-
-      return `${row.region}, ${row.country}`;
-    };
+    const result = await rows.json<Array<{ count: number; country: string }>>();
 
     const locationDetails = result.map((row) => ({
+      country: row.country || 'Unknown',
       countryCode: lookup.byCountry(row.country)?.iso2 || 'Unknown',
-      location: getLoaction(row),
       views: Number(row.count)
     }));
-    logger.info(`Fetched publication views location details for ${id}`);
+    logger.info(`Fetched publication views country details for ${id}`);
 
     return res
       .status(200)
