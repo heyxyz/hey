@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import { EyeIcon } from '@heroicons/react/24/outline';
-import { HEY_API_URL } from '@hey/data/constants';
+import { HEY_API_URL, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { EmptyState, ErrorMessage } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -78,7 +78,7 @@ const Views: FC = () => {
           <div className="flex items-center space-x-2">
             <img
               className="h-4"
-              src={`https://assets.simpleanalytics.com/images/flags/${stat.countryCode}.svg`}
+              src={`${STATIC_IMAGES_URL}/flags/${stat.countryCode}.svg`}
             />
             <div>{stat.location}</div>
           </div>
