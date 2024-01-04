@@ -50,7 +50,10 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
                 </div>
                 <FeaturedGroup tags={metadata.tags} />
               </div>
-              <PublicationStats publication={targetPublication} />
+              <PublicationStats
+                publicationId={targetPublication.id}
+                publicationStats={targetPublication.stats}
+              />
               <div className="divider" />
               <PublicationActions publication={targetPublication} showCount />
             </>
