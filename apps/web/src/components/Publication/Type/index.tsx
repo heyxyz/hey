@@ -27,7 +27,7 @@ const PublicationType: FC<PublicationTypeProps> = ({
 
   return (
     <span onClick={stopEventPropagation}>
-      {type === 'Mirror' ? <Mirrored publication={publication} /> : null}
+      {type === 'Mirror' ? <Mirrored profile={publication.by} /> : null}
       {type === 'Comment' && (showThread || pathname === '/posts/[id]') ? (
         <Commented publication={publication} />
       ) : null}
