@@ -87,7 +87,7 @@ const ViewPublication: NextPage = () => {
         !showNewPostModal &&
         !isSuspended ? (
           canComment ? (
-            <NewPublication publication={publication} />
+            <NewPublication publication={targetPublication} />
           ) : (
             <CommentWarning />
           )
