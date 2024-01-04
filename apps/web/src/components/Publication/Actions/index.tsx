@@ -61,7 +61,7 @@ const PublicationActions: FC<PublicationActionsProps> = ({
       ) : null}
       {views > 0 ? (
         <Views
-          publicationId={publication.id}
+          publicationId={targetPublication.id}
           showCount={showCount}
           views={views}
         />
