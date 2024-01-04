@@ -2,9 +2,9 @@ import { TEST_URL } from '@utils/constants';
 import axios from 'axios';
 import { describe, expect, test } from 'vitest';
 
-describe('stats/publicationViews', () => {
+describe('stats/publication/views', () => {
   test('should return publication views', async () => {
-    const response = await axios.post(`${TEST_URL}/stats/publicationViews`, {
+    const response = await axios.post(`${TEST_URL}/stats/publication/views`, {
       ids: ['0x01-0x01', '0x01-0x02', '0x01-0x03']
     });
 
