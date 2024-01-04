@@ -1,4 +1,3 @@
-import type { AnyPublication } from '@hey/lens';
 import type { BasicNftMetadata } from '@hey/types/nft';
 import type { FC } from 'react';
 
@@ -21,10 +20,10 @@ import NftShimmer from './Shimmer';
 
 interface ZoraNftProps {
   nftMetadata: BasicNftMetadata;
-  publication?: AnyPublication;
+  publicationId: string;
 }
 
-const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
+const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publicationId }) => {
   const setQuantity = useZoraMintStore((state) => state.setQuantity);
   const setCanMintOnHey = useZoraMintStore((state) => state.setCanMintOnHey);
 
@@ -96,7 +95,7 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
             </Tooltip>
           ) : null}
         </div>
-        {publication ? (
+        {publicationId ? (
           canMint ? (
             <>
               <Button
@@ -108,7 +107,7 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
                   setShowMintModal(true);
                   Leafwatch.track(PUBLICATION.OPEN_ACTIONS.ZORA_NFT.OPEN_MINT, {
                     from: 'mint_embed',
-                    publication_id: publication.id
+                    publication_id: publicationId
                   });
                 }}
                 size="md"
@@ -121,7 +120,11 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
                 show={showMintModal}
                 title="Mint on Zora"
               >
-                <Mint nft={nft} publication={publication} zoraLink={zoraLink} />
+                <Mint
+                  nft={nft}
+                  publicationId={publicationId}
+                  zoraLink={zoraLink}
+                />
               </Modal>
             </>
           ) : (
@@ -132,7 +135,7 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
                 onClick={() =>
                   Leafwatch.track(PUBLICATION.OPEN_ACTIONS.ZORA_NFT.OPEN_LINK, {
                     from: 'mint_embed',
-                    publication_id: publication.id
+                    publication_id: publicationId
                   })
                 }
                 size="md"

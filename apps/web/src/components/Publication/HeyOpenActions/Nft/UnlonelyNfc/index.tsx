@@ -1,4 +1,3 @@
-import type { AnyPublication } from '@hey/lens';
 import type { UnlonelyNfcMetadata } from '@hey/types/nft';
 import type { FC } from 'react';
 
@@ -17,10 +16,10 @@ import NftShimmer from './Shimmer';
 
 interface UnlonelyNfcProps {
   nftMetadata: UnlonelyNfcMetadata;
-  publication?: AnyPublication;
+  publicationId: string;
 }
 
-const UnlonelyNfc: FC<UnlonelyNfcProps> = ({ nftMetadata, publication }) => {
+const UnlonelyNfc: FC<UnlonelyNfcProps> = ({ nftMetadata, publicationId }) => {
   const { id } = nftMetadata;
 
   const {
@@ -68,7 +67,7 @@ const UnlonelyNfc: FC<UnlonelyNfcProps> = ({ nftMetadata, publication }) => {
           </Tooltip>
           <div className="text-sm font-bold">{title}</div>
         </div>
-        {publication ? (
+        {publicationId ? (
           <Link
             href={urlcat('https://www.unlonely.app/nfc/:id', {
               id: nfc.id
@@ -82,7 +81,7 @@ const UnlonelyNfc: FC<UnlonelyNfcProps> = ({ nftMetadata, publication }) => {
               onClick={() =>
                 Leafwatch.track(
                   PUBLICATION.OPEN_ACTIONS.UNLONELY_NFC.OPEN_LINK,
-                  { from: 'mint_embed', publication_id: publication.id }
+                  { from: 'mint_embed', publication_id: publicationId }
                 )
               }
               size="md"

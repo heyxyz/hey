@@ -27,7 +27,7 @@ const Report: FC<ReportProps> = ({ publication }) => {
       }
       onClick={(event) => {
         stopEventPropagation(event);
-        setShowPublicationReportModal(true, publication);
+        setShowPublicationReportModal(true, publication.id);
       }}
     >
       <div className="flex items-center space-x-2">

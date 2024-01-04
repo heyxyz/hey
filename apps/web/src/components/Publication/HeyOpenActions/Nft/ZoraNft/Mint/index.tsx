@@ -1,4 +1,3 @@
-import type { AnyPublication } from '@hey/lens';
 import type { ZoraNft } from '@hey/types/nft';
 import type { FC } from 'react';
 
@@ -29,11 +28,11 @@ export const useZoraMintStore = create<ZoraMintState>((set) => ({
 interface MintProps {
   nft: ZoraNft;
   onCompleted?: () => void;
-  publication?: AnyPublication;
+  publicationId: string;
   zoraLink: string;
 }
 
-const Mint: FC<MintProps> = ({ nft, onCompleted, publication, zoraLink }) => {
+const Mint: FC<MintProps> = ({ nft, onCompleted, publicationId, zoraLink }) => {
   if (!nft) {
     return null;
   }
@@ -63,7 +62,7 @@ const Mint: FC<MintProps> = ({ nft, onCompleted, publication, zoraLink }) => {
       <MintAction
         nft={nft}
         onCompleted={onCompleted}
-        publication={publication}
+        publicationId={publicationId}
         zoraLink={zoraLink}
       />
     </div>

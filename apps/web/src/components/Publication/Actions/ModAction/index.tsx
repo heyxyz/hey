@@ -1,4 +1,4 @@
-import type { AnyPublication, ReportPublicationRequest } from '@hey/lens';
+import type { ReportPublicationRequest } from '@hey/lens';
 import type { FC, ReactNode } from 'react';
 
 import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
@@ -16,10 +16,10 @@ import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlert
 
 interface ModActionProps {
   className?: string;
-  publication: AnyPublication;
+  publicationId: string;
 }
 
-const ModAction: FC<ModActionProps> = ({ className = '', publication }) => {
+const ModAction: FC<ModActionProps> = ({ className = '', publicationId }) => {
   const setShowModActionAlert = useGlobalAlertStateStore(
     (state) => state.setShowModActionAlert
   );
@@ -34,7 +34,7 @@ const ModAction: FC<ModActionProps> = ({ className = '', publication }) => {
   }) => {
     // Variables
     const request: ReportPublicationRequest = {
-      for: publication?.id,
+      for: publicationId,
       reason: {
         [type]: {
           reason: type.replace('Reason', '').toUpperCase(),
@@ -70,7 +70,7 @@ const ModAction: FC<ModActionProps> = ({ className = '', publication }) => {
             config.map(async ({ subreason, type }) => {
               await reportPublication({ subreason, type });
               Leafwatch.track(GARDENER.REPORT, {
-                report_publication_id: publication?.id,
+                report_publication_id: publicationId,
                 report_reason: type,
                 report_subreason: subreason
               });
