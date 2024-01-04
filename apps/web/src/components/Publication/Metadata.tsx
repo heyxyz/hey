@@ -1,25 +1,20 @@
-import type { AnyPublication } from '@hey/lens';
+import type { PublicationMetadata } from '@hey/lens';
 import type { FC } from 'react';
 
 import { ScaleIcon } from '@heroicons/react/24/outline';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import getPublicationData from '@hey/lib/getPublicationData';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card } from '@hey/ui';
 import getAssetLicense from '@lib/getAssetLicense';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { memo } from 'react';
 
 interface MetadataProps {
-  publication: AnyPublication;
+  metadata: PublicationMetadata;
 }
 
-const Metadata: FC<MetadataProps> = ({ publication }) => {
-  const targetPublication = isMirrorPublication(publication)
-    ? publication.mirrorOn
-    : publication;
-
-  const filteredAsset = getPublicationData(targetPublication.metadata)?.asset;
+const Metadata: FC<MetadataProps> = ({ metadata }) => {
+  const filteredAsset = getPublicationData(metadata)?.asset;
   const license = getAssetLicense(filteredAsset?.license);
 
   if (!isFeatureEnabled(FeatureFlag.LensMember)) {
