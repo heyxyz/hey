@@ -1,4 +1,3 @@
-import type { AnyPublication } from '@hey/lens';
 import type { SoundReleaseMetadata } from '@hey/types/nft';
 import type { APITypes } from 'plyr-react';
 
@@ -23,10 +22,13 @@ import NftShimmer from './Shimmer';
 
 interface SoundReleaseProps {
   nftMetadata: SoundReleaseMetadata;
-  publication?: AnyPublication;
+  publicationId: string;
 }
 
-const SoundRelease: FC<SoundReleaseProps> = ({ nftMetadata, publication }) => {
+const SoundRelease: FC<SoundReleaseProps> = ({
+  nftMetadata,
+  publicationId
+}) => {
   const { handle, mintLink, slug } = nftMetadata;
   const [playing, setPlaying] = useState(false);
   const playerRef = useRef<APITypes>(null);
@@ -59,16 +61,16 @@ const SoundRelease: FC<SoundReleaseProps> = ({ nftMetadata, publication }) => {
     }
     if (playerRef.current?.plyr.paused && !playing) {
       setPlaying(true);
-      Leafwatch.track(PUBLICATION.ATTACHMENT.AUDIO.PLAY, {
-        publication_id: publication?.id
+      Leafwatch.track(PUBLICATION.OPEN_ACTIONS.SOUND_RELEASE.PLAY, {
+        publication_id: publicationId
       });
 
       return playerRef.current?.plyr.play();
     }
     setPlaying(false);
     playerRef.current?.plyr.pause();
-    Leafwatch.track(PUBLICATION.ATTACHMENT.AUDIO.PAUSE, {
-      publication_id: publication?.id
+    Leafwatch.track(PUBLICATION.OPEN_ACTIONS.SOUND_RELEASE.PAUSE, {
+      publication_id: publicationId
     });
   };
 
@@ -178,10 +180,7 @@ const SoundRelease: FC<SoundReleaseProps> = ({ nftMetadata, publication }) => {
             onClick={() =>
               Leafwatch.track(
                 PUBLICATION.OPEN_ACTIONS.SOUND_RELEASE.OPEN_LINK,
-                {
-                  from: 'mint_embed',
-                  publication_id: publication?.id
-                }
+                { from: 'mint_embed', publication_id: publicationId }
               )
             }
             size="md"

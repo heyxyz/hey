@@ -1,4 +1,3 @@
-import type { AnyPublication } from '@hey/lens';
 import type { BasePaintCanvasMetadata } from '@hey/types/nft';
 import type { FC } from 'react';
 
@@ -19,12 +18,12 @@ import NftShimmer from './Shimmer';
 
 interface BasePaintCanvasProps {
   nftMetadata: BasePaintCanvasMetadata;
-  publication?: AnyPublication;
+  publicationId: string;
 }
 
 const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
   nftMetadata,
-  publication
+  publicationId
 }) => {
   const { id } = nftMetadata;
   const [showMintModal, setShowMintModal] = useState(false);
@@ -87,7 +86,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
             ))}
           </div>
         </div>
-        {publication ? (
+        {publicationId ? (
           canMint ? (
             <>
               <Button
@@ -98,7 +97,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
                   setShowMintModal(true);
                   Leafwatch.track(
                     PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.OPEN_MINT,
-                    { publication_id: publication.id }
+                    { publication_id: publicationId }
                   );
                 }}
                 size="md"
@@ -111,7 +110,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
                 show={showMintModal}
                 title="Mint on BasePaint"
               >
-                <Mint canvas={canvas} publication={publication} />
+                <Mint canvas={canvas} publicationId={publicationId} />
               </Modal>
             </>
           ) : canContribute ? (
@@ -126,7 +125,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
                 onClick={() =>
                   Leafwatch.track(
                     PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.OPEN_LINK,
-                    { from: 'mint_embed', publication_id: publication.id }
+                    { from: 'mint_embed', publication_id: publicationId }
                   )
                 }
                 size="md"
@@ -149,7 +148,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
                 onClick={() =>
                   Leafwatch.track(
                     PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.OPEN_OPENSEA_LINK,
-                    { from: 'mint_embed', publication_id: publication.id }
+                    { from: 'mint_embed', publication_id: publicationId }
                   )
                 }
                 size="md"

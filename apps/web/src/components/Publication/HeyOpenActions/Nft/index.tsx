@@ -1,4 +1,3 @@
-import type { AnyPublication } from '@hey/lens';
 import type {
   BasePaintCanvasMetadata,
   BasicNftMetadata,
@@ -18,10 +17,10 @@ import ZoraNft from './ZoraNft';
 
 interface NftProps {
   mintLink: string;
-  publication?: AnyPublication;
+  publicationId: string;
 }
 
-const Nft: FC<NftProps> = ({ mintLink, publication }) => {
+const Nft: FC<NftProps> = ({ mintLink, publicationId }) => {
   const nftMetadata = getNft([mintLink]);
 
   if (!nftMetadata) {
@@ -33,27 +32,27 @@ const Nft: FC<NftProps> = ({ mintLink, publication }) => {
   return provider === 'zora' ? (
     <ZoraNft
       nftMetadata={nftMetadata as BasicNftMetadata}
-      publication={publication}
+      publicationId={publicationId}
     />
   ) : provider === 'basepaint' ? (
     <BasePaintCanvas
       nftMetadata={nftMetadata as BasePaintCanvasMetadata}
-      publication={publication}
+      publicationId={publicationId}
     />
   ) : provider === 'unlonely-channel' ? (
     <UnlonelyChannel
       nftMetadata={nftMetadata as UnlonelyChannelMetadata}
-      publication={publication}
+      publicationId={publicationId}
     />
   ) : provider === 'unlonely-nfc' ? (
     <UnlonelyNfc
       nftMetadata={nftMetadata as UnlonelyNfcMetadata}
-      publication={publication}
+      publicationId={publicationId}
     />
   ) : provider === 'sound-release' ? (
     <SoundRelease
       nftMetadata={nftMetadata as SoundReleaseMetadata}
-      publication={publication}
+      publicationId={publicationId}
     />
   ) : null;
 };

@@ -61,7 +61,9 @@ export const PUBLICATION = {
       OPEN_OPENSEA_LINK: 'Open BasePaint OpenSea link'
     },
     SOUND_RELEASE: {
-      OPEN_LINK: 'Open Sound Release link'
+      OPEN_LINK: 'Open Sound Release link',
+      PAUSE: 'Pause Sound Release track',
+      PLAY: 'Play Sound Release track'
     },
     UNLONELY_CHANNEL: {
       OPEN_LINK: 'Open Unlonely Channel link'
