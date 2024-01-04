@@ -7,7 +7,7 @@ const ProfilePageShimmer: FC = () => {
   return (
     <>
       <div className="shimmer h-52 sm:h-80" />
-      <GridLayout className="pt-6">
+      <GridLayout>
         <GridItemFour>
           <div className="mb-4 space-y-9 px-5 sm:px-0">
             <div className="relative -mt-24 size-32 bg-gray-100 sm:-mt-32 sm:size-52">
