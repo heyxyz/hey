@@ -11,10 +11,14 @@ import { Virtuoso } from 'react-virtuoso';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface MutualFollowersListProps {
+  handle: string;
   profileId: string;
 }
 
-const MutualFollowersList: FC<MutualFollowersListProps> = ({ profileId }) => {
+const MutualFollowersList: FC<MutualFollowersListProps> = ({
+  handle,
+  profileId
+}) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
   // Variables
@@ -52,7 +56,12 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profileId }) => {
       <EmptyState
         hideCard
         icon={<UsersIcon className="text-brand-500 size-8" />}
-        message="Profile doesn’t have any mutual followers."
+        message={
+          <div>
+            <span className="mr-1 font-bold">{handle}</span>
+            <span>doesn’t have any mutual followers.</span>
+          </div>
+        }
       />
     );
   }
