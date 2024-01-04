@@ -135,7 +135,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
         </div>
       ) : null}
       <div className="space-y-5">
-        <ScamWarning profile={profile} />
+        <ScamWarning profileId={profile.id} />
         <Followerings profile={profile} />
         <div className="flex items-center space-x-2">
           {currentProfile?.id === profile.id ? (
