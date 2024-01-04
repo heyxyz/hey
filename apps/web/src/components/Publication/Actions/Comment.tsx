@@ -1,25 +1,21 @@
-import type { AnyPublication } from '@hey/lens';
+import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
 import humanize from '@hey/lib/humanize';
 import nFormatter from '@hey/lib/nFormatter';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 
 interface CommentProps {
-  publication: AnyPublication;
+  publication: MirrorablePublication;
   showCount: boolean;
 }
 
 const Comment: FC<CommentProps> = ({ publication, showCount }) => {
   const { push } = useRouter();
-  const targetPublication = isMirrorPublication(publication)
-    ? publication?.mirrorOn
-    : publication;
-  const count = targetPublication.stats.comments;
+  const count = publication.stats.comments;
   const iconClassName = showCount
     ? 'w-[17px] sm:w-[20px]'
     : 'w-[15px] sm:w-[18px]';
