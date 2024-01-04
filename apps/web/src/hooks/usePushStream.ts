@@ -4,8 +4,7 @@ import type { Socket } from 'socket.io-client';
 
 import { PUSH_ENV } from '@hey/data/constants';
 import { createSocketConnection } from '@pushprotocol/socket';
-import { useState } from 'react';
-import { useUpdateEffect } from 'usehooks-ts';
+import { useEffect, useState } from 'react';
 
 export const usePushStream = ({
   account,
@@ -15,7 +14,7 @@ export const usePushStream = ({
 }: {
   account: string;
   autoConnect?: boolean;
-  callback: (event: unknown) => void;
+  callback: (event: EVENTS, data: unknown) => Promise<void> | void;
   events?: EVENTS;
   filters?: unknown;
 }) => {
@@ -24,12 +23,15 @@ export const usePushStream = ({
     DefaultEventsMap
   >>(null);
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     if (!account) {
       return;
     }
 
     if (stream?.connected) {
+      // the below lines ensures that we're always having latest updated callback into the listener
+      stream.removeAllListeners();
+      stream.onAny(callback);
       return;
     }
 
@@ -44,6 +46,10 @@ export const usePushStream = ({
       user: account
     });
 
+    if (autoConnect) {
+      _stream?.connect();
+    }
+
     setStream(_stream);
 
     return () => {
@@ -51,7 +57,9 @@ export const usePushStream = ({
         stream.disconnect();
       }
     };
-  }, [account, callback, autoConnect, stream]);
+    // No need to add `stream` as dependency, causing unwanted re-renders
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [account, callback, autoConnect]);
 
   return { stream };
 };
