@@ -1,4 +1,4 @@
-import type { Profile } from '@hey/lens';
+import type { ProfileOnchainIdentity } from '@hey/lens';
 import type { FC } from 'react';
 
 import Ens from './Ens';
@@ -7,15 +7,15 @@ import Sybil from './Sybil';
 import Worldcoin from './Worldcoin';
 
 interface BadgesProps {
-  profile: Profile;
+  onchainIdentity: ProfileOnchainIdentity;
 }
 
-const Badges: FC<BadgesProps> = ({ profile }) => {
+const Badges: FC<BadgesProps> = ({ onchainIdentity }) => {
   const hasOnChainIdentity =
-    profile?.onchainIdentity?.proofOfHumanity ||
-    profile?.onchainIdentity?.sybilDotOrg?.verified ||
-    profile?.onchainIdentity?.ens?.name ||
-    profile?.onchainIdentity?.worldcoin?.isHuman;
+    onchainIdentity?.proofOfHumanity ||
+    onchainIdentity?.sybilDotOrg?.verified ||
+    onchainIdentity?.ens?.name ||
+    onchainIdentity?.worldcoin?.isHuman;
 
   if (!hasOnChainIdentity) {
     return null;
@@ -25,10 +25,10 @@ const Badges: FC<BadgesProps> = ({ profile }) => {
     <>
       <div className="divider w-full" />
       <div className="flex flex-wrap gap-3">
-        <ProofOfHumanity profile={profile} />
-        <Ens profile={profile} />
-        <Sybil profile={profile} />
-        <Worldcoin profile={profile} />
+        <ProofOfHumanity onchainIdentity={onchainIdentity} />
+        <Ens onchainIdentity={onchainIdentity} />
+        <Sybil onchainIdentity={onchainIdentity} />
+        <Worldcoin onchainIdentity={onchainIdentity} />
       </div>
     </>
   );

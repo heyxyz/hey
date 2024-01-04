@@ -1,15 +1,15 @@
-import type { Profile } from '@hey/lens';
+import type { ProfileOnchainIdentity } from '@hey/lens';
 import type { FC } from 'react';
 
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { Tooltip } from '@hey/ui';
 
 interface EnsProps {
-  profile: Profile;
+  onchainIdentity: ProfileOnchainIdentity;
 }
 
-const Ens: FC<EnsProps> = ({ profile }) => {
-  if (!profile?.onchainIdentity?.ens?.name) {
+const Ens: FC<EnsProps> = ({ onchainIdentity }) => {
+  if (!onchainIdentity?.ens?.name) {
     return null;
   }
 
@@ -17,7 +17,7 @@ const Ens: FC<EnsProps> = ({ profile }) => {
     <Tooltip
       content={
         <span>
-          ENS name: <b>{profile?.onchainIdentity?.ens?.name}</b>
+          ENS name: <b>{onchainIdentity?.ens?.name}</b>
         </span>
       }
       placement="top"
