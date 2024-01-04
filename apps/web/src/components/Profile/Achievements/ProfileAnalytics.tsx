@@ -1,4 +1,3 @@
-import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import { ChartBarSquareIcon } from '@heroicons/react/24/outline';
@@ -73,18 +72,16 @@ interface ProfileAnalyticsData {
 }
 
 interface ProfileAnalyticsProps {
-  profile: Profile;
+  handle?: string;
+  profileId: string;
 }
 
-const ProfileAnalytics: FC<ProfileAnalyticsProps> = ({ profile }) => {
+const ProfileAnalytics: FC<ProfileAnalyticsProps> = ({ handle, profileId }) => {
   const fetchProfileAnalytics =
     async (): Promise<null | ProfileAnalyticsData> => {
       try {
         const response = await axios.get(`${HEY_API_URL}/stats/profile`, {
-          params: {
-            handle: profile?.handle?.localName,
-            id: profile?.id
-          }
+          params: { handle, id: profileId }
         });
         const { data } = response;
 
@@ -95,7 +92,7 @@ const ProfileAnalytics: FC<ProfileAnalyticsProps> = ({ profile }) => {
     };
 
   const { data, error, isLoading } = useQuery({
-    enabled: Boolean(profile?.id),
+    enabled: Boolean(profileId && handle),
     queryFn: fetchProfileAnalytics,
     queryKey: ['fetchProfileAnalytics']
   });
