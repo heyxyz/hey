@@ -1,5 +1,5 @@
 import type {
-  AnyPublication,
+  MirrorablePublication,
   MomokaCommentRequest,
   MomokaPostRequest,
   MomokaQuoteRequest,
@@ -27,7 +27,6 @@ import { ReferenceModuleType } from '@hey/lens';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import collectModuleParams from '@hey/lib/collectModuleParams';
 import getProfile from '@hey/lib/getProfile';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import removeQuoteOn from '@hey/lib/removeQuoteOn';
 import { Button, Card, ErrorMessage, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -95,16 +94,12 @@ const PollSettings = dynamic(
 );
 
 interface NewPublicationProps {
-  publication: AnyPublication;
+  publication: MirrorablePublication;
 }
 
 const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
-
-  const targetPublication = isMirrorPublication(publication)
-    ? publication?.mirrorOn
-    : publication;
 
   // Modal store
   const setShowNewPostModal = useGlobalModalStateStore(
@@ -242,7 +237,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
     // Track in leafwatch
     const eventProperties = {
-      comment_on: isComment ? targetPublication.id : null,
+      comment_on: isComment ? publication.id : null,
       publication_collect_module: collectModule.type,
       publication_has_attachments: attachments.length > 0,
       publication_has_poll: showPollEditor,
@@ -280,7 +275,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     createQuoteOnMomka,
     error
   } = useCreatePublication({
-    commentOn: targetPublication,
+    commentOn: publication,
     onCompleted,
     onError,
     quoteOn: quotedPublication as Quote
@@ -408,7 +403,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         | MomokaCommentRequest
         | MomokaPostRequest
         | MomokaQuoteRequest = {
-        ...(isComment && { commentOn: targetPublication.id }),
+        ...(isComment && { commentOn: publication.id }),
         ...(isQuote && { quoteOn: quotedPublication?.id }),
         contentURI: `ar://${arweaveId}`
       };
@@ -453,7 +448,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         | OnchainPostRequest
         | OnchainQuoteRequest = {
         contentURI: `ar://${arweaveId}`,
-        ...(isComment && { commentOn: targetPublication.id }),
+        ...(isComment && { commentOn: publication.id }),
         ...(isQuote && { quoteOn: quotedPublication?.id }),
         openActionModules,
         ...(onlyFollowers && {
