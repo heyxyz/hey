@@ -14,4 +14,8 @@ export const getLatestMessagePreviewText = (message: DisplayedMessage) => {
   if (message.messageType === MessageType.IMAGE) {
     return 'Image';
   }
+
+  if (message.messageType === MessageType.REACTION) {
+    return `Reaction ${message.messageContent}`;
+  }
 };

@@ -392,12 +392,18 @@ importers:
       '@hey/types':
         specifier: workspace:*
         version: link:../../packages/types
+      '@socket.io/component-emitter':
+        specifier: ^3.1.0
+        version: 3.1.0
       '@tailwindcss/aspect-ratio':
         specifier: ^0.4.2
         version: 0.4.2(tailwindcss@3.4.0)
       '@tailwindcss/forms':
         specifier: ^0.5.6
         version: 0.5.7(tailwindcss@3.4.0)
+      '@tanstack/react-query-devtools':
+        specifier: ^5.17.0
+        version: 5.17.0(@tanstack/react-query@5.17.0)(react@18.2.0)
       '@types/node':
         specifier: ^20.10.6
         version: 20.10.6
@@ -416,6 +422,9 @@ importers:
       postcss:
         specifier: ^8.4.32
         version: 8.4.32
+      socket.io-client:
+        specifier: ^4.7.2
+        version: 4.7.2
       tailwindcss:
         specifier: ^3.4.0
         version: 3.4.0
@@ -5994,7 +6003,10 @@ packages:
 
   /@tanstack/query-core@5.17.0:
     resolution: {integrity: sha512-LoBaPtbMY26kRS+ohII4thTsWkJJsXKGitOLikTo2aqPA4yy7cfFJITs8DRnuERT7tLF5xfG9Lnm33Vp/38Vmw==}
-    dev: false
+
+  /@tanstack/query-devtools@5.15.0:
+    resolution: {integrity: sha512-oz+xBIf+fanmAQ3CZrV4t+1VZiK2nyTcH3zY3G8ukzw+LwX2QGa04ZfF+OCOVF6tPZ2dn1cekMibUb4tevf/aw==}
+    dev: true
 
   /@tanstack/query-persist-client-core@4.29.23:
     resolution: {integrity: sha512-u0P6y4DPeXeHEZnj0LEnhcgqX8x7iV7xbUDuoRPItUYsPn+anyLjXG3d3622+wLP3XKdevff0PhXkA7j9ZOWKg==}
@@ -6013,6 +6025,17 @@ packages:
     dependencies:
       '@tanstack/query-persist-client-core': 4.36.1
     dev: false
+
+  /@tanstack/react-query-devtools@5.17.0(@tanstack/react-query@5.17.0)(react@18.2.0):
+    resolution: {integrity: sha512-G8sDsK83Zzjr6Nqm4t+8ILi9VWDhg/XjkDD4UYDWqDZHnh/iv4bbQotPLB3PfX7eQtdzgXjGaV8omf1UniyK8w==}
+    peerDependencies:
+      '@tanstack/react-query': ^5.17.0
+      react: ^18.0.0
+    dependencies:
+      '@tanstack/query-devtools': 5.15.0
+      '@tanstack/react-query': 5.17.0(react@18.2.0)
+      react: 18.2.0
+    dev: true
 
   /@tanstack/react-query-persist-client@4.29.23(@tanstack/react-query@4.29.23):
     resolution: {integrity: sha512-P23y5CMGfSM943pJoQjjOdQXSHH/ohjAl8vhQp+40M4Nz3lDq2d39flGRpajyh4dl4C5s0R8V6Iii7kkIQo8Jg==}
@@ -6075,7 +6098,6 @@ packages:
     dependencies:
       '@tanstack/query-core': 5.17.0
       react: 18.2.0
-    dev: false
 
   /@tippyjs/react@4.2.6(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-91RicDR+H7oDSyPycI13q3b7o4O60wa2oRbjlz2fyRLmHImc4vyDwuUP8NtZaN0VARJY5hybvDYrFzhY9+Lbyw==}

@@ -2,6 +2,7 @@ import type { AppProps } from 'next/app';
 
 import Providers from '@components/Common/Providers';
 import heyFont from '@lib/heyFont';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import '../styles.css';
 
@@ -14,6 +15,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         }
       `}</style>
       <Component {...pageProps} />
+      <ReactQueryDevtools />
     </Providers>
   );
 };

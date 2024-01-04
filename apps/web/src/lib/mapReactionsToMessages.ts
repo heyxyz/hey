@@ -15,6 +15,18 @@ export interface DisplayedMessage {
   timestamp: number;
 }
 
+export type ParentMessage = DisplayedMessage & {
+  messageObj: {
+    content: {
+      messageObj: {
+        content: string;
+      };
+      messageType: string;
+    };
+    reference: string;
+  };
+};
+
 export const transformMessages = (
   messages: (IMessageIPFSWithCID & { isOptimistic?: boolean })[]
 ) => {

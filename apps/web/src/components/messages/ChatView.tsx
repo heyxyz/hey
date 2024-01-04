@@ -12,7 +12,8 @@ import { getLatestMessagePreviewText } from '@lib/getLatestMessagePreviewText';
 import { chat, user } from '@pushprotocol/restapi';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
+import { usePushStream } from 'src/hooks/usePushStream';
 import useMessageStore from 'src/store/persisted/useMessageStore';
 import { useAccount, useWalletClient } from 'wagmi';
 
@@ -80,6 +81,18 @@ const ChatView = () => {
         .filter((each) => !each.groupInformation)
     );
   }, [chats, isChatsLoading, requests]);
+
+  const callback = useCallback((args: any) => {
+    console.log(args, 'args..');
+  }, []);
+
+  const stream = usePushStream({
+    account: signer?.account.address as string,
+    autoConnect: true,
+    callback
+  });
+
+  console.log(stream, 'stream..');
 
   if (status !== 'connected') {
     return (

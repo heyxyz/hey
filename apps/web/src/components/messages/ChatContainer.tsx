@@ -82,6 +82,7 @@ const ChatListItemContainer = ({
       if (!pageParam) {
         return [];
       }
+
       const history =
         ((await chat.history({
           ...baseConfig,
@@ -222,16 +223,17 @@ const ChatListItemContainer = ({
       if (!message) {
         return;
       }
-      if (!replyMessage) {
+      const reference = replyMessage?.link;
+      if (!reference) {
         await sendMessage({ content: message, type: 'Text' });
       } else {
+        setReplyMessage(null);
         await sendMessage({
           content: { content: message, type: 'Text' },
-          reference: replyMessage.link,
+          reference: reference,
           type: 'Reply'
         });
       }
-      setReplyMessage(null);
     },
     [replyMessage, sendMessage]
   );
@@ -307,11 +309,11 @@ const ChatListItemContainer = ({
       )}
       <div className="w-full border-b-[1px]" />
       <div
-        className="h-screen space-y-3 overflow-y-scroll px-4 py-2"
+        className="h-full space-y-3 overflow-y-scroll px-4 py-2"
         ref={messageContainerref}
       >
         {isHistoryFetching && !isFetchingNextPage && (
-          <div className="flex h-full items-center justify-center">
+          <div className="flex items-center justify-center">
             <Loader message="Loading messages..." />
           </div>
         )}
