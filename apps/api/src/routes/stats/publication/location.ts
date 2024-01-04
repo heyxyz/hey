@@ -41,7 +41,7 @@ export const get: Handler = async (req, res) => {
     };
 
     const locationDetails = result.map((row) => ({
-      countryCode: lookup.byCountry(row.country)?.internet || 'Unknown',
+      countryCode: lookup.byCountry(row.country)?.iso2 || 'Unknown',
       location: getLoaction(row),
       views: Number(row.count)
     }));
