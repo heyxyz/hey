@@ -304,7 +304,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
           <InvitedBy profile={profile.invitedBy} />
         </>
       ) : null}
-      <Badges profile={profile} />
+      <Badges onchainIdentity={profile.onchainIdentity} />
     </div>
   );
 };
