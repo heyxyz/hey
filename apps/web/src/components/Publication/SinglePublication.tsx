@@ -98,7 +98,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
             {showModActions ? (
               <ModAction
                 className="mt-3 max-w-md"
-                publication={rootPublication}
+                publicationId={rootPublication.id}
               />
             ) : null}
           </>
