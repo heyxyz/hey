@@ -12,9 +12,10 @@ const getPublicationsViews = async (ids: string[]) => {
   }
 
   try {
-    const response = await axios.post(`${HEY_API_URL}/stats/publicationViews`, {
-      ids
-    });
+    const response = await axios.post(
+      `${HEY_API_URL}/stats/publication/views`,
+      { ids }
+    );
 
     return response.data?.views;
   } catch {
