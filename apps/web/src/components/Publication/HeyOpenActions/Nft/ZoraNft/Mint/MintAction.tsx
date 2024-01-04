@@ -1,4 +1,3 @@
-import type { AnyPublication } from '@hey/lens';
 import type { ZoraNft } from '@hey/types/nft';
 import type { FC } from 'react';
 import type { Address } from 'viem';
@@ -38,14 +37,14 @@ const ALLOWED_ERRORS_FOR_MINTING = [NO_BALANCE_ERROR, MAX_MINT_EXCEEDED_ERROR];
 interface MintActionProps {
   nft: ZoraNft;
   onCompleted?: () => void;
-  publication?: AnyPublication;
+  publicationId: string;
   zoraLink: string;
 }
 
 const MintAction: FC<MintActionProps> = ({
   nft,
   onCompleted,
-  publication,
+  publicationId,
   zoraLink
 }) => {
   const quantity = useZoraMintStore((state) => state.quantity);
@@ -108,7 +107,7 @@ const MintAction: FC<MintActionProps> = ({
     if (txnData?.transactionHash) {
       onCompleted?.();
       Leafwatch.track(PUBLICATION.OPEN_ACTIONS.ZORA_NFT.MINT, {
-        ...(publication && { publication_id: publication.id }),
+        ...(publicationId && { publication_id: publicationId }),
         chain: nft.chainId,
         hash: txnData.transactionHash,
         nft: nftAddress,
@@ -185,7 +184,7 @@ const MintAction: FC<MintActionProps> = ({
               icon={<CursorArrowRaysIcon className="size-5" />}
               onClick={() =>
                 Leafwatch.track(PUBLICATION.OPEN_ACTIONS.ZORA_NFT.OPEN_LINK, {
-                  ...(publication && { publication_id: publication.id }),
+                  ...(publicationId && { publication_id: publicationId }),
                   from: 'mint_modal',
                   type: saleInactiveError ? 'collect' : 'mint'
                 })

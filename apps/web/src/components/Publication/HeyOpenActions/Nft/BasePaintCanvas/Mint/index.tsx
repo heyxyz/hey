@@ -1,4 +1,3 @@
-import type { AnyPublication } from '@hey/lens';
 import type { BasePaintCanvas } from '@hey/types/nft';
 import type { FC } from 'react';
 
@@ -25,10 +24,10 @@ export const useBasePaintMintStore = create<BasePaintMintState>((set) => ({
 
 interface MintProps {
   canvas: BasePaintCanvas;
-  publication: AnyPublication;
+  publicationId: string;
 }
 
-const Mint: FC<MintProps> = ({ canvas, publication }) => {
+const Mint: FC<MintProps> = ({ canvas, publicationId }) => {
   const { data, isSuccess } = useContractRead({
     abi: BasePaint,
     address: BASEPAINT_CONTRACT,
@@ -53,7 +52,7 @@ const Mint: FC<MintProps> = ({ canvas, publication }) => {
           <MintAction
             canvas={canvas}
             openEditionPrice={etherPrice}
-            publication={publication}
+            publicationId={publicationId}
           />
         </>
       ) : null}

@@ -1,4 +1,3 @@
-import type { AnyPublication } from '@hey/lens';
 import type { BasePaintCanvas } from '@hey/types/nft';
 import type { FC } from 'react';
 
@@ -33,13 +32,13 @@ const NO_BALANCE_ERROR = 'exceeds the balance of the account';
 interface MintActionProps {
   canvas: BasePaintCanvas;
   openEditionPrice: number;
-  publication: AnyPublication;
+  publicationId: string;
 }
 
 const MintAction: FC<MintActionProps> = ({
   canvas,
   openEditionPrice,
-  publication
+  publicationId
 }) => {
   const quantity = useBasePaintMintStore((state) => state.quantity);
 
@@ -83,7 +82,7 @@ const MintAction: FC<MintActionProps> = ({
       Leafwatch.track(PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.MINT, {
         nft: nftAddress,
         price: openEditionPrice * quantity,
-        publication_id: publication.id,
+        publication_id: publicationId,
         quantity
       });
     }
