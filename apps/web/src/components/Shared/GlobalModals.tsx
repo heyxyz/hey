@@ -24,8 +24,8 @@ const GlobalModals: FC = () => {
   const showPublicationReportModal = useGlobalModalStateStore(
     (state) => state.showPublicationReportModal
   );
-  const reportingPublication = useGlobalModalStateStore(
-    (state) => state.reportingPublication
+  const reportingPublicationId = useGlobalModalStateStore(
+    (state) => state.reportingPublicationId
   );
   const setShowPublicationReportModal = useGlobalModalStateStore(
     (state) => state.setShowPublicationReportModal
@@ -120,12 +120,12 @@ const GlobalModals: FC = () => {
       <Modal
         icon={<ShieldCheckIcon className="text-brand-500 size-5" />}
         onClose={() =>
-          setShowPublicationReportModal(false, reportingPublication)
+          setShowPublicationReportModal(false, reportingPublicationId)
         }
         show={showPublicationReportModal}
         title="Report Publication"
       >
-        <ReportPublication publication={reportingPublication} />
+        <ReportPublication publicationId={reportingPublicationId} />
       </Modal>
       <Modal
         icon={<ShieldCheckIcon className="text-brand-500 size-5" />}

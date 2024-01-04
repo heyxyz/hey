@@ -1,10 +1,10 @@
-import type { AnyPublication, Profile } from '@hey/lens';
+import type { Profile } from '@hey/lens';
 
 import { create } from 'zustand';
 
 interface GlobalModalState {
   reportingProfile: null | Profile;
-  reportingPublication: AnyPublication | null;
+  reportingPublicationId: null | string;
   setShowAuthModal: (showAuthModal: boolean) => void;
   setShowDiscardModal: (showDiscardModal: boolean) => void;
   setShowInvitesModal: (showInvitesModal: boolean) => void;
@@ -13,7 +13,7 @@ interface GlobalModalState {
   setShowProfileSwitchModal: (showProfileSwitchModal: boolean) => void;
   setShowPublicationReportModal: (
     showPublicationReportModal: boolean,
-    reportingPublication: AnyPublication | null
+    reportingPublicationId: null | string
   ) => void;
   setShowPublicationStatsModal: (
     showPublicationStatsModal: boolean,
@@ -39,7 +39,7 @@ interface GlobalModalState {
 
 export const useGlobalModalStateStore = create<GlobalModalState>((set) => ({
   reportingProfile: null,
-  reportingPublication: null,
+  reportingPublicationId: null,
   setShowAuthModal: (showAuthModal) => set(() => ({ showAuthModal })),
   setShowDiscardModal: (showDiscardModal) => set(() => ({ showDiscardModal })),
   setShowInvitesModal: (showInvitesModal) => set(() => ({ showInvitesModal })),
@@ -49,10 +49,10 @@ export const useGlobalModalStateStore = create<GlobalModalState>((set) => ({
     set(() => ({ showProfileSwitchModal })),
   setShowPublicationReportModal: (
     showPublicationReportModal,
-    reportingPublication
+    reportingPublicationId
   ) =>
     set(() => ({
-      reportingPublication,
+      reportingPublicationId,
       showPublicationReportModal
     })),
   setShowPublicationStatsModal: (

@@ -1,4 +1,3 @@
-import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
@@ -32,10 +31,10 @@ const newReportPublicationSchema = object({
 });
 
 interface ReportProps {
-  publication: AnyPublication | null;
+  publicationId: null | string;
 }
 
-const ReportPublication: FC<ReportProps> = ({ publication }) => {
+const ReportPublication: FC<ReportProps> = ({ publicationId }) => {
   const { isSuspended } = useProfileRestriction();
   const [type, setType] = useState('');
   const [subReason, setSubReason] = useState('');
@@ -50,7 +49,7 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
   ] = useReportPublicationMutation({
     onCompleted: () => {
       Leafwatch.track(PUBLICATION.REPORT, {
-        publication_id: publication?.id
+        publication_id: publicationId
       });
     }
   });
@@ -65,7 +64,7 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
         variables: {
           request: {
             additionalComments,
-            for: publication?.id,
+            for: publicationId,
             reason: {
               [type]: {
                 reason: type.replace('Reason', '').toUpperCase(),
@@ -88,7 +87,7 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
           icon={<CheckCircleIcon className="size-14 text-green-500" />}
           message="Publication reported successfully!"
         />
-      ) : publication ? (
+      ) : publicationId ? (
         <div className="p-5">
           <Form
             className="space-y-4"
