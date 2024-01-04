@@ -6,7 +6,7 @@ import { XCircleIcon } from '@heroicons/react/24/solid';
 import { Button, HeyPopover } from '@hey/ui';
 import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
 import EmojiPicker, { EmojiStyle } from 'emoji-picker-react';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 const ChatMessageInput = ({
   disabled,
@@ -29,6 +29,10 @@ const ChatMessageInput = ({
   const onClickAddAttachment = useCallback(() => {
     attachmentInputRef.current?.click();
   }, []);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [replyMessage]);
 
   return (
     <div className="mx-4 my-2 flex space-x-4">
