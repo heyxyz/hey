@@ -1,4 +1,4 @@
-import type { AnyPublication } from '@hey/lens';
+import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
@@ -7,7 +7,6 @@ import {
   IPFS_GATEWAY,
   POLYGONSCAN_URL
 } from '@hey/data/constants';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card } from '@hey/ui';
 import Link from 'next/link';
 import urlcat from 'urlcat';
@@ -36,14 +35,11 @@ const Meta: FC<MetaProps> = ({ hash, name, uri }) => (
 );
 
 interface OnchainMetaProps {
-  publication: AnyPublication;
+  publication: MirrorablePublication;
 }
 
 const OnchainMeta: FC<OnchainMetaProps> = ({ publication }) => {
-  const targetPublication = isMirrorPublication(publication)
-    ? publication.mirrorOn
-    : publication;
-  const hash = targetPublication.metadata.rawURI?.split('/').pop();
+  const hash = publication.metadata.rawURI?.split('/').pop();
   const isArweaveHash = hash?.length === 43;
   const isIPFSHash = hash?.length === 46 || hash?.length === 59;
 
