@@ -1,4 +1,3 @@
-import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import Collectors from '@components/Shared/Modal/Collectors';
@@ -11,9 +10,9 @@ import {
   RectangleStackIcon
 } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
+import { PublicationStats } from '@hey/lens';
 import getPublicationsViews from '@hey/lib/getPublicationsViews';
 import nFormatter from '@hey/lib/nFormatter';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import plur from 'plur';
@@ -21,15 +20,16 @@ import { memo, useEffect, useState } from 'react';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 
 interface PublicationStatsProps {
-  publication: AnyPublication;
+  publicationId: string;
+  publicationStats: PublicationStats;
 }
 
-const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
+const PublicationStats: FC<PublicationStatsProps> = ({
+  publicationId,
+  publicationStats
+}) => {
   const setShowPublicationStatsModal = useGlobalModalStateStore(
     (state) => state.setShowPublicationStatsModal
-  );
-  const showPublicationStatsModal = useGlobalModalStateStore(
-    (state) => state.showPublicationStatsModal
   );
   const [views, setViews] = useState<number>(0);
   const [showMirrorsModal, setShowMirrorsModal] = useState(false);
@@ -37,20 +37,15 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
   const [showLikesModal, setShowLikesModal] = useState(false);
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
 
-  const targetPublication = isMirrorPublication(publication)
-    ? publication?.mirrorOn
-    : publication;
-
   useEffect(() => {
     // Get Views
-    getPublicationsViews([targetPublication.id]).then((viewsResponse) => {
+    getPublicationsViews([publicationId]).then((viewsResponse) => {
       setViews(viewsResponse?.[0]?.views);
     });
-  }, [targetPublication]);
+  }, [publicationId]);
 
-  const publicationId = targetPublication.id;
   const { bookmarks, comments, countOpenActions, mirrors, quotes, reactions } =
-    targetPublication.stats;
+    publicationStats;
   const shares = mirrors + quotes;
 
   const showStats =
