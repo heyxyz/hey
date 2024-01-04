@@ -1,4 +1,3 @@
-import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
@@ -8,10 +7,10 @@ import Verify from './Verify';
 
 interface AccessProps {
   isPro: boolean;
-  profile: Profile;
+  profileId: string;
 }
 
-const Access: FC<AccessProps> = ({ isPro, profile }) => {
+const Access: FC<AccessProps> = ({ isPro, profileId }) => {
   return (
     <>
       <div className="mt-5 flex items-center space-x-2 text-yellow-600">
@@ -19,8 +18,8 @@ const Access: FC<AccessProps> = ({ isPro, profile }) => {
         <div className="text-lg font-bold">Access</div>
       </div>
       <div className="mt-3 space-y-2 font-bold">
-        <Verify profile={profile} />
-        <ActivateLifetimePro isPro={isPro} profile={profile} />
+        <Verify profileId={profileId} />
+        <ActivateLifetimePro isPro={isPro} profileId={profileId} />
       </div>
     </>
   );

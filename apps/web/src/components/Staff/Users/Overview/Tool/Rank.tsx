@@ -1,4 +1,3 @@
-import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import MetaDetails from '@components/Shared/Staff/MetaDetails';
@@ -17,17 +16,16 @@ import axios from 'axios';
 import urlcat from 'urlcat';
 
 interface RankProps {
-  profile: Profile;
+  address: string;
+  handle?: string;
+  profileId: string;
 }
 
-const Rank: FC<RankProps> = ({ profile }) => {
+const Rank: FC<RankProps> = ({ address, handle, profileId }) => {
   const getRank = async (strategy: string) => {
     try {
       const response = await axios.get(
-        urlcat('https://lens-api.k3l.io/profile/rank', {
-          handle: profile.handle?.localName,
-          strategy
-        })
+        urlcat('https://lens-api.k3l.io/profile/rank', { handle, strategy })
       );
 
       return response.data;
@@ -40,7 +38,7 @@ const Rank: FC<RankProps> = ({ profile }) => {
     try {
       const response = await axios.get(
         urlcat('https://api.scorer.gitcoin.co/registry/score/:id/:address', {
-          address: profile.ownedBy.address,
+          address,
           id: 335
         }),
         { headers: { 'X-API-Key': GITCOIN_PASSPORT_KEY } }
@@ -54,27 +52,27 @@ const Rank: FC<RankProps> = ({ profile }) => {
 
   const { data: followship, isLoading: followshipLoading } = useQuery({
     queryFn: async () => getRank('followship'),
-    queryKey: ['getRank', profile.id, 'followship']
+    queryKey: ['getRank', profileId, 'followship']
   });
 
   const { data: engagement, isLoading: engagementLoading } = useQuery({
     queryFn: async () => getRank('engagement'),
-    queryKey: ['getRank', profile.id, 'engagement']
+    queryKey: ['getRank', profileId, 'engagement']
   });
 
   const { data: influencer, isLoading: influencerLoading } = useQuery({
     queryFn: async () => getRank('influencer'),
-    queryKey: ['getRank', profile.id, 'influencer']
+    queryKey: ['getRank', profileId, 'influencer']
   });
 
   const { data: creator, isLoading: creatorLoading } = useQuery({
     queryFn: async () => getRank('creator'),
-    queryKey: ['getRank', profile.id, 'creator']
+    queryKey: ['getRank', profileId, 'creator']
   });
 
   const { data: gitcoinScore, isLoading: gitcoinScoreLoading } = useQuery({
     queryFn: getGitcoinScore,
-    queryKey: ['getGitcoinScore', profile.id]
+    queryKey: ['getGitcoinScore', profileId]
   });
 
   return (

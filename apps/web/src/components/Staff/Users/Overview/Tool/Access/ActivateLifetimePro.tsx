@@ -1,4 +1,3 @@
-import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import { HEY_API_URL } from '@hey/data/constants';
@@ -12,12 +11,12 @@ import ToggleWrapper from '../ToggleWrapper';
 
 interface ActivateLifetimeProProps {
   isPro: boolean;
-  profile: Profile;
+  profileId: string;
 }
 
 const ActivateLifetimePro: FC<ActivateLifetimeProProps> = ({
   isPro: enabled,
-  profile
+  profileId
 }) => {
   const [loading, setLoading] = useState(false);
   const [isPro, setIsPro] = useState(false);
@@ -31,7 +30,7 @@ const ActivateLifetimePro: FC<ActivateLifetimeProProps> = ({
     toast.promise(
       axios.post(
         `${HEY_API_URL}/internal/pro/activate`,
-        { enabled: !isPro, id: profile.id, trial: false },
+        { enabled: !isPro, id: profileId, trial: false },
         { headers: getAuthWorkerHeaders() }
       ),
       {

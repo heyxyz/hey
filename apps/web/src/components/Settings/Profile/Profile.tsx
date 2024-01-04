@@ -1,5 +1,5 @@
 import type { Area } from '@hey/image-cropper/types';
-import type { OnchainSetProfileMetadataRequest, Profile } from '@hey/lens';
+import type { OnchainSetProfileMetadataRequest } from '@hey/lens';
 import type {
   MetadataAttribute,
   ProfileOptions
@@ -80,11 +80,7 @@ const editProfileSchema = object({
 
 type FormData = z.infer<typeof editProfileSchema>;
 
-interface ProfileSettingsFormProps {
-  profile: Profile;
-}
-
-const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
+const ProfileSettingsForm: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const { isSuspended } = useProfileRestriction();
   const [isLoading, setIsLoading] = useState(false);
@@ -203,14 +199,20 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
 
   const form = useZodForm({
     defaultValues: {
-      bio: profile?.metadata?.bio || '',
-      location: getProfileAttribute('location', profile?.metadata?.attributes),
-      name: profile?.metadata?.displayName || '',
-      website: getProfileAttribute('website', profile?.metadata?.attributes),
-      x: getProfileAttribute('x', profile?.metadata?.attributes)?.replace(
-        /(https:\/\/)?x\.com\//,
-        ''
-      )
+      bio: currentProfile?.metadata?.bio || '',
+      location: getProfileAttribute(
+        'location',
+        currentProfile?.metadata?.attributes
+      ),
+      name: currentProfile?.metadata?.displayName || '',
+      website: getProfileAttribute(
+        'website',
+        currentProfile?.metadata?.attributes
+      ),
+      x: getProfileAttribute(
+        'x',
+        currentProfile?.metadata?.attributes
+      )?.replace(/(https:\/\/)?x\.com\//, '')
     },
     schema: editProfileSchema
   });
@@ -231,7 +233,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
     try {
       setIsLoading(true);
       const otherAttributes =
-        profile.metadata?.attributes
+        currentProfile.metadata?.attributes
           ?.filter(
             (attr) =>
               !['app', 'location', 'timestamp', 'website', 'x'].includes(
@@ -358,13 +360,13 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   };
 
   const coverPictureUrl =
-    profile?.metadata?.coverPicture?.optimized?.uri ||
+    currentProfile?.metadata?.coverPicture?.optimized?.uri ||
     `${STATIC_IMAGES_URL}/patterns/2.svg`;
   const renderCoverPictureUrl = coverPictureUrl
     ? imageKit(sanitizeDStorageUrl(coverPictureUrl), COVER)
     : '';
 
-  const profilePictureUrl = getAvatar(profile);
+  const profilePictureUrl = getAvatar(currentProfile);
   const renderProfilePictureUrl = profilePictureUrl
     ? imageKit(sanitizeDStorageUrl(profilePictureUrl), AVATAR)
     : '';

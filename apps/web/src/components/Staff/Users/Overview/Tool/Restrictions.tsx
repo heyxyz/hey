@@ -11,11 +11,11 @@ import toast from 'react-hot-toast';
 import ToggleWrapper from './ToggleWrapper';
 
 interface RestrictionsProps {
-  id: string;
+  profileId: string;
   restrictions: Preferences['restrictions'];
 }
 
-const Restrictions: FC<RestrictionsProps> = ({ id, restrictions }) => {
+const Restrictions: FC<RestrictionsProps> = ({ profileId, restrictions }) => {
   const [disabled, setDisabled] = useState(false);
   const [isFlagged, setIsFlagged] = useState(false);
   const [isSuspended, setIsSuspended] = useState(false);
@@ -35,7 +35,7 @@ const Restrictions: FC<RestrictionsProps> = ({ id, restrictions }) => {
     toast.promise(
       axios.post(
         `${HEY_API_URL}/internal/restrictions/update`,
-        { id, isFlagged, isSuspended },
+        { id: profileId, isFlagged, isSuspended },
         { headers: getAuthWorkerHeaders() }
       ),
       {
