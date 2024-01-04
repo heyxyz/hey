@@ -1,4 +1,3 @@
-import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import Markup from '@components/Shared/Markup';
@@ -7,11 +6,11 @@ import getMisuseDetails from '@hey/lib/getMisuseDetails';
 import { Card } from '@hey/ui';
 
 interface ScamWarningProps {
-  profile: Profile;
+  profileId: string;
 }
 
-const ScamWarning: FC<ScamWarningProps> = ({ profile }) => {
-  const misuseDetails = getMisuseDetails(profile?.id);
+const ScamWarning: FC<ScamWarningProps> = ({ profileId }) => {
+  const misuseDetails = getMisuseDetails(profileId);
 
   if (!misuseDetails) {
     return null;
