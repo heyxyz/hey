@@ -102,7 +102,11 @@ const ViewProfile: NextPage = () => {
           feedType === ProfileFeedType.Replies ||
           feedType === ProfileFeedType.Media ||
           feedType === ProfileFeedType.Collects ? (
-            <Feed profile={profile as Profile} type={feedType} />
+            <Feed
+              handle={getProfile(profile).slugWithPrefix}
+              profileId={profile.id}
+              type={feedType}
+            />
           ) : null}
           {feedType === ProfileFeedType.Stats && IS_MAINNET ? (
             <Achievements profile={profile as Profile} />
