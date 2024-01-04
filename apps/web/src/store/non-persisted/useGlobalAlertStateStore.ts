@@ -5,14 +5,14 @@ import { create } from 'zustand';
 interface GlobalAlertState {
   blockingorUnblockingProfile: null | Profile;
   deletingPublication: AnyPublication | null;
-  modingPublication: AnyPublication | null;
+  modingPublicationId: null | string;
   setShowBlockOrUnblockAlert: (
     showBlockOrUnblockAlert: boolean,
     blockingorUnblockingProfile: null | Profile
   ) => void;
   setShowModActionAlert: (
     showModActionAlert: boolean,
-    modingPublication: AnyPublication | null
+    modingPublicationId: null | string
   ) => void;
   setShowPublicationDeleteAlert: (
     showPublicationDeleteAlert: boolean,
@@ -27,13 +27,13 @@ export const useGlobalAlertStateStore = create<GlobalAlertState>((set) => ({
   blockingorUnblockingProfile: null,
   deletingPublication: null,
   forceDeletePublication: false,
-  modingPublication: null,
+  modingPublicationId: null,
   setShowBlockOrUnblockAlert: (
     showBlockOrUnblockAlert,
     blockingorUnblockingProfile
   ) => set(() => ({ blockingorUnblockingProfile, showBlockOrUnblockAlert })),
-  setShowModActionAlert: (showModActionAlert, modingPublication) =>
-    set(() => ({ modingPublication, showModActionAlert })),
+  setShowModActionAlert: (showModActionAlert, modingPublicationId) =>
+    set(() => ({ modingPublicationId, showModActionAlert })),
   setShowPublicationDeleteAlert: (
     showPublicationDeleteAlert,
     deletingPublication
