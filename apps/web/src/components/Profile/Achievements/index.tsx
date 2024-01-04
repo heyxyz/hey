@@ -1,6 +1,7 @@
 import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
+import getProfile from '@hey/lib/getProfile';
 import { useProStore } from 'src/store/non-persisted/useProStore';
 
 import ProfileAnalytics from './ProfileAnalytics';
@@ -16,9 +17,17 @@ const Achievements: FC<AchievementsProps> = ({ profile }) => {
 
   return (
     <div className="space-y-4">
-      <Streaks profile={profile} />
-      <StreaksList profile={profile} />
-      {isPro && <ProfileAnalytics profile={profile} />}
+      <Streaks
+        handle={getProfile(profile).slugWithPrefix}
+        profileId={profile.id}
+      />
+      <StreaksList profileId={profile.id} />
+      {isPro && (
+        <ProfileAnalytics
+          handle={profile?.handle?.localName}
+          profileId={profile.id}
+        />
+      )}
     </div>
   );
 };
