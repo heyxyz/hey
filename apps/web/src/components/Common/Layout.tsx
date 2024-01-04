@@ -8,6 +8,7 @@ import PageMetatags from '@components/Shared/PageMetatags';
 import { useCurrentProfileQuery } from '@hey/lens';
 import getCurrentSession from '@lib/getCurrentSession';
 import getToastOptions from '@lib/getToastOptions';
+import clearCache from 'clear-cache';
 import { useTheme } from 'next-themes';
 import { Toaster } from 'react-hot-toast';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
@@ -55,7 +56,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     signOut();
     disconnect?.();
     if (reload) {
-      location.reload();
+      //location.reload();
+      clearCache();
     }
   };
 

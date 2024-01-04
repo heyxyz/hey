@@ -26,6 +26,7 @@ import { Button, Card, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
+import clearCache from 'clear-cache';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
@@ -126,7 +127,8 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       const refreshToken = auth.data?.authenticate.refreshToken;
       signIn({ accessToken, refreshToken });
       Leafwatch.track(AUTH.SIWL);
-      location.reload();
+      clearCache();
+      //location.reload();
     } catch {}
   };
 

@@ -8,6 +8,7 @@ import {
 } from '@hey/lens';
 import { Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import clearCache from 'clear-cache';
 import { useState } from 'react';
 
 interface IndexStatusProps {
@@ -33,7 +34,8 @@ const IndexStatus: FC<IndexStatusProps> = ({
       ) {
         setPollInterval(0);
         if (reload) {
-          location.reload();
+          //location.reload();
+          clearCache();
         }
         setTimeout(() => {
           setHide(true);

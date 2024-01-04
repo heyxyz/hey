@@ -22,6 +22,7 @@ import { ErrorMessage, Image, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
+import clearCache from 'clear-cache';
 import Link from 'next/link';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -97,7 +98,8 @@ const SwitchProfiles: FC = () => {
       signOut();
       signIn({ accessToken, refreshToken });
       Leafwatch.track(PROFILE.SWITCH_PROFILE, { switch_profile_to: id });
-      location.reload();
+      //location.reload();
+      clearCache();
     } catch (error) {
       onError(error);
     }

@@ -41,6 +41,7 @@
     "axios": "^1.6.3",
     "browser-image-compression": "^2.0.2",
     "chart.js": "^4.4.1",
+    "clear-cache": "^1.1.0",
     "dotenv": "^16.3.1",
     "esbuild": "^0.19.11",
     "framer-motion": "^10.17.2",

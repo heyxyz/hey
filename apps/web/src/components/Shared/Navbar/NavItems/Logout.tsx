@@ -7,6 +7,7 @@ import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import getCurrentSession from '@lib/getCurrentSession';
 import { Leafwatch } from '@lib/leafwatch';
+import clearCache from 'clear-cache';
 import { useState } from 'react';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { signOut } from 'src/store/persisted/useAuthStore';
@@ -45,7 +46,8 @@ const Logout: FC<LogoutProps> = ({ className = '', onClick }) => {
       resetPreferences();
       signOut();
       disconnect?.();
-      location.reload();
+      //location.reload();
+      clearCache();
     } catch (error) {
       onError(error);
     } finally {

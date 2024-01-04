@@ -10,6 +10,7 @@ import {
 import { BrowserPush } from '@lib/browserPush';
 import getCurrentSession from '@lib/getCurrentSession';
 import getPushNotificationData from '@lib/getPushNotificationData';
+import clearCache from 'clear-cache';
 import { isSupported, share } from 'shared-zustand';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { signOut } from 'src/store/persisted/useAuthStore';
@@ -84,7 +85,8 @@ const LensSubscriptionsProvider: FC = () => {
     // Using not null assertion because api returns null if revoked
     if (!authorizationRecordRevoked) {
       signOut();
-      location.reload();
+      //location.reload();
+      clearCache();
     }
   }, [authorizationRecordRevokedData]);
   // End: Authorization Record Revoked
