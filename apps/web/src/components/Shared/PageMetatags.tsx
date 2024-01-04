@@ -46,6 +46,12 @@ const PageMetatags: FC = () => {
           title: `Privacy Policy • ${APP_NAME}`
         };
       }
+      case '/rules': {
+        return {
+          description: `Rules of ${APP_NAME}.`,
+          title: `Rules • ${APP_NAME}`
+        };
+      }
       case '/terms': {
         return {
           description: `Terms & Conditions of ${APP_NAME}.`,
