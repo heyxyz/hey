@@ -11,8 +11,8 @@ import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModal
 import Loader from '../Loader';
 
 interface PublicationCountriesStat {
+  code: string;
   country: string;
-  countryCode: string;
   views: number;
 }
 
@@ -73,12 +73,12 @@ const Views: FC = () => {
       {data?.map((stat) => (
         <div
           className="flex items-start justify-between px-5 py-3 text-sm"
-          key={stat.countryCode}
+          key={stat.code}
         >
           <div className="flex items-center space-x-2">
             <img
               className="h-4"
-              src={`${STATIC_IMAGES_URL}/flags/${stat.countryCode}.svg`}
+              src={`${STATIC_IMAGES_URL}/flags/${stat.code}.svg`}
             />
             <div>{stat.country}</div>
           </div>

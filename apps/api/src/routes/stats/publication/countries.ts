@@ -30,8 +30,8 @@ export const get: Handler = async (req, res) => {
     const result = await rows.json<Array<{ count: number; country: string }>>();
 
     const locationDetails = result.map((row) => ({
+      code: lookup.byCountry(row.country)?.iso2 || 'Unknown',
       country: row.country || 'Unknown',
-      countryCode: lookup.byCountry(row.country)?.iso2 || 'Unknown',
       views: Number(row.count)
     }));
     logger.info(`Fetched publication views country details for ${id}`);
