@@ -53,6 +53,9 @@ importers:
       cors:
         specifier: ^2.8.5
         version: 2.8.5
+      country-code-lookup:
+        specifier: ^0.1.1
+        version: 0.1.1
       dotenv:
         specifier: ^16.0.0
         version: 16.3.1
@@ -4138,6 +4141,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
+      napi-wasm: 1.1.0
     dev: false
     bundledDependencies:
       - napi-wasm
@@ -8188,6 +8192,10 @@ packages:
       typescript: 5.3.3
     dev: true
 
+  /country-code-lookup@0.1.1:
+    resolution: {integrity: sha512-g3yr9E8oCnlRo1PNHwHEQEjY4aDszS/H35gQZ21ToXd0eoydUAXWACTNYqiL6Tp0gMn+1l+ebErwT2PKw5c88Q==}
+    dev: false
+
   /create-hash@1.2.0:
     resolution: {integrity: sha512-z00bCGNHDG8mHAkP7CtT1qVu+bFQUPjYq/4Iv3C3kWjTFV10zIjfSoeqXo9Asws8gwSHDGj/hl2u4OGIjapeCg==}
     dependencies:
@@ -11565,6 +11573,10 @@ packages:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
+
+  /napi-wasm@1.1.0:
+    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
+    dev: false
 
   /natural-compare-lite@1.4.0:
     resolution: {integrity: sha512-Tj+HTDSJJKaZnfiuw+iaF9skdPpTo2GtEly5JHnWV/hfv2Qj/9RKsGISQtLh2ox3l5EAGw487hnBee0sIJ6v2g==}

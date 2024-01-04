@@ -5,6 +5,7 @@ import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
 import createClickhouseClient from '@utils/createClickhouseClient';
 import { noBody } from '@utils/responses';
+import lookup from 'country-code-lookup';
 
 export const get: Handler = async (req, res) => {
   const { id } = req.query;
@@ -21,7 +22,8 @@ export const get: Handler = async (req, res) => {
         SELECT region, country, COUNT(*) AS count
         FROM impressions
         WHERE publication_id = '${id}'
-        GROUP BY region, country;
+        GROUP BY region, country
+        ORDER BY count DESC;
       `
     });
 
@@ -39,6 +41,7 @@ export const get: Handler = async (req, res) => {
     };
 
     const locationDetails = result.map((row) => ({
+      countryCode: lookup.byCountry(row.country)?.internet || 'Unknown',
       location: getLoaction(row),
       views: Number(row.count)
     }));
