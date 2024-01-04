@@ -62,7 +62,7 @@ const ViewGroup: NextPage = () => {
   return (
     <>
       <MetaTags title={`Group • ${group.name} • ${APP_NAME}`} />
-      <GridLayout className="pt-6">
+      <GridLayout>
         <GridItemFour>
           <Details group={group} />
         </GridItemFour>
