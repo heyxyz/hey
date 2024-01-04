@@ -177,7 +177,10 @@ const Details: FC<DetailsProps> = ({ profile }) => {
               show={showMutualFollowersModal}
               title="Followers you know"
             >
-              <MutualFollowersList profileId={profile.id} />
+              <MutualFollowersList
+                handle={getProfile(profile).slugWithPrefix}
+                profileId={profile.id}
+              />
             </Modal>
           </>
         ) : null}

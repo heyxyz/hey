@@ -5,27 +5,26 @@ import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
 import { LimitType, useFollowingQuery } from '@hey/lens';
-import getProfile from '@hey/lib/getProfile';
 import { EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
 import { Virtuoso } from 'react-virtuoso';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface FollowingProps {
-  onProfileSelected?: (profile: Profile) => void;
-  profile: Profile;
+  handle: string;
+  profileId: string;
 }
 
-const Following: FC<FollowingProps> = ({ onProfileSelected, profile }) => {
+const Following: FC<FollowingProps> = ({ handle, profileId }) => {
   // Variables
   const request: FollowingRequest = {
-    for: profile.id,
+    for: profileId,
     limit: LimitType.TwentyFive
   };
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
   const { data, error, fetchMore, loading } = useFollowingQuery({
-    skip: !profile?.id,
+    skip: !profileId,
     variables: { request }
   });
 
@@ -54,9 +53,7 @@ const Following: FC<FollowingProps> = ({ onProfileSelected, profile }) => {
         icon={<UsersIcon className="text-brand-500 size-8" />}
         message={
           <div>
-            <span className="mr-1 font-bold">
-              {getProfile(profile).slugWithPrefix}
-            </span>
+            <span className="mr-1 font-bold">{handle}</span>
             <span>doesn’t follow anyone.</span>
           </div>
         }
@@ -79,22 +76,11 @@ const Following: FC<FollowingProps> = ({ onProfileSelected, profile }) => {
           return (
             <motion.div
               animate={{ opacity: 1 }}
-              className={`p-5 ${
-                onProfileSelected &&
-                'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900'
-              }`}
+              className="p-5"
               exit={{ opacity: 0 }}
               initial={{ opacity: 0 }}
-              onClick={
-                onProfileSelected && following
-                  ? () => {
-                      onProfileSelected(following as Profile);
-                    }
-                  : undefined
-              }
             >
               <UserProfile
-                linkToProfile={!onProfileSelected}
                 profile={following as Profile}
                 showBio
                 showFollow={currentProfile?.id !== following.id}
