@@ -99,7 +99,9 @@ const ViewPublication: NextPage = () => {
         <Card as="aside" className="p-5">
           <UserProfile profile={targetPublication.by} showBio />
         </Card>
-        <RelevantPeople publication={publication} />
+        <RelevantPeople
+          profilesMentioned={targetPublication.profilesMentioned}
+        />
         <OnchainMeta publication={publication} />
         {staffMode ? <PublicationStaffTool publication={publication} /> : null}
         <Footer />
