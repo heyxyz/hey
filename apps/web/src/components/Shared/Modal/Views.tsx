@@ -5,11 +5,13 @@ import { HEY_API_URL } from '@hey/data/constants';
 import { EmptyState, ErrorMessage } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import plur from 'plur';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 
 import Loader from '../Loader';
 
 interface PublicationLocationStat {
+  countryCode: string;
   location: string;
   views: number;
 }
@@ -67,8 +69,25 @@ const Views: FC = () => {
   }
 
   return (
-    <div className="m-5 max-h-[80vh] overflow-y-auto">
-      {JSON.stringify(data)}
+    <div className="max-h-[80vh] divide-y overflow-y-auto">
+      {data?.map((stat) => (
+        <div
+          className="flex items-start justify-between px-5 py-3 text-sm"
+          key={stat.countryCode}
+        >
+          <div className="flex items-center space-x-2">
+            <img
+              className="h-4"
+              src={`https://assets.simpleanalytics.com/images/flags/${stat.countryCode}.svg`}
+            />
+            <div>{stat.location}</div>
+          </div>
+          <div>
+            <span className="font-bold">{stat.views} </span>
+            <span className="ld-text-gray-500">{plur('View', stat.views)}</span>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
