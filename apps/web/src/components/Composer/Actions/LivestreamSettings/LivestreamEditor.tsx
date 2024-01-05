@@ -14,7 +14,7 @@ import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
+import { usePublicationLiveStore } from 'src/store/non-persisted/publication/usePublicationLiveStore';
 
 interface WrapperProps {
   children: ReactNode;
@@ -29,14 +29,16 @@ const Wrapper: FC<WrapperProps> = ({ children }) => {
 };
 
 const LivestreamEditor: FC = () => {
-  const liveVideoConfig = usePublicationStore((state) => state.liveVideoConfig);
-  const setLiveVideoConfig = usePublicationStore(
+  const liveVideoConfig = usePublicationLiveStore(
+    (state) => state.liveVideoConfig
+  );
+  const setLiveVideoConfig = usePublicationLiveStore(
     (state) => state.setLiveVideoConfig
   );
-  const setShowLiveVideoEditor = usePublicationStore(
+  const setShowLiveVideoEditor = usePublicationLiveStore(
     (state) => state.setShowLiveVideoEditor
   );
-  const resetLiveVideoConfig = usePublicationStore(
+  const resetLiveVideoConfig = usePublicationLiveStore(
     (state) => state.resetLiveVideoConfig
   );
 
