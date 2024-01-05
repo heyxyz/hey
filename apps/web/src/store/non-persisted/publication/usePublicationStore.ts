@@ -10,7 +10,6 @@ interface PublicationState {
 }
 
 export const usePublicationStore = create<PublicationState>((set) => ({
-  isUploading: false,
   publicationContent: '',
   quotedPublication: null,
   setPublicationContent: (publicationContent) =>
