@@ -22,7 +22,7 @@
     "pino": "^8.17.2",
     "pino-pretty": "^10.3.1",
     "urlcat": "^3.1.0",
-    "viem": "^1.21.4"
+    "viem": "1.21.4"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
