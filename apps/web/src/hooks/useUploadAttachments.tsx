@@ -4,7 +4,7 @@ import uploadToIPFS from '@lib/uploadToIPFS';
 import imageCompression from 'browser-image-compression';
 import { useCallback } from 'react';
 import { toast } from 'react-hot-toast';
-import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
+import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
 import { v4 as uuid } from 'uuid';
 
@@ -12,16 +12,17 @@ const useUploadAttachments = () => {
   const setUploadedPercentage = usePublicationVideoStore(
     (state) => state.setUploadedPercentage
   );
-  const {
-    addAttachments,
-    removeAttachments,
-    setIsUploading,
-    updateAttachments
-  } = usePublicationStore((state) => ({
-    addAttachments: state.addAttachments,
-    removeAttachments: state.removeAttachments,
-    setIsUploading: state.setIsUploading,
-    updateAttachments: state.updateAttachments
+  const addAttachments = usePublicationAttachmentStore(
+    (state) => state.addAttachments
+  );
+  const removeAttachments = usePublicationAttachmentStore(
+    (state) => state.removeAttachments
+  );
+  const updateAttachments = usePublicationAttachmentStore(
+    (state) => state.updateAttachments
+  );
+  const { setIsUploading } = usePublicationAttachmentStore((state) => ({
+    setIsUploading: state.setIsUploading
   }));
 
   const validateFileSize = (file: any) => {

@@ -9,7 +9,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
-import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
+import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 
 const GifSelector = dynamic(() => import('./GifSelector'), {
   loading: () => <Loader message="Loading GIFs" />
@@ -20,7 +20,9 @@ interface GiphyProps {
 }
 
 const Gif: FC<GiphyProps> = ({ setGifAttachment }) => {
-  const attachments = usePublicationStore((state) => state.attachments);
+  const attachments = usePublicationAttachmentStore(
+    (state) => state.attachments
+  );
   const [showModal, setShowModal] = useState(false);
 
   return (

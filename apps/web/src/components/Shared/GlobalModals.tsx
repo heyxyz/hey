@@ -9,6 +9,7 @@ import {
   TicketIcon
 } from '@heroicons/react/24/outline';
 import { Modal } from '@hey/ui';
+import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
 import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
@@ -86,8 +87,12 @@ const GlobalModals: FC = () => {
   const publicationContent = usePublicationStore(
     (state) => state.publicationContent
   );
-  const attachments = usePublicationStore((state) => state.attachments);
-  const isUploading = usePublicationStore((state) => state.isUploading);
+  const attachments = usePublicationAttachmentStore(
+    (state) => state.attachments
+  );
+  const isUploading = usePublicationAttachmentStore(
+    (state) => state.isUploading
+  );
   const videoDurationInSeconds = usePublicationVideoStore(
     (state) => state.videoDurationInSeconds
   );
