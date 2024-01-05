@@ -25,6 +25,7 @@ import {
 import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import useUploadAttachments from 'src/hooks/useUploadAttachments';
+import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 
@@ -37,7 +38,9 @@ const Editor: FC = () => {
   const showPollEditor = usePublicationPollStore(
     (state) => state.showPollEditor
   );
-  const attachments = usePublicationStore((state) => state.attachments);
+  const attachments = usePublicationAttachmentStore(
+    (state) => state.attachments
+  );
   const { handleUploadAttachments } = useUploadAttachments();
   const [editor] = useLexicalComposerContext();
 

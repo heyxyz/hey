@@ -8,7 +8,7 @@ import { Spinner } from '@hey/ui';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
+import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
 import { useUpdateEffect } from 'usehooks-ts';
 
@@ -24,7 +24,9 @@ const ChooseThumbnail: FC = () => {
   const [thumbnails, setThumbnails] = useState<Thumbnail[]>([]);
   const [imageUploading, setImageUploading] = useState(false);
   const [selectedThumbnailIndex, setSelectedThumbnailIndex] = useState(-1);
-  const attachments = usePublicationStore((state) => state.attachments);
+  const attachments = usePublicationAttachmentStore(
+    (state) => state.attachments
+  );
   const videoThumbnail = usePublicationVideoStore(
     (state) => state.videoThumbnail
   );
