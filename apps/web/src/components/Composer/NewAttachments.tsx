@@ -8,6 +8,7 @@ import { Button, Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useRef } from 'react';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { usePublicationVideoStore } from 'src/store/non-persisted/usePublicationVideoStore';
 import { useUpdateEffect } from 'usehooks-ts';
 
 import Audio from '../Shared/Audio';
@@ -46,7 +47,7 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
   hideDelete = false
 }) => {
   const setAttachments = usePublicationStore((state) => state.setAttachments);
-  const setVideoDurationInSeconds = usePublicationStore(
+  const setVideoDurationInSeconds = usePublicationVideoStore(
     (state) => state.setVideoDurationInSeconds
   );
   const videoRef = useRef<HTMLVideoElement>(null);

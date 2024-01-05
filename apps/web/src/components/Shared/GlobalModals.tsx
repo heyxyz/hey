@@ -11,6 +11,7 @@ import {
 import { Modal } from '@hey/ui';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { usePublicationVideoStore } from 'src/store/non-persisted/usePublicationVideoStore';
 
 import Login from './Login';
 import WrongNetwork from './Login/WrongNetwork';
@@ -85,10 +86,12 @@ const GlobalModals: FC = () => {
   );
   const attachments = usePublicationStore((state) => state.attachments);
   const isUploading = usePublicationStore((state) => state.isUploading);
-  const videoDurationInSeconds = usePublicationStore(
+  const videoDurationInSeconds = usePublicationVideoStore(
     (state) => state.videoDurationInSeconds
   );
-  const videoThumbnail = usePublicationStore((state) => state.videoThumbnail);
+  const videoThumbnail = usePublicationVideoStore(
+    (state) => state.videoThumbnail
+  );
   const audioPublication = usePublicationStore(
     (state) => state.audioPublication
   );

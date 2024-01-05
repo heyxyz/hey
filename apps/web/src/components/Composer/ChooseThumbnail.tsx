@@ -9,6 +9,7 @@ import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { usePublicationVideoStore } from 'src/store/non-persisted/usePublicationVideoStore';
 import { useUpdateEffect } from 'usehooks-ts';
 
 const DEFAULT_THUMBNAIL_INDEX = 0;
@@ -24,8 +25,10 @@ const ChooseThumbnail: FC = () => {
   const [imageUploading, setImageUploading] = useState(false);
   const [selectedThumbnailIndex, setSelectedThumbnailIndex] = useState(-1);
   const attachments = usePublicationStore((state) => state.attachments);
-  const videoThumbnail = usePublicationStore((state) => state.videoThumbnail);
-  const setVideoThumbnail = usePublicationStore(
+  const videoThumbnail = usePublicationVideoStore(
+    (state) => state.videoThumbnail
+  );
+  const setVideoThumbnail = usePublicationVideoStore(
     (state) => state.setVideoThumbnail
   );
   const { file } = attachments[0];

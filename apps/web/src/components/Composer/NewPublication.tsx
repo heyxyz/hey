@@ -51,6 +51,7 @@ import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleS
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { usePublicationVideoStore } from 'src/store/non-persisted/usePublicationVideoStore';
 import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
@@ -134,8 +135,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const setAttachments = usePublicationStore((state) => state.setAttachments);
   const addAttachments = usePublicationStore((state) => state.addAttachments);
   const isUploading = usePublicationStore((state) => state.isUploading);
-  const videoThumbnail = usePublicationStore((state) => state.videoThumbnail);
-  const setVideoThumbnail = usePublicationStore(
+  const videoThumbnail = usePublicationVideoStore(
+    (state) => state.videoThumbnail
+  );
+  const setVideoThumbnail = usePublicationVideoStore(
     (state) => state.setVideoThumbnail
   );
   const showPollEditor = usePublicationStore((state) => state.showPollEditor);

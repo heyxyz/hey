@@ -48,23 +48,9 @@ interface PublicationState {
   setQuotedPublication: (quotedPublication: AnyPublication | null) => void;
   setShowLiveVideoEditor: (showLiveVideoEditor: boolean) => void;
   setShowPollEditor: (showPollEditor: boolean) => void;
-  setUploadedPercentage: (uploadedPercentage: number) => void;
-  setVideoDurationInSeconds: (videoDurationInSeconds: string) => void;
-  setVideoThumbnail: (videoThumbnail: {
-    type?: string;
-    uploading?: boolean;
-    url?: string;
-  }) => void;
   showLiveVideoEditor: boolean;
   showPollEditor: boolean;
   updateAttachments: (attachments: NewAttachment[]) => void;
-  uploadedPercentage: number;
-  videoDurationInSeconds: string;
-  videoThumbnail: {
-    type?: string;
-    uploading?: boolean;
-    url?: string;
-  };
 }
 
 export const usePublicationStore = create<PublicationState>((set) => ({
@@ -113,11 +99,6 @@ export const usePublicationStore = create<PublicationState>((set) => ({
   setShowLiveVideoEditor: (showLiveVideoEditor) =>
     set(() => ({ showLiveVideoEditor })),
   setShowPollEditor: (showPollEditor) => set(() => ({ showPollEditor })),
-  setUploadedPercentage: (uploadedPercentage) =>
-    set(() => ({ uploadedPercentage })),
-  setVideoDurationInSeconds: (videoDurationInSeconds) =>
-    set(() => ({ videoDurationInSeconds })),
-  setVideoThumbnail: (videoThumbnail) => set(() => ({ videoThumbnail })),
   showLiveVideoEditor: false,
   showPollEditor: false,
   updateAttachments: (updateAttachments) =>
@@ -130,8 +111,5 @@ export const usePublicationStore = create<PublicationState>((set) => ({
         }
       });
       return { attachments };
-    }),
-  uploadedPercentage: 0,
-  videoDurationInSeconds: '',
-  videoThumbnail: { type: '', uploading: false, url: '' }
+    })
 }));

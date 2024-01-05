@@ -12,6 +12,7 @@ import {
 import getUserLocale from '@lib/getUserLocale';
 import { useCallback } from 'react';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { usePublicationVideoStore } from 'src/store/non-persisted/usePublicationVideoStore';
 import { v4 as uuid } from 'uuid';
 
 interface UsePublicationMetadataProps {
@@ -19,22 +20,24 @@ interface UsePublicationMetadataProps {
 }
 
 const usePublicationMetadata = () => {
+  const videoDurationInSeconds = usePublicationVideoStore(
+    (state) => state.videoDurationInSeconds
+  );
+  const videoThumbnail = usePublicationVideoStore(
+    (state) => state.videoThumbnail
+  );
   const {
     attachments,
     audioPublication,
     license,
     liveVideoConfig,
-    showLiveVideoEditor,
-    videoDurationInSeconds,
-    videoThumbnail
+    showLiveVideoEditor
   } = usePublicationStore((state) => ({
     attachments: state.attachments,
     audioPublication: state.audioPublication,
     license: state.license,
     liveVideoConfig: state.liveVideoConfig,
-    showLiveVideoEditor: state.showLiveVideoEditor,
-    videoDurationInSeconds: state.videoDurationInSeconds,
-    videoThumbnail: state.videoThumbnail
+    showLiveVideoEditor: state.showLiveVideoEditor
   }));
 
   const attachmentsHasAudio = attachments[0]?.type === 'Audio';
