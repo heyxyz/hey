@@ -11,7 +11,11 @@ import {
 } from '@lens-protocol/metadata';
 import getUserLocale from '@lib/getUserLocale';
 import { useCallback } from 'react';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
+import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
+import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
+import { usePublicationLiveStore } from 'src/store/non-persisted/publication/usePublicationLiveStore';
+import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
 import { v4 as uuid } from 'uuid';
 
 interface UsePublicationMetadataProps {
@@ -19,23 +23,25 @@ interface UsePublicationMetadataProps {
 }
 
 const usePublicationMetadata = () => {
-  const {
-    attachments,
-    audioPublication,
-    license,
-    liveVideoConfig,
-    showLiveVideoEditor,
-    videoDurationInSeconds,
-    videoThumbnail
-  } = usePublicationStore((state) => ({
-    attachments: state.attachments,
-    audioPublication: state.audioPublication,
-    license: state.license,
-    liveVideoConfig: state.liveVideoConfig,
-    showLiveVideoEditor: state.showLiveVideoEditor,
-    videoDurationInSeconds: state.videoDurationInSeconds,
-    videoThumbnail: state.videoThumbnail
-  }));
+  const videoDurationInSeconds = usePublicationVideoStore(
+    (state) => state.videoDurationInSeconds
+  );
+  const videoThumbnail = usePublicationVideoStore(
+    (state) => state.videoThumbnail
+  );
+  const audioPublication = usePublicationAudioStore(
+    (state) => state.audioPublication
+  );
+  const license = usePublicationLicenseStore((state) => state.license);
+  const attachments = usePublicationAttachmentStore(
+    (state) => state.attachments
+  );
+  const liveVideoConfig = usePublicationLiveStore(
+    (state) => state.liveVideoConfig
+  );
+  const showLiveVideoEditor = usePublicationLiveStore(
+    (state) => state.showLiveVideoEditor
+  );
 
   const attachmentsHasAudio = attachments[0]?.type === 'Audio';
   const attachmentsHasVideo = attachments[0]?.type === 'Video';

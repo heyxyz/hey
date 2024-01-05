@@ -6,7 +6,7 @@ import { ClockIcon } from '@heroicons/react/24/outline';
 import getNumberOfDaysFromDate from '@hey/lib/datetime/getNumberOfDaysFromDate';
 import getTimeAddedNDay from '@hey/lib/datetime/getTimeAddedNDay';
 import { Input } from '@hey/ui';
-import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
+import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 
 interface TimeLimitConfigProps {
   setCollectType: (data: CollectModuleType) => void;
