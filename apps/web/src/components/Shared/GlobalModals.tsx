@@ -10,10 +10,10 @@ import {
 } from '@heroicons/react/24/outline';
 import { Modal } from '@hey/ui';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import { usePublicationAudioStore } from 'src/store/non-persisted/usePublicationAudioStore';
-import { usePublicationPollStore } from 'src/store/non-persisted/usePublicationPollStore';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
-import { usePublicationVideoStore } from 'src/store/non-persisted/usePublicationVideoStore';
+import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
+import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
+import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
+import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
 
 import Login from './Login';
 import WrongNetwork from './Login/WrongNetwork';

@@ -9,7 +9,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 
 const GifSelector = dynamic(() => import('./GifSelector'), {
   loading: () => <Loader message="Loading GIFs" />

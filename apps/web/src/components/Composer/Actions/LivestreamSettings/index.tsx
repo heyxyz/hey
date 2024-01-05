@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import { VideoCameraIcon } from '@heroicons/react/24/outline';
 import { Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 
 const LivestreamSettings: FC = () => {
   const showLiveVideoEditor = usePublicationStore(

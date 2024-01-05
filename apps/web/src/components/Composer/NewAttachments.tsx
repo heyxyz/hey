@@ -7,8 +7,8 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button, Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useRef } from 'react';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
-import { usePublicationVideoStore } from 'src/store/non-persisted/usePublicationVideoStore';
+import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
+import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
 import { useUpdateEffect } from 'usehooks-ts';
 
 import Audio from '../Shared/Audio';
