@@ -16,7 +16,7 @@
     "@hey/data": "workspace:*",
     "@hey/lens": "workspace:*",
     "@hey/types": "workspace:*",
-    "axios": "^1.6.3",
+    "axios": "^1.6.4",
     "dayjs": "^1.11.10",
     "omit-deep": "^0.3.0",
     "pino": "^8.17.2",
@@ -28,6 +28,6 @@
     "@hey/config": "workspace:*",
     "@types/omit-deep": "^0.3.2",
     "typescript": "^5.3.3",
-    "vitest": "^1.1.1"
+    "vitest": "^1.1.2"
   }
 }
