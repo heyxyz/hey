@@ -16,7 +16,7 @@
     "@heroicons/react": "^2.1.1",
     "@hey/data": "workspace:*",
     "@hey/lib": "workspace:*",
-    "@hookform/resolvers": "^3.3.3",
+    "@hookform/resolvers": "^3.3.4",
     "@radix-ui/react-switch": "^1.0.3",
     "@radix-ui/react-tooltip": "^1.0.7",
     "clsx": "^2.1.0",
