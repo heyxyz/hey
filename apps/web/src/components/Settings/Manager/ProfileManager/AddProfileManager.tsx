@@ -103,21 +103,26 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
           configNumber,
           switchToGivenConfig
         ];
+        try {
+          if (!isTba && canBroadcast) {
+            const signature = await signTypedDataAsync(getSignature(typedData));
+            const { data } = await broadcastOnchain({
+              variables: { request: { id, signature } }
+            });
+            if (data?.broadcastOnchain.__typename === 'RelayError') {
+              return write({ args });
+            }
+            setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
 
-        if (!isTba && canBroadcast) {
-          const signature = await signTypedDataAsync(getSignature(typedData));
-          const { data } = await broadcastOnchain({
-            variables: { request: { id, signature } }
-          });
-          if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return write({ args });
+            return;
           }
-          setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
 
-          return;
+          return write({ args });
+        } catch {
+          // Fix for Safe wallets
+          // TODO: Remove this once Lens supports Safe wallets
+          return write({ args });
         }
-
-        return write({ args });
       },
       onError
     });
