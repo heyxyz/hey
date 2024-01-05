@@ -2,8 +2,8 @@ import type { IGif } from '@hey/types/giphy';
 import type { FC } from 'react';
 
 import { GIPHY_KEY } from '@hey/data/constants';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { useInfiniteQuery } from 'wagmi';
 
 interface CategoriesProps {
   debouncedGifInput: string;
@@ -36,9 +36,9 @@ const Gifs: FC<CategoriesProps> = ({
     }
   };
 
-  const { data: gifs, isFetching } = useInfiniteQuery({
+  const { data: gifs, isFetching } = useQuery({
     enabled: !!debouncedGifInput,
-    queryFn: ({ pageParam = 0 }) => fetchGifs(debouncedGifInput, pageParam),
+    queryFn: () => fetchGifs(debouncedGifInput, 0),
     queryKey: ['gifs', debouncedGifInput]
   });
 

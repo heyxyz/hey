@@ -33,7 +33,7 @@ import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useContractWrite, useSignTypedData } from 'wagmi';
+import { useSignTypedData, useWriteContract } from 'wagmi';
 
 interface MirrorProps {
   isLoading: boolean;
@@ -106,21 +106,29 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     Leafwatch.track(PUBLICATION.MIRROR, { publication_id: publication.id });
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ onError });
+  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
 
-  const { write } = useContractWrite({
-    abi: LensHub,
-    address: LENSHUB_PROXY,
-    functionName: 'mirror',
-    onError: (error) => {
-      onError(error);
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
-    },
-    onSuccess: () => {
-      onCompleted();
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+  const { writeContract } = useWriteContract({
+    mutation: {
+      onError: (error) => {
+        onError(error);
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+      },
+      onSuccess: () => {
+        onCompleted();
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+      }
     }
   });
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      abi: LensHub,
+      address: LENSHUB_PROXY,
+      args,
+      functionName: 'mirror'
+    });
+  };
 
   const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
     onCompleted: ({ broadcastOnMomoka }) =>

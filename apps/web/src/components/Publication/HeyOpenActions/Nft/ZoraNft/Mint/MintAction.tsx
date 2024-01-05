@@ -22,9 +22,9 @@ import { encodeAbiParameters, parseAbiParameters, parseEther } from 'viem';
 import {
   useAccount,
   useChainId,
-  useContractWrite,
-  usePrepareContractWrite,
-  useWaitForTransaction
+  useSimulateContract,
+  useWaitForTransactionReceipt,
+  useWriteContract
 } from 'wagmi';
 
 import { useZoraMintStore } from '.';
@@ -77,11 +77,10 @@ const MintAction: FC<MintActionProps> = ({
         ];
 
   const {
-    config,
-    error: prepareError,
-    isError: isPrepareError,
-    isFetching: isPrepareFetching
-  } = usePrepareContractWrite({
+    error: simulateError,
+    isError: isSimulateError,
+    isFetching: isSimulating
+  } = useSimulateContract({
     abi,
     address: nftAddress,
     args,
@@ -89,18 +88,31 @@ const MintAction: FC<MintActionProps> = ({
     functionName: 'mintWithRewards',
     value
   });
+
   const {
-    data,
-    isLoading: isContractWriteLoading,
-    write
-  } = useContractWrite({ ...config });
+    data: writeHash,
+    isPending: isContractWriteLoading,
+    writeContract
+  } = useWriteContract();
+
+  const write = () => {
+    return writeContract({
+      abi,
+      address: nftAddress,
+      args,
+      chainId: nft.chainId,
+      functionName: 'mintWithRewards',
+      value
+    });
+  };
+
   const {
     data: txnData,
     isLoading,
     isSuccess
-  } = useWaitForTransaction({
+  } = useWaitForTransactionReceipt({
     chainId: nft.chainId,
-    hash: data?.hash
+    hash: writeHash
   });
 
   useUpdateEffect(() => {
@@ -119,23 +131,23 @@ const MintAction: FC<MintActionProps> = ({
 
   useUpdateEffect(() => {
     setCanMintOnHey(
-      !isPrepareError ||
-        (isPrepareError &&
+      !isSimulateError ||
+        (isSimulateError &&
           ALLOWED_ERRORS_FOR_MINTING.some(
-            (error) => prepareError?.message.includes(error)
+            (error) => simulateError?.message.includes(error)
           ))
     );
-  }, [isPrepareFetching]);
+  }, [isSimulating]);
 
   const mintingOrSuccess = isLoading || isSuccess;
 
   // Errors
-  const noBalanceError = prepareError?.message?.includes(NO_BALANCE_ERROR);
-  const maxMintExceededError = prepareError?.message?.includes(
+  const noBalanceError = simulateError?.message?.includes(NO_BALANCE_ERROR);
+  const maxMintExceededError = simulateError?.message?.includes(
     MAX_MINT_EXCEEDED_ERROR
   );
   const saleInactiveError =
-    prepareError?.message?.includes(SALE_INACTIVE_ERROR);
+    simulateError?.message?.includes(SALE_INACTIVE_ERROR);
 
   return !mintingOrSuccess ? (
     <div className="flex">
@@ -149,7 +161,7 @@ const MintAction: FC<MintActionProps> = ({
           title={`Switch to ${getZoraChainInfo(nft.chainId).name}`}
           toChainId={nft.chainId}
         />
-      ) : isPrepareError ? (
+      ) : isSimulateError ? (
         noBalanceError ? (
           <Link
             className="w-full"
@@ -198,7 +210,7 @@ const MintAction: FC<MintActionProps> = ({
       ) : (
         <Button
           className="mt-5 w-full justify-center"
-          disabled={!write}
+          disabled={isSimulateError}
           icon={
             isContractWriteLoading ? (
               <Spinner size="xs" />

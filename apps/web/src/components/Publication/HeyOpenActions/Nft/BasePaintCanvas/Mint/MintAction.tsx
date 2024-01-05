@@ -20,9 +20,9 @@ import { base } from 'viem/chains';
 import {
   useAccount,
   useChainId,
-  useContractWrite,
-  usePrepareContractWrite,
-  useWaitForTransaction
+  useSimulateContract,
+  useWaitForTransactionReceipt,
+  useWriteContract
 } from 'wagmi';
 
 import { useBasePaintMintStore } from '.';
@@ -49,11 +49,7 @@ const MintAction: FC<MintActionProps> = ({
   const day = canvas.id;
   const value = parseEther(openEditionPrice.toString()) * BigInt(quantity);
 
-  const {
-    config,
-    error: prepareError,
-    isError: isPrepareError
-  } = usePrepareContractWrite({
+  const { error: prepareError, isError: isPrepareError } = useSimulateContract({
     abi: BasePaint,
     address: nftAddress,
     args: [day, quantity],
@@ -61,20 +57,31 @@ const MintAction: FC<MintActionProps> = ({
     functionName: 'mint',
     value
   });
+
   const {
-    data,
-    isLoading: isContractWriteLoading,
-    write
-  } = useContractWrite({
-    ...config
-  });
+    data: writeHash,
+    isPending: isContractWriteLoading,
+    writeContract
+  } = useWriteContract();
+
+  const write = () => {
+    return writeContract({
+      abi: BasePaint,
+      address: nftAddress,
+      args: [day, quantity],
+      chainId: base.id,
+      functionName: 'mint',
+      value
+    });
+  };
+
   const {
     data: txnData,
     isLoading,
     isSuccess
-  } = useWaitForTransaction({
+  } = useWaitForTransactionReceipt({
     chainId: base.id,
-    hash: data?.hash
+    hash: writeHash
   });
 
   useUpdateEffect(() => {
@@ -133,7 +140,7 @@ const MintAction: FC<MintActionProps> = ({
               <CursorArrowRaysIcon className="size-5" />
             )
           }
-          onClick={() => write?.()}
+          onClick={() => write()}
         >
           Mint
         </Button>

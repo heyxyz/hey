@@ -18,7 +18,7 @@ import Link from 'next/link';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useContractWrite } from 'wagmi';
+import { useWriteContract } from 'wagmi';
 
 import CountdownTimer from '../CountdownTimer';
 import IndexStatus from '../IndexStatus';
@@ -31,15 +31,24 @@ const ProtectProfile: FC = () => {
     errorToast(error);
   };
 
-  const { data, isLoading, write } = useContractWrite({
-    abi: LensHub,
-    address: LENSHUB_PROXY,
-    functionName: 'enableTokenGuardian',
-    onError,
-    onSuccess: () => {
-      Leafwatch.track(SETTINGS.DANGER.PROTECT_PROFILE);
+  const {
+    data: writeHash,
+    isPending,
+    writeContract
+  } = useWriteContract({
+    mutation: {
+      onError,
+      onSuccess: () => Leafwatch.track(SETTINGS.DANGER.PROTECT_PROFILE)
     }
   });
+
+  const write = () => {
+    return writeContract({
+      abi: LensHub,
+      address: LENSHUB_PROXY,
+      functionName: 'enableTokenGuardian'
+    });
+  };
 
   if (!currentProfile?.guardian || currentProfile?.guardian?.protected) {
     return null;
@@ -101,13 +110,13 @@ const ProtectProfile: FC = () => {
           </div>
         </GridItemEight>
         <GridItemFour className="mt-5 flex items-center sm:ml-auto sm:mt-0">
-          {data?.hash ? (
-            <IndexStatus reload txHash={data?.hash} />
+          {writeHash ? (
+            <IndexStatus reload txHash={writeHash} />
           ) : (
             <Button
-              disabled={isLoading}
+              disabled={isPending}
               icon={
-                isLoading ? (
+                isPending ? (
                   <Spinner size="xs" />
                 ) : (
                   <LockClosedIcon className="size-4" />

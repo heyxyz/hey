@@ -6,7 +6,7 @@ import { Button, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { useState } from 'react';
 import { parseEther } from 'viem';
-import { useContractWrite } from 'wagmi';
+import { useWriteContract } from 'wagmi';
 
 import IndexStatus from '../IndexStatus';
 
@@ -26,40 +26,45 @@ const WrapWmatic: FC<WrapWmaticProps> = ({ moduleAmount }) => {
     errorToast(error);
   };
 
-  const { data, writeAsync } = useContractWrite({
-    abi: [
-      {
-        anonymous: false,
-        inputs: [
-          {
-            indexed: true,
-            name: 'dst',
-            type: 'address'
-          },
-          {
-            indexed: false,
-            name: 'wad',
-            type: 'uint256'
-          }
-        ],
-        name: 'Deposit',
-        type: 'event'
-      },
-      {
-        constant: false,
-        inputs: [],
-        name: 'deposit',
-        outputs: [],
-        payable: true,
-        stateMutability: 'payable',
-        type: 'function'
-      }
-    ],
-    address: assetAddress,
-    functionName: 'deposit',
-    onError,
-    value: parseEther(amount)
+  const { data: writeHash, writeContractAsync } = useWriteContract({
+    mutation: { onError }
   });
+
+  const writeAsync = () => {
+    return writeContractAsync({
+      abi: [
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              name: 'dst',
+              type: 'address'
+            },
+            {
+              indexed: false,
+              name: 'wad',
+              type: 'uint256'
+            }
+          ],
+          name: 'Deposit',
+          type: 'event'
+        },
+        {
+          constant: false,
+          inputs: [],
+          name: 'deposit',
+          outputs: [],
+          payable: true,
+          stateMutability: 'payable',
+          type: 'function'
+        }
+      ],
+      address: assetAddress,
+      functionName: 'deposit',
+      value: parseEther(amount)
+    });
+  };
 
   const deposit = async () => {
     try {
@@ -74,10 +79,10 @@ const WrapWmatic: FC<WrapWmaticProps> = ({ moduleAmount }) => {
 
   return (
     <div className="space-y-1">
-      {data?.hash ? (
+      {writeHash ? (
         <IndexStatus
           message={`Wrapping MATIC to ${currency}...`}
-          txHash={data.hash}
+          txHash={writeHash}
         />
       ) : (
         <>

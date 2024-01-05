@@ -24,7 +24,7 @@ import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestric
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { hydrateTbaStatus } from 'src/store/persisted/useTbaStatusStore';
 import { isAddress } from 'viem';
-import { useContractWrite, useSignTypedData } from 'wagmi';
+import { useSignTypedData, useWriteContract } from 'wagmi';
 
 interface AddProfileManagerProps {
   setShowAddManagerModal: (show: boolean) => void;
@@ -66,20 +66,28 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
     errorToast(error);
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ onError });
-  const { write } = useContractWrite({
-    abi: LensHub,
-    address: LENSHUB_PROXY,
-    functionName: 'changeDelegatedExecutorsConfig',
-    onError: (error) => {
-      onError(error);
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
-    },
-    onSuccess: () => {
-      onCompleted();
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
+  const { writeContract } = useWriteContract({
+    mutation: {
+      onError: (error) => {
+        onError(error);
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+      },
+      onSuccess: () => {
+        onCompleted();
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+      }
     }
   });
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      abi: LensHub,
+      address: LENSHUB_PROXY,
+      args,
+      functionName: 'changeDelegatedExecutorsConfig'
+    });
+  };
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) =>

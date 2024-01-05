@@ -58,7 +58,7 @@ import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useContractWrite, useSignTypedData } from 'wagmi';
+import { useSignTypedData, useWriteContract } from 'wagmi';
 import { object, string, union } from 'zod';
 
 const editProfileSchema = object({
@@ -142,14 +142,19 @@ const ProfileSettingsForm: FC = () => {
     errorToast(error);
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ onError });
-  const { error, write } = useContractWrite({
-    abi: LensHub,
-    address: LENSHUB_PROXY,
-    functionName: 'setProfileMetadataURI',
-    onError,
-    onSuccess: () => onCompleted()
+  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
+  const { error, writeContract } = useWriteContract({
+    mutation: { onError, onSuccess: () => onCompleted() }
   });
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      abi: LensHub,
+      address: LENSHUB_PROXY,
+      args,
+      functionName: 'setProfileMetadataURI'
+    });
+  };
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) =>
