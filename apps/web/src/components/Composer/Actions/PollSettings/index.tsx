@@ -3,14 +3,18 @@ import type { FC } from 'react';
 import { Bars3BottomLeftIcon } from '@heroicons/react/24/solid';
 import { Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { usePublicationPollStore } from 'src/store/non-persisted/usePublicationPollStore';
 
 const PollSettings: FC = () => {
-  const showPollEditor = usePublicationStore((state) => state.showPollEditor);
-  const setShowPollEditor = usePublicationStore(
+  const showPollEditor = usePublicationPollStore(
+    (state) => state.showPollEditor
+  );
+  const setShowPollEditor = usePublicationPollStore(
     (state) => state.setShowPollEditor
   );
-  const resetPollConfig = usePublicationStore((state) => state.resetPollConfig);
+  const resetPollConfig = usePublicationPollStore(
+    (state) => state.resetPollConfig
+  );
 
   return (
     <Tooltip content="Poll" placement="top">
