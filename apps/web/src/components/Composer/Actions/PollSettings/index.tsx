@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import { Bars3BottomLeftIcon } from '@heroicons/react/24/solid';
 import { Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
-import { usePublicationPollStore } from 'src/store/non-persisted/usePublicationPollStore';
+import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
 
 const PollSettings: FC = () => {
   const showPollEditor = usePublicationPollStore(

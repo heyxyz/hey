@@ -5,7 +5,7 @@ import Oembed from '@components/Shared/Oembed';
 import { ZERO_PUBLICATION_ID } from '@hey/data/constants';
 import getURLs from '@hey/lib/getURLs';
 import getNft from '@hey/lib/nft/getNft';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 
 const LinkPreviews: FC = () => {
   const publicationContent = usePublicationStore(

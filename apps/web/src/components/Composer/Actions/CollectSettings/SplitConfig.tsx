@@ -13,7 +13,7 @@ import { ADDRESS_PLACEHOLDER } from '@hey/data/constants';
 import { OpenActionModuleType } from '@hey/lens';
 import splitNumber from '@hey/lib/splitNumber';
 import { Button, Input } from '@hey/ui';
-import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
+import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { isAddress } from 'viem';
 

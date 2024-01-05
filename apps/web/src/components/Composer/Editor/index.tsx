@@ -25,8 +25,8 @@ import {
 import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import useUploadAttachments from 'src/hooks/useUploadAttachments';
-import { usePublicationPollStore } from 'src/store/non-persisted/usePublicationPollStore';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
+import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 
 const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS];
 

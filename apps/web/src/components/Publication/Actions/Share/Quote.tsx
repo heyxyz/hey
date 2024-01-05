@@ -8,9 +8,9 @@ import { TriStateValue } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
 import toast from 'react-hot-toast';
+import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 
 interface QuoteProps {
   publication: AnyPublication;

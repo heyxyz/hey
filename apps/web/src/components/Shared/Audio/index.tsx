@@ -8,7 +8,7 @@ import getProfile from '@hey/lib/getProfile';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Leafwatch } from '@lib/leafwatch';
 import { useRef, useState } from 'react';
-import { usePublicationAudioStore } from 'src/store/non-persisted/usePublicationAudioStore';
+import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
 import { object, string } from 'zod';
 
 import CoverImage from './CoverImage';

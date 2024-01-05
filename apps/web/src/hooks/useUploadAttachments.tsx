@@ -4,8 +4,8 @@ import uploadToIPFS from '@lib/uploadToIPFS';
 import imageCompression from 'browser-image-compression';
 import { useCallback } from 'react';
 import { toast } from 'react-hot-toast';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
-import { usePublicationVideoStore } from 'src/store/non-persisted/usePublicationVideoStore';
+import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
+import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
 import { v4 as uuid } from 'uuid';
 
 const useUploadAttachments = () => {

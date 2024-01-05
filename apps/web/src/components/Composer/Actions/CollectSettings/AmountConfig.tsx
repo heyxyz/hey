@@ -6,7 +6,7 @@ import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import { OpenActionModuleType } from '@hey/lens';
 import { Input, Select } from '@hey/ui';
-import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
+import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 
 interface AmountConfigProps {
   allowedTokens?: AllowedToken[];
