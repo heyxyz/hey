@@ -1,11 +1,13 @@
 import type { FC } from 'react';
 
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
+import { Errors } from '@hey/data';
 import getAvatar from '@hey/lib/getAvatar';
 import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import { Card, Image } from '@hey/ui';
 import { useRouter } from 'next/router';
+import toast from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
@@ -25,7 +27,7 @@ const NewPost: FC = () => {
 
   const openModal = () => {
     if (isSuspended) {
-      return;
+      return toast.error(Errors.Suspended);
     }
 
     setShowNewPostModal(true);
@@ -51,10 +53,6 @@ const NewPost: FC = () => {
       setPublicationContent(content);
     }
   }, [isReady]);
-
-  if (isSuspended) {
-    return null;
-  }
 
   return (
     <Card className="space-y-3 p-5">
