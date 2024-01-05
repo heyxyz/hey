@@ -50,6 +50,7 @@ import usePublicationMetadata from 'src/hooks/usePublicationMetadata';
 import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
+import { usePublicationAudioStore } from 'src/store/non-persisted/usePublicationAudioStore';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 import { usePublicationVideoStore } from 'src/store/non-persisted/usePublicationVideoStore';
 import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
@@ -128,7 +129,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const setQuotedPublication = usePublicationStore(
     (state) => state.setQuotedPublication
   );
-  const audioPublication = usePublicationStore(
+  const audioPublication = usePublicationAudioStore(
     (state) => state.audioPublication
   );
   const attachments = usePublicationStore((state) => state.attachments);
