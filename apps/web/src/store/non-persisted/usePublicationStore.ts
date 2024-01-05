@@ -7,12 +7,6 @@ import { create } from 'zustand';
 interface PublicationState {
   addAttachments: (attachments: NewAttachment[]) => void;
   attachments: NewAttachment[];
-  audioPublication: {
-    artist: string;
-    cover: string;
-    coverMimeType: string;
-    title: string;
-  };
   isUploading: boolean;
   license: MetadataLicenseType | null;
   liveVideoConfig: {
@@ -30,12 +24,6 @@ interface PublicationState {
   resetLiveVideoConfig: () => void;
   resetPollConfig: () => void;
   setAttachments: (attachments: NewAttachment[]) => void;
-  setAudioPublication: (audioPublication: {
-    artist: string;
-    cover: string;
-    coverMimeType: string;
-    title: string;
-  }) => void;
   setIsUploading: (isUploading: boolean) => void;
   setLicense: (license: MetadataLicenseType | null) => void;
   setLiveVideoConfig: (liveVideoConfig: {
@@ -59,12 +47,6 @@ export const usePublicationStore = create<PublicationState>((set) => ({
       return { attachments: [...state.attachments, ...newAttachments] };
     }),
   attachments: [],
-  audioPublication: {
-    artist: '',
-    cover: '',
-    coverMimeType: 'image/jpeg',
-    title: ''
-  },
   isUploading: false,
   license: null,
   liveVideoConfig: { id: '', playbackId: '', streamKey: '' },
@@ -87,7 +69,6 @@ export const usePublicationStore = create<PublicationState>((set) => ({
   resetPollConfig: () =>
     set(() => ({ pollConfig: { length: 1, options: ['', ''] } })),
   setAttachments: (attachments) => set(() => ({ attachments })),
-  setAudioPublication: (audioPublication) => set(() => ({ audioPublication })),
   setIsUploading: (isUploading) => set(() => ({ isUploading })),
   setLicense: (license) => set(() => ({ license })),
   setLiveVideoConfig: (liveVideoConfig) => set(() => ({ liveVideoConfig })),

@@ -10,6 +10,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { Modal } from '@hey/ui';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import { usePublicationAudioStore } from 'src/store/non-persisted/usePublicationAudioStore';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 import { usePublicationVideoStore } from 'src/store/non-persisted/usePublicationVideoStore';
 
@@ -92,7 +93,7 @@ const GlobalModals: FC = () => {
   const videoThumbnail = usePublicationVideoStore(
     (state) => state.videoThumbnail
   );
-  const audioPublication = usePublicationStore(
+  const audioPublication = usePublicationAudioStore(
     (state) => state.audioPublication
   );
   const quotedPublication = usePublicationStore(
