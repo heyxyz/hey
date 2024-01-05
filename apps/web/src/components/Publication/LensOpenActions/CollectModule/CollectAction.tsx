@@ -39,12 +39,12 @@ import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { isAddress } from 'viem';
+import { formatUnits, isAddress } from 'viem';
 import {
   useAccount,
   useBalance,
-  useContractWrite,
-  useSignTypedData
+  useSignTypedData,
+  useWriteContract
 } from 'wagmi';
 
 interface CollectActionProps {
@@ -95,7 +95,7 @@ const CollectAction: FC<CollectActionProps> = ({
   const collectLimit = collectModule?.collectLimit;
   const amount = collectModule?.amount as number;
   const assetAddress = collectModule?.assetAddress as any;
-  const assetDecimals = collectModule?.assetDecimals;
+  const assetDecimals = collectModule?.assetDecimals as number;
   const isAllCollected = collectLimit
     ? countOpenActions >= collectLimit
     : false;
@@ -163,32 +163,39 @@ const CollectAction: FC<CollectActionProps> = ({
     });
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ onError });
-
+  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const walletUserFunctionName = 'publicCollect';
   const profileUserFunctionName = isLegacyCollectModule
     ? 'collectLegacy'
     : 'act';
 
-  const { write } = useContractWrite({
-    abi: (isWalletUser ? PublicAct : LensHub) as any,
-    address: isWalletUser ? PUBLICACT_PROXY : LENSHUB_PROXY,
-    functionName: isWalletUser
-      ? walletUserFunctionName
-      : profileUserFunctionName,
-    onError: (error) => {
-      onError(error);
-      if (!isWalletUser) {
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
-      }
-    },
-    onSuccess: () => {
-      onCompleted();
-      if (!isWalletUser) {
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+  const { writeContract } = useWriteContract({
+    mutation: {
+      onError: (error) => {
+        onError(error);
+        if (!isWalletUser) {
+          setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+        }
+      },
+      onSuccess: () => {
+        onCompleted();
+        if (!isWalletUser) {
+          setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+        }
       }
     }
   });
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      abi: (isWalletUser ? PublicAct : LensHub) as any,
+      address: isWalletUser ? PUBLICACT_PROXY : LENSHUB_PROXY,
+      args,
+      functionName: isWalletUser
+        ? walletUserFunctionName
+        : profileUserFunctionName
+    });
+  };
 
   const { data: allowanceData, loading: allowanceLoading } =
     useApprovedModuleAllowanceAmountQuery({
@@ -209,15 +216,13 @@ const CollectAction: FC<CollectActionProps> = ({
       }
     });
 
-  const { data: balanceData } = useBalance({
-    address,
-    formatUnits: assetDecimals,
-    token: assetAddress,
-    watch: true
-  });
+  const { data: balanceData } = useBalance({ address, token: assetAddress });
 
   let hasAmount = false;
-  if (balanceData && parseFloat(balanceData?.formatted) < amount) {
+  if (
+    balanceData &&
+    parseFloat(formatUnits(balanceData.value, assetDecimals)) < amount
+  ) {
     hasAmount = false;
   } else {
     hasAmount = true;

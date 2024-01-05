@@ -64,13 +64,12 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     connectAsync,
     connectors,
     error,
-    isLoading: isConnectLoading,
-    pendingConnector
-  } = useConnect({ chainId: CHAIN_ID });
+    isPending: isConnectLoading
+  } = useConnect();
 
   const { disconnect } = useDisconnect();
   const { address, connector: activeConnector } = useAccount();
-  const { signMessageAsync } = useSignMessage({ onError });
+  const { signMessageAsync } = useSignMessage({ mutation: { onError } });
   const [loadChallenge, { error: errorChallenge }] = useChallengeLazyQuery({
     fetchPolicy: 'no-cache'
   });
@@ -255,7 +254,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
                 : getWalletDetails(connector.name).name}
             </span>
             <div className="flex items-center space-x-4">
-              {isConnectLoading && pendingConnector?.id === connector.id ? (
+              {isConnectLoading ? (
                 <Spinner className="mr-0.5" size="xs" />
               ) : null}
               <img

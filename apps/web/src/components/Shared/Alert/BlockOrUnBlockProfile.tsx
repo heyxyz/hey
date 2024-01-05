@@ -24,7 +24,7 @@ import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useContractWrite, useSignTypedData } from 'wagmi';
+import { useSignTypedData, useWriteContract } from 'wagmi';
 
 const BlockOrUnBlockProfile: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
@@ -90,14 +90,19 @@ const BlockOrUnBlockProfile: FC = () => {
     errorToast(error);
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ onError });
-  const { write } = useContractWrite({
-    abi: LensHub,
-    address: LENSHUB_PROXY,
-    functionName: 'setBlockStatus',
-    onError,
-    onSuccess: () => onCompleted()
+  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
+  const { writeContract } = useWriteContract({
+    mutation: { onError, onSuccess: () => onCompleted() }
   });
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      abi: LensHub,
+      address: LENSHUB_PROXY,
+      args,
+      functionName: 'setBlockStatus'
+    });
+  };
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) =>

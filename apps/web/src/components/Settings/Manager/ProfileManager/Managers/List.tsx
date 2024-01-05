@@ -28,7 +28,7 @@ import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useContractWrite, useSignTypedData } from 'wagmi';
+import { useSignTypedData, useWriteContract } from 'wagmi';
 
 const List: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
@@ -70,14 +70,19 @@ const List: FC = () => {
     variables: { request }
   });
 
-  const { signTypedDataAsync } = useSignTypedData({ onError });
-  const { write } = useContractWrite({
-    abi: LensHub,
-    address: LENSHUB_PROXY,
-    functionName: 'changeDelegatedExecutorsConfig',
-    onError,
-    onSuccess: () => onCompleted()
+  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
+  const { writeContract } = useWriteContract({
+    mutation: { onError, onSuccess: () => onCompleted() }
   });
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      abi: LensHub,
+      address: LENSHUB_PROXY,
+      args,
+      functionName: 'changeDelegatedExecutorsConfig'
+    });
+  };
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) =>

@@ -4,7 +4,7 @@ import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { SYSTEM } from '@hey/data/tracking';
 import { Button } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { useSwitchNetwork } from 'wagmi';
+import { useSwitchChain } from 'wagmi';
 
 interface SwitchNetworkProps {
   className?: string;
@@ -19,7 +19,7 @@ const SwitchNetwork: FC<SwitchNetworkProps> = ({
   title = 'Switch Network',
   toChainId
 }) => {
-  const { switchNetwork } = useSwitchNetwork();
+  const { switchChain } = useSwitchChain();
 
   return (
     <Button
@@ -27,7 +27,7 @@ const SwitchNetwork: FC<SwitchNetworkProps> = ({
       icon={<ArrowsRightLeftIcon className="size-4" />}
       onClick={() => {
         onSwitch?.();
-        switchNetwork?.(toChainId);
+        switchChain?.({ chainId: toChainId });
         Leafwatch.track(SYSTEM.SWITCH_NETWORK, {
           chain: toChainId
         });
