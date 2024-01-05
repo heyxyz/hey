@@ -17,7 +17,7 @@ import { motion } from 'framer-motion';
 import { useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import useUploadAttachments from 'src/hooks/useUploadAttachments';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { useOnClickOutside } from 'usehooks-ts';
 
 const ImageMimeType = Object.values(MediaImageMimeType);

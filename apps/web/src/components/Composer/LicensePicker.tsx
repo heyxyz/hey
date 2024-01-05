@@ -6,7 +6,7 @@ import { PublicationMetadataLicenseType } from '@hey/lens';
 import { Select } from '@hey/ui';
 import getAssetLicense from '@lib/getAssetLicense';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 
 const LicensePicker: FC = () => {
   const setLicense = usePublicationStore((state) => state.setLicense);

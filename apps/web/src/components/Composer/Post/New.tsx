@@ -8,7 +8,7 @@ import { Card, Image } from '@hey/ui';
 import { useRouter } from 'next/router';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useUpdateEffect } from 'usehooks-ts';
 

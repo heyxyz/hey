@@ -11,9 +11,9 @@ import {
 } from '@lens-protocol/metadata';
 import getUserLocale from '@lib/getUserLocale';
 import { useCallback } from 'react';
-import { usePublicationAudioStore } from 'src/store/non-persisted/usePublicationAudioStore';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
-import { usePublicationVideoStore } from 'src/store/non-persisted/usePublicationVideoStore';
+import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
+import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
+import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
 import { v4 as uuid } from 'uuid';
 
 interface UsePublicationMetadataProps {

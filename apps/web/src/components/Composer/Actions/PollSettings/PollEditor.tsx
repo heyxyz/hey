@@ -5,7 +5,7 @@ import { Bars3BottomLeftIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { Button, Card, Input, Modal, Tooltip } from '@hey/ui';
 import plur from 'plur';
 import { useState } from 'react';
-import { usePublicationPollStore } from 'src/store/non-persisted/usePublicationPollStore';
+import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
 
 const PollEditor: FC = () => {
   const setShowPollEditor = usePublicationPollStore(

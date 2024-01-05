@@ -14,7 +14,7 @@ import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 
 interface WrapperProps {
   children: ReactNode;
