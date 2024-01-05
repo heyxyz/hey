@@ -5,15 +5,17 @@ import { Bars3BottomLeftIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { Button, Card, Input, Modal, Tooltip } from '@hey/ui';
 import plur from 'plur';
 import { useState } from 'react';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
 
 const PollEditor: FC = () => {
-  const setShowPollEditor = usePublicationStore(
+  const setShowPollEditor = usePublicationPollStore(
     (state) => state.setShowPollEditor
   );
-  const pollConfig = usePublicationStore((state) => state.pollConfig);
-  const setPollConfig = usePublicationStore((state) => state.setPollConfig);
-  const resetPollConfig = usePublicationStore((state) => state.resetPollConfig);
+  const pollConfig = usePublicationPollStore((state) => state.pollConfig);
+  const setPollConfig = usePublicationPollStore((state) => state.setPollConfig);
+  const resetPollConfig = usePublicationPollStore(
+    (state) => state.resetPollConfig
+  );
   const [showPollLengthModal, setShowPollLengthModal] = useState(false);
 
   return (

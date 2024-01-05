@@ -47,10 +47,16 @@ import useCreatePoll from 'src/hooks/useCreatePoll';
 import useCreatePublication from 'src/hooks/useCreatePublication';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import usePublicationMetadata from 'src/hooks/usePublicationMetadata';
-import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
+import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
+import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
+import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
+import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
+import { usePublicationLiveStore } from 'src/store/non-persisted/publication/usePublicationLiveStore';
+import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
+import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
+import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
@@ -127,33 +133,47 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const setQuotedPublication = usePublicationStore(
     (state) => state.setQuotedPublication
   );
-  const audioPublication = usePublicationStore(
+  const audioPublication = usePublicationAudioStore(
     (state) => state.audioPublication
   );
-  const attachments = usePublicationStore((state) => state.attachments);
-  const setAttachments = usePublicationStore((state) => state.setAttachments);
-  const addAttachments = usePublicationStore((state) => state.addAttachments);
-  const isUploading = usePublicationStore((state) => state.isUploading);
-  const videoThumbnail = usePublicationStore((state) => state.videoThumbnail);
-  const setVideoThumbnail = usePublicationStore(
+  const attachments = usePublicationAttachmentStore(
+    (state) => state.attachments
+  );
+  const setAttachments = usePublicationAttachmentStore(
+    (state) => state.setAttachments
+  );
+  const addAttachments = usePublicationAttachmentStore(
+    (state) => state.addAttachments
+  );
+  const isUploading = usePublicationAttachmentStore(
+    (state) => state.isUploading
+  );
+  const videoThumbnail = usePublicationVideoStore(
+    (state) => state.videoThumbnail
+  );
+  const setVideoThumbnail = usePublicationVideoStore(
     (state) => state.setVideoThumbnail
   );
-  const showPollEditor = usePublicationStore((state) => state.showPollEditor);
-  const setShowPollEditor = usePublicationStore(
+  const showPollEditor = usePublicationPollStore(
+    (state) => state.showPollEditor
+  );
+  const setShowPollEditor = usePublicationPollStore(
     (state) => state.setShowPollEditor
   );
-  const resetPollConfig = usePublicationStore((state) => state.resetPollConfig);
-  const pollConfig = usePublicationStore((state) => state.pollConfig);
-  const showLiveVideoEditor = usePublicationStore(
+  const resetPollConfig = usePublicationPollStore(
+    (state) => state.resetPollConfig
+  );
+  const pollConfig = usePublicationPollStore((state) => state.pollConfig);
+  const showLiveVideoEditor = usePublicationLiveStore(
     (state) => state.showLiveVideoEditor
   );
-  const setShowLiveVideoEditor = usePublicationStore(
+  const setShowLiveVideoEditor = usePublicationLiveStore(
     (state) => state.setShowLiveVideoEditor
   );
-  const resetLiveVideoConfig = usePublicationStore(
+  const resetLiveVideoConfig = usePublicationLiveStore(
     (state) => state.resetLiveVideoConfig
   );
-  const setLicense = usePublicationStore((state) => state.setLicense);
+  const setLicense = usePublicationLicenseStore((state) => state.setLicense);
 
   // Collect module store
   const collectModule = useCollectModuleStore((state) => state.collectModule);

@@ -6,9 +6,9 @@ import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import { Card, Image } from '@hey/ui';
 import { useRouter } from 'next/router';
+import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useUpdateEffect } from 'usehooks-ts';
 
