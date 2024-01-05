@@ -49,6 +49,7 @@ import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import usePublicationMetadata from 'src/hooks/usePublicationMetadata';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
+import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
 import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
@@ -162,7 +163,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const resetLiveVideoConfig = usePublicationStore(
     (state) => state.resetLiveVideoConfig
   );
-  const setLicense = usePublicationStore((state) => state.setLicense);
+  const setLicense = usePublicationLicenseStore((state) => state.setLicense);
 
   // Collect module store
   const collectModule = useCollectModuleStore((state) => state.collectModule);
