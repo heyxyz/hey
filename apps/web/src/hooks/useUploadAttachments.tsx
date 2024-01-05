@@ -5,20 +5,22 @@ import imageCompression from 'browser-image-compression';
 import { useCallback } from 'react';
 import { toast } from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { usePublicationVideoStore } from 'src/store/non-persisted/usePublicationVideoStore';
 import { v4 as uuid } from 'uuid';
 
 const useUploadAttachments = () => {
+  const setUploadedPercentage = usePublicationVideoStore(
+    (state) => state.setUploadedPercentage
+  );
   const {
     addAttachments,
     removeAttachments,
     setIsUploading,
-    setUploadedPercentage,
     updateAttachments
   } = usePublicationStore((state) => ({
     addAttachments: state.addAttachments,
     removeAttachments: state.removeAttachments,
     setIsUploading: state.setIsUploading,
-    setUploadedPercentage: state.setUploadedPercentage,
     updateAttachments: state.updateAttachments
   }));
 
