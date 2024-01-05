@@ -105,8 +105,7 @@ const useUploadAttachments = () => {
           updateAttachments(attachmentsIPFS);
           setIsUploading(false);
           return attachmentsIPFS;
-        } catch (error) {
-          console.error(error);
+        } catch {
           toast.error('Something went wrong while uploading!');
           removeAttachments(attachmentIds);
         }
