@@ -6,7 +6,7 @@ import { CollectOpenActionModuleType } from '@hey/lens';
 import getAllTokens from '@hey/lib/api/getAllTokens';
 import { Button, ErrorMessage, Spinner } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
-import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
+import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 import { isAddress } from 'viem';
 
 import AmountConfig from './AmountConfig';
