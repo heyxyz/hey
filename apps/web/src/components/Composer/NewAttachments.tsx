@@ -7,7 +7,7 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button, Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useRef } from 'react';
-import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
+import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
 import { useUpdateEffect } from 'usehooks-ts';
 
@@ -46,7 +46,9 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
   attachments = [],
   hideDelete = false
 }) => {
-  const setAttachments = usePublicationStore((state) => state.setAttachments);
+  const setAttachments = usePublicationAttachmentStore(
+    (state) => state.setAttachments
+  );
   const setVideoDurationInSeconds = usePublicationVideoStore(
     (state) => state.setVideoDurationInSeconds
   );

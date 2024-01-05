@@ -11,6 +11,7 @@ import {
 } from '@lens-protocol/metadata';
 import getUserLocale from '@lib/getUserLocale';
 import { useCallback } from 'react';
+import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
 import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
@@ -32,12 +33,15 @@ const usePublicationMetadata = () => {
     (state) => state.audioPublication
   );
   const license = usePublicationLicenseStore((state) => state.license);
-  const { attachments, liveVideoConfig, showLiveVideoEditor } =
-    usePublicationStore((state) => ({
-      attachments: state.attachments,
+  const attachments = usePublicationAttachmentStore(
+    (state) => state.attachments
+  );
+  const { liveVideoConfig, showLiveVideoEditor } = usePublicationStore(
+    (state) => ({
       liveVideoConfig: state.liveVideoConfig,
       showLiveVideoEditor: state.showLiveVideoEditor
-    }));
+    })
+  );
 
   const attachmentsHasAudio = attachments[0]?.type === 'Audio';
   const attachmentsHasVideo = attachments[0]?.type === 'Video';

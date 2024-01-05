@@ -17,7 +17,7 @@ import { motion } from 'framer-motion';
 import { useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import useUploadAttachments from 'src/hooks/useUploadAttachments';
-import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
+import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { useOnClickOutside } from 'usehooks-ts';
 
 const ImageMimeType = Object.values(MediaImageMimeType);
@@ -31,8 +31,12 @@ const VideoMimeType = [
 ];
 
 const Attachment: FC = () => {
-  const attachments = usePublicationStore((state) => state.attachments);
-  const isUploading = usePublicationStore((state) => state.isUploading);
+  const attachments = usePublicationAttachmentStore(
+    (state) => state.attachments
+  );
+  const isUploading = usePublicationAttachmentStore(
+    (state) => state.isUploading
+  );
   const { handleUploadAttachments } = useUploadAttachments();
   const [showMenu, setShowMenu] = useState(false);
   const id = useId();

@@ -48,6 +48,7 @@ import useCreatePublication from 'src/hooks/useCreatePublication';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import usePublicationMetadata from 'src/hooks/usePublicationMetadata';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
+import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
 import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
 import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
@@ -134,10 +135,18 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const audioPublication = usePublicationAudioStore(
     (state) => state.audioPublication
   );
-  const attachments = usePublicationStore((state) => state.attachments);
-  const setAttachments = usePublicationStore((state) => state.setAttachments);
-  const addAttachments = usePublicationStore((state) => state.addAttachments);
-  const isUploading = usePublicationStore((state) => state.isUploading);
+  const attachments = usePublicationAttachmentStore(
+    (state) => state.attachments
+  );
+  const setAttachments = usePublicationAttachmentStore(
+    (state) => state.setAttachments
+  );
+  const addAttachments = usePublicationAttachmentStore(
+    (state) => state.addAttachments
+  );
+  const isUploading = usePublicationAttachmentStore(
+    (state) => state.isUploading
+  );
   const videoThumbnail = usePublicationVideoStore(
     (state) => state.videoThumbnail
   );
