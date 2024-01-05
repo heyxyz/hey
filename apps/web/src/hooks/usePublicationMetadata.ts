@@ -14,7 +14,7 @@ import { useCallback } from 'react';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
 import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
-import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
+import { usePublicationLiveStore } from 'src/store/non-persisted/publication/usePublicationLiveStore';
 import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
 import { v4 as uuid } from 'uuid';
 
@@ -36,11 +36,11 @@ const usePublicationMetadata = () => {
   const attachments = usePublicationAttachmentStore(
     (state) => state.attachments
   );
-  const { liveVideoConfig, showLiveVideoEditor } = usePublicationStore(
-    (state) => ({
-      liveVideoConfig: state.liveVideoConfig,
-      showLiveVideoEditor: state.showLiveVideoEditor
-    })
+  const liveVideoConfig = usePublicationLiveStore(
+    (state) => state.liveVideoConfig
+  );
+  const showLiveVideoEditor = usePublicationLiveStore(
+    (state) => state.showLiveVideoEditor
   );
 
   const attachmentsHasAudio = attachments[0]?.type === 'Audio';

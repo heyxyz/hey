@@ -3,16 +3,16 @@ import type { FC } from 'react';
 import { VideoCameraIcon } from '@heroicons/react/24/outline';
 import { Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
-import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
+import { usePublicationLiveStore } from 'src/store/non-persisted/publication/usePublicationLiveStore';
 
 const LivestreamSettings: FC = () => {
-  const showLiveVideoEditor = usePublicationStore(
+  const showLiveVideoEditor = usePublicationLiveStore(
     (state) => state.showLiveVideoEditor
   );
-  const setShowLiveVideoEditor = usePublicationStore(
+  const setShowLiveVideoEditor = usePublicationLiveStore(
     (state) => state.setShowLiveVideoEditor
   );
-  const resetLiveVideoConfig = usePublicationStore(
+  const resetLiveVideoConfig = usePublicationLiveStore(
     (state) => state.resetLiveVideoConfig
   );
 

@@ -51,6 +51,7 @@ import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCo
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
 import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
+import { usePublicationLiveStore } from 'src/store/non-persisted/publication/usePublicationLiveStore';
 import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
@@ -163,13 +164,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     (state) => state.resetPollConfig
   );
   const pollConfig = usePublicationPollStore((state) => state.pollConfig);
-  const showLiveVideoEditor = usePublicationStore(
+  const showLiveVideoEditor = usePublicationLiveStore(
     (state) => state.showLiveVideoEditor
   );
-  const setShowLiveVideoEditor = usePublicationStore(
+  const setShowLiveVideoEditor = usePublicationLiveStore(
     (state) => state.setShowLiveVideoEditor
   );
-  const resetLiveVideoConfig = usePublicationStore(
+  const resetLiveVideoConfig = usePublicationLiveStore(
     (state) => state.resetLiveVideoConfig
   );
   const setLicense = usePublicationLicenseStore((state) => state.setLicense);
