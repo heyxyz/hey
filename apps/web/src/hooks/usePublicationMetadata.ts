@@ -104,6 +104,7 @@ const usePublicationMetadata = () => {
           return audio({
             ...baseMetadata,
             ...localBaseMetadata,
+            attachments: attachmentsToBeUploaded,
             audio: {
               artist: audioPublication.artist,
               cover: audioPublication.cover,
@@ -116,6 +117,7 @@ const usePublicationMetadata = () => {
           return video({
             ...baseMetadata,
             ...localBaseMetadata,
+            attachments: attachmentsToBeUploaded,
             video: {
               duration: parseInt(videoDurationInSeconds),
               item: attachments[0]?.uri,
