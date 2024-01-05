@@ -11,6 +11,7 @@ import {
 import { Modal } from '@hey/ui';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { usePublicationAudioStore } from 'src/store/non-persisted/usePublicationAudioStore';
+import { usePublicationPollStore } from 'src/store/non-persisted/usePublicationPollStore';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 import { usePublicationVideoStore } from 'src/store/non-persisted/usePublicationVideoStore';
 
@@ -99,8 +100,10 @@ const GlobalModals: FC = () => {
   const quotedPublication = usePublicationStore(
     (state) => state.quotedPublication
   );
-  const showPollEditor = usePublicationStore((state) => state.showPollEditor);
-  const pollConfig = usePublicationStore((state) => state.pollConfig);
+  const showPollEditor = usePublicationPollStore(
+    (state) => state.showPollEditor
+  );
+  const pollConfig = usePublicationPollStore((state) => state.pollConfig);
 
   const checkIfPublicationNotDrafted = () => {
     if (

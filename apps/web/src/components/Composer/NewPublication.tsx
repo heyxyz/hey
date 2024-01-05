@@ -51,6 +51,7 @@ import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleS
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { usePublicationAudioStore } from 'src/store/non-persisted/usePublicationAudioStore';
+import { usePublicationPollStore } from 'src/store/non-persisted/usePublicationPollStore';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 import { usePublicationVideoStore } from 'src/store/non-persisted/usePublicationVideoStore';
 import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
@@ -142,12 +143,16 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const setVideoThumbnail = usePublicationVideoStore(
     (state) => state.setVideoThumbnail
   );
-  const showPollEditor = usePublicationStore((state) => state.showPollEditor);
-  const setShowPollEditor = usePublicationStore(
+  const showPollEditor = usePublicationPollStore(
+    (state) => state.showPollEditor
+  );
+  const setShowPollEditor = usePublicationPollStore(
     (state) => state.setShowPollEditor
   );
-  const resetPollConfig = usePublicationStore((state) => state.resetPollConfig);
-  const pollConfig = usePublicationStore((state) => state.pollConfig);
+  const resetPollConfig = usePublicationPollStore(
+    (state) => state.resetPollConfig
+  );
+  const pollConfig = usePublicationPollStore((state) => state.pollConfig);
   const showLiveVideoEditor = usePublicationStore(
     (state) => state.showLiveVideoEditor
   );
