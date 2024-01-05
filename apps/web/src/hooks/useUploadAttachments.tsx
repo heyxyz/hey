@@ -62,6 +62,7 @@ const useUploadAttachments = () => {
               useWebWorker: true
             });
           }
+
           return file;
         })
       );
@@ -104,6 +105,7 @@ const useUploadAttachments = () => {
 
           updateAttachments(attachmentsIPFS);
           setIsUploading(false);
+
           return attachmentsIPFS;
         } catch {
           toast.error('Something went wrong while uploading!');
