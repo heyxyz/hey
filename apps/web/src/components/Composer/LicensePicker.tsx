@@ -6,10 +6,10 @@ import { PublicationMetadataLicenseType } from '@hey/lens';
 import { Select } from '@hey/ui';
 import getAssetLicense from '@lib/getAssetLicense';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
+import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
 
 const LicensePicker: FC = () => {
-  const setLicense = usePublicationStore((state) => state.setLicense);
+  const setLicense = usePublicationLicenseStore((state) => state.setLicense);
 
   if (!isFeatureEnabled(FeatureFlag.LensMember)) {
     return null;

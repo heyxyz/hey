@@ -1,6 +1,5 @@
 import type { AnyPublication } from '@hey/lens';
 import type { NewAttachment } from '@hey/types/misc';
-import type { MetadataLicenseType } from '@lens-protocol/metadata';
 
 import { create } from 'zustand';
 
@@ -8,7 +7,6 @@ interface PublicationState {
   addAttachments: (attachments: NewAttachment[]) => void;
   attachments: NewAttachment[];
   isUploading: boolean;
-  license: MetadataLicenseType | null;
   liveVideoConfig: {
     id: string;
     playbackId: string;
@@ -20,7 +18,6 @@ interface PublicationState {
   resetLiveVideoConfig: () => void;
   setAttachments: (attachments: NewAttachment[]) => void;
   setIsUploading: (isUploading: boolean) => void;
-  setLicense: (license: MetadataLicenseType | null) => void;
   setLiveVideoConfig: (liveVideoConfig: {
     id: string;
     playbackId: string;
@@ -40,7 +37,6 @@ export const usePublicationStore = create<PublicationState>((set) => ({
     }),
   attachments: [],
   isUploading: false,
-  license: null,
   liveVideoConfig: { id: '', playbackId: '', streamKey: '' },
   publicationContent: '',
   quotedPublication: null,
@@ -59,7 +55,6 @@ export const usePublicationStore = create<PublicationState>((set) => ({
     set(() => ({ liveVideoConfig: { id: '', playbackId: '', streamKey: '' } })),
   setAttachments: (attachments) => set(() => ({ attachments })),
   setIsUploading: (isUploading) => set(() => ({ isUploading })),
-  setLicense: (license) => set(() => ({ license })),
   setLiveVideoConfig: (liveVideoConfig) => set(() => ({ liveVideoConfig })),
   setPublicationContent: (publicationContent) =>
     set(() => ({ publicationContent })),

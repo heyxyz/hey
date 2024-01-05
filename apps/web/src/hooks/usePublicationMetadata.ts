@@ -12,6 +12,7 @@ import {
 import getUserLocale from '@lib/getUserLocale';
 import { useCallback } from 'react';
 import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
+import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
 import { v4 as uuid } from 'uuid';
@@ -30,10 +31,10 @@ const usePublicationMetadata = () => {
   const audioPublication = usePublicationAudioStore(
     (state) => state.audioPublication
   );
-  const { attachments, license, liveVideoConfig, showLiveVideoEditor } =
+  const license = usePublicationLicenseStore((state) => state.license);
+  const { attachments, liveVideoConfig, showLiveVideoEditor } =
     usePublicationStore((state) => ({
       attachments: state.attachments,
-      license: state.license,
       liveVideoConfig: state.liveVideoConfig,
       showLiveVideoEditor: state.showLiveVideoEditor
     }));
