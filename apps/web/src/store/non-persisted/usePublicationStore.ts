@@ -14,15 +14,10 @@ interface PublicationState {
     playbackId: string;
     streamKey: string;
   };
-  pollConfig: {
-    length: number;
-    options: string[];
-  };
   publicationContent: string;
   quotedPublication: AnyPublication | null;
   removeAttachments: (ids: string[]) => void;
   resetLiveVideoConfig: () => void;
-  resetPollConfig: () => void;
   setAttachments: (attachments: NewAttachment[]) => void;
   setIsUploading: (isUploading: boolean) => void;
   setLicense: (license: MetadataLicenseType | null) => void;
@@ -31,13 +26,10 @@ interface PublicationState {
     playbackId: string;
     streamKey: string;
   }) => void;
-  setPollConfig: (pollConfig: { length: number; options: string[] }) => void;
   setPublicationContent: (publicationContent: string) => void;
   setQuotedPublication: (quotedPublication: AnyPublication | null) => void;
   setShowLiveVideoEditor: (showLiveVideoEditor: boolean) => void;
-  setShowPollEditor: (showPollEditor: boolean) => void;
   showLiveVideoEditor: boolean;
-  showPollEditor: boolean;
   updateAttachments: (attachments: NewAttachment[]) => void;
 }
 
@@ -50,7 +42,6 @@ export const usePublicationStore = create<PublicationState>((set) => ({
   isUploading: false,
   license: null,
   liveVideoConfig: { id: '', playbackId: '', streamKey: '' },
-  pollConfig: { length: 7, options: ['', ''] },
   publicationContent: '',
   quotedPublication: null,
   removeAttachments: (ids) =>
@@ -66,22 +57,17 @@ export const usePublicationStore = create<PublicationState>((set) => ({
     }),
   resetLiveVideoConfig: () =>
     set(() => ({ liveVideoConfig: { id: '', playbackId: '', streamKey: '' } })),
-  resetPollConfig: () =>
-    set(() => ({ pollConfig: { length: 1, options: ['', ''] } })),
   setAttachments: (attachments) => set(() => ({ attachments })),
   setIsUploading: (isUploading) => set(() => ({ isUploading })),
   setLicense: (license) => set(() => ({ license })),
   setLiveVideoConfig: (liveVideoConfig) => set(() => ({ liveVideoConfig })),
-  setPollConfig: (pollConfig) => set(() => ({ pollConfig })),
   setPublicationContent: (publicationContent) =>
     set(() => ({ publicationContent })),
   setQuotedPublication: (quotedPublication) =>
     set(() => ({ quotedPublication })),
   setShowLiveVideoEditor: (showLiveVideoEditor) =>
     set(() => ({ showLiveVideoEditor })),
-  setShowPollEditor: (showPollEditor) => set(() => ({ showPollEditor })),
   showLiveVideoEditor: false,
-  showPollEditor: false,
   updateAttachments: (updateAttachments) =>
     set((state) => {
       const attachments = [...state.attachments];
