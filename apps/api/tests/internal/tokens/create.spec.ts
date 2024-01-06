@@ -12,10 +12,10 @@ const generateRandomEthereumAddress = () => {
   return address;
 };
 
-describe('internal/token/create', () => {
+describe('internal/tokens/create', () => {
   test('should create a token', async () => {
     const response = await axios.post(
-      `${TEST_URL}/internal/token/create`,
+      `${TEST_URL}/internal/tokens/create`,
       {
         contractAddress: generateRandomEthereumAddress(),
         decimals: 18,

@@ -26,7 +26,7 @@ const List: FC = () => {
   const deleteToken = async (id: string) => {
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/token/delete`,
+        `${HEY_API_URL}/internal/tokens/delete`,
         { id },
         { headers: getAuthWorkerHeaders() }
       ),
