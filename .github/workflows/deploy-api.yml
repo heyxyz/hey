@@ -41,4 +41,4 @@ jobs:
             -H "Content-Type: application/json" \
             -H "Referer: https://hey.xyz" \
             -d '{"secret": "'"$SECRET"'", "serviceId": "'"$SERVICE_ID"'"}' \
-            https://api.hey.xyz/internal/railway/trigger-deployments
+            https://api.hey.xyz/internal/railway/triggerDeployments
