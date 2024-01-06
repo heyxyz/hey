@@ -22,7 +22,7 @@ const IsPride: FC = () => {
     setUpdating(true);
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/preferences/updatePreferences`,
+        `${HEY_API_URL}/preferences/update`,
         { isPride: !preferences.isPride },
         { headers: getAuthWorkerHeaders() }
       ),
