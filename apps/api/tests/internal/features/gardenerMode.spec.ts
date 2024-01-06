@@ -3,10 +3,10 @@ import { TEST_URL } from '@utils/constants';
 import axios from 'axios';
 import { describe, expect, test } from 'vitest';
 
-describe('internal/features/gardener-mode', () => {
+describe('internal/features/gardenerMode', () => {
   test('should enable gardener mode', async () => {
     const response = await axios.post(
-      `${TEST_URL}/internal/features/gardener-mode`,
+      `${TEST_URL}/internal/features/gardenerMode`,
       { enabled: true },
       { headers: await getAuthWorkerHeadersForTest() }
     );
@@ -16,7 +16,7 @@ describe('internal/features/gardener-mode', () => {
 
   test('should disabe gardener mode', async () => {
     const response = await axios.post(
-      `${TEST_URL}/internal/features/gardener-mode`,
+      `${TEST_URL}/internal/features/gardenerMode`,
       { enabled: false },
       { headers: await getAuthWorkerHeadersForTest() }
     );
