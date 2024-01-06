@@ -23,7 +23,7 @@ const Verify: FC<VerifyProps> = ({ profileId }) => {
   const updateVerified = async () => {
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/verified/updateVerified`,
+        `${HEY_API_URL}/internal/verified/update`,
         { enabled: !isVerified, id: profileId },
         { headers: getAuthWorkerHeaders() }
       ),
