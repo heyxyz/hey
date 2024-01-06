@@ -19,7 +19,7 @@ const useUnlonelyChannel = ({
 } => {
   const getUnlonelyChannelDetails = async () => {
     const response = await axios.get(
-      `${HEY_API_URL}/nft/unlonely/getUnlonelyChannel`,
+      `${HEY_API_URL}/nfts/unlonely/getUnlonelyChannel`,
       { params: { slug } }
     );
 
