@@ -4,9 +4,9 @@ import { TEST_URL } from '@utils/constants';
 import axios from 'axios';
 import { describe, expect, test } from 'vitest';
 
-describe('preferences/getPreferences', () => {
+describe('preferences/get', () => {
   test('should return profile preferences', async () => {
-    const response = await axios.get(`${TEST_URL}/preferences/getPreferences`, {
+    const response = await axios.get(`${TEST_URL}/preferences/get`, {
       headers: await getAuthWorkerHeadersForTest(),
       params: { id: TEST_LENS_ID }
     });
