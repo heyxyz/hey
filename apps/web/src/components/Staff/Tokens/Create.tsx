@@ -42,7 +42,7 @@ const Create: FC<CreateProps> = ({ setShowCreateModal, setTokens, tokens }) => {
     setCreating(true);
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/token/create`,
+        `${HEY_API_URL}/internal/tokens/create`,
         { contractAddress, decimals: parseInt(decimals), name, symbol },
         { headers: getAuthWorkerHeaders() }
       ),

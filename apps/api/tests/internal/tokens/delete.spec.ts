@@ -12,10 +12,10 @@ const generateRandomEthereumAddress = () => {
   return address;
 };
 
-describe('internal/token/delete', async () => {
+describe('internal/tokens/delete', async () => {
   test('should delete a token', async () => {
     const newTokenResponse = await axios.post(
-      `${TEST_URL}/internal/token/create`,
+      `${TEST_URL}/internal/tokens/create`,
       {
         contractAddress: generateRandomEthereumAddress(),
         decimals: 18,
@@ -26,7 +26,7 @@ describe('internal/token/delete', async () => {
     );
 
     const response = await axios.post(
-      `${TEST_URL}/internal/token/delete`,
+      `${TEST_URL}/internal/tokens/delete`,
       { id: newTokenResponse.data.token.id },
       { headers: await getAuthWorkerHeadersForTest() }
     );
