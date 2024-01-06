@@ -3,12 +3,11 @@ import { TEST_URL } from '@utils/constants';
 import axios from 'axios';
 import { describe, expect, test } from 'vitest';
 
-describe('preferences/getHeyMemberNftStatus', () => {
+describe('preferences/nft-status', () => {
   test('should return profile membership nft status', async () => {
-    const response = await axios.get(
-      `${TEST_URL}/preferences/getHeyMemberNftStatus`,
-      { params: { id: TEST_LENS_ID } }
-    );
+    const response = await axios.get(`${TEST_URL}/preferences/nft-status`, {
+      params: { id: TEST_LENS_ID }
+    });
 
     expect(response.data.result.dismissedOrMinted).toBeTypeOf('boolean');
   });
