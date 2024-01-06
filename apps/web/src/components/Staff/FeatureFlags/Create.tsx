@@ -34,7 +34,7 @@ const Create: FC<CreateProps> = ({
     setCreating(true);
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/feature/create`,
+        `${HEY_API_URL}/internal/features/create`,
         { key },
         { headers: getAuthWorkerHeaders() }
       ),

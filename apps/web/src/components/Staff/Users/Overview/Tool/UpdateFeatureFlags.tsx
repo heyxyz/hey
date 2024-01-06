@@ -45,7 +45,7 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
     setUpdating(true);
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/feature/updateProfile`,
+        `${HEY_API_URL}/internal/features/updateProfile`,
         { enabled, id, profile_id: profileId },
         { headers: getAuthWorkerHeaders() }
       ),

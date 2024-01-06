@@ -3,10 +3,10 @@ import { TEST_URL } from '@utils/constants';
 import axios from 'axios';
 import { describe, expect, test } from 'vitest';
 
-describe('internal/feature/create', async () => {
+describe('internal/features/create', async () => {
   test('should create a feature', async () => {
     const response = await axios.post(
-      `${TEST_URL}/internal/feature/create`,
+      `${TEST_URL}/internal/features/create`,
       { key: Math.random().toString() },
       { headers: await getAuthWorkerHeadersForTest() }
     );
