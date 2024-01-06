@@ -27,7 +27,7 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
   const toggleModMode = () => {
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/features/gardener-mode`,
+        `${HEY_API_URL}/internal/features/gardenerMode`,
         { enabled: !gardenerMode },
         { headers: getAuthWorkerHeaders() }
       ),
