@@ -35,7 +35,7 @@ const HeyMembershipNft: FC = () => {
     try {
       toast.promise(
         axios.post(
-          `${HEY_API_URL}/preference/updateHeyMemberNftStatus`,
+          `${HEY_API_URL}/preferences/updateHeyMemberNftStatus`,
           undefined,
           { headers: getAuthWorkerHeaders() }
         ),

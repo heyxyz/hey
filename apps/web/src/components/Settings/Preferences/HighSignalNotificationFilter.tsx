@@ -22,7 +22,7 @@ const HighSignalNotificationFilter: FC = () => {
   const toggleHighSignalNotificationFilter = () => {
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/preference/updatePreferences`,
+        `${HEY_API_URL}/preferences/updatePreferences`,
         {
           highSignalNotificationFilter:
             !preferences.highSignalNotificationFilter
