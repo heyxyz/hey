@@ -3,10 +3,10 @@ import { TEST_URL } from '@utils/constants';
 import axios from 'axios';
 import { describe, expect, test } from 'vitest';
 
-describe('preference/updateHeyMemberNftStatus', () => {
+describe('preferences/updateHeyMemberNftStatus', () => {
   test('should update profile membership nft status', async () => {
     const response = await axios.post(
-      `${TEST_URL}/preference/updateHeyMemberNftStatus`,
+      `${TEST_URL}/preferences/updateHeyMemberNftStatus`,
       undefined,
       { headers: await getAuthWorkerHeadersForTest() }
     );
