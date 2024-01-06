@@ -3,10 +3,10 @@ import { TEST_URL } from '@utils/constants';
 import axios from 'axios';
 import { describe, expect, test } from 'vitest';
 
-describe('internal/feature/updateStaffMode', () => {
-  test('should enable staff mode', async () => {
+describe('internal/features/updateGardenerMode', () => {
+  test('should enable gardener mode', async () => {
     const response = await axios.post(
-      `${TEST_URL}/internal/feature/updateStaffMode`,
+      `${TEST_URL}/internal/features/updateGardenerMode`,
       { enabled: true },
       { headers: await getAuthWorkerHeadersForTest() }
     );
@@ -14,9 +14,9 @@ describe('internal/feature/updateStaffMode', () => {
     expect(response.data.enabled).toBeTruthy();
   });
 
-  test('should disabe staff mode', async () => {
+  test('should disabe gardener mode', async () => {
     const response = await axios.post(
-      `${TEST_URL}/internal/feature/updateStaffMode`,
+      `${TEST_URL}/internal/features/updateGardenerMode`,
       { enabled: false },
       { headers: await getAuthWorkerHeadersForTest() }
     );
