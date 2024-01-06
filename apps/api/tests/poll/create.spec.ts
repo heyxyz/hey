@@ -3,10 +3,10 @@ import { TEST_URL } from '@utils/constants';
 import axios from 'axios';
 import { describe, expect, test } from 'vitest';
 
-describe('poll/create', async () => {
+describe('polls/create', async () => {
   test('should create a poll', async () => {
     const response = await axios.post(
-      `${TEST_URL}/poll/create`,
+      `${TEST_URL}/polls/create`,
       { length: 30, options: ['option 1', 'option 2'] },
       { headers: await getAuthWorkerHeadersForTest() }
     );

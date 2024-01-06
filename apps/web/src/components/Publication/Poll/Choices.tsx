@@ -53,7 +53,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
       setSelectedOption(id);
 
       await axios.post(
-        `${HEY_API_URL}/poll/act`,
+        `${HEY_API_URL}/polls/act`,
         { option: id, poll: poll.id },
         { headers: getAuthWorkerHeaders() }
       );
