@@ -2,9 +2,9 @@ import { TEST_URL } from '@utils/constants';
 import axios from 'axios';
 import { describe, expect, test } from 'vitest';
 
-describe('nfts/getZoraNft', async () => {
+describe('nfts/zora/nft', async () => {
   test('should return zora nft without token', async () => {
-    const response = await axios.get(`${TEST_URL}/nfts/getZoraNft`, {
+    const response = await axios.get(`${TEST_URL}/nfts/zora/nft`, {
       params: {
         address: '0x84021385852ac3660d847af215098a1ef1b1b5ed',
         chain: 'zora'
@@ -15,7 +15,7 @@ describe('nfts/getZoraNft', async () => {
   });
 
   test('should return zora nft with token', async () => {
-    const response = await axios.get(`${TEST_URL}/nfts/getZoraNft`, {
+    const response = await axios.get(`${TEST_URL}/nfts/zora/nft`, {
       params: {
         address: '0x84021385852ac3660d847af215098a1ef1b1b5ed',
         chain: 'zora',
