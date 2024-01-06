@@ -57,6 +57,7 @@ import { usePublicationStore } from 'src/store/non-persisted/publication/usePubl
 import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
@@ -105,7 +106,7 @@ interface NewPublicationProps {
 
 const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
+  const { isSuspended } = useProfileRestriction();
 
   // Modal store
   const setShowNewPostModal = useGlobalModalStateStore(
@@ -190,6 +191,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   // States
   const [isLoading, setIsLoading] = useState(false);
+  const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
   const [publicationContentError, setPublicationContentError] = useState('');
 
   const [editor] = useLexicalComposerContext();
@@ -330,6 +332,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const createPublication = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
+    }
+
+    if (isSuspended) {
+      toast.error(Errors.Suspended);
     }
 
     if (handleWrongNetwork()) {
