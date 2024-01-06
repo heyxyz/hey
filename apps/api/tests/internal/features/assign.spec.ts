@@ -4,10 +4,10 @@ import { TEST_URL } from '@utils/constants';
 import axios from 'axios';
 import { describe, expect, test } from 'vitest';
 
-describe('internal/features/updateProfile', () => {
+describe('internal/features/assign', () => {
   test('should enable features for a profile', async () => {
     const response = await axios.post(
-      `${TEST_URL}/internal/features/updateProfile`,
+      `${TEST_URL}/internal/features/assign`,
       {
         enabled: true,
         id: '0779d74f-0426-4988-b4c4-2b632f5de8e1',
@@ -21,7 +21,7 @@ describe('internal/features/updateProfile', () => {
 
   test('should disable features for a profile', async () => {
     const response = await axios.post(
-      `${TEST_URL}/internal/features/updateProfile`,
+      `${TEST_URL}/internal/features/assign`,
       {
         enabled: false,
         id: '0779d74f-0426-4988-b4c4-2b632f5de8e1',
