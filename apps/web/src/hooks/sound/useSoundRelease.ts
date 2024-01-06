@@ -21,7 +21,7 @@ const useSoundRelease = ({
 } => {
   // TODO: make this type safe
   const getSoundReleaseDetails = async () => {
-    const { data } = await axios.get(`${HEY_API_URL}/nft/getSoundRelease`, {
+    const { data } = await axios.get(`${HEY_API_URL}/nfts/getSoundRelease`, {
       params: { handle, slug }
     });
 

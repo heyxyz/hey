@@ -23,7 +23,7 @@ const useZoraNft = ({
 } => {
   // TODO: make this type safe
   const getZoraNftDetails = async () => {
-    const { data } = await axios.get(`${HEY_API_URL}/nft/getZoraNft`, {
+    const { data } = await axios.get(`${HEY_API_URL}/nfts/getZoraNft`, {
       params: { address, chain, token }
     });
 

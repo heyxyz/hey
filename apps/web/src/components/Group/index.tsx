@@ -30,7 +30,7 @@ const ViewGroup: NextPage = () => {
   const fetchGroup = async (): Promise<Group> => {
     const response: {
       data: { result: Group };
-    } = await axios.get(`${HEY_API_URL}/group/get`, {
+    } = await axios.get(`${HEY_API_URL}/groups/get`, {
       params: { slug }
     });
 
