@@ -3,10 +3,10 @@ import { TEST_URL } from '@utils/constants';
 import axios from 'axios';
 import { describe, expect, test } from 'vitest';
 
-describe('internal/features/staff-mode', () => {
+describe('internal/features/staffMode', () => {
   test('should enable staff mode', async () => {
     const response = await axios.post(
-      `${TEST_URL}/internal/features/staff-mode`,
+      `${TEST_URL}/internal/features/staffMode`,
       { enabled: true },
       { headers: await getAuthWorkerHeadersForTest() }
     );
