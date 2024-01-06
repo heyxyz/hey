@@ -3,9 +3,9 @@ import { TEST_URL } from '@utils/constants';
 import axios from 'axios';
 import { describe, expect, test } from 'vitest';
 
-describe('feed/ids', () => {
+describe('feed/index', () => {
   test('should return most viewed ids from hey', async () => {
-    const response = await axios.get(`${TEST_URL}/feed/ids`, {
+    const response = await axios.get(`${TEST_URL}/feed`, {
       params: { provider: AlgorithmProvider.HEY, strategy: 'mostviewed' }
     });
 
@@ -13,7 +13,7 @@ describe('feed/ids', () => {
   });
 
   test('should return most interacted ids from hey', async () => {
-    const response = await axios.get(`${TEST_URL}/feed/ids`, {
+    const response = await axios.get(`${TEST_URL}/feed`, {
       params: { provider: AlgorithmProvider.HEY, strategy: 'mostinteracted' }
     });
 
@@ -21,7 +21,7 @@ describe('feed/ids', () => {
   });
 
   test('should return recommended ids from k3l', async () => {
-    const response = await axios.get(`${TEST_URL}/feed/ids`, {
+    const response = await axios.get(`${TEST_URL}/feed`, {
       params: { provider: AlgorithmProvider.K3L, strategy: 'recommended' }
     });
 
@@ -29,7 +29,7 @@ describe('feed/ids', () => {
   });
 
   test('should return popular ids from k3l', async () => {
-    const response = await axios.get(`${TEST_URL}/feed/ids`, {
+    const response = await axios.get(`${TEST_URL}/feed`, {
       params: { provider: AlgorithmProvider.K3L, strategy: 'popular' }
     });
 
@@ -37,7 +37,7 @@ describe('feed/ids', () => {
   });
 
   test('should return recent ids from k3l', async () => {
-    const response = await axios.get(`${TEST_URL}/feed/ids`, {
+    const response = await axios.get(`${TEST_URL}/feed`, {
       params: { provider: AlgorithmProvider.K3L, strategy: 'recent' }
     });
 
@@ -45,7 +45,7 @@ describe('feed/ids', () => {
   });
 
   test('should return crowdsourced ids from k3l', async () => {
-    const response = await axios.get(`${TEST_URL}/feed/ids`, {
+    const response = await axios.get(`${TEST_URL}/feed`, {
       params: { provider: AlgorithmProvider.K3L, strategy: 'crowdsourced' }
     });
 
