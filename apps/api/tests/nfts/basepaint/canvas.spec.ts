@@ -2,9 +2,9 @@ import { TEST_URL } from '@utils/constants';
 import axios from 'axios';
 import { describe, expect, test } from 'vitest';
 
-describe('nfts/getBasePaintCanvas', async () => {
+describe('nfts/basepaint/canvas', async () => {
   test('should return basepaint canvas', async () => {
-    const response = await axios.get(`${TEST_URL}/nfts/getBasePaintCanvas`, {
+    const response = await axios.get(`${TEST_URL}/nfts/basepaint/canvas`, {
       params: { id: 44 }
     });
 
