@@ -3,10 +3,10 @@ import { TEST_URL } from '@utils/constants';
 import axios from 'axios';
 import { describe, expect, test } from 'vitest';
 
-describe('preferences/updatePreferences', () => {
+describe('preferences/update', () => {
   test('should update profile preferences', async () => {
     const response = await axios.post(
-      `${TEST_URL}/preferences/updatePreferences`,
+      `${TEST_URL}/preferences/update`,
       { highSignalNotificationFilter: true, isPride: true },
       { headers: await getAuthWorkerHeadersForTest() }
     );
