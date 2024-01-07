@@ -11,7 +11,7 @@ import axios from 'axios';
 const getAllTokens = async (
   callbackFn?: (tokens: AllowedToken[]) => void
 ): Promise<AllowedToken[]> => {
-  const response = await axios.get(`${HEY_API_URL}/token/all`);
+  const response = await axios.get(`${HEY_API_URL}/tokens/all`);
   const { data } = response;
   callbackFn?.(data?.tokens || []);
 
