@@ -1,0 +1,51 @@
+name: Deploy Docker Images
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build and push Web image 🚀
+        uses: ./.github/actions/docker
+        with:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+          IMAGE_NAME: web
+          DOCKER_FILE: ./apps/web/Dockerfile
+
+  api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build and push API image 🚀
+        uses: ./.github/actions/docker
+        with:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+          IMAGE_NAME: api
+          DOCKER_FILE: ./apps/api/Dockerfile
+
+      - name: Trigger API Deployment 🚀
+        env:
+          SECRET: ${{ secrets.SECRET }}
+          SERVICE_ID: '4a2a1bfb-e499-4c71-bf7f-d9ad47443c31'
+        run: |
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -H "Referer: https://hey.xyz" \
+            -d '{"secret": "'"$SECRET"'", "serviceId": "'"$SERVICE_ID"'"}' \
+            https://api.hey.xyz/internal/railway/triggerDeployments
+
+  og:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build and push OG image 🚀
+        uses: ./.github/actions/docker
+        with:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+          IMAGE_NAME: og
+          DOCKER_FILE: ./apps/og/Dockerfile
