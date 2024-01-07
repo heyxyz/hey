@@ -12,6 +12,9 @@ const getEmbedUrl = (document: Document): null | string => {
   const twitter =
     document.querySelector('meta[name="twitter:player"]') ||
     document.querySelector('meta[property="twitter:player"]');
+  const spotify =
+    document.querySelector('meta[name="al:android:url"]') ||
+    document.querySelector('meta[property="al:android:url"]');
 
   if (lens) {
     return lens.getAttribute('content');
@@ -25,6 +28,9 @@ const getEmbedUrl = (document: Document): null | string => {
     return twitter.getAttribute('content');
   }
 
+  if (spotify) {
+    return spotify.getAttribute('content');
+  }
   return null;
 };
 

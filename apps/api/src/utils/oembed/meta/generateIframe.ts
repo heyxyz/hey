@@ -5,6 +5,7 @@ const knownSites = [
   'twitch.tv',
   'kick.com',
   'open.spotify.com',
+  'spotify.link',
   'soundcloud.com',
   'oohlala.xyz'
 ];
@@ -82,6 +83,24 @@ const generateIframe = (
       }
 
       if (spotifyPlaylistUrlRegex.test(url)) {
+        const spotifyUrl = pickedUrl.replace('/playlist', '/embed/playlist');
+        return `<iframe src="${spotifyUrl}" ${spotifySize} height="380" allow="encrypted-media"></iframe>`;
+      }
+
+      return null;
+    }
+    case 'spotify.link': {
+      const spotifySize = `style="max-width: 100%;" width="100%"`;
+      const spotifyEmbedUrl = pickedUrl
+        .replace('spotify:/', 'https://open.spotify.com')
+        .replace(/&context.*/, '')
+        .replace('/?si', '?si');
+      if (spotifyTrackUrlRegex.test(spotifyEmbedUrl)) {
+        const spotifyUrl = spotifyEmbedUrl.replace('/track', '/embed/track');
+        return `<iframe src="${spotifyUrl}" ${spotifySize} height="155" allow="encrypted-media"></iframe>`;
+      }
+
+      if (spotifyPlaylistUrlRegex.test(spotifyEmbedUrl)) {
         const spotifyUrl = pickedUrl.replace('/playlist', '/embed/playlist');
         return `<iframe src="${spotifyUrl}" ${spotifySize} height="380" allow="encrypted-media"></iframe>`;
       }
