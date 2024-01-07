@@ -13,21 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v4
 
-      - name: Setup pnpm 🌸
-        uses: pnpm/action-setup@v2.2.4
-
-      - name: Setup node 🍀
-        uses: actions/setup-node@v3
-        with:
-          node-version-file: '.nvmrc'
-          cache: 'pnpm'
-
-      - name: Bootstrap 📦
-        run: script/bootstrap
+      - name: Setup Node.js, pnpm and dependencies 🌸
+        uses: ./.github/actions/setup-pnpm
 
       - name: Typecheck 🔡
         run: pnpm typecheck:affected

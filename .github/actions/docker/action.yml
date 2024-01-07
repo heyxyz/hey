@@ -2,11 +2,11 @@ name: Docker Build and Push
 
 inputs:
   DOCKERHUB_USERNAME:
-    description: Dockerhub username
+    description: DockerHub username
     required: true
     default: ''
   DOCKERHUB_TOKEN:
-    description: Dockerhub token
+    description: DockerHub token
     required: true
     default: ''
   IMAGE_NAME:
@@ -14,7 +14,7 @@ inputs:
     required: true
     default: ''
   DOCKER_FILE:
-    description: Dockerfile path
+    description: Docker file path
     required: true
     default: ''
 
