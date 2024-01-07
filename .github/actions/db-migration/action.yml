@@ -24,6 +24,7 @@ runs:
       run: pnpm i
 
     - name: Migrate 🚀
+        shell: bash
         working-directory: ./apps/api
         env:
           DATABASE_URL: ${{ inputs.database_url }}
