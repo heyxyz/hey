@@ -84,6 +84,8 @@ export type Poll = {
 
 export type Preferences = {
   features: string[];
+  isPro: boolean;
+  isTrusted: boolean;
   membershipNft: { dismissedOrMinted: boolean };
   preference?: {
     createdAt: Date;
@@ -91,6 +93,5 @@ export type Preferences = {
     id: string;
     isPride: boolean;
   } | null;
-  pro: { enabled: boolean };
   restrictions: { isFlagged: boolean; isSuspended: boolean };
 };
