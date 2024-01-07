@@ -17,8 +17,6 @@ jobs:
 
       - name: Setup Node.js, pnpm and dependencies 🌸
         uses: ./.github/actions/setup-pnpm
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Typecheck 🔡
         run: pnpm typecheck:affected
