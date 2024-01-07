@@ -19,6 +19,8 @@ jobs:
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js, pnpm and dependencies 🌸
         uses: ./.github/actions/setup-pnpm
@@ -32,6 +34,8 @@ jobs:
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js, pnpm and dependencies 🌸
         uses: ./.github/actions/setup-pnpm
@@ -45,6 +49,8 @@ jobs:
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js, pnpm and dependencies 🌸
         uses: ./.github/actions/setup-pnpm
@@ -58,6 +64,8 @@ jobs:
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js, pnpm and dependencies 🌸
         uses: ./.github/actions/setup-pnpm
@@ -71,6 +79,8 @@ jobs:
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js, pnpm and dependencies 🌸
         uses: ./.github/actions/setup-pnpm
