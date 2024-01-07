@@ -24,10 +24,10 @@ const Gifs: FC<CategoriesProps> = ({
     setShowModal(false);
   };
 
-  const fetchGifs = async (input: string, offset: number) => {
+  const fetchGifs = async (input: string) => {
     try {
       const response = await axios.get('https://api.giphy.com/v1/gifs/search', {
-        params: { api_key: GIPHY_KEY, limit: 48, offset, q: input }
+        params: { api_key: GIPHY_KEY, limit: 48, q: input }
       });
 
       return response.data;
@@ -37,8 +37,8 @@ const Gifs: FC<CategoriesProps> = ({
   };
 
   const { data: gifs, isFetching } = useQuery({
-    enabled: !!debouncedGifInput,
-    queryFn: () => fetchGifs(debouncedGifInput, 0),
+    enabled: Boolean(debouncedGifInput),
+    queryFn: () => fetchGifs(debouncedGifInput),
     queryKey: ['gifs', debouncedGifInput]
   });
 

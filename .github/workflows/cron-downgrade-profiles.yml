@@ -18,4 +18,4 @@ jobs:
             -H "Content-Type: application/json" \
             -H "Referer: https://hey.xyz" \
             -d '{"secret": "'"$SECRET"'"}' \
-            https://api.hey.xyz/internal/pro/downgradeProfiles
+            https://api.hey.xyz/internal/cron/downgradePro

@@ -9,8 +9,12 @@ import {
   TicketIcon
 } from '@heroicons/react/24/outline';
 import { Modal } from '@hey/ui';
+import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
+import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
+import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
+import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
+import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
 
 import Login from './Login';
 import WrongNetwork from './Login/WrongNetwork';
@@ -83,20 +87,28 @@ const GlobalModals: FC = () => {
   const publicationContent = usePublicationStore(
     (state) => state.publicationContent
   );
-  const attachments = usePublicationStore((state) => state.attachments);
-  const isUploading = usePublicationStore((state) => state.isUploading);
-  const videoDurationInSeconds = usePublicationStore(
+  const attachments = usePublicationAttachmentStore(
+    (state) => state.attachments
+  );
+  const isUploading = usePublicationAttachmentStore(
+    (state) => state.isUploading
+  );
+  const videoDurationInSeconds = usePublicationVideoStore(
     (state) => state.videoDurationInSeconds
   );
-  const videoThumbnail = usePublicationStore((state) => state.videoThumbnail);
-  const audioPublication = usePublicationStore(
+  const videoThumbnail = usePublicationVideoStore(
+    (state) => state.videoThumbnail
+  );
+  const audioPublication = usePublicationAudioStore(
     (state) => state.audioPublication
   );
   const quotedPublication = usePublicationStore(
     (state) => state.quotedPublication
   );
-  const showPollEditor = usePublicationStore((state) => state.showPollEditor);
-  const pollConfig = usePublicationStore((state) => state.pollConfig);
+  const showPollEditor = usePublicationPollStore(
+    (state) => state.showPollEditor
+  );
+  const pollConfig = usePublicationPollStore((state) => state.pollConfig);
 
   const checkIfPublicationNotDrafted = () => {
     if (

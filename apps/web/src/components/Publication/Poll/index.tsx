@@ -17,7 +17,7 @@ interface SnapshotProps {
 const Poll: FC<SnapshotProps> = ({ id }) => {
   const fetchPoll = async (): Promise<null | TPoll> => {
     try {
-      const response = await axios.get(`${HEY_API_URL}/poll/get`, {
+      const response = await axios.get(`${HEY_API_URL}/polls/get`, {
         headers: {
           ...getAuthWorkerHeaders(),
           'X-Skip-Cache': true

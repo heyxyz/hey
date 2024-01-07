@@ -36,7 +36,7 @@ const List: FC = () => {
     setKilling(true);
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/feature/kill`,
+        `${HEY_API_URL}/internal/features/kill`,
         { enabled, id },
         { headers: getAuthWorkerHeaders() }
       ),
@@ -62,7 +62,7 @@ const List: FC = () => {
   const deleteFeatureFlag = async (id: string) => {
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/feature/delete`,
+        `${HEY_API_URL}/internal/features/delete`,
         { id },
         { headers: getAuthWorkerHeaders() }
       ),
