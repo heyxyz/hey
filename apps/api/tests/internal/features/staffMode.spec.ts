@@ -16,7 +16,7 @@ describe('internal/features/staffMode', () => {
 
   test('should disabe staff mode', async () => {
     const response = await axios.post(
-      `${TEST_URL}/internal/features/staff-mode`,
+      `${TEST_URL}/internal/features/staffMode`,
       { enabled: false },
       { headers: await getAuthWorkerHeadersForTest() }
     );
