@@ -12,6 +12,7 @@ concurrency:
 
 jobs:
   web:
+    name: Web
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
@@ -26,6 +27,7 @@ jobs:
           DOCKER_FILE: ./apps/web/Dockerfile
 
   api:
+    name: API
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
@@ -51,6 +53,7 @@ jobs:
             https://api.hey.xyz/internal/railway/triggerDeployments
 
   og:
+    name: OG
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
