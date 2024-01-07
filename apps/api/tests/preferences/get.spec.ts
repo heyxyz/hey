@@ -15,7 +15,8 @@ describe('preferences/get', () => {
     expect(response.data.result.membershipNft).toHaveProperty(
       'dismissedOrMinted'
     );
-    expect(response.data.result.pro).toHaveProperty('enabled');
+    expect(response.data.result.isPro).toBeTruthy();
+    expect(response.data.result.isTrusted).toBeTruthy();
     expect(response.data.result.preference.id).toEqual(TEST_LENS_ID);
     expect(
       response.data.result.preference.highSignalNotificationFilter
