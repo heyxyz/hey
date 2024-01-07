@@ -18,10 +18,9 @@ const useUnlonelyNfc = ({
   loading: boolean;
 } => {
   const getUnlonelyNfcDetails = async () => {
-    const response = await axios.get(
-      `${HEY_API_URL}/nft/unlonely/getUnlonelyNfc`,
-      { params: { id } }
-    );
+    const response = await axios.get(`${HEY_API_URL}/nfts/unlonely/nfc`, {
+      params: { id }
+    });
 
     return response.data?.nfc;
   };

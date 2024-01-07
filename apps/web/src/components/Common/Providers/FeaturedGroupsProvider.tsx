@@ -12,7 +12,7 @@ const FeaturedGroupsProvider: FC = () => {
 
   const fetchFeaturedGroups = async () => {
     try {
-      const response = await axios.get(`${HEY_API_URL}/group/featured`);
+      const response = await axios.get(`${HEY_API_URL}/groups/featured`);
       const { data } = response;
       setFeaturedGroups(data.result || []);
       return true;
