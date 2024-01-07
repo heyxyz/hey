@@ -1,5 +1,11 @@
 name: Docker Build and Push
 
+inputs:
+  GITHUB_TOKEN:
+    description: GitHub token
+    required: true
+    default: ''
+
 runs:
   using: 'composite'
   steps:
@@ -9,6 +15,7 @@ runs:
     - name: Setup node 🍀
       uses: actions/setup-node@v3
       with:
+        token: ${{ inputs.GITHUB_TOKEN }}
         check-latest: true
         node-version-file: '.nvmrc'
         cache: 'pnpm'
