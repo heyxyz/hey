@@ -160,10 +160,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
       ) : null}
       {preferences ? (
         <>
-          <Access
-            isPro={preferences.pro?.enabled || false}
-            profileId={profile.id}
-          />
+          <Access isPro={preferences.isPro || false} profileId={profile.id} />
           <Restrictions
             profileId={profile.id}
             restrictions={preferences.restrictions}
