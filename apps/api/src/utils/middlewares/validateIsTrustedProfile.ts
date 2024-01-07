@@ -3,15 +3,14 @@ import type { Request } from 'express';
 import parseJwt from '@hey/lib/parseJwt';
 import prisma from '@utils/prisma';
 
-import { STAFF_FEATURE_ID } from '../constants';
 import validateLensAccount from './validateLensAccount';
 
 /**
- * Middleware to validate if the profile is staff
+ * Middleware to validate if the profile is trusted
  * @param request Incoming request
  * @returns Response
  */
-const validateIsStaff = async (request: Request) => {
+const validateIsTrustedProfile = async (request: Request) => {
   if (!(await validateLensAccount(request))) {
     return false;
   }
@@ -24,15 +23,11 @@ const validateIsStaff = async (request: Request) => {
     }
 
     const payload = parseJwt(accessToken);
-    const data = await prisma.profileFeature.findFirst({
-      where: {
-        enabled: true,
-        featureId: STAFF_FEATURE_ID,
-        profileId: payload.id
-      }
+    const data = await prisma.trustedProfile.findFirst({
+      where: { id: payload.id }
     });
 
-    if (data?.enabled) {
+    if (data?.id) {
       return true;
     }
 
@@ -42,4 +37,4 @@ const validateIsStaff = async (request: Request) => {
   }
 };
 
-export default validateIsStaff;
+export default validateIsTrustedProfile;
