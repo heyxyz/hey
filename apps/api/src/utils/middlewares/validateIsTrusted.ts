@@ -10,7 +10,7 @@ import validateLensAccount from './validateLensAccount';
  * @param request Incoming request
  * @returns Response
  */
-const validateIsTrustedProfile = async (request: Request) => {
+const validateIsTrusted = async (request: Request) => {
   if (!(await validateLensAccount(request))) {
     return false;
   }
@@ -37,4 +37,4 @@ const validateIsTrustedProfile = async (request: Request) => {
   }
 };
 
-export default validateIsTrustedProfile;
+export default validateIsTrusted;
