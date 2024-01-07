@@ -23,9 +23,10 @@ const getPreferences = async (
   } catch {
     return {
       features: [],
+      isPro: false,
+      isTrusted: false,
       membershipNft: { dismissedOrMinted: false },
       preference: null,
-      pro: { enabled: false },
       restrictions: { isFlagged: false, isSuspended: false }
     };
   }
