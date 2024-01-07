@@ -21,10 +21,10 @@ jobs:
       - name: Build and push Web image 🚀
         uses: ./.github/actions/docker
         with:
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-          IMAGE_NAME: web
-          DOCKER_FILE: ./apps/web/Dockerfile
+          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+          image_name: web
+          docker_file: ./apps/web/Dockerfile
 
   api:
     name: API
