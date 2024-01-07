@@ -21,7 +21,7 @@ jobs:
       - name: Setup Node.js, pnpm, dependencies and run migrations 🌸
         uses: ./.github/actions/db-migration
         with:
-          database-url: ${{ secrets.MAINNET_DATABASE_URL }}
+          database_url: ${{ secrets.MAINNET_DATABASE_URL }}
 
   testnet:
     name: Testnet
@@ -33,7 +33,7 @@ jobs:
       - name: Setup Node.js, pnpm, dependencies and run migrations 🌸
         uses: ./.github/actions/db-migration
         with:
-          database-url: ${{ secrets.TESTNET_DATABASE_URL }}
+          database_url: ${{ secrets.TESTNET_DATABASE_URL }}
 
   staging:
     name: Staging
@@ -45,4 +45,4 @@ jobs:
       - name: Setup Node.js, pnpm, dependencies and run migrations 🌸
         uses: ./.github/actions/db-migration
         with:
-          database-url: ${{ secrets.STAGING_DATABASE_URL }}
+          database_url: ${{ secrets.STAGING_DATABASE_URL }}
