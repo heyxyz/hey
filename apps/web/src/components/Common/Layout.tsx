@@ -12,8 +12,6 @@ import { useTheme } from 'next-themes';
 import { Toaster } from 'react-hot-toast';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
-import { useProStore } from 'src/store/non-persisted/useProStore';
-import { useTrustedProfileStore } from 'src/store/non-persisted/useTrustedProfileStore';
 import { hydrateAuthTokens, signOut } from 'src/store/persisted/useAuthStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
@@ -42,8 +40,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const setLensHubOnchainSigNonce = useNonceStore(
     (state) => state.setLensHubOnchainSigNonce
   );
-  const resetPro = useProStore((state) => state.resetPro);
-  const resetTrusted = useTrustedProfileStore((state) => state.resetTrusted);
 
   const isMounted = useIsMounted();
   const { disconnect } = useDisconnect();
@@ -53,8 +49,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const logout = (reload = false) => {
     resetPreferences();
     resetFeatureFlags();
-    resetPro();
-    resetTrusted();
     signOut();
     disconnect?.();
     if (reload) {
