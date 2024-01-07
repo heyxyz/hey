@@ -12,6 +12,11 @@ model Verified {
   createdAt DateTime @default(now())
 }
 
+model TrustedProfile {
+  id        String   @id
+  createdAt DateTime @default(now())
+}
+
 model StaffPick {
   id        String        @id
   type      StaffPickType

@@ -10,7 +10,6 @@ import axios from 'axios';
 import { useMembershipNftStore } from 'src/store/non-persisted/useMembershipNftStore';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
-import { useProStore } from 'src/store/non-persisted/useProStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useVerifiedMembersStore } from 'src/store/persisted/useVerifiedMembersStore';
 import { isAddress } from 'viem';
@@ -22,7 +21,8 @@ const PreferencesProvider: FC = () => {
   );
   const setPreferences = usePreferencesStore((state) => state.setPreferences);
   const setRestriction = useProfileRestriction((state) => state.setRestriction);
-  const setIsPro = useProStore((state) => state.setIsPro);
+  const setIsPro = usePreferencesStore((state) => state.setIsPro);
+  const setIsTrusted = usePreferencesStore((state) => state.setIsTrusted);
   const setFeatureFlags = useFeatureFlagsStore(
     (state) => state.setFeatureFlags
   );
@@ -51,7 +51,10 @@ const PreferencesProvider: FC = () => {
         });
 
         // Pro
-        setIsPro(preferences.pro.enabled);
+        setIsPro(preferences.isPro);
+
+        // Trusted
+        setIsTrusted(preferences.isTrusted);
 
         // Restriction
         setRestriction({
