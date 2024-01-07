@@ -63,6 +63,10 @@ const Links: FC = () => {
             link="https://hey.xyz/-/verification-request"
             title="Verification Request"
           />
+          <ListItem
+            link="https://hey.xyz/-/trusted"
+            title="Trusted profile request"
+          />
         </ul>
       </div>
     </div>

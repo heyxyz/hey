@@ -52,6 +52,11 @@ const nextConfig = {
           'https://hey.height.app/?taskForm=Verification-Request-fBxpj55hUMmf',
         permanent: true,
         source: '/-/verification-request'
+      },
+      {
+        destination: 'https://tally.so/r/3No6NQ',
+        permanent: true,
+        source: '/-/trusted'
       }
     ];
   },
