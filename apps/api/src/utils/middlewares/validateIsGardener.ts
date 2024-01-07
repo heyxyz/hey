@@ -7,7 +7,7 @@ import { GARDENER_FEATURE_ID } from '../constants';
 import validateLensAccount from './validateLensAccount';
 
 /**
- * Middleware to validate if the user is gardener
+ * Middleware to validate if the profile is gardener
  * @param request Incoming request
  * @returns Response
  */
