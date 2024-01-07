@@ -51,7 +51,7 @@ const PreferencesProvider: FC = () => {
         });
 
         // Pro
-        setIsPro(preferences.pro.enabled);
+        setIsPro(preferences.isPro);
 
         // Restriction
         setRestriction({
