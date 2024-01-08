@@ -7,11 +7,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Verified {
-  id        String   @id
-  createdAt DateTime @default(now())
-}
-
 model StaffPick {
   id        String        @id
   type      StaffPickType
