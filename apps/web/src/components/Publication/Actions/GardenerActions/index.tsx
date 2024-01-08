@@ -25,8 +25,8 @@ const GardenerActions: FC<GardenerActionsProps> = ({
   publicationId
 }) => {
   const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
-  const setShowModActionAlert = useGlobalAlertStateStore(
-    (state) => state.setShowModActionAlert
+  const setShowGardenerActionsAlert = useGlobalAlertStateStore(
+    (state) => state.setShowGardenerActionsAlert
   );
   const [createReport, { loading }] = useReportPublicationMutation();
 
@@ -53,9 +53,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({
     };
 
     return await createReport({
-      onCompleted: () => {
-        setShowModActionAlert(false, null);
-      },
+      onCompleted: () => setShowGardenerActionsAlert(false, null),
       variables: { request }
     });
   };
