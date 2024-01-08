@@ -14,7 +14,7 @@ describe('internal/features/gardenerMode', () => {
     expect(response.data.enabled).toBeTruthy();
   });
 
-  test('should disabe gardener mode', async () => {
+  test('should disable gardener mode', async () => {
     const response = await axios.post(
       `${TEST_URL}/internal/features/gardenerMode`,
       { enabled: false },
