@@ -1,42 +1,45 @@
-import type { HomeFeedType } from '@hey/data/enums';
 import type { AnyPublication, PublicationsRequest } from '@hey/lens';
 import type { FC } from 'react';
 
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { SparklesIcon } from '@heroicons/react/24/outline';
+import { HEY_API_URL } from '@hey/data/constants';
 import { LimitType, usePublicationsQuery } from '@hey/lens';
-import getAlgorithmicFeed from '@hey/lib/getAlgorithmicFeed';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
-interface AlgorithmicFeedProps {
-  feedType: HomeFeedType;
-}
-
-const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+const ReportFeed: FC = () => {
+  const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
   const [displayedPublications, setDisplayedPublications] = useState<any[]>([]);
 
   const limit = LimitType.TwentyFive;
   const offset = displayedPublications.length;
+
+  const getReportFeed = async (limit: null | number, offset: null | number) => {
+    try {
+      const response = await axios.get(`${HEY_API_URL}/trusted/publications`, {
+        params: { limit, offset }
+      });
+
+      return response.data.success ? response.data.ids : [];
+    } catch {
+      return [];
+    }
+  };
 
   const {
     data: publicationIds,
     error: algoError,
     isLoading: algoLoading
   } = useQuery({
-    queryFn: async () =>
-      await getAlgorithmicFeed(feedType, currentProfile, 25, offset),
-    queryKey: ['getAlgorithmicFeed', feedType, currentProfile?.id, 25, offset]
+    queryFn: async () => await getReportFeed(25, offset),
+    queryKey: ['getReportFeed', 25, offset]
   });
-
-  useEffect(() => {
-    setDisplayedPublications([]);
-  }, [feedType, currentProfile?.id]);
 
   const request: PublicationsRequest = {
     limit,
@@ -91,6 +94,8 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
           isLast={index === publications.length - 1}
           key={`${publication.id}_${index}`}
           publication={publication as AnyPublication}
+          showActions={false}
+          showGardenerActions={gardenerMode}
         />
       ))}
       <span ref={observe} />
@@ -98,4 +103,4 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
   );
 };
 
-export default AlgorithmicFeed;
+export default ReportFeed;
