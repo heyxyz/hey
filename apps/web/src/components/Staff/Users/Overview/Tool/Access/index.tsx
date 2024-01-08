@@ -1,16 +1,18 @@
+import type { Preferences } from '@hey/types/hey';
 import type { FC } from 'react';
 
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
 
 import ActivateLifetimePro from './ActivateLifetimePro';
+import Trusted from './Trusted';
 import Verify from './Verify';
 
 interface AccessProps {
-  isPro: boolean;
+  preferences: Preferences;
   profileId: string;
 }
 
-const Access: FC<AccessProps> = ({ isPro, profileId }) => {
+const Access: FC<AccessProps> = ({ preferences, profileId }) => {
   return (
     <>
       <div className="mt-5 flex items-center space-x-2 text-yellow-600">
@@ -19,7 +21,8 @@ const Access: FC<AccessProps> = ({ isPro, profileId }) => {
       </div>
       <div className="mt-3 space-y-2 font-bold">
         <Verify profileId={profileId} />
-        <ActivateLifetimePro isPro={isPro} profileId={profileId} />
+        <ActivateLifetimePro isPro={preferences.isPro} profileId={profileId} />
+        <Trusted isTrusted={preferences.isTrusted} profileId={profileId} />
       </div>
     </>
   );

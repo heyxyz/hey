@@ -15,18 +15,19 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 
 const HighSignalNotificationFilter: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const preferences = usePreferencesStore((state) => state.preferences);
-  const setPreferences = usePreferencesStore((state) => state.setPreferences);
+  const highSignalNotificationFilter = usePreferencesStore(
+    (state) => state.highSignalNotificationFilter
+  );
+  const setHighSignalNotificationFilter = usePreferencesStore(
+    (state) => state.setHighSignalNotificationFilter
+  );
   const [updating, setUpdating] = useState(false);
 
   const toggleHighSignalNotificationFilter = () => {
     toast.promise(
       axios.post(
         `${HEY_API_URL}/preferences/update`,
-        {
-          highSignalNotificationFilter:
-            !preferences.highSignalNotificationFilter
-        },
+        { highSignalNotificationFilter: !highSignalNotificationFilter },
         { headers: getAuthWorkerHeaders() }
       ),
       {
@@ -38,15 +39,11 @@ const HighSignalNotificationFilter: FC = () => {
         success: () => {
           getPreferences(currentProfile?.id, getAuthWorkerHeaders());
           setUpdating(false);
-          setPreferences({
-            ...preferences,
-            highSignalNotificationFilter:
-              !preferences.highSignalNotificationFilter
-          });
+          setHighSignalNotificationFilter(!highSignalNotificationFilter);
           Leafwatch.track(
             SETTINGS.PREFERENCES.TOGGLE_HIGH_SIGNAL_NOTIFICATION_FILTER,
             {
-              enabled: !preferences.highSignalNotificationFilter
+              enabled: !highSignalNotificationFilter
             }
           );
 
@@ -62,7 +59,7 @@ const HighSignalNotificationFilter: FC = () => {
       disabled={updating}
       heading="Notification Signal filter"
       icon={<SwatchIcon className="size-5" />}
-      on={preferences.highSignalNotificationFilter}
+      on={highSignalNotificationFilter}
       setOn={toggleHighSignalNotificationFilter}
     />
   );

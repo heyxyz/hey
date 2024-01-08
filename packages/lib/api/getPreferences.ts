@@ -23,11 +23,13 @@ const getPreferences = async (
   } catch {
     return {
       features: [],
+      hasDismissedOrMintedMembershipNft: false,
+      highSignalNotificationFilter: false,
+      isFlagged: false,
+      isPride: false,
       isPro: false,
-      isTrusted: false,
-      membershipNft: { dismissedOrMinted: false },
-      preference: null,
-      restrictions: { isFlagged: false, isSuspended: false }
+      isSuspended: false,
+      isTrusted: false
     };
   }
 };

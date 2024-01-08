@@ -9,50 +9,47 @@ import { toast } from 'react-hot-toast';
 
 import ToggleWrapper from '../ToggleWrapper';
 
-interface ActivateLifetimeProProps {
-  isPro: boolean;
+interface TrustedProps {
+  isTrusted: boolean;
   profileId: string;
 }
 
-const ActivateLifetimePro: FC<ActivateLifetimeProProps> = ({
-  isPro: enabled,
-  profileId
-}) => {
+const Trusted: FC<TrustedProps> = ({ isTrusted: enabled, profileId }) => {
   const [disabled, setDisabled] = useState(false);
-  const [isPro, setIsPro] = useState(false);
+  const [isTrusted, setIsTrusted] = useState(false);
 
   useEffect(() => {
-    setIsPro(enabled);
+    setIsTrusted(enabled);
   }, [enabled]);
 
-  const updatePro = async () => {
+  const updateTrusted = async () => {
     setDisabled(true);
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/pro/activate`,
-        { enabled: !isPro, id: profileId, trial: false },
+        `${HEY_API_URL}/internal/trusted/update`,
+        { enabled: !isTrusted, id: profileId },
         { headers: getAuthWorkerHeaders() }
       ),
       {
         error: () => {
           setDisabled(false);
-          return 'Error updating pro status';
+          return 'Error updating trusted status';
         },
-        loading: 'Updating pro status...',
+        loading: 'Updating trusted status...',
         success: () => {
-          setIsPro(!isPro);
+          setIsTrusted(!isTrusted);
           setDisabled(false);
-          return 'Pro status updated';
+          return 'Trusted status updated';
         }
       }
     );
   };
 
   return (
-    <ToggleWrapper title="Activate Lifetime Pro">
-      <Toggle disabled={disabled} on={isPro} setOn={updatePro} />
+    <ToggleWrapper title="Trusted Profile">
+      <Toggle disabled={disabled} on={isTrusted} setOn={updateTrusted} />
     </ToggleWrapper>
   );
 };
 
-export default ActivateLifetimePro;
+export default Trusted;

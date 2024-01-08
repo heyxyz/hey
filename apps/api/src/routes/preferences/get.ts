@@ -1,3 +1,4 @@
+import type { Preferences } from '@hey/types/hey';
 import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
@@ -41,18 +42,19 @@ export const get: Handler = async (req, res) => {
       prisma.trustedProfile.findUnique({ where: { id: id as string } })
     ]);
 
-    const response = {
+    const response: Preferences = {
       features: features.map((feature: any) => feature.feature?.key),
+      hasDismissedOrMintedMembershipNft: Boolean(
+        membershipNft?.dismissedOrMinted
+      ),
+      highSignalNotificationFilter: Boolean(
+        preference?.highSignalNotificationFilter
+      ),
+      isFlagged: Boolean(restriction?.isFlagged),
+      isPride: Boolean(preference?.isPride),
       isPro: Boolean(pro),
-      isTrusted: Boolean(trustedProfile),
-      membershipNft: {
-        dismissedOrMinted: Boolean(membershipNft?.dismissedOrMinted)
-      },
-      preference,
-      restrictions: {
-        isFlagged: Boolean(restriction?.isFlagged),
-        isSuspended: Boolean(restriction?.isSuspended)
-      }
+      isSuspended: Boolean(restriction?.isSuspended),
+      isTrusted: Boolean(trustedProfile)
     };
 
     logger.info('Profile preferences fetched');
