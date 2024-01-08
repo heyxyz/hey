@@ -84,9 +84,9 @@ export type Poll = {
 
 export type Preferences = {
   features: string[];
+  hasDismissedOrMintedMembershipNft: boolean;
   isPro: boolean;
   isTrusted: boolean;
-  membershipNft: { dismissedOrMinted: boolean };
   preference?: {
     createdAt: Date;
     highSignalNotificationFilter: boolean;
