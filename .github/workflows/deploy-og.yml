@@ -24,13 +24,35 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push OG image 🚀
+      - name: Build and push OG-mainnet image 🚀
         uses: docker/build-push-action@v5
         with:
           context: .
           file: ./apps/og/Dockerfile
+          build-args: |
+            NEXT_PUBLIC_LENS_NETWORK=mainnet
           push: true
-          tags: heyxyz/og:latest
+          tags: heyxyz/og-mainnet:latest
+
+      - name: Build and push OG-testnet image 🚀
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./apps/og/Dockerfile
+          build-args: |
+            NEXT_PUBLIC_LENS_NETWORK=testnet
+          push: true
+          tags: heyxyz/og-testnet:latest
+
+      - name: Build and push OG-staging image 🚀
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./apps/og/Dockerfile
+          build-args: |
+            NEXT_PUBLIC_LENS_NETWORK=staging
+          push: true
+          tags: heyxyz/og-staging:latest
 
       - name: Trigger OG deployment 🚀
         uses: appleboy/ssh-action@master

@@ -136,27 +136,26 @@ case $SERVICE in
     docker rm og-testnet || true
     docker rm og-staging || true
 
-    docker pull heyxyz/og:latest
+    docker pull heyxyz/og-mainnet:latest
+    docker pull heyxyz/og-testnet:latest
+    docker pull heyxyz/og-staging:latest
 
     echo "Starting OG Mainnet 🚀"
     docker run -d \
       --name og-mainnet \
       --restart always \
-      -p 4785:4785 \
-      -e NEXT_PUBLIC_LENS_NETWORK=mainnet heyxyz/og:latest
+      -p 4785:4785 heyxyz/og-mainnet:latest
 
     echo "Starting OG Testnet 🚀"
     docker run -d \
       --name og-testnet \
       --restart always \
-      -p 5785:4785 \
-      -e NEXT_PUBLIC_LENS_NETWORK=testnet heyxyz/og:latest
+      -p 5785:4785 heyxyz/og-testnet:latest
 
     echo "Starting OG Staging 🚀"
     docker run -d \
       --name og-staging \
       --restart always \
-      -p 6785:4785 \
-      -e NEXT_PUBLIC_LENS_NETWORK=staging heyxyz/og:latest
+      -p 6785:4785 heyxyz/og-staging:latest
     ;;
 esac
