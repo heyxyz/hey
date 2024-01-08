@@ -1,3 +1,4 @@
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import {
   PublicationReportingFraudSubreason,
@@ -21,7 +22,23 @@ const TrustedProfilesActions: FC<TrustedProfilesActionsProps> = ({
   className = '',
   publicationId
 }) => {
+  const [expanded, setExpanded] = useState(false);
   const [disabled, setDisabled] = useState(false);
+
+  if (!expanded) {
+    return (
+      <Button
+        className="mt-3 flex"
+        icon={<EyeIcon className="size-4" />}
+        onClick={() => setExpanded(true)}
+        outline
+        size="sm"
+        variant="warning"
+      >
+        Report
+      </Button>
+    );
+  }
 
   const reportPublication = async (reason: string) => {
     try {
@@ -60,18 +77,20 @@ const TrustedProfilesActions: FC<TrustedProfilesActionsProps> = ({
 
   return (
     <span className={className} onClick={stopEventPropagation}>
+      <Button
+        className="mt-3 flex"
+        icon={<EyeSlashIcon className="size-4" />}
+        onClick={() => setExpanded(false)}
+        outline
+        size="sm"
+        variant="warning"
+      >
+        Hide
+      </Button>
       <div className="mt-3 space-y-2 text-sm">
         <b>Fraud reasons</b>
         <div className="flex flex-wrap items-center gap-3">
           {Object.values(PublicationReportingFraudSubreason).map((reason) => (
-            <ReportButton key={reason} reason={reason} />
-          ))}
-        </div>
-      </div>
-      <div className="mt-3 space-y-2 text-sm">
-        <b>Illegal reasons</b>
-        <div className="flex flex-wrap items-center gap-3">
-          {Object.values(PublicationReportingIllegalSubreason).map((reason) => (
             <ReportButton key={reason} reason={reason} />
           ))}
         </div>
@@ -84,6 +103,14 @@ const TrustedProfilesActions: FC<TrustedProfilesActionsProps> = ({
               <ReportButton key={reason} reason={reason} />
             )
           )}
+        </div>
+      </div>
+      <div className="mt-3 space-y-2 text-sm">
+        <b>Illegal reasons</b>
+        <div className="flex flex-wrap items-center gap-3">
+          {Object.values(PublicationReportingIllegalSubreason).map((reason) => (
+            <ReportButton key={reason} reason={reason} />
+          ))}
         </div>
       </div>
       <div className="mt-3 space-y-2 text-sm">
