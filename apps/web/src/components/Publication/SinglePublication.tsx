@@ -111,7 +111,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
             {showTrustedProfilesActions ? (
               <div>
                 <div className="divider mb-3 mt-5" />
-                <b>Trusted profiles actions</b>
+                <b>Moderate {publication.__typename}</b>
                 <TrustedProfilesActions
                   className="mt-3 max-w-md"
                   publicationId={rootPublication.id}
