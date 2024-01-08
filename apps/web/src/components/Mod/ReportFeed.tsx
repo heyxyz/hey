@@ -11,12 +11,10 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 import Actions from './Actions';
 
 const ReportFeed: FC = () => {
-  const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
   const [displayedPublications, setDisplayedPublications] = useState<any[]>([]);
 
   const limit = LimitType.TwentyFive;
