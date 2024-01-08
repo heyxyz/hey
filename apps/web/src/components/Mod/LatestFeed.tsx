@@ -18,7 +18,6 @@ import {
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { useEffect } from 'react';
 import { useInView } from 'react-cool-inview';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 import Actions from './Actions';
 
@@ -39,9 +38,6 @@ const LatestFeed: FC<LatestFeedProps> = ({
   refresh,
   setRefreshing
 }) => {
-  const trusted = useFeatureFlagsStore((state) => state.trusted);
-  const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
-
   // Variables
   const request: ExplorePublicationRequest = {
     limit: LimitType.TwentyFive,
