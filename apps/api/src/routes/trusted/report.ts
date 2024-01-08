@@ -40,16 +40,16 @@ export const post: Handler = async (req, res) => {
 
   try {
     const payload = parseJwt(accessToken);
-    const profile_id = payload.id;
+    const actor = payload.id;
 
     const client = createClickhouseClient();
     const result = await client.insert({
       format: 'JSONEachRow',
-      table: 'trusted-reports',
-      values: [{ profile_id, publication_id: id, reason }]
+      table: 'trusted_reports',
+      values: [{ actor, publication_id: id, reason }]
     });
 
-    logger.info(`Reported ${id} by Trusted profile: ${profile_id}`);
+    logger.info(`Reported ${id} by Trusted profile: ${actor}`);
 
     return res.status(200).json({ id: result.query_id, success: true });
   } catch (error) {

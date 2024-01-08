@@ -1,18 +1,16 @@
-import type { ReportPublicationRequest } from '@hey/lens';
-import type { FC, ReactNode } from 'react';
-
-import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
-import { GARDENER } from '@hey/data/tracking';
+import { HEY_API_URL } from '@hey/data/constants';
 import {
-  PublicationReportingSpamSubreason,
-  useReportPublicationMutation
+  PublicationReportingFraudSubreason,
+  PublicationReportingIllegalSubreason,
+  PublicationReportingSensitiveSubreason,
+  PublicationReportingSpamSubreason
 } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import { Leafwatch } from '@lib/leafwatch';
+import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import axios from 'axios';
+import { type FC, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 
 interface TrustedProfilesActionsProps {
   className?: string;
@@ -23,114 +21,79 @@ const TrustedProfilesActions: FC<TrustedProfilesActionsProps> = ({
   className = '',
   publicationId
 }) => {
-  const setShowGardenerActionsAlert = useGlobalAlertStateStore(
-    (state) => state.setShowGardenerActionsAlert
-  );
-  const [createReport, { loading }] = useReportPublicationMutation();
+  const [disabled, setDisabled] = useState(false);
 
-  const reportPublication = async ({
-    subreason,
-    type
-  }: {
-    subreason: string;
-    type: string;
-  }) => {
-    // Variables
-    const request: ReportPublicationRequest = {
-      for: publicationId,
-      reason: {
-        [type]: {
-          reason: type.replace('Reason', '').toUpperCase(),
-          subreason
-        }
-      }
-    };
-
-    return await createReport({
-      onCompleted: () => setShowGardenerActionsAlert(false, null),
-      variables: { request }
-    });
+  const reportPublication = async (reason: string) => {
+    try {
+      setDisabled(true);
+      return await axios.post(
+        `${HEY_API_URL}/trusted/report`,
+        { id: publicationId, reason },
+        { headers: getAuthWorkerHeaders() }
+      );
+    } finally {
+      setDisabled(false);
+    }
   };
 
   interface ReportButtonProps {
-    config: {
-      subreason: string;
-      type: string;
-    }[];
-    icon: ReactNode;
-    label: string;
+    reason: string;
   }
 
-  const ReportButton: FC<ReportButtonProps> = ({ config, icon, label }) => (
+  const ReportButton: FC<ReportButtonProps> = ({ reason }) => (
     <Button
-      disabled={loading}
-      icon={icon}
+      disabled={disabled}
       onClick={() => {
-        toast.promise(
-          Promise.all(
-            config.map(async ({ subreason, type }) => {
-              await reportPublication({ subreason, type });
-              Leafwatch.track(GARDENER.REPORT, {
-                report_publication_id: publicationId,
-                report_reason: type,
-                report_subreason: subreason
-              });
-            })
-          ),
-          {
-            error: 'Error reporting publication',
-            loading: 'Reporting publication...',
-            success: 'Publication reported successfully'
-          }
-        );
+        toast.promise(reportPublication(reason), {
+          error: 'Error reporting publication',
+          loading: 'Reporting publication...',
+          success: 'Publication reported successfully'
+        });
       }}
       outline
       size="sm"
       variant="warning"
     >
-      {label}
+      {reason.toLowerCase().replaceAll('_', ' ')}
     </Button>
   );
 
   return (
-    <span
-      className={cn('flex flex-wrap items-center gap-3 text-sm', className)}
-      onClick={stopEventPropagation}
-    >
-      <ReportButton
-        config={[
-          {
-            subreason: PublicationReportingSpamSubreason.FakeEngagement,
-            type: 'spamReason'
-          }
-        ]}
-        icon={<DocumentTextIcon className="size-4" />}
-        label="Poor content"
-      />
-      <ReportButton
-        config={[
-          {
-            subreason: PublicationReportingSpamSubreason.LowSignal,
-            type: 'spamReason'
-          }
-        ]}
-        icon={<BanknotesIcon className="size-4" />}
-        label="Stop Sponsor"
-      />
-      <ReportButton
-        config={[
-          {
-            subreason: PublicationReportingSpamSubreason.FakeEngagement,
-            type: 'spamReason'
-          },
-          {
-            subreason: PublicationReportingSpamSubreason.LowSignal,
-            type: 'spamReason'
-          }
-        ]}
-        icon={<BanknotesIcon className="size-4" />}
-        label="Poor content & Stop Sponsor"
-      />
+    <span className={className} onClick={stopEventPropagation}>
+      <div className="mt-3 space-y-2 text-sm">
+        <b>Fraud reasons</b>
+        <div className="flex flex-wrap items-center gap-3">
+          {Object.values(PublicationReportingFraudSubreason).map((reason) => (
+            <ReportButton key={reason} reason={reason} />
+          ))}
+        </div>
+      </div>
+      <div className="mt-3 space-y-2 text-sm">
+        <b>Illegal reasons</b>
+        <div className="flex flex-wrap items-center gap-3">
+          {Object.values(PublicationReportingIllegalSubreason).map((reason) => (
+            <ReportButton key={reason} reason={reason} />
+          ))}
+        </div>
+      </div>
+      <div className="mt-3 space-y-2 text-sm">
+        <b>Sensitive reasons</b>
+        <div className="flex flex-wrap items-center gap-3">
+          {Object.values(PublicationReportingSensitiveSubreason).map(
+            (reason) => (
+              <ReportButton key={reason} reason={reason} />
+            )
+          )}
+        </div>
+      </div>
+      <div className="mt-3 space-y-2 text-sm">
+        <b>Spam reasons</b>
+        <div className="flex flex-wrap items-center gap-3">
+          {Object.values(PublicationReportingSpamSubreason).map((reason) => (
+            <ReportButton key={reason} reason={reason} />
+          ))}
+        </div>
+      </div>
     </span>
   );
 };
