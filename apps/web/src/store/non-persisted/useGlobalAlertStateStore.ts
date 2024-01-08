@@ -10,8 +10,8 @@ interface GlobalAlertState {
     showBlockOrUnblockAlert: boolean,
     blockingorUnblockingProfile: null | Profile
   ) => void;
-  setShowModActionAlert: (
-    showModActionAlert: boolean,
+  setShowGardenerActionsAlert: (
+    showGardenerActionsAlert: boolean,
     modingPublicationId: null | string
   ) => void;
   setShowPublicationDeleteAlert: (
@@ -19,7 +19,7 @@ interface GlobalAlertState {
     deletingPublication: AnyPublication | null
   ) => void;
   showBlockOrUnblockAlert: boolean;
-  showModActionAlert: boolean;
+  showGardenerActionsAlert: boolean;
   showPublicationDeleteAlert: boolean;
 }
 
@@ -32,13 +32,15 @@ export const useGlobalAlertStateStore = create<GlobalAlertState>((set) => ({
     showBlockOrUnblockAlert,
     blockingorUnblockingProfile
   ) => set(() => ({ blockingorUnblockingProfile, showBlockOrUnblockAlert })),
-  setShowModActionAlert: (showModActionAlert, modingPublicationId) =>
-    set(() => ({ modingPublicationId, showModActionAlert })),
+  setShowGardenerActionsAlert: (
+    showGardenerActionsAlert,
+    modingPublicationId
+  ) => set(() => ({ modingPublicationId, showGardenerActionsAlert })),
   setShowPublicationDeleteAlert: (
     showPublicationDeleteAlert,
     deletingPublication
   ) => set(() => ({ deletingPublication, showPublicationDeleteAlert })),
   showBlockOrUnblockAlert: false,
-  showModActionAlert: false,
+  showGardenerActionsAlert: false,
   showPublicationDeleteAlert: false
 }));
