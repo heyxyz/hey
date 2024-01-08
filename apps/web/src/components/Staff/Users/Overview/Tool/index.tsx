@@ -160,7 +160,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
       ) : null}
       {preferences ? (
         <>
-          <Access isPro={preferences.isPro || false} profileId={profile.id} />
+          <Access preferences={preferences} profileId={profile.id} />
           <Restrictions preferences={preferences} profileId={profile.id} />
           <div className="divider my-5 border-dashed border-yellow-600" />
           <FeatureFlags
