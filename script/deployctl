@@ -95,34 +95,27 @@ case $SERVICE in
     docker rm web-testnet || true
     docker rm web-staging || true
 
-    docker pull heyxyz/web:latest
+    docker pull heyxyz/web-mainnet:latest
+    docker pull heyxyz/web-testnet:latest
+    docker pull heyxyz/web-staging:latest
 
     echo "Starting Web Mainnet 🚀"
     docker run -d \
       --name web-mainnet \
       --restart always \
-      -p 4783:4783 \
-      -e NEXT_PUBLIC_IS_PRODUCTION=true \
-      -e NEXT_PUBLIC_LENS_NETWORK=mainnet \
-      -e NEXT_PUBLIC_OG_URL=$NEXT_PUBLIC_OG_URL heyxyz/web:latest
+      -p 4783:4783 heyxyz/web-mainnet:latest
 
     echo "Starting Web Testnet 🚀"
     docker run -d \
       --name web-testnet \
       --restart always \
-      -p 5783:4783 \
-      -e NEXT_PUBLIC_IS_PRODUCTION=true \
-      -e NEXT_PUBLIC_LENS_NETWORK=testnet \
-      -e NEXT_PUBLIC_OG_URL=$NEXT_PUBLIC_OG_URL heyxyz/web:latest
+      -p 5783:4783 heyxyz/web-testnet:latest
 
     echo "Starting Web Staging 🚀"
     docker run -d \
       --name web-staging \
       --restart always \
-      -p 6783:4783 \
-      -e NEXT_PUBLIC_IS_PRODUCTION=false \
-      -e NEXT_PUBLIC_LENS_NETWORK=staging \
-      -e NEXT_PUBLIC_OG_URL=$NEXT_PUBLIC_OG_URL heyxyz/web:latest
+      -p 6783:4783 heyxyz/web-staging:latest
     ;;
 
   "og")

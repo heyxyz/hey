@@ -24,22 +24,44 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Web image 🚀
+      - name: Build and push Web-mainnet image 🚀
         uses: docker/build-push-action@v5
         with:
           context: .
           file: ./apps/web/Dockerfile
+          build-args: |
+            NEXT_PUBLIC_LENS_NETWORK=mainnet
+            NEXT_PUBLIC_OG_URL=${{ secrets.NEXT_PUBLIC_OG_URL }}
           push: true
-          tags: heyxyz/web:latest
+          tags: heyxyz/web-mainnet:latest
+
+      - name: Build and push Web-testnet image 🚀
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./apps/web/Dockerfile
+          build-args: |
+            NEXT_PUBLIC_LENS_NETWORK=testnet
+            NEXT_PUBLIC_OG_URL=${{ secrets.NEXT_PUBLIC_OG_URL }}
+          push: true
+          tags: heyxyz/web-testnet:latest
+
+      - name: Build and push Web-staging image 🚀
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./apps/web/Dockerfile
+          build-args: |
+            NEXT_PUBLIC_LENS_NETWORK=staging
+            NEXT_PUBLIC_OG_URL=${{ secrets.NEXT_PUBLIC_OG_URL }}
+          push: true
+          tags: heyxyz/web-staging:latest
 
       - name: Trigger Web deployment 🚀
         uses: appleboy/ssh-action@master
-        env:
-          NEXT_PUBLIC_OG_URL: ${{ secrets.NEXT_PUBLIC_OG_URL }}
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          envs: NEXT_PUBLIC_OG_URL
           script: deployctl web
