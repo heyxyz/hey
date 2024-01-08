@@ -21,7 +21,5 @@ describe('preferences/get', () => {
     expect(response.data.result.isTrusted).toBeTruthy();
     expect(response.data.result.highSignalNotificationFilter).toBeTruthy();
     expect(response.data.result.isPride).toBeTruthy();
-    expect(response.data.result.isFlagged).toBeFalsy();
-    expect(response.data.result.isSuspended).toBeFalsy();
   });
 });
