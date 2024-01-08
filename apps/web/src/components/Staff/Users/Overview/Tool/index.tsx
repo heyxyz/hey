@@ -21,7 +21,6 @@ import axios from 'axios';
 import Link from 'next/link';
 
 import MetaDetails from '../../../../Shared/Staff/MetaDetails';
-import Access from './Access';
 import FeatureFlags from './FeatureFlags';
 import LeafwatchDetails from './LeafwatchDetails';
 import ManagedProfiles from './ManagedProfiles';
@@ -158,14 +157,10 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         </>
       ) : null}
       {preferences ? (
-        <>
-          <Access preferences={preferences} profileId={profile.id} />
-          <div className="divider my-5 border-dashed border-yellow-600" />
-          <FeatureFlags
-            features={preferences.features || []}
-            profileId={profile.id}
-          />
-        </>
+        <FeatureFlags
+          features={preferences.features || []}
+          profileId={profile.id}
+        />
       ) : null}
       <div className="divider my-5 border-dashed border-yellow-600" />
       <ManagedProfiles address={profile.ownedBy.address} />
