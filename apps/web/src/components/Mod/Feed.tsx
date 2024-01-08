@@ -18,6 +18,7 @@ import {
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { useEffect } from 'react';
 import { useInView } from 'react-cool-inview';
+import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 interface FeedProps {
   apps: null | string[];
@@ -36,6 +37,9 @@ const Feed: FC<FeedProps> = ({
   refresh,
   setRefreshing
 }) => {
+  const trusted = useFeatureFlagsStore((state) => state.trusted);
+  const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
+
   // Variables
   const request: ExplorePublicationRequest = {
     limit: LimitType.TwentyFive,
@@ -103,8 +107,9 @@ const Feed: FC<FeedProps> = ({
           key={`${publication.id}_${index}`}
           publication={publication as AnyPublication}
           showActions={false}
-          showGardenerActions
+          showGardenerActions={gardenerMode}
           showThread={false}
+          showTrustedProfilesActions={trusted}
         />
       ))}
       {hasMore ? <span ref={observe} /> : null}

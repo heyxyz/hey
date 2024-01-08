@@ -55,7 +55,10 @@ const Mod: NextPage = () => {
     Leafwatch.track(PAGEVIEW, { page: 'mod' });
   });
 
-  if (!isFeatureEnabled(FeatureFlag.Gardener)) {
+  if (
+    !isFeatureEnabled(FeatureFlag.Gardener) &&
+    !isFeatureEnabled(FeatureFlag.TrustedProfile)
+  ) {
     return <Custom404 />;
   }
 

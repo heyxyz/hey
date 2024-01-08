@@ -11,6 +11,7 @@ import { useInView } from 'react-cool-inview';
 
 import PublicationActions from './Actions';
 import GardenerActions from './Actions/GardenerActions';
+import TrustedProfilesActions from './Actions/TrustedProfilesActions';
 import FeaturedGroup from './FeaturedGroup';
 import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
@@ -26,6 +27,7 @@ interface SinglePublicationProps {
   showGardenerActions?: boolean;
   showMore?: boolean;
   showThread?: boolean;
+  showTrustedProfilesActions?: boolean;
   showType?: boolean;
 }
 
@@ -38,6 +40,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   showGardenerActions = false,
   showMore = true,
   showThread = true,
+  showTrustedProfilesActions = false,
   showType = true
 }) => {
   const firstComment = feedItem?.comments?.[0];
@@ -100,6 +103,16 @@ const SinglePublication: FC<SinglePublicationProps> = ({
                 <div className="divider mb-3 mt-5" />
                 <b>Gardener actions</b>
                 <GardenerActions
+                  className="mt-3 max-w-md"
+                  publicationId={rootPublication.id}
+                />
+              </div>
+            ) : null}
+            {showTrustedProfilesActions ? (
+              <div>
+                <div className="divider mb-3 mt-5" />
+                <b>Trusted profiles actions</b>
+                <TrustedProfilesActions
                   className="mt-3 max-w-md"
                   publicationId={rootPublication.id}
                 />
