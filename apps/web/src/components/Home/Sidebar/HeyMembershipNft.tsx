@@ -11,14 +11,14 @@ import axios from 'axios';
 import { memo, useState } from 'react';
 import toast from 'react-hot-toast';
 import useZoraNft from 'src/hooks/zora/useZoraNft';
-import { useMembershipNftStore } from 'src/store/non-persisted/useMembershipNftStore';
+import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 
 const HeyMembershipNft: FC = () => {
-  const dismissedOrMinted = useMembershipNftStore(
-    (state) => state.dismissedOrMinted
+  const hasDismissedOrMintedMembershipNft = usePreferencesStore(
+    (state) => state.hasDismissedOrMintedMembershipNft
   );
-  const setDismissedOrMinted = useMembershipNftStore(
-    (state) => state.setDismissedOrMinted
+  const setHasDismissedOrMintedMembershipNft = usePreferencesStore(
+    (state) => state.setHasDismissedOrMintedMembershipNft
   );
   const [showMintModal, setShowMintModal] = useState(false);
 
@@ -27,7 +27,7 @@ const HeyMembershipNft: FC = () => {
     chain: 'zora'
   });
 
-  if (dismissedOrMinted) {
+  if (hasDismissedOrMintedMembershipNft) {
     return null;
   }
 
@@ -41,7 +41,7 @@ const HeyMembershipNft: FC = () => {
           error: 'Error updating.',
           loading: 'Updating...',
           success: () => {
-            setDismissedOrMinted(true);
+            setHasDismissedOrMintedMembershipNft(true);
             setShowMintModal(false);
             return 'Updated!';
           }
