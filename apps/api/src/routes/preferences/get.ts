@@ -50,13 +50,11 @@ export const get: Handler = async (req, res) => {
       highSignalNotificationFilter: Boolean(
         preference?.highSignalNotificationFilter
       ),
+      isFlagged: Boolean(restriction?.isFlagged),
       isPride: Boolean(preference?.isPride),
       isPro: Boolean(pro),
-      isTrusted: Boolean(trustedProfile),
-      restrictions: {
-        isFlagged: Boolean(restriction?.isFlagged),
-        isSuspended: Boolean(restriction?.isSuspended)
-      }
+      isSuspended: Boolean(restriction?.isSuspended),
+      isTrusted: Boolean(trustedProfile)
     };
 
     logger.info('Profile preferences fetched');

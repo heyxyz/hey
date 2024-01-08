@@ -11,21 +11,21 @@ import toast from 'react-hot-toast';
 import ToggleWrapper from './ToggleWrapper';
 
 interface RestrictionsProps {
+  preferences: Preferences;
   profileId: string;
-  restrictions: Preferences['restrictions'];
 }
 
-const Restrictions: FC<RestrictionsProps> = ({ profileId, restrictions }) => {
+const Restrictions: FC<RestrictionsProps> = ({ preferences, profileId }) => {
   const [disabled, setDisabled] = useState(false);
   const [isFlagged, setIsFlagged] = useState(false);
   const [isSuspended, setIsSuspended] = useState(false);
 
   useEffect(() => {
-    if (restrictions) {
-      setIsFlagged(restrictions.isFlagged);
-      setIsSuspended(restrictions.isSuspended);
+    if (preferences) {
+      setIsFlagged(preferences.isFlagged);
+      setIsSuspended(preferences.isSuspended);
     }
-  }, [restrictions]);
+  }, [preferences]);
 
   const updateRestriction = async (
     isFlagged: boolean,

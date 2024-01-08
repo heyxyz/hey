@@ -25,10 +25,11 @@ const getPreferences = async (
       features: [],
       hasDismissedOrMintedMembershipNft: false,
       highSignalNotificationFilter: false,
+      isFlagged: false,
       isPride: false,
       isPro: false,
-      isTrusted: false,
-      restrictions: { isFlagged: false, isSuspended: false }
+      isSuspended: false,
+      isTrusted: false
     };
   }
 };

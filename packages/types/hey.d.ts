@@ -86,8 +86,9 @@ export type Preferences = {
   features: string[];
   hasDismissedOrMintedMembershipNft: boolean;
   highSignalNotificationFilter: boolean;
+  isFlagged: boolean;
   isPride: boolean;
   isPro: boolean;
+  isSuspended: boolean;
   isTrusted: boolean;
-  restrictions: { isFlagged: boolean; isSuspended: boolean };
 };
