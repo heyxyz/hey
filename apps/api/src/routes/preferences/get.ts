@@ -47,9 +47,12 @@ export const get: Handler = async (req, res) => {
       hasDismissedOrMintedMembershipNft: Boolean(
         membershipNft?.dismissedOrMinted
       ),
+      highSignalNotificationFilter: Boolean(
+        preference?.highSignalNotificationFilter
+      ),
+      isPride: Boolean(preference?.isPride),
       isPro: Boolean(pro),
       isTrusted: Boolean(trustedProfile),
-      preference,
       restrictions: {
         isFlagged: Boolean(restriction?.isFlagged),
         isSuspended: Boolean(restriction?.isSuspended)
