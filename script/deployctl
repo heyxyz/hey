@@ -28,14 +28,15 @@ case $SERVICE in
     docker rm api-testnet || true
     docker rm api-staging || true
             
-    docker pull heyxyz/api:latest
+    docker pull heyxyz/api-mainnet:latest
+    docker pull heyxyz/api-testnet:latest
+    docker pull heyxyz/api-staging:latest
             
     echo "Starting API Mainnet 🚀"
     docker run -d \
       --name api-mainnet \
       --restart always \
       -p 4784:4784 \
-      -e NEXT_PUBLIC_LENS_NETWORK=mainnet \
       -e DATABASE_URL=$DATABASE_URL_MAINNET \
       -e CLICKHOUSE_PASSWORD=$CLICKHOUSE_PASSWORD \
       -e SECRET=$SECRET \
@@ -46,14 +47,13 @@ case $SERVICE in
       -e GOOGLE_API_KEY=$GOOGLE_API_KEY \
       -e IRYS_PRIVATE_KEY:$IRYS_PRIVATE_KEY \
       -e IMAGEKIT_URL=$IMAGEKIT_URL \
-      -e ZENDESK_API_KEY=$ZENDESK_API_KEY heyxyz/api:latest
+      -e ZENDESK_API_KEY=$ZENDESK_API_KEY heyxyz/api-mainnet:latest
 
     echo "Starting API Testnet 🚀"
     docker run -d \
       --name api-testnet \
       --restart always \
       -p 5784:4784 \
-      -e NEXT_PUBLIC_LENS_NETWORK=testnet \
       -e DATABASE_URL=$DATABASE_URL_TESTNET \
       -e CLICKHOUSE_PASSWORD=$CLICKHOUSE_PASSWORD \
       -e SECRET=$SECRET \
@@ -64,14 +64,13 @@ case $SERVICE in
       -e GOOGLE_API_KEY=$GOOGLE_API_KEY \
       -e IRYS_PRIVATE_KEY:$IRYS_PRIVATE_KEY \
       -e IMAGEKIT_URL=$IMAGEKIT_URL \
-      -e ZENDESK_API_KEY=$ZENDESK_API_KEY heyxyz/api:latest
+      -e ZENDESK_API_KEY=$ZENDESK_API_KEY heyxyz/api-testnet:latest
 
     echo "Starting API Staging 🚀"
     docker run -d \
       --name api-staging \
       --restart always \
       -p 6784:4784 \
-      -e NEXT_PUBLIC_LENS_NETWORK=staging \
       -e DATABASE_URL=$DATABASE_URL_STAGING \
       -e CLICKHOUSE_PASSWORD=$CLICKHOUSE_PASSWORD \
       -e SECRET=$SECRET \
@@ -82,7 +81,7 @@ case $SERVICE in
       -e GOOGLE_API_KEY=$GOOGLE_API_KEY \
       -e IRYS_PRIVATE_KEY:$IRYS_PRIVATE_KEY \
       -e IMAGEKIT_URL=$IMAGEKIT_URL \
-      -e ZENDESK_API_KEY=$ZENDESK_API_KEY heyxyz/api:latest
+      -e ZENDESK_API_KEY=$ZENDESK_API_KEY heyxyz/api-staging:latest
     ;;
 
   "web")

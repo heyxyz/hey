@@ -24,13 +24,35 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push API image 🚀
+      - name: Build and push API-mainnet image 🚀
         uses: docker/build-push-action@v5
         with:
           context: .
           file: ./apps/api/Dockerfile
+          build-args: |
+            NEXT_PUBLIC_LENS_NETWORK=mainnet
           push: true
-          tags: heyxyz/api:latest
+          tags: heyxyz/api-mainnet:latest
+
+      - name: Build and push API-testnet image 🚀
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./apps/api/Dockerfile
+          build-args: |
+            NEXT_PUBLIC_LENS_NETWORK=testnet
+          push: true
+          tags: heyxyz/api-testnet:latest
+
+      - name: Build and push API-staging image 🚀
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./apps/api/Dockerfile
+          build-args: |
+            NEXT_PUBLIC_LENS_NETWORK=staging
+          push: true
+          tags: heyxyz/api-staging:latest
 
       - name: Trigger API Deployment 🚀
         uses: appleboy/ssh-action@master
