@@ -19,7 +19,7 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const [preference, pro, features, membershipNft, trustedProfile] =
+    const [preference, pro, features, membershipNft] =
       await prisma.$transaction([
         prisma.preference.findUnique({ where: { id: id as string } }),
         prisma.pro.findFirst({ where: { profileId: id as string } }),
@@ -31,8 +31,7 @@ export const get: Handler = async (req, res) => {
             profileId: id as string
           }
         }),
-        prisma.membershipNft.findUnique({ where: { id: id as string } }),
-        prisma.trustedProfile.findUnique({ where: { id: id as string } })
+        prisma.membershipNft.findUnique({ where: { id: id as string } })
       ]);
 
     const response: Preferences = {
@@ -44,8 +43,7 @@ export const get: Handler = async (req, res) => {
         preference?.highSignalNotificationFilter
       ),
       isPride: Boolean(preference?.isPride),
-      isPro: Boolean(pro),
-      isTrusted: Boolean(trustedProfile)
+      isPro: Boolean(pro)
     };
 
     logger.info('Profile preferences fetched');
