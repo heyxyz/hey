@@ -23,7 +23,7 @@ interface SinglePublicationProps {
   isLast?: boolean;
   publication: AnyPublication;
   showActions?: boolean;
-  showModActions?: boolean;
+  showGardenerActions?: boolean;
   showMore?: boolean;
   showThread?: boolean;
   showType?: boolean;
@@ -35,7 +35,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   isLast = false,
   publication,
   showActions = true,
-  showModActions = false,
+  showGardenerActions = false,
   showMore = true,
   showThread = true,
   showType = true
@@ -95,7 +95,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
               ) : null}
               <FeaturedGroup className="mt-3" tags={metadata?.tags} />
             </div>
-            {showModActions ? (
+            {showGardenerActions ? (
               <ModAction
                 className="mt-3 max-w-md"
                 publicationId={rootPublication.id}

@@ -103,7 +103,7 @@ const Feed: FC<FeedProps> = ({
           key={`${publication.id}_${index}`}
           publication={publication as AnyPublication}
           showActions={false}
-          showModActions
+          showGardenerActions
           showThread={false}
         />
       ))}
