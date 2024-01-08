@@ -10,7 +10,7 @@ import { memo } from 'react';
 import { useInView } from 'react-cool-inview';
 
 import PublicationActions from './Actions';
-import ModAction from './Actions/ModAction';
+import GardenerActions from './Actions/GardenerActions';
 import FeaturedGroup from './FeaturedGroup';
 import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
@@ -96,10 +96,14 @@ const SinglePublication: FC<SinglePublicationProps> = ({
               <FeaturedGroup className="mt-3" tags={metadata?.tags} />
             </div>
             {showGardenerActions ? (
-              <ModAction
-                className="mt-3 max-w-md"
-                publicationId={rootPublication.id}
-              />
+              <div>
+                <div className="divider mb-3 mt-5" />
+                <b>Gardener actions</b>
+                <GardenerActions
+                  className="mt-3 max-w-md"
+                  publicationId={rootPublication.id}
+                />
+              </div>
             ) : null}
           </>
         )}

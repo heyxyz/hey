@@ -13,17 +13,26 @@ import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
+import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
-interface ModActionProps {
+interface GardenerActionsProps {
   className?: string;
   publicationId: string;
 }
 
-const ModAction: FC<ModActionProps> = ({ className = '', publicationId }) => {
+const GardenerActions: FC<GardenerActionsProps> = ({
+  className = '',
+  publicationId
+}) => {
+  const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
   const setShowModActionAlert = useGlobalAlertStateStore(
     (state) => state.setShowModActionAlert
   );
   const [createReport, { loading }] = useReportPublicationMutation();
+
+  if (!gardenerMode) {
+    return null;
+  }
 
   const reportPublication = async ({
     subreason,
@@ -134,4 +143,4 @@ const ModAction: FC<ModActionProps> = ({ className = '', publicationId }) => {
   );
 };
 
-export default ModAction;
+export default GardenerActions;
