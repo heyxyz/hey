@@ -14,6 +14,7 @@ const Mod: FC<ModProps> = ({ isFullPublication = false, publicationId }) => {
   const setShowGardenerActionsAlert = useGlobalAlertStateStore(
     (state) => state.setShowGardenerActionsAlert
   );
+
   const iconClassName = isFullPublication
     ? 'w-[17px] sm:w-[20px]'
     : 'w-[15px] sm:w-[18px]';
