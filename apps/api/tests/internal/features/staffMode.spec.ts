@@ -14,7 +14,7 @@ describe('internal/features/staffMode', () => {
     expect(response.data.enabled).toBeTruthy();
   });
 
-  test('should disabe staff mode', async () => {
+  test('should disable staff mode', async () => {
     const response = await axios.post(
       `${TEST_URL}/internal/features/staffMode`,
       { enabled: false },
