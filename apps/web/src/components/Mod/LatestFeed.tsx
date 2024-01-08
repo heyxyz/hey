@@ -20,7 +20,7 @@ import { useEffect } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
-interface FeedProps {
+interface LatestFeedProps {
   apps: null | string[];
   customFilters: CustomFiltersType[];
   mainContentFocus: PublicationMetadataMainFocusType[];
@@ -29,7 +29,7 @@ interface FeedProps {
   setRefreshing: (refreshing: boolean) => void;
 }
 
-const Feed: FC<FeedProps> = ({
+const LatestFeed: FC<LatestFeedProps> = ({
   apps,
   customFilters,
   mainContentFocus,
@@ -117,4 +117,4 @@ const Feed: FC<FeedProps> = ({
   );
 };
 
-export default Feed;
+export default LatestFeed;

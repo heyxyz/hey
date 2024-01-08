@@ -4,6 +4,7 @@ import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import { apps as knownApps } from '@hey/data/apps';
 import { APP_NAME } from '@hey/data/constants';
+import { ModFeedType } from '@hey/data/enums';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import { PAGEVIEW } from '@hey/data/tracking';
 import {
@@ -23,13 +24,17 @@ import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import Custom404 from 'src/pages/404';
+import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useEffectOnce } from 'usehooks-ts';
 
-import Feed from './Feed';
+import FeedType from './FeedType';
+import LatestFeed from './LatestFeed';
+import ReportFeed from './ReportFeed';
 
 const FILTER_APPS = knownApps;
 
 const Mod: NextPage = () => {
+  const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
   const [refresing, setRefreshing] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [publicationTypes, setPublicationTypes] = useState([
@@ -50,6 +55,7 @@ const Mod: NextPage = () => {
     CustomFiltersType.Gardeners
   ]);
   const [apps, setApps] = useState<null | string[]>(null);
+  const [feedType, setFeedType] = useState<ModFeedType>(ModFeedType.LATEST);
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'mod' });
@@ -84,152 +90,171 @@ const Mod: NextPage = () => {
     <GridLayout>
       <MetaTags title={`Mod Center • ${APP_NAME}`} />
       <GridItemEight className="space-y-5">
-        <Feed
-          apps={apps}
-          customFilters={customFilters}
-          mainContentFocus={mainContentFocus}
-          publicationTypes={publicationTypes}
-          refresh={refresh}
-          setRefreshing={setRefreshing}
-        />
+        {gardenerMode && (
+          <FeedType feedType={feedType} setFeedType={setFeedType} />
+        )}
+        {feedType === ModFeedType.LATEST && (
+          <LatestFeed
+            apps={apps}
+            customFilters={customFilters}
+            mainContentFocus={mainContentFocus}
+            publicationTypes={publicationTypes}
+            refresh={refresh}
+            setRefreshing={setRefreshing}
+          />
+        )}
+        {feedType === ModFeedType.REPORTS && <ReportFeed />}
       </GridItemEight>
       <GridItemFour>
         <Card className="p-5">
-          <Button
-            className="w-full"
-            disabled={refresing}
-            onClick={() => setRefresh(!refresh)}
-          >
-            Refresh feed
-          </Button>
-          <div className="divider my-3" />
-          <div className="space-y-2">
-            <span className="font-bold">Publication filters</span>
-            <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
-              <Checkbox
-                checked={publicationTypes.includes(ExplorePublicationType.Post)}
-                label="Posts"
-                name="posts"
-                onChange={() =>
-                  togglePublicationType(ExplorePublicationType.Post)
-                }
-              />
-              <Checkbox
-                checked={publicationTypes.includes(
-                  ExplorePublicationType.Quote
-                )}
-                label="Quotes"
-                name="quotes"
-                onChange={() =>
-                  togglePublicationType(ExplorePublicationType.Quote)
-                }
-              />
-            </div>
-          </div>
-          <div className="divider my-3" />
-          <div className="space-y-2">
-            <div className="flex items-center space-x-2">
-              <span className="font-bold">Media filters</span>
-              <button
-                className="text-xs underline"
-                onClick={() => {
-                  mainContentFocus.length ===
-                  Object.keys(PublicationMetadataMainFocusType).length
-                    ? setMainContentFocus([])
-                    : setMainContentFocus(
-                        Object.keys(PublicationMetadataMainFocusType).map(
-                          (key) =>
-                            PublicationMetadataMainFocusType[
-                              key as keyof typeof PublicationMetadataMainFocusType
-                            ]
-                        )
-                      );
-                }}
-                type="button"
+          {feedType === ModFeedType.LATEST && (
+            <>
+              <Button
+                className="w-full"
+                disabled={refresing}
+                onClick={() => setRefresh(!refresh)}
               >
-                {mainContentFocus.length ===
-                Object.keys(PublicationMetadataMainFocusType).length
-                  ? 'Unselect all'
-                  : 'Select all'}
-              </button>
-            </div>
-            <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
-              {Object.keys(PublicationMetadataMainFocusType).map((key) => (
-                <Checkbox
-                  checked={mainContentFocus.includes(
-                    PublicationMetadataMainFocusType[
-                      key as keyof typeof PublicationMetadataMainFocusType
-                    ]
-                  )}
-                  key={key}
-                  label={key}
-                  name={key}
-                  onChange={() =>
-                    toggleMainContentFocus(
-                      PublicationMetadataMainFocusType[
-                        key as keyof typeof PublicationMetadataMainFocusType
-                      ]
-                    )
-                  }
-                />
-              ))}
-            </div>
-          </div>
-          <div className="divider my-3" />
-          <div className="space-y-2">
-            <span className="font-bold">Custom filters</span>
-            <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
-              <Checkbox
-                checked={customFilters.includes(CustomFiltersType.Gardeners)}
-                label="Gardeners"
-                name="gardeners"
-                onChange={() => {
-                  if (customFilters.includes(CustomFiltersType.Gardeners)) {
-                    setCustomFilters(
-                      customFilters.filter(
-                        (type) => type !== CustomFiltersType.Gardeners
-                      )
-                    );
-                  } else {
-                    setCustomFilters([
-                      ...customFilters,
-                      CustomFiltersType.Gardeners
-                    ]);
-                  }
-                }}
-              />
-            </div>
-          </div>
-          <div className="divider my-3" />
-          <div className="space-y-2">
-            <div className="flex items-center space-x-2">
-              <span className="font-bold">Known apps filter</span>
-              <button
-                className="text-xs underline"
-                onClick={() => setApps([])}
-                type="reset"
-              >
-                Reset
-              </button>
-            </div>
-            <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
-              {FILTER_APPS.map((app) => (
-                <Checkbox
-                  checked={apps?.includes(app)}
-                  key={app}
-                  label={app}
-                  name={app}
-                  onChange={() => {
-                    if (apps?.includes(app)) {
-                      setApps(apps.filter((currentApp) => currentApp !== app));
-                    } else {
-                      setApps([...(apps || []), app]);
+                Refresh feed
+              </Button>
+              <div className="divider my-3" />
+              <div className="space-y-2">
+                <span className="font-bold">Publication filters</span>
+                <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+                  <Checkbox
+                    checked={publicationTypes.includes(
+                      ExplorePublicationType.Post
+                    )}
+                    label="Posts"
+                    name="posts"
+                    onChange={() =>
+                      togglePublicationType(ExplorePublicationType.Post)
                     }
-                  }}
-                />
-              ))}
-            </div>
-          </div>
+                  />
+                  <Checkbox
+                    checked={publicationTypes.includes(
+                      ExplorePublicationType.Quote
+                    )}
+                    label="Quotes"
+                    name="quotes"
+                    onChange={() =>
+                      togglePublicationType(ExplorePublicationType.Quote)
+                    }
+                  />
+                </div>
+              </div>
+              <div className="divider my-3" />
+              <div className="space-y-2">
+                <div className="flex items-center space-x-2">
+                  <span className="font-bold">Media filters</span>
+                  <button
+                    className="text-xs underline"
+                    onClick={() => {
+                      mainContentFocus.length ===
+                      Object.keys(PublicationMetadataMainFocusType).length
+                        ? setMainContentFocus([])
+                        : setMainContentFocus(
+                            Object.keys(PublicationMetadataMainFocusType).map(
+                              (key) =>
+                                PublicationMetadataMainFocusType[
+                                  key as keyof typeof PublicationMetadataMainFocusType
+                                ]
+                            )
+                          );
+                    }}
+                    type="button"
+                  >
+                    {mainContentFocus.length ===
+                    Object.keys(PublicationMetadataMainFocusType).length
+                      ? 'Unselect all'
+                      : 'Select all'}
+                  </button>
+                </div>
+                <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+                  {Object.keys(PublicationMetadataMainFocusType).map((key) => (
+                    <Checkbox
+                      checked={mainContentFocus.includes(
+                        PublicationMetadataMainFocusType[
+                          key as keyof typeof PublicationMetadataMainFocusType
+                        ]
+                      )}
+                      key={key}
+                      label={key}
+                      name={key}
+                      onChange={() =>
+                        toggleMainContentFocus(
+                          PublicationMetadataMainFocusType[
+                            key as keyof typeof PublicationMetadataMainFocusType
+                          ]
+                        )
+                      }
+                    />
+                  ))}
+                </div>
+              </div>
+              <div className="divider my-3" />
+              <div className="space-y-2">
+                <span className="font-bold">Custom filters</span>
+                <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+                  <Checkbox
+                    checked={customFilters.includes(
+                      CustomFiltersType.Gardeners
+                    )}
+                    label="Gardeners"
+                    name="gardeners"
+                    onChange={() => {
+                      if (customFilters.includes(CustomFiltersType.Gardeners)) {
+                        setCustomFilters(
+                          customFilters.filter(
+                            (type) => type !== CustomFiltersType.Gardeners
+                          )
+                        );
+                      } else {
+                        setCustomFilters([
+                          ...customFilters,
+                          CustomFiltersType.Gardeners
+                        ]);
+                      }
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="divider my-3" />
+              <div className="space-y-2">
+                <div className="flex items-center space-x-2">
+                  <span className="font-bold">Known apps filter</span>
+                  <button
+                    className="text-xs underline"
+                    onClick={() => setApps([])}
+                    type="reset"
+                  >
+                    Reset
+                  </button>
+                </div>
+                <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+                  {FILTER_APPS.map((app) => (
+                    <Checkbox
+                      checked={apps?.includes(app)}
+                      key={app}
+                      label={app}
+                      name={app}
+                      onChange={() => {
+                        if (apps?.includes(app)) {
+                          setApps(
+                            apps.filter((currentApp) => currentApp !== app)
+                          );
+                        } else {
+                          setApps([...(apps || []), app]);
+                        }
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
+          {feedType === ModFeedType.REPORTS && (
+            <div>Take action on reports</div>
+          )}
         </Card>
         <Footer />
       </GridItemFour>
