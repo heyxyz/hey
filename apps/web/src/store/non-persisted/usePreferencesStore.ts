@@ -1,46 +1,41 @@
-import type { Preferences } from '@hey/types/hey';
-
 import { create } from 'zustand';
-
-export type ExtendedPreference = Omit<
-  NonNullable<Preferences['preference']>,
-  'createdAt' | 'id'
->;
-
-const DefaultPreferences: ExtendedPreference = {
-  highSignalNotificationFilter: false,
-  isPride: false
-};
 
 interface PreferencesState {
   hasDismissedOrMintedMembershipNft: boolean;
+  highSignalNotificationFilter: boolean;
+  isPride: boolean;
   isPro: boolean;
   isTrusted: boolean;
-  preferences: ExtendedPreference;
   resetPreferences: () => void;
   setHasDismissedOrMintedMembershipNft: (
     hasDismissedOrMintedMembershipNft: boolean
   ) => void;
+  setHighSignalNotificationFilter: (
+    highSignalNotificationFilter: boolean
+  ) => void;
+  setIsPride: (isPride: boolean) => void;
   setIsPro: (isPro: boolean) => void;
   setIsTrusted: (isTrusted: boolean) => void;
-  setPreferences: (preferences: ExtendedPreference) => void;
 }
 
 export const usePreferencesStore = create<PreferencesState>((set) => ({
   hasDismissedOrMintedMembershipNft: true,
+  highSignalNotificationFilter: false,
+  isPride: false,
   isPro: false,
   isTrusted: false,
-  preferences: DefaultPreferences,
   resetPreferences: () =>
     set(() => ({
+      hasDismissedOrMintedMembershipNft: true,
+      highSignalNotificationFilter: false,
       isPro: false,
-      isTrusted: false,
-      preferences: DefaultPreferences
+      isTrusted: false
     })),
   setHasDismissedOrMintedMembershipNft: (hasDismissedOrMintedMembershipNft) =>
     set(() => ({ hasDismissedOrMintedMembershipNft })),
+  setHighSignalNotificationFilter: (highSignalNotificationFilter) =>
+    set(() => ({ highSignalNotificationFilter })),
+  setIsPride: (isPride) => set(() => ({ isPride })),
   setIsPro: (isPro) => set(() => ({ isPro })),
-  setIsTrusted: (isTrusted) => set(() => ({ isTrusted })),
-  setPreferences: (preferences) =>
-    set(() => ({ preferences: { ...preferences } }))
+  setIsTrusted: (isTrusted) => set(() => ({ isTrusted }))
 }));
