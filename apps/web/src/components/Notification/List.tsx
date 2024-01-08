@@ -38,7 +38,9 @@ interface ListProps {
 }
 
 const List: FC<ListProps> = ({ feedType }) => {
-  const preferences = usePreferencesStore((state) => state.preferences);
+  const highSignalNotificationFilter = usePreferencesStore(
+    (state) => state.highSignalNotificationFilter
+  );
   const latestNotificationId = useNotificationStore(
     (state) => state.latestNotificationId
   );
@@ -64,7 +66,7 @@ const List: FC<ListProps> = ({ feedType }) => {
   const request: NotificationRequest = {
     where: {
       customFilters: [CustomFiltersType.Gardeners],
-      highSignalFilter: preferences.highSignalNotificationFilter,
+      highSignalFilter: highSignalNotificationFilter,
       notificationTypes: getNotificationType()
     }
   };

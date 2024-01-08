@@ -19,11 +19,8 @@ describe('preferences/get', () => {
     expect(response.data.result.hasDismissedOrMintedMembershipNft).toBeTruthy();
     expect(response.data.result.isPro).toBeTruthy();
     expect(response.data.result.isTrusted).toBeTruthy();
-    expect(response.data.result.preference?.id).toEqual(TEST_LENS_ID);
-    expect(
-      response.data.result.preference?.highSignalNotificationFilter
-    ).toBeTruthy();
-    expect(response.data.result.preference?.isPride).toBeTruthy();
+    expect(response.data.result.highSignalNotificationFilter).toBeTruthy();
+    expect(response.data.result.isPride).toBeTruthy();
     expect(response.data.result.restrictions.isFlagged).toBeFalsy();
     expect(response.data.result.restrictions.isSuspended).toBeFalsy();
   });
