@@ -23,7 +23,6 @@ const PreferencesProvider: FC = () => {
   );
   const setIsPride = usePreferencesStore((state) => state.setIsPride);
   const setIsPro = usePreferencesStore((state) => state.setIsPro);
-  const setIsTrusted = usePreferencesStore((state) => state.setIsTrusted);
   const setRestriction = useProfileRestriction((state) => state.setRestriction);
   const setHasDismissedOrMintedMembershipNft = usePreferencesStore(
     (state) => state.setHasDismissedOrMintedMembershipNft
@@ -31,6 +30,7 @@ const PreferencesProvider: FC = () => {
   const setFeatureFlags = useFeatureFlagsStore(
     (state) => state.setFeatureFlags
   );
+  const setTrusted = useFeatureFlagsStore((state) => state.setTrusted);
   const setStaffMode = useFeatureFlagsStore((state) => state.setStaffMode);
   const setGardenerMode = useFeatureFlagsStore(
     (state) => state.setGardenerMode
@@ -64,7 +64,7 @@ const PreferencesProvider: FC = () => {
           isFlagged: preferences.features.includes(FeatureFlag.Flagged),
           isSuspended: preferences.features.includes(FeatureFlag.Suspended)
         });
-        setIsTrusted(preferences.features.includes(FeatureFlag.TrustedProfile));
+        setTrusted(preferences.features.includes(FeatureFlag.TrustedProfile));
 
         // Membership NFT
         setHasDismissedOrMintedMembershipNft(

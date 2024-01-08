@@ -12,7 +12,9 @@ interface FeatureFlagsState {
   setFeatureFlags: (featureFlags: string[]) => void;
   setGardenerMode: (gardenerMode: boolean) => void;
   setStaffMode: (staffMode: boolean) => void;
+  setTrusted: (trusted: boolean) => void;
   staffMode: boolean;
+  trusted: boolean;
 }
 
 export const useFeatureFlagsStore = create(
@@ -21,9 +23,7 @@ export const useFeatureFlagsStore = create(
       featureFlags: [],
       gardenerMode: false,
       hydrateFeatureFlags: () => {
-        return {
-          featureFlags: get().featureFlags
-        };
+        return { featureFlags: get().featureFlags };
       },
       resetFeatureFlags: () =>
         set(() => ({
@@ -34,7 +34,9 @@ export const useFeatureFlagsStore = create(
       setFeatureFlags: (featureFlags) => set(() => ({ featureFlags })),
       setGardenerMode: (gardenerMode) => set(() => ({ gardenerMode })),
       setStaffMode: (staffMode) => set(() => ({ staffMode })),
-      staffMode: false
+      setTrusted: (trusted) => set(() => ({ trusted })),
+      staffMode: false,
+      trusted: false
     }),
     {
       name: IndexDB.FeatureFlagsStore,

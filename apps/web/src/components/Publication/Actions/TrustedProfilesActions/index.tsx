@@ -14,12 +14,12 @@ import { Leafwatch } from '@lib/leafwatch';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 
-interface GardenerActionsProps {
+interface TrustedProfilesActionsProps {
   className?: string;
   publicationId: string;
 }
 
-const GardenerActions: FC<GardenerActionsProps> = ({
+const TrustedProfilesActions: FC<TrustedProfilesActionsProps> = ({
   className = '',
   publicationId
 }) => {
@@ -135,4 +135,4 @@ const GardenerActions: FC<GardenerActionsProps> = ({
   );
 };
 
-export default GardenerActions;
+export default TrustedProfilesActions;

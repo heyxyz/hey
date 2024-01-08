@@ -5,7 +5,6 @@ interface PreferencesState {
   highSignalNotificationFilter: boolean;
   isPride: boolean;
   isPro: boolean;
-  isTrusted: boolean;
   resetPreferences: () => void;
   setHasDismissedOrMintedMembershipNft: (
     hasDismissedOrMintedMembershipNft: boolean
@@ -15,7 +14,6 @@ interface PreferencesState {
   ) => void;
   setIsPride: (isPride: boolean) => void;
   setIsPro: (isPro: boolean) => void;
-  setIsTrusted: (isTrusted: boolean) => void;
 }
 
 export const usePreferencesStore = create<PreferencesState>((set) => ({
@@ -23,19 +21,16 @@ export const usePreferencesStore = create<PreferencesState>((set) => ({
   highSignalNotificationFilter: false,
   isPride: false,
   isPro: false,
-  isTrusted: false,
   resetPreferences: () =>
     set(() => ({
       hasDismissedOrMintedMembershipNft: true,
       highSignalNotificationFilter: false,
-      isPro: false,
-      isTrusted: false
+      isPro: false
     })),
   setHasDismissedOrMintedMembershipNft: (hasDismissedOrMintedMembershipNft) =>
     set(() => ({ hasDismissedOrMintedMembershipNft })),
   setHighSignalNotificationFilter: (highSignalNotificationFilter) =>
     set(() => ({ highSignalNotificationFilter })),
   setIsPride: (isPride) => set(() => ({ isPride })),
-  setIsPro: (isPro) => set(() => ({ isPro })),
-  setIsTrusted: (isTrusted) => set(() => ({ isTrusted }))
+  setIsPro: (isPro) => set(() => ({ isPro }))
 }));
