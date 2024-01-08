@@ -14,8 +14,8 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 
 const IsPride: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const preferences = usePreferencesStore((state) => state.preferences);
-  const setPreferences = usePreferencesStore((state) => state.setPreferences);
+  const isPride = usePreferencesStore((state) => state.isPride);
+  const setIsPride = usePreferencesStore((state) => state.setIsPride);
   const [updating, setUpdating] = useState(false);
 
   const toggleIsPride = () => {
@@ -23,7 +23,7 @@ const IsPride: FC = () => {
     toast.promise(
       axios.post(
         `${HEY_API_URL}/preferences/update`,
-        { isPride: !preferences.isPride },
+        { isPride: !isPride },
         { headers: getAuthWorkerHeaders() }
       ),
       {
@@ -35,12 +35,9 @@ const IsPride: FC = () => {
         success: () => {
           getPreferences(currentProfile?.id, getAuthWorkerHeaders());
           setUpdating(false);
-          setPreferences({
-            ...preferences,
-            isPride: !preferences.isPride
-          });
+          setIsPride(!isPride);
           Leafwatch.track(SETTINGS.PREFERENCES.TOGGLE_IS_PRIDE, {
-            enabled: !preferences.isPride
+            enabled: !isPride
           });
 
           return 'Pride preference updated';
@@ -55,7 +52,7 @@ const IsPride: FC = () => {
       disabled={updating}
       heading="Celebrate pride every day"
       icon={<img alt="Pride Logo" className="size-5" src="/pride.png" />}
-      on={preferences.isPride}
+      on={isPride}
       setOn={toggleIsPride}
     />
   );
