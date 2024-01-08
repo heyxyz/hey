@@ -54,21 +54,17 @@ const PreferencesProvider: FC = () => {
         // Pro
         setIsPro(preferences.isPro);
 
-        // Trusted
-        setIsTrusted(preferences.isTrusted);
-
-        // Restriction
-        setRestriction({
-          isFlagged: preferences.features.includes(FeatureFlag.Flagged),
-          isSuspended: preferences.features.includes(FeatureFlag.Suspended)
-        });
-
         // Feature flags
         setFeatureFlags(preferences.features);
         setStaffMode(preferences.features.includes(FeatureFlag.StaffMode));
         setGardenerMode(
           preferences?.features.includes(FeatureFlag.GardenerMode)
         );
+        setRestriction({
+          isFlagged: preferences.features.includes(FeatureFlag.Flagged),
+          isSuspended: preferences.features.includes(FeatureFlag.Suspended)
+        });
+        setIsTrusted(preferences.features.includes(FeatureFlag.TrustedProfile));
 
         // Membership NFT
         setHasDismissedOrMintedMembershipNft(
