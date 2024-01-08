@@ -59,8 +59,8 @@ const PreferencesProvider: FC = () => {
 
         // Restriction
         setRestriction({
-          isFlagged: preferences.restrictions?.isFlagged,
-          isSuspended: preferences.restrictions?.isSuspended
+          isFlagged: preferences.isFlagged,
+          isSuspended: preferences.isSuspended
         });
 
         // Feature flags
