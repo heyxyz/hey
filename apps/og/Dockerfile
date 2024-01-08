@@ -1,6 +1,10 @@
 FROM node:18-alpine AS base
 RUN apk add --no-cache libc6-compat
 
+ARG NEXT_PUBLIC_LENS_NETWORK
+
+ENV NEXT_PUBLIC_LENS_NETWORK=${NEXT_PUBLIC_LENS_NETWORK}
+
 #-- 
 FROM base AS builder
 WORKDIR /app
