@@ -11,39 +11,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cleanup Postgres
-        env:
-          SECRET: ${{ secrets.SECRET }}
-        run: |
-          curl -X POST \
-            -H "Content-Type: application/json" \
-            -H "Referer: https://hey.xyz" \
-            -d '{"secret": "'"$SECRET"'"}' \
-            https://api.hey.xyz/internal/cron/cleanPostgres
+        uses: indiesdev/curl@v1.1
+        with:
+          url: https://api.hey.xyz/internal/cron/cleanPostgres
+          method: 'POST'
+          body: '{ "secret": "${{ secrets.SECRET }}" }'
+          headers: '{ "Content-Type": "application/json", "Referer": "https://hey.xyz" }'
 
   cleanup-clickhouse:
     name: Cleanup Clickhouse
     runs-on: ubuntu-latest
     steps:
       - name: Cleanup Clickhouse
-        env:
-          SECRET: ${{ secrets.SECRET }}
-        run: |
-          curl -X POST \
-            -H "Content-Type: application/json" \
-            -H "Referer: https://hey.xyz" \
-            -d '{"secret": "'"$SECRET"'"}' \
-            https://api.hey.xyz/internal/cron/cleanClickhouse
+        uses: indiesdev/curl@v1.1
+        with:
+          url: https://api.hey.xyz/internal/cron/cleanClickhouse
+          method: 'POST'
+          body: '{ "secret": "${{ secrets.SECRET }}" }'
+          headers: '{ "Content-Type": "application/json", "Referer": "https://hey.xyz" }'
 
   downgrade-profiles:
     name: Downgrade Profiles
     runs-on: ubuntu-latest
     steps:
       - name: Downgrade Profiles
-        env:
-          SECRET: ${{ secrets.SECRET }}
-        run: |
-          curl -X POST \
-            -H "Content-Type: application/json" \
-            -H "Referer: https://hey.xyz" \
-            -d '{"secret": "'"$SECRET"'"}' \
-            https://api.hey.xyz/internal/cron/downgradePro
+        uses: indiesdev/curl@v1.1
+        with:
+          url: https://api.hey.xyz/internal/cron/downgradePro
+          method: 'POST'
+          body: '{ "secret": "${{ secrets.SECRET }}" }'
+          headers: '{ "Content-Type": "application/json", "Referer": "https://hey.xyz" }'
