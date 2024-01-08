@@ -20,6 +20,8 @@ import { useEffect } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
+import Actions from './Actions';
+
 interface LatestFeedProps {
   apps: null | string[];
   customFilters: CustomFiltersType[];
@@ -99,21 +101,21 @@ const LatestFeed: FC<LatestFeedProps> = ({
   }
 
   return (
-    <Card className="divide-y-[1px] dark:divide-gray-700">
+    <div className="space-y-5">
       {publications?.map((publication, index) => (
-        <SinglePublication
-          isFirst={index === 0}
-          isLast={index === publications.length - 1}
-          key={`${publication.id}_${index}`}
-          publication={publication as AnyPublication}
-          showActions={false}
-          showGardenerActions={gardenerMode}
-          showThread={false}
-          showTrustedProfilesActions={trusted}
-        />
+        <Card key={`${publication.id}_${index}`}>
+          <SinglePublication
+            isFirst
+            isLast={false}
+            publication={publication as AnyPublication}
+            showActions={false}
+            showThread={false}
+          />
+          <Actions publicationId={publication.id} />
+        </Card>
       ))}
       {hasMore ? <span ref={observe} /> : null}
-    </Card>
+    </div>
   );
 };
 

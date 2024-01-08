@@ -10,8 +10,6 @@ import { memo } from 'react';
 import { useInView } from 'react-cool-inview';
 
 import PublicationActions from './Actions';
-import GardenerActions from './Actions/GardenerActions';
-import TrustedProfilesActions from './Actions/TrustedProfilesActions';
 import FeaturedGroup from './FeaturedGroup';
 import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
@@ -24,10 +22,8 @@ interface SinglePublicationProps {
   isLast?: boolean;
   publication: AnyPublication;
   showActions?: boolean;
-  showGardenerActions?: boolean;
   showMore?: boolean;
   showThread?: boolean;
-  showTrustedProfilesActions?: boolean;
   showType?: boolean;
 }
 
@@ -37,10 +33,8 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   isLast = false,
   publication,
   showActions = true,
-  showGardenerActions = false,
   showMore = true,
   showThread = true,
-  showTrustedProfilesActions = false,
   showType = true
 }) => {
   const firstComment = feedItem?.comments?.[0];
@@ -98,26 +92,6 @@ const SinglePublication: FC<SinglePublicationProps> = ({
               ) : null}
               <FeaturedGroup className="mt-3" tags={metadata?.tags} />
             </div>
-            {showGardenerActions ? (
-              <div>
-                <div className="divider mb-3 mt-5" />
-                <b>Gardener actions</b>
-                <GardenerActions
-                  className="mt-3 max-w-md"
-                  publicationId={rootPublication.id}
-                />
-              </div>
-            ) : null}
-            {showTrustedProfilesActions ? (
-              <div>
-                <div className="divider mb-3 mt-5" />
-                <b>Moderate {publication.__typename}</b>
-                <TrustedProfilesActions
-                  className="mt-3 max-w-md"
-                  publicationId={rootPublication.id}
-                />
-              </div>
-            ) : null}
           </>
         )}
       </div>

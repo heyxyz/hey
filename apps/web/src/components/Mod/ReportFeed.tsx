@@ -13,6 +13,8 @@ import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
+import Actions from './Actions';
+
 const ReportFeed: FC = () => {
   const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
   const [displayedPublications, setDisplayedPublications] = useState<any[]>([]);
@@ -87,19 +89,21 @@ const ReportFeed: FC = () => {
   }
 
   return (
-    <Card className="divide-y-[1px] dark:divide-gray-700">
+    <div className="space-y-5">
       {publications?.map((publication, index) => (
-        <SinglePublication
-          isFirst={index === 0}
-          isLast={index === publications.length - 1}
-          key={`${publication.id}_${index}`}
-          publication={publication as AnyPublication}
-          showActions={false}
-          showGardenerActions={gardenerMode}
-        />
+        <Card key={`${publication.id}_${index}`}>
+          <SinglePublication
+            isFirst
+            isLast
+            publication={publication as AnyPublication}
+            showActions={false}
+            showThread={false}
+          />
+          <Actions hideTrustedReport publicationId={publication.id} />
+        </Card>
       ))}
       <span ref={observe} />
-    </Card>
+    </div>
   );
 };
 
