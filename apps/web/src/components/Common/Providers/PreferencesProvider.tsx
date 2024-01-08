@@ -18,10 +18,13 @@ const PreferencesProvider: FC = () => {
   const setVerifiedMembers = useVerifiedMembersStore(
     (state) => state.setVerifiedMembers
   );
-  const setPreferences = usePreferencesStore((state) => state.setPreferences);
-  const setRestriction = useProfileRestriction((state) => state.setRestriction);
+  const setHighSignalNotificationFilter = usePreferencesStore(
+    (state) => state.setHighSignalNotificationFilter
+  );
+  const setIsPride = usePreferencesStore((state) => state.setIsPride);
   const setIsPro = usePreferencesStore((state) => state.setIsPro);
   const setIsTrusted = usePreferencesStore((state) => state.setIsTrusted);
+  const setRestriction = useProfileRestriction((state) => state.setRestriction);
   const setHasDismissedOrMintedMembershipNft = usePreferencesStore(
     (state) => state.setHasDismissedOrMintedMembershipNft
   );
@@ -43,11 +46,10 @@ const PreferencesProvider: FC = () => {
         );
 
         // Profile preferences
-        setPreferences({
-          highSignalNotificationFilter:
-            preferences.preference?.highSignalNotificationFilter || false,
-          isPride: preferences.preference?.isPride || false
-        });
+        setHighSignalNotificationFilter(
+          preferences.highSignalNotificationFilter
+        );
+        setIsPride(preferences.isPride);
 
         // Pro
         setIsPro(preferences.isPro);
