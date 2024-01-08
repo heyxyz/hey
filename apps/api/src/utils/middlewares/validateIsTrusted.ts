@@ -1,6 +1,7 @@
 import type { Request } from 'express';
 
 import parseJwt from '@hey/lib/parseJwt';
+import { TRUSTED_PROFILE_FEATURE_ID } from '@utils/constants';
 import prisma from '@utils/prisma';
 
 import validateLensAccount from './validateLensAccount';
@@ -23,11 +24,15 @@ const validateIsTrusted = async (request: Request) => {
     }
 
     const payload = parseJwt(accessToken);
-    const data = await prisma.trustedProfile.findFirst({
-      where: { id: payload.id }
+    const data = await prisma.profileFeature.findFirst({
+      where: {
+        enabled: true,
+        featureId: TRUSTED_PROFILE_FEATURE_ID,
+        profileId: payload.id
+      }
     });
 
-    if (data?.id) {
+    if (data?.enabled) {
       return true;
     }
 

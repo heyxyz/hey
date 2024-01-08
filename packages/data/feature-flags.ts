@@ -5,5 +5,6 @@ export enum FeatureFlag {
   LensMember = 'lens-member',
   Staff = 'staff',
   StaffMode = 'staff-mode',
-  Suspended = 'suspended'
+  Suspended = 'suspended',
+  TrustedProfile = 'trusted-profile'
 }
