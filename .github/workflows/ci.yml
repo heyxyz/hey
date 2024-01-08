@@ -7,11 +7,6 @@ on:
     types: [opened, synchronize]
   workflow_dispatch:
 
-# Cancel previous runs of the same workflow on the same branch.
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   typecheck:
     name: Typecheck
