@@ -11,6 +11,10 @@ export enum HomeFeedType {
   K3L_RECOMMENDED = 'K3L_RECOMMENDED',
   PAID_ACTIONS = 'PAID_ACTIONS'
 }
+export enum ModFeedType {
+  LATEST = 'LATEST',
+  REPORTS = 'REPORTS'
+}
 
 export const AlgorithmProvider = {
   HEY: 'hey',
