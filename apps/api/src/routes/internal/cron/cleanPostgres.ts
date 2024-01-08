@@ -37,11 +37,6 @@ export const post: Handler = async (req, res) => {
   }
 
   try {
-    // Cleanup ProfileRestriction
-    await prisma.profileRestriction.deleteMany({
-      where: { isFlagged: false, isSuspended: false }
-    });
-
     // Cleanup Preference
     await prisma.preference.deleteMany({
       where: { highSignalNotificationFilter: false, isPride: false }
