@@ -21,7 +21,7 @@ const Navbar: FC = () => {
   const router = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
-  const preferences = usePreferencesStore((state) => state.preferences);
+  const isPride = usePreferencesStore((state) => state.isPride);
   const [showSearch, setShowSearch] = useState(false);
 
   const onProfileSelected = (profile: Profile) => {
@@ -93,7 +93,7 @@ const Navbar: FC = () => {
                 alt="Logo"
                 className="size-8"
                 height={32}
-                src={preferences.isPride ? '/pride.png' : '/logo.png'}
+                src={isPride ? '/pride.png' : '/logo.png'}
                 width={32}
               />
             </Link>
@@ -114,7 +114,7 @@ const Navbar: FC = () => {
               alt="Logo"
               className="size-7"
               height={32}
-              src={preferences.isPride ? '/pride.png' : '/logo.png'}
+              src={isPride ? '/pride.png' : '/logo.png'}
               width={32}
             />
           </Link>

@@ -24,9 +24,10 @@ const getPreferences = async (
     return {
       features: [],
       hasDismissedOrMintedMembershipNft: false,
+      highSignalNotificationFilter: false,
+      isPride: false,
       isPro: false,
       isTrusted: false,
-      preference: null,
       restrictions: { isFlagged: false, isSuspended: false }
     };
   }
