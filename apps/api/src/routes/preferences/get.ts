@@ -44,11 +44,11 @@ export const get: Handler = async (req, res) => {
 
     const response: Preferences = {
       features: features.map((feature: any) => feature.feature?.key),
+      hasDismissedOrMintedMembershipNft: Boolean(
+        membershipNft?.dismissedOrMinted
+      ),
       isPro: Boolean(pro),
       isTrusted: Boolean(trustedProfile),
-      membershipNft: {
-        dismissedOrMinted: Boolean(membershipNft?.dismissedOrMinted)
-      },
       preference,
       restrictions: {
         isFlagged: Boolean(restriction?.isFlagged),
