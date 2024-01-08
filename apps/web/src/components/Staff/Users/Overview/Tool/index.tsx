@@ -27,7 +27,6 @@ import LeafwatchDetails from './LeafwatchDetails';
 import ManagedProfiles from './ManagedProfiles';
 import OnchainIdentities from './OnchainIdentities';
 import Rank from './Rank';
-import Restrictions from './Restrictions';
 
 interface ProfileStaffToolProps {
   profile: Profile;
@@ -161,7 +160,6 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
       {preferences ? (
         <>
           <Access preferences={preferences} profileId={profile.id} />
-          <Restrictions preferences={preferences} profileId={profile.id} />
           <div className="divider my-5 border-dashed border-yellow-600" />
           <FeatureFlags
             features={preferences.features || []}
