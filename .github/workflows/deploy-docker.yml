@@ -31,10 +31,10 @@ jobs:
       - name: Build and push API image 🚀
         uses: ./.github/actions/docker
         with:
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-          IMAGE_NAME: api
-          DOCKER_FILE: ./apps/api/Dockerfile
+          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+          image_name: api
+          docker_file: ./apps/api/Dockerfile
 
       - name: Trigger API Deployment 🚀
         uses: indiesdev/curl@v1.1
@@ -54,7 +54,7 @@ jobs:
       - name: Build and push OG image 🚀
         uses: ./.github/actions/docker
         with:
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-          IMAGE_NAME: og
-          DOCKER_FILE: ./apps/og/Dockerfile
+          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+          image_name: og
+          docker_file: ./apps/og/Dockerfile
