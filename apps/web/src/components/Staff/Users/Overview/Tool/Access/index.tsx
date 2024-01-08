@@ -4,7 +4,6 @@ import type { FC } from 'react';
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
 
 import ActivateLifetimePro from './ActivateLifetimePro';
-import Trusted from './Trusted';
 import Verify from './Verify';
 
 interface AccessProps {
@@ -22,7 +21,6 @@ const Access: FC<AccessProps> = ({ preferences, profileId }) => {
       <div className="mt-3 space-y-2 font-bold">
         <Verify profileId={profileId} />
         <ActivateLifetimePro isPro={preferences.isPro} profileId={profileId} />
-        <Trusted isTrusted={preferences.isTrusted} profileId={profileId} />
       </div>
     </>
   );
