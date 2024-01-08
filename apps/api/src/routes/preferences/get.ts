@@ -1,3 +1,4 @@
+import type { Preferences } from '@hey/types/hey';
 import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
@@ -41,7 +42,7 @@ export const get: Handler = async (req, res) => {
       prisma.trustedProfile.findUnique({ where: { id: id as string } })
     ]);
 
-    const response = {
+    const response: Preferences = {
       features: features.map((feature: any) => feature.feature?.key),
       isPro: Boolean(pro),
       isTrusted: Boolean(trustedProfile),
