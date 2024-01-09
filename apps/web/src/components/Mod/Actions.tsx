@@ -1,7 +1,6 @@
-import type { FC } from 'react';
-
 import GardenerActions from '@components/Publication/Actions/GardenerActions';
 import TrustedProfilesActions from '@components/Publication/Actions/TrustedProfilesActions';
+import { type FC, useState } from 'react';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 import TrustedReportDetails from './TrustedReportDetails';
@@ -15,8 +14,13 @@ const Actions: FC<ActionsProps> = ({
   hideTrustedReport = false,
   publicationId
 }) => {
+  const [expanded, setExpanded] = useState(true);
   const trusted = useFeatureFlagsStore((state) => state.trusted);
   const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
+
+  if (!expanded) {
+    return null;
+  }
 
   return (
     <div>
@@ -29,6 +33,7 @@ const Actions: FC<ActionsProps> = ({
               ableToRemoveReport={hideTrustedReport}
               className="mt-3 max-w-md"
               publicationId={publicationId}
+              setExpanded={setExpanded}
             />
           </div>
           {hideTrustedReport && (
