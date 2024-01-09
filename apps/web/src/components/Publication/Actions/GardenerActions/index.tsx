@@ -24,12 +24,14 @@ interface GardenerActionsProps {
   ableToRemoveReport?: boolean;
   className?: string;
   publicationId: string;
+  setExpanded?: (expanded: boolean) => void;
 }
 
 const GardenerActions: FC<GardenerActionsProps> = ({
   ableToRemoveReport = false,
   className = '',
-  publicationId
+  publicationId,
+  setExpanded = () => {}
 }) => {
   const setShowGardenerActionsAlert = useGlobalAlertStateStore(
     (state) => state.setShowGardenerActionsAlert
@@ -46,7 +48,10 @@ const GardenerActions: FC<GardenerActionsProps> = ({
     toast.promise(removeReport(), {
       error: 'Error removing trusted reports',
       loading: 'Removing trusted reports...',
-      success: 'Trusted reports removed successfully'
+      success: () => {
+        setExpanded(false);
+        return 'Trusted reports removed successfully';
+      }
     });
   };
 
