@@ -124,15 +124,14 @@ const CollectAction: FC<CollectActionProps> = ({
     cache.modify({
       fields: {
         operations: (existingValue) => {
-          return { ...existingValue, hasActed: { value: !hasActed } };
+          return { ...existingValue, hasActed: { value: true } };
         }
       },
       id: cache.identify(targetPublication)
     });
     cache.modify({
       fields: {
-        countOpenActions: () =>
-          hasActed ? countOpenActions - 1 : countOpenActions + 1
+        countOpenActions: () => countOpenActions + 1
       },
       id: cache.identify(targetPublication.stats)
     });
@@ -154,6 +153,7 @@ const CollectAction: FC<CollectActionProps> = ({
     }
 
     setHasActed(true);
+    setIsLoading(false);
     setCountOpenActions(countOpenActions + 1);
     updateCache();
     toast.success('Collected successfully!');
