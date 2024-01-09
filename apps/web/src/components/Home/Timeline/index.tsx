@@ -44,11 +44,7 @@ const Timeline: FC = () => {
     onCompleted: async ({ feed }) => {
       const ids =
         feed?.items?.flatMap((p) => {
-          return [
-            p.root.id,
-            p.comments?.[0]?.id,
-            p.root.__typename === 'Comment' && p.root.commentOn?.id
-          ].filter((id) => id);
+          return [p.root.id].filter((id) => id);
         }) || [];
       await fetchAndStoreViews(ids);
     },
@@ -70,11 +66,7 @@ const Timeline: FC = () => {
       });
       const ids =
         data.feed?.items?.flatMap((p) => {
-          return [
-            p.root.id,
-            p.comments?.[0]?.id,
-            p.root.__typename === 'Comment' && p.root.commentOn?.id
-          ].filter((id) => id);
+          return [p.root.id].filter((id) => id);
         }) || [];
       await fetchAndStoreViews(ids);
     }
