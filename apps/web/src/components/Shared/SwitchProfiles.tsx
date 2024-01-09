@@ -48,7 +48,7 @@ const SwitchProfiles: FC = () => {
   };
 
   const { address } = useAccount();
-  const { signMessageAsync } = useSignMessage({ onError });
+  const { signMessageAsync } = useSignMessage({ mutation: { onError } });
 
   const request: LastLoggedInProfileRequest | ProfileManagersRequest = {
     for: address

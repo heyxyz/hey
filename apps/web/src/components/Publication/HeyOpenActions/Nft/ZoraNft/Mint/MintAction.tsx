@@ -10,6 +10,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { ZoraCreator1155Impl, ZoraERC721Drop } from '@hey/abis';
+import { Errors } from '@hey/data';
 import { APP_NAME, REWARDS_ADDRESS, ZERO_ADDRESS } from '@hey/data/constants';
 import { ZORA_FIXED_PRICE_SALE_STRATEGY } from '@hey/data/contracts';
 import { PUBLICATION } from '@hey/data/tracking';
@@ -17,14 +18,15 @@ import getZoraChainInfo from '@hey/lib/getZoraChainInfo';
 import { Button, Spinner } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 import { useUpdateEffect } from 'usehooks-ts';
 import { encodeAbiParameters, parseAbiParameters, parseEther } from 'viem';
 import {
   useAccount,
   useChainId,
-  useContractWrite,
-  usePrepareContractWrite,
-  useWaitForTransaction
+  useSimulateContract,
+  useWaitForTransactionReceipt,
+  useWriteContract
 } from 'wagmi';
 
 import { useZoraMintStore } from '.';
@@ -77,11 +79,11 @@ const MintAction: FC<MintActionProps> = ({
         ];
 
   const {
-    config,
-    error: prepareError,
-    isError: isPrepareError,
-    isFetching: isPrepareFetching
-  } = usePrepareContractWrite({
+    data: simulateData,
+    error: simulateError,
+    failureCount: simulateFailureCount,
+    isFetching: isSimulating
+  } = useSimulateContract({
     abi,
     address: nftAddress,
     args,
@@ -89,18 +91,28 @@ const MintAction: FC<MintActionProps> = ({
     functionName: 'mintWithRewards',
     value
   });
+
   const {
-    data,
-    isLoading: isContractWriteLoading,
-    write
-  } = useContractWrite({ ...config });
+    data: writeHash,
+    isPending: isContractWriteLoading,
+    writeContract
+  } = useWriteContract();
+
+  const write = () => {
+    if (!simulateData) {
+      return toast.error(Errors.SomethingWentWrong);
+    }
+
+    return writeContract(simulateData.request);
+  };
+
   const {
     data: txnData,
     isLoading,
     isSuccess
-  } = useWaitForTransaction({
+  } = useWaitForTransactionReceipt({
     chainId: nft.chainId,
-    hash: data?.hash
+    hash: writeHash
   });
 
   useUpdateEffect(() => {
@@ -117,25 +129,27 @@ const MintAction: FC<MintActionProps> = ({
     }
   }, [isSuccess]);
 
+  const isSimulateError = simulateFailureCount > 0;
+
   useUpdateEffect(() => {
     setCanMintOnHey(
-      !isPrepareError ||
-        (isPrepareError &&
+      !isSimulateError ||
+        (isSimulateError &&
           ALLOWED_ERRORS_FOR_MINTING.some(
-            (error) => prepareError?.message.includes(error)
+            (error) => simulateError?.message.includes(error)
           ))
     );
-  }, [isPrepareFetching]);
+  }, [isSimulating]);
 
   const mintingOrSuccess = isLoading || isSuccess;
 
   // Errors
-  const noBalanceError = prepareError?.message?.includes(NO_BALANCE_ERROR);
-  const maxMintExceededError = prepareError?.message?.includes(
+  const noBalanceError = simulateError?.message?.includes(NO_BALANCE_ERROR);
+  const maxMintExceededError = simulateError?.message?.includes(
     MAX_MINT_EXCEEDED_ERROR
   );
   const saleInactiveError =
-    prepareError?.message?.includes(SALE_INACTIVE_ERROR);
+    simulateError?.message?.includes(SALE_INACTIVE_ERROR);
 
   return !mintingOrSuccess ? (
     <div className="flex">
@@ -149,7 +163,7 @@ const MintAction: FC<MintActionProps> = ({
           title={`Switch to ${getZoraChainInfo(nft.chainId).name}`}
           toChainId={nft.chainId}
         />
-      ) : isPrepareError ? (
+      ) : isSimulateError ? (
         noBalanceError ? (
           <Link
             className="w-full"
@@ -198,7 +212,7 @@ const MintAction: FC<MintActionProps> = ({
       ) : (
         <Button
           className="mt-5 w-full justify-center"
-          disabled={!write}
+          disabled={!simulateData?.request}
           icon={
             isContractWriteLoading ? (
               <Spinner size="xs" />

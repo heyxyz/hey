@@ -23,7 +23,7 @@ import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useContractWrite, useSignTypedData } from 'wagmi';
+import { useSignTypedData, useWriteContract } from 'wagmi';
 
 const UnlinkHandle: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
@@ -61,14 +61,19 @@ const UnlinkHandle: FC = () => {
     errorToast(error);
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ onError });
-  const { data: writeData, write } = useContractWrite({
-    abi: TokenHandleRegistry,
-    address: TOKEN_HANDLE_REGISTRY,
-    functionName: 'unlink',
-    onError,
-    onSuccess: () => onCompleted()
+  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
+  const { data: writeHash, writeContract } = useWriteContract({
+    mutation: { onError, onSuccess: () => onCompleted() }
   });
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      abi: TokenHandleRegistry,
+      address: TOKEN_HANDLE_REGISTRY,
+      args,
+      functionName: 'unlink'
+    });
+  };
 
   const [broadcastOnchain, { data: broadcastData }] =
     useBroadcastOnchainMutation({
@@ -161,7 +166,6 @@ const UnlinkHandle: FC = () => {
   const broadcastTxId =
     broadcastData?.broadcastOnchain.__typename === 'RelaySuccess' &&
     broadcastData.broadcastOnchain.txId;
-  const writeHash = writeData?.hash;
 
   return (
     <div>

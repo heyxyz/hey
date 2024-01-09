@@ -18,7 +18,7 @@ import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { signOut } from 'src/store/persisted/useAuthStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useContractWrite, useDisconnect } from 'wagmi';
+import { useDisconnect, useWriteContract } from 'wagmi';
 
 const DeleteSettings: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
@@ -39,12 +39,18 @@ const DeleteSettings: FC = () => {
     errorToast(error);
   };
 
-  const { write } = useContractWrite({
-    abi: LensHub,
-    address: LENSHUB_PROXY,
-    functionName: 'burn',
-    onSuccess: onCompleted
+  const { writeContract } = useWriteContract({
+    mutation: { onSuccess: onCompleted }
   });
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      abi: LensHub,
+      address: LENSHUB_PROXY,
+      args,
+      functionName: 'burn'
+    });
+  };
 
   const handleDelete = () => {
     if (!currentProfile) {
