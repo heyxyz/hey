@@ -13,6 +13,7 @@ import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import MenuItems from './MenuItems';
+import ModIcon from './ModIcon';
 import MoreNavItems from './MoreNavItems';
 import Search from './Search';
 import StaffBar from './StaffBar';
@@ -119,7 +120,12 @@ const Navbar: FC = () => {
             />
           </Link>
           <div className="flex items-center gap-4">
-            {currentProfile ? <NotificationIcon /> : null}
+            {currentProfile ? (
+              <>
+                <ModIcon />
+                <NotificationIcon />
+              </>
+            ) : null}
             <MenuItems />
           </div>
         </div>
