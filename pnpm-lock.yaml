@@ -102,7 +102,7 @@ importers:
         specifier: ^9.0.1
         version: 9.0.1
       viem:
-        specifier: ^2.0.0
+        specifier: ^2.0.3
         version: 2.0.3(typescript@5.3.3)(zod@3.22.4)
       vite-express:
         specifier: ^0.13.0
@@ -359,10 +359,10 @@ importers:
         specifier: ^9.0.1
         version: 9.0.1
       viem:
-        specifier: ^2.0.0
+        specifier: ^2.0.3
         version: 2.0.3(typescript@5.3.3)(zod@3.22.4)
       wagmi:
-        specifier: ^2.0.1
+        specifier: ^2.0.3
         version: 2.0.3(@tanstack/react-query@5.17.9)(@types/react@18.2.47)(react-dom@18.2.0)(react-native@0.73.2)(react@18.2.0)(typescript@5.3.3)(viem@2.0.3)(zod@3.22.4)
       zod:
         specifier: ^3.22.4
@@ -566,7 +566,7 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0
       viem:
-        specifier: ^2.0.0
+        specifier: ^2.0.3
         version: 2.0.3(typescript@5.3.3)(zod@3.22.4)
     devDependencies:
       '@hey/config':
@@ -2063,6 +2063,7 @@ packages:
       '@babel/helper-replace-supers': 7.22.20(@babel/core@7.23.7)
       '@babel/helper-split-export-declaration': 7.22.6
       globals: 11.12.0
+    dev: true
 
   /@babel/plugin-transform-classes@7.23.8(@babel/core@7.23.7):
     resolution: {integrity: sha512-yAYslGsY1bX6Knmg46RjiCiNSwJKv2IUC8qOdYKqMMr0491SXFhcHqOdRDeCRohOOIzwN/90C6mQ9qAKgrP7dg==}
@@ -6464,7 +6465,7 @@ packages:
       '@babel/plugin-transform-arrow-functions': 7.23.3(@babel/core@7.23.7)
       '@babel/plugin-transform-async-to-generator': 7.23.3(@babel/core@7.23.7)
       '@babel/plugin-transform-block-scoping': 7.23.4(@babel/core@7.23.7)
-      '@babel/plugin-transform-classes': 7.23.5(@babel/core@7.23.7)
+      '@babel/plugin-transform-classes': 7.23.8(@babel/core@7.23.7)
       '@babel/plugin-transform-computed-properties': 7.23.3(@babel/core@7.23.7)
       '@babel/plugin-transform-destructuring': 7.23.3(@babel/core@7.23.7)
       '@babel/plugin-transform-flow-strip-types': 7.23.3(@babel/core@7.23.7)
