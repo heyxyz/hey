@@ -9,11 +9,13 @@ import {
 } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { BasePaint } from '@hey/abis';
+import { Errors } from '@hey/data';
 import { BASEPAINT_CONTRACT } from '@hey/data/contracts';
 import { PUBLICATION } from '@hey/data/tracking';
 import { Button, Spinner } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 import { useUpdateEffect } from 'usehooks-ts';
 import { parseEther } from 'viem';
 import { base } from 'viem/chains';
@@ -49,7 +51,11 @@ const MintAction: FC<MintActionProps> = ({
   const day = canvas.id;
   const value = parseEther(openEditionPrice.toString()) * BigInt(quantity);
 
-  const { error: prepareError, isError: isPrepareError } = useSimulateContract({
+  const {
+    data: simulateData,
+    error: simulateError,
+    failureCount: simulateFailureCount
+  } = useSimulateContract({
     abi: BasePaint,
     address: nftAddress,
     args: [day, quantity],
@@ -65,14 +71,11 @@ const MintAction: FC<MintActionProps> = ({
   } = useWriteContract();
 
   const write = () => {
-    return writeContract({
-      abi: BasePaint,
-      address: nftAddress,
-      args: [day, quantity],
-      chainId: base.id,
-      functionName: 'mint',
-      value
-    });
+    if (!simulateData) {
+      return toast.error(Errors.SomethingWentWrong);
+    }
+
+    return writeContract(simulateData.request);
   };
 
   const {
@@ -95,10 +98,11 @@ const MintAction: FC<MintActionProps> = ({
     }
   }, [isSuccess]);
 
+  const isSimulateError = simulateFailureCount > 0;
   const mintingOrSuccess = isLoading || isSuccess;
 
   // Errors
-  const noBalanceError = prepareError?.message?.includes(NO_BALANCE_ERROR);
+  const noBalanceError = simulateError?.message?.includes(NO_BALANCE_ERROR);
 
   return !mintingOrSuccess ? (
     <div className="flex">
@@ -112,7 +116,7 @@ const MintAction: FC<MintActionProps> = ({
           title={`Switch to ${base.name}`}
           toChainId={base.id}
         />
-      ) : isPrepareError ? (
+      ) : isSimulateError ? (
         noBalanceError ? (
           <Link
             className="w-full"
@@ -132,7 +136,7 @@ const MintAction: FC<MintActionProps> = ({
       ) : (
         <Button
           className="mt-5 w-full justify-center"
-          disabled={!write}
+          disabled={!simulateData?.request}
           icon={
             isContractWriteLoading ? (
               <Spinner size="xs" />

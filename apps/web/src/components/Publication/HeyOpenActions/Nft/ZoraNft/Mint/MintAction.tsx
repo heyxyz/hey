@@ -81,7 +81,7 @@ const MintAction: FC<MintActionProps> = ({
   const {
     data: simulateData,
     error: simulateError,
-    failureCount,
+    failureCount: simulateFailureCount,
     isFetching: isSimulating
   } = useSimulateContract({
     abi,
@@ -129,7 +129,7 @@ const MintAction: FC<MintActionProps> = ({
     }
   }, [isSuccess]);
 
-  const isSimulateError = failureCount > 0;
+  const isSimulateError = simulateFailureCount > 0;
 
   useUpdateEffect(() => {
     setCanMintOnHey(
