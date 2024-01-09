@@ -25,7 +25,7 @@
     "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
     "@hey/lib": "workspace:*",
-    "@irys/sdk": "^0.1.1",
+    "@irys/sdk": "^0.1.2",
     "@prisma/client": "^5.7.1",
     "axios": "^1.6.5",
     "cors": "^2.8.5",
