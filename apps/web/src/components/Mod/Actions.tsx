@@ -26,6 +26,7 @@ const Actions: FC<ActionsProps> = ({
           <div className="m-5 space-y-2">
             <b>Gardener actions</b>
             <GardenerActions
+              ableToRemoveReport={hideTrustedReport}
               className="mt-3 max-w-md"
               publicationId={publicationId}
             />
