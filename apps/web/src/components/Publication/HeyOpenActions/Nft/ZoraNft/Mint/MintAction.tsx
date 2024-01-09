@@ -10,6 +10,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { ZoraCreator1155Impl, ZoraERC721Drop } from '@hey/abis';
+import { Errors } from '@hey/data';
 import { APP_NAME, REWARDS_ADDRESS, ZERO_ADDRESS } from '@hey/data/constants';
 import { ZORA_FIXED_PRICE_SALE_STRATEGY } from '@hey/data/contracts';
 import { PUBLICATION } from '@hey/data/tracking';
@@ -17,6 +18,7 @@ import getZoraChainInfo from '@hey/lib/getZoraChainInfo';
 import { Button, Spinner } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 import { useUpdateEffect } from 'usehooks-ts';
 import { encodeAbiParameters, parseAbiParameters, parseEther } from 'viem';
 import {
@@ -77,8 +79,9 @@ const MintAction: FC<MintActionProps> = ({
         ];
 
   const {
+    data: simulateData,
     error: simulateError,
-    isError: isSimulateError,
+    failureCount,
     isFetching: isSimulating
   } = useSimulateContract({
     abi,
@@ -96,14 +99,11 @@ const MintAction: FC<MintActionProps> = ({
   } = useWriteContract();
 
   const write = () => {
-    return writeContract({
-      abi,
-      address: nftAddress,
-      args,
-      chainId: nft.chainId,
-      functionName: 'mintWithRewards',
-      value
-    });
+    if (!simulateData) {
+      return toast.error(Errors.SomethingWentWrong);
+    }
+
+    return writeContract(simulateData.request);
   };
 
   const {
@@ -128,6 +128,8 @@ const MintAction: FC<MintActionProps> = ({
       });
     }
   }, [isSuccess]);
+
+  const isSimulateError = failureCount > 0;
 
   useUpdateEffect(() => {
     setCanMintOnHey(
@@ -210,7 +212,7 @@ const MintAction: FC<MintActionProps> = ({
       ) : (
         <Button
           className="mt-5 w-full justify-center"
-          disabled={isSimulateError}
+          disabled={!simulateData?.request}
           icon={
             isContractWriteLoading ? (
               <Spinner size="xs" />

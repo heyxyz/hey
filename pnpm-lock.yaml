@@ -311,8 +311,8 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       react-activity-calendar:
-        specifier: ^2.2.1
-        version: 2.2.3(react-dom@18.2.0)(react@18.2.0)
+        specifier: 2.2.1
+        version: 2.2.1(react-dom@18.2.0)(react@18.2.0)
       react-chartjs-2:
         specifier: ^5.2.0
         version: 5.2.0(chart.js@4.4.1)(react@18.2.0)
@@ -15480,8 +15480,8 @@ packages:
       react-is: 18.2.0
     dev: false
 
-  /react-activity-calendar@2.2.3(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-aJOlhXnLEd5kGiwGcTYfvDbr1NROFDcYpsQkdrxIvaMmtNAQEw+svGTStWOJGuvQfLaTv2bAhGQvT4zSMutQ1A==}
+  /react-activity-calendar@2.2.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-WWGc59PV1HQ/TvqwIsxS97/rBrMIRns1i4WnyuYbZro/IPbeRZ5RczOSKddc8/bwuwle3So7GwFh1pkmZDvlKQ==}
     peerDependencies:
       react: ^17.0.0 || ^18.0.0
       react-dom: ^17.0.0 || ^18.0.0
