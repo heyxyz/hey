@@ -8,9 +8,9 @@ export const get: Handler = async (req, res) => {
   const offset = (parseInt(req.query?.offset as string) || 0) as number;
 
   try {
-    const ids = await heyTrustedReports(limit, offset);
-
-    return res.status(200).json({ ids, success: true });
+    return res
+      .status(200)
+      .json({ ids: await heyTrustedReports(limit, offset), success: true });
   } catch (error) {
     return catchedError(res, error);
   }
