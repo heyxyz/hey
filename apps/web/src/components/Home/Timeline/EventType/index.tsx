@@ -5,7 +5,6 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 
 import Acted from './Acted';
 import Combined from './Combined';
-import Commented from './Commented';
 import Liked from './Liked';
 import Mirrored from './Mirrored';
 
@@ -19,15 +18,12 @@ interface ActionTypeProps {
 }
 
 const ActionType: FC<ActionTypeProps> = ({ feedItem }) => {
-  const { acted, comments, mirrors, reactions, root } = feedItem;
-  const isComment = root.__typename === 'Comment';
-  const showThread = isComment || (comments?.length || 0) > 0;
+  const { acted, mirrors, reactions } = feedItem;
 
   const canCombined = getCanCombined([
     mirrors?.length || 0,
     reactions?.length || 0,
-    acted?.length || 0,
-    comments?.length || 0
+    acted?.length || 0
   ]);
 
   return (
@@ -36,16 +32,11 @@ const ActionType: FC<ActionTypeProps> = ({ feedItem }) => {
         <Combined feedItem={feedItem} />
       ) : (
         <>
-          {mirrors?.length && !isComment ? (
-            <Mirrored mirrors={mirrors} />
-          ) : null}
-          {acted?.length && !isComment ? <Acted acted={acted} /> : null}
-          {reactions?.length && !isComment ? (
-            <Liked reactions={reactions} />
-          ) : null}
+          {mirrors?.length ? <Mirrored mirrors={mirrors} /> : null}
+          {acted?.length ? <Acted acted={acted} /> : null}
+          {reactions?.length ? <Liked reactions={reactions} /> : null}
         </>
       )}
-      {showThread ? <Commented feedItem={feedItem} /> : null}
     </span>
   );
 };
