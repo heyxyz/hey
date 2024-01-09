@@ -44,6 +44,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
         operations: (existingValue) => {
           return {
             ...existingValue,
+            // TODO: This is a hack to make the cache update
             'hasReacted({"request":{"type":"UPVOTE"}})': !hasReacted
           };
         }
