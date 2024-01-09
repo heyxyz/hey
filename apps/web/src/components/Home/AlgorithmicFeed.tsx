@@ -59,6 +59,7 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
       if (!inView) {
         return;
       }
+
       if (publications.length !== displayedPublications.length) {
         setDisplayedPublications(publications);
       }

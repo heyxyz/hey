@@ -7,7 +7,7 @@ import { STAFF_FEATURE_ID } from '../constants';
 import validateLensAccount from './validateLensAccount';
 
 /**
- * Middleware to validate if the user is staff
+ * Middleware to validate if the profile is staff
  * @param request Incoming request
  * @returns Response
  */

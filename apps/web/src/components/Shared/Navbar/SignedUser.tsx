@@ -117,7 +117,8 @@ const SignedUser: FC = () => {
             >
               <Settings />
             </Menu.Item>
-            {isFeatureEnabled(FeatureFlag.Gardener) ? (
+            {isFeatureEnabled(FeatureFlag.Gardener) ||
+            isFeatureEnabled(FeatureFlag.TrustedProfile) ? (
               <Menu.Item
                 as={NextLink}
                 className={({ active }: { active: boolean }) =>

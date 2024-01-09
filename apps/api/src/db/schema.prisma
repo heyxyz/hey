@@ -7,11 +7,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Verified {
-  id        String   @id
-  createdAt DateTime @default(now())
-}
-
 model StaffPick {
   id        String        @id
   type      StaffPickType
@@ -33,17 +28,6 @@ model Preference {
   isPride                      Boolean  @default(false)
   highSignalNotificationFilter Boolean  @default(false)
   createdAt                    DateTime @default(now())
-}
-
-model ProfileRestriction {
-  id          String   @id
-  isFlagged   Boolean  @default(false)
-  isSuspended Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  // Indexes
-  @@index([isFlagged, isSuspended])
 }
 
 model MembershipNft {

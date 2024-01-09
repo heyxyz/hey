@@ -1,8 +1,8 @@
+import type { Preferences } from '@hey/types/hey';
 import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
-import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
 import validateIsOwnerOrStaff from '@utils/middlewares/validateIsOwnerOrStaff';
 import prisma from '@utils/prisma';
 import { noBody, notAllowed } from '@utils/responses';
@@ -19,7 +19,7 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const [preference, pro, features, membershipNft, restriction] =
+    const [preference, pro, features, membershipNft] =
       await prisma.$transaction([
         prisma.preference.findUnique({ where: { id: id as string } }),
         prisma.pro.findFirst({ where: { profileId: id as string } }),
@@ -31,32 +31,24 @@ export const get: Handler = async (req, res) => {
             profileId: id as string
           }
         }),
-        prisma.membershipNft.findUnique({ where: { id: id as string } }),
-        prisma.profileRestriction.findUnique({ where: { id: id as string } })
+        prisma.membershipNft.findUnique({ where: { id: id as string } })
       ]);
 
-    const response = {
+    const response: Preferences = {
       features: features.map((feature: any) => feature.feature?.key),
-      membershipNft: {
-        dismissedOrMinted: Boolean(membershipNft?.dismissedOrMinted)
-      },
-      preference,
-      pro: { enabled: Boolean(pro) },
-      restrictions: {
-        isFlagged: Boolean(restriction?.isFlagged),
-        isSuspended: Boolean(restriction?.isSuspended)
-      }
+      hasDismissedOrMintedMembershipNft: Boolean(
+        membershipNft?.dismissedOrMinted
+      ),
+      highSignalNotificationFilter: Boolean(
+        preference?.highSignalNotificationFilter
+      ),
+      isPride: Boolean(preference?.isPride),
+      isPro: Boolean(pro)
     };
 
     logger.info('Profile preferences fetched');
 
-    return res
-      .status(200)
-      .setHeader('Cache-Control', SWR_CACHE_AGE_1_MIN_30_DAYS)
-      .json({
-        result: response,
-        success: true
-      });
+    return res.status(200).json({ result: response, success: true });
   } catch (error) {
     return catchedError(res, error);
   }

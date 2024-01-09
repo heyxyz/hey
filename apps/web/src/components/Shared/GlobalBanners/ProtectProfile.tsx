@@ -78,8 +78,8 @@ const ProtectProfile: FC = () => {
 
   return (
     <div className="border-b border-red-300 bg-red-500/20">
-      <GridLayout className="!p-5">
-        <GridItemEight className="!mb-0 space-y-1">
+      <GridLayout>
+        <GridItemEight className="space-y-1">
           <div className="flex items-center space-x-2 text-red-700">
             <LockOpenIcon className="size-5" />
             <div className="text-base font-bold sm:text-lg">

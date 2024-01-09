@@ -1,0 +1,43 @@
+name: Cron Jobs
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+jobs:
+  cleanup-postgres:
+    name: Cleanup Postgres
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cleanup Postgres
+        uses: indiesdev/curl@v1.1
+        with:
+          url: https://api.hey.xyz/internal/cron/cleanPostgres
+          method: 'POST'
+          body: '{ "secret": "${{ secrets.SECRET }}" }'
+          headers: '{ "Content-Type": "application/json", "Referer": "https://hey.xyz" }'
+
+  cleanup-clickhouse:
+    name: Cleanup Clickhouse
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cleanup Clickhouse
+        uses: indiesdev/curl@v1.1
+        with:
+          url: https://api.hey.xyz/internal/cron/cleanClickhouse
+          method: 'POST'
+          body: '{ "secret": "${{ secrets.SECRET }}" }'
+          headers: '{ "Content-Type": "application/json", "Referer": "https://hey.xyz" }'
+
+  downgrade-profiles:
+    name: Downgrade Profiles
+    runs-on: ubuntu-latest
+    steps:
+      - name: Downgrade Profiles
+        uses: indiesdev/curl@v1.1
+        with:
+          url: https://api.hey.xyz/internal/cron/downgradePro
+          method: 'POST'
+          body: '{ "secret": "${{ secrets.SECRET }}" }'
+          headers: '{ "Content-Type": "application/json", "Referer": "https://hey.xyz" }'

@@ -14,14 +14,17 @@ import { Leafwatch } from '@lib/leafwatch';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 
-interface ModActionProps {
+interface GardenerActionsProps {
   className?: string;
   publicationId: string;
 }
 
-const ModAction: FC<ModActionProps> = ({ className = '', publicationId }) => {
-  const setShowModActionAlert = useGlobalAlertStateStore(
-    (state) => state.setShowModActionAlert
+const GardenerActions: FC<GardenerActionsProps> = ({
+  className = '',
+  publicationId
+}) => {
+  const setShowGardenerActionsAlert = useGlobalAlertStateStore(
+    (state) => state.setShowGardenerActionsAlert
   );
   const [createReport, { loading }] = useReportPublicationMutation();
 
@@ -44,9 +47,7 @@ const ModAction: FC<ModActionProps> = ({ className = '', publicationId }) => {
     };
 
     return await createReport({
-      onCompleted: () => {
-        setShowModActionAlert(false, null);
-      },
+      onCompleted: () => setShowGardenerActionsAlert(false, null),
       variables: { request }
     });
   };
@@ -134,4 +135,4 @@ const ModAction: FC<ModActionProps> = ({ className = '', publicationId }) => {
   );
 };
 
-export default ModAction;
+export default GardenerActions;

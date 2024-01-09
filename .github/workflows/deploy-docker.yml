@@ -5,11 +5,6 @@ on:
     branches: [main]
   workflow_dispatch:
 
-# Cancel previous runs of the same workflow on the same branch.
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   web:
     name: Web
@@ -21,10 +16,10 @@ jobs:
       - name: Build and push Web image 🚀
         uses: ./.github/actions/docker
         with:
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-          IMAGE_NAME: web
-          DOCKER_FILE: ./apps/web/Dockerfile
+          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+          image_name: web
+          docker_file: ./apps/web/Dockerfile
 
   api:
     name: API
@@ -36,21 +31,18 @@ jobs:
       - name: Build and push API image 🚀
         uses: ./.github/actions/docker
         with:
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-          IMAGE_NAME: api
-          DOCKER_FILE: ./apps/api/Dockerfile
+          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+          image_name: api
+          docker_file: ./apps/api/Dockerfile
 
       - name: Trigger API Deployment 🚀
-        env:
-          SECRET: ${{ secrets.SECRET }}
-          SERVICE_ID: '4a2a1bfb-e499-4c71-bf7f-d9ad47443c31'
-        run: |
-          curl -X POST \
-            -H "Content-Type: application/json" \
-            -H "Referer: https://hey.xyz" \
-            -d '{"secret": "'"$SECRET"'", "serviceId": "'"$SERVICE_ID"'"}' \
-            https://api.hey.xyz/internal/railway/triggerDeployments
+        uses: indiesdev/curl@v1.1
+        with:
+          url: https://api.hey.xyz/internal/railway/triggerDeployments
+          method: 'POST'
+          body: '{ "secret": "${{ secrets.SECRET }}", "serviceId": "4a2a1bfb-e499-4c71-bf7f-d9ad47443c31" }'
+          headers: '{ "Content-Type": "application/json", "Referer": "https://hey.xyz" }'
 
   og:
     name: OG
@@ -62,7 +54,7 @@ jobs:
       - name: Build and push OG image 🚀
         uses: ./.github/actions/docker
         with:
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-          IMAGE_NAME: og
-          DOCKER_FILE: ./apps/og/Dockerfile
+          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+          image_name: og
+          docker_file: ./apps/og/Dockerfile

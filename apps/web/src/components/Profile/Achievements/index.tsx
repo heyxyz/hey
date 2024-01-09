@@ -2,7 +2,7 @@ import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import getProfile from '@hey/lib/getProfile';
-import { useProStore } from 'src/store/non-persisted/useProStore';
+import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 
 import ProfileAnalytics from './ProfileAnalytics';
 import Streaks from './Streaks';
@@ -13,7 +13,7 @@ interface AchievementsProps {
 }
 
 const Achievements: FC<AchievementsProps> = ({ profile }) => {
-  const isPro = useProStore((state) => state.isPro);
+  const isPro = usePreferencesStore((state) => state.isPro);
 
   return (
     <div className="space-y-4">

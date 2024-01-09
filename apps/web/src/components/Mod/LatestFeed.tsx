@@ -19,7 +19,9 @@ import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { useEffect } from 'react';
 import { useInView } from 'react-cool-inview';
 
-interface FeedProps {
+import Actions from './Actions';
+
+interface LatestFeedProps {
   apps: null | string[];
   customFilters: CustomFiltersType[];
   mainContentFocus: PublicationMetadataMainFocusType[];
@@ -28,7 +30,7 @@ interface FeedProps {
   setRefreshing: (refreshing: boolean) => void;
 }
 
-const Feed: FC<FeedProps> = ({
+const LatestFeed: FC<LatestFeedProps> = ({
   apps,
   customFilters,
   mainContentFocus,
@@ -95,21 +97,22 @@ const Feed: FC<FeedProps> = ({
   }
 
   return (
-    <Card className="divide-y-[1px] dark:divide-gray-700">
+    <div className="space-y-5">
       {publications?.map((publication, index) => (
-        <SinglePublication
-          isFirst={index === 0}
-          isLast={index === publications.length - 1}
-          key={`${publication.id}_${index}`}
-          publication={publication as AnyPublication}
-          showActions={false}
-          showModActions
-          showThread={false}
-        />
+        <Card key={`${publication.id}_${index}`}>
+          <SinglePublication
+            isFirst
+            isLast={false}
+            publication={publication as AnyPublication}
+            showActions={false}
+            showThread={false}
+          />
+          <Actions publicationId={publication.id} />
+        </Card>
       ))}
       {hasMore ? <span ref={observe} /> : null}
-    </Card>
+    </div>
   );
 };
 
-export default Feed;
+export default LatestFeed;
