@@ -15,7 +15,7 @@ import { APP_NAME, HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
 import getPreferences from '@hey/lib/api/getPreferences';
 import formatAddress from '@hey/lib/formatAddress';
 import getFollowModule from '@hey/lib/getFollowModule';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Link from 'next/link';
@@ -50,7 +50,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
   });
 
   const { data: preferences } = useQuery({
-    queryFn: () => getPreferences(profile.id, getAuthWorkerHeaders()),
+    queryFn: () => getPreferences(profile.id, getAuthApiHeaders()),
     queryKey: ['fetchPreferences', profile.id || '']
   });
 

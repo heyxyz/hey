@@ -5,7 +5,7 @@ import Loader from '@components/Shared/Loader';
 import { HEY_API_URL } from '@hey/data/constants';
 import getAllFeatureFlags from '@hey/lib/api/getAllFeatureFlags';
 import { Toggle } from '@hey/ui';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
@@ -27,7 +27,7 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
   const [updating, setUpdating] = useState(false);
 
   const { data: allFeatureFlags, isLoading } = useQuery({
-    queryFn: () => getAllFeatureFlags(getAuthWorkerHeaders()),
+    queryFn: () => getAllFeatureFlags(getAuthApiHeaders()),
     queryKey: ['getAllFeatureFlags']
   });
 
@@ -47,7 +47,7 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
       axios.post(
         `${HEY_API_URL}/internal/features/assign`,
         { enabled, id, profile_id: profileId },
-        { headers: getAuthWorkerHeaders() }
+        { headers: getAuthApiHeaders() }
       ),
       {
         error: () => {

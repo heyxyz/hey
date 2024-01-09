@@ -6,7 +6,7 @@ import { HEY_API_URL } from '@hey/data/constants';
 import { GARDENER } from '@hey/data/tracking';
 import getPreferences from '@hey/lib/api/getPreferences';
 import cn from '@hey/ui/cn';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
@@ -29,13 +29,13 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
       axios.post(
         `${HEY_API_URL}/internal/features/gardenerMode`,
         { enabled: !gardenerMode },
-        { headers: getAuthWorkerHeaders() }
+        { headers: getAuthApiHeaders() }
       ),
       {
         error: 'Failed to toggle gardener mode!',
         loading: 'Toggling gardener mode...',
         success: () => {
-          getPreferences(currentProfile?.id, getAuthWorkerHeaders());
+          getPreferences(currentProfile?.id, getAuthApiHeaders());
           setGardenerMode(!gardenerMode);
           Leafwatch.track(GARDENER.TOGGLE_MODE);
 

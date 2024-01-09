@@ -8,7 +8,7 @@ import {
 } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button } from '@hey/ui';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import axios from 'axios';
 import { type FC, useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -46,7 +46,7 @@ const TrustedProfilesActions: FC<TrustedProfilesActionsProps> = ({
       return await axios.post(
         `${HEY_API_URL}/trusted/report`,
         { id: publicationId, reason },
-        { headers: getAuthWorkerHeaders() }
+        { headers: getAuthApiHeaders() }
       );
     } finally {
       setDisabled(false);

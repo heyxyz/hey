@@ -5,7 +5,7 @@ import { SwatchIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
 import getPreferences from '@hey/lib/api/getPreferences';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { useState } from 'react';
@@ -28,7 +28,7 @@ const HighSignalNotificationFilter: FC = () => {
       axios.post(
         `${HEY_API_URL}/preferences/update`,
         { highSignalNotificationFilter: !highSignalNotificationFilter },
-        { headers: getAuthWorkerHeaders() }
+        { headers: getAuthApiHeaders() }
       ),
       {
         error: () => {
@@ -37,7 +37,7 @@ const HighSignalNotificationFilter: FC = () => {
         },
         loading: 'Updating preference settings...',
         success: () => {
-          getPreferences(currentProfile?.id, getAuthWorkerHeaders());
+          getPreferences(currentProfile?.id, getAuthApiHeaders());
           setUpdating(false);
           setHighSignalNotificationFilter(!highSignalNotificationFilter);
           Leafwatch.track(

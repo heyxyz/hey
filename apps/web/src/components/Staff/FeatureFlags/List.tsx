@@ -11,7 +11,7 @@ import { HEY_API_URL } from '@hey/data/constants';
 import getAllFeatureFlags from '@hey/lib/api/getAllFeatureFlags';
 import formatDate from '@hey/lib/datetime/formatDate';
 import { Badge, Button, Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
@@ -26,7 +26,7 @@ const List: FC = () => {
 
   const { error, isLoading } = useQuery({
     queryFn: () =>
-      getAllFeatureFlags(getAuthWorkerHeaders(), (features) =>
+      getAllFeatureFlags(getAuthApiHeaders(), (features) =>
         setFeatures(features)
       ),
     queryKey: ['getAllFeatureFlags']
@@ -38,7 +38,7 @@ const List: FC = () => {
       axios.post(
         `${HEY_API_URL}/internal/features/kill`,
         { enabled, id },
-        { headers: getAuthWorkerHeaders() }
+        { headers: getAuthApiHeaders() }
       ),
       {
         error: () => {
@@ -64,7 +64,7 @@ const List: FC = () => {
       axios.post(
         `${HEY_API_URL}/internal/features/delete`,
         { id },
-        { headers: getAuthWorkerHeaders() }
+        { headers: getAuthApiHeaders() }
       ),
       {
         error: 'Failed to delete feature flag',
