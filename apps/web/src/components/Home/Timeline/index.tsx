@@ -13,15 +13,11 @@ import { useInView } from 'react-cool-inview';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
 import { useTimelineStore } from 'src/store/non-persisted/useTimelineStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useTimelineFilterStore } from 'src/store/persisted/useTimelineFilterStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 
 const Timeline: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const txnQueue = useTransactionStore((state) => state.txnQueue);
-  const feedEventFilters = useTimelineFilterStore(
-    (state) => state.feedEventFilters
-  );
   const seeThroughProfile = useTimelineStore(
     (state) => state.seeThroughProfile
   );
@@ -29,27 +25,17 @@ const Timeline: FC = () => {
     (state) => state.fetchAndStoreViews
   );
 
-  const getFeedEventItems = () => {
-    const filters: FeedEventItemType[] = [];
-    if (feedEventFilters.posts) {
-      filters.push(FeedEventItemType.Post, FeedEventItemType.Comment);
-    }
-    if (feedEventFilters.collects) {
-      filters.push(FeedEventItemType.Collect, FeedEventItemType.Comment);
-    }
-    if (feedEventFilters.mirrors) {
-      filters.push(FeedEventItemType.Mirror);
-    }
-    if (feedEventFilters.likes) {
-      filters.push(FeedEventItemType.Reaction, FeedEventItemType.Comment);
-    }
-    return filters;
-  };
-
   // Variables
   const request: FeedRequest = {
     where: {
-      feedEventItemTypes: getFeedEventItems(),
+      feedEventItemTypes: [
+        FeedEventItemType.Acted,
+        FeedEventItemType.Collect,
+        FeedEventItemType.Mirror,
+        FeedEventItemType.Post,
+        FeedEventItemType.Quote,
+        FeedEventItemType.Reaction
+      ],
       for: seeThroughProfile?.id || currentProfile?.id
     }
   };
@@ -58,11 +44,7 @@ const Timeline: FC = () => {
     onCompleted: async ({ feed }) => {
       const ids =
         feed?.items?.flatMap((p) => {
-          return [
-            p.root.id,
-            p.comments?.[0]?.id,
-            p.root.__typename === 'Comment' && p.root.commentOn?.id
-          ].filter((id) => id);
+          return [p.root.id].filter((id) => id);
         }) || [];
       await fetchAndStoreViews(ids);
     },
@@ -84,11 +66,7 @@ const Timeline: FC = () => {
       });
       const ids =
         data.feed?.items?.flatMap((p) => {
-          return [
-            p.root.id,
-            p.comments?.[0]?.id,
-            p.root.__typename === 'Comment' && p.root.commentOn?.id
-          ].filter((id) => id);
+          return [p.root.id].filter((id) => id);
         }) || [];
       await fetchAndStoreViews(ids);
     }

@@ -14,7 +14,6 @@ import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 
 import Algorithms from './Algorithms';
-import FeedEventFilters from './FeedEventFilters';
 import SeeThroughLens from './SeeThroughLens';
 
 interface FeedTypeProps {
@@ -61,7 +60,6 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
         feedType === HomeFeedType.HIGHLIGHTS ? (
           <SeeThroughLens />
         ) : null}
-        {feedType === HomeFeedType.FOLLOWING ? <FeedEventFilters /> : null}
         {IS_MAINNET ? <Algorithms /> : null}
       </div>
     </div>

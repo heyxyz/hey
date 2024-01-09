@@ -37,12 +37,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   showThread = true,
   showType = true
 }) => {
-  const firstComment = feedItem?.comments?.[0];
-  const rootPublication = feedItem
-    ? firstComment
-      ? firstComment
-      : feedItem?.root
-    : publication;
+  const rootPublication = feedItem ? feedItem?.root : publication;
   const { metadata } = isMirrorPublication(publication)
     ? publication.mirrorOn
     : publication;

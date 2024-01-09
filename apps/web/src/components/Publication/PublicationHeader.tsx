@@ -34,12 +34,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
-  const firstComment = feedItem?.comments?.[0];
-  const rootPublication = feedItem
-    ? firstComment
-      ? firstComment
-      : feedItem?.root
-    : targetPublication;
+  const rootPublication = feedItem ? feedItem?.root : targetPublication;
   const profile = feedItem ? rootPublication.by : targetPublication.by;
   const timestamp = feedItem
     ? rootPublication.createdAt
