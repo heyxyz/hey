@@ -24,7 +24,8 @@ const Oembed: FC<OembedProps> = ({ className = '', publicationId, url }) => {
       });
       return response.data.oembed;
     },
-    queryKey: ['oembed', url]
+    queryKey: ['oembed', url],
+    refetchOnMount: false
   });
 
   if (isLoading || error || !data) {
