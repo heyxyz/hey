@@ -1,7 +1,12 @@
 import type { ReportPublicationRequest } from '@hey/lens';
 import type { FC, ReactNode } from 'react';
 
-import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
+import {
+  BanknotesIcon,
+  DocumentTextIcon,
+  HandThumbUpIcon
+} from '@heroicons/react/24/outline';
+import { HEY_API_URL } from '@hey/data/constants';
 import { GARDENER } from '@hey/data/tracking';
 import {
   PublicationReportingSpamSubreason,
@@ -11,15 +16,18 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
+import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 
 interface GardenerActionsProps {
+  ableToRemoveReport?: boolean;
   className?: string;
   publicationId: string;
 }
 
 const GardenerActions: FC<GardenerActionsProps> = ({
+  ableToRemoveReport = false,
   className = '',
   publicationId
 }) => {
@@ -27,6 +35,20 @@ const GardenerActions: FC<GardenerActionsProps> = ({
     (state) => state.setShowGardenerActionsAlert
   );
   const [createReport, { loading }] = useReportPublicationMutation();
+
+  const removeTrustedReport = async (id: string) => {
+    const removeReport = async () => {
+      return await axios.post(`${HEY_API_URL}/trusted/removeReport`, {
+        id
+      });
+    };
+
+    toast.promise(removeReport(), {
+      error: 'Error removing trusted reports',
+      loading: 'Removing trusted reports...',
+      success: 'Trusted reports removed successfully'
+    });
+  };
 
   const reportPublication = async ({
     subreason,
@@ -45,6 +67,10 @@ const GardenerActions: FC<GardenerActionsProps> = ({
         }
       }
     };
+
+    if (ableToRemoveReport) {
+      await removeTrustedReport(publicationId);
+    }
 
     return await createReport({
       onCompleted: () => setShowGardenerActionsAlert(false, null),
@@ -131,6 +157,17 @@ const GardenerActions: FC<GardenerActionsProps> = ({
         icon={<BanknotesIcon className="size-4" />}
         label="Poor content & Stop Sponsor"
       />
+      {ableToRemoveReport && (
+        <Button
+          icon={<HandThumbUpIcon className="size-4" />}
+          onClick={() => removeTrustedReport(publicationId)}
+          outline
+          size="sm"
+          variant="secondary"
+        >
+          Looks good
+        </Button>
+      )}
     </span>
   );
 };
