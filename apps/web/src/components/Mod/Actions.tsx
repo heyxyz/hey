@@ -4,6 +4,8 @@ import GardenerActions from '@components/Publication/Actions/GardenerActions';
 import TrustedProfilesActions from '@components/Publication/Actions/TrustedProfilesActions';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
+import TrustedReportDetails from './TrustedReportDetails';
+
 interface ActionsProps {
   hideTrustedReport?: boolean;
   publicationId: string;
@@ -21,13 +23,16 @@ const Actions: FC<ActionsProps> = ({
       {gardenerMode && (
         <>
           <div className="divider" />
-          <div className="m-5">
+          <div className="m-5 space-y-2">
             <b>Gardener actions</b>
             <GardenerActions
               className="mt-3 max-w-md"
               publicationId={publicationId}
             />
           </div>
+          {hideTrustedReport && (
+            <TrustedReportDetails publicationId={publicationId} />
+          )}
         </>
       )}
       {trusted && !hideTrustedReport && (
