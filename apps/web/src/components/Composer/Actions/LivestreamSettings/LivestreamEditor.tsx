@@ -10,7 +10,7 @@ import {
 import { XCircleIcon } from '@heroicons/react/24/solid';
 import { HEY_API_URL } from '@hey/data/constants';
 import { Card, Spinner, Tooltip } from '@hey/ui';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -51,7 +51,7 @@ const LivestreamEditor: FC = () => {
       const response = await axios.post(
         `${HEY_API_URL}/live/create`,
         { record },
-        { headers: getAuthWorkerHeaders() }
+        { headers: getAuthApiHeaders() }
       );
       const { data } = response;
       setLiveVideoConfig({

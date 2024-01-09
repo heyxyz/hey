@@ -6,7 +6,7 @@ import { HEY_API_URL } from '@hey/data/constants';
 import { STAFFTOOLS } from '@hey/data/tracking';
 import getPreferences from '@hey/lib/api/getPreferences';
 import cn from '@hey/ui/cn';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
@@ -27,13 +27,13 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
       axios.post(
         `${HEY_API_URL}/internal/features/staffMode`,
         { enabled: !staffMode },
-        { headers: getAuthWorkerHeaders() }
+        { headers: getAuthApiHeaders() }
       ),
       {
         error: 'Failed to toggle staff mode!',
         loading: 'Toggling staff mode...',
         success: () => {
-          getPreferences(currentProfile?.id, getAuthWorkerHeaders());
+          getPreferences(currentProfile?.id, getAuthApiHeaders());
           setStaffMode(!staffMode);
           Leafwatch.track(STAFFTOOLS.TOGGLE_MODE);
 
