@@ -2,14 +2,14 @@ import { IS_MAINNET } from '@hey/data/constants';
 import { hydrateAuthTokens } from 'src/store/persisted/useAuthStore';
 
 /**
- * Get auth worker headers
- * @returns Auth worker headers
+ * Get auth api headers
+ * @returns Auth api headers
  */
-const getAuthWorkerHeaders = () => {
+const getAuthApiHeaders = () => {
   return {
     'X-Access-Token': hydrateAuthTokens().accessToken,
     'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
   };
 };
 
-export default getAuthWorkerHeaders;
+export default getAuthApiHeaders;

@@ -6,7 +6,7 @@ import { CurrencyDollarIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import getAllTokens from '@hey/lib/api/getAllTokens';
 import { Button, Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
@@ -28,7 +28,7 @@ const List: FC = () => {
       axios.post(
         `${HEY_API_URL}/internal/tokens/delete`,
         { id },
-        { headers: getAuthWorkerHeaders() }
+        { headers: getAuthApiHeaders() }
       ),
       {
         error: 'Failed to delete token',

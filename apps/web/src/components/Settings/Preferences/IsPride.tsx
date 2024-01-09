@@ -4,7 +4,7 @@ import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { APP_NAME, HEY_API_URL } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
 import getPreferences from '@hey/lib/api/getPreferences';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { useState } from 'react';
@@ -24,7 +24,7 @@ const IsPride: FC = () => {
       axios.post(
         `${HEY_API_URL}/preferences/update`,
         { isPride: !isPride },
-        { headers: getAuthWorkerHeaders() }
+        { headers: getAuthApiHeaders() }
       ),
       {
         error: () => {
@@ -33,7 +33,7 @@ const IsPride: FC = () => {
         },
         loading: 'Updating pride preference...',
         success: () => {
-          getPreferences(currentProfile?.id, getAuthWorkerHeaders());
+          getPreferences(currentProfile?.id, getAuthApiHeaders());
           setUpdating(false);
           setIsPride(!isPride);
           Leafwatch.track(SETTINGS.PREFERENCES.TOGGLE_IS_PRIDE, {

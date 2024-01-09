@@ -5,7 +5,7 @@ import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL, ZERO_PUBLICATION_ID } from '@hey/data/constants';
 import { MISCELLANEOUS, PUBLICATION } from '@hey/data/tracking';
 import { Button, Card, Modal } from '@hey/ui';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { memo, useState } from 'react';
@@ -35,7 +35,7 @@ const HeyMembershipNft: FC = () => {
     try {
       toast.promise(
         axios.post(`${HEY_API_URL}/preferences/updateNftStatus`, undefined, {
-          headers: getAuthWorkerHeaders()
+          headers: getAuthApiHeaders()
         }),
         {
           error: 'Error updating.',

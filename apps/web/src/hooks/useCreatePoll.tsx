@@ -1,5 +1,5 @@
 import { HEY_API_URL } from '@hey/data/constants';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import axios from 'axios';
 import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
 
@@ -16,7 +16,7 @@ const useCreatePoll = () => {
         length: pollConfig.length,
         options: pollConfig.options
       },
-      { headers: getAuthWorkerHeaders() }
+      { headers: getAuthApiHeaders() }
     );
 
     return response.data.poll.id;
