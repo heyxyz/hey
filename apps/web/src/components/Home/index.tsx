@@ -52,7 +52,7 @@ const Home: NextPage = () => {
                 <Timeline />
               ) : feedType === HomeFeedType.HIGHLIGHTS ? (
                 <Highlights />
-              ) : feedType === HomeFeedType.PAID_ACTIONS ? (
+              ) : feedType === HomeFeedType.PREMIUM ? (
                 <PaidActions />
               ) : (
                 <AlgorithmicFeed feedType={feedType} />
