@@ -1,7 +1,7 @@
 import type { Preferences } from '@hey/types/hey';
 
 import { TEST_LENS_ID } from '@hey/data/constants';
-import getAuthWorkerHeadersForTest from '@hey/lib/getAuthWorkerHeadersForTest';
+import getAuthApiHeadersForTest from '@hey/lib/getAuthApiHeadersForTest';
 import { TEST_URL } from '@utils/constants';
 import axios from 'axios';
 import { describe, expect, test } from 'vitest';
@@ -11,7 +11,7 @@ describe('preferences/get', () => {
     const response: {
       data: { result: Preferences };
     } = await axios.get(`${TEST_URL}/preferences/get`, {
-      headers: await getAuthWorkerHeadersForTest(),
+      headers: await getAuthApiHeadersForTest(),
       params: { id: TEST_LENS_ID }
     });
 

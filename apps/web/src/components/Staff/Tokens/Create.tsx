@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import { HEY_API_URL } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
 import { Button, Form, Input, useZodForm } from '@hey/ui';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -44,7 +44,7 @@ const Create: FC<CreateProps> = ({ setShowCreateModal, setTokens, tokens }) => {
       axios.post(
         `${HEY_API_URL}/internal/tokens/create`,
         { contractAddress, decimals: parseInt(decimals), name, symbol },
-        { headers: getAuthWorkerHeaders() }
+        { headers: getAuthApiHeaders() }
       ),
       {
         error: () => {

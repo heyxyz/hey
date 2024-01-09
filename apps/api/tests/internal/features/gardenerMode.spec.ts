@@ -1,4 +1,4 @@
-import getAuthWorkerHeadersForTest from '@hey/lib/getAuthWorkerHeadersForTest';
+import getAuthApiHeadersForTest from '@hey/lib/getAuthApiHeadersForTest';
 import { TEST_URL } from '@utils/constants';
 import axios from 'axios';
 import { describe, expect, test } from 'vitest';
@@ -8,7 +8,7 @@ describe('internal/features/gardenerMode', () => {
     const response = await axios.post(
       `${TEST_URL}/internal/features/gardenerMode`,
       { enabled: true },
-      { headers: await getAuthWorkerHeadersForTest() }
+      { headers: await getAuthApiHeadersForTest() }
     );
 
     expect(response.data.enabled).toBeTruthy();
@@ -18,7 +18,7 @@ describe('internal/features/gardenerMode', () => {
     const response = await axios.post(
       `${TEST_URL}/internal/features/gardenerMode`,
       { enabled: false },
-      { headers: await getAuthWorkerHeadersForTest() }
+      { headers: await getAuthApiHeadersForTest() }
     );
 
     expect(response.data.enabled).toBeFalsy();

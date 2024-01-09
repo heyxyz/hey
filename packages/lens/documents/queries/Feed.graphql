@@ -7,7 +7,7 @@ query Feed($request: FeedRequest!) {
           ...PostFields
         }
         ... on Comment {
-          ...CommentFields
+          id
         }
         ... on Quote {
           ...QuoteFields
@@ -27,9 +27,6 @@ query Feed($request: FeedRequest!) {
         by {
           ...PublicationProfileFields
         }
-      }
-      comments {
-        ...CommentBaseFields
       }
     }
     pageInfo {

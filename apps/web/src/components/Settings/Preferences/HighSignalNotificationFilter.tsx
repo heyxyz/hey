@@ -4,17 +4,14 @@ import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { SwatchIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
-import getPreferences from '@hey/lib/api/getPreferences';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
 
 const HighSignalNotificationFilter: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
   const highSignalNotificationFilter = usePreferencesStore(
     (state) => state.highSignalNotificationFilter
   );
@@ -28,7 +25,7 @@ const HighSignalNotificationFilter: FC = () => {
       axios.post(
         `${HEY_API_URL}/preferences/update`,
         { highSignalNotificationFilter: !highSignalNotificationFilter },
-        { headers: getAuthWorkerHeaders() }
+        { headers: getAuthApiHeaders() }
       ),
       {
         error: () => {
@@ -37,7 +34,6 @@ const HighSignalNotificationFilter: FC = () => {
         },
         loading: 'Updating preference settings...',
         success: () => {
-          getPreferences(currentProfile?.id, getAuthWorkerHeaders());
           setUpdating(false);
           setHighSignalNotificationFilter(!highSignalNotificationFilter);
           Leafwatch.track(

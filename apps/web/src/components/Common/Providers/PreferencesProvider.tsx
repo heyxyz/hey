@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import { HEY_API_URL } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import getPreferences from '@hey/lib/api/getPreferences';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import getCurrentSession from '@lib/getCurrentSession';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -42,7 +42,7 @@ const PreferencesProvider: FC = () => {
       if (Boolean(sessionProfileId) && !isAddress(sessionProfileId)) {
         const preferences = await getPreferences(
           sessionProfileId,
-          getAuthWorkerHeaders()
+          getAuthApiHeaders()
         );
 
         // Profile preferences

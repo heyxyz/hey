@@ -1,4 +1,4 @@
-import getAuthWorkerHeadersForTest from '@hey/lib/getAuthWorkerHeadersForTest';
+import getAuthApiHeadersForTest from '@hey/lib/getAuthApiHeadersForTest';
 import { TEST_URL } from '@utils/constants';
 import axios from 'axios';
 import { describe, expect, test } from 'vitest';
@@ -8,7 +8,7 @@ describe('preferences/update', () => {
     const response = await axios.post(
       `${TEST_URL}/preferences/update`,
       { highSignalNotificationFilter: true, isPride: true },
-      { headers: await getAuthWorkerHeadersForTest() }
+      { headers: await getAuthApiHeadersForTest() }
     );
 
     expect(response.data.result.highSignalNotificationFilter).toBeTruthy();
