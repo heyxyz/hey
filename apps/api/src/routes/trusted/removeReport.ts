@@ -3,7 +3,8 @@ import type { Handler } from 'express';
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import createClickhouseClient from '@utils/createClickhouseClient';
-import { invalidBody, noBody } from '@utils/responses';
+import validateIsGardener from '@utils/middlewares/validateIsGardener';
+import { invalidBody, noBody, notAllowed } from '@utils/responses';
 import { object, string } from 'zod';
 
 type ExtensionRequest = {
@@ -25,6 +26,10 @@ export const post: Handler = async (req, res) => {
 
   if (!validation.success) {
     return invalidBody(res);
+  }
+
+  if (!(await validateIsGardener(req))) {
+    return notAllowed(res);
   }
 
   const { id } = body as ExtensionRequest;
