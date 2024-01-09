@@ -28,7 +28,7 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { CHAIN_ID } from 'src/constants';
+import { CHAIN } from 'src/constants';
 import { signIn } from 'src/store/persisted/useAuthStore';
 import {
   useAccount,
@@ -138,7 +138,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   return activeConnector?.id ? (
     <div className="space-y-3">
       <div className="space-y-2.5">
-        {chain === CHAIN_ID ? (
+        {chain === CHAIN.id ? (
           profilesManagedLoading ? (
             <Card className="w-full dark:divide-gray-700" forceRounded>
               <div className="space-y-2 p-4 text-center text-sm font-bold">
@@ -192,7 +192,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
             </div>
           )
         ) : (
-          <SwitchNetwork toChainId={CHAIN_ID} />
+          <SwitchNetwork toChainId={CHAIN.id} />
         )}
         {!IS_MAINNET && (
           <button
