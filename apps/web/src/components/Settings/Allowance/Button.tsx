@@ -14,6 +14,7 @@ import getAllowanceModule from '@lib/getAllowanceModule';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useUpdateEffect } from 'usehooks-ts';
 import { useSendTransaction, useWaitForTransactionReceipt } from 'wagmi';
 
@@ -33,6 +34,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [generateModuleCurrencyApprovalData, { loading: queryLoading }] =
     useGenerateModuleCurrencyApprovalDataLazyQuery();
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const onError = (error: any) => {
     errorToast(error);
@@ -78,6 +80,10 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
     value: string,
     selectedModule: string
   ) => {
+    if (handleWrongNetwork()) {
+      return;
+    }
+
     generateModuleCurrencyApprovalData({
       variables: {
         request: {
@@ -143,6 +149,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
             title="Handle with care!"
           />
           <Button
+            disabled={queryLoading || transactionLoading || waitLoading}
             icon={
               queryLoading || transactionLoading || waitLoading ? (
                 <Spinner size="xs" />
