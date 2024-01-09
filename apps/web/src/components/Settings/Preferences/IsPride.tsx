@@ -3,17 +3,14 @@ import type { FC } from 'react';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { APP_NAME, HEY_API_URL } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
-import getPreferences from '@hey/lib/api/getPreferences';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
 
 const IsPride: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
   const isPride = usePreferencesStore((state) => state.isPride);
   const setIsPride = usePreferencesStore((state) => state.setIsPride);
   const [updating, setUpdating] = useState(false);
@@ -33,7 +30,6 @@ const IsPride: FC = () => {
         },
         loading: 'Updating pride preference...',
         success: () => {
-          getPreferences(currentProfile?.id, getAuthApiHeaders());
           setUpdating(false);
           setIsPride(!isPride);
           Leafwatch.track(SETTINGS.PREFERENCES.TOGGLE_IS_PRIDE, {
