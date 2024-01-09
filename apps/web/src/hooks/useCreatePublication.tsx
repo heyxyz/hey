@@ -37,7 +37,7 @@ import { usePublicationStore } from 'src/store/non-persisted/publication/usePubl
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
-import { useContractWrite, useSignTypedData } from 'wagmi';
+import { useSignTypedData, useWriteContract } from 'wagmi';
 
 interface CreatePublicationProps {
   commentOn?: AnyPublication;
@@ -108,27 +108,32 @@ const useCreatePublication = ({
     }
   });
 
-  const { signTypedDataAsync } = useSignTypedData({
-    onError
-  });
-
-  const { error, write } = useContractWrite({
-    abi: LensHub,
-    address: LENSHUB_PROXY,
-    functionName: isComment ? 'comment' : isQuote ? 'quote' : 'post',
-    onError: (error) => {
-      onError(error);
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
-    },
-    onSuccess: ({ hash }) => {
-      onCompleted();
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
-      setTxnQueue([
-        generateOptimisticPublication({ txHash: hash }),
-        ...txnQueue
-      ]);
+  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
+  const { error, writeContract } = useWriteContract({
+    mutation: {
+      onError: (error) => {
+        onError(error);
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+      },
+      onSuccess: (hash) => {
+        onCompleted();
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+        setTxnQueue([
+          generateOptimisticPublication({ txHash: hash }),
+          ...txnQueue
+        ]);
+      }
     }
   });
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      abi: LensHub,
+      address: LENSHUB_PROXY,
+      args,
+      functionName: isComment ? 'comment' : isQuote ? 'quote' : 'post'
+    });
+  };
 
   const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
     onCompleted: ({ broadcastOnMomoka }) => {

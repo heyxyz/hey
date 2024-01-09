@@ -1,10 +1,7 @@
 import type { FC, ReactNode } from 'react';
 
 import { APP_NAME, WALLETCONNECT_PROJECT_ID } from '@hey/data/constants';
-import { CoinbaseWalletConnector } from '@wagmi/connectors/coinbaseWallet';
-import { InjectedConnector } from '@wagmi/connectors/injected';
-import { WalletConnectConnector } from '@wagmi/connectors/walletConnect';
-import { configureChains, createConfig, WagmiConfig } from 'wagmi';
+import { createConfig, http, WagmiProvider } from 'wagmi';
 import {
   base,
   baseGoerli,
@@ -17,37 +14,40 @@ import {
   zora,
   zoraTestnet
 } from 'wagmi/chains';
-import { publicProvider } from 'wagmi/providers/public';
+import { coinbaseWallet, injected, walletConnect } from 'wagmi/connectors';
 
-const { chains, publicClient } = configureChains(
-  [
-    polygon,
-    polygonMumbai,
-    mainnet,
-    goerli,
-    zora,
-    zoraTestnet,
-    optimism,
-    optimismGoerli,
-    base,
-    baseGoerli
-  ],
-  [publicProvider()]
-);
-
-const connectors: any = [
-  new InjectedConnector({ chains, options: { shimDisconnect: true } }),
-  new CoinbaseWalletConnector({ options: { appName: APP_NAME } }),
-  new WalletConnectConnector({
-    chains,
-    options: { projectId: WALLETCONNECT_PROJECT_ID }
-  })
+const connectors = [
+  injected(),
+  coinbaseWallet({ appName: APP_NAME }),
+  walletConnect({ projectId: WALLETCONNECT_PROJECT_ID })
 ];
 
 const wagmiConfig = createConfig({
-  autoConnect: true,
+  chains: [
+    base,
+    baseGoerli,
+    goerli,
+    mainnet,
+    optimism,
+    optimismGoerli,
+    polygon,
+    polygonMumbai,
+    zora,
+    zoraTestnet
+  ],
   connectors,
-  publicClient
+  transports: {
+    [base.id]: http(),
+    [baseGoerli.id]: http(),
+    [goerli.id]: http(),
+    [mainnet.id]: http(),
+    [optimism.id]: http(),
+    [optimismGoerli.id]: http(),
+    [polygon.id]: http(),
+    [polygonMumbai.id]: http(),
+    [zora.id]: http(),
+    [zoraTestnet.id]: http()
+  }
 });
 
 interface Web3ProviderProps {
@@ -55,7 +55,7 @@ interface Web3ProviderProps {
 }
 
 const Web3Provider: FC<Web3ProviderProps> = ({ children }) => {
-  return <WagmiConfig config={wagmiConfig}>{children}</WagmiConfig>;
+  return <WagmiProvider config={wagmiConfig}>{children}</WagmiProvider>;
 };
 
 export default Web3Provider;

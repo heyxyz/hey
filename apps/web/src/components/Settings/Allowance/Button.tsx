@@ -14,7 +14,9 @@ import getAllowanceModule from '@lib/getAllowanceModule';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useSendTransaction, useWaitForTransaction } from 'wagmi';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
+import { useUpdateEffect } from 'usehooks-ts';
+import { useSendTransaction, useWaitForTransactionReceipt } from 'wagmi';
 
 interface AllowanceButtonProps {
   allowed: boolean;
@@ -32,23 +34,28 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [generateModuleCurrencyApprovalData, { loading: queryLoading }] =
     useGenerateModuleCurrencyApprovalDataLazyQuery();
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const onError = (error: any) => {
     errorToast(error);
   };
 
   const {
-    data: txData,
-    isLoading: transactionLoading,
+    data: txHash,
+    isPending: transactionLoading,
     sendTransaction
   } = useSendTransaction({
-    onError
+    mutation: { onError }
   });
 
-  const { isLoading: waitLoading } = useWaitForTransaction({
-    hash: txData?.hash,
-    onError,
-    onSuccess: () => {
+  const {
+    error,
+    isLoading: waitLoading,
+    isSuccess
+  } = useWaitForTransactionReceipt({ hash: txHash });
+
+  useUpdateEffect(() => {
+    if (isSuccess) {
       toast.success(
         allowed
           ? 'Module disabled successfully!'
@@ -62,13 +69,21 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
         module: module.moduleName
       });
     }
-  });
+
+    if (error) {
+      onError(error);
+    }
+  }, [isSuccess, error]);
 
   const handleAllowance = (
     contract: string,
     value: string,
     selectedModule: string
   ) => {
+    if (handleWrongNetwork()) {
+      return;
+    }
+
     generateModuleCurrencyApprovalData({
       variables: {
         request: {
@@ -134,6 +149,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
             title="Handle with care!"
           />
           <Button
+            disabled={queryLoading || transactionLoading || waitLoading}
             icon={
               queryLoading || transactionLoading || waitLoading ? (
                 <Spinner size="xs" />
