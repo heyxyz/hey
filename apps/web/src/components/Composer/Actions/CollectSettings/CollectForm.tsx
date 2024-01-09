@@ -87,7 +87,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
       <div className="p-5">
         <ToggleWithHelper
           description="This post can be collected"
-          heading="Collect settings"
+          heading="Enable Collect"
           on={collectModule.type !== null}
           setOn={toggleCollect}
         />
