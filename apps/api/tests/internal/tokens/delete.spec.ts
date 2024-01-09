@@ -1,4 +1,4 @@
-import getAuthWorkerHeadersForTest from '@hey/lib/getAuthWorkerHeadersForTest';
+import getAuthApiHeadersForTest from '@hey/lib/getAuthApiHeadersForTest';
 import { TEST_URL } from '@utils/constants';
 import axios from 'axios';
 import { describe, expect, test } from 'vitest';
@@ -22,13 +22,13 @@ describe('internal/tokens/delete', async () => {
         name: 'Wrapped Matic',
         symbol: 'WMATIC'
       },
-      { headers: await getAuthWorkerHeadersForTest() }
+      { headers: await getAuthApiHeadersForTest() }
     );
 
     const response = await axios.post(
       `${TEST_URL}/internal/tokens/delete`,
       { id: newTokenResponse.data.token.id },
-      { headers: await getAuthWorkerHeadersForTest() }
+      { headers: await getAuthApiHeadersForTest() }
     );
 
     expect(response.data.success).toBeTruthy();

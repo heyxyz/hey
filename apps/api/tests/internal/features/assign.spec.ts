@@ -1,5 +1,5 @@
 import { TEST_LENS_ID } from '@hey/data/constants';
-import getAuthWorkerHeadersForTest from '@hey/lib/getAuthWorkerHeadersForTest';
+import getAuthApiHeadersForTest from '@hey/lib/getAuthApiHeadersForTest';
 import { TEST_URL } from '@utils/constants';
 import axios from 'axios';
 import { describe, expect, test } from 'vitest';
@@ -13,7 +13,7 @@ describe('internal/features/assign', () => {
         id: '0779d74f-0426-4988-b4c4-2b632f5de8e1',
         profile_id: TEST_LENS_ID
       },
-      { headers: await getAuthWorkerHeadersForTest() }
+      { headers: await getAuthApiHeadersForTest() }
     );
 
     expect(response.data.enabled).toBeTruthy();
@@ -27,7 +27,7 @@ describe('internal/features/assign', () => {
         id: '0779d74f-0426-4988-b4c4-2b632f5de8e1',
         profile_id: TEST_LENS_ID
       },
-      { headers: await getAuthWorkerHeadersForTest() }
+      { headers: await getAuthApiHeadersForTest() }
     );
 
     expect(response.data.enabled).toBeFalsy();
