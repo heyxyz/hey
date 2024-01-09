@@ -15,6 +15,7 @@ import {
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
@@ -40,9 +41,11 @@ const GardenerActions: FC<GardenerActionsProps> = ({
 
   const removeTrustedReport = async (id: string) => {
     const removeReport = async () => {
-      return await axios.post(`${HEY_API_URL}/trusted/removeReport`, {
-        id
-      });
+      return await axios.post(
+        `${HEY_API_URL}/trusted/removeReport`,
+        { id },
+        { headers: getAuthWorkerHeaders() }
+      );
     };
 
     toast.promise(removeReport(), {
