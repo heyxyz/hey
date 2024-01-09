@@ -6,7 +6,6 @@ import {
   PublicationReportingSensitiveSubreason,
   PublicationReportingSpamSubreason
 } from '@hey/lens';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button } from '@hey/ui';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import axios from 'axios';
@@ -14,12 +13,10 @@ import { type FC, useState } from 'react';
 import { toast } from 'react-hot-toast';
 
 interface TrustedProfilesActionsProps {
-  className?: string;
   publicationId: string;
 }
 
 const TrustedProfilesActions: FC<TrustedProfilesActionsProps> = ({
-  className = '',
   publicationId
 }) => {
   const [expanded, setExpanded] = useState(false);
@@ -76,7 +73,7 @@ const TrustedProfilesActions: FC<TrustedProfilesActionsProps> = ({
   );
 
   return (
-    <span className={className} onClick={stopEventPropagation}>
+    <span>
       <Button
         className="mt-3 flex"
         icon={<EyeSlashIcon className="size-4" />}

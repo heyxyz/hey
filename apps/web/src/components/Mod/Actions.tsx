@@ -46,10 +46,7 @@ const Actions: FC<ActionsProps> = ({
           <div className="divider" />
           <div className="m-5">
             <b>Moderate Post</b>
-            <TrustedProfilesActions
-              className="mt-3 max-w-md"
-              publicationId={publicationId}
-            />
+            <TrustedProfilesActions publicationId={publicationId} />
           </div>
         </>
       )}
