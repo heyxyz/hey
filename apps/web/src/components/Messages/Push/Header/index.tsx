@@ -14,7 +14,7 @@ export default function Header({ profile }: MessageHeaderProps) {
   return (
     <section className="flex w-full justify-between border-b px-5	py-2.5">
       <div className="flex items-center">
-        {profile && (
+        {profile ? (
           <div className="flex flex-row items-center space-x-3">
             <Image
               className="h-12 w-12 rounded-full border bg-gray-200 dark:border-gray-700"
@@ -36,7 +36,7 @@ export default function Header({ profile }: MessageHeaderProps) {
               />
             </div>
           </div>
-        )}{' '}
+        ) : null}
       </div>
     </section>
   );

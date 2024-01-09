@@ -7,6 +7,7 @@ import imageKit from '@hey/lib/imageKit';
 import { Button, Card, Image, LightBox } from '@hey/ui';
 import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
 import { type FC, useEffect, useState } from 'react';
+import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 
 interface AttachmentProps {
   message: IMessageIPFS | IMessageIPFSWithCID;
@@ -24,6 +25,12 @@ const handleFile = (base64Str: string, filename: string, type: string) => {
 const Attachment: FC<AttachmentProps> = ({ message }) => {
   const [contentType, setContentType] = useState<null | string>(null);
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
+  const mediaEmbedContentTypes = usePushChatStore(
+    (state) => state.mediaEmbedContentTypes
+  );
+  const setMediaEmbedContentType = usePushChatStore(
+    (state) => state.setMediaEmbedContentType
+  );
 
   const attachmentURI =
     typeof message.messageObj === 'string'
@@ -32,13 +39,19 @@ const Attachment: FC<AttachmentProps> = ({ message }) => {
 
   useEffect(() => {
     if (message.messageType === MessageType.MEDIA_EMBED) {
-      fetch(attachmentURI, { method: 'HEAD' })
-        .then((response) => {
-          setContentType(response.headers.get('Content-Type'));
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
+      if (mediaEmbedContentTypes[attachmentURI]) {
+        setContentType(mediaEmbedContentTypes[attachmentURI]);
+      } else {
+        fetch(attachmentURI, { method: 'HEAD' })
+          .then((response) => {
+            const contentType = response.headers.get('Content-Type');
+            setContentType(contentType);
+            setMediaEmbedContentType(attachmentURI, contentType);
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+      }
     }
   }, [attachmentURI]);
 

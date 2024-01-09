@@ -3,8 +3,7 @@ import type { VirtuosoHandle } from 'react-virtuoso';
 
 import Loader from '@components/Shared/Loader';
 import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import React, { useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import usePushHooks, { MAX_CHAT_ITEMS } from 'src/hooks/messaging/push/usePush';
 import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
@@ -22,57 +21,30 @@ interface MessageBodyProps {
 }
 
 const Messages = ({ selectedChat }: MessageBodyProps) => {
-  const { getChatHistory } = usePushHooks();
+  const { useGetChatHistory } = usePushHooks();
   const listInnerRef = useRef<VirtuosoHandle>(null);
   const requestsFeed = usePushChatStore((state) => state.requestsFeed);
   const recepientProfie = usePushChatStore((state) => state.recipientProfile);
   const setRecipientChat = usePushChatStore((state) => state.setRecipientChat);
-  const recepientProfile = usePushChatStore((state) => state.recipientProfile);
   const recipientChats = usePushChatStore((state) => state.recipientChats);
 
-  const existingCIDs = new Set(recipientChats.map((msg) => msg.cid));
-
-  const { fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
-    enabled: recepientProfile?.threadHash ? true : false,
-    getNextPageParam: (lastPage) => {
-      return lastPage.length < MAX_CHAT_ITEMS
-        ? lastPage[lastPage.length - 1]?.cid
-        : undefined;
-    },
-    getPreviousPageParam: (firstPage, allPages) => {
-      const pageIndex = allPages.findIndex((page) => page === firstPage);
-      if (pageIndex === -1 || pageIndex === 0) {
-        return;
-      }
-      const previousPage = allPages[pageIndex - 1];
-      return previousPage.length > 0 ? previousPage[0]?.cid : undefined;
-    },
-    initialPageParam: recepientProfile?.threadHash ?? '',
-    queryFn: async ({ pageParam }: { pageParam: string }) => {
-      if (!pageParam) {
-        return [];
-      }
-      const history = await getChatHistory(pageParam);
-      const uniqueMessages = history.filter(
-        (msg) => !existingCIDs.has(msg.cid)
-      );
-      if (uniqueMessages.length > 0) {
-        setRecipientChat(uniqueMessages);
-      }
-      return history;
-    },
-    queryKey: ['getChatHistory', recepientProfile?.id],
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    staleTime: 604_800
-  });
-
-  const approvalRequired = requestsFeed?.find((item) =>
-    item.did.includes(recepientProfie?.id!)
+  const existingCIDs = useMemo(
+    () => new Set(recipientChats.map((msg) => msg.cid)),
+    [recipientChats]
   );
 
-  const reactions = selectedChat.filter(
-    (chat) => chat.messageType === MessageType.REACTION
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useGetChatHistory();
+
+  const approvalRequired = useMemo(
+    () => requestsFeed?.find((item) => item.did.includes(recepientProfie?.id!)),
+    [requestsFeed, recepientProfie?.id]
+  );
+
+  const reactions = useMemo(
+    () =>
+      selectedChat.filter((chat) => chat.messageType === MessageType.REACTION),
+    [selectedChat]
   );
 
   const userChats = useMemo(
@@ -90,10 +62,19 @@ const Messages = ({ selectedChat }: MessageBodyProps) => {
     }
   };
 
+  useEffect(() => {
+    const uniqueMessages = data?.pages
+      .flatMap((page) => page)
+      .filter((msg) => !existingCIDs.has(msg.cid));
+    if (typeof uniqueMessages !== 'undefined' && uniqueMessages.length > 0) {
+      setRecipientChat(uniqueMessages);
+    }
+  }, [data?.pages]);
+
   return (
     <>
       <Virtuoso
-        className="relative flex h-full flex-grow flex-col overflow-auto overflow-y-scroll p-3 pb-3"
+        className="relative m-3 flex h-full flex-grow flex-col overflow-auto overflow-y-scroll"
         components={{
           Header: () => {
             return hasNextPage && isFetchingNextPage ? (
@@ -124,6 +105,10 @@ const Messages = ({ selectedChat }: MessageBodyProps) => {
               replyMessage={replyMessage}
             />
           );
+        }}
+        overscan={{
+          main: 200,
+          reverse: 200
         }}
         ref={listInnerRef}
         startReached={fetchMore}

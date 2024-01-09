@@ -25,6 +25,15 @@ const usePushHooks = () => {
   const account = getAccountFromProfile(currentProfile?.id);
   const { data: signer } = useWalletClient();
 
+  const queryKeys = {
+    APPROVE_USER: ['approveUser'],
+    GET_CHAT_HISTORY: ['getChatHistory', recepientProfile?.id],
+    GET_CHAT_REQUESTS: ['getChatRequests', recepientProfile?.id!],
+    GET_CHATS: ['getChats', recepientProfile?.id!],
+    REJECT_USER: ['rejectUser'],
+    SEND_MESSAGE: ['sendMessage']
+  };
+
   const getBaseConfig = () => {
     return {
       account: account,
@@ -47,7 +56,7 @@ const usePushHooks = () => {
           throw new Error('Failed to approve user');
         }
       },
-      mutationKey: ['approveUser']
+      mutationKey: queryKeys.APPROVE_USER
     });
   };
 
@@ -63,7 +72,7 @@ const usePushHooks = () => {
           throw new Error('Failed to reject user');
         }
       },
-      mutationKey: ['rejectUser']
+      mutationKey: queryKeys.REJECT_USER
     });
   };
 
@@ -112,7 +121,7 @@ const usePushHooks = () => {
         });
         return response;
       },
-      mutationKey: ['sendMessage']
+      mutationKey: queryKeys.SEND_MESSAGE
     });
   };
   const decryptPGPKey = async (
@@ -146,25 +155,6 @@ const usePushHooks = () => {
     }
   };
 
-  const getChats = async (page?: number) => {
-    return await PushAPI.chat.chats({
-      ...getBaseConfig(),
-      ...(page && {
-        page: page
-      }),
-      toDecrypt: true
-    });
-  };
-
-  const getChatHistory = async (threadHash: string) => {
-    return (await PushAPI.chat.history({
-      ...getBaseConfig(),
-      limit: MAX_CHAT_ITEMS,
-      threadhash: threadHash,
-      toDecrypt: true
-    })) as PushAPI.IMessageIPFSWithCID[];
-  };
-
   const useCustomInfiniteQuery = <TQueryFnData>(
     queryKey: string[],
     queryFn: QueryFunction<TQueryFnData, string[], number>,
@@ -183,7 +173,7 @@ const usePushHooks = () => {
 
   const useGetChats = () => {
     return useCustomInfiniteQuery(
-      ['getChats', recepientProfile?.id!],
+      queryKeys.GET_CHATS,
       ({ pageParam }) =>
         PushAPI.chat.chats({
           ...getBaseConfig(),
@@ -206,7 +196,7 @@ const usePushHooks = () => {
 
   const useGetChatRequests = () => {
     return useCustomInfiniteQuery(
-      ['getChatRequests', recepientProfile?.id!],
+      queryKeys.GET_CHAT_REQUESTS,
       ({ pageParam }) =>
         PushAPI.chat.requests({
           ...getBaseConfig(),
@@ -227,12 +217,47 @@ const usePushHooks = () => {
     );
   };
 
+  const useGetChatHistory = () => {
+    return useInfiniteQuery({
+      enabled: recepientProfile?.threadHash ? true : false,
+      getNextPageParam: (lastPage) => {
+        return lastPage.length < MAX_CHAT_ITEMS
+          ? lastPage[lastPage.length - 1]?.cid
+          : undefined;
+      },
+      getPreviousPageParam: (firstPage, allPages) => {
+        const pageIndex = allPages.findIndex((page) => page === firstPage);
+        if (pageIndex === -1 || pageIndex === 0) {
+          return;
+        }
+        const previousPage = allPages[pageIndex - 1];
+        return previousPage.length > 0 ? previousPage[0]?.cid : undefined;
+      },
+      initialPageParam: recepientProfile?.threadHash ?? '',
+      queryFn: async ({ pageParam }: { pageParam: string }) => {
+        if (!pageParam) {
+          return [];
+        }
+        const history = await PushAPI.chat.history({
+          ...getBaseConfig(),
+          limit: MAX_CHAT_ITEMS,
+          threadhash: pageParam,
+          toDecrypt: true
+        });
+        return history as PushAPI.IMessageIPFSWithCID[];
+      },
+      queryKey: queryKeys.GET_CHAT_HISTORY,
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      staleTime: 604_800
+    });
+  };
+
   return {
     decryptConversation,
     decryptPGPKey,
-    getChatHistory,
-    getChats,
     useApproveUser,
+    useGetChatHistory,
     useGetChatRequests,
     useGetChats,
     useRejectUser,

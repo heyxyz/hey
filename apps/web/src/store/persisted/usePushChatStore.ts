@@ -41,6 +41,7 @@ interface IPushChatStore {
   connectedProfile: IUser | null;
   deleteRequestFeed: (requestId: string) => void;
   deleteUnsentMessage: (message: IMessageIPFSWithCID) => void;
+  mediaEmbedContentTypes: Record<string, null | string>;
   pgpPassword: null | string;
   pgpPrivateKey: null | string;
   recipientChats: [] | IMessageIPFSWithCID[];
@@ -49,6 +50,7 @@ interface IPushChatStore {
   requestsFeed: IFeeds[];
   setActiveTab: (tabName: PushTabs) => void;
   setConnectedProfile: (profile: IUser) => void;
+  setMediaEmbedContentType: (type: string, value: null | string) => void;
   setPgpPassword: (password: string) => void;
   setPgpPrivateKey: (pgpPrivateKey: string) => void;
   setRecipientChat: (chat: IMessageIPFSWithCID[]) => void;
@@ -80,6 +82,7 @@ export const usePushChatStore = create(
           );
           return { unsentMessages };
         }),
+      mediaEmbedContentTypes: {},
       pgpPassword: null,
       pgpPrivateKey: null,
       recipientChats: [],
@@ -100,6 +103,13 @@ export const usePushChatStore = create(
       setActiveTab: (activeTab) => set(() => ({ activeTab })),
       setConnectedProfile: (connectedProfile) =>
         set(() => ({ connectedProfile })),
+      setMediaEmbedContentType: (uri: string, contentType: null | string) =>
+        set((state) => ({
+          mediaEmbedContentTypes: {
+            ...state.mediaEmbedContentTypes,
+            [uri]: contentType
+          }
+        })),
       setPgpPassword: (pgpPassword) => set(() => ({ pgpPassword })),
       setPgpPrivateKey: (pgpPrivateKey) => set(() => ({ pgpPrivateKey })),
       setRecipientChat: (chat: IMessageIPFSWithCID[]) =>
