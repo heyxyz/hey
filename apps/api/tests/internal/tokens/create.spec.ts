@@ -1,4 +1,4 @@
-import getAuthWorkerHeadersForTest from '@hey/lib/getAuthWorkerHeadersForTest';
+import getAuthApiHeadersForTest from '@hey/lib/getAuthApiHeadersForTest';
 import { TEST_URL } from '@utils/constants';
 import axios from 'axios';
 import { describe, expect, test } from 'vitest';
@@ -22,7 +22,7 @@ describe('internal/tokens/create', () => {
         name: 'Wrapped Matic',
         symbol: 'WMATIC'
       },
-      { headers: await getAuthWorkerHeadersForTest() }
+      { headers: await getAuthApiHeadersForTest() }
     );
 
     expect(response.data.token.id).toHaveLength(36);
