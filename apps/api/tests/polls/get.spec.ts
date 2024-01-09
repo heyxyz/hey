@@ -1,4 +1,4 @@
-import getAuthWorkerHeadersForTest from '@hey/lib/getAuthWorkerHeadersForTest';
+import getAuthApiHeadersForTest from '@hey/lib/getAuthApiHeadersForTest';
 import { TEST_URL } from '@utils/constants';
 import axios from 'axios';
 import { describe, expect, test } from 'vitest';
@@ -18,7 +18,7 @@ describe('polls/get', async () => {
 
   test('should return a poll with authentication', async () => {
     const response = await axios.get(`${TEST_URL}/polls/get`, {
-      headers: await getAuthWorkerHeadersForTest(),
+      headers: await getAuthApiHeadersForTest(),
       params: { id }
     });
 

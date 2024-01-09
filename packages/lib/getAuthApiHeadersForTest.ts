@@ -22,7 +22,7 @@ const apolloClient = () =>
     link: from([httpLink])
   });
 
-const getAuthWorkerHeadersForTest = async () => {
+const getAuthApiHeadersForTest = async () => {
   const account = privateKeyToAccount(TEST_PK);
   const client = createWalletClient({
     account,
@@ -56,4 +56,4 @@ const getAuthWorkerHeadersForTest = async () => {
   return { 'X-Access-Token': accessToken, 'X-Lens-Network': 'testnet' };
 };
 
-export default getAuthWorkerHeadersForTest;
+export default getAuthApiHeadersForTest;
