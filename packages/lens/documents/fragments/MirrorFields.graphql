@@ -20,7 +20,7 @@ fragment MirrorFields on Mirror {
       ...CommentFields
     }
     ... on Quote {
-      ...QuoteBaseFields
+      ...QuoteFields
     }
   }
 }
