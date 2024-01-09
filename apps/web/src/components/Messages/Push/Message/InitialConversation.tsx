@@ -1,4 +1,4 @@
-import type { IFeeds } from '@pushprotocol/restapi';
+import type { IFeeds, IMessageIPFSWithCID } from '@pushprotocol/restapi';
 
 import { Button } from '@hey/ui';
 import toast from 'react-hot-toast';
@@ -24,7 +24,7 @@ const InitialConversation: React.FC<FirstTimeConversationProps> = ({
     try {
       await approveUser();
       deleteRequestFeed(message.did);
-      setRecipientChat(message.msg);
+      setRecipientChat([message.msg as IMessageIPFSWithCID]);
     } catch (error) {
       toast.error('Failed to approve user');
     }
@@ -40,7 +40,7 @@ const InitialConversation: React.FC<FirstTimeConversationProps> = ({
   };
 
   return (
-    <div className="flex w-full rounded-e rounded-r-2xl rounded-bl-2xl border border-solid border-gray-300 p-2">
+    <div className="flex w-full rounded-2xl border border-solid border-gray-300 p-2">
       <div className=" text-md flex w-full flex-col">
         <span>This is your first conversation with the sender.</span>
       </div>

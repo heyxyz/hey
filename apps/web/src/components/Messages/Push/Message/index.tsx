@@ -1,29 +1,74 @@
-import type {
-  IMessageIPFS,
-  IMessageIPFSWithCID,
-  MessageObj
-} from '@pushprotocol/restapi';
+import type { IMessageIPFSWithCID } from '@pushprotocol/restapi';
+import type { VirtuosoHandle } from 'react-virtuoso';
 
+import Loader from '@components/Shared/Loader';
 import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import React, { useMemo, useRef } from 'react';
+import { Virtuoso } from 'react-virtuoso';
+import usePushHooks, { MAX_CHAT_ITEMS } from 'src/hooks/messaging/push/usePush';
 import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 
-import type { MessageReactions } from '../Actions/Reactions';
-
+import {
+  getMessageReactions,
+  getPrimaryMessage,
+  getReplyMessage
+} from '../helper';
 import Message from './Card';
 import InitialConversation from './InitialConversation';
 
 interface MessageBodyProps {
-  selectedChat: IMessageIPFS[];
+  selectedChat: IMessageIPFSWithCID[];
 }
 
 const Messages = ({ selectedChat }: MessageBodyProps) => {
-  const listInnerRef = useRef<HTMLDivElement>(null);
+  const { getChatHistory } = usePushHooks();
+  const listInnerRef = useRef<VirtuosoHandle>(null);
   const requestsFeed = usePushChatStore((state) => state.requestsFeed);
   const recepientProfie = usePushChatStore((state) => state.recipientProfile);
+  const setRecipientChat = usePushChatStore((state) => state.setRecipientChat);
+  const recepientProfile = usePushChatStore((state) => state.recipientProfile);
+  const recipientChats = usePushChatStore((state) => state.recipientChats);
+
+  const existingCIDs = new Set(recipientChats.map((msg) => msg.cid));
+
+  const { fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
+    enabled: recepientProfile?.threadHash ? true : false,
+    getNextPageParam: (lastPage) => {
+      return lastPage.length < MAX_CHAT_ITEMS
+        ? lastPage[lastPage.length - 1]?.cid
+        : undefined;
+    },
+    getPreviousPageParam: (firstPage, allPages) => {
+      const pageIndex = allPages.findIndex((page) => page === firstPage);
+      if (pageIndex === -1 || pageIndex === 0) {
+        return;
+      }
+      const previousPage = allPages[pageIndex - 1];
+      return previousPage.length > 0 ? previousPage[0]?.cid : undefined;
+    },
+    initialPageParam: recepientProfile?.threadHash ?? '',
+    queryFn: async ({ pageParam }: { pageParam: string }) => {
+      if (!pageParam) {
+        return [];
+      }
+      const history = await getChatHistory(pageParam);
+      const uniqueMessages = history.filter(
+        (msg) => !existingCIDs.has(msg.cid)
+      );
+      if (uniqueMessages.length > 0) {
+        setRecipientChat(uniqueMessages);
+      }
+      return history;
+    },
+    queryKey: ['getChatHistory', recepientProfile?.id],
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    staleTime: 604_800
+  });
 
   const approvalRequired = requestsFeed?.find((item) =>
-    item.did.includes(recepientProfie?.id)
+    item.did.includes(recepientProfie?.id!)
   );
 
   const reactions = selectedChat.filter(
@@ -32,82 +77,61 @@ const Messages = ({ selectedChat }: MessageBodyProps) => {
 
   const userChats = useMemo(
     () =>
-      selectedChat.filter((chat) => chat.messageType !== MessageType.REACTION),
+      selectedChat
+        .filter((chat) => chat.messageType !== MessageType.REACTION)
+        .sort((a, b) => a?.timestamp! - b?.timestamp!),
     [selectedChat]
   );
 
-  function transformReplyToMessage(reply: IMessageIPFS): IMessageIPFS {
-    if (reply.messageType !== MessageType.REPLY) {
-      return reply;
+  const fetchMore = async () => {
+    if (hasNextPage && !isFetchingNextPage) {
+      await fetchNextPage();
+      return false;
     }
-
-    // @ts-expect-error
-    const messageInner = reply?.messageObj?.content as {
-      messageObj: MessageObj;
-      messageType: MessageType;
-    };
-
-    return {
-      ...reply,
-      messageObj: {
-        content: messageInner?.messageObj?.content as string
-      },
-      messageType: messageInner?.messageType
-    };
-  }
-
-  const getMessageReactions = (chat: IMessageIPFS): MessageReactions[] => {
-    return reactions
-      .filter(
-        (reaction) =>
-          // @ts-expect-error
-          reaction.messageObj?.reference === (chat as IMessageIPFSWithCID).cid
-      )
-      .map((item) =>
-        typeof item.messageObj === 'string'
-          ? item.messageObj
-          : (item.messageObj?.content as string)
-      ) as MessageReactions[];
-  };
-
-  const getPrimaryMessage = (chat: IMessageIPFS): IMessageIPFS => {
-    const isReplyMessage = chat.messageType === MessageType.REPLY;
-    return isReplyMessage ? transformReplyToMessage(chat) : chat;
-  };
-
-  const getReplyMessage = (chat: IMessageIPFS): IMessageIPFS | null => {
-    const isReplyMessage = chat.messageType === MessageType.REPLY;
-    const replyMessage = selectedChat.find(
-      (message) =>
-        // @ts-expect-error
-        (message as IMessageIPFSWithCID).cid === chat.messageObj?.reference
-    );
-    return isReplyMessage ? transformReplyToMessage(replyMessage!) : null;
   };
 
   return (
-    <section
-      className="relative flex h-full flex-grow flex-col overflow-auto overflow-y-scroll p-3 pb-3"
-      id="messages-list"
-      ref={listInnerRef}
-    >
-      {userChats.map((message) => {
-        const messageReactions = getMessageReactions(message);
-        const primaryMessage = getPrimaryMessage(message);
-        const replyMessage = getReplyMessage(message);
+    <>
+      <Virtuoso
+        className="relative flex h-full flex-grow flex-col overflow-auto overflow-y-scroll p-3 pb-3"
+        components={{
+          Header: () => {
+            return hasNextPage && isFetchingNextPage ? (
+              <div className="flex h-full items-center justify-center">
+                <Loader message="Loading more messages..." />
+              </div>
+            ) : null;
+          }
+        }}
+        data={userChats}
+        firstItemIndex={
+          userChats.length - MAX_CHAT_ITEMS < 0
+            ? 100
+            : userChats.length - MAX_CHAT_ITEMS
+        }
+        id="messages-list"
+        initialTopMostItemIndex={userChats.length - 1}
+        itemContent={(_index, message) => {
+          const messageReactions = getMessageReactions(message, reactions);
+          const primaryMessage = getPrimaryMessage(message);
+          const replyMessage = getReplyMessage(message, userChats);
 
-        return (
-          <Message
-            key={message.link}
-            message={primaryMessage}
-            messageReactions={messageReactions}
-            replyMessage={replyMessage}
-          />
-        );
-      })}
-
-      {approvalRequired && <InitialConversation message={approvalRequired} />}
-    </section>
+          return (
+            <Message
+              key={message.link}
+              message={primaryMessage}
+              messageReactions={messageReactions}
+              replyMessage={replyMessage}
+            />
+          );
+        }}
+        ref={listInnerRef}
+        startReached={fetchMore}
+      />
+      {approvalRequired ? (
+        <InitialConversation message={approvalRequired} />
+      ) : null}
+    </>
   );
 };
 

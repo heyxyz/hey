@@ -19,11 +19,10 @@ import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 import ReplyPreview from './ReplyPreview';
 
 const Composer: FC = () => {
-  const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
-  const [message, setMessage] = useState<string>('');
-  const [sending, setSending] = useState<boolean>(false);
-  const { useSendMessage } = usePushHooks();
-  const { decryptConversation } = usePushHooks();
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [message, setMessage] = useState('');
+  const [sending, setSending] = useState(false);
+  const { decryptConversation, useSendMessage } = usePushHooks();
   const { mutateAsync: sendMessage } = useSendMessage();
 
   const attachments = usePublicationStore((state) => state.attachments);
@@ -84,7 +83,7 @@ const Composer: FC = () => {
           const decryptedMessage = await decryptConversation(sentMessage);
           setReplyToMessage(null);
           removeAttachments([attachment!.id!]);
-          setRecipientChat(decryptedMessage);
+          setRecipientChat([decryptedMessage]);
         }
         return;
       }
@@ -102,7 +101,7 @@ const Composer: FC = () => {
       });
       const decryptedMessage = await decryptConversation(sentMessage);
       setReplyToMessage(null);
-      setRecipientChat(decryptedMessage);
+      setRecipientChat([decryptedMessage]);
     } catch (error) {
       toast.error((error as Error).message);
     } finally {

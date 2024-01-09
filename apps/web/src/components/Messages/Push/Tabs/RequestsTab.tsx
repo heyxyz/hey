@@ -1,54 +1,78 @@
-import React, { useEffect, useRef } from 'react';
+import Loader from '@components/Shared/Loader';
+import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
+import React, { useEffect, useMemo } from 'react';
+import { Virtuoso } from 'react-virtuoso';
 import usePushHooks from 'src/hooks/messaging/push/usePush';
-import {
-  PUSH_TABS,
-  usePushChatStore
-} from 'src/store/persisted/usePushChatStore';
+import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 
 import Profile from '../Header/Profile';
 
 export default function PUSHPreviewRequests() {
-  const pageRef = useRef<HTMLDivElement>(null);
+  const { useGetChatRequests } = usePushHooks();
+  const { data, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage } =
+    useGetChatRequests();
 
   const requestsFeed = usePushChatStore((state) => state.requestsFeed);
   const updateRequestsFeed = usePushChatStore(
     (state) => state.updateRequestsFeed
   );
 
-  const { useGetChatRequests } = usePushHooks();
-  const { data } = useGetChatRequests();
+  const requests = useMemo(() => {
+    return data?.pages.flatMap(
+      (page) => page?.sort((a, b) => b!.msg!.timestamp! - a!.msg!.timestamp!)
+    );
+  }, [data?.pages]);
 
   const updateRequests = async () => {
-    if (!data) {
+    if (!requests) {
       return;
     }
-    const combinedRequests = [...requestsFeed, ...data];
+    const combinedRequests = [...requestsFeed, ...requests];
     const dedupedRequests = combinedRequests.filter(
       (request, index, self) =>
         index === self.findIndex((t) => t.did === request.did)
     );
-    updateRequestsFeed(dedupedRequests);
+    if (dedupedRequests.length > 0) {
+      updateRequestsFeed(dedupedRequests);
+    }
+  };
+
+  const loadMore = () => {
+    if (hasNextPage && !isFetchingNextPage && !isFetching) {
+      fetchNextPage();
+    }
   };
 
   useEffect(() => {
     updateRequests();
-  }, [data, PUSH_TABS.CHATS]);
+  }, [data?.pages]);
 
-  return (
-    <section className="flex flex-col	gap-2.5	">
-      {requestsFeed
-        ?.sort((a, b) => b?.msg?.timestamp! - a?.msg?.timestamp!)
-        .map((item) => {
-          return <Profile key={item.chatId} previewMessage={item} />;
-        })}
-
-      {Object.keys(requestsFeed).length === 0 && (
-        <div className="mt-12 flex h-full flex-grow items-center justify-center">
-          No requests yet
-        </div>
-      )}
-
-      <div className="invisible" ref={pageRef} />
-    </section>
+  return isFetching ? (
+    <>{Array(6).fill(<UserProfileShimmer />)}</>
+  ) : (
+    <Virtuoso
+      className="h-full"
+      components={{
+        EmptyPlaceholder: () => {
+          return (
+            <div className="mt-12 flex h-full flex-grow items-center justify-center">
+              No requests yet
+            </div>
+          );
+        },
+        Footer: () => {
+          return hasNextPage && isFetchingNextPage ? (
+            <div className="flex h-full items-center justify-center">
+              <Loader message="Loading more requests..." />
+            </div>
+          ) : null;
+        }
+      }}
+      data={requests}
+      endReached={loadMore}
+      itemContent={(_index, request) => {
+        return <Profile key={request.chatId} previewMessage={request} />;
+      }}
+    />
   );
 }

@@ -1,3 +1,5 @@
+import type { IMessageIPFSWithCID } from '@pushprotocol/restapi';
+
 import MetaTags from '@components/Common/MetaTags';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME } from '@hey/data/constants';
@@ -9,7 +11,6 @@ import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 
 import Composer from './Composer';
 import Header from './Header';
-import { getAccountFromProfile } from './helper';
 import Messages from './Message';
 import NoConversationSelected from './NoConversationSelected';
 import Tabs from './Tabs';
@@ -20,9 +21,8 @@ const Message = () => {
   const requestsFeed = usePushChatStore((state) => state.requestsFeed);
   const recipientChats = usePushChatStore((state) => state.recipientChats);
   const pushSocket = usePushSocket();
-  const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
   const initialConversation = requestsFeed?.find((item) =>
-    item.did.includes(recepientProfile?.ownedBy?.address)
+    item.did.includes(recepientProfile?.ownedBy?.address!)
   );
 
   useEffect(() => {
@@ -30,20 +30,8 @@ const Message = () => {
     return () => {
       pushSocket?.disconnect();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const getChatHistory = async () => {
-    const address = getAccountFromProfile(recepientProfile?.id);
-    // const response = await PushAPI.chat.history({
-    //   account: address,
-    //   pgpPrivateKey: pgpPrivateKey!
-    // });
-    // console.log('chat histyory', response);
-  };
-
-  useEffect(() => {
-    getChatHistory();
-  }, [recepientProfile]);
 
   if (!currentProfile) {
     return <NotLoggedIn />;
@@ -69,7 +57,7 @@ const Message = () => {
               <Messages
                 selectedChat={
                   initialConversation
-                    ? [initialConversation.msg]
+                    ? [initialConversation.msg as IMessageIPFSWithCID]
                     : recipientChats
                 }
               />

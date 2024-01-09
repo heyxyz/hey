@@ -18,7 +18,7 @@ const ReplyPreview = () => {
         <div className="bg-brand-500 absolute left-0 top-0 h-full w-[6px]" />
         <div className="ml-2 flex flex-col justify-center">
           <span className="text-brand-500 font-md text-md">
-            {recipientProfile?.handle?.localName}
+            {recipientProfile?.localHandle}
           </span>
           <div className="flex items-center">
             <PhotoIcon className="text-brand-500 h-4 w-4" />

@@ -1,4 +1,4 @@
-import type { IMessageIPFS, IMessageIPFSWithCID } from '@pushprotocol/restapi';
+import type { IMessageIPFSWithCID } from '@pushprotocol/restapi';
 
 import { ArrowUturnLeftIcon, FaceSmileIcon } from '@heroicons/react/24/outline';
 import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
@@ -19,9 +19,9 @@ import TimeStamp from './TimeStamp';
 import { MessageWrapper } from './Wrapper';
 
 interface Props {
-  message: IMessageIPFS;
+  message: IMessageIPFSWithCID;
   messageReactions: [] | MessageReactions[];
-  replyMessage: IMessageIPFS | null;
+  replyMessage: IMessageIPFSWithCID | null;
 }
 
 export enum MessageOrigin {
@@ -30,7 +30,7 @@ export enum MessageOrigin {
 }
 
 interface MessageCardProps {
-  chat: IMessageIPFS;
+  chat: IMessageIPFSWithCID;
   className: string;
 }
 
@@ -47,14 +47,13 @@ const MessageCard: React.FC<MessageCardProps> = ({ chat, className }) => {
 const Message = ({ message, messageReactions, replyMessage }: Props) => {
   const [showChatActions, setShowChatActions] = useState(false);
   const [showReactions, setShowReactions] = useState(false);
+  const { decryptConversation, useSendMessage } = usePushHooks();
+  const { setReplyToMessage } = usePushChatStore();
+  const { mutateAsync: sendMessage } = useSendMessage();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const setRecipientChat = usePushChatStore((state) => state.setRecipientChat);
   const recipientProfile = usePushChatStore((state) => state.recipientProfile);
   const reactionRef = useRef<HTMLDivElement | null>(null);
-  const { decryptConversation } = usePushHooks();
-  const { useSendMessage } = usePushHooks();
-  const { setReplyToMessage } = usePushChatStore();
-  const { mutateAsync: sendMessage } = useSendMessage();
 
   const handleMouseEnter = () => {
     setShowChatActions(true);
@@ -68,6 +67,21 @@ const Message = ({ message, messageReactions, replyMessage }: Props) => {
     getProfileIdFromDID(message.fromDID) === currentProfile?.id
       ? MessageOrigin.Sender
       : MessageOrigin.Receiver;
+
+  const sendReaction = async (value: string) => {
+    const sentMessage = await sendMessage({
+      content: {
+        content: value,
+        type: MessageType.TEXT
+      },
+      reference: (message as IMessageIPFSWithCID).cid!,
+      type: MessageType.REACTION
+    });
+    const decryptedMessage = await decryptConversation(sentMessage);
+    setRecipientChat([decryptedMessage]);
+    setShowReactions(false);
+    setShowChatActions(true);
+  };
 
   return (
     <div
@@ -92,7 +106,7 @@ const Message = ({ message, messageReactions, replyMessage }: Props) => {
               handle={
                 messageOrigin === MessageOrigin.Receiver
                   ? currentProfile?.handle?.localName!
-                  : recipientProfile?.handle?.localName!
+                  : recipientProfile?.localHandle!
               }
             />
           ) : null}
@@ -144,20 +158,7 @@ const Message = ({ message, messageReactions, replyMessage }: Props) => {
                 setShowReactions(false);
                 setShowChatActions(true);
               }}
-              onValue={async (value) => {
-                const sentMessage = await sendMessage({
-                  content: {
-                    content: value,
-                    type: MessageType.TEXT
-                  },
-                  reference: (message as IMessageIPFSWithCID).cid!,
-                  type: MessageType.REACTION
-                });
-                const decryptedMessage = await decryptConversation(sentMessage);
-                setRecipientChat(decryptedMessage);
-                setShowReactions(false);
-                setShowChatActions(true);
-              }}
+              onValue={sendReaction}
             />
           ) : null}
         </div>

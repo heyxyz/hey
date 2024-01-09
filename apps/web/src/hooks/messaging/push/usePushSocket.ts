@@ -1,4 +1,4 @@
-import type { IMessageIPFS } from '@pushprotocol/uiweb';
+import type { IMessageIPFSWithCID } from '@pushprotocol/restapi';
 
 import {
   getAccountFromProfile,
@@ -30,7 +30,7 @@ const usePushSocket = () => {
 
   pushSocket?.on(
     EVENTS.CHAT_RECEIVED_MESSAGE,
-    async (message: IMessageIPFS) => {
+    async (message: IMessageIPFSWithCID) => {
       try {
         const decryptedMessage = await decryptConversation(message);
         const profileID = getProfileIdFromDID(decryptedMessage.fromDID);
@@ -38,7 +38,7 @@ const usePushSocket = () => {
         if (profileID === currentProfile?.id) {
           return;
         }
-        setRecipientChat(decryptedMessage);
+        setRecipientChat([decryptedMessage]);
         sendNotification(`New Message from ${profileID}`);
 
         const messageList = document.getElementById('messages-list');

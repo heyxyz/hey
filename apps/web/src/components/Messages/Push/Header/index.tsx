@@ -1,4 +1,4 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from 'src/store/persisted/usePushChatStore';
 
 import Slug from '@components/Shared/Slug';
 import getAvatar from '@hey/lib/getAvatar';
@@ -10,6 +10,7 @@ interface MessageHeaderProps {
 }
 
 export default function Header({ profile }: MessageHeaderProps) {
+  const avatar = getAvatar(profile);
   return (
     <section className="flex w-full justify-between border-b px-5	py-2.5">
       <div className="flex items-center">
@@ -20,9 +21,9 @@ export default function Header({ profile }: MessageHeaderProps) {
               height={40}
               loading="lazy"
               onError={({ currentTarget }) => {
-                currentTarget.src = getAvatar(profile);
+                currentTarget.src = avatar;
               }}
-              src={getAvatar(profile)}
+              src={avatar}
               width={40}
             />
 
@@ -31,7 +32,7 @@ export default function Header({ profile }: MessageHeaderProps) {
               <Slug
                 className="text-sm"
                 prefix="@"
-                slug={profile.handle?.localName!}
+                slug={profile.localHandle!}
               />
             </div>
           </div>

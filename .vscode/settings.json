@@ -4,5 +4,8 @@
     "source.organizeImports.biome": true,
     "source.fixAll.eslint": true,
     "quickfix.biome": true
+  },
+  "files.watcherExclude": {
+    "**/target": true
   }
 }

@@ -82,7 +82,14 @@ const Details: FC<DetailsProps> = ({ profile }) => {
 
   const onMessageClick = () => {
     const conversationKey = `${profile.ownedBy.address}/${profile.id}`;
-    setRecipientProfile(profile);
+    setRecipientProfile({
+      id: profile.id,
+      localHandle: profile.handle?.localName!,
+      ownedBy: {
+        address: profile.ownedBy.address
+      },
+      threadHash: null
+    });
     router.push(`/messages/${conversationKey}`);
   };
 

@@ -1,5 +1,9 @@
-import type { Profile } from '@hey/lens';
-import type { IFeeds, IMessageIPFS, IUser } from '@pushprotocol/restapi';
+import type {
+  IFeeds,
+  IMessageIPFS,
+  IMessageIPFSWithCID,
+  IUser
+} from '@pushprotocol/restapi';
 
 import { IS_MAINNET } from '@hey/data/constants';
 import { Localstorage } from '@hey/data/storage';
@@ -16,20 +20,19 @@ export const CHAT_TYPES = {
   CHAT: 'chat'
 } as const;
 
-export type ParsedChatType = {
-  id: string;
-  img: string;
-  name: string;
-  recipient: string;
-  text: string;
-  threadHash: string;
-  time: string;
-};
-
 export type ChatTypes = (typeof CHAT_TYPES)[keyof typeof CHAT_TYPES];
 export type PushTabs = (typeof PUSH_TABS)[keyof typeof PUSH_TABS];
 
 export const PUSH_ENV = IS_MAINNET ? ENV.PROD : ENV.DEV;
+
+export interface Profile {
+  id: string;
+  localHandle: string;
+  ownedBy: {
+    address: string;
+  };
+  threadHash: null | string;
+}
 
 interface IPushChatStore {
   activeReceiptientID: null | string;
@@ -37,22 +40,22 @@ interface IPushChatStore {
   clearRecipientChat: () => void;
   connectedProfile: IUser | null;
   deleteRequestFeed: (requestId: string) => void;
-  deleteUnsentMessage: (message: IMessageIPFS) => void;
+  deleteUnsentMessage: (message: IMessageIPFSWithCID) => void;
   pgpPassword: null | string;
   pgpPrivateKey: null | string;
-  recipientChats: [] | IMessageIPFS[];
+  recipientChats: [] | IMessageIPFSWithCID[];
   recipientProfile: null | Profile;
-  replyToMessage: IMessageIPFS | null;
+  replyToMessage: IMessageIPFSWithCID | null;
   requestsFeed: IFeeds[];
   setActiveTab: (tabName: PushTabs) => void;
   setConnectedProfile: (profile: IUser) => void;
   setPgpPassword: (password: string) => void;
   setPgpPrivateKey: (pgpPrivateKey: string) => void;
-  setRecipientChat: (chat: IMessageIPFS) => void;
+  setRecipientChat: (chat: IMessageIPFSWithCID[]) => void;
   setRecipientProfile: (profile: Profile) => void;
-  setReplyToMessage: (message: IMessageIPFS | null) => void;
-  setUnsentMessage: (message: IMessageIPFS) => void;
-  unsentMessages: [] | IMessageIPFS[];
+  setReplyToMessage: (message: IMessageIPFSWithCID | null) => void;
+  setUnsentMessage: (message: IMessageIPFSWithCID) => void;
+  unsentMessages: [] | IMessageIPFSWithCID[];
   updateRequestsFeed: (requestsFeed: IFeeds[]) => void;
 }
 
@@ -99,9 +102,9 @@ export const usePushChatStore = create(
         set(() => ({ connectedProfile })),
       setPgpPassword: (pgpPassword) => set(() => ({ pgpPassword })),
       setPgpPrivateKey: (pgpPrivateKey) => set(() => ({ pgpPrivateKey })),
-      setRecipientChat: (chat: IMessageIPFS) =>
+      setRecipientChat: (chat: IMessageIPFSWithCID[]) =>
         set((state) => {
-          const recipientChats = [...state.recipientChats, chat];
+          const recipientChats = [...state.recipientChats, ...chat];
           return { recipientChats };
         }),
       setRecipientProfile: (receiptientProfile) =>
@@ -113,9 +116,10 @@ export const usePushChatStore = create(
           return { requestsFeed };
         });
       },
-      setUnsentMessage: (message: IMessageIPFS) =>
+      setUnsentMessage: (message: IMessageIPFSWithCID) =>
         set((state) => {
-          const unsentMessages: IMessageIPFS[] = state.unsentMessages || [];
+          const unsentMessages: IMessageIPFSWithCID[] =
+            state.unsentMessages || [];
           if (
             !unsentMessages.find(
               (unsentMessage) => unsentMessage.link === message.link

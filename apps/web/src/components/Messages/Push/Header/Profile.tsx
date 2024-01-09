@@ -20,14 +20,10 @@ const Profile: React.FC<ProfileProps> = ({ previewMessage }) => {
   );
   const profileID = getProfileIdFromDID(previewMessage.did);
   const { recipientProfile } = usePushChatStore();
-  const { data, loading } = useProfileQuery({
+  const { data } = useProfileQuery({
     skip: !profileID,
     variables: { request: { forProfileId: profileID } }
   });
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   const lensProfile = data?.profile as Profile;
   const avatar = getAvatar(lensProfile);
@@ -39,9 +35,14 @@ const Profile: React.FC<ProfileProps> = ({ previewMessage }) => {
       }`}
       key={previewMessage.chatId}
       onClick={() => {
-        console.log(lensProfile, 'lensProfile');
-
-        setRecipientProfile(lensProfile!);
+        setRecipientProfile({
+          id: lensProfile?.id,
+          localHandle: lensProfile?.handle?.localName!,
+          ownedBy: {
+            address: lensProfile?.ownedBy?.address!
+          },
+          threadHash: previewMessage.threadhash!
+        });
       }}
     >
       <Image

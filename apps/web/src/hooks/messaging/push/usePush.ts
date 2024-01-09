@@ -1,7 +1,12 @@
+import type {
+  GetNextPageParamFunction,
+  QueryFunction
+} from '@tanstack/react-query';
+
 import { getAccountFromProfile } from '@components/Messages/Push/helper';
 import * as PushAPI from '@pushprotocol/restapi';
 import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import {
   PUSH_ENV,
@@ -9,12 +14,14 @@ import {
 } from 'src/store/persisted/usePushChatStore';
 import { useWalletClient } from 'wagmi';
 
+export const MAX_CHAT_ITEMS = 30;
+
 const usePushHooks = () => {
   const connectedProfile = usePushChatStore((state) => state.connectedProfile);
-  const recepientProfie = usePushChatStore((state) => state.recipientProfile);
+  const recepientProfile = usePushChatStore((state) => state.recipientProfile);
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
-  const recepientAccount = getAccountFromProfile(recepientProfie?.id);
+  const recepientAccount = getAccountFromProfile(recepientProfile?.id!);
   const account = getAccountFromProfile(currentProfile?.id);
   const { data: signer } = useWalletClient();
 
@@ -133,41 +140,98 @@ const usePushHooks = () => {
         connectedUser: connectedProfile!,
         messages: [message]
       });
-      return response[0];
+      return response[0] as PushAPI.IMessageIPFSWithCID;
     } catch (error) {
       throw new Error('Failed to decrypt conversation');
     }
   };
 
-  const useGetChats = () => {
-    return useQuery({
-      queryFn: async () => {
-        const chats = await PushAPI.chat.chats({
-          ...getBaseConfig(),
-          toDecrypt: true
-        });
-        return chats;
-      },
-      queryKey: ['getChats']
+  const getChats = async (page?: number) => {
+    return await PushAPI.chat.chats({
+      ...getBaseConfig(),
+      ...(page && {
+        page: page
+      }),
+      toDecrypt: true
     });
   };
 
-  const useGetChatRequests = () => {
-    return useQuery({
-      queryFn: async () => {
-        const chats = await PushAPI.chat.requests({
-          ...getBaseConfig(),
-          toDecrypt: true
-        });
-        return chats;
-      },
-      queryKey: ['getChatsRequests']
+  const getChatHistory = async (threadHash: string) => {
+    return (await PushAPI.chat.history({
+      ...getBaseConfig(),
+      limit: MAX_CHAT_ITEMS,
+      threadhash: threadHash,
+      toDecrypt: true
+    })) as PushAPI.IMessageIPFSWithCID[];
+  };
+
+  const useCustomInfiniteQuery = <TQueryFnData>(
+    queryKey: string[],
+    queryFn: QueryFunction<TQueryFnData, string[], number>,
+    getNextPageParam: GetNextPageParamFunction<number, TQueryFnData>
+  ) => {
+    return useInfiniteQuery({
+      getNextPageParam,
+      initialPageParam: 1,
+      queryFn,
+      queryKey,
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      staleTime: 604_800
     });
+  };
+
+  const useGetChats = () => {
+    return useCustomInfiniteQuery(
+      ['getChats', recepientProfile?.id!],
+      ({ pageParam }) =>
+        PushAPI.chat.chats({
+          ...getBaseConfig(),
+          ...(pageParam && {
+            limit: MAX_CHAT_ITEMS,
+            page: pageParam
+          }),
+          toDecrypt: true
+        }),
+      (_, allPages, lastPageParam) => {
+        if (lastPageParam === 1 && allPages[0].length < MAX_CHAT_ITEMS) {
+          return;
+        }
+        return allPages[allPages.length - 1].length < MAX_CHAT_ITEMS
+          ? lastPageParam + 1
+          : undefined;
+      }
+    );
+  };
+
+  const useGetChatRequests = () => {
+    return useCustomInfiniteQuery(
+      ['getChatRequests', recepientProfile?.id!],
+      ({ pageParam }) =>
+        PushAPI.chat.requests({
+          ...getBaseConfig(),
+          ...(pageParam && {
+            limit: MAX_CHAT_ITEMS,
+            page: pageParam
+          }),
+          toDecrypt: true
+        }),
+      (_, allPages, lastPageParam) => {
+        if (lastPageParam === 1 && allPages[0].length < MAX_CHAT_ITEMS) {
+          return;
+        }
+        return allPages[allPages.length - 1].length < MAX_CHAT_ITEMS
+          ? lastPageParam + 1
+          : undefined;
+      }
+    );
   };
 
   return {
     decryptConversation,
     decryptPGPKey,
+    getChatHistory,
+    getChats,
     useApproveUser,
     useGetChatRequests,
     useGetChats,

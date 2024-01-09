@@ -1,9 +1,9 @@
-import type { IMessageIPFS } from '@pushprotocol/restapi';
+import type { IMessageIPFSWithCID } from '@pushprotocol/restapi';
 
 import React from 'react';
 
 interface ReplyCardProps {
-  chat: IMessageIPFS;
+  chat: IMessageIPFSWithCID;
   handle: string;
 }
 
