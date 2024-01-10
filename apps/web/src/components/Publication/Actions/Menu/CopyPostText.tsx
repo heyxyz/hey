@@ -1,14 +1,13 @@
 import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
-import { Menu } from '@headlessui/react';
 import { ClipboardDocumentIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
 import getPublicationData from '@hey/lib/getPublicationData';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
+import { DropdownMenuItem } from '@radix-ui/react-dropdown-menu';
 import toast from 'react-hot-toast';
 
 interface CopyPostTextProps {
@@ -24,13 +23,9 @@ const CopyPostText: FC<CopyPostTextProps> = ({ publication }) => {
     getPublicationData(targetPublication.metadata)?.content || '';
 
   return (
-    <Menu.Item
-      as="div"
-      className={({ active }) =>
-        cn(
-          { 'dropdown-active': active },
-          'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
-        )
+    <DropdownMenuItem
+      className={
+        'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800'
       }
       onClick={async (event) => {
         stopEventPropagation(event);
@@ -49,7 +44,7 @@ const CopyPostText: FC<CopyPostTextProps> = ({ publication }) => {
             : 'Copy post text'}
         </div>
       </div>
-    </Menu.Item>
+    </DropdownMenuItem>
   );
 };
 

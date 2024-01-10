@@ -6,7 +6,6 @@ import type {
 import type { FC } from 'react';
 
 import { useApolloClient } from '@apollo/client';
-import { Menu } from '@headlessui/react';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { LENSHUB_PROXY } from '@hey/data/constants';
@@ -24,9 +23,9 @@ import {
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
-import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
+import { DropdownMenuItem } from '@radix-ui/react-dropdown-menu';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
@@ -267,15 +266,10 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
   };
 
   return (
-    <Menu.Item
-      as="div"
-      className={({ active }) =>
-        cn(
-          { 'dropdown-active': active },
-          hasMirrored ? 'text-green-500' : '',
-          'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm'
-        )
-      }
+    <DropdownMenuItem
+      className={`${
+        hasMirrored ? 'text-green-500' : ''
+      } m-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800`}
       disabled={isLoading}
       onClick={createMirror}
     >
@@ -283,7 +277,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
         <ArrowsRightLeftIcon className="size-4" />
         <div>{hasMirrored ? 'Mirror again' : 'Mirror'}</div>
       </div>
-    </Menu.Item>
+    </DropdownMenuItem>
   );
 };
 

@@ -1,18 +1,17 @@
 import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
-import { Menu } from '@headlessui/react';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import getAvatar from '@hey/lib/getAvatar';
 import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { useState } from 'react';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
-import MenuTransition from '../MenuTransition';
 import Slug from '../Slug';
 import { NextLink } from './MenuItems';
 import MobileDrawerMenu from './MobileDrawerMenu';
@@ -30,6 +29,7 @@ import YourProfile from './NavItems/YourProfile';
 
 const SignedUser: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
+  const [openMenu, setOpenMenu] = useState(false);
   const setShowMobileDrawer = useGlobalModalStateStore(
     (state) => state.setShowMobileDrawer
   );
@@ -62,140 +62,127 @@ const SignedUser: FC = () => {
       >
         <Avatar />
       </button>
-      <Menu as="div" className="hidden md:block">
-        <Menu.Button className="outline-brand-500 flex self-center rounded-full">
-          <Avatar />
-        </Menu.Button>
-        <MenuTransition>
-          <Menu.Items
-            className="absolute right-0 mt-2 w-48 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-black"
-            static
+      <DropdownMenu.Root
+        modal={false}
+        onOpenChange={setOpenMenu}
+        open={openMenu}
+      >
+        <div className="hidden md:block">
+          <DropdownMenu.Trigger asChild>
+            <button className="outline-brand-500 flex self-center rounded-full">
+              <Avatar />
+            </button>
+          </DropdownMenu.Trigger>
+
+          <DropdownMenu.Content
+            align={'end'}
+            className="menu-transition absolute right-0 mt-2 w-48 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-black"
           >
-            <Menu.Item
-              as={NextLink}
-              className="m-2 flex items-center rounded-lg px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
-              href={getProfile(currentProfile).link}
-            >
-              <div className="flex w-full flex-col">
-                <div>Logged in as</div>
-                <div className="truncate">
-                  <Slug
-                    className="font-bold"
-                    slug={getProfile(currentProfile).slugWithPrefix}
-                  />
+            <DropdownMenu.Item asChild>
+              <NextLink
+                className="m-2 flex items-center rounded-lg px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none dark:text-gray-200 dark:hover:bg-gray-800"
+                href={getProfile(currentProfile).link}
+                onClick={() => {
+                  setOpenMenu(false);
+                }}
+              >
+                <div className="flex w-full flex-col">
+                  <div>Logged in as</div>
+                  <div className="truncate">
+                    <Slug
+                      className="font-bold"
+                      slug={getProfile(currentProfile).slugWithPrefix}
+                    />
+                  </div>
                 </div>
-              </div>
-            </Menu.Item>
+              </NextLink>
+            </DropdownMenu.Item>
             <div className="divider" />
-            <Menu.Item
-              as="div"
-              className={({ active }: { active: boolean }) =>
-                cn(
-                  { 'dropdown-active': active },
-                  'm-2 rounded-lg border dark:border-gray-700'
-                )
+            <DropdownMenu.Item
+              className={
+                'm-2 rounded-lg border focus:outline-none data-[highlighted]:bg-gray-100 dark:border-gray-700 dark:data-[highlighted]:bg-gray-800'
               }
             >
               <SwitchProfile />
-            </Menu.Item>
+            </DropdownMenu.Item>
             <div className="divider" />
-            <Menu.Item
-              as={NextLink}
-              className={({ active }: { active: boolean }) =>
-                cn({ 'dropdown-active': active }, 'menu-item')
-              }
-              href={getProfile(currentProfile).link}
-            >
-              <YourProfile />
-            </Menu.Item>
-            <Menu.Item
-              as={NextLink}
-              className={({ active }: { active: boolean }) =>
-                cn({ 'dropdown-active': active }, 'menu-item')
-              }
-              href="/settings"
-            >
-              <Settings />
-            </Menu.Item>
+            <DropdownMenu.Item asChild>
+              <NextLink
+                className="menu-item focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800"
+                href={getProfile(currentProfile).link}
+                onClick={() => {
+                  setOpenMenu(false);
+                }}
+              >
+                <YourProfile />
+              </NextLink>
+            </DropdownMenu.Item>
+
+            <DropdownMenu.Item asChild>
+              <NextLink
+                className="menu-item focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800"
+                href="/settings"
+                onClick={() => {
+                  setOpenMenu(false);
+                }}
+              >
+                <Settings />
+              </NextLink>
+            </DropdownMenu.Item>
             {isFeatureEnabled(FeatureFlag.Gardener) ||
             isFeatureEnabled(FeatureFlag.TrustedProfile) ? (
-              <Menu.Item
-                as={NextLink}
-                className={({ active }: { active: boolean }) =>
-                  cn({ 'dropdown-active': active }, 'menu-item')
-                }
-                href="/mod"
-              >
-                <Mod />
-              </Menu.Item>
+              <DropdownMenu.Item asChild>
+                <NextLink
+                  className="menu-item focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800"
+                  href="/mod"
+                  onClick={() => {
+                    setOpenMenu(false);
+                  }}
+                >
+                  <Mod />
+                </NextLink>
+              </DropdownMenu.Item>
             ) : null}
-            <Menu.Item
-              as="div"
-              className={({ active }: { active: boolean }) =>
-                cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
-              }
-            >
+            <DropdownMenu.Item className="m-2 rounded-lg focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800">
               <Invites />
-            </Menu.Item>
+            </DropdownMenu.Item>
+
             {isFeatureEnabled('pro') && (
-              <Menu.Item
-                as={NextLink}
-                className={({ active }: { active: boolean }) =>
-                  cn({ 'dropdown-active': active }, 'menu-item')
-                }
-                href="/pro"
-              >
-                <Pro />
-              </Menu.Item>
+              <DropdownMenu.Item asChild>
+                <NextLink
+                  className="menu-item focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800"
+                  href="/pro"
+                  onClick={() => {
+                    setOpenMenu(false);
+                  }}
+                >
+                  <Pro />
+                </NextLink>
+              </DropdownMenu.Item>
             )}
-            <Menu.Item
-              as="div"
-              className={({ active }) =>
-                cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
-              }
-            >
+
+            <DropdownMenu.Item className="m-2 rounded-lg focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800">
               <Logout />
-            </Menu.Item>
+            </DropdownMenu.Item>
             <div className="divider" />
-            <Menu.Item
-              as="div"
-              className={({ active }) =>
-                cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
-              }
-            >
+            <DropdownMenu.Item className="m-2 rounded-lg focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800">
               <ThemeSwitch />
-            </Menu.Item>
+            </DropdownMenu.Item>
             {isFeatureEnabled(FeatureFlag.Gardener) ? (
-              <Menu.Item
-                as="div"
-                className={({ active }) =>
-                  cn(
-                    { 'bg-yellow-100 dark:bg-yellow-800': active },
-                    'm-2 rounded-lg'
-                  )
-                }
-              >
+              <DropdownMenu.Item className="m-2 rounded-lg focus:outline-none data-[highlighted]:bg-yellow-100 dark:data-[highlighted]:bg-yellow-800">
                 <GardenerMode />
-              </Menu.Item>
+              </DropdownMenu.Item>
             ) : null}
             {isFeatureEnabled(FeatureFlag.Staff) ? (
-              <Menu.Item
-                as="div"
-                className={({ active }) =>
-                  cn(
-                    { 'bg-yellow-100 dark:bg-yellow-800': active },
-                    'm-2 rounded-lg'
-                  )
-                }
-              >
+              <DropdownMenu.Item className="m-2 rounded-lg focus:outline-none data-[highlighted]:bg-yellow-100 dark:data-[highlighted]:bg-yellow-800">
                 <StaffMode />
-              </Menu.Item>
+              </DropdownMenu.Item>
             ) : null}
             <div className="divider" />
             <AppVersion />
-          </Menu.Items>
-        </MenuTransition>
-      </Menu>
+          </DropdownMenu.Content>
+        </div>
+      </DropdownMenu.Root>
     </>
   );
 };

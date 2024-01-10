@@ -1,10 +1,9 @@
 import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
-import { Menu } from '@headlessui/react';
 import { TrashIcon } from '@heroicons/react/24/outline';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import cn from '@hey/ui/cn';
+import { DropdownMenuItem } from '@radix-ui/react-dropdown-menu';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 
 interface DeleteProps {
@@ -17,13 +16,9 @@ const Delete: FC<DeleteProps> = ({ publication }) => {
   );
 
   return (
-    <Menu.Item
-      as="div"
-      className={({ active }) =>
-        cn(
-          { 'dropdown-active': active },
-          'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm text-red-500'
-        )
+    <DropdownMenuItem
+      className={
+        'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm text-red-500 focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800'
       }
       onClick={(event) => {
         stopEventPropagation(event);
@@ -34,7 +29,7 @@ const Delete: FC<DeleteProps> = ({ publication }) => {
         <TrashIcon className="size-4" />
         <div>Delete</div>
       </div>
-    </Menu.Item>
+    </DropdownMenuItem>
   );
 };
 

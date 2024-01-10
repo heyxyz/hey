@@ -1,20 +1,22 @@
 import type { FC } from 'react';
 
-import { Menu } from '@headlessui/react';
 import cn from '@hey/ui/cn';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { useState } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
-import MenuTransition from '../MenuTransition';
 import Bookmarks from './NavItems/Bookmarks';
 import Support from './NavItems/Support';
+
 const MoreNavItems: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
+  const [open, setOpen] = useState(false);
 
   return (
-    <Menu as="div">
-      {({ open }) => (
-        <>
-          <Menu.Button
+    <DropdownMenu.Root modal={false} onOpenChange={setOpen} open={open}>
+      <div>
+        <DropdownMenu.Trigger asChild>
+          <button
             className={cn(
               'outline-brand-500 w-full cursor-pointer rounded-md px-2 py-1 text-left text-sm font-bold tracking-wide md:px-3',
               {
@@ -25,38 +27,35 @@ const MoreNavItems: FC = () => {
             )}
           >
             More
-          </Menu.Button>
-          <MenuTransition>
-            <Menu.Items
-              className="absolute mt-2 rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
-              static
-            >
-              {currentProfile ? (
-                <>
-                  <Menu.Item
-                    as="div"
-                    className={({ active }: { active: boolean }) =>
-                      cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
-                    }
-                  >
-                    <Bookmarks />
-                  </Menu.Item>
-                  <div className="divider" />
-                </>
-              ) : null}
-              <Menu.Item
-                as="div"
-                className={({ active }: { active: boolean }) =>
-                  cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
+          </button>
+        </DropdownMenu.Trigger>
+
+        <DropdownMenu.Content
+          align={'start'}
+          className="menu-transition absolute mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+        >
+          {currentProfile ? (
+            <>
+              <DropdownMenu.Item
+                className={
+                  'm-2 rounded-lg focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800'
                 }
               >
-                <Support />
-              </Menu.Item>
-            </Menu.Items>
-          </MenuTransition>
-        </>
-      )}
-    </Menu>
+                <Bookmarks />
+              </DropdownMenu.Item>
+              <div className="divider" />
+            </>
+          ) : null}
+          <DropdownMenu.Item
+            className={
+              'm-2 rounded-lg focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800'
+            }
+          >
+            <Support />
+          </DropdownMenu.Item>
+        </DropdownMenu.Content>
+      </div>
+    </DropdownMenu.Root>
   );
 };
 

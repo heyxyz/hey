@@ -1,12 +1,11 @@
 import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
-import { Menu } from '@headlessui/react';
 import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data';
 import { TriStateValue } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
-import cn from '@hey/ui/cn';
+import { DropdownMenuItem } from '@radix-ui/react-dropdown-menu';
 import toast from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
@@ -35,14 +34,8 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
   }
 
   return (
-    <Menu.Item
-      as="div"
-      className={({ active }) =>
-        cn(
-          { 'dropdown-active': active },
-          'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm'
-        )
-      }
+    <DropdownMenuItem
+      className="m-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800"
       onClick={() => {
         if (isSuspended) {
           return toast.error(Errors.Suspended);
@@ -58,7 +51,7 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
           {publicationType === 'Comment' ? 'Quote comment' : 'Quote post'}
         </div>
       </div>
-    </Menu.Item>
+    </DropdownMenuItem>
   );
 };
 

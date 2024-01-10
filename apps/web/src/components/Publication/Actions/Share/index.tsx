@@ -1,8 +1,6 @@
 import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
-import MenuTransition from '@components/Shared/MenuTransition';
-import { Menu } from '@headlessui/react';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import humanize from '@hey/lib/humanize';
 import nFormatter from '@hey/lib/nFormatter';
@@ -10,6 +8,7 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Spinner, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
@@ -37,61 +36,57 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
 
   return (
     <div className="flex items-center space-x-1">
-      <Menu as="div" className="relative">
-        <Menu.Button
-          aria-label="Mirror"
-          as={motion.button}
-          className={cn(
-            hasShared
-              ? 'text-brand-500 hover:bg-brand-300/20 outline-brand-500'
-              : 'ld-text-gray-500 outline-gray-400 hover:bg-gray-300/20',
-            'rounded-full p-1.5 outline-offset-2'
-          )}
-          onClick={stopEventPropagation}
-          whileTap={{ scale: 0.9 }}
-        >
-          {isLoading ? (
-            <Spinner
-              className="mr-0.5"
-              size="xs"
-              variant={hasShared ? 'danger' : 'primary'}
-            />
-          ) : (
-            <Tooltip
-              content={
-                shares > 0
-                  ? `${humanize(shares)} Mirrors and Quotes`
-                  : 'Mirror or Quote'
-              }
-              placement="top"
-              withDelay
-            >
-              <ArrowsRightLeftIcon className={iconClassName} />
-            </Tooltip>
-          )}
-        </Menu.Button>
-        <MenuTransition>
-          <Menu.Items
-            className="absolute z-[5] mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
-            static
+      <DropdownMenu.Root modal={false}>
+        <DropdownMenu.Trigger asChild>
+          <motion.button
+            aria-label="Mirror"
+            className={cn(
+              hasShared
+                ? 'text-brand-500 hover:bg-brand-300/20 outline-brand-500'
+                : 'ld-text-gray-500 outline-gray-400 hover:bg-gray-300/20',
+              'rounded-full p-1.5 outline-offset-2'
+            )}
+            onClick={stopEventPropagation}
+            whileTap={{ scale: 0.9 }}
           >
-            <Mirror
-              isLoading={isLoading}
-              publication={targetPublication}
-              setIsLoading={setIsLoading}
-            />
-            {targetPublication.operations.hasMirrored &&
-              targetPublication.id !== publication.id && (
-                <UndoMirror
-                  isLoading={isLoading}
-                  publication={publication}
-                  setIsLoading={setIsLoading}
-                />
-              )}
-            <Quote publication={targetPublication} />
-          </Menu.Items>
-        </MenuTransition>
-      </Menu>
+            {isLoading ? (
+              <Spinner
+                className="mr-0.5"
+                size="xs"
+                variant={hasShared ? 'danger' : 'primary'}
+              />
+            ) : (
+              <Tooltip
+                content={
+                  shares > 0
+                    ? `${humanize(shares)} Mirrors and Quotes`
+                    : 'Mirror or Quote'
+                }
+                placement="top"
+                withDelay
+              >
+                <ArrowsRightLeftIcon className={iconClassName} />
+              </Tooltip>
+            )}
+          </motion.button>
+        </DropdownMenu.Trigger>
+        <DropdownMenu.Content className="absolute z-[5] mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900">
+          <Mirror
+            isLoading={isLoading}
+            publication={targetPublication}
+            setIsLoading={setIsLoading}
+          />
+          {targetPublication.operations.hasMirrored &&
+            targetPublication.id !== publication.id && (
+              <UndoMirror
+                isLoading={isLoading}
+                publication={publication}
+                setIsLoading={setIsLoading}
+              />
+            )}
+          <Quote publication={targetPublication} />
+        </DropdownMenu.Content>
+      </DropdownMenu.Root>
       {shares > 0 && !showCount ? (
         <span
           className={cn(

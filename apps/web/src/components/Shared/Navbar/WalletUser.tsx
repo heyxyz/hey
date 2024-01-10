@@ -1,16 +1,14 @@
-import type { FC } from 'react';
-
-import { Menu } from '@headlessui/react';
 import formatAddress from '@hey/lib/formatAddress';
 import getProfile from '@hey/lib/getProfile';
 import getStampFyiURL from '@hey/lib/getStampFyiURL';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Image } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import getCurrentSession from '@lib/getCurrentSession';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { type FC, useState } from 'react';
 import useEnsName from 'src/hooks/useEnsName';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
-import MenuTransition from '../MenuTransition';
 import Slug from '../Slug';
 import { NextLink } from './MenuItems';
 import AppVersion from './NavItems/AppVersion';
@@ -19,6 +17,7 @@ import ThemeSwitch from './NavItems/ThemeSwitch';
 
 const WalletUser: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
+  const [open, setOpen] = useState(false);
   const { id: sessionProfileId } = getCurrentSession();
   const { ens } = useEnsName({
     address: sessionProfileId,
@@ -34,50 +33,56 @@ const WalletUser: FC = () => {
   );
 
   return (
-    <Menu as="div" className="md:block">
-      <Menu.Button className="outline-brand-500 flex self-center rounded-full">
-        <Avatar />
-      </Menu.Button>
-      <MenuTransition>
-        <Menu.Items
-          className="absolute right-0 mt-2 w-48 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-black"
-          static
-        >
-          <Menu.Item
-            as={NextLink}
-            className="m-2 flex items-center rounded-lg px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
-            href={getProfile(currentProfile).link}
+    <DropdownMenu.Root modal={false} onOpenChange={setOpen} open={open}>
+      <div className={'md:block'}>
+        <DropdownMenu.Trigger asChild>
+          <button
+            className="outline-brand-500 flex self-center rounded-full"
+            onClick={stopEventPropagation}
+            type="button"
           >
-            <div className="flex w-full flex-col">
-              <div>Logged in as</div>
-              <div className="truncate">
-                <Slug className="font-bold" slug={formatAddress(ens)} />
+            <Avatar />
+          </button>
+        </DropdownMenu.Trigger>
+        <DropdownMenu.Content
+          align={'end'}
+          className="menu-transition absolute right-0 mt-2 w-48 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-black"
+        >
+          <DropdownMenu.Item asChild>
+            <NextLink
+              className="m-2 flex items-center rounded-lg px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
+              href={getProfile(currentProfile).link}
+              onClick={() => setOpen(false)}
+            >
+              <div className="flex w-full flex-col">
+                <div>Logged in as</div>
+                <div className="truncate">
+                  <Slug className="font-bold" slug={formatAddress(ens)} />
+                </div>
               </div>
-            </div>
-          </Menu.Item>
+            </NextLink>
+          </DropdownMenu.Item>
           <div className="divider" />
-          <Menu.Item
-            as="div"
-            className={({ active }) =>
-              cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
+          <DropdownMenu.Item
+            className={
+              'm-2 rounded-lg data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800'
             }
           >
             <Logout />
-          </Menu.Item>
+          </DropdownMenu.Item>
           <div className="divider" />
-          <Menu.Item
-            as="div"
-            className={({ active }) =>
-              cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
+          <DropdownMenu.Item
+            className={
+              'm-2 rounded-lg data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800'
             }
           >
             <ThemeSwitch />
-          </Menu.Item>
+          </DropdownMenu.Item>
           <div className="divider" />
           <AppVersion />
-        </Menu.Items>
-      </MenuTransition>
-    </Menu>
+        </DropdownMenu.Content>
+      </div>
+    </DropdownMenu.Root>
   );
 };
 
