@@ -4,10 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  @apply overflow-y-scroll;
-}
-
 body {
   @apply bg-gray-50;
   @apply dark:bg-black;
@@ -218,4 +214,34 @@ ul {
   100% {
     background-position: 500%;
   }
+}
+
+@keyframes enter {
+  from{
+    opacity: 0;
+    transform: scale(95%);
+  }
+  to{
+    opacity: 1;
+    transform: scale(100%);
+  }
+}
+
+@keyframes leave {
+  from{
+    opacity: 1;
+    transform: scale(100%);
+  }
+  to{
+    opacity: 0;
+    transform: scale(95%);
+  }
+}
+
+.menu-transition[data-state='open'] {
+  animation: enter ease-out 100ms;
+}
+
+.menu-transition[data-state='closed'] {
+  animation: leave ease-in 75ms;
 }
