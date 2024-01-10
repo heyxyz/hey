@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useUpdateEffect } from 'usehooks-ts';
+import { useEffectOnce } from 'usehooks-ts';
 
 const NewPost: FC = () => {
   const { isReady, push, query } = useRouter();
@@ -25,7 +25,7 @@ const NewPost: FC = () => {
     setShowNewPostModal(true);
   };
 
-  useUpdateEffect(() => {
+  useEffectOnce(() => {
     if (isReady && query.text) {
       const { hashtags, text, url, via } = query;
       let processedHashtags;
@@ -44,7 +44,7 @@ const NewPost: FC = () => {
       openModal();
       setPublicationContent(content);
     }
-  }, [isReady]);
+  });
 
   return (
     <Card className="space-y-3 p-5">
