@@ -14,6 +14,7 @@ import { ChevronDownIcon } from '@heroicons/react/24/solid';
 import { HOME } from '@hey/data/tracking';
 import {
   CustomFiltersType,
+  FeedEventItemType,
   LimitType,
   useFeedLazyQuery,
   useSearchProfilesLazyQuery
@@ -60,7 +61,19 @@ const SeeThroughLens: FC = () => {
   };
 
   const profile = seeThroughProfile || currentProfile;
-  const request: FeedRequest = { where: { for: profile?.id } };
+  const request: FeedRequest = {
+    where: {
+      feedEventItemTypes: [
+        FeedEventItemType.Acted,
+        FeedEventItemType.Collect,
+        FeedEventItemType.Mirror,
+        FeedEventItemType.Post,
+        FeedEventItemType.Quote,
+        FeedEventItemType.Reaction
+      ],
+      for: profile?.id
+    }
+  };
 
   const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] =
     useSearchProfilesLazyQuery();

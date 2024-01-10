@@ -51,7 +51,9 @@ const Timeline: FC = () => {
     variables: { request }
   });
 
-  const feed = data?.feed?.items;
+  const feed = data?.feed?.items.filter(
+    (item) => item.root.__typename !== 'Comment'
+  );
   const pageInfo = data?.feed?.pageInfo;
   const hasMore = pageInfo?.next;
 
