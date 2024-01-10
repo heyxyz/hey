@@ -66,11 +66,11 @@ const Explore: NextPage = () => {
               </Tabs.Trigger>
             ))}
           </Tabs.List>
-          <div className="mt-4">
+          <div className="mt-5">
             <FeedFocusType focus={focus} setFocus={setFocus} />
           </div>
           {tabs.map((tab, index) => (
-            <Tabs.Content className="mt-4" key={tab.type} value={`${index}`}>
+            <Tabs.Content className="mt-5" key={tab.type} value={`${index}`}>
               <Feed feedType={tab.type} focus={focus} />
             </Tabs.Content>
           ))}

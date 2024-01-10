@@ -50,7 +50,7 @@ const WalletUser: FC = () => {
         >
           <DropdownMenu.Item asChild>
             <NextLink
-              className="m-2 flex items-center rounded-lg px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
+              className="m-2 flex items-center rounded-lg px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none dark:text-gray-200 dark:hover:bg-gray-800"
               href={getProfile(currentProfile).link}
               onClick={() => setOpen(false)}
             >
@@ -63,19 +63,11 @@ const WalletUser: FC = () => {
             </NextLink>
           </DropdownMenu.Item>
           <div className="divider" />
-          <DropdownMenu.Item
-            className={
-              'm-2 rounded-lg data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800'
-            }
-          >
+          <DropdownMenu.Item className="m-2 rounded-lg focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800">
             <Logout />
           </DropdownMenu.Item>
           <div className="divider" />
-          <DropdownMenu.Item
-            className={
-              'm-2 rounded-lg data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800'
-            }
-          >
+          <DropdownMenu.Item className="m-2 rounded-lg focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800">
             <ThemeSwitch />
           </DropdownMenu.Item>
           <div className="divider" />
