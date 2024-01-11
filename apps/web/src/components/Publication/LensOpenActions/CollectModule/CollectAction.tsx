@@ -390,7 +390,9 @@ const CollectAction: FC<CollectActionProps> = ({
   }
 
   if (allowanceLoading) {
-    return <div className="shimmer mt-5 h-[34px] w-28 rounded-lg" />;
+    return (
+      <div className={cn('shimmer mt-5 h-[34px] w-28 rounded-lg', className)} />
+    );
   }
 
   if (!allowed) {

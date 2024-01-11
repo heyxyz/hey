@@ -48,14 +48,16 @@ const Mint: FC<MintProps> = ({ onCollectSuccess }) => {
         className="mb-4 h-[350px] max-h-[350px] w-full rounded-xl border object-cover dark:border-gray-700"
         src="https://ipfs.decentralized-content.com/ipfs/bafybeib6infyovvtawokys4ejjr4r3qk4soy7jqriejp2wbmttedupsy64"
       />
-      <CollectAction
-        className="w-full justify-center"
-        countOpenActions={0}
-        forceShowCollect
-        onCollectSuccess={onCollectSuccess}
-        openAction={openAction}
-        publication={publication}
-      />
+      <div className="mt-5">
+        <CollectAction
+          className="!mt-0 w-full justify-center"
+          countOpenActions={0}
+          forceShowCollect
+          onCollectSuccess={onCollectSuccess}
+          openAction={openAction}
+          publication={publication}
+        />
+      </div>
     </div>
   );
 };
