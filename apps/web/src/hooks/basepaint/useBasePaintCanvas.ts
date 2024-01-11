@@ -28,7 +28,8 @@ const useBasePaintCanvas = ({
   const { data, error, isLoading } = useQuery({
     enabled,
     queryFn: getBasePaintCanvasMetadata,
-    queryKey: ['getBasePaintCanvasMetadata', id]
+    queryKey: ['getBasePaintCanvasMetadata', id],
+    refetchOnMount: false
   });
 
   return { data, error, loading: isLoading };

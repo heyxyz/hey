@@ -31,7 +31,8 @@ const useSoundRelease = ({
   const { data, error, isLoading } = useQuery({
     enabled,
     queryFn: getSoundReleaseDetails,
-    queryKey: ['getSoundReleaseDetails', handle, slug]
+    queryKey: ['getSoundReleaseDetails', handle, slug],
+    refetchOnMount: false
   });
 
   return { data, error, loading: isLoading };
