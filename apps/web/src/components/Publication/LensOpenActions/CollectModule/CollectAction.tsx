@@ -5,7 +5,7 @@ import type {
   LegacyCollectRequest,
   OpenActionModule
 } from '@hey/lens';
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import { useApolloClient } from '@apollo/client';
 import AllowanceButton from '@components/Settings/Allowance/Button';
@@ -53,6 +53,7 @@ interface CollectActionProps {
   className?: string;
   countOpenActions: number;
   forceShowCollect?: boolean;
+  noBalanceErrorMessages?: ReactNode;
   onCollectSuccess?: () => void;
   openAction: OpenActionModule;
   publication: AnyPublication;
@@ -63,6 +64,7 @@ const CollectAction: FC<CollectActionProps> = ({
   className = '',
   countOpenActions,
   forceShowCollect = false,
+  noBalanceErrorMessages,
   onCollectSuccess = () => {},
   openAction,
   publication
@@ -422,7 +424,12 @@ const CollectAction: FC<CollectActionProps> = ({
     return (
       <WarningMessage
         className="mt-5 w-full"
-        message={<NoBalanceError moduleAmount={openAction.amount} />}
+        message={
+          <NoBalanceError
+            errorMessage={noBalanceErrorMessages}
+            moduleAmount={openAction.amount}
+          />
+        }
       />
     );
   }
