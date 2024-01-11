@@ -79,7 +79,7 @@ const HeyMembershipNft: FC = () => {
             show={showMintModal}
             title={`Special ${APP_NAME} NFT`}
           >
-            <Mint setShowMintModal={setShowMintModal} />
+            <Mint onCollectSuccess={updateHeyMemberNftStatus} />
           </Modal>
           <button
             className="text-sm underline"
