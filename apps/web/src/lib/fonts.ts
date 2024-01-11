@@ -1,6 +1,7 @@
+import { Norican } from 'next/font/google';
 import localFont from 'next/font/local';
 
-const heyFont = localFont({
+export const heyFont = localFont({
   display: 'swap',
   fallback: ['sans-serif'],
   preload: true,
@@ -23,4 +24,7 @@ const heyFont = localFont({
   ]
 });
 
-export default heyFont;
+export const signatureFont = Norican({
+  subsets: ['latin'],
+  weight: '400'
+});

@@ -49,6 +49,7 @@ import {
 } from 'wagmi';
 
 interface CollectActionProps {
+  buttonTitle?: string;
   className?: string;
   countOpenActions: number;
   forceShowCollect?: boolean;
@@ -58,6 +59,7 @@ interface CollectActionProps {
 }
 
 const CollectAction: FC<CollectActionProps> = ({
+  buttonTitle = 'Collect now',
   className = '',
   countOpenActions,
   forceShowCollect = false,
@@ -438,7 +440,7 @@ const CollectAction: FC<CollectActionProps> = ({
       }
       onClick={createCollect}
     >
-      Collect now
+      {buttonTitle}
     </Button>
   );
 };
