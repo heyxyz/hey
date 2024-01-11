@@ -38,17 +38,11 @@ const ALLOWED_ERRORS_FOR_MINTING = [NO_BALANCE_ERROR, MAX_MINT_EXCEEDED_ERROR];
 
 interface MintActionProps {
   nft: ZoraNft;
-  onCompleted?: () => void;
   publicationId: string;
   zoraLink: string;
 }
 
-const MintAction: FC<MintActionProps> = ({
-  nft,
-  onCompleted,
-  publicationId,
-  zoraLink
-}) => {
+const MintAction: FC<MintActionProps> = ({ nft, publicationId, zoraLink }) => {
   const quantity = useZoraMintStore((state) => state.quantity);
   const setCanMintOnHey = useZoraMintStore((state) => state.setCanMintOnHey);
 
@@ -117,7 +111,6 @@ const MintAction: FC<MintActionProps> = ({
 
   useUpdateEffect(() => {
     if (txnData?.transactionHash) {
-      onCompleted?.();
       Leafwatch.track(PUBLICATION.OPEN_ACTIONS.ZORA_NFT.MINT, {
         ...(publicationId && { publication_id: publicationId }),
         chain: nft.chainId,

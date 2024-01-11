@@ -37,7 +37,8 @@ const useZoraNft = ({
   const { data, error, isLoading } = useQuery({
     enabled,
     queryFn: getZoraNftDetails,
-    queryKey: ['getZoraNftDetails', chain, address, token]
+    queryKey: ['getZoraNftDetails', chain, address, token],
+    refetchOnMount: false
   });
 
   return { data, error, loading: isLoading };

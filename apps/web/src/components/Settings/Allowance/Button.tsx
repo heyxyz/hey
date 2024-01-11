@@ -20,6 +20,7 @@ import { useSendTransaction, useWaitForTransactionReceipt } from 'wagmi';
 
 interface AllowanceButtonProps {
   allowed: boolean;
+  className?: string;
   module: ApprovedAllowanceAmountResult;
   setAllowed: Dispatch<SetStateAction<boolean>>;
   title?: string;
@@ -27,6 +28,7 @@ interface AllowanceButtonProps {
 
 const AllowanceButton: FC<AllowanceButtonProps> = ({
   allowed,
+  className = '',
   module,
   setAllowed,
   title = 'Allow'
@@ -105,6 +107,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
 
   return allowed ? (
     <Button
+      className={className}
       icon={
         queryLoading || transactionLoading || waitLoading ? (
           <Spinner size="xs" variant="warning" />
@@ -126,6 +129,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
   ) : (
     <>
       <Button
+        className={className}
         icon={<PlusIcon className="size-4" />}
         onClick={() => setShowWarningModal(!showWarningModal)}
       >

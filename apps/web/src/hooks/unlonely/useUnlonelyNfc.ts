@@ -28,7 +28,8 @@ const useUnlonelyNfc = ({
   const { data, error, isLoading } = useQuery({
     enabled,
     queryFn: getUnlonelyNfcDetails,
-    queryKey: ['getUnlonelyNfcDetails', id]
+    queryKey: ['getUnlonelyNfcDetails', id],
+    refetchOnMount: false
   });
 
   return { data, error, loading: isLoading };
