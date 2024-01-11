@@ -30,6 +30,7 @@ import getOpenActionActOnKey from '@hey/lib/getOpenActionActOnKey';
 import getSignature from '@hey/lib/getSignature';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Button, Spinner, WarningMessage } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import getCurrentSession from '@lib/getCurrentSession';
 import { Leafwatch } from '@lib/leafwatch';
@@ -48,6 +49,7 @@ import {
 } from 'wagmi';
 
 interface CollectActionProps {
+  className?: string;
   countOpenActions: number;
   forceShowCollect?: boolean;
   onCollectSuccess?: () => void;
@@ -56,6 +58,7 @@ interface CollectActionProps {
 }
 
 const CollectAction: FC<CollectActionProps> = ({
+  className = '',
   countOpenActions,
   forceShowCollect = false,
   onCollectSuccess = () => {},
@@ -392,17 +395,16 @@ const CollectAction: FC<CollectActionProps> = ({
 
   if (!allowed) {
     return (
-      <span className="mt-5">
-        <AllowanceButton
-          allowed={allowed}
-          module={
-            allowanceData
-              ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult
-          }
-          setAllowed={setAllowed}
-          title="Allow collect module"
-        />
-      </span>
+      <AllowanceButton
+        allowed={allowed}
+        className={cn('mt-5', className)}
+        module={
+          allowanceData
+            ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult
+        }
+        setAllowed={setAllowed}
+        title="Allow collect module"
+      />
     );
   }
 
@@ -423,7 +425,7 @@ const CollectAction: FC<CollectActionProps> = ({
 
   return (
     <Button
-      className="mt-5"
+      className={cn('mt-5', className)}
       disabled={isLoading}
       icon={
         isLoading ? (
