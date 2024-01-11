@@ -28,7 +28,8 @@ const useUnlonelyChannel = ({
   const { data, error, isLoading } = useQuery({
     enabled,
     queryFn: getUnlonelyChannelDetails,
-    queryKey: ['getUnlonelyChannelDetails', slug]
+    queryKey: ['getUnlonelyChannelDetails', slug],
+    refetchOnMount: false
   });
 
   return { data, error, loading: isLoading };
