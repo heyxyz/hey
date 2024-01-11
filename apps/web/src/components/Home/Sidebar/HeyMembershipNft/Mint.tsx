@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import CollectAction from '@components/Publication/LensOpenActions/CollectModule/CollectAction';
 import Loader from '@components/Shared/Loader';
 import { Errors } from '@hey/data';
-import { APP_NAME } from '@hey/data/constants';
+import { APP_NAME, IS_MAINNET } from '@hey/data/constants';
 import { usePublicationQuery } from '@hey/lens';
 import { ErrorMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -17,7 +17,9 @@ interface MintProps {
 
 const Mint: FC<MintProps> = ({ onCollectSuccess }) => {
   const { data, error, loading } = usePublicationQuery({
-    variables: { request: { forId: '0x06-0x05' } }
+    variables: {
+      request: { forId: IS_MAINNET ? '0x020b69-0x01' : '0x06-0x05' }
+    }
   });
 
   if (loading) {
