@@ -5,7 +5,7 @@ import type {
   LegacyCollectRequest,
   OpenActionModule
 } from '@hey/lens';
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import { useApolloClient } from '@apollo/client';
 import AllowanceButton from '@components/Settings/Allowance/Button';
@@ -30,6 +30,7 @@ import getOpenActionActOnKey from '@hey/lib/getOpenActionActOnKey';
 import getSignature from '@hey/lib/getSignature';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Button, Spinner, WarningMessage } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import getCurrentSession from '@lib/getCurrentSession';
 import { Leafwatch } from '@lib/leafwatch';
@@ -48,17 +49,25 @@ import {
 } from 'wagmi';
 
 interface CollectActionProps {
+  buttonTitle?: string;
+  className?: string;
   countOpenActions: number;
+  forceShowCollect?: boolean;
+  noBalanceErrorMessages?: ReactNode;
+  onCollectSuccess?: () => void;
   openAction: OpenActionModule;
   publication: AnyPublication;
-  setCountOpenActions: (count: number) => void;
 }
 
 const CollectAction: FC<CollectActionProps> = ({
+  buttonTitle = 'Collect now',
+  className = '',
   countOpenActions,
+  forceShowCollect = false,
+  noBalanceErrorMessages,
+  onCollectSuccess = () => {},
   openAction,
-  publication,
-  setCountOpenActions
+  publication
 }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const { isSuspended } = useProfileRestriction();
@@ -117,8 +126,9 @@ const CollectAction: FC<CollectActionProps> = ({
   const canUseManager =
     canUseLensManager && !collectModule?.followerOnly && isFreeCollectModule;
 
-  const canCollect =
-    !hasActed || (!isFreeCollectModule && !isSimpleFreeCollectModule);
+  const canCollect = forceShowCollect
+    ? true
+    : !hasActed || (!isFreeCollectModule && !isSimpleFreeCollectModule);
 
   const updateCache = () => {
     cache.modify({
@@ -154,7 +164,7 @@ const CollectAction: FC<CollectActionProps> = ({
 
     setHasActed(true);
     setIsLoading(false);
-    setCountOpenActions(countOpenActions + 1);
+    onCollectSuccess?.();
     updateCache();
     toast.success('Collected successfully!');
     Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
@@ -384,22 +394,23 @@ const CollectAction: FC<CollectActionProps> = ({
   }
 
   if (allowanceLoading) {
-    return <div className="shimmer mt-5 h-[34px] w-28 rounded-lg" />;
+    return (
+      <div className={cn('shimmer mt-5 h-[34px] w-28 rounded-lg', className)} />
+    );
   }
 
   if (!allowed) {
     return (
-      <span className="mt-5">
-        <AllowanceButton
-          allowed={allowed}
-          module={
-            allowanceData
-              ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult
-          }
-          setAllowed={setAllowed}
-          title="Allow collect module"
-        />
-      </span>
+      <AllowanceButton
+        allowed={allowed}
+        className={cn('mt-5', className)}
+        module={
+          allowanceData
+            ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult
+        }
+        setAllowed={setAllowed}
+        title="Allow collect module"
+      />
     );
   }
 
@@ -413,14 +424,19 @@ const CollectAction: FC<CollectActionProps> = ({
     return (
       <WarningMessage
         className="mt-5 w-full"
-        message={<NoBalanceError moduleAmount={openAction.amount} />}
+        message={
+          <NoBalanceError
+            errorMessage={noBalanceErrorMessages}
+            moduleAmount={openAction.amount}
+          />
+        }
       />
     );
   }
 
   return (
     <Button
-      className="mt-5"
+      className={cn('mt-5', className)}
       disabled={isLoading}
       icon={
         isLoading ? (
@@ -431,7 +447,7 @@ const CollectAction: FC<CollectActionProps> = ({
       }
       onClick={createCollect}
     >
-      Collect now
+      {buttonTitle}
     </Button>
   );
 };
