@@ -220,9 +220,9 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
         <div className="flex items-center space-x-2">
           <CollectAction
             countOpenActions={countOpenActions}
+            onCollectSuccess={() => setCountOpenActions(countOpenActions + 1)}
             openAction={openAction}
             publication={publication}
-            setCountOpenActions={setCountOpenActions}
           />
         </div>
       </div>
