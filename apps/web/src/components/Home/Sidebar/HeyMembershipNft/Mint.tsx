@@ -84,6 +84,11 @@ const Mint: FC<MintProps> = ({ onCollectSuccess }) => {
           className="!mt-0 w-full justify-center"
           countOpenActions={0}
           forceShowCollect
+          noBalanceErrorMessages={
+            <span>
+              You need <b>5 MATIC</b> to collect this {APP_NAME} NFT
+            </span>
+          }
           onCollectSuccess={onCollectSuccess}
           openAction={openAction}
           publication={publication}
