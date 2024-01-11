@@ -49,16 +49,18 @@ import {
 
 interface CollectActionProps {
   countOpenActions: number;
+  forceShowCollect?: boolean;
+  onCollectSuccess?: () => void;
   openAction: OpenActionModule;
   publication: AnyPublication;
-  setCountOpenActions: (count: number) => void;
 }
 
 const CollectAction: FC<CollectActionProps> = ({
   countOpenActions,
+  forceShowCollect = false,
+  onCollectSuccess = () => {},
   openAction,
-  publication,
-  setCountOpenActions
+  publication
 }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const { isSuspended } = useProfileRestriction();
@@ -117,8 +119,9 @@ const CollectAction: FC<CollectActionProps> = ({
   const canUseManager =
     canUseLensManager && !collectModule?.followerOnly && isFreeCollectModule;
 
-  const canCollect =
-    !hasActed || (!isFreeCollectModule && !isSimpleFreeCollectModule);
+  const canCollect = forceShowCollect
+    ? true
+    : !hasActed || (!isFreeCollectModule && !isSimpleFreeCollectModule);
 
   const updateCache = () => {
     cache.modify({
@@ -154,7 +157,7 @@ const CollectAction: FC<CollectActionProps> = ({
 
     setHasActed(true);
     setIsLoading(false);
-    setCountOpenActions(countOpenActions + 1);
+    onCollectSuccess?.();
     updateCache();
     toast.success('Collected successfully!');
     Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT, {

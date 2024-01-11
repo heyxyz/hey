@@ -1,8 +1,7 @@
 import type { FC } from 'react';
 
-import Mint from '@components/Publication/HeyOpenActions/Nft/ZoraNft/Mint';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
-import { HEY_API_URL, ZERO_PUBLICATION_ID } from '@hey/data/constants';
+import { APP_NAME, HEY_API_URL } from '@hey/data/constants';
 import { MISCELLANEOUS, PUBLICATION } from '@hey/data/tracking';
 import { Button, Card, Modal } from '@hey/ui';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
@@ -10,8 +9,9 @@ import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { memo, useState } from 'react';
 import toast from 'react-hot-toast';
-import useZoraNft from 'src/hooks/zora/useZoraNft';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
+
+import Mint from './Mint';
 
 const HeyMembershipNft: FC = () => {
   const hasDismissedOrMintedMembershipNft = usePreferencesStore(
@@ -22,32 +22,25 @@ const HeyMembershipNft: FC = () => {
   );
   const [showMintModal, setShowMintModal] = useState(false);
 
-  const { data: nft, loading } = useZoraNft({
-    address: '0x8fcfdad5ebdd1ce815aa769bbd7499091ac056d1',
-    chain: 'zora'
-  });
-
   if (hasDismissedOrMintedMembershipNft) {
     return null;
   }
 
   const updateHeyMemberNftStatus = async () => {
-    try {
-      toast.promise(
-        axios.post(`${HEY_API_URL}/preferences/updateNftStatus`, undefined, {
-          headers: getAuthApiHeaders()
-        }),
-        {
-          error: 'Error updating.',
-          loading: 'Updating...',
-          success: () => {
-            setHasDismissedOrMintedMembershipNft(true);
-            setShowMintModal(false);
-            return 'Updated!';
-          }
+    toast.promise(
+      axios.post(`${HEY_API_URL}/preferences/updateNftStatus`, undefined, {
+        headers: getAuthApiHeaders()
+      }),
+      {
+        error: 'Error updating.',
+        loading: 'Updating...',
+        success: () => {
+          setHasDismissedOrMintedMembershipNft(true);
+          setShowMintModal(false);
+          return 'Updated!';
         }
-      );
-    } catch {}
+      }
+    );
   };
 
   return (
@@ -71,10 +64,9 @@ const HeyMembershipNft: FC = () => {
         <div className="flex flex-col items-center space-y-1.5">
           <Button
             className="w-full"
-            disabled={loading}
             onClick={() => {
               setShowMintModal(true);
-              Leafwatch.track(PUBLICATION.OPEN_ACTIONS.ZORA_NFT.OPEN_MINT, {
+              Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT, {
                 from: 'mint_membership_nft'
               });
             }}
@@ -85,14 +77,9 @@ const HeyMembershipNft: FC = () => {
             icon={<CursorArrowRaysIcon className="text-brand-500 size-5" />}
             onClose={() => setShowMintModal(false)}
             show={showMintModal}
-            title="Mint"
+            title={`Special ${APP_NAME} NFT`}
           >
-            <Mint
-              nft={nft}
-              onCompleted={updateHeyMemberNftStatus}
-              publicationId={ZERO_PUBLICATION_ID}
-              zoraLink="https://zora.co/collect/zora:0x8fcfdad5ebdd1ce815aa769bbd7499091ac056d1"
-            />
+            <Mint setShowMintModal={setShowMintModal} />
           </Modal>
           <button
             className="text-sm underline"
