@@ -1,5 +1,5 @@
 import type { Amount } from '@hey/lens';
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import { InboxIcon } from '@heroicons/react/24/outline';
 import { Button, Spinner } from '@hey/ui';
@@ -11,10 +11,11 @@ import { useWriteContract } from 'wagmi';
 import IndexStatus from '../IndexStatus';
 
 interface WrapWmaticProps {
+  errorMessage?: ReactNode;
   moduleAmount: Amount;
 }
 
-const WrapWmatic: FC<WrapWmaticProps> = ({ moduleAmount }) => {
+const WrapWmatic: FC<WrapWmaticProps> = ({ errorMessage, moduleAmount }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const amount = moduleAmount?.value;
@@ -87,7 +88,13 @@ const WrapWmatic: FC<WrapWmaticProps> = ({ moduleAmount }) => {
       ) : (
         <>
           <div className="mb-1 text-sm">
-            You don't have enough <b>{currency}</b>
+            {errorMessage ? (
+              errorMessage
+            ) : (
+              <span>
+                You don't have enough <b>{currency}</b>
+              </span>
+            )}
           </div>
           <Button
             disabled={isLoading}
