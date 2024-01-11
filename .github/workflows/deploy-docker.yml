@@ -62,35 +62,13 @@ jobs:
       - name: Checkout 🚪
         uses: actions/checkout@v4
 
-      - name: Build and push API-mainnet image 🚀
+      - name: Build and push API image 🚀
         uses: ./.github/actions/docker
         with:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
-          image_name: api-mainnet
+          image_name: api
           docker_file: ./apps/api/Dockerfile
-          build_args: |
-            NEXT_PUBLIC_LENS_NETWORK=mainnet
-
-      - name: Build and push API-testnet image 🚀
-        uses: ./.github/actions/docker
-        with:
-          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
-          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
-          image_name: api-testnet
-          docker_file: ./apps/api/Dockerfile
-          build_args: |
-            NEXT_PUBLIC_LENS_NETWORK=testnet
-
-      - name: Build and push API-staging image 🚀
-        uses: ./.github/actions/docker
-        with:
-          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
-          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
-          image_name: api-staging
-          docker_file: ./apps/api/Dockerfile
-          build_args: |
-            NEXT_PUBLIC_LENS_NETWORK=staging
 
       - name: Trigger API Deployment 🚀
         uses: appleboy/ssh-action@master
