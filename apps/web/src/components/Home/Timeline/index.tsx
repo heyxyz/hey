@@ -41,8 +41,6 @@ const Timeline: FC = () => {
   };
 
   const { data, error, fetchMore, loading } = useFeedQuery({
-    fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: 'cache-first',
     onCompleted: async ({ feed }) => {
       const ids =
         feed?.items?.flatMap((p) => {
@@ -76,7 +74,7 @@ const Timeline: FC = () => {
     }
   });
 
-  if (loading && !data) {
+  if (loading) {
     return <PublicationsShimmer />;
   }
 
