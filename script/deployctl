@@ -1,0 +1,154 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+  echo "Usage: $0 <api|web|og>"
+  exit 1
+fi
+
+SERVICE=$1
+
+case $SERVICE in
+  "api" | "web" | "og")
+    ;;
+  *)
+    echo "Invalid service type. Use 'api', 'web', or 'og'."
+    exit 1
+    ;;
+esac
+
+case $SERVICE in
+  "api")
+    echo "Deploying API Service 🚀"
+
+    docker stop api-mainnet || true
+    docker stop api-testnet || true
+    docker stop api-staging || true
+
+    docker rm api-mainnet || true
+    docker rm api-testnet || true
+    docker rm api-staging || true
+
+    docker pull heyxyz/api-mainnet:latest
+    docker pull heyxyz/api-testnet:latest
+    docker pull heyxyz/api-staging:latest
+
+    echo "Starting API Mainnet 🚀"
+    docker run -d \
+      --name api-mainnet \
+      --restart always \
+      -p 4784:4784 \
+      -e DATABASE_URL=$DATABASE_URL_MAINNET \
+      -e CLICKHOUSE_PASSWORD=$CLICKHOUSE_PASSWORD \
+      -e SECRET=$SECRET \
+      -e EVER_ACCESS_KEY=$EVER_ACCESS_KEY \
+      -e EVER_ACCESS_SECRET=$EVER_ACCESS_SECRET \
+      -e LENS_IPFS_AUTH_KEY=$LENS_IPFS_AUTH_KEY \
+      -e IPAPI_KEY=$IPAPI_KEY \
+      -e GOOGLE_API_KEY=$GOOGLE_API_KEY \
+      -e IRYS_PRIVATE_KEY:$IRYS_PRIVATE_KEY \
+      -e IMAGEKIT_URL=$IMAGEKIT_URL \
+      -e ZENDESK_API_KEY=$ZENDESK_API_KEY heyxyz/api-mainnet:latest
+
+    echo "Starting API Testnet 🚀"
+    docker run -d \
+      --name api-testnet \
+      --restart always \
+      -p 5784:4784 \
+      -e DATABASE_URL=$DATABASE_URL_TESTNET \
+      -e CLICKHOUSE_PASSWORD=$CLICKHOUSE_PASSWORD \
+      -e SECRET=$SECRET \
+      -e EVER_ACCESS_KEY=$EVER_ACCESS_KEY \
+      -e EVER_ACCESS_SECRET=$EVER_ACCESS_SECRET \
+      -e LENS_IPFS_AUTH_KEY=$LENS_IPFS_AUTH_KEY \
+      -e IPAPI_KEY=$IPAPI_KEY \
+      -e GOOGLE_API_KEY=$GOOGLE_API_KEY \
+      -e IRYS_PRIVATE_KEY:$IRYS_PRIVATE_KEY \
+      -e IMAGEKIT_URL=$IMAGEKIT_URL \
+      -e ZENDESK_API_KEY=$ZENDESK_API_KEY heyxyz/api-testnet:latest
+
+    echo "Starting API Staging 🚀"
+    docker run -d \
+      --name api-staging \
+      --restart always \
+      -p 6784:4784 \
+      -e DATABASE_URL=$DATABASE_URL_STAGING \
+      -e CLICKHOUSE_PASSWORD=$CLICKHOUSE_PASSWORD \
+      -e SECRET=$SECRET \
+      -e EVER_ACCESS_KEY=$EVER_ACCESS_KEY \
+      -e EVER_ACCESS_SECRET=$EVER_ACCESS_SECRET \
+      -e LENS_IPFS_AUTH_KEY=$LENS_IPFS_AUTH_KEY \
+      -e IPAPI_KEY=$IPAPI_KEY \
+      -e GOOGLE_API_KEY=$GOOGLE_API_KEY \
+      -e IRYS_PRIVATE_KEY:$IRYS_PRIVATE_KEY \
+      -e IMAGEKIT_URL=$IMAGEKIT_URL \
+      -e ZENDESK_API_KEY=$ZENDESK_API_KEY heyxyz/api-staging:latest
+    ;;
+
+  "web")
+    echo "Deploying Web Service 🚀"
+
+    docker stop web-mainnet || true
+    docker stop web-testnet || true
+    docker stop web-staging || true
+
+    docker rm web-mainnet || true
+    docker rm web-testnet || true
+    docker rm web-staging || true
+
+    docker pull heyxyz/web-mainnet:latest
+    docker pull heyxyz/web-testnet:latest
+    docker pull heyxyz/web-staging:latest
+
+    echo "Starting Web Mainnet 🚀"
+    docker run -d \
+      --name web-mainnet \
+      --restart always \
+      -p 4783:4783 heyxyz/web-mainnet:latest
+
+    echo "Starting Web Testnet 🚀"
+    docker run -d \
+      --name web-testnet \
+      --restart always \
+      -p 5783:4783 heyxyz/web-testnet:latest
+
+    echo "Starting Web Staging 🚀"
+    docker run -d \
+      --name web-staging \
+      --restart always \
+      -p 6783:4783 heyxyz/web-staging:latest
+    ;;
+
+  "og")
+    echo "Deploying OG Service 🚀"
+
+    docker stop og-mainnet || true
+    docker stop og-testnet || true
+    docker stop og-staging || true
+
+    docker rm og-mainnet || true
+    docker rm og-testnet || true
+    docker rm og-staging || true
+
+    docker pull heyxyz/og-mainnet:latest
+    docker pull heyxyz/og-testnet:latest
+    docker pull heyxyz/og-staging:latest
+
+    echo "Starting OG Mainnet 🚀"
+    docker run -d \
+      --name og-mainnet \
+      --restart always \
+      -p 4785:4785 heyxyz/og-mainnet:latest
+
+    echo "Starting OG Testnet 🚀"
+    docker run -d \
+      --name og-testnet \
+      --restart always \
+      -p 5785:4785 heyxyz/og-testnet:latest
+
+    echo "Starting OG Staging 🚀"
+    docker run -d \
+      --name og-staging \
+      --restart always \
+      -p 6785:4785 heyxyz/og-staging:latest
+    ;;
+esac

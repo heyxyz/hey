@@ -13,13 +13,47 @@ jobs:
       - name: Checkout 🚪
         uses: actions/checkout@v4
 
-      - name: Build and push Web image 🚀
+      - name: Build and push Web-mainnet image 🚀
         uses: ./.github/actions/docker
         with:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
-          image_name: web
+          image_name: web-mainnet
           docker_file: ./apps/web/Dockerfile
+          build_args: |
+            NEXT_PUBLIC_LENS_NETWORK=mainnet
+            NEXT_PUBLIC_OG_URL=${{ secrets.NEXT_PUBLIC_OG_URL }}
+
+      - name: Build and push Web-testnet image 🚀
+        uses: ./.github/actions/docker
+        with:
+          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+          image_name: web-testnet
+          docker_file: ./apps/web/Dockerfile
+          build_args: |
+            NEXT_PUBLIC_LENS_NETWORK=testnet
+            NEXT_PUBLIC_OG_URL=${{ secrets.NEXT_PUBLIC_OG_URL }}
+
+      - name: Build and push Web-staging image 🚀
+        uses: ./.github/actions/docker
+        with:
+          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+          image_name: web-staging
+          docker_file: ./apps/web/Dockerfile
+          build_args: |
+            NEXT_PUBLIC_LENS_NETWORK=staging
+            NEXT_PUBLIC_OG_URL=${{ secrets.NEXT_PUBLIC_OG_URL }}
+
+      - name: Trigger Web Deployment 🚀
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: deployctl web
 
   api:
     name: API
@@ -28,21 +62,59 @@ jobs:
       - name: Checkout 🚪
         uses: actions/checkout@v4
 
-      - name: Build and push API image 🚀
+      - name: Build and push API-mainnet image 🚀
         uses: ./.github/actions/docker
         with:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
-          image_name: api
+          image_name: api-mainnet
           docker_file: ./apps/api/Dockerfile
+          build_args: |
+            NEXT_PUBLIC_LENS_NETWORK=mainnet
+
+      - name: Build and push API-testnet image 🚀
+        uses: ./.github/actions/docker
+        with:
+          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+          image_name: api-testnet
+          docker_file: ./apps/api/Dockerfile
+          build_args: |
+            NEXT_PUBLIC_LENS_NETWORK=testnet
+
+      - name: Build and push API-staging image 🚀
+        uses: ./.github/actions/docker
+        with:
+          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+          image_name: api-staging
+          docker_file: ./apps/api/Dockerfile
+          build_args: |
+            NEXT_PUBLIC_LENS_NETWORK=staging
 
       - name: Trigger API Deployment 🚀
-        uses: indiesdev/curl@v1.1
+        uses: appleboy/ssh-action@master
+        env:
+          DATABASE_URL_MAINNET: ${{ secrets.DATABASE_URL_MAINNET }}
+          DATABASE_URL_TESTNET: ${{ secrets.DATABASE_URL_TESTNET }}
+          DATABASE_URL_STAGING: ${{ secrets.DATABASE_URL_STAGING }}
+          CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
+          SECRET: ${{ secrets.SECRET }}
+          EVER_ACCESS_KEY: ${{ secrets.EVER_ACCESS_KEY }}
+          EVER_ACCESS_SECRET: ${{ secrets.EVER_ACCESS_SECRET }}
+          LENS_IPFS_AUTH_KEY: ${{ secrets.LENS_IPFS_AUTH_KEY }}
+          IPAPI_KEY: ${{ secrets.IPAPI_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          IRYS_PRIVATE_KEY: ${{ secrets.IRYS_PRIVATE_KEY }}
+          IMAGEKIT_URL: ${{ secrets.IMAGEKIT_URL }}
+          ZENDESK_API_KEY: ${{ secrets.ZENDESK_API_KEY }}
         with:
-          url: https://api.hey.xyz/internal/railway/triggerDeployments
-          method: 'POST'
-          body: '{ "secret": "${{ secrets.SECRET }}", "serviceId": "4a2a1bfb-e499-4c71-bf7f-d9ad47443c31" }'
-          headers: '{ "Content-Type": "application/json", "Referer": "https://hey.xyz" }'
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          envs: DATABASE_URL_MAINNET,DATABASE_URL_TESTNET,DATABASE_URL_STAGING,CLICKHOUSE_PASSWORD,SECRET,EVER_ACCESS_KEY,EVER_ACCESS_SECRET,LENS_IPFS_AUTH_KEY,IPAPI_KEY,GOOGLE_API_KEY,IRYS_PRIVATE_KEY,IMAGEKIT_URL,ZENDESK_API_KEY
+          script: deployctl api
 
   og:
     name: OG
@@ -51,10 +123,41 @@ jobs:
       - name: Checkout 🚪
         uses: actions/checkout@v4
 
-      - name: Build and push OG image 🚀
+      - name: Build and push OG-mainnet image 🚀
         uses: ./.github/actions/docker
         with:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
-          image_name: og
+          image_name: og-mainnet
           docker_file: ./apps/og/Dockerfile
+          build_args: |
+            NEXT_PUBLIC_LENS_NETWORK=mainnet
+
+      - name: Build and push OG-testnet image 🚀
+        uses: ./.github/actions/docker
+        with:
+          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+          image_name: og-testnet
+          docker_file: ./apps/og/Dockerfile
+          build_args: |
+            NEXT_PUBLIC_LENS_NETWORK=testnet
+
+      - name: Build and push OG-staging image 🚀
+        uses: ./.github/actions/docker
+        with:
+          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+          image_name: og-staging
+          docker_file: ./apps/og/Dockerfile
+          build_args: |
+            NEXT_PUBLIC_LENS_NETWORK=staging
+
+      - name: Trigger OG Deployment 🚀
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: deployctl og
