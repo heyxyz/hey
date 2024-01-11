@@ -52,7 +52,9 @@ const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
           )}
           onClick={() => {
             setShowOpenActionModal(true);
-            Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
+            Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT, {
+              publication_id: publication.id
+            });
           }}
           whileTap={{ scale: 0.9 }}
         >
