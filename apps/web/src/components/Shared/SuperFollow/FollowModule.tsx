@@ -156,6 +156,7 @@ const FollowModule: FC<FollowModuleProps> = ({
 
   const { data: balanceData } = useBalance({
     address: currentProfile?.ownedBy.address,
+    query: { refetchInterval: 2000 },
     token: followModule?.amount?.asset?.contract.address
   });
   let hasAmount = false;

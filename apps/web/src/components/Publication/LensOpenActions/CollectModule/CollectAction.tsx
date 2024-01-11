@@ -226,7 +226,11 @@ const CollectAction: FC<CollectActionProps> = ({
       }
     });
 
-  const { data: balanceData } = useBalance({ address, token: assetAddress });
+  const { data: balanceData } = useBalance({
+    address,
+    query: { refetchInterval: 2000 },
+    token: assetAddress
+  });
 
   let hasAmount = false;
   if (
