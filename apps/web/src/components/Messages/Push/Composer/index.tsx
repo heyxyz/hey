@@ -58,10 +58,10 @@ const Composer: FC = () => {
         currentProfile?.id!
       );
       setRecipientChat([tempMessage]);
+      setReplyToMessage(null);
 
       const sentMessage = await sendMessage(messageContent);
       const decryptedMessage = await decryptConversation(sentMessage);
-      setReplyToMessage(null);
       setRecipientChat([decryptedMessage], tempMessage.cid);
     } catch (error) {
       toast.error((error as Error).message);

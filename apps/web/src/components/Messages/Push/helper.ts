@@ -68,11 +68,25 @@ export const createTemporaryMessage = (
   profileId: string
 ) => {
   const tempMessageId = `temp_${uuid()}`;
+  // PushSDK does weird nesting for REPLY messages
+  const messageContentFormatted =
+    messageContents.type === MessageType.REPLY
+      ? {
+          content: {
+            messageObj: {
+              content: messageContents.content.content
+            },
+            messageType: messageContents.content.type
+          },
+          reference: messageContents.reference
+        }
+      : messageContents;
+
   return {
     cid: tempMessageId,
     fromDID: getAccountFromProfile(profileId),
     link: tempMessageId,
-    messageObj: messageContents,
+    messageObj: messageContentFormatted,
     messageType: messageContents.type,
     timestamp: Date.now()
   } as IMessageIPFSWithCID;
