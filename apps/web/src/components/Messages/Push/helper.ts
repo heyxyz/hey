@@ -9,6 +9,7 @@ import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
 import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
 import { CHAIN_ID } from 'src/constants';
+import { v4 as uuid } from 'uuid';
 
 import type { MessageReactions } from './Actions/Reactions';
 
@@ -66,7 +67,7 @@ export const createTemporaryMessage = (
   messageContents: Message,
   profileId: string
 ) => {
-  const tempMessageId = Math.random().toString(36);
+  const tempMessageId = `temp_${uuid()}`;
   return {
     cid: tempMessageId,
     fromDID: getAccountFromProfile(profileId),

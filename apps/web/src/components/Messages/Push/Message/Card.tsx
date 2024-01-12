@@ -89,8 +89,12 @@ const Message = ({ message, messageReactions, replyMessage }: Props) => {
       className={clsx('flex items-center', {
         'flex-row-reverse': messageOrigin === MessageOrigin.Sender
       })}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={
+        !message.cid.startsWith('temp_') ? handleMouseEnter : () => {}
+      }
+      onMouseLeave={
+        !message.cid.startsWith('temp_') ? handleMouseLeave : () => {}
+      }
     >
       <div
         className={clsx('flex-col', {

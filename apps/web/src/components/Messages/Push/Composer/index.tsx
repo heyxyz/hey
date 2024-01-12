@@ -57,8 +57,6 @@ const Composer: FC = () => {
         messageContent,
         currentProfile?.id!
       );
-      console.log(tempMessage, 'tempMessage');
-
       setRecipientChat([tempMessage]);
 
       const sentMessage = await sendMessage(messageContent);
