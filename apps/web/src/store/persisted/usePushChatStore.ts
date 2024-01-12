@@ -1,8 +1,6 @@
 import type { IFeeds, IMessageIPFSWithCID, IUser } from '@pushprotocol/restapi';
 
-import { IS_MAINNET } from '@hey/data/constants';
 import { Localstorage } from '@hey/data/storage';
-import { ENV } from '@pushprotocol/restapi/src/lib/constants';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -17,8 +15,6 @@ export const CHAT_TYPES = {
 
 export type ChatTypes = (typeof CHAT_TYPES)[keyof typeof CHAT_TYPES];
 export type PushTabs = (typeof PUSH_TABS)[keyof typeof PUSH_TABS];
-
-export const PUSH_ENV = IS_MAINNET ? ENV.PROD : ENV.DEV;
 
 export interface Profile {
   id: string;

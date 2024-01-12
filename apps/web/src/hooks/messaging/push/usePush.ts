@@ -5,14 +5,12 @@ import type {
 } from '@tanstack/react-query';
 
 import { getAccountFromProfile } from '@components/Messages/Push/helper';
+import { PUSH_ENV } from '@hey/data/constants';
 import * as PushAPI from '@pushprotocol/restapi';
 import { PGPHelper } from '@pushprotocol/restapi/src/lib/chat/helpers';
 import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import {
-  PUSH_ENV,
-  usePushChatStore
-} from 'src/store/persisted/usePushChatStore';
+import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 import { useWalletClient } from 'wagmi';
 
 export const MAX_CHAT_ITEMS = 30;

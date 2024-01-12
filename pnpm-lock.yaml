@@ -463,6 +463,10 @@ importers:
         version: 3.0.0(@typescript-eslint/eslint-plugin@6.18.1)(eslint@8.56.0)
 
   packages/data:
+    dependencies:
+      '@pushprotocol/restapi':
+        specifier: ^1.5.7
+        version: 1.5.7(ethers@5.7.2)(typescript@5.3.3)
     devDependencies:
       '@hey/config':
         specifier: workspace:*
@@ -4743,6 +4747,25 @@ packages:
       - immer
     dev: false
 
+  /@livepeer/core@1.9.2(immer@10.0.3):
+    resolution: {integrity: sha512-b97YpsxEDStZs8JHj4MCoMK1SJ80hRLcPOHlQohpZSp/Guvx56j/SNbCTLclmJFWBu5+ddtSpWzCXsr0moI8/g==}
+    peerDependencies:
+      react: '>=17.0.0'
+    peerDependenciesMeta:
+      react:
+        optional: true
+    dependencies:
+      cross-fetch: 4.0.0
+      ms: 3.0.0-canary.1
+      multiformats: 9.9.0
+      tus-js-client: 3.1.3
+      zustand: 4.4.7(immer@10.0.3)
+    transitivePeerDependencies:
+      - '@types/react'
+      - encoding
+      - immer
+    dev: false
+
   /@livepeer/core@2.1.9(@types/react@18.2.47)(react@18.2.0):
     resolution: {integrity: sha512-CaId6rSkKdHPhgco+AlkU+DJZa3de6aLVJNwm95P6GhdmopVtsXdR3cq/z1YSsE0wyOHx7EdP50BiD+dQFU1WA==}
     peerDependencies:
@@ -5566,6 +5589,40 @@ packages:
       immer: 10.0.3
       joi: 17.11.0
       livepeer: 2.9.2(@types/react@18.2.47)(immer@10.0.3)(react@18.2.0)
+      openpgp: 5.11.0
+      simple-peer: 9.11.1
+      socket.io-client: 4.7.3(bufferutil@4.0.8)(utf-8-validate@6.0.3)
+      tslib: 2.6.2
+      unique-names-generator: 4.7.1
+      uuid: 9.0.1
+      video-stream-merger: 4.0.1
+      viem: 1.21.4(typescript@5.3.3)(zod@3.22.4)
+    transitivePeerDependencies:
+      - '@types/react'
+      - bufferutil
+      - debug
+      - encoding
+      - react
+      - supports-color
+      - typescript
+      - utf-8-validate
+      - zod
+    dev: false
+
+  /@pushprotocol/restapi@1.5.7(ethers@5.7.2)(typescript@5.3.3):
+    resolution: {integrity: sha512-fZlUZYL9Cr2jF4XS42QfXOTuMcnU6NVgnKQIupHdhiGFk3nu9//WY0coftbDRm8DMxuePgrFUbPPmadtKWC6Uw==}
+    peerDependencies:
+      ethers: ^5.0.0 || ^6.0.0
+    dependencies:
+      '@ambire/signature-validator': 1.3.1
+      '@metamask/eth-sig-util': 5.1.0
+      axios: 0.27.2
+      buffer: 6.0.3
+      crypto-js: 4.2.0
+      ethers: 5.7.2
+      immer: 10.0.3
+      joi: 17.11.0
+      livepeer: 2.9.2(immer@10.0.3)
       openpgp: 5.11.0
       simple-peer: 9.11.1
       socket.io-client: 4.7.3(bufferutil@4.0.8)(utf-8-validate@6.0.3)
@@ -13414,6 +13471,28 @@ packages:
       - immer
     dev: false
 
+  /livepeer@2.9.2(immer@10.0.3):
+    resolution: {integrity: sha512-bkFLjw/+wFFNI5TT9z2Fa1yNEByGxBtkA1IoEWHytvkJtA2ifoiT676sZYpy+D+nZp1XdLEBdvudkDwM/SlPhg==}
+    peerDependencies:
+      react: '>=17.0.0'
+    peerDependenciesMeta:
+      react:
+        optional: true
+    dependencies:
+      '@livepeer/core': 1.9.2(immer@10.0.3)
+      '@stitches/core': 1.2.8
+      core-js: 3.35.0
+      cross-fetch: 4.0.0
+      hls.js: 1.5.1
+      ms: 3.0.0-canary.1
+      tus-js-client: 3.1.3
+      zustand: 4.4.7(immer@10.0.3)
+    transitivePeerDependencies:
+      - '@types/react'
+      - encoding
+      - immer
+    dev: false
+
   /loadjs@4.2.0:
     resolution: {integrity: sha512-AgQGZisAlTPbTEzrHPb6q+NYBMD+DP9uvGSIjSUM5uG+0jG15cb8axWpxuOIqrmQjn6scaaH8JwloiP27b2KXA==}
     dev: false
@@ -18817,6 +18896,25 @@ packages:
       '@types/react': 18.2.47
       immer: 10.0.3
       react: 18.2.0
+      use-sync-external-store: 1.2.0(react@18.2.0)
+    dev: false
+
+  /zustand@4.4.7(immer@10.0.3):
+    resolution: {integrity: sha512-QFJWJMdlETcI69paJwhSMJz7PPWjVP8Sjhclxmxmxv/RYI7ZOvR5BHX+ktH0we9gTWQMxcne8q1OY8xxz604gw==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      '@types/react': '>=16.8'
+      immer: '>=9.0'
+      react: '>=16.8'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      immer:
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      immer: 10.0.3
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 

@@ -14,7 +14,7 @@ import {
   UserPlusIcon
 } from '@heroicons/react/24/outline';
 import { XCircleIcon } from '@heroicons/react/24/solid';
-import { IS_MAINNET } from '@hey/data/constants';
+import { IS_MAINNET, PUSH_ENV } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { AUTH } from '@hey/data/tracking';
 import {
@@ -34,10 +34,7 @@ import toast from 'react-hot-toast';
 import { CHAIN } from 'src/constants';
 import usePushHooks from 'src/hooks/messaging/push/usePush';
 import { signIn } from 'src/store/persisted/useAuthStore';
-import {
-  PUSH_ENV,
-  usePushChatStore
-} from 'src/store/persisted/usePushChatStore';
+import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 import {
   useAccount,
   useChainId,

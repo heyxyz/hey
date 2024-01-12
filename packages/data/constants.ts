@@ -1,3 +1,5 @@
+import { ENV } from '@pushprotocol/restapi/src/lib/constants';
+
 import packageJson from '../../package.json';
 import LensEndpoint from './lens-endpoints';
 import getEnvConfig from './utils/getEnvConfig';
@@ -9,10 +11,9 @@ export const IS_PRODUCTION = process.env.NEXT_PUBLIC_IS_PRODUCTION === 'true';
 export const LENS_NETWORK = process.env.NEXT_PUBLIC_LENS_NETWORK || 'mainnet';
 
 export const LENS_API_URL = getEnvConfig().lensApiEndpoint;
-// export const HEY_API_URL = IS_PRODUCTION
-//   ? getEnvConfig().heyApiEndpoint
-//   : 'http://localhost:4784';
-export const HEY_API_URL = getEnvConfig().heyApiEndpoint;
+export const HEY_API_URL = IS_PRODUCTION
+  ? getEnvConfig().heyApiEndpoint
+  : 'http://localhost:4784';
 export const LENSHUB_PROXY = getEnvConfig().lensHubProxyAddress;
 export const TOKEN_HANDLE_REGISTRY = getEnvConfig().tokenHandleRegistry;
 export const PUBLICACT_PROXY = getEnvConfig().publicActProxyAddress;
@@ -26,6 +27,9 @@ export const APP_NAME = 'Hey';
 export const DESCRIPTION = `${APP_NAME}.xyz is a decentralized, and permissionless social media app built with Lens Protocol 🌿`;
 export const APP_VERSION = packageJson.version;
 export const BRAND_COLOR = '#FB3A5D';
+
+// Push Protocol
+export const PUSH_ENV = IS_MAINNET ? ENV.PROD : ENV.DEV;
 
 // Git
 export const GIT_COMMIT_SHA =

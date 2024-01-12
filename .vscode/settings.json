@@ -1,11 +1,3 @@
 {
-  "editor.tabSize": 2,
-  "editor.codeActionsOnSave": {
-    "source.organizeImports.biome": true,
-    "source.fixAll.eslint": true,
-    "quickfix.biome": true
-  },
-  "files.watcherExclude": {
-    "**/target": true
-  }
+  "editor.tabSize": 2
 }

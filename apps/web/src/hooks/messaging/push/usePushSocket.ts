@@ -4,12 +4,10 @@ import {
   getAccountFromProfile,
   getProfileIdFromDID
 } from '@components/Messages/Push/helper';
+import { PUSH_ENV } from '@hey/data/constants';
 import { createSocketConnection, EVENTS } from '@pushprotocol/socket';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import {
-  PUSH_ENV,
-  usePushChatStore
-} from 'src/store/persisted/usePushChatStore';
+import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 
 import useNotification from './useNotification';
 import usePushHooks from './usePush';
