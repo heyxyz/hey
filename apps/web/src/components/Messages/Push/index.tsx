@@ -39,7 +39,7 @@ const Message = () => {
 
   return (
     <GridLayout classNameChild="md:gap-3 lg:gap-3">
-      <MetaTags title={`${APP_NAME} Messages`} />
+      <MetaTags title={`${APP_NAME} Messages `} />
       <GridItemFour
         className={
           'xs:h-[85vh] xs:mx-2 mb-0 sm:mx-2 sm:h-[76vh] md:col-span-4 md:h-[80vh] xl:h-[84vh]'
