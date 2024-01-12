@@ -42,7 +42,7 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
   }
 
   const act = async () => {
-    const abi = JSON.parse(metadata?.processCalldataABI ?? []);
+    const abi = JSON.parse(metadata?.processCalldataABI);
 
     console.log('abi', abi);
 

@@ -1,6 +1,8 @@
 import type { ActOnOpenActionLensManagerRequest } from '@hey/lens';
 import type { Address } from 'viem';
 
+import { LensHub } from '@hey/abis';
+import { LENSHUB_PROXY } from '@hey/data/constants';
 import {
   useActOnOpenActionMutation,
   useBroadcastOnchainMutation,
@@ -42,6 +44,7 @@ const useActOnUnknownOpenAction = ({
     mutation: {
       onError: (error) => {
         onError(error);
+        console.log('error', error);
         setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
       },
       onSuccess: () => {
@@ -51,12 +54,12 @@ const useActOnUnknownOpenAction = ({
     }
   });
 
-  const write = ({ args }: { args: any[] }) => {
+  const write = ({ args }: { args: any }) => {
     return writeContract({
-      abi: JSON.parse(abi),
-      address,
+      abi: LensHub,
+      address: LENSHUB_PROXY,
       args,
-      functionName: 'processPublicationAction'
+      functionName: 'act'
     });
   };
 
@@ -68,12 +71,10 @@ const useActOnUnknownOpenAction = ({
   const [createActOnOpenActionTypedData] =
     useCreateActOnOpenActionTypedDataMutation({
       onCompleted: async ({ createActOnOpenActionTypedData }) => {
-        console.log('typedData', createActOnOpenActionTypedData);
         const { id, typedData } = createActOnOpenActionTypedData;
 
         if (canBroadcast) {
           const signature = await signTypedDataAsync(getSignature(typedData));
-          console.log('signature', getSignature(typedData));
           const { data } = await broadcastOnchain({
             variables: { request: { id, signature } }
           });

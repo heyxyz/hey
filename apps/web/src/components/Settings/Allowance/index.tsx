@@ -10,6 +10,7 @@ import {
   useApprovedModuleAllowanceAmountQuery
 } from '@hey/lens';
 import allowedOpenActionModules from '@hey/lib/allowedOpenActionModules';
+import allowedUnknownOpenActionModules from '@hey/lib/allowedUnknownOpenActionModules';
 import getAllTokens from '@hey/lib/api/getAllTokens';
 import { Card, GridItemEight, GridItemFour, GridLayout, Select } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -26,7 +27,8 @@ const getAllowancePayload = (currency: string) => {
   return {
     currencies: [currency],
     followModules: [FollowModuleType.FeeFollowModule],
-    openActionModules: allowedOpenActionModules
+    openActionModules: allowedOpenActionModules,
+    unknownOpenActionModules: allowedUnknownOpenActionModules
   };
 };
 

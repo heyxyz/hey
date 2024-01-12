@@ -6,7 +6,7 @@ import { FollowModuleType, OpenActionModuleType } from '@hey/lens';
  * @param name Name of the module.
  * @returns Object containing the name and field of the module.
  */
-const getAllowanceModule = (
+const getAllowanceUnknownModule = (
   name: string
 ): {
   field: string;
@@ -48,4 +48,4 @@ const getAllowanceModule = (
   }
 };
 
-export default getAllowanceModule;
+export default getAllowanceUnknownModule;
