@@ -67,6 +67,7 @@ const Messages = ({ selectedChat }: MessageBodyProps) => {
     if (typeof uniqueMessages !== 'undefined' && uniqueMessages.length > 0) {
       setRecipientChat(uniqueMessages);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.pages]);
 
   return (

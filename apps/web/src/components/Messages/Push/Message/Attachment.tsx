@@ -53,6 +53,7 @@ const Attachment: FC<AttachmentProps> = ({ message }) => {
           });
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [attachmentURI]);
 
   const renderFile = () => {
@@ -113,9 +114,7 @@ const Attachment: FC<AttachmentProps> = ({ message }) => {
     if (contentType?.startsWith('image/')) {
       return renderImage();
     }
-    return (
-      <Oembed className="sm:w-full" onData={() => {}} url={attachmentURI} />
-    );
+    return <Oembed className="sm:w-full" url={attachmentURI} />;
   };
 
   const renderers = {

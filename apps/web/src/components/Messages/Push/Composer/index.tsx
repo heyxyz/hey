@@ -13,7 +13,7 @@ import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import usePushHooks from 'src/hooks/messaging/push/usePush';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 
@@ -27,12 +27,18 @@ const Composer: FC = () => {
   const { mutateAsync: sendMessage } = useSendMessage();
 
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const attachments = usePublicationStore((state) => state.attachments);
-  const addAttachments = usePublicationStore((state) => state.addAttachments);
-  const removeAttachments = usePublicationStore(
+  const attachments = usePublicationAttachmentStore(
+    (state) => state.attachments
+  );
+  const addAttachments = usePublicationAttachmentStore(
+    (state) => state.addAttachments
+  );
+  const removeAttachments = usePublicationAttachmentStore(
     (state) => state.removeAttachments
   );
-  const isUploading = usePublicationStore((state) => state.isUploading);
+  const isUploading = usePublicationAttachmentStore(
+    (state) => state.isUploading
+  );
   const replyToMessage = usePushChatStore((state) => state.replyToMessage);
   const setRecipientChat = usePushChatStore((state) => state.setRecipientChat);
   const setReplyToMessage = usePushChatStore(

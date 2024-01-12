@@ -6,6 +6,7 @@ import type {
 
 import { getAccountFromProfile } from '@components/Messages/Push/helper';
 import * as PushAPI from '@pushprotocol/restapi';
+import { PGPHelper } from '@pushprotocol/restapi/src/lib/chat/helpers';
 import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import {
@@ -112,7 +113,8 @@ const usePushHooks = () => {
       const response = await PushAPI.chat.decryptConversation({
         ...getBaseConfig(),
         connectedUser: connectedProfile!,
-        messages: [message]
+        messages: [message],
+        pgpHelper: PGPHelper
       });
       return response[0] as PushAPI.IMessageIPFSWithCID;
     } catch (error) {

@@ -31,9 +31,8 @@ import { Leafwatch } from '@lib/leafwatch';
 import * as PushAPI from '@pushprotocol/restapi';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { CHAIN_ID } from 'src/constants';
-import usePushHooks from 'src/hooks/messaging/push/usePush';
 import { CHAIN } from 'src/constants';
+import usePushHooks from 'src/hooks/messaging/push/usePush';
 import { signIn } from 'src/store/persisted/useAuthStore';
 import {
   PUSH_ENV,

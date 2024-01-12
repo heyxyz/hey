@@ -8,7 +8,7 @@ import { LENSHUB_PROXY } from '@hey/data/constants';
 import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
 import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
-import { CHAIN_ID } from 'src/constants';
+import { CHAIN } from 'src/constants';
 import { v4 as uuid } from 'uuid';
 
 import type { MessageReactions } from './Actions/Reactions';
@@ -16,7 +16,7 @@ import type { MessageReactions } from './Actions/Reactions';
 dayjs.extend(calendar);
 
 export const getAccountFromProfile = (lensProfileId: string) => {
-  return `nft:eip155:${CHAIN_ID}:${LENSHUB_PROXY}:${lensProfileId}`;
+  return `nft:eip155:${CHAIN.id}:${LENSHUB_PROXY}:${lensProfileId}`;
 };
 
 export const getProfileIdFromDID = (id: string) => {

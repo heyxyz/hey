@@ -45,8 +45,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const resetPushChatStore = usePushChatStore(
     (state) => state.resetPushChatStore
   );
-  const resetPro = useProStore((state) => state.resetPro);
-
 
   const isMounted = useIsMounted();
   const { disconnect } = useDisconnect();
@@ -56,7 +54,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const logout = (reload = false) => {
     resetPreferences();
     resetFeatureFlags();
-    resetPro();
     resetPushChatStore();
     signOut();
     disconnect?.();

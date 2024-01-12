@@ -45,6 +45,7 @@ export default function PUSHPreviewRequests() {
 
   useEffect(() => {
     updateRequests();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.pages]);
 
   return isFetching ? (
