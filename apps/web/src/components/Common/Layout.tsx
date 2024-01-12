@@ -16,6 +16,7 @@ import { useProStore } from 'src/store/non-persisted/useProStore';
 import { hydrateAuthTokens, signOut } from 'src/store/persisted/useAuthStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
+import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 import { useEffectOnce, useIsMounted } from 'usehooks-ts';
 import { isAddress } from 'viem';
 import { useDisconnect } from 'wagmi';
@@ -41,6 +42,9 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const setLensHubOnchainSigNonce = useNonceStore(
     (state) => state.setLensHubOnchainSigNonce
   );
+  const resetPushChatStore = usePushChatStore(
+    (state) => state.resetPushChatStore
+  );
   const resetPro = useProStore((state) => state.resetPro);
 
   const isMounted = useIsMounted();
@@ -52,6 +56,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     resetPreferences();
     resetFeatureFlags();
     resetPro();
+    resetPushChatStore();
     signOut();
     disconnect?.();
     if (reload) {

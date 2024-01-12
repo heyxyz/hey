@@ -1,4 +1,8 @@
-import type { IMessageIPFSWithCID, MessageObj } from '@pushprotocol/restapi';
+import type {
+  IMessageIPFSWithCID,
+  Message,
+  MessageObj
+} from '@pushprotocol/restapi';
 
 import { LENSHUB_PROXY } from '@hey/data/constants';
 import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
@@ -26,6 +30,51 @@ export const dateToFromNowDaily = (timestamp: number): string => {
     sameDay: '[Today]',
     sameElse: 'DD/MM/YYYY'
   });
+};
+
+export const computeSendPayload = (message: {
+  content: {
+    content: string;
+    type: Exclude<MessageType, MessageType.REACTION | MessageType.REPLY>;
+  };
+  reference?: string;
+  type?: MessageType.REACTION | MessageType.REPLY;
+}): Message => {
+  // @ts-expect-error
+  return {
+    default: {
+      content: message.content.content,
+      type: message.content.type
+    },
+    [MessageType.REACTION]: {
+      content: message.content.content,
+      reference: message.reference,
+      type: MessageType.REACTION
+    },
+    [MessageType.REPLY]: {
+      content: {
+        content: message.content.content,
+        type: message.content.type
+      },
+      reference: message.reference,
+      type: MessageType.REPLY
+    }
+  }[message.type ?? 'default'];
+};
+
+export const createTemporaryMessage = (
+  messageContents: Message,
+  profileId: string
+) => {
+  const tempMessageId = Math.random().toString(36);
+  return {
+    cid: tempMessageId,
+    fromDID: getAccountFromProfile(profileId),
+    link: tempMessageId,
+    messageObj: messageContents,
+    messageType: messageContents.type,
+    timestamp: Date.now()
+  } as IMessageIPFSWithCID;
 };
 
 export const transformReplyToMessage = (

@@ -22,14 +22,14 @@ export default function PUSHPreviewChats() {
   );
 
   return isFetching ? (
-    <>{Array(6).fill(<UserProfileShimmer />)}</>
+    <>{Array(8).fill(<UserProfileShimmer />)}</>
   ) : (
     <Virtuoso
       className="h-full"
       components={{
         EmptyPlaceholder: () => {
           return (
-            <div className="mt-12 flex h-full flex-grow items-center justify-center">
+            <div className="flex h-full flex-grow items-center justify-center">
               No chats yet
             </div>
           );

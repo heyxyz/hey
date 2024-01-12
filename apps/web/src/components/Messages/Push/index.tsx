@@ -38,14 +38,14 @@ const Message = () => {
   }
 
   return (
-    <GridLayout classNameChild="md:gap-8">
+    <GridLayout classNameChild="md:gap-3 lg:gap-3">
       <MetaTags title={`${APP_NAME} Messages`} />
       <GridItemFour
         className={
           'xs:h-[85vh] xs:mx-2 mb-0 sm:mx-2 sm:h-[76vh] md:col-span-4 md:h-[80vh] xl:h-[84vh]'
         }
       >
-        <div className="flex h-[91.8%] flex-col justify-between">
+        <div className="flex h-full flex-col justify-between">
           <Tabs />
         </div>
       </GridItemFour>

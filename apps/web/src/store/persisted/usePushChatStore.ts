@@ -1,9 +1,4 @@
-import type {
-  IFeeds,
-  IMessageIPFS,
-  IMessageIPFSWithCID,
-  IUser
-} from '@pushprotocol/restapi';
+import type { IFeeds, IMessageIPFSWithCID, IUser } from '@pushprotocol/restapi';
 
 import { IS_MAINNET } from '@hey/data/constants';
 import { Localstorage } from '@hey/data/storage';
@@ -40,7 +35,6 @@ interface IPushChatStore {
   clearRecipientChat: () => void;
   connectedProfile: IUser | null;
   deleteRequestFeed: (requestId: string) => void;
-  deleteUnsentMessage: (message: IMessageIPFSWithCID) => void;
   mediaEmbedContentTypes: Record<string, null | string>;
   pgpPassword: null | string;
   pgpPrivateKey: null | string;
@@ -48,16 +42,15 @@ interface IPushChatStore {
   recipientProfile: null | Profile;
   replyToMessage: IMessageIPFSWithCID | null;
   requestsFeed: IFeeds[];
+  resetPushChatStore: () => void;
   setActiveTab: (tabName: PushTabs) => void;
   setConnectedProfile: (profile: IUser) => void;
   setMediaEmbedContentType: (type: string, value: null | string) => void;
   setPgpPassword: (password: string) => void;
   setPgpPrivateKey: (pgpPrivateKey: string) => void;
-  setRecipientChat: (chat: IMessageIPFSWithCID[]) => void;
+  setRecipientChat: (chat: IMessageIPFSWithCID[], replaceId?: string) => void;
   setRecipientProfile: (profile: Profile) => void;
   setReplyToMessage: (message: IMessageIPFSWithCID | null) => void;
-  setUnsentMessage: (message: IMessageIPFSWithCID) => void;
-  unsentMessages: [] | IMessageIPFSWithCID[];
   updateRequestsFeed: (requestsFeed: IFeeds[]) => void;
 }
 
@@ -75,13 +68,6 @@ export const usePushChatStore = create(
           );
           return { requestsFeed };
         }),
-      deleteUnsentMessage: (message: IMessageIPFS) =>
-        set((state) => {
-          const unsentMessages = state.unsentMessages.filter(
-            (unsentMessage) => unsentMessage.link !== message.link
-          );
-          return { unsentMessages };
-        }),
       mediaEmbedContentTypes: {},
       pgpPassword: null,
       pgpPrivateKey: null,
@@ -96,7 +82,8 @@ export const usePushChatStore = create(
             activeTab: PUSH_TABS.CHATS,
             pgpPassword: null,
             pgpPrivateKey: null,
-            recipientChats: []
+            recipientProfile: null,
+            requestsFeed: []
           };
         }),
       selectedChatType: null,
@@ -112,9 +99,20 @@ export const usePushChatStore = create(
         })),
       setPgpPassword: (pgpPassword) => set(() => ({ pgpPassword })),
       setPgpPrivateKey: (pgpPrivateKey) => set(() => ({ pgpPrivateKey })),
-      setRecipientChat: (chat: IMessageIPFSWithCID[]) =>
+      setRecipientChat: (chat: IMessageIPFSWithCID[], replaceId?: string) =>
         set((state) => {
-          const recipientChats = [...state.recipientChats, ...chat];
+          let recipientChats;
+          if (replaceId) {
+            const index = state.recipientChats.findIndex(
+              (item) => item.cid === replaceId
+            );
+            if (index !== -1) {
+              recipientChats = [...state.recipientChats];
+              recipientChats[index] = chat[0];
+            }
+          } else {
+            recipientChats = [...state.recipientChats, ...chat];
+          }
           return { recipientChats };
         }),
       setRecipientProfile: (receiptientProfile) =>
@@ -126,20 +124,6 @@ export const usePushChatStore = create(
           return { requestsFeed };
         });
       },
-      setUnsentMessage: (message: IMessageIPFSWithCID) =>
-        set((state) => {
-          const unsentMessages: IMessageIPFSWithCID[] =
-            state.unsentMessages || [];
-          if (
-            !unsentMessages.find(
-              (unsentMessage) => unsentMessage.link === message.link
-            )
-          ) {
-            unsentMessages.push(message);
-          }
-          return { unsentMessages };
-        }),
-      unsentMessages: [],
       updateRequestsFeed: (requestsFeed) =>
         set((state) => ({ ...state, requestsFeed }))
     }),

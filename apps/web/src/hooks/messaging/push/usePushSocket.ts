@@ -40,13 +40,6 @@ const usePushSocket = () => {
         }
         setRecipientChat([decryptedMessage]);
         sendNotification(`New Message from ${profileID}`);
-
-        const messageList = document.getElementById('messages-list');
-        messageList?.scrollTo({
-          behavior: 'smooth',
-          left: 0,
-          top: messageList.scrollHeight
-        });
       } catch (error) {
         console.log('SOCKET ERROR:', error);
       }

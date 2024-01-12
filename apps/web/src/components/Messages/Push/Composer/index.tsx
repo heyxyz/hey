@@ -1,6 +1,6 @@
 import type { IGif } from '@hey/types/giphy';
 import type { NewAttachment } from '@hey/types/misc';
-import type { IMessageIPFSWithCID } from '@pushprotocol/restapi';
+import type { Message } from '@pushprotocol/restapi';
 import type { FC } from 'react';
 
 import FileUpload from '@components/Composer/Actions/Attachment';
@@ -14,17 +14,19 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import usePushHooks from 'src/hooks/messaging/push/usePush';
 import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { usePushChatStore } from 'src/store/persisted/usePushChatStore';
 
+import { computeSendPayload, createTemporaryMessage } from '../helper';
 import ReplyPreview from './ReplyPreview';
 
 const Composer: FC = () => {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [message, setMessage] = useState('');
-  const [sending, setSending] = useState(false);
   const { decryptConversation, useSendMessage } = usePushHooks();
   const { mutateAsync: sendMessage } = useSendMessage();
 
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const attachments = usePublicationStore((state) => state.attachments);
   const addAttachments = usePublicationStore((state) => state.addAttachments);
   const removeAttachments = usePublicationStore(
@@ -49,66 +51,63 @@ const Composer: FC = () => {
     return url.protocol === 'http:' || url.protocol === 'https:';
   };
 
-  const scrollList = () => {
-    const messageList = document.getElementById('messages-list');
-    messageList?.scrollTo({
-      behavior: 'smooth',
-      left: 0,
-      top: messageList.scrollHeight
-    });
+  const sendMessageAndHandleResponse = async (messageContent: Message) => {
+    try {
+      const tempMessage = createTemporaryMessage(
+        messageContent,
+        currentProfile?.id!
+      );
+      console.log(tempMessage, 'tempMessage');
+
+      setRecipientChat([tempMessage]);
+
+      const sentMessage = await sendMessage(messageContent);
+      const decryptedMessage = await decryptConversation(sentMessage);
+      setReplyToMessage(null);
+      setRecipientChat([decryptedMessage], tempMessage.cid);
+    } catch (error) {
+      toast.error((error as Error).message);
+    }
   };
 
   const handleSend = async () => {
     if (!canSendMessage) {
       return;
     }
-    setSending(true);
 
-    try {
-      const reference = (replyToMessage as IMessageIPFSWithCID)?.cid ?? null;
+    const reference = replyToMessage?.cid ?? null;
 
-      if (attachments.length > 0) {
-        for (const attachment of attachments) {
-          const sanitizedUrl = sanitizeDStorageUrl(attachment.uri);
-          const sentMessage = await sendMessage({
-            content: {
-              content: sanitizedUrl,
-              type: MessageType.MEDIA_EMBED
-            },
-            ...(reference !== null && {
-              reference: reference,
-              type: MessageType.REPLY
-            })
-          });
-          const decryptedMessage = await decryptConversation(sentMessage);
-          setReplyToMessage(null);
-          removeAttachments([attachment!.id!]);
-          setRecipientChat([decryptedMessage]);
-        }
-        return;
+    if (attachments.length > 0) {
+      for (const attachment of attachments) {
+        const sanitizedUrl = sanitizeDStorageUrl(attachment.uri);
+        const messageContent = computeSendPayload({
+          content: {
+            content: sanitizedUrl,
+            type: MessageType.MEDIA_EMBED
+          },
+          ...(reference !== null && {
+            reference: reference,
+            type: MessageType.REPLY
+          })
+        });
+        removeAttachments([attachment!.id!]);
+        await sendMessageAndHandleResponse(messageContent);
       }
-
-      const messageType = isURL(message)
-        ? MessageType.MEDIA_EMBED
-        : MessageType.TEXT;
-
-      const sentMessage = await sendMessage({
-        content: { content: message, type: messageType },
-        ...(reference !== null && {
-          reference: reference,
-          type: MessageType.REPLY
-        })
-      });
-      const decryptedMessage = await decryptConversation(sentMessage);
-      setReplyToMessage(null);
-      setRecipientChat([decryptedMessage]);
-    } catch (error) {
-      toast.error((error as Error).message);
-    } finally {
-      setMessage('');
-      scrollList();
-      setSending(false);
     }
+
+    const messageType = isURL(message)
+      ? MessageType.MEDIA_EMBED
+      : MessageType.TEXT;
+
+    const messageContent = computeSendPayload({
+      content: { content: message, type: messageType },
+      ...(reference !== null && {
+        reference: reference,
+        type: MessageType.REPLY
+      })
+    });
+    setMessage('');
+    await sendMessageAndHandleResponse(messageContent);
   };
 
   const onChangeCallback = (value: string) => {
@@ -137,7 +136,7 @@ const Composer: FC = () => {
 
   return (
     <div className=" w-full border-t bg-gray-100 dark:border-gray-700">
-      {attachments.length > 0 && !sending ? (
+      {attachments.length > 0 ? (
         <div className="mx-3 !max-w-[340px]">
           <NewAttachments attachments={attachments} />
         </div>

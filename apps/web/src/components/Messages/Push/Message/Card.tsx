@@ -12,7 +12,7 @@ import type { MessageReactions } from '../Actions/Reactions';
 
 import { ChatAction } from '../Actions/ChatAction';
 import { DisplayReactions, Reactions } from '../Actions/Reactions';
-import { getProfileIdFromDID } from '../helper';
+import { computeSendPayload, getProfileIdFromDID } from '../helper';
 import Attachment from './Attachment';
 import ReplyMessage from './ReplyCard';
 import TimeStamp from './TimeStamp';
@@ -69,18 +69,19 @@ const Message = ({ message, messageReactions, replyMessage }: Props) => {
       : MessageOrigin.Receiver;
 
   const sendReaction = async (value: string) => {
-    const sentMessage = await sendMessage({
-      content: {
-        content: value,
-        type: MessageType.TEXT
-      },
-      reference: (message as IMessageIPFSWithCID).cid!,
-      type: MessageType.REACTION
-    });
-    const decryptedMessage = await decryptConversation(sentMessage);
-    setRecipientChat([decryptedMessage]);
     setShowReactions(false);
     setShowChatActions(true);
+    const sentMessage = await sendMessage(
+      computeSendPayload({
+        content: {
+          content: value,
+          type: MessageType.TEXT
+        },
+        reference: message.cid
+      })
+    );
+    const decryptedMessage = await decryptConversation(sentMessage);
+    setRecipientChat([decryptedMessage]);
   };
 
   return (

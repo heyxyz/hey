@@ -1,3 +1,4 @@
+import type { Message } from '@pushprotocol/restapi';
 import type {
   GetNextPageParamFunction,
   QueryFunction
@@ -5,7 +6,6 @@ import type {
 
 import { getAccountFromProfile } from '@components/Messages/Push/helper';
 import * as PushAPI from '@pushprotocol/restapi';
-import { MessageType } from '@pushprotocol/restapi/src/lib/constants';
 import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import {
@@ -78,45 +78,10 @@ const usePushHooks = () => {
 
   const useSendMessage = () => {
     return useMutation({
-      mutationFn: async (message: {
-        content: {
-          content: string;
-          type: Exclude<MessageType, MessageType.REACTION | MessageType.REPLY>;
-        };
-        reference?: string;
-        type?: MessageType.REACTION | MessageType.REPLY;
-      }) => {
-        const messageTypesMap = {
-          default: {
-            message: {
-              content: message.content.content,
-              type: message.content.type
-            }
-          },
-          [MessageType.REACTION]: {
-            message: {
-              content: message.content.content,
-              reference: message.reference
-            },
-            messageType: MessageType.REACTION
-          },
-          [MessageType.REPLY]: {
-            message: {
-              content: {
-                content: message.content.content,
-                type: message.content.type
-              },
-              reference: message.reference,
-              type: MessageType.REPLY
-            }
-          }
-        };
-
-        const computedMessage = messageTypesMap[message.type ?? 'default'];
-        // @ts-ignore
+      mutationFn: async (message: Message) => {
         const response = await PushAPI.chat.send({
           ...getBaseConfig(),
-          ...computedMessage,
+          message,
           to: recepientAccount
         });
         return response;
@@ -221,17 +186,9 @@ const usePushHooks = () => {
     return useInfiniteQuery({
       enabled: recepientProfile?.threadHash ? true : false,
       getNextPageParam: (lastPage) => {
-        return lastPage.length < MAX_CHAT_ITEMS
+        return lastPage.length - 1 < MAX_CHAT_ITEMS
           ? lastPage[lastPage.length - 1]?.cid
           : undefined;
-      },
-      getPreviousPageParam: (firstPage, allPages) => {
-        const pageIndex = allPages.findIndex((page) => page === firstPage);
-        if (pageIndex === -1 || pageIndex === 0) {
-          return;
-        }
-        const previousPage = allPages[pageIndex - 1];
-        return previousPage.length > 0 ? previousPage[0]?.cid : undefined;
       },
       initialPageParam: recepientProfile?.threadHash ?? '',
       queryFn: async ({ pageParam }: { pageParam: string }) => {

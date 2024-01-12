@@ -1,3 +1,4 @@
+import type { Profile } from '@hey/lens';
 import type { PushTabs } from 'src/store/persisted/usePushChatStore';
 
 import Search from '@components/Shared/Navbar/Search';
@@ -17,18 +18,32 @@ const ChatTabs = () => {
   const activeTab = usePushChatStore((state) => state.activeTab);
   const setActiveTab = usePushChatStore((state) => state.setActiveTab);
   const requestsFeed = usePushChatStore((state) => state.requestsFeed);
+  const setRecipientProfile = usePushChatStore(
+    (state) => state.setRecipientProfile
+  );
 
   const getTabClassName = (tabName: PushTabs) =>
     clsx(
-      'w-full cursor-pointer border-b-4 pb-3.5 text-center font-bold relative',
+      'w-full cursor-pointer border-b-4 pb-3.5 text-center font-bold relative focus:ring-0 outline-none',
       {
         'border-b-brand-500': activeTab === tabName,
         'border-b-transparent text-gray-500': activeTab !== tabName
       }
     );
 
+  const onProfileSelected = (profile: Profile) => {
+    // setRecipientProfile({
+    //   id: '',
+    //   localHandle: '',
+    //   ownedBy: {
+    //     address: ''
+    //   },
+    //   threadHash: null
+    // });
+  };
+
   return (
-    <Card className="mb-4 h-full p-4">
+    <Card className="h-full p-4">
       <Tabs.Root
         className="flex h-full flex-col"
         defaultValue={activeTab}
@@ -55,7 +70,7 @@ const ChatTabs = () => {
         </div>
 
         <div className="my-4 flex">
-          <Search />
+          <Search onProfileSelected={onProfileSelected} />
         </div>
 
         <Tabs.Content className="h-full" value="CHATS">
