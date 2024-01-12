@@ -75,10 +75,6 @@ const Composer: FC = () => {
   };
 
   const handleSend = async () => {
-    if (!canSendMessage) {
-      return;
-    }
-
     const reference = replyToMessage?.cid ?? null;
 
     if (attachments.length > 0) {
@@ -99,6 +95,9 @@ const Composer: FC = () => {
       }
     }
 
+    if (message.length <= 0) {
+      return;
+    }
     const messageType = isURL(message)
       ? MessageType.MEDIA_EMBED
       : MessageType.TEXT;
