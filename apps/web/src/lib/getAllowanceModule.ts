@@ -38,6 +38,11 @@ const getAllowanceModule = (
         field: 'openActionModule',
         name: 'Legacy Limited Timed Fee collect'
       };
+    case OpenActionModuleType.UnknownOpenActionModule:
+      return {
+        field: 'openActionModule',
+        name: 'Unknown open action module'
+      };
 
     // Follow modules
     case FollowModuleType.FeeFollowModule:

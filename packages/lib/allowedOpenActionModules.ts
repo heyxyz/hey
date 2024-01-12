@@ -9,7 +9,8 @@ const allowedOpenActionModules = [
   OpenActionModuleType.LegacyFeeCollectModule,
   OpenActionModuleType.LegacyLimitedFeeCollectModule,
   OpenActionModuleType.LegacyTimedFeeCollectModule,
-  OpenActionModuleType.LegacyLimitedTimedFeeCollectModule
+  OpenActionModuleType.LegacyLimitedTimedFeeCollectModule,
+  OpenActionModuleType.UnknownOpenActionModule
 ];
 
 export default allowedOpenActionModules;
