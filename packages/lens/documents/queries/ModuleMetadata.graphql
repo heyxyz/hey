@@ -1,0 +1,22 @@
+query ModuleMetadata($request: ModuleMetadataRequest!) {
+  moduleMetadata(request: $request) {
+    metadata {
+      attributes {
+        key
+        type
+        value
+      }
+      authors
+      description
+      initializeCalldataABI
+      initializeResultDataABI
+      name
+      processCalldataABI
+      title
+    }
+    moduleType
+    signlessApproved
+    sponsoredApproved
+    verified
+  }
+}

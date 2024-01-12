@@ -8,7 +8,7 @@ import getProfile from '@hey/lib/getProfile';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Leafwatch } from '@lib/leafwatch';
 import { useRef, useState } from 'react';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
 import { object, string } from 'zod';
 
 import CoverImage from './CoverImage';
@@ -39,10 +39,10 @@ const Audio: FC<AudioProps> = ({
   src,
   title
 }) => {
-  const audioPublication = usePublicationStore(
+  const audioPublication = usePublicationAudioStore(
     (state) => state.audioPublication
   );
-  const setAudioPublication = usePublicationStore(
+  const setAudioPublication = usePublicationAudioStore(
     (state) => state.setAudioPublication
   );
 
@@ -79,10 +79,13 @@ const Audio: FC<AudioProps> = ({
 
   return (
     <div
-      className="bg-brand-500 overflow-hidden rounded-xl border px-3.5 pt-3.5 dark:border-gray-700 md:p-0"
+      className="bg-brand-500 overflow-hidden rounded-xl border px-3.5 pt-3.5 md:p-0 dark:border-gray-700"
       onClick={stopEventPropagation}
+      style={{
+        backgroundImage: `url(${isNew ? newPreviewUri : poster})`
+      }}
     >
-      <div className="flex flex-wrap md:flex-nowrap md:space-x-2">
+      <div className="flex flex-wrap backdrop-blur-2xl backdrop-brightness-50 md:flex-nowrap md:space-x-2">
         <CoverImage
           cover={isNew ? (newPreviewUri as string) : poster}
           expandCover={expandCover}
@@ -98,9 +101,9 @@ const Audio: FC<AudioProps> = ({
             <div className="flex w-full items-center space-x-2.5 truncate">
               <button onClick={handlePlayPause} type="button">
                 {playing && !playerRef.current?.plyr.paused ? (
-                  <PauseIcon className="h-[50px] w-[50px] text-gray-100 hover:text-white" />
+                  <PauseIcon className="size-[50px] text-gray-100 hover:text-white" />
                 ) : (
-                  <PlayIcon className="h-[50px] w-[50px] text-gray-100 hover:text-white" />
+                  <PlayIcon className="size-[50px] text-gray-100 hover:text-white" />
                 )}
               </button>
               <div className="w-full truncate pr-3">

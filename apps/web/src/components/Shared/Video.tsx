@@ -10,7 +10,6 @@ import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { Player } from '@livepeer/react';
-import 'plyr-react/plyr.css';
 import { memo } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
@@ -34,7 +33,7 @@ const Video: FC<VideoProps> = ({ className = '', poster, src }) => {
         controls={{ defaultVolume: 1 }}
         objectFit="contain"
         poster={imageKit(sanitizeDStorageUrl(poster), VIDEO_THUMBNAIL)}
-        refetchPlaybackInfoInterval={1000 * 60 * 60 * 24}
+        refetchPlaybackInfoInterval={1000 * 60 * 60 * 24 * 7}
         showLoadingSpinner
         showPipButton={false}
         showUploadingIndicator

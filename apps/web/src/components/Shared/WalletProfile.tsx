@@ -32,7 +32,7 @@ const WalletProfile: FC<WalletProfileProps> = ({ address }) => {
       >
         <Image
           alt={address}
-          className="h-10 w-10 rounded-full border bg-gray-200"
+          className="size-10 rounded-full border bg-gray-200"
           height={40}
           onError={({ currentTarget }) => {
             currentTarget.src = getStampFyiURL(address);
@@ -43,7 +43,7 @@ const WalletProfile: FC<WalletProfileProps> = ({ address }) => {
         <div>
           <div className="flex items-center gap-1.5">
             <div>{loading ? formatAddress(address) : formatAddress(ens)}</div>
-            <ArrowTopRightOnSquareIcon className="h-4 w-4" />
+            <ArrowTopRightOnSquareIcon className="size-4" />
           </div>
           <Slug className="text-sm" slug={formatAddress(address)} />
         </div>

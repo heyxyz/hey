@@ -1,13 +1,12 @@
 import type { FC, ReactNode } from 'react';
 
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css';
+import * as RadixTooltip from '@radix-ui/react-tooltip';
 
 interface TooltipProps {
   children: ReactNode;
   className?: string;
   content: ReactNode;
-  placement?: 'right' | 'top';
+  placement?: 'bottom' | 'left' | 'right' | 'top';
   withDelay?: boolean;
 }
 
@@ -19,14 +18,22 @@ export const Tooltip: FC<TooltipProps> = ({
   withDelay = false
 }) => {
   return (
-    <Tippy
-      className="hidden !rounded-lg !text-xs !leading-6 tracking-wide sm:block"
-      content={<span className={className}>{content}</span>}
-      delay={[withDelay ? 500 : 0, 0]}
-      duration={0}
-      placement={placement}
-    >
-      <span>{children}</span>
-    </Tippy>
+    <RadixTooltip.Provider delayDuration={withDelay ? 400 : 0}>
+      <RadixTooltip.Root>
+        <RadixTooltip.Trigger asChild>
+          <span>{children}</span>
+        </RadixTooltip.Trigger>
+        <RadixTooltip.Portal>
+          <RadixTooltip.Content
+            className="z-10 hidden !rounded-lg bg-gray-700 px-3 py-0.5 !text-xs !leading-6 tracking-wide text-white sm:block"
+            side={placement}
+            sideOffset={5}
+          >
+            <span className={className}>{content}</span>
+            <RadixTooltip.Arrow className="fill-gray-700" />
+          </RadixTooltip.Content>
+        </RadixTooltip.Portal>
+      </RadixTooltip.Root>
+    </RadixTooltip.Provider>
   );
 };

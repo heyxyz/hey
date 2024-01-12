@@ -3,6 +3,7 @@ import type { FC } from 'react';
 
 import { UsersIcon } from '@heroicons/react/24/outline';
 import { PROFILE } from '@hey/data/tracking';
+import getProfile from '@hey/lib/getProfile';
 import humanize from '@hey/lib/humanize';
 import { Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -53,20 +54,26 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         </div>
       </button>
       <Modal
-        icon={<UsersIcon className="text-brand-500 h-5 w-5" />}
+        icon={<UsersIcon className="text-brand-500 size-5" />}
         onClose={() => setShowFollowingModal(false)}
         show={showFollowingModal}
         title="Following"
       >
-        <Following profile={profile} />
+        <Following
+          handle={getProfile(profile).slugWithPrefix}
+          profileId={profile.id}
+        />
       </Modal>
       <Modal
-        icon={<UsersIcon className="text-brand-500 h-5 w-5" />}
+        icon={<UsersIcon className="text-brand-500 size-5" />}
         onClose={() => setShowFollowersModal(false)}
         show={showFollowersModal}
         title="Followers"
       >
-        <Followers profile={profile} />
+        <Followers
+          handle={getProfile(profile).slugWithPrefix}
+          profileId={profile.id}
+        />
       </Modal>
     </div>
   );

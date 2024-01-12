@@ -40,7 +40,7 @@ const SuperFollow: FC<SuperFollowProps> = ({
       <Button
         aria-label="Super follow"
         className="!px-3 !py-1.5 text-sm"
-        icon={<StarIcon className="h-4 w-4" />}
+        icon={<StarIcon className="size-4" />}
         onClick={() => {
           if (!currentProfile) {
             setShowAuthModal(true);
@@ -54,7 +54,7 @@ const SuperFollow: FC<SuperFollowProps> = ({
         {showText ? 'Super follow' : null}
       </Button>
       <Modal
-        icon={<StarIcon className="h-5 w-5 text-pink-500" />}
+        icon={<StarIcon className="size-5 text-pink-500" />}
         onClose={() => setShowFollowModal(false)}
         show={showFollowModal}
         title={

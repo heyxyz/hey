@@ -6,7 +6,7 @@ import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import { OpenActionModuleType } from '@hey/lens';
 import { Input, Select } from '@hey/ui';
-import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
+import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 
 interface AmountConfigProps {
   allowedTokens?: AllowedToken[];
@@ -20,11 +20,11 @@ const AmountConfig: FC<AmountConfigProps> = ({
   const collectModule = useCollectModuleStore((state) => state.collectModule);
 
   return (
-    <div className="pt-3">
+    <div>
       <ToggleWithHelper
         description="Get paid whenever someone collects your post"
         heading="Charge for collecting"
-        icon={<CurrencyDollarIcon className="h-4 w-4" />}
+        icon={<CurrencyDollarIcon className="size-5" />}
         on={Boolean(collectModule.amount?.value)}
         setOn={() => {
           setCollectType({
@@ -40,7 +40,7 @@ const AmountConfig: FC<AmountConfigProps> = ({
         }}
       />
       {collectModule.amount?.value ? (
-        <div className="pt-4">
+        <div className="ml-8 mt-4">
           <div className="flex space-x-2 text-sm">
             <Input
               label="Price"
@@ -58,7 +58,7 @@ const AmountConfig: FC<AmountConfigProps> = ({
               type="number"
               value={parseFloat(collectModule.amount.value)}
             />
-            <div>
+            <div className="w-5/6">
               <div className="label">Select currency</div>
               <Select
                 onChange={(e) => {

@@ -31,7 +31,7 @@ const Delete: FC<DeleteProps> = ({ publication }) => {
       }}
     >
       <div className="flex items-center space-x-2">
-        <TrashIcon className="h-4 w-4" />
+        <TrashIcon className="size-4" />
         <div>Delete</div>
       </div>
     </Menu.Item>

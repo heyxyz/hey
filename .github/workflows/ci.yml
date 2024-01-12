@@ -8,38 +8,110 @@ on:
   workflow_dispatch:
 
 jobs:
-  ci:
-    name: CI
+  typecheck:
+    name: Typecheck
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Setup pnpm 🌸
-        uses: pnpm/action-setup@v2.2.4
-
-      - name: Setup node 🍀
-        uses: actions/setup-node@v3
-        with:
-          node-version-file: '.nvmrc'
-          cache: 'pnpm'
-
-      - name: Bootstrap 📦
-        run: script/bootstrap
+      - name: Setup Node.js, pnpm and dependencies 🌸
+        uses: ./.github/actions/setup-pnpm
 
       - name: Typecheck 🔡
         run: pnpm typecheck:affected
 
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js, pnpm and dependencies 🌸
+        uses: ./.github/actions/setup-pnpm
+
       - name: Lint 🪩
         run: pnpm lint:affected
 
+  prettier:
+    name: Prettier
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js, pnpm and dependencies 🌸
+        uses: ./.github/actions/setup-pnpm
+
       - name: Prettier ✨
         run: pnpm prettier:affected
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js, pnpm and dependencies 🌸
+        uses: ./.github/actions/setup-pnpm
+
+      - name: Build 🎁
+        run: pnpm build
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js, pnpm and dependencies 🌸
+        uses: ./.github/actions/setup-pnpm
 
       - name: Build 🎁
         run: pnpm build
 
       - name: Run Tests 🧪
-        run: pnpm test:dev
+        env:
+          NEXT_PUBLIC_LENS_NETWORK: 'staging'
+          DATABASE_URL: ${{ secrets.STAGING_DATABASE_URL }}
+          CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
+          SECRET: ${{ secrets.SECRET }}
+          EVER_ACCESS_KEY: ${{ secrets.EVER_ACCESS_KEY }}
+          EVER_ACCESS_SECRET: ${{ secrets.EVER_ACCESS_SECRET }}
+          LENS_IPFS_AUTH_KEY: ${{ secrets.LENS_IPFS_AUTH_KEY }}
+          IPAPI_KEY: ${{ secrets.IPAPI_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          IRYS_PRIVATE_KEY: ${{ secrets.IRYS_PRIVATE_KEY }}
+          IMAGEKIT_URL: ${{ secrets.IMAGEKIT_URL }}
+          SOUND_API_KEY: ${{ secrets.SOUND_API_KEY }}
+        run: |
+          cd apps/api
+          {
+            echo "NEXT_PUBLIC_LENS_NETWORK=${NEXT_PUBLIC_LENS_NETWORK}"
+            echo "DATABASE_URL=${DATABASE_URL}"
+            echo "CLICKHOUSE_PASSWORD=${CLICKHOUSE_PASSWORD}"
+            echo "SECRET=${SECRET}"
+            echo "EVER_ACCESS_KEY=${EVER_ACCESS_KEY}"
+            echo "EVER_ACCESS_SECRET=${EVER_ACCESS_SECRET}"
+            echo "LENS_IPFS_AUTH_KEY=${LENS_IPFS_AUTH_KEY}"
+            echo "IPAPI_KEY=${IPAPI_KEY}"
+            echo "GOOGLE_API_KEY=${GOOGLE_API_KEY}"
+            echo "IRYS_PRIVATE_KEY=${IRYS_PRIVATE_KEY}"
+            echo "IMAGEKIT_URL=${IMAGEKIT_URL}"
+            echo "SOUND_API_KEY=${SOUND_API_KEY}"
+          } > .env
+          cd ../..
+          pnpm test:e2e

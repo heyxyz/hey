@@ -22,6 +22,11 @@ const Translate: FC<TranslateProps> = ({ publication }) => {
     : publication;
   const filteredContent =
     getPublicationData(targetPublication.metadata)?.content || '';
+
+  if (filteredContent.length < 1) {
+    return null;
+  }
+
   const getGoogleTranslateUrl = (text: string): string => {
     return encodeURI(
       urlcat('https://translate.google.com/#auto|en|:text', { text })
@@ -47,7 +52,7 @@ const Translate: FC<TranslateProps> = ({ publication }) => {
       target="_blank"
     >
       <div className="flex items-center space-x-2">
-        <LanguageIcon className="h-4 w-4" />
+        <LanguageIcon className="size-4" />
         <div>Translate</div>
       </div>
     </Menu.Item>

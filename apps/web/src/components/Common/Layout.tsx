@@ -4,15 +4,14 @@ import type { FC, ReactNode } from 'react';
 import GlobalAlerts from '@components/Shared/GlobalAlerts';
 import GlobalBanners from '@components/Shared/GlobalBanners';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
+import PageMetatags from '@components/Shared/PageMetatags';
 import { useCurrentProfileQuery } from '@hey/lens';
 import getCurrentSession from '@lib/getCurrentSession';
 import getToastOptions from '@lib/getToastOptions';
 import { useTheme } from 'next-themes';
-import Head from 'next/head';
 import { Toaster } from 'react-hot-toast';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
-import { useProStore } from 'src/store/non-persisted/useProStore';
 import { hydrateAuthTokens, signOut } from 'src/store/persisted/useAuthStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
@@ -42,10 +41,12 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const setLensHubOnchainSigNonce = useNonceStore(
     (state) => state.setLensHubOnchainSigNonce
   );
+
   const resetPushChatStore = usePushChatStore(
     (state) => state.resetPushChatStore
   );
   const resetPro = useProStore((state) => state.resetPro);
+
 
   const isMounted = useIsMounted();
   const { disconnect } = useDisconnect();
@@ -94,12 +95,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   return (
     <>
-      <Head>
-        <meta
-          content={resolvedTheme === 'dark' ? '#1b1b1d' : '#ffffff'}
-          name="theme-color"
-        />
-      </Head>
+      <PageMetatags />
       <Toaster
         containerStyle={{ wordBreak: 'break-word' }}
         position="bottom-right"

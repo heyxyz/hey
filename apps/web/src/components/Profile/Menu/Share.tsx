@@ -35,7 +35,7 @@ const Share: FC<ShareProps> = ({ profile }) => {
         });
       }}
     >
-      <ClipboardDocumentIcon className="h-4 w-4" />
+      <ClipboardDocumentIcon className="size-4" />
       <div>Copy link</div>
     </Menu.Item>
   );

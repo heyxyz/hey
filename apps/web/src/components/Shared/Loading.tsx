@@ -2,15 +2,15 @@ import type { FC } from 'react';
 
 import isPrideMonth from '@hey/lib/isPrideMonth';
 
-import MetaTags from '../Common/MetaTags';
+import PageMetatags from './PageMetatags';
 
 const Loading: FC = () => {
   return (
     <div className="grid h-screen place-items-center">
-      <MetaTags />
+      <PageMetatags />
       <img
         alt="Logo"
-        className="h-28 w-28"
+        className="size-28"
         height={112}
         src={isPrideMonth() ? '/pride.png' : '/logo.png'}
         width={112}

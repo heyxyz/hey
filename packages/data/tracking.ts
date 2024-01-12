@@ -60,6 +60,11 @@ export const PUBLICATION = {
       OPEN_MINT: 'Open BasePaint mint modal',
       OPEN_OPENSEA_LINK: 'Open BasePaint OpenSea link'
     },
+    SOUND_RELEASE: {
+      OPEN_LINK: 'Open Sound Release link',
+      PAUSE: 'Pause Sound Release track',
+      PLAY: 'Play Sound Release track'
+    },
     UNLONELY_CHANNEL: {
       OPEN_LINK: 'Open Unlonely Channel link'
     },
@@ -77,6 +82,7 @@ export const PUBLICATION = {
   OPEN_LIKES: 'Open likes modal',
   OPEN_MIRRORS: 'Open mirrors modal',
   OPEN_QUOTES: 'Open quotes modal',
+  OPEN_VIEWS: 'Open views modal',
   REPORT: 'Report publication',
   SHARE: 'Share publication',
   TOGGLE_BOOKMARK: 'Toggle publication bookmark',
@@ -102,7 +108,7 @@ export const HOME = {
   SELECT_USER_FEED: 'Select user feed',
   SWITCH_FOLLOWING_FEED: 'Switch to following feed',
   SWITCH_HIGHLIGHTS_FEED: 'Switch to highlights feed',
-  SWITCH_PAID_ACTIONS_FEED: 'Switch to paid actions feed'
+  SWITCH_PREMIUM_FEED: 'Switch to premium feed'
 };
 
 export const EXPLORE = {

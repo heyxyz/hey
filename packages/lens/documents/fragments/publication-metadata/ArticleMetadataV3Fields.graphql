@@ -10,4 +10,7 @@ fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
   attachments {
     ...PublicationMetadataMediaFields
   }
+  encryptedWith {
+    ...PublicationMetadataLitEncryptionFields
+  }
 }

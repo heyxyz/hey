@@ -35,7 +35,7 @@ const Share: FC<ShareProps> = ({ publication }) => {
       }}
     >
       <div className="flex items-center space-x-2">
-        <ClipboardDocumentIcon className="h-4 w-4" />
+        <ClipboardDocumentIcon className="size-4" />
         <div>Share</div>
       </div>
     </Menu.Item>

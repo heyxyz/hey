@@ -98,12 +98,12 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
       <div className="flex items-center space-x-2">
         {notInterested ? (
           <>
-            <EyeIcon className="h-4 w-4" />
+            <EyeIcon className="size-4" />
             <div>Undo Not interested</div>
           </>
         ) : (
           <>
-            <EyeSlashIcon className="h-4 w-4" />
+            <EyeSlashIcon className="size-4" />
             <div>Not interested</div>
           </>
         )}

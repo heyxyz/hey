@@ -4,6 +4,7 @@ import type { FC } from 'react';
 import { Menu } from '@headlessui/react';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import getAvatar from '@hey/lib/getAvatar';
+import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -39,7 +40,10 @@ const SignedUser: FC = () => {
   const Avatar = () => (
     <Image
       alt={currentProfile?.id}
-      className="h-8 w-8 cursor-pointer rounded-full border dark:border-gray-700"
+      className="size-8 cursor-pointer rounded-full border dark:border-gray-700"
+      onError={({ currentTarget }) => {
+        currentTarget.src = getLennyURL(currentProfile?.id);
+      }}
       src={getAvatar(currentProfile as Profile)}
     />
   );
@@ -113,7 +117,8 @@ const SignedUser: FC = () => {
             >
               <Settings />
             </Menu.Item>
-            {isFeatureEnabled(FeatureFlag.Gardener) ? (
+            {isFeatureEnabled(FeatureFlag.Gardener) ||
+            isFeatureEnabled(FeatureFlag.TrustedProfile) ? (
               <Menu.Item
                 as={NextLink}
                 className={({ active }: { active: boolean }) =>
@@ -132,7 +137,7 @@ const SignedUser: FC = () => {
             >
               <Invites />
             </Menu.Item>
-            {isFeatureEnabled(FeatureFlag.Pro) && (
+            {isFeatureEnabled('pro') && (
               <Menu.Item
                 as={NextLink}
                 className={({ active }: { active: boolean }) =>

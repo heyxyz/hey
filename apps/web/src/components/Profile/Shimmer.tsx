@@ -7,11 +7,11 @@ const ProfilePageShimmer: FC = () => {
   return (
     <>
       <div className="shimmer h-52 sm:h-80" />
-      <GridLayout className="pt-6">
+      <GridLayout>
         <GridItemFour>
           <div className="mb-4 space-y-9 px-5 sm:px-0">
-            <div className="relative -mt-24 h-32 w-32 bg-gray-100 sm:-mt-32 sm:h-52 sm:w-52">
-              <div className="shimmer h-32 w-32 rounded-xl ring-8 ring-gray-50 dark:bg-gray-700 dark:ring-black sm:h-52 sm:w-52" />
+            <div className="relative -mt-24 size-32 bg-gray-100 sm:-mt-32 sm:size-52">
+              <div className="shimmer size-32 rounded-xl ring-8 ring-gray-50 sm:size-52 dark:bg-gray-700 dark:ring-black" />
             </div>
             <div className="space-y-3">
               <div className="shimmer h-5 w-1/3 rounded-lg" />
@@ -20,11 +20,11 @@ const ProfilePageShimmer: FC = () => {
             <div className="space-y-5">
               <div className="flex gap-5 pb-1">
                 <div className="space-y-2">
-                  <div className="shimmer h-7 w-7 rounded-lg" />
+                  <div className="shimmer size-7 rounded-lg" />
                   <div className="shimmer h-3 w-20 rounded-lg" />
                 </div>
                 <div className="space-y-2">
-                  <div className="shimmer h-7 w-7 rounded-lg" />
+                  <div className="shimmer size-7 rounded-lg" />
                   <div className="shimmer h-3 w-20 rounded-lg" />
                 </div>
               </div>
@@ -35,11 +35,11 @@ const ProfilePageShimmer: FC = () => {
               </div>
               <div className="space-y-2">
                 <div className="flex items-center space-x-2">
-                  <div className="shimmer h-4 w-4 rounded-lg" />
+                  <div className="shimmer size-4 rounded-lg" />
                   <div className="shimmer h-3 w-20 rounded-lg" />
                 </div>
                 <div className="flex items-center space-x-2">
-                  <div className="shimmer h-4 w-4 rounded-lg" />
+                  <div className="shimmer size-4 rounded-lg" />
                   <div className="shimmer h-3 w-20 rounded-lg" />
                 </div>
               </div>

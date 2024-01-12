@@ -16,6 +16,7 @@ import {
   useProfilesManagedQuery
 } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
+import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import { ErrorMessage, Image, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -47,7 +48,7 @@ const SwitchProfiles: FC = () => {
   };
 
   const { address } = useAccount();
-  const { signMessageAsync } = useSignMessage({ onError });
+  const { signMessageAsync } = useSignMessage({ mutation: { onError } });
 
   const request: LastLoggedInProfileRequest | ProfileManagersRequest = {
     for: address
@@ -122,8 +123,11 @@ const SwitchProfiles: FC = () => {
           <span className="flex items-center space-x-2">
             <Image
               alt={profile.id}
-              className="h-6 w-6 rounded-full border dark:border-gray-700"
+              className="size-6 rounded-full border dark:border-gray-700"
               height={20}
+              onError={({ currentTarget }) => {
+                currentTarget.src = getLennyURL(profile.id);
+              }}
               src={getAvatar(profile)}
               width={20}
             />
@@ -139,7 +143,7 @@ const SwitchProfiles: FC = () => {
           {isLoading && profile.id === loggingInProfileId ? (
             <Spinner size="xs" />
           ) : currentProfile?.id === profile?.id ? (
-            <CheckCircleIcon className="h-5 w-5 text-green-500" />
+            <CheckCircleIcon className="size-5 text-green-500" />
           ) : null}
         </button>
       ))}
@@ -150,8 +154,8 @@ const SwitchProfiles: FC = () => {
           onClick={() => setShowProfileSwitchModal(false)}
         >
           <span className="flex items-center space-x-2">
-            <div className="dark:border-brand-700 border-brand-400 bg-brand-500/20 flex h-6 w-6 items-center justify-center rounded-full border">
-              <UserPlusIcon className="text-brand-500 h-3 w-3" />
+            <div className="dark:border-brand-700 border-brand-400 bg-brand-500/20 flex size-6 items-center justify-center rounded-full border">
+              <UserPlusIcon className="text-brand-500 size-3" />
             </div>
             <div>Create Profile</div>
           </span>

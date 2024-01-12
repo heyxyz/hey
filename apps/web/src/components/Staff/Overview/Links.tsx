@@ -1,12 +1,6 @@
 import type { FC } from 'react';
 
-import { PAGEVIEW } from '@hey/data/tracking';
-import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import Custom404 from 'src/pages/404';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce } from 'usehooks-ts';
 
 interface ListItemProps {
   link: string;
@@ -22,17 +16,6 @@ const ListItem: FC<ListItemProps> = ({ link, title }) => (
 );
 
 const Links: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const staffMode = useFeatureFlagsStore((state) => state.staffMode);
-
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'staff-tools', subpage: 'overview' });
-  });
-
-  if (!currentProfile || !staffMode) {
-    return <Custom404 />;
-  }
-
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-2 md:gap-y-8">
       <div>
@@ -79,6 +62,10 @@ const Links: FC = () => {
           <ListItem
             link="https://hey.xyz/-/verification-request"
             title="Verification Request"
+          />
+          <ListItem
+            link="https://hey.xyz/-/trusted"
+            title="Trusted profile request"
           />
         </ul>
       </div>

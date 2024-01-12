@@ -29,7 +29,7 @@ const List: FC = () => {
             <div className="flex items-center space-x-2">
               <img
                 alt={algorithm.name}
-                className="h-10 w-10 rounded-lg"
+                className="size-10 rounded-lg"
                 src={algorithm.image}
               />
               <div>
@@ -43,9 +43,9 @@ const List: FC = () => {
                   >
                     <div className="text-brand-500">
                       {algorithm.isPersonalized ? (
-                        <UserCircleIcon className="h-4 w-4" />
+                        <UserCircleIcon className="size-4" />
                       ) : (
-                        <GlobeAmericasIcon className="h-4 w-4" />
+                        <GlobeAmericasIcon className="size-4" />
                       )}
                     </div>
                   </Tooltip>

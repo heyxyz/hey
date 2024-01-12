@@ -14,7 +14,7 @@ export const hashflags: Record<string, string> = {
   hashtag: 'hashtag',
   hey: 'hey',
   lens: 'lens',
-  lenstube: 'lenstube',
+  tape: 'tape',
   voted: 'voted',
   ...prideHashtags.reduce((acc, cur) => ({ ...acc, [cur]: 'pride' }), {})
 };

@@ -4,6 +4,7 @@ import type { FC } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import getAvatar from '@hey/lib/getAvatar';
+import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -40,9 +41,9 @@ const MobileDrawerMenu: FC = () => {
   const itemClass = 'py-3 hover:bg-gray-100 dark:hover:bg-gray-800';
 
   return (
-    <div className="no-scrollbar fixed inset-0 z-10 h-full w-full overflow-y-auto bg-gray-100 py-4 dark:bg-black md:hidden">
+    <div className="no-scrollbar fixed inset-0 z-10 h-full w-full overflow-y-auto bg-gray-100 py-4 md:hidden dark:bg-black">
       <button className="px-5" onClick={closeDrawer} type="button">
-        <XMarkIcon className="h-6 w-6" />
+        <XMarkIcon className="size-6" />
       </button>
       <div className="w-full space-y-2">
         <Link
@@ -53,7 +54,10 @@ const MobileDrawerMenu: FC = () => {
           <div className="flex w-full space-x-1.5">
             <Image
               alt={currentProfile?.id}
-              className="h-12 w-12 cursor-pointer rounded-full border dark:border-gray-700"
+              className="size-12 cursor-pointer rounded-full border dark:border-gray-700"
+              onError={({ currentTarget }) => {
+                currentTarget.src = getLennyURL(currentProfile?.id);
+              }}
               src={getAvatar(currentProfile as Profile)}
             />
             <div>
@@ -85,13 +89,14 @@ const MobileDrawerMenu: FC = () => {
               className={cn(itemClass, 'px-4')}
               onClick={closeDrawer}
             />
-            {isFeatureEnabled(FeatureFlag.Gardener) ? (
+            {isFeatureEnabled(FeatureFlag.Gardener) ||
+            isFeatureEnabled(FeatureFlag.TrustedProfile) ? (
               <Link href="/mod" onClick={closeDrawer}>
                 <Mod className={cn(itemClass, 'px-4')} />
               </Link>
             ) : null}
             <Invites className={cn(itemClass, 'px-4')} />
-            {isFeatureEnabled(FeatureFlag.Pro) && (
+            {isFeatureEnabled('pro') && (
               <Link href="/pro" onClick={closeDrawer}>
                 <Pro className={cn(itemClass, 'px-4')} />
               </Link>

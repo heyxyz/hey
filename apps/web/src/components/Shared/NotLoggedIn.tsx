@@ -10,7 +10,7 @@ const NotLoggedIn: FC = () => {
       <MetaTags title={`Not logged in • ${APP_NAME}`} />
       <img
         alt="Logo"
-        className="h-20 w-20"
+        className="size-20"
         height={80}
         src="/logo.png"
         width={80}

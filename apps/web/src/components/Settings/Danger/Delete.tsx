@@ -18,7 +18,7 @@ import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { signOut } from 'src/store/persisted/useAuthStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useContractWrite, useDisconnect } from 'wagmi';
+import { useDisconnect, useWriteContract } from 'wagmi';
 
 const DeleteSettings: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
@@ -39,12 +39,18 @@ const DeleteSettings: FC = () => {
     errorToast(error);
   };
 
-  const { write } = useContractWrite({
-    abi: LensHub,
-    address: LENSHUB_PROXY,
-    functionName: 'burn',
-    onSuccess: onCompleted
+  const { writeContract } = useWriteContract({
+    mutation: { onSuccess: onCompleted }
   });
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      abi: LensHub,
+      address: LENSHUB_PROXY,
+      args,
+      functionName: 'burn'
+    });
+  };
 
   const handleDelete = () => {
     if (!currentProfile) {
@@ -115,7 +121,7 @@ const DeleteSettings: FC = () => {
           isLoading ? (
             <Spinner size="xs" variant="danger" />
           ) : (
-            <TrashIcon className="h-5 w-5" />
+            <TrashIcon className="size-5" />
           )
         }
         onClick={() => setShowWarningModal(true)}
@@ -124,7 +130,7 @@ const DeleteSettings: FC = () => {
         {isLoading ? 'Deleting...' : 'Delete your account'}
       </Button>
       <Modal
-        icon={<ExclamationTriangleIcon className="h-5 w-5 text-red-500" />}
+        icon={<ExclamationTriangleIcon className="size-5 text-red-500" />}
         onClose={() => setShowWarningModal(false)}
         show={showWarningModal}
         title="Danger zone"
@@ -140,7 +146,7 @@ const DeleteSettings: FC = () => {
             title="Are you sure?"
           />
           <Button
-            icon={<TrashIcon className="h-5 w-5" />}
+            icon={<TrashIcon className="size-5" />}
             onClick={async () => {
               setShowWarningModal(false);
               await handleDelete();

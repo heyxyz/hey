@@ -15,9 +15,9 @@ const useEnsName = ({
   loading: boolean;
 } => {
   const getEnsDetails = async () => {
-    const { data } = await resolveEns([address]);
+    const { result } = await resolveEns([address]);
 
-    return data[0].length ? data[0] : address;
+    return result[0].length ? result[0] : address;
   };
 
   const { data, error, isLoading } = useQuery({

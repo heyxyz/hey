@@ -68,10 +68,7 @@ const uploadToIPFS = async (
           ContentType: file.type,
           Key: uuid()
         };
-        const task = new Upload({
-          client,
-          params
-        });
+        const task = new Upload({ client, params });
         task.on('httpUploadProgress', (e) => {
           const loaded = e.loaded || 0;
           const total = e.total || 0;
@@ -83,12 +80,7 @@ const uploadToIPFS = async (
         const metadata = result.Metadata;
         const cid = metadata?.['ipfs-hash'];
 
-        // axios.get(`${HEY_API_URL}/ipfs/pin`, { params: { cid } });
-
-        return {
-          mimeType: file.type || FALLBACK_TYPE,
-          uri: `ipfs://${cid}`
-        };
+        return { mimeType: file.type || FALLBACK_TYPE, uri: `ipfs://${cid}` };
       })
     );
 

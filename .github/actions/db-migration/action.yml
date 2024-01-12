@@ -1,0 +1,31 @@
+name: Docker Build and Push
+
+inputs:
+  database_url:
+    required: true
+    default: ''
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup pnpm 🌸
+      uses: pnpm/action-setup@v2.2.4
+
+    - name: Setup node 🍀
+      uses: actions/setup-node@v3
+      with:
+        check-latest: true
+        node-version-file: '.nvmrc'
+        cache: 'pnpm'
+
+    - name: Install dependencies 📦
+      shell: bash
+      working-directory: ./apps/api
+      run: pnpm i
+
+    - name: Migrate 🚀
+      shell: bash
+      working-directory: ./apps/api
+      env:
+        DATABASE_URL: ${{ inputs.database_url }}
+      run: pnpm prisma:migrate

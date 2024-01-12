@@ -7,20 +7,21 @@ import cn from '../cn';
 interface BadgeProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   children?: ReactNode;
+  className?: string;
   size?: 'lg' | 'md' | 'sm';
   variant?: 'black' | 'danger' | 'primary' | 'secondary' | 'warning';
 }
 
 export const Badge = forwardRef<HTMLDivElement, BadgeProps>(function Badge(
-  { children, size = 'sm', variant = 'primary', ...rest },
+  { children, className, size = 'sm', variant = 'primary', ...rest },
   ref
 ) {
   const variantStyles = {
-    'border-black/80 bg-black/70': variant === 'black',
-    'border-brand-500/80 bg-brand-500/70': variant === 'primary',
-    'border-gray-500/80 bg-gray-500/70': variant === 'secondary',
-    'border-red-500/80 bg-red-500/70': variant === 'danger',
-    'border-yellow-500/80 bg-yellow-500/70': variant === 'warning'
+    'border-black bg-black': variant === 'black',
+    'border-brand-600 bg-brand-500': variant === 'primary',
+    'border-gray-600 bg-gray-500': variant === 'secondary',
+    'border-red-600 bg-red-500': variant === 'danger',
+    'border-yellow-600 bg-yellow-500': variant === 'warning'
   };
 
   const sizeStyles = {
@@ -34,7 +35,8 @@ export const Badge = forwardRef<HTMLDivElement, BadgeProps>(function Badge(
       className={cn(
         variantStyles,
         sizeStyles,
-        'w-fit rounded-full border text-xs text-white shadow-sm'
+        className,
+        'rounded-md border text-xs text-white shadow-sm'
       )}
       {...rest}
       ref={ref}

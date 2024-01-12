@@ -25,14 +25,13 @@ const Oembed: FC<OembedProps> = ({ className, onData, publicationId, url }) => {
       });
       return response.data.oembed;
     },
-    queryKey: ['oembed', url]
+    queryKey: ['oembed', url],
+    refetchOnMount: false
   });
 
   if (isLoading || error || !data) {
     return null;
   }
-
-  onData(data);
 
   const og: OG = {
     description: data?.description,
@@ -45,7 +44,7 @@ const Oembed: FC<OembedProps> = ({ className, onData, publicationId, url }) => {
     url: url as string
   };
 
-  if (!og.title) {
+  if (!og.title && !og.html) {
     return null;
   }
 

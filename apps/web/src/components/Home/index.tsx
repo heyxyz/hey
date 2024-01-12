@@ -1,6 +1,5 @@
 import type { NextPage } from 'next';
 
-import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
 import { HomeFeedType } from '@hey/data/enums';
@@ -39,7 +38,6 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <MetaTags />
       {loggedOut && !loggedInWithWallet && <Hero />}
       <GridLayout>
         <GridItemEight className="space-y-5">
@@ -54,7 +52,7 @@ const Home: NextPage = () => {
                 <Timeline />
               ) : feedType === HomeFeedType.HIGHLIGHTS ? (
                 <Highlights />
-              ) : feedType === HomeFeedType.PAID_ACTIONS ? (
+              ) : feedType === HomeFeedType.PREMIUM ? (
                 <PaidActions />
               ) : (
                 <AlgorithmicFeed feedType={feedType} />

@@ -4,7 +4,7 @@ import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { Modal, Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
+import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 
 import CollectForm from './CollectForm';
 
@@ -22,11 +22,11 @@ const CollectSettings: FC = () => {
           type="button"
           whileTap={{ scale: 0.9 }}
         >
-          <RectangleStackIcon className="text-brand-500 h-5 w-5" />
+          <RectangleStackIcon className="text-brand-500 size-5" />
         </motion.button>
       </Tooltip>
       <Modal
-        icon={<RectangleStackIcon className="text-brand-500 h-5 w-5" />}
+        icon={<RectangleStackIcon className="text-brand-500 size-5" />}
         onClose={() => {
           setShowModal(false);
           reset();

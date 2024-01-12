@@ -15,7 +15,7 @@ const Pro: FC<ProProps> = ({ className = '' }) => {
         className
       )}
     >
-      <BriefcaseIcon className="h-4 w-4 text-green-600" />
+      <BriefcaseIcon className="size-4 text-green-600" />
       <div>Pro</div>
     </div>
   );

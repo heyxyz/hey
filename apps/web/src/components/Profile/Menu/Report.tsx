@@ -26,7 +26,7 @@ const Report: FC<ReportProfileProps> = ({ profile }) => {
       }
       onClick={() => setShowReportProfileModal(true, profile)}
     >
-      <FlagIcon className="h-4 w-4" />
+      <FlagIcon className="size-4" />
       <div>Report profile</div>
     </Menu.Item>
   );

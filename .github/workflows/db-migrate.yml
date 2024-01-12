@@ -6,42 +6,38 @@ on:
   workflow_dispatch:
 
 jobs:
-  db-migrate:
-    name: DB Migrate
+  mainnet:
+    name: Mainnet
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js, pnpm, dependencies and run migrations 🌸
+        uses: ./.github/actions/db-migration
         with:
-          fetch-depth: 0
+          database_url: ${{ secrets.MAINNET_DATABASE_URL }}
 
-      - name: Setup pnpm 🌸
-        uses: pnpm/action-setup@v2.2.4
+  testnet:
+    name: Testnet
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v4
 
-      - name: Setup node 🍀
-        uses: actions/setup-node@v3
+      - name: Setup Node.js, pnpm, dependencies and run migrations 🌸
+        uses: ./.github/actions/db-migration
         with:
-          node-version-file: '.nvmrc'
-          cache: 'pnpm'
+          database_url: ${{ secrets.TESTNET_DATABASE_URL }}
 
-      - name: Install dependencies 📦
-        working-directory: ./apps/api
-        run: pnpm i
+  staging:
+    name: Staging
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v4
 
-      - name: Migrate Staging 🚀
-        working-directory: ./apps/api
-        env:
-          DATABASE_URL: ${{ secrets.STAGING_DATABASE_URL }}
-        run: pnpm prisma:migrate
-
-      - name: Migrate Testnet 🚀
-        working-directory: ./apps/api
-        env:
-          DATABASE_URL: ${{ secrets.TESTNET_DATABASE_URL }}
-        run: pnpm prisma:migrate
-
-      - name: Migrate Mainnet 🚀
-        working-directory: ./apps/api
-        env:
-          DATABASE_URL: ${{ secrets.MAINNET_DATABASE_URL }}
-        run: pnpm prisma:migrate
+      - name: Setup Node.js, pnpm, dependencies and run migrations 🌸
+        uses: ./.github/actions/db-migration
+        with:
+          database_url: ${{ secrets.STAGING_DATABASE_URL }}

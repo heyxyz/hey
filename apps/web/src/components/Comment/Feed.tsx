@@ -1,4 +1,4 @@
-import type { AnyPublication, Comment, PublicationsRequest } from '@hey/lens';
+import type { Comment, PublicationsRequest } from '@hey/lens';
 import type { FC } from 'react';
 
 import QueuedPublication from '@components/Publication/QueuedPublication';
@@ -11,7 +11,6 @@ import {
   LimitType,
   usePublicationsQuery
 } from '@hey/lens';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { useInView } from 'react-cool-inview';
@@ -19,13 +18,11 @@ import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 
 interface FeedProps {
-  publication: AnyPublication;
+  isHidden: boolean;
+  publicationId: string;
 }
 
-const Feed: FC<FeedProps> = ({ publication }) => {
-  const publicationId = isMirrorPublication(publication)
-    ? publication?.mirrorOn?.id
-    : publication?.id;
+const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
   const txnQueue = useTransactionStore((state) => state.txnQueue);
   const fetchAndStoreViews = useImpressionsStore(
     (state) => state.fetchAndStoreViews
@@ -90,10 +87,10 @@ const Feed: FC<FeedProps> = ({ publication }) => {
     return <ErrorMessage error={error} title="Failed to load comment feed" />;
   }
 
-  if (!publication?.isHidden && totalComments === 0) {
+  if (!isHidden && totalComments === 0) {
     return (
       <EmptyState
-        icon={<ChatBubbleLeftRightIcon className="text-brand-500 h-8 w-8" />}
+        icon={<ChatBubbleLeftRightIcon className="text-brand-500 size-8" />}
         message="Be the first one to comment!"
       />
     );

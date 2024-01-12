@@ -16,7 +16,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useContractWrite } from 'wagmi';
+import { useWriteContract } from 'wagmi';
 
 const GuardianSettings: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
@@ -29,17 +29,24 @@ const GuardianSettings: FC = () => {
     errorToast(error);
   };
 
-  const { data, write } = useContractWrite({
-    abi: LensHub,
-    address: LENSHUB_PROXY,
-    functionName: 'DANGER__disableTokenGuardian',
-    onError: (error) => {
-      onError(error);
-    },
-    onSuccess: () => {
-      Leafwatch.track(SETTINGS.DANGER.UNPROTECT_PROFILE);
+  const { data, writeContract } = useWriteContract({
+    mutation: {
+      onError: (error) => {
+        onError(error);
+      },
+      onSuccess: () => {
+        Leafwatch.track(SETTINGS.DANGER.UNPROTECT_PROFILE);
+      }
     }
   });
+
+  const write = () => {
+    return writeContract({
+      abi: LensHub,
+      address: LENSHUB_PROXY,
+      functionName: 'DANGER__disableTokenGuardian'
+    });
+  };
 
   const handleDisable = () => {
     if (!currentProfile) {
@@ -84,9 +91,9 @@ const GuardianSettings: FC = () => {
           to execute approvals and transfers without restrictions.
         </p>
       </div>
-      {data?.hash ? (
+      {data ? (
         <div className="mt-5">
-          <IndexStatus reload txHash={data.hash} />
+          <IndexStatus reload txHash={data} />
         </div>
       ) : (
         <Button
@@ -95,7 +102,7 @@ const GuardianSettings: FC = () => {
             isLoading ? (
               <Spinner size="xs" variant="danger" />
             ) : (
-              <LockOpenIcon className="h-5 w-5" />
+              <LockOpenIcon className="size-5" />
             )
           }
           onClick={() => setShowWarningModal(true)}
@@ -105,7 +112,7 @@ const GuardianSettings: FC = () => {
         </Button>
       )}
       <Modal
-        icon={<ExclamationTriangleIcon className="h-5 w-5 text-red-500" />}
+        icon={<ExclamationTriangleIcon className="size-5 text-red-500" />}
         onClose={() => setShowWarningModal(false)}
         show={showWarningModal}
         title="Danger zone"
@@ -121,7 +128,7 @@ const GuardianSettings: FC = () => {
             title="Are you sure?"
           />
           <Button
-            icon={<LockOpenIcon className="h-5 w-5" />}
+            icon={<LockOpenIcon className="size-5" />}
             onClick={async () => {
               setShowWarningModal(false);
               await handleDisable();

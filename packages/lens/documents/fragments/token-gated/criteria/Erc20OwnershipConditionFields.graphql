@@ -1,0 +1,6 @@
+fragment Erc20OwnershipConditionFields on Erc20OwnershipCondition {
+  amount {
+    ...AmountFields
+  }
+  condition
+}

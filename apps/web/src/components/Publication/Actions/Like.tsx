@@ -1,5 +1,5 @@
 import type { ApolloCache } from '@apollo/client';
-import type { AnyPublication, ReactionRequest } from '@hey/lens';
+import type { MirrorablePublication, ReactionRequest } from '@hey/lens';
 import type { FC } from 'react';
 
 import { HeartIcon } from '@heroicons/react/24/outline';
@@ -12,7 +12,6 @@ import {
   useRemoveReactionMutation
 } from '@hey/lens';
 import nFormatter from '@hey/lib/nFormatter';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
@@ -21,39 +20,42 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface LikeProps {
-  publication: AnyPublication;
+  publication: MirrorablePublication;
   showCount: boolean;
 }
 
 const Like: FC<LikeProps> = ({ publication, showCount }) => {
   const { pathname } = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const targetPublication = isMirrorPublication(publication)
-    ? publication?.mirrorOn
-    : publication;
+  const { isSuspended } = useProfileRestriction();
 
   const [hasReacted, setHasReacted] = useState(
-    targetPublication.operations.hasReacted
+    publication.operations.hasReacted
   );
-  const [reactions, setReactions] = useState(targetPublication.stats.reactions);
+  const [reactions, setReactions] = useState(publication.stats.reactions);
 
   const updateCache = (cache: ApolloCache<any>) => {
     cache.modify({
       fields: {
         operations: (existingValue) => {
-          return { ...existingValue, hasReacted: !hasReacted };
+          return {
+            ...existingValue,
+            // TODO: This is a hack to make the cache update
+            'hasReacted({"request":{"type":"UPVOTE"}})': !hasReacted
+          };
         }
       },
-      id: cache.identify(targetPublication)
+      id: cache.identify(publication)
     });
     cache.modify({
       fields: {
         reactions: () => (hasReacted ? reactions - 1 : reactions + 1)
       },
-      id: cache.identify(targetPublication.stats)
+      id: cache.identify(publication.stats)
     });
   };
 
@@ -113,9 +115,13 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
       return toast.error(Errors.SignWallet);
     }
 
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
+    }
+
     // Variables
     const request: ReactionRequest = {
-      for: targetPublication.id,
+      for: publication.id,
       reaction: PublicationReactionType.Upvote
     };
 

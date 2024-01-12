@@ -1,4 +1,3 @@
-import type { Profile } from '@hey/lens';
 import type { Feature } from '@hey/types/hey';
 import type { FC } from 'react';
 
@@ -6,7 +5,7 @@ import Loader from '@components/Shared/Loader';
 import { HEY_API_URL } from '@hey/data/constants';
 import getAllFeatureFlags from '@hey/lib/api/getAllFeatureFlags';
 import { Toggle } from '@hey/ui';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
@@ -16,19 +15,19 @@ import ToggleWrapper from './ToggleWrapper';
 
 interface UpdateFeatureFlagsProps {
   flags: string[];
-  profile: Profile;
+  profileId: string;
   setFlags: (flags: string[]) => void;
 }
 
 const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
   flags,
-  profile,
+  profileId,
   setFlags
 }) => {
   const [updating, setUpdating] = useState(false);
 
   const { data: allFeatureFlags, isLoading } = useQuery({
-    queryFn: () => getAllFeatureFlags(getAuthWorkerHeaders()),
+    queryFn: () => getAllFeatureFlags(getAuthApiHeaders()),
     queryKey: ['getAllFeatureFlags']
   });
 
@@ -46,9 +45,9 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
     setUpdating(true);
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/feature/updateProfile`,
-        { enabled, id, profile_id: profile.id },
-        { headers: getAuthWorkerHeaders() }
+        `${HEY_API_URL}/internal/features/assign`,
+        { enabled, id, profile_id: profileId },
+        { headers: getAuthApiHeaders() }
       ),
       {
         error: () => {

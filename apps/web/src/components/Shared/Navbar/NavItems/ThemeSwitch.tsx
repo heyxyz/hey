@@ -31,12 +31,12 @@ const ThemeSwitch: FC<ThemeSwitchProps> = ({ className = '', onClick }) => {
     >
       {theme === 'light' ? (
         <>
-          <MoonIcon className="h-4 w-4" />
+          <MoonIcon className="size-4" />
           <div>Dark mode</div>
         </>
       ) : (
         <>
-          <SunIcon className="h-4 w-4" />
+          <SunIcon className="size-4" />
           <div>Light mode</div>
         </>
       )}

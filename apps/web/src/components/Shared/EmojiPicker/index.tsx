@@ -55,7 +55,7 @@ const EmojiPicker: FC<EmojiPickerProps> = ({
           <span>{emoji}</span>
         ) : (
           <Tooltip content="Emoji" placement="top">
-            <FaceSmileIcon className={cn('h-5 w-5', emojiClassName)} />
+            <FaceSmileIcon className={cn('size-5', emojiClassName)} />
           </Tooltip>
         )}
       </motion.button>

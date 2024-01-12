@@ -8,7 +8,7 @@ export const prideHashtags = [
   'lgbtcommunity',
   'gay',
   'gaypride',
-  'pride2023',
+  'pride2024',
   'lesbian',
   'lesbianlove',
   'lesbianpride',

@@ -1,4 +1,3 @@
-import type { AnyPublication } from '@hey/lens';
 import type { UnlonelyNfcMetadata } from '@hey/types/nft';
 import type { FC } from 'react';
 
@@ -17,10 +16,10 @@ import NftShimmer from './Shimmer';
 
 interface UnlonelyNfcProps {
   nftMetadata: UnlonelyNfcMetadata;
-  publication: AnyPublication;
+  publicationId: string;
 }
 
-const UnlonelyNfc: FC<UnlonelyNfcProps> = ({ nftMetadata, publication }) => {
+const UnlonelyNfc: FC<UnlonelyNfcProps> = ({ nftMetadata, publicationId }) => {
   const { id } = nftMetadata;
 
   const {
@@ -62,33 +61,37 @@ const UnlonelyNfc: FC<UnlonelyNfcProps> = ({ nftMetadata, publication }) => {
           <Tooltip content="Unlonely Nfc" placement="right">
             <img
               alt="Unlonely"
-              className="h-5 w-5 rounded-full"
+              className="size-5 rounded-full"
               src={`${STATIC_IMAGES_URL}/brands/unlonely.png`}
             />
           </Tooltip>
           <div className="text-sm font-bold">{title}</div>
         </div>
-        <Link
-          href={urlcat('https://www.unlonely.app/nfc/:id', {
-            id: nfc.id
-          })}
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <Button
-            className="text-sm"
-            icon={<CursorArrowRaysIcon className="h-4 w-4" />}
-            onClick={() =>
-              Leafwatch.track(PUBLICATION.OPEN_ACTIONS.UNLONELY_NFC.OPEN_LINK, {
-                from: 'mint_embed',
-                publication_id: publication.id
-              })
-            }
-            size="md"
+        {publicationId ? (
+          <Link
+            href={urlcat('https://www.unlonely.app/nfc/:id', {
+              id: nfc.id
+            })}
+            rel="noopener noreferrer"
+            target="_blank"
           >
-            Open
-          </Button>
-        </Link>
+            <Button
+              className="text-sm"
+              icon={<CursorArrowRaysIcon className="size-4" />}
+              onClick={() =>
+                Leafwatch.track(
+                  PUBLICATION.OPEN_ACTIONS.UNLONELY_NFC.OPEN_LINK,
+                  { from: 'mint_embed', publication_id: publicationId }
+                )
+              }
+              size="md"
+            >
+              Open
+            </Button>
+          </Link>
+        ) : (
+          <div className="h-7" />
+        )}
       </div>
     </Card>
   );

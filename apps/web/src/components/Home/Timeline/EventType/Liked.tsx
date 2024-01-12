@@ -24,7 +24,7 @@ const Liked: FC<LikedProps> = ({ reactions }) => {
         'ld-text-gray-500 flex items-center space-x-1 pb-4 text-[13px]'
       }
     >
-      <HeartIcon className="h-4 w-4" />
+      <HeartIcon className="size-4" />
       <Profiles context="liked" profiles={getLikedProfiles()} />
     </div>
   );

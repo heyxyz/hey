@@ -37,7 +37,7 @@ const ProfileManager: FC = () => {
         {type === Type.MANAGERS && (
           <>
             <Button
-              icon={<PlusCircleIcon className="h-4 w-4" />}
+              icon={<PlusCircleIcon className="size-4" />}
               onClick={() => setShowAddManagerModal(true)}
             >
               Add manager

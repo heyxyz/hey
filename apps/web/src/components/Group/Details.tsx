@@ -6,9 +6,9 @@ import Slug from '@components/Shared/Slug';
 import { ClockIcon } from '@heroicons/react/24/outline';
 import { FireIcon } from '@heroicons/react/24/solid';
 import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
+import formatDate from '@hey/lib/datetime/formatDate';
 import getMentions from '@hey/lib/getMentions';
 import { Image, LightBox, Tooltip } from '@hey/ui';
-import { formatDate } from '@lib/formatTime';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -37,10 +37,10 @@ const Details: FC<DetailsProps> = ({ group }) => {
 
   return (
     <div className="mb-4 space-y-5 px-5 sm:px-0">
-      <div className="relative h-32 w-32 sm:h-52 sm:w-52">
+      <div className="relative size-32 sm:size-52">
         <Image
           alt={group.slug}
-          className="h-32 w-32 cursor-pointer rounded-xl bg-gray-200 ring-8 ring-gray-50 dark:bg-gray-700 dark:ring-black sm:h-52 sm:w-52"
+          className="size-32 cursor-pointer rounded-xl bg-gray-200 ring-8 ring-gray-50 sm:size-52 dark:bg-gray-700 dark:ring-black"
           height={128}
           onClick={() => setExpandedImage(group.avatar)}
           src={group.avatar}
@@ -57,7 +57,7 @@ const Details: FC<DetailsProps> = ({ group }) => {
           <div className="truncate">{group.name}</div>
           {group.featured ? (
             <Tooltip content="Featured">
-              <FireIcon className="h-6 w-6 text-yellow-500" />
+              <FireIcon className="size-6 text-yellow-500" />
             </Tooltip>
           ) : null}
         </div>
@@ -76,7 +76,7 @@ const Details: FC<DetailsProps> = ({ group }) => {
               icon={
                 <img
                   alt={`${APP_NAME} Logo`}
-                  className="h-4 w-4"
+                  className="size-4"
                   height={16}
                   src="/logo.png"
                   width={16}
@@ -93,7 +93,7 @@ const Details: FC<DetailsProps> = ({ group }) => {
               icon={
                 <img
                   alt="X Logo"
-                  className="h-4 w-4"
+                  className="size-4"
                   height={16}
                   src={`${STATIC_IMAGES_URL}/brands/${
                     resolvedTheme === 'dark' ? 'x-dark.png' : 'x-light.png'
@@ -118,7 +118,7 @@ const Details: FC<DetailsProps> = ({ group }) => {
               icon={
                 <img
                   alt="Instagram Logo"
-                  className="h-4 w-4"
+                  className="size-4"
                   height={16}
                   src={`${STATIC_IMAGES_URL}/brands/instagram.png`}
                   width={16}
@@ -141,7 +141,7 @@ const Details: FC<DetailsProps> = ({ group }) => {
               icon={
                 <img
                   alt="Discord Logo"
-                  className="h-4 w-4"
+                  className="size-4"
                   height={16}
                   src={`${STATIC_IMAGES_URL}/brands/discord.png`}
                   width={16}
@@ -157,8 +157,8 @@ const Details: FC<DetailsProps> = ({ group }) => {
               </Link>
             </MetaDetails>
           ) : null}
-          <MetaDetails icon={<ClockIcon className="h-4 w-4" />}>
-            {formatDate(new Date(group.createdAt))}
+          <MetaDetails icon={<ClockIcon className="size-4" />}>
+            {formatDate(group.createdAt)}
           </MetaDetails>
         </div>
       </div>

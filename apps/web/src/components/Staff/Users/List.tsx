@@ -2,7 +2,7 @@ import type { ExploreProfilesRequest, Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
-import SearchUser from '@components/Shared/SearchUser';
+import SearchProfiles from '@components/Shared/SearchProfiles';
 import UserProfile from '@components/Shared/UserProfile';
 import { ArrowPathIcon, UsersIcon } from '@heroicons/react/24/outline';
 import {
@@ -52,10 +52,11 @@ const List: FC = () => {
   return (
     <Card>
       <div className="flex items-center justify-between space-x-5 p-5">
-        <SearchUser
+        <SearchProfiles
           onChange={(event) => setValue(event.target.value)}
           onProfileSelected={(profile) => push(getProfile(profile).staffLink)}
           placeholder="Search profiles..."
+          skipGardeners
           value={value}
         />
         <Select
@@ -70,7 +71,7 @@ const List: FC = () => {
           }))}
         />
         <button onClick={() => refetch()} type="button">
-          <ArrowPathIcon className="h-5 w-5" />
+          <ArrowPathIcon className="size-5" />
         </button>
       </div>
       <div className="divider" />
@@ -82,7 +83,7 @@ const List: FC = () => {
         ) : !profiles?.length ? (
           <EmptyState
             hideCard
-            icon={<UsersIcon className="text-brand-500 h-8 w-8" />}
+            icon={<UsersIcon className="text-brand-500 size-8" />}
             message={<span>No profiles</span>}
           />
         ) : (

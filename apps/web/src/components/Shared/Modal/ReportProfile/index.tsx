@@ -1,6 +1,7 @@
 import UserProfile from '@components/Shared/UserProfile';
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
+import { Errors } from '@hey/data';
 import { PROFILE } from '@hey/data/tracking';
 import { type Profile, useReportProfileMutation } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
@@ -14,8 +15,11 @@ import {
   TextArea,
   useZodForm
 } from '@hey/ui';
+import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { type FC, useState } from 'react';
+import toast from 'react-hot-toast';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { object, string } from 'zod';
 
 import Reason from './Reason';
@@ -31,6 +35,7 @@ interface ReportProfileProps {
 }
 
 const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
+  const { isSuspended } = useProfileRestriction();
   const [type, setType] = useState('');
   const [subReason, setSubReason] = useState('');
 
@@ -47,21 +52,29 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
     }
   });
 
-  const reportProfile = (additionalComments: null | string) => {
-    createReport({
-      variables: {
-        request: {
-          additionalComments,
-          for: profile?.id,
-          reason: {
-            [type]: {
-              reason: type.replace('Reason', '').toUpperCase(),
-              subreason: subReason
+  const reportProfile = async (additionalComments: null | string) => {
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
+    }
+
+    try {
+      return await createReport({
+        variables: {
+          request: {
+            additionalComments,
+            for: profile?.id,
+            reason: {
+              [type]: {
+                reason: type.replace('Reason', '').toUpperCase(),
+                subreason: subReason
+              }
             }
           }
         }
-      }
-    });
+      });
+    } catch (error) {
+      errorToast(error);
+    }
   };
 
   return (
@@ -69,7 +82,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
       {submitData?.reportProfile === null ? (
         <EmptyState
           hideCard
-          icon={<CheckCircleIcon className="h-14 w-14 text-green-500" />}
+          icon={<CheckCircleIcon className="size-14 text-green-500" />}
           message="Profile reported successfully!"
         />
       ) : profile ? (
@@ -108,7 +121,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
                     submitLoading ? (
                       <Spinner size="xs" />
                     ) : (
-                      <PencilSquareIcon className="h-4 w-4" />
+                      <PencilSquareIcon className="size-4" />
                     )
                   }
                   type="submit"

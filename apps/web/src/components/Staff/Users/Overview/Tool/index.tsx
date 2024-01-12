@@ -15,15 +15,15 @@ import { APP_NAME, HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
 import getPreferences from '@hey/lib/api/getPreferences';
 import formatAddress from '@hey/lib/formatAddress';
 import getFollowModule from '@hey/lib/getFollowModule';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Link from 'next/link';
 
 import MetaDetails from '../../../../Shared/Staff/MetaDetails';
-import Access from './Access';
 import FeatureFlags from './FeatureFlags';
 import LeafwatchDetails from './LeafwatchDetails';
+import ManagedProfiles from './ManagedProfiles';
 import OnchainIdentities from './OnchainIdentities';
 import Rank from './Rank';
 
@@ -50,7 +50,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
   });
 
   const { data: preferences } = useQuery({
-    queryFn: () => getPreferences(profile.id, getAuthWorkerHeaders()),
+    queryFn: () => getPreferences(profile.id, getAuthApiHeaders()),
     queryKey: ['fetchPreferences', profile.id || '']
   });
 
@@ -65,7 +65,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
       />
       <div className="divider my-5 border-dashed border-yellow-600" />
       <div className="flex items-center space-x-2 text-yellow-600">
-        <ShieldCheckIcon className="h-5 w-5" />
+        <ShieldCheckIcon className="size-5" />
         <div className="text-lg font-bold">Profile Overview</div>
       </div>
       <div className="mt-3 space-y-2">
@@ -74,7 +74,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
             icon={
               <img
                 alt="Logo"
-                className="h-4 w-4"
+                className="size-4"
                 height={16}
                 src="/logo.png"
                 width={16}
@@ -85,14 +85,14 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           </MetaDetails>
         ) : null}
         <MetaDetails
-          icon={<HashtagIcon className="ld-text-gray-500 h-4 w-4" />}
+          icon={<HashtagIcon className="ld-text-gray-500 size-4" />}
           title="Profile ID"
           value={profile.id}
         >
           {profile.id}
         </MetaDetails>
         <MetaDetails
-          icon={<BanknotesIcon className="ld-text-gray-500 h-4 w-4" />}
+          icon={<BanknotesIcon className="ld-text-gray-500 size-4" />}
           title="Address"
           value={profile.ownedBy.address}
         >
@@ -100,7 +100,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         </MetaDetails>
         {profile?.followNftAddress ? (
           <MetaDetails
-            icon={<PhotoIcon className="ld-text-gray-500 h-4 w-4" />}
+            icon={<PhotoIcon className="ld-text-gray-500 size-4" />}
             title="NFT address"
             value={profile.followNftAddress.address}
           >
@@ -108,26 +108,26 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           </MetaDetails>
         ) : null}
         <MetaDetails
-          icon={<HandRaisedIcon className="ld-text-gray-500 h-4 w-4" />}
+          icon={<HandRaisedIcon className="ld-text-gray-500 size-4" />}
           title="Has Lens Manager"
         >
           {profile.signless ? 'Yes' : 'No'}
         </MetaDetails>
         <MetaDetails
-          icon={<HandRaisedIcon className="ld-text-gray-500 h-4 w-4" />}
+          icon={<HandRaisedIcon className="ld-text-gray-500 size-4" />}
           title="Gas sponsored"
         >
           {profile.sponsor ? 'Yes' : 'No'}
         </MetaDetails>
         <MetaDetails
-          icon={<IdentificationIcon className="ld-text-gray-500 h-4 w-4" />}
+          icon={<IdentificationIcon className="ld-text-gray-500 size-4" />}
           title="Follow module"
         >
           {getFollowModule(profile?.followModule?.__typename).description}
         </MetaDetails>
         {profile?.metadata?.rawURI ? (
           <MetaDetails
-            icon={<LinkIcon className="ld-text-gray-500 h-4 w-4" />}
+            icon={<LinkIcon className="ld-text-gray-500 size-4" />}
             title="Metadata"
             value={profile.metadata.rawURI}
           >
@@ -142,19 +142,28 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         ) : null}
       </div>
       <div className="divider my-5 border-dashed border-yellow-600" />
-      <OnchainIdentities profile={profile} />
+      <OnchainIdentities onchainIdentity={profile.onchainIdentity} />
       <div className="divider my-5 border-dashed border-yellow-600" />
       {IS_MAINNET ? (
         <>
-          <LeafwatchDetails profile={profile} />
+          <LeafwatchDetails profileId={profile.id} />
           <div className="divider my-5 border-dashed border-yellow-600" />
-          <Rank profile={profile} />
+          <Rank
+            address={profile.ownedBy.address}
+            handle={profile.handle?.localName}
+            profileId={profile.id}
+          />
           <div className="divider my-5 border-dashed border-yellow-600" />
         </>
       ) : null}
-      <Access isPro={preferences?.pro?.enabled || false} profile={profile} />
+      {preferences ? (
+        <FeatureFlags
+          features={preferences.features || []}
+          profileId={profile.id}
+        />
+      ) : null}
       <div className="divider my-5 border-dashed border-yellow-600" />
-      <FeatureFlags features={preferences?.features || []} profile={profile} />
+      <ManagedProfiles address={profile.ownedBy.address} />
     </div>
   );
 };

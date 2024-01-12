@@ -1,8 +1,6 @@
 export const apps = [
   'hey',
   'tape',
-  'lenstube',
-  'lenstube-bytes',
   'orb',
   'phaver',
   'lensport',
@@ -13,6 +11,9 @@ export const apps = [
   'wav3s',
   'lensta',
   'beats',
-  'diversehq',
-  'lenspeer'
+  'lenspeer',
+  't2.world',
+  'yup',
+  'focalize',
+  'bloomers.tv'
 ];

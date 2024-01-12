@@ -138,7 +138,7 @@ const MentionsTypeaheadMenuItem: FC<MentionsTypeaheadMenuItemProps> = ({
       >
         <img
           alt={option.handle}
-          className="h-7 w-7 rounded-full"
+          className="size-7 rounded-full"
           height="32"
           src={option.picture}
           width="32"
@@ -147,10 +147,10 @@ const MentionsTypeaheadMenuItem: FC<MentionsTypeaheadMenuItemProps> = ({
           <div className="flex items-center space-x-1 text-sm">
             <span>{option.name}</span>
             {isVerified(option.id) ? (
-              <CheckBadgeIcon className="text-brand-500 h-4 w-4" />
+              <CheckBadgeIcon className="text-brand-500 size-4" />
             ) : null}
             {hasMisused(option.id) ? (
-              <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
+              <ExclamationCircleIcon className="size-4 text-red-500" />
             ) : null}
           </div>
           <span className="text-xs">{option.displayHandle}</span>

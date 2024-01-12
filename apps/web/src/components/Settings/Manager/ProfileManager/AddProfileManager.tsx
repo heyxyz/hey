@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import SearchUser from '@components/Shared/SearchUser';
+import SearchProfiles from '@components/Shared/SearchProfiles';
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { ADDRESS_PLACEHOLDER, LENSHUB_PROXY } from '@hey/data/constants';
@@ -20,10 +20,11 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { hydrateTbaStatus } from 'src/store/persisted/useTbaStatusStore';
 import { isAddress } from 'viem';
-import { useContractWrite, useSignTypedData } from 'wagmi';
+import { useSignTypedData, useWriteContract } from 'wagmi';
 
 interface AddProfileManagerProps {
   setShowAddManagerModal: (show: boolean) => void;
@@ -33,6 +34,7 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
   setShowAddManagerModal
 }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { isSuspended } = useProfileRestriction();
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce
   );
@@ -64,20 +66,28 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
     errorToast(error);
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ onError });
-  const { write } = useContractWrite({
-    abi: LensHub,
-    address: LENSHUB_PROXY,
-    functionName: 'changeDelegatedExecutorsConfig',
-    onError: (error) => {
-      onError(error);
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
-    },
-    onSuccess: () => {
-      onCompleted();
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
+  const { writeContract } = useWriteContract({
+    mutation: {
+      onError: (error) => {
+        onError(error);
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+      },
+      onSuccess: () => {
+        onCompleted();
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+      }
     }
   });
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      abi: LensHub,
+      address: LENSHUB_PROXY,
+      args,
+      functionName: 'changeDelegatedExecutorsConfig'
+    });
+  };
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) =>
@@ -101,21 +111,26 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
           configNumber,
           switchToGivenConfig
         ];
+        try {
+          if (!isTba && canBroadcast) {
+            const signature = await signTypedDataAsync(getSignature(typedData));
+            const { data } = await broadcastOnchain({
+              variables: { request: { id, signature } }
+            });
+            if (data?.broadcastOnchain.__typename === 'RelayError') {
+              return write({ args });
+            }
+            setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
 
-        if (!isTba && canBroadcast) {
-          const signature = await signTypedDataAsync(getSignature(typedData));
-          const { data } = await broadcastOnchain({
-            variables: { request: { id, signature } }
-          });
-          if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return write({ args });
+            return;
           }
-          setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
 
-          return;
+          return write({ args });
+        } catch {
+          // Fix for Safe wallets
+          // TODO: Remove this once Lens supports Safe wallets
+          return write({ args });
         }
-
-        return write({ args });
       },
       onError
     });
@@ -123,6 +138,10 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
   const addManager = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
+    }
+
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
     }
 
     if (handleWrongNetwork()) {
@@ -148,7 +167,7 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
 
   return (
     <div className="space-y-4 p-5">
-      <SearchUser
+      <SearchProfiles
         error={manager.length > 0 && !isAddress(manager)}
         hideDropdown={isAddress(manager)}
         onChange={(event) => setManager(event.target.value)}
@@ -164,7 +183,7 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
             isLoading ? (
               <Spinner size="xs" />
             ) : (
-              <PlusCircleIcon className="h-4 w-4" />
+              <PlusCircleIcon className="size-4" />
             )
           }
           onClick={addManager}

@@ -10,7 +10,9 @@
     "wix.vscode-import-cost",
     "mquandalle.graphql",
     "PKief.material-icon-theme",
+    "Prisma.prisma",
     "christian-kohler.npm-intellisense",
-    "bradlc.vscode-tailwindcss"
+    "bradlc.vscode-tailwindcss",
+    "aaron-bond.better-comments"
   ]
 }

@@ -34,7 +34,7 @@ const PushNotifications: FC = () => {
     <ToggleWithHelper
       description="Turn on push notifications to receive notifications."
       heading="Push Notifications"
-      icon={<BellIcon className="h-4 w-4" />}
+      icon={<BellIcon className="size-5" />}
       on={pushNotificationsEnabled}
       setOn={togglePushNotifications}
     />

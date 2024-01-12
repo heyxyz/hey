@@ -20,7 +20,7 @@ const Acted: FC<ActedProps> = ({ acted }) => {
 
   return (
     <div className="ld-text-gray-500 flex items-center space-x-1 pb-4 text-[13px]">
-      <RectangleStackIcon className="h-4 w-4" />
+      <RectangleStackIcon className="size-4" />
       <Profiles context="acted" profiles={getCollectedProfiles()} />
     </div>
   );

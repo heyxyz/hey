@@ -11,6 +11,7 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import StaffSidebar from '../Sidebar';
+import LeafwatchStats from './LeafwatchStats';
 import Links from './Links';
 
 const Overview: NextPage = () => {
@@ -32,6 +33,9 @@ const Overview: NextPage = () => {
         <StaffSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
+        <Card>
+          <LeafwatchStats />
+        </Card>
         <Card className="p-5">
           <Links />
         </Card>

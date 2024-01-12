@@ -23,10 +23,10 @@ import Pending from './Pending';
 
 const newUserSchema = object({
   handle: string()
-    .min(3, { message: 'Handle should be at least 3 characters' })
+    .min(5, { message: 'Handle should be at least 5 characters' })
     .max(31, { message: 'Handle should not exceed 31 characters' })
     .regex(Regex.handle, {
-      message: 'Handle should only contain alphanumeric characters'
+      message: 'Handle only supports lower case characters, numbers, - and _.'
     })
 });
 
@@ -88,7 +88,7 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
         <div className="mb-2 space-y-4">
           <img
             alt="Logo"
-            className="h-10 w-10"
+            className="size-10"
             height={40}
             src="/logo.png"
             width={40}
@@ -105,9 +105,7 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
       <Button
         className="ml-auto"
         disabled={loading}
-        icon={
-          loading ? <Spinner size="xs" /> : <PlusIcon className="h-4 w-4" />
-        }
+        icon={loading ? <Spinner size="xs" /> : <PlusIcon className="size-4" />}
         type="submit"
       >
         Sign up

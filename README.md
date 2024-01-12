@@ -44,7 +44,7 @@
 
 ## 🌿 About Hey
 
-Hey is a cutting-edge social media application that leverages the power of [Lens Protocol](http://lens.xyz) 🌿 to create a decentralized and permissionless platform for users to interact, share, and engage with one another. With a focus on privacy, security, and user control, Hey aims to revolutionize the social media landscape by providing a more transparent and equitable digital environment for its users.
+Hey is a cutting-edge social media application that leverages the power of [Lens Protocol](https://lens.xyz) 🌿 to create a decentralized and permissionless platform for users to interact, share, and engage with one another. With a focus on privacy, security, and user control, Hey aims to revolutionize the social media landscape by providing a more transparent and equitable digital environment for its users.
 
 ## 📦 Environments
 
@@ -60,7 +60,7 @@ For a place to have open discussions on features, voice your ideas, or get help 
 
 ## 📊 Repo Activity
 
-<img width="100%" src="https://repobeats.axiom.co/api/embed/af135d3dfdb3605cc3db676472ca174173ac2fb7.svg" alt="Repobeats analytics" />
+<img width="100%" src="https://repobeats.axiom.co/api/embed/8e423b6c5794e1958e33d3d8cecabd3259bd6798.svg" alt="Repobeats analytics" />
 
 ## 💕 Contributors
 

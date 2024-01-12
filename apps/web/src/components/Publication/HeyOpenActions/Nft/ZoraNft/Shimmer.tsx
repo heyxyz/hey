@@ -8,7 +8,7 @@ const NftShimmer: FC = () => {
       <div className="shimmer h-[400px] w-full rounded-t-xl" />
       <div className="flex items-center justify-between px-3 py-2">
         <div className="flex items-center space-x-2">
-          <div className="shimmer h-5 w-5 rounded-full" />
+          <div className="shimmer size-5 rounded-full" />
           <div className="shimmer h-3 w-40 rounded-xl" />
         </div>
         <div className="shimmer h-[30px] w-[78px] rounded-lg" />

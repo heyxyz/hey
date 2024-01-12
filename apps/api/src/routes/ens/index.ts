@@ -39,7 +39,7 @@ export const post: Handler = async (req, res) => {
       transport: http('https://ethereum.publicnode.com')
     });
 
-    const data = await client.readContract({
+    const result = await client.readContract({
       abi: resolverAbi,
       address: '0x3671ae578e63fdf66ad4f3e12cc0c0d71ac7510c',
       args: [addresses],
@@ -47,7 +47,7 @@ export const post: Handler = async (req, res) => {
     });
     logger.info('ENS names fetched');
 
-    return res.status(200).json({ data, success: true });
+    return res.status(200).json({ result, success: true });
   } catch (error) {
     return catchedError(res, error);
   }

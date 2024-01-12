@@ -27,10 +27,8 @@ const MetaTags: FC<MetaTagsProps> = ({
       <meta content={title} property="og:title" />
       <meta content={description} property="og:description" />
       <meta content={DEFAULT_OG} property="og:image" />
-      <meta content="400" property="og:image:width" />
-      <meta content="400" property="og:image:height" />
 
-      <meta content="summary" property="twitter:card" />
+      <meta content="summary_large_image" property="twitter:card" />
       <meta content={APP_NAME} property="twitter:site" />
       <meta content={title} property="twitter:title" />
       <meta content={description} property="twitter:description" />

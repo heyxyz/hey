@@ -56,7 +56,7 @@ const OpenActionPaidAction: FC<OpenActionPaidActionProps> = ({
     );
 
   return (
-    <div className="p-5">
+    <div className="px-5 py-3 text-sm">
       {openActions.map((openAction, index) => (
         <div
           className="flex items-center space-x-2"
@@ -65,7 +65,7 @@ const OpenActionPaidAction: FC<OpenActionPaidActionProps> = ({
           <b>Collected for</b>
           <img
             alt={openAction?.assetSymbol}
-            className="h-5 w-5"
+            className="size-5"
             src={getTokenImage(openAction?.assetSymbol as string)}
           />
           <span>

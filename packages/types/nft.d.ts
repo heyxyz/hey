@@ -1,6 +1,11 @@
 export interface NftProviderWithMintLink {
   mintLink: string;
-  provider: 'basepaint' | 'unlonely-channel' | 'unlonely-nfc' | 'zora';
+  provider:
+    | 'basepaint'
+    | 'sound-release'
+    | 'unlonely-channel'
+    | 'unlonely-nfc'
+    | 'zora';
 }
 
 export interface BasicNftMetadata extends NftProviderWithMintLink {
@@ -19,6 +24,11 @@ export interface UnlonelyChannelMetadata extends NftProviderWithMintLink {
 
 export interface UnlonelyNfcMetadata extends NftProviderWithMintLink {
   id: string;
+}
+
+export interface SoundReleaseMetadata extends NftProviderWithMintLink {
+  handle: string;
+  slug: string;
 }
 
 export type NftMetadata =
@@ -93,4 +103,29 @@ export interface UnlonelyNfc {
   title: string;
   videoLink: string;
   videoThumbnail: string;
+}
+
+export interface SoundRelease {
+  artist: {
+    name: string;
+    user: {
+      avatar: {
+        url: string;
+      };
+    };
+  };
+  coverImage: {
+    dominantColor: string;
+    url: string;
+  };
+  numSold: number;
+  title: string;
+  track: {
+    audio: {
+      audio256k: {
+        url: string;
+      };
+    };
+    normalizedPeaks: number[];
+  };
 }

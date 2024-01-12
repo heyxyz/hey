@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { StarIcon } from '@heroicons/react/24/outline';
 import { Input } from '@hey/ui';
-import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
+import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 
 interface CollectLimitConfigProps {
   setCollectType: (data: any) => void;
@@ -15,11 +15,11 @@ const CollectLimitConfig: FC<CollectLimitConfigProps> = ({
   const collectModule = useCollectModuleStore((state) => state.collectModule);
 
   return (
-    <div className="pt-5">
+    <div className="mt-5">
       <ToggleWithHelper
-        description="Make the collects exclusive"
-        heading="Limited edition"
-        icon={<StarIcon className="h-4 w-4" />}
+        description="Make collects limited edition"
+        heading="Exclusive content"
+        icon={<StarIcon className="size-5" />}
         on={Boolean(collectModule.collectLimit)}
         setOn={() =>
           setCollectType({
@@ -28,7 +28,7 @@ const CollectLimitConfig: FC<CollectLimitConfigProps> = ({
         }
       />
       {collectModule.collectLimit ? (
-        <div className="pt-4 text-sm">
+        <div className="ml-8 mt-4 text-sm">
           <Input
             label="Collect limit"
             max="100000"

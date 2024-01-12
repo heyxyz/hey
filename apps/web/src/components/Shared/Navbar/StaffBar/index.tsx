@@ -28,7 +28,7 @@ const StaffBar: FC = () => {
           <GlobeAltIcon
             className={cn(
               IS_PRODUCTION ? 'text-green-500' : 'text-yellow-500',
-              'h-4 w-4'
+              'size-4'
             )}
           />
           <Badge>
@@ -48,13 +48,13 @@ const StaffBar: FC = () => {
             target="_blank"
             title="Git commit SHA"
           >
-            <HashtagIcon className="h-4 w-4" />
+            <HashtagIcon className="size-4" />
             <Badge>{GIT_COMMIT_SHA}</Badge>
           </Link>
         ) : null}
       </div>
       <Link className="flex items-center space-x-2" href="/staff">
-        <ShieldCheckIcon className="h-4 w-4 text-green-600" />
+        <ShieldCheckIcon className="size-4 text-green-600" />
         <span className="hidden sm:block">Dashboard</span>
       </Link>
     </div>

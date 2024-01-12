@@ -9,7 +9,11 @@ export enum HomeFeedType {
   // Thirdparty Algorithms
   K3L_RECENT = 'K3L_RECENT',
   K3L_RECOMMENDED = 'K3L_RECOMMENDED',
-  PAID_ACTIONS = 'PAID_ACTIONS'
+  PREMIUM = 'PREMIUM'
+}
+export enum ModFeedType {
+  LATEST = 'LATEST',
+  REPORTS = 'REPORTS'
 }
 
 export const AlgorithmProvider = {

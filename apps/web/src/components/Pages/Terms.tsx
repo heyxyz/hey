@@ -1,8 +1,6 @@
 import type { NextPage } from 'next';
 
-import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
-import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
@@ -17,7 +15,6 @@ const Terms: NextPage = () => {
 
   return (
     <>
-      <MetaTags title={`Terms & Conditions • ${APP_NAME}`} />
       <div className="bg-brand-400 flex h-48 w-full items-center justify-center">
         <div className="relative text-center">
           <h1 className="text-3xl font-bold text-white md:text-4xl">
@@ -38,14 +35,14 @@ const Terms: NextPage = () => {
               <div className="mb-5 text-xl font-bold text-black dark:text-white">
                 1. Overview
               </div>
-              <div className="space-y-5 leading-7">
-                <p>
+              <div className="space-y-5">
+                <p className="leading-7">
                   The website hey.xyz” (the “Site”) offers information, tools
                   and services to you to allow you to interact with the Lens
                   Protocol - a composable and decentralised social graph
                   protocol.
                 </p>
-                <p>
+                <p className="leading-7">
                   By visiting the Site, you agree to be bound by the following
                   terms and conditions (“Terms”), including those additional
                   terms and conditions and policies referenced herein and/or
@@ -54,13 +51,13 @@ const Terms: NextPage = () => {
                   limitation users who are browsers, builders, and/or
                   contributors of content.
                 </p>
-                <p>
+                <p className="leading-7">
                   Please read these Terms carefully before accessing or using
                   the Site. If you do not agree to all the terms of the
                   Agreement, then you should not access the Site; however, by
                   accessing the Site, you consent to the Agreement.
                 </p>
-                <p>
+                <p className="leading-7">
                   Any new features or tools which are added to Site shall also
                   be subject to the Terms. You can review the most current
                   version of the Terms at any time on this page. We reserve the
@@ -91,33 +88,35 @@ const Terms: NextPage = () => {
               <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
                 3. Services
               </div>
-              <div className="space-y-5 leading-7">
-                <p>
+              <div className="space-y-5">
+                <p className="leading-7">
                   User Lens profile is referred as the “Profile” in the “Site”.
                 </p>
-                <p>
+                <p className="leading-7">
                   The Site allow you to interact with the Lens Protocol,
                   including posts, mirrors, comments and other content related
                   actions.
                 </p>
-                <p>
+                <p className="leading-7">
                   We reserve the right - but are not obligated to - limit the
                   provision of Profiles or Services to any person, geographic
                   region or jurisdiction. We may exercise this right on a
                   case-by-case basis in our sole discretion.
                 </p>
                 <ul className="list-inside list-disc space-y-3">
-                  <li>Your profile your responsibility.</li>
-                  <li>
+                  <li className="leading-7">
+                    Your profile your responsibility.
+                  </li>
+                  <li className="leading-7">
                     You are responsible for securing the wallet that contains
                     your profiles.
                   </li>
-                  <li>
+                  <li className="leading-7">
                     You bear sole responsibility for evaluating the Site and
                     features before using them.
                   </li>
                 </ul>
-                <p>
+                <p className="leading-7">
                   It is important to understand that neither we nor any
                   affiliated entity is a party to any transaction on the
                   blockchain networks underlying the Lens Protocol; we do not
@@ -126,19 +125,19 @@ const Terms: NextPage = () => {
                   delete or control over any items on any user’s wallet or
                   interactions with the Lens Protocol.
                 </p>
-                <p>
+                <p className="leading-7">
                   If you’re not comfortable with interacting with an inherently
                   transparent blockchain, you should not engage with our Site to
                   create and manage a content on the Lens Protocol. You are
                   solely responsible for the safekeeping of the private key
                   associated with the blockchain address used to interact with
                   the Lens Protocol.{' '}
-                  <b>
+                  <b className="leading-7">
                     The transactions on blockchain including transfer of tokens
                     and data attached to it are permanent and cannot be undone.
                   </b>
                 </p>
-                <p>
+                <p className="leading-7">
                   Our Site allows you to upload a text, pictures, videos using
                   hosted on a third-party provider IPFS and Arweave. We are not
                   responsible for any action or omission taken by IPFS/Arweave
@@ -146,7 +145,7 @@ const Terms: NextPage = () => {
                   access of any third-party products or services, including
                   through the Site, is at your own risk.
                 </p>
-                <p>
+                <p className="leading-7">
                   The Lens Protocol is deployed on blockchain-based networks,
                   and we are not responsible for the operation of such networks.
                 </p>
@@ -156,13 +155,13 @@ const Terms: NextPage = () => {
               <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
                 4. Accuracy, Completeness and Timeliness of information
               </div>
-              <div className="space-y-5 leading-7">
-                <p>
+              <div className="space-y-5">
+                <p className="leading-7">
                   We are not responsible for any mistakes or inaccuracies on
                   contents published on this Site. Profiles are fully
                   responsible for what they are doing in the Site.
                 </p>
-                <p>
+                <p className="leading-7">
                   As a Site, we offer information about the content and
                   interaction on content published by the users on the Lens
                   Protocol.
@@ -185,8 +184,8 @@ const Terms: NextPage = () => {
               <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
                 6. Third-Party Services & Websites
               </div>
-              <div className="space-y-5 leading-7">
-                <p>
+              <div className="space-y-5">
+                <p className="leading-7">
                   We are not responsible for the content or services of any
                   third-party, including, without limitation, any network, or
                   apps like Discord, or MetaMask, and we make no representations
@@ -194,7 +193,7 @@ const Terms: NextPage = () => {
                   or materials. Those are governed by the terms of use of the
                   third-party providers.
                 </p>
-                <p>
+                <p className="leading-7">
                   Please review carefully the third-party's policies and
                   practices and make sure you understand them before you engage
                   in any transaction. Complaints, claims, concerns, or questions
@@ -216,46 +215,48 @@ const Terms: NextPage = () => {
               <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
                 8. Prohibited Usage
               </div>
-              <div className="space-y-5 leading-7">
-                <p>
+              <div className="space-y-5">
+                <p className="leading-7">
                   You are not allowed to use the Site for anything illegal,
                   infringing the intellectual property rights of other people,
                   harassment or otherwise abusive behaviour, spreading false
                   information or viruses, spamming, or interfering with the
                   security features of the Site.
                 </p>
-                <p>You are prohibited from using the Site,</p>
+                <p className="leading-7">
+                  You are prohibited from using the Site,
+                </p>
                 <ul className="list-inside list-disc space-y-2">
-                  <li>
+                  <li className="leading-7">
                     for any unlawful purpose and to solicit others to perform or
                     participate in any unlawful acts;
                   </li>
-                  <li>
+                  <li className="leading-7">
                     to violate any international, federal, provincial or state
                     regulations, rules, laws, or local ordinances;
                   </li>
-                  <li>
+                  <li className="leading-7">
                     to infringe upon or violate our intellectual property rights
                     or the intellectual property rights of others;
                   </li>
-                  <li>
+                  <li className="leading-7">
                     to harass, abuse, insult, harm, defame, slander, disparage,
                     intimidate, or discriminate based on gender, sexual
                     orientation, religion, ethnicity, race, age, national
                     origin, or disability;
                   </li>
-                  <li>
+                  <li className="leading-7">
                     to submit false or misleading information or to upload or
                     transmit viruses or any other type of malicious code that
                     will or may be used in any way that will affect the
                     functionality or operation of the Site or of any related
                     website, other websites, or the Internet;
                   </li>
-                  <li>
+                  <li className="leading-7">
                     to collect or track the personal information of others to
                     spam, phish, pretext, crawl, or scrape;
                   </li>
-                  <li>
+                  <li className="leading-7">
                     for any obscene or immoral purpose or to interfere with or
                     circumvent the security features of the Site or any related
                     website, other websites, or the Internet. We reserve the
@@ -293,13 +294,13 @@ const Terms: NextPage = () => {
               <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
                 11. Termination and Cancellation
               </div>
-              <div className="space-y-5 leading-7">
-                <p>
+              <div className="space-y-5">
+                <p className="leading-7">
                   This Agreement is effective unless and until terminated by
                   either you or us. You may terminate the Agreement with us at
                   any time by not accessing the Site.
                 </p>
-                <p>
+                <p className="leading-7">
                   If in our sole judgment you fail to comply with terms, we
                   reserve the right to terminate our Agreement with you and deny
                   you access to the Site.
@@ -317,7 +318,7 @@ const Terms: NextPage = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center pb-6 pt-2">
+        <div className="mb-6 mt-2 flex justify-center">
           <Footer />
         </div>
       </div>

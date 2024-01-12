@@ -1,7 +1,6 @@
 import type { NextPage } from 'next';
 import type { FC, ReactNode } from 'react';
 
-import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import { HeartIcon } from '@heroicons/react/24/outline';
 import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
@@ -56,12 +55,11 @@ const Brand: FC<BrandProps> = ({ children, logo, name, size, type, url }) => {
 const Thanks: NextPage = () => {
   return (
     <>
-      <MetaTags title={`Thanks • ${APP_NAME}`} />
       <div className="bg-brand-400 flex h-48 w-full items-center justify-center">
         <div className="relative text-center">
           <div className="flex items-center space-x-2 text-3xl font-bold text-white md:text-4xl">
             <div>Thank you!</div>
-            <HeartIcon className="h-7 w-7 text-pink-600" />
+            <HeartIcon className="size-7 text-pink-600" />
           </div>
           <div className="text-white">for supporting our community</div>
         </div>

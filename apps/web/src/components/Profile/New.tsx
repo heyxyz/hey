@@ -1,10 +1,8 @@
 import type { NextPage } from 'next';
 
-import MetaTags from '@components/Common/MetaTags';
 import Signup from '@components/Shared/Login/New';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import SettingsHelper from '@components/Shared/SettingsHelper';
-import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -24,7 +22,6 @@ const NewProfile: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Create Profile • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsHelper
           description="Create new decentralized profile"

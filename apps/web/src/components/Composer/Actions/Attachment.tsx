@@ -17,7 +17,7 @@ import { motion } from 'framer-motion';
 import { useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import useUploadAttachments from 'src/hooks/useUploadAttachments';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { useOnClickOutside } from 'usehooks-ts';
 
 const ImageMimeType = Object.values(MediaImageMimeType);
@@ -31,8 +31,12 @@ const VideoMimeType = [
 ];
 
 const Attachment: FC = () => {
-  const attachments = usePublicationStore((state) => state.attachments);
-  const isUploading = usePublicationStore((state) => state.isUploading);
+  const attachments = usePublicationAttachmentStore(
+    (state) => state.attachments
+  );
+  const isUploading = usePublicationAttachmentStore(
+    (state) => state.isUploading
+  );
   const { handleUploadAttachments } = useUploadAttachments();
   const [showMenu, setShowMenu] = useState(false);
   const id = useId();
@@ -104,7 +108,7 @@ const Attachment: FC = () => {
           <Spinner size="sm" />
         ) : (
           <Tooltip content="Media" placement="top">
-            <PhotoIcon className="text-brand-500 h-5 w-5" />
+            <PhotoIcon className="text-brand-500 size-5" />
           </Tooltip>
         )}
       </Menu.Button>
@@ -125,7 +129,7 @@ const Attachment: FC = () => {
             disabled={disableImageUpload()}
             htmlFor={`image_${id}`}
           >
-            <PhotoIcon className="text-brand-500 h-4 w-4" />
+            <PhotoIcon className="text-brand-500 size-4" />
             <span className="text-sm">Upload image(s)</span>
             <input
               accept={ImageMimeType.join(',')}
@@ -148,7 +152,7 @@ const Attachment: FC = () => {
             disabled={Boolean(attachments.length)}
             htmlFor={`video_${id}`}
           >
-            <VideoCameraIcon className="text-brand-500 h-4 w-4" />
+            <VideoCameraIcon className="text-brand-500 size-4" />
             <span className="text-sm">Upload video</span>
             <input
               accept={VideoMimeType.join(',')}
@@ -170,7 +174,7 @@ const Attachment: FC = () => {
             disabled={Boolean(attachments.length)}
             htmlFor={`audio_${id}`}
           >
-            <MusicalNoteIcon className="text-brand-500 h-4 w-4" />
+            <MusicalNoteIcon className="text-brand-500 size-4" />
             <span className="text-sm">Upload audio</span>
             <input
               accept={AudioMimeType.join(',')}

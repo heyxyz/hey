@@ -3,28 +3,32 @@ import type { Dispatch, FC, ReactNode, SetStateAction } from 'react';
 
 import { LimitType, useMutualFollowersQuery } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
+import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface MutualFollowersProps {
-  profile: Profile;
+  profileId: string;
   setShowMutualFollowersModal?: Dispatch<SetStateAction<boolean>>;
+  viaPopover?: boolean;
 }
 
 const MutualFollowers: FC<MutualFollowersProps> = ({
-  profile,
-  setShowMutualFollowersModal
+  profileId,
+  setShowMutualFollowersModal,
+  viaPopover = false
 }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
   const { data, error, loading } = useMutualFollowersQuery({
-    skip: !profile?.id || !currentProfile?.id,
+    skip: !profileId || !currentProfile?.id,
     variables: {
       request: {
         limit: LimitType.Ten,
         observer: currentProfile?.id,
-        viewing: profile?.id
+        viewing: profileId
       }
     }
   });
@@ -34,20 +38,24 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
 
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <div
-      className="ld-text-gray-500 flex cursor-pointer items-center space-x-2.5 text-sm"
+      className={cn(
+        viaPopover ? 'text-xs' : 'text-sm',
+        'ld-text-gray-500 flex cursor-pointer items-center space-x-2.5'
+      )}
       onClick={() => setShowMutualFollowersModal?.(true)}
     >
       <div className="contents -space-x-2">
-        {profiles
-          .slice(0, 3)
-          ?.map((profile) => (
-            <Image
-              alt={profile.id}
-              className="h-5 w-5 rounded-full border dark:border-gray-700"
-              key={profile.id}
-              src={getAvatar(profile)}
-            />
-          ))}
+        {profiles.slice(0, 3)?.map((profile) => (
+          <Image
+            alt={profile.id}
+            className="size-5 rounded-full border dark:border-gray-700"
+            key={profile.id}
+            onError={({ currentTarget }) => {
+              currentTarget.src = getLennyURL(profile.id);
+            }}
+            src={getAvatar(profile)}
+          />
+        ))}
       </div>
       <div>
         <span>Followed by </span>

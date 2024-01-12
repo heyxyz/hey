@@ -9,17 +9,18 @@ import {
 import { HEY_API_URL } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
+import getTimetoNow from '@hey/lib/datetime/getTimetoNow';
 import humanize from '@hey/lib/humanize';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Card, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { getTimetoNow } from '@lib/formatTime';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import plur from 'plur';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface ChoicesProps {
@@ -29,6 +30,7 @@ interface ChoicesProps {
 
 const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { isSuspended } = useProfileRestriction();
   const [pollSubmitting, setPollSubmitting] = useState(false);
   const [selectedOption, setSelectedOption] = useState<null | string>(null);
 
@@ -42,14 +44,18 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
       return toast.error(Errors.SignWallet);
     }
 
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
+    }
+
     try {
       setPollSubmitting(true);
       setSelectedOption(id);
 
       await axios.post(
-        `${HEY_API_URL}/poll/act`,
+        `${HEY_API_URL}/polls/act`,
         { option: id, poll: poll.id },
-        { headers: getAuthWorkerHeaders() }
+        { headers: getAuthApiHeaders() }
       );
 
       refetch?.();
@@ -67,7 +73,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
       <div className="space-y-1 p-3">
         {options.map(({ id, option, percentage, voted }) => (
           <button
-            className="flex w-full items-center space-x-2.5 rounded-xl p-2 text-xs hover:bg-gray-100 dark:hover:bg-gray-900 sm:text-sm"
+            className="flex w-full items-center space-x-2.5 rounded-xl p-2 text-xs hover:bg-gray-100 sm:text-sm dark:hover:bg-gray-900"
             disabled={pollSubmitting}
             key={id}
             onClick={() => votePoll(id)}
@@ -79,7 +85,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
               <CheckCircleIcon
                 className={cn(
                   voted ? 'text-green-500' : 'text-gray-500',
-                  'h-6 w-6 '
+                  'size-6 '
                 )}
               />
             )}
@@ -104,7 +110,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
       </div>
       <div className="flex items-center justify-between border-t px-5 py-3 dark:border-gray-700 ">
         <div className="flex items-center space-x-2 text-xs text-gray-500">
-          <Bars3BottomLeftIcon className="h-4 w-4" />
+          <Bars3BottomLeftIcon className="size-4" />
           <span>
             {humanize(totalResponses || 0)} {plur('vote', totalResponses || 0)}
           </span>

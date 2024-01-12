@@ -1,4 +1,3 @@
-import corsConfig from '@utils/express/corsConfig';
 import cors from 'cors';
 import * as dotenv from 'dotenv';
 import express from 'express';
@@ -10,7 +9,7 @@ dotenv.config({ override: true });
 const app = express();
 
 app.use(express.json({ limit: '1mb' }));
-app.use(cors(corsConfig));
+app.use(cors());
 app.disable('x-powered-by');
 
 (async () => {

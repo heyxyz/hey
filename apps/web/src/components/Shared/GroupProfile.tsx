@@ -22,7 +22,7 @@ const GroupProfile: FC<GroupProfileProps> = ({
   const GroupAvatar = () => (
     <Image
       alt={group.slug}
-      className="h-10 w-10 rounded-lg border bg-gray-200 dark:border-gray-700"
+      className="size-10 rounded-lg border bg-gray-200 dark:border-gray-700"
       height={40}
       loading="lazy"
       src={getAvatar(group)}
@@ -37,7 +37,7 @@ const GroupProfile: FC<GroupProfileProps> = ({
           <div className="truncate">{sanitizeDisplayName(group.name)}</div>
         </div>
         {group.featured ? (
-          <FireIcon className="ml-1 h-4 w-4 text-yellow-500" />
+          <FireIcon className="ml-1 size-4 text-yellow-500" />
         ) : null}
       </div>
       <div>

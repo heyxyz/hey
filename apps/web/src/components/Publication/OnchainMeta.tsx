@@ -1,4 +1,4 @@
-import type { AnyPublication } from '@hey/lens';
+import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
@@ -7,7 +7,6 @@ import {
   IPFS_GATEWAY,
   POLYGONSCAN_URL
 } from '@hey/data/constants';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card } from '@hey/ui';
 import Link from 'next/link';
 import urlcat from 'urlcat';
@@ -28,7 +27,7 @@ const Meta: FC<MetaProps> = ({ hash, name, uri }) => (
     >
       <div className="flex items-center space-x-1">
         <div className="text-[10px]">{name}</div>
-        <ArrowTopRightOnSquareIcon className="h-4 w-4" />
+        <ArrowTopRightOnSquareIcon className="size-4" />
       </div>
       <div className="truncate text-xs">{hash}</div>
     </Link>
@@ -36,14 +35,11 @@ const Meta: FC<MetaProps> = ({ hash, name, uri }) => (
 );
 
 interface OnchainMetaProps {
-  publication: AnyPublication;
+  publication: MirrorablePublication;
 }
 
 const OnchainMeta: FC<OnchainMetaProps> = ({ publication }) => {
-  const targetPublication = isMirrorPublication(publication)
-    ? publication.mirrorOn
-    : publication;
-  const hash = targetPublication.metadata.rawURI?.split('/').pop();
+  const hash = publication.metadata.rawURI?.split('/').pop();
   const isArweaveHash = hash?.length === 43;
   const isIPFSHash = hash?.length === 46 || hash?.length === 59;
 
@@ -58,7 +54,7 @@ const OnchainMeta: FC<OnchainMetaProps> = ({ publication }) => {
           <Meta
             hash={hash}
             name="ARWEAVE TRANSACTION"
-            uri={urlcat(`${ARWEAVE_GATEWAY}/:hash`, { hash })}
+            uri={urlcat(`${ARWEAVE_GATEWAY}:hash`, { hash })}
           />
         ) : null}
         {publication?.momoka?.proof ? (

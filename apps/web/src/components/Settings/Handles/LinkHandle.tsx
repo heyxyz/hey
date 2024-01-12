@@ -10,6 +10,7 @@ import {
   PlusCircleIcon
 } from '@heroicons/react/24/outline';
 import { TokenHandleRegistry } from '@hey/abis';
+import { Errors } from '@hey/data';
 import { TOKEN_HANDLE_REGISTRY } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
 import {
@@ -27,11 +28,13 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useContractWrite, useSignTypedData } from 'wagmi';
+import { useSignTypedData, useWriteContract } from 'wagmi';
 
 const LinkHandle: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { isSuspended } = useProfileRestriction();
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce
   );
@@ -69,14 +72,19 @@ const LinkHandle: FC = () => {
     variables: { request: { for: currentProfile?.ownedBy.address } }
   });
 
-  const { signTypedDataAsync } = useSignTypedData({ onError });
-  const { data: writeData, write } = useContractWrite({
-    abi: TokenHandleRegistry,
-    address: TOKEN_HANDLE_REGISTRY,
-    functionName: 'link',
-    onError,
-    onSuccess: () => onCompleted()
+  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
+  const { data: writeHash, writeContract } = useWriteContract({
+    mutation: { onError, onSuccess: () => onCompleted() }
   });
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      abi: TokenHandleRegistry,
+      address: TOKEN_HANDLE_REGISTRY,
+      args,
+      functionName: 'link'
+    });
+  };
 
   const [broadcastOnchain, { data: broadcastData }] =
     useBroadcastOnchainMutation({
@@ -132,6 +140,10 @@ const LinkHandle: FC = () => {
       return;
     }
 
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
+    }
+
     if (handleWrongNetwork()) {
       return;
     }
@@ -167,7 +179,7 @@ const LinkHandle: FC = () => {
     return (
       <EmptyState
         hideCard
-        icon={<AtSymbolIcon className="text-brand-500 h-8 w-8" />}
+        icon={<AtSymbolIcon className="text-brand-500 size-8" />}
         message="No handles found to link!"
       />
     );
@@ -179,7 +191,6 @@ const LinkHandle: FC = () => {
   const broadcastTxId =
     broadcastData?.broadcastOnchain.__typename === 'RelaySuccess' &&
     broadcastData.broadcastOnchain.txId;
-  const writeHash = writeData?.hash;
 
   return (
     <div className="space-y-6">
@@ -204,9 +215,9 @@ const LinkHandle: FC = () => {
                 linkingHandle === handle.fullHandle ? (
                   <Spinner size="xs" />
                 ) : handle.linkedTo ? (
-                  <MinusCircleIcon className="h-4 w-4" />
+                  <MinusCircleIcon className="size-4" />
                 ) : (
-                  <PlusCircleIcon className="h-4 w-4" />
+                  <PlusCircleIcon className="size-4" />
                 )
               }
               onClick={() => link(handle.fullHandle)}

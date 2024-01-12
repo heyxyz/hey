@@ -3,6 +3,7 @@ import type { FC } from 'react';
 
 import { UserPlusIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
+import { Errors } from '@hey/data';
 import { LENSHUB_PROXY } from '@hey/data/constants';
 import { PROFILE } from '@hey/data/tracking';
 import {
@@ -22,8 +23,9 @@ import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useContractWrite, useSignTypedData } from 'wagmi';
+import { useSignTypedData, useWriteContract } from 'wagmi';
 
 interface FollowProps {
   profile: Profile;
@@ -33,6 +35,7 @@ interface FollowProps {
 const Follow: FC<FollowProps> = ({ profile, showText = false }) => {
   const { pathname } = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { isSuspended } = useProfileRestriction();
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce
   );
@@ -81,14 +84,19 @@ const Follow: FC<FollowProps> = ({ profile, showText = false }) => {
     errorToast(error);
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ onError });
-  const { write } = useContractWrite({
-    abi: LensHub,
-    address: LENSHUB_PROXY,
-    functionName: 'follow',
-    onError,
-    onSuccess: () => onCompleted()
+  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
+  const { writeContract } = useWriteContract({
+    mutation: { onError, onSuccess: () => onCompleted() }
   });
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      abi: LensHub,
+      address: LENSHUB_PROXY,
+      args,
+      functionName: 'follow'
+    });
+  };
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) =>
@@ -147,6 +155,10 @@ const Follow: FC<FollowProps> = ({ profile, showText = false }) => {
       return;
     }
 
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
+    }
+
     if (handleWrongNetwork()) {
       return;
     }
@@ -176,7 +188,7 @@ const Follow: FC<FollowProps> = ({ profile, showText = false }) => {
       className="!px-3 !py-1.5 text-sm"
       disabled={isLoading}
       icon={
-        isLoading ? <Spinner size="xs" /> : <UserPlusIcon className="h-4 w-4" />
+        isLoading ? <Spinner size="xs" /> : <UserPlusIcon className="size-4" />
       }
       onClick={createFollow}
       outline

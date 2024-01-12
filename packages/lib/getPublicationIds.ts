@@ -16,7 +16,7 @@ const getPublicationIds = async (
   profile?: string
 ) => {
   try {
-    const response = await axios.get(`${HEY_API_URL}/feed/getPublicationIds`, {
+    const response = await axios.get(`${HEY_API_URL}/feed`, {
       params: {
         limit,
         offset,

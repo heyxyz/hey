@@ -63,7 +63,7 @@ const Overview: NextPage = () => {
           ) : !profile ? (
             <EmptyState
               hideCard
-              icon={<UserIcon className="h-8 w-8 text-yellow-600" />}
+              icon={<UserIcon className="size-8 text-yellow-600" />}
               message="No profile found"
             />
           ) : error ? (

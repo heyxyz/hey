@@ -22,7 +22,7 @@ const SwitchProfile: FC<SwitchProfileProps> = ({ className = '' }) => {
       onClick={() => setShowProfileSwitchModal(true)}
       type="button"
     >
-      <ArrowsRightLeftIcon className="h-4 w-4" />
+      <ArrowsRightLeftIcon className="size-4" />
       <span>Switch profile</span>
     </button>
   );

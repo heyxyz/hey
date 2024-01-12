@@ -14,11 +14,13 @@ import { ChevronDownIcon } from '@heroicons/react/24/solid';
 import { HOME } from '@hey/data/tracking';
 import {
   CustomFiltersType,
+  FeedEventItemType,
   LimitType,
   useFeedLazyQuery,
   useSearchProfilesLazyQuery
 } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
+import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import { Image, Input, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -59,7 +61,19 @@ const SeeThroughLens: FC = () => {
   };
 
   const profile = seeThroughProfile || currentProfile;
-  const request: FeedRequest = { where: { for: profile?.id } };
+  const request: FeedRequest = {
+    where: {
+      feedEventItemTypes: [
+        FeedEventItemType.Acted,
+        FeedEventItemType.Collect,
+        FeedEventItemType.Mirror,
+        FeedEventItemType.Post,
+        FeedEventItemType.Quote,
+        FeedEventItemType.Reaction
+      ],
+      for: profile?.id
+    }
+  };
 
   const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] =
     useSearchProfilesLazyQuery();
@@ -107,16 +121,19 @@ const SeeThroughLens: FC = () => {
         >
           <Image
             alt={profile?.id}
-            className="h-5 w-5 rounded-full border bg-gray-200 dark:border-gray-700"
+            className="size-5 rounded-full border bg-gray-200 dark:border-gray-700"
             height={20}
             loading="lazy"
+            onError={({ currentTarget }) => {
+              currentTarget.src = getLennyURL(profile?.id);
+            }}
             src={getAvatar(profile)}
             width={20}
           />
           <span>
             {seeThroughProfile ? getProfile(profile).slugWithPrefix : 'My Feed'}
           </span>
-          <ChevronDownIcon className="h-4 w-4" />
+          <ChevronDownIcon className="size-4" />
         </button>
       </Menu.Button>
       <MenuTransition>
@@ -124,7 +141,7 @@ const SeeThroughLens: FC = () => {
           className="absolute right-0 z-[5] mt-1 w-64 rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
           static
         >
-          <div className="px-3 pt-2 text-xs">👀 See the feed through...</div>
+          <div className="mx-3 mt-2 text-xs">👀 See the feed through...</div>
           <div className="p-2">
             <Input
               autoComplete="off"

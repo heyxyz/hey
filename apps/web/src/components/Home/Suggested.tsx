@@ -25,7 +25,7 @@ const Suggested: FC = () => {
     return (
       <EmptyState
         hideCard
-        icon={<UsersIcon className="text-brand-500 h-8 w-8" />}
+        icon={<UsersIcon className="text-brand-500 size-8" />}
         message="Nothing to suggest"
       />
     );

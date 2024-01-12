@@ -91,7 +91,7 @@ const ViewProfile: NextPage = () => {
           `${STATIC_IMAGES_URL}/patterns/2.svg`
         }
       />
-      <GridLayout className="pt-6">
+      <GridLayout>
         <GridItemFour>
           <Details profile={profile as Profile} />
         </GridItemFour>
@@ -102,7 +102,11 @@ const ViewProfile: NextPage = () => {
           feedType === ProfileFeedType.Replies ||
           feedType === ProfileFeedType.Media ||
           feedType === ProfileFeedType.Collects ? (
-            <Feed profile={profile as Profile} type={feedType} />
+            <Feed
+              handle={getProfile(profile).slugWithPrefix}
+              profileId={profile.id}
+              type={feedType}
+            />
           ) : null}
           {feedType === ProfileFeedType.Stats && IS_MAINNET ? (
             <Achievements profile={profile as Profile} />

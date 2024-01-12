@@ -3,13 +3,12 @@ import type { FC } from 'react';
 import { HEY_API_URL } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import getPreferences from '@hey/lib/api/getPreferences';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import getCurrentSession from '@lib/getCurrentSession';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { useMembershipNftStore } from 'src/store/non-persisted/useMembershipNftStore';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
-import { useProStore } from 'src/store/non-persisted/useProStore';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useVerifiedMembersStore } from 'src/store/persisted/useVerifiedMembersStore';
 import { isAddress } from 'viem';
@@ -19,17 +18,22 @@ const PreferencesProvider: FC = () => {
   const setVerifiedMembers = useVerifiedMembersStore(
     (state) => state.setVerifiedMembers
   );
-  const setPreferences = usePreferencesStore((state) => state.setPreferences);
-  const setIsPro = useProStore((state) => state.setIsPro);
+  const setHighSignalNotificationFilter = usePreferencesStore(
+    (state) => state.setHighSignalNotificationFilter
+  );
+  const setIsPride = usePreferencesStore((state) => state.setIsPride);
+  const setIsPro = usePreferencesStore((state) => state.setIsPro);
+  const setRestriction = useProfileRestriction((state) => state.setRestriction);
+  const setHasDismissedOrMintedMembershipNft = usePreferencesStore(
+    (state) => state.setHasDismissedOrMintedMembershipNft
+  );
   const setFeatureFlags = useFeatureFlagsStore(
     (state) => state.setFeatureFlags
   );
+  const setTrusted = useFeatureFlagsStore((state) => state.setTrusted);
   const setStaffMode = useFeatureFlagsStore((state) => state.setStaffMode);
   const setGardenerMode = useFeatureFlagsStore(
     (state) => state.setGardenerMode
-  );
-  const setDismissedOrMinted = useMembershipNftStore(
-    (state) => state.setDismissedOrMinted
   );
 
   // Fetch preferences
@@ -38,18 +42,17 @@ const PreferencesProvider: FC = () => {
       if (Boolean(sessionProfileId) && !isAddress(sessionProfileId)) {
         const preferences = await getPreferences(
           sessionProfileId,
-          getAuthWorkerHeaders()
+          getAuthApiHeaders()
         );
 
         // Profile preferences
-        setPreferences({
-          highSignalNotificationFilter:
-            preferences.preference?.highSignalNotificationFilter || false,
-          isPride: preferences.preference?.isPride || false
-        });
+        setHighSignalNotificationFilter(
+          preferences.highSignalNotificationFilter
+        );
+        setIsPride(preferences.isPride);
 
         // Pro
-        setIsPro(preferences.pro.enabled);
+        setIsPro(preferences.isPro);
 
         // Feature flags
         setFeatureFlags(preferences.features);
@@ -57,9 +60,16 @@ const PreferencesProvider: FC = () => {
         setGardenerMode(
           preferences?.features.includes(FeatureFlag.GardenerMode)
         );
+        setRestriction({
+          isFlagged: preferences.features.includes(FeatureFlag.Flagged),
+          isSuspended: preferences.features.includes(FeatureFlag.Suspended)
+        });
+        setTrusted(preferences.features.includes(FeatureFlag.TrustedProfile));
 
         // Membership NFT
-        setDismissedOrMinted(preferences.membershipNft.dismissedOrMinted);
+        setHasDismissedOrMintedMembershipNft(
+          preferences.hasDismissedOrMintedMembershipNft
+        );
       }
       return true;
     } catch {
@@ -75,7 +85,7 @@ const PreferencesProvider: FC = () => {
   // Fetch verified members
   const fetchVerifiedMembers = async () => {
     try {
-      const response = await axios.get(`${HEY_API_URL}/misc/getVerified`);
+      const response = await axios.get(`${HEY_API_URL}/misc/verified`);
       const { data } = response;
       setVerifiedMembers(data.result || []);
       return true;

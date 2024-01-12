@@ -1,22 +1,16 @@
-import type { AnyPublication, Profile } from '@hey/lens';
+import type { Profile, ProfileMentioned } from '@hey/lens';
 import type { FC } from 'react';
 
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { useProfilesQuery } from '@hey/lens';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card, ErrorMessage } from '@hey/ui';
 
 interface RelevantPeopleProps {
-  publication: AnyPublication;
+  profilesMentioned: ProfileMentioned[];
 }
 
-const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
-  const targetPublication = isMirrorPublication(publication)
-    ? publication.mirrorOn
-    : publication;
-  const { profilesMentioned } = targetPublication;
-
+const RelevantPeople: FC<RelevantPeopleProps> = ({ profilesMentioned }) => {
   const profileIds = profilesMentioned.map(
     (profile) => profile.snapshotHandleMentioned.linkedTo?.nftTokenId
   );

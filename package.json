@@ -1,6 +1,6 @@
 {
   "name": "hey",
-  "version": "3.0.2-beta",
+  "version": "3.0.4-beta",
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
@@ -16,6 +16,7 @@
     "prettier:fix": "turbo run prettier:fix --parallel",
     "start": "turbo run start --parallel",
     "test:dev": "turbo run test:dev",
+    "test:e2e": "start-server-and-test start '4784' test:dev",
     "typecheck": "turbo run typecheck --parallel",
     "typecheck:affected": "turbo run typecheck --parallel --filter=[origin/main]"
   },
@@ -25,8 +26,9 @@
   "devDependencies": {
     "husky": "^8.0.3",
     "prettier": "^3.1.1",
-    "prettier-plugin-tailwindcss": "^0.5.9",
-    "turbo": "^1.11.2"
+    "prettier-plugin-tailwindcss": "^0.5.11",
+    "start-server-and-test": "^2.0.0",
+    "turbo": "^1.11.3"
   },
   "packageManager": "pnpm@8.10.5",
   "engines": {

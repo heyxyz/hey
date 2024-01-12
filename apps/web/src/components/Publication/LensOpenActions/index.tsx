@@ -52,7 +52,9 @@ const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
           )}
           onClick={() => {
             setShowOpenActionModal(true);
-            Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
+            Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT, {
+              publication_id: publication.id
+            });
           }}
           whileTap={{ scale: 0.9 }}
         >
@@ -78,7 +80,7 @@ const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
         ) : null}
       </div>
       <Modal
-        icon={<RectangleStackIcon className="text-brand-500 h-5 w-5" />}
+        icon={<RectangleStackIcon className="text-brand-500 size-5" />}
         onClose={() => setShowOpenActionModal(false)}
         show={showOpenActionModal}
         title="Open Actions"

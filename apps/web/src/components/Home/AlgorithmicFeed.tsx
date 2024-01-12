@@ -59,6 +59,7 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
       if (!inView) {
         return;
       }
+
       if (publications.length !== displayedPublications.length) {
         setDisplayedPublications(publications);
       }
@@ -72,7 +73,7 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
   if (publications?.length === 0) {
     return (
       <EmptyState
-        icon={<SparklesIcon className="text-brand-500 h-8 w-8" />}
+        icon={<SparklesIcon className="text-brand-500 size-8" />}
         message="No posts yet!"
       />
     );

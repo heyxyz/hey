@@ -3,6 +3,7 @@ import type { FC } from 'react';
 import IndexStatus from '@components/Shared/IndexStatus';
 import { CheckCircleIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
+import { Errors } from '@hey/data';
 import { LENSHUB_PROXY } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
 import {
@@ -17,10 +18,12 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { hydrateTbaStatus } from 'src/store/persisted/useTbaStatusStore';
-import { useContractWrite, useSignTypedData } from 'wagmi';
+import { useSignTypedData, useWriteContract } from 'wagmi';
 
 interface ToggleLensManagerProps {
   buttonSize?: 'sm';
@@ -30,6 +33,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   buttonSize = 'md'
 }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { isSuspended } = useProfileRestriction();
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce
   );
@@ -37,6 +41,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
     (state) => state.setLensHubOnchainSigNonce
   );
   const [isLoading, setIsLoading] = useState(false);
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const { isTba } = hydrateTbaStatus();
   const { canBroadcast, canUseSignless } =
@@ -57,20 +62,28 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
     errorToast(error);
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ onError });
-  const { data: writeData, write } = useContractWrite({
-    abi: LensHub,
-    address: LENSHUB_PROXY,
-    functionName: 'changeDelegatedExecutorsConfig',
-    onError: (error) => {
-      onError(error);
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
-    },
-    onSuccess: () => {
-      onCompleted();
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
+  const { data: writeHash, writeContract } = useWriteContract({
+    mutation: {
+      onError: (error) => {
+        onError(error);
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+      },
+      onSuccess: () => {
+        onCompleted();
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+      }
     }
   });
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      abi: LensHub,
+      address: LENSHUB_PROXY,
+      args,
+      functionName: 'changeDelegatedExecutorsConfig'
+    });
+  };
 
   const [broadcastOnchain, { data: broadcastData }] =
     useBroadcastOnchainMutation({
@@ -113,6 +126,14 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
     });
 
   const toggleDispatcher = async () => {
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
+    }
+
+    if (handleWrongNetwork()) {
+      return;
+    }
+
     try {
       setIsLoading(true);
       return await createChangeProfileManagersTypedData({
@@ -130,9 +151,9 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
     broadcastData?.broadcastOnchain.__typename === 'RelaySuccess' &&
     broadcastData.broadcastOnchain.txId;
 
-  return writeData?.hash || broadcastTxId ? (
+  return writeHash || broadcastTxId ? (
     <div className="mt-2">
-      <IndexStatus reload txHash={writeData?.hash} txId={broadcastTxId} />
+      <IndexStatus reload txHash={writeHash} txId={broadcastTxId} />
     </div>
   ) : (
     <Button
@@ -142,9 +163,9 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
         isLoading ? (
           <Spinner size="xs" variant={canUseSignless ? 'danger' : 'primary'} />
         ) : canUseSignless ? (
-          <XMarkIcon className="h-4 w-4" />
+          <XMarkIcon className="size-4" />
         ) : (
-          <CheckCircleIcon className="h-4 w-4" />
+          <CheckCircleIcon className="size-4" />
         )
       }
       onClick={toggleDispatcher}

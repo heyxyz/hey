@@ -27,7 +27,7 @@ const Invites: FC<InvitesProps> = ({ className = '' }) => {
       }}
       type="button"
     >
-      <TicketIcon className="h-4 w-4" />
+      <TicketIcon className="size-4" />
       <div>Invites</div>
     </button>
   );

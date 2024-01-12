@@ -33,6 +33,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import usePushHooks from 'src/hooks/messaging/push/usePush';
+import { CHAIN } from 'src/constants';
 import { signIn } from 'src/store/persisted/useAuthStore';
 import {
   PUSH_ENV,
@@ -70,17 +71,11 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   };
 
   const chain = useChainId();
-  const {
-    connectAsync,
-    connectors,
-    error,
-    isLoading: isConnectLoading,
-    pendingConnector
-  } = useConnect({ chainId: CHAIN_ID });
+  const { connectAsync, connectors, error, isPending } = useConnect();
 
   const { disconnect } = useDisconnect();
   const { address, connector: activeConnector } = useAccount();
-  const { signMessageAsync } = useSignMessage({ onError });
+  const { signMessageAsync } = useSignMessage({ mutation: { onError } });
   const [loadChallenge, { error: errorChallenge }] = useChallengeLazyQuery({
     fetchPolicy: 'no-cache'
   });
@@ -218,7 +213,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   return activeConnector?.id ? (
     <div className="space-y-3">
       <div className="space-y-2.5">
-        {chain === CHAIN_ID ? (
+        {chain === CHAIN.id ? (
           profilesManagedLoading ? (
             <Card className="w-full dark:divide-gray-700" forceRounded>
               <div className="space-y-2 p-4 text-center text-sm font-bold">
@@ -244,7 +239,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
                       isLoading && loggingInProfileId === profile.id ? (
                         <Spinner size="xs" />
                       ) : (
-                        <ArrowRightCircleIcon className="h-4 w-4" />
+                        <ArrowRightCircleIcon className="size-4" />
                       )
                     }
                     onClick={() => handleSign(profile.id)}
@@ -262,7 +257,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
                   isLoading ? (
                     <Spinner size="xs" />
                   ) : (
-                    <ArrowRightCircleIcon className="h-4 w-4" />
+                    <ArrowRightCircleIcon className="size-4" />
                   )
                 }
                 onClick={() => handleSign()}
@@ -272,7 +267,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
             </div>
           )
         ) : (
-          <SwitchNetwork toChainId={CHAIN_ID} />
+          <SwitchNetwork toChainId={CHAIN.id} />
         )}
         {!IS_MAINNET && (
           <button
@@ -283,7 +278,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
             }}
             type="button"
           >
-            <UserPlusIcon className="h-4 w-4" />
+            <UserPlusIcon className="size-4" />
             <div>Create a testnet account</div>
           </button>
         )}
@@ -295,13 +290,13 @@ const WalletSelector: FC<WalletSelectorProps> = ({
           }}
           type="reset"
         >
-          <KeyIcon className="h-4 w-4" />
+          <KeyIcon className="size-4" />
           <div>Change wallet</div>
         </button>
       </div>
       {errorChallenge || errorAuthenticate ? (
         <div className="flex items-center space-x-1 font-bold text-red-500">
-          <XCircleIcon className="h-5 w-5" />
+          <XCircleIcon className="size-5" />
           <div>{Errors.SomethingWentWrong}</div>
         </div>
       ) : null}
@@ -309,15 +304,11 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   ) : (
     <div className="inline-block w-full space-y-3 overflow-hidden text-left align-middle">
       {connectors
-        .filter((connector) => {
-          if (
-            connector.id === 'safe' &&
-            !document.location.ancestorOrigins[0]?.includes('app.safe.global')
-          ) {
-            return false;
-          }
-          return true;
-        })
+        .filter(
+          // This removes last connector if it's injected
+          (connector, index, self) =>
+            self.findIndex((c) => c.type === connector.type) === index
+        )
         .map((connector) => {
           return (
             <button
@@ -328,7 +319,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
                 },
                 'flex w-full items-center justify-between space-x-2.5 overflow-hidden rounded-xl border px-4 py-3 outline-none dark:border-gray-700'
               )}
-              disabled={connector.id === activeConnector?.id}
+              disabled={connector.id === activeConnector?.id || isPending}
               key={connector.id}
               onClick={() => onConnect(connector)}
               type="button"
@@ -338,25 +329,20 @@ const WalletSelector: FC<WalletSelectorProps> = ({
                   ? 'Browser Wallet'
                   : getWalletDetails(connector.name).name}
               </span>
-              <div className="flex items-center space-x-4">
-                {isConnectLoading && pendingConnector?.id === connector.id ? (
-                  <Spinner className="mr-0.5" size="xs" />
-                ) : null}
-                <img
-                  alt={connector.id}
-                  className="h-6 w-6"
-                  draggable={false}
-                  height={24}
-                  src={getWalletDetails(connector.name).logo}
-                  width={24}
-                />
-              </div>
+              <img
+                alt={connector.id}
+                className="size-6"
+                draggable={false}
+                height={24}
+                src={getWalletDetails(connector.name).logo}
+                width={24}
+              />
             </button>
           );
         })}
       {error?.message ? (
         <div className="flex items-center space-x-1 text-red-500">
-          <XCircleIcon className="h-5 w-5" />
+          <XCircleIcon className="size-5" />
           <div>{error?.message || 'Failed to connect'}</div>
         </div>
       ) : null}

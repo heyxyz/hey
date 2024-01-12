@@ -7,7 +7,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 import PublicationMenu from './Actions/Menu';
@@ -34,12 +34,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
-  const firstComment = feedItem?.comments?.[0];
-  const rootPublication = feedItem
-    ? firstComment
-      ? firstComment
-      : feedItem?.root
-    : targetPublication;
+  const rootPublication = feedItem ? feedItem?.root : targetPublication;
   const profile = feedItem ? rootPublication.by : targetPublication.by;
   const timestamp = feedItem
     ? rootPublication.createdAt
@@ -64,7 +59,9 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
         )}
       </span>
       <div className="flex items-center space-x-1">
-        {gardenerMode ? <Source publication={targetPublication} /> : null}
+        {gardenerMode ? (
+          <Source publishedOn={targetPublication.publishedOn?.id} />
+        ) : null}
         {!publication.isHidden && !quoted ? (
           <PublicationMenu publication={targetPublication} />
         ) : null}

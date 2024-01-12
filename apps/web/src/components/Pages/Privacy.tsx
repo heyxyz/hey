@@ -1,6 +1,5 @@
 import type { NextPage } from 'next';
 
-import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
@@ -17,7 +16,6 @@ const Privacy: NextPage = () => {
 
   return (
     <>
-      <MetaTags title={`Privacy Policy • ${APP_NAME}`} />
       <div className="bg-brand-400 flex h-48 w-full items-center justify-center">
         <div className="relative text-center">
           <h1 className="text-3xl font-bold text-white md:text-4xl">
@@ -38,22 +36,22 @@ const Privacy: NextPage = () => {
               <div className="mb-5 text-xl font-bold text-black dark:text-white">
                 1. Overview
               </div>
-              <div className="space-y-5 leading-7">
-                <p>
+              <div className="space-y-5">
+                <p className="leading-7">
                   By accessing the Site, you agree to not only this Privacy
                   Policy, but also to our Terms of Use and any other written
                   agreements for using the Site. And you agree to our collection
                   and use of any personal data (as described here) as well as
                   the features of public/permissionless blockchain technology.
                 </p>
-                <p>
+                <p className="leading-7">
                   This Privacy Policy (the “Privacy Policy”) provides a
                   comprehensive description of how {APP_NAME} (“we,” “our,” or
                   “us”) collects, uses, and shares information about you in
                   connection with the website at hey.xyz”, as well as your
                   rights and choices regarding such information.
                 </p>
-                <p>
+                <p className="leading-7">
                   By accessing or using the Site, you accept and assume certain
                   inherent features related to engaging in recording the data on
                   the blockchain. Interactions with the Lens Protocol rely on
@@ -74,36 +72,36 @@ const Privacy: NextPage = () => {
               <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
                 2. Information Collection
               </div>
-              <div className="space-y-5 leading-7">
-                <p>
+              <div className="space-y-5">
+                <p className="leading-7">
                   We may collect the following information about you when you
                   use the Site:
                 </p>
                 <ul className="list-inside list-disc">
-                  <li>
+                  <li className="leading-7">
                     Information you provide such as feedback, question and
                     issues reports.
                   </li>
                 </ul>
-                <p>
+                <p className="leading-7">
                   You may choose to voluntarily provide other information to us
                   that we have not solicited from you, and, in such instances,
                   you are solely responsible for such information.
                 </p>
-                <p>
+                <p className="leading-7">
                   We may use tracking technologies to automatically collect
                   information including the following:
                 </p>
                 <ul className="list-inside list-disc space-y-3">
-                  <li>
+                  <li className="leading-7">
                     <b>Log Files</b>, to record events or errors that occur when
                     using our Site.
                   </li>
-                  <li>
+                  <li className="leading-7">
                     <b>Cookies</b>, small data stored on your device that are
                     necessary for you to browse the Site.
                   </li>
-                  <li>
+                  <li className="leading-7">
                     <b>Public Information</b>, data from activity that is
                     publicly visible and/or accessible on blockchains. This may
                     include blockchain addresses and information regarding the
@@ -138,16 +136,16 @@ const Privacy: NextPage = () => {
               <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
                 5. Analytics
               </div>
-              <div className="space-y-5 leading-7">
-                <p>
+              <div className="space-y-5">
+                <p className="leading-7">
                   We use <b>ClickHouse</b> to collect various events from user
                   actions to analyse and make decisions for Site improvements.
                 </p>
-                <p>
+                <p className="leading-7">
                   We collect profile id to identify the user. This makes sure to
                   give the best experience to the user.
                 </p>
-                <p>
+                <p className="leading-7">
                   We may change to other third-party analytics service provider.
                   The Privacy Policy of Analytics subjects to the every
                   provider. You should review everything before using the Site.
@@ -158,19 +156,19 @@ const Privacy: NextPage = () => {
               <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
                 6. Your Rights and Choices
               </div>
-              <div className="space-y-5 leading-7">
-                <p>
+              <div className="space-y-5">
+                <p className="leading-7">
                   We may collect the following information about you when you
                   use the Site:
                 </p>
                 <ul className="list-inside list-disc space-y-2">
-                  <li>
+                  <li className="leading-7">
                     <b>Cookies</b>. We will only use strictly necessary cookies.
                     These cookies are essential for you to browse the Site and
                     use its features, including accessing secure areas of the
                     Site.
                   </li>
-                  <li className="linkify">
+                  <li className="linkify leading-7">
                     <b>Do Not Track</b>. Your browser settings may allow you to
                     automatically transmit a “Do Not Track” signal to the online
                     services you visit. Note, however, there is no industry
@@ -240,7 +238,7 @@ const Privacy: NextPage = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center pb-6 pt-2">
+        <div className="mb-6 mt-2 flex justify-center">
           <Footer />
         </div>
       </div>

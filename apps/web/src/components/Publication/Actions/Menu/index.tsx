@@ -44,13 +44,13 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
           className="absolute right-0 z-[5] mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
           static
         >
-          {currentProfile?.id === publication?.by?.id ? (
-            <Delete publication={publication} />
-          ) : (
-            <Report publication={publication} />
-          )}
           {currentProfile ? (
             <>
+              {currentProfile?.id === publication?.by?.id ? (
+                <Delete publication={publication} />
+              ) : (
+                <Report publication={publication} />
+              )}
               <NotInterested publication={publication} />
               <Bookmark publication={publication} />
             </>

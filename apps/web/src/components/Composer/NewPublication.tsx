@@ -1,5 +1,5 @@
 import type {
-  AnyPublication,
+  MirrorablePublication,
   MomokaCommentRequest,
   MomokaPostRequest,
   MomokaQuoteRequest,
@@ -22,13 +22,11 @@ import {
   PencilSquareIcon
 } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data/errors';
-import { FeatureFlag } from '@hey/data/feature-flags';
 import { PUBLICATION } from '@hey/data/tracking';
 import { ReferenceModuleType } from '@hey/lens';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import collectModuleParams from '@hey/lib/collectModuleParams';
 import getProfile from '@hey/lib/getProfile';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import removeQuoteOn from '@hey/lib/removeQuoteOn';
 import { Button, Card, ErrorMessage, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -49,10 +47,17 @@ import useCreatePoll from 'src/hooks/useCreatePoll';
 import useCreatePublication from 'src/hooks/useCreatePublication';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import usePublicationMetadata from 'src/hooks/usePublicationMetadata';
-import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
+import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
+import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
+import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
+import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
+import { usePublicationLiveStore } from 'src/store/non-persisted/publication/usePublicationLiveStore';
+import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
+import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
+import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
@@ -61,50 +66,47 @@ import LivestreamSettings from './Actions/LivestreamSettings';
 import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
+import LinkPreviews from './LinkPreviews';
 import Discard from './Post/Discard';
 
 const Attachment = dynamic(
   () => import('@components/Composer/Actions/Attachment'),
   {
-    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
   }
 );
 const EmojiPicker = dynamic(() => import('@components/Shared/EmojiPicker'), {
-  loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+  loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
 });
 const Gif = dynamic(() => import('@components/Composer/Actions/Gif'), {
-  loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+  loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
 });
 const CollectSettings = dynamic(
   () => import('@components/Composer/Actions/CollectSettings'),
   {
-    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
   }
 );
 const ReferenceSettings = dynamic(
   () => import('@components/Composer/Actions/ReferenceSettings'),
   {
-    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
   }
 );
 const PollSettings = dynamic(
   () => import('@components/Composer/Actions/PollSettings'),
   {
-    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
   }
 );
 
 interface NewPublicationProps {
-  publication: AnyPublication;
+  publication: MirrorablePublication;
 }
 
 const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
-
-  const targetPublication = isMirrorPublication(publication)
-    ? publication?.mirrorOn
-    : publication;
+  const { isSuspended } = useProfileRestriction();
 
   // Modal store
   const setShowNewPostModal = useGlobalModalStateStore(
@@ -132,33 +134,47 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const setQuotedPublication = usePublicationStore(
     (state) => state.setQuotedPublication
   );
-  const audioPublication = usePublicationStore(
+  const audioPublication = usePublicationAudioStore(
     (state) => state.audioPublication
   );
-  const attachments = usePublicationStore((state) => state.attachments);
-  const setAttachments = usePublicationStore((state) => state.setAttachments);
-  const addAttachments = usePublicationStore((state) => state.addAttachments);
-  const isUploading = usePublicationStore((state) => state.isUploading);
-  const videoThumbnail = usePublicationStore((state) => state.videoThumbnail);
-  const setVideoThumbnail = usePublicationStore(
+  const attachments = usePublicationAttachmentStore(
+    (state) => state.attachments
+  );
+  const setAttachments = usePublicationAttachmentStore(
+    (state) => state.setAttachments
+  );
+  const addAttachments = usePublicationAttachmentStore(
+    (state) => state.addAttachments
+  );
+  const isUploading = usePublicationAttachmentStore(
+    (state) => state.isUploading
+  );
+  const videoThumbnail = usePublicationVideoStore(
+    (state) => state.videoThumbnail
+  );
+  const setVideoThumbnail = usePublicationVideoStore(
     (state) => state.setVideoThumbnail
   );
-  const showPollEditor = usePublicationStore((state) => state.showPollEditor);
-  const setShowPollEditor = usePublicationStore(
+  const showPollEditor = usePublicationPollStore(
+    (state) => state.showPollEditor
+  );
+  const setShowPollEditor = usePublicationPollStore(
     (state) => state.setShowPollEditor
   );
-  const resetPollConfig = usePublicationStore((state) => state.resetPollConfig);
-  const pollConfig = usePublicationStore((state) => state.pollConfig);
-  const showLiveVideoEditor = usePublicationStore(
+  const resetPollConfig = usePublicationPollStore(
+    (state) => state.resetPollConfig
+  );
+  const pollConfig = usePublicationPollStore((state) => state.pollConfig);
+  const showLiveVideoEditor = usePublicationLiveStore(
     (state) => state.showLiveVideoEditor
   );
-  const setShowLiveVideoEditor = usePublicationStore(
+  const setShowLiveVideoEditor = usePublicationLiveStore(
     (state) => state.setShowLiveVideoEditor
   );
-  const resetLiveVideoConfig = usePublicationStore(
+  const resetLiveVideoConfig = usePublicationLiveStore(
     (state) => state.resetLiveVideoConfig
   );
-  const setLicense = usePublicationStore((state) => state.setLicense);
+  const setLicense = usePublicationLicenseStore((state) => state.setLicense);
 
   // Collect module store
   const collectModule = useCollectModuleStore((state) => state.collectModule);
@@ -175,6 +191,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   // States
   const [isLoading, setIsLoading] = useState(false);
+  const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
   const [publicationContentError, setPublicationContentError] = useState('');
 
   const [editor] = useLexicalComposerContext();
@@ -242,7 +259,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
     // Track in leafwatch
     const eventProperties = {
-      comment_on: isComment ? targetPublication.id : null,
+      comment_on: isComment ? publication.id : null,
       publication_collect_module: collectModule.type,
       publication_has_attachments: attachments.length > 0,
       publication_has_poll: showPollEditor,
@@ -280,7 +297,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     createQuoteOnMomka,
     error
   } = useCreatePublication({
-    commentOn: targetPublication,
+    commentOn: publication,
     onCompleted,
     onError,
     quoteOn: quotedPublication as Quote
@@ -315,6 +332,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const createPublication = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
+    }
+
+    if (isSuspended) {
+      toast.error(Errors.Suspended);
     }
 
     if (handleWrongNetwork()) {
@@ -408,7 +429,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         | MomokaCommentRequest
         | MomokaPostRequest
         | MomokaQuoteRequest = {
-        ...(isComment && { commentOn: targetPublication.id }),
+        ...(isComment && { commentOn: publication.id }),
         ...(isQuote && { quoteOn: quotedPublication?.id }),
         contentURI: `ar://${arweaveId}`
       };
@@ -453,7 +474,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         | OnchainPostRequest
         | OnchainQuoteRequest = {
         contentURI: `ar://${arweaveId}`,
-        ...(isComment && { commentOn: targetPublication.id }),
+        ...(isComment && { commentOn: publication.id }),
         ...(isQuote && { quoteOn: quotedPublication?.id }),
         openActionModules,
         ...(onlyFollowers && {
@@ -539,7 +560,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   useUnmountEffect(() => {
     setPublicationContent('');
-    setQuotedPublication(null);
     setShowPollEditor(false);
     resetPollConfig();
     setShowLiveVideoEditor(false);
@@ -585,6 +605,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           />
         </Wrapper>
       ) : null}
+      <LinkPreviews />
       <div className="block items-center px-5 sm:flex">
         <div className="flex items-center space-x-4">
           <Attachment />
@@ -616,11 +637,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             </>
           ) : null}
           <PollSettings />
-          {!isComment && isFeatureEnabled(FeatureFlag.LiveStream) && (
+          {!isComment && isFeatureEnabled('live-stream') && (
             <LivestreamSettings />
           )}
         </div>
-        <div className="ml-auto pt-2 sm:pt-0">
+        <div className="ml-auto mt-2 sm:mt-0">
           <Button
             disabled={
               isLoading ||
@@ -632,9 +653,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
               isLoading ? (
                 <Spinner size="xs" />
               ) : isComment ? (
-                <ChatBubbleLeftRightIcon className="h-4 w-4" />
+                <ChatBubbleLeftRightIcon className="size-4" />
               ) : (
-                <PencilSquareIcon className="h-4 w-4" />
+                <PencilSquareIcon className="size-4" />
               )
             }
             onClick={createPublication}

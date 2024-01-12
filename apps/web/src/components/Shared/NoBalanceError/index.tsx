@@ -1,5 +1,5 @@
 import type { Amount } from '@hey/lens';
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
@@ -10,22 +10,34 @@ import Link from 'next/link';
 import WrapWmatic from './WrapWmatic';
 
 interface NoBalanceErrorProps {
+  errorMessage?: ReactNode;
   moduleAmount: Amount;
 }
 
-const NoBalanceError: FC<NoBalanceErrorProps> = ({ moduleAmount }) => {
+const NoBalanceError: FC<NoBalanceErrorProps> = ({
+  errorMessage,
+  moduleAmount
+}) => {
   const amount = moduleAmount?.value;
   const currency = moduleAmount?.asset?.symbol;
   const assetAddress = moduleAmount?.asset?.contract.address;
 
   if (currency === 'WMATIC') {
-    return <WrapWmatic moduleAmount={moduleAmount} />;
+    return (
+      <WrapWmatic errorMessage={errorMessage} moduleAmount={moduleAmount} />
+    );
   }
 
   return (
     <div className="space-y-1">
       <div className="text-sm">
-        You don't have enough <b>{currency}</b>
+        {errorMessage ? (
+          errorMessage
+        ) : (
+          <span>
+            You don't have enough <b>{currency}</b>
+          </span>
+        )}
       </div>
       <Link
         className="flex items-center space-x-1.5 text-xs font-bold text-pink-500"
@@ -36,7 +48,7 @@ const NoBalanceError: FC<NoBalanceErrorProps> = ({ moduleAmount }) => {
       >
         <img
           alt="Uniswap"
-          className="h-5 w-5"
+          className="size-5"
           height={20}
           src={`${STATIC_IMAGES_URL}/brands/uniswap.png`}
           width={20}

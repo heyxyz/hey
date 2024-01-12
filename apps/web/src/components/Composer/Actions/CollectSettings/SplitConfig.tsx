@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import Beta from '@components/Shared/Badges/Beta';
-import SearchUser from '@components/Shared/SearchUser';
+import SearchProfiles from '@components/Shared/SearchProfiles';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import {
   ArrowsRightLeftIcon,
@@ -13,7 +13,7 @@ import { ADDRESS_PLACEHOLDER } from '@hey/data/constants';
 import { OpenActionModuleType } from '@hey/lens';
 import splitNumber from '@hey/lib/splitNumber';
 import { Button, Input } from '@hey/ui';
-import { useCollectModuleStore } from 'src/store/non-persisted/useCollectModuleStore';
+import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { isAddress } from 'viem';
 
@@ -71,7 +71,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
   };
 
   return (
-    <div className="pt-5">
+    <div className="mt-5">
       <ToggleWithHelper
         description="Set multiple recipients for the collect fee"
         heading={
@@ -80,7 +80,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
             <Beta />
           </div>
         }
-        icon={<UsersIcon className="h-4 w-4" />}
+        icon={<UsersIcon className="size-5" />}
         on={recipients.length > 0}
         setOn={() => {
           setCollectType({
@@ -96,14 +96,11 @@ const SplitConfig: FC<SplitConfigProps> = ({
         }}
       />
       {hasRecipients ? (
-        <div className="space-y-3 pt-4">
+        <div className="ml-8 mt-4 space-y-3">
           <div className="space-y-2">
             {recipients.map((recipient, index) => (
-              <div
-                className="flex items-center space-x-2 text-sm"
-                key={recipient.recipient}
-              >
-                <SearchUser
+              <div className="flex items-center space-x-2 text-sm" key={index}>
+                <SearchProfiles
                   error={
                     recipient.recipient.length > 0 &&
                     !isAddress(recipient.recipient)
@@ -143,7 +140,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
                   }}
                   type="button"
                 >
-                  <XCircleIcon className="h-5 w-5 text-red-500" />
+                  <XCircleIcon className="size-5 text-red-500" />
                 </button>
               </div>
             ))}
@@ -153,7 +150,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
               <div />
             ) : (
               <Button
-                icon={<PlusIcon className="h-3 w-3" />}
+                icon={<PlusIcon className="size-3" />}
                 onClick={() => {
                   setCollectType({
                     recipients: [...recipients, { recipient: '', split: 0 }]
@@ -166,7 +163,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
               </Button>
             )}
             <Button
-              icon={<ArrowsRightLeftIcon className="h-3 w-3" />}
+              icon={<ArrowsRightLeftIcon className="size-3" />}
               onClick={splitEvenly}
               outline
               size="sm"

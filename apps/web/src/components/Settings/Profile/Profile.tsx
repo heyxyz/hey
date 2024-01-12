@@ -1,5 +1,5 @@
 import type { Area } from '@hey/image-cropper/types';
-import type { OnchainSetProfileMetadataRequest, Profile } from '@hey/lens';
+import type { OnchainSetProfileMetadataRequest } from '@hey/lens';
 import type {
   MetadataAttribute,
   ProfileOptions
@@ -56,8 +56,9 @@ import uploadToArweave from '@lib/uploadToArweave';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useContractWrite, useSignTypedData } from 'wagmi';
+import { useSignTypedData, useWriteContract } from 'wagmi';
 import { object, string, union } from 'zod';
 
 const editProfileSchema = object({
@@ -79,12 +80,9 @@ const editProfileSchema = object({
 
 type FormData = z.infer<typeof editProfileSchema>;
 
-interface ProfileSettingsFormProps {
-  profile: Profile;
-}
-
-const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
+const ProfileSettingsForm: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { isSuspended } = useProfileRestriction();
   const [isLoading, setIsLoading] = useState(false);
 
   // Cover Picture
@@ -144,14 +142,19 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
     errorToast(error);
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ onError });
-  const { error, write } = useContractWrite({
-    abi: LensHub,
-    address: LENSHUB_PROXY,
-    functionName: 'setProfileMetadataURI',
-    onError,
-    onSuccess: () => onCompleted()
+  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
+  const { error, writeContract } = useWriteContract({
+    mutation: { onError, onSuccess: () => onCompleted() }
   });
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      abi: LensHub,
+      address: LENSHUB_PROXY,
+      args,
+      functionName: 'setProfileMetadataURI'
+    });
+  };
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) =>
@@ -201,14 +204,20 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
 
   const form = useZodForm({
     defaultValues: {
-      bio: profile?.metadata?.bio || '',
-      location: getProfileAttribute('location', profile?.metadata?.attributes),
-      name: profile?.metadata?.displayName || '',
-      website: getProfileAttribute('website', profile?.metadata?.attributes),
-      x: getProfileAttribute('x', profile?.metadata?.attributes)?.replace(
-        /(https:\/\/)?x\.com\//,
-        ''
-      )
+      bio: currentProfile?.metadata?.bio || '',
+      location: getProfileAttribute(
+        'location',
+        currentProfile?.metadata?.attributes
+      ),
+      name: currentProfile?.metadata?.displayName || '',
+      website: getProfileAttribute(
+        'website',
+        currentProfile?.metadata?.attributes
+      ),
+      x: getProfileAttribute(
+        'x',
+        currentProfile?.metadata?.attributes
+      )?.replace(/(https:\/\/)?x\.com\//, '')
     },
     schema: editProfileSchema
   });
@@ -218,6 +227,10 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
       return toast.error(Errors.SignWallet);
     }
 
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
+    }
+
     if (handleWrongNetwork()) {
       return;
     }
@@ -225,7 +238,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
     try {
       setIsLoading(true);
       const otherAttributes =
-        profile.metadata?.attributes
+        currentProfile.metadata?.attributes
           ?.filter(
             (attr) =>
               !['app', 'location', 'timestamp', 'website', 'x'].includes(
@@ -352,13 +365,13 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   };
 
   const coverPictureUrl =
-    profile?.metadata?.coverPicture?.optimized?.uri ||
+    currentProfile?.metadata?.coverPicture?.optimized?.uri ||
     `${STATIC_IMAGES_URL}/patterns/2.svg`;
   const renderCoverPictureUrl = coverPictureUrl
     ? imageKit(sanitizeDStorageUrl(coverPictureUrl), COVER)
     : '';
 
-  const profilePictureUrl = getAvatar(profile);
+  const profilePictureUrl = getAvatar(currentProfile);
   const renderProfilePictureUrl = profilePictureUrl
     ? imageKit(sanitizeDStorageUrl(profilePictureUrl), AVATAR)
     : '';
@@ -459,7 +472,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
               isLoading ? (
                 <Spinner size="xs" />
               ) : (
-                <PencilIcon className="h-4 w-4" />
+                <PencilIcon className="size-4" />
               )
             }
             type="submit"
@@ -493,7 +506,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
               uploadingCoverPicture ? (
                 <Spinner size="xs" />
               ) : (
-                <PencilIcon className="h-4 w-4" />
+                <PencilIcon className="size-4" />
               )
             }
             onClick={() => uploadAndSave('cover')}
@@ -529,7 +542,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
               uploadingProfilePicture ? (
                 <Spinner size="xs" />
               ) : (
-                <PencilIcon className="h-4 w-4" />
+                <PencilIcon className="size-4" />
               )
             }
             onClick={() => uploadAndSave('avatar')}

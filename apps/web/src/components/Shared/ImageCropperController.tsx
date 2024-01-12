@@ -69,7 +69,7 @@ const ImageCropperController: FC<ImageCropperControllerProps> = ({
         className="flex py-2"
         style={{ width: cropSize.width + borderSize * 2 }}
       >
-        <MagnifyingGlassMinusIcon className="m-1 h-6 w-6" />
+        <MagnifyingGlassMinusIcon className="m-1 size-6" />
         <Slider
           className="m-2"
           max={Math.log(maxZoom)}
@@ -78,7 +78,7 @@ const ImageCropperController: FC<ImageCropperControllerProps> = ({
           step={0.001}
           value={Math.log(zoom)}
         />
-        <MagnifyingGlassPlusIcon className="m-1 h-6 w-6" />
+        <MagnifyingGlassPlusIcon className="m-1 size-6" />
       </div>
     </div>
   );

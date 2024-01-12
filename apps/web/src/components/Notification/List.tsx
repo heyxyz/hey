@@ -38,7 +38,9 @@ interface ListProps {
 }
 
 const List: FC<ListProps> = ({ feedType }) => {
-  const preferences = usePreferencesStore((state) => state.preferences);
+  const highSignalNotificationFilter = usePreferencesStore(
+    (state) => state.highSignalNotificationFilter
+  );
   const latestNotificationId = useNotificationStore(
     (state) => state.latestNotificationId
   );
@@ -64,7 +66,7 @@ const List: FC<ListProps> = ({ feedType }) => {
   const request: NotificationRequest = {
     where: {
       customFilters: [CustomFiltersType.Gardeners],
-      highSignalFilter: preferences.highSignalNotificationFilter,
+      highSignalFilter: highSignalNotificationFilter,
       notificationTypes: getNotificationType()
     }
   };
@@ -109,7 +111,7 @@ const List: FC<ListProps> = ({ feedType }) => {
   if (notifications?.length === 0) {
     return (
       <EmptyState
-        icon={<BellIcon className="text-brand-500 h-8 w-8" />}
+        icon={<BellIcon className="text-brand-500 size-8" />}
         message="Inbox zero!"
       />
     );

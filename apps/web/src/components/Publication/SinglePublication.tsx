@@ -10,7 +10,6 @@ import { memo } from 'react';
 import { useInView } from 'react-cool-inview';
 
 import PublicationActions from './Actions';
-import ModAction from './Actions/ModAction';
 import FeaturedGroup from './FeaturedGroup';
 import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
@@ -23,7 +22,6 @@ interface SinglePublicationProps {
   isLast?: boolean;
   publication: AnyPublication;
   showActions?: boolean;
-  showModActions?: boolean;
   showMore?: boolean;
   showThread?: boolean;
   showType?: boolean;
@@ -35,17 +33,11 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   isLast = false,
   publication,
   showActions = true,
-  showModActions = false,
   showMore = true,
   showThread = true,
   showType = true
 }) => {
-  const firstComment = feedItem?.comments?.[0];
-  const rootPublication = feedItem
-    ? firstComment
-      ? firstComment
-      : feedItem?.root
-    : publication;
+  const rootPublication = feedItem ? feedItem?.root : publication;
   const { metadata } = isMirrorPublication(publication)
     ? publication.mirrorOn
     : publication;
@@ -95,12 +87,6 @@ const SinglePublication: FC<SinglePublicationProps> = ({
               ) : null}
               <FeaturedGroup className="mt-3" tags={metadata?.tags} />
             </div>
-            {showModActions ? (
-              <ModAction
-                className="mt-3 max-w-md"
-                publication={rootPublication}
-              />
-            ) : null}
           </>
         )}
       </div>

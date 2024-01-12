@@ -3,6 +3,7 @@ import type { FC } from 'react';
 
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
+import { Errors } from '@hey/data';
 import { SETTINGS } from '@hey/data/tracking';
 import {
   useAddProfileInterestsMutation,
@@ -14,6 +15,8 @@ import { Button } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import sanitizeProfileInterests from '@lib/sanitizeProfileInterests';
+import toast from 'react-hot-toast';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import Loader from '../../Shared/Loader';
@@ -22,6 +25,7 @@ const MAX_TOPICS_ALLOWED = 12;
 
 const Interests: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { isSuspended } = useProfileRestriction();
   const { cache } = useApolloClient();
 
   const updateCache = (interests: string[]) => {
@@ -51,18 +55,27 @@ const Interests: FC = () => {
   const selectedTopics = data?.profile?.interests || [];
 
   const onSelectTopic = (topic: ProfileInterestTypes) => {
-    const request: ProfileInterestsRequest = {
-      interests: [topic]
-    };
-    if (!selectedTopics.includes(topic)) {
-      const interests = [...selectedTopics, topic];
-      updateCache(interests);
-      return addProfileInterests({ variables: { request } });
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
     }
-    const topics = [...selectedTopics];
-    topics.splice(topics.indexOf(topic), 1);
-    updateCache(topics);
-    return removeProfileInterests({ variables: { request } });
+
+    try {
+      const request: ProfileInterestsRequest = { interests: [topic] };
+      if (!selectedTopics.includes(topic)) {
+        const interests = [...selectedTopics, topic];
+        updateCache(interests);
+
+        return addProfileInterests({ variables: { request } });
+      }
+
+      const topics = [...selectedTopics];
+      topics.splice(topics.indexOf(topic), 1);
+      updateCache(topics);
+
+      return removeProfileInterests({ variables: { request } });
+    } catch (error) {
+      onError(error);
+    }
   };
 
   if (loading) {
@@ -85,9 +98,9 @@ const Interests: FC = () => {
                   }
                   icon={
                     selectedTopics.includes(subCategory.id) ? (
-                      <CheckCircleIcon className="text-brand-500 h-4 w-4" />
+                      <CheckCircleIcon className="text-brand-500 size-4" />
                     ) : (
-                      <PlusCircleIcon className="h-4 w-4" />
+                      <PlusCircleIcon className="size-4" />
                     )
                   }
                   key={subCategory.id}
@@ -114,9 +127,9 @@ const Interests: FC = () => {
                   }
                   icon={
                     selectedTopics.includes(category.id) ? (
-                      <CheckCircleIcon className="text-brand-500 h-4 w-4" />
+                      <CheckCircleIcon className="text-brand-500 size-4" />
                     ) : (
-                      <PlusCircleIcon className="h-4 w-4" />
+                      <PlusCircleIcon className="size-4" />
                     )
                   }
                   key={category.id}

@@ -5,27 +5,27 @@ import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
 import { LimitType, useFollowersQuery } from '@hey/lens';
-import getProfile from '@hey/lib/getProfile';
 import { EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
 import { Virtuoso } from 'react-virtuoso';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface FollowersProps {
-  profile: Profile;
+  handle: string;
+  profileId: string;
 }
 
-const Followers: FC<FollowersProps> = ({ profile }) => {
+const Followers: FC<FollowersProps> = ({ handle, profileId }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
   // Variables
   const request: FollowersRequest = {
     limit: LimitType.TwentyFive,
-    of: profile?.id
+    of: profileId
   };
 
   const { data, error, fetchMore, loading } = useFollowersQuery({
-    skip: !profile?.id,
+    skip: !profileId,
     variables: { request }
   });
 
@@ -51,12 +51,10 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
     return (
       <EmptyState
         hideCard
-        icon={<UsersIcon className="text-brand-500 h-8 w-8" />}
+        icon={<UsersIcon className="text-brand-500 size-8" />}
         message={
           <div>
-            <span className="mr-1 font-bold">
-              {getProfile(profile).slugWithPrefix}
-            </span>
+            <span className="mr-1 font-bold">{handle}</span>
             <span>doesn’t have any followers yet.</span>
           </div>
         }

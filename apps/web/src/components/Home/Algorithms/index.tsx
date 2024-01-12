@@ -22,11 +22,11 @@ const Algorithms: FC = () => {
         type="button"
       >
         <Tooltip content="Algorithms" placement="top">
-          <SparklesIcon className="text-brand-500 h-5 w-5" />
+          <SparklesIcon className="text-brand-500 size-5" />
         </Tooltip>
       </button>
       <Modal
-        icon={<SparklesIcon className="text-brand-500 h-5 w-5" />}
+        icon={<SparklesIcon className="text-brand-500 size-5" />}
         onClose={() => setShowAlgorithmsModal(false)}
         show={showAlgorithmsModal}
         title="Algorithms"

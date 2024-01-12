@@ -115,7 +115,7 @@ const ReferenceSettings: FC = () => {
           static
         >
           <Module
-            icon={<GlobeAltIcon className="h-4 w-4" />}
+            icon={<GlobeAltIcon className="size-4" />}
             onClick={() => {
               setSelectedReferenceModule(
                 ReferenceModuleType.FollowerOnlyReferenceModule
@@ -126,7 +126,7 @@ const ReferenceSettings: FC = () => {
             title={EVERYONE}
           />
           <Module
-            icon={<UsersIcon className="h-4 w-4" />}
+            icon={<UsersIcon className="size-4" />}
             onClick={() => {
               setSelectedReferenceModule(
                 ReferenceModuleType.FollowerOnlyReferenceModule
@@ -137,7 +137,7 @@ const ReferenceSettings: FC = () => {
             title={MY_FOLLOWERS}
           />
           <Module
-            icon={<UserPlusIcon className="h-4 w-4" />}
+            icon={<UserPlusIcon className="size-4" />}
             onClick={() => {
               setSelectedReferenceModule(
                 ReferenceModuleType.DegreesOfSeparationReferenceModule
@@ -148,7 +148,7 @@ const ReferenceSettings: FC = () => {
             title={MY_FOLLOWS}
           />
           <Module
-            icon={<UserGroupIcon className="h-4 w-4" />}
+            icon={<UserGroupIcon className="size-4" />}
             onClick={() => {
               setSelectedReferenceModule(
                 ReferenceModuleType.DegreesOfSeparationReferenceModule

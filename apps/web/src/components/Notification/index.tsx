@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { NextPage } from 'next';
 
 import MetaTags from '@components/Common/MetaTags';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
@@ -14,7 +14,7 @@ import FeedType from './FeedType';
 import List from './List';
 import Settings from './Settings';
 
-const Notification: FC = () => {
+const Notification: NextPage = () => {
   const {
     query: { type }
   } = useRouter();

@@ -5,9 +5,7 @@
     "lib": ["DOM", "DOM.Iterable", "ESNext", "webworker"],
     "paths": {
       "@components*": ["src/components*"],
-      "@lib*": ["src/lib*"],
-      "@gql*": ["src/graphql*"],
-      "@generated*": ["src/generated*"]
+      "@lib*": ["src/lib*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]

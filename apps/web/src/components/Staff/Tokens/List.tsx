@@ -6,7 +6,7 @@ import { CurrencyDollarIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import getAllTokens from '@hey/lib/api/getAllTokens';
 import { Button, Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
@@ -26,9 +26,9 @@ const List: FC = () => {
   const deleteToken = async (id: string) => {
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/token/delete`,
+        `${HEY_API_URL}/internal/tokens/delete`,
         { id },
-        { headers: getAuthWorkerHeaders() }
+        { headers: getAuthApiHeaders() }
       ),
       {
         error: 'Failed to delete token',
@@ -58,7 +58,7 @@ const List: FC = () => {
         ) : !tokens.length ? (
           <EmptyState
             hideCard
-            icon={<CurrencyDollarIcon className="text-brand-500 h-8 w-8" />}
+            icon={<CurrencyDollarIcon className="text-brand-500 size-8" />}
             message={<span>No tokens found</span>}
           />
         ) : (
@@ -77,7 +77,7 @@ const List: FC = () => {
                   </div>
                 </div>
                 <Button
-                  icon={<TrashIcon className="h-4 w-4" />}
+                  icon={<TrashIcon className="size-4" />}
                   onClick={() => deleteToken(token.id)}
                   outline
                 />

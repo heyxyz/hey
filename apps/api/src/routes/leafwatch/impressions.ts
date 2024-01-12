@@ -4,6 +4,8 @@ import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import createClickhouseClient from '@utils/createClickhouseClient';
 import { invalidBody, noBody } from '@utils/responses';
+import requestIp from 'request-ip';
+import urlcat from 'urlcat';
 import { array, object, string } from 'zod';
 
 type ExtensionRequest = {
@@ -29,11 +31,33 @@ export const post: Handler = async (req, res) => {
     return invalidBody(res);
   }
 
+  const ip = requestIp.getClientIp(req);
   const { ids, viewer_id } = body as ExtensionRequest;
 
   try {
+    let ipData: {
+      city: string;
+      country: string;
+      regionName: string;
+    } | null = null;
+
+    try {
+      const ipResponse = await fetch(
+        urlcat('https://pro.ip-api.com/json/:ip', {
+          ip,
+          key: process.env.IPAPI_KEY
+        })
+      );
+      ipData = await ipResponse.json();
+    } catch (error) {
+      return catchedError(res, error);
+    }
+
     const values = ids.map((id) => ({
+      city: ipData?.city || null,
+      country: ipData?.country || null,
       publication_id: id,
+      region: ipData?.regionName || null,
       viewer_id
     }));
 

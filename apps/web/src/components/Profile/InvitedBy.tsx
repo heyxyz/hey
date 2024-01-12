@@ -3,6 +3,7 @@ import type { FC } from 'react';
 
 import Slug from '@components/Shared/Slug';
 import getAvatar from '@hey/lib/getAvatar';
+import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import Link from 'next/link';
@@ -20,8 +21,11 @@ const InvitedBy: FC<InvitedByProps> = ({ profile }) => {
       >
         <Image
           alt={profile.id}
-          className="h-5 w-5 rounded-full border dark:border-gray-700"
+          className="size-5 rounded-full border dark:border-gray-700"
           key={profile.id}
+          onError={({ currentTarget }) => {
+            currentTarget.src = getLennyURL(profile.id);
+          }}
           src={getAvatar(profile)}
         />
         <span>

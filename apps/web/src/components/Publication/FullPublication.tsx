@@ -1,9 +1,9 @@
 import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
+import formatDate from '@hey/lib/datetime/formatDate';
 import getAppName from '@hey/lib/getAppName';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
-import { formatDate } from '@lib/formatTime';
 import pushToImpressions from '@lib/pushToImpressions';
 import { useEffectOnce } from 'usehooks-ts';
 
@@ -43,16 +43,17 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
               <PublicationBody publication={targetPublication} />
               <div className="flex items-center gap-x-3">
                 <div className="ld-text-gray-500 my-3 text-sm">
-                  <span>
-                    {formatDate(new Date(createdAt), 'hh:mm A · MMM D, YYYY')}
-                  </span>
+                  <span>{formatDate(createdAt, 'hh:mm A · MMM D, YYYY')}</span>
                   {publishedOn?.id ? (
                     <span> · Posted via {getAppName(publishedOn.id)}</span>
                   ) : null}
                 </div>
                 <FeaturedGroup tags={metadata.tags} />
               </div>
-              <PublicationStats publication={targetPublication} />
+              <PublicationStats
+                publicationId={targetPublication.id}
+                publicationStats={targetPublication.stats}
+              />
               <div className="divider" />
               <PublicationActions publication={targetPublication} showCount />
             </>

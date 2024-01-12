@@ -3,24 +3,26 @@ import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
 import { ComputerDesktopIcon, GlobeAltIcon } from '@heroicons/react/24/outline';
+import { Errors } from '@hey/data';
 import { SETTINGS } from '@hey/data/tracking';
 import {
   LimitType,
   useApprovedAuthenticationsQuery,
   useRevokeAuthenticationMutation
 } from '@hey/lens';
+import formatDate from '@hey/lib/datetime/formatDate';
 import { Button, Card, EmptyState, ErrorMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
-import { formatDate } from '@lib/formatTime';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import toast from 'react-hot-toast';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 const List: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
-
+  const { isSuspended } = useProfileRestriction();
   const [revoking, setRevoking] = useState(false);
   const [revokeingSessionId, setRevokeingSessionId] = useState<null | string>(
     null
@@ -48,6 +50,10 @@ const List: FC = () => {
   });
 
   const revoke = async (authorizationId: string) => {
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
+    }
+
     try {
       setRevoking(true);
       setRevokeingSessionId(authorizationId);
@@ -100,7 +106,7 @@ const List: FC = () => {
     return (
       <EmptyState
         hideCard
-        icon={<GlobeAltIcon className="text-brand-500 h-8 w-8" />}
+        icon={<GlobeAltIcon className="text-brand-500 size-8" />}
         message="You are not logged in on any other devices!"
       />
     );
@@ -116,7 +122,7 @@ const List: FC = () => {
         >
           <div>
             <div className="mb-3 flex items-center space-x-2">
-              <ComputerDesktopIcon className="h-8 w-8" />
+              <ComputerDesktopIcon className="size-8" />
               <div>
                 {session.browser ? <span>{session.browser}</span> : null}
                 {session.os ? <span> - {session.os}</span> : null}

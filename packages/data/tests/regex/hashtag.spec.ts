@@ -16,7 +16,7 @@ describe('hashtag regex', () => {
   });
 
   test('should fail for hashtags filled with a digit', () => {
-    expect(validate('#2023')).toBe(false);
+    expect(validate('#2024')).toBe(false);
   });
 
   test('should fail for hashtags without any alphabet characters', () => {

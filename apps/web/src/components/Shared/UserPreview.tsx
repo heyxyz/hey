@@ -1,29 +1,30 @@
 import type { Profile } from '@hey/lens';
 import type { FC, ReactNode } from 'react';
 
+import MutualFollowers from '@components/Profile/MutualFollowers';
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
 import { useProfileLazyQuery } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
+import getLennyURL from '@hey/lib/getLennyURL';
 import getMentions from '@hey/lib/getMentions';
 import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
 import nFormatter from '@hey/lib/nFormatter';
 import truncateByWords from '@hey/lib/truncateByWords';
-import { Image } from '@hey/ui';
+import { Card, Image } from '@hey/ui';
 import isVerified from '@lib/isVerified';
-import Tippy from '@tippyjs/react';
+import * as HoverCard from '@radix-ui/react-hover-card';
+import { motion } from 'framer-motion';
 import plur from 'plur';
 import { useState } from 'react';
 
 import Markup from './Markup';
 import Slug from './Slug';
 
-const MINIMUM_LOADING_ANIMATION_MS = 500;
-const POPOVER_SHOW_ANIMATION_MS = 100;
-const POPOVER_HIDE_ANIMATION_MS = 0;
+const MINIMUM_LOADING_ANIMATION_MS = 800;
 
 interface UserPreviewProps {
   children: ReactNode;
@@ -94,11 +95,14 @@ const UserPreview: FC<UserPreviewProps> = ({
     const UserAvatar = () => (
       <Image
         alt={profile.id}
-        className="h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
-        height={40}
+        className="size-12 rounded-full border bg-gray-200 dark:border-gray-700"
+        height={48}
         loading="lazy"
+        onError={({ currentTarget }) => {
+          currentTarget.src = getLennyURL(profile.id);
+        }}
         src={getAvatar(profile)}
-        width={40}
+        width={48}
       />
     );
 
@@ -107,10 +111,10 @@ const UserPreview: FC<UserPreviewProps> = ({
         <div className="flex max-w-sm items-center gap-1 truncate">
           <div className="text-md">{getProfile(profile).displayName}</div>
           {isVerified(profile.id) ? (
-            <CheckBadgeIcon className="text-brand-500 h-4 w-4" />
+            <CheckBadgeIcon className="text-brand-500 size-4" />
           ) : null}
           {hasMisused(profile.id) ? (
-            <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
+            <ExclamationCircleIcon className="size-4 text-red-500" />
           ) : null}
         </div>
         <span>
@@ -155,25 +159,42 @@ const UserPreview: FC<UserPreviewProps> = ({
             </div>
           </div>
         </div>
+        <div className="!text-xs">
+          <MutualFollowers
+            profileId={profile.id}
+            setShowMutualFollowersModal={() => {}}
+            viaPopover
+          />
+        </div>
       </div>
     );
   };
 
   return (
     <span onFocus={onPreviewStart} onMouseOver={onPreviewStart}>
-      <Tippy
-        appendTo={() => document.body}
-        arrow={false}
-        className="preview-tippy-content hidden w-64 !rounded-xl border !bg-white !text-black dark:border-gray-700 dark:!bg-black dark:!text-white md:block"
-        content={<Preview />}
-        delay={[POPOVER_SHOW_ANIMATION_MS, POPOVER_HIDE_ANIMATION_MS]}
-        hideOnClick={false}
-        interactive
-        placement="bottom-start"
-        zIndex={1000}
-      >
-        <span>{children}</span>
-      </Tippy>
+      <HoverCard.Root>
+        <HoverCard.Trigger asChild>
+          <span>{children}</span>
+        </HoverCard.Trigger>
+        <HoverCard.Portal>
+          <HoverCard.Content
+            asChild
+            className="z-10 w-72"
+            side="bottom"
+            sideOffset={5}
+          >
+            <motion.div
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              initial={{ opacity: 0 }}
+            >
+              <Card forceRounded>
+                <Preview />
+              </Card>
+            </motion.div>
+          </HoverCard.Content>
+        </HoverCard.Portal>
+      </HoverCard.Root>
     </span>
   );
 };

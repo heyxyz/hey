@@ -33,8 +33,10 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useBalance, useContractWrite, useSignTypedData } from 'wagmi';
+import { formatUnits } from 'viem';
+import { useBalance, useSignTypedData, useWriteContract } from 'wagmi';
 
 import Loader from '../Loader';
 import NoBalanceError from '../NoBalanceError';
@@ -59,6 +61,7 @@ const FollowModule: FC<FollowModuleProps> = ({
     (state) => state.setLensHubOnchainSigNonce
   );
   const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { isSuspended } = useProfileRestriction();
   const [isLoading, setIsLoading] = useState(false);
   const [allowed, setAllowed] = useState(true);
 
@@ -98,20 +101,28 @@ const FollowModule: FC<FollowModuleProps> = ({
     errorToast(error);
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ onError });
-  const { write } = useContractWrite({
-    abi: LensHub,
-    address: LENSHUB_PROXY,
-    functionName: 'follow',
-    onError: (error) => {
-      onError(error);
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
-    },
-    onSuccess: () => {
-      onCompleted();
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
+  const { writeContract } = useWriteContract({
+    mutation: {
+      onError: (error) => {
+        onError(error);
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+      },
+      onSuccess: () => {
+        onCompleted();
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+      }
     }
   });
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      abi: LensHub,
+      address: LENSHUB_PROXY,
+      args,
+      functionName: 'follow'
+    });
+  };
 
   const { data, loading } = useProfileQuery({
     skip: !profile?.id,
@@ -145,13 +156,17 @@ const FollowModule: FC<FollowModuleProps> = ({
 
   const { data: balanceData } = useBalance({
     address: currentProfile?.ownedBy.address,
-    formatUnits: followModule?.amount?.asset?.decimals,
-    token: followModule?.amount?.asset?.contract.address,
-    watch: true
+    query: { refetchInterval: 2000 },
+    token: followModule?.amount?.asset?.contract.address
   });
   let hasAmount = false;
 
-  if (balanceData && parseFloat(balanceData?.formatted) < amount) {
+  if (
+    balanceData &&
+    parseFloat(
+      formatUnits(balanceData.value, followModule?.amount?.asset?.decimals)
+    ) < amount
+  ) {
     hasAmount = false;
   } else {
     hasAmount = true;
@@ -197,6 +212,10 @@ const FollowModule: FC<FollowModuleProps> = ({
   const createFollow = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
+    }
+
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
     }
 
     if (handleWrongNetwork()) {
@@ -248,7 +267,7 @@ const FollowModule: FC<FollowModuleProps> = ({
       <div className="flex items-center space-x-1.5 py-2">
         <img
           alt={currency}
-          className="h-7 w-7"
+          className="size-7"
           height={28}
           src={getTokenImage(currency)}
           title={assetName}
@@ -260,7 +279,7 @@ const FollowModule: FC<FollowModuleProps> = ({
         </span>
       </div>
       <div className="flex items-center space-x-2">
-        <UserIcon className="ld-text-gray-500 h-4 w-4" />
+        <UserIcon className="ld-text-gray-500 size-4" />
         <div className="space-x-1.5">
           <span>Recipient:</span>
           <Link
@@ -273,7 +292,7 @@ const FollowModule: FC<FollowModuleProps> = ({
           </Link>
         </div>
       </div>
-      <div className="space-y-2 pt-5">
+      <div className="mt-5 space-y-2">
         <div className="text-lg font-bold">Perks you get</div>
         <ul className="ld-text-gray-500 space-y-1 text-sm">
           <li className="flex space-x-2 leading-6 tracking-normal">
@@ -321,7 +340,7 @@ const FollowModule: FC<FollowModuleProps> = ({
                 isLoading ? (
                   <Spinner size="xs" />
                 ) : (
-                  <StarIcon className="h-4 w-4" />
+                  <StarIcon className="size-4" />
                 )
               }
               onClick={createFollow}

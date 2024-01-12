@@ -1,6 +1,7 @@
 import type { NftMetadata } from '@hey/types/nft';
 
 import getBasePaintCanvas from './getBasePaintCanvas';
+import getSoundRelease from './getSoundRelease';
 import getUnlonelyChannel from './getUnlonelyChannel';
 import getUnlonelyNfc from './getUnlonelyNfc';
 import getZoraNFT from './getZoraNft';
@@ -9,7 +10,8 @@ export const knownMintHostnames = new Set([
   'zora.co',
   'testnet.zora.co',
   'basepaint.art',
-  'unlonely.app'
+  'unlonely.app',
+  'sound.xyz'
 ]);
 
 /**
@@ -46,6 +48,8 @@ const getNft = (urls: string[]): NftMetadata | null => {
       return getUnlonelyChannel(url);
     case hostname === 'unlonely.app' && path.startsWith('/nfc'):
       return getUnlonelyNfc(url);
+    case hostname === 'sound.xyz':
+      return getSoundRelease(url);
     default:
       return null;
   }

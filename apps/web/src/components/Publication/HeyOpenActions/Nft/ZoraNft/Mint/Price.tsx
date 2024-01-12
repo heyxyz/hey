@@ -75,7 +75,7 @@ const Price: FC<PriceProps> = ({ nft }) => {
                   eth={createReferralReward}
                   title="Create Referral Reward"
                 />
-                <Fees eth={mintReferralReward} title="Mint Referral Reward" />
+                <Fees eth={mintReferralReward} title="Hey Fee" />
                 <Fees eth={zoraFee} title="Zora Fee" />
               </div>
             </HelpTooltip>
@@ -91,7 +91,7 @@ const Price: FC<PriceProps> = ({ nft }) => {
             onClick={() => setQuantity(quantity - 1)}
             type="button"
           >
-            <MinusIcon className="h-4 w-4" />
+            <MinusIcon className="size-4" />
           </button>
           <span className="text-xl font-bold">{quantity}</span>
           <button
@@ -100,7 +100,7 @@ const Price: FC<PriceProps> = ({ nft }) => {
             onClick={() => setQuantity(quantity + 1)}
             type="button"
           >
-            <PlusIcon className="h-4 w-4" />
+            <PlusIcon className="size-4" />
           </button>
         </div>
       </div>

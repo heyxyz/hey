@@ -32,7 +32,7 @@ const Block: FC<BlockProps> = ({ profile }) => {
         setShowBlockOrUnblockAlert(true, profile);
       }}
     >
-      <NoSymbolIcon className="h-4 w-4" />
+      <NoSymbolIcon className="size-4" />
       <div>
         {isBlockedByMe ? 'Unblock' : 'Block'}{' '}
         {getProfile(profile).slugWithPrefix}

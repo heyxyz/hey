@@ -7,7 +7,8 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button, Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useRef } from 'react';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
+import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
 import { useUpdateEffect } from 'usehooks-ts';
 
 import Audio from '../Shared/Audio';
@@ -45,8 +46,10 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
   attachments = [],
   hideDelete = false
 }) => {
-  const setAttachments = usePublicationStore((state) => state.setAttachments);
-  const setVideoDurationInSeconds = usePublicationStore(
+  const setAttachments = usePublicationAttachmentStore(
+    (state) => state.setAttachments
+  );
+  const setVideoDurationInSeconds = usePublicationVideoStore(
     (state) => state.setVideoDurationInSeconds
   );
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -142,7 +145,7 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
               (isVideo ? (
                 <Button
                   className="mt-3"
-                  icon={<XMarkIcon className="h-4 w-4" />}
+                  icon={<XMarkIcon className="size-4" />}
                   onClick={() => removeAttachment(attachment)}
                   outline
                   size="sm"
@@ -157,7 +160,7 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
                     onClick={() => removeAttachment(attachment)}
                     type="button"
                   >
-                    <XMarkIcon className="h-4 w-4 text-white" />
+                    <XMarkIcon className="size-4 text-white" />
                   </button>
                 </div>
               ))}

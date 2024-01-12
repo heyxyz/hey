@@ -1,4 +1,3 @@
-import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import { ChartBarSquareIcon } from '@heroicons/react/24/outline';
@@ -73,18 +72,16 @@ interface ProfileAnalyticsData {
 }
 
 interface ProfileAnalyticsProps {
-  profile: Profile;
+  handle?: string;
+  profileId: string;
 }
 
-const ProfileAnalytics: FC<ProfileAnalyticsProps> = ({ profile }) => {
+const ProfileAnalytics: FC<ProfileAnalyticsProps> = ({ handle, profileId }) => {
   const fetchProfileAnalytics =
     async (): Promise<null | ProfileAnalyticsData> => {
       try {
         const response = await axios.get(`${HEY_API_URL}/stats/profile`, {
-          params: {
-            handle: profile?.handle?.localName,
-            id: profile?.id
-          }
+          params: { handle, id: profileId }
         });
         const { data } = response;
 
@@ -95,7 +92,7 @@ const ProfileAnalytics: FC<ProfileAnalyticsProps> = ({ profile }) => {
     };
 
   const { data, error, isLoading } = useQuery({
-    enabled: Boolean(profile?.id),
+    enabled: Boolean(profileId && handle),
     queryFn: fetchProfileAnalytics,
     queryKey: ['fetchProfileAnalytics']
   });
@@ -118,7 +115,7 @@ const ProfileAnalytics: FC<ProfileAnalyticsProps> = ({ profile }) => {
   return (
     <Card>
       <div className="flex items-center space-x-2 px-6 py-5 text-lg font-bold">
-        <ChartBarSquareIcon className="text-brand-500 h-6 w-6" />
+        <ChartBarSquareIcon className="text-brand-500 size-6" />
         <span>Profile Analytics</span>
       </div>
       <div className="divider" />

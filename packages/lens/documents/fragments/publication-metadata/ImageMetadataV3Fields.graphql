@@ -13,4 +13,7 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
   }
   title
   content
+  encryptedWith {
+    ...PublicationMetadataLitEncryptionFields
+  }
 }

@@ -20,11 +20,11 @@ const GetOpenActionModuleIcon: FC<GetOpenActionModuleIconProps> = ({
 }) => {
   switch (module?.type) {
     case OpenActionModuleType.SimpleCollectOpenActionModule:
-      return <DocumentPlusIcon className={cn('h-5 w-5', className)} />;
+      return <DocumentPlusIcon className={cn('size-5', className)} />;
     case OpenActionModuleType.MultirecipientFeeCollectOpenActionModule:
-      return <UserGroupIcon className={cn('h-5 w-5', className)} />;
+      return <UserGroupIcon className={cn('size-5', className)} />;
     default:
-      return <BriefcaseIcon className={cn('h-5 w-5', className)} />;
+      return <BriefcaseIcon className={cn('size-5', className)} />;
   }
 };
 

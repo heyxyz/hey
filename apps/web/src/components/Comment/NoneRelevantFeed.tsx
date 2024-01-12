@@ -1,4 +1,4 @@
-import type { AnyPublication, Comment, PublicationsRequest } from '@hey/lens';
+import type { Comment, PublicationsRequest } from '@hey/lens';
 import type { FC } from 'react';
 
 import SinglePublication from '@components/Publication/SinglePublication';
@@ -13,14 +13,10 @@ import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 
 interface NoneRelevantFeedProps {
-  publication?: AnyPublication;
+  publicationId: string;
 }
 
-const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publication }) => {
-  const publicationId =
-    publication?.__typename === 'Mirror'
-      ? publication?.mirrorOn?.id
-      : publication?.id;
+const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publicationId }) => {
   const [showMore, setShowMore] = useState(false);
 
   // Variables

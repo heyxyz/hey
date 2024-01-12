@@ -5,7 +5,7 @@ import { HomeIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import { Button } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import heyFont from '@lib/heyFont';
+import { heyFont } from '@lib/fonts';
 import Link from 'next/link';
 
 const Custom500: FC = () => {
@@ -23,7 +23,7 @@ const Custom500: FC = () => {
         <Link href="/">
           <Button
             className="mx-auto flex items-center"
-            icon={<HomeIcon className="h-4 w-4" />}
+            icon={<HomeIcon className="size-4" />}
             size="lg"
           >
             Go to home

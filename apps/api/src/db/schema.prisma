@@ -7,11 +7,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Verified {
-  id        String   @id
-  createdAt DateTime @default(now())
-}
-
 model StaffPick {
   id        String        @id
   type      StaffPickType
@@ -42,7 +37,7 @@ model MembershipNft {
 }
 
 model Group {
-  id          String   @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   slug        String   @unique
   name        String
   description String

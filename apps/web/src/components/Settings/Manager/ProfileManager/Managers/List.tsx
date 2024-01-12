@@ -6,6 +6,7 @@ import Loader from '@components/Shared/Loader';
 import WalletProfile from '@components/Shared/WalletProfile';
 import { MinusCircleIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
+import { Errors } from '@hey/data';
 import { LENSHUB_PROXY } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
 import {
@@ -25,11 +26,13 @@ import { useInView } from 'react-cool-inview';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useContractWrite, useSignTypedData } from 'wagmi';
+import { useSignTypedData, useWriteContract } from 'wagmi';
 
 const List: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { isSuspended } = useProfileRestriction();
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce
   );
@@ -67,14 +70,19 @@ const List: FC = () => {
     variables: { request }
   });
 
-  const { signTypedDataAsync } = useSignTypedData({ onError });
-  const { write } = useContractWrite({
-    abi: LensHub,
-    address: LENSHUB_PROXY,
-    functionName: 'changeDelegatedExecutorsConfig',
-    onError,
-    onSuccess: () => onCompleted()
+  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
+  const { writeContract } = useWriteContract({
+    mutation: { onError, onSuccess: () => onCompleted() }
   });
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      abi: LensHub,
+      address: LENSHUB_PROXY,
+      args,
+      functionName: 'changeDelegatedExecutorsConfig'
+    });
+  };
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) =>
@@ -117,6 +125,10 @@ const List: FC = () => {
     });
 
   const removeManager = async (address: Address) => {
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
+    }
+
     if (handleWrongNetwork()) {
       return;
     }
@@ -174,7 +186,7 @@ const List: FC = () => {
     return (
       <EmptyState
         hideCard
-        icon={<UserCircleIcon className="text-brand-500 h-8 w-8" />}
+        icon={<UserCircleIcon className="text-brand-500 size-8" />}
         message="No profile managers added!"
       />
     );
@@ -194,7 +206,7 @@ const List: FC = () => {
               removingAddress === manager.address ? (
                 <Spinner size="xs" />
               ) : (
-                <MinusCircleIcon className="h-4 w-4" />
+                <MinusCircleIcon className="size-4" />
               )
             }
             onClick={() => removeManager(manager.address)}

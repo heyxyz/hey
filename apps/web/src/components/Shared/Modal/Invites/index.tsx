@@ -18,7 +18,13 @@ const Invites: FC = () => {
   }
 
   if (error) {
-    return <ErrorMessage error={error} title="Failed to load invites" />;
+    return (
+      <ErrorMessage
+        className="m-5"
+        error={error}
+        title="Failed to load invites"
+      />
+    );
   }
 
   return (

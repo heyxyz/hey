@@ -17,11 +17,11 @@ const Settings: FC = () => {
         type="button"
       >
         <Tooltip content="Notification settings" placement="top">
-          <Cog6ToothIcon className="ld-text-gray-500 h-5 w-5" />
+          <Cog6ToothIcon className="ld-text-gray-500 size-5" />
         </Tooltip>
       </button>
       <Modal
-        icon={<BellIcon className="text-brand-500 h-5 w-5" />}
+        icon={<BellIcon className="text-brand-500 size-5" />}
         onClose={() => setShowNotificationSettings(false)}
         show={showNotificationSettings}
         title="Notification settings"

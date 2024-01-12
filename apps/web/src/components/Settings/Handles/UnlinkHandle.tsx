@@ -4,6 +4,7 @@ import type { FC } from 'react';
 import IndexStatus from '@components/Shared/IndexStatus';
 import { MinusCircleIcon } from '@heroicons/react/24/outline';
 import { TokenHandleRegistry } from '@hey/abis';
+import { Errors } from '@hey/data';
 import { TOKEN_HANDLE_REGISTRY } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
 import {
@@ -20,11 +21,13 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useContractWrite, useSignTypedData } from 'wagmi';
+import { useSignTypedData, useWriteContract } from 'wagmi';
 
 const UnlinkHandle: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { isSuspended } = useProfileRestriction();
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce
   );
@@ -58,14 +61,19 @@ const UnlinkHandle: FC = () => {
     errorToast(error);
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ onError });
-  const { data: writeData, write } = useContractWrite({
-    abi: TokenHandleRegistry,
-    address: TOKEN_HANDLE_REGISTRY,
-    functionName: 'unlink',
-    onError,
-    onSuccess: () => onCompleted()
+  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
+  const { data: writeHash, writeContract } = useWriteContract({
+    mutation: { onError, onSuccess: () => onCompleted() }
   });
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      abi: TokenHandleRegistry,
+      address: TOKEN_HANDLE_REGISTRY,
+      args,
+      functionName: 'unlink'
+    });
+  };
 
   const [broadcastOnchain, { data: broadcastData }] =
     useBroadcastOnchainMutation({
@@ -123,6 +131,10 @@ const UnlinkHandle: FC = () => {
       return;
     }
 
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
+    }
+
     if (handleWrongNetwork()) {
       return;
     }
@@ -154,7 +166,6 @@ const UnlinkHandle: FC = () => {
   const broadcastTxId =
     broadcastData?.broadcastOnchain.__typename === 'RelaySuccess' &&
     broadcastData.broadcastOnchain.txId;
-  const writeHash = writeData?.hash;
 
   return (
     <div>
@@ -173,7 +184,7 @@ const UnlinkHandle: FC = () => {
             unlinking ? (
               <Spinner size="xs" />
             ) : (
-              <MinusCircleIcon className="h-4 w-4" />
+              <MinusCircleIcon className="size-4" />
             )
           }
           onClick={unlink}

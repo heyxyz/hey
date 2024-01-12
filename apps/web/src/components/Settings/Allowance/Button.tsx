@@ -14,10 +14,13 @@ import getAllowanceModule from '@lib/getAllowanceModule';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useSendTransaction, useWaitForTransaction } from 'wagmi';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
+import { useUpdateEffect } from 'usehooks-ts';
+import { useSendTransaction, useWaitForTransactionReceipt } from 'wagmi';
 
 interface AllowanceButtonProps {
   allowed: boolean;
+  className?: string;
   module: ApprovedAllowanceAmountResult;
   setAllowed: Dispatch<SetStateAction<boolean>>;
   title?: string;
@@ -25,6 +28,7 @@ interface AllowanceButtonProps {
 
 const AllowanceButton: FC<AllowanceButtonProps> = ({
   allowed,
+  className = '',
   module,
   setAllowed,
   title = 'Allow'
@@ -32,23 +36,28 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [generateModuleCurrencyApprovalData, { loading: queryLoading }] =
     useGenerateModuleCurrencyApprovalDataLazyQuery();
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const onError = (error: any) => {
     errorToast(error);
   };
 
   const {
-    data: txData,
-    isLoading: transactionLoading,
+    data: txHash,
+    isPending: transactionLoading,
     sendTransaction
   } = useSendTransaction({
-    onError
+    mutation: { onError }
   });
 
-  const { isLoading: waitLoading } = useWaitForTransaction({
-    hash: txData?.hash,
-    onError,
-    onSuccess: () => {
+  const {
+    error,
+    isLoading: waitLoading,
+    isSuccess
+  } = useWaitForTransactionReceipt({ hash: txHash });
+
+  useUpdateEffect(() => {
+    if (isSuccess) {
       toast.success(
         allowed
           ? 'Module disabled successfully!'
@@ -62,13 +71,21 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
         module: module.moduleName
       });
     }
-  });
+
+    if (error) {
+      onError(error);
+    }
+  }, [isSuccess, error]);
 
   const handleAllowance = (
     contract: string,
     value: string,
     selectedModule: string
   ) => {
+    if (handleWrongNetwork()) {
+      return;
+    }
+
     generateModuleCurrencyApprovalData({
       variables: {
         request: {
@@ -90,11 +107,12 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
 
   return allowed ? (
     <Button
+      className={className}
       icon={
         queryLoading || transactionLoading || waitLoading ? (
           <Spinner size="xs" variant="warning" />
         ) : (
-          <MinusIcon className="h-4 w-4" />
+          <MinusIcon className="size-4" />
         )
       }
       onClick={() =>
@@ -111,13 +129,14 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
   ) : (
     <>
       <Button
-        icon={<PlusIcon className="h-4 w-4" />}
+        className={className}
+        icon={<PlusIcon className="size-4" />}
         onClick={() => setShowWarningModal(!showWarningModal)}
       >
         {title}
       </Button>
       <Modal
-        icon={<ExclamationTriangleIcon className="h-5 w-5 text-yellow-500" />}
+        icon={<ExclamationTriangleIcon className="size-5 text-yellow-500" />}
         onClose={() => setShowWarningModal(false)}
         show={showWarningModal}
         title="Warning"
@@ -134,11 +153,12 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
             title="Handle with care!"
           />
           <Button
+            disabled={queryLoading || transactionLoading || waitLoading}
             icon={
               queryLoading || transactionLoading || waitLoading ? (
                 <Spinner size="xs" />
               ) : (
-                <PlusIcon className="h-4 w-4" />
+                <PlusIcon className="size-4" />
               )
             }
             onClick={() =>

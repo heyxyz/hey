@@ -3,16 +3,16 @@ import type { FC } from 'react';
 import { VideoCameraIcon } from '@heroicons/react/24/outline';
 import { Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
-import { usePublicationStore } from 'src/store/non-persisted/usePublicationStore';
+import { usePublicationLiveStore } from 'src/store/non-persisted/publication/usePublicationLiveStore';
 
 const LivestreamSettings: FC = () => {
-  const showLiveVideoEditor = usePublicationStore(
+  const showLiveVideoEditor = usePublicationLiveStore(
     (state) => state.showLiveVideoEditor
   );
-  const setShowLiveVideoEditor = usePublicationStore(
+  const setShowLiveVideoEditor = usePublicationLiveStore(
     (state) => state.setShowLiveVideoEditor
   );
-  const resetLiveVideoConfig = usePublicationStore(
+  const resetLiveVideoConfig = usePublicationLiveStore(
     (state) => state.resetLiveVideoConfig
   );
 
@@ -27,7 +27,7 @@ const LivestreamSettings: FC = () => {
         type="button"
         whileTap={{ scale: 0.9 }}
       >
-        <VideoCameraIcon className="text-brand-500 h-5 w-5" />
+        <VideoCameraIcon className="text-brand-500 size-5" />
       </motion.button>
     </Tooltip>
   );

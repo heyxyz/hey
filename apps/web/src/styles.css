@@ -61,14 +61,6 @@ progress::-moz-progress-bar {
   @apply flex h-[calc(100vh-65px)] items-center justify-center;
 }
 
-.preview-tippy-content > div {
-  @apply !px-0 !py-0;
-}
-
-.tippy-content {
-  @apply !px-2.5 !py-0.5;
-}
-
 .label {
   @apply mb-1 font-medium text-gray-800 dark:text-gray-200;
 }
@@ -163,8 +155,8 @@ div[data-lexical-editor='true'] {
 /* Markup styles */
 .markup > p,
 ul {
-  @apply !leading-6 sm:!leading-7;
-  @apply [&:not(:last-child)]:mb-5;
+  @apply leading-6 sm:leading-[26px];
+  @apply [&:not(:last-child)]:mb-4;
 }
 
 .lp-player {

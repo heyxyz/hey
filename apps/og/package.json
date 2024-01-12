@@ -1,0 +1,31 @@
+{
+  "name": "@hey/og",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0",
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev --port 4785",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --fix --ext .ts,.tsx",
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "start": "next start --port 4785",
+    "typecheck": "tsc --pretty"
+  },
+  "dependencies": {
+    "@hey/config": "workspace:*",
+    "@hey/data": "workspace:*",
+    "@hey/lens": "workspace:*",
+    "@hey/lib": "workspace:*",
+    "next": "14.0.4",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/react": "^18.2.47",
+    "@types/react-dom": "^18",
+    "typescript": "^5"
+  }
+}

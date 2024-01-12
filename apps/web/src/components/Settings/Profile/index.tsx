@@ -30,7 +30,7 @@ const ProfileSettings: NextPage = () => {
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        <ProfileSettingsForm profile={currentProfile as any} />
+        <ProfileSettingsForm />
       </GridItemEight>
     </GridLayout>
   );

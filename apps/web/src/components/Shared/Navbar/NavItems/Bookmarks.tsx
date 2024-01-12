@@ -19,7 +19,7 @@ const Bookmarks: FC<BookmarksProps> = ({ className = '', onClick }) => {
       href="/bookmarks"
       onClick={onClick}
     >
-      <BookmarkIcon className="h-4 w-4" />
+      <BookmarkIcon className="size-4" />
       <div>Bookmarks</div>
     </Link>
   );
