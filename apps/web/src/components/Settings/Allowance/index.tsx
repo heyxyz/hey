@@ -1,61 +1,37 @@
 import type { NextPage } from 'next';
 
 import MetaTags from '@components/Common/MetaTags';
-import Loader from '@components/Shared/Loader';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
-import { APP_NAME, DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
+import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import {
-  FollowModuleType,
-  useApprovedModuleAllowanceAmountQuery
-} from '@hey/lens';
-import allowedOpenActionModules from '@hey/lib/allowedOpenActionModules';
-import getAllTokens from '@hey/lib/api/getAllTokens';
-import { Card, GridItemEight, GridItemFour, GridLayout, Select } from '@hey/ui';
+  Card,
+  GridItemEight,
+  GridItemFour,
+  GridLayout,
+  TabButton
+} from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
-import Custom500 from 'src/pages/500';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
-import Allowance from './Allowance';
+import CollectModules from './CollectModules';
+import OpenActions from './OpenActions';
 
-const getAllowancePayload = (currency: string) => {
-  return {
-    currencies: [currency],
-    followModules: [FollowModuleType.FeeFollowModule],
-    openActionModules: allowedOpenActionModules
-  };
-};
+enum Type {
+  COLLECT_MODULES = 'COLLECT_MODULES',
+  OPEN_ACTIONS = 'OPEN_ACTIONS'
+}
 
 const AllowanceSettings: NextPage = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const [currencyLoading, setCurrencyLoading] = useState(false);
+  const [type, setType] = useState<Type>(Type.COLLECT_MODULES);
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'allowance' });
   });
-
-  const {
-    data: allowedTokens,
-    error: allowedTokensError,
-    isLoading: allowedTokensLoading
-  } = useQuery({
-    queryFn: () => getAllTokens(),
-    queryKey: ['getAllTokens']
-  });
-
-  const { data, error, loading, refetch } =
-    useApprovedModuleAllowanceAmountQuery({
-      skip: !currentProfile?.id || allowedTokensLoading,
-      variables: { request: getAllowancePayload(DEFAULT_COLLECT_TOKEN) }
-    });
-
-  if (error || allowedTokensError) {
-    return <Custom500 />;
-  }
 
   if (!currentProfile) {
     return <NotLoggedIn />;
@@ -68,44 +44,23 @@ const AllowanceSettings: NextPage = () => {
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight>
-        <Card>
-          <div className="mx-5 mt-5">
-            <div className="space-y-3">
-              <div className="text-lg font-bold">Allow / revoke modules</div>
-              <p>
-                In order to use collect feature you need to allow the module you
-                use, you can allow and revoke the module anytime.
-              </p>
-            </div>
-            <div className="divider my-5" />
-            <div className="label mt-6">Select currency</div>
-            <Select
-              onChange={(e) => {
-                setCurrencyLoading(true);
-                refetch({
-                  request: getAllowancePayload(e.target.value)
-                }).finally(() => setCurrencyLoading(false));
-              }}
-              options={
-                allowedTokens?.map((token) => ({
-                  label: token.name,
-                  value: token.contractAddress
-                })) || [
-                  {
-                    label: 'Loading...',
-                    value: 'Loading...'
-                  }
-                ]
-              }
+        <Card className="p-5">
+          <div className="flex items-center gap-3">
+            <TabButton
+              active={type === Type.COLLECT_MODULES}
+              name="Collect & Follow Modules"
+              onClick={() => setType(Type.COLLECT_MODULES)}
+              showOnSm
+            />
+            <TabButton
+              active={type === Type.OPEN_ACTIONS}
+              name="Open Actions"
+              onClick={() => setType(Type.OPEN_ACTIONS)}
+              showOnSm
             />
           </div>
-          {loading || allowedTokensLoading || currencyLoading ? (
-            <div className="py-5">
-              <Loader />
-            </div>
-          ) : (
-            <Allowance allowance={data} />
-          )}
+          {type === Type.COLLECT_MODULES && <CollectModules />}
+          {type === Type.OPEN_ACTIONS && <OpenActions />}
         </Card>
       </GridItemEight>
     </GridLayout>
