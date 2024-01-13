@@ -63,7 +63,9 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
       getAllTokens((tokens) =>
         setSelectedCurrency(
           tokens.find(
-            (token) => token.contractAddress === DEFAULT_COLLECT_TOKEN
+            (token) =>
+              token.contractAddress.toLowerCase() ===
+              DEFAULT_COLLECT_TOKEN.toLowerCase()
           ) as AllowedToken
         )
       ),
