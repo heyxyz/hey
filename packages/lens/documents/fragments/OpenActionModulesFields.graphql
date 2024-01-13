@@ -134,6 +134,8 @@ fragment OpenActionModulesFields on OpenActionModule {
     contract {
       ...NetworkAddressFields
     }
+    initializeResultData
+    initializeCalldata
     openActionModuleReturnData
   }
 }
