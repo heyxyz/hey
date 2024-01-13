@@ -9,7 +9,7 @@ import { PUBLICATION } from '@hey/data/tracking';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Modal, Tooltip } from '@hey/ui';
-import cn from '@hey/ui/cn';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
@@ -30,12 +30,15 @@ const TipOpenAction: FC<TipOpenActionProps> = ({
     ? publication?.mirrorOn
     : publication;
 
-  const hasActed = targetPublication.operations.hasActed.value;
   const module = targetPublication.openActionModules.find(
     (module) => module.contract.address === VerifiedOpenActionModules.Tip
   );
 
   if (!module) {
+    return null;
+  }
+
+  if (!isFeatureEnabled('tip-oa')) {
     return null;
   }
 
@@ -45,15 +48,10 @@ const TipOpenAction: FC<TipOpenActionProps> = ({
 
   return (
     <>
-      <div className={cn(hasActed ? 'text-brand-500' : 'ld-text-gray-500')}>
+      <div className="ld-text-gray-500">
         <motion.button
           aria-label="Tip"
-          className={cn(
-            hasActed
-              ? 'hover:bg-brand-300/20 outline-brand-500'
-              : 'outline-gray-400 hover:bg-gray-300/20',
-            'rounded-full p-1.5 outline-offset-2'
-          )}
+          className="rounded-full p-1.5 outline-offset-2 outline-gray-400 hover:bg-gray-300/20"
           onClick={() => {
             setShowOpenActionModal(true);
             Leafwatch.track(PUBLICATION.LENS_OPEN_ACTIONS.TIP.OPEN_TIP, {

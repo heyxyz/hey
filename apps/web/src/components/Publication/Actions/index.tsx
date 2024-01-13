@@ -66,6 +66,12 @@ const PublicationActions: FC<PublicationActionsProps> = ({
       {canAct ? (
         <OpenAction publication={publication} showCount={showCount} />
       ) : null}
+      {canTip ? (
+        <TipOpenAction
+          isFullPublication={showCount}
+          publication={publication}
+        />
+      ) : null}
       {views > 0 ? (
         <Views
           publicationId={targetPublication.id}
@@ -77,12 +83,6 @@ const PublicationActions: FC<PublicationActionsProps> = ({
         <Mod
           isFullPublication={showCount}
           publicationId={targetPublication.id}
-        />
-      ) : null}
-      {canTip ? (
-        <TipOpenAction
-          isFullPublication={showCount}
-          publication={publication}
         />
       ) : null}
     </span>
