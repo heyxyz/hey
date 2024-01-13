@@ -5,6 +5,7 @@ import type {
 import type { FC } from 'react';
 
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import { PUBLICATION } from '@hey/data/tracking';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
@@ -38,7 +39,7 @@ const TipOpenAction: FC<TipOpenActionProps> = ({
     return null;
   }
 
-  if (!isFeatureEnabled('tip-oa')) {
+  if (!isFeatureEnabled(FeatureFlag.LensMember)) {
     return null;
   }
 
