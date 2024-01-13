@@ -353,8 +353,8 @@ importers:
         specifier: ^9.1.0
         version: 9.1.0(react-dom@18.2.0)(react@18.2.0)
       usehooks-ts:
-        specifier: ^2.9.3
-        version: 2.9.3(react-dom@18.2.0)(react@18.2.0)
+        specifier: 2.9.2
+        version: 2.9.2(react-dom@18.2.0)(react@18.2.0)
       uuid:
         specifier: ^9.0.1
         version: 9.0.1
@@ -5344,6 +5344,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
+      napi-wasm: 1.1.0
     dev: false
     bundledDependencies:
       - napi-wasm
@@ -14042,6 +14043,10 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
+  /napi-wasm@1.1.0:
+    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
+    dev: false
+
   /natural-compare-lite@1.4.0:
     resolution: {integrity: sha512-Tj+HTDSJJKaZnfiuw+iaF9skdPpTo2GtEly5JHnWV/hfv2Qj/9RKsGISQtLh2ox3l5EAGw487hnBee0sIJ6v2g==}
     dev: true
@@ -17534,9 +17539,10 @@ packages:
       react: 18.2.0
     dev: false
 
-  /usehooks-ts@2.9.3(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-MeNkZv8QaBJ7KOU7ovDTsHN8VaHko3BGWczY9uKibF1JLVDFTmrABX7DclGEsbVEQvcGuF4J+gA5F3w6cWNMWA==}
+  /usehooks-ts@2.9.2(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-fOzPeG01rs51CGYzqgioP/zs9v1Cgpe+zcXeqJPlDHYfdfG/wjsdjBWHJi+Ph1JgQAGUrDo5sJbPlaZd+Z9lxw==}
     engines: {node: '>=16.15.0'}
+    requiresBuild: true
     peerDependencies:
       react: ^16.8.0  || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0  || ^17.0.0 || ^18.0.0
