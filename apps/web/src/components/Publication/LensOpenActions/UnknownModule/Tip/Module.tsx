@@ -78,7 +78,9 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
 
     const amount = tip.value[0];
     const usdPrice = await getRedstonePrice(getAssetSymbol(currency.symbol));
-    const usdValue = amount * usdPrice;
+    const usdValue = amount / usdPrice;
+
+    console.log(parseUnits(usdValue.toString(), currency.decimals).toString());
 
     const calldata = encodeAbiParameters(abi, [
       currency.contractAddress,

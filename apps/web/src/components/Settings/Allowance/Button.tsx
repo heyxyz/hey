@@ -7,7 +7,10 @@ import {
   PlusIcon
 } from '@heroicons/react/24/outline';
 import { SETTINGS } from '@hey/data/tracking';
-import { useGenerateModuleCurrencyApprovalDataLazyQuery } from '@hey/lens';
+import {
+  OpenActionModuleType,
+  useGenerateModuleCurrencyApprovalDataLazyQuery
+} from '@hey/lens';
 import { Button, Modal, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import getAllowanceModule from '@lib/getAllowanceModule';
@@ -86,12 +89,19 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
       return;
     }
 
+    const isUnknownModule =
+      module.moduleName === OpenActionModuleType.UnknownOpenActionModule;
+
     generateModuleCurrencyApprovalData({
       variables: {
         request: {
           allowance: { currency: contract, value: value },
           module: {
-            [getAllowanceModule(module.moduleName).field]: selectedModule
+            [isUnknownModule
+              ? 'unknownOpenActionModule'
+              : getAllowanceModule(module.moduleName).field]: isUnknownModule
+              ? contract
+              : selectedModule
           }
         }
       }
