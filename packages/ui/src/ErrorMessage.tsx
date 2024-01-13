@@ -40,7 +40,7 @@ export const ErrorMessage: FC<ErrorMessageProps> = ({
           </Link>
         </div>
       </div>
-      <div className="text-red-700 dark:text-red-200">{error?.message}</div>
+      <div className="break-words text-red-700 dark:text-red-200">{error?.message}</div>
     </div>
   );
 };
