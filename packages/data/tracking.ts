@@ -48,6 +48,12 @@ export const PUBLICATION = {
   },
   COPY_TEXT: 'Copy publication text',
   DELETE: 'Delete publication',
+  LENS_OPEN_ACTIONS: {
+    TIP: {
+      OPEN_TIP: 'Open tip modal',
+      TIP: 'Tip publication'
+    }
+  },
   LIKE: 'Like publication',
   MIRROR: 'Mirror publication',
   NEW_COMMENT: 'New comment',

@@ -1,8 +1,9 @@
+import type { OpenActionModule } from '@hey/lens';
 import type { FC } from 'react';
 
 import GetOpenActionModuleIcon from '@components/Shared/GetOpenActionModuleIcon';
 import { CheckBadgeIcon } from '@heroicons/react/24/solid';
-import { type OpenActionModule, useModuleMetadataQuery } from '@hey/lens';
+import { useModuleMetadataQuery } from '@hey/lens';
 import { Card, Tooltip } from '@hey/ui';
 
 interface UnknownModulePreviewProps {
