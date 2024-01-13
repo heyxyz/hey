@@ -38,8 +38,8 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
         </button>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content
-        align={'end'}
-        className="menu-transition absolute right-1 z-[5] mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+        align="end"
+        className="radix-transition absolute right-1 z-[5] mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
       >
         {currentProfile ? (
           <>

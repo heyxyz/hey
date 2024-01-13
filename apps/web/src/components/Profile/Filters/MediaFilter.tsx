@@ -34,11 +34,9 @@ const MediaFilter = () => {
           </Tooltip>
         </button>
       </DropdownMenu.Trigger>
-      <DropdownMenu.Content className="menu-transition absolute right-0 z-[5] mt-1 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900">
+      <DropdownMenu.Content className="radix-transition absolute right-0 z-[5] mt-1 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900">
         <DropdownMenu.Item
-          className={
-            'menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800'
-          }
+          className="menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800"
           onSelect={onSelectDropdownItem}
         >
           <Checkbox
@@ -49,9 +47,7 @@ const MediaFilter = () => {
           />
         </DropdownMenu.Item>
         <DropdownMenu.Item
-          className={
-            'menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800'
-          }
+          className="menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800"
           onSelect={onSelectDropdownItem}
         >
           <Checkbox
@@ -62,9 +58,7 @@ const MediaFilter = () => {
           />
         </DropdownMenu.Item>
         <DropdownMenu.Item
-          className={
-            'menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800'
-          }
+          className="menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800"
           onSelect={onSelectDropdownItem}
         >
           <Checkbox

@@ -31,8 +31,8 @@ export const Alert: FC<AlertProps> = ({
     <Dialog.Root onOpenChange={(open) => !open && onClose?.()} open={show}>
       <Dialog.Portal>
         <div className="fixed inset-0 z-10 flex min-h-screen items-center justify-center overflow-y-auto p-4 text-center sm:block sm:p-0">
-          <Dialog.Overlay className="menu-transition fixed inset-0 bg-gray-500/75 transition-opacity dark:bg-gray-900/80" />
-          <Dialog.Content className="menu-transition">
+          <Dialog.Overlay className="radix-transition fixed inset-0 bg-gray-500/75 transition-opacity dark:bg-gray-900/80" />
+          <Dialog.Content className="radix-transition">
             <span className="hidden sm:inline-block sm:h-screen sm:align-middle" />
             <div className="inline-block w-full scale-100 space-y-6 rounded-xl bg-white p-5 text-left align-bottom shadow-xl transition-all sm:max-w-sm sm:align-middle dark:bg-gray-800">
               <div className="space-y-2">

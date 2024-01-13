@@ -51,9 +51,7 @@ const Explore: NextPage = () => {
           <Tabs.List className="divider space-x-8">
             {tabs.map((tab, index) => (
               <Tabs.Trigger
-                className={
-                  'ld-text-gray-500 data-[state=active]:border-brand-500 px-4 pb-2 text-xs font-medium outline-none data-[state=active]:border-b-2 data-[state=active]:!text-black sm:text-sm dark:data-[state=active]:!text-white'
-                }
+                className="ld-text-gray-500 data-[state=active]:border-brand-500 px-4 pb-2 text-xs font-medium outline-none data-[state=active]:border-b-2 data-[state=active]:!text-black sm:text-sm dark:data-[state=active]:!text-white"
                 key={tab.type}
                 onClick={() => {
                   Leafwatch.track(EXPLORE.SWITCH_EXPLORE_FEED_TAB, {

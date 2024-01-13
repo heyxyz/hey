@@ -45,7 +45,7 @@ const SidebarMenu: FC<SidebarProps> = ({ items }) => {
             <div>{selectedItem.title}</div>
           </button>
         </DropdownMenu.Trigger>
-        <DropdownMenu.Content className="menu-transition absolute z-10 mt-2 w-full">
+        <DropdownMenu.Content className="radix-transition absolute z-10 mt-2 w-full">
           <Card forceRounded>
             {menuItems.map((item) => (
               <DropdownMenu.Item
@@ -62,9 +62,7 @@ const SidebarMenu: FC<SidebarProps> = ({ items }) => {
                     )
                   }
                   href={item.url}
-                  onClick={() => {
-                    setOpen(false);
-                  }}
+                  onClick={() => setOpen(false)}
                 >
                   {item.icon}
                   <div>{item.title}</div>

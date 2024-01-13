@@ -110,7 +110,7 @@ const ReferenceSettings: FC = () => {
           </motion.button>
         </Tooltip>
       </DropdownMenu.Trigger>
-      <DropdownMenu.Content className="menu-transition absolute z-[5] mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900">
+      <DropdownMenu.Content className="radix-transition absolute z-[5] mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900">
         <Module
           icon={<GlobeAltIcon className="size-4" />}
           onClick={() => {

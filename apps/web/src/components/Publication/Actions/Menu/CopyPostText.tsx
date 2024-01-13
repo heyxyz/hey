@@ -24,9 +24,7 @@ const CopyPostText: FC<CopyPostTextProps> = ({ publication }) => {
 
   return (
     <DropdownMenuItem
-      className={
-        'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800'
-      }
+      className="m-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800"
       onClick={async (event) => {
         stopEventPropagation(event);
         await navigator.clipboard.writeText(filteredContent || '');

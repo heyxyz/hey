@@ -34,7 +34,7 @@ const WalletUser: FC = () => {
 
   return (
     <DropdownMenu.Root modal={false} onOpenChange={setOpen} open={open}>
-      <div className={'md:block'}>
+      <div className="md:block">
         <DropdownMenu.Trigger asChild>
           <button
             className="outline-brand-500 flex self-center rounded-full"
@@ -45,8 +45,8 @@ const WalletUser: FC = () => {
           </button>
         </DropdownMenu.Trigger>
         <DropdownMenu.Content
-          align={'end'}
-          className="menu-transition absolute right-0 mt-2 w-48 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-black"
+          align="end"
+          className="radix-transition absolute right-0 mt-2 w-48 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-black"
         >
           <DropdownMenu.Item asChild>
             <NextLink

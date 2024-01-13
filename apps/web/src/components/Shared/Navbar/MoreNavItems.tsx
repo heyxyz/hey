@@ -31,26 +31,18 @@ const MoreNavItems: FC = () => {
         </DropdownMenu.Trigger>
 
         <DropdownMenu.Content
-          align={'start'}
-          className="menu-transition absolute mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+          align="start"
+          className="radix-transition absolute mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
         >
           {currentProfile ? (
             <>
-              <DropdownMenu.Item
-                className={
-                  'm-2 rounded-lg focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800'
-                }
-              >
+              <DropdownMenu.Item className="m-2 rounded-lg focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800">
                 <Bookmarks />
               </DropdownMenu.Item>
               <div className="divider" />
             </>
           ) : null}
-          <DropdownMenu.Item
-            className={
-              'm-2 rounded-lg focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800'
-            }
-          >
+          <DropdownMenu.Item className="m-2 rounded-lg focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800">
             <Support />
           </DropdownMenu.Item>
         </DropdownMenu.Content>

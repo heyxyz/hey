@@ -30,8 +30,8 @@ const ProfileMenu: FC<ProfileMenuProps> = ({ profile }) => {
         </button>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content
-        align={'start'}
-        className="menu-transition absolute -left-2 z-[5] mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+        align="start"
+        className="radix-transition absolute -left-2 z-[5] mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
       >
         <Share profile={profile} />
         {currentProfile && currentProfile?.id !== profile.id ? (

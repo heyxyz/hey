@@ -16,9 +16,7 @@ const Report: FC<ReportProfileProps> = ({ profile }) => {
 
   return (
     <DropdownMenuItem
-      className={
-        'm-2 flex cursor-pointer items-center space-x-2 rounded-lg px-2 py-1.5 text-sm focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800'
-      }
+      className="m-2 flex cursor-pointer items-center space-x-2 rounded-lg px-2 py-1.5 text-sm focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800"
       onClick={() => setShowReportProfileModal(true, profile)}
     >
       <FlagIcon className="size-4" />

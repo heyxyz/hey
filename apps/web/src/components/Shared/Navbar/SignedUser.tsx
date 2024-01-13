@@ -75,16 +75,14 @@ const SignedUser: FC = () => {
           </DropdownMenu.Trigger>
 
           <DropdownMenu.Content
-            align={'end'}
-            className="menu-transition absolute right-0 mt-2 w-48 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-black"
+            align="end"
+            className="radix-transition absolute right-0 mt-2 w-48 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-black"
           >
             <DropdownMenu.Item asChild>
               <NextLink
                 className="m-2 flex items-center rounded-lg px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none dark:text-gray-200 dark:hover:bg-gray-800"
                 href={getProfile(currentProfile).link}
-                onClick={() => {
-                  setOpenMenu(false);
-                }}
+                onClick={() => setOpenMenu(false)}
               >
                 <div className="flex w-full flex-col">
                   <div>Logged in as</div>
@@ -98,11 +96,7 @@ const SignedUser: FC = () => {
               </NextLink>
             </DropdownMenu.Item>
             <div className="divider" />
-            <DropdownMenu.Item
-              className={
-                'm-2 rounded-lg border focus:outline-none data-[highlighted]:bg-gray-100 dark:border-gray-700 dark:data-[highlighted]:bg-gray-800'
-              }
-            >
+            <DropdownMenu.Item className="m-2 rounded-lg border focus:outline-none data-[highlighted]:bg-gray-100 dark:border-gray-700 dark:data-[highlighted]:bg-gray-800">
               <SwitchProfile />
             </DropdownMenu.Item>
             <div className="divider" />
@@ -110,9 +104,7 @@ const SignedUser: FC = () => {
               <NextLink
                 className="menu-item focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800"
                 href={getProfile(currentProfile).link}
-                onClick={() => {
-                  setOpenMenu(false);
-                }}
+                onClick={() => setOpenMenu(false)}
               >
                 <YourProfile />
               </NextLink>
@@ -122,9 +114,7 @@ const SignedUser: FC = () => {
               <NextLink
                 className="menu-item focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800"
                 href="/settings"
-                onClick={() => {
-                  setOpenMenu(false);
-                }}
+                onClick={() => setOpenMenu(false)}
               >
                 <Settings />
               </NextLink>
@@ -135,9 +125,7 @@ const SignedUser: FC = () => {
                 <NextLink
                   className="menu-item focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800"
                   href="/mod"
-                  onClick={() => {
-                    setOpenMenu(false);
-                  }}
+                  onClick={() => setOpenMenu(false)}
                 >
                   <Mod />
                 </NextLink>
@@ -152,9 +140,7 @@ const SignedUser: FC = () => {
                 <NextLink
                   className="menu-item focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800"
                   href="/pro"
-                  onClick={() => {
-                    setOpenMenu(false);
-                  }}
+                  onClick={() => setOpenMenu(false)}
                 >
                   <Pro />
                 </NextLink>
