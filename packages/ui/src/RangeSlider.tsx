@@ -5,10 +5,11 @@ import cn from '../cn';
 
 interface RangeSliderProps extends SliderPrimitive.SliderProps {
   className?: string;
+  displayValue?: string;
 }
 
 export const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
-  function RangeSlider({ className = '', ...rest }, ref) {
+  function RangeSlider({ className = '', displayValue, ...rest }, ref) {
     return (
       <SliderPrimitive.Root
         className={cn(
@@ -27,7 +28,7 @@ export const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
           aria-label="Slider"
           className="bg-brand-500 block rounded-lg px-2 py-1 text-xs font-bold text-white focus:outline-none active:scale-110"
         >
-          {rest.value}
+          {displayValue || rest.value}
         </SliderPrimitive.Thumb>
       </SliderPrimitive.Root>
     );

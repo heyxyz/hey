@@ -3,20 +3,27 @@ import type {
   Profile,
   UnknownOpenActionModuleSettings
 } from '@hey/lens';
+import type { AllowedToken } from '@hey/types/hey';
 
 import Loader from '@components/Shared/Loader';
+import SmallUserProfileShimmer from '@components/Shared/Shimmer/SmallUserProfileShimmer';
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
+import WalletProfile from '@components/Shared/WalletProfile';
+import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import { useDefaultProfileQuery, useModuleMetadataQuery } from '@hey/lens';
 import getAllTokens from '@hey/lib/api/getAllTokens';
 import getAssetSymbol from '@hey/lib/getAssetSymbol';
 import getRedstonePrice from '@hey/lib/getRedstonePrice';
-import { Button, RangeSlider, Select } from '@hey/ui';
+import { RangeSlider, Select } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import { type FC, useState } from 'react';
 import toast from 'react-hot-toast';
+import { CHAIN } from 'src/constants';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
 import { decodeAbiParameters, encodeAbiParameters, parseUnits } from 'viem';
+
+import TipAction from './TipAction';
 
 interface TipOpenActionModuleProps {
   module: UnknownOpenActionModuleSettings;
@@ -27,6 +34,9 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
   module,
   publication
 }) => {
+  const [selectedCurrency, setSelectedCurrency] = useState<AllowedToken | null>(
+    null
+  );
   const [tip, setTip] = useState({
     currency: DEFAULT_COLLECT_TOKEN,
     value: [5]
@@ -49,7 +59,14 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
   });
 
   const { data: allowedTokens, isLoading: loadingAllowedTokens } = useQuery({
-    queryFn: () => getAllTokens(),
+    queryFn: () =>
+      getAllTokens((tokens) =>
+        setSelectedCurrency(
+          tokens.find(
+            (token) => token.contractAddress === DEFAULT_COLLECT_TOKEN
+          ) as AllowedToken
+        )
+      ),
     queryKey: ['getAllTokens']
   });
 
@@ -94,11 +111,21 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
 
   return (
     <div className="space-y-3 p-5">
-      {profile ? (
-        <SmallUserProfile profile={profile.defaultProfile as Profile} />
-      ) : null}
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center space-x-2 text-lg">
+        <b>Send Tip to</b>
+        <div>
+          {loadingProfile ? (
+            <SmallUserProfileShimmer />
+          ) : profile ? (
+            <SmallUserProfile profile={profile.defaultProfile as Profile} />
+          ) : (
+            <WalletProfile address={decoded[0]} />
+          )}
+        </div>
+      </div>
+      <div className="flex items-center space-x-3 pb-3">
         <RangeSlider
+          displayValue={`$${tip.value[0]}`}
           min={1}
           onValueChange={(value) => setTip({ ...tip, value })}
           value={tip.value}
@@ -106,7 +133,14 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
         <div className="w-2/6">
           <Select
             defaultValue={DEFAULT_COLLECT_TOKEN}
-            onChange={(e) => setTip({ ...tip, currency: e.target.value })}
+            onChange={(e) => {
+              setTip({ ...tip, currency: e.target.value });
+              setSelectedCurrency(
+                allowedTokens?.find(
+                  (token) => token.contractAddress === e.target.value
+                ) as AllowedToken
+              );
+            }}
             options={allowedTokens?.map((token) => ({
               label: token.symbol,
               value: token.contractAddress
@@ -114,7 +148,27 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
           />
         </div>
       </div>
-      <Button onClick={act}>Send</Button>
+      {selectedCurrency ? (
+        <TipAction
+          act={act}
+          className="mt-5 w-full justify-center"
+          icon={<CurrencyDollarIcon className="size-4" />}
+          module={module}
+          moduleAmount={{
+            asset: {
+              contract: {
+                address: selectedCurrency.contractAddress,
+                chainId: CHAIN.id
+              },
+              decimals: selectedCurrency.decimals,
+              name: selectedCurrency.name,
+              symbol: selectedCurrency.symbol
+            },
+            value: tip.value[0].toString()
+          }}
+          title="Send Tip"
+        />
+      ) : null}
     </div>
   );
 };
