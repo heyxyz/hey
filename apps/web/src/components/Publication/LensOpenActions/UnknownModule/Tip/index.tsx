@@ -7,7 +7,6 @@ import type { FC } from 'react';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
-import getProfile from '@hey/lib/getProfile';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Modal, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -72,7 +71,7 @@ const TipOpenAction: FC<TipOpenActionProps> = ({
         icon={<CurrencyDollarIcon className="text-brand-500 size-5" />}
         onClose={() => setShowOpenActionModal(false)}
         show={showOpenActionModal}
-        title={`Send tip to ${getProfile(targetPublication.by).slugWithPrefix}`}
+        title="Send a tip"
       >
         <TipOpenActionModule
           module={module as UnknownOpenActionModuleSettings}

@@ -9,21 +9,16 @@ import {
   useCreateActOnOpenActionTypedDataMutation
 } from '@hey/lens';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
-import getSignature from '@hey/lib/getSignature';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
 interface CreatePublicationProps {
-  abi: string;
-  address: Address;
   onCompleted: (status?: any) => void;
   onError: (error: any) => void;
 }
 
 const useActOnUnknownOpenAction = ({
-  abi,
-  address,
   onCompleted,
   onError
 }: CreatePublicationProps) => {
@@ -39,7 +34,6 @@ const useActOnUnknownOpenAction = ({
     checkDispatcherPermissions(currentProfile);
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
-
   const { writeContract } = useWriteContract({
     mutation: {
       onError: (error) => {
@@ -73,18 +67,18 @@ const useActOnUnknownOpenAction = ({
       onCompleted: async ({ createActOnOpenActionTypedData }) => {
         const { id, typedData } = createActOnOpenActionTypedData;
 
-        if (canBroadcast) {
-          const signature = await signTypedDataAsync(getSignature(typedData));
-          const { data } = await broadcastOnchain({
-            variables: { request: { id, signature } }
-          });
-          if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return write({ args: [typedData.value] });
-          }
-          setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+        // if (canBroadcast) {
+        //   const signature = await signTypedDataAsync(getSignature(typedData));
+        //   const { data } = await broadcastOnchain({
+        //     variables: { request: { id, signature } }
+        //   });
+        //   if (data?.broadcastOnchain.__typename === 'RelayError') {
+        //     return write({ args: [typedData.value] });
+        //   }
+        //   setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
 
-          return;
-        }
+        //   return;
+        // }
 
         return write({ args: [typedData.value] });
       },
@@ -130,9 +124,9 @@ const useActOnUnknownOpenAction = ({
       for: publicationId
     };
 
-    if (canUseLensManager) {
-      return await actViaLensManager(actOnRequest);
-    }
+    // if (canUseLensManager) {
+    //   return await actViaLensManager(actOnRequest);
+    // }
 
     return await createActOnOpenActionTypedData({
       variables: {
