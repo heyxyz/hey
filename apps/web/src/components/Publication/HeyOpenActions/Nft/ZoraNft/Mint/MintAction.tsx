@@ -128,8 +128,8 @@ const MintAction: FC<MintActionProps> = ({ nft, publicationId, zoraLink }) => {
     setCanMintOnHey(
       !isSimulateError ||
         (isSimulateError &&
-          ALLOWED_ERRORS_FOR_MINTING.some(
-            (error) => simulateError?.message.includes(error)
+          ALLOWED_ERRORS_FOR_MINTING.some((error) =>
+            simulateError?.message.includes(error)
           ))
     );
   }, [isSimulating]);
