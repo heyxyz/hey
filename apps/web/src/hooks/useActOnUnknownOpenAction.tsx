@@ -17,11 +17,13 @@ import { useSignTypedData, useWriteContract } from 'wagmi';
 interface CreatePublicationProps {
   onCompleted: (status?: any) => void;
   onError: (error: any) => void;
+  signlessApproved?: boolean;
 }
 
 const useActOnUnknownOpenAction = ({
   onCompleted,
-  onError
+  onError,
+  signlessApproved = false
 }: CreatePublicationProps) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const lensHubOnchainSigNonce = useNonceStore(
@@ -124,7 +126,7 @@ const useActOnUnknownOpenAction = ({
       for: publicationId
     };
 
-    if (canUseLensManager) {
+    if (canUseLensManager && signlessApproved) {
       return await actViaLensManager(actOnRequest);
     }
 

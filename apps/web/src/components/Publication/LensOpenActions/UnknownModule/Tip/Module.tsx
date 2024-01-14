@@ -55,7 +55,8 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
 
   const { actOnUnknownOpenAction } = useActOnUnknownOpenAction({
     onCompleted: () => {},
-    onError: () => {}
+    onError: () => {},
+    signlessApproved: module.signlessApproved
   });
 
   const { data: allowedTokens, isLoading: loadingAllowedTokens } = useQuery({
