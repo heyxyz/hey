@@ -15,10 +15,15 @@ export enum ScreenType {
 }
 
 const OpenActionsList: FC = () => {
-  const { setShowModal } = useOpenActionStore();
   const [screen, setScreen] = useState<ScreenType>(ScreenType.List);
-  const [selectedOpenAction, setSelectedOpenAction] =
-    useState<null | OpenAction>(null);
+  const setShowModal = useOpenActionStore((state) => state.setShowModal);
+  const reset = useOpenActionStore((state) => state.reset);
+  const selectedOpenAction = useOpenActionStore(
+    (state) => state.selectedOpenAction
+  );
+  const setSelectedOpenAction = useOpenActionStore(
+    (state) => state.setSelectedOpenAction
+  );
 
   const onOpenActionSelected = (name: OpenAction) => {
     setScreen(ScreenType.Config);
@@ -26,8 +31,8 @@ const OpenActionsList: FC = () => {
   };
 
   const onBack = () => {
+    reset();
     setScreen(ScreenType.List);
-    setSelectedOpenAction(null);
   };
 
   return (
@@ -41,7 +46,10 @@ const OpenActionsList: FC = () => {
             selected={selectedOpenAction === OpenAction.Tip}
             title="Tipping"
           />
-          <SaveOrCancel onSave={() => setShowModal(false)} />
+          <SaveOrCancel
+            onSave={() => setShowModal(false)}
+            saveDisabled={selectedOpenAction === null}
+          />
         </div>
       ) : selectedOpenAction ? (
         <OpenActionsConfig name={selectedOpenAction} onBack={onBack} />
