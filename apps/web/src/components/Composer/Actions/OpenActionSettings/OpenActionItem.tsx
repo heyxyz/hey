@@ -1,4 +1,4 @@
-import type { Dispatch, FC, ReactNode, SetStateAction } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { Card } from '@hey/ui';
@@ -6,20 +6,21 @@ import { Card } from '@hey/ui';
 interface OpenActionItemProps {
   description: string;
   icon: ReactNode;
-  setShowModal: Dispatch<SetStateAction<boolean>>;
+  onClick: () => void;
   title: string;
 }
 
 const OpenActionItem: FC<OpenActionItemProps> = ({
   description,
   icon,
-  setShowModal,
+  onClick,
   title
 }) => {
   return (
     <Card
       className="flex cursor-pointer items-center justify-between p-5"
       forceRounded
+      onClick={onClick}
     >
       <div className="flex items-center space-x-3">
         <div className="text-brand-500">{icon}</div>
