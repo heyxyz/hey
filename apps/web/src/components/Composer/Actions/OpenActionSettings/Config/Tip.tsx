@@ -1,12 +1,14 @@
 import type { Address } from 'viem';
 
 import SearchProfiles from '@components/Shared/SearchProfiles';
+import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { ADDRESS_PLACEHOLDER } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { Card } from '@hey/ui';
-import { type FC } from 'react';
+import { type FC, useEffect } from 'react';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 import { encodeAbiParameters, isAddress } from 'viem';
 import { create } from 'zustand';
@@ -26,16 +28,26 @@ const useTipActionStore = create<OpenActionState>((set) => ({
 }));
 
 const TipConfig: FC = () => {
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const { recipient, reset, setRecipient } = useTipActionStore();
   const openAction = useOpenActionStore((state) => state.openAction);
   const setShowModal = useOpenActionStore((state) => state.setShowModal);
   const setOpenAction = useOpenActionStore((state) => state.setOpenAction);
+
+  const isSelfTip = recipient === currentProfile?.ownedBy.address;
 
   useEffectOnce(() => {
     if (!openAction) {
       reset();
     }
   });
+
+  useEffect(() => {
+    if (!recipient || isSelfTip) {
+      setRecipient(currentProfile?.ownedBy.address);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentProfile]);
 
   const onSave = () => {
     setOpenAction({
@@ -57,16 +69,28 @@ const TipConfig: FC = () => {
         </div>
         <div className="divider" />
         <div className="p-5">
-          <SearchProfiles
-            error={recipient.length > 0 && !isAddress(recipient)}
-            hideDropdown={isAddress(recipient)}
-            onChange={(event) => setRecipient(event.target.value)}
-            onProfileSelected={(profile) =>
-              setRecipient(profile.ownedBy.address)
+          <ToggleWithHelper
+            description="Allow people to tip you"
+            heading="Self Tip"
+            on={isSelfTip}
+            setOn={() =>
+              setRecipient(recipient ? '' : currentProfile?.ownedBy.address)
             }
-            placeholder={`(Tip Recipient) ${ADDRESS_PLACEHOLDER} or wagmi`}
-            value={recipient}
           />
+          {!isSelfTip && (
+            <div className="mt-3">
+              <SearchProfiles
+                error={recipient.length > 0 && !isAddress(recipient)}
+                hideDropdown={isAddress(recipient)}
+                onChange={(event) => setRecipient(event.target.value)}
+                onProfileSelected={(profile) =>
+                  setRecipient(profile.ownedBy.address)
+                }
+                placeholder={`(Tip Recipient) ${ADDRESS_PLACEHOLDER} or wagmi`}
+                value={recipient}
+              />
+            </div>
+          )}
         </div>
       </Card>
       <SaveOrCancel
