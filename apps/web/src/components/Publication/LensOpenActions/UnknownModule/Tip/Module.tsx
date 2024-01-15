@@ -37,6 +37,7 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
   const [selectedCurrency, setSelectedCurrency] = useState<AllowedToken | null>(
     null
   );
+  const [loadingRedstonePrice, setLoadingRedstonePrice] = useState(false);
   const [tip, setTip] = useState({
     currency: DEFAULT_COLLECT_TOKEN,
     value: [5]
@@ -53,10 +54,9 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
     module?.initializeCalldata
   );
 
-  const { actOnUnknownOpenAction } = useActOnUnknownOpenAction({
-    onCompleted: () => {},
-    onError: () => {},
-    signlessApproved: module.signlessApproved
+  const { actOnUnknownOpenAction, isLoading } = useActOnUnknownOpenAction({
+    signlessApproved: module.signlessApproved,
+    successToast: "You've sent a tip!"
   });
 
   const { data: allowedTokens, isLoading: loadingAllowedTokens } = useQuery({
@@ -64,9 +64,7 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
       getAllTokens((tokens) =>
         setSelectedCurrency(
           tokens.find(
-            (token) =>
-              token.contractAddress.toLowerCase() ===
-              DEFAULT_COLLECT_TOKEN.toLowerCase()
+            (token) => token.contractAddress === DEFAULT_COLLECT_TOKEN
           ) as AllowedToken
         )
       ),
@@ -87,29 +85,34 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
   }
 
   const act = async () => {
-    const abi = JSON.parse(metadata?.processCalldataABI);
-    const currency = allowedTokens?.find(
-      (token) => token.contractAddress === tip.currency
-    );
+    try {
+      setLoadingRedstonePrice(true);
+      const abi = JSON.parse(metadata?.processCalldataABI);
+      const currency = allowedTokens?.find(
+        (token) => token.contractAddress === tip.currency
+      );
 
-    if (!currency) {
-      return toast.error('Currency not supported');
+      if (!currency) {
+        return toast.error('Currency not supported');
+      }
+
+      const amount = tip.value[0];
+      const usdPrice = await getRedstonePrice(getAssetSymbol(currency.symbol));
+      const usdValue = amount / usdPrice;
+
+      const calldata = encodeAbiParameters(abi, [
+        currency.contractAddress,
+        parseUnits(usdValue.toString(), currency.decimals).toString()
+      ]);
+
+      return await actOnUnknownOpenAction({
+        address: module.contract.address,
+        data: calldata,
+        publicationId: publication.id
+      });
+    } finally {
+      setLoadingRedstonePrice(false);
     }
-
-    const amount = tip.value[0];
-    const usdPrice = await getRedstonePrice(getAssetSymbol(currency.symbol));
-    const usdValue = amount / usdPrice;
-
-    const calldata = encodeAbiParameters(abi, [
-      currency.contractAddress,
-      parseUnits(usdValue.toString(), currency.decimals).toString()
-    ]);
-
-    await actOnUnknownOpenAction({
-      address: module.contract.address,
-      data: calldata,
-      publicationId: publication.id
-    });
   };
 
   return (
@@ -156,6 +159,7 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
           act={act}
           className="mt-5 w-full justify-center"
           icon={<CurrencyDollarIcon className="size-4" />}
+          isLoading={isLoading || loadingRedstonePrice}
           module={module}
           moduleAmount={{
             asset: {
