@@ -14,21 +14,14 @@ import SaveOrCancel from './SaveOrCancel';
 const OpenActionsList: FC = () => {
   const setShowModal = useOpenActionStore((state) => state.setShowModal);
   const screen = useOpenActionStore((state) => state.screen);
-  const setScreen = useOpenActionStore((state) => state.setScreen);
-  const reset = useOpenActionStore((state) => state.reset);
   const selectedOpenAction = useOpenActionStore(
     (state) => state.selectedOpenAction
   );
 
-  const onBack = () => {
-    reset();
-    setScreen(ScreenType.List);
-  };
-
   return (
-    <div className="p-5">
+    <div>
       {screen === ScreenType.List ? (
-        <div>
+        <div className="p-5">
           <OpenActionItem
             description="Add ability to tip"
             icon={<CurrencyDollarIcon className="size-6" />}
@@ -42,7 +35,7 @@ const OpenActionsList: FC = () => {
           />
         </div>
       ) : selectedOpenAction ? (
-        <OpenActionsConfig onBack={onBack} />
+        <OpenActionsConfig />
       ) : null}
     </div>
   );

@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 
 import { SquaresPlusIcon } from '@heroicons/react/24/outline';
+import { ChevronLeftIcon } from '@heroicons/react/24/solid';
 import { Modal, Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
 import {
@@ -11,8 +12,14 @@ import {
 import OpenActionsList from './OpenActionsList';
 
 const OpenActionSettings: FC = () => {
-  const { reset, selectedOpenAction, setScreen, setShowModal, showModal } =
-    useOpenActionStore();
+  const screen = useOpenActionStore((state) => state.screen);
+  const setScreen = useOpenActionStore((state) => state.setScreen);
+  const showModal = useOpenActionStore((state) => state.showModal);
+  const setShowModal = useOpenActionStore((state) => state.setShowModal);
+  const selectedOpenAction = useOpenActionStore(
+    (state) => state.selectedOpenAction
+  );
+  const reset = useOpenActionStore((state) => state.reset);
 
   return (
     <>
@@ -33,13 +40,32 @@ const OpenActionSettings: FC = () => {
         </motion.button>
       </Tooltip>
       <Modal
-        icon={<SquaresPlusIcon className="text-brand-500 size-5" />}
+        icon={
+          screen === ScreenType.List && (
+            <SquaresPlusIcon className="text-brand-500 size-5" />
+          )
+        }
         onClose={() => {
           setShowModal(false);
           reset();
         }}
         show={showModal}
-        title="Open Action Settings"
+        title={
+          screen === ScreenType.List ? (
+            'Open Action Settings'
+          ) : (
+            <button
+              className="flex items-center space-x-2"
+              onClick={() => {
+                reset();
+                setScreen(ScreenType.List);
+              }}
+            >
+              <ChevronLeftIcon className="mt-0.5 size-4 stroke-black" />
+              <div>{selectedOpenAction}</div>
+            </button>
+          )
+        }
       >
         <OpenActionsList />
       </Modal>
