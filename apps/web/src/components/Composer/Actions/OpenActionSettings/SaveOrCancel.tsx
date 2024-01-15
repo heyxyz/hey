@@ -4,10 +4,14 @@ import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenA
 
 interface SaveOrCancelProps {
   onSave: () => void;
+  saveDisabled?: boolean;
 }
 
-const SaveOrCancel: FC<SaveOrCancelProps> = ({ onSave }) => {
-  const { reset, setShowModal, showModal } = useOpenActionStore();
+const SaveOrCancel: FC<SaveOrCancelProps> = ({
+  onSave,
+  saveDisabled = false
+}) => {
+  const { reset, setShowModal } = useOpenActionStore();
 
   return (
     <div className="mt-5 flex space-x-2">
@@ -22,7 +26,7 @@ const SaveOrCancel: FC<SaveOrCancelProps> = ({ onSave }) => {
       >
         Cancel
       </Button>
-      <Button className="ml-auto" onClick={onSave}>
+      <Button disabled={saveDisabled} onClick={onSave}>
         Save
       </Button>
     </div>
