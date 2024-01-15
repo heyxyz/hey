@@ -1,17 +1,14 @@
 import type {
   MirrorablePublication,
-  Profile,
   UnknownOpenActionModuleSettings
 } from '@hey/lens';
 import type { AllowedToken } from '@hey/types/hey';
+import type { Address } from 'viem';
 
 import Loader from '@components/Shared/Loader';
-import SmallUserProfileShimmer from '@components/Shared/Shimmer/SmallUserProfileShimmer';
-import SmallUserProfile from '@components/Shared/SmallUserProfile';
-import WalletProfile from '@components/Shared/WalletProfile';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
-import { useDefaultProfileQuery, useModuleMetadataQuery } from '@hey/lens';
+import { useModuleMetadataQuery } from '@hey/lens';
 import getAllTokens from '@hey/lib/api/getAllTokens';
 import getAssetSymbol from '@hey/lib/getAssetSymbol';
 import getRedstonePrice from '@hey/lib/getRedstonePrice';
@@ -21,7 +18,9 @@ import { type FC, useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN } from 'src/constants';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
-import { decodeAbiParameters, encodeAbiParameters, parseUnits } from 'viem';
+import { useUpdateEffect } from 'usehooks-ts';
+import { encodeAbiParameters, formatUnits, parseUnits } from 'viem';
+import { useAccount, useBalance } from 'wagmi';
 
 import TipAction from './TipAction';
 
@@ -37,9 +36,28 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
   const [selectedCurrency, setSelectedCurrency] = useState<AllowedToken | null>(
     null
   );
+  const [usdPrice, setUsdPrice] = useState(0);
   const [tip, setTip] = useState({
     currency: DEFAULT_COLLECT_TOKEN,
     value: [5]
+  });
+
+  const { address } = useAccount();
+
+  const getUsdPrice = async () => {
+    const usdPrice = await getRedstonePrice(
+      getAssetSymbol(selectedCurrency?.symbol as string)
+    );
+    setUsdPrice(usdPrice);
+  };
+
+  useUpdateEffect(() => {
+    getUsdPrice();
+  }, [selectedCurrency]);
+
+  const { data: balanceData } = useBalance({
+    address,
+    token: selectedCurrency?.contractAddress as Address
   });
 
   const { data, loading } = useModuleMetadataQuery({
@@ -48,15 +66,10 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
   });
 
   const metadata = data?.moduleMetadata?.metadata;
-  const decoded = decodeAbiParameters(
-    JSON.parse(metadata?.initializeCalldataABI ?? '{}'),
-    module?.initializeCalldata
-  );
 
-  const { actOnUnknownOpenAction } = useActOnUnknownOpenAction({
-    onCompleted: () => {},
-    onError: () => {},
-    signlessApproved: module.signlessApproved
+  const { actOnUnknownOpenAction, isLoading } = useActOnUnknownOpenAction({
+    signlessApproved: module.signlessApproved,
+    successToast: "You've sent a tip!"
   });
 
   const { data: allowedTokens, isLoading: loadingAllowedTokens } = useQuery({
@@ -64,18 +77,11 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
       getAllTokens((tokens) =>
         setSelectedCurrency(
           tokens.find(
-            (token) =>
-              token.contractAddress.toLowerCase() ===
-              DEFAULT_COLLECT_TOKEN.toLowerCase()
+            (token) => token.contractAddress === DEFAULT_COLLECT_TOKEN
           ) as AllowedToken
         )
       ),
     queryKey: ['getAllTokens']
-  });
-
-  const { data: profile, loading: loadingProfile } = useDefaultProfileQuery({
-    skip: !Boolean(decoded[0]),
-    variables: { request: { for: decoded[0] } }
   });
 
   if (loading || loadingAllowedTokens) {
@@ -87,6 +93,10 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
   }
 
   const act = async () => {
+    if (usdPrice === 0) {
+      return toast.error('Failed to get USD price');
+    }
+
     const abi = JSON.parse(metadata?.processCalldataABI);
     const currency = allowedTokens?.find(
       (token) => token.contractAddress === tip.currency
@@ -97,7 +107,6 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
     }
 
     const amount = tip.value[0];
-    const usdPrice = await getRedstonePrice(getAssetSymbol(currency.symbol));
     const usdValue = amount / usdPrice;
 
     const calldata = encodeAbiParameters(abi, [
@@ -105,35 +114,35 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
       parseUnits(usdValue.toString(), currency.decimals).toString()
     ]);
 
-    await actOnUnknownOpenAction({
+    return await actOnUnknownOpenAction({
       address: module.contract.address,
       data: calldata,
       publicationId: publication.id
     });
   };
 
+  const balance = balanceData
+    ? parseFloat(
+        formatUnits(balanceData.value, selectedCurrency?.decimals as number)
+      ).toFixed(selectedCurrency?.symbol === 'WETH' ? 4 : 2)
+    : 0;
+
   return (
     <div className="space-y-3 p-5">
-      <div className="flex items-center space-x-2 text-lg">
-        <b>Send Tip to</b>
-        <div>
-          {loadingProfile ? (
-            <SmallUserProfileShimmer />
-          ) : profile ? (
-            <SmallUserProfile profile={profile.defaultProfile as Profile} />
-          ) : (
-            <WalletProfile address={decoded[0]} />
-          )}
+      <div className="flex items-center justify-between">
+        <div className="space-y-0.5">
+          <span className="space-x-1 text-2xl">
+            <span>$</span>
+            <b>{tip.value[0]}</b>
+          </span>
+          <div className="ld-text-gray-500 text-sm">
+            {(tip.value[0] / usdPrice).toFixed(
+              selectedCurrency?.symbol === 'WETH' ? 4 : 2
+            )}{' '}
+            {selectedCurrency?.symbol}
+          </div>
         </div>
-      </div>
-      <div className="flex items-center space-x-3 pb-3">
-        <RangeSlider
-          displayValue={`$${tip.value[0]}`}
-          min={1}
-          onValueChange={(value) => setTip({ ...tip, value })}
-          value={tip.value}
-        />
-        <div className="w-2/6">
+        <div className="flex w-5/12 flex-col items-end space-y-1">
           <Select
             defaultValue={DEFAULT_COLLECT_TOKEN}
             onChange={(e) => {
@@ -145,17 +154,26 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
               );
             }}
             options={allowedTokens?.map((token) => ({
-              label: token.symbol,
+              label: token.name,
               value: token.contractAddress
             }))}
           />
+          <div className="ld-text-gray-500 text-sm">Balance: {balance}</div>
         </div>
+      </div>
+      <div className="pb-3 pt-5">
+        <RangeSlider
+          min={1}
+          onValueChange={(value) => setTip({ ...tip, value })}
+          value={tip.value}
+        />
       </div>
       {selectedCurrency ? (
         <TipAction
           act={act}
           className="mt-5 w-full justify-center"
           icon={<CurrencyDollarIcon className="size-4" />}
+          isLoading={isLoading}
           module={module}
           moduleAmount={{
             asset: {
