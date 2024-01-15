@@ -32,7 +32,7 @@ const CollectSettings: FC = () => {
           reset();
         }}
         show={showModal}
-        title="Collect settings"
+        title="Collect Settings"
       >
         <CollectForm setShowModal={setShowModal} />
       </Modal>
