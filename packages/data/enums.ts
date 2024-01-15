@@ -22,5 +22,5 @@ export const AlgorithmProvider = {
 };
 
 export enum OpenAction {
-  Tip = 'TIP'
+  Tip = 'Tip'
 }
