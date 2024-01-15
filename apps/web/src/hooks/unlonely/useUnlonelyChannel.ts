@@ -18,10 +18,9 @@ const useUnlonelyChannel = ({
   loading: boolean;
 } => {
   const getUnlonelyChannelDetails = async () => {
-    const response = await axios.get(
-      `${HEY_API_URL}/nft/unlonely/getUnlonelyChannel`,
-      { params: { slug } }
-    );
+    const response = await axios.get(`${HEY_API_URL}/nfts/unlonely/channel`, {
+      params: { slug }
+    });
 
     return response.data?.channel;
   };
@@ -29,7 +28,8 @@ const useUnlonelyChannel = ({
   const { data, error, isLoading } = useQuery({
     enabled,
     queryFn: getUnlonelyChannelDetails,
-    queryKey: ['getUnlonelyChannelDetails', slug]
+    queryKey: ['getUnlonelyChannelDetails', slug],
+    refetchOnMount: false
   });
 
   return { data, error, loading: isLoading };

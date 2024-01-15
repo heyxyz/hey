@@ -23,7 +23,7 @@ const useZoraNft = ({
 } => {
   // TODO: make this type safe
   const getZoraNftDetails = async () => {
-    const { data } = await axios.get(`${HEY_API_URL}/nft/getZoraNft`, {
+    const { data } = await axios.get(`${HEY_API_URL}/nfts/zora/nft`, {
       params: { address, chain, token }
     });
 
@@ -37,7 +37,8 @@ const useZoraNft = ({
   const { data, error, isLoading } = useQuery({
     enabled,
     queryFn: getZoraNftDetails,
-    queryKey: ['getZoraNftDetails', chain, address, token]
+    queryKey: ['getZoraNftDetails', chain, address, token],
+    refetchOnMount: false
   });
 
   return { data, error, loading: isLoading };

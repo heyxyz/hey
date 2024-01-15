@@ -3,7 +3,7 @@ import type { FC } from 'react';
 
 import { HEY_API_URL } from '@hey/data/constants';
 import { Button, Form, Input, useZodForm } from '@hey/ui';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -34,9 +34,9 @@ const Create: FC<CreateProps> = ({
     setCreating(true);
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/feature/create`,
+        `${HEY_API_URL}/internal/features/create`,
         { key },
-        { headers: getAuthWorkerHeaders() }
+        { headers: getAuthApiHeaders() }
       ),
       {
         error: () => {

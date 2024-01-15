@@ -1,0 +1,26 @@
+name: Lock Issue
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  lock:
+    name: Lock Issue
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lock Issue
+        uses: dessant/lock-threads@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          issue-comment: |
+            This issue has been locked since it has been closed for more than 10 days.
+
+            If you found a concrete bug or regression related to it, please open a new [bug report](https://github.com/heyxyz/hey/issues/new/choose).
+          issue-lock-reason: ''
+          issue-inactive-days: '10'
+          process-only: 'issues'

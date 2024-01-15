@@ -15,19 +15,17 @@ import { APP_NAME, HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
 import getPreferences from '@hey/lib/api/getPreferences';
 import formatAddress from '@hey/lib/formatAddress';
 import getFollowModule from '@hey/lib/getFollowModule';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Link from 'next/link';
 
 import MetaDetails from '../../../../Shared/Staff/MetaDetails';
-import Access from './Access';
 import FeatureFlags from './FeatureFlags';
 import LeafwatchDetails from './LeafwatchDetails';
 import ManagedProfiles from './ManagedProfiles';
 import OnchainIdentities from './OnchainIdentities';
 import Rank from './Rank';
-import Restrictions from './Restrictions';
 
 interface ProfileStaffToolProps {
   profile: Profile;
@@ -52,7 +50,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
   });
 
   const { data: preferences } = useQuery({
-    queryFn: () => getPreferences(profile.id, getAuthWorkerHeaders()),
+    queryFn: () => getPreferences(profile.id, getAuthApiHeaders()),
     queryKey: ['fetchPreferences', profile.id || '']
   });
 
@@ -159,21 +157,10 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         </>
       ) : null}
       {preferences ? (
-        <>
-          <Access
-            isPro={preferences.pro?.enabled || false}
-            profileId={profile.id}
-          />
-          <Restrictions
-            profileId={profile.id}
-            restrictions={preferences.restrictions}
-          />
-          <div className="divider my-5 border-dashed border-yellow-600" />
-          <FeatureFlags
-            features={preferences.features || []}
-            profileId={profile.id}
-          />
-        </>
+        <FeatureFlags
+          features={preferences.features || []}
+          profileId={profile.id}
+        />
       ) : null}
       <div className="divider my-5 border-dashed border-yellow-600" />
       <ManagedProfiles address={profile.ownedBy.address} />

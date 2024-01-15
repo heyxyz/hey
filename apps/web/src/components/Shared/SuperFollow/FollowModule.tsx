@@ -35,7 +35,8 @@ import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useBalance, useContractWrite, useSignTypedData } from 'wagmi';
+import { formatUnits } from 'viem';
+import { useBalance, useSignTypedData, useWriteContract } from 'wagmi';
 
 import Loader from '../Loader';
 import NoBalanceError from '../NoBalanceError';
@@ -100,20 +101,28 @@ const FollowModule: FC<FollowModuleProps> = ({
     errorToast(error);
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ onError });
-  const { write } = useContractWrite({
-    abi: LensHub,
-    address: LENSHUB_PROXY,
-    functionName: 'follow',
-    onError: (error) => {
-      onError(error);
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
-    },
-    onSuccess: () => {
-      onCompleted();
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
+  const { writeContract } = useWriteContract({
+    mutation: {
+      onError: (error) => {
+        onError(error);
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+      },
+      onSuccess: () => {
+        onCompleted();
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+      }
     }
   });
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      abi: LensHub,
+      address: LENSHUB_PROXY,
+      args,
+      functionName: 'follow'
+    });
+  };
 
   const { data, loading } = useProfileQuery({
     skip: !profile?.id,
@@ -128,6 +137,7 @@ const FollowModule: FC<FollowModuleProps> = ({
 
   const { data: allowanceData, loading: allowanceLoading } =
     useApprovedModuleAllowanceAmountQuery({
+      fetchPolicy: 'no-cache',
       onCompleted: ({ approvedModuleAllowanceAmount }) => {
         const allowedAmount = parseFloat(
           approvedModuleAllowanceAmount[0]?.allowance.value
@@ -147,13 +157,17 @@ const FollowModule: FC<FollowModuleProps> = ({
 
   const { data: balanceData } = useBalance({
     address: currentProfile?.ownedBy.address,
-    formatUnits: followModule?.amount?.asset?.decimals,
-    token: followModule?.amount?.asset?.contract.address,
-    watch: true
+    query: { refetchInterval: 2000 },
+    token: followModule?.amount?.asset?.contract.address
   });
   let hasAmount = false;
 
-  if (balanceData && parseFloat(balanceData?.formatted) < amount) {
+  if (
+    balanceData &&
+    parseFloat(
+      formatUnits(balanceData.value, followModule?.amount?.asset?.decimals)
+    ) < amount
+  ) {
     hasAmount = false;
   } else {
     hasAmount = true;

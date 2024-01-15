@@ -48,6 +48,12 @@ export const PUBLICATION = {
   },
   COPY_TEXT: 'Copy publication text',
   DELETE: 'Delete publication',
+  LENS_OPEN_ACTIONS: {
+    TIP: {
+      OPEN_TIP: 'Open tip modal',
+      TIP: 'Tip publication'
+    }
+  },
   LIKE: 'Like publication',
   MIRROR: 'Mirror publication',
   NEW_COMMENT: 'New comment',
@@ -108,7 +114,7 @@ export const HOME = {
   SELECT_USER_FEED: 'Select user feed',
   SWITCH_FOLLOWING_FEED: 'Switch to following feed',
   SWITCH_HIGHLIGHTS_FEED: 'Switch to highlights feed',
-  SWITCH_PAID_ACTIONS_FEED: 'Switch to paid actions feed'
+  SWITCH_PREMIUM_FEED: 'Switch to premium feed'
 };
 
 export const EXPLORE = {

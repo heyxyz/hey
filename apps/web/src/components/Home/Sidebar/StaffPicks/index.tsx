@@ -7,9 +7,9 @@ import { CursorArrowRippleIcon as CursorArrowRippleIconOutline } from '@heroicon
 import { CursorArrowRippleIcon as CursorArrowRippleIconSolid } from '@heroicons/react/24/solid';
 import { HEY_API_URL } from '@hey/data/constants';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { motion } from 'framer-motion';
-import { useQuery } from 'wagmi';
 
 import StaffPickedGroup from './StaffPickedGroup';
 import StaffPickedProfile from './StaffPickedProfile';
@@ -27,7 +27,7 @@ const StaffPicks: FC = () => {
   const fetchStaffPicks = async (): Promise<StaffPick[]> => {
     const response: {
       data: { result: StaffPick[] };
-    } = await axios.get(`${HEY_API_URL}/staff-pick/getStaffPicks`);
+    } = await axios.get(`${HEY_API_URL}/staff-picks`);
 
     return response.data.result;
   };
@@ -36,7 +36,7 @@ const StaffPicks: FC = () => {
     data: picks,
     error,
     isLoading
-  } = useQuery(['fetchStaffPicks'], () => fetchStaffPicks().then((res) => res));
+  } = useQuery({ queryFn: fetchStaffPicks, queryKey: ['fetchStaffPicks'] });
 
   if (isLoading) {
     return (

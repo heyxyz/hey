@@ -16,7 +16,7 @@ const PublicationWrapper: FC<PublicationWrapperProps> = ({
   className = '',
   publication
 }) => {
-  const { push } = useRouter();
+  const { pathname, push } = useRouter();
 
   return (
     <motion.article
@@ -25,6 +25,10 @@ const PublicationWrapper: FC<PublicationWrapperProps> = ({
       exit={{ opacity: 0 }}
       initial={{ opacity: 0 }}
       onClick={() => {
+        if (pathname === '/mod') {
+          return;
+        }
+
         const selection = window.getSelection();
         if (!selection || selection.toString().length === 0) {
           push(`/posts/${publication?.id}`);

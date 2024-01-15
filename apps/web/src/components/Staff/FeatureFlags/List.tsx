@@ -11,7 +11,7 @@ import { HEY_API_URL } from '@hey/data/constants';
 import getAllFeatureFlags from '@hey/lib/api/getAllFeatureFlags';
 import formatDate from '@hey/lib/datetime/formatDate';
 import { Badge, Button, Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
@@ -26,7 +26,7 @@ const List: FC = () => {
 
   const { error, isLoading } = useQuery({
     queryFn: () =>
-      getAllFeatureFlags(getAuthWorkerHeaders(), (features) =>
+      getAllFeatureFlags(getAuthApiHeaders(), (features) =>
         setFeatures(features)
       ),
     queryKey: ['getAllFeatureFlags']
@@ -36,9 +36,9 @@ const List: FC = () => {
     setKilling(true);
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/feature/kill`,
+        `${HEY_API_URL}/internal/features/kill`,
         { enabled, id },
-        { headers: getAuthWorkerHeaders() }
+        { headers: getAuthApiHeaders() }
       ),
       {
         error: () => {
@@ -62,9 +62,9 @@ const List: FC = () => {
   const deleteFeatureFlag = async (id: string) => {
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/feature/delete`,
+        `${HEY_API_URL}/internal/features/delete`,
         { id },
-        { headers: getAuthWorkerHeaders() }
+        { headers: getAuthApiHeaders() }
       ),
       {
         error: 'Failed to delete feature flag',
@@ -102,10 +102,7 @@ const List: FC = () => {
         ) : (
           <div className="space-y-5">
             {features?.map((feature) => (
-              <div
-                className="flex items-center justify-between"
-                key={feature.id}
-              >
+              <div key={feature.id}>
                 <ToggleWithHelper
                   description={`Created on ${formatDate(
                     feature.createdAt
@@ -120,13 +117,20 @@ const List: FC = () => {
                   on={feature.enabled}
                   setOn={() => killFeatureFlag(feature.id, !feature.enabled)}
                 />
-                {feature.type === 'FEATURE' && (
-                  <Button
-                    icon={<TrashIcon className="size-4" />}
-                    onClick={() => deleteFeatureFlag(feature.id)}
-                    outline
-                  />
-                )}
+                <div>
+                  {feature.type === 'FEATURE' && (
+                    <Button
+                      className="mt-2"
+                      icon={<TrashIcon className="size-4" />}
+                      onClick={() => deleteFeatureFlag(feature.id)}
+                      outline
+                      size="sm"
+                      variant="danger"
+                    >
+                      Delete
+                    </Button>
+                  )}
+                </div>
               </div>
             ))}
           </div>

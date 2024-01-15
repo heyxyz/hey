@@ -21,7 +21,7 @@ const useSoundRelease = ({
 } => {
   // TODO: make this type safe
   const getSoundReleaseDetails = async () => {
-    const { data } = await axios.get(`${HEY_API_URL}/nft/getSoundRelease`, {
+    const { data } = await axios.get(`${HEY_API_URL}/nfts/sound/release`, {
       params: { handle, slug }
     });
 
@@ -31,7 +31,8 @@ const useSoundRelease = ({
   const { data, error, isLoading } = useQuery({
     enabled,
     queryFn: getSoundReleaseDetails,
-    queryKey: ['getSoundReleaseDetails', handle, slug]
+    queryKey: ['getSoundReleaseDetails', handle, slug],
+    refetchOnMount: false
   });
 
   return { data, error, loading: isLoading };

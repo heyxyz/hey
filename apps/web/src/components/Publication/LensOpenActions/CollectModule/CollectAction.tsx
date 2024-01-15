@@ -5,7 +5,7 @@ import type {
   LegacyCollectRequest,
   OpenActionModule
 } from '@hey/lens';
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import { useApolloClient } from '@apollo/client';
 import AllowanceButton from '@components/Settings/Allowance/Button';
@@ -30,6 +30,7 @@ import getOpenActionActOnKey from '@hey/lib/getOpenActionActOnKey';
 import getSignature from '@hey/lib/getSignature';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Button, Spinner, WarningMessage } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import getCurrentSession from '@lib/getCurrentSession';
 import { Leafwatch } from '@lib/leafwatch';
@@ -39,26 +40,34 @@ import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { isAddress } from 'viem';
+import { formatUnits, isAddress } from 'viem';
 import {
   useAccount,
   useBalance,
-  useContractWrite,
-  useSignTypedData
+  useSignTypedData,
+  useWriteContract
 } from 'wagmi';
 
 interface CollectActionProps {
+  buttonTitle?: string;
+  className?: string;
   countOpenActions: number;
+  forceShowCollect?: boolean;
+  noBalanceErrorMessages?: ReactNode;
+  onCollectSuccess?: () => void;
   openAction: OpenActionModule;
   publication: AnyPublication;
-  setCountOpenActions: (count: number) => void;
 }
 
 const CollectAction: FC<CollectActionProps> = ({
+  buttonTitle = 'Collect now',
+  className = '',
   countOpenActions,
+  forceShowCollect = false,
+  noBalanceErrorMessages,
+  onCollectSuccess = () => {},
   openAction,
-  publication,
-  setCountOpenActions
+  publication
 }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const { isSuspended } = useProfileRestriction();
@@ -95,7 +104,7 @@ const CollectAction: FC<CollectActionProps> = ({
   const collectLimit = collectModule?.collectLimit;
   const amount = collectModule?.amount as number;
   const assetAddress = collectModule?.assetAddress as any;
-  const assetDecimals = collectModule?.assetDecimals;
+  const assetDecimals = collectModule?.assetDecimals as number;
   const isAllCollected = collectLimit
     ? countOpenActions >= collectLimit
     : false;
@@ -117,22 +126,22 @@ const CollectAction: FC<CollectActionProps> = ({
   const canUseManager =
     canUseLensManager && !collectModule?.followerOnly && isFreeCollectModule;
 
-  const canCollect =
-    !hasActed || (!isFreeCollectModule && !isSimpleFreeCollectModule);
+  const canCollect = forceShowCollect
+    ? true
+    : !hasActed || (!isFreeCollectModule && !isSimpleFreeCollectModule);
 
   const updateCache = () => {
     cache.modify({
       fields: {
         operations: (existingValue) => {
-          return { ...existingValue, hasActed: { value: !hasActed } };
+          return { ...existingValue, hasActed: { value: true } };
         }
       },
       id: cache.identify(targetPublication)
     });
     cache.modify({
       fields: {
-        countOpenActions: () =>
-          hasActed ? countOpenActions - 1 : countOpenActions + 1
+        countOpenActions: () => countOpenActions + 1
       },
       id: cache.identify(targetPublication.stats)
     });
@@ -154,7 +163,8 @@ const CollectAction: FC<CollectActionProps> = ({
     }
 
     setHasActed(true);
-    setCountOpenActions(countOpenActions + 1);
+    setIsLoading(false);
+    onCollectSuccess?.();
     updateCache();
     toast.success('Collected successfully!');
     Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
@@ -163,35 +173,43 @@ const CollectAction: FC<CollectActionProps> = ({
     });
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ onError });
-
+  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const walletUserFunctionName = 'publicCollect';
   const profileUserFunctionName = isLegacyCollectModule
     ? 'collectLegacy'
     : 'act';
 
-  const { write } = useContractWrite({
-    abi: (isWalletUser ? PublicAct : LensHub) as any,
-    address: isWalletUser ? PUBLICACT_PROXY : LENSHUB_PROXY,
-    functionName: isWalletUser
-      ? walletUserFunctionName
-      : profileUserFunctionName,
-    onError: (error) => {
-      onError(error);
-      if (!isWalletUser) {
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
-      }
-    },
-    onSuccess: () => {
-      onCompleted();
-      if (!isWalletUser) {
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+  const { writeContract } = useWriteContract({
+    mutation: {
+      onError: (error) => {
+        onError(error);
+        if (!isWalletUser) {
+          setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+        }
+      },
+      onSuccess: () => {
+        onCompleted();
+        if (!isWalletUser) {
+          setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+        }
       }
     }
   });
 
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      abi: (isWalletUser ? PublicAct : LensHub) as any,
+      address: isWalletUser ? PUBLICACT_PROXY : LENSHUB_PROXY,
+      args,
+      functionName: isWalletUser
+        ? walletUserFunctionName
+        : profileUserFunctionName
+    });
+  };
+
   const { data: allowanceData, loading: allowanceLoading } =
     useApprovedModuleAllowanceAmountQuery({
+      fetchPolicy: 'no-cache',
       onCompleted: ({ approvedModuleAllowanceAmount }) => {
         const allowedAmount = parseFloat(
           approvedModuleAllowanceAmount[0]?.allowance.value
@@ -211,13 +229,15 @@ const CollectAction: FC<CollectActionProps> = ({
 
   const { data: balanceData } = useBalance({
     address,
-    formatUnits: assetDecimals,
-    token: assetAddress,
-    watch: true
+    query: { refetchInterval: 2000 },
+    token: assetAddress
   });
 
   let hasAmount = false;
-  if (balanceData && parseFloat(balanceData?.formatted) < amount) {
+  if (
+    balanceData &&
+    parseFloat(formatUnits(balanceData.value, assetDecimals)) < amount
+  ) {
     hasAmount = false;
   } else {
     hasAmount = true;
@@ -379,22 +399,23 @@ const CollectAction: FC<CollectActionProps> = ({
   }
 
   if (allowanceLoading) {
-    return <div className="shimmer mt-5 h-[34px] w-28 rounded-lg" />;
+    return (
+      <div className={cn('shimmer mt-5 h-[34px] w-28 rounded-lg', className)} />
+    );
   }
 
   if (!allowed) {
     return (
-      <span className="mt-5">
-        <AllowanceButton
-          allowed={allowed}
-          module={
-            allowanceData
-              ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult
-          }
-          setAllowed={setAllowed}
-          title="Allow collect module"
-        />
-      </span>
+      <AllowanceButton
+        allowed={allowed}
+        className={cn('mt-5', className)}
+        module={
+          allowanceData
+            ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult
+        }
+        setAllowed={setAllowed}
+        title="Allow collect module"
+      />
     );
   }
 
@@ -408,14 +429,19 @@ const CollectAction: FC<CollectActionProps> = ({
     return (
       <WarningMessage
         className="mt-5 w-full"
-        message={<NoBalanceError moduleAmount={openAction.amount} />}
+        message={
+          <NoBalanceError
+            errorMessage={noBalanceErrorMessages}
+            moduleAmount={openAction.amount}
+          />
+        }
       />
     );
   }
 
   return (
     <Button
-      className="mt-5"
+      className={cn('mt-5', className)}
       disabled={isLoading}
       icon={
         isLoading ? (
@@ -426,7 +452,7 @@ const CollectAction: FC<CollectActionProps> = ({
       }
       onClick={createCollect}
     >
-      Collect now
+      {buttonTitle}
     </Button>
   );
 };

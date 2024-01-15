@@ -14,7 +14,7 @@ import humanize from '@hey/lib/humanize';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Card, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import plur from 'plur';
@@ -53,9 +53,9 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
       setSelectedOption(id);
 
       await axios.post(
-        `${HEY_API_URL}/poll/act`,
+        `${HEY_API_URL}/polls/act`,
         { option: id, poll: poll.id },
-        { headers: getAuthWorkerHeaders() }
+        { headers: getAuthApiHeaders() }
       );
 
       refetch?.();

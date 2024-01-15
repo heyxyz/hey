@@ -18,7 +18,7 @@ const useBasePaintCanvas = ({
   loading: boolean;
 } => {
   const getBasePaintCanvasMetadata = async () => {
-    const response = await axios.get(`${HEY_API_URL}/nft/getBasePaintCanvas`, {
+    const response = await axios.get(`${HEY_API_URL}/nfts/basepaint/canvas`, {
       params: { id }
     });
 
@@ -28,7 +28,8 @@ const useBasePaintCanvas = ({
   const { data, error, isLoading } = useQuery({
     enabled,
     queryFn: getBasePaintCanvasMetadata,
-    queryKey: ['getBasePaintCanvasMetadata', id]
+    queryKey: ['getBasePaintCanvasMetadata', id],
+    refetchOnMount: false
   });
 
   return { data, error, loading: isLoading };

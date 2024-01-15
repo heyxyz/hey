@@ -13,6 +13,7 @@ import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import MenuItems from './MenuItems';
+import ModIcon from './ModIcon';
 import MoreNavItems from './MoreNavItems';
 import Search from './Search';
 import StaffBar from './StaffBar';
@@ -21,7 +22,7 @@ const Navbar: FC = () => {
   const router = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
-  const preferences = usePreferencesStore((state) => state.preferences);
+  const isPride = usePreferencesStore((state) => state.isPride);
   const [showSearch, setShowSearch] = useState(false);
 
   const onProfileSelected = (profile: Profile) => {
@@ -93,7 +94,7 @@ const Navbar: FC = () => {
                 alt="Logo"
                 className="size-8"
                 height={32}
-                src={preferences.isPride ? '/pride.png' : '/logo.png'}
+                src={isPride ? '/pride.png' : '/logo.png'}
                 width={32}
               />
             </Link>
@@ -114,12 +115,17 @@ const Navbar: FC = () => {
               alt="Logo"
               className="size-7"
               height={32}
-              src={preferences.isPride ? '/pride.png' : '/logo.png'}
+              src={isPride ? '/pride.png' : '/logo.png'}
               width={32}
             />
           </Link>
           <div className="flex items-center gap-4">
-            {currentProfile ? <NotificationIcon /> : null}
+            {currentProfile ? (
+              <>
+                <ModIcon />
+                <NotificationIcon />
+              </>
+            ) : null}
             <MenuItems />
           </div>
         </div>

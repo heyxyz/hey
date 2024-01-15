@@ -89,7 +89,8 @@ const MobileDrawerMenu: FC = () => {
               className={cn(itemClass, 'px-4')}
               onClick={closeDrawer}
             />
-            {isFeatureEnabled(FeatureFlag.Gardener) ? (
+            {isFeatureEnabled(FeatureFlag.Gardener) ||
+            isFeatureEnabled(FeatureFlag.TrustedProfile) ? (
               <Link href="/mod" onClick={closeDrawer}>
                 <Mod className={cn(itemClass, 'px-4')} />
               </Link>

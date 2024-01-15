@@ -7,14 +7,11 @@ import {
 } from '@heroicons/react/24/outline';
 import { IS_MAINNET } from '@hey/data/constants';
 import { HomeFeedType } from '@hey/data/enums';
-import { FeatureFlag } from '@hey/data/feature-flags';
 import { HOME } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 
 import Algorithms from './Algorithms';
-import FeedEventFilters from './FeedEventFilters';
 import SeeThroughLens from './SeeThroughLens';
 
 interface FeedTypeProps {
@@ -44,24 +41,21 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
             Leafwatch.track(HOME.SWITCH_HIGHLIGHTS_FEED);
           }}
         />
-        {isFeatureEnabled(FeatureFlag.LensMember) ? (
-          <TabButton
-            active={feedType === HomeFeedType.PAID_ACTIONS}
-            icon={<CurrencyDollarIcon className="size-4" />}
-            name="Paid actions"
-            onClick={() => {
-              setFeedType(HomeFeedType.PAID_ACTIONS);
-              Leafwatch.track(HOME.SWITCH_PAID_ACTIONS_FEED);
-            }}
-          />
-        ) : null}
+        <TabButton
+          active={feedType === HomeFeedType.PREMIUM}
+          icon={<CurrencyDollarIcon className="size-4" />}
+          name="Premium"
+          onClick={() => {
+            setFeedType(HomeFeedType.PREMIUM);
+            Leafwatch.track(HOME.SWITCH_PREMIUM_FEED);
+          }}
+        />
       </div>
       <div className="flex items-center space-x-4">
         {feedType === HomeFeedType.FOLLOWING ||
         feedType === HomeFeedType.HIGHLIGHTS ? (
           <SeeThroughLens />
         ) : null}
-        {feedType === HomeFeedType.FOLLOWING ? <FeedEventFilters /> : null}
         {IS_MAINNET ? <Algorithms /> : null}
       </div>
     </div>

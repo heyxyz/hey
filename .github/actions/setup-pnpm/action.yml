@@ -1,0 +1,18 @@
+name: Docker Build and Push
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup pnpm 🌸
+      uses: pnpm/action-setup@v2.2.4
+
+    - name: Setup node 🍀
+      uses: actions/setup-node@v3
+      with:
+        check-latest: true
+        node-version-file: '.nvmrc'
+        cache: 'pnpm'
+
+    - name: Bootstrap 📦
+      shell: bash
+      run: script/bootstrap

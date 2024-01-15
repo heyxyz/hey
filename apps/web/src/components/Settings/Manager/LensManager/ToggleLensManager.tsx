@@ -23,7 +23,7 @@ import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { hydrateTbaStatus } from 'src/store/persisted/useTbaStatusStore';
-import { useContractWrite, useSignTypedData } from 'wagmi';
+import { useSignTypedData, useWriteContract } from 'wagmi';
 
 interface ToggleLensManagerProps {
   buttonSize?: 'sm';
@@ -62,20 +62,28 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
     errorToast(error);
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ onError });
-  const { data: writeData, write } = useContractWrite({
-    abi: LensHub,
-    address: LENSHUB_PROXY,
-    functionName: 'changeDelegatedExecutorsConfig',
-    onError: (error) => {
-      onError(error);
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
-    },
-    onSuccess: () => {
-      onCompleted();
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
+  const { data: writeHash, writeContract } = useWriteContract({
+    mutation: {
+      onError: (error) => {
+        onError(error);
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+      },
+      onSuccess: () => {
+        onCompleted();
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+      }
     }
   });
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      abi: LensHub,
+      address: LENSHUB_PROXY,
+      args,
+      functionName: 'changeDelegatedExecutorsConfig'
+    });
+  };
 
   const [broadcastOnchain, { data: broadcastData }] =
     useBroadcastOnchainMutation({
@@ -143,9 +151,9 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
     broadcastData?.broadcastOnchain.__typename === 'RelaySuccess' &&
     broadcastData.broadcastOnchain.txId;
 
-  return writeData?.hash || broadcastTxId ? (
+  return writeHash || broadcastTxId ? (
     <div className="mt-2">
-      <IndexStatus reload txHash={writeData?.hash} txId={broadcastTxId} />
+      <IndexStatus reload txHash={writeHash} txId={broadcastTxId} />
     </div>
   ) : (
     <Button

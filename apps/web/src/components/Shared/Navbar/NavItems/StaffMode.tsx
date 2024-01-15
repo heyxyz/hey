@@ -4,36 +4,32 @@ import { ShieldCheckIcon as ShieldCheckIconOutline } from '@heroicons/react/24/o
 import { ShieldCheckIcon as ShieldCheckIconSolid } from '@heroicons/react/24/solid';
 import { HEY_API_URL } from '@hey/data/constants';
 import { STAFFTOOLS } from '@hey/data/tracking';
-import getPreferences from '@hey/lib/api/getPreferences';
 import cn from '@hey/ui/cn';
-import getAuthWorkerHeaders from '@lib/getAuthWorkerHeaders';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface StaffModeProps {
   className?: string;
 }
 
 const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
   const setStaffMode = useFeatureFlagsStore((state) => state.setStaffMode);
 
   const toggleStaffMode = async () => {
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/feature/updateStaffMode`,
+        `${HEY_API_URL}/internal/features/staffMode`,
         { enabled: !staffMode },
-        { headers: getAuthWorkerHeaders() }
+        { headers: getAuthApiHeaders() }
       ),
       {
         error: 'Failed to toggle staff mode!',
         loading: 'Toggling staff mode...',
         success: () => {
-          getPreferences(currentProfile?.id, getAuthWorkerHeaders());
           setStaffMode(!staffMode);
           Leafwatch.track(STAFFTOOLS.TOGGLE_MODE);
 
