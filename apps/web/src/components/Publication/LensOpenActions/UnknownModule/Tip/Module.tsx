@@ -121,12 +121,11 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
     });
   };
 
-  const balance = parseFloat(
-    formatUnits(
-      balanceData?.value as bigint,
-      selectedCurrency?.decimals as number
-    )
-  ).toFixed(selectedCurrency?.symbol === 'WETH' ? 4 : 2);
+  const balance = balanceData
+    ? parseFloat(
+        formatUnits(balanceData.value, selectedCurrency?.decimals as number)
+      ).toFixed(selectedCurrency?.symbol === 'WETH' ? 4 : 2)
+    : 0;
 
   return (
     <div className="space-y-3 p-5">
