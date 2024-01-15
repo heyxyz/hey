@@ -2,33 +2,23 @@ import type { FC } from 'react';
 
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { OpenAction } from '@hey/data/enums';
-import { useState } from 'react';
-import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
+import {
+  ScreenType,
+  useOpenActionStore
+} from 'src/store/non-persisted/publication/useOpenActionStore';
 
 import OpenActionItem from './OpenActionItem';
 import OpenActionsConfig from './OpenActionsConfig';
 import SaveOrCancel from './SaveOrCancel';
 
-export enum ScreenType {
-  Config = 'CONFIG',
-  List = 'LIST'
-}
-
 const OpenActionsList: FC = () => {
-  const [screen, setScreen] = useState<ScreenType>(ScreenType.List);
   const setShowModal = useOpenActionStore((state) => state.setShowModal);
+  const screen = useOpenActionStore((state) => state.screen);
+  const setScreen = useOpenActionStore((state) => state.setScreen);
   const reset = useOpenActionStore((state) => state.reset);
   const selectedOpenAction = useOpenActionStore(
     (state) => state.selectedOpenAction
   );
-  const setSelectedOpenAction = useOpenActionStore(
-    (state) => state.setSelectedOpenAction
-  );
-
-  const onOpenActionSelected = (name: OpenAction) => {
-    setScreen(ScreenType.Config);
-    setSelectedOpenAction(name);
-  };
 
   const onBack = () => {
     reset();
@@ -42,9 +32,9 @@ const OpenActionsList: FC = () => {
           <OpenActionItem
             description="Add ability to tip"
             icon={<CurrencyDollarIcon className="size-6" />}
-            onClick={() => onOpenActionSelected(OpenAction.Tip)}
             selected={selectedOpenAction === OpenAction.Tip}
             title="Tipping"
+            type={OpenAction.Tip}
           />
           <SaveOrCancel
             onSave={() => setShowModal(false)}
@@ -52,7 +42,7 @@ const OpenActionsList: FC = () => {
           />
         </div>
       ) : selectedOpenAction ? (
-        <OpenActionsConfig name={selectedOpenAction} onBack={onBack} />
+        <OpenActionsConfig onBack={onBack} />
       ) : null}
     </div>
   );

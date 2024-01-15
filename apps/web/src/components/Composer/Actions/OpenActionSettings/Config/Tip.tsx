@@ -5,14 +5,25 @@ import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { ADDRESS_PLACEHOLDER } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { Card } from '@hey/ui';
-import { type FC, useState } from 'react';
+import { type FC } from 'react';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
 import { encodeAbiParameters, isAddress } from 'viem';
+import { create } from 'zustand';
 
 import SaveOrCancel from '../SaveOrCancel';
 
+interface OpenActionState {
+  recipient: string;
+  setRecipient: (recipient: string) => void;
+}
+
+const useTipActionStore = create<OpenActionState>((set) => ({
+  recipient: '',
+  setRecipient: (recipient) => set({ recipient })
+}));
+
 const TipConfig: FC = () => {
-  const [recipient, setRecipient] = useState<string>('');
+  const { recipient, setRecipient } = useTipActionStore();
   const setShowModal = useOpenActionStore((state) => state.setShowModal);
   const setOpenAction = useOpenActionStore((state) => state.setOpenAction);
 

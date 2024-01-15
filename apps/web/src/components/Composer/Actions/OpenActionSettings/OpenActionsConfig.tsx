@@ -1,15 +1,19 @@
 import { ArrowLeftIcon } from '@heroicons/react/24/solid';
 import { OpenAction } from '@hey/data/enums';
 import { type FC } from 'react';
+import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
 
 import TipConfig from './Config/Tip';
 
 interface OpenActionsConfigProps {
-  name: OpenAction;
   onBack: () => void;
 }
 
-const OpenActionsConfig: FC<OpenActionsConfigProps> = ({ name, onBack }) => {
+const OpenActionsConfig: FC<OpenActionsConfigProps> = ({ onBack }) => {
+  const selectedOpenAction = useOpenActionStore(
+    (state) => state.selectedOpenAction
+  );
+
   return (
     <div>
       <button className="flex items-center space-x-2" onClick={onBack}>
@@ -18,7 +22,9 @@ const OpenActionsConfig: FC<OpenActionsConfigProps> = ({ name, onBack }) => {
           Back to <b>Open actions</b>
         </div>
       </button>
-      <div className="mt-5">{name === OpenAction.Tip && <TipConfig />}</div>
+      <div className="mt-5">
+        {selectedOpenAction === OpenAction.Tip && <TipConfig />}
+      </div>
     </div>
   );
 };
