@@ -20,6 +20,7 @@ interface TipActionProps {
   act: () => void;
   className?: string;
   icon: ReactNode;
+  isLoading?: boolean;
   module: UnknownOpenActionModuleSettings;
   moduleAmount?: Amount;
   title: string;
@@ -29,15 +30,14 @@ const TipAction: FC<TipActionProps> = ({
   act,
   className = '',
   icon,
+  isLoading = false,
   module,
   moduleAmount,
   title
 }) => {
+  const [allowed, setAllowed] = useState(true);
   const { id: sessionProfileId } = getCurrentSession();
   const isWalletUser = isAddress(sessionProfileId);
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [allowed, setAllowed] = useState(true);
 
   const { address } = useAccount();
 
@@ -47,6 +47,7 @@ const TipAction: FC<TipActionProps> = ({
 
   const { data: allowanceData, loading: allowanceLoading } =
     useApprovedModuleAllowanceAmountQuery({
+      fetchPolicy: 'no-cache',
       onCompleted: ({ approvedModuleAllowanceAmount }) => {
         if (!amount) {
           return;
