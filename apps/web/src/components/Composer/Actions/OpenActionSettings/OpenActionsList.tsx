@@ -1,23 +1,21 @@
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { FC } from 'react';
 
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { OpenAction } from '@hey/data/enums';
-import { Button } from '@hey/ui';
 import { useState } from 'react';
+import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
 
 import OpenActionItem from './OpenActionItem';
 import OpenActionsConfig from './OpenActionsConfig';
+import SaveOrCancel from './SaveOrCancel';
 
 export enum ScreenType {
   Config = 'CONFIG',
   List = 'LIST'
 }
 
-interface OpenActionsListProps {
-  setShowModal: Dispatch<SetStateAction<boolean>>;
-}
-
-const OpenActionsList: FC<OpenActionsListProps> = ({ setShowModal }) => {
+const OpenActionsList: FC = () => {
+  const { setShowModal } = useOpenActionStore();
   const [screen, setScreen] = useState<ScreenType>(ScreenType.List);
   const [selectedOpenAction, setSelectedOpenAction] =
     useState<null | OpenAction>(null);
@@ -40,24 +38,14 @@ const OpenActionsList: FC<OpenActionsListProps> = ({ setShowModal }) => {
             description="Add ability to tip"
             icon={<CurrencyDollarIcon className="size-6" />}
             onClick={() => onOpenActionSelected(OpenAction.Tip)}
+            selected={selectedOpenAction === OpenAction.Tip}
             title="Tipping"
           />
+          <SaveOrCancel onSave={() => setShowModal(false)} />
         </div>
       ) : selectedOpenAction ? (
         <OpenActionsConfig name={selectedOpenAction} onBack={onBack} />
       ) : null}
-      <div className="mt-5 flex space-x-2">
-        <Button
-          className="ml-auto"
-          onClick={() => {
-            setShowModal(false);
-          }}
-          outline
-          variant="danger"
-        >
-          Cancel
-        </Button>
-      </div>
     </div>
   );
 };
