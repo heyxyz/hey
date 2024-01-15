@@ -48,7 +48,10 @@ const TipConfig: FC = () => {
           />
         </div>
       </Card>
-      <SaveOrCancel onSave={onSave} />
+      <SaveOrCancel
+        onSave={onSave}
+        saveDisabled={recipient.length === 0 || !isAddress(recipient)}
+      />
     </div>
   );
 };
