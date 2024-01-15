@@ -1,19 +1,29 @@
+import type { Address } from 'viem';
+
 import SearchProfiles from '@components/Shared/SearchProfiles';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { ADDRESS_PLACEHOLDER } from '@hey/data/constants';
+import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { Card } from '@hey/ui';
 import { type FC, useState } from 'react';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
-import { isAddress } from 'viem';
+import { encodeAbiParameters, isAddress } from 'viem';
 
 import SaveOrCancel from '../SaveOrCancel';
 
 const TipConfig: FC = () => {
   const [recipient, setRecipient] = useState<string>('');
   const setShowModal = useOpenActionStore((state) => state.setShowModal);
+  const setOpenAction = useOpenActionStore((state) => state.setOpenAction);
 
   const onSave = () => {
-    alert();
+    setOpenAction({
+      address: VerifiedOpenActionModules.Tip,
+      data: encodeAbiParameters(
+        [{ name: 'tipReceiver', type: 'address' }],
+        [recipient as Address]
+      )
+    });
     setShowModal(false);
   };
 
