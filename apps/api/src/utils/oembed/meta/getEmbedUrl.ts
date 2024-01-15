@@ -9,6 +9,9 @@ const getEmbedUrl = (document: Document): null | string => {
     document.querySelector('meta[name="og:video:secure_url"]') ||
     document.querySelector('meta[property="og:video:url"]') ||
     document.querySelector('meta[property="og:video:secure_url"]');
+  const spotify =
+    document.querySelector('meta[name="al:android:url"]') ||
+    document.querySelector('meta[property="al:android:url"]');
   const twitter =
     document.querySelector('meta[name="twitter:player"]') ||
     document.querySelector('meta[property="twitter:player"]');
@@ -19,6 +22,10 @@ const getEmbedUrl = (document: Document): null | string => {
 
   if (og) {
     return og.getAttribute('content');
+  }
+
+  if (spotify) {
+    return spotify.getAttribute('content');
   }
 
   if (twitter) {

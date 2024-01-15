@@ -5,6 +5,7 @@ const knownSites = [
   'twitch.tv',
   'kick.com',
   'open.spotify.com',
+  'spotify.link',
   'soundcloud.com',
   'oohlala.xyz'
 ];
@@ -25,6 +26,7 @@ const tapeRegex =
   /^https?:\/\/tape\.xyz\/watch\/[\dA-Za-z-]+(\?si=[\dA-Za-z]+)?$/;
 const twitchRegex = /^https?:\/\/www\.twitch\.tv\/videos\/[\dA-Za-z-]+$/;
 const kickRegex = /^https?:\/\/kick\.com\/[\dA-Za-z-]+$/;
+const spotifyLinkRegex = /^https?:\/\/spotify\.link\/([\w-]+)$/;
 
 const generateIframe = (
   embedUrl: null | string,
@@ -80,12 +82,21 @@ const generateIframe = (
         const spotifyUrl = pickedUrl.replace('/track', '/embed/track');
         return `<iframe src="${spotifyUrl}" ${spotifySize} height="155" allow="encrypted-media"></iframe>`;
       }
-
       if (spotifyPlaylistUrlRegex.test(url)) {
         const spotifyUrl = pickedUrl.replace('/playlist', '/embed/playlist');
         return `<iframe src="${spotifyUrl}" ${spotifySize} height="380" allow="encrypted-media"></iframe>`;
       }
 
+      return null;
+    }
+    case 'spotify.link': {
+      if (spotifyLinkRegex.test(url)) {
+        const spotifyUrl = pickedUrl.replace(
+          'spotify.link',
+          'open.spotify.com'
+        );
+        return `<iframe src="${spotifyUrl}" ${universalSize} allow="encrypted-media"></iframe>`;
+      }
       return null;
     }
     case 'soundcloud.com': {
