@@ -27,48 +27,53 @@ const MediaFilter = () => {
 
   return (
     <DropdownMenu.Root modal={false}>
-      <DropdownMenu.Trigger asChild>
-        <button className="rounded-md hover:bg-gray-300/20">
-          <Tooltip content="Filter" placement="top">
-            <AdjustmentsVerticalIcon className="text-brand-500 size-5" />
-          </Tooltip>
-        </button>
-      </DropdownMenu.Trigger>
-      <DropdownMenu.Content className="radix-transition absolute right-0 z-[5] mt-1 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900">
-        <DropdownMenu.Item
-          className="menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800"
-          onSelect={onSelectDropdownItem}
+      <div className="relative">
+        <DropdownMenu.Trigger asChild>
+          <button className="rounded-md hover:bg-gray-300/20">
+            <Tooltip content="Filter" placement="top">
+              <AdjustmentsVerticalIcon className="text-brand-500 size-5" />
+            </Tooltip>
+          </button>
+        </DropdownMenu.Trigger>
+        <DropdownMenu.Content
+          align="end"
+          className="radix-transition absolute right-0 z-[5] mt-2.5 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
         >
-          <Checkbox
-            checked={mediaFeedFilters.images}
-            label="Images"
-            name="images"
-            onChange={handleChange}
-          />
-        </DropdownMenu.Item>
-        <DropdownMenu.Item
-          className="menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800"
-          onSelect={onSelectDropdownItem}
-        >
-          <Checkbox
-            checked={mediaFeedFilters.video}
-            label="Video"
-            name="video"
-            onChange={handleChange}
-          />
-        </DropdownMenu.Item>
-        <DropdownMenu.Item
-          className="menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800"
-          onSelect={onSelectDropdownItem}
-        >
-          <Checkbox
-            checked={mediaFeedFilters.audio}
-            label="Audio"
-            name="audio"
-            onChange={handleChange}
-          />
-        </DropdownMenu.Item>
-      </DropdownMenu.Content>
+          <DropdownMenu.Item
+            className="menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800"
+            onSelect={onSelectDropdownItem}
+          >
+            <Checkbox
+              checked={mediaFeedFilters.images}
+              label="Images"
+              name="images"
+              onChange={handleChange}
+            />
+          </DropdownMenu.Item>
+          <DropdownMenu.Item
+            className="menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800"
+            onSelect={onSelectDropdownItem}
+          >
+            <Checkbox
+              checked={mediaFeedFilters.video}
+              label="Video"
+              name="video"
+              onChange={handleChange}
+            />
+          </DropdownMenu.Item>
+          <DropdownMenu.Item
+            className="menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg focus:outline-none data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800"
+            onSelect={onSelectDropdownItem}
+          >
+            <Checkbox
+              checked={mediaFeedFilters.audio}
+              label="Audio"
+              name="audio"
+              onChange={handleChange}
+            />
+          </DropdownMenu.Item>
+        </DropdownMenu.Content>
+      </div>
     </DropdownMenu.Root>
   );
 };

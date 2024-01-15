@@ -118,7 +118,7 @@ const Attachment: FC = () => {
         </DropdownMenu.Trigger>
         <DropdownMenu.Content
           align="start"
-          className="radix-transition absolute z-[5] mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+          className="radix-transition z-[5] mt-3.5 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
           ref={dropdownRef}
         >
           <DropdownMenu.Item
@@ -134,7 +134,7 @@ const Attachment: FC = () => {
               )}
               htmlFor={`image_${id}`}
             >
-              <PhotoIcon className="text-brand-500 size-5" />
+              <PhotoIcon className="text-brand-500 size-4" />
               <span className="text-sm">Upload image(s)</span>
 
               <input
@@ -161,7 +161,7 @@ const Attachment: FC = () => {
               )}
               htmlFor={`video_${id}`}
             >
-              <VideoCameraIcon className="text-brand-500 size-5" />
+              <VideoCameraIcon className="text-brand-500 size-4" />
               <span className="text-sm">Upload video</span>
 
               <input

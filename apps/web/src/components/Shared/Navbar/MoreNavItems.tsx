@@ -32,7 +32,7 @@ const MoreNavItems: FC = () => {
 
         <DropdownMenu.Content
           align="start"
-          className="radix-transition absolute mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+          className="radix-transition absolute mt-2 rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
         >
           {currentProfile ? (
             <>

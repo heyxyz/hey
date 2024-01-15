@@ -135,7 +135,10 @@ const SeeThroughLens: FC = () => {
           <ChevronDownIcon className="size-4" />
         </button>
       </DropdownMenu.Trigger>
-      <DropdownMenu.Content className="radix-transition absolute right-0 z-[5] mt-1 w-64 rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900">
+      <DropdownMenu.Content
+        align="end"
+        className="radix-transition absolute right-4 z-[5] mt-1 w-64 rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+      >
         <div className="px-3 pt-2 text-xs">👀 See the feed through...</div>
         <div className="p-2">
           <Input

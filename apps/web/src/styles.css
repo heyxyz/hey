@@ -8,6 +8,7 @@
 body {
   @apply bg-gray-50;
   @apply dark:bg-black;
+  @apply overflow-y-scroll;
 }
 
 .shimmer {
