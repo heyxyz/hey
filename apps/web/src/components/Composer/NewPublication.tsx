@@ -22,6 +22,7 @@ import {
   PencilSquareIcon
 } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data/errors';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import { PUBLICATION } from '@hey/data/tracking';
 import { ReferenceModuleType } from '@hey/lens';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
@@ -83,6 +84,12 @@ const Gif = dynamic(() => import('@components/Composer/Actions/Gif'), {
 });
 const CollectSettings = dynamic(
   () => import('@components/Composer/Actions/CollectSettings'),
+  {
+    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
+  }
+);
+const OpenActionSettings = dynamic(
+  () => import('@components/Composer/Actions/OpenActionSettings'),
   {
     loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
   }
@@ -633,6 +640,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           {!publication?.momoka?.proof ? (
             <>
               <CollectSettings />
+              {isFeatureEnabled(FeatureFlag.Staff) && <OpenActionSettings />}
               <ReferenceSettings />
             </>
           ) : null}
