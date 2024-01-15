@@ -3,12 +3,16 @@ import type { FC } from 'react';
 import { SquaresPlusIcon } from '@heroicons/react/24/outline';
 import { Modal, Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
-import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
+import {
+  ScreenType,
+  useOpenActionStore
+} from 'src/store/non-persisted/publication/useOpenActionStore';
 
 import OpenActionsList from './OpenActionsList';
 
 const OpenActionSettings: FC = () => {
-  const { reset, setShowModal, showModal } = useOpenActionStore();
+  const { reset, selectedOpenAction, setScreen, setShowModal, showModal } =
+    useOpenActionStore();
 
   return (
     <>
@@ -16,7 +20,12 @@ const OpenActionSettings: FC = () => {
         <motion.button
           aria-label="Choose Open Action"
           className="outline-brand-500 rounded-full outline-offset-8"
-          onClick={() => setShowModal(!showModal)}
+          onClick={() => {
+            setShowModal(!showModal);
+            setScreen(
+              selectedOpenAction === null ? ScreenType.List : ScreenType.Config
+            );
+          }}
           type="button"
           whileTap={{ scale: 0.9 }}
         >
