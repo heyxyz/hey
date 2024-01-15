@@ -38,6 +38,7 @@ const CollectModules: FC = () => {
 
   const { data, error, loading, refetch } =
     useApprovedModuleAllowanceAmountQuery({
+      fetchPolicy: 'no-cache',
       skip: !currentProfile?.id || allowedTokensLoading,
       variables: { request: getAllowancePayload(DEFAULT_COLLECT_TOKEN) }
     });

@@ -10,20 +10,21 @@ import {
 } from '@hey/lens';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
+import errorToast from '@lib/errorToast';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
 interface CreatePublicationProps {
-  onCompleted: (status?: any) => void;
-  onError: (error: any) => void;
   signlessApproved?: boolean;
+  successToast?: string;
 }
 
 const useActOnUnknownOpenAction = ({
-  onCompleted,
-  onError,
-  signlessApproved = false
+  signlessApproved = false,
+  successToast
 }: CreatePublicationProps) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const lensHubOnchainSigNonce = useNonceStore(
@@ -32,9 +33,29 @@ const useActOnUnknownOpenAction = ({
   const setLensHubOnchainSigNonce = useNonceStore(
     (state) => state.setLensHubOnchainSigNonce
   );
+  const [isLoading, setIsLoading] = useState(false);
 
   const { canBroadcast, canUseLensManager } =
     checkDispatcherPermissions(currentProfile);
+
+  const onError = (error?: any) => {
+    setIsLoading(false);
+    errorToast(error);
+  };
+
+  const onCompleted = (
+    __typename?: 'LensProfileManagerRelayError' | 'RelayError' | 'RelaySuccess'
+  ) => {
+    if (
+      __typename === 'RelayError' ||
+      __typename === 'LensProfileManagerRelayError'
+    ) {
+      return;
+    }
+
+    setIsLoading(false);
+    toast.success(successToast || 'Success!');
+  };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const { writeContract } = useWriteContract({
@@ -121,24 +142,30 @@ const useActOnUnknownOpenAction = ({
     data: string;
     publicationId: string;
   }) => {
-    const actOnRequest: ActOnOpenActionLensManagerRequest = {
-      actOn: { unknownOpenAction: { address, data } },
-      for: publicationId
-    };
+    try {
+      setIsLoading(true);
 
-    if (canUseLensManager && signlessApproved) {
-      return await actViaLensManager(actOnRequest);
-    }
+      const actOnRequest: ActOnOpenActionLensManagerRequest = {
+        actOn: { unknownOpenAction: { address, data } },
+        for: publicationId
+      };
 
-    return await createActOnOpenActionTypedData({
-      variables: {
-        options: { overrideSigNonce: lensHubOnchainSigNonce },
-        request: actOnRequest
+      if (canUseLensManager && signlessApproved) {
+        return await actViaLensManager(actOnRequest);
       }
-    });
+
+      return await createActOnOpenActionTypedData({
+        variables: {
+          options: { overrideSigNonce: lensHubOnchainSigNonce },
+          request: actOnRequest
+        }
+      });
+    } catch (error) {
+      onError(error);
+    }
   };
 
-  return { actOnUnknownOpenAction };
+  return { actOnUnknownOpenAction, isLoading };
 };
 
 export default useActOnUnknownOpenAction;
