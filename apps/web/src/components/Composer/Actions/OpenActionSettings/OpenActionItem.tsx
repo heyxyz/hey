@@ -1,12 +1,14 @@
 import type { FC, ReactNode } from 'react';
 
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { Card } from '@hey/ui';
 
 interface OpenActionItemProps {
   description: string;
   icon: ReactNode;
   onClick: () => void;
+  selected: boolean;
   title: string;
 }
 
@@ -14,6 +16,7 @@ const OpenActionItem: FC<OpenActionItemProps> = ({
   description,
   icon,
   onClick,
+  selected,
   title
 }) => {
   return (
@@ -29,7 +32,11 @@ const OpenActionItem: FC<OpenActionItemProps> = ({
           <div className="text-sm">{description}</div>
         </div>
       </div>
-      <ArrowRightIcon className="size-5 text-gray-400" />
+      {selected ? (
+        <CheckCircleIcon className="size-5 text-green-500" />
+      ) : (
+        <ArrowRightIcon className="size-5 text-gray-400" />
+      )}
     </Card>
   );
 };

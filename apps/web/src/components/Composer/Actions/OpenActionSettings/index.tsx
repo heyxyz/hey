@@ -3,12 +3,12 @@ import type { FC } from 'react';
 import { SquaresPlusIcon } from '@heroicons/react/24/outline';
 import { Modal, Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
 
 import OpenActionsList from './OpenActionsList';
 
 const OpenActionSettings: FC = () => {
-  const [showModal, setShowModal] = useState(false);
+  const { reset, setShowModal, showModal } = useOpenActionStore();
 
   return (
     <>
@@ -27,12 +27,12 @@ const OpenActionSettings: FC = () => {
         icon={<SquaresPlusIcon className="text-brand-500 size-5" />}
         onClose={() => {
           setShowModal(false);
-          // reset();
+          reset();
         }}
         show={showModal}
         title="Open Action Settings"
       >
-        <OpenActionsList setShowModal={setShowModal} />
+        <OpenActionsList />
       </Modal>
     </>
   );

@@ -1,6 +1,5 @@
 import { ArrowLeftIcon } from '@heroicons/react/24/solid';
 import { OpenAction } from '@hey/data/enums';
-import { Card } from '@hey/ui';
 import { type FC } from 'react';
 
 import TipConfig from './Config/Tip';
@@ -19,9 +18,7 @@ const OpenActionsConfig: FC<OpenActionsConfigProps> = ({ name, onBack }) => {
           Back to <b>Open actions</b>
         </div>
       </button>
-      <Card className="mt-5 p-5" forceRounded>
-        {name === OpenAction.Tip && <TipConfig name={name} />}
-      </Card>
+      <div className="mt-5">{name === OpenAction.Tip && <TipConfig />}</div>
     </div>
   );
 };
