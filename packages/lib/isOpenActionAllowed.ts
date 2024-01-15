@@ -1,15 +1,6 @@
-import {
-  type Maybe,
-  type OpenActionModule,
-  OpenActionModuleType
-} from '@hey/lens';
+import { type Maybe, type OpenActionModule } from '@hey/lens';
 
 import allowedOpenActionModules from './allowedOpenActionModules';
-
-const allowedTypes = [
-  ...allowedOpenActionModules,
-  OpenActionModuleType.UnknownOpenActionModule
-];
 
 const isOpenActionAllowed = (
   openActions?: Maybe<OpenActionModule[]>
@@ -21,7 +12,7 @@ const isOpenActionAllowed = (
   return openActions.some((openAction) => {
     const { type } = openAction;
 
-    return allowedTypes.includes(type);
+    return allowedOpenActionModules.includes(type);
   });
 };
 
