@@ -54,7 +54,7 @@ const FeedUserProfile: FC<FeedUserProfileProps> = ({
     <div className="flex max-w-sm items-center">
       <b className="truncate">{getProfile(profile).displayName}</b>
       <Slug
-        className="ml-1.5 text-sm"
+        className="ml-1.5 truncate text-sm"
         slug={getProfile(profile).slugWithPrefix}
       />
       {isVerified(profile.id) ? (
@@ -64,7 +64,7 @@ const FeedUserProfile: FC<FeedUserProfileProps> = ({
         <ExclamationCircleIcon className="ml-1 size-4 text-red-500" />
       ) : null}
       {timestamp ? (
-        <span className="ld-text-gray-500">
+        <span className="ld-text-gray-500 truncate">
           <span className="mx-1.5">·</span>
           <span className="text-xs">{formatRelativeOrAbsolute(timestamp)}</span>
         </span>

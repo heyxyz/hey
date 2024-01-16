@@ -53,24 +53,22 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
           timestamp={timestamp}
         />
       </span>
-      <div className="flex space-x-1">
-        {!publication.isHidden && !quoted ? (
-          <PublicationMenu publication={targetPublication} />
-        ) : null}
-        {quoted && isNew ? (
-          <button
-            aria-label="Remove Quote"
-            className="outline-brand-500 rounded-full border p-1 hover:bg-gray-300/20"
-            onClick={(event) => {
-              stopEventPropagation(event);
-              setQuotedPublication(null);
-            }}
-            type="reset"
-          >
-            <XMarkIcon className="ld-text-gray-500 size-3.5" />
-          </button>
-        ) : null}
-      </div>
+      {!publication.isHidden && !quoted ? (
+        <PublicationMenu publication={targetPublication} />
+      ) : null}
+      {quoted && isNew ? (
+        <button
+          aria-label="Remove Quote"
+          className="outline-brand-500 rounded-full border p-1 hover:bg-gray-300/20"
+          onClick={(event) => {
+            stopEventPropagation(event);
+            setQuotedPublication(null);
+          }}
+          type="reset"
+        >
+          <XMarkIcon className="ld-text-gray-500 size-3.5" />
+        </button>
+      ) : null}
     </div>
   );
 };
