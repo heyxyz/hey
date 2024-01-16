@@ -6,7 +6,6 @@
 
 html {
   @apply overflow-y-scroll;
-  transform: translateZ(0);
 }
 
 body {
