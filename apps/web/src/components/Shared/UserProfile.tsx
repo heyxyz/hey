@@ -25,7 +25,6 @@ import SuperFollow from './SuperFollow';
 import UserPreview from './UserPreview';
 
 interface UserProfileProps {
-  // For data analytics
   isBig?: boolean;
   linkToProfile?: boolean;
   profile: Profile;

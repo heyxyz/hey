@@ -1,8 +1,7 @@
 import type { AnyPublication, FeedItem } from '@hey/lens';
 import type { FC } from 'react';
 
-import SmallUserProfile from '@components/Shared/SmallUserProfile';
-import UserProfile from '@components/Shared/UserProfile';
+import FeedUserProfile from '@components/Shared/FeedUserProfile';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
@@ -11,7 +10,6 @@ import { usePublicationStore } from 'src/store/non-persisted/publication/usePubl
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 import PublicationMenu from './Actions/Menu';
-import Source from './Source';
 
 interface PublicationHeaderProps {
   feedItem?: FeedItem;
@@ -43,39 +41,33 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
   return (
     <div
       className={cn(
-        quoted ? 'pb-2' : 'pb-4',
+        quoted ? 'pb-1' : '-mb-4',
         'relative flex justify-between space-x-1.5'
       )}
     >
       <span className="max-w-full" onClick={stopEventPropagation}>
-        {quoted ? (
-          <SmallUserProfile
-            linkToProfile
-            profile={profile}
-            timestamp={timestamp}
-          />
-        ) : (
-          <UserProfile profile={profile} timestamp={timestamp} />
-        )}
+        <FeedUserProfile
+          profile={profile}
+          quoted={quoted}
+          source={gardenerMode ? targetPublication.publishedOn?.id : undefined}
+          timestamp={timestamp}
+        />
       </span>
-      <div className="flex items-center space-x-1">
-        {gardenerMode ? (
-          <Source publishedOn={targetPublication.publishedOn?.id} />
-        ) : null}
+      <div className="flex space-x-1">
         {!publication.isHidden && !quoted ? (
           <PublicationMenu publication={targetPublication} />
         ) : null}
         {quoted && isNew ? (
           <button
             aria-label="Remove Quote"
-            className="outline-brand-500 rounded-full border p-1.5 hover:bg-gray-300/20"
+            className="outline-brand-500 rounded-full border p-1 hover:bg-gray-300/20"
             onClick={(event) => {
               stopEventPropagation(event);
               setQuotedPublication(null);
             }}
             type="reset"
           >
-            <XMarkIcon className="ld-text-gray-500 w-[15px] sm:w-[18px]" />
+            <XMarkIcon className="ld-text-gray-500 size-3.5" />
           </button>
         ) : null}
       </div>
