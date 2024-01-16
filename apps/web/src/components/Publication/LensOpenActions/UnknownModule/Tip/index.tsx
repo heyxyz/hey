@@ -4,10 +4,10 @@ import type {
 } from '@hey/lens';
 import type { FC } from 'react';
 
-import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import { PUBLICATION } from '@hey/data/tracking';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
+import { TipIcon } from '@hey/icons';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Modal, Tooltip } from '@hey/ui';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
@@ -62,12 +62,12 @@ const TipOpenAction: FC<TipOpenActionProps> = ({
           whileTap={{ scale: 0.9 }}
         >
           <Tooltip content="Tip" placement="top" withDelay>
-            <CurrencyDollarIcon className={iconClassName} />
+            <TipIcon className={iconClassName} />
           </Tooltip>
         </motion.button>
       </div>
       <Modal
-        icon={<CurrencyDollarIcon className="text-brand-500 size-5" />}
+        icon={<TipIcon className="text-brand-500 size-5" />}
         onClose={() => setShowOpenActionModal(false)}
         show={showOpenActionModal}
         title="Send a tip"

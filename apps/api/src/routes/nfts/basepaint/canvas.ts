@@ -1,6 +1,5 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
 import { noBody } from '@utils/responses';
@@ -13,49 +12,57 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const basePaintResponse = await fetch('https://basepaint.art/graphql', {
-      body: JSON.stringify({
-        operationName: 'Canvas',
-        query: `
+    const allResponses = await Promise.all([
+      fetch('https://ponder.basepaint.xyz', {
+        body: JSON.stringify({
+          operationName: 'Canvas',
+          query: `
           query Canvas($id: Int!) {
             canvass(first: 1, orderDirection: "ASC") {
               id
             }
             canvas(id: $id) {
               id
-              palette
-              theme
               totalEarned
               totalMints
               pixelsCount
-              bitmap {
-                gif
-              }
               contributions(first: 1000, orderBy: "pixelsCount", orderDirection: "ASC") {
                 id
               }
             }
           }
         `,
-        variables: {
-          id: parseInt(id as string)
-        }
+          variables: {
+            id: parseInt(id as string)
+          }
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          'User-agent': 'Hey.xyz'
+        },
+        method: 'POST'
       }),
-      headers: {
-        'Content-Type': 'application/json',
-        'User-agent': 'Hey.xyz'
-      },
-      method: 'POST'
-    });
+      fetch(
+        `https://basepaint.art/api/trpc/themes.theme?batch=1&input=${encodeURIComponent(
+          JSON.stringify({ 0: { json: { day: parseInt(id as string) } } })
+        )}`
+      )
+    ]);
+
     const canvas: {
       data: {
         canvas: any;
         canvass: { id: number }[];
       };
-    } = await basePaintResponse.json();
+    } = await allResponses[0].json();
     const numberId = parseInt(id as string);
     const currentCanvas = canvas.data.canvass[0].id;
-    logger.info('Canvas fetched from BasePaint');
+
+    const themes: {
+      result: { data: { json: { palette: string[]; theme: string } } };
+    }[] = await allResponses[1].json();
+
+    const { palette, theme } = themes[0].result.data.json;
 
     return res
       .status(200)
@@ -65,6 +72,8 @@ export const get: Handler = async (req, res) => {
           {
             canContribute: currentCanvas === numberId,
             canMint: currentCanvas - 1 === numberId,
+            palette,
+            theme,
             ...canvas.data.canvas
           } || null,
         success: true

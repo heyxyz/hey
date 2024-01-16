@@ -6,8 +6,8 @@ import type { AllowedToken } from '@hey/types/hey';
 import type { Address } from 'viem';
 
 import Loader from '@components/Shared/Loader';
-import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
+import { TipIcon } from '@hey/icons';
 import { useModuleMetadataQuery } from '@hey/lens';
 import getAllTokens from '@hey/lib/api/getAllTokens';
 import getAssetSymbol from '@hey/lib/getAssetSymbol';
@@ -172,7 +172,7 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
         <TipAction
           act={act}
           className="mt-5 w-full justify-center"
-          icon={<CurrencyDollarIcon className="size-4" />}
+          icon={<TipIcon className="size-4" />}
           isLoading={isLoading}
           module={module}
           moduleAmount={{
