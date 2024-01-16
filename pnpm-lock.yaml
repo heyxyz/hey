@@ -217,6 +217,9 @@ importers:
       '@hey/data':
         specifier: workspace:*
         version: link:../../packages/data
+      '@hey/icons':
+        specifier: workspace:*
+        version: link:../../packages/icons
       '@hey/image-cropper':
         specifier: workspace:*
         version: link:../../packages/image-cropper
@@ -461,6 +464,25 @@ importers:
       vitest:
         specifier: ^1.2.0
         version: 1.2.0(@types/node@20.11.3)
+
+  packages/icons:
+    dependencies:
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-svg:
+        specifier: ^16.1.32
+        version: 16.1.32(react-dom@18.2.0)(react@18.2.0)
+    devDependencies:
+      '@hey/config':
+        specifier: workspace:*
+        version: link:../config
+      '@types/react':
+        specifier: ^18.2.48
+        version: 18.2.48
+      typescript:
+        specifier: ^5.3.3
+        version: 5.3.3
 
   packages/image-cropper:
     dependencies:
@@ -5344,6 +5366,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
+      napi-wasm: 1.1.0
     dev: false
     bundledDependencies:
       - napi-wasm
@@ -7422,6 +7445,14 @@ packages:
       mini-svg-data-uri: 1.4.4
       tailwindcss: 3.4.1
     dev: true
+
+  /@tanem/svg-injector@10.1.68:
+    resolution: {integrity: sha512-UkJajeR44u73ujtr5GVSbIlELDWD/mzjqWe54YMK61ljKxFcJoPd9RBSaO7xj02ISCWUqJW99GjrS+sVF0UnrA==}
+    dependencies:
+      '@babel/runtime': 7.23.8
+      content-type: 1.0.5
+      tslib: 2.6.2
+    dev: false
 
   /@tanstack/query-async-storage-persister@4.29.23:
     resolution: {integrity: sha512-TlUCpJTwqzHyniiSCyyqe2Dw/oq5iKc7U5nQLLT3qFKUSFUa8Y7SzaNiCGm6WxOr0e3zlDze+Dh4uHx7s7CGTw==}
@@ -14042,6 +14073,10 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
+  /napi-wasm@1.1.0:
+    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
+    dev: false
+
   /natural-compare-lite@1.4.0:
     resolution: {integrity: sha512-Tj+HTDSJJKaZnfiuw+iaF9skdPpTo2GtEly5JHnWV/hfv2Qj/9RKsGISQtLh2ox3l5EAGw487hnBee0sIJ6v2g==}
     dev: true
@@ -15566,6 +15601,20 @@ packages:
       invariant: 2.2.4
       react: 18.2.0
       tslib: 2.6.2
+    dev: false
+
+  /react-svg@16.1.32(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-u15BlUIjc7f4d2o62cxix0WlgbBPN+I2gScFu4+090Qj3AS08iQytIsLsLhiY9xXAT+VHoQtKVspL0XAuv0I2A==}
+    peerDependencies:
+      react: ^16.0.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@babel/runtime': 7.23.8
+      '@tanem/svg-injector': 10.1.68
+      '@types/prop-types': 15.7.11
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /react-virtuoso@4.6.2(react-dom@18.2.0)(react@18.2.0):
