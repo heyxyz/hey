@@ -22,6 +22,7 @@
     "@heroicons/react": "^2.1.1",
     "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
+    "@hey/icons": "workspace:*",
     "@hey/image-cropper": "workspace:*",
     "@hey/lens": "workspace:*",
     "@hey/lib": "workspace:*",
