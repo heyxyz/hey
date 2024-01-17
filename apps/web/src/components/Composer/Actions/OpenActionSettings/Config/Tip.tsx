@@ -59,7 +59,7 @@ const TipConfig: FC = () => {
   };
 
   return (
-    <div>
+    <>
       <div className="p-5">
         <ToggleWithHelper
           description="This will allow users to tip you on your post"
@@ -78,9 +78,9 @@ const TipConfig: FC = () => {
         <>
           <div className="divider" />
           <div className="p-5">
-            <div>
+            <div className="space-y-3">
               <b>Recipient</b>
-              <div className="mt-3 space-y-5">
+              <div className="space-y-5">
                 <Radio
                   checked={isSelfTip}
                   description={formatAddress(currentProfile?.ownedBy.address)}
@@ -97,18 +97,16 @@ const TipConfig: FC = () => {
                   }}
                 />
                 {!isSelfTip && (
-                  <div className="mt-3">
-                    <SearchProfiles
-                      error={recipient.length > 0 && !isAddress(recipient)}
-                      hideDropdown={isAddress(recipient)}
-                      onChange={(event) => setRecipient(event.target.value)}
-                      onProfileSelected={(profile) =>
-                        setRecipient(profile.ownedBy.address)
-                      }
-                      placeholder={`${ADDRESS_PLACEHOLDER} or wagmi`}
-                      value={recipient}
-                    />
-                  </div>
+                  <SearchProfiles
+                    error={recipient.length > 0 && !isAddress(recipient)}
+                    hideDropdown={isAddress(recipient)}
+                    onChange={(event) => setRecipient(event.target.value)}
+                    onProfileSelected={(profile) =>
+                      setRecipient(profile.ownedBy.address)
+                    }
+                    placeholder={`${ADDRESS_PLACEHOLDER} or wagmi`}
+                    value={recipient}
+                  />
                 )}
               </div>
             </div>
@@ -119,7 +117,7 @@ const TipConfig: FC = () => {
           </div>
         </>
       )}
-    </div>
+    </>
   );
 };
 

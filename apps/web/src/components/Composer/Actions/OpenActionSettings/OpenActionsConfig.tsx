@@ -9,11 +9,7 @@ const OpenActionsConfig: FC = () => {
     (state) => state.selectedOpenAction
   );
 
-  return (
-    <div>
-      <div>{selectedOpenAction === OpenAction.Tip && <TipConfig />}</div>
-    </div>
-  );
+  return <div>{selectedOpenAction === OpenAction.Tip && <TipConfig />}</div>;
 };
 
 export default OpenActionsConfig;
