@@ -26,7 +26,7 @@ export const Modal: FC<ModalProps> = ({
     <Dialog.Root onOpenChange={(open) => !open && onClose?.()} open={show}>
       <Dialog.Portal>
         <div className="fixed inset-0 z-10 flex min-h-screen items-center justify-center overflow-y-auto p-4 text-center sm:block sm:p-0">
-          <Dialog.Overlay className="fixed inset-0 bg-gray-500/75 transition-opacity dark:bg-gray-900/80" />
+          <Dialog.Overlay className="radix-transition fixed inset-0 bg-gray-500/75 transition-opacity dark:bg-gray-900/80" />
           <Dialog.Content className="radix-transition">
             <span className="hidden sm:inline-block sm:h-screen sm:align-middle" />
             <div

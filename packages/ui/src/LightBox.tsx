@@ -15,7 +15,7 @@ export const LightBox: FC<LightBoxProps> = ({ onClose, show, url }) => {
     <Dialog.Root onOpenChange={(open) => !open && onClose?.()} open={show}>
       <Dialog.Portal>
         <div className="fixed inset-0 z-10 overflow-y-auto text-center">
-          <Dialog.Overlay className="fixed inset-0 bg-gray-500/75 transition-opacity" />
+          <Dialog.Overlay className="radix-transition fixed inset-0 bg-gray-500/75 transition-opacity" />
           <Dialog.Content className="radix-transition">
             <span className="hidden sm:inline-block sm:h-screen sm:align-middle" />
             <div className="inline-block p-8 text-left align-middle transition-all sm:max-w-3xl">
@@ -44,6 +44,6 @@ export const LightBox: FC<LightBoxProps> = ({ onClose, show, url }) => {
           </Dialog.Content>
         </div>
       </Dialog.Portal>
-    </Dialog.Root>   
+    </Dialog.Root>
   );
 };
