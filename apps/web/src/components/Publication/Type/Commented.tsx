@@ -8,13 +8,13 @@ interface CommentedProps {
 }
 
 const Commented: FC<CommentedProps> = ({ publication }) => {
-  const commentOn: any | Comment = publication?.commentOn;
+  const commentOn: any = publication?.commentOn;
   const root = commentOn?.root;
 
   return (
     <>
       {root ? <ThreadBody publication={root} /> : null}
-      <ThreadBody publication={commentOn} />
+      {commentOn ? <ThreadBody publication={commentOn} /> : null}
     </>
   );
 };
