@@ -102,10 +102,7 @@ const List: FC = () => {
         ) : (
           <div className="space-y-5">
             {features?.map((feature) => (
-              <div
-                className="flex items-center justify-between"
-                key={feature.id}
-              >
+              <div key={feature.id}>
                 <ToggleWithHelper
                   description={`Created on ${formatDate(
                     feature.createdAt
@@ -120,13 +117,20 @@ const List: FC = () => {
                   on={feature.enabled}
                   setOn={() => killFeatureFlag(feature.id, !feature.enabled)}
                 />
-                {feature.type === 'FEATURE' && (
-                  <Button
-                    icon={<TrashIcon className="size-4" />}
-                    onClick={() => deleteFeatureFlag(feature.id)}
-                    outline
-                  />
-                )}
+                <div>
+                  {feature.type === 'FEATURE' && (
+                    <Button
+                      className="mt-2"
+                      icon={<TrashIcon className="size-4" />}
+                      onClick={() => deleteFeatureFlag(feature.id)}
+                      outline
+                      size="sm"
+                      variant="danger"
+                    >
+                      Delete
+                    </Button>
+                  )}
+                </div>
               </div>
             ))}
           </div>
