@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
-import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { OpenAction } from '@hey/data/enums';
+import { TipIcon } from '@hey/icons';
 import {
   ScreenType,
   useOpenActionStore
@@ -18,27 +18,22 @@ const OpenActionsList: FC = () => {
     (state) => state.selectedOpenAction
   );
 
-  return (
-    <div>
-      {screen === ScreenType.List ? (
-        <div className="p-5">
-          <OpenActionItem
-            description="Add ability to tip"
-            icon={<CurrencyDollarIcon className="size-6" />}
-            selected={selectedOpenAction === OpenAction.Tip}
-            title="Tipping"
-            type={OpenAction.Tip}
-          />
-          <SaveOrCancel
-            onSave={() => setShowModal(false)}
-            saveDisabled={selectedOpenAction === null}
-          />
-        </div>
-      ) : selectedOpenAction ? (
-        <OpenActionsConfig />
-      ) : null}
+  return screen === ScreenType.List ? (
+    <div className="p-5">
+      <OpenActionItem
+        description="Add ability to tip"
+        icon={<TipIcon className="size-6" />}
+        title="Tipping"
+        type={OpenAction.Tip}
+      />
+      <SaveOrCancel
+        onSave={() => setShowModal(false)}
+        saveDisabled={selectedOpenAction === null}
+      />
     </div>
-  );
+  ) : selectedOpenAction ? (
+    <OpenActionsConfig />
+  ) : null;
 };
 
 export default OpenActionsList;
