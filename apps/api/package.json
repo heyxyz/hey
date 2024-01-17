@@ -59,12 +59,12 @@
     "@types/request-ip": "^0.0.41",
     "@types/ua-parser-js": "^0.7.39",
     "@types/uuid": "^9.0.7",
-    "nodemon": "^3.0.2",
+    "nodemon": "^3.0.3",
     "prisma": "^5.8.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.2",
     "vite": "^5.0.11",
-    "vite-tsconfig-paths": "^4.2.3",
+    "vite-tsconfig-paths": "^4.3.1",
     "vitest": "^1.2.0"
   }
 }
