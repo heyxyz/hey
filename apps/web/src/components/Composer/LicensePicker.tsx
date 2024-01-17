@@ -11,7 +11,7 @@ import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/
 const LicensePicker: FC = () => {
   const setLicense = usePublicationLicenseStore((state) => state.setLicense);
 
-  if (!isFeatureEnabled(FeatureFlag.LensMember)) {
+  if (!isFeatureEnabled(FeatureFlag.Staff)) {
     return null;
   }
 
