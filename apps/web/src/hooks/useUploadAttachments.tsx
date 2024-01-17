@@ -57,7 +57,7 @@ const useUploadAttachments = () => {
 
       const compressedFiles = await Promise.all(
         files.map(async (file: any) => {
-          if (file.type.includes('image')) {
+          if (file.type.includes('image') && !file.type.includes('gif')) {
             return await imageCompression(file, {
               exifOrientation: 1,
               maxSizeMB: 1,

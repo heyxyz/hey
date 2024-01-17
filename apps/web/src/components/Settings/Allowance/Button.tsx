@@ -7,7 +7,10 @@ import {
   PlusIcon
 } from '@heroicons/react/24/outline';
 import { SETTINGS } from '@hey/data/tracking';
-import { useGenerateModuleCurrencyApprovalDataLazyQuery } from '@hey/lens';
+import {
+  OpenActionModuleType,
+  useGenerateModuleCurrencyApprovalDataLazyQuery
+} from '@hey/lens';
 import { Button, Modal, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import getAllowanceModule from '@lib/getAllowanceModule';
@@ -77,7 +80,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
     }
   }, [isSuccess, error]);
 
-  const handleAllowance = (
+  const handleAllowance = async (
     contract: string,
     value: string,
     selectedModule: string
@@ -86,23 +89,33 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
       return;
     }
 
-    generateModuleCurrencyApprovalData({
-      variables: {
-        request: {
-          allowance: { currency: contract, value: value },
-          module: {
-            [getAllowanceModule(module.moduleName).field]: selectedModule
+    try {
+      const isUnknownModule =
+        module.moduleName === OpenActionModuleType.UnknownOpenActionModule;
+
+      const { data } = await generateModuleCurrencyApprovalData({
+        variables: {
+          request: {
+            allowance: { currency: contract, value: value },
+            module: {
+              [isUnknownModule
+                ? 'unknownOpenActionModule'
+                : getAllowanceModule(module.moduleName).field]: isUnknownModule
+                ? module.moduleContract.address
+                : selectedModule
+            }
           }
         }
-      }
-    }).then((res) => {
-      const data = res?.data?.generateModuleCurrencyApprovalData;
-      sendTransaction?.({
-        account: data?.from,
-        data: data?.data,
-        to: data?.to
       });
-    });
+
+      return sendTransaction?.({
+        account: data?.generateModuleCurrencyApprovalData.from,
+        data: data?.generateModuleCurrencyApprovalData.data,
+        to: data?.generateModuleCurrencyApprovalData.to
+      });
+    } catch (error) {
+      onError(error);
+    }
   };
 
   return allowed ? (
