@@ -8,12 +8,17 @@ dotenv.config({ override: true });
 
 const app = express();
 
-app.use(express.json({ limit: '1mb' }));
 app.use(cors());
 app.disable('x-powered-by');
 
 (async () => {
-  app.use('/', await router());
+  app.use(
+    '/webhooks/stripe',
+    express.raw({ type: 'application/json' }),
+    await router()
+  );
+
+  app.use('/', express.json({ limit: '1mb' }), await router());
 
   ViteExpress.listen(app, 4784, () =>
     console.log('Server is listening on port 4784...')

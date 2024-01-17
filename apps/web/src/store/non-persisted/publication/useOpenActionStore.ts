@@ -11,7 +11,7 @@ export enum ScreenType {
 interface OpenActionState {
   openAction: null | UnknownOpenActionModuleInput;
   reset: () => void;
-  screen: null | ScreenType;
+  screen: ScreenType;
   selectedOpenAction: null | OpenAction;
   setOpenAction: (openAction: UnknownOpenActionModuleInput) => void;
   setScreen: (screen: ScreenType) => void;
@@ -23,8 +23,12 @@ interface OpenActionState {
 export const useOpenActionStore = create<OpenActionState>((set) => ({
   openAction: null,
   reset: () =>
-    set({ openAction: null, screen: null, selectedOpenAction: null }),
-  screen: null,
+    set({
+      openAction: null,
+      screen: ScreenType.List,
+      selectedOpenAction: null
+    }),
+  screen: ScreenType.List,
   selectedOpenAction: null,
   setOpenAction: (openAction) => set({ openAction }),
   setScreen: (screen) => set({ screen }),

@@ -17,7 +17,7 @@ const Metadata: FC<MetadataProps> = ({ metadata }) => {
   const filteredAsset = getPublicationData(metadata)?.asset;
   const license = getAssetLicense(filteredAsset?.license);
 
-  if (!isFeatureEnabled(FeatureFlag.LensMember)) {
+  if (!isFeatureEnabled(FeatureFlag.Staff)) {
     return null;
   }
 

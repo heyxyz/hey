@@ -44,6 +44,6 @@ export const LightBox: FC<LightBoxProps> = ({ onClose, show, url }) => {
           </Dialog.Content>
         </div>
       </Dialog.Portal>
-    </Dialog.Root>
+    </Dialog.Root>   
   );
 };

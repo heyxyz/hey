@@ -57,6 +57,7 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
 
   const { data: balanceData } = useBalance({
     address,
+    query: { refetchInterval: 2000 },
     token: selectedCurrency?.contractAddress as Address
   });
 

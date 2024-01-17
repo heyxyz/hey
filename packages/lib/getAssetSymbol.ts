@@ -8,8 +8,8 @@ type TokenSymbolMap = Record<string, string>;
  */
 const TOKEN_SYMBOLS: TokenSymbolMap = {
   DAI: 'DAI',
-  NCT: 'NCT',
   USDC: 'USDC',
+  USDT: 'USDT',
   WETH: 'ETH',
   WMATIC: 'MATIC'
 };
