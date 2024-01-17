@@ -22,6 +22,7 @@ import {
   PencilSquareIcon
 } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data/errors';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import { PUBLICATION } from '@hey/data/tracking';
 import { ReferenceModuleType } from '@hey/lens';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
@@ -48,6 +49,7 @@ import useCreatePublication from 'src/hooks/useCreatePublication';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import usePublicationMetadata from 'src/hooks/usePublicationMetadata';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
+import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
 import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
@@ -83,6 +85,12 @@ const Gif = dynamic(() => import('@components/Composer/Actions/Gif'), {
 });
 const CollectSettings = dynamic(
   () => import('@components/Composer/Actions/CollectSettings'),
+  {
+    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
+  }
+);
+const OpenActionSettings = dynamic(
+  () => import('@components/Composer/Actions/OpenActionSettings'),
   {
     loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
   }
@@ -180,6 +188,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const collectModule = useCollectModuleStore((state) => state.collectModule);
   const resetCollectSettings = useCollectModuleStore((state) => state.reset);
 
+  // Open action store
+  const openAction = useOpenActionStore((state) => state.openAction);
+  const resetOpenActionSettings = useOpenActionStore((state) => state.reset);
+
   // Reference module store
   const selectedReferenceModule = useReferenceModuleStore(
     (state) => state.selectedReferenceModule
@@ -208,12 +220,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const hasVideo = attachments[0]?.type === 'Video';
 
   const noCollect = !collectModule.type;
+  const noOpenAction = !openAction;
   // Use Momoka if the profile the comment or quote has momoka proof and also check collect module has been disabled
   const useMomoka = isComment
     ? publication.momoka?.proof
     : isQuote
       ? quotedPublication?.momoka?.proof
-      : noCollect;
+      : noCollect && noOpenAction;
 
   const onError = (error?: any) => {
     setIsLoading(false);
@@ -251,6 +264,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       url: ''
     });
     resetCollectSettings();
+    resetOpenActionSettings();
     setLicense(null);
 
     if (!isComment) {
@@ -264,6 +278,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       publication_has_attachments: attachments.length > 0,
       publication_has_poll: showPollEditor,
       publication_is_live: showLiveVideoEditor,
+      publication_open_action: openAction?.address,
       publication_reference_module: selectedReferenceModule,
       publication_reference_module_degrees_of_separation:
         selectedReferenceModule ===
@@ -424,6 +439,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         });
       }
 
+      if (openAction) {
+        openActionModules.push({ unknownOpenAction: openAction });
+      }
+
       // Payload for the Momoka post/comment/quote
       const momokaRequest:
         | MomokaCommentRequest
@@ -571,6 +590,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       url: ''
     });
     resetCollectSettings();
+    resetOpenActionSettings();
     setLicense(null);
   });
 
@@ -633,6 +653,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           {!publication?.momoka?.proof ? (
             <>
               <CollectSettings />
+              {isFeatureEnabled(FeatureFlag.Staff) && <OpenActionSettings />}
               <ReferenceSettings />
             </>
           ) : null}

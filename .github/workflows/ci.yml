@@ -91,7 +91,6 @@ jobs:
           SECRET: ${{ secrets.SECRET }}
           EVER_ACCESS_KEY: ${{ secrets.EVER_ACCESS_KEY }}
           EVER_ACCESS_SECRET: ${{ secrets.EVER_ACCESS_SECRET }}
-          LENS_IPFS_AUTH_KEY: ${{ secrets.LENS_IPFS_AUTH_KEY }}
           IPAPI_KEY: ${{ secrets.IPAPI_KEY }}
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           IRYS_PRIVATE_KEY: ${{ secrets.IRYS_PRIVATE_KEY }}
@@ -106,7 +105,6 @@ jobs:
             echo "SECRET=${SECRET}"
             echo "EVER_ACCESS_KEY=${EVER_ACCESS_KEY}"
             echo "EVER_ACCESS_SECRET=${EVER_ACCESS_SECRET}"
-            echo "LENS_IPFS_AUTH_KEY=${LENS_IPFS_AUTH_KEY}"
             echo "IPAPI_KEY=${IPAPI_KEY}"
             echo "GOOGLE_API_KEY=${GOOGLE_API_KEY}"
             echo "IRYS_PRIVATE_KEY=${IRYS_PRIVATE_KEY}"

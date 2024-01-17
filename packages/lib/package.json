@@ -22,12 +22,12 @@
     "pino": "^8.17.2",
     "pino-pretty": "^10.3.1",
     "urlcat": "^3.1.0",
-    "viem": "^2.0.6"
+    "viem": "^2.1.1"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
     "@types/omit-deep": "^0.3.2",
     "typescript": "^5.3.3",
-    "vitest": "^1.1.3"
+    "vitest": "^1.2.0"
   }
 }

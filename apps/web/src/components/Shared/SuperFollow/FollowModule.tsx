@@ -137,6 +137,7 @@ const FollowModule: FC<FollowModuleProps> = ({
 
   const { data: allowanceData, loading: allowanceLoading } =
     useApprovedModuleAllowanceAmountQuery({
+      fetchPolicy: 'no-cache',
       onCompleted: ({ approvedModuleAllowanceAmount }) => {
         const allowedAmount = parseFloat(
           approvedModuleAllowanceAmount[0]?.allowance.value
