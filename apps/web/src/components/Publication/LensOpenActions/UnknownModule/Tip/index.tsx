@@ -39,7 +39,7 @@ const TipOpenAction: FC<TipOpenActionProps> = ({
     return null;
   }
 
-  if (!isFeatureEnabled(FeatureFlag.LensMember)) {
+  if (!isFeatureEnabled(FeatureFlag.Staff)) {
     return null;
   }
 
