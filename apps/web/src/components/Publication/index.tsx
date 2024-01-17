@@ -20,6 +20,7 @@ import { useRouter } from 'next/router';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import { useNativeNavigation } from 'src/store/non-persisted/useNativeNavigation';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
@@ -37,6 +38,9 @@ const ViewPublication: NextPage = () => {
   const showNewPostModal = useGlobalModalStateStore(
     (state) => state.showNewPostModal
   );
+  const preLoadedPublication = useNativeNavigation(
+    (state) => state.preLoadedPublication
+  );
 
   const {
     isReady,
@@ -48,7 +52,7 @@ const ViewPublication: NextPage = () => {
   });
 
   const { data, error, loading } = usePublicationQuery({
-    skip: !id,
+    skip: !id || preLoadedPublication?.id,
     variables: { request: { forId: id } }
   });
 
@@ -56,7 +60,7 @@ const ViewPublication: NextPage = () => {
     return <PublicationPageShimmer />;
   }
 
-  if (!data?.publication) {
+  if (!preLoadedPublication && !data?.publication) {
     return <Custom404 />;
   }
 
@@ -64,7 +68,8 @@ const ViewPublication: NextPage = () => {
     return <Custom500 />;
   }
 
-  const publication = data.publication as AnyPublication;
+  const publication =
+    preLoadedPublication || (data?.publication as AnyPublication);
   const targetPublication = isMirrorPublication(publication)
     ? publication.mirrorOn
     : publication;
