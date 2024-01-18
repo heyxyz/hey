@@ -85,9 +85,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     creator: displayName,
     description: filteredContent,
     keywords: [
+      'hey',
+      'hey.xyz',
       'social media post',
       'social media',
-      'hey',
       'lenster',
       'user post',
       'like',

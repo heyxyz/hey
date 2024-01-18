@@ -7,8 +7,9 @@ const defaultMetadata: Metadata = {
   applicationName: APP_NAME,
   description: DESCRIPTION,
   keywords: [
-    'social media',
     'hey',
+    'hey.xyz',
+    'social media',
     'lenster',
     'like',
     'share',

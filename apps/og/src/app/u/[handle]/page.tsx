@@ -40,9 +40,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     creator: displayName,
     description: profile?.metadata?.bio,
     keywords: [
+      'hey',
+      'hey.xyz',
       'social media profile',
       'social media',
-      'hey',
       'lenster',
       'user profile',
       'lens',
