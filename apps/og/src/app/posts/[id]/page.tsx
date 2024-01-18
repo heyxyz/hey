@@ -76,9 +76,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = `${targetPublication.__typename} by ${slugWithPrefix} • ${APP_NAME}`;
 
   return {
-    alternates: {
-      canonical: `https://hey.xyz/posts/${targetPublication.id}`
-    },
+    alternates: { canonical: `https://hey.xyz/posts/${targetPublication.id}` },
     applicationName: APP_NAME,
     authors: {
       name: displayName,
