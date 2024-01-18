@@ -1,5 +1,6 @@
 import type { Handler } from 'express';
 
+import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
 import createStripeClient from '@utils/createStripeClient';
 import { noBody } from '@utils/responses';
@@ -24,6 +25,7 @@ export const get: Handler = async (req, res) => {
       mode: 'subscription',
       success_url: `https://hey.xyz/pro/success`
     });
+    logger.info(`Stripe session created for ${id}`);
 
     return res.status(200).json({ url: stripeSession.url });
   } catch (error) {
