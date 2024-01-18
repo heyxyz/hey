@@ -13,7 +13,7 @@ app.disable('x-powered-by');
 
 (async () => {
   app.use(
-    '/webhooks/stripe',
+    '/stripe/webhook',
     express.raw({ type: 'application/json' }),
     await router()
   );
