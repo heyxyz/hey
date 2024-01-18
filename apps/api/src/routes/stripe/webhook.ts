@@ -62,6 +62,7 @@ export const post: Handler = async (req, res) => {
           update: { expiresAt, plan, stripeId },
           where: { profileId }
         });
+        logger.info(`[Webhook: Stripe]: Subscription created ${stripeId}`);
       } catch {
         logger.error('[Webhook: Stripe]: Error creating subscription');
       }
@@ -75,6 +76,7 @@ export const post: Handler = async (req, res) => {
 
       try {
         await prisma.pro.delete({ where: { stripeId } });
+        logger.info(`[Webhook: Stripe]: Subscription deleted ${stripeId}`);
       } catch {
         logger.error('[Webhook: Stripe]: Error deleting subscription');
       }
