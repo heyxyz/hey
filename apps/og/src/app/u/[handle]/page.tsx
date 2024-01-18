@@ -30,13 +30,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   const profile = data.profile as Profile;
+  const { displayName, slugWithPrefix } = getProfile(profile);
 
-  const title = `${getProfile(profile).displayName} (${
-    getProfile(profile).slugWithPrefix
-  }) • ${APP_NAME}`;
+  const title = `${displayName} (${slugWithPrefix}) • ${APP_NAME}`;
 
   return {
+    applicationName: APP_NAME,
     description: profile?.metadata?.bio,
+    keywords: [
+      'social media profile',
+      'social media',
+      'hey',
+      'lenster',
+      'user profile',
+      'lens',
+      'lens protocol',
+      'decentralized',
+      'web3',
+      displayName,
+      slugWithPrefix
+    ],
     metadataBase: new URL(`https://hey.xyz/u/${profile.handle}`),
     openGraph: {
       images: [getAvatar(profile)],
