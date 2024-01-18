@@ -76,7 +76,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = `${targetPublication.__typename} by ${slugWithPrefix} • ${APP_NAME}`;
 
   return {
+    alternates: {
+      canonical: `https://hey.xyz/posts/${targetPublication.id}`
+    },
     applicationName: APP_NAME,
+    authors: {
+      name: displayName,
+      url: `https://hey.xyz/u/${profile.handle}`
+    },
+    creator: displayName,
     description: filteredContent,
     keywords: [
       'social media post',
@@ -101,6 +109,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: 'Hey',
       type: 'article'
     },
+    publisher: displayName,
     title: title,
     twitter: {
       card: assetIsAudio ? 'summary' : 'summary_large_image',
