@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: 'profile'
     },
     title: title,
-    twitter: { card: 'summary' }
+    twitter: { card: 'summary', site: '@heydotxyz' }
   };
 }
 
