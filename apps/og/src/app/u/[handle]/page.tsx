@@ -30,12 +30,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   const profile = data.profile as Profile;
-  const { displayName, slugWithPrefix } = getProfile(profile);
+  const { displayName, link, slugWithPrefix } = getProfile(profile);
 
   const title = `${displayName} (${slugWithPrefix}) • ${APP_NAME}`;
 
   return {
-    alternates: { canonical: `https://hey.xyz/u/${profile.handle}` },
+    alternates: { canonical: `https://hey.xyz/${link}` },
     applicationName: APP_NAME,
     creator: displayName,
     description: profile?.metadata?.bio,
