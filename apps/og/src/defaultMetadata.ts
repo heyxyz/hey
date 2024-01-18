@@ -3,7 +3,22 @@ import type { Metadata } from 'next';
 import { APP_NAME, DEFAULT_OG, DESCRIPTION } from '@hey/data/constants';
 
 const defaultMetadata: Metadata = {
+  applicationName: APP_NAME,
   description: DESCRIPTION,
+  keywords: [
+    'social media',
+    'hey',
+    'lenster',
+    'like',
+    'share',
+    'post',
+    'comment',
+    'publication',
+    'lens',
+    'lens protocol',
+    'decentralized',
+    'web3'
+  ],
   metadataBase: new URL(`https://hey.xyz`),
   openGraph: {
     images: [DEFAULT_OG],
