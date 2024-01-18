@@ -92,6 +92,7 @@ export const PUBLICATION = {
   REPORT: 'Report publication',
   SHARE: 'Share publication',
   TOGGLE_BOOKMARK: 'Toggle publication bookmark',
+  TOGGLE_HIDE_COMMENT: 'Toggle publication hide comment',
   TOGGLE_NOT_INTERESTED: 'Toggle publication not interested',
   TRANSLATE: 'Translate publication',
   UNDO_MIRROR: 'Undo mirror publication',
