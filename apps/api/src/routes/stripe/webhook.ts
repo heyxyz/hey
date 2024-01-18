@@ -68,6 +68,7 @@ export const post: Handler = async (req, res) => {
 
       break;
     }
+    // TODO: Handle subscription updates
     case 'customer.subscription.deleted': {
       const subscriptionDeleted = event.data.object;
       const stripeId = subscriptionDeleted.customer.toString();
