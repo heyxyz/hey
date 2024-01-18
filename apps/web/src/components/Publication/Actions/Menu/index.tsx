@@ -12,6 +12,7 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 import Bookmark from './Bookmark';
 import CopyPostText from './CopyPostText';
 import Delete from './Delete';
+import HideComment from './HideComment';
 import NotInterested from './NotInterested';
 import Report from './Report';
 import Share from './Share';
@@ -52,6 +53,7 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
                 <Report publication={publication} />
               )}
               <NotInterested publication={publication} />
+              <HideComment publication={publication} />
               <Bookmark publication={publication} />
             </>
           ) : null}
