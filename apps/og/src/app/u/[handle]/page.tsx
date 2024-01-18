@@ -35,7 +35,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = `${displayName} (${slugWithPrefix}) • ${APP_NAME}`;
 
   return {
+    alternates: {
+      canonical: `https://hey.xyz/u/${profile.handle}`
+    },
     applicationName: APP_NAME,
+    creator: displayName,
     description: profile?.metadata?.bio,
     keywords: [
       'social media profile',
@@ -56,6 +60,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: 'Hey',
       type: 'profile'
     },
+    publisher: displayName,
     title: title,
     twitter: { card: 'summary', site: '@heydotxyz' }
   };
