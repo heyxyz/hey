@@ -208,9 +208,6 @@ importers:
       '@aws-sdk/lib-storage':
         specifier: ^3.490.0
         version: 3.490.0(@aws-sdk/client-s3@3.490.0)
-      '@graphiql/plugin-explorer':
-        specifier: ^1.0.2
-        version: 1.0.2(@graphiql/react@0.20.2)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
       '@graphiql/toolkit':
         specifier: ^0.9.1
         version: 0.9.1(@types/node@20.11.4)(graphql@16.8.1)
@@ -3560,21 +3557,6 @@ packages:
 
   /@floating-ui/utils@0.2.1:
     resolution: {integrity: sha512-9TANp6GPoMtYzQdt54kfAyMmz1+osLlXdg2ENroU7zzrtflTLrrC/lgrIfaSe+Wu0b89GKccT7vxXA0MoAIO+Q==}
-    dev: false
-
-  /@graphiql/plugin-explorer@1.0.2(@graphiql/react@0.20.2)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-9j+kg2UjtLZD5EBmGjeWHkoVVxtbShYg2DzbUVebibnZYZM/iMBEF4vaccXJIAm5KaomIPLx0aoNs4LbODyc3Q==}
-    peerDependencies:
-      '@graphiql/react': ^0.20.2
-      graphql: ^15.5.0 || ^16.0.0
-      react: ^16.8.0 || ^17 || ^18
-      react-dom: ^16.8.0 || ^17 || ^18
-    dependencies:
-      '@graphiql/react': 0.20.2(@codemirror/language@6.0.0)(@types/node@20.11.4)(@types/react-dom@18.2.18)(@types/react@18.2.48)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
-      graphiql-explorer: 0.9.0(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
-      graphql: 16.8.1
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /@graphiql/react@0.20.2(@codemirror/language@6.0.0)(@types/node@20.11.4)(@types/react-dom@18.2.18)(@types/react@18.2.48)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0):
@@ -12027,18 +12009,6 @@ packages:
   /graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
     dev: true
-
-  /graphiql-explorer@0.9.0(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-fZC/wsuatqiQDO2otchxriFO0LaWIo/ovF/CQJ1yOudmY0P7pzDiP+l9CEHUiWbizk3e99x6DQG4XG1VxA+d6A==}
-    peerDependencies:
-      graphql: ^0.6.0 || ^0.7.0 || ^0.8.0-b || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
-      react: ^15.6.0 || ^16.0.0
-      react-dom: ^15.6.0 || ^16.0.0
-    dependencies:
-      graphql: 16.8.1
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
 
   /graphiql@3.1.0(@codemirror/language@6.0.0)(@types/node@20.11.4)(@types/react-dom@18.2.18)(@types/react@18.2.48)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-1l2PecYNvFYYNSYq+4vIJOACXkP60Kod0E0SnKu+2f0Ux/npFNr3TfwJLZs7eKqqSh0KODmorvHi/XBP46Ua7A==}
