@@ -27,12 +27,7 @@ const OpenActionSettings: FC = () => {
         <motion.button
           aria-label="Choose Open Action"
           className="outline-brand-500 rounded-full outline-offset-8"
-          onClick={() => {
-            setShowModal(!showModal);
-            setScreen(
-              selectedOpenAction === null ? ScreenType.List : ScreenType.Config
-            );
-          }}
+          onClick={() => setShowModal(!showModal)}
           type="button"
           whileTap={{ scale: 0.9 }}
         >
@@ -57,8 +52,8 @@ const OpenActionSettings: FC = () => {
             <button
               className="flex items-center space-x-2"
               onClick={() => {
-                reset();
                 setScreen(ScreenType.List);
+                reset();
               }}
             >
               <ChevronLeftIcon className="mt-0.5 size-4 stroke-black" />

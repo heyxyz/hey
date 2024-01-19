@@ -52,6 +52,12 @@ const nextConfig = {
         destination: 'https://tally.so/r/3No6NQ',
         permanent: true,
         source: '/-/trusted'
+      },
+      {
+        destination:
+          'https://reflect.site/g/yoginth/-hey-changelog/c6eae172c9cd43cebfc38b5afc64e456',
+        permanent: true,
+        source: '/-/changelog'
       }
     ];
   },
