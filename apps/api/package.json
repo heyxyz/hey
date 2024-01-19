@@ -20,7 +20,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.490.0",
+    "@aws-sdk/client-sts": "^3.495.0",
     "@clickhouse/client": "^0.2.8",
     "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
@@ -40,13 +40,13 @@
     "react-dom": "^18.2.0",
     "request-ip": "^3.3.0",
     "rimraf": "^5.0.0",
-    "stripe": "^14.12.0",
+    "stripe": "^14.13.0",
     "tsx": "^4.7.0",
     "typescript": "^5.3.3",
     "ua-parser-js": "^1.0.37",
     "urlcat": "^3.1.0",
     "uuid": "^9.0.1",
-    "viem": "^2.2.0",
+    "viem": "^2.4.0",
     "vite-express": "^0.13.0",
     "zod": "^3.22.4"
   },
