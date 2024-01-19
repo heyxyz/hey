@@ -10,6 +10,7 @@ import { useEffectOnce } from 'usehooks-ts';
 import PublicationActions from './Actions';
 import FeaturedGroup from './FeaturedGroup';
 import HiddenPublication from './HiddenPublication';
+import PublicationAvatar from './PublicationAvatar';
 import PublicationBody from './PublicationBody';
 import PublicationHeader from './PublicationHeader';
 import PublicationStats from './PublicationStats';
@@ -33,9 +34,10 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
   return (
     <article className="p-5">
       <PublicationType publication={publication} showType />
-      <div>
-        <PublicationHeader publication={targetPublication} />
-        <div className="ml-[60px]">
+      <div className="flex items-start space-x-3">
+        <PublicationAvatar profile={publication.by} />
+        <div>
+          <PublicationHeader publication={targetPublication} />
           {targetPublication.isHidden ? (
             <HiddenPublication type={targetPublication.__typename} />
           ) : (
