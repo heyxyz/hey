@@ -35,7 +35,7 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
     <article className="p-5">
       <PublicationType publication={publication} showType />
       <div className="flex items-start space-x-3">
-        <PublicationAvatar profile={publication.by} />
+        <PublicationAvatar publication={publication} />
         <div>
           <PublicationHeader publication={targetPublication} />
           {targetPublication.isHidden ? (

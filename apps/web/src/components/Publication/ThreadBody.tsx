@@ -30,8 +30,8 @@ const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
     <PublicationWrapper publication={publication}>
       <span ref={observe} />
       <div className="relative flex items-start space-x-3 pb-5">
-        <PublicationAvatar profile={publication.by} />
-        <div className="absolute bottom-0 left-[12px] h-full border-[0.8px] border-solid dark:border-gray-700" />
+        <PublicationAvatar publication={publication} />
+        <div className="absolute bottom-0 left-[12px] h-full border-[0.8px] border-solid border-gray-300 dark:border-gray-700" />
         <div className="w-full">
           <PublicationHeader publication={publication} />
           {publication.isHidden ? (
