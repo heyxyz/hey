@@ -55,7 +55,7 @@ const PublicationActions: FC<PublicationActionsProps> = ({
 
   return (
     <span
-      className="-ml-2 mt-3 flex flex-wrap items-center gap-x-6 gap-y-1 sm:gap-8"
+      className="-ml-2 mt-2 flex flex-wrap items-center gap-x-6 gap-y-1 sm:gap-8"
       onClick={stopEventPropagation}
     >
       <Comment publication={targetPublication} showCount={showCount} />
