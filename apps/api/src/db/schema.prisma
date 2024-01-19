@@ -56,13 +56,14 @@ model Group {
 }
 
 model Pro {
-  profileId String    @id
-  hash      String
-  createdAt DateTime  @default(now())
-  expiresAt DateTime?
+  profileId String   @id
+  stripeId  String   @unique // Stripe subscription ID
+  plan      String
+  createdAt DateTime @default(now())
+  expiresAt DateTime
 
   // Indexes
-  @@index([hash])
+  @@index([plan])
 }
 
 model Feature {

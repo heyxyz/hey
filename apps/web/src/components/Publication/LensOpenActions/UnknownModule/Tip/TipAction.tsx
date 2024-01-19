@@ -111,7 +111,7 @@ const TipAction: FC<TipActionProps> = ({
             ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult
         }
         setAllowed={setAllowed}
-        title="Allow open action"
+        title="Enable open action"
       />
     );
   }

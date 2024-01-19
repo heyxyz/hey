@@ -4,13 +4,11 @@ import type {
 } from '@hey/lens';
 import type { FC } from 'react';
 
-import { FeatureFlag } from '@hey/data/feature-flags';
 import { PUBLICATION } from '@hey/data/tracking';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { TipIcon } from '@hey/icons';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Modal, Tooltip } from '@hey/ui';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
@@ -36,10 +34,6 @@ const TipOpenAction: FC<TipOpenActionProps> = ({
   );
 
   if (!module) {
-    return null;
-  }
-
-  if (!isFeatureEnabled(FeatureFlag.LensMember)) {
     return null;
   }
 
