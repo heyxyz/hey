@@ -1,11 +1,10 @@
 import type { AnyPublication, FeedItem } from '@hey/lens';
 import type { FC } from 'react';
 
-import FeedUserProfile from '@components/Shared/FeedUserProfile';
+import PublicationProfile from '@components/Publication/PublicationProfile';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import cn from '@hey/ui/cn';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
@@ -40,19 +39,14 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
 
   return (
     <div
-      className={cn(
-        quoted ? 'pb-1' : '-mb-4',
-        'relative flex justify-between space-x-1.5'
-      )}
+      className="flex justify-between space-x-1.5"
+      onClick={stopEventPropagation}
     >
-      <span className="max-w-full" onClick={stopEventPropagation}>
-        <FeedUserProfile
-          profile={profile}
-          quoted={quoted}
-          source={gardenerMode ? targetPublication.publishedOn?.id : undefined}
-          timestamp={timestamp}
-        />
-      </span>
+      <PublicationProfile
+        profile={profile}
+        source={gardenerMode ? targetPublication.publishedOn?.id : undefined}
+        timestamp={timestamp}
+      />
       {!publication.isHidden && !quoted ? (
         <PublicationMenu publication={targetPublication} />
       ) : null}
@@ -60,10 +54,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
         <button
           aria-label="Remove Quote"
           className="outline-brand-500 rounded-full border p-1 hover:bg-gray-300/20"
-          onClick={(event) => {
-            stopEventPropagation(event);
-            setQuotedPublication(null);
-          }}
+          onClick={() => setQuotedPublication(null)}
           type="reset"
         >
           <XMarkIcon className="ld-text-gray-500 size-3.5" />

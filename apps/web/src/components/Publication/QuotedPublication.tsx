@@ -6,6 +6,7 @@ import pushToImpressions from '@lib/pushToImpressions';
 import { useInView } from 'react-cool-inview';
 
 import HiddenPublication from './HiddenPublication';
+import PublicationAvatar from './PublicationAvatar';
 import PublicationBody from './PublicationBody';
 import PublicationHeader from './PublicationHeader';
 
@@ -34,7 +35,10 @@ const QuotedPublication: FC<QuotedPublicationProps> = ({
       publication={publication}
     >
       <span ref={observe} />
-      <PublicationHeader isNew={isNew} publication={publication} quoted />
+      <div className="flex items-center space-x-2 pb-2">
+        <PublicationAvatar profile={publication.by} quoted />
+        <PublicationHeader isNew={isNew} publication={publication} quoted />
+      </div>
       {publication.isHidden ? (
         <HiddenPublication type={publication.__typename} />
       ) : (
