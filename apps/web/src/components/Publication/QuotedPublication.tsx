@@ -36,7 +36,7 @@ const QuotedPublication: FC<QuotedPublicationProps> = ({
     >
       <span ref={observe} />
       <div className="flex items-center space-x-2 pb-2">
-        <PublicationAvatar profile={publication.by} quoted />
+        <PublicationAvatar publication={publication} quoted />
         <PublicationHeader isNew={isNew} publication={publication} quoted />
       </div>
       {publication.isHidden ? (
