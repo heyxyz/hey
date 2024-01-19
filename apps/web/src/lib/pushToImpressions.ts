@@ -12,6 +12,12 @@ const pushToImpressions = (id: string): void => {
   const anonymousId = hydrateLeafwatchAnonymousId();
   const { id: sessionProfileId } = getCurrentSession();
 
+  // Don't push impressions for the current user
+  const publicationProfileId = id.split('-')[0];
+  if (publicationProfileId === sessionProfileId) {
+    return;
+  }
+
   if (IS_MAINNET && id && navigator.serviceWorker?.controller) {
     navigator.serviceWorker.controller.postMessage({
       id,

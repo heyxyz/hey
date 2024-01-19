@@ -1,7 +1,7 @@
 import type { OpenAction } from '@hey/data/enums';
 import type { FC, ReactNode } from 'react';
 
-import { CheckCircleIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
+import { ChevronRightIcon } from '@heroicons/react/24/solid';
 import { Card } from '@hey/ui';
 import {
   ScreenType,
@@ -11,7 +11,6 @@ import {
 interface OpenActionItemProps {
   description: string;
   icon: ReactNode;
-  selected: boolean;
   title: string;
   type: OpenAction;
 }
@@ -19,7 +18,6 @@ interface OpenActionItemProps {
 const OpenActionItem: FC<OpenActionItemProps> = ({
   description,
   icon,
-  selected,
   title,
   type
 }) => {
@@ -46,11 +44,7 @@ const OpenActionItem: FC<OpenActionItemProps> = ({
           <div className="text-sm">{description}</div>
         </div>
       </div>
-      {selected ? (
-        <CheckCircleIcon className="size-5 text-green-500" />
-      ) : (
-        <ChevronRightIcon className="size-5 text-gray-400" />
-      )}
+      <ChevronRightIcon className="size-5 text-gray-400" />
     </Card>
   );
 };
