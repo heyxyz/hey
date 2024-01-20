@@ -32,7 +32,7 @@ const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
       <div className="relative flex items-start space-x-3 pb-5">
         <PublicationAvatar publication={publication} />
         <div className="absolute bottom-0 left-[9.1px] h-full border-[0.9px] border-solid border-gray-300 dark:border-gray-700" />
-        <div className="w-[calc(100%-60px)]">
+        <div className="w-[calc(100%-55px)]">
           <PublicationHeader publication={publication} />
           {publication.isHidden ? (
             <HiddenPublication type={publication.__typename} />
