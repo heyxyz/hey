@@ -7,6 +7,7 @@ import { useInView } from 'react-cool-inview';
 
 import PublicationActions from './Actions';
 import HiddenPublication from './HiddenPublication';
+import PublicationAvatar from './PublicationAvatar';
 import PublicationBody from './PublicationBody';
 import PublicationHeader from './PublicationHeader';
 
@@ -28,10 +29,11 @@ const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
   return (
     <PublicationWrapper publication={publication}>
       <span ref={observe} />
-      <PublicationHeader publication={publication} />
-      <div className="flex">
-        <div className="-my-6 ml-5 mr-8 border-[0.8px] border-gray-300 bg-gray-300 dark:border-gray-700 dark:bg-gray-700" />
-        <div className="w-full max-w-[calc(100%_-_53px)] pb-5">
+      <div className="relative flex items-start space-x-3 pb-5">
+        <PublicationAvatar publication={publication} />
+        <div className="absolute bottom-0 left-[9.1px] h-full border-[0.9px] border-solid border-gray-300 dark:border-gray-700" />
+        <div className="w-[calc(100%-55px)]">
+          <PublicationHeader publication={publication} />
           {publication.isHidden ? (
             <HiddenPublication type={publication.__typename} />
           ) : (

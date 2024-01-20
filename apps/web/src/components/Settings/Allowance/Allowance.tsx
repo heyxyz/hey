@@ -9,7 +9,7 @@ interface AllowanceProps {
 
 const Allowance: FC<AllowanceProps> = ({ allowance }) => {
   return (
-    <div className="space-y-4 p-5">
+    <div className="mt-5 space-y-4">
       {allowance?.approvedModuleAllowanceAmount?.map((item) => (
         <Module key={item?.moduleContract.address} module={item} />
       ))}

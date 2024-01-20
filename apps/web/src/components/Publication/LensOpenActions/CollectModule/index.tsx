@@ -197,18 +197,18 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
               </div>
             </div>
           ) : null}
-          {collectModule.contract.address ? (
+          {collectModule.collectNft ? (
             <div className="flex items-center space-x-2">
               <PuzzlePieceIcon className="ld-text-gray-500 size-4" />
               <div className="space-x-1.5">
                 <span>Token:</span>
                 <Link
                   className="font-bold text-gray-600"
-                  href={`${POLYGONSCAN_URL}/token/${collectModule.contract.address}`}
+                  href={`${POLYGONSCAN_URL}/token/${collectModule.collectNft}`}
                   rel="noreferrer noopener"
                   target="_blank"
                 >
-                  {formatAddress(collectModule.contract.address)}
+                  {formatAddress(collectModule.collectNft)}
                 </Link>
               </div>
             </div>

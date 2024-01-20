@@ -12,6 +12,7 @@ import { useInView } from 'react-cool-inview';
 import PublicationActions from './Actions';
 import FeaturedGroup from './FeaturedGroup';
 import HiddenPublication from './HiddenPublication';
+import PublicationAvatar from './PublicationAvatar';
 import PublicationBody from './PublicationBody';
 import PublicationHeader from './PublicationHeader';
 import PublicationType from './Type';
@@ -71,24 +72,30 @@ const SinglePublication: FC<SinglePublicationProps> = ({
           showType={showType}
         />
       )}
-      <PublicationHeader feedItem={feedItem} publication={rootPublication} />
-      <div className="ml-[53px]">
-        {publication.isHidden ? (
-          <HiddenPublication type={publication.__typename} />
-        ) : (
-          <>
-            <PublicationBody
-              publication={rootPublication}
-              showMore={showMore}
-            />
-            <div className="flex flex-wrap items-center gap-x-7">
-              {showActions ? (
-                <PublicationActions publication={rootPublication} />
-              ) : null}
-              <FeaturedGroup className="mt-3" tags={metadata?.tags} />
-            </div>
-          </>
-        )}
+      <div className="flex items-start space-x-3">
+        <PublicationAvatar feedItem={feedItem} publication={rootPublication} />
+        <div className="w-[calc(100%-55px)]">
+          <PublicationHeader
+            feedItem={feedItem}
+            publication={rootPublication}
+          />
+          {publication.isHidden ? (
+            <HiddenPublication type={publication.__typename} />
+          ) : (
+            <>
+              <PublicationBody
+                publication={rootPublication}
+                showMore={showMore}
+              />
+              <div className="flex flex-wrap items-center gap-x-7">
+                {showActions ? (
+                  <PublicationActions publication={rootPublication} />
+                ) : null}
+                <FeaturedGroup className="mt-3" tags={metadata?.tags} />
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </PublicationWrapper>
   );
