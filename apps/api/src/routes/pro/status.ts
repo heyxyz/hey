@@ -29,7 +29,7 @@ export const get: Handler = async (req, res) => {
     return res
       .status(200)
       .setHeader('Cache-Control', CACHE_AGE_INDEFINITE)
-      .json({ result, success: true });
+      .json({ ...result, success: true });
   } catch (error) {
     return catchedError(res, error);
   }
