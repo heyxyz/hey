@@ -16,8 +16,6 @@ const ProBadge: FC<ProBadgeProps> = ({ id }) => {
     queryKey: ['getProStatus', id]
   });
 
-  console.log('ProBadge', data);
-
   if (!data) {
     return null;
   }
