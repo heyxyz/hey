@@ -16,6 +16,8 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import Suggested from '../Suggested';
 
+const Title: FC = () => <p className="text-lg font-semibold">Who to follow</p>;
+
 const RecommendedProfiles: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const seeThroughProfile = useTimelineStore(
@@ -31,8 +33,8 @@ const RecommendedProfiles: FC = () => {
 
   if (loading) {
     return (
-      <Card className="space-y-3.5 p-5">
-        <div className="text-lg font-semibold">Who to follow</div>
+      <Card as="aside" className="space-y-3.5 p-5">
+        <Title />
         <UserProfileShimmer showFollow />
         <UserProfileShimmer showFollow />
         <UserProfileShimmer showFollow />
@@ -45,8 +47,8 @@ const RecommendedProfiles: FC = () => {
 
   if (data?.profileRecommendations.items.length === 0) {
     return (
-      <Card className="p-5">
-        <div className="text-lg font-semibold">Who to follow</div>
+      <Card as="aside" className="p-5">
+        <Title />
         <EmptyState
           hideCard
           icon={<UsersIcon className="text-brand-500 size-8" />}
@@ -63,7 +65,7 @@ const RecommendedProfiles: FC = () => {
   return (
     <>
       <Card as="aside" className="space-y-4 p-5">
-        <div className="text-lg font-semibold">Who to follow</div>
+        <Title />
         <ErrorMessage error={error} title="Failed to load recommendations" />
         {recommendedProfiles?.slice(0, 5)?.map((profile) => (
           <motion.div

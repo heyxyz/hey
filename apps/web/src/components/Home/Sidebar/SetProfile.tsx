@@ -1,11 +1,7 @@
 import type { FC } from 'react';
 
 import New from '@components/Shared/Badges/New';
-import {
-  MinusCircleIcon,
-  PencilSquareIcon,
-  PhotoIcon
-} from '@heroicons/react/24/outline';
+import { MinusCircleIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { APP_NAME } from '@hey/data/constants';
 import { ONBOARDING } from '@hey/data/tracking';
@@ -50,11 +46,8 @@ const SetProfile: FC = () => {
       as="aside"
       className="mb-4 space-y-4 !border-green-600 !bg-green-50 p-5 text-green-600 dark:bg-green-900"
     >
-      <div className="flex items-center space-x-2 font-bold">
-        <PhotoIcon className="size-5" />
-        <p>Setup your {APP_NAME} profile</p>
-      </div>
-      <div className="space-y-1 text-sm leading-[22px]">
+      <p className="text-lg font-bold">Setup your {APP_NAME} profile</p>
+      <div className="space-y-1 text-sm leading-5">
         <Status
           finished={Boolean(currentProfile?.metadata?.displayName)}
           title="Set profile name"
@@ -83,8 +76,7 @@ const SetProfile: FC = () => {
           </Link>
         </div>
       </div>
-      <div className="flex items-center space-x-1.5 text-sm font-bold">
-        <PencilSquareIcon className="size-4" />
+      <div className="font-bold">
         <Link
           href="/settings"
           onClick={() => Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE)}
