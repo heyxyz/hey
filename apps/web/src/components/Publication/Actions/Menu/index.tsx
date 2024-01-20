@@ -32,7 +32,7 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
           onClick={stopEventPropagation}
           type="button"
         >
-          <EllipsisVerticalIcon
+          <EllipsisHorizontalIcon
             className={cn('ld-text-gray-500', iconClassName)}
           />
         </button>
