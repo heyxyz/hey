@@ -45,8 +45,8 @@ const Plan: FC<PlanProps> = ({
   return (
     <Card className="w-full p-5 shadow-sm" forceRounded>
       <div className="flex items-center space-x-3">
-        <SparklesIcon className="size-6" />
-        <div className="text-xl">{name}</div>
+        <SparklesIcon className="text-brand-500 size-6" />
+        <b className="text-xl">{name}</b>
       </div>
       <div className="mt-5">
         <div className="text-2xl font-bold">${price}</div>
