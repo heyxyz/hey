@@ -74,7 +74,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
       )}
       <div className="flex items-start space-x-3">
         <PublicationAvatar feedItem={feedItem} publication={rootPublication} />
-        <div className="w-full">
+        <div className="w-[calc(100%-60px)]">
           <PublicationHeader
             feedItem={feedItem}
             publication={rootPublication}

@@ -36,7 +36,7 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
       <PublicationType publication={publication} showType />
       <div className="flex items-start space-x-3">
         <PublicationAvatar publication={publication} />
-        <div className="w-full">
+        <div className="w-[calc(100%-60px)]">
           <PublicationHeader publication={targetPublication} />
           {targetPublication.isHidden ? (
             <HiddenPublication type={targetPublication.__typename} />
