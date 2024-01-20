@@ -50,7 +50,7 @@ const Plan: FC<PlanProps> = ({
       </div>
       <div className="mt-5">
         <div className="text-2xl font-bold">${price}</div>
-        <div className="text-sm text-gray-500">per {duration}</div>
+        <div className="ld-text-gray-500 text-sm">per {duration}</div>
       </div>
       <div className="mt-5">{description}</div>
       <div className="mt-5">
@@ -63,15 +63,13 @@ const Plan: FC<PlanProps> = ({
           {buttonText}
         </Button>
       </div>
-      <div className="mt-5">
-        <div className="space-y-3 text-gray-500">
-          {features.map((feature, index) => (
-            <div className="flex items-center space-x-2" key={index}>
-              <CheckCircleIcon className="size-5 text-green-500" />
-              <div>{feature}</div>
-            </div>
-          ))}
-        </div>
+      <div className="mt-6 space-y-3 text-gray-500">
+        {features.map((feature, index) => (
+          <div className="flex items-center space-x-2" key={index}>
+            <CheckCircleIcon className="size-5 text-green-500" />
+            <div>{feature}</div>
+          </div>
+        ))}
       </div>
     </Card>
   );
