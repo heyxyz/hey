@@ -14,7 +14,7 @@ export const heyFont = localFont({
     {
       path: '../../public/fonts/SofiaProSoftMed-webfont.woff2',
       style: 'medium',
-      weight: '500'
+      weight: '600'
     },
     {
       path: '../../public/fonts/SofiaProSoftBold-webfont.woff2',
