@@ -22,7 +22,7 @@ const Source: FC<SourceProps> = ({ publishedOn }) => {
     <Tooltip content={appName} placement="top">
       <img
         alt={appName}
-        className="w-4"
+        className="mt-0.5 size-3.5 rounded-sm"
         src={`${STATIC_IMAGES_URL}/source/${publishedOn}.jpeg`}
       />
     </Tooltip>
