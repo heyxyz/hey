@@ -28,10 +28,10 @@ const Pro: NextPage = () => {
     <GridLayout>
       <MetaTags title={`Pro • ${APP_NAME}`} />
       <GridItemTwelve>
-        <Card className="flex w-full items-center justify-between space-x-5 p-5">
+        <Card className="flex w-full justify-between space-x-5 p-5">
           <Plan
             buttonText="Get Pro"
-            description="Hey is free for everyone. If you want to support us, you can subscribe to Hey Pro and get some extra features."
+            description={`${APP_NAME} is free for everyone. If you want to support us, you can subscribe to ${APP_NAME} Pro and get some extra features.`}
             duration="month"
             features={[
               'Pro badge on profile',
@@ -48,17 +48,9 @@ const Pro: NextPage = () => {
           />
           <Plan
             buttonText="Get Believer"
-            description="Hey is free for everyone. If you want to support us, you can subscribe to Hey Pro and get some extra features."
+            description={`With ${APP_NAME} Believer you get all the features of ${APP_NAME} Pro and you also support us even more.`}
             duration="year"
-            features={[
-              'Pro badge on profile',
-              'Support an independent team',
-              'Choose Algorithms',
-              'See the feed through any user',
-              'Custom app icon',
-              'Enable tips on publications',
-              'Profile analytics and stats'
-            ]}
+            features={['All Pro features', 'Believer badge on profile']}
             name="Believer"
             planId={Stripe.BELIEVER}
             price={69}
