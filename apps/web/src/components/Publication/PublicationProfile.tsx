@@ -38,7 +38,9 @@ const PublicationProfile: FC<FeedUserProfileProps> = ({
         showUserPreview
       >
         <div className="flex max-w-sm items-center">
-          <b className="truncate">{getProfile(profile).displayName}</b>
+          <div className="truncate font-semibold">
+            {getProfile(profile).displayName}
+          </div>
           <Slug
             className="ml-1.5 truncate text-sm"
             slug={getProfile(profile).slugWithPrefix}

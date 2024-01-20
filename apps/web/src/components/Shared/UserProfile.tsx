@@ -67,7 +67,9 @@ const UserProfile: FC<UserProfileProps> = ({
     <>
       <div className="flex max-w-sm items-center">
         <div className={cn(isBig ? 'font-bold' : 'text-md', 'grid')}>
-          <b className="truncate">{getProfile(profile).displayName}</b>
+          <div className="truncate font-semibold">
+            {getProfile(profile).displayName}
+          </div>
         </div>
         {isVerified(profile.id) ? (
           <CheckBadgeIcon className="text-brand-500 ml-1 size-4" />
