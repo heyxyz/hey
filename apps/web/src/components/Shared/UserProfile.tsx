@@ -53,13 +53,13 @@ const UserProfile: FC<UserProfileProps> = ({
         isBig ? 'size-14' : 'size-11',
         'rounded-full border bg-gray-200 dark:border-gray-700'
       )}
-      height={isBig ? 56 : 40}
+      height={isBig ? 56 : 44}
       loading="lazy"
       onError={({ currentTarget }) => {
         currentTarget.src = getLennyURL(profile.id);
       }}
       src={getAvatar(profile)}
-      width={isBig ? 56 : 40}
+      width={isBig ? 56 : 44}
     />
   );
 
