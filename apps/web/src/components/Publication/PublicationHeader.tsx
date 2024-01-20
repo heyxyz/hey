@@ -38,7 +38,10 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
     : targetPublication.createdAt;
 
   return (
-    <div className="flex w-full justify-between" onClick={stopEventPropagation}>
+    <div
+      className="flex w-full items-start justify-between"
+      onClick={stopEventPropagation}
+    >
       <PublicationProfile
         profile={profile}
         source={gardenerMode ? targetPublication.publishedOn?.id : undefined}
