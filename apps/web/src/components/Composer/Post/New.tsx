@@ -51,7 +51,7 @@ const NewPost: FC = () => {
       <div className="flex items-center space-x-3">
         <Image
           alt={currentProfile?.id}
-          className="size-9 cursor-pointer rounded-full border bg-gray-200 dark:border-gray-700"
+          className="size-11 cursor-pointer rounded-full border bg-gray-200 dark:border-gray-700"
           onClick={() => push(getProfile(currentProfile).link)}
           onError={({ currentTarget }) => {
             currentTarget.src = getLennyURL(currentProfile?.id);
