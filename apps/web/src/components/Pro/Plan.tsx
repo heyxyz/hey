@@ -1,9 +1,10 @@
 import { SparklesIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { HEY_API_URL } from '@hey/data/constants';
+import { HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
 import { Button, Card } from '@hey/ui';
 import axios from 'axios';
 import { type FC, useState } from 'react';
+import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface PlanProps {
@@ -26,9 +27,17 @@ const Plan: FC<PlanProps> = ({
   price
 }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
+  const isPro = usePreferencesStore((state) => state.isPro);
   const [loading, setLoading] = useState(false);
+  const manageUrl = IS_MAINNET
+    ? 'https://billing.stripe.com/p/login/3cs8Agc9ggY82A0000'
+    : 'https://billing.stripe.com/p/login/test_9AQbLWgO68K56uk144';
 
   const handleSubscribe = async () => {
+    if (isPro) {
+      return window.open(manageUrl, '_blank');
+    }
+
     try {
       setLoading(true);
 
@@ -60,7 +69,7 @@ const Plan: FC<PlanProps> = ({
           onClick={handleSubscribe}
           size="lg"
         >
-          {buttonText}
+          {isPro ? 'Manage Subscription' : buttonText}
         </Button>
       </div>
       <div className="mt-6 space-y-3 text-gray-500">
