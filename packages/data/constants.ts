@@ -79,9 +79,9 @@ export const S3_BUCKET = {
 // Stripe Plans
 export const Stripe = {
   BELIEVER: IS_MAINNET
-    ? 'price_1OZmUnSDpi8e32ARLvegtMNT'
+    ? 'price_1OZmX0SDpi8e32ARfi8FsO87'
     : 'price_1OZmX0SDpi8e32ARfi8FsO87',
   PRO: IS_MAINNET
-    ? 'price_1OGGizSDpi8e32ARC7Gh5ou5'
+    ? 'price_1OGGqhSDpi8e32AR5WawyjjM'
     : 'price_1OGGqhSDpi8e32AR5WawyjjM'
 };
