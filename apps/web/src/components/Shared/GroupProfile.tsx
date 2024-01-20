@@ -34,7 +34,9 @@ const GroupProfile: FC<GroupProfileProps> = ({
     <>
       <div className="flex max-w-sm items-center">
         <div className="text-md grid">
-          <b className="truncate">{sanitizeDisplayName(group.name)}</b>
+          <div className="truncate font-semibold">
+            {sanitizeDisplayName(group.name)}
+          </div>
         </div>
         {group.featured ? (
           <FireIcon className="ml-1 size-4 text-yellow-500" />
