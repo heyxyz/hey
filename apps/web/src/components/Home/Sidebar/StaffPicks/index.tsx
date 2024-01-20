@@ -13,6 +13,10 @@ import { motion } from 'framer-motion';
 import StaffPickedGroup from './StaffPickedGroup';
 import StaffPickedProfile from './StaffPickedProfile';
 
+const Title: FC = () => (
+  <p className="text-lg font-semibold">What's poppin'?</p>
+);
+
 const StaffPicks: FC = () => {
   const fetchStaffPicks = async (): Promise<StaffPick[]> => {
     const response: {
@@ -30,8 +34,8 @@ const StaffPicks: FC = () => {
 
   if (isLoading) {
     return (
-      <Card className="mb-4 space-y-3.5 p-5">
-        <div className="text-lg font-semibold">What's poppin'?</div>
+      <Card as="aside" className="mb-4 space-y-3.5 p-5">
+        <Title />
         <UserProfileShimmer />
         <GroupProfileShimmer />
         <UserProfileShimmer />
@@ -43,8 +47,8 @@ const StaffPicks: FC = () => {
 
   if (picks?.length === 0) {
     return (
-      <Card className="mb-4 p-5">
-        <div className="text-lg font-semibold">What's poppin'?</div>
+      <Card as="aside" className="mb-4 p-5">
+        <Title />
         <EmptyState
           hideCard
           icon={
@@ -58,7 +62,7 @@ const StaffPicks: FC = () => {
 
   return (
     <Card as="aside" className="mb-4 space-y-4 p-5">
-      <div className="text-lg font-semibold">What's poppin'?</div>
+      <Title />
       <ErrorMessage
         error={error as Error}
         title="Failed to load recommendations"
