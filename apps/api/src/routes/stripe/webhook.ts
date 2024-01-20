@@ -69,7 +69,20 @@ export const post: Handler = async (req, res) => {
 
       break;
     }
-    // TODO: Handle subscription updates
+    case 'customer.subscription.updated': {
+      const subscriptionUpdated = event.data.object;
+      const stripeId = subscriptionUpdated.customer.toString();
+      const expiresAt = new Date(subscriptionUpdated.current_period_end * 1000);
+
+      try {
+        await prisma.pro.update({ data: { expiresAt }, where: { stripeId } });
+        logger.info(`[Webhook: Stripe]: Subscription updated ${stripeId}`);
+      } catch {
+        logger.error('[Webhook: Stripe]: Error updating subscription');
+      }
+
+      break;
+    }
     case 'customer.subscription.deleted': {
       const subscriptionDeleted = event.data.object;
       const stripeId = subscriptionDeleted.customer.toString();
