@@ -41,14 +41,14 @@ const PublicationAvatar: FC<PublicationAvatarProps> = ({
           quoted ? 'size-6' : 'size-11',
           'z-[1] cursor-pointer rounded-full border bg-gray-200 dark:border-gray-700'
         )}
-        height={quoted ? 25 : 40}
+        height={quoted ? 25 : 44}
         loading="lazy"
         onClick={() => push(getProfile(profile).link)}
         onError={({ currentTarget }) => {
           currentTarget.src = getLennyURL(profile.id);
         }}
         src={getAvatar(profile)}
-        width={quoted ? 25 : 40}
+        width={quoted ? 25 : 44}
       />
     </Link>
   );
