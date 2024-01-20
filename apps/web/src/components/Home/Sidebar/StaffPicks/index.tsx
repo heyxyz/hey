@@ -34,7 +34,7 @@ const StaffPicks: FC = () => {
 
   if (isLoading) {
     return (
-      <Card as="aside" className="mb-4 space-y-3.5 p-5">
+      <Card as="aside" className="mb-4 space-y-4 p-5">
         <Title />
         <UserProfileShimmer />
         <GroupProfileShimmer />
