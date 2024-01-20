@@ -50,7 +50,7 @@ const UserProfile: FC<UserProfileProps> = ({
     <Image
       alt={profile.id}
       className={cn(
-        isBig ? 'size-14' : 'size-10',
+        isBig ? 'size-14' : 'size-11',
         'rounded-full border bg-gray-200 dark:border-gray-700'
       )}
       height={isBig ? 56 : 40}
@@ -67,7 +67,7 @@ const UserProfile: FC<UserProfileProps> = ({
     <>
       <div className="flex max-w-sm items-center">
         <div className={cn(isBig ? 'font-bold' : 'text-md', 'grid')}>
-          <div className="truncate">{getProfile(profile).displayName}</div>
+          <b className="truncate">{getProfile(profile).displayName}</b>
         </div>
         {isVerified(profile.id) ? (
           <CheckBadgeIcon className="text-brand-500 ml-1 size-4" />
