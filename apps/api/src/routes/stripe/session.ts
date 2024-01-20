@@ -6,9 +6,9 @@ import createStripeClient from '@utils/createStripeClient';
 import { noBody } from '@utils/responses';
 
 export const get: Handler = async (req, res) => {
-  const { email, id, plan } = req.query;
+  const { id, plan } = req.query;
 
-  if (!id || !plan || !email) {
+  if (!id || !plan) {
     return noBody(res);
   }
 
@@ -20,7 +20,6 @@ export const get: Handler = async (req, res) => {
       automatic_tax: { enabled: false },
       billing_address_collection: 'required',
       client_reference_id: id.toString(),
-      customer_email: email.toString(),
       line_items: [{ price: plan.toString(), quantity: 1 }],
       mode: 'subscription',
       success_url: `https://hey.xyz/pro/success`
