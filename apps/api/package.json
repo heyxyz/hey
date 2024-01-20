@@ -20,8 +20,8 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.495.0",
-    "@clickhouse/client": "^0.2.8",
+    "@aws-sdk/client-sts": "^3.496.0",
+    "@clickhouse/client": "^0.2.9",
     "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
     "@hey/lib": "workspace:*",
@@ -30,7 +30,7 @@
     "axios": "^1.6.5",
     "cors": "^2.8.5",
     "country-code-lookup": "^0.1.1",
-    "dotenv": "^16.0.0",
+    "dotenv": "^16.3.2",
     "express": "^4.17.1",
     "express-file-routing": "^3.0.3",
     "fast-xml-parser": "^4.3.3",
@@ -64,7 +64,7 @@
     "prisma": "^5.8.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.2",
-    "vite": "^5.0.11",
+    "vite": "^5.0.12",
     "vite-tsconfig-paths": "^4.3.1",
     "vitest": "^1.2.1"
   }
