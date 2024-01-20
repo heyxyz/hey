@@ -48,7 +48,7 @@ const PublicationProfile: FC<FeedUserProfileProps> = ({
       </WrappedLink>
       <WrappedLink>
         <Slug
-          className="ml-1.5 truncate text-sm"
+          className="ml-1 truncate text-sm"
           slug={getProfile(profile).slugWithPrefix}
         />
       </WrappedLink>
@@ -60,13 +60,13 @@ const PublicationProfile: FC<FeedUserProfileProps> = ({
       ) : null}
       {timestamp ? (
         <span className="ld-text-gray-500 truncate">
-          <span className="mx-1.5">·</span>
+          <span className="mx-1">·</span>
           <span className="text-xs">{formatRelativeOrAbsolute(timestamp)}</span>
         </span>
       ) : null}
       {source ? (
         <span className="ld-text-gray-500 flex items-center">
-          <span className="mx-1.5">·</span>
+          <span className="mx-1">·</span>
           <Source publishedOn={source} />
         </span>
       ) : null}
