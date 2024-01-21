@@ -33,14 +33,16 @@ const RecommendedProfiles: FC = () => {
 
   if (loading) {
     return (
-      <Card as="aside" className="space-y-3.5 p-5">
+      <Card as="aside" className="space-y-4 p-5">
         <Title />
         <UserProfileShimmer showFollow />
         <UserProfileShimmer showFollow />
         <UserProfileShimmer showFollow />
         <UserProfileShimmer showFollow />
         <UserProfileShimmer showFollow />
-        <div className="shimmer h-3 w-5/12 rounded-full" />
+        <div className="pb-1 pt-2">
+          <div className="shimmer h-3 w-5/12 rounded-full" />
+        </div>
       </Card>
     );
   }
