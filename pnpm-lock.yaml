@@ -108,8 +108,8 @@ importers:
         specifier: ^2.4.0
         version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
       vite-express:
-        specifier: ^0.13.0
-        version: 0.13.0
+        specifier: ^0.14.0
+        version: 0.14.0
       zod:
         specifier: ^3.22.4
         version: 3.22.4
@@ -255,7 +255,7 @@ importers:
         version: 0.12.6(@lexical/clipboard@0.12.6)(@lexical/selection@0.12.6)(lexical@0.12.6)
       '@lexical/react':
         specifier: ^0.12.6
-        version: 0.12.6(lexical@0.12.6)(react-dom@18.2.0)(react@18.2.0)(yjs@13.6.10)
+        version: 0.12.6(lexical@0.12.6)(react-dom@18.2.0)(react@18.2.0)(yjs@13.6.11)
       '@lexical/utils':
         specifier: ^0.12.6
         version: 0.12.6(lexical@0.12.6)
@@ -4657,7 +4657,7 @@ packages:
       lexical: 0.12.6
     dev: false
 
-  /@lexical/react@0.12.6(lexical@0.12.6)(react-dom@18.2.0)(react@18.2.0)(yjs@13.6.10):
+  /@lexical/react@0.12.6(lexical@0.12.6)(react-dom@18.2.0)(react@18.2.0)(yjs@13.6.11):
     resolution: {integrity: sha512-Pto4wsVwrnY94tzcCXP2kWukQejSRPDfwOPd+EFh8dUzj+L7fa9Pze2wVgCRZpEohwfbcgAdEsvmSbhz+yGkog==}
     peerDependencies:
       lexical: 0.12.6
@@ -4680,7 +4680,7 @@ packages:
       '@lexical/table': 0.12.6(lexical@0.12.6)
       '@lexical/text': 0.12.6(lexical@0.12.6)
       '@lexical/utils': 0.12.6(lexical@0.12.6)
-      '@lexical/yjs': 0.12.6(lexical@0.12.6)(yjs@13.6.10)
+      '@lexical/yjs': 0.12.6(lexical@0.12.6)(yjs@13.6.11)
       lexical: 0.12.6
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -4739,7 +4739,7 @@ packages:
       lexical: 0.12.6
     dev: false
 
-  /@lexical/yjs@0.12.6(lexical@0.12.6)(yjs@13.6.10):
+  /@lexical/yjs@0.12.6(lexical@0.12.6)(yjs@13.6.11):
     resolution: {integrity: sha512-I/Yf/Qm8/ydU983kWpFBlDFNFQXLYur5uaAimTSBcJuqHmy3cv1xM7Xrq4BtM+0orKgWJt8vR8cLVIU9sAmzfw==}
     peerDependencies:
       lexical: 0.12.6
@@ -4747,7 +4747,7 @@ packages:
     dependencies:
       '@lexical/offset': 0.12.6(lexical@0.12.6)
       lexical: 0.12.6
-      yjs: 13.6.10
+      yjs: 13.6.11
     dev: false
 
   /@lezer/common@1.2.1:
@@ -18096,8 +18096,8 @@ packages:
       - zod
     dev: false
 
-  /vite-express@0.13.0:
-    resolution: {integrity: sha512-2jgEkZsiNwhhFqQzG0PeIbij+9HuRBhfu94XTpoeabAnqanltYTsubUYjfJY7DQre+H4e1bgA1pLyxDr6F4klQ==}
+  /vite-express@0.14.0:
+    resolution: {integrity: sha512-0lNpVy3uE4zy2Mn+7bG9Z3YPkN2bpE1xmg9uMiDX8ChUjFekyDL4ftZMffZcWkxq76teC3MkPlLANxFvYg6noQ==}
     dependencies:
       picocolors: 1.0.0
     dev: false
@@ -18645,8 +18645,8 @@ packages:
       y18n: 5.0.8
       yargs-parser: 21.1.1
 
-  /yjs@13.6.10:
-    resolution: {integrity: sha512-1JcyQek1vaMyrDm7Fqfa+pvHg/DURSbVo4VmeN7wjnTKB/lZrfIPhdCj7d8sboK6zLfRBJXegTjc9JlaDd8/Zw==}
+  /yjs@13.6.11:
+    resolution: {integrity: sha512-FvRRJKX9u270dOLkllGF/UDCWwmIv2Z+ucM4v1QO1TuxdmoiMnSUXH1HAcOKOrkBEhQtPTkxep7tD2DrQB+l0g==}
     engines: {node: '>=16.0.0', npm: '>=8.0.0'}
     dependencies:
       lib0: 0.2.88
