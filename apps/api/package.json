@@ -47,7 +47,7 @@
     "urlcat": "^3.1.0",
     "uuid": "^9.0.1",
     "viem": "^2.4.0",
-    "vite-express": "^0.13.0",
+    "vite-express": "^0.14.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
