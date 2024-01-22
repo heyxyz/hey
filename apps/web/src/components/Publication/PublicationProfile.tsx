@@ -5,6 +5,7 @@ import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
+import { apps } from '@hey/data/apps';
 import { type Profile } from '@hey/lens';
 import formatRelativeOrAbsolute from '@hey/lib/datetime/formatRelativeOrAbsolute';
 import getProfile from '@hey/lib/getProfile';
@@ -64,7 +65,7 @@ const PublicationProfile: FC<FeedUserProfileProps> = ({
           <span className="text-xs">{formatRelativeOrAbsolute(timestamp)}</span>
         </span>
       ) : null}
-      {source ? (
+      {source && apps.includes(source) ? (
         <span className="ld-text-gray-500 flex items-center">
           <span className="mx-1">·</span>
           <Source publishedOn={source} />
