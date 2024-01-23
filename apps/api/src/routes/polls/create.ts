@@ -49,7 +49,7 @@ export const post: Handler = async (req, res) => {
         endsAt: new Date(Date.now() + length * 24 * 60 * 60 * 1000),
         options: {
           createMany: {
-            data: options.map((option) => ({ option })),
+            data: options.map((option, index) => ({ index, option })),
             skipDuplicates: true
           }
         }
