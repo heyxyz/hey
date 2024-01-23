@@ -2,7 +2,10 @@ import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
 import catchedError from '@utils/catchedError';
-import { TRUSTED_PROFILE_FEATURE_ID } from '@utils/constants';
+import {
+  SWR_CACHE_AGE_10_MINS_30_DAYS,
+  TRUSTED_PROFILE_FEATURE_ID
+} from '@utils/constants';
 import createClickhouseClient from '@utils/createClickhouseClient';
 import prisma from '@utils/prisma';
 import { noBody } from '@utils/responses';
@@ -40,11 +43,14 @@ export const get: Handler = async (req, res) => {
 
     logger.info(`Trusted profile status fetched: ${id}`);
 
-    return res.status(200).json({
-      isTrusted: data?.profileId === id,
-      resolvedCount: Number(result[0]?.count) || 0,
-      success: true
-    });
+    return res
+      .status(200)
+      .setHeader('Cache-Control', SWR_CACHE_AGE_10_MINS_30_DAYS)
+      .json({
+        isTrusted: data?.profileId === id,
+        resolvedCount: Number(result[0]?.count) || 0,
+        success: true
+      });
   } catch (error) {
     return catchedError(res, error);
   }
