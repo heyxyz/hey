@@ -40,11 +40,15 @@ const TrustedProfilesActions: FC<TrustedProfilesActionsProps> = ({
   const reportPublication = async (reason: string) => {
     try {
       setDisabled(true);
-      return await axios.post(
+      const { data } = await axios.post(
         `${HEY_API_URL}/trusted/report`,
         { id: publicationId, reason },
         { headers: getAuthApiHeaders() }
       );
+
+      if (!data.success) {
+        throw new Error(data.message);
+      }
     } finally {
       setDisabled(false);
     }
@@ -59,7 +63,7 @@ const TrustedProfilesActions: FC<TrustedProfilesActionsProps> = ({
       disabled={disabled}
       onClick={() => {
         toast.promise(reportPublication(reason), {
-          error: 'Error reporting publication',
+          error: (err) => err.message,
           loading: 'Reporting publication...',
           success: 'Publication reported successfully'
         });

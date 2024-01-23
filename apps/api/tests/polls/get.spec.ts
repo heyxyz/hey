@@ -4,7 +4,7 @@ import axios from 'axios';
 import { describe, expect, test } from 'vitest';
 
 describe('polls/get', async () => {
-  const id = '76018d99-0dcb-4b54-8fc1-7782b63f3055';
+  const id = '0bc7fc23-fe6d-467f-b375-044c6cc1ad27';
 
   test('should return a poll without authentication', async () => {
     const response = await axios.get(`${TEST_URL}/polls/get`, {
