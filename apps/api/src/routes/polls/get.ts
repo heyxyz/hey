@@ -23,6 +23,7 @@ export const get: Handler = async (req, res) => {
         endsAt: true,
         id: true,
         options: {
+          orderBy: { index: 'asc' },
           select: {
             _count: { select: { responses: true } },
             id: true,
