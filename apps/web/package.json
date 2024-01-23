@@ -71,8 +71,8 @@
     "use-resize-observer": "^9.1.0",
     "usehooks-ts": "2.9.5",
     "uuid": "^9.0.1",
-    "viem": "^2.4.0",
-    "wagmi": "^2.3.1",
+    "viem": "^2.5.0",
+    "wagmi": "^2.5.0",
     "zod": "^3.22.4",
     "zustand": "^4.5.0"
   },
