@@ -5,14 +5,16 @@ import catchedError from '@utils/catchedError';
 import createClickhouseClient from '@utils/createClickhouseClient';
 import validateIsGardener from '@utils/middlewares/validateIsGardener';
 import { invalidBody, noBody, notAllowed } from '@utils/responses';
-import { object, string } from 'zod';
+import { boolean, object, string } from 'zod';
 
 type ExtensionRequest = {
   id: string;
+  looksGood: boolean;
 };
 
 const validationSchema = object({
-  id: string()
+  id: string(),
+  looksGood: boolean()
 });
 
 export const post: Handler = async (req, res) => {
@@ -32,14 +34,26 @@ export const post: Handler = async (req, res) => {
     return notAllowed(res);
   }
 
-  const { id } = body as ExtensionRequest;
+  const { id, looksGood } = body as ExtensionRequest;
 
   try {
     const client = createClickhouseClient();
-    await client.command({
-      query: `DELETE FROM trusted_reports WHERE publication_id = '${id}';`
-    });
-    logger.info('Deleted report from trusted reports');
+
+    if (looksGood) {
+      await client.command({
+        query: `DELETE FROM trusted_reports WHERE publication_id = '${id}';`
+      });
+      logger.info('Deleted report from trusted reports');
+    } else {
+      await client.command({
+        query: `
+          ALTER TABLE trusted_reports
+          UPDATE resolved = 1
+          WHERE publication_id = '${id}';
+        `
+      });
+      logger.info('Marked trusted report as resolved');
+    }
 
     return res.status(200).json({ success: true });
   } catch (error) {
