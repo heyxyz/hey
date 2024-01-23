@@ -22,10 +22,7 @@ const getProStatus = async (
   });
   const { data } = response;
 
-  return {
-    isBeliever: data.isBeliever,
-    isPro: data.isPro
-  };
+  return data;
 };
 
 export default getProStatus;
