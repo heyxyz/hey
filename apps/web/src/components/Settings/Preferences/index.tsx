@@ -13,6 +13,7 @@ import { useEffectOnce } from 'usehooks-ts';
 import SettingsSidebar from '../Sidebar';
 import HighSignalNotificationFilter from './HighSignalNotificationFilter';
 import IsPride from './IsPride';
+import OpenAiApiKey from './OpenAiApiKey';
 import PushNotifications from './PushNotifications';
 
 const PreferencesSettings: NextPage = () => {
@@ -47,6 +48,8 @@ const PreferencesSettings: NextPage = () => {
             {isFeatureEnabled('push-notifications') && <PushNotifications />}
             <IsPride />
           </div>
+          <div className="divider my-5" />
+          <OpenAiApiKey />
         </Card>
       </GridItemEight>
     </GridLayout>

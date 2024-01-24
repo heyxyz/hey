@@ -157,6 +157,7 @@ export const SETTINGS = {
     UPDATE: 'Update lens manager'
   },
   PREFERENCES: {
+    ADD_OR_REMOVE_OPEN_AI_API_KEY: 'Add or remove OpenAI API key',
     TOGGLE_HIGH_SIGNAL_NOTIFICATION_FILTER:
       'Toggle high signal notification filter',
     TOGGLE_IS_PRIDE: 'Toggle is pride',

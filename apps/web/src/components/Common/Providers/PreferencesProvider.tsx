@@ -27,6 +27,7 @@ const PreferencesProvider: FC = () => {
   const setHasDismissedOrMintedMembershipNft = usePreferencesStore(
     (state) => state.setHasDismissedOrMintedMembershipNft
   );
+  const setOpenAiApiKey = usePreferencesStore((state) => state.setOpenAiApiKey);
   const setFeatureFlags = useFeatureFlagsStore(
     (state) => state.setFeatureFlags
   );
@@ -50,6 +51,7 @@ const PreferencesProvider: FC = () => {
           preferences.highSignalNotificationFilter
         );
         setIsPride(preferences.isPride);
+        setOpenAiApiKey(preferences.openAiApiKey);
 
         // Pro
         setIsPro(preferences.isPro);

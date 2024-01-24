@@ -12,12 +12,14 @@ type ExtensionRequest = {
   highSignalNotificationFilter?: boolean;
   id?: string;
   isPride?: boolean;
+  openAiApiKey?: string;
 };
 
 const validationSchema = object({
   highSignalNotificationFilter: boolean().optional(),
   id: string().optional(),
-  isPride: boolean().optional()
+  isPride: boolean().optional(),
+  openAiApiKey: string().optional().nullable()
 });
 
 export const post: Handler = async (req, res) => {
@@ -38,14 +40,15 @@ export const post: Handler = async (req, res) => {
     return notAllowed(res);
   }
 
-  const { highSignalNotificationFilter, isPride } = body as ExtensionRequest;
+  const { highSignalNotificationFilter, isPride, openAiApiKey } =
+    body as ExtensionRequest;
 
   try {
     const payload = parseJwt(accessToken);
-
+    const baseData = { highSignalNotificationFilter, isPride, openAiApiKey };
     const data = await prisma.preference.upsert({
-      create: { highSignalNotificationFilter, id: payload.id, isPride },
-      update: { highSignalNotificationFilter, isPride },
+      create: { ...baseData, id: payload.id },
+      update: baseData,
       where: { id: payload.id }
     });
 

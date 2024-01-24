@@ -5,6 +5,7 @@ interface PreferencesState {
   highSignalNotificationFilter: boolean;
   isPride: boolean;
   isPro: boolean;
+  openAiApiKey: null | string;
   resetPreferences: () => void;
   setHasDismissedOrMintedMembershipNft: (
     hasDismissedOrMintedMembershipNft: boolean
@@ -14,6 +15,7 @@ interface PreferencesState {
   ) => void;
   setIsPride: (isPride: boolean) => void;
   setIsPro: (isPro: boolean) => void;
+  setOpenAiApiKey: (openAiApiKey: null | string) => void;
 }
 
 export const usePreferencesStore = create<PreferencesState>((set) => ({
@@ -21,6 +23,7 @@ export const usePreferencesStore = create<PreferencesState>((set) => ({
   highSignalNotificationFilter: false,
   isPride: false,
   isPro: false,
+  openAiApiKey: null,
   resetPreferences: () =>
     set(() => ({
       hasDismissedOrMintedMembershipNft: true,
@@ -32,5 +35,6 @@ export const usePreferencesStore = create<PreferencesState>((set) => ({
   setHighSignalNotificationFilter: (highSignalNotificationFilter) =>
     set(() => ({ highSignalNotificationFilter })),
   setIsPride: (isPride) => set(() => ({ isPride })),
-  setIsPro: (isPro) => set(() => ({ isPro }))
+  setIsPro: (isPro) => set(() => ({ isPro })),
+  setOpenAiApiKey: (openAiApiKey) => set(() => ({ openAiApiKey }))
 }));

@@ -43,7 +43,8 @@ export const get: Handler = async (req, res) => {
         preference?.highSignalNotificationFilter
       ),
       isPride: Boolean(preference?.isPride),
-      isPro: Boolean(pro)
+      isPro: Boolean(pro),
+      openAiApiKey: preference?.openAiApiKey || null
     };
 
     logger.info('Profile preferences fetched');
