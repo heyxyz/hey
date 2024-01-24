@@ -11,24 +11,18 @@ import { Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { useTimelineStore } from 'src/store/non-persisted/useTimelineStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import Suggested from '../Suggested';
 
 const Title: FC = () => <p className="text-lg font-semibold">Who to follow</p>;
 
-const RecommendedProfiles: FC = () => {
+const WhoToFollow: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const seeThroughProfile = useTimelineStore(
-    (state) => state.seeThroughProfile
-  );
   const [showSuggestedModal, setShowSuggestedModal] = useState(false);
 
   const { data, error, loading } = useProfileRecommendationsQuery({
-    variables: {
-      request: { for: seeThroughProfile?.id || currentProfile?.id }
-    }
+    variables: { request: { for: currentProfile?.id } }
   });
 
   if (loading) {
@@ -106,4 +100,4 @@ const RecommendedProfiles: FC = () => {
   );
 };
 
-export default RecommendedProfiles;
+export default WhoToFollow;
