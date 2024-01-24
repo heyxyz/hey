@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: { canonical: `https://hey.xyz/${link}` },
     applicationName: APP_NAME,
     creator: displayName,
-    description: profile?.metadata?.bio,
+    description: profile?.metadata?.bio || title,
     keywords: [
       'hey',
       'hey.xyz',
