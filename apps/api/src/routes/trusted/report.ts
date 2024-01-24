@@ -43,6 +43,27 @@ export const post: Handler = async (req, res) => {
     const actor = payload.id;
 
     const client = createClickhouseClient();
+
+    // Do not allow to report the same publication twice
+    const rows = await client.query({
+      format: 'JSONEachRow',
+      query: `
+        SELECT * FROM trusted_reports
+        WHERE publication_id = '${id}'
+        AND actor = '${actor}'
+        LIMIT 1;
+      `
+    });
+
+    const reports = await rows.json<Array<any>>();
+
+    if (reports.length > 0) {
+      return res.status(200).json({
+        message: 'You already reported this publication!',
+        success: false
+      });
+    }
+
     const result = await client.insert({
       format: 'JSONEachRow',
       table: 'trusted_reports',

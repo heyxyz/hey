@@ -21,10 +21,10 @@
     "@radix-ui/react-switch": "^1.0.3",
     "@radix-ui/react-tooltip": "^1.0.7",
     "clsx": "^2.1.0",
-    "next": "^14.0.4",
+    "next": "^14.1.0",
     "react": "^18.2.0",
     "react-hook-form": "^7.49.3",
-    "tailwind-merge": "^2.2.0",
+    "tailwind-merge": "^2.2.1",
     "zod": "^3.22.4"
   },
   "devDependencies": {

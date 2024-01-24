@@ -24,13 +24,13 @@ const Gifs: FC<CategoriesProps> = ({
     setShowModal(false);
   };
 
-  const fetchGifs = async (input: string) => {
+  const fetchGifs = async (input: string): Promise<IGif[]> => {
     try {
       const response = await axios.get('https://api.giphy.com/v1/gifs/search', {
         params: { api_key: GIPHY_KEY, limit: 48, q: input }
       });
 
-      return response.data;
+      return response.data.data;
     } catch {
       return [];
     }
@@ -57,24 +57,22 @@ const Gifs: FC<CategoriesProps> = ({
 
   return (
     <div className="grid w-full grid-cols-3 gap-1 overflow-y-auto">
-      {gifs?.pages.map((page: any) =>
-        page.data.map((gif: IGif) => (
-          <button
-            className="relative flex outline-none"
-            key={gif.id}
-            onClick={() => onSelectGif(gif)}
-            type="button"
-          >
-            <img
-              alt={gif.slug}
-              className="h-32 w-full cursor-pointer object-cover"
-              draggable={false}
-              height={128}
-              src={gif?.images?.original?.url}
-            />
-          </button>
-        ))
-      )}
+      {gifs?.map((gif: IGif) => (
+        <button
+          className="relative flex outline-none"
+          key={gif.id}
+          onClick={() => onSelectGif(gif)}
+          type="button"
+        >
+          <img
+            alt={gif.slug}
+            className="h-32 w-full cursor-pointer object-cover"
+            draggable={false}
+            height={128}
+            src={gif?.images?.original?.url}
+          />
+        </button>
+      ))}
     </div>
   );
 };

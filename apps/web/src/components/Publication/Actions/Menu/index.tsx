@@ -3,7 +3,7 @@ import type { FC } from 'react';
 
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
-import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
+import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { Fragment } from 'react';
@@ -35,7 +35,7 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
           onClick={stopEventPropagation}
           type="button"
         >
-          <EllipsisVerticalIcon
+          <EllipsisHorizontalIcon
             className={cn('ld-text-gray-500', iconClassName)}
           />
         </button>
