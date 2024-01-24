@@ -103,7 +103,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       images: getOGImages() as any,
       siteName: 'Hey',
-      type: 'article'
+      type: 'article',
+      url: `https://hey.xyz/posts/${targetPublication.id}`
     },
     other: {
       'count:actions': targetPublication.stats.countOpenActions,

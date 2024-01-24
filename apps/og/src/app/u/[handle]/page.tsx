@@ -57,7 +57,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       images: [getAvatar(profile)],
       siteName: 'Hey',
-      type: 'profile'
+      type: 'profile',
+      url: `https://hey.xyz${link}`
     },
     other: { 'lens:id': profile.id },
     publisher: displayName,
