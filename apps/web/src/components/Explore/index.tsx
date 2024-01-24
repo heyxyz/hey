@@ -1,7 +1,7 @@
 import type { PublicationMetadataMainFocusType } from '@hey/lens';
 import type { NextPage } from 'next';
 
-import RecommendedProfiles from '@components/Home/Sidebar/RecommendedProfiles';
+import WhoToFollow from '@components/Home/Sidebar/WhoToFollow';
 import FeedFocusType from '@components/Shared/FeedFocusType';
 import Footer from '@components/Shared/Footer';
 import { Tab } from '@headlessui/react';
@@ -84,7 +84,7 @@ const Explore: NextPage = () => {
         </Tab.Group>
       </GridItemEight>
       <GridItemFour>
-        {currentProfile ? <RecommendedProfiles /> : null}
+        {currentProfile ? <WhoToFollow /> : null}
         <Footer />
       </GridItemFour>
     </GridLayout>
