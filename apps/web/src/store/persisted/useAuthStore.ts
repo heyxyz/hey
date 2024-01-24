@@ -53,8 +53,6 @@ export const useAuthStore = create(
   )
 );
 
-export default useAuthStore;
-
 export const signIn = (tokens: { accessToken: string; refreshToken: string }) =>
   useAuthStore.getState().signIn(tokens);
 export const signOut = () => useAuthStore.getState().signOut();

@@ -114,6 +114,7 @@ model PollOption {
   id     String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   pollId String @db.Uuid
   option String
+  index  Int    @default(0)
 
   // Relations
   poll      Poll           @relation(fields: [pollId], references: [id], onDelete: Cascade)

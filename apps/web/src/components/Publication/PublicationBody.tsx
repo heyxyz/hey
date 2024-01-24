@@ -24,12 +24,14 @@ import NotSupportedPublication from './NotSupportedPublication';
 import Poll from './Poll';
 
 interface PublicationBodyProps {
+  contentClassName?: string;
   publication: AnyPublication;
   quoted?: boolean;
   showMore?: boolean;
 }
 
 const PublicationBody: FC<PublicationBodyProps> = ({
+  contentClassName = '',
   publication,
   quoted = false,
   showMore = false
@@ -89,7 +91,8 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       <Markup
         className={cn(
           { 'line-clamp-5': canShowMore },
-          'markup linkify text-md break-words'
+          'markup linkify text-md break-words',
+          contentClassName
         )}
         mentions={targetPublication.profilesMentioned}
       >

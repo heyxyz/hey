@@ -7,7 +7,7 @@ describe('internal/features/kill', async () => {
   test('should kill a feature', async () => {
     const response = await axios.post(
       `${TEST_URL}/internal/features/kill`,
-      { enabled: false, id: '0779d74f-0426-4988-b4c4-2b632f5de8e1' },
+      { enabled: false, id: '8ed8b26a-279d-4111-9d39-a40164b273a0' },
       { headers: await getAuthApiHeadersForTest() }
     );
 
@@ -17,7 +17,7 @@ describe('internal/features/kill', async () => {
   test('should un-kill a feature', async () => {
     const response = await axios.post(
       `${TEST_URL}/internal/features/kill`,
-      { enabled: true, id: '0779d74f-0426-4988-b4c4-2b632f5de8e1' },
+      { enabled: true, id: '8ed8b26a-279d-4111-9d39-a40164b273a0' },
       { headers: await getAuthApiHeadersForTest() }
     );
 

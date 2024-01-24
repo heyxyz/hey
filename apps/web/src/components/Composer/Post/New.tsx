@@ -51,12 +51,14 @@ const NewPost: FC = () => {
       <div className="flex items-center space-x-3">
         <Image
           alt={currentProfile?.id}
-          className="size-9 cursor-pointer rounded-full border bg-gray-200 dark:border-gray-700"
+          className="size-11 cursor-pointer rounded-full border bg-gray-200 dark:border-gray-700"
+          height={44}
           onClick={() => push(getProfile(currentProfile).link)}
           onError={({ currentTarget }) => {
             currentTarget.src = getLennyURL(currentProfile?.id);
           }}
           src={getAvatar(currentProfile)}
+          width={44}
         />
         <button
           className="outline-brand-500 flex w-full items-center space-x-2 rounded-xl border bg-gray-100 px-4 py-2 dark:border-gray-700 dark:bg-gray-900"
