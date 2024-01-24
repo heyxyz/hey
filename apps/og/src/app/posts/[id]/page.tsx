@@ -6,20 +6,14 @@ import { PublicationDocument } from '@hey/lens';
 import { apolloClient } from '@hey/lens/apollo';
 import getProfile from '@hey/lib/getProfile';
 import getPublicationData from '@hey/lib/getPublicationData';
-import logger from '@hey/lib/logger';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
-import { headers } from 'next/headers';
 import defaultMetadata from 'src/defaultMetadata';
 
-type Props = {
+interface Props {
   params: { id: string };
-};
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const headersList = headers();
-  const agent = headersList.get('user-agent');
-  logger.info(`OG request from ${agent} for Publication:${params.id}`);
-
   const { id } = params;
   const { data } = await apolloClient().query({
     query: PublicationDocument,
@@ -71,8 +65,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return [];
   };
 
-  const { displayName, slugWithPrefix } = getProfile(profile);
-
+  const { displayName, link, slugWithPrefix } = getProfile(profile);
   const title = `${targetPublication.__typename} by ${slugWithPrefix} • ${APP_NAME}`;
 
   return {
@@ -80,7 +73,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     applicationName: APP_NAME,
     authors: {
       name: displayName,
-      url: `https://hey.xyz/u/${profile.handle}`
+      url: `https://hey.xyz/${link}`
     },
     creator: displayName,
     description: filteredContent,
@@ -117,6 +110,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function Page({ params }: Props) {
-  return <div>{params.id}</div>;
+export default async function Page({ params }: Props) {
+  const metadata = await generateMetadata({ params });
+
+  if (!metadata) {
+    return <h1>{params.id}</h1>;
+  }
+
+  return (
+    <>
+      <h1>{metadata.title?.toString()}</h1>
+      <h2>{metadata.description?.toString()}</h2>
+    </>
+  );
 }
