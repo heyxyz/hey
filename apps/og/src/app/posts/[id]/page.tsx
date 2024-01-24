@@ -80,7 +80,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `https://hey.xyz/${link}`
     },
     creator: displayName,
-    description: filteredContent,
+    description: filteredContent || title,
     keywords: [
       'hey',
       'hey.xyz',
