@@ -71,6 +71,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const { displayName, link, slugWithPrefix } = getProfile(profile);
   const title = `${targetPublication.__typename} by ${slugWithPrefix} • ${APP_NAME}`;
+  const description = (filteredContent || title).slice(0, 155);
 
   return {
     alternates: { canonical: `https://hey.xyz/posts/${targetPublication.id}` },
@@ -80,7 +81,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `https://hey.xyz${link}`
     },
     creator: displayName,
-    description: filteredContent || title,
+    description: description,
     keywords: [
       'hey',
       'hey.xyz',
@@ -101,6 +102,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ],
     metadataBase: new URL(`https://hey.xyz/posts/${targetPublication.id}`),
     openGraph: {
+      description: description,
       images: getOGImages() as any,
       siteName: 'Hey',
       type: 'article',

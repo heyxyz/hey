@@ -33,12 +33,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const profile = data.profile as Profile;
   const { displayName, link, slugWithPrefix } = getProfile(profile);
   const title = `${displayName} (${slugWithPrefix}) • ${APP_NAME}`;
+  const description = (profile?.metadata?.bio || title).slice(0, 155);
 
   return {
     alternates: { canonical: `https://hey.xyz${link}` },
     applicationName: APP_NAME,
     creator: displayName,
-    description: profile?.metadata?.bio || title,
+    description: description,
     keywords: [
       'hey',
       'hey.xyz',
@@ -55,6 +56,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ],
     metadataBase: new URL(`https://hey.xyz${link}`),
     openGraph: {
+      description: description,
       images: [getAvatar(profile)],
       siteName: 'Hey',
       type: 'profile',
