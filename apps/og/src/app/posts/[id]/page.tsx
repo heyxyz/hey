@@ -77,7 +77,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     applicationName: APP_NAME,
     authors: {
       name: displayName,
-      url: `https://hey.xyz/${link}`
+      url: `https://hey.xyz${link}`
     },
     creator: displayName,
     description: filteredContent || title,
