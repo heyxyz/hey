@@ -27,6 +27,7 @@ model Preference {
   id                           String   @id
   isPride                      Boolean  @default(false)
   highSignalNotificationFilter Boolean  @default(false)
+  openAiApiKey                 String?
   createdAt                    DateTime @default(now())
 }
 
