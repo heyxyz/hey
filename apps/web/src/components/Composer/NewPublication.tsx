@@ -53,6 +53,7 @@ import { usePublicationAttachmentStore } from 'src/store/non-persisted/publicati
 import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
 import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
 import { usePublicationLiveStore } from 'src/store/non-persisted/publication/usePublicationLiveStore';
+import { usePublicationOpenAiStore } from 'src/store/non-persisted/publication/usePublicationOpenAiStore';
 import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
@@ -65,6 +66,7 @@ import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
 import LivestreamSettings from './Actions/LivestreamSettings';
 import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
+import OpenAiGenerator from './Actions/OpenAiSettings/OpenAiGenerator';
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
 import LinkPreviews from './LinkPreviews';
@@ -102,6 +104,12 @@ const ReferenceSettings = dynamic(
 );
 const PollSettings = dynamic(
   () => import('@components/Composer/Actions/PollSettings'),
+  {
+    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
+  }
+);
+const OpenAiSettings = dynamic(
+  () => import('@components/Composer/Actions/OpenAiSettings'),
   {
     loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
   }
@@ -177,6 +185,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   );
   const setShowLiveVideoEditor = usePublicationLiveStore(
     (state) => state.setShowLiveVideoEditor
+  );
+  const showOpenAiGenerator = usePublicationOpenAiStore(
+    (state) => state.showOpenAiGenerator
+  );
+  const setShowOpenAiGenerator = usePublicationOpenAiStore(
+    (state) => state.setShowOpenAiGenerator
   );
   const resetLiveVideoConfig = usePublicationLiveStore(
     (state) => state.resetLiveVideoConfig
@@ -255,6 +269,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     setShowPollEditor(false);
     resetPollConfig();
     setShowLiveVideoEditor(false);
+    setShowOpenAiGenerator(false);
     resetLiveVideoConfig();
     setAttachments([]);
     setVideoThumbnail({
@@ -581,6 +596,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     setShowPollEditor(false);
     resetPollConfig();
     setShowLiveVideoEditor(false);
+    setShowOpenAiGenerator(false);
     resetLiveVideoConfig();
     setAttachments([]);
     setVideoThumbnail({
@@ -616,6 +632,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       ) : null}
       {showPollEditor ? <PollEditor /> : null}
       {showLiveVideoEditor ? <LivestreamEditor /> : null}
+      {showOpenAiGenerator ? <OpenAiGenerator /> : null}
       {quotedPublication ? (
         <Wrapper className="m-5" zeroPadding>
           <QuotedPublication
@@ -660,6 +677,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           {!isComment && isFeatureEnabled('live-stream') && (
             <LivestreamSettings />
           )}
+          {isComment && <OpenAiSettings parent={publication} />}
         </div>
         <div className="ml-auto mt-2 sm:mt-0">
           <Button
