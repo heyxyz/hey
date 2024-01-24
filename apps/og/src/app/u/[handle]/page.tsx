@@ -11,6 +11,8 @@ import {
 import { apolloClient } from '@hey/lens/apollo';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
+import getPublicationData from '@hey/lib/getPublicationData';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import defaultMetadata from 'src/defaultMetadata';
 
 interface Props {
@@ -94,13 +96,21 @@ export default async function Page({ params }: Props) {
       <div>
         <h3>Publications</h3>
         <ul>
-          {data?.publications?.items?.map((publication: AnyPublication) => (
-            <li key={publication.id}>
-              <a href={`https://hey.xyz/posts/${publication.id}`}>
-                {publication.id}
-              </a>
-            </li>
-          ))}
+          {data?.publications?.items?.map((publication: AnyPublication) => {
+            const targetPublication = isMirrorPublication(publication)
+              ? publication.mirrorOn
+              : publication;
+            const filteredContent =
+              getPublicationData(targetPublication.metadata)?.content || '';
+
+            return (
+              <li key={publication.id}>
+                <a href={`https://hey.xyz/posts/${publication.id}`}>
+                  {filteredContent}
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </>
