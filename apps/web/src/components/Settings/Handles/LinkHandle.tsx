@@ -2,6 +2,7 @@ import type { LinkHandleToProfileRequest } from '@hey/lens';
 import type { FC } from 'react';
 
 import IndexStatus from '@components/Shared/IndexStatus';
+import LazySmallUserProfile from '@components/Shared/LazySmallUserProfile';
 import Loader from '@components/Shared/Loader';
 import Slug from '@components/Shared/Slug';
 import {
@@ -148,6 +149,12 @@ const LinkHandle: FC = () => {
       return;
     }
 
+    const confirmation = confirm('Are you sure you want to link this handle?');
+
+    if (!confirmation) {
+      return;
+    }
+
     try {
       setLinkingHandle(handle);
       const request: LinkHandleToProfileRequest = { handle };
@@ -172,7 +179,7 @@ const LinkHandle: FC = () => {
   }
 
   const ownedHandles = data?.ownedHandles.items.filter(
-    (handle) => !handle.linkedTo
+    (handle) => handle.linkedTo?.nftTokenId !== currentProfile?.id
   );
 
   if (!ownedHandles?.length) {
@@ -196,10 +203,19 @@ const LinkHandle: FC = () => {
     <div className="space-y-6">
       {ownedHandles?.map((handle) => (
         <div
-          className="flex items-center justify-between"
+          className="flex flex-wrap items-center justify-between gap-3"
           key={handle.fullHandle}
         >
-          <Slug className="font-bold" slug={handle.fullHandle} />
+          <div className="flex items-center space-x-2">
+            <Slug className="font-bold" slug={handle.fullHandle} />
+            {handle.linkedTo ? (
+              <div className="flex items-center space-x-2">
+                <span>·</span>
+                <div>Linked to</div>
+                <LazySmallUserProfile id={handle.linkedTo?.nftTokenId} />
+              </div>
+            ) : null}
+          </div>
           {lensManegaerTxId || broadcastTxId || writeHash ? (
             <div className="mt-2">
               <IndexStatus
@@ -223,7 +239,7 @@ const LinkHandle: FC = () => {
               onClick={() => link(handle.fullHandle)}
               outline
             >
-              Link
+              {handle.linkedTo ? 'Unlink and Link' : 'Link'}
             </Button>
           )}
         </div>

@@ -1,37 +1,28 @@
 import type { FC } from 'react';
 
-import cn from '@hey/ui/cn';
-
-import SmallUserProfileShimmer from './SmallUserProfileShimmer';
-import UserProfileShimmer from './UserProfileShimmer';
-
-interface PublicationShimmerProps {
-  quoted?: boolean;
-  showActions?: boolean;
-}
-
-const PublicationShimmer: FC<PublicationShimmerProps> = ({
-  quoted = false,
-  showActions = true
-}) => {
+const PublicationShimmer: FC = () => {
   return (
-    <div className="space-y-4 p-5">
-      <div className="flex items-center justify-between">
-        {quoted ? <SmallUserProfileShimmer /> : <UserProfileShimmer />}
-        <div className="shimmer size-5 rounded-lg" />
+    <div className="flex items-start space-x-3 px-5 py-4">
+      <div>
+        <div className="shimmer size-11 rounded-full" />
       </div>
-      <div className={cn(quoted ? '' : 'ml-[52px]', 'space-y-4')}>
+      <div className="w-full space-y-4">
+        <div className="item flex justify-between">
+          <div className="item flex space-x-3 pt-1">
+            <div className="shimmer h-3 w-28 rounded-lg" />
+            <div className="shimmer h-3 w-20 rounded-lg" />
+          </div>
+          <div className="shimmer h-3 w-6 rounded-lg" />
+        </div>
         <div className="space-y-2">
           <div className="shimmer h-3 w-7/12 rounded-lg" />
           <div className="shimmer h-3 w-1/3 rounded-lg" />
         </div>
-        {showActions ? (
-          <div className="flex gap-7 pt-3">
-            <div className="shimmer size-5 rounded-lg" />
-            <div className="shimmer size-5 rounded-lg" />
-            <div className="shimmer size-5 rounded-lg" />
-          </div>
-        ) : null}
+        <div className="flex gap-8 pt-1">
+          <div className="shimmer size-5 rounded-lg" />
+          <div className="shimmer size-5 rounded-lg" />
+          <div className="shimmer size-5 rounded-lg" />
+        </div>
       </div>
     </div>
   );

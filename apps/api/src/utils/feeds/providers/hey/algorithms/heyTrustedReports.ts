@@ -19,6 +19,7 @@ const heyTrustedReports = async (
           publication_id AS id,
           count(*) as count
         FROM trusted_reports
+        WHERE resolved = 0
         GROUP BY publication_id
         ORDER BY count DESC
         LIMIT ${limit}

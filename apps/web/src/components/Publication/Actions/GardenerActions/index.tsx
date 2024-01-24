@@ -39,11 +39,11 @@ const GardenerActions: FC<GardenerActionsProps> = ({
   );
   const [createReport, { loading }] = useReportPublicationMutation();
 
-  const removeTrustedReport = async (id: string) => {
+  const removeTrustedReport = async (id: string, looksGood: boolean) => {
     const removeReport = async () => {
       return await axios.post(
         `${HEY_API_URL}/trusted/removeReport`,
-        { id },
+        { id, looksGood },
         { headers: getAuthApiHeaders() }
       );
     };
@@ -77,7 +77,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({
     };
 
     if (ableToRemoveReport) {
-      await removeTrustedReport(publicationId);
+      await removeTrustedReport(publicationId, false);
     }
 
     return await createReport({
@@ -168,7 +168,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({
       {ableToRemoveReport && (
         <Button
           icon={<HandThumbUpIcon className="size-4" />}
-          onClick={() => removeTrustedReport(publicationId)}
+          onClick={() => removeTrustedReport(publicationId, true)}
           outline
           size="sm"
           variant="secondary"

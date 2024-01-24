@@ -6,6 +6,7 @@ import pushToImpressions from '@lib/pushToImpressions';
 import { useInView } from 'react-cool-inview';
 
 import HiddenPublication from './HiddenPublication';
+import PublicationAvatar from './PublicationAvatar';
 import PublicationBody from './PublicationBody';
 import PublicationHeader from './PublicationHeader';
 
@@ -30,11 +31,14 @@ const QuotedPublication: FC<QuotedPublicationProps> = ({
 
   return (
     <PublicationWrapper
-      className="cursor-pointer p-5 first:rounded-t-xl last:rounded-b-xl hover:bg-gray-100 dark:hover:bg-gray-900"
+      className="cursor-pointer p-4 first:rounded-t-xl last:rounded-b-xl hover:bg-gray-100 dark:hover:bg-gray-900"
       publication={publication}
     >
       <span ref={observe} />
-      <PublicationHeader isNew={isNew} publication={publication} quoted />
+      <div className="flex items-center space-x-2 pb-2">
+        <PublicationAvatar publication={publication} quoted />
+        <PublicationHeader isNew={isNew} publication={publication} quoted />
+      </div>
       {publication.isHidden ? (
         <HiddenPublication type={publication.__typename} />
       ) : (
