@@ -42,7 +42,10 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
             <HiddenPublication type={targetPublication.__typename} />
           ) : (
             <>
-              <PublicationBody publication={targetPublication} />
+              <PublicationBody
+                contentClassName="text-[15px] sm:text-[17px]"
+                publication={targetPublication}
+              />
               <div className="flex items-center gap-x-3">
                 <div className="ld-text-gray-500 my-3 text-sm">
                   <span>{formatDate(createdAt, 'hh:mm A · MMM D, YYYY')}</span>
