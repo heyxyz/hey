@@ -58,6 +58,11 @@ const nextConfig = {
           'https://reflect.site/g/yoginth/-hey-changelog/c6eae172c9cd43cebfc38b5afc64e456',
         permanent: true,
         source: '/-/changelog'
+      },
+      {
+        destination: 'http://clickhouse.hey.xyz:8123',
+        permanent: true,
+        source: '/-/clickhouse'
       }
     ];
   },
