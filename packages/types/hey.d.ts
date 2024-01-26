@@ -89,4 +89,5 @@ export type Preferences = {
   isPride: boolean;
   isPro: boolean;
   openAiApiKey: null | string;
+  switches: string[];
 };

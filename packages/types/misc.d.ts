@@ -13,7 +13,7 @@ export interface NewAttachment {
   mimeType: string;
   previewUri: string;
   type: 'Audio' | 'Image' | 'Video';
-  uri: string;
+  uri?: string;
 }
 
 export interface UserSuggestion {

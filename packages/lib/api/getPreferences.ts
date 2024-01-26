@@ -27,7 +27,8 @@ const getPreferences = async (
       highSignalNotificationFilter: false,
       isPride: false,
       isPro: false,
-      openAiApiKey: null
+      openAiApiKey: null,
+      switches: []
     };
   }
 };

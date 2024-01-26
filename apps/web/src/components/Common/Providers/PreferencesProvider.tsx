@@ -31,6 +31,9 @@ const PreferencesProvider: FC = () => {
   const setFeatureFlags = useFeatureFlagsStore(
     (state) => state.setFeatureFlags
   );
+  const setKillSwitches = useFeatureFlagsStore(
+    (state) => state.setKillSwitches
+  );
   const setTrusted = useFeatureFlagsStore((state) => state.setTrusted);
   const setStaffMode = useFeatureFlagsStore((state) => state.setStaffMode);
   const setGardenerMode = useFeatureFlagsStore(
@@ -58,6 +61,7 @@ const PreferencesProvider: FC = () => {
 
         // Feature flags
         setFeatureFlags(preferences.features);
+        setKillSwitches(preferences.switches);
         setStaffMode(preferences.features.includes(FeatureFlag.StaffMode));
         setGardenerMode(
           preferences?.features.includes(FeatureFlag.GardenerMode)
