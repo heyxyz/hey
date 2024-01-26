@@ -7,7 +7,7 @@ import createIdbStorage from '../lib/createIdbStorage';
 interface FeatureFlagsState {
   featureFlags: string[];
   gardenerMode: boolean;
-  hydrateFeatureFlags: () => { featureFlags: string[] };
+  hydrateFeatureFlags: () => { featureFlags: string[]; killSwitches: string[] };
   killSwitches: string[];
   resetFeatureFlags: () => void;
   setFeatureFlags: (featureFlags: string[]) => void;
@@ -25,7 +25,10 @@ export const useFeatureFlagsStore = create(
       featureFlags: [],
       gardenerMode: false,
       hydrateFeatureFlags: () => {
-        return { featureFlags: get().featureFlags };
+        return {
+          featureFlags: get().featureFlags,
+          killSwitches: get().killSwitches
+        };
       },
       killSwitches: [],
       resetFeatureFlags: () =>

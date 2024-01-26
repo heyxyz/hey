@@ -7,3 +7,7 @@ export enum FeatureFlag {
   Suspended = 'suspended',
   TrustedProfile = 'trusted-profile'
 }
+
+export enum KillSwitch {
+  UseThirdWeb = 'use-third-web'
+}
