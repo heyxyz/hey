@@ -8,12 +8,13 @@ import {
   S3_BUCKET,
   THIRDWEB_CLIENT_ID
 } from '@hey/data/constants';
+import { KillSwitch } from '@hey/data/feature-flags';
 import { ThirdwebStorage } from '@thirdweb-dev/storage';
 import axios from 'axios';
+import { hydrateFeatureFlags } from 'src/store/persisted/useFeatureFlagsStore';
 import { v4 as uuid } from 'uuid';
 
 const FALLBACK_TYPE = 'image/jpeg';
-const FALLBACK_TO_THIRDWEB = true;
 
 /**
  * Returns an S3 client with temporary credentials obtained from the STS service.
@@ -65,8 +66,12 @@ const uploadToIPFS = async (
 ): Promise<IPFSResponse[]> => {
   try {
     const files = Array.from(data);
+    const { killSwitches } = hydrateFeatureFlags();
+    const fallBackToThirdweb = killSwitches.includes(KillSwitch.UseThirdWeb);
 
-    if (FALLBACK_TO_THIRDWEB) {
+    console.log('fallBackToThirdweb', killSwitches);
+
+    if (fallBackToThirdweb) {
       const storage = new ThirdwebStorage({
         clientId: THIRDWEB_CLIENT_ID,
         secretKey: process.env.NEXT_PUBLIC_THIRDWEB_TOKEN
