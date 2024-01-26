@@ -76,10 +76,6 @@ const nextConfig = {
         destination: `${process.env.NEXT_PUBLIC_OG_URL}/posts/:match*`,
         has: [{ key: 'user-agent', type: 'header', value: allowedBots }],
         source: '/posts/:match*'
-      },
-      {
-        destination: 'http://clickhouse.hey.xyz:8123/:match*',
-        source: '/-/clickhouse/:match*'
       }
     ];
   },
