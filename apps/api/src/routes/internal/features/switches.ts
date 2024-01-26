@@ -13,11 +13,12 @@ export const get: Handler = async (req, res) => {
 
   try {
     const data = await prisma.feature.findMany({
-      orderBy: { priority: 'desc' }
+      orderBy: { priority: 'desc' },
+      where: { type: 'KILL_SWITCH' }
     });
-    logger.info('All features fetched');
+    logger.info('All switches fetched');
 
-    return res.status(200).json({ features: data, success: true });
+    return res.status(200).json({ success: true, switches: data });
   } catch (error) {
     return catchedError(res, error);
   }
