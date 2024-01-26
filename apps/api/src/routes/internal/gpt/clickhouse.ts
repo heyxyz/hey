@@ -34,7 +34,7 @@ export const post: Handler = async (req, res) => {
   }
 
   try {
-    const client = createClickhouseClient();
+    const client = createClickhouseClient('gpt', 'gpt');
     const rows = await client.query({
       clickhouse_settings: {
         add_http_cors_header: 1,
