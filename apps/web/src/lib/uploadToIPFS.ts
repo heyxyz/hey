@@ -71,7 +71,7 @@ const uploadToIPFS = async (
         clientId: THIRDWEB_CLIENT_ID,
         secretKey: process.env.NEXT_PUBLIC_THIRDWEB_TOKEN
       });
-      const uris = await storage.uploadBatch(files);
+      const uris = await storage.uploadBatch(files.map((_, i) => data[i]));
 
       return uris.map((uri: string) => ({
         mimeType: data.type || FALLBACK_TYPE,
