@@ -37,9 +37,9 @@ const List: FC = () => {
       {
         error: () => {
           setKilling(false);
-          return 'Failed to kill switch';
+          return 'Failed to kill a feature';
         },
-        loading: 'Killing a switch...',
+        loading: 'Feature is being killed...',
         success: () => {
           setKilling(false);
           setSwitches(
@@ -47,7 +47,7 @@ const List: FC = () => {
               feature.id === id ? { ...feature, enabled } : feature
             )
           );
-          return 'Switch killed';
+          return 'Feature has been killed';
         }
       }
     );
