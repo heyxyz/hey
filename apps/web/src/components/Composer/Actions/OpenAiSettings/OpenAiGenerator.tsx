@@ -69,8 +69,14 @@ const OpenAiGenerator: FC = () => {
     }
   };
 
+  const insertPrediction = () => {
+    setPublicationContent('gm gm gm gm');
+    setShowOpenAiGenerator(false);
+  };
+
   return (
     <Card className="m-5 px-5 py-3" forceRounded>
+      <button onClick={() => setPublicationContent('gm gm gm')}>gm</button>
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2 text-sm">
           <SparklesIcon className="text-brand-500 size-4" />
@@ -91,10 +97,19 @@ const OpenAiGenerator: FC = () => {
         </div>
       </div>
       {text.length > 0 ? <div className="pb-3 pt-5">{text}</div> : null}
-      <div className="mt-3 space-y-2">
+      <div className="mt-3 flex items-center space-x-2">
         <button className="w-full" onClick={() => fetchData()} type="button">
           <Wrapper>Generate Comment</Wrapper>
         </button>
+        {text.length > 0 ? (
+          <button
+            className="w-full"
+            onClick={() => insertPrediction()}
+            type="button"
+          >
+            <Wrapper>Insert</Wrapper>
+          </button>
+        ) : null}
       </div>
     </Card>
   );
