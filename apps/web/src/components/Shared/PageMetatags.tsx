@@ -34,12 +34,6 @@ const PageMetatags: FC = () => {
           title: `Support • ${APP_NAME}`
         };
       }
-      case '/pro': {
-        return {
-          description: `${APP_NAME} Pro is a paid subscription that gives you access to more features and benefits.`,
-          title: `Pro • ${APP_NAME}`
-        };
-      }
       case '/privacy': {
         return {
           description: `Privacy Policy of ${APP_NAME}.`,
@@ -56,12 +50,6 @@ const PageMetatags: FC = () => {
         return {
           description: `Terms & Conditions of ${APP_NAME}.`,
           title: `Terms & Conditions • ${APP_NAME}`
-        };
-      }
-      case '/thanks': {
-        return {
-          description: `Thanks to all the people and projects that have supported ${APP_NAME}.`,
-          title: `Thanks • ${APP_NAME}`
         };
       }
       case '/thanks': {
