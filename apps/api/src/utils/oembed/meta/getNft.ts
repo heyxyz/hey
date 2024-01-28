@@ -1,7 +1,7 @@
 import type { Nft } from '@hey/types/misc';
 import type { Document } from 'linkedom';
 
-// https://reflect.site/g/yoginth/nft-extended-open-graph-spec/780502f3c8a3404bb2d7c39ec091602e
+// https://reflect.site/g/yoginth/hey-nft-extended-open-graph-spec/780502f3c8a3404bb2d7c39ec091602e
 const getNft = (document: Document, url: string): Nft | null => {
   const collectionName =
     document.querySelector('meta[name="eth:nft:collection"]') ||
