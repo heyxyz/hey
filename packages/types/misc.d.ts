@@ -25,15 +25,16 @@ export interface UserSuggestion {
 }
 
 export interface Nft {
-  collection: null | string;
-  contract_address: null | string;
-  creator_address: null | string;
-  nft_chain: 'ethereum' | 'polygon' | null | string;
-  nft_media_url: null | string;
-  nft_mint_count: null | number;
-  nft_mint_status: 'closed' | 'live' | null | string;
-  nft_mint_url: null | string;
-  nft_schema: 'erc1155' | 'erc721' | null | string;
+  chain: null | string;
+  collectionName: null | string;
+  contractAddress: null | string;
+  creatorAddress: null | string;
+  mediaUrl: null | string;
+  mintCount: null | number;
+  mintStatus: 'closed' | 'live' | null | string;
+  mintUrl: null | string;
+  schema: 'erc1155' | 'erc721' | null | string;
+  sourceUrl: string;
 }
 
 export interface OG {
