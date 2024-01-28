@@ -14,7 +14,9 @@ const getNft = (document: Document, url: string): Nft | null => {
     document.querySelector('meta[property="eth:nft:creator_address"]');
   const chain =
     document.querySelector('meta[name="eth:nft:chain"]') ||
-    document.querySelector('meta[property="eth:nft:chain"]');
+    document.querySelector('meta[property="eth:nft:chain"]') ||
+    document.querySelector('meta[name="nft:chain"]') ||
+    document.querySelector('meta[property="nft:chain"]');
   const mediaUrl =
     document.querySelector('meta[name="eth:nft:media_url"]') ||
     document.querySelector('meta[property="eth:nft:media_url"]') ||
@@ -24,14 +26,17 @@ const getNft = (document: Document, url: string): Nft | null => {
     document.querySelector('meta[name="eth:nft:mint_count"]') ||
     document.querySelector('meta[property="eth:nft:mint_count"]');
   const mintStatus =
-    document.querySelector('meta[name="eth:nft:mint_status"]') ||
-    document.querySelector('meta[property="eth:nft:mint_status"]');
+    document.querySelector('meta[name="eth:nft:status"]') ||
+    document.querySelector('meta[property="eth:nft:status"]');
   const mintUrl =
     document.querySelector('meta[name="eth:nft:mint_url"]') ||
     document.querySelector('meta[property="eth:nft:mint_url"]');
   const schema =
     document.querySelector('meta[name="eth:nft:schema"]') ||
     document.querySelector('meta[property="eth:nft:schema"]');
+  const endTime =
+    document.querySelector('meta[name="eth:nft:endtime"]') ||
+    document.querySelector('meta[property="eth:nft:endtime"]');
 
   const processedCollectionName =
     collectionName?.getAttribute('content') || null;
@@ -47,6 +52,7 @@ const getNft = (document: Document, url: string): Nft | null => {
   const processedMintStatus = mintStatus?.getAttribute('content') || null;
   const processedMintUrl = mintUrl?.getAttribute('content') || null;
   const processedSchema = schema?.getAttribute('content') || null;
+  const processedEndTime = endTime?.getAttribute('content') || null;
 
   if (
     !processedCollectionName &&
@@ -62,6 +68,7 @@ const getNft = (document: Document, url: string): Nft | null => {
     collectionName: processedCollectionName,
     contractAddress: processedContractAddress,
     creatorAddress: processedCreatorAddress,
+    endTime: processedEndTime,
     mediaUrl: processedMediaUrl,
     mintCount: processedMintCount,
     mintStatus: processedMintStatus,

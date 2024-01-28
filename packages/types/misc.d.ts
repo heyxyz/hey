@@ -29,6 +29,7 @@ export interface Nft {
   collectionName: null | string;
   contractAddress: null | string;
   creatorAddress: null | string;
+  endTime: null | string;
   mediaUrl: null | string;
   mintCount: null | number;
   mintStatus: 'closed' | 'live' | null | string;
