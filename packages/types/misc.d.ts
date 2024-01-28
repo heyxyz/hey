@@ -24,6 +24,18 @@ export interface UserSuggestion {
   uid: string;
 }
 
+export interface Nft {
+  collection: null | string;
+  contract_address: null | string;
+  creator_address: null | string;
+  nft_chain: 'ethereum' | 'polygon' | null | string;
+  nft_media_url: null | string;
+  nft_mint_count: null | number;
+  nft_mint_status: 'closed' | 'live' | null | string;
+  nft_mint_url: null | string;
+  nft_schema: 'erc1155' | 'erc721' | null | string;
+}
+
 export interface OG {
   description: null | string;
   favicon: null | string;
@@ -31,6 +43,7 @@ export interface OG {
   image: null | string;
   isLarge: boolean | null;
   lastIndexedAt?: string;
+  nft: Nft | null;
   site: null | string;
   title: null | string;
   url: string;
