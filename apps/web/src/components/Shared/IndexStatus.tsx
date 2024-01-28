@@ -33,7 +33,7 @@ const IndexStatus: FC<IndexStatusProps> = ({
       ) {
         setPollInterval(0);
         if (reload) {
-          location.reload();
+          window.location.href='/';
         }
         setTimeout(() => {
           setHide(true);
