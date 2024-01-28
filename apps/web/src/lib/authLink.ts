@@ -7,6 +7,7 @@ import {
   signIn,
   signOut
 } from 'src/store/persisted/useAuthStore';
+import { v4 as uuid } from 'uuid';
 
 const REFRESH_AUTHENTICATION_MUTATION = `
   mutation Refresh($request: RefreshRequest!) {
@@ -19,6 +20,14 @@ const REFRESH_AUTHENTICATION_MUTATION = `
 
 const authLink = new ApolloLink((operation, forward) => {
   const { accessToken, refreshToken } = hydrateAuthTokens();
+
+  // Set Request ID
+  operation.setContext(({ headers = {} }) => ({
+    headers: {
+      ...headers,
+      'x-request-id': uuid()
+    }
+  }));
 
   if (!accessToken || !refreshToken) {
     signOut();
