@@ -45,7 +45,7 @@ const Logout: FC<LogoutProps> = ({ className = '', onClick }) => {
       resetPreferences();
       signOut();
       disconnect?.();
-      window.location.href="/";
+      window.location.href = window.location.href + '?nocache=' + (new Date()).getTime();
     } catch (error) {
       onError(error);
     } finally {

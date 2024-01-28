@@ -120,7 +120,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       const refreshToken = auth.data?.authenticate.refreshToken;
       signIn({ accessToken, refreshToken });
       Leafwatch.track(AUTH.SIWL);
-      window.location.href='/';
+      window.location.href = window.location.href + '?nocache=' + (new Date()).getTime();
     } catch {}
   };
 
