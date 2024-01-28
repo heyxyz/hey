@@ -523,6 +523,9 @@ importers:
       graphql-ws:
         specifier: ^5.14.3
         version: 5.14.3(graphql@16.8.1)
+      uuid:
+        specifier: ^9.0.1
+        version: 9.0.1
     devDependencies:
       '@graphql-codegen/cli':
         specifier: ^5.0.0
@@ -548,6 +551,9 @@ importers:
       '@types/node':
         specifier: ^20.11.8
         version: 20.11.8
+      '@types/uuid':
+        specifier: ^9.0.8
+        version: 9.0.8
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
@@ -5669,6 +5675,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
+      napi-wasm: 1.1.0
     dev: false
     bundledDependencies:
       - napi-wasm
@@ -14730,6 +14737,10 @@ packages:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
+
+  /napi-wasm@1.1.0:
+    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
+    dev: false
 
   /natural-compare-lite@1.4.0:
     resolution: {integrity: sha512-Tj+HTDSJJKaZnfiuw+iaF9skdPpTo2GtEly5JHnWV/hfv2Qj/9RKsGISQtLh2ox3l5EAGw487hnBee0sIJ6v2g==}
