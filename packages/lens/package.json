@@ -16,8 +16,7 @@
     "@apollo/client": "^3.8.10",
     "@hey/data": "workspace:*",
     "axios": "^1.6.7",
-    "graphql-ws": "^5.14.3",
-    "uuid": "^9.0.1"
+    "graphql-ws": "^5.14.3"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.0",
@@ -27,8 +26,7 @@
     "@graphql-codegen/typescript-react-apollo": "^4.1.0",
     "@hey/config": "workspace:*",
     "@parcel/watcher": "^2.4.0",
-    "@types/node": "^20.11.8",
-    "@types/uuid": "^9.0.8",
+    "@types/node": "^20.11.9",
     "typescript": "^5.3.3"
   }
 }
