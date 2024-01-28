@@ -20,7 +20,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.499.0",
+    "@aws-sdk/client-sts": "^3.501.0",
     "@clickhouse/client": "^0.2.9",
     "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
@@ -62,6 +62,6 @@
     "typescript": "^5.3.2",
     "vite": "^5.0.12",
     "vite-tsconfig-paths": "^4.3.1",
-    "vitest": "^1.2.1"
+    "vitest": "^1.2.2"
   }
 }
