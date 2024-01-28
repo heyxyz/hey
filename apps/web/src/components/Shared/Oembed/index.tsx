@@ -38,6 +38,7 @@ const Oembed: FC<OembedProps> = ({ className = '', publicationId, url }) => {
     html: data?.html,
     image: data?.image,
     isLarge: data?.isLarge,
+    nft: data?.nft,
     site: data?.site,
     title: data?.title,
     url: url as string
