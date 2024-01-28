@@ -31,7 +31,7 @@ const getMetadata = async (url: string): Promise<any> => {
     image: proxiedUrl,
     isLarge,
     lastIndexedAt: new Date().toISOString(),
-    nft: getNft(document),
+    nft: getNft(document, url),
     site: getSite(document),
     title: getTitle(document),
     url
