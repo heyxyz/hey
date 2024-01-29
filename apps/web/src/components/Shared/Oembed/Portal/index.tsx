@@ -48,7 +48,7 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
       setLoading(true);
 
       const { data }: { data: { portal: Portal } } = await axios.post(
-        `${HEY_API_URL}/portals/get`,
+        `${HEY_API_URL}/portal/get`,
         { buttonIndex: index + 1, postUrl },
         { headers: getAuthApiHeaders() }
       );
