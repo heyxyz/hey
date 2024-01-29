@@ -27,7 +27,7 @@ export const post: Handler = async (req, res) => {
           <meta property="hey:portal:button:2:type" content="submit" />
           <meta property="hey:portal:button:3" content="⏩︎" />
           <meta property="hey:portal:button:3:type" content="submit" />
-          <meta property="hey:portal:post_url" content="https://api.hey.xyz/portals/test/post" />
+          <meta property="hey:portal:post_url" content="https://api.hey.xyz/portals/test/post?id=${idd + 1}" />
         </head>
         <body>OK</body>
       </html>
