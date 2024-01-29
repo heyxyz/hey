@@ -61,8 +61,7 @@ const getNft = (document: Document, url: string): Nft | null => {
     !processedCollectionName &&
     !processedContractAddress &&
     !processedCreatorAddress &&
-    !processedSchema &&
-    !processedMediaUrl
+    !processedSchema
   ) {
     return null;
   }
