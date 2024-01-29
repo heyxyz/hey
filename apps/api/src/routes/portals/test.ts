@@ -25,8 +25,11 @@ export const get: Handler = async (req, res) => {
           <meta property="hey:portal" content="vLatest" />
           <meta property="hey:portal:image" content="https://fcframes.vercel.app/br${idd + 1}.gif" />
           <meta property="hey:portal:button:1" content="⏪" />
+          <meta property="hey:portal:button:1:type" content="submit" />
           <meta property="hey:portal:button:2" content="${title}" />
+          <meta property="hey:portal:button:1:type" content="submit" />
           <meta property="hey:portal:button:3" content="⏩︎" />
+          <meta property="hey:portal:button:3:type" content="submit" />
           <meta property="hey:portal:post_url" content="https://api.hey.xyz/portals/test?id=${idd + 1}" />
 
           <meta property="fc:frame" content="vNext" />
