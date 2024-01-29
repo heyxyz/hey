@@ -1,8 +1,8 @@
 import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
-import catchedError from '@utils/catchedError';
-import createClickhouseClient from '@utils/createClickhouseClient';
+import catchedError from 'src/lib/catchedError';
+import createClickhouseClient from 'src/lib/createClickhouseClient';
 
 export const get: Handler = async (_, res) => {
   try {

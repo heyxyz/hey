@@ -1,8 +1,8 @@
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
 import logger from '@hey/lib/logger';
-import createClickhouseClient from '@utils/createClickhouseClient';
-import randomizeIds from '@utils/feeds/randomizeIds';
+import createClickhouseClient from 'src/lib/createClickhouseClient';
+import randomizeIds from 'src/lib/feeds/randomizeIds';
 
 const interactionAndWeights = {
   [PUBLICATION.ATTACHMENT.AUDIO.PLAY]: 4,

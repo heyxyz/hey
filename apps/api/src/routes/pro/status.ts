@@ -2,10 +2,10 @@ import type { Handler } from 'express';
 
 import { Stripe } from '@hey/data/constants';
 import logger from '@hey/lib/logger';
-import catchedError from '@utils/catchedError';
-import { CACHE_AGE_INDEFINITE } from '@utils/constants';
-import prisma from '@utils/prisma';
-import { noBody } from '@utils/responses';
+import catchedError from 'src/lib/catchedError';
+import { CACHE_AGE_INDEFINITE } from 'src/lib/constants';
+import prisma from 'src/lib/prisma';
+import { noBody } from 'src/lib/responses';
 
 export const get: Handler = async (req, res) => {
   const { id } = req.query;

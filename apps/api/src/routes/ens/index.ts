@@ -1,9 +1,9 @@
 import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
-import catchedError from '@utils/catchedError';
-import { resolverAbi } from '@utils/ens/resolverAbi';
-import { invalidBody, noBody } from '@utils/responses';
+import catchedError from 'src/lib/catchedError';
+import { resolverAbi } from 'src/lib/ens/resolverAbi';
+import { invalidBody, noBody } from 'src/lib/responses';
 import { createPublicClient, http } from 'viem';
 import { mainnet } from 'viem/chains';
 import { array, object, string } from 'zod';

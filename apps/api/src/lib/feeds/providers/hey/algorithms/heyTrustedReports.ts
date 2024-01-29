@@ -1,6 +1,6 @@
 import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
-import createClickhouseClient from '@utils/createClickhouseClient';
+import createClickhouseClient from 'src/lib/createClickhouseClient';
 
 const heyTrustedReports = async (
   limit: number,

@@ -1,7 +1,7 @@
 import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
-import createClickhouseClient from '@utils/createClickhouseClient';
-import randomizeIds from '@utils/feeds/randomizeIds';
+import createClickhouseClient from 'src/lib/createClickhouseClient';
+import randomizeIds from 'src/lib/feeds/randomizeIds';
 
 const heyMostViewed = async (limit: number, offset: number): Promise<any[]> => {
   if (limit > 500) {

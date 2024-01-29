@@ -2,10 +2,10 @@ import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
-import catchedError from '@utils/catchedError';
-import createClickhouseClient from '@utils/createClickhouseClient';
-import validateIsTrusted from '@utils/middlewares/validateIsTrusted';
-import { invalidBody, noBody, notAllowed } from '@utils/responses';
+import catchedError from 'src/lib/catchedError';
+import createClickhouseClient from 'src/lib/createClickhouseClient';
+import validateIsTrusted from 'src/lib/middlewares/validateIsTrusted';
+import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
 import { object, string } from 'zod';
 
 type ExtensionRequest = {

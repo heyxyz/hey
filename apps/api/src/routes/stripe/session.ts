@@ -1,9 +1,9 @@
 import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
-import catchedError from '@utils/catchedError';
-import createStripeClient from '@utils/createStripeClient';
-import { noBody } from '@utils/responses';
+import catchedError from 'src/lib/catchedError';
+import createStripeClient from 'src/lib/createStripeClient';
+import { noBody } from 'src/lib/responses';
 
 export const get: Handler = async (req, res) => {
   const { id, plan } = req.query;

@@ -1,8 +1,8 @@
 import type { Request } from 'express';
 
 import parseJwt from '@hey/lib/parseJwt';
-import { TRUSTED_PROFILE_FEATURE_ID } from '@utils/constants';
-import prisma from '@utils/prisma';
+import { TRUSTED_PROFILE_FEATURE_ID } from 'src/lib/constants';
+import prisma from 'src/lib/prisma';
 
 import validateLensAccount from './validateLensAccount';
 
