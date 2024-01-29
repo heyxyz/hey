@@ -1,7 +1,7 @@
 import type { Post } from '@hey/lens';
 import type { FC } from 'react';
 
-import CollectAction from '@components/Publication/LensOpenActions/CollectModule/CollectAction';
+import CollectAction from '@components/Publication/OpenAction/CollectModule/CollectAction';
 import Loader from '@components/Shared/Loader';
 import { Errors } from '@hey/data';
 import { APP_NAME, IS_MAINNET } from '@hey/data/constants';
