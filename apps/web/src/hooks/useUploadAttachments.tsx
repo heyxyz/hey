@@ -84,8 +84,7 @@ const useUploadAttachments = () => {
               ? 'Image'
               : file.type.includes('video')
                 ? 'Video'
-                : 'Audio',
-            uri: URL.createObjectURL(file)
+                : 'Audio'
           };
         }
       );
