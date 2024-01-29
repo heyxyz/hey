@@ -13,7 +13,7 @@ interface PortalProps {
 }
 
 const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
-  const { buttons, image } = portal;
+  const { buttons, image, postUrl } = portal;
 
   return (
     <Card className="mt-3" forceRounded onClick={stopEventPropagation}>
@@ -29,7 +29,7 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
           gridTemplateRows: buttons.length === 3 ? 'auto auto' : 'auto'
         }}
       >
-        {buttons.map(({ action, button, type }, index) => (
+        {buttons.map(({ button, type }, index) => (
           <Button
             className={`${
               buttons.length === 3 && index === 2 ? 'col-span-2' : 'col-span-1'
@@ -42,7 +42,7 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
               });
 
               if (type === 'redirect') {
-                window.open(action, '_blank');
+                window.open(postUrl, '_blank');
               } else if (type === 'submit') {
                 toast.success('Not implemented yet, check back later!');
               }
