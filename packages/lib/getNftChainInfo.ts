@@ -31,6 +31,12 @@ const getNftChainInfo = (
         logo: `${STATIC_IMAGES_URL}/chains/base.svg`,
         name: chain === 'base' ? 'Base' : 'Base Testnet'
       };
+    case 'polygon':
+    case 'mumbai':
+      return {
+        logo: `${STATIC_IMAGES_URL}/chains/polygon.svg`,
+        name: chain === 'polygon' ? 'Polygon' : 'Polygon Mumbai'
+      };
     default:
       return {
         logo: `${STATIC_IMAGES_URL}/chains/ethereum.svg`,
