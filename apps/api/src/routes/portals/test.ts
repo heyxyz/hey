@@ -20,7 +20,7 @@ export const get: Handler = async (req, res) => {
           <meta property="hey:portal:button:1" content="⏪" />
           <meta property="hey:portal:button:2" content="${title}" />
           <meta property="hey:portal:button:3" content="⏩︎" />
-          <meta property="hey:portal:post_url" content="http://localhost:4784/portals/test?id=${idd + 1}" />
+          <meta property="hey:portal:post_url" content="https://api.hey.xyz/portals/test?id=${idd + 1}" />
         </head>
         <body>OK</body>
       </html>
