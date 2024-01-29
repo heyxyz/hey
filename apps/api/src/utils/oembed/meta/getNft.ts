@@ -18,10 +18,10 @@ const getNft = (document: Document, url: string): Nft | null => {
     document.querySelector('meta[name="nft:chain"]') ||
     document.querySelector('meta[property="nft:chain"]');
   const mediaUrl =
-    document.querySelector('meta[name="eth:nft:media_url"]') ||
-    document.querySelector('meta[property="eth:nft:media_url"]') ||
     document.querySelector('meta[name="og:image"]') ||
-    document.querySelector('meta[property="og:image"]');
+    document.querySelector('meta[property="og:image"]') ||
+    document.querySelector('meta[name="eth:nft:media_url"]') ||
+    document.querySelector('meta[property="eth:nft:media_url"]');
   const mintCount =
     document.querySelector('meta[name="eth:nft:mint_count"]') ||
     document.querySelector('meta[property="eth:nft:mint_count"]');
@@ -38,27 +38,31 @@ const getNft = (document: Document, url: string): Nft | null => {
     document.querySelector('meta[name="eth:nft:endtime"]') ||
     document.querySelector('meta[property="eth:nft:endtime"]');
 
-  const processedCollectionName =
-    collectionName?.getAttribute('content') || null;
-  const processedContractAddress =
-    contractAddress?.getAttribute('content') || null;
-  const processedCreatorAddress =
-    creatorAddress?.getAttribute('content') || null;
+  const processedCollectionName = collectionName?.getAttribute(
+    'content'
+  ) as string;
+  const processedContractAddress = contractAddress?.getAttribute(
+    'content'
+  ) as `0x${string}`;
+  const processedCreatorAddress = creatorAddress?.getAttribute(
+    'content'
+  ) as `0x${string}`;
   const processedChain = chain?.getAttribute('content') || null;
-  const processedMediaUrl = mediaUrl?.getAttribute('content') || null;
+  const processedMediaUrl = mediaUrl?.getAttribute('content') as string;
   const processedMintCount = mintCount?.getAttribute('content')
     ? Number(mintCount?.getAttribute('content'))
     : null;
   const processedMintStatus = mintStatus?.getAttribute('content') || null;
   const processedMintUrl = mintUrl?.getAttribute('content') || null;
-  const processedSchema = schema?.getAttribute('content') || null;
+  const processedSchema = schema?.getAttribute('content') as string;
   const processedEndTime = endTime?.getAttribute('content') || null;
 
   if (
     !processedCollectionName &&
     !processedContractAddress &&
     !processedCreatorAddress &&
-    !processedSchema
+    !processedSchema &&
+    !processedMediaUrl
   ) {
     return null;
   }

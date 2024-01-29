@@ -7,6 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 import Embed from './Embed';
+import Nft from './Nft';
 import Player from './Player';
 
 interface OembedProps {
@@ -44,7 +45,7 @@ const Oembed: FC<OembedProps> = ({ className = '', publicationId, url }) => {
     url: url as string
   };
 
-  if (!og.title && !og.html) {
+  if (!og.title && !og.html && !og.nft) {
     return null;
   }
 
@@ -52,6 +53,8 @@ const Oembed: FC<OembedProps> = ({ className = '', publicationId, url }) => {
     <div className={className}>
       {og.html ? (
         <Player og={og} />
+      ) : og.nft ? (
+        <Nft nft={og.nft} publicationId={publicationId} />
       ) : (
         <Embed og={og} publicationId={publicationId} />
       )}
