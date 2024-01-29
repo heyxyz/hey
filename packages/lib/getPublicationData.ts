@@ -4,7 +4,6 @@ import type { MetadataAsset } from '@hey/types/misc';
 import { PLACEHOLDER_IMAGE } from '@hey/data/constants';
 
 import getAttachmentsData from './getAttachmentsData';
-import removeUrlsByHostnames from './removeUrlsByHostnames';
 
 const getPublicationData = (
   metadata: PublicationMetadata
@@ -73,10 +72,7 @@ const getPublicationData = (
     case 'MintMetadataV3':
       return {
         attachments: getAttachmentsData(metadata.attachments),
-        content: removeUrlsByHostnames(
-          metadata.content,
-          new Set(['basepaint.art', 'unlonely.app'])
-        )
+        content: metadata.content
       };
     case 'LiveStreamMetadataV3':
       return {

@@ -1,40 +1,35 @@
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 
-const getZoraChainInfo = (
-  chain: number
+const getNftChainInfo = (
+  chain: string
 ): {
   logo: string;
   name: string;
 } => {
   switch (chain) {
-    case 1:
-    case 5:
+    case 'ethereum':
+    case 'goerli':
       return {
         logo: `${STATIC_IMAGES_URL}/chains/ethereum.svg`,
-        name: chain === 1 ? 'Ethereum' : 'Goerli'
+        name: chain === 'ethereum' ? 'Ethereum' : 'Goerli'
       };
-    case 10:
-    case 420:
+    case 'optimism':
+    case 'optimism-testnet':
       return {
         logo: `${STATIC_IMAGES_URL}/chains/optimism.svg`,
-        name: chain === 10 ? 'Optimism' : 'Optimism Testnet'
+        name: chain === 'optimism' ? 'Optimism' : 'Optimism Testnet'
       };
-    case 7777777:
-    case 999:
+    case 'zora':
+    case 'zora-testnet':
       return {
         logo: `${STATIC_IMAGES_URL}/chains/zora.svg`,
-        name: chain === 7777777 ? 'Zora' : 'Zora Testnet'
+        name: chain === 'zora' ? 'Zora' : 'Zora Testnet'
       };
-    case 8453:
-    case 84531:
+    case 'base':
+    case 'base-testnet':
       return {
         logo: `${STATIC_IMAGES_URL}/chains/base.svg`,
-        name: chain === 8453 ? 'Base' : 'Base Testnet'
-      };
-    case 424:
-      return {
-        logo: `${STATIC_IMAGES_URL}/chains/pgn.svg`,
-        name: 'PGN Network'
+        name: chain === 'base' ? 'Base' : 'Base Testnet'
       };
     default:
       return {
@@ -44,4 +39,4 @@ const getZoraChainInfo = (
   }
 };
 
-export default getZoraChainInfo;
+export default getNftChainInfo;
