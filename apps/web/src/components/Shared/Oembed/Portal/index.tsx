@@ -4,6 +4,7 @@ import { PUBLICATION } from '@hey/data/tracking';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Portal } from '@hey/types/misc';
 import { Button, Card } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
@@ -61,17 +62,16 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
         src={image}
       />
       <div
-        className="grid gap-4 p-5 dark:border-gray-700"
-        style={{
-          gridTemplateColumns: buttons.length === 1 ? '1fr' : '1fr 1fr',
-          gridTemplateRows: buttons.length === 3 ? 'auto auto' : 'auto'
-        }}
+        className={cn(
+          buttons.length === 1 && 'grid-cols-1',
+          buttons.length === 2 && 'grid-cols-2',
+          buttons.length === 3 && 'grid-cols-3',
+          buttons.length === 4 && 'grid-cols-2',
+          'grid gap-4 p-5 dark:border-gray-700'
+        )}
       >
         {buttons.map(({ button, type }, index) => (
           <Button
-            className={`${
-              buttons.length === 3 && index === 2 ? 'col-span-2' : 'col-span-1'
-            }`}
             disabled={loading}
             key={index}
             onClick={() => {
