@@ -3,9 +3,9 @@ import type { Handler } from 'express';
 import catchedError from 'src/lib/catchedError';
 
 export const post: Handler = async (req, res) => {
-  const { body } = req;
+  const { id } = req.query;
 
-  let idd = Number(body.buttonIndex as string) || 0;
+  let idd = Number(id as string) || 0;
   const title = `br${'r'.repeat(idd)}`;
 
   try {
