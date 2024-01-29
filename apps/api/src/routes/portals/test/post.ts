@@ -2,14 +2,11 @@ import type { Handler } from 'express';
 
 import catchedError from 'src/lib/catchedError';
 
-export const get: Handler = async (req, res) => {
-  const { id } = req.query;
+export const post: Handler = async (req, res) => {
+  const { body } = req;
 
-  let idd = Number(id as string) || 0;
+  let idd = Number(body.buttonIndex as string) || 0;
   const title = `br${'r'.repeat(idd)}`;
-
-  console.log(req);
-  console.log('gmgm');
 
   try {
     return res.send(`
@@ -30,14 +27,7 @@ export const get: Handler = async (req, res) => {
           <meta property="hey:portal:button:2:type" content="submit" />
           <meta property="hey:portal:button:3" content="⏩︎" />
           <meta property="hey:portal:button:3:type" content="submit" />
-          <meta property="hey:portal:post_url" content="https://api.hey.xyz/portals/test?id=${idd + 1}" />
-
-          <meta property="fc:frame" content="vNext" />
-          <meta property="fc:frame:image" content="https://fcframes.vercel.app/br${idd + 1}.gif" />
-          <meta property="fc:frame:button:1" content="⏪" />
-          <meta property="fc:frame:button:2" content="br" />
-          <meta property="fc:frame:button:3" content="⏩︎" />
-          <meta property="fc:frame:post_url" content="https://fcframes.vercel.app/api/brians?id=${idd + 1}" />
+          <meta property="hey:portal:post_url" content="https://api.hey.xyz/portals/test/post" />
         </head>
         <body>OK</body>
       </html>
