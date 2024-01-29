@@ -8,11 +8,12 @@ export const post: Handler = async (req, res) => {
   const index = req.body.buttonIndex;
   let idd = 0;
   let title = 'br';
+
   if (index === 1) {
     idd = Number(id as string) - 1;
     title = `br${'r'.repeat(idd)}`;
   } else if (index === 3) {
-    let idd = Number(id as string) || 0;
+    idd = Number(id as string) + 1;
     title = `br${'r'.repeat(idd)}`;
   } else {
     idd = Number(id as string) || 0;
