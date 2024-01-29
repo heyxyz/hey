@@ -10,6 +10,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { type FC, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface PortalProps {
   portal: Portal;
@@ -17,6 +18,7 @@ interface PortalProps {
 }
 
 const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const [portalData, setPortalData] = useState<null | Portal>(null);
   const [loading, setLoading] = useState(false);
 
@@ -33,6 +35,10 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
   const { buttons, image, postUrl } = portalData;
 
   const onPost = async (index: number) => {
+    if (!currentProfile) {
+      return toast.error(Errors.SignWallet);
+    }
+
     try {
       setLoading(true);
 
