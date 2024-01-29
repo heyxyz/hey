@@ -1,7 +1,7 @@
 import type { Request } from 'express';
 
 import parseJwt from '@hey/lib/parseJwt';
-import prisma from '@utils/prisma';
+import prisma from 'src/lib/prisma';
 
 import { GARDENER_FEATURE_ID } from '../constants';
 import validateLensAccount from './validateLensAccount';

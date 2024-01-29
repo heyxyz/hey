@@ -1,4 +1,4 @@
-import randomizeIds from '@utils/feeds/randomizeIds';
+import randomizeIds from 'src/lib/feeds/randomizeIds';
 import urlcat from 'urlcat';
 
 const k3lGlobalFeed = async (

@@ -2,8 +2,8 @@ import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
 import { NodeIrys } from '@irys/sdk';
-import catchedError from '@utils/catchedError';
-import { noBody } from '@utils/responses';
+import catchedError from 'src/lib/catchedError';
+import { noBody } from 'src/lib/responses';
 
 export const post: Handler = async (req, res) => {
   const { body } = req;
