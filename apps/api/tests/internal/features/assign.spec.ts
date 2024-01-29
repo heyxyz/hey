@@ -1,7 +1,7 @@
 import { TEST_LENS_ID } from '@hey/data/constants';
 import getAuthApiHeadersForTest from '@hey/lib/getAuthApiHeadersForTest';
-import { TEST_URL } from '@utils/constants';
 import axios from 'axios';
+import { TEST_URL } from 'src/lib/constants';
 import { describe, expect, test } from 'vitest';
 
 describe('internal/features/assign', () => {

@@ -1,7 +1,7 @@
 import type { Handler } from 'express';
 
-import catchedError from '@utils/catchedError';
-import heyTrustedReports from '@utils/feeds/providers/hey/algorithms/heyTrustedReports';
+import catchedError from 'src/lib/catchedError';
+import heyTrustedReports from 'src/lib/feeds/providers/hey/algorithms/heyTrustedReports';
 
 export const get: Handler = async (req, res) => {
   const limit = (parseInt(req.query?.limit as string) || 50) as number;
