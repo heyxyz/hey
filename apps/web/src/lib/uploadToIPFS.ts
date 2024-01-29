@@ -2,8 +2,16 @@ import type { IPFSResponse } from '@hey/types/misc';
 
 import { S3 } from '@aws-sdk/client-s3';
 import { Upload } from '@aws-sdk/lib-storage';
-import { EVER_API, HEY_API_URL, S3_BUCKET } from '@hey/data/constants';
+import {
+  EVER_API,
+  HEY_API_URL,
+  S3_BUCKET,
+  THIRDWEB_CLIENT_ID
+} from '@hey/data/constants';
+import { KillSwitch } from '@hey/data/feature-flags';
+import { ThirdwebStorage } from '@thirdweb-dev/storage';
 import axios from 'axios';
+import { hydrateFeatureFlags } from 'src/store/persisted/useFeatureFlagsStore';
 import { v4 as uuid } from 'uuid';
 
 const FALLBACK_TYPE = 'image/jpeg';
@@ -58,6 +66,30 @@ const uploadToIPFS = async (
 ): Promise<IPFSResponse[]> => {
   try {
     const files = Array.from(data);
+    const { killSwitches } = hydrateFeatureFlags();
+    const fallBackToThirdweb = killSwitches.includes(KillSwitch.UseThirdWeb);
+
+    console.log('fallBackToThirdweb', killSwitches);
+
+    if (fallBackToThirdweb) {
+      const storage = new ThirdwebStorage({
+        clientId: THIRDWEB_CLIENT_ID,
+        secretKey: process.env.NEXT_PUBLIC_THIRDWEB_TOKEN
+      });
+
+      const allFiles = Array.from(data).map((blob: any) => {
+        const file = new File([blob], uuid(), { type: blob.type });
+        return file;
+      });
+
+      const uris = await storage.uploadBatch(allFiles);
+
+      return uris.map((uri: string) => ({
+        mimeType: data.type || FALLBACK_TYPE,
+        uri
+      }));
+    }
+
     const client = await getS3Client();
     const attachments = await Promise.all(
       files.map(async (_: any, i: number) => {

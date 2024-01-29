@@ -1,24 +1,25 @@
-import type { Profile } from '@hey/lens';
+import type { AnyPublication, Profile } from '@hey/lens';
 import type { Metadata } from 'next';
 
 import { APP_NAME, HANDLE_PREFIX } from '@hey/data/constants';
-import { ProfileDocument } from '@hey/lens';
+import {
+  LimitType,
+  ProfileDocument,
+  PublicationsDocument,
+  PublicationType
+} from '@hey/lens';
 import { apolloClient } from '@hey/lens/apollo';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
-import logger from '@hey/lib/logger';
-import { headers } from 'next/headers';
+import getPublicationData from '@hey/lib/getPublicationData';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import defaultMetadata from 'src/defaultMetadata';
 
-type Props = {
+interface Props {
   params: { handle: string };
-};
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const headersList = headers();
-  const agent = headersList.get('user-agent');
-  logger.info(`OG request from ${agent} for Handle:${params.handle}`);
-
   const { handle } = params;
   const { data } = await apolloClient().query({
     query: ProfileDocument,
@@ -31,14 +32,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const profile = data.profile as Profile;
   const { displayName, link, slugWithPrefix } = getProfile(profile);
-
   const title = `${displayName} (${slugWithPrefix}) • ${APP_NAME}`;
+  const description = (profile?.metadata?.bio || title).slice(0, 155);
 
   return {
-    alternates: { canonical: `https://hey.xyz/${link}` },
+    alternates: { canonical: `https://hey.xyz${link}` },
     applicationName: APP_NAME,
     creator: displayName,
-    description: profile?.metadata?.bio,
+    description: description,
     keywords: [
       'hey',
       'hey.xyz',
@@ -53,18 +54,68 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       displayName,
       slugWithPrefix
     ],
-    metadataBase: new URL(`https://hey.xyz/u/${profile.handle}`),
+    metadataBase: new URL(`https://hey.xyz${link}`),
     openGraph: {
+      description: description,
       images: [getAvatar(profile)],
       siteName: 'Hey',
-      type: 'profile'
+      type: 'profile',
+      url: `https://hey.xyz${link}`
     },
+    other: { 'lens:id': profile.id },
     publisher: displayName,
     title: title,
     twitter: { card: 'summary', site: '@heydotxyz' }
   };
 }
 
-export default function Page({ params }: Props) {
-  return <div>{params.handle}</div>;
+export default async function Page({ params }: Props) {
+  const metadata = await generateMetadata({ params });
+  const { data } = await apolloClient().query({
+    query: PublicationsDocument,
+    variables: {
+      request: {
+        limit: LimitType.Fifty,
+        where: {
+          from: metadata.other?.['lens:id'],
+          publicationTypes: [
+            PublicationType.Post,
+            PublicationType.Quote,
+            PublicationType.Mirror
+          ]
+        }
+      }
+    }
+  });
+
+  if (!metadata) {
+    return <h1>{params.handle}</h1>;
+  }
+
+  return (
+    <>
+      <h1>{metadata.title?.toString()}</h1>
+      <h2>{metadata.description?.toString()}</h2>
+      <div>
+        <h3>Publications</h3>
+        <ul>
+          {data?.publications?.items?.map((publication: AnyPublication) => {
+            const targetPublication = isMirrorPublication(publication)
+              ? publication.mirrorOn
+              : publication;
+            const filteredContent =
+              getPublicationData(targetPublication.metadata)?.content || '';
+
+            return (
+              <li key={publication.id}>
+                <a href={`https://hey.xyz/posts/${publication.id}`}>
+                  {filteredContent}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </>
+  );
 }

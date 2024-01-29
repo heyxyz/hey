@@ -10,7 +10,7 @@ interface MirroredProps {
 
 const Mirrored: FC<MirroredProps> = ({ profile }) => {
   return (
-    <div className="ld-text-gray-500 flex items-center space-x-1 pb-4 text-[13px]">
+    <div className="ld-text-gray-500 mb-3 flex items-center space-x-1 text-[13px]">
       <ArrowsRightLeftIcon className="size-4" />
       <Profiles context="mirrored" profiles={[profile]} />
     </div>

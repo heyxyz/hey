@@ -48,45 +48,22 @@ export const PUBLICATION = {
   },
   COPY_TEXT: 'Copy publication text',
   DELETE: 'Delete publication',
-  LENS_OPEN_ACTIONS: {
-    TIP: {
-      OPEN_TIP: 'Open tip modal',
-      TIP: 'Tip publication'
-    }
-  },
   LIKE: 'Like publication',
   MIRROR: 'Mirror publication',
   NEW_COMMENT: 'New comment',
   NEW_POST: 'New post',
   NEW_QUOTE: 'New quote',
   OPEN_ACTIONS: {
-    BASEPAINT_NFT: {
-      MINT: 'Mint BasePaint NFT',
-      OPEN_LINK: 'Open BasePaint link',
-      OPEN_MINT: 'Open BasePaint mint modal',
-      OPEN_OPENSEA_LINK: 'Open BasePaint OpenSea link'
-    },
-    SOUND_RELEASE: {
-      OPEN_LINK: 'Open Sound Release link',
-      PAUSE: 'Pause Sound Release track',
-      PLAY: 'Play Sound Release track'
-    },
-    UNLONELY_CHANNEL: {
-      OPEN_LINK: 'Open Unlonely Channel link'
-    },
-    UNLONELY_NFC: {
-      OPEN_LINK: 'Open Unlonely NFC link'
-    },
-    ZORA_NFT: {
-      MINT: 'Mint Zora NFT',
-      OPEN_LINK: 'Open Zora link',
-      OPEN_MINT: 'Open Zora mint modal'
+    TIP: {
+      OPEN_TIP: 'Open tip modal',
+      TIP: 'Tip publication'
     }
   },
   OPEN_COLLECTORS: 'Open collectors modal',
   OPEN_GIFS: 'Open GIFs modal',
   OPEN_LIKES: 'Open likes modal',
   OPEN_MIRRORS: 'Open mirrors modal',
+  OPEN_NFT: 'Open NFT',
   OPEN_QUOTES: 'Open quotes modal',
   OPEN_VIEWS: 'Open views modal',
   REPORT: 'Report publication',

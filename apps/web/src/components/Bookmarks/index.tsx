@@ -2,7 +2,7 @@ import type { PublicationMetadataMainFocusType } from '@hey/lens';
 import type { NextPage } from 'next';
 
 import MetaTags from '@components/Common/MetaTags';
-import RecommendedProfiles from '@components/Home/Sidebar/RecommendedProfiles';
+import WhoToFollow from '@components/Home/Sidebar/WhoToFollow';
 import FeedFocusType from '@components/Shared/FeedFocusType';
 import Footer from '@components/Shared/Footer';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
@@ -36,7 +36,7 @@ const Bookmarks: NextPage = () => {
         <Feed focus={focus} />
       </GridItemEight>
       <GridItemFour>
-        <RecommendedProfiles />
+        <WhoToFollow />
         <Footer />
       </GridItemFour>
     </GridLayout>

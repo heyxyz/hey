@@ -1,11 +1,8 @@
 import { APP_NAME } from '@hey/data/constants';
-import getURLs from '@hey/lib/getURLs';
-import getNft from '@hey/lib/nft/getNft';
 import {
   audio,
   image,
   liveStream,
-  mint,
   textOnly,
   video
 } from '@lens-protocol/metadata';
@@ -54,13 +51,10 @@ const usePublicationMetadata = () => {
 
   const getMetadata = useCallback(
     ({ baseMetadata }: UsePublicationMetadataProps) => {
-      const urls = getURLs(baseMetadata.content);
-
       const hasAttachments = attachments.length;
       const isImage = attachments[0]?.type === 'Image';
       const isAudio = attachments[0]?.type === 'Audio';
       const isVideo = attachments[0]?.type === 'Video';
-      const isMint = Boolean(getNft(urls)?.mintLink);
       const isLiveStream = Boolean(showLiveVideoEditor && liveVideoConfig.id);
 
       const localBaseMetadata = {
@@ -76,13 +70,6 @@ const usePublicationMetadata = () => {
       }));
 
       switch (true) {
-        case isMint:
-          return mint({
-            ...baseMetadata,
-            ...localBaseMetadata,
-            ...(hasAttachments && { attachments: attachmentsToBeUploaded }),
-            mintLink: getNft(urls)?.mintLink
-          });
         case isLiveStream:
           return liveStream({
             ...baseMetadata,
