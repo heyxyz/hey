@@ -11,7 +11,3 @@ export enum TestnetContracts {
   PublicActProxy = '0x4ed64Eb32C96Df0eA60BB8934798F4DFd3098Ba1',
   TokenHandleRegistry = '0x66cA05cAc4e8D543028192dD28C0570a0b6e3413'
 }
-
-export const BASEPAINT_CONTRACT = '0xba5e05cb26b78eda3a2f8e3b3814726305dcac83';
-export const ZORA_FIXED_PRICE_SALE_STRATEGY =
-  '0x04E2516A2c207E84a1839755675dfd8eF6302F0a'; // as per https://github.com/ourzora/zora-protocol/blob/main/packages/protocol-deployments/addresses/7777777.json

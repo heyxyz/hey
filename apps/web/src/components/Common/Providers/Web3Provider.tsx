@@ -2,18 +2,7 @@ import type { FC, ReactNode } from 'react';
 
 import { APP_NAME, WALLETCONNECT_PROJECT_ID } from '@hey/data/constants';
 import { createConfig, http, WagmiProvider } from 'wagmi';
-import {
-  base,
-  baseGoerli,
-  goerli,
-  mainnet,
-  optimism,
-  optimismGoerli,
-  polygon,
-  polygonMumbai,
-  zora,
-  zoraTestnet
-} from 'wagmi/chains';
+import { polygon, polygonMumbai } from 'wagmi/chains';
 import { coinbaseWallet, injected, walletConnect } from 'wagmi/connectors';
 
 const connectors = [
@@ -23,30 +12,11 @@ const connectors = [
 ];
 
 const wagmiConfig = createConfig({
-  chains: [
-    base,
-    baseGoerli,
-    goerli,
-    mainnet,
-    optimism,
-    optimismGoerli,
-    polygon,
-    polygonMumbai,
-    zora,
-    zoraTestnet
-  ],
+  chains: [polygon, polygonMumbai],
   connectors,
   transports: {
-    [base.id]: http(),
-    [baseGoerli.id]: http(),
-    [goerli.id]: http(),
-    [mainnet.id]: http(),
-    [optimism.id]: http(),
-    [optimismGoerli.id]: http(),
     [polygon.id]: http(),
-    [polygonMumbai.id]: http(),
-    [zora.id]: http(),
-    [zoraTestnet.id]: http()
+    [polygonMumbai.id]: http()
   }
 });
 
