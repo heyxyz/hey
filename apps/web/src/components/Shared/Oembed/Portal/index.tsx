@@ -6,7 +6,6 @@ import { Portal } from '@hey/types/misc';
 import { Button, Card } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { type FC, useEffect, useState } from 'react';
@@ -30,10 +29,6 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
   }, [portal]);
 
   if (!portalData) {
-    return null;
-  }
-
-  if (!isFeatureEnabled('portal')) {
     return null;
   }
 
