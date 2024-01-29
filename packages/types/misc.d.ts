@@ -42,11 +42,11 @@ export type ButtonType = 'redirect' | 'submit';
 
 export interface Portal {
   buttons: {
-    action: string;
     button: string;
     type: ButtonType;
   }[];
   image: string;
+  postUrl: string;
   version: string;
 }
 

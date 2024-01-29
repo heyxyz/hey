@@ -6,12 +6,12 @@ const getPortal = (document: Document): null | Portal => {
   const image =
     document.querySelector('meta[property="hey:portal:image"]') ||
     document.querySelector('meta[property="og:image"]');
+  const postUrl = document.querySelector(
+    'meta[property="hey:portal:post_url"]'
+  );
 
   let buttons: Portal['buttons'] = [];
   for (let i = 1; i < 5; i++) {
-    const action = document.querySelector(
-      `meta[property="hey:portal:button:${i}:action"]`
-    );
     const button = document.querySelector(
       `meta[property="hey:portal:button:${i}"]`
     );
@@ -19,24 +19,24 @@ const getPortal = (document: Document): null | Portal => {
       `meta[property="hey:portal:button:${i}:type"]`
     );
 
-    if (!action || !button || !type) {
+    if (!button || !type) {
       break;
     }
 
     buttons.push({
-      action: action?.getAttribute('content') as string,
       button: button?.getAttribute('content') as string,
       type: type?.getAttribute('content') as ButtonType
     });
   }
 
-  if (!version || !image || buttons.length === 0) {
+  if (!version || !postUrl || !image || buttons.length === 0) {
     return null;
   }
 
   return {
     buttons,
     image: image?.getAttribute('content') as string,
+    postUrl: postUrl?.getAttribute('content') as string,
     version: version?.getAttribute('content') as string
   };
 };
