@@ -13,7 +13,7 @@ export interface NewAttachment {
   mimeType: string;
   previewUri: string;
   type: 'Audio' | 'Image' | 'Video';
-  uri: string;
+  uri?: string;
 }
 
 export interface UserSuggestion {
@@ -24,6 +24,20 @@ export interface UserSuggestion {
   uid: string;
 }
 
+export interface Nft {
+  chain: null | string;
+  collectionName: string;
+  contractAddress: `0x${string}`;
+  creatorAddress: `0x${string}`;
+  endTime: null | string;
+  mediaUrl: string;
+  mintCount: null | number;
+  mintStatus: 'closed' | 'live' | null | string;
+  mintUrl: null | string;
+  schema: 'erc1155' | 'erc721' | string;
+  sourceUrl: string;
+}
+
 export interface OG {
   description: null | string;
   favicon: null | string;
@@ -31,6 +45,7 @@ export interface OG {
   image: null | string;
   isLarge: boolean | null;
   lastIndexedAt?: string;
+  nft: Nft | null;
   site: null | string;
   title: null | string;
   url: string;
