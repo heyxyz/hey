@@ -5,8 +5,19 @@ import catchedError from 'src/lib/catchedError';
 export const post: Handler = async (req, res) => {
   const { id } = req.query;
 
-  let idd = Number(id as string) || 0;
-  const title = `br${'r'.repeat(idd)}`;
+  const index = req.body.buttonIndex;
+  let idd = 0;
+  let title = 'br';
+  if (index === 1) {
+    idd = Number(id as string) - 1;
+    title = `br${'r'.repeat(idd)}`;
+  } else if (index === 3) {
+    let idd = Number(id as string) || 0;
+    title = `br${'r'.repeat(idd)}`;
+  } else {
+    idd = Number(id as string) || 0;
+    title = `br${'r'.repeat(idd)}`;
+  }
 
   try {
     return res.send(`
