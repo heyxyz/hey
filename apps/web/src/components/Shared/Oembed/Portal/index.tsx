@@ -1,11 +1,10 @@
-import type { FC } from 'react';
-
 import { PUBLICATION } from '@hey/data/tracking';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Portal } from '@hey/types/misc';
 import { Button, Card } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import toast from 'react-hot-toast';
+import axios from 'axios';
+import { type FC, useEffect, useState } from 'react';
 
 interface PortalProps {
   portal: Portal;
@@ -13,7 +12,26 @@ interface PortalProps {
 }
 
 const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
-  const { buttons, image, postUrl } = portal;
+  const [portalData, setPortalData] = useState<null | Portal>(null);
+
+  useEffect(() => {
+    if (portal) {
+      setPortalData(portal);
+    }
+  }, [portal]);
+
+  if (!portalData) {
+    return null;
+  }
+
+  const { buttons, image, postUrl } = portalData;
+
+  const onPost = async (index: number) => {
+    await axios.post(postUrl, {
+      buttonIndex: index,
+      postUrl
+    });
+  };
 
   return (
     <Card className="mt-3" forceRounded onClick={stopEventPropagation}>
@@ -44,7 +62,7 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
               if (type === 'redirect') {
                 window.open(postUrl, '_blank');
               } else if (type === 'submit') {
-                toast.success('Not implemented yet, check back later!');
+                onPost(index);
               }
             }}
             outline
