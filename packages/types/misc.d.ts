@@ -38,6 +38,18 @@ export interface Nft {
   sourceUrl: string;
 }
 
+export type ButtonType = 'redirect' | 'submit';
+
+export interface Portal {
+  buttons: {
+    action: string;
+    button: string;
+    type: ButtonType;
+  }[];
+  image: string;
+  version: string;
+}
+
 export interface OG {
   description: null | string;
   favicon: null | string;
@@ -46,6 +58,7 @@ export interface OG {
   isLarge: boolean | null;
   lastIndexedAt?: string;
   nft: Nft | null;
+  portal: null | Portal;
   site: null | string;
   title: null | string;
   url: string;
