@@ -1,10 +1,14 @@
+import { Errors } from '@hey/data';
+import { HEY_API_URL } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Portal } from '@hey/types/misc';
 import { Button, Card } from '@hey/ui';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { type FC, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
 interface PortalProps {
   portal: Portal;
@@ -13,6 +17,7 @@ interface PortalProps {
 
 const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
   const [portalData, setPortalData] = useState<null | Portal>(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (portal) {
@@ -27,10 +32,25 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
   const { buttons, image, postUrl } = portalData;
 
   const onPost = async (index: number) => {
-    await axios.post(postUrl, {
-      buttonIndex: index,
-      postUrl
-    });
+    try {
+      setLoading(true);
+
+      const { data }: { data: { portal: Portal } } = await axios.post(
+        `${HEY_API_URL}/portals/get`,
+        { buttonIndex: index + 1, postUrl },
+        { headers: getAuthApiHeaders() }
+      );
+
+      if (!data.portal) {
+        return toast.error(Errors.SomethingWentWrong);
+      }
+
+      return setPortalData(data.portal);
+    } catch {
+      toast.error(Errors.SomethingWentWrong);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -52,6 +72,7 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
             className={`${
               buttons.length === 3 && index === 2 ? 'col-span-2' : 'col-span-1'
             }`}
+            disabled={loading}
             key={index}
             onClick={() => {
               Leafwatch.track(PUBLICATION.CLICK_PORTAL_BUTTON, {
