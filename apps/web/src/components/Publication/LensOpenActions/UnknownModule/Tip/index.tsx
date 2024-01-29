@@ -49,7 +49,7 @@ const TipOpenAction: FC<TipOpenActionProps> = ({
           className="rounded-full p-1.5 outline-offset-2 outline-gray-400 hover:bg-gray-300/20"
           onClick={() => {
             setShowOpenActionModal(true);
-            Leafwatch.track(PUBLICATION.LENS_OPEN_ACTIONS.TIP.OPEN_TIP, {
+            Leafwatch.track(PUBLICATION.OPEN_ACTIONS.TIP.OPEN_TIP, {
               publication_id: publication.id
             });
           }}

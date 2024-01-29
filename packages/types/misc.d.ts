@@ -26,15 +26,15 @@ export interface UserSuggestion {
 
 export interface Nft {
   chain: null | string;
-  collectionName: null | string;
-  contractAddress: null | string;
-  creatorAddress: null | string;
+  collectionName: string;
+  contractAddress: `0x${string}`;
+  creatorAddress: `0x${string}`;
   endTime: null | string;
-  mediaUrl: null | string;
+  mediaUrl: string;
   mintCount: null | number;
   mintStatus: 'closed' | 'live' | null | string;
   mintUrl: null | string;
-  schema: 'erc1155' | 'erc721' | null | string;
+  schema: 'erc1155' | 'erc721' | string;
   sourceUrl: string;
 }
 
