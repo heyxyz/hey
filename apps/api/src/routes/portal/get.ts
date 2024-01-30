@@ -8,6 +8,7 @@ import catchedError from 'src/lib/catchedError';
 import validateLensAccount from 'src/lib/middlewares/validateLensAccount';
 import getPortal from 'src/lib/oembed/meta/getPortal';
 import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
+import { polygon } from 'viem/chains';
 import { number, object, string } from 'zod';
 
 type ExtensionRequest = {
@@ -53,8 +54,11 @@ export const post: Handler = async (req, res) => {
           address: evmAddress,
           buttonIndex,
           fid: id,
+          network: polygon.id,
           profileId: id,
-          publicationId
+          publicationId,
+          timestamp: Date.now(),
+          url: postUrl
         }
       },
       { headers: { 'User-Agent': 'Twitterbot' } }
