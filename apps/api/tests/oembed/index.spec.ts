@@ -63,4 +63,16 @@ describe('oembed/index', () => {
     expect(response.data.oembed.portal.buttons[0].button).toEqual('Start');
     expect(response.data.oembed.portal.buttons[0].type).toEqual('submit');
   });
+
+  test('should return farcaster frame', async () => {
+    const response = await axios.get(`${TEST_URL}/oembed`, {
+      params: { url: 'https://punkf.vercel.app/api/p' }
+    });
+
+    expect(response.data.oembed.portal.version).toEqual('vNext');
+    expect(response.data.oembed.portal.buttons[0].button).toEqual(
+      'Gib Random Punk'
+    );
+    expect(response.data.oembed.portal.buttons[0].type).toEqual('submit');
+  });
 });
