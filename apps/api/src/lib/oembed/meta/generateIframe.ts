@@ -21,6 +21,9 @@ const pickUrlSites = [
   'figma.com'
 ];
 
+// URLs that should not have query params removed
+const skipClean = ['youtube.com', 'youtu.be'];
+
 const spotifyTrackUrlRegex =
   /^ht{2}ps?:\/{2}open\.spotify\.com\/track\/[\dA-Za-z]+(\?si=[\dA-Za-z]+)?$/;
 const spotifyPlaylistUrlRegex =
@@ -48,7 +51,7 @@ const generateIframe = (
   const hostname = parsedUrl.hostname.replace('www.', '');
   const pickedUrl = pickUrlSites.includes(hostname) ? url : embedUrl;
   // Remove query params from url
-  const cleanedUrl = pickedUrl?.split('?')[0] as string;
+  const cleanedUrl = skipClean ? url : (pickedUrl?.split('?')[0] as string);
 
   if (!knownSites.includes(hostname) || !pickedUrl) {
     return null;
