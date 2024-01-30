@@ -16,6 +16,7 @@ export interface StatsType {
     date: string;
     dau: string;
     events: string;
+    impressions: string;
   }[];
   events: {
     all_time: string;
