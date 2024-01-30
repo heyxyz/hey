@@ -38,6 +38,8 @@ const generateIframe = (
   const parsedUrl = new URL(url);
   const hostname = parsedUrl.hostname.replace('www.', '');
   const pickedUrl = pickUrlSites.includes(hostname) ? url : embedUrl;
+  // Remove query params from url
+  const cleanedUrl = pickedUrl?.split('?')[0] as string;
 
   if (!knownSites.includes(hostname) || !pickedUrl) {
     return null;
@@ -46,14 +48,14 @@ const generateIframe = (
   switch (hostname) {
     case 'youtube.com':
     case 'youtu.be': {
-      if (youtubeRegex.test(url)) {
+      if (youtubeRegex.test(cleanedUrl)) {
         return `<iframe src="${pickedUrl}" ${universalSize} allow="accelerometer; encrypted-media" allowfullscreen></iframe>`;
       }
 
       return null;
     }
     case 'tape.xyz': {
-      if (tapeRegex.test(url)) {
+      if (tapeRegex.test(cleanedUrl)) {
         return `<iframe src="${pickedUrl}" ${universalSize} allow="accelerometer; encrypted-media" allowfullscreen></iframe>`;
       }
 
@@ -64,7 +66,7 @@ const generateIframe = (
         '&player=facebook&autoplay=true&parent=meta.tag',
         '&player=hey&autoplay=false&parent=hey.xyz'
       );
-      if (twitchRegex.test(url)) {
+      if (twitchRegex.test(cleanedUrl)) {
         return `<iframe src="${twitchEmbedUrl}" ${universalSize} allowfullscreen></iframe>`;
       }
 
@@ -72,7 +74,7 @@ const generateIframe = (
     }
     case 'kick.com': {
       const kickEmbedUrl = pickedUrl.replace('kick.com', 'player.kick.com');
-      if (kickRegex.test(url)) {
+      if (kickRegex.test(cleanedUrl)) {
         return `<iframe src="${kickEmbedUrl}" ${universalSize} allowfullscreen></iframe>`;
       }
 
@@ -80,12 +82,12 @@ const generateIframe = (
     }
     case 'open.spotify.com': {
       const spotifySize = `style="max-width: 100%;" width="100%"`;
-      if (spotifyTrackUrlRegex.test(url)) {
+      if (spotifyTrackUrlRegex.test(cleanedUrl)) {
         const spotifyUrl = pickedUrl.replace('/track', '/embed/track');
         return `<iframe src="${spotifyUrl}" ${spotifySize} height="155" allow="encrypted-media"></iframe>`;
       }
 
-      if (spotifyPlaylistUrlRegex.test(url)) {
+      if (spotifyPlaylistUrlRegex.test(cleanedUrl)) {
         const spotifyUrl = pickedUrl.replace('/playlist', '/embed/playlist');
         return `<iframe src="${spotifyUrl}" ${spotifySize} height="380" allow="encrypted-media"></iframe>`;
       }
@@ -93,21 +95,21 @@ const generateIframe = (
       return null;
     }
     case 'soundcloud.com': {
-      if (soundCloudRegex.test(url)) {
+      if (soundCloudRegex.test(cleanedUrl)) {
         return `<iframe src="${pickedUrl}" ${universalSize}></iframe>`;
       }
 
       return null;
     }
     case 'oohlala.xyz': {
-      if (oohlalaUrlRegex.test(url)) {
+      if (oohlalaUrlRegex.test(cleanedUrl)) {
         return `<iframe src="${pickedUrl}" ${universalSize}></iframe>`;
       }
 
       return null;
     }
     case 'my.spline.design': {
-      if (splineRegex.test(url)) {
+      if (splineRegex.test(cleanedUrl)) {
         return `<iframe src="${pickedUrl}" ${universalSize}></iframe>`;
       }
 
