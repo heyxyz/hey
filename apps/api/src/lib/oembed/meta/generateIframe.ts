@@ -6,10 +6,12 @@ const knownSites = [
   'kick.com',
   'open.spotify.com',
   'soundcloud.com',
-  'oohlala.xyz'
+  'oohlala.xyz',
+  'my.spline.design'
 ];
 
-const pickUrlSites = ['open.spotify.com', 'kick.com'];
+// URLs that are manually picked to be embedded that dont have embed metatags
+const pickUrlSites = ['open.spotify.com', 'kick.com', 'my.spline.design'];
 
 const spotifyTrackUrlRegex =
   /^ht{2}ps?:\/{2}open\.spotify\.com\/track\/[\dA-Za-z]+(\?si=[\dA-Za-z]+)?$/;
@@ -25,6 +27,8 @@ const tapeRegex =
   /^https?:\/\/tape\.xyz\/watch\/[\dA-Za-z-]+(\?si=[\dA-Za-z]+)?$/;
 const twitchRegex = /^https?:\/\/www\.twitch\.tv\/videos\/[\dA-Za-z-]+$/;
 const kickRegex = /^https?:\/\/kick\.com\/[\dA-Za-z-]+$/;
+const splineRegex =
+  /^https?:\/\/my\.spline\.design\/[\dA-Za-z-]+(\?si=[\dA-Za-z]+)?$/;
 
 const generateIframe = (
   embedUrl: null | string,
@@ -97,6 +101,13 @@ const generateIframe = (
     }
     case 'oohlala.xyz': {
       if (oohlalaUrlRegex.test(url)) {
+        return `<iframe src="${pickedUrl}" ${universalSize}></iframe>`;
+      }
+
+      return null;
+    }
+    case 'my.spline.design': {
+      if (splineRegex.test(url)) {
         return `<iframe src="${pickedUrl}" ${universalSize}></iframe>`;
       }
 
