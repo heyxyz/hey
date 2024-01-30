@@ -49,12 +49,12 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
       );
 
       if (!data.portal) {
-        return toast.error(Errors.SomethingWentWrong);
+        return toast.error(Errors.SomethingWrongWithPortal);
       }
 
       return setPortalData(data.portal);
     } catch {
-      toast.error(Errors.SomethingWentWrong);
+      toast.error(Errors.SomethingWrongWithPortal);
     } finally {
       setLoading(false);
     }
