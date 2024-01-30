@@ -36,7 +36,8 @@ const tapeRegex =
 const twitchRegex = /^https?:\/\/www\.twitch\.tv\/videos\/[\dA-Za-z-]+$/;
 const kickRegex = /^https?:\/\/kick\.com\/[\dA-Za-z-]+$/;
 const splineRegex = /^https?:\/\/my\.spline\.design\/[\dA-Za-z-]+\/?$/;
-const figmaRegex = /^https:\/\/(www\.)?figma\.com\/file\/[^/]+\/[^/]+\/?$/;
+const figmaRegex =
+  /^https:\/\/(www\.)?figma\.com\/(file|proto)\/[^/]+\/[^/?]+\/?$/;
 
 const generateIframe = (
   embedUrl: null | string,
