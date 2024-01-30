@@ -16,7 +16,7 @@ import getTitle from './meta/getTitle';
 
 const getMetadata = async (url: string): Promise<any> => {
   const { html } = await fetch(url, {
-    headers: { 'User-Agent': 'Twitterbot' }
+    headers: { 'User-Agent': 'HeyBot/0.1 (like TwitterBot)' }
   }).then(async (res) => ({
     html: await res.text()
   }));

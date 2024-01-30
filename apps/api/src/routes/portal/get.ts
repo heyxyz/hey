@@ -56,7 +56,7 @@ export const post: Handler = async (req, res) => {
           url: postUrl
         }
       },
-      { headers: { 'User-Agent': 'Twitterbot' } }
+      { headers: { 'User-Agent': 'HeyBot/0.1 (like TwitterBot)' } }
     );
 
     const { document } = parseHTML(data);
