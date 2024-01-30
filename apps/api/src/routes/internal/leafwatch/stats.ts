@@ -54,6 +54,19 @@ export const get: Handler = async (_, res) => {
         WHERE toDate(viewed_at) = today()
         GROUP BY timestamp
         ORDER BY timestamp
+      `,
+      `
+        SELECT
+          CAST(created AS date) AS date,
+          COUNT(DISTINCT actor) AS dau,
+          COUNT(*) AS events
+        FROM
+          events
+        WHERE
+          created >= DATE_SUB(NOW(), INTERVAL 10 DAY)
+          AND created < NOW()
+        GROUP BY CAST(created AS date)
+        ORDER BY CAST(created AS date) DESC    
       `
     ];
 
@@ -69,6 +82,7 @@ export const get: Handler = async (_, res) => {
     logger.info('Fetched Leafwatch stats');
 
     return res.status(200).json({
+      dau: results[5],
       events: results[0][0],
       eventsToday: results[3],
       impressions: results[1][0],
