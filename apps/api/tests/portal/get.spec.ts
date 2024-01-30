@@ -10,7 +10,8 @@ describe('portal/get', () => {
       {
         buttonIndex: 1,
         postUrl:
-          'https://heyportals.vercel.app/q/90ca4789-0d81-4a22-a83c-4de26044d00b?state=eyJpbmRleCI6MCwic2NvcmUiOjAsInNlbGVjdGVkIjpudWxsfQ'
+          'https://heyportals.vercel.app/q/90ca4789-0d81-4a22-a83c-4de26044d00b?state=eyJpbmRleCI6MCwic2NvcmUiOjAsInNlbGVjdGVkIjpudWxsfQ',
+        publicationId: '0x00-0x00'
       },
       { headers: await getAuthApiHeadersForTest() }
     );
