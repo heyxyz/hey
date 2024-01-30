@@ -64,7 +64,7 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
     <Card className="mt-3" forceRounded onClick={stopEventPropagation}>
       <img
         alt={image}
-        className="h-[400px] max-h-[400px] w-full rounded-t-xl object-cover"
+        className="h-[350px] max-h-[350px] w-full rounded-t-xl object-cover"
         src={image}
       />
       <div
