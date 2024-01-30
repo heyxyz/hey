@@ -13,11 +13,13 @@ import { number, object, string } from 'zod';
 type ExtensionRequest = {
   buttonIndex: number;
   postUrl: string;
+  publicationId: string;
 };
 
 const validationSchema = object({
   buttonIndex: number(),
-  postUrl: string()
+  postUrl: string(),
+  publicationId: string()
 });
 
 export const post: Handler = async (req, res) => {
@@ -38,7 +40,7 @@ export const post: Handler = async (req, res) => {
     return notAllowed(res);
   }
 
-  const { buttonIndex, postUrl } = body as ExtensionRequest;
+  const { buttonIndex, postUrl, publicationId } = body as ExtensionRequest;
 
   try {
     const payload = parseJwt(accessToken);
@@ -46,7 +48,15 @@ export const post: Handler = async (req, res) => {
 
     const { data } = await axios.post(
       postUrl,
-      { address: evmAddress, buttonIndex, profileId: id },
+      {
+        untrustedData: {
+          address: evmAddress,
+          buttonIndex,
+          fid: id,
+          profileId: id,
+          publicationId
+        }
+      },
       { headers: { 'User-Agent': 'Twitterbot' } }
     );
 

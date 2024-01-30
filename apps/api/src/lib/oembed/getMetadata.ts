@@ -33,7 +33,7 @@ const getMetadata = async (url: string): Promise<any> => {
     isLarge,
     lastIndexedAt: new Date().toISOString(),
     nft: getNft(document, url),
-    portal: getPortal(document),
+    portal: getPortal(document, url),
     site: getSite(document),
     title: getTitle(document),
     url

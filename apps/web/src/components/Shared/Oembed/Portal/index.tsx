@@ -44,7 +44,7 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
 
       const { data }: { data: { portal: Portal } } = await axios.post(
         `${HEY_API_URL}/portal/get`,
-        { buttonIndex: index + 1, postUrl },
+        { buttonIndex: index + 1, postUrl, publicationId },
         { headers: getAuthApiHeaders() }
       );
 
@@ -78,7 +78,7 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
       >
         {buttons.map(({ button, type }, index) => (
           <Button
-            disabled={loading}
+            disabled={loading || !publicationId || !currentProfile}
             key={index}
             onClick={() => {
               Leafwatch.track(PUBLICATION.CLICK_PORTAL_BUTTON, {
