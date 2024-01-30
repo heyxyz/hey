@@ -20,4 +20,20 @@ describe('portal/get', () => {
     expect(response.data.portal.buttons[0].button).toEqual('A');
     expect(response.data.portal.buttons[0].type).toEqual('submit');
   });
+
+  test('should return farcaster frame', async () => {
+    const response = await axios.post(
+      `${TEST_URL}/portal/get`,
+      {
+        buttonIndex: 1,
+        postUrl: 'https://frames-rouge.vercel.app/api/nouns-auction',
+        publicationId: '0x00-0x00'
+      },
+      { headers: await getAuthApiHeadersForTest() }
+    );
+
+    expect(response.data.portal.version).toEqual('vNext');
+    expect(response.data.portal.buttons[0].button).toEqual('Refresh');
+    expect(response.data.portal.buttons[0].type).toEqual('submit');
+  });
 });
