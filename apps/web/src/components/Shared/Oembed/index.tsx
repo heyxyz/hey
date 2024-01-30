@@ -47,7 +47,7 @@ const Oembed: FC<OembedProps> = ({ className = '', publicationId, url }) => {
     url: url as string
   };
 
-  if (!og.title && !og.html && !og.nft) {
+  if (!og.title && !og.html && !og.nft && !og.portal) {
     return null;
   }
 
