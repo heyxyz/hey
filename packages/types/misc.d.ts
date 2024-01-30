@@ -31,7 +31,7 @@ export interface Nft {
   creatorAddress: `0x${string}`;
   endTime: null | string;
   mediaUrl: string;
-  mintCount: null | number;
+  mintCount: null | string;
   mintStatus: 'closed' | 'live' | null | string;
   mintUrl: null | string;
   schema: 'erc1155' | 'erc721' | string;
