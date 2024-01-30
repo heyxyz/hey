@@ -57,8 +57,6 @@ const generateIframe = (
     return null;
   }
 
-  console.log('figmaRegex', figmaRegex.test(cleanedUrl));
-
   switch (hostname) {
     case 'youtube.com':
     case 'youtu.be': {
