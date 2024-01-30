@@ -13,7 +13,7 @@ const SmallUserProfileShimmer: FC<SmallUserProfileShimmerProps> = ({
     <div className="flex items-center space-x-3">
       <div
         className={cn(
-          smallAvatar ? 'size-5' : 'size-6',
+          smallAvatar ? 'size-4' : 'size-6',
           'shimmer rounded-full'
         )}
       />

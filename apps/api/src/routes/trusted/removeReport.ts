@@ -1,10 +1,10 @@
 import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
-import catchedError from '@utils/catchedError';
-import createClickhouseClient from '@utils/createClickhouseClient';
-import validateIsGardener from '@utils/middlewares/validateIsGardener';
-import { invalidBody, noBody, notAllowed } from '@utils/responses';
+import catchedError from 'src/lib/catchedError';
+import createClickhouseClient from 'src/lib/createClickhouseClient';
+import validateIsGardener from 'src/lib/middlewares/validateIsGardener';
+import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
 import { boolean, object, string } from 'zod';
 
 type ExtensionRequest = {

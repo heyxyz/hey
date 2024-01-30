@@ -12,6 +12,8 @@ import getProfile from '@hey/lib/getProfile';
 import getPublicationData from '@hey/lib/getPublicationData';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import defaultMetadata from 'src/defaultMetadata';
+import getCollectModuleMetadata from 'src/lib/getCollectModuleMetadata';
+import getPublicationOGImages from 'src/lib/getPublicationOGImages';
 
 interface Props {
   params: { id: string };
@@ -34,40 +36,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     : publication;
   const { by: profile, metadata } = targetPublication;
   const filteredContent = getPublicationData(metadata)?.content || '';
-  const filteredAttachments = getPublicationData(metadata)?.attachments || [];
   const filteredAsset = getPublicationData(metadata)?.asset;
-
-  const assetIsImage = filteredAsset?.type === 'Image';
-  const assetIsVideo = filteredAsset?.type === 'Video';
   const assetIsAudio = filteredAsset?.type === 'Audio';
-
-  const getOGImages = () => {
-    if (assetIsImage) {
-      if (filteredAttachments.length > 0) {
-        return filteredAttachments.map((attachment) => attachment.uri);
-      }
-
-      return [filteredAsset?.uri];
-    }
-
-    if (assetIsVideo) {
-      if (filteredAttachments.length > 0) {
-        return filteredAttachments.map((attachment) => attachment.uri);
-      }
-
-      return [filteredAsset?.cover];
-    }
-
-    if (assetIsAudio) {
-      if (filteredAttachments.length > 0) {
-        return filteredAttachments.map((attachment) => attachment.uri);
-      }
-
-      return [filteredAsset?.cover];
-    }
-
-    return [];
-  };
 
   const { displayName, link, slugWithPrefix } = getProfile(profile);
   const title = `${targetPublication.__typename} by ${slugWithPrefix} • ${APP_NAME}`;
@@ -103,7 +73,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     metadataBase: new URL(`https://hey.xyz/posts/${targetPublication.id}`),
     openGraph: {
       description: description,
-      images: getOGImages() as any,
+      images: getPublicationOGImages(metadata) as any,
       siteName: 'Hey',
       type: 'article',
       url: `https://hey.xyz/posts/${targetPublication.id}`
@@ -114,7 +84,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       'count:likes': targetPublication.stats.reactions,
       'count:mirrors': targetPublication.stats.mirrors,
       'count:quotes': targetPublication.stats.quotes,
-      'lens:id': targetPublication.id
+      'lens:id': targetPublication.id,
+      ...getCollectModuleMetadata(targetPublication)
     },
     publisher: displayName,
     title: title,

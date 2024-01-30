@@ -2,10 +2,10 @@ import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
-import catchedError from '@utils/catchedError';
-import validateLensAccount from '@utils/middlewares/validateLensAccount';
-import prisma from '@utils/prisma';
-import { notAllowed } from '@utils/responses';
+import catchedError from 'src/lib/catchedError';
+import validateLensAccount from 'src/lib/middlewares/validateLensAccount';
+import prisma from 'src/lib/prisma';
+import { notAllowed } from 'src/lib/responses';
 
 export const post: Handler = async (req, res) => {
   const accessToken = req.headers['x-access-token'] as string;

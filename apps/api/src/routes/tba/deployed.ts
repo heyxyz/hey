@@ -2,9 +2,9 @@ import type { Handler } from 'express';
 import type { Address } from 'viem';
 
 import logger from '@hey/lib/logger';
-import catchedError from '@utils/catchedError';
-import { CACHE_AGE_INDEFINITE, RPC_URL } from '@utils/constants';
-import { noBody } from '@utils/responses';
+import catchedError from 'src/lib/catchedError';
+import { CACHE_AGE_INDEFINITE, RPC_URL } from 'src/lib/constants';
+import { noBody } from 'src/lib/responses';
 import { createPublicClient, http } from 'viem';
 import { polygon } from 'viem/chains';
 

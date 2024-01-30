@@ -37,22 +37,22 @@ const SmallUserProfile: FC<UserProfileProps> = ({
     <Image
       alt={profile.id}
       className={cn(
-        smallAvatar ? 'size-5' : 'size-6',
+        smallAvatar ? 'size-4' : 'size-6',
         'rounded-full border bg-gray-200 dark:border-gray-700'
       )}
-      height={smallAvatar ? 20 : 24}
+      height={smallAvatar ? 16 : 24}
       loading="lazy"
       onError={({ currentTarget }) => {
         currentTarget.src = getLennyURL(profile.id);
       }}
       src={getAvatar(profile)}
-      width={smallAvatar ? 20 : 24}
+      width={smallAvatar ? 16 : 24}
     />
   );
 
   const UserName = () => (
     <div className="flex max-w-full flex-wrap items-center">
-      <div className={cn(!hideSlug && 'max-w-[75%]', 'mr-2 truncate')}>
+      <div className={cn(!hideSlug && 'mr-2 max-w-[75%]', 'truncate')}>
         {getProfile(profile).displayName}
       </div>
       {isVerified(profile.id) ? (

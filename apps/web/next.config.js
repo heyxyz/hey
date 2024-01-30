@@ -58,6 +58,12 @@ const nextConfig = {
           'https://reflect.site/g/yoginth/-hey-changelog/c6eae172c9cd43cebfc38b5afc64e456',
         permanent: true,
         source: '/-/changelog'
+      },
+      {
+        destination:
+          'https://reflect.site/g/yoginth/hey-portal-open-graph-spec/cd7225f128274da382f1f516e7e63f15',
+        permanent: true,
+        source: '/-/portals'
       }
     ];
   },

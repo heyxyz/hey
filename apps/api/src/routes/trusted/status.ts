@@ -1,14 +1,14 @@
 import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
-import catchedError from '@utils/catchedError';
+import catchedError from 'src/lib/catchedError';
 import {
   SWR_CACHE_AGE_10_MINS_30_DAYS,
   TRUSTED_PROFILE_FEATURE_ID
-} from '@utils/constants';
-import createClickhouseClient from '@utils/createClickhouseClient';
-import prisma from '@utils/prisma';
-import { noBody } from '@utils/responses';
+} from 'src/lib/constants';
+import createClickhouseClient from 'src/lib/createClickhouseClient';
+import prisma from 'src/lib/prisma';
+import { noBody } from 'src/lib/responses';
 
 export const get: Handler = async (req, res) => {
   const { id } = req.query;

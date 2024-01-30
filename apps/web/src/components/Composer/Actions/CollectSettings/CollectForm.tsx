@@ -133,6 +133,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
               collectModule.type !== null) ||
             splitTotal > 100 ||
             hasEmptyRecipients ||
+            recipients.length === 1 ||
             hasInvalidEthAddressInRecipients ||
             isRecipientsDuplicated()
           }
