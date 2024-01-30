@@ -34,38 +34,36 @@ interface EventsTodayProps {
 
 const EventsToday: FC<EventsTodayProps> = ({ eventsToday }) => {
   return (
-    <div>
-      <div>
-        <div className="divider" />
-        <div className="p-5 text-lg font-bold">Events Today</div>
-        <div className="divider" />
-        <div className="p-5">
-          <Line
-            data={{
-              datasets: [
-                {
-                  backgroundColor: '#fff0f2',
-                  borderColor: BRAND_COLOR,
-                  data: eventsToday.map((event) => event.count),
-                  fill: true,
-                  label: 'Events'
-                }
-              ],
-              labels: eventsToday.map((event) =>
-                formatDate(event.timestamp, 'hh:mm')
-              )
-            }}
-            options={{
-              plugins: {
-                legend: { display: false },
-                title: { display: false }
-              },
-              responsive: true
-            }}
-          />
-        </div>
+    <>
+      <div className="divider" />
+      <div className="p-5 text-lg font-bold">Events Today</div>
+      <div className="divider" />
+      <div className="p-5">
+        <Line
+          data={{
+            datasets: [
+              {
+                backgroundColor: '#fff0f2',
+                borderColor: BRAND_COLOR,
+                data: eventsToday.map((event) => event.count),
+                fill: true,
+                label: 'Events'
+              }
+            ],
+            labels: eventsToday.map((event) =>
+              formatDate(event.timestamp, 'hh:mm')
+            )
+          }}
+          options={{
+            plugins: {
+              legend: { display: false },
+              title: { display: false }
+            },
+            responsive: true
+          }}
+        />
       </div>
-    </div>
+    </>
   );
 };
 

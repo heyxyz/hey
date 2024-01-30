@@ -7,10 +7,16 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 import NumberedStat from '../UI/NumberedStat';
+import ActiveUsers from './ActiveUsers';
 import EventsToday from './EventsToday';
 import ImpressionsToday from './ImpressionsToday';
 
 export interface StatsType {
+  dau: {
+    date: string;
+    dau: string;
+    events: string;
+  }[];
   events: {
     all_time: string;
     last_60_seconds: string;
@@ -75,7 +81,7 @@ const LeafwatchStats: FC = () => {
   const { events, impressions } = data;
 
   return (
-    <div>
+    <>
       <div>
         <div className="p-5 text-lg font-bold">Events</div>
         <div className="divider" />
@@ -106,7 +112,8 @@ const LeafwatchStats: FC = () => {
       </div>
       <EventsToday eventsToday={data.eventsToday} />
       <ImpressionsToday impressionsToday={data.impressionsToday} />
-    </div>
+      <ActiveUsers activeUsers={data.dau} />
+    </>
   );
 };
 
