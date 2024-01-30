@@ -1,7 +1,7 @@
 import type { ButtonType, Portal } from '@hey/types/misc';
 import type { Document } from 'linkedom';
 
-const getPortal = (document: Document): null | Portal => {
+const getPortal = (document: Document, url?: string): null | Portal => {
   const getMeta = (key: string) => {
     const selector = `meta[name="${key}"], meta[property="${key}"]`;
     const metaTag = document.querySelector(selector);
@@ -11,10 +11,10 @@ const getPortal = (document: Document): null | Portal => {
   const version = getMeta('hey:portal') || getMeta('fc:frame');
   const image =
     getMeta('hey:portal:image') ||
-    getMeta('og:image') ||
-    getMeta('fc:frame:image');
+    getMeta('fc:frame:image') ||
+    getMeta('og:image');
   const postUrl =
-    getMeta('hey:portal:post_url') || getMeta('fc:frame:post_url');
+    getMeta('hey:portal:post_url') || getMeta('fc:frame:post_url') || url;
 
   let buttons: Portal['buttons'] = [];
   for (let i = 1; i < 5; i++) {
