@@ -20,7 +20,8 @@ const ActiveUsers: FC<ActiveUsersProps> = ({ activeUsers }) => {
             <tr className="border-b">
               <th className="border-r px-2 text-left">Date</th>
               <th className="border-r px-2 text-right">Active users</th>
-              <th className="px-2 text-right">Total events</th>
+              <th className="border-r px-2 text-right">Total events</th>
+              <th className="px-2 text-right">Total impressions</th>
             </tr>
           </thead>
           <tbody>
@@ -29,6 +30,7 @@ const ActiveUsers: FC<ActiveUsersProps> = ({ activeUsers }) => {
                 <td className="border-r px-2">{formatDate(activeUser.date)}</td>
                 <td className="border-r px-2 text-right">{activeUser.dau}</td>
                 <td className="px-2 text-right">{activeUser.events}</td>
+                <td className="px-2 text-right">{activeUser.impressions}</td>
               </tr>
             ))}
           </tbody>
