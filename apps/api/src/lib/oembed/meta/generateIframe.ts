@@ -6,20 +6,11 @@ const knownSites = [
   'kick.com',
   'open.spotify.com',
   'soundcloud.com',
-  'oohlala.xyz',
-  'my.spline.design',
-  'www.figma.com',
-  'figma.com'
+  'oohlala.xyz'
 ];
 
 // URLs that are manually picked to be embedded that dont have embed metatags
-const pickUrlSites = [
-  'open.spotify.com',
-  'kick.com',
-  'my.spline.design',
-  'www.figma.com',
-  'figma.com'
-];
+const pickUrlSites = ['open.spotify.com', 'kick.com'];
 
 // URLs that should not have query params removed
 const skipClean = ['youtube.com', 'youtu.be'];
@@ -38,9 +29,6 @@ const tapeRegex =
   /^https?:\/\/tape\.xyz\/watch\/[\dA-Za-z-]+(\?si=[\dA-Za-z]+)?$/;
 const twitchRegex = /^https?:\/\/www\.twitch\.tv\/videos\/[\dA-Za-z-]+$/;
 const kickRegex = /^https?:\/\/kick\.com\/[\dA-Za-z-]+$/;
-const splineRegex = /^https?:\/\/my\.spline\.design\/[\dA-Za-z-]+\/?$/;
-const figmaRegex =
-  /^https:\/\/(www\.)?figma\.com\/(file|proto)\/[^/]+\/[^/?]+\/?$/;
 
 const generateIframe = (
   embedUrl: null | string,
@@ -116,22 +104,6 @@ const generateIframe = (
     case 'oohlala.xyz': {
       if (oohlalaUrlRegex.test(cleanedUrl)) {
         return `<iframe src="${pickedUrl}" ${universalSize}></iframe>`;
-      }
-
-      return null;
-    }
-    case 'my.spline.design': {
-      if (splineRegex.test(cleanedUrl)) {
-        return `<iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" src="${pickedUrl}" ${universalSize}></iframe>`;
-      }
-
-      return null;
-    }
-    case 'figma.com':
-    case 'www.figma.com': {
-      if (figmaRegex.test(cleanedUrl)) {
-        const figmaUrl = `https://www.figma.com/embed?embed_host=share&url=${cleanedUrl}`;
-        return `<iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" src="${figmaUrl}" ${universalSize} allowfullscreen></iframe>`;
       }
 
       return null;
