@@ -22,7 +22,7 @@ const Nft: FC<NftProps> = ({ nft, publicationId }) => {
       <div className="relative">
         <img
           alt={nft.collectionName}
-          className="h-[400px] max-h-[400px] w-full rounded-t-xl object-cover"
+          className="h-[350px] max-h-[350px] w-full rounded-t-xl object-cover"
           src={nft.mediaUrl}
         />
         {nft.creatorAddress ? <MintedBy address={nft.creatorAddress} /> : null}
