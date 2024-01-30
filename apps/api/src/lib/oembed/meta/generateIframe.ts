@@ -7,11 +7,19 @@ const knownSites = [
   'open.spotify.com',
   'soundcloud.com',
   'oohlala.xyz',
-  'my.spline.design'
+  'my.spline.design',
+  'www.figma.com',
+  'figma.com'
 ];
 
 // URLs that are manually picked to be embedded that dont have embed metatags
-const pickUrlSites = ['open.spotify.com', 'kick.com', 'my.spline.design'];
+const pickUrlSites = [
+  'open.spotify.com',
+  'kick.com',
+  'my.spline.design',
+  'www.figma.com',
+  'figma.com'
+];
 
 const spotifyTrackUrlRegex =
   /^ht{2}ps?:\/{2}open\.spotify\.com\/track\/[\dA-Za-z]+(\?si=[\dA-Za-z]+)?$/;
@@ -29,7 +37,7 @@ const twitchRegex = /^https?:\/\/www\.twitch\.tv\/videos\/[\dA-Za-z-]+$/;
 const kickRegex = /^https?:\/\/kick\.com\/[\dA-Za-z-]+$/;
 const splineRegex =
   /^https?:\/\/my\.spline\.design\/[\dA-Za-z-]+(\?si=[\dA-Za-z]+)?$/;
-
+const figmaRegex = /^https:\/\/(www\.)?figma\.com\/file\/[^/]+\/[^/]+$/;
 const generateIframe = (
   embedUrl: null | string,
   url: string
@@ -44,6 +52,8 @@ const generateIframe = (
   if (!knownSites.includes(hostname) || !pickedUrl) {
     return null;
   }
+
+  console.log('figmaRegex', figmaRegex.test(cleanedUrl));
 
   switch (hostname) {
     case 'youtube.com':
@@ -110,7 +120,16 @@ const generateIframe = (
     }
     case 'my.spline.design': {
       if (splineRegex.test(cleanedUrl)) {
-        return `<iframe src="${pickedUrl}" ${universalSize}></iframe>`;
+        return `<iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" src="${pickedUrl}" ${universalSize}></iframe>`;
+      }
+
+      return null;
+    }
+    case 'figma.com':
+    case 'www.figma.com': {
+      if (figmaRegex.test(cleanedUrl)) {
+        const figmaUrl = `https://www.figma.com/embed?embed_host=share&url=${cleanedUrl}`;
+        return `<iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" src="${figmaUrl}" ${universalSize} allowfullscreen></iframe>`;
       }
 
       return null;
