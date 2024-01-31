@@ -52,7 +52,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     signOut();
     disconnect?.();
     if (reload) {
-      location.reload();
+      window.location.href = window.location.href;
     }
   };
 

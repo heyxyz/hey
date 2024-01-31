@@ -84,7 +84,7 @@ const LensSubscriptionsProvider: FC = () => {
     // Using not null assertion because api returns null if revoked
     if (!authorizationRecordRevoked) {
       signOut();
-      location.reload();
+      window.location.href = window.location.href;
     }
   }, [authorizationRecordRevokedData]);
   // End: Authorization Record Revoked

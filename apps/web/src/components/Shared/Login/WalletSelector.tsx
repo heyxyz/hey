@@ -91,7 +91,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       Leafwatch.track(AUTH.CONNECT_WALLET, {
         wallet: connector.name.toLowerCase()
       });
-    } catch {}
+    } catch { }
   };
 
   const handleSign = async (id?: string) => {
@@ -120,8 +120,8 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       const refreshToken = auth.data?.authenticate.refreshToken;
       signIn({ accessToken, refreshToken });
       Leafwatch.track(AUTH.SIWL);
-      location.reload();
-    } catch {}
+      window.location.href = window.location.href;
+    } catch { }
   };
 
   const allProfiles = profilesManaged?.profilesManaged.items || [];

@@ -97,7 +97,7 @@ const SwitchProfiles: FC = () => {
       signOut();
       signIn({ accessToken, refreshToken });
       Leafwatch.track(PROFILE.SWITCH_PROFILE, { switch_profile_to: id });
-      location.reload();
+      window.location.href = window.location.href;
     } catch (error) {
       onError(error);
     }
