@@ -29,7 +29,9 @@ const ActiveUsers: FC<ActiveUsersProps> = ({ activeUsers }) => {
               <tr className="border-b" key={index}>
                 <td className="border-r px-2">{formatDate(activeUser.date)}</td>
                 <td className="border-r px-2 text-right">{activeUser.dau}</td>
-                <td className="px-2 text-right">{activeUser.events}</td>
+                <td className="border-r px-2 text-right">
+                  {activeUser.events}
+                </td>
                 <td className="px-2 text-right">{activeUser.impressions}</td>
               </tr>
             ))}
