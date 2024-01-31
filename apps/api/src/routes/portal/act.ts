@@ -60,7 +60,7 @@ export const post: Handler = async (req, res) => {
 
     const { data } = await axios.post(
       postUrl,
-      { untrustedData },
+      { trustedData: untrustedData, untrustedData },
       { headers: { 'User-Agent': 'HeyBot/0.1 (like TwitterBot)' } }
     );
 
