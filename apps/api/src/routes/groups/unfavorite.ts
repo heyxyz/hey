@@ -39,17 +39,11 @@ export const post: Handler = async (req, res) => {
     const payload = parseJwt(accessToken);
 
     const initData = { groupId: id, profileId: payload.id };
+    await prisma.groupFavorite.delete({
+      where: { groupId_profileId: initData }
+    });
 
-    await prisma.$transaction([
-      prisma.groupFavorite.delete({
-        where: { groupId_profileId: initData }
-      }),
-      prisma.groupMember.delete({
-        where: { groupId_profileId: initData }
-      })
-    ]);
-
-    logger.info(`User left group ${id}`);
+    logger.info(`User unfavorited the group ${id}`);
 
     return res.status(200).json({ success: true });
   } catch (error: any) {
