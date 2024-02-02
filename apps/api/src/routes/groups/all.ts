@@ -6,14 +6,18 @@ import allGroupFields from 'src/lib/groups/allGroupFields';
 import prisma from 'src/lib/prisma';
 
 export const get: Handler = async (req, res) => {
-  const { featured, joined, limit, offset, viewer } = req.query;
+  const { favorites, featured, joined, limit, offset, viewer } = req.query;
 
   const limitNumber = limit ? parseInt(limit as string) : 10;
   const offsetNumber = offset ? parseInt(offset as string) : 0;
 
-  if (joined && !viewer) {
+  // If joined or favorites is true, viewer must be defined
+  if (
+    (joined || favorites) &&
+    (typeof viewer === 'undefined' || viewer === '')
+  ) {
     return res.status(400).json({
-      error: 'Viewer must be defined when joined is true',
+      error: 'Viewer must be defined when joined or favorites is true',
       success: false
     });
   }
@@ -30,6 +34,9 @@ export const get: Handler = async (req, res) => {
       skip: offsetNumber,
       take: limitNumber,
       where: {
+        ...(favorites
+          ? { favorites: { some: { profileId: viewer as string } } }
+          : {}),
         ...(featured ? { featured: true } : {}),
         ...(joined
           ? { members: { some: { profileId: viewer as string } } }
