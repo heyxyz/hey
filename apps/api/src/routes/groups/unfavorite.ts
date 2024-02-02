@@ -40,23 +40,18 @@ export const post: Handler = async (req, res) => {
     const payload = parseJwt(accessToken);
 
     const initData = { groupId: id, profileId: payload.id };
-    await prisma.groupMember.delete({
-      where: { groupId_profileId: initData }
-    });
-
-    // Remove from favorites
     await prisma.groupFavorite.delete({
       where: { groupId_profileId: initData }
     });
 
-    logger.info(`User left group ${id}`);
+    logger.info(`User unfavorited the group ${id}`);
 
     return res.status(200).json({ success: true });
   } catch (error: any) {
     if (error.code === 'P2025') {
       return res
         .status(200)
-        .json({ result: 'User is not a member of the group.', success: false });
+        .json({ result: 'User has not favorited the group.', success: false });
     }
 
     return catchedError(res, error);
