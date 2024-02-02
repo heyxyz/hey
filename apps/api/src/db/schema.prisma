@@ -52,7 +52,8 @@ model Group {
   creatorId   String
 
   // Relations
-  members GroupMember[]
+  members   GroupMember[]
+  favorites GroupFavorite[]
 
   // Indexes
   @@index([slug])
@@ -60,6 +61,18 @@ model Group {
 }
 
 model GroupMember {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  profileId String
+  group     Group    @relation(fields: [groupId], references: [id])
+  groupId   String   @db.Uuid
+  createdAt DateTime @default(now())
+
+  @@unique([groupId, profileId])
+  // Indexes
+  @@index([profileId])
+}
+
+model GroupFavorite {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   profileId String
   group     Group    @relation(fields: [groupId], references: [id])
