@@ -49,10 +49,26 @@ model Group {
   instagram   String?
   featured    Boolean  @default(false)
   createdAt   DateTime @default(now())
+  creatorId   String
+
+  // Relations
+  members GroupMember[]
 
   // Indexes
   @@index([slug])
   @@index([featured])
+}
+
+model GroupMember {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  profileId String
+  group     Group    @relation(fields: [groupId], references: [id])
+  groupId   String   @db.Uuid
+  createdAt DateTime @default(now())
+
+  @@unique([groupId, profileId])
+  // Indexes
+  @@index([profileId])
 }
 
 model Pro {

@@ -14,15 +14,22 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const data = await prisma.group.findUnique({
-      where: { slug: slug as string }
-    });
+    const [group, count] = await prisma.$transaction([
+      prisma.group.findUnique({ where: { slug: slug as string } }),
+      prisma.groupMember.count({ where: { group: { slug: slug as string } } })
+    ]);
+
+    const result = {
+      ...group,
+      members: count
+    };
+
     logger.info('Group fetched');
 
     return res
       .status(200)
       .setHeader('Cache-Control', SWR_CACHE_AGE_10_MINS_30_DAYS)
-      .json({ result: data, success: true });
+      .json({ result, success: true });
   } catch (error) {
     return catchedError(res, error);
   }
