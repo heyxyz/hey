@@ -1,0 +1,74 @@
+import type { Handler } from 'express';
+
+import logger from '@hey/lib/logger';
+import catchedError from 'src/lib/catchedError';
+import allGroupFields from 'src/lib/groups/allGroupFields';
+import prisma from 'src/lib/prisma';
+
+export const get: Handler = async (req, res) => {
+  const { featured, joined, limit, offset, viewer } = req.query;
+
+  const limitNumber = limit ? parseInt(limit as string) : 10;
+  const offsetNumber = offset ? parseInt(offset as string) : 0;
+
+  if (joined && !viewer) {
+    return res.status(400).json({
+      error: 'Viewer must be defined when joined is true',
+      success: false
+    });
+  }
+
+  try {
+    const data = await prisma.group.findMany({
+      orderBy: { createdAt: 'desc' },
+      select: {
+        _count: {
+          select: { members: { where: { profileId: viewer as string } } }
+        },
+        ...allGroupFields
+      },
+      skip: offsetNumber,
+      take: limitNumber,
+      where: {
+        ...(featured ? { featured: true } : {}),
+        ...(joined
+          ? { members: { some: { profileId: viewer as string } } }
+          : {})
+      }
+    });
+
+    const memberships = await prisma.groupMember.findMany({
+      where: {
+        AND: [
+          { profileId: viewer as string },
+          { groupId: { in: data.map((group) => group.id) } }
+        ]
+      }
+    });
+
+    let idIsMember: { [key: string]: boolean } = {};
+    for (const item of memberships) {
+      idIsMember[item.groupId] = item.profileId === viewer;
+    }
+
+    const result = {
+      groups: data.map((group) => {
+        const groupWithoutCount = { ...group, _count: undefined };
+
+        return {
+          ...groupWithoutCount,
+          ...{
+            isMember: idIsMember[group.id] || false,
+            members: group._count.members
+          }
+        };
+      })
+    };
+
+    logger.info(`Featured all groups of ${viewer}`);
+
+    return res.status(200).json({ result, success: true });
+  } catch (error) {
+    return catchedError(res, error);
+  }
+};
