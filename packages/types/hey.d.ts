@@ -7,12 +7,15 @@ import type {
 export type Group = {
   avatar: string;
   createdAt: Date;
+  creatorId: string;
   description: string;
   discord: null | string;
   featured: boolean;
   id: string;
   instagram: null | string;
+  isMember: boolean;
   lens: null | string;
+  members: number;
   name: string;
   slug: string;
   tags: string[];

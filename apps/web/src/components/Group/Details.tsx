@@ -14,6 +14,8 @@ import Link from 'next/link';
 import { useState } from 'react';
 import urlcat from 'urlcat';
 
+import Membership from './Membership';
+
 interface DetailsProps {
   group: Group;
 }
@@ -68,6 +70,7 @@ const Details: FC<DetailsProps> = ({ group }) => {
           {group.description}
         </Markup>
       </div>
+      <Membership group={group} />
       <div className="space-y-5">
         <div className="divider w-full" />
         <div className="space-y-2">
