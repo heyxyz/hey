@@ -8,12 +8,15 @@ import Unfavorite from '@components/Shared/Group/Unfavorite';
 import humanize from '@hey/lib/humanize';
 import plur from 'plur';
 import { useEffect, useState } from 'react';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface MembershipProps {
   group: Group;
 }
 
 const Membership: FC<MembershipProps> = ({ group }) => {
+  const currentProfile = useProfileStore((state) => state.currentProfile);
+
   const [count, setCount] = useState(0);
   const [hasJoined, setHasJoined] = useState(false);
   const [hasFavorited, setHasFavorited] = useState(false);
@@ -30,36 +33,41 @@ const Membership: FC<MembershipProps> = ({ group }) => {
         <div className="text-xl">{humanize(count)}</div>
         <div className="ld-text-gray-500">{plur('Member', count)}</div>
       </div>
-      <div className="space-x-3">
-        {hasJoined ? (
-          <Leave
-            group={group}
-            onLeave={() => {
-              setCount(count - 1);
-              setHasJoined(false);
-              setHasFavorited(false);
-            }}
-          />
-        ) : (
-          <Join
-            group={group}
-            onJoin={() => {
-              setCount(count + 1);
-              setHasJoined(true);
-            }}
-          />
-        )}
-        {hasJoined ? (
-          hasFavorited ? (
-            <Unfavorite
+      {currentProfile ? (
+        <div className="space-x-3">
+          {hasJoined ? (
+            <Leave
               group={group}
-              onUnfavorite={() => setHasFavorited(false)}
+              onLeave={() => {
+                setCount(count - 1);
+                setHasJoined(false);
+                setHasFavorited(false);
+              }}
             />
           ) : (
-            <Favorite group={group} onFavorite={() => setHasFavorited(true)} />
-          )
-        ) : null}
-      </div>
+            <Join
+              group={group}
+              onJoin={() => {
+                setCount(count + 1);
+                setHasJoined(true);
+              }}
+            />
+          )}
+          {hasJoined ? (
+            hasFavorited ? (
+              <Unfavorite
+                group={group}
+                onUnfavorite={() => setHasFavorited(false)}
+              />
+            ) : (
+              <Favorite
+                group={group}
+                onFavorite={() => setHasFavorited(true)}
+              />
+            )
+          ) : null}
+        </div>
+      ) : null}
     </div>
   );
 };
