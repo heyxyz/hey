@@ -32,7 +32,7 @@ export const get: Handler = async (req, res) => {
       members: count
     };
 
-    logger.info('Group fetched');
+    logger.info(`Group ${slug} was fetched by ${viewer || 'anonymous'}`);
 
     return res.status(200).json({ result, success: true });
   } catch (error) {
