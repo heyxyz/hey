@@ -28,6 +28,11 @@ export const PROFILE = {
   UNFOLLOW: 'Unfollow profile'
 };
 
+export const GROUP = {
+  JOIN: 'Join group',
+  LEAVE: 'Leave group'
+};
+
 export const PUBLICATION = {
   ATTACHMENT: {
     AUDIO: {
@@ -196,6 +201,7 @@ export const ALL_EVENTS = {
   PAGEVIEW,
   ...AUTH,
   ...PROFILE,
+  ...GROUP,
   ...PUBLICATION,
   ...NOTIFICATION,
   ...HOME,
