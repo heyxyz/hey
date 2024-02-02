@@ -2,7 +2,6 @@ import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
-import catchedError from 'src/lib/catchedError';
 import validateLensAccount from 'src/lib/middlewares/validateLensAccount';
 import prisma from 'src/lib/prisma';
 import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
@@ -48,12 +47,6 @@ export const post: Handler = async (req, res) => {
 
     return res.status(200).json({ success: true });
   } catch (error: any) {
-    if (error.code === 'P2025') {
-      return res
-        .status(200)
-        .json({ result: 'User has not favorited the group.', success: false });
-    }
-
-    return catchedError(res, error);
+    return res.status(200).json({ success: true });
   }
 };

@@ -11,6 +11,7 @@ export type Group = {
   description: string;
   discord: null | string;
   featured: boolean;
+  hasFavorited: boolean;
   id: string;
   instagram: null | string;
   isMember: boolean;
