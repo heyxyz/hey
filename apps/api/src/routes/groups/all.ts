@@ -27,7 +27,10 @@ export const get: Handler = async (req, res) => {
       orderBy: { createdAt: 'desc' },
       select: {
         _count: {
-          select: { members: { where: { profileId: viewer as string } } }
+          select: {
+            favorites: { where: { profileId: viewer as string } },
+            members: { where: { profileId: viewer as string } }
+          }
         },
         ...allGroupFields
       },
@@ -65,6 +68,7 @@ export const get: Handler = async (req, res) => {
         return {
           ...groupWithoutCount,
           ...{
+            hasFavorited: group._count.favorites > 0,
             isMember: idIsMember[group.id] || false,
             members: group._count.members
           }
