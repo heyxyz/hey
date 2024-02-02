@@ -2,6 +2,7 @@ import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
+import catchedError from 'src/lib/catchedError';
 import validateLensAccount from 'src/lib/middlewares/validateLensAccount';
 import prisma from 'src/lib/prisma';
 import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
@@ -38,21 +39,27 @@ export const post: Handler = async (req, res) => {
   try {
     const payload = parseJwt(accessToken);
 
+    const isMember = await prisma.groupMember.findFirst({
+      where: { groupId: id, profileId: payload.id }
+    });
+
+    if (!isMember) {
+      return res
+        .status(200)
+        .json({ result: 'User is not a member of the group.', success: false });
+    }
+
     const initData = { groupId: id, profileId: payload.id };
+    const data = await prisma.groupFavorite.upsert({
+      create: initData,
+      update: { createdAt: new Date() },
+      where: { groupId_profileId: initData }
+    });
 
-    await prisma.$transaction([
-      prisma.groupFavorite.delete({
-        where: { groupId_profileId: initData }
-      }),
-      prisma.groupMember.delete({
-        where: { groupId_profileId: initData }
-      })
-    ]);
+    logger.info(`User favorited the group ${id}`);
 
-    logger.info(`User left group ${id}`);
-
-    return res.status(200).json({ success: true });
-  } catch (error: any) {
-    return res.status(200).json({ success: true });
+    return res.status(200).json({ result: data, success: true });
+  } catch (error) {
+    return catchedError(res, error);
   }
 };
