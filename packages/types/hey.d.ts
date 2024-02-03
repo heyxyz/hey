@@ -92,5 +92,4 @@ export type Preferences = {
   highSignalNotificationFilter: boolean;
   isPride: boolean;
   isPro: boolean;
-  switches: string[];
 };
