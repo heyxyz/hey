@@ -7,13 +7,8 @@ import type { Dispatch, FC, SetStateAction } from 'react';
 import type { Connector } from 'wagmi';
 
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
-import {
-  ArrowRightCircleIcon,
-  KeyIcon,
-  UserPlusIcon
-} from '@heroicons/react/24/outline';
+import { ArrowRightCircleIcon, KeyIcon } from '@heroicons/react/24/outline';
 import { XCircleIcon } from '@heroicons/react/24/solid';
-import { IS_MAINNET } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { AUTH } from '@hey/data/tracking';
 import {
@@ -42,13 +37,9 @@ import UserProfile from '../UserProfile';
 
 interface WalletSelectorProps {
   setHasConnected?: Dispatch<SetStateAction<boolean>>;
-  setShowSignup?: Dispatch<SetStateAction<boolean>>;
 }
 
-const WalletSelector: FC<WalletSelectorProps> = ({
-  setHasConnected,
-  setShowSignup
-}) => {
+const WalletSelector: FC<WalletSelectorProps> = ({ setHasConnected }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [loggingInProfileId, setLoggingInProfileId] = useState<null | string>(
     null
@@ -193,19 +184,6 @@ const WalletSelector: FC<WalletSelectorProps> = ({
           )
         ) : (
           <SwitchNetwork toChainId={CHAIN.id} />
-        )}
-        {!IS_MAINNET && (
-          <button
-            className="flex items-center space-x-1 text-sm underline"
-            onClick={() => {
-              setShowSignup?.(true);
-              Leafwatch.track(AUTH.SWITCH_TO_SIGNUP);
-            }}
-            type="button"
-          >
-            <UserPlusIcon className="size-4" />
-            <div>Create a testnet account</div>
-          </button>
         )}
         <button
           className="flex items-center space-x-1 text-sm underline"
