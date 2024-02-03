@@ -5,13 +5,13 @@ import { FeatureFlag } from '@hey/data/feature-flags';
 import { PublicationMetadataLicenseType } from '@hey/lens';
 import { Select } from '@hey/ui';
 import getAssetLicense from '@lib/getAssetLicense';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
+import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
 
 const LicensePicker: FC = () => {
   const setLicense = usePublicationLicenseStore((state) => state.setLicense);
 
-  if (!isFeatureEnabled(FeatureFlag.Staff)) {
+  if (!isFeatureAvailable(FeatureFlag.Staff)) {
     return null;
   }
 
