@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import { SparklesIcon } from '@heroicons/react/24/solid';
 import getProStatus from '@hey/lib/api/getProStatus';
 import { Tooltip } from '@hey/ui';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
+import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { useQuery } from '@tanstack/react-query';
 
 interface ProBadgeProps {
@@ -22,7 +22,7 @@ const ProBadge: FC<ProBadgeProps> = ({ id }) => {
 
   const { isBeliever, isPro } = data;
 
-  if (!isFeatureEnabled('pro')) {
+  if (!isFeatureAvailable('pro')) {
     return null;
   }
 

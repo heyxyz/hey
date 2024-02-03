@@ -20,7 +20,7 @@ import {
   GridItemFour,
   GridLayout
 } from '@hey/ui';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
+import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import Custom404 from 'src/pages/404';
@@ -62,8 +62,8 @@ const Mod: NextPage = () => {
   });
 
   if (
-    !isFeatureEnabled(FeatureFlag.Gardener) &&
-    !isFeatureEnabled(FeatureFlag.TrustedProfile)
+    !isFeatureAvailable(FeatureFlag.Gardener) &&
+    !isFeatureAvailable(FeatureFlag.TrustedProfile)
   ) {
     return <Custom404 />;
   }

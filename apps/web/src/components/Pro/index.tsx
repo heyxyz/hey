@@ -6,7 +6,7 @@ import { APP_NAME, Stripe } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridLayout } from '@hey/ui';
 import { GridItemTwelve } from '@hey/ui/src/GridLayout';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
+import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { Leafwatch } from '@lib/leafwatch';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
@@ -20,7 +20,7 @@ const Pro: NextPage = () => {
     Leafwatch.track(PAGEVIEW, { page: 'pro' });
   });
 
-  if (!currentProfile || !isFeatureEnabled('pro')) {
+  if (!currentProfile || !isFeatureAvailable('pro')) {
     return <NotLoggedIn />;
   }
 

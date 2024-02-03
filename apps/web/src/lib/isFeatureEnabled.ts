@@ -1,23 +1,20 @@
-import type { FeatureFlag } from '@hey/data/feature-flags';
+import type { KillSwitch } from '@hey/data/feature-flags';
 
 import { hydrateFeatureFlags } from 'src/store/persisted/useFeatureFlagsStore';
 
-import getCurrentSession from './getCurrentSession';
-
 /**
- * Checks if a feature is enabled for the current user
- * @param key The feature flag key
+ * Checks if a feature is enabled globally
+ * @param key The kill switch key
  * @returns Whether the feature is enabled
  */
-const isFeatureEnabled = (key: FeatureFlag | string) => {
-  const { id: sessionProfileId } = getCurrentSession();
-  const { featureFlags } = hydrateFeatureFlags();
+const isFeatureEnabled = (key: KillSwitch | string) => {
+  const { killSwitches } = hydrateFeatureFlags();
 
-  if (!sessionProfileId) {
+  if (!killSwitches) {
     return false;
   }
 
-  return featureFlags.includes(key);
+  return killSwitches.includes(key);
 };
 
 export default isFeatureEnabled;
