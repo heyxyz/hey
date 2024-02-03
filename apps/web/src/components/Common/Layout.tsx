@@ -12,7 +12,6 @@ import { useTheme } from 'next-themes';
 import { Toaster } from 'react-hot-toast';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
-import { useTimelineStore } from 'src/store/non-persisted/useTimelineStore';
 import { hydrateAuthTokens, signOut } from 'src/store/persisted/useAuthStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
@@ -41,7 +40,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const setLensHubOnchainSigNonce = useNonceStore(
     (state) => state.setLensHubOnchainSigNonce
   );
-  const setFallbackToCuratedFeed = useTimelineStore(
+  const setFallbackToCuratedFeed = useProfileStore(
     (state) => state.setFallbackToCuratedFeed
   );
 
