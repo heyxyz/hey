@@ -28,6 +28,10 @@ import useUploadAttachments from 'src/hooks/useUploadAttachments';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
+import { EditorContent, useCurrentEditor, useEditor } from '@tiptap/react';
+import { StarterKit } from '@tiptap/starter-kit';
+import { Placeholder } from '@tiptap/extension-placeholder';
+
 
 const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS];
 
@@ -57,48 +61,37 @@ const Editor: FC = () => {
     }
   };
 
-  useEffect(() => {
-    return editor.registerCommand(
-      INSERT_PARAGRAPH_COMMAND,
-      () => {
-        editor.dispatchCommand(INSERT_LINE_BREAK_COMMAND, false);
-        return true;
+
+  const tiptapeditor = useEditor({
+    editorProps: {
+      attributes: {
+        class: 'my-4 block min-h-[65px] overflow-auto px-5 leading-6 sm:leading-[26px] focus:outline-none',
       },
-      COMMAND_PRIORITY_NORMAL
-    );
-  }, [editor]);
+    },
+    extensions: [
+      StarterKit,
+      Placeholder.configure({
+        showOnlyWhenEditable: true,
+        placeholder: () => showPollEditor ? 'Ask a question...' : "What's happening?",
+        emptyEditorClass: 'cursor-text before:content-[attr(data-placeholder)] before:absolute  before:whitespace-nowrap  before:text-gray-400  before-pointer-events-none',
+      }),
+    ],
+    onUpdate: ({ editor }) => {
+      console.log(editor.getHTML());
+    }
+  })
+
+  if (tiptapeditor === null) {
+    return
+  }
 
   return (
     <div className="relative">
-      <EmojiPickerPlugin />
-      <ToolbarPlugin />
-      <RichTextPlugin
-        contentEditable={
-          <ContentEditable className="my-4 block min-h-[65px] overflow-auto px-5 leading-6 sm:leading-[26px]" />
-        }
-        ErrorBoundary={() => <div>{Errors.SomethingWentWrong}</div>}
-        placeholder={
-          <div className="pointer-events-none absolute top-[65px] whitespace-nowrap px-5 text-gray-400">
-            {showPollEditor ? 'Ask a question...' : "What's happening?"}
-          </div>
-        }
-      />
-      <OnChangePlugin
-        onChange={(editorState) => {
-          editorState.read(() => {
-            const markdown = $convertToMarkdownString(TRANSFORMERS);
-            setPublicationContent(markdown);
-          });
-        }}
-      />
-      <LexicalAutoLinkPlugin />
-      <HistoryPlugin />
-      <HashtagPlugin />
-      <MentionsPlugin />
-      <ImagesPlugin onPaste={handlePaste} />
-      <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
+      <ToolbarPlugin tiptapeditor={tiptapeditor} />
+      <EditorContent  editor={tiptapeditor} />
     </div>
   );
 };
 
 export default Editor;
+

@@ -28,6 +28,11 @@
     "@hey/lens": "workspace:*",
     "@hey/lib": "workspace:*",
     "@hey/ui": "workspace:*",
+    "@tiptap/extension-placeholder": "^2.2.1",
+    "@tiptap/pm": "^2.2.1",
+    "@tiptap/react": "^2.2.1",
+    "@tiptap/starter-kit": "^2.2.1",
+
     "@lens-protocol/metadata": "1.1.5",
     "@lexical/code": "^0.13.1",
     "@lexical/hashtag": "^0.13.1",
