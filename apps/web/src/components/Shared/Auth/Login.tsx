@@ -3,17 +3,11 @@ import type {
   Profile,
   ProfileManagersRequest
 } from '@hey/lens';
-import type { Dispatch, FC, SetStateAction } from 'react';
-import type { Connector } from 'wagmi';
+import type { FC } from 'react';
 
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
-import {
-  ArrowRightCircleIcon,
-  KeyIcon,
-  UserPlusIcon
-} from '@heroicons/react/24/outline';
+import { ArrowRightCircleIcon, KeyIcon } from '@heroicons/react/24/outline';
 import { XCircleIcon } from '@heroicons/react/24/solid';
-import { IS_MAINNET } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { AUTH } from '@hey/data/tracking';
 import {
@@ -21,34 +15,19 @@ import {
   useChallengeLazyQuery,
   useProfilesManagedQuery
 } from '@hey/lens';
-import getWalletDetails from '@hey/lib/getWalletDetails';
 import { Button, Card, Spinner } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN } from 'src/constants';
 import { signIn } from 'src/store/persisted/useAuthStore';
-import {
-  useAccount,
-  useChainId,
-  useConnect,
-  useDisconnect,
-  useSignMessage
-} from 'wagmi';
+import { useAccount, useChainId, useDisconnect, useSignMessage } from 'wagmi';
 
 import UserProfile from '../UserProfile';
+import WalletSelector from './WalletSelector';
 
-interface WalletSelectorProps {
-  setHasConnected?: Dispatch<SetStateAction<boolean>>;
-  setShowSignup?: Dispatch<SetStateAction<boolean>>;
-}
-
-const WalletSelector: FC<WalletSelectorProps> = ({
-  setHasConnected,
-  setShowSignup
-}) => {
+const Login: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [loggingInProfileId, setLoggingInProfileId] = useState<null | string>(
     null
@@ -60,8 +39,6 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   };
 
   const chain = useChainId();
-  const { connectAsync, connectors, error, isPending } = useConnect();
-
   const { disconnect } = useDisconnect();
   const { address, connector: activeConnector } = useAccount();
   const { signMessageAsync } = useSignMessage({ mutation: { onError } });
@@ -81,18 +58,6 @@ const WalletSelector: FC<WalletSelectorProps> = ({
         profilesManagedRequest: request
       }
     });
-
-  const onConnect = async (connector: Connector) => {
-    try {
-      const account = await connectAsync({ connector });
-      if (account) {
-        setHasConnected?.(true);
-      }
-      Leafwatch.track(AUTH.CONNECT_WALLET, {
-        wallet: connector.name.toLowerCase()
-      });
-    } catch {}
-  };
 
   const handleSign = async (id?: string) => {
     try {
@@ -194,19 +159,6 @@ const WalletSelector: FC<WalletSelectorProps> = ({
         ) : (
           <SwitchNetwork toChainId={CHAIN.id} />
         )}
-        {!IS_MAINNET && (
-          <button
-            className="flex items-center space-x-1 text-sm underline"
-            onClick={() => {
-              setShowSignup?.(true);
-              Leafwatch.track(AUTH.SWITCH_TO_SIGNUP);
-            }}
-            type="button"
-          >
-            <UserPlusIcon className="size-4" />
-            <div>Create a testnet account</div>
-          </button>
-        )}
         <button
           className="flex items-center space-x-1 text-sm underline"
           onClick={() => {
@@ -227,52 +179,8 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       ) : null}
     </div>
   ) : (
-    <div className="inline-block w-full space-y-3 overflow-hidden text-left align-middle">
-      {connectors
-        .filter(
-          // This removes last connector if it's injected
-          (connector, index, self) =>
-            self.findIndex((c) => c.type === connector.type) === index
-        )
-        .map((connector) => {
-          return (
-            <button
-              className={cn(
-                {
-                  'hover:bg-gray-100 dark:hover:bg-gray-700':
-                    connector.id !== activeConnector?.id
-                },
-                'flex w-full items-center justify-between space-x-2.5 overflow-hidden rounded-xl border px-4 py-3 outline-none dark:border-gray-700'
-              )}
-              disabled={connector.id === activeConnector?.id || isPending}
-              key={connector.id}
-              onClick={() => onConnect(connector)}
-              type="button"
-            >
-              <span>
-                {connector.id === 'injected'
-                  ? 'Browser Wallet'
-                  : getWalletDetails(connector.name).name}
-              </span>
-              <img
-                alt={connector.id}
-                className="size-6"
-                draggable={false}
-                height={24}
-                src={getWalletDetails(connector.name).logo}
-                width={24}
-              />
-            </button>
-          );
-        })}
-      {error?.message ? (
-        <div className="flex items-center space-x-1 text-red-500">
-          <XCircleIcon className="size-5" />
-          <div>{error?.message || 'Failed to connect'}</div>
-        </div>
-      ) : null}
-    </div>
+    <WalletSelector />
   );
 };
 
-export default WalletSelector;
+export default Login;
