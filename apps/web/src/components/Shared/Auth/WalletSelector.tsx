@@ -1,4 +1,4 @@
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { FC } from 'react';
 import type { Connector } from 'wagmi';
 
 import { KeyIcon } from '@heroicons/react/24/outline';
@@ -9,21 +9,14 @@ import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
 
-interface WalletSelectorProps {
-  setHasConnected?: Dispatch<SetStateAction<boolean>>;
-}
-
-const WalletSelector: FC<WalletSelectorProps> = ({ setHasConnected }) => {
+const WalletSelector: FC = () => {
   const { connectAsync, connectors, error, isPending } = useConnect();
   const { disconnect } = useDisconnect();
   const { connector: activeConnector } = useAccount();
 
   const onConnect = async (connector: Connector) => {
     try {
-      const account = await connectAsync({ connector });
-      if (account) {
-        setHasConnected?.(true);
-      }
+      await connectAsync({ connector });
       Leafwatch.track(AUTH.CONNECT_WALLET, {
         wallet: connector.name.toLowerCase()
       });
