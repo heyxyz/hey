@@ -7,14 +7,16 @@ import { create } from 'zustand';
 
 import WalletSelector from '../WalletSelector';
 import ChooseHandle from './ChooseHandle';
+import Minting from './Minting';
+import Success from './Success';
 
 interface SignupState {
-  screen: 'handle' | 'minting' | 'success';
-  setScreen: (screen: 'handle' | 'minting' | 'success') => void;
+  screen: 'choose' | 'minting' | 'success';
+  setScreen: (screen: 'choose' | 'minting' | 'success') => void;
 }
 
 export const useSignupStore = create<SignupState>((set) => ({
-  screen: 'handle',
+  screen: 'choose',
   setScreen: (screen) => set({ screen })
 }));
 
@@ -27,12 +29,12 @@ const Signup: FC = () => {
   return activeConnector?.id ? (
     <div className="space-y-2.5">
       {chain === CHAIN.id ? (
-        screen === 'handle' ? (
+        screen === 'choose' ? (
           <ChooseHandle />
         ) : screen === 'minting' ? (
-          <div>TBD</div>
+          <Minting />
         ) : (
-          <div>TBD</div>
+          <Success />
         )
       ) : (
         <SwitchNetwork toChainId={CHAIN.id} />

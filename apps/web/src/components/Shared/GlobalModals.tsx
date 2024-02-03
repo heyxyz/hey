@@ -17,6 +17,7 @@ import { usePublicationVideoStore } from 'src/store/non-persisted/publication/us
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 
 import Auth from './Auth';
+import { useSignupStore } from './Auth/Signup';
 import WrongNetwork from './Auth/WrongNetwork';
 import Invites from './Modal/Invites';
 import ReportProfile from './Modal/ReportProfile';
@@ -112,6 +113,7 @@ const GlobalModals: FC = () => {
     (state) => state.showPollEditor
   );
   const pollConfig = usePublicationPollStore((state) => state.pollConfig);
+  const signupScreen = useSignupStore((state) => state.screen);
 
   const checkIfPublicationNotDrafted = () => {
     if (
@@ -129,6 +131,7 @@ const GlobalModals: FC = () => {
     }
     return false;
   };
+  const showSignupModalTitle = signupScreen === 'choose';
 
   return (
     <>
@@ -162,7 +165,13 @@ const GlobalModals: FC = () => {
         icon={<ArrowRightCircleIcon className="text-brand-500 size-5" />}
         onClose={() => setShowAuthModal(false, authModalType)}
         show={showAuthModal}
-        title={authModalType === 'signup' ? 'Signup' : 'Login'}
+        title={
+          showSignupModalTitle
+            ? authModalType === 'signup'
+              ? 'Signup'
+              : 'Login'
+            : null
+        }
       >
         <Auth />
       </Modal>
