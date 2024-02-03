@@ -3,7 +3,7 @@ import type {
   Profile,
   ProfileManagersRequest
 } from '@hey/lens';
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { FC } from 'react';
 
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import { ArrowRightCircleIcon, KeyIcon } from '@heroicons/react/24/outline';
@@ -27,11 +27,7 @@ import { useAccount, useChainId, useDisconnect, useSignMessage } from 'wagmi';
 import UserProfile from '../UserProfile';
 import WalletSelector from './WalletSelector';
 
-interface LoginProps {
-  setHasConnected?: Dispatch<SetStateAction<boolean>>;
-}
-
-const Login: FC<LoginProps> = ({ setHasConnected }) => {
+const Login: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [loggingInProfileId, setLoggingInProfileId] = useState<null | string>(
     null
@@ -183,7 +179,7 @@ const Login: FC<LoginProps> = ({ setHasConnected }) => {
       ) : null}
     </div>
   ) : (
-    <WalletSelector setHasConnected={setHasConnected} />
+    <WalletSelector />
   );
 };
 
