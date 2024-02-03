@@ -9,5 +9,6 @@ export enum FeatureFlag {
 }
 
 export enum KillSwitch {
-  FourEverLand = '4everland'
+  FourEverLand = '4everland',
+  Signup = 'signup'
 }

@@ -1,6 +1,8 @@
 import type { FC } from 'react';
 
+import { KillSwitch } from '@hey/data/feature-flags';
 import getCurrentSession from '@lib/getCurrentSession';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import Link from 'next/link';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { isAddress } from 'viem';
@@ -31,7 +33,7 @@ const MenuItems: FC = () => {
 
   return (
     <div className="flex items-center space-x-2">
-      <SignupButton />
+      {isFeatureEnabled(KillSwitch.Signup) && <SignupButton />}
       <LoginButton />
     </div>
   );
