@@ -36,7 +36,7 @@ const SeeThroughLens: FC = () => {
   const setSeeThroughProfile = useTimelineStore(
     (state) => state.setSeeThroughProfile
   );
-  const fallbackToCuratedFeed = useTimelineStore(
+  const fallbackToCuratedFeed = useProfileStore(
     (state) => state.fallbackToCuratedFeed
   );
 

@@ -8,14 +8,19 @@ import createIdbStorage from '../lib/createIdbStorage';
 
 interface ProfileState {
   currentProfile: null | Profile;
+  fallbackToCuratedFeed: boolean;
   setCurrentProfile: (currentProfile: null | Profile) => void;
+  setFallbackToCuratedFeed: (fallbackToCuratedFeed: boolean) => void;
 }
 
 export const useProfileStore = create(
   persist<ProfileState>(
     (set) => ({
       currentProfile: null,
-      setCurrentProfile: (currentProfile) => set(() => ({ currentProfile }))
+      fallbackToCuratedFeed: false,
+      setCurrentProfile: (currentProfile) => set(() => ({ currentProfile })),
+      setFallbackToCuratedFeed: (fallbackToCuratedFeed) =>
+        set(() => ({ fallbackToCuratedFeed }))
     }),
     {
       name: IndexDB.ProfileStore,
