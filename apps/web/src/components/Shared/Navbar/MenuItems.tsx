@@ -7,6 +7,7 @@ import { isAddress } from 'viem';
 
 import LoginButton from './LoginButton';
 import SignedUser from './SignedUser';
+import SignupButton from './SignupButton';
 import WalletUser from './WalletUser';
 
 export const NextLink = ({ children, href, ...rest }: Record<string, any>) => (
@@ -28,7 +29,12 @@ const MenuItems: FC = () => {
     return <WalletUser />;
   }
 
-  return <LoginButton />;
+  return (
+    <div className="flex items-center space-x-2">
+      <SignupButton />
+      <LoginButton />
+    </div>
+  );
 };
 
 export default MenuItems;
