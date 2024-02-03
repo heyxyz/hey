@@ -160,7 +160,7 @@ const GlobalModals: FC = () => {
       </Modal>
       <Modal
         icon={<ArrowRightCircleIcon className="text-brand-500 size-5" />}
-        onClose={() => setShowAuthModal(false)}
+        onClose={() => setShowAuthModal(false, authModalType)}
         show={showAuthModal}
         title={authModalType === 'signup' ? 'Signup' : 'Login'}
       >
