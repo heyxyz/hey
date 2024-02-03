@@ -13,7 +13,7 @@ export const get: Handler = async (req, res) => {
 
   try {
     const data = await prisma.feature.findMany({
-      orderBy: { priority: 'desc' },
+      orderBy: { createdAt: 'desc' },
       where: { type: 'KILL_SWITCH' }
     });
     logger.info('All switches fetched');

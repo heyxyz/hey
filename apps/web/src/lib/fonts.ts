@@ -21,7 +21,8 @@ export const heyFont = localFont({
       style: 'bold',
       weight: '700'
     }
-  ]
+  ],
+  style: 'normal'
 });
 
 export const signatureFont = Norican({
