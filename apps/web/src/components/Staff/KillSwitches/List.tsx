@@ -30,16 +30,16 @@ const List: FC = () => {
     setKilling(true);
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/features/kill`,
+        `${HEY_API_URL}/internal/features/toggle`,
         { enabled, id },
         { headers: getAuthApiHeaders() }
       ),
       {
         error: () => {
           setKilling(false);
-          return 'Failed to kill a feature';
+          return 'Failed to toggled a feature';
         },
-        loading: 'Feature is being killed...',
+        loading: 'Feature is being toggled...',
         success: () => {
           setKilling(false);
           setSwitches(
@@ -47,7 +47,7 @@ const List: FC = () => {
               feature.id === id ? { ...feature, enabled } : feature
             )
           );
-          return 'Feature has been killed';
+          return 'Feature has been toggled successfully';
         }
       }
     );

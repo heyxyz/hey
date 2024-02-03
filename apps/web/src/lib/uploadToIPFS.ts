@@ -13,7 +13,7 @@ import { ThirdwebStorage } from '@thirdweb-dev/storage';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
 
-import isFeatureKilled from './isFeatureKilled';
+import isFeatureEnabled from './isFeatureEnabled';
 
 const FALLBACK_TYPE = 'image/jpeg';
 
@@ -67,7 +67,7 @@ const uploadToIPFS = async (
 ): Promise<IPFSResponse[]> => {
   try {
     const files = Array.from(data);
-    const fallBackToThirdweb = isFeatureKilled(KillSwitch.FourEverLand);
+    const fallBackToThirdweb = !isFeatureEnabled(KillSwitch.FourEverLand);
 
     if (fallBackToThirdweb) {
       const storage = new ThirdwebStorage({
