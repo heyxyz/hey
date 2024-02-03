@@ -18,7 +18,7 @@ const Auth: FC = () => {
       {authModalType === 'signup' ? (
         <div className="space-y-5">
           {!isConnected && (
-            <div className="space-y-1">
+            <div className="space-y-2">
               <div className="text-xl font-bold">Connect your wallet.</div>
               <div className="ld-text-gray-500 text-sm">
                 Connect with one of our available wallet providers or create a
@@ -31,7 +31,7 @@ const Auth: FC = () => {
       ) : (
         <div className="space-y-5">
           {isConnected ? (
-            <div className="space-y-1">
+            <div className="space-y-2">
               <div className="text-xl font-bold">Please sign the message.</div>
               <div className="ld-text-gray-500 text-sm">
                 {APP_NAME} uses this signature to verify that you're the owner
@@ -39,7 +39,7 @@ const Auth: FC = () => {
               </div>
             </div>
           ) : (
-            <div className="space-y-1">
+            <div className="space-y-2">
               <div className="text-xl font-bold">Connect your wallet.</div>
               <div className="ld-text-gray-500 text-sm">
                 Connect with one of our available wallet providers or create a
