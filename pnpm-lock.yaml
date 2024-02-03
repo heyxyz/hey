@@ -163,14 +163,11 @@ importers:
         specifier: workspace:*
         version: link:../../packages/lib
       next:
-        specifier: 14.1.0
+        specifier: ^14.1.0
         version: 14.1.0(@babel/core@7.23.9)(react-dom@18.2.0)(react@18.2.0)
       react:
-        specifier: ^18
+        specifier: ^18.2.0
         version: 18.2.0
-      react-dom:
-        specifier: ^18
-        version: 18.2.0(react@18.2.0)
     devDependencies:
       '@types/node':
         specifier: ^20.11.16
@@ -178,11 +175,8 @@ importers:
       '@types/react':
         specifier: ^18.2.52
         version: 18.2.52
-      '@types/react-dom':
-        specifier: ^18
-        version: 18.2.18
       typescript:
-        specifier: ^5
+        specifier: ^5.3.3
         version: 5.3.3
 
   apps/web:
@@ -227,7 +221,7 @@ importers:
         specifier: workspace:*
         version: link:../../packages/ui
       '@lens-protocol/metadata':
-        specifier: 1.1.5
+        specifier: ^1.1.5
         version: 1.1.5(zod@3.22.4)
       '@lexical/code':
         specifier: ^0.13.1
@@ -248,7 +242,7 @@ importers:
         specifier: ^0.13.1
         version: 0.13.1(lexical@0.13.1)
       '@livepeer/react':
-        specifier: ^3.1.9
+        specifier: 3.1.9
         version: 3.1.9(@types/react-dom@18.2.18)(@types/react@18.2.52)(react-dom@18.2.0)(react-native@0.73.3)(react@18.2.0)
       '@radix-ui/react-hover-card':
         specifier: ^1.0.7
@@ -314,7 +308,7 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       react-activity-calendar:
-        specifier: 2.2.7
+        specifier: ^2.2.7
         version: 2.2.7(react-dom@18.2.0)(react@18.2.0)
       react-chartjs-2:
         specifier: ^5.2.0
@@ -356,7 +350,7 @@ importers:
         specifier: ^9.1.0
         version: 9.1.0(react-dom@18.2.0)(react@18.2.0)
       usehooks-ts:
-        specifier: 2.12.1
+        specifier: ^2.12.1
         version: 2.12.1(react@18.2.0)
       uuid:
         specifier: ^9.0.1
