@@ -11,8 +11,9 @@ import {
 import { KillSwitch } from '@hey/data/feature-flags';
 import { ThirdwebStorage } from '@thirdweb-dev/storage';
 import axios from 'axios';
-import { hydrateFeatureFlags } from 'src/store/persisted/useFeatureFlagsStore';
 import { v4 as uuid } from 'uuid';
+
+import isFeatureKilled from './isFeatureKilled';
 
 const FALLBACK_TYPE = 'image/jpeg';
 
@@ -66,10 +67,7 @@ const uploadToIPFS = async (
 ): Promise<IPFSResponse[]> => {
   try {
     const files = Array.from(data);
-    const { killSwitches } = hydrateFeatureFlags();
-    const fallBackToThirdweb = killSwitches.includes(KillSwitch.UseThirdWeb);
-
-    console.log('fallBackToThirdweb', killSwitches);
+    const fallBackToThirdweb = isFeatureKilled(KillSwitch.FourEverLand);
 
     if (fallBackToThirdweb) {
       const storage = new ThirdwebStorage({
