@@ -26,8 +26,7 @@ const getPreferences = async (
       hasDismissedOrMintedMembershipNft: false,
       highSignalNotificationFilter: false,
       isPride: false,
-      isPro: false,
-      switches: []
+      isPro: false
     };
   }
 };
