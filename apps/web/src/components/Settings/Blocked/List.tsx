@@ -9,6 +9,8 @@ import { EmptyState, ErrorMessage } from '@hey/ui';
 import { useInView } from 'react-cool-inview';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
+import Unblock from './Unblock';
+
 const List: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
@@ -61,8 +63,9 @@ const List: FC = () => {
   return (
     <div className="space-y-4">
       {whoHaveBlocked?.map((profile) => (
-        <div key={profile.id}>
+        <div className="flex items-center justify-between" key={profile.id}>
           <UserProfile profile={profile as Profile} />
+          <Unblock profile={profile as Profile} />
         </div>
       ))}
       {hasMore ? <span ref={observe} /> : null}
