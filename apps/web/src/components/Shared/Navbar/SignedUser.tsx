@@ -8,7 +8,7 @@ import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
+import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
@@ -117,8 +117,8 @@ const SignedUser: FC = () => {
             >
               <Settings />
             </Menu.Item>
-            {isFeatureEnabled(FeatureFlag.Gardener) ||
-            isFeatureEnabled(FeatureFlag.TrustedProfile) ? (
+            {isFeatureAvailable(FeatureFlag.Gardener) ||
+            isFeatureAvailable(FeatureFlag.TrustedProfile) ? (
               <Menu.Item
                 as={NextLink}
                 className={({ active }: { active: boolean }) =>
@@ -137,7 +137,7 @@ const SignedUser: FC = () => {
             >
               <Invites />
             </Menu.Item>
-            {isFeatureEnabled('pro') && (
+            {isFeatureAvailable('pro') && (
               <Menu.Item
                 as={NextLink}
                 className={({ active }: { active: boolean }) =>
@@ -165,7 +165,7 @@ const SignedUser: FC = () => {
             >
               <ThemeSwitch />
             </Menu.Item>
-            {isFeatureEnabled(FeatureFlag.Gardener) ? (
+            {isFeatureAvailable(FeatureFlag.Gardener) ? (
               <Menu.Item
                 as="div"
                 className={({ active }) =>
@@ -178,7 +178,7 @@ const SignedUser: FC = () => {
                 <GardenerMode />
               </Menu.Item>
             ) : null}
-            {isFeatureEnabled(FeatureFlag.Staff) ? (
+            {isFeatureAvailable(FeatureFlag.Staff) ? (
               <Menu.Item
                 as="div"
                 className={({ active }) =>
