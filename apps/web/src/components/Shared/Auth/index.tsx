@@ -1,12 +1,13 @@
 import type { FC } from 'react';
 
-import Signup from '@components/Shared/Login/New';
-import WalletSelector from '@components/Shared/Login/WalletSelector';
+import Login from '@components/Shared/Auth/Login';
 import { APP_NAME } from '@hey/data/constants';
 import { useState } from 'react';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 
-const Login: FC = () => {
+import Signup from './Signup';
+
+const Auth: FC = () => {
   const [hasConnected, setHasConnected] = useState(false);
   const authModalType = useGlobalModalStateStore(
     (state) => state.authModalType
@@ -15,14 +16,25 @@ const Login: FC = () => {
   return (
     <div className="p-5">
       {authModalType === 'signup' ? (
-        <div>
-          <div className="mb-5 space-y-1">
-            <div className="text-xl font-bold">Create testnet profile.</div>
-            <div className="ld-text-gray-500 text-sm">
-              Create a new profile on the {APP_NAME} testnet.
+        <div className="space-y-5">
+          {hasConnected ? (
+            <div className="space-y-1">
+              <div className="text-xl font-bold">Please sign the message.</div>
+              <div className="ld-text-gray-500 text-sm">
+                {APP_NAME} uses this signature to verify that you're the owner
+                of this address.
+              </div>
             </div>
-          </div>
-          <Signup />
+          ) : (
+            <div className="space-y-1">
+              <div className="text-xl font-bold">Connect your wallet.</div>
+              <div className="ld-text-gray-500 text-sm">
+                Connect with one of our available wallet providers or create a
+                new one.
+              </div>
+            </div>
+          )}
+          <Signup setHasConnected={setHasConnected} />
         </div>
       ) : (
         <div className="space-y-5">
@@ -43,11 +55,11 @@ const Login: FC = () => {
               </div>
             </div>
           )}
-          <WalletSelector setHasConnected={setHasConnected} />
+          <Login setHasConnected={setHasConnected} />
         </div>
       )}
     </div>
   );
 };
 
-export default Login;
+export default Auth;

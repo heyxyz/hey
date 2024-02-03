@@ -16,8 +16,8 @@ import { usePublicationStore } from 'src/store/non-persisted/publication/usePubl
 import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 
-import Login from './Login';
-import WrongNetwork from './Login/WrongNetwork';
+import Auth from './Auth';
+import WrongNetwork from './Auth/WrongNetwork';
 import Invites from './Modal/Invites';
 import ReportProfile from './Modal/ReportProfile';
 import Views from './Modal/Views';
@@ -48,6 +48,9 @@ const GlobalModals: FC = () => {
   );
   const showAuthModal = useGlobalModalStateStore(
     (state) => state.showAuthModal
+  );
+  const authModalType = useGlobalModalStateStore(
+    (state) => state.authModalType
   );
   const setShowAuthModal = useGlobalModalStateStore(
     (state) => state.setShowAuthModal
@@ -159,9 +162,9 @@ const GlobalModals: FC = () => {
         icon={<ArrowRightCircleIcon className="text-brand-500 size-5" />}
         onClose={() => setShowAuthModal(false)}
         show={showAuthModal}
-        title="Login"
+        title={authModalType === 'signup' ? 'Signup' : 'Login'}
       >
-        <Login />
+        <Auth />
       </Modal>
       <Modal
         onClose={() => setShowWrongNetworkModal(false)}
