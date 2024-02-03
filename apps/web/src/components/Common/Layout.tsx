@@ -40,6 +40,9 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const setLensHubOnchainSigNonce = useNonceStore(
     (state) => state.setLensHubOnchainSigNonce
   );
+  const setFallbackToCuratedFeed = useProfileStore(
+    (state) => state.setFallbackToCuratedFeed
+  );
 
   const isMounted = useIsMounted();
   const { disconnect } = useDisconnect();
@@ -60,6 +63,11 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     onCompleted: ({ profile, userSigNonces }) => {
       setCurrentProfile(profile as Profile);
       setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce);
+
+      // If the user has no following, we should fallback to the curated feed
+      if (profile?.stats.followers === 0) {
+        setFallbackToCuratedFeed(true);
+      }
     },
     onError: () => logout(true),
     skip: !sessionProfileId || isAddress(sessionProfileId),
