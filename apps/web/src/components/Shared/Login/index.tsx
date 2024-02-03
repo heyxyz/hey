@@ -4,14 +4,17 @@ import Signup from '@components/Shared/Login/New';
 import WalletSelector from '@components/Shared/Login/WalletSelector';
 import { APP_NAME } from '@hey/data/constants';
 import { useState } from 'react';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 
 const Login: FC = () => {
   const [hasConnected, setHasConnected] = useState(false);
-  const [showSignup, setShowSignup] = useState(false);
+  const authModalType = useGlobalModalStateStore(
+    (state) => state.authModalType
+  );
 
   return (
     <div className="p-5">
-      {showSignup ? (
+      {authModalType === 'signup' ? (
         <div>
           <div className="mb-5 space-y-1">
             <div className="text-xl font-bold">Create testnet profile.</div>
@@ -40,10 +43,7 @@ const Login: FC = () => {
               </div>
             </div>
           )}
-          <WalletSelector
-            setHasConnected={setHasConnected}
-            setShowSignup={setShowSignup}
-          />
+          <WalletSelector setHasConnected={setHasConnected} />
         </div>
       )}
     </div>
