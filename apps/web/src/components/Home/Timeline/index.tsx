@@ -22,7 +22,7 @@ const Timeline: FC = () => {
   const seeThroughProfile = useTimelineStore(
     (state) => state.seeThroughProfile
   );
-  const fallbackToCuratedFeed = useTimelineStore(
+  const fallbackToCuratedFeed = useProfileStore(
     (state) => state.fallbackToCuratedFeed
   );
   const fetchAndStoreViews = useImpressionsStore(
