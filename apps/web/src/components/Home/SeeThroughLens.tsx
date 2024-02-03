@@ -36,6 +36,9 @@ const SeeThroughLens: FC = () => {
   const setSeeThroughProfile = useTimelineStore(
     (state) => state.setSeeThroughProfile
   );
+  const fallbackToCuratedFeed = useTimelineStore(
+    (state) => state.fallbackToCuratedFeed
+  );
 
   const [followingProfilesToSeeThrough, setFollowingProfilesToSeeThrough] =
     useState<Profile[]>([]);
@@ -112,7 +115,9 @@ const SeeThroughLens: FC = () => {
               <span>
                 {seeThroughProfile
                   ? getProfile(profile).slugWithPrefix
-                  : 'My Feed'}
+                  : fallbackToCuratedFeed
+                    ? 'Curated Feed'
+                    : 'My Feed'}
               </span>
               <ChevronDownIcon className="size-4" />
             </button>
@@ -190,7 +195,9 @@ const SeeThroughLens: FC = () => {
                       </Menu.Item>
                     ))}
                     {profiles.length === 0 || error ? (
-                      <div className="py-4 text-center">No matching users</div>
+                      <div className="py-4 text-center">
+                        Not following anyone
+                      </div>
                     ) : null}
                   </>
                 )}
