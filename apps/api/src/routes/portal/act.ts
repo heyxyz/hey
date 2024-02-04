@@ -5,8 +5,9 @@ import parseJwt from '@hey/lib/parseJwt';
 import axios from 'axios';
 import { parseHTML } from 'linkedom';
 import catchedError from 'src/lib/catchedError';
+import validateLensAccount from 'src/lib/middlewares/validateLensAccount';
 import getPortal from 'src/lib/oembed/meta/getPortal';
-import { invalidBody, noBody } from 'src/lib/responses';
+import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
 import { polygon } from 'viem/chains';
 import { number, object, string } from 'zod';
 
@@ -36,26 +37,30 @@ export const post: Handler = async (req, res) => {
     return invalidBody(res);
   }
 
+  if (!(await validateLensAccount(req))) {
+    return notAllowed(res);
+  }
+
   const { buttonIndex, postUrl, publicationId } = body as ExtensionRequest;
 
   try {
     const payload = parseJwt(accessToken);
     const { evmAddress, id } = payload;
 
+    const untrustedData = {
+      address: evmAddress,
+      buttonIndex,
+      fid: id,
+      network: polygon.id,
+      profileId: id,
+      publicationId,
+      timestamp: Date.now(),
+      url: postUrl
+    };
+
     const { data } = await axios.post(
       postUrl,
-      {
-        untrustedData: {
-          address: evmAddress,
-          buttonIndex,
-          fid: id,
-          network: polygon.id,
-          profileId: id,
-          publicationId,
-          timestamp: Date.now(),
-          url: postUrl
-        }
-      },
+      { trustedData: untrustedData, untrustedData },
       { headers: { 'User-Agent': 'HeyBot/0.1 (like TwitterBot)' } }
     );
 
