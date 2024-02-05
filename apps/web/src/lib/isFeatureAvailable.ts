@@ -1,6 +1,6 @@
 import type { FeatureFlag } from '@hey/data/feature-flags';
 
-import { IS_PREVIEW } from '@hey/data/constants';
+import { IS_PREVIEW, IS_PRODUCTION } from '@hey/data/constants';
 import { hydrateFeatureFlags } from 'src/store/persisted/useFeatureFlagsStore';
 
 import getCurrentSession from './getCurrentSession';
@@ -11,7 +11,7 @@ import getCurrentSession from './getCurrentSession';
  * @returns Whether the feature is enabled
  */
 const isFeatureAvailable = (key: FeatureFlag | string) => {
-  if (IS_PREVIEW) {
+  if (IS_PREVIEW && !IS_PRODUCTION) {
     return true;
   }
 
