@@ -54,9 +54,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     resetFeatureFlags();
     signOut();
     disconnect?.();
-    if (reload) {
-      location.reload();
-    }
   };
 
   const { loading } = useCurrentProfileQuery({

@@ -47,6 +47,9 @@ export const useAuthStore = create(
             value !== IndexDB.TBAStore
         );
         await delMany(allIndexedDBStores);
+
+        // Clear Zustand
+        set({ accessToken: null, refreshToken: null });
       }
     }),
     { name: Localstorage.AuthStore }

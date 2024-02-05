@@ -17,6 +17,7 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
+import useResetStoreEvent from 'src/hooks/useResetStoreEvent';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
@@ -47,9 +48,14 @@ const ViewPublication: NextPage = () => {
     Leafwatch.track(PAGEVIEW, { page: 'publication' });
   });
 
-  const { data, error, loading } = usePublicationQuery({
+  const { data, error, loading, refetch } = usePublicationQuery({
+    notifyOnNetworkStatusChange: true,
     skip: !id,
     variables: { request: { forId: id } }
+  });
+
+  useResetStoreEvent(async () => {
+    await refetch();
   });
 
   if (!isReady || loading) {

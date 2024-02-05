@@ -16,6 +16,7 @@ import {
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { useInView } from 'react-cool-inview';
+import useResetStoreEvent from 'src/hooks/useResetStoreEvent';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
 
 interface FeedProps {
@@ -41,13 +42,14 @@ const Feed: FC<FeedProps> = ({
     }
   };
 
-  const { data, error, fetchMore, loading } = useExplorePublicationsQuery({
-    onCompleted: async ({ explorePublications }) => {
-      const ids = explorePublications?.items?.map((p) => p.id) || [];
-      await fetchAndStoreViews(ids);
-    },
-    variables: { request }
-  });
+  const { data, error, fetchMore, loading, refetch } =
+    useExplorePublicationsQuery({
+      onCompleted: async ({ explorePublications }) => {
+        const ids = explorePublications?.items?.map((p) => p.id) || [];
+        await fetchAndStoreViews(ids);
+      },
+      variables: { request }
+    });
 
   const publications = data?.explorePublications?.items;
   const pageInfo = data?.explorePublications?.pageInfo;
@@ -66,6 +68,14 @@ const Feed: FC<FeedProps> = ({
       await fetchAndStoreViews(ids);
     }
   });
+
+  const { isResettingCache } = useResetStoreEvent(async () => {
+    await refetch();
+  });
+
+  if (isResettingCache) {
+    return <PublicationsShimmer />;
+  }
 
   if (loading) {
     return <PublicationsShimmer />;

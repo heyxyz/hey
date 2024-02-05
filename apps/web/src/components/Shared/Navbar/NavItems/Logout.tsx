@@ -10,6 +10,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { signOut } from 'src/store/persisted/useAuthStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useDisconnect } from 'wagmi';
 
 interface LogoutProps {
@@ -33,6 +34,8 @@ const Logout: FC<LogoutProps> = ({ className = '', onClick }) => {
 
   const [revokeAuthentication] = useRevokeAuthenticationMutation({ onError });
 
+  const setCurrentProfile = useProfileStore((state) => state.setCurrentProfile);
+
   const logout = async () => {
     try {
       setRevoking(true);
@@ -44,8 +47,8 @@ const Logout: FC<LogoutProps> = ({ className = '', onClick }) => {
       Leafwatch.track(PROFILE.LOGOUT);
       resetPreferences();
       signOut();
+      setCurrentProfile(null);
       disconnect?.();
-      location.reload();
     } catch (error) {
       onError(error);
     } finally {
