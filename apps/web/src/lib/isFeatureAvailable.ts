@@ -11,7 +11,7 @@ import getCurrentSession from './getCurrentSession';
  * @returns Whether the feature is enabled
  */
 const isFeatureAvailable = (key: FeatureFlag | string) => {
-  if (IS_PREVIEW && !IS_PRODUCTION) {
+  if (!IS_PRODUCTION || IS_PREVIEW) {
     return true;
   }
 
