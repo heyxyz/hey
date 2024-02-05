@@ -1,6 +1,7 @@
 import type { Comment, PublicationsRequest } from '@hey/lens';
 import type { FC } from 'react';
 
+import { useHiddenCommentFeedStore } from '@components/Publication';
 import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
@@ -21,15 +22,13 @@ import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 interface FeedProps {
   isHidden: boolean;
   publicationId: string;
-  showHiddenComments: boolean;
 }
 
-const Feed: FC<FeedProps> = ({
-  isHidden,
-  publicationId,
-  showHiddenComments
-}) => {
+const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
   const txnQueue = useTransactionStore((state) => state.txnQueue);
+  const showHiddenComments = useHiddenCommentFeedStore(
+    (state) => state.showHiddenComments
+  );
   const fetchAndStoreViews = useImpressionsStore(
     (state) => state.fetchAndStoreViews
   );
@@ -39,13 +38,11 @@ const Feed: FC<FeedProps> = ({
     limit: LimitType.TwentyFive,
     where: {
       commentOn: {
+        hiddenComments: showHiddenComments
+          ? HiddenCommentsType.HiddenOnly
+          : HiddenCommentsType.Hide,
         id: publicationId,
-        ...(showHiddenComments
-          ? { hiddenComments: HiddenCommentsType.HiddenOnly }
-          : {
-              hiddenComments: HiddenCommentsType.Hide,
-              ranking: { filter: CommentRankingFilterType.Relevant }
-            })
+        ranking: { filter: CommentRankingFilterType.Relevant }
       },
       customFilters: [CustomFiltersType.Gardeners]
     }
