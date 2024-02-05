@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import getTbaStatus from '@hey/lib/api/getTbaStatus';
 import { Tooltip } from '@hey/ui';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
+import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { useQuery } from '@tanstack/react-query';
 
 interface TbaBadgeProps {
@@ -20,7 +20,7 @@ const TbaBadge: FC<TbaBadgeProps> = ({ address }) => {
     return null;
   }
 
-  if (!isFeatureEnabled('tba')) {
+  if (!isFeatureAvailable('tba')) {
     return null;
   }
 

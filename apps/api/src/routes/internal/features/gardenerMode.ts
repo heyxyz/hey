@@ -2,11 +2,11 @@ import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
-import catchedError from '@utils/catchedError';
-import { GARDENER_MODE_FEATURE_ID } from '@utils/constants';
-import validateIsGardener from '@utils/middlewares/validateIsGardener';
-import prisma from '@utils/prisma';
-import { invalidBody, noBody, notAllowed } from '@utils/responses';
+import catchedError from 'src/lib/catchedError';
+import { GARDENER_MODE_FEATURE_ID } from 'src/lib/constants';
+import validateIsGardener from 'src/lib/middlewares/validateIsGardener';
+import prisma from 'src/lib/prisma';
+import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
 import { boolean, object } from 'zod';
 
 type ExtensionRequest = {

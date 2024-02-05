@@ -1,9 +1,9 @@
 import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
-import catchedError from '@utils/catchedError';
-import createClickhouseClient from '@utils/createClickhouseClient';
-import { noBody } from '@utils/responses';
+import catchedError from 'src/lib/catchedError';
+import createClickhouseClient from 'src/lib/createClickhouseClient';
+import { noBody } from 'src/lib/responses';
 
 export const get: Handler = async (req, res) => {
   const { id } = req.query;

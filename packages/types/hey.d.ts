@@ -7,12 +7,16 @@ import type {
 export type Group = {
   avatar: string;
   createdAt: Date;
+  creatorId: string;
   description: string;
   discord: null | string;
   featured: boolean;
+  hasFavorited: boolean;
   id: string;
   instagram: null | string;
+  isMember: boolean;
   lens: null | string;
+  members: number;
   name: string;
   slug: string;
   tags: string[];
@@ -88,5 +92,4 @@ export type Preferences = {
   highSignalNotificationFilter: boolean;
   isPride: boolean;
   isPro: boolean;
-  switches: string[];
 };

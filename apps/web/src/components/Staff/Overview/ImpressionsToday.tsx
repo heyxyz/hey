@@ -34,38 +34,36 @@ interface ImpressionsTodayProps {
 
 const ImpressionsToday: FC<ImpressionsTodayProps> = ({ impressionsToday }) => {
   return (
-    <div>
-      <div>
-        <div className="divider" />
-        <div className="p-5 text-lg font-bold">Impressions Today</div>
-        <div className="divider" />
-        <div className="p-5">
-          <Line
-            data={{
-              datasets: [
-                {
-                  backgroundColor: '#fff0f2',
-                  borderColor: BRAND_COLOR,
-                  data: impressionsToday.map((impression) => impression.count),
-                  fill: true,
-                  label: 'Impressions'
-                }
-              ],
-              labels: impressionsToday.map((impression) =>
-                formatDate(impression.timestamp, 'hh:mm')
-              )
-            }}
-            options={{
-              plugins: {
-                legend: { display: false },
-                title: { display: false }
-              },
-              responsive: true
-            }}
-          />
-        </div>
+    <>
+      <div className="divider" />
+      <div className="p-5 text-lg font-bold">Impressions Today</div>
+      <div className="divider" />
+      <div className="p-5">
+        <Line
+          data={{
+            datasets: [
+              {
+                backgroundColor: '#fff0f2',
+                borderColor: BRAND_COLOR,
+                data: impressionsToday.map((impression) => impression.count),
+                fill: true,
+                label: 'Impressions'
+              }
+            ],
+            labels: impressionsToday.map((impression) =>
+              formatDate(impression.timestamp, 'hh:mm')
+            )
+          }}
+          options={{
+            plugins: {
+              legend: { display: false },
+              title: { display: false }
+            },
+            responsive: true
+          }}
+        />
       </div>
-    </div>
+    </>
   );
 };
 

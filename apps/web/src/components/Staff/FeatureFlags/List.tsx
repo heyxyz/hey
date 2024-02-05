@@ -36,7 +36,7 @@ const List: FC = () => {
     setKilling(true);
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/features/kill`,
+        `${HEY_API_URL}/internal/features/toggle`,
         { enabled, id },
         { headers: getAuthApiHeaders() }
       ),

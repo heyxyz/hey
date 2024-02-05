@@ -3,8 +3,8 @@ import type { Handler } from 'express';
 import { LensHub } from '@hey/abis';
 import { IPFS_GATEWAY, IS_MAINNET, LENSHUB_PROXY } from '@hey/data/constants';
 import logger from '@hey/lib/logger';
-import { CACHE_AGE_INDEFINITE_ON_DISK, RPC_URL } from '@utils/constants';
-import { noBody } from '@utils/responses';
+import { CACHE_AGE_INDEFINITE_ON_DISK, RPC_URL } from 'src/lib/constants';
+import { noBody } from 'src/lib/responses';
 import { createPublicClient, http } from 'viem';
 import { polygon, polygonMumbai } from 'viem/chains';
 

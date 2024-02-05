@@ -2,9 +2,9 @@ import type { Handler } from 'express';
 import type Stripe from 'stripe';
 
 import logger from '@hey/lib/logger';
-import createStripeClient from '@utils/createStripeClient';
-import prisma from '@utils/prisma';
-import { noBody } from '@utils/responses';
+import createStripeClient from 'src/lib/createStripeClient';
+import prisma from 'src/lib/prisma';
+import { noBody } from 'src/lib/responses';
 
 const stripe = createStripeClient();
 
