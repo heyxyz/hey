@@ -1,8 +1,8 @@
 import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
-import catchedError from '@utils/catchedError';
-import createClickhouseClient from '@utils/createClickhouseClient';
+import catchedError from 'src/lib/catchedError';
+import createClickhouseClient from 'src/lib/createClickhouseClient';
 
 export const get: Handler = async (_, res) => {
   try {
@@ -54,6 +54,31 @@ export const get: Handler = async (_, res) => {
         WHERE toDate(viewed_at) = today()
         GROUP BY timestamp
         ORDER BY timestamp
+      `,
+      `
+        SELECT
+          CAST(created AS date) AS date,
+          COUNT(DISTINCT actor) AS dau,
+          COUNT(*) AS events
+        FROM
+          events
+        WHERE
+          created >= DATE_SUB(NOW(), INTERVAL 10 DAY)
+          AND created < NOW()
+        GROUP BY CAST(created AS date)
+        ORDER BY CAST(created AS date) DESC    
+      `,
+      `
+        SELECT
+          CAST(viewed_at AS date) AS date,
+          COUNT(*) AS impressions
+        FROM
+          impressions
+        WHERE
+          viewed_at >= DATE_SUB(NOW(), INTERVAL 10 DAY)
+          AND viewed_at < NOW()
+        GROUP BY CAST(viewed_at AS date)
+        ORDER BY CAST(viewed_at AS date) DESC    
       `
     ];
 
@@ -69,6 +94,12 @@ export const get: Handler = async (_, res) => {
     logger.info('Fetched Leafwatch stats');
 
     return res.status(200).json({
+      dau: results[5].map((row: any, index: number) => ({
+        date: row.date,
+        dau: row.dau,
+        events: row.events,
+        impressions: results[6][index].impressions
+      })),
       events: results[0][0],
       eventsToday: results[3],
       impressions: results[1][0],

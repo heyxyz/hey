@@ -53,7 +53,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const outlineStyles = {
-      'text-black hover:bg-gray-50 active:bg-black':
+      'text-black hover:bg-gray-50 active:bg-gray-100':
         outline && variant === 'black',
       'text-brand-500 hover:bg-brand-50 active:bg-brand-100':
         outline && variant === 'primary',

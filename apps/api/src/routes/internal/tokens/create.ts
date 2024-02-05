@@ -2,10 +2,10 @@ import type { Handler } from 'express';
 
 import { Regex } from '@hey/data/regex';
 import logger from '@hey/lib/logger';
-import catchedError from '@utils/catchedError';
-import validateIsStaff from '@utils/middlewares/validateIsStaff';
-import prisma from '@utils/prisma';
-import { invalidBody, noBody, notAllowed } from '@utils/responses';
+import catchedError from 'src/lib/catchedError';
+import validateIsStaff from 'src/lib/middlewares/validateIsStaff';
+import prisma from 'src/lib/prisma';
+import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
 import { number, object, string } from 'zod';
 
 type ExtensionRequest = {

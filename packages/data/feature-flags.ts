@@ -9,5 +9,6 @@ export enum FeatureFlag {
 }
 
 export enum KillSwitch {
-  UseThirdWeb = 'use-third-web'
+  FourEverLand = '4everland',
+  Signup = 'signup'
 }

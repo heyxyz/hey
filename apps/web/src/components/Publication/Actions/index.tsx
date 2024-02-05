@@ -11,8 +11,8 @@ import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
-import OpenAction from '../LensOpenActions';
-import TipOpenAction from '../LensOpenActions/UnknownModule/Tip';
+import OpenAction from '../OpenAction';
+import TipOpenAction from '../OpenAction/UnknownModule/Tip';
 import Comment from './Comment';
 import Like from './Like';
 import Mod from './Mod';

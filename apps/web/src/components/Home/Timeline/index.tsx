@@ -5,6 +5,7 @@ import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { UserGroupIcon } from '@heroicons/react/24/outline';
+import { HEY_CURATED_ID } from '@hey/data/constants';
 import { FeedEventItemType, useFeedQuery } from '@hey/lens';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
@@ -21,6 +22,9 @@ const Timeline: FC = () => {
   const seeThroughProfile = useTimelineStore(
     (state) => state.seeThroughProfile
   );
+  const fallbackToCuratedFeed = useProfileStore(
+    (state) => state.fallbackToCuratedFeed
+  );
   const fetchAndStoreViews = useImpressionsStore(
     (state) => state.fetchAndStoreViews
   );
@@ -36,7 +40,9 @@ const Timeline: FC = () => {
         FeedEventItemType.Quote,
         FeedEventItemType.Reaction
       ],
-      for: seeThroughProfile?.id || currentProfile?.id
+      for: fallbackToCuratedFeed
+        ? HEY_CURATED_ID
+        : seeThroughProfile?.id || currentProfile?.id
     }
   };
 

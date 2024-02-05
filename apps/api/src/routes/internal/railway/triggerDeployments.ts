@@ -2,9 +2,9 @@ import type { Handler } from 'express';
 
 import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
-import catchedError from '@utils/catchedError';
-import { invalidBody, noBody } from '@utils/responses';
 import axios from 'axios';
+import catchedError from 'src/lib/catchedError';
+import { invalidBody, noBody } from 'src/lib/responses';
 import { object, string } from 'zod';
 
 type ExtensionRequest = {

@@ -6,5 +6,6 @@ export enum Errors {
   NotAllowed = 'Not allowed!',
   SignWallet = 'Please sign in your wallet.',
   SomethingWentWrong = 'Something went wrong!',
+  SomethingWrongWithPortal = 'Something went wrong with the portal!',
   Suspended = 'Your profile has been suspended!'
 }

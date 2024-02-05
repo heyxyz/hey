@@ -1,9 +1,9 @@
 import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
-import catchedError from '@utils/catchedError';
-import createZendeskClient from '@utils/createZendeskClient';
-import { invalidBody, noBody } from '@utils/responses';
+import catchedError from 'src/lib/catchedError';
+import createZendeskClient from 'src/lib/createZendeskClient';
+import { invalidBody, noBody } from 'src/lib/responses';
 import { object, string } from 'zod';
 
 type ExtensionRequest = {

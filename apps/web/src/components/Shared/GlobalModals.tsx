@@ -16,8 +16,9 @@ import { usePublicationStore } from 'src/store/non-persisted/publication/usePubl
 import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 
-import Login from './Login';
-import WrongNetwork from './Login/WrongNetwork';
+import Auth from './Auth';
+import { useSignupStore } from './Auth/Signup';
+import WrongNetwork from './Auth/WrongNetwork';
 import Invites from './Modal/Invites';
 import ReportProfile from './Modal/ReportProfile';
 import Views from './Modal/Views';
@@ -48,6 +49,9 @@ const GlobalModals: FC = () => {
   );
   const showAuthModal = useGlobalModalStateStore(
     (state) => state.showAuthModal
+  );
+  const authModalType = useGlobalModalStateStore(
+    (state) => state.authModalType
   );
   const setShowAuthModal = useGlobalModalStateStore(
     (state) => state.setShowAuthModal
@@ -109,6 +113,7 @@ const GlobalModals: FC = () => {
     (state) => state.showPollEditor
   );
   const pollConfig = usePublicationPollStore((state) => state.pollConfig);
+  const signupScreen = useSignupStore((state) => state.screen);
 
   const checkIfPublicationNotDrafted = () => {
     if (
@@ -126,6 +131,7 @@ const GlobalModals: FC = () => {
     }
     return false;
   };
+  const showSignupModalTitle = signupScreen === 'choose';
 
   return (
     <>
@@ -157,11 +163,17 @@ const GlobalModals: FC = () => {
       </Modal>
       <Modal
         icon={<ArrowRightCircleIcon className="text-brand-500 size-5" />}
-        onClose={() => setShowAuthModal(false)}
+        onClose={() => setShowAuthModal(false, authModalType)}
         show={showAuthModal}
-        title="Login"
+        title={
+          showSignupModalTitle
+            ? authModalType === 'signup'
+              ? 'Signup'
+              : 'Login'
+            : null
+        }
       >
-        <Login />
+        <Auth />
       </Modal>
       <Modal
         onClose={() => setShowWrongNetworkModal(false)}
