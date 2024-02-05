@@ -1,7 +1,7 @@
 import type { Handler } from 'express';
 
-import createClickhouseClient from '@utils/createClickhouseClient';
-import prisma from '@utils/prisma';
+import createClickhouseClient from 'src/lib/createClickhouseClient';
+import prisma from 'src/lib/prisma';
 
 export const get: Handler = async (_, res) => {
   try {

@@ -2,10 +2,10 @@ import type { Preferences } from '@hey/types/hey';
 import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
-import catchedError from '@utils/catchedError';
-import validateIsOwnerOrStaff from '@utils/middlewares/validateIsOwnerOrStaff';
-import prisma from '@utils/prisma';
-import { noBody, notAllowed } from '@utils/responses';
+import catchedError from 'src/lib/catchedError';
+import validateIsOwnerOrStaff from 'src/lib/middlewares/validateIsOwnerOrStaff';
+import prisma from 'src/lib/prisma';
+import { noBody, notAllowed } from 'src/lib/responses';
 
 export const get: Handler = async (req, res) => {
   const { id } = req.query;
@@ -19,7 +19,7 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const [preference, pro, features, killSwitches, membershipNft] =
+    const [preference, pro, features, membershipNft] =
       await prisma.$transaction([
         prisma.preference.findUnique({ where: { id: id as string } }),
         prisma.pro.findFirst({ where: { profileId: id as string } }),
@@ -30,10 +30,6 @@ export const get: Handler = async (req, res) => {
             feature: { enabled: true, NOT: { type: 'KILL_SWITCH' } },
             profileId: id as string
           }
-        }),
-        prisma.feature.findMany({
-          select: { key: true },
-          where: { enabled: true, type: 'KILL_SWITCH' }
         }),
         prisma.membershipNft.findUnique({ where: { id: id as string } })
       ]);
@@ -47,8 +43,7 @@ export const get: Handler = async (req, res) => {
         preference?.highSignalNotificationFilter
       ),
       isPride: Boolean(preference?.isPride),
-      isPro: Boolean(pro),
-      switches: killSwitches.map((killSwitch: any) => killSwitch.key)
+      isPro: Boolean(pro)
     };
 
     logger.info('Profile preferences fetched');

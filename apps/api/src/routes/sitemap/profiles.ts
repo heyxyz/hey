@@ -1,10 +1,10 @@
 import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
-import catchedError from '@utils/catchedError';
-import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
-import { noBody } from '@utils/responses';
 import { XMLBuilder } from 'fast-xml-parser';
+import catchedError from 'src/lib/catchedError';
+import { SWR_CACHE_AGE_1_MIN_30_DAYS } from 'src/lib/constants';
+import { noBody } from 'src/lib/responses';
 
 export const config = {
   api: { responseLimit: '8mb' }

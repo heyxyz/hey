@@ -1,6 +1,6 @@
 import { AlgorithmProvider } from '@hey/data/enums';
-import { TEST_URL } from '@utils/constants';
 import axios from 'axios';
+import { TEST_URL } from 'src/lib/constants';
 import { describe, expect, test } from 'vitest';
 
 describe('feed/index', () => {

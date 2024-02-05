@@ -1,11 +1,11 @@
 import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
-import catchedError from '@utils/catchedError';
-import { SWR_CACHE_AGE_1_MIN_30_DAYS } from '@utils/constants';
-import createClickhouseClient from '@utils/createClickhouseClient';
-import { noBody } from '@utils/responses';
-import filteredEvents from '@utils/stats/filteredEvents';
+import catchedError from 'src/lib/catchedError';
+import { SWR_CACHE_AGE_1_MIN_30_DAYS } from 'src/lib/constants';
+import createClickhouseClient from 'src/lib/createClickhouseClient';
+import { noBody } from 'src/lib/responses';
+import filteredEvents from 'src/lib/stats/filteredEvents';
 
 export const get: Handler = async (req, res) => {
   const { date, id } = req.query;

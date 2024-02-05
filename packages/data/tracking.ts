@@ -6,6 +6,7 @@ export const AUTH = {
   CONNECT_WALLET: 'Connect wallet',
   LOGIN: 'User login',
   LOGOUT: 'User logout',
+  SIGNUP: 'User signup',
   SIWL: 'Sign in with Lens',
   SWITCH_TO_SIGNUP: 'Switch to signup'
 };
@@ -28,6 +29,13 @@ export const PROFILE = {
   UNFOLLOW: 'Unfollow profile'
 };
 
+export const GROUP = {
+  FAVORITE: 'Favorite group',
+  JOIN: 'Join group',
+  LEAVE: 'Leave group',
+  UNFAVORITE: 'Unfavorite group'
+};
+
 export const PUBLICATION = {
   ATTACHMENT: {
     AUDIO: {
@@ -41,6 +49,7 @@ export const PUBLICATION = {
   CLICK_HASHTAG: 'Click publication hashtag',
   CLICK_MENTION: 'Click publication mention',
   CLICK_OEMBED: 'Click publication oembed',
+  CLICK_PORTAL_BUTTON: 'Click portal button',
   COLLECT_MODULE: {
     COLLECT: 'Collect publication',
     OPEN_COLLECT: 'Open collect modal',
@@ -196,6 +205,7 @@ export const ALL_EVENTS = {
   PAGEVIEW,
   ...AUTH,
   ...PROFILE,
+  ...GROUP,
   ...PUBLICATION,
   ...NOTIFICATION,
   ...HOME,

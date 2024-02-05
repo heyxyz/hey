@@ -31,11 +31,23 @@ export interface Nft {
   creatorAddress: `0x${string}`;
   endTime: null | string;
   mediaUrl: string;
-  mintCount: null | number;
+  mintCount: null | string;
   mintStatus: 'closed' | 'live' | null | string;
   mintUrl: null | string;
   schema: 'erc1155' | 'erc721' | string;
   sourceUrl: string;
+}
+
+export type ButtonType = 'redirect' | 'submit';
+
+export interface Portal {
+  buttons: {
+    button: string;
+    type: ButtonType;
+  }[];
+  image: string;
+  postUrl: string;
+  version: string;
 }
 
 export interface OG {
@@ -46,6 +58,7 @@ export interface OG {
   isLarge: boolean | null;
   lastIndexedAt?: string;
   nft: Nft | null;
+  portal: null | Portal;
   site: null | string;
   title: null | string;
   url: string;

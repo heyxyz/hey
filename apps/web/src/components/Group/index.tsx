@@ -11,6 +11,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import Details from './Details';
@@ -22,6 +23,7 @@ const ViewGroup: NextPage = () => {
     isReady,
     query: { slug }
   } = useRouter();
+  const currentProfile = useProfileStore((state) => state.currentProfile);
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'group' });
@@ -31,7 +33,7 @@ const ViewGroup: NextPage = () => {
     const response: {
       data: { result: Group };
     } = await axios.get(`${HEY_API_URL}/groups/get`, {
-      params: { slug }
+      params: { slug, viewer: currentProfile?.id }
     });
 
     return response.data?.result;

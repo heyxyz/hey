@@ -3,8 +3,8 @@ import type { Handler } from 'express';
 import { LIVEPEER_KEY } from '@hey/data/constants';
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
-import catchedError from '@utils/catchedError';
-import { invalidBody, noBody } from '@utils/responses';
+import catchedError from 'src/lib/catchedError';
+import { invalidBody, noBody } from 'src/lib/responses';
 import { v4 as uuid } from 'uuid';
 import { boolean, object } from 'zod';
 
