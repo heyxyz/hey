@@ -8,6 +8,7 @@ import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
 import {
   CommentRankingFilterType,
   CustomFiltersType,
+  HiddenCommentsType,
   LimitType,
   usePublicationsQuery
 } from '@hey/lens';
@@ -20,9 +21,14 @@ import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 interface FeedProps {
   isHidden: boolean;
   publicationId: string;
+  showHiddenComments: boolean;
 }
 
-const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
+const Feed: FC<FeedProps> = ({
+  isHidden,
+  publicationId,
+  showHiddenComments
+}) => {
   const txnQueue = useTransactionStore((state) => state.txnQueue);
   const fetchAndStoreViews = useImpressionsStore(
     (state) => state.fetchAndStoreViews
@@ -34,7 +40,12 @@ const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
     where: {
       commentOn: {
         id: publicationId,
-        ranking: { filter: CommentRankingFilterType.Relevant }
+        ...(showHiddenComments
+          ? { hiddenComments: HiddenCommentsType.HiddenOnly }
+          : {
+              hiddenComments: HiddenCommentsType.Hide,
+              ranking: { filter: CommentRankingFilterType.Relevant }
+            })
       },
       customFilters: [CustomFiltersType.Gardeners]
     }
