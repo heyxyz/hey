@@ -9,7 +9,7 @@ import { hydrateFeatureFlags } from 'src/store/persisted/useFeatureFlagsStore';
  * @returns Whether the feature is enabled
  */
 const isFeatureEnabled = (key: KillSwitch | string) => {
-  if (IS_PREVIEW && !IS_PRODUCTION) {
+  if (!IS_PRODUCTION || IS_PREVIEW) {
     return true;
   }
 
