@@ -56,12 +56,6 @@ const ViewPublication: NextPage = () => {
   const showNewPostModal = useGlobalModalStateStore(
     (state) => state.showNewPostModal
   );
-  const showHiddenComments = useHiddenCommentFeedStore(
-    (state) => state.showHiddenComments
-  );
-  const setShowHiddenComments = useHiddenCommentFeedStore(
-    (state) => state.setShowHiddenComments
-  );
 
   const {
     isReady,
@@ -141,7 +135,6 @@ const ViewPublication: NextPage = () => {
         <Feed
           isHidden={publication.isHidden}
           publicationId={targetPublication.id}
-          showHiddenComments={showHiddenComments}
         />
         <NoneRelevantFeed publicationId={targetPublication.id} />
       </GridItemEight>
