@@ -6,6 +6,7 @@ import formatDate from '@hey/lib/datetime/formatDate';
 import getAppName from '@hey/lib/getAppName';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Tooltip } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import pushToImpressions from '@lib/pushToImpressions';
 import { motion } from 'framer-motion';
 import { useEffectOnce } from 'usehooks-ts';
@@ -81,16 +82,25 @@ const FullPublication: FC<FullPublicationProps> = ({
                   <div className="mt-2">
                     <motion.button
                       aria-label="Like"
-                      className="rounded-full p-1.5 outline-offset-2 outline-gray-400 hover:bg-gray-300/20"
+                      className={cn(
+                        showHiddenComments
+                          ? 'text-green-500 outline-green-500 hover:bg-green-300/20'
+                          : 'ld-text-gray-500 outline-gray-400 hover:bg-gray-300/20',
+                        'rounded-full p-1.5 outline-offset-2'
+                      )}
                       onClick={() => setShowHiddenComments(!showHiddenComments)}
                       whileTap={{ scale: 0.9 }}
                     >
                       <Tooltip
-                        content="Show hidden comments"
+                        content={
+                          showHiddenComments
+                            ? 'Hide hidden comments'
+                            : 'Show hidden comments'
+                        }
                         placement="top"
                         withDelay
                       >
-                        <QueueListIcon className="ld-text-gray-500 size-5" />
+                        <QueueListIcon className="size-5" />
                       </Tooltip>
                     </motion.button>
                   </div>
