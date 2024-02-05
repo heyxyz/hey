@@ -37,10 +37,7 @@ export const post: Handler = async (req, res) => {
   const { enabled, id } = body as ExtensionRequest;
 
   try {
-    await prisma.feature.update({
-      data: { enabled },
-      where: { id }
-    });
+    await prisma.feature.update({ data: { enabled }, where: { id } });
     logger.info(`Killed feature ${id}`);
 
     return res.status(200).json({ enabled, success: true });
