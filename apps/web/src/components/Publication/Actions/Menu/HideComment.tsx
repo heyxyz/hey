@@ -7,7 +7,7 @@ import type { ApolloCache } from '@hey/lens/apollo';
 import type { FC } from 'react';
 
 import { Menu } from '@headlessui/react';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon, NoSymbolIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
 import { useHideCommentMutation, useUnhideCommentMutation } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
@@ -105,12 +105,12 @@ const HideComment: FC<HideCommentProps> = ({ publication }) => {
       <div className="flex items-center space-x-2">
         {hidden ? (
           <>
-            <EyeIcon className="size-4" />
+            <CheckCircleIcon className="size-4" />
             <div>Unhide comment</div>
           </>
         ) : (
           <>
-            <EyeSlashIcon className="size-4" />
+            <NoSymbolIcon className="size-4" />
             <div>Hide comment</div>
           </>
         )}
