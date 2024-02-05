@@ -6,6 +6,7 @@ import type {
 import type { ApolloCache } from '@hey/lens/apollo';
 import type { FC } from 'react';
 
+import { useHiddenCommentFeedStore } from '@components/Publication';
 import { Menu } from '@headlessui/react';
 import { CheckCircleIcon, NoSymbolIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
@@ -27,21 +28,16 @@ const HideComment: FC<HideCommentProps> = ({ publication }) => {
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
-  const hidden = targetPublication.operations.isNotInterested;
+  const showHiddenComments = useHiddenCommentFeedStore(
+    (state) => state.showHiddenComments
+  );
 
   const request: HideCommentRequest | UnhideCommentRequest = {
     for: publication.id
   };
 
-  const updateCache = (cache: ApolloCache<any>, hidden: boolean) => {
-    cache.modify({
-      fields: {
-        operations: (existingValue) => {
-          return { ...existingValue, isNotInterested: hidden };
-        }
-      },
-      id: cache.identify(targetPublication)
-    });
+  const updateCache = (cache: ApolloCache<any>) => {
+    cache.evict({ id: cache.identify(publication) });
   };
 
   const onError = (error: any) => {
@@ -57,7 +53,7 @@ const HideComment: FC<HideCommentProps> = ({ publication }) => {
       });
     },
     onError,
-    update: (cache) => updateCache(cache, true),
+    update: updateCache,
     variables: { request }
   });
 
@@ -70,7 +66,7 @@ const HideComment: FC<HideCommentProps> = ({ publication }) => {
       });
     },
     onError,
-    update: (cache) => updateCache(cache, false),
+    update: updateCache,
     variables: { request }
   });
 
@@ -81,7 +77,7 @@ const HideComment: FC<HideCommentProps> = ({ publication }) => {
   }
 
   const toggleHideComment = async () => {
-    if (hidden) {
+    if (showHiddenComments) {
       return await unhideComment();
     }
 
@@ -103,7 +99,7 @@ const HideComment: FC<HideCommentProps> = ({ publication }) => {
       }}
     >
       <div className="flex items-center space-x-2">
-        {hidden ? (
+        {showHiddenComments ? (
           <>
             <CheckCircleIcon className="size-4" />
             <div>Unhide comment</div>
