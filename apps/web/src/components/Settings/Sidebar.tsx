@@ -19,12 +19,9 @@ import {
   UserIcon
 } from '@heroicons/react/24/outline';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useAccount } from 'wagmi';
 
 const SettingsSidebar: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const { address } = useAccount();
-  const enabled = currentProfile?.ownedBy.address === address;
 
   const settingsSidebarItems = [
     {
@@ -53,7 +50,6 @@ const SettingsSidebar: FC = () => {
       url: '/settings/interests'
     },
     {
-      enabled,
       icon: <FingerPrintIcon className="size-4" />,
       title: 'Manager',
       url: '/settings/manager'
@@ -89,7 +85,6 @@ const SettingsSidebar: FC = () => {
       url: '/settings/export'
     },
     {
-      enabled,
       icon: <ExclamationTriangleIcon className="size-4 text-red-500" />,
       title: <div className="text-red-500">Danger zone</div>,
       url: '/settings/danger'

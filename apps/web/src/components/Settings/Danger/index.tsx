@@ -2,11 +2,11 @@ import type { NextPage } from 'next';
 
 import MetaTags from '@components/Common/MetaTags';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
+import WrongWallet from '@components/Shared/Settings/WrongWallet';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import Custom404 from 'src/pages/404';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
@@ -28,10 +28,6 @@ const DangerSettings: NextPage = () => {
     return <NotLoggedIn />;
   }
 
-  if (disabled) {
-    return <Custom404 />;
-  }
-
   return (
     <GridLayout>
       <MetaTags title={`Delete Profile • ${APP_NAME}`} />
@@ -39,8 +35,14 @@ const DangerSettings: NextPage = () => {
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        <GuardianSettings />
-        <DeleteSettings />
+        {disabled ? (
+          <WrongWallet />
+        ) : (
+          <>
+            <GuardianSettings />
+            <DeleteSettings />
+          </>
+        )}
       </GridItemEight>
     </GridLayout>
   );
