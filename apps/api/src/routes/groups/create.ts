@@ -31,6 +31,7 @@ const validationSchema = object({
   x: string().max(32).regex(Regex.handle).optional()
 });
 
+// TODO: add tests
 export const post: Handler = async (req, res) => {
   const { body } = req;
 

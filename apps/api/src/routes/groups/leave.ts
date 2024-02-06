@@ -15,6 +15,7 @@ const validationSchema = object({
   id: string().uuid()
 });
 
+// TODO: add tests
 export const post: Handler = async (req, res) => {
   const { body } = req;
 
