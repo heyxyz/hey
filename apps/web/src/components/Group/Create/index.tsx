@@ -230,6 +230,12 @@ const CreateGroup: NextPage = () => {
               placeholder="Pied Piper"
               {...form.register('name')}
             />
+            <TextArea
+              label="Description"
+              placeholder="What is this group about?"
+              rows={5}
+              {...form.register('description')}
+            />
             <Input
               label="Lens"
               placeholder="piedpiper"
@@ -244,12 +250,6 @@ const CreateGroup: NextPage = () => {
               label="Discord"
               placeholder="https://discord.gg/piedpiper"
               {...form.register('discord')}
-            />
-            <TextArea
-              label="Description"
-              placeholder="What is this group about?"
-              rows={5}
-              {...form.register('description')}
             />
             <div className="space-y-1.5">
               <div className="label">Avatar</div>
