@@ -52,17 +52,16 @@ const CreateGroup: NextPage = () => {
   const { push } = useRouter();
   const [submitting, setSubmitting] = useState(false);
 
-  const [profilePictureIpfsUrl, setProfilePictureIpfsUrl] = useState<string>(
+  const [groupPictureIpfsUrl, setGroupPictureIpfsUrl] = useState<string>(
     `ipfs://bafkreih3cbzchnk6by6vdzmov5x43c4qtnmnisbokctxm73jz2524nw6wq`
   );
-  const [profilePictureSrc, setProfilePictureSrc] = useState('');
-  const [showProfilePictureCropModal, setShowProfilePictureCropModal] =
+  const [groupPictureSrc, setGroupPictureSrc] = useState('');
+  const [showGroupPictureCropModal, setShowGroupPictureCropModal] =
     useState(false);
-  const [croppedProfilePictureAreaPixels, setCroppedProfilePictureAreaPixels] =
+  const [croppedGroupPictureAreaPixels, setCroppedGroupPictureAreaPixels] =
     useState<Area | null>(null);
-  const [uploadedProfilePictureUrl, setUploadedProfilePictureUrl] =
-    useState('');
-  const [uploadingProfilePicture, setUploadingProfilePicture] = useState(false);
+  const [uploadedGroupPictureUrl, setUploadedGroupPictureUrl] = useState('');
+  const [uploadingGroupPicture, setUploadingGroupPicture] = useState(false);
 
   const form = useZodForm({
     schema: newGroupSchema
@@ -88,34 +87,34 @@ const CreateGroup: NextPage = () => {
   const uploadAndSave = async () => {
     try {
       const croppedImage = await getCroppedImg(
-        profilePictureSrc,
-        croppedProfilePictureAreaPixels
+        groupPictureSrc,
+        croppedGroupPictureAreaPixels
       );
 
       if (!croppedImage) {
         return toast.error(Errors.SomethingWentWrong);
       }
 
-      setUploadingProfilePicture(true);
+      setUploadingGroupPicture(true);
 
       const ipfsUrl = await uploadCroppedImage(croppedImage);
       const dataUrl = croppedImage.toDataURL('image/png');
 
-      setProfilePictureIpfsUrl(ipfsUrl);
-      setUploadedProfilePictureUrl(dataUrl);
+      setGroupPictureIpfsUrl(ipfsUrl);
+      setUploadedGroupPictureUrl(dataUrl);
     } catch (error) {
       errorToast(error);
     } finally {
-      setShowProfilePictureCropModal(false);
-      setUploadingProfilePicture(false);
+      setShowGroupPictureCropModal(false);
+      setUploadingGroupPicture(false);
     }
   };
 
   const onFileChange = async (evt: ChangeEvent<HTMLInputElement>) => {
     const file = evt.target.files?.[0];
     if (file) {
-      setProfilePictureSrc(await readFile(file));
-      setShowProfilePictureCropModal(true);
+      setGroupPictureSrc(await readFile(file));
+      setShowGroupPictureCropModal(true);
     }
   };
 
@@ -132,7 +131,7 @@ const CreateGroup: NextPage = () => {
       const { data } = await axios.post(
         `${HEY_API_URL}/groups/create`,
         {
-          avatar: profilePictureIpfsUrl,
+          avatar: groupPictureIpfsUrl,
           description,
           discord,
           instagram,
@@ -224,13 +223,12 @@ const CreateGroup: NextPage = () => {
                   alt="Group picture crop preview"
                   className="max-w-xs rounded-lg"
                   onError={({ currentTarget }) => {
-                    currentTarget.src = sanitizeDStorageUrl(
-                      profilePictureIpfsUrl
-                    );
+                    currentTarget.src =
+                      sanitizeDStorageUrl(groupPictureIpfsUrl);
                   }}
                   src={
-                    uploadedProfilePictureUrl ||
-                    sanitizeDStorageUrl(profilePictureIpfsUrl)
+                    uploadedGroupPictureUrl ||
+                    sanitizeDStorageUrl(groupPictureIpfsUrl)
                   }
                 />
                 <ChooseFile onChange={(event) => onFileChange(event)} />
@@ -241,24 +239,24 @@ const CreateGroup: NextPage = () => {
                 submitting
                   ? undefined
                   : () => {
-                      setProfilePictureSrc('');
-                      setShowProfilePictureCropModal(false);
+                      setGroupPictureSrc('');
+                      setShowGroupPictureCropModal(false);
                     }
               }
-              show={showProfilePictureCropModal}
+              show={showGroupPictureCropModal}
               size="sm"
               title="Crop group picture"
             >
               <div className="p-5 text-right">
                 <ImageCropperController
-                  imageSrc={profilePictureSrc}
-                  setCroppedAreaPixels={setCroppedProfilePictureAreaPixels}
+                  imageSrc={groupPictureSrc}
+                  setCroppedAreaPixels={setCroppedGroupPictureAreaPixels}
                   targetSize={{ height: 300, width: 300 }}
                 />
                 <Button
-                  disabled={uploadingProfilePicture || !profilePictureSrc}
+                  disabled={uploadingGroupPicture || !groupPictureSrc}
                   icon={
-                    uploadingProfilePicture ? (
+                    uploadingGroupPicture ? (
                       <Spinner size="xs" />
                     ) : (
                       <PencilIcon className="size-4" />
