@@ -63,7 +63,7 @@ model Group {
 model GroupMember {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   profileId String
-  group     Group    @relation(fields: [groupId], references: [id])
+  group     Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
   groupId   String   @db.Uuid
   createdAt DateTime @default(now())
 
@@ -75,7 +75,7 @@ model GroupMember {
 model GroupFavorite {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   profileId String
-  group     Group    @relation(fields: [groupId], references: [id])
+  group     Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
   groupId   String   @db.Uuid
   createdAt DateTime @default(now())
 
