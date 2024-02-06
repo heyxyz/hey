@@ -5,7 +5,12 @@ import type { ChangeEvent } from 'react';
 import ChooseFile from '@components/Shared/ChooseFile';
 import ImageCropperController from '@components/Shared/ImageCropperController';
 import SettingsHelper from '@components/Shared/SettingsHelper';
-import { PencilIcon } from '@heroicons/react/24/outline';
+import {
+  CheckIcon,
+  FaceFrownIcon,
+  FaceSmileIcon,
+  PencilIcon
+} from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data';
 import { APP_NAME, HEY_API_URL } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
@@ -28,6 +33,7 @@ import {
 } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
+import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
 import { useQuery } from '@tanstack/react-query';
@@ -35,6 +41,8 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import Custom404 from 'src/pages/404';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 import { object, string } from 'zod';
 
@@ -50,8 +58,9 @@ const newGroupSchema = object({
 
 const CreateGroup: NextPage = () => {
   const { push } = useRouter();
-  const [submitting, setSubmitting] = useState(false);
+  const currentProfile = useProfileStore((state) => state.currentProfile);
 
+  const [submitting, setSubmitting] = useState(false);
   const [groupPictureIpfsUrl, setGroupPictureIpfsUrl] = useState<string>(
     `ipfs://bafkreih3cbzchnk6by6vdzmov5x43c4qtnmnisbokctxm73jz2524nw6wq`
   );
@@ -71,8 +80,11 @@ const CreateGroup: NextPage = () => {
     Leafwatch.track(PAGEVIEW, { page: 'create-group' });
   });
 
+  const slug = form.watch('slug');
+  const canCheck = Boolean(slug && slug.length > 3);
+
   const { data: isSlugAvailable } = useQuery({
-    enabled: form.watch('slug') !== '',
+    enabled: canCheck,
     queryFn: async () => {
       const { data } = await axios.get(`${HEY_API_URL}/groups/get`, {
         params: { slug: form.watch('slug') }
@@ -83,6 +95,14 @@ const CreateGroup: NextPage = () => {
     queryKey: ['group', form.watch('slug')],
     retry: false
   });
+
+  if (!currentProfile) {
+    return <Custom404 />;
+  }
+
+  if (!isFeatureAvailable('create-group')) {
+    return <Custom404 />;
+  }
 
   const uploadAndSave = async () => {
     try {
@@ -184,12 +204,32 @@ const CreateGroup: NextPage = () => {
               );
             }}
           >
-            <Input
-              label="Slug"
-              placeholder="piedpiper"
-              prefix="hey.com/g/"
-              {...form.register('slug')}
-            />
+            <div className="space-y-2">
+              <Input
+                label="Slug"
+                placeholder="piedpiper"
+                prefix="hey.com/g/"
+                {...form.register('slug')}
+              />
+              {canCheck ? (
+                isSlugAvailable === false ? (
+                  <div className="flex items-center space-x-1 text-sm text-red-500">
+                    <FaceFrownIcon className="size-4" />
+                    <b>Handle not available!</b>
+                  </div>
+                ) : isSlugAvailable === true ? (
+                  <div className="flex items-center space-x-1 text-sm text-green-500">
+                    <CheckIcon className="size-4" />
+                    <b>You're in luck - it's available!</b>
+                  </div>
+                ) : null
+              ) : (
+                <div className="ld-text-gray-500 flex items-center space-x-1 text-sm">
+                  <FaceSmileIcon className="size-4" />
+                  <b>Hope you will get a good one!</b>
+                </div>
+              )}
+            </div>
             <Input
               label="Name"
               placeholder="Pied Piper"
