@@ -23,12 +23,12 @@ type ExtensionRequest = {
 const validationSchema = object({
   avatar: string().min(1).max(100),
   description: string().max(5000),
-  discord: string().max(100).regex(Regex.url).optional(),
-  instagram: string().max(100).regex(Regex.handle).optional(),
-  lens: string().max(100).regex(Regex.handle).optional(),
-  name: string().min(1).max(100),
-  slug: string().min(1).max(100).regex(Regex.handle),
-  x: string().max(100).regex(Regex.handle).optional()
+  discord: string().max(50).regex(Regex.url).optional(),
+  instagram: string().max(32).regex(Regex.handle).optional(),
+  lens: string().max(32).regex(Regex.handle).optional(),
+  name: string().min(1).max(50),
+  slug: string().min(1).max(32).regex(Regex.handle),
+  x: string().max(32).regex(Regex.handle).optional()
 });
 
 export const post: Handler = async (req, res) => {
