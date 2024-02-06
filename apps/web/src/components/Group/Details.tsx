@@ -1,9 +1,10 @@
 import type { Group } from '@hey/types/hey';
 import type { FC, ReactNode } from 'react';
 
+import LazySmallUserProfile from '@components/Shared/LazySmallUserProfile';
 import Markup from '@components/Shared/Markup';
 import Slug from '@components/Shared/Slug';
-import { ClockIcon } from '@heroicons/react/24/outline';
+import { ClockIcon, UserIcon } from '@heroicons/react/24/outline';
 import { FireIcon } from '@heroicons/react/24/solid';
 import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
 import formatDate from '@hey/lib/datetime/formatDate';
@@ -164,6 +165,13 @@ const Details: FC<DetailsProps> = ({ group }) => {
           <MetaDetails icon={<ClockIcon className="size-4" />}>
             {formatDate(group.createdAt)}
           </MetaDetails>
+          {group.creatorId !== '0x00' ? (
+            <MetaDetails icon={<UserIcon className="size-4" />}>
+              <Tooltip content="Creator">
+                <LazySmallUserProfile id={group.creatorId} />
+              </Tooltip>
+            </MetaDetails>
+          ) : null}
         </div>
       </div>
     </div>
