@@ -33,7 +33,6 @@ import {
 } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
-import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
 import { useQuery } from '@tanstack/react-query';
@@ -97,10 +96,6 @@ const CreateGroup: NextPage = () => {
   });
 
   if (!currentProfile) {
-    return <Custom404 />;
-  }
-
-  if (!isFeatureAvailable('create-group')) {
     return <Custom404 />;
   }
 
