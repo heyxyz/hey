@@ -164,6 +164,9 @@ const CreateGroup: NextPage = () => {
       } else {
         toast.error(data?.message || Errors.SomethingWentWrong);
       }
+    } catch (error) {
+      setSubmitting(false);
+      errorToast(error);
     } finally {
     }
   };
