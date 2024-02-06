@@ -62,7 +62,7 @@ const CreateGroup: NextPage = () => {
 
   const [submitting, setSubmitting] = useState(false);
   const [groupPictureIpfsUrl, setGroupPictureIpfsUrl] = useState<string>(
-    `ipfs://bafkreih3cbzchnk6by6vdzmov5x43c4qtnmnisbokctxm73jz2524nw6wq`
+    `ipfs://bafkreiahgtmtuhm3m5h5llnwrk26jmw2cnitsr7zcydcscd46zv55sfvbu`
   );
   const [groupPictureSrc, setGroupPictureSrc] = useState('');
   const [showGroupPictureCropModal, setShowGroupPictureCropModal] =
