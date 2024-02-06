@@ -166,7 +166,7 @@ const CreateGroup: NextPage = () => {
       }
     } catch (error) {
       setSubmitting(false);
-      errorToast(error);
+      return toast.error(Errors.NoPermission);
     } finally {
     }
   };
