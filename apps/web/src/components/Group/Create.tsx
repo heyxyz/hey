@@ -20,6 +20,7 @@ import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import {
   Button,
   Card,
+  ErrorMessage,
   Form,
   GridItemEight,
   GridItemFour,
@@ -33,6 +34,7 @@ import {
 } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
+import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
 import { useQuery } from '@tanstack/react-query';
@@ -180,6 +182,16 @@ const CreateGroup: NextPage = () => {
         />
       </GridItemFour>
       <GridItemEight>
+        {!isFeatureAvailable('create-group') && (
+          <ErrorMessage
+            className="mb-5"
+            error={{
+              message: 'Request here for access: https://tally.so/r/3XWlKd',
+              name: 'NoPermission'
+            }}
+            title="You don't have permission to create a group."
+          />
+        )}
         <Card>
           <Form
             className="space-y-4 p-5"
