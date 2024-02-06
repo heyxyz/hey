@@ -231,14 +231,14 @@ const CreateGroup: NextPage = () => {
               {...form.register('name')}
             />
             <Input
-              label="Instagram"
-              placeholder="piedpiper"
-              {...form.register('instagram')}
-            />
-            <Input
               label="Lens"
               placeholder="piedpiper"
               {...form.register('lens')}
+            />
+            <Input
+              label="Instagram"
+              placeholder="piedpiper"
+              {...form.register('instagram')}
             />
             <Input
               label="Discord"
