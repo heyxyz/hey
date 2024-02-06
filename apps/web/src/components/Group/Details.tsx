@@ -8,6 +8,7 @@ import { FireIcon } from '@heroicons/react/24/solid';
 import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
 import formatDate from '@hey/lib/datetime/formatDate';
 import getMentions from '@hey/lib/getMentions';
+import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import { Image, LightBox, Tooltip } from '@hey/ui';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
@@ -44,8 +45,8 @@ const Details: FC<DetailsProps> = ({ group }) => {
           alt={group.slug}
           className="size-32 cursor-pointer rounded-xl bg-gray-200 ring-8 ring-gray-50 sm:size-52 dark:bg-gray-700 dark:ring-black"
           height={128}
-          onClick={() => setExpandedImage(group.avatar)}
-          src={group.avatar}
+          onClick={() => setExpandedImage(sanitizeDStorageUrl(group.avatar))}
+          src={sanitizeDStorageUrl(group.avatar)}
           width={128}
         />
         <LightBox

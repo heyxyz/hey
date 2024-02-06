@@ -522,7 +522,7 @@ const ProfileSettingsForm: FC = () => {
           isLoading
             ? undefined
             : () => {
-                setCoverPictureSrc('');
+                setProfilePictureSrc('');
                 setShowProfilePictureCropModal(false);
               }
         }

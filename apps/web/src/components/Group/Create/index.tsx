@@ -1,11 +1,17 @@
+import type { Area } from '@hey/image-cropper/types';
 import type { NextPage } from 'next';
+import type { ChangeEvent } from 'react';
 
+import ChooseFile from '@components/Shared/ChooseFile';
+import ImageCropperController from '@components/Shared/ImageCropperController';
 import SettingsHelper from '@components/Shared/SettingsHelper';
 import { PencilIcon } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data';
 import { APP_NAME, HEY_API_URL } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
 import { PAGEVIEW } from '@hey/data/tracking';
+import { getCroppedImg } from '@hey/image-cropper/cropUtils';
+import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import {
   Button,
   Card,
@@ -13,13 +19,17 @@ import {
   GridItemEight,
   GridItemFour,
   GridLayout,
+  Image,
   Input,
+  Modal,
   Spinner,
   TextArea,
   useZodForm
 } from '@hey/ui';
+import errorToast from '@lib/errorToast';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { Leafwatch } from '@lib/leafwatch';
+import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -31,19 +41,28 @@ import { object, string } from 'zod';
 const newGroupSchema = object({
   description: string().max(5000),
   discord: string().max(50).regex(Regex.url).optional(),
-  instagram: string().max(32).regex(Regex.handle).optional(),
-  lens: string().max(32).regex(Regex.handle).optional(),
+  instagram: string().min(3).max(32).regex(Regex.handle).optional(),
+  lens: string().min(3).max(32).regex(Regex.handle).optional(),
   name: string().min(1).max(50),
-  slug: string().min(5).max(32).regex(Regex.handle),
-  x: string().max(32).regex(Regex.handle).optional()
+  slug: string().min(3).max(32).regex(Regex.handle),
+  x: string().min(3).max(32).regex(Regex.handle).optional()
 });
 
 const CreateGroup: NextPage = () => {
   const { push } = useRouter();
   const [submitting, setSubmitting] = useState(false);
-  const [avatar, setAvatar] = useState<string | undefined>(
-    'https://pbs.twimg.com/profile_images/1407865444430614528/HCEKSw0T_400x400.jpg'
+
+  const [profilePictureIpfsUrl, setProfilePictureIpfsUrl] = useState<string>(
+    `ipfs://bafkreih3cbzchnk6by6vdzmov5x43c4qtnmnisbokctxm73jz2524nw6wq`
   );
+  const [profilePictureSrc, setProfilePictureSrc] = useState('');
+  const [showProfilePictureCropModal, setShowProfilePictureCropModal] =
+    useState(false);
+  const [croppedProfilePictureAreaPixels, setCroppedProfilePictureAreaPixels] =
+    useState<Area | null>(null);
+  const [uploadedProfilePictureUrl, setUploadedProfilePictureUrl] =
+    useState('');
+  const [uploadingProfilePicture, setUploadingProfilePicture] = useState(false);
 
   const form = useZodForm({
     schema: newGroupSchema
@@ -66,6 +85,40 @@ const CreateGroup: NextPage = () => {
     retry: false
   });
 
+  const uploadAndSave = async () => {
+    try {
+      const croppedImage = await getCroppedImg(
+        profilePictureSrc,
+        croppedProfilePictureAreaPixels
+      );
+
+      if (!croppedImage) {
+        return toast.error(Errors.SomethingWentWrong);
+      }
+
+      setUploadingProfilePicture(true);
+
+      const ipfsUrl = await uploadCroppedImage(croppedImage);
+      const dataUrl = croppedImage.toDataURL('image/png');
+
+      setProfilePictureIpfsUrl(ipfsUrl);
+      setUploadedProfilePictureUrl(dataUrl);
+    } catch (error) {
+      errorToast(error);
+    } finally {
+      setShowProfilePictureCropModal(false);
+      setUploadingProfilePicture(false);
+    }
+  };
+
+  const onFileChange = async (evt: ChangeEvent<HTMLInputElement>) => {
+    const file = evt.target.files?.[0];
+    if (file) {
+      setProfilePictureSrc(await readFile(file));
+      setShowProfilePictureCropModal(true);
+    }
+  };
+
   const createGroup = async (
     description: string,
     discord: string | undefined,
@@ -79,7 +132,7 @@ const CreateGroup: NextPage = () => {
       const { data } = await axios.post(
         `${HEY_API_URL}/groups/create`,
         {
-          avatar,
+          avatar: profilePictureIpfsUrl,
           description,
           discord,
           instagram,
@@ -98,7 +151,6 @@ const CreateGroup: NextPage = () => {
         toast.error(data?.message || Errors.SomethingWentWrong);
       }
     } finally {
-      setSubmitting(false);
     }
   };
 
@@ -165,6 +217,60 @@ const CreateGroup: NextPage = () => {
               rows={5}
               {...form.register('description')}
             />
+            <div className="space-y-1.5">
+              <div className="label">Avatar</div>
+              <div className="space-y-3">
+                <Image
+                  alt="Group picture crop preview"
+                  className="max-w-xs rounded-lg"
+                  onError={({ currentTarget }) => {
+                    currentTarget.src = sanitizeDStorageUrl(
+                      profilePictureIpfsUrl
+                    );
+                  }}
+                  src={
+                    uploadedProfilePictureUrl ||
+                    sanitizeDStorageUrl(profilePictureIpfsUrl)
+                  }
+                />
+                <ChooseFile onChange={(event) => onFileChange(event)} />
+              </div>
+            </div>
+            <Modal
+              onClose={
+                submitting
+                  ? undefined
+                  : () => {
+                      setProfilePictureSrc('');
+                      setShowProfilePictureCropModal(false);
+                    }
+              }
+              show={showProfilePictureCropModal}
+              size="sm"
+              title="Crop group picture"
+            >
+              <div className="p-5 text-right">
+                <ImageCropperController
+                  imageSrc={profilePictureSrc}
+                  setCroppedAreaPixels={setCroppedProfilePictureAreaPixels}
+                  targetSize={{ height: 300, width: 300 }}
+                />
+                <Button
+                  disabled={uploadingProfilePicture || !profilePictureSrc}
+                  icon={
+                    uploadingProfilePicture ? (
+                      <Spinner size="xs" />
+                    ) : (
+                      <PencilIcon className="size-4" />
+                    )
+                  }
+                  onClick={() => uploadAndSave()}
+                  type="submit"
+                >
+                  Upload
+                </Button>
+              </div>
+            </Modal>
             <div className="ml-auto">
               <Button
                 disabled={submitting || !isSlugAvailable}
