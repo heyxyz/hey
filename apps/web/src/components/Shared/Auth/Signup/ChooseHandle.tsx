@@ -69,7 +69,7 @@ const ChooseHandle: FC = () => {
           disabled={!canCheck || !isAvailable}
           onClick={handleMint}
         >
-          Mint for 15 USD
+          Mint for x USD
         </Button>
       </div>
     </div>
