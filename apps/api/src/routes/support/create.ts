@@ -39,7 +39,7 @@ export const post: Handler = async (req, res) => {
     const client = createZendeskClient();
     const ticket = await client.tickets.create({
       ticket: {
-        assignee_email: 'yogi@hey.xyz',
+        assignee_email: 'yoginth@hey.com',
         comment: { body: message },
         requester: {
           email,
