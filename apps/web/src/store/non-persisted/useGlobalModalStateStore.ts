@@ -29,7 +29,6 @@ interface GlobalModalState {
     reportProfileModal: boolean,
     reportingProfile: null | Profile
   ) => void;
-  setShowWrongNetworkModal: (showWrongNetworkModal: boolean) => void;
   showAuthModal: boolean;
   showDiscardModal: boolean;
   showInvitesModal: boolean;
@@ -39,7 +38,6 @@ interface GlobalModalState {
   showPublicationReportModal: boolean;
   showPublicationStatsModal: boolean;
   showReportProfileModal: boolean;
-  showWrongNetworkModal: boolean;
   statsPublicationId: null | string;
 }
 
@@ -74,8 +72,6 @@ export const useGlobalModalStateStore = create<GlobalModalState>((set) => ({
     })),
   setShowReportProfileModal: (showReportProfileModal, reportingProfile) =>
     set(() => ({ reportingProfile, showReportProfileModal })),
-  setShowWrongNetworkModal: (showWrongNetworkModal) =>
-    set(() => ({ showWrongNetworkModal })),
   showAuthModal: false,
   showDiscardModal: false,
   showInvitesModal: false,
@@ -85,6 +81,5 @@ export const useGlobalModalStateStore = create<GlobalModalState>((set) => ({
   showPublicationReportModal: false,
   showPublicationStatsModal: false,
   showReportProfileModal: false,
-  showWrongNetworkModal: false,
   statsPublicationId: null
 }));

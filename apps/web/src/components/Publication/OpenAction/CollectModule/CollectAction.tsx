@@ -250,6 +250,7 @@ const CollectAction: FC<CollectActionProps> = ({
 
   const typedDataGenerator = async (generatedData: any) => {
     const { id, typedData } = generatedData;
+    await handleWrongNetwork();
 
     if (canBroadcast) {
       const signature = await signTypedDataAsync(getSignature(typedData));
@@ -333,10 +334,6 @@ const CollectAction: FC<CollectActionProps> = ({
   const createCollect = async () => {
     if (isSuspended) {
       return toast.error(Errors.Suspended);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
     }
 
     try {

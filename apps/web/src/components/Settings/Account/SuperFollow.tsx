@@ -128,6 +128,7 @@ const SuperFollow: FC = () => {
         const { followModule, followModuleInitData, profileId } =
           typedData.value;
         const args = [profileId, followModule, followModuleInitData];
+        await handleWrongNetwork();
 
         if (canBroadcast) {
           const signature = await signTypedDataAsync(getSignature(typedData));
@@ -156,10 +157,6 @@ const SuperFollow: FC = () => {
 
     if (isSuspended) {
       return toast.error(Errors.Suspended);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
     }
 
     try {

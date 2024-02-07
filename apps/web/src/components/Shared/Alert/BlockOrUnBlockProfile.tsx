@@ -111,10 +111,11 @@ const BlockOrUnBlockProfile: FC = () => {
 
   const typedDataGenerator = async (generatedData: any) => {
     const { id, typedData } = generatedData;
-    const signature = await signTypedDataAsync(getSignature(typedData));
+    await handleWrongNetwork();
     setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
 
     if (canBroadcast) {
+      const signature = await signTypedDataAsync(getSignature(typedData));
       const { data } = await broadcastOnchain({
         variables: { request: { id, signature } }
       });
@@ -173,10 +174,6 @@ const BlockOrUnBlockProfile: FC = () => {
 
   const blockOrUnblock = async () => {
     if (!currentProfile) {
-      return;
-    }
-
-    if (handleWrongNetwork()) {
       return;
     }
 
