@@ -4,7 +4,7 @@ import MentionsPlugin from '@components/Shared/Lexical/Plugins/AtMentionsPlugin'
 import LexicalAutoLinkPlugin from '@components/Shared/Lexical/Plugins/AutoLinkPlugin';
 import EmojiPickerPlugin from '@components/Shared/Lexical/Plugins/EmojiPicker';
 import ImagesPlugin from '@components/Shared/Lexical/Plugins/ImagesPlugin';
-import ToolbarPlugin from '@components/Shared/Lexical/Plugins/ToolbarPlugin';
+import { ToolbarPlugin, TiTapToolbar } from '@components/Shared/Lexical/Plugins/ToolbarPlugin';
 import { Errors } from '@hey/data/errors';
 import {
   $convertToMarkdownString,
@@ -28,6 +28,7 @@ import useUploadAttachments from 'src/hooks/useUploadAttachments';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
+import { Editor as Teditor, EditorContent, useEditor } from '@tiptap/react';
 
 const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS];
 
@@ -101,4 +102,20 @@ const Editor: FC = () => {
   );
 };
 
-export default Editor;
+interface TiptapEditorProps {
+  editor: Teditor | undefined;
+}
+
+const TipTapEditor: FC<TiptapEditorProps> = ({ editor }: TiptapEditorProps) => {
+  if (editor === undefined) {
+    return
+  }
+
+  return (
+    <div className="relative">
+      <TiTapToolbar editor={editor} />
+      <EditorContent editor={editor} />
+    </div>
+  );
+};
+export { Editor, TipTapEditor };

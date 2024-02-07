@@ -66,9 +66,11 @@ import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import LivestreamSettings from './Actions/LivestreamSettings';
 import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
-import Editor from './Editor';
+import { Editor, TipTapEditor } from './Editor';
 import LinkPreviews from './LinkPreviews';
 import Discard from './Post/Discard';
+import { get } from 'http';
+import getEditor from './Editor/Editor';
 
 const Attachment = dynamic(
   () => import('@components/Composer/Actions/Attachment'),
@@ -281,7 +283,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       publication_reference_module: selectedReferenceModule,
       publication_reference_module_degrees_of_separation:
         selectedReferenceModule ===
-        ReferenceModuleType.DegreesOfSeparationReferenceModule
+          ReferenceModuleType.DegreesOfSeparationReferenceModule
           ? degreesOfSeparation
           : null,
       quote_on: isQuote ? quotedPublication?.id : null
@@ -375,8 +377,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
       if (publicationContent.length === 0 && attachments.length === 0) {
         return setPublicationContentError(
-          `${
-            isComment ? 'Comment' : isQuote ? 'Quote' : 'Post'
+          `${isComment ? 'Comment' : isQuote ? 'Quote' : 'Post'
           } should not be empty!`
         );
       }
@@ -410,12 +411,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           attributes: [
             ...(pollId
               ? [
-                  {
-                    key: 'pollId',
-                    type: MetadataAttributeType.STRING,
-                    value: pollId
-                  }
-                ]
+                {
+                  key: 'pollId',
+                  type: MetadataAttributeType.STRING,
+                  value: pollId
+                }
+              ]
               : [])
           ]
         }),
@@ -498,16 +499,16 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         ...(onlyFollowers && {
           referenceModule:
             selectedReferenceModule ===
-            ReferenceModuleType.FollowerOnlyReferenceModule
+              ReferenceModuleType.FollowerOnlyReferenceModule
               ? { followerOnlyReferenceModule: true }
               : {
-                  degreesOfSeparationReferenceModule: {
-                    commentsRestricted: true,
-                    degreesOfSeparation,
-                    mirrorsRestricted: true,
-                    quotesRestricted: true
-                  }
+                degreesOfSeparationReferenceModule: {
+                  commentsRestricted: true,
+                  degreesOfSeparation,
+                  mirrorsRestricted: true,
+                  quotesRestricted: true
                 }
+              }
         })
       };
 
@@ -568,7 +569,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   const isSubmitDisabledByPoll = showPollEditor
     ? !pollConfig.options.length ||
-      pollConfig.options.some((option) => !option.length)
+    pollConfig.options.some((option) => !option.length)
     : false;
 
   const onDiscardClick = () => {
@@ -592,7 +593,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     resetOpenActionSettings();
     setLicense(null);
   });
-
+const titpaEditor = getEditor({ showPollEditor });
   return (
     <Card
       className={cn(
@@ -609,6 +610,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         />
       ) : null}
       <Editor />
+      <TipTapEditor editor={undefined} />
       {publicationContentError ? (
         <div className="mt-1 px-5 pb-3 text-sm font-bold text-red-500">
           {publicationContentError}

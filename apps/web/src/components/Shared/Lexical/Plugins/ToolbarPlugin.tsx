@@ -11,6 +11,8 @@ import {
 } from 'lexical';
 import { useCallback, useState } from 'react';
 import { useUpdateEffect } from 'usehooks-ts';
+import { Editor } from '@tiptap/react';
+import { set } from 'idb-keyval';
 
 const ToolbarPlugin: FC = () => {
   const [editor] = useLexicalComposerContext();
@@ -76,4 +78,54 @@ const ToolbarPlugin: FC = () => {
   );
 };
 
-export default ToolbarPlugin;
+
+interface TiTapToolbarProps {
+  editor: Editor;
+}
+
+const TiTapToolbar: FC<TiTapToolbarProps> = ({ editor }) => {
+
+  const [isBold, setIsBold] = useState(false);
+  const [isItalic, setIsItalic] = useState(false);
+  const [isCode, setIsCode] = useState(false);
+
+  return (
+    <div className="toolbar-icons divider flex items-center space-x-1 px-5 py-2">
+      <button
+        className={cn(isBold && 'bg-brand-100', 'outline-brand-500')}
+        onClick={() => {
+          editor.commands.toggleBold()
+          setIsBold(!isBold);
+        }}
+        title="Bold"
+        type="button"
+      >
+        <i className="toolbar-icon bold text-brand-500" />
+      </button>
+      <button
+        className={cn(isItalic && 'bg-brand-100', 'outline-brand-500')}
+        onClick={() => {
+          editor.commands.toggleItalic()
+          setIsItalic(!isItalic);
+        }}
+        title="Italic"
+        type="button"
+      >
+        <i className="toolbar-icon italic" />
+      </button>
+      <button
+        className={cn(isCode && 'bg-brand-100', 'outline-brand-500')}
+        onClick={() => {
+          editor.commands.toggleCode()
+          setIsCode(!isCode);
+        }}
+        title="Code"
+        type="button"
+      >
+        <i className="toolbar-icon code" />
+      </button>
+    </div>
+  );
+};
+
+export  { ToolbarPlugin, TiTapToolbar };
