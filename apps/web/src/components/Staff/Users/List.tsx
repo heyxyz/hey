@@ -12,6 +12,7 @@ import {
 } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { Card, EmptyState, ErrorMessage, Select } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -32,6 +33,7 @@ const List: FC = () => {
   };
 
   const { data, error, fetchMore, loading, refetch } = useExploreProfilesQuery({
+    notifyOnNetworkStatusChange: true,
     variables: { request }
   });
 
@@ -71,7 +73,7 @@ const List: FC = () => {
           }))}
         />
         <button onClick={() => refetch()} type="button">
-          <ArrowPathIcon className="size-5" />
+          <ArrowPathIcon className={cn(loading && 'animate-spin', 'size-5')} />
         </button>
       </div>
       <div className="divider" />
