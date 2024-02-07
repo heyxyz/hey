@@ -31,7 +31,7 @@ export const get: Handler = async (req, res) => {
     ]);
 
     if (!group) {
-      return res.status(404).json({ error: 'Group not found', success: false });
+      return res.status(200).json({ error: 'Group not found', success: false });
     }
 
     const groupWithoutCount = { ...group, _count: undefined };

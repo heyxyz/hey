@@ -139,7 +139,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({
           }
         ]}
         icon={<DocumentTextIcon className="size-4" />}
-        label="Poor content"
+        label="Spam"
       />
       <ReportButton
         config={[
@@ -149,7 +149,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({
           }
         ]}
         icon={<BanknotesIcon className="size-4" />}
-        label="Stop Sponsor"
+        label="Un-sponsor"
       />
       <ReportButton
         config={[
@@ -163,7 +163,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({
           }
         ]}
         icon={<BanknotesIcon className="size-4" />}
-        label="Poor content & Stop Sponsor"
+        label="Both"
       />
       {ableToRemoveReport && (
         <Button
