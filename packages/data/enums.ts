@@ -13,6 +13,7 @@ export enum HomeFeedType {
 }
 export enum ModFeedType {
   LATEST = 'LATEST',
+  PROFILES = 'PROFILES',
   REPORTS = 'REPORTS'
 }
 
