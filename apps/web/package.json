@@ -15,7 +15,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@apollo/client": "^3.9.2",
+    "@apollo/client": "^3.9.3",
     "@aws-sdk/client-s3": "^3.507.0",
     "@aws-sdk/lib-storage": "^3.507.0",
     "@graphiql/toolkit": "^0.9.1",
@@ -71,10 +71,10 @@
     "strip-markdown": "^6.0.0",
     "urlcat": "^3.1.0",
     "use-resize-observer": "^9.1.0",
-    "usehooks-ts": "^2.12.1",
+    "usehooks-ts": "^2.13.0",
     "uuid": "^9.0.1",
     "viem": "^2.7.6",
-    "wagmi": "^2.5.5",
+    "wagmi": "^2.5.6",
     "zod": "^3.22.4",
     "zustand": "^4.5.0"
   },
