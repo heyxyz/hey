@@ -92,8 +92,6 @@ const List: FC = () => {
     useCreateChangeProfileManagersTypedDataMutation({
       onCompleted: async ({ createChangeProfileManagersTypedData }) => {
         const { id, typedData } = createChangeProfileManagersTypedData;
-        const signature = await signTypedDataAsync(getSignature(typedData));
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
         const {
           approvals,
           configNumber,
@@ -108,8 +106,11 @@ const List: FC = () => {
           configNumber,
           switchToGivenConfig
         ];
+        await handleWrongNetwork();
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
 
         if (canBroadcast) {
+          const signature = await signTypedDataAsync(getSignature(typedData));
           const { data } = await broadcastOnchain({
             variables: { request: { id, signature } }
           });
@@ -127,10 +128,6 @@ const List: FC = () => {
   const removeManager = async (address: Address) => {
     if (isSuspended) {
       return toast.error(Errors.Suspended);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
     }
 
     try {

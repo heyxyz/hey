@@ -39,6 +39,8 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
+import useHandleWrongNetwork from './useHandleWrongNetwork';
+
 interface CreatePublicationProps {
   commentOn?: AnyPublication;
   onCompleted: (status?: any) => void;
@@ -66,6 +68,7 @@ const useCreatePublication = ({
   );
   const txnQueue = useTransactionStore((state) => state.txnQueue);
   const setTxnQueue = useTransactionStore((state) => state.setTxnQueue);
+  const handleWrongNetwork = useHandleWrongNetwork();
   const { canBroadcast } = checkDispatcherPermissions(currentProfile);
 
   const isComment = Boolean(commentOn);
@@ -163,6 +166,7 @@ const useCreatePublication = ({
     isMomokaPublication = false
   ) => {
     const { id, typedData } = generatedData;
+    await handleWrongNetwork();
 
     if (canBroadcast) {
       const signature = await signTypedDataAsync(getSignature(typedData));
