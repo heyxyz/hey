@@ -111,6 +111,8 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
           configNumber,
           switchToGivenConfig
         ];
+        await handleWrongNetwork();
+
         try {
           if (!isTba && canBroadcast) {
             const signature = await signTypedDataAsync(getSignature(typedData));
@@ -142,10 +144,6 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
 
     if (isSuspended) {
       return toast.error(Errors.Suspended);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
     }
 
     try {

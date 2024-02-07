@@ -94,7 +94,6 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
     useCreateChangeProfileManagersTypedDataMutation({
       onCompleted: async ({ createChangeProfileManagersTypedData }) => {
         const { id, typedData } = createChangeProfileManagersTypedData;
-        const signature = await signTypedDataAsync(getSignature(typedData));
         const {
           approvals,
           configNumber,
@@ -109,8 +108,10 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
           configNumber,
           switchToGivenConfig
         ];
+        await handleWrongNetwork();
 
         if (!isTba && canBroadcast) {
+          const signature = await signTypedDataAsync(getSignature(typedData));
           const { data } = await broadcastOnchain({
             variables: { request: { id, signature } }
           });
@@ -128,10 +129,6 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   const toggleDispatcher = async () => {
     if (isSuspended) {
       return toast.error(Errors.Suspended);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
     }
 
     try {

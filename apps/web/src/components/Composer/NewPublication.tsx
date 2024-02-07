@@ -44,7 +44,6 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useCreatePoll from 'src/hooks/useCreatePoll';
 import useCreatePublication from 'src/hooks/useCreatePublication';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import usePublicationMetadata from 'src/hooks/usePublicationMetadata';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
@@ -180,6 +179,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const resetLiveVideoConfig = usePublicationLiveStore(
     (state) => state.resetLiveVideoConfig
   );
+
   const setLicense = usePublicationLicenseStore((state) => state.setLicense);
 
   // Collect module store
@@ -207,7 +207,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [editor] = useLexicalComposerContext();
   const createPoll = useCreatePoll();
   const getMetadata = usePublicationMetadata();
-  const handleWrongNetwork = useHandleWrongNetwork();
 
   const { canUseLensManager, isSponsored } =
     checkDispatcherPermissions(currentProfile);
@@ -352,10 +351,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
     if (isSuspended) {
       toast.error(Errors.Suspended);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
     }
 
     if (isComment && publication.momoka?.proof && !isSponsored) {

@@ -85,6 +85,7 @@ const UnlinkHandle: FC = () => {
     useCreateUnlinkHandleFromProfileTypedDataMutation({
       onCompleted: async ({ createUnlinkHandleFromProfileTypedData }) => {
         const { id, typedData } = createUnlinkHandleFromProfileTypedData;
+        await handleWrongNetwork();
 
         if (canBroadcast) {
           const signature = await signTypedDataAsync(getSignature(typedData));
@@ -133,10 +134,6 @@ const UnlinkHandle: FC = () => {
 
     if (isSuspended) {
       return toast.error(Errors.Suspended);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
     }
 
     try {

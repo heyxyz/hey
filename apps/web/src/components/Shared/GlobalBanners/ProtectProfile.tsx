@@ -60,16 +60,13 @@ const ProtectProfile: FC = () => {
   ).toISOString();
   const isCoolOffPassed = new Date(coolOffDate).getTime() < Date.now();
 
-  const handleProtect = () => {
+  const handleProtect = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
 
-    if (handleWrongNetwork()) {
-      return;
-    }
-
     try {
+      await handleWrongNetwork();
       return write();
     } catch (error) {
       onError(error);
