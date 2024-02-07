@@ -13,11 +13,15 @@ import Success from './Success';
 interface SignupState {
   screen: 'choose' | 'minting' | 'success';
   setScreen: (screen: 'choose' | 'minting' | 'success') => void;
+  setTransactionHash: (hash: string) => void;
+  transactionHash: string;
 }
 
 export const useSignupStore = create<SignupState>((set) => ({
   screen: 'choose',
-  setScreen: (screen) => set({ screen })
+  setScreen: (screen) => set({ screen }),
+  setTransactionHash: (hash) => set({ transactionHash: hash }),
+  transactionHash: ''
 }));
 
 const Signup: FC = () => {
