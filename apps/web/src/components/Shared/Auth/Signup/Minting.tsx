@@ -1,10 +1,23 @@
 import { Spinner } from '@hey/ui';
 import { type FC } from 'react';
+import { useUpdateEffect } from 'usehooks-ts';
+import { useTransactionReceipt } from 'wagmi';
 
 import { useSignupStore } from '.';
 
 const Minting: FC = () => {
   const setScreen = useSignupStore((state) => state.setScreen);
+  const transactionHash = useSignupStore((state) => state.transactionHash);
+
+  const { status } = useTransactionReceipt({
+    hash: transactionHash as `0x${string}`
+  });
+
+  useUpdateEffect(() => {
+    if (status === 'success') {
+      setScreen('success');
+    }
+  }, [status]);
 
   return (
     <div className="m-8 flex flex-col items-center justify-center">
@@ -13,9 +26,6 @@ const Minting: FC = () => {
         This will take a few seconds to a few minutes. Please be patient.
       </div>
       <Spinner className="mt-8" />
-      <button className="mt-5" onClick={() => setScreen('success')}>
-        take to success (debug)
-      </button>
     </div>
   );
 };
