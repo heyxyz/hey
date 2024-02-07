@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
+import List from '@components/Staff/Users/List';
 import { apps as knownApps } from '@hey/data/apps';
 import { APP_NAME } from '@hey/data/constants';
 import { ModFeedType } from '@hey/data/enums';
@@ -104,6 +105,7 @@ const Mod: NextPage = () => {
           />
         )}
         {feedType === ModFeedType.REPORTS && <ReportFeed />}
+        {feedType === ModFeedType.PROFILES && <List />}
       </GridItemEight>
       <GridItemFour>
         <Card className="p-5">
@@ -255,6 +257,7 @@ const Mod: NextPage = () => {
           {feedType === ModFeedType.REPORTS && (
             <div>Take action on reports</div>
           )}
+          {feedType === ModFeedType.PROFILES && <div>All the profiles</div>}
         </Card>
         <Footer />
       </GridItemFour>
