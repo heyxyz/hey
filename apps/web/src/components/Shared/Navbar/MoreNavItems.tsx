@@ -6,6 +6,7 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import MenuTransition from '../MenuTransition';
 import Bookmarks from './NavItems/Bookmarks';
+import CreateGroup from './NavItems/CreateGroup';
 import Support from './NavItems/Support';
 const MoreNavItems: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
@@ -40,6 +41,14 @@ const MoreNavItems: FC = () => {
                     }
                   >
                     <Bookmarks />
+                  </Menu.Item>
+                  <Menu.Item
+                    as="div"
+                    className={({ active }: { active: boolean }) =>
+                      cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
+                    }
+                  >
+                    <CreateGroup />
                   </Menu.Item>
                   <div className="divider" />
                 </>

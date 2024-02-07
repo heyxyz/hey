@@ -12,6 +12,7 @@ import {
 } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { Card, EmptyState, ErrorMessage, Select } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -19,11 +20,12 @@ import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
 const List: FC = () => {
-  const { push } = useRouter();
+  const { pathname, push } = useRouter();
   const [orderBy, setOrderBy] = useState<ExploreProfilesOrderByType>(
     ExploreProfilesOrderByType.LatestCreated
   );
   const [value, setValue] = useState('');
+  const [refetching, setRefetching] = useState(false);
 
   // Variables
   const request: ExploreProfilesRequest = {
@@ -49,12 +51,24 @@ const List: FC = () => {
     });
   };
 
+  const onRefetch = async () => {
+    setRefetching(true);
+    await refetch();
+    setRefetching(false);
+  };
+
   return (
     <Card>
       <div className="flex items-center justify-between space-x-5 p-5">
         <SearchProfiles
           onChange={(event) => setValue(event.target.value)}
-          onProfileSelected={(profile) => push(getProfile(profile).staffLink)}
+          onProfileSelected={(profile) =>
+            push(
+              pathname === '/mod'
+                ? getProfile(profile).link
+                : getProfile(profile).staffLink
+            )
+          }
           placeholder="Search profiles..."
           skipGardeners
           value={value}
@@ -70,8 +84,10 @@ const List: FC = () => {
             value: orderBy
           }))}
         />
-        <button onClick={() => refetch()} type="button">
-          <ArrowPathIcon className="size-5" />
+        <button onClick={onRefetch} type="button">
+          <ArrowPathIcon
+            className={cn(refetching && 'animate-spin', 'size-5')}
+          />
         </button>
       </div>
       <div className="divider" />
@@ -98,7 +114,13 @@ const List: FC = () => {
                   exit={{ opacity: 0 }}
                   initial={{ opacity: 0 }}
                 >
-                  <Link href={getProfile(profile as Profile).staffLink}>
+                  <Link
+                    href={
+                      pathname === '/mod'
+                        ? getProfile(profile as Profile).link
+                        : getProfile(profile as Profile).staffLink
+                    }
+                  >
                     <UserProfile
                       isBig
                       linkToProfile={false}

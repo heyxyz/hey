@@ -34,7 +34,6 @@ import { MetadataAttributeType } from '@lens-protocol/metadata';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import errorToast from '@lib/errorToast';
-import getTextNftUrl from '@lib/getTextNftUrl';
 import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
@@ -328,11 +327,14 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   });
 
   const getAnimationUrl = () => {
+    const fallback =
+      'ipfs://bafkreiaoua5s4iyg4gkfjzl6mzgenw4qw7mwgxj7zf7ev7gga72o5d3lf4';
+
     if (attachments.length > 0 || hasAudio || hasVideo) {
-      return attachments[0]?.uri;
+      return attachments[0]?.uri || fallback;
     }
 
-    return null;
+    return fallback;
   };
 
   const getTitlePrefix = () => {
@@ -382,14 +384,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       }
 
       setPublicationContentError('');
-      let textNftImageUrl;
-      if (!attachments.length && !useMomoka) {
-        textNftImageUrl = await getTextNftUrl(
-          publicationContent,
-          getProfile(currentProfile).slug,
-          new Date().toLocaleString()
-        );
-      }
 
       let pollId;
       if (showPollEditor) {
@@ -420,7 +414,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           ]
         }),
         marketplace: {
-          animation_url: getAnimationUrl() || textNftImageUrl,
+          animation_url: getAnimationUrl(),
           description: processedPublicationContent,
           external_url: `https://hey.xyz${getProfile(currentProfile).link}`,
           name: title
