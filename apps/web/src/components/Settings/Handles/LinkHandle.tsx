@@ -98,6 +98,7 @@ const LinkHandle: FC = () => {
       onCompleted: async ({ createLinkHandleToProfileTypedData }) => {
         const { id, typedData } = createLinkHandleToProfileTypedData;
         const signature = await signTypedDataAsync(getSignature(typedData));
+        await handleWrongNetwork();
         setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
 
         if (canBroadcast) {
@@ -143,10 +144,6 @@ const LinkHandle: FC = () => {
 
     if (isSuspended) {
       return toast.error(Errors.Suspended);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
     }
 
     const confirmation = confirm('Are you sure you want to link this handle?');

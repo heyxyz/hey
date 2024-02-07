@@ -48,17 +48,14 @@ const GuardianSettings: FC = () => {
     });
   };
 
-  const handleDisable = () => {
+  const handleDisable = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
 
-    if (handleWrongNetwork()) {
-      return;
-    }
-
     try {
       setIsLoading(true);
+      await handleWrongNetwork();
       return write();
     } catch (error) {
       onError(error);
