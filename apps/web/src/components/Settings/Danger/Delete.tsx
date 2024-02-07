@@ -52,17 +52,14 @@ const DeleteSettings: FC = () => {
     });
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
 
-    if (handleWrongNetwork()) {
-      return;
-    }
-
     try {
       setIsLoading(true);
+      await handleWrongNetwork();
       return write({ args: [currentProfile?.id] });
     } catch (error) {
       onError(error);
