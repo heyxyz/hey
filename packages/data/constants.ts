@@ -51,9 +51,6 @@ export const LENS_MEDIA_SNAPSHOT_URL =
 export const POLYGONSCAN_URL = IS_MAINNET
   ? 'https://polygonscan.com'
   : 'https://mumbai.polygonscan.com';
-export const RARIBLE_URL = IS_MAINNET
-  ? 'https://rarible.com'
-  : 'https://testnet.rarible.com';
 export const IPFS_GATEWAY = 'https://gw.ipfs-lens.dev/ipfs/';
 export const ARWEAVE_GATEWAY = 'https://gateway.irys.xyz/';
 export const EVER_API = 'https://endpoint.4everland.co';
