@@ -21,6 +21,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN } from 'src/constants';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { signIn } from 'src/store/persisted/useAuthStore';
 import { useAccount, useChainId, useDisconnect, useSignMessage } from 'wagmi';
 
@@ -28,6 +29,10 @@ import UserProfile from '../UserProfile';
 import WalletSelector from './WalletSelector';
 
 const Login: FC = () => {
+  const setShowAuthModal = useGlobalModalStateStore(
+    (state) => state.setShowAuthModal
+  );
+
   const [isLoading, setIsLoading] = useState(false);
   const [loggingInProfileId, setLoggingInProfileId] = useState<null | string>(
     null
@@ -85,7 +90,7 @@ const Login: FC = () => {
       const refreshToken = auth.data?.authenticate.refreshToken;
       signIn({ accessToken, refreshToken });
       Leafwatch.track(AUTH.SIWL);
-      location.reload();
+      setShowAuthModal(false);
     } catch {}
   };
 

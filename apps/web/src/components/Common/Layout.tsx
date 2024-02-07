@@ -6,16 +6,21 @@ import GlobalBanners from '@components/Shared/GlobalBanners';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
 import PageMetatags from '@components/Shared/PageMetatags';
 import { useCurrentProfileQuery } from '@hey/lens';
+import { useApolloClient } from '@hey/lens/apollo';
 import getCurrentSession from '@lib/getCurrentSession';
 import getToastOptions from '@lib/getToastOptions';
 import { useTheme } from 'next-themes';
 import { Toaster } from 'react-hot-toast';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
-import { hydrateAuthTokens, signOut } from 'src/store/persisted/useAuthStore';
+import {
+  hydrateAuthTokens,
+  signOut,
+  useAuthStore
+} from 'src/store/persisted/useAuthStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce, useIsMounted } from 'usehooks-ts';
+import { useEffectOnce, useIsMounted, useUpdateEffect } from 'usehooks-ts';
 import { isAddress } from 'viem';
 import { useDisconnect } from 'wagmi';
 
@@ -56,7 +61,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     disconnect?.();
   };
 
-  const { loading } = useCurrentProfileQuery({
+  const { loading, refetch: refetchProfile } = useCurrentProfileQuery({
     onCompleted: ({ profile, userSigNonces }) => {
       setCurrentProfile(profile as Profile);
       setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce);
@@ -82,6 +87,29 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   useEffectOnce(() => {
     validateAuthentication();
   });
+
+  const { accessToken, refreshToken } = useAuthStore((state) =>
+    state.hydrateAuthTokens()
+  );
+
+  const apolloClient = useApolloClient();
+
+  useUpdateEffect(() => {
+    const hasJustLoggedIn =
+      Boolean(accessToken && refreshToken) && !currentProfile;
+
+    if (!hasJustLoggedIn) {
+      return;
+    }
+
+    const initLoggedInState = async () => {
+      await refetchProfile();
+      await apolloClient.cache.reset();
+      await apolloClient.resetStore();
+    };
+
+    initLoggedInState();
+  }, [accessToken, refreshToken]);
 
   const profileLoading = !currentProfile && loading;
 
