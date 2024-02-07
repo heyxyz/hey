@@ -41,10 +41,7 @@ export const post: Handler = async (req, res) => {
       ticket: {
         assignee_email: 'yoginth@hey.com',
         comment: { body: message },
-        requester: {
-          email,
-          name: email
-        },
+        requester: { email, name: email },
         subject
       }
     });
