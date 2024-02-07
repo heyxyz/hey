@@ -7,11 +7,13 @@ import SmallUserProfileShimmer from './Shimmer/SmallUserProfileShimmer';
 import SmallUserProfile from './SmallUserProfile';
 
 interface UserProfileProps {
+  hideSlug?: boolean;
   id: string;
   linkToProfile?: boolean;
 }
 
 const LazySmallUserProfile: FC<UserProfileProps> = ({
+  hideSlug = false,
   id,
   linkToProfile = false
 }) => {
@@ -29,6 +31,7 @@ const LazySmallUserProfile: FC<UserProfileProps> = ({
 
   return (
     <SmallUserProfile
+      hideSlug={hideSlug}
       linkToProfile={linkToProfile}
       profile={data.profile as Profile}
       smallAvatar
