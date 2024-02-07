@@ -16,10 +16,10 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 import Slug from '../Slug';
 import AppVersion from './NavItems/AppVersion';
 import Bookmarks from './NavItems/Bookmarks';
+import CreateGroup from './NavItems/CreateGroup';
 import GardenerMode from './NavItems/GardenerMode';
 import Invites from './NavItems/Invites';
 import Logout from './NavItems/Logout';
-import Mod from './NavItems/Mod';
 import Pro from './NavItems/Pro';
 import Settings from './NavItems/Settings';
 import StaffMode from './NavItems/StaffMode';
@@ -89,12 +89,10 @@ const MobileDrawerMenu: FC = () => {
               className={cn(itemClass, 'px-4')}
               onClick={closeDrawer}
             />
-            {isFeatureAvailable(FeatureFlag.Gardener) ||
-            isFeatureAvailable(FeatureFlag.TrustedProfile) ? (
-              <Link href="/mod" onClick={closeDrawer}>
-                <Mod className={cn(itemClass, 'px-4')} />
-              </Link>
-            ) : null}
+            <CreateGroup
+              className={cn(itemClass, 'px-4')}
+              onClick={closeDrawer}
+            />
             <Invites className={cn(itemClass, 'px-4')} />
             {isFeatureAvailable('pro') && (
               <Link href="/pro" onClick={closeDrawer}>

@@ -4,6 +4,7 @@ import getEnvConfig from './utils/getEnvConfig';
 
 // Environments
 export const IS_PRODUCTION = process.env.NEXT_PUBLIC_IS_PRODUCTION === 'true';
+export const IS_PREVIEW = process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview';
 
 // Lens and Hey Env Config
 export const LENS_NETWORK = process.env.NEXT_PUBLIC_LENS_NETWORK || 'mainnet';
@@ -11,10 +12,11 @@ export const LENS_NETWORK = process.env.NEXT_PUBLIC_LENS_NETWORK || 'mainnet';
 export const LENS_API_URL = getEnvConfig().lensApiEndpoint;
 export const HEY_API_URL = IS_PRODUCTION
   ? getEnvConfig().heyApiEndpoint
-  : 'http://localhost:4784';
+  : 'http://192.168.0.104:4784';
 export const LENSHUB_PROXY = getEnvConfig().lensHubProxyAddress;
 export const TOKEN_HANDLE_REGISTRY = getEnvConfig().tokenHandleRegistry;
 export const PUBLICACT_PROXY = getEnvConfig().publicActProxyAddress;
+export const HEY_LENS_SIGNUP = getEnvConfig().heyLensSignup;
 export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 
 export const IS_MAINNET = LENS_API_URL === LensEndpoint.Mainnet;

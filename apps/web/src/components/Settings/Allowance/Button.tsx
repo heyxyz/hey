@@ -85,10 +85,6 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
     value: string,
     selectedModule: string
   ) => {
-    if (handleWrongNetwork()) {
-      return;
-    }
-
     try {
       const isUnknownModule =
         module.moduleName === OpenActionModuleType.UnknownOpenActionModule;
@@ -107,6 +103,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
           }
         }
       });
+      await handleWrongNetwork();
 
       return sendTransaction?.({
         account: data?.generateModuleCurrencyApprovalData.from,

@@ -165,6 +165,7 @@ const ProfileSettingsForm: FC = () => {
       onCompleted: async ({ createOnchainSetProfileMetadataTypedData }) => {
         const { id, typedData } = createOnchainSetProfileMetadataTypedData;
         const { metadataURI, profileId } = typedData.value;
+        await handleWrongNetwork();
 
         if (canBroadcast) {
           const signature = await signTypedDataAsync(getSignature(typedData));
@@ -229,10 +230,6 @@ const ProfileSettingsForm: FC = () => {
 
     if (isSuspended) {
       return toast.error(Errors.Suspended);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
     }
 
     try {
@@ -300,14 +297,6 @@ const ProfileSettingsForm: FC = () => {
   };
 
   const uploadAndSave = async (type: 'avatar' | 'cover') => {
-    if (!currentProfile) {
-      return toast.error(Errors.SignWallet);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
-    }
-
     try {
       const croppedImage = await getCroppedImg(
         type === 'avatar' ? profilePictureSrc : coverPictureSrc,
@@ -522,7 +511,7 @@ const ProfileSettingsForm: FC = () => {
           isLoading
             ? undefined
             : () => {
-                setCoverPictureSrc('');
+                setProfilePictureSrc('');
                 setShowProfilePictureCropModal(false);
               }
         }
