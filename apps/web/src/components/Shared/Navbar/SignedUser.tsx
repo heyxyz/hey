@@ -20,7 +20,6 @@ import AppVersion from './NavItems/AppVersion';
 import GardenerMode from './NavItems/GardenerMode';
 import Invites from './NavItems/Invites';
 import Logout from './NavItems/Logout';
-import Mod from './NavItems/Mod';
 import Pro from './NavItems/Pro';
 import Settings from './NavItems/Settings';
 import StaffMode from './NavItems/StaffMode';
@@ -117,18 +116,6 @@ const SignedUser: FC = () => {
             >
               <Settings />
             </Menu.Item>
-            {isFeatureAvailable(FeatureFlag.Gardener) ||
-            isFeatureAvailable(FeatureFlag.TrustedProfile) ? (
-              <Menu.Item
-                as={NextLink}
-                className={({ active }: { active: boolean }) =>
-                  cn({ 'dropdown-active': active }, 'menu-item')
-                }
-                href="/mod"
-              >
-                <Mod />
-              </Menu.Item>
-            ) : null}
             <Menu.Item
               as="div"
               className={({ active }: { active: boolean }) =>
