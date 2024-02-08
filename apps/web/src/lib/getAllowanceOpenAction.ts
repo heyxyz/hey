@@ -17,6 +17,9 @@ const getAllowanceOpenAction = (
     case VerifiedOpenActionModules.Tip:
       return { name: 'Tip Open Action' };
 
+    case VerifiedOpenActionModules.DecentNFT:
+      return { name: 'NFT Mint Open Action' };
+
     default:
       return { name: 'Unknown Open Action' };
   }
