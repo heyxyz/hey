@@ -55,6 +55,10 @@ export const PUBLICATION = {
   NEW_POST: 'New post',
   NEW_QUOTE: 'New quote',
   OPEN_ACTIONS: {
+    DECENT: {
+      OPEN_DECENT: 'Open decent.xyz open action modal',
+      TIP: 'Execute decent.xyz open action'
+    },
     TIP: {
       OPEN_TIP: 'Open tip modal',
       TIP: 'Tip publication'
