@@ -199,16 +199,14 @@ const Details: FC<DetailsProps> = ({ profile }) => {
             </MetaDetails>
           ) : null}
           <MetaDetails icon={<HashtagIcon className="size-4" />}>
-            <Tooltip content={`#${profile.id}`}>
-              <button
-                onClick={async () => {
-                  await navigator.clipboard.writeText(profile.id);
-                  toast.success(`ID ${profile.id} copied to clipboard`);
-                }}
-              >
-                {parseInt(profile.id)}
-              </button>
-            </Tooltip>
+            <button
+              onClick={async () => {
+                await navigator.clipboard.writeText(profile.id);
+                toast.success(`ID ${profile.id} copied to clipboard`);
+              }}
+            >
+              {parseInt(profile.id)}
+            </button>
           </MetaDetails>
           {getProfileAttribute('location', profile?.metadata?.attributes) ? (
             <MetaDetails icon={<MapPinIcon className="size-4" />}>
