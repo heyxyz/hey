@@ -1,6 +1,9 @@
 import type { FC } from 'react';
 
+import Loader from '@components/Shared/Loader';
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
+import { useGenerateLensApiRelayAddressQuery } from '@hey/lens';
+import { ErrorMessage } from '@hey/ui';
 import { CHAIN } from 'src/constants';
 import { useAccount, useChainId } from 'wagmi';
 import { create } from 'zustand';
@@ -30,9 +33,26 @@ export const useSignupStore = create<SignupState>((set) => ({
 
 const Signup: FC = () => {
   const screen = useSignupStore((state) => state.screen);
+  const setDelegatedExecutor = useSignupStore(
+    (state) => state.setDelegatedExecutor
+  );
 
   const chain = useChainId();
   const { connector: activeConnector } = useAccount();
+
+  const { error, loading } = useGenerateLensApiRelayAddressQuery({
+    fetchPolicy: 'no-cache',
+    onCompleted: (data) =>
+      setDelegatedExecutor(data.generateLensAPIRelayAddress)
+  });
+
+  if (loading) {
+    return <Loader message="Loading..." />;
+  }
+
+  if (error) {
+    return <ErrorMessage error={error} title="Failed to load relay address" />;
+  }
 
   return activeConnector?.id ? (
     <div className="space-y-2.5">
