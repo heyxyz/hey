@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: AGPL-3.0
 
 pragma solidity ^0.8.23;
 
@@ -22,6 +22,7 @@ interface IPermissonlessCreator {
 contract HeyLensSignup is Initializable, OwnableUpgradeable {
   IPermissonlessCreator public lensPermissionlessCreator;
   uint256 public signupPrice;
+  uint256 public profilesCreated;
 
   error InvalidFunds();
   error NotAllowed();
@@ -38,6 +39,7 @@ contract HeyLensSignup is Initializable, OwnableUpgradeable {
       _lensPermissionlessCreator
     );
     signupPrice = _signupPrice;
+    profilesCreated = 0;
   }
 
   function setSignupPrice(uint256 _signupPrice) external onlyOwner {
@@ -58,12 +60,21 @@ contract HeyLensSignup is Initializable, OwnableUpgradeable {
     }
 
     // Call the lensPermissionlessCreator to create a profile
-    return
-      lensPermissionlessCreator.createProfileWithHandleUsingCredits(
+    (profileId, handleId) = lensPermissionlessCreator
+      .createProfileWithHandleUsingCredits(
         createProfileParams,
         handle,
         delegatedExecutors
       );
+
+    // Increment the number of profiles created
+    profilesCreated += 1;
+
+    return (profileId, handleId);
+  }
+
+  function getProfilesCreated() external view returns (uint256) {
+    return profilesCreated;
   }
 
   function withdrawFunds() external onlyOwner {

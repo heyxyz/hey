@@ -5,7 +5,7 @@
 Try running some of the following tasks:
 
 ```sh
-npx hardhat compile
-npx hardhat run scripts/deploy.ts
+pnpm compile
+pnpm deploy
 npx hardhat verify <address> --network polygonMumbai
 ```
