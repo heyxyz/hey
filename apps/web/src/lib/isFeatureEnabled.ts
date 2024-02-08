@@ -9,15 +9,22 @@ import { hydrateFeatureFlags } from 'src/store/persisted/useFeatureFlagsStore';
  * @returns Whether the feature is enabled
  */
 const isFeatureEnabled = (key: KillSwitch | string) => {
+  console.log('yoginth before condition', IS_PRODUCTION, IS_PREVIEW);
   if (!IS_PRODUCTION || IS_PREVIEW) {
     return true;
   }
 
+  console.log('yoginth after condition', IS_PRODUCTION, IS_PREVIEW);
+
   const { killSwitches } = hydrateFeatureFlags();
+
+  console.log('yoginth killSwitches', killSwitches);
 
   if (!killSwitches) {
     return false;
   }
+
+  console.log('yoginth key', key, killSwitches.includes(key));
 
   return killSwitches.includes(key);
 };
