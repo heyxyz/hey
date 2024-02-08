@@ -23,10 +23,12 @@ import {
 } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
+import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { ReferenceModuleType } from '@hey/lens';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import collectModuleParams from '@hey/lib/collectModuleParams';
 import getProfile from '@hey/lib/getProfile';
+import getPublicationContentUrls from '@hey/lib/getPublicationContentUrls';
 import removeQuoteOn from '@hey/lib/removeQuoteOn';
 import { Button, Card, ErrorMessage, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -41,6 +43,7 @@ import uploadToArweave from '@lib/uploadToArweave';
 import { useUnmountEffect } from 'framer-motion';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
+import { detectAndReturnCalldata } from 'nft-openaction-kit';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useCreatePoll from 'src/hooks/useCreatePoll';
@@ -432,6 +435,31 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
       // Payload for the open action module
       const openActionModules = [];
+
+      // Flag to determine if open action module can be parsed from URL, if set Momoka will be disabled
+      let urlsWithParseableActions = false;
+
+      const publicationContentUrls =
+        getPublicationContentUrls(publicationContent);
+
+      // Embed action module for publications with URLs that have recognized actions
+      for (const publicationContentUrl of publicationContentUrls) {
+        try {
+          const calldata = await detectAndReturnCalldata(publicationContentUrl);
+          if (calldata) {
+            urlsWithParseableActions = true;
+            openActionModules.push({
+              unknownOpenAction: {
+                address: VerifiedOpenActionModules.DecentNFT,
+                data: calldata
+              }
+            });
+          }
+        } catch (error_) {
+          console.log(error_);
+        }
+      }
+
       if (collectModule.type) {
         openActionModules.push({
           collectOpenAction: collectModuleParams(collectModule, currentProfile)
@@ -452,7 +480,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         contentURI: `ar://${arweaveId}`
       };
 
-      if (useMomoka) {
+      if (useMomoka && !urlsWithParseableActions) {
         if (canUseLensManager) {
           if (isComment) {
             return await createCommentOnMomka(
