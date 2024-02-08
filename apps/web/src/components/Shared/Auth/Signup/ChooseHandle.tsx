@@ -9,11 +9,14 @@ import {
   HANDLE_PREFIX,
   HEY_LENS_SIGNUP,
   IS_MAINNET,
+  SIGNUP_PRICE,
   ZERO_ADDRESS
 } from '@hey/data/constants';
+import { AUTH } from '@hey/data/tracking';
 import { useProfileQuery } from '@hey/lens';
 import { Button, Input, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
+import { Leafwatch } from '@lib/leafwatch';
 import { type FC, useState } from 'react';
 import { parseEther } from 'viem';
 import { useAccount, useWriteContract } from 'wagmi';
@@ -38,6 +41,7 @@ const ChooseHandle: FC = () => {
     mutation: {
       onError: errorToast,
       onSuccess: (hash) => {
+        Leafwatch.track(AUTH.SIGNUP, { price: SIGNUP_PRICE });
         setTransactionHash(hash);
         setChoosedHandle(`${HANDLE_PREFIX}${handle}`);
         setScreen('minting');
@@ -60,7 +64,7 @@ const ChooseHandle: FC = () => {
         address: HEY_LENS_SIGNUP,
         args: [[address, ZERO_ADDRESS, '0x'], handle, [delegatedExecutor]],
         functionName: 'createProfileWithHandleUsingCredits',
-        value: parseEther('1')
+        value: parseEther(SIGNUP_PRICE.toString())
       });
     } catch (error) {
       errorToast(error);

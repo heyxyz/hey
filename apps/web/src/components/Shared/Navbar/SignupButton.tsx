@@ -18,7 +18,7 @@ const SignupButton: FC = () => {
       onClick={() => {
         setScreen('choose');
         setShowAuthModal(true, 'signup');
-        Leafwatch.track(AUTH.SIGNUP);
+        Leafwatch.track(AUTH.OPEN_SIGNUP);
       }}
       outline
       size="md"
