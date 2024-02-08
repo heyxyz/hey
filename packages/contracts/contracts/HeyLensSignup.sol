@@ -20,8 +20,8 @@ interface IPermissonlessCreator {
 }
 
 contract HeyLensSignup is Initializable, OwnableUpgradeable {
-  IPermissonlessCreator public permissonlessCreator;
-  uint256 public profileWithHandleCreationCost;
+  IPermissonlessCreator public lensPermissionlessCreator;
+  uint256 public signupPrice;
 
   error InvalidFunds();
   error NotAllowed();
@@ -29,18 +29,17 @@ contract HeyLensSignup is Initializable, OwnableUpgradeable {
 
   // Initializer instead of constructor for upgradeable contracts
   function initialize(
-    address _permissonlessCreator,
+    address _lensPermissionlessCreator,
+    uint256 _signupPrice,
     address owner
   ) public initializer {
     __Ownable_init(owner);
-    permissonlessCreator = IPermissonlessCreator(_permissonlessCreator);
-    profileWithHandleCreationCost = 1 ether;
+    lensPermissionlessCreator = IPermissonlessCreator(_lensPermissionlessCreator);
+    signupPrice = _signupPrice;
   }
 
-  function setSignupPrice(
-    uint256 _profileWithHandleCreationCost
-  ) external onlyOwner {
-    profileWithHandleCreationCost = _profileWithHandleCreationCost;
+  function setSignupPrice(uint256 _signupPrice) external onlyOwner {
+    signupPrice = _signupPrice;
   }
 
   function createProfileWithHandleUsingCredits(
@@ -48,7 +47,7 @@ contract HeyLensSignup is Initializable, OwnableUpgradeable {
     string calldata handle,
     address[] calldata delegatedExecutors
   ) external payable returns (uint256 profileId, uint256 handleId) {
-    if (msg.value != profileWithHandleCreationCost) {
+    if (msg.value != signupPrice) {
       revert InvalidFunds();
     }
 
@@ -56,9 +55,9 @@ contract HeyLensSignup is Initializable, OwnableUpgradeable {
       revert NotAllowed();
     }
 
-    // Call the permissonlessCreator to create a profile
+    // Call the lensPermissionlessCreator to create a profile
     return
-      permissonlessCreator.createProfileWithHandleUsingCredits(
+      lensPermissionlessCreator.createProfileWithHandleUsingCredits(
         createProfileParams,
         handle,
         delegatedExecutors
