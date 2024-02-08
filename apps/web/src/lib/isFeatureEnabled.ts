@@ -1,7 +1,7 @@
 import type { KillSwitch } from '@hey/data/feature-flags';
 
 import { IS_PREVIEW, IS_PRODUCTION } from '@hey/data/constants';
-import { hydrateFeatureFlags } from 'src/store/persisted/useFeatureFlagsStore';
+import { hydrateKillSwitches } from 'src/store/persisted/useFeatureFlagsStore';
 
 /**
  * Checks if a feature is enabled globally
@@ -13,7 +13,7 @@ const isFeatureEnabled = (key: KillSwitch | string) => {
     return true;
   }
 
-  const { killSwitches } = hydrateFeatureFlags();
+  const killSwitches = hydrateKillSwitches();
 
   if (!killSwitches) {
     return false;
