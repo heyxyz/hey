@@ -11,14 +11,18 @@ import Minting from './Minting';
 import Success from './Success';
 
 interface SignupState {
+  delegatedExecutor: string;
   screen: 'choose' | 'minting' | 'success';
+  setDelegatedExecutor: (executor: string) => void;
   setScreen: (screen: 'choose' | 'minting' | 'success') => void;
   setTransactionHash: (hash: string) => void;
   transactionHash: string;
 }
 
 export const useSignupStore = create<SignupState>((set) => ({
+  delegatedExecutor: '',
   screen: 'choose',
+  setDelegatedExecutor: (executor) => set({ delegatedExecutor: executor }),
   setScreen: (screen) => set({ screen }),
   setTransactionHash: (hash) => set({ transactionHash: hash }),
   transactionHash: ''

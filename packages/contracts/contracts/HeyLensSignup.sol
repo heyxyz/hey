@@ -11,7 +11,7 @@ struct CreateProfileParams {
   bytes followModuleInitData;
 }
 
-interface IPermissonlessCreator {
+interface IPermissionlessCreator {
   function createProfileWithHandleUsingCredits(
     CreateProfileParams calldata createProfileParams,
     string calldata handle,
@@ -20,7 +20,7 @@ interface IPermissonlessCreator {
 }
 
 contract HeyLensSignup is Initializable, OwnableUpgradeable {
-  IPermissonlessCreator public lensPermissionlessCreator;
+  IPermissionlessCreator public lensPermissionlessCreator;
   uint256 public signupPrice;
   uint256 public profilesCreated;
   mapping(uint256 => bool) public profileCreated;
@@ -38,7 +38,7 @@ contract HeyLensSignup is Initializable, OwnableUpgradeable {
     uint256 _signupPrice
   ) public initializer {
     __Ownable_init(owner);
-    lensPermissionlessCreator = IPermissonlessCreator(
+    lensPermissionlessCreator = IPermissionlessCreator(
       _lensPermissionlessCreator
     );
     signupPrice = _signupPrice;
