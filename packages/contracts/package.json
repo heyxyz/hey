@@ -3,10 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
-  "scripts": {
-    "compile": "hardhat compile",
-    "deploy": "hardhat run script/deploy.js"
-  },
   "devDependencies": {
     "@hey/config": "workspace:*",
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",
