@@ -38,11 +38,12 @@ export interface Nft {
   sourceUrl: string;
 }
 
-export type ButtonType = 'redirect' | 'submit';
+export type ButtonType = 'link' | 'submit';
 
 export interface Portal {
   buttons: {
     button: string;
+    target?: string;
     type: ButtonType;
   }[];
   image: string;
