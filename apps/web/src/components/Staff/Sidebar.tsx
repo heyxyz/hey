@@ -6,7 +6,8 @@ import {
   ClipboardIcon,
   CurrencyDollarIcon,
   NoSymbolIcon,
-  UserIcon
+  UserIcon,
+  UserPlusIcon
 } from '@heroicons/react/24/outline';
 
 const settingsSidebarItems = [
@@ -34,6 +35,11 @@ const settingsSidebarItems = [
     icon: <NoSymbolIcon className="size-4" />,
     title: 'Kill switches',
     url: '/staff/kill-switches'
+  },
+  {
+    icon: <UserPlusIcon className="size-4" />,
+    title: 'Signup contract',
+    url: '/staff/signup-contract'
   }
 ];
 
