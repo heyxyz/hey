@@ -4,13 +4,18 @@ import {
   FaceSmileIcon
 } from '@heroicons/react/24/outline';
 import { HeyLensSignup } from '@hey/abis';
-import { APP_NAME, HANDLE_PREFIX, HEY_LENS_SIGNUP } from '@hey/data/constants';
+import {
+  APP_NAME,
+  HANDLE_PREFIX,
+  HEY_LENS_SIGNUP,
+  ZERO_ADDRESS
+} from '@hey/data/constants';
 import { useProfileQuery } from '@hey/lens';
 import { Button, Input } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { type FC, useState } from 'react';
 import { parseEther } from 'viem';
-import { useWriteContract } from 'wagmi';
+import { useAccount, useWriteContract } from 'wagmi';
 
 import { useSignupStore } from '.';
 
@@ -21,6 +26,8 @@ const ChooseHandle: FC = () => {
   );
   const [handle, setHandle] = useState<null | string>(null);
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
+  const { address } = useAccount();
+
   const canCheck = Boolean(handle && handle.length > 3);
 
   const { writeContractAsync } = useWriteContract({
@@ -44,11 +51,7 @@ const ChooseHandle: FC = () => {
       abi: HeyLensSignup,
       address: HEY_LENS_SIGNUP,
       args: [
-        [
-          '0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF',
-          '0x0000000000000000000000000000000000000000',
-          '0x'
-        ],
+        [address, ZERO_ADDRESS, '0x'],
         handle,
         ['0x6C1e1bC39b13f9E0Af9424D76De899203F47755F']
       ],
