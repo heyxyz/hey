@@ -19,13 +19,13 @@ interface IPermissonlessCreator {
   ) external returns (uint256, uint256);
 }
 
-event ProfileCreated(uint256 profileId, uint256 handleId);
-
 contract HeyLensSignup is Initializable, OwnableUpgradeable {
   IPermissonlessCreator public lensPermissionlessCreator;
   uint256 public signupPrice;
   uint256 public profilesCreated;
-  mapping (uint256 => bool) public profileCreated;
+  mapping(uint256 => bool) public profileCreated;
+
+  event ProfileCreated(uint256 profileId, uint256 handleId);
 
   error InvalidFunds();
   error NotAllowed();
