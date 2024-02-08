@@ -7,6 +7,7 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 import EnableLensManager from './EnableLensManager';
 import HeyMembershipNft from './HeyMembershipNft';
 import SetProfile from './SetProfile';
+import StaffPicks from './StaffPicks';
 import Waitlist from './Waitlist';
 import WhoToFollow from './WhoToFollow';
 
@@ -29,7 +30,7 @@ const Sidebar: FC = () => {
         </>
       )}
       {/* Recommendations */}
-      {/* <StaffPicks /> */}
+      <StaffPicks />
       {loggedInWithProfile && <WhoToFollow />}
       <Footer />
     </>
