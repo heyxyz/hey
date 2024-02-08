@@ -2,7 +2,6 @@ import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
 import catchedError from 'src/lib/catchedError';
-import { SWR_CACHE_AGE_1_MIN_30_DAYS } from 'src/lib/constants';
 import prisma from 'src/lib/prisma';
 
 export const get: Handler = async (req, res) => {
@@ -14,13 +13,10 @@ export const get: Handler = async (req, res) => {
 
     logger.info('Kill switches fetched');
 
-    return res
-      .status(200)
-      .setHeader('Cache-Control', SWR_CACHE_AGE_1_MIN_30_DAYS)
-      .json({
-        result: data.map(({ key }) => key),
-        success: true
-      });
+    return res.status(200).json({
+      result: data.map(({ key }) => key),
+      success: true
+    });
   } catch (error) {
     return catchedError(res, error);
   }
