@@ -51,7 +51,7 @@ const ChooseHandle: FC = () => {
     return await writeContractAsync({
       abi: HeyLensSignup,
       address: HEY_LENS_SIGNUP,
-      args: [[address, ZERO_ADDRESS, '0x'], handle, ['delegatedExecutor']],
+      args: [[address, ZERO_ADDRESS, '0x'], handle, [delegatedExecutor]],
       functionName: 'createProfileWithHandleUsingCredits',
       value: parseEther('2')
     });
