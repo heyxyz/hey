@@ -2,13 +2,14 @@ import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { FeatureFlag } from '@hey/data/feature-flags';
+import { FeatureFlag, KillSwitch } from '@hey/data/feature-flags';
 import getAvatar from '@hey/lib/getAvatar';
 import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import isFeatureAvailable from '@lib/isFeatureAvailable';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import Link from 'next/link';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
@@ -93,7 +94,9 @@ const MobileDrawerMenu: FC = () => {
               className={cn(itemClass, 'px-4')}
               onClick={closeDrawer}
             />
-            <Invites className={cn(itemClass, 'px-4')} />
+            {isFeatureEnabled(KillSwitch.Invites) && (
+              <Invites className={cn(itemClass, 'px-4')} />
+            )}
             {isFeatureAvailable('pro') && (
               <Link href="/pro" onClick={closeDrawer}>
                 <Pro className={cn(itemClass, 'px-4')} />

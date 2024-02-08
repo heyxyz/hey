@@ -2,13 +2,14 @@ import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import { Menu } from '@headlessui/react';
-import { FeatureFlag } from '@hey/data/feature-flags';
+import { FeatureFlag, KillSwitch } from '@hey/data/feature-flags';
 import getAvatar from '@hey/lib/getAvatar';
 import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import isFeatureAvailable from '@lib/isFeatureAvailable';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
@@ -116,14 +117,16 @@ const SignedUser: FC = () => {
             >
               <Settings />
             </Menu.Item>
-            <Menu.Item
-              as="div"
-              className={({ active }: { active: boolean }) =>
-                cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
-              }
-            >
-              <Invites />
-            </Menu.Item>
+            {isFeatureEnabled(KillSwitch.Invites) && (
+              <Menu.Item
+                as="div"
+                className={({ active }: { active: boolean }) =>
+                  cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
+                }
+              >
+                <Invites />
+              </Menu.Item>
+            )}
             {isFeatureAvailable('pro') && (
               <Menu.Item
                 as={NextLink}
