@@ -8,6 +8,7 @@ import {
   APP_NAME,
   HANDLE_PREFIX,
   HEY_LENS_SIGNUP,
+  IS_MAINNET,
   ZERO_ADDRESS
 } from '@hey/data/constants';
 import { useProfileQuery } from '@hey/lens';
@@ -98,7 +99,7 @@ const ChooseHandle: FC = () => {
           disabled={!canCheck || !isAvailable}
           onClick={handleMint}
         >
-          Mint for 10 MATIC
+          Mint for {IS_MAINNET ? '10' : '1'} MATIC
         </Button>
       </div>
     </div>
