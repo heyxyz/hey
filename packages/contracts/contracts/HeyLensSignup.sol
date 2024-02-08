@@ -19,10 +19,13 @@ interface IPermissonlessCreator {
   ) external returns (uint256, uint256);
 }
 
+event ProfileCreated(uint256 profileId, uint256 handleId);
+
 contract HeyLensSignup is Initializable, OwnableUpgradeable {
   IPermissonlessCreator public lensPermissionlessCreator;
   uint256 public signupPrice;
   uint256 public profilesCreated;
+  mapping (uint256 => bool) public profileCreated;
 
   error InvalidFunds();
   error NotAllowed();
@@ -67,14 +70,14 @@ contract HeyLensSignup is Initializable, OwnableUpgradeable {
         delegatedExecutors
       );
 
-    // Increment the number of profiles created
-    profilesCreated += 1;
+    // Mark the profile as created
+    profileCreated[profileId] = true;
+    profilesCreated++;
+
+    // Emit the event to signal that a profile has been successfully created
+    emit ProfileCreated(profileId, handleId);
 
     return (profileId, handleId);
-  }
-
-  function getProfilesCreated() external view returns (uint256) {
-    return profilesCreated;
   }
 
   function withdrawFunds() external onlyOwner {
