@@ -23,6 +23,7 @@ import { useSignupStore } from '.';
 const ChooseHandle: FC = () => {
   const delegatedExecutor = useSignupStore((state) => state.delegatedExecutor);
   const setScreen = useSignupStore((state) => state.setScreen);
+  const setChoosedHandle = useSignupStore((state) => state.setChoosedHandle);
   const setTransactionHash = useSignupStore(
     (state) => state.setTransactionHash
   );
@@ -37,6 +38,7 @@ const ChooseHandle: FC = () => {
       onError: errorToast,
       onSuccess: (hash) => {
         setTransactionHash(hash);
+        setChoosedHandle(`${HANDLE_PREFIX}${handle}`);
         setScreen('minting');
       }
     }
@@ -54,7 +56,7 @@ const ChooseHandle: FC = () => {
       address: HEY_LENS_SIGNUP,
       args: [[address, ZERO_ADDRESS, '0x'], handle, [delegatedExecutor]],
       functionName: 'createProfileWithHandleUsingCredits',
-      value: parseEther('2')
+      value: parseEther('1')
     });
   };
 
