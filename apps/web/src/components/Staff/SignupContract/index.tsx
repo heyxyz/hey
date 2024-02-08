@@ -3,7 +3,7 @@ import type { NextPage } from 'next';
 import MetaTags from '@components/Common/MetaTags';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Custom404 from 'src/pages/404';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
@@ -11,16 +11,17 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import StaffSidebar from '../Sidebar';
-import List from './List';
+import Balance from './Balance';
+import ProfilesCreated from './ProfilesCreated';
 
-const KillSwitches: NextPage = () => {
+const SignupContract: NextPage = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, {
       page: 'staff-tools',
-      subpage: 'kill-switches'
+      subpage: 'singup-contract'
     });
   });
 
@@ -30,15 +31,22 @@ const KillSwitches: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Staff Tools • Kill Switches • ${APP_NAME}`} />
+      <MetaTags title={`Staff Tools • Signup Contract • ${APP_NAME}`} />
       <GridItemFour>
         <StaffSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        <List />
+        <Card>
+          <div className="p-5 text-lg font-bold">Signup Contract</div>
+          <div className="divider" />
+          <div className="space-y-5 p-5">
+            <ProfilesCreated />
+            <Balance />
+          </div>
+        </Card>
       </GridItemEight>
     </GridLayout>
   );
 };
 
-export default KillSwitches;
+export default SignupContract;
