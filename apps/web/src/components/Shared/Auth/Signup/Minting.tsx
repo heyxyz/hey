@@ -21,7 +21,7 @@ const Minting: FC = () => {
         setScreen('success');
       }
     },
-    pollInterval: 5000,
+    pollInterval: 3000,
     skip: !transactionHash,
     variables: { request: { forHandle: choosedHandle } }
   });
