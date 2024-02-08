@@ -12,7 +12,7 @@ import {
   ZERO_ADDRESS
 } from '@hey/data/constants';
 import { useProfileQuery } from '@hey/lens';
-import { Button, Input } from '@hey/ui';
+import { Button, Input, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { type FC, useState } from 'react';
 import { parseEther } from 'viem';
@@ -29,6 +29,7 @@ const ChooseHandle: FC = () => {
   );
   const [handle, setHandle] = useState<null | string>(null);
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
+  const [loading, setLoading] = useState(false);
   const { address } = useAccount();
 
   const canCheck = Boolean(handle && handle.length > 3);
@@ -51,13 +52,21 @@ const ChooseHandle: FC = () => {
   });
 
   const handleMint = async () => {
-    return await writeContractAsync({
-      abi: HeyLensSignup,
-      address: HEY_LENS_SIGNUP,
-      args: [[address, ZERO_ADDRESS, '0x'], handle, [delegatedExecutor]],
-      functionName: 'createProfileWithHandleUsingCredits',
-      value: parseEther('1')
-    });
+    try {
+      setLoading(true);
+
+      return await writeContractAsync({
+        abi: HeyLensSignup,
+        address: HEY_LENS_SIGNUP,
+        args: [[address, ZERO_ADDRESS, '0x'], handle, [delegatedExecutor]],
+        functionName: 'createProfileWithHandleUsingCredits',
+        value: parseEther('1')
+      });
+    } catch (error) {
+      errorToast(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -97,8 +106,21 @@ const ChooseHandle: FC = () => {
           )}
         </div>
         <Button
-          className="w-full"
-          disabled={!canCheck || !isAvailable}
+          className="w-full justify-center"
+          disabled={!canCheck || !isAvailable || loading}
+          icon={
+            loading ? (
+              <Spinner className="mr-0.5" size="xs" />
+            ) : (
+              <img
+                alt="Lens Logo"
+                className="h-3"
+                height={12}
+                src="/lens.svg"
+                width={19}
+              />
+            )
+          }
           onClick={handleMint}
         >
           Mint for {IS_MAINNET ? '10' : '1'} MATIC
