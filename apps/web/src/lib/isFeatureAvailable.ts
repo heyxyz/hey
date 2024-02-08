@@ -16,7 +16,7 @@ const isFeatureAvailable = (key: FeatureFlag | string) => {
   }
 
   const { id: sessionProfileId } = getCurrentSession();
-  const { featureFlags } = hydrateFeatureFlags();
+  const featureFlags = hydrateFeatureFlags();
 
   if (!sessionProfileId) {
     return false;
