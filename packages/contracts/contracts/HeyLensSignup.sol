@@ -29,12 +29,14 @@ contract HeyLensSignup is Initializable, OwnableUpgradeable {
 
   // Initializer instead of constructor for upgradeable contracts
   function initialize(
+    address owner,
     address _lensPermissionlessCreator,
-    uint256 _signupPrice,
-    address owner
+    uint256 _signupPrice
   ) public initializer {
     __Ownable_init(owner);
-    lensPermissionlessCreator = IPermissonlessCreator(_lensPermissionlessCreator);
+    lensPermissionlessCreator = IPermissonlessCreator(
+      _lensPermissionlessCreator
+    );
     signupPrice = _signupPrice;
   }
 
