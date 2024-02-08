@@ -20,6 +20,7 @@ import { useAccount, useWriteContract } from 'wagmi';
 import { useSignupStore } from '.';
 
 const ChooseHandle: FC = () => {
+  const delegatedExecutor = useSignupStore((state) => state.delegatedExecutor);
   const setScreen = useSignupStore((state) => state.setScreen);
   const setTransactionHash = useSignupStore(
     (state) => state.setTransactionHash
@@ -50,11 +51,7 @@ const ChooseHandle: FC = () => {
     return await writeContractAsync({
       abi: HeyLensSignup,
       address: HEY_LENS_SIGNUP,
-      args: [
-        [address, ZERO_ADDRESS, '0x'],
-        handle,
-        ['0x6C1e1bC39b13f9E0Af9424D76De899203F47755F']
-      ],
+      args: [[address, ZERO_ADDRESS, '0x'], handle, ['delegatedExecutor']],
       functionName: 'createProfileWithHandleUsingCredits',
       value: parseEther('2')
     });
