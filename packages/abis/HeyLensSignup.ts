@@ -47,6 +47,25 @@ export const HeyLensSignup = [
     type: 'event'
   },
   {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'profileId',
+        type: 'uint256'
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'handleId',
+        type: 'uint256'
+      }
+    ],
+    name: 'ProfileCreated',
+    type: 'event'
+  },
+  {
     inputs: [
       {
         components: [
@@ -75,16 +94,30 @@ export const HeyLensSignup = [
   },
   {
     inputs: [
+      { internalType: 'address', name: 'owner', type: 'address' },
       {
         internalType: 'address',
-        name: '_permissonlessCreator',
+        name: '_lensPermissionlessCreator',
         type: 'address'
       },
-      { internalType: 'address', name: 'owner', type: 'address' }
+      { internalType: 'uint256', name: '_signupPrice', type: 'uint256' }
     ],
     name: 'initialize',
     outputs: [],
     stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'lensPermissionlessCreator',
+    outputs: [
+      {
+        internalType: 'contract IPermissionlessCreator',
+        name: '',
+        type: 'address'
+      }
+    ],
+    stateMutability: 'view',
     type: 'function'
   },
   {
@@ -95,21 +128,15 @@ export const HeyLensSignup = [
     type: 'function'
   },
   {
-    inputs: [],
-    name: 'permissonlessCreator',
-    outputs: [
-      {
-        internalType: 'contract IPermissonlessCreator',
-        name: '',
-        type: 'address'
-      }
-    ],
+    inputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    name: 'profileCreated',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
     inputs: [],
-    name: 'profileWithHandleCreationCost',
+    name: 'profilesCreated',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function'
@@ -119,6 +146,22 @@ export const HeyLensSignup = [
     name: 'renounceOwnership',
     outputs: [],
     stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'uint256', name: '_signupPrice', type: 'uint256' }
+    ],
+    name: 'setSignupPrice',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'signupPrice',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
     type: 'function'
   },
   {
