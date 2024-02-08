@@ -30,7 +30,7 @@ export const useSignupStore = create<SignupState>((set) => ({
   choosedHandle: '',
   delegatedExecutor: '',
   profileId: '',
-  screen: 'choose',
+  screen: 'success',
   setChoosedHandle: (handle) => set({ choosedHandle: handle }),
   setDelegatedExecutor: (executor) => set({ delegatedExecutor: executor }),
   setProfileId: (id) => set({ profileId: id }),

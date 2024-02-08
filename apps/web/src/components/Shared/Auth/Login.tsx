@@ -84,7 +84,7 @@ const Login: FC = () => {
       const accessToken = auth.data?.authenticate.accessToken;
       const refreshToken = auth.data?.authenticate.refreshToken;
       signIn({ accessToken, refreshToken });
-      Leafwatch.track(AUTH.SIWL);
+      Leafwatch.track(AUTH.SIWL, { profile_id: id, source: 'login' });
       location.reload();
     } catch {}
   };
