@@ -50,10 +50,10 @@ const ChooseHandle: FC = () => {
           '0x'
         ],
         handle,
-        ['0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF']
+        ['0x6C1e1bC39b13f9E0Af9424D76De899203F47755F']
       ],
       functionName: 'createProfileWithHandleUsingCredits',
-      value: parseEther('1')
+      value: parseEther('2')
     });
   };
 

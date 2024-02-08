@@ -1,0 +1,11 @@
+{
+  "name": "@hey/contracts",
+  "devDependencies": {
+    "@hey/config": "workspace:*",
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@openzeppelin/contracts": "^5.0.1",
+    "@openzeppelin/contracts-upgradeable": "^5.0.1",
+    "@openzeppelin/hardhat-upgrades": "^3.0.3",
+    "hardhat": "^2.19.5"
+  }
+}
