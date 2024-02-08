@@ -1,16 +1,7 @@
-import type {
-  LastLoggedInProfileRequest,
-  ProfileManagersRequest
-} from '@hey/lens';
-
 import { Errors } from '@hey/data';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { AUTH } from '@hey/data/tracking';
-import {
-  useAuthenticateMutation,
-  useChallengeLazyQuery,
-  useProfilesManagedQuery
-} from '@hey/lens';
+import { useAuthenticateMutation, useChallengeLazyQuery } from '@hey/lens';
 import { Button, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
@@ -34,15 +25,6 @@ const Success: FC = () => {
 
   const { signMessageAsync } = useSignMessage({ mutation: { onError } });
 
-  const request: LastLoggedInProfileRequest | ProfileManagersRequest = {
-    for: address
-  };
-  const { data, error, loading } = useProfilesManagedQuery({
-    variables: {
-      lastLoggedInProfileRequest: request,
-      profilesManagedRequest: request
-    }
-  });
   const [loadChallenge] = useChallengeLazyQuery({
     fetchPolicy: 'no-cache'
   });
