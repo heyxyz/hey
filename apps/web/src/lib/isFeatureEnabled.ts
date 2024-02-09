@@ -1,7 +1,7 @@
 import type { KillSwitch } from '@hey/data/feature-flags';
 
 import { IS_PREVIEW, IS_PRODUCTION } from '@hey/data/constants';
-import { hydrateKillSwitches } from 'src/store/persisted/useFeatureFlagsStore';
+import { hydrateKillSwitches } from 'src/store/persisted/useKillSwitchesStore';
 
 /**
  * Checks if a feature is enabled globally
