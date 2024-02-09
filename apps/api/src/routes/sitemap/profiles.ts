@@ -3,7 +3,7 @@ import type { Handler } from 'express';
 import logger from '@hey/lib/logger';
 import { XMLBuilder } from 'fast-xml-parser';
 import catchedError from 'src/lib/catchedError';
-import { SWR_CACHE_AGE_1_MIN_30_DAYS } from 'src/lib/constants';
+import { SWR_CACHE_AGE_1_SEC_30_DAYS } from 'src/lib/constants';
 import { noBody } from 'src/lib/responses';
 
 export const config = {
@@ -60,7 +60,7 @@ export const get: Handler = async (req, res) => {
     return res
       .status(200)
       .setHeader('Content-Type', 'text/xml')
-      .setHeader('Cache-Control', SWR_CACHE_AGE_1_MIN_30_DAYS)
+      .setHeader('Cache-Control', SWR_CACHE_AGE_1_SEC_30_DAYS)
       .send(xml);
   } catch (error) {
     return catchedError(res, error);
