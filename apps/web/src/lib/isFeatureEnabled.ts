@@ -1,6 +1,6 @@
 import type { KillSwitch } from '@hey/data/kill-switches';
 
-import { hydrateKillSwitches } from 'src/store/persisted/useKillSwitchesStore';
+import { enabledKillSwitches } from '@hey/data/kill-switches';
 
 /**
  * Checks if a feature is enabled globally
@@ -8,9 +8,7 @@ import { hydrateKillSwitches } from 'src/store/persisted/useKillSwitchesStore';
  * @returns Whether the feature is enabled
  */
 const isFeatureEnabled = (key: KillSwitch) => {
-  const { killSwitches } = hydrateKillSwitches();
-
-  return killSwitches.includes(key);
+  return enabledKillSwitches.includes(key);
 };
 
 export default isFeatureEnabled;
