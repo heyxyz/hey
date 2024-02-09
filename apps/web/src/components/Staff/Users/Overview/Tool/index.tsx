@@ -151,6 +151,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           <Rank
             address={profile.ownedBy.address}
             handle={profile.handle?.localName}
+            lensClassifierScore={profile.stats.lensClassifierScore}
             profileId={profile.id}
           />
           <div className="divider my-5 border-dashed border-yellow-600" />
