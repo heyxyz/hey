@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { KillSwitch } from '@hey/data/feature-flags';
+import { KillSwitch } from '@hey/data/kill-switches';
 import getCurrentSession from '@lib/getCurrentSession';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import Link from 'next/link';
