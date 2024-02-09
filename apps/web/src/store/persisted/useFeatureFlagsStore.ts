@@ -8,12 +8,9 @@ interface FeatureFlagsState {
   featureFlags: string[];
   gardenerMode: boolean;
   hydrateFeatureFlags: () => string[];
-  hydrateKillSwitches: () => string[];
-  killSwitches: string[];
   resetFeatureFlags: () => void;
   setFeatureFlags: (featureFlags: string[]) => void;
   setGardenerMode: (gardenerMode: boolean) => void;
-  setKillSwitches: (killSwitches: string[]) => void;
   setStaffMode: (staffMode: boolean) => void;
   setTrusted: (trusted: boolean) => void;
   staffMode: boolean;
@@ -26,8 +23,6 @@ export const useFeatureFlagsStore = create(
       featureFlags: [],
       gardenerMode: false,
       hydrateFeatureFlags: () => get().featureFlags,
-      hydrateKillSwitches: () => get().killSwitches,
-      killSwitches: [],
       resetFeatureFlags: () =>
         set(() => ({
           featureFlags: [],
@@ -36,7 +31,6 @@ export const useFeatureFlagsStore = create(
         })),
       setFeatureFlags: (featureFlags) => set(() => ({ featureFlags })),
       setGardenerMode: (gardenerMode) => set(() => ({ gardenerMode })),
-      setKillSwitches: (killSwitches) => set(() => ({ killSwitches })),
       setStaffMode: (staffMode) => set(() => ({ staffMode })),
       setTrusted: (trusted) => set(() => ({ trusted })),
       staffMode: false,
@@ -51,5 +45,3 @@ export const useFeatureFlagsStore = create(
 
 export const hydrateFeatureFlags = () =>
   useFeatureFlagsStore.getState().hydrateFeatureFlags();
-export const hydrateKillSwitches = () =>
-  useFeatureFlagsStore.getState().hydrateKillSwitches();

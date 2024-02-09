@@ -3,10 +3,10 @@ import type { FC } from 'react';
 import { HEY_API_URL } from '@hey/data/constants';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
+import { useKillSwitchesStore } from 'src/store/persisted/useKillSwitchesStore';
 
 const KillSwitchProvider: FC = () => {
-  const setKillSwitches = useFeatureFlagsStore(
+  const setKillSwitches = useKillSwitchesStore(
     (state) => state.setKillSwitches
   );
 
