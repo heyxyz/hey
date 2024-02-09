@@ -13,8 +13,7 @@ export const get: Handler = async (req, res) => {
 
   try {
     const data = await prisma.feature.findMany({
-      orderBy: { priority: 'desc' },
-      where: { NOT: { type: 'KILL_SWITCH' } }
+      orderBy: { priority: 'desc' }
     });
     logger.info('All features fetched');
 
