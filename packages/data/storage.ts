@@ -12,7 +12,6 @@ export const IndexDB = {
   AlgorithmStore: 'algorithm.store',
   FeaturedGroupsStore: 'featuredgroups.store',
   FeatureFlagsStore: 'featureflags.store',
-  KillSwitchesStore: 'killswitches.store',
   ProfileStore: 'profile.store',
   TBAStore: 'tba.store',
   VerifiedMembersStore: 'verifiedmembers.store'
