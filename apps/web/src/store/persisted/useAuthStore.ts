@@ -44,7 +44,8 @@ export const useAuthStore = create(
             value !== IndexDB.AlgorithmStore &&
             value !== IndexDB.VerifiedMembersStore &&
             value !== IndexDB.FeaturedGroupsStore &&
-            value !== IndexDB.TBAStore
+            value !== IndexDB.TBAStore &&
+            value !== IndexDB.KillSwitchesStore
         );
         await delMany(allIndexedDBStores);
       }
