@@ -1,4 +1,6 @@
-import { enabledKillSwitches, type KillSwitch } from '@hey/data/feature-flags';
+import type { KillSwitch } from '@hey/data/kill-switches';
+
+import { enabledKillSwitches } from '@hey/data/kill-switches';
 
 /**
  * Checks if a feature is enabled globally

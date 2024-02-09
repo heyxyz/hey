@@ -2,7 +2,8 @@ import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { FeatureFlag, KillSwitch } from '@hey/data/feature-flags';
+import { FeatureFlag } from '@hey/data/feature-flags';
+import { KillSwitch } from '@hey/data/kill-switches';
 import getAvatar from '@hey/lib/getAvatar';
 import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
