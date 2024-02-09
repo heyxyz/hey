@@ -10,7 +10,6 @@ import axios from 'axios';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import { useKillSwitchesStore } from 'src/store/persisted/useKillSwitchesStore';
 import { useVerifiedMembersStore } from 'src/store/persisted/useVerifiedMembersStore';
 import { isAddress } from 'viem';
 
@@ -30,9 +29,6 @@ const PreferencesProvider: FC = () => {
   );
   const setFeatureFlags = useFeatureFlagsStore(
     (state) => state.setFeatureFlags
-  );
-  const setKillSwitches = useKillSwitchesStore(
-    (state) => state.setKillSwitches
   );
   const setTrusted = useFeatureFlagsStore((state) => state.setTrusted);
   const setStaffMode = useFeatureFlagsStore((state) => state.setStaffMode);
@@ -101,23 +97,6 @@ const PreferencesProvider: FC = () => {
   useQuery({
     queryFn: fetchVerifiedMembers,
     queryKey: ['fetchVerifiedMembers']
-  });
-
-  // Fetch kill switches
-  const fetchKillSwitches = async () => {
-    try {
-      const response = await axios.get(`${HEY_API_URL}/misc/switches`);
-      const { data } = response;
-      setKillSwitches(data.result || []);
-      return true;
-    } catch {
-      return false;
-    }
-  };
-
-  useQuery({
-    queryFn: fetchKillSwitches,
-    queryKey: ['fetchKillSwitches']
   });
 
   return null;
