@@ -13,12 +13,12 @@ export const TRUSTED_PROFILE_FEATURE_ID =
 export const VERIFIED_FEATURE_ID = 'a0d6d247-50ef-419f-a045-54fa96054922';
 
 // Cache
-// Cache for 1 minute, stale for 30 days
-export const SWR_CACHE_AGE_1_MIN_30_DAYS =
+// Cache for 1 second, stale for 30 days
+export const SWR_CACHE_AGE_1_SEC_30_DAYS =
   'public, s-maxage=1, stale-while-revalidate=2592000';
-// Cache for 5 minutes, stale for 30 days
-export const SWR_CACHE_AGE_5_MINS_30_DAYS =
-  'public, s-maxage=300, stale-while-revalidate=2592000';
+// Cache for 20 seconds, stale for 30 days
+export const SWR_CACHE_AGE_20_SECONDS_30_DAYS =
+  'public, s-maxage=20, stale-while-revalidate=2592000';
 // Cache for 10 minutes, stale for 30 days
 export const SWR_CACHE_AGE_10_MINS_30_DAYS =
   'public, s-maxage=600, stale-while-revalidate=2592000';
