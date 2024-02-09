@@ -1,23 +1,30 @@
+import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
+import { POLYGONSCAN_URL } from '@hey/data/constants';
+import { useProfileQuery } from '@hey/lens';
 import { Spinner } from '@hey/ui';
+import Link from 'next/link';
 import { type FC } from 'react';
-import { useUpdateEffect } from 'usehooks-ts';
-import { useTransactionReceipt } from 'wagmi';
 
 import { useSignupStore } from '.';
 
 const Minting: FC = () => {
   const setScreen = useSignupStore((state) => state.setScreen);
+  const setProfileId = useSignupStore((state) => state.setProfileId);
+  const choosedHandle = useSignupStore((state) => state.choosedHandle);
   const transactionHash = useSignupStore((state) => state.transactionHash);
 
-  const { status } = useTransactionReceipt({
-    hash: transactionHash as `0x${string}`
+  useProfileQuery({
+    notifyOnNetworkStatusChange: true,
+    onCompleted: (data) => {
+      if (data.profile) {
+        setProfileId(data.profile.id);
+        setScreen('success');
+      }
+    },
+    pollInterval: 3000,
+    skip: !transactionHash,
+    variables: { request: { forHandle: choosedHandle } }
   });
-
-  useUpdateEffect(() => {
-    if (status === 'success') {
-      setScreen('success');
-    }
-  }, [status]);
 
   return (
     <div className="m-8 flex flex-col items-center justify-center">
@@ -26,6 +33,14 @@ const Minting: FC = () => {
         This will take a few seconds to a few minutes. Please be patient.
       </div>
       <Spinner className="mt-8" />
+      <Link
+        className="mt-5 flex items-center space-x-1 text-sm underline"
+        href={`${POLYGONSCAN_URL}/tx/${transactionHash}`}
+        target="_blank"
+      >
+        <span>View transaction</span>
+        <ArrowTopRightOnSquareIcon className="size-4" />
+      </Link>
     </div>
   );
 };

@@ -89,9 +89,17 @@ const TrustedProfilesActions: FC<TrustedProfilesActionsProps> = ({
         Hide
       </Button>
       <div className="mt-3 space-y-2 text-sm">
-        <b>Fraud reasons</b>
+        <b>Spam reasons</b>
         <div className="flex flex-wrap items-center gap-3">
-          {Object.values(PublicationReportingFraudSubreason).map((reason) => (
+          {Object.values(PublicationReportingSpamSubreason).map((reason) => (
+            <ReportButton key={reason} reason={reason} />
+          ))}
+        </div>
+      </div>
+      <div className="mt-3 space-y-2 text-sm">
+        <b>Illegal reasons</b>
+        <div className="flex flex-wrap items-center gap-3">
+          {Object.values(PublicationReportingIllegalSubreason).map((reason) => (
             <ReportButton key={reason} reason={reason} />
           ))}
         </div>
@@ -107,17 +115,9 @@ const TrustedProfilesActions: FC<TrustedProfilesActionsProps> = ({
         </div>
       </div>
       <div className="mt-3 space-y-2 text-sm">
-        <b>Illegal reasons</b>
+        <b>Fraud reasons</b>
         <div className="flex flex-wrap items-center gap-3">
-          {Object.values(PublicationReportingIllegalSubreason).map((reason) => (
-            <ReportButton key={reason} reason={reason} />
-          ))}
-        </div>
-      </div>
-      <div className="mt-3 space-y-2 text-sm">
-        <b>Spam reasons</b>
-        <div className="flex flex-wrap items-center gap-3">
-          {Object.values(PublicationReportingSpamSubreason).map((reason) => (
+          {Object.values(PublicationReportingFraudSubreason).map((reason) => (
             <ReportButton key={reason} reason={reason} />
           ))}
         </div>

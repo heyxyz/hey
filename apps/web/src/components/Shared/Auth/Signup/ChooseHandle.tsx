@@ -4,30 +4,46 @@ import {
   FaceSmileIcon
 } from '@heroicons/react/24/outline';
 import { HeyLensSignup } from '@hey/abis';
-import { APP_NAME, HANDLE_PREFIX, HEY_LENS_SIGNUP } from '@hey/data/constants';
+import {
+  APP_NAME,
+  HANDLE_PREFIX,
+  HEY_LENS_SIGNUP,
+  IS_MAINNET,
+  SIGNUP_PRICE,
+  ZERO_ADDRESS
+} from '@hey/data/constants';
+import { AUTH } from '@hey/data/tracking';
 import { useProfileQuery } from '@hey/lens';
-import { Button, Input } from '@hey/ui';
+import { Button, Input, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
+import { Leafwatch } from '@lib/leafwatch';
 import { type FC, useState } from 'react';
 import { parseEther } from 'viem';
-import { useWriteContract } from 'wagmi';
+import { useAccount, useWriteContract } from 'wagmi';
 
 import { useSignupStore } from '.';
 
 const ChooseHandle: FC = () => {
+  const delegatedExecutor = useSignupStore((state) => state.delegatedExecutor);
   const setScreen = useSignupStore((state) => state.setScreen);
+  const setChoosedHandle = useSignupStore((state) => state.setChoosedHandle);
   const setTransactionHash = useSignupStore(
     (state) => state.setTransactionHash
   );
   const [handle, setHandle] = useState<null | string>(null);
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
+  const [loading, setLoading] = useState(false);
+  const { address } = useAccount();
+
   const canCheck = Boolean(handle && handle.length > 3);
 
   const { writeContractAsync } = useWriteContract({
     mutation: {
       onError: errorToast,
       onSuccess: (hash) => {
+        Leafwatch.track(AUTH.SIGNUP, { price: SIGNUP_PRICE });
         setTransactionHash(hash);
+        setChoosedHandle(`${HANDLE_PREFIX}${handle}`);
         setScreen('minting');
       }
     }
@@ -40,21 +56,21 @@ const ChooseHandle: FC = () => {
   });
 
   const handleMint = async () => {
-    return await writeContractAsync({
-      abi: HeyLensSignup,
-      address: HEY_LENS_SIGNUP,
-      args: [
-        [
-          '0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF',
-          '0x0000000000000000000000000000000000000000',
-          '0x'
-        ],
-        handle,
-        ['0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF']
-      ],
-      functionName: 'createProfileWithHandleUsingCredits',
-      value: parseEther('1')
-    });
+    try {
+      setLoading(true);
+
+      return await writeContractAsync({
+        abi: HeyLensSignup,
+        address: HEY_LENS_SIGNUP,
+        args: [[address, ZERO_ADDRESS, '0x'], handle, [delegatedExecutor]],
+        functionName: 'createProfileWithHandleUsingCredits',
+        value: parseEther(SIGNUP_PRICE.toString())
+      });
+    } catch (error) {
+      errorToast(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -94,11 +110,24 @@ const ChooseHandle: FC = () => {
           )}
         </div>
         <Button
-          className="w-full"
-          disabled={!canCheck || !isAvailable}
+          className="w-full justify-center"
+          disabled={!canCheck || !isAvailable || loading || !delegatedExecutor}
+          icon={
+            loading ? (
+              <Spinner className="mr-0.5" size="xs" />
+            ) : (
+              <img
+                alt="Lens Logo"
+                className="h-3"
+                height={12}
+                src="/lens.svg"
+                width={19}
+              />
+            )
+          }
           onClick={handleMint}
         >
-          Mint for 10 MATIC
+          Mint for {IS_MAINNET ? '10' : '1'} MATIC
         </Button>
       </div>
     </div>

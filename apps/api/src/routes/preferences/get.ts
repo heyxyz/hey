@@ -27,7 +27,7 @@ export const get: Handler = async (req, res) => {
           select: { feature: { select: { key: true } } },
           where: {
             enabled: true,
-            feature: { enabled: true, NOT: { type: 'KILL_SWITCH' } },
+            feature: { enabled: true },
             profileId: id as string
           }
         }),

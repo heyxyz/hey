@@ -12,7 +12,7 @@ export const LENS_NETWORK = process.env.NEXT_PUBLIC_LENS_NETWORK || 'mainnet';
 export const LENS_API_URL = getEnvConfig().lensApiEndpoint;
 export const HEY_API_URL = IS_PRODUCTION
   ? getEnvConfig().heyApiEndpoint
-  : 'http://192.168.0.104:4784';
+  : 'http://localhost:4784';
 export const LENSHUB_PROXY = getEnvConfig().lensHubProxyAddress;
 export const TOKEN_HANDLE_REGISTRY = getEnvConfig().tokenHandleRegistry;
 export const PUBLICACT_PROXY = getEnvConfig().publicActProxyAddress;
@@ -42,6 +42,7 @@ export const TEST_LENS_ID = '0x0383';
 export const HEY_CURATED_ID = '0x020d2a';
 export const ZERO_PUBLICATION_ID = '0x00-0x00';
 export const HANDLE_PREFIX = IS_MAINNET ? 'lens/' : 'test/';
+export const SIGNUP_PRICE = 1; // in MATIC
 
 // URLs
 export const STATIC_ASSETS_URL = 'https://hey-assets.b-cdn.net';
@@ -51,9 +52,6 @@ export const LENS_MEDIA_SNAPSHOT_URL =
 export const POLYGONSCAN_URL = IS_MAINNET
   ? 'https://polygonscan.com'
   : 'https://mumbai.polygonscan.com';
-export const RARIBLE_URL = IS_MAINNET
-  ? 'https://rarible.com'
-  : 'https://testnet.rarible.com';
 export const IPFS_GATEWAY = 'https://gw.ipfs-lens.dev/ipfs/';
 export const ARWEAVE_GATEWAY = 'https://gateway.irys.xyz/';
 export const EVER_API = 'https://endpoint.4everland.co';

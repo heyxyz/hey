@@ -125,6 +125,12 @@ const GlobalModals: FC = () => {
     return false;
   };
   const showSignupModalTitle = signupScreen === 'choose';
+  const authModalTitle =
+    authModalType === 'signup'
+      ? showSignupModalTitle
+        ? 'Signup'
+        : null
+      : 'Login';
 
   return (
     <>
@@ -158,13 +164,7 @@ const GlobalModals: FC = () => {
         icon={<ArrowRightCircleIcon className="text-brand-500 size-5" />}
         onClose={() => setShowAuthModal(false, authModalType)}
         show={showAuthModal}
-        title={
-          showSignupModalTitle
-            ? authModalType === 'signup'
-              ? 'Signup'
-              : 'Login'
-            : null
-        }
+        title={authModalTitle}
       >
         <Auth />
       </Modal>
