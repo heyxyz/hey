@@ -27,7 +27,8 @@ export const useFeatureFlagsStore = create(
         set(() => ({
           featureFlags: [],
           gardenerMode: false,
-          staffMode: false
+          staffMode: false,
+          trusted: false
         })),
       setFeatureFlags: (featureFlags) => set(() => ({ featureFlags })),
       setGardenerMode: (gardenerMode) => set(() => ({ gardenerMode })),
