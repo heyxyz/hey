@@ -8,7 +8,7 @@ import {
   S3_BUCKET,
   THIRDWEB_CLIENT_ID
 } from '@hey/data/constants';
-import { KillSwitch } from '@hey/data/kill-switches';
+import { KillSwitch } from '@hey/data/feature-flags';
 import { ThirdwebStorage } from '@thirdweb-dev/storage';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';

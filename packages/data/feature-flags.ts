@@ -7,3 +7,9 @@ export enum FeatureFlag {
   Suspended = 'suspended',
   TrustedProfile = 'trusted-profile'
 }
+
+export enum KillSwitch {
+  FourEverLand = '4everland',
+  Invites = 'invites',
+  Signup = 'signup'
+}

@@ -2,8 +2,7 @@ import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import { Menu } from '@headlessui/react';
-import { FeatureFlag } from '@hey/data/feature-flags';
-import { KillSwitch } from '@hey/data/kill-switches';
+import { FeatureFlag, KillSwitch } from '@hey/data/feature-flags';
 import getAvatar from '@hey/lib/getAvatar';
 import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
