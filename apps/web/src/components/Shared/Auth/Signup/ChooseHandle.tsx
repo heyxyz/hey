@@ -111,7 +111,7 @@ const ChooseHandle: FC = () => {
         </div>
         <Button
           className="w-full justify-center"
-          disabled={!canCheck || !isAvailable || loading}
+          disabled={!canCheck || !isAvailable || loading || !delegatedExecutor}
           icon={
             loading ? (
               <Spinner className="mr-0.5" size="xs" />
