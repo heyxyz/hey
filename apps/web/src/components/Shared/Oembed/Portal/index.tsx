@@ -76,7 +76,7 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
           'grid gap-4 p-5 dark:border-gray-700'
         )}
       >
-        {buttons.map(({ button, type }, index) => (
+        {buttons.map(({ button, target, type }, index) => (
           <Button
             disabled={loading || !publicationId || !currentProfile}
             key={index}
@@ -87,7 +87,7 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
               });
 
               if (type === 'link') {
-                window.open(postUrl, '_blank');
+                window.open(target, '_blank');
               } else if (type === 'submit') {
                 onPost(index);
               }
