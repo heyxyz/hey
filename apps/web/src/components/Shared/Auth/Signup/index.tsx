@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
+import { useGenerateLensApiRelayAddressQuery } from '@hey/lens';
 import { CHAIN } from 'src/constants';
 import { useAccount, useChainId } from 'wagmi';
 import { create } from 'zustand';
@@ -11,20 +12,45 @@ import Minting from './Minting';
 import Success from './Success';
 
 interface SignupState {
+  choosedHandle: string;
+  delegatedExecutor: string;
+  profileId: string;
   screen: 'choose' | 'minting' | 'success';
+  setChoosedHandle: (handle: string) => void;
+  setDelegatedExecutor: (executor: string) => void;
+  setProfileId: (id: string) => void;
   setScreen: (screen: 'choose' | 'minting' | 'success') => void;
+  setTransactionHash: (hash: string) => void;
+  transactionHash: string;
 }
 
 export const useSignupStore = create<SignupState>((set) => ({
-  screen: 'choose',
-  setScreen: (screen) => set({ screen })
+  choosedHandle: '',
+  delegatedExecutor: '',
+  profileId: '',
+  screen: 'success',
+  setChoosedHandle: (handle) => set({ choosedHandle: handle }),
+  setDelegatedExecutor: (executor) => set({ delegatedExecutor: executor }),
+  setProfileId: (id) => set({ profileId: id }),
+  setScreen: (screen) => set({ screen }),
+  setTransactionHash: (hash) => set({ transactionHash: hash }),
+  transactionHash: ''
 }));
 
 const Signup: FC = () => {
   const screen = useSignupStore((state) => state.screen);
+  const setDelegatedExecutor = useSignupStore(
+    (state) => state.setDelegatedExecutor
+  );
 
   const chain = useChainId();
   const { connector: activeConnector } = useAccount();
+
+  useGenerateLensApiRelayAddressQuery({
+    fetchPolicy: 'no-cache',
+    onCompleted: (data) =>
+      setDelegatedExecutor(data.generateLensAPIRelayAddress)
+  });
 
   return activeConnector?.id ? (
     <div className="space-y-2.5">

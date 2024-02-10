@@ -84,7 +84,7 @@ const Login: FC = () => {
       const accessToken = auth.data?.authenticate.accessToken;
       const refreshToken = auth.data?.authenticate.refreshToken;
       signIn({ accessToken, refreshToken });
-      Leafwatch.track(AUTH.SIWL);
+      Leafwatch.track(AUTH.LOGIN, { profile_id: id, source: 'login' });
       location.reload();
     } catch {}
   };
@@ -112,7 +112,10 @@ const Login: FC = () => {
               </div>
             </Card>
           ) : profiles.length > 0 ? (
-            <Card className="w-full dark:divide-gray-700" forceRounded>
+            <Card
+              className="max-h-[50vh] w-full overflow-y-auto dark:divide-gray-700"
+              forceRounded
+            >
               {profiles.map((profile) => (
                 <div
                   className="flex items-center justify-between p-3"

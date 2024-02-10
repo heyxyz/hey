@@ -192,6 +192,7 @@ const FollowModule: FC<FollowModuleProps> = ({
         followTokenIds,
         datas
       ];
+      await handleWrongNetwork();
 
       if (canBroadcast) {
         const signature = await signTypedDataAsync(getSignature(typedData));
@@ -217,10 +218,6 @@ const FollowModule: FC<FollowModuleProps> = ({
 
     if (isSuspended) {
       return toast.error(Errors.Suspended);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
     }
 
     try {

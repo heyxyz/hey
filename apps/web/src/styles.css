@@ -156,7 +156,7 @@ div[data-lexical-editor='true'] {
 .markup > p,
 ul {
   @apply leading-6 sm:leading-[26px];
-  @apply [&:not(:last-child)]:mb-4;
+  @apply [&:not(:last-child)]:mb-2;
 }
 
 .lp-player {

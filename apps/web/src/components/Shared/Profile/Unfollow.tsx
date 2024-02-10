@@ -107,6 +107,7 @@ const Unfollow: FC<UnfollowProps> = ({ profile, showText = false }) => {
       const { id, typedData } = createUnfollowTypedData;
       const { idsOfProfilesToUnfollow, unfollowerProfileId } = typedData.value;
       const args = [unfollowerProfileId, idsOfProfilesToUnfollow];
+      await handleWrongNetwork();
 
       if (canBroadcast) {
         const signature = await signTypedDataAsync(getSignature(typedData));
@@ -146,10 +147,6 @@ const Unfollow: FC<UnfollowProps> = ({ profile, showText = false }) => {
 
     if (isSuspended) {
       return toast.error(Errors.Suspended);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
     }
 
     try {

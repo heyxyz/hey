@@ -18,7 +18,6 @@ import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModal
 
 import Auth from './Auth';
 import { useSignupStore } from './Auth/Signup';
-import WrongNetwork from './Auth/WrongNetwork';
 import Invites from './Modal/Invites';
 import ReportProfile from './Modal/ReportProfile';
 import Views from './Modal/Views';
@@ -55,12 +54,6 @@ const GlobalModals: FC = () => {
   );
   const setShowAuthModal = useGlobalModalStateStore(
     (state) => state.setShowAuthModal
-  );
-  const showWrongNetworkModal = useGlobalModalStateStore(
-    (state) => state.showWrongNetworkModal
-  );
-  const setShowWrongNetworkModal = useGlobalModalStateStore(
-    (state) => state.setShowWrongNetworkModal
   );
   const showInvitesModal = useGlobalModalStateStore(
     (state) => state.showInvitesModal
@@ -132,6 +125,12 @@ const GlobalModals: FC = () => {
     return false;
   };
   const showSignupModalTitle = signupScreen === 'choose';
+  const authModalTitle =
+    authModalType === 'signup'
+      ? showSignupModalTitle
+        ? 'Signup'
+        : null
+      : 'Login';
 
   return (
     <>
@@ -165,22 +164,9 @@ const GlobalModals: FC = () => {
         icon={<ArrowRightCircleIcon className="text-brand-500 size-5" />}
         onClose={() => setShowAuthModal(false, authModalType)}
         show={showAuthModal}
-        title={
-          showSignupModalTitle
-            ? authModalType === 'signup'
-              ? 'Signup'
-              : 'Login'
-            : null
-        }
+        title={authModalTitle}
       >
         <Auth />
-      </Modal>
-      <Modal
-        onClose={() => setShowWrongNetworkModal(false)}
-        show={showWrongNetworkModal}
-        title="Wrong Network"
-      >
-        <WrongNetwork />
       </Modal>
       <Modal
         onClose={() => {
