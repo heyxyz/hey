@@ -7,12 +7,10 @@ import createIdbStorage from '../lib/createIdbStorage';
 interface FeatureFlagsState {
   featureFlags: string[];
   gardenerMode: boolean;
-  hydrateFeatureFlags: () => { featureFlags: string[]; killSwitches: string[] };
-  killSwitches: string[];
+  hydrateFeatureFlags: () => string[];
   resetFeatureFlags: () => void;
   setFeatureFlags: (featureFlags: string[]) => void;
   setGardenerMode: (gardenerMode: boolean) => void;
-  setKillSwitches: (killSwitches: string[]) => void;
   setStaffMode: (staffMode: boolean) => void;
   setTrusted: (trusted: boolean) => void;
   staffMode: boolean;
@@ -24,23 +22,16 @@ export const useFeatureFlagsStore = create(
     (set, get) => ({
       featureFlags: [],
       gardenerMode: false,
-      hydrateFeatureFlags: () => {
-        return {
-          featureFlags: get().featureFlags,
-          killSwitches: get().killSwitches
-        };
-      },
-      killSwitches: [],
+      hydrateFeatureFlags: () => get().featureFlags,
       resetFeatureFlags: () =>
         set(() => ({
           featureFlags: [],
           gardenerMode: false,
-          killSwitches: [],
-          staffMode: false
+          staffMode: false,
+          trusted: false
         })),
       setFeatureFlags: (featureFlags) => set(() => ({ featureFlags })),
       setGardenerMode: (gardenerMode) => set(() => ({ gardenerMode })),
-      setKillSwitches: (killSwitches) => set(() => ({ killSwitches })),
       setStaffMode: (staffMode) => set(() => ({ staffMode })),
       setTrusted: (trusted) => set(() => ({ trusted })),
       staffMode: false,

@@ -6,8 +6,9 @@ export const AUTH = {
   CONNECT_WALLET: 'Connect wallet',
   LOGIN: 'User login',
   LOGOUT: 'User logout',
+  OPEN_LOGIN: 'Open login modal',
+  OPEN_SIGNUP: 'Open signup modal',
   SIGNUP: 'User signup',
-  SIWL: 'Sign in with Lens',
   SWITCH_TO_SIGNUP: 'Switch to signup'
 };
 

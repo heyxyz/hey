@@ -13,9 +13,7 @@ import { motion } from 'framer-motion';
 import StaffPickedGroup from './StaffPickedGroup';
 import StaffPickedProfile from './StaffPickedProfile';
 
-const Title: FC = () => (
-  <p className="text-lg font-semibold">What's poppin'?</p>
-);
+const Title: FC = () => <p className="text-lg font-semibold">Staff Picks</p>;
 
 const StaffPicks: FC = () => {
   const fetchStaffPicks = async (): Promise<StaffPick[]> => {

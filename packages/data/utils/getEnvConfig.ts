@@ -6,6 +6,7 @@ import LensEndpoint from '../lens-endpoints';
 const getEnvConfig = (): {
   defaultCollectToken: string;
   heyApiEndpoint: string;
+  heyLensSignup: `0x${string}`;
   lensApiEndpoint: string;
   lensHubProxyAddress: `0x${string}`;
   publicActProxyAddress: `0x${string}`;
@@ -16,6 +17,7 @@ const getEnvConfig = (): {
       return {
         defaultCollectToken: TestnetContracts.DefaultToken,
         heyApiEndpoint: HeyEndpoint.Testnet,
+        heyLensSignup: TestnetContracts.HeyLensSignup,
         lensApiEndpoint: LensEndpoint.Testnet,
         lensHubProxyAddress: TestnetContracts.LensHubProxy,
         publicActProxyAddress: TestnetContracts.PublicActProxy,
@@ -25,6 +27,7 @@ const getEnvConfig = (): {
       return {
         defaultCollectToken: TestnetContracts.DefaultToken,
         heyApiEndpoint: HeyEndpoint.Staging,
+        heyLensSignup: TestnetContracts.HeyLensSignup,
         lensApiEndpoint: LensEndpoint.Staging,
         lensHubProxyAddress: TestnetContracts.LensHubProxy,
         publicActProxyAddress: TestnetContracts.PublicActProxy,
@@ -34,6 +37,7 @@ const getEnvConfig = (): {
       return {
         defaultCollectToken: MainnetContracts.DefaultToken,
         heyApiEndpoint: HeyEndpoint.Mainnet,
+        heyLensSignup: TestnetContracts.HeyLensSignup,
         lensApiEndpoint: LensEndpoint.Mainnet,
         lensHubProxyAddress: MainnetContracts.LensHubProxy,
         publicActProxyAddress: MainnetContracts.PublicActProxy,

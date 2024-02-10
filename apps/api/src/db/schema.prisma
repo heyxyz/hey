@@ -113,7 +113,6 @@ model Feature {
 
 enum FeatureType {
   FEATURE
-  KILL_SWITCH
   PERMISSION
   MODE
 }
