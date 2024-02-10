@@ -89,3 +89,18 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+
+const { withSentryConfig } = require('@sentry/nextjs');
+
+module.exports = withSentryConfig(
+  module.exports,
+  { org: 'heyverse', project: 'web', silent: true },
+  {
+    automaticVercelMonitors: true,
+    disableLogger: true,
+    hideSourceMaps: true,
+    transpileClientSDK: true,
+    tunnelRoute: '/monitoring',
+    widenClientFileUpload: true
+  }
+);
