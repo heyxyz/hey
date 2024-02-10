@@ -1,6 +1,7 @@
 import type { Comment, PublicationsRequest } from '@hey/lens';
 import type { FC } from 'react';
 
+import { useHiddenCommentFeedStore } from '@components/Publication';
 import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
@@ -8,6 +9,7 @@ import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
 import {
   CommentRankingFilterType,
   CustomFiltersType,
+  HiddenCommentsType,
   LimitType,
   usePublicationsQuery
 } from '@hey/lens';
@@ -24,6 +26,9 @@ interface FeedProps {
 
 const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
   const txnQueue = useTransactionStore((state) => state.txnQueue);
+  const showHiddenComments = useHiddenCommentFeedStore(
+    (state) => state.showHiddenComments
+  );
   const fetchAndStoreViews = useImpressionsStore(
     (state) => state.fetchAndStoreViews
   );
@@ -33,6 +38,9 @@ const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
     limit: LimitType.TwentyFive,
     where: {
       commentOn: {
+        hiddenComments: showHiddenComments
+          ? HiddenCommentsType.HiddenOnly
+          : HiddenCommentsType.Hide,
         id: publicationId,
         ranking: { filter: CommentRankingFilterType.Relevant }
       },
