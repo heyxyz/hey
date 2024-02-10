@@ -86,7 +86,7 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
                 type
               });
 
-              if (type === 'redirect') {
+              if (type === 'link') {
                 window.open(postUrl, '_blank');
               } else if (type === 'submit') {
                 onPost(index);

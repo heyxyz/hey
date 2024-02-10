@@ -29,9 +29,6 @@
     <a href="https://hey.xyz/discord">
         <img src="https://img.shields.io/discord/953679040722665512.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2" alt="Discord">
     </a>
-    <a href="https://console.algora.io/org/hey/bounties?status=open">
-        <img src="https://img.shields.io/endpoint?url=https://console.algora.io/api/shields/hey/bounties?status=open" alt="Algora">
-    </a>
 </div>
 <div align="center">
     <br>

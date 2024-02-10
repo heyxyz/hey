@@ -18,12 +18,7 @@ import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
-import {
-  EXPANDED_AVATAR,
-  RARIBLE_URL,
-  STATIC_IMAGES_URL
-} from '@hey/data/constants';
-import getEnvConfig from '@hey/data/utils/getEnvConfig';
+import { EXPANDED_AVATAR, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { FollowModuleType } from '@hey/lens';
 import formatDate from '@hey/lib/datetime/formatDate';
 import getAvatar from '@hey/lib/getAvatar';
@@ -39,6 +34,7 @@ import isVerified from '@lib/isVerified';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import urlcat from 'urlcat';
@@ -203,18 +199,14 @@ const Details: FC<DetailsProps> = ({ profile }) => {
             </MetaDetails>
           ) : null}
           <MetaDetails icon={<HashtagIcon className="size-4" />}>
-            <Tooltip content={`#${profile.id}`}>
-              <Link
-                href={urlcat(RARIBLE_URL, '/token/polygon/:address::id', {
-                  address: getEnvConfig().lensHubProxyAddress,
-                  id: parseInt(profile.id)
-                })}
-                rel="noreferrer"
-                target="_blank"
-              >
-                {parseInt(profile.id)}
-              </Link>
-            </Tooltip>
+            <button
+              onClick={async () => {
+                await navigator.clipboard.writeText(profile.id);
+                toast.success(`ID ${profile.id} copied to clipboard`);
+              }}
+            >
+              {parseInt(profile.id)}
+            </button>
           </MetaDetails>
           {getProfileAttribute('location', profile?.metadata?.attributes) ? (
             <MetaDetails icon={<MapPinIcon className="size-4" />}>

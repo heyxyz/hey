@@ -22,12 +22,14 @@ const getPortal = (document: Document, url?: string): null | Portal => {
       getMeta(`hey:portal:button:${i}`) || getMeta(`fc:frame:button:${i}`);
     const type = (getMeta(`hey:portal:button:${i}:type`) ||
       'submit') as ButtonType;
+    const target = (getMeta(`hey:portal:button:${i}:target`) ||
+      getMeta(`fc:frame:button:${i}:target`)) as string;
 
     if (!button) {
       break;
     }
 
-    buttons.push({ button, type });
+    buttons.push({ button, target, type });
   }
 
   if (!version || !postUrl || !image || buttons.length === 0) {

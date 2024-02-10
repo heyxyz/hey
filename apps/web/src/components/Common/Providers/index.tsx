@@ -15,7 +15,6 @@ import { ThemeProvider } from 'next-themes';
 import ErrorBoundary from '../ErrorBoundary';
 import Layout from '../Layout';
 import FeaturedGroupsProvider from './FeaturedGroupsProvider';
-import KillSwitchProvider from './KillSwitchProvider';
 import LeafwatchProvider from './LeafwatchProvider';
 import LensSubscriptionsProvider from './LensSubscriptionsProvider';
 import PreferencesProvider from './PreferencesProvider';
@@ -40,7 +39,6 @@ const Providers = ({ children }: { children: ReactNode }) => {
         <ApolloProvider client={lensApolloClient}>
           <LensSubscriptionsProvider />
           <QueryClientProvider client={queryClient}>
-            <KillSwitchProvider />
             <PreferencesProvider />
             <TbaStatusProvider />
             <FeaturedGroupsProvider />

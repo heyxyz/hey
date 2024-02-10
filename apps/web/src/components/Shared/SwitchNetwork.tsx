@@ -28,9 +28,7 @@ const SwitchNetwork: FC<SwitchNetworkProps> = ({
       onClick={() => {
         onSwitch?.();
         switchChain?.({ chainId: toChainId });
-        Leafwatch.track(SYSTEM.SWITCH_NETWORK, {
-          chain: toChainId
-        });
+        Leafwatch.track(SYSTEM.SWITCH_NETWORK, { chain: toChainId });
       }}
       type="button"
       variant="danger"
