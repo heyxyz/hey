@@ -20,7 +20,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.507.0",
+    "@aws-sdk/client-sts": "^3.511.0",
     "@clickhouse/client": "^0.2.9",
     "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
@@ -38,7 +38,7 @@
     "node-zendesk": "^5.0.10",
     "request-ip": "^3.3.0",
     "stripe": "^14.16.0",
-    "tsx": "^4.7.0",
+    "tsx": "^4.7.1",
     "typescript": "^5.3.3",
     "ua-parser-js": "^1.0.37",
     "urlcat": "^3.1.0",
