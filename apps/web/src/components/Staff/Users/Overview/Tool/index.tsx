@@ -26,6 +26,7 @@ import LeafwatchDetails from './LeafwatchDetails';
 import ManagedProfiles from './ManagedProfiles';
 import OnchainIdentities from './OnchainIdentities';
 import Rank from './Rank';
+import StaffPick from './StaffPick';
 
 interface ProfileStaffToolProps {
   profile: Profile;
@@ -157,11 +158,15 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         </>
       ) : null}
       {preferences ? (
-        <FeatureFlags
-          features={preferences.features || []}
-          profileId={profile.id}
-        />
+        <>
+          <FeatureFlags
+            features={preferences.features || []}
+            profileId={profile.id}
+          />
+          <div className="divider my-5 border-dashed border-yellow-600" />
+        </>
       ) : null}
+      <StaffPick profileId={profile.id} />
       <div className="divider my-5 border-dashed border-yellow-600" />
       <ManagedProfiles address={profile.ownedBy.address} />
     </div>
