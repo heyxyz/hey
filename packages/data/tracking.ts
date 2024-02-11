@@ -17,9 +17,9 @@ export const PROFILE = {
   COPY_PROFILE_LINK: 'Copy profile link',
   DISMISS_RECOMMENDED_PROFILE: 'Dismiss recommended profile',
   FOLLOW: 'Follow profile',
-  LOGOUT: 'Profile logout',
   OPEN_FOLLOWERS: 'Open followers modal',
   OPEN_FOLLOWING: 'Open following modal',
+  OPEN_RECOMMENDED_PROFILES: 'Open recommended profiles modal',
   OPEN_SUPER_FOLLOW: 'Open super follow modal',
   REPORT: 'Report profile',
   SUPER_FOLLOW: 'Super follow profile',
@@ -189,9 +189,7 @@ export const MISCELLANEOUS = {
     OPEN_VERCEL: 'Open Vercel'
   },
   OPEN_GITCOIN: 'Open Gitcoin',
-  OPEN_LENS_WAITLIST: 'Open Lens waitlist',
-  OPEN_RECOMMENDED_PROFILES: 'Open recommended profiles modal',
-  SELECT_LOCALE: 'Select locale'
+  OPEN_LENS_WAITLIST: 'Open Lens waitlist'
 };
 
 export const ONBOARDING = {
