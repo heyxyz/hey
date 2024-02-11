@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import { ArrowRightStartOnRectangleIcon } from '@heroicons/react/24/outline';
-import { PROFILE } from '@hey/data/tracking';
+import { AUTH } from '@hey/data/tracking';
 import { useRevokeAuthenticationMutation } from '@hey/lens';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
@@ -41,7 +41,7 @@ const Logout: FC<LogoutProps> = ({ className = '', onClick }) => {
           variables: { request: { authorizationId } }
         });
       }
-      Leafwatch.track(PROFILE.LOGOUT);
+      Leafwatch.track(AUTH.LOGOUT);
       resetPreferences();
       signOut();
       disconnect?.();
