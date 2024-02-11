@@ -24,11 +24,7 @@ const StaffPick: FC<StaffPickProps> = ({ profileId }) => {
     return response.data.result;
   };
 
-  const {
-    data: picks,
-    isLoading,
-    refetch
-  } = useQuery({
+  const { data: picks, isLoading } = useQuery({
     queryFn: fetchStaffPicks,
     queryKey: ['fetchStaffPicks']
   });
@@ -49,9 +45,7 @@ const StaffPick: FC<StaffPickProps> = ({ profileId }) => {
         { headers: getAuthApiHeaders() }
       );
 
-      await refetch();
-
-      return toast.success('Staff pick updated!');
+      return location.reload();
     } catch {
       return toast.error(Errors.SomethingWentWrong);
     }
