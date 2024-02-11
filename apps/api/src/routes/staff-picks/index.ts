@@ -9,7 +9,7 @@ export const get: Handler = async (_, res) => {
   try {
     const data = await prisma.staffPick.findMany({
       orderBy: { score: 'desc' },
-      take: 5,
+      take: 7,
       where: { score: { not: 0 } }
     });
     logger.info('Staff picks fetched');
