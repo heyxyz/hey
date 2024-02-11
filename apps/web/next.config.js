@@ -82,6 +82,10 @@ const nextConfig = {
         destination: `${process.env.NEXT_PUBLIC_OG_URL}/posts/:match*`,
         has: [{ key: 'user-agent', type: 'header', value: allowedBots }],
         source: '/posts/:match*'
+      },
+      {
+        destination: `https://yoginth.notion.site/a720cfda4264477ea2fbc706a0c203c7`,
+        source: '/-/guides'
       }
     ];
   },
