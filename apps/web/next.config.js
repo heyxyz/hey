@@ -55,7 +55,7 @@ const nextConfig = {
       },
       {
         destination:
-          'https://reflect.site/g/yoginth/-hey-changelog/c6eae172c9cd43cebfc38b5afc64e456',
+          'https://yoginth.notion.site/Hey-Changelog-eb2a41319c1b40be8e22e5deb01efd10',
         permanent: true,
         source: '/-/changelog'
       },
