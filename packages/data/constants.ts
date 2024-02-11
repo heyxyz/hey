@@ -42,7 +42,7 @@ export const TEST_LENS_ID = '0x0383';
 export const HEY_CURATED_ID = '0x020d2a';
 export const ZERO_PUBLICATION_ID = '0x00-0x00';
 export const HANDLE_PREFIX = IS_MAINNET ? 'lens/' : 'test/';
-export const SIGNUP_PRICE = 1; // in MATIC
+export const SIGNUP_PRICE = IS_MAINNET ? 1 : 10;
 
 // URLs
 export const STATIC_ASSETS_URL = 'https://hey-assets.b-cdn.net';
@@ -57,6 +57,9 @@ export const ARWEAVE_GATEWAY = 'https://gateway.irys.xyz/';
 export const EVER_API = 'https://endpoint.4everland.co';
 export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/cover.png`;
 export const PLACEHOLDER_IMAGE = `${STATIC_IMAGES_URL}/placeholder.webp`;
+export const MOONPAY_URL = IS_MAINNET
+  ? 'https://buy.moonpay.com'
+  : 'https://buy-sandbox.moonpay.com';
 
 // Tokens / Keys
 export const WALLETCONNECT_PROJECT_ID = 'cd542acc70c2b548030f9901a52e70c8';

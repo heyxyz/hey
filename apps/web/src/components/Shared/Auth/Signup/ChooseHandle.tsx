@@ -8,7 +8,6 @@ import {
   APP_NAME,
   HANDLE_PREFIX,
   HEY_LENS_SIGNUP,
-  IS_MAINNET,
   SIGNUP_PRICE,
   ZERO_ADDRESS
 } from '@hey/data/constants';
@@ -18,10 +17,11 @@ import { Button, Input, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { type FC, useState } from 'react';
-import { parseEther } from 'viem';
-import { useAccount, useWriteContract } from 'wagmi';
+import { formatUnits, parseEther } from 'viem';
+import { useAccount, useBalance, useWriteContract } from 'wagmi';
 
 import { useSignupStore } from '.';
+import Moonpay from './Moonpay';
 
 const ChooseHandle: FC = () => {
   const delegatedExecutor = useSignupStore((state) => state.delegatedExecutor);
@@ -34,7 +34,13 @@ const ChooseHandle: FC = () => {
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
   const { address } = useAccount();
+  const { data: balanceData } = useBalance({
+    address,
+    query: { refetchInterval: 2000 }
+  });
 
+  const balance = balanceData && parseFloat(formatUnits(balanceData.value, 18));
+  const hasBalance = balance && balance >= SIGNUP_PRICE;
   const canCheck = Boolean(handle && handle.length > 3);
 
   const { writeContractAsync } = useWriteContract({
@@ -109,26 +115,32 @@ const ChooseHandle: FC = () => {
             </div>
           )}
         </div>
-        <Button
-          className="w-full justify-center"
-          disabled={!canCheck || !isAvailable || loading || !delegatedExecutor}
-          icon={
-            loading ? (
-              <Spinner className="mr-0.5" size="xs" />
-            ) : (
-              <img
-                alt="Lens Logo"
-                className="h-3"
-                height={12}
-                src="/lens.svg"
-                width={19}
-              />
-            )
-          }
-          onClick={handleMint}
-        >
-          Mint for {IS_MAINNET ? '10' : '1'} MATIC
-        </Button>
+        {hasBalance ? (
+          <Button
+            className="w-full justify-center"
+            disabled={
+              !canCheck || !isAvailable || loading || !delegatedExecutor
+            }
+            icon={
+              loading ? (
+                <Spinner className="mr-0.5" size="xs" />
+              ) : (
+                <img
+                  alt="Lens Logo"
+                  className="h-3"
+                  height={12}
+                  src="/lens.svg"
+                  width={19}
+                />
+              )
+            }
+            onClick={handleMint}
+          >
+            Mint for {SIGNUP_PRICE} MATIC
+          </Button>
+        ) : (
+          <Moonpay balance={balance} />
+        )}
       </div>
     </div>
   );
