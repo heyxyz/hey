@@ -139,7 +139,7 @@ const ChooseHandle: FC = () => {
             Mint for {SIGNUP_PRICE} MATIC
           </Button>
         ) : (
-          <Moonpay />
+          <Moonpay balance={balance} />
         )}
       </div>
     </div>
