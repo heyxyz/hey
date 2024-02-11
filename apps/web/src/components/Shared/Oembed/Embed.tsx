@@ -5,7 +5,7 @@ import { ATTACHMENT } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import imageKit from '@hey/lib/imageKit';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Card, Image } from '@hey/ui';
+import { Card, Image, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 
@@ -56,25 +56,24 @@ const Embed: FC<EmbedProps> = ({ og, publicationId }) => {
             <div className="truncate px-5 py-4">
               <div className="space-y-1">
                 {og.title ? (
-                  <div className="truncate font-bold">{og.title}</div>
+                  <div className="flex items-center space-x-1.5">
+                    {og.favicon ? (
+                      <Tooltip content={og.site} placement="right">
+                        <img
+                          alt="Favicon"
+                          className="size-4 rounded-full"
+                          height={16}
+                          src={og.favicon}
+                          width={16}
+                        />
+                      </Tooltip>
+                    ) : null}
+                    <div className="truncate font-bold">{og.title}</div>
+                  </div>
                 ) : null}
                 {og.description ? (
                   <div className="ld-text-gray-500 line-clamp-1 whitespace-break-spaces">
                     {og.description}
-                  </div>
-                ) : null}
-                {og.site ? (
-                  <div className="hidden items-center space-x-2 pt-1.5 md:flex">
-                    {og.favicon ? (
-                      <img
-                        alt="Favicon"
-                        className="size-4 rounded-full"
-                        height={16}
-                        src={og.favicon}
-                        width={16}
-                      />
-                    ) : null}
-                    <div className="ld-text-gray-500 text-xs">{og.site}</div>
                   </div>
                 ) : null}
               </div>
