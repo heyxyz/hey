@@ -5,7 +5,7 @@ import DismissRecommendedProfile from '@components/Shared/DismissRecommendedProf
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
-import { MISCELLANEOUS } from '@hey/data/tracking';
+import { PROFILE } from '@hey/data/tracking';
 import { useProfileRecommendationsQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -81,7 +81,7 @@ const WhoToFollow: FC = () => {
           className="ld-text-gray-500 font-bold"
           onClick={() => {
             setShowSuggestedModal(true);
-            Leafwatch.track(MISCELLANEOUS.OPEN_RECOMMENDED_PROFILES);
+            Leafwatch.track(PROFILE.OPEN_RECOMMENDED_PROFILES);
           }}
           type="button"
         >
