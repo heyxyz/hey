@@ -61,7 +61,7 @@ const nextConfig = {
       },
       {
         destination:
-          'https://reflect.site/g/yoginth/hey-portal-open-graph-spec/cd7225f128274da382f1f516e7e63f15',
+          'https://yoginth.notion.site/Hey-Portals-Open-Graph-Spec-ddbedce64a2d4e1a80f66db182159aff',
         permanent: true,
         source: '/-/portals'
       }
@@ -82,10 +82,6 @@ const nextConfig = {
         destination: `${process.env.NEXT_PUBLIC_OG_URL}/posts/:match*`,
         has: [{ key: 'user-agent', type: 'header', value: allowedBots }],
         source: '/posts/:match*'
-      },
-      {
-        destination: `https://yoginth.notion.site/a720cfda4264477ea2fbc706a0c203c7`,
-        source: '/-/guides'
       }
     ];
   },
