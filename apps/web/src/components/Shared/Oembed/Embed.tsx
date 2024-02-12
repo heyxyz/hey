@@ -58,7 +58,11 @@ const Embed: FC<EmbedProps> = ({ og, publicationId }) => {
                 {og.title ? (
                   <div className="flex items-center space-x-1.5">
                     {og.favicon ? (
-                      <Tooltip content={og.site} placement="right">
+                      <Tooltip
+                        className="contents"
+                        content={og.site}
+                        placement="right"
+                      >
                         <img
                           alt="Favicon"
                           className="size-4 rounded-full"
