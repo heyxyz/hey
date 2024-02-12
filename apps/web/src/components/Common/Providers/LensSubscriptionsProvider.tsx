@@ -26,7 +26,7 @@ const LensSubscriptionsProvider: FC = () => {
     (state) => state.setLensPublicActProxyOnchainSigNonce
   );
   const { address } = useAccount();
-  const { authorizationId, id: sessionProfileId } = getCurrentSession();
+  const { id: sessionProfileId } = getCurrentSession();
   const canUseSubscriptions = Boolean(sessionProfileId) && address;
 
   // Begin: New Notification
