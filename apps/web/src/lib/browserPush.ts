@@ -14,6 +14,10 @@ export const BrowserPush = {
     browserPushWorker.postMessage({ title });
 
     browserPushWorker.onmessage = (event: MessageEvent) => {
+      if (!('Notification' in window)) {
+        return;
+      }
+
       const response = event.data;
       new Notification('Hey', {
         body: response.title,
