@@ -11,6 +11,7 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
+import RateLimits from './RateLimits';
 import Verification from './Verification';
 
 const AccountSettings: NextPage = () => {
@@ -32,6 +33,7 @@ const AccountSettings: NextPage = () => {
       </GridItemFour>
       <GridItemEight className="space-y-5">
         <SuperFollow />
+        <RateLimits />
         <Verification />
       </GridItemEight>
     </GridLayout>

@@ -151,16 +151,20 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           <Rank
             address={profile.ownedBy.address}
             handle={profile.handle?.localName}
+            lensClassifierScore={profile.stats.lensClassifierScore || 0}
             profileId={profile.id}
           />
           <div className="divider my-5 border-dashed border-yellow-600" />
         </>
       ) : null}
       {preferences ? (
-        <FeatureFlags
-          features={preferences.features || []}
-          profileId={profile.id}
-        />
+        <>
+          <FeatureFlags
+            features={preferences.features || []}
+            profileId={profile.id}
+          />
+          <div className="divider my-5 border-dashed border-yellow-600" />
+        </>
       ) : null}
       <div className="divider my-5 border-dashed border-yellow-600" />
       <ManagedProfiles address={profile.ownedBy.address} />

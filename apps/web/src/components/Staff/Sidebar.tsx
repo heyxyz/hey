@@ -5,6 +5,7 @@ import {
   AdjustmentsHorizontalIcon,
   ClipboardIcon,
   CurrencyDollarIcon,
+  SparklesIcon,
   UserIcon,
   UserPlusIcon
 } from '@heroicons/react/24/outline';
@@ -29,6 +30,11 @@ const settingsSidebarItems = [
     icon: <AdjustmentsHorizontalIcon className="size-4" />,
     title: 'Feature flags',
     url: '/staff/feature-flags'
+  },
+  {
+    icon: <SparklesIcon className="size-4" />,
+    title: 'Staff Picks',
+    url: '/staff/staff-picks'
   },
   {
     icon: <UserPlusIcon className="size-4" />,

@@ -55,13 +55,13 @@ const nextConfig = {
       },
       {
         destination:
-          'https://reflect.site/g/yoginth/-hey-changelog/c6eae172c9cd43cebfc38b5afc64e456',
+          'https://yoginth.notion.site/Hey-Changelog-eb2a41319c1b40be8e22e5deb01efd10',
         permanent: true,
         source: '/-/changelog'
       },
       {
         destination:
-          'https://reflect.site/g/yoginth/hey-portal-open-graph-spec/cd7225f128274da382f1f516e7e63f15',
+          'https://yoginth.notion.site/Hey-Portals-Open-Graph-Spec-ddbedce64a2d4e1a80f66db182159aff',
         permanent: true,
         source: '/-/portals'
       }
@@ -89,3 +89,18 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+
+const { withSentryConfig } = require('@sentry/nextjs');
+
+module.exports = withSentryConfig(
+  module.exports,
+  { org: 'heyverse', project: 'web', silent: true },
+  {
+    automaticVercelMonitors: true,
+    disableLogger: true,
+    hideSourceMaps: true,
+    transpileClientSDK: true,
+    tunnelRoute: '/monitoring',
+    widenClientFileUpload: true
+  }
+);
