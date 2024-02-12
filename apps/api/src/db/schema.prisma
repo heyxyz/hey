@@ -10,12 +10,10 @@ generator client {
 model StaffPick {
   id        String        @id
   type      StaffPickType
-  score     Int           @default(0)
   createdAt DateTime      @default(now())
 
   // Indexes
   @@index([type])
-  @@index([score])
 }
 
 enum StaffPickType {
