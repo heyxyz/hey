@@ -39,8 +39,6 @@ const StaffPicks: FC = () => {
         <UserProfileShimmer />
         <GroupProfileShimmer />
         <UserProfileShimmer />
-        <GroupProfileShimmer />
-        <UserProfileShimmer />
       </Card>
     );
   }
