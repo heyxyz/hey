@@ -8,17 +8,8 @@ generator client {
 }
 
 model StaffPick {
-  id        String        @id
-  type      StaffPickType
-  createdAt DateTime      @default(now())
-
-  // Indexes
-  @@index([type])
-}
-
-enum StaffPickType {
-  PROFILE
-  GROUP
+  id        String   @id
+  createdAt DateTime @default(now())
 }
 
 model Preference {
