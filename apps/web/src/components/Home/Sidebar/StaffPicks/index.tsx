@@ -1,7 +1,6 @@
 import type { StaffPick } from '@hey/types/hey';
 import type { FC } from 'react';
 
-import GroupProfileShimmer from '@components/Shared/Shimmer/GroupProfileShimmer';
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import { CursorArrowRippleIcon as CursorArrowRippleIconOutline } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
@@ -35,9 +34,9 @@ const StaffPicks: FC = () => {
       <Card as="aside" className="mb-4 space-y-4 p-5">
         <Title />
         <UserProfileShimmer />
-        <GroupProfileShimmer />
         <UserProfileShimmer />
-        <GroupProfileShimmer />
+        <UserProfileShimmer />
+        <UserProfileShimmer />
         <UserProfileShimmer />
       </Card>
     );
