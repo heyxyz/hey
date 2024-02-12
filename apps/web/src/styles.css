@@ -159,6 +159,13 @@ ul {
   @apply [&:not(:last-child)]:mb-2;
 }
 
+.full-page-publication-markup > p,
+ul {
+  @apply text-[15px] sm:text-[17px];
+  @apply !leading-7 sm:leading-[26px];
+  @apply [&:not(:last-child)]:mb-3 sm:[&:not(:last-child)]:mb-4;
+}
+
 .lp-player {
   @apply [&>div>div]:shadow-none;
   @apply [&>div>div]:border;
