@@ -10,6 +10,7 @@ CREATE TABLE events (
   browser Nullable(String),
   browser_version Nullable(String),
   os Nullable(String),
+  ip Nullable(String),
   city Nullable(String),
   region Nullable(String),
   country LowCardinality(String),
@@ -27,6 +28,10 @@ CREATE TABLE impressions (
   id UUID,
   viewer_id String,
   publication_id String,
+  ip Nullable(String),
+  city Nullable(String),
+  region Nullable(String),
+  country LowCardinality(String),
   viewed_at DateTime64(3, 'UTC') DEFAULT now64(3)
 ) ENGINE = MergeTree()
 PARTITION BY toYYYYMM(viewed_at)
