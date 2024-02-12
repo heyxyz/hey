@@ -62,7 +62,7 @@ const WhoToFollow: FC = () => {
       <Card as="aside" className="space-y-4 p-5">
         <Title />
         <ErrorMessage error={error} title="Failed to load recommendations" />
-        {recommendedProfiles?.slice(0, 2).map((profile) => (
+        {recommendedProfiles?.slice(0, 5).map((profile) => (
           <motion.div
             animate={{ opacity: 1 }}
             className="flex items-center space-x-3 truncate"
