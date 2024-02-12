@@ -9,7 +9,6 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 
-import StaffPickedGroup from './StaffPickedGroup';
 import StaffPickedProfile from './StaffPickedProfile';
 
 const Title: FC = () => <p className="text-lg font-semibold">Staff Picks</p>;
@@ -72,8 +71,7 @@ const StaffPicks: FC = () => {
           initial={{ opacity: 0 }}
           key={pick.id}
         >
-          {pick.type === 'PROFILE' && <StaffPickedProfile id={pick.id} />}
-          {pick.type === 'GROUP' && <StaffPickedGroup id={pick.id} />}
+          <StaffPickedProfile id={pick.id} />
         </motion.div>
       ))}
     </Card>
