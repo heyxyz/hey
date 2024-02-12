@@ -40,11 +40,10 @@ import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import Custom404 from 'src/pages/404';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce } from 'usehooks-ts';
 import { object, string } from 'zod';
 
 const newGroupSchema = object({
@@ -77,9 +76,9 @@ const CreateGroup: NextPage = () => {
     schema: newGroupSchema
   });
 
-  useEffectOnce(() => {
+  useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'create-group' });
-  });
+  }, []);
 
   const slug = form.watch('slug');
   const canCheck = Boolean(slug && slug.length > 3);

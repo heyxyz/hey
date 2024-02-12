@@ -11,9 +11,8 @@ import {
   useBasicTypeaheadTriggerMatch
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import { $createTextNode, $getSelection, $isRangeSelection } from 'lexical';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';
-import { useEffectOnce } from 'usehooks-ts';
 
 class EmojiOption extends MenuOption {
   emoji: string;
@@ -85,9 +84,9 @@ const EmojiPickerPlugin: FC = () => {
     setEmojis(data);
   };
 
-  useEffectOnce(() => {
+  useEffect(() => {
     fetchEmojis();
-  });
+  }, []);
 
   const emojiOptions = useMemo(
     () =>

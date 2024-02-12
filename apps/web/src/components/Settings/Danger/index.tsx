@@ -7,8 +7,8 @@ import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
+import { useEffect } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
 
 import SettingsSidebar from '../Sidebar';
@@ -20,9 +20,9 @@ const DangerSettings: NextPage = () => {
   const { address } = useAccount();
   const disabled = currentProfile?.ownedBy.address !== address;
 
-  useEffectOnce(() => {
+  useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'danger' });
-  });
+  }, []);
 
   if (!currentProfile) {
     return <NotLoggedIn />;
