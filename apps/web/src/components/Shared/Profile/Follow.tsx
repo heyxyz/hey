@@ -1,7 +1,6 @@
 import type { FollowRequest, Profile } from '@hey/lens';
 import type { FC } from 'react';
 
-import { IsWTF } from '@components/Home/Sidebar/WhoToFollow';
 import { UserPlusIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { Errors } from '@hey/data';
@@ -19,7 +18,7 @@ import { Button, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
@@ -35,7 +34,6 @@ interface FollowProps {
 
 const Follow: FC<FollowProps> = ({ profile, showText = false }) => {
   const { pathname } = useRouter();
-  const isWTF = useContext(IsWTF);
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const { isSuspended } = useProfileRestriction();
   const lensHubOnchainSigNonce = useNonceStore(
@@ -63,11 +61,6 @@ const Follow: FC<FollowProps> = ({ profile, showText = false }) => {
       },
       id: cache.identify(profile.operations)
     });
-
-    // Remove the profile from the list of recommended profiles
-    if (isWTF) {
-      cache.evict({ id: cache.identify(profile) });
-    }
   };
 
   const onCompleted = (
