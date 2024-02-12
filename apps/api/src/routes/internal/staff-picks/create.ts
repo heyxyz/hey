@@ -36,7 +36,7 @@ export const post: Handler = async (req, res) => {
 
   try {
     const staffPick = await prisma.staffPick.create({
-      data: { id, type: 'PROFILE' }
+      data: { id }
     });
     logger.info(`Added staff pick ${id}`);
 
