@@ -1,7 +1,6 @@
 import type { Notification } from '@hey/lens';
 
 import {
-  useAuthorizationRecordRevokedSubscriptionSubscription,
   useNewNotificationSubscriptionSubscription,
   useUserSigNoncesQuery,
   useUserSigNoncesSubscriptionSubscription
@@ -12,7 +11,6 @@ import getPushNotificationData from '@lib/getPushNotificationData';
 import { type FC, useEffect } from 'react';
 import { isSupported, share } from 'shared-zustand';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import { signOut } from 'src/store/persisted/useAuthStore';
 import { useNotificationStore } from 'src/store/persisted/useNotificationStore';
 import { isAddress } from 'viem';
 import { useAccount } from 'wagmi';
@@ -70,25 +68,6 @@ const LensSubscriptionsProvider: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userSigNoncesData]);
   // End: User Sig Nonces
-
-  // Begin: Authorization Record Revoked
-  const { data: authorizationRecordRevokedData } =
-    useAuthorizationRecordRevokedSubscriptionSubscription({
-      skip: !canUseSubscriptions,
-      variables: { authorizationId }
-    });
-
-  useEffect(() => {
-    const authorizationRecordRevoked =
-      authorizationRecordRevokedData?.authorizationRecordRevoked;
-
-    // Using not null assertion because api returns null if revoked
-    if (!authorizationRecordRevoked) {
-      signOut();
-      location.reload();
-    }
-  }, [authorizationRecordRevokedData]);
-  // End: Authorization Record Revoked
 
   useUserSigNoncesQuery({
     onCompleted: (data) => {
