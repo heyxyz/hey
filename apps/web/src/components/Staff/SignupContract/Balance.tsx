@@ -1,8 +1,10 @@
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { HeyLensSignup } from '@hey/abis';
 import { HEY_LENS_SIGNUP } from '@hey/data/constants';
+import { STAFFTOOLS } from '@hey/data/tracking';
 import { Button, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
+import { Leafwatch } from '@lib/leafwatch';
 import { type FC, useState } from 'react';
 import { formatUnits } from 'viem';
 import { useBalance, useWriteContract } from 'wagmi';
@@ -20,7 +22,10 @@ const Balance: FC = () => {
   const { writeContractAsync } = useWriteContract({
     mutation: {
       onError: errorToast,
-      onSuccess: () => setLoading(true)
+      onSuccess: () => {
+        Leafwatch.track(STAFFTOOLS.SIGNUP_CONTRACT.WITHDRAW_FUNDS);
+        setLoading(true);
+      }
     }
   });
 
