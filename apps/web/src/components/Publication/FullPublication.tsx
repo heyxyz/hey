@@ -59,7 +59,7 @@ const FullPublication: FC<FullPublicationProps> = ({
           ) : (
             <>
               <PublicationBody
-                contentClassName="text-[15px] sm:text-[17px]"
+                contentClassName="full-page-publication-markup"
                 publication={targetPublication}
               />
               <div className="flex items-center gap-x-3">
