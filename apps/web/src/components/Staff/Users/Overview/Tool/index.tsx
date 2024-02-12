@@ -143,7 +143,6 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
       </div>
       <div className="divider my-5 border-dashed border-yellow-600" />
       <OnchainIdentities onchainIdentity={profile.onchainIdentity} />
-      <div className="divider my-5 border-dashed border-yellow-600" />
       {IS_MAINNET ? (
         <>
           <LeafwatchDetails profileId={profile.id} />
