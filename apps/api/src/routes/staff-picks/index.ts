@@ -9,15 +9,17 @@ export const get: Handler = async (_, res) => {
   try {
     const data = await prisma.staffPick.findMany({
       orderBy: { score: 'desc' },
-      take: 7,
-      where: { score: { not: 0 } }
+      take: 30
     });
+    const random = data.sort(() => Math.random() - Math.random());
+    const picks = random.slice(0, 7);
+
     logger.info('Staff picks fetched');
 
     return res
       .status(200)
       .setHeader('Cache-Control', SWR_CACHE_AGE_10_MINS_30_DAYS)
-      .json({ result: data, success: true });
+      .json({ result: picks, success: true });
   } catch (error) {
     return catchedError(res, error);
   }
