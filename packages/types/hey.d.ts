@@ -26,7 +26,6 @@ export type Group = {
 export type StaffPick = {
   createdAt: Date;
   id: string;
-  score: number;
   type: 'GROUP' | 'PROFILE';
 };
 
