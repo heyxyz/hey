@@ -2,7 +2,7 @@ import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
 import catchedError from 'src/lib/catchedError';
-import { SWR_CACHE_AGE_5_MINS_30_DAYS } from 'src/lib/constants';
+import { SWR_CACHE_AGE_10_SECS_30_DAYS } from 'src/lib/constants';
 import prisma from 'src/lib/prisma';
 
 export const get: Handler = async (_, res) => {
@@ -17,7 +17,7 @@ export const get: Handler = async (_, res) => {
 
     return res
       .status(200)
-      .setHeader('Cache-Control', SWR_CACHE_AGE_5_MINS_30_DAYS)
+      .setHeader('Cache-Control', SWR_CACHE_AGE_10_SECS_30_DAYS)
       .json({ result: picks, success: true });
   } catch (error) {
     return catchedError(res, error);
