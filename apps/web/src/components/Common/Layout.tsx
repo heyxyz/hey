@@ -1,5 +1,4 @@
 import type { Profile } from '@hey/lens';
-import type { FC, ReactNode } from 'react';
 
 import GlobalAlerts from '@components/Shared/GlobalAlerts';
 import GlobalBanners from '@components/Shared/GlobalBanners';
@@ -9,13 +8,14 @@ import { useCurrentProfileQuery } from '@hey/lens';
 import getCurrentSession from '@lib/getCurrentSession';
 import getToastOptions from '@lib/getToastOptions';
 import { useTheme } from 'next-themes';
+import { type FC, type ReactNode, useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { hydrateAuthTokens, signOut } from 'src/store/persisted/useAuthStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce, useIsMounted } from 'usehooks-ts';
+import { useIsMounted } from 'usehooks-ts';
 import { isAddress } from 'viem';
 import { useDisconnect } from 'wagmi';
 
@@ -82,9 +82,10 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     }
   };
 
-  useEffectOnce(() => {
+  useEffect(() => {
     validateAuthentication();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const profileLoading = !currentProfile && loading;
 

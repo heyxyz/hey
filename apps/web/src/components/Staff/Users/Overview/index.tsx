@@ -18,10 +18,10 @@ import {
 } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce } from 'usehooks-ts';
 
 import StaffSidebar from '../../Sidebar';
 
@@ -33,12 +33,12 @@ const Overview: NextPage = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
 
-  useEffectOnce(() => {
+  useEffect(() => {
     Leafwatch.track(PAGEVIEW, {
       page: 'staff-tools',
       subpage: 'user-overview'
     });
-  });
+  }, []);
 
   const { data, error, loading } = useProfileQuery({
     skip: !id || !isReady,

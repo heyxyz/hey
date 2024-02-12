@@ -6,8 +6,8 @@ import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
-import { useEffectOnce } from 'usehooks-ts';
 
 import Profiles from './Profiles';
 import Publications from './Publications';
@@ -18,9 +18,9 @@ const Search: NextPage = () => {
     ? encodeURIComponent(query.q.join(' '))
     : encodeURIComponent(query.q || '');
 
-  useEffectOnce(() => {
+  useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'search' });
-  });
+  }, []);
 
   if (!query.q || !['profiles', 'pubs'].includes(query.type as string)) {
     return <Custom404 />;

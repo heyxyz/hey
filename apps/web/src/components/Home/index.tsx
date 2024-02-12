@@ -7,9 +7,8 @@ import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import getCurrentSession from '@lib/getCurrentSession';
 import { Leafwatch } from '@lib/leafwatch';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce } from 'usehooks-ts';
 
 import AlgorithmicFeed from './AlgorithmicFeed';
 import Tabs from './Algorithms/Tabs';
@@ -28,9 +27,9 @@ const Home: NextPage = () => {
 
   const { id: sessionProfileId } = getCurrentSession();
 
-  useEffectOnce(() => {
+  useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'home' });
-  });
+  }, []);
 
   const loggedInWithProfile = Boolean(currentProfile);
   const loggedInWithWallet = Boolean(sessionProfileId);
