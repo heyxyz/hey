@@ -165,7 +165,6 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           <div className="divider my-5 border-dashed border-yellow-600" />
         </>
       ) : null}
-      <div className="divider my-5 border-dashed border-yellow-600" />
       <ManagedProfiles address={profile.ownedBy.address} />
     </div>
   );
