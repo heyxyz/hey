@@ -2,7 +2,7 @@ const allowedBots =
   '.*(bot|telegram|baidu|bing|yandex|iframely|whatsapp|facebook).*';
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
   experimental: { scrollRestoration: true },
   async headers() {
     return [
@@ -87,20 +87,3 @@ const nextConfig = {
   },
   transpilePackages: ['data']
 };
-
-module.exports = nextConfig;
-
-const { withSentryConfig } = require('@sentry/nextjs');
-
-module.exports = withSentryConfig(
-  module.exports,
-  { org: 'heyverse', project: 'web', silent: true },
-  {
-    automaticVercelMonitors: true,
-    disableLogger: true,
-    hideSourceMaps: true,
-    transpileClientSDK: true,
-    tunnelRoute: '/monitoring',
-    widenClientFileUpload: true
-  }
-);
