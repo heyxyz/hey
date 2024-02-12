@@ -10,12 +10,10 @@ import { LimitType, useProfileRecommendationsQuery } from '@hey/lens';
 import { Card, ErrorMessage, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
-import { createContext, useState } from 'react';
+import { useState } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import Suggested from '../Suggested';
-
-export const IsWTF = createContext(false);
 
 const Title: FC = () => <p className="text-lg font-semibold">Who to Follow</p>;
 
@@ -54,15 +52,17 @@ const WhoToFollow: FC = () => {
   }
 
   const recommendedProfiles = data?.profileRecommendations.items.filter(
-    (profile) => !profile.operations.isBlockedByMe.value
+    (profile) =>
+      !profile.operations.isBlockedByMe.value &&
+      !profile.operations.isFollowedByMe.value
   );
 
   return (
-    <IsWTF.Provider value={true}>
+    <>
       <Card as="aside" className="space-y-4 p-5">
         <Title />
         <ErrorMessage error={error} title="Failed to load recommendations" />
-        {recommendedProfiles?.slice(0, 5).map((profile) => (
+        {recommendedProfiles?.slice(0, 2).map((profile) => (
           <motion.div
             animate={{ opacity: 1 }}
             className="flex items-center space-x-3 truncate"
@@ -95,7 +95,7 @@ const WhoToFollow: FC = () => {
       >
         <Suggested profiles={recommendedProfiles as Profile[]} />
       </Modal>
-    </IsWTF.Provider>
+    </>
   );
 };
 
