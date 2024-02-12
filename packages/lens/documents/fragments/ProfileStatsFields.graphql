@@ -6,4 +6,5 @@ fragment ProfileStatsFields on ProfileStats {
   posts
   mirrors
   quotes
+  lensClassifierScore
 }

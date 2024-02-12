@@ -11,7 +11,13 @@ import UserProfile from '@components/Shared/UserProfile';
 import PublicationStaffTool from '@components/StaffTools/Panels/Publication';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import { TriStateValue, usePublicationQuery } from '@hey/lens';
+import {
+  HiddenCommentsType,
+  LimitType,
+  TriStateValue,
+  usePublicationQuery,
+  usePublicationsQuery
+} from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
@@ -24,11 +30,24 @@ import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestric
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useEffectOnce } from 'usehooks-ts';
+import { create } from 'zustand';
 
 import FullPublication from './FullPublication';
 import OnchainMeta from './OnchainMeta';
 import RelevantPeople from './RelevantPeople';
 import PublicationPageShimmer from './Shimmer';
+
+interface HiddenCommentFeedState {
+  setShowHiddenComments: (show: boolean) => void;
+  showHiddenComments: boolean;
+}
+
+export const useHiddenCommentFeedStore = create<HiddenCommentFeedState>(
+  (set) => ({
+    setShowHiddenComments: (show) => set({ showHiddenComments: show }),
+    showHiddenComments: false
+  })
+);
 
 const ViewPublication: NextPage = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
@@ -51,6 +70,23 @@ const ViewPublication: NextPage = () => {
     skip: !id,
     variables: { request: { forId: id } }
   });
+
+  const { data: comments } = usePublicationsQuery({
+    skip: !id,
+    variables: {
+      request: {
+        limit: LimitType.Ten,
+        where: {
+          commentOn: {
+            hiddenComments: HiddenCommentsType.HiddenOnly,
+            id
+          }
+        }
+      }
+    }
+  });
+
+  const hasHiddenComments = (comments?.publications.items.length || 0) > 0;
 
   if (!isReady || loading) {
     return <PublicationPageShimmer />;
@@ -80,7 +116,11 @@ const ViewPublication: NextPage = () => {
       />
       <GridItemEight className="space-y-5">
         <Card>
-          <FullPublication key={publication?.id} publication={publication} />
+          <FullPublication
+            hasHiddenComments={hasHiddenComments}
+            key={publication?.id}
+            publication={publication}
+          />
         </Card>
         {currentProfile &&
         !publication.isHidden &&
