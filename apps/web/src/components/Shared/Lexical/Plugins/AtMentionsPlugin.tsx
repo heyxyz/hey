@@ -23,9 +23,8 @@ import {
   useBasicTypeaheadTriggerMatch
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import isVerified from '@lib/isVerified';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';
-import { useUpdateEffect } from 'usehooks-ts';
 
 import { $createMentionNode } from '../Nodes/MentionsNode';
 
@@ -166,7 +165,7 @@ const MentionsPlugin: FC = () => {
   const [editor] = useLexicalComposerContext();
   const [searchUsers] = useSearchProfilesLazyQuery();
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     if (queryString) {
       // Variables
       const request: ProfileSearchRequest = {
@@ -192,6 +191,7 @@ const MentionsPlugin: FC = () => {
         setResults(profilesResults);
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryString]);
 
   const checkForSlashTriggerMatch = useBasicTypeaheadTriggerMatch('/', {

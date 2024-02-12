@@ -14,11 +14,10 @@ import getAssetSymbol from '@hey/lib/getAssetSymbol';
 import getRedstonePrice from '@hey/lib/getRedstonePrice';
 import { RangeSlider, Select } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
-import { type FC, useState } from 'react';
+import { type FC, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN } from 'src/constants';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
-import { useUpdateEffect } from 'usehooks-ts';
 import { encodeAbiParameters, formatUnits, parseUnits } from 'viem';
 import { useAccount, useBalance } from 'wagmi';
 
@@ -51,8 +50,9 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
     setUsdPrice(usdPrice);
   };
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     getUsdPrice();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCurrency]);
 
   const { data: balanceData } = useBalance({
