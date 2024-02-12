@@ -8,7 +8,6 @@ import prisma from 'src/lib/prisma';
 export const get: Handler = async (_, res) => {
   try {
     const data = await prisma.staffPick.findMany({
-      orderBy: { score: 'desc' },
       take: 30
     });
     const random = data.sort(() => Math.random() - Math.random());
