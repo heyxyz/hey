@@ -15,10 +15,9 @@ import { Button, Modal, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import getAllowanceModule from '@lib/getAllowanceModule';
 import { Leafwatch } from '@lib/leafwatch';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useUpdateEffect } from 'usehooks-ts';
 import { useSendTransaction, useWaitForTransactionReceipt } from 'wagmi';
 
 interface AllowanceButtonProps {
@@ -59,7 +58,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
     isSuccess
   } = useWaitForTransactionReceipt({ hash: txHash });
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     if (isSuccess) {
       toast.success(
         allowed
@@ -78,6 +77,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
     if (error) {
       onError(error);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess, error]);
 
   const handleAllowance = async (

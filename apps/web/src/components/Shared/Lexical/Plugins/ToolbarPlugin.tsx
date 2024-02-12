@@ -9,8 +9,7 @@ import {
   FORMAT_TEXT_COMMAND,
   SELECTION_CHANGE_COMMAND
 } from 'lexical';
-import { useCallback, useState } from 'react';
-import { useUpdateEffect } from 'usehooks-ts';
+import { useCallback, useEffect, useState } from 'react';
 
 const ToolbarPlugin: FC = () => {
   const [editor] = useLexicalComposerContext();
@@ -28,7 +27,7 @@ const ToolbarPlugin: FC = () => {
     }
   }, []);
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     return editor.registerCommand(
       SELECTION_CHANGE_COMMAND,
       (_payload, newEditor) => {

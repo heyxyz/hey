@@ -8,9 +8,8 @@ import {
 import ImageCropper from '@hey/image-cropper/ImageCropper';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import useResizeObserver from 'use-resize-observer';
-import { useUpdateEffect } from 'usehooks-ts';
 
 interface ImageCropperControllerProps {
   imageSrc: string;
@@ -41,7 +40,7 @@ const ImageCropperController: FC<ImageCropperControllerProps> = ({
   const aspectRatio = targetSize.width / targetSize.height;
   const borderSize = 20;
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     const newWidth = divWidth - borderSize * 2;
     const newHeight = newWidth / aspectRatio;
     setCropSize({ height: newHeight, width: newWidth });

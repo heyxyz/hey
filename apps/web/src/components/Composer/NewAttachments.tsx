@@ -6,10 +6,9 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button, Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
-import { useUpdateEffect } from 'usehooks-ts';
 
 import Audio from '../Shared/Audio';
 import LicensePicker from './LicensePicker';
@@ -60,10 +59,11 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
     }
   };
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     if (videoRef.current) {
       videoRef.current.onloadeddata = onDataLoaded;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [videoRef, attachments]);
 
   const removeAttachment = (attachment: any) => {
