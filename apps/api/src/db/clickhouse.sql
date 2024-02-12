@@ -42,3 +42,16 @@ CREATE TABLE "trusted_reports" (
   created DateTime DEFAULT now()
 ) ENGINE = MergeTree
 ORDER BY created;
+
+-- Last seen
+CREATE TABLE "last_seen" (
+  id UUID DEFAULT generateUUIDv4(),
+  profile LowCardinality(String),
+  ip Nullable(String),
+  city Nullable(String),
+  region Nullable(String),
+  country LowCardinality(String),
+  last_seen DateTime DEFAULT now()
+  created DateTime DEFAULT now()
+) ENGINE = MergeTree
+ORDER BY created;
