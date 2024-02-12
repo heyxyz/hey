@@ -1,5 +1,4 @@
 import type { Notification } from '@hey/lens';
-import type { FC } from 'react';
 
 import {
   useAuthorizationRecordRevokedSubscriptionSubscription,
@@ -10,11 +9,11 @@ import {
 import { BrowserPush } from '@lib/browserPush';
 import getCurrentSession from '@lib/getCurrentSession';
 import getPushNotificationData from '@lib/getPushNotificationData';
+import { type FC, useEffect } from 'react';
 import { isSupported, share } from 'shared-zustand';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { signOut } from 'src/store/persisted/useAuthStore';
 import { useNotificationStore } from 'src/store/persisted/useNotificationStore';
-import { useUpdateEffect } from 'usehooks-ts';
 import { isAddress } from 'viem';
 import { useAccount } from 'wagmi';
 
@@ -39,7 +38,7 @@ const LensSubscriptionsProvider: FC = () => {
       variables: { for: sessionProfileId }
     });
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     const notification = newNotificationData?.newNotification as Notification;
 
     if (notification) {
@@ -49,6 +48,7 @@ const LensSubscriptionsProvider: FC = () => {
       }
       setLatestNotificationId(notification?.id);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newNotificationData]);
   // End: New Notification
 
@@ -58,7 +58,7 @@ const LensSubscriptionsProvider: FC = () => {
     variables: { address }
   });
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     const userSigNonces = userSigNoncesData?.userSigNonces;
 
     if (userSigNonces) {
@@ -67,6 +67,7 @@ const LensSubscriptionsProvider: FC = () => {
         userSigNonces.lensPublicActProxyOnchainSigNonce
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userSigNoncesData]);
   // End: User Sig Nonces
 
@@ -77,7 +78,7 @@ const LensSubscriptionsProvider: FC = () => {
       variables: { authorizationId }
     });
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     const authorizationRecordRevoked =
       authorizationRecordRevokedData?.authorizationRecordRevoked;
 
