@@ -170,7 +170,26 @@ export const GARDENER = {
 };
 
 export const STAFFTOOLS = {
-  TOGGLE_MODE: 'Toggle staff mode'
+  FEATURE_FLAGS: {
+    CREATE: 'Staff Tool: Create feature flag',
+    DELETE: 'Staff Tool: Delete feature flag',
+    KILL: 'Staff Tool: Kill feature flag'
+  },
+  SIGNUP_CONTRACT: {
+    WITHDRAW_FUNDS: 'Staff Tool: Withdraw funds'
+  },
+  STAFF_PICKS: {
+    CREATE: 'Staff Tool: Create staff pick',
+    DELETE: 'Staff Tool: Delete staff pick'
+  },
+  TOGGLE_MODE: 'Toggle staff mode',
+  TOKENS: {
+    CREATE: 'Staff Tool: Create token',
+    DELETE: 'Staff Tool: Delete token'
+  },
+  USERS: {
+    ASSIGN_FEATURE_FLAG: 'Staff Tool: Assign feature flag'
+  }
 };
 
 export const SYSTEM = {
