@@ -4,14 +4,14 @@ import Footer from '@components/Shared/Footer';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import { useEffectOnce } from 'usehooks-ts';
+import { useEffect } from 'react';
 
 const Terms: NextPage = () => {
   const updatedAt = 'December 11, 2022';
 
-  useEffectOnce(() => {
+  useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'terms' });
-  });
+  }, []);
 
   return (
     <>

@@ -11,9 +11,8 @@ import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce } from 'usehooks-ts';
 
 import Feed from './Feed';
 
@@ -22,9 +21,9 @@ const Explore: NextPage = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const [focus, setFocus] = useState<PublicationMetadataMainFocusType>();
 
-  useEffectOnce(() => {
+  useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'explore' });
-  });
+  }, []);
 
   const tabs = [
     { name: 'For you', type: ExplorePublicationsOrderByType.LensCurated },

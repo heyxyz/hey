@@ -23,13 +23,13 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce } from 'usehooks-ts';
 import { create } from 'zustand';
 
 import FullPublication from './FullPublication';
@@ -62,9 +62,9 @@ const ViewPublication: NextPage = () => {
     query: { id }
   } = useRouter();
 
-  useEffectOnce(() => {
+  useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'publication' });
-  });
+  }, []);
 
   const { data, error, loading } = usePublicationQuery({
     skip: !id,

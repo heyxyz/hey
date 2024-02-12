@@ -20,10 +20,9 @@ import {
 } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce } from 'usehooks-ts';
 import { object, string } from 'zod';
 
 const newTicketSchema = object({
@@ -50,9 +49,9 @@ const Support: NextPage = () => {
     schema: newTicketSchema
   });
 
-  useEffectOnce(() => {
+  useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'support' });
-  });
+  }, []);
 
   const createTicket = async (
     email: string,

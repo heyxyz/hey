@@ -6,10 +6,9 @@ import { ADDRESS_PLACEHOLDER } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import formatAddress from '@hey/lib/formatAddress';
 import { Radio } from '@hey/ui';
-import { type FC } from 'react';
+import { type FC, useEffect } from 'react';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce } from 'usehooks-ts';
 import { encodeAbiParameters, isAddress } from 'viem';
 import { create } from 'zustand';
 
@@ -41,11 +40,12 @@ const TipConfig: FC = () => {
 
   const isSelfTip = recipient === currentProfile?.ownedBy.address;
 
-  useEffectOnce(() => {
+  useEffect(() => {
     if (!openAction) {
       reset();
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onSave = () => {
     setOpenAction({

@@ -1,5 +1,4 @@
 import type { ReactionNotification as TReactionNotification } from '@hey/lens';
-import type { FC } from 'react';
 
 import Markup from '@components/Shared/Markup';
 import { HeartIcon } from '@heroicons/react/24/outline';
@@ -7,7 +6,7 @@ import getPublicationData from '@hey/lib/getPublicationData';
 import pushToImpressions from '@lib/pushToImpressions';
 import Link from 'next/link';
 import plur from 'plur';
-import { useEffectOnce } from 'usehooks-ts';
+import { type FC, useEffect } from 'react';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
@@ -31,9 +30,10 @@ const ReactionNotification: FC<ReactionNotificationProps> = ({
     : 'liked your';
   const type = notification?.publication.__typename;
 
-  useEffectOnce(() => {
+  useEffect(() => {
     pushToImpressions(notification.publication.id);
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="space-y-2">

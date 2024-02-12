@@ -15,11 +15,11 @@ import getProfile from '@hey/lib/getProfile';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import { ProfileFeedType } from 'src/enums';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce } from 'usehooks-ts';
 
 import Achievements from './Achievements';
 import Cover from './Cover';
@@ -35,9 +35,9 @@ const ViewProfile: NextPage = () => {
   } = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
-  useEffectOnce(() => {
+  useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'profile' });
-  });
+  }, []);
 
   const lowerCaseProfileFeedType = [
     ProfileFeedType.Feed.toLowerCase(),
