@@ -15,7 +15,7 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import Suggested from '../Suggested';
 
-const Title: FC = () => <p className="text-lg font-semibold">Who to follow</p>;
+const Title: FC = () => <p className="text-lg font-semibold">Who to Follow</p>;
 
 const WhoToFollow: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
