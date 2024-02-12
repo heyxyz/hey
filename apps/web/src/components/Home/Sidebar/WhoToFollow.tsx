@@ -7,7 +7,7 @@ import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
 import { PROFILE } from '@hey/data/tracking';
 import { useProfileRecommendationsQuery } from '@hey/lens';
-import { Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
+import { Card, ErrorMessage, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
@@ -42,16 +42,7 @@ const WhoToFollow: FC = () => {
   }
 
   if (data?.profileRecommendations.items.length === 0) {
-    return (
-      <Card as="aside" className="p-5">
-        <Title />
-        <EmptyState
-          hideCard
-          icon={<UsersIcon className="text-brand-500 size-8" />}
-          message="No recommendations!"
-        />
-      </Card>
-    );
+    return null;
   }
 
   const recommendedProfiles = data?.profileRecommendations.items.filter(
