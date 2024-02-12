@@ -48,8 +48,8 @@ CREATE TABLE "trusted_reports" (
 ) ENGINE = MergeTree
 ORDER BY created;
 
--- Last seen
-CREATE TABLE "last_seen" (
+-- Presence
+CREATE TABLE "presence" (
   id UUID DEFAULT generateUUIDv4(),
   profile LowCardinality(String),
   ip Nullable(String),
