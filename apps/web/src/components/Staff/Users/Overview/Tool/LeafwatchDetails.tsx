@@ -75,6 +75,7 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
 
   return (
     <>
+      <div className="divider my-5 border-dashed border-yellow-600" />
       <div className="mt-5 flex items-center space-x-2 text-yellow-600">
         <AdjustmentsVerticalIcon className="size-5" />
         <div className="text-lg font-bold">Leafwatch Details</div>
