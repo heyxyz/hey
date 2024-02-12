@@ -1,12 +1,17 @@
 import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
+import { QueueListIcon } from '@heroicons/react/24/outline';
 import formatDate from '@hey/lib/datetime/formatDate';
 import getAppName from '@hey/lib/getAppName';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
+import { Tooltip } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import pushToImpressions from '@lib/pushToImpressions';
+import { motion } from 'framer-motion';
 import { useEffectOnce } from 'usehooks-ts';
 
+import { useHiddenCommentFeedStore } from '.';
 import PublicationActions from './Actions';
 import FeaturedGroup from './FeaturedGroup';
 import HiddenPublication from './HiddenPublication';
@@ -17,10 +22,21 @@ import PublicationStats from './PublicationStats';
 import PublicationType from './Type';
 
 interface FullPublicationProps {
+  hasHiddenComments: boolean;
   publication: AnyPublication;
 }
 
-const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
+const FullPublication: FC<FullPublicationProps> = ({
+  hasHiddenComments,
+  publication
+}) => {
+  const showHiddenComments = useHiddenCommentFeedStore(
+    (state) => state.showHiddenComments
+  );
+  const setShowHiddenComments = useHiddenCommentFeedStore(
+    (state) => state.setShowHiddenComments
+  );
+
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
@@ -60,7 +76,36 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
                 publicationStats={targetPublication.stats}
               />
               <div className="divider" />
-              <PublicationActions publication={targetPublication} showCount />
+              <div className="flex items-center justify-between">
+                <PublicationActions publication={targetPublication} showCount />
+                {hasHiddenComments ? (
+                  <div className="mt-2">
+                    <motion.button
+                      aria-label="Like"
+                      className={cn(
+                        showHiddenComments
+                          ? 'text-green-500 outline-green-500 hover:bg-green-300/20'
+                          : 'ld-text-gray-500 outline-gray-400 hover:bg-gray-300/20',
+                        'rounded-full p-1.5 outline-offset-2'
+                      )}
+                      onClick={() => setShowHiddenComments(!showHiddenComments)}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      <Tooltip
+                        content={
+                          showHiddenComments
+                            ? 'Hide hidden comments'
+                            : 'Show hidden comments'
+                        }
+                        placement="top"
+                        withDelay
+                      >
+                        <QueueListIcon className="size-5" />
+                      </Tooltip>
+                    </motion.button>
+                  </div>
+                ) : null}
+              </div>
             </>
           )}
         </div>
