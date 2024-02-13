@@ -17,7 +17,6 @@ import { Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import plur from 'plur';
 import { memo, useEffect, useState } from 'react';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 
 interface PublicationStatsProps {
   publicationId: string;
@@ -28,9 +27,6 @@ const PublicationStats: FC<PublicationStatsProps> = ({
   publicationId,
   publicationStats
 }) => {
-  const setShowPublicationStatsModal = useGlobalModalStateStore(
-    (state) => state.setShowPublicationStatsModal
-  );
   const [views, setViews] = useState<number>(0);
   const [showMirrorsModal, setShowMirrorsModal] = useState(false);
   const [showQuotesModal, setShowQuotesModal] = useState(false);
@@ -184,19 +180,10 @@ const PublicationStats: FC<PublicationStatsProps> = ({
           </span>
         ) : null}
         {views > 0 ? (
-          <button
-            className="outline-brand-500 outline-offset-2"
-            onClick={() => {
-              setShowPublicationStatsModal(true, publicationId);
-              Leafwatch.track(PUBLICATION.OPEN_VIEWS, {
-                publication_id: publicationId
-              });
-            }}
-            type="button"
-          >
+          <span>
             <b className="text-black dark:text-white">{nFormatter(views)}</b>{' '}
             {plur('View', views)}
-          </button>
+          </span>
         ) : null}
       </div>
     </>
