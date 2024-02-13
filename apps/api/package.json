@@ -29,7 +29,6 @@
     "@prisma/client": "^5.9.1",
     "axios": "^1.6.7",
     "cors": "^2.8.5",
-    "country-code-lookup": "^0.1.1",
     "dotenv": "^16.4.3",
     "express": "^4.17.1",
     "express-file-routing": "^3.0.3",
