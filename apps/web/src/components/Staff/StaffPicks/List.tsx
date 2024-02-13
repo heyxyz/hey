@@ -34,7 +34,7 @@ const List: FC = () => {
     queryKey: ['getStaffPicks']
   });
 
-  const removeStaffPick = async (id: string) => {
+  const removeStaffPick = (id: string) => {
     const confirm = window.confirm(
       'Are you sure you want to remove this pick?'
     );

@@ -40,7 +40,7 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
   const availableFeatures = allFeatureFlags || [];
   const enabledFlags = flags;
 
-  const updateFeatureFlag = async (feature: Feature) => {
+  const updateFeatureFlag = (feature: Feature) => {
     const { id, key } = feature;
     const enabled = !enabledFlags.includes(key);
 

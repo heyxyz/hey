@@ -3,7 +3,7 @@ import axios from 'axios';
 import { TEST_URL } from 'src/lib/constants';
 import { describe, expect, test } from 'vitest';
 
-describe('internal/features/toggle', async () => {
+describe('internal/features/toggle', () => {
   test('should kill a feature', async () => {
     const response = await axios.post(
       `${TEST_URL}/internal/features/toggle`,
