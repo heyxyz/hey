@@ -1,5 +1,6 @@
 import {
   CheckIcon,
+  ExclamationTriangleIcon,
   FaceFrownIcon,
   FaceSmileIcon
 } from '@heroicons/react/24/outline';
@@ -11,17 +12,29 @@ import {
   SIGNUP_PRICE,
   ZERO_ADDRESS
 } from '@hey/data/constants';
+import { Regex } from '@hey/data/regex';
 import { AUTH } from '@hey/data/tracking';
 import { useProfileQuery } from '@hey/lens';
-import { Button, Input, Spinner } from '@hey/ui';
+import { Button, Form, Input, Spinner, useZodForm } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { type FC, useState } from 'react';
 import { formatUnits, parseEther } from 'viem';
 import { useAccount, useBalance, useWriteContract } from 'wagmi';
+import { object, string } from 'zod';
 
 import { useSignupStore } from '.';
 import Moonpay from './Moonpay';
+
+const newProfileSchema = object({
+  handle: string()
+    .min(5, { message: 'Handle must be at least 5 characters long' })
+    .max(26, { message: 'Handle must be at most 26 characters long' })
+    .regex(Regex.handle, {
+      message:
+        'Handle must start with a letter/number, only _ allowed in between'
+    })
+});
 
 const ChooseHandle: FC = () => {
   const delegatedExecutor = useSignupStore((state) => state.delegatedExecutor);
@@ -30,7 +43,6 @@ const ChooseHandle: FC = () => {
   const setTransactionHash = useSignupStore(
     (state) => state.setTransactionHash
   );
-  const [handle, setHandle] = useState<null | string>(null);
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
   const { address } = useAccount();
@@ -38,10 +50,13 @@ const ChooseHandle: FC = () => {
     address,
     query: { refetchInterval: 2000 }
   });
+  const form = useZodForm({ mode: 'onChange', schema: newProfileSchema });
+  const handle = form.watch('handle');
 
   const balance = balanceData && parseFloat(formatUnits(balanceData.value, 18));
   const hasBalance = balance && balance >= SIGNUP_PRICE;
-  const canCheck = Boolean(handle && handle.length > 3);
+  const canCheck = Boolean(handle && handle.length > 4);
+  const isInvalid = !form.formState.isValid;
 
   const { writeContractAsync } = useWriteContract({
     mutation: {
@@ -61,10 +76,9 @@ const ChooseHandle: FC = () => {
     variables: { request: { forHandle: `${HANDLE_PREFIX}${handle}` } }
   });
 
-  const handleMint = async () => {
+  const handleMint = async (handle: string) => {
     try {
       setLoading(true);
-
       return await writeContractAsync({
         abi: HeyLensSignup,
         address: HEY_LENS_SIGNUP,
@@ -89,14 +103,19 @@ const ChooseHandle: FC = () => {
           bots away
         </div>
       </div>
-      <div className="space-y-5 pt-3">
+      <Form
+        className="space-y-5 pt-3"
+        form={form}
+        onSubmit={async ({ handle }) => await handleMint(handle)}
+      >
         <div className="mb-5">
           <Input
-            onChange={(e) => setHandle(e.target.value)}
+            hideError
             placeholder="yourhandle"
             prefix="@lens/"
+            {...form.register('handle')}
           />
-          {canCheck ? (
+          {canCheck && !isInvalid ? (
             isAvailable === false ? (
               <div className="mt-2 flex items-center space-x-1 text-sm text-red-500">
                 <FaceFrownIcon className="size-4" />
@@ -108,6 +127,11 @@ const ChooseHandle: FC = () => {
                 <b>You're in luck - it's available!</b>
               </div>
             ) : null
+          ) : canCheck && isInvalid ? (
+            <div className="mt-2 flex items-center space-x-1 text-sm text-red-500">
+              <ExclamationTriangleIcon className="size-4" />
+              <b>{form.formState.errors.handle?.message}</b>
+            </div>
           ) : (
             <div className="ld-text-gray-500 mt-2 flex items-center space-x-1 text-sm">
               <FaceSmileIcon className="size-4" />
@@ -119,7 +143,11 @@ const ChooseHandle: FC = () => {
           <Button
             className="w-full justify-center"
             disabled={
-              !canCheck || !isAvailable || loading || !delegatedExecutor
+              !canCheck ||
+              !isAvailable ||
+              loading ||
+              !delegatedExecutor ||
+              isInvalid
             }
             icon={
               loading ? (
@@ -134,14 +162,14 @@ const ChooseHandle: FC = () => {
                 />
               )
             }
-            onClick={handleMint}
+            type="submit"
           >
             Mint for {SIGNUP_PRICE} MATIC
           </Button>
         ) : (
           <Moonpay balance={balance} />
         )}
-      </div>
+      </Form>
     </div>
   );
 };
