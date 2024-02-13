@@ -34,9 +34,10 @@ interface ProfileStaffToolProps {
 const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
   const getHaveUsedHey = async () => {
     try {
-      const response = await axios.get(`${HEY_API_URL}/stats/haveUsedHey`, {
-        params: { id: profile.id }
-      });
+      const response = await axios.get(
+        `${HEY_API_URL}/internal/leafwatch/profile/haveUsedHey`,
+        { params: { id: profile.id } }
+      );
 
       return response.data.haveUsedHey;
     } catch {
