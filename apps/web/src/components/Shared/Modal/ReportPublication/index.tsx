@@ -71,7 +71,7 @@ const ReportPublication: FC<ReportProps> = ({ publicationId }) => {
     }
 
     try {
-      await reportPublicationOnHey(subReason);
+      reportPublicationOnHey(subReason);
       return await createReport({
         variables: {
           request: {
