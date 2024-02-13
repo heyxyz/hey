@@ -103,7 +103,7 @@ const Mod: NextPage = () => {
             setRefreshing={setRefreshing}
           />
         )}
-        {feedType === ModFeedType.REPORTS && <ReportFeed />}
+        {feedType === ModFeedType.TRUSTED_REPORTS && <ReportFeed />}
         {feedType === ModFeedType.PROFILES && <List />}
       </GridItemEight>
       <GridItemFour>
@@ -253,8 +253,8 @@ const Mod: NextPage = () => {
               </div>
             </>
           )}
-          {feedType === ModFeedType.REPORTS && (
-            <div>Take action on reports</div>
+          {feedType === ModFeedType.TRUSTED_REPORTS && (
+            <div>Take action on trusted profile reports</div>
           )}
           {feedType === ModFeedType.PROFILES && <div>All the profiles</div>}
         </Card>
