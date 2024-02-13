@@ -25,7 +25,7 @@ const List: FC = () => {
     queryKey: ['getAllTokens']
   });
 
-  const deleteToken = async (id: string) => {
+  const deleteToken = (id: string) => {
     toast.promise(
       axios.post(
         `${HEY_API_URL}/internal/tokens/delete`,
