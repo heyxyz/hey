@@ -25,6 +25,7 @@ import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
+import checkAndToastDispatcherError from '@lib/checkAndToastDispatcherError';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
@@ -138,7 +139,8 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename)
+      onCompleted(broadcastOnchain.__typename),
+    onError
   });
 
   const typedDataGenerator = async (
@@ -202,7 +204,16 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
 
   const createOnMomka = async (request: MomokaMirrorRequest) => {
     const { data } = await mirrorOnMomoka({ variables: { request } });
+
     if (data?.mirrorOnMomoka?.__typename === 'LensProfileManagerRelayError') {
+      const shouldProceed = checkAndToastDispatcherError(
+        data.mirrorOnMomoka.reason
+      );
+
+      if (!shouldProceed) {
+        return;
+      }
+
       return await createMomokaMirrorTypedData({ variables: { request } });
     }
   };
