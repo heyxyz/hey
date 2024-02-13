@@ -77,7 +77,7 @@ const Embed: FC<EmbedProps> = ({ og, publicationId }) => {
                 ) : null}
                 {og.description ? (
                   <div className="ld-text-gray-500 line-clamp-1 whitespace-break-spaces">
-                    {og.description}
+                    {og.description.replace(/ +/g, ' ')}
                   </div>
                 ) : null}
               </div>
