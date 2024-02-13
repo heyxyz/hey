@@ -49,7 +49,7 @@ const ChooseThumbnail: FC = () => {
     return result;
   };
 
-  const onSelectThumbnail = async (index: number) => {
+  const onSelectThumbnail = (index: number) => {
     setSelectedThumbnailIndex(index);
     if (thumbnails[index]?.ipfsUrl === '') {
       setVideoThumbnail({ uploading: true });
