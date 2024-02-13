@@ -112,7 +112,7 @@ export const HeyLensSignup = [
     name: 'lensPermissionlessCreator',
     outputs: [
       {
-        internalType: 'contract IPermissionlessCreator',
+        internalType: 'contract ILensPermissionlessCreator',
         name: '',
         type: 'address'
       }
@@ -144,6 +144,15 @@ export const HeyLensSignup = [
   {
     inputs: [],
     name: 'renounceOwnership',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'address', name: 'creatorAddress', type: 'address' }
+    ],
+    name: 'setLensPermissionlessCreatorAddress',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
