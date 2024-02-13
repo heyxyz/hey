@@ -207,8 +207,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const createPoll = useCreatePoll();
   const getMetadata = usePublicationMetadata();
 
-  const { canUseLensManager, isSponsored } =
-    checkDispatcherPermissions(currentProfile);
+  const { canUseLensManager } = checkDispatcherPermissions(currentProfile);
 
   const isComment = Boolean(publication);
   const isQuote = Boolean(quotedPublication);
@@ -351,12 +350,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
     if (isSuspended) {
       toast.error(Errors.Suspended);
-    }
-
-    if (isComment && publication.momoka?.proof && !isSponsored) {
-      return toast.error(
-        'Momoka is currently in beta - during this time certain actions are not available to all profiles.'
-      );
     }
 
     try {
