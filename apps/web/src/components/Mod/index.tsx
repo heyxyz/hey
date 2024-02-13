@@ -29,7 +29,7 @@ import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 import FeedType from './FeedType';
 import LatestFeed from './LatestFeed';
-import ReportFeed from './ReportFeed';
+import TrustedReportFeed from './TrustedReportFeed';
 
 const FILTER_APPS = knownApps;
 
@@ -103,7 +103,7 @@ const Mod: NextPage = () => {
             setRefreshing={setRefreshing}
           />
         )}
-        {feedType === ModFeedType.TRUSTED_REPORTS && <ReportFeed />}
+        {feedType === ModFeedType.TRUSTED_REPORTS && <TrustedReportFeed />}
         {feedType === ModFeedType.PROFILES && <List />}
       </GridItemEight>
       <GridItemFour>

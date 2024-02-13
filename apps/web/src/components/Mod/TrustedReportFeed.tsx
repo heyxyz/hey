@@ -14,13 +14,16 @@ import { useInView } from 'react-cool-inview';
 
 import Actions from './Actions';
 
-const ReportFeed: FC = () => {
+const TrustedReportFeed: FC = () => {
   const [displayedPublications, setDisplayedPublications] = useState<any[]>([]);
 
   const limit = LimitType.TwentyFive;
   const offset = displayedPublications.length;
 
-  const getReportFeed = async (limit: null | number, offset: null | number) => {
+  const getTrustedReportFeed = async (
+    limit: null | number,
+    offset: null | number
+  ) => {
     try {
       const response = await axios.get(`${HEY_API_URL}/trusted/publications`, {
         params: { limit, offset }
@@ -37,8 +40,8 @@ const ReportFeed: FC = () => {
     error: algoError,
     isLoading: algoLoading
   } = useQuery({
-    queryFn: async () => await getReportFeed(25, offset),
-    queryKey: ['getReportFeed', 25, offset]
+    queryFn: async () => await getTrustedReportFeed(25, offset),
+    queryKey: ['getTrustedReportFeed', 25, offset]
   });
 
   const request: PublicationsRequest = {
@@ -105,4 +108,4 @@ const ReportFeed: FC = () => {
   );
 };
 
-export default ReportFeed;
+export default TrustedReportFeed;
