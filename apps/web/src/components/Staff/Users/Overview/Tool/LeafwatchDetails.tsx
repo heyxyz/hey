@@ -30,9 +30,10 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
     version: string;
   } | null> => {
     try {
-      const response = await axios.get(`${HEY_API_URL}/stats/profileDetails`, {
-        params: { id: profileId }
-      });
+      const response = await axios.get(
+        `${HEY_API_URL}/internal/leafwatch/profile/details`,
+        { params: { id: profileId } }
+      );
       const { data } = response;
 
       return data.result;
@@ -52,7 +53,7 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
   } | null> => {
     try {
       const response = await axios.get(
-        `${HEY_API_URL}/stats/profileImpressions`,
+        `${HEY_API_URL}/internal/leafwatch/profile/impressions`,
         { params: { id: profileId } }
       );
       const { data } = response;
