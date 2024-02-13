@@ -26,7 +26,7 @@ const HeyMembershipNft: FC = () => {
     return null;
   }
 
-  const updateHeyMemberNftStatus = async () => {
+  const updateHeyMemberNftStatus = () => {
     toast.promise(
       axios.post(`${HEY_API_URL}/preferences/updateNftStatus`, undefined, {
         headers: getAuthApiHeaders()

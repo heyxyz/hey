@@ -12,6 +12,7 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import StaffSidebar from '../Sidebar';
 import Balance from './Balance';
+import LensCredits from './LensCredits';
 import ProfilesCreated from './ProfilesCreated';
 import SignupPrice from './SignupPrice';
 
@@ -41,6 +42,7 @@ const SignupContract: NextPage = () => {
           <div className="p-5 text-lg font-bold">Signup Contract</div>
           <div className="divider" />
           <div className="space-y-5 p-5">
+            <LensCredits />
             <SignupPrice />
             <ProfilesCreated />
             <Balance />

@@ -34,7 +34,7 @@ const List: FC = () => {
     queryKey: ['getAllFeatureFlags']
   });
 
-  const killFeatureFlag = async (id: string, enabled: boolean) => {
+  const killFeatureFlag = (id: string, enabled: boolean) => {
     setKilling(true);
     toast.promise(
       axios.post(
@@ -62,7 +62,7 @@ const List: FC = () => {
     );
   };
 
-  const deleteFeatureFlag = async (id: string) => {
+  const deleteFeatureFlag = (id: string) => {
     toast.promise(
       axios.post(
         `${HEY_API_URL}/internal/features/delete`,
