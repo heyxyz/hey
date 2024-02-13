@@ -11,14 +11,12 @@ const checkDispatcherPermissions = (
   canBroadcast: boolean;
   canUseLensManager: boolean;
   canUseSignless: boolean;
-  isSponsored: boolean;
 } => {
   if (!profile) {
     return {
       canBroadcast: false,
       canUseLensManager: false,
-      canUseSignless: false,
-      isSponsored: false
+      canUseSignless: false
     };
   }
 
@@ -27,7 +25,7 @@ const checkDispatcherPermissions = (
   const canUseLensManager = canUseSignless && isSponsored;
   const canBroadcast = isSponsored;
 
-  return { canBroadcast, canUseLensManager, canUseSignless, isSponsored };
+  return { canBroadcast, canUseLensManager, canUseSignless };
 };
 
 export default checkDispatcherPermissions;
