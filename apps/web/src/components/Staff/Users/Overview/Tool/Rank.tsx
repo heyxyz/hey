@@ -58,22 +58,22 @@ const Rank: FC<RankProps> = ({
   };
 
   const { data: followship, isLoading: followshipLoading } = useQuery({
-    queryFn: async () => getRank('followship'),
+    queryFn: async () => await getRank('followship'),
     queryKey: ['getRank', profileId, 'followship']
   });
 
   const { data: engagement, isLoading: engagementLoading } = useQuery({
-    queryFn: async () => getRank('engagement'),
+    queryFn: async () => await getRank('engagement'),
     queryKey: ['getRank', profileId, 'engagement']
   });
 
   const { data: influencer, isLoading: influencerLoading } = useQuery({
-    queryFn: async () => getRank('influencer'),
+    queryFn: async () => await getRank('influencer'),
     queryKey: ['getRank', profileId, 'influencer']
   });
 
   const { data: creator, isLoading: creatorLoading } = useQuery({
-    queryFn: async () => getRank('creator'),
+    queryFn: async () => await getRank('creator'),
     queryKey: ['getRank', profileId, 'creator']
   });
 

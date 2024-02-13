@@ -32,7 +32,7 @@ const Create: FC<CreateProps> = ({
     schema: createFeatureSchema
   });
 
-  const create = async (key: string) => {
+  const create = (key: string) => {
     setCreating(true);
     toast.promise(
       axios.post(

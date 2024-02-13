@@ -3,7 +3,7 @@ import axios from 'axios';
 import { TEST_URL } from 'src/lib/constants';
 import { describe, expect, test } from 'vitest';
 
-describe('polls/act', async () => {
+describe('polls/act', () => {
   test('should act on a poll', async () => {
     const newPollResponse = await axios.post(
       `${TEST_URL}/polls/create`,
