@@ -14,7 +14,6 @@ describe('handle regex', () => {
     expect(validate('username')).toBe(true);
     expect(validate('abc123')).toBe(true);
     expect(validate('john_doe_123')).toBe(true);
-    expect(validate('john-doe-123')).toBe(true);
     expect(validate('Abc123')).toBe(true);
   });
 
@@ -34,5 +33,13 @@ describe('handle regex', () => {
 
   test('should fail for empty string', () => {
     expect(validate('')).toBe(false);
+  });
+
+  test('should fail if starts with _', () => {
+    expect(validate('_yogi')).toBe(false);
+  });
+
+  test('should fail if - is present', () => {
+    expect(validate('yogi-codes')).toBe(false);
   });
 });
