@@ -13,7 +13,7 @@ npx hardhat verify 0x58e3E478e6581ca443650d2969354701CC6C53b8 --network polygonM
 
 # Deploy to Polygon
 npx hardhat run script/deploy.ts --network polygon
-npx hardhat verify 0xcca25ee4b257ec50519ce62eb61aeb09e4e0afab --network polygon
+npx hardhat verify 0x9209Fae35f6a9680a722aC10D8ebbA98102a45b8 --network polygon
 ```
 
 ## Contracts
