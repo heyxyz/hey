@@ -7,8 +7,9 @@ import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 const ModIcon: FC = () => {
   const trusted = useFeatureFlagsStore((state) => state.trusted);
+  const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
 
-  if (!trusted) {
+  if (!trusted && !gardenerMode) {
     return null;
   }
 
