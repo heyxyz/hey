@@ -24,11 +24,11 @@ describe('handle regex', () => {
     expect(validate('name#123')).toBe(false);
   });
 
-  test('should fail for less than 3 characters', () => {
-    expect(validate('ha')).toBe(false);
+  test('should fail for less than 5 characters', () => {
+    expect(validate('ha12')).toBe(false);
   });
 
-  test('should fail for more than 31 characters', () => {
+  test('should fail for more than 26 characters', () => {
     expect(validate('handlehandlehandlehandlehandlehandle')).toBe(false);
   });
 
