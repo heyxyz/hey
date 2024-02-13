@@ -35,7 +35,7 @@ const Create: FC<CreateProps> = ({ setShowCreateModal, setTokens, tokens }) => {
     schema: createTokenSchema
   });
 
-  const create = async (
+  const create = (
     name: string,
     symbol: string,
     decimals: string,

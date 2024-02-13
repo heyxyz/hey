@@ -26,7 +26,7 @@ const Create: FC<CreateProps> = ({
   const [creating, setCreating] = useState(false);
   const [profileSelected, setProfileSelected] = useState(false);
 
-  const add = async () => {
+  const add = () => {
     setCreating(true);
     toast.promise(
       axios.post(

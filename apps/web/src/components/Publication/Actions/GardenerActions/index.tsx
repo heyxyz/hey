@@ -39,7 +39,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({
   );
   const [createReport, { loading }] = useReportPublicationMutation();
 
-  const removeTrustedReport = async (id: string, looksGood: boolean) => {
+  const removeTrustedReport = (id: string, looksGood: boolean) => {
     const removeReport = async () => {
       return await axios.post(
         `${HEY_API_URL}/trusted/removeReport`,
@@ -77,7 +77,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({
     };
 
     if (ableToRemoveReport) {
-      await removeTrustedReport(publicationId, false);
+      removeTrustedReport(publicationId, false);
     }
 
     return await createReport({
