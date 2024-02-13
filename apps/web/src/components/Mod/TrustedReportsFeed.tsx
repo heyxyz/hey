@@ -14,7 +14,7 @@ import { useInView } from 'react-cool-inview';
 
 import Actions from './Actions';
 
-const TrustedReportFeed: FC = () => {
+const TrustedReportsFeed: FC = () => {
   const [displayedPublications, setDisplayedPublications] = useState<any[]>([]);
 
   const limit = LimitType.TwentyFive;
@@ -108,4 +108,4 @@ const TrustedReportFeed: FC = () => {
   );
 };
 
-export default TrustedReportFeed;
+export default TrustedReportsFeed;
