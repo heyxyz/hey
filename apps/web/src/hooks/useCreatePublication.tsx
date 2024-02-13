@@ -32,6 +32,7 @@ import {
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { OptmisticPublicationType } from '@hey/types/enums';
+import checkAndToastDispatcherError from '@lib/checkAndToastDispatcherError';
 import { useRouter } from 'next/router';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
@@ -309,6 +310,14 @@ const useCreatePublication = ({
   const createPostOnMomka = async (request: MomokaPostRequest) => {
     const { data } = await postOnMomoka({ variables: { request } });
     if (data?.postOnMomoka?.__typename === 'LensProfileManagerRelayError') {
+      const shouldProceed = checkAndToastDispatcherError(
+        data.postOnMomoka.reason
+      );
+
+      if (!shouldProceed) {
+        return;
+      }
+
       return await createMomokaPostTypedData({ variables: { request } });
     }
   };
