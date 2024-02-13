@@ -11,7 +11,7 @@ struct CreateProfileParams {
   bytes followModuleInitData;
 }
 
-interface IPermissionlessCreator {
+interface ILensPermissionlessCreator {
   function createProfileWithHandleUsingCredits(
     CreateProfileParams calldata createProfileParams,
     string calldata handle,
@@ -20,7 +20,7 @@ interface IPermissionlessCreator {
 }
 
 contract HeyLensSignup is Initializable, OwnableUpgradeable {
-  IPermissionlessCreator public lensPermissionlessCreator;
+  ILensPermissionlessCreator public lensPermissionlessCreator;
   uint256 public signupPrice;
   uint256 public profilesCreated;
   mapping(uint256 => bool) public profileCreated;
@@ -38,7 +38,7 @@ contract HeyLensSignup is Initializable, OwnableUpgradeable {
     uint256 _signupPrice
   ) public initializer {
     __Ownable_init(owner);
-    lensPermissionlessCreator = IPermissionlessCreator(
+    lensPermissionlessCreator = ILensPermissionlessCreator(
       _lensPermissionlessCreator
     );
     signupPrice = _signupPrice;
@@ -49,12 +49,18 @@ contract HeyLensSignup is Initializable, OwnableUpgradeable {
     signupPrice = _signupPrice;
   }
 
+  function setLensPermissionlessCreatorAddress(
+    address creatorAddress
+  ) external onlyOwner {
+    lensPermissionlessCreator = ILensPermissionlessCreator(creatorAddress);
+  }
+
   function createProfileWithHandleUsingCredits(
     CreateProfileParams calldata createProfileParams,
     string calldata handle,
     address[] calldata delegatedExecutors
   ) external payable returns (uint256 profileId, uint256 handleId) {
-    if (msg.value != signupPrice) {
+    if (msg.value < signupPrice) {
       revert InvalidFunds();
     }
 
