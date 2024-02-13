@@ -6,7 +6,6 @@ import NewPost from '@components/Composer/Post/New';
 import {
   APP_NAME,
   HANDLE_PREFIX,
-  IS_MAINNET,
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
@@ -21,7 +20,6 @@ import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
-import Achievements from './Achievements';
 import Cover from './Cover';
 import Details from './Details';
 import Feed from './Feed';
@@ -43,8 +41,7 @@ const ViewProfile: NextPage = () => {
     ProfileFeedType.Feed.toLowerCase(),
     ProfileFeedType.Replies.toLowerCase(),
     ProfileFeedType.Media.toLowerCase(),
-    ProfileFeedType.Collects.toLowerCase(),
-    ProfileFeedType.Stats.toLowerCase()
+    ProfileFeedType.Collects.toLowerCase()
   ];
 
   const feedType = type
@@ -107,9 +104,6 @@ const ViewProfile: NextPage = () => {
               profileId={profile.id}
               type={feedType}
             />
-          ) : null}
-          {feedType === ProfileFeedType.Stats && IS_MAINNET ? (
-            <Achievements profile={profile as Profile} />
           ) : null}
         </GridItemEight>
       </GridLayout>
