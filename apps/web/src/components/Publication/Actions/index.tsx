@@ -72,13 +72,7 @@ const PublicationActions: FC<PublicationActionsProps> = ({
           publication={publication}
         />
       ) : null}
-      {views > 0 ? (
-        <Views
-          publicationId={targetPublication.id}
-          showCount={showCount}
-          views={views}
-        />
-      ) : null}
+      {views > 0 ? <Views showCount={showCount} views={views} /> : null}
       {gardenerMode ? (
         <Mod
           isFullPublication={showCount}
