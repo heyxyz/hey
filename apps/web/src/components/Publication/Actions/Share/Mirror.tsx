@@ -62,7 +62,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
   const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
 
-  const { canBroadcast, canUseLensManager, isSponsored } =
+  const { canBroadcast, canUseLensManager } =
     checkDispatcherPermissions(currentProfile);
 
   const updateCache = () => {
@@ -226,12 +226,6 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
 
     if (isSuspended) {
       return toast.error(Errors.Suspended);
-    }
-
-    if (publication.momoka?.proof && !isSponsored) {
-      return toast.error(
-        'Momoka is currently in beta - during this time certain actions are not available to all profiles.'
-      );
     }
 
     try {
