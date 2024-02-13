@@ -25,7 +25,7 @@ const ReportsFeed: FC = () => {
     offset: null | number
   ) => {
     try {
-      const response = await axios.get(`${HEY_API_URL}/trusted/publications`, {
+      const response = await axios.get(`${HEY_API_URL}/mod/reports`, {
         params: { limit, offset }
       });
 
