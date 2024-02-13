@@ -7,7 +7,6 @@ describe('checkDispatcherPermissions', () => {
     const result = checkDispatcherPermissions(null);
 
     expect(result.canUseSignless).toBe(false);
-    expect(result.isSponsored).toBe(false);
     expect(result.canUseLensManager).toBe(false);
     expect(result.canBroadcast).toBe(false);
   });
@@ -18,7 +17,6 @@ describe('checkDispatcherPermissions', () => {
     const result = checkDispatcherPermissions(profile);
 
     expect(result.canUseSignless).toBe(true);
-    expect(result.isSponsored).toBe(true);
     expect(result.canUseLensManager).toBe(true);
     expect(result.canBroadcast).toBe(false);
   });
@@ -28,7 +26,6 @@ describe('checkDispatcherPermissions', () => {
     const result = checkDispatcherPermissions(profile);
 
     expect(result.canUseSignless).toBe(false);
-    expect(result.isSponsored).toBe(true);
     expect(result.canUseLensManager).toBe(false);
     expect(result.canBroadcast).toBe(true);
   });
@@ -38,7 +35,6 @@ describe('checkDispatcherPermissions', () => {
     const result = checkDispatcherPermissions(profile);
 
     expect(result.canUseSignless).toBe(true);
-    expect(result.isSponsored).toBe(false);
     expect(result.canUseLensManager).toBe(false);
     expect(result.canBroadcast).toBe(false);
   });
@@ -48,7 +44,6 @@ describe('checkDispatcherPermissions', () => {
     const result = checkDispatcherPermissions(profile);
 
     expect(result.canUseSignless).toBe(false);
-    expect(result.isSponsored).toBe(false);
     expect(result.canUseLensManager).toBe(false);
     expect(result.canBroadcast).toBe(false);
   });
