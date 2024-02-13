@@ -13,6 +13,7 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 import StaffSidebar from '../Sidebar';
 import Balance from './Balance';
 import ProfilesCreated from './ProfilesCreated';
+import SignupPrice from './SignupPrice';
 
 const SignupContract: NextPage = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
@@ -40,6 +41,7 @@ const SignupContract: NextPage = () => {
           <div className="p-5 text-lg font-bold">Signup Contract</div>
           <div className="divider" />
           <div className="space-y-5 p-5">
+            <SignupPrice />
             <ProfilesCreated />
             <Balance />
           </div>
