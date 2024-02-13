@@ -37,7 +37,7 @@ const getEnvConfig = (): {
       return {
         defaultCollectToken: MainnetContracts.DefaultToken,
         heyApiEndpoint: HeyEndpoint.Mainnet,
-        heyLensSignup: TestnetContracts.HeyLensSignup,
+        heyLensSignup: MainnetContracts.HeyLensSignup,
         lensApiEndpoint: LensEndpoint.Mainnet,
         lensHubProxyAddress: MainnetContracts.LensHubProxy,
         publicActProxyAddress: MainnetContracts.PublicActProxy,

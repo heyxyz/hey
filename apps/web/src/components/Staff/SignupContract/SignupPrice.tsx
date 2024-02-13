@@ -18,13 +18,11 @@ const SignupPrice: FC = () => {
   const priceInMatic = price ? Number(price) / 10 ** 18 : 0;
 
   return (
-    <div>
-      <NumberedStat
-        count={priceInMatic.toString() || '0'}
-        name={`Signup Price`}
-        suffix="MATIC / profile"
-      />
-    </div>
+    <NumberedStat
+      count={priceInMatic.toString() || '0'}
+      name={`Signup Price`}
+      suffix="MATIC / profile"
+    />
   );
 };
 
