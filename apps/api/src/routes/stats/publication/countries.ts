@@ -36,6 +36,13 @@ export const get: Handler = async (req, res) => {
     }));
     logger.info(`Fetched publication views country details for ${id}`);
 
+    if (locationDetails.length < 30) {
+      return res
+        .status(200)
+        .setHeader('Cache-Control', SWR_CACHE_AGE_1_SEC_30_DAYS)
+        .json({ result: null, success: true });
+    }
+
     return res
       .status(200)
       .setHeader('Cache-Control', SWR_CACHE_AGE_1_SEC_30_DAYS)
