@@ -34,7 +34,7 @@ const ProtectProfile: FC = () => {
   const {
     data: writeHash,
     isPending,
-    writeContract
+    writeContractAsync
   } = useWriteContract({
     mutation: {
       onError,
@@ -42,8 +42,8 @@ const ProtectProfile: FC = () => {
     }
   });
 
-  const write = () => {
-    return writeContract({
+  const write = async () => {
+    return await writeContractAsync({
       abi: LensHub,
       address: LENSHUB_PROXY,
       functionName: 'enableTokenGuardian'
@@ -67,7 +67,7 @@ const ProtectProfile: FC = () => {
 
     try {
       await handleWrongNetwork();
-      return write();
+      return await write();
     } catch (error) {
       onError(error);
     }

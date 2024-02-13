@@ -113,7 +113,7 @@ const useCreatePublication = ({
   });
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
-  const { error, writeContract } = useWriteContract({
+  const { error, writeContractAsync } = useWriteContract({
     mutation: {
       onError: (error) => {
         onError(error);
@@ -130,8 +130,8 @@ const useCreatePublication = ({
     }
   });
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       abi: LensHub,
       address: LENSHUB_PROXY,
       args,
@@ -180,14 +180,14 @@ const useCreatePublication = ({
         variables: { request: { id, signature } }
       });
       if (data?.broadcastOnchain.__typename === 'RelayError') {
-        return write({ args: [typedData.value] });
+        return await write({ args: [typedData.value] });
       }
       setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
 
       return;
     }
 
-    return write({ args: [typedData.value] });
+    return await write({ args: [typedData.value] });
   };
 
   // On-chain typed data generation
