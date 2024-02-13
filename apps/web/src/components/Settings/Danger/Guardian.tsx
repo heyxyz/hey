@@ -29,7 +29,7 @@ const GuardianSettings: FC = () => {
     errorToast(error);
   };
 
-  const { data, writeContract } = useWriteContract({
+  const { data, writeContractAsync } = useWriteContract({
     mutation: {
       onError: (error) => {
         onError(error);
@@ -40,8 +40,8 @@ const GuardianSettings: FC = () => {
     }
   });
 
-  const write = () => {
-    return writeContract({
+  const write = async () => {
+    return await writeContractAsync({
       abi: LensHub,
       address: LENSHUB_PROXY,
       functionName: 'DANGER__disableTokenGuardian'
@@ -56,7 +56,7 @@ const GuardianSettings: FC = () => {
     try {
       setIsLoading(true);
       await handleWrongNetwork();
-      return write();
+      return await write();
     } catch (error) {
       onError(error);
     }
