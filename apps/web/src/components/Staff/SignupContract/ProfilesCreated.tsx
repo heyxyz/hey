@@ -15,9 +15,7 @@ const ProfilesCreated: FC = () => {
   });
 
   return (
-    <div>
-      <NumberedStat count={data?.toString() || '0'} name={`Profiles Created`} />
-    </div>
+    <NumberedStat count={data?.toString() || '0'} name={`Profiles Created`} />
   );
 };
 
