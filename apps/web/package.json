@@ -44,7 +44,7 @@
     "axios": "^1.6.7",
     "browser-image-compression": "^2.0.2",
     "chart.js": "^4.4.1",
-    "dotenv": "^16.4.2",
+    "dotenv": "^16.4.3",
     "esbuild": "^0.20.0",
     "framer-motion": "^11.0.3",
     "graphiql": "^3.1.1",
@@ -73,7 +73,7 @@
     "usehooks-ts": "^2.14.0",
     "uuid": "^9.0.1",
     "viem": "^2.7.8",
-    "wagmi": "^2.5.6",
+    "wagmi": "^2.5.7",
     "zod": "^3.22.4",
     "zustand": "^4.5.0"
   },
