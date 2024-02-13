@@ -23,7 +23,7 @@ const Moonpay: FC<MoonpayProps> = ({ balance }) => {
   };
 
   return (
-    <div>
+    <div className="pt-5">
       {balance ? (
         <div className="ld-text-gray-500 mb-2 text-sm">
           You need <b>{SIGNUP_PRICE} MATIC</b> to get your profile. You have
