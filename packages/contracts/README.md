@@ -6,8 +6,14 @@ Try running some of the following tasks:
 
 ```sh
 npx hardhat compile
-npx hardhat run script/deploy.ts
+
+# Deploy to Mumbai
+npx hardhat run script/deploy.ts --network polygonMumbai
 npx hardhat verify 0x58e3E478e6581ca443650d2969354701CC6C53b8 --network polygonMumbai
+
+# Deploy to Polygon
+npx hardhat run script/deploy.ts --network polygon
+npx hardhat verify 0xcca25ee4b257ec50519ce62eb61aeb09e4e0afab --network polygon
 ```
 
 ## Contracts

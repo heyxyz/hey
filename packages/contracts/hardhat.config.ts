@@ -6,18 +6,21 @@ import '@nomicfoundation/hardhat-toolbox';
 import '@openzeppelin/hardhat-upgrades';
 
 const config: HardhatUserConfig = {
-  defaultNetwork: 'polygonMumbai',
   etherscan: {
-    apiKey: { polygonMumbai: process.env.POLYGON_ETHERSCAN_API_KEY! }
+    apiKey: {
+      polygon: process.env.POLYGON_ETHERSCAN_API_KEY!,
+      polygonMumbai: process.env.POLYGON_ETHERSCAN_API_KEY!
+    }
   },
   networks: {
     polygon: {
       accounts: [process.env.PRIVATE_KEY!],
-      url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`
+      gasPrice: 1000000000,
+      url: `https://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`
     },
     polygonMumbai: {
       accounts: [process.env.PRIVATE_KEY!],
-      url: `https://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`
+      url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`
     }
   },
   solidity: '0.8.23',
