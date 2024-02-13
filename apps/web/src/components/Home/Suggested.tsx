@@ -2,26 +2,18 @@ import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import DismissRecommendedProfile from '@components/Shared/DismissRecommendedProfile';
-import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
-import { useProfileRecommendationsQuery } from '@hey/lens';
-import { EmptyState, ErrorMessage } from '@hey/ui';
+import { EmptyState } from '@hey/ui';
 import { motion } from 'framer-motion';
 import { Virtuoso } from 'react-virtuoso';
-import useProfileStore from 'src/store/persisted/useProfileStore';
 
-const Suggested: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const { data, error, loading } = useProfileRecommendationsQuery({
-    variables: { request: { for: currentProfile?.id } }
-  });
+interface SuggestedProps {
+  profiles: Profile[];
+}
 
-  if (loading) {
-    return <Loader message="Loading suggested" />;
-  }
-
-  if (data?.profileRecommendations.items.length === 0) {
+const Suggested: FC<SuggestedProps> = ({ profiles }) => {
+  if (profiles.length === 0) {
     return (
       <EmptyState
         hideCard
@@ -33,10 +25,9 @@ const Suggested: FC = () => {
 
   return (
     <div className="max-h-[80vh] overflow-y-auto">
-      <ErrorMessage error={error} title="Failed to load recommendations" />
       <Virtuoso
         className="virtual-profile-list"
-        data={data?.profileRecommendations.items}
+        data={profiles}
         itemContent={(_, profile) => {
           return (
             <motion.div

@@ -49,7 +49,9 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
       />
       {!publication.isHidden && !quoted ? (
         <PublicationMenu publication={targetPublication} />
-      ) : null}
+      ) : (
+        <div className="size-[30px]" />
+      )}
       {quoted && isNew ? (
         <button
           aria-label="Remove Quote"

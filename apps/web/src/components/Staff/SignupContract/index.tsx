@@ -5,10 +5,10 @@ import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
+import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce } from 'usehooks-ts';
 
 import StaffSidebar from '../Sidebar';
 import Balance from './Balance';
@@ -18,12 +18,12 @@ const SignupContract: NextPage = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
 
-  useEffectOnce(() => {
+  useEffect(() => {
     Leafwatch.track(PAGEVIEW, {
       page: 'staff-tools',
       subpage: 'singup-contract'
     });
-  });
+  }, []);
 
   if (!currentProfile || !staffMode) {
     return <Custom404 />;

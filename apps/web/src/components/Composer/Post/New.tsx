@@ -1,15 +1,13 @@
-import type { FC } from 'react';
-
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import getAvatar from '@hey/lib/getAvatar';
 import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import { Card, Image } from '@hey/ui';
 import { useRouter } from 'next/router';
+import { type FC, useEffect } from 'react';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce } from 'usehooks-ts';
 
 const NewPost: FC = () => {
   const { isReady, push, query } = useRouter();
@@ -25,7 +23,7 @@ const NewPost: FC = () => {
     setShowNewPostModal(true);
   };
 
-  useEffectOnce(() => {
+  useEffect(() => {
     if (isReady && query.text) {
       const { hashtags, text, url, via } = query;
       let processedHashtags;
@@ -44,7 +42,8 @@ const NewPost: FC = () => {
       openModal();
       setPublicationContent(content);
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Card className="space-y-3 p-5">

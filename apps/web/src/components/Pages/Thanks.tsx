@@ -1,5 +1,4 @@
 import type { NextPage } from 'next';
-import type { FC, ReactNode } from 'react';
 
 import Footer from '@components/Shared/Footer';
 import { HeartIcon } from '@heroicons/react/24/outline';
@@ -8,8 +7,8 @@ import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
+import { type FC, type ReactNode, useEffect } from 'react';
 import urlcat from 'urlcat';
-import { useEffectOnce } from 'usehooks-ts';
 
 interface BrandProps {
   children: ReactNode;
@@ -23,9 +22,9 @@ interface BrandProps {
 const Brand: FC<BrandProps> = ({ children, logo, name, size, type, url }) => {
   const { resolvedTheme } = useTheme();
 
-  useEffectOnce(() => {
+  useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'thanks' });
-  });
+  }, []);
 
   return (
     <div className="space-y-5 pt-10">

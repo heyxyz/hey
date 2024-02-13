@@ -17,7 +17,7 @@ const EncryptedPublication: FC<EncryptedPublicationProps> = ({
   const type = publication.__typename;
 
   return (
-    <Card className="!bg-gray-100 dark:!bg-gray-800" forceRounded>
+    <Card className="mt-2 !bg-gray-100 dark:!bg-gray-800" forceRounded>
       <div className="space-y-4 px-4 py-3 text-sm">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-1">

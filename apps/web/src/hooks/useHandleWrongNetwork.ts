@@ -6,11 +6,15 @@ const useHandleWrongNetwork = () => {
   const { switchChainAsync } = useSwitchChain();
 
   const handleWrongNetwork = async () => {
-    if (activeConnection[0].chainId !== CHAIN.id) {
+    if (!activeConnection[0]) {
+      return;
+    }
+
+    if (activeConnection[0]?.chainId !== CHAIN.id) {
       return await switchChainAsync({ chainId: CHAIN.id });
     }
 
-    return false;
+    return;
   };
 
   return handleWrongNetwork;

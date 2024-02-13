@@ -8,17 +8,17 @@ import { Card, GridLayout } from '@hey/ui';
 import { GridItemTwelve } from '@hey/ui/src/GridLayout';
 import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { Leafwatch } from '@lib/leafwatch';
+import { useEffect } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce } from 'usehooks-ts';
 
 import Plan from './Plan';
 
 const Pro: NextPage = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
-  useEffectOnce(() => {
+  useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'pro' });
-  });
+  }, []);
 
   if (!currentProfile || !isFeatureAvailable('pro')) {
     return <NotLoggedIn />;

@@ -7,8 +7,8 @@ import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { Leafwatch } from '@lib/leafwatch';
+import { useEffect } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
 import HighSignalNotificationFilter from './HighSignalNotificationFilter';
@@ -18,9 +18,9 @@ import PushNotifications from './PushNotifications';
 const PreferencesSettings: NextPage = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
-  useEffectOnce(() => {
+  useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'preferences' });
-  });
+  }, []);
 
   if (!currentProfile) {
     return <NotLoggedIn />;

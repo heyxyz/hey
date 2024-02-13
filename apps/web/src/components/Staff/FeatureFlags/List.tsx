@@ -8,10 +8,12 @@ import {
   TrashIcon
 } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
+import { STAFFTOOLS } from '@hey/data/tracking';
 import getAllFeatureFlags from '@hey/lib/api/getAllFeatureFlags';
 import formatDate from '@hey/lib/datetime/formatDate';
 import { Badge, Button, Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
+import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
@@ -47,6 +49,7 @@ const List: FC = () => {
         },
         loading: 'Killing feature flag...',
         success: () => {
+          Leafwatch.track(STAFFTOOLS.FEATURE_FLAGS.KILL);
           setKilling(false);
           setFeatures(
             features.map((feature) =>
@@ -70,6 +73,7 @@ const List: FC = () => {
         error: 'Failed to delete feature flag',
         loading: 'Deleting feature flag...',
         success: () => {
+          Leafwatch.track(STAFFTOOLS.FEATURE_FLAGS.DELETE);
           setFeatures(features.filter((feature) => feature.id !== id));
           return 'Feature flag deleted';
         }

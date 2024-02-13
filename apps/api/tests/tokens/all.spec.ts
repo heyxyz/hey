@@ -7,6 +7,8 @@ describe('tokens/all', () => {
     const response = await axios.get(`${TEST_URL}/tokens/all`);
 
     expect(response.data.tokens).toBeInstanceOf(Array);
-    expect(response.data.tokens[0].name).toEqual('Wrapped Matic');
+    expect(response.data.tokens[response.data.tokens.length - 1].name).toEqual(
+      'Wrapped Matic'
+    );
   });
 });

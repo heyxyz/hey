@@ -10,8 +10,7 @@ export enum ProfileFeedType {
   Collects = 'COLLECTS',
   Feed = 'FEED',
   Media = 'MEDIA',
-  Replies = 'REPLIES',
-  Stats = 'STATS'
+  Replies = 'REPLIES'
 }
 
 export enum NotificationFeedType {

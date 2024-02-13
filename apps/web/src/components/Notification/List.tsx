@@ -8,7 +8,6 @@ import type {
   QuoteNotification as QuoteNotificationType,
   ReactionNotification as ReactionNotificationType
 } from '@hey/lens';
-import type { FC } from 'react';
 
 import { BellIcon } from '@heroicons/react/24/outline';
 import {
@@ -18,11 +17,11 @@ import {
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
+import { type FC, useEffect } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { NotificationTabType } from 'src/enums';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useNotificationStore } from 'src/store/persisted/useNotificationStore';
-import { useUpdateEffect } from 'usehooks-ts';
 
 import NotificationShimmer from './Shimmer';
 import ActedNotification from './Type/ActedNotification';
@@ -79,8 +78,9 @@ const List: FC<ListProps> = ({ feedType }) => {
   const pageInfo = data?.notifications?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     refetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [latestNotificationId]);
 
   const onEndReached = async () => {

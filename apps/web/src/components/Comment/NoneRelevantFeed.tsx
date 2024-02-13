@@ -1,10 +1,12 @@
 import type { Comment, PublicationsRequest } from '@hey/lens';
 import type { FC } from 'react';
 
+import { useHiddenCommentFeedStore } from '@components/Publication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import {
   CommentRankingFilterType,
   CustomFiltersType,
+  HiddenCommentsType,
   LimitType,
   usePublicationsQuery
 } from '@hey/lens';
@@ -17,6 +19,9 @@ interface NoneRelevantFeedProps {
 }
 
 const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publicationId }) => {
+  const showHiddenComments = useHiddenCommentFeedStore(
+    (state) => state.showHiddenComments
+  );
   const [showMore, setShowMore] = useState(false);
 
   // Variables
@@ -24,6 +29,9 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publicationId }) => {
     limit: LimitType.TwentyFive,
     where: {
       commentOn: {
+        hiddenComments: showHiddenComments
+          ? HiddenCommentsType.HiddenOnly
+          : HiddenCommentsType.Hide,
         id: publicationId,
         ranking: { filter: CommentRankingFilterType.NoneRelevant }
       },
