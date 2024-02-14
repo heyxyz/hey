@@ -3,7 +3,7 @@ const hre = require('hardhat');
 async function deployProxy() {
   const owner = '0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF';
   const lensPermissionlessCreator =
-    '0x42b302BBB4fA27c21d32EdF602E4e2aA65746999';
+    '0x0b5e6100243f793e480DE6088dE6bA70aA9f3872';
   const signupPrice = '1000000000000000000';
 
   const HeyLensSignup = await hre.ethers.getContractFactory('HeyLensSignup');

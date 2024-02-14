@@ -14,7 +14,7 @@ export enum HomeFeedType {
 export enum ModFeedType {
   LATEST = 'LATEST',
   PROFILES = 'PROFILES',
-  REPORTS = 'REPORTS'
+  TRUSTED_REPORTS = 'TRUSTED_REPORTS'
 }
 
 export const AlgorithmProvider = {

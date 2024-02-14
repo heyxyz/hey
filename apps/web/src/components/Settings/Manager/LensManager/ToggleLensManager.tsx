@@ -63,7 +63,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
-  const { data: writeHash, writeContract } = useWriteContract({
+  const { data: writeHash, writeContractAsync } = useWriteContract({
     mutation: {
       onError: (error) => {
         onError(error);
@@ -76,8 +76,8 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
     }
   });
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       abi: LensHub,
       address: LENSHUB_PROXY,
       args,
@@ -116,12 +116,13 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
             variables: { request: { id, signature } }
           });
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return write({ args });
+            return await write({ args });
           }
+
           return;
         }
 
-        return write({ args });
+        return await write({ args });
       },
       onError
     });

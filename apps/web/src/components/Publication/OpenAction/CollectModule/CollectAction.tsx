@@ -179,7 +179,7 @@ const CollectAction: FC<CollectActionProps> = ({
     ? 'collectLegacy'
     : 'act';
 
-  const { writeContract } = useWriteContract({
+  const { writeContractAsync } = useWriteContract({
     mutation: {
       onError: (error) => {
         onError(error);
@@ -196,8 +196,8 @@ const CollectAction: FC<CollectActionProps> = ({
     }
   });
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       abi: (isWalletUser ? PublicAct : LensHub) as any,
       address: isWalletUser ? PUBLICACT_PROXY : LENSHUB_PROXY,
       args,
@@ -258,14 +258,14 @@ const CollectAction: FC<CollectActionProps> = ({
         variables: { request: { id, signature } }
       });
       if (data?.broadcastOnchain.__typename === 'RelayError') {
-        return write({ args: [typedData.value] });
+        return await write({ args: [typedData.value] });
       }
       setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
 
       return;
     }
 
-    return write?.({ args: [typedData.value] });
+    return await write({ args: [typedData.value] });
   };
 
   // Act Typed Data

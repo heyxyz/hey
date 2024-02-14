@@ -6,21 +6,24 @@ import { useReadContract } from 'wagmi';
 
 import NumberedStat from '../UI/NumberedStat';
 
-const ProfilesCreated: FC = () => {
+const SignupPrice: FC = () => {
   const { data } = useReadContract({
     abi: HeyLensSignup,
     address: HEY_LENS_SIGNUP,
-    functionName: 'profilesCreated',
-    query: { refetchInterval: 2000 }
+    functionName: 'signupPrice',
+    query: { refetchInterval: 10000 }
   });
+
+  const price = data?.toString();
+  const priceInMatic = price ? Number(price) / 10 ** 18 : 0;
 
   return (
     <NumberedStat
-      count={data?.toString() || '0'}
-      name={`Profiles Created`}
-      suffix="Profiles"
+      count={priceInMatic.toString() || '0'}
+      name={`Signup Price`}
+      suffix="MATIC / profile"
     />
   );
 };
 
-export default ProfilesCreated;
+export default SignupPrice;
