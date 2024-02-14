@@ -1,22 +1,23 @@
 import GardenerActions from '@components/Publication/Actions/GardenerActions';
 import TrustedProfilesActions from '@components/Publication/Actions/TrustedProfilesActions';
+import { ModFeedType } from '@hey/data/enums';
 import { type FC, useState } from 'react';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
-import TrustedReportDetails from './TrustedReportDetails';
+import ReportDetails from './ReportDetails';
 
 interface ActionsProps {
-  hideTrustedReport?: boolean;
   publicationId: string;
+  type?: ModFeedType.REPORTS | ModFeedType.TRUSTED_REPORTS;
 }
 
-const Actions: FC<ActionsProps> = ({
-  hideTrustedReport = false,
-  publicationId
-}) => {
+const Actions: FC<ActionsProps> = ({ publicationId, type }) => {
   const [expanded, setExpanded] = useState(true);
   const trusted = useFeatureFlagsStore((state) => state.trusted);
   const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
+
+  const isTrustedReport = type === ModFeedType.TRUSTED_REPORTS;
+  const isNormalReport = type === ModFeedType.REPORTS;
 
   if (!expanded) {
     return null;
@@ -30,18 +31,21 @@ const Actions: FC<ActionsProps> = ({
           <div className="m-5 space-y-2">
             <b>Gardener actions</b>
             <GardenerActions
-              ableToRemoveReport={hideTrustedReport}
               className="mt-3 max-w-md"
               publicationId={publicationId}
               setExpanded={setExpanded}
+              type={type}
             />
           </div>
-          {hideTrustedReport && (
-            <TrustedReportDetails publicationId={publicationId} />
+          {(isTrustedReport || isNormalReport) && (
+            <ReportDetails
+              isTrustedReport={isTrustedReport}
+              publicationId={publicationId}
+            />
           )}
         </>
       )}
-      {trusted && !hideTrustedReport && (
+      {trusted && !isTrustedReport && !isNormalReport && (
         <>
           <div className="divider" />
           <div className="m-5">

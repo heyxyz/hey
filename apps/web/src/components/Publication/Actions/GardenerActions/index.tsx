@@ -7,6 +7,7 @@ import {
   HandThumbUpIcon
 } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
+import { ModFeedType } from '@hey/data/enums';
 import { GARDENER } from '@hey/data/tracking';
 import {
   PublicationReportingSpamSubreason,
@@ -22,38 +23,40 @@ import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 
 interface GardenerActionsProps {
-  ableToRemoveReport?: boolean;
   className?: string;
   publicationId: string;
   setExpanded?: (expanded: boolean) => void;
+  type?: ModFeedType.REPORTS | ModFeedType.TRUSTED_REPORTS;
 }
 
 const GardenerActions: FC<GardenerActionsProps> = ({
-  ableToRemoveReport = false,
   className = '',
   publicationId,
-  setExpanded = () => {}
+  setExpanded = () => {},
+  type
 }) => {
   const setShowGardenerActionsAlert = useGlobalAlertStateStore(
     (state) => state.setShowGardenerActionsAlert
   );
   const [createReport, { loading }] = useReportPublicationMutation();
+  const ableToRemoveReport =
+    type === ModFeedType.TRUSTED_REPORTS || type === ModFeedType.REPORTS;
 
-  const removeTrustedReport = (id: string, looksGood: boolean) => {
+  const removeReport = (id: string, looksGood: boolean) => {
     const removeReport = async () => {
       return await axios.post(
-        `${HEY_API_URL}/trusted/removeReport`,
-        { id, looksGood },
+        `${HEY_API_URL}/gardener/removeReport`,
+        { id, looksGood, trusted: type === ModFeedType.TRUSTED_REPORTS },
         { headers: getAuthApiHeaders() }
       );
     };
 
     toast.promise(removeReport(), {
-      error: 'Error removing trusted reports',
-      loading: 'Removing trusted reports...',
+      error: 'Error removing report',
+      loading: 'Removing report...',
       success: () => {
         setExpanded(false);
-        return 'Trusted reports removed successfully';
+        return 'Report removed successfully';
       }
     });
   };
@@ -77,7 +80,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({
     };
 
     if (ableToRemoveReport) {
-      removeTrustedReport(publicationId, false);
+      removeReport(publicationId, false);
     }
 
     return await createReport({
@@ -168,7 +171,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({
       {ableToRemoveReport && (
         <Button
           icon={<HandThumbUpIcon className="size-4" />}
-          onClick={() => removeTrustedReport(publicationId, true)}
+          onClick={() => removeReport(publicationId, true)}
           outline
           size="sm"
           variant="secondary"
