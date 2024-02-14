@@ -16,7 +16,6 @@ import NewAttachments from '@components/Composer/NewAttachments';
 import QuotedPublication from '@components/Publication/QuotedPublication';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
-import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import {
   ChatBubbleLeftRightIcon,
   PencilSquareIcon
@@ -681,4 +680,4 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   );
 };
 
-export default withLexicalContext(NewPublication);
+export default NewPublication;

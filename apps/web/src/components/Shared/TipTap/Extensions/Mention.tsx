@@ -21,11 +21,7 @@ import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
 import isVerified from '@lib/isVerified';
 import { PluginKey } from '@tiptap/pm/state';
-import {
-  mergeAttributes,
-  NodeViewWrapper,
-  ReactNodeViewRenderer
-} from '@tiptap/react';
+import { NodeViewWrapper, ReactNodeViewRenderer } from '@tiptap/react';
 import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 
 import type { NodeSuggestionOptions } from './Shared/Suggestion';
@@ -53,7 +49,7 @@ const MentionList = forwardRef((props: SuggestionProps<SearchProfile>, ref) => {
     if (user) {
       command({
         id: user.id,
-        label: user.handle
+        label: `@${user.handle}`
       } as any);
     }
   };
@@ -169,12 +165,12 @@ export const mentionSuggestion: Suggestion = {
   render: makeSuggestionRender(MentionList)
 };
 
-const name = 'mention-component';
+const name = 'p';
 
 const MentionComponent = (props: NodeViewRendererProps) => {
   return (
     <NodeViewWrapper className={name}>
-      <p className="text-brand-500">@{props.node.attrs.label}</p>
+      <p className="text-brand-500">{props.node.attrs.label}</p>
     </NodeViewWrapper>
   );
 };
@@ -189,5 +185,5 @@ export const DisplayMention = Mention.extend({
   addNodeView: () =>
     ReactNodeViewRenderer(MentionComponent, { className: 'inline-block' }),
   parseHTML: () => [{ tag: name }],
-  renderHTML: ({ HTMLAttributes }) => [name, mergeAttributes(HTMLAttributes)]
+  renderHTML: ({ HTMLAttributes }) => [name, HTMLAttributes['data-label']]
 }).configure({ suggestion: mentionSuggestion });

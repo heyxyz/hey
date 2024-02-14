@@ -23,7 +23,7 @@ import useUploadAttachments from 'src/hooks/useUploadAttachments';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
-import { Markdown } from 'tiptap-markdown';
+import TurndownService from 'turndown';
 
 const Editor: FC = () => {
   const setPublicationContent = usePublicationStore(
@@ -49,17 +49,6 @@ const Editor: FC = () => {
       await handleUploadAttachments(pastedFiles);
     }
   };
-
-  // useEffect(() => {
-  //   return editor.registerCommand(
-  //     INSERT_PARAGRAPH_COMMAND,
-  //     () => {
-  //       editor.dispatchCommand(INSERT_LINE_BREAK_COMMAND, false);
-  //       return true;
-  //     },
-  //     COMMAND_PRIORITY_NORMAL
-  //   );
-  // }, [editor]);
 
   const editor = useEditor({
     content: '',
@@ -87,7 +76,6 @@ const Editor: FC = () => {
         autolink: true,
         openOnClick: false
       }),
-      Markdown,
       Images({ onPaste: handlePaste }),
       Placeholder.configure({
         emptyEditorClass:
@@ -98,9 +86,8 @@ const Editor: FC = () => {
       })
     ],
     onUpdate: ({ editor }) => {
-      const markdownOutput = editor.storage.markdown.getMarkdown();
-      // console.log(markdownOutput);
-      console.log(editor.getHTML());
+      const turndown = new TurndownService();
+      const markdownOutput = turndown.turndown(editor.getHTML());
       setPublicationContent(markdownOutput);
     }
   });
@@ -110,10 +97,6 @@ const Editor: FC = () => {
   }
   return (
     <div className="relative">
-      {/* 
-      <HistoryPlugin />
-      <HashtagPlugin />
-      <MarkdownShortcutPlugin transformers={TRANSFORMERS} /> */}
       <ToolbarPlugin editor={editor} />
       <EditorContent editor={editor} />
     </div>

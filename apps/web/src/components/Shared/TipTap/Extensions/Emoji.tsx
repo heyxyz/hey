@@ -4,7 +4,6 @@ import type { Suggestion, SuggestionProps } from '@tiptap/suggestion';
 
 import { STATIC_ASSETS_URL } from '@hey/data/constants';
 import cn from '@hey/ui/cn';
-import { mergeAttributes } from '@tiptap/core';
 import { PluginKey } from '@tiptap/pm/state';
 import { NodeViewWrapper, ReactNodeViewRenderer } from '@tiptap/react';
 import React, {
@@ -109,7 +108,7 @@ export const emojiSuggestion: Suggestion = {
   render: makeSuggestionRender(EmojiList)
 };
 
-const name = 'emoji-component';
+const name = 'p';
 
 const EmojiComponent = (props: NodeViewRendererProps) => {
   return (
@@ -131,5 +130,7 @@ export const EmojiPickerPlugin = EmojiPicker.extend({
   addNodeView: () =>
     ReactNodeViewRenderer(EmojiComponent, { className: 'inline-block' }),
   parseHTML: () => [{ tag: name }],
-  renderHTML: ({ HTMLAttributes }) => [name, mergeAttributes(HTMLAttributes)]
+  renderHTML: ({ HTMLAttributes }) => {
+    return [name, HTMLAttributes['data-label']];
+  }
 }).configure({ suggestion: emojiSuggestion });

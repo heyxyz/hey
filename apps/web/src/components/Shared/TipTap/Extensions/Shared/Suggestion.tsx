@@ -1,20 +1,11 @@
-import type { DOMOutputSpec, Node as ProseMirrorNode } from '@tiptap/pm/model';
 import type { PluginKey } from '@tiptap/pm/state';
 import type { SuggestionOptions } from '@tiptap/suggestion';
 
-import { mergeAttributes, Node } from '@tiptap/core';
+import { Node } from '@tiptap/core';
 import Suggestion from '@tiptap/suggestion';
 
 export interface NodeSuggestionOptions {
   HTMLAttributes: Record<string, any>;
-  renderHTML: (props: {
-    node: ProseMirrorNode;
-    options: NodeSuggestionOptions;
-  }) => DOMOutputSpec;
-  renderText: (props: {
-    node: ProseMirrorNode;
-    options: NodeSuggestionOptions;
-  }) => string;
   suggestion: Omit<SuggestionOptions, 'editor'>;
 }
 
@@ -95,25 +86,6 @@ const createSuggestion = ({
     addOptions() {
       return {
         HTMLAttributes: {},
-        renderHTML({ node, options }) {
-          console.log(
-            [
-              'span',
-              this.HTMLAttributes,
-              `${options.suggestion.char}${node.attrs.label ?? node.attrs.id}`
-            ],
-            'EXPORT HTML'
-          );
-
-          return [
-            'span',
-            this.HTMLAttributes,
-            `${options.suggestion.char}${node.attrs.label ?? node.attrs.id}`
-          ];
-        },
-        renderText({ node, options }) {
-          return `${options.suggestion.char}${node.attrs.label ?? node.attrs.id}`;
-        },
         suggestion: {
           allow: ({ range, state }) => {
             const $from = state.doc.resolve(range.from);
@@ -171,58 +143,6 @@ const createSuggestion = ({
     inline: true,
 
     name: pluginName,
-
-    parseHTML() {
-      return [
-        {
-          tag: `span[data-type="${this.name}"]`
-        }
-      ];
-    },
-
-    renderHTML({ HTMLAttributes, node }) {
-      console.log('here');
-      
-      const html = this.options.renderHTML({
-        node,
-        options: this.options
-      });
-
-      if (typeof html === 'string') {
-        console.log(
-          [
-            'span',
-            mergeAttributes(
-              { 'data-type': this.name },
-              this.options.HTMLAttributes,
-              HTMLAttributes
-            ),
-            html
-          ],
-          'EXPORT HTML'
-        );
-
-        return [
-          'span',
-          mergeAttributes(
-            { 'data-type': this.name },
-            this.options.HTMLAttributes,
-            HTMLAttributes
-          ),
-          html
-        ];
-      }
-      return html;
-    },
-
-    renderText({ node }) {
-      console.log('here asdsad', node);
-
-      return this.options.renderText({
-        node,
-        options: this.options
-      });
-    },
 
     selectable: false
   });
