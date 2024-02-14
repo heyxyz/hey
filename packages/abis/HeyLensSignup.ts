@@ -151,15 +151,6 @@ export const HeyLensSignup = [
     type: 'function'
   },
   {
-    inputs: [
-      { internalType: 'address', name: 'addressToCheck', type: 'address' }
-    ],
-    name: 'isAllowedAddress',
-    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
     inputs: [],
     name: 'lensPermissionlessCreator',
     outputs: [
