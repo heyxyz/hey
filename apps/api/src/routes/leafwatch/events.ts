@@ -94,6 +94,7 @@ export const post: Handler = async (req, res) => {
           browser_version: ua.browser.version || null,
           city: ipData?.city || null,
           country: ipData?.country || null,
+          ip: ip || null,
           name,
           os: ua.os.name || null,
           platform: platform || null,

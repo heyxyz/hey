@@ -20,7 +20,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.511.0",
+    "@aws-sdk/client-sts": "^3.513.0",
     "@clickhouse/client": "^0.2.9",
     "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
@@ -29,8 +29,7 @@
     "@prisma/client": "^5.9.1",
     "axios": "^1.6.7",
     "cors": "^2.8.5",
-    "country-code-lookup": "^0.1.1",
-    "dotenv": "^16.4.2",
+    "dotenv": "^16.4.4",
     "express": "^4.17.1",
     "express-file-routing": "^3.0.3",
     "fast-xml-parser": "^4.3.4",
@@ -43,7 +42,7 @@
     "ua-parser-js": "^1.0.37",
     "urlcat": "^3.1.0",
     "uuid": "^9.0.1",
-    "viem": "^2.7.8",
+    "viem": "^2.7.9",
     "vite-express": "^0.15.0",
     "zod": "^3.22.4"
   },
@@ -60,7 +59,7 @@
     "prisma": "^5.9.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.2",
-    "vite": "^5.1.1",
+    "vite": "^5.1.2",
     "vite-tsconfig-paths": "^4.3.1",
     "vitest": "^1.2.2"
   }

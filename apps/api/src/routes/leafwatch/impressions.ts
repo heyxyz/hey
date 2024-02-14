@@ -56,6 +56,7 @@ export const post: Handler = async (req, res) => {
     const values = ids.map((id) => ({
       city: ipData?.city || null,
       country: ipData?.country || null,
+      ip: ip || null,
       publication_id: id,
       region: ipData?.regionName || null,
       viewer_id

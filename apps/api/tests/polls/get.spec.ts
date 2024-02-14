@@ -3,7 +3,7 @@ import axios from 'axios';
 import { TEST_URL } from 'src/lib/constants';
 import { describe, expect, test } from 'vitest';
 
-describe('polls/get', async () => {
+describe('polls/get', () => {
   const id = '0bc7fc23-fe6d-467f-b375-044c6cc1ad27';
 
   test('should return a poll without authentication', async () => {
