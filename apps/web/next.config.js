@@ -4,7 +4,7 @@ const allowedBots =
 /** @type {import('next').NextConfig} */
 module.exports = {
   experimental: { scrollRestoration: true },
-  async headers() {
+  headers() {
     return [
       {
         headers: [
@@ -17,7 +17,7 @@ module.exports = {
     ];
   },
   reactStrictMode: false,
-  async redirects() {
+  redirects() {
     return [
       {
         destination: 'https://discord.com/invite/B8eKhSSUwX',
@@ -64,10 +64,16 @@ module.exports = {
           'https://yoginth.notion.site/Hey-Portals-Open-Graph-Spec-ddbedce64a2d4e1a80f66db182159aff',
         permanent: true,
         source: '/-/portals'
+      },
+      {
+        destination:
+          'https://yoginth.notion.site/Hey-Moderation-Tool-Guide-ff1926a080fa44bc9d40ee534f627949',
+        permanent: true,
+        source: '/-/mod-guide'
       }
     ];
   },
-  async rewrites() {
+  rewrites() {
     return [
       {
         destination: 'https://api.hey.xyz/sitemap/:match*',
