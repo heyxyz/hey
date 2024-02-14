@@ -4,23 +4,23 @@ import { HEY_API_URL } from '@hey/data/constants';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-interface TrustedReportDetailsProps {
+interface ReportDetailsProps {
+  isTrustedReport: boolean;
   publicationId: string;
 }
 
-const TrustedReportDetails: FC<TrustedReportDetailsProps> = ({
+const ReportDetails: FC<ReportDetailsProps> = ({
+  isTrustedReport,
   publicationId
 }) => {
   const fetchTrustedReportDetails = async (): Promise<
-    {
-      count: number;
-      reason: string;
-    }[]
+    { count: number; reason: string }[]
   > => {
     try {
-      const response = await axios.get(`${HEY_API_URL}/trusted/reportDetails`, {
-        params: { id: publicationId }
-      });
+      const response = await axios.get(
+        `${HEY_API_URL}/gardener/reportDetails`,
+        { params: { id: publicationId, trusted: isTrustedReport } }
+      );
 
       return response.data.result;
     } catch {
@@ -51,4 +51,4 @@ const TrustedReportDetails: FC<TrustedReportDetailsProps> = ({
   );
 };
 
-export default TrustedReportDetails;
+export default ReportDetails;

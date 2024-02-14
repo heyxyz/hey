@@ -5,6 +5,7 @@ import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { SparklesIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
+import { ModFeedType } from '@hey/data/enums';
 import { LimitType, usePublicationsQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
@@ -25,8 +26,8 @@ const TrustedReportsFeed: FC = () => {
     offset: null | number
   ) => {
     try {
-      const response = await axios.get(`${HEY_API_URL}/trusted/publications`, {
-        params: { limit, offset }
+      const response = await axios.get(`${HEY_API_URL}/gardener/reports`, {
+        params: { limit, offset, trusted: true }
       });
 
       return response.data.success ? response.data.ids : [];
@@ -100,7 +101,10 @@ const TrustedReportsFeed: FC = () => {
             showActions={false}
             showThread={false}
           />
-          <Actions hideTrustedReport publicationId={publication.id} />
+          <Actions
+            publicationId={publication.id}
+            type={ModFeedType.TRUSTED_REPORTS}
+          />
         </Card>
       ))}
       <span ref={observe} />
