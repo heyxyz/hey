@@ -67,6 +67,49 @@ export const HeyLensSignup = [
   },
   {
     inputs: [
+      { internalType: 'address[]', name: 'newAddresses', type: 'address[]' }
+    ],
+    name: 'addAllowedAddresses',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'address', name: '', type: 'address' }],
+    name: 'allowedAddresses',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        components: [
+          { internalType: 'address', name: 'to', type: 'address' },
+          { internalType: 'address', name: 'followModule', type: 'address' },
+          { internalType: 'bytes', name: 'followModuleInitData', type: 'bytes' }
+        ],
+        internalType: 'struct CreateProfileParams',
+        name: 'createProfileParams',
+        type: 'tuple'
+      },
+      { internalType: 'string', name: 'handle', type: 'string' },
+      {
+        internalType: 'address[]',
+        name: 'delegatedExecutors',
+        type: 'address[]'
+      }
+    ],
+    name: 'createProfileWithHandle',
+    outputs: [
+      { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+      { internalType: 'uint256', name: 'handleId', type: 'uint256' }
+    ],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
       {
         components: [
           { internalType: 'address', name: 'to', type: 'address' },
@@ -108,6 +151,15 @@ export const HeyLensSignup = [
     type: 'function'
   },
   {
+    inputs: [
+      { internalType: 'address', name: 'addressToCheck', type: 'address' }
+    ],
+    name: 'isAllowedAddress',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
     inputs: [],
     name: 'lensPermissionlessCreator',
     outputs: [
@@ -139,6 +191,15 @@ export const HeyLensSignup = [
     name: 'profilesCreated',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'address', name: 'addressToRemove', type: 'address' }
+    ],
+    name: 'removeAllowedAddress',
+    outputs: [],
+    stateMutability: 'nonpayable',
     type: 'function'
   },
   {
