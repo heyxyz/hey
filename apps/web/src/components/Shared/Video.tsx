@@ -31,7 +31,7 @@ const Video: FC<VideoProps> = ({ className = '', poster, src }) => {
           ipfsGateway: IPFS_GATEWAY
         }}
         controls={{ defaultVolume: 1 }}
-        objectFit="contain"
+        objectFit="cover"
         poster={imageKit(sanitizeDStorageUrl(poster), VIDEO_THUMBNAIL)}
         refetchPlaybackInfoInterval={1000 * 60 * 60 * 24 * 7}
         showLoadingSpinner
