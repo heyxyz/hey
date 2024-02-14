@@ -1,35 +1,29 @@
 import type { FC } from 'react';
 
-import MentionsPlugin from '@components/Shared/Lexical/Plugins/AtMentionsPlugin';
-import LexicalAutoLinkPlugin from '@components/Shared/Lexical/Plugins/AutoLinkPlugin';
-import EmojiPickerPlugin from '@components/Shared/Lexical/Plugins/EmojiPicker';
-import ImagesPlugin from '@components/Shared/Lexical/Plugins/ImagesPlugin';
-import ToolbarPlugin from '@components/Shared/Lexical/Plugins/ToolbarPlugin';
-import { Errors } from '@hey/data/errors';
-import {
-  $convertToMarkdownString,
-  TEXT_FORMAT_TRANSFORMERS
-} from '@lexical/markdown';
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { ContentEditable } from '@lexical/react/LexicalContentEditable';
-import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin';
-import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
-import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
-import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
-import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
-import {
-  COMMAND_PRIORITY_NORMAL,
-  INSERT_LINE_BREAK_COMMAND,
-  INSERT_PARAGRAPH_COMMAND
-} from 'lexical';
-import { useEffect } from 'react';
+import { EmojiPickerPlugin } from '@components/Shared/TipTap/Extensions/Emoji';
+import { Hashtag } from '@components/Shared/TipTap/Extensions/Hashtag';
+import Images from '@components/Shared/TipTap/Extensions/Images';
+import { DisplayMention } from '@components/Shared/TipTap/Extensions/Mention';
+import ToolbarPlugin from '@components/Shared/TipTap/Extensions/Toolbar';
+import { Bold } from '@tiptap/extension-bold';
+import { Code } from '@tiptap/extension-code';
+import { CodeBlock } from '@tiptap/extension-code-block';
+import { Document } from '@tiptap/extension-document';
+import { HardBreak } from '@tiptap/extension-hard-break';
+import { Heading } from '@tiptap/extension-heading';
+import { History } from '@tiptap/extension-history';
+import { Italic } from '@tiptap/extension-italic';
+import { Link } from '@tiptap/extension-link';
+import { Paragraph } from '@tiptap/extension-paragraph';
+import { Placeholder } from '@tiptap/extension-placeholder';
+import { Text } from '@tiptap/extension-text';
+import { EditorContent, useEditor } from '@tiptap/react';
 import { toast } from 'react-hot-toast';
 import useUploadAttachments from 'src/hooks/useUploadAttachments';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
-
-const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS];
+import { Markdown } from 'tiptap-markdown';
 
 const Editor: FC = () => {
   const setPublicationContent = usePublicationStore(
@@ -42,7 +36,6 @@ const Editor: FC = () => {
     (state) => state.attachments
   );
   const { handleUploadAttachments } = useUploadAttachments();
-  const [editor] = useLexicalComposerContext();
 
   const handlePaste = async (pastedFiles: FileList) => {
     if (
@@ -57,46 +50,72 @@ const Editor: FC = () => {
     }
   };
 
-  useEffect(() => {
-    return editor.registerCommand(
-      INSERT_PARAGRAPH_COMMAND,
-      () => {
-        editor.dispatchCommand(INSERT_LINE_BREAK_COMMAND, false);
-        return true;
-      },
-      COMMAND_PRIORITY_NORMAL
-    );
-  }, [editor]);
+  // useEffect(() => {
+  //   return editor.registerCommand(
+  //     INSERT_PARAGRAPH_COMMAND,
+  //     () => {
+  //       editor.dispatchCommand(INSERT_LINE_BREAK_COMMAND, false);
+  //       return true;
+  //     },
+  //     COMMAND_PRIORITY_NORMAL
+  //   );
+  // }, [editor]);
 
+  const editor = useEditor({
+    content: '',
+    editorProps: {
+      attributes: {
+        class:
+          'my-4 block min-h-[65px] overflow-auto px-5 leading-6 sm:leading-[26px] focus:outline-none'
+      }
+    },
+    extensions: [
+      History,
+      Bold,
+      Code,
+      Italic,
+      CodeBlock,
+      HardBreak,
+      Heading,
+      Paragraph,
+      Text,
+      DisplayMention,
+      EmojiPickerPlugin,
+      Document,
+      Hashtag,
+      Link.configure({
+        autolink: true,
+        openOnClick: false
+      }),
+      Markdown,
+      Images({ onPaste: handlePaste }),
+      Placeholder.configure({
+        emptyEditorClass:
+          'cursor-text before:content-[attr(data-placeholder)] before:absolute  before:whitespace-nowrap  before:text-gray-400  before-pointer-events-none',
+        placeholder: () =>
+          showPollEditor ? 'Ask a question...' : "What's happening?",
+        showOnlyWhenEditable: true
+      })
+    ],
+    onUpdate: ({ editor }) => {
+      const markdownOutput = editor.storage.markdown.getMarkdown();
+      // console.log(markdownOutput);
+      console.log(editor.getHTML());
+      setPublicationContent(markdownOutput);
+    }
+  });
+
+  if (editor === null) {
+    return;
+  }
   return (
     <div className="relative">
-      <EmojiPickerPlugin />
-      <ToolbarPlugin />
-      <RichTextPlugin
-        contentEditable={
-          <ContentEditable className="my-4 block min-h-[65px] overflow-auto px-5 leading-6 sm:leading-[26px]" />
-        }
-        ErrorBoundary={() => <div>{Errors.SomethingWentWrong}</div>}
-        placeholder={
-          <div className="pointer-events-none absolute top-[65px] whitespace-nowrap px-5 text-gray-400">
-            {showPollEditor ? 'Ask a question...' : "What's happening?"}
-          </div>
-        }
-      />
-      <OnChangePlugin
-        onChange={(editorState) => {
-          editorState.read(() => {
-            const markdown = $convertToMarkdownString(TRANSFORMERS);
-            setPublicationContent(markdown);
-          });
-        }}
-      />
-      <LexicalAutoLinkPlugin />
+      {/* 
       <HistoryPlugin />
       <HashtagPlugin />
-      <MentionsPlugin />
-      <ImagesPlugin onPaste={handlePaste} />
-      <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
+      <MarkdownShortcutPlugin transformers={TRANSFORMERS} /> */}
+      <ToolbarPlugin editor={editor} />
+      <EditorContent editor={editor} />
     </div>
   );
 };

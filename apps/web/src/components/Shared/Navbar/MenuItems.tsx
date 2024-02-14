@@ -1,6 +1,5 @@
 import type { FC } from 'react';
 
-import { KillSwitch } from '@hey/data/kill-switches';
 import getCurrentSession from '@lib/getCurrentSession';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import Link from 'next/link';
@@ -11,7 +10,11 @@ import LoginButton from './LoginButton';
 import SignedUser from './SignedUser';
 import SignupButton from './SignupButton';
 import WalletUser from './WalletUser';
-
+export enum KillSwitch {
+  FourEverLand = '4everland',
+  Invites = 'invites',
+  Signup = 'signup'
+}
 export const NextLink = ({ children, href, ...rest }: Record<string, any>) => (
   <Link href={href} {...rest}>
     {children}
