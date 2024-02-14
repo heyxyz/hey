@@ -49,11 +49,6 @@ module.exports = {
         source: '/-/verification-request'
       },
       {
-        destination: 'https://tally.so/r/3No6NQ',
-        permanent: true,
-        source: '/-/trusted'
-      },
-      {
         destination:
           'https://yoginth.notion.site/Hey-Changelog-eb2a41319c1b40be8e22e5deb01efd10',
         permanent: true,
