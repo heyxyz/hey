@@ -29,7 +29,8 @@ import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 import FeedType from './FeedType';
 import LatestFeed from './LatestFeed';
-import ReportFeed from './ReportFeed';
+import ReportsFeed from './ReportsFeed';
+import TrustedReportsFeed from './TrustedReportsFeed';
 
 const FILTER_APPS = knownApps;
 
@@ -103,7 +104,8 @@ const Mod: NextPage = () => {
             setRefreshing={setRefreshing}
           />
         )}
-        {feedType === ModFeedType.TRUSTED_REPORTS && <ReportFeed />}
+        {feedType === ModFeedType.TRUSTED_REPORTS && <TrustedReportsFeed />}
+        {feedType === ModFeedType.REPORTS && <ReportsFeed />}
         {feedType === ModFeedType.PROFILES && <List />}
       </GridItemEight>
       <GridItemFour>
@@ -254,7 +256,10 @@ const Mod: NextPage = () => {
             </>
           )}
           {feedType === ModFeedType.TRUSTED_REPORTS && (
-            <div>Take action on trusted profile reports</div>
+            <div>Take action on trusted profile reported publications</div>
+          )}
+          {feedType === ModFeedType.REPORTS && (
+            <div>Take action on profile reported publications</div>
           )}
           {feedType === ModFeedType.PROFILES && <div>All the profiles</div>}
         </Card>
