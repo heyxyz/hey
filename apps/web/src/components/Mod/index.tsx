@@ -259,7 +259,7 @@ const Mod: NextPage = () => {
             <div>Take action on trusted profile reported publications</div>
           )}
           {feedType === ModFeedType.REPORTS && (
-            <div>Take action on profile reported publications</div>
+            <div>Take action on normal profile reported publications</div>
           )}
           {feedType === ModFeedType.PROFILES && <div>All the profiles</div>}
         </Card>
