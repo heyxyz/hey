@@ -2,20 +2,25 @@ import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import createClickhouseClient from 'src/lib/createClickhouseClient';
 
-const heyReports = async (limit: number, offset: number): Promise<any[]> => {
+const heyReports = async (
+  limit: number,
+  offset: number,
+  isTrusted = false
+): Promise<any[]> => {
   if (limit > 500) {
     throw new Error(Errors.Limit500);
   }
 
   try {
     const client = createClickhouseClient();
+    const table = isTrusted ? 'trusted_reports' : 'reports';
     const rows = await client.query({
       format: 'JSONEachRow',
       query: `
         SELECT
           publication_id AS id,
           count(*) as count
-        FROM reports
+        FROM ${table}
         WHERE resolved = 0
         GROUP BY publication_id
         ORDER BY count DESC

@@ -5,6 +5,7 @@ import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { SparklesIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
+import { ModFeedType } from '@hey/data/enums';
 import { LimitType, usePublicationsQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
@@ -20,12 +21,9 @@ const ReportsFeed: FC = () => {
   const limit = LimitType.TwentyFive;
   const offset = displayedPublications.length;
 
-  const getTrustedReportFeed = async (
-    limit: null | number,
-    offset: null | number
-  ) => {
+  const getReportFeed = async (limit: null | number, offset: null | number) => {
     try {
-      const response = await axios.get(`${HEY_API_URL}/mod/reports`, {
+      const response = await axios.get(`${HEY_API_URL}/gardener/reports`, {
         params: { limit, offset }
       });
 
@@ -40,8 +38,8 @@ const ReportsFeed: FC = () => {
     error: algoError,
     isLoading: algoLoading
   } = useQuery({
-    queryFn: async () => await getTrustedReportFeed(25, offset),
-    queryKey: ['getTrustedReportFeed', 25, offset]
+    queryFn: async () => await getReportFeed(25, offset),
+    queryKey: ['getReportFeed', 25, offset]
   });
 
   const request: PublicationsRequest = {
@@ -100,7 +98,7 @@ const ReportsFeed: FC = () => {
             showActions={false}
             showThread={false}
           />
-          <Actions hideTrustedReport publicationId={publication.id} />
+          <Actions publicationId={publication.id} type={ModFeedType.REPORTS} />
         </Card>
       ))}
       <span ref={observe} />

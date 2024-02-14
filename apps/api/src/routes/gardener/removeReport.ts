@@ -10,11 +10,13 @@ import { boolean, object, string } from 'zod';
 type ExtensionRequest = {
   id: string;
   looksGood: boolean;
+  trusted: boolean;
 };
 
 const validationSchema = object({
   id: string(),
-  looksGood: boolean()
+  looksGood: boolean(),
+  trusted: boolean()
 });
 
 export const post: Handler = async (req, res) => {
@@ -34,25 +36,24 @@ export const post: Handler = async (req, res) => {
     return notAllowed(res);
   }
 
-  const { id, looksGood } = body as ExtensionRequest;
+  const { id, looksGood, trusted } = body as ExtensionRequest;
+  const table = trusted ? 'trusted_reports' : 'reports';
 
   try {
     const client = createClickhouseClient();
 
     if (looksGood) {
       await client.command({
-        query: `DELETE FROM trusted_reports WHERE publication_id = '${id}';`
+        query: `DELETE FROM ${table} WHERE publication_id = '${id}';`
       });
-      logger.info('Deleted report from trusted reports');
+
+      logger.info('Deleted report from reports');
     } else {
       await client.command({
-        query: `
-          ALTER TABLE trusted_reports
-          UPDATE resolved = 1
-          WHERE publication_id = '${id}';
-        `
+        query: `ALTER TABLE ${table} UPDATE resolved = 1 WHERE publication_id = '${id}';`
       });
-      logger.info('Marked trusted report as resolved');
+
+      logger.info('Marked report as resolved');
     }
 
     return res.status(200).json({ success: true });
