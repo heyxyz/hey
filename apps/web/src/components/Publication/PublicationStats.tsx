@@ -60,7 +60,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({
   return (
     <>
       <div className="divider" />
-      <div className="ld-text-gray-500 flex flex-wrap items-center gap-6 py-3 text-sm sm:gap-8">
+      <div className="ld-text-gray-500 flex flex-wrap items-center gap-x-6 gap-y-3 py-3 text-sm">
         {comments > 0 ? (
           <span>
             <b className="text-black dark:text-white">{nFormatter(comments)}</b>{' '}
