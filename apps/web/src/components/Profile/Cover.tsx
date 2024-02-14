@@ -13,7 +13,7 @@ const Cover: FC<CoverProps> = ({ cover }) => {
 
   return (
     <div
-      className="h-52 sm:h-80"
+      className="h-52 sm:h-[350px]"
       style={{
         backgroundColor: BRAND_COLOR,
         backgroundImage: `url(${
