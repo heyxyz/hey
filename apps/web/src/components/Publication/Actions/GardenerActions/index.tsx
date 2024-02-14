@@ -1,13 +1,7 @@
 import type { ReportPublicationRequest } from '@hey/lens';
 import type { FC, ReactNode } from 'react';
 
-import {
-  BanknotesIcon,
-  DocumentTextIcon,
-  HandThumbUpIcon
-} from '@heroicons/react/24/outline';
-import { HEY_API_URL } from '@hey/data/constants';
-import { ModFeedType } from '@hey/data/enums';
+import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
 import { GARDENER } from '@hey/data/tracking';
 import {
   PublicationReportingSpamSubreason,
@@ -15,51 +9,19 @@ import {
 } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { Leafwatch } from '@lib/leafwatch';
-import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 
 interface GardenerActionsProps {
-  className?: string;
   publicationId: string;
-  setExpanded?: (expanded: boolean) => void;
-  type?: ModFeedType.REPORTS | ModFeedType.TRUSTED_REPORTS;
 }
 
-const GardenerActions: FC<GardenerActionsProps> = ({
-  className = '',
-  publicationId,
-  setExpanded = () => {},
-  type
-}) => {
+const GardenerActions: FC<GardenerActionsProps> = ({ publicationId }) => {
   const setShowGardenerActionsAlert = useGlobalAlertStateStore(
     (state) => state.setShowGardenerActionsAlert
   );
   const [createReport, { loading }] = useReportPublicationMutation();
-  const ableToRemoveReport =
-    type === ModFeedType.TRUSTED_REPORTS || type === ModFeedType.REPORTS;
-
-  const removeReport = (id: string, looksGood: boolean) => {
-    const removeReport = async () => {
-      return await axios.post(
-        `${HEY_API_URL}/gardener/removeReport`,
-        { id, looksGood, trusted: type === ModFeedType.TRUSTED_REPORTS },
-        { headers: getAuthApiHeaders() }
-      );
-    };
-
-    toast.promise(removeReport(), {
-      error: 'Error removing report',
-      loading: 'Removing report...',
-      success: () => {
-        setExpanded(false);
-        return 'Report removed successfully';
-      }
-    });
-  };
 
   const reportPublication = async ({
     subreason,
@@ -78,10 +40,6 @@ const GardenerActions: FC<GardenerActionsProps> = ({
         }
       }
     };
-
-    if (ableToRemoveReport) {
-      removeReport(publicationId, false);
-    }
 
     return await createReport({
       onCompleted: () => setShowGardenerActionsAlert(false, null),
@@ -131,7 +89,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({
 
   return (
     <span
-      className={cn('flex flex-wrap items-center gap-3 text-sm', className)}
+      className="flex flex-wrap items-center gap-3 text-sm"
       onClick={stopEventPropagation}
     >
       <ReportButton
@@ -168,17 +126,6 @@ const GardenerActions: FC<GardenerActionsProps> = ({
         icon={<BanknotesIcon className="size-4" />}
         label="Both"
       />
-      {ableToRemoveReport && (
-        <Button
-          icon={<HandThumbUpIcon className="size-4" />}
-          onClick={() => removeReport(publicationId, true)}
-          outline
-          size="sm"
-          variant="secondary"
-        >
-          Looks good
-        </Button>
-      )}
     </span>
   );
 };
