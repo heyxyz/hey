@@ -44,6 +44,18 @@ CREATE TABLE "trusted_reports" (
   actor LowCardinality(String),
   publication_id LowCardinality(String),
   reason String,
+  resolved Boolean DEFAULT 0,
+  created DateTime DEFAULT now()
+) ENGINE = MergeTree
+ORDER BY created;
+
+-- Reports
+CREATE TABLE "reports" (
+  id UUID DEFAULT generateUUIDv4(),
+  actor LowCardinality(String),
+  publication_id LowCardinality(String),
+  reason String,
+  resolved Boolean DEFAULT 0,
   created DateTime DEFAULT now()
 ) ENGINE = MergeTree
 ORDER BY created;
