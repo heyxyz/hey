@@ -63,12 +63,6 @@ contract HeyLensSignup is Initializable, OwnableUpgradeable {
     allowedAddresses[addressToRemove] = false;
   }
 
-  function isAllowedAddress(
-    address addressToCheck
-  ) external view returns (bool) {
-    return allowedAddresses[addressToCheck];
-  }
-
   function setSignupPrice(uint256 _signupPrice) external onlyOwner {
     signupPrice = _signupPrice;
   }
