@@ -1,3 +1,4 @@
+import type { AnyPublication } from '@hey/lens';
 import type { OG } from '@hey/types/misc';
 import type { FC } from 'react';
 
@@ -13,11 +14,11 @@ import Portal from './Portal';
 
 interface OembedProps {
   className?: string;
-  publicationId?: string;
+  publication?: AnyPublication;
   url?: string;
 }
 
-const Oembed: FC<OembedProps> = ({ className = '', publicationId, url }) => {
+const Oembed: FC<OembedProps> = ({ className = '', publication, url }) => {
   const { data, error, isLoading } = useQuery({
     enabled: Boolean(url),
     queryFn: async () => {
@@ -56,11 +57,11 @@ const Oembed: FC<OembedProps> = ({ className = '', publicationId, url }) => {
       {og.html ? (
         <Player og={og} />
       ) : og.nft ? (
-        <Nft nft={og.nft} publicationId={publicationId} />
+        <Nft nft={og.nft} publication={publication} />
       ) : og.portal ? (
-        <Portal portal={og.portal} publicationId={publicationId} />
+        <Portal portal={og.portal} publicationId={publication?.id} />
       ) : (
-        <Embed og={og} publicationId={publicationId} />
+        <Embed og={og} publicationId={publication?.id} />
       )}
     </div>
   );

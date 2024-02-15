@@ -1,3 +1,4 @@
+import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
@@ -13,10 +14,10 @@ import MintedBy from './MintedBy';
 
 interface NftProps {
   nft: Nft;
-  publicationId?: string;
+  publication?: AnyPublication;
 }
 
-const Nft: FC<NftProps> = ({ nft, publicationId }) => {
+const Nft: FC<NftProps> = ({ nft, publication }) => {
   return (
     <Card className="mt-3" forceRounded onClick={stopEventPropagation}>
       <div className="relative">
@@ -49,7 +50,7 @@ const Nft: FC<NftProps> = ({ nft, publicationId }) => {
             icon={<CursorArrowRaysIcon className="size-4" />}
             onClick={() =>
               Leafwatch.track(PUBLICATION.OPEN_NFT, {
-                publication_id: publicationId
+                publication_id: publication?.id
               })
             }
             size="md"
