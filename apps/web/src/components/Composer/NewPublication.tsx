@@ -43,7 +43,7 @@ import uploadToArweave from '@lib/uploadToArweave';
 import { useUnmountEffect } from 'framer-motion';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
-import { detectAndReturnCalldata } from 'nft-openaction-kit';
+import { NftOpenActionKit } from 'nft-openaction-kit-preview';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useCreatePoll from 'src/hooks/useCreatePoll';
@@ -442,10 +442,18 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       const publicationContentUrls =
         getPublicationContentUrls(publicationContent);
 
+      const nftOpenActionKit = new NftOpenActionKit({
+        decentApiKey: process.env.NEXT_PUBLIC_DECENT_API_KEY || '',
+        openSeaApiKey: process.env.NEXT_PUBLIC_OPENSEA_API_KEY || '',
+        raribleApiKey: process.env.NEXT_PUBLIC_RARIBLE_API_KEY || ''
+      });
+
       // Embed action module for publications with URLs that have recognized actions
       for (const publicationContentUrl of publicationContentUrls) {
         try {
-          const calldata = await detectAndReturnCalldata(publicationContentUrl);
+          const calldata = await nftOpenActionKit.detectAndReturnCalldata(
+            publicationContentUrl
+          );
           if (calldata) {
             urlsWithParseableActions = true;
             openActionModules.push({
