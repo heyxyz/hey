@@ -17,7 +17,6 @@ describe('preferences/get', () => {
 
     expect(response.data.result.features).toBeInstanceOf(Array);
     expect(response.data.result.hasDismissedOrMintedMembershipNft).toBeTruthy();
-    expect(response.data.result.isPro).toBeTruthy();
     expect(response.data.result.highSignalNotificationFilter).toBeTruthy();
     expect(response.data.result.isPride).toBeTruthy();
   });

@@ -89,5 +89,4 @@ export type Preferences = {
   hasDismissedOrMintedMembershipNft: boolean;
   highSignalNotificationFilter: boolean;
   isPride: boolean;
-  isPro: boolean;
 };
