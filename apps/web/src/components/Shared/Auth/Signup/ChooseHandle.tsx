@@ -97,6 +97,10 @@ const ChooseHandle: FC = () => {
   const handleBuy = async () => {
     const paddle = await initializePaddle({
       environment: 'sandbox',
+      eventCallback: (data) => {
+        console.log('Paddle eventCallback', data);
+        setScreen('minting');
+      },
       token: 'test_973fcd0216c56384cf67b1ba367'
     });
 
@@ -162,7 +166,7 @@ const ChooseHandle: FC = () => {
         <div className="flex items-center space-x-3">
           <Button
             className="w-full justify-center"
-            // disabled={disabled}
+            disabled={disabled}
             onClick={handleBuy}
             type="button"
           >
