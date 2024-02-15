@@ -12,7 +12,6 @@ import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import OpenAction from '../OpenAction';
-import DecentOpenAction from '../OpenAction/UnknownModule/Decent';
 import TipOpenAction from '../OpenAction/UnknownModule/Tip';
 import Comment from './Comment';
 import Like from './Like';
@@ -54,11 +53,6 @@ const PublicationActions: FC<PublicationActionsProps> = ({
     (module) => module.contract.address === VerifiedOpenActionModules.Tip
   );
 
-  // Check if the publication has an NFT minting open action module
-  const canPerformDecentAction = targetPublication.openActionModules.some(
-    (module) => module.contract.address === VerifiedOpenActionModules.DecentNFT
-  );
-
   return (
     <span
       className="-ml-2 mt-2 flex flex-wrap items-center gap-x-6 gap-y-1 sm:gap-8"
@@ -74,12 +68,6 @@ const PublicationActions: FC<PublicationActionsProps> = ({
       ) : null}
       {canTip ? (
         <TipOpenAction
-          isFullPublication={showCount}
-          publication={publication}
-        />
-      ) : null}
-      {canPerformDecentAction ? (
-        <DecentOpenAction
           isFullPublication={showCount}
           publication={publication}
         />
