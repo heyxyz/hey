@@ -32,6 +32,9 @@ export const CACHE_AGE_INDEFINITE_ON_DISK =
 export const RPC_URL = IS_MAINNET
   ? 'https://polygon-rpc.com'
   : 'https://rpc.ankr.com/polygon_mumbai';
+export const PADDLE_API_ENDPOINT = IS_MAINNET
+  ? 'https://api.paddle.com'
+  : 'https://sandbox-api.paddle.com';
 
 // Tests
 export const TEST_URL = 'http://127.0.0.1:4784';

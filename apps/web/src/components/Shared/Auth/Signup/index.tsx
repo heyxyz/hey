@@ -1,7 +1,6 @@
-import type { FC } from 'react';
-
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import { useGenerateLensApiRelayAddressQuery } from '@hey/lens';
+import { type FC } from 'react';
 import { CHAIN } from 'src/constants';
 import { useAccount, useChainId } from 'wagmi';
 import { create } from 'zustand';
