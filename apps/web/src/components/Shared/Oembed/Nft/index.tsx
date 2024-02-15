@@ -1,9 +1,12 @@
 import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
+import DecentOpenAction from '@components/Publication/OpenAction/UnknownModule/Decent';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
+import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import getNftChainInfo from '@hey/lib/getNftChainInfo';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Nft } from '@hey/types/misc';
 import { Button, Card, Tooltip } from '@hey/ui';
@@ -18,6 +21,23 @@ interface NftProps {
 }
 
 const Nft: FC<NftProps> = ({ nft, publication }) => {
+  const targetPublication =
+    publication && isMirrorPublication(publication)
+      ? publication.mirrorOn
+      : publication;
+
+  // Check if the publication has an NFT minting open action module
+  const canPerformDecentAction =
+    targetPublication &&
+    targetPublication.openActionModules.some(
+      (module) =>
+        module.contract.address === VerifiedOpenActionModules.DecentNFT
+    );
+
+  if (canPerformDecentAction) {
+    return <DecentOpenAction nft={nft} publication={targetPublication} />;
+  }
+
   return (
     <Card className="mt-3" forceRounded onClick={stopEventPropagation}>
       <div className="relative">
