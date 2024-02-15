@@ -44,6 +44,7 @@ const ChooseHandle: FC = () => {
   const setTransactionHash = useSignupStore(
     (state) => state.setTransactionHash
   );
+  const setMintViaPadddle = useSignupStore((state) => state.setMintViaPadddle);
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
   const { address } = useAccount();
@@ -63,7 +64,7 @@ const ChooseHandle: FC = () => {
     mutation: {
       onError: errorToast,
       onSuccess: (hash) => {
-        Leafwatch.track(AUTH.SIGNUP, { price: SIGNUP_PRICE });
+        Leafwatch.track(AUTH.SIGNUP, { price: SIGNUP_PRICE, via: 'crypto' });
         setTransactionHash(hash);
         setChoosedHandle(`${HANDLE_PREFIX}${handle}`);
         setScreen('minting');
@@ -98,8 +99,12 @@ const ChooseHandle: FC = () => {
     const paddle = await initializePaddle({
       environment: 'sandbox',
       eventCallback: (data) => {
-        console.log('Paddle eventCallback', data);
-        setScreen('minting');
+        if (data.data?.status !== 'ready') {
+          Leafwatch.track(AUTH.SIGNUP, { price: SIGNUP_PRICE, via: 'paddle' });
+          setMintViaPadddle(true);
+          setChoosedHandle(`${HANDLE_PREFIX}${handle}`);
+          setScreen('minting');
+        }
       },
       token: 'test_973fcd0216c56384cf67b1ba367'
     });
