@@ -9,6 +9,9 @@ import {
   APP_NAME,
   HANDLE_PREFIX,
   HEY_LENS_SIGNUP,
+  IS_MAINNET,
+  PADDLE_CLIENT_TOKEN,
+  PADDLE_PRICE_ID,
   SIGNUP_PRICE,
   ZERO_ADDRESS
 } from '@hey/data/constants';
@@ -97,7 +100,7 @@ const ChooseHandle: FC = () => {
 
   const handleBuy = async () => {
     const paddle = await initializePaddle({
-      environment: 'sandbox',
+      environment: IS_MAINNET ? 'production' : 'sandbox',
       eventCallback: (data) => {
         if (data.data?.status !== 'ready') {
           Leafwatch.track(AUTH.SIGNUP, { price: SIGNUP_PRICE, via: 'paddle' });
@@ -106,7 +109,7 @@ const ChooseHandle: FC = () => {
           setScreen('minting');
         }
       },
-      token: 'test_973fcd0216c56384cf67b1ba367'
+      token: PADDLE_CLIENT_TOKEN
     });
 
     if (!paddle) {
@@ -115,7 +118,7 @@ const ChooseHandle: FC = () => {
 
     paddle.Checkout.open({
       customData: { address: address as string, delegatedExecutor, handle },
-      items: [{ priceId: 'pri_01hpmkr0e823sdj4jkzx78tq75', quantity: 1 }]
+      items: [{ priceId: PADDLE_PRICE_ID, quantity: 1 }]
     });
   };
 
