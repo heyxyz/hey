@@ -22,7 +22,6 @@ const PreferencesProvider: FC = () => {
     (state) => state.setHighSignalNotificationFilter
   );
   const setIsPride = usePreferencesStore((state) => state.setIsPride);
-  const setIsPro = usePreferencesStore((state) => state.setIsPro);
   const setRestriction = useProfileRestriction((state) => state.setRestriction);
   const setHasDismissedOrMintedMembershipNft = usePreferencesStore(
     (state) => state.setHasDismissedOrMintedMembershipNft
@@ -49,9 +48,6 @@ const PreferencesProvider: FC = () => {
           preferences.highSignalNotificationFilter
         );
         setIsPride(preferences.isPride);
-
-        // Pro
-        setIsPro(preferences.isPro);
 
         // Feature flags
         setFeatureFlags(preferences.features);
