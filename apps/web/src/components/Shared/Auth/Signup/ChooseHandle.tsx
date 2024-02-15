@@ -9,6 +9,9 @@ import {
   APP_NAME,
   HANDLE_PREFIX,
   HEY_LENS_SIGNUP,
+  IS_MAINNET,
+  PADDLE_CLIENT_TOKEN,
+  PADDLE_PRICE_ID,
   SIGNUP_PRICE,
   ZERO_ADDRESS
 } from '@hey/data/constants';
@@ -18,6 +21,7 @@ import { useProfileQuery } from '@hey/lens';
 import { Button, Form, Input, Spinner, useZodForm } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
+import { initializePaddle } from '@paddle/paddle-js';
 import { type FC, useState } from 'react';
 import { formatUnits, parseEther } from 'viem';
 import { useAccount, useBalance, useWriteContract } from 'wagmi';
@@ -43,6 +47,7 @@ const ChooseHandle: FC = () => {
   const setTransactionHash = useSignupStore(
     (state) => state.setTransactionHash
   );
+  const setMintViaPadddle = useSignupStore((state) => state.setMintViaPadddle);
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
   const { address } = useAccount();
@@ -62,7 +67,7 @@ const ChooseHandle: FC = () => {
     mutation: {
       onError: errorToast,
       onSuccess: (hash) => {
-        Leafwatch.track(AUTH.SIGNUP, { price: SIGNUP_PRICE });
+        Leafwatch.track(AUTH.SIGNUP, { price: SIGNUP_PRICE, via: 'crypto' });
         setTransactionHash(hash);
         setChoosedHandle(`${HANDLE_PREFIX}${handle}`);
         setScreen('minting');
@@ -92,6 +97,33 @@ const ChooseHandle: FC = () => {
       setLoading(false);
     }
   };
+
+  const handleBuy = async () => {
+    const paddle = await initializePaddle({
+      environment: IS_MAINNET ? 'production' : 'sandbox',
+      eventCallback: (data) => {
+        if (data.data?.status !== 'ready') {
+          Leafwatch.track(AUTH.SIGNUP, { price: SIGNUP_PRICE, via: 'paddle' });
+          setMintViaPadddle(true);
+          setChoosedHandle(`${HANDLE_PREFIX}${handle}`);
+          setScreen('minting');
+        }
+      },
+      token: PADDLE_CLIENT_TOKEN
+    });
+
+    if (!paddle) {
+      return;
+    }
+
+    paddle.Checkout.open({
+      customData: { address: address as string, delegatedExecutor, handle },
+      items: [{ priceId: PADDLE_PRICE_ID, quantity: 1 }]
+    });
+  };
+
+  const disabled =
+    !canCheck || !isAvailable || loading || !delegatedExecutor || isInvalid;
 
   return (
     <div className="space-y-5">
@@ -139,36 +171,40 @@ const ChooseHandle: FC = () => {
             </div>
           )}
         </div>
-        {hasBalance ? (
+        <div className="flex items-center space-x-3">
           <Button
             className="w-full justify-center"
-            disabled={
-              !canCheck ||
-              !isAvailable ||
-              loading ||
-              !delegatedExecutor ||
-              isInvalid
-            }
-            icon={
-              loading ? (
-                <Spinner className="mr-0.5" size="xs" />
-              ) : (
-                <img
-                  alt="Lens Logo"
-                  className="h-3"
-                  height={12}
-                  src="/lens.svg"
-                  width={19}
-                />
-              )
-            }
-            type="submit"
+            disabled={disabled}
+            onClick={handleBuy}
+            type="button"
           >
-            Mint for {SIGNUP_PRICE} MATIC
+            Buy with Card
           </Button>
-        ) : (
-          <Moonpay balance={balance} />
-        )}
+          {hasBalance ? (
+            <Button
+              className="w-full justify-center"
+              disabled={disabled}
+              icon={
+                loading ? (
+                  <Spinner className="mr-0.5" size="xs" />
+                ) : (
+                  <img
+                    alt="Lens Logo"
+                    className="h-3"
+                    height={12}
+                    src="/lens.svg"
+                    width={19}
+                  />
+                )
+              }
+              type="submit"
+            >
+              Mint for {SIGNUP_PRICE} MATIC
+            </Button>
+          ) : (
+            <Moonpay />
+          )}
+        </div>
       </Form>
     </div>
   );

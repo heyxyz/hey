@@ -1,10 +1,6 @@
 import type { Dispatch, FC, SetStateAction } from 'react';
 
-import {
-  ClockIcon,
-  ShieldCheckIcon,
-  UsersIcon
-} from '@heroicons/react/24/outline';
+import { ClockIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { ModFeedType } from '@hey/data/enums';
 import { TabButton } from '@hey/ui';
 
@@ -21,12 +17,6 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
         icon={<ClockIcon className="size-4" />}
         name="Latest"
         onClick={() => setFeedType(ModFeedType.LATEST)}
-      />
-      <TabButton
-        active={feedType === ModFeedType.TRUSTED_REPORTS}
-        icon={<ShieldCheckIcon className="size-4" />}
-        name="Trusted Reports"
-        onClick={() => setFeedType(ModFeedType.TRUSTED_REPORTS)}
       />
       <TabButton
         active={feedType === ModFeedType.PROFILES}

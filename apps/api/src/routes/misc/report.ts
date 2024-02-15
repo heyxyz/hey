@@ -4,7 +4,7 @@ import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import catchedError from 'src/lib/catchedError';
 import createClickhouseClient from 'src/lib/createClickhouseClient';
-import validateIsTrusted from 'src/lib/middlewares/validateIsTrusted';
+import validateLensAccount from 'src/lib/middlewares/validateLensAccount';
 import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
 import { object, string } from 'zod';
 
@@ -32,7 +32,7 @@ export const post: Handler = async (req, res) => {
     return invalidBody(res);
   }
 
-  if (!(await validateIsTrusted(req))) {
+  if (!(await validateLensAccount(req))) {
     return notAllowed(res);
   }
 
@@ -48,7 +48,7 @@ export const post: Handler = async (req, res) => {
     const rows = await client.query({
       format: 'JSONEachRow',
       query: `
-        SELECT * FROM trusted_reports
+        SELECT * FROM reports
         WHERE publication_id = '${id}'
         AND actor = '${actor}'
         LIMIT 1;
@@ -66,11 +66,11 @@ export const post: Handler = async (req, res) => {
 
     const result = await client.insert({
       format: 'JSONEachRow',
-      table: 'trusted_reports',
+      table: 'reports',
       values: [{ actor, publication_id: id, reason }]
     });
 
-    logger.info(`Reported ${id} by Trusted profile: ${actor}`);
+    logger.info(`Reported ${id} by profile: ${actor}`);
 
     return res.status(200).json({ id: result.query_id, success: true });
   } catch (error) {

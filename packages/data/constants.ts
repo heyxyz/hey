@@ -43,7 +43,7 @@ export const TEST_LENS_ID = '0x0383';
 export const HEY_CURATED_ID = '0x020d2a';
 export const ZERO_PUBLICATION_ID = '0x00-0x00';
 export const HANDLE_PREFIX = IS_MAINNET ? 'lens/' : 'test/';
-export const SIGNUP_PRICE = IS_MAINNET ? 1 : 10;
+export const SIGNUP_PRICE = IS_MAINNET ? 10 : 1;
 
 // URLs
 export const STATIC_ASSETS_URL = 'https://hey-assets.b-cdn.net';
@@ -70,6 +70,14 @@ export const LIVEPEER_KEY = '70508bf8-2e16-4594-852d-5aed798f6403';
 export const ALCHEMY_API_KEY = 'Xx-4a1SyWtS9U4h0cEuRmvgYtGeVOlv7';
 export const THIRDWEB_CLIENT_ID = '0e8fa22aa33b3da60c593b4864a2e2d1';
 
+// Paddle
+export const PADDLE_CLIENT_TOKEN = IS_MAINNET
+  ? 'live_58c979f347c0f234f18bb64415c'
+  : 'test_973fcd0216c56384cf67b1ba367';
+export const PADDLE_PRICE_ID = IS_MAINNET
+  ? 'pri_01hpmkcjpea4v7ejb67qycsm2r'
+  : 'pri_01hpmkr0e823sdj4jkzx78tq75';
+
 // Named transforms for ImageKit
 export const AVATAR = 'tr:w-250,h-250';
 export const EXPANDED_AVATAR = 'tr:w-1000,h-1000';
@@ -80,14 +88,4 @@ export const ATTACHMENT = 'tr:w-500';
 // S3 bucket
 export const S3_BUCKET = {
   HEY_MEDIA: 'hey-media'
-};
-
-// Stripe Plans
-export const Stripe = {
-  BELIEVER: IS_MAINNET
-    ? 'price_1OZmUnSDpi8e32ARLvegtMNT'
-    : 'price_1OZmX0SDpi8e32ARfi8FsO87',
-  PRO: IS_MAINNET
-    ? 'price_1OGGizSDpi8e32ARC7Gh5ou5'
-    : 'price_1OGGqhSDpi8e32AR5WawyjjM'
 };
