@@ -22,7 +22,6 @@ import AppVersion from './NavItems/AppVersion';
 import GardenerMode from './NavItems/GardenerMode';
 import Invites from './NavItems/Invites';
 import Logout from './NavItems/Logout';
-import Pro from './NavItems/Pro';
 import Settings from './NavItems/Settings';
 import StaffMode from './NavItems/StaffMode';
 import SwitchProfile from './NavItems/SwitchProfile';
@@ -126,17 +125,6 @@ const SignedUser: FC = () => {
                 }
               >
                 <Invites />
-              </Menu.Item>
-            )}
-            {isFeatureAvailable('pro') && (
-              <Menu.Item
-                as={NextLink}
-                className={({ active }: { active: boolean }) =>
-                  cn({ 'dropdown-active': active }, 'menu-item')
-                }
-                href="/pro"
-              >
-                <Pro />
               </Menu.Item>
             )}
             <Menu.Item
