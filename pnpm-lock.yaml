@@ -74,9 +74,6 @@ importers:
       request-ip:
         specifier: ^3.3.0
         version: 3.3.0
-      stripe:
-        specifier: ^14.16.0
-        version: 14.16.0
       tsx:
         specifier: ^4.7.1
         version: 4.7.1
@@ -19529,14 +19526,6 @@ packages:
     resolution: {integrity: sha512-mSa8FtUoX3ExJYDkjPUTC14xaBAn4Ik5GPQD45G5E2egAmeV3kHgVSTfIoSDggbF6Pk9stahVgqsLCNExv6jHw==}
     dependencies:
       '@types/mdast': 4.0.3
-    dev: false
-
-  /stripe@14.16.0:
-    resolution: {integrity: sha512-1gOr2LzafWV84cPIO5Md/QPh4XVPLKULVuRpBVOV3Plq3seiHmg/eeOktX+hDl8jpNZuORHYaUJGrNqrABLwdg==}
-    engines: {node: '>=12.*'}
-    dependencies:
-      '@types/node': 20.11.17
-      qs: 6.11.2
     dev: false
 
   /strnum@1.0.5:
