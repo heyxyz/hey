@@ -10,6 +10,7 @@ import {
   APP_NAME,
   HANDLE_PREFIX,
   HEY_LENS_SIGNUP,
+  IS_MAINNET,
   SIGNUP_PRICE,
   ZERO_ADDRESS
 } from '@hey/data/constants';
@@ -134,7 +135,9 @@ const ChooseHandle: FC = () => {
         embed: 1,
         logo: 0,
         media: 0,
-        product: 'bc50d61b-dde2-477d-bb89-5453d0c665d8'
+        product: IS_MAINNET
+          ? '9636e45f-0c7b-4896-bfd2-6245c3c5c879'
+          : 'bc50d61b-dde2-477d-bb89-5453d0c665d8'
       })
     );
     setTimeout(() => setLoading(false));
