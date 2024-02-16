@@ -9,9 +9,6 @@ import {
   APP_NAME,
   HANDLE_PREFIX,
   HEY_LENS_SIGNUP,
-  IS_MAINNET,
-  PADDLE_CLIENT_TOKEN,
-  PADDLE_PRICE_ID,
   SIGNUP_PRICE,
   ZERO_ADDRESS
 } from '@hey/data/constants';
@@ -21,14 +18,28 @@ import { useProfileQuery } from '@hey/lens';
 import { Button, Form, Input, Spinner, useZodForm } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { initializePaddle } from '@paddle/paddle-js';
+import Script from 'next/script';
 import { type FC, useState } from 'react';
+import urlcat from 'urlcat';
 import { formatUnits, parseEther } from 'viem';
 import { useAccount, useBalance, useWriteContract } from 'wagmi';
 import { object, string } from 'zod';
 
 import { useSignupStore } from '.';
 import Moonpay from './Moonpay';
+
+declare global {
+  interface Window {
+    createLemonSqueezy: any;
+    LemonSqueezy: {
+      Setup: ({ eventHandler }: { eventHandler: any }) => void;
+      Url: {
+        Close: () => void;
+        Open: (checkoutUrl: string) => void;
+      };
+    };
+  }
+}
 
 const newProfileSchema = object({
   handle: string()
@@ -47,7 +58,7 @@ const ChooseHandle: FC = () => {
   const setTransactionHash = useSignupStore(
     (state) => state.setTransactionHash
   );
-  const setMintViaPadddle = useSignupStore((state) => state.setMintViaPadddle);
+  const setMintViaCard = useSignupStore((state) => state.setMintViaCard);
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
   const { address } = useAccount();
@@ -98,28 +109,34 @@ const ChooseHandle: FC = () => {
     }
   };
 
-  const handleBuy = async () => {
-    const paddle = await initializePaddle({
-      environment: IS_MAINNET ? 'production' : 'sandbox',
-      eventCallback: (data) => {
-        if (data.data?.status !== 'ready') {
-          Leafwatch.track(AUTH.SIGNUP, { price: SIGNUP_PRICE, via: 'paddle' });
-          setMintViaPadddle(true);
-          setChoosedHandle(`${HANDLE_PREFIX}${handle}`);
-          setScreen('minting');
-        }
-      },
-      token: PADDLE_CLIENT_TOKEN
-    });
+  const eventHandler = ({ event }: { data: any; event: any }) => {
+    if (event === 'Checkout.Success' && window.LemonSqueezy) {
+      Leafwatch.track(AUTH.SIGNUP, { price: SIGNUP_PRICE, via: 'card' });
+      setMintViaCard(true);
+      setChoosedHandle(`${HANDLE_PREFIX}${handle}`);
+      setScreen('minting');
 
-    if (!paddle) {
-      return;
+      window.LemonSqueezy?.Url?.Close();
     }
+  };
 
-    paddle.Checkout.open({
-      customData: { address: address as string, delegatedExecutor, handle },
-      items: [{ priceId: PADDLE_PRICE_ID, quantity: 1 }]
-    });
+  const handleBuy = () => {
+    window.createLemonSqueezy?.();
+    window.LemonSqueezy?.Setup?.({ eventHandler });
+    window.LemonSqueezy?.Url?.Open?.(
+      urlcat('https://heyverse.lemonsqueezy.com/checkout/buy/:product', {
+        'checkout[custom][address]': address,
+        'checkout[custom][delegatedExecutor]': delegatedExecutor,
+        'checkout[custom][handle]': handle,
+        product: 'bc50d61b-dde2-477d-bb89-5453d0c665d8'
+      })
+    );
+    setTimeout(() => setLoading(false));
+  };
+
+  const setupLemonSqueezy = () => {
+    window.createLemonSqueezy?.();
+    window.LemonSqueezy?.Setup?.({ eventHandler });
   };
 
   const disabled =
@@ -127,6 +144,11 @@ const ChooseHandle: FC = () => {
 
   return (
     <div className="space-y-5">
+      <Script
+        id="lemon-js"
+        src="https://assets.lemonsqueezy.com/lemon.js"
+        strategy="afterInteractive"
+      />
       <div className="space-y-2">
         <div className="text-xl font-bold">Welcome to {APP_NAME}!</div>
         <div className="ld-text-gray-500 text-sm">
