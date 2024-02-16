@@ -1,5 +1,6 @@
 import {
   CheckIcon,
+  CreditCardIcon,
   ExclamationTriangleIcon,
   FaceFrownIcon,
   FaceSmileIcon
@@ -9,6 +10,7 @@ import {
   APP_NAME,
   HANDLE_PREFIX,
   HEY_LENS_SIGNUP,
+  IS_MAINNET,
   SIGNUP_PRICE,
   ZERO_ADDRESS
 } from '@hey/data/constants';
@@ -18,13 +20,28 @@ import { useProfileQuery } from '@hey/lens';
 import { Button, Form, Input, Spinner, useZodForm } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
+import Script from 'next/script';
 import { type FC, useState } from 'react';
+import urlcat from 'urlcat';
 import { formatUnits, parseEther } from 'viem';
 import { useAccount, useBalance, useWriteContract } from 'wagmi';
 import { object, string } from 'zod';
 
 import { useSignupStore } from '.';
 import Moonpay from './Moonpay';
+
+declare global {
+  interface Window {
+    createLemonSqueezy: any;
+    LemonSqueezy: {
+      Setup: ({ eventHandler }: { eventHandler: any }) => void;
+      Url: {
+        Close: () => void;
+        Open: (checkoutUrl: string) => void;
+      };
+    };
+  }
+}
 
 const newProfileSchema = object({
   handle: string()
@@ -43,6 +60,7 @@ const ChooseHandle: FC = () => {
   const setTransactionHash = useSignupStore(
     (state) => state.setTransactionHash
   );
+  const setMintViaCard = useSignupStore((state) => state.setMintViaCard);
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
   const { address } = useAccount();
@@ -62,7 +80,7 @@ const ChooseHandle: FC = () => {
     mutation: {
       onError: errorToast,
       onSuccess: (hash) => {
-        Leafwatch.track(AUTH.SIGNUP, { price: SIGNUP_PRICE });
+        Leafwatch.track(AUTH.SIGNUP, { price: SIGNUP_PRICE, via: 'crypto' });
         setTransactionHash(hash);
         setChoosedHandle(`${HANDLE_PREFIX}${handle}`);
         setScreen('minting');
@@ -93,8 +111,48 @@ const ChooseHandle: FC = () => {
     }
   };
 
+  const eventHandler = ({ event }: { data: any; event: any }) => {
+    if (event === 'Checkout.Success' && window.LemonSqueezy) {
+      Leafwatch.track(AUTH.SIGNUP, { price: SIGNUP_PRICE, via: 'card' });
+      setMintViaCard(true);
+      setChoosedHandle(`${HANDLE_PREFIX}${handle}`);
+      setScreen('minting');
+
+      window.LemonSqueezy?.Url?.Close();
+    }
+  };
+
+  const handleBuy = () => {
+    window.createLemonSqueezy?.();
+    window.LemonSqueezy?.Setup?.({ eventHandler });
+    window.LemonSqueezy?.Url?.Open?.(
+      urlcat('https://heyverse.lemonsqueezy.com/checkout/buy/:product', {
+        'checkout[custom][address]': address,
+        'checkout[custom][delegatedExecutor]': delegatedExecutor,
+        'checkout[custom][handle]': handle,
+        desc: 0,
+        discount: 0,
+        embed: 1,
+        logo: 0,
+        media: 0,
+        product: IS_MAINNET
+          ? '9636e45f-0c7b-4896-bfd2-6245c3c5c879'
+          : 'bc50d61b-dde2-477d-bb89-5453d0c665d8'
+      })
+    );
+    setTimeout(() => setLoading(false));
+  };
+
+  const disabled =
+    !canCheck || !isAvailable || loading || !delegatedExecutor || isInvalid;
+
   return (
     <div className="space-y-5">
+      <Script
+        id="lemon-js"
+        src="https://assets.lemonsqueezy.com/lemon.js"
+        strategy="afterInteractive"
+      />
       <div className="space-y-2">
         <div className="text-xl font-bold">Welcome to {APP_NAME}!</div>
         <div className="ld-text-gray-500 text-sm">
@@ -139,36 +197,41 @@ const ChooseHandle: FC = () => {
             </div>
           )}
         </div>
-        {hasBalance ? (
+        <div className="flex items-center space-x-3">
           <Button
             className="w-full justify-center"
-            disabled={
-              !canCheck ||
-              !isAvailable ||
-              loading ||
-              !delegatedExecutor ||
-              isInvalid
-            }
-            icon={
-              loading ? (
-                <Spinner className="mr-0.5" size="xs" />
-              ) : (
-                <img
-                  alt="Lens Logo"
-                  className="h-3"
-                  height={12}
-                  src="/lens.svg"
-                  width={19}
-                />
-              )
-            }
-            type="submit"
+            disabled={disabled}
+            icon={<CreditCardIcon className="size-5" />}
+            onClick={handleBuy}
+            type="button"
           >
-            Mint for {SIGNUP_PRICE} MATIC
+            Buy with Card
           </Button>
-        ) : (
-          <Moonpay balance={balance} />
-        )}
+          {hasBalance ? (
+            <Button
+              className="w-full justify-center"
+              disabled={disabled}
+              icon={
+                loading ? (
+                  <Spinner className="mr-0.5" size="xs" />
+                ) : (
+                  <img
+                    alt="Lens Logo"
+                    className="h-3"
+                    height={12}
+                    src="/lens.svg"
+                    width={19}
+                  />
+                )
+              }
+              type="submit"
+            >
+              Mint for {SIGNUP_PRICE} MATIC
+            </Button>
+          ) : (
+            <Moonpay disabled={disabled} />
+          )}
+        </div>
       </Form>
     </div>
   );

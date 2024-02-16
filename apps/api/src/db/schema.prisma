@@ -73,17 +73,6 @@ model GroupFavorite {
   @@index([profileId])
 }
 
-model Pro {
-  profileId String   @id
-  stripeId  String   @unique // Stripe subscription ID
-  plan      String
-  createdAt DateTime @default(now())
-  expiresAt DateTime
-
-  // Indexes
-  @@index([plan])
-}
-
 model Feature {
   id        String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   key       String      @unique

@@ -11,6 +11,7 @@ const Minting: FC = () => {
   const setScreen = useSignupStore((state) => state.setScreen);
   const setProfileId = useSignupStore((state) => state.setProfileId);
   const choosedHandle = useSignupStore((state) => state.choosedHandle);
+  const mintViaCard = useSignupStore((state) => state.mintViaCard);
   const transactionHash = useSignupStore((state) => state.transactionHash);
 
   useProfileQuery({
@@ -22,25 +23,27 @@ const Minting: FC = () => {
       }
     },
     pollInterval: 3000,
-    skip: !transactionHash,
+    skip: mintViaCard ? false : !transactionHash,
     variables: { request: { forHandle: choosedHandle } }
   });
 
   return (
     <div className="m-8 flex flex-col items-center justify-center">
-      <div className="text-xl font-bold">We are minting your profile!</div>
+      <div className="text-xl font-bold">We are preparing your profile</div>
       <div className="ld-text-gray-500 mt-3 text-center font-semibold">
         This will take a few seconds to a few minutes. Please be patient.
       </div>
       <Spinner className="mt-8" />
-      <Link
-        className="mt-5 flex items-center space-x-1 text-sm underline"
-        href={`${POLYGONSCAN_URL}/tx/${transactionHash}`}
-        target="_blank"
-      >
-        <span>View transaction</span>
-        <ArrowTopRightOnSquareIcon className="size-4" />
-      </Link>
+      {!mintViaCard && (
+        <Link
+          className="mt-5 flex items-center space-x-1 text-sm underline"
+          href={`${POLYGONSCAN_URL}/tx/${transactionHash}`}
+          target="_blank"
+        >
+          <span>View transaction</span>
+          <ArrowTopRightOnSquareIcon className="size-4" />
+        </Link>
+      )}
     </div>
   );
 };
