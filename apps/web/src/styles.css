@@ -226,7 +226,3 @@ ul {
     background-position: 500%;
   }
 }
-
-.paddle-frame-overlay {
-  @apply rounded-none;
-}
