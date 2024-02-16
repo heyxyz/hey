@@ -1,5 +1,6 @@
 import {
   CheckIcon,
+  CreditCardIcon,
   ExclamationTriangleIcon,
   FaceFrownIcon,
   FaceSmileIcon
@@ -139,11 +140,6 @@ const ChooseHandle: FC = () => {
     setTimeout(() => setLoading(false));
   };
 
-  const setupLemonSqueezy = () => {
-    window.createLemonSqueezy?.();
-    window.LemonSqueezy?.Setup?.({ eventHandler });
-  };
-
   const disabled =
     !canCheck || !isAvailable || loading || !delegatedExecutor || isInvalid;
 
@@ -202,6 +198,7 @@ const ChooseHandle: FC = () => {
           <Button
             className="w-full justify-center"
             disabled={disabled}
+            icon={<CreditCardIcon className="size-5" />}
             onClick={handleBuy}
             type="button"
           >
@@ -229,7 +226,7 @@ const ChooseHandle: FC = () => {
               Mint for {SIGNUP_PRICE} MATIC
             </Button>
           ) : (
-            <Moonpay />
+            <Moonpay disabled={disabled} />
           )}
         </div>
       </Form>
