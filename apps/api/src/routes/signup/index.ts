@@ -3,34 +3,33 @@ import type { Handler } from 'express';
 import { HeyLensSignup } from '@hey/abis';
 import { HEY_LENS_SIGNUP, ZERO_ADDRESS } from '@hey/data/constants';
 import logger from '@hey/lib/logger';
-import axios from 'axios';
+import crypto from 'crypto';
 import catchedError from 'src/lib/catchedError';
-import { PADDLE_API_ENDPOINT } from 'src/lib/constants';
 import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
 import { createWalletClient, http } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
-import { polygonMumbai } from 'viem/chains';
-import { object, string } from 'zod';
+import { polygon, polygonMumbai } from 'viem/chains';
+import { boolean, object, string } from 'zod';
 
 type ExtensionRequest = {
-  data: {
+  meta: {
     custom_data: {
       address: string;
       delegatedExecutor: string;
       handle: string;
     };
-    id: string;
+    test_mode: boolean;
   };
 };
 
 const validationSchema = object({
-  data: object({
+  meta: object({
     custom_data: object({
       address: string(),
       delegatedExecutor: string(),
       handle: string()
     }),
-    id: string()
+    test_mode: boolean()
   })
 });
 
@@ -41,44 +40,40 @@ export const post: Handler = async (req, res) => {
     return noBody(res);
   }
 
+  const secret = process.env.SECRET!;
+  const hmac = crypto.createHmac('sha256', secret);
+  const digest = Buffer.from(hmac.update(req.body).digest('hex'), 'utf8');
+  const signature = Buffer.from(req.get('X-Signature') || '', 'utf8');
+
+  if (!crypto.timingSafeEqual(digest, signature)) {
+    throw new Error('Invalid signature.');
+  }
+
   const privateKey = process.env.RELAYER_PRIVATE_KEY;
 
   if (!privateKey) {
     return notAllowed(res);
   }
 
-  const validation = validationSchema.safeParse(body);
+  const parsedBody = JSON.parse(body);
+  const validation = validationSchema.safeParse(parsedBody);
 
   if (!validation.success) {
-    console.error(validation.error);
     return invalidBody(res);
   }
 
-  const { data } = body as ExtensionRequest;
-  const { custom_data, id } = data;
+  const { meta } = parsedBody as ExtensionRequest;
+  const { custom_data, test_mode } = meta;
   const { address, delegatedExecutor, handle } = custom_data;
 
   try {
-    // Check Paddle is the Transaction is valid
-    const response = await axios.get(
-      `${PADDLE_API_ENDPOINT}/transactions/${id}`,
-      { headers: { Authorization: `Bearer ${process.env.PADDLE_API_KEY}` } }
-    );
-
-    if (response.data.data.status !== 'completed') {
-      return res.status(400).json({
-        message: 'Transaction not completed',
-        success: false
-      });
-    }
-
     const account = privateKeyToAccount(
       process.env.RELAYER_PRIVATE_KEY as `0x${string}`
     );
 
     const client = createWalletClient({
       account,
-      chain: polygonMumbai,
+      chain: test_mode ? polygonMumbai : polygon,
       transport: http()
     });
 
