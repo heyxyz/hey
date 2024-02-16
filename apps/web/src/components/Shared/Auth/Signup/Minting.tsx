@@ -11,7 +11,7 @@ const Minting: FC = () => {
   const setScreen = useSignupStore((state) => state.setScreen);
   const setProfileId = useSignupStore((state) => state.setProfileId);
   const choosedHandle = useSignupStore((state) => state.choosedHandle);
-  const mintViaPadddle = useSignupStore((state) => state.mintViaPadddle);
+  const mintViaCard = useSignupStore((state) => state.mintViaCard);
   const transactionHash = useSignupStore((state) => state.transactionHash);
 
   useProfileQuery({
@@ -23,7 +23,7 @@ const Minting: FC = () => {
       }
     },
     pollInterval: 3000,
-    skip: mintViaPadddle ? false : !transactionHash,
+    skip: mintViaCard ? false : !transactionHash,
     variables: { request: { forHandle: choosedHandle } }
   });
 
@@ -34,7 +34,7 @@ const Minting: FC = () => {
         This will take a few seconds to a few minutes. Please be patient.
       </div>
       <Spinner className="mt-8" />
-      {!mintViaPadddle && (
+      {!mintViaCard && (
         <Link
           className="mt-5 flex items-center space-x-1 text-sm underline"
           href={`${POLYGONSCAN_URL}/tx/${transactionHash}`}

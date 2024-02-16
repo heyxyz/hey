@@ -70,14 +70,6 @@ export const LIVEPEER_KEY = '70508bf8-2e16-4594-852d-5aed798f6403';
 export const ALCHEMY_API_KEY = 'Xx-4a1SyWtS9U4h0cEuRmvgYtGeVOlv7';
 export const THIRDWEB_CLIENT_ID = '0e8fa22aa33b3da60c593b4864a2e2d1';
 
-// Paddle
-export const PADDLE_CLIENT_TOKEN = IS_MAINNET
-  ? 'live_58c979f347c0f234f18bb64415c'
-  : 'test_973fcd0216c56384cf67b1ba367';
-export const PADDLE_PRICE_ID = IS_MAINNET
-  ? 'pri_01hpmkcjpea4v7ejb67qycsm2r'
-  : 'pri_01hpmkr0e823sdj4jkzx78tq75';
-
 // Named transforms for ImageKit
 export const AVATAR = 'tr:w-250,h-250';
 export const EXPANDED_AVATAR = 'tr:w-1000,h-1000';
