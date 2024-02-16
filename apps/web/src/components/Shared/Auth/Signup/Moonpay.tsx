@@ -1,10 +1,15 @@
+import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { MOONPAY_URL } from '@hey/data/constants';
 import { Button } from '@hey/ui';
 import { type FC } from 'react';
 import urlcat from 'urlcat';
 import { useAccount } from 'wagmi';
 
-const Moonpay: FC = () => {
+interface MoonpayProps {
+  disabled: boolean;
+}
+
+const Moonpay: FC<MoonpayProps> = ({ disabled }) => {
   const { address } = useAccount();
 
   const handleBuy = () => {
@@ -19,7 +24,12 @@ const Moonpay: FC = () => {
   };
 
   return (
-    <Button className="w-full" onClick={handleBuy}>
+    <Button
+      className="w-full justify-center"
+      disabled={disabled}
+      icon={<CurrencyDollarIcon className="size-5" />}
+      onClick={handleBuy}
+    >
       Buy MATIC
     </Button>
   );
