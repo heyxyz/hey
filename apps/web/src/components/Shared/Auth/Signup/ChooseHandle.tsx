@@ -128,6 +128,11 @@ const ChooseHandle: FC = () => {
         'checkout[custom][address]': address,
         'checkout[custom][delegatedExecutor]': delegatedExecutor,
         'checkout[custom][handle]': handle,
+        desc: 0,
+        discount: 0,
+        embed: 1,
+        logo: 0,
+        media: 0,
         product: 'bc50d61b-dde2-477d-bb89-5453d0c665d8'
       })
     );
