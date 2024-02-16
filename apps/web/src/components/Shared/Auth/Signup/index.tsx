@@ -13,12 +13,12 @@ import Success from './Success';
 interface SignupState {
   choosedHandle: string;
   delegatedExecutor: string;
-  mintViaPadddle: boolean;
+  mintViaCard: boolean;
   profileId: string;
   screen: 'choose' | 'minting' | 'success';
   setChoosedHandle: (handle: string) => void;
   setDelegatedExecutor: (executor: string) => void;
-  setMintViaPadddle: (mintViaPadddle: boolean) => void;
+  setMintViaCard: (mintViaCard: boolean) => void;
   setProfileId: (id: string) => void;
   setScreen: (screen: 'choose' | 'minting' | 'success') => void;
   setTransactionHash: (hash: string) => void;
@@ -28,12 +28,12 @@ interface SignupState {
 export const useSignupStore = create<SignupState>((set) => ({
   choosedHandle: '',
   delegatedExecutor: '',
-  mintViaPadddle: false,
+  mintViaCard: false,
   profileId: '',
   screen: 'success',
   setChoosedHandle: (handle) => set({ choosedHandle: handle }),
   setDelegatedExecutor: (executor) => set({ delegatedExecutor: executor }),
-  setMintViaPadddle: (mintViaPadddle) => set({ mintViaPadddle }),
+  setMintViaCard: (mintViaCard) => set({ mintViaCard }),
   setProfileId: (id) => set({ profileId: id }),
   setScreen: (screen) => set({ screen }),
   setTransactionHash: (hash) => set({ transactionHash: hash }),
