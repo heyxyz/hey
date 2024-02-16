@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { Editor as IEditor } from '@tiptap/react';
 
 import { EmojiPickerPlugin } from '@components/Shared/TipTap/Extensions/Emoji';
 import { Hashtag } from '@components/Shared/TipTap/Extensions/Hashtag';
@@ -18,12 +18,23 @@ import { Paragraph } from '@tiptap/extension-paragraph';
 import { Placeholder } from '@tiptap/extension-placeholder';
 import { Text } from '@tiptap/extension-text';
 import { EditorContent, useEditor } from '@tiptap/react';
+import { type FC, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import useUploadAttachments from 'src/hooks/useUploadAttachments';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import TurndownService from 'turndown';
+
+/* 
+ When using TipTap's <ContextProvider/> it results in broken out of order UI components 
+ and layout shifts so we use a global value 
+*/
+declare global {
+  interface Window {
+    editor?: IEditor;
+  }
+}
 
 const Editor: FC = () => {
   const setPublicationContent = usePublicationStore(
@@ -36,6 +47,8 @@ const Editor: FC = () => {
     (state) => state.attachments
   );
   const { handleUploadAttachments } = useUploadAttachments();
+
+  const turndown = new TurndownService();
 
   const handlePaste = async (pastedFiles: FileList) => {
     if (
@@ -86,11 +99,20 @@ const Editor: FC = () => {
       })
     ],
     onUpdate: ({ editor }) => {
-      const turndown = new TurndownService();
-      const markdownOutput = turndown.turndown(editor.getHTML());
+      const html = editor.getHTML();
+      const markdownOutput = turndown.turndown(html);
       setPublicationContent(markdownOutput);
     }
   });
+
+  useEffect(() => {
+    if (!window.editor) {
+      window.editor = editor!;
+    }
+    return () => {
+      window.editor = undefined;
+    };
+  }, [editor]);
 
   if (editor === null) {
     return;

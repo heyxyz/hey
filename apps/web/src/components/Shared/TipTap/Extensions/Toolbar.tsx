@@ -1,7 +1,7 @@
-import type { Editor } from '@tiptap/react';
 import type { FC } from 'react';
 
 import cn from '@hey/ui/cn';
+import { type Editor } from '@tiptap/react';
 
 interface ToolBarProps {
   editor: Editor;

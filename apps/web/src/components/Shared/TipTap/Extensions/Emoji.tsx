@@ -95,15 +95,21 @@ const EmojiList = forwardRef((props: SuggestionProps<Emoji>, ref) => {
 
 EmojiList.displayName = 'EmojiList';
 
+let emojiCache: Emoji[] | null = null;
+
 export const emojiSuggestion: Suggestion = {
   allowedPrefixes: [' '],
   items: async ({ query }) => {
     if (query.length < 1) {
       return [];
     }
-    const res = await fetch(`${STATIC_ASSETS_URL}/emoji.json`);
-    const items = (await res.json()) as Emoji[];
-    return items.filter((item) => item.tags.some((tag) => tag.includes(query)));
+    if (!emojiCache) {
+      const res = await fetch(`${STATIC_ASSETS_URL}/emoji.json`);
+      emojiCache = (await res.json()) as Emoji[];
+    }
+    return emojiCache.filter((item) =>
+      item.tags.some((tag) => tag.includes(query))
+    );
   },
   render: makeSuggestionRender(EmojiList)
 };
@@ -113,7 +119,7 @@ const name = 'p';
 const EmojiComponent = (props: NodeViewRendererProps) => {
   return (
     <NodeViewWrapper className={name}>
-      <span>{props.node.attrs.label}</span>
+      <p>{props.node.attrs.label}</p>
     </NodeViewWrapper>
   );
 };
@@ -131,6 +137,6 @@ export const EmojiPickerPlugin = EmojiPicker.extend({
     ReactNodeViewRenderer(EmojiComponent, { className: 'inline-block' }),
   parseHTML: () => [{ tag: name }],
   renderHTML: ({ HTMLAttributes }) => {
-    return [name, HTMLAttributes['data-label']];
+    return HTMLAttributes['data-label'];
   }
 }).configure({ suggestion: emojiSuggestion });

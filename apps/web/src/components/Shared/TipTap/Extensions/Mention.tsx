@@ -185,5 +185,5 @@ export const DisplayMention = Mention.extend({
   addNodeView: () =>
     ReactNodeViewRenderer(MentionComponent, { className: 'inline-block' }),
   parseHTML: () => [{ tag: name }],
-  renderHTML: ({ HTMLAttributes }) => [name, HTMLAttributes['data-label']]
+  renderHTML: ({ HTMLAttributes }) => HTMLAttributes['data-label']
 }).configure({ suggestion: mentionSuggestion });

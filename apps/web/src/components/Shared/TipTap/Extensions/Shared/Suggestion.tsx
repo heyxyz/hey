@@ -144,7 +144,7 @@ const createSuggestion = ({
 
     name: pluginName,
 
-    selectable: false
+    selectable: true
   });
 };
 

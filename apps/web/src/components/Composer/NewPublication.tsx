@@ -10,6 +10,7 @@ import type {
 } from '@hey/lens';
 import type { IGif } from '@hey/types/giphy';
 import type { NewAttachment } from '@hey/types/misc';
+import type { Editor as IEditor } from '@tiptap/react';
 import type { FC } from 'react';
 
 import NewAttachments from '@components/Composer/NewAttachments';
@@ -30,14 +31,11 @@ import removeQuoteOn from '@hey/lib/removeQuoteOn';
 import { Button, Card, ErrorMessage, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { MetadataAttributeType } from '@lens-protocol/metadata';
-import { $convertFromMarkdownString } from '@lexical/markdown';
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import errorToast from '@lib/errorToast';
 import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
 import { useUnmountEffect } from 'framer-motion';
-import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -58,6 +56,7 @@ import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
+import TurndownService from 'turndown';
 
 import LivestreamSettings from './Actions/LivestreamSettings';
 import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
@@ -65,6 +64,12 @@ import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
 import LinkPreviews from './LinkPreviews';
 import Discard from './Post/Discard';
+
+declare global {
+  interface Window {
+    editor?: IEditor;
+  }
+}
 
 const Attachment = dynamic(
   () => import('@components/Composer/Actions/Attachment'),
@@ -104,7 +109,7 @@ const PollSettings = dynamic(
 );
 
 interface NewPublicationProps {
-  publication: MirrorablePublication;
+  publication?: MirrorablePublication;
 }
 
 const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
@@ -202,7 +207,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
   const [publicationContentError, setPublicationContentError] = useState('');
 
-  const [editor] = useLexicalComposerContext();
+  const { editor } = window;
   const createPoll = useCreatePoll();
   const getMetadata = usePublicationMetadata();
 
@@ -217,7 +222,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const noOpenAction = !openAction;
   // Use Momoka if the profile the comment or quote has momoka proof and also check collect module has been disabled
   const useMomoka = isComment
-    ? publication.momoka?.proof
+    ? publication?.momoka?.proof
     : isQuote
       ? quotedPublication?.momoka?.proof
       : noCollect && noOpenAction;
@@ -242,9 +247,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     }
 
     setIsLoading(false);
-    editor.update(() => {
-      $getRoot().clear();
-    });
+    editor?.commands.clearContent();
     setPublicationContent('');
     setQuotedPublication(null);
     setShowPollEditor(false);
@@ -267,7 +270,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
     // Track in leafwatch
     const eventProperties = {
-      comment_on: isComment ? publication.id : null,
+      comment_on: isComment ? publication?.id : null,
       publication_collect_module: collectModule.type,
       publication_has_attachments: attachments.length > 0,
       publication_has_poll: showPollEditor,
@@ -317,9 +320,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   }, [audioPublication]);
 
   useEffect(() => {
-    editor.update(() => {
-      $convertFromMarkdownString(publicationContent);
-    });
+    const turndownService = new TurndownService();
+    const markdown = turndownService.turndown(publicationContent);
+    editor?.commands.setContent(markdown, false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -428,7 +431,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         | MomokaCommentRequest
         | MomokaPostRequest
         | MomokaQuoteRequest = {
-        ...(isComment && { commentOn: publication.id }),
+        ...(isComment && { commentOn: publication?.id }),
         ...(isQuote && { quoteOn: quotedPublication?.id }),
         contentURI: `ar://${arweaveId}`
       };
@@ -473,7 +476,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         | OnchainPostRequest
         | OnchainQuoteRequest = {
         contentURI: `ar://${arweaveId}`,
-        ...(isComment && { commentOn: publication.id }),
+        ...(isComment && { commentOn: publication?.id }),
         ...(isQuote && { quoteOn: quotedPublication?.id }),
         openActionModules,
         ...(onlyFollowers && {
@@ -613,18 +616,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             emojiClassName="text-brand-500"
             setEmoji={(emoji) => {
               setShowEmojiPicker(false);
-              editor.update(() => {
-                // @ts-ignore
-                const index = editor?._editorState?._selection?.focus?.offset;
-                const updatedContent =
-                  publicationContent.substring(0, index) +
-                  emoji +
-                  publicationContent.substring(
-                    index,
-                    publicationContent.length
-                  );
-                $convertFromMarkdownString(updatedContent);
-              });
+              if (!editor) {
+                return;
+              }
+              editor.chain().focus().insertContent(emoji).run();
             }}
             setShowEmojiPicker={setShowEmojiPicker}
             showEmojiPicker={showEmojiPicker}
