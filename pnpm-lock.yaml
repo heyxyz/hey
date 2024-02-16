@@ -21,13 +21,13 @@ importers:
         specifier: ^2.0.0
         version: 2.0.3
       turbo:
-        specifier: ^1.12.3
+        specifier: ^1.12.4
         version: 1.12.4
 
   apps/api:
     dependencies:
       '@aws-sdk/client-sts':
-        specifier: ^3.513.0
+        specifier: ^3.515.0
         version: 3.515.0(@aws-sdk/credential-provider-node@3.515.0)
       '@clickhouse/client':
         specifier: ^0.2.9
@@ -74,9 +74,6 @@ importers:
       request-ip:
         specifier: ^3.3.0
         version: 3.3.0
-      stripe:
-        specifier: ^14.16.0
-        version: 14.17.0
       tsx:
         specifier: ^4.7.1
         version: 4.7.1
@@ -115,7 +112,7 @@ importers:
         specifier: ^4.17.15
         version: 4.17.21
       '@types/node':
-        specifier: ^20.11.17
+        specifier: ^20.11.19
         version: 20.11.19
       '@types/request-ip':
         specifier: ^0.0.41
@@ -136,7 +133,7 @@ importers:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@20.11.19)(typescript@5.3.3)
       vite:
-        specifier: ^5.1.2
+        specifier: ^5.1.3
         version: 5.1.3(@types/node@20.11.19)
       vite-tsconfig-paths:
         specifier: ^4.3.1
@@ -167,7 +164,7 @@ importers:
         version: 18.2.0
     devDependencies:
       '@types/node':
-        specifier: ^20.11.17
+        specifier: ^20.11.19
         version: 20.11.19
       '@types/react':
         specifier: ^18.2.55
@@ -510,7 +507,7 @@ importers:
         specifier: ^16.4.4
         version: 16.4.4
       hardhat:
-        specifier: ^2.20.0
+        specifier: ^2.20.1
         version: 2.20.1(ts-node@10.9.2)(typescript@5.3.3)
 
   packages/data:
@@ -519,7 +516,7 @@ importers:
         specifier: workspace:*
         version: link:../config
       '@types/node':
-        specifier: ^20.11.17
+        specifier: ^20.11.19
         version: 20.11.19
       typescript:
         specifier: ^5.3.3
@@ -575,7 +572,7 @@ importers:
   packages/lens:
     dependencies:
       '@apollo/client':
-        specifier: ^3.9.4
+        specifier: ^3.9.5
         version: 3.9.5(graphql-ws@5.15.0)(graphql@16.8.1)
       '@hey/data':
         specifier: workspace:*
@@ -609,7 +606,7 @@ importers:
         specifier: ^2.4.0
         version: 2.4.0
       '@types/node':
-        specifier: ^20.11.17
+        specifier: ^20.11.19
         version: 20.11.19
       typescript:
         specifier: ^5.3.3
@@ -618,7 +615,7 @@ importers:
   packages/lib:
     dependencies:
       '@apollo/client':
-        specifier: ^3.9.4
+        specifier: ^3.9.5
         version: 3.9.5(graphql-ws@5.15.0)(graphql@16.8.1)
       '@hey/data':
         specifier: workspace:*
@@ -20019,14 +20016,6 @@ packages:
     resolution: {integrity: sha512-mSa8FtUoX3ExJYDkjPUTC14xaBAn4Ik5GPQD45G5E2egAmeV3kHgVSTfIoSDggbF6Pk9stahVgqsLCNExv6jHw==}
     dependencies:
       '@types/mdast': 4.0.3
-    dev: false
-
-  /stripe@14.17.0:
-    resolution: {integrity: sha512-iwV5SKoXuRIQFne4twGwiiczOkVW73eE2CKn6ltUKCacDy4SGHBX6kj1/xCV2bzzzQjcVtsh5F1aAbJTmf3tLw==}
-    engines: {node: '>=12.*'}
-    dependencies:
-      '@types/node': 20.11.19
-      qs: 6.11.2
     dev: false
 
   /strnum@1.0.5:
