@@ -179,7 +179,14 @@ export const HeyLensSignup = [
   },
   {
     inputs: [],
-    name: 'profilesCreated',
+    name: 'profilesCreatedViaCard',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'profilesCreatedViaCrypto',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function'
@@ -221,6 +228,13 @@ export const HeyLensSignup = [
   {
     inputs: [],
     name: 'signupPrice',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'totalProfilesCreated',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function'
