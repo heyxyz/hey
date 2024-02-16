@@ -84,6 +84,11 @@ const Support: NextPage = () => {
           description="Contact us to help you get the issue resolved."
           heading={`Contact ${APP_NAME}`}
         />
+        <div className="pt-3" />
+        <SettingsHelper
+          description="No 282, 5th Cross Road, 2nd Main, Bahubali Nagar, Jalahalli Village - 560013, Bangalore, Karnataka"
+          heading="Office Address"
+        />
       </GridItemFour>
       <GridItemEight>
         <Card>
