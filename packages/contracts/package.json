@@ -10,6 +10,6 @@
     "@openzeppelin/contracts-upgradeable": "^5.0.1",
     "@openzeppelin/hardhat-upgrades": "^3.0.3",
     "dotenv": "^16.4.4",
-    "hardhat": "^2.20.0"
+    "hardhat": "^2.20.1"
   }
 }
