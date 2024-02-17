@@ -1,4 +1,5 @@
 import type { Handler } from 'express';
+import type { Address } from 'viem';
 
 import { HeyLensSignup } from '@hey/abis';
 import { HEY_LENS_SIGNUP, ZERO_ADDRESS } from '@hey/data/constants';
@@ -49,9 +50,10 @@ export const post: Handler = async (req, res) => {
     throw new Error('Invalid signature.');
   }
 
-  const privateKey = process.env.RELAYER_PRIVATE_KEY;
+  // env is delimited by commas with no spaces
+  const privateKeys = process.env.RELAYER_PRIVATE_KEYS;
 
-  if (!privateKey) {
+  if (!privateKeys) {
     return notAllowed(res);
   }
 
@@ -66,10 +68,12 @@ export const post: Handler = async (req, res) => {
   const { custom_data, test_mode } = meta;
   const { address, delegatedExecutor, handle } = custom_data;
 
+  const allPrivateKeys = privateKeys.split(',');
+  const randomPrivateKey =
+    allPrivateKeys[Math.floor(Math.random() * allPrivateKeys.length)];
+
   try {
-    const account = privateKeyToAccount(
-      process.env.RELAYER_PRIVATE_KEY as `0x${string}`
-    );
+    const account = privateKeyToAccount(randomPrivateKey as Address);
 
     const client = createWalletClient({
       account,
