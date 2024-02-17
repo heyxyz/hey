@@ -72,10 +72,10 @@
     "use-resize-observer": "^9.1.0",
     "usehooks-ts": "^2.14.0",
     "uuid": "^9.0.1",
-    "viem": "^2.7.9",
+    "viem": "^2.7.10",
     "wagmi": "^2.5.7",
     "zod": "^3.22.4",
-    "zustand": "^4.5.0"
+    "zustand": "^4.5.1"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
