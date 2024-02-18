@@ -55,8 +55,6 @@ export const get: Handler = async (req, res) => {
       )
     );
 
-    logger.info('Fetched Gardener report data');
-
     const formattedResults = {
       actor: results[0][0]?.actor,
       both: parseInt(results[1][0]?.both),
@@ -65,6 +63,10 @@ export const get: Handler = async (req, res) => {
       spam: parseInt(results[1][0]?.spam),
       unSponsor: parseInt(results[1][0]?.un_sponsor)
     };
+
+    logger.info(
+      `Fetched Gardener report data for publication ${id} by ${profile}`
+    );
 
     return res.status(200).json({
       result: formattedResults,
