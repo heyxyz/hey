@@ -1,5 +1,6 @@
 import type { Handler } from 'express';
 
+import { GARDENER } from '@hey/data/tracking';
 import logger from '@hey/lib/logger';
 import catchedError from 'src/lib/catchedError';
 import createClickhouseClient from 'src/lib/createClickhouseClient';
@@ -17,24 +18,31 @@ export const get: Handler = async (req, res) => {
 
     const queries: string[] = [
       `
-        SELECT
-          COUNTIf(toDateTime(created) >= now() - INTERVAL 60 SECOND) AS last_60_seconds,
-          COUNTIf(toDate(created) = today()) AS today,
-          COUNTIf(toDate(created) = yesterday()) AS yesterday,
-          COUNTIf(toDate(created) >= toMonday(now())) AS this_week,
-          COUNTIf(toDate(created) >= toStartOfMonth(now())) AS this_month,
-          COUNT(*) AS all_time
+        SELECT 
+          actor,
+          JSONExtractString(assumeNotNull(properties), 'publication_id') AS publication_id,
+          (countIf(JSONExtractString(assumeNotNull(properties), 'type') = 'spam')
+          + countIf(JSONExtractString(assumeNotNull(properties), 'type') = 'un-sponsor')
+          + countIf(JSONExtractString(assumeNotNull(properties), 'type') = 'both')) > 0 AS has_reported
         FROM events
+        WHERE name = '${GARDENER.REPORT}'
+        AND actor = '${profile}'
+        AND has(JSONExtractKeys(assumeNotNull(properties)), 'publication_id')
+        GROUP BY actor, publication_id
+        HAVING publication_id = '${id}'
       `,
       `
-        SELECT
-          COUNTIf(toDateTime(viewed_at) >= now() - INTERVAL 60 SECOND) AS last_60_seconds,
-          COUNTIf(toDate(viewed_at) = today()) AS today,
-          COUNTIf(toDate(viewed_at) = yesterday()) AS yesterday,
-          COUNTIf(toDate(viewed_at) >= toMonday(now())) AS this_week,
-          COUNTIf(toDate(viewed_at) >= toStartOfMonth(now())) AS this_month,
-          COUNT(*) AS all_time
-        FROM impressions
+        SELECT 
+          JSONExtractString(assumeNotNull(properties), 'publication_id') AS publication_id,
+          countIf(JSONExtractString(assumeNotNull(properties), 'type') = 'spam') AS spam,
+          countIf(JSONExtractString(assumeNotNull(properties), 'type') = 'un-sponsor') AS un_sponsor,
+          countIf(JSONExtractString(assumeNotNull(properties), 'type') = 'both') AS both,
+          countIf(JSONExtractString(assumeNotNull(properties), 'type') IN ('spam', 'un-sponsor', 'both')) AS total
+        FROM events
+        WHERE name = '${GARDENER.REPORT}'
+        AND has(JSONExtractKeys(assumeNotNull(properties)), 'publication_id')
+        AND JSONExtractString(assumeNotNull(properties), 'publication_id') = '${id}'
+        GROUP BY publication_id
       `
     ];
 
@@ -47,21 +55,20 @@ export const get: Handler = async (req, res) => {
       )
     );
 
-    logger.info('Fetched Leafwatch stats');
+    logger.info('Fetched Gardener report data');
+
+    const formattedResults = {
+      actor: results[0][0]?.actor,
+      both: parseInt(results[1][0]?.both),
+      hasReported: results[0][0]?.has_reported === 1,
+      id: results[0][0]?.publication_id,
+      spam: parseInt(results[1][0]?.spam),
+      unSponsor: parseInt(results[1][0]?.un_sponsor)
+    };
 
     return res.status(200).json({
-      dau: results[5].map((row: any, index: number) => ({
-        date: row.date,
-        dau: row.dau,
-        events: row.events,
-        impressions: results[6][index].impressions
-      })),
-      events: results[0][0],
-      eventsToday: results[3],
-      impressions: results[1][0],
-      impressionsToday: results[4],
-      success: true,
-      topEvents: results[2]
+      result: formattedResults,
+      success: true
     });
   } catch (error) {
     return catchedError(res, error);
