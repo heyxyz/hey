@@ -35,13 +35,15 @@ const RelayerBalance: FC<RelayerBalanceProps> = ({ address, index }) => {
     }
   });
 
+  const balance = data ? parseFloat(formatUnits(data.value, 18)) : 0;
+
   const refill = async () => {
     try {
       setLoading(true);
 
       return await sendTransactionAsync({
         to: address,
-        value: parseEther('20')
+        value: parseEther(balance < 20 ? (20 - balance).toString() : '0')
       });
     } catch (error) {
       errorToast(error);
@@ -51,25 +53,21 @@ const RelayerBalance: FC<RelayerBalanceProps> = ({ address, index }) => {
   };
 
   return (
-    <div className="space-y-3">
-      <NumberedStat
-        action={
-          <Button
-            className="w-full justify-center"
-            disabled={loading}
-            onClick={refill}
-            size="sm"
-          >
-            Refill Balance
-          </Button>
-        }
-        count={
-          (data && parseFloat(formatUnits(data.value, 18)))?.toString() || '0'
-        }
-        name={`Relayer ${index + 1}`}
-        suffix="MATIC"
-      />
-    </div>
+    <NumberedStat
+      action={
+        <Button
+          className="w-full justify-center"
+          disabled={loading}
+          onClick={refill}
+          size="sm"
+        >
+          Refill Balance
+        </Button>
+      }
+      count={balance.toString()}
+      name={`Relayer ${index + 1}`}
+      suffix="MATIC"
+    />
   );
 };
 
