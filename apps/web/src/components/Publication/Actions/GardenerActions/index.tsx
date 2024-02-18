@@ -118,8 +118,6 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publicationId }) => {
             success: () => {
               setHasReported(true);
 
-              console.log('type', type);
-
               if (type === 'spam') {
                 setSpamCount(spamCount + 1);
               } else if (type === 'un-sponsor') {
