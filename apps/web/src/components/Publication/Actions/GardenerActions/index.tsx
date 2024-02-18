@@ -61,15 +61,15 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publicationId }) => {
       disabled={loading}
       icon={icon}
       onClick={() => {
+        Leafwatch.track(GARDENER.REPORT, {
+          publication_id: publicationId,
+          type: label.toLowerCase()
+        });
+
         toast.promise(
           Promise.all(
             config.map(async ({ subreason, type }) => {
               await reportPublication({ subreason, type });
-              Leafwatch.track(GARDENER.REPORT, {
-                report_publication_id: publicationId,
-                report_reason: type,
-                report_subreason: subreason
-              });
             })
           ),
           {
