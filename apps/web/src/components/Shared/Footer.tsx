@@ -29,14 +29,6 @@ const Footer: FC = () => {
           Discord
         </Link>
         <Link
-          href="https://hey.xyz/donate"
-          onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_DONATE)}
-          rel="noreferrer noopener"
-          target="_blank"
-        >
-          Donate
-        </Link>
-        <Link
           href="https://status.hey.xyz"
           onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_STATUS)}
           rel="noreferrer noopener"

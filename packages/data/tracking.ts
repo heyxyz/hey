@@ -200,7 +200,6 @@ export const MISCELLANEOUS = {
   DISMISSED_MEMBERSHIP_NFT_BANNER: 'Dismissed membership NFT banner',
   FOOTER: {
     OPEN_DISCORD: 'Open Discord',
-    OPEN_DONATE: 'Open donate',
     OPEN_FEEDBACK: 'Open feedback',
     OPEN_GITHUB: 'Open GitHub',
     OPEN_STATUS: 'Open status',

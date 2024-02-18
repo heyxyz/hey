@@ -25,11 +25,6 @@ module.exports = {
         source: '/discord'
       },
       {
-        destination: 'https://giveth.io/project/hey?utm_source=hey',
-        permanent: true,
-        source: '/donate'
-      },
-      {
         destination:
           'https://explorer.gitcoin.co/#/round/424/0xd4cc0dd193c7dc1d665ae244ce12d7fab337a008/0xd4cc0dd193c7dc1d665ae244ce12d7fab337a008-4',
         permanent: true,
