@@ -175,6 +175,7 @@ export const STAFFTOOLS = {
     KILL: 'Staff Tool: Kill feature flag'
   },
   SIGNUP_CONTRACT: {
+    REFILL: 'Staff Tool: Refill relayer',
     WITHDRAW_FUNDS: 'Staff Tool: Withdraw funds'
   },
   STAFF_PICKS: {
