@@ -36,7 +36,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publicationId }) => {
 
   const fetchGardenerReports = async () => {
     try {
-      const response = await axios.get(`${HEY_API_URL}/gardener/report`, {
+      const response = await axios.get(`${HEY_API_URL}/gardener/reports`, {
         params: { id: publicationId, profile: currentProfile?.id }
       });
       const { data } = response;
