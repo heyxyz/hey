@@ -242,8 +242,8 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(@types/react-dom@18.2.19)(@types/react@18.2.56)(react-dom@18.2.0)(react@18.2.0)
       '@tanstack/react-query':
-        specifier: ^5.21.2
-        version: 5.21.2(react@18.2.0)
+        specifier: ^5.21.4
+        version: 5.21.4(react@18.2.0)
       '@thirdweb-dev/storage':
         specifier: ^2.0.9
         version: 2.0.9
@@ -351,7 +351,7 @@ importers:
         version: 2.7.10(typescript@5.3.3)(zod@3.22.4)
       wagmi:
         specifier: ^2.5.7
-        version: 2.5.7(@tanstack/react-query@5.21.2)(@types/react@18.2.56)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4)
+        version: 2.5.7(@tanstack/react-query@5.21.4)(@types/react@18.2.56)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4)
       zod:
         specifier: ^3.22.4
         version: 3.22.4
@@ -4602,7 +4602,7 @@ packages:
       react: ^16 || ^17 || ^18
       react-dom: ^16 || ^17 || ^18
     dependencies:
-      '@tanstack/react-virtual': 3.0.4(react-dom@18.2.0)(react@18.2.0)
+      '@tanstack/react-virtual': 3.1.0(react-dom@18.2.0)(react@18.2.0)
       client-only: 0.0.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -5131,7 +5131,7 @@ packages:
       '@stitches/core': 1.2.8
       core-js: 3.36.0
       cross-fetch: 4.0.0
-      hls.js: 1.5.5
+      hls.js: 1.5.6
       ms: 3.0.0-canary.1
       react: 18.2.0
       tus-js-client: 3.1.3
@@ -8596,8 +8596,8 @@ packages:
     resolution: {integrity: sha512-4BMHPrkfYmLP+NvqbbkV7Mk1nnphu+bNmxhhuB0+EMjKA7VfyFCfiyiTf55RRDgLaevyb9LrFK16lHW2owF52w==}
     dev: false
 
-  /@tanstack/query-core@5.21.2:
-    resolution: {integrity: sha512-jg7OcDG44oLT3uuGQQ9BM65ZBIdAq9xNZXPEk7Gr6w1oM1wo2/95H3dPDjLVs0yZKwrmE/ORUOC2Pyi1sp2fDA==}
+  /@tanstack/query-core@5.21.4:
+    resolution: {integrity: sha512-k3u4RcDAtcCurs8KVEIf52k4yUayc852v4ZQrtI8pkEii71riM9758A2WVGo5T/v4/X7b1RLON5g0aDvkoZYCA==}
     dev: false
 
   /@tanstack/query-persist-client-core@4.29.23:
@@ -8634,28 +8634,28 @@ packages:
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 
-  /@tanstack/react-query@5.21.2(react@18.2.0):
-    resolution: {integrity: sha512-/Vv1qTumNDDVA5EYk40kivHZ2kICs1w38GBLRvV6A/lrixUJR5bfqZMKqHA1S6ND3gR9hvSyAAYejBbjLrQnSA==}
+  /@tanstack/react-query@5.21.4(react@18.2.0):
+    resolution: {integrity: sha512-tzl4mGerfPKmJsPDWbfKol0eBEk8bsgtMZJOwnbUvvSRnYZzS9OfX9CD/dbQLr+JjIvSekWKaDBTo3oXeeFhoQ==}
     peerDependencies:
       react: ^18.0.0
     dependencies:
-      '@tanstack/query-core': 5.21.2
+      '@tanstack/query-core': 5.21.4
       react: 18.2.0
     dev: false
 
-  /@tanstack/react-virtual@3.0.4(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-tiqKW/e2MJVCr7/pRUXulpkyxllaOclkHNfhKTo4pmHjJIqnhMfwIjc1Q1R0Un3PI3kQywywu/791c8z9u0qeA==}
+  /@tanstack/react-virtual@3.1.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-nT/LvcBHrkVIpmQIYoCBOY89cuG00v8VBIwOFRMW95Id+ksVEAj8PHto2/VKh0PsVUIVxEpphjv7fQN+IWBTRw==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      '@tanstack/virtual-core': 3.0.0
+      '@tanstack/virtual-core': 3.1.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@tanstack/virtual-core@3.0.0:
-    resolution: {integrity: sha512-SYXOBTjJb05rXa2vl55TTwO40A6wKu0R5i1qQwhJYNDIqaIGF7D0HsLw+pJAyi2OvntlEIVusx3xtbbgSUi6zg==}
+  /@tanstack/virtual-core@3.1.0:
+    resolution: {integrity: sha512-1aEM1ikiHRFq5mc5pFBfSNT5CdwT8uI7HOVzv/Iyu55Zc2OF9YZHBTpkCiyaFyAoLrwuJGxwByWgiDWhUXG70A==}
     dev: false
 
   /@thirdweb-dev/crypto@0.2.0:
@@ -10515,7 +10515,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.23.0
-      caniuse-lite: 1.0.30001587
+      caniuse-lite: 1.0.30001588
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -10848,7 +10848,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001587
+      caniuse-lite: 1.0.30001588
       electron-to-chromium: 1.4.673
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.23.0)
@@ -10997,8 +10997,8 @@ packages:
     resolution: {integrity: sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==}
     engines: {node: '>=10'}
 
-  /caniuse-lite@1.0.30001587:
-    resolution: {integrity: sha512-HMFNotUmLXn71BQxg8cijvqxnIAofforZOwGsxyXJ0qugTdspUF4sPSJ2vhgprHCB996tIDzEq1ubumPDV8ULA==}
+  /caniuse-lite@1.0.30001588:
+    resolution: {integrity: sha512-+hVY9jE44uKLkH0SrUTqxjxqNTOWHsbnQDIKjwkZ3lNTzUUVdBLBGXtj/q5Mp5u98r3droaZAewQuEDzjQdZlQ==}
 
   /capital-case@1.0.4:
     resolution: {integrity: sha512-ds37W8CytHgwnhGGTi88pcPyR15qoNkOpYwmMMfnWqqWgESapLqvDx6huFjQ5vqWSn2Z06173XNA7LtMOeUh1A==}
@@ -12293,7 +12293,7 @@ packages:
       string.prototype.trimstart: 1.0.7
       typed-array-buffer: 1.0.1
       typed-array-byte-length: 1.0.0
-      typed-array-byte-offset: 1.0.0
+      typed-array-byte-offset: 1.0.1
       typed-array-length: 1.0.4
       unbox-primitive: 1.0.2
       which-typed-array: 1.1.14
@@ -14299,8 +14299,8 @@ packages:
     resolution: {integrity: sha512-EmBBpvdYh/4XxsnUybsPag6VikPYnN30td+vQk+GI3qpahVEG9+gTkG0aXVxTjBqQ5T6ijbWIu77O+C5WFWsnA==}
     dev: false
 
-  /hls.js@1.5.5:
-    resolution: {integrity: sha512-IMio4uloZNDoBLXUMup2dW0/wOSe+0lHL9qYfRV4oUcPQ/nkTBQibG5h4OPTXOTXSI3iUwcon7TFgNb6uEoKIQ==}
+  /hls.js@1.5.6:
+    resolution: {integrity: sha512-rmlaIEfLuSwqRtYLeTk30ebYli5qNK2urdkEcqYoBezRpV+MFHhZnMX77lHWW+EMjNlwr2sx2apfqq54E3yXnA==}
     dev: false
 
   /hmac-drbg@1.0.1:
@@ -16692,7 +16692,7 @@ packages:
       '@next/env': 14.1.0
       '@swc/helpers': 0.5.2
       busboy: 1.6.0
-      caniuse-lite: 1.0.30001587
+      caniuse-lite: 1.0.30001588
       graceful-fs: 4.2.11
       postcss: 8.4.31
       react: 18.2.0
@@ -20080,13 +20080,14 @@ packages:
       is-typed-array: 1.1.13
     dev: true
 
-  /typed-array-byte-offset@1.0.0:
-    resolution: {integrity: sha512-RD97prjEt9EL8YgAgpOkf3O4IF9lhJFr9g0htQkm0rchFp/Vx7LW5Q8fSXXub7BXAODyUQohRMyOc3faCPd0hg==}
+  /typed-array-byte-offset@1.0.1:
+    resolution: {integrity: sha512-tcqKMrTRXjqvHN9S3553NPCaGL0VPgFI92lXszmrE8DMhiDPLBYLlvo8Uu4WZAAX/aGqp/T1sbA4ph8EWjDF9Q==}
     engines: {node: '>= 0.4'}
     dependencies:
       available-typed-arrays: 1.0.6
       call-bind: 1.0.7
       for-each: 0.3.3
+      gopd: 1.0.1
       has-proto: 1.0.1
       is-typed-array: 1.1.13
     dev: true
@@ -20823,7 +20824,7 @@ packages:
     resolution: {integrity: sha512-dpojBhNsCNN7T82Tm7k26A6G9ML3NkhDsnw9n/eoxSRlVBB4CEtIQ/KTCLI2Fwf3ataSXRhYFkQi3SlnFwPvPQ==}
     dev: false
 
-  /wagmi@2.5.7(@tanstack/react-query@5.21.2)(@types/react@18.2.56)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4):
+  /wagmi@2.5.7(@tanstack/react-query@5.21.4)(@types/react@18.2.56)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4):
     resolution: {integrity: sha512-xSuteMXFKvra4xDddqZbZv/gQlcg3X+To5AoZW7WoAm0iVlF8/vEGpQzCWy6KZs2z1szxPrr0YnH3Zr1Qj4E/A==}
     peerDependencies:
       '@tanstack/react-query': '>=5.0.0'
@@ -20834,7 +20835,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@tanstack/react-query': 5.21.2(react@18.2.0)
+      '@tanstack/react-query': 5.21.4(react@18.2.0)
       '@wagmi/connectors': 4.1.14(@types/react@18.2.56)(@wagmi/core@2.6.5)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4)
       '@wagmi/core': 2.6.5(@types/react@18.2.56)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4)
       react: 18.2.0
