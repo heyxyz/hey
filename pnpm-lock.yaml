@@ -242,8 +242,8 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(@types/react-dom@18.2.19)(@types/react@18.2.56)(react-dom@18.2.0)(react@18.2.0)
       '@tanstack/react-query':
-        specifier: ^5.21.7
-        version: 5.21.7(react@18.2.0)
+        specifier: ^5.22.2
+        version: 5.22.2(react@18.2.0)
       '@thirdweb-dev/storage':
         specifier: ^2.0.9
         version: 2.0.9
@@ -351,7 +351,7 @@ importers:
         version: 2.7.10(typescript@5.3.3)(zod@3.22.4)
       wagmi:
         specifier: ^2.5.7
-        version: 2.5.7(@tanstack/react-query@5.21.7)(@types/react@18.2.56)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4)
+        version: 2.5.7(@tanstack/react-query@5.22.2)(@types/react@18.2.56)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4)
       zod:
         specifier: ^3.22.4
         version: 3.22.4
@@ -2867,7 +2867,7 @@ packages:
   /@codemirror/language@6.0.0:
     resolution: {integrity: sha512-rtjk5ifyMzOna1c7PBu7J1VCt0PvA5wy3o8eMVnxMKb7z8KA7JFecvD04dSn14vj/bBaAbqRsGed5OjtofEnLA==}
     dependencies:
-      '@codemirror/state': 6.4.0
+      '@codemirror/state': 6.4.1
       '@codemirror/view': 6.24.0
       '@lezer/common': 1.2.1
       '@lezer/highlight': 1.2.0
@@ -2875,14 +2875,14 @@ packages:
       style-mod: 4.1.0
     dev: false
 
-  /@codemirror/state@6.4.0:
-    resolution: {integrity: sha512-hm8XshYj5Fo30Bb922QX9hXB/bxOAVH+qaqHBzw5TKa72vOeslyGwd4X8M0c1dJ9JqxlaMceOQ8RsL9tC7gU0A==}
+  /@codemirror/state@6.4.1:
+    resolution: {integrity: sha512-QkEyUiLhsJoZkbumGZlswmAhA7CBU02Wrz7zvH4SrcifbsqwlXShVXg65f3v/ts57W3dqyamEriMhij1Z3Zz4A==}
     dev: false
 
   /@codemirror/view@6.24.0:
     resolution: {integrity: sha512-zK6m5pNkdhdJl8idPP1gA4N8JKTiSsOz8U/Iw+C1ChMwyLG7+MLiNXnH/wFuAk6KeGEe33/adOiAh5jMqee03w==}
     dependencies:
-      '@codemirror/state': 6.4.0
+      '@codemirror/state': 6.4.1
       style-mod: 4.1.0
       w3c-keyname: 2.2.8
     dev: false
@@ -8596,8 +8596,8 @@ packages:
     resolution: {integrity: sha512-4BMHPrkfYmLP+NvqbbkV7Mk1nnphu+bNmxhhuB0+EMjKA7VfyFCfiyiTf55RRDgLaevyb9LrFK16lHW2owF52w==}
     dev: false
 
-  /@tanstack/query-core@5.21.7:
-    resolution: {integrity: sha512-z0NSWFsM75esVmkxeuDWeyo9Wv4CZ/WsLMZgu1Zz164S6Oc/57NMia88dTu/d51wdVowMTAcDMQgRmiWmyPMxQ==}
+  /@tanstack/query-core@5.22.2:
+    resolution: {integrity: sha512-z3PwKFUFACMUqe1eyesCIKg3Jv1mysSrYfrEW5ww5DCDUD4zlpTKBvUDaEjsfZzL3ULrFLDM9yVUxI/fega1Qg==}
     dev: false
 
   /@tanstack/query-persist-client-core@4.29.23:
@@ -8634,12 +8634,12 @@ packages:
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 
-  /@tanstack/react-query@5.21.7(react@18.2.0):
-    resolution: {integrity: sha512-Op9nVL/L0Lg+aSPFSGbrymu6d3tzUoZ+FZ+rRIZpu5HkGasflqzhsXkL26Sa+MEwLyox7Q1erSFwNIRO3TYjXQ==}
+  /@tanstack/react-query@5.22.2(react@18.2.0):
+    resolution: {integrity: sha512-TaxJDRzJ8/NWRT4lY2jguKCrNI6MRN+67dELzPjNUlvqzTxGANlMp68l7aC7hG8Bd1uHNxHl7ihv7MT50i/43A==}
     peerDependencies:
       react: ^18.0.0
     dependencies:
-      '@tanstack/query-core': 5.21.7
+      '@tanstack/query-core': 5.22.2
       react: 18.2.0
     dev: false
 
@@ -16065,7 +16065,7 @@ packages:
     resolution: {integrity: sha512-83eZaH2+B+jP92KuodPqXknzwmiboKAuZY4doRfTEEXAG57pNVNN6cqSRJlwDnmaTBKRffxoncBXbYqHQgulgg==}
     engines: {node: '>=18'}
     dependencies:
-      terser: 5.27.1
+      terser: 5.27.2
     dev: false
 
   /metro-resolver@0.80.6:
@@ -18121,8 +18121,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
-  /react-remove-scroll-bar@2.3.4(@types/react@18.2.56)(react@18.2.0):
-    resolution: {integrity: sha512-63C4YQBUt0m6ALadE9XV56hV8BgJWDmmTPY758iIJjfQKt2nYwoUrPk0LXRXcB/yIj82T1/Ixfdpdk68LwIB0A==}
+  /react-remove-scroll-bar@2.3.5(@types/react@18.2.56)(react@18.2.0):
+    resolution: {integrity: sha512-3cqjOqg6s0XbOjWvmasmqHch+RLxIEk2r/70rzGXuz3iIGQsQheEQyqYCBb5EECoD01Vo2SIbDqW4paLeLTASw==}
     engines: {node: '>=10'}
     peerDependencies:
       '@types/react': ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -18149,7 +18149,7 @@ packages:
     dependencies:
       '@types/react': 18.2.56
       react: 18.2.0
-      react-remove-scroll-bar: 2.3.4(@types/react@18.2.56)(react@18.2.0)
+      react-remove-scroll-bar: 2.3.5(@types/react@18.2.56)(react@18.2.0)
       react-style-singleton: 2.2.1(@types/react@18.2.56)(react@18.2.0)
       tslib: 2.6.2
       use-callback-ref: 1.3.1(@types/react@18.2.56)(react@18.2.0)
@@ -19639,8 +19639,8 @@ packages:
       rimraf: 2.6.3
     dev: false
 
-  /terser@5.27.1:
-    resolution: {integrity: sha512-29wAr6UU/oQpnTw5HoadwjUZnFQXGdOfj0LjZ4sVxzqwHh/QVkvr7m8y9WoR4iN3FRitVduTc6KdjcW38Npsug==}
+  /terser@5.27.2:
+    resolution: {integrity: sha512-sHXmLSkImesJ4p5apTeT63DsV4Obe1s37qT8qvwHRmVxKTBH7Rv9Wr26VcAMmLbmk9UliiwK8z+657NyJHHy/w==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
@@ -20825,7 +20825,7 @@ packages:
     resolution: {integrity: sha512-dpojBhNsCNN7T82Tm7k26A6G9ML3NkhDsnw9n/eoxSRlVBB4CEtIQ/KTCLI2Fwf3ataSXRhYFkQi3SlnFwPvPQ==}
     dev: false
 
-  /wagmi@2.5.7(@tanstack/react-query@5.21.7)(@types/react@18.2.56)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4):
+  /wagmi@2.5.7(@tanstack/react-query@5.22.2)(@types/react@18.2.56)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4):
     resolution: {integrity: sha512-xSuteMXFKvra4xDddqZbZv/gQlcg3X+To5AoZW7WoAm0iVlF8/vEGpQzCWy6KZs2z1szxPrr0YnH3Zr1Qj4E/A==}
     peerDependencies:
       '@tanstack/react-query': '>=5.0.0'
@@ -20836,7 +20836,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@tanstack/react-query': 5.21.7(react@18.2.0)
+      '@tanstack/react-query': 5.22.2(react@18.2.0)
       '@wagmi/connectors': 4.1.14(@types/react@18.2.56)(@wagmi/core@2.6.5)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4)
       '@wagmi/core': 2.6.5(@types/react@18.2.56)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4)
       react: 18.2.0
