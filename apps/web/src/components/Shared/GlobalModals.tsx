@@ -14,6 +14,8 @@ import { usePublicationPollStore } from 'src/store/non-persisted/publication/use
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useAccount } from 'wagmi';
 
 import Auth from './Auth';
 import { useSignupStore } from './Auth/Signup';
@@ -22,6 +24,7 @@ import ReportProfile from './Modal/ReportProfile';
 import SwitchProfiles from './SwitchProfiles';
 
 const GlobalModals: FC = () => {
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   // Report modal state
   const showPublicationReportModal = useGlobalModalStateStore(
     (state) => state.showPublicationReportModal
@@ -99,6 +102,7 @@ const GlobalModals: FC = () => {
   );
   const pollConfig = usePublicationPollStore((state) => state.pollConfig);
   const signupScreen = useSignupStore((state) => state.screen);
+  const { address } = useAccount();
 
   const checkIfPublicationNotDrafted = () => {
     if (
@@ -147,7 +151,7 @@ const GlobalModals: FC = () => {
       <Modal
         onClose={() => setShowProfileSwitchModal(false)}
         show={showProfileSwitchModal}
-        size="xs"
+        size={currentProfile?.ownedBy.address !== address ? 'sm' : 'xs'}
         title="Switch Profile"
       >
         <SwitchProfiles />
