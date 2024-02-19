@@ -3,8 +3,10 @@ import type { FC } from 'react';
 
 import SearchProfiles from '@components/Shared/SearchProfiles';
 import { HEY_API_URL } from '@hey/data/constants';
+import { STAFFTOOLS } from '@hey/data/tracking';
 import { Button } from '@hey/ui';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
+import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -24,7 +26,7 @@ const Create: FC<CreateProps> = ({
   const [creating, setCreating] = useState(false);
   const [profileSelected, setProfileSelected] = useState(false);
 
-  const add = async () => {
+  const add = () => {
     setCreating(true);
     toast.promise(
       axios.post(
@@ -39,6 +41,7 @@ const Create: FC<CreateProps> = ({
         },
         loading: 'Adding profile...',
         success: ({ data }) => {
+          Leafwatch.track(STAFFTOOLS.STAFF_PICKS.CREATE);
           setStaffPicks([...staffPicks, data?.result]);
           setCreating(false);
           setShowAddModal(false);

@@ -10,7 +10,6 @@ import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
-import { useUpdateEffect } from 'usehooks-ts';
 
 const DEFAULT_THUMBNAIL_INDEX = 0;
 export const THUMBNAIL_GENERATE_COUNT = 4;
@@ -50,7 +49,7 @@ const ChooseThumbnail: FC = () => {
     return result;
   };
 
-  const onSelectThumbnail = async (index: number) => {
+  const onSelectThumbnail = (index: number) => {
     setSelectedThumbnailIndex(index);
     if (thumbnails[index]?.ipfsUrl === '') {
       setVideoThumbnail({ uploading: true });
@@ -95,8 +94,9 @@ const ChooseThumbnail: FC = () => {
     } catch {}
   };
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     onSelectThumbnail(selectedThumbnailIndex);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedThumbnailIndex]);
 
   useEffect(() => {

@@ -20,10 +20,9 @@ import {
 } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce } from 'usehooks-ts';
 import { object, string } from 'zod';
 
 const newTicketSchema = object({
@@ -50,9 +49,9 @@ const Support: NextPage = () => {
     schema: newTicketSchema
   });
 
-  useEffectOnce(() => {
+  useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'support' });
-  });
+  }, []);
 
   const createTicket = async (
     email: string,
@@ -85,6 +84,15 @@ const Support: NextPage = () => {
           description="Contact us to help you get the issue resolved."
           heading={`Contact ${APP_NAME}`}
         />
+        <div className="pt-5" />
+        <SettingsHelper
+          description="No 282, 5th Cross Road, 2nd Main, Bahubali Nagar, Jalahalli Village - 560013, Bangalore, Karnataka"
+          heading="Operaitional address"
+        />
+        <div className="pt-5" />
+        <SettingsHelper description="support@hey.xyz" heading="Email" />
+        <div className="pt-5" />
+        <SettingsHelper description="+917010851615" heading="Phone" />
       </GridItemFour>
       <GridItemEight>
         <Card>

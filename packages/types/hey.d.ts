@@ -26,7 +26,6 @@ export type Group = {
 export type StaffPick = {
   createdAt: Date;
   id: string;
-  type: 'GROUP' | 'PROFILE';
 };
 
 export type Feature = {
@@ -90,5 +89,4 @@ export type Preferences = {
   hasDismissedOrMintedMembershipNft: boolean;
   highSignalNotificationFilter: boolean;
   isPride: boolean;
-  isPro: boolean;
 };

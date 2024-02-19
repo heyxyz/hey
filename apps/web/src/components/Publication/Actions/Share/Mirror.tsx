@@ -25,6 +25,7 @@ import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
+import checkAndToastDispatcherError from '@lib/checkAndToastDispatcherError';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
@@ -62,7 +63,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
   const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
 
-  const { canBroadcast, canUseLensManager, isSponsored } =
+  const { canBroadcast, canUseLensManager } =
     checkDispatcherPermissions(currentProfile);
 
   const updateCache = () => {
@@ -108,7 +109,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
 
-  const { writeContract } = useWriteContract({
+  const { writeContractAsync } = useWriteContract({
     mutation: {
       onError: (error) => {
         onError(error);
@@ -121,8 +122,8 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     }
   });
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       abi: LensHub,
       address: LENSHUB_PROXY,
       args,
@@ -138,7 +139,8 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename)
+      onCompleted(broadcastOnchain.__typename),
+    onError
   });
 
   const typedDataGenerator = async (
@@ -159,14 +161,14 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
         variables: { request: { id, signature } }
       });
       if (data?.broadcastOnchain.__typename === 'RelayError') {
-        return write({ args: [typedData.value] });
+        return await write({ args: [typedData.value] });
       }
       setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
 
       return;
     }
 
-    return write({ args: [typedData.value] });
+    return await write({ args: [typedData.value] });
   };
 
   // On-chain typed data generation
@@ -202,7 +204,16 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
 
   const createOnMomka = async (request: MomokaMirrorRequest) => {
     const { data } = await mirrorOnMomoka({ variables: { request } });
+
     if (data?.mirrorOnMomoka?.__typename === 'LensProfileManagerRelayError') {
+      const shouldProceed = checkAndToastDispatcherError(
+        data.mirrorOnMomoka.reason
+      );
+
+      if (!shouldProceed) {
+        return;
+      }
+
       return await createMomokaMirrorTypedData({ variables: { request } });
     }
   };
@@ -226,12 +237,6 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
 
     if (isSuspended) {
       return toast.error(Errors.Suspended);
-    }
-
-    if (publication.momoka?.proof && !isSponsored) {
-      return toast.error(
-        'Momoka is currently in beta - during this time certain actions are not available to all profiles.'
-      );
     }
 
     try {

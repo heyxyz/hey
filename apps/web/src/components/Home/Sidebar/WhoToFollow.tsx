@@ -52,7 +52,9 @@ const WhoToFollow: FC = () => {
   }
 
   const recommendedProfiles = data?.profileRecommendations.items.filter(
-    (profile) => !profile.operations.isBlockedByMe.value
+    (profile) =>
+      !profile.operations.isBlockedByMe.value &&
+      !profile.operations.isFollowedByMe.value
   );
 
   return (

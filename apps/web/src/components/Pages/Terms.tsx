@@ -4,14 +4,14 @@ import Footer from '@components/Shared/Footer';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import { useEffectOnce } from 'usehooks-ts';
+import { useEffect } from 'react';
 
 const Terms: NextPage = () => {
-  const updatedAt = 'December 11, 2022';
+  const updatedAt = 'February 15, 2024';
 
-  useEffectOnce(() => {
+  useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'terms' });
-  });
+  }, []);
 
   return (
     <>
@@ -278,9 +278,32 @@ const Terms: NextPage = () => {
                 regulations.
               </p>
               {/* 9. Assumption of Risk ends */}
-              {/* 10. Disclaimer of Warranties begins */}
+              {/* 10. Refund Policy */}
               <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
-                10. Disclaimer of Warranties
+                10. Refund Policy
+              </div>
+              <div className="space-y-5">
+                <p className="leading-7">
+                  <b>No Refunds on Successful Minting:</b> We do not offer
+                  refunds once profile minting is successful. All transactions
+                  completed successfully are final and not subject to refunds.
+                </p>
+                <p className="linkify leading-7">
+                  <b>Refunds for Failed Minting:</b> In the event that profile
+                  minting fails, customers are eligible to request a refund. To
+                  request a refund, please visit our support center at{' '}
+                  <Link href="/support">https://hey.xyz/support</Link>.
+                </p>
+                <p className="leading-7">
+                  This policy is concise and designed to be clear and
+                  straightforward, ensuring that our customers understand our
+                  refund terms related to profile minting activities.
+                </p>
+              </div>
+              {/* 10.Refund Policy */}
+              {/* 11. Disclaimer of Warranties begins */}
+              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
+                11. Disclaimer of Warranties
               </div>
               <p className="leading-7">
                 The Site are provided to you completely as they are, and could
@@ -289,10 +312,10 @@ const Terms: NextPage = () => {
                 to use, the Site is at your sole risk. Our liability shall be
                 limited entirely or to the maximum extent permitted by law.
               </p>
-              {/* 10. Disclaimer of Warranties ends */}
-              {/* 11. Termination and Cancellation begins */}
+              {/* 11. Disclaimer of Warranties ends */}
+              {/* 12. Termination and Cancellation begins */}
               <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
-                11. Termination and Cancellation
+                12. Termination and Cancellation
               </div>
               <div className="space-y-5">
                 <p className="leading-7">
@@ -306,15 +329,15 @@ const Terms: NextPage = () => {
                   you access to the Site.
                 </p>
               </div>
-              {/* 11. Termination and Cancellation ends */}
-              {/* 12. Contact Information begins */}
+              {/* 12. Termination and Cancellation ends */}
+              {/* 13. Contact Information begins */}
               <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
-                12. Contact Information
+                13. Contact Information
               </div>
               <p className="leading-7">
                 Questions about the Terms should be sent to us at terms@hey.xyz
               </p>
-              {/* 12. Contact Information ends */}
+              {/* 13. Contact Information ends */}
             </div>
           </div>
         </div>

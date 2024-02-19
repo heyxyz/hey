@@ -1,7 +1,6 @@
 import type { StaffPick } from '@hey/types/hey';
 import type { FC } from 'react';
 
-import GroupProfileShimmer from '@components/Shared/Shimmer/GroupProfileShimmer';
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import { CursorArrowRippleIcon as CursorArrowRippleIconOutline } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
@@ -10,7 +9,6 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 
-import StaffPickedGroup from './StaffPickedGroup';
 import StaffPickedProfile from './StaffPickedProfile';
 
 const Title: FC = () => <p className="text-lg font-semibold">Staff Picks</p>;
@@ -35,9 +33,9 @@ const StaffPicks: FC = () => {
       <Card as="aside" className="mb-4 space-y-4 p-5">
         <Title />
         <UserProfileShimmer />
-        <GroupProfileShimmer />
         <UserProfileShimmer />
-        <GroupProfileShimmer />
+        <UserProfileShimmer />
+        <UserProfileShimmer />
         <UserProfileShimmer />
       </Card>
     );
@@ -73,8 +71,7 @@ const StaffPicks: FC = () => {
           initial={{ opacity: 0 }}
           key={pick.id}
         >
-          {pick.type === 'PROFILE' && <StaffPickedProfile id={pick.id} />}
-          {pick.type === 'GROUP' && <StaffPickedGroup id={pick.id} />}
+          <StaffPickedProfile id={pick.id} />
         </motion.div>
       ))}
     </Card>

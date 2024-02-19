@@ -6,7 +6,6 @@ import List from '@components/Staff/Users/List';
 import { apps as knownApps } from '@hey/data/apps';
 import { APP_NAME } from '@hey/data/constants';
 import { ModFeedType } from '@hey/data/enums';
-import { FeatureFlag } from '@hey/data/feature-flags';
 import { PAGEVIEW } from '@hey/data/tracking';
 import {
   CustomFiltersType,
@@ -21,16 +20,13 @@ import {
   GridItemFour,
   GridLayout
 } from '@hey/ui';
-import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { Leafwatch } from '@lib/leafwatch';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Custom404 from 'src/pages/404';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import { useEffectOnce } from 'usehooks-ts';
 
 import FeedType from './FeedType';
 import LatestFeed from './LatestFeed';
-import ReportFeed from './ReportFeed';
 
 const FILTER_APPS = knownApps;
 
@@ -58,14 +54,11 @@ const Mod: NextPage = () => {
   const [apps, setApps] = useState<null | string[]>(null);
   const [feedType, setFeedType] = useState<ModFeedType>(ModFeedType.LATEST);
 
-  useEffectOnce(() => {
+  useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'mod' });
-  });
+  }, []);
 
-  if (
-    !isFeatureAvailable(FeatureFlag.Gardener) &&
-    !isFeatureAvailable(FeatureFlag.TrustedProfile)
-  ) {
+  if (!gardenerMode) {
     return <Custom404 />;
   }
 
@@ -104,7 +97,6 @@ const Mod: NextPage = () => {
             setRefreshing={setRefreshing}
           />
         )}
-        {feedType === ModFeedType.REPORTS && <ReportFeed />}
         {feedType === ModFeedType.PROFILES && <List />}
       </GridItemEight>
       <GridItemFour>
@@ -253,9 +245,6 @@ const Mod: NextPage = () => {
                 </div>
               </div>
             </>
-          )}
-          {feedType === ModFeedType.REPORTS && (
-            <div>Take action on reports</div>
           )}
           {feedType === ModFeedType.PROFILES && <div>All the profiles</div>}
         </Card>

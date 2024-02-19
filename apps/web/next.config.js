@@ -2,9 +2,9 @@ const allowedBots =
   '.*(bot|telegram|baidu|bing|yandex|iframely|whatsapp|facebook).*';
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
   experimental: { scrollRestoration: true },
-  async headers() {
+  headers() {
     return [
       {
         headers: [
@@ -17,17 +17,12 @@ const nextConfig = {
     ];
   },
   reactStrictMode: false,
-  async redirects() {
+  redirects() {
     return [
       {
         destination: 'https://discord.com/invite/B8eKhSSUwX',
         permanent: true,
         source: '/discord'
-      },
-      {
-        destination: 'https://giveth.io/project/hey?utm_source=hey',
-        permanent: true,
-        source: '/donate'
       },
       {
         destination:
@@ -49,11 +44,6 @@ const nextConfig = {
         source: '/-/verification-request'
       },
       {
-        destination: 'https://tally.so/r/3No6NQ',
-        permanent: true,
-        source: '/-/trusted'
-      },
-      {
         destination:
           'https://yoginth.notion.site/Hey-Changelog-eb2a41319c1b40be8e22e5deb01efd10',
         permanent: true,
@@ -64,10 +54,16 @@ const nextConfig = {
           'https://yoginth.notion.site/Hey-Portals-Open-Graph-Spec-ddbedce64a2d4e1a80f66db182159aff',
         permanent: true,
         source: '/-/portals'
+      },
+      {
+        destination:
+          'https://yoginth.notion.site/Hey-Moderation-Tool-Guide-ff1926a080fa44bc9d40ee534f627949',
+        permanent: true,
+        source: '/-/mod-guide'
       }
     ];
   },
-  async rewrites() {
+  rewrites() {
     return [
       {
         destination: 'https://api.hey.xyz/sitemap/:match*',
@@ -87,20 +83,3 @@ const nextConfig = {
   },
   transpilePackages: ['data']
 };
-
-module.exports = nextConfig;
-
-const { withSentryConfig } = require('@sentry/nextjs');
-
-module.exports = withSentryConfig(
-  module.exports,
-  { org: 'heyverse', project: 'web', silent: true },
-  {
-    automaticVercelMonitors: true,
-    disableLogger: true,
-    hideSourceMaps: true,
-    transpileClientSDK: true,
-    tunnelRoute: '/monitoring',
-    widenClientFileUpload: true
-  }
-);

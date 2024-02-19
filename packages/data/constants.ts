@@ -18,6 +18,7 @@ export const TOKEN_HANDLE_REGISTRY = getEnvConfig().tokenHandleRegistry;
 export const PUBLICACT_PROXY = getEnvConfig().publicActProxyAddress;
 export const HEY_LENS_SIGNUP = getEnvConfig().heyLensSignup;
 export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
+export const PERMISSIONLESS_CREATOR = getEnvConfig().permissionlessCreator;
 
 export const IS_MAINNET = LENS_API_URL === LensEndpoint.Mainnet;
 export const ADDRESS_PLACEHOLDER = '0x03Ba3...7EF';
@@ -42,7 +43,7 @@ export const TEST_LENS_ID = '0x0383';
 export const HEY_CURATED_ID = '0x020d2a';
 export const ZERO_PUBLICATION_ID = '0x00-0x00';
 export const HANDLE_PREFIX = IS_MAINNET ? 'lens/' : 'test/';
-export const SIGNUP_PRICE = IS_MAINNET ? 1 : 10;
+export const SIGNUP_PRICE = IS_MAINNET ? 10 : 1;
 
 // URLs
 export const STATIC_ASSETS_URL = 'https://hey-assets.b-cdn.net';
@@ -79,14 +80,4 @@ export const ATTACHMENT = 'tr:w-500';
 // S3 bucket
 export const S3_BUCKET = {
   HEY_MEDIA: 'hey-media'
-};
-
-// Stripe Plans
-export const Stripe = {
-  BELIEVER: IS_MAINNET
-    ? 'price_1OZmUnSDpi8e32ARLvegtMNT'
-    : 'price_1OZmX0SDpi8e32ARfi8FsO87',
-  PRO: IS_MAINNET
-    ? 'price_1OGGizSDpi8e32ARC7Gh5ou5'
-    : 'price_1OGGqhSDpi8e32AR5WawyjjM'
 };

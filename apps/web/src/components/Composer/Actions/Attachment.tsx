@@ -1,4 +1,4 @@
-import type { ChangeEvent, FC } from 'react';
+import type { ChangeEvent, FC, MutableRefObject } from 'react';
 
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
@@ -13,12 +13,12 @@ import {
   MediaAudioMimeType,
   MediaImageMimeType
 } from '@lens-protocol/metadata';
+import { useClickAway } from '@uidotdev/usehooks';
 import { motion } from 'framer-motion';
-import { useId, useRef, useState } from 'react';
+import { useId, useState } from 'react';
 import toast from 'react-hot-toast';
 import useUploadAttachments from 'src/hooks/useUploadAttachments';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
-import { useOnClickOutside } from 'usehooks-ts';
 
 const ImageMimeType = Object.values(MediaImageMimeType);
 const AudioMimeType = Object.values(MediaAudioMimeType);
@@ -40,9 +40,9 @@ const Attachment: FC = () => {
   const { handleUploadAttachments } = useUploadAttachments();
   const [showMenu, setShowMenu] = useState(false);
   const id = useId();
-  const dropdownRef = useRef(null);
-
-  useOnClickOutside(dropdownRef, () => setShowMenu(false));
+  const dropdownRef = useClickAway(() => {
+    setShowMenu(false);
+  }) as MutableRefObject<HTMLDivElement>;
 
   const isTypeAllowed = (files: FileList) => {
     const allowedTypes = [

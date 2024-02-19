@@ -19,7 +19,7 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
   const setStaffMode = useFeatureFlagsStore((state) => state.setStaffMode);
 
-  const toggleStaffMode = async () => {
+  const toggleStaffMode = () => {
     toast.promise(
       axios.post(
         `${HEY_API_URL}/internal/features/staffMode`,

@@ -6,7 +6,7 @@ import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 const ProfilePageShimmer: FC = () => {
   return (
     <>
-      <div className="shimmer h-52 sm:h-80" />
+      <div className="shimmer h-52 sm:h-[350px]" />
       <GridLayout>
         <GridItemFour>
           <div className="mb-4 space-y-9 px-5 sm:px-0">

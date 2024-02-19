@@ -14,7 +14,6 @@ describe('handle regex', () => {
     expect(validate('username')).toBe(true);
     expect(validate('abc123')).toBe(true);
     expect(validate('john_doe_123')).toBe(true);
-    expect(validate('john-doe-123')).toBe(true);
     expect(validate('Abc123')).toBe(true);
   });
 
@@ -24,15 +23,23 @@ describe('handle regex', () => {
     expect(validate('name#123')).toBe(false);
   });
 
-  test('should fail for less than 3 characters', () => {
-    expect(validate('ha')).toBe(false);
+  test('should fail for less than 5 characters', () => {
+    expect(validate('ha12')).toBe(false);
   });
 
-  test('should fail for more than 31 characters', () => {
+  test('should fail for more than 26 characters', () => {
     expect(validate('handlehandlehandlehandlehandlehandle')).toBe(false);
   });
 
   test('should fail for empty string', () => {
     expect(validate('')).toBe(false);
+  });
+
+  test('should fail if starts with _', () => {
+    expect(validate('_yogi')).toBe(false);
+  });
+
+  test('should fail if - is present', () => {
+    expect(validate('yogi-codes')).toBe(false);
   });
 });

@@ -1,11 +1,6 @@
 import type { ReportPublicationRequest } from '@hey/lens';
-import type { FC, ReactNode } from 'react';
 
-import {
-  BanknotesIcon,
-  DocumentTextIcon,
-  HandThumbUpIcon
-} from '@heroicons/react/24/outline';
+import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import { GARDENER } from '@hey/data/tracking';
 import {
@@ -14,49 +9,53 @@ import {
 } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { Leafwatch } from '@lib/leafwatch';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { type FC, type ReactNode, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface GardenerActionsProps {
-  ableToRemoveReport?: boolean;
-  className?: string;
   publicationId: string;
-  setExpanded?: (expanded: boolean) => void;
 }
 
-const GardenerActions: FC<GardenerActionsProps> = ({
-  ableToRemoveReport = false,
-  className = '',
-  publicationId,
-  setExpanded = () => {}
-}) => {
+const GardenerActions: FC<GardenerActionsProps> = ({ publicationId }) => {
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const setShowGardenerActionsAlert = useGlobalAlertStateStore(
     (state) => state.setShowGardenerActionsAlert
   );
+
+  const [hasReported, setHasReported] = useState(false);
+  const [spamCount, setSpamCount] = useState(0);
+  const [unSponsorCount, setUnSponsorCount] = useState(0);
+  const [bothCount, setBothCount] = useState(0);
+
   const [createReport, { loading }] = useReportPublicationMutation();
 
-  const removeTrustedReport = async (id: string, looksGood: boolean) => {
-    const removeReport = async () => {
-      return await axios.post(
-        `${HEY_API_URL}/trusted/removeReport`,
-        { id, looksGood },
-        { headers: getAuthApiHeaders() }
-      );
-    };
+  const fetchGardenerReports = async () => {
+    try {
+      const response = await axios.get(`${HEY_API_URL}/gardener/reports`, {
+        params: { id: publicationId, profile: currentProfile?.id }
+      });
+      const { data } = response;
 
-    toast.promise(removeReport(), {
-      error: 'Error removing trusted reports',
-      loading: 'Removing trusted reports...',
-      success: () => {
-        setExpanded(false);
-        return 'Trusted reports removed successfully';
-      }
-    });
+      setHasReported(data.result.hasReported);
+      setSpamCount(data.result.spam);
+      setUnSponsorCount(data.result.unSponsor);
+      setBothCount(data.result.both);
+
+      return true;
+    } catch {
+      return false;
+    }
   };
+
+  useQuery({
+    queryFn: fetchGardenerReports,
+    queryKey: ['fetchGardenerReports', publicationId, currentProfile?.id]
+  });
 
   const reportPublication = async ({
     subreason,
@@ -76,10 +75,6 @@ const GardenerActions: FC<GardenerActionsProps> = ({
       }
     };
 
-    if (ableToRemoveReport) {
-      await removeTrustedReport(publicationId, false);
-    }
-
     return await createReport({
       onCompleted: () => setShowGardenerActionsAlert(false, null),
       variables: { request }
@@ -93,28 +88,46 @@ const GardenerActions: FC<GardenerActionsProps> = ({
     }[];
     icon: ReactNode;
     label: string;
+    type: string;
   }
 
-  const ReportButton: FC<ReportButtonProps> = ({ config, icon, label }) => (
+  const ReportButton: FC<ReportButtonProps> = ({
+    config,
+    icon,
+    label,
+    type
+  }) => (
     <Button
-      disabled={loading}
+      disabled={loading || hasReported}
       icon={icon}
       onClick={() => {
+        Leafwatch.track(GARDENER.REPORT, {
+          publication_id: publicationId,
+          type
+        });
+
         toast.promise(
           Promise.all(
             config.map(async ({ subreason, type }) => {
               await reportPublication({ subreason, type });
-              Leafwatch.track(GARDENER.REPORT, {
-                report_publication_id: publicationId,
-                report_reason: type,
-                report_subreason: subreason
-              });
             })
           ),
           {
             error: 'Error reporting publication',
             loading: 'Reporting publication...',
-            success: 'Publication reported successfully'
+            success: () => {
+              setHasReported(true);
+
+              if (type === 'spam') {
+                setSpamCount(spamCount + 1);
+              } else if (type === 'un-sponsor') {
+                setUnSponsorCount(unSponsorCount + 1);
+              } else if (type === 'both') {
+                setBothCount(bothCount + 1);
+              }
+
+              return 'Publication reported successfully';
+            }
           }
         );
       }}
@@ -128,7 +141,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({
 
   return (
     <span
-      className={cn('flex flex-wrap items-center gap-3 text-sm', className)}
+      className="flex flex-wrap items-center gap-3 text-sm"
       onClick={stopEventPropagation}
     >
       <ReportButton
@@ -139,7 +152,8 @@ const GardenerActions: FC<GardenerActionsProps> = ({
           }
         ]}
         icon={<DocumentTextIcon className="size-4" />}
-        label="Spam"
+        label={`Spam ${spamCount > 0 ? `(${spamCount})` : ''}`}
+        type="spam"
       />
       <ReportButton
         config={[
@@ -149,7 +163,8 @@ const GardenerActions: FC<GardenerActionsProps> = ({
           }
         ]}
         icon={<BanknotesIcon className="size-4" />}
-        label="Un-sponsor"
+        label={`Un-sponsor ${unSponsorCount > 0 ? `(${unSponsorCount})` : ''}`}
+        type="un-sponsor"
       />
       <ReportButton
         config={[
@@ -163,19 +178,9 @@ const GardenerActions: FC<GardenerActionsProps> = ({
           }
         ]}
         icon={<BanknotesIcon className="size-4" />}
-        label="Both"
+        label={`Both ${bothCount > 0 ? `(${bothCount})` : ''}`}
+        type="both"
       />
-      {ableToRemoveReport && (
-        <Button
-          icon={<HandThumbUpIcon className="size-4" />}
-          onClick={() => removeTrustedReport(publicationId, true)}
-          outline
-          size="sm"
-          variant="secondary"
-        >
-          Looks good
-        </Button>
-      )}
     </span>
   );
 };

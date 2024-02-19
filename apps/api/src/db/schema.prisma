@@ -8,17 +8,8 @@ generator client {
 }
 
 model StaffPick {
-  id        String        @id
-  type      StaffPickType
-  createdAt DateTime      @default(now())
-
-  // Indexes
-  @@index([type])
-}
-
-enum StaffPickType {
-  PROFILE
-  GROUP
+  id        String   @id
+  createdAt DateTime @default(now())
 }
 
 model Preference {
@@ -80,17 +71,6 @@ model GroupFavorite {
   @@unique([groupId, profileId])
   // Indexes
   @@index([profileId])
-}
-
-model Pro {
-  profileId String   @id
-  stripeId  String   @unique // Stripe subscription ID
-  plan      String
-  createdAt DateTime @default(now())
-  expiresAt DateTime
-
-  // Indexes
-  @@index([plan])
 }
 
 model Feature {

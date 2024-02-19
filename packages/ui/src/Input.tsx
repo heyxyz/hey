@@ -12,6 +12,7 @@ interface InputProps extends Omit<ComponentProps<'input'>, 'prefix'> {
   className?: string;
   error?: boolean;
   helper?: ReactNode;
+  hideError?: boolean;
   iconLeft?: ReactNode;
   iconRight?: ReactNode;
   label?: string;
@@ -23,6 +24,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     className = '',
     error,
     helper,
+    hideError = false,
     iconLeft,
     iconRight,
     label,
@@ -89,7 +91,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           </span>
         </div>
       </div>
-      {props.name ? <FieldError name={props.name} /> : null}
+      {!hideError && props.name ? <FieldError name={props.name} /> : null}
     </label>
   );
 });

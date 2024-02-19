@@ -5,8 +5,10 @@ import LazyUserProfile from '@components/Shared/LazyUserProfile';
 import Loader from '@components/Shared/Loader';
 import { SparklesIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
+import { STAFFTOOLS } from '@hey/data/tracking';
 import { Button, Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
+import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
@@ -32,7 +34,7 @@ const List: FC = () => {
     queryKey: ['getStaffPicks']
   });
 
-  const removeStaffPick = async (id: string) => {
+  const removeStaffPick = (id: string) => {
     const confirm = window.confirm(
       'Are you sure you want to remove this pick?'
     );
@@ -51,6 +53,7 @@ const List: FC = () => {
         error: 'Failed to delete staff pick',
         loading: 'Deleting staff pick...',
         success: () => {
+          Leafwatch.track(STAFFTOOLS.STAFF_PICKS.DELETE);
           setStaffPicks(staffPicks.filter((staffPick) => staffPick.id !== id));
           return 'Staff pick deleted';
         }

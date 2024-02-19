@@ -40,7 +40,7 @@ import uploadToArweave from '@lib/uploadToArweave';
 import { useUnmountEffect } from 'framer-motion';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import useCreatePoll from 'src/hooks/useCreatePoll';
 import useCreatePublication from 'src/hooks/useCreatePublication';
@@ -59,7 +59,6 @@ import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
 import LivestreamSettings from './Actions/LivestreamSettings';
 import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
@@ -208,8 +207,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const createPoll = useCreatePoll();
   const getMetadata = usePublicationMetadata();
 
-  const { canUseLensManager, isSponsored } =
-    checkDispatcherPermissions(currentProfile);
+  const { canUseLensManager } = checkDispatcherPermissions(currentProfile);
 
   const isComment = Boolean(publication);
   const isQuote = Boolean(quotedPublication);
@@ -315,15 +313,16 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     quoteOn: quotedPublication as Quote
   });
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     setPublicationContentError('');
   }, [audioPublication]);
 
-  useEffectOnce(() => {
+  useEffect(() => {
     editor.update(() => {
       $convertFromMarkdownString(publicationContent);
     });
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const getAnimationUrl = () => {
     const fallback =
@@ -351,12 +350,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
     if (isSuspended) {
       toast.error(Errors.Suspended);
-    }
-
-    if (isComment && publication.momoka?.proof && !isSponsored) {
-      return toast.error(
-        'Momoka is currently in beta - during this time certain actions are not available to all profiles.'
-      );
     }
 
     try {

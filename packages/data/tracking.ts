@@ -75,7 +75,6 @@ export const PUBLICATION = {
   OPEN_MIRRORS: 'Open mirrors modal',
   OPEN_NFT: 'Open NFT',
   OPEN_QUOTES: 'Open quotes modal',
-  OPEN_VIEWS: 'Open views modal',
   REPORT: 'Report publication',
   SHARE: 'Share publication',
   TOGGLE_BOOKMARK: 'Toggle publication bookmark',
@@ -170,7 +169,27 @@ export const GARDENER = {
 };
 
 export const STAFFTOOLS = {
-  TOGGLE_MODE: 'Toggle staff mode'
+  FEATURE_FLAGS: {
+    CREATE: 'Staff Tool: Create feature flag',
+    DELETE: 'Staff Tool: Delete feature flag',
+    KILL: 'Staff Tool: Kill feature flag'
+  },
+  SIGNUP_CONTRACT: {
+    REFILL: 'Staff Tool: Refill relayer',
+    WITHDRAW_FUNDS: 'Staff Tool: Withdraw funds'
+  },
+  STAFF_PICKS: {
+    CREATE: 'Staff Tool: Create staff pick',
+    DELETE: 'Staff Tool: Delete staff pick'
+  },
+  TOGGLE_MODE: 'Toggle staff mode',
+  TOKENS: {
+    CREATE: 'Staff Tool: Create token',
+    DELETE: 'Staff Tool: Delete token'
+  },
+  USERS: {
+    ASSIGN_FEATURE_FLAG: 'Staff Tool: Assign feature flag'
+  }
 };
 
 export const SYSTEM = {
@@ -182,7 +201,6 @@ export const MISCELLANEOUS = {
   DISMISSED_MEMBERSHIP_NFT_BANNER: 'Dismissed membership NFT banner',
   FOOTER: {
     OPEN_DISCORD: 'Open Discord',
-    OPEN_DONATE: 'Open donate',
     OPEN_FEEDBACK: 'Open feedback',
     OPEN_GITHUB: 'Open GitHub',
     OPEN_STATUS: 'Open status',

@@ -67,6 +67,49 @@ export const HeyLensSignup = [
   },
   {
     inputs: [
+      { internalType: 'address[]', name: 'newAddresses', type: 'address[]' }
+    ],
+    name: 'addAllowedAddresses',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'address', name: '', type: 'address' }],
+    name: 'allowedAddresses',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        components: [
+          { internalType: 'address', name: 'to', type: 'address' },
+          { internalType: 'address', name: 'followModule', type: 'address' },
+          { internalType: 'bytes', name: 'followModuleInitData', type: 'bytes' }
+        ],
+        internalType: 'struct CreateProfileParams',
+        name: 'createProfileParams',
+        type: 'tuple'
+      },
+      { internalType: 'string', name: 'handle', type: 'string' },
+      {
+        internalType: 'address[]',
+        name: 'delegatedExecutors',
+        type: 'address[]'
+      }
+    ],
+    name: 'createProfileWithHandle',
+    outputs: [
+      { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+      { internalType: 'uint256', name: 'handleId', type: 'uint256' }
+    ],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
       {
         components: [
           { internalType: 'address', name: 'to', type: 'address' },
@@ -112,7 +155,7 @@ export const HeyLensSignup = [
     name: 'lensPermissionlessCreator',
     outputs: [
       {
-        internalType: 'contract IPermissionlessCreator',
+        internalType: 'contract ILensPermissionlessCreator',
         name: '',
         type: 'address'
       }
@@ -136,14 +179,39 @@ export const HeyLensSignup = [
   },
   {
     inputs: [],
-    name: 'profilesCreated',
+    name: 'profilesCreatedViaCard',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
     inputs: [],
+    name: 'profilesCreatedViaCrypto',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'address', name: 'addressToRemove', type: 'address' }
+    ],
+    name: 'removeAllowedAddress',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [],
     name: 'renounceOwnership',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'address', name: 'creatorAddress', type: 'address' }
+    ],
+    name: 'setLensPermissionlessCreatorAddress',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
@@ -160,6 +228,13 @@ export const HeyLensSignup = [
   {
     inputs: [],
     name: 'signupPrice',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'totalProfilesCreated',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function'
