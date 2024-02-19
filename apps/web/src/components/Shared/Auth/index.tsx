@@ -14,7 +14,7 @@ const Auth: FC = () => {
   const { isConnected } = useAccount();
 
   return (
-    <div className="p-5">
+    <div className="m-5">
       {authModalType === 'signup' ? (
         <div className="space-y-5">
           {!isConnected && (
