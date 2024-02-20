@@ -4,6 +4,7 @@ import type { FC } from 'react';
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
+import { ProfileLinkSource } from '@hey/data/tracking';
 import { LimitType, useFollowersQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
@@ -87,6 +88,7 @@ const Followers: FC<FollowersProps> = ({ handle, profileId }) => {
                 showFollow={currentProfile?.id !== follower.id}
                 showUnfollow={currentProfile?.id !== follower.id}
                 showUserPreview={false}
+                source={ProfileLinkSource.Followers}
               />
             </motion.div>
           );

@@ -2,6 +2,7 @@ import type { Profile, ProfileSearchRequest } from '@hey/lens';
 import type { ChangeEvent, FC, MutableRefObject } from 'react';
 
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { ProfileLinkSource } from '@hey/data/tracking';
 import {
   CustomFiltersType,
   LimitType,
@@ -123,6 +124,7 @@ const Search: FC<SearchProps> = ({
                       linkToProfile={!onProfileSelected}
                       profile={profile}
                       showUserPreview={false}
+                      source={ProfileLinkSource.Search}
                     />
                   </motion.div>
                 ))}

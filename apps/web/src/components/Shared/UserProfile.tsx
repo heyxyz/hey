@@ -31,8 +31,8 @@ interface UserProfileProps {
   showBio?: boolean;
   showFollow?: boolean;
   showUnfollow?: boolean;
-
   showUserPreview?: boolean;
+  source?: string;
   timestamp?: Date;
 }
 
@@ -44,6 +44,7 @@ const UserProfile: FC<UserProfileProps> = ({
   showFollow = false,
   showUnfollow = false,
   showUserPreview = true,
+  source,
   timestamp = ''
 }) => {
   const UserAvatar = () => (
@@ -128,8 +129,9 @@ const UserProfile: FC<UserProfileProps> = ({
     <div className="flex items-center justify-between">
       {linkToProfile && profile.id ? (
         <Link
+          as={getProfile(profile).link}
           className="outline-brand-500 rounded-xl outline-offset-4"
-          href={getProfile(profile).link}
+          href={getProfile(profile, source).sourceLink}
         >
           <UserInfo />
         </Link>
