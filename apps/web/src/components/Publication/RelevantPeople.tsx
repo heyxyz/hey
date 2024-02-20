@@ -3,6 +3,7 @@ import type { FC } from 'react';
 
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
+import { ProfileLinkSource } from '@hey/data/tracking';
 import { useProfilesQuery } from '@hey/lens';
 import { Card, ErrorMessage } from '@hey/ui';
 
@@ -49,6 +50,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ profilesMentioned }) => {
             profile={profile as Profile}
             showFollow
             showUserPreview={false}
+            source={ProfileLinkSource.RelevantPeople}
           />
         </div>
       ))}

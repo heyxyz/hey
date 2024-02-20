@@ -3,6 +3,7 @@ import type { FC } from 'react';
 
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
+import { ProfileLinkSource } from '@hey/data/tracking';
 import { useProfileQuery } from '@hey/lens';
 
 interface StaffPickedProfileProps {
@@ -23,7 +24,12 @@ const StaffPickedProfile: FC<StaffPickedProfileProps> = ({ id }) => {
     return null;
   }
 
-  return <UserProfile profile={data.profile as Profile} />;
+  return (
+    <UserProfile
+      profile={data.profile as Profile}
+      source={ProfileLinkSource.StaffPicks}
+    />
+  );
 };
 
 export default StaffPickedProfile;

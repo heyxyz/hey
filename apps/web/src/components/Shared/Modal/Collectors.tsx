@@ -3,6 +3,7 @@ import type { FC } from 'react';
 
 import UserProfile from '@components/Shared/UserProfile';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
+import { ProfileLinkSource } from '@hey/data/tracking';
 import { LimitType, useWhoActedOnPublicationQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
@@ -80,6 +81,7 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
                 showBio
                 showFollow
                 showUserPreview={false}
+                source={ProfileLinkSource.Collects}
               />
             </motion.div>
           );
