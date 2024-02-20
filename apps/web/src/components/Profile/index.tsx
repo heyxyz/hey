@@ -34,12 +34,14 @@ const ViewProfile: NextPage = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, {
-      page: 'profile',
-      ...(source ? { source } : {})
-    });
+    if (isReady) {
+      Leafwatch.track(PAGEVIEW, {
+        page: 'profile',
+        ...(source ? { source } : {})
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [handle, id]);
 
   const lowerCaseProfileFeedType = [
     ProfileFeedType.Feed.toLowerCase(),
