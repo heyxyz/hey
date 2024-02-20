@@ -13,7 +13,7 @@ import { polygonMumbai } from 'viem/chains';
 const httpLink = new HttpLink({
   fetch,
   fetchOptions: 'no-cors',
-  uri: LensEndpoint.Staging
+  uri: LensEndpoint.Testnet
 });
 
 const apolloClient = () =>
