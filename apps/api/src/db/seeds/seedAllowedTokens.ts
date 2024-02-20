@@ -33,7 +33,7 @@ const seedAllowedTokens = async (): Promise<number> => {
       },
       {
         contractAddress: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270',
-        createdAt: new Date('2023-12-03 07:30:03.438'),
+        createdAt: new Date('2024-10-03 07:30:03.438'),
         decimals: 18,
         name: 'Wrapped Matic',
         symbol: 'WMATIC'
