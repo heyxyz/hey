@@ -99,7 +99,7 @@ jobs:
 
       - name: Run Tests 🧪
         env:
-          NEXT_PUBLIC_LENS_NETWORK: 'staging'
+          NEXT_PUBLIC_LENS_NETWORK: 'testnet'
           DATABASE_URL: 'postgres://postgres:postgres@localhost:5432/postgres'
           CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
           SECRET: ${{ secrets.SECRET }}
