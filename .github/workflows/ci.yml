@@ -94,6 +94,8 @@ jobs:
         uses: ./.github/actions/setup-pnpm
 
       - name: Migration 🚚
+        env:
+          DATABASE_URL: 'postgresql://postgres:postgres@localhost:5432/postgres'
         run: |
           cd apps/api
           pnpm prisma:migrate
