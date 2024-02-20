@@ -3,6 +3,7 @@ import type { FC } from 'react';
 
 import UserProfile from '@components/Shared/UserProfile';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
+import { ProfileLinkSource } from '@hey/data/tracking';
 import { LimitType, useProfilesQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
@@ -80,6 +81,7 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
                 showBio
                 showFollow
                 showUserPreview={false}
+                source={ProfileLinkSource.Mirrors}
               />
             </motion.div>
           );

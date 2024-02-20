@@ -235,3 +235,17 @@ export const ALL_EVENTS = {
   ...MISCELLANEOUS,
   ...ONBOARDING
 };
+
+export enum ProfileLinkSource {
+  Collects = 'collects',
+  Followers = 'followers',
+  Following = 'following',
+  Likes = 'likes',
+  Mirrors = 'mirrors',
+  Publication = 'publication',
+  Quotes = 'quotes',
+  RelevantPeople = 'relevant-people',
+  Search = 'search',
+  StaffPicks = 'staff-picks',
+  WhoToFollow = 'who-to-follow'
+}

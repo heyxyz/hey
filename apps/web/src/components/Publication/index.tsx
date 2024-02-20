@@ -10,7 +10,7 @@ import Footer from '@components/Shared/Footer';
 import UserProfile from '@components/Shared/UserProfile';
 import PublicationStaffTool from '@components/StaffTools/Panels/Publication';
 import { APP_NAME } from '@hey/data/constants';
-import { PAGEVIEW } from '@hey/data/tracking';
+import { PAGEVIEW, ProfileLinkSource } from '@hey/data/tracking';
 import {
   HiddenCommentsType,
   LimitType,
@@ -140,7 +140,11 @@ const ViewPublication: NextPage = () => {
       </GridItemEight>
       <GridItemFour className="space-y-5">
         <Card as="aside" className="p-5">
-          <UserProfile profile={targetPublication.by} showBio />
+          <UserProfile
+            profile={targetPublication.by}
+            showBio
+            source={ProfileLinkSource.Publication}
+          />
         </Card>
         <RelevantPeople
           profilesMentioned={targetPublication.profilesMentioned}
