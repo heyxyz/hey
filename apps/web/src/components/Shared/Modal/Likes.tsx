@@ -2,6 +2,7 @@ import type { FC } from 'react';
 
 import UserProfile from '@components/Shared/UserProfile';
 import { HeartIcon } from '@heroicons/react/24/outline';
+import { ProfileLinkSource } from '@hey/data/tracking';
 import {
   LimitType,
   type Profile,
@@ -84,6 +85,7 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
                 showBio
                 showFollow
                 showUserPreview={false}
+                source={ProfileLinkSource.Likes}
               />
             </motion.div>
           );
