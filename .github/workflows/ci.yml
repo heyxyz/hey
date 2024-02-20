@@ -94,7 +94,9 @@ jobs:
         uses: ./.github/actions/setup-pnpm
 
       - name: Migration 🚚
-        run: pnpm prisma:migrate
+        run: |
+          cd apps/api
+          pnpm prisma:migrate
 
       - name: Build 🎁
         run: pnpm build
