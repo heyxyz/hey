@@ -99,6 +99,7 @@ jobs:
         run: |
           cd apps/api
           pnpm prisma:migrate
+          pnpm prisma:seed
 
       - name: Build 🎁
         run: pnpm build
