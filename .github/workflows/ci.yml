@@ -93,11 +93,11 @@ jobs:
       - name: Setup Node.js, pnpm and dependencies 🌸
         uses: ./.github/actions/setup-pnpm
 
-      - name: Build 🎁
-        run: pnpm build
-
       - name: Migration 🚚
         run: pnpm prisma:migrate
+
+      - name: Build 🎁
+        run: pnpm build
 
       - name: Run Tests 🧪
         env:
