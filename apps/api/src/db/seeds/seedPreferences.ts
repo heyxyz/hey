@@ -1,6 +1,8 @@
+import { TEST_LENS_ID } from '@hey/data/constants';
+
 import { prisma } from '../seed';
 
-const seedPreference = async (): Promise<number> => {
+const seedPreferences = async (): Promise<number> => {
   const preferences = await prisma.preference.createMany({
     data: [
       {
@@ -12,6 +14,11 @@ const seedPreference = async (): Promise<number> => {
         highSignalNotificationFilter: true,
         id: '0x06',
         isPride: true
+      },
+      {
+        highSignalNotificationFilter: true,
+        id: TEST_LENS_ID,
+        isPride: true
       }
     ]
   });
@@ -19,4 +26,4 @@ const seedPreference = async (): Promise<number> => {
   return preferences.count;
 };
 
-export default seedPreference;
+export default seedPreferences;
