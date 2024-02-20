@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import type { Address } from 'viem';
 
 import MetaTags from '@components/Common/MetaTags';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
@@ -20,7 +21,16 @@ import StaffSidebar from '../Sidebar';
 import Balance from './Balance';
 import LensCredits from './LensCredits';
 import ProfilesCreated from './ProfilesCreated';
+import RelayerBalance from './RelayerBalance';
 import SignupPrice from './SignupPrice';
+
+const relayAddresses: Address[] = [
+  '0xb9C6e304545386E95d5c4ab183EE97A13555A49d',
+  '0x69827eB22B5e153de6ff480417c436a0A56Be7F7',
+  '0x77EE64875072055836eB966633cf690acdB0529d',
+  '0xa12F2B9e9bf26f1A22D4Ff4b79483e8953A436F8',
+  '0x9B1B32981E9444BaF6CBcC79903Fb67A6587F3cD'
+];
 
 const SignupContract: NextPage = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
@@ -60,6 +70,10 @@ const SignupContract: NextPage = () => {
             <SignupPrice />
             <ProfilesCreated />
             <Balance />
+            <div className="divider" />
+            {relayAddresses.map((address, index) => (
+              <RelayerBalance address={address} index={index} key={address} />
+            ))}
           </div>
         </Card>
       </GridItemEight>

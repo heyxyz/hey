@@ -3,8 +3,8 @@ import type { Dispatch, FC, SetStateAction } from 'react';
 
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { Input } from '@hey/ui';
+import { useDebounce } from '@uidotdev/usehooks';
 import { useState } from 'react';
-import { useDebounce } from 'usehooks-ts';
 
 import Categories from './Categories';
 import Gifs from './Gifs';

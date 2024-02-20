@@ -1,7 +1,8 @@
 import type { Profile, ProfileSearchRequest } from '@hey/lens';
-import type { ChangeEvent, FC } from 'react';
+import type { ChangeEvent, FC, MutableRefObject } from 'react';
 
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { ProfileLinkSource } from '@hey/data/tracking';
 import {
   CustomFiltersType,
   LimitType,
@@ -9,10 +10,10 @@ import {
 } from '@hey/lens';
 import { Card, Input, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import { useClickAway, useDebounce } from '@uidotdev/usehooks';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
-import { useEffect, useRef, useState } from 'react';
-import { useDebounce, useOnClickOutside } from 'usehooks-ts';
+import { useEffect, useState } from 'react';
 
 import UserProfile from '../UserProfile';
 
@@ -29,10 +30,10 @@ const Search: FC<SearchProps> = ({
 }) => {
   const { pathname, push, query } = useRouter();
   const [searchText, setSearchText] = useState('');
-  const dropdownRef = useRef(null);
+  const dropdownRef = useClickAway(() => {
+    setSearchText('');
+  }) as MutableRefObject<HTMLDivElement>;
   const debouncedSearchText = useDebounce<string>(searchText, 500);
-
-  useOnClickOutside(dropdownRef, () => setSearchText(''));
 
   const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] =
     useSearchProfilesLazyQuery();
@@ -123,6 +124,7 @@ const Search: FC<SearchProps> = ({
                       linkToProfile={!onProfileSelected}
                       profile={profile}
                       showUserPreview={false}
+                      source={ProfileLinkSource.Search}
                     />
                   </motion.div>
                 ))}

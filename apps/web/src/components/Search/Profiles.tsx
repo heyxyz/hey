@@ -4,6 +4,7 @@ import type { FC } from 'react';
 import UserProfilesShimmer from '@components/Shared/Shimmer/UserProfilesShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
+import { ProfileLinkSource } from '@hey/data/tracking';
 import {
   CustomFiltersType,
   LimitType,
@@ -79,7 +80,12 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
             initial={{ opacity: 0 }}
           >
             <Card className="p-5" key={profile?.id}>
-              <UserProfile isBig profile={profile as Profile} showBio />
+              <UserProfile
+                isBig
+                profile={profile as Profile}
+                showBio
+                source={ProfileLinkSource.Search}
+              />
             </Card>
           </motion.div>
         );

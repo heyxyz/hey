@@ -4,6 +4,7 @@ import type { FC } from 'react';
 import DismissRecommendedProfile from '@components/Shared/DismissRecommendedProfile';
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
+import { ProfileLinkSource } from '@hey/data/tracking';
 import { EmptyState } from '@hey/ui';
 import { motion } from 'framer-motion';
 import { Virtuoso } from 'react-virtuoso';
@@ -42,6 +43,7 @@ const Suggested: FC<SuggestedProps> = ({ profiles }) => {
                   showBio
                   showFollow
                   showUserPreview={false}
+                  source={ProfileLinkSource.WhoToFollow}
                 />
               </div>
               <DismissRecommendedProfile profile={profile as Profile} />
