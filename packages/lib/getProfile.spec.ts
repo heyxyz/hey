@@ -11,6 +11,7 @@ describe('getProfile', () => {
       link: '',
       slug: '...',
       slugWithPrefix: '...',
+      sourceLink: '',
       staffLink: ''
     });
   });
@@ -27,6 +28,7 @@ describe('getProfile', () => {
       link: '/u/john',
       slug: 'john',
       slugWithPrefix: '@john',
+      sourceLink: '/u/john',
       staffLink: '/staff/users/123'
     });
   });
@@ -42,7 +44,25 @@ describe('getProfile', () => {
       link: '/profile/456',
       slug: '456',
       slugWithPrefix: '#456',
+      sourceLink: '/profile/456',
       staffLink: '/staff/users/456'
+    });
+  });
+
+  test('should return the correct data when profile has handle with source', () => {
+    const profile: any = {
+      handle: { localName: 'john' },
+      id: '123',
+      metadata: { displayName: 'John Doe' }
+    };
+    const result = getProfile(profile, 'staff-picks');
+    expect(result).toEqual({
+      displayName: 'John Doe',
+      link: '/u/john',
+      slug: 'john',
+      slugWithPrefix: '@john',
+      sourceLink: '/u/john?source=staff-picks',
+      staffLink: '/staff/users/123'
     });
   });
 });
