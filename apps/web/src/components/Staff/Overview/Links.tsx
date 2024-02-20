@@ -39,6 +39,10 @@ const Links: FC = () => {
         <p className="mb-4 font-bold">Other helpful links 🌱</p>
         <ul className="linkify mb-3 mt-0 list-disc space-y-1 pl-5">
           <ListItem
+            link="https://app.lemonsqueezy.com/dashboard"
+            title="Lemon Squeezy"
+          />
+          <ListItem
             link="https://heyxyz.zendesk.com/agent/dashboard"
             title="Zendesk Tickets"
           />
