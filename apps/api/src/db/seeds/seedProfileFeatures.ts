@@ -1,8 +1,6 @@
 import {
   GARDENER_FEATURE_ID,
-  GARDENER_MODE_FEATURE_ID,
   STAFF_FEATURE_ID,
-  STAFF_MODE_FEATURE_ID,
   VERIFIED_FEATURE_ID
 } from '../../lib/constants';
 import { prisma } from '../seed';
@@ -14,9 +12,7 @@ const seedProfileFeatures = async (): Promise<number> => {
     return [
       { featureId: VERIFIED_FEATURE_ID, profileId },
       { featureId: STAFF_FEATURE_ID, profileId },
-      { featureId: STAFF_MODE_FEATURE_ID, profileId },
-      { featureId: GARDENER_FEATURE_ID, profileId },
-      { featureId: GARDENER_MODE_FEATURE_ID, profileId }
+      { featureId: GARDENER_FEATURE_ID, profileId }
     ];
   });
 
