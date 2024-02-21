@@ -1,18 +1,18 @@
-import type { AnyPublication, Profile } from '@hey/lens';
+import type { AnyPublication, MirrorablePublication, Profile } from '@hey/lens';
 
 import { create } from 'zustand';
 
 interface GlobalAlertState {
   blockingorUnblockingProfile: null | Profile;
   deletingPublication: AnyPublication | null;
-  modingPublicationId: null | string;
+  modingPublication: MirrorablePublication | null;
   setShowBlockOrUnblockAlert: (
     showBlockOrUnblockAlert: boolean,
     blockingorUnblockingProfile: null | Profile
   ) => void;
   setShowGardenerActionsAlert: (
     showGardenerActionsAlert: boolean,
-    modingPublicationId: null | string
+    modingPublication: MirrorablePublication | null
   ) => void;
   setShowPublicationDeleteAlert: (
     showPublicationDeleteAlert: boolean,
@@ -27,15 +27,13 @@ export const useGlobalAlertStateStore = create<GlobalAlertState>((set) => ({
   blockingorUnblockingProfile: null,
   deletingPublication: null,
   forceDeletePublication: false,
-  modingPublicationId: null,
+  modingPublication: null,
   setShowBlockOrUnblockAlert: (
     showBlockOrUnblockAlert,
     blockingorUnblockingProfile
   ) => set(() => ({ blockingorUnblockingProfile, showBlockOrUnblockAlert })),
-  setShowGardenerActionsAlert: (
-    showGardenerActionsAlert,
-    modingPublicationId
-  ) => set(() => ({ modingPublicationId, showGardenerActionsAlert })),
+  setShowGardenerActionsAlert: (showGardenerActionsAlert, modingPublication) =>
+    set(() => ({ modingPublication, showGardenerActionsAlert })),
   setShowPublicationDeleteAlert: (
     showPublicationDeleteAlert,
     deletingPublication
