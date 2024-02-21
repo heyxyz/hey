@@ -1,4 +1,8 @@
-import type { AnyPublication, PublicationSearchRequest } from '@hey/lens';
+import type {
+  AnyPublication,
+  Profile,
+  PublicationSearchRequest
+} from '@hey/lens';
 import type { FC } from 'react';
 
 import GardenerActions from '@components/Publication/Actions/GardenerActions';
@@ -113,7 +117,10 @@ const SearchFeed: FC = () => {
             <div className="divider" />
             <div className="m-5 space-y-2">
               <b>Gardener actions</b>
-              <GardenerActions publicationId={publication.id} />
+              <GardenerActions
+                profile={publication.by as Profile}
+                publicationId={publication.id}
+              />
             </div>
           </div>
         </Card>

@@ -3,6 +3,7 @@ import type {
   CustomFiltersType,
   ExplorePublicationRequest,
   ExplorePublicationType,
+  Profile,
   PublicationMetadataMainFocusType
 } from '@hey/lens';
 import type { FC } from 'react';
@@ -110,7 +111,10 @@ const LatestFeed: FC<LatestFeedProps> = ({
             <div className="divider" />
             <div className="m-5 space-y-2">
               <b>Gardener actions</b>
-              <GardenerActions publicationId={publication.id} />
+              <GardenerActions
+                profile={publication.by as Profile}
+                publicationId={publication.id}
+              />
             </div>
           </div>
         </Card>
