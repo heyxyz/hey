@@ -1,5 +1,6 @@
-import type { ReportPublicationRequest } from '@hey/lens';
+import type { Profile, ReportPublicationRequest } from '@hey/lens';
 
+import P2PRecommendation from '@components/Shared/Profile/P2PRecommendation';
 import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import { GARDENER } from '@hey/data/tracking';
@@ -7,8 +8,9 @@ import {
   PublicationReportingSpamSubreason,
   useReportPublicationMutation
 } from '@hey/lens';
+import getProfile from '@hey/lib/getProfile';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Button } from '@hey/ui';
+import { Button, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -18,10 +20,14 @@ import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlert
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface GardenerActionsProps {
+  profile?: Profile;
   publicationId: string;
 }
 
-const GardenerActions: FC<GardenerActionsProps> = ({ publicationId }) => {
+const GardenerActions: FC<GardenerActionsProps> = ({
+  profile,
+  publicationId
+}) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const setShowGardenerActionsAlert = useGlobalAlertStateStore(
     (state) => state.setShowGardenerActionsAlert
@@ -181,6 +187,19 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publicationId }) => {
         label={`Both ${bothCount > 0 ? `(${bothCount})` : ''}`}
         type="both"
       />
+      {profile ? (
+        <Tooltip
+          content={`Recommend or unrecommend ${getProfile(profile).slugWithPrefix}'s content`}
+          placement="top"
+          withDelay
+        >
+          <P2PRecommendation
+            profile={profile}
+            recommendTitle="Recommend Profile"
+            unrecommendTitle="Unrecommend Profile"
+          />
+        </Tooltip>
+      ) : null}
     </span>
   );
 };
