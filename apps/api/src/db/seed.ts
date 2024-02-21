@@ -6,6 +6,7 @@ import seedMembershipNfts from './seeds/seedMembershipNfts';
 import seedPolls from './seeds/seedPolls';
 import seedPreferences from './seeds/seedPreferences';
 import seedProfileFeatures from './seeds/seedProfileFeatures';
+import seedStaffPicks from './seeds/seedStaffPicks';
 
 export const prisma = new PrismaClient();
 
@@ -27,6 +28,9 @@ async function main() {
 
   const membershipNft = await seedMembershipNfts();
   console.log(`Seeded ${membershipNft} membership nft`);
+
+  const staffPicks = await seedStaffPicks();
+  console.log(`Seeded ${staffPicks} staff picks`);
 }
 
 main()
