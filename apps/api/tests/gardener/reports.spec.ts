@@ -7,11 +7,10 @@ describe('gardener/reports', () => {
   test('should return all gardener reports', async () => {
     const response = await axios.get(`${TEST_URL}/gardener/reports`, {
       headers: await getAuthApiHeadersForTest(),
-      params: { id: '0x8c9c-0x12-DA-b1a993ad', profile: '0x0274' }
+      params: { id: '0x8c9c-0x12-DA-b1a993ad' }
     });
 
     expect(response.data.result.id).toEqual('0x8c9c-0x12-DA-b1a993ad');
-    expect(response.data.result.actor).toEqual('0x0274');
     expect(response.data.result.both).toBeGreaterThan(0);
   });
 });

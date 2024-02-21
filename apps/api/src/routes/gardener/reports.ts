@@ -7,9 +7,9 @@ import createClickhouseClient from 'src/lib/createClickhouseClient';
 import { noBody } from 'src/lib/responses';
 
 export const get: Handler = async (req, res) => {
-  const { id, profile } = req.query;
+  const { id } = req.query;
 
-  if (!id || !profile) {
+  if (!id) {
     return noBody(res);
   }
 
@@ -45,16 +45,13 @@ export const get: Handler = async (req, res) => {
     >();
 
     const formattedResults = {
-      actor: profile,
       both: parseInt(result[0]?.both),
       id: result[0]?.publication_id,
       spam: parseInt(result[0]?.spam),
       unSponsor: parseInt(result[0]?.un_sponsor)
     };
 
-    logger.info(
-      `Fetched Gardener report data for publication ${id} by ${profile}`
-    );
+    logger.info(`Fetched Gardener report data for publication ${id}`);
 
     return res.status(200).json({
       result: formattedResults,
