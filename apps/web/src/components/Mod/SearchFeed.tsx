@@ -28,6 +28,7 @@ const SearchFeed: FC = () => {
   };
 
   const { data, error, fetchMore, loading } = useSearchPublicationsQuery({
+    skip: !query,
     variables: { request }
   });
 
@@ -79,7 +80,7 @@ const SearchFeed: FC = () => {
     );
   }
 
-  if (publications?.length === 0) {
+  if (!query || publications?.length === 0) {
     return (
       <div className="space-y-5">
         <Search />
