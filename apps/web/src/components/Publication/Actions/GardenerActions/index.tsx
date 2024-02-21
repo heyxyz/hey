@@ -1,4 +1,7 @@
-import type { Profile, ReportPublicationRequest } from '@hey/lens';
+import type {
+  MirrorablePublication,
+  ReportPublicationRequest
+} from '@hey/lens';
 
 import P2PRecommendation from '@components/Shared/Profile/P2PRecommendation';
 import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
@@ -8,9 +11,8 @@ import {
   PublicationReportingSpamSubreason,
   useReportPublicationMutation
 } from '@hey/lens';
-import getProfile from '@hey/lib/getProfile';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Button, Tooltip } from '@hey/ui';
+import { Button } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -20,20 +22,18 @@ import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlert
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface GardenerActionsProps {
-  profile?: Profile;
-  publicationId: string;
+  publication: MirrorablePublication;
 }
 
-const GardenerActions: FC<GardenerActionsProps> = ({
-  profile,
-  publicationId
-}) => {
+const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const setShowGardenerActionsAlert = useGlobalAlertStateStore(
     (state) => state.setShowGardenerActionsAlert
   );
 
-  const [hasReported, setHasReported] = useState(false);
+  const [hasReported, setHasReported] = useState(
+    publication.operations.hasReported
+  );
   const [spamCount, setSpamCount] = useState(0);
   const [unSponsorCount, setUnSponsorCount] = useState(0);
   const [bothCount, setBothCount] = useState(0);
@@ -43,11 +43,10 @@ const GardenerActions: FC<GardenerActionsProps> = ({
   const fetchGardenerReports = async () => {
     try {
       const response = await axios.get(`${HEY_API_URL}/gardener/reports`, {
-        params: { id: publicationId, profile: currentProfile?.id }
+        params: { id: publication.id, profile: currentProfile?.id }
       });
       const { data } = response;
 
-      setHasReported(data.result.hasReported);
       setSpamCount(data.result.spam);
       setUnSponsorCount(data.result.unSponsor);
       setBothCount(data.result.both);
@@ -60,7 +59,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({
 
   useQuery({
     queryFn: fetchGardenerReports,
-    queryKey: ['fetchGardenerReports', publicationId, currentProfile?.id]
+    queryKey: ['fetchGardenerReports', publication.id, currentProfile?.id]
   });
 
   const reportPublication = async ({
@@ -72,7 +71,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({
   }) => {
     // Variables
     const request: ReportPublicationRequest = {
-      for: publicationId,
+      for: publication.id,
       reason: {
         [type]: {
           reason: type.replace('Reason', '').toUpperCase(),
@@ -108,7 +107,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({
       icon={icon}
       onClick={() => {
         Leafwatch.track(GARDENER.REPORT, {
-          publication_id: publicationId,
+          publication_id: publication.id,
           type
         });
 
@@ -187,19 +186,11 @@ const GardenerActions: FC<GardenerActionsProps> = ({
         label={`Both ${bothCount > 0 ? `(${bothCount})` : ''}`}
         type="both"
       />
-      {profile ? (
-        <Tooltip
-          content={`Recommend or unrecommend ${getProfile(profile).slugWithPrefix}'s content`}
-          placement="top"
-          withDelay
-        >
-          <P2PRecommendation
-            profile={profile}
-            recommendTitle="Recommend Profile"
-            unrecommendTitle="Unrecommend Profile"
-          />
-        </Tooltip>
-      ) : null}
+      <P2PRecommendation
+        profile={publication.by}
+        recommendTitle="Recommend Profile"
+        unrecommendTitle="Unrecommend Profile"
+      />
     </span>
   );
 };

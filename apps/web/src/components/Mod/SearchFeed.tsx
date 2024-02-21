@@ -1,8 +1,4 @@
-import type {
-  AnyPublication,
-  Profile,
-  PublicationSearchRequest
-} from '@hey/lens';
+import type { AnyPublication, PublicationSearchRequest } from '@hey/lens';
 import type { FC } from 'react';
 
 import GardenerActions from '@components/Publication/Actions/GardenerActions';
@@ -15,6 +11,7 @@ import {
   LimitType,
   useSearchPublicationsQuery
 } from '@hey/lens';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Button, Card, EmptyState, ErrorMessage, Input } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
@@ -104,27 +101,30 @@ const SearchFeed: FC = () => {
   return (
     <div className="space-y-5">
       <Search />
-      {publications?.map((publication, index) => (
-        <Card key={`${publication.id}_${index}`}>
-          <SinglePublication
-            isFirst
-            isLast={false}
-            publication={publication as AnyPublication}
-            showActions={false}
-            showThread={false}
-          />
-          <div>
-            <div className="divider" />
-            <div className="m-5 space-y-2">
-              <b>Gardener actions</b>
-              <GardenerActions
-                profile={publication.by as Profile}
-                publicationId={publication.id}
-              />
+      {publications?.map((publication, index) => {
+        const targetPublication = isMirrorPublication(publication)
+          ? publication.mirrorOn
+          : publication;
+
+        return (
+          <Card key={`${publication.id}_${index}`}>
+            <SinglePublication
+              isFirst
+              isLast={false}
+              publication={publication as AnyPublication}
+              showActions={false}
+              showThread={false}
+            />
+            <div>
+              <div className="divider" />
+              <div className="m-5 space-y-2">
+                <b>Gardener actions</b>
+                <GardenerActions publication={targetPublication} />
+              </div>
             </div>
-          </div>
-        </Card>
-      ))}
+          </Card>
+        );
+      })}
       {hasMore ? <span ref={observe} /> : null}
     </div>
   );
