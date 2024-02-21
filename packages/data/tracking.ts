@@ -209,7 +209,8 @@ export const MISCELLANEOUS = {
     OPEN_VERCEL: 'Open Vercel'
   },
   OPEN_GITCOIN: 'Open Gitcoin',
-  OPEN_LENS_WAITLIST: 'Open Lens waitlist'
+  OPEN_LENS_WAITLIST: 'Open Lens waitlist',
+  SEARCH: 'Search'
 };
 
 export const ONBOARDING = {
