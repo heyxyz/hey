@@ -5,7 +5,7 @@ import { ATTACHMENT } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import imageKit from '@hey/lib/imageKit';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Card, Image, Tooltip } from '@hey/ui';
+import { Card, Image } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 
@@ -58,19 +58,14 @@ const Embed: FC<EmbedProps> = ({ og, publicationId }) => {
                 {og.title ? (
                   <div className="flex items-center space-x-1.5">
                     {og.favicon ? (
-                      <Tooltip
-                        className="contents"
-                        content={og.site}
-                        placement="right"
-                      >
-                        <img
-                          alt="Favicon"
-                          className="size-4 rounded-full"
-                          height={16}
-                          src={og.favicon}
-                          width={16}
-                        />
-                      </Tooltip>
+                      <img
+                        alt="Favicon"
+                        className="size-4 rounded-full"
+                        height={16}
+                        src={og.favicon}
+                        title={og.site || og.url}
+                        width={16}
+                      />
                     ) : null}
                     <div className="truncate font-bold">{og.title}</div>
                   </div>
