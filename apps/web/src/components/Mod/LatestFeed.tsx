@@ -39,7 +39,7 @@ const LatestFeed: FC<LatestFeedProps> = ({
 }) => {
   // Variables
   const request: ExplorePublicationRequest = {
-    limit: LimitType.TwentyFive,
+    limit: LimitType.Fifty,
     orderBy: ExplorePublicationsOrderByType.Latest,
     where: {
       customFilters,

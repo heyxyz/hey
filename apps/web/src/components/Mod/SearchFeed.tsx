@@ -22,7 +22,7 @@ const SearchFeed: FC = () => {
 
   // Variables
   const request: PublicationSearchRequest = {
-    limit: LimitType.TwentyFive,
+    limit: LimitType.Fifty,
     query,
     where: { customFilters: [CustomFiltersType.Gardeners] }
   };
@@ -32,8 +32,9 @@ const SearchFeed: FC = () => {
     variables: { request }
   });
 
-  const publications = data?.searchPublications?.items;
-  const pageInfo = data?.searchPublications?.pageInfo;
+  const search = data?.searchPublications;
+  const publications = search?.items as AnyPublication[];
+  const pageInfo = search?.pageInfo;
   const hasMore = pageInfo?.next;
 
   const { observe } = useInView({
