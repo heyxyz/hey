@@ -85,9 +85,7 @@ const Mod: NextPage = () => {
     <GridLayout>
       <MetaTags title={`Mod Center • ${APP_NAME}`} />
       <GridItemEight className="space-y-5">
-        {gardenerMode && (
-          <FeedType feedType={feedType} setFeedType={setFeedType} />
-        )}
+        <FeedType feedType={feedType} setFeedType={setFeedType} />
         {feedType === ModFeedType.LATEST && (
           <LatestFeed
             apps={apps}
