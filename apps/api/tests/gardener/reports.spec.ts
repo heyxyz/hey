@@ -4,7 +4,7 @@ import { TEST_URL } from 'src/lib/constants';
 import { describe, expect, test } from 'vitest';
 
 describe('gardener/reports', () => {
-  test('should return all features', async () => {
+  test('should return all gardener reports', async () => {
     const response = await axios.get(`${TEST_URL}/gardener/reports`, {
       headers: await getAuthApiHeadersForTest(),
       params: { id: '0x8c9c-0x12-DA-b1a993ad', profile: '0x0274' }
