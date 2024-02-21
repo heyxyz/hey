@@ -19,14 +19,12 @@ import axios from 'axios';
 import { type FC, type ReactNode, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface GardenerActionsProps {
   publication: MirrorablePublication;
 }
 
 const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
   const setShowGardenerActionsAlert = useGlobalAlertStateStore(
     (state) => state.setShowGardenerActionsAlert
   );
@@ -43,7 +41,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
   const fetchGardenerReports = async () => {
     try {
       const response = await axios.get(`${HEY_API_URL}/gardener/reports`, {
-        params: { id: publication.id, profile: currentProfile?.id }
+        params: { id: publication.id }
       });
       const { data } = response;
 
@@ -59,7 +57,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
 
   useQuery({
     queryFn: fetchGardenerReports,
-    queryKey: ['fetchGardenerReports', publication.id, currentProfile?.id]
+    queryKey: ['fetchGardenerReports', publication.id]
   });
 
   const reportPublication = async ({
