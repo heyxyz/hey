@@ -5,12 +5,14 @@ import GardenerActions from '@components/Publication/Actions/GardenerActions';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
+import { GARDENER } from '@hey/data/tracking';
 import {
   CustomFiltersType,
   LimitType,
   useSearchPublicationsQuery
 } from '@hey/lens';
 import { Button, Card, EmptyState, ErrorMessage, Input } from '@hey/ui';
+import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 
@@ -49,7 +51,10 @@ const SearchFeed: FC = () => {
     return (
       <form
         className="flex items-center space-x-2"
-        onSubmit={() => setQuery(value)}
+        onSubmit={() => {
+          Leafwatch.track(GARDENER.SEARCH_PUBLICATION, { query: value });
+          setQuery(value);
+        }}
       >
         <Input
           autoFocus

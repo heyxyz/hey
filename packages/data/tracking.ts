@@ -165,6 +165,7 @@ export const INVITE = {
 
 export const GARDENER = {
   REPORT: 'Gardener report',
+  SEARCH_PUBLICATION: 'Gardener search publication',
   TOGGLE_MODE: 'Toggle gardener mode'
 };
 
