@@ -65,9 +65,7 @@ const SearchFeed: FC = () => {
           type="text"
           value={value}
         />
-        <Button size="lg" type="submit">
-          Search
-        </Button>
+        <Button size="lg">Search</Button>
       </form>
     );
   };
