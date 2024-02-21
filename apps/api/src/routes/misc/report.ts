@@ -18,6 +18,7 @@ const validationSchema = object({
   reason: string()
 });
 
+// TODO: add tests
 export const post: Handler = async (req, res) => {
   const { body } = req;
 

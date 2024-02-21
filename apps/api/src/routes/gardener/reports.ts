@@ -6,7 +6,6 @@ import catchedError from 'src/lib/catchedError';
 import createClickhouseClient from 'src/lib/createClickhouseClient';
 import { noBody } from 'src/lib/responses';
 
-// TODO: add tests
 export const get: Handler = async (req, res) => {
   const { id, profile } = req.query;
 
