@@ -11,6 +11,7 @@ import ChooseFile from '@components/Shared/ChooseFile';
 import ImageCropperController from '@components/Shared/ImageCropperController';
 import { InformationCircleIcon, PencilIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
+import { Autocomplete, useJsApiLoader} from '@react-google-maps/api';
 import {
   AVATAR,
   COVER,
@@ -353,6 +354,16 @@ const ProfileSettingsForm: FC = () => {
     }
   };
 
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? '',
+    libraries: ['places']
+  });
+
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
+
+
   const coverPictureUrl =
     currentProfile?.metadata?.coverPicture?.optimized?.uri ||
     `${STATIC_IMAGES_URL}/patterns/2.svg`;
@@ -392,12 +403,14 @@ const ProfileSettingsForm: FC = () => {
             type="text"
             {...form.register('name')}
           />
+          <Autocomplete>
           <Input
             label="Location"
             placeholder="Miami"
             type="text"
             {...form.register('location')}
           />
+          </Autocomplete>
           <Input
             label="Website"
             placeholder="https://hooli.com"
