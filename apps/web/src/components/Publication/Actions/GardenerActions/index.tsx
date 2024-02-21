@@ -147,7 +147,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publicationId }) => {
       <ReportButton
         config={[
           {
-            subreason: PublicationReportingSpamSubreason.FakeEngagement,
+            subreason: PublicationReportingSpamSubreason.LowSignal,
             type: 'spamReason'
           }
         ]}
@@ -158,7 +158,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publicationId }) => {
       <ReportButton
         config={[
           {
-            subreason: PublicationReportingSpamSubreason.LowSignal,
+            subreason: PublicationReportingSpamSubreason.FakeEngagement,
             type: 'spamReason'
           }
         ]}
