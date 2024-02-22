@@ -30,7 +30,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
   );
 
   const [hasReported, setHasReported] = useState(
-    publication.operations.hasReported
+    !publication.operations.hasReported
   );
   const [spamCount, setSpamCount] = useState(0);
   const [unSponsorCount, setUnSponsorCount] = useState(0);
