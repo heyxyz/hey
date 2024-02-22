@@ -18,12 +18,7 @@ import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
-import {
-  EXPANDED_AVATAR,
-  RARIBLE_URL,
-  STATIC_IMAGES_URL
-} from '@hey/data/constants';
-import getEnvConfig from '@hey/data/utils/getEnvConfig';
+import { EXPANDED_AVATAR, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { FollowModuleType } from '@hey/lens';
 import formatDate from '@hey/lib/datetime/formatDate';
 import getAvatar from '@hey/lib/getAvatar';
@@ -49,10 +44,8 @@ import InvitedBy from './InvitedBy';
 import ProfileMenu from './Menu';
 import MutualFollowers from './MutualFollowers';
 import MutualFollowersList from './MutualFollowers/List';
-import ProBadge from './ProBadge';
 import ScamWarning from './ScamWarning';
 import TbaBadge from './TbaBadge';
-import TrustedBadge from './TrustedBadge';
 
 interface DetailsProps {
   profile: Profile;
@@ -111,8 +104,6 @@ const Details: FC<DetailsProps> = ({ profile }) => {
             </Tooltip>
           ) : null}
           <TbaBadge address={profile.ownedBy.address} />
-          <ProBadge id={profile.id} />
-          <TrustedBadge id={profile.id} />
           {hasMisused(profile.id) ? (
             <Tooltip content={misuseDetails?.type}>
               <ExclamationCircleIcon className="size-6 text-red-500" />
@@ -203,18 +194,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
             </MetaDetails>
           ) : null}
           <MetaDetails icon={<HashtagIcon className="size-4" />}>
-            <Tooltip content={`#${profile.id}`}>
-              <Link
-                href={urlcat(RARIBLE_URL, '/token/polygon/:address::id', {
-                  address: getEnvConfig().lensHubProxyAddress,
-                  id: parseInt(profile.id)
-                })}
-                rel="noreferrer"
-                target="_blank"
-              >
-                {parseInt(profile.id)}
-              </Link>
-            </Tooltip>
+            {parseInt(profile.id)}
           </MetaDetails>
           {getProfileAttribute('location', profile?.metadata?.attributes) ? (
             <MetaDetails icon={<MapPinIcon className="size-4" />}>

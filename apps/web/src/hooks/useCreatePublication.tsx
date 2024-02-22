@@ -32,12 +32,15 @@ import {
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { OptmisticPublicationType } from '@hey/types/enums';
+import checkAndToastDispatcherError from '@lib/checkAndToastDispatcherError';
 import { useRouter } from 'next/router';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
+
+import useHandleWrongNetwork from './useHandleWrongNetwork';
 
 interface CreatePublicationProps {
   commentOn?: AnyPublication;
@@ -66,6 +69,7 @@ const useCreatePublication = ({
   );
   const txnQueue = useTransactionStore((state) => state.txnQueue);
   const setTxnQueue = useTransactionStore((state) => state.setTxnQueue);
+  const handleWrongNetwork = useHandleWrongNetwork();
   const { canBroadcast } = checkDispatcherPermissions(currentProfile);
 
   const isComment = Boolean(commentOn);
@@ -109,7 +113,7 @@ const useCreatePublication = ({
   });
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
-  const { error, writeContract } = useWriteContract({
+  const { error, writeContractAsync } = useWriteContract({
     mutation: {
       onError: (error) => {
         onError(error);
@@ -126,8 +130,8 @@ const useCreatePublication = ({
     }
   });
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       abi: LensHub,
       address: LENSHUB_PROXY,
       args,
@@ -163,6 +167,7 @@ const useCreatePublication = ({
     isMomokaPublication = false
   ) => {
     const { id, typedData } = generatedData;
+    await handleWrongNetwork();
 
     if (canBroadcast) {
       const signature = await signTypedDataAsync(getSignature(typedData));
@@ -175,14 +180,14 @@ const useCreatePublication = ({
         variables: { request: { id, signature } }
       });
       if (data?.broadcastOnchain.__typename === 'RelayError') {
-        return write({ args: [typedData.value] });
+        return await write({ args: [typedData.value] });
       }
       setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
 
       return;
     }
 
-    return write({ args: [typedData.value] });
+    return await write({ args: [typedData.value] });
   };
 
   // On-chain typed data generation
@@ -305,6 +310,14 @@ const useCreatePublication = ({
   const createPostOnMomka = async (request: MomokaPostRequest) => {
     const { data } = await postOnMomoka({ variables: { request } });
     if (data?.postOnMomoka?.__typename === 'LensProfileManagerRelayError') {
+      const shouldProceed = checkAndToastDispatcherError(
+        data.postOnMomoka.reason
+      );
+
+      if (!shouldProceed) {
+        return;
+      }
+
       return await createMomokaPostTypedData({ variables: { request } });
     }
   };

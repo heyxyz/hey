@@ -1,12 +1,11 @@
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { Dispatch, FC, MutableRefObject, SetStateAction } from 'react';
 
 import { FaceSmileIcon } from '@heroicons/react/24/outline';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import { useClickAway } from '@uidotdev/usehooks';
 import { motion } from 'framer-motion';
-import { useRef } from 'react';
-import { useOnClickOutside } from 'usehooks-ts';
 
 import List from './List';
 
@@ -25,9 +24,9 @@ const EmojiPicker: FC<EmojiPickerProps> = ({
   setShowEmojiPicker,
   showEmojiPicker
 }) => {
-  const listRef = useRef(null);
-
-  useOnClickOutside(listRef, () => setShowEmojiPicker(false));
+  const listRef = useClickAway(() => {
+    setShowEmojiPicker(false);
+  }) as MutableRefObject<HTMLDivElement>;
 
   return (
     <div className="relative" ref={listRef}>

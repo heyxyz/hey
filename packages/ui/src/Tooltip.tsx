@@ -21,7 +21,7 @@ export const Tooltip: FC<TooltipProps> = ({
     <RadixTooltip.Provider delayDuration={withDelay ? 400 : 0}>
       <RadixTooltip.Root>
         <RadixTooltip.Trigger asChild>
-          <span>{children}</span>
+          <span className={className}>{children}</span>
         </RadixTooltip.Trigger>
         <RadixTooltip.Portal>
           <RadixTooltip.Content
@@ -29,7 +29,7 @@ export const Tooltip: FC<TooltipProps> = ({
             side={placement}
             sideOffset={5}
           >
-            <span className={className}>{content}</span>
+            <span>{content}</span>
             <RadixTooltip.Arrow className="fill-gray-700" />
           </RadixTooltip.Content>
         </RadixTooltip.Portal>

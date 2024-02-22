@@ -1,15 +1,13 @@
-import type { FC } from 'react';
-
-import { useEffectOnce } from 'usehooks-ts';
+import { type FC, useEffect } from 'react';
 
 const ServiceWorkerProvider: FC = () => {
-  useEffectOnce(() => {
+  useEffect(() => {
     if ('serviceWorker' in navigator) {
       (navigator.serviceWorker as ServiceWorkerContainer)
         .register('/sw.js', { scope: '/' })
         .catch(console.error);
     }
-  });
+  }, []);
 
   return null;
 };

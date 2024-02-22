@@ -102,7 +102,7 @@ const FollowModule: FC<FollowModuleProps> = ({
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
-  const { writeContract } = useWriteContract({
+  const { writeContractAsync } = useWriteContract({
     mutation: {
       onError: (error) => {
         onError(error);
@@ -115,8 +115,8 @@ const FollowModule: FC<FollowModuleProps> = ({
     }
   });
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       abi: LensHub,
       address: LENSHUB_PROXY,
       args,
@@ -192,6 +192,7 @@ const FollowModule: FC<FollowModuleProps> = ({
         followTokenIds,
         datas
       ];
+      await handleWrongNetwork();
 
       if (canBroadcast) {
         const signature = await signTypedDataAsync(getSignature(typedData));
@@ -199,13 +200,13 @@ const FollowModule: FC<FollowModuleProps> = ({
           variables: { request: { id, signature } }
         });
         if (data?.broadcastOnchain.__typename === 'RelayError') {
-          return write({ args });
+          return await write({ args });
         }
 
         return;
       }
 
-      return write({ args });
+      return await write({ args });
     },
     onError
   });
@@ -217,10 +218,6 @@ const FollowModule: FC<FollowModuleProps> = ({
 
     if (isSuspended) {
       return toast.error(Errors.Suspended);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
     }
 
     try {

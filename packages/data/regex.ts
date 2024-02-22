@@ -2,7 +2,7 @@ const RESTRICTED_SYMBOLS = '☑️✓✔✅';
 
 export const Regex = {
   ethereumAddress: /^(0x)?[\da-f]{40}$/i,
-  handle: /^[\dA-Za-z][\w-]{4,25}$/g,
+  handle: /^[\dA-Za-z]\w{4,25}$/g,
   hashtag: /(#\w*[A-Za-z]\w*)/g,
   mention: /@\w+\/[\w@]+/g,
   profileNameFilter: new RegExp(`[${RESTRICTED_SYMBOLS}]`, 'gu'),

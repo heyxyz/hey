@@ -1,9 +1,7 @@
-import type { ClipboardEvent } from 'react';
-
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { mergeRegister } from '@lexical/utils';
 import { COMMAND_PRIORITY_NORMAL, PASTE_COMMAND } from 'lexical';
-import { useUpdateEffect } from 'usehooks-ts';
+import { type ClipboardEvent, useEffect } from 'react';
 
 interface ImagesPluginProps {
   onPaste: (files: FileList) => void;
@@ -13,7 +11,7 @@ const ImagesPlugin = (props: ImagesPluginProps): JSX.Element | null => {
   const { onPaste } = props;
   const [editor] = useLexicalComposerContext();
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     return mergeRegister(
       editor.registerCommand<InputEvent & ClipboardEvent>(
         PASTE_COMMAND,

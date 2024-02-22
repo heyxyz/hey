@@ -34,7 +34,7 @@ const ProtectProfile: FC = () => {
   const {
     data: writeHash,
     isPending,
-    writeContract
+    writeContractAsync
   } = useWriteContract({
     mutation: {
       onError,
@@ -42,8 +42,8 @@ const ProtectProfile: FC = () => {
     }
   });
 
-  const write = () => {
-    return writeContract({
+  const write = async () => {
+    return await writeContractAsync({
       abi: LensHub,
       address: LENSHUB_PROXY,
       functionName: 'enableTokenGuardian'
@@ -60,17 +60,14 @@ const ProtectProfile: FC = () => {
   ).toISOString();
   const isCoolOffPassed = new Date(coolOffDate).getTime() < Date.now();
 
-  const handleProtect = () => {
+  const handleProtect = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
 
-    if (handleWrongNetwork()) {
-      return;
-    }
-
     try {
-      return write();
+      await handleWrongNetwork();
+      return await write();
     } catch (error) {
       onError(error);
     }

@@ -39,12 +39,12 @@ const DeleteSettings: FC = () => {
     errorToast(error);
   };
 
-  const { writeContract } = useWriteContract({
+  const { writeContractAsync } = useWriteContract({
     mutation: { onSuccess: onCompleted }
   });
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       abi: LensHub,
       address: LENSHUB_PROXY,
       args,
@@ -52,18 +52,15 @@ const DeleteSettings: FC = () => {
     });
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
 
-    if (handleWrongNetwork()) {
-      return;
-    }
-
     try {
       setIsLoading(true);
-      return write({ args: [currentProfile?.id] });
+      await handleWrongNetwork();
+      return await write({ args: [currentProfile?.id] });
     } catch (error) {
       onError(error);
     }

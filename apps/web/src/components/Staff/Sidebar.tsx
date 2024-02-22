@@ -5,8 +5,9 @@ import {
   AdjustmentsHorizontalIcon,
   ClipboardIcon,
   CurrencyDollarIcon,
-  NoSymbolIcon,
-  UserIcon
+  SparklesIcon,
+  UserIcon,
+  UserPlusIcon
 } from '@heroicons/react/24/outline';
 
 const settingsSidebarItems = [
@@ -31,9 +32,14 @@ const settingsSidebarItems = [
     url: '/staff/feature-flags'
   },
   {
-    icon: <NoSymbolIcon className="size-4" />,
-    title: 'Kill switches',
-    url: '/staff/kill-switches'
+    icon: <SparklesIcon className="size-4" />,
+    title: 'Staff Picks',
+    url: '/staff/staff-picks'
+  },
+  {
+    icon: <UserPlusIcon className="size-4" />,
+    title: 'Signup Contract',
+    url: '/staff/signup-contract'
   }
 ];
 

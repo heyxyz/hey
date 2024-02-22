@@ -85,12 +85,12 @@ const Unfollow: FC<UnfollowProps> = ({ profile, showText = false }) => {
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
-  const { writeContract } = useWriteContract({
+  const { writeContractAsync } = useWriteContract({
     mutation: { onError, onSuccess: () => onCompleted() }
   });
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       abi: LensHub,
       address: LENSHUB_PROXY,
       args,
@@ -107,6 +107,7 @@ const Unfollow: FC<UnfollowProps> = ({ profile, showText = false }) => {
       const { id, typedData } = createUnfollowTypedData;
       const { idsOfProfilesToUnfollow, unfollowerProfileId } = typedData.value;
       const args = [unfollowerProfileId, idsOfProfilesToUnfollow];
+      await handleWrongNetwork();
 
       if (canBroadcast) {
         const signature = await signTypedDataAsync(getSignature(typedData));
@@ -114,14 +115,14 @@ const Unfollow: FC<UnfollowProps> = ({ profile, showText = false }) => {
           variables: { request: { id, signature } }
         });
         if (data?.broadcastOnchain.__typename === 'RelayError') {
-          return write({ args });
+          return await write({ args });
         }
         setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
 
         return;
       }
 
-      return write({ args });
+      return await write({ args });
     },
     onError
   });
@@ -146,10 +147,6 @@ const Unfollow: FC<UnfollowProps> = ({ profile, showText = false }) => {
 
     if (isSuspended) {
       return toast.error(Errors.Suspended);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
     }
 
     try {

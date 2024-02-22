@@ -67,7 +67,7 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
-  const { writeContract } = useWriteContract({
+  const { writeContractAsync } = useWriteContract({
     mutation: {
       onError: (error) => {
         onError(error);
@@ -80,8 +80,8 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
     }
   });
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       abi: LensHub,
       address: LENSHUB_PROXY,
       args,
@@ -111,6 +111,8 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
           configNumber,
           switchToGivenConfig
         ];
+        await handleWrongNetwork();
+
         try {
           if (!isTba && canBroadcast) {
             const signature = await signTypedDataAsync(getSignature(typedData));
@@ -118,18 +120,18 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
               variables: { request: { id, signature } }
             });
             if (data?.broadcastOnchain.__typename === 'RelayError') {
-              return write({ args });
+              return await write({ args });
             }
             setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
 
             return;
           }
 
-          return write({ args });
+          return await write({ args });
         } catch {
           // Fix for Safe wallets
           // TODO: Remove this once Lens supports Safe wallets
-          return write({ args });
+          return await write({ args });
         }
       },
       onError
@@ -142,10 +144,6 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
 
     if (isSuspended) {
       return toast.error(Errors.Suspended);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
     }
 
     try {

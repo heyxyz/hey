@@ -1,11 +1,10 @@
-import type { ReportPublicationRequest } from '@hey/lens';
-import type { FC, ReactNode } from 'react';
+import type {
+  MirrorablePublication,
+  ReportPublicationRequest
+} from '@hey/lens';
 
-import {
-  BanknotesIcon,
-  DocumentTextIcon,
-  HandThumbUpIcon
-} from '@heroicons/react/24/outline';
+import P2PRecommendation from '@components/Shared/Profile/P2PRecommendation';
+import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import { GARDENER } from '@hey/data/tracking';
 import {
@@ -14,49 +13,52 @@ import {
 } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { Leafwatch } from '@lib/leafwatch';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { type FC, type ReactNode, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 
 interface GardenerActionsProps {
-  ableToRemoveReport?: boolean;
-  className?: string;
-  publicationId: string;
-  setExpanded?: (expanded: boolean) => void;
+  publication: MirrorablePublication;
 }
 
-const GardenerActions: FC<GardenerActionsProps> = ({
-  ableToRemoveReport = false,
-  className = '',
-  publicationId,
-  setExpanded = () => {}
-}) => {
+const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
   const setShowGardenerActionsAlert = useGlobalAlertStateStore(
     (state) => state.setShowGardenerActionsAlert
   );
+
+  const [hasReported, setHasReported] = useState(
+    publication.operations.hasReported
+  );
+  const [spamCount, setSpamCount] = useState(0);
+  const [unSponsorCount, setUnSponsorCount] = useState(0);
+  const [bothCount, setBothCount] = useState(0);
+
   const [createReport, { loading }] = useReportPublicationMutation();
 
-  const removeTrustedReport = async (id: string, looksGood: boolean) => {
-    const removeReport = async () => {
-      return await axios.post(
-        `${HEY_API_URL}/trusted/removeReport`,
-        { id, looksGood },
-        { headers: getAuthApiHeaders() }
-      );
-    };
+  const fetchGardenerReports = async () => {
+    try {
+      const response = await axios.get(`${HEY_API_URL}/gardener/reports`, {
+        params: { id: publication.id }
+      });
+      const { data } = response;
 
-    toast.promise(removeReport(), {
-      error: 'Error removing trusted reports',
-      loading: 'Removing trusted reports...',
-      success: () => {
-        setExpanded(false);
-        return 'Trusted reports removed successfully';
-      }
-    });
+      setSpamCount(data.result.spam);
+      setUnSponsorCount(data.result.unSponsor);
+      setBothCount(data.result.both);
+
+      return true;
+    } catch {
+      return false;
+    }
   };
+
+  useQuery({
+    queryFn: fetchGardenerReports,
+    queryKey: ['fetchGardenerReports', publication.id]
+  });
 
   const reportPublication = async ({
     subreason,
@@ -67,7 +69,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({
   }) => {
     // Variables
     const request: ReportPublicationRequest = {
-      for: publicationId,
+      for: publication.id,
       reason: {
         [type]: {
           reason: type.replace('Reason', '').toUpperCase(),
@@ -75,10 +77,6 @@ const GardenerActions: FC<GardenerActionsProps> = ({
         }
       }
     };
-
-    if (ableToRemoveReport) {
-      await removeTrustedReport(publicationId, false);
-    }
 
     return await createReport({
       onCompleted: () => setShowGardenerActionsAlert(false, null),
@@ -93,28 +91,46 @@ const GardenerActions: FC<GardenerActionsProps> = ({
     }[];
     icon: ReactNode;
     label: string;
+    type: string;
   }
 
-  const ReportButton: FC<ReportButtonProps> = ({ config, icon, label }) => (
+  const ReportButton: FC<ReportButtonProps> = ({
+    config,
+    icon,
+    label,
+    type
+  }) => (
     <Button
-      disabled={loading}
+      disabled={loading || hasReported}
       icon={icon}
       onClick={() => {
+        Leafwatch.track(GARDENER.REPORT, {
+          publication_id: publication.id,
+          type
+        });
+
         toast.promise(
           Promise.all(
             config.map(async ({ subreason, type }) => {
               await reportPublication({ subreason, type });
-              Leafwatch.track(GARDENER.REPORT, {
-                report_publication_id: publicationId,
-                report_reason: type,
-                report_subreason: subreason
-              });
             })
           ),
           {
             error: 'Error reporting publication',
             loading: 'Reporting publication...',
-            success: 'Publication reported successfully'
+            success: () => {
+              setHasReported(true);
+
+              if (type === 'spam') {
+                setSpamCount(spamCount + 1);
+              } else if (type === 'un-sponsor') {
+                setUnSponsorCount(unSponsorCount + 1);
+              } else if (type === 'both') {
+                setBothCount(bothCount + 1);
+              }
+
+              return 'Publication reported successfully';
+            }
           }
         );
       }}
@@ -128,19 +144,9 @@ const GardenerActions: FC<GardenerActionsProps> = ({
 
   return (
     <span
-      className={cn('flex flex-wrap items-center gap-3 text-sm', className)}
+      className="flex flex-wrap items-center gap-3 text-sm"
       onClick={stopEventPropagation}
     >
-      <ReportButton
-        config={[
-          {
-            subreason: PublicationReportingSpamSubreason.FakeEngagement,
-            type: 'spamReason'
-          }
-        ]}
-        icon={<DocumentTextIcon className="size-4" />}
-        label="Poor content"
-      />
       <ReportButton
         config={[
           {
@@ -148,8 +154,20 @@ const GardenerActions: FC<GardenerActionsProps> = ({
             type: 'spamReason'
           }
         ]}
+        icon={<DocumentTextIcon className="size-4" />}
+        label={`Spam ${spamCount > 0 ? `(${spamCount})` : ''}`}
+        type="spam"
+      />
+      <ReportButton
+        config={[
+          {
+            subreason: PublicationReportingSpamSubreason.FakeEngagement,
+            type: 'spamReason'
+          }
+        ]}
         icon={<BanknotesIcon className="size-4" />}
-        label="Stop Sponsor"
+        label={`Un-sponsor ${unSponsorCount > 0 ? `(${unSponsorCount})` : ''}`}
+        type="un-sponsor"
       />
       <ReportButton
         config={[
@@ -163,19 +181,14 @@ const GardenerActions: FC<GardenerActionsProps> = ({
           }
         ]}
         icon={<BanknotesIcon className="size-4" />}
-        label="Poor content & Stop Sponsor"
+        label={`Both ${bothCount > 0 ? `(${bothCount})` : ''}`}
+        type="both"
       />
-      {ableToRemoveReport && (
-        <Button
-          icon={<HandThumbUpIcon className="size-4" />}
-          onClick={() => removeTrustedReport(publicationId, true)}
-          outline
-          size="sm"
-          variant="secondary"
-        >
-          Looks good
-        </Button>
-      )}
+      <P2PRecommendation
+        profile={publication.by}
+        recommendTitle="Recommend Profile"
+        unrecommendTitle="Unrecommend Profile"
+      />
     </span>
   );
 };

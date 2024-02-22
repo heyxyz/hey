@@ -5,9 +5,7 @@ import type {
 } from '@hey/lens';
 import type { FC } from 'react';
 
-import { UserPlusIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { IS_MAINNET } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { PROFILE } from '@hey/data/tracking';
 import {
@@ -22,34 +20,29 @@ import { ErrorMessage, Image, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import Link from 'next/link';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { signIn, signOut } from 'src/store/persisted/useAuthStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useAccount, useSignMessage } from 'wagmi';
 
+import WalletSelector from './Auth/WalletSelector';
 import Loader from './Loader';
 
 const SwitchProfiles: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const setShowProfileSwitchModal = useGlobalModalStateStore(
-    (state) => state.setShowProfileSwitchModal
-  );
   const [isLoading, setIsLoading] = useState(false);
   const [loggingInProfileId, setLoggingInProfileId] = useState<null | string>(
     null
   );
+  const { address } = useAccount();
 
   const onError = (error: any) => {
     setIsLoading(false);
     errorToast(error);
   };
 
-  const { address } = useAccount();
   const { signMessageAsync } = useSignMessage({ mutation: { onError } });
-
   const request: LastLoggedInProfileRequest | ProfileManagersRequest = {
     for: address
   };
@@ -103,6 +96,21 @@ const SwitchProfiles: FC = () => {
     }
   };
 
+  if (currentProfile?.ownedBy.address !== address) {
+    return (
+      <div className="m-5 space-y-5">
+        <div className="space-y-2">
+          <div className="text-xl font-bold">Connect your wallet.</div>
+          <div className="ld-text-gray-500 text-sm">
+            Seems like you are disconnected from the wallet or trying to access
+            this from a different wallet. Please switch to the correct wallet.
+          </div>
+        </div>
+        <WalletSelector />
+      </div>
+    );
+  }
+
   return (
     <div className="max-h-[80vh] overflow-y-auto p-2">
       <ErrorMessage
@@ -147,20 +155,6 @@ const SwitchProfiles: FC = () => {
           ) : null}
         </button>
       ))}
-      {!IS_MAINNET ? (
-        <Link
-          className="flex w-full cursor-pointer items-center justify-between space-x-2 rounded-lg py-3 pl-3 pr-4 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
-          href="/new/profile"
-          onClick={() => setShowProfileSwitchModal(false)}
-        >
-          <span className="flex items-center space-x-2">
-            <div className="dark:border-brand-700 border-brand-400 bg-brand-500/20 flex size-6 items-center justify-center rounded-full border">
-              <UserPlusIcon className="text-brand-500 size-3" />
-            </div>
-            <div>Create Profile</div>
-          </span>
-        </Link>
-      ) : null}
     </div>
   );
 };

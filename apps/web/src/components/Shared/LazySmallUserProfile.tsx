@@ -6,12 +6,14 @@ import { useProfileQuery } from '@hey/lens';
 import SmallUserProfileShimmer from './Shimmer/SmallUserProfileShimmer';
 import SmallUserProfile from './SmallUserProfile';
 
-interface UserProfileProps {
+interface LazySmallUserProfileProps {
+  hideSlug?: boolean;
   id: string;
   linkToProfile?: boolean;
 }
 
-const LazySmallUserProfile: FC<UserProfileProps> = ({
+const LazySmallUserProfile: FC<LazySmallUserProfileProps> = ({
+  hideSlug = false,
   id,
   linkToProfile = false
 }) => {
@@ -29,6 +31,7 @@ const LazySmallUserProfile: FC<UserProfileProps> = ({
 
   return (
     <SmallUserProfile
+      hideSlug={hideSlug}
       linkToProfile={linkToProfile}
       profile={data.profile as Profile}
       smallAvatar

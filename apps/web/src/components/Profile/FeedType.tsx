@@ -1,13 +1,11 @@
 import type { FC } from 'react';
 
 import {
-  ChartBarIcon,
   ChatBubbleLeftRightIcon,
   FilmIcon,
   PencilSquareIcon,
   RectangleStackIcon
 } from '@heroicons/react/24/outline';
-import { IS_MAINNET } from '@hey/data/constants';
 import { PROFILE } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -21,13 +19,9 @@ interface FeedTypeProps {
 
 const FeedType: FC<FeedTypeProps> = ({ feedType }) => {
   const switchTab = (type: string) => {
-    if (type === ProfileFeedType.Stats.toLowerCase()) {
-      Leafwatch.track(PROFILE.SWITCH_PROFILE_STATS_TAB);
-    } else {
-      Leafwatch.track(PROFILE.SWITCH_PROFILE_FEED_TAB, {
-        profile_feed_type: type.toLowerCase()
-      });
-    }
+    Leafwatch.track(PROFILE.SWITCH_PROFILE_FEED_TAB, {
+      profile_feed_type: type.toLowerCase()
+    });
   };
 
   return (
@@ -61,15 +55,6 @@ const FeedType: FC<FeedTypeProps> = ({ feedType }) => {
           onClick={() => switchTab(ProfileFeedType.Collects)}
           type={ProfileFeedType.Collects.toLowerCase()}
         />
-        {IS_MAINNET ? (
-          <TabButton
-            active={feedType === ProfileFeedType.Stats}
-            icon={<ChartBarIcon className="size-4" />}
-            name="Stats"
-            onClick={() => switchTab(ProfileFeedType.Stats)}
-            type={ProfileFeedType.Stats.toLowerCase()}
-          />
-        ) : null}
       </div>
       {feedType === ProfileFeedType.Media ? <MediaFilter /> : null}
     </div>

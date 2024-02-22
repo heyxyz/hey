@@ -2,8 +2,10 @@ import type { Feature } from '@hey/types/hey';
 import type { FC } from 'react';
 
 import { HEY_API_URL } from '@hey/data/constants';
+import { STAFFTOOLS } from '@hey/data/tracking';
 import { Button, Form, Input, useZodForm } from '@hey/ui';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
+import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -30,7 +32,7 @@ const Create: FC<CreateProps> = ({
     schema: createFeatureSchema
   });
 
-  const create = async (key: string) => {
+  const create = (key: string) => {
     setCreating(true);
     toast.promise(
       axios.post(
@@ -45,6 +47,7 @@ const Create: FC<CreateProps> = ({
         },
         loading: 'Creating feature flag...',
         success: ({ data }) => {
+          Leafwatch.track(STAFFTOOLS.FEATURE_FLAGS.CREATE);
           setFeatures([...features, data.feature]);
           setCreating(false);
           setShowCreateModal(false);

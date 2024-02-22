@@ -62,12 +62,12 @@ const UnlinkHandle: FC = () => {
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
-  const { data: writeHash, writeContract } = useWriteContract({
+  const { data: writeHash, writeContractAsync } = useWriteContract({
     mutation: { onError, onSuccess: () => onCompleted() }
   });
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       abi: TokenHandleRegistry,
       address: TOKEN_HANDLE_REGISTRY,
       args,
@@ -85,6 +85,7 @@ const UnlinkHandle: FC = () => {
     useCreateUnlinkHandleFromProfileTypedDataMutation({
       onCompleted: async ({ createUnlinkHandleFromProfileTypedData }) => {
         const { id, typedData } = createUnlinkHandleFromProfileTypedData;
+        await handleWrongNetwork();
 
         if (canBroadcast) {
           const signature = await signTypedDataAsync(getSignature(typedData));
@@ -92,14 +93,14 @@ const UnlinkHandle: FC = () => {
             variables: { request: { id, signature } }
           });
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return write({ args: [typedData.value] });
+            return await write({ args: [typedData.value] });
           }
           setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
 
           return;
         }
 
-        return write({ args: [typedData.value] });
+        return await write({ args: [typedData.value] });
       },
       onError
     });
@@ -133,10 +134,6 @@ const UnlinkHandle: FC = () => {
 
     if (isSuspended) {
       return toast.error(Errors.Suspended);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
     }
 
     try {

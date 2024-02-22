@@ -43,7 +43,7 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
       setLoading(true);
 
       const { data }: { data: { portal: Portal } } = await axios.post(
-        `${HEY_API_URL}/portal/get`,
+        `${HEY_API_URL}/portal/act`,
         { buttonIndex: index + 1, postUrl, publicationId },
         { headers: getAuthApiHeaders() }
       );
@@ -76,7 +76,7 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
           'grid gap-4 p-5 dark:border-gray-700'
         )}
       >
-        {buttons.map(({ button, type }, index) => (
+        {buttons.map(({ button, target, type }, index) => (
           <Button
             disabled={loading || !publicationId || !currentProfile}
             key={index}
@@ -86,8 +86,8 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
                 type
               });
 
-              if (type === 'redirect') {
-                window.open(postUrl, '_blank');
+              if (type === 'link') {
+                window.open(target, '_blank');
               } else if (type === 'submit') {
                 onPost(index);
               }

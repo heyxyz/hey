@@ -4,10 +4,5 @@ export enum FeatureFlag {
   GardenerMode = 'gardener-mode',
   Staff = 'staff',
   StaffMode = 'staff-mode',
-  Suspended = 'suspended',
-  TrustedProfile = 'trusted-profile'
-}
-
-export enum KillSwitch {
-  UseThirdWeb = 'use-third-web'
+  Suspended = 'suspended'
 }

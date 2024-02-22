@@ -91,12 +91,12 @@ const BlockOrUnBlockProfile: FC = () => {
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
-  const { writeContract } = useWriteContract({
+  const { writeContractAsync } = useWriteContract({
     mutation: { onError, onSuccess: () => onCompleted() }
   });
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       abi: LensHub,
       address: LENSHUB_PROXY,
       args,
@@ -111,20 +111,22 @@ const BlockOrUnBlockProfile: FC = () => {
 
   const typedDataGenerator = async (generatedData: any) => {
     const { id, typedData } = generatedData;
-    const signature = await signTypedDataAsync(getSignature(typedData));
+    await handleWrongNetwork();
     setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
 
     if (canBroadcast) {
+      const signature = await signTypedDataAsync(getSignature(typedData));
       const { data } = await broadcastOnchain({
         variables: { request: { id, signature } }
       });
       if (data?.broadcastOnchain.__typename === 'RelayError') {
-        return write({ args: [typedData.value] });
+        return await write({ args: [typedData.value] });
       }
+
       return;
     }
 
-    return write({ args: [typedData.value] });
+    return await write({ args: [typedData.value] });
   };
 
   const [createBlockProfilesTypedData] =
@@ -173,10 +175,6 @@ const BlockOrUnBlockProfile: FC = () => {
 
   const blockOrUnblock = async () => {
     if (!currentProfile) {
-      return;
-    }
-
-    if (handleWrongNetwork()) {
       return;
     }
 

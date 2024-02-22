@@ -63,7 +63,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
-  const { data: writeHash, writeContract } = useWriteContract({
+  const { data: writeHash, writeContractAsync } = useWriteContract({
     mutation: {
       onError: (error) => {
         onError(error);
@@ -76,8 +76,8 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
     }
   });
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       abi: LensHub,
       address: LENSHUB_PROXY,
       args,
@@ -94,7 +94,6 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
     useCreateChangeProfileManagersTypedDataMutation({
       onCompleted: async ({ createChangeProfileManagersTypedData }) => {
         const { id, typedData } = createChangeProfileManagersTypedData;
-        const signature = await signTypedDataAsync(getSignature(typedData));
         const {
           approvals,
           configNumber,
@@ -109,18 +108,21 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
           configNumber,
           switchToGivenConfig
         ];
+        await handleWrongNetwork();
 
         if (!isTba && canBroadcast) {
+          const signature = await signTypedDataAsync(getSignature(typedData));
           const { data } = await broadcastOnchain({
             variables: { request: { id, signature } }
           });
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return write({ args });
+            return await write({ args });
           }
+
           return;
         }
 
-        return write({ args });
+        return await write({ args });
       },
       onError
     });
@@ -128,10 +130,6 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   const toggleDispatcher = async () => {
     if (isSuspended) {
       return toast.error(Errors.Suspended);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
     }
 
     try {

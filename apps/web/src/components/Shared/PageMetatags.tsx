@@ -16,18 +16,6 @@ const PageMetatags: FC = () => {
           title: `Explore • ${APP_NAME}`
         };
       }
-      case '/new/profile': {
-        return {
-          description: `Create new Lens profile on ${APP_NAME}.`,
-          title: `Create Profile • ${APP_NAME}`
-        };
-      }
-      case '/pro': {
-        return {
-          description: `${APP_NAME} Pro is a paid subscription that gives you access to more features and benefits.`,
-          title: `Pro • ${APP_NAME}`
-        };
-      }
       case '/support': {
         return {
           description: `Contact ${APP_NAME} support team.`,

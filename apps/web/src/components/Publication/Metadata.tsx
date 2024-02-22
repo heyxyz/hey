@@ -6,7 +6,7 @@ import { FeatureFlag } from '@hey/data/feature-flags';
 import getPublicationData from '@hey/lib/getPublicationData';
 import { Card } from '@hey/ui';
 import getAssetLicense from '@lib/getAssetLicense';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
+import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { memo } from 'react';
 
 interface MetadataProps {
@@ -17,7 +17,7 @@ const Metadata: FC<MetadataProps> = ({ metadata }) => {
   const filteredAsset = getPublicationData(metadata)?.asset;
   const license = getAssetLicense(filteredAsset?.license);
 
-  if (!isFeatureEnabled(FeatureFlag.Staff)) {
+  if (!isFeatureAvailable(FeatureFlag.Staff)) {
     return null;
   }
 

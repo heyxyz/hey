@@ -17,7 +17,7 @@ const validationSchema = object({
   serviceId: string()
 });
 
-export const post: Handler = async (req, res) => {
+export const post: Handler = (req, res) => {
   const { body } = req;
 
   if (!body) {

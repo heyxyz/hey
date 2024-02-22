@@ -3,11 +3,13 @@ import type { FC } from 'react';
 
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { FeatureFlag } from '@hey/data/feature-flags';
+import { KillSwitch } from '@hey/data/kill-switches';
 import getAvatar from '@hey/lib/getAvatar';
 import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import isFeatureAvailable from '@lib/isFeatureAvailable';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import Link from 'next/link';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
@@ -16,11 +18,10 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 import Slug from '../Slug';
 import AppVersion from './NavItems/AppVersion';
 import Bookmarks from './NavItems/Bookmarks';
+import CreateGroup from './NavItems/CreateGroup';
 import GardenerMode from './NavItems/GardenerMode';
 import Invites from './NavItems/Invites';
 import Logout from './NavItems/Logout';
-import Mod from './NavItems/Mod';
-import Pro from './NavItems/Pro';
 import Settings from './NavItems/Settings';
 import StaffMode from './NavItems/StaffMode';
 import Support from './NavItems/Support';
@@ -89,17 +90,12 @@ const MobileDrawerMenu: FC = () => {
               className={cn(itemClass, 'px-4')}
               onClick={closeDrawer}
             />
-            {isFeatureEnabled(FeatureFlag.Gardener) ||
-            isFeatureEnabled(FeatureFlag.TrustedProfile) ? (
-              <Link href="/mod" onClick={closeDrawer}>
-                <Mod className={cn(itemClass, 'px-4')} />
-              </Link>
-            ) : null}
-            <Invites className={cn(itemClass, 'px-4')} />
-            {isFeatureEnabled('pro') && (
-              <Link href="/pro" onClick={closeDrawer}>
-                <Pro className={cn(itemClass, 'px-4')} />
-              </Link>
+            <CreateGroup
+              className={cn(itemClass, 'px-4')}
+              onClick={closeDrawer}
+            />
+            {isFeatureEnabled(KillSwitch.Invites) && (
+              <Invites className={cn(itemClass, 'px-4')} />
             )}
             <ThemeSwitch
               className={cn(itemClass, 'px-4')}
@@ -123,7 +119,7 @@ const MobileDrawerMenu: FC = () => {
             />
           </div>
           <div className="divider" />
-          {isFeatureEnabled(FeatureFlag.Gardener) ? (
+          {isFeatureAvailable(FeatureFlag.Gardener) ? (
             <>
               <div
                 className="hover:bg-gray-200 dark:hover:bg-gray-800"
@@ -134,7 +130,7 @@ const MobileDrawerMenu: FC = () => {
               <div className="divider" />
             </>
           ) : null}
-          {isFeatureEnabled(FeatureFlag.Staff) ? (
+          {isFeatureAvailable(FeatureFlag.Staff) ? (
             <>
               <div
                 className="hover:bg-gray-200 dark:hover:bg-gray-800"

@@ -1,18 +1,22 @@
 import type { Group } from '@hey/types/hey';
 import type { FC, ReactNode } from 'react';
 
+import LazySmallUserProfile from '@components/Shared/LazySmallUserProfile';
 import Markup from '@components/Shared/Markup';
 import Slug from '@components/Shared/Slug';
-import { ClockIcon } from '@heroicons/react/24/outline';
+import { ClockIcon, UserIcon } from '@heroicons/react/24/outline';
 import { FireIcon } from '@heroicons/react/24/solid';
 import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
 import formatDate from '@hey/lib/datetime/formatDate';
 import getMentions from '@hey/lib/getMentions';
+import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import { Image, LightBox, Tooltip } from '@hey/ui';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useState } from 'react';
 import urlcat from 'urlcat';
+
+import Membership from './Membership';
 
 interface DetailsProps {
   group: Group;
@@ -42,8 +46,8 @@ const Details: FC<DetailsProps> = ({ group }) => {
           alt={group.slug}
           className="size-32 cursor-pointer rounded-xl bg-gray-200 ring-8 ring-gray-50 sm:size-52 dark:bg-gray-700 dark:ring-black"
           height={128}
-          onClick={() => setExpandedImage(group.avatar)}
-          src={group.avatar}
+          onClick={() => setExpandedImage(sanitizeDStorageUrl(group.avatar))}
+          src={sanitizeDStorageUrl(group.avatar)}
           width={128}
         />
         <LightBox
@@ -68,6 +72,7 @@ const Details: FC<DetailsProps> = ({ group }) => {
           {group.description}
         </Markup>
       </div>
+      <Membership group={group} />
       <div className="space-y-5">
         <div className="divider w-full" />
         <div className="space-y-2">
@@ -160,6 +165,13 @@ const Details: FC<DetailsProps> = ({ group }) => {
           <MetaDetails icon={<ClockIcon className="size-4" />}>
             {formatDate(group.createdAt)}
           </MetaDetails>
+          {group.creatorId !== '0x00' ? (
+            <MetaDetails icon={<UserIcon className="size-4" />}>
+              <Tooltip content="Creator">
+                <LazySmallUserProfile id={group.creatorId} />
+              </Tooltip>
+            </MetaDetails>
+          ) : null}
         </div>
       </div>
     </div>

@@ -8,19 +8,8 @@ generator client {
 }
 
 model StaffPick {
-  id        String        @id
-  type      StaffPickType
-  score     Int           @default(0)
-  createdAt DateTime      @default(now())
-
-  // Indexes
-  @@index([type])
-  @@index([score])
-}
-
-enum StaffPickType {
-  PROFILE
-  GROUP
+  id        String   @id
+  createdAt DateTime @default(now())
 }
 
 model Preference {
@@ -49,21 +38,39 @@ model Group {
   instagram   String?
   featured    Boolean  @default(false)
   createdAt   DateTime @default(now())
+  creatorId   String
+
+  // Relations
+  members   GroupMember[]
+  favorites GroupFavorite[]
 
   // Indexes
   @@index([slug])
   @@index([featured])
 }
 
-model Pro {
-  profileId String   @id
-  stripeId  String   @unique // Stripe subscription ID
-  plan      String
+model GroupMember {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  profileId String
+  group     Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  groupId   String   @db.Uuid
   createdAt DateTime @default(now())
-  expiresAt DateTime
 
+  @@unique([groupId, profileId])
   // Indexes
-  @@index([plan])
+  @@index([profileId])
+}
+
+model GroupFavorite {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  profileId String
+  group     Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  groupId   String   @db.Uuid
+  createdAt DateTime @default(now())
+
+  @@unique([groupId, profileId])
+  // Indexes
+  @@index([profileId])
 }
 
 model Feature {
@@ -84,7 +91,6 @@ model Feature {
 
 enum FeatureType {
   FEATURE
-  KILL_SWITCH
   PERMISSION
   MODE
 }

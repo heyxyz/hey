@@ -3,9 +3,11 @@ import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
 import { HEY_API_URL } from '@hey/data/constants';
+import { STAFFTOOLS } from '@hey/data/tracking';
 import getAllFeatureFlags from '@hey/lib/api/getAllFeatureFlags';
 import { Toggle } from '@hey/ui';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
+import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
@@ -38,7 +40,7 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
   const availableFeatures = allFeatureFlags || [];
   const enabledFlags = flags;
 
-  const updateFeatureFlag = async (feature: Feature) => {
+  const updateFeatureFlag = (feature: Feature) => {
     const { id, key } = feature;
     const enabled = !enabledFlags.includes(key);
 
@@ -56,6 +58,10 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
         },
         loading: 'Updating feature flag...',
         success: () => {
+          Leafwatch.track(STAFFTOOLS.USERS.ASSIGN_FEATURE_FLAG, {
+            feature: key,
+            profile_id: profileId
+          });
           setUpdating(false);
           setFlags(
             enabled

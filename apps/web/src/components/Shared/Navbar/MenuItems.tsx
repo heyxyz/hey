@@ -1,12 +1,15 @@
 import type { FC } from 'react';
 
+import { KillSwitch } from '@hey/data/kill-switches';
 import getCurrentSession from '@lib/getCurrentSession';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import Link from 'next/link';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { isAddress } from 'viem';
 
 import LoginButton from './LoginButton';
 import SignedUser from './SignedUser';
+import SignupButton from './SignupButton';
 import WalletUser from './WalletUser';
 
 export const NextLink = ({ children, href, ...rest }: Record<string, any>) => (
@@ -28,7 +31,12 @@ const MenuItems: FC = () => {
     return <WalletUser />;
   }
 
-  return <LoginButton />;
+  return (
+    <div className="flex items-center space-x-2">
+      {isFeatureEnabled(KillSwitch.Signup) && <SignupButton />}
+      <LoginButton />
+    </div>
+  );
 };
 
 export default MenuItems;

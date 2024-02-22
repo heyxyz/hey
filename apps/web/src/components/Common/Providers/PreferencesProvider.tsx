@@ -22,7 +22,6 @@ const PreferencesProvider: FC = () => {
     (state) => state.setHighSignalNotificationFilter
   );
   const setIsPride = usePreferencesStore((state) => state.setIsPride);
-  const setIsPro = usePreferencesStore((state) => state.setIsPro);
   const setRestriction = useProfileRestriction((state) => state.setRestriction);
   const setHasDismissedOrMintedMembershipNft = usePreferencesStore(
     (state) => state.setHasDismissedOrMintedMembershipNft
@@ -30,10 +29,6 @@ const PreferencesProvider: FC = () => {
   const setFeatureFlags = useFeatureFlagsStore(
     (state) => state.setFeatureFlags
   );
-  const setKillSwitches = useFeatureFlagsStore(
-    (state) => state.setKillSwitches
-  );
-  const setTrusted = useFeatureFlagsStore((state) => state.setTrusted);
   const setStaffMode = useFeatureFlagsStore((state) => state.setStaffMode);
   const setGardenerMode = useFeatureFlagsStore(
     (state) => state.setGardenerMode
@@ -54,12 +49,8 @@ const PreferencesProvider: FC = () => {
         );
         setIsPride(preferences.isPride);
 
-        // Pro
-        setIsPro(preferences.isPro);
-
         // Feature flags
         setFeatureFlags(preferences.features);
-        setKillSwitches(preferences.switches);
         setStaffMode(preferences.features.includes(FeatureFlag.StaffMode));
         setGardenerMode(
           preferences?.features.includes(FeatureFlag.GardenerMode)
@@ -68,7 +59,6 @@ const PreferencesProvider: FC = () => {
           isFlagged: preferences.features.includes(FeatureFlag.Flagged),
           isSuspended: preferences.features.includes(FeatureFlag.Suspended)
         });
-        setTrusted(preferences.features.includes(FeatureFlag.TrustedProfile));
 
         // Membership NFT
         setHasDismissedOrMintedMembershipNft(

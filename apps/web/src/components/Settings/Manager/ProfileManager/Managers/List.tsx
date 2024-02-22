@@ -71,12 +71,12 @@ const List: FC = () => {
   });
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
-  const { writeContract } = useWriteContract({
+  const { writeContractAsync } = useWriteContract({
     mutation: { onError, onSuccess: () => onCompleted() }
   });
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       abi: LensHub,
       address: LENSHUB_PROXY,
       args,
@@ -92,8 +92,6 @@ const List: FC = () => {
     useCreateChangeProfileManagersTypedDataMutation({
       onCompleted: async ({ createChangeProfileManagersTypedData }) => {
         const { id, typedData } = createChangeProfileManagersTypedData;
-        const signature = await signTypedDataAsync(getSignature(typedData));
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
         const {
           approvals,
           configNumber,
@@ -108,18 +106,22 @@ const List: FC = () => {
           configNumber,
           switchToGivenConfig
         ];
+        await handleWrongNetwork();
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
 
         if (canBroadcast) {
+          const signature = await signTypedDataAsync(getSignature(typedData));
           const { data } = await broadcastOnchain({
             variables: { request: { id, signature } }
           });
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return write({ args });
+            return await write({ args });
           }
+
           return;
         }
 
-        return write({ args });
+        return await write({ args });
       },
       onError
     });
@@ -127,10 +129,6 @@ const List: FC = () => {
   const removeManager = async (address: Address) => {
     if (isSuspended) {
       return toast.error(Errors.Suspended);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
     }
 
     try {

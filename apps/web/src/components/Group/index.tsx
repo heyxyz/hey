@@ -9,9 +9,10 @@ import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
-import { useEffectOnce } from 'usehooks-ts';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import Details from './Details';
 import Feed from './Feed';
@@ -22,16 +23,17 @@ const ViewGroup: NextPage = () => {
     isReady,
     query: { slug }
   } = useRouter();
+  const currentProfile = useProfileStore((state) => state.currentProfile);
 
-  useEffectOnce(() => {
+  useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'group' });
-  });
+  }, []);
 
   const fetchGroup = async (): Promise<Group> => {
     const response: {
       data: { result: Group };
     } = await axios.get(`${HEY_API_URL}/groups/get`, {
-      params: { slug }
+      params: { slug, viewer: currentProfile?.id }
     });
 
     return response.data?.result;

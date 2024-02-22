@@ -6,7 +6,6 @@ import NewPost from '@components/Composer/Post/New';
 import {
   APP_NAME,
   HANDLE_PREFIX,
-  IS_MAINNET,
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
@@ -15,13 +14,12 @@ import getProfile from '@hey/lib/getProfile';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import { ProfileFeedType } from 'src/enums';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce } from 'usehooks-ts';
 
-import Achievements from './Achievements';
 import Cover from './Cover';
 import Details from './Details';
 import Feed from './Feed';
@@ -31,20 +29,25 @@ import ProfilePageShimmer from './Shimmer';
 const ViewProfile: NextPage = () => {
   const {
     isReady,
-    query: { handle, id, type }
+    query: { handle, id, source, type }
   } = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'profile' });
-  });
+  useEffect(() => {
+    if (isReady) {
+      Leafwatch.track(PAGEVIEW, {
+        page: 'profile',
+        ...(source ? { source } : {})
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handle, id]);
 
   const lowerCaseProfileFeedType = [
     ProfileFeedType.Feed.toLowerCase(),
     ProfileFeedType.Replies.toLowerCase(),
     ProfileFeedType.Media.toLowerCase(),
-    ProfileFeedType.Collects.toLowerCase(),
-    ProfileFeedType.Stats.toLowerCase()
+    ProfileFeedType.Collects.toLowerCase()
   ];
 
   const feedType = type
@@ -107,9 +110,6 @@ const ViewProfile: NextPage = () => {
               profileId={profile.id}
               type={feedType}
             />
-          ) : null}
-          {feedType === ProfileFeedType.Stats && IS_MAINNET ? (
-            <Achievements profile={profile as Profile} />
           ) : null}
         </GridItemEight>
       </GridLayout>

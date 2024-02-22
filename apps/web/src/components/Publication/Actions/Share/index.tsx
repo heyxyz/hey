@@ -17,12 +17,12 @@ import Mirror from './Mirror';
 import Quote from './Quote';
 import UndoMirror from './UndoMirror';
 
-interface PublicationMenuProps {
+interface ShareMenuProps {
   publication: AnyPublication;
   showCount: boolean;
 }
 
-const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
+const ShareMenu: FC<ShareMenuProps> = ({ publication, showCount }) => {
   const [isLoading, setIsLoading] = useState(false);
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn

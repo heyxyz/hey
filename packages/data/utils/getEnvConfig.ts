@@ -6,8 +6,10 @@ import LensEndpoint from '../lens-endpoints';
 const getEnvConfig = (): {
   defaultCollectToken: string;
   heyApiEndpoint: string;
+  heyLensSignup: `0x${string}`;
   lensApiEndpoint: string;
   lensHubProxyAddress: `0x${string}`;
+  permissionlessCreator?: `0x${string}`;
   publicActProxyAddress: `0x${string}`;
   tokenHandleRegistry: `0x${string}`;
 } => {
@@ -16,8 +18,10 @@ const getEnvConfig = (): {
       return {
         defaultCollectToken: TestnetContracts.DefaultToken,
         heyApiEndpoint: HeyEndpoint.Testnet,
+        heyLensSignup: TestnetContracts.HeyLensSignup,
         lensApiEndpoint: LensEndpoint.Testnet,
         lensHubProxyAddress: TestnetContracts.LensHubProxy,
+        permissionlessCreator: TestnetContracts.PermissionlessCreator,
         publicActProxyAddress: TestnetContracts.PublicActProxy,
         tokenHandleRegistry: TestnetContracts.TokenHandleRegistry
       };
@@ -25,8 +29,10 @@ const getEnvConfig = (): {
       return {
         defaultCollectToken: TestnetContracts.DefaultToken,
         heyApiEndpoint: HeyEndpoint.Staging,
+        heyLensSignup: TestnetContracts.HeyLensSignup,
         lensApiEndpoint: LensEndpoint.Staging,
         lensHubProxyAddress: TestnetContracts.LensHubProxy,
+        permissionlessCreator: TestnetContracts.PermissionlessCreator,
         publicActProxyAddress: TestnetContracts.PublicActProxy,
         tokenHandleRegistry: TestnetContracts.TokenHandleRegistry
       };
@@ -34,8 +40,10 @@ const getEnvConfig = (): {
       return {
         defaultCollectToken: MainnetContracts.DefaultToken,
         heyApiEndpoint: HeyEndpoint.Mainnet,
+        heyLensSignup: MainnetContracts.HeyLensSignup,
         lensApiEndpoint: LensEndpoint.Mainnet,
         lensHubProxyAddress: MainnetContracts.LensHubProxy,
+        permissionlessCreator: MainnetContracts.PermissionlessCreator,
         publicActProxyAddress: MainnetContracts.PublicActProxy,
         tokenHandleRegistry: MainnetContracts.TokenHandleRegistry
       };

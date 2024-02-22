@@ -95,7 +95,7 @@ const SuperFollow: FC = () => {
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
 
-  const { writeContract } = useWriteContract({
+  const { writeContractAsync } = useWriteContract({
     mutation: {
       onError: (error) => {
         onError(error);
@@ -108,8 +108,8 @@ const SuperFollow: FC = () => {
     }
   });
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       abi: LensHub,
       address: LENSHUB_PROXY,
       args,
@@ -128,6 +128,7 @@ const SuperFollow: FC = () => {
         const { followModule, followModuleInitData, profileId } =
           typedData.value;
         const args = [profileId, followModule, followModuleInitData];
+        await handleWrongNetwork();
 
         if (canBroadcast) {
           const signature = await signTypedDataAsync(getSignature(typedData));
@@ -135,13 +136,13 @@ const SuperFollow: FC = () => {
             variables: { request: { id, signature } }
           });
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return write({ args });
+            return await write({ args });
           }
 
           return;
         }
 
-        return write({ args });
+        return await write({ args });
       },
       onError
     });
@@ -156,10 +157,6 @@ const SuperFollow: FC = () => {
 
     if (isSuspended) {
       return toast.error(Errors.Suspended);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
     }
 
     try {

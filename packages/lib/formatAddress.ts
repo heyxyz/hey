@@ -12,6 +12,8 @@ const formatAddress = (address: null | string, slice = 4): string => {
     return '';
   }
 
+  address = address.toLowerCase();
+
   if (isAddress(address)) {
     return `${address.slice(0, slice + 2)}…${address.slice(
       address.length - slice

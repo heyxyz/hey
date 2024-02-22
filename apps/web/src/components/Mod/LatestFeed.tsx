@@ -3,10 +3,12 @@ import type {
   CustomFiltersType,
   ExplorePublicationRequest,
   ExplorePublicationType,
+  MirrorablePublication,
   PublicationMetadataMainFocusType
 } from '@hey/lens';
 import type { FC } from 'react';
 
+import GardenerActions from '@components/Publication/Actions/GardenerActions';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
@@ -18,8 +20,6 @@ import {
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { useEffect } from 'react';
 import { useInView } from 'react-cool-inview';
-
-import Actions from './Actions';
 
 interface LatestFeedProps {
   apps: null | string[];
@@ -40,7 +40,7 @@ const LatestFeed: FC<LatestFeedProps> = ({
 }) => {
   // Variables
   const request: ExplorePublicationRequest = {
-    limit: LimitType.TwentyFive,
+    limit: LimitType.Fifty,
     orderBy: ExplorePublicationsOrderByType.Latest,
     where: {
       customFilters,
@@ -107,7 +107,15 @@ const LatestFeed: FC<LatestFeedProps> = ({
             showActions={false}
             showThread={false}
           />
-          <Actions publicationId={publication.id} />
+          <div>
+            <div className="divider" />
+            <div className="m-5 space-y-2">
+              <b>Gardener actions</b>
+              <GardenerActions
+                publication={publication as MirrorablePublication}
+              />
+            </div>
+          </div>
         </Card>
       ))}
       {hasMore ? <span ref={observe} /> : null}

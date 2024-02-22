@@ -16,6 +16,8 @@ import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
+import useHandleWrongNetwork from './useHandleWrongNetwork';
+
 interface CreatePublicationProps {
   signlessApproved?: boolean;
   successToast?: string;
@@ -33,6 +35,7 @@ const useActOnUnknownOpenAction = ({
     (state) => state.setLensHubOnchainSigNonce
   );
   const [isLoading, setIsLoading] = useState(false);
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   /*   const { canBroadcast, canUseLensManager } =
     checkDispatcherPermissions(currentProfile);
@@ -62,7 +65,7 @@ const useActOnUnknownOpenAction = ({
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
-  const { writeContract } = useWriteContract({
+  const { writeContractAsync } = useWriteContract({
     mutation: {
       onError: (error) => {
         onError(error);
@@ -75,8 +78,8 @@ const useActOnUnknownOpenAction = ({
     }
   });
 
-  const write = ({ args }: { args: any }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any }) => {
+    return await writeContractAsync({
       abi: LensHub,
       address: LENSHUB_PROXY,
       args,
@@ -93,6 +96,7 @@ const useActOnUnknownOpenAction = ({
     useCreateActOnOpenActionTypedDataMutation({
       onCompleted: async ({ createActOnOpenActionTypedData }) => {
         const { id, typedData } = createActOnOpenActionTypedData;
+        await handleWrongNetwork();
 
         if (canBroadcast) {
           const signature = await signTypedDataAsync(getSignature(typedData));
@@ -100,14 +104,14 @@ const useActOnUnknownOpenAction = ({
             variables: { request: { id, signature } }
           });
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return write({ args: [typedData.value] });
+            return await write({ args: [typedData.value] });
           }
           setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
 
           return;
         }
 
-        return write({ args: [typedData.value] });
+        return await write({ args: [typedData.value] });
       },
       onError
     });

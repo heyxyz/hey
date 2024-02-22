@@ -4,7 +4,6 @@ import NewPublication from '@components/Composer/NewPublication';
 import ReportPublication from '@components/Shared/Modal/ReportPublication';
 import {
   ArrowRightCircleIcon,
-  EyeIcon,
   ShieldCheckIcon,
   TicketIcon
 } from '@heroicons/react/24/outline';
@@ -15,15 +14,17 @@ import { usePublicationPollStore } from 'src/store/non-persisted/publication/use
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useAccount } from 'wagmi';
 
-import Login from './Login';
-import WrongNetwork from './Login/WrongNetwork';
+import Auth from './Auth';
+import { useSignupStore } from './Auth/Signup';
 import Invites from './Modal/Invites';
 import ReportProfile from './Modal/ReportProfile';
-import Views from './Modal/Views';
 import SwitchProfiles from './SwitchProfiles';
 
 const GlobalModals: FC = () => {
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   // Report modal state
   const showPublicationReportModal = useGlobalModalStateStore(
     (state) => state.showPublicationReportModal
@@ -49,14 +50,11 @@ const GlobalModals: FC = () => {
   const showAuthModal = useGlobalModalStateStore(
     (state) => state.showAuthModal
   );
+  const authModalType = useGlobalModalStateStore(
+    (state) => state.authModalType
+  );
   const setShowAuthModal = useGlobalModalStateStore(
     (state) => state.setShowAuthModal
-  );
-  const showWrongNetworkModal = useGlobalModalStateStore(
-    (state) => state.showWrongNetworkModal
-  );
-  const setShowWrongNetworkModal = useGlobalModalStateStore(
-    (state) => state.setShowWrongNetworkModal
   );
   const showInvitesModal = useGlobalModalStateStore(
     (state) => state.showInvitesModal
@@ -75,12 +73,6 @@ const GlobalModals: FC = () => {
   );
   const setShowDiscardModal = useGlobalModalStateStore(
     (state) => state.setShowDiscardModal
-  );
-  const setShowPublicationStatsModal = useGlobalModalStateStore(
-    (state) => state.setShowPublicationStatsModal
-  );
-  const showPublicationStatsModal = useGlobalModalStateStore(
-    (state) => state.showPublicationStatsModal
   );
 
   // Publication store
@@ -109,6 +101,8 @@ const GlobalModals: FC = () => {
     (state) => state.showPollEditor
   );
   const pollConfig = usePublicationPollStore((state) => state.pollConfig);
+  const signupScreen = useSignupStore((state) => state.screen);
+  const { address } = useAccount();
 
   const checkIfPublicationNotDrafted = () => {
     if (
@@ -126,6 +120,13 @@ const GlobalModals: FC = () => {
     }
     return false;
   };
+  const showSignupModalTitle = signupScreen === 'choose';
+  const authModalTitle =
+    authModalType === 'signup'
+      ? showSignupModalTitle
+        ? 'Signup'
+        : null
+      : 'Login';
 
   return (
     <>
@@ -150,25 +151,18 @@ const GlobalModals: FC = () => {
       <Modal
         onClose={() => setShowProfileSwitchModal(false)}
         show={showProfileSwitchModal}
-        size="xs"
+        size={currentProfile?.ownedBy.address !== address ? 'sm' : 'xs'}
         title="Switch Profile"
       >
         <SwitchProfiles />
       </Modal>
       <Modal
         icon={<ArrowRightCircleIcon className="text-brand-500 size-5" />}
-        onClose={() => setShowAuthModal(false)}
+        onClose={() => setShowAuthModal(false, authModalType)}
         show={showAuthModal}
-        title="Login"
+        title={authModalTitle}
       >
-        <Login />
-      </Modal>
-      <Modal
-        onClose={() => setShowWrongNetworkModal(false)}
-        show={showWrongNetworkModal}
-        title="Wrong Network"
-      >
-        <WrongNetwork />
+        <Auth />
       </Modal>
       <Modal
         onClose={() => {
@@ -191,14 +185,6 @@ const GlobalModals: FC = () => {
         title="Invites"
       >
         <Invites />
-      </Modal>
-      <Modal
-        icon={<EyeIcon className="text-brand-500 size-5" />}
-        onClose={() => setShowPublicationStatsModal(false, null)}
-        show={showPublicationStatsModal}
-        title="Views"
-      >
-        <Views />
       </Modal>
     </>
   );

@@ -1,0 +1,15 @@
+{
+  "name": "@hey/contracts",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0",
+  "devDependencies": {
+    "@hey/config": "workspace:*",
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@openzeppelin/contracts": "^5.0.1",
+    "@openzeppelin/contracts-upgradeable": "^5.0.1",
+    "@openzeppelin/hardhat-upgrades": "^3.0.3",
+    "dotenv": "^16.4.5",
+    "hardhat": "^2.20.1"
+  }
+}
