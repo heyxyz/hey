@@ -4,24 +4,20 @@ import type {
   UnknownOpenActionModuleSettings
 } from '@hey/lens';
 import type { Nft } from '@hey/types/misc';
-import type { ActionData, PublicationInfo } from 'nft-openaction-kit-preview';
-import type { FC } from 'react';
+import type { ActionData, PublicationInfo } from 'nft-openaction-kit';
 
 import MintedBy from '@components/Shared/Oembed/Nft/MintedBy';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
-import { TipIcon } from '@hey/icons';
 import getNftChainInfo from '@hey/lib/getNftChainInfo';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button, Card, Modal, Tooltip } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { NftOpenActionKit } from 'nft-openaction-kit-preview';
-import { useState } from 'react';
-import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
-import { useEffectOnce } from 'usehooks-ts';
+import { NftOpenActionKit } from 'nft-openaction-kit';
+import { type FC, useEffect, useState } from 'react';
 import { useAccount } from 'wagmi';
 
 import DecentOpenActionModule from './Module';
@@ -67,9 +63,9 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
 
   const { address } = useAccount();
 
-  useEffectOnce(() => {
+  useEffect(() => {
     const actionDataFromPost = async () => {
-      if (module) {
+      if (module && address && !actionData) {
         const nftOpenActionKit = new NftOpenActionKit({
           decentApiKey: process.env.NEXT_PUBLIC_DECENT_API_KEY || '',
           openSeaApiKey: process.env.NEXT_PUBLIC_OPENSEA_API_KEY || '',
@@ -79,12 +75,22 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
         // Call the async function and pass the link
         try {
           const pubInfo = formatPublicationData(targetPublication);
+          const a = [
+            pubInfo,
+            targetPublication.by.id,
+            targetPublication.by.ownedBy.address,
+            address || '',
+            '137', // TODO: determined by selected payment token
+            1n // TODO: 1155 token quantity
+          ];
           const actionDataResult: ActionData =
             await nftOpenActionKit.actionDataFromPost(
               pubInfo,
-              '',
-              address || '',
-              ''
+              targetPublication.by.id,
+              targetPublication.by.ownedBy.address,
+              address,
+              '137', // TODO: determined by selected payment token
+              1n // TODO: 1155 token quantity
             );
           if (actionDataResult) {
             setActionData(actionDataResult);
@@ -96,22 +102,7 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
     };
 
     actionDataFromPost();
-  });
-
-  const { actOnUnknownOpenAction, isLoading } = useActOnUnknownOpenAction({
-    signlessApproved: false, // TODO: module.signlessApproved
-    successToast: 'Initiated cross-chain NFT mint!'
-  });
-
-  const act = async () => {
-    if (actionData && targetPublication) {
-      return await actOnUnknownOpenAction({
-        address: VerifiedOpenActionModules.DecentNFT as `0x${string}`,
-        data: actionData.actArguments.actionModuleData,
-        publicationId: targetPublication.id
-      });
-    }
-  };
+  }, [actionData, address, module, targetPublication]);
 
   if (!module) {
     return null;
@@ -146,29 +137,36 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
             ) : null}
             <div className="text-sm font-bold">{nft.collectionName}</div>
           </div>
-          <Button
-            className="text-sm"
-            icon={<CursorArrowRaysIcon className="size-4" />}
-            onClick={() => {
-              setShowOpenActionModal(true);
-              Leafwatch.track(PUBLICATION.OPEN_ACTIONS.DECENT.OPEN_DECENT, {
-                publication_id: publication.id
-              });
-            }}
-            size="md"
-          >
-            Mint
-          </Button>
+          {!!actionData && (
+            <Button
+              className="text-sm"
+              icon={<CursorArrowRaysIcon className="size-4" />}
+              onClick={() => {
+                setShowOpenActionModal(true);
+                Leafwatch.track(PUBLICATION.OPEN_ACTIONS.DECENT.OPEN_DECENT, {
+                  publication_id: publication.id
+                });
+              }}
+              size="md"
+            >
+              Mint
+            </Button>
+          )}
         </div>
       </Card>
       <Modal
-        icon={<TipIcon className="text-brand-500 size-5" />}
         onClose={() => setShowOpenActionModal(false)}
         show={showOpenActionModal}
-        title="Mint NFT"
+        title={
+          actionData?.uiData.platformName
+            ? `Mint on ${actionData?.uiData.platformName}`
+            : 'Mint NFT'
+        }
       >
         <DecentOpenActionModule
+          actionData={actionData}
           module={module as UnknownOpenActionModuleSettings}
+          nft={nft}
           publication={targetPublication}
         />
       </Modal>

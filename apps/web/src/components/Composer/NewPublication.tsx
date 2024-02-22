@@ -43,7 +43,7 @@ import uploadToArweave from '@lib/uploadToArweave';
 import { useUnmountEffect } from 'framer-motion';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
-import { NftOpenActionKit } from 'nft-openaction-kit-preview';
+import { NftOpenActionKit } from 'nft-openaction-kit';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useCreatePoll from 'src/hooks/useCreatePoll';

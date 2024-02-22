@@ -101,6 +101,15 @@ const DecentAction: FC<DecentActionProps> = ({
     );
   }
 
+  if (!hasAmount) {
+    return (
+      <WarningMessage
+        className="mt-5 w-full"
+        message={<NoBalanceError moduleAmount={moduleAmount as Amount} />}
+      />
+    );
+  }
+
   if (!allowed) {
     return (
       <AllowanceButton
@@ -111,16 +120,7 @@ const DecentAction: FC<DecentActionProps> = ({
             ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult
         }
         setAllowed={setAllowed}
-        title="Enable open action"
-      />
-    );
-  }
-
-  if (!hasAmount) {
-    return (
-      <WarningMessage
-        className="mt-5 w-full"
-        message={<NoBalanceError moduleAmount={moduleAmount as Amount} />}
+        title="Approve WMATIC Token Allowance"
       />
     );
   }

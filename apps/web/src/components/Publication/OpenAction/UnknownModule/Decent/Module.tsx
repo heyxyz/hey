@@ -3,51 +3,51 @@ import type {
   UnknownOpenActionModuleSettings
 } from '@hey/lens';
 import type { AllowedToken } from '@hey/types/hey';
+import type { Nft } from '@hey/types/misc';
+import type { ActionData } from 'nft-openaction-kit';
 import type { Address } from 'viem';
 
-import Loader from '@components/Shared/Loader';
 import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
+import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { TipIcon } from '@hey/icons';
-import { useModuleMetadataQuery } from '@hey/lens';
-import getAllTokens from '@hey/lib/api/getAllTokens';
-import getAssetSymbol from '@hey/lib/getAssetSymbol';
 import getRedstonePrice from '@hey/lib/getRedstonePrice';
-import { RangeSlider, Select } from '@hey/ui';
-import { useQuery } from '@tanstack/react-query';
+import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
+import Link from 'next/link';
 import { type FC, useState } from 'react';
-import toast from 'react-hot-toast';
 import { CHAIN } from 'src/constants';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
 import { useUpdateEffect } from 'usehooks-ts';
-import { encodeAbiParameters, formatUnits, parseUnits } from 'viem';
+import { formatUnits } from 'viem';
 import { useAccount, useBalance } from 'wagmi';
 
 import DecentAction from './DecentAction';
 
 interface DecentOpenActionModuleProps {
+  actionData?: ActionData;
   module: UnknownOpenActionModuleSettings;
+  nft: Nft;
   publication: MirrorablePublication;
 }
 
 const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
+  actionData,
   module,
+  nft,
   publication
 }) => {
-  const [selectedCurrency, setSelectedCurrency] = useState<AllowedToken | null>(
-    null
-  );
-  const [usdPrice, setUsdPrice] = useState(0);
-  const [tip, setTip] = useState({
-    currency: DEFAULT_COLLECT_TOKEN,
-    value: [5]
+  const [selectedCurrency, setSelectedCurrency] = useState<AllowedToken>({
+    contractAddress: DEFAULT_COLLECT_TOKEN,
+    decimals: 18,
+    id: 'WMATIC',
+    name: 'Wrapped MATIC',
+    symbol: 'WMATIC'
   });
+  const [usdPrice, setUsdPrice] = useState(0);
 
   const { address } = useAccount();
 
   const getUsdPrice = async () => {
-    const usdPrice = await getRedstonePrice(
-      getAssetSymbol(selectedCurrency?.symbol as string)
-    );
+    const usdPrice = await getRedstonePrice('MATIC');
     setUsdPrice(usdPrice);
   };
 
@@ -61,93 +61,76 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     token: selectedCurrency?.contractAddress as Address
   });
 
-  const { data, loading } = useModuleMetadataQuery({
-    skip: !Boolean(module?.contract.address),
-    variables: { request: { implementation: module?.contract.address } }
-  });
-
-  const metadata = data?.moduleMetadata?.metadata;
-
   const { actOnUnknownOpenAction, isLoading } = useActOnUnknownOpenAction({
-    signlessApproved: module.signlessApproved,
-    successToast: "You've sent a tip!"
+    signlessApproved: false, // TODO: module.signlessApproved
+    successToast: 'Initiated cross-chain NFT mint!'
   });
-
-  const { data: allowedTokens, isLoading: loadingAllowedTokens } = useQuery({
-    queryFn: () =>
-      getAllTokens((tokens) =>
-        setSelectedCurrency(
-          tokens.find(
-            (token) => token.contractAddress === DEFAULT_COLLECT_TOKEN
-          ) as AllowedToken
-        )
-      ),
-    queryKey: ['getAllTokens']
-  });
-
-  if (loading || loadingAllowedTokens) {
-    return (
-      <div className="m-5">
-        <Loader message="Loading tip..." />
-      </div>
-    );
-  }
 
   const act = async () => {
-    if (usdPrice === 0) {
-      return toast.error('Failed to get USD price');
+    if (actionData && publication) {
+      return await actOnUnknownOpenAction({
+        address: VerifiedOpenActionModules.DecentNFT as `0x${string}`,
+        data: actionData.actArguments.actionModuleData,
+        publicationId: publication.id
+      });
     }
-
-    const abi = JSON.parse(metadata?.processCalldataABI);
-    const currency = allowedTokens?.find(
-      (token) => token.contractAddress === tip.currency
-    );
-
-    if (!currency) {
-      return toast.error('Currency not supported');
-    }
-
-    const amount = tip.value[0];
-    const usdValue = amount / usdPrice;
-
-    const calldata = encodeAbiParameters(abi, [
-      currency.contractAddress,
-      parseUnits(usdValue.toString(), currency.decimals).toString()
-    ]);
-
-    return await actOnUnknownOpenAction({
-      address: module.contract.address,
-      data: calldata,
-      publicationId: publication.id
-    });
   };
 
   const balance = balanceData
     ? parseFloat(
         formatUnits(balanceData.value, selectedCurrency?.decimals as number)
-      ).toFixed(selectedCurrency?.symbol === 'WETH' ? 4 : 2)
+      ).toFixed(2)
     : 0;
+
+  /* 
+  if (loadingAllowedTokens) {
+    return (
+      <div className="m-5">
+        <Loader message="Loading..." />
+      </div>
+    );
+  } */
+
+  const formattedPrice = actionData
+    ? (
+        actionData.actArgumentsFormatted.paymentToken.amount /
+        BigInt(10 ** selectedCurrency.decimals)
+      ).toString()
+    : '0';
 
   return (
     <div className="space-y-3 p-5">
-      <div className="flex items-center justify-between">
+      <div className="space-y-2 pb-4">
+        <div className="text-sm font-bold">{actionData?.uiData.nftName}</div>
+        {/*         {actionData?.uiData.nftCreatorAddress ? (
+          <MintedBy
+            address={actionData?.uiData.nftCreatorAddress as `0x${string}`}
+          />
+        ) : null} */}
+        <img
+          alt={actionData?.uiData.nftName}
+          className="h-[350px] max-h-[350px] w-full rounded-t-xl object-cover"
+          src={sanitizeDStorageUrl(actionData?.uiData.nftUri)}
+        />
+        <Link href={nft.sourceUrl} rel="noopener noreferrer" target="_blank">
+          <div>View on Pods</div>
+        </Link>
+      </div>
+      <div className="flex items-center justify-between pb-4">
         <div className="space-y-0.5">
-          <span className="space-x-1 text-2xl">
-            <span>$</span>
-            <b>{tip.value[0]}</b>
-          </span>
+          <span className="space-x-1 text-2xl">Price</span>
           <div className="ld-text-gray-500 text-sm">
-            {(tip.value[0] / usdPrice).toFixed(
+            $
+            {(Number(formattedPrice) * usdPrice).toFixed(
               selectedCurrency?.symbol === 'WETH' ? 4 : 2
             )}{' '}
-            {selectedCurrency?.symbol}
           </div>
         </div>
         <div className="flex w-5/12 flex-col items-end space-y-1">
-          <Select
+          {formattedPrice} {selectedCurrency?.symbol}
+          {/*          <Select
             defaultValue={DEFAULT_COLLECT_TOKEN}
             onChange={(e) => {
-              setTip({ ...tip, currency: e.target.value });
               setSelectedCurrency(
                 allowedTokens?.find(
                   (token) => token.contractAddress === e.target.value
@@ -158,16 +141,9 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
               label: token.name,
               value: token.contractAddress
             }))}
-          />
+          /> */}
           <div className="ld-text-gray-500 text-sm">Balance: {balance}</div>
         </div>
-      </div>
-      <div className="pb-3 pt-5">
-        <RangeSlider
-          min={1}
-          onValueChange={(value) => setTip({ ...tip, value })}
-          value={tip.value}
-        />
       </div>
       {selectedCurrency ? (
         <DecentAction
@@ -186,9 +162,9 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
               name: selectedCurrency.name,
               symbol: selectedCurrency.symbol
             },
-            value: tip.value[0].toString()
+            value: formattedPrice
           }}
-          title="Send Tip"
+          title="Mint NFT"
         />
       ) : null}
     </div>
