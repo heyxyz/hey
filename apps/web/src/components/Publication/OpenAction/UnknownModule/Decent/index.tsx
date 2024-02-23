@@ -6,8 +6,7 @@ import type {
 import type { Nft } from '@hey/types/misc';
 import type { ActionData, PublicationInfo } from 'nft-openaction-kit';
 
-import MintedBy from '@components/Shared/Oembed/Nft/MintedBy';
-import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
+import ActionInfo from '@components/Shared/Oembed/Nft/ActionInfo';
 import { PUBLICATION } from '@hey/data/tracking';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import getNftChainInfo from '@hey/lib/getNftChainInfo';
@@ -117,11 +116,8 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
             className="h-[350px] max-h-[350px] w-full rounded-t-xl object-cover"
             src={nft.mediaUrl}
           />
-          {nft.creatorAddress ? (
-            <MintedBy address={nft.creatorAddress} />
-          ) : null}
         </div>
-        <div className="flex items-center justify-between border-t px-3 py-2 dark:border-gray-700">
+        <div className="flex items-center justify-between border-t p-4 dark:border-gray-700">
           <div className="flex items-center space-x-2">
             {nft.chain ? (
               <Tooltip
@@ -135,19 +131,24 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
                 />
               </Tooltip>
             ) : null}
-            <div className="text-sm font-bold">{nft.collectionName}</div>
+            {nft.creatorAddress && actionData ? (
+              <ActionInfo
+                actionData={actionData}
+                collectionName={nft.collectionName}
+                creatorAddress={nft.creatorAddress}
+              />
+            ) : null}
           </div>
           {!!actionData && (
             <Button
-              className="text-sm"
-              icon={<CursorArrowRaysIcon className="size-4" />}
+              className="text-base font-normal"
               onClick={() => {
                 setShowOpenActionModal(true);
                 Leafwatch.track(PUBLICATION.OPEN_ACTIONS.DECENT.OPEN_DECENT, {
                   publication_id: publication.id
                 });
               }}
-              size="md"
+              size="lg"
             >
               Mint
             </Button>
