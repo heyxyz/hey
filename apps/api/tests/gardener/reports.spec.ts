@@ -11,6 +11,6 @@ describe('gardener/reports', () => {
     });
 
     expect(response.data.result.id).toEqual('0x4cb1-0x39');
-    expect(response.data.result.both).toBeGreaterThan(0);
+    expect(response.data.result.spam).toBeGreaterThan(0);
   });
 });
