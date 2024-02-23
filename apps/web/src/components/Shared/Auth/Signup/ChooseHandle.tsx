@@ -140,7 +140,6 @@ const ChooseHandle: FC = () => {
           : 'bc50d61b-dde2-477d-bb89-5453d0c665d8'
       })
     );
-    setTimeout(() => setLoading(false));
   };
 
   const disabled =
