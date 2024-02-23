@@ -84,7 +84,7 @@ export const post: Handler = async (req, res) => {
   const { data, meta } = parsedBody as ExtensionRequest;
   const { custom_data, test_mode } = meta;
   const { address, delegatedExecutor, handle } = custom_data;
-  const { order_number, user_email } = data.attributes;
+  const { order_number, user_email: email } = data.attributes;
 
   const allPrivateKeys = privateKeys.split(',');
   const randomPrivateKey =
@@ -111,13 +111,7 @@ export const post: Handler = async (req, res) => {
     const result = await clickhouseClient.insert({
       format: 'JSONEachRow',
       table: 'signups',
-      values: {
-        address,
-        email: user_email,
-        handle,
-        hash: hash,
-        order_number: order_number
-      }
+      values: { address, email, handle, hash, order_number }
     });
     // End: Log to Clickhouse
 
