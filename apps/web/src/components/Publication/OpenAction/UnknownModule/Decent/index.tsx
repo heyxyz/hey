@@ -7,6 +7,7 @@ import type { Nft } from '@hey/types/misc';
 import type { ActionData, PublicationInfo } from 'nft-openaction-kit';
 
 import ActionInfo from '@components/Shared/Oembed/Nft/ActionInfo';
+import DecentOpenActionShimmer from '@components/Shared/Shimmer/DecentOpenActionShimmer';
 import { PUBLICATION } from '@hey/data/tracking';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import getNftChainInfo from '@hey/lib/getNftChainInfo';
@@ -117,29 +118,29 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
             src={nft.mediaUrl}
           />
         </div>
-        <div className="flex items-center justify-between border-t p-4 dark:border-gray-700">
-          <div className="flex items-center space-x-2">
-            {nft.chain ? (
-              <Tooltip
-                content={getNftChainInfo(nft.chain).name}
-                placement="right"
-              >
-                <img
-                  alt={getNftChainInfo(nft.chain).name}
-                  className="size-5"
-                  src={getNftChainInfo(nft.chain).logo}
+        {!!actionData && nft ? (
+          <div className="flex items-center justify-between border-t p-4 dark:border-gray-700">
+            <div className="flex items-center space-x-2">
+              {nft.chain ? (
+                <Tooltip
+                  content={getNftChainInfo(nft.chain).name}
+                  placement="right"
+                >
+                  <img
+                    alt={getNftChainInfo(nft.chain).name}
+                    className="size-5"
+                    src={getNftChainInfo(nft.chain).logo}
+                  />
+                </Tooltip>
+              ) : null}
+              {nft.creatorAddress ? (
+                <ActionInfo
+                  actionData={actionData}
+                  collectionName={nft.collectionName}
+                  creatorAddress={nft.creatorAddress}
                 />
-              </Tooltip>
-            ) : null}
-            {nft.creatorAddress && actionData ? (
-              <ActionInfo
-                actionData={actionData}
-                collectionName={nft.collectionName}
-                creatorAddress={nft.creatorAddress}
-              />
-            ) : null}
-          </div>
-          {!!actionData && (
+              ) : null}
+            </div>
             <Button
               className="text-base font-normal"
               onClick={() => {
@@ -152,8 +153,10 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
             >
               Mint
             </Button>
-          )}
-        </div>
+          </div>
+        ) : (
+          <DecentOpenActionShimmer />
+        )}
       </Card>
       <Modal
         onClose={() => setShowOpenActionModal(false)}
