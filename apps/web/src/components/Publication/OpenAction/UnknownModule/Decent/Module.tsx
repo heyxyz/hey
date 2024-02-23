@@ -13,10 +13,9 @@ import { TipIcon } from '@hey/icons';
 import getRedstonePrice from '@hey/lib/getRedstonePrice';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import Link from 'next/link';
-import { type FC, useState } from 'react';
+import { type FC, useEffect, useState } from 'react';
 import { CHAIN } from 'src/constants';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
-import { useUpdateEffect } from 'usehooks-ts';
 import { formatUnits } from 'viem';
 import { useAccount, useBalance } from 'wagmi';
 
@@ -51,8 +50,9 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     setUsdPrice(usdPrice);
   };
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     getUsdPrice();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCurrency]);
 
   const { data: balanceData } = useBalance({
