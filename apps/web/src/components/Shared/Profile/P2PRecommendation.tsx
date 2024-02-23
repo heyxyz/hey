@@ -21,13 +21,13 @@ import toast from 'react-hot-toast';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
-interface LikeProps {
+interface P2PRecommendationProps {
   profile: Profile;
   recommendTitle?: string;
   unrecommendTitle?: string;
 }
 
-const P2PRecommendation: FC<LikeProps> = ({
+const P2PRecommendation: FC<P2PRecommendationProps> = ({
   profile,
   recommendTitle = 'Recommend',
   unrecommendTitle = 'Unrecommend'

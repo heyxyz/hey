@@ -40,6 +40,7 @@ import urlcat from 'urlcat';
 
 import Badges from './Badges';
 import Followerings from './Followerings';
+import GardenerTool from './GardenerTool';
 import InvitedBy from './InvitedBy';
 import ProfileMenu from './Menu';
 import MutualFollowers from './MutualFollowers';
@@ -54,6 +55,7 @@ interface DetailsProps {
 const Details: FC<DetailsProps> = ({ profile }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
+  const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
   const [showMutualFollowersModal, setShowMutualFollowersModal] =
     useState(false);
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
@@ -292,6 +294,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
         </>
       ) : null}
       <Badges onchainIdentity={profile.onchainIdentity} />
+      {gardenerMode && <GardenerTool profile={profile} />}
     </div>
   );
 };
