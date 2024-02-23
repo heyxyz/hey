@@ -106,21 +106,20 @@ export const post: Handler = async (req, res) => {
       functionName: 'createProfileWithHandle'
     });
 
-    // Log to Clickhouse
-    const values = {
-      address,
-      email: user_email,
-      handle,
-      hash: hash,
-      order_number: order_number
-    };
-
+    // Begin: Log to Clickhouse
     const clickhouseClient = createClickhouseClient();
     const result = await clickhouseClient.insert({
       format: 'JSONEachRow',
       table: 'impressions',
-      values
+      values: {
+        address,
+        email: user_email,
+        handle,
+        hash: hash,
+        order_number: order_number
+      }
     });
+    // End: Log to Clickhouse
 
     logger.info(
       `Minted Lens Profile for ${address} with handle ${handle} on ${hash}`
