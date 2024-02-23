@@ -6,6 +6,7 @@ import type {
 import type { AllowedToken } from '@hey/types/hey';
 import type { Nft } from '@hey/types/misc';
 import type { ActionData } from 'nft-openaction-kit';
+import type { Dispatch, FC } from 'react';
 import type { Address } from 'viem';
 
 import {
@@ -27,7 +28,7 @@ import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import truncateByWords from '@hey/lib/truncateByWords';
 import { HelpTooltip, Modal } from '@hey/ui';
 import Link from 'next/link';
-import { type FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CHAIN } from 'src/constants';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
 import { formatUnits } from 'viem';
@@ -40,6 +41,7 @@ import DecentAction from './DecentAction';
 const MOCK_DESCRIPTION =
   "I moved to Williamsburg because I needed a place to stay, but I'm staying because it's the web3 hub of NYC.  If you need an activity that isn't drinking or eating in NYC and you're not a tourist, you're probably going to Williamsburg.  I'm a big fan of the area and I'm excited to share my favorite spots with you. I moved to Williamsburg because I needed a place to stay, but I'm staying because it's the web3 hub of NYC.  If you need an activity that isn't drinking or eating in NYC and you're not a tourist, you're probably going to Williamsburg.  I'm a big fan of the area and I'm excited to share my favorite spots with you.";
 
+// TODO: change copy
 const TOOLTIP_PRICE_HELP =
   'You don’t have enough native Zora ETH so we switched you to the next token with the lowest gas that you have enough of (lol)';
 interface DecentOpenActionModuleProps {
@@ -48,6 +50,8 @@ interface DecentOpenActionModuleProps {
   nft: Nft;
   onClose: () => void;
   publication: MirrorablePublication;
+  selectedQuantity: number;
+  setSelectedQuantity: Dispatch<number>;
   show: boolean;
 }
 
@@ -57,6 +61,8 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   nft,
   onClose,
   publication,
+  selectedQuantity,
+  setSelectedQuantity,
   show
 }) => {
   const [selectedCurrency, setSelectedCurrency] = useState<AllowedToken>({
@@ -113,10 +119,10 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   });
 
   const formattedPrice = (
-    actionData
+    (actionData
       ? actionData.actArgumentsFormatted.paymentToken.amount /
         BigInt(10 ** selectedCurrency.decimals)
-      : BigInt(0)
+      : BigInt(0)) * BigInt(selectedQuantity)
   ).toString();
   const formattedTotalFees = (
     actionData
@@ -133,9 +139,6 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
 
   const [showLongDescription, setShowLongDescription] = useState(false);
   const [showFees, setShowFees] = useState(false);
-
-  // TODO: integrate selected quantity to the action
-  const [selectedQuantity, setSelectedQuantity] = useState(1);
 
   const [showCurrencySelector, setShowCurrencySelector] = useState(false);
 
@@ -222,14 +225,14 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                 <button
                   className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 disabled:opacity-50"
                   disabled={selectedQuantity === 1}
-                  onClick={() => setSelectedQuantity((v) => v - 1)}
+                  onClick={() => setSelectedQuantity(selectedQuantity - 1)}
                 >
                   <MinusIcon className="w-3 text-gray-600" strokeWidth={3} />
                 </button>
                 <span className="w-4 text-center">{selectedQuantity}</span>
                 <button
                   className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 disabled:opacity-40"
-                  onClick={() => setSelectedQuantity((v) => v + 1)}
+                  onClick={() => setSelectedQuantity(selectedQuantity + 1)}
                 >
                   <PlusIcon className="w-3 text-gray-600" strokeWidth={3} />
                 </button>

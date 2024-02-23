@@ -61,6 +61,8 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
     (module) => module.contract.address === VerifiedOpenActionModules.DecentNFT
   );
 
+  const [selectedQuantity, setSelectedQuantity] = useState(1);
+
   const { address } = useAccount();
 
   useEffect(() => {
@@ -81,7 +83,7 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
             targetPublication.by.ownedBy.address,
             address || '',
             '137', // TODO: determined by selected payment token
-            1n // TODO: 1155 token quantity
+            selectedQuantity !== 1 ? BigInt(selectedQuantity) : 1n
           ];
           const actionDataResult: ActionData =
             await nftOpenActionKit.actionDataFromPost(
@@ -90,7 +92,7 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
               targetPublication.by.ownedBy.address,
               address,
               '137', // TODO: determined by selected payment token
-              1n // TODO: 1155 token quantity
+              selectedQuantity !== 1 ? BigInt(selectedQuantity) : 1n
             );
           if (actionDataResult) {
             setActionData(actionDataResult);
@@ -102,7 +104,7 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
     };
 
     actionDataFromPost();
-  }, [actionData, address, module, targetPublication]);
+  }, [actionData, address, module, targetPublication, selectedQuantity]);
 
   if (!module) {
     return null;
@@ -164,6 +166,8 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
         nft={nft}
         onClose={() => setShowOpenActionModal(false)}
         publication={targetPublication}
+        selectedQuantity={selectedQuantity}
+        setSelectedQuantity={setSelectedQuantity}
         show={showOpenActionModal}
       />
     </>
