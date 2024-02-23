@@ -1,0 +1,3 @@
+mutation PeerToPeerUnrecommend($request: PeerToPeerRecommendRequest!) {
+  peerToPeerUnrecommend(request: $request)
+}

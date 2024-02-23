@@ -2,6 +2,7 @@ import type { ExploreProfilesRequest, Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
+import P2PRecommendation from '@components/Shared/Profile/P2PRecommendation';
 import SearchProfiles from '@components/Shared/SearchProfiles';
 import UserProfile from '@components/Shared/UserProfile';
 import { ArrowPathIcon, UsersIcon } from '@heroicons/react/24/outline';
@@ -110,7 +111,7 @@ const List: FC = () => {
               return (
                 <motion.div
                   animate={{ opacity: 1 }}
-                  className="pb-7"
+                  className="flex items-center justify-between pb-7"
                   exit={{ opacity: 0 }}
                   initial={{ opacity: 0 }}
                 >
@@ -130,6 +131,7 @@ const List: FC = () => {
                       timestamp={profile.createdAt}
                     />
                   </Link>
+                  <P2PRecommendation profile={profile as Profile} />
                 </motion.div>
               );
             }}

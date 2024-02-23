@@ -49,10 +49,11 @@ fragment ProfileFields on Profile {
   followNftAddress {
     ...NetworkAddressFields
   }
-  metadata {
-    ...ProfileMetadataFields
-  }
   followModule {
     ...FollowModuleFields
   }
+  metadata {
+    ...ProfileMetadataFields
+  }
+  peerToPeerRecommendedByMe
 }

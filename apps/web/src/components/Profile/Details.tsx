@@ -34,13 +34,13 @@ import isVerified from '@lib/isVerified';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useState } from 'react';
-import toast from 'react-hot-toast';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import urlcat from 'urlcat';
 
 import Badges from './Badges';
 import Followerings from './Followerings';
+import GardenerTool from './GardenerTool';
 import InvitedBy from './InvitedBy';
 import ProfileMenu from './Menu';
 import MutualFollowers from './MutualFollowers';
@@ -55,6 +55,7 @@ interface DetailsProps {
 const Details: FC<DetailsProps> = ({ profile }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
+  const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
   const [showMutualFollowersModal, setShowMutualFollowersModal] =
     useState(false);
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
@@ -195,14 +196,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
             </MetaDetails>
           ) : null}
           <MetaDetails icon={<HashtagIcon className="size-4" />}>
-            <button
-              onClick={async () => {
-                await navigator.clipboard.writeText(profile.id);
-                toast.success(`ID ${profile.id} copied to clipboard`);
-              }}
-            >
-              {parseInt(profile.id)}
-            </button>
+            {parseInt(profile.id)}
           </MetaDetails>
           {getProfileAttribute('location', profile?.metadata?.attributes) ? (
             <MetaDetails icon={<MapPinIcon className="size-4" />}>
@@ -300,6 +294,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
         </>
       ) : null}
       <Badges onchainIdentity={profile.onchainIdentity} />
+      {gardenerMode && <GardenerTool profile={profile} />}
     </div>
   );
 };

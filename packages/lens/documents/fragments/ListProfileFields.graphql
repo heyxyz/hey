@@ -15,4 +15,5 @@ fragment ListProfileFields on Profile {
   followModule {
     ...FollowModuleFields
   }
+  peerToPeerRecommendedByMe
 }
