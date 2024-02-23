@@ -16,7 +16,7 @@ const GardenerTool: FC<GardenerToolProps> = ({ profile }) => {
       forceRounded
     >
       <div className="font-bold">Gardener Tool</div>
-      <div className="pt-2">
+      <div>
         <P2PRecommendation profile={profile} />
       </div>
     </Card>
