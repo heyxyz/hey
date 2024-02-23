@@ -215,25 +215,27 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-between border-y border-zinc-200 px-5 py-4">
-            <p className="ld-text-gray-500">Quantity</p>
-            <div className="flex items-center gap-4">
-              <button
-                className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 disabled:opacity-50"
-                disabled={selectedQuantity === 1}
-                onClick={() => setSelectedQuantity((v) => v - 1)}
-              >
-                <MinusIcon className="w-3 text-gray-600" strokeWidth={3} />
-              </button>
-              <span className="w-4 text-center">{selectedQuantity}</span>
-              <button
-                className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 disabled:opacity-40"
-                onClick={() => setSelectedQuantity((v) => v + 1)}
-              >
-                <PlusIcon className="w-3 text-gray-600" strokeWidth={3} />
-              </button>
+          {nft.schema === 'erc1155' ? (
+            <div className="flex items-center justify-between border-y border-zinc-200 px-5 py-4">
+              <p className="ld-text-gray-500">Quantity</p>
+              <div className="flex items-center gap-4">
+                <button
+                  className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 disabled:opacity-50"
+                  disabled={selectedQuantity === 1}
+                  onClick={() => setSelectedQuantity((v) => v - 1)}
+                >
+                  <MinusIcon className="w-3 text-gray-600" strokeWidth={3} />
+                </button>
+                <span className="w-4 text-center">{selectedQuantity}</span>
+                <button
+                  className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 disabled:opacity-40"
+                  onClick={() => setSelectedQuantity((v) => v + 1)}
+                >
+                  <PlusIcon className="w-3 text-gray-600" strokeWidth={3} />
+                </button>
+              </div>
             </div>
-          </div>
+          ) : null}
           <div className="space-y-5 p-5">
             <div>
               <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
