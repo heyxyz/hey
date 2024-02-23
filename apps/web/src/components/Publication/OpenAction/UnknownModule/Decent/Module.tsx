@@ -11,6 +11,8 @@ import type { Address } from 'viem';
 import {
   ArrowTopRightOnSquareIcon,
   ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
   MinusIcon,
   PlusIcon,
   Squares2X2Icon,
@@ -23,7 +25,7 @@ import getProfile from '@hey/lib/getProfile';
 import getRedstonePrice from '@hey/lib/getRedstonePrice';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import truncateByWords from '@hey/lib/truncateByWords';
-import { HelpTooltip } from '@hey/ui';
+import { HelpTooltip, Modal } from '@hey/ui';
 import Link from 'next/link';
 import { type FC, useEffect, useState } from 'react';
 import { CHAIN } from 'src/constants';
@@ -31,6 +33,7 @@ import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
 import { formatUnits } from 'viem';
 import { useAccount, useBalance } from 'wagmi';
 
+import CurrencySelector from './CurrencySelector';
 import DecentAction from './DecentAction';
 
 // TODO: Get description from NFT Metadata
@@ -43,14 +46,18 @@ interface DecentOpenActionModuleProps {
   actionData?: ActionData;
   module: UnknownOpenActionModuleSettings;
   nft: Nft;
+  onClose: () => void;
   publication: MirrorablePublication;
+  show: boolean;
 }
 
 const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   actionData,
   module,
   nft,
-  publication
+  onClose,
+  publication,
+  show
 }) => {
   const [selectedCurrency, setSelectedCurrency] = useState<AllowedToken>({
     contractAddress: DEFAULT_COLLECT_TOKEN,
@@ -130,155 +137,194 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   // TODO: integrate selected quantity to the action
   const [selectedQuantity, setSelectedQuantity] = useState(1);
 
+  const [showCurrencySelector, setShowCurrencySelector] = useState(false);
+
   return (
-    <>
-      <div className="space-y-2 p-5">
-        <div>
-          <h2 className="text-xl">{actionData?.uiData.nftName}</h2>
-          {creatorProfileData ? (
-            <p className="text-black/50">
-              by {getProfile(creatorProfileData.defaultProfile as Profile).slug}
-            </p>
-          ) : null}
-        </div>
-        <div className="pt-2">
-          <img
-            alt={actionData?.uiData.nftName}
-            className="aspect-[1.5] max-h-[350px] w-full rounded-xl object-cover"
-            src={sanitizeDStorageUrl(actionData?.uiData.nftUri)}
-          />
-          <p className="my-5">
-            {showLongDescription
-              ? MOCK_DESCRIPTION
-              : truncateByWords(MOCK_DESCRIPTION, 30)}
-            <button
-              className="ml-1 text-black/50"
-              onClick={() => setShowLongDescription((v) => !v)}
-            >
-              {showLongDescription ? 'Show less' : 'read more'}
-            </button>
-          </p>
-        </div>
-        <div className="ld-text-gray-500 flex items-center justify-between text-base">
-          <div className="flex items-center gap-2">
-            <Squares2X2Icon className="w-5" />
-            <p>{formattedNftSchema}</p>
-          </div>
-          <div className="flex items-center gap-2">
-            <UserIcon className="w-5" />
-            <p>{nft.mintCount} minted</p>
-          </div>
-          <div className="flex items-center gap-2">
-            <ArrowTopRightOnSquareIcon className="w-5" />
-            <Link
-              href={nft.mintUrl ?? ''}
-              rel="noreferrer noopener"
-              target="_blank"
-            >
-              Open in {actionData?.uiData.platformName}
-            </Link>
-          </div>
-        </div>
-      </div>
-      <div className="flex items-center justify-between border-y border-zinc-200 px-5 py-4">
-        <p className="ld-text-gray-500">Quantity</p>
-        <div className="flex items-center gap-4">
-          <button
-            className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 disabled:opacity-50"
-            disabled={selectedQuantity === 1}
-            onClick={() => setSelectedQuantity((v) => v - 1)}
-          >
-            <MinusIcon className="w-3 text-gray-600" strokeWidth={3} />
+    <Modal
+      icon={
+        showCurrencySelector ? (
+          <button onClick={() => setShowCurrencySelector(false)}>
+            <ChevronLeftIcon className="mt-[2px] w-4" strokeWidth={3} />
           </button>
-          <span className="w-4 text-center">{selectedQuantity}</span>
-          <button
-            className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 disabled:opacity-40"
-            onClick={() => setSelectedQuantity((v) => v + 1)}
-          >
-            <PlusIcon className="w-3 text-gray-600" strokeWidth={3} />
-          </button>
-        </div>
-      </div>
-      <div className="space-y-5 p-5">
-        <div>
-          <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
-            <span className="space-x-1">Price</span>
+        ) : null
+      }
+      onClose={onClose}
+      show={show}
+      title={
+        showCurrencySelector
+          ? 'Select token'
+          : actionData?.uiData.platformName
+            ? `Mint on ${actionData?.uiData.platformName}`
+            : 'Mint NFT'
+      }
+    >
+      {' '}
+      {showCurrencySelector ? (
+        <CurrencySelector />
+      ) : (
+        <>
+          <div className="space-y-2 p-5">
             <div>
-              {formattedPrice} {selectedCurrency?.symbol}
+              <h2 className="text-xl">{actionData?.uiData.nftName}</h2>
+              {creatorProfileData ? (
+                <p className="text-black/50">
+                  by{' '}
+                  {
+                    getProfile(creatorProfileData.defaultProfile as Profile)
+                      .slug
+                  }
+                </p>
+              ) : null}
             </div>
-          </div>
-          <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
-            <button
-              className="flex items-baseline gap-1 space-x-1"
-              onClick={() => setShowFees((v) => !v)}
-            >
-              Fees <ChevronDownIcon className="w-2" strokeWidth={3} />
-            </button>
-            <div>
-              {formattedTotalFees} {selectedCurrency?.symbol}
-            </div>
-          </div>
-          {showFees ? (
-            <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
-              <span className="space-x-1">Mint Fee</span>
-              <div>
-                {0.01} {selectedCurrency?.symbol}
-              </div>
-            </div>
-          ) : null}
-          {showFees ? (
-            <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
-              <span className="space-x-1">Platform Fee</span>
-              <div>
-                {0.002} {selectedCurrency?.symbol}
-              </div>
-            </div>
-          ) : null}
-          <div className="mt-4 flex items-start justify-between space-y-0.5 text-xl text-gray-600">
-            <span className="flex items-baseline justify-start gap-1 space-x-1">
-              Total{' '}
-              <HelpTooltip>
-                <div className="w-[210px] px-2 py-3 leading-tight">
-                  {TOOLTIP_PRICE_HELP}
-                </div>
-              </HelpTooltip>
-            </span>
-            <div className="flex flex-col items-end">
-              <p>
-                {formattedTotalPrice} {selectedCurrency?.symbol}
+            <div className="pt-2">
+              <img
+                alt={actionData?.uiData.nftName}
+                className="aspect-[1.5] max-h-[350px] w-full rounded-xl object-cover"
+                src={sanitizeDStorageUrl(actionData?.uiData.nftUri)}
+              />
+              <p className="my-5">
+                {showLongDescription
+                  ? MOCK_DESCRIPTION
+                  : truncateByWords(MOCK_DESCRIPTION, 30)}
+                <button
+                  className="ml-1 text-black/50"
+                  onClick={() => setShowLongDescription((v) => !v)}
+                >
+                  {showLongDescription ? 'Show less' : 'read more'}
+                </button>
               </p>
-              <div className="ld-text-gray-500 text-sm">
-                ~$
-                {(Number(formattedPrice) * usdPrice).toFixed(
-                  selectedCurrency?.symbol === 'WETH' ? 4 : 2
-                )}{' '}
+            </div>
+            <div className="ld-text-gray-500 flex items-center justify-between text-base">
+              <div className="flex items-center gap-2">
+                <Squares2X2Icon className="w-5" />
+                <p>{formattedNftSchema}</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <UserIcon className="w-5" />
+                <p>{nft.mintCount} minted</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <ArrowTopRightOnSquareIcon className="w-5" />
+                <Link
+                  href={nft.mintUrl ?? ''}
+                  rel="noreferrer noopener"
+                  target="_blank"
+                >
+                  Open in {actionData?.uiData.platformName}
+                </Link>
               </div>
             </div>
           </div>
-        </div>
-        {selectedCurrency ? (
-          <DecentAction
-            act={act}
-            className="w-full justify-center"
-            isLoading={isLoading}
-            module={module}
-            moduleAmount={{
-              asset: {
-                contract: {
-                  address: selectedCurrency.contractAddress,
-                  chainId: CHAIN.id
-                },
-                decimals: selectedCurrency.decimals,
-                name: selectedCurrency.name,
-                symbol: selectedCurrency.symbol
-              },
-              value: formattedPrice
-            }}
-            title={`Pay with ${formattedPrice} ${selectedCurrency.symbol}`}
-          />
-        ) : null}
-      </div>
-    </>
+          <div className="flex items-center justify-between border-y border-zinc-200 px-5 py-4">
+            <p className="ld-text-gray-500">Quantity</p>
+            <div className="flex items-center gap-4">
+              <button
+                className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 disabled:opacity-50"
+                disabled={selectedQuantity === 1}
+                onClick={() => setSelectedQuantity((v) => v - 1)}
+              >
+                <MinusIcon className="w-3 text-gray-600" strokeWidth={3} />
+              </button>
+              <span className="w-4 text-center">{selectedQuantity}</span>
+              <button
+                className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 disabled:opacity-40"
+                onClick={() => setSelectedQuantity((v) => v + 1)}
+              >
+                <PlusIcon className="w-3 text-gray-600" strokeWidth={3} />
+              </button>
+            </div>
+          </div>
+          <div className="space-y-5 p-5">
+            <div>
+              <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
+                <span className="space-x-1">Price</span>
+                <div>
+                  {formattedPrice} {selectedCurrency?.symbol}
+                </div>
+              </div>
+              <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
+                <button
+                  className="flex items-baseline gap-1 space-x-1"
+                  onClick={() => setShowFees((v) => !v)}
+                >
+                  Fees <ChevronDownIcon className="w-2" strokeWidth={3} />
+                </button>
+                <div>
+                  {formattedTotalFees} {selectedCurrency?.symbol}
+                </div>
+              </div>
+              {showFees ? (
+                <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
+                  <span className="space-x-1">Mint Fee</span>
+                  <div>
+                    {0.01} {selectedCurrency?.symbol}
+                  </div>
+                </div>
+              ) : null}
+              {showFees ? (
+                <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
+                  <span className="space-x-1">Platform Fee</span>
+                  <div>
+                    {0.002} {selectedCurrency?.symbol}
+                  </div>
+                </div>
+              ) : null}
+              <div className="mt-4 flex items-start justify-between space-y-0.5 text-xl text-gray-600">
+                <span className="flex items-baseline justify-start gap-1 space-x-1">
+                  Total{' '}
+                  <HelpTooltip>
+                    <div className="w-[210px] px-2 py-3 leading-tight">
+                      {TOOLTIP_PRICE_HELP}
+                    </div>
+                  </HelpTooltip>
+                </span>
+                <div className="flex flex-col items-end">
+                  <p>
+                    {formattedTotalPrice} {selectedCurrency?.symbol}
+                  </p>
+                  <div className="ld-text-gray-500 text-sm">
+                    ~$
+                    {(Number(formattedPrice) * usdPrice).toFixed(
+                      selectedCurrency?.symbol === 'WETH' ? 4 : 2
+                    )}{' '}
+                  </div>
+                </div>
+              </div>
+            </div>
+            {selectedCurrency ? (
+              <DecentAction
+                act={act}
+                className="w-full justify-center"
+                isLoading={isLoading}
+                module={module}
+                moduleAmount={{
+                  asset: {
+                    contract: {
+                      address: selectedCurrency.contractAddress,
+                      chainId: CHAIN.id
+                    },
+                    decimals: selectedCurrency.decimals,
+                    name: selectedCurrency.name,
+                    symbol: selectedCurrency.symbol
+                  },
+                  value: formattedPrice
+                }}
+                title={`Pay with ${formattedPrice} ${selectedCurrency.symbol}`}
+              />
+            ) : null}
+            <div className="flex w-full items-center justify-center text-center text-sm">
+              <button
+                className="lg-text-gray-500 flex items-baseline justify-center gap-1"
+                onClick={() => setShowCurrencySelector(true)}
+              >
+                Select another token{' '}
+                <ChevronRightIcon className="w-2" strokeWidth={3} />
+              </button>
+            </div>
+          </div>
+        </>
+      )}
+    </Modal>
   );
 };
 

@@ -13,7 +13,7 @@ import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules
 import getNftChainInfo from '@hey/lib/getNftChainInfo';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Button, Card, Modal, Tooltip } from '@hey/ui';
+import { Button, Card, Tooltip } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { NftOpenActionKit } from 'nft-openaction-kit';
@@ -158,22 +158,14 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
           <DecentOpenActionShimmer />
         )}
       </Card>
-      <Modal
+      <DecentOpenActionModule
+        actionData={actionData}
+        module={module as UnknownOpenActionModuleSettings}
+        nft={nft}
         onClose={() => setShowOpenActionModal(false)}
+        publication={targetPublication}
         show={showOpenActionModal}
-        title={
-          actionData?.uiData.platformName
-            ? `Mint on ${actionData?.uiData.platformName}`
-            : 'Mint NFT'
-        }
-      >
-        <DecentOpenActionModule
-          actionData={actionData}
-          module={module as UnknownOpenActionModuleSettings}
-          nft={nft}
-          publication={targetPublication}
-        />
-      </Modal>
+      />
     </>
   );
 };
