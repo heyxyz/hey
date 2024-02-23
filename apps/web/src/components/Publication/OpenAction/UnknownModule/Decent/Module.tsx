@@ -1,5 +1,6 @@
 import type {
   MirrorablePublication,
+  Profile,
   UnknownOpenActionModuleSettings
 } from '@hey/lens';
 import type { AllowedToken } from '@hey/types/hey';
@@ -7,11 +8,19 @@ import type { Nft } from '@hey/types/misc';
 import type { ActionData } from 'nft-openaction-kit';
 import type { Address } from 'viem';
 
+import {
+  ArrowTopRightOnSquareIcon,
+  Squares2X2Icon,
+  UserIcon
+} from '@heroicons/react/24/outline';
 import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { TipIcon } from '@hey/icons';
+import { useDefaultProfileQuery } from '@hey/lens';
+import getProfile from '@hey/lib/getProfile';
 import getRedstonePrice from '@hey/lib/getRedstonePrice';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
+import truncateByWords from '@hey/lib/truncateByWords';
 import Link from 'next/link';
 import { type FC, useEffect, useState } from 'react';
 import { CHAIN } from 'src/constants';
@@ -20,6 +29,10 @@ import { formatUnits } from 'viem';
 import { useAccount, useBalance } from 'wagmi';
 
 import DecentAction from './DecentAction';
+
+// TODO: Get description from NFT Metadata
+const MOCK_DESCRIPTION =
+  "I moved to Williamsburg because I needed a place to stay, but I'm staying because it's the web3 hub of NYC.  If you need an activity that isn't drinking or eating in NYC and you're not a tourist, you're probably going to Williamsburg.  I'm a big fan of the area and I'm excited to share my favorite spots with you. I moved to Williamsburg because I needed a place to stay, but I'm staying because it's the web3 hub of NYC.  If you need an activity that isn't drinking or eating in NYC and you're not a tourist, you're probably going to Williamsburg.  I'm a big fan of the area and I'm excited to share my favorite spots with you.";
 
 interface DecentOpenActionModuleProps {
   actionData?: ActionData;
@@ -82,6 +95,11 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
       ).toFixed(2)
     : 0;
 
+  const { data: creatorProfileData } = useDefaultProfileQuery({
+    skip: !actionData?.uiData.nftCreatorAddress,
+    variables: { request: { for: actionData?.uiData.nftCreatorAddress } }
+  });
+
   /* 
   if (loadingAllowedTokens) {
     return (
@@ -98,23 +116,53 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
       ).toString()
     : '0';
 
+  console.log('🌺', publication, nft, module);
+
+  const [showLongDescription, setShowLongDescription] = useState(false);
+
   return (
-    <div className="space-y-3 p-5">
+    <div className="space-y-3 p-5 pt-3">
       <div className="space-y-2 pb-4">
-        <div className="text-sm font-bold">{actionData?.uiData.nftName}</div>
-        {/*         {actionData?.uiData.nftCreatorAddress ? (
-          <MintedBy
-            address={actionData?.uiData.nftCreatorAddress as `0x${string}`}
+        <div>
+          <h2 className="text-xl">{actionData?.uiData.nftName}</h2>
+          {creatorProfileData ? (
+            <p className="text-black/50">
+              by {getProfile(creatorProfileData.defaultProfile as Profile).slug}
+            </p>
+          ) : null}
+        </div>
+        <div className="pt-2">
+          <img
+            alt={actionData?.uiData.nftName}
+            className="h-[350px] max-h-[350px] w-full rounded-xl object-cover"
+            src={sanitizeDStorageUrl(actionData?.uiData.nftUri)}
           />
-        ) : null} */}
-        <img
-          alt={actionData?.uiData.nftName}
-          className="h-[350px] max-h-[350px] w-full rounded-t-xl object-cover"
-          src={sanitizeDStorageUrl(actionData?.uiData.nftUri)}
-        />
-        <Link href={nft.sourceUrl} rel="noopener noreferrer" target="_blank">
-          <div>View on Pods</div>
-        </Link>
+          <p className="my-5">
+            {showLongDescription
+              ? MOCK_DESCRIPTION
+              : truncateByWords(MOCK_DESCRIPTION, 30)}
+            <button
+              className="ml-1 text-black/50"
+              onClick={() => setShowLongDescription((v) => !v)}
+            >
+              {showLongDescription ? 'Show less' : 'read more'}
+            </button>
+          </p>
+        </div>
+        <div className="flex items-center justify-between !text-base text-gray-500">
+          <div className="flex items-center gap-2">
+            <Squares2X2Icon className="w-5" />
+            <p>ERC-1155</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <UserIcon className="w-5" />
+            <p>754 minted</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <ArrowTopRightOnSquareIcon className="w-5" />
+            <Link href="https://zora.co">Open in Zora</Link>
+          </div>
+        </div>
       </div>
       <div className="flex items-center justify-between pb-4">
         <div className="space-y-0.5">
