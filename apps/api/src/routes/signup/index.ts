@@ -110,7 +110,7 @@ export const post: Handler = async (req, res) => {
     const clickhouseClient = createClickhouseClient();
     const result = await clickhouseClient.insert({
       format: 'JSONEachRow',
-      table: 'impressions',
+      table: 'signups',
       values: {
         address,
         email: user_email,
