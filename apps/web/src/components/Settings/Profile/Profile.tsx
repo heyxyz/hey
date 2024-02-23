@@ -194,6 +194,7 @@ const ProfileSettingsForm: FC = () => {
     const { data } = await setProfileMetadata({
       variables: { request }
     });
+
     if (
       data?.setProfileMetadata?.__typename === 'LensProfileManagerRelayError'
     ) {
