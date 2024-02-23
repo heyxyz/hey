@@ -107,21 +107,21 @@ export const post: Handler = async (req, res) => {
     });
 
     // Begin: Log to Clickhouse
-    const clickhouseClient = createClickhouseClient();
-    const result = await clickhouseClient.insert({
-      format: 'JSONEachRow',
-      table: 'signups',
-      values: { address, email, handle, hash, order_number }
-    });
+    if (!test_mode) {
+      const clickhouseClient = createClickhouseClient();
+      await clickhouseClient.insert({
+        format: 'JSONEachRow',
+        table: 'signups',
+        values: { address, email, handle, hash, order_number }
+      });
+    }
     // End: Log to Clickhouse
 
     logger.info(
       `Minted Lens Profile for ${address} with handle ${handle} on ${hash}`
     );
 
-    return res
-      .status(200)
-      .json({ ch_ack: result.query_id, hash, success: true });
+    return res.status(200).json({ hash, success: true });
   } catch (error) {
     return catchedError(res, error);
   }
