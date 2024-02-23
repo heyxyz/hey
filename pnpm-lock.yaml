@@ -16728,7 +16728,7 @@ packages:
     resolution: {integrity: sha512-DXE5SAEbe6iSqMDpVOWe8JFAmU/0LyK8KHxqHNKux6IAFxtSWsawr0lval6bDcbzQFo/Wv5WOvYrwy8GSs9hKQ==}
     dependencies:
       axios: 1.6.7(debug@4.3.4)
-      viem: 2.6.1(typescript@5.3.3)(zod@3.22.4)
+      viem: 2.7.12(typescript@5.3.3)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -16854,7 +16854,7 @@ packages:
     resolution: {integrity: sha512-4GUt3kSEYmk4ITxzB/b9vaIDfUVWN/Ml1Fwl11IlnIG2iaJ9O6WXZ9SrYM9NLI8OCBieN2Y8SWC2oJV0RQ7qYg==}
     hasBin: true
     dependencies:
-      abbrev: 1.0.9
+      abbrev: 1.1.1
     dev: true
 
   /normalize-package-data@2.5.0:
