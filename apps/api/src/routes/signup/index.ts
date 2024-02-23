@@ -6,6 +6,7 @@ import { HEY_LENS_SIGNUP, ZERO_ADDRESS } from '@hey/data/constants';
 import logger from '@hey/lib/logger';
 import crypto from 'crypto';
 import catchedError from 'src/lib/catchedError';
+import createClickhouseClient from 'src/lib/createClickhouseClient';
 import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
 import { createWalletClient, http } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
@@ -13,6 +14,12 @@ import { polygon, polygonMumbai } from 'viem/chains';
 import { boolean, object, string } from 'zod';
 
 type ExtensionRequest = {
+  data: {
+    attributes: {
+      order_number: number;
+      user_email: string;
+    };
+  };
   meta: {
     custom_data: {
       address: string;
@@ -24,6 +31,12 @@ type ExtensionRequest = {
 };
 
 const validationSchema = object({
+  data: object({
+    attributes: object({
+      order_number: string(),
+      user_email: string()
+    })
+  }),
   meta: object({
     custom_data: object({
       address: string(),
@@ -68,9 +81,10 @@ export const post: Handler = async (req, res) => {
     return invalidBody(res);
   }
 
-  const { meta } = parsedBody as ExtensionRequest;
+  const { data, meta } = parsedBody as ExtensionRequest;
   const { custom_data, test_mode } = meta;
   const { address, delegatedExecutor, handle } = custom_data;
+  const { order_number, user_email } = data.attributes;
 
   const allPrivateKeys = privateKeys.split(',');
   const randomPrivateKey =
@@ -92,11 +106,29 @@ export const post: Handler = async (req, res) => {
       functionName: 'createProfileWithHandle'
     });
 
+    // Log to Clickhouse
+    const values = {
+      address,
+      email: user_email,
+      handle,
+      hash: hash,
+      order_number: order_number
+    };
+
+    const clickhouseClient = createClickhouseClient();
+    const result = await clickhouseClient.insert({
+      format: 'JSONEachRow',
+      table: 'impressions',
+      values
+    });
+
     logger.info(
       `Minted Lens Profile for ${address} with handle ${handle} on ${hash}`
     );
 
-    return res.status(200).json({ hash, success: true });
+    return res
+      .status(200)
+      .json({ ch_ack: result.query_id, hash, success: true });
   } catch (error) {
     return catchedError(res, error);
   }
