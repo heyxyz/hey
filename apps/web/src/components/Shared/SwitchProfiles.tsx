@@ -96,7 +96,7 @@ const SwitchProfiles: FC = () => {
     }
   };
 
-  if (currentProfile?.ownedBy.address !== address) {
+  if (!address) {
     return (
       <div className="m-5 space-y-5">
         <div className="space-y-2">
