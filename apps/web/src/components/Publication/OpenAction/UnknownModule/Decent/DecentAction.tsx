@@ -85,7 +85,7 @@ const DecentAction: FC<DecentActionProps> = ({
 
   if (!sessionProfileId) {
     return (
-      <div className="mt-5">
+      <div>
         <LoginButton title="Login to Collect" />
       </div>
     );
@@ -97,14 +97,14 @@ const DecentAction: FC<DecentActionProps> = ({
 
   if (allowanceLoading) {
     return (
-      <div className={cn('shimmer mt-5 h-[34px] w-28 rounded-lg', className)} />
+      <div className={cn('shimmer h-[34px] w-28 rounded-lg', className)} />
     );
   }
 
   if (!hasAmount) {
     return (
       <WarningMessage
-        className="mt-5 w-full"
+        className="w-full"
         message={<NoBalanceError moduleAmount={moduleAmount as Amount} />}
       />
     );
@@ -114,7 +114,7 @@ const DecentAction: FC<DecentActionProps> = ({
     return (
       <AllowanceButton
         allowed={allowed}
-        className={cn('mt-5', className)}
+        className={className}
         module={
           allowanceData
             ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult
@@ -127,7 +127,7 @@ const DecentAction: FC<DecentActionProps> = ({
 
   return (
     <Button
-      className={cn('mt-5', className)}
+      className={className}
       disabled={isLoading}
       icon={isLoading ? <Spinner size="xs" /> : icon}
       onClick={act}

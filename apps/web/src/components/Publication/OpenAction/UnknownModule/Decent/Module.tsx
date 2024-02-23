@@ -10,6 +10,8 @@ import type { Address } from 'viem';
 
 import {
   ArrowTopRightOnSquareIcon,
+  MinusIcon,
+  PlusIcon,
   Squares2X2Icon,
   UserIcon
 } from '@heroicons/react/24/outline';
@@ -120,9 +122,12 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
 
   const [showLongDescription, setShowLongDescription] = useState(false);
 
+  // TODO: integrate selected quantity to the action
+  const [selectedQuantity, setSelectedQuantity] = useState(1);
+
   return (
-    <div className="space-y-3 p-5 pt-3">
-      <div className="space-y-2 pb-4">
+    <>
+      <div className="space-y-2 p-5">
         <div>
           <h2 className="text-xl">{actionData?.uiData.nftName}</h2>
           {creatorProfileData ? (
@@ -134,7 +139,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
         <div className="pt-2">
           <img
             alt={actionData?.uiData.nftName}
-            className="h-[350px] max-h-[350px] w-full rounded-xl object-cover"
+            className="aspect-[1.5] max-h-[350px] w-full rounded-xl object-cover"
             src={sanitizeDStorageUrl(actionData?.uiData.nftUri)}
           />
           <p className="my-5">
@@ -170,19 +175,39 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-between pb-4">
-        <div className="space-y-0.5">
-          <span className="space-x-1 text-2xl">Price</span>
-          <div className="ld-text-gray-500 text-sm">
-            $
-            {(Number(formattedPrice) * usdPrice).toFixed(
-              selectedCurrency?.symbol === 'WETH' ? 4 : 2
-            )}{' '}
-          </div>
+      <div className="flex items-center justify-between border-y border-zinc-200 px-5 py-4">
+        <p className="text-gray-500">Quantity</p>
+        <div className="flex items-center gap-4">
+          <button
+            className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 disabled:opacity-50"
+            disabled={selectedQuantity === 1}
+            onClick={() => setSelectedQuantity((v) => v - 1)}
+          >
+            <MinusIcon className="w-3 text-gray-600" strokeWidth={3} />
+          </button>
+          <span className="w-4 text-center">{selectedQuantity}</span>
+          <button
+            className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 disabled:opacity-40"
+            onClick={() => setSelectedQuantity((v) => v + 1)}
+          >
+            <PlusIcon className="w-3 text-gray-600" strokeWidth={3} />
+          </button>
         </div>
-        <div className="flex w-5/12 flex-col items-end space-y-1">
-          {formattedPrice} {selectedCurrency?.symbol}
-          {/*          <Select
+      </div>
+      <div className="space-y-5 p-5">
+        <div className="flex items-center justify-between">
+          <div className="space-y-0.5">
+            <span className="space-x-1 text-2xl">Price</span>
+            <div className="ld-text-gray-500 text-sm">
+              $
+              {(Number(formattedPrice) * usdPrice).toFixed(
+                selectedCurrency?.symbol === 'WETH' ? 4 : 2
+              )}{' '}
+            </div>
+          </div>
+          <div className="flex w-5/12 flex-col items-end space-y-1">
+            {formattedPrice} {selectedCurrency?.symbol}
+            {/*          <Select
             defaultValue={DEFAULT_COLLECT_TOKEN}
             onChange={(e) => {
               setSelectedCurrency(
@@ -196,32 +221,33 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
               value: token.contractAddress
             }))}
           /> */}
-          <div className="ld-text-gray-500 text-sm">Balance: {balance}</div>
+            <div className="ld-text-gray-500 text-sm">Balance: {balance}</div>
+          </div>
         </div>
-      </div>
-      {selectedCurrency ? (
-        <DecentAction
-          act={act}
-          className="mt-5 w-full justify-center"
-          icon={<TipIcon className="size-4" />}
-          isLoading={isLoading}
-          module={module}
-          moduleAmount={{
-            asset: {
-              contract: {
-                address: selectedCurrency.contractAddress,
-                chainId: CHAIN.id
+        {selectedCurrency ? (
+          <DecentAction
+            act={act}
+            className="w-full justify-center"
+            icon={<TipIcon className="size-4" />}
+            isLoading={isLoading}
+            module={module}
+            moduleAmount={{
+              asset: {
+                contract: {
+                  address: selectedCurrency.contractAddress,
+                  chainId: CHAIN.id
+                },
+                decimals: selectedCurrency.decimals,
+                name: selectedCurrency.name,
+                symbol: selectedCurrency.symbol
               },
-              decimals: selectedCurrency.decimals,
-              name: selectedCurrency.name,
-              symbol: selectedCurrency.symbol
-            },
-            value: formattedPrice
-          }}
-          title="Mint NFT"
-        />
-      ) : null}
-    </div>
+              value: formattedPrice
+            }}
+            title="Mint NFT"
+          />
+        ) : null}
+      </div>
+    </>
   );
 };
 
