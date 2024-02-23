@@ -116,7 +116,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
       ).toString()
     : '0';
 
-  console.log('🌺', publication, nft, module);
+  const formattedNftSchema = nft.schema === 'erc1155' ? 'ERC-1155' : 'ERC-721';
 
   const [showLongDescription, setShowLongDescription] = useState(false);
 
@@ -152,15 +152,21 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
         <div className="flex items-center justify-between !text-base text-gray-500">
           <div className="flex items-center gap-2">
             <Squares2X2Icon className="w-5" />
-            <p>ERC-1155</p>
+            <p>{formattedNftSchema}</p>
           </div>
           <div className="flex items-center gap-2">
             <UserIcon className="w-5" />
-            <p>754 minted</p>
+            <p>{nft.mintCount} minted</p>
           </div>
           <div className="flex items-center gap-2">
             <ArrowTopRightOnSquareIcon className="w-5" />
-            <Link href="https://zora.co">Open in Zora</Link>
+            <Link
+              href={nft.mintUrl ?? ''}
+              rel="noreferrer noopener"
+              target="_blank"
+            >
+              Open in {actionData?.uiData.platformName}
+            </Link>
           </div>
         </div>
       </div>
