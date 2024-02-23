@@ -2,16 +2,19 @@ import type { FC } from 'react';
 
 import { AUTH } from '@hey/data/tracking';
 import { Button } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 
 interface LoginButtonProps {
   isBig?: boolean;
+  isFullWidth?: boolean;
   title?: string;
 }
 
 const LoginButton: FC<LoginButtonProps> = ({
   isBig = false,
+  isFullWidth = false,
   title = 'Login'
 }) => {
   const setShowAuthModal = useGlobalModalStateStore(
@@ -20,6 +23,9 @@ const LoginButton: FC<LoginButtonProps> = ({
 
   return (
     <Button
+      className={cn(
+        isFullWidth ? 'flex w-full items-center justify-center' : ''
+      )}
       icon={
         <img
           alt="Lens Logo"

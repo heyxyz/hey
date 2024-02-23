@@ -10,6 +10,7 @@ import type { Address } from 'viem';
 
 import {
   ArrowTopRightOnSquareIcon,
+  ChevronDownIcon,
   MinusIcon,
   PlusIcon,
   Squares2X2Icon,
@@ -17,12 +18,12 @@ import {
 } from '@heroicons/react/24/outline';
 import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
-import { TipIcon } from '@hey/icons';
 import { useDefaultProfileQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import getRedstonePrice from '@hey/lib/getRedstonePrice';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import truncateByWords from '@hey/lib/truncateByWords';
+import { HelpTooltip } from '@hey/ui';
 import Link from 'next/link';
 import { type FC, useEffect, useState } from 'react';
 import { CHAIN } from 'src/constants';
@@ -36,6 +37,8 @@ import DecentAction from './DecentAction';
 const MOCK_DESCRIPTION =
   "I moved to Williamsburg because I needed a place to stay, but I'm staying because it's the web3 hub of NYC.  If you need an activity that isn't drinking or eating in NYC and you're not a tourist, you're probably going to Williamsburg.  I'm a big fan of the area and I'm excited to share my favorite spots with you. I moved to Williamsburg because I needed a place to stay, but I'm staying because it's the web3 hub of NYC.  If you need an activity that isn't drinking or eating in NYC and you're not a tourist, you're probably going to Williamsburg.  I'm a big fan of the area and I'm excited to share my favorite spots with you.";
 
+const TOOLTIP_PRICE_HELP =
+  'You don’t have enough native Zora ETH so we switched you to the next token with the lowest gas that you have enough of (lol)';
 interface DecentOpenActionModuleProps {
   actionData?: ActionData;
   module: UnknownOpenActionModuleSettings;
@@ -102,25 +105,27 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     variables: { request: { for: actionData?.uiData.nftCreatorAddress } }
   });
 
-  /* 
-  if (loadingAllowedTokens) {
-    return (
-      <div className="m-5">
-        <Loader message="Loading..." />
-      </div>
-    );
-  } */
-
-  const formattedPrice = actionData
-    ? (
-        actionData.actArgumentsFormatted.paymentToken.amount /
+  const formattedPrice = (
+    actionData
+      ? actionData.actArgumentsFormatted.paymentToken.amount /
         BigInt(10 ** selectedCurrency.decimals)
-      ).toString()
-    : '0';
+      : BigInt(0)
+  ).toString();
+  const formattedTotalFees = (
+    actionData
+      ? actionData.actArgumentsFormatted.bridgeFee.amount /
+        BigInt(10 ** selectedCurrency.decimals)
+      : BigInt(0)
+  ).toString();
+
+  const formattedTotalPrice = (
+    BigInt(formattedPrice) + BigInt(formattedTotalFees)
+  ).toString();
 
   const formattedNftSchema = nft.schema === 'erc1155' ? 'ERC-1155' : 'ERC-721';
 
   const [showLongDescription, setShowLongDescription] = useState(false);
+  const [showFees, setShowFees] = useState(false);
 
   // TODO: integrate selected quantity to the action
   const [selectedQuantity, setSelectedQuantity] = useState(1);
@@ -154,7 +159,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
             </button>
           </p>
         </div>
-        <div className="flex items-center justify-between !text-base text-gray-500">
+        <div className="ld-text-gray-500 flex items-center justify-between text-base">
           <div className="flex items-center gap-2">
             <Squares2X2Icon className="w-5" />
             <p>{formattedNftSchema}</p>
@@ -176,7 +181,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
         </div>
       </div>
       <div className="flex items-center justify-between border-y border-zinc-200 px-5 py-4">
-        <p className="text-gray-500">Quantity</p>
+        <p className="ld-text-gray-500">Quantity</p>
         <div className="flex items-center gap-4">
           <button
             className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 disabled:opacity-50"
@@ -195,40 +200,66 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
         </div>
       </div>
       <div className="space-y-5 p-5">
-        <div className="flex items-center justify-between">
-          <div className="space-y-0.5">
-            <span className="space-x-1 text-2xl">Price</span>
-            <div className="ld-text-gray-500 text-sm">
-              $
-              {(Number(formattedPrice) * usdPrice).toFixed(
-                selectedCurrency?.symbol === 'WETH' ? 4 : 2
-              )}{' '}
+        <div>
+          <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
+            <span className="space-x-1">Price</span>
+            <div>
+              {formattedPrice} {selectedCurrency?.symbol}
             </div>
           </div>
-          <div className="flex w-5/12 flex-col items-end space-y-1">
-            {formattedPrice} {selectedCurrency?.symbol}
-            {/*          <Select
-            defaultValue={DEFAULT_COLLECT_TOKEN}
-            onChange={(e) => {
-              setSelectedCurrency(
-                allowedTokens?.find(
-                  (token) => token.contractAddress === e.target.value
-                ) as AllowedToken
-              );
-            }}
-            options={allowedTokens?.map((token) => ({
-              label: token.name,
-              value: token.contractAddress
-            }))}
-          /> */}
-            <div className="ld-text-gray-500 text-sm">Balance: {balance}</div>
+          <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
+            <button
+              className="flex items-baseline gap-1 space-x-1"
+              onClick={() => setShowFees((v) => !v)}
+            >
+              Fees <ChevronDownIcon className="w-2" strokeWidth={3} />
+            </button>
+            <div>
+              {formattedTotalFees} {selectedCurrency?.symbol}
+            </div>
+          </div>
+          {showFees ? (
+            <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
+              <span className="space-x-1">Mint Fee</span>
+              <div>
+                {0.01} {selectedCurrency?.symbol}
+              </div>
+            </div>
+          ) : null}
+          {showFees ? (
+            <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
+              <span className="space-x-1">Platform Fee</span>
+              <div>
+                {0.002} {selectedCurrency?.symbol}
+              </div>
+            </div>
+          ) : null}
+          <div className="mt-4 flex items-start justify-between space-y-0.5 text-xl text-gray-600">
+            <span className="flex items-baseline justify-start gap-1 space-x-1">
+              Total{' '}
+              <HelpTooltip>
+                <div className="w-[210px] px-2 py-3 leading-tight">
+                  {TOOLTIP_PRICE_HELP}
+                </div>
+              </HelpTooltip>
+            </span>
+            <div className="flex flex-col items-end">
+              <p>
+                {formattedTotalPrice} {selectedCurrency?.symbol}
+              </p>
+              <div className="ld-text-gray-500 text-sm">
+                ~$
+                {(Number(formattedPrice) * usdPrice).toFixed(
+                  selectedCurrency?.symbol === 'WETH' ? 4 : 2
+                )}{' '}
+              </div>
+            </div>
           </div>
         </div>
         {selectedCurrency ? (
           <DecentAction
             act={act}
             className="w-full justify-center"
-            icon={<TipIcon className="size-4" />}
             isLoading={isLoading}
             module={module}
             moduleAmount={{
@@ -243,7 +274,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
               },
               value: formattedPrice
             }}
-            title="Mint NFT"
+            title={`Pay with ${formattedPrice} ${selectedCurrency.symbol}`}
           />
         ) : null}
       </div>

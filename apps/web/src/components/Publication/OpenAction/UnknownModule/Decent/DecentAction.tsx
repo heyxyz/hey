@@ -3,13 +3,12 @@ import type {
   ApprovedAllowanceAmountResult,
   UnknownOpenActionModuleSettings
 } from '@hey/lens';
-import type { FC, ReactNode } from 'react';
+import type { FC } from 'react';
 
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import LoginButton from '@components/Shared/Navbar/LoginButton';
-import NoBalanceError from '@components/Shared/NoBalanceError';
 import { useApprovedModuleAllowanceAmountQuery } from '@hey/lens';
-import { Button, Spinner, WarningMessage } from '@hey/ui';
+import { Button, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import getCurrentSession from '@lib/getCurrentSession';
 import { useState } from 'react';
@@ -19,7 +18,6 @@ import { useAccount, useBalance } from 'wagmi';
 interface DecentActionProps {
   act: () => void;
   className?: string;
-  icon: ReactNode;
   isLoading?: boolean;
   module: UnknownOpenActionModuleSettings;
   moduleAmount?: Amount;
@@ -29,7 +27,6 @@ interface DecentActionProps {
 const DecentAction: FC<DecentActionProps> = ({
   act,
   className = '',
-  icon,
   isLoading = false,
   module,
   moduleAmount,
@@ -44,6 +41,7 @@ const DecentAction: FC<DecentActionProps> = ({
   const amount = parseInt(moduleAmount?.value || '0');
   const assetAddress = moduleAmount?.asset?.contract.address;
   const assetDecimals = moduleAmount?.asset?.decimals || 18;
+  const assetSymbol = moduleAmount?.asset?.symbol;
 
   const { data: allowanceData, loading: allowanceLoading } =
     useApprovedModuleAllowanceAmountQuery({
@@ -85,8 +83,8 @@ const DecentAction: FC<DecentActionProps> = ({
 
   if (!sessionProfileId) {
     return (
-      <div>
-        <LoginButton title="Login to Collect" />
+      <div className="w-full">
+        <LoginButton isBig isFullWidth title="Login to Mint" />
       </div>
     );
   }
@@ -103,10 +101,13 @@ const DecentAction: FC<DecentActionProps> = ({
 
   if (!hasAmount) {
     return (
-      <WarningMessage
-        className="w-full"
-        message={<NoBalanceError moduleAmount={moduleAmount as Amount} />}
-      />
+      <Button
+        className="w-full border-gray-300 bg-gray-300 text-gray-600 hover:bg-gray-300 hover:text-gray-600"
+        disabled={true}
+        size="lg"
+      >
+        {`Insufficient ${assetSymbol} balance`}
+      </Button>
     );
   }
 
@@ -120,7 +121,7 @@ const DecentAction: FC<DecentActionProps> = ({
             ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult
         }
         setAllowed={setAllowed}
-        title="Approve WMATIC Token Allowance"
+        title={`Approve ${assetSymbol} Token Allowance`}
       />
     );
   }
@@ -129,7 +130,7 @@ const DecentAction: FC<DecentActionProps> = ({
     <Button
       className={className}
       disabled={isLoading}
-      icon={isLoading ? <Spinner size="xs" /> : icon}
+      icon={isLoading ? <Spinner size="xs" /> : null}
       onClick={act}
     >
       {title}
