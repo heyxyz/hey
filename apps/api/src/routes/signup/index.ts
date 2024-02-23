@@ -11,7 +11,7 @@ import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
 import { createWalletClient, http } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
 import { polygon, polygonMumbai } from 'viem/chains';
-import { boolean, object, string } from 'zod';
+import { boolean, number, object, string } from 'zod';
 
 type ExtensionRequest = {
   data: {
@@ -33,7 +33,7 @@ type ExtensionRequest = {
 const validationSchema = object({
   data: object({
     attributes: object({
-      order_number: string(),
+      order_number: number(),
       user_email: string()
     })
   }),
