@@ -122,7 +122,7 @@ export const post: Handler = async (req, res) => {
         Event: notionText(name),
         ID: notionTitle(uuid()),
         IP: notionText(ip || 'N/A'),
-        Properties: notionText(JSON.stringify(properties))
+        Properties: notionText(JSON.stringify(properties) || 'N/A')
       });
     }
 
