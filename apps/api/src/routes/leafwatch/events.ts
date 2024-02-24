@@ -1,6 +1,6 @@
 import type { Handler } from 'express';
 
-import { ALL_EVENTS } from '@hey/data/tracking';
+import { ALL_EVENTS, GARDENER } from '@hey/data/tracking';
 import logger from '@hey/lib/logger';
 import requestIp from 'request-ip';
 import catchedError from 'src/lib/catchedError';
@@ -114,11 +114,16 @@ export const post: Handler = async (req, res) => {
       ]
     });
 
-    pushToNotionDatabase('68a15fd7751a408fb6e6ceedc715639a', {
-      Actor: notionText(actor || 'N/A'),
-      Event: notionText(name),
-      ID: notionTitle(uuid())
-    });
+    // Audit important events to Notion
+    if (name === GARDENER.REPORT) {
+      pushToNotionDatabase('68a15fd7751a408fb6e6ceedc715639a', {
+        Actor: notionText(actor || 'N/A'),
+        Event: notionText(name),
+        ID: notionTitle(uuid()),
+        IP: notionText(ip || 'N/A'),
+        Properties: notionText(JSON.stringify(properties))
+      });
+    }
 
     logger.info('Ingested event to Leafwatch');
 
