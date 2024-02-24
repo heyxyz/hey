@@ -31,7 +31,9 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
         loading: 'Toggling staff mode...',
         success: () => {
           setStaffMode(!staffMode);
-          Leafwatch.track(STAFFTOOLS.TOGGLE_MODE);
+          Leafwatch.track(STAFFTOOLS.TOGGLE_MODE, {
+            enabled: !staffMode
+          });
 
           return 'Staff mode toggled!';
         }
