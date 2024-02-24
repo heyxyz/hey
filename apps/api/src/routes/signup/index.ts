@@ -7,6 +7,8 @@ import logger from '@hey/lib/logger';
 import crypto from 'crypto';
 import catchedError from 'src/lib/catchedError';
 import createClickhouseClient from 'src/lib/createClickhouseClient';
+import { notionText, notionTitle } from 'src/lib/notion/notionBlocks';
+import pushToNotionDatabase from 'src/lib/notion/pushToNotionDatabase';
 import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
 import { createWalletClient, http } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
@@ -106,16 +108,27 @@ export const post: Handler = async (req, res) => {
       functionName: 'createProfileWithHandle'
     });
 
-    // Begin: Log to Clickhouse
-    if (!test_mode) {
+    // Begin: Log to Clickhouse and Notion
+    if (test_mode) {
       const clickhouseClient = createClickhouseClient();
-      await clickhouseClient.insert({
+
+      // Insert into Clickhouse
+      clickhouseClient.insert({
         format: 'JSONEachRow',
         table: 'signups',
         values: { address, email, handle, hash, order_number }
       });
+
+      // Insert into Notion
+      pushToNotionDatabase('e5e687295d59420c87453e6da0279a1e', {
+        Address: notionText(address),
+        Email: notionText(email),
+        Handle: notionText(handle),
+        Hash: notionTitle(hash),
+        'Order Number': notionText(order_number.toString())
+      });
     }
-    // End: Log to Clickhouse
+    // End: Log to Clickhouse and Notion
 
     logger.info(
       `Minted Lens Profile for ${address} with handle ${handle} on ${hash}`
