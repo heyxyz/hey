@@ -73,7 +73,7 @@ export const THIRDWEB_CLIENT_ID = '0e8fa22aa33b3da60c593b4864a2e2d1';
 // Named transforms for ImageKit
 export const AVATAR = 'tr:w-250,h-250';
 export const EXPANDED_AVATAR = 'tr:w-1000,h-1000';
-export const COVER = 'tr:w-1500,h-500';
+export const COVER = 'tr:w-2545,h-350';
 export const VIDEO_THUMBNAIL = 'tr:h-500';
 export const ATTACHMENT = 'tr:w-500';
 
