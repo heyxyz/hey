@@ -5,7 +5,6 @@ import logger from '@hey/lib/logger';
 import requestIp from 'request-ip';
 import catchedError from 'src/lib/catchedError';
 import createClickhouseClient from 'src/lib/createClickhouseClient';
-import auditableEvents from 'src/lib/leafwatch/auditableEvents';
 import checkEventExistence from 'src/lib/leafwatch/checkEventExistence';
 import { notionText, notionTitle } from 'src/lib/notion/notionBlocks';
 import pushToNotionDatabase from 'src/lib/notion/pushToNotionDatabase';
@@ -115,16 +114,19 @@ export const post: Handler = async (req, res) => {
       ]
     });
 
-    // Audit important events to Notion
-    if (auditableEvents.includes(name)) {
-      pushToNotionDatabase('68a15fd7751a408fb6e6ceedc715639a', {
-        Actor: notionText(actor || 'N/A'),
-        Event: notionText(name),
-        ID: notionTitle(uuid()),
-        IP: notionText(ip || 'N/A'),
-        Properties: notionText(JSON.stringify(properties) || 'N/A')
-      });
-    }
+    pushToNotionDatabase('68a15fd7751a408fb6e6ceedc715639a', {
+      Actor: notionText(actor || 'N/A'),
+      Browser: notionText(ua.browser.name || 'N/A'),
+      City: notionText(ipData?.city || 'N/A'),
+      Country: notionText(ipData?.country || 'N/A'),
+      Event: notionText(name),
+      ID: notionTitle(uuid()),
+      IP: notionText(ip || 'N/A'),
+      Platform: notionText(platform || 'N/A'),
+      Properties: notionText(JSON.stringify(properties) || 'N/A'),
+      Referrer: notionText(referrer || 'N/A'),
+      Region: notionText(ipData?.regionName || 'N/A')
+    });
 
     logger.info('Ingested event to Leafwatch');
 
