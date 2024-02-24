@@ -33,7 +33,9 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
         loading: 'Toggling gardener mode...',
         success: () => {
           setGardenerMode(!gardenerMode);
-          Leafwatch.track(GARDENER.TOGGLE_MODE);
+          Leafwatch.track(GARDENER.TOGGLE_MODE, {
+            enabled: !gardenerMode
+          });
 
           return 'Gardener mode toggled!';
         }
