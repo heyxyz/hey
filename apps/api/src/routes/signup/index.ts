@@ -109,7 +109,7 @@ export const post: Handler = async (req, res) => {
     });
 
     // Begin: Log to Clickhouse and Notion
-    if (test_mode) {
+    if (!test_mode) {
       const clickhouseClient = createClickhouseClient();
 
       // Insert into Clickhouse
