@@ -6,9 +6,12 @@ import requestIp from 'request-ip';
 import catchedError from 'src/lib/catchedError';
 import createClickhouseClient from 'src/lib/createClickhouseClient';
 import checkEventExistence from 'src/lib/leafwatch/checkEventExistence';
+import { notionText, notionTitle } from 'src/lib/notion/notionBlocks';
+import pushToNotionDatabase from 'src/lib/notion/pushToNotionDatabase';
 import { invalidBody, noBody } from 'src/lib/responses';
 import UAParser from 'ua-parser-js';
 import urlcat from 'urlcat';
+import { v4 as uuid } from 'uuid';
 import { any, object, string } from 'zod';
 
 type ExtensionRequest = {
@@ -110,6 +113,13 @@ export const post: Handler = async (req, res) => {
         }
       ]
     });
+
+    pushToNotionDatabase('68a15fd7751a408fb6e6ceedc715639a', {
+      Actor: notionText(actor || 'N/A'),
+      Event: notionText(name),
+      ID: notionTitle(uuid())
+    });
+
     logger.info('Ingested event to Leafwatch');
 
     return res.status(200).json({ id: result.query_id, success: true });
