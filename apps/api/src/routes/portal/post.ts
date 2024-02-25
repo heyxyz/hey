@@ -70,6 +70,7 @@ export const post: Handler = async (req, res) => {
 
     return res.status(200).json({ portal: getPortal(document), success: true });
   } catch (error) {
+    console.error(error);
     return catchedError(res, error);
   }
 };

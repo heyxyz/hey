@@ -3,10 +3,10 @@ import axios from 'axios';
 import { TEST_URL } from 'src/lib/constants';
 import { describe, expect, test } from 'vitest';
 
-describe('portal/act', () => {
+describe('portal/post', () => {
   test('should return hey portal', async () => {
     const response = await axios.post(
-      `${TEST_URL}/portal/act`,
+      `${TEST_URL}/portal/post`,
       {
         buttonIndex: 1,
         postUrl:
@@ -23,7 +23,7 @@ describe('portal/act', () => {
 
   test('should return farcaster frame', async () => {
     const response = await axios.post(
-      `${TEST_URL}/portal/act`,
+      `${TEST_URL}/portal/post`,
       {
         buttonIndex: 1,
         postUrl: 'https://frames-rouge.vercel.app/api/nouns-auction',
