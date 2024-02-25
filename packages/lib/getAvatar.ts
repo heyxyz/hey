@@ -13,8 +13,6 @@ import sanitizeDStorageUrl from './sanitizeDStorageUrl';
  */
 const getAvatar = (profile: any, namedTransform = AVATAR): string => {
   const avatarUrl =
-    // Group Avatar fallbacks
-    profile?.avatar ||
     // Lens NFT Avatar fallbacks
     profile?.metadata?.picture?.image?.optimized?.uri ||
     profile?.metadata?.picture?.image?.raw?.uri ||
