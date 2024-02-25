@@ -28,7 +28,6 @@
     "@hey/data": "workspace:*",
     "@hey/lib": "workspace:*",
     "@irys/sdk": "^0.1.9",
-    "@notionhq/client": "^2.2.14",
     "@prisma/client": "^5.10.2",
     "axios": "^1.6.7",
     "cors": "^2.8.5",
