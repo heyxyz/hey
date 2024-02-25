@@ -12,7 +12,6 @@ import { type FC, useEffect } from 'react';
 
 import { useHiddenCommentFeedStore } from '.';
 import PublicationActions from './Actions';
-import FeaturedGroup from './FeaturedGroup';
 import HiddenPublication from './HiddenPublication';
 import PublicationAvatar from './PublicationAvatar';
 import PublicationBody from './PublicationBody';
@@ -62,14 +61,11 @@ const FullPublication: FC<FullPublicationProps> = ({
                 contentClassName="full-page-publication-markup"
                 publication={targetPublication}
               />
-              <div className="flex items-center gap-x-3">
-                <div className="ld-text-gray-500 my-3 text-sm">
-                  <span>{formatDate(createdAt, 'hh:mm A · MMM D, YYYY')}</span>
-                  {publishedOn?.id ? (
-                    <span> · Posted via {getAppName(publishedOn.id)}</span>
-                  ) : null}
-                </div>
-                <FeaturedGroup tags={metadata.tags} />
+              <div className="ld-text-gray-500 my-3 text-sm">
+                <span>{formatDate(createdAt, 'hh:mm A · MMM D, YYYY')}</span>
+                {publishedOn?.id ? (
+                  <span> · Posted via {getAppName(publishedOn.id)}</span>
+                ) : null}
               </div>
               <PublicationStats
                 publicationId={targetPublication.id}

@@ -10,7 +10,6 @@ export const Localstorage = {
 
 export const IndexDB = {
   AlgorithmStore: 'algorithm.store',
-  FeaturedGroupsStore: 'featuredgroups.store',
   FeatureFlagsStore: 'featureflags.store',
   ProfileStore: 'profile.store',
   TBAStore: 'tba.store',
