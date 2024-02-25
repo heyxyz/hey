@@ -82,9 +82,9 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
             className="justify-center"
             disabled={loading || !publicationId || !currentProfile}
             icon={
-              (action === 'link' || action === 'post_redirect') && (
-                <LinkIcon className="size-4" />
-              )
+              (action === 'link' ||
+                action === 'post_redirect' ||
+                action === 'mint') && <LinkIcon className="size-4" />
             }
             key={index}
             onClick={() => {
@@ -93,8 +93,13 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
                 publication_id: publicationId
               });
 
-              if (action === 'link' || action === 'post_redirect') {
-                window.open(target || portalUrl, '_blank');
+              if (
+                action === 'link' ||
+                action === 'post_redirect' ||
+                action === 'mint'
+              ) {
+                const url = action === 'mint' ? portalUrl : target || portalUrl;
+                window.open(url, '_blank');
               } else if (action === 'post') {
                 onPost(index);
               }
