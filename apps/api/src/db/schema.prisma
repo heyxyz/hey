@@ -25,54 +25,6 @@ model MembershipNft {
   createdAt         DateTime @default(now())
 }
 
-model Group {
-  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  slug        String   @unique
-  name        String
-  description String
-  avatar      String
-  tags        String[]
-  lens        String?
-  x           String?
-  discord     String?
-  instagram   String?
-  featured    Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  creatorId   String
-
-  // Relations
-  members   GroupMember[]
-  favorites GroupFavorite[]
-
-  // Indexes
-  @@index([slug])
-  @@index([featured])
-}
-
-model GroupMember {
-  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  profileId String
-  group     Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
-  groupId   String   @db.Uuid
-  createdAt DateTime @default(now())
-
-  @@unique([groupId, profileId])
-  // Indexes
-  @@index([profileId])
-}
-
-model GroupFavorite {
-  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  profileId String
-  group     Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
-  groupId   String   @db.Uuid
-  createdAt DateTime @default(now())
-
-  @@unique([groupId, profileId])
-  // Indexes
-  @@index([profileId])
-}
-
 model Feature {
   id        String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   key       String      @unique

@@ -30,13 +30,6 @@ export const PROFILE = {
   UNFOLLOW: 'Unfollow profile'
 };
 
-export const GROUP = {
-  FAVORITE: 'Favorite group',
-  JOIN: 'Join group',
-  LEAVE: 'Leave group',
-  UNFAVORITE: 'Unfavorite group'
-};
-
 export const PUBLICATION = {
   ATTACHMENT: {
     AUDIO: {
@@ -228,7 +221,6 @@ export const ALL_EVENTS = {
   PAGEVIEW,
   ...AUTH,
   ...PROFILE,
-  ...GROUP,
   ...PUBLICATION,
   ...NOTIFICATION,
   ...HOME,

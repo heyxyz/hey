@@ -18,7 +18,6 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 import Slug from '../Slug';
 import AppVersion from './NavItems/AppVersion';
 import Bookmarks from './NavItems/Bookmarks';
-import CreateGroup from './NavItems/CreateGroup';
 import GardenerMode from './NavItems/GardenerMode';
 import Invites from './NavItems/Invites';
 import Logout from './NavItems/Logout';
@@ -87,10 +86,6 @@ const MobileDrawerMenu: FC = () => {
               <Settings className={cn(itemClass, 'px-4')} />
             </Link>
             <Bookmarks
-              className={cn(itemClass, 'px-4')}
-              onClick={closeDrawer}
-            />
-            <CreateGroup
               className={cn(itemClass, 'px-4')}
               onClick={closeDrawer}
             />
