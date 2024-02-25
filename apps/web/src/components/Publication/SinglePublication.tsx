@@ -10,7 +10,6 @@ import { memo } from 'react';
 import { useInView } from 'react-cool-inview';
 
 import PublicationActions from './Actions';
-import FeaturedGroup from './FeaturedGroup';
 import HiddenPublication from './HiddenPublication';
 import PublicationAvatar from './PublicationAvatar';
 import PublicationBody from './PublicationBody';
@@ -87,12 +86,9 @@ const SinglePublication: FC<SinglePublicationProps> = ({
                 publication={rootPublication}
                 showMore={showMore}
               />
-              <div className="flex flex-wrap items-center gap-x-7">
-                {showActions ? (
-                  <PublicationActions publication={rootPublication} />
-                ) : null}
-                <FeaturedGroup className="mt-3" tags={metadata?.tags} />
-              </div>
+              {showActions ? (
+                <PublicationActions publication={rootPublication} />
+              ) : null}
             </>
           )}
         </div>
