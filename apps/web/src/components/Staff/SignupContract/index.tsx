@@ -25,7 +25,7 @@ import RelayerBalance from './RelayerBalance';
 import SignupPrice from './SignupPrice';
 
 const relayAddresses: Address[] = [
-  '0xb9C6e304545386E95d5c4ab183EE97A13555A49d',
+  '0x1A15ACfd4293Da7F6dD964f065A0b418355B2b92',
   '0x69827eB22B5e153de6ff480417c436a0A56Be7F7',
   '0x77EE64875072055836eB966633cf690acdB0529d',
   '0xa12F2B9e9bf26f1A22D4Ff4b79483e8953A436F8',
