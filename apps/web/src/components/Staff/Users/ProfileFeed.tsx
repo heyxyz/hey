@@ -13,11 +13,11 @@ import { CustomFiltersType, LimitType, usePublicationsQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { useInView } from 'react-cool-inview';
 
-interface PublicationsProps {
+interface ProfileFeedProps {
   profileId: string;
 }
 
-const Publications: FC<PublicationsProps> = ({ profileId }) => {
+const ProfileFeed: FC<ProfileFeedProps> = ({ profileId }) => {
   // Variables
   const request: PublicationsRequest = {
     limit: LimitType.Fifty,
@@ -99,4 +99,4 @@ const Publications: FC<PublicationsProps> = ({ profileId }) => {
   );
 };
 
-export default Publications;
+export default ProfileFeed;

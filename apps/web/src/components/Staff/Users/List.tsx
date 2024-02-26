@@ -20,7 +20,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
-import Publications from './Publications';
+import ProfileFeed from './ProfileFeed';
 
 const List: FC = () => {
   const { pathname, push } = useRouter();
@@ -67,13 +67,15 @@ const List: FC = () => {
       <div className="flex items-center justify-between space-x-5 p-5">
         <SearchProfiles
           onChange={(event) => setValue(event.target.value)}
-          onProfileSelected={(profile) =>
-            push(
-              pathname === '/mod'
-                ? getProfile(profile).link
-                : getProfile(profile).staffLink
-            )
-          }
+          onProfileSelected={(profile) => {
+            if (pathname === '/mod') {
+              setShowPublicationsModal(true);
+              setSelectedProfile(profile as Profile);
+              setValue('');
+            } else {
+              push(getProfile(profile).staffLink);
+            }
+          }}
           placeholder="Search profiles..."
           skipGardeners
           value={value}
@@ -167,7 +169,7 @@ const List: FC = () => {
       >
         <div className="max-h-[80vh] overflow-y-auto">
           {selectedProfile?.id ? (
-            <Publications profileId={selectedProfile.id} />
+            <ProfileFeed profileId={selectedProfile.id} />
           ) : null}
         </div>
       </Modal>
