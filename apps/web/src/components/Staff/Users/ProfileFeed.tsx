@@ -81,7 +81,7 @@ const ProfileFeed: FC<ProfileFeedProps> = ({ profileId }) => {
             isLast={false}
             publication={publication as AnyPublication}
             showActions={false}
-            showThread={false}
+            showThread
           />
           <div>
             <div className="divider" />
