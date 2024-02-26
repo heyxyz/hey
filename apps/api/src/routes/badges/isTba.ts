@@ -24,14 +24,14 @@ export const get: Handler = async (req, res) => {
     const bytecode = await client.getBytecode({
       address: address as Address
     });
+    const isTba = bytecode?.length === 348;
 
-    const deployed = bytecode?.length === 348;
-    logger.info(`TBA status fetched: ${address}`);
+    logger.info(`TBA status fetched for ${address}`);
 
     return res
       .status(200)
       .setHeader('Cache-Control', SWR_CACHE_AGE_10_MINS_30_DAYS)
-      .json({ deployed, success: true });
+      .json({ isTba, success: true });
   } catch (error) {
     return catchedError(res, error);
   }
