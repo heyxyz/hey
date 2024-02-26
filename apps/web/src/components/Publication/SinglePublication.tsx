@@ -3,7 +3,6 @@ import type { FC } from 'react';
 
 import ActionType from '@components/Home/Timeline/EventType';
 import PublicationWrapper from '@components/Shared/PublicationWrapper';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
 import pushToImpressions from '@lib/pushToImpressions';
 import { memo } from 'react';
@@ -38,9 +37,6 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   showType = true
 }) => {
   const rootPublication = feedItem ? feedItem?.root : publication;
-  const { metadata } = isMirrorPublication(publication)
-    ? publication.mirrorOn
-    : publication;
 
   const { observe } = useInView({
     onChange: ({ inView }) => {
