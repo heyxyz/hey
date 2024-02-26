@@ -59,18 +59,16 @@ describe('oembed/index', () => {
 
     expect(response.data.oembed.portal.version).toEqual('vLatest');
     expect(response.data.oembed.portal.buttons[0].button).toEqual('Start');
-    expect(response.data.oembed.portal.buttons[0].type).toEqual('submit');
+    expect(response.data.oembed.portal.buttons[0].action).toEqual('post');
   });
 
   test('should return farcaster frame', async () => {
     const response = await axios.get(`${TEST_URL}/oembed`, {
-      params: { url: 'https://punkf.vercel.app/api/p' }
+      params: { url: 'https://perl.xyz/market/37/bet' }
     });
 
     expect(response.data.oembed.portal.version).toEqual('vNext');
-    expect(response.data.oembed.portal.buttons[0].button).toEqual(
-      'Gib Random Punk'
-    );
-    expect(response.data.oembed.portal.buttons[0].type).toEqual('submit');
+    expect(response.data.oembed.portal.buttons[0].button).toEqual('📈 MORE');
+    expect(response.data.oembed.portal.buttons[0].action).toEqual('post');
   });
 });

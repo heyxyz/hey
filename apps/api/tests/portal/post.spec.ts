@@ -18,7 +18,7 @@ describe('portal/post', () => {
 
     expect(response.data.portal.version).toEqual('vLatest');
     expect(response.data.portal.buttons[0].button).toEqual('A');
-    expect(response.data.portal.buttons[0].type).toEqual('submit');
+    expect(response.data.portal.buttons[0].action).toEqual('post');
   });
 
   test('should return farcaster frame', async () => {
@@ -34,6 +34,6 @@ describe('portal/post', () => {
 
     expect(response.data.portal.version).toEqual('vNext');
     expect(response.data.portal.buttons[0].button).toEqual('Refresh');
-    expect(response.data.portal.buttons[0].type).toEqual('submit');
+    expect(response.data.portal.buttons[0].action).toEqual('post');
   });
 });
