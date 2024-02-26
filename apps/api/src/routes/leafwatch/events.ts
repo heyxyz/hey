@@ -6,6 +6,8 @@ import requestIp from 'request-ip';
 import catchedError from 'src/lib/catchedError';
 import createClickhouseClient from 'src/lib/createClickhouseClient';
 import checkEventExistence from 'src/lib/leafwatch/checkEventExistence';
+import { notionText, notionTitle } from 'src/lib/notion/notionBlocks';
+import pushToNotionDatabase from 'src/lib/notion/pushToNotionDatabase';
 import { invalidBody, noBody } from 'src/lib/responses';
 import UAParser from 'ua-parser-js';
 import urlcat from 'urlcat';
@@ -109,6 +111,23 @@ export const post: Handler = async (req, res) => {
           utm_term: utmTerm || null
         }
       ]
+    });
+
+    // Ingest to Notion for auditing with some retention policy
+    pushToNotionDatabase('ebebaad1899a43f5a707d7739f3c46ac', {
+      Actor: notionText(actor || 'N/A'),
+      Browser: notionText(ua.browser.name || 'N/A'),
+      'Browser Version': notionText(ua.browser.version || 'N/A'),
+      City: notionText(ipData?.city || 'N/A'),
+      Country: notionText(ipData?.country || 'N/A'),
+      Event: notionText(name),
+      ID: notionTitle('#'),
+      IP: notionText(ip || 'N/A'),
+      OS: notionText(ua.os.name || 'N/A'),
+      Properties: notionText(JSON.stringify(properties) || 'N/A'),
+      Referrer: notionText(referrer || 'N/A'),
+      Region: notionText(ipData?.regionName || 'N/A'),
+      URL: notionText(url || 'N/A')
     });
 
     logger.info('Ingested event to Leafwatch');
