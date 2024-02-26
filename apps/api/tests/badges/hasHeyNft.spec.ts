@@ -12,7 +12,7 @@ describe('badges/hasHeyNft', () => {
   });
 
   test('should return false if address does not have Hey NFT', async () => {
-    const response = await axios.get(`${TEST_URL}/tba/deployed`, {
+    const response = await axios.get(`${TEST_URL}/badges/hasHeyNft`, {
       params: { address: '0x9AF37db37E74A0Fd6c12cDc84cC4C870d0bd41b9' }
     });
 

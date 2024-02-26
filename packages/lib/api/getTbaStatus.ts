@@ -15,13 +15,13 @@ const getTbaStatus = async (
     return false;
   }
 
-  const response = await axios.get(`${HEY_API_URL}/tba/deployed`, {
+  const response = await axios.get(`${HEY_API_URL}/badges/isTba`, {
     params: { address }
   });
   const { data } = response;
-  callbackFn?.(data?.deployed || false);
+  callbackFn?.(data?.isTba || false);
 
-  return data?.deployed || false;
+  return data?.isTba || false;
 };
 
 export default getTbaStatus;
