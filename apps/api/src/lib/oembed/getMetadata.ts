@@ -14,7 +14,7 @@ import getPortal from './meta/getPortal';
 import getSite from './meta/getSite';
 import getTitle from './meta/getTitle';
 
-const getMetadata = async (url: string): Promise<any> => {
+const getMetadata = async (url: string): Promise<OG> => {
   const { html } = await fetch(url, {
     headers: { 'User-Agent': 'HeyBot/0.1 (like TwitterBot)' }
   }).then(async (res) => ({
