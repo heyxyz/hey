@@ -37,3 +37,15 @@ CREATE TABLE impressions (
 PARTITION BY toYYYYMM(viewed_at)
 ORDER BY (viewer_id, publication_id, viewed_at)
 SETTINGS index_granularity = 8192;
+
+-- Signups
+CREATE TABLE signups (
+  id UUID DEFAULT generateUUIDv4(),
+  handle String,
+  address String,
+  email String,
+  order_number String,
+  hash String,
+  created DateTime DEFAULT now()
+) ENGINE = MergeTree
+ORDER BY created;

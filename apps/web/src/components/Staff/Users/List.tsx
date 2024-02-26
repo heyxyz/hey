@@ -12,13 +12,15 @@ import {
   useExploreProfilesQuery
 } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
-import { Card, EmptyState, ErrorMessage, Select } from '@hey/ui';
+import { Button, Card, EmptyState, ErrorMessage, Modal, Select } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
+
+import ProfileFeed from './ProfileFeed';
 
 const List: FC = () => {
   const { pathname, push } = useRouter();
@@ -27,6 +29,8 @@ const List: FC = () => {
   );
   const [value, setValue] = useState('');
   const [refetching, setRefetching] = useState(false);
+  const [showPublicationsModal, setShowPublicationsModal] = useState(false);
+  const [selectedProfile, setSelectedProfile] = useState<null | Profile>(null);
 
   // Variables
   const request: ExploreProfilesRequest = {
@@ -63,13 +67,15 @@ const List: FC = () => {
       <div className="flex items-center justify-between space-x-5 p-5">
         <SearchProfiles
           onChange={(event) => setValue(event.target.value)}
-          onProfileSelected={(profile) =>
-            push(
-              pathname === '/mod'
-                ? getProfile(profile).link
-                : getProfile(profile).staffLink
-            )
-          }
+          onProfileSelected={(profile) => {
+            if (pathname === '/mod') {
+              setShowPublicationsModal(true);
+              setSelectedProfile(profile as Profile);
+              setValue('');
+            } else {
+              push(getProfile(profile).staffLink);
+            }
+          }}
           placeholder="Search profiles..."
           skipGardeners
           value={value}
@@ -111,7 +117,7 @@ const List: FC = () => {
               return (
                 <motion.div
                   animate={{ opacity: 1 }}
-                  className="flex items-center justify-between pb-7"
+                  className="flex flex-wrap items-center justify-between gap-y-5 pb-7"
                   exit={{ opacity: 0 }}
                   initial={{ opacity: 0 }}
                 >
@@ -126,12 +132,25 @@ const List: FC = () => {
                       isBig
                       linkToProfile={false}
                       profile={profile as Profile}
-                      showBio
+                      showBio={false}
                       showUserPreview={false}
                       timestamp={profile.createdAt}
                     />
                   </Link>
-                  <P2PRecommendation profile={profile as Profile} />
+                  <div className="flex items-center space-x-1">
+                    <Button
+                      onClick={() => {
+                        setShowPublicationsModal(true);
+                        setSelectedProfile(profile as Profile);
+                      }}
+                      outline
+                      size="sm"
+                      variant="secondary"
+                    >
+                      Publications
+                    </Button>
+                    <P2PRecommendation profile={profile as Profile} />
+                  </div>
                 </motion.div>
               );
             }}
@@ -139,6 +158,21 @@ const List: FC = () => {
           />
         )}
       </div>
+      <Modal
+        onClose={() => {
+          setShowPublicationsModal(false);
+          setSelectedProfile(null);
+        }}
+        show={showPublicationsModal}
+        size="md"
+        title={`Publications by ${getProfile(selectedProfile).slugWithPrefix}`}
+      >
+        <div className="max-h-[80vh] overflow-y-auto">
+          {selectedProfile?.id ? (
+            <ProfileFeed profileId={selectedProfile.id} />
+          ) : null}
+        </div>
+      </Modal>
     </Card>
   );
 };

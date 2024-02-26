@@ -173,6 +173,10 @@ ul {
   @apply [&>div>div]:dark:border-gray-700;
 }
 
+.livepeer-aspect-ratio-container {
+  @apply [&>div>img]:object-contain;
+}
+
 /* react-virtuoso - Virtual profile list */
 .virtual-profile-list {
   @apply !h-[80vh];

@@ -1,6 +1,6 @@
 export enum MainnetContracts {
   DefaultToken = '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270',
-  HeyLensSignup = '0xa7105e8b28f7CD175C9198aB464Ec04f0a8a2bce',
+  HeyLensSignup = '0x4b8845ACb8148dE64D1D99Cf27A3890a91F55E53',
   LensHubProxy = '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d',
   PermissionlessCreator = '0x0b5e6100243f793e480DE6088dE6bA70aA9f3872',
   PublicActProxy = '0x53582b1b7BE71622E7386D736b6baf87749B7a2B',

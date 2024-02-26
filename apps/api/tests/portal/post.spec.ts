@@ -3,10 +3,10 @@ import axios from 'axios';
 import { TEST_URL } from 'src/lib/constants';
 import { describe, expect, test } from 'vitest';
 
-describe('portal/act', () => {
+describe('portal/post', () => {
   test('should return hey portal', async () => {
     const response = await axios.post(
-      `${TEST_URL}/portal/act`,
+      `${TEST_URL}/portal/post`,
       {
         buttonIndex: 1,
         postUrl:
@@ -18,12 +18,12 @@ describe('portal/act', () => {
 
     expect(response.data.portal.version).toEqual('vLatest');
     expect(response.data.portal.buttons[0].button).toEqual('A');
-    expect(response.data.portal.buttons[0].type).toEqual('submit');
+    expect(response.data.portal.buttons[0].action).toEqual('post');
   });
 
   test('should return farcaster frame', async () => {
     const response = await axios.post(
-      `${TEST_URL}/portal/act`,
+      `${TEST_URL}/portal/post`,
       {
         buttonIndex: 1,
         postUrl: 'https://frames-rouge.vercel.app/api/nouns-auction',
@@ -34,6 +34,6 @@ describe('portal/act', () => {
 
     expect(response.data.portal.version).toEqual('vNext');
     expect(response.data.portal.buttons[0].button).toEqual('Refresh');
-    expect(response.data.portal.buttons[0].type).toEqual('submit');
+    expect(response.data.portal.buttons[0].action).toEqual('post');
   });
 });
