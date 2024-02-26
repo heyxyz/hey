@@ -260,17 +260,9 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
               </div>
               {showFees ? (
                 <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
-                  <span className="space-x-1">Mint Fee</span>
+                  <span className="space-x-1">Bridge Fee</span>
                   <div>
-                    {0.01} {selectedCurrency?.symbol}
-                  </div>
-                </div>
-              ) : null}
-              {showFees ? (
-                <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
-                  <span className="space-x-1">Platform Fee</span>
-                  <div>
-                    {0.002} {selectedCurrency?.symbol}
+                    {formattedTotalFees} {selectedCurrency?.symbol}
                   </div>
                 </div>
               ) : null}
