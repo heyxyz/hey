@@ -9,10 +9,8 @@ import { Leafwatch } from '@lib/leafwatch';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
-import useProfileStore from 'src/store/persisted/useProfileStore';
 
 const DeletePublication: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
   const showPublicationDeleteAlert = useGlobalAlertStateStore(
     (state) => state.showPublicationDeleteAlert
   );
@@ -38,10 +36,6 @@ const DeletePublication: FC = () => {
   });
 
   const deletePublication = async () => {
-    if (!currentProfile) {
-      return toast.error(Errors.SignWallet);
-    }
-
     if (isSuspended) {
       return toast.error(Errors.Suspended);
     }
