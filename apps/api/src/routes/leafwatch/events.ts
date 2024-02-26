@@ -126,7 +126,6 @@ export const post: Handler = async (req, res) => {
       OS: notionText(ua.os.name || 'N/A'),
       Properties: notionText(JSON.stringify(properties) || 'N/A'),
       Referrer: notionText(referrer || 'N/A'),
-      Region: notionText(ipData?.regionName || 'N/A'),
       URL: notionText(url || 'N/A')
     });
 
