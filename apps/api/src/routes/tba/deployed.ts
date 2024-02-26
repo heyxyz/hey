@@ -3,7 +3,7 @@ import type { Address } from 'viem';
 
 import logger from '@hey/lib/logger';
 import catchedError from 'src/lib/catchedError';
-import { CACHE_AGE_INDEFINITE, RPC_URL } from 'src/lib/constants';
+import { RPC_URL, SWR_CACHE_AGE_10_MINS_30_DAYS } from 'src/lib/constants';
 import { noBody } from 'src/lib/responses';
 import { createPublicClient, http } from 'viem';
 import { polygon } from 'viem/chains';
@@ -30,7 +30,7 @@ export const get: Handler = async (req, res) => {
 
     return res
       .status(200)
-      .setHeader('Cache-Control', CACHE_AGE_INDEFINITE)
+      .setHeader('Cache-Control', SWR_CACHE_AGE_10_MINS_30_DAYS)
       .json({ deployed, success: true });
   } catch (error) {
     return catchedError(res, error);
