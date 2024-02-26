@@ -117,13 +117,10 @@ export const post: Handler = async (req, res) => {
     pushToNotionDatabase('ebebaad1899a43f5a707d7739f3c46ac', {
       Actor: notionText(actor || 'N/A'),
       Browser: notionText(ua.browser.name || 'N/A'),
-      'Browser Version': notionText(ua.browser.version || 'N/A'),
-      City: notionText(ipData?.city || 'N/A'),
       Country: notionText(ipData?.country || 'N/A'),
       Event: notionText(name),
       ID: notionTitle('#'),
       IP: notionText(ip || 'N/A'),
-      OS: notionText(ua.os.name || 'N/A'),
       Properties: notionText(JSON.stringify(properties) || 'N/A'),
       Referrer: notionText(referrer || 'N/A'),
       URL: notionText(url || 'N/A')
