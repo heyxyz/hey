@@ -5,7 +5,7 @@ import { Tooltip } from '@hey/ui';
 
 const HeyNft: FC = () => {
   return (
-    <Tooltip content={`Owner of ${APP_NAME} NFT Badge`} placement="top">
+    <Tooltip content={`Owner of ${APP_NAME} NFT`} placement="top">
       <img
         alt={`Owner of ${APP_NAME} NFT Badge`}
         className="drop-shadow-xl"
