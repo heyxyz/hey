@@ -41,9 +41,10 @@ const RelayerBalance: FC<RelayerBalanceProps> = ({ address, index }) => {
     try {
       setLoading(true);
 
+      // Refill balance to 10 MATIC
       return await sendTransactionAsync({
         to: address,
-        value: parseEther(balance < 20 ? (20 - balance).toString() : '0')
+        value: parseEther(balance < 10 ? (10 - balance).toString() : '0')
       });
     } catch (error) {
       errorToast(error);
