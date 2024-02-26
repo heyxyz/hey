@@ -293,7 +293,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
           <InvitedBy profile={profile.invitedBy} />
         </>
       ) : null}
-      <Badges onchainIdentity={profile.onchainIdentity} />
+      <Badges id={profile.id} onchainIdentity={profile.onchainIdentity} />
       {gardenerMode && <GardenerTool profile={profile} />}
     </div>
   );
