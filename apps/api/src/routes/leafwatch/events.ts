@@ -116,7 +116,6 @@ export const post: Handler = async (req, res) => {
     // Ingest to Notion for auditing with some retention policy
     pushToNotionDatabase('ebebaad1899a43f5a707d7739f3c46ac', {
       Actor: notionText(actor || 'N/A'),
-      Browser: notionText(ua.browser.name || 'N/A'),
       Country: notionText(ipData?.country || 'N/A'),
       Event: notionText(name),
       ID: notionTitle('#'),
