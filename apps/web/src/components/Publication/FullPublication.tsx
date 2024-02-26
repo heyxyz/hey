@@ -39,7 +39,7 @@ const FullPublication: FC<FullPublicationProps> = ({
     ? publication?.mirrorOn
     : publication;
 
-  const { createdAt, metadata, publishedOn } = targetPublication;
+  const { createdAt, publishedOn } = targetPublication;
 
   useEffect(() => {
     pushToImpressions(targetPublication.id);
