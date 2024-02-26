@@ -42,7 +42,7 @@ describe('oembed/index', () => {
       '0x3585ca22df80d70f6d1cc0867d8387c360181349'
     );
     expect(response.data.oembed.nft.mediaUrl).toEqual(
-      'https://assets.manifold.xyz/image/upload/c_limit,q_80,w_1024/85ae2690f4fa0c82f2e66334c20ad64df02ea18865319130a8aecf6b917fdb7c.gif'
+      'https://d1updk8hq321rl.cloudfront.net/optimized/85ae2690f4fa0c82f2e66334c20ad64df02ea18865319130a8aecf6b917fdb7c/w_1024.webp'
     );
     expect(response.data.oembed.nft.schema).toEqual('erc721');
     expect(response.data.oembed.nft.sourceUrl).toEqual(
