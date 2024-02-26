@@ -15,10 +15,14 @@ import MediaFilter from './Filters/MediaFilter';
 
 interface FeedTypeProps {
   feedType: string;
+  setFeedType?: (type: ProfileFeedType) => void;
 }
 
-const FeedType: FC<FeedTypeProps> = ({ feedType }) => {
+const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
   const switchTab = (type: string) => {
+    if (setFeedType) {
+      setFeedType(type as ProfileFeedType);
+    }
     Leafwatch.track(PROFILE.SWITCH_PROFILE_FEED_TAB, {
       profile_feed_type: type.toLowerCase()
     });
