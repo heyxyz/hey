@@ -13,11 +13,11 @@ npx hardhat verify 0x6d131f44fBB08D463D18394Ada64BE59519339e3 --network polygonM
 
 # Deploy to Polygon
 npx hardhat run script/deploy.ts --network polygon
-npx hardhat verify 0xa7105e8b28f7CD175C9198aB464Ec04f0a8a2bce --network polygon
+npx hardhat verify 0x4b8845ACb8148dE64D1D99Cf27A3890a91F55E53 --network polygon
 ```
 
 ## Contracts
 
 | Contract        | Mainnet                                                                                                                         | Mumbai                                                                                                                   |
 | --------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `HeyLensSignup` | [0x6d131f44fBB08D463D18394Ada64BE59519339e3](https://mumbai.polygonscan.com/address/0x6d131f44fBB08D463D18394Ada64BE59519339e3) | [0xa7105e8b28f7CD175C9198aB464Ec04f0a8a2bce](https://polygonscan.com/address/0xa7105e8b28f7CD175C9198aB464Ec04f0a8a2bce) |
+| `HeyLensSignup` | [0x6d131f44fBB08D463D18394Ada64BE59519339e3](https://mumbai.polygonscan.com/address/0x6d131f44fBB08D463D18394Ada64BE59519339e3) | [0x4b8845ACb8148dE64D1D99Cf27A3890a91F55E53](https://polygonscan.com/address/0x4b8845ACb8148dE64D1D99Cf27A3890a91F55E53) |
