@@ -3,11 +3,14 @@ import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
 import { type FC, useEffect } from 'react';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import { useSignupStore } from './Auth/Signup';
 
 const GlobalModalsFromUrl: FC = () => {
   const { isReady, query } = useRouter();
+
+  const currentProfile = useProfileStore((state) => state.currentProfile);
   const setShowAuthModal = useGlobalModalStateStore(
     (state) => state.setShowAuthModal
   );
@@ -15,8 +18,7 @@ const GlobalModalsFromUrl: FC = () => {
 
   // Trigger Signup modal
   useEffect(() => {
-    //query?.signup
-    if (isReady && query?.signup) {
+    if (isReady && query?.signup && !currentProfile) {
       setScreen('choose');
       setShowAuthModal(true, 'signup');
       Leafwatch.track(AUTH.OPEN_SIGNUP);
