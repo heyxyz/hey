@@ -28,7 +28,7 @@ import { ReferenceModuleType } from '@hey/lens';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import collectModuleParams from '@hey/lib/collectModuleParams';
 import getProfile from '@hey/lib/getProfile';
-import getPublicationContentUrls from '@hey/lib/getPublicationContentUrls';
+import getURLs from '@hey/lib/getURLs';
 import removeQuoteOn from '@hey/lib/removeQuoteOn';
 import { Button, Card, ErrorMessage, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -421,8 +421,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       // Flag to determine if open action module can be parsed from URL, if set Momoka will be disabled
       let urlsWithParseableActions = false;
 
-      const publicationContentUrls =
-        getPublicationContentUrls(publicationContent);
+      const publicationContentUrls = getURLs(publicationContent);
 
       const nftOpenActionKit = new NftOpenActionKit({
         decentApiKey: process.env.NEXT_PUBLIC_DECENT_API_KEY || '',
