@@ -5,8 +5,7 @@ import type {
 } from '@hey/lens';
 
 export type StaffPick = {
-  createdAt: Date;
-  id: string;
+  profileId: string;
 };
 
 export type Feature = {

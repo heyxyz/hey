@@ -349,7 +349,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     }
 
     if (isSuspended) {
-      toast.error(Errors.Suspended);
+      return toast.error(Errors.Suspended);
     }
 
     try {
