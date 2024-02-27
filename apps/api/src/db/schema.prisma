@@ -7,11 +7,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model StaffPick {
-  id        String   @id
-  createdAt DateTime @default(now())
-}
-
 model Preference {
   id                           String   @id
   isPride                      Boolean  @default(false)
