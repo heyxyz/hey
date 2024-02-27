@@ -18,6 +18,7 @@ import { useAccount } from 'wagmi';
 
 import Auth from './Auth';
 import { useSignupStore } from './Auth/Signup';
+import GlobalModalsFromUrl from './GlobalModalsFromUrl';
 import Invites from './Modal/Invites';
 import ReportProfile from './Modal/ReportProfile';
 import SwitchProfiles from './SwitchProfiles';
@@ -128,6 +129,7 @@ const GlobalModals: FC = () => {
 
   return (
     <>
+      <GlobalModalsFromUrl />
       <Modal
         icon={<ShieldCheckIcon className="text-brand-500 size-5" />}
         onClose={() =>
