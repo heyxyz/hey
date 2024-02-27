@@ -79,7 +79,7 @@ const ChooseHandle: FC = () => {
   const { writeContractAsync } = useWriteContract({
     mutation: {
       onError: errorToast,
-      onSuccess: (hash) => {
+      onSuccess: (hash: string) => {
         Leafwatch.track(AUTH.SIGNUP, { price: SIGNUP_PRICE, via: 'crypto' });
         setTransactionHash(hash);
         setChoosedHandle(`${HANDLE_PREFIX}${handle}`);

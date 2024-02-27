@@ -181,7 +181,7 @@ const CollectAction: FC<CollectActionProps> = ({
 
   const { writeContractAsync } = useWriteContract({
     mutation: {
-      onError: (error) => {
+      onError: (error: Error) => {
         onError(error);
         if (!isWalletUser) {
           setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
