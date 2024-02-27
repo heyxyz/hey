@@ -8,6 +8,7 @@ import {
   useBroadcastOnchainMutation,
   useCreateActOnOpenActionTypedDataMutation
 } from '@hey/lens';
+import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import errorToast from '@lib/errorToast';
 import { useState } from 'react';
@@ -37,13 +38,8 @@ const useActOnUnknownOpenAction = ({
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
 
-  /*   const { canBroadcast, canUseLensManager } =
+  const { canBroadcast, canUseLensManager } =
     checkDispatcherPermissions(currentProfile);
- */
-
-  // TODO: Investigate signed transaction flow
-  const canBroadcast = false;
-  const canUseLensManager = false;
 
   const onError = (error?: any) => {
     setIsLoading(false);
