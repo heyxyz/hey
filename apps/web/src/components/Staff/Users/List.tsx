@@ -26,7 +26,7 @@ import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
 import ProfileFeed from './ProfileFeed';
@@ -50,9 +50,19 @@ const List: FC = () => {
 
   const { data, error, fetchMore, loading, refetch } = useExploreProfilesQuery({
     fetchPolicy: 'no-cache',
-    pollInterval: autoRefresh ? 3000 : 0,
     variables: { request }
   });
+
+  useEffect(() => {
+    if (autoRefresh) {
+      const interval = setInterval(() => {
+        refetch();
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoRefresh]);
 
   const profiles = data?.exploreProfiles.items;
   const pageInfo = data?.exploreProfiles?.pageInfo;
