@@ -111,7 +111,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
 
   const { writeContractAsync } = useWriteContract({
     mutation: {
-      onError: (error) => {
+      onError: (error: Error) => {
         onError(error);
         setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
       },

@@ -115,11 +115,11 @@ const useCreatePublication = ({
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const { error, writeContractAsync } = useWriteContract({
     mutation: {
-      onError: (error) => {
+      onError: (error: Error) => {
         onError(error);
         setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
       },
-      onSuccess: (hash) => {
+      onSuccess: (hash: string) => {
         onCompleted();
         setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
         setTxnQueue([
