@@ -66,19 +66,21 @@ const RelayerBalance: FC<RelayerBalanceProps> = ({ address, index }) => {
   return (
     <NumberedStat
       action={
-        <Button
-          className="w-full justify-center"
-          disabled={loading}
-          onClick={refill}
-          size="sm"
-        >
-          Refill Balance
-        </Button>
+        index !== 0 && (
+          <Button
+            className="w-full justify-center"
+            disabled={loading}
+            onClick={refill}
+            size="sm"
+          >
+            Refill Balance
+          </Button>
+        )
       }
       count={balance.toString()}
       name={
         <div className="flex items-center space-x-2">
-          <span>Relayer {index + 1}</span>
+          <span>{index === 0 ? 'Root Relayer' : `Relayer ${index + 1}`}</span>
           {allowed ? (
             <CheckCircleIcon className="size-4 text-green-500" />
           ) : (
