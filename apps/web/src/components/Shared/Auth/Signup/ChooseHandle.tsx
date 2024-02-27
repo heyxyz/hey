@@ -16,7 +16,7 @@ import {
 } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
 import { AUTH } from '@hey/data/tracking';
-import { useProfileQuery } from '@hey/lens';
+import { useHandleToAddressQuery } from '@hey/lens';
 import { Button, Form, Input, Spinner, useZodForm } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
@@ -88,10 +88,10 @@ const ChooseHandle: FC = () => {
     }
   });
 
-  useProfileQuery({
+  useHandleToAddressQuery({
     fetchPolicy: 'no-cache',
-    onCompleted: (data) => setIsAvailable(!data.profile),
-    variables: { request: { forHandle: `${HANDLE_PREFIX}${handle}` } }
+    onCompleted: (data) => setIsAvailable(!data.handleToAddress),
+    variables: { request: { handle: `${HANDLE_PREFIX}${handle}` } }
   });
 
   const handleMint = async (handle: string) => {
