@@ -65,7 +65,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const { data: writeHash, writeContractAsync } = useWriteContract({
     mutation: {
-      onError: (error) => {
+      onError: (error: Error) => {
         onError(error);
         setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
       },

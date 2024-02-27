@@ -97,7 +97,7 @@ const SuperFollow: FC = () => {
 
   const { writeContractAsync } = useWriteContract({
     mutation: {
-      onError: (error) => {
+      onError: (error: Error) => {
         onError(error);
         setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
       },

@@ -41,10 +41,10 @@ const WalletSelector: FC = () => {
     <div className="inline-block w-full space-y-3 overflow-hidden text-left align-middle">
       {connectors
         .filter(
-          (connector, index, self) =>
-            self.findIndex((c) => c.type === connector.type) === index
+          (connector: any, index: number, self: any) =>
+            self.findIndex((c: any) => c.type === connector.type) === index
         )
-        .map((connector) => {
+        .map((connector: any) => {
           return (
             <button
               className={cn(
