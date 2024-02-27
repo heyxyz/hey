@@ -37,7 +37,7 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
 
   useEffect(() => {
     if (preferences) {
-      setFeatures(preferences.features);
+      setFeatures(preferences.features || []);
     }
   }, [preferences]);
 
@@ -85,7 +85,7 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
           <ToggleWrapper key={feature.id} title={feature.key}>
             <Toggle
               disabled={updating || isLoading}
-              on={features?.includes(feature.key)}
+              on={features.includes(feature.key)}
               setOn={() => updateFeatureFlag(feature)}
             />
           </ToggleWrapper>
