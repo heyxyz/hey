@@ -6,7 +6,7 @@ import type {
 import type { AllowedToken } from '@hey/types/hey';
 import type { Nft } from '@hey/types/misc';
 import type { ActionData } from 'nft-openaction-kit';
-import type { Dispatch, FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 import type { Address } from 'viem';
 
 import {
@@ -19,7 +19,6 @@ import {
   Squares2X2Icon,
   UserIcon
 } from '@heroicons/react/24/outline';
-import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { useDefaultProfileQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
@@ -50,7 +49,9 @@ interface DecentOpenActionModuleProps {
   nft: Nft;
   onClose: () => void;
   publication: MirrorablePublication;
+  selectedCurrency: AllowedToken;
   selectedQuantity: number;
+  setSelectedCurrency: Dispatch<SetStateAction<AllowedToken>>;
   setSelectedQuantity: Dispatch<number>;
   show: boolean;
 }
@@ -61,17 +62,12 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   nft,
   onClose,
   publication,
+  selectedCurrency,
   selectedQuantity,
+  setSelectedCurrency,
   setSelectedQuantity,
   show
 }) => {
-  const [selectedCurrency, setSelectedCurrency] = useState<AllowedToken>({
-    contractAddress: DEFAULT_COLLECT_TOKEN,
-    decimals: 18,
-    id: 'WMATIC',
-    name: 'Wrapped MATIC',
-    symbol: 'WMATIC'
-  });
   const [usdPrice, setUsdPrice] = useState(0);
 
   const { address } = useAccount();
@@ -93,7 +89,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   });
 
   const { actOnUnknownOpenAction, isLoading } = useActOnUnknownOpenAction({
-    signlessApproved: false, // TODO: module.signlessApproved
+    signlessApproved: module.signlessApproved,
     successToast: 'Initiated cross-chain NFT mint!'
   });
 

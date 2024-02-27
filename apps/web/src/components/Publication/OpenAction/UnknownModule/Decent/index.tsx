@@ -3,11 +3,13 @@ import type {
   MirrorablePublication,
   UnknownOpenActionModuleSettings
 } from '@hey/lens';
+import type { AllowedToken } from '@hey/types/hey';
 import type { Nft } from '@hey/types/misc';
 import type { ActionData, PublicationInfo } from 'nft-openaction-kit';
 
 import ActionInfo from '@components/Shared/Oembed/Nft/ActionInfo';
 import DecentOpenActionShimmer from '@components/Shared/Shimmer/DecentOpenActionShimmer';
+import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import getNftChainInfo from '@hey/lib/getNftChainInfo';
@@ -53,6 +55,13 @@ function formatPublicationData(
 const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
   const [actionData, setActionData] = useState<ActionData>();
   const [showOpenActionModal, setShowOpenActionModal] = useState(false);
+  const [selectedCurrency, setSelectedCurrency] = useState<AllowedToken>({
+    contractAddress: DEFAULT_COLLECT_TOKEN,
+    decimals: 18,
+    id: 'WMATIC',
+    name: 'Wrapped MATIC',
+    symbol: 'WMATIC'
+  });
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
@@ -77,14 +86,6 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
         // Call the async function and pass the link
         try {
           const pubInfo = formatPublicationData(targetPublication);
-          const a = [
-            pubInfo,
-            targetPublication.by.id,
-            targetPublication.by.ownedBy.address,
-            address || '',
-            '137', // TODO: determined by selected payment token
-            selectedQuantity !== 1 ? BigInt(selectedQuantity) : 1n
-          ];
           const actionDataResult: ActionData =
             await nftOpenActionKit.actionDataFromPost(
               pubInfo,
@@ -92,7 +93,8 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
               targetPublication.by.ownedBy.address,
               address,
               '137', // TODO: determined by selected payment token
-              selectedQuantity !== 1 ? BigInt(selectedQuantity) : 1n
+              selectedQuantity !== 1 ? BigInt(selectedQuantity) : 1n,
+              selectedCurrency.contractAddress
             );
           if (actionDataResult) {
             setActionData(actionDataResult);
@@ -166,7 +168,9 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
         nft={nft}
         onClose={() => setShowOpenActionModal(false)}
         publication={targetPublication}
+        selectedCurrency={selectedCurrency}
         selectedQuantity={selectedQuantity}
+        setSelectedCurrency={setSelectedCurrency}
         setSelectedQuantity={setSelectedQuantity}
         show={showOpenActionModal}
       />
