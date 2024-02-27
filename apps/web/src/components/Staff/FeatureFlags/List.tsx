@@ -9,10 +9,12 @@ import {
   TrashIcon
 } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import { STAFFTOOLS } from '@hey/data/tracking';
 import getAllFeatureFlags from '@hey/lib/api/getAllFeatureFlags';
 import formatDate from '@hey/lib/datetime/formatDate';
 import { Badge, Button, Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
@@ -118,7 +120,15 @@ const List: FC = () => {
                   disabled={killing}
                   heading={
                     <div className="flex items-center space-x-2">
-                      <b>{feature.key}</b>
+                      <b
+                        className={cn(
+                          (feature.key === FeatureFlag.Suspended ||
+                            feature.key === FeatureFlag.Flagged) &&
+                            'text-red-500'
+                        )}
+                      >
+                        {feature.key}
+                      </b>
                       <Badge variant="secondary">{feature.type}</Badge>
                     </div>
                   }
