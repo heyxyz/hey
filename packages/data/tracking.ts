@@ -168,6 +168,7 @@ export const GARDENER = {
 
 export const STAFFTOOLS = {
   FEATURE_FLAGS: {
+    BULK_ASSIGN: 'Staff Tool: Bulk assign feature flag',
     CREATE: 'Staff Tool: Create feature flag',
     DELETE: 'Staff Tool: Delete feature flag',
     KILL: 'Staff Tool: Kill feature flag'
