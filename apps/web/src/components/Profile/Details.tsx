@@ -19,6 +19,7 @@ import {
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
 import { EXPANDED_AVATAR, STATIC_IMAGES_URL } from '@hey/data/constants';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import { FollowModuleType } from '@hey/lens';
 import formatDate from '@hey/lib/datetime/formatDate';
 import getAvatar from '@hey/lib/getAvatar';
@@ -30,6 +31,7 @@ import getProfile from '@hey/lib/getProfile';
 import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import hasMisused from '@hey/lib/hasMisused';
 import { Button, Image, LightBox, Modal, Tooltip } from '@hey/ui';
+import isFeatureAvailable from '@lib/isFeatureAvailable';
 import isVerified from '@lib/isVerified';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
@@ -39,6 +41,7 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 import urlcat from 'urlcat';
 
 import Badges from './Badges';
+import CreatorTool from './CreatorTool';
 import Followerings from './Followerings';
 import GardenerTool from './GardenerTool';
 import InvitedBy from './InvitedBy';
@@ -299,6 +302,9 @@ const Details: FC<DetailsProps> = ({ profile }) => {
         onchainIdentity={profile.onchainIdentity}
       />
       {gardenerMode && <GardenerTool profile={profile} />}
+      {isFeatureAvailable(FeatureFlag.Staff) && (
+        <CreatorTool profile={profile} />
+      )}
     </div>
   );
 };
