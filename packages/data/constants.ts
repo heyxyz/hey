@@ -43,7 +43,7 @@ export const TEST_LENS_ID = '0x0383';
 export const HEY_CURATED_ID = '0x0214f6';
 export const ZERO_PUBLICATION_ID = '0x00-0x00';
 export const HANDLE_PREFIX = IS_MAINNET ? 'lens/' : 'test/';
-export const SIGNUP_PRICE = IS_MAINNET ? 8 : 1;
+export const SIGNUP_PRICE = IS_MAINNET ? 5 : 1;
 
 // URLs
 export const STATIC_ASSETS_URL = 'https://hey-assets.b-cdn.net';
