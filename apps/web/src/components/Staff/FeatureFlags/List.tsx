@@ -5,6 +5,7 @@ import Loader from '@components/Shared/Loader';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import {
   AdjustmentsHorizontalIcon,
+  PlusIcon,
   TrashIcon
 } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
@@ -19,10 +20,13 @@ import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 
+import Assign from './Assign';
 import Create from './Create';
 
 const List: FC = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showAssignModal, setShowAssignModal] = useState(false);
+  const [selectedFeature, setSelectedFeature] = useState<Feature | null>(null);
   const [features, setFeatures] = useState<[] | Feature[]>([]);
   const [killing, setKilling] = useState(false);
 
@@ -121,10 +125,21 @@ const List: FC = () => {
                   on={feature.enabled}
                   setOn={() => killFeatureFlag(feature.id, !feature.enabled)}
                 />
-                <div>
+                <div className="mt-2 space-x-2">
+                  <Button
+                    icon={<PlusIcon className="size-4" />}
+                    onClick={() => {
+                      setSelectedFeature(feature);
+                      setShowAssignModal(!showAssignModal);
+                    }}
+                    outline
+                    size="sm"
+                    variant="secondary"
+                  >
+                    Assign
+                  </Button>
                   {feature.type === 'FEATURE' && (
                     <Button
-                      className="mt-2"
                       icon={<TrashIcon className="size-4" />}
                       onClick={() => deleteFeatureFlag(feature.id)}
                       outline
@@ -150,6 +165,18 @@ const List: FC = () => {
           setFeatures={setFeatures}
           setShowCreateModal={setShowCreateModal}
         />
+      </Modal>
+      <Modal
+        onClose={() => setShowAssignModal(!showAssignModal)}
+        show={showAssignModal}
+        title={`Assign feature flag - ${selectedFeature?.key}`}
+      >
+        {selectedFeature ? (
+          <Assign
+            feature={selectedFeature}
+            setShowAssignModal={setShowAssignModal}
+          />
+        ) : null}
       </Modal>
     </Card>
   );
