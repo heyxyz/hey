@@ -58,7 +58,7 @@ export const post: Handler = async (req, res) => {
 
     logger.info(`Bulk assigned features for ${ids.length} profiles`);
 
-    return res.status(200).json({ result: result.count, success: true });
+    return res.status(200).json({ assigned: result.count, success: true });
   } catch (error) {
     return catchedError(res, error);
   }
