@@ -14,7 +14,7 @@ body {
 }
 
 .shimmer {
-  @apply animate-pulse;
+  @apply animate-shimmer;
   @apply bg-gray-300;
   @apply dark:bg-gray-600;
 }
@@ -228,5 +228,11 @@ ul {
   }
   100% {
     background-position: 500%;
+  }
+}
+
+@keyframes pulse {
+  50% {
+    background-position: 0% !important;
   }
 }
