@@ -43,11 +43,11 @@ const Assign: FC<AssignProps> = ({ feature, setShowAssignModal }) => {
           return 'Failed to assign feature flag';
         },
         loading: 'Assigning feature flag...',
-        success: () => {
+        success: ({ data }) => {
           Leafwatch.track(STAFFTOOLS.FEATURE_FLAGS.BULK_ASSIGN);
           setAssigning(false);
           setShowAssignModal(false);
-          return 'Feature flag assigned';
+          return `Assigned feature flag to ${data.assigned} users`;
         }
       }
     );
