@@ -1,15 +1,24 @@
+import {
+  GARDENER_FEATURE_ID,
+  GARDENER_MODE_FEATURE_ID,
+  STAFF_FEATURE_ID,
+  STAFF_MODE_FEATURE_ID,
+  STAFF_PICK_FEATURE_ID,
+  VERIFIED_FEATURE_ID
+} from 'src/lib/constants';
+
 import { prisma } from '../seed';
 
 const seedFeatureFlags = async (): Promise<number> => {
   const featureFlags = await prisma.feature.createMany({
     data: [
       {
-        id: '0a441129-182a-4a3f-83cf-a13c5ad8282b',
+        id: GARDENER_FEATURE_ID,
         key: 'gardener',
         type: 'PERMISSION'
       },
       {
-        id: '0e588583-b347-4752-9e1e-0ad4128348e8',
+        id: STAFF_MODE_FEATURE_ID,
         key: 'staff-mode',
         type: 'MODE'
       },
@@ -19,12 +28,12 @@ const seedFeatureFlags = async (): Promise<number> => {
         type: 'PERMISSION'
       },
       {
-        id: '9f66a465-e1d7-4123-b329-ddd14fd85510',
+        id: GARDENER_MODE_FEATURE_ID,
         key: 'gardener-mode',
         type: 'MODE'
       },
       {
-        id: 'a0d6d247-50ef-419f-a045-54fa96054922',
+        id: VERIFIED_FEATURE_ID,
         key: 'verified',
         type: 'PERMISSION'
       },
@@ -34,9 +43,14 @@ const seedFeatureFlags = async (): Promise<number> => {
         type: 'PERMISSION'
       },
       {
-        id: 'eea3b2d2-a60c-4e41-8130-1cb34cc37810',
+        id: STAFF_FEATURE_ID,
         key: 'staff',
         type: 'PERMISSION'
+      },
+      {
+        id: STAFF_PICK_FEATURE_ID,
+        key: 'staff-pick',
+        type: 'MODE'
       }
     ]
   });
