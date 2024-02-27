@@ -191,6 +191,10 @@ export const STAFFTOOLS = {
   }
 };
 
+export const CREATORTOOLS = {
+  ASSIGN_FEATURE_FLAG: 'Creator Tool: Assign feature flag'
+};
+
 export const SYSTEM = {
   SWITCH_NETWORK: 'Switch network',
   SWITCH_THEME: 'Switch theme'
