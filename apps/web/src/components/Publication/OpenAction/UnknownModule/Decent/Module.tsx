@@ -7,7 +7,6 @@ import type { AllowedToken } from '@hey/types/hey';
 import type { Nft } from '@hey/types/misc';
 import type { ActionData } from 'nft-openaction-kit';
 import type { Dispatch, FC, SetStateAction } from 'react';
-import type { Address } from 'viem';
 
 import {
   ArrowTopRightOnSquareIcon,
@@ -30,8 +29,6 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { CHAIN } from 'src/constants';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
-import { formatUnits } from 'viem';
-import { useAccount, useBalance } from 'wagmi';
 
 import CurrencySelector from './CurrencySelector';
 import DecentAction from './DecentAction';
@@ -70,8 +67,6 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
 }) => {
   const [usdPrice, setUsdPrice] = useState(0);
 
-  const { address } = useAccount();
-
   const getUsdPrice = async () => {
     const usdPrice = await getRedstonePrice('MATIC');
     setUsdPrice(usdPrice);
@@ -81,12 +76,6 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     getUsdPrice();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCurrency]);
-
-  const { data: balanceData } = useBalance({
-    address,
-    query: { refetchInterval: 2000 },
-    token: selectedCurrency?.contractAddress as Address
-  });
 
   const { actOnUnknownOpenAction, isLoading } = useActOnUnknownOpenAction({
     signlessApproved: module.signlessApproved,
@@ -102,12 +91,6 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
       });
     }
   };
-
-  const balance = balanceData
-    ? parseFloat(
-        formatUnits(balanceData.value, selectedCurrency?.decimals as number)
-      ).toFixed(2)
-    : 0;
 
   const { data: creatorProfileData } = useDefaultProfileQuery({
     skip: !actionData?.uiData.nftCreatorAddress,
@@ -159,7 +142,12 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     >
       {' '}
       {showCurrencySelector ? (
-        <CurrencySelector />
+        <CurrencySelector
+          onSelectCurrency={(currency) => {
+            setSelectedCurrency(currency);
+            setShowCurrencySelector(false);
+          }}
+        />
       ) : (
         <>
           <div className="space-y-2 p-5">

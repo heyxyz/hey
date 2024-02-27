@@ -6,6 +6,7 @@ import type {
 import type { AllowedToken } from '@hey/types/hey';
 import type { Nft } from '@hey/types/misc';
 import type { ActionData, PublicationInfo } from 'nft-openaction-kit';
+import type { Address } from 'viem';
 
 import ActionInfo from '@components/Shared/Oembed/Nft/ActionInfo';
 import DecentOpenActionShimmer from '@components/Shared/Shimmer/DecentOpenActionShimmer';
@@ -19,7 +20,7 @@ import { Button, Card, Tooltip } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { NftOpenActionKit } from 'nft-openaction-kit';
-import { type FC, useEffect, useState } from 'react';
+import { type FC, useEffect, useRef, useState } from 'react';
 import { useAccount } from 'wagmi';
 
 import DecentOpenActionModule from './Module';
@@ -74,9 +75,11 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
 
   const { address } = useAccount();
 
-  useEffect(() => {
-    const actionDataFromPost = async () => {
-      if (module && address && !actionData) {
+  const prevCurrencyRef = useRef(selectedCurrency);
+
+  useEffect(
+    () => {
+      const actionDataFromPost = async () => {
         const nftOpenActionKit = new NftOpenActionKit({
           decentApiKey: process.env.NEXT_PUBLIC_DECENT_API_KEY || '',
           openSeaApiKey: process.env.NEXT_PUBLIC_OPENSEA_API_KEY || '',
@@ -91,7 +94,7 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
               pubInfo,
               targetPublication.by.id,
               targetPublication.by.ownedBy.address,
-              address,
+              address as Address,
               '137', // srcChainId, only supported on Polygon POS for now
               selectedQuantity !== 1 ? BigInt(selectedQuantity) : 1n,
               selectedCurrency.contractAddress
@@ -102,18 +105,25 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
         } catch (error) {
           errorToast(error);
         }
-      }
-    };
+      };
 
-    actionDataFromPost();
-  }, [
-    actionData,
-    address,
-    module,
-    targetPublication,
-    selectedQuantity,
-    selectedCurrency.contractAddress
-  ]);
+      const isCurrencyChanged =
+        prevCurrencyRef.current.contractAddress !==
+        selectedCurrency.contractAddress;
+      if ((module && address && !actionData) || isCurrencyChanged) {
+        actionDataFromPost();
+        prevCurrencyRef.current = selectedCurrency;
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [
+      address,
+      module,
+      targetPublication,
+      selectedQuantity,
+      selectedCurrency.contractAddress
+    ]
+  );
 
   if (!module) {
     return null;
