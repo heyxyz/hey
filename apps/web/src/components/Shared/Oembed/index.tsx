@@ -14,8 +14,8 @@ import Portal from './Portal';
 
 interface OembedProps {
   className?: string;
-  openActionEmbed: boolean;
-  openActionEmbedLoading: boolean;
+  openActionEmbed?: boolean;
+  openActionEmbedLoading?: boolean;
   publication?: AnyPublication;
   url?: string;
 }
