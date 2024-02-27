@@ -4,7 +4,15 @@ import Oembed from '@components/Shared/Oembed';
 import getURLs from '@hey/lib/getURLs';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 
-const LinkPreviews: FC = () => {
+interface LinkPreviewProps {
+  openActionEmbed: boolean;
+  openActionEmbedLoading: boolean;
+}
+
+const LinkPreviews: FC<LinkPreviewProps> = ({
+  openActionEmbed,
+  openActionEmbedLoading
+}) => {
   const publicationContent = usePublicationStore(
     (state) => state.publicationContent
   );
@@ -15,7 +23,14 @@ const LinkPreviews: FC = () => {
     return null;
   }
 
-  return <Oembed className="m-5" url={urls[0]} />;
+  return (
+    <Oembed
+      className="m-5"
+      openActionEmbed={openActionEmbed}
+      openActionEmbedLoading={openActionEmbedLoading}
+      url={urls[0]}
+    />
+  );
 };
 
 export default LinkPreviews;

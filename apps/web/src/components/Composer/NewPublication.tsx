@@ -111,6 +111,12 @@ interface NewPublicationProps {
   publication: MirrorablePublication;
 }
 
+const nftOpenActionKit = new NftOpenActionKit({
+  decentApiKey: process.env.NEXT_PUBLIC_DECENT_API_KEY || '',
+  openSeaApiKey: process.env.NEXT_PUBLIC_OPENSEA_API_KEY || '',
+  raribleApiKey: process.env.NEXT_PUBLIC_RARIBLE_API_KEY || ''
+});
+
 const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const { isSuspended } = useProfileRestriction();
@@ -205,6 +211,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
   const [publicationContentError, setPublicationContentError] = useState('');
+  const [openActionEmbedLoading, setOpenActionEmbedLoading] =
+    useState<boolean>(false);
+  const [openActionEmbed, setOpenActionEmbed] = useState<any | undefined>();
 
   const [editor] = useLexicalComposerContext();
   const createPoll = useCreatePoll();
@@ -321,6 +330,35 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   }, [audioPublication]);
 
   useEffect(() => {
+    const fetchOpenActionEmbed = async () => {
+      setOpenActionEmbedLoading(true);
+      const publicationContentUrls = getURLs(publicationContent);
+
+      try {
+        const calldata = await nftOpenActionKit.detectAndReturnCalldata(
+          publicationContentUrls[0]
+        );
+        if (calldata) {
+          setOpenActionEmbed({
+            unknownOpenAction: {
+              address: VerifiedOpenActionModules.DecentNFT,
+              data: calldata
+            }
+          });
+        } else {
+          setOpenActionEmbed(undefined);
+        }
+      } catch (error_) {
+        setOpenActionEmbed(undefined);
+        setOpenActionEmbedLoading(false);
+      }
+      setOpenActionEmbedLoading(false);
+    };
+
+    fetchOpenActionEmbed();
+  }, [publicationContent]);
+
+  useEffect(() => {
     editor.update(() => {
       $convertFromMarkdownString(publicationContent);
     });
@@ -418,35 +456,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       // Payload for the open action module
       const openActionModules = [];
 
-      // Flag to determine if open action module can be parsed from URL, if set Momoka will be disabled
-      let urlsWithParseableActions = false;
-
-      const publicationContentUrls = getURLs(publicationContent);
-
-      const nftOpenActionKit = new NftOpenActionKit({
-        decentApiKey: process.env.NEXT_PUBLIC_DECENT_API_KEY || '',
-        openSeaApiKey: process.env.NEXT_PUBLIC_OPENSEA_API_KEY || '',
-        raribleApiKey: process.env.NEXT_PUBLIC_RARIBLE_API_KEY || ''
-      });
-
-      // Embed action module for publications with URLs that have recognized actions
-      for (const publicationContentUrl of publicationContentUrls) {
-        try {
-          const calldata = await nftOpenActionKit.detectAndReturnCalldata(
-            publicationContentUrl
-          );
-          if (calldata) {
-            urlsWithParseableActions = true;
-            openActionModules.push({
-              unknownOpenAction: {
-                address: VerifiedOpenActionModules.DecentNFT,
-                data: calldata
-              }
-            });
-          }
-        } catch (error_) {
-          console.log(error_);
-        }
+      if (openActionEmbed) {
+        openActionModules.push(openActionEmbed);
       }
 
       if (collectModule.type) {
@@ -469,7 +480,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         contentURI: `ar://${arweaveId}`
       };
 
-      if (useMomoka && !urlsWithParseableActions) {
+      if (useMomoka && !openActionEmbed) {
         if (canUseLensManager) {
           if (isComment) {
             return await createCommentOnMomka(
@@ -641,7 +652,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           />
         </Wrapper>
       ) : null}
-      <LinkPreviews />
+      <LinkPreviews
+        openActionEmbed={!!openActionEmbed}
+        openActionEmbedLoading={openActionEmbedLoading}
+      />
       <div className="block items-center px-5 sm:flex">
         <div className="flex items-center space-x-4">
           <Attachment />

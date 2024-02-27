@@ -14,11 +14,19 @@ import Portal from './Portal';
 
 interface OembedProps {
   className?: string;
+  openActionEmbed: boolean;
+  openActionEmbedLoading: boolean;
   publication?: AnyPublication;
   url?: string;
 }
 
-const Oembed: FC<OembedProps> = ({ className = '', publication, url }) => {
+const Oembed: FC<OembedProps> = ({
+  className = '',
+  openActionEmbed,
+  openActionEmbedLoading,
+  publication,
+  url
+}) => {
   const { data, error, isLoading } = useQuery({
     enabled: Boolean(url),
     queryFn: async () => {
@@ -57,7 +65,12 @@ const Oembed: FC<OembedProps> = ({ className = '', publication, url }) => {
       {og.html ? (
         <Player og={og} />
       ) : og.nft ? (
-        <Nft nft={og.nft} publication={publication} />
+        <Nft
+          nft={og.nft}
+          openActionEmbed={openActionEmbed}
+          openActionEmbedLoading={openActionEmbedLoading}
+          publication={publication}
+        />
       ) : og.portal ? (
         <Portal portal={og.portal} publicationId={publication?.id} />
       ) : (

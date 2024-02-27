@@ -9,7 +9,7 @@ import getNftChainInfo from '@hey/lib/getNftChainInfo';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Nft } from '@hey/types/misc';
-import { Button, Card, Tooltip } from '@hey/ui';
+import { Button, Card, Spinner, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 
@@ -17,10 +17,17 @@ import MintedBy from './MintedBy';
 
 interface NftProps {
   nft: Nft;
+  openActionEmbed: boolean;
+  openActionEmbedLoading: boolean;
   publication?: AnyPublication;
 }
 
-const Nft: FC<NftProps> = ({ nft, publication }) => {
+const Nft: FC<NftProps> = ({
+  nft,
+  openActionEmbed,
+  openActionEmbedLoading,
+  publication
+}) => {
   const targetPublication =
     publication && isMirrorPublication(publication)
       ? publication.mirrorOn
@@ -77,6 +84,13 @@ const Nft: FC<NftProps> = ({ nft, publication }) => {
           >
             Mint
           </Button>
+          {openActionEmbedLoading ? (
+            <Spinner size="xs" />
+          ) : openActionEmbed === true ? (
+            <div>Open Action Embedded</div>
+          ) : (
+            <div>No Open Action Embedded</div>
+          )}
         </Link>
       </div>
     </Card>
