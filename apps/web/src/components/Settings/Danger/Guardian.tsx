@@ -31,7 +31,7 @@ const GuardianSettings: FC = () => {
 
   const { data, writeContractAsync } = useWriteContract({
     mutation: {
-      onError: (error) => {
+      onError: (error: Error) => {
         onError(error);
       },
       onSuccess: () => {
