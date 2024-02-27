@@ -40,7 +40,7 @@ export const TEST_WALLET_ADDRESS = '0xb9C6e304545386E95d5c4ab183EE97A13555A49d';
 export const TEST_PK =
   '0x8b33302ca865bc1ed65bc02b71dd02067bd3dae3da2f8bb0d95b16509e9ac71e';
 export const TEST_LENS_ID = '0x0383';
-export const HEY_CURATED_ID = '0x020d2a';
+export const HEY_CURATED_ID = '0x0214f6';
 export const ZERO_PUBLICATION_ID = '0x00-0x00';
 export const HANDLE_PREFIX = IS_MAINNET ? 'lens/' : 'test/';
 export const SIGNUP_PRICE = IS_MAINNET ? 8 : 1;
@@ -81,3 +81,7 @@ export const ATTACHMENT = 'tr:w-500';
 export const S3_BUCKET = {
   HEY_MEDIA: 'hey-media'
 };
+
+// Feature Flags
+export const VERIFIED_FEATURE_ID = 'a0d6d247-50ef-419f-a045-54fa96054922';
+export const STAFF_PICK_FEATURE_ID = '73d2f48d-0291-4a36-adc2-9737057ad2b7';

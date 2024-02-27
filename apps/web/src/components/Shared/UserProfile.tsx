@@ -12,6 +12,7 @@ import getLennyURL from '@hey/lib/getLennyURL';
 import getMentions from '@hey/lib/getMentions';
 import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
+import humanize from '@hey/lib/humanize';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import isVerified from '@lib/isVerified';
@@ -30,6 +31,7 @@ interface UserProfileProps {
   profile: Profile;
   showBio?: boolean;
   showFollow?: boolean;
+  showId?: boolean;
   showUnfollow?: boolean;
   showUserPreview?: boolean;
   source?: string;
@@ -42,6 +44,7 @@ const UserProfile: FC<UserProfileProps> = ({
   profile,
   showBio = false,
   showFollow = false,
+  showId = false,
   showUnfollow = false,
   showUserPreview = true,
   source,
@@ -89,6 +92,12 @@ const UserProfile: FC<UserProfileProps> = ({
             </span>
           </span>
         ) : null}
+        {showId && (
+          <span className="ld-text-gray-500">
+            <span className="mx-1.5">·</span>
+            <span className="text-xs">{humanize(parseInt(profile.id))}</span>
+          </span>
+        )}
       </div>
     </>
   );

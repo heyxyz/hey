@@ -12,7 +12,16 @@ import {
   useExploreProfilesQuery
 } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
-import { Button, Card, EmptyState, ErrorMessage, Modal, Select } from '@hey/ui';
+import {
+  Button,
+  Card,
+  EmptyState,
+  ErrorMessage,
+  Modal,
+  Select,
+  Toggle,
+  Tooltip
+} from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
@@ -28,6 +37,7 @@ const List: FC = () => {
     ExploreProfilesOrderByType.LatestCreated
   );
   const [value, setValue] = useState('');
+  const [autoRefresh, setAutoRefresh] = useState(false);
   const [refetching, setRefetching] = useState(false);
   const [showPublicationsModal, setShowPublicationsModal] = useState(false);
   const [selectedProfile, setSelectedProfile] = useState<null | Profile>(null);
@@ -39,6 +49,7 @@ const List: FC = () => {
   };
 
   const { data, error, fetchMore, loading, refetch } = useExploreProfilesQuery({
+    pollInterval: autoRefresh ? 3000 : 0,
     variables: { request }
   });
 
@@ -96,6 +107,9 @@ const List: FC = () => {
             className={cn(refetching && 'animate-spin', 'size-5')}
           />
         </button>
+        <Tooltip content="Auto refresh" placement="top">
+          <Toggle on={autoRefresh} setOn={() => setAutoRefresh(!autoRefresh)} />
+        </Tooltip>
       </div>
       <div className="divider" />
       <div className="p-5">
@@ -133,6 +147,7 @@ const List: FC = () => {
                       linkToProfile={false}
                       profile={profile as Profile}
                       showBio={false}
+                      showId
                       showUserPreview={false}
                       timestamp={profile.createdAt}
                     />
