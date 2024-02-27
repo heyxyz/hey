@@ -6,6 +6,6 @@ describe('misc/verified', () => {
   test('should return all verified users', async () => {
     const response = await axios.get(`${TEST_URL}/misc/verified`);
 
-    expect(response.data.result).toHaveLength(3);
+    expect(response.data.result).toHaveLength(6);
   });
 });
