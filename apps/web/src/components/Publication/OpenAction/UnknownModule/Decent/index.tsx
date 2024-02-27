@@ -92,7 +92,7 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
               targetPublication.by.id,
               targetPublication.by.ownedBy.address,
               address,
-              '137', // TODO: determined by selected payment token
+              '137', // srcChainId, only supported on Polygon POS for now
               selectedQuantity !== 1 ? BigInt(selectedQuantity) : 1n,
               selectedCurrency.contractAddress
             );
@@ -106,7 +106,14 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
     };
 
     actionDataFromPost();
-  }, [actionData, address, module, targetPublication, selectedQuantity]);
+  }, [
+    actionData,
+    address,
+    module,
+    targetPublication,
+    selectedQuantity,
+    selectedCurrency.contractAddress
+  ]);
 
   if (!module) {
     return null;
