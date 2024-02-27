@@ -7,7 +7,7 @@ const catchedError = (res: Response, error: any) => {
   logger.error(error);
   return res
     .status(500)
-    .json({ error: Errors.SomethingWentWrong, success: false });
+    .json({ error: Errors.SomethingWentWrong, message: error, success: false });
 };
 
 export default catchedError;
