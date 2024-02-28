@@ -13,10 +13,7 @@ const newProfileSchema = object({
   handle: string()
     .min(5, { message: 'Handle must be at least 5 characters long' })
     .max(26, { message: 'Handle must be at most 26 characters long' })
-    .regex(Regex.handle, {
-      message:
-        'Handle must start with a letter/number, only _ allowed in between'
-    })
+    .regex(Regex.handle)
 });
 
 const Mint: FC = () => {
