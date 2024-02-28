@@ -82,7 +82,7 @@ const ChooseHandle: FC = () => {
       onSuccess: (hash: string) => {
         Leafwatch.track(AUTH.SIGNUP, { price: SIGNUP_PRICE, via: 'crypto' });
         setTransactionHash(hash);
-        setChoosedHandle(`${HANDLE_PREFIX}${handle}`);
+        setChoosedHandle(`${HANDLE_PREFIX}${handle.toLowerCase()}`);
         setScreen('minting');
       }
     }
@@ -91,7 +91,9 @@ const ChooseHandle: FC = () => {
   useHandleToAddressQuery({
     fetchPolicy: 'no-cache',
     onCompleted: (data) => setIsAvailable(!data.handleToAddress),
-    variables: { request: { handle: `${HANDLE_PREFIX}${handle}` } }
+    variables: {
+      request: { handle: `${HANDLE_PREFIX}${handle.toLowerCase()}` }
+    }
   });
 
   const handleMint = async (handle: string) => {
@@ -100,11 +102,7 @@ const ChooseHandle: FC = () => {
       return await writeContractAsync({
         abi: HeyLensSignup,
         address: HEY_LENS_SIGNUP,
-        args: [
-          [address, ZERO_ADDRESS, '0x'],
-          handle.toLowerCase(),
-          [delegatedExecutor]
-        ],
+        args: [[address, ZERO_ADDRESS, '0x'], handle, [delegatedExecutor]],
         functionName: 'createProfileWithHandleUsingCredits',
         value: parseEther(SIGNUP_PRICE.toString())
       });
@@ -119,7 +117,7 @@ const ChooseHandle: FC = () => {
     if (event === 'Checkout.Success' && window.LemonSqueezy) {
       Leafwatch.track(AUTH.SIGNUP, { price: SIGNUP_PRICE, via: 'card' });
       setMintViaCard(true);
-      setChoosedHandle(`${HANDLE_PREFIX}${handle}`);
+      setChoosedHandle(`${HANDLE_PREFIX}${handle.toLowerCase()}`);
       setScreen('minting');
 
       window.LemonSqueezy?.Url?.Close();
@@ -133,7 +131,7 @@ const ChooseHandle: FC = () => {
       urlcat('https://heyverse.lemonsqueezy.com/checkout/buy/:product', {
         'checkout[custom][address]': address,
         'checkout[custom][delegatedExecutor]': delegatedExecutor,
-        'checkout[custom][handle]': handle,
+        'checkout[custom][handle]': handle.toLowerCase(),
         desc: 0,
         discount: 0,
         embed: 1,
@@ -167,7 +165,7 @@ const ChooseHandle: FC = () => {
       <Form
         className="space-y-5 pt-3"
         form={form}
-        onSubmit={async ({ handle }) => await handleMint(handle)}
+        onSubmit={async ({ handle }) => await handleMint(handle.toLowerCase())}
       >
         <div className="mb-5">
           <Input
