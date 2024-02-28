@@ -92,7 +92,7 @@ const ChooseHandle: FC = () => {
     fetchPolicy: 'no-cache',
     onCompleted: (data) => setIsAvailable(!data.handleToAddress),
     variables: {
-      request: { handle: `${HANDLE_PREFIX}${handle.toLowerCase()}` }
+      request: { handle: `${HANDLE_PREFIX}${handle?.toLowerCase()}` }
     }
   });
 
