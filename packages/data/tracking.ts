@@ -233,6 +233,7 @@ export const ALL_EVENTS = {
   ...INVITE,
   ...GARDENER,
   ...STAFFTOOLS,
+  ...CREATORTOOLS,
   ...SYSTEM,
   ...MISCELLANEOUS,
   ...ONBOARDING
