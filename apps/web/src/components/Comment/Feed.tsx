@@ -44,7 +44,9 @@ const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
         id: publicationId,
         ranking: { filter: CommentRankingFilterType.Relevant }
       },
-      customFilters: [CustomFiltersType.Gardeners]
+      ...(!showHiddenComments && {
+        customFilters: [CustomFiltersType.Gardeners]
+      })
     }
   };
 
