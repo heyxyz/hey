@@ -20,6 +20,7 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 import StaffSidebar from '../Sidebar';
 import Balance from './Balance';
 import LensCredits from './LensCredits';
+import Mint from './Mint';
 import ProfilesCreated from './ProfilesCreated';
 import RelayerBalance from './RelayerBalance';
 import SignupPrice from './SignupPrice';
@@ -77,6 +78,7 @@ const SignupContract: NextPage = () => {
             ))}
           </div>
         </Card>
+        <Mint />
       </GridItemEight>
     </GridLayout>
   );
