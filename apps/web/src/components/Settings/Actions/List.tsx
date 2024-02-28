@@ -73,6 +73,7 @@ const List: FC = () => {
                 <Link
                   className="hover:underline"
                   href={`${POLYGONSCAN_URL}/tx/${action.txHash}`}
+                  target="_blank"
                 >
                   {action.txHash.slice(0, 8 + 2)}…
                   {action.txHash.slice(action.txHash.length - 8)}
@@ -86,6 +87,7 @@ const List: FC = () => {
                 <Link
                   className="hover:underline"
                   href={`${POLYGONSCAN_URL}/address/${action.who}`}
+                  target="_blank"
                 >
                   {formatAddress(action.who)}
                 </Link>
