@@ -3,6 +3,7 @@ import type { ApolloCache } from '@hey/lens/apollo';
 import type { FC } from 'react';
 
 import { LensHub } from '@hey/abis';
+import { Errors } from '@hey/data';
 import { LENSHUB_PROXY } from '@hey/data/constants';
 import { PROFILE } from '@hey/data/tracking';
 import {
@@ -23,6 +24,7 @@ import { toast } from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
@@ -49,6 +51,7 @@ const BlockOrUnBlockProfile: FC = () => {
     blockingorUnblockingProfile?.operations.isBlockedByMe.value
   );
 
+  const { isSuspended } = useProfileRestriction();
   const handleWrongNetwork = useHandleWrongNetwork();
   const { canBroadcast, canUseLensManager } =
     checkDispatcherPermissions(currentProfile);
@@ -175,7 +178,11 @@ const BlockOrUnBlockProfile: FC = () => {
 
   const blockOrUnblock = async () => {
     if (!currentProfile) {
-      return;
+      return toast.error(Errors.SignWallet);
+    }
+
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
     }
 
     try {

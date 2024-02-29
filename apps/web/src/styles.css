@@ -14,7 +14,7 @@ body {
 }
 
 .shimmer {
-  @apply animate-pulse;
+  @apply animate-shimmer;
   @apply bg-gray-300;
   @apply dark:bg-gray-600;
 }
@@ -173,6 +173,10 @@ ul {
   @apply [&>div>div]:dark:border-gray-700;
 }
 
+.livepeer-aspect-ratio-container {
+  @apply [&>div>img]:object-contain;
+}
+
 /* react-virtuoso - Virtual profile list */
 .virtual-profile-list {
   @apply !h-[80vh];
@@ -224,5 +228,11 @@ ul {
   }
   100% {
     background-position: 500%;
+  }
+}
+
+@keyframes pulse {
+  50% {
+    background-position: 0% !important;
   }
 }

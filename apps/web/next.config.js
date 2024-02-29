@@ -20,6 +20,11 @@ module.exports = {
   redirects() {
     return [
       {
+        destination: '/?signup=true',
+        permanent: false,
+        source: '/signup'
+      },
+      {
         destination: 'https://discord.com/invite/B8eKhSSUwX',
         permanent: true,
         source: '/discord'

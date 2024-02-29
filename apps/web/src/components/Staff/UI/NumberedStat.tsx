@@ -6,7 +6,7 @@ import { Card } from '@hey/ui';
 interface NumberedStatsProps {
   action?: ReactNode;
   count: string;
-  name: string;
+  name: ReactNode;
   suffix?: string;
 }
 

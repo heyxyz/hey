@@ -14,9 +14,11 @@ import { usePublicationPollStore } from 'src/store/non-persisted/publication/use
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import { useAccount } from 'wagmi';
 
 import Auth from './Auth';
 import { useSignupStore } from './Auth/Signup';
+import GlobalModalsFromUrl from './GlobalModalsFromUrl';
 import Invites from './Modal/Invites';
 import ReportProfile from './Modal/ReportProfile';
 import SwitchProfiles from './SwitchProfiles';
@@ -99,6 +101,7 @@ const GlobalModals: FC = () => {
   );
   const pollConfig = usePublicationPollStore((state) => state.pollConfig);
   const signupScreen = useSignupStore((state) => state.screen);
+  const { address } = useAccount();
 
   const checkIfPublicationNotDrafted = () => {
     if (
@@ -126,6 +129,7 @@ const GlobalModals: FC = () => {
 
   return (
     <>
+      <GlobalModalsFromUrl />
       <Modal
         icon={<ShieldCheckIcon className="text-brand-500 size-5" />}
         onClose={() =>
@@ -147,7 +151,7 @@ const GlobalModals: FC = () => {
       <Modal
         onClose={() => setShowProfileSwitchModal(false)}
         show={showProfileSwitchModal}
-        size="xs"
+        size={!address ? 'sm' : 'xs'}
         title="Switch Profile"
       >
         <SwitchProfiles />

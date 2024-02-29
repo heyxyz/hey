@@ -29,13 +29,19 @@ import ProfilePageShimmer from './Shimmer';
 const ViewProfile: NextPage = () => {
   const {
     isReady,
-    query: { handle, id, type }
+    query: { handle, id, source, type }
   } = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'profile' });
-  }, []);
+    if (isReady) {
+      Leafwatch.track(PAGEVIEW, {
+        page: 'profile',
+        ...(source ? { source } : {})
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handle, id]);
 
   const lowerCaseProfileFeedType = [
     ProfileFeedType.Feed.toLowerCase(),

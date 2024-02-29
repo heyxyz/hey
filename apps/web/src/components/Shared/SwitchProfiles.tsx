@@ -26,6 +26,7 @@ import { signIn, signOut } from 'src/store/persisted/useAuthStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 import { useAccount, useSignMessage } from 'wagmi';
 
+import WalletSelector from './Auth/WalletSelector';
 import Loader from './Loader';
 
 const SwitchProfiles: FC = () => {
@@ -34,15 +35,14 @@ const SwitchProfiles: FC = () => {
   const [loggingInProfileId, setLoggingInProfileId] = useState<null | string>(
     null
   );
+  const { address } = useAccount();
 
   const onError = (error: any) => {
     setIsLoading(false);
     errorToast(error);
   };
 
-  const { address } = useAccount();
   const { signMessageAsync } = useSignMessage({ mutation: { onError } });
-
   const request: LastLoggedInProfileRequest | ProfileManagersRequest = {
     for: address
   };
@@ -95,6 +95,21 @@ const SwitchProfiles: FC = () => {
       onError(error);
     }
   };
+
+  if (!address) {
+    return (
+      <div className="m-5 space-y-5">
+        <div className="space-y-2">
+          <div className="text-xl font-bold">Connect your wallet.</div>
+          <div className="ld-text-gray-500 text-sm">
+            Seems like you are disconnected from the wallet or trying to access
+            this from a different wallet. Please switch to the correct wallet.
+          </div>
+        </div>
+        <WalletSelector />
+      </div>
+    );
+  }
 
   return (
     <div className="max-h-[80vh] overflow-y-auto p-2">

@@ -30,13 +30,6 @@ export const PROFILE = {
   UNFOLLOW: 'Unfollow profile'
 };
 
-export const GROUP = {
-  FAVORITE: 'Favorite group',
-  JOIN: 'Join group',
-  LEAVE: 'Leave group',
-  UNFAVORITE: 'Unfavorite group'
-};
-
 export const PUBLICATION = {
   ATTACHMENT: {
     AUDIO: {
@@ -164,12 +157,18 @@ export const INVITE = {
 };
 
 export const GARDENER = {
+  PROFILE: {
+    P2P_RECOMMEND: 'P2P recommend profile',
+    P2P_UNRECOMMEND: 'P2P unrecommend profile'
+  },
   REPORT: 'Gardener report',
+  SEARCH_PUBLICATION: 'Gardener search publication',
   TOGGLE_MODE: 'Toggle gardener mode'
 };
 
 export const STAFFTOOLS = {
   FEATURE_FLAGS: {
+    BULK_ASSIGN: 'Staff Tool: Bulk assign feature flag',
     CREATE: 'Staff Tool: Create feature flag',
     DELETE: 'Staff Tool: Delete feature flag',
     KILL: 'Staff Tool: Kill feature flag'
@@ -192,6 +191,10 @@ export const STAFFTOOLS = {
   }
 };
 
+export const CREATORTOOLS = {
+  ASSIGN_FEATURE_FLAG: 'Creator Tool: Assign feature flag'
+};
+
 export const SYSTEM = {
   SWITCH_NETWORK: 'Switch network',
   SWITCH_THEME: 'Switch theme'
@@ -208,7 +211,7 @@ export const MISCELLANEOUS = {
     OPEN_VERCEL: 'Open Vercel'
   },
   OPEN_GITCOIN: 'Open Gitcoin',
-  OPEN_LENS_WAITLIST: 'Open Lens waitlist'
+  SEARCH: 'Search'
 };
 
 export const ONBOARDING = {
@@ -222,7 +225,6 @@ export const ALL_EVENTS = {
   PAGEVIEW,
   ...AUTH,
   ...PROFILE,
-  ...GROUP,
   ...PUBLICATION,
   ...NOTIFICATION,
   ...HOME,
@@ -231,7 +233,22 @@ export const ALL_EVENTS = {
   ...INVITE,
   ...GARDENER,
   ...STAFFTOOLS,
+  ...CREATORTOOLS,
   ...SYSTEM,
   ...MISCELLANEOUS,
   ...ONBOARDING
 };
+
+export enum ProfileLinkSource {
+  Collects = 'collects',
+  Followers = 'followers',
+  Following = 'following',
+  Likes = 'likes',
+  Mirrors = 'mirrors',
+  Publication = 'publication',
+  Quotes = 'quotes',
+  RelevantPeople = 'relevant-people',
+  Search = 'search',
+  StaffPicks = 'staff-picks',
+  WhoToFollow = 'who-to-follow'
+}

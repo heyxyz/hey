@@ -12,6 +12,7 @@ import getLennyURL from '@hey/lib/getLennyURL';
 import getMentions from '@hey/lib/getMentions';
 import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
+import humanize from '@hey/lib/humanize';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import isVerified from '@lib/isVerified';
@@ -30,9 +31,10 @@ interface UserProfileProps {
   profile: Profile;
   showBio?: boolean;
   showFollow?: boolean;
+  showId?: boolean;
   showUnfollow?: boolean;
-
   showUserPreview?: boolean;
+  source?: string;
   timestamp?: Date;
 }
 
@@ -42,8 +44,10 @@ const UserProfile: FC<UserProfileProps> = ({
   profile,
   showBio = false,
   showFollow = false,
+  showId = false,
   showUnfollow = false,
   showUserPreview = true,
+  source,
   timestamp = ''
 }) => {
   const UserAvatar = () => (
@@ -88,6 +92,12 @@ const UserProfile: FC<UserProfileProps> = ({
             </span>
           </span>
         ) : null}
+        {showId && (
+          <span className="ld-text-gray-500">
+            <span className="mx-1.5">·</span>
+            <span className="text-xs">{humanize(parseInt(profile.id))}</span>
+          </span>
+        )}
       </div>
     </>
   );
@@ -128,8 +138,9 @@ const UserProfile: FC<UserProfileProps> = ({
     <div className="flex items-center justify-between">
       {linkToProfile && profile.id ? (
         <Link
+          as={getProfile(profile).link}
           className="outline-brand-500 rounded-xl outline-offset-4"
-          href={getProfile(profile).link}
+          href={getProfile(profile, source).sourceLink}
         >
           <UserInfo />
         </Link>

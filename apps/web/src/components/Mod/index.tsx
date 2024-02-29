@@ -27,6 +27,7 @@ import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 import FeedType from './FeedType';
 import LatestFeed from './LatestFeed';
+import SearchFeed from './SearchFeed';
 
 const FILTER_APPS = knownApps;
 
@@ -84,9 +85,7 @@ const Mod: NextPage = () => {
     <GridLayout>
       <MetaTags title={`Mod Center • ${APP_NAME}`} />
       <GridItemEight className="space-y-5">
-        {gardenerMode && (
-          <FeedType feedType={feedType} setFeedType={setFeedType} />
-        )}
+        <FeedType feedType={feedType} setFeedType={setFeedType} />
         {feedType === ModFeedType.LATEST && (
           <LatestFeed
             apps={apps}
@@ -97,6 +96,7 @@ const Mod: NextPage = () => {
             setRefreshing={setRefreshing}
           />
         )}
+        {feedType === ModFeedType.SEARCH && <SearchFeed />}
         {feedType === ModFeedType.PROFILES && <List />}
       </GridItemEight>
       <GridItemFour>
@@ -247,6 +247,9 @@ const Mod: NextPage = () => {
             </>
           )}
           {feedType === ModFeedType.PROFILES && <div>All the profiles</div>}
+          {feedType === ModFeedType.SEARCH && (
+            <div>Search for Publications</div>
+          )}
         </Card>
         <Footer />
       </GridItemFour>

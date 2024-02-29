@@ -52,7 +52,7 @@ const SmallUserProfile: FC<UserProfileProps> = ({
 
   const UserName = () => (
     <div className="flex max-w-full flex-wrap items-center">
-      <div className={cn(!hideSlug && 'mr-2 max-w-[75%]', 'truncate')}>
+      <div className={cn(!hideSlug && 'max-w-[75%]', 'mr-1 truncate')}>
         {getProfile(profile).displayName}
       </div>
       {isVerified(profile.id) ? (

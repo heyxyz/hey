@@ -3,6 +3,7 @@ import type {
   CustomFiltersType,
   ExplorePublicationRequest,
   ExplorePublicationType,
+  MirrorablePublication,
   PublicationMetadataMainFocusType
 } from '@hey/lens';
 import type { FC } from 'react';
@@ -39,7 +40,7 @@ const LatestFeed: FC<LatestFeedProps> = ({
 }) => {
   // Variables
   const request: ExplorePublicationRequest = {
-    limit: LimitType.TwentyFive,
+    limit: LimitType.Fifty,
     orderBy: ExplorePublicationsOrderByType.Latest,
     where: {
       customFilters,
@@ -110,7 +111,9 @@ const LatestFeed: FC<LatestFeedProps> = ({
             <div className="divider" />
             <div className="m-5 space-y-2">
               <b>Gardener actions</b>
-              <GardenerActions publicationId={publication.id} />
+              <GardenerActions
+                publication={publication as MirrorablePublication}
+              />
             </div>
           </div>
         </Card>

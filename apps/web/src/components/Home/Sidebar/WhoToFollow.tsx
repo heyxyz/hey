@@ -5,7 +5,7 @@ import DismissRecommendedProfile from '@components/Shared/DismissRecommendedProf
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
-import { PROFILE } from '@hey/data/tracking';
+import { PROFILE, ProfileLinkSource } from '@hey/data/tracking';
 import { LimitType, useProfileRecommendationsQuery } from '@hey/lens';
 import { Card, ErrorMessage, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -71,7 +71,11 @@ const WhoToFollow: FC = () => {
             key={profile?.id}
           >
             <div className="w-full">
-              <UserProfile profile={profile as Profile} showFollow />
+              <UserProfile
+                profile={profile as Profile}
+                showFollow
+                source={ProfileLinkSource.WhoToFollow}
+              />
             </div>
             <DismissRecommendedProfile profile={profile as Profile} />
           </motion.div>

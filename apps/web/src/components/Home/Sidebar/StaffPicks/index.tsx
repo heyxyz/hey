@@ -69,9 +69,9 @@ const StaffPicks: FC = () => {
           className="flex items-center space-x-3 truncate"
           exit={{ opacity: 0 }}
           initial={{ opacity: 0 }}
-          key={pick.id}
+          key={pick.profileId}
         >
-          <StaffPickedProfile id={pick.id} />
+          <StaffPickedProfile id={pick.profileId} />
         </motion.div>
       ))}
     </Card>

@@ -5,6 +5,9 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
+      animation: {
+        shimmer: 'shimmer 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+      },
       colors: {
         brand: {
           '100': '#ffe3e5',
@@ -21,6 +24,12 @@ module.exports = {
         },
         gray: colors.zinc,
         green: colors.emerald
+      },
+      keyframes: {
+        shimmer: {
+          '0%, 100%': { opacity: 1 },
+          '50%': { opacity: 0.5 }
+        }
       }
     }
   },

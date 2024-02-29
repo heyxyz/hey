@@ -110,6 +110,7 @@ export const post: Handler = async (req, res) => {
         }
       ]
     });
+
     logger.info('Ingested event to Leafwatch');
 
     return res.status(200).json({ id: result.query_id, success: true });

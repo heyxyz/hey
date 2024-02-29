@@ -2,6 +2,7 @@ import type { Profile, ProfileSearchRequest } from '@hey/lens';
 import type { ChangeEvent, FC, MutableRefObject } from 'react';
 
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { MISCELLANEOUS, ProfileLinkSource } from '@hey/data/tracking';
 import {
   CustomFiltersType,
   LimitType,
@@ -9,6 +10,7 @@ import {
 } from '@hey/lens';
 import { Card, Input, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import { Leafwatch } from '@lib/leafwatch';
 import { useClickAway, useDebounce } from '@uidotdev/usehooks';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
@@ -44,6 +46,7 @@ const Search: FC<SearchProps> = ({
 
   const handleKeyDown = (evt: ChangeEvent<HTMLFormElement>) => {
     evt.preventDefault();
+    Leafwatch.track(MISCELLANEOUS.SEARCH, { query: searchText });
     if (pathname === '/search') {
       push(`/search?q=${encodeURIComponent(searchText)}&type=${query.type}`);
     } else {
@@ -123,6 +126,7 @@ const Search: FC<SearchProps> = ({
                       linkToProfile={!onProfileSelected}
                       profile={profile}
                       showUserPreview={false}
+                      source={ProfileLinkSource.Search}
                     />
                   </motion.div>
                 ))}
