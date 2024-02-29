@@ -9,7 +9,7 @@ import { ModFeedType } from '@hey/data/enums';
 import { PAGEVIEW } from '@hey/data/tracking';
 import {
   CustomFiltersType,
-  ExplorePublicationType,
+  ModExplorePublicationType,
   PublicationMetadataMainFocusType
 } from '@hey/lens';
 import {
@@ -36,8 +36,9 @@ const Mod: NextPage = () => {
   const [refresing, setRefreshing] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [publicationTypes, setPublicationTypes] = useState([
-    ExplorePublicationType.Post,
-    ExplorePublicationType.Quote
+    ModExplorePublicationType.Post,
+    ModExplorePublicationType.Quote,
+    ModExplorePublicationType.Comment
   ]);
   const [mainContentFocus, setMainContentFocus] = useState<
     PublicationMetadataMainFocusType[]
@@ -71,7 +72,9 @@ const Mod: NextPage = () => {
     }
   };
 
-  const togglePublicationType = (publicationType: ExplorePublicationType) => {
+  const togglePublicationType = (
+    publicationType: ModExplorePublicationType
+  ) => {
     if (publicationTypes.includes(publicationType)) {
       setPublicationTypes(
         publicationTypes.filter((type) => type !== publicationType)
@@ -116,22 +119,32 @@ const Mod: NextPage = () => {
                 <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
                   <Checkbox
                     checked={publicationTypes.includes(
-                      ExplorePublicationType.Post
+                      ModExplorePublicationType.Post
                     )}
                     label="Posts"
                     name="posts"
                     onChange={() =>
-                      togglePublicationType(ExplorePublicationType.Post)
+                      togglePublicationType(ModExplorePublicationType.Post)
                     }
                   />
                   <Checkbox
                     checked={publicationTypes.includes(
-                      ExplorePublicationType.Quote
+                      ModExplorePublicationType.Comment
+                    )}
+                    label="Comments"
+                    name="comments"
+                    onChange={() =>
+                      togglePublicationType(ModExplorePublicationType.Comment)
+                    }
+                  />
+                  <Checkbox
+                    checked={publicationTypes.includes(
+                      ModExplorePublicationType.Quote
                     )}
                     label="Quotes"
                     name="quotes"
                     onChange={() =>
-                      togglePublicationType(ExplorePublicationType.Quote)
+                      togglePublicationType(ModExplorePublicationType.Quote)
                     }
                   />
                 </div>

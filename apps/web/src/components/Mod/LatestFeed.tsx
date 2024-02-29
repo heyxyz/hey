@@ -1,9 +1,9 @@
 import type {
   AnyPublication,
   CustomFiltersType,
-  ExplorePublicationRequest,
-  ExplorePublicationType,
   MirrorablePublication,
+  ModExplorePublicationRequest,
+  ModExplorePublicationType,
   PublicationMetadataMainFocusType
 } from '@hey/lens';
 import type { FC } from 'react';
@@ -15,7 +15,7 @@ import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import {
   ExplorePublicationsOrderByType,
   LimitType,
-  useExplorePublicationsQuery
+  useModExplorePublicationsQuery
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { useEffect } from 'react';
@@ -25,7 +25,7 @@ interface LatestFeedProps {
   apps: null | string[];
   customFilters: CustomFiltersType[];
   mainContentFocus: PublicationMetadataMainFocusType[];
-  publicationTypes: ExplorePublicationType[];
+  publicationTypes: ModExplorePublicationType[];
   refresh: boolean;
   setRefreshing: (refreshing: boolean) => void;
 }
@@ -39,7 +39,7 @@ const LatestFeed: FC<LatestFeedProps> = ({
   setRefreshing
 }) => {
   // Variables
-  const request: ExplorePublicationRequest = {
+  const request: ModExplorePublicationRequest = {
     limit: LimitType.Fifty,
     orderBy: ExplorePublicationsOrderByType.Latest,
     where: {
@@ -53,10 +53,10 @@ const LatestFeed: FC<LatestFeedProps> = ({
   };
 
   const { data, error, fetchMore, loading, refetch } =
-    useExplorePublicationsQuery({ variables: { request } });
+    useModExplorePublicationsQuery({ variables: { request } });
 
-  const publications = data?.explorePublications?.items;
-  const pageInfo = data?.explorePublications?.pageInfo;
+  const publications = data?.modExplorePublications?.items;
+  const pageInfo = data?.modExplorePublications?.pageInfo;
   const hasMore = pageInfo?.next;
 
   useEffect(() => {
