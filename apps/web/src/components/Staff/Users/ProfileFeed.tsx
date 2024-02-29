@@ -85,8 +85,7 @@ const ProfileFeed: FC<ProfileFeedProps> = ({ profileId }) => {
           />
           <div>
             <div className="divider" />
-            <div className="m-5 space-y-2">
-              <b>Gardener actions</b>
+            <div className="m-5">
               <GardenerActions
                 publication={publication as MirrorablePublication}
               />
