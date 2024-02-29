@@ -39,7 +39,6 @@ const List: FC = () => {
   };
 
   const { data, error, fetchMore, loading, refetch } = useExploreProfilesQuery({
-    fetchPolicy: 'no-cache',
     variables: { request }
   });
 
