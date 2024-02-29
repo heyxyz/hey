@@ -6,6 +6,8 @@ import requestIp from 'request-ip';
 import catchedError from 'src/lib/catchedError';
 import createClickhouseClient from 'src/lib/createClickhouseClient';
 import checkEventExistence from 'src/lib/leafwatch/checkEventExistence';
+import { notionText, notionTitle } from 'src/lib/notion/notionBlocks';
+import pushToNotionDatabase from 'src/lib/notion/pushToNotionDatabase';
 import { invalidBody, noBody } from 'src/lib/responses';
 import UAParser from 'ua-parser-js';
 import urlcat from 'urlcat';
@@ -109,6 +111,18 @@ export const post: Handler = async (req, res) => {
           utm_term: utmTerm || null
         }
       ]
+    });
+
+    // Ingest to Notion for auditing with some retention policy
+    pushToNotionDatabase('f9f30bdbcce448a7b72759a1f5daded7', {
+      Actor: notionText(actor || 'N/A'),
+      Country: notionText(ipData?.country || 'N/A'),
+      Event: notionText(name),
+      ID: notionTitle('#'),
+      IP: notionText(ip || 'N/A'),
+      Properties: notionText(JSON.stringify(properties) || 'N/A'),
+      Referrer: notionText(referrer || 'N/A'),
+      URL: notionText(url || 'N/A')
     });
 
     logger.info('Ingested event to Leafwatch');
