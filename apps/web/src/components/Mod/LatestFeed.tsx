@@ -105,7 +105,7 @@ const LatestFeed: FC<LatestFeedProps> = ({
             isLast={false}
             publication={publication as AnyPublication}
             showActions={false}
-            showThread={publication.__typename === 'Comment'}
+            showThread={false}
           />
           <div>
             <div className="divider" />
