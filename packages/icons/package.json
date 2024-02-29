@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "@types/react": "^18.2.60",
+    "@types/react": "^18.2.61",
     "typescript": "^5.3.3"
   }
 }
