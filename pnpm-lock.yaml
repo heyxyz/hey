@@ -435,8 +435,8 @@ importers:
         specifier: ^5.0.1
         version: 5.0.1
       '@openzeppelin/contracts-upgradeable':
-        specifier: ^5.0.1
-        version: 5.0.1(@openzeppelin/contracts@5.0.1)
+        specifier: ^5.0.2
+        version: 5.0.2(@openzeppelin/contracts@5.0.1)
       '@openzeppelin/hardhat-upgrades':
         specifier: ^3.0.4
         version: 3.0.4(@nomicfoundation/hardhat-ethers@3.0.5)(@nomicfoundation/hardhat-verify@2.0.4)(ethers@6.11.1)(hardhat@2.20.1)
@@ -6032,10 +6032,10 @@ packages:
       '@nomicfoundation/solidity-analyzer-win32-x64-msvc': 0.1.1
     dev: true
 
-  /@openzeppelin/contracts-upgradeable@5.0.1(@openzeppelin/contracts@5.0.1):
-    resolution: {integrity: sha512-MvaLoPnVcoZr/qqZP+4cl9piuR4gg0iIGgxVSZ/AL1iId3M6IdEHzz9Naw5Lirl4KKBI6ciTVnX07yL4dOMIJg==}
+  /@openzeppelin/contracts-upgradeable@5.0.2(@openzeppelin/contracts@5.0.1):
+    resolution: {integrity: sha512-0MmkHSHiW2NRFiT9/r5Lu4eJq5UJ4/tzlOgYXNAIj/ONkQTVnz22pLxDvp4C4uZ9he7ZFvGn3Driptn1/iU7tQ==}
     peerDependencies:
-      '@openzeppelin/contracts': 5.0.1
+      '@openzeppelin/contracts': 5.0.2
     dependencies:
       '@openzeppelin/contracts': 5.0.1
     dev: true
