@@ -177,7 +177,7 @@ const ChooseThumbnail: FC = () => {
               />
               {ipfsUrl && isSelected && isUploaded ? (
                 <div className="absolute inset-0 grid place-items-center rounded-xl bg-gray-100/10">
-                  <CheckCircleIcon className="size-6 text-green-500" />
+                  <CheckCircleIcon className="size-6" />
                 </div>
               ) : null}
               {isUploading && isSelected && (

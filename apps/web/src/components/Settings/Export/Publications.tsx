@@ -78,9 +78,11 @@ const Publications: FC = () => {
         </div>
       ) : null}
       {fetchCompleted ? (
-        <Button onClick={download}>Download publications</Button>
+        <Button onClick={download} outline>
+          Download publications
+        </Button>
       ) : (
-        <Button disabled={exporting} onClick={handleExportClick}>
+        <Button disabled={exporting} onClick={handleExportClick} outline>
           {exporting ? 'Exporting...' : 'Export now'}
         </Button>
       )}
