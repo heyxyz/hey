@@ -17,10 +17,7 @@ const EnableLensManager: FC = () => {
   }
 
   return (
-    <Card
-      as="aside"
-      className="border-brand-400 !bg-brand-300/20 text-brand-600 mb-4 space-y-2.5 p-5"
-    >
+    <Card as="aside" className="mb-4 space-y-2.5 p-5">
       <p className="text-lg font-bold">Signless transactions</p>
       <p className="text-sm leading-[22px]">
         You can enable Lens manager to interact with {APP_NAME} without signing
