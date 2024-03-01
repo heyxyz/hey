@@ -43,7 +43,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const nonOutlineStyles = {
-      'bg-black text-white hover:bg-gray-900 active:bg-black':
+      'bg-black dark:bg-white text-white dark:text-black hover:bg-gray-900 active:bg-black':
         !outline && variant === 'primary',
       'bg-brand-500 hover:bg-brand-600 active:bg-brand-700 text-white':
         !outline && variant === 'brand',
