@@ -150,14 +150,14 @@ const UserProfile: FC<UserProfileProps> = ({
       {showFollow ? (
         profile.operations.isFollowedByMe.value ? null : profile?.followModule
             ?.type === FollowModuleType.FeeFollowModule ? (
-          <SuperFollow profile={profile} />
+          <SuperFollow profile={profile} small />
         ) : (
-          <Follow profile={profile} />
+          <Follow profile={profile} small />
         )
       ) : null}
       {showUnfollow ? (
         profile.operations.isFollowedByMe.value ? (
-          <Unfollow profile={profile} />
+          <Unfollow profile={profile} small />
         ) : null
       ) : null}
     </div>

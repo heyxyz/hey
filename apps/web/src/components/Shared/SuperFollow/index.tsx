@@ -21,13 +21,13 @@ const FollowModule = dynamic(() => import('./FollowModule'), {
 interface SuperFollowProps {
   again?: boolean;
   profile: Profile;
-  showText?: boolean;
+  small?: boolean;
 }
 
 const SuperFollow: FC<SuperFollowProps> = ({
   again = false,
   profile,
-  showText = false
+  small = false
 }) => {
   const [showFollowModal, setShowFollowModal] = useState(false);
   const currentProfile = useProfileStore((state) => state.currentProfile);
@@ -40,7 +40,6 @@ const SuperFollow: FC<SuperFollowProps> = ({
       <Button
         aria-label="Super follow"
         className="!px-3 !py-1.5 text-sm"
-        icon={<StarIcon className="size-4" />}
         onClick={() => {
           if (!currentProfile) {
             setShowAuthModal(true);
@@ -50,8 +49,10 @@ const SuperFollow: FC<SuperFollowProps> = ({
           Leafwatch.track(PROFILE.OPEN_SUPER_FOLLOW);
         }}
         outline
+        rounded={small}
+        size={small ? 'sm' : 'md'}
       >
-        {showText ? 'Super follow' : null}
+        Super follow
       </Button>
       <Modal
         icon={<StarIcon className="size-5 text-pink-500" />}
