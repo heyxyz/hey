@@ -13,7 +13,6 @@ interface ButtonProps
   className?: string;
   icon?: ReactNode;
   outline?: boolean;
-  rounded?: boolean;
   size?: 'lg' | 'md' | 'sm';
   variant?: 'danger' | 'primary' | 'secondary' | 'warning';
 }
@@ -25,7 +24,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       className = '',
       icon,
       outline,
-      rounded = false,
       size = 'md',
       variant = 'primary',
       ...rest
@@ -62,11 +60,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         outline && variant === 'warning'
     };
 
-    const roundedStyles = {
-      'rounded-full': rounded,
-      'rounded-lg': !rounded
-    };
-
     const sizeStyles = {
       'px-3 py-0.5 text-sm': size === 'sm',
       'px-4 py-1': size === 'md',
@@ -81,10 +74,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             ...nonOutlineStyles,
             ...outlineStyles,
             ...sizeStyles,
-            ...roundedStyles,
             'inline-flex items-center space-x-1.5': icon && children
           },
-          'font-bold shadow-sm outline-none focus:ring-2 focus:ring-offset-1 disabled:opacity-50',
+          'rounded-full font-bold shadow-sm outline-none focus:ring-2 focus:ring-offset-1 disabled:opacity-50',
           className
         )}
         ref={ref}

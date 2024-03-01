@@ -49,7 +49,6 @@ const SuperFollow: FC<SuperFollowProps> = ({
           Leafwatch.track(PROFILE.OPEN_SUPER_FOLLOW);
         }}
         outline
-        rounded={small}
         size={small ? 'sm' : 'md'}
       >
         Super follow
