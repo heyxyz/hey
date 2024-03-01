@@ -8,6 +8,7 @@ import { Button } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { type FC, useState } from 'react';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { formatUnits, parseEther } from 'viem';
 import { useBalance, useReadContract, useSendTransaction } from 'wagmi';
 
@@ -20,6 +21,7 @@ interface RelayerBalanceProps {
 
 const RelayerBalance: FC<RelayerBalanceProps> = ({ address, index }) => {
   const [loading, setLoading] = useState(false);
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const { data } = useBalance({
     address: address,
@@ -50,6 +52,7 @@ const RelayerBalance: FC<RelayerBalanceProps> = ({ address, index }) => {
   const refill = async () => {
     try {
       setLoading(true);
+      await handleWrongNetwork();
 
       // Refill balance to 10 MATIC
       return await sendTransactionAsync({
