@@ -25,11 +25,9 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
   const setShowGardenerActionsAlert = useGlobalAlertStateStore(
     (state) => state.setShowGardenerActionsAlert
   );
-
   const [hasReported, setHasReported] = useState(
     publication.operations?.hasReported
   );
-
   const [createReport, { loading }] = useReportPublicationMutation();
 
   const reportPublication = async ({
