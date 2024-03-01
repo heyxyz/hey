@@ -15,7 +15,7 @@ interface ButtonProps
   outline?: boolean;
   rounded?: boolean;
   size?: 'lg' | 'md' | 'sm';
-  variant?: 'brand' | 'danger' | 'primary' | 'secondary' | 'warning';
+  variant?: 'danger' | 'primary' | 'secondary' | 'warning';
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -37,16 +37,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         variant === 'primary',
       'border border-gray-600 focus:ring-gray-400/50': variant === 'secondary',
       'border border-red-600 focus:ring-red-400/50': variant === 'danger',
-      'border border-yellow-600 focus:ring-yellow-400/50':
-        variant === 'warning',
-      'border-brand-600 focus:ring-brand-400/50 border': variant === 'brand'
+      'border border-yellow-600 focus:ring-yellow-400/50': variant === 'warning'
     };
 
     const nonOutlineStyles = {
       'bg-black dark:bg-white text-white dark:text-black hover:bg-gray-900 active:bg-black':
         !outline && variant === 'primary',
-      'bg-brand-500 hover:bg-brand-600 active:bg-brand-700 text-white':
-        !outline && variant === 'brand',
       'bg-gray-500 text-white hover:bg-gray-600 active:bg-gray-700':
         !outline && variant === 'secondary',
       'bg-red-500 text-white hover:bg-red-400 active:bg-red-700':
@@ -58,8 +54,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const outlineStyles = {
       'text-black hover:bg-gray-50 active:bg-gray-100 dark:text-white dark:hover:bg-gray-800 dark:active:bg-gray-700':
         outline && variant === 'primary',
-      'text-brand-500 hover:bg-brand-50 active:bg-brand-100':
-        outline && variant === 'brand',
       'text-gray-500 hover:bg-gray-50 active:bg-gray-100':
         outline && variant === 'secondary',
       'text-red-500 hover:bg-red-50 active:bg-red-100':

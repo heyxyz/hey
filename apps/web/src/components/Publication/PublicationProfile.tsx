@@ -55,7 +55,7 @@ const PublicationProfile: FC<FeedUserProfileProps> = ({
         <CheckBadgeIcon className="text-brand-500 ml-1 size-4" />
       ) : null}
       {hasMisused(profile.id) ? (
-        <ExclamationCircleIcon className="ml-1 size-4 text-red-500" />
+        <ExclamationCircleIcon className="ml-1 size-4" />
       ) : null}
       {timestamp ? (
         <span className="ld-text-gray-500 truncate">
