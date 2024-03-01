@@ -92,7 +92,7 @@ const WhoToFollow: FC = () => {
         </button>
       </Card>
       <Modal
-        icon={<UsersIcon className="text-brand-500 size-5" />}
+        icon={<UsersIcon className="size-5" />}
         onClose={() => setShowSuggestedModal(false)}
         show={showSuggestedModal}
         title="Suggested for you"

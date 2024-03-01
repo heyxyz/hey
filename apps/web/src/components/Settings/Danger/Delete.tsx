@@ -127,7 +127,7 @@ const DeleteSettings: FC = () => {
         {isLoading ? 'Deleting...' : 'Delete your account'}
       </Button>
       <Modal
-        icon={<ExclamationTriangleIcon className="size-5 text-red-500" />}
+        icon={<ExclamationTriangleIcon className="size-5" />}
         onClose={() => setShowWarningModal(false)}
         show={showWarningModal}
         title="Danger zone"

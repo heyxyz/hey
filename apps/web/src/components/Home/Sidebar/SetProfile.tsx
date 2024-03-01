@@ -6,7 +6,6 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { APP_NAME } from '@hey/data/constants';
 import { ONBOARDING } from '@hey/data/tracking';
 import { Card } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import useProfileStore from 'src/store/persisted/useProfileStore';
@@ -19,13 +18,11 @@ interface StatusProps {
 const Status: FC<StatusProps> = ({ finished, title }) => (
   <div className="flex items-center space-x-1.5">
     {finished ? (
-      <CheckCircleIcon className="size-5 text-green-500" />
+      <CheckCircleIcon className="size-5" />
     ) : (
-      <MinusCircleIcon className="size-5 text-yellow-500" />
+      <MinusCircleIcon className="size-5" />
     )}
-    <div className={cn(finished ? 'text-green-500' : 'text-yellow-500')}>
-      {title}
-    </div>
+    <div className="ld-text-gray-500">{title}</div>
   </div>
 );
 
@@ -42,10 +39,7 @@ const SetProfile: FC = () => {
   }
 
   return (
-    <Card
-      as="aside"
-      className="mb-4 space-y-4 !border-green-600 !bg-green-50 p-5 text-green-600 dark:bg-green-900"
-    >
+    <Card as="aside" className="mb-4 space-y-4 p-5">
       <p className="text-lg font-bold">Setup your {APP_NAME} profile</p>
       <div className="space-y-1 text-sm leading-5">
         <Status

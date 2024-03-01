@@ -83,7 +83,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({
               {plur('Mirror', shares)}
             </button>
             <Modal
-              icon={<ArrowsRightLeftIcon className="text-brand-500 size-5" />}
+              icon={<ArrowsRightLeftIcon className="size-5" />}
               onClose={() => setShowMirrorsModal(false)}
               show={showMirrorsModal}
               title="Mirrored by"
@@ -108,7 +108,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({
               {plur('Quote', quotes)}
             </button>
             <Modal
-              icon={<ArrowsRightLeftIcon className="text-brand-500 size-5" />}
+              icon={<ArrowsRightLeftIcon className="size-5" />}
               onClose={() => setShowQuotesModal(false)}
               show={showQuotesModal}
               title="Quoted by"
@@ -135,7 +135,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({
               {plur('Like', reactions)}
             </button>
             <Modal
-              icon={<HeartIcon className="text-brand-500 size-5" />}
+              icon={<HeartIcon className="size-5" />}
               onClose={() => setShowLikesModal(false)}
               show={showLikesModal}
               title="Liked by"
@@ -162,7 +162,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({
               {plur('Collect', countOpenActions)}
             </button>
             <Modal
-              icon={<RectangleStackIcon className="text-brand-500 size-5" />}
+              icon={<RectangleStackIcon className="size-5" />}
               onClose={() => setShowCollectorsModal(false)}
               show={showCollectorsModal}
               title="Collected by"

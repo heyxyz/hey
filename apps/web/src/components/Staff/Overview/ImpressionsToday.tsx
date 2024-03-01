@@ -1,6 +1,5 @@
 import type { FC } from 'react';
 
-import { BRAND_COLOR } from '@hey/data/constants';
 import formatDate from '@hey/lib/datetime/formatDate';
 import {
   CategoryScale,
@@ -13,7 +12,9 @@ import {
   Title,
   Tooltip
 } from 'chart.js';
+import { useTheme } from 'next-themes';
 import { Line } from 'react-chartjs-2';
+import colors from 'tailwindcss/colors';
 
 import type { StatsType } from './LeafwatchStats';
 
@@ -33,6 +34,8 @@ interface ImpressionsTodayProps {
 }
 
 const ImpressionsToday: FC<ImpressionsTodayProps> = ({ impressionsToday }) => {
+  const { resolvedTheme } = useTheme();
+
   return (
     <>
       <div className="divider" />
@@ -43,8 +46,12 @@ const ImpressionsToday: FC<ImpressionsTodayProps> = ({ impressionsToday }) => {
           data={{
             datasets: [
               {
-                backgroundColor: '#fff0f2',
-                borderColor: BRAND_COLOR,
+                backgroundColor:
+                  resolvedTheme === 'dark'
+                    ? colors['zinc']['900']
+                    : colors['zinc']['200'],
+                borderColor:
+                  resolvedTheme === 'dark' ? colors['white'] : colors['black'],
                 data: impressionsToday.map((impression) => impression.count),
                 fill: true,
                 label: 'Impressions'

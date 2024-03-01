@@ -22,7 +22,6 @@ const SignupButton: FC = () => {
       }}
       outline
       size="md"
-      variant="black"
     >
       Signup
     </Button>

@@ -111,7 +111,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
           <TbaBadge address={profile.ownedBy.address} />
           {hasMisused(profile.id) ? (
             <Tooltip content={misuseDetails?.type}>
-              <ExclamationCircleIcon className="size-6 text-red-500" />
+              <ExclamationCircleIcon className="size-6" />
             </Tooltip>
           ) : null}
         </div>
@@ -151,15 +151,15 @@ const Details: FC<DetailsProps> = ({ profile }) => {
           ) : followType !== FollowModuleType.RevertFollowModule ? (
             profile.operations.isFollowedByMe.value ? (
               <>
-                <Unfollow profile={profile} showText />
+                <Unfollow profile={profile} />
                 {followType === FollowModuleType.FeeFollowModule ? (
                   <SuperFollow again profile={profile} />
                 ) : null}
               </>
             ) : followType === FollowModuleType.FeeFollowModule ? (
-              <SuperFollow profile={profile} showText />
+              <SuperFollow profile={profile} />
             ) : (
-              <Follow profile={profile} showText />
+              <Follow profile={profile} />
             )
           ) : null}
 
@@ -172,7 +172,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
               setShowMutualFollowersModal={setShowMutualFollowersModal}
             />
             <Modal
-              icon={<UsersIcon className="text-brand-500 size-5" />}
+              icon={<UsersIcon className="size-5" />}
               onClose={() => setShowMutualFollowersModal(false)}
               show={showMutualFollowersModal}
               title="Followers you know"

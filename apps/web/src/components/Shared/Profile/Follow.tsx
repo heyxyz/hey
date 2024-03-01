@@ -1,7 +1,6 @@
 import type { FollowRequest, Profile } from '@hey/lens';
 import type { FC } from 'react';
 
-import { UserPlusIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { Errors } from '@hey/data';
 import { LENSHUB_PROXY } from '@hey/data/constants';
@@ -14,7 +13,7 @@ import {
 import { useApolloClient } from '@hey/lens/apollo';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
-import { Button, Spinner } from '@hey/ui';
+import { Button } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
@@ -29,10 +28,10 @@ import { useSignTypedData, useWriteContract } from 'wagmi';
 
 interface FollowProps {
   profile: Profile;
-  showText?: boolean;
+  small?: boolean;
 }
 
-const Follow: FC<FollowProps> = ({ profile, showText = false }) => {
+const Follow: FC<FollowProps> = ({ profile, small = false }) => {
   const { pathname } = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const { isSuspended } = useProfileRestriction();
@@ -182,15 +181,13 @@ const Follow: FC<FollowProps> = ({ profile, showText = false }) => {
   return (
     <Button
       aria-label="Follow"
-      className="!px-3 !py-1.5 text-sm"
       disabled={isLoading}
-      icon={
-        isLoading ? <Spinner size="xs" /> : <UserPlusIcon className="size-4" />
-      }
       onClick={createFollow}
       outline
+      rounded={small}
+      size={small ? 'sm' : 'md'}
     >
-      {showText ? 'Follow' : null}
+      Follow
     </Button>
   );
 };

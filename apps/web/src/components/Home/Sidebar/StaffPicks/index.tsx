@@ -47,9 +47,7 @@ const StaffPicks: FC = () => {
         <Title />
         <EmptyState
           hideCard
-          icon={
-            <CursorArrowRippleIconOutline className="text-brand-500 size-8" />
-          }
+          icon={<CursorArrowRippleIconOutline className="size-8" />}
           message="Nothing here!"
         />
       </Card>

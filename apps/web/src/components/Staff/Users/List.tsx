@@ -106,7 +106,7 @@ const List: FC = () => {
         ) : !profiles?.length ? (
           <EmptyState
             hideCard
-            icon={<UsersIcon className="text-brand-500 size-8" />}
+            icon={<UsersIcon className="size-8" />}
             message={<span>No profiles</span>}
           />
         ) : (

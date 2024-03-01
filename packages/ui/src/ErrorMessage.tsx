@@ -23,26 +23,20 @@ export const ErrorMessage: FC<ErrorMessageProps> = ({
   return (
     <div
       className={cn(
-        'space-y-1 rounded-xl border-2 border-red-500/50 bg-red-50 p-4 text-sm dark:bg-red-900/10',
+        'space-y-1 rounded-xl border-2 border-gray-500/50 bg-gray-50 p-4 text-sm dark:bg-gray-900/10',
         className
       )}
     >
       <div className="flex flex-wrap items-center gap-2">
-        {title ? (
-          <h3 className="font-medium text-red-800 dark:text-red-200">
-            {title}
-          </h3>
-        ) : null}
-        <div className="flex items-center space-x-1 text-xs text-red-800">
+        {title ? <h3 className="font-medium">{title}</h3> : null}
+        <div className="flex items-center space-x-1 text-xs">
           <LifebuoyIcon className="size-4" />
           <Link className="font-bold underline" href="/support">
             Contact Support
           </Link>
         </div>
       </div>
-      <div className="break-words text-red-700 dark:text-red-200">
-        {error?.message}
-      </div>
+      <div className="ld-text-gray-500 break-words">{error?.message}</div>
     </div>
   );
 };

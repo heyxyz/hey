@@ -31,7 +31,7 @@ const Metadata: FC<MetadataProps> = ({ metadata }) => {
       forceRounded
     >
       <div className="flex items-center space-x-2">
-        <ScaleIcon className="text-brand-500 size-4 min-w-max" />
+        <ScaleIcon className="size-4 min-w-max" />
         <div>
           Licence: <b>{license}</b>
         </div>

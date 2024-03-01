@@ -37,7 +37,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   const id = useId();
 
   const iconStyles = [
-    'text-zinc-500 [&>*]:peer-focus:text-brand-500 [&>*]:h-5',
+    'text-zinc-500 [&>*]:peer-focus:text-gray-500 [&>*]:h-5',
     { '!text-red-500 [&>*]:peer-focus:!text-red-500': error }
   ];
 
@@ -62,7 +62,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
             { 'bg-gray-500/20 opacity-60': props.disabled },
             error ? '!border-red-500' : 'focus-within:ring-1',
             prefix ? 'rounded-r-xl' : 'rounded-xl',
-            'focus-within:border-brand-500 focus-within:ring-brand-400 flex w-full items-center border border-gray-300 bg-white dark:border-gray-700 dark:bg-gray-900'
+            'flex w-full items-center border border-gray-300 bg-white focus-within:border-gray-500 focus-within:ring-gray-400 dark:border-gray-700 dark:bg-gray-900'
           )}
         >
           <input
