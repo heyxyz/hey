@@ -104,9 +104,7 @@ const List: FC = () => {
         ) : !features.length ? (
           <EmptyState
             hideCard
-            icon={
-              <AdjustmentsHorizontalIcon className="text-brand-500 size-8" />
-            }
+            icon={<AdjustmentsHorizontalIcon className="size-8" />}
             message={<span>No feature flags found</span>}
           />
         ) : (

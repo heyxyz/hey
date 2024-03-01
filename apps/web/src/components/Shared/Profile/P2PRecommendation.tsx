@@ -121,7 +121,6 @@ const P2PRecommendation: FC<P2PRecommendationProps> = ({
       }}
       outline={!hasRecommended}
       size="sm"
-      variant={hasRecommended ? 'black' : 'primary'}
     >
       {hasRecommended ? unrecommendTitle : recommendTitle}
     </Button>

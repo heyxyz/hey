@@ -46,21 +46,21 @@ const HeyMembershipNft: FC = () => {
   return (
     <Card
       as="aside"
-      className="text-brand-500 dark:bg-brand-10/50 !border-brand-500 !bg-brand-50 mb-4"
+      className="dark:bg-brand-10/50 mb-4 !border-gray-500 !bg-gray-50 text-gray-500"
     >
       <img
-        alt="Gitcoin emoji"
+        alt="Hey NFT"
         className="h-48 w-full rounded-t-xl object-cover"
         src="https://ipfs.decentralized-content.com/ipfs/bafybeib6infyovvtawokys4ejjr4r3qk4soy7jqriejp2wbmttedupsy64"
       />
       <div className="p-5">
-        <div className="mb-1 font-bold">
-          Hey! Grab your special Hey NFT here.
-        </div>
-        <div className="text-brand-400 mb-4">
+        <p className="mb-1 text-lg font-bold">
+          Hey! Grab your special {APP_NAME} NFT here.
+        </p>
+        <p className="ld-text-gray-500 mb-4">
           New or OG, this NFT's for our epic times together. Let's keep the vibe
           alive!
-        </div>
+        </p>
         <div className="flex flex-col items-center space-y-1.5">
           <Button
             className="w-full"
