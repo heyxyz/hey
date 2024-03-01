@@ -184,7 +184,6 @@ const Follow: FC<FollowProps> = ({ profile, small = false }) => {
       disabled={isLoading}
       onClick={createFollow}
       outline
-      rounded={small}
       size={small ? 'sm' : 'md'}
     >
       Follow

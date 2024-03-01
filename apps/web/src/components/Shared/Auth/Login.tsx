@@ -130,7 +130,6 @@ const Login: FC = () => {
                     disabled={isLoading && loggingInProfileId === profile.id}
                     onClick={() => handleSign(profile.id)}
                     outline
-                    rounded
                   >
                     Login
                   </Button>

@@ -652,7 +652,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
               videoThumbnail.uploading
             }
             onClick={createPublication}
-            rounded
           >
             {isComment ? 'Comment' : 'Post'}
           </Button>
