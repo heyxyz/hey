@@ -71,6 +71,7 @@ const RelayerBalance: FC<RelayerBalanceProps> = ({ address, index }) => {
             className="w-full justify-center"
             disabled={loading}
             onClick={refill}
+            outline
             size="sm"
           >
             Refill Balance
