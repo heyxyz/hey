@@ -18,9 +18,9 @@ interface StatusProps {
 const Status: FC<StatusProps> = ({ finished, title }) => (
   <div className="flex items-center space-x-1.5">
     {finished ? (
-      <CheckCircleIcon className="size-5 text-gray-500" />
+      <CheckCircleIcon className="size-5" />
     ) : (
-      <MinusCircleIcon className="size-5 text-gray-500" />
+      <MinusCircleIcon className="size-5" />
     )}
     <div className="ld-text-gray-500">{title}</div>
   </div>
