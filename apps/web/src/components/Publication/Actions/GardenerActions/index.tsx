@@ -41,10 +41,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
     const request: ReportPublicationRequest = {
       for: publication.id,
       reason: {
-        [type]: {
-          reason: type.replace('Reason', '').toUpperCase(),
-          subreason
-        }
+        [type]: { reason: type.replace('Reason', '').toUpperCase(), subreason }
       }
     };
 
