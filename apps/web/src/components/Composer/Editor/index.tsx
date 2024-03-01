@@ -4,7 +4,6 @@ import MentionsPlugin from '@components/Shared/Lexical/Plugins/AtMentionsPlugin'
 import LexicalAutoLinkPlugin from '@components/Shared/Lexical/Plugins/AutoLinkPlugin';
 import EmojiPickerPlugin from '@components/Shared/Lexical/Plugins/EmojiPicker';
 import ImagesPlugin from '@components/Shared/Lexical/Plugins/ImagesPlugin';
-import ToolbarPlugin from '@components/Shared/Lexical/Plugins/ToolbarPlugin';
 import { Errors } from '@hey/data/errors';
 import {
   $convertToMarkdownString,
@@ -71,14 +70,13 @@ const Editor: FC = () => {
   return (
     <div className="relative">
       <EmojiPickerPlugin />
-      <ToolbarPlugin />
       <RichTextPlugin
         contentEditable={
-          <ContentEditable className="my-4 block min-h-[65px] overflow-auto px-5 leading-6 sm:leading-[26px]" />
+          <ContentEditable className="my-4 block min-h-[75px] overflow-auto px-5 leading-6 sm:leading-[26px]" />
         }
         ErrorBoundary={() => <div>{Errors.SomethingWentWrong}</div>}
         placeholder={
-          <div className="pointer-events-none absolute top-[65px] whitespace-nowrap px-5 text-gray-400">
+          <div className="pointer-events-none absolute top-[1.5px] whitespace-nowrap px-5 text-gray-400">
             {showPollEditor ? 'Ask a question...' : "What's happening?"}
           </div>
         }

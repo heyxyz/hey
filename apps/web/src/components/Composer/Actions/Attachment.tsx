@@ -100,7 +100,7 @@ const Attachment: FC = () => {
       <Menu.Button
         aria-label="More"
         as={motion.button}
-        className="outline-brand-500 rounded-full outline-offset-8"
+        className="rounded-full outline-offset-8 outline-gray-500"
         onClick={() => setShowMenu(!showMenu)}
         whileTap={{ scale: 0.9 }}
       >
@@ -108,7 +108,7 @@ const Attachment: FC = () => {
           <Spinner size="sm" />
         ) : (
           <Tooltip content="Media" placement="top">
-            <PhotoIcon className="text-brand-500 size-5" />
+            <PhotoIcon className="size-5" />
           </Tooltip>
         )}
       </Menu.Button>
@@ -129,7 +129,7 @@ const Attachment: FC = () => {
             disabled={disableImageUpload()}
             htmlFor={`image_${id}`}
           >
-            <PhotoIcon className="text-brand-500 size-4" />
+            <PhotoIcon className="size-4" />
             <span className="text-sm">Upload image(s)</span>
             <input
               accept={ImageMimeType.join(',')}
@@ -152,7 +152,7 @@ const Attachment: FC = () => {
             disabled={Boolean(attachments.length)}
             htmlFor={`video_${id}`}
           >
-            <VideoCameraIcon className="text-brand-500 size-4" />
+            <VideoCameraIcon className="size-4" />
             <span className="text-sm">Upload video</span>
             <input
               accept={VideoMimeType.join(',')}
@@ -174,7 +174,7 @@ const Attachment: FC = () => {
             disabled={Boolean(attachments.length)}
             htmlFor={`audio_${id}`}
           >
-            <MusicalNoteIcon className="text-brand-500 size-4" />
+            <MusicalNoteIcon className="size-4" />
             <span className="text-sm">Upload audio</span>
             <input
               accept={AudioMimeType.join(',')}

@@ -61,7 +61,7 @@ const TipOpenAction: FC<TipOpenActionProps> = ({
         </motion.button>
       </div>
       <Modal
-        icon={<TipIcon className="text-brand-500 size-5" />}
+        icon={<TipIcon className="size-5" />}
         onClose={() => setShowOpenActionModal(false)}
         show={showOpenActionModal}
         title="Send a tip"

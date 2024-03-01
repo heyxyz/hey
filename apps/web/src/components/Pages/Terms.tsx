@@ -32,9 +32,7 @@ const Terms: NextPage = () => {
           <div className="max-w-3/4 relative mx-auto rounded-lg sm:w-2/4">
             <div className="ld-text-gray-500 max-w-none !p-8">
               {/* 1. Overview beings */}
-              <div className="mb-5 text-xl font-bold text-black dark:text-white">
-                1. Overview
-              </div>
+              <div className="mb-5 text-xl font-bold">1. Overview</div>
               <div className="space-y-5">
                 <p className="leading-7">
                   The website hey.xyz” (the “Site”) offers information, tools
@@ -71,7 +69,7 @@ const Terms: NextPage = () => {
               </div>
               {/* 1. Overview ends */}
               {/* 2. General Conditions beings */}
-              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold">
                 2. General Conditions
               </div>
               <p className="leading-7">
@@ -85,9 +83,7 @@ const Terms: NextPage = () => {
               </p>
               {/* 2. General Conditions ends */}
               {/* 3. Services begins */}
-              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
-                3. Services
-              </div>
+              <div className="mb-5 mt-8 text-xl font-bold">3. Services</div>
               <div className="space-y-5">
                 <p className="leading-7">
                   User Lens profile is referred as the “Profile” in the “Site”.
@@ -152,7 +148,7 @@ const Terms: NextPage = () => {
               </div>
               {/* 3. Services ends */}
               {/* 4. Accuracy, Completeness and Timeliness of information begins */}
-              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold">
                 4. Accuracy, Completeness and Timeliness of information
               </div>
               <div className="space-y-5">
@@ -169,7 +165,7 @@ const Terms: NextPage = () => {
               </div>
               {/* 4. Accuracy, Completeness and Timeliness of information ends */}
               {/* 5. Modification of Services begins */}
-              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold">
                 5. Modification of Services
               </div>
               <p className="leading-7">
@@ -181,7 +177,7 @@ const Terms: NextPage = () => {
               </p>
               {/* 5. Modification of Services ends */}
               {/* 6. Third-Party Services & Websites begins */}
-              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold">
                 6. Third-Party Services & Websites
               </div>
               <div className="space-y-5">
@@ -203,7 +199,7 @@ const Terms: NextPage = () => {
               </div>
               {/* 6. Third-Party Services & Websites ends */}
               {/* 7. Personal Information begins */}
-              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold">
                 7. Personal Information
               </div>
               <p className="linkify leading-7">
@@ -212,7 +208,7 @@ const Terms: NextPage = () => {
               </p>
               {/* 7. Personal Information ends */}
               {/* 8. Prohibited Usage begins */}
-              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold">
                 8. Prohibited Usage
               </div>
               <div className="space-y-5">
@@ -267,7 +263,7 @@ const Terms: NextPage = () => {
               </div>
               {/* 8. Prohibited Usage ends */}
               {/* 9. Assumption of Risk begins */}
-              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold">
                 9. Assumption of Risk
               </div>
               <p className="leading-7">
@@ -279,7 +275,7 @@ const Terms: NextPage = () => {
               </p>
               {/* 9. Assumption of Risk ends */}
               {/* 10. Refund Policy */}
-              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold">
                 10. Refund Policy
               </div>
               <div className="space-y-5">
@@ -302,7 +298,7 @@ const Terms: NextPage = () => {
               </div>
               {/* 10.Refund Policy */}
               {/* 11. Disclaimer of Warranties begins */}
-              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold">
                 11. Disclaimer of Warranties
               </div>
               <p className="leading-7">
@@ -314,7 +310,7 @@ const Terms: NextPage = () => {
               </p>
               {/* 11. Disclaimer of Warranties ends */}
               {/* 12. Termination and Cancellation begins */}
-              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold">
                 12. Termination and Cancellation
               </div>
               <div className="space-y-5">
@@ -331,7 +327,7 @@ const Terms: NextPage = () => {
               </div>
               {/* 12. Termination and Cancellation ends */}
               {/* 13. Contact Information begins */}
-              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold">
                 13. Contact Information
               </div>
               <p className="leading-7">

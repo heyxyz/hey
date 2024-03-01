@@ -41,13 +41,11 @@ const List: FC = () => {
                     }
                     placement="top"
                   >
-                    <div className="text-brand-500">
-                      {algorithm.isPersonalized ? (
-                        <UserCircleIcon className="size-4" />
-                      ) : (
-                        <GlobeAmericasIcon className="size-4" />
-                      )}
-                    </div>
+                    {algorithm.isPersonalized ? (
+                      <UserCircleIcon className="size-4" />
+                    ) : (
+                      <GlobeAmericasIcon className="size-4" />
+                    )}
                   </Tooltip>
                 </div>
                 <div className="text-sm">by {algorithm.by}</div>
