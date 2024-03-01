@@ -173,7 +173,6 @@ const Unfollow: FC<UnfollowProps> = ({ profile, small = false }) => {
       disabled={isLoading}
       onClick={createUnfollow}
       outline
-      rounded={small}
       size={small ? 'sm' : 'md'}
     >
       Following
