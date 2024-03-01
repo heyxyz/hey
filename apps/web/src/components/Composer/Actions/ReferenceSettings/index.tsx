@@ -66,10 +66,10 @@ const ReferenceSettings: FC = () => {
     >
       <div className="flex items-center justify-between space-x-2">
         <div className="flex items-center space-x-1.5">
-          <div className="text-brand-500">{icon}</div>
+          {icon}
           <div>{title}</div>
         </div>
-        {selected ? <CheckCircleIcon className="w-5 text-green-500" /> : null}
+        {selected ? <CheckCircleIcon className="w-5" /> : null}
       </div>
     </Menu.Item>
   );
@@ -98,15 +98,13 @@ const ReferenceSettings: FC = () => {
       >
         <Menu.Button
           as={motion.button}
-          className="outline-brand-500 rounded-full outline-offset-8"
+          className="rounded-full outline-offset-8 outline-gray-500"
           whileTap={{ scale: 0.9 }}
         >
-          <div className="text-brand-500">
-            {isEveryone ? <GlobeAltIcon className="w-5" /> : null}
-            {isMyFollowers ? <UsersIcon className="w-5" /> : null}
-            {isMyFollows ? <UserPlusIcon className="w-5" /> : null}
-            {isFriendsOfFriends ? <UserGroupIcon className="w-5" /> : null}
-          </div>
+          {isEveryone ? <GlobeAltIcon className="w-5" /> : null}
+          {isMyFollowers ? <UsersIcon className="w-5" /> : null}
+          {isMyFollows ? <UserPlusIcon className="w-5" /> : null}
+          {isFriendsOfFriends ? <UserGroupIcon className="w-5" /> : null}
         </Menu.Button>
       </Tooltip>
       <MenuTransition>

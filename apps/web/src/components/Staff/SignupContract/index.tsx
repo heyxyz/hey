@@ -63,7 +63,7 @@ const SignupContract: NextPage = () => {
               href={`${POLYGONSCAN_URL}/address/${HEY_LENS_SIGNUP}`}
               target="_blank"
             >
-              <ArrowTopRightOnSquareIcon className="text-brand-500 size-4" />
+              <ArrowTopRightOnSquareIcon className="size-4" />
             </Link>
           </div>
           <div className="divider" />

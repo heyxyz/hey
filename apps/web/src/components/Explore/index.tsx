@@ -53,11 +53,8 @@ const Explore: NextPage = () => {
               <Tab
                 className={({ selected }) =>
                   cn(
-                    {
-                      'border-brand-500 border-b-2 !text-black dark:!text-white':
-                        selected
-                    },
-                    'ld-text-gray-500 px-4 pb-2 text-xs font-medium outline-none sm:text-sm'
+                    { 'border-b-2 border-black dark:border-white': selected },
+                    'px-4 pb-2 text-xs font-medium outline-none sm:text-sm'
                   )
                 }
                 defaultChecked={index === 1}

@@ -103,10 +103,6 @@ iframe {
   @apply !text-white;
 }
 
-.toolbar-icons button {
-  @apply hover:bg-brand-100 text-brand-500 rounded-lg p-1.5;
-}
-
 .toolbar-icon {
   @apply flex h-[20px] w-[20px] bg-contain bg-center bg-no-repeat;
 }

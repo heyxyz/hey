@@ -36,7 +36,7 @@ const MirrorNotification: FC<MirrorNotificationProps> = ({ notification }) => {
   return (
     <div className="space-y-2">
       <div className="flex items-center space-x-3">
-        <ArrowsRightLeftIcon className="text-brand-500/70 size-6" />
+        <ArrowsRightLeftIcon className="size-6" />
         <div className="flex items-center space-x-1">
           {mirrors.slice(0, 10).map((mirror) => (
             <div key={mirror.profile.id}>

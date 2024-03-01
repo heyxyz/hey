@@ -20,7 +20,7 @@ const PollSettings: FC = () => {
     <Tooltip content="Poll" placement="top">
       <motion.button
         aria-label="Poll"
-        className="outline-brand-500 rounded-full outline-offset-8"
+        className="rounded-full outline-offset-8 outline-gray-500"
         onClick={() => {
           resetPollConfig();
           setShowPollEditor(!showPollEditor);
@@ -28,7 +28,7 @@ const PollSettings: FC = () => {
         type="button"
         whileTap={{ scale: 0.9 }}
       >
-        <Bars3BottomLeftIcon className="text-brand-500 size-5" />
+        <Bars3BottomLeftIcon className="size-5" />
       </motion.button>
     </Tooltip>
   );

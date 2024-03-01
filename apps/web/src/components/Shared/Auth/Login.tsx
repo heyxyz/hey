@@ -128,14 +128,9 @@ const Login: FC = () => {
                   />
                   <Button
                     disabled={isLoading && loggingInProfileId === profile.id}
-                    icon={
-                      isLoading && loggingInProfileId === profile.id ? (
-                        <Spinner size="xs" />
-                      ) : (
-                        <ArrowRightCircleIcon className="size-4" />
-                      )
-                    }
                     onClick={() => handleSign(profile.id)}
+                    outline
+                    rounded
                   >
                     Login
                   </Button>

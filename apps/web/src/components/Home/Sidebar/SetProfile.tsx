@@ -39,10 +39,7 @@ const SetProfile: FC = () => {
   }
 
   return (
-    <Card
-      as="aside"
-      className="mb-4 space-y-4 !border-gray-600 !bg-gray-50 p-5 text-gray-600 dark:bg-gray-900"
-    >
+    <Card as="aside" className="mb-4 space-y-4 p-5">
       <p className="text-lg font-bold">Setup your {APP_NAME} profile</p>
       <div className="space-y-1 text-sm leading-5">
         <Status
