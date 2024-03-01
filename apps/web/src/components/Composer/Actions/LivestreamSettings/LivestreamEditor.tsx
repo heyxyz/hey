@@ -70,7 +70,7 @@ const LivestreamEditor: FC = () => {
     <Card className="m-5 px-5 py-3" forceRounded>
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2 text-sm">
-          <VideoCameraIcon className="text-brand-500 size-4" />
+          <VideoCameraIcon className="size-4" />
           <b>Go Live</b>
         </div>
         <div className="flex items-center space-x-3">
@@ -139,7 +139,7 @@ const LivestreamEditor: FC = () => {
             type="button"
           >
             <Wrapper>
-              <SignalIcon className="text-brand-500 size-5" />
+              <SignalIcon className="size-5" />
               <div>Create Live Stream</div>
             </Wrapper>
           </button>
@@ -151,7 +151,7 @@ const LivestreamEditor: FC = () => {
               type="button"
             >
               <Wrapper>
-                <VideoCameraIcon className="text-brand-500 size-5" />
+                <VideoCameraIcon className="size-5" />
                 <div>Record</div>
               </Wrapper>
             </button>
@@ -161,7 +161,7 @@ const LivestreamEditor: FC = () => {
               type="button"
             >
               <Wrapper>
-                <VideoCameraSlashIcon className="text-brand-500 size-5" />
+                <VideoCameraSlashIcon className="size-5" />
                 <div>Don't Record</div>
               </Wrapper>
             </button>

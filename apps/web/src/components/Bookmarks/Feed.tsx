@@ -67,7 +67,7 @@ const Feed: FC<FeedProps> = ({ focus }) => {
   if (publications?.length === 0) {
     return (
       <EmptyState
-        icon={<BookmarkIcon className="text-brand-500 size-8" />}
+        icon={<BookmarkIcon className="size-8" />}
         message="No bookmarks yet!"
       />
     );

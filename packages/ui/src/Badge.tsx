@@ -9,7 +9,7 @@ interface BadgeProps
   children?: ReactNode;
   className?: string;
   size?: 'lg' | 'md' | 'sm';
-  variant?: 'black' | 'danger' | 'primary' | 'secondary' | 'warning';
+  variant?: 'brand' | 'danger' | 'primary' | 'secondary' | 'warning';
 }
 
 export const Badge = forwardRef<HTMLDivElement, BadgeProps>(function Badge(
@@ -17,8 +17,8 @@ export const Badge = forwardRef<HTMLDivElement, BadgeProps>(function Badge(
   ref
 ) {
   const variantStyles = {
-    'border-black bg-black': variant === 'black',
-    'border-brand-600 bg-brand-500': variant === 'primary',
+    'border-black bg-black': variant === 'primary',
+    'border-brand-600 bg-brand-500': variant === 'brand',
     'border-gray-600 bg-gray-500': variant === 'secondary',
     'border-red-600 bg-red-500': variant === 'danger',
     'border-yellow-600 bg-yellow-500': variant === 'warning'

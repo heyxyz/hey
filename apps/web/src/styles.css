@@ -19,21 +19,6 @@ body {
   @apply dark:bg-gray-600;
 }
 
-progress::-webkit-progress-bar {
-  background-color: transparent;
-}
-
-progress::-webkit-progress-value {
-  @apply bg-brand-500;
-  transition: width 0.5s ease;
-}
-
-progress::-moz-progress-bar {
-  @apply rounded-bl;
-  @apply bg-brand-500;
-  transition: width 0.5s ease;
-}
-
 .menu-item {
   @apply m-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm text-gray-700 dark:text-gray-200;
 }
@@ -101,10 +86,6 @@ iframe {
 
 .plyr--audio.plyr--full-ui input[type='range'] {
   @apply !text-white;
-}
-
-.toolbar-icons button {
-  @apply hover:bg-brand-100 text-brand-500 rounded-lg p-1.5;
 }
 
 .toolbar-icon {

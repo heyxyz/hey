@@ -96,7 +96,7 @@ const ReportPublication: FC<ReportProps> = ({ publicationId }) => {
       {submitData?.reportPublication === null ? (
         <EmptyState
           hideCard
-          icon={<CheckCircleIcon className="size-14 text-green-500" />}
+          icon={<CheckCircleIcon className="size-14" />}
           message="Publication reported successfully!"
         />
       ) : publicationId ? (

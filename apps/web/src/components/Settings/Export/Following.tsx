@@ -74,9 +74,11 @@ const Following: FC = () => {
         </div>
       ) : null}
       {fetchCompleted ? (
-        <Button onClick={download}>Download following</Button>
+        <Button onClick={download} outline>
+          Download following
+        </Button>
       ) : (
-        <Button disabled={exporting} onClick={handleExportClick}>
+        <Button disabled={exporting} onClick={handleExportClick} outline>
           {exporting ? 'Exporting...' : 'Export now'}
         </Button>
       )}
