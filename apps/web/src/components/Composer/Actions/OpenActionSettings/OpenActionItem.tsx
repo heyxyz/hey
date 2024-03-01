@@ -38,7 +38,7 @@ const OpenActionItem: FC<OpenActionItemProps> = ({
       onClick={() => onOpenActionSelected(type)}
     >
       <div className="flex items-center space-x-3">
-        <div className="text-brand-500">{icon}</div>
+        {icon}
         <div className="space-y-1">
           <div className="font-bold">{title}</div>
           <div className="text-sm">{description}</div>

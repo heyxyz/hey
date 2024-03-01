@@ -44,10 +44,7 @@ const HeyMembershipNft: FC = () => {
   };
 
   return (
-    <Card
-      as="aside"
-      className="dark:bg-brand-10/50 mb-4 !border-gray-500 !bg-gray-50 text-gray-500"
-    >
+    <Card as="aside" className="ld-text-gray-500 mb-4">
       <img
         alt="Hey NFT"
         className="h-48 w-full rounded-t-xl object-cover"
@@ -57,7 +54,7 @@ const HeyMembershipNft: FC = () => {
         <p className="mb-1 text-lg font-bold">
           Hey! Grab your special {APP_NAME} NFT here.
         </p>
-        <p className="ld-text-gray-500 mb-4">
+        <p className="mb-4">
           New or OG, this NFT's for our epic times together. Let's keep the vibe
           alive!
         </p>
@@ -70,11 +67,12 @@ const HeyMembershipNft: FC = () => {
                 from: 'mint_membership_nft'
               });
             }}
+            outline
           >
             Mint now
           </Button>
           <Modal
-            icon={<CursorArrowRaysIcon className="text-brand-500 size-5" />}
+            icon={<CursorArrowRaysIcon className="size-5" />}
             onClose={() => setShowMintModal(false)}
             show={showMintModal}
             title={`Special ${APP_NAME} NFT`}

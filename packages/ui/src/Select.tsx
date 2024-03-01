@@ -24,7 +24,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         {label ? <div className="label">{label}</div> : null}
         <select
           className={cn(
-            'focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800',
+            'w-full rounded-xl border border-gray-300 bg-white outline-none focus:border-gray-500 focus:ring-gray-400 dark:border-gray-700 dark:bg-gray-800',
             className
           )}
           id={id}

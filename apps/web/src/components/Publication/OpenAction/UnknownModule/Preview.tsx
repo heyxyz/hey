@@ -24,10 +24,7 @@ const UnknownModulePreview: FC<UnknownModulePreviewProps> = ({ module }) => {
         <div className="w-full space-y-1.5 text-left">
           <div className="flex items-center justify-between space-x-2">
             <div className="flex w-full items-center space-x-2">
-              <GetOpenActionModuleIcon
-                className="text-brand-500"
-                module={module}
-              />
+              <GetOpenActionModuleIcon module={module} />
               {loading ? (
                 <div className="shimmer my-1.5 h-4 w-4/12 rounded-full" />
               ) : (

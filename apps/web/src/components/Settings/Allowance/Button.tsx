@@ -120,7 +120,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
       className={className}
       icon={
         queryLoading || transactionLoading || waitLoading ? (
-          <Spinner size="xs" variant="warning" />
+          <Spinner size="xs" />
         ) : (
           <MinusIcon className="size-4" />
         )
@@ -132,7 +132,6 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
           module.moduleName
         )
       }
-      variant="warning"
     >
       Revoke
     </Button>
@@ -142,11 +141,12 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
         className={className}
         icon={<PlusIcon className="size-4" />}
         onClick={() => setShowWarningModal(!showWarningModal)}
+        outline
       >
         {title}
       </Button>
       <Modal
-        icon={<ExclamationTriangleIcon className="size-5 text-yellow-500" />}
+        icon={<ExclamationTriangleIcon className="size-5" />}
         onClose={() => setShowWarningModal(false)}
         show={showWarningModal}
         title="Warning"

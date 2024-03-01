@@ -30,7 +30,7 @@ const QuoteNotification: FC<QuoteNotificationProps> = ({ notification }) => {
   return (
     <div className="space-y-2">
       <div className="flex items-center space-x-3">
-        <ChatBubbleBottomCenterTextIcon className="text-brand-500/70 size-6" />
+        <ChatBubbleBottomCenterTextIcon className="size-6" />
         <div className="flex items-center space-x-1">
           <NotificationProfileAvatar profile={firstProfile} />
         </div>
