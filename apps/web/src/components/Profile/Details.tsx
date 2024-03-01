@@ -111,7 +111,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
           <TbaBadge address={profile.ownedBy.address} />
           {hasMisused(profile.id) ? (
             <Tooltip content={misuseDetails?.type}>
-              <ExclamationCircleIcon className="size-6 text-red-500" />
+              <ExclamationCircleIcon className="size-6" />
             </Tooltip>
           ) : null}
         </div>

@@ -53,7 +53,7 @@ export const NotificationProfileName: FC<NotificationProfileProps> = ({
           <CheckBadgeIcon className="text-brand-500 size-4" />
         ) : null}
         {hasMisused(profile.id) ? (
-          <ExclamationCircleIcon className="size-4 text-red-500" />
+          <ExclamationCircleIcon className="size-4" />
         ) : null}
       </Link>
     </UserPreview>

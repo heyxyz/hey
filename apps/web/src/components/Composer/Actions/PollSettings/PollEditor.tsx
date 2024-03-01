@@ -31,7 +31,6 @@ const PollEditor: FC = () => {
             onClick={() => setShowPollLengthModal(true)}
             outline
             size="sm"
-            variant="primary"
           >
             {pollConfig.length} {plur('day', pollConfig.length)}
           </Button>
@@ -70,7 +69,6 @@ const PollEditor: FC = () => {
                 <Button
                   className="ml-auto"
                   onClick={() => setShowPollLengthModal(false)}
-                  variant="primary"
                 >
                   Save
                 </Button>

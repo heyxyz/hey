@@ -15,7 +15,7 @@ const Terms: NextPage = () => {
 
   return (
     <>
-      <div className="bg-brand-400 flex h-48 w-full items-center justify-center">
+      <div className="flex h-48 w-full items-center justify-center bg-gray-400">
         <div className="relative text-center">
           <h1 className="text-3xl font-bold text-white md:text-4xl">
             Terms & Conditions
