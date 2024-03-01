@@ -130,7 +130,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
                 width={28}
               />
             ) : (
-              <CurrencyDollarIcon className="text-brand-500 size-7" />
+              <CurrencyDollarIcon className="size-7" />
             )}
             <span className="space-x-1">
               <span className="text-2xl font-bold">{amount}</span>
@@ -159,7 +159,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
                 {plur('collector', countOpenActions)}
               </button>
               <Modal
-                icon={<RectangleStackIcon className="text-brand-500 size-5" />}
+                icon={<RectangleStackIcon className="size-5" />}
                 onClose={() => setShowCollectorsModal(false)}
                 show={showCollectorsModal}
                 title="Collected by"

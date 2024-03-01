@@ -60,7 +60,7 @@ const List: FC = () => {
     return (
       <EmptyState
         hideCard
-        icon={<UsersIcon className="text-brand-500 size-8" />}
+        icon={<UsersIcon className="size-8" />}
         message="You are not managing any profiles!"
       />
     );

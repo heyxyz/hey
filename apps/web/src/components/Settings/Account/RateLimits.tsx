@@ -9,7 +9,7 @@ const ProgressBar: FC<{ max: number; value: number }> = ({ max, value }) => {
   return (
     <div className="w-full rounded-full bg-gray-200">
       <div
-        className="bg-brand-500 h-2.5 rounded-full"
+        className="h-2.5 rounded-full bg-black"
         style={{
           width: `${(value / max) * 100}%`
         }}

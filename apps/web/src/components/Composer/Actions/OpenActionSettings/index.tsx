@@ -26,19 +26,17 @@ const OpenActionSettings: FC = () => {
       <Tooltip content="Open Action" placement="top">
         <motion.button
           aria-label="Choose Open Action"
-          className="outline-brand-500 rounded-full outline-offset-8"
+          className="rounded-full outline-offset-8 outline-gray-500"
           onClick={() => setShowModal(!showModal)}
           type="button"
           whileTap={{ scale: 0.9 }}
         >
-          <SquaresPlusIcon className="text-brand-500 size-5" />
+          <SquaresPlusIcon className="size-5" />
         </motion.button>
       </Tooltip>
       <Modal
         icon={
-          screen === ScreenType.List && (
-            <SquaresPlusIcon className="text-brand-500 size-5" />
-          )
+          screen === ScreenType.List && <SquaresPlusIcon className="size-5" />
         }
         onClose={() => {
           setShowModal(false);

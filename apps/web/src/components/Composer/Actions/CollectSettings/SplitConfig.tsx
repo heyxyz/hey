@@ -140,7 +140,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
                   }}
                   type="button"
                 >
-                  <XCircleIcon className="size-5 text-red-500" />
+                  <XCircleIcon className="size-5" />
                 </button>
               </div>
             ))}

@@ -87,7 +87,7 @@ const SearchFeed: FC = () => {
       <div className="space-y-5">
         <Search />
         <EmptyState
-          icon={<RectangleStackIcon className="text-brand-500 size-8" />}
+          icon={<RectangleStackIcon className="size-8" />}
           message="No posts yet!"
         />
       </div>

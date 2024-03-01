@@ -17,10 +17,6 @@ import QuotedPublication from '@components/Publication/QuotedPublication';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
-import {
-  ChatBubbleLeftRightIcon,
-  PencilSquareIcon
-} from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
 import { ReferenceModuleType } from '@hey/lens';
@@ -28,7 +24,7 @@ import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import collectModuleParams from '@hey/lib/collectModuleParams';
 import getProfile from '@hey/lib/getProfile';
 import removeQuoteOn from '@hey/lib/removeQuoteOn';
-import { Button, Card, ErrorMessage, Spinner } from '@hey/ui';
+import { Button, Card, ErrorMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { MetadataAttributeType } from '@lens-protocol/metadata';
 import { $convertFromMarkdownString } from '@lexical/markdown';
@@ -60,7 +56,6 @@ import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestric
 import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
-import LivestreamSettings from './Actions/LivestreamSettings';
 import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
@@ -99,6 +94,12 @@ const ReferenceSettings = dynamic(
 );
 const PollSettings = dynamic(
   () => import('@components/Composer/Actions/PollSettings'),
+  {
+    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
+  }
+);
+const LivestreamSettings = dynamic(
+  () => import('@components/Composer/Actions/LivestreamSettings'),
   {
     loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
   }
@@ -611,7 +612,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         <div className="flex items-center space-x-4">
           <Attachment />
           <EmojiPicker
-            emojiClassName="text-brand-500"
             setEmoji={(emoji) => {
               setShowEmojiPicker(false);
               editor.update(() => {
@@ -651,16 +651,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
               isSubmitDisabledByPoll ||
               videoThumbnail.uploading
             }
-            icon={
-              isLoading ? (
-                <Spinner size="xs" />
-              ) : isComment ? (
-                <ChatBubbleLeftRightIcon className="size-4" />
-              ) : (
-                <PencilSquareIcon className="size-4" />
-              )
-            }
             onClick={createPublication}
+            rounded
           >
             {isComment ? 'Comment' : 'Post'}
           </Button>

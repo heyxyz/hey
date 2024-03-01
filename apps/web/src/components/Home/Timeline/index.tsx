@@ -87,7 +87,7 @@ const Timeline: FC = () => {
   if (feed?.length === 0) {
     return (
       <EmptyState
-        icon={<UserGroupIcon className="text-brand-500 size-8" />}
+        icon={<UserGroupIcon className="size-8" />}
         message="No posts yet!"
       />
     );
