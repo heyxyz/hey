@@ -52,10 +52,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
   };
 
   interface ReportButtonProps {
-    config: {
-      subreason: string;
-      type: string;
-    }[];
+    config: { subreason: string; type: string }[];
     icon: ReactNode;
     label: string;
     type: string;
