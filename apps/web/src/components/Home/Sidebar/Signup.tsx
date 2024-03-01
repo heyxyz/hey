@@ -30,7 +30,6 @@ const Signup: FC = () => {
               Leafwatch.track(AUTH.OPEN_SIGNUP);
             }}
             size="lg"
-            variant="black"
           >
             Signup now
           </Button>

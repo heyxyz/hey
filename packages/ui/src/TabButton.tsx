@@ -31,12 +31,12 @@ const TabButton: FC<TabButtonProps> = ({
     <button
       aria-label={name}
       className={cn(
-        {
-          '!text-brand-500 dark:!text-brand-400/80 bg-brand-100 dark:bg-brand-300/20':
-            active
-        },
-        'flex items-center space-x-2 rounded-lg px-4 py-2 text-sm font-medium text-gray-500 sm:px-3 sm:py-1.5',
-        'hover:bg-brand-100/80 hover:text-brand-400 dark:hover:bg-brand-300/30 outline-brand-500 justify-center',
+        { 'text-black dark:text-white': active },
+        { 'bg-gray-300 dark:bg-gray-300/20': active },
+        'hover:bg-gray-300 dark:hover:bg-gray-300/30',
+        'hover:text-black hover:dark:text-white',
+        'outline-gray-500',
+        'flex items-center justify-center space-x-2 rounded-lg px-4 py-2 text-sm sm:px-3 sm:py-1.5',
         className
       )}
       onClick={() => {
@@ -55,7 +55,7 @@ const TabButton: FC<TabButtonProps> = ({
         <span
           className={cn(
             active
-              ? 'bg-brand-500 dark:bg-brand-500/80 text-white dark:text-white'
+              ? 'bg-gray-500 text-white dark:bg-gray-500/80 dark:text-white'
               : 'bg-gray-200 text-gray-500 dark:bg-gray-700 dark:text-gray-400',
             'ml-2 rounded-2xl px-2 py-0.5 text-xs font-bold'
           )}

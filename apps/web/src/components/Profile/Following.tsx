@@ -51,7 +51,7 @@ const Following: FC<FollowingProps> = ({ handle, profileId }) => {
     return (
       <EmptyState
         hideCard
-        icon={<UsersIcon className="text-brand-500 size-8" />}
+        icon={<UsersIcon className="size-8" />}
         message={
           <div>
             <span className="mr-1 font-bold">{handle}</span>

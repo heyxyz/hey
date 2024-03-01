@@ -184,7 +184,7 @@ const LinkHandle: FC = () => {
     return (
       <EmptyState
         hideCard
-        icon={<AtSymbolIcon className="text-brand-500 size-8" />}
+        icon={<AtSymbolIcon className="size-8" />}
         message="No handles found to link!"
       />
     );

@@ -151,15 +151,15 @@ const Details: FC<DetailsProps> = ({ profile }) => {
           ) : followType !== FollowModuleType.RevertFollowModule ? (
             profile.operations.isFollowedByMe.value ? (
               <>
-                <Unfollow profile={profile} showText />
+                <Unfollow profile={profile} />
                 {followType === FollowModuleType.FeeFollowModule ? (
                   <SuperFollow again profile={profile} />
                 ) : null}
               </>
             ) : followType === FollowModuleType.FeeFollowModule ? (
-              <SuperFollow profile={profile} showText />
+              <SuperFollow profile={profile} />
             ) : (
-              <Follow profile={profile} showText />
+              <Follow profile={profile} />
             )
           ) : null}
 

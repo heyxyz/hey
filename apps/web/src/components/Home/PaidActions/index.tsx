@@ -43,7 +43,7 @@ const PaidActions: FC = () => {
   if (actions?.length === 0) {
     return (
       <EmptyState
-        icon={<CurrencyDollarIcon className="text-brand-500 size-8" />}
+        icon={<CurrencyDollarIcon className="size-8" />}
         message="No paid actions yet!"
       />
     );
