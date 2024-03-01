@@ -172,7 +172,6 @@ const Unfollow: FC<UnfollowProps> = ({ profile, small = false }) => {
       aria-label="Following"
       disabled={isLoading}
       onClick={createUnfollow}
-      outline
       size={small ? 'sm' : 'md'}
     >
       Following
