@@ -1,7 +1,7 @@
 import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
-import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleLeftIcon } from '@heroicons/react/24/outline';
 import humanize from '@hey/lib/humanize';
 import nFormatter from '@hey/lib/nFormatter';
 import { Tooltip } from '@hey/ui';
@@ -35,7 +35,7 @@ const Comment: FC<CommentProps> = ({ publication, showCount }) => {
           placement="top"
           withDelay
         >
-          <ChatBubbleLeftRightIcon className={iconClassName} />
+          <ChatBubbleLeftIcon className={iconClassName} />
         </Tooltip>
       </motion.button>
       {count > 0 && !showCount ? (
