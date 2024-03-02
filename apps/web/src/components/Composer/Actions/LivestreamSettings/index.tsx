@@ -17,20 +17,20 @@ const LivestreamSettings: FC = () => {
   );
 
   return (
-    <motion.button
-      aria-label="Go Live"
-      className="rounded-full outline-offset-8 outline-gray-500"
-      onClick={() => {
-        resetLiveVideoConfig();
-        setShowLiveVideoEditor(!showLiveVideoEditor);
-      }}
-      type="button"
-      whileTap={{ scale: 0.9 }}
-    >
-      <Tooltip content="Go Live" placement="top">
+    <Tooltip content="Go Live" placement="top">
+      <motion.button
+        aria-label="Go Live"
+        className="rounded-full outline-offset-8 outline-gray-500"
+        onClick={() => {
+          resetLiveVideoConfig();
+          setShowLiveVideoEditor(!showLiveVideoEditor);
+        }}
+        type="button"
+        whileTap={{ scale: 0.9 }}
+      >
         <VideoCameraIcon className="size-5" />
-      </Tooltip>
-    </motion.button>
+      </motion.button>
+    </Tooltip>
   );
 };
 
