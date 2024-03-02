@@ -91,11 +91,8 @@ const ReferenceSettings: FC = () => {
   };
 
   return (
-    <Menu as="div">
-      <Tooltip
-        content={getSelectedReferenceModuleTooltipText()}
-        placement="top"
-      >
+    <Tooltip content={getSelectedReferenceModuleTooltipText()} placement="top">
+      <Menu as="div">
         <Menu.Button
           as={motion.button}
           className="rounded-full outline-offset-8 outline-gray-500"
@@ -106,59 +103,60 @@ const ReferenceSettings: FC = () => {
           {isMyFollows ? <UserPlusIcon className="w-5" /> : null}
           {isFriendsOfFriends ? <UserGroupIcon className="w-5" /> : null}
         </Menu.Button>
-      </Tooltip>
-      <MenuTransition>
-        <Menu.Items
-          className="absolute z-[5] mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
-          static
-        >
-          <Module
-            icon={<GlobeAltIcon className="size-4" />}
-            onClick={() => {
-              setSelectedReferenceModule(
-                ReferenceModuleType.FollowerOnlyReferenceModule
-              );
-              setOnlyFollowers(false);
-            }}
-            selected={isEveryone}
-            title={EVERYONE}
-          />
-          <Module
-            icon={<UsersIcon className="size-4" />}
-            onClick={() => {
-              setSelectedReferenceModule(
-                ReferenceModuleType.FollowerOnlyReferenceModule
-              );
-              setOnlyFollowers(true);
-            }}
-            selected={isMyFollowers}
-            title={MY_FOLLOWERS}
-          />
-          <Module
-            icon={<UserPlusIcon className="size-4" />}
-            onClick={() => {
-              setSelectedReferenceModule(
-                ReferenceModuleType.DegreesOfSeparationReferenceModule
-              );
-              setDegreesOfSeparation(1);
-            }}
-            selected={isMyFollows}
-            title={MY_FOLLOWS}
-          />
-          <Module
-            icon={<UserGroupIcon className="size-4" />}
-            onClick={() => {
-              setSelectedReferenceModule(
-                ReferenceModuleType.DegreesOfSeparationReferenceModule
-              );
-              setDegreesOfSeparation(2);
-            }}
-            selected={isFriendsOfFriends}
-            title={FRIENDS_OF_FRIENDS}
-          />
-        </Menu.Items>
-      </MenuTransition>
-    </Menu>
+
+        <MenuTransition>
+          <Menu.Items
+            className="absolute z-[5] mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+            static
+          >
+            <Module
+              icon={<GlobeAltIcon className="size-4" />}
+              onClick={() => {
+                setSelectedReferenceModule(
+                  ReferenceModuleType.FollowerOnlyReferenceModule
+                );
+                setOnlyFollowers(false);
+              }}
+              selected={isEveryone}
+              title={EVERYONE}
+            />
+            <Module
+              icon={<UsersIcon className="size-4" />}
+              onClick={() => {
+                setSelectedReferenceModule(
+                  ReferenceModuleType.FollowerOnlyReferenceModule
+                );
+                setOnlyFollowers(true);
+              }}
+              selected={isMyFollowers}
+              title={MY_FOLLOWERS}
+            />
+            <Module
+              icon={<UserPlusIcon className="size-4" />}
+              onClick={() => {
+                setSelectedReferenceModule(
+                  ReferenceModuleType.DegreesOfSeparationReferenceModule
+                );
+                setDegreesOfSeparation(1);
+              }}
+              selected={isMyFollows}
+              title={MY_FOLLOWS}
+            />
+            <Module
+              icon={<UserGroupIcon className="size-4" />}
+              onClick={() => {
+                setSelectedReferenceModule(
+                  ReferenceModuleType.DegreesOfSeparationReferenceModule
+                );
+                setDegreesOfSeparation(2);
+              }}
+              selected={isFriendsOfFriends}
+              title={FRIENDS_OF_FRIENDS}
+            />
+          </Menu.Items>
+        </MenuTransition>
+      </Menu>
+    </Tooltip>
   );
 };
 
