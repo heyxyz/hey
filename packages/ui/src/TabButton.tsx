@@ -7,7 +7,6 @@ import cn from '../cn';
 interface TabButtonProps {
   active: boolean;
   className?: string;
-  count?: string;
   icon?: ReactNode;
   name: string;
   onClick: () => void;
@@ -18,7 +17,6 @@ interface TabButtonProps {
 const TabButton: FC<TabButtonProps> = ({
   active,
   className = '',
-  count,
   icon,
   name,
   onClick,
@@ -51,18 +49,6 @@ const TabButton: FC<TabButtonProps> = ({
     >
       {icon}
       <span className={cn({ 'hidden sm:block': !showOnSm })}>{name}</span>
-      {count ? (
-        <span
-          className={cn(
-            active
-              ? 'bg-gray-500 text-white dark:bg-gray-500/80 dark:text-white'
-              : 'bg-gray-200 text-gray-500 dark:bg-gray-700 dark:text-gray-400',
-            'ml-2 rounded-2xl px-2 py-0.5 text-xs font-bold'
-          )}
-        >
-          {count}
-        </span>
-      ) : null}
     </button>
   );
 };
