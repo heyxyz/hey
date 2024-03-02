@@ -68,7 +68,9 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
         feedType === HomeFeedType.HIGHLIGHTS ? (
           <SeeThroughLens />
         ) : null}
-        {IS_MAINNET ? <Algorithms /> : null}
+        {IS_MAINNET ? (
+          <Algorithms feedType={feedType} setFeedType={setFeedType} />
+        ) : null}
       </div>
     </div>
   );
