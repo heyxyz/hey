@@ -11,7 +11,6 @@ import { useEffect, useState } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 import AlgorithmicFeed from './AlgorithmicFeed';
-import Tabs from './Algorithms/Tabs';
 import FeedType from './FeedType';
 import Hero from './Hero';
 import Highlights from './Highlights';
@@ -43,10 +42,7 @@ const Home: NextPage = () => {
           {loggedInWithProfile ? (
             <>
               <NewPost />
-              <div className="space-y-3">
-                <FeedType feedType={feedType} setFeedType={setFeedType} />
-                <Tabs feedType={feedType} setFeedType={setFeedType} />
-              </div>
+              <FeedType feedType={feedType} setFeedType={setFeedType} />
               {feedType === HomeFeedType.FOLLOWING ? (
                 <Timeline />
               ) : feedType === HomeFeedType.HIGHLIGHTS ? (
