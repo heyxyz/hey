@@ -96,98 +96,98 @@ const Attachment: FC = () => {
   };
 
   return (
-    <Menu as="div">
-      <Menu.Button
-        aria-label="More"
-        as={motion.button}
-        className="rounded-full outline-offset-8 outline-gray-500"
-        onClick={() => setShowMenu(!showMenu)}
-        whileTap={{ scale: 0.9 }}
-      >
-        {isUploading ? (
-          <Spinner size="sm" />
-        ) : (
-          <Tooltip content="Media" placement="top">
-            <PhotoIcon className="size-5" />
-          </Tooltip>
-        )}
-      </Menu.Button>
-      <MenuTransition show={showMenu}>
-        <Menu.Items
-          className="absolute z-[5] mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
-          ref={dropdownRef}
-          static
+    <Tooltip content="Media" placement="top">
+      <Menu as="div">
+        <Menu.Button
+          aria-label="More"
+          as={motion.button}
+          className="rounded-full outline-offset-8 outline-gray-500"
+          onClick={() => setShowMenu(!showMenu)}
+          whileTap={{ scale: 0.9 }}
         >
-          <Menu.Item
-            as="label"
-            className={({ active }) =>
-              cn(
-                { 'dropdown-active': active },
-                'menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
-              )
-            }
-            disabled={disableImageUpload()}
-            htmlFor={`image_${id}`}
+          {isUploading ? (
+            <Spinner size="sm" />
+          ) : (
+            <PhotoIcon className="size-5" />
+          )}
+        </Menu.Button>
+        <MenuTransition show={showMenu}>
+          <Menu.Items
+            className="absolute z-[5] mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+            ref={dropdownRef}
+            static
           >
-            <PhotoIcon className="size-4" />
-            <span className="text-sm">Upload image(s)</span>
-            <input
-              accept={ImageMimeType.join(',')}
-              className="hidden"
+            <Menu.Item
+              as="label"
+              className={({ active }) =>
+                cn(
+                  { 'dropdown-active': active },
+                  'menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
+                )
+              }
               disabled={disableImageUpload()}
-              id={`image_${id}`}
-              multiple
-              onChange={handleAttachment}
-              type="file"
-            />
-          </Menu.Item>
-          <Menu.Item
-            as="label"
-            className={({ active }) =>
-              cn(
-                { 'dropdown-active': active },
-                'menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
-              )
-            }
-            disabled={Boolean(attachments.length)}
-            htmlFor={`video_${id}`}
-          >
-            <VideoCameraIcon className="size-4" />
-            <span className="text-sm">Upload video</span>
-            <input
-              accept={VideoMimeType.join(',')}
-              className="hidden"
+              htmlFor={`image_${id}`}
+            >
+              <PhotoIcon className="size-4" />
+              <span className="text-sm">Upload image(s)</span>
+              <input
+                accept={ImageMimeType.join(',')}
+                className="hidden"
+                disabled={disableImageUpload()}
+                id={`image_${id}`}
+                multiple
+                onChange={handleAttachment}
+                type="file"
+              />
+            </Menu.Item>
+            <Menu.Item
+              as="label"
+              className={({ active }) =>
+                cn(
+                  { 'dropdown-active': active },
+                  'menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
+                )
+              }
               disabled={Boolean(attachments.length)}
-              id={`video_${id}`}
-              onChange={handleAttachment}
-              type="file"
-            />
-          </Menu.Item>
-          <Menu.Item
-            as="label"
-            className={({ active }) =>
-              cn(
-                { 'dropdown-active': active },
-                'menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
-              )
-            }
-            disabled={Boolean(attachments.length)}
-            htmlFor={`audio_${id}`}
-          >
-            <MusicalNoteIcon className="size-4" />
-            <span className="text-sm">Upload audio</span>
-            <input
-              accept={AudioMimeType.join(',')}
-              className="hidden"
+              htmlFor={`video_${id}`}
+            >
+              <VideoCameraIcon className="size-4" />
+              <span className="text-sm">Upload video</span>
+              <input
+                accept={VideoMimeType.join(',')}
+                className="hidden"
+                disabled={Boolean(attachments.length)}
+                id={`video_${id}`}
+                onChange={handleAttachment}
+                type="file"
+              />
+            </Menu.Item>
+            <Menu.Item
+              as="label"
+              className={({ active }) =>
+                cn(
+                  { 'dropdown-active': active },
+                  'menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
+                )
+              }
               disabled={Boolean(attachments.length)}
-              id={`audio_${id}`}
-              onChange={handleAttachment}
-              type="file"
-            />
-          </Menu.Item>
-        </Menu.Items>
-      </MenuTransition>
-    </Menu>
+              htmlFor={`audio_${id}`}
+            >
+              <MusicalNoteIcon className="size-4" />
+              <span className="text-sm">Upload audio</span>
+              <input
+                accept={AudioMimeType.join(',')}
+                className="hidden"
+                disabled={Boolean(attachments.length)}
+                id={`audio_${id}`}
+                onChange={handleAttachment}
+                type="file"
+              />
+            </Menu.Item>
+          </Menu.Items>
+        </MenuTransition>
+      </Menu>
+    </Tooltip>
   );
 };
 
