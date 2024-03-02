@@ -153,7 +153,6 @@ const List: FC = () => {
               revoking && revokeingSessionId === session.authorizationId
             }
             onClick={() => revoke(session.authorizationId)}
-            variant="danger"
           >
             Revoke
           </Button>
