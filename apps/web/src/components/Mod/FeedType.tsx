@@ -15,7 +15,7 @@ interface FeedTypeProps {
 
 const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
   return (
-    <div className="flex gap-3 overflow-x-auto sm:px-0">
+    <div className="flex gap-x-6 overflow-x-auto px-3 sm:px-0">
       <TabButton
         active={feedType === ModFeedType.LATEST}
         icon={<ClockIcon className="size-4" />}

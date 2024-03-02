@@ -20,18 +20,16 @@ const ProfileManager: FC = () => {
   return (
     <Card className="linkify space-y-2 p-5">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-x-6">
           <TabButton
             active={type === Type.MANAGERS}
             name="Managers"
             onClick={() => setType(Type.MANAGERS)}
-            showOnSm
           />
           <TabButton
             active={type === Type.MANAGED}
             name="Managed"
             onClick={() => setType(Type.MANAGED)}
-            showOnSm
           />
         </div>
         {type === Type.MANAGERS && (

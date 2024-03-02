@@ -44,18 +44,16 @@ const AllowanceSettings: NextPage = () => {
       </GridItemFour>
       <GridItemEight>
         <Card className="p-5">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-x-6">
             <TabButton
               active={type === Type.COLLECT_MODULES}
               name="Collect & Follow Modules"
               onClick={() => setType(Type.COLLECT_MODULES)}
-              showOnSm
             />
             <TabButton
               active={type === Type.OPEN_ACTIONS}
               name="Open Actions"
               onClick={() => setType(Type.OPEN_ACTIONS)}
-              showOnSm
             />
           </div>
           {type === Type.COLLECT_MODULES && <CollectModules />}

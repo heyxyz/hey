@@ -25,7 +25,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType }) => {
 
   return (
     <div className="flex items-center justify-between">
-      <div className="mt-3 flex gap-3 overflow-x-auto px-5 pb-2 sm:mt-0 sm:px-0 md:pb-0">
+      <div className="mt-3 flex gap-x-6 overflow-x-auto px-5 pb-2 sm:mt-0 sm:px-0 md:pb-0">
         <TabButton
           active={feedType === NotificationTabType.All}
           icon={<BellIcon className="size-4" />}
@@ -49,6 +49,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType }) => {
         />
         <TabButton
           active={feedType === NotificationTabType.Likes}
+          hideOnSm
           icon={<HeartIcon className="size-4" />}
           name="Likes"
           onClick={() => switchTab(NotificationTabType.Likes)}
@@ -56,6 +57,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType }) => {
         />
         <TabButton
           active={feedType === NotificationTabType.Collects}
+          hideOnSm
           icon={<RectangleStackIcon className="size-4" />}
           name="Collects"
           onClick={() => switchTab(NotificationTabType.Collects)}

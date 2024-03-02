@@ -7,6 +7,7 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 import MenuTransition from '../MenuTransition';
 import Bookmarks from './NavItems/Bookmarks';
 import Support from './NavItems/Support';
+
 const MoreNavItems: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
 

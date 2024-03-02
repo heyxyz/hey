@@ -7,22 +7,19 @@ import cn from '../cn';
 interface TabButtonProps {
   active: boolean;
   className?: string;
-  count?: string;
+  hideOnSm?: boolean;
   icon?: ReactNode;
   name: string;
   onClick: () => void;
-  showOnSm?: boolean;
   type?: string;
 }
 
 const TabButton: FC<TabButtonProps> = ({
   active,
   className = '',
-  count,
-  icon,
+  hideOnSm = false,
   name,
   onClick,
-  showOnSm = false,
   type
 }) => {
   const router = useRouter();
@@ -30,15 +27,7 @@ const TabButton: FC<TabButtonProps> = ({
   return (
     <button
       aria-label={name}
-      className={cn(
-        { 'text-black dark:text-white': active },
-        { 'bg-gray-300 dark:bg-gray-300/20': active },
-        'hover:bg-gray-300 dark:hover:bg-gray-300/30',
-        'hover:text-black hover:dark:text-white',
-        'outline-gray-500',
-        'flex items-center justify-center space-x-2 rounded-lg px-4 py-2 text-sm sm:px-3 sm:py-1.5',
-        className
-      )}
+      className={className}
       onClick={() => {
         if (type) {
           router.replace({ query: { ...router.query, type } }, undefined, {
@@ -49,20 +38,23 @@ const TabButton: FC<TabButtonProps> = ({
       }}
       type="button"
     >
-      {icon}
-      <span className={cn({ 'hidden sm:block': !showOnSm })}>{name}</span>
-      {count ? (
-        <span
-          className={cn(
-            active
-              ? 'bg-gray-500 text-white dark:bg-gray-500/80 dark:text-white'
-              : 'bg-gray-200 text-gray-500 dark:bg-gray-700 dark:text-gray-400',
-            'ml-2 rounded-2xl px-2 py-0.5 text-xs font-bold'
-          )}
-        >
-          {count}
-        </span>
-      ) : null}
+      <span
+        className={cn(
+          active ? 'font-bold' : 'ld-text-gray-500',
+          { 'hidden sm:block': hideOnSm },
+          'text-md sm:text-sm'
+        )}
+      >
+        {name}
+      </span>
+      <div
+        className={cn(
+          'mt-0.5',
+          active
+            ? 'border-brand-500 border-b-4'
+            : 'border-b-4 border-transparent'
+        )}
+      />
     </button>
   );
 };

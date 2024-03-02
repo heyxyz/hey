@@ -30,7 +30,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
 
   return (
     <div className="flex items-center justify-between">
-      <div className="mt-3 flex gap-3 overflow-x-auto px-5 pb-2 sm:mt-0 sm:px-0 md:pb-0">
+      <div className="mt-3 flex gap-x-6 overflow-x-auto px-5 pb-2 sm:mt-0 sm:px-0 md:pb-0">
         <TabButton
           active={feedType === ProfileFeedType.Feed}
           icon={<PencilSquareIcon className="size-4" />}
