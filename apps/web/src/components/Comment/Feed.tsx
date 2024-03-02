@@ -5,7 +5,7 @@ import { useHiddenCommentFeedStore } from '@components/Publication';
 import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleLeftIcon } from '@heroicons/react/24/outline';
 import {
   CommentRankingFilterType,
   CustomFiltersType,
@@ -98,7 +98,7 @@ const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
   if (!isHidden && totalComments === 0) {
     return (
       <EmptyState
-        icon={<ChatBubbleLeftRightIcon className="size-8" />}
+        icon={<ChatBubbleLeftIcon className="size-8" />}
         message="Be the first one to comment!"
       />
     );
