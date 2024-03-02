@@ -80,10 +80,13 @@ const Attachment: FC = () => {
 
     try {
       const { files } = evt.target;
+
       if (!isUploadAllowed(files as FileList)) {
-        toast.error('Exceeded max limit of 1 audio, or 1 video, or 4 images');
-        return;
+        return toast.error(
+          'Exceeded max limit of 1 audio, or 1 video, or 4 images'
+        );
       }
+
       if (isTypeAllowed(files as FileList)) {
         await handleUploadAttachments(files);
         evt.target.value = '';
@@ -91,7 +94,7 @@ const Attachment: FC = () => {
         return toast.error('File format not allowed.');
       }
     } catch {
-      toast.error('Something went wrong while uploading!');
+      return toast.error('Something went wrong while uploading!');
     }
   };
 
