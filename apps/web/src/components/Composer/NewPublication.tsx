@@ -64,9 +64,7 @@ import Discard from './Post/Discard';
 
 const Attachment = dynamic(
   () => import('@components/Composer/Actions/Attachment'),
-  {
-    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
-  }
+  { loading: () => <div className="shimmer mb-1 size-5 rounded-lg" /> }
 );
 const EmojiPicker = dynamic(() => import('@components/Shared/EmojiPicker'), {
   loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
@@ -76,33 +74,23 @@ const Gif = dynamic(() => import('@components/Composer/Actions/Gif'), {
 });
 const CollectSettings = dynamic(
   () => import('@components/Composer/Actions/CollectSettings'),
-  {
-    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
-  }
+  { loading: () => <div className="shimmer mb-1 size-5 rounded-lg" /> }
 );
 const OpenActionSettings = dynamic(
   () => import('@components/Composer/Actions/OpenActionSettings'),
-  {
-    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
-  }
+  { loading: () => <div className="shimmer mb-1 size-5 rounded-lg" /> }
 );
 const ReferenceSettings = dynamic(
   () => import('@components/Composer/Actions/ReferenceSettings'),
-  {
-    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
-  }
+  { loading: () => <div className="shimmer mb-1 size-5 rounded-lg" /> }
 );
 const PollSettings = dynamic(
   () => import('@components/Composer/Actions/PollSettings'),
-  {
-    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
-  }
+  { loading: () => <div className="shimmer mb-1 size-5 rounded-lg" /> }
 );
 const LivestreamSettings = dynamic(
   () => import('@components/Composer/Actions/LivestreamSettings'),
-  {
-    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
-  }
+  { loading: () => <div className="shimmer mb-1 size-5 rounded-lg" /> }
 );
 
 interface NewPublicationProps {
