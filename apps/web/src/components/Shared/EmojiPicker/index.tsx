@@ -26,30 +26,27 @@ const EmojiPicker: FC<EmojiPickerProps> = ({
   }) as MutableRefObject<HTMLDivElement>;
 
   return (
-    <div className="relative" ref={listRef}>
-      <motion.button
-        className="rounded-full outline-offset-8 outline-gray-500"
-        onClick={(e) => {
-          e.preventDefault();
-          stopEventPropagation(e);
-          setShowEmojiPicker(!showEmojiPicker);
-        }}
-        whileTap={{ scale: 0.9 }}
-      >
-        {emoji ? (
-          <span>{emoji}</span>
-        ) : (
-          <Tooltip content="Emoji" placement="top">
-            <FaceSmileIcon className="size-5" />
-          </Tooltip>
-        )}
-      </motion.button>
-      {showEmojiPicker ? (
-        <div className="absolute z-[5] mt-1 w-[300px] rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900">
-          <List setEmoji={setEmoji} />
-        </div>
-      ) : null}
-    </div>
+    <Tooltip content="Emoji" placement="top">
+      <div className="relative" ref={listRef}>
+        <motion.button
+          className="rounded-full outline-offset-8 outline-gray-500"
+          onClick={(e) => {
+            e.preventDefault();
+            stopEventPropagation(e);
+            setShowEmojiPicker(!showEmojiPicker);
+          }}
+          whileTap={{ scale: 0.9 }}
+        >
+          {emoji ? <span>{emoji}</span> : <FaceSmileIcon className="size-5" />}
+        </motion.button>
+
+        {showEmojiPicker ? (
+          <div className="absolute z-[5] mt-1 w-[300px] rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900">
+            <List setEmoji={setEmoji} />
+          </div>
+        ) : null}
+      </div>
+    </Tooltip>
   );
 };
 
