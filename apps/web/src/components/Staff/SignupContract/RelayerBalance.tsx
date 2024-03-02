@@ -84,7 +84,7 @@ const RelayerBalance: FC<RelayerBalanceProps> = ({ address, index }) => {
       count={balance.toString()}
       name={
         <div className="flex items-center space-x-2">
-          <span>{index === 0 ? 'Root Relayer' : `Relayer ${index + 1}`}</span>
+          <span>{index === 0 ? 'Root Relayer' : `Relayer ${index}`}</span>
           {allowed ? (
             <CheckCircleIcon className="size-4 text-green-500" />
           ) : (
