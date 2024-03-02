@@ -103,7 +103,6 @@ const ReferenceSettings: FC = () => {
           {isMyFollows ? <UserPlusIcon className="w-5" /> : null}
           {isFriendsOfFriends ? <UserGroupIcon className="w-5" /> : null}
         </Menu.Button>
-
         <MenuTransition>
           <Menu.Items
             className="absolute z-[5] mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
