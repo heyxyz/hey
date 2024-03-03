@@ -139,7 +139,6 @@ const UserProfile: FC<UserProfileProps> = ({
       {linkToProfile && profile.id ? (
         <Link
           as={getProfile(profile).link}
-          className="rounded-xl outline-offset-4"
           href={getProfile(profile, source).sourceLink}
         >
           <UserInfo />
