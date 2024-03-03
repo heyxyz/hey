@@ -30,7 +30,7 @@
     "start-server-and-test": "^2.0.0",
     "turbo": "^1.12.4"
   },
-  "packageManager": "pnpm@8.10.5",
+  "packageManager": "pnpm@8.15.4",
   "engines": {
     "node": ">=16.x <=20.x"
   }
