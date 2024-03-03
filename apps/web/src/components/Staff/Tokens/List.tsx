@@ -83,7 +83,11 @@ const List: FC = () => {
                   icon={<TrashIcon className="size-4" />}
                   onClick={() => deleteToken(token.id)}
                   outline
-                />
+                  size="sm"
+                  variant="danger"
+                >
+                  Delete
+                </Button>
               </div>
             ))}
           </div>
