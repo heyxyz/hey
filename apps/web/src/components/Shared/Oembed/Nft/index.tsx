@@ -12,7 +12,10 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import truncateByWords from '@hey/lib/truncateByWords';
 import { Nft } from '@hey/types/misc';
-import { Card, Spinner } from '@hey/ui';
+import { Button, Card, Spinner, Tooltip } from '@hey/ui';
+
+// TODO: change copy
+const OPEN_ACTION_EMBED_TOOLTIP = 'This is an open action';
 
 interface NftProps {
   nft: Nft;
@@ -96,10 +99,13 @@ const Nft: FC<NftProps> = ({
         {openActionEmbedLoading ? (
           <Spinner size="xs" />
         ) : openActionEmbed === true ? (
-          <div>Open Action Embedded</div>
-        ) : (
-          <div>No Open Action Embedded</div>
-        )}
+          <Tooltip
+            content={<span>{OPEN_ACTION_EMBED_TOOLTIP}</span>}
+            placement="top"
+          >
+            <Button>Mint</Button>
+          </Tooltip>
+        ) : null}
       </div>
     </Card>
   );
