@@ -15,7 +15,7 @@ const ModIcon: FC = () => {
   return (
     <Tooltip content="Moderation" placement="bottom">
       <Link
-        className="outline-brand-500 hidden rounded-md px-2 py-1 hover:bg-gray-300/20 md:flex"
+        className="hidden rounded-md px-2 py-1 hover:bg-gray-300/20 md:flex"
         href="/mod"
       >
         <ShieldCheckIcon className="size-5 sm:size-6" />

@@ -46,7 +46,7 @@ const TipOpenAction: FC<TipOpenActionProps> = ({
       <div className="ld-text-gray-500">
         <motion.button
           aria-label="Tip"
-          className="rounded-full p-1.5 outline-offset-2 outline-gray-400 hover:bg-gray-300/20"
+          className="rounded-full p-1.5 outline-offset-2 hover:bg-gray-300/20"
           onClick={() => {
             setShowOpenActionModal(true);
             Leafwatch.track(PUBLICATION.OPEN_ACTIONS.TIP.OPEN_TIP, {
