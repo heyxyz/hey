@@ -93,7 +93,7 @@ const SeeThroughLens: FC = () => {
         <>
           <Menu.Button as={Fragment}>
             <button
-              className="outline-brand-500 flex items-center space-x-1 rounded-md p-1 text-sm hover:bg-gray-300/20"
+              className="flex items-center space-x-1 rounded-md p-1 text-sm hover:bg-gray-300/20"
               onClick={() => {
                 if (!open) {
                   fetchFollowingProfiles();

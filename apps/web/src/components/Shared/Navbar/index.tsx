@@ -39,7 +39,7 @@ const Navbar: FC = () => {
     return (
       <Link
         className={cn(
-          'outline-brand-500 cursor-pointer rounded-md px-2 py-1 text-left text-sm font-bold tracking-wide md:px-3',
+          'cursor-pointer rounded-md px-2 py-1 text-left text-sm font-bold tracking-wide md:px-3',
           {
             'bg-gray-200 text-black dark:bg-gray-800 dark:text-white': current,
             'text-gray-700 hover:bg-gray-200 hover:text-black dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white':
@@ -87,7 +87,7 @@ const Navbar: FC = () => {
               )}
             </button>
             <Link
-              className="outline-brand-500 hidden rounded-full outline-offset-8 md:block"
+              className="hidden rounded-full outline-offset-8 md:block"
               href="/"
             >
               <img

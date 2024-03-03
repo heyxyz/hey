@@ -43,7 +43,7 @@ const Mention: FC<MarkupLinkProps> = ({ mentions, title }) => {
 
   return canShowUserPreview(handle) ? (
     <Link
-      className="outline-brand-500 outline-offset-2"
+      className="outline-offset-2"
       href={`/u/${getLocalNameFromFullHandle(handle)}`}
       onClick={(event) => {
         stopEventPropagation(event);

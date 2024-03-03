@@ -70,7 +70,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({
         {shares > 0 ? (
           <>
             <button
-              className="outline-brand-500 outline-offset-2"
+              className="outline-offset-2"
               onClick={() => {
                 setShowMirrorsModal(true);
                 Leafwatch.track(PUBLICATION.OPEN_MIRRORS, {
@@ -95,7 +95,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({
         {quotes > 0 ? (
           <>
             <button
-              className="outline-brand-500 outline-offset-2"
+              className="outline-offset-2"
               onClick={() => {
                 setShowQuotesModal(true);
                 Leafwatch.track(PUBLICATION.OPEN_QUOTES, {
@@ -120,7 +120,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({
         {reactions > 0 ? (
           <>
             <button
-              className="outline-brand-500 outline-offset-2"
+              className="outline-offset-2"
               onClick={() => {
                 setShowLikesModal(true);
                 Leafwatch.track(PUBLICATION.OPEN_LIKES, {
@@ -147,7 +147,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({
         {countOpenActions > 0 ? (
           <>
             <button
-              className="outline-brand-500 outline-offset-2"
+              className="outline-offset-2"
               onClick={() => {
                 setShowCollectorsModal(true);
                 Leafwatch.track(PUBLICATION.OPEN_COLLECTORS, {
