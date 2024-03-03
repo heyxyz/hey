@@ -3,10 +3,7 @@ import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import {
-  AdjustmentsHorizontalIcon,
-  TrashIcon
-} from '@heroicons/react/24/outline';
+import { AdjustmentsHorizontalIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import { STAFFTOOLS } from '@hey/data/tracking';
@@ -146,7 +143,6 @@ const List: FC = () => {
                   </Button>
                   {feature.type === 'FEATURE' && (
                     <Button
-                      icon={<TrashIcon className="size-4" />}
                       onClick={() => deleteFeatureFlag(feature.id)}
                       outline
                       size="sm"
