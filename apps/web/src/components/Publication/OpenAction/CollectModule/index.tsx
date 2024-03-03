@@ -94,7 +94,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
         >
           <div className="h-2.5 w-full bg-gray-200 dark:bg-gray-700">
             <div
-              className="bg-brand-500 h-2.5"
+              className="h-2.5 bg-black dark:bg-white"
               style={{ width: `${percentageCollected}%` }}
             />
           </div>
