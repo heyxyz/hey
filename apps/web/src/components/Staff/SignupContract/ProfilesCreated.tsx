@@ -29,23 +29,23 @@ const ProfilesCreated: FC = () => {
   });
 
   return (
-    <>
+    <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
       <NumberedStat
         count={totalProfilesCreated?.toString() || '0'}
-        name={`Total Profiles Created`}
+        name={`Total Profiles`}
         suffix="Profiles"
       />
       <NumberedStat
         count={profilesCreatedViaCrypto?.toString() || '0'}
-        name={`Profiles Created via Crypto`}
-        suffix="Profiles via Crypto"
+        name={`Via Crypto`}
+        suffix="Profiles"
       />
       <NumberedStat
         count={profilesCreatedViaCard?.toString() || '0'}
-        name={`Profiles Created via Card`}
-        suffix="Profiles via Card"
+        name={`Via Card`}
+        suffix="Profiles"
       />
-    </>
+    </div>
   );
 };
 
