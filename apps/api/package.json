@@ -5,7 +5,7 @@
   "license": "AGPL-3.0",
   "scripts": {
     "build": "vite build",
-    "codegen": "prisma generate --schema ./src/db/schema.prisma",
+    "codegen": "prisma generate --schema ./src/db/schema.prisma > /dev/null",
     "dev": "nodemon -w src -x tsx src/server.ts",
     "postinstall": "pnpm codegen",
     "lint": "eslint . --ext .js,.ts,.tsx",
