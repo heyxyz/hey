@@ -23,10 +23,6 @@ body {
   @apply m-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm text-gray-700 dark:text-gray-200;
 }
 
-a {
-  @apply outline-offset-4;
-}
-
 .linkify a {
   @apply text-brand-500;
   @apply hover:text-brand-600 dark:hover:text-brand-500;

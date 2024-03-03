@@ -17,9 +17,14 @@ const Footer: FC = () => {
         <span className="ld-text-gray-500 font-bold">
           &copy; {new Date().getFullYear()} {APP_NAME}.xyz
         </span>
-        <Link href="/terms">Terms</Link>
-        <Link href="/privacy">Privacy</Link>
+        <Link className="outline-offset-4" href="/terms">
+          Terms
+        </Link>
+        <Link className="outline-offset-4" href="/privacy">
+          Privacy
+        </Link>
         <Link
+          className="outline-offset-4"
           href="https://hey.xyz/discord"
           onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_DISCORD)}
           rel="noreferrer noopener"
@@ -28,6 +33,7 @@ const Footer: FC = () => {
           Discord
         </Link>
         <Link
+          className="outline-offset-4"
           href="https://status.hey.xyz"
           onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_STATUS)}
           rel="noreferrer noopener"
@@ -36,6 +42,7 @@ const Footer: FC = () => {
           Status
         </Link>
         <Link
+          className="outline-offset-4"
           href="https://feedback.hey.xyz"
           onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_FEEDBACK)}
           rel="noreferrer noopener"
@@ -43,8 +50,11 @@ const Footer: FC = () => {
         >
           Feedback
         </Link>
-        <Link href="/rules">Rules</Link>
+        <Link className="outline-offset-4" href="/rules">
+          Rules
+        </Link>
         <Link
+          className="outline-offset-4"
           href="https://github.com/heyxyz/hey"
           onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_GITHUB)}
           rel="noreferrer noopener"
@@ -53,6 +63,7 @@ const Footer: FC = () => {
           GitHub
         </Link>
         <Link
+          className="outline-offset-4"
           href="/support"
           onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_SUPPORT)}
         >
@@ -61,7 +72,7 @@ const Footer: FC = () => {
       </div>
       <div className="mt-4">
         <Link
-          className="hover:font-bold"
+          className="outline-offset-4 hover:font-bold focus:font-bold"
           href={urlcat('https://vercel.com', {
             utm_campaign: 'oss',
             utm_source: APP_NAME
