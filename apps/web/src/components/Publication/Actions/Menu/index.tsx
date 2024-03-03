@@ -31,7 +31,7 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
       <Menu.Button as={Fragment}>
         <button
           aria-label="More"
-          className="outline-brand-500 rounded-full p-1.5 hover:bg-gray-300/20"
+          className="rounded-full p-1.5 hover:bg-gray-300/20"
           onClick={stopEventPropagation}
           type="button"
         >

@@ -30,7 +30,7 @@ const Gif: FC<GiphyProps> = ({ setGifAttachment }) => {
       <Tooltip content="GIF" placement="top">
         <motion.button
           aria-label="Choose GIFs"
-          className="rounded-full outline-offset-8 outline-gray-500"
+          className="rounded-full outline-offset-8"
           disabled={attachments.length >= 4}
           onClick={() => {
             setShowModal(!showModal);

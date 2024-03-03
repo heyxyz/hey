@@ -20,7 +20,7 @@ const PollSettings: FC = () => {
     <Tooltip content="Poll" placement="top">
       <motion.button
         aria-label="Poll"
-        className="rounded-full outline-offset-8 outline-gray-500"
+        className="rounded-full outline-offset-8"
         onClick={() => {
           resetPollConfig();
           setShowPollEditor(!showPollEditor);

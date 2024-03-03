@@ -43,8 +43,8 @@ const ShareMenu: FC<ShareMenuProps> = ({ publication, showCount }) => {
           as={motion.button}
           className={cn(
             hasShared
-              ? 'text-brand-500 hover:bg-brand-300/20 outline-brand-500'
-              : 'ld-text-gray-500 outline-gray-400 hover:bg-gray-300/20',
+              ? 'text-brand-500 hover:bg-brand-300/20'
+              : 'ld-text-gray-500 hover:bg-gray-300/20',
             'rounded-full p-1.5 outline-offset-2'
           )}
           onClick={stopEventPropagation}

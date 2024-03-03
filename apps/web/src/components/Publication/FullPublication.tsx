@@ -80,8 +80,8 @@ const FullPublication: FC<FullPublicationProps> = ({
                       aria-label="Like"
                       className={cn(
                         showHiddenComments
-                          ? 'text-green-500 outline-green-500 hover:bg-green-300/20'
-                          : 'ld-text-gray-500 outline-gray-400 hover:bg-gray-300/20',
+                          ? 'text-green-500 hover:bg-green-300/20'
+                          : 'ld-text-gray-500 hover:bg-gray-300/20',
                         'rounded-full p-1.5 outline-offset-2'
                       )}
                       onClick={() => setShowHiddenComments(!showHiddenComments)}
