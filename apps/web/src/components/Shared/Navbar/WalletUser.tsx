@@ -35,7 +35,7 @@ const WalletUser: FC = () => {
 
   return (
     <Menu as="div" className="md:block">
-      <Menu.Button className="outline-brand-500 flex self-center rounded-full">
+      <Menu.Button className="flex self-center rounded-full">
         <Avatar />
       </Menu.Button>
       <MenuTransition>

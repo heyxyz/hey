@@ -95,7 +95,7 @@ const ReferenceSettings: FC = () => {
       <Menu as="div">
         <Menu.Button
           as={motion.button}
-          className="rounded-full outline-offset-8 outline-gray-500"
+          className="rounded-full outline-offset-8"
           whileTap={{ scale: 0.9 }}
         >
           {isEveryone ? <GlobeAltIcon className="w-5" /> : null}

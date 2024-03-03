@@ -63,7 +63,7 @@ const SignedUser: FC = () => {
         <Avatar />
       </button>
       <Menu as="div" className="hidden md:block">
-        <Menu.Button className="outline-brand-500 flex self-center rounded-full">
+        <Menu.Button className="flex self-center rounded-full">
           <Avatar />
         </Menu.Button>
         <MenuTransition>

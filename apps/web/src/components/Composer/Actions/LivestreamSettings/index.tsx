@@ -20,7 +20,7 @@ const LivestreamSettings: FC = () => {
     <Tooltip content="Go Live" placement="top">
       <motion.button
         aria-label="Go Live"
-        className="rounded-full outline-offset-8 outline-gray-500"
+        className="rounded-full outline-offset-8"
         onClick={() => {
           resetLiveVideoConfig();
           setShowLiveVideoEditor(!showLiveVideoEditor);
