@@ -29,7 +29,10 @@ const PublicationProfile: FC<FeedUserProfileProps> = ({
   timestamp
 }) => {
   const WrappedLink = ({ children }: { children: ReactNode }) => (
-    <Link className="truncate hover:underline" href={getProfile(profile).link}>
+    <Link
+      className="truncate outline-none hover:underline focus:underline"
+      href={getProfile(profile).link}
+    >
       <UserPreview
         handle={profile.handle?.fullHandle}
         id={profile.id}

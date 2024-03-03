@@ -33,7 +33,6 @@ const TabButton: FC<TabButtonProps> = ({
         { 'bg-gray-300 dark:bg-gray-300/20': active },
         'hover:bg-gray-300 dark:hover:bg-gray-300/30',
         'hover:text-black hover:dark:text-white',
-        'outline-gray-500',
         'flex items-center justify-center space-x-2 rounded-lg px-4 py-2 text-sm sm:px-3 sm:py-1.5',
         className
       )}

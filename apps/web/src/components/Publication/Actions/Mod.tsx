@@ -23,7 +23,7 @@ const Mod: FC<ModProps> = ({ isFullPublication = false, publication }) => {
   return (
     <motion.button
       aria-label="Mod"
-      className="rounded-full p-1.5 text-yellow-600 outline-offset-2 outline-yellow-500 hover:bg-yellow-400/20"
+      className="rounded-full p-1.5 text-yellow-600 outline-offset-2 hover:bg-yellow-400/20"
       onClick={() => setShowGardenerActionsAlert(true, publication)}
       whileTap={{ scale: 0.9 }}
     >

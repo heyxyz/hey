@@ -104,7 +104,7 @@ const Attachment: FC = () => {
         <Menu.Button
           aria-label="More"
           as={motion.button}
-          className="rounded-full outline-offset-8 outline-gray-500"
+          className="rounded-full outline-offset-8"
           onClick={() => setShowMenu(!showMenu)}
           whileTap={{ scale: 0.9 }}
         >
