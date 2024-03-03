@@ -31,10 +31,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) {
     const commonStyles = {
-      'border border-black focus:ring-black dark:border-white':
-        variant === 'primary',
-      'border border-gray-600 focus:ring-gray-400/50': variant === 'secondary',
-      'border border-red-600 focus:ring-red-400/50': variant === 'danger',
+      'border border-black dark:border-white': variant === 'primary',
+      'border border-gray-600': variant === 'secondary',
+      'border border-red-600': variant === 'danger',
       'border border-yellow-600 focus:ring-yellow-400/50': variant === 'warning'
     };
 
@@ -76,7 +75,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             ...sizeStyles,
             'inline-flex items-center space-x-1.5': icon && children
           },
-          'rounded-full font-bold shadow-sm outline-none focus:ring-2 focus:ring-offset-1 disabled:opacity-50',
+          'rounded-full font-bold shadow-sm outline-2 outline-offset-2 focus:outline disabled:opacity-50',
           className
         )}
         ref={ref}
