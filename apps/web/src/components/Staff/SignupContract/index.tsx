@@ -21,6 +21,7 @@ import StaffSidebar from '../Sidebar';
 import Balance from './Balance';
 import LensCredits from './LensCredits';
 import Mint from './Mint';
+import NftsMinted from './NftsMinted';
 import ProfilesCreated from './ProfilesCreated';
 import RelayerBalance from './RelayerBalance';
 import SignupPrice from './SignupPrice';
@@ -68,13 +69,15 @@ const SignupContract: NextPage = () => {
           <div className="space-y-5 p-5">
             <LensCredits />
             <SignupPrice />
+            <NftsMinted />
             <ProfilesCreated />
             <Balance />
-            <div className="divider" />
-            {relayAddresses.map((address, index) => (
-              <RelayerBalance address={address} index={index} key={address} />
-            ))}
           </div>
+        </Card>
+        <Card className="space-y-5 p-5">
+          {relayAddresses.map((address, index) => (
+            <RelayerBalance address={address} index={index} key={address} />
+          ))}
         </Card>
         <Mint />
       </GridItemEight>

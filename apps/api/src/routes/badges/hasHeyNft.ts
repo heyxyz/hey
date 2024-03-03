@@ -1,7 +1,8 @@
 import type { Handler } from 'express';
 import type { Address } from 'viem';
 
-import { IS_MAINNET } from '@hey/data/constants';
+import { HeyMembershipNft } from '@hey/abis';
+import { HEY_MEMBERSHIP_NFT } from '@hey/data/constants';
 import logger from '@hey/lib/logger';
 import catchedError from 'src/lib/catchedError';
 import {
@@ -27,18 +28,8 @@ export const get: Handler = async (req, res) => {
     });
 
     const heyNft = await client.readContract({
-      abi: [
-        {
-          inputs: [{ internalType: 'address', name: 'owner', type: 'address' }],
-          name: 'balanceOf',
-          outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-          stateMutability: 'view',
-          type: 'function'
-        }
-      ],
-      address: IS_MAINNET
-        ? '0x100372BBF7f975f6b1448fB11AB0F814b2740EEd'
-        : '0x75120677aBF34ae95a916C6E9DbB610a06536CC3',
+      abi: HeyMembershipNft,
+      address: HEY_MEMBERSHIP_NFT,
       args: [address as Address],
       functionName: 'balanceOf'
     });
