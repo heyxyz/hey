@@ -73,7 +73,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
       <div className="space-y-1 p-3">
         {options.map(({ id, option, percentage, voted }) => (
           <button
-            className="flex w-full items-center space-x-2.5 rounded-xl p-2 text-xs hover:bg-gray-100 sm:text-sm dark:hover:bg-gray-900"
+            className="flex w-full items-center space-x-2.5 rounded-xl p-2 text-left text-xs hover:bg-gray-100 sm:text-sm dark:hover:bg-gray-900"
             disabled={pollSubmitting}
             key={id}
             onClick={() => votePoll(id)}
@@ -100,7 +100,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
               </div>
               <div className="flex h-2.5 overflow-hidden rounded-full bg-gray-300 dark:bg-gray-800">
                 <div
-                  className={cn(voted ? 'bg-green-500' : 'bg-brand-500')}
+                  className="bg-green-500"
                   style={{ width: `${percentage}%` }}
                 />
               </div>
