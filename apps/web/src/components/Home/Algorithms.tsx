@@ -20,7 +20,7 @@ const Algorithms: FC<AlgorithmsProps> = ({ feedType, setFeedType }) => {
     <Menu as="div" className="relative">
       <>
         <Menu.Button
-          className="outline-brand-500 rounded-md p-1 hover:bg-gray-300/20"
+          className="rounded-md p-1 hover:bg-gray-300/20"
           onClick={() => {
             Leafwatch.track(HOME.ALGORITHMS.OPEN_ALGORITHMS);
           }}
