@@ -5,7 +5,6 @@ import Loader from '@components/Shared/Loader';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import {
   AdjustmentsHorizontalIcon,
-  PlusIcon,
   TrashIcon
 } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
@@ -135,7 +134,6 @@ const List: FC = () => {
                 />
                 <div className="mt-2 space-x-2">
                   <Button
-                    icon={<PlusIcon className="size-4" />}
                     onClick={() => {
                       setSelectedFeature(feature);
                       setShowAssignModal(!showAssignModal);
