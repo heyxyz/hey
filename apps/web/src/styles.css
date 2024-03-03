@@ -101,16 +101,16 @@ div[data-lexical-editor='true'] {
 }
 
 .rc-slider-rail {
-  @apply bg-brand-500 !important;
+  @apply bg-black dark:bg-white !important;
   @apply opacity-30;
 }
 
 .rc-slider-track {
-  @apply bg-brand-500 !important;
+  @apply bg-black dark:bg-white !important;
 }
 
 .rc-slider-handle {
-  @apply border-brand-500 !important;
+  @apply border-black dark:border-white !important;
 }
 
 .rc-slider-handle-dragging {
