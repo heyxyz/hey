@@ -28,6 +28,7 @@ import { useAccount, useBalance, useWriteContract } from 'wagmi';
 import { object, string } from 'zod';
 
 import { useSignupStore } from '.';
+import AuthMessage from '../AuthMessage';
 import Moonpay from './Moonpay';
 
 declare global {
@@ -42,6 +43,13 @@ declare global {
     };
   }
 }
+
+export const SignupMessage = () => (
+  <AuthMessage
+    description="Let's start by buying your handle for you. Buying you say? Yep - handles cost a little bit of money to support the network and keep bots away"
+    title={`Welcome to ${APP_NAME}!`}
+  />
+);
 
 const newProfileSchema = object({
   handle: string()
@@ -154,14 +162,7 @@ const ChooseHandle: FC = () => {
         src="https://assets.lemonsqueezy.com/lemon.js"
         strategy="afterInteractive"
       />
-      <div className="space-y-2">
-        <div className="text-xl font-bold">Welcome to {APP_NAME}!</div>
-        <div className="ld-text-gray-500 text-sm">
-          Let's start by buying your handle for you. Buying you say? Yep -
-          handles cost a little bit of money to support the network and keep
-          bots away
-        </div>
-      </div>
+      <SignupMessage />
       <Form
         className="space-y-5 pt-3"
         form={form}
