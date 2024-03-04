@@ -5,7 +5,6 @@ import ExploreFeed from '@components/Explore/Feed';
 import { HomeFeedType } from '@hey/data/enums';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
-import getCurrentSession from '@lib/getCurrentSession';
 import { Leafwatch } from '@lib/leafwatch';
 import { useEffect, useState } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
@@ -24,19 +23,15 @@ const Home: NextPage = () => {
     HomeFeedType.FOLLOWING
   );
 
-  const { id: sessionProfileId } = getCurrentSession();
-
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'home' });
   }, []);
 
   const loggedInWithProfile = Boolean(currentProfile);
-  const loggedInWithWallet = Boolean(sessionProfileId);
-  const loggedOut = !loggedInWithProfile;
 
   return (
     <>
-      {loggedOut && !loggedInWithWallet && <Hero />}
+      {!loggedInWithProfile && <Hero />}
       <GridLayout>
         <GridItemEight className="space-y-5">
           {loggedInWithProfile ? (

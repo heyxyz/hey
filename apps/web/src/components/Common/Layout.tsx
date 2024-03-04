@@ -70,7 +70,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       }
     },
     onError: () => logout(true),
-    skip: !sessionProfileId || isAddress(sessionProfileId),
+    skip: isAddress(sessionProfileId),
     variables: { request: { forProfileId: sessionProfileId } }
   });
 
