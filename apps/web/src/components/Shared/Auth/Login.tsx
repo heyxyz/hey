@@ -21,11 +21,11 @@ import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN } from 'src/constants';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { signIn } from 'src/store/persisted/useAuthStore';
 import { useAccount, useChainId, useDisconnect, useSignMessage } from 'wagmi';
 
 import UserProfile from '../UserProfile';
+import SignupCard from './SignupCard';
 import WalletSelector from './WalletSelector';
 
 interface LoginProps {
@@ -33,9 +33,6 @@ interface LoginProps {
 }
 
 const Login: FC<LoginProps> = ({ setHasProfiles }) => {
-  const setShowAuthModal = useGlobalModalStateStore(
-    (state) => state.setShowAuthModal
-  );
   const [isLoading, setIsLoading] = useState(false);
   const [loggingInProfileId, setLoggingInProfileId] = useState<null | string>(
     null
@@ -148,14 +145,7 @@ const Login: FC<LoginProps> = ({ setHasProfiles }) => {
               ))}
             </Card>
           ) : (
-            <div>
-              <Button
-                disabled={isLoading}
-                onClick={() => setShowAuthModal(true, 'signup')}
-              >
-                Signup
-              </Button>
-            </div>
+            <SignupCard />
           )
         ) : (
           <SwitchNetwork toChainId={CHAIN.id} />

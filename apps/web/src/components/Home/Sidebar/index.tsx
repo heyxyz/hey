@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 
+import SignupCard from '@components/Shared/Auth/SignupCard';
 import Footer from '@components/Shared/Footer';
 import { memo } from 'react';
 import useProfileStore from 'src/store/persisted/useProfileStore';
@@ -7,7 +8,6 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 import EnableLensManager from './EnableLensManager';
 import HeyMembershipNft from './HeyMembershipNft';
 import SetProfile from './SetProfile';
-import Signup from './Signup';
 import StaffPicks from './StaffPicks';
 import WhoToFollow from './WhoToFollow';
 
@@ -20,7 +20,7 @@ const Sidebar: FC = () => {
   return (
     <>
       {/* <Gitcoin /> */}
-      {loggedOut && <Signup />}
+      {loggedOut && <SignupCard />}
       {loggedInWithProfile && <HeyMembershipNft />}
       {/* Onboarding steps */}
       {loggedInWithProfile && (
