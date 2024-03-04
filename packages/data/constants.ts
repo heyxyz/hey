@@ -15,7 +15,6 @@ export const HEY_API_URL = IS_PRODUCTION
   : 'http://localhost:4784';
 export const LENSHUB_PROXY = getEnvConfig().lensHubProxyAddress;
 export const TOKEN_HANDLE_REGISTRY = getEnvConfig().tokenHandleRegistry;
-export const PUBLICACT_PROXY = getEnvConfig().publicActProxyAddress;
 export const HEY_LENS_SIGNUP = getEnvConfig().heyLensSignup;
 export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 export const PERMISSIONLESS_CREATOR = getEnvConfig().permissionlessCreator;
