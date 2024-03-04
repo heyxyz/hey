@@ -1,0 +1,21 @@
+User-agent: Googlebot
+Allow: /*
+Disallow: /_next/*
+Disallow: /settings/*
+
+User-agent: Yandex
+Allow: /*
+Disallow: /_next/*
+Disallow: /settings/*
+
+User-agent: bingbot
+Allow: /*
+Disallow: /_next/*
+Disallow: /settings/*
+
+User-agent: *
+Allow: /*
+Disallow: /_next/*
+Disallow: /settings/*
+
+Sitemap: https://hey.xyz/sitemap.xml

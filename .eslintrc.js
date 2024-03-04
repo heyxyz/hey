@@ -1,7 +1,4 @@
 module.exports = {
-  settings: {
-    next: {
-      rootDir: ['apps/*/']
-    }
-  }
+  extends: [require.resolve('@hey/config/eslint/react.js')],
+  ignorePatterns: ['sw.js']
 };
