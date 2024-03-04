@@ -90,8 +90,8 @@ importers:
         specifier: ^9.0.1
         version: 9.0.1
       viem:
-        specifier: ^2.7.18
-        version: 2.7.18(typescript@5.3.3)(zod@3.22.4)
+        specifier: ^2.7.19
+        version: 2.7.19(typescript@5.3.3)(zod@3.22.4)
       vite-express:
         specifier: ^0.15.0
         version: 0.15.0
@@ -236,8 +236,8 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(@types/react-dom@18.2.19)(@types/react@18.2.61)(react-dom@18.2.0)(react@18.2.0)
       '@tanstack/react-query':
-        specifier: ^5.24.6
-        version: 5.24.6(react@18.2.0)
+        specifier: ^5.24.7
+        version: 5.24.7(react@18.2.0)
       '@thirdweb-dev/storage':
         specifier: ^2.0.10
         version: 2.0.10
@@ -335,11 +335,11 @@ importers:
         specifier: ^9.0.1
         version: 9.0.1
       viem:
-        specifier: ^2.7.18
-        version: 2.7.18(typescript@5.3.3)(zod@3.22.4)
+        specifier: ^2.7.19
+        version: 2.7.19(typescript@5.3.3)(zod@3.22.4)
       wagmi:
         specifier: ^2.5.7
-        version: 2.5.7(@tanstack/react-query@5.24.6)(@types/react@18.2.61)(react-dom@18.2.0)(react-native@0.73.5)(react@18.2.0)(typescript@5.3.3)(viem@2.7.18)(zod@3.22.4)
+        version: 2.5.7(@tanstack/react-query@5.24.7)(@types/react@18.2.61)(react-dom@18.2.0)(react-native@0.73.5)(react@18.2.0)(typescript@5.3.3)(viem@2.7.19)(zod@3.22.4)
       zod:
         specifier: ^3.22.4
         version: 3.22.4
@@ -411,8 +411,8 @@ importers:
         specifier: ^5.1.3
         version: 5.1.3(eslint@8.57.0)(prettier@3.2.5)
       eslint-plugin-react:
-        specifier: ^7.33.2
-        version: 7.33.2(eslint@8.57.0)
+        specifier: ^7.34.0
+        version: 7.34.0(eslint@8.57.0)
       eslint-plugin-react-hooks:
         specifier: ^4.6.0
         version: 4.6.0(eslint@8.57.0)
@@ -576,8 +576,8 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0
       viem:
-        specifier: ^2.7.18
-        version: 2.7.18(typescript@5.3.3)(zod@3.22.4)
+        specifier: ^2.7.19
+        version: 2.7.19(typescript@5.3.3)(zod@3.22.4)
     devDependencies:
       '@hey/config':
         specifier: workspace:*
@@ -8414,8 +8414,8 @@ packages:
     resolution: {integrity: sha512-4BMHPrkfYmLP+NvqbbkV7Mk1nnphu+bNmxhhuB0+EMjKA7VfyFCfiyiTf55RRDgLaevyb9LrFK16lHW2owF52w==}
     dev: false
 
-  /@tanstack/query-core@5.24.6:
-    resolution: {integrity: sha512-xYhxiMUPh1JzamVK8VwwkBpIBXVYRyIBW9gjSN+/BB4kL1nS86gnRWeW8L+sacCj1RiyEsysJe3GSvtbIpHdWw==}
+  /@tanstack/query-core@5.24.7:
+    resolution: {integrity: sha512-24d9o44FktHTgTOu3XdQWXMu24SJodmzGWXfvd9gT57ijarjOsN2cUyg/RqyCzuDTfD59+1QdCfPB4QvRRsCjw==}
     dev: false
 
   /@tanstack/query-persist-client-core@4.29.23:
@@ -8452,12 +8452,12 @@ packages:
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 
-  /@tanstack/react-query@5.24.6(react@18.2.0):
-    resolution: {integrity: sha512-eyIWwHiO1ZirYGzqs0kfRMkf8icuXroFunjnsgntk9YgGFbGoPs3Hxy9/OushNvpnkHT9RwPZb8UfEKzMzzEaQ==}
+  /@tanstack/react-query@5.24.7(react@18.2.0):
+    resolution: {integrity: sha512-+yO1UuXeh47/mnegBZcgwqRrxcXiOYkUSMdk69FsNKtPzH7PFFRXLdkyWk/cu6eEc0Zc8g9Skgu26oqEYWTxpQ==}
     peerDependencies:
       react: ^18.0.0
     dependencies:
-      '@tanstack/query-core': 5.24.6
+      '@tanstack/query-core': 5.24.7
       react: 18.2.0
     dev: false
 
@@ -9165,7 +9165,7 @@ packages:
   /@vitest/snapshot@1.3.1:
     resolution: {integrity: sha512-EF++BZbt6RZmOlE3SuTPu/NfwBF6q4ABS37HHXzs2LUVPBLx2QoY/K0fKpRChSo8eLiuxcbCVfqKgx/dplCDuQ==}
     dependencies:
-      magic-string: 0.30.7
+      magic-string: 0.30.8
       pathe: 1.1.2
       pretty-format: 29.7.0
     dev: true
@@ -9185,7 +9185,7 @@ packages:
       pretty-format: 29.7.0
     dev: true
 
-  /@wagmi/connectors@4.1.14(@types/react@18.2.61)(@wagmi/core@2.6.5)(react-dom@18.2.0)(react-native@0.73.5)(react@18.2.0)(typescript@5.3.3)(viem@2.7.18)(zod@3.22.4):
+  /@wagmi/connectors@4.1.14(@types/react@18.2.61)(@wagmi/core@2.6.5)(react-dom@18.2.0)(react-native@0.73.5)(react@18.2.0)(typescript@5.3.3)(viem@2.7.19)(zod@3.22.4):
     resolution: {integrity: sha512-e8I89FsNBtzhIilU3nqmgMR9xvSgCfmkWLz9iCKBTqyitbK5EJU7WTEtjjYFm1v2J//JeAwaA2XEKtG9BLR9jQ==}
     peerDependencies:
       '@wagmi/core': 2.6.5
@@ -9199,11 +9199,11 @@ packages:
       '@metamask/sdk': 0.14.3(@types/react@18.2.61)(react-dom@18.2.0)(react-native@0.73.5)(react@18.2.0)
       '@safe-global/safe-apps-provider': 0.18.1(typescript@5.3.3)(zod@3.22.4)
       '@safe-global/safe-apps-sdk': 8.1.0(typescript@5.3.3)(zod@3.22.4)
-      '@wagmi/core': 2.6.5(@types/react@18.2.61)(react@18.2.0)(typescript@5.3.3)(viem@2.7.18)(zod@3.22.4)
+      '@wagmi/core': 2.6.5(@types/react@18.2.61)(react@18.2.0)(typescript@5.3.3)(viem@2.7.19)(zod@3.22.4)
       '@walletconnect/ethereum-provider': 2.11.1(@types/react@18.2.61)(react@18.2.0)
       '@walletconnect/modal': 2.6.2(@types/react@18.2.61)(react@18.2.0)
       typescript: 5.3.3
-      viem: 2.7.18(typescript@5.3.3)(zod@3.22.4)
+      viem: 2.7.19(typescript@5.3.3)(zod@3.22.4)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -9230,7 +9230,7 @@ packages:
       - zod
     dev: false
 
-  /@wagmi/core@2.6.5(@types/react@18.2.61)(react@18.2.0)(typescript@5.3.3)(viem@2.7.18)(zod@3.22.4):
+  /@wagmi/core@2.6.5(@types/react@18.2.61)(react@18.2.0)(typescript@5.3.3)(viem@2.7.19)(zod@3.22.4):
     resolution: {integrity: sha512-DLyrc0o+dx05oIhBJuxnS7ekS5e6rB5mytlqPme+Km7aLdeBdcfYB4yJyYCyWoi93OLa7M5sbflTttz3o56bKw==}
     peerDependencies:
       '@tanstack/query-core': '>=5.0.0'
@@ -9245,7 +9245,7 @@ packages:
       eventemitter3: 5.0.1
       mipd: 0.0.5(typescript@5.3.3)(zod@3.22.4)
       typescript: 5.3.3
-      viem: 2.7.18(typescript@5.3.3)(zod@3.22.4)
+      viem: 2.7.19(typescript@5.3.3)(zod@3.22.4)
       zustand: 4.4.1(@types/react@18.2.61)(react@18.2.0)
     transitivePeerDependencies:
       - '@types/react'
@@ -10176,6 +10176,15 @@ packages:
       es-shim-unscopables: 1.0.2
     dev: true
 
+  /array.prototype.toreversed@1.1.2:
+    resolution: {integrity: sha512-wwDCoT4Ck4Cz7sLtgUmzR5UV3YF5mFHUlbChCzZBQZ+0m2cl/DH3tKgvphv1nKgFsJ48oCSg6p91q2Vm0I/ZMA==}
+    dependencies:
+      call-bind: 1.0.7
+      define-properties: 1.2.1
+      es-abstract: 1.22.5
+      es-shim-unscopables: 1.0.2
+    dev: true
+
   /array.prototype.tosorted@1.1.3:
     resolution: {integrity: sha512-/DdH4TiTmOKzyQbp/eadcCVexiCb36xJg7HshYOYJnNZFDj33GEv0P7GxsynpShhq4OLYJzbGcBDkLsDt7MnNg==}
     dependencies:
@@ -10319,7 +10328,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.23.0
-      caniuse-lite: 1.0.30001591
+      caniuse-lite: 1.0.30001593
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -10655,7 +10664,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001591
+      caniuse-lite: 1.0.30001593
       electron-to-chromium: 1.4.690
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.23.0)
@@ -10822,8 +10831,8 @@ packages:
     resolution: {integrity: sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==}
     engines: {node: '>=10'}
 
-  /caniuse-lite@1.0.30001591:
-    resolution: {integrity: sha512-PCzRMei/vXjJyL5mJtzNiUCKP59dm8Apqc3PH8gJkMnMXZGox93RbE76jHsmLwmIo6/3nsYIpJtx0O7u5PqFuQ==}
+  /caniuse-lite@1.0.30001593:
+    resolution: {integrity: sha512-UWM1zlo3cZfkpBysd7AS+z+v007q9G1+fLTUU42rQnY6t2axoogPW/xol6T7juU5EUoOhML4WgBIdG+9yYqAjQ==}
 
   /capital-case@1.0.4:
     resolution: {integrity: sha512-ds37W8CytHgwnhGGTi88pcPyR15qoNkOpYwmMMfnWqqWgESapLqvDx6huFjQ5vqWSn2Z06173XNA7LtMOeUh1A==}
@@ -12333,7 +12342,7 @@ packages:
       eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@6.21.0)(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1)(eslint@8.57.0)
       eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.1.0)(eslint@8.57.0)
       eslint-plugin-jsx-a11y: 6.8.0(eslint@8.57.0)
-      eslint-plugin-react: 7.33.2(eslint@8.57.0)
+      eslint-plugin-react: 7.34.0(eslint@8.57.0)
       eslint-plugin-react-hooks: 4.6.0(eslint@8.57.0)
       typescript: 5.3.3
     transitivePeerDependencies:
@@ -12549,14 +12558,16 @@ packages:
       eslint: 8.57.0
     dev: true
 
-  /eslint-plugin-react@7.33.2(eslint@8.57.0):
-    resolution: {integrity: sha512-73QQMKALArI8/7xGLNI/3LylrEYrlKZSb5C9+q3OtOewTnMQi5cT+aE9E41sLCmli3I9PGGmD1yiZydyo4FEPw==}
+  /eslint-plugin-react@7.34.0(eslint@8.57.0):
+    resolution: {integrity: sha512-MeVXdReleBTdkz/bvcQMSnCXGi+c9kvy51IpinjnJgutl3YTHWsDdke7Z1ufZpGfDG8xduBDKyjtB9JH1eBKIQ==}
     engines: {node: '>=4'}
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
     dependencies:
       array-includes: 3.1.7
+      array.prototype.findlast: 1.2.4
       array.prototype.flatmap: 1.3.2
+      array.prototype.toreversed: 1.1.2
       array.prototype.tosorted: 1.1.3
       doctrine: 2.1.0
       es-iterator-helpers: 1.0.17
@@ -15555,8 +15566,8 @@ packages:
     resolution: {integrity: sha512-Pn9cox5CsMYngeDbmChANltQl+5pi6XmTrraMSzhPmMBbmgcxmqWry0U3PGapCU1yB4/LqCcom7qhHZiF/jGfQ==}
     dev: true
 
-  /magic-string@0.30.7:
-    resolution: {integrity: sha512-8vBuFF/I/+OSLRmdf2wwFCJCz+nSn0m6DPvGH1fS/KiQoSaR+sETbov0eIk9KhEKy8CYqIkIAnbohxT/4H0kuA==}
+  /magic-string@0.30.8:
+    resolution: {integrity: sha512-ISQTe55T2ao7XtlAStud6qwYPZjE4GK1S/BeVPus4jrq6JuOnQ00YKQC581RWhR122W7msZV263KzVeLoqidyQ==}
     engines: {node: '>=12'}
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.15
@@ -16497,7 +16508,7 @@ packages:
       '@next/env': 14.1.1
       '@swc/helpers': 0.5.2
       busboy: 1.6.0
-      caniuse-lite: 1.0.30001591
+      caniuse-lite: 1.0.30001593
       graceful-fs: 4.2.11
       postcss: 8.4.31
       react: 18.2.0
@@ -20409,8 +20420,8 @@ packages:
       - zod
     dev: false
 
-  /viem@2.7.18(typescript@5.3.3)(zod@3.22.4):
-    resolution: {integrity: sha512-tA7fDLrbnRiTIYb9v57PHdc2ARouLDE5XEEBsNu+BN8O8obgh5JevXDGwn9eSWZdvz1PnydGHkCfJGfSkSS9+w==}
+  /viem@2.7.19(typescript@5.3.3)(zod@3.22.4):
+    resolution: {integrity: sha512-UOMeqy+8p2709ra2j9HEOL1NfjsXZzlJ8gwR6YO/zXH8KIZvyzW07t4iQARF5+ShVZ/7+/1ec8oPjVi1M//33A==}
     peerDependencies:
       typescript: '>=5.0.4'
     peerDependenciesMeta:
@@ -20531,7 +20542,7 @@ packages:
       debug: 4.3.4(supports-color@8.1.1)
       execa: 8.0.1
       local-pkg: 0.5.0
-      magic-string: 0.30.7
+      magic-string: 0.30.8
       pathe: 1.1.2
       picocolors: 1.0.0
       std-env: 3.7.0
@@ -20564,7 +20575,7 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
-  /wagmi@2.5.7(@tanstack/react-query@5.24.6)(@types/react@18.2.61)(react-dom@18.2.0)(react-native@0.73.5)(react@18.2.0)(typescript@5.3.3)(viem@2.7.18)(zod@3.22.4):
+  /wagmi@2.5.7(@tanstack/react-query@5.24.7)(@types/react@18.2.61)(react-dom@18.2.0)(react-native@0.73.5)(react@18.2.0)(typescript@5.3.3)(viem@2.7.19)(zod@3.22.4):
     resolution: {integrity: sha512-xSuteMXFKvra4xDddqZbZv/gQlcg3X+To5AoZW7WoAm0iVlF8/vEGpQzCWy6KZs2z1szxPrr0YnH3Zr1Qj4E/A==}
     peerDependencies:
       '@tanstack/react-query': '>=5.0.0'
@@ -20575,13 +20586,13 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@tanstack/react-query': 5.24.6(react@18.2.0)
-      '@wagmi/connectors': 4.1.14(@types/react@18.2.61)(@wagmi/core@2.6.5)(react-dom@18.2.0)(react-native@0.73.5)(react@18.2.0)(typescript@5.3.3)(viem@2.7.18)(zod@3.22.4)
-      '@wagmi/core': 2.6.5(@types/react@18.2.61)(react@18.2.0)(typescript@5.3.3)(viem@2.7.18)(zod@3.22.4)
+      '@tanstack/react-query': 5.24.7(react@18.2.0)
+      '@wagmi/connectors': 4.1.14(@types/react@18.2.61)(@wagmi/core@2.6.5)(react-dom@18.2.0)(react-native@0.73.5)(react@18.2.0)(typescript@5.3.3)(viem@2.7.19)(zod@3.22.4)
+      '@wagmi/core': 2.6.5(@types/react@18.2.61)(react@18.2.0)(typescript@5.3.3)(viem@2.7.19)(zod@3.22.4)
       react: 18.2.0
       typescript: 5.3.3
       use-sync-external-store: 1.2.0(react@18.2.0)
-      viem: 2.7.18(typescript@5.3.3)(zod@3.22.4)
+      viem: 2.7.19(typescript@5.3.3)(zod@3.22.4)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'

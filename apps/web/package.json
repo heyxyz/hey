@@ -36,7 +36,7 @@
     "@lexical/utils": "^0.13.1",
     "@livepeer/react": "3.1.9",
     "@radix-ui/react-hover-card": "^1.0.7",
-    "@tanstack/react-query": "^5.24.6",
+    "@tanstack/react-query": "^5.24.7",
     "@thirdweb-dev/storage": "^2.0.10",
     "@uidotdev/usehooks": "^2.4.1",
     "alchemy-sdk": "^3.1.2",
@@ -69,7 +69,7 @@
     "urlcat": "^3.1.0",
     "use-resize-observer": "^9.1.0",
     "uuid": "^9.0.1",
-    "viem": "^2.7.18",
+    "viem": "^2.7.19",
     "wagmi": "^2.5.7",
     "zod": "^3.22.4",
     "zustand": "^4.5.2"
