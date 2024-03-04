@@ -12,9 +12,9 @@ import AllowanceButton from '@components/Settings/Allowance/Button';
 import LoginButton from '@components/Shared/Navbar/LoginButton';
 import NoBalanceError from '@components/Shared/NoBalanceError';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
-import { LensHub, PublicAct } from '@hey/abis';
+import { LensHub } from '@hey/abis';
 import { Errors } from '@hey/data';
-import { LENSHUB_PROXY, PUBLICACT_PROXY } from '@hey/data/constants';
+import { LENSHUB_PROXY } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import {
   useActOnOpenActionMutation,
@@ -40,7 +40,7 @@ import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import useProfileStore from 'src/store/persisted/useProfileStore';
-import { formatUnits, isAddress } from 'viem';
+import { formatUnits } from 'viem';
 import {
   useAccount,
   useBalance,
@@ -79,7 +79,6 @@ const CollectAction: FC<CollectActionProps> = ({
   );
 
   const { id: sessionProfileId } = getCurrentSession();
-  const isWalletUser = isAddress(sessionProfileId);
 
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
@@ -122,7 +121,6 @@ const CollectAction: FC<CollectActionProps> = ({
   const isFreeCollectModule = !amount;
   const isSimpleFreeCollectModule =
     openAction.__typename === 'SimpleCollectOpenActionSettings';
-  const isFollowersOnly = collectModule?.followerOnly;
   const canUseManager =
     canUseLensManager && !collectModule?.followerOnly && isFreeCollectModule;
 
@@ -174,7 +172,6 @@ const CollectAction: FC<CollectActionProps> = ({
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
-  const walletUserFunctionName = 'publicCollect';
   const profileUserFunctionName = isLegacyCollectModule
     ? 'collectLegacy'
     : 'act';
@@ -183,27 +180,21 @@ const CollectAction: FC<CollectActionProps> = ({
     mutation: {
       onError: (error: Error) => {
         onError(error);
-        if (!isWalletUser) {
-          setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
-        }
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
       },
       onSuccess: () => {
         onCompleted();
-        if (!isWalletUser) {
-          setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
-        }
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
       }
     }
   });
 
   const write = async ({ args }: { args: any[] }) => {
     return await writeContractAsync({
-      abi: (isWalletUser ? PublicAct : LensHub) as any,
-      address: isWalletUser ? PUBLICACT_PROXY : LENSHUB_PROXY,
+      abi: LensHub,
+      address: LENSHUB_PROXY,
       args,
-      functionName: isWalletUser
-        ? walletUserFunctionName
-        : profileUserFunctionName
+      functionName: profileUserFunctionName
     });
   };
 
@@ -388,10 +379,6 @@ const CollectAction: FC<CollectActionProps> = ({
   }
 
   if (isAllCollected || isCollectExpired) {
-    return null;
-  }
-
-  if (isWalletUser && isFollowersOnly) {
     return null;
   }
 

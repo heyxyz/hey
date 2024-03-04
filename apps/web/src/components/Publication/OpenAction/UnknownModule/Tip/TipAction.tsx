@@ -13,7 +13,7 @@ import { Button, Spinner, WarningMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import getCurrentSession from '@lib/getCurrentSession';
 import { useState } from 'react';
-import { formatUnits, isAddress } from 'viem';
+import { formatUnits } from 'viem';
 import { useAccount, useBalance } from 'wagmi';
 
 interface TipActionProps {
@@ -37,7 +37,6 @@ const TipAction: FC<TipActionProps> = ({
 }) => {
   const [allowed, setAllowed] = useState(true);
   const { id: sessionProfileId } = getCurrentSession();
-  const isWalletUser = isAddress(sessionProfileId);
 
   const { address } = useAccount();
 
@@ -89,10 +88,6 @@ const TipAction: FC<TipActionProps> = ({
         <LoginButton title="Login to Collect" />
       </div>
     );
-  }
-
-  if (isWalletUser) {
-    return null;
   }
 
   if (allowanceLoading) {

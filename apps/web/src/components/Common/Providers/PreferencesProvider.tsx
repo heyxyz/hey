@@ -11,7 +11,6 @@ import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useVerifiedMembersStore } from 'src/store/persisted/useVerifiedMembersStore';
-import { isAddress } from 'viem';
 
 const PreferencesProvider: FC = () => {
   const { id: sessionProfileId } = getCurrentSession();
@@ -37,7 +36,7 @@ const PreferencesProvider: FC = () => {
   // Fetch preferences
   const fetchPreferences = async () => {
     try {
-      if (Boolean(sessionProfileId) && !isAddress(sessionProfileId)) {
+      if (Boolean(sessionProfileId)) {
         const preferences = await getPreferences(
           sessionProfileId,
           getAuthApiHeaders()
