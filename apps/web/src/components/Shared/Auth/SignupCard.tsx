@@ -1,13 +1,14 @@
 import type { FC } from 'react';
 
-import { useSignupStore } from '@components/Shared/Auth/Signup';
 import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { AUTH } from '@hey/data/tracking';
 import { Button, Card } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 
-const Signup: FC = () => {
+import { useSignupStore } from './Signup';
+
+const SignupCard: FC = () => {
   const setShowAuthModal = useGlobalModalStateStore(
     (state) => state.setShowAuthModal
   );
@@ -39,4 +40,4 @@ const Signup: FC = () => {
   );
 };
 
-export default Signup;
+export default SignupCard;
