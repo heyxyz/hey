@@ -1,25 +1,32 @@
+import type { FC } from 'react';
+
 import Login from '@components/Shared/Auth/Login';
 import { APP_NAME } from '@hey/data/constants';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useAccount } from 'wagmi';
 
+import AuthMessage from './AuthMessage';
 import Signup from './Signup';
+import { SignupMessage } from './Signup/ChooseHandle';
+
+interface MessageProps {
+  description: string;
+  title: string;
+}
 
 const NotConnected = () => (
-  <div className="space-y-2">
-    <div className="text-xl font-bold">Connect your wallet.</div>
-    <div className="ld-text-gray-500 text-sm">
-      Connect with one of our available wallet providers or create a new one.
-    </div>
-  </div>
+  <AuthMessage
+    description="Connect with one of our available wallet providers or create a new one."
+    title="Connect your wallet."
+  />
 );
 
 const Auth: FC = () => {
   const authModalType = useGlobalModalStateStore(
     (state) => state.authModalType
   );
-  const [hasProfiles, setHasProfiles] = useState(false);
+  const [hasProfiles, setHasProfiles] = useState(true);
   const { isConnected } = useAccount();
 
   return (
@@ -33,22 +40,12 @@ const Auth: FC = () => {
         <div className="space-y-5">
           {isConnected ? (
             hasProfiles ? (
-              <div className="space-y-2">
-                <div className="text-xl font-bold">
-                  Please sign the message.
-                </div>
-                <div className="ld-text-gray-500 text-sm">
-                  {APP_NAME} uses this signature to verify that you're the owner
-                  of this address.
-                </div>
-              </div>
+              <AuthMessage
+                description={`${APP_NAME} uses this signature to verify that you're the owner of this address.`}
+                title="Please sign the message."
+              />
             ) : (
-              <div className="space-y-2">
-                <div className="text-xl font-bold">Signup to {APP_NAME}.</div>
-                <div className="ld-text-gray-500 text-sm">
-                  Create a new profile on Lens Protocol {APP_NAME}.
-                </div>
-              </div>
+              <SignupMessage />
             )
           ) : (
             <NotConnected />
