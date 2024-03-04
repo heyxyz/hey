@@ -6,7 +6,7 @@ import type {
 import type { FC } from 'react';
 
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
-import { ArrowRightCircleIcon, KeyIcon } from '@heroicons/react/24/outline';
+import { KeyIcon } from '@heroicons/react/24/outline';
 import { XCircleIcon } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data/errors';
 import { AUTH } from '@hey/data/tracking';
@@ -21,13 +21,21 @@ import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN } from 'src/constants';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { signIn } from 'src/store/persisted/useAuthStore';
 import { useAccount, useChainId, useDisconnect, useSignMessage } from 'wagmi';
 
 import UserProfile from '../UserProfile';
 import WalletSelector from './WalletSelector';
 
-const Login: FC = () => {
+interface LoginProps {
+  setHasProfiles: (hasProfiles: boolean) => void;
+}
+
+const Login: FC<LoginProps> = ({ setHasProfiles }) => {
+  const setShowAuthModal = useGlobalModalStateStore(
+    (state) => state.setShowAuthModal
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [loggingInProfileId, setLoggingInProfileId] = useState<null | string>(
     null
@@ -52,6 +60,9 @@ const Login: FC = () => {
   };
   const { data: profilesManaged, loading: profilesManagedLoading } =
     useProfilesManagedQuery({
+      onCompleted: (data) => {
+        setHasProfiles(data?.profilesManaged.items.length > 0);
+      },
       skip: !address,
       variables: {
         lastLoggedInProfileRequest: request,
@@ -140,16 +151,9 @@ const Login: FC = () => {
             <div>
               <Button
                 disabled={isLoading}
-                icon={
-                  isLoading ? (
-                    <Spinner size="xs" />
-                  ) : (
-                    <ArrowRightCircleIcon className="size-4" />
-                  )
-                }
-                onClick={() => handleSign()}
+                onClick={() => setShowAuthModal(true, 'signup')}
               >
-                Sign in with Lens
+                Signup
               </Button>
             </div>
           )
