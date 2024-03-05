@@ -19,7 +19,7 @@
   "devDependencies": {
     "@hey/config": "workspace:*",
     "@types/normalize-wheel": "^1.0.4",
-    "@types/react": "^18.2.61",
+    "@types/react": "^18.2.63",
     "typescript": "^5.3.3"
   }
 }
