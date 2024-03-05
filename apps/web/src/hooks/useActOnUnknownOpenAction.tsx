@@ -1,4 +1,7 @@
-import type { ActOnOpenActionLensManagerRequest } from '@hey/lens';
+import type {
+  ActOnOpenActionLensManagerRequest,
+  BroadcastOnchainMutation
+} from '@hey/lens';
 import type { Address } from 'viem';
 
 import { LensHub } from '@hey/abis';
@@ -36,6 +39,10 @@ const useActOnUnknownOpenAction = ({
     (state) => state.setLensHubOnchainSigNonce
   );
   const [isLoading, setIsLoading] = useState(false);
+  const [txHash, setTxHash] = useState<`0x${string}` | undefined>();
+  const [relayStatus, setRelayStatus] = useState<
+    BroadcastOnchainMutation | undefined
+  >();
   const handleWrongNetwork = useHandleWrongNetwork();
 
   const { canBroadcast, canUseLensManager } =
@@ -100,14 +107,22 @@ const useActOnUnknownOpenAction = ({
             variables: { request: { id, signature } }
           });
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return await write({ args: [typedData.value] });
+            const txResult = await write({ args: [typedData.value] });
+            setTxHash(txResult);
+            return txResult;
           }
           setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
-
+          console.log('Broadcast Status');
+          console.log(data);
+          if (data) {
+            setRelayStatus(data);
+          }
           return;
         }
 
-        return await write({ args: [typedData.value] });
+        const txResult = await write({ args: [typedData.value] });
+        setTxHash(txResult);
+        return txResult;
       },
       onError
     });
@@ -169,7 +184,7 @@ const useActOnUnknownOpenAction = ({
     }
   };
 
-  return { actOnUnknownOpenAction, isLoading };
+  return { actOnUnknownOpenAction, isLoading, relayStatus, txHash };
 };
 
 export default useActOnUnknownOpenAction;
