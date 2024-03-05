@@ -211,6 +211,9 @@ importers:
       '@hey/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      '@layerzerolabs/scan-client':
+        specifier: ^0.0.8
+        version: 0.0.8(axios@1.6.7)
       '@lens-protocol/metadata':
         specifier: ^1.1.5
         version: 1.1.5(zod@3.22.4)
@@ -4833,6 +4836,14 @@ packages:
 
   /@kurkle/color@0.3.2:
     resolution: {integrity: sha512-fuscdXJ9G1qb7W8VdHi+IwRqij3lBkosAm4ydQtEmbY58OzHXqQhvlxqEkoz0yssNVn38bcpRWgA9PP+OGoisw==}
+    dev: false
+
+  /@layerzerolabs/scan-client@0.0.8(axios@1.6.7):
+    resolution: {integrity: sha512-V9vvt9GW0+AHoWXfOSNmZ9WUa28fVBmC93J/f9RLeDMEy5VR8srW2Du5pf1mMAg6ncEL0kQ1xkVCu+X6ARFBtQ==}
+    peerDependencies:
+      axios: '*'
+    dependencies:
+      axios: 1.6.7(debug@4.3.4)
     dev: false
 
   /@lens-protocol/metadata@1.1.5(zod@3.22.4):
