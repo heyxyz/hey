@@ -111,7 +111,6 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
                 ? 'submit'
                 : 'button'
             }
-            variant="secondary"
           >
             {button}
           </Button>
