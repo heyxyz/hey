@@ -86,6 +86,10 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
           raribleApiKey: process.env.NEXT_PUBLIC_RARIBLE_API_KEY || ''
         });
 
+        const addressParameter = address
+          ? address
+          : '0x0000000000000000000000000000000000000000';
+
         // Call the async function and pass the link
         try {
           const pubInfo = formatPublicationData(targetPublication);
@@ -94,7 +98,7 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
               pubInfo,
               targetPublication.by.id,
               targetPublication.by.ownedBy.address,
-              address as Address,
+              addressParameter as Address,
               '137', // srcChainId, only supported on Polygon POS for now
               selectedQuantity !== 1 ? BigInt(selectedQuantity) : 1n,
               selectedCurrency.contractAddress
@@ -110,7 +114,7 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
       const isCurrencyChanged =
         prevCurrencyRef.current.contractAddress !==
         selectedCurrency.contractAddress;
-      if ((module && address && !actionData) || isCurrencyChanged) {
+      if ((module && !actionData) || isCurrencyChanged) {
         actionDataFromPost();
         prevCurrencyRef.current = selectedCurrency;
       }

@@ -77,14 +77,15 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCurrency]);
 
-  const { actOnUnknownOpenAction, isLoading } = useActOnUnknownOpenAction({
-    signlessApproved: module.signlessApproved,
-    successToast: 'Initiated cross-chain NFT mint!'
-  });
+  const { actOnUnknownOpenAction, isLoading, relayStatus, txHash } =
+    useActOnUnknownOpenAction({
+      signlessApproved: module.signlessApproved,
+      successToast: 'Initiated cross-chain NFT mint'
+    });
 
   const act = async () => {
     if (actionData && publication) {
-      return await actOnUnknownOpenAction({
+      await actOnUnknownOpenAction({
         address: VerifiedOpenActionModules.DecentNFT as `0x${string}`,
         data: actionData.actArguments.actionModuleData,
         publicationId: publication.id
@@ -265,7 +266,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                   </p>
                   <div className="ld-text-gray-500 text-sm">
                     ~$
-                    {(Number(formattedPrice) * usdPrice).toFixed(
+                    {(Number(formattedTotalPrice) * usdPrice).toFixed(
                       selectedCurrency?.symbol === 'WETH' ? 4 : 2
                     )}{' '}
                   </div>
@@ -288,9 +289,10 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                     name: selectedCurrency.name,
                     symbol: selectedCurrency.symbol
                   },
-                  value: formattedPrice
+                  value: formattedTotalPrice
                 }}
-                title={`Pay with ${formattedPrice} ${selectedCurrency.symbol}`}
+                relayStatus={relayStatus}
+                txHash={txHash}
               />
             ) : null}
             <div className="flex w-full items-center justify-center text-center text-sm">
