@@ -35,6 +35,7 @@ import isFeatureAvailable from '@lib/isFeatureAvailable';
 import isVerified from '@lib/isVerified';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import useProfileStore from 'src/store/persisted/useProfileStore';
@@ -56,6 +57,7 @@ interface DetailsProps {
 }
 
 const Details: FC<DetailsProps> = ({ profile }) => {
+  const { push } = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
   const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
@@ -139,15 +141,14 @@ const Details: FC<DetailsProps> = ({ profile }) => {
         <Followerings profile={profile} />
         <div className="flex items-center space-x-2">
           {currentProfile?.id === profile.id ? (
-            <Link href="/settings">
-              <Button
-                icon={<Cog6ToothIcon className="size-5" />}
-                outline
-                variant="secondary"
-              >
-                Edit Profile
-              </Button>
-            </Link>
+            <Button
+              icon={<Cog6ToothIcon className="size-5" />}
+              onClick={() => push('/settings')}
+              outline
+              variant="secondary"
+            >
+              Edit Profile
+            </Button>
           ) : followType !== FollowModuleType.RevertFollowModule ? (
             profile.operations.isFollowedByMe.value ? (
               <>
