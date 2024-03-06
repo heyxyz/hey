@@ -24,7 +24,10 @@ const AggregatedNotificationTitle: FC<AggregatedNotificationTitleProps> = ({
       <span> {text} </span>
       <span>
         {type ? (
-          <Link className="hover:underline" href={linkToType}>
+          <Link
+            className="outline-none hover:underline focus:underline"
+            href={linkToType}
+          >
             {type.toLowerCase()}
           </Link>
         ) : null}

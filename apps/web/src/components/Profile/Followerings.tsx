@@ -24,7 +24,7 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
   return (
     <div className="flex gap-8">
       <button
-        className="text-left"
+        className="text-left outline-offset-4"
         onClick={() => {
           setShowFollowingModal(!showFollowingModal);
           Leafwatch.track(PROFILE.OPEN_FOLLOWING, {
@@ -39,7 +39,7 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         </div>
       </button>
       <button
-        className="text-left"
+        className="text-left outline-offset-4"
         onClick={() => {
           setShowFollowersModal(!showFollowersModal);
           Leafwatch.track(PROFILE.OPEN_FOLLOWERS, {
