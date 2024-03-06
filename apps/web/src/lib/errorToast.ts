@@ -7,11 +7,14 @@ import { toast } from 'react-hot-toast';
  * @returns void
  */
 const errorToast = (error: any) => {
-  if (
-    error?.message.includes('viem') ||
-    error?.message?.includes('Usage limit exceeded, please try again later')
-  ) {
+  if (error?.message.includes('viem')) {
     return;
+  }
+
+  if (error?.message.includes('Connector not connected')) {
+    return toast.error('Connect or switch to the correct wallet!', {
+      id: 'connector-error'
+    });
   }
 
   toast.error(
