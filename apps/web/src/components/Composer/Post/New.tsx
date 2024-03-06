@@ -65,7 +65,7 @@ const NewPost: FC = () => {
           type="button"
         >
           <PencilSquareIcon className="size-5" />
-          <span>What's happening?</span>
+          <span>What's new?!</span>
         </button>
       </div>
     </Card>
