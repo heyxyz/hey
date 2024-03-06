@@ -25,7 +25,10 @@ const FallbackProfileName: FC<FallbackProfileNameProps> = ({
   return (
     <>
       <Link
-        className={cn('max-w-sm truncate hover:underline', className)}
+        className={cn(
+          'max-w-sm truncate outline-none hover:underline focus:underline',
+          className
+        )}
         href={getProfile(profile).link}
       >
         <b className="whitespace-nowrap">
