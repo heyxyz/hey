@@ -17,7 +17,7 @@ const NftOwnershipCondition: FC<NftOwnershipConditionProps> = ({
   });
 
   return (
-    <div className="flex items-center space-x-2">
+    <div className="flex items-center space-x-11 md:space-x-2">
       <div>Must own the NFT:</div>
       {loading ? (
         <div className="shimmer h-3 w-28 rounded-lg" />
