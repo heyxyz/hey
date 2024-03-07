@@ -146,9 +146,7 @@ const UserPreview: FC<UserPreviewProps> = ({
             <div className="text-base">
               {nFormatter(profile.stats.following)}
             </div>
-            <div className="ld-text-gray-500 text-sm">
-              {plur('Following', profile.stats.following)}
-            </div>
+            <div className="ld-text-gray-500 text-sm">Following</div>
           </div>
           <div className="text-md flex items-center space-x-1">
             <div className="text-base">
