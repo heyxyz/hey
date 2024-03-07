@@ -20,8 +20,8 @@ const TOKEN_SYMBOLS: TokenSymbolMap = {
  * @param symbol The symbol of the token.
  * @returns The symbol of the token.
  */
-const getAssetSymbol = (symbol: string): string => {
-  return TOKEN_SYMBOLS[symbol] || 'MATIC';
+const getAssetSymbol = (symbol: string): null | string => {
+  return TOKEN_SYMBOLS[symbol] || null;
 };
 
 export default getAssetSymbol;
