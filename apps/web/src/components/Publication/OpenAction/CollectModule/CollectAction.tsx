@@ -331,8 +331,7 @@ const CollectAction: FC<CollectActionProps> = ({
       setIsLoading(true);
       if (isLegacyCollectModule) {
         const legcayCollectRequest: LegacyCollectRequest = {
-          on: targetPublication?.id,
-          referrer: [publication.by.id]
+          on: targetPublication?.id
         };
 
         if (canUseManager) {
@@ -349,8 +348,7 @@ const CollectAction: FC<CollectActionProps> = ({
 
       const actOnRequest: ActOnOpenActionLensManagerRequest = {
         actOn: { [getOpenActionActOnKey(openAction.type)]: true },
-        for: targetPublication?.id,
-        referrers: [publication.by.id]
+        for: targetPublication?.id
       };
 
       if (canUseManager) {
