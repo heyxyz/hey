@@ -122,7 +122,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
             message={
               <div className="flex items-center space-x-1.5">
                 <ClockIcon className="size-4" />
-                <span>This collection has been ended</span>
+                <span>This collection has ended</span>
               </div>
             }
           />
