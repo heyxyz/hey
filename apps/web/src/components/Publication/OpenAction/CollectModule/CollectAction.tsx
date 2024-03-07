@@ -107,7 +107,7 @@ const CollectAction: FC<CollectActionProps> = ({
   const isAllCollected = collectLimit
     ? countOpenActions >= collectLimit
     : false;
-  const isCollectExpired = endTimestamp
+  const isSaleEnded = endTimestamp
     ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
     : false;
   const isLegacyCollectModule =
@@ -378,7 +378,7 @@ const CollectAction: FC<CollectActionProps> = ({
     return null;
   }
 
-  if (isAllCollected || isCollectExpired) {
+  if (isAllCollected || isSaleEnded) {
     return null;
   }
 
