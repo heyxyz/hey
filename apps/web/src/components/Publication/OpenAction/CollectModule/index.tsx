@@ -104,9 +104,9 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
         {collectModule?.followerOnly ? (
           <div className="pb-5">
             <CollectWarning
-              handle={getProfile(publication.by).slugWithPrefix}
+              handle={getProfile(targetPublication.by).slugWithPrefix}
               isSuperFollow={
-                publication?.by?.followModule?.type ===
+                targetPublication?.by?.followModule?.type ===
                 FollowModuleType.FeeFollowModule
               }
             />
