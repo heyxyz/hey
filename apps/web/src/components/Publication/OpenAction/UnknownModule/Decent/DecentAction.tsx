@@ -1,16 +1,9 @@
-import type {
-  Amount,
-  ApprovedAllowanceAmountResult,
-  BroadcastOnchainMutation,
-  UnknownOpenActionModuleSettings
-} from '@hey/lens';
+import type { Amount, BroadcastOnchainMutation } from '@hey/lens';
 import type { FC } from 'react';
 
-import AllowanceButton from '@components/Settings/Allowance/Button';
 import LoginButton from '@components/Shared/Navbar/LoginButton';
 import MetaDetails from '@components/Shared/Staff/MetaDetails';
 import { LinkIcon } from '@heroicons/react/24/outline';
-import { useApprovedModuleAllowanceAmountQuery } from '@hey/lens';
 import { Button, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import {
@@ -25,9 +18,9 @@ import { useAccount, useBalance } from 'wagmi';
 
 interface DecentActionProps {
   act: () => void;
+  allowanceLoading?: boolean;
   className?: string;
   isLoading?: boolean;
-  module: UnknownOpenActionModuleSettings;
   moduleAmount?: Amount;
   relayStatus?: BroadcastOnchainMutation;
   txHash?: string;
@@ -35,14 +28,13 @@ interface DecentActionProps {
 
 const DecentAction: FC<DecentActionProps> = ({
   act,
+  allowanceLoading,
   className = '',
   isLoading = false,
-  module,
   moduleAmount,
-  relayStatus,
+  // relayStatus,
   txHash
 }) => {
-  const [allowed, setAllowed] = useState(true);
   const [pending, setPending] = useState(false);
   const { id: sessionProfileId } = getCurrentSession();
   const isWalletUser = isAddress(sessionProfileId);
@@ -55,28 +47,6 @@ const DecentAction: FC<DecentActionProps> = ({
   const assetSymbol = moduleAmount?.asset?.symbol;
   const polygonLayerZeroChainId = 109;
   const loadingState: boolean = isLoading || pending;
-
-  const { data: allowanceData, loading: allowanceLoading } =
-    useApprovedModuleAllowanceAmountQuery({
-      fetchPolicy: 'no-cache',
-      onCompleted: ({ approvedModuleAllowanceAmount }) => {
-        if (!amount) {
-          return;
-        }
-
-        const allowedAmount = parseFloat(
-          approvedModuleAllowanceAmount[0]?.allowance.value
-        );
-        setAllowed(allowedAmount > amount);
-      },
-      skip: !amount || !sessionProfileId || !assetAddress,
-      variables: {
-        request: {
-          currencies: [assetAddress],
-          unknownOpenActionModules: [module.contract.address]
-        }
-      }
-    });
 
   const { data: balanceData } = useBalance({
     address,
@@ -117,6 +87,17 @@ const DecentAction: FC<DecentActionProps> = ({
     return () => clearInterval(interval);
   }, [txHash]);
 
+  // TODO: Test condition
+  // if (true) {
+  //   return (
+  //     <Button className={className} onClick={act}>
+  //       <div>
+  //         {`Mint for ${moduleAmount?.value} ${moduleAmount?.asset.symbol}`}
+  //       </div>
+  //     </Button>
+  //   );
+  // }
+
   if (!sessionProfileId) {
     return (
       <div className="w-full">
@@ -147,21 +128,6 @@ const DecentAction: FC<DecentActionProps> = ({
     );
   }
 
-  if (!allowed) {
-    return (
-      <AllowanceButton
-        allowed={allowed}
-        className={className}
-        module={
-          allowanceData
-            ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult
-        }
-        setAllowed={setAllowed}
-        title={`Approve ${assetSymbol} Token Allowance`}
-      />
-    );
-  }
-
   return (
     <>
       <Button
@@ -173,7 +139,7 @@ const DecentAction: FC<DecentActionProps> = ({
         <div>
           {loadingState
             ? 'Pending'
-            : `Pay with ${moduleAmount?.value} ${moduleAmount?.asset.symbol}`}
+            : `Mint for ${moduleAmount?.value} ${moduleAmount?.asset.symbol}`}
         </div>
       </Button>
       {txHash ? (

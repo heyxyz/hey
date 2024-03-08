@@ -19,12 +19,16 @@ import {
   UserIcon
 } from '@heroicons/react/24/outline';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
-import { useDefaultProfileQuery } from '@hey/lens';
+import {
+  useApprovedModuleAllowanceAmountQuery,
+  useDefaultProfileQuery
+} from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import getRedstonePrice from '@hey/lib/getRedstonePrice';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import truncateByWords from '@hey/lib/truncateByWords';
 import { HelpTooltip, Modal } from '@hey/ui';
+import getCurrentSession from '@lib/getCurrentSession';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { CHAIN } from 'src/constants';
@@ -32,6 +36,7 @@ import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
 
 import CurrencySelector from './CurrencySelector';
 import DecentAction from './DecentAction';
+import StepperApprovals from './StepperApprovals';
 
 // TODO: Get description from NFT Metadata
 const MOCK_DESCRIPTION =
@@ -122,11 +127,53 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
 
   const [showCurrencySelector, setShowCurrencySelector] = useState(false);
 
+  const [isModalCollapsed, setIsCollapsed] = useState(false);
+
+  // TODO: fetch permit2 allowance status and update with useEffect depending on currency
+  const [permit2Allowed, setPermit2Allowed] = useState(false);
+
+  const approvePermit2 = (token: AllowedToken) => {
+    console.log(`${token} approved for permit2`);
+    setPermit2Allowed(true);
+  };
+
+  const [allowed, setAllowed] = useState(true);
+  const { id: sessionProfileId } = getCurrentSession();
+
+  const amount = parseInt(formattedTotalPrice) || 0;
+  const assetAddress = selectedCurrency.contractAddress;
+
+  const { data: allowanceData, loading: allowanceLoading } =
+    useApprovedModuleAllowanceAmountQuery({
+      fetchPolicy: 'no-cache',
+      onCompleted: ({ approvedModuleAllowanceAmount }) => {
+        if (!amount) {
+          return;
+        }
+
+        const allowedAmount = parseFloat(
+          approvedModuleAllowanceAmount[0]?.allowance.value
+        );
+        setAllowed(allowedAmount > amount);
+      },
+      skip: !amount || !sessionProfileId || !assetAddress,
+      variables: {
+        request: {
+          currencies: [assetAddress],
+          unknownOpenActionModules: [module.contract.address]
+        }
+      }
+    });
+
   return (
     <Modal
       icon={
         showCurrencySelector ? (
           <button onClick={() => setShowCurrencySelector(false)}>
+            <ChevronLeftIcon className="mt-[2px] w-4" strokeWidth={3} />
+          </button>
+        ) : isModalCollapsed ? (
+          <button onClick={() => setIsCollapsed(false)}>
             <ChevronLeftIcon className="mt-[2px] w-4" strokeWidth={3} />
           </button>
         ) : null
@@ -148,6 +195,22 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
             setSelectedCurrency(currency);
             setShowCurrencySelector(false);
           }}
+        />
+      ) : isModalCollapsed ? (
+        <StepperApprovals
+          allowanceData={allowanceData}
+          approvePermit2={() => approvePermit2(selectedCurrency)}
+          nftDetails={{
+            creator: getProfile(creatorProfileData?.defaultProfile as Profile)
+              .slug,
+            name: actionData?.uiData.nftName ?? '',
+            price: formattedTotalPrice + selectedCurrency.symbol,
+            schema: formattedNftSchema,
+            uri: sanitizeDStorageUrl(actionData?.uiData.nftUri)
+          }}
+          selectedCurrencySymbol={selectedCurrency.symbol}
+          setAllowed={setAllowed}
+          step={permit2Allowed ? 'Permit2' : 'Allowance'}
         />
       ) : (
         <>
@@ -275,10 +338,10 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
             </div>
             {selectedCurrency ? (
               <DecentAction
-                act={act}
+                act={() => setIsCollapsed(!isModalCollapsed)}
+                allowanceLoading={allowanceLoading}
                 className="w-full justify-center"
                 isLoading={isLoading}
-                module={module}
                 moduleAmount={{
                   asset: {
                     contract: {
