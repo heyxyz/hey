@@ -4,7 +4,6 @@ import type { FC } from 'react';
 import Collectors from '@components/Shared/Modal/Collectors';
 import Likes from '@components/Shared/Modal/Likes';
 import Mirrors from '@components/Shared/Modal/Mirrors';
-import Quotes from '@components/Shared/Modal/Quotes';
 import {
   ArrowsRightLeftIcon,
   HeartIcon,
@@ -15,6 +14,7 @@ import getPublicationsViews from '@hey/lib/getPublicationsViews';
 import nFormatter from '@hey/lib/nFormatter';
 import { Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
+import Link from 'next/link';
 import plur from 'plur';
 import { memo, useEffect, useState } from 'react';
 
@@ -29,7 +29,6 @@ const PublicationStats: FC<PublicationStatsProps> = ({
 }) => {
   const [views, setViews] = useState<number>(0);
   const [showMirrorsModal, setShowMirrorsModal] = useState(false);
-  const [showQuotesModal, setShowQuotesModal] = useState(false);
   const [showLikesModal, setShowLikesModal] = useState(false);
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
 
@@ -93,29 +92,13 @@ const PublicationStats: FC<PublicationStatsProps> = ({
           </>
         ) : null}
         {quotes > 0 ? (
-          <>
-            <button
-              className="outline-offset-2"
-              onClick={() => {
-                setShowQuotesModal(true);
-                Leafwatch.track(PUBLICATION.OPEN_QUOTES, {
-                  publication_id: publicationId
-                });
-              }}
-              type="button"
-            >
-              <b className="text-black dark:text-white">{nFormatter(quotes)}</b>{' '}
-              {plur('Quote', quotes)}
-            </button>
-            <Modal
-              icon={<ArrowsRightLeftIcon className="size-5" />}
-              onClose={() => setShowQuotesModal(false)}
-              show={showQuotesModal}
-              title="Quoted by"
-            >
-              <Quotes publicationId={publicationId} />
-            </Modal>
-          </>
+          <Link
+            className="outline-offset-2"
+            href={`/posts/${publicationId}/quotes`}
+          >
+            <b className="text-black dark:text-white">{nFormatter(quotes)}</b>{' '}
+            {plur('Quote', quotes)}
+          </Link>
         ) : null}
         {reactions > 0 ? (
           <>
