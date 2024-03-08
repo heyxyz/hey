@@ -341,7 +341,11 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
             </div>
             {selectedCurrency ? (
               <DecentAction
-                act={() => setIsModalCollapsed(!isModalCollapsed)}
+                act={
+                  permit2Allowed && allowed
+                    ? act
+                    : () => setIsModalCollapsed(!isModalCollapsed)
+                }
                 allowanceLoading={allowanceLoading}
                 className="w-full justify-center"
                 isLoading={isLoading}

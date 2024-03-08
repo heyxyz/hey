@@ -87,7 +87,7 @@ const DecentAction: FC<DecentActionProps> = ({
     return () => clearInterval(interval);
   }, [txHash]);
 
-  // TODO: Test condition
+  // TODO: Remove test condition
   // if (true) {
   //   return (
   //     <Button className={className} onClick={act}>
