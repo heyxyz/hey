@@ -1,3 +1,4 @@
+import type { PublicationStats as IPublicationStats } from '@hey/lens';
 import type { FC } from 'react';
 
 import Collectors from '@components/Shared/Modal/Collectors';
@@ -10,7 +11,6 @@ import {
   RectangleStackIcon
 } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
-import { PublicationStats } from '@hey/lens';
 import getPublicationsViews from '@hey/lib/getPublicationsViews';
 import nFormatter from '@hey/lib/nFormatter';
 import { Modal } from '@hey/ui';
@@ -20,7 +20,7 @@ import { memo, useEffect, useState } from 'react';
 
 interface PublicationStatsProps {
   publicationId: string;
-  publicationStats: PublicationStats;
+  publicationStats: IPublicationStats;
 }
 
 const PublicationStats: FC<PublicationStatsProps> = ({
