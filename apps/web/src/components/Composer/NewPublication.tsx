@@ -567,7 +567,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   return (
     <Card
-      className={cn({ 'border-none': !isComment })}
+      className={cn({ '!rounded-t-none border-none': !isComment })}
       onClick={() => setShowEmojiPicker(false)}
     >
       {error ? (
@@ -595,7 +595,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       ) : null}
       <LinkPreviews />
       <div className="divider mx-5" />
-      <div className="mx-5 my-3 block items-center sm:flex">
+      <div className="block items-center px-5 py-3 sm:flex">
         <div className="flex items-center space-x-4">
           <Attachment />
           <EmojiPicker
