@@ -15,4 +15,5 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
   encryptedWith {
     ...PublicationMetadataLitEncryptionFields
   }
+  appId
 }
