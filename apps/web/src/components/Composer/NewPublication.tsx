@@ -30,7 +30,6 @@ import { MetadataAttributeType } from '@lens-protocol/metadata';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import errorToast from '@lib/errorToast';
-import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
 import { useUnmountEffect } from 'framer-motion';
@@ -627,9 +626,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             </>
           ) : null}
           <PollSettings />
-          {!isComment && isFeatureAvailable('live-stream') && (
-            <LivestreamSettings />
-          )}
+          {!isComment && <LivestreamSettings />}
         </div>
         <div className="ml-auto mt-2 sm:mt-0">
           <Button
