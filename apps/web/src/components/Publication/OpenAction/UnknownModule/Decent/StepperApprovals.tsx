@@ -45,7 +45,7 @@ const StepperApprovals: FC<StepperApprovalsProps> = ({
   nftDetails,
   selectedCurrencySymbol,
   setAllowed,
-  step = 'Permit2'
+  step
 }) => {
   const module = allowanceData
     ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult;

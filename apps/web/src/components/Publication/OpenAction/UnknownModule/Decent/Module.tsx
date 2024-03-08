@@ -127,7 +127,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
 
   const [showCurrencySelector, setShowCurrencySelector] = useState(false);
 
-  const [isModalCollapsed, setIsCollapsed] = useState(false);
+  const [isModalCollapsed, setIsModalCollapsed] = useState(false);
 
   // TODO: fetch permit2 allowance status and update with useEffect depending on currency
   const [permit2Allowed, setPermit2Allowed] = useState(false);
@@ -173,12 +173,15 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
             <ChevronLeftIcon className="mt-[2px] w-4" strokeWidth={3} />
           </button>
         ) : isModalCollapsed ? (
-          <button onClick={() => setIsCollapsed(false)}>
+          <button onClick={() => setIsModalCollapsed(false)}>
             <ChevronLeftIcon className="mt-[2px] w-4" strokeWidth={3} />
           </button>
         ) : null
       }
-      onClose={onClose}
+      onClose={() => {
+        setIsModalCollapsed(false);
+        onClose();
+      }}
       show={show}
       title={
         showCurrencySelector
@@ -210,7 +213,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
           }}
           selectedCurrencySymbol={selectedCurrency.symbol}
           setAllowed={setAllowed}
-          step={permit2Allowed ? 'Permit2' : 'Allowance'}
+          step={!permit2Allowed ? 'Permit2' : 'Allowance'}
         />
       ) : (
         <>
@@ -338,7 +341,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
             </div>
             {selectedCurrency ? (
               <DecentAction
-                act={() => setIsCollapsed(!isModalCollapsed)}
+                act={() => setIsModalCollapsed(!isModalCollapsed)}
                 allowanceLoading={allowanceLoading}
                 className="w-full justify-center"
                 isLoading={isLoading}
