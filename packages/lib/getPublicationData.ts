@@ -16,7 +16,6 @@ const getPublicationData = (
   }[];
   content?: string;
 } | null => {
-  console.log(metadata.appId);
   const showTitle = ALLOWED_APP_FOR_TITLE.includes(metadata.appId);
   const willHaveTitle =
     metadata.__typename === 'ArticleMetadataV3' ||
