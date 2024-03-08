@@ -1,9 +1,10 @@
+import type { Portal as IPortal } from '@hey/types/misc';
+
 import { LinkIcon } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data';
 import { HEY_API_URL } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Portal } from '@hey/types/misc';
 import { Button, Card } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
@@ -14,13 +15,13 @@ import toast from 'react-hot-toast';
 import useProfileStore from 'src/store/persisted/useProfileStore';
 
 interface PortalProps {
-  portal: Portal;
+  portal: IPortal;
   publicationId?: string;
 }
 
 const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const [portalData, setPortalData] = useState<null | Portal>(null);
+  const [portalData, setPortalData] = useState<IPortal | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -43,7 +44,7 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
     try {
       setLoading(true);
 
-      const { data }: { data: { portal: Portal } } = await axios.post(
+      const { data }: { data: { portal: IPortal } } = await axios.post(
         `${HEY_API_URL}/portal/post`,
         { buttonIndex: index + 1, postUrl, publicationId },
         { headers: getAuthApiHeaders() }
