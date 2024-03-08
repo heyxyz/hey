@@ -9,4 +9,5 @@ fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
   encryptedWith {
     ...PublicationMetadataLitEncryptionFields
   }
+  appId
 }
