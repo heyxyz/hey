@@ -22,7 +22,7 @@ const PreferencesProvider: FC = () => {
     setHighSignalNotificationFilter,
     setIsPride
   } = usePreferencesStore();
-  const setRestriction = useProfileRestriction((state) => state.setRestriction);
+  const { setRestriction } = useProfileRestriction();
   const setFeatureFlags = useFeatureFlagsStore(
     (state) => state.setFeatureFlags
   );
