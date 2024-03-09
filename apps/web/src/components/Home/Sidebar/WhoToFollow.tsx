@@ -35,11 +35,11 @@ const WhoToFollow: FC = () => {
     return (
       <Card as="aside" className="space-y-4 p-5">
         <Title />
-        <UserProfileShimmer showFollow />
-        <UserProfileShimmer showFollow />
-        <UserProfileShimmer showFollow />
-        <UserProfileShimmer showFollow />
-        <UserProfileShimmer showFollow />
+        <UserProfileShimmer showFollowUnfollowButton />
+        <UserProfileShimmer showFollowUnfollowButton />
+        <UserProfileShimmer showFollowUnfollowButton />
+        <UserProfileShimmer showFollowUnfollowButton />
+        <UserProfileShimmer showFollowUnfollowButton />
         <div className="pb-1 pt-2">
           <div className="shimmer h-3 w-5/12 rounded-full" />
         </div>
@@ -73,7 +73,7 @@ const WhoToFollow: FC = () => {
             <div className="w-full">
               <UserProfile
                 profile={profile as Profile}
-                showFollow
+                showFollowUnfollowButton
                 source={ProfileLinkSource.WhoToFollow}
               />
             </div>

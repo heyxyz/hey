@@ -38,9 +38,9 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { formatUnits } from 'viem';
 import { useBalance, useSignTypedData, useWriteContract } from 'wagmi';
 
-import Loader from '../Loader';
-import NoBalanceError from '../NoBalanceError';
-import Slug from '../Slug';
+import Loader from '../../Loader';
+import NoBalanceError from '../../NoBalanceError';
+import Slug from '../../Slug';
 
 interface FollowModuleProps {
   again: boolean;

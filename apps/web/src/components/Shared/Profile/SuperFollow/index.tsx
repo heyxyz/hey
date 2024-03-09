@@ -11,8 +11,8 @@ import { useState } from 'react';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
-import Loader from '../Loader';
-import Slug from '../Slug';
+import Loader from '../../Loader';
+import Slug from '../../Slug';
 
 const FollowModule = dynamic(() => import('./FollowModule'), {
   loading: () => <Loader message="Loading Super follow" />

@@ -1,11 +1,10 @@
 import type { FC } from 'react';
 
-import Unfollow from '@components/Shared/Profile/Unfollow';
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
-import { FollowModuleType, type Profile } from '@hey/lens';
+import { type Profile } from '@hey/lens';
 import formatRelativeOrAbsolute from '@hey/lib/datetime/formatRelativeOrAbsolute';
 import getAvatar from '@hey/lib/getAvatar';
 import getLennyURL from '@hey/lib/getLennyURL';
@@ -20,9 +19,8 @@ import Link from 'next/link';
 import { memo } from 'react';
 
 import Markup from './Markup';
-import Follow from './Profile/Follow';
+import FollowUnfollowButton from './Profile/FollowUnfollowButton';
 import Slug from './Slug';
-import SuperFollow from './SuperFollow';
 import UserPreview from './UserPreview';
 
 interface UserProfileProps {
@@ -30,9 +28,8 @@ interface UserProfileProps {
   linkToProfile?: boolean;
   profile: Profile;
   showBio?: boolean;
-  showFollow?: boolean;
+  showFollowUnfollowButton?: boolean;
   showId?: boolean;
-  showUnfollow?: boolean;
   showUserPreview?: boolean;
   source?: string;
   timestamp?: Date;
@@ -43,9 +40,8 @@ const UserProfile: FC<UserProfileProps> = ({
   linkToProfile = true,
   profile,
   showBio = false,
-  showFollow = false,
+  showFollowUnfollowButton = false,
   showId = false,
-  showUnfollow = false,
   showUserPreview = true,
   source,
   timestamp = ''
@@ -146,18 +142,8 @@ const UserProfile: FC<UserProfileProps> = ({
       ) : (
         <UserInfo />
       )}
-      {showFollow ? (
-        profile.operations.isFollowedByMe.value ? null : profile?.followModule
-            ?.type === FollowModuleType.FeeFollowModule ? (
-          <SuperFollow profile={profile} small />
-        ) : (
-          <Follow profile={profile} small />
-        )
-      ) : null}
-      {showUnfollow ? (
-        profile.operations.isFollowedByMe.value ? (
-          <Unfollow profile={profile} small />
-        ) : null
+      {showFollowUnfollowButton ? (
+        <FollowUnfollowButton profile={profile} small />
       ) : null}
     </div>
   );

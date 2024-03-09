@@ -88,8 +88,9 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({
               <UserProfile
                 profile={mutualFollower as Profile}
                 showBio
-                showFollow={currentProfile?.id !== mutualFollower.id}
-                showUnfollow={currentProfile?.id !== mutualFollower.id}
+                showFollowUnfollowButton={
+                  currentProfile?.id !== mutualFollower.id
+                }
                 showUserPreview={false}
               />
             </motion.div>

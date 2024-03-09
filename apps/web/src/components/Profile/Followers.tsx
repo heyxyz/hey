@@ -85,8 +85,7 @@ const Followers: FC<FollowersProps> = ({ handle, profileId }) => {
               <UserProfile
                 profile={follower as Profile}
                 showBio
-                showFollow={currentProfile?.id !== follower.id}
-                showUnfollow={currentProfile?.id !== follower.id}
+                showFollowUnfollowButton={currentProfile?.id !== follower.id}
                 showUserPreview={false}
                 source={ProfileLinkSource.Followers}
               />

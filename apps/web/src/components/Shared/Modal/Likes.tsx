@@ -83,7 +83,7 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
               <UserProfile
                 profile={like.profile as Profile}
                 showBio
-                showFollow
+                showFollowUnfollowButton
                 showUserPreview={false}
                 source={ProfileLinkSource.Likes}
               />
