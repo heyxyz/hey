@@ -30,9 +30,7 @@ import YourProfile from './NavItems/YourProfile';
 
 const MobileDrawerMenu: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const setShowMobileDrawer = useGlobalModalStateStore(
-    (state) => state.setShowMobileDrawer
-  );
+  const { setShowMobileDrawer } = useGlobalModalStateStore();
 
   const closeDrawer = () => {
     setShowMobileDrawer(false);

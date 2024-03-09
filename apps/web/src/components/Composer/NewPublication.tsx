@@ -101,14 +101,8 @@ interface NewPublicationProps {
 const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const { isSuspended } = useProfileRestriction();
-
-  // Modal store
-  const setShowNewPostModal = useGlobalModalStateStore(
-    (state) => state.setShowNewPostModal
-  );
-  const setShowDiscardModal = useGlobalModalStateStore(
-    (state) => state.setShowDiscardModal
-  );
+  const { setShowDiscardModal, setShowNewPostModal } =
+    useGlobalModalStateStore();
 
   // Nonce store
   const lensHubOnchainSigNonce = useNonceStore(

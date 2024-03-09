@@ -30,12 +30,7 @@ import YourProfile from './NavItems/YourProfile';
 
 const SignedUser: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const setShowMobileDrawer = useGlobalModalStateStore(
-    (state) => state.setShowMobileDrawer
-  );
-  const showMobileDrawer = useGlobalModalStateStore(
-    (state) => state.showMobileDrawer
-  );
+  const { setShowMobileDrawer, showMobileDrawer } = useGlobalModalStateStore();
 
   const Avatar = () => (
     <Image

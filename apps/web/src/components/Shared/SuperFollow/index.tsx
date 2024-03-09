@@ -31,9 +31,7 @@ const SuperFollow: FC<SuperFollowProps> = ({
 }) => {
   const [showFollowModal, setShowFollowModal] = useState(false);
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const setShowAuthModal = useGlobalModalStateStore(
-    (state) => state.setShowAuthModal
-  );
+  const { setShowAuthModal } = useGlobalModalStateStore();
 
   return (
     <>
