@@ -8,12 +8,7 @@ import cn from '@hey/ui/cn';
 import { useProfileFeedStore } from 'src/store/non-persisted/useProfileFeedStore';
 
 const MediaFilter = () => {
-  const mediaFeedFilters = useProfileFeedStore(
-    (state) => state.mediaFeedFilters
-  );
-  const setMediaFeedFilters = useProfileFeedStore(
-    (state) => state.setMediaFeedFilters
-  );
+  const { mediaFeedFilters, setMediaFeedFilters } = useProfileFeedStore();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setMediaFeedFilters({
