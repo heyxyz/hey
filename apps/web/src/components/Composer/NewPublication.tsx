@@ -169,8 +169,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     useCollectModuleStore();
 
   // Open action store
-  const openAction = useOpenActionStore((state) => state.openAction);
-  const resetOpenActionSettings = useOpenActionStore((state) => state.reset);
+  const { openAction, reset: resetOpenActionSettings } = useOpenActionStore();
 
   // Reference module store
   const { degreesOfSeparation, onlyFollowers, selectedReferenceModule } =

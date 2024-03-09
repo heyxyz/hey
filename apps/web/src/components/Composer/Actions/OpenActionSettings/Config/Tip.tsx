@@ -32,9 +32,7 @@ const useTipActionStore = create<TipActionState>((set) => ({
 
 const TipConfig: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const openAction = useOpenActionStore((state) => state.openAction);
-  const setShowModal = useOpenActionStore((state) => state.setShowModal);
-  const setOpenAction = useOpenActionStore((state) => state.setOpenAction);
+  const { openAction, setOpenAction, setShowModal } = useOpenActionStore();
   const { enabled, recipient, reset, setEnabled, setRecipient } =
     useTipActionStore();
 

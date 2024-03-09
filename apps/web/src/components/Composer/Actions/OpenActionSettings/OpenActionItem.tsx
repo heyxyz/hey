@@ -21,10 +21,7 @@ const OpenActionItem: FC<OpenActionItemProps> = ({
   title,
   type
 }) => {
-  const setScreen = useOpenActionStore((state) => state.setScreen);
-  const setSelectedOpenAction = useOpenActionStore(
-    (state) => state.setSelectedOpenAction
-  );
+  const { setScreen, setSelectedOpenAction } = useOpenActionStore();
 
   const onOpenActionSelected = (name: OpenAction) => {
     setScreen(ScreenType.Config);
