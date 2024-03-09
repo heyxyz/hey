@@ -24,12 +24,13 @@ import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { createTrackedSelector } from 'react-tracked';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { create } from 'zustand';
 
 import FullPublication from './FullPublication';
@@ -42,20 +43,18 @@ interface HiddenCommentFeedState {
   showHiddenComments: boolean;
 }
 
-export const useHiddenCommentFeedStore = create<HiddenCommentFeedState>(
-  (set) => ({
-    setShowHiddenComments: (show) => set({ showHiddenComments: show }),
-    showHiddenComments: false
-  })
-);
+const store = create<HiddenCommentFeedState>((set) => ({
+  setShowHiddenComments: (show) => set({ showHiddenComments: show }),
+  showHiddenComments: false
+}));
+
+export const useHiddenCommentFeedStore = createTrackedSelector(store);
 
 const ViewPublication: NextPage = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
-  const staffMode = useFeatureFlagsStore((state) => state.staffMode);
-  const showNewPostModal = useGlobalModalStateStore(
-    (state) => state.showNewPostModal
-  );
+  const { staffMode } = useFeatureFlagsStore();
+  const { showNewPostModal } = useGlobalModalStateStore();
 
   const {
     isReady,

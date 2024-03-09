@@ -36,7 +36,7 @@ import checkAndToastDispatcherError from '@lib/checkAndToastDispatcherError';
 import { useRouter } from 'next/router';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
@@ -57,18 +57,10 @@ const useCreatePublication = ({
 }: CreatePublicationProps) => {
   const { push } = useRouter();
   const { cache } = useApolloClient();
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const lensHubOnchainSigNonce = useNonceStore(
-    (state) => state.lensHubOnchainSigNonce
-  );
-  const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce
-  );
-  const publicationContent = usePublicationStore(
-    (state) => state.publicationContent
-  );
-  const txnQueue = useTransactionStore((state) => state.txnQueue);
-  const setTxnQueue = useTransactionStore((state) => state.setTxnQueue);
+  const { currentProfile } = useProfileStore();
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
+  const { publicationContent } = usePublicationStore();
+  const { setTxnQueue, txnQueue } = useTransactionStore();
   const handleWrongNetwork = useHandleWrongNetwork();
   const { canBroadcast } = checkDispatcherPermissions(currentProfile);
 

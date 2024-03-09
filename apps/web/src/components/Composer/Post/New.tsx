@@ -7,17 +7,13 @@ import { useRouter } from 'next/router';
 import { type FC, useEffect } from 'react';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 const NewPost: FC = () => {
   const { isReady, push, query } = useRouter();
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const setShowNewPostModal = useGlobalModalStateStore(
-    (state) => state.setShowNewPostModal
-  );
-  const setPublicationContent = usePublicationStore(
-    (state) => state.setPublicationContent
-  );
+  const { currentProfile } = useProfileStore();
+  const { setShowNewPostModal } = useGlobalModalStateStore();
+  const { setPublicationContent } = usePublicationStore();
 
   const openModal = () => {
     setShowNewPostModal(true);

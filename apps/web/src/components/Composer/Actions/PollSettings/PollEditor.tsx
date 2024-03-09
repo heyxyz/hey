@@ -8,14 +8,8 @@ import { useState } from 'react';
 import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
 
 const PollEditor: FC = () => {
-  const setShowPollEditor = usePublicationPollStore(
-    (state) => state.setShowPollEditor
-  );
-  const pollConfig = usePublicationPollStore((state) => state.pollConfig);
-  const setPollConfig = usePublicationPollStore((state) => state.setPollConfig);
-  const resetPollConfig = usePublicationPollStore(
-    (state) => state.resetPollConfig
-  );
+  const { pollConfig, resetPollConfig, setPollConfig, setShowPollEditor } =
+    usePublicationPollStore();
   const [showPollLengthModal, setShowPollLengthModal] = useState(false);
 
   return (

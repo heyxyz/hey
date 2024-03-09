@@ -13,9 +13,8 @@ import { useAccount, useSignMessage } from 'wagmi';
 import { useSignupStore } from '.';
 
 const Success: FC = () => {
-  const profileId = useSignupStore((state) => state.profileId);
+  const { profileId } = useSignupStore();
   const [isLoading, setIsLoading] = useState(false);
-
   const { address } = useAccount();
 
   const onError = (error: any) => {

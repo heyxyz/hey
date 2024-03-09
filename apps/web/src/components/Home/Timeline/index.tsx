@@ -13,21 +13,14 @@ import { memo } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
 import { useTimelineStore } from 'src/store/non-persisted/useTimelineStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 
 const Timeline: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const txnQueue = useTransactionStore((state) => state.txnQueue);
-  const seeThroughProfile = useTimelineStore(
-    (state) => state.seeThroughProfile
-  );
-  const fallbackToCuratedFeed = useProfileStore(
-    (state) => state.fallbackToCuratedFeed
-  );
-  const fetchAndStoreViews = useImpressionsStore(
-    (state) => state.fetchAndStoreViews
-  );
+  const { currentProfile, fallbackToCuratedFeed } = useProfileStore();
+  const { txnQueue } = useTransactionStore();
+  const { seeThroughProfile } = useTimelineStore();
+  const { fetchAndStoreViews } = useImpressionsStore();
 
   // Variables
   const request: FeedRequest = {

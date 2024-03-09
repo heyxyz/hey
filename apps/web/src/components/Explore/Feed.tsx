@@ -27,9 +27,7 @@ const Feed: FC<FeedProps> = ({
   feedType = ExplorePublicationsOrderByType.LensCurated,
   focus
 }) => {
-  const fetchAndStoreViews = useImpressionsStore(
-    (state) => state.fetchAndStoreViews
-  );
+  const { fetchAndStoreViews } = useImpressionsStore();
 
   // Variables
   const request: ExplorePublicationRequest = {

@@ -9,7 +9,7 @@ import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
 
 const LicensePicker: FC = () => {
-  const setLicense = usePublicationLicenseStore((state) => state.setLicense);
+  const { setLicense } = usePublicationLicenseStore();
 
   if (!isFeatureAvailable(FeatureFlag.Staff)) {
     return null;

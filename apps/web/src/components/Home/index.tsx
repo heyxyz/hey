@@ -7,7 +7,7 @@ import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useEffect, useState } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import AlgorithmicFeed from './AlgorithmicFeed';
 import FeedType from './FeedType';
@@ -18,7 +18,7 @@ import Sidebar from './Sidebar';
 import Timeline from './Timeline';
 
 const Home: NextPage = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const [feedType, setFeedType] = useState<HomeFeedType>(
     HomeFeedType.FOLLOWING
   );

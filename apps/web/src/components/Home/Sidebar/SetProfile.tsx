@@ -8,7 +8,7 @@ import { ONBOARDING } from '@hey/data/tracking';
 import { Card } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface StatusProps {
   finished: boolean;
@@ -27,7 +27,7 @@ const Status: FC<StatusProps> = ({ finished, title }) => (
 );
 
 const SetProfile: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const doneSetup =
     Boolean(currentProfile?.metadata?.displayName) &&
     Boolean(currentProfile?.metadata?.bio) &&

@@ -25,27 +25,17 @@ import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
 const BlockOrUnBlockProfile: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const showBlockOrUnblockAlert = useGlobalAlertStateStore(
-    (state) => state.showBlockOrUnblockAlert
-  );
-  const setShowBlockOrUnblockAlert = useGlobalAlertStateStore(
-    (state) => state.setShowBlockOrUnblockAlert
-  );
-  const blockingorUnblockingProfile = useGlobalAlertStateStore(
-    (state) => state.blockingorUnblockingProfile
-  );
-  const lensHubOnchainSigNonce = useNonceStore(
-    (state) => state.lensHubOnchainSigNonce
-  );
-  const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce
-  );
-
+  const { currentProfile } = useProfileStore();
+  const {
+    blockingorUnblockingProfile,
+    setShowBlockOrUnblockAlert,
+    showBlockOrUnblockAlert
+  } = useGlobalAlertStateStore();
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
   const [isLoading, setIsLoading] = useState(false);
   const [hasBlocked, setHasBlocked] = useState(
     blockingorUnblockingProfile?.operations.isBlockedByMe.value

@@ -11,9 +11,7 @@ interface InvitesProps {
 }
 
 const Invites: FC<InvitesProps> = ({ className = '' }) => {
-  const setShowInvitesModal = useGlobalModalStateStore(
-    (state) => state.setShowInvitesModal
-  );
+  const { setShowInvitesModal } = useGlobalModalStateStore();
 
   return (
     <button
