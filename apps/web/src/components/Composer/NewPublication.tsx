@@ -53,7 +53,7 @@ import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModal
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
@@ -99,94 +99,55 @@ interface NewPublicationProps {
 }
 
 const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
 
-  // Modal store
-  const setShowNewPostModal = useGlobalModalStateStore(
-    (state) => state.setShowNewPostModal
-  );
-  const setShowDiscardModal = useGlobalModalStateStore(
-    (state) => state.setShowDiscardModal
-  );
+  // Global modal store
+  const { setShowDiscardModal, setShowNewPostModal } =
+    useGlobalModalStateStore();
 
   // Nonce store
-  const lensHubOnchainSigNonce = useNonceStore(
-    (state) => state.lensHubOnchainSigNonce
-  );
+  const { lensHubOnchainSigNonce } = useNonceStore();
 
   // Publication store
-  const publicationContent = usePublicationStore(
-    (state) => state.publicationContent
-  );
-  const setPublicationContent = usePublicationStore(
-    (state) => state.setPublicationContent
-  );
-  const quotedPublication = usePublicationStore(
-    (state) => state.quotedPublication
-  );
-  const setQuotedPublication = usePublicationStore(
-    (state) => state.setQuotedPublication
-  );
-  const audioPublication = usePublicationAudioStore(
-    (state) => state.audioPublication
-  );
-  const attachments = usePublicationAttachmentStore(
-    (state) => state.attachments
-  );
-  const setAttachments = usePublicationAttachmentStore(
-    (state) => state.setAttachments
-  );
-  const addAttachments = usePublicationAttachmentStore(
-    (state) => state.addAttachments
-  );
-  const isUploading = usePublicationAttachmentStore(
-    (state) => state.isUploading
-  );
-  const videoThumbnail = usePublicationVideoStore(
-    (state) => state.videoThumbnail
-  );
-  const setVideoThumbnail = usePublicationVideoStore(
-    (state) => state.setVideoThumbnail
-  );
-  const showPollEditor = usePublicationPollStore(
-    (state) => state.showPollEditor
-  );
-  const setShowPollEditor = usePublicationPollStore(
-    (state) => state.setShowPollEditor
-  );
-  const resetPollConfig = usePublicationPollStore(
-    (state) => state.resetPollConfig
-  );
-  const pollConfig = usePublicationPollStore((state) => state.pollConfig);
-  const showLiveVideoEditor = usePublicationLiveStore(
-    (state) => state.showLiveVideoEditor
-  );
-  const setShowLiveVideoEditor = usePublicationLiveStore(
-    (state) => state.setShowLiveVideoEditor
-  );
-  const resetLiveVideoConfig = usePublicationLiveStore(
-    (state) => state.resetLiveVideoConfig
-  );
+  const {
+    publicationContent,
+    quotedPublication,
+    setPublicationContent,
+    setQuotedPublication
+  } = usePublicationStore();
 
-  const setLicense = usePublicationLicenseStore((state) => state.setLicense);
+  // Audio store
+  const { audioPublication } = usePublicationAudioStore();
+
+  // Video store
+  const { setVideoThumbnail, videoThumbnail } = usePublicationVideoStore();
+
+  // Live video store
+  const { resetLiveVideoConfig, setShowLiveVideoEditor, showLiveVideoEditor } =
+    usePublicationLiveStore();
+
+  // Attachment store
+  const { addAttachments, attachments, isUploading, setAttachments } =
+    usePublicationAttachmentStore();
+
+  // Poll store
+  const { pollConfig, resetPollConfig, setShowPollEditor, showPollEditor } =
+    usePublicationPollStore();
+
+  // License store
+  const { setLicense } = usePublicationLicenseStore();
 
   // Collect module store
-  const collectModule = useCollectModuleStore((state) => state.collectModule);
-  const resetCollectSettings = useCollectModuleStore((state) => state.reset);
+  const { collectModule, reset: resetCollectSettings } =
+    useCollectModuleStore();
 
   // Open action store
-  const openAction = useOpenActionStore((state) => state.openAction);
-  const resetOpenActionSettings = useOpenActionStore((state) => state.reset);
+  const { openAction, reset: resetOpenActionSettings } = useOpenActionStore();
 
   // Reference module store
-  const selectedReferenceModule = useReferenceModuleStore(
-    (state) => state.selectedReferenceModule
-  );
-  const onlyFollowers = useReferenceModuleStore((state) => state.onlyFollowers);
-  const degreesOfSeparation = useReferenceModuleStore(
-    (state) => state.degreesOfSeparation
-  );
+  const { degreesOfSeparation, onlyFollowers, selectedReferenceModule } =
+    useReferenceModuleStore();
 
   // States
   const [isLoading, setIsLoading] = useState(false);

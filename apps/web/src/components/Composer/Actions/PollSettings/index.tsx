@@ -6,15 +6,8 @@ import { motion } from 'framer-motion';
 import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
 
 const PollSettings: FC = () => {
-  const showPollEditor = usePublicationPollStore(
-    (state) => state.showPollEditor
-  );
-  const setShowPollEditor = usePublicationPollStore(
-    (state) => state.setShowPollEditor
-  );
-  const resetPollConfig = usePublicationPollStore(
-    (state) => state.resetPollConfig
-  );
+  const { resetPollConfig, setShowPollEditor, showPollEditor } =
+    usePublicationPollStore();
 
   return (
     <Tooltip content="Poll" placement="top">

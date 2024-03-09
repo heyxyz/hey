@@ -25,82 +25,30 @@ import SwitchProfiles from './SwitchProfiles';
 
 const GlobalModals: FC = () => {
   // Report modal state
-  const showPublicationReportModal = useGlobalModalStateStore(
-    (state) => state.showPublicationReportModal
-  );
-  const reportingPublicationId = useGlobalModalStateStore(
-    (state) => state.reportingPublicationId
-  );
-  const setShowPublicationReportModal = useGlobalModalStateStore(
-    (state) => state.setShowPublicationReportModal
-  );
-  const showProfileSwitchModal = useGlobalModalStateStore(
-    (state) => state.showProfileSwitchModal
-  );
-  const setShowProfileSwitchModal = useGlobalModalStateStore(
-    (state) => state.setShowProfileSwitchModal
-  );
-  const showNewPostModal = useGlobalModalStateStore(
-    (state) => state.showNewPostModal
-  );
-  const setShowNewPostModal = useGlobalModalStateStore(
-    (state) => state.setShowNewPostModal
-  );
-  const showAuthModal = useGlobalModalStateStore(
-    (state) => state.showAuthModal
-  );
-  const authModalType = useGlobalModalStateStore(
-    (state) => state.authModalType
-  );
-  const setShowAuthModal = useGlobalModalStateStore(
-    (state) => state.setShowAuthModal
-  );
-  const showInvitesModal = useGlobalModalStateStore(
-    (state) => state.showInvitesModal
-  );
-  const setShowInvitesModal = useGlobalModalStateStore(
-    (state) => state.setShowInvitesModal
-  );
-  const showReportProfileModal = useGlobalModalStateStore(
-    (state) => state.showReportProfileModal
-  );
-  const reportingProfile = useGlobalModalStateStore(
-    (state) => state.reportingProfile
-  );
-  const setShowReportProfileModal = useGlobalModalStateStore(
-    (state) => state.setShowReportProfileModal
-  );
-  const setShowDiscardModal = useGlobalModalStateStore(
-    (state) => state.setShowDiscardModal
-  );
-
-  // Publication store
-  const publicationContent = usePublicationStore(
-    (state) => state.publicationContent
-  );
-  const attachments = usePublicationAttachmentStore(
-    (state) => state.attachments
-  );
-  const isUploading = usePublicationAttachmentStore(
-    (state) => state.isUploading
-  );
-  const videoDurationInSeconds = usePublicationVideoStore(
-    (state) => state.videoDurationInSeconds
-  );
-  const videoThumbnail = usePublicationVideoStore(
-    (state) => state.videoThumbnail
-  );
-  const audioPublication = usePublicationAudioStore(
-    (state) => state.audioPublication
-  );
-  const quotedPublication = usePublicationStore(
-    (state) => state.quotedPublication
-  );
-  const showPollEditor = usePublicationPollStore(
-    (state) => state.showPollEditor
-  );
-  const pollConfig = usePublicationPollStore((state) => state.pollConfig);
-  const signupScreen = useSignupStore((state) => state.screen);
+  const {
+    authModalType,
+    reportingProfile,
+    reportingPublicationId,
+    setShowAuthModal,
+    setShowDiscardModal,
+    setShowInvitesModal,
+    setShowNewPostModal,
+    setShowProfileSwitchModal,
+    setShowPublicationReportModal,
+    setShowReportProfileModal,
+    showAuthModal,
+    showInvitesModal,
+    showNewPostModal,
+    showProfileSwitchModal,
+    showPublicationReportModal,
+    showReportProfileModal
+  } = useGlobalModalStateStore();
+  const { publicationContent, quotedPublication } = usePublicationStore();
+  const { attachments, isUploading } = usePublicationAttachmentStore();
+  const { videoDurationInSeconds, videoThumbnail } = usePublicationVideoStore();
+  const { audioPublication } = usePublicationAudioStore();
+  const { pollConfig, showPollEditor } = usePublicationPollStore();
+  const { screen: signupScreen } = useSignupStore();
   const { address } = useAccount();
 
   const checkIfPublicationNotDrafted = () => {

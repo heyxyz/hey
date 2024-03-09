@@ -26,18 +26,14 @@ import {
 import { useEffect } from 'react';
 import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS];
 
 const Editor: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const setPublicationContent = usePublicationStore(
-    (state) => state.setPublicationContent
-  );
-  const showPollEditor = usePublicationPollStore(
-    (state) => state.showPollEditor
-  );
+  const { currentProfile } = useProfileStore();
+  const { setPublicationContent } = usePublicationStore();
+  const { showPollEditor } = usePublicationPollStore();
 
   const [editor] = useLexicalComposerContext();
 

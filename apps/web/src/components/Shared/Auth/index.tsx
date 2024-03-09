@@ -18,9 +18,7 @@ const NotConnected = () => (
 );
 
 const Auth: FC = () => {
-  const authModalType = useGlobalModalStateStore(
-    (state) => state.authModalType
-  );
+  const { authModalType } = useGlobalModalStateStore();
   const [hasProfiles, setHasProfiles] = useState(true);
   const { isConnected } = useAccount();
 

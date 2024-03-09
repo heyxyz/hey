@@ -2,13 +2,13 @@ import type { FC } from 'react';
 
 import { Menu } from '@headlessui/react';
 import cn from '@hey/ui/cn';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import MenuTransition from '../MenuTransition';
 import Bookmarks from './NavItems/Bookmarks';
 import Support from './NavItems/Support';
 const MoreNavItems: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
 
   return (
     <Menu as="div">

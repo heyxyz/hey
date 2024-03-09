@@ -22,9 +22,7 @@ interface GardenerActionsProps {
 }
 
 const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
-  const setShowGardenerActionsAlert = useGlobalAlertStateStore(
-    (state) => state.setShowGardenerActionsAlert
-  );
+  const { setShowGardenerActionsAlert } = useGlobalAlertStateStore();
   const [hasReported, setHasReported] = useState(
     publication.operations?.hasReported
   );
