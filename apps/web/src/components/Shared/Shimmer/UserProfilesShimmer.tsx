@@ -6,23 +6,32 @@ import UserProfileShimmer from './UserProfileShimmer';
 
 interface UserProfilesShimmerProps {
   isBig?: boolean;
-  showFollow?: boolean;
+  showFollowUnfollowButton?: boolean;
 }
 
 const UserProfilesShimmer: FC<UserProfilesShimmerProps> = ({
   isBig = false,
-  showFollow = false
+  showFollowUnfollowButton = false
 }) => {
   return (
     <div className="space-y-3">
       <Card className="p-5">
-        <UserProfileShimmer isBig={isBig} showFollow={showFollow} />
+        <UserProfileShimmer
+          isBig={isBig}
+          showFollowUnfollowButton={showFollowUnfollowButton}
+        />
       </Card>
       <Card className="p-5">
-        <UserProfileShimmer isBig={isBig} showFollow={showFollow} />
+        <UserProfileShimmer
+          isBig={isBig}
+          showFollowUnfollowButton={showFollowUnfollowButton}
+        />
       </Card>
       <Card className="p-5">
-        <UserProfileShimmer isBig={isBig} showFollow={showFollow} />
+        <UserProfileShimmer
+          isBig={isBig}
+          showFollowUnfollowButton={showFollowUnfollowButton}
+        />
       </Card>
     </div>
   );

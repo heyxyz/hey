@@ -28,11 +28,11 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ profilesMentioned }) => {
   if (loading) {
     return (
       <Card as="aside" className="space-y-4 p-5">
-        <UserProfileShimmer showFollow />
-        <UserProfileShimmer showFollow />
-        <UserProfileShimmer showFollow />
-        <UserProfileShimmer showFollow />
-        <UserProfileShimmer showFollow />
+        <UserProfileShimmer showFollowUnfollowButton />
+        <UserProfileShimmer showFollowUnfollowButton />
+        <UserProfileShimmer showFollowUnfollowButton />
+        <UserProfileShimmer showFollowUnfollowButton />
+        <UserProfileShimmer showFollowUnfollowButton />
       </Card>
     );
   }
@@ -48,7 +48,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ profilesMentioned }) => {
         <div className="truncate" key={profile?.id}>
           <UserProfile
             profile={profile as Profile}
-            showFollow
+            showFollowUnfollowButton
             showUserPreview={false}
             source={ProfileLinkSource.RelevantPeople}
           />

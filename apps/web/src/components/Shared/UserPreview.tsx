@@ -6,14 +6,13 @@ import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
-import { FollowModuleType, useProfileLazyQuery } from '@hey/lens';
+import { useProfileLazyQuery } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
 import getLennyURL from '@hey/lib/getLennyURL';
 import getMentions from '@hey/lib/getMentions';
 import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
 import nFormatter from '@hey/lib/nFormatter';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import truncateByWords from '@hey/lib/truncateByWords';
 import { Card, Image } from '@hey/ui';
 import isVerified from '@lib/isVerified';
@@ -23,10 +22,8 @@ import plur from 'plur';
 import { useState } from 'react';
 
 import Markup from './Markup';
-import Follow from './Profile/Follow';
-import Unfollow from './Profile/Unfollow';
+import FollowUnfollowButton from './Profile/FollowUnfollowButton';
 import Slug from './Slug';
-import SuperFollow from './SuperFollow';
 
 const MINIMUM_LOADING_ANIMATION_MS = 800;
 
@@ -134,17 +131,7 @@ const UserPreview: FC<UserPreviewProps> = ({
       <div className="space-y-3 p-4">
         <div className="flex items-center justify-between">
           <UserAvatar />
-          <div onClick={stopEventPropagation}>
-            {profile.operations.isFollowedByMe.value ? null : profile
-                ?.followModule?.type === FollowModuleType.FeeFollowModule ? (
-              <SuperFollow profile={profile} small />
-            ) : (
-              <Follow profile={profile} small />
-            )}
-          </div>
-          {profile.operations.isFollowedByMe.value ? (
-            <Unfollow profile={profile} small />
-          ) : null}
+          <FollowUnfollowButton profile={profile} small />
         </div>
         <UserName />
         <div>

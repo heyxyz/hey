@@ -4,12 +4,12 @@ import cn from '@hey/ui/cn';
 
 interface UserProfileShimmerProps {
   isBig?: boolean;
-  showFollow?: boolean;
+  showFollowUnfollowButton?: boolean;
 }
 
 const UserProfileShimmer: FC<UserProfileShimmerProps> = ({
   isBig = false,
-  showFollow = false
+  showFollowUnfollowButton = false
 }) => {
   return (
     <div className="flex items-center justify-between">
@@ -23,7 +23,7 @@ const UserProfileShimmer: FC<UserProfileShimmerProps> = ({
           {isBig ? <div className="shimmer h-3 w-48 rounded-lg" /> : null}
         </div>
       </div>
-      {showFollow ? (
+      {showFollowUnfollowButton ? (
         <div className="shimmer h-[26px] w-[68px] rounded-full" />
       ) : null}
     </div>
