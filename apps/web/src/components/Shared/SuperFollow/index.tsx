@@ -9,7 +9,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Loader from '../Loader';
 import Slug from '../Slug';
@@ -30,7 +30,7 @@ const SuperFollow: FC<SuperFollowProps> = ({
   small = false
 }) => {
   const [showFollowModal, setShowFollowModal] = useState(false);
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { setShowAuthModal } = useGlobalModalStateStore();
 
   return (

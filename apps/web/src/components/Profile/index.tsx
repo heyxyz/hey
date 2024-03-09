@@ -18,7 +18,7 @@ import { useEffect } from 'react';
 import { ProfileFeedType } from 'src/enums';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Cover from './Cover';
 import Details from './Details';
@@ -31,7 +31,7 @@ const ViewProfile: NextPage = () => {
     isReady,
     query: { handle, id, source, type }
   } = useRouter();
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
 
   useEffect(() => {
     if (isReady) {

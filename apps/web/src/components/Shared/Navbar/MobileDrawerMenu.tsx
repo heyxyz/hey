@@ -13,7 +13,7 @@ import isFeatureAvailable from '@lib/isFeatureAvailable';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import Link from 'next/link';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Slug from '../Slug';
 import AppVersion from './NavItems/AppVersion';
@@ -29,7 +29,7 @@ import ThemeSwitch from './NavItems/ThemeSwitch';
 import YourProfile from './NavItems/YourProfile';
 
 const MobileDrawerMenu: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { setShowMobileDrawer } = useGlobalModalStateStore();
 
   const closeDrawer = () => {

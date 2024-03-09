@@ -6,7 +6,7 @@ import { Menu } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Fragment } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Block from './Block';
 import Report from './Report';
@@ -17,7 +17,7 @@ interface ProfileMenuProps {
 }
 
 const ProfileMenu: FC<ProfileMenuProps> = ({ profile }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
 
   return (
     <Menu as="div" className="relative">

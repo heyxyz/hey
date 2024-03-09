@@ -3,14 +3,14 @@ import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
 import { type FC, useEffect } from 'react';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import { useSignupStore } from './Auth/Signup';
 
 const GlobalModalsFromUrl: FC = () => {
   const { isReady, push, query } = useRouter();
 
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { setShowAuthModal } = useGlobalModalStateStore();
   const setScreen = useSignupStore((state) => state.setScreen);
 
