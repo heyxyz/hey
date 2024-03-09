@@ -20,11 +20,11 @@ const PublicationPageShimmer: FC = () => {
           <UserProfileShimmer />
         </Card>
         <Card className="space-y-4 p-5">
-          <UserProfileShimmer showFollow />
-          <UserProfileShimmer showFollow />
-          <UserProfileShimmer showFollow />
-          <UserProfileShimmer showFollow />
-          <UserProfileShimmer showFollow />
+          <UserProfileShimmer showFollowUnfollowButton />
+          <UserProfileShimmer showFollowUnfollowButton />
+          <UserProfileShimmer showFollowUnfollowButton />
+          <UserProfileShimmer showFollowUnfollowButton />
+          <UserProfileShimmer showFollowUnfollowButton />
         </Card>
         <Card className="flex justify-between p-5">
           <div className="shimmer h-3 w-1/2 rounded-lg" />

@@ -79,7 +79,7 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
               <UserProfile
                 profile={profile as Profile}
                 showBio
-                showFollow
+                showFollowUnfollowButton
                 showUserPreview={false}
                 source={ProfileLinkSource.Collects}
               />
