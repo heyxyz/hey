@@ -13,7 +13,6 @@ import WhoToFollow from './WhoToFollow';
 
 const Sidebar: FC = () => {
   const { currentProfile } = useProfileStore();
-
   const loggedInWithProfile = Boolean(currentProfile);
   const loggedOut = !loggedInWithProfile;
 
