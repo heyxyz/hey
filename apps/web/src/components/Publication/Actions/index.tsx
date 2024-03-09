@@ -9,7 +9,7 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { memo } from 'react';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import OpenAction from '../OpenAction';
 import TipOpenAction from '../OpenAction/UnknownModule/Tip';
@@ -31,7 +31,7 @@ const PublicationActions: FC<PublicationActionsProps> = ({
   const targetPublication = isMirrorPublication(publication)
     ? publication.mirrorOn
     : publication;
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { gardenerMode } = useFeatureFlagsStore();
   const { publicationViews } = useImpressionsStore();
   const hasOpenAction = (targetPublication.openActionModules?.length || 0) > 0;

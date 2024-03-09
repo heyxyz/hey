@@ -38,7 +38,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import urlcat from 'urlcat';
 
 import Badges from './Badges';
@@ -58,7 +58,7 @@ interface DetailsProps {
 
 const Details: FC<DetailsProps> = ({ profile }) => {
   const { push } = useRouter();
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { gardenerMode, staffMode } = useFeatureFlagsStore();
   const [showMutualFollowersModal, setShowMutualFollowersModal] =
     useState(false);

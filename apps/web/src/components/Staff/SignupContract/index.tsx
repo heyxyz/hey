@@ -15,7 +15,7 @@ import Link from 'next/link';
 import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import StaffSidebar from '../Sidebar';
 import Balance from './Balance';
@@ -34,7 +34,7 @@ const relayAddresses: Address[] = [
 ];
 
 const SignupContract: NextPage = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { staffMode } = useFeatureFlagsStore();
 
   useEffect(() => {

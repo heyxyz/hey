@@ -15,7 +15,7 @@ import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { hydrateAuthTokens, signOut } from 'src/store/persisted/useAuthStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { isAddress } from 'viem';
 import { useDisconnect } from 'wagmi';
 
@@ -29,14 +29,11 @@ interface LayoutProps {
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   const { resolvedTheme } = useTheme();
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const setCurrentProfile = useProfileStore((state) => state.setCurrentProfile);
+  const { currentProfile, setCurrentProfile, setFallbackToCuratedFeed } =
+    useProfileStore();
   const { resetPreferences } = usePreferencesStore();
   const { resetFeatureFlags } = useFeatureFlagsStore();
   const { setLensHubOnchainSigNonce } = useNonceStore();
-  const setFallbackToCuratedFeed = useProfileStore(
-    (state) => state.setFallbackToCuratedFeed
-  );
 
   const isMounted = useIsClient();
   const { disconnect } = useDisconnect();

@@ -9,7 +9,7 @@ import { LimitType, useFollowersQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
 import { Virtuoso } from 'react-virtuoso';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface FollowersProps {
   handle: string;
@@ -17,7 +17,7 @@ interface FollowersProps {
 }
 
 const Followers: FC<FollowersProps> = ({ handle, profileId }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
 
   // Variables
   const request: FollowersRequest = {

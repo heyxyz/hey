@@ -21,7 +21,7 @@ import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { hydrateTbaStatus } from 'src/store/persisted/useTbaStatusStore';
 import { isAddress } from 'viem';
 import { useSignTypedData, useWriteContract } from 'wagmi';
@@ -33,7 +33,7 @@ interface AddProfileManagerProps {
 const AddProfileManager: FC<AddProfileManagerProps> = ({
   setShowAddManagerModal
 }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
   const [manager, setManager] = useState('');

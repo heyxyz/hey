@@ -8,7 +8,7 @@ import formatAddress from '@hey/lib/formatAddress';
 import { Radio } from '@hey/ui';
 import { type FC, useEffect } from 'react';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { encodeAbiParameters, isAddress } from 'viem';
 import { create } from 'zustand';
 
@@ -31,7 +31,7 @@ const useTipActionStore = create<TipActionState>((set) => ({
 }));
 
 const TipConfig: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { openAction, setOpenAction, setShowModal } = useOpenActionStore();
   const { enabled, recipient, reset, setEnabled, setRecipient } =
     useTipActionStore();
