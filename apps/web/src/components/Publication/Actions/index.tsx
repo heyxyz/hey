@@ -33,9 +33,7 @@ const PublicationActions: FC<PublicationActionsProps> = ({
     : publication;
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
-  const publicationViews = useImpressionsStore(
-    (state) => state.publicationViews
-  );
+  const { publicationViews } = useImpressionsStore();
   const hasOpenAction = (targetPublication.openActionModules?.length || 0) > 0;
 
   const canMirror = currentProfile

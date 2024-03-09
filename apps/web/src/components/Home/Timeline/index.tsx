@@ -23,9 +23,7 @@ const Timeline: FC = () => {
   const fallbackToCuratedFeed = useProfileStore(
     (state) => state.fallbackToCuratedFeed
   );
-  const fetchAndStoreViews = useImpressionsStore(
-    (state) => state.fetchAndStoreViews
-  );
+  const { fetchAndStoreViews } = useImpressionsStore();
 
   // Variables
   const request: FeedRequest = {

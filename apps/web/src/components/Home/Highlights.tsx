@@ -18,9 +18,7 @@ const Highlights: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const txnQueue = useTransactionStore((state) => state.txnQueue);
   const { seeThroughProfile } = useTimelineStore();
-  const fetchAndStoreViews = useImpressionsStore(
-    (state) => state.fetchAndStoreViews
-  );
+  const { fetchAndStoreViews } = useImpressionsStore();
 
   // Variables
   const request: FeedHighlightsRequest = {

@@ -36,7 +36,7 @@ interface GlobalModalState {
   showReportProfileModal: boolean;
 }
 
-export const store = create<GlobalModalState>((set) => ({
+const store = create<GlobalModalState>((set) => ({
   authModalType: 'login',
   reportingProfile: null,
   reportingPublicationId: null,

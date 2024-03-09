@@ -24,7 +24,7 @@ interface GlobalAlertState {
   showPublicationDeleteAlert: boolean;
 }
 
-export const store = create<GlobalAlertState>((set) => ({
+const store = create<GlobalAlertState>((set) => ({
   blockingorUnblockingProfile: null,
   deletingPublication: null,
   forceDeletePublication: false,
