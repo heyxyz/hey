@@ -16,7 +16,7 @@ import Links from './Links';
 
 const Overview: NextPage = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const staffMode = useFeatureFlagsStore((state) => state.staffMode);
+  const { staffMode } = useFeatureFlagsStore();
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'staff-tools', subpage: 'overview' });

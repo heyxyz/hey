@@ -16,8 +16,7 @@ interface StaffModeProps {
 }
 
 const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
-  const staffMode = useFeatureFlagsStore((state) => state.staffMode);
-  const setStaffMode = useFeatureFlagsStore((state) => state.setStaffMode);
+  const { setStaffMode, staffMode } = useFeatureFlagsStore();
 
   const toggleStaffMode = () => {
     toast.promise(

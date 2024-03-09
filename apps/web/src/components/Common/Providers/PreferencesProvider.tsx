@@ -23,13 +23,8 @@ const PreferencesProvider: FC = () => {
     setIsPride
   } = usePreferencesStore();
   const { setRestriction } = useProfileRestriction();
-  const setFeatureFlags = useFeatureFlagsStore(
-    (state) => state.setFeatureFlags
-  );
-  const setStaffMode = useFeatureFlagsStore((state) => state.setStaffMode);
-  const setGardenerMode = useFeatureFlagsStore(
-    (state) => state.setGardenerMode
-  );
+  const { setFeatureFlags, setGardenerMode, setStaffMode } =
+    useFeatureFlagsStore();
 
   // Fetch preferences
   const fetchPreferences = async () => {
