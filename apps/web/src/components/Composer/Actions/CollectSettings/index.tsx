@@ -9,7 +9,7 @@ import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCo
 import CollectForm from './CollectForm';
 
 const CollectSettings: FC = () => {
-  const reset = useCollectModuleStore((state) => state.reset);
+  const { reset } = useCollectModuleStore();
   const [showModal, setShowModal] = useState(false);
 
   return (

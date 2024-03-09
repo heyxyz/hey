@@ -7,7 +7,7 @@ import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface MutualFollowersProps {
   profileId: string;
@@ -20,7 +20,7 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
   setShowMutualFollowersModal,
   viaPopover = false
 }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
 
   const { data, error, loading } = useMutualFollowersQuery({
     skip: !profileId || !currentProfile?.id,

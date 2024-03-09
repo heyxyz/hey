@@ -20,9 +20,7 @@ interface GiphyProps {
 }
 
 const Gif: FC<GiphyProps> = ({ setGifAttachment }) => {
-  const attachments = usePublicationAttachmentStore(
-    (state) => state.attachments
-  );
+  const { attachments } = usePublicationAttachmentStore();
   const [showModal, setShowModal] = useState(false);
 
   return (

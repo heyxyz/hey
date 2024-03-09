@@ -16,7 +16,7 @@ interface AuthState {
   signOut: () => void;
 }
 
-export const useAuthStore = create(
+const store = create(
   persist<AuthState>(
     (set, get) => ({
       accessToken: null,
@@ -52,7 +52,6 @@ export const useAuthStore = create(
 );
 
 export const signIn = (tokens: { accessToken: string; refreshToken: string }) =>
-  useAuthStore.getState().signIn(tokens);
-export const signOut = () => useAuthStore.getState().signOut();
-export const hydrateAuthTokens = () =>
-  useAuthStore.getState().hydrateAuthTokens();
+  store.getState().signIn(tokens);
+export const signOut = () => store.getState().signOut();
+export const hydrateAuthTokens = () => store.getState().hydrateAuthTokens();

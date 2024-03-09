@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 const ModIcon: FC = () => {
-  const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
+  const { gardenerMode } = useFeatureFlagsStore();
 
   if (!gardenerMode) {
     return null;

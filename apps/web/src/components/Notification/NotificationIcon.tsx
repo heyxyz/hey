@@ -5,15 +5,11 @@ import Link from 'next/link';
 import { useNotificationStore } from 'src/store/persisted/useNotificationStore';
 
 const NotificationIcon: FC = () => {
-  const latestNotificationId = useNotificationStore(
-    (state) => state.latestNotificationId
-  );
-  const lastOpenedNotificationId = useNotificationStore(
-    (state) => state.lastOpenedNotificationId
-  );
-  const setLastOpenedNotificationId = useNotificationStore(
-    (state) => state.setLastOpenedNotificationId
-  );
+  const {
+    lastOpenedNotificationId,
+    latestNotificationId,
+    setLastOpenedNotificationId
+  } = useNotificationStore();
 
   return (
     <Link

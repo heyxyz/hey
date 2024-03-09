@@ -62,13 +62,13 @@ const newProfileSchema = object({
 });
 
 const ChooseHandle: FC = () => {
-  const delegatedExecutor = useSignupStore((state) => state.delegatedExecutor);
-  const setScreen = useSignupStore((state) => state.setScreen);
-  const setChoosedHandle = useSignupStore((state) => state.setChoosedHandle);
-  const setTransactionHash = useSignupStore(
-    (state) => state.setTransactionHash
-  );
-  const setMintViaCard = useSignupStore((state) => state.setMintViaCard);
+  const {
+    delegatedExecutor,
+    setChoosedHandle,
+    setMintViaCard,
+    setScreen,
+    setTransactionHash
+  } = useSignupStore();
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
   const { address } = useAccount();

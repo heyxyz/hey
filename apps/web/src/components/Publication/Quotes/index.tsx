@@ -24,7 +24,7 @@ import Feed from './Feed';
 import QuotesPageShimmer from './Shimmer';
 
 const Quotes: NextPage = () => {
-  const staffMode = useFeatureFlagsStore((state) => state.staffMode);
+  const { staffMode } = useFeatureFlagsStore();
 
   const {
     isReady,

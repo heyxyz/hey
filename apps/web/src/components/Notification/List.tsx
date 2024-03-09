@@ -37,12 +37,8 @@ interface ListProps {
 }
 
 const List: FC<ListProps> = ({ feedType }) => {
-  const highSignalNotificationFilter = usePreferencesStore(
-    (state) => state.highSignalNotificationFilter
-  );
-  const latestNotificationId = useNotificationStore(
-    (state) => state.latestNotificationId
-  );
+  const { highSignalNotificationFilter } = usePreferencesStore();
+  const { latestNotificationId } = useNotificationStore();
 
   const getNotificationType = () => {
     switch (feedType) {

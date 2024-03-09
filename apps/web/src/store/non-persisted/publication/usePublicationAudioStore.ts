@@ -1,3 +1,4 @@
+import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 
 interface PublicationAudioState {
@@ -15,14 +16,14 @@ interface PublicationAudioState {
   }) => void;
 }
 
-export const usePublicationAudioStore = create<PublicationAudioState>(
-  (set) => ({
-    audioPublication: {
-      artist: '',
-      cover: '',
-      coverMimeType: 'image/jpeg',
-      title: ''
-    },
-    setAudioPublication: (audioPublication) => set(() => ({ audioPublication }))
-  })
-);
+const store = create<PublicationAudioState>((set) => ({
+  audioPublication: {
+    artist: '',
+    cover: '',
+    coverMimeType: 'image/jpeg',
+    title: ''
+  },
+  setAudioPublication: (audioPublication) => set(() => ({ audioPublication }))
+}));
+
+export const usePublicationAudioStore = createTrackedSelector(store);

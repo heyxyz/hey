@@ -34,7 +34,7 @@ import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { formatUnits } from 'viem';
 import { useBalance, useSignTypedData, useWriteContract } from 'wagmi';
 
@@ -54,13 +54,8 @@ const FollowModule: FC<FollowModuleProps> = ({
   setShowFollowModal
 }) => {
   const { pathname } = useRouter();
-  const lensHubOnchainSigNonce = useNonceStore(
-    (state) => state.lensHubOnchainSigNonce
-  );
-  const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce
-  );
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
+  const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
   const [isLoading, setIsLoading] = useState(false);
   const [allowed, setAllowed] = useState(true);

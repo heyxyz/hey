@@ -12,13 +12,13 @@ import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Feed from './Feed';
 
 const Explore: NextPage = () => {
   const router = useRouter();
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const [focus, setFocus] = useState<PublicationMetadataMainFocusType>();
 
   useEffect(() => {
