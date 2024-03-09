@@ -71,7 +71,9 @@ const CollectAction: FC<CollectActionProps> = ({
 }) => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
+    (state) => state
+  );
 
   const { id: sessionProfileId } = getCurrentSession();
 

@@ -17,7 +17,7 @@ const AmountConfig: FC<AmountConfigProps> = ({
   allowedTokens,
   setCollectType
 }) => {
-  const { collectModule } = useCollectModuleStore();
+  const { collectModule } = useCollectModuleStore((state) => state);
 
   return (
     <div>

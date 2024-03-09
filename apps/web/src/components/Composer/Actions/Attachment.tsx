@@ -31,7 +31,9 @@ const VideoMimeType = [
 ];
 
 const Attachment: FC = () => {
-  const { attachments, isUploading } = usePublicationAttachmentStore();
+  const { attachments, isUploading } = usePublicationAttachmentStore(
+    (state) => state
+  );
   const { handleUploadAttachments } = useUploadAttachments();
   const [showMenu, setShowMenu] = useState(false);
   const id = useId();

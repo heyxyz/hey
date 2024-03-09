@@ -28,7 +28,9 @@ import { useSignTypedData, useWriteContract } from 'wagmi';
 const UnlinkHandle: FC = () => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
+    (state) => state
+  );
   const [unlinking, setUnlinking] = useState<boolean>(false);
 
   const handleWrongNetwork = useHandleWrongNetwork();

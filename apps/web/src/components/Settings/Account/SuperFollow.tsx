@@ -49,7 +49,9 @@ const newSuperFollowSchema = object({
 const SuperFollow: FC = () => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
+    (state) => state
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState(
     DEFAULT_COLLECT_TOKEN

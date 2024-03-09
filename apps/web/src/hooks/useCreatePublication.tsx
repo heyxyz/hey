@@ -58,7 +58,9 @@ const useCreatePublication = ({
   const { push } = useRouter();
   const { cache } = useApolloClient();
   const { currentProfile } = useProfileStore();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
+    (state) => state
+  );
   const { publicationContent } = usePublicationStore();
   const { setTxnQueue, txnQueue } = useTransactionStore();
   const handleWrongNetwork = useHandleWrongNetwork();

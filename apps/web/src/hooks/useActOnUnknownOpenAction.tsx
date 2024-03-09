@@ -29,7 +29,9 @@ const useActOnUnknownOpenAction = ({
   successToast
 }: CreatePublicationProps) => {
   const { currentProfile } = useProfileStore();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
+    (state) => state
+  );
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
 

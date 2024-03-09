@@ -107,7 +107,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     useGlobalModalStateStore();
 
   // Nonce store
-  const { lensHubOnchainSigNonce } = useNonceStore();
+  const { lensHubOnchainSigNonce } = useNonceStore((state) => state);
 
   // Publication store
   const {
@@ -129,7 +129,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   // Attachment store
   const { addAttachments, attachments, isUploading, setAttachments } =
-    usePublicationAttachmentStore();
+    usePublicationAttachmentStore((state) => state);
 
   // Poll store
   const { pollConfig, resetPollConfig, setShowPollEditor, showPollEditor } =
@@ -139,8 +139,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { setLicense } = usePublicationLicenseStore();
 
   // Collect module store
-  const { collectModule, reset: resetCollectSettings } =
-    useCollectModuleStore();
+  const { collectModule, reset: resetCollectSettings } = useCollectModuleStore(
+    (state) => state
+  );
 
   // Open action store
   const { openAction, reset: resetOpenActionSettings } = useOpenActionStore();

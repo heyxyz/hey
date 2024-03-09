@@ -35,7 +35,9 @@ const Unfollow: FC<UnfollowProps> = ({ profile, small = false }) => {
   const { pathname } = useRouter();
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
+    (state) => state
+  );
   const { setShowAuthModal } = useGlobalModalStateStore();
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
