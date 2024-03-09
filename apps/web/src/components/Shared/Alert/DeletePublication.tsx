@@ -11,15 +11,11 @@ import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlert
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 
 const DeletePublication: FC = () => {
-  const showPublicationDeleteAlert = useGlobalAlertStateStore(
-    (state) => state.showPublicationDeleteAlert
-  );
-  const setShowPublicationDeleteAlert = useGlobalAlertStateStore(
-    (state) => state.setShowPublicationDeleteAlert
-  );
-  const deletingPublication = useGlobalAlertStateStore(
-    (state) => state.deletingPublication
-  );
+  const {
+    deletingPublication,
+    setShowPublicationDeleteAlert,
+    showPublicationDeleteAlert
+  } = useGlobalAlertStateStore();
   const { isSuspended } = useProfileRestriction();
 
   const [hidePost, { loading }] = useHidePublicationMutation({

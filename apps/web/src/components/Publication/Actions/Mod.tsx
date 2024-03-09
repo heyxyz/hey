@@ -12,9 +12,7 @@ interface ModProps {
 }
 
 const Mod: FC<ModProps> = ({ isFullPublication = false, publication }) => {
-  const setShowGardenerActionsAlert = useGlobalAlertStateStore(
-    (state) => state.setShowGardenerActionsAlert
-  );
+  const { setShowGardenerActionsAlert } = useGlobalAlertStateStore();
 
   const iconClassName = isFullPublication
     ? 'w-[17px] sm:w-[20px]'
