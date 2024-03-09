@@ -16,9 +16,7 @@ import { isAddress } from 'viem';
 import { useAccount } from 'wagmi';
 
 const LensSubscriptionsProvider: FC = () => {
-  const setLatestNotificationId = useNotificationStore(
-    (state) => state.setLatestNotificationId
-  );
+  const { setLatestNotificationId } = useNotificationStore();
   const { setLensHubOnchainSigNonce, setLensPublicActProxyOnchainSigNonce } =
     useNonceStore();
   const { address } = useAccount();

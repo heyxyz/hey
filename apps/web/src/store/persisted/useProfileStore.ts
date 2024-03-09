@@ -1,6 +1,7 @@
 import type { Profile } from '@hey/lens';
 
 import { IndexDB } from '@hey/data/storage';
+import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -13,7 +14,7 @@ interface ProfileState {
   setFallbackToCuratedFeed: (fallbackToCuratedFeed: boolean) => void;
 }
 
-export const useProfileStore = create(
+const store = create(
   persist<ProfileState>(
     (set) => ({
       currentProfile: null,
@@ -29,4 +30,4 @@ export const useProfileStore = create(
   )
 );
 
-export default useProfileStore;
+export const useProfileStore = createTrackedSelector(store);

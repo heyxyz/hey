@@ -8,7 +8,7 @@ import { LimitType, useMutualFollowersQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
 import { Virtuoso } from 'react-virtuoso';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface MutualFollowersListProps {
   handle: string;
@@ -19,7 +19,7 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({
   handle,
   profileId
 }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
 
   // Variables
   const request: MutualFollowersRequest = {

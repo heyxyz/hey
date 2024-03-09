@@ -17,14 +17,14 @@ import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useWriteContract } from 'wagmi';
 
 import CountdownTimer from '../CountdownTimer';
 import IndexStatus from '../IndexStatus';
 
 const ProtectProfile: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const handleWrongNetwork = useHandleWrongNetwork();
 
   const onError = (error: any) => {

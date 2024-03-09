@@ -12,7 +12,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { type FC, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface PortalProps {
   portal: IPortal;
@@ -20,7 +20,7 @@ interface PortalProps {
 }
 
 const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const [portalData, setPortalData] = useState<IPortal | null>(null);
   const [loading, setLoading] = useState(false);
 
