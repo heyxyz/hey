@@ -16,10 +16,7 @@ interface ModModeProps {
 }
 
 const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
-  const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
-  const setGardenerMode = useFeatureFlagsStore(
-    (state) => state.setGardenerMode
-  );
+  const { gardenerMode, setGardenerMode } = useFeatureFlagsStore();
 
   const toggleModMode = () => {
     toast.promise(

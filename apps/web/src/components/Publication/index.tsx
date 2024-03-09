@@ -52,7 +52,7 @@ export const useHiddenCommentFeedStore = create<HiddenCommentFeedState>(
 const ViewPublication: NextPage = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const { isSuspended } = useProfileRestriction();
-  const staffMode = useFeatureFlagsStore((state) => state.staffMode);
+  const { staffMode } = useFeatureFlagsStore();
   const { showNewPostModal } = useGlobalModalStateStore();
 
   const {

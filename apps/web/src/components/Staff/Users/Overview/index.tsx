@@ -31,7 +31,7 @@ const Overview: NextPage = () => {
     query: { id }
   } = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const staffMode = useFeatureFlagsStore((state) => state.staffMode);
+  const { staffMode } = useFeatureFlagsStore();
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, {
