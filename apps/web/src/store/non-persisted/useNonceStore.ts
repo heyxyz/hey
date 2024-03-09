@@ -1,4 +1,3 @@
-import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 
@@ -9,7 +8,7 @@ interface NonceState {
   setLensPublicActProxyOnchainSigNonce: (nonce: number) => void;
 }
 
-const store = create(
+export const useNonceStore = create(
   subscribeWithSelector<NonceState>((set) => ({
     lensHubOnchainSigNonce: 0,
     lensPublicActProxyOnchainSigNonce: 0,
@@ -19,5 +18,3 @@ const store = create(
       set(() => ({ lensPublicActProxyOnchainSigNonce: nonce }))
   }))
 );
-
-export const useNonceStore = createTrackedSelector(store);

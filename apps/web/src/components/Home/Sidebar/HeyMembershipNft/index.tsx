@@ -14,12 +14,10 @@ import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore
 import Mint from './Mint';
 
 const HeyMembershipNft: FC = () => {
-  const hasDismissedOrMintedMembershipNft = usePreferencesStore(
-    (state) => state.hasDismissedOrMintedMembershipNft
-  );
-  const setHasDismissedOrMintedMembershipNft = usePreferencesStore(
-    (state) => state.setHasDismissedOrMintedMembershipNft
-  );
+  const {
+    hasDismissedOrMintedMembershipNft,
+    setHasDismissedOrMintedMembershipNft
+  } = usePreferencesStore();
   const [showMintModal, setShowMintModal] = useState(false);
 
   if (hasDismissedOrMintedMembershipNft) {

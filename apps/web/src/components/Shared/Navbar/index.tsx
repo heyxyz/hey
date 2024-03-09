@@ -22,7 +22,7 @@ const Navbar: FC = () => {
   const router = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const staffMode = useFeatureFlagsStore((state) => state.staffMode);
-  const isPride = usePreferencesStore((state) => state.isPride);
+  const { isPride } = usePreferencesStore();
   const [showSearch, setShowSearch] = useState(false);
 
   const onProfileSelected = (profile: Profile) => {
