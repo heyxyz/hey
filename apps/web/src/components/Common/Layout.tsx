@@ -37,9 +37,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const resetFeatureFlags = useFeatureFlagsStore(
     (state) => state.resetFeatureFlags
   );
-  const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce
-  );
+  const { setLensHubOnchainSigNonce } = useNonceStore();
   const setFallbackToCuratedFeed = useProfileStore(
     (state) => state.setFallbackToCuratedFeed
   );

@@ -19,12 +19,8 @@ const LensSubscriptionsProvider: FC = () => {
   const setLatestNotificationId = useNotificationStore(
     (state) => state.setLatestNotificationId
   );
-  const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce
-  );
-  const setLensPublicActProxyOnchainSigNonce = useNonceStore(
-    (state) => state.setLensPublicActProxyOnchainSigNonce
-  );
+  const { setLensHubOnchainSigNonce, setLensPublicActProxyOnchainSigNonce } =
+    useNonceStore();
   const { address } = useAccount();
   const { id: sessionProfileId } = getCurrentSession();
   const canUseSubscriptions = Boolean(sessionProfileId) && address;
