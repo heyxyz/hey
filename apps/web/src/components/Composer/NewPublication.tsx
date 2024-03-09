@@ -103,11 +103,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { isSuspended } = useProfileRestriction();
   const { setShowDiscardModal, setShowNewPostModal } =
     useGlobalModalStateStore();
-
-  // Nonce store
-  const lensHubOnchainSigNonce = useNonceStore(
-    (state) => state.lensHubOnchainSigNonce
-  );
+  const { lensHubOnchainSigNonce } = useNonceStore();
 
   // Publication store
   const publicationContent = usePublicationStore(

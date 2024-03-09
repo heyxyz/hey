@@ -58,12 +58,7 @@ const useCreatePublication = ({
   const { push } = useRouter();
   const { cache } = useApolloClient();
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const lensHubOnchainSigNonce = useNonceStore(
-    (state) => state.lensHubOnchainSigNonce
-  );
-  const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce
-  );
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
   const publicationContent = usePublicationStore(
     (state) => state.publicationContent
   );
