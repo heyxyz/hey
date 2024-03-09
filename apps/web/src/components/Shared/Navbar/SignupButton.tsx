@@ -8,9 +8,7 @@ import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModal
 import { useSignupStore } from '../Auth/Signup';
 
 const SignupButton: FC = () => {
-  const setShowAuthModal = useGlobalModalStateStore(
-    (state) => state.setShowAuthModal
-  );
+  const { setShowAuthModal } = useGlobalModalStateStore();
   const setScreen = useSignupStore((state) => state.setScreen);
 
   return (

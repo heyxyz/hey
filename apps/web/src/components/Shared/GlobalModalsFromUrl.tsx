@@ -11,9 +11,7 @@ const GlobalModalsFromUrl: FC = () => {
   const { isReady, push, query } = useRouter();
 
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const setShowAuthModal = useGlobalModalStateStore(
-    (state) => state.setShowAuthModal
-  );
+  const { setShowAuthModal } = useGlobalModalStateStore();
   const setScreen = useSignupStore((state) => state.setScreen);
 
   // Trigger Signup modal

@@ -12,9 +12,7 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 const NewPost: FC = () => {
   const { isReady, push, query } = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const setShowNewPostModal = useGlobalModalStateStore(
-    (state) => state.setShowNewPostModal
-  );
+  const { setShowNewPostModal } = useGlobalModalStateStore();
   const setPublicationContent = usePublicationStore(
     (state) => state.setPublicationContent
   );
