@@ -142,6 +142,9 @@ const ViewPublication: NextPage = () => {
           <UserProfile
             profile={targetPublication.by}
             showBio
+            showFollowUnfollowButton={
+              targetPublication.by.id !== currentProfile?.id
+            }
             source={ProfileLinkSource.Publication}
           />
         </Card>
