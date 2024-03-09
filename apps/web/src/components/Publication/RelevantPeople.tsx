@@ -6,12 +6,14 @@ import UserProfile from '@components/Shared/UserProfile';
 import { ProfileLinkSource } from '@hey/data/tracking';
 import { useProfilesQuery } from '@hey/lens';
 import { Card, ErrorMessage } from '@hey/ui';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface RelevantPeopleProps {
   profilesMentioned: ProfileMentioned[];
 }
 
 const RelevantPeople: FC<RelevantPeopleProps> = ({ profilesMentioned }) => {
+  const { currentProfile } = useProfileStore();
   const profileIds = profilesMentioned.map(
     (profile) => profile.snapshotHandleMentioned.linkedTo?.nftTokenId
   );
@@ -48,7 +50,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ profilesMentioned }) => {
         <div className="truncate" key={profile?.id}>
           <UserProfile
             profile={profile as Profile}
-            showFollowUnfollowButton
+            showFollowUnfollowButton={profile?.id !== currentProfile?.id}
             showUserPreview={false}
             source={ProfileLinkSource.RelevantPeople}
           />
