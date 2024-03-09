@@ -37,7 +37,6 @@ const SuperFollow: FC<SuperFollowProps> = ({
     <>
       <Button
         aria-label="Super follow"
-        className="!px-3 !py-1.5 text-sm"
         onClick={() => {
           if (!currentProfile) {
             setShowAuthModal(true);
