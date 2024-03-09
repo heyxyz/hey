@@ -19,9 +19,7 @@ import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 const Timeline: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const txnQueue = useTransactionStore((state) => state.txnQueue);
-  const seeThroughProfile = useTimelineStore(
-    (state) => state.seeThroughProfile
-  );
+  const { seeThroughProfile } = useTimelineStore();
   const fallbackToCuratedFeed = useProfileStore(
     (state) => state.fallbackToCuratedFeed
   );
