@@ -30,9 +30,7 @@ const Feed: FC<FeedProps> = ({ handle, profileId, type }) => {
   const mediaFeedFilters = useProfileFeedStore(
     (state) => state.mediaFeedFilters
   );
-  const fetchAndStoreViews = useImpressionsStore(
-    (state) => state.fetchAndStoreViews
-  );
+  const { fetchAndStoreViews } = useImpressionsStore();
 
   const getMediaFilters = () => {
     const filters: PublicationMetadataMainFocusType[] = [];
