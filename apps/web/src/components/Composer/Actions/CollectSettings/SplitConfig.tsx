@@ -27,7 +27,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
   setCollectType
 }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const collectModule = useCollectModuleStore((state) => state.collectModule);
+  const { collectModule } = useCollectModuleStore();
 
   const recipients = collectModule.recipients || [];
   const hasRecipients = (recipients || []).length > 0;

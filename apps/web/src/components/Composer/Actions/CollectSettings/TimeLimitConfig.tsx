@@ -13,7 +13,7 @@ interface TimeLimitConfigProps {
 }
 
 const TimeLimitConfig: FC<TimeLimitConfigProps> = ({ setCollectType }) => {
-  const collectModule = useCollectModuleStore((state) => state.collectModule);
+  const { collectModule } = useCollectModuleStore();
 
   return (
     <div className="mt-5">
