@@ -27,9 +27,7 @@ interface FeedProps {
 }
 
 const Feed: FC<FeedProps> = ({ handle, profileId, type }) => {
-  const mediaFeedFilters = useProfileFeedStore(
-    (state) => state.mediaFeedFilters
-  );
+  const { mediaFeedFilters } = useProfileFeedStore();
   const { fetchAndStoreViews } = useImpressionsStore();
 
   const getMediaFilters = () => {
