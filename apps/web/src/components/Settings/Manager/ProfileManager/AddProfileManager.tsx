@@ -35,7 +35,9 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
 }) => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
+    (state) => state
+  );
   const [manager, setManager] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 

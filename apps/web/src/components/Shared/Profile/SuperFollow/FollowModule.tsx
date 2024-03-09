@@ -54,7 +54,9 @@ const FollowModule: FC<FollowModuleProps> = ({
   setShowFollowModal
 }) => {
   const { pathname } = useRouter();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
+    (state) => state
+  );
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
   const [isLoading, setIsLoading] = useState(false);

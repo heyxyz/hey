@@ -18,7 +18,7 @@ import { useAccount } from 'wagmi';
 const LensSubscriptionsProvider: FC = () => {
   const { setLatestNotificationId } = useNotificationStore();
   const { setLensHubOnchainSigNonce, setLensPublicActProxyOnchainSigNonce } =
-    useNonceStore();
+    useNonceStore((state) => state);
   const { address } = useAccount();
   const { id: sessionProfileId } = getCurrentSession();
   const canUseSubscriptions = Boolean(sessionProfileId) && address;

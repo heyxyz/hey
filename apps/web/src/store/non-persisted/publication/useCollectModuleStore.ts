@@ -1,6 +1,5 @@
 import type { CollectModuleType } from '@hey/types/hey';
 
-import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 
 const INITIAL_COLLECT_MODULE: CollectModuleType = {
@@ -26,4 +25,4 @@ const store = create<CollectModuleState>((set) => ({
   setCollectModule: (collectModule) => set(() => ({ collectModule }))
 }));
 
-export const useCollectModuleStore = createTrackedSelector(store);
+export const useCollectModuleStore = store;

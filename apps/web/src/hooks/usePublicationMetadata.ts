@@ -23,7 +23,7 @@ const usePublicationMetadata = () => {
   const { videoDurationInSeconds, videoThumbnail } = usePublicationVideoStore();
   const { audioPublication } = usePublicationAudioStore();
   const { license } = usePublicationLicenseStore();
-  const { attachments } = usePublicationAttachmentStore();
+  const { attachments } = usePublicationAttachmentStore((state) => state);
   const { liveVideoConfig, showLiveVideoEditor } = usePublicationLiveStore();
 
   const attachmentsHasAudio = attachments[0]?.type === 'Audio';
