@@ -165,8 +165,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const setLicense = usePublicationLicenseStore((state) => state.setLicense);
 
   // Collect module store
-  const collectModule = useCollectModuleStore((state) => state.collectModule);
-  const resetCollectSettings = useCollectModuleStore((state) => state.reset);
+  const { collectModule, reset: resetCollectSettings } =
+    useCollectModuleStore();
 
   // Open action store
   const openAction = useOpenActionStore((state) => state.openAction);
