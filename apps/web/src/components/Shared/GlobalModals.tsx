@@ -44,7 +44,9 @@ const GlobalModals: FC = () => {
     showReportProfileModal
   } = useGlobalModalStateStore();
   const { publicationContent, quotedPublication } = usePublicationStore();
-  const { attachments, isUploading } = usePublicationAttachmentStore();
+  const { attachments, isUploading } = usePublicationAttachmentStore(
+    (state) => state
+  );
   const { videoDurationInSeconds, videoThumbnail } = usePublicationVideoStore();
   const { audioPublication } = usePublicationAudioStore();
   const { pollConfig, showPollEditor } = usePublicationPollStore();

@@ -21,7 +21,9 @@ interface CollectFormProps {
 }
 
 const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
-  const { collectModule, reset, setCollectModule } = useCollectModuleStore();
+  const { collectModule, reset, setCollectModule } = useCollectModuleStore(
+    (state) => state
+  );
 
   const { SimpleCollectOpenActionModule } = CollectOpenActionModuleType;
   const recipients = collectModule.recipients || [];

@@ -45,7 +45,7 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
   attachments = [],
   hideDelete = false
 }) => {
-  const { setAttachments } = usePublicationAttachmentStore();
+  const { setAttachments } = usePublicationAttachmentStore((state) => state);
   const { setVideoDurationInSeconds } = usePublicationVideoStore();
   const videoRef = useRef<HTMLVideoElement>(null);
 

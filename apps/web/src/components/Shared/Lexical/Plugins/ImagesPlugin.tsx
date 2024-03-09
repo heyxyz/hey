@@ -15,7 +15,7 @@ import { usePublicationAttachmentStore } from 'src/store/non-persisted/publicati
 const ImageMimeType: MediaImageMimeType[] = Object.values(MediaImageMimeType);
 
 const ImagesPlugin = (): JSX.Element | null => {
-  const { attachments } = usePublicationAttachmentStore();
+  const { attachments } = usePublicationAttachmentStore((state) => state);
   const { handleUploadAttachments } = useUploadAttachments();
 
   const [editor] = useLexicalComposerContext();

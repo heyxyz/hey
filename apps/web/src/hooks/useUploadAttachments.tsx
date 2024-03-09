@@ -15,7 +15,7 @@ const useUploadAttachments = () => {
     removeAttachments,
     setIsUploading,
     updateAttachments
-  } = usePublicationAttachmentStore();
+  } = usePublicationAttachmentStore((state) => state);
 
   const validateFileSize = (file: any) => {
     const isImage = file.type.includes('image');

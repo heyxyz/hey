@@ -45,7 +45,9 @@ interface MirrorProps {
 const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
+    (state) => state
+  );
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
