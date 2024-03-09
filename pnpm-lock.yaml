@@ -226,6 +226,9 @@ importers:
       '@lexical/react':
         specifier: ^0.13.1
         version: 0.13.1(lexical@0.13.1)(react-dom@18.2.0)(react@18.2.0)(yjs@13.6.14)
+      '@lexical/rich-text':
+        specifier: ^0.13.1
+        version: 0.13.1(@lexical/clipboard@0.13.1)(@lexical/selection@0.13.1)(@lexical/utils@0.13.1)(lexical@0.13.1)
       '@lexical/utils':
         specifier: ^0.13.1
         version: 0.13.1(lexical@0.13.1)
@@ -6182,6 +6185,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
+      napi-wasm: 1.1.0
     dev: false
     bundledDependencies:
       - napi-wasm
@@ -16394,6 +16398,10 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
+  /napi-wasm@1.1.0:
+    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
+    dev: false
+
   /natural-compare-lite@1.4.0:
     resolution: {integrity: sha512-Tj+HTDSJJKaZnfiuw+iaF9skdPpTo2GtEly5JHnWV/hfv2Qj/9RKsGISQtLh2ox3l5EAGw487hnBee0sIJ6v2g==}
     dev: true
@@ -16599,7 +16607,7 @@ packages:
     resolution: {integrity: sha512-4GUt3kSEYmk4ITxzB/b9vaIDfUVWN/Ml1Fwl11IlnIG2iaJ9O6WXZ9SrYM9NLI8OCBieN2Y8SWC2oJV0RQ7qYg==}
     hasBin: true
     dependencies:
-      abbrev: 1.0.9
+      abbrev: 1.1.1
     dev: true
 
   /normalize-package-data@2.5.0:
