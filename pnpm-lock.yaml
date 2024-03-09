@@ -313,6 +313,9 @@ importers:
       react-markdown:
         specifier: ^9.0.0
         version: 9.0.1(@types/react@18.2.64)(react@18.2.0)
+      react-tracked:
+        specifier: ^1.7.14
+        version: 1.7.14(react-dom@18.2.0)(react-native@0.73.5)(react@18.2.0)(scheduler@0.23.0)
       react-virtuoso:
         specifier: ^4.7.1
         version: 4.7.1(react-dom@18.2.0)(react@18.2.0)
@@ -17503,6 +17506,10 @@ packages:
     resolution: {integrity: sha512-oyfc0Tx87Cpwva5ZXezSp5V9vht1c7dZBhvuV/y3ctkgMVUmiAGDVeeB0dKhGSyT0v1ZTEQYpe/RXlBVBNuCLA==}
     dev: false
 
+  /proxy-compare@2.6.0:
+    resolution: {integrity: sha512-8xuCeM3l8yqdmbPoYeLbrAXCBWu19XEYc5/F28f5qOaoAIMyfmBUkl5axiK+x9olUvRlcekvnm98AP9RDngOIw==}
+    dev: false
+
   /proxy-from-env@1.1.0:
     resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
 
@@ -17949,6 +17956,27 @@ packages:
       invariant: 2.2.4
       react: 18.2.0
       tslib: 2.6.2
+    dev: false
+
+  /react-tracked@1.7.14(react-dom@18.2.0)(react-native@0.73.5)(react@18.2.0)(scheduler@0.23.0):
+    resolution: {integrity: sha512-6UMlgQeRAGA+uyYzuQGm7kZB6ZQYFhc7sntgP7Oxwwd6M0Ud/POyb4K3QWT1eXvoifSa80nrAWnXWFGpOvbwkw==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '*'
+      react-native: '*'
+      scheduler: '>=0.19.0'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      proxy-compare: 2.6.0
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-native: 0.73.5(@babel/core@7.24.0)(@babel/preset-env@7.24.0)(react@18.2.0)
+      scheduler: 0.23.0
+      use-context-selector: 1.4.4(react-dom@18.2.0)(react-native@0.73.5)(react@18.2.0)(scheduler@0.23.0)
     dev: false
 
   /react-virtuoso@4.7.1(react-dom@18.2.0)(react@18.2.0):
@@ -20202,6 +20230,25 @@ packages:
       '@types/react': 18.2.64
       react: 18.2.0
       tslib: 2.6.2
+    dev: false
+
+  /use-context-selector@1.4.4(react-dom@18.2.0)(react-native@0.73.5)(react@18.2.0)(scheduler@0.23.0):
+    resolution: {integrity: sha512-pS790zwGxxe59GoBha3QYOwk8AFGp4DN6DOtH+eoqVmgBBRXVx4IlPDhJmmMiNQAgUaLlP+58aqRC3A4rdaSjg==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '*'
+      react-native: '*'
+      scheduler: '>=0.19.0'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-native: 0.73.5(@babel/core@7.24.0)(@babel/preset-env@7.24.0)(react@18.2.0)
+      scheduler: 0.23.0
     dev: false
 
   /use-resize-observer@9.1.0(react-dom@18.2.0)(react@18.2.0):

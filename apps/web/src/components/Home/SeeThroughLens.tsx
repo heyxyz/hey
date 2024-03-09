@@ -30,12 +30,7 @@ import useProfileStore from 'src/store/persisted/useProfileStore';
 
 const SeeThroughLens: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const seeThroughProfile = useTimelineStore(
-    (state) => state.seeThroughProfile
-  );
-  const setSeeThroughProfile = useTimelineStore(
-    (state) => state.setSeeThroughProfile
-  );
+  const { seeThroughProfile, setSeeThroughProfile } = useTimelineStore();
   const fallbackToCuratedFeed = useProfileStore(
     (state) => state.fallbackToCuratedFeed
   );
