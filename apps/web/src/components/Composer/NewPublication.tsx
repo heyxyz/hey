@@ -101,68 +101,42 @@ interface NewPublicationProps {
 const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const { isSuspended } = useProfileRestriction();
+
+  // Global modal store
   const { setShowDiscardModal, setShowNewPostModal } =
     useGlobalModalStateStore();
+
+  // Nonce store
   const { lensHubOnchainSigNonce } = useNonceStore();
 
   // Publication store
-  const publicationContent = usePublicationStore(
-    (state) => state.publicationContent
-  );
-  const setPublicationContent = usePublicationStore(
-    (state) => state.setPublicationContent
-  );
-  const quotedPublication = usePublicationStore(
-    (state) => state.quotedPublication
-  );
-  const setQuotedPublication = usePublicationStore(
-    (state) => state.setQuotedPublication
-  );
-  const audioPublication = usePublicationAudioStore(
-    (state) => state.audioPublication
-  );
-  const attachments = usePublicationAttachmentStore(
-    (state) => state.attachments
-  );
-  const setAttachments = usePublicationAttachmentStore(
-    (state) => state.setAttachments
-  );
-  const addAttachments = usePublicationAttachmentStore(
-    (state) => state.addAttachments
-  );
-  const isUploading = usePublicationAttachmentStore(
-    (state) => state.isUploading
-  );
-  const videoThumbnail = usePublicationVideoStore(
-    (state) => state.videoThumbnail
-  );
-  const setVideoThumbnail = usePublicationVideoStore(
-    (state) => state.setVideoThumbnail
-  );
-  const showLiveVideoEditor = usePublicationLiveStore(
-    (state) => state.showLiveVideoEditor
-  );
-  const setShowLiveVideoEditor = usePublicationLiveStore(
-    (state) => state.setShowLiveVideoEditor
-  );
-  const resetLiveVideoConfig = usePublicationLiveStore(
-    (state) => state.resetLiveVideoConfig
-  );
+  const {
+    publicationContent,
+    quotedPublication,
+    setPublicationContent,
+    setQuotedPublication
+  } = usePublicationStore();
+
+  // Audio store
+  const { audioPublication } = usePublicationAudioStore();
+
+  // Video store
+  const { setVideoThumbnail, videoThumbnail } = usePublicationVideoStore();
+
+  // Live video store
+  const { resetLiveVideoConfig, setShowLiveVideoEditor, showLiveVideoEditor } =
+    usePublicationLiveStore();
+
+  // Attachment store
+  const { addAttachments, attachments, isUploading, setAttachments } =
+    usePublicationAttachmentStore();
 
   // Poll store
-  const showPollEditor = usePublicationPollStore(
-    (state) => state.showPollEditor
-  );
-  const setShowPollEditor = usePublicationPollStore(
-    (state) => state.setShowPollEditor
-  );
-  const resetPollConfig = usePublicationPollStore(
-    (state) => state.resetPollConfig
-  );
-  const pollConfig = usePublicationPollStore((state) => state.pollConfig);
+  const { pollConfig, resetPollConfig, setShowPollEditor, showPollEditor } =
+    usePublicationPollStore();
 
   // License store
-  const setLicense = usePublicationLicenseStore((state) => state.setLicense);
+  const { setLicense } = usePublicationLicenseStore();
 
   // Collect module store
   const { collectModule, reset: resetCollectSettings } =

@@ -18,9 +18,7 @@ interface QuoteProps {
 
 const Quote: FC<QuoteProps> = ({ publication }) => {
   const { setShowNewPostModal } = useGlobalModalStateStore();
-  const setQuotedPublication = usePublicationStore(
-    (state) => state.setQuotedPublication
-  );
+  const { setQuotedPublication } = usePublicationStore();
   const { isSuspended } = useProfileRestriction();
 
   const targetPublication = isMirrorPublication(publication)

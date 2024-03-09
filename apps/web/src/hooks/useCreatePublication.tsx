@@ -59,9 +59,7 @@ const useCreatePublication = ({
   const { cache } = useApolloClient();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
-  const publicationContent = usePublicationStore(
-    (state) => state.publicationContent
-  );
+  const { publicationContent } = usePublicationStore();
   const txnQueue = useTransactionStore((state) => state.txnQueue);
   const setTxnQueue = useTransactionStore((state) => state.setTxnQueue);
   const handleWrongNetwork = useHandleWrongNetwork();

@@ -13,9 +13,7 @@ const NewPost: FC = () => {
   const { isReady, push, query } = useRouter();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const { setShowNewPostModal } = useGlobalModalStateStore();
-  const setPublicationContent = usePublicationStore(
-    (state) => state.setPublicationContent
-  );
+  const { setPublicationContent } = usePublicationStore();
 
   const openModal = () => {
     setShowNewPostModal(true);

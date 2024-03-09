@@ -6,15 +6,8 @@ import { motion } from 'framer-motion';
 import { usePublicationLiveStore } from 'src/store/non-persisted/publication/usePublicationLiveStore';
 
 const LivestreamSettings: FC = () => {
-  const showLiveVideoEditor = usePublicationLiveStore(
-    (state) => state.showLiveVideoEditor
-  );
-  const setShowLiveVideoEditor = usePublicationLiveStore(
-    (state) => state.setShowLiveVideoEditor
-  );
-  const resetLiveVideoConfig = usePublicationLiveStore(
-    (state) => state.resetLiveVideoConfig
-  );
+  const { resetLiveVideoConfig, setShowLiveVideoEditor, showLiveVideoEditor } =
+    usePublicationLiveStore();
 
   return (
     <Tooltip content="Go Live" placement="top">
