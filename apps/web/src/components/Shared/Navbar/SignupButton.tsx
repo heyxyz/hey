@@ -9,7 +9,7 @@ import { useSignupStore } from '../Auth/Signup';
 
 const SignupButton: FC = () => {
   const { setShowAuthModal } = useGlobalModalStateStore();
-  const setScreen = useSignupStore((state) => state.setScreen);
+  const { setScreen } = useSignupStore();
 
   return (
     <Button

@@ -8,11 +8,13 @@ import { type FC } from 'react';
 import { useSignupStore } from '.';
 
 const Minting: FC = () => {
-  const setScreen = useSignupStore((state) => state.setScreen);
-  const setProfileId = useSignupStore((state) => state.setProfileId);
-  const choosedHandle = useSignupStore((state) => state.choosedHandle);
-  const mintViaCard = useSignupStore((state) => state.mintViaCard);
-  const transactionHash = useSignupStore((state) => state.transactionHash);
+  const {
+    choosedHandle,
+    mintViaCard,
+    setProfileId,
+    setScreen,
+    transactionHash
+  } = useSignupStore();
 
   useProfileQuery({
     notifyOnNetworkStatusChange: true,

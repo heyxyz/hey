@@ -9,10 +9,9 @@ import { useSignupStore } from './Auth/Signup';
 
 const GlobalModalsFromUrl: FC = () => {
   const { isReady, push, query } = useRouter();
-
   const { currentProfile } = useProfileStore();
   const { setShowAuthModal } = useGlobalModalStateStore();
-  const setScreen = useSignupStore((state) => state.setScreen);
+  const { setScreen } = useSignupStore();
 
   // Trigger Signup modal
   useEffect(() => {
