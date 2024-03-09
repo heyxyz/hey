@@ -11,8 +11,7 @@ import { toast } from 'react-hot-toast';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 
 const IsPride: FC = () => {
-  const isPride = usePreferencesStore((state) => state.isPride);
-  const setIsPride = usePreferencesStore((state) => state.setIsPride);
+  const { isPride, setIsPride } = usePreferencesStore();
   const [updating, setUpdating] = useState(false);
 
   const toggleIsPride = () => {

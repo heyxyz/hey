@@ -31,9 +31,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const { resolvedTheme } = useTheme();
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const setCurrentProfile = useProfileStore((state) => state.setCurrentProfile);
-  const resetPreferences = usePreferencesStore(
-    (state) => state.resetPreferences
-  );
+  const { resetPreferences } = usePreferencesStore();
   const resetFeatureFlags = useFeatureFlagsStore(
     (state) => state.resetFeatureFlags
   );

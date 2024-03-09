@@ -17,14 +17,12 @@ const PreferencesProvider: FC = () => {
   const setVerifiedMembers = useVerifiedMembersStore(
     (state) => state.setVerifiedMembers
   );
-  const setHighSignalNotificationFilter = usePreferencesStore(
-    (state) => state.setHighSignalNotificationFilter
-  );
-  const setIsPride = usePreferencesStore((state) => state.setIsPride);
+  const {
+    setHasDismissedOrMintedMembershipNft,
+    setHighSignalNotificationFilter,
+    setIsPride
+  } = usePreferencesStore();
   const setRestriction = useProfileRestriction((state) => state.setRestriction);
-  const setHasDismissedOrMintedMembershipNft = usePreferencesStore(
-    (state) => state.setHasDismissedOrMintedMembershipNft
-  );
   const setFeatureFlags = useFeatureFlagsStore(
     (state) => state.setFeatureFlags
   );
