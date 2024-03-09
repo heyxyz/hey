@@ -1,6 +1,5 @@
 import type { NewAttachment } from '@hey/types/misc';
 
-import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 
 interface PublicationAttachmentState {
@@ -46,4 +45,4 @@ const store = create<PublicationAttachmentState>((set) => ({
     })
 }));
 
-export const usePublicationAttachmentStore = createTrackedSelector(store);
+export const usePublicationAttachmentStore = store;
