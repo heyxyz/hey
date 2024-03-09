@@ -29,18 +29,12 @@ const Wrapper: FC<WrapperProps> = ({ children }) => {
 };
 
 const LivestreamEditor: FC = () => {
-  const liveVideoConfig = usePublicationLiveStore(
-    (state) => state.liveVideoConfig
-  );
-  const setLiveVideoConfig = usePublicationLiveStore(
-    (state) => state.setLiveVideoConfig
-  );
-  const setShowLiveVideoEditor = usePublicationLiveStore(
-    (state) => state.setShowLiveVideoEditor
-  );
-  const resetLiveVideoConfig = usePublicationLiveStore(
-    (state) => state.resetLiveVideoConfig
-  );
+  const {
+    liveVideoConfig,
+    resetLiveVideoConfig,
+    setLiveVideoConfig,
+    setShowLiveVideoEditor
+  } = usePublicationLiveStore();
 
   const [screen, setScreen] = useState<'create' | 'record'>('create');
   const [creating, setCreating] = useState(false);
