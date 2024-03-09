@@ -44,7 +44,7 @@ const PublicationProfile: FC<FeedUserProfileProps> = ({
   );
 
   return (
-    <div className="flex max-w-sm items-center">
+    <div className="flex max-w-sm flex-wrap items-center">
       <WrappedLink>
         <span className="font-semibold">{getProfile(profile).displayName}</span>
       </WrappedLink>
