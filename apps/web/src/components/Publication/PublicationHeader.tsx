@@ -23,9 +23,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
   publication,
   quoted = false
 }) => {
-  const setQuotedPublication = usePublicationStore(
-    (state) => state.setQuotedPublication
-  );
+  const { setQuotedPublication } = usePublicationStore();
   const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
 
   const targetPublication = isMirrorPublication(publication)

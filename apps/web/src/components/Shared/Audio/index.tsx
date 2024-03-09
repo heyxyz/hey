@@ -39,12 +39,7 @@ const Audio: FC<AudioProps> = ({
   src,
   title
 }) => {
-  const audioPublication = usePublicationAudioStore(
-    (state) => state.audioPublication
-  );
-  const setAudioPublication = usePublicationAudioStore(
-    (state) => state.setAudioPublication
-  );
+  const { audioPublication, setAudioPublication } = usePublicationAudioStore();
 
   const [newPreviewUri, setNewPreviewUri] = useState<null | string>(null);
   const [playing, setPlaying] = useState(false);

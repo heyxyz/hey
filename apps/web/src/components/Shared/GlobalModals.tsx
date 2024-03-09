@@ -43,33 +43,11 @@ const GlobalModals: FC = () => {
     showPublicationReportModal,
     showReportProfileModal
   } = useGlobalModalStateStore();
-
-  // Publication store
-  const publicationContent = usePublicationStore(
-    (state) => state.publicationContent
-  );
-  const attachments = usePublicationAttachmentStore(
-    (state) => state.attachments
-  );
-  const isUploading = usePublicationAttachmentStore(
-    (state) => state.isUploading
-  );
-  const videoDurationInSeconds = usePublicationVideoStore(
-    (state) => state.videoDurationInSeconds
-  );
-  const videoThumbnail = usePublicationVideoStore(
-    (state) => state.videoThumbnail
-  );
-  const audioPublication = usePublicationAudioStore(
-    (state) => state.audioPublication
-  );
-  const quotedPublication = usePublicationStore(
-    (state) => state.quotedPublication
-  );
-  const showPollEditor = usePublicationPollStore(
-    (state) => state.showPollEditor
-  );
-  const pollConfig = usePublicationPollStore((state) => state.pollConfig);
+  const { publicationContent, quotedPublication } = usePublicationStore();
+  const { attachments, isUploading } = usePublicationAttachmentStore();
+  const { videoDurationInSeconds, videoThumbnail } = usePublicationVideoStore();
+  const { audioPublication } = usePublicationAudioStore();
+  const { pollConfig, showPollEditor } = usePublicationPollStore();
   const signupScreen = useSignupStore((state) => state.screen);
   const { address } = useAccount();
 

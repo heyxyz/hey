@@ -6,7 +6,7 @@ import { usePublicationPollStore } from 'src/store/non-persisted/publication/use
 type CreatePollResponse = string;
 
 const useCreatePoll = () => {
-  const pollConfig = usePublicationPollStore((state) => state.pollConfig);
+  const { pollConfig } = usePublicationPollStore();
 
   // TODO: use useCallback
   const createPoll = async (): Promise<CreatePollResponse> => {

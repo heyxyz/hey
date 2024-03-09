@@ -32,12 +32,8 @@ const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS];
 
 const Editor: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const setPublicationContent = usePublicationStore(
-    (state) => state.setPublicationContent
-  );
-  const showPollEditor = usePublicationPollStore(
-    (state) => state.showPollEditor
-  );
+  const { setPublicationContent } = usePublicationStore();
+  const { showPollEditor } = usePublicationPollStore();
 
   const [editor] = useLexicalComposerContext();
 
