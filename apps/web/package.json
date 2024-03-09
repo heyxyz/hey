@@ -33,6 +33,7 @@
     "@lexical/link": "^0.13.1",
     "@lexical/markdown": "^0.13.1",
     "@lexical/react": "^0.13.1",
+    "@lexical/rich-text": "^0.13.1",
     "@lexical/utils": "^0.13.1",
     "@livepeer/react": "3.1.9",
     "@radix-ui/react-hover-card": "^1.0.7",
