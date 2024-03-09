@@ -9,7 +9,7 @@ interface FollowersConfigProps {
 }
 
 const FollowersConfig: FC<FollowersConfigProps> = ({ setCollectType }) => {
-  const collectModule = useCollectModuleStore((state) => state.collectModule);
+  const { collectModule } = useCollectModuleStore();
 
   return (
     <div className="mt-5">
