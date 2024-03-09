@@ -17,18 +17,16 @@ interface QuoteProps {
 }
 
 const Quote: FC<QuoteProps> = ({ publication }) => {
-  const targetPublication = isMirrorPublication(publication)
-    ? publication?.mirrorOn
-    : publication;
-  const publicationType = targetPublication.__typename;
-
-  const setShowNewPostModal = useGlobalModalStateStore(
-    (state) => state.setShowNewPostModal
-  );
+  const { setShowNewPostModal } = useGlobalModalStateStore();
   const setQuotedPublication = usePublicationStore(
     (state) => state.setQuotedPublication
   );
   const { isSuspended } = useProfileRestriction();
+
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
+  const publicationType = targetPublication.__typename;
 
   if (targetPublication.operations.canQuote === TriStateValue.No) {
     return null;
