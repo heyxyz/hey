@@ -33,12 +33,7 @@ import { useSignTypedData, useWriteContract } from 'wagmi';
 const List: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
   const { isSuspended } = useProfileRestriction();
-  const lensHubOnchainSigNonce = useNonceStore(
-    (state) => state.lensHubOnchainSigNonce
-  );
-  const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce
-  );
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
   const [removingAddress, setRemovingAddress] = useState<Address | null>(null);
 
   const handleWrongNetwork = useHandleWrongNetwork();
