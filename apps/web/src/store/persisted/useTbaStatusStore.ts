@@ -1,4 +1,5 @@
 import { IndexDB } from '@hey/data/storage';
+import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -10,7 +11,7 @@ interface TbaStatusState {
   setIsTba: (isTba: boolean) => void;
 }
 
-export const useTbaStatusStore = create(
+const store = create(
   persist<TbaStatusState>(
     (set, get) => ({
       hydrateTbaStatus: () => {
@@ -26,5 +27,5 @@ export const useTbaStatusStore = create(
   )
 );
 
-export const hydrateTbaStatus = () =>
-  useTbaStatusStore.getState().hydrateTbaStatus();
+export const hydrateTbaStatus = () => store.getState().hydrateTbaStatus();
+export const useTbaStatusStore = createTrackedSelector(store);

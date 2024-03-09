@@ -22,8 +22,7 @@ interface QueuedPublicationProps {
 
 const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
   const { currentProfile } = useProfileStore();
-  const txnQueue = useTransactionStore((state) => state.txnQueue);
-  const setTxnQueue = useTransactionStore((state) => state.setTxnQueue);
+  const { setTxnQueue, txnQueue } = useTransactionStore();
 
   const { cache } = useApolloClient();
   const txHash = txn?.txHash;

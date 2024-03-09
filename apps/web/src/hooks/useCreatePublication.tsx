@@ -60,8 +60,7 @@ const useCreatePublication = ({
   const { currentProfile } = useProfileStore();
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
   const { publicationContent } = usePublicationStore();
-  const txnQueue = useTransactionStore((state) => state.txnQueue);
-  const setTxnQueue = useTransactionStore((state) => state.setTxnQueue);
+  const { setTxnQueue, txnQueue } = useTransactionStore();
   const handleWrongNetwork = useHandleWrongNetwork();
   const { canBroadcast } = checkDispatcherPermissions(currentProfile);
 
