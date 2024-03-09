@@ -68,6 +68,14 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
   });
 
   const metadata = data?.moduleMetadata?.metadata;
+  const balance = balanceData
+    ? parseFloat(
+        formatUnits(balanceData.value, selectedCurrency?.decimals as number)
+      ).toFixed(selectedCurrency?.symbol === 'WETH' ? 4 : 2)
+    : 0;
+  const usdEnabled = USD_ENABLED_TOKEN_SYMBOLS.includes(
+    selectedCurrency?.symbol as string
+  );
 
   const { actOnUnknownOpenAction, isLoading } = useActOnUnknownOpenAction({
     signlessApproved: module.signlessApproved,
@@ -95,7 +103,7 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
   }
 
   const act = async () => {
-    if (usdPrice === 0) {
+    if (usdEnabled && usdPrice === 0) {
       return toast.error('Failed to get USD price');
     }
 
@@ -109,7 +117,7 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
     }
 
     const amount = tip.value[0];
-    const usdValue = amount / usdPrice;
+    const usdValue = usdEnabled ? amount / usdPrice : amount;
 
     const calldata = encodeAbiParameters(abi, [
       currency.contractAddress,
@@ -122,15 +130,6 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
       publicationId: publication.id
     });
   };
-
-  const balance = balanceData
-    ? parseFloat(
-        formatUnits(balanceData.value, selectedCurrency?.decimals as number)
-      ).toFixed(selectedCurrency?.symbol === 'WETH' ? 4 : 2)
-    : 0;
-  const usdEnabled = USD_ENABLED_TOKEN_SYMBOLS.includes(
-    selectedCurrency?.symbol as string
-  );
 
   return (
     <div className="space-y-3 p-5">
