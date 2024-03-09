@@ -19,9 +19,7 @@ interface NoneRelevantFeedProps {
 }
 
 const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publicationId }) => {
-  const showHiddenComments = useHiddenCommentFeedStore(
-    (state) => state.showHiddenComments
-  );
+  const { showHiddenComments } = useHiddenCommentFeedStore();
   const [showMore, setShowMore] = useState(false);
 
   // Variables

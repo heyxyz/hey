@@ -48,7 +48,7 @@ const GlobalModals: FC = () => {
   const { videoDurationInSeconds, videoThumbnail } = usePublicationVideoStore();
   const { audioPublication } = usePublicationAudioStore();
   const { pollConfig, showPollEditor } = usePublicationPollStore();
-  const signupScreen = useSignupStore((state) => state.screen);
+  const { screen: signupScreen } = useSignupStore();
   const { address } = useAccount();
 
   const checkIfPublicationNotDrafted = () => {

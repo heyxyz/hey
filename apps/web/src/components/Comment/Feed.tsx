@@ -26,9 +26,7 @@ interface FeedProps {
 
 const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
   const { txnQueue } = useTransactionStore();
-  const showHiddenComments = useHiddenCommentFeedStore(
-    (state) => state.showHiddenComments
-  );
+  const { showHiddenComments } = useHiddenCommentFeedStore();
   const { fetchAndStoreViews } = useImpressionsStore();
 
   // Variables

@@ -28,12 +28,8 @@ const FullPublication: FC<FullPublicationProps> = ({
   hasHiddenComments,
   publication
 }) => {
-  const showHiddenComments = useHiddenCommentFeedStore(
-    (state) => state.showHiddenComments
-  );
-  const setShowHiddenComments = useHiddenCommentFeedStore(
-    (state) => state.setShowHiddenComments
-  );
+  const { setShowHiddenComments, showHiddenComments } =
+    useHiddenCommentFeedStore();
 
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn

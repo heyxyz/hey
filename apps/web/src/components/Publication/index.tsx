@@ -24,6 +24,7 @@ import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { createTrackedSelector } from 'react-tracked';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
@@ -42,12 +43,12 @@ interface HiddenCommentFeedState {
   showHiddenComments: boolean;
 }
 
-export const useHiddenCommentFeedStore = create<HiddenCommentFeedState>(
-  (set) => ({
-    setShowHiddenComments: (show) => set({ showHiddenComments: show }),
-    showHiddenComments: false
-  })
-);
+const store = create<HiddenCommentFeedState>((set) => ({
+  setShowHiddenComments: (show) => set({ showHiddenComments: show }),
+  showHiddenComments: false
+}));
+
+export const useHiddenCommentFeedStore = createTrackedSelector(store);
 
 const ViewPublication: NextPage = () => {
   const { currentProfile } = useProfileStore();

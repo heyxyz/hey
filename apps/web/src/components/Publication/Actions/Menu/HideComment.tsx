@@ -28,9 +28,7 @@ const HideComment: FC<HideCommentProps> = ({ publication }) => {
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
-  const showHiddenComments = useHiddenCommentFeedStore(
-    (state) => state.showHiddenComments
-  );
+  const { showHiddenComments } = useHiddenCommentFeedStore();
 
   const request: HideCommentRequest | UnhideCommentRequest = {
     for: publication.id
