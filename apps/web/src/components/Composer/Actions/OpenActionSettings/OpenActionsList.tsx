@@ -12,11 +12,7 @@ import OpenActionsConfig from './OpenActionsConfig';
 import SaveOrCancel from './SaveOrCancel';
 
 const OpenActionsList: FC = () => {
-  const setShowModal = useOpenActionStore((state) => state.setShowModal);
-  const screen = useOpenActionStore((state) => state.screen);
-  const selectedOpenAction = useOpenActionStore(
-    (state) => state.selectedOpenAction
-  );
+  const { screen, selectedOpenAction, setShowModal } = useOpenActionStore();
 
   return screen === ScreenType.List ? (
     <div className="p-5">
