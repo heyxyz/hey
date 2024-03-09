@@ -7,7 +7,7 @@ import { useTbaStatusStore } from 'src/store/persisted/useTbaStatusStore';
 
 const TbaStatusProvider: FC = () => {
   const { currentProfile } = useProfileStore();
-  const setIsTba = useTbaStatusStore((state) => state.setIsTba);
+  const { setIsTba } = useTbaStatusStore();
 
   useQuery({
     queryFn: () =>
