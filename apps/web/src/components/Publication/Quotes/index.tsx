@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import OnchainMeta from '../OnchainMeta';
 import RelevantPeople from '../RelevantPeople';
@@ -24,6 +25,7 @@ import Feed from './Feed';
 import QuotesPageShimmer from './Shimmer';
 
 const Quotes: NextPage = () => {
+  const { currentProfile } = useProfileStore();
   const { staffMode } = useFeatureFlagsStore();
 
   const {
@@ -75,6 +77,9 @@ const Quotes: NextPage = () => {
           <UserProfile
             profile={targetPublication.by}
             showBio
+            showFollowUnfollowButton={
+              targetPublication.by.id !== currentProfile?.id
+            }
             source={ProfileLinkSource.Publication}
           />
         </Card>
