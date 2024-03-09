@@ -71,6 +71,8 @@ const AmountConfig: FC<AmountConfigProps> = ({
                 }}
                 options={allowedTokens?.map((token) => ({
                   label: token.name,
+                  selected:
+                    token.contractAddress === collectModule.amount?.currency,
                   value: token.contractAddress
                 }))}
               />
