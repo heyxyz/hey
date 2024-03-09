@@ -14,9 +14,7 @@ import { useVerifiedMembersStore } from 'src/store/persisted/useVerifiedMembersS
 
 const PreferencesProvider: FC = () => {
   const { id: sessionProfileId } = getCurrentSession();
-  const setVerifiedMembers = useVerifiedMembersStore(
-    (state) => state.setVerifiedMembers
-  );
+  const { setVerifiedMembers } = useVerifiedMembersStore();
   const {
     setHasDismissedOrMintedMembershipNft,
     setHighSignalNotificationFilter,
