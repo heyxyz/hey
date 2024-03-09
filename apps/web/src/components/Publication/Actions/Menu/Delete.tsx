@@ -12,9 +12,7 @@ interface DeleteProps {
 }
 
 const Delete: FC<DeleteProps> = ({ publication }) => {
-  const setShowPublicationDeleteAlert = useGlobalAlertStateStore(
-    (state) => state.setShowPublicationDeleteAlert
-  );
+  const { setShowPublicationDeleteAlert } = useGlobalAlertStateStore();
 
   return (
     <Menu.Item

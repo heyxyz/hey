@@ -30,15 +30,11 @@ import { useSignTypedData, useWriteContract } from 'wagmi';
 
 const BlockOrUnBlockProfile: FC = () => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
-  const showBlockOrUnblockAlert = useGlobalAlertStateStore(
-    (state) => state.showBlockOrUnblockAlert
-  );
-  const setShowBlockOrUnblockAlert = useGlobalAlertStateStore(
-    (state) => state.setShowBlockOrUnblockAlert
-  );
-  const blockingorUnblockingProfile = useGlobalAlertStateStore(
-    (state) => state.blockingorUnblockingProfile
-  );
+  const {
+    blockingorUnblockingProfile,
+    setShowBlockOrUnblockAlert,
+    showBlockOrUnblockAlert
+  } = useGlobalAlertStateStore();
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce
   );
