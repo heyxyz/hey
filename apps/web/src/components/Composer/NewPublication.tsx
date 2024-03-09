@@ -139,16 +139,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const setVideoThumbnail = usePublicationVideoStore(
     (state) => state.setVideoThumbnail
   );
-  const showPollEditor = usePublicationPollStore(
-    (state) => state.showPollEditor
-  );
-  const setShowPollEditor = usePublicationPollStore(
-    (state) => state.setShowPollEditor
-  );
-  const resetPollConfig = usePublicationPollStore(
-    (state) => state.resetPollConfig
-  );
-  const pollConfig = usePublicationPollStore((state) => state.pollConfig);
   const showLiveVideoEditor = usePublicationLiveStore(
     (state) => state.showLiveVideoEditor
   );
@@ -159,6 +149,19 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     (state) => state.resetLiveVideoConfig
   );
 
+  // Poll store
+  const showPollEditor = usePublicationPollStore(
+    (state) => state.showPollEditor
+  );
+  const setShowPollEditor = usePublicationPollStore(
+    (state) => state.setShowPollEditor
+  );
+  const resetPollConfig = usePublicationPollStore(
+    (state) => state.resetPollConfig
+  );
+  const pollConfig = usePublicationPollStore((state) => state.pollConfig);
+
+  // License store
   const setLicense = usePublicationLicenseStore((state) => state.setLicense);
 
   // Collect module store
@@ -170,13 +173,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const resetOpenActionSettings = useOpenActionStore((state) => state.reset);
 
   // Reference module store
-  const selectedReferenceModule = useReferenceModuleStore(
-    (state) => state.selectedReferenceModule
-  );
-  const onlyFollowers = useReferenceModuleStore((state) => state.onlyFollowers);
-  const degreesOfSeparation = useReferenceModuleStore(
-    (state) => state.degreesOfSeparation
-  );
+  const { degreesOfSeparation, onlyFollowers, selectedReferenceModule } =
+    useReferenceModuleStore();
 
   // States
   const [isLoading, setIsLoading] = useState(false);

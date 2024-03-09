@@ -16,22 +16,14 @@ import { motion } from 'framer-motion';
 import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
 
 const ReferenceSettings: FC = () => {
-  const selectedReferenceModule = useReferenceModuleStore(
-    (state) => state.selectedReferenceModule
-  );
-  const setSelectedReferenceModule = useReferenceModuleStore(
-    (state) => state.setSelectedReferenceModule
-  );
-  const onlyFollowers = useReferenceModuleStore((state) => state.onlyFollowers);
-  const setOnlyFollowers = useReferenceModuleStore(
-    (state) => state.setOnlyFollowers
-  );
-  const degreesOfSeparation = useReferenceModuleStore(
-    (state) => state.degreesOfSeparation
-  );
-  const setDegreesOfSeparation = useReferenceModuleStore(
-    (state) => state.setDegreesOfSeparation
-  );
+  const {
+    degreesOfSeparation,
+    onlyFollowers,
+    selectedReferenceModule,
+    setDegreesOfSeparation,
+    setOnlyFollowers,
+    setSelectedReferenceModule
+  } = useReferenceModuleStore();
 
   const MY_FOLLOWS = 'My follows';
   const MY_FOLLOWERS = 'My followers';
