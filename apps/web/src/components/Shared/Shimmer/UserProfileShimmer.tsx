@@ -23,7 +23,9 @@ const UserProfileShimmer: FC<UserProfileShimmerProps> = ({
           {isBig ? <div className="shimmer h-3 w-48 rounded-lg" /> : null}
         </div>
       </div>
-      {showFollow ? <div className="shimmer h-8 w-10 rounded-lg" /> : null}
+      {showFollow ? (
+        <div className="shimmer h-[26px] w-[68px] rounded-full" />
+      ) : null}
     </div>
   );
 };
