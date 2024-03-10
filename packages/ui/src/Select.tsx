@@ -63,7 +63,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
                         ) : null}
                       </span>
                       {option.helper ? (
-                        <span className="ld-text-gray-500 text-sm">
+                        <span className="ld-text-gray-500 text-xs">
                           {option.helper}
                         </span>
                       ) : null}

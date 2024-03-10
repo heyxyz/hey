@@ -27,7 +27,7 @@ const Metadata: FC<MetadataProps> = ({ metadata }) => {
       <div className="flex items-center space-x-2">
         <ScaleIcon className="size-4 min-w-max" />
         <div>
-          Licence: <b>{license}</b>
+          Licence: <b>{license.label}</b>
         </div>
       </div>
     </Card>
