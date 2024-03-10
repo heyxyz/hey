@@ -167,16 +167,17 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
         <div className="flex w-5/12 flex-col items-end space-y-1">
           <Select
             defaultValue={DEFAULT_COLLECT_TOKEN}
-            onChange={(e) => {
-              setTip({ ...tip, currency: e.target.value });
+            onChange={(value) => {
+              setTip({ ...tip, currency: value });
               setSelectedCurrency(
                 allowedTokens?.find(
-                  (token) => token.contractAddress === e.target.value
+                  (token) => token.contractAddress === value
                 ) as AllowedToken
               );
             }}
             options={allowedTokens?.map((token) => ({
               label: token.name,
+              selected: token.contractAddress === tip.currency,
               value: token.contractAddress
             }))}
           />
