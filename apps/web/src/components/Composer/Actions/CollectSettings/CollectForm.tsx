@@ -1,6 +1,7 @@
 import type { CollectModuleType } from '@hey/types/hey';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
+import LicensePicker from '@components/Composer/LicensePicker';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { CollectOpenActionModuleType } from '@hey/lens';
 import getAllTokens from '@hey/lib/api/getAllTokens';
@@ -111,6 +112,8 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
             <TimeLimitConfig setCollectType={setCollectType} />
             <FollowersConfig setCollectType={setCollectType} />
           </div>
+          <div className="divider" />
+          <LicensePicker />
           <div className="divider" />
         </>
       ) : null}
