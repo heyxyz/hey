@@ -529,7 +529,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   return (
     <Card
-      className={cn({ '!rounded-t-none border-none': !isComment })}
+      className={cn({
+        '!rounded-b-xl !rounded-t-none border-none': !isComment
+      })}
       onClick={() => setShowEmojiPicker(false)}
     >
       {error ? (
