@@ -30,7 +30,8 @@ const LicensePicker: FC = () => {
           Object.values(PublicationMetadataLicenseType)
             .filter((type) => getAssetLicense(type))
             .map((type) => ({
-              label: getAssetLicense(type) as string,
+              helper: getAssetLicense(type)?.helper as string,
+              label: getAssetLicense(type)?.label as string,
               selected: license === type,
               value: type
             })) as any
