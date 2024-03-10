@@ -4,18 +4,30 @@ import { PublicationMetadataLicenseType } from '@hey/lens';
 
 const getAssetLicense = (
   licenseId: Maybe<PublicationMetadataLicenseType> | undefined
-): null | string => {
+): {
+  helper: string;
+  label: string;
+} | null => {
   if (!licenseId) {
     return null;
   }
 
   switch (licenseId) {
     case PublicationMetadataLicenseType.Cco:
-      return 'Anyone can use it, zero restrictions';
-    case PublicationMetadataLicenseType.TbnlNcNdNplLedger:
-      return 'NFT holder granted commercial rights';
-    case PublicationMetadataLicenseType.TbnlNcNdNplLegal:
-      return 'NFT holder granted personal rights';
+      return {
+        helper: 'CC0',
+        label: 'Public domain - zero restrictions'
+      };
+    case PublicationMetadataLicenseType.TbnlCDNplLegal:
+      return {
+        helper: 'TBNL-C-D-NPL-Legal',
+        label: 'NFT owner has full commercial rights'
+      };
+    case PublicationMetadataLicenseType.TbnlNcDNplLegal:
+      return {
+        helper: 'TBNL-NC-D-NPL-Legal',
+        label: 'NFT owner has personal use rights'
+      };
     default:
       return null;
   }
