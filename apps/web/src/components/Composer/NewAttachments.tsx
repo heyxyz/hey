@@ -11,7 +11,6 @@ import { usePublicationAttachmentStore } from 'src/store/non-persisted/publicati
 import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
 
 import Audio from '../Shared/Audio';
-import LicensePicker from './LicensePicker';
 
 const getClass = (attachments: number) => {
   if (attachments === 1) {
@@ -138,7 +137,6 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
                 width={1000}
               />
             ) : null}
-            {isVideo || isAudio ? <LicensePicker /> : null}
             {!hideDelete &&
               (isVideo ? (
                 <Button
