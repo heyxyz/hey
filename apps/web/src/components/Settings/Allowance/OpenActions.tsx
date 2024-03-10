@@ -21,6 +21,9 @@ const getAllowancePayload = (currency: string) => {
 
 const OpenActions: FC = () => {
   const { currentProfile } = useProfileStore();
+  const [selectedCurrency, setSelectedCurrency] = useState(
+    DEFAULT_COLLECT_TOKEN
+  );
   const [currencyLoading, setCurrencyLoading] = useState(false);
 
   const {
@@ -62,15 +65,17 @@ const OpenActions: FC = () => {
         <div className="divider my-5" />
         <div className="label mt-6">Select currency</div>
         <Select
-          onChange={(e) => {
+          onChange={(value) => {
             setCurrencyLoading(true);
+            setSelectedCurrency(value);
             refetch({
-              request: getAllowancePayload(e.target.value)
+              request: getAllowancePayload(value)
             }).finally(() => setCurrencyLoading(false));
           }}
           options={
             allowedTokens?.map((token) => ({
               label: token.name,
+              selected: token.contractAddress === selectedCurrency,
               value: token.contractAddress
             })) || [{ label: 'Loading...', value: 'Loading...' }]
           }
