@@ -61,10 +61,10 @@ const AmountConfig: FC<AmountConfigProps> = ({
             <div className="w-5/6">
               <div className="label">Select currency</div>
               <Select
-                onChange={(e) => {
+                onChange={(value) => {
                   setCollectType({
                     amount: {
-                      currency: e.target.value,
+                      currency: value,
                       value: collectModule.amount?.value
                     }
                   });
