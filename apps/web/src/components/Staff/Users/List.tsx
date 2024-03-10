@@ -81,14 +81,13 @@ const List: FC = () => {
           value={value}
         />
         <Select
-          className="w-auto"
+          className="w-60"
           defaultValue={orderBy}
-          onChange={(e) =>
-            setOrderBy(e.target.value as ExploreProfilesOrderByType)
-          }
-          options={Object.values(ExploreProfilesOrderByType).map((orderBy) => ({
-            label: orderBy,
-            value: orderBy
+          onChange={(value) => setOrderBy(value as ExploreProfilesOrderByType)}
+          options={Object.values(ExploreProfilesOrderByType).map((type) => ({
+            label: type,
+            selected: orderBy === type,
+            value: type
           }))}
         />
         <button onClick={onRefetch} type="button">

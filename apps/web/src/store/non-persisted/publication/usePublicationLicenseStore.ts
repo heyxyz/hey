@@ -1,11 +1,11 @@
-import type { MetadataLicenseType } from '@lens-protocol/metadata';
+import type { PublicationMetadataLicenseType } from '@hey/lens';
 
 import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 
 interface PublicationLicenseState {
-  license: MetadataLicenseType | null;
-  setLicense: (license: MetadataLicenseType | null) => void;
+  license: null | PublicationMetadataLicenseType;
+  setLicense: (license: null | PublicationMetadataLicenseType) => void;
 }
 
 const store = create<PublicationLicenseState>((set) => ({
