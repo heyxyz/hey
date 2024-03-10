@@ -1,5 +1,5 @@
 import { Listbox, Transition } from '@headlessui/react';
-import { CheckIcon, ChevronDownIcon } from '@heroicons/react/24/solid';
+import { CheckCircleIcon, ChevronDownIcon } from '@heroicons/react/24/solid';
 import { forwardRef, Fragment } from 'react';
 
 import cn from '../cn';
@@ -10,6 +10,7 @@ interface SelectProps {
   onChange: (value: any) => any;
   options?: {
     disabled?: boolean;
+    helper?: string;
     label: string;
     selected?: boolean;
     value: number | string;
@@ -54,10 +55,19 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
                   value={option.value}
                 >
                   {({ selected }) => (
-                    <span className="flex w-full items-center justify-between space-x-3 px-2 py-1.5 text-gray-700 dark:text-gray-200">
-                      <span className="block truncate">{option.label}</span>
-                      {selected ? <CheckIcon className="size-5" /> : null}
-                    </span>
+                    <div className="flex flex-col space-y-0 px-2 py-1.5">
+                      <span className="flex w-full items-center justify-between space-x-3 text-gray-700 dark:text-gray-200">
+                        <span className="block truncate">{option.label}</span>
+                        {selected ? (
+                          <CheckCircleIcon className="size-5" />
+                        ) : null}
+                      </span>
+                      {option.helper ? (
+                        <span className="ld-text-gray-500 text-sm">
+                          {option.helper}
+                        </span>
+                      ) : null}
+                    </div>
                   )}
                 </Listbox.Option>
               ))}
