@@ -81,7 +81,7 @@ const List: FC = () => {
           value={value}
         />
         <Select
-          className="w-60"
+          className="w-72"
           defaultValue={orderBy}
           onChange={(value) => setOrderBy(value as ExploreProfilesOrderByType)}
           options={Object.values(ExploreProfilesOrderByType).map((type) => ({
