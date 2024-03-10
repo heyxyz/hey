@@ -11,6 +11,7 @@ import { usePublicationAttachmentStore } from 'src/store/non-persisted/publicati
 import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
 
 import Audio from '../Shared/Audio';
+import LicensePicker from './LicensePicker';
 
 const getClass = (attachments: number) => {
   if (attachments === 1) {
@@ -137,20 +138,19 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
                 width={1000}
               />
             ) : null}
+            {isVideo || isAudio ? <LicensePicker /> : null}
             {!hideDelete &&
-              (isVideo ? (
+              (isVideo || isAudio ? (
                 <Button
-                  className="mt-3"
-                  icon={<XMarkIcon className="size-4" />}
+                  className="mt-3 w-full justify-center"
                   onClick={() => removeAttachment(attachment)}
                   outline
-                  size="sm"
                   variant="danger"
                 >
                   Cancel Upload
                 </Button>
               ) : (
-                <div className={cn(isAudio ? 'absolute left-2 top-2' : 'm-3')}>
+                <div className="m-3">
                   <button
                     className="rounded-full bg-gray-900 p-1.5 opacity-75"
                     onClick={() => removeAttachment(attachment)}

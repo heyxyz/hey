@@ -2,11 +2,9 @@ import type { PublicationMetadata } from '@hey/lens';
 import type { FC } from 'react';
 
 import { ScaleIcon } from '@heroicons/react/24/outline';
-import { FeatureFlag } from '@hey/data/feature-flags';
 import getPublicationData from '@hey/lib/getPublicationData';
 import { Card } from '@hey/ui';
 import getAssetLicense from '@lib/getAssetLicense';
-import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { memo } from 'react';
 
 interface MetadataProps {
@@ -16,10 +14,6 @@ interface MetadataProps {
 const Metadata: FC<MetadataProps> = ({ metadata }) => {
   const filteredAsset = getPublicationData(metadata)?.asset;
   const license = getAssetLicense(filteredAsset?.license);
-
-  if (!isFeatureAvailable(FeatureFlag.Staff)) {
-    return null;
-  }
 
   if (!license) {
     return null;
