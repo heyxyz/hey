@@ -1,4 +1,3 @@
-import type { MetadataLicenseType } from '@lens-protocol/metadata';
 import type { FC } from 'react';
 
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
@@ -10,7 +9,7 @@ import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
 
 const LicensePicker: FC = () => {
-  const { setLicense } = usePublicationLicenseStore();
+  const { license, setLicense } = usePublicationLicenseStore();
 
   if (!isFeatureAvailable(FeatureFlag.Staff)) {
     return null;
@@ -24,14 +23,17 @@ const LicensePicker: FC = () => {
         <div className="ld-text-gray-500 text-sm">What's this?</div>
       </div>
       <Select
-        onChange={(e) => setLicense(e.target.value as MetadataLicenseType)}
+        onChange={(value) =>
+          setLicense(value as PublicationMetadataLicenseType)
+        }
         options={
           Object.values(PublicationMetadataLicenseType)
-            .filter((license) => getAssetLicense(license))
-            .map((license) => ({
-              label: getAssetLicense(license) as string,
-              selected: true,
-              value: license
+            .filter((type) => getAssetLicense(type))
+            .map((type) => ({
+              helper: getAssetLicense(type)?.helper as string,
+              label: getAssetLicense(type)?.label as string,
+              selected: license === type,
+              value: type
             })) as any
         }
       />

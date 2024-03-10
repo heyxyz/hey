@@ -215,9 +215,10 @@ const SuperFollow: FC = () => {
                 ? currentProfile?.followModule?.amount.asset.contract.address
                 : undefined
             }
-            onChange={(e) => setSelectedCurrency(e.target.value)}
+            onChange={(value) => setSelectedCurrency(value)}
             options={allowedTokens?.map((token) => ({
               label: token.name,
+              selected: token.contractAddress === selectedCurrency,
               value: token.contractAddress
             }))}
           />
