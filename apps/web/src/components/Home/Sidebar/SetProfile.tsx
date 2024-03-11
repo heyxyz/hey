@@ -75,9 +75,7 @@ const SetProfile: FC = () => {
       <div className="font-bold">
         <Link
           href="/settings"
-          onClick={() =>
-            Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE, { points: 5 })
-          }
+          onClick={() => Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE)}
         >
           Update profile now
         </Link>

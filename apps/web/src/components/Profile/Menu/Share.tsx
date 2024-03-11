@@ -33,7 +33,7 @@ const Share: FC<ShareProps> = ({ profile }) => {
         Leafwatch.track(
           PROFILE.COPY_PROFILE_LINK,
           { profile_id: profile.id },
-          { points: 5 }
+          { points: 20 }
         );
       }}
     >

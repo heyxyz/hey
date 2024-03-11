@@ -18,11 +18,9 @@ interface FeedTypeProps {
 
 const FeedType: FC<FeedTypeProps> = ({ feedType }) => {
   const switchTab = (type: string) => {
-    Leafwatch.track(
-      NOTIFICATION.SWITCH_NOTIFICATION_TAB,
-      { notification_type: type.toLowerCase() },
-      { points: 5 }
-    );
+    Leafwatch.track(NOTIFICATION.SWITCH_NOTIFICATION_TAB, {
+      notification_type: type.toLowerCase()
+    });
   };
 
   return (

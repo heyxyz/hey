@@ -23,7 +23,7 @@ const Brand: FC<BrandProps> = ({ children, logo, name, size, type, url }) => {
   const { resolvedTheme } = useTheme();
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'thanks' }, { points: 5 });
+    Leafwatch.track(PAGEVIEW, { page: 'thanks' });
   }, []);
 
   return (
