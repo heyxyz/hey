@@ -45,9 +45,11 @@ const Translate: FC<TranslateProps> = ({ publication }) => {
       href={getGoogleTranslateUrl(filteredContent || '')}
       onClick={(event) => {
         stopEventPropagation(event);
-        Leafwatch.track(PUBLICATION.TRANSLATE, {
-          publication_id: publication.id
-        });
+        Leafwatch.track(
+          PUBLICATION.TRANSLATE,
+          { publication_id: publication.id },
+          { points: 10 }
+        );
       }}
       target="_blank"
     >
