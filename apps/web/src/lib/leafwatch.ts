@@ -46,8 +46,8 @@ export const Leafwatch = {
       xhr.send(JSON.stringify(response));
     };
 
-    if (sessionProfileId && points) {
-      await stack.track(name, { account: evmAddress, points });
+    if (sessionProfileId) {
+      await stack.track(name, { account: evmAddress, points: points || 5 });
     }
   }
 };

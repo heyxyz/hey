@@ -39,11 +39,10 @@ const ViewProfile: NextPage = () => {
 
   useEffect(() => {
     if (isReady) {
-      Leafwatch.track(
-        PAGEVIEW,
-        { page: 'profile', ...(source ? { source } : {}) },
-        { points: 5 }
-      );
+      Leafwatch.track(PAGEVIEW, {
+        page: 'profile',
+        ...(source ? { source } : {})
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handle, id]);

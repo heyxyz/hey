@@ -23,11 +23,9 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
     if (setFeedType) {
       setFeedType(type as ProfileFeedType);
     }
-    Leafwatch.track(
-      PROFILE.SWITCH_PROFILE_FEED_TAB,
-      { profile_feed_type: type.toLowerCase() },
-      { points: 5 }
-    );
+    Leafwatch.track(PROFILE.SWITCH_PROFILE_FEED_TAB, {
+      profile_feed_type: type.toLowerCase()
+    });
   };
 
   return (

@@ -11,7 +11,7 @@ const Privacy: NextPage = () => {
   const updatedAt = 'October 30, 2023';
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'privacy' }, { points: 5 });
+    Leafwatch.track(PAGEVIEW, { page: 'privacy' });
   }, []);
 
   return (

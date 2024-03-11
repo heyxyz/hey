@@ -57,7 +57,7 @@ const Mod: NextPage = () => {
   const [feedType, setFeedType] = useState<ModFeedType>(ModFeedType.LATEST);
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'mod' }, { points: 5 });
+    Leafwatch.track(PAGEVIEW, { page: 'mod' });
   }, []);
 
   if (!gardenerMode) {

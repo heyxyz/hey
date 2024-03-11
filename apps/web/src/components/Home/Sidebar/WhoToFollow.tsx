@@ -84,7 +84,7 @@ const WhoToFollow: FC = () => {
           className="ld-text-gray-500 font-bold"
           onClick={() => {
             setShowSuggestedModal(true);
-            Leafwatch.track(PROFILE.OPEN_RECOMMENDED_PROFILES, { points: 5 });
+            Leafwatch.track(PROFILE.OPEN_RECOMMENDED_PROFILES);
           }}
           type="button"
         >
