@@ -11,7 +11,7 @@ interface ReferralConfigProps {
 }
 
 const ReferralConfig: FC<ReferralConfigProps> = ({ setCollectType }) => {
-  const collectModule = useCollectModuleStore((state) => state.collectModule);
+  const { collectModule } = useCollectModuleStore((state) => state);
 
   return (
     <div className="mt-5">

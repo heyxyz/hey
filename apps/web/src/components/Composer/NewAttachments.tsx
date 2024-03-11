@@ -45,12 +45,8 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
   attachments = [],
   hideDelete = false
 }) => {
-  const setAttachments = usePublicationAttachmentStore(
-    (state) => state.setAttachments
-  );
-  const setVideoDurationInSeconds = usePublicationVideoStore(
-    (state) => state.setVideoDurationInSeconds
-  );
+  const { setAttachments } = usePublicationAttachmentStore((state) => state);
+  const { setVideoDurationInSeconds } = usePublicationVideoStore();
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const onDataLoaded = () => {
@@ -84,7 +80,9 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
   const attachmentsLength = slicedAttachments?.length;
 
   return attachmentsLength !== 0 ? (
-    <div className={cn(getClass(attachmentsLength)?.row, 'mt-3 grid gap-2')}>
+    <div
+      className={cn(getClass(attachmentsLength)?.row, 'mt-3 grid gap-2', 'p-5')}
+    >
       {slicedAttachments?.map((attachment: NewAttachment, index: number) => {
         const isImage = attachment.type === 'Image';
         const isAudio = attachment.type === 'Audio';
@@ -142,19 +140,17 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
             ) : null}
             {isVideo || isAudio ? <LicensePicker /> : null}
             {!hideDelete &&
-              (isVideo ? (
+              (isVideo || isAudio ? (
                 <Button
-                  className="mt-3"
-                  icon={<XMarkIcon className="size-4" />}
+                  className="mt-3 w-full justify-center"
                   onClick={() => removeAttachment(attachment)}
                   outline
-                  size="sm"
                   variant="danger"
                 >
                   Cancel Upload
                 </Button>
               ) : (
-                <div className={cn(isAudio ? 'absolute left-2 top-2' : 'm-3')}>
+                <div className="m-3">
                   <button
                     className="rounded-full bg-gray-900 p-1.5 opacity-75"
                     onClick={() => removeAttachment(attachment)}

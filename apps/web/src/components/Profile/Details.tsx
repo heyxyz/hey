@@ -2,10 +2,8 @@ import type { Profile } from '@hey/lens';
 import type { FC, ReactNode } from 'react';
 
 import Markup from '@components/Shared/Markup';
-import Follow from '@components/Shared/Profile/Follow';
-import Unfollow from '@components/Shared/Profile/Unfollow';
+import FollowUnfollowButton from '@components/Shared/Profile/FollowUnfollowButton';
 import Slug from '@components/Shared/Slug';
-import SuperFollow from '@components/Shared/SuperFollow';
 import {
   ClockIcon,
   Cog6ToothIcon,
@@ -38,7 +36,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import urlcat from 'urlcat';
 
 import Badges from './Badges';
@@ -58,9 +56,8 @@ interface DetailsProps {
 
 const Details: FC<DetailsProps> = ({ profile }) => {
   const { push } = useRouter();
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const staffMode = useFeatureFlagsStore((state) => state.staffMode);
-  const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
+  const { currentProfile } = useProfileStore();
+  const { gardenerMode, staffMode } = useFeatureFlagsStore();
   const [showMutualFollowersModal, setShowMutualFollowersModal] =
     useState(false);
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
@@ -150,20 +147,8 @@ const Details: FC<DetailsProps> = ({ profile }) => {
               Edit Profile
             </Button>
           ) : followType !== FollowModuleType.RevertFollowModule ? (
-            profile.operations.isFollowedByMe.value ? (
-              <>
-                <Unfollow profile={profile} />
-                {followType === FollowModuleType.FeeFollowModule ? (
-                  <SuperFollow again profile={profile} />
-                ) : null}
-              </>
-            ) : followType === FollowModuleType.FeeFollowModule ? (
-              <SuperFollow profile={profile} />
-            ) : (
-              <Follow profile={profile} />
-            )
+            <FollowUnfollowButton profile={profile} />
           ) : null}
-
           <ProfileMenu profile={profile} />
         </div>
         {currentProfile?.id !== profile.id ? (

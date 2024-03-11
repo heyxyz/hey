@@ -14,24 +14,15 @@ import { useVerifiedMembersStore } from 'src/store/persisted/useVerifiedMembersS
 
 const PreferencesProvider: FC = () => {
   const { id: sessionProfileId } = getCurrentSession();
-  const setVerifiedMembers = useVerifiedMembersStore(
-    (state) => state.setVerifiedMembers
-  );
-  const setHighSignalNotificationFilter = usePreferencesStore(
-    (state) => state.setHighSignalNotificationFilter
-  );
-  const setIsPride = usePreferencesStore((state) => state.setIsPride);
-  const setRestriction = useProfileRestriction((state) => state.setRestriction);
-  const setHasDismissedOrMintedMembershipNft = usePreferencesStore(
-    (state) => state.setHasDismissedOrMintedMembershipNft
-  );
-  const setFeatureFlags = useFeatureFlagsStore(
-    (state) => state.setFeatureFlags
-  );
-  const setStaffMode = useFeatureFlagsStore((state) => state.setStaffMode);
-  const setGardenerMode = useFeatureFlagsStore(
-    (state) => state.setGardenerMode
-  );
+  const { setVerifiedMembers } = useVerifiedMembersStore();
+  const {
+    setHasDismissedOrMintedMembershipNft,
+    setHighSignalNotificationFilter,
+    setIsPride
+  } = usePreferencesStore();
+  const { setRestriction } = useProfileRestriction();
+  const { setFeatureFlags, setGardenerMode, setStaffMode } =
+    useFeatureFlagsStore();
 
   // Fetch preferences
   const fetchPreferences = async () => {

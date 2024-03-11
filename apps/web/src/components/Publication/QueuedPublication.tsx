@@ -13,7 +13,7 @@ import {
 import { useApolloClient } from '@hey/lens/apollo';
 import getMentions from '@hey/lib/getMentions';
 import { Card, Tooltip } from '@hey/ui';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 
 interface QueuedPublicationProps {
@@ -21,9 +21,8 @@ interface QueuedPublicationProps {
 }
 
 const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const txnQueue = useTransactionStore((state) => state.txnQueue);
-  const setTxnQueue = useTransactionStore((state) => state.setTxnQueue);
+  const { currentProfile } = useProfileStore();
+  const { setTxnQueue, txnQueue } = useTransactionStore();
 
   const { cache } = useApolloClient();
   const txHash = txn?.txHash;

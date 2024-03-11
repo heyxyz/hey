@@ -21,7 +21,7 @@ import plur from 'plur';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface ChoicesProps {
   poll: Poll;
@@ -29,7 +29,7 @@ interface ChoicesProps {
 }
 
 const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
   const [pollSubmitting, setPollSubmitting] = useState(false);
   const [selectedOption, setSelectedOption] = useState<null | string>(null);

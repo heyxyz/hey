@@ -7,7 +7,7 @@ import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { Fragment } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Bookmark from './Bookmark';
 import CopyPostText from './CopyPostText';
@@ -23,7 +23,7 @@ interface PublicationMenuProps {
 }
 
 const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const iconClassName = 'w-[15px] sm:w-[18px]';
 
   return (

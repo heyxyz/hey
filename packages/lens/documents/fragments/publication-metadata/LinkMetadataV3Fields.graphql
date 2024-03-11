@@ -13,4 +13,5 @@ fragment LinkMetadataV3Fields on LinkMetadataV3 {
   encryptedWith {
     ...PublicationMetadataLitEncryptionFields
   }
+  appId
 }

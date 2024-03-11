@@ -10,10 +10,10 @@ import formatAddress from '@hey/lib/formatAddress';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import Link from 'next/link';
 import { useInView } from 'react-cool-inview';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 const List: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
 
   const request: ProfileActionHistoryRequest = { limit: LimitType.TwentyFive };
   const { data, error, fetchMore, loading } = useProfileActionHistoryQuery({

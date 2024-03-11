@@ -12,14 +12,14 @@ import {
 import OpenActionsList from './OpenActionsList';
 
 const OpenActionSettings: FC = () => {
-  const screen = useOpenActionStore((state) => state.screen);
-  const setScreen = useOpenActionStore((state) => state.setScreen);
-  const showModal = useOpenActionStore((state) => state.showModal);
-  const setShowModal = useOpenActionStore((state) => state.setShowModal);
-  const selectedOpenAction = useOpenActionStore(
-    (state) => state.selectedOpenAction
-  );
-  const reset = useOpenActionStore((state) => state.reset);
+  const {
+    reset,
+    screen,
+    selectedOpenAction,
+    setScreen,
+    setShowModal,
+    showModal
+  } = useOpenActionStore();
 
   return (
     <>

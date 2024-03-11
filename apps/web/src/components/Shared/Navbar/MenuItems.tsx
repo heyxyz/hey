@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import Link from 'next/link';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import LoginButton from './LoginButton';
 import SignedUser from './SignedUser';
@@ -14,7 +14,7 @@ export const NextLink = ({ children, href, ...rest }: Record<string, any>) => (
 );
 
 const MenuItems: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
 
   if (currentProfile) {
     return <SignedUser />;
