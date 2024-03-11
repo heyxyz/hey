@@ -67,6 +67,7 @@ const PaidActions: FC = () => {
               isFirst={false}
               isLast
               publication={action.actedOn as AnyPublication}
+              showThread={false}
             />
           </Card>
         ) : null
