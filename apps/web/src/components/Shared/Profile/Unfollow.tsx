@@ -70,7 +70,11 @@ const Unfollow: FC<UnfollowProps> = ({ profile, small = false }) => {
     updateCache();
     setIsLoading(false);
     toast.success('Unfollowed successfully!');
-    Leafwatch.track(PROFILE.UNFOLLOW, { path: pathname, target: profile?.id });
+    Leafwatch.track(
+      PROFILE.UNFOLLOW,
+      { path: pathname, target: profile?.id },
+      { points: 50 }
+    );
   };
 
   const onError = (error: any) => {

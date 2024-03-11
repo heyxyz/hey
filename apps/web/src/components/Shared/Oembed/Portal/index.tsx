@@ -89,10 +89,11 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
             }
             key={index}
             onClick={() => {
-              Leafwatch.track(PUBLICATION.CLICK_PORTAL_BUTTON, {
-                action,
-                publication_id: publicationId
-              });
+              Leafwatch.track(
+                PUBLICATION.CLICK_PORTAL_BUTTON,
+                { action, publication_id: publicationId },
+                { points: 10 }
+              );
 
               if (
                 action === 'link' ||
