@@ -27,9 +27,11 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         className="text-left outline-offset-4"
         onClick={() => {
           setShowFollowingModal(!showFollowingModal);
-          Leafwatch.track(PROFILE.OPEN_FOLLOWING, {
-            profile_id: profile.id
-          });
+          Leafwatch.track(
+            PROFILE.OPEN_FOLLOWING,
+            { profile_id: profile.id },
+            { points: 5 }
+          );
         }}
         type="button"
       >
@@ -40,9 +42,11 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         className="text-left outline-offset-4"
         onClick={() => {
           setShowFollowersModal(!showFollowersModal);
-          Leafwatch.track(PROFILE.OPEN_FOLLOWERS, {
-            profile_id: profile.id
-          });
+          Leafwatch.track(
+            PROFILE.OPEN_FOLLOWERS,
+            { profile_id: profile.id },
+            { points: 5 }
+          );
         }}
         type="button"
       >
