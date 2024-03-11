@@ -10,7 +10,7 @@ const Terms: NextPage = () => {
   const updatedAt = 'February 15, 2024';
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'terms' });
+    Leafwatch.track(PAGEVIEW, { page: 'terms' }, { points: 5 });
   }, []);
 
   return (

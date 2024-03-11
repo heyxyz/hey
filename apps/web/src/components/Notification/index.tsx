@@ -21,7 +21,7 @@ const Notification: NextPage = () => {
   const { currentProfile } = useProfileStore();
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'notifications' });
+    Leafwatch.track(PAGEVIEW, { page: 'notifications' }, { points: 5 });
   }, []);
 
   const lowerCaseNotificationFeedType = [

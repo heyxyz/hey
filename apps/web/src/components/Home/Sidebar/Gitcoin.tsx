@@ -29,7 +29,9 @@ const Gitcoin: FC = () => {
           <Link
             className="font-bold underline"
             href="https://hey.xyz/gitcoin"
-            onClick={() => Leafwatch.track(MISCELLANEOUS.OPEN_GITCOIN)}
+            onClick={() =>
+              Leafwatch.track(MISCELLANEOUS.OPEN_GITCOIN, { points: 50 })
+            }
             target="_blank"
           >
             Contribute now
