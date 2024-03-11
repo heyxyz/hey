@@ -70,3 +70,7 @@ export type Preferences = {
   highSignalNotificationFilter: boolean;
   isPride: boolean;
 };
+
+export type ProfileFlags = {
+  isSuspended: boolean;
+};
