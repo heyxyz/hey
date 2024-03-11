@@ -32,7 +32,7 @@ const Gif: FC<GiphyProps> = ({ setGifAttachment }) => {
           disabled={attachments.length >= 4}
           onClick={() => {
             setShowModal(!showModal);
-            Leafwatch.track(PUBLICATION.OPEN_GIFS);
+            Leafwatch.track(PUBLICATION.OPEN_GIFS, { points: 5 });
           }}
           type="button"
           whileTap={{ scale: 0.9 }}

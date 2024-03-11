@@ -24,7 +24,7 @@ const Home: NextPage = () => {
   );
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'home' });
+    Leafwatch.track(PAGEVIEW, { page: 'home' }, { points: 5 });
   }, []);
 
   const loggedInWithProfile = Boolean(currentProfile);
