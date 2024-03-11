@@ -8,10 +8,8 @@ import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModal
 import { useSignupStore } from '../Auth/Signup';
 
 const SignupButton: FC = () => {
-  const setShowAuthModal = useGlobalModalStateStore(
-    (state) => state.setShowAuthModal
-  );
-  const setScreen = useSignupStore((state) => state.setScreen);
+  const { setShowAuthModal } = useGlobalModalStateStore();
+  const { setScreen } = useSignupStore();
 
   return (
     <Button
@@ -22,7 +20,6 @@ const SignupButton: FC = () => {
       }}
       outline
       size="md"
-      variant="black"
     >
       Signup
     </Button>

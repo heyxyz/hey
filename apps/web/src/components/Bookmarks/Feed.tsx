@@ -18,9 +18,7 @@ interface FeedProps {
 }
 
 const Feed: FC<FeedProps> = ({ focus }) => {
-  const fetchAndStoreViews = useImpressionsStore(
-    (state) => state.fetchAndStoreViews
-  );
+  const { fetchAndStoreViews } = useImpressionsStore();
 
   // Variables
   const request: PublicationBookmarksRequest = {
@@ -67,7 +65,7 @@ const Feed: FC<FeedProps> = ({ focus }) => {
   if (publications?.length === 0) {
     return (
       <EmptyState
-        icon={<BookmarkIcon className="text-brand-500 size-8" />}
+        icon={<BookmarkIcon className="size-8" />}
         message="No bookmarks yet!"
       />
     );

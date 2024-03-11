@@ -17,9 +17,7 @@ const LoginButton: FC<LoginButtonProps> = ({
   isFullWidth = false,
   title = 'Login'
 }) => {
-  const setShowAuthModal = useGlobalModalStateStore(
-    (state) => state.setShowAuthModal
-  );
+  const { setShowAuthModal } = useGlobalModalStateStore();
 
   return (
     <Button

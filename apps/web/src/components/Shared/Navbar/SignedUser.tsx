@@ -12,7 +12,7 @@ import cn from '@hey/ui/cn';
 import isFeatureAvailable from '@lib/isFeatureAvailable';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import MenuTransition from '../MenuTransition';
 import Slug from '../Slug';
@@ -29,13 +29,8 @@ import ThemeSwitch from './NavItems/ThemeSwitch';
 import YourProfile from './NavItems/YourProfile';
 
 const SignedUser: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const setShowMobileDrawer = useGlobalModalStateStore(
-    (state) => state.setShowMobileDrawer
-  );
-  const showMobileDrawer = useGlobalModalStateStore(
-    (state) => state.showMobileDrawer
-  );
+  const { currentProfile } = useProfileStore();
+  const { setShowMobileDrawer, showMobileDrawer } = useGlobalModalStateStore();
 
   const Avatar = () => (
     <Image
@@ -63,7 +58,7 @@ const SignedUser: FC = () => {
         <Avatar />
       </button>
       <Menu as="div" className="hidden md:block">
-        <Menu.Button className="outline-brand-500 flex self-center rounded-full">
+        <Menu.Button className="flex self-center rounded-full">
           <Avatar />
         </Menu.Button>
         <MenuTransition>

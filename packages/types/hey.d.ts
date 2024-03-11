@@ -4,28 +4,8 @@ import type {
   RecipientDataInput
 } from '@hey/lens';
 
-export type Group = {
-  avatar: string;
-  createdAt: Date;
-  creatorId: string;
-  description: string;
-  discord: null | string;
-  featured: boolean;
-  hasFavorited: boolean;
-  id: string;
-  instagram: null | string;
-  isMember: boolean;
-  lens: null | string;
-  members: number;
-  name: string;
-  slug: string;
-  tags: string[];
-  x: null | string;
-};
-
 export type StaffPick = {
-  createdAt: Date;
-  id: string;
+  profileId: string;
 };
 
 export type Feature = {

@@ -54,7 +54,7 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
       <div className="p-5">
         <EmptyState
           hideCard
-          icon={<HeartIcon className="text-brand-500 size-8" />}
+          icon={<HeartIcon className="size-8" />}
           message="No likes."
         />
       </div>
@@ -83,7 +83,7 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
               <UserProfile
                 profile={like.profile as Profile}
                 showBio
-                showFollow
+                showFollowUnfollowButton
                 showUserPreview={false}
                 source={ProfileLinkSource.Likes}
               />

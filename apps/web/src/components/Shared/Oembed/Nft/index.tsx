@@ -1,3 +1,4 @@
+import type { Nft as INft } from '@hey/types/misc';
 import type { FC } from 'react';
 
 import DecentOpenAction from '@components/Publication/OpenAction/UnknownModule/Decent';
@@ -11,14 +12,13 @@ import getProfile from '@hey/lib/getProfile';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import truncateByWords from '@hey/lib/truncateByWords';
-import { Nft } from '@hey/types/misc';
 import { Button, Card, Spinner, Tooltip } from '@hey/ui';
 
 // TODO: change copy
 const OPEN_ACTION_EMBED_TOOLTIP = 'This is an open action';
 
 interface NftProps {
-  nft: Nft;
+  nft: INft;
   openActionEmbed?: boolean;
   openActionEmbedLoading?: boolean;
   publication?: AnyPublication;

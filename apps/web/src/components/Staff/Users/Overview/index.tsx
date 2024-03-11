@@ -21,7 +21,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import StaffSidebar from '../../Sidebar';
 
@@ -30,8 +30,8 @@ const Overview: NextPage = () => {
     isReady,
     query: { id }
   } = useRouter();
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const staffMode = useFeatureFlagsStore((state) => state.staffMode);
+  const { currentProfile } = useProfileStore();
+  const { staffMode } = useFeatureFlagsStore();
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, {
@@ -63,7 +63,7 @@ const Overview: NextPage = () => {
           ) : !profile ? (
             <EmptyState
               hideCard
-              icon={<UserIcon className="size-8 text-yellow-600" />}
+              icon={<UserIcon className="size-8" />}
               message="No profile found"
             />
           ) : error ? (

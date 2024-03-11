@@ -1,4 +1,5 @@
 import { IndexDB } from '@hey/data/storage';
+import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -10,7 +11,7 @@ interface VerifiedMembersState {
   verifiedMembers: string[];
 }
 
-export const useVerifiedMembersStore = create(
+const store = create(
   persist<VerifiedMembersState>(
     (set, get) => ({
       hydrateVerifiedMembers: () => {
@@ -29,4 +30,5 @@ export const useVerifiedMembersStore = create(
 );
 
 export const hydrateVerifiedMembers = () =>
-  useVerifiedMembersStore.getState().hydrateVerifiedMembers();
+  store.getState().hydrateVerifiedMembers();
+export const useVerifiedMembersStore = createTrackedSelector(store);

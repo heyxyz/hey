@@ -18,10 +18,10 @@ import {
   SparklesIcon,
   UserIcon
 } from '@heroicons/react/24/outline';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 const SettingsSidebar: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
 
   const settingsSidebarItems = [
     {

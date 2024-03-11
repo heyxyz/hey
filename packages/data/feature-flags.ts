@@ -4,5 +4,7 @@ export enum FeatureFlag {
   GardenerMode = 'gardener-mode',
   Staff = 'staff',
   StaffMode = 'staff-mode',
-  Suspended = 'suspended'
+  StaffPick = 'staff-pick',
+  Suspended = 'suspended',
+  Verified = 'verified'
 }

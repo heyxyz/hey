@@ -22,7 +22,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { object, string } from 'zod';
 
 const newTicketSchema = object({
@@ -40,7 +40,7 @@ const newTicketSchema = object({
 });
 
 const Support: NextPage = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
 
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -90,7 +90,7 @@ const Support: NextPage = () => {
           {submitted ? (
             <EmptyState
               hideCard
-              icon={<CheckCircleIcon className="size-14 text-green-500" />}
+              icon={<CheckCircleIcon className="size-14" />}
               message="We have received your message and will get back to you as soon as possible."
             />
           ) : (

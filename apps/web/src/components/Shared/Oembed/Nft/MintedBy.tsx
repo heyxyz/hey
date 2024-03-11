@@ -27,6 +27,7 @@ const MintedBy: FC<MintedByProps> = ({ address }) => {
     <div className="absolute left-3 top-3 rounded-lg bg-gray-950/70 px-2 py-1 text-sm text-white">
       <SmallUserProfile
         hideSlug
+        linkToProfile
         profile={data.defaultProfile as Profile}
         smallAvatar
       />

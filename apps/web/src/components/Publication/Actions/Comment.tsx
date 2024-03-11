@@ -1,7 +1,7 @@
 import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
-import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleLeftIcon } from '@heroicons/react/24/outline';
 import humanize from '@hey/lib/humanize';
 import nFormatter from '@hey/lib/nFormatter';
 import { Tooltip } from '@hey/ui';
@@ -24,7 +24,7 @@ const Comment: FC<CommentProps> = ({ publication, showCount }) => {
     <div className="ld-text-gray-500 flex items-center space-x-1">
       <motion.button
         aria-label="Comment"
-        className="rounded-full p-1.5 outline-offset-2 outline-gray-400 hover:bg-gray-300/20"
+        className="rounded-full p-1.5 outline-offset-2 hover:bg-gray-300/20"
         onClick={() => {
           push(`/posts/${publication.id}`);
         }}
@@ -35,7 +35,7 @@ const Comment: FC<CommentProps> = ({ publication, showCount }) => {
           placement="top"
           withDelay
         >
-          <ChatBubbleLeftRightIcon className={iconClassName} />
+          <ChatBubbleLeftIcon className={iconClassName} />
         </Tooltip>
       </motion.button>
       {count > 0 && !showCount ? (

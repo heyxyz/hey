@@ -17,11 +17,11 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { signOut } from 'src/store/persisted/useAuthStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useDisconnect, useWriteContract } from 'wagmi';
 
 const DeleteSettings: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { disconnect } = useDisconnect();
@@ -127,7 +127,7 @@ const DeleteSettings: FC = () => {
         {isLoading ? 'Deleting...' : 'Delete your account'}
       </Button>
       <Modal
-        icon={<ExclamationTriangleIcon className="size-5 text-red-500" />}
+        icon={<ExclamationTriangleIcon className="size-5" />}
         onClose={() => setShowWarningModal(false)}
         show={showWarningModal}
         title="Danger zone"

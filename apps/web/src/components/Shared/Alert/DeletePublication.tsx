@@ -1,22 +1,22 @@
 import type { FC } from 'react';
 
+import { Errors } from '@hey/data';
 import { PUBLICATION } from '@hey/data/tracking';
 import { useHidePublicationMutation } from '@hey/lens';
 import { Alert } from '@hey/ui';
+import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 
 const DeletePublication: FC = () => {
-  const showPublicationDeleteAlert = useGlobalAlertStateStore(
-    (state) => state.showPublicationDeleteAlert
-  );
-  const setShowPublicationDeleteAlert = useGlobalAlertStateStore(
-    (state) => state.setShowPublicationDeleteAlert
-  );
-  const deletingPublication = useGlobalAlertStateStore(
-    (state) => state.deletingPublication
-  );
+  const {
+    deletingPublication,
+    setShowPublicationDeleteAlert,
+    showPublicationDeleteAlert
+  } = useGlobalAlertStateStore();
+  const { isSuspended } = useProfileRestriction();
 
   const [hidePost, { loading }] = useHidePublicationMutation({
     onCompleted: () => {
@@ -31,6 +31,20 @@ const DeletePublication: FC = () => {
     }
   });
 
+  const deletePublication = async () => {
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
+    }
+
+    try {
+      return await hidePost({
+        variables: { request: { for: deletingPublication?.id } }
+      });
+    } catch (error) {
+      errorToast(error);
+    }
+  };
+
   return (
     <Alert
       confirmText="Delete"
@@ -38,11 +52,7 @@ const DeletePublication: FC = () => {
       isDestructive
       isPerformingAction={loading}
       onClose={() => setShowPublicationDeleteAlert(false, null)}
-      onConfirm={() =>
-        hidePost({
-          variables: { request: { for: deletingPublication?.id } }
-        })
-      }
+      onConfirm={deletePublication}
       show={showPublicationDeleteAlert}
       title="Delete Publication?"
     />

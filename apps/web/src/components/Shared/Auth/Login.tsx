@@ -6,7 +6,7 @@ import type {
 import type { FC } from 'react';
 
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
-import { ArrowRightCircleIcon, KeyIcon } from '@heroicons/react/24/outline';
+import { KeyIcon } from '@heroicons/react/24/outline';
 import { XCircleIcon } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data/errors';
 import { AUTH } from '@hey/data/tracking';
@@ -25,9 +25,14 @@ import { signIn } from 'src/store/persisted/useAuthStore';
 import { useAccount, useChainId, useDisconnect, useSignMessage } from 'wagmi';
 
 import UserProfile from '../UserProfile';
+import SignupCard from './SignupCard';
 import WalletSelector from './WalletSelector';
 
-const Login: FC = () => {
+interface LoginProps {
+  setHasProfiles: (hasProfiles: boolean) => void;
+}
+
+const Login: FC<LoginProps> = ({ setHasProfiles }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [loggingInProfileId, setLoggingInProfileId] = useState<null | string>(
     null
@@ -52,6 +57,9 @@ const Login: FC = () => {
   };
   const { data: profilesManaged, loading: profilesManagedLoading } =
     useProfilesManagedQuery({
+      onCompleted: (data) => {
+        setHasProfiles(data?.profilesManaged.items.length > 0);
+      },
       skip: !address,
       variables: {
         lastLoggedInProfileRequest: request,
@@ -128,14 +136,8 @@ const Login: FC = () => {
                   />
                   <Button
                     disabled={isLoading && loggingInProfileId === profile.id}
-                    icon={
-                      isLoading && loggingInProfileId === profile.id ? (
-                        <Spinner size="xs" />
-                      ) : (
-                        <ArrowRightCircleIcon className="size-4" />
-                      )
-                    }
                     onClick={() => handleSign(profile.id)}
+                    outline
                   >
                     Login
                   </Button>
@@ -143,21 +145,7 @@ const Login: FC = () => {
               ))}
             </Card>
           ) : (
-            <div>
-              <Button
-                disabled={isLoading}
-                icon={
-                  isLoading ? (
-                    <Spinner size="xs" />
-                  ) : (
-                    <ArrowRightCircleIcon className="size-4" />
-                  )
-                }
-                onClick={() => handleSign()}
-              >
-                Sign in with Lens
-              </Button>
-            </div>
+            <SignupCard />
           )
         ) : (
           <SwitchNetwork toChainId={CHAIN.id} />

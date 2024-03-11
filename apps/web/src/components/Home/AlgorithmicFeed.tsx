@@ -11,14 +11,14 @@ import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-cool-inview';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface AlgorithmicFeedProps {
   feedType: HomeFeedType;
 }
 
 const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const [displayedPublications, setDisplayedPublications] = useState<any[]>([]);
 
   const limit = LimitType.TwentyFive;
@@ -73,7 +73,7 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
   if (publications?.length === 0) {
     return (
       <EmptyState
-        icon={<SparklesIcon className="text-brand-500 size-8" />}
+        icon={<SparklesIcon className="size-8" />}
         message="No posts yet!"
       />
     );

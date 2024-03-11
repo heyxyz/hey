@@ -13,12 +13,11 @@ import isFeatureAvailable from '@lib/isFeatureAvailable';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import Link from 'next/link';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Slug from '../Slug';
 import AppVersion from './NavItems/AppVersion';
 import Bookmarks from './NavItems/Bookmarks';
-import CreateGroup from './NavItems/CreateGroup';
 import GardenerMode from './NavItems/GardenerMode';
 import Invites from './NavItems/Invites';
 import Logout from './NavItems/Logout';
@@ -30,10 +29,8 @@ import ThemeSwitch from './NavItems/ThemeSwitch';
 import YourProfile from './NavItems/YourProfile';
 
 const MobileDrawerMenu: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const setShowMobileDrawer = useGlobalModalStateStore(
-    (state) => state.setShowMobileDrawer
-  );
+  const { currentProfile } = useProfileStore();
+  const { setShowMobileDrawer } = useGlobalModalStateStore();
 
   const closeDrawer = () => {
     setShowMobileDrawer(false);
@@ -87,10 +84,6 @@ const MobileDrawerMenu: FC = () => {
               <Settings className={cn(itemClass, 'px-4')} />
             </Link>
             <Bookmarks
-              className={cn(itemClass, 'px-4')}
-              onClick={closeDrawer}
-            />
-            <CreateGroup
               className={cn(itemClass, 'px-4')}
               onClick={closeDrawer}
             />

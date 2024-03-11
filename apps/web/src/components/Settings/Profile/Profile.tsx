@@ -57,7 +57,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 import { object, string, union } from 'zod';
 
@@ -81,7 +81,7 @@ const editProfileSchema = object({
 type FormData = z.infer<typeof editProfileSchema>;
 
 const ProfileSettingsForm: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -194,6 +194,7 @@ const ProfileSettingsForm: FC = () => {
     const { data } = await setProfileMetadata({
       variables: { request }
     });
+
     if (
       data?.setProfileMetadata?.__typename === 'LensProfileManagerRelayError'
     ) {

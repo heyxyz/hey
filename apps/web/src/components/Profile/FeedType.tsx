@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import {
-  ChatBubbleLeftRightIcon,
+  ChatBubbleLeftIcon,
   FilmIcon,
   PencilSquareIcon,
   RectangleStackIcon
@@ -15,10 +15,14 @@ import MediaFilter from './Filters/MediaFilter';
 
 interface FeedTypeProps {
   feedType: string;
+  setFeedType?: (type: ProfileFeedType) => void;
 }
 
-const FeedType: FC<FeedTypeProps> = ({ feedType }) => {
+const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
   const switchTab = (type: string) => {
+    if (setFeedType) {
+      setFeedType(type as ProfileFeedType);
+    }
     Leafwatch.track(PROFILE.SWITCH_PROFILE_FEED_TAB, {
       profile_feed_type: type.toLowerCase()
     });
@@ -36,7 +40,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType }) => {
         />
         <TabButton
           active={feedType === ProfileFeedType.Replies}
-          icon={<ChatBubbleLeftRightIcon className="size-4" />}
+          icon={<ChatBubbleLeftIcon className="size-4" />}
           name="Replies"
           onClick={() => switchTab(ProfileFeedType.Replies)}
           type={ProfileFeedType.Replies.toLowerCase()}

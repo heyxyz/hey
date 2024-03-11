@@ -17,7 +17,7 @@ import errorToast from '@lib/errorToast';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
 import useHandleWrongNetwork from './useHandleWrongNetwork';
@@ -31,12 +31,9 @@ const useActOnUnknownOpenAction = ({
   signlessApproved = false,
   successToast
 }: CreatePublicationProps) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const lensHubOnchainSigNonce = useNonceStore(
-    (state) => state.lensHubOnchainSigNonce
-  );
-  const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce
+  const { currentProfile } = useProfileStore();
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
+    (state) => state
   );
   const [isLoading, setIsLoading] = useState(false);
   const [txHash, setTxHash] = useState<`0x${string}` | undefined>();
@@ -70,7 +67,7 @@ const useActOnUnknownOpenAction = ({
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const { writeContractAsync } = useWriteContract({
     mutation: {
-      onError: (error) => {
+      onError: (error: Error) => {
         onError(error);
         setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
       },

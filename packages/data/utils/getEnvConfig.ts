@@ -10,7 +10,6 @@ const getEnvConfig = (): {
   lensApiEndpoint: string;
   lensHubProxyAddress: `0x${string}`;
   permissionlessCreator?: `0x${string}`;
-  publicActProxyAddress: `0x${string}`;
   tokenHandleRegistry: `0x${string}`;
 } => {
   switch (LENS_NETWORK) {
@@ -22,7 +21,6 @@ const getEnvConfig = (): {
         lensApiEndpoint: LensEndpoint.Testnet,
         lensHubProxyAddress: TestnetContracts.LensHubProxy,
         permissionlessCreator: TestnetContracts.PermissionlessCreator,
-        publicActProxyAddress: TestnetContracts.PublicActProxy,
         tokenHandleRegistry: TestnetContracts.TokenHandleRegistry
       };
     case 'staging':
@@ -33,7 +31,6 @@ const getEnvConfig = (): {
         lensApiEndpoint: LensEndpoint.Staging,
         lensHubProxyAddress: TestnetContracts.LensHubProxy,
         permissionlessCreator: TestnetContracts.PermissionlessCreator,
-        publicActProxyAddress: TestnetContracts.PublicActProxy,
         tokenHandleRegistry: TestnetContracts.TokenHandleRegistry
       };
     default:
@@ -44,7 +41,6 @@ const getEnvConfig = (): {
         lensApiEndpoint: LensEndpoint.Mainnet,
         lensHubProxyAddress: MainnetContracts.LensHubProxy,
         permissionlessCreator: MainnetContracts.PermissionlessCreator,
-        publicActProxyAddress: MainnetContracts.PublicActProxy,
         tokenHandleRegistry: MainnetContracts.TokenHandleRegistry
       };
   }

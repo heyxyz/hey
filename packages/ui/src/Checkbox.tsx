@@ -17,7 +17,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       <div className="flex items-center">
         <input
           className={cn(
-            'text-brand-500 focus:ring-brand-500 mr-2 cursor-pointer rounded border-gray-300 transition duration-200',
+            'mr-2 cursor-pointer rounded border-gray-300 text-black transition duration-200 focus:ring-gray-500 dark:text-gray-500',
             className
           )}
           id={id}
@@ -25,10 +25,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           type="checkbox"
           {...props}
         />
-        <label
-          className="inline-block whitespace-nowrap text-sm text-gray-800 dark:text-gray-200"
-          htmlFor={id}
-        >
+        <label className="inline-block whitespace-nowrap text-sm" htmlFor={id}>
           {label}
         </label>
       </div>

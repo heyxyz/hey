@@ -2,10 +2,8 @@ import type { Profile } from '@hey/lens';
 import type { FC, ReactNode } from 'react';
 
 import Markup from '@components/Shared/Markup';
-import Follow from '@components/Shared/Profile/Follow';
-import Unfollow from '@components/Shared/Profile/Unfollow';
+import FollowUnfollowButton from '@components/Shared/Profile/FollowUnfollowButton';
 import Slug from '@components/Shared/Slug';
-import SuperFollow from '@components/Shared/SuperFollow';
 import {
   ClockIcon,
   Cog6ToothIcon,
@@ -19,6 +17,7 @@ import {
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
 import { EXPANDED_AVATAR, STATIC_IMAGES_URL } from '@hey/data/constants';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import { FollowModuleType } from '@hey/lens';
 import formatDate from '@hey/lib/datetime/formatDate';
 import getAvatar from '@hey/lib/getAvatar';
@@ -30,16 +29,20 @@ import getProfile from '@hey/lib/getProfile';
 import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import hasMisused from '@hey/lib/hasMisused';
 import { Button, Image, LightBox, Modal, Tooltip } from '@hey/ui';
+import isFeatureAvailable from '@lib/isFeatureAvailable';
 import isVerified from '@lib/isVerified';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import urlcat from 'urlcat';
 
 import Badges from './Badges';
+import CreatorTool from './CreatorTool';
 import Followerings from './Followerings';
+import GardenerTool from './GardenerTool';
 import InvitedBy from './InvitedBy';
 import ProfileMenu from './Menu';
 import MutualFollowers from './MutualFollowers';
@@ -52,8 +55,9 @@ interface DetailsProps {
 }
 
 const Details: FC<DetailsProps> = ({ profile }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const staffMode = useFeatureFlagsStore((state) => state.staffMode);
+  const { push } = useRouter();
+  const { currentProfile } = useProfileStore();
+  const { gardenerMode, staffMode } = useFeatureFlagsStore();
   const [showMutualFollowersModal, setShowMutualFollowersModal] =
     useState(false);
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
@@ -106,7 +110,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
           <TbaBadge address={profile.ownedBy.address} />
           {hasMisused(profile.id) ? (
             <Tooltip content={misuseDetails?.type}>
-              <ExclamationCircleIcon className="size-6 text-red-500" />
+              <ExclamationCircleIcon className="size-6" />
             </Tooltip>
           ) : null}
         </div>
@@ -134,30 +138,17 @@ const Details: FC<DetailsProps> = ({ profile }) => {
         <Followerings profile={profile} />
         <div className="flex items-center space-x-2">
           {currentProfile?.id === profile.id ? (
-            <Link href="/settings">
-              <Button
-                icon={<Cog6ToothIcon className="size-5" />}
-                outline
-                variant="secondary"
-              >
-                Edit Profile
-              </Button>
-            </Link>
+            <Button
+              icon={<Cog6ToothIcon className="size-5" />}
+              onClick={() => push('/settings')}
+              outline
+              variant="secondary"
+            >
+              Edit Profile
+            </Button>
           ) : followType !== FollowModuleType.RevertFollowModule ? (
-            profile.operations.isFollowedByMe.value ? (
-              <>
-                <Unfollow profile={profile} showText />
-                {followType === FollowModuleType.FeeFollowModule ? (
-                  <SuperFollow again profile={profile} />
-                ) : null}
-              </>
-            ) : followType === FollowModuleType.FeeFollowModule ? (
-              <SuperFollow profile={profile} showText />
-            ) : (
-              <Follow profile={profile} showText />
-            )
+            <FollowUnfollowButton profile={profile} />
           ) : null}
-
           <ProfileMenu profile={profile} />
         </div>
         {currentProfile?.id !== profile.id ? (
@@ -167,7 +158,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
               setShowMutualFollowersModal={setShowMutualFollowersModal}
             />
             <Modal
-              icon={<UsersIcon className="text-brand-500 size-5" />}
+              icon={<UsersIcon className="size-5" />}
               onClose={() => setShowMutualFollowersModal(false)}
               show={showMutualFollowersModal}
               title="Followers you know"
@@ -291,7 +282,15 @@ const Details: FC<DetailsProps> = ({ profile }) => {
           <InvitedBy profile={profile.invitedBy} />
         </>
       ) : null}
-      <Badges onchainIdentity={profile.onchainIdentity} />
+      <Badges
+        address={profile.ownedBy.address}
+        id={profile.id}
+        onchainIdentity={profile.onchainIdentity}
+      />
+      {gardenerMode && <GardenerTool profile={profile} />}
+      {isFeatureAvailable(FeatureFlag.Staff) && (
+        <CreatorTool profile={profile} />
+      )}
     </div>
   );
 };

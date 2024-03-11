@@ -12,7 +12,6 @@ import { type FC, useEffect } from 'react';
 
 import { useHiddenCommentFeedStore } from '.';
 import PublicationActions from './Actions';
-import FeaturedGroup from './FeaturedGroup';
 import HiddenPublication from './HiddenPublication';
 import PublicationAvatar from './PublicationAvatar';
 import PublicationBody from './PublicationBody';
@@ -29,18 +28,14 @@ const FullPublication: FC<FullPublicationProps> = ({
   hasHiddenComments,
   publication
 }) => {
-  const showHiddenComments = useHiddenCommentFeedStore(
-    (state) => state.showHiddenComments
-  );
-  const setShowHiddenComments = useHiddenCommentFeedStore(
-    (state) => state.setShowHiddenComments
-  );
+  const { setShowHiddenComments, showHiddenComments } =
+    useHiddenCommentFeedStore();
 
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
 
-  const { createdAt, metadata, publishedOn } = targetPublication;
+  const { createdAt, publishedOn } = targetPublication;
 
   useEffect(() => {
     pushToImpressions(targetPublication.id);
@@ -62,14 +57,11 @@ const FullPublication: FC<FullPublicationProps> = ({
                 contentClassName="full-page-publication-markup"
                 publication={targetPublication}
               />
-              <div className="flex items-center gap-x-3">
-                <div className="ld-text-gray-500 my-3 text-sm">
-                  <span>{formatDate(createdAt, 'hh:mm A · MMM D, YYYY')}</span>
-                  {publishedOn?.id ? (
-                    <span> · Posted via {getAppName(publishedOn.id)}</span>
-                  ) : null}
-                </div>
-                <FeaturedGroup tags={metadata.tags} />
+              <div className="ld-text-gray-500 my-3 text-sm">
+                <span>{formatDate(createdAt, 'hh:mm A · MMM D, YYYY')}</span>
+                {publishedOn?.id ? (
+                  <span> · Posted via {getAppName(publishedOn.id)}</span>
+                ) : null}
               </div>
               <PublicationStats
                 publicationId={targetPublication.id}
@@ -84,8 +76,8 @@ const FullPublication: FC<FullPublicationProps> = ({
                       aria-label="Like"
                       className={cn(
                         showHiddenComments
-                          ? 'text-green-500 outline-green-500 hover:bg-green-300/20'
-                          : 'ld-text-gray-500 outline-gray-400 hover:bg-gray-300/20',
+                          ? 'text-green-500 hover:bg-green-300/20'
+                          : 'ld-text-gray-500 hover:bg-gray-300/20',
                         'rounded-full p-1.5 outline-offset-2'
                       )}
                       onClick={() => setShowHiddenComments(!showHiddenComments)}

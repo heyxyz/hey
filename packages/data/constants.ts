@@ -15,7 +15,6 @@ export const HEY_API_URL = IS_PRODUCTION
   : 'http://localhost:4784';
 export const LENSHUB_PROXY = getEnvConfig().lensHubProxyAddress;
 export const TOKEN_HANDLE_REGISTRY = getEnvConfig().tokenHandleRegistry;
-export const PUBLICACT_PROXY = getEnvConfig().publicActProxyAddress;
 export const HEY_LENS_SIGNUP = getEnvConfig().heyLensSignup;
 export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 export const PERMISSIONLESS_CREATOR = getEnvConfig().permissionlessCreator;
@@ -40,10 +39,13 @@ export const TEST_WALLET_ADDRESS = '0xb9C6e304545386E95d5c4ab183EE97A13555A49d';
 export const TEST_PK =
   '0x8b33302ca865bc1ed65bc02b71dd02067bd3dae3da2f8bb0d95b16509e9ac71e';
 export const TEST_LENS_ID = '0x0383';
-export const HEY_CURATED_ID = '0x020d2a';
+export const HEY_CURATED_ID = '0x0214f6';
 export const ZERO_PUBLICATION_ID = '0x00-0x00';
 export const HANDLE_PREFIX = IS_MAINNET ? 'lens/' : 'test/';
-export const SIGNUP_PRICE = IS_MAINNET ? 10 : 1;
+export const SIGNUP_PRICE = IS_MAINNET ? 8 : 1;
+export const HEY_MEMBERSHIP_NFT = IS_MAINNET
+  ? '0x100372BBF7f975f6b1448fB11AB0F814b2740EEd'
+  : '0x75120677aBF34ae95a916C6E9DbB610a06536CC3';
 
 // URLs
 export const STATIC_ASSETS_URL = 'https://hey-assets.b-cdn.net';
@@ -73,7 +75,7 @@ export const THIRDWEB_CLIENT_ID = '0e8fa22aa33b3da60c593b4864a2e2d1';
 // Named transforms for ImageKit
 export const AVATAR = 'tr:w-250,h-250';
 export const EXPANDED_AVATAR = 'tr:w-1000,h-1000';
-export const COVER = 'tr:w-1500,h-500';
+export const COVER = 'tr:w-2545,h-350';
 export const VIDEO_THUMBNAIL = 'tr:h-500';
 export const ATTACHMENT = 'tr:w-500';
 
@@ -81,3 +83,7 @@ export const ATTACHMENT = 'tr:w-500';
 export const S3_BUCKET = {
   HEY_MEDIA: 'hey-media'
 };
+
+// Feature Flags
+export const VERIFIED_FEATURE_ID = 'a0d6d247-50ef-419f-a045-54fa96054922';
+export const STAFF_PICK_FEATURE_ID = '73d2f48d-0291-4a36-adc2-9737057ad2b7';

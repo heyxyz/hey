@@ -14,24 +14,9 @@ body {
 }
 
 .shimmer {
-  @apply animate-pulse;
+  @apply animate-shimmer;
   @apply bg-gray-300;
   @apply dark:bg-gray-600;
-}
-
-progress::-webkit-progress-bar {
-  background-color: transparent;
-}
-
-progress::-webkit-progress-value {
-  @apply bg-brand-500;
-  transition: width 0.5s ease;
-}
-
-progress::-moz-progress-bar {
-  @apply rounded-bl;
-  @apply bg-brand-500;
-  transition: width 0.5s ease;
 }
 
 .menu-item {
@@ -103,26 +88,6 @@ iframe {
   @apply !text-white;
 }
 
-.toolbar-icons button {
-  @apply hover:bg-brand-100 text-brand-500 rounded-lg p-1.5;
-}
-
-.toolbar-icon {
-  @apply flex h-[20px] w-[20px] bg-contain bg-center bg-no-repeat;
-}
-
-i.bold {
-  background-image: url(/assets/type-bold.svg);
-}
-
-i.italic {
-  background-image: url(/assets/type-italic.svg);
-}
-
-i.code {
-  background-image: url(/assets/type-code.svg);
-}
-
 div[data-lexical-editor='true'] {
   @apply outline-none;
 }
@@ -136,16 +101,16 @@ div[data-lexical-editor='true'] {
 }
 
 .rc-slider-rail {
-  @apply bg-brand-500 !important;
+  @apply bg-black dark:bg-white !important;
   @apply opacity-30;
 }
 
 .rc-slider-track {
-  @apply bg-brand-500 !important;
+  @apply bg-black dark:bg-white !important;
 }
 
 .rc-slider-handle {
-  @apply border-brand-500 !important;
+  @apply border-black dark:border-white !important;
 }
 
 .rc-slider-handle-dragging {
@@ -171,6 +136,10 @@ ul {
   @apply [&>div>div]:border;
   @apply [&>div>div]:border-gray-100;
   @apply [&>div>div]:dark:border-gray-700;
+}
+
+.livepeer-aspect-ratio-container {
+  @apply [&>div>img]:object-contain;
 }
 
 /* react-virtuoso - Virtual profile list */
@@ -224,5 +193,11 @@ ul {
   }
   100% {
     background-position: 500%;
+  }
+}
+
+@keyframes pulse {
+  50% {
+    background-position: 0% !important;
   }
 }

@@ -5,7 +5,6 @@ export enum KillSwitch {
 }
 
 export const enabledKillSwitches: KillSwitch[] = [
-  KillSwitch.FourEverLand,
-  KillSwitch.Invites
-  // KillSwitch.Signup
+  KillSwitch.FourEverLand
+  // KillSwitch.Invites,
 ];

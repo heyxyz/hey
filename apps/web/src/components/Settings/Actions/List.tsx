@@ -10,10 +10,10 @@ import formatAddress from '@hey/lib/formatAddress';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import Link from 'next/link';
 import { useInView } from 'react-cool-inview';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 const List: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
 
   const request: ProfileActionHistoryRequest = { limit: LimitType.TwentyFive };
   const { data, error, fetchMore, loading } = useProfileActionHistoryQuery({
@@ -55,7 +55,7 @@ const List: FC = () => {
     return (
       <EmptyState
         hideCard
-        icon={<QueueListIcon className="text-brand-500 size-8" />}
+        icon={<QueueListIcon className="size-8" />}
         message="You have no actions on your account!"
       />
     );
@@ -73,6 +73,7 @@ const List: FC = () => {
                 <Link
                   className="hover:underline"
                   href={`${POLYGONSCAN_URL}/tx/${action.txHash}`}
+                  target="_blank"
                 >
                   {action.txHash.slice(0, 8 + 2)}…
                   {action.txHash.slice(action.txHash.length - 8)}
@@ -86,6 +87,7 @@ const List: FC = () => {
                 <Link
                   className="hover:underline"
                   href={`${POLYGONSCAN_URL}/address/${action.who}`}
+                  target="_blank"
                 >
                   {formatAddress(action.who)}
                 </Link>

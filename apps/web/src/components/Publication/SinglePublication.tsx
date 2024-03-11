@@ -3,14 +3,12 @@ import type { FC } from 'react';
 
 import ActionType from '@components/Home/Timeline/EventType';
 import PublicationWrapper from '@components/Shared/PublicationWrapper';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
 import pushToImpressions from '@lib/pushToImpressions';
 import { memo } from 'react';
 import { useInView } from 'react-cool-inview';
 
 import PublicationActions from './Actions';
-import FeaturedGroup from './FeaturedGroup';
 import HiddenPublication from './HiddenPublication';
 import PublicationAvatar from './PublicationAvatar';
 import PublicationBody from './PublicationBody';
@@ -39,9 +37,6 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   showType = true
 }) => {
   const rootPublication = feedItem ? feedItem?.root : publication;
-  const { metadata } = isMirrorPublication(publication)
-    ? publication.mirrorOn
-    : publication;
 
   const { observe } = useInView({
     onChange: ({ inView }) => {
@@ -87,12 +82,9 @@ const SinglePublication: FC<SinglePublicationProps> = ({
                 publication={rootPublication}
                 showMore={showMore}
               />
-              <div className="flex flex-wrap items-center gap-x-7">
-                {showActions ? (
-                  <PublicationActions publication={rootPublication} />
-                ) : null}
-                <FeaturedGroup className="mt-3" tags={metadata?.tags} />
-              </div>
+              {showActions ? (
+                <PublicationActions publication={rootPublication} />
+              ) : null}
             </>
           )}
         </div>

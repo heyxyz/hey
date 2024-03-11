@@ -3,13 +3,13 @@ import type { FC } from 'react';
 import Loader from '@components/Shared/Loader';
 import { useUserRateLimitQuery } from '@hey/lens';
 import { Card, ErrorMessage } from '@hey/ui';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 const ProgressBar: FC<{ max: number; value: number }> = ({ max, value }) => {
   return (
     <div className="w-full rounded-full bg-gray-200">
       <div
-        className="bg-brand-500 h-2.5 rounded-full"
+        className="h-2.5 rounded-full bg-black"
         style={{
           width: `${(value / max) * 100}%`
         }}
@@ -19,7 +19,7 @@ const ProgressBar: FC<{ max: number; value: number }> = ({ max, value }) => {
 };
 
 const RateLimits: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
 
   const { data, error, loading } = useUserRateLimitQuery({
     fetchPolicy: 'no-cache',

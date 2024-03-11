@@ -17,10 +17,6 @@ import QuotedPublication from '@components/Publication/QuotedPublication';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
-import {
-  ChatBubbleLeftRightIcon,
-  PencilSquareIcon
-} from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
@@ -30,13 +26,12 @@ import collectModuleParams from '@hey/lib/collectModuleParams';
 import getProfile from '@hey/lib/getProfile';
 import getURLs from '@hey/lib/getURLs';
 import removeQuoteOn from '@hey/lib/removeQuoteOn';
-import { Button, Card, ErrorMessage, Spinner } from '@hey/ui';
+import { Button, Card, ErrorMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { MetadataAttributeType } from '@lens-protocol/metadata';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import errorToast from '@lib/errorToast';
-import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
 import { useUnmountEffect } from 'framer-motion';
@@ -61,50 +56,45 @@ import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModal
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
-import LivestreamSettings from './Actions/LivestreamSettings';
 import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
 import LinkPreviews from './LinkPreviews';
 import Discard from './Post/Discard';
 
+const Shimmer = <div className="shimmer mb-1 size-5 rounded-lg" />;
+
 const Attachment = dynamic(
   () => import('@components/Composer/Actions/Attachment'),
-  {
-    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
-  }
+  { loading: () => Shimmer }
 );
 const EmojiPicker = dynamic(() => import('@components/Shared/EmojiPicker'), {
-  loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
+  loading: () => Shimmer
 });
 const Gif = dynamic(() => import('@components/Composer/Actions/Gif'), {
-  loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
+  loading: () => Shimmer
 });
 const CollectSettings = dynamic(
   () => import('@components/Composer/Actions/CollectSettings'),
-  {
-    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
-  }
+  { loading: () => Shimmer }
 );
 const OpenActionSettings = dynamic(
   () => import('@components/Composer/Actions/OpenActionSettings'),
-  {
-    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
-  }
+  { loading: () => Shimmer }
 );
 const ReferenceSettings = dynamic(
   () => import('@components/Composer/Actions/ReferenceSettings'),
-  {
-    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
-  }
+  { loading: () => Shimmer }
 );
 const PollSettings = dynamic(
   () => import('@components/Composer/Actions/PollSettings'),
-  {
-    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
-  }
+  { loading: () => Shimmer }
+);
+const LivestreamSettings = dynamic(
+  () => import('@components/Composer/Actions/LivestreamSettings'),
+  { loading: () => Shimmer }
 );
 
 interface NewPublicationProps {
@@ -118,94 +108,56 @@ const nftOpenActionKit = new NftOpenActionKit({
 });
 
 const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
 
-  // Modal store
-  const setShowNewPostModal = useGlobalModalStateStore(
-    (state) => state.setShowNewPostModal
-  );
-  const setShowDiscardModal = useGlobalModalStateStore(
-    (state) => state.setShowDiscardModal
-  );
+  // Global modal store
+  const { setShowDiscardModal, setShowNewPostModal } =
+    useGlobalModalStateStore();
 
   // Nonce store
-  const lensHubOnchainSigNonce = useNonceStore(
-    (state) => state.lensHubOnchainSigNonce
-  );
+  const { lensHubOnchainSigNonce } = useNonceStore((state) => state);
 
   // Publication store
-  const publicationContent = usePublicationStore(
-    (state) => state.publicationContent
-  );
-  const setPublicationContent = usePublicationStore(
-    (state) => state.setPublicationContent
-  );
-  const quotedPublication = usePublicationStore(
-    (state) => state.quotedPublication
-  );
-  const setQuotedPublication = usePublicationStore(
-    (state) => state.setQuotedPublication
-  );
-  const audioPublication = usePublicationAudioStore(
-    (state) => state.audioPublication
-  );
-  const attachments = usePublicationAttachmentStore(
-    (state) => state.attachments
-  );
-  const setAttachments = usePublicationAttachmentStore(
-    (state) => state.setAttachments
-  );
-  const addAttachments = usePublicationAttachmentStore(
-    (state) => state.addAttachments
-  );
-  const isUploading = usePublicationAttachmentStore(
-    (state) => state.isUploading
-  );
-  const videoThumbnail = usePublicationVideoStore(
-    (state) => state.videoThumbnail
-  );
-  const setVideoThumbnail = usePublicationVideoStore(
-    (state) => state.setVideoThumbnail
-  );
-  const showPollEditor = usePublicationPollStore(
-    (state) => state.showPollEditor
-  );
-  const setShowPollEditor = usePublicationPollStore(
-    (state) => state.setShowPollEditor
-  );
-  const resetPollConfig = usePublicationPollStore(
-    (state) => state.resetPollConfig
-  );
-  const pollConfig = usePublicationPollStore((state) => state.pollConfig);
-  const showLiveVideoEditor = usePublicationLiveStore(
-    (state) => state.showLiveVideoEditor
-  );
-  const setShowLiveVideoEditor = usePublicationLiveStore(
-    (state) => state.setShowLiveVideoEditor
-  );
-  const resetLiveVideoConfig = usePublicationLiveStore(
-    (state) => state.resetLiveVideoConfig
-  );
+  const {
+    publicationContent,
+    quotedPublication,
+    setPublicationContent,
+    setQuotedPublication
+  } = usePublicationStore();
 
-  const setLicense = usePublicationLicenseStore((state) => state.setLicense);
+  // Audio store
+  const { audioPublication } = usePublicationAudioStore();
+
+  // Video store
+  const { setVideoThumbnail, videoThumbnail } = usePublicationVideoStore();
+
+  // Live video store
+  const { resetLiveVideoConfig, setShowLiveVideoEditor, showLiveVideoEditor } =
+    usePublicationLiveStore();
+
+  // Attachment store
+  const { addAttachments, attachments, isUploading, setAttachments } =
+    usePublicationAttachmentStore((state) => state);
+
+  // Poll store
+  const { pollConfig, resetPollConfig, setShowPollEditor, showPollEditor } =
+    usePublicationPollStore();
+
+  // License store
+  const { setLicense } = usePublicationLicenseStore();
 
   // Collect module store
-  const collectModule = useCollectModuleStore((state) => state.collectModule);
-  const resetCollectSettings = useCollectModuleStore((state) => state.reset);
+  const { collectModule, reset: resetCollectSettings } = useCollectModuleStore(
+    (state) => state
+  );
 
   // Open action store
-  const openAction = useOpenActionStore((state) => state.openAction);
-  const resetOpenActionSettings = useOpenActionStore((state) => state.reset);
+  const { openAction, reset: resetOpenActionSettings } = useOpenActionStore();
 
   // Reference module store
-  const selectedReferenceModule = useReferenceModuleStore(
-    (state) => state.selectedReferenceModule
-  );
-  const onlyFollowers = useReferenceModuleStore((state) => state.onlyFollowers);
-  const degreesOfSeparation = useReferenceModuleStore(
-    (state) => state.degreesOfSeparation
-  );
+  const { degreesOfSeparation, onlyFollowers, selectedReferenceModule } =
+    useReferenceModuleStore();
 
   // States
   const [isLoading, setIsLoading] = useState(false);
@@ -390,7 +342,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     }
 
     if (isSuspended) {
-      toast.error(Errors.Suspended);
+      return toast.error(Errors.Suspended);
     }
 
     try {
@@ -623,10 +575,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   return (
     <Card
-      className={cn(
-        { '!rounded-b-xl !rounded-t-none border-none': !isComment },
-        'pb-3'
-      )}
+      className={cn({ '!rounded-t-none border-none': !isComment })}
       onClick={() => setShowEmojiPicker(false)}
     >
       {error ? (
@@ -656,11 +605,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         openActionEmbed={!!openActionEmbed}
         openActionEmbedLoading={openActionEmbedLoading}
       />
+      <NewAttachments attachments={attachments} />
+      <div className="divider mx-5" />
       <div className="block items-center px-5 sm:flex">
         <div className="flex items-center space-x-4">
           <Attachment />
           <EmojiPicker
-            emojiClassName="text-brand-500"
             setEmoji={(emoji) => {
               setShowEmojiPicker(false);
               editor.update(() => {
@@ -688,9 +638,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             </>
           ) : null}
           <PollSettings />
-          {!isComment && isFeatureAvailable('live-stream') && (
-            <LivestreamSettings />
-          )}
+          {!isComment && <LivestreamSettings />}
         </div>
         <div className="ml-auto mt-2 sm:mt-0">
           <Button
@@ -700,23 +648,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
               isSubmitDisabledByPoll ||
               videoThumbnail.uploading
             }
-            icon={
-              isLoading ? (
-                <Spinner size="xs" />
-              ) : isComment ? (
-                <ChatBubbleLeftRightIcon className="size-4" />
-              ) : (
-                <PencilSquareIcon className="size-4" />
-              )
-            }
             onClick={createPublication}
           >
             {isComment ? 'Comment' : 'Post'}
           </Button>
         </div>
-      </div>
-      <div className="px-5">
-        <NewAttachments attachments={attachments} />
       </div>
       <Discard onDiscard={onDiscardClick} />
     </Card>

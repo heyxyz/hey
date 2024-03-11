@@ -17,10 +17,10 @@ import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 const BottomNavigation = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
 
   const router = useRouter();
   const isActivePath = (path: string) => router.pathname === path;
@@ -32,21 +32,21 @@ const BottomNavigation = () => {
       >
         <Link className="mx-auto my-3" href="/">
           {isActivePath('/') ? (
-            <HomeIconSolid className="text-brand-500 size-6" />
+            <HomeIconSolid className="size-6" />
           ) : (
             <HomeIcon className="size-6" />
           )}
         </Link>
         <Link className="mx-auto my-3" href="/explore">
           {isActivePath('/explore') ? (
-            <Squares2X2IconSolid className="text-brand-500 size-6" />
+            <Squares2X2IconSolid className="size-6" />
           ) : (
             <Squares2X2Icon className="size-6" />
           )}
         </Link>
         <Link className="mx-auto my-3" href="/notifications">
           {isActivePath('/notifications') ? (
-            <BellIconSolid className="text-brand-500 size-6" />
+            <BellIconSolid className="size-6" />
           ) : (
             <BellIcon className="size-6" />
           )}

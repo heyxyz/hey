@@ -16,15 +16,9 @@ import { isAddress } from 'viem';
 import { useAccount } from 'wagmi';
 
 const LensSubscriptionsProvider: FC = () => {
-  const setLatestNotificationId = useNotificationStore(
-    (state) => state.setLatestNotificationId
-  );
-  const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce
-  );
-  const setLensPublicActProxyOnchainSigNonce = useNonceStore(
-    (state) => state.setLensPublicActProxyOnchainSigNonce
-  );
+  const { setLatestNotificationId } = useNotificationStore();
+  const { setLensHubOnchainSigNonce, setLensPublicActProxyOnchainSigNonce } =
+    useNonceStore((state) => state);
   const { address } = useAccount();
   const { id: sessionProfileId } = getCurrentSession();
   const canUseSubscriptions = Boolean(sessionProfileId) && address;
@@ -32,7 +26,7 @@ const LensSubscriptionsProvider: FC = () => {
   // Begin: New Notification
   const { data: newNotificationData } =
     useNewNotificationSubscriptionSubscription({
-      skip: !canUseSubscriptions || isAddress(sessionProfileId),
+      skip: !canUseSubscriptions,
       variables: { for: sessionProfileId }
     });
 

@@ -515,7 +515,7 @@ class ImageCropper extends Component<CropperProps, State> {
             )}
             <div
               className={cn(
-                'border-brand-500 border-2',
+                'border-2 border-gray-500',
                 'reactEasyCrop_CropArea'
               )}
               style={{

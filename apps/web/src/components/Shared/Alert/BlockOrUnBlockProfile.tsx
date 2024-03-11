@@ -3,6 +3,7 @@ import type { ApolloCache } from '@hey/lens/apollo';
 import type { FC } from 'react';
 
 import { LensHub } from '@hey/abis';
+import { Errors } from '@hey/data';
 import { LENSHUB_PROXY } from '@hey/data/constants';
 import { PROFILE } from '@hey/data/tracking';
 import {
@@ -23,32 +24,26 @@ import { toast } from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
 const BlockOrUnBlockProfile: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const showBlockOrUnblockAlert = useGlobalAlertStateStore(
-    (state) => state.showBlockOrUnblockAlert
+  const { currentProfile } = useProfileStore();
+  const {
+    blockingorUnblockingProfile,
+    setShowBlockOrUnblockAlert,
+    showBlockOrUnblockAlert
+  } = useGlobalAlertStateStore();
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
+    (state) => state
   );
-  const setShowBlockOrUnblockAlert = useGlobalAlertStateStore(
-    (state) => state.setShowBlockOrUnblockAlert
-  );
-  const blockingorUnblockingProfile = useGlobalAlertStateStore(
-    (state) => state.blockingorUnblockingProfile
-  );
-  const lensHubOnchainSigNonce = useNonceStore(
-    (state) => state.lensHubOnchainSigNonce
-  );
-  const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce
-  );
-
   const [isLoading, setIsLoading] = useState(false);
   const [hasBlocked, setHasBlocked] = useState(
     blockingorUnblockingProfile?.operations.isBlockedByMe.value
   );
 
+  const { isSuspended } = useProfileRestriction();
   const handleWrongNetwork = useHandleWrongNetwork();
   const { canBroadcast, canUseLensManager } =
     checkDispatcherPermissions(currentProfile);
@@ -175,7 +170,11 @@ const BlockOrUnBlockProfile: FC = () => {
 
   const blockOrUnblock = async () => {
     if (!currentProfile) {
-      return;
+      return toast.error(Errors.SignWallet);
+    }
+
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
     }
 
     try {
