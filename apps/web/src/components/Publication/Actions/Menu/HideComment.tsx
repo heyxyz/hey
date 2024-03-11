@@ -45,10 +45,11 @@ const HideComment: FC<HideCommentProps> = ({ publication }) => {
   const [hideComment] = useHideCommentMutation({
     onCompleted: () => {
       toast.success('Comment hidden');
-      Leafwatch.track(PUBLICATION.TOGGLE_HIDE_COMMENT, {
-        hidden: true,
-        publication_id: publication.id
-      });
+      Leafwatch.track(
+        PUBLICATION.TOGGLE_HIDE_COMMENT,
+        { hidden: true, publication_id: publication.id },
+        { points: 10 }
+      );
     },
     onError,
     update: updateCache,
@@ -58,10 +59,11 @@ const HideComment: FC<HideCommentProps> = ({ publication }) => {
   const [unhideComment] = useUnhideCommentMutation({
     onCompleted: () => {
       toast.success('Comment unhidden');
-      Leafwatch.track(PUBLICATION.TOGGLE_HIDE_COMMENT, {
-        hidden: false,
-        publication_id: publication.id
-      });
+      Leafwatch.track(
+        PUBLICATION.TOGGLE_HIDE_COMMENT,
+        { hidden: false, publication_id: publication.id },
+        { points: 10 }
+      );
     },
     onError,
     update: updateCache,

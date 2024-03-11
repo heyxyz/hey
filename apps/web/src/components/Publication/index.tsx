@@ -62,7 +62,7 @@ const ViewPublication: NextPage = () => {
   } = useRouter();
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'publication' });
+    Leafwatch.track(PAGEVIEW, { page: 'publication' }, { points: 5 });
   }, []);
 
   const { data, error, loading } = usePublicationQuery({

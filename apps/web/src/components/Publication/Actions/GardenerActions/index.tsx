@@ -66,10 +66,11 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
       disabled={loading || hasReported}
       icon={icon}
       onClick={() => {
-        Leafwatch.track(GARDENER.REPORT, {
-          publication_id: publication.id,
-          type
-        });
+        Leafwatch.track(
+          GARDENER.REPORT,
+          { publication_id: publication.id, type },
+          { points: 20 }
+        );
 
         toast.promise(
           Promise.all(
