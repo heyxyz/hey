@@ -20,7 +20,7 @@ const Bookmarks: NextPage = () => {
   const [focus, setFocus] = useState<PublicationMetadataMainFocusType>();
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'bookmarks' }, { points: 5 });
+    Leafwatch.track(PAGEVIEW, { page: 'bookmarks' });
   }, []);
 
   if (!currentProfile) {

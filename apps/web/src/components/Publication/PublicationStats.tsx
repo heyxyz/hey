@@ -72,11 +72,9 @@ const PublicationStats: FC<PublicationStatsProps> = ({
               className="outline-offset-2"
               onClick={() => {
                 setShowMirrorsModal(true);
-                Leafwatch.track(
-                  PUBLICATION.OPEN_MIRRORS,
-                  { publication_id: publicationId },
-                  { points: 5 }
-                );
+                Leafwatch.track(PUBLICATION.OPEN_MIRRORS, {
+                  publication_id: publicationId
+                });
               }}
               type="button"
             >
@@ -108,11 +106,9 @@ const PublicationStats: FC<PublicationStatsProps> = ({
               className="outline-offset-2"
               onClick={() => {
                 setShowLikesModal(true);
-                Leafwatch.track(
-                  PUBLICATION.OPEN_LIKES,
-                  { publication_id: publicationId },
-                  { points: 5 }
-                );
+                Leafwatch.track(PUBLICATION.OPEN_LIKES, {
+                  publication_id: publicationId
+                });
               }}
               type="button"
             >
@@ -137,11 +133,9 @@ const PublicationStats: FC<PublicationStatsProps> = ({
               className="outline-offset-2"
               onClick={() => {
                 setShowCollectorsModal(true);
-                Leafwatch.track(
-                  PUBLICATION.OPEN_COLLECTORS,
-                  { publication_id: publicationId },
-                  { points: 5 }
-                );
+                Leafwatch.track(PUBLICATION.OPEN_COLLECTORS, {
+                  publication_id: publicationId
+                });
               }}
               type="button"
             >

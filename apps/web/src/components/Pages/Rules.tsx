@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 
 const Rules: NextPage = () => {
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'rules' }, { points: 5 });
+    Leafwatch.track(PAGEVIEW, { page: 'rules' });
   }, []);
 
   return (
