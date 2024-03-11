@@ -15,18 +15,21 @@ const getAssetLicense = (
   switch (licenseId) {
     case PublicationMetadataLicenseType.Cco:
       return {
-        helper: 'CC0',
-        label: 'Public domain - zero restrictions'
+        helper:
+          'Anyone can use, modify and distribute the work without any restrictions or need for attribution. CC0',
+        label: 'CC0 - no restrictions'
       };
     case PublicationMetadataLicenseType.TbnlCDNplLegal:
       return {
-        helper: 'TBNL-C-D-NPL-Legal',
-        label: 'NFT owner has full commercial rights'
+        helper:
+          'The owner of the NFT can use, modify and distribute the work commercially and profit from it. TBNL-C-D-NPL-Legal',
+        label: 'Commercial rights for (NFT owner)'
       };
     case PublicationMetadataLicenseType.TbnlNcDNplLegal:
       return {
-        helper: 'TBNL-NC-D-NPL-Legal',
-        label: 'NFT owner has personal use rights'
+        helper:
+          'Personal use of the work is allowed, but not profiting or commercial use. TBNL-NC-D-NPL-Legal',
+        label: 'Personal rights (NFT owner)'
       };
     default:
       return null;

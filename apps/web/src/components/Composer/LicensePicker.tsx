@@ -1,24 +1,16 @@
 import type { FC } from 'react';
 
-import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
-import { FeatureFlag } from '@hey/data/feature-flags';
 import { PublicationMetadataLicenseType } from '@hey/lens';
-import { Select } from '@hey/ui';
+import { Select, Tooltip } from '@hey/ui';
 import getAssetLicense from '@lib/getAssetLicense';
-import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
 
 const LicensePicker: FC = () => {
   const { license, setLicense } = usePublicationLicenseStore();
 
-  if (!isFeatureAvailable(FeatureFlag.Staff)) {
-    return null;
-  }
-
   const otherOptions = Object.values(PublicationMetadataLicenseType)
     .filter((type) => getAssetLicense(type))
     .map((type) => ({
-      helper: getAssetLicense(type)?.helper as string,
       label: getAssetLicense(type)?.label as string,
       selected: license === type,
       value: type
@@ -26,7 +18,6 @@ const LicensePicker: FC = () => {
 
   const options = [
     {
-      helper: 'No license given',
       label: 'All rights reserved',
       selected: license === null,
       value: null
@@ -36,10 +27,22 @@ const LicensePicker: FC = () => {
 
   return (
     <div className="my-5">
-      <div className="divider mb-3" />
+      {/* <div className="divider mb-3" /> */}
       <div className="mb-2 flex items-center justify-between">
         <b>License</b>
-        <div className="ld-text-gray-500 text-sm">What's this?</div>
+        <Tooltip
+          content={
+            <div className="max-w-xs py-2 leading-5">
+              Creator licenses dictate the use, sharing, and distribution of
+              music, art and other intellectual property - ranging from
+              restrictive to permissive. Once given, you can't change the
+              license.
+            </div>
+          }
+          placement="top"
+        >
+          <div className="ld-text-gray-500 text-sm">What's this?</div>
+        </Tooltip>
       </div>
       <Select
         onChange={(value) =>
@@ -47,12 +50,9 @@ const LicensePicker: FC = () => {
         }
         options={options}
       />
-      <div className="mt-2 flex items-center space-x-1.5">
-        <ExclamationCircleIcon className="size-4" />
-        <div className="ld-text-gray-500 text-sm">
-          All licenses are irrevocable, you can only license your original
-          creations
-        </div>
+      <div className="ld-text-gray-500 mt-2 text-sm">
+        {getAssetLicense(license)?.helper ||
+          'You retain all rights. No license given.'}
       </div>
     </div>
   );

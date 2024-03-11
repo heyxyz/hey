@@ -2,9 +2,9 @@ import type { NewAttachment } from '@hey/types/misc';
 import type { FC } from 'react';
 
 import ChooseThumbnail from '@components/Composer/ChooseThumbnail';
-import { XMarkIcon } from '@heroicons/react/24/outline';
+import { XMarkIcon } from '@heroicons/react/24/solid';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Button, Image } from '@hey/ui';
+import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useEffect, useRef } from 'react';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
@@ -139,27 +139,17 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
               />
             ) : null}
             {isVideo || isAudio ? <LicensePicker /> : null}
-            {!hideDelete &&
-              (isVideo || isAudio ? (
-                <Button
-                  className="mt-3 w-full justify-center"
+            {!hideDelete && (
+              <div className="absolute right-0 top-0 m-3">
+                <button
+                  className="rounded-full bg-gray-900 p-1.5 opacity-75"
                   onClick={() => removeAttachment(attachment)}
-                  outline
-                  variant="danger"
+                  type="button"
                 >
-                  Cancel Upload
-                </Button>
-              ) : (
-                <div className="m-3">
-                  <button
-                    className="rounded-full bg-gray-900 p-1.5 opacity-75"
-                    onClick={() => removeAttachment(attachment)}
-                    type="button"
-                  >
-                    <XMarkIcon className="size-4 text-white" />
-                  </button>
-                </div>
-              ))}
+                  <XMarkIcon className="size-4 text-white" />
+                </button>
+              </div>
+            )}
           </div>
         );
       })}
