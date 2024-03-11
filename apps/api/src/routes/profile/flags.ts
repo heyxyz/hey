@@ -3,7 +3,10 @@ import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
 import catchedError from 'src/lib/catchedError';
-import { SUSPENDED_FEATURE_ID } from 'src/lib/constants';
+import {
+  SUSPENDED_FEATURE_ID,
+  SWR_CACHE_AGE_10_MINS_30_DAYS
+} from 'src/lib/constants';
 import prisma from 'src/lib/prisma';
 import { noBody } from 'src/lib/responses';
 
@@ -30,7 +33,10 @@ export const get: Handler = async (req, res) => {
 
     logger.info('Profile flags fetched');
 
-    return res.status(200).json({ result: response, success: true });
+    return res
+      .status(200)
+      .setHeader('Cache-Control', SWR_CACHE_AGE_10_MINS_30_DAYS)
+      .json({ result: response, success: true });
   } catch (error) {
     return catchedError(res, error);
   }
