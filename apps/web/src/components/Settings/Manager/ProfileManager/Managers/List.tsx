@@ -27,17 +27,14 @@ import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
 const List: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
-  const lensHubOnchainSigNonce = useNonceStore(
-    (state) => state.lensHubOnchainSigNonce
-  );
-  const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
+    (state) => state
   );
   const [removingAddress, setRemovingAddress] = useState<Address | null>(null);
 

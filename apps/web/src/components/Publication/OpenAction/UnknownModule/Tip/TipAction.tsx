@@ -37,7 +37,6 @@ const TipAction: FC<TipActionProps> = ({
 }) => {
   const [allowed, setAllowed] = useState(true);
   const { id: sessionProfileId } = getCurrentSession();
-
   const { address } = useAccount();
 
   const amount = parseInt(moduleAmount?.value || '0');

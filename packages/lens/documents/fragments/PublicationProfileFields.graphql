@@ -3,6 +3,9 @@ fragment PublicationProfileFields on Profile {
   handle {
     ...HandleInfoFields
   }
+  operations {
+    ...ProfileOperationsFields
+  }
   ownedBy {
     ...NetworkAddressFields
   }

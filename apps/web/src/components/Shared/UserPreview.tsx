@@ -22,6 +22,7 @@ import plur from 'plur';
 import { useState } from 'react';
 
 import Markup from './Markup';
+import FollowUnfollowButton from './Profile/FollowUnfollowButton';
 import Slug from './Slug';
 
 const MINIMUM_LOADING_ANIMATION_MS = 800;
@@ -39,13 +40,12 @@ const UserPreview: FC<UserPreviewProps> = ({
   id,
   showUserPreview = true
 }) => {
-  const [profile, setProfile] = useState<Profile | undefined>();
-  const [loadProfile, { loading: networkLoading }] = useProfileLazyQuery({
-    fetchPolicy: 'no-cache'
+  const [loadProfile, { data, loading: networkLoading }] = useProfileLazyQuery({
+    fetchPolicy: 'cache-and-network'
   });
-
   const [syntheticLoading, setSyntheticLoading] =
     useState<boolean>(networkLoading);
+  const profile = data?.profile as Profile;
 
   const onPreviewStart = async () => {
     if (profile || networkLoading) {
@@ -54,7 +54,6 @@ const UserPreview: FC<UserPreviewProps> = ({
 
     setSyntheticLoading(true);
     await loadProfile({
-      onCompleted: (data) => setProfile(data?.profile as Profile),
       variables: {
         request: { ...(id ? { forProfileId: id } : { forHandle: handle }) }
       }
@@ -130,7 +129,10 @@ const UserPreview: FC<UserPreviewProps> = ({
 
     return (
       <div className="space-y-3 p-4">
-        <UserAvatar />
+        <div className="flex items-center justify-between">
+          <UserAvatar />
+          <FollowUnfollowButton profile={profile} small />
+        </div>
         <UserName />
         <div>
           {profile.metadata?.bio ? (
@@ -146,9 +148,7 @@ const UserPreview: FC<UserPreviewProps> = ({
             <div className="text-base">
               {nFormatter(profile.stats.following)}
             </div>
-            <div className="ld-text-gray-500 text-sm">
-              {plur('Following', profile.stats.following)}
-            </div>
+            <div className="ld-text-gray-500 text-sm">Following</div>
           </div>
           <div className="text-md flex items-center space-x-1">
             <div className="text-base">

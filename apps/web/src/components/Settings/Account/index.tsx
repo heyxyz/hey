@@ -8,14 +8,14 @@ import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useEffect } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import SettingsSidebar from '../Sidebar';
 import RateLimits from './RateLimits';
 import Verification from './Verification';
 
 const AccountSettings: NextPage = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'account' });

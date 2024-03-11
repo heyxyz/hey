@@ -24,41 +24,18 @@ import {
   INSERT_PARAGRAPH_COMMAND
 } from 'lexical';
 import { useEffect } from 'react';
-import { toast } from 'react-hot-toast';
-import useUploadAttachments from 'src/hooks/useUploadAttachments';
-import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS];
 
 const Editor: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const setPublicationContent = usePublicationStore(
-    (state) => state.setPublicationContent
-  );
-  const showPollEditor = usePublicationPollStore(
-    (state) => state.showPollEditor
-  );
-  const attachments = usePublicationAttachmentStore(
-    (state) => state.attachments
-  );
-  const { handleUploadAttachments } = useUploadAttachments();
+  const { currentProfile } = useProfileStore();
+  const { setPublicationContent } = usePublicationStore();
+  const { showPollEditor } = usePublicationPollStore();
+
   const [editor] = useLexicalComposerContext();
-
-  const handlePaste = async (pastedFiles: FileList) => {
-    if (
-      attachments.length === 4 ||
-      attachments.length + pastedFiles.length > 4
-    ) {
-      return toast.error('Please choose either 1 video or up to 4 photos.');
-    }
-
-    if (pastedFiles) {
-      await handleUploadAttachments(pastedFiles);
-    }
-  };
 
   useEffect(() => {
     return editor.registerCommand(
@@ -103,7 +80,7 @@ const Editor: FC = () => {
         <HistoryPlugin />
         <HashtagPlugin />
         <MentionsPlugin />
-        <ImagesPlugin onPaste={handlePaste} />
+        <ImagesPlugin />
         <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
       </div>
     </div>

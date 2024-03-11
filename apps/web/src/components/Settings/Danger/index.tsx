@@ -8,7 +8,7 @@ import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useEffect } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useAccount } from 'wagmi';
 
 import SettingsSidebar from '../Sidebar';
@@ -16,7 +16,7 @@ import DeleteSettings from './Delete';
 import GuardianSettings from './Guardian';
 
 const DangerSettings: NextPage = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { address } = useAccount();
   const disabled = currentProfile?.ownedBy.address !== address;
 

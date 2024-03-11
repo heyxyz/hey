@@ -16,4 +16,5 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
   encryptedWith {
     ...PublicationMetadataLitEncryptionFields
   }
+  appId
 }

@@ -7,6 +7,7 @@ import type { Address } from 'viem';
 
 import Loader from '@components/Shared/Loader';
 import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
+import { USD_ENABLED_TOKEN_SYMBOLS } from '@hey/data/tokens-symbols';
 import { TipIcon } from '@hey/icons';
 import { useModuleMetadataQuery } from '@hey/lens';
 import getAllTokens from '@hey/lib/api/getAllTokens';
@@ -67,6 +68,14 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
   });
 
   const metadata = data?.moduleMetadata?.metadata;
+  const balance = balanceData
+    ? parseFloat(
+        formatUnits(balanceData.value, selectedCurrency?.decimals as number)
+      ).toFixed(selectedCurrency?.symbol === 'WETH' ? 4 : 2)
+    : 0;
+  const usdEnabled = USD_ENABLED_TOKEN_SYMBOLS.includes(
+    selectedCurrency?.symbol as string
+  );
 
   const { actOnUnknownOpenAction, isLoading } = useActOnUnknownOpenAction({
     signlessApproved: module.signlessApproved,
@@ -94,7 +103,7 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
   }
 
   const act = async () => {
-    if (usdPrice === 0) {
+    if (usdEnabled && usdPrice === 0) {
       return toast.error('Failed to get USD price');
     }
 
@@ -108,7 +117,7 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
     }
 
     const amount = tip.value[0];
-    const usdValue = amount / usdPrice;
+    const usdValue = usdEnabled ? amount / usdPrice : amount;
 
     const calldata = encodeAbiParameters(abi, [
       currency.contractAddress,
@@ -122,40 +131,53 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
     });
   };
 
-  const balance = balanceData
-    ? parseFloat(
-        formatUnits(balanceData.value, selectedCurrency?.decimals as number)
-      ).toFixed(selectedCurrency?.symbol === 'WETH' ? 4 : 2)
-    : 0;
-
   return (
     <div className="space-y-3 p-5">
       <div className="flex items-center justify-between">
         <div className="space-y-0.5">
           <span className="space-x-1 text-2xl">
-            <span>$</span>
-            <b>{tip.value[0]}</b>
+            {usdEnabled ? (
+              <>
+                <span>$</span>
+                <b>{tip.value[0]}</b>
+              </>
+            ) : (
+              <>
+                <b>{tip.value[0]}</b>
+                <b>{selectedCurrency?.symbol}</b>
+              </>
+            )}
           </span>
+
           <div className="ld-text-gray-500 text-sm">
-            {(tip.value[0] / usdPrice).toFixed(
-              selectedCurrency?.symbol === 'WETH' ? 4 : 2
-            )}{' '}
-            {selectedCurrency?.symbol}
+            {usdEnabled ? (
+              <>
+                {(tip.value[0] / usdPrice).toFixed(
+                  selectedCurrency?.symbol === 'WETH' ? 4 : 2
+                )}{' '}
+                {selectedCurrency?.symbol}
+              </>
+            ) : (
+              <>
+                {tip.value[0]} {selectedCurrency?.symbol}
+              </>
+            )}
           </div>
         </div>
         <div className="flex w-5/12 flex-col items-end space-y-1">
           <Select
             defaultValue={DEFAULT_COLLECT_TOKEN}
-            onChange={(e) => {
-              setTip({ ...tip, currency: e.target.value });
+            onChange={(value) => {
+              setTip({ ...tip, currency: value });
               setSelectedCurrency(
                 allowedTokens?.find(
-                  (token) => token.contractAddress === e.target.value
+                  (token) => token.contractAddress === value
                 ) as AllowedToken
               );
             }}
             options={allowedTokens?.map((token) => ({
               label: token.name,
+              selected: token.contractAddress === tip.currency,
               value: token.contractAddress
             }))}
           />

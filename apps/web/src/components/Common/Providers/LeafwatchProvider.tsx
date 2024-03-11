@@ -3,8 +3,7 @@ import { useLeafwatchStore } from 'src/store/persisted/useLeafwatchStore';
 import { v4 as uuid } from 'uuid';
 
 const LeafwatchProvider: FC = () => {
-  const anonymousId = useLeafwatchStore((state) => state.anonymousId);
-  const setAnonymousId = useLeafwatchStore((state) => state.setAnonymousId);
+  const { anonymousId, setAnonymousId } = useLeafwatchStore();
 
   useEffect(() => {
     if (!anonymousId) {

@@ -23,7 +23,7 @@ import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
 interface UnfollowProps {
@@ -33,17 +33,12 @@ interface UnfollowProps {
 
 const Unfollow: FC<UnfollowProps> = ({ profile, small = false }) => {
   const { pathname } = useRouter();
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
-  const lensHubOnchainSigNonce = useNonceStore(
-    (state) => state.lensHubOnchainSigNonce
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
+    (state) => state
   );
-  const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce
-  );
-  const setShowAuthModal = useGlobalModalStateStore(
-    (state) => state.setShowAuthModal
-  );
+  const { setShowAuthModal } = useGlobalModalStateStore();
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();

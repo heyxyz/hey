@@ -11,7 +11,7 @@ import { HomeFeedType } from '@hey/data/enums';
 import { HOME } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Algorithms from './Algorithms';
 import SeeThroughLens from './SeeThroughLens';
@@ -22,9 +22,7 @@ interface FeedTypeProps {
 }
 
 const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
-  const fallbackToCuratedFeed = useProfileStore(
-    (state) => state.fallbackToCuratedFeed
-  );
+  const { fallbackToCuratedFeed } = useProfileStore();
 
   return (
     <div className="flex flex-wrap items-center justify-between px-1 md:px-0">

@@ -14,6 +14,7 @@ import Collectors from '@components/Shared/Modal/Collectors';
 import Slug from '@components/Shared/Slug';
 import {
   BanknotesIcon,
+  CheckCircleIcon,
   ClockIcon,
   CurrencyDollarIcon,
   PhotoIcon,
@@ -22,7 +23,6 @@ import {
   UsersIcon
 } from '@heroicons/react/24/outline';
 import { POLYGONSCAN_URL } from '@hey/data/constants';
-import { FollowModuleType } from '@hey/lens';
 import getAllTokens from '@hey/lib/api/getAllTokens';
 import formatDate from '@hey/lib/datetime/formatDate';
 import formatAddress from '@hey/lib/formatAddress';
@@ -32,7 +32,7 @@ import getRedstonePrice from '@hey/lib/getRedstonePrice';
 import getTokenImage from '@hey/lib/getTokenImage';
 import humanize from '@hey/lib/humanize';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
-import { Modal, Tooltip } from '@hey/ui';
+import { Modal, Tooltip, WarningMessage } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import plur from 'plur';
@@ -77,7 +77,12 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
   const percentageCollected = (countOpenActions / collectLimit) * 100;
   const enabledTokens = allowedTokens?.map((t) => t.symbol);
   const isTokenEnabled = enabledTokens?.includes(currency);
-  const isSaleEnded = new Date(endTimestamp) < new Date();
+  const isSaleEnded = endTimestamp
+    ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
+    : false;
+  const isAllCollected = collectLimit
+    ? countOpenActions >= collectLimit
+    : false;
 
   const { data: usdPrice } = useQuery({
     enabled: Boolean(amount),
@@ -101,14 +106,30 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
         </Tooltip>
       ) : null}
       <div className="p-5">
-        {collectModule?.followerOnly ? (
-          <div className="pb-5">
+        {isAllCollected ? (
+          <WarningMessage
+            className="mb-5"
+            message={
+              <div className="flex items-center space-x-1.5">
+                <CheckCircleIcon className="size-4" />
+                <span>This collection has been sold out</span>
+              </div>
+            }
+          />
+        ) : isSaleEnded ? (
+          <WarningMessage
+            className="mb-5"
+            message={
+              <div className="flex items-center space-x-1.5">
+                <ClockIcon className="size-4" />
+                <span>This collection has ended</span>
+              </div>
+            }
+          />
+        ) : collectModule?.followerOnly ? (
+          <div className="mb-5">
             <CollectWarning
-              handle={getProfile(publication.by).slugWithPrefix}
-              isSuperFollow={
-                publication?.by?.followModule?.type ===
-                FollowModuleType.FeeFollowModule
-              }
+              handle={getProfile(targetPublication.by).slugWithPrefix}
             />
           </div>
         ) : null}
@@ -167,7 +188,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
                 <Collectors publicationId={targetPublication.id} />
               </Modal>
             </div>
-            {collectLimit ? (
+            {collectLimit && !isAllCollected ? (
               <div className="flex items-center space-x-2">
                 <PhotoIcon className="ld-text-gray-500 size-4" />
                 <div className="font-bold">
@@ -182,7 +203,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
               </div>
             ) : null}
           </div>
-          {endTimestamp ? (
+          {endTimestamp && !isAllCollected ? (
             <div className="flex items-center space-x-2">
               <ClockIcon className="ld-text-gray-500 size-4" />
               <div className="space-x-1.5">

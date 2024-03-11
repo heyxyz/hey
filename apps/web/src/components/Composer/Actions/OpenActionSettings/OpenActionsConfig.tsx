@@ -5,9 +5,7 @@ import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenA
 import TipConfig from './Config/Tip';
 
 const OpenActionsConfig: FC = () => {
-  const selectedOpenAction = useOpenActionStore(
-    (state) => state.selectedOpenAction
-  );
+  const { selectedOpenAction } = useOpenActionStore();
 
   return <div>{selectedOpenAction === OpenAction.Tip && <TipConfig />}</div>;
 };
