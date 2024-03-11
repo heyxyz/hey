@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import MenuItems from './MenuItems';
 import ModIcon from './ModIcon';
@@ -20,9 +20,9 @@ import StaffBar from './StaffBar';
 
 const Navbar: FC = () => {
   const router = useRouter();
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const staffMode = useFeatureFlagsStore((state) => state.staffMode);
-  const isPride = usePreferencesStore((state) => state.isPride);
+  const { currentProfile } = useProfileStore();
+  const { staffMode } = useFeatureFlagsStore();
+  const { isPride } = usePreferencesStore();
   const [showSearch, setShowSearch] = useState(false);
 
   const onProfileSelected = (profile: Profile) => {

@@ -67,7 +67,6 @@ export const PUBLICATION = {
   OPEN_LIKES: 'Open likes modal',
   OPEN_MIRRORS: 'Open mirrors modal',
   OPEN_NFT: 'Open NFT',
-  OPEN_QUOTES: 'Open quotes modal',
   REPORT: 'Report publication',
   SHARE: 'Share publication',
   TOGGLE_BOOKMARK: 'Toggle publication bookmark',

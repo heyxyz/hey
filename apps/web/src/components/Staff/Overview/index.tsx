@@ -8,15 +8,15 @@ import { Leafwatch } from '@lib/leafwatch';
 import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import StaffSidebar from '../Sidebar';
 import LeafwatchStats from './LeafwatchStats';
 import Links from './Links';
 
 const Overview: NextPage = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const staffMode = useFeatureFlagsStore((state) => state.staffMode);
+  const { currentProfile } = useProfileStore();
+  const { staffMode } = useFeatureFlagsStore();
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'staff-tools', subpage: 'overview' });

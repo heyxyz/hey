@@ -9,10 +9,10 @@ import { Leafwatch } from '@lib/leafwatch';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
-import Loader from '../Loader';
-import Slug from '../Slug';
+import Loader from '../../Loader';
+import Slug from '../../Slug';
 
 const FollowModule = dynamic(() => import('./FollowModule'), {
   loading: () => <Loader message="Loading Super follow" />
@@ -30,16 +30,13 @@ const SuperFollow: FC<SuperFollowProps> = ({
   small = false
 }) => {
   const [showFollowModal, setShowFollowModal] = useState(false);
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const setShowAuthModal = useGlobalModalStateStore(
-    (state) => state.setShowAuthModal
-  );
+  const { currentProfile } = useProfileStore();
+  const { setShowAuthModal } = useGlobalModalStateStore();
 
   return (
     <>
       <Button
         aria-label="Super follow"
-        className="!px-3 !py-1.5 text-sm"
         onClick={() => {
           if (!currentProfile) {
             setShowAuthModal(true);

@@ -34,9 +34,7 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         type="button"
       >
         <div className="text-xl">{humanize(profile.stats.following)}</div>
-        <div className="ld-text-gray-500">
-          {plur('Following', profile.stats.following)}
-        </div>
+        <div className="ld-text-gray-500">Following</div>
       </button>
       <button
         className="text-left outline-offset-4"

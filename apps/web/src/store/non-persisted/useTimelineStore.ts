@@ -1,5 +1,6 @@
 import type { Profile } from '@hey/lens';
 
+import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 
 interface TimelineState {
@@ -7,8 +8,10 @@ interface TimelineState {
   setSeeThroughProfile: (profile: null | Profile) => void;
 }
 
-export const useTimelineStore = create<TimelineState>((set) => ({
+const store = create<TimelineState>((set) => ({
   seeThroughProfile: null,
   setSeeThroughProfile: (seeThroughProfile) =>
     set(() => ({ seeThroughProfile }))
 }));
+
+export const useTimelineStore = createTrackedSelector(store);

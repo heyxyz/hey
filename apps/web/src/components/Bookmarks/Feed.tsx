@@ -18,9 +18,7 @@ interface FeedProps {
 }
 
 const Feed: FC<FeedProps> = ({ focus }) => {
-  const fetchAndStoreViews = useImpressionsStore(
-    (state) => state.fetchAndStoreViews
-  );
+  const { fetchAndStoreViews } = useImpressionsStore();
 
   // Variables
   const request: PublicationBookmarksRequest = {

@@ -5,9 +5,7 @@ import getURLs from '@hey/lib/getURLs';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 
 const LinkPreviews: FC = () => {
-  const publicationContent = usePublicationStore(
-    (state) => state.publicationContent
-  );
+  const { publicationContent } = usePublicationStore();
 
   const urls = getURLs(publicationContent);
 

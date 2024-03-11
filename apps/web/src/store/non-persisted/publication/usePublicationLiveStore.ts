@@ -1,3 +1,4 @@
+import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 
 interface PublicationLiveState {
@@ -16,7 +17,7 @@ interface PublicationLiveState {
   showLiveVideoEditor: boolean;
 }
 
-export const usePublicationLiveStore = create<PublicationLiveState>((set) => ({
+const store = create<PublicationLiveState>((set) => ({
   liveVideoConfig: { id: '', playbackId: '', streamKey: '' },
   resetLiveVideoConfig: () =>
     set(() => ({ liveVideoConfig: { id: '', playbackId: '', streamKey: '' } })),
@@ -25,3 +26,5 @@ export const usePublicationLiveStore = create<PublicationLiveState>((set) => ({
     set(() => ({ showLiveVideoEditor })),
   showLiveVideoEditor: false
 }));
+
+export const usePublicationLiveStore = createTrackedSelector(store);

@@ -9,7 +9,7 @@ import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import urlcat from 'urlcat';
 
 const Footer: FC = () => {
-  const staffMode = useFeatureFlagsStore((state) => state.staffMode);
+  const { staffMode } = useFeatureFlagsStore();
 
   return (
     <footer className={cn(staffMode ? 'top-28' : 'top-20', 'sticky text-sm')}>

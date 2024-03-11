@@ -27,12 +27,8 @@ interface FeedProps {
 }
 
 const Feed: FC<FeedProps> = ({ handle, profileId, type }) => {
-  const mediaFeedFilters = useProfileFeedStore(
-    (state) => state.mediaFeedFilters
-  );
-  const fetchAndStoreViews = useImpressionsStore(
-    (state) => state.fetchAndStoreViews
-  );
+  const { mediaFeedFilters } = useProfileFeedStore();
+  const { fetchAndStoreViews } = useImpressionsStore();
 
   const getMediaFilters = () => {
     const filters: PublicationMetadataMainFocusType[] = [];

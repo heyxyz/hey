@@ -32,7 +32,7 @@ import SearchFeed from './SearchFeed';
 const FILTER_APPS = knownApps;
 
 const Mod: NextPage = () => {
-  const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
+  const { gardenerMode } = useFeatureFlagsStore();
   const [refresing, setRefreshing] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [publicationTypes, setPublicationTypes] = useState([

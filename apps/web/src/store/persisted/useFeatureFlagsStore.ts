@@ -1,4 +1,5 @@
 import { IndexDB } from '@hey/data/storage';
+import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -15,7 +16,7 @@ interface FeatureFlagsState {
   staffMode: boolean;
 }
 
-export const useFeatureFlagsStore = create(
+const store = create(
   persist<FeatureFlagsState>(
     (set, get) => ({
       featureFlags: [],
@@ -39,5 +40,5 @@ export const useFeatureFlagsStore = create(
   )
 );
 
-export const hydrateFeatureFlags = () =>
-  useFeatureFlagsStore.getState().hydrateFeatureFlags();
+export const hydrateFeatureFlags = () => store.getState().hydrateFeatureFlags();
+export const useFeatureFlagsStore = createTrackedSelector(store);

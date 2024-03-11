@@ -79,7 +79,7 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
               <UserProfile
                 profile={profile as Profile}
                 showBio
-                showFollow
+                showFollowUnfollowButton
                 showUserPreview={false}
                 source={ProfileLinkSource.Mirrors}
               />

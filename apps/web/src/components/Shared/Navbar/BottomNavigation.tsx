@@ -17,10 +17,10 @@ import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 const BottomNavigation = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
 
   const router = useRouter();
   const isActivePath = (path: string) => router.pathname === path;
