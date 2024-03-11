@@ -22,7 +22,7 @@ const Explore: NextPage = () => {
   const [focus, setFocus] = useState<PublicationMetadataMainFocusType>();
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'explore' });
+    Leafwatch.track(PAGEVIEW, { page: 'explore' }, { points: 5 });
   }, []);
 
   const tabs = [
@@ -60,9 +60,11 @@ const Explore: NextPage = () => {
                 defaultChecked={index === 1}
                 key={tab.type}
                 onClick={() => {
-                  Leafwatch.track(EXPLORE.SWITCH_EXPLORE_FEED_TAB, {
-                    explore_feed_type: tab.type.toLowerCase()
-                  });
+                  Leafwatch.track(
+                    EXPLORE.SWITCH_EXPLORE_FEED_TAB,
+                    { explore_feed_type: tab.type.toLowerCase() },
+                    { points: 10 }
+                  );
                 }}
               >
                 {tab.name}
