@@ -87,8 +87,7 @@ export const NOTIFICATION = {
 export const HOME = {
   ALGORITHMS: {
     OPEN_ALGORITHMS: 'Open algorithms modal',
-    SWITCH_ALGORITHMIC_FEED: 'Switch to algorithmic feed',
-    TOGGLE_ALGORITHM: 'Toggle algorithm'
+    SWITCH_ALGORITHMIC_FEED: 'Switch to algorithmic feed'
   },
   SELECT_USER_FEED: 'Select user feed',
   SWITCH_FOLLOWING_FEED: 'Switch to following feed',
@@ -103,7 +102,6 @@ export const EXPLORE = {
 
 export const SETTINGS = {
   ACCOUNT: {
-    SET_DEFAULT_PROFILE: 'Set default profile',
     SET_SUPER_FOLLOW: 'Set super follow'
   },
   ALLOWANCE: {
