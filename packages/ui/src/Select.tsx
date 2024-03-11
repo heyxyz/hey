@@ -42,7 +42,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Listbox.Options className="absolute z-[5] mt-2 max-h-60 w-full overflow-y-scroll rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900">
+            <Listbox.Options className="no-scrollbar absolute z-[5] mt-2 max-h-60 w-full overflow-auto rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900">
               {options?.map((option, id) => (
                 <Listbox.Option
                   className={({ active }: { active: boolean }) =>
@@ -51,6 +51,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
                       'm-2 cursor-pointer rounded-lg'
                     )
                   }
+                  disabled={option.disabled}
                   key={id}
                   value={option.value}
                 >

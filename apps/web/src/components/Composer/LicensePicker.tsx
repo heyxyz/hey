@@ -15,6 +15,25 @@ const LicensePicker: FC = () => {
     return null;
   }
 
+  const otherOptions = Object.values(PublicationMetadataLicenseType)
+    .filter((type) => getAssetLicense(type))
+    .map((type) => ({
+      helper: getAssetLicense(type)?.helper as string,
+      label: getAssetLicense(type)?.label as string,
+      selected: license === type,
+      value: type
+    })) as any;
+
+  const options = [
+    {
+      helper: 'No license',
+      label: 'Unlicense',
+      selected: license === null,
+      value: undefined
+    },
+    ...otherOptions
+  ];
+
   return (
     <div className="my-5">
       <div className="divider mb-3" />
@@ -26,16 +45,7 @@ const LicensePicker: FC = () => {
         onChange={(value) =>
           setLicense(value as PublicationMetadataLicenseType)
         }
-        options={
-          Object.values(PublicationMetadataLicenseType)
-            .filter((type) => getAssetLicense(type))
-            .map((type) => ({
-              helper: getAssetLicense(type)?.helper as string,
-              label: getAssetLicense(type)?.label as string,
-              selected: license === type,
-              value: type
-            })) as any
-        }
+        options={options}
       />
       <div className="mt-2 flex items-center space-x-1.5">
         <ExclamationCircleIcon className="size-4" />
