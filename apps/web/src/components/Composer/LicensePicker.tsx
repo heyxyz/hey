@@ -26,8 +26,8 @@ const LicensePicker: FC = () => {
 
   const options = [
     {
-      helper: 'No license',
-      label: 'Unlicensed',
+      helper: 'Unlicensed',
+      label: 'No license',
       selected: license === null,
       value: null
     },
