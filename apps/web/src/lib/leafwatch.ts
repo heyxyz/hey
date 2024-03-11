@@ -47,7 +47,11 @@ export const Leafwatch = {
     };
 
     if (sessionProfileId) {
-      await stack.track(name, { account: evmAddress, points: points || 5 });
+      await stack.track(name, {
+        account: evmAddress,
+        metadata: { profile: sessionProfileId },
+        points: points || 5
+      });
     }
   }
 };
