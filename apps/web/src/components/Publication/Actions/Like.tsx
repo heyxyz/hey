@@ -89,7 +89,8 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
   };
 
   const [addReaction] = useAddReactionMutation({
-    onCompleted: () => Leafwatch.track(PUBLICATION.LIKE, eventProperties),
+    onCompleted: () =>
+      Leafwatch.track(PUBLICATION.LIKE, eventProperties, { points: 10 }),
     onError: (error) => {
       setHasReacted(!hasReacted);
       setReactions(reactions - 1);
@@ -99,7 +100,8 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
   });
 
   const [removeReaction] = useRemoveReactionMutation({
-    onCompleted: () => Leafwatch.track(PUBLICATION.UNLIKE, eventProperties),
+    onCompleted: () =>
+      Leafwatch.track(PUBLICATION.UNLIKE, eventProperties, { points: 5 }),
     onError: (error) => {
       setHasReacted(!hasReacted);
       setReactions(reactions + 1);
