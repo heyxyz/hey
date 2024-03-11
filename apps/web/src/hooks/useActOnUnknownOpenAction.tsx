@@ -82,11 +82,10 @@ const useActOnUnknownOpenAction = ({
     });
   };
 
-  const [broadcastOnchain, { data: broadcastData }] =
-    useBroadcastOnchainMutation({
-      onCompleted: ({ broadcastOnchain }) =>
-        onCompleted(broadcastOnchain.__typename)
-    });
+  const [broadcastOnchain] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename)
+  });
 
   const [createActOnOpenActionTypedData] =
     useCreateActOnOpenActionTypedDataMutation({
