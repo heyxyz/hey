@@ -26,11 +26,11 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         <div className="relative">
           <Listbox.Button
             className={cn(
-              'flex w-full items-center justify-between space-x-3 rounded-xl border border-gray-300 bg-white px-3 py-2.5 text-left outline-none focus:border-gray-500 focus:ring-gray-400 dark:border-gray-700 dark:bg-gray-800',
+              'flex w-full items-center justify-between space-x-3 rounded-xl border border-gray-300 bg-white px-3 py-2 text-left outline-none focus:border-gray-500 focus:ring-gray-400 dark:border-gray-700 dark:bg-gray-800',
               className
             )}
           >
-            <span>{selected?.label}</span>
+            <span className="text-md">{selected?.label}</span>
             <ChevronDownIcon className="mr-1 size-5 text-gray-400" />
           </Listbox.Button>
           <Transition
