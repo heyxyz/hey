@@ -29,6 +29,7 @@ export interface Nft {
   collectionName: string;
   contractAddress: `0x${string}`;
   creatorAddress: `0x${string}`;
+  description: string;
   endTime: null | string;
   mediaUrl: string;
   mintCount: null | string;

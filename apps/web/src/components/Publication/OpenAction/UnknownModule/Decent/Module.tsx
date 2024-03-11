@@ -33,10 +33,6 @@ import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
 import CurrencySelector from './CurrencySelector';
 import DecentAction from './DecentAction';
 
-// TODO: Get description from NFT Metadata
-const MOCK_DESCRIPTION =
-  "I moved to Williamsburg because I needed a place to stay, but I'm staying because it's the web3 hub of NYC.  If you need an activity that isn't drinking or eating in NYC and you're not a tourist, you're probably going to Williamsburg.  I'm a big fan of the area and I'm excited to share my favorite spots with you. I moved to Williamsburg because I needed a place to stay, but I'm staying because it's the web3 hub of NYC.  If you need an activity that isn't drinking or eating in NYC and you're not a tourist, you're probably going to Williamsburg.  I'm a big fan of the area and I'm excited to share my favorite spots with you.";
-
 // TODO: change copy
 const TOOLTIP_PRICE_HELP =
   'You don’t have enough native Zora ETH so we switched you to the next token with the lowest gas that you have enough of (lol)';
@@ -170,17 +166,19 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                 className="aspect-[1.5] max-h-[350px] w-full rounded-xl object-cover"
                 src={sanitizeDStorageUrl(actionData?.uiData.nftUri)}
               />
-              <p className="my-5">
-                {showLongDescription
-                  ? MOCK_DESCRIPTION
-                  : truncateByWords(MOCK_DESCRIPTION, 30)}
-                <button
-                  className="ml-1 text-black/50"
-                  onClick={() => setShowLongDescription((v) => !v)}
-                >
-                  {showLongDescription ? 'Show less' : 'read more'}
-                </button>
-              </p>
+              {nft.description && (
+                <p className="my-5">
+                  {showLongDescription
+                    ? nft.description
+                    : truncateByWords(nft.description, 30)}
+                  <button
+                    className="ml-1 text-black/50"
+                    onClick={() => setShowLongDescription((v) => !v)}
+                  >
+                    {showLongDescription ? 'Show less' : 'read more'}
+                  </button>
+                </p>
+              )}
             </div>
             <div className="ld-text-gray-500 flex items-center justify-between text-base">
               <div className="flex items-center gap-2">
