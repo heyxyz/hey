@@ -39,7 +39,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
           name={fallbackToCuratedFeed ? 'Curated Feed' : 'Following'}
           onClick={() => {
             setFeedType(HomeFeedType.FOLLOWING);
-            Leafwatch.track(HOME.SWITCH_FOLLOWING_FEED, {}, { points: 10 });
+            Leafwatch.track(HOME.SWITCH_FOLLOWING_FEED);
           }}
         />
         <TabButton
@@ -48,7 +48,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
           name="Highlights"
           onClick={() => {
             setFeedType(HomeFeedType.HIGHLIGHTS);
-            Leafwatch.track(HOME.SWITCH_HIGHLIGHTS_FEED, {}, { points: 10 });
+            Leafwatch.track(HOME.SWITCH_HIGHLIGHTS_FEED);
           }}
         />
         <TabButton
@@ -57,7 +57,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
           name="Premium"
           onClick={() => {
             setFeedType(HomeFeedType.PREMIUM);
-            Leafwatch.track(HOME.SWITCH_PREMIUM_FEED, {}, { points: 10 });
+            Leafwatch.track(HOME.SWITCH_PREMIUM_FEED);
           }}
         />
       </div>

@@ -36,11 +36,9 @@ const CopyPostText: FC<CopyPostTextProps> = ({ publication }) => {
         stopEventPropagation(event);
         await navigator.clipboard.writeText(filteredContent || '');
         toast.success('Copied to clipboard!');
-        Leafwatch.track(
-          PUBLICATION.COPY_TEXT,
-          { publication_id: publication.id },
-          { points: 10 }
-        );
+        Leafwatch.track(PUBLICATION.COPY_TEXT, {
+          publication_id: publication.id
+        });
       }}
     >
       <div className="flex items-center space-x-2">

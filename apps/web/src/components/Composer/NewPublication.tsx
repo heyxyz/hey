@@ -240,8 +240,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         : isQuote
           ? PUBLICATION.NEW_QUOTE
           : PUBLICATION.NEW_POST,
-      eventProperties,
-      { points: 100 }
+      eventProperties
     );
   };
 

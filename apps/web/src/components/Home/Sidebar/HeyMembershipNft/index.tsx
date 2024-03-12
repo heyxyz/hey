@@ -61,11 +61,9 @@ const HeyMembershipNft: FC = () => {
             className="w-full"
             onClick={() => {
               setShowMintModal(true);
-              Leafwatch.track(
-                PUBLICATION.COLLECT_MODULE.OPEN_COLLECT,
-                { from: 'mint_membership_nft' },
-                { points: 20 }
-              );
+              Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT, {
+                from: 'mint_membership_nft'
+              });
             }}
             outline
           >
