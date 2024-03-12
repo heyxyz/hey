@@ -70,11 +70,7 @@ const Follow: FC<FollowProps> = ({ profile, small = false }) => {
     updateCache();
     setIsLoading(false);
     toast.success('Followed successfully!');
-    Leafwatch.track(
-      PROFILE.FOLLOW,
-      { path: pathname, target: profile?.id },
-      { points: 50 }
-    );
+    Leafwatch.track(PROFILE.FOLLOW, { path: pathname, target: profile?.id });
   };
 
   const onError = (error: any) => {

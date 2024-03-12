@@ -97,7 +97,7 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
       loading="lazy"
       onClick={() => {
         setExpandedImage(uri);
-        Leafwatch.track(PUBLICATION.ATTACHMENT.IMAGE.OPEN, {}, { points: 10 });
+        Leafwatch.track(PUBLICATION.ATTACHMENT.IMAGE.OPEN);
       }}
       onError={({ currentTarget }) => {
         currentTarget.src = uri;

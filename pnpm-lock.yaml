@@ -238,9 +238,6 @@ importers:
       '@radix-ui/react-hover-card':
         specifier: ^1.0.7
         version: 1.0.7(@types/react-dom@18.2.21)(@types/react@18.2.65)(react-dom@18.2.0)(react@18.2.0)
-      '@stackso/js-core':
-        specifier: ^0.2.16
-        version: 0.2.16(typescript@5.4.2)(zod@3.22.4)
       '@tanstack/react-query':
         specifier: ^5.26.3
         version: 5.26.3(react@18.2.0)
@@ -6219,6 +6216,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
+      napi-wasm: 1.1.0
     dev: false
     bundledDependencies:
       - napi-wasm
@@ -8355,19 +8353,6 @@ packages:
       '@stablelib/keyagreement': 1.0.1
       '@stablelib/random': 1.0.2
       '@stablelib/wipe': 1.0.1
-    dev: false
-
-  /@stackso/js-core@0.2.16(typescript@5.4.2)(zod@3.22.4):
-    resolution: {integrity: sha512-5b0XDcSiZSRGasGGBt5dddmNaRjqL+wfK27iIq+K62UwKONInEbw5IdUMNWMitKh6Zf7fU0uMRbOjBPg74ecLQ==}
-    dependencies:
-      axios: 1.6.7(debug@4.3.4)
-      viem: 2.8.4(typescript@5.4.2)(zod@3.22.4)
-    transitivePeerDependencies:
-      - bufferutil
-      - debug
-      - typescript
-      - utf-8-validate
-      - zod
     dev: false
 
   /@stitches/core@1.2.8:
@@ -16448,6 +16433,10 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
+  /napi-wasm@1.1.0:
+    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
+    dev: false
+
   /natural-compare-lite@1.4.0:
     resolution: {integrity: sha512-Tj+HTDSJJKaZnfiuw+iaF9skdPpTo2GtEly5JHnWV/hfv2Qj/9RKsGISQtLh2ox3l5EAGw487hnBee0sIJ6v2g==}
     dev: true
@@ -16653,7 +16642,7 @@ packages:
     resolution: {integrity: sha512-4GUt3kSEYmk4ITxzB/b9vaIDfUVWN/Ml1Fwl11IlnIG2iaJ9O6WXZ9SrYM9NLI8OCBieN2Y8SWC2oJV0RQ7qYg==}
     hasBin: true
     dependencies:
-      abbrev: 1.0.9
+      abbrev: 1.1.1
     dev: true
 
   /normalize-package-data@2.5.0:

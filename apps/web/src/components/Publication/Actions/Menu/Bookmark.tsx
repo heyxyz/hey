@@ -66,11 +66,10 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
   const [addPublicationBookmark] = useAddPublicationBookmarkMutation({
     onCompleted: () => {
       toast.success('Publication bookmarked!');
-      Leafwatch.track(
-        PUBLICATION.TOGGLE_BOOKMARK,
-        { bookmarked: true, publication_id: targetPublication.id },
-        { points: 10 }
-      );
+      Leafwatch.track(PUBLICATION.TOGGLE_BOOKMARK, {
+        bookmarked: true,
+        publication_id: targetPublication.id
+      });
     },
     onError: (error) => {
       setHasBookmarked(!hasBookmarked);
@@ -84,11 +83,10 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
   const [removePublicationBookmark] = useRemovePublicationBookmarkMutation({
     onCompleted: () => {
       toast.success('Removed publication bookmark!');
-      Leafwatch.track(
-        PUBLICATION.TOGGLE_BOOKMARK,
-        { bookmarked: false, publication_id: targetPublication.id },
-        { points: 10 }
-      );
+      Leafwatch.track(PUBLICATION.TOGGLE_BOOKMARK, {
+        bookmarked: false,
+        publication_id: targetPublication.id
+      });
     },
     onError: (error) => {
       setHasBookmarked(!hasBookmarked);
