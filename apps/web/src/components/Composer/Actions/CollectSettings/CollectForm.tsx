@@ -3,11 +3,9 @@ import type { Dispatch, FC, SetStateAction } from 'react';
 
 import LicensePicker from '@components/Composer/LicensePicker';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { FeatureFlag } from '@hey/data/feature-flags';
 import { CollectOpenActionModuleType } from '@hey/lens';
 import getAllTokens from '@hey/lib/api/getAllTokens';
 import { Button, ErrorMessage, Spinner } from '@hey/ui';
-import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { useQuery } from '@tanstack/react-query';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 import { isAddress } from 'viem';
@@ -114,14 +112,10 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
             <TimeLimitConfig setCollectType={setCollectType} />
             <FollowersConfig setCollectType={setCollectType} />
           </div>
-          {isFeatureAvailable(FeatureFlag.Staff) && (
-            <>
-              <div className="divider" />
-              <div className="m-5">
-                <LicensePicker />
-              </div>
-            </>
-          )}
+          <div className="divider" />
+          <div className="m-5">
+            <LicensePicker />
+          </div>
           <div className="divider" />
         </>
       ) : null}
