@@ -7,7 +7,6 @@ import { hydrateAuthTokens } from 'src/store/persisted/useAuthStore';
  */
 const getCurrentSession = (): {
   authorizationId: string;
-  evmAddress: string;
   id: string;
 } => {
   const { accessToken } = hydrateAuthTokens();
@@ -15,7 +14,6 @@ const getCurrentSession = (): {
 
   return {
     authorizationId: currentSession?.authorizationId,
-    evmAddress: currentSession?.evmAddress,
     id: currentSession?.id
   };
 };

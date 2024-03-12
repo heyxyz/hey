@@ -101,11 +101,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     setShares(shares + 1);
     updateCache();
     toast.success('Post has been mirrored!');
-    Leafwatch.track(
-      PUBLICATION.MIRROR,
-      { publication_id: publication.id },
-      { points: 50 }
-    );
+    Leafwatch.track(PUBLICATION.MIRROR, { publication_id: publication.id });
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });

@@ -51,11 +51,7 @@ const ReportPublication: FC<ReportProps> = ({ publicationId }) => {
     { data: submitData, error: submitError, loading: submitLoading }
   ] = useReportPublicationMutation({
     onCompleted: () => {
-      Leafwatch.track(
-        PUBLICATION.REPORT,
-        { publication_id: publicationId },
-        { points: 10 }
-      );
+      Leafwatch.track(PUBLICATION.REPORT, { publication_id: publicationId });
     }
   });
 
