@@ -19,10 +19,12 @@ import Wrapper from '@components/Shared/Embed/Wrapper';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
+import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { ReferenceModuleType } from '@hey/lens';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import collectModuleParams from '@hey/lib/collectModuleParams';
 import getProfile from '@hey/lib/getProfile';
+import getURLs from '@hey/lib/getURLs';
 import removeQuoteOn from '@hey/lib/removeQuoteOn';
 import { Button, Card, ErrorMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -35,6 +37,7 @@ import uploadToArweave from '@lib/uploadToArweave';
 import { useUnmountEffect } from 'framer-motion';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
+import { NftOpenActionKit } from 'nft-openaction-kit';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import useCreatePoll from 'src/hooks/useCreatePoll';
@@ -98,6 +101,12 @@ interface NewPublicationProps {
   publication: MirrorablePublication;
 }
 
+const nftOpenActionKit = new NftOpenActionKit({
+  decentApiKey: process.env.NEXT_PUBLIC_DECENT_API_KEY || '',
+  openSeaApiKey: process.env.NEXT_PUBLIC_OPENSEA_API_KEY || '',
+  raribleApiKey: process.env.NEXT_PUBLIC_RARIBLE_API_KEY || ''
+});
+
 const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
@@ -154,6 +163,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
   const [publicationContentError, setPublicationContentError] = useState('');
+  const [openActionEmbedLoading, setOpenActionEmbedLoading] =
+    useState<boolean>(false);
+  const [openActionEmbed, setOpenActionEmbed] = useState<any | undefined>();
 
   const [editor] = useLexicalComposerContext();
   const createPoll = useCreatePoll();
@@ -271,6 +283,35 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   }, [audioPublication]);
 
   useEffect(() => {
+    const fetchOpenActionEmbed = async () => {
+      setOpenActionEmbedLoading(true);
+      const publicationContentUrls = getURLs(publicationContent);
+
+      try {
+        const calldata = await nftOpenActionKit.detectAndReturnCalldata(
+          publicationContentUrls[0]
+        );
+        if (calldata) {
+          setOpenActionEmbed({
+            unknownOpenAction: {
+              address: VerifiedOpenActionModules.DecentNFT,
+              data: calldata
+            }
+          });
+        } else {
+          setOpenActionEmbed(undefined);
+        }
+      } catch (error_) {
+        setOpenActionEmbed(undefined);
+        setOpenActionEmbedLoading(false);
+      }
+      setOpenActionEmbedLoading(false);
+    };
+
+    fetchOpenActionEmbed();
+  }, [publicationContent]);
+
+  useEffect(() => {
     editor.update(() => {
       $convertFromMarkdownString(publicationContent);
     });
@@ -367,6 +408,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
       // Payload for the open action module
       const openActionModules = [];
+
+      if (openActionEmbed) {
+        openActionModules.push(openActionEmbed);
+      }
+
       if (collectModule.type) {
         openActionModules.push({
           collectOpenAction: collectModuleParams(collectModule, currentProfile)
@@ -387,7 +433,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         contentURI: `ar://${arweaveId}`
       };
 
-      if (useMomoka) {
+      if (useMomoka && !openActionEmbed) {
         if (canUseLensManager) {
           if (isComment) {
             return await createCommentOnMomka(
@@ -558,10 +604,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           />
         </Wrapper>
       ) : null}
-      <LinkPreviews />
+      <LinkPreviews
+        openActionEmbed={!!openActionEmbed}
+        openActionEmbedLoading={openActionEmbedLoading}
+      />
       <NewAttachments attachments={attachments} />
       <div className="divider mx-5" />
-      <div className="block items-center px-5 py-3 sm:flex">
+      <div className="block items-center px-5 sm:flex">
         <div className="flex items-center space-x-4">
           <Attachment />
           <EmojiPicker

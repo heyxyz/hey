@@ -16,6 +16,7 @@ const getNft = (document: Document, url: string): Nft | null => {
   const chain = getMeta('eth:nft:chain') || getMeta('nft:chain');
   const mediaUrl =
     getMeta('og:image') || (getMeta('eth:nft:media_url') as string);
+  const description = getMeta('og:description') as string;
   const mintCount = getMeta('eth:nft:mint_count') as string;
   const mintStatus = getMeta('eth:nft:status');
   const mintUrl = getMeta('eth:nft:mint_url') as string;
@@ -31,6 +32,7 @@ const getNft = (document: Document, url: string): Nft | null => {
     collectionName,
     contractAddress,
     creatorAddress,
+    description,
     endTime,
     mediaUrl,
     mintCount,

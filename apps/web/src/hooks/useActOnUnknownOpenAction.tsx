@@ -33,6 +33,8 @@ const useActOnUnknownOpenAction = ({
     (state) => state
   );
   const [isLoading, setIsLoading] = useState(false);
+  const [txHash, setTxHash] = useState<`0x${string}` | undefined>();
+  const [relayStatus, setRelayStatus] = useState<string | undefined>();
   const handleWrongNetwork = useHandleWrongNetwork();
 
   const { canBroadcast, canUseLensManager } =
@@ -97,14 +99,21 @@ const useActOnUnknownOpenAction = ({
             variables: { request: { id, signature } }
           });
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return await write({ args: [typedData.value] });
+            const txResult = await write({ args: [typedData.value] });
+            setTxHash(txResult);
+            return txResult;
           }
-          setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+          if (data?.broadcastOnchain.__typename === 'RelaySuccess') {
+            setRelayStatus(data?.broadcastOnchain.txId);
+          }
 
+          setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
           return;
         }
 
-        return await write({ args: [typedData.value] });
+        const txResult = await write({ args: [typedData.value] });
+        setTxHash(txResult);
+        return txResult;
       },
       onError
     });
@@ -166,7 +175,7 @@ const useActOnUnknownOpenAction = ({
     }
   };
 
-  return { actOnUnknownOpenAction, isLoading };
+  return { actOnUnknownOpenAction, isLoading, relayStatus, txHash };
 };
 
 export default useActOnUnknownOpenAction;
