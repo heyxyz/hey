@@ -9,8 +9,7 @@ import {
   Cog6ToothIcon,
   HashtagIcon,
   MapPinIcon,
-  ShieldCheckIcon,
-  UsersIcon
+  ShieldCheckIcon
 } from '@heroicons/react/24/outline';
 import {
   CheckBadgeIcon,
@@ -28,7 +27,7 @@ import getMisuseDetails from '@hey/lib/getMisuseDetails';
 import getProfile from '@hey/lib/getProfile';
 import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import hasMisused from '@hey/lib/hasMisused';
-import { Button, Image, LightBox, Modal, Tooltip } from '@hey/ui';
+import { Button, Image, LightBox, Tooltip } from '@hey/ui';
 import isFeatureAvailable from '@lib/isFeatureAvailable';
 import isVerified from '@lib/isVerified';
 import { useTheme } from 'next-themes';
@@ -46,7 +45,6 @@ import GardenerTool from './GardenerTool';
 import InvitedBy from './InvitedBy';
 import ProfileMenu from './Menu';
 import MutualFollowers from './MutualFollowers';
-import MutualFollowersList from './MutualFollowers/List';
 import ScamWarning from './ScamWarning';
 import TbaBadge from './TbaBadge';
 
@@ -152,23 +150,10 @@ const Details: FC<DetailsProps> = ({ profile }) => {
           <ProfileMenu profile={profile} />
         </div>
         {currentProfile?.id !== profile.id ? (
-          <>
-            <MutualFollowers
-              profileId={profile.id}
-              setShowMutualFollowersModal={setShowMutualFollowersModal}
-            />
-            <Modal
-              icon={<UsersIcon className="size-5" />}
-              onClose={() => setShowMutualFollowersModal(false)}
-              show={showMutualFollowersModal}
-              title="Followers you know"
-            >
-              <MutualFollowersList
-                handle={getProfile(profile).slugWithPrefix}
-                profileId={profile.id}
-              />
-            </Modal>
-          </>
+          <MutualFollowers
+            handle={getProfile(profile).slug}
+            profileId={profile.id}
+          />
         ) : null}
         <div className="divider w-full" />
         <div className="space-y-2">
