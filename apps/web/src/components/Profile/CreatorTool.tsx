@@ -1,4 +1,5 @@
 import type { Profile } from '@hey/lens';
+import type { FC } from 'react';
 
 import ToggleWrapper from '@components/Staff/Users/Overview/Tool/ToggleWrapper';
 import {
@@ -14,7 +15,7 @@ import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { type FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
 interface CreatorToolProps {
