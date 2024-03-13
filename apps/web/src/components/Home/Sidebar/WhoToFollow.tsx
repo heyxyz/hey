@@ -9,7 +9,6 @@ import { PROFILE, ProfileLinkSource } from '@hey/data/tracking';
 import { LimitType, useProfileRecommendationsQuery } from '@hey/lens';
 import { Card, ErrorMessage, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
@@ -63,11 +62,8 @@ const WhoToFollow: FC = () => {
         <Title />
         <ErrorMessage error={error} title="Failed to load recommendations" />
         {recommendedProfiles?.slice(0, 5).map((profile) => (
-          <motion.div
-            animate={{ opacity: 1 }}
+          <div
             className="flex items-center space-x-3 truncate"
-            exit={{ opacity: 0 }}
-            initial={{ opacity: 0 }}
             key={profile?.id}
           >
             <div className="w-full">
@@ -78,7 +74,7 @@ const WhoToFollow: FC = () => {
               />
             </div>
             <DismissRecommendedProfile profile={profile as Profile} />
-          </motion.div>
+          </div>
         ))}
         <button
           className="ld-text-gray-500 font-bold"
