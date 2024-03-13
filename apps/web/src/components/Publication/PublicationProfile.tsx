@@ -1,3 +1,4 @@
+import type { Profile } from '@hey/lens';
 import type { FC, ReactNode } from 'react';
 
 import Source from '@components/Publication/Source';
@@ -6,7 +7,6 @@ import {
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
 import { apps } from '@hey/data/apps';
-import { type Profile } from '@hey/lens';
 import formatRelativeOrAbsolute from '@hey/lib/datetime/formatRelativeOrAbsolute';
 import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';

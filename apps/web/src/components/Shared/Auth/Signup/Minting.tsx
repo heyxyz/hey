@@ -1,9 +1,10 @@
+import type { FC } from 'react';
+
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import { POLYGONSCAN_URL } from '@hey/data/constants';
 import { useProfileQuery } from '@hey/lens';
 import { Spinner } from '@hey/ui';
 import Link from 'next/link';
-import { type FC } from 'react';
 
 import { useSignupStore } from '.';
 
