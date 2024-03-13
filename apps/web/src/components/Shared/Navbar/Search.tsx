@@ -23,13 +23,22 @@ interface SearchProps {
 
 const Search: FC<SearchProps> = ({ placeholder = 'Search…' }) => {
   const { pathname, push, query } = useRouter();
+  const [showDropdown, setShowDropdown] = useState(false);
   const [searchText, setSearchText] = useState('');
-  const dropdownRef = useClickAway(() => {
+  const [profiles, setProfiles] = useState<Profile[]>([]);
+
+  const reset = () => {
+    setShowDropdown(false);
+    setProfiles([]);
     setSearchText('');
+  };
+
+  const dropdownRef = useClickAway(() => {
+    reset();
   }) as MutableRefObject<HTMLDivElement>;
   const debouncedSearchText = useDebounce<string>(searchText, 500);
 
-  const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] =
+  const [searchUsers, { loading: searchUsersLoading }] =
     useSearchProfilesLazyQuery();
 
   const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -45,11 +54,11 @@ const Search: FC<SearchProps> = ({ placeholder = 'Search…' }) => {
     } else {
       push(`/search?q=${encodeURIComponent(searchText)}&type=profiles`);
     }
-    setSearchText('');
+    reset();
   };
 
   useEffect(() => {
-    if (pathname !== '/search' && debouncedSearchText) {
+    if (pathname !== '/search' && showDropdown) {
       // Variables
       const request: ProfileSearchRequest = {
         limit: LimitType.Ten,
@@ -57,13 +66,14 @@ const Search: FC<SearchProps> = ({ placeholder = 'Search…' }) => {
         where: { customFilters: [CustomFiltersType.Gardeners] }
       };
 
-      searchUsers({ variables: { request } });
+      searchUsers({ variables: { request } }).then((res) => {
+        if (res.data?.searchProfiles?.items) {
+          setProfiles(res.data.searchProfiles.items as Profile[]);
+        }
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchText]);
-
-  const searchResult = searchUsersData?.searchProfiles;
-  const profiles = (searchResult?.items as Profile[]) || [];
 
   return (
     <div className="w-full">
@@ -77,16 +87,17 @@ const Search: FC<SearchProps> = ({ placeholder = 'Search…' }) => {
                 'cursor-pointer',
                 searchText ? 'visible' : 'invisible'
               )}
-              onClick={() => setSearchText('')}
+              onClick={() => reset()}
             />
           }
           onChange={handleSearch}
+          onClick={() => setShowDropdown(true)}
           placeholder={placeholder}
           type="text"
           value={searchText}
         />
       </form>
-      {pathname !== '/search' && debouncedSearchText.length > 0 ? (
+      {pathname !== '/search' && showDropdown ? (
         <div
           className="absolute mt-2 flex w-[94%] max-w-md flex-col"
           ref={dropdownRef}
@@ -103,7 +114,7 @@ const Search: FC<SearchProps> = ({ placeholder = 'Search…' }) => {
                   <div
                     className="cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                     key={profile.id}
-                    onClick={() => setSearchText('')}
+                    onClick={() => reset()}
                   >
                     <UserProfile
                       linkToProfile
