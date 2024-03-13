@@ -1,4 +1,5 @@
 import type { Portal as IPortal } from '@hey/types/misc';
+import type { FC } from 'react';
 
 import { LinkIcon } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data';
@@ -10,7 +11,7 @@ import cn from '@hey/ui/cn';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
-import { type FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
@@ -89,11 +90,10 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
             }
             key={index}
             onClick={() => {
-              Leafwatch.track(
-                PUBLICATION.CLICK_PORTAL_BUTTON,
-                { action, publication_id: publicationId },
-                { points: 10 }
-              );
+              Leafwatch.track(PUBLICATION.CLICK_PORTAL_BUTTON, {
+                action,
+                publication_id: publicationId
+              });
 
               if (
                 action === 'link' ||

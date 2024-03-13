@@ -174,11 +174,9 @@ const SeeThroughLens: FC = () => {
                         onClick={() => {
                           setSeeThroughProfile(profile);
                           setSearchText('');
-                          Leafwatch.track(
-                            HOME.SELECT_USER_FEED,
-                            { see_through_profile: profile.id },
-                            { points: 20 }
-                          );
+                          Leafwatch.track(HOME.SELECT_USER_FEED, {
+                            see_through_profile: profile.id
+                          });
                         }}
                       >
                         <UserProfile

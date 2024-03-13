@@ -87,11 +87,10 @@ const FollowModule: FC<FollowModuleProps> = ({
     setIsLoading(false);
     setShowFollowModal(false);
     toast.success('Followed successfully!');
-    Leafwatch.track(
-      PROFILE.SUPER_FOLLOW,
-      { path: pathname, target: profile?.id },
-      { points: 100 }
-    );
+    Leafwatch.track(PROFILE.SUPER_FOLLOW, {
+      path: pathname,
+      target: profile?.id
+    });
   };
 
   const onError = (error: any) => {

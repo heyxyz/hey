@@ -23,13 +23,13 @@ const getAssetLicense = (
       return {
         helper:
           'The owner of the NFT can use, modify and distribute the work commercially and profit from it. TBNL-C-D-NPL-Legal',
-        label: 'Commercial rights for (NFT owner)'
+        label: 'Commercial rights for collector'
       };
     case PublicationMetadataLicenseType.TbnlNcDNplLegal:
       return {
         helper:
           'Personal use of the work is allowed, but not profiting or commercial use. TBNL-NC-D-NPL-Legal',
-        label: 'Personal rights (NFT owner)'
+        label: 'Personal rights for collector'
       };
     default:
       return null;
