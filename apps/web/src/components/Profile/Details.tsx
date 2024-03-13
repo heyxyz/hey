@@ -56,8 +56,6 @@ const Details: FC<DetailsProps> = ({ profile }) => {
   const { push } = useRouter();
   const { currentProfile } = useProfileStore();
   const { gardenerMode, staffMode } = useFeatureFlagsStore();
-  const [showMutualFollowersModal, setShowMutualFollowersModal] =
-    useState(false);
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
   const { resolvedTheme } = useTheme();
 
