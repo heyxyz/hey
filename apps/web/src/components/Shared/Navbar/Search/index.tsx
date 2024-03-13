@@ -2,7 +2,7 @@ import type { Profile, ProfileSearchRequest } from '@hey/lens';
 import type { ChangeEvent, FC, MutableRefObject } from 'react';
 
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { MISCELLANEOUS, ProfileLinkSource } from '@hey/data/tracking';
+import { ProfileLinkSource, SEARCH } from '@hey/data/tracking';
 import {
   CustomFiltersType,
   LimitType,
@@ -17,6 +17,7 @@ import { useEffect, useState } from 'react';
 import { useSearchStore } from 'src/store/persisted/useSearchStore';
 
 import UserProfile from '../../UserProfile';
+import RecentProfiles from './RecentProfiles';
 
 interface SearchProps {
   placeholder?: string;
@@ -24,8 +25,7 @@ interface SearchProps {
 
 const Search: FC<SearchProps> = ({ placeholder = 'Search…' }) => {
   const { pathname, push, query } = useRouter();
-  const { addProfile: addToRecentProfiles, profiles: recentSearchProfiles } =
-    useSearchStore();
+  const { addProfile: addToRecentProfiles } = useSearchStore();
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [profiles, setProfiles] = useState<Profile[]>([]);
@@ -51,7 +51,7 @@ const Search: FC<SearchProps> = ({ placeholder = 'Search…' }) => {
 
   const handleKeyDown = (evt: ChangeEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    Leafwatch.track(MISCELLANEOUS.SEARCH, { query: searchText });
+    Leafwatch.track(SEARCH.SEARCH, { query: searchText });
     if (pathname === '/search') {
       push(`/search?q=${encodeURIComponent(searchText)}&type=${query.type}`);
     } else {
@@ -106,6 +106,7 @@ const Search: FC<SearchProps> = ({ placeholder = 'Search…' }) => {
           ref={dropdownRef}
         >
           <Card className="z-[2] max-h-[80vh] overflow-y-auto py-2">
+            <RecentProfiles onProfileClick={reset} />
             {searchUsersLoading ? (
               <div className="space-y-2 px-4 py-2 text-center text-sm font-bold">
                 <Spinner className="mx-auto" size="sm" />
@@ -117,10 +118,12 @@ const Search: FC<SearchProps> = ({ placeholder = 'Search…' }) => {
                   <div
                     className="cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                     key={profile.id}
-                    onClick={() => reset()}
+                    onClick={() => {
+                      addToRecentProfiles(profile.id);
+                      reset();
+                    }}
                   >
                     <UserProfile
-                      linkToProfile
                       profile={profile}
                       showUserPreview={false}
                       source={ProfileLinkSource.Search}
@@ -128,7 +131,9 @@ const Search: FC<SearchProps> = ({ placeholder = 'Search…' }) => {
                   </div>
                 ))}
                 {profiles.length === 0 ? (
-                  <div className="px-4 py-2">No matching users</div>
+                  <div className="px-4 py-2">
+                    Try searching for people or keywords
+                  </div>
                 ) : null}
               </>
             )}
