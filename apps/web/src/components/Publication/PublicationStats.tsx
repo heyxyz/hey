@@ -41,12 +41,11 @@ const PublicationStats: FC<PublicationStatsProps> = ({
 
   const { bookmarks, comments, countOpenActions, mirrors, quotes, reactions } =
     publicationStats;
-  const shares = mirrors + quotes;
 
   const showStats =
     comments > 0 ||
     reactions > 0 ||
-    shares > 0 ||
+    mirrors > 0 ||
     quotes > 0 ||
     countOpenActions > 0 ||
     bookmarks > 0 ||
@@ -66,7 +65,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({
             {plur('Comment', comments)}
           </span>
         ) : null}
-        {shares > 0 ? (
+        {mirrors > 0 ? (
           <>
             <button
               className="outline-offset-2"
@@ -78,8 +77,10 @@ const PublicationStats: FC<PublicationStatsProps> = ({
               }}
               type="button"
             >
-              <b className="text-black dark:text-white">{nFormatter(shares)}</b>{' '}
-              {plur('Mirror', shares)}
+              <b className="text-black dark:text-white">
+                {nFormatter(mirrors)}
+              </b>{' '}
+              {plur('Mirror', mirrors)}
             </button>
             <Modal
               icon={<ArrowsRightLeftIcon className="size-5" />}
