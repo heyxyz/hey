@@ -5,7 +5,7 @@ import { persist } from 'zustand/middleware';
 
 import createIdbStorage from '../lib/createIdbStorage';
 
-interface FeatureFlagsState {
+interface State {
   featureFlags: string[];
   gardenerMode: boolean;
   hydrateFeatureFlags: () => string[];
@@ -17,7 +17,7 @@ interface FeatureFlagsState {
 }
 
 const store = create(
-  persist<FeatureFlagsState>(
+  persist<State>(
     (set, get) => ({
       featureFlags: [],
       gardenerMode: false,
