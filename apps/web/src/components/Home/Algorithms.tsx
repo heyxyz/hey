@@ -44,11 +44,9 @@ const Algorithms: FC<AlgorithmsProps> = ({ feedType, setFeedType }) => {
                   className="flex w-full items-center justify-between px-2 py-1.5"
                   onClick={() => {
                     setFeedType(algorithm.feedType as HomeFeedType);
-                    Leafwatch.track(
-                      HOME.ALGORITHMS.SWITCH_ALGORITHMIC_FEED,
-                      { algorithm: algorithm.feedType },
-                      { points: 10 }
-                    );
+                    Leafwatch.track(HOME.ALGORITHMS.SWITCH_ALGORITHMIC_FEED, {
+                      algorithm: algorithm.feedType
+                    });
                   }}
                 >
                   <div className="flex items-center space-x-1.5 text-sm text-gray-700 dark:text-gray-200">

@@ -59,9 +59,7 @@ const SetProfile: FC = () => {
             className="flex items-center space-x-2"
             href="/settings/interests"
             onClick={() =>
-              Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE_INTERESTS, {
-                points: 5
-              })
+              Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE_INTERESTS)
             }
           >
             <Status
