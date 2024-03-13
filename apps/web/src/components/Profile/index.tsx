@@ -28,19 +28,28 @@ import Cover from './Cover';
 import Details from './Details';
 import Feed from './Feed';
 import FeedType from './FeedType';
+import Followers from './Followers';
+import Following from './Following';
+import MutualFollowersList from './MutualFollowers/List';
 import ProfilePageShimmer from './Shimmer';
 
 const ViewProfile: NextPage = () => {
   const {
     isReady,
+    pathname,
     query: { handle, id, source, type }
   } = useRouter();
   const { currentProfile } = useProfileStore();
+
+  const showFollowing = pathname === '/u/[handle]/following';
+  const showFollowers = pathname === '/u/[handle]/followers';
+  const showMutuals = pathname === '/u/[handle]/mutuals';
 
   useEffect(() => {
     if (isReady) {
       Leafwatch.track(PAGEVIEW, {
         page: 'profile',
+        subpage: pathname.replace('/u/[handle]', ''),
         ...(source ? { source } : {})
       });
     }
@@ -92,7 +101,11 @@ const ViewProfile: NextPage = () => {
   });
 
   if (!isReady || loading) {
-    return <ProfilePageShimmer />;
+    return (
+      <ProfilePageShimmer
+        usersList={showFollowing || showFollowers || showMutuals}
+      />
+    );
   }
 
   if (!data?.profile) {
@@ -125,6 +138,21 @@ const ViewProfile: NextPage = () => {
             <EmptyState
               icon={<NoSymbolIcon className="size-8" />}
               message="Profile Suspended"
+            />
+          ) : showFollowing ? (
+            <Following
+              handle={getProfile(profile).slug}
+              profileId={profile.id}
+            />
+          ) : showFollowers ? (
+            <Followers
+              handle={getProfile(profile).slug}
+              profileId={profile.id}
+            />
+          ) : showMutuals ? (
+            <MutualFollowersList
+              handle={getProfile(profile).slug}
+              profileId={profile.id}
             />
           ) : (
             <>
