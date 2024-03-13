@@ -1,3 +1,4 @@
+import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import SearchProfiles from '@components/Shared/SearchProfiles';
@@ -6,7 +7,7 @@ import { ADDRESS_PLACEHOLDER } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import formatAddress from '@hey/lib/formatAddress';
 import { Radio } from '@hey/ui';
-import { type FC, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { encodeAbiParameters, isAddress } from 'viem';
