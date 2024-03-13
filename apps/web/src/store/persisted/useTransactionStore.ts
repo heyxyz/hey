@@ -3,13 +3,13 @@ import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-interface TransactionState {
+interface State {
   setTxnQueue: (txnQueue: any[]) => void;
   txnQueue: any[];
 }
 
 const store = create(
-  persist<TransactionState>(
+  persist<State>(
     (set) => ({
       setTxnQueue: (txnQueue) => set(() => ({ txnQueue })),
       txnQueue: []

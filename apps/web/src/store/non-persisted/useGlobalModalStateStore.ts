@@ -5,7 +5,7 @@ import { create } from 'zustand';
 
 export type AuthModalType = 'login' | 'signup';
 
-interface GlobalModalState {
+interface State {
   authModalType: AuthModalType;
   reportingProfile: null | Profile;
   reportingPublicationId: null | string;
@@ -36,7 +36,7 @@ interface GlobalModalState {
   showReportProfileModal: boolean;
 }
 
-const store = create<GlobalModalState>((set) => ({
+const store = create<State>((set) => ({
   authModalType: 'login',
   reportingProfile: null,
   reportingPublicationId: null,

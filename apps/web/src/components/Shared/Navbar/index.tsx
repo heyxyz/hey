@@ -101,7 +101,7 @@ const Navbar: FC = () => {
             <div className="hidden sm:ml-6 md:block">
               <div className="flex items-center space-x-4">
                 <div className="hidden md:block">
-                  <Search onProfileSelected={onProfileSelected} />
+                  <Search />
                 </div>
                 <NavItems />
               </div>
@@ -132,7 +132,7 @@ const Navbar: FC = () => {
       </div>
       {showSearch ? (
         <div className="m-3 md:hidden">
-          <Search hideDropdown onProfileSelected={onProfileSelected} />
+          <Search />
         </div>
       ) : null}
     </header>
