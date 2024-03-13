@@ -11,7 +11,7 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { Player } from '@livepeer/react';
 import { memo } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface VideoProps {
   className?: string;
@@ -20,7 +20,7 @@ interface VideoProps {
 }
 
 const Video: FC<VideoProps> = ({ className = '', poster, src }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
 
   return (
     <div className={cn('lp-player', className)} onClick={stopEventPropagation}>
@@ -31,7 +31,7 @@ const Video: FC<VideoProps> = ({ className = '', poster, src }) => {
           ipfsGateway: IPFS_GATEWAY
         }}
         controls={{ defaultVolume: 1 }}
-        objectFit="cover"
+        objectFit="contain"
         poster={imageKit(sanitizeDStorageUrl(poster), VIDEO_THUMBNAIL)}
         refetchPlaybackInfoInterval={1000 * 60 * 60 * 24 * 7}
         showLoadingSpinner

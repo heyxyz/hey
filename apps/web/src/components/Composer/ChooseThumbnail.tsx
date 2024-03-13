@@ -23,15 +23,8 @@ const ChooseThumbnail: FC = () => {
   const [thumbnails, setThumbnails] = useState<Thumbnail[]>([]);
   const [imageUploading, setImageUploading] = useState(false);
   const [selectedThumbnailIndex, setSelectedThumbnailIndex] = useState(-1);
-  const attachments = usePublicationAttachmentStore(
-    (state) => state.attachments
-  );
-  const videoThumbnail = usePublicationVideoStore(
-    (state) => state.videoThumbnail
-  );
-  const setVideoThumbnail = usePublicationVideoStore(
-    (state) => state.setVideoThumbnail
-  );
+  const { attachments } = usePublicationAttachmentStore((state) => state);
+  const { setVideoThumbnail, videoThumbnail } = usePublicationVideoStore();
   const { file } = attachments[0];
 
   const uploadThumbnailToIpfs = async (fileToUpload: File) => {
@@ -177,7 +170,7 @@ const ChooseThumbnail: FC = () => {
               />
               {ipfsUrl && isSelected && isUploaded ? (
                 <div className="absolute inset-0 grid place-items-center rounded-xl bg-gray-100/10">
-                  <CheckCircleIcon className="size-6 text-green-500" />
+                  <CheckCircleIcon className="size-6" />
                 </div>
               ) : null}
               {isUploading && isSelected && (

@@ -1,11 +1,7 @@
 import type { ApprovedAllowanceAmountResult } from '@hey/lens';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
-import {
-  ExclamationTriangleIcon,
-  MinusIcon,
-  PlusIcon
-} from '@heroicons/react/24/outline';
+import { ExclamationTriangleIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { SETTINGS } from '@hey/data/tracking';
 import {
   OpenActionModuleType,
@@ -118,13 +114,6 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
   return allowed ? (
     <Button
       className={className}
-      icon={
-        queryLoading || transactionLoading || waitLoading ? (
-          <Spinner size="xs" variant="warning" />
-        ) : (
-          <MinusIcon className="size-4" />
-        )
-      }
       onClick={() =>
         handleAllowance(
           module.allowance.asset.contract.address,
@@ -132,7 +121,6 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
           module.moduleName
         )
       }
-      variant="warning"
     >
       Revoke
     </Button>
@@ -140,13 +128,13 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
     <>
       <Button
         className={className}
-        icon={<PlusIcon className="size-4" />}
         onClick={() => setShowWarningModal(!showWarningModal)}
+        outline
       >
         {title}
       </Button>
       <Modal
-        icon={<ExclamationTriangleIcon className="size-5 text-yellow-500" />}
+        icon={<ExclamationTriangleIcon className="size-5" />}
         onClose={() => setShowWarningModal(false)}
         show={showWarningModal}
         title="Warning"

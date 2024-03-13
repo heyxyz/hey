@@ -29,6 +29,7 @@ export interface Nft {
   collectionName: string;
   contractAddress: `0x${string}`;
   creatorAddress: `0x${string}`;
+  description: string;
   endTime: null | string;
   mediaUrl: string;
   mintCount: null | string;
@@ -38,15 +39,16 @@ export interface Nft {
   sourceUrl: string;
 }
 
-export type ButtonType = 'link' | 'submit';
+export type ButtonType = 'link' | 'mint' | 'post_redirect' | 'post';
 
 export interface Portal {
   buttons: {
+    action: ButtonType;
     button: string;
     target?: string;
-    type: ButtonType;
   }[];
   image: string;
+  portalUrl: string;
   postUrl: string;
   version: string;
 }

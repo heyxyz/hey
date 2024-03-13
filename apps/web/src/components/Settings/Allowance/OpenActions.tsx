@@ -8,7 +8,7 @@ import getAllTokens from '@hey/lib/api/getAllTokens';
 import { ErrorMessage, Select } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Allowance from './Allowance';
 
@@ -20,7 +20,7 @@ const getAllowancePayload = (currency: string) => {
 };
 
 const OpenActions: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const [currencyLoading, setCurrencyLoading] = useState(false);
 
   const {

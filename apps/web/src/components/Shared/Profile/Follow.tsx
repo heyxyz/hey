@@ -1,7 +1,6 @@
 import type { FollowRequest, Profile } from '@hey/lens';
 import type { FC } from 'react';
 
-import { UserPlusIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { Errors } from '@hey/data';
 import { LENSHUB_PROXY } from '@hey/data/constants';
@@ -14,7 +13,7 @@ import {
 import { useApolloClient } from '@hey/lens/apollo';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
-import { Button, Spinner } from '@hey/ui';
+import { Button } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
@@ -24,27 +23,22 @@ import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
 interface FollowProps {
   profile: Profile;
-  showText?: boolean;
+  small?: boolean;
 }
 
-const Follow: FC<FollowProps> = ({ profile, showText = false }) => {
+const Follow: FC<FollowProps> = ({ profile, small = false }) => {
   const { pathname } = useRouter();
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
-  const lensHubOnchainSigNonce = useNonceStore(
-    (state) => state.lensHubOnchainSigNonce
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
+    (state) => state
   );
-  const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce
-  );
-  const setShowAuthModal = useGlobalModalStateStore(
-    (state) => state.setShowAuthModal
-  );
+  const { setShowAuthModal } = useGlobalModalStateStore();
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
@@ -182,15 +176,12 @@ const Follow: FC<FollowProps> = ({ profile, showText = false }) => {
   return (
     <Button
       aria-label="Follow"
-      className="!px-3 !py-1.5 text-sm"
       disabled={isLoading}
-      icon={
-        isLoading ? <Spinner size="xs" /> : <UserPlusIcon className="size-4" />
-      }
       onClick={createFollow}
       outline
+      size={small ? 'sm' : 'md'}
     >
-      {showText ? 'Follow' : null}
+      Follow
     </Button>
   );
 };

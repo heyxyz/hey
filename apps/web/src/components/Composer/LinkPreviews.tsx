@@ -13,9 +13,7 @@ const LinkPreviews: FC<LinkPreviewProps> = ({
   openActionEmbed,
   openActionEmbedLoading
 }) => {
-  const publicationContent = usePublicationStore(
-    (state) => state.publicationContent
-  );
+  const { publicationContent } = usePublicationStore();
 
   const urls = getURLs(publicationContent);
 

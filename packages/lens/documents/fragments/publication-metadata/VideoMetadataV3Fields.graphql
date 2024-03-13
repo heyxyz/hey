@@ -16,4 +16,5 @@ fragment VideoMetadataV3Fields on VideoMetadataV3 {
   encryptedWith {
     ...PublicationMetadataLitEncryptionFields
   }
+  appId
 }

@@ -18,9 +18,7 @@ interface LogoutProps {
 }
 
 const Logout: FC<LogoutProps> = ({ className = '', onClick }) => {
-  const resetPreferences = usePreferencesStore(
-    (state) => state.resetPreferences
-  );
+  const { resetPreferences } = usePreferencesStore();
   const [revoking, setRevoking] = useState(false);
 
   const { disconnect } = useDisconnect();

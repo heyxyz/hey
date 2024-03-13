@@ -7,10 +7,10 @@ import downloadJson from '@hey/lib/downloadJson';
 import { Button, Card } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 const Profile: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const [profile, setProfile] = useState<null | TProfile>(null);
   const [exporting, setExporting] = useState(false);
   const [fetchCompleted, setFetchCompleted] = useState(false);
@@ -48,9 +48,11 @@ const Profile: FC = () => {
       <div className="text-lg font-bold">Export profile</div>
       <div className="pb-2">Export all your profile data to a JSON file.</div>
       {fetchCompleted ? (
-        <Button onClick={download}>Download profile</Button>
+        <Button onClick={download} outline>
+          Download profile
+        </Button>
       ) : (
-        <Button disabled={exporting} onClick={handleExportClick}>
+        <Button disabled={exporting} onClick={handleExportClick} outline>
           {exporting ? 'Exporting...' : 'Export now'}
         </Button>
       )}

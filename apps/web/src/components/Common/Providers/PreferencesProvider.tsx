@@ -11,33 +11,23 @@ import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useVerifiedMembersStore } from 'src/store/persisted/useVerifiedMembersStore';
-import { isAddress } from 'viem';
 
 const PreferencesProvider: FC = () => {
   const { id: sessionProfileId } = getCurrentSession();
-  const setVerifiedMembers = useVerifiedMembersStore(
-    (state) => state.setVerifiedMembers
-  );
-  const setHighSignalNotificationFilter = usePreferencesStore(
-    (state) => state.setHighSignalNotificationFilter
-  );
-  const setIsPride = usePreferencesStore((state) => state.setIsPride);
-  const setRestriction = useProfileRestriction((state) => state.setRestriction);
-  const setHasDismissedOrMintedMembershipNft = usePreferencesStore(
-    (state) => state.setHasDismissedOrMintedMembershipNft
-  );
-  const setFeatureFlags = useFeatureFlagsStore(
-    (state) => state.setFeatureFlags
-  );
-  const setStaffMode = useFeatureFlagsStore((state) => state.setStaffMode);
-  const setGardenerMode = useFeatureFlagsStore(
-    (state) => state.setGardenerMode
-  );
+  const { setVerifiedMembers } = useVerifiedMembersStore();
+  const {
+    setHasDismissedOrMintedMembershipNft,
+    setHighSignalNotificationFilter,
+    setIsPride
+  } = usePreferencesStore();
+  const { setRestriction } = useProfileRestriction();
+  const { setFeatureFlags, setGardenerMode, setStaffMode } =
+    useFeatureFlagsStore();
 
   // Fetch preferences
   const fetchPreferences = async () => {
     try {
-      if (Boolean(sessionProfileId) && !isAddress(sessionProfileId)) {
+      if (Boolean(sessionProfileId)) {
         const preferences = await getPreferences(
           sessionProfileId,
           getAuthApiHeaders()

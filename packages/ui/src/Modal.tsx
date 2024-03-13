@@ -68,7 +68,7 @@ export const Modal: FC<ModalProps> = ({
                 </div>
                 {onClose ? (
                   <button
-                    className="outline-brand-500 rounded-full p-1 text-gray-800 hover:bg-gray-200 dark:text-gray-100 dark:hover:bg-gray-700"
+                    className="rounded-full p-1 text-gray-800 hover:bg-gray-200 dark:text-gray-100 dark:hover:bg-gray-700"
                     onClick={onClose}
                     type="button"
                   >

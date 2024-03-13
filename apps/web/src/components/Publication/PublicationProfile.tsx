@@ -29,7 +29,10 @@ const PublicationProfile: FC<FeedUserProfileProps> = ({
   timestamp
 }) => {
   const WrappedLink = ({ children }: { children: ReactNode }) => (
-    <Link className="truncate hover:underline" href={getProfile(profile).link}>
+    <Link
+      className="truncate outline-none hover:underline focus:underline"
+      href={getProfile(profile).link}
+    >
       <UserPreview
         handle={profile.handle?.fullHandle}
         id={profile.id}
@@ -41,7 +44,7 @@ const PublicationProfile: FC<FeedUserProfileProps> = ({
   );
 
   return (
-    <div className="flex max-w-sm items-center">
+    <div className="flex max-w-sm flex-wrap items-center">
       <WrappedLink>
         <span className="font-semibold">{getProfile(profile).displayName}</span>
       </WrappedLink>
@@ -55,7 +58,7 @@ const PublicationProfile: FC<FeedUserProfileProps> = ({
         <CheckBadgeIcon className="text-brand-500 ml-1 size-4" />
       ) : null}
       {hasMisused(profile.id) ? (
-        <ExclamationCircleIcon className="ml-1 size-4 text-red-500" />
+        <ExclamationCircleIcon className="ml-1 size-4" />
       ) : null}
       {timestamp ? (
         <span className="ld-text-gray-500 truncate">

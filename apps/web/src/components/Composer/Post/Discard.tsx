@@ -8,13 +8,7 @@ interface DiscardProps {
 }
 
 const Discard: FC<DiscardProps> = ({ onDiscard }) => {
-  const showDiscardModal = useGlobalModalStateStore(
-    (state) => state.showDiscardModal
-  );
-
-  const setShowDiscardModal = useGlobalModalStateStore(
-    (state) => state.setShowDiscardModal
-  );
+  const { setShowDiscardModal, showDiscardModal } = useGlobalModalStateStore();
 
   return (
     <Alert

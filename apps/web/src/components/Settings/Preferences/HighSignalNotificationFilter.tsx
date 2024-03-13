@@ -12,12 +12,8 @@ import { toast } from 'react-hot-toast';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 
 const HighSignalNotificationFilter: FC = () => {
-  const highSignalNotificationFilter = usePreferencesStore(
-    (state) => state.highSignalNotificationFilter
-  );
-  const setHighSignalNotificationFilter = usePreferencesStore(
-    (state) => state.setHighSignalNotificationFilter
-  );
+  const { highSignalNotificationFilter, setHighSignalNotificationFilter } =
+    usePreferencesStore();
   const [updating, setUpdating] = useState(false);
 
   const toggleHighSignalNotificationFilter = () => {

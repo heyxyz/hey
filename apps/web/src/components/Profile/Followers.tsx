@@ -9,7 +9,7 @@ import { LimitType, useFollowersQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
 import { Virtuoso } from 'react-virtuoso';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface FollowersProps {
   handle: string;
@@ -17,7 +17,7 @@ interface FollowersProps {
 }
 
 const Followers: FC<FollowersProps> = ({ handle, profileId }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
 
   // Variables
   const request: FollowersRequest = {
@@ -52,7 +52,7 @@ const Followers: FC<FollowersProps> = ({ handle, profileId }) => {
     return (
       <EmptyState
         hideCard
-        icon={<UsersIcon className="text-brand-500 size-8" />}
+        icon={<UsersIcon className="size-8" />}
         message={
           <div>
             <span className="mr-1 font-bold">{handle}</span>
@@ -85,8 +85,7 @@ const Followers: FC<FollowersProps> = ({ handle, profileId }) => {
               <UserProfile
                 profile={follower as Profile}
                 showBio
-                showFollow={currentProfile?.id !== follower.id}
-                showUnfollow={currentProfile?.id !== follower.id}
+                showFollowUnfollowButton={currentProfile?.id !== follower.id}
                 showUserPreview={false}
                 source={ProfileLinkSource.Followers}
               />

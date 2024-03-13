@@ -9,12 +9,12 @@ import { Button, Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import SettingsSidebar from '../Sidebar';
 
 const CleanupSettings: NextPage = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'cleanup' });

@@ -7,10 +7,10 @@ import { NoSymbolIcon } from '@heroicons/react/24/outline';
 import { LimitType, useWhoHaveBlockedQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
 import { useInView } from 'react-cool-inview';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 const List: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
 
   const request: WhoHaveBlockedRequest = { limit: LimitType.TwentyFive };
   const { data, error, fetchMore, loading } = useWhoHaveBlockedQuery({
@@ -52,7 +52,7 @@ const List: FC = () => {
     return (
       <EmptyState
         hideCard
-        icon={<NoSymbolIcon className="text-brand-500 size-8" />}
+        icon={<NoSymbolIcon className="size-8" />}
         message="You are not blocking any profiles!"
       />
     );

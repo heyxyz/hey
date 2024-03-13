@@ -1,12 +1,13 @@
 import type { FC, ReactNode } from 'react';
 
-import { WALLETCONNECT_PROJECT_ID } from '@hey/data/constants';
+import { APP_NAME, WALLETCONNECT_PROJECT_ID } from '@hey/data/constants';
 import { createConfig, http, WagmiProvider } from 'wagmi';
 import { polygon, polygonMumbai } from 'wagmi/chains';
-import { injected, walletConnect } from 'wagmi/connectors';
+import { coinbaseWallet, injected, walletConnect } from 'wagmi/connectors';
 
 const connectors = [
   injected(),
+  coinbaseWallet({ appName: APP_NAME }),
   walletConnect({ projectId: WALLETCONNECT_PROJECT_ID })
 ];
 

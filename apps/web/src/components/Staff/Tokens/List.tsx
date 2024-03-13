@@ -2,7 +2,7 @@ import type { AllowedToken } from '@hey/types/hey';
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
-import { CurrencyDollarIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import { STAFFTOOLS } from '@hey/data/tracking';
 import getAllTokens from '@hey/lib/api/getAllTokens';
@@ -61,7 +61,7 @@ const List: FC = () => {
         ) : !tokens.length ? (
           <EmptyState
             hideCard
-            icon={<CurrencyDollarIcon className="text-brand-500 size-8" />}
+            icon={<CurrencyDollarIcon className="size-8" />}
             message={<span>No tokens found</span>}
           />
         ) : (
@@ -80,10 +80,13 @@ const List: FC = () => {
                   </div>
                 </div>
                 <Button
-                  icon={<TrashIcon className="size-4" />}
                   onClick={() => deleteToken(token.id)}
                   outline
-                />
+                  size="sm"
+                  variant="danger"
+                >
+                  Delete
+                </Button>
               </div>
             ))}
           </div>

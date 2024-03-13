@@ -16,7 +16,7 @@ import {
 } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
 import { AUTH } from '@hey/data/tracking';
-import { useProfileQuery } from '@hey/lens';
+import { useHandleToAddressQuery } from '@hey/lens';
 import { Button, Form, Input, Spinner, useZodForm } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
@@ -28,6 +28,7 @@ import { useAccount, useBalance, useWriteContract } from 'wagmi';
 import { object, string } from 'zod';
 
 import { useSignupStore } from '.';
+import AuthMessage from '../AuthMessage';
 import Moonpay from './Moonpay';
 
 declare global {
@@ -43,6 +44,13 @@ declare global {
   }
 }
 
+export const SignupMessage = () => (
+  <AuthMessage
+    description="Let's start by buying your handle for you. Buying you say? Yep - handles cost a little bit of money to support the network and keep bots away"
+    title={`Welcome to ${APP_NAME}!`}
+  />
+);
+
 const newProfileSchema = object({
   handle: string()
     .min(5, { message: 'Handle must be at least 5 characters long' })
@@ -54,13 +62,13 @@ const newProfileSchema = object({
 });
 
 const ChooseHandle: FC = () => {
-  const delegatedExecutor = useSignupStore((state) => state.delegatedExecutor);
-  const setScreen = useSignupStore((state) => state.setScreen);
-  const setChoosedHandle = useSignupStore((state) => state.setChoosedHandle);
-  const setTransactionHash = useSignupStore(
-    (state) => state.setTransactionHash
-  );
-  const setMintViaCard = useSignupStore((state) => state.setMintViaCard);
+  const {
+    delegatedExecutor,
+    setChoosedHandle,
+    setMintViaCard,
+    setScreen,
+    setTransactionHash
+  } = useSignupStore();
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
   const { address } = useAccount();
@@ -79,19 +87,21 @@ const ChooseHandle: FC = () => {
   const { writeContractAsync } = useWriteContract({
     mutation: {
       onError: errorToast,
-      onSuccess: (hash) => {
+      onSuccess: (hash: string) => {
         Leafwatch.track(AUTH.SIGNUP, { price: SIGNUP_PRICE, via: 'crypto' });
         setTransactionHash(hash);
-        setChoosedHandle(`${HANDLE_PREFIX}${handle}`);
+        setChoosedHandle(`${HANDLE_PREFIX}${handle.toLowerCase()}`);
         setScreen('minting');
       }
     }
   });
 
-  useProfileQuery({
+  useHandleToAddressQuery({
     fetchPolicy: 'no-cache',
-    onCompleted: (data) => setIsAvailable(!data.profile),
-    variables: { request: { forHandle: `${HANDLE_PREFIX}${handle}` } }
+    onCompleted: (data) => setIsAvailable(!data.handleToAddress),
+    variables: {
+      request: { handle: `${HANDLE_PREFIX}${handle?.toLowerCase()}` }
+    }
   });
 
   const handleMint = async (handle: string) => {
@@ -115,7 +125,7 @@ const ChooseHandle: FC = () => {
     if (event === 'Checkout.Success' && window.LemonSqueezy) {
       Leafwatch.track(AUTH.SIGNUP, { price: SIGNUP_PRICE, via: 'card' });
       setMintViaCard(true);
-      setChoosedHandle(`${HANDLE_PREFIX}${handle}`);
+      setChoosedHandle(`${HANDLE_PREFIX}${handle.toLowerCase()}`);
       setScreen('minting');
 
       window.LemonSqueezy?.Url?.Close();
@@ -129,7 +139,7 @@ const ChooseHandle: FC = () => {
       urlcat('https://heyverse.lemonsqueezy.com/checkout/buy/:product', {
         'checkout[custom][address]': address,
         'checkout[custom][delegatedExecutor]': delegatedExecutor,
-        'checkout[custom][handle]': handle,
+        'checkout[custom][handle]': handle.toLowerCase(),
         desc: 0,
         discount: 0,
         embed: 1,
@@ -140,7 +150,6 @@ const ChooseHandle: FC = () => {
           : 'bc50d61b-dde2-477d-bb89-5453d0c665d8'
       })
     );
-    setTimeout(() => setLoading(false));
   };
 
   const disabled =
@@ -153,18 +162,11 @@ const ChooseHandle: FC = () => {
         src="https://assets.lemonsqueezy.com/lemon.js"
         strategy="afterInteractive"
       />
-      <div className="space-y-2">
-        <div className="text-xl font-bold">Welcome to {APP_NAME}!</div>
-        <div className="ld-text-gray-500 text-sm">
-          Let's start by buying your handle for you. Buying you say? Yep -
-          handles cost a little bit of money to support the network and keep
-          bots away
-        </div>
-      </div>
+      <SignupMessage />
       <Form
         className="space-y-5 pt-3"
         form={form}
-        onSubmit={async ({ handle }) => await handleMint(handle)}
+        onSubmit={async ({ handle }) => await handleMint(handle.toLowerCase())}
       >
         <div className="mb-5">
           <Input

@@ -10,10 +10,10 @@ interface ProfileCirclesProps {
 
 const Profiles: FC<ProfileCirclesProps> = ({ context, profiles }) => {
   const Wrapper = ({ children }: { children: ReactNode }) => (
-    <span>
+    <>
       {children}
       {context ? <span> {context}</span> : null}
-    </span>
+    </>
   );
 
   const profileOne = profiles[0];

@@ -1,4 +1,4 @@
-import type { Amount, BroadcastOnchainMutation } from '@hey/lens';
+import type { Amount } from '@hey/lens';
 import type { FC } from 'react';
 
 import LoginButton from '@components/Shared/Navbar/LoginButton';
@@ -13,6 +13,7 @@ import {
 import getCurrentSession from '@lib/getCurrentSession';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { useTransactionStatus } from 'src/hooks/useIndexStatus';
 import { formatUnits, isAddress } from 'viem';
 import { useAccount, useBalance } from 'wagmi';
 
@@ -22,7 +23,7 @@ interface DecentActionProps {
   className?: string;
   isLoading?: boolean;
   moduleAmount?: Amount;
-  relayStatus?: BroadcastOnchainMutation;
+  relayStatus?: string;
   txHash?: string;
 }
 
@@ -32,7 +33,7 @@ const DecentAction: FC<DecentActionProps> = ({
   className = '',
   isLoading = false,
   moduleAmount,
-  // relayStatus,
+  relayStatus,
   txHash
 }) => {
   const [pending, setPending] = useState(false);
@@ -54,6 +55,11 @@ const DecentAction: FC<DecentActionProps> = ({
     token: assetAddress
   });
 
+  const { data: transactionStatusData } = useTransactionStatus({
+    txHash: !!txHash ? (txHash as `0x${string}`) : undefined,
+    txId: relayStatus
+  });
+
   let hasAmount = false;
   if (
     balanceData &&
@@ -66,15 +72,17 @@ const DecentAction: FC<DecentActionProps> = ({
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
-    if (txHash) {
+    if (
+      transactionStatusData &&
+      !!transactionStatusData.lensTransactionStatus &&
+      !!transactionStatusData.lensTransactionStatus.txHash
+    ) {
       setPending(true);
       const fetchCrossChainStatus = async () => {
         const { messages } = await getMessagesBySrcTxHash(
           polygonLayerZeroChainId,
-          txHash
+          transactionStatusData!.lensTransactionStatus!.txHash
         );
-        console.log('LZ Cross-Chain Status');
-        console.log(messages);
         const lastStatus = messages[messages.length - 1]?.status;
         if (lastStatus === MessageStatus.DELIVERED) {
           setPending(false);
@@ -85,7 +93,7 @@ const DecentAction: FC<DecentActionProps> = ({
       interval = setInterval(fetchCrossChainStatus, 10000);
     }
     return () => clearInterval(interval);
-  }, [txHash]);
+  }, [transactionStatusData]);
 
   // TODO: Remove test condition
   // if (true) {

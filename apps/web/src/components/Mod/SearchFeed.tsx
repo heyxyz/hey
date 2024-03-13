@@ -87,7 +87,7 @@ const SearchFeed: FC = () => {
       <div className="space-y-5">
         <Search />
         <EmptyState
-          icon={<RectangleStackIcon className="text-brand-500 size-8" />}
+          icon={<RectangleStackIcon className="size-8" />}
           message="No posts yet!"
         />
       </div>
@@ -117,8 +117,7 @@ const SearchFeed: FC = () => {
             />
             <div>
               <div className="divider" />
-              <div className="m-5 space-y-2">
-                <b>Gardener actions</b>
+              <div className="m-5">
                 <GardenerActions publication={targetPublication} />
               </div>
             </div>

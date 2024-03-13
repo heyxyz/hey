@@ -23,10 +23,8 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
   publication,
   quoted = false
 }) => {
-  const setQuotedPublication = usePublicationStore(
-    (state) => state.setQuotedPublication
-  );
-  const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
+  const { setQuotedPublication } = usePublicationStore();
+  const { gardenerMode } = useFeatureFlagsStore();
 
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
@@ -55,7 +53,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
       {quoted && isNew ? (
         <button
           aria-label="Remove Quote"
-          className="outline-brand-500 rounded-full border p-1.5 hover:bg-gray-300/20"
+          className="rounded-full border p-1.5 hover:bg-gray-300/20"
           onClick={() => setQuotedPublication(null)}
           type="reset"
         >

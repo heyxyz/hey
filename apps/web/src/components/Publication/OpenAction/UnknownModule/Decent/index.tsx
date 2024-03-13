@@ -4,7 +4,7 @@ import type {
   UnknownOpenActionModuleSettings
 } from '@hey/lens';
 import type { AllowedToken } from '@hey/types/hey';
-import type { Nft } from '@hey/types/misc';
+import type { Nft, OG } from '@hey/types/misc';
 import type { ActionData, PublicationInfo } from 'nft-openaction-kit';
 import type { Address } from 'viem';
 
@@ -16,7 +16,7 @@ import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules
 import getNftChainInfo from '@hey/lib/getNftChainInfo';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Button, Card, Tooltip } from '@hey/ui';
+import { Button, Card, Spinner, Tooltip } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { NftOpenActionKit } from 'nft-openaction-kit';
@@ -25,9 +25,13 @@ import { useAccount } from 'wagmi';
 
 import DecentOpenActionModule from './Module';
 
+const OPEN_ACTION_EMBED_TOOLTIP = 'Open action embedded';
+
 interface DecentOpenActionProps {
   isFullPublication?: boolean;
-  nft: Nft;
+  og: OG;
+  openActionEmbed: boolean;
+  openActionEmbedLoading: boolean;
   publication: AnyPublication;
 }
 
@@ -53,7 +57,12 @@ function formatPublicationData(
   };
 }
 
-const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
+const DecentOpenAction: FC<DecentOpenActionProps> = ({
+  og,
+  openActionEmbed,
+  openActionEmbedLoading,
+  publication
+}) => {
   const [actionData, setActionData] = useState<ActionData>();
   const [showOpenActionModal, setShowOpenActionModal] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState<AllowedToken>({
@@ -76,6 +85,23 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
   const { address } = useAccount();
 
   const prevCurrencyRef = useRef(selectedCurrency);
+
+  const nft: Nft = og.nft
+    ? og.nft
+    : {
+        chain: null,
+        collectionName: '',
+        contractAddress: '0x0000000000000000000000000000000000000000',
+        creatorAddress: '0x0000000000000000000000000000000000000000',
+        description: og.description || '',
+        endTime: null,
+        mediaUrl: og.image || '',
+        mintCount: null,
+        mintStatus: null,
+        mintUrl: null,
+        schema: 'erc721',
+        sourceUrl: og.url
+      };
 
   useEffect(
     () => {
@@ -166,18 +192,32 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ nft, publication }) => {
                 />
               ) : null}
             </div>
-            <Button
-              className="text-base font-normal"
-              onClick={() => {
-                setShowOpenActionModal(true);
-                Leafwatch.track(PUBLICATION.OPEN_ACTIONS.DECENT.OPEN_DECENT, {
-                  publication_id: publication.id
-                });
-              }}
-              size="lg"
-            >
-              Mint
-            </Button>
+
+            {openActionEmbedLoading ? (
+              <Spinner size="xs" />
+            ) : openActionEmbed ? (
+              <Tooltip
+                content={<span>{OPEN_ACTION_EMBED_TOOLTIP}</span>}
+                placement="top"
+              >
+                <Button className="text-base font-normal" size="lg">
+                  Mint
+                </Button>
+              </Tooltip>
+            ) : (
+              <Button
+                className="text-base font-normal"
+                onClick={() => {
+                  setShowOpenActionModal(true);
+                  Leafwatch.track(PUBLICATION.OPEN_ACTIONS.DECENT.OPEN_DECENT, {
+                    publication_id: publication.id
+                  });
+                }}
+                size="lg"
+              >
+                Mint
+              </Button>
+            )}
           </div>
         ) : (
           <DecentOpenActionShimmer />

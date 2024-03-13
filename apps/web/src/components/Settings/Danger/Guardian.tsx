@@ -15,11 +15,11 @@ import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useWriteContract } from 'wagmi';
 
 const GuardianSettings: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
@@ -31,7 +31,7 @@ const GuardianSettings: FC = () => {
 
   const { data, writeContractAsync } = useWriteContract({
     mutation: {
-      onError: (error) => {
+      onError: (error: Error) => {
         onError(error);
       },
       onSuccess: () => {
@@ -109,7 +109,7 @@ const GuardianSettings: FC = () => {
         </Button>
       )}
       <Modal
-        icon={<ExclamationTriangleIcon className="size-5 text-red-500" />}
+        icon={<ExclamationTriangleIcon className="size-5" />}
         onClose={() => setShowWarningModal(false)}
         show={showWarningModal}
         title="Danger zone"

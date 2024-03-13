@@ -23,14 +23,14 @@ import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { signIn, signOut } from 'src/store/persisted/useAuthStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useAccount, useSignMessage } from 'wagmi';
 
 import WalletSelector from './Auth/WalletSelector';
 import Loader from './Loader';
 
 const SwitchProfiles: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const [isLoading, setIsLoading] = useState(false);
   const [loggingInProfileId, setLoggingInProfileId] = useState<null | string>(
     null
@@ -96,7 +96,7 @@ const SwitchProfiles: FC = () => {
     }
   };
 
-  if (currentProfile?.ownedBy.address !== address) {
+  if (!address) {
     return (
       <div className="m-5 space-y-5">
         <div className="space-y-2">

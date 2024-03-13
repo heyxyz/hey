@@ -1,11 +1,11 @@
-import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { HeyLensSignup } from '@hey/abis';
 import { HEY_LENS_SIGNUP } from '@hey/data/constants';
 import { STAFFTOOLS } from '@hey/data/tracking';
-import { Button, Spinner } from '@hey/ui';
+import { Button } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { type FC, useState } from 'react';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { formatUnits } from 'viem';
 import { useBalance, useWriteContract } from 'wagmi';
 
@@ -13,6 +13,7 @@ import NumberedStat from '../UI/NumberedStat';
 
 const Balance: FC = () => {
   const [loading, setLoading] = useState(false);
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const { data } = useBalance({
     address: HEY_LENS_SIGNUP,
@@ -32,6 +33,7 @@ const Balance: FC = () => {
   const withdraw = async () => {
     try {
       setLoading(true);
+      await handleWrongNetwork();
 
       return await writeContractAsync({
         abi: HeyLensSignup,
@@ -57,13 +59,6 @@ const Balance: FC = () => {
       <Button
         className="w-full justify-center"
         disabled={loading}
-        icon={
-          loading ? (
-            <Spinner className="mr-0.5" size="xs" />
-          ) : (
-            <CurrencyDollarIcon className="size-5" />
-          )
-        }
         onClick={withdraw}
       >
         Withdraw Funds

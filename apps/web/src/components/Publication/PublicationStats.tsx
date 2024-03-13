@@ -1,26 +1,26 @@
+import type { PublicationStats as IPublicationStats } from '@hey/lens';
 import type { FC } from 'react';
 
 import Collectors from '@components/Shared/Modal/Collectors';
 import Likes from '@components/Shared/Modal/Likes';
 import Mirrors from '@components/Shared/Modal/Mirrors';
-import Quotes from '@components/Shared/Modal/Quotes';
 import {
   ArrowsRightLeftIcon,
   HeartIcon,
   RectangleStackIcon
 } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
-import { PublicationStats } from '@hey/lens';
 import getPublicationsViews from '@hey/lib/getPublicationsViews';
 import nFormatter from '@hey/lib/nFormatter';
 import { Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
+import Link from 'next/link';
 import plur from 'plur';
 import { memo, useEffect, useState } from 'react';
 
 interface PublicationStatsProps {
   publicationId: string;
-  publicationStats: PublicationStats;
+  publicationStats: IPublicationStats;
 }
 
 const PublicationStats: FC<PublicationStatsProps> = ({
@@ -29,7 +29,6 @@ const PublicationStats: FC<PublicationStatsProps> = ({
 }) => {
   const [views, setViews] = useState<number>(0);
   const [showMirrorsModal, setShowMirrorsModal] = useState(false);
-  const [showQuotesModal, setShowQuotesModal] = useState(false);
   const [showLikesModal, setShowLikesModal] = useState(false);
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
 
@@ -70,7 +69,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({
         {shares > 0 ? (
           <>
             <button
-              className="outline-brand-500 outline-offset-2"
+              className="outline-offset-2"
               onClick={() => {
                 setShowMirrorsModal(true);
                 Leafwatch.track(PUBLICATION.OPEN_MIRRORS, {
@@ -83,7 +82,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({
               {plur('Mirror', shares)}
             </button>
             <Modal
-              icon={<ArrowsRightLeftIcon className="text-brand-500 size-5" />}
+              icon={<ArrowsRightLeftIcon className="size-5" />}
               onClose={() => setShowMirrorsModal(false)}
               show={showMirrorsModal}
               title="Mirrored by"
@@ -93,34 +92,18 @@ const PublicationStats: FC<PublicationStatsProps> = ({
           </>
         ) : null}
         {quotes > 0 ? (
-          <>
-            <button
-              className="outline-brand-500 outline-offset-2"
-              onClick={() => {
-                setShowQuotesModal(true);
-                Leafwatch.track(PUBLICATION.OPEN_QUOTES, {
-                  publication_id: publicationId
-                });
-              }}
-              type="button"
-            >
-              <b className="text-black dark:text-white">{nFormatter(quotes)}</b>{' '}
-              {plur('Quote', quotes)}
-            </button>
-            <Modal
-              icon={<ArrowsRightLeftIcon className="text-brand-500 size-5" />}
-              onClose={() => setShowQuotesModal(false)}
-              show={showQuotesModal}
-              title="Quoted by"
-            >
-              <Quotes publicationId={publicationId} />
-            </Modal>
-          </>
+          <Link
+            className="outline-offset-2"
+            href={`/posts/${publicationId}/quotes`}
+          >
+            <b className="text-black dark:text-white">{nFormatter(quotes)}</b>{' '}
+            {plur('Quote', quotes)}
+          </Link>
         ) : null}
         {reactions > 0 ? (
           <>
             <button
-              className="outline-brand-500 outline-offset-2"
+              className="outline-offset-2"
               onClick={() => {
                 setShowLikesModal(true);
                 Leafwatch.track(PUBLICATION.OPEN_LIKES, {
@@ -135,7 +118,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({
               {plur('Like', reactions)}
             </button>
             <Modal
-              icon={<HeartIcon className="text-brand-500 size-5" />}
+              icon={<HeartIcon className="size-5" />}
               onClose={() => setShowLikesModal(false)}
               show={showLikesModal}
               title="Liked by"
@@ -147,7 +130,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({
         {countOpenActions > 0 ? (
           <>
             <button
-              className="outline-brand-500 outline-offset-2"
+              className="outline-offset-2"
               onClick={() => {
                 setShowCollectorsModal(true);
                 Leafwatch.track(PUBLICATION.OPEN_COLLECTORS, {
@@ -162,7 +145,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({
               {plur('Collect', countOpenActions)}
             </button>
             <Modal
-              icon={<RectangleStackIcon className="text-brand-500 size-5" />}
+              icon={<RectangleStackIcon className="size-5" />}
               onClose={() => setShowCollectorsModal(false)}
               show={showCollectorsModal}
               title="Collected by"

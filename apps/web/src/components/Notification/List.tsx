@@ -37,12 +37,8 @@ interface ListProps {
 }
 
 const List: FC<ListProps> = ({ feedType }) => {
-  const highSignalNotificationFilter = usePreferencesStore(
-    (state) => state.highSignalNotificationFilter
-  );
-  const latestNotificationId = useNotificationStore(
-    (state) => state.latestNotificationId
-  );
+  const { highSignalNotificationFilter } = usePreferencesStore();
+  const { latestNotificationId } = useNotificationStore();
 
   const getNotificationType = () => {
     switch (feedType) {
@@ -111,7 +107,7 @@ const List: FC<ListProps> = ({ feedType }) => {
   if (notifications?.length === 0) {
     return (
       <EmptyState
-        icon={<BellIcon className="text-brand-500 size-8" />}
+        icon={<BellIcon className="size-8" />}
         message="Inbox zero!"
       />
     );

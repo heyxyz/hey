@@ -9,7 +9,7 @@ import { LimitType, useFollowingQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
 import { Virtuoso } from 'react-virtuoso';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface FollowingProps {
   handle: string;
@@ -22,7 +22,7 @@ const Following: FC<FollowingProps> = ({ handle, profileId }) => {
     for: profileId,
     limit: LimitType.TwentyFive
   };
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
 
   const { data, error, fetchMore, loading } = useFollowingQuery({
     skip: !profileId,
@@ -51,7 +51,7 @@ const Following: FC<FollowingProps> = ({ handle, profileId }) => {
     return (
       <EmptyState
         hideCard
-        icon={<UsersIcon className="text-brand-500 size-8" />}
+        icon={<UsersIcon className="size-8" />}
         message={
           <div>
             <span className="mr-1 font-bold">{handle}</span>
@@ -84,8 +84,7 @@ const Following: FC<FollowingProps> = ({ handle, profileId }) => {
               <UserProfile
                 profile={following as Profile}
                 showBio
-                showFollow={currentProfile?.id !== following.id}
-                showUnfollow={currentProfile?.id !== following.id}
+                showFollowUnfollowButton={currentProfile?.id !== following.id}
                 showUserPreview={false}
                 source={ProfileLinkSource.Following}
               />

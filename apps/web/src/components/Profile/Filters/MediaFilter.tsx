@@ -8,12 +8,7 @@ import cn from '@hey/ui/cn';
 import { useProfileFeedStore } from 'src/store/non-persisted/useProfileFeedStore';
 
 const MediaFilter = () => {
-  const mediaFeedFilters = useProfileFeedStore(
-    (state) => state.mediaFeedFilters
-  );
-  const setMediaFeedFilters = useProfileFeedStore(
-    (state) => state.setMediaFeedFilters
-  );
+  const { mediaFeedFilters, setMediaFeedFilters } = useProfileFeedStore();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setMediaFeedFilters({
@@ -26,7 +21,7 @@ const MediaFilter = () => {
     <Menu as="div" className="relative">
       <Menu.Button className="rounded-md hover:bg-gray-300/20">
         <Tooltip content="Filter" placement="top">
-          <AdjustmentsVerticalIcon className="text-brand-500 size-5" />
+          <AdjustmentsVerticalIcon className="size-5" />
         </Tooltip>
       </Menu.Button>
       <MenuTransition>

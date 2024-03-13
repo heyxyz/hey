@@ -1,6 +1,7 @@
 import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
+import P2PRecommendation from '@components/Shared/Profile/P2PRecommendation';
 import UserProfile from '@components/Shared/UserProfile';
 import {
   BanknotesIcon,
@@ -141,6 +142,9 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
             </Link>
           </MetaDetails>
         ) : null}
+        <div className="pt-2">
+          <P2PRecommendation profile={profile} />
+        </div>
       </div>
       <div className="divider my-5 border-dashed border-yellow-600" />
       <OnchainIdentities onchainIdentity={profile.onchainIdentity} />

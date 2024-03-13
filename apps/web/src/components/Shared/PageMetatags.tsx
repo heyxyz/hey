@@ -10,6 +10,12 @@ const PageMetatags: FC = () => {
 
   const getOg = () => {
     switch (pathname) {
+      case '/signup': {
+        return {
+          description: `Signup on ${APP_NAME} to create, share and discover content.`,
+          title: `Signup • ${APP_NAME}`
+        };
+      }
       case '/explore': {
         return {
           description: `Explore top commented, collected and latest publications in the ${APP_NAME}.`,

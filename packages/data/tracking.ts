@@ -30,13 +30,6 @@ export const PROFILE = {
   UNFOLLOW: 'Unfollow profile'
 };
 
-export const GROUP = {
-  FAVORITE: 'Favorite group',
-  JOIN: 'Join group',
-  LEAVE: 'Leave group',
-  UNFAVORITE: 'Unfavorite group'
-};
-
 export const PUBLICATION = {
   ATTACHMENT: {
     AUDIO: {
@@ -78,7 +71,6 @@ export const PUBLICATION = {
   OPEN_LIKES: 'Open likes modal',
   OPEN_MIRRORS: 'Open mirrors modal',
   OPEN_NFT: 'Open NFT',
-  OPEN_QUOTES: 'Open quotes modal',
   REPORT: 'Report publication',
   SHARE: 'Share publication',
   TOGGLE_BOOKMARK: 'Toggle publication bookmark',
@@ -179,6 +171,7 @@ export const GARDENER = {
 
 export const STAFFTOOLS = {
   FEATURE_FLAGS: {
+    BULK_ASSIGN: 'Staff Tool: Bulk assign feature flag',
     CREATE: 'Staff Tool: Create feature flag',
     DELETE: 'Staff Tool: Delete feature flag',
     KILL: 'Staff Tool: Kill feature flag'
@@ -201,6 +194,10 @@ export const STAFFTOOLS = {
   }
 };
 
+export const CREATORTOOLS = {
+  ASSIGN_FEATURE_FLAG: 'Creator Tool: Assign feature flag'
+};
+
 export const SYSTEM = {
   SWITCH_NETWORK: 'Switch network',
   SWITCH_THEME: 'Switch theme'
@@ -217,7 +214,6 @@ export const MISCELLANEOUS = {
     OPEN_VERCEL: 'Open Vercel'
   },
   OPEN_GITCOIN: 'Open Gitcoin',
-  OPEN_LENS_WAITLIST: 'Open Lens waitlist',
   SEARCH: 'Search'
 };
 
@@ -232,7 +228,6 @@ export const ALL_EVENTS = {
   PAGEVIEW,
   ...AUTH,
   ...PROFILE,
-  ...GROUP,
   ...PUBLICATION,
   ...NOTIFICATION,
   ...HOME,
@@ -241,6 +236,7 @@ export const ALL_EVENTS = {
   ...INVITE,
   ...GARDENER,
   ...STAFFTOOLS,
+  ...CREATORTOOLS,
   ...SYSTEM,
   ...MISCELLANEOUS,
   ...ONBOARDING

@@ -5,7 +5,6 @@ import type {
 
 import P2PRecommendation from '@components/Shared/Profile/P2PRecommendation';
 import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
-import { HEY_API_URL } from '@hey/data/constants';
 import { GARDENER } from '@hey/data/tracking';
 import {
   PublicationReportingSpamSubreason,
@@ -14,8 +13,6 @@ import {
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import { type FC, type ReactNode, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
@@ -25,40 +22,11 @@ interface GardenerActionsProps {
 }
 
 const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
-  const setShowGardenerActionsAlert = useGlobalAlertStateStore(
-    (state) => state.setShowGardenerActionsAlert
-  );
-
+  const { setShowGardenerActionsAlert } = useGlobalAlertStateStore();
   const [hasReported, setHasReported] = useState(
-    publication.operations.hasReported
+    publication.operations?.hasReported
   );
-  const [spamCount, setSpamCount] = useState(0);
-  const [unSponsorCount, setUnSponsorCount] = useState(0);
-  const [bothCount, setBothCount] = useState(0);
-
   const [createReport, { loading }] = useReportPublicationMutation();
-
-  const fetchGardenerReports = async () => {
-    try {
-      const response = await axios.get(`${HEY_API_URL}/gardener/reports`, {
-        params: { id: publication.id }
-      });
-      const { data } = response;
-
-      setSpamCount(data.result.spam);
-      setUnSponsorCount(data.result.unSponsor);
-      setBothCount(data.result.both);
-
-      return true;
-    } catch {
-      return false;
-    }
-  };
-
-  useQuery({
-    queryFn: fetchGardenerReports,
-    queryKey: ['fetchGardenerReports', publication.id]
-  });
 
   const reportPublication = async ({
     subreason,
@@ -71,10 +39,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
     const request: ReportPublicationRequest = {
       for: publication.id,
       reason: {
-        [type]: {
-          reason: type.replace('Reason', '').toUpperCase(),
-          subreason
-        }
+        [type]: { reason: type.replace('Reason', '').toUpperCase(), subreason }
       }
     };
 
@@ -85,10 +50,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
   };
 
   interface ReportButtonProps {
-    config: {
-      subreason: string;
-      type: string;
-    }[];
+    config: { subreason: string; type: string }[];
     icon: ReactNode;
     label: string;
     type: string;
@@ -120,15 +82,6 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
             loading: 'Reporting publication...',
             success: () => {
               setHasReported(true);
-
-              if (type === 'spam') {
-                setSpamCount(spamCount + 1);
-              } else if (type === 'un-sponsor') {
-                setUnSponsorCount(unSponsorCount + 1);
-              } else if (type === 'both') {
-                setBothCount(bothCount + 1);
-              }
-
               return 'Publication reported successfully';
             }
           }
@@ -155,7 +108,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
           }
         ]}
         icon={<DocumentTextIcon className="size-4" />}
-        label={`Spam ${spamCount > 0 ? `(${spamCount})` : ''}`}
+        label="Spam"
         type="spam"
       />
       <ReportButton
@@ -166,7 +119,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
           }
         ]}
         icon={<BanknotesIcon className="size-4" />}
-        label={`Un-sponsor ${unSponsorCount > 0 ? `(${unSponsorCount})` : ''}`}
+        label="Un-sponsor"
         type="un-sponsor"
       />
       <ReportButton
@@ -181,7 +134,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
           }
         ]}
         icon={<BanknotesIcon className="size-4" />}
-        label={`Both ${bothCount > 0 ? `(${bothCount})` : ''}`}
+        label="Both"
         type="both"
       />
       <P2PRecommendation

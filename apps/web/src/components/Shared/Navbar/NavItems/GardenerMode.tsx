@@ -16,10 +16,7 @@ interface ModModeProps {
 }
 
 const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
-  const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
-  const setGardenerMode = useFeatureFlagsStore(
-    (state) => state.setGardenerMode
-  );
+  const { gardenerMode, setGardenerMode } = useFeatureFlagsStore();
 
   const toggleModMode = () => {
     toast.promise(
@@ -33,7 +30,9 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
         loading: 'Toggling gardener mode...',
         success: () => {
           setGardenerMode(!gardenerMode);
-          Leafwatch.track(GARDENER.TOGGLE_MODE);
+          Leafwatch.track(GARDENER.TOGGLE_MODE, {
+            enabled: !gardenerMode
+          });
 
           return 'Gardener mode toggled!';
         }

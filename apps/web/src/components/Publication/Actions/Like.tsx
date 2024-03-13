@@ -21,7 +21,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface LikeProps {
   publication: MirrorablePublication;
@@ -30,7 +30,7 @@ interface LikeProps {
 
 const Like: FC<LikeProps> = ({ publication, showCount }) => {
   const { pathname } = useRouter();
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
 
   const [hasReacted, setHasReacted] = useState(
@@ -148,9 +148,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
       <motion.button
         aria-label="Like"
         className={cn(
-          hasReacted
-            ? 'hover:bg-brand-300/20 outline-brand-500'
-            : 'outline-gray-400 hover:bg-gray-300/20',
+          hasReacted ? 'hover:bg-brand-300/20' : 'hover:bg-gray-300/20',
           'rounded-full p-1.5 outline-offset-2'
         )}
         onClick={createLike}

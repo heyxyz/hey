@@ -24,7 +24,7 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
   return (
     <div className="flex gap-8">
       <button
-        className="text-left"
+        className="text-left outline-offset-4"
         onClick={() => {
           setShowFollowingModal(!showFollowingModal);
           Leafwatch.track(PROFILE.OPEN_FOLLOWING, {
@@ -34,12 +34,10 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         type="button"
       >
         <div className="text-xl">{humanize(profile.stats.following)}</div>
-        <div className="ld-text-gray-500">
-          {plur('Following', profile.stats.following)}
-        </div>
+        <div className="ld-text-gray-500">Following</div>
       </button>
       <button
-        className="text-left"
+        className="text-left outline-offset-4"
         onClick={() => {
           setShowFollowersModal(!showFollowersModal);
           Leafwatch.track(PROFILE.OPEN_FOLLOWERS, {
@@ -54,7 +52,7 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         </div>
       </button>
       <Modal
-        icon={<UsersIcon className="text-brand-500 size-5" />}
+        icon={<UsersIcon className="size-5" />}
         onClose={() => setShowFollowingModal(false)}
         show={showFollowingModal}
         title="Following"
@@ -65,7 +63,7 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         />
       </Modal>
       <Modal
-        icon={<UsersIcon className="text-brand-500 size-5" />}
+        icon={<UsersIcon className="size-5" />}
         onClose={() => setShowFollowersModal(false)}
         show={showFollowersModal}
         title="Followers"

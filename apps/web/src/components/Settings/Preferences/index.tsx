@@ -5,10 +5,9 @@ import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
-import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { Leafwatch } from '@lib/leafwatch';
 import { useEffect } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import SettingsSidebar from '../Sidebar';
 import HighSignalNotificationFilter from './HighSignalNotificationFilter';
@@ -16,7 +15,7 @@ import IsPride from './IsPride';
 import PushNotifications from './PushNotifications';
 
 const PreferencesSettings: NextPage = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'preferences' });
@@ -44,7 +43,7 @@ const PreferencesSettings: NextPage = () => {
           <div className="divider my-5" />
           <div className="space-y-6">
             <HighSignalNotificationFilter />
-            {isFeatureAvailable('push-notifications') && <PushNotifications />}
+            <PushNotifications />
             <IsPride />
           </div>
         </Card>

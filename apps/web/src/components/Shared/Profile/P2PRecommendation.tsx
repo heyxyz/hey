@@ -19,20 +19,20 @@ import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
-interface LikeProps {
+interface P2PRecommendationProps {
   profile: Profile;
   recommendTitle?: string;
   unrecommendTitle?: string;
 }
 
-const P2PRecommendation: FC<LikeProps> = ({
+const P2PRecommendation: FC<P2PRecommendationProps> = ({
   profile,
   recommendTitle = 'Recommend',
   unrecommendTitle = 'Unrecommend'
 }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
 
   const [hasRecommended, setHasRecommended] = useState(
@@ -121,7 +121,6 @@ const P2PRecommendation: FC<LikeProps> = ({
       }}
       outline={!hasRecommended}
       size="sm"
-      variant={hasRecommended ? 'black' : 'primary'}
     >
       {hasRecommended ? unrecommendTitle : recommendTitle}
     </Button>

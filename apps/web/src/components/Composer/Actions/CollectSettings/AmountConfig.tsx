@@ -17,7 +17,7 @@ const AmountConfig: FC<AmountConfigProps> = ({
   allowedTokens,
   setCollectType
 }) => {
-  const collectModule = useCollectModuleStore((state) => state.collectModule);
+  const { collectModule } = useCollectModuleStore((state) => state);
 
   return (
     <div>
@@ -71,6 +71,8 @@ const AmountConfig: FC<AmountConfigProps> = ({
                 }}
                 options={allowedTokens?.map((token) => ({
                   label: token.name,
+                  selected:
+                    token.contractAddress === collectModule.amount?.currency,
                   value: token.contractAddress
                 }))}
               />

@@ -12,7 +12,7 @@ interface CollectLimitConfigProps {
 const CollectLimitConfig: FC<CollectLimitConfigProps> = ({
   setCollectType
 }) => {
-  const collectModule = useCollectModuleStore((state) => state.collectModule);
+  const { collectModule } = useCollectModuleStore((state) => state);
 
   return (
     <div className="mt-5">

@@ -23,7 +23,10 @@ export const NotificationProfileAvatar: FC<NotificationProfileProps> = ({
 }) => {
   return (
     <UserPreview handle={profile.handle?.fullHandle} id={profile.id}>
-      <Link href={getProfile(profile).link}>
+      <Link
+        className="rounded-full outline-offset-2"
+        href={getProfile(profile).link}
+      >
         <Image
           alt={profile.id}
           className="size-7 rounded-full border bg-gray-200 sm:size-8 dark:border-gray-700"
@@ -45,7 +48,7 @@ export const NotificationProfileName: FC<NotificationProfileProps> = ({
   return (
     <UserPreview handle={profile.handle?.fullHandle} id={profile.id}>
       <Link
-        className="inline-flex items-center space-x-1 font-bold hover:underline"
+        className="inline-flex items-center space-x-1 font-bold outline-none hover:underline focus:underline"
         href={getProfile(profile).link}
       >
         <span>{getProfile(profile).displayName}</span>
@@ -53,7 +56,7 @@ export const NotificationProfileName: FC<NotificationProfileProps> = ({
           <CheckBadgeIcon className="text-brand-500 size-4" />
         ) : null}
         {hasMisused(profile.id) ? (
-          <ExclamationCircleIcon className="size-4 text-red-500" />
+          <ExclamationCircleIcon className="size-4" />
         ) : null}
       </Link>
     </UserPreview>

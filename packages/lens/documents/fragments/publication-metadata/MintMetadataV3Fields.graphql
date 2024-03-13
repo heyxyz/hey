@@ -13,4 +13,5 @@ fragment MintMetadataV3Fields on MintMetadataV3 {
   encryptedWith {
     ...PublicationMetadataLitEncryptionFields
   }
+  appId
 }

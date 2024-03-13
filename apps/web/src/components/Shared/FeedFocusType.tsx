@@ -22,10 +22,9 @@ const FeedFocusType: FC<FeedFocusTypeProps> = ({ focus, setFocus }) => {
     <button
       aria-label={name}
       className={cn(
-        { '!bg-brand-500 !text-white': focus === type },
-        'text-brand-500 rounded-full px-3 py-1.5 text-xs sm:px-4',
-        'border-brand-300 dark:border-brand-500 border',
-        'bg-brand-100 dark:bg-brand-300/20'
+        focus === type ? 'bg-black text-white' : 'bg-gray-100 dark:bg-gray-800',
+        'rounded-full px-3 py-1.5 text-xs sm:px-4',
+        'border border-gray-300 dark:border-gray-500'
       )}
       onClick={() => {
         setFocus(type as PublicationMetadataMainFocusType);

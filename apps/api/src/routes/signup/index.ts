@@ -6,13 +6,20 @@ import { HEY_LENS_SIGNUP, ZERO_ADDRESS } from '@hey/data/constants';
 import logger from '@hey/lib/logger';
 import crypto from 'crypto';
 import catchedError from 'src/lib/catchedError';
+import createClickhouseClient from 'src/lib/createClickhouseClient';
 import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
 import { createWalletClient, http } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
 import { polygon, polygonMumbai } from 'viem/chains';
-import { boolean, object, string } from 'zod';
+import { boolean, number, object, string } from 'zod';
 
 type ExtensionRequest = {
+  data: {
+    attributes: {
+      order_number: number;
+      user_email: string;
+    };
+  };
   meta: {
     custom_data: {
       address: string;
@@ -24,6 +31,12 @@ type ExtensionRequest = {
 };
 
 const validationSchema = object({
+  data: object({
+    attributes: object({
+      order_number: number(),
+      user_email: string()
+    })
+  }),
   meta: object({
     custom_data: object({
       address: string(),
@@ -68,9 +81,10 @@ export const post: Handler = async (req, res) => {
     return invalidBody(res);
   }
 
-  const { meta } = parsedBody as ExtensionRequest;
+  const { data, meta } = parsedBody as ExtensionRequest;
   const { custom_data, test_mode } = meta;
   const { address, delegatedExecutor, handle } = custom_data;
+  const { order_number, user_email: email } = data.attributes;
 
   const allPrivateKeys = privateKeys.split(',');
   const randomPrivateKey =
@@ -91,6 +105,17 @@ export const post: Handler = async (req, res) => {
       args: [[address, ZERO_ADDRESS, '0x'], handle, [delegatedExecutor]],
       functionName: 'createProfileWithHandle'
     });
+
+    // Begin: Log to Clickhouse
+    if (!test_mode) {
+      const clickhouseClient = createClickhouseClient();
+      clickhouseClient.insert({
+        format: 'JSONEachRow',
+        table: 'signups',
+        values: { address, email, handle, hash, order_number }
+      });
+    }
+    // End: Log to Clickhouse
 
     logger.info(
       `Minted Lens Profile for ${address} with handle ${handle} on ${hash}`

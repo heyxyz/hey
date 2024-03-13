@@ -12,9 +12,7 @@ interface ModProps {
 }
 
 const Mod: FC<ModProps> = ({ isFullPublication = false, publication }) => {
-  const setShowGardenerActionsAlert = useGlobalAlertStateStore(
-    (state) => state.setShowGardenerActionsAlert
-  );
+  const { setShowGardenerActionsAlert } = useGlobalAlertStateStore();
 
   const iconClassName = isFullPublication
     ? 'w-[17px] sm:w-[20px]'
@@ -23,7 +21,7 @@ const Mod: FC<ModProps> = ({ isFullPublication = false, publication }) => {
   return (
     <motion.button
       aria-label="Mod"
-      className="rounded-full p-1.5 text-yellow-600 outline-offset-2 outline-yellow-500 hover:bg-yellow-400/20"
+      className="rounded-full p-1.5 text-yellow-600 outline-offset-2 hover:bg-yellow-400/20"
       onClick={() => setShowGardenerActionsAlert(true, publication)}
       whileTap={{ scale: 0.9 }}
     >

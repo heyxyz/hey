@@ -27,12 +27,8 @@ interface FeedProps {
 }
 
 const Feed: FC<FeedProps> = ({ handle, profileId, type }) => {
-  const mediaFeedFilters = useProfileFeedStore(
-    (state) => state.mediaFeedFilters
-  );
-  const fetchAndStoreViews = useImpressionsStore(
-    (state) => state.fetchAndStoreViews
-  );
+  const { mediaFeedFilters } = useProfileFeedStore();
+  const { fetchAndStoreViews } = useImpressionsStore();
 
   const getMediaFilters = () => {
     const filters: PublicationMetadataMainFocusType[] = [];
@@ -131,7 +127,7 @@ const Feed: FC<FeedProps> = ({ handle, profileId, type }) => {
 
     return (
       <EmptyState
-        icon={<RectangleStackIcon className="text-brand-500 size-8" />}
+        icon={<RectangleStackIcon className="size-8" />}
         message={
           <div>
             <span className="mr-1 font-bold">{handle}</span>
