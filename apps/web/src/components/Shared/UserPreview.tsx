@@ -182,9 +182,11 @@ const UserPreview: FC<UserPreviewProps> = ({
             side="bottom"
             sideOffset={5}
           >
-            <Card forceRounded>
-              <Preview />
-            </Card>
+            <div>
+              <Card forceRounded>
+                <Preview />
+              </Card>
+            </div>
           </HoverCard.Content>
         </HoverCard.Portal>
       </HoverCard.Root>
