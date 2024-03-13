@@ -1,5 +1,6 @@
 const directUrls = [
-  'zora.co/api/thumbnail' // Zora
+  'zora.co/api/thumbnail', // Zora
+  'social-images.lu.ma' // Lu.ma
 ];
 
 const getProxyUrl = (url: string, isLarge: boolean) => {
