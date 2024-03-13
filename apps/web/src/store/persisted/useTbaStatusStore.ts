@@ -5,14 +5,14 @@ import { persist } from 'zustand/middleware';
 
 import createIdbStorage from '../lib/createIdbStorage';
 
-interface TbaStatusState {
+interface State {
   hydrateTbaStatus: () => { isTba: boolean };
   isTba: boolean;
   setIsTba: (isTba: boolean) => void;
 }
 
 const store = create(
-  persist<TbaStatusState>(
+  persist<State>(
     (set, get) => ({
       hydrateTbaStatus: () => {
         return { isTba: get().isTba };

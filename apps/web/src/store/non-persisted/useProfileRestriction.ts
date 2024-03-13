@@ -1,7 +1,7 @@
 import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 
-interface ProfileRestrictionState {
+interface State {
   isFlagged: boolean;
   isSuspended: boolean;
   resetRestriction: () => void;
@@ -14,7 +14,7 @@ interface ProfileRestrictionState {
   }) => void;
 }
 
-const store = create<ProfileRestrictionState>((set) => ({
+const store = create<State>((set) => ({
   isFlagged: false,
   isSuspended: false,
   resetRestriction: () =>

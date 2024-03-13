@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 
-interface NonceState {
+interface State {
   lensHubOnchainSigNonce: number;
   lensPublicActProxyOnchainSigNonce: number;
   setLensHubOnchainSigNonce: (nonce: number) => void;
@@ -9,7 +9,7 @@ interface NonceState {
 }
 
 export const useNonceStore = create(
-  subscribeWithSelector<NonceState>((set) => ({
+  subscribeWithSelector<State>((set) => ({
     lensHubOnchainSigNonce: 0,
     lensPublicActProxyOnchainSigNonce: 0,
     setLensHubOnchainSigNonce: (nonce: number) =>

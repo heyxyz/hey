@@ -2,7 +2,7 @@ import type { NewAttachment } from '@hey/types/misc';
 
 import { create } from 'zustand';
 
-interface PublicationAttachmentState {
+interface State {
   addAttachments: (attachments: NewAttachment[]) => void;
   attachments: NewAttachment[];
   isUploading: boolean;
@@ -12,7 +12,7 @@ interface PublicationAttachmentState {
   updateAttachments: (attachments: NewAttachment[]) => void;
 }
 
-const store = create<PublicationAttachmentState>((set) => ({
+const store = create<State>((set) => ({
   addAttachments: (newAttachments) =>
     set((state) => {
       return { attachments: [...state.attachments, ...newAttachments] };

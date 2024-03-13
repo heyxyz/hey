@@ -4,12 +4,12 @@ import getPublicationsViews from '@hey/lib/getPublicationsViews';
 import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 
-interface ImpressionsState {
+interface State {
   fetchAndStoreViews: (ids: string[]) => void;
   publicationViews: PublicationViewCount[];
 }
 
-const store = create<ImpressionsState>((set) => ({
+const store = create<State>((set) => ({
   fetchAndStoreViews: async (ids) => {
     if (!ids.length) {
       return;
