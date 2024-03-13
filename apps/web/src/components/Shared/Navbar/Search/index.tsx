@@ -106,7 +106,7 @@ const Search: FC<SearchProps> = ({ placeholder = 'Search…' }) => {
           ref={dropdownRef}
         >
           <Card className="z-[2] max-h-[80vh] overflow-y-auto py-2">
-            <RecentProfiles onProfileClick={reset} />
+            {!debouncedSearchText && <RecentProfiles onProfileClick={reset} />}
             {searchUsersLoading ? (
               <div className="space-y-2 px-4 py-2 text-center text-sm font-bold">
                 <Spinner className="mx-auto" size="sm" />
