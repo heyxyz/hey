@@ -6,7 +6,6 @@ import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
 import { ProfileLinkSource } from '@hey/data/tracking';
 import { EmptyState } from '@hey/ui';
-import { motion } from 'framer-motion';
 import { Virtuoso } from 'react-virtuoso';
 
 interface SuggestedProps {
@@ -31,12 +30,7 @@ const Suggested: FC<SuggestedProps> = ({ profiles }) => {
         data={profiles}
         itemContent={(_, profile) => {
           return (
-            <motion.div
-              animate={{ opacity: 1 }}
-              className="flex items-center space-x-3 p-5"
-              exit={{ opacity: 0 }}
-              initial={{ opacity: 0 }}
-            >
+            <div className="flex items-center space-x-3 p-5">
               <div className="w-full">
                 <UserProfile
                   profile={profile as Profile}
@@ -47,7 +41,7 @@ const Suggested: FC<SuggestedProps> = ({ profiles }) => {
                 />
               </div>
               <DismissRecommendedProfile profile={profile as Profile} />
-            </motion.div>
+            </div>
           );
         }}
       />

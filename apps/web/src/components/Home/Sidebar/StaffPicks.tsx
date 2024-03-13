@@ -11,7 +11,6 @@ import { useProfilesQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { motion } from 'framer-motion';
 
 const Title: FC = () => <p className="text-lg font-semibold">Staff Picks</p>;
 
@@ -75,18 +74,12 @@ const StaffPicks: FC = () => {
         title="Failed to load recommendations"
       />
       {profiles?.profiles.items.map((profile) => (
-        <motion.div
-          animate={{ opacity: 1 }}
-          className="flex items-center space-x-3 truncate"
-          exit={{ opacity: 0 }}
-          initial={{ opacity: 0 }}
-          key={profile.id}
-        >
+        <div className="flex items-center space-x-3 truncate" key={profile.id}>
           <UserProfile
             profile={profile as Profile}
             source={ProfileLinkSource.StaffPicks}
           />
-        </motion.div>
+        </div>
       ))}
     </Card>
   );
