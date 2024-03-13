@@ -1,10 +1,12 @@
+import type { FC } from 'react';
+
 import { HeyLensSignup } from '@hey/abis';
 import { HEY_LENS_SIGNUP } from '@hey/data/constants';
 import { STAFFTOOLS } from '@hey/data/tracking';
 import { Button } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { formatUnits } from 'viem';
 import { useBalance, useWriteContract } from 'wagmi';

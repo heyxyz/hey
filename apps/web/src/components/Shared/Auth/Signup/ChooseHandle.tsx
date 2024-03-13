@@ -1,3 +1,5 @@
+import type { FC } from 'react';
+
 import {
   CheckIcon,
   CreditCardIcon,
@@ -21,7 +23,7 @@ import { Button, Form, Input, Spinner, useZodForm } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import Script from 'next/script';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import urlcat from 'urlcat';
 import { formatUnits, parseEther } from 'viem';
 import { useAccount, useBalance, useWriteContract } from 'wagmi';

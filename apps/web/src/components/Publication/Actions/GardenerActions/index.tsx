@@ -2,6 +2,7 @@ import type {
   MirrorablePublication,
   ReportPublicationRequest
 } from '@hey/lens';
+import type { FC, ReactNode } from 'react';
 
 import P2PRecommendation from '@components/Shared/Profile/P2PRecommendation';
 import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
@@ -13,7 +14,7 @@ import {
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC, type ReactNode, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 
@@ -66,11 +67,10 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
       disabled={loading || hasReported}
       icon={icon}
       onClick={() => {
-        Leafwatch.track(
-          GARDENER.REPORT,
-          { publication_id: publication.id, type },
-          { points: 20 }
-        );
+        Leafwatch.track(GARDENER.REPORT, {
+          publication_id: publication.id,
+          type
+        });
 
         toast.promise(
           Promise.all(

@@ -24,12 +24,12 @@ const getMetadata = async (url: string): Promise<OG> => {
   const { document } = parseHTML(html);
   const isLarge = getIsLarge(document) as boolean;
   const image = getImage(document) as string;
-  const proxiedUrl = getProxyUrl(image, isLarge);
+
   const metadata: OG = {
     description: getDescription(document),
     favicon: getFavicon(url),
     html: generateIframe(getEmbedUrl(document), url),
-    image: proxiedUrl,
+    image: getProxyUrl(image, isLarge),
     isLarge,
     lastIndexedAt: new Date().toISOString(),
     nft: getNft(document, url),

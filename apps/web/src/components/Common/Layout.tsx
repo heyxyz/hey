@@ -1,4 +1,5 @@
 import type { Profile } from '@hey/lens';
+import type { FC, ReactNode } from 'react';
 
 import GlobalAlerts from '@components/Shared/GlobalAlerts';
 import GlobalBanners from '@components/Shared/GlobalBanners';
@@ -9,7 +10,7 @@ import getCurrentSession from '@lib/getCurrentSession';
 import getToastOptions from '@lib/getToastOptions';
 import { useIsClient } from '@uidotdev/usehooks';
 import { useTheme } from 'next-themes';
-import { type FC, type ReactNode, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';

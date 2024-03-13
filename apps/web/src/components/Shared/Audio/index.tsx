@@ -52,11 +52,9 @@ const Audio: FC<AudioProps> = ({
     }
     if (playerRef.current?.plyr.paused && !playing) {
       setPlaying(true);
-      Leafwatch.track(
-        PUBLICATION.ATTACHMENT.AUDIO.PLAY,
-        { publication_id: publication?.id },
-        { points: 10 }
-      );
+      Leafwatch.track(PUBLICATION.ATTACHMENT.AUDIO.PLAY, {
+        publication_id: publication?.id
+      });
 
       return playerRef.current?.plyr.play();
     }
