@@ -1,14 +1,8 @@
 import type { PublicationStats as IPublicationStats } from '@hey/lens';
 import type { FC } from 'react';
 
-import Collectors from '@components/Shared/Modal/Collectors';
-import Likes from '@components/Shared/Modal/Likes';
-import { HeartIcon, RectangleStackIcon } from '@heroicons/react/24/outline';
-import { PUBLICATION } from '@hey/data/tracking';
 import getPublicationsViews from '@hey/lib/getPublicationsViews';
 import nFormatter from '@hey/lib/nFormatter';
-import { Modal } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import plur from 'plur';
 import { memo, useEffect, useState } from 'react';
@@ -23,8 +17,6 @@ const PublicationStats: FC<PublicationStatsProps> = ({
   publicationStats
 }) => {
   const [views, setViews] = useState<number>(0);
-  const [showLikesModal, setShowLikesModal] = useState(false);
-  const [showCollectorsModal, setShowCollectorsModal] = useState(false);
 
   useEffect(() => {
     // Get Views
@@ -78,58 +70,26 @@ const PublicationStats: FC<PublicationStatsProps> = ({
           </Link>
         ) : null}
         {reactions > 0 ? (
-          <>
-            <button
-              className="outline-offset-2"
-              onClick={() => {
-                setShowLikesModal(true);
-                Leafwatch.track(PUBLICATION.OPEN_LIKES, {
-                  publication_id: publicationId
-                });
-              }}
-              type="button"
-            >
-              <b className="text-black dark:text-white">
-                {nFormatter(reactions)}
-              </b>{' '}
-              {plur('Like', reactions)}
-            </button>
-            <Modal
-              icon={<HeartIcon className="size-5" />}
-              onClose={() => setShowLikesModal(false)}
-              show={showLikesModal}
-              title="Liked by"
-            >
-              <Likes publicationId={publicationId} />
-            </Modal>
-          </>
+          <Link
+            className="outline-offset-2"
+            href={`/posts/${publicationId}/likes`}
+          >
+            <b className="text-black dark:text-white">
+              {nFormatter(reactions)}
+            </b>{' '}
+            {plur('Like', reactions)}
+          </Link>
         ) : null}
         {countOpenActions > 0 ? (
-          <>
-            <button
-              className="outline-offset-2"
-              onClick={() => {
-                setShowCollectorsModal(true);
-                Leafwatch.track(PUBLICATION.OPEN_COLLECTORS, {
-                  publication_id: publicationId
-                });
-              }}
-              type="button"
-            >
-              <b className="text-black dark:text-white">
-                {nFormatter(countOpenActions)}
-              </b>{' '}
-              {plur('Collect', countOpenActions)}
-            </button>
-            <Modal
-              icon={<RectangleStackIcon className="size-5" />}
-              onClose={() => setShowCollectorsModal(false)}
-              show={showCollectorsModal}
-              title="Collected by"
-            >
-              <Collectors publicationId={publicationId} />
-            </Modal>
-          </>
+          <Link
+            className="outline-offset-2"
+            href={`/posts/${publicationId}/collectors`}
+          >
+            <b className="text-black dark:text-white">
+              {nFormatter(countOpenActions)}
+            </b>{' '}
+            {plur('Collect', countOpenActions)}
+          </Link>
         ) : null}
         {bookmarks > 0 ? (
           <span>

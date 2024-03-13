@@ -60,7 +60,6 @@ export const PUBLICATION = {
       TIP: 'Tip publication'
     }
   },
-  OPEN_COLLECTORS: 'Open collectors modal',
   OPEN_GIFS: 'Open GIFs modal',
   OPEN_LIKES: 'Open likes modal',
   OPEN_NFT: 'Open NFT',
