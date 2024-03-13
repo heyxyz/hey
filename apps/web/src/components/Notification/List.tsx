@@ -17,7 +17,7 @@ import {
   useNotificationsQuery
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { motion } from 'framer-motion';
+import cn from '@hey/ui/cn';
 import { useEffect } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { NotificationTabType } from 'src/enums';
@@ -122,11 +122,10 @@ const List: FC<ListProps> = ({ feedType }) => {
         endReached={onEndReached}
         itemContent={(_, notification) => {
           return (
-            <motion.div
-              animate={{ opacity: 1 }}
-              className="p-5"
-              exit={{ opacity: 0 }}
-              initial={{ opacity: 0 }}
+            <div
+              className={cn({
+                'p-5': notification.__typename !== 'FollowNotification'
+              })}
             >
               {notification.__typename === 'FollowNotification' ? (
                 <FollowNotification
@@ -163,7 +162,7 @@ const List: FC<ListProps> = ({ feedType }) => {
                   notification={notification as ActedNotificationType}
                 />
               ) : null}
-            </motion.div>
+            </div>
           );
         }}
         useWindowScroll

@@ -10,6 +10,7 @@ import getAvatar from '@hey/lib/getAvatar';
 import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Image } from '@hey/ui';
 import isVerified from '@lib/isVerified';
 import Link from 'next/link';
@@ -26,6 +27,7 @@ export const NotificationProfileAvatar: FC<NotificationProfileProps> = ({
       <Link
         className="rounded-full outline-offset-2"
         href={getProfile(profile).link}
+        onClick={stopEventPropagation}
       >
         <Image
           alt={profile.id}
@@ -50,6 +52,7 @@ export const NotificationProfileName: FC<NotificationProfileProps> = ({
       <Link
         className="inline-flex items-center space-x-1 font-bold outline-none hover:underline focus:underline"
         href={getProfile(profile).link}
+        onClick={stopEventPropagation}
       >
         <span>{getProfile(profile).displayName}</span>
         {isVerified(profile.id) ? (
