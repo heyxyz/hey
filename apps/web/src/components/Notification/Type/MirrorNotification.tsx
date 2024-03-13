@@ -1,4 +1,5 @@
 import type { MirrorNotification as TMirrorNotification } from '@hey/lens';
+import type { FC } from 'react';
 
 import Markup from '@components/Shared/Markup';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/solid';
@@ -6,7 +7,7 @@ import getPublicationData from '@hey/lib/getPublicationData';
 import pushToImpressions from '@lib/pushToImpressions';
 import Link from 'next/link';
 import plur from 'plur';
-import { type FC, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';

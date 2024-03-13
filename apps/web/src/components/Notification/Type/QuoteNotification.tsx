@@ -1,11 +1,12 @@
 import type { QuoteNotification as TQuoteNotification } from '@hey/lens';
+import type { FC } from 'react';
 
 import Markup from '@components/Shared/Markup';
 import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
 import getPublicationData from '@hey/lib/getPublicationData';
 import pushToImpressions from '@lib/pushToImpressions';
 import Link from 'next/link';
-import { type FC, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
