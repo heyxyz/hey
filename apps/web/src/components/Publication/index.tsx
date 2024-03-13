@@ -33,7 +33,9 @@ import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { create } from 'zustand';
 
+import Collectors from './Collectors';
 import FullPublication from './FullPublication';
+import Likes from './Likes';
 import Mirrors from './Mirrors';
 import OnchainMeta from './OnchainMeta';
 import Quotes from './Quotes';
@@ -67,6 +69,7 @@ const ViewPublication: NextPage = () => {
   const showQuotes = pathname === '/posts/[id]/quotes';
   const showMirrors = pathname === '/posts/[id]/mirrors';
   const showLikes = pathname === '/posts/[id]/likes';
+  const showCollectors = pathname === '/posts/[id]/collectors';
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, {
@@ -98,7 +101,7 @@ const ViewPublication: NextPage = () => {
   if (!isReady || loading) {
     return (
       <PublicationPageShimmer
-        profileList={showMirrors || showLikes}
+        profileList={showMirrors || showLikes || showCollectors}
         publicationList={showQuotes}
       />
     );
@@ -129,8 +132,12 @@ const ViewPublication: NextPage = () => {
       <GridItemEight className="space-y-5">
         {showQuotes ? (
           <Quotes publicationId={targetPublication.id} />
+        ) : showLikes ? (
+          <Likes publicationId={targetPublication.id} />
         ) : showMirrors ? (
           <Mirrors publicationId={targetPublication.id} />
+        ) : showCollectors ? (
+          <Collectors publicationId={targetPublication.id} />
         ) : (
           <>
             <Card>
