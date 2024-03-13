@@ -1,14 +1,15 @@
 import type { MutualFollowersRequest, Profile } from '@hey/lens';
 import type { FC } from 'react';
 
-import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
-import { UsersIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { LimitType, useMutualFollowersQuery } from '@hey/lens';
-import { EmptyState, ErrorMessage } from '@hey/ui';
-import { motion } from 'framer-motion';
+import { Card, EmptyState, ErrorMessage } from '@hey/ui';
+import Link from 'next/link';
 import { Virtuoso } from 'react-virtuoso';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
+
+import ProfileListShimmer from '../ProfileListShimmer';
 
 interface MutualFollowersListProps {
   handle: string;
@@ -48,7 +49,7 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({
   };
 
   if (loading) {
-    return <Loader message="Loading mutual followers" />;
+    return <ProfileListShimmer />;
   }
 
   if (mutualFollowers?.length === 0) {
@@ -66,25 +67,31 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({
     );
   }
 
-  return (
-    <div className="max-h-[80vh] overflow-y-auto">
+  if (error) {
+    return (
       <ErrorMessage
         className="m-5"
         error={error}
         title="Failed to load mutual followers"
       />
+    );
+  }
+
+  return (
+    <Card className="divide-y-[1px] dark:divide-gray-700">
+      <div className="flex items-center space-x-3 p-5">
+        <Link href={`/u/${handle}`}>
+          <ArrowLeftIcon className="size-5" />
+        </Link>
+        <b className="text-lg">Mutual Followers</b>
+      </div>
       <Virtuoso
-        className="virtual-profile-list"
+        className="virtual-profile-list-window"
         data={mutualFollowers}
         endReached={onEndReached}
         itemContent={(_, mutualFollower) => {
           return (
-            <motion.div
-              animate={{ opacity: 1 }}
-              className="p-5"
-              exit={{ opacity: 0 }}
-              initial={{ opacity: 0 }}
-            >
+            <div className="p-5">
               <UserProfile
                 profile={mutualFollower as Profile}
                 showBio
@@ -93,11 +100,12 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({
                 }
                 showUserPreview={false}
               />
-            </motion.div>
+            </div>
           );
         }}
+        useWindowScroll
       />
-    </div>
+    </Card>
   );
 };
 

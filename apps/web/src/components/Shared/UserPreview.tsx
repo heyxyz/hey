@@ -161,8 +161,8 @@ const UserPreview: FC<UserPreviewProps> = ({
         </div>
         <div className="!text-xs">
           <MutualFollowers
+            handle={getProfile(profile).slug}
             profileId={profile.id}
-            setShowMutualFollowersModal={() => {}}
             viaPopover
           />
         </div>
