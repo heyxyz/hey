@@ -30,6 +30,7 @@ import Feed from './Feed';
 import FeedType from './FeedType';
 import Followers from './Followers';
 import Following from './Following';
+import MutualFollowersList from './MutualFollowers/List';
 import ProfilePageShimmer from './Shimmer';
 
 const ViewProfile: NextPage = () => {
@@ -42,6 +43,7 @@ const ViewProfile: NextPage = () => {
 
   const showFollowing = pathname === '/u/[handle]/following';
   const showFollowers = pathname === '/u/[handle]/followers';
+  const showMutuals = pathname === '/u/[handle]/mutuals';
 
   useEffect(() => {
     if (isReady) {
@@ -99,7 +101,11 @@ const ViewProfile: NextPage = () => {
   });
 
   if (!isReady || loading) {
-    return <ProfilePageShimmer usersList={showFollowing || showFollowers} />;
+    return (
+      <ProfilePageShimmer
+        usersList={showFollowing || showFollowers || showMutuals}
+      />
+    );
   }
 
   if (!data?.profile) {
@@ -140,6 +146,11 @@ const ViewProfile: NextPage = () => {
             />
           ) : showFollowers ? (
             <Followers
+              handle={getProfile(profile).slug}
+              profileId={profile.id}
+            />
+          ) : showMutuals ? (
+            <MutualFollowersList
               handle={getProfile(profile).slug}
               profileId={profile.id}
             />

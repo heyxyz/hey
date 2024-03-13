@@ -1,5 +1,5 @@
 import type { Profile } from '@hey/lens';
-import type { Dispatch, FC, ReactNode, SetStateAction } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import { LimitType, useMutualFollowersQuery } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
@@ -7,17 +7,18 @@ import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import Link from 'next/link';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface MutualFollowersProps {
+  handle: string;
   profileId: string;
-  setShowMutualFollowersModal?: Dispatch<SetStateAction<boolean>>;
   viaPopover?: boolean;
 }
 
 const MutualFollowers: FC<MutualFollowersProps> = ({
+  handle,
   profileId,
-  setShowMutualFollowersModal,
   viaPopover = false
 }) => {
   const { currentProfile } = useProfileStore();
@@ -37,12 +38,12 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
     (data?.mutualFollowers?.items.slice(0, 4) as Profile[]) || [];
 
   const Wrapper = ({ children }: { children: ReactNode }) => (
-    <div
+    <Link
       className={cn(
         viaPopover ? 'text-xs' : 'text-sm',
         'ld-text-gray-500 flex cursor-pointer items-center space-x-2.5'
       )}
-      onClick={() => setShowMutualFollowersModal?.(true)}
+      href={`/u/${handle}/mutuals`}
     >
       <div className="contents -space-x-2">
         {profiles.slice(0, 3)?.map((profile) => (
@@ -61,7 +62,7 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
         <span>Followed by </span>
         {children}
       </div>
-    </div>
+    </Link>
   );
 
   if (profiles.length === 0 || loading || error) {
