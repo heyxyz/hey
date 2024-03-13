@@ -1,16 +1,15 @@
 import type { FC } from 'react';
 
+import ProfileListShimmer from '@components/Shared/Shimmer/ProfileListShimmer';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 
-import ProfileListShimmer from './ProfileListShimmer';
-
 interface ProfilePageShimmerProps {
-  usersList?: boolean;
+  profileList?: boolean;
 }
 
 const ProfilePageShimmer: FC<ProfilePageShimmerProps> = ({
-  usersList = false
+  profileList = false
 }) => {
   return (
     <>
@@ -55,7 +54,7 @@ const ProfilePageShimmer: FC<ProfilePageShimmerProps> = ({
           </div>
         </GridItemFour>
         <GridItemEight>
-          {usersList ? (
+          {profileList ? (
             <ProfileListShimmer />
           ) : (
             <>

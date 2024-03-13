@@ -103,7 +103,7 @@ const ViewProfile: NextPage = () => {
   if (!isReady || loading) {
     return (
       <ProfilePageShimmer
-        usersList={showFollowing || showFollowers || showMutuals}
+        profileList={showFollowing || showFollowers || showMutuals}
       />
     );
   }
