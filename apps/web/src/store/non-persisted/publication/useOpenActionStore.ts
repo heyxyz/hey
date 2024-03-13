@@ -9,7 +9,7 @@ export enum ScreenType {
   List = 'LIST'
 }
 
-interface OpenActionState {
+interface State {
   openAction: null | UnknownOpenActionModuleInput;
   reset: () => void;
   screen: ScreenType;
@@ -21,7 +21,7 @@ interface OpenActionState {
   showModal: boolean;
 }
 
-const store = create<OpenActionState>((set) => ({
+const store = create<State>((set) => ({
   openAction: null,
   reset: () =>
     set({

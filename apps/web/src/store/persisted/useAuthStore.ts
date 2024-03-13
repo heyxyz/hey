@@ -8,7 +8,7 @@ interface Tokens {
   refreshToken: null | string;
 }
 
-interface AuthState {
+interface State {
   accessToken: Tokens['accessToken'];
   hydrateAuthTokens: () => Tokens;
   refreshToken: Tokens['refreshToken'];
@@ -17,7 +17,7 @@ interface AuthState {
 }
 
 const store = create(
-  persist<AuthState>(
+  persist<State>(
     (set, get) => ({
       accessToken: null,
       hydrateAuthTokens: () => {

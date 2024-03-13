@@ -5,14 +5,14 @@ import { persist } from 'zustand/middleware';
 
 import createIdbStorage from '../lib/createIdbStorage';
 
-interface VerifiedMembersState {
+interface State {
   hydrateVerifiedMembers: () => { verifiedMembers: string[] };
   setVerifiedMembers: (verifiedMembers: string[]) => void;
   verifiedMembers: string[];
 }
 
 const store = create(
-  persist<VerifiedMembersState>(
+  persist<State>(
     (set, get) => ({
       hydrateVerifiedMembers: () => {
         return {
