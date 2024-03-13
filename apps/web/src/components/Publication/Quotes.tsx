@@ -2,8 +2,7 @@ import type { PublicationsRequest, Quote } from '@hey/lens';
 import type { FC } from 'react';
 
 import SinglePublication from '@components/Publication/SinglePublication';
-import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import Slug from '@components/Shared/Slug';
+import ProfileListShimmer from '@components/Shared/Shimmer/ProfileListShimmer';
 import {
   ArrowLeftIcon,
   ChatBubbleBottomCenterTextIcon
@@ -14,12 +13,11 @@ import Link from 'next/link';
 import { useInView } from 'react-cool-inview';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
 
-interface FeedProps {
-  publicationBy: string;
+interface QuotesProps {
   publicationId: string;
 }
 
-const Feed: FC<FeedProps> = ({ publicationBy, publicationId }) => {
+const Quotes: FC<QuotesProps> = ({ publicationId }) => {
   const { fetchAndStoreViews } = useImpressionsStore();
 
   // Variables
@@ -59,7 +57,7 @@ const Feed: FC<FeedProps> = ({ publicationBy, publicationId }) => {
   });
 
   if (loading) {
-    return <PublicationsShimmer />;
+    return <ProfileListShimmer />;
   }
 
   if (error) {
@@ -81,15 +79,7 @@ const Feed: FC<FeedProps> = ({ publicationBy, publicationId }) => {
         <Link href={`/posts/${publicationId}`}>
           <ArrowLeftIcon className="size-5" />
         </Link>
-        <b className="text-lg">
-          Quotes for{' '}
-          <Link
-            className="outline-none hover:underline focus:underline"
-            href={`/posts/${publicationId}`}
-          >
-            <Slug slug={publicationBy} />
-          </Link>
-        </b>
+        <b className="text-lg">Quotes</b>
       </div>
       {quotes?.map((quote, index) => (
         <SinglePublication
@@ -105,4 +95,4 @@ const Feed: FC<FeedProps> = ({ publicationBy, publicationId }) => {
   );
 };
 
-export default Feed;
+export default Quotes;
