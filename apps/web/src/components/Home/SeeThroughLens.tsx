@@ -23,7 +23,6 @@ import getProfile from '@hey/lib/getProfile';
 import { Image, Input, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { motion } from 'framer-motion';
 import { Fragment, useState } from 'react';
 import { useTimelineStore } from 'src/store/non-persisted/useTimelineStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -160,16 +159,13 @@ const SeeThroughLens: FC = () => {
                   <>
                     {profiles.map((profile: Profile) => (
                       <Menu.Item
-                        animate={{ opacity: 1 }}
-                        as={motion.div}
+                        as="div"
                         className={({ active }) =>
                           cn(
                             { 'dropdown-active': active },
                             'cursor-pointer overflow-hidden rounded-lg p-1'
                           )
                         }
-                        exit={{ opacity: 0 }}
-                        initial={{ opacity: 0 }}
                         key={profile.id}
                         onClick={() => {
                           setSeeThroughProfile(profile);

@@ -17,7 +17,6 @@ import truncateByWords from '@hey/lib/truncateByWords';
 import { Card, Image } from '@hey/ui';
 import isVerified from '@lib/isVerified';
 import * as HoverCard from '@radix-ui/react-hover-card';
-import { motion } from 'framer-motion';
 import plur from 'plur';
 import { useState } from 'react';
 
@@ -183,15 +182,9 @@ const UserPreview: FC<UserPreviewProps> = ({
             side="bottom"
             sideOffset={5}
           >
-            <motion.div
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              initial={{ opacity: 0 }}
-            >
-              <Card forceRounded>
-                <Preview />
-              </Card>
-            </motion.div>
+            <Card forceRounded>
+              <Preview />
+            </Card>
           </HoverCard.Content>
         </HoverCard.Portal>
       </HoverCard.Root>

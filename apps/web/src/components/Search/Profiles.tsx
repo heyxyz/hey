@@ -11,7 +11,6 @@ import {
   useSearchProfilesQuery
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { motion } from 'framer-motion';
 import { Virtuoso } from 'react-virtuoso';
 
 interface ProfilesProps {
@@ -74,20 +73,14 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
       endReached={onEndReached}
       itemContent={(_, profile) => {
         return (
-          <motion.div
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            initial={{ opacity: 0 }}
-          >
-            <Card className="p-5" key={profile?.id}>
-              <UserProfile
-                isBig
-                profile={profile as Profile}
-                showBio
-                source={ProfileLinkSource.Search}
-              />
-            </Card>
-          </motion.div>
+          <Card className="p-5" key={profile?.id}>
+            <UserProfile
+              isBig
+              profile={profile as Profile}
+              showBio
+              source={ProfileLinkSource.Search}
+            />
+          </Card>
         );
       }}
       useWindowScroll
