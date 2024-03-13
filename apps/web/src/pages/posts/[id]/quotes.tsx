@@ -1,3 +1,3 @@
-import Quotes from '@components/Publication/Quotes';
+import ViewPublication from '@components/Publication';
 
-export default Quotes;
+export default ViewPublication;
