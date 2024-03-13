@@ -14,7 +14,6 @@ import {
 import getProfile from '@hey/lib/getProfile';
 import { Button, Card, EmptyState, ErrorMessage, Modal, Select } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -114,12 +113,7 @@ const List: FC = () => {
             endReached={onEndReached}
             itemContent={(_, profile) => {
               return (
-                <motion.div
-                  animate={{ opacity: 1 }}
-                  className="flex flex-wrap items-center justify-between gap-y-5 pb-7"
-                  exit={{ opacity: 0 }}
-                  initial={{ opacity: 0 }}
-                >
+                <div className="flex flex-wrap items-center justify-between gap-y-5 pb-7">
                   <Link
                     href={
                       pathname === '/mod'
@@ -151,7 +145,7 @@ const List: FC = () => {
                     </Button>
                     <P2PRecommendation profile={profile as Profile} />
                   </div>
-                </motion.div>
+                </div>
               );
             }}
             useWindowScroll
