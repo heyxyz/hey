@@ -1,4 +1,6 @@
-import { type FC, useEffect } from 'react';
+import type { FC } from 'react';
+
+import { useEffect } from 'react';
 import { useLeafwatchStore } from 'src/store/persisted/useLeafwatchStore';
 import { v4 as uuid } from 'uuid';
 

@@ -1,3 +1,4 @@
+import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import { CheckCircleIcon, XMarkIcon } from '@heroicons/react/24/solid';
@@ -7,7 +8,7 @@ import { STAFFTOOLS } from '@hey/data/tracking';
 import { Button } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { formatUnits, parseEther } from 'viem';
 import { useBalance, useReadContract, useSendTransaction } from 'wagmi';

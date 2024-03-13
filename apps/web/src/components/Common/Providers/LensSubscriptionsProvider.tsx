@@ -1,4 +1,5 @@
 import type { Notification } from '@hey/lens';
+import type { FC } from 'react';
 
 import {
   useNewNotificationSubscriptionSubscription,
@@ -8,7 +9,7 @@ import {
 import { BrowserPush } from '@lib/browserPush';
 import getCurrentSession from '@lib/getCurrentSession';
 import getPushNotificationData from '@lib/getPushNotificationData';
-import { type FC, useEffect } from 'react';
+import { useEffect } from 'react';
 import { isSupported, share } from 'shared-zustand';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useNotificationStore } from 'src/store/persisted/useNotificationStore';

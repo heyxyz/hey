@@ -1,4 +1,5 @@
 import type { AnyPublication } from '@hey/lens';
+import type { FC } from 'react';
 
 import { QueueListIcon } from '@heroicons/react/24/outline';
 import formatDate from '@hey/lib/datetime/formatDate';
@@ -8,7 +9,7 @@ import { Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import pushToImpressions from '@lib/pushToImpressions';
 import { motion } from 'framer-motion';
-import { type FC, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { useHiddenCommentFeedStore } from '.';
 import PublicationActions from './Actions';

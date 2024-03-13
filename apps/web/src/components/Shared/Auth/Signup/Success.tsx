@@ -1,3 +1,5 @@
+import type { FC } from 'react';
+
 import { Errors } from '@hey/data';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { AUTH } from '@hey/data/tracking';
@@ -5,7 +7,7 @@ import { useAuthenticateMutation, useChallengeLazyQuery } from '@hey/lens';
 import { Button, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { signIn } from 'src/store/persisted/useAuthStore';
 import { useAccount, useSignMessage } from 'wagmi';
