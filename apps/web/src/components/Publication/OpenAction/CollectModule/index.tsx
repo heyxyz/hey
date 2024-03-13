@@ -32,7 +32,7 @@ import getRedstonePrice from '@hey/lib/getRedstonePrice';
 import getTokenImage from '@hey/lib/getTokenImage';
 import humanize from '@hey/lib/humanize';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
-import { Modal, Tooltip, WarningMessage } from '@hey/ui';
+import { HelpTooltip, Modal, Tooltip, WarningMessage } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import plur from 'plur';
@@ -165,6 +165,17 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
                 </>
               ) : null}
             </span>
+            <div className="mt-2">
+              <HelpTooltip>
+                <b>Collect Fees</b>
+                <div className="flex items-start space-x-10">
+                  <div>Lens Protocol</div>
+                  <b>
+                    {(amount * 0.05).toFixed(2)} {currency} (5%)
+                  </b>
+                </div>
+              </HelpTooltip>
+            </div>
           </div>
         ) : null}
         <div className="space-y-1.5">
