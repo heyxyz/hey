@@ -12,23 +12,16 @@ import { Card, Input, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { useClickAway, useDebounce } from '@uidotdev/usehooks';
-import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 import UserProfile from '../UserProfile';
 
 interface SearchProps {
-  hideDropdown?: boolean;
-  onProfileSelected?: (profile: Profile) => void;
   placeholder?: string;
 }
 
-const Search: FC<SearchProps> = ({
-  hideDropdown = false,
-  onProfileSelected,
-  placeholder = 'Search…'
-}) => {
+const Search: FC<SearchProps> = ({ placeholder = 'Search…' }) => {
   const { pathname, push, query } = useRouter();
   const [searchText, setSearchText] = useState('');
   const dropdownRef = useClickAway(() => {
@@ -56,7 +49,7 @@ const Search: FC<SearchProps> = ({
   };
 
   useEffect(() => {
-    if (pathname !== '/search' && !hideDropdown && debouncedSearchText) {
+    if (pathname !== '/search' && debouncedSearchText) {
       // Variables
       const request: ProfileSearchRequest = {
         limit: LimitType.Ten,
@@ -93,9 +86,7 @@ const Search: FC<SearchProps> = ({
           value={searchText}
         />
       </form>
-      {pathname !== '/search' &&
-      !hideDropdown &&
-      debouncedSearchText.length > 0 ? (
+      {pathname !== '/search' && debouncedSearchText.length > 0 ? (
         <div
           className="absolute mt-2 flex w-[94%] max-w-md flex-col"
           ref={dropdownRef}
@@ -109,26 +100,18 @@ const Search: FC<SearchProps> = ({
             ) : (
               <>
                 {profiles.map((profile) => (
-                  <motion.div
-                    animate={{ opacity: 1 }}
+                  <div
                     className="cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-                    exit={{ opacity: 0 }}
-                    initial={{ opacity: 0 }}
                     key={profile.id}
-                    onClick={() => {
-                      if (onProfileSelected) {
-                        onProfileSelected(profile);
-                      }
-                      setSearchText('');
-                    }}
+                    onClick={() => setSearchText('')}
                   >
                     <UserProfile
-                      linkToProfile={!onProfileSelected}
+                      linkToProfile
                       profile={profile}
                       showUserPreview={false}
                       source={ProfileLinkSource.Search}
                     />
-                  </motion.div>
+                  </div>
                 ))}
                 {profiles.length === 0 ? (
                   <div className="px-4 py-2">No matching users</div>
