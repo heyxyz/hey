@@ -1,7 +1,7 @@
 import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 
-interface PreferencesState {
+interface State {
   hasDismissedOrMintedMembershipNft: boolean;
   highSignalNotificationFilter: boolean;
   isPride: boolean;
@@ -15,7 +15,7 @@ interface PreferencesState {
   setIsPride: (isPride: boolean) => void;
 }
 
-const store = create<PreferencesState>((set) => ({
+const store = create<State>((set) => ({
   hasDismissedOrMintedMembershipNft: true,
   highSignalNotificationFilter: false,
   isPride: false,

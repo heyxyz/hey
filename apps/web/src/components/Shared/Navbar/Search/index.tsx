@@ -14,8 +14,9 @@ import { Leafwatch } from '@lib/leafwatch';
 import { useClickAway, useDebounce } from '@uidotdev/usehooks';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { useSearchStore } from 'src/store/persisted/useSearchStore';
 
-import UserProfile from '../UserProfile';
+import UserProfile from '../../UserProfile';
 
 interface SearchProps {
   placeholder?: string;
@@ -23,9 +24,12 @@ interface SearchProps {
 
 const Search: FC<SearchProps> = ({ placeholder = 'Search…' }) => {
   const { pathname, push, query } = useRouter();
+  const { addProfile: addToRecentProfiles, profiles: recentSearchProfiles } =
+    useSearchStore();
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [profiles, setProfiles] = useState<Profile[]>([]);
+  const debouncedSearchText = useDebounce<string>(searchText, 500);
 
   const reset = () => {
     setShowDropdown(false);
@@ -36,7 +40,6 @@ const Search: FC<SearchProps> = ({ placeholder = 'Search…' }) => {
   const dropdownRef = useClickAway(() => {
     reset();
   }) as MutableRefObject<HTMLDivElement>;
-  const debouncedSearchText = useDebounce<string>(searchText, 500);
 
   const [searchUsers, { loading: searchUsersLoading }] =
     useSearchProfilesLazyQuery();
