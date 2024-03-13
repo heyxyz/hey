@@ -34,6 +34,7 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { create } from 'zustand';
 
 import FullPublication from './FullPublication';
+import Mirrors from './Mirrors';
 import OnchainMeta from './OnchainMeta';
 import Quotes from './Quotes';
 import RelevantPeople from './RelevantPeople';
@@ -64,6 +65,8 @@ const ViewPublication: NextPage = () => {
   const { showNewPostModal } = useGlobalModalStateStore();
 
   const showQuotes = pathname === '/posts/[id]/quotes';
+  const showMirrors = pathname === '/posts/[id]/mirrors';
+  const showLikes = pathname === '/posts/[id]/likes';
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, {
@@ -93,7 +96,12 @@ const ViewPublication: NextPage = () => {
   const hasHiddenComments = (comments?.publications.items.length || 0) > 0;
 
   if (!isReady || loading) {
-    return <PublicationPageShimmer publicationList={showQuotes} />;
+    return (
+      <PublicationPageShimmer
+        profileList={showMirrors || showLikes}
+        publicationList={showQuotes}
+      />
+    );
   }
 
   if (!data?.publication) {
@@ -121,6 +129,8 @@ const ViewPublication: NextPage = () => {
       <GridItemEight className="space-y-5">
         {showQuotes ? (
           <Quotes publicationId={targetPublication.id} />
+        ) : showMirrors ? (
+          <Mirrors publicationId={targetPublication.id} />
         ) : (
           <>
             <Card>

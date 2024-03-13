@@ -1,15 +1,17 @@
 import type { Profile, ProfilesRequest } from '@hey/lens';
 import type { FC } from 'react';
 
+import ProfileListShimmer from '@components/Shared/Shimmer/ProfileListShimmer';
 import UserProfile from '@components/Shared/UserProfile';
-import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
+import {
+  ArrowLeftIcon,
+  ArrowsRightLeftIcon
+} from '@heroicons/react/24/outline';
 import { ProfileLinkSource } from '@hey/data/tracking';
 import { LimitType, useProfilesQuery } from '@hey/lens';
-import { EmptyState, ErrorMessage } from '@hey/ui';
-import { motion } from 'framer-motion';
+import { Card, EmptyState, ErrorMessage } from '@hey/ui';
+import Link from 'next/link';
 import { Virtuoso } from 'react-virtuoso';
-
-import Loader from '../Loader';
 
 interface MirrorsProps {
   publicationId: string;
@@ -42,7 +44,7 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
   };
 
   if (loading) {
-    return <Loader message="Loading mirrors" />;
+    return <ProfileListShimmer />;
   }
 
   if (profiles?.length === 0) {
@@ -57,25 +59,31 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
     );
   }
 
-  return (
-    <div className="max-h-[80vh] overflow-y-auto">
+  if (error) {
+    return (
       <ErrorMessage
         className="m-5"
         error={error}
         title="Failed to load mirrors"
       />
+    );
+  }
+
+  return (
+    <Card className="divide-y-[1px] dark:divide-gray-700">
+      <div className="flex items-center space-x-3 p-5">
+        <Link href={`/posts/${publicationId}`}>
+          <ArrowLeftIcon className="size-5" />
+        </Link>
+        <b className="text-lg">Mirrored by</b>
+      </div>
       <Virtuoso
-        className="virtual-profile-list"
+        className="virtual-profile-list-window"
         data={profiles}
         endReached={onEndReached}
         itemContent={(_, profile) => {
           return (
-            <motion.div
-              animate={{ opacity: 1 }}
-              className="p-5"
-              exit={{ opacity: 0 }}
-              initial={{ opacity: 0 }}
-            >
+            <div className="p-5">
               <UserProfile
                 profile={profile as Profile}
                 showBio
@@ -83,11 +91,12 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
                 showUserPreview={false}
                 source={ProfileLinkSource.Mirrors}
               />
-            </motion.div>
+            </div>
           );
         }}
+        useWindowScroll
       />
-    </div>
+    </Card>
   );
 };
 
