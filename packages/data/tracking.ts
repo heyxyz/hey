@@ -17,8 +17,6 @@ export const PROFILE = {
   COPY_PROFILE_LINK: 'Copy profile link',
   DISMISS_RECOMMENDED_PROFILE: 'Dismiss recommended profile',
   FOLLOW: 'Follow profile',
-  OPEN_FOLLOWERS: 'Open followers modal',
-  OPEN_FOLLOWING: 'Open following modal',
   OPEN_RECOMMENDED_PROFILES: 'Open recommended profiles modal',
   OPEN_SUPER_FOLLOW: 'Open super follow modal',
   REPORT: 'Report profile',
