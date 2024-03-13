@@ -8,6 +8,7 @@ import type {
   QuoteNotification as QuoteNotificationType,
   ReactionNotification as ReactionNotificationType
 } from '@hey/lens';
+import type { FC } from 'react';
 
 import { BellIcon } from '@heroicons/react/24/outline';
 import {
@@ -17,7 +18,7 @@ import {
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
-import { type FC, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { NotificationTabType } from 'src/enums';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';

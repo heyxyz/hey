@@ -1,9 +1,11 @@
+import type { FC } from 'react';
+
 import { HeyLensSignup } from '@hey/abis';
 import { HEY_LENS_SIGNUP, ZERO_ADDRESS } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
 import { Button, Card, Form, Input, useZodForm } from '@hey/ui';
 import errorToast from '@lib/errorToast';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useWriteContract } from 'wagmi';
 import { object, string } from 'zod';
