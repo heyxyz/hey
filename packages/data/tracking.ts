@@ -192,6 +192,12 @@ export const CREATORTOOLS = {
   ASSIGN_FEATURE_FLAG: 'Creator Tool: Assign feature flag'
 };
 
+export const SEARCH = {
+  CLEAR_ALL_RECENT_SEARCH: 'Clear all recent search',
+  CLEAR_RECENT_SEARCH: 'Clear recent search',
+  SEARCH: 'Search'
+};
+
 export const SYSTEM = {
   SWITCH_NETWORK: 'Switch network',
   SWITCH_THEME: 'Switch theme'
@@ -207,8 +213,7 @@ export const MISCELLANEOUS = {
     OPEN_SUPPORT: 'Open support',
     OPEN_VERCEL: 'Open Vercel'
   },
-  OPEN_GITCOIN: 'Open Gitcoin',
-  SEARCH: 'Search'
+  OPEN_GITCOIN: 'Open Gitcoin'
 };
 
 export const ONBOARDING = {
@@ -231,6 +236,7 @@ export const ALL_EVENTS = {
   ...GARDENER,
   ...STAFFTOOLS,
   ...CREATORTOOLS,
+  ...SEARCH,
   ...SYSTEM,
   ...MISCELLANEOUS,
   ...ONBOARDING
@@ -244,6 +250,7 @@ export enum ProfileLinkSource {
   Mirrors = 'mirrors',
   Publication = 'publication',
   Quotes = 'quotes',
+  RecentSearch = 'recent-search',
   RelevantPeople = 'relevant-people',
   Search = 'search',
   StaffPicks = 'staff-picks',
