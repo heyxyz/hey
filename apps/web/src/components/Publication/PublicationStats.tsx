@@ -3,12 +3,7 @@ import type { FC } from 'react';
 
 import Collectors from '@components/Shared/Modal/Collectors';
 import Likes from '@components/Shared/Modal/Likes';
-import Mirrors from '@components/Shared/Modal/Mirrors';
-import {
-  ArrowsRightLeftIcon,
-  HeartIcon,
-  RectangleStackIcon
-} from '@heroicons/react/24/outline';
+import { HeartIcon, RectangleStackIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
 import getPublicationsViews from '@hey/lib/getPublicationsViews';
 import nFormatter from '@hey/lib/nFormatter';
@@ -28,7 +23,6 @@ const PublicationStats: FC<PublicationStatsProps> = ({
   publicationStats
 }) => {
   const [views, setViews] = useState<number>(0);
-  const [showMirrorsModal, setShowMirrorsModal] = useState(false);
   const [showLikesModal, setShowLikesModal] = useState(false);
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
 
@@ -66,31 +60,13 @@ const PublicationStats: FC<PublicationStatsProps> = ({
           </span>
         ) : null}
         {mirrors > 0 ? (
-          <>
-            <button
-              className="outline-offset-2"
-              onClick={() => {
-                setShowMirrorsModal(true);
-                Leafwatch.track(PUBLICATION.OPEN_MIRRORS, {
-                  publication_id: publicationId
-                });
-              }}
-              type="button"
-            >
-              <b className="text-black dark:text-white">
-                {nFormatter(mirrors)}
-              </b>{' '}
-              {plur('Mirror', mirrors)}
-            </button>
-            <Modal
-              icon={<ArrowsRightLeftIcon className="size-5" />}
-              onClose={() => setShowMirrorsModal(false)}
-              show={showMirrorsModal}
-              title="Mirrored by"
-            >
-              <Mirrors publicationId={publicationId} />
-            </Modal>
-          </>
+          <Link
+            className="outline-offset-2"
+            href={`/posts/${publicationId}/mirrors`}
+          >
+            <b className="text-black dark:text-white">{nFormatter(mirrors)}</b>{' '}
+            {plur('Mirror', mirrors)}
+          </Link>
         ) : null}
         {quotes > 0 ? (
           <Link
