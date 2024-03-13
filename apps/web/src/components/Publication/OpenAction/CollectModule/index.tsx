@@ -8,9 +8,9 @@ import type {
 } from '@hey/lens';
 import type { FC } from 'react';
 
+import Collectors from '@components/Publication/Collectors';
 import CollectWarning from '@components/Shared/CollectWarning';
 import CountdownTimer from '@components/Shared/CountdownTimer';
-import Collectors from '@components/Shared/Modal/Collectors';
 import Slug from '@components/Shared/Slug';
 import {
   BanknotesIcon,
