@@ -1,9 +1,7 @@
-import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import NotificationIcon from '@components/Notification/NotificationIcon';
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import getProfile from '@hey/lib/getProfile';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -19,15 +17,10 @@ import Search from './Search';
 import StaffBar from './StaffBar';
 
 const Navbar: FC = () => {
-  const router = useRouter();
   const { currentProfile } = useProfileStore();
   const { staffMode } = useFeatureFlagsStore();
   const { isPride } = usePreferencesStore();
   const [showSearch, setShowSearch] = useState(false);
-
-  const onProfileSelected = (profile: Profile) => {
-    router.push(getProfile(profile).link);
-  };
 
   interface NavItemProps {
     current: boolean;
