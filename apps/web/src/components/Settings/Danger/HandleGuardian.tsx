@@ -35,9 +35,7 @@ const HandleGuardianSettings: FC = () => {
 
   const { data, writeContractAsync } = useWriteContract({
     mutation: {
-      onError: (error: Error) => {
-        onError(error);
-      },
+      onError: (error: Error) => onError(error),
       onSuccess: () => Leafwatch.track(SETTINGS.DANGER.UNPROTECT_HANDLE)
     }
   });
