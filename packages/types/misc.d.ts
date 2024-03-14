@@ -1,4 +1,5 @@
-import type { Maybe, PublicationMetadataLicenseType } from '@hey/lens';
+import type { Maybe } from '@hey/lens';
+import type { MetadataLicenseType } from '@lens-protocol/metadata';
 
 import type { OptmisticPublicationType } from './enums';
 
@@ -103,7 +104,7 @@ export interface MarkupLinkProps {
 export interface MetadataAsset {
   artist?: string;
   cover?: string;
-  license?: Maybe<PublicationMetadataLicenseType>;
+  license?: Maybe<MetadataLicenseType>;
   title?: string;
   type: 'Audio' | 'Image' | 'Video';
   uri: string;
