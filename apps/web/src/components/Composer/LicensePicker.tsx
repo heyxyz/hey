@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
-import { PublicationMetadataLicenseType } from '@hey/lens';
 import { Select, Tooltip } from '@hey/ui';
+import { MetadataLicenseType } from '@lens-protocol/metadata';
 import getAssetLicense from '@lib/getAssetLicense';
 import Link from 'next/link';
 import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
@@ -9,7 +9,7 @@ import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/
 const LicensePicker: FC = () => {
   const { license, setLicense } = usePublicationLicenseStore();
 
-  const otherOptions = Object.values(PublicationMetadataLicenseType)
+  const otherOptions = Object.values(MetadataLicenseType)
     .filter((type) => getAssetLicense(type))
     .map((type) => ({
       label: getAssetLicense(type)?.label as string,
@@ -46,9 +46,7 @@ const LicensePicker: FC = () => {
         </Tooltip>
       </div>
       <Select
-        onChange={(value) =>
-          setLicense(value as PublicationMetadataLicenseType)
-        }
+        onChange={(value) => setLicense(value as MetadataLicenseType)}
         options={options}
       />
       <div className="ld-text-gray-500 linkify mt-2 text-sm">
