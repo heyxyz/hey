@@ -13,7 +13,8 @@ import { useAccount } from 'wagmi';
 
 import SettingsSidebar from '../Sidebar';
 import DeleteSettings from './Delete';
-import GuardianSettings from './Guardian';
+import HandleGuardianSettings from './HandleGuardian';
+import ProfileGuardianSettings from './ProfileGuardian';
 
 const DangerSettings: NextPage = () => {
   const { currentProfile } = useProfileStore();
@@ -39,7 +40,8 @@ const DangerSettings: NextPage = () => {
           <WrongWallet />
         ) : (
           <>
-            <GuardianSettings />
+            <ProfileGuardianSettings />
+            <HandleGuardianSettings />
             <DeleteSettings />
           </>
         )}

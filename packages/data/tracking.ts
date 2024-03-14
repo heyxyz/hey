@@ -107,6 +107,7 @@ export const SETTINGS = {
   DANGER: {
     DELETE_PROFILE: 'Delete profile',
     PROTECT_PROFILE: 'Protect profile',
+    UNPROTECT_HANDLE: 'Unprotect handle',
     UNPROTECT_PROFILE: 'Unprotect profile'
   },
   EXPORT: {
