@@ -1,6 +1,13 @@
 query CurrentProfile($request: ProfileRequest!) {
   profile(request: $request) {
     ...ProfileFields
+    handle {
+      ...HandleInfoFields
+      guardian {
+        cooldownEndsOn
+        protected
+      }
+    }
     guardian {
       protected
       cooldownEndsOn
