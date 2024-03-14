@@ -12,7 +12,8 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@hey/lens": "workspace:*"
+    "@hey/lens": "workspace:*",
+    "@lens-protocol/metadata": "^1.1.6"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",

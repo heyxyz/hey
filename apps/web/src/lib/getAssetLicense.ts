@@ -1,9 +1,9 @@
 import type { Maybe } from '@hey/lens';
 
-import { PublicationMetadataLicenseType } from '@hey/lens';
+import { MetadataLicenseType } from '@lens-protocol/metadata';
 
 const getAssetLicense = (
-  licenseId: Maybe<PublicationMetadataLicenseType> | undefined
+  licenseId: Maybe<MetadataLicenseType> | undefined
 ): {
   helper: string;
   label: string;
@@ -14,21 +14,21 @@ const getAssetLicense = (
   }
 
   switch (licenseId) {
-    case PublicationMetadataLicenseType.Cco:
+    case MetadataLicenseType.CCO:
       return {
         helper:
           'Anyone can use, modify and distribute the work without any restrictions or need for attribution. CC0',
         label: 'CC0 - no restrictions',
         link: 'https://creativecommons.org/public-domain/cc0'
       };
-    case PublicationMetadataLicenseType.TbnlCDNplLegal:
+    case MetadataLicenseType.TBNL_C_D_NPL_Legal:
       return {
         helper:
           'You allow the collector to use the content for any purpose, except creating or sharing any derivative works, such as remixes.',
         label: 'Commercial rights for collector',
         link: 'https://eips.ethereum.org/assets/eip-5218/ic3license/ic3license.pdf'
       };
-    case PublicationMetadataLicenseType.TbnlNcDNplLegal:
+    case MetadataLicenseType.TBNL_NC_D_NPL_Legal:
       return {
         helper:
           'You allow the collector to use the content for any personal, non-commercial purpose, except creating or sharing any derivative works, such as remixes.',
