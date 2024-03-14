@@ -4,7 +4,6 @@ export const Localstorage = {
   LeafwatchStore: 'leafwatch.store',
   ModeStore: 'mode.store',
   NotificationStore: 'notification.store',
-  SearchStore: 'search.store',
   TimelineStore: 'timeline.store',
   TransactionStore: 'transaction.store'
 };
@@ -13,6 +12,7 @@ export const IndexDB = {
   AlgorithmStore: 'algorithm.store',
   FeatureFlagsStore: 'featureflags.store',
   ProfileStore: 'profile.store',
+  SearchStore: 'search.store',
   TBAStore: 'tba.store',
   VerifiedMembersStore: 'verifiedmembers.store'
 };
