@@ -7,11 +7,7 @@ import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
-import {
-  CustomFiltersType,
-  LimitType,
-  useSearchProfilesLazyQuery
-} from '@hey/lens';
+import { LimitType, useSearchProfilesLazyQuery } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
@@ -28,49 +24,34 @@ import * as ReactDOM from 'react-dom';
 
 import { $createMentionNode } from '../Nodes/MentionsNode';
 
-const PUNCTUATION =
-  '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
-const NAME = `\\b[A-Z][^\\s${PUNCTUATION}]`;
-
-const DocumentMentionsRegex = {
-  NAME,
-  PUNCTUATION
-};
-
-const PUNC = DocumentMentionsRegex.PUNCTUATION;
-const TRIGGERS = ['@'].join('');
-const VALID_CHARS = `[^${TRIGGERS}${PUNC}\\s]`;
-const VALID_JOINS = `(?:\\.[ |$]| |[${PUNC}]|)`;
-const LENGTH_LIMIT = 32;
-const ALIAS_LENGTH_LIMIT = 50;
 const SUGGESTION_LIST_LENGTH_LIMIT = 5;
+const MENTION_REGEX = /@\w+(\/\w{2,25})?/;
 
-const AtSignMentionsRegex = new RegExp(
-  `(^|\\s|\\()([${TRIGGERS}]((?:${VALID_CHARS}${VALID_JOINS}){0,${LENGTH_LIMIT}}))$`
-);
+const countWordsAfterMention = (text: string, mention: string): number => {
+  const regex = new RegExp(`@${mention}\\s+(\\S+(\\s+\\S+)*)`);
+  const match = text.match(regex);
 
-const AtSignMentionsRegexAliasRegex = new RegExp(
-  `(^|\\s|\\()([${TRIGGERS}]((?:${VALID_CHARS}){0,${ALIAS_LENGTH_LIMIT}}))$`
-);
+  return match ? match[0].trim().split(/\s+/).length - 1 : 0;
+};
 
 const checkForAtSignMentions = (
   text: string,
   minMatchLength: number
 ): MenuTextMatch | null => {
-  let match = AtSignMentionsRegex.exec(text);
-
-  if (match === null) {
-    match = AtSignMentionsRegexAliasRegex.exec(text);
-  }
+  const match = MENTION_REGEX.exec(text);
 
   if (match !== null) {
-    const maybeLeadingWhitespace = match[1];
-    const matchingString = match[3];
+    const matchingString = match[0].substring(1);
+
+    if (countWordsAfterMention(match['input'], matchingString) > 0) {
+      return null;
+    }
+
     if (matchingString.length >= minMatchLength) {
       return {
-        leadOffset: match.index + maybeLeadingWhitespace.length,
+        leadOffset: match.index + 1,
         matchingString,
-        replaceableString: match[2]
+        replaceableString: match[0]
       };
     }
   }
@@ -170,8 +151,7 @@ const MentionsPlugin: FC = () => {
       // Variables
       const request: ProfileSearchRequest = {
         limit: LimitType.Ten,
-        query: queryString,
-        where: { customFilters: [CustomFiltersType.Gardeners] }
+        query: queryString
       };
 
       searchUsers({ variables: { request } }).then(({ data }) => {
