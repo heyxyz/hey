@@ -5,11 +5,11 @@
   "license": "AGPL-3.0",
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "@openzeppelin/contracts": "^5.0.2",
     "@openzeppelin/contracts-upgradeable": "^5.0.2",
     "@openzeppelin/hardhat-upgrades": "^3.0.5",
     "dotenv": "^16.4.5",
-    "hardhat": "^2.22.0"
+    "hardhat": "^2.22.1"
   }
 }
