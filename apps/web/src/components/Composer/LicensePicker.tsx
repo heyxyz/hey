@@ -3,6 +3,7 @@ import type { FC } from 'react';
 import { PublicationMetadataLicenseType } from '@hey/lens';
 import { Select, Tooltip } from '@hey/ui';
 import getAssetLicense from '@lib/getAssetLicense';
+import Link from 'next/link';
 import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
 
 const LicensePicker: FC = () => {
@@ -50,9 +51,18 @@ const LicensePicker: FC = () => {
         }
         options={options}
       />
-      <div className="ld-text-gray-500 mt-2 text-sm">
+      <div className="ld-text-gray-500 linkify mt-2 text-sm">
         {getAssetLicense(license)?.helper ||
           'You are not granting a license to the collector and retain all rights.'}
+        {getAssetLicense(license)?.link ? (
+          <Link
+            className="ml-1.5"
+            href={getAssetLicense(license)?.link || ''}
+            target="_blank"
+          >
+            Learn more.
+          </Link>
+        ) : null}
       </div>
     </div>
   );
