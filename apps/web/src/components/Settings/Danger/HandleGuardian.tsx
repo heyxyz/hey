@@ -3,6 +3,7 @@ import type { FC } from 'react';
 import IndexStatus from '@components/Shared/IndexStatus';
 import {
   ExclamationTriangleIcon,
+  LockClosedIcon,
   LockOpenIcon
 } from '@heroicons/react/24/outline';
 import { LensHandles } from '@hey/abis';
@@ -25,6 +26,7 @@ const HandleGuardianSettings: FC = () => {
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
+  const isProtected = currentProfile?.handle?.guardian?.protected;
 
   const onError = (error: any) => {
     setIsLoading(false);
@@ -44,7 +46,9 @@ const HandleGuardianSettings: FC = () => {
     return await writeContractAsync({
       abi: LensHandles,
       address: LENS_HANDLES,
-      functionName: 'DANGER__disableTokenGuardian'
+      functionName: isProtected
+        ? 'DANGER__disableTokenGuardian'
+        : 'enableTokenGuardian'
     });
   };
 
@@ -56,6 +60,7 @@ const HandleGuardianSettings: FC = () => {
     try {
       setIsLoading(true);
       await handleWrongNetwork();
+
       return await write();
     } catch (error) {
       onError(error);
@@ -74,24 +79,35 @@ const HandleGuardianSettings: FC = () => {
     <Card className="space-y-5 p-5">
       <div className="space-y-3">
         <div className="text-lg font-bold text-red-500">
-          Disable handle guardian
+          {isProtected ? 'Disable' : 'Enable'} handle guardian
         </div>
-        <p>
-          This will disable the Handle Guardian and allow you to do some actions
-          like transfer, burn and approve without restrictions.
-        </p>
+        {isProtected ? (
+          <p>
+            This will disable the Handle Guardian and allow you to do some
+            actions like transfer, burn and approve without restrictions.
+          </p>
+        ) : (
+          <p>
+            This will enable the Handle Guardian and restrict you from doing
+            some actions like transfer, burn and approve.
+          </p>
+        )}
       </div>
-      <div className="text-lg font-bold">What else you should know</div>
-      <div className="ld-text-gray-500 divide-y text-sm dark:divide-gray-700">
-        <p className="pb-3">
-          A 24-hours Security Cooldown Period need to be elapsed for the Handle
-          Guardian to become effectively disabled.
-        </p>
-        <p className="py-3">
-          After the Handle Guardian is effectively disabled, you will be able to
-          execute approvals and transfers without restrictions.
-        </p>
-      </div>
+      {isProtected && (
+        <>
+          <div className="text-lg font-bold">What else you should know</div>
+          <div className="ld-text-gray-500 divide-y text-sm dark:divide-gray-700">
+            <p className="pb-3">
+              A 24-hours Security Cooldown Period need to be elapsed for the
+              Handle Guardian to become effectively disabled.
+            </p>
+            <p className="py-3">
+              After the Handle Guardian is effectively disabled, you will be
+              able to execute approvals and transfers without restrictions.
+            </p>
+          </div>
+        </>
+      )}
       {data ? (
         <div className="mt-5">
           <IndexStatus reload txHash={data} />
@@ -102,14 +118,24 @@ const HandleGuardianSettings: FC = () => {
           icon={
             isLoading ? (
               <Spinner size="xs" variant="danger" />
-            ) : (
+            ) : isProtected ? (
               <LockOpenIcon className="size-5" />
+            ) : (
+              <LockClosedIcon className="size-5" />
             )
           }
-          onClick={() => setShowWarningModal(true)}
+          onClick={() =>
+            isProtected ? setShowWarningModal(true) : handleDisable()
+          }
           variant="danger"
         >
-          {isLoading ? 'Disabling...' : 'Disable now'}
+          {isProtected
+            ? isLoading
+              ? 'Disabling...'
+              : 'Disable now'
+            : isLoading
+              ? 'Enabling...'
+              : 'Enable now'}
         </Button>
       )}
       <Modal
