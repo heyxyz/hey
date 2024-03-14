@@ -3,7 +3,7 @@ import type { FC } from 'react';
 
 import { LensHub } from '@hey/abis';
 import { Errors } from '@hey/data';
-import { LENSHUB_PROXY } from '@hey/data/constants';
+import { LENS_HUB } from '@hey/data/constants';
 import { PROFILE } from '@hey/data/tracking';
 import {
   useBroadcastOnchainMutation,
@@ -86,7 +86,7 @@ const Follow: FC<FollowProps> = ({ profile, small = false }) => {
   const write = async ({ args }: { args: any[] }) => {
     return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args,
       functionName: 'follow'
     });

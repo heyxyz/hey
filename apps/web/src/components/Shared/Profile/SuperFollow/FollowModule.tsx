@@ -8,7 +8,7 @@ import type { Dispatch, FC, SetStateAction } from 'react';
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import { StarIcon, UserIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
-import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@hey/data/constants';
+import { LENS_HUB, POLYGONSCAN_URL } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { PROFILE } from '@hey/data/tracking';
 import {
@@ -115,7 +115,7 @@ const FollowModule: FC<FollowModuleProps> = ({
   const write = async ({ args }: { args: any[] }) => {
     return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args,
       functionName: 'follow'
     });

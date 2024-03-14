@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import SearchProfiles from '@components/Shared/SearchProfiles';
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
-import { ADDRESS_PLACEHOLDER, LENSHUB_PROXY } from '@hey/data/constants';
+import { ADDRESS_PLACEHOLDER, LENS_HUB } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { SETTINGS } from '@hey/data/tracking';
 import {
@@ -80,7 +80,7 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
   const write = async ({ args }: { args: any[] }) => {
     return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args,
       functionName: 'changeDelegatedExecutorsConfig'
     });

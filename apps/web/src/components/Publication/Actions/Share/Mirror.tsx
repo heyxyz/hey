@@ -9,7 +9,7 @@ import { useApolloClient } from '@apollo/client';
 import { Menu } from '@headlessui/react';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
-import { LENSHUB_PROXY } from '@hey/data/constants';
+import { LENS_HUB } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
 import {
@@ -122,7 +122,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
   const write = async ({ args }: { args: any[] }) => {
     return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args,
       functionName: 'mirror'
     });
