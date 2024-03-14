@@ -39,10 +39,7 @@ const List: FC<ListProps> = ({ managed = false }) => {
   };
 
   const { data, error, fetchMore, loading, refetch } = useProfilesManagedQuery({
-    variables: {
-      lastLoggedInProfileRequest,
-      profilesManagedRequest
-    }
+    variables: { lastLoggedInProfileRequest, profilesManagedRequest }
   });
 
   const [hideManagedProfile, { loading: hiding }] =

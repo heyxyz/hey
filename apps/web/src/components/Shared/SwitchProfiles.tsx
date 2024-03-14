@@ -1,7 +1,7 @@
 import type {
   LastLoggedInProfileRequest,
   Profile,
-  ProfileManagersRequest
+  ProfilesManagedRequest
 } from '@hey/lens';
 import type { FC } from 'react';
 
@@ -9,6 +9,7 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data/errors';
 import { PROFILE } from '@hey/data/tracking';
 import {
+  ManagedProfileVisibility,
   useAuthenticateMutation,
   useChallengeLazyQuery,
   useProfilesManagedQuery
@@ -43,14 +44,18 @@ const SwitchProfiles: FC = () => {
   };
 
   const { signMessageAsync } = useSignMessage({ mutation: { onError } });
-  const request: LastLoggedInProfileRequest | ProfileManagersRequest = {
+
+  const lastLoggedInProfileRequest: LastLoggedInProfileRequest = {
     for: address
   };
+
+  const profilesManagedRequest: ProfilesManagedRequest = {
+    for: address,
+    hiddenFilter: ManagedProfileVisibility.NoneHidden
+  };
+
   const { data, error, loading } = useProfilesManagedQuery({
-    variables: {
-      lastLoggedInProfileRequest: request,
-      profilesManagedRequest: request
-    }
+    variables: { lastLoggedInProfileRequest, profilesManagedRequest }
   });
   const [loadChallenge] = useChallengeLazyQuery({
     fetchPolicy: 'no-cache'
