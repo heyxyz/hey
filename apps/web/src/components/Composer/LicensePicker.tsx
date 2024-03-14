@@ -52,7 +52,7 @@ const LicensePicker: FC = () => {
       />
       <div className="ld-text-gray-500 mt-2 text-sm">
         {getAssetLicense(license)?.helper ||
-          'You retain all rights. No license given.'}
+          'You are not granting a license to the collector and retain all rights.'}
       </div>
     </div>
   );
