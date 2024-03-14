@@ -38,6 +38,7 @@ export const PUBLICATION = {
       OPEN: 'Open image attachment'
     }
   },
+  CLICK_CASHTAG: 'Click publication cashtag',
   CLICK_HASHTAG: 'Click publication hashtag',
   CLICK_MENTION: 'Click publication mention',
   CLICK_OEMBED: 'Click publication oembed',
