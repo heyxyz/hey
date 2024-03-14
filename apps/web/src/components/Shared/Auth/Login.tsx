@@ -1,7 +1,7 @@
 import type {
   LastLoggedInProfileRequest,
   Profile,
-  ProfileManagersRequest
+  ProfilesManagedRequest
 } from '@hey/lens';
 import type { FC } from 'react';
 
@@ -11,6 +11,7 @@ import { XCircleIcon } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data/errors';
 import { AUTH } from '@hey/data/tracking';
 import {
+  ManagedProfileVisibility,
   useAuthenticateMutation,
   useChallengeLazyQuery,
   useProfilesManagedQuery
@@ -52,19 +53,23 @@ const Login: FC<LoginProps> = ({ setHasProfiles }) => {
   });
   const [authenticate, { error: errorAuthenticate }] =
     useAuthenticateMutation();
-  const request: LastLoggedInProfileRequest | ProfileManagersRequest = {
+
+  const lastLoggedInProfileRequest: LastLoggedInProfileRequest = {
     for: address
   };
+
+  const profilesManagedRequest: ProfilesManagedRequest = {
+    for: address,
+    hiddenFilter: ManagedProfileVisibility.NoneHidden
+  };
+
   const { data: profilesManaged, loading: profilesManagedLoading } =
     useProfilesManagedQuery({
       onCompleted: (data) => {
         setHasProfiles(data?.profilesManaged.items.length > 0);
       },
       skip: !address,
-      variables: {
-        lastLoggedInProfileRequest: request,
-        profilesManagedRequest: request
-      }
+      variables: { lastLoggedInProfileRequest, profilesManagedRequest }
     });
 
   const handleSign = async (id?: string) => {
