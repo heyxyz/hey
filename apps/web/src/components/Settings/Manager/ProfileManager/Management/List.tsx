@@ -130,15 +130,17 @@ const List: FC<ListProps> = ({ managed = false }) => {
       {profilesManaged?.map((profile) => (
         <div className="flex items-center justify-between" key={profile.id}>
           <UserProfile profile={profile as Profile} />
-          <Button
-            disabled={hiding || unhiding}
-            onClick={() => toggleManagement(profile.id)}
-            outline
-            size="sm"
-            variant="danger"
-          >
-            {managed ? 'Un-manage' : 'Manage'}
-          </Button>
+          {address !== profile.ownedBy.address && (
+            <Button
+              disabled={hiding || unhiding}
+              onClick={() => toggleManagement(profile.id)}
+              outline
+              size="sm"
+              variant="danger"
+            >
+              {managed ? 'Un-manage' : 'Manage'}
+            </Button>
+          )}
         </div>
       ))}
       {hasMore ? <span ref={observe} /> : null}
