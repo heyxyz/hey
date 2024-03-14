@@ -2,7 +2,7 @@ import type { ActOnOpenActionLensManagerRequest } from '@hey/lens';
 import type { Address } from 'viem';
 
 import { LensHub } from '@hey/abis';
-import { LENSHUB_PROXY } from '@hey/data/constants';
+import { LENS_HUB } from '@hey/data/constants';
 import {
   useActOnOpenActionMutation,
   useBroadcastOnchainMutation,
@@ -74,7 +74,7 @@ const useActOnUnknownOpenAction = ({
   const write = async ({ args }: { args: any }) => {
     return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args,
       functionName: 'act'
     });

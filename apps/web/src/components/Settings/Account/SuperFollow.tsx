@@ -5,7 +5,7 @@ import { LensHub } from '@hey/abis';
 import {
   ADDRESS_PLACEHOLDER,
   DEFAULT_COLLECT_TOKEN,
-  LENSHUB_PROXY
+  LENS_HUB
 } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { Regex } from '@hey/data/regex';
@@ -108,7 +108,7 @@ const SuperFollow: FC = () => {
   const write = async ({ args }: { args: any[] }) => {
     return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args,
       functionName: 'setFollowModule'
     });

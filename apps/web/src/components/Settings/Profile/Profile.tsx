@@ -14,7 +14,7 @@ import { LensHub } from '@hey/abis';
 import {
   AVATAR,
   COVER,
-  LENSHUB_PROXY,
+  LENS_HUB,
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
@@ -150,7 +150,7 @@ const ProfileSettingsForm: FC = () => {
   const write = async ({ args }: { args: any[] }) => {
     return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args,
       functionName: 'setProfileMetadataURI'
     });

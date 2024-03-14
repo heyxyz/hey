@@ -7,7 +7,7 @@ import {
   TrashIcon
 } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
-import { APP_NAME, LENSHUB_PROXY } from '@hey/data/constants';
+import { APP_NAME, LENS_HUB } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { SETTINGS } from '@hey/data/tracking';
 import { Button, Card, Modal, Spinner, WarningMessage } from '@hey/ui';
@@ -46,7 +46,7 @@ const DeleteSettings: FC = () => {
   const write = async ({ args }: { args: any[] }) => {
     return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args,
       functionName: 'burn'
     });
