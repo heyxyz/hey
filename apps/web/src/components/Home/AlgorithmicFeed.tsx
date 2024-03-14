@@ -9,17 +9,16 @@ import { LimitType, usePublicationsQuery } from '@hey/lens';
 import getAlgorithmicFeed from '@hey/lib/getAlgorithmicFeed';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
-interface AlgorithmicFeedProps {
-  feedType: HomeFeedType;
-}
-
-const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
+const AlgorithmicFeed: FC = () => {
+  const { query } = useRouter();
   const { currentProfile } = useProfileStore();
   const [displayedPublications, setDisplayedPublications] = useState<any[]>([]);
+  const feedType = (query.type as string).toUpperCase() as HomeFeedType;
 
   const limit = LimitType.TwentyFive;
   const offset = displayedPublications.length;

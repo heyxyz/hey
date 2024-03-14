@@ -6,7 +6,8 @@ import { HomeFeedType } from '@hey/data/enums';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import AlgorithmicFeed from './AlgorithmicFeed';
@@ -18,10 +19,10 @@ import Sidebar from './Sidebar';
 import Timeline from './Timeline';
 
 const Home: NextPage = () => {
+  const { query } = useRouter();
   const { currentProfile } = useProfileStore();
-  const [feedType, setFeedType] = useState<HomeFeedType>(
-    HomeFeedType.FOLLOWING
-  );
+  const feedType =
+    (query.type as string).toUpperCase() || HomeFeedType.FOLLOWING;
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'home' });
@@ -37,7 +38,7 @@ const Home: NextPage = () => {
           {loggedInWithProfile ? (
             <>
               <NewPost />
-              <FeedType feedType={feedType} setFeedType={setFeedType} />
+              <FeedType />
               {feedType === HomeFeedType.FOLLOWING ? (
                 <Timeline />
               ) : feedType === HomeFeedType.HIGHLIGHTS ? (
@@ -45,7 +46,7 @@ const Home: NextPage = () => {
               ) : feedType === HomeFeedType.PREMIUM ? (
                 <PaidActions />
               ) : (
-                <AlgorithmicFeed feedType={feedType} />
+                <AlgorithmicFeed />
               )}
             </>
           ) : (

@@ -17,7 +17,7 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import Feed from './Feed';
 
 const Explore: NextPage = () => {
-  const router = useRouter();
+  const { query, replace } = useRouter();
   const { currentProfile } = useProfileStore();
   const [focus, setFocus] = useState<PublicationMetadataMainFocusType>();
 
@@ -39,13 +39,11 @@ const Explore: NextPage = () => {
     <GridLayout>
       <GridItemEight className="space-y-5">
         <Tab.Group
-          defaultIndex={Number(router.query.tab)}
+          defaultIndex={Number(query.tab)}
           onChange={(index) => {
-            router.replace(
-              { query: { ...router.query, tab: index } },
-              undefined,
-              { shallow: true }
-            );
+            replace({ query: { ...query, tab: index } }, undefined, {
+              shallow: true
+            });
           }}
         >
           <Tab.List className="divider space-x-8">

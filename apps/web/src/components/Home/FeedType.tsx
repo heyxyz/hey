@@ -1,4 +1,4 @@
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { FC } from 'react';
 
 import {
   CheckCircleIcon,
@@ -11,18 +11,23 @@ import { HomeFeedType } from '@hey/data/enums';
 import { HOME } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
+import { useRouter } from 'next/router';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Algorithms from './Algorithms';
 import SeeThroughLens from './SeeThroughLens';
 
-interface FeedTypeProps {
-  feedType: HomeFeedType;
-  setFeedType: Dispatch<SetStateAction<HomeFeedType>>;
-}
-
-const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
+const FeedType: FC = () => {
+  const { query, replace } = useRouter();
   const { fallbackToCuratedFeed } = useProfileStore();
+  const feedType =
+    (query.type as string).toUpperCase() || HomeFeedType.FOLLOWING;
+
+  const shallowReplace = (type: HomeFeedType) => {
+    replace({ query: { ...query, type: type.toLowerCase() } }, undefined, {
+      shallow: true
+    });
+  };
 
   return (
     <div className="flex flex-wrap items-center justify-between px-1 md:px-0">
@@ -38,7 +43,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
           }
           name={fallbackToCuratedFeed ? 'Curated Feed' : 'Following'}
           onClick={() => {
-            setFeedType(HomeFeedType.FOLLOWING);
+            shallowReplace(HomeFeedType.FOLLOWING);
             Leafwatch.track(HOME.SWITCH_FOLLOWING_FEED);
           }}
         />
@@ -47,7 +52,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
           icon={<LightBulbIcon className="size-4" />}
           name="Highlights"
           onClick={() => {
-            setFeedType(HomeFeedType.HIGHLIGHTS);
+            shallowReplace(HomeFeedType.HIGHLIGHTS);
             Leafwatch.track(HOME.SWITCH_HIGHLIGHTS_FEED);
           }}
         />
@@ -56,7 +61,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
           icon={<CurrencyDollarIcon className="size-4" />}
           name="Premium"
           onClick={() => {
-            setFeedType(HomeFeedType.PREMIUM);
+            shallowReplace(HomeFeedType.PREMIUM);
             Leafwatch.track(HOME.SWITCH_PREMIUM_FEED);
           }}
         />
@@ -66,9 +71,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
         feedType === HomeFeedType.HIGHLIGHTS ? (
           <SeeThroughLens />
         ) : null}
-        {IS_MAINNET ? (
-          <Algorithms feedType={feedType} setFeedType={setFeedType} />
-        ) : null}
+        {IS_MAINNET ? <Algorithms /> : null}
       </div>
     </div>
   );

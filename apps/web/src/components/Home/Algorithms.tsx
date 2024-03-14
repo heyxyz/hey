@@ -1,5 +1,5 @@
 import type { HomeFeedType } from '@hey/data/enums';
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { FC } from 'react';
 
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
@@ -9,13 +9,18 @@ import { algorithms } from '@hey/data/algorithms';
 import { HOME } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
+import { useRouter } from 'next/router';
 
-interface AlgorithmsProps {
-  feedType: HomeFeedType;
-  setFeedType: Dispatch<SetStateAction<HomeFeedType>>;
-}
+const Algorithms: FC = () => {
+  const { query, replace } = useRouter();
+  const feedType = (query.type as string).toUpperCase() as HomeFeedType;
 
-const Algorithms: FC<AlgorithmsProps> = ({ feedType, setFeedType }) => {
+  const shallowReplace = (type: HomeFeedType) => {
+    replace({ query: { ...query, type: type.toLowerCase() } }, undefined, {
+      shallow: true
+    });
+  };
+
   return (
     <Menu as="div" className="relative">
       <>
@@ -43,7 +48,7 @@ const Algorithms: FC<AlgorithmsProps> = ({ feedType, setFeedType }) => {
                 <button
                   className="flex w-full items-center justify-between px-2 py-1.5"
                   onClick={() => {
-                    setFeedType(algorithm.feedType as HomeFeedType);
+                    shallowReplace(algorithm.feedType as HomeFeedType);
                     Leafwatch.track(HOME.ALGORITHMS.SWITCH_ALGORITHMIC_FEED, {
                       algorithm: algorithm.feedType
                     });
