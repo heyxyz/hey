@@ -42,7 +42,8 @@ const store = create(
         const allIndexedDBStores = Object.values(IndexDB).filter(
           (value) =>
             value !== IndexDB.AlgorithmStore &&
-            value !== IndexDB.VerifiedMembersStore
+            value !== IndexDB.VerifiedMembersStore &&
+            value !== IndexDB.SearchStore
         );
         await delMany(allIndexedDBStores);
       }
