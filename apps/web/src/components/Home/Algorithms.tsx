@@ -13,7 +13,7 @@ import { useRouter } from 'next/router';
 
 const Algorithms: FC = () => {
   const { query, replace } = useRouter();
-  const feedType = (query.type as string).toUpperCase() as HomeFeedType;
+  const feedType = (query.type as string)?.toUpperCase() as HomeFeedType;
 
   const shallowReplace = (type: HomeFeedType) => {
     replace({ query: { ...query, type: type.toLowerCase() } }, undefined, {

@@ -22,7 +22,7 @@ const Home: NextPage = () => {
   const { query } = useRouter();
   const { currentProfile } = useProfileStore();
   const feedType =
-    (query.type as string).toUpperCase() || HomeFeedType.FOLLOWING;
+    (query.type as string)?.toUpperCase() || HomeFeedType.FOLLOWING;
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'home' });

@@ -21,7 +21,7 @@ const FeedType: FC = () => {
   const { query, replace } = useRouter();
   const { fallbackToCuratedFeed } = useProfileStore();
   const feedType =
-    (query.type as string).toUpperCase() || HomeFeedType.FOLLOWING;
+    (query.type as string)?.toUpperCase() || HomeFeedType.FOLLOWING;
 
   const shallowReplace = (type: HomeFeedType) => {
     replace({ query: { ...query, type: type.toLowerCase() } }, undefined, {
