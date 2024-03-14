@@ -35,11 +35,7 @@ const List: FC = () => {
   });
 
   if (loading) {
-    return (
-      <div className="pb-5">
-        <Loader />
-      </div>
-    );
+    return <Loader className="pb-5" />;
   }
 
   if (error) {
