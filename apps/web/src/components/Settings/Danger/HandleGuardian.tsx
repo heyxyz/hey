@@ -36,9 +36,7 @@ const HandleGuardianSettings: FC = () => {
       onError: (error: Error) => {
         onError(error);
       },
-      onSuccess: () => {
-        Leafwatch.track(SETTINGS.DANGER.UNPROTECT_HANDLE);
-      }
+      onSuccess: () => Leafwatch.track(SETTINGS.DANGER.UNPROTECT_HANDLE)
     }
   });
 
