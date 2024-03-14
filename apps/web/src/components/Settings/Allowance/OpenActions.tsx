@@ -82,9 +82,7 @@ const OpenActions: FC = () => {
         />
       </div>
       {loading || allowedTokensLoading || currencyLoading ? (
-        <div className="py-5">
-          <Loader />
-        </div>
+        <Loader className="py-5" />
       ) : (
         <Allowance allowance={data} />
       )}
