@@ -14,7 +14,7 @@ import NoBalanceError from '@components/Shared/NoBalanceError';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { Errors } from '@hey/data';
-import { LENSHUB_PROXY } from '@hey/data/constants';
+import { LENS_HUB } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import {
   useActOnOpenActionMutation,
@@ -189,7 +189,7 @@ const CollectAction: FC<CollectActionProps> = ({
   const write = async ({ args }: { args: any[] }) => {
     return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args,
       functionName: profileUserFunctionName
     });

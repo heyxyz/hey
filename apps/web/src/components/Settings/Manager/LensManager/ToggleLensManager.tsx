@@ -4,7 +4,7 @@ import IndexStatus from '@components/Shared/IndexStatus';
 import { CheckCircleIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { Errors } from '@hey/data';
-import { LENSHUB_PROXY } from '@hey/data/constants';
+import { LENS_HUB } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
 import {
   useBroadcastOnchainMutation,
@@ -76,7 +76,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   const write = async ({ args }: { args: any[] }) => {
     return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args,
       functionName: 'changeDelegatedExecutorsConfig'
     });

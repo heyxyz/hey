@@ -6,7 +6,7 @@ import {
   LockOpenIcon
 } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
-import { LENSHUB_PROXY } from '@hey/data/constants';
+import { LENS_HUB } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { SETTINGS } from '@hey/data/tracking';
 import { Button, Card, Modal, Spinner, WarningMessage } from '@hey/ui';
@@ -43,7 +43,7 @@ const ProfileGuardianSettings: FC = () => {
   const write = async () => {
     return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       functionName: 'DANGER__disableTokenGuardian'
     });
   };

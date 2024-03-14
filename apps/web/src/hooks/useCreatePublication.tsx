@@ -10,7 +10,7 @@ import type {
 
 import { useApolloClient } from '@apollo/client';
 import { LensHub } from '@hey/abis';
-import { LENSHUB_PROXY } from '@hey/data/constants';
+import { LENS_HUB } from '@hey/data/constants';
 import {
   PublicationDocument,
   useBroadcastOnchainMutation,
@@ -127,7 +127,7 @@ const useCreatePublication = ({
   const write = async ({ args }: { args: any[] }) => {
     return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args,
       functionName: isComment ? 'comment' : isQuote ? 'quote' : 'post'
     });
