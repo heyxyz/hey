@@ -34,9 +34,7 @@ const ProfileGuardianSettings: FC = () => {
       onError: (error: Error) => {
         onError(error);
       },
-      onSuccess: () => {
-        Leafwatch.track(SETTINGS.DANGER.UNPROTECT_PROFILE);
-      }
+      onSuccess: () => Leafwatch.track(SETTINGS.DANGER.UNPROTECT_PROFILE)
     }
   });
 
