@@ -22,12 +22,6 @@ const PageMetatags: FC = () => {
           title: `Explore • ${APP_NAME}`
         };
       }
-      case '/support': {
-        return {
-          description: `Contact ${APP_NAME} support team.`,
-          title: `Support • ${APP_NAME}`
-        };
-      }
       case '/privacy': {
         return {
           description: `Privacy Policy of ${APP_NAME}.`,
