@@ -20,7 +20,7 @@ import {
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { useEffect } from 'react';
-import { useInView } from 'react-cool-inview';
+import { Virtuoso } from 'react-virtuoso';
 
 const SKIPPED_PROFILE_IDS = IS_MAINNET ? ['0x027290'] : [];
 
@@ -68,17 +68,15 @@ const LatestFeed: FC<LatestFeedProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh, publicationTypes, mainContentFocus, customFilters]);
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } }
-      });
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    return await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    });
+  };
 
   if (loading) {
     return <PublicationsShimmer />;
@@ -100,9 +98,18 @@ const LatestFeed: FC<LatestFeedProps> = ({
   }
 
   return (
-    <div className="space-y-5">
-      {publications?.map((publication, index) =>
-        SKIPPED_PROFILE_IDS.includes(publication.by.id) ? null : (
+    <Virtuoso
+      className="[&>div>div]:space-y-5"
+      components={{
+        Footer: () => <div className="pb-5" />
+      }}
+      data={publications?.filter(
+        (publication) =>
+          !SKIPPED_PROFILE_IDS.includes(publication?.by?.id as string)
+      )}
+      endReached={onEndReached}
+      itemContent={(_, publication, index) => {
+        return (
           <Card key={`${publication.id}_${index}`}>
             <SinglePublication
               isFirst
@@ -120,10 +127,10 @@ const LatestFeed: FC<LatestFeedProps> = ({
               </div>
             </div>
           </Card>
-        )
-      )}
-      {hasMore ? <span ref={observe} /> : null}
-    </div>
+        );
+      }}
+      useWindowScroll
+    />
   );
 };
 
