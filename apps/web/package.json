@@ -44,6 +44,7 @@
     "axios": "^1.6.7",
     "browser-image-compression": "^2.0.2",
     "chart.js": "^4.4.2",
+    "crisp-sdk-web": "^1.0.22",
     "dotenv": "^16.4.5",
     "esbuild": "^0.20.2",
     "framer-motion": "11.0.10",
