@@ -50,6 +50,12 @@ module.exports = {
       },
       {
         destination:
+          'https://plugins.crisp.chat/urn:crisp.im:contact-form:0/contact/37355035-47aa-4f42-ad47-cffc3d1fea16',
+        permanent: true,
+        source: '/support'
+      },
+      {
+        destination:
           'https://yoginth.notion.site/Hey-Portals-Open-Graph-Spec-ddbedce64a2d4e1a80f66db182159aff',
         permanent: true,
         source: '/-/portals'
