@@ -44,12 +44,6 @@ module.exports = {
       },
       {
         destination:
-          'https://hey.height.app/?taskForm=Verification-Request-fBxpj55hUMmf',
-        permanent: true,
-        source: '/-/verification-request'
-      },
-      {
-        destination:
           'https://yoginth.notion.site/Hey-Changelog-eb2a41319c1b40be8e22e5deb01efd10',
         permanent: true,
         source: '/-/changelog'
