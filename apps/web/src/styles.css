@@ -28,6 +28,11 @@ body {
   @apply hover:text-brand-600 dark:hover:text-brand-500;
 }
 
+.linkify-button button {
+  @apply text-brand-500;
+  @apply hover:text-brand-600 dark:hover:text-brand-500;
+}
+
 ::-webkit-file-upload-button {
   @apply mr-2 cursor-pointer rounded-l-xl border-0 px-3 py-2;
   @apply bg-gray-200 dark:bg-gray-900;
