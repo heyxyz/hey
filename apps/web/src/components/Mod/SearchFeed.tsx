@@ -15,7 +15,7 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Button, Card, EmptyState, ErrorMessage, Input } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
-import { useInView } from 'react-cool-inview';
+import { Virtuoso } from 'react-virtuoso';
 
 const SearchFeed: FC = () => {
   const [query, setQuery] = useState('');
@@ -38,17 +38,15 @@ const SearchFeed: FC = () => {
   const pageInfo = search?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } }
-      });
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    return await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    });
+  };
 
   const Search = () => {
     return (
@@ -101,30 +99,38 @@ const SearchFeed: FC = () => {
   return (
     <div className="space-y-5">
       <Search />
-      {publications?.map((publication, index) => {
-        const targetPublication = isMirrorPublication(publication)
-          ? publication.mirrorOn
-          : publication;
+      <Virtuoso
+        className="[&>div>div]:space-y-5"
+        components={{
+          Footer: () => <div className="pb-5" />
+        }}
+        data={publications}
+        endReached={onEndReached}
+        itemContent={(_, publication, index) => {
+          const targetPublication = isMirrorPublication(publication)
+            ? publication.mirrorOn
+            : publication;
 
-        return (
-          <Card key={`${publication.id}_${index}`}>
-            <SinglePublication
-              isFirst
-              isLast={false}
-              publication={publication as AnyPublication}
-              showActions={false}
-              showThread={false}
-            />
-            <div>
-              <div className="divider" />
-              <div className="m-5">
-                <GardenerActions publication={targetPublication} />
+          return (
+            <Card key={`${publication.id}_${index}`}>
+              <SinglePublication
+                isFirst
+                isLast={false}
+                publication={publication as AnyPublication}
+                showActions={false}
+                showThread={false}
+              />
+              <div>
+                <div className="divider" />
+                <div className="m-5">
+                  <GardenerActions publication={targetPublication} />
+                </div>
               </div>
-            </div>
-          </Card>
-        );
-      })}
-      {hasMore ? <span ref={observe} /> : null}
+            </Card>
+          );
+        }}
+        useWindowScroll
+      />
     </div>
   );
 };
