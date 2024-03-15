@@ -20,7 +20,7 @@ const showCrisp = () => {
         value: 'feedback'
       }
     ],
-    id: 'for',
+    id: 'support-request',
     text: 'Hi, what brings you here today?'
   });
 
