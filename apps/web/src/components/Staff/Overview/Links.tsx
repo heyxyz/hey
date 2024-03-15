@@ -63,10 +63,6 @@ const Links: FC = () => {
             link="https://hey.xyz/-/token-request"
             title="Token Allowlist Request"
           />
-          <ListItem
-            link="https://hey.xyz/-/verification-request"
-            title="Verification Request"
-          />
         </ul>
       </div>
     </div>
