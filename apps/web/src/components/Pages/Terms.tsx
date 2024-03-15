@@ -3,6 +3,7 @@ import type { NextPage } from 'next';
 import Footer from '@components/Shared/Footer';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
+import showCrisp from '@lib/showCrisp';
 import Link from 'next/link';
 import { useEffect } from 'react';
 
@@ -287,8 +288,8 @@ const Terms: NextPage = () => {
                 <p className="linkify leading-7">
                   <b>Refunds for Failed Minting:</b> In the event that profile
                   minting fails, customers are eligible to request a refund. To
-                  request a refund, please visit our support center at{' '}
-                  <Link href="/support">https://hey.xyz/support</Link>.
+                  request a refund, please visit our{' '}
+                  <button onClick={showCrisp}>support center</button>.
                 </p>
                 <p className="leading-7">
                   This policy is concise and designed to be clear and
