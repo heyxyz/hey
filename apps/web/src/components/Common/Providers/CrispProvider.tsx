@@ -12,7 +12,8 @@ const CrispProvider: FC = () => {
 
   useEffect(() => {
     // Configure Crisp
-    Crisp.configure(CRISP_WEBSITE_ID, { autoload: false });
+    Crisp.configure(CRISP_WEBSITE_ID, { autoload: true });
+    Crisp.chat.hide();
 
     Crisp.chat.onChatClosed(() => {
       Crisp.chat.hide();
