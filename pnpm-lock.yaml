@@ -68,9 +68,6 @@ importers:
       linkedom:
         specifier: ^0.16.9
         version: 0.16.9
-      node-zendesk:
-        specifier: ^5.0.11
-        version: 5.0.11
       request-ip:
         specifier: ^3.3.0
         version: 3.3.0
@@ -16669,15 +16666,6 @@ packages:
   /node-stream-zip@1.15.0:
     resolution: {integrity: sha512-LN4fydt9TqhZhThkZIVQnF9cwjU3qmUH9h78Mx/K7d3VvfRqqwthLwJEUOEL0QPZ0XQmNN7be5Ggit5+4dq3Bw==}
     engines: {node: '>=0.12.0'}
-    dev: false
-
-  /node-zendesk@5.0.11:
-    resolution: {integrity: sha512-1+mftmY2KX5+lF5ao7kteNigK0a+H/77mz8GZjOeo4JxAxuw8VgeL60sJHfBwEoWYD6ZXKhqQ5qy9Qy3XKtwRw==}
-    engines: {node: '>= 18'}
-    dependencies:
-      cross-fetch: 4.0.0
-    transitivePeerDependencies:
-      - encoding
     dev: false
 
   /nodemon@3.1.0:
