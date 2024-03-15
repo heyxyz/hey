@@ -72,6 +72,7 @@ export const GITCOIN_PASSPORT_KEY = 'xn9e7AFv.aEfS0ioNhaVtww1jdwnsWtxnrNHspVsS';
 export const LIVEPEER_KEY = '70508bf8-2e16-4594-852d-5aed798f6403';
 export const ALCHEMY_API_KEY = 'Xx-4a1SyWtS9U4h0cEuRmvgYtGeVOlv7';
 export const THIRDWEB_CLIENT_ID = '0e8fa22aa33b3da60c593b4864a2e2d1';
+export const CRISP_WEBSITE_ID = '37355035-47aa-4f42-ad47-cffc3d1fea16';
 
 // Named transforms for ImageKit
 export const AVATAR = 'tr:w-250,h-250';
