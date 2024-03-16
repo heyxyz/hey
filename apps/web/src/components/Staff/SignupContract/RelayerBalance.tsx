@@ -82,7 +82,7 @@ const RelayerBalance: FC<RelayerBalanceProps> = ({ address, index }) => {
           </Button>
         )
       }
-      count={balance.toString()}
+      count={balance.toFixed(3).toString()}
       name={
         <div className="flex items-center space-x-2">
           <span>{index === 0 ? 'Root Relayer' : `Relayer ${index}`}</span>
