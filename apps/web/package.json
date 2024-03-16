@@ -16,8 +16,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.9.7",
-    "@aws-sdk/client-s3": "^3.534.0",
-    "@aws-sdk/lib-storage": "^3.534.0",
+    "@aws-sdk/client-s3": "^3.535.0",
+    "@aws-sdk/lib-storage": "^3.535.0",
     "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^2.1.1",
     "@hey/abis": "workspace:*",
@@ -41,7 +41,7 @@
     "@thirdweb-dev/storage": "^2.0.10",
     "@uidotdev/usehooks": "^2.4.1",
     "alchemy-sdk": "^3.2.0",
-    "axios": "^1.6.7",
+    "axios": "^1.6.8",
     "browser-image-compression": "^2.0.2",
     "chart.js": "^4.4.2",
     "crisp-sdk-web": "^1.0.22",
@@ -72,7 +72,7 @@
     "urlcat": "^3.1.0",
     "use-resize-observer": "^9.1.0",
     "uuid": "^9.0.1",
-    "viem": "^2.8.9",
+    "viem": "^2.8.10",
     "wagmi": "^2.5.7",
     "zod": "^3.22.4",
     "zustand": "^4.5.2"
