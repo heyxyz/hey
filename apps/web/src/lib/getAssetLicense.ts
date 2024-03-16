@@ -25,14 +25,14 @@ const getAssetLicense = (
       return {
         helper:
           'You allow the collector to use the content for any purpose, except creating or sharing any derivative works, such as remixes.',
-        label: 'Commercial rights for collector',
+        label: 'Commercial rights for the collector',
         link: 'https://eips.ethereum.org/assets/eip-5218/ic3license/ic3license.pdf'
       };
     case MetadataLicenseType.TBNL_NC_D_NPL_Legal:
       return {
         helper:
           'You allow the collector to use the content for any personal, non-commercial purpose, except creating or sharing any derivative works, such as remixes.',
-        label: 'Personal rights for collector',
+        label: 'Personal rights for the collector',
         link: 'https://eips.ethereum.org/assets/eip-5218/ic3license/ic3license.pdf'
       };
     default:
