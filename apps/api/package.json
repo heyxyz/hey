@@ -34,7 +34,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.18.3",
     "express-file-routing": "^3.0.3",
-    "fast-xml-parser": "^4.3.5",
+    "fast-xml-parser": "^4.3.6",
     "linkedom": "^0.16.10",
     "request-ip": "^3.3.0",
     "tsx": "^4.7.1",
