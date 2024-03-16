@@ -3,6 +3,7 @@ import type { FC } from 'react';
 
 import { useHiddenCommentFeedStore } from '@components/Publication';
 import SinglePublication from '@components/Publication/SinglePublication';
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 import {
   CommentRankingFilterType,
   CustomFiltersType,
@@ -10,7 +11,8 @@ import {
   LimitType,
   usePublicationsQuery
 } from '@hey/lens';
-import { Card } from '@hey/ui';
+import getAvatar from '@hey/lib/getAvatar';
+import { Card, StackedAvatars } from '@hey/ui';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 
@@ -66,12 +68,21 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publicationId }) => {
   return (
     <>
       <Card
-        className="cursor-pointer p-5 text-center"
+        className="flex cursor-pointer items-center justify-center space-x-2.5 p-5"
         onClick={() => {
           setShowMore(!showMore);
         }}
       >
-        {showMore ? 'Hide more comments' : 'Show more comments'}
+        <StackedAvatars
+          avatars={comments.map((comment) => getAvatar(comment.by))}
+          limit={5}
+        />
+        <div>{showMore ? 'Hide more comments' : 'Show more comments'}</div>
+        {showMore ? (
+          <ChevronUpIcon className="size-4" />
+        ) : (
+          <ChevronDownIcon className="size-4" />
+        )}
       </Card>
       {showMore ? (
         <Card className="divide-y-[1px] dark:divide-gray-700">

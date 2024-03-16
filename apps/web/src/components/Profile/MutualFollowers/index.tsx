@@ -3,9 +3,8 @@ import type { FC, ReactNode } from 'react';
 
 import { LimitType, useMutualFollowersQuery } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
-import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
-import { Image } from '@hey/ui';
+import { StackedAvatars } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -45,19 +44,10 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
       )}
       href={`/u/${handle}/mutuals`}
     >
-      <div className="contents -space-x-2">
-        {profiles.slice(0, 3)?.map((profile) => (
-          <Image
-            alt={profile.id}
-            className="size-5 rounded-full border dark:border-gray-700"
-            key={profile.id}
-            onError={({ currentTarget }) => {
-              currentTarget.src = getLennyURL(profile.id);
-            }}
-            src={getAvatar(profile)}
-          />
-        ))}
-      </div>
+      <StackedAvatars
+        avatars={profiles.map((profile) => getAvatar(profile))}
+        limit={3}
+      />
       <div>
         <span>Followed by </span>
         {children}
