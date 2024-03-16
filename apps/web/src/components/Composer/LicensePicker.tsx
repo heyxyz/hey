@@ -52,15 +52,13 @@ const LicensePicker: FC = () => {
       <div className="ld-text-gray-500 linkify mt-2 text-sm">
         {getAssetLicense(license)?.helper ||
           'You are not granting a license to the collector and retain all rights.'}
-        {getAssetLicense(license)?.link ? (
-          <Link
-            className="ml-1.5"
-            href={getAssetLicense(license)?.link || ''}
-            target="_blank"
-          >
-            Learn more.
-          </Link>
-        ) : null}
+        <Link
+          className="ml-1.5"
+          href="https://reflect.site/g/yoginth/54ff7fa4603a4a12912990aa7355e4f6"
+          target="_blank"
+        >
+          Learn more.
+        </Link>
       </div>
     </div>
   );
