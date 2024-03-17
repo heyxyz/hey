@@ -9,11 +9,9 @@ import {
 import { LensHandles } from '@hey/abis';
 import { LENS_HANDLES } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
-import { FeatureFlag } from '@hey/data/feature-flags';
 import { SETTINGS } from '@hey/data/tracking';
 import { Button, Card, Modal, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
-import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -64,10 +62,6 @@ const HandleGuardianSettings: FC = () => {
       onError(error);
     }
   };
-
-  if (!isFeatureAvailable(FeatureFlag.Staff)) {
-    return null;
-  }
 
   return (
     <Card className="space-y-5 p-5">
