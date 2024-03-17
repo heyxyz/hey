@@ -8,7 +8,7 @@ import { describe, expect, test } from 'vitest';
 import getAvatar from './getAvatar';
 
 describe('getAvatar', () => {
-  const ipfsLink = `${IPFS_GATEWAY}bafkreianwlir2groq5l52zdnikon4rtgjcostjosaadbbfekgpzhaprmri`;
+  const ipfsLink = `${IPFS_GATEWAY}/bafkreianwlir2groq5l52zdnikon4rtgjcostjosaadbbfekgpzhaprmri`;
   const imagekitUrl = `${HEY_IMAGEKIT_URL}/fallback/tr:w-250,h-250,q-80/https://gw.ipfs-lens.dev/ipfs/bafkreianwlir2groq5l52zdnikon4rtgjcostjosaadbbfekgpzhaprmri`;
 
   test('should return normal profile optimized avatar url', () => {
