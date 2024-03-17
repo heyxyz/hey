@@ -106,7 +106,7 @@ const SearchFeed: FC = () => {
         }}
         data={publications}
         endReached={onEndReached}
-        itemContent={(_, publication, index) => {
+        itemContent={(index, publication) => {
           const targetPublication = isMirrorPublication(publication)
             ? publication.mirrorOn
             : publication;

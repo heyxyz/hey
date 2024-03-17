@@ -59,7 +59,7 @@ const PaidActions: FC = () => {
       }}
       data={actions}
       endReached={onEndReached}
-      itemContent={(_, action, index) => {
+      itemContent={(index, action) => {
         return action.__typename === 'OpenActionPaidAction' ? (
           <Card key={`${action.actedOn?.id}_${index}`}>
             <OpenActionPaidAction

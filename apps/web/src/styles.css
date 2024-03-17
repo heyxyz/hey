@@ -154,7 +154,7 @@ ul {
   @apply [&>div>div]:dark:divide-gray-700;
 }
 
-.virtual-profile-list-window {
+.virtual-divider-list-window {
   @apply [&>div>div]:divide-y;
   @apply [&>div>div]:dark:divide-gray-700;
 }
