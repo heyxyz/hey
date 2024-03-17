@@ -78,6 +78,7 @@ const Rules: NextPage = () => {
                   <li>
                     Share excessive amounts of content of any type ("Spam")
                   </li>
+                  <li>Airdrop farming</li>
                 </ul>
                 <p className="leading-7">
                   If your account got suspended, you are not allowed to create
