@@ -14,6 +14,7 @@ import { ThemeProvider } from 'next-themes';
 
 import ErrorBoundary from '../ErrorBoundary';
 import Layout from '../Layout';
+import CrispProvider from './CrispProvider';
 import LeafwatchProvider from './LeafwatchProvider';
 import LensSubscriptionsProvider from './LensSubscriptionsProvider';
 import PreferencesProvider from './PreferencesProvider';
@@ -31,7 +32,7 @@ const queryClient = new QueryClient({
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <ErrorBoundary>
-      {/* <CrispProvider /> */}
+      <CrispProvider />
       <ServiceWorkerProvider />
       <LeafwatchProvider />
       <Web3Provider>
