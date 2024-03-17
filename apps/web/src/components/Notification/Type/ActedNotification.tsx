@@ -7,7 +7,6 @@ import getPublicationData from '@hey/lib/getPublicationData';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import Link from 'next/link';
 import plur from 'plur';
-import usePushToImpressions from 'src/hooks/usePushToImpressions';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
