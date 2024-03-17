@@ -22,7 +22,7 @@ const QuoteNotification: FC<QuoteNotificationProps> = ({ notification }) => {
   const text = 'quoted your';
   const type = notification.quote.quoteOn.__typename;
 
-  usePushToImpressions(notification.quote.id);
+  // usePushToImpressions(notification.quote.id);
 
   return (
     <div className="space-y-2">

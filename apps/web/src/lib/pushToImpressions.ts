@@ -19,11 +19,11 @@ const pushToImpressions = (id: string): void => {
   }
 
   if (IS_MAINNET && id && navigator.serviceWorker?.controller) {
-    // navigator.serviceWorker.controller.postMessage({
-    //   id,
-    //   type: 'PUBLICATION_VISIBLE',
-    //   viewerId: sessionProfileId || anonymousId
-    // });
+    navigator.serviceWorker.controller.postMessage({
+      id,
+      type: 'PUBLICATION_VISIBLE',
+      viewerId: sessionProfileId || anonymousId
+    });
   }
 
   return;

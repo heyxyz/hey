@@ -30,7 +30,7 @@ const ReactionNotification: FC<ReactionNotificationProps> = ({
     : 'liked your';
   const type = notification?.publication.__typename;
 
-  usePushToImpressions(notification.publication.id);
+  // usePushToImpressions(notification.publication.id);
 
   return (
     <div className="space-y-2">

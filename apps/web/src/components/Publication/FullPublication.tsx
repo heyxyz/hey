@@ -37,7 +37,7 @@ const FullPublication: FC<FullPublicationProps> = ({
 
   const { createdAt, publishedOn } = targetPublication;
 
-  usePushToImpressions(targetPublication.id);
+  // usePushToImpressions(targetPublication.id);
 
   return (
     <article className="p-5">
