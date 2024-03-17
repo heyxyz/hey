@@ -67,15 +67,16 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
   }
 
   return (
-    <Card className="divide-y-[1px] dark:divide-gray-700">
+    <Card>
       <div className="flex items-center space-x-3 p-5">
         <Link href={`/posts/${publicationId}`}>
           <ArrowLeftIcon className="size-5" />
         </Link>
         <b className="text-lg">Collected by</b>
       </div>
+      <div className="divider" />
       <Virtuoso
-        className="virtual-profile-list-window"
+        className="virtual-divider-list-window"
         data={profiles}
         endReached={onEndReached}
         itemContent={(_, profile) => {
