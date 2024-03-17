@@ -15,7 +15,7 @@ import {
 } from '@hey/lens';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { useInView } from 'react-cool-inview';
+import { Virtuoso } from 'react-virtuoso';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 
@@ -69,19 +69,17 @@ const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
   const hiddenRemovedComments = comments?.length - hiddenCount;
   const totalComments = hiddenRemovedComments + queuedCount;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      const { data } = await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } }
-      });
-      const ids = data?.publications?.items?.map((p) => p.id) || [];
-      await fetchAndStoreViews(ids);
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    const { data } = await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    });
+    const ids = data?.publications?.items?.map((p) => p.id) || [];
+    await fetchAndStoreViews(ids);
+  };
 
   if (loading) {
     return <PublicationsShimmer />;
@@ -105,19 +103,25 @@ const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
       {queuedComments.map((txn) => (
         <QueuedPublication key={txn.id} txn={txn} />
       ))}
-      <Card className="divide-y-[1px] dark:divide-gray-700">
-        {comments?.map((comment, index) =>
-          comment?.__typename !== 'Comment' || comment.isHidden ? null : (
-            <SinglePublication
-              isFirst={index === 0}
-              isLast={index === comments.length - 1}
-              key={`${comment.id}`}
-              publication={comment as Comment}
-              showType={false}
-            />
-          )
-        )}
-        {hasMore ? <span ref={observe} /> : null}
+      <Card>
+        <Virtuoso
+          className="virtual-divider-list-window"
+          data={comments}
+          endReached={onEndReached}
+          itemContent={(index, comment) => {
+            return comment?.__typename !== 'Comment' ||
+              comment.isHidden ? null : (
+              <SinglePublication
+                isFirst={index === 0}
+                isLast={index === comments.length - 1}
+                key={`${comment.id}`}
+                publication={comment as Comment}
+                showType={false}
+              />
+            );
+          }}
+          useWindowScroll
+        />
       </Card>
     </>
   );

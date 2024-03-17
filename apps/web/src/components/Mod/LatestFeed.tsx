@@ -108,7 +108,7 @@ const LatestFeed: FC<LatestFeedProps> = ({
           !SKIPPED_PROFILE_IDS.includes(publication?.by?.id as string)
       )}
       endReached={onEndReached}
-      itemContent={(_, publication, index) => {
+      itemContent={(index, publication) => {
         return (
           <Card key={`${publication.id}_${index}`}>
             <SinglePublication

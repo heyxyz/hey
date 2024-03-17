@@ -10,7 +10,7 @@ import getAlgorithmicFeed from '@hey/lib/getAlgorithmicFeed';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { useInView } from 'react-cool-inview';
+import { Virtuoso } from 'react-virtuoso';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface AlgorithmicFeedProps {
@@ -54,17 +54,11 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
     ...(data?.publications?.items || [])
   ];
 
-  const { observe } = useInView({
-    onChange: ({ inView }) => {
-      if (!inView) {
-        return;
-      }
-
-      if (publications.length !== displayedPublications.length) {
-        setDisplayedPublications(publications);
-      }
+  const onEndReached = () => {
+    if (publications.length !== displayedPublications.length) {
+      setDisplayedPublications(publications);
     }
-  });
+  };
 
   if (publications.length === 0 && (algoLoading || loading)) {
     return <PublicationsShimmer />;
@@ -84,16 +78,23 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
   }
 
   return (
-    <Card className="divide-y-[1px] dark:divide-gray-700">
-      {publications?.map((publication, index) => (
-        <SinglePublication
-          isFirst={index === 0}
-          isLast={index === publications.length - 1}
-          key={`${publication.id}_${index}`}
-          publication={publication as AnyPublication}
-        />
-      ))}
-      <span ref={observe} />
+    <Card>
+      <Virtuoso
+        className="virtual-divider-list-window"
+        data={publications}
+        endReached={onEndReached}
+        itemContent={(index, publication) => {
+          return (
+            <SinglePublication
+              isFirst={index === 0}
+              isLast={index === publications.length - 1}
+              key={`${publication.id}_${index}`}
+              publication={publication as AnyPublication}
+            />
+          );
+        }}
+        useWindowScroll
+      />
     </Card>
   );
 };

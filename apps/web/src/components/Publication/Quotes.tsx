@@ -74,13 +74,14 @@ const Quotes: FC<QuotesProps> = ({ publicationId }) => {
   }
 
   return (
-    <Card className="divide-y-[1px] dark:divide-gray-700">
+    <Card>
       <div className="flex items-center space-x-3 p-5">
         <Link href={`/posts/${publicationId}`}>
           <ArrowLeftIcon className="size-5" />
         </Link>
         <b className="text-lg">Quotes</b>
       </div>
+      <div className="divider" />
       {quotes?.map((quote, index) => (
         <SinglePublication
           isFirst={false}
