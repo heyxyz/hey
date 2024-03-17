@@ -5,6 +5,7 @@ import ActionType from '@components/Home/Timeline/EventType';
 import PublicationWrapper from '@components/Shared/PublicationWrapper';
 import cn from '@hey/ui/cn';
 import { memo } from 'react';
+import usePushToImpressions from 'src/hooks/usePushToImpressions';
 
 import PublicationActions from './Actions';
 import HiddenPublication from './HiddenPublication';
@@ -35,7 +36,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   showType = true
 }) => {
   const rootPublication = feedItem ? feedItem?.root : publication;
-  // usePushToImpressions(rootPublication.id);
+  usePushToImpressions(rootPublication.id);
 
   return (
     <PublicationWrapper

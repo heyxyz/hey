@@ -8,6 +8,7 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
+import usePushToImpressions from 'src/hooks/usePushToImpressions';
 
 import { useHiddenCommentFeedStore } from '.';
 import PublicationActions from './Actions';
@@ -36,7 +37,7 @@ const FullPublication: FC<FullPublicationProps> = ({
 
   const { createdAt, publishedOn } = targetPublication;
 
-  // usePushToImpressions(targetPublication.id);
+  usePushToImpressions(targetPublication.id);
 
   return (
     <article className="p-5">

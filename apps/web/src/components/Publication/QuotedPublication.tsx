@@ -2,6 +2,7 @@ import type { PrimaryPublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import PublicationWrapper from '@components/Shared/PublicationWrapper';
+import usePushToImpressions from 'src/hooks/usePushToImpressions';
 
 import HiddenPublication from './HiddenPublication';
 import PublicationAvatar from './PublicationAvatar';
@@ -17,7 +18,7 @@ const QuotedPublication: FC<QuotedPublicationProps> = ({
   isNew = false,
   publication
 }) => {
-  // usePushToImpressions(publication.id);
+  usePushToImpressions(publication.id);
 
   return (
     <PublicationWrapper
