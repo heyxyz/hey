@@ -16,8 +16,8 @@ import {
 import { Button, EmptyState, ErrorMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { type FC, useEffect } from 'react';
-import { useInView } from 'react-cool-inview';
 import toast from 'react-hot-toast';
+import { Virtuoso } from 'react-virtuoso';
 import { useAccount } from 'wagmi';
 
 interface ListProps {
@@ -55,23 +55,21 @@ const List: FC<ListProps> = ({ managed = false }) => {
   const pageInfo = data?.profilesManaged?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      return await fetchMore({
-        variables: {
-          lastLoggedInProfileRequest,
-          profilesManagedRequest: {
-            ...profilesManagedRequest,
-            cursor: pageInfo.next
-          }
-        }
-      });
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    return await fetchMore({
+      variables: {
+        lastLoggedInProfileRequest,
+        profilesManagedRequest: {
+          ...profilesManagedRequest,
+          cursor: pageInfo.next
+        }
+      }
+    });
+  };
 
   if (loading) {
     return <Loader className="pb-5" />;
@@ -123,25 +121,32 @@ const List: FC<ListProps> = ({ managed = false }) => {
   };
 
   return (
-    <div className="space-y-4">
-      {profilesManaged?.map((profile) => (
-        <div className="flex items-center justify-between" key={profile.id}>
-          <UserProfile profile={profile as Profile} />
-          {address !== profile.ownedBy.address && (
-            <Button
-              disabled={hiding || unhiding}
-              onClick={() => toggleManagement(profile.id)}
-              outline
-              size="sm"
-              variant="danger"
-            >
-              {managed ? 'Un-manage' : 'Manage'}
-            </Button>
-          )}
-        </div>
-      ))}
-      {hasMore ? <span ref={observe} /> : null}
-    </div>
+    <Virtuoso
+      data={profilesManaged}
+      endReached={onEndReached}
+      itemContent={(_, profile) => {
+        return (
+          <div
+            className="flex items-center justify-between py-2"
+            key={profile.id}
+          >
+            <UserProfile profile={profile as Profile} />
+            {address !== profile.ownedBy.address && (
+              <Button
+                disabled={hiding || unhiding}
+                onClick={() => toggleManagement(profile.id)}
+                outline
+                size="sm"
+                variant="danger"
+              >
+                {managed ? 'Un-manage' : 'Manage'}
+              </Button>
+            )}
+          </div>
+        );
+      }}
+      useWindowScroll
+    />
   );
 };
 
