@@ -8,7 +8,7 @@ import { LightBulbIcon } from '@heroicons/react/24/outline';
 import { LimitType, useFeedHighlightsQuery } from '@hey/lens';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { useInView } from 'react-cool-inview';
+import { Virtuoso } from 'react-virtuoso';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
 import { useTimelineStore } from 'src/store/non-persisted/useTimelineStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -38,19 +38,17 @@ const Highlights: FC = () => {
   const pageInfo = data?.feedHighlights?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      const { data } = await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } }
-      });
-      const ids = data?.feedHighlights?.items?.map((p) => p.id) || [];
-      await fetchAndStoreViews(ids);
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    const { data } = await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    });
+    const ids = data?.feedHighlights?.items?.map((p) => p.id) || [];
+    await fetchAndStoreViews(ids);
+  };
 
   if (loading) {
     return <PublicationsShimmer />;
@@ -76,16 +74,23 @@ const Highlights: FC = () => {
           <QueuedPublication key={txn.id} txn={txn} />
         ) : null
       )}
-      <Card className="divide-y-[1px] dark:divide-gray-700">
-        {publications?.map((publication, index) => (
-          <SinglePublication
-            isFirst={index === 0}
-            isLast={index === publications.length - 1}
-            key={`${publication?.id}_${index}`}
-            publication={publication as AnyPublication}
-          />
-        ))}
-        {hasMore ? <span ref={observe} /> : null}
+      <Card>
+        <Virtuoso
+          className="virtual-divider-list-window"
+          data={publications}
+          endReached={onEndReached}
+          itemContent={(index, publication) => {
+            return (
+              <SinglePublication
+                isFirst={index === 0}
+                isLast={index === (publications?.length || 0) - 1}
+                key={`${publication?.id}_${index}`}
+                publication={publication as AnyPublication}
+              />
+            );
+          }}
+          useWindowScroll
+        />
       </Card>
     </>
   );

@@ -14,7 +14,8 @@ import {
 import getAvatar from '@hey/lib/getAvatar';
 import { Card, StackedAvatars } from '@hey/ui';
 import { useState } from 'react';
-import { useInView } from 'react-cool-inview';
+import { Virtuoso } from 'react-virtuoso';
+import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
 
 interface NoneRelevantFeedProps {
   publicationId: string;
@@ -23,6 +24,7 @@ interface NoneRelevantFeedProps {
 const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publicationId }) => {
   const { showHiddenComments } = useHiddenCommentFeedStore();
   const [showMore, setShowMore] = useState(false);
+  const { fetchAndStoreViews } = useImpressionsStore();
 
   // Variables
   const request: PublicationsRequest = {
@@ -40,6 +42,10 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publicationId }) => {
   };
 
   const { data, fetchMore } = usePublicationsQuery({
+    onCompleted: async ({ publications }) => {
+      const ids = publications?.items?.map((p) => p.id) || [];
+      await fetchAndStoreViews(ids);
+    },
     skip: !publicationId,
     variables: { request }
   });
@@ -49,17 +55,17 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publicationId }) => {
   const hasMore = pageInfo?.next;
   const totalComments = comments?.length;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } }
-      });
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    const { data } = await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    });
+    const ids = data?.publications?.items?.map((p) => p.id) || [];
+    await fetchAndStoreViews(ids);
+  };
 
   if (totalComments === 0) {
     return null;
@@ -85,19 +91,25 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publicationId }) => {
         )}
       </Card>
       {showMore ? (
-        <Card className="divide-y-[1px] dark:divide-gray-700">
-          {comments?.map((comment, index) =>
-            comment?.__typename === 'Comment' && comment.isHidden ? null : (
-              <SinglePublication
-                isFirst={index === 0}
-                isLast={index === comments.length - 1}
-                key={`${publicationId}_${index}`}
-                publication={comment as Comment}
-                showType={false}
-              />
-            )
-          )}
-          {hasMore ? <span ref={observe} /> : null}
+        <Card>
+          <Virtuoso
+            className="virtual-divider-list-window"
+            data={comments}
+            endReached={onEndReached}
+            itemContent={(index, comment) => {
+              return comment?.__typename === 'Comment' &&
+                comment.isHidden ? null : (
+                <SinglePublication
+                  isFirst={index === 0}
+                  isLast={index === comments.length - 1}
+                  key={`${publicationId}_${index}`}
+                  publication={comment as Comment}
+                  showType={false}
+                />
+              );
+            }}
+            useWindowScroll
+          />
         </Card>
       ) : null}
     </>
