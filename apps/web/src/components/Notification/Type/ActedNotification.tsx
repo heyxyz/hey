@@ -33,7 +33,7 @@ const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
     : 'acted on your';
   const type = notification?.publication.__typename;
 
-  usePushToImpressions(notification.publication.id);
+  // usePushToImpressions(notification.publication.id);
 
   return (
     <div className="space-y-2">

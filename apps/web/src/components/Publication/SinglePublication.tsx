@@ -36,7 +36,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   showType = true
 }) => {
   const rootPublication = feedItem ? feedItem?.root : publication;
-  usePushToImpressions(rootPublication.id);
+  // usePushToImpressions(rootPublication.id);
 
   return (
     <PublicationWrapper
