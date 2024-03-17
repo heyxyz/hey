@@ -30,12 +30,12 @@ const ActionsSettings: NextPage = () => {
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight>
-        <Card className="p-5">
-          <div className="space-y-3">
+        <Card>
+          <div className="space-y-1 p-5">
             <div className="text-lg font-bold">Actions</div>
             <p>This is a list of actions on your account.</p>
           </div>
-          <div className="divider my-5" />
+          <div className="divider" />
           <List />
         </Card>
       </GridItemEight>
