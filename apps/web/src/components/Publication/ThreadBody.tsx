@@ -15,7 +15,7 @@ interface ThreadBodyProps {
 }
 
 const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
-  usePushToImpressions(publication.id);
+  // usePushToImpressions(publication.id);
 
   return (
     <PublicationWrapper publication={publication}>
