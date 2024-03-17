@@ -54,7 +54,7 @@ const seedFeatureFlags = async (): Promise<number> => {
         type: 'PERMISSION'
       },
       {
-        id: '8ed8b26a-279d-4111-9d39-a40164b273a0',
+        id: '6e9aacf3-7b83-4009-9c51-0612042b4af2',
         key: FeatureFlag.LensTeam,
         type: 'COHORT'
       }
