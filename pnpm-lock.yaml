@@ -317,8 +317,8 @@ importers:
         specifier: ^1.7.14
         version: 1.7.14(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)(scheduler@0.23.0)
       react-virtuoso:
-        specifier: 4.6.3
-        version: 4.6.3(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^4.7.2
+        version: 4.7.2(react-dom@18.2.0)(react@18.2.0)
       remark-breaks:
         specifier: ^4.0.0
         version: 4.0.0
@@ -18390,8 +18390,8 @@ packages:
       use-context-selector: 1.4.4(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)(scheduler@0.23.0)
     dev: false
 
-  /react-virtuoso@4.6.3(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-NcoSsf4B0OCx7U8i2s+VWe8b9e+FWzcN/5ly4hKjErynBzGONbWORZ1C5amUlWrPi6+HbUQ2PjnT4OpyQIpP9A==}
+  /react-virtuoso@4.7.2(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-xF4es1ajK36Hs9MciaiGA9l16tV2bpkpgxM9JVKh0rJSn6uhdAUrxSQ6FttQOOPAGt4GRG2A4gdjlo18JWhyRw==}
     engines: {node: '>=10'}
     peerDependencies:
       react: '>=16 || >=17 || >= 18'
