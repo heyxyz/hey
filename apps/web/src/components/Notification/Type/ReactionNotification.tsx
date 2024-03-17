@@ -6,6 +6,7 @@ import { HeartIcon } from '@heroicons/react/24/outline';
 import getPublicationData from '@hey/lib/getPublicationData';
 import Link from 'next/link';
 import plur from 'plur';
+import usePushToImpressions from 'src/hooks/usePushToImpressions';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
@@ -29,7 +30,7 @@ const ReactionNotification: FC<ReactionNotificationProps> = ({
     : 'liked your';
   const type = notification?.publication.__typename;
 
-  // usePushToImpressions(notification.publication.id);
+  usePushToImpressions(notification.publication.id);
 
   return (
     <div className="space-y-2">
