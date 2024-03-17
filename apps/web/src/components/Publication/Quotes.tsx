@@ -2,7 +2,7 @@ import type { PublicationsRequest, Quote } from '@hey/lens';
 import type { FC } from 'react';
 
 import SinglePublication from '@components/Publication/SinglePublication';
-import ProfileListShimmer from '@components/Shared/Shimmer/ProfileListShimmer';
+import PublicationListShimmer from '@components/Shared/Shimmer/PublicationListShimmer';
 import {
   ArrowLeftIcon,
   ChatBubbleBottomCenterTextIcon
@@ -10,7 +10,7 @@ import {
 import { CustomFiltersType, LimitType, usePublicationsQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import Link from 'next/link';
-import { useInView } from 'react-cool-inview';
+import { Virtuoso } from 'react-virtuoso';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
 
 interface QuotesProps {
@@ -42,22 +42,20 @@ const Quotes: FC<QuotesProps> = ({ publicationId }) => {
   const pageInfo = data?.publications?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      const { data } = await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } }
-      });
-      const ids = data?.publications?.items?.map((p) => p.id) || [];
-      await fetchAndStoreViews(ids);
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    const { data } = await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    });
+    const ids = data?.publications?.items?.map((p) => p.id) || [];
+    await fetchAndStoreViews(ids);
+  };
 
   if (loading) {
-    return <ProfileListShimmer />;
+    return <PublicationListShimmer />;
   }
 
   if (error) {
@@ -82,16 +80,23 @@ const Quotes: FC<QuotesProps> = ({ publicationId }) => {
         <b className="text-lg">Quotes</b>
       </div>
       <div className="divider" />
-      {quotes?.map((quote, index) => (
-        <SinglePublication
-          isFirst={false}
-          isLast={index === quotes.length - 1}
-          key={`${quote.id}`}
-          publication={quote as Quote}
-          showType={false}
-        />
-      ))}
-      {hasMore ? <span ref={observe} /> : null}
+      <Virtuoso
+        className="virtual-divider-list-window"
+        data={quotes}
+        endReached={onEndReached}
+        itemContent={(index, quote) => {
+          return (
+            <SinglePublication
+              isFirst={false}
+              isLast={index === quotes.length - 1}
+              key={`${quote.id}`}
+              publication={quote as Quote}
+              showType={false}
+            />
+          );
+        }}
+        useWindowScroll
+      />
     </Card>
   );
 };

@@ -4,9 +4,8 @@ import type { FC } from 'react';
 import ActionType from '@components/Home/Timeline/EventType';
 import PublicationWrapper from '@components/Shared/PublicationWrapper';
 import cn from '@hey/ui/cn';
-import pushToImpressions from '@lib/pushToImpressions';
 import { memo } from 'react';
-import { useInView } from 'react-cool-inview';
+import usePushToImpressions from 'src/hooks/usePushToImpressions';
 
 import PublicationActions from './Actions';
 import HiddenPublication from './HiddenPublication';
@@ -37,16 +36,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   showType = true
 }) => {
   const rootPublication = feedItem ? feedItem?.root : publication;
-
-  const { observe } = useInView({
-    onChange: ({ inView }) => {
-      if (!inView) {
-        return;
-      }
-
-      pushToImpressions(rootPublication.id);
-    }
-  });
+  usePushToImpressions(rootPublication.id);
 
   return (
     <PublicationWrapper
@@ -57,7 +47,6 @@ const SinglePublication: FC<SinglePublicationProps> = ({
       )}
       publication={rootPublication}
     >
-      <span ref={observe} />
       {feedItem ? (
         <ActionType feedItem={feedItem} />
       ) : (
