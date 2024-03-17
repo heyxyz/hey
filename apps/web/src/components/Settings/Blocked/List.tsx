@@ -6,7 +6,7 @@ import UserProfile from '@components/Shared/UserProfile';
 import { NoSymbolIcon } from '@heroicons/react/24/outline';
 import { LimitType, useWhoHaveBlockedQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
-import { useInView } from 'react-cool-inview';
+import { Virtuoso } from 'react-virtuoso';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 const List: FC = () => {
@@ -22,17 +22,15 @@ const List: FC = () => {
   const pageInfo = data?.whoHaveBlocked?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      return await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } }
-      });
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    return await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    });
+  };
 
   if (loading) {
     return <Loader className="pb-5" />;
@@ -56,12 +54,19 @@ const List: FC = () => {
 
   return (
     <div className="space-y-4">
-      {whoHaveBlocked?.map((profile) => (
-        <div key={profile.id}>
-          <UserProfile profile={profile as Profile} />
-        </div>
-      ))}
-      {hasMore ? <span ref={observe} /> : null}
+      <Virtuoso
+        className="virtual-divider-list-window"
+        data={whoHaveBlocked}
+        endReached={onEndReached}
+        itemContent={(_, profile) => {
+          return (
+            <div className="p-5" key={profile.id}>
+              <UserProfile profile={profile as Profile} />
+            </div>
+          );
+        }}
+        useWindowScroll
+      />
     </div>
   );
 };

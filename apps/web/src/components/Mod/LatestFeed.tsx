@@ -100,9 +100,7 @@ const LatestFeed: FC<LatestFeedProps> = ({
   return (
     <Virtuoso
       className="[&>div>div]:space-y-5"
-      components={{
-        Footer: () => <div className="pb-5" />
-      }}
+      components={{ Footer: () => <div className="pb-5" /> }}
       data={publications?.filter(
         (publication) =>
           !SKIPPED_PROFILE_IDS.includes(publication?.by?.id as string)

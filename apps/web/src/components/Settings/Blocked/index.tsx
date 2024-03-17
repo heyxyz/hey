@@ -30,15 +30,15 @@ const BlockedSettings: NextPage = () => {
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight>
-        <Card className="p-5">
-          <div className="space-y-3">
+        <Card>
+          <div className="space-y-1 p-5">
             <div className="text-lg font-bold">Blocked profiles</div>
             <p>
               This is a list of blocked profiles. You can unblock them at any
               time.
             </p>
           </div>
-          <div className="divider my-5" />
+          <div className="divider" />
           <List />
         </Card>
       </GridItemEight>

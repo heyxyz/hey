@@ -54,9 +54,7 @@ const PaidActions: FC = () => {
   return (
     <Virtuoso
       className="[&>div>div]:space-y-5"
-      components={{
-        Footer: () => <div className="pb-5" />
-      }}
+      components={{ Footer: () => <div className="pb-5" /> }}
       data={actions}
       endReached={onEndReached}
       itemContent={(index, action) => {
