@@ -46,7 +46,6 @@ import InvitedBy from './InvitedBy';
 import ProfileMenu from './Menu';
 import MutualFollowers from './MutualFollowers';
 import ScamWarning from './ScamWarning';
-import TbaBadge from './TbaBadge';
 
 interface DetailsProps {
   profile: Profile;
@@ -103,7 +102,6 @@ const Details: FC<DetailsProps> = ({ profile }) => {
               <CheckBadgeIcon className="text-brand-500 size-6" />
             </Tooltip>
           ) : null}
-          <TbaBadge address={profile.ownedBy.address} />
           {hasMisused(profile.id) ? (
             <Tooltip content={misuseDetails?.type}>
               <ExclamationCircleIcon className="size-6" />

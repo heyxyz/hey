@@ -13,6 +13,5 @@ export const IndexDB = {
   FeatureFlagsStore: 'featureflags.store',
   ProfileStore: 'profile.store',
   SearchStore: 'search.store',
-  TBAStore: 'tba.store',
   VerifiedMembersStore: 'verifiedmembers.store'
 };
