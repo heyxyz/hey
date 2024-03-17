@@ -10,7 +10,7 @@ on:
 jobs:
   typecheck:
     name: Typecheck
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout 🚪
