@@ -108,9 +108,7 @@ const List: FC = () => {
             {features?.map((feature) => (
               <div key={feature.id}>
                 <ToggleWithHelper
-                  description={`Created on ${formatDate(
-                    feature.createdAt
-                  )} with priority ${feature.priority}`}
+                  description={`Created on ${formatDate(feature.createdAt)}`}
                   disabled={killing}
                   heading={
                     <div className="flex items-center space-x-2">

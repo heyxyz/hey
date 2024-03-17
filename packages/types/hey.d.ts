@@ -13,7 +13,6 @@ export type Feature = {
   enabled: boolean;
   id: string;
   key: string;
-  priority: number;
   type: 'FEATURE' | 'MODE' | 'PERMISSION';
 };
 
