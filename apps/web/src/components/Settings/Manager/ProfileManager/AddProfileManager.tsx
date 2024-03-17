@@ -22,7 +22,6 @@ import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { hydrateTbaStatus } from 'src/store/persisted/useTbaStatusStore';
 import { isAddress } from 'viem';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
@@ -43,7 +42,6 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
 
   const handleWrongNetwork = useHandleWrongNetwork();
 
-  const { isTba } = hydrateTbaStatus();
   const { canBroadcast } = checkDispatcherPermissions(currentProfile);
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
@@ -111,7 +109,7 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
         await handleWrongNetwork();
 
         try {
-          if (!isTba && canBroadcast) {
+          if (canBroadcast) {
             const signature = await signTypedDataAsync(getSignature(typedData));
             const { data } = await broadcastOnchain({
               variables: { request: { id, signature } }
