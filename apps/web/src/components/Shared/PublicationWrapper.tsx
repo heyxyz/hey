@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 
 interface PublicationWrapperProps {
-  children: ReactNode[];
+  children: ReactNode | ReactNode[];
   className?: string;
   publication: AnyPublication;
 }

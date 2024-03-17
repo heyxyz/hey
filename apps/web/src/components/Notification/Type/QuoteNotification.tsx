@@ -4,9 +4,8 @@ import type { FC } from 'react';
 import Markup from '@components/Shared/Markup';
 import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
 import getPublicationData from '@hey/lib/getPublicationData';
-import pushToImpressions from '@lib/pushToImpressions';
 import Link from 'next/link';
-import { useEffect } from 'react';
+import usePushToImpressions from 'src/hooks/usePushToImpressions';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
@@ -23,10 +22,7 @@ const QuoteNotification: FC<QuoteNotificationProps> = ({ notification }) => {
   const text = 'quoted your';
   const type = notification.quote.quoteOn.__typename;
 
-  useEffect(() => {
-    pushToImpressions(notification.quote.id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  usePushToImpressions(notification.quote.id);
 
   return (
     <div className="space-y-2">
