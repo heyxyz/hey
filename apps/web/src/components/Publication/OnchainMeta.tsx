@@ -70,7 +70,7 @@ const OnchainMeta: FC<OnchainMetaProps> = ({ publication }) => {
           <Meta
             hash={hash}
             name="IPFS TRANSACTION"
-            uri={`${IPFS_GATEWAY}${hash}`}
+            uri={`${IPFS_GATEWAY}/${hash}`}
           />
         ) : null}
         {publication?.txHash ? (

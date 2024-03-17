@@ -42,7 +42,7 @@ export const get: Handler = async (req, res) => {
       .type('svg')
       .send(svgImage);
   } catch {
-    const url = `${IPFS_GATEWAY}Qmb4XppdMDCsS7KCL8nCJo8pukEWeqL4bTghURYwYiG83i/cropped_image.png`;
+    const url = `${IPFS_GATEWAY}/Qmb4XppdMDCsS7KCL8nCJo8pukEWeqL4bTghURYwYiG83i/cropped_image.png`;
     return res.status(302).redirect(url);
   }
 };

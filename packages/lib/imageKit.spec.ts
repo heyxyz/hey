@@ -45,7 +45,7 @@ describe('imageKit', () => {
     const originalUrl = `${IPFS_GATEWAY}/bafkreianwlir2groq5l52zdnikon4rtgjcostjosaadbbfekgpzhaprmri`;
 
     expect(imageKit(originalUrl, 'transformed')).toBe(
-      'https://ik.imagekit.io/lensterimg/fallback/transformed,q-80/https://gw.ipfs-lens.dev/ipfs//bafkreianwlir2groq5l52zdnikon4rtgjcostjosaadbbfekgpzhaprmri'
+      'https://ik.imagekit.io/lensterimg/fallback/transformed,q-80/https://gw.ipfs-lens.dev/ipfs/bafkreianwlir2groq5l52zdnikon4rtgjcostjosaadbbfekgpzhaprmri'
     );
   });
 });
