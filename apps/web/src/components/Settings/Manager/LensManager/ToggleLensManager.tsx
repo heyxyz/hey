@@ -22,7 +22,6 @@ import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { hydrateTbaStatus } from 'src/store/persisted/useTbaStatusStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
 interface ToggleLensManagerProps {
@@ -40,7 +39,6 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
 
-  const { isTba } = hydrateTbaStatus();
   const { canBroadcast, canUseSignless } =
     checkDispatcherPermissions(currentProfile);
 
@@ -107,7 +105,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
         ];
         await handleWrongNetwork();
 
-        if (!isTba && canBroadcast) {
+        if (canBroadcast) {
           const signature = await signTypedDataAsync(getSignature(typedData));
           const { data } = await broadcastOnchain({
             variables: { request: { id, signature } }
