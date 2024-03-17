@@ -69,10 +69,6 @@ const HandleGuardianSettings: FC = () => {
     return null;
   }
 
-  if (!currentProfile?.handle?.guardian?.protected) {
-    return null;
-  }
-
   return (
     <Card className="space-y-5 p-5">
       <div className="space-y-3">
