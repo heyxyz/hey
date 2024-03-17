@@ -12,14 +12,12 @@ import {
   useExploreProfilesQuery
 } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
-import { Button, Card, EmptyState, ErrorMessage, Modal, Select } from '@hey/ui';
+import { Card, EmptyState, ErrorMessage, Select } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
-
-import ProfileFeed from './ProfileFeed';
 
 const List: FC = () => {
   const { pathname, push } = useRouter();
@@ -28,8 +26,6 @@ const List: FC = () => {
   );
   const [value, setValue] = useState('');
   const [refetching, setRefetching] = useState(false);
-  const [showPublicationsModal, setShowPublicationsModal] = useState(false);
-  const [selectedProfile, setSelectedProfile] = useState<null | Profile>(null);
 
   // Variables
   const request: ExploreProfilesRequest = {
@@ -68,9 +64,7 @@ const List: FC = () => {
           onChange={(event) => setValue(event.target.value)}
           onProfileSelected={(profile) => {
             if (pathname === '/mod') {
-              setShowPublicationsModal(true);
-              setSelectedProfile(profile as Profile);
-              setValue('');
+              push(getProfile(profile).link);
             } else {
               push(getProfile(profile).staffLink);
             }
@@ -131,20 +125,7 @@ const List: FC = () => {
                       timestamp={profile.createdAt}
                     />
                   </Link>
-                  <div className="flex items-center space-x-1">
-                    <Button
-                      onClick={() => {
-                        setShowPublicationsModal(true);
-                        setSelectedProfile(profile as Profile);
-                      }}
-                      outline
-                      size="sm"
-                      variant="secondary"
-                    >
-                      Publications
-                    </Button>
-                    <P2PRecommendation profile={profile as Profile} />
-                  </div>
+                  <P2PRecommendation profile={profile as Profile} />
                 </div>
               );
             }}
@@ -152,21 +133,6 @@ const List: FC = () => {
           />
         )}
       </div>
-      <Modal
-        onClose={() => {
-          setShowPublicationsModal(false);
-          setSelectedProfile(null);
-        }}
-        show={showPublicationsModal}
-        size="md"
-        title={`Publications by ${getProfile(selectedProfile).slugWithPrefix}`}
-      >
-        <div className="max-h-[80vh] overflow-y-auto">
-          {selectedProfile?.id ? (
-            <ProfileFeed profileId={selectedProfile.id} />
-          ) : null}
-        </div>
-      </Modal>
     </Card>
   );
 };

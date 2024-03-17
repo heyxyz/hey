@@ -2,8 +2,7 @@ import type { PrimaryPublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import PublicationWrapper from '@components/Shared/PublicationWrapper';
-import pushToImpressions from '@lib/pushToImpressions';
-import { useInView } from 'react-cool-inview';
+import usePushToImpressions from 'src/hooks/usePushToImpressions';
 
 import HiddenPublication from './HiddenPublication';
 import PublicationAvatar from './PublicationAvatar';
@@ -19,22 +18,13 @@ const QuotedPublication: FC<QuotedPublicationProps> = ({
   isNew = false,
   publication
 }) => {
-  const { observe } = useInView({
-    onChange: ({ inView }) => {
-      if (!inView) {
-        return;
-      }
-
-      pushToImpressions(publication.id);
-    }
-  });
+  usePushToImpressions(publication.id);
 
   return (
     <PublicationWrapper
       className="cursor-pointer p-4 first:rounded-t-xl last:rounded-b-xl hover:bg-gray-100 dark:hover:bg-gray-900"
       publication={publication}
     >
-      <span ref={observe} />
       <div className="flex items-center space-x-2">
         <PublicationAvatar publication={publication} quoted />
         <PublicationHeader isNew={isNew} publication={publication} quoted />
