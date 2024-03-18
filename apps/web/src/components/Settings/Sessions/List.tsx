@@ -109,14 +109,12 @@ const List: FC = () => {
   return (
     <Virtuoso
       className="virtual-divider-list-window"
+      computeItemKey={(_, session) => session.authorizationId}
       data={approvedAuthentications}
       endReached={onEndReached}
       itemContent={(_, session) => {
         return (
-          <div
-            className="flex flex-wrap items-start justify-between p-5"
-            key={session.authorizationId}
-          >
+          <div className="flex flex-wrap items-start justify-between p-5">
             <div>
               <div className="mb-3 flex items-center space-x-2">
                 <ComputerDesktopIcon className="size-8" />

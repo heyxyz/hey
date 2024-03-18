@@ -183,14 +183,12 @@ const List: FC = () => {
 
   return (
     <Virtuoso
+      computeItemKey={(_, manager) => manager.address}
       data={profileManagers}
       endReached={onEndReached}
       itemContent={(_, manager) => {
         return (
-          <div
-            className="flex items-center justify-between py-2"
-            key={manager.address}
-          >
+          <div className="flex items-center justify-between py-2">
             <WalletProfile address={manager.address} />
             <Button
               disabled={removingAddress === manager.address}

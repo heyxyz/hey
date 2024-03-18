@@ -27,6 +27,7 @@ const Suggested: FC<SuggestedProps> = ({ profiles }) => {
     <div className="max-h-[80vh] overflow-y-auto">
       <Virtuoso
         className="virtual-profile-list"
+        computeItemKey={(_, profile) => profile.id}
         // remove the first 5 profiles from the list because they are already shown in the sidebar
         data={profiles.slice(5)}
         itemContent={(_, profile) => {

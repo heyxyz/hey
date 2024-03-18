@@ -80,6 +80,7 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
       <div className="divider" />
       <Virtuoso
         className="virtual-divider-list-window"
+        computeItemKey={(_, profile) => profile.id}
         data={profiles}
         endReached={onEndReached}
         itemContent={(_, profile) => {

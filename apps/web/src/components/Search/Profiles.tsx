@@ -69,11 +69,12 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
   return (
     <Virtuoso
       className="[&>div>div]:space-y-3"
+      computeItemKey={(_, profile) => profile.id}
       data={profiles}
       endReached={onEndReached}
       itemContent={(_, profile) => {
         return (
-          <Card className="p-5" key={profile?.id}>
+          <Card className="p-5">
             <UserProfile
               isBig
               profile={profile as Profile}

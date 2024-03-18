@@ -84,6 +84,7 @@ const Followers: FC<FollowersProps> = ({ handle, profileId }) => {
       <div className="divider" />
       <Virtuoso
         className="virtual-divider-list-window"
+        computeItemKey={(_, follower) => follower.id}
         data={followers}
         endReached={onEndReached}
         itemContent={(_, follower) => {

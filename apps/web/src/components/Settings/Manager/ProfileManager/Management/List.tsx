@@ -122,14 +122,12 @@ const List: FC<ListProps> = ({ managed = false }) => {
 
   return (
     <Virtuoso
+      computeItemKey={(_, profile) => profile.id}
       data={profilesManaged}
       endReached={onEndReached}
       itemContent={(_, profile) => {
         return (
-          <div
-            className="flex items-center justify-between py-2"
-            key={profile.id}
-          >
+          <div className="flex items-center justify-between py-2">
             <UserProfile profile={profile as Profile} />
             {address !== profile.ownedBy.address && (
               <Button

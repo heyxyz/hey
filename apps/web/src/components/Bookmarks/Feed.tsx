@@ -77,6 +77,7 @@ const Feed: FC<FeedProps> = ({ focus }) => {
     <Card>
       <Virtuoso
         className="virtual-divider-list-window"
+        computeItemKey={(index, publication) => `${publication.id}_${index}`}
         data={publications}
         endReached={onEndReached}
         itemContent={(index, publication) => {
@@ -84,7 +85,6 @@ const Feed: FC<FeedProps> = ({ focus }) => {
             <SinglePublication
               isFirst={index === 0}
               isLast={index === (publications?.length || 0) - 1}
-              key={`${publication.id}_${index}`}
               publication={publication as AnyPublication}
             />
           );

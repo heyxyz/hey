@@ -99,6 +99,7 @@ const Timeline: FC = () => {
       <Card>
         <Virtuoso
           className="virtual-divider-list-window"
+          computeItemKey={(_, feedItem) => feedItem.id}
           data={feed}
           endReached={onEndReached}
           itemContent={(index, feedItem) => {
@@ -107,7 +108,6 @@ const Timeline: FC = () => {
                 feedItem={feedItem as FeedItem}
                 isFirst={index === 0}
                 isLast={index === (feed?.length || 0) - 1}
-                key={feedItem.id}
                 publication={feedItem.root as AnyPublication}
               />
             );
