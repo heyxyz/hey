@@ -58,11 +58,12 @@ const List: FC = () => {
   return (
     <Virtuoso
       className="virtual-divider-list-window"
+      computeItemKey={(_, action) => action.id}
       data={profileActionHistory}
       endReached={onEndReached}
       itemContent={(_, action) => {
         return (
-          <div className="space-y-1 p-5" key={action.id}>
+          <div className="space-y-1 p-5">
             <b>{action.actionType.toLowerCase()}</b>
             <div className="ld-text-gray-500 text-sm">
               {action.txHash ? (

@@ -102,6 +102,7 @@ const SearchFeed: FC = () => {
       <Virtuoso
         className="[&>div>div]:space-y-5"
         components={{ Footer: () => <div className="pb-5" /> }}
+        computeItemKey={(index, publication) => `${publication.id}_${index}`}
         data={publications}
         endReached={onEndReached}
         itemContent={(index, publication) => {
@@ -110,7 +111,7 @@ const SearchFeed: FC = () => {
             : publication;
 
           return (
-            <Card key={`${publication.id}_${index}`}>
+            <Card>
               <SinglePublication
                 isFirst
                 isLast={false}

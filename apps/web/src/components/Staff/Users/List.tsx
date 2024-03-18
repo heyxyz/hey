@@ -103,6 +103,7 @@ const List: FC = () => {
           />
         ) : (
           <Virtuoso
+            computeItemKey={(_, profile) => profile.id}
             data={profiles}
             endReached={onEndReached}
             itemContent={(_, profile) => {

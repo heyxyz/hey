@@ -106,6 +106,7 @@ const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
       <Card>
         <Virtuoso
           className="virtual-divider-list-window"
+          computeItemKey={(index) => `${publicationId}_${index}`}
           data={comments}
           endReached={onEndReached}
           itemContent={(index, comment) => {
@@ -114,7 +115,6 @@ const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
               <SinglePublication
                 isFirst={index === 0}
                 isLast={index === comments.length - 1}
-                key={`${comment.id}`}
                 publication={comment as Comment}
                 showType={false}
               />

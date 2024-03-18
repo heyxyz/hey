@@ -94,6 +94,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publicationId }) => {
         <Card>
           <Virtuoso
             className="virtual-divider-list-window"
+            computeItemKey={(index) => `${publicationId}_${index}`}
             data={comments}
             endReached={onEndReached}
             itemContent={(index, comment) => {
@@ -102,7 +103,6 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publicationId }) => {
                 <SinglePublication
                   isFirst={index === 0}
                   isLast={index === comments.length - 1}
-                  key={`${publicationId}_${index}`}
                   publication={comment as Comment}
                   showType={false}
                 />

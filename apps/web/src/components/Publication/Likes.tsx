@@ -81,6 +81,7 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
       <div className="divider" />
       <Virtuoso
         className="virtual-divider-list-window"
+        computeItemKey={(_, like) => like.profile.id}
         data={profiles}
         endReached={onEndReached}
         itemContent={(_, like) => {
