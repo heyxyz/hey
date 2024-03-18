@@ -35,9 +35,8 @@ const BlockOrUnBlockProfile: FC = () => {
     setShowBlockOrUnblockAlert,
     showBlockOrUnblockAlert
   } = useGlobalAlertStateStore();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
-    (state) => state
-  );
+  const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
+    useNonceStore((state) => state);
   const [isLoading, setIsLoading] = useState(false);
   const [hasBlocked, setHasBlocked] = useState(
     blockingorUnblockingProfile?.operations.isBlockedByMe.value
@@ -107,7 +106,7 @@ const BlockOrUnBlockProfile: FC = () => {
   const typedDataGenerator = async (generatedData: any) => {
     const { id, typedData } = generatedData;
     await handleWrongNetwork();
-    setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+    incrementLensHubOnchainSigNonce();
 
     if (canBroadcast) {
       const signature = await signTypedDataAsync(getSignature(typedData));

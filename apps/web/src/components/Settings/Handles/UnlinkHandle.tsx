@@ -28,9 +28,8 @@ import { useSignTypedData, useWriteContract } from 'wagmi';
 const UnlinkHandle: FC = () => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
-    (state) => state
-  );
+  const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
+    useNonceStore((state) => state);
   const [unlinking, setUnlinking] = useState<boolean>(false);
 
   const handleWrongNetwork = useHandleWrongNetwork();
@@ -91,7 +90,7 @@ const UnlinkHandle: FC = () => {
           if (data?.broadcastOnchain.__typename === 'RelayError') {
             return await write({ args: [typedData.value] });
           }
-          setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+          incrementLensHubOnchainSigNonce();
 
           return;
         }
