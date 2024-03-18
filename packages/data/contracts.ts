@@ -1,5 +1,5 @@
 export enum MainnetContracts {
-  DefaultToken = '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270',
+  DefaultToken = '0x3d2bD0e15829AA5C362a4144FdF4A1112fa29B5c', // BONSAI
   HeyLensSignup = '0x4b8845ACb8148dE64D1D99Cf27A3890a91F55E53',
   LensHandles = '0xe7E7EaD361f3AaCD73A61A9bD6C10cA17F38E945',
   LensHub = '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d',
@@ -8,7 +8,7 @@ export enum MainnetContracts {
 }
 
 export enum TestnetContracts {
-  DefaultToken = '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889',
+  DefaultToken = '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889', // WMATIC
   HeyLensSignup = '0x6d131f44fBB08D463D18394Ada64BE59519339e3',
   LensHandles = '0x44e1668150A154f01D53d1f05B8Fa0d8f3f341a9',
   LensHub = '0x4fbffF20302F3326B20052ab9C217C44F6480900',
