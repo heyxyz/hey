@@ -58,9 +58,11 @@ const useCreatePublication = ({
   const { push } = useRouter();
   const { cache } = useApolloClient();
   const { currentProfile } = useProfileStore();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
-    (state) => state
-  );
+  const {
+    decrementLensHubOnchainSigNonce,
+    incrementLensHubOnchainSigNonce,
+    lensHubOnchainSigNonce
+  } = useNonceStore((state) => state);
   const { publicationContent } = usePublicationStore();
   const { setTxnQueue, txnQueue } = useTransactionStore();
   const handleWrongNetwork = useHandleWrongNetwork();
@@ -111,11 +113,11 @@ const useCreatePublication = ({
     mutation: {
       onError: (error: Error) => {
         onError(error);
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+        decrementLensHubOnchainSigNonce();
       },
       onSuccess: (hash: string) => {
         onCompleted();
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+        incrementLensHubOnchainSigNonce();
         setTxnQueue([
           generateOptimisticPublication({ txHash: hash }),
           ...txnQueue
@@ -176,7 +178,7 @@ const useCreatePublication = ({
       if (data?.broadcastOnchain.__typename === 'RelayError') {
         return await write({ args: [typedData.value] });
       }
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+      incrementLensHubOnchainSigNonce();
 
       return;
     }

@@ -29,9 +29,11 @@ const useActOnUnknownOpenAction = ({
   successToast
 }: CreatePublicationProps) => {
   const { currentProfile } = useProfileStore();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
-    (state) => state
-  );
+  const {
+    decrementLensHubOnchainSigNonce,
+    incrementLensHubOnchainSigNonce,
+    lensHubOnchainSigNonce
+  } = useNonceStore((state) => state);
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
 
@@ -62,11 +64,11 @@ const useActOnUnknownOpenAction = ({
     mutation: {
       onError: (error: Error) => {
         onError(error);
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+        decrementLensHubOnchainSigNonce();
       },
       onSuccess: () => {
         onCompleted();
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+        incrementLensHubOnchainSigNonce();
       }
     }
   });
@@ -99,7 +101,7 @@ const useActOnUnknownOpenAction = ({
           if (data?.broadcastOnchain.__typename === 'RelayError') {
             return await write({ args: [typedData.value] });
           }
-          setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+          incrementLensHubOnchainSigNonce();
 
           return;
         }
