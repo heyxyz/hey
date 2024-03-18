@@ -99,5 +99,9 @@ model AllowedToken {
   symbol          String
   decimals        Int      @default(18)
   contractAddress String   @unique
+  priority        Int      @default(0)
   createdAt       DateTime @default(now())
+
+  // Indexes
+  @@index([priority])
 }
