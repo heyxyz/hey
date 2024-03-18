@@ -82,6 +82,7 @@ const Quotes: FC<QuotesProps> = ({ publicationId }) => {
       <div className="divider" />
       <Virtuoso
         className="virtual-divider-list-window"
+        computeItemKey={(_, quote) => quote.id}
         data={quotes}
         endReached={onEndReached}
         itemContent={(index, quote) => {
@@ -89,7 +90,6 @@ const Quotes: FC<QuotesProps> = ({ publicationId }) => {
             <SinglePublication
               isFirst={false}
               isLast={index === quotes.length - 1}
-              key={`${quote.id}`}
               publication={quote as Quote}
               showType={false}
             />

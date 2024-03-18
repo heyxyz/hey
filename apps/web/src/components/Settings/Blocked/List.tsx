@@ -56,11 +56,12 @@ const List: FC = () => {
     <div className="space-y-4">
       <Virtuoso
         className="virtual-divider-list-window"
+        computeItemKey={(_, profile) => profile.id}
         data={whoHaveBlocked}
         endReached={onEndReached}
         itemContent={(_, profile) => {
           return (
-            <div className="p-5" key={profile.id}>
+            <div className="p-5">
               <UserProfile profile={profile as Profile} />
             </div>
           );

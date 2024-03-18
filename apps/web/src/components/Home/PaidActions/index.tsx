@@ -55,11 +55,16 @@ const PaidActions: FC = () => {
     <Virtuoso
       className="[&>div>div]:space-y-5"
       components={{ Footer: () => <div className="pb-5" /> }}
+      computeItemKey={(index, action) =>
+        action.__typename === 'OpenActionPaidAction'
+          ? `${action.actedOn?.id}_${index}`
+          : index
+      }
       data={actions}
       endReached={onEndReached}
       itemContent={(index, action) => {
         return action.__typename === 'OpenActionPaidAction' ? (
-          <Card key={`${action.actedOn?.id}_${index}`}>
+          <Card>
             <OpenActionPaidAction
               latestActed={action.latestActed as LatestActed[]}
               publication={action.actedOn as AnyPublication}
