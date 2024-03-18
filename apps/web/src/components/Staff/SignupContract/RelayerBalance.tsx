@@ -21,7 +21,7 @@ interface RelayerBalanceProps {
 }
 
 const RelayerBalance: FC<RelayerBalanceProps> = ({ address, index }) => {
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
 
   const { data } = useBalance({
@@ -43,7 +43,7 @@ const RelayerBalance: FC<RelayerBalanceProps> = ({ address, index }) => {
         Leafwatch.track(STAFFTOOLS.SIGNUP_CONTRACT.REFILL, {
           relayer: index + 1
         });
-        setLoading(true);
+        setIsLoading(true);
       }
     }
   });
@@ -52,7 +52,7 @@ const RelayerBalance: FC<RelayerBalanceProps> = ({ address, index }) => {
 
   const refill = async () => {
     try {
-      setLoading(true);
+      setIsLoading(true);
       await handleWrongNetwork();
 
       // Refill balance to 10 MATIC
@@ -63,7 +63,7 @@ const RelayerBalance: FC<RelayerBalanceProps> = ({ address, index }) => {
     } catch (error) {
       errorToast(error);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -73,7 +73,7 @@ const RelayerBalance: FC<RelayerBalanceProps> = ({ address, index }) => {
         index !== 0 && (
           <Button
             className="w-full justify-center"
-            disabled={loading}
+            disabled={isLoading}
             onClick={refill}
             outline
             size="sm"
