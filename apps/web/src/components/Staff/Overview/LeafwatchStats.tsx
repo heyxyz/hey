@@ -74,9 +74,8 @@ const LeafwatchStats: FC = () => {
   useExploreProfilesQuery({
     fetchPolicy: 'no-cache',
     notifyOnNetworkStatusChange: true,
-    onCompleted: (data) => {
-      setLensProfiles(parseInt(data.exploreProfiles.items[0].id));
-    },
+    onCompleted: (data) =>
+      setLensProfiles(parseInt(data.exploreProfiles.items[0].id)),
     pollInterval: 1000,
     variables: {
       request: {
