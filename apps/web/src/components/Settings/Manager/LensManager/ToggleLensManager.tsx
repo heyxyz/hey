@@ -33,9 +33,11 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
 }) => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
-    (state) => state
-  );
+  const {
+    decrementLensHubOnchainSigNonce,
+    incrementLensHubOnchainSigNonce,
+    lensHubOnchainSigNonce
+  } = useNonceStore((state) => state);
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
 
@@ -62,11 +64,11 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
     mutation: {
       onError: (error: Error) => {
         onError(error);
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+        decrementLensHubOnchainSigNonce();
       },
       onSuccess: () => {
         onCompleted();
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+        incrementLensHubOnchainSigNonce();
       }
     }
   });

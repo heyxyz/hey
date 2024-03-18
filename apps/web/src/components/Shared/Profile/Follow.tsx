@@ -35,9 +35,8 @@ const Follow: FC<FollowProps> = ({ profile, small = false }) => {
   const { pathname } = useRouter();
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
-    (state) => state
-  );
+  const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
+    useNonceStore((state) => state);
   const { setShowAuthModal } = useGlobalModalStateStore();
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
@@ -121,7 +120,7 @@ const Follow: FC<FollowProps> = ({ profile, small = false }) => {
         if (data?.broadcastOnchain.__typename === 'RelayError') {
           return await write({ args });
         }
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+        incrementLensHubOnchainSigNonce();
 
         return;
       }

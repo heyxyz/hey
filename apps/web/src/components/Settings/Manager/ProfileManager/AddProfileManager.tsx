@@ -34,9 +34,11 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
 }) => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
-    (state) => state
-  );
+  const {
+    decrementLensHubOnchainSigNonce,
+    incrementLensHubOnchainSigNonce,
+    lensHubOnchainSigNonce
+  } = useNonceStore((state) => state);
   const [manager, setManager] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -66,11 +68,11 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
     mutation: {
       onError: (error: Error) => {
         onError(error);
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+        decrementLensHubOnchainSigNonce();
       },
       onSuccess: () => {
         onCompleted();
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+        incrementLensHubOnchainSigNonce();
       }
     }
   });
@@ -117,7 +119,7 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
             if (data?.broadcastOnchain.__typename === 'RelayError') {
               return await write({ args });
             }
-            setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+            incrementLensHubOnchainSigNonce();
 
             return;
           }

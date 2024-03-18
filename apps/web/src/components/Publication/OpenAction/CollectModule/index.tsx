@@ -34,6 +34,7 @@ import humanize from '@hey/lib/humanize';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { HelpTooltip, Modal, Tooltip, WarningMessage } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
+import { useCounter } from '@uidotdev/usehooks';
 import Link from 'next/link';
 import plur from 'plur';
 import { useState } from 'react';
@@ -57,7 +58,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
   });
 
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
-  const [countOpenActions, setCountOpenActions] = useState(
+  const [countOpenActions, { increment }] = useCounter(
     targetPublication.stats.countOpenActions
   );
 
@@ -252,7 +253,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
         <div className="flex items-center space-x-2">
           <CollectAction
             countOpenActions={countOpenActions}
-            onCollectSuccess={() => setCountOpenActions(countOpenActions + 1)}
+            onCollectSuccess={() => increment()}
             openAction={openAction}
             publication={publication}
           />

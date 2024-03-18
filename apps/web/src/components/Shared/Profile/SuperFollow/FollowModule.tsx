@@ -54,9 +54,11 @@ const FollowModule: FC<FollowModuleProps> = ({
   setShowFollowModal
 }) => {
   const { pathname } = useRouter();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
-    (state) => state
-  );
+  const {
+    decrementLensHubOnchainSigNonce,
+    incrementLensHubOnchainSigNonce,
+    lensHubOnchainSigNonce
+  } = useNonceStore((state) => state);
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
   const [isLoading, setIsLoading] = useState(false);
@@ -103,11 +105,11 @@ const FollowModule: FC<FollowModuleProps> = ({
     mutation: {
       onError: (error: Error) => {
         onError(error);
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+        decrementLensHubOnchainSigNonce();
       },
       onSuccess: () => {
         onCompleted();
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+        incrementLensHubOnchainSigNonce();
       }
     }
   });

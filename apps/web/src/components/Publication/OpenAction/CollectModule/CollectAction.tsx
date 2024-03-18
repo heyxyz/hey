@@ -71,9 +71,11 @@ const CollectAction: FC<CollectActionProps> = ({
 }) => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
-    (state) => state
-  );
+  const {
+    decrementLensHubOnchainSigNonce,
+    incrementLensHubOnchainSigNonce,
+    lensHubOnchainSigNonce
+  } = useNonceStore((state) => state);
 
   const { id: sessionProfileId } = getCurrentSession();
 
@@ -135,9 +137,7 @@ const CollectAction: FC<CollectActionProps> = ({
       id: cache.identify(targetPublication)
     });
     cache.modify({
-      fields: {
-        countOpenActions: () => countOpenActions + 1
-      },
+      fields: { countOpenActions: () => countOpenActions + 1 },
       id: cache.identify(targetPublication.stats)
     });
   };
@@ -177,11 +177,11 @@ const CollectAction: FC<CollectActionProps> = ({
     mutation: {
       onError: (error: Error) => {
         onError(error);
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+        decrementLensHubOnchainSigNonce();
       },
       onSuccess: () => {
         onCompleted();
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+        incrementLensHubOnchainSigNonce();
       }
     }
   });
@@ -248,7 +248,7 @@ const CollectAction: FC<CollectActionProps> = ({
       if (data?.broadcastOnchain.__typename === 'RelayError') {
         return await write({ args: [typedData.value] });
       }
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+      incrementLensHubOnchainSigNonce();
 
       return;
     }

@@ -33,9 +33,8 @@ import { useSignTypedData, useWriteContract } from 'wagmi';
 const List: FC = () => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
-    (state) => state
-  );
+  const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
+    useNonceStore((state) => state);
   const [removingAddress, setRemovingAddress] = useState<Address | null>(null);
 
   const handleWrongNetwork = useHandleWrongNetwork();
@@ -104,7 +103,7 @@ const List: FC = () => {
           switchToGivenConfig
         ];
         await handleWrongNetwork();
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+        incrementLensHubOnchainSigNonce();
 
         if (canBroadcast) {
           const signature = await signTypedDataAsync(getSignature(typedData));
