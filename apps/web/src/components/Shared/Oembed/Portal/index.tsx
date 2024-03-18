@@ -23,7 +23,7 @@ interface PortalProps {
 const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
   const { currentProfile } = useProfileStore();
   const [portalData, setPortalData] = useState<IPortal | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (portal) {
@@ -43,7 +43,7 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
     }
 
     try {
-      setLoading(true);
+      setIsLoading(true);
 
       const { data }: { data: { portal: IPortal } } = await axios.post(
         `${HEY_API_URL}/portal/post`,
@@ -59,7 +59,7 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
     } catch {
       toast.error(Errors.SomethingWrongWithPortal);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -82,7 +82,7 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
         {buttons.map(({ action, button, target }, index) => (
           <Button
             className="justify-center"
-            disabled={loading || !publicationId || !currentProfile}
+            disabled={isLoading || !publicationId || !currentProfile}
             icon={
               (action === 'link' ||
                 action === 'post_redirect' ||

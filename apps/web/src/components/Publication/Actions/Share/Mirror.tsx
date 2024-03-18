@@ -28,7 +28,7 @@ import cn from '@hey/ui/cn';
 import checkAndToastDispatcherError from '@lib/checkAndToastDispatcherError';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { useState } from 'react';
+import { useCounter } from '@uidotdev/usehooks';
 import { toast } from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
@@ -53,7 +53,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     : publication;
   const { hasMirrored } = targetPublication.operations;
 
-  const [shares, setShares] = useState(
+  const [shares, { increment }] = useCounter(
     targetPublication.stats.mirrors + targetPublication.stats.quotes
   );
 
@@ -98,7 +98,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     }
 
     setIsLoading(false);
-    setShares(shares + 1);
+    increment();
     updateCache();
     toast.success('Post has been mirrored!');
     Leafwatch.track(PUBLICATION.MIRROR, { publication_id: publication.id });
