@@ -14,7 +14,7 @@ import { useBalance, useWriteContract } from 'wagmi';
 import NumberedStat from '../UI/NumberedStat';
 
 const Balance: FC = () => {
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
 
   const { data } = useBalance({
@@ -27,14 +27,14 @@ const Balance: FC = () => {
       onError: errorToast,
       onSuccess: () => {
         Leafwatch.track(STAFFTOOLS.SIGNUP_CONTRACT.WITHDRAW_FUNDS);
-        setLoading(true);
+        setIsLoading(true);
       }
     }
   });
 
   const withdraw = async () => {
     try {
-      setLoading(true);
+      setIsLoading(true);
       await handleWrongNetwork();
 
       return await writeContractAsync({
@@ -45,7 +45,7 @@ const Balance: FC = () => {
     } catch (error) {
       errorToast(error);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -60,7 +60,7 @@ const Balance: FC = () => {
       />
       <Button
         className="w-full justify-center"
-        disabled={loading}
+        disabled={isLoading}
         onClick={withdraw}
       >
         Withdraw Funds

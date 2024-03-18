@@ -72,7 +72,7 @@ const ChooseHandle: FC = () => {
     setTransactionHash
   } = useSignupStore();
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { address } = useAccount();
   const { data: balanceData } = useBalance({
     address,
@@ -108,7 +108,7 @@ const ChooseHandle: FC = () => {
 
   const handleMint = async (handle: string) => {
     try {
-      setLoading(true);
+      setIsLoading(true);
       return await writeContractAsync({
         abi: HeyLensSignup,
         address: HEY_LENS_SIGNUP,
@@ -119,7 +119,7 @@ const ChooseHandle: FC = () => {
     } catch (error) {
       errorToast(error);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -155,7 +155,7 @@ const ChooseHandle: FC = () => {
   };
 
   const disabled =
-    !canCheck || !isAvailable || loading || !delegatedExecutor || isInvalid;
+    !canCheck || !isAvailable || isLoading || !delegatedExecutor || isInvalid;
 
   return (
     <div className="space-y-5">
@@ -216,7 +216,7 @@ const ChooseHandle: FC = () => {
               className="w-full justify-center"
               disabled={disabled}
               icon={
-                loading ? (
+                isLoading ? (
                   <Spinner className="mr-0.5" size="xs" />
                 ) : (
                   <img
