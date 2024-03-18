@@ -19,7 +19,7 @@ const newProfileSchema = object({
 });
 
 const Mint: FC = () => {
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const form = useZodForm({ mode: 'onChange', schema: newProfileSchema });
 
   const { writeContractAsync } = useWriteContract({
@@ -34,7 +34,7 @@ const Mint: FC = () => {
 
   const handleMint = async (handle: string, address: string) => {
     try {
-      setLoading(true);
+      setIsLoading(true);
       return await writeContractAsync({
         abi: HeyLensSignup,
         address: HEY_LENS_SIGNUP,
@@ -48,7 +48,7 @@ const Mint: FC = () => {
     } catch (error) {
       errorToast(error);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -69,7 +69,7 @@ const Mint: FC = () => {
         <Input placeholder="To Address" {...form.register('address')} />
         <Button
           className="w-full justify-center"
-          disabled={loading}
+          disabled={isLoading}
           type="submit"
         >
           Mint
