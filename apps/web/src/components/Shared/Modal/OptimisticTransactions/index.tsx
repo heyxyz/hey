@@ -12,6 +12,7 @@ const OptimisticTransactions: FC = () => {
   if (txnQueue.length === 0) {
     return (
       <EmptyState
+        hideCard
         icon={<CircleStackIcon className="size-8" />}
         message="No transactions"
       />
