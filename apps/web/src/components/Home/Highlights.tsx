@@ -70,8 +70,8 @@ const Highlights: FC = () => {
   return (
     <>
       {txnQueue.map((txn) =>
-        txn?.type === OptmisticPublicationType.NewPost ? (
-          <QueuedPublication key={txn.id} txn={txn} />
+        txn?.type === OptmisticPublicationType.Post ? (
+          <QueuedPublication key={txn.txId} txn={txn} />
         ) : null
       )}
       <Card>
