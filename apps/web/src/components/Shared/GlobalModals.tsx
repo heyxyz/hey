@@ -4,6 +4,7 @@ import NewPublication from '@components/Composer/NewPublication';
 import ReportPublication from '@components/Shared/Modal/ReportPublication';
 import {
   ArrowRightCircleIcon,
+  CircleStackIcon,
   ShieldCheckIcon,
   TicketIcon
 } from '@heroicons/react/24/outline';
@@ -20,6 +21,7 @@ import Auth from './Auth';
 import { useSignupStore } from './Auth/Signup';
 import GlobalModalsFromUrl from './GlobalModalsFromUrl';
 import Invites from './Modal/Invites';
+import OptimisticTransactions from './Modal/OptimisticTransactions';
 import ReportProfile from './Modal/ReportProfile';
 import SwitchProfiles from './SwitchProfiles';
 
@@ -33,12 +35,14 @@ const GlobalModals: FC = () => {
     setShowDiscardModal,
     setShowInvitesModal,
     setShowNewPostModal,
+    setShowOptimisticTransactionsModal,
     setShowProfileSwitchModal,
     setShowPublicationReportModal,
     setShowReportProfileModal,
     showAuthModal,
     showInvitesModal,
     showNewPostModal,
+    showOptimisticTransactionsModal,
     showProfileSwitchModal,
     showPublicationReportModal,
     showReportProfileModal
@@ -135,6 +139,14 @@ const GlobalModals: FC = () => {
         title="Invites"
       >
         <Invites />
+      </Modal>
+      <Modal
+        icon={<CircleStackIcon className="size-5" />}
+        onClose={() => setShowOptimisticTransactionsModal(false)}
+        show={showOptimisticTransactionsModal}
+        title="Optimistic Transactions"
+      >
+        <OptimisticTransactions />
       </Modal>
     </>
   );
