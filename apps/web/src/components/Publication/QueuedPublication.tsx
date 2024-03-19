@@ -22,16 +22,16 @@ interface QueuedPublicationProps {
 
 const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
   const { currentProfile } = useProfileStore();
-  const { setTxnQueue, txnQueue } = useTransactionStore();
+  const { removeTransaction } = useTransactionStore();
 
   const { cache } = useApolloClient();
   const txHash = txn?.txHash;
   const txId = txn?.txId;
 
   const removeTxn = () => {
-    setTxnQueue(
-      txnQueue.filter((o) => (txHash ? o.txHash !== txHash : o.txId !== txId))
-    );
+    if (txn.txId) {
+      return removeTransaction(txn.txId);
+    }
   };
 
   const [getPublication] = usePublicationLazyQuery({
