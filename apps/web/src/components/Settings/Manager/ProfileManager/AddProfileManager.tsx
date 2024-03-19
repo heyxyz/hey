@@ -38,7 +38,7 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
     decrementLensHubOnchainSigNonce,
     incrementLensHubOnchainSigNonce,
     lensHubOnchainSigNonce
-  } = useNonceStore((state) => state);
+  } = useNonceStore();
   const [manager, setManager] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
