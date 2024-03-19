@@ -10,9 +10,9 @@ export const IS_PREVIEW = process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview';
 export const LENS_NETWORK = process.env.NEXT_PUBLIC_LENS_NETWORK || 'mainnet';
 
 export const LENS_API_URL = getEnvConfig().lensApiEndpoint;
-export const HEY_API_URL = IS_PRODUCTION
-  ? getEnvConfig().heyApiEndpoint
-  : 'http://localhost:4784';
+export const HEY_API_URL =
+  // IS_PRODUCTION ? getEnvConfig().heyApiEndpoint :
+  'http://localhost:4784';
 export const LENSHUB_PROXY = getEnvConfig().lensHubProxyAddress;
 export const TOKEN_HANDLE_REGISTRY = getEnvConfig().tokenHandleRegistry;
 export const PUBLICACT_PROXY = getEnvConfig().publicActProxyAddress;

@@ -11,7 +11,7 @@ const useCreatePoll = () => {
   // TODO: use useCallback
   const createPoll = async (): Promise<CreatePollResponse> => {
     const response = await axios.post(
-      `${HEY_API_URL}/polls/create`,
+      `${HEY_API_URL}/polls/snapshot/create`,
       {
         length: pollConfig.length,
         options: pollConfig.options

@@ -1,25 +1,26 @@
-import type { Poll as TPoll } from '@hey/types/hey';
+import type { UnknownOpenActionModuleSettings } from '@hey/lens';
+import type { EasPoll as TPoll } from '@hey/types/hey';
 import type { FC } from 'react';
 
+import Choices from '@components/Publication/Poll/eas/Choices';
+import Wrapper from '@components/Shared/Embed/Wrapper';
 import { HEY_API_URL } from '@hey/data/constants';
 import { Spinner } from '@hey/ui';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-import Wrapper from '../../Shared/Embed/Wrapper';
-import Choices from './Choices';
-
-interface SnapshotProps {
-  id: string;
+interface EasPollProps {
+  module: UnknownOpenActionModuleSettings;
+  publicationId: string;
 }
 
-const Poll: FC<SnapshotProps> = ({ id }) => {
+const EasPoll: FC<EasPollProps> = ({ module, publicationId }) => {
   const fetchPoll = async (): Promise<null | TPoll> => {
     try {
-      const response = await axios.get(`${HEY_API_URL}/polls/get`, {
+      const response = await axios.get(`${HEY_API_URL}/polls/eas/get`, {
         headers: { ...getAuthApiHeaders(), 'X-Skip-Cache': true },
-        params: { id }
+        params: { publicationId }
       });
       const { data } = response;
 
@@ -31,7 +32,7 @@ const Poll: FC<SnapshotProps> = ({ id }) => {
 
   const { data, error, isLoading, refetch } = useQuery({
     queryFn: fetchPoll,
-    queryKey: ['fetchPoll', id]
+    queryKey: ['fetchPoll', publicationId]
   });
 
   if (isLoading) {
@@ -45,11 +46,11 @@ const Poll: FC<SnapshotProps> = ({ id }) => {
     );
   }
 
-  if (!data?.id || error) {
+  if (!data?.options?.length || error) {
     return null;
   }
 
-  return <Choices poll={data} refetch={refetch} />;
+  return <Choices module={module} poll={data} refetch={refetch} />;
 };
 
-export default Poll;
+export default EasPoll;

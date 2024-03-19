@@ -20,12 +20,16 @@ import { useSignTypedData, useWriteContract } from 'wagmi';
 import useHandleWrongNetwork from './useHandleWrongNetwork';
 
 interface CreatePublicationProps {
+  errorCallback?: (error?: any) => void;
   signlessApproved?: boolean;
+  successCallback?: () => void;
   successToast?: string;
 }
 
 const useActOnUnknownOpenAction = ({
+  errorCallback,
   signlessApproved = false,
+  successCallback,
   successToast
 }: CreatePublicationProps) => {
   const currentProfile = useProfileStore((state) => state.currentProfile);
@@ -44,6 +48,7 @@ const useActOnUnknownOpenAction = ({
   const onError = (error?: any) => {
     setIsLoading(false);
     errorToast(error);
+    errorCallback?.(error);
   };
 
   const onCompleted = (
@@ -58,6 +63,7 @@ const useActOnUnknownOpenAction = ({
 
     setIsLoading(false);
     toast.success(successToast || 'Success!');
+    successCallback?.();
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
@@ -96,14 +102,17 @@ const useActOnUnknownOpenAction = ({
 
         if (canBroadcast) {
           const signature = await signTypedDataAsync(getSignature(typedData));
-          const { data } = await broadcastOnchain({
-            variables: { request: { id, signature } }
-          });
-          if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return await write({ args: [typedData.value] });
+          try {
+            const { data } = await broadcastOnchain({
+              variables: { request: { id, signature } }
+            });
+            if (data?.broadcastOnchain.__typename === 'RelayError') {
+              return await write({ args: [typedData.value] });
+            }
+            setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+          } catch (error) {
+            onError(error);
           }
-          setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
-
           return;
         }
 

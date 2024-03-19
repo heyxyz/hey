@@ -176,15 +176,16 @@ const useCreatePublication = ({
           variables: { request: { id, signature } }
         });
       }
-      const { data } = await broadcastOnchain({
-        variables: { request: { id, signature } }
-      });
-      if (data?.broadcastOnchain.__typename === 'RelayError') {
-        return await write({ args: [typedData.value] });
-      }
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
-
-      return;
+      try {
+        const { data } = await broadcastOnchain({
+          variables: { request: { id, signature } }
+        });
+        if (data?.broadcastOnchain.__typename === 'RelayError') {
+          return await write({ args: [typedData.value] });
+        }
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+        return;
+      } catch (error_) {}
     }
 
     return await write({ args: [typedData.value] });

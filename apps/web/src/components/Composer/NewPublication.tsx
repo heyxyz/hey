@@ -23,6 +23,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
+import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { ReferenceModuleType } from '@hey/lens';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import collectModuleParams from '@hey/lib/collectModuleParams';
@@ -30,9 +31,9 @@ import getProfile from '@hey/lib/getProfile';
 import removeQuoteOn from '@hey/lib/removeQuoteOn';
 import { Button, Card, ErrorMessage, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { MetadataAttributeType } from '@lens-protocol/metadata';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import buildEncodedPollData from '@lib/buildEncodedPollData';
 import errorToast from '@lib/errorToast';
 import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { Leafwatch } from '@lib/leafwatch';
@@ -42,7 +43,6 @@ import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import useCreatePoll from 'src/hooks/useCreatePoll';
 import useCreatePublication from 'src/hooks/useCreatePublication';
 import usePublicationMetadata from 'src/hooks/usePublicationMetadata';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
@@ -204,7 +204,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [publicationContentError, setPublicationContentError] = useState('');
 
   const [editor] = useLexicalComposerContext();
-  const createPoll = useCreatePoll();
   const getMetadata = usePublicationMetadata();
 
   const { canUseLensManager } = checkDispatcherPermissions(currentProfile);
@@ -215,7 +214,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const hasVideo = attachments[0]?.type === 'Video';
 
   const noCollect = !collectModule.type;
-  const noOpenAction = !openAction;
+  const noOpenAction = !openAction && !showPollEditor;
   // Use Momoka if the profile the comment or quote has momoka proof and also check collect module has been disabled
   const useMomoka = isComment
     ? publication.momoka?.proof
@@ -373,40 +372,21 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
       setPublicationContentError('');
 
-      let pollId;
-      if (showPollEditor) {
-        pollId = await createPoll();
-      }
-
       const processedPublicationContent =
         publicationContent.length > 0 ? publicationContent : undefined;
       const title = hasAudio
         ? audioPublication.title
         : `${getTitlePrefix()} by ${getProfile(currentProfile).slugWithPrefix}`;
-      const hasAttributes = Boolean(pollId);
 
       const baseMetadata = {
         content: processedPublicationContent,
-        title,
-        ...(hasAttributes && {
-          attributes: [
-            ...(pollId
-              ? [
-                  {
-                    key: 'pollId',
-                    type: MetadataAttributeType.STRING,
-                    value: pollId
-                  }
-                ]
-              : [])
-          ]
-        }),
         marketplace: {
           animation_url: getAnimationUrl(),
           description: processedPublicationContent,
           external_url: `https://hey.xyz${getProfile(currentProfile).link}`,
           name: title
-        }
+        },
+        title
       };
 
       const metadata = getMetadata({ baseMetadata });
@@ -422,6 +402,15 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
       if (openAction) {
         openActionModules.push({ unknownOpenAction: openAction });
+      }
+
+      if (showPollEditor) {
+        openActionModules.push({
+          unknownOpenAction: {
+            address: VerifiedOpenActionModules.Poll,
+            data: buildEncodedPollData(pollConfig)
+          }
+        });
       }
 
       // Payload for the Momoka post/comment/quote
@@ -493,6 +482,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         })
       };
 
+      console.log('onChainRequest', onChainRequest);
+
       if (canUseLensManager) {
         if (isComment) {
           return await createCommentOnChain(
@@ -534,6 +525,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         }
       });
     } catch (error) {
+      console.log('createPublication: error', error);
       onError(error);
     }
   };

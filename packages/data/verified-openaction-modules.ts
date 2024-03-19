@@ -1,6 +1,9 @@
 import { IS_MAINNET } from './constants';
 
 export const VerifiedOpenActionModules = {
+  Poll: IS_MAINNET
+    ? '0x3d06AA6ca4FC7eE0D5581B85CB52CA7714175e43'
+    : '0xc91C3d3eD7089a9b52945c8967CF0854f08E9e7a',
   Tip: IS_MAINNET
     ? '0x22cb67432C101a9b6fE0F9ab542c8ADD5DD48153'
     : '0x6111e258a6d00d805DcF1249900895c7aA0cD186'

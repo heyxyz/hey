@@ -70,7 +70,7 @@ export type PublicationViewCount = {
   views: number;
 };
 
-export type PollOption = {
+export type SnapshotPollOption = {
   id: string;
   option: string;
   percentage: number;
@@ -78,10 +78,39 @@ export type PollOption = {
   voted: boolean;
 };
 
-export type Poll = {
+export type SnapshotPoll = {
   endsAt: Date;
   id: string;
-  options: PollOption[];
+  options: SnapshotPollOption[];
+};
+
+export type EasPollOption = {
+  index: number;
+  option: string;
+  percentage: number;
+  responses: number;
+  voted: boolean;
+};
+
+export type EasPoll = {
+  endsAt?: Date;
+  followersOnly: boolean;
+  gateParams?: {
+    minThreshold: string;
+    tokenAddress: string;
+  };
+  options: EasPollOption[];
+  publicationId: string;
+  signatureRequired: boolean;
+};
+
+export type EasVote = {
+  actorProfileId: string;
+  actorProfileOwner: string;
+  optionIndex: number;
+  publicationId: string;
+  timestamp?: number;
+  transactionExecutor?: string;
 };
 
 export type Preferences = {

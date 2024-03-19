@@ -1,12 +1,17 @@
-import type { AnyPublication } from '@hey/lens';
+import type {
+  AnyPublication,
+  UnknownOpenActionModuleSettings
+} from '@hey/lens';
 import type { FC } from 'react';
 
+import EasPoll from '@components/Publication/Poll/eas';
 import Attachments from '@components/Shared/Attachments';
 import Quote from '@components/Shared/Embed/Quote';
 import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
 import Video from '@components/Shared/Video';
 import { EyeIcon } from '@heroicons/react/24/outline';
+import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import getPublicationAttribute from '@hey/lib/getPublicationAttribute';
 import getPublicationData from '@hey/lib/getPublicationData';
 import getURLs from '@hey/lib/getURLs';
@@ -20,7 +25,7 @@ import { isIOS, isMobile } from 'react-device-detect';
 import EncryptedPublication from './EncryptedPublication';
 import Metadata from './Metadata';
 import NotSupportedPublication from './NotSupportedPublication';
-import Poll from './Poll';
+import SnapshotPoll from './Poll/snapshot';
 
 interface PublicationBodyProps {
   contentClassName?: string;
@@ -69,9 +74,14 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   const showLive = metadata.__typename === 'LiveStreamMetadataV3';
   // Show attachments if it's there
   const showAttachments = filteredAttachments.length > 0 || filteredAsset;
-  // Show poll
-  const pollId = getPublicationAttribute(metadata.attributes, 'pollId');
-  const showPoll = Boolean(pollId);
+  // Show snapshot poll
+  const snapshotPollId = getPublicationAttribute(metadata.attributes, 'pollId');
+  const showSnapshotPoll = Boolean(snapshotPollId);
+  // Show Open Action Poll
+  const pollOpenActionModule = targetPublication.openActionModules.find(
+    (module) => module.contract.address === VerifiedOpenActionModules.Poll
+  );
+  const showOpenActionPoll = Boolean(pollOpenActionModule);
   // Show sharing link
   const showSharingLink = metadata.__typename === 'LinkMetadataV3';
   // Show oembed if no NFT, no attachments, no quoted publication
@@ -101,7 +111,13 @@ const PublicationBody: FC<PublicationBodyProps> = ({
         <Attachments asset={filteredAsset} attachments={filteredAttachments} />
       ) : null}
       {/* Poll */}
-      {showPoll ? <Poll id={pollId} /> : null}
+      {showSnapshotPoll ? <SnapshotPoll id={snapshotPollId} /> : null}
+      {showOpenActionPoll ? (
+        <EasPoll
+          module={pollOpenActionModule as UnknownOpenActionModuleSettings}
+          publicationId={id}
+        />
+      ) : null}
       {showLive ? (
         <div className="mt-3">
           <Video src={metadata.liveURL || metadata.playbackURL} />

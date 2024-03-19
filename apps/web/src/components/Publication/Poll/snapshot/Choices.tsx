@@ -1,4 +1,4 @@
-import type { Poll } from '@hey/types/hey';
+import type { SnapshotPoll } from '@hey/types/hey';
 import type { FC } from 'react';
 
 import Beta from '@components/Shared/Badges/Beta';
@@ -20,11 +20,12 @@ import axios from 'axios';
 import plur from 'plur';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+
+import { useProfileRestriction } from '../../../../store/non-persisted/useProfileRestriction';
+import useProfileStore from '../../../../store/persisted/useProfileStore';
 
 interface ChoicesProps {
-  poll: Poll;
+  poll: SnapshotPoll;
   refetch?: () => void;
 }
 
@@ -53,7 +54,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
       setSelectedOption(id);
 
       await axios.post(
-        `${HEY_API_URL}/polls/act`,
+        `${HEY_API_URL}/polls/snapshot/act`,
         { option: id, poll: poll.id },
         { headers: getAuthApiHeaders() }
       );
