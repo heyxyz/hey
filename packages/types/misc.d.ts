@@ -92,6 +92,7 @@ export interface OptimisticTransaction {
   collectOn?: string;
   commentOn?: string;
   content?: string;
+  mirrorOn?: string;
   txHash?: string;
   txId?: string;
   type: OptmisticPublicationType;

@@ -24,16 +24,19 @@ import {
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
+import { OptmisticPublicationType } from '@hey/types/enums';
 import cn from '@hey/ui/cn';
 import checkAndToastDispatcherError from '@lib/checkAndToastDispatcherError';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
+import hasOptimisticallyMirrored from '@lib/optimistic/hasOptimisticallyMirrored';
 import { useCounter } from '@uidotdev/usehooks';
 import { toast } from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
 interface MirrorProps {
@@ -50,10 +53,13 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     incrementLensHubOnchainSigNonce,
     lensHubOnchainSigNonce
   } = useNonceStore();
+  const { addTransaction } = useTransactionStore();
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
-  const { hasMirrored } = targetPublication.operations;
+  const hasMirrored =
+    targetPublication.operations.hasMirrored ||
+    hasOptimisticallyMirrored(targetPublication.id);
 
   const [shares, { increment }] = useCounter(
     targetPublication.stats.mirrors + targetPublication.stats.quotes
@@ -64,6 +70,21 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
 
   const { canBroadcast, canUseLensManager } =
     checkDispatcherPermissions(currentProfile);
+
+  const generateOptimisticMirror = ({
+    txHash,
+    txId
+  }: {
+    txHash?: string;
+    txId?: string;
+  }) => {
+    return {
+      mirrorOn: targetPublication?.id,
+      txHash,
+      txId,
+      type: OptmisticPublicationType.Mirror
+    };
+  };
 
   const updateCache = () => {
     cache.modify({
@@ -114,9 +135,10 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
         onError(error);
         decrementLensHubOnchainSigNonce();
       },
-      onSuccess: () => {
+      onSuccess: (hash: string) => {
         onCompleted();
         incrementLensHubOnchainSigNonce();
+        addTransaction(generateOptimisticMirror({ txHash: hash }));
       }
     }
   });
@@ -131,14 +153,21 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
   };
 
   const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
-    onCompleted: ({ broadcastOnMomoka }) =>
-      onCompleted(broadcastOnMomoka.__typename),
+    onCompleted: ({ broadcastOnMomoka }) => {
+      onCompleted(broadcastOnMomoka.__typename);
+    },
     onError
   });
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
-    onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename),
+    onCompleted: ({ broadcastOnchain }) => {
+      if (broadcastOnchain.__typename === 'RelaySuccess') {
+        addTransaction(
+          generateOptimisticMirror({ txId: broadcastOnchain.txId })
+        );
+      }
+      onCompleted(broadcastOnchain.__typename);
+    },
     onError
   });
 
@@ -187,7 +216,12 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
 
   // Onchain mutations
   const [mirrorOnchain] = useMirrorOnchainMutation({
-    onCompleted: ({ mirrorOnchain }) => onCompleted(mirrorOnchain.__typename),
+    onCompleted: ({ mirrorOnchain }) => {
+      if (mirrorOnchain.__typename === 'RelaySuccess') {
+        addTransaction(generateOptimisticMirror({ txId: mirrorOnchain.txId }));
+      }
+      onCompleted(mirrorOnchain.__typename);
+    },
     onError
   });
 
