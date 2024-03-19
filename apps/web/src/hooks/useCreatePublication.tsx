@@ -64,7 +64,7 @@ const useCreatePublication = ({
     lensHubOnchainSigNonce
   } = useNonceStore((state) => state);
   const { publicationContent } = usePublicationStore();
-  const { setTxnQueue, txnQueue } = useTransactionStore();
+  const { addTransaction, txnQueue } = useTransactionStore();
   const handleWrongNetwork = useHandleWrongNetwork();
   const { canBroadcast } = checkDispatcherPermissions(currentProfile);
 
@@ -84,10 +84,10 @@ const useCreatePublication = ({
       txHash,
       txId,
       type: isComment
-        ? OptmisticPublicationType.NewComment
+        ? OptmisticPublicationType.Comment
         : isQuote
-          ? OptmisticPublicationType.NewQuote
-          : OptmisticPublicationType.NewPost
+          ? OptmisticPublicationType.Quote
+          : OptmisticPublicationType.Post
     };
   };
 
@@ -118,10 +118,7 @@ const useCreatePublication = ({
       onSuccess: (hash: string) => {
         onCompleted();
         incrementLensHubOnchainSigNonce();
-        setTxnQueue([
-          generateOptimisticPublication({ txHash: hash }),
-          ...txnQueue
-        ]);
+        addTransaction(generateOptimisticPublication({ txHash: hash }));
       }
     }
   });
@@ -150,10 +147,9 @@ const useCreatePublication = ({
     onCompleted: ({ broadcastOnchain }) => {
       onCompleted(broadcastOnchain.__typename);
       if (broadcastOnchain.__typename === 'RelaySuccess') {
-        setTxnQueue([
-          generateOptimisticPublication({ txId: broadcastOnchain.txId }),
-          ...txnQueue
-        ]);
+        addTransaction(
+          generateOptimisticPublication({ txId: broadcastOnchain.txId })
+        );
       }
     }
   });
@@ -228,10 +224,9 @@ const useCreatePublication = ({
     onCompleted: ({ postOnchain }) => {
       onCompleted(postOnchain.__typename);
       if (postOnchain.__typename === 'RelaySuccess') {
-        setTxnQueue([
-          generateOptimisticPublication({ txId: postOnchain.txId }),
-          ...txnQueue
-        ]);
+        addTransaction(
+          generateOptimisticPublication({ txId: postOnchain.txId })
+        );
       }
     },
     onError
@@ -241,12 +236,9 @@ const useCreatePublication = ({
     onCompleted: ({ commentOnchain }) => {
       onCompleted(commentOnchain.__typename);
       if (commentOnchain.__typename === 'RelaySuccess') {
-        setTxnQueue([
-          generateOptimisticPublication({
-            txId: commentOnchain.txId
-          }),
-          ...txnQueue
-        ]);
+        addTransaction(
+          generateOptimisticPublication({ txId: commentOnchain.txId })
+        );
       }
     },
     onError
@@ -256,12 +248,9 @@ const useCreatePublication = ({
     onCompleted: ({ quoteOnchain }) => {
       onCompleted(quoteOnchain.__typename);
       if (quoteOnchain.__typename === 'RelaySuccess') {
-        setTxnQueue([
-          generateOptimisticPublication({
-            txId: quoteOnchain.txId
-          }),
-          ...txnQueue
-        ]);
+        addTransaction(
+          generateOptimisticPublication({ txId: quoteOnchain.txId })
+        );
       }
     },
     onError

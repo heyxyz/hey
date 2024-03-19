@@ -59,7 +59,7 @@ const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
 
   const queuedComments = txnQueue.filter(
     (o) =>
-      o.type === OptmisticPublicationType.NewComment &&
+      o.type === OptmisticPublicationType.Comment &&
       o.commentOn === publicationId
   );
   const queuedCount = queuedComments.length;
@@ -101,7 +101,7 @@ const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
   return (
     <>
       {queuedComments.map((txn) => (
-        <QueuedPublication key={txn.id} txn={txn} />
+        <QueuedPublication key={txn.txId} txn={txn} />
       ))}
       <Card>
         <Virtuoso
