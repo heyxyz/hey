@@ -89,8 +89,9 @@ export interface MessageDescriptor {
 }
 
 export interface OptimisticTransaction {
+  collectOn?: string;
   commentOn?: string;
-  content: string;
+  content?: string;
   txHash?: string;
   txId?: string;
   type: OptmisticPublicationType;

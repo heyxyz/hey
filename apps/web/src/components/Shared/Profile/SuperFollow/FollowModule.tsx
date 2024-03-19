@@ -58,7 +58,7 @@ const FollowModule: FC<FollowModuleProps> = ({
     decrementLensHubOnchainSigNonce,
     incrementLensHubOnchainSigNonce,
     lensHubOnchainSigNonce
-  } = useNonceStore((state) => state);
+  } = useNonceStore();
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
   const [isLoading, setIsLoading] = useState(false);
