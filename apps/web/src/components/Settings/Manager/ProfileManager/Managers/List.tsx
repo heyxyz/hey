@@ -34,7 +34,7 @@ const List: FC = () => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
   const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
-    useNonceStore((state) => state);
+    useNonceStore();
   const [removingAddress, setRemovingAddress] = useState<Address | null>(null);
 
   const handleWrongNetwork = useHandleWrongNetwork();
