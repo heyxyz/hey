@@ -48,7 +48,7 @@
     "crisp-sdk-web": "^1.0.22",
     "dotenv": "^16.4.5",
     "esbuild": "^0.20.2",
-    "framer-motion": "^11.0.14",
+    "framer-motion": "^11.0.15",
     "graphql": "^16.8.1",
     "idb-keyval": "^6.2.1",
     "lexical": "^0.13.1",
@@ -71,7 +71,7 @@
     "urlcat": "^3.1.0",
     "use-resize-observer": "^9.1.0",
     "uuid": "^9.0.1",
-    "viem": "^2.8.12",
+    "viem": "^2.8.13",
     "wagmi": "^2.5.11",
     "zod": "^3.22.4",
     "zustand": "^4.5.2"
@@ -81,12 +81,12 @@
     "@hey/types": "workspace:*",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.6",
-    "@types/node": "^20.11.29",
+    "@types/node": "^20.11.30",
     "@types/react": "^18.2.67",
     "@types/react-dom": "^18.2.22",
     "@types/uuid": "^9.0.8",
     "autoprefixer": "^10.4.18",
-    "postcss": "^8.4.36",
+    "postcss": "^8.4.37",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.4.2"
   }
