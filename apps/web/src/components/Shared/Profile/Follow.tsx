@@ -36,7 +36,7 @@ const Follow: FC<FollowProps> = ({ profile, small = false }) => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
   const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
-    useNonceStore((state) => state);
+    useNonceStore();
   const { setShowAuthModal } = useGlobalModalStateStore();
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();

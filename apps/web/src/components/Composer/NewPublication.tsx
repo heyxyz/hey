@@ -107,7 +107,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     useGlobalModalStateStore();
 
   // Nonce store
-  const { lensHubOnchainSigNonce } = useNonceStore((state) => state);
+  const { lensHubOnchainSigNonce } = useNonceStore();
 
   // Publication store
   const {
