@@ -19,16 +19,11 @@ const FollowModule = dynamic(() => import('./FollowModule'), {
 });
 
 interface SuperFollowProps {
-  again?: boolean;
   profile: Profile;
   small?: boolean;
 }
 
-const SuperFollow: FC<SuperFollowProps> = ({
-  again = false,
-  profile,
-  small = false
-}) => {
+const SuperFollow: FC<SuperFollowProps> = ({ profile, small = false }) => {
   const [showFollowModal, setShowFollowModal] = useState(false);
   const { currentProfile } = useProfileStore();
   const { setShowAuthModal } = useGlobalModalStateStore();
@@ -56,13 +51,11 @@ const SuperFollow: FC<SuperFollowProps> = ({
         show={showFollowModal}
         title={
           <span>
-            Super follow <Slug slug={getProfile(profile).slugWithPrefix} />{' '}
-            {again ? 'again' : ''}
+            Super follow <Slug slug={getProfile(profile).slugWithPrefix} />
           </span>
         }
       >
         <FollowModule
-          again={again}
           profile={profile}
           setShowFollowModal={setShowFollowModal}
         />
