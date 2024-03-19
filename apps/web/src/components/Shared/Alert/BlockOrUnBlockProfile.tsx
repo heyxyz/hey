@@ -36,7 +36,7 @@ const BlockOrUnBlockProfile: FC = () => {
     showBlockOrUnblockAlert
   } = useGlobalAlertStateStore();
   const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
-    useNonceStore((state) => state);
+    useNonceStore();
   const [isLoading, setIsLoading] = useState(false);
   const [hasBlocked, setHasBlocked] = useState(
     blockingorUnblockingProfile?.operations.isBlockedByMe.value

@@ -17,6 +17,7 @@ import Layout from '../Layout';
 import CrispProvider from './CrispProvider';
 import LeafwatchProvider from './LeafwatchProvider';
 import LensSubscriptionsProvider from './LensSubscriptionsProvider';
+import OptimisticTransactionsProvider from './OptimisticTransactionsProvider';
 import PreferencesProvider from './PreferencesProvider';
 import ServiceWorkerProvider from './ServiceWorkerProvider';
 import Web3Provider from './Web3Provider';
@@ -38,6 +39,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
       <Web3Provider>
         <ApolloProvider client={lensApolloClient}>
           <LensSubscriptionsProvider />
+          <OptimisticTransactionsProvider />
           <QueryClientProvider client={queryClient}>
             <PreferencesProvider />
             <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>

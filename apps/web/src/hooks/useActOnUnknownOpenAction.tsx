@@ -33,7 +33,7 @@ const useActOnUnknownOpenAction = ({
     decrementLensHubOnchainSigNonce,
     incrementLensHubOnchainSigNonce,
     lensHubOnchainSigNonce
-  } = useNonceStore((state) => state);
+  } = useNonceStore();
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
 
