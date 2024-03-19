@@ -43,13 +43,11 @@ import NoBalanceError from '../../NoBalanceError';
 import Slug from '../../Slug';
 
 interface FollowModuleProps {
-  again: boolean;
   profile: Profile;
   setShowFollowModal: Dispatch<SetStateAction<boolean>>;
 }
 
 const FollowModule: FC<FollowModuleProps> = ({
-  again,
   profile,
   setShowFollowModal
 }) => {
@@ -254,11 +252,10 @@ const FollowModule: FC<FollowModuleProps> = ({
     <div className="p-5">
       <div className="space-y-1.5 pb-2">
         <div className="text-lg font-bold">
-          Super follow <Slug slug={getProfile(profile).slugWithPrefix} />{' '}
-          {again ? 'again' : ''}
+          Super follow <Slug slug={getProfile(profile).slugWithPrefix} />
         </div>
         <div className="ld-text-gray-500">
-          Follow {again ? 'again' : ''} and get some awesome perks!
+          Follow and get some awesome perks!
         </div>
       </div>
       <div className="flex items-center space-x-1.5 py-2">
@@ -343,7 +340,7 @@ const FollowModule: FC<FollowModuleProps> = ({
               onClick={createFollow}
               outline
             >
-              {again ? 'Super follow again' : 'Super follow now'}
+              Super follow now
             </Button>
           ) : (
             <WarningMessage
