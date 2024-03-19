@@ -24,6 +24,10 @@ const Transaction: FC<TransactionProps> = ({ transaction }) => {
           <div className="text-sm">
             {transaction.type} on {transaction.commentOn}
           </div>
+        ) : transaction.type === OptmisticPublicationType.Mirror ? (
+          <div className="text-sm">
+            {transaction.type} on {transaction.mirrorOn}
+          </div>
         ) : transaction.type === OptmisticPublicationType.Post ||
           transaction.type === OptmisticPublicationType.Quote ? (
           <div className="text-sm">{transaction.type}</div>

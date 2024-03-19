@@ -1,13 +1,13 @@
 import { hydrateTxnQueue } from 'src/store/persisted/useTransactionStore';
 
-const hasOptimisticallyCollected = (publicationId: string) => {
+const hasOptimisticallyCollected = (collectOn: string) => {
   const txnQueue = hydrateTxnQueue();
 
   if (!txnQueue) {
     return false;
   }
 
-  return txnQueue.some((txn) => txn.collectOn === publicationId);
+  return txnQueue.some((txn) => txn.collectOn === collectOn);
 };
 
 export default hasOptimisticallyCollected;
