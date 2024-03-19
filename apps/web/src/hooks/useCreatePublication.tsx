@@ -62,7 +62,7 @@ const useCreatePublication = ({
     decrementLensHubOnchainSigNonce,
     incrementLensHubOnchainSigNonce,
     lensHubOnchainSigNonce
-  } = useNonceStore((state) => state);
+  } = useNonceStore();
   const { publicationContent } = usePublicationStore();
   const { addTransaction } = useTransactionStore();
   const handleWrongNetwork = useHandleWrongNetwork();

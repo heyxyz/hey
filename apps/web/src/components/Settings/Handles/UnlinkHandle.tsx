@@ -29,7 +29,7 @@ const UnlinkHandle: FC = () => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
   const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
-    useNonceStore((state) => state);
+    useNonceStore();
   const [unlinking, setUnlinking] = useState<boolean>(false);
 
   const handleWrongNetwork = useHandleWrongNetwork();

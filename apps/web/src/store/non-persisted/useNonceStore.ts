@@ -1,5 +1,5 @@
+import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
-import { subscribeWithSelector } from 'zustand/middleware';
 
 interface State {
   decrementLensHubOnchainSigNonce: () => void;
@@ -8,18 +8,18 @@ interface State {
   setLensHubOnchainSigNonce: (lensHubOnchainSigNonce: number) => void;
 }
 
-export const useNonceStore = create(
-  subscribeWithSelector<State>((set) => ({
-    decrementLensHubOnchainSigNonce: () =>
-      set((state) => ({
-        lensHubOnchainSigNonce: state.lensHubOnchainSigNonce - 1
-      })),
-    incrementLensHubOnchainSigNonce: () =>
-      set((state) => ({
-        lensHubOnchainSigNonce: state.lensHubOnchainSigNonce + 1
-      })),
-    lensHubOnchainSigNonce: 0,
-    setLensHubOnchainSigNonce: (lensHubOnchainSigNonce) =>
-      set(() => ({ lensHubOnchainSigNonce }))
-  }))
-);
+const store = create<State>((set) => ({
+  decrementLensHubOnchainSigNonce: () =>
+    set((state) => ({
+      lensHubOnchainSigNonce: state.lensHubOnchainSigNonce - 1
+    })),
+  incrementLensHubOnchainSigNonce: () =>
+    set((state) => ({
+      lensHubOnchainSigNonce: state.lensHubOnchainSigNonce + 1
+    })),
+  lensHubOnchainSigNonce: 0,
+  setLensHubOnchainSigNonce: (lensHubOnchainSigNonce) =>
+    set(() => ({ lensHubOnchainSigNonce }))
+}));
+
+export const useNonceStore = createTrackedSelector(store);

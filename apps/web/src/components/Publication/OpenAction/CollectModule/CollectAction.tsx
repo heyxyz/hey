@@ -78,7 +78,7 @@ const CollectAction: FC<CollectActionProps> = ({
     decrementLensHubOnchainSigNonce,
     incrementLensHubOnchainSigNonce,
     lensHubOnchainSigNonce
-  } = useNonceStore((state) => state);
+  } = useNonceStore();
   const { addTransaction } = useTransactionStore();
 
   const { id: sessionProfileId } = getCurrentSession();

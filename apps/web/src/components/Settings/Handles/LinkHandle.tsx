@@ -37,7 +37,7 @@ const LinkHandle: FC = () => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
   const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
-    useNonceStore((state) => state);
+    useNonceStore();
   const [linkingHandle, setLinkingHandle] = useState<null | string>(null);
 
   const handleWrongNetwork = useHandleWrongNetwork();

@@ -325,9 +325,6 @@ importers:
       remark-linkify-regex:
         specifier: ^1.2.1
         version: 1.2.1
-      shared-zustand:
-        specifier: ^2.0.0
-        version: 2.0.0
       strip-markdown:
         specifier: ^6.0.0
         version: 6.0.0
@@ -19077,10 +19074,6 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       kind-of: 6.0.3
-    dev: false
-
-  /shared-zustand@2.0.0:
-    resolution: {integrity: sha512-DKBWe2w62wZif79XcUXStBBQ47T4y3XEApueseZ1O3wEsMbamDK01ac0zQNVj4MOH9Z5jesM2oLuug/79LPM1A==}
     dev: false
 
   /shebang-command@2.0.0:

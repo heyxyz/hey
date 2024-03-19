@@ -34,7 +34,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     useProfileStore();
   const { resetPreferences } = usePreferencesStore();
   const { resetFeatureFlags } = useFeatureFlagsStore();
-  const { setLensHubOnchainSigNonce } = useNonceStore((state) => state);
+  const { setLensHubOnchainSigNonce } = useNonceStore();
 
   const isMounted = useIsClient();
   const { disconnect } = useDisconnect();

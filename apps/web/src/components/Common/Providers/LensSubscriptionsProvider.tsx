@@ -9,14 +9,13 @@ import { BrowserPush } from '@lib/browserPush';
 import getCurrentSession from '@lib/getCurrentSession';
 import getPushNotificationData from '@lib/getPushNotificationData';
 import { useEffect } from 'react';
-import { isSupported, share } from 'shared-zustand';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useNotificationStore } from 'src/store/persisted/useNotificationStore';
 import { useAccount } from 'wagmi';
 
 const LensSubscriptionsProvider: FC = () => {
   const { setLatestNotificationId } = useNotificationStore();
-  const { setLensHubOnchainSigNonce } = useNonceStore((state) => state);
+  const { setLensHubOnchainSigNonce } = useNonceStore();
   const { address } = useAccount();
   const { id: sessionProfileId } = getCurrentSession();
   const canUseSubscriptions = Boolean(sessionProfileId) && address;
@@ -57,11 +56,6 @@ const LensSubscriptionsProvider: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userSigNoncesData]);
   // End: User Sig Nonces
-
-  // Sync zustand stores between tabs
-  if (isSupported()) {
-    share('lensHubOnchainSigNonce', useNonceStore);
-  }
 
   return null;
 };
