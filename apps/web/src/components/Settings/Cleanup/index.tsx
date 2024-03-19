@@ -10,11 +10,13 @@ import { Leafwatch } from '@lib/leafwatch';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 
 import SettingsSidebar from '../Sidebar';
 
 const CleanupSettings: NextPage = () => {
   const { currentProfile } = useProfileStore();
+  const { reset } = useTransactionStore();
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'cleanup' });
@@ -49,14 +51,13 @@ const CleanupSettings: NextPage = () => {
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <b>Optimistic publications</b>
+                <b>Optimistic actions</b>
                 <div className="ld-text-gray-500 text-xs font-bold">
-                  Clean your posts or comments that are not indexed
+                  Clean your posts, comments, follows, and other actions that
+                  are still in the queue
                 </div>
               </div>
-              <Button onClick={() => cleanup(Localstorage.TransactionStore)}>
-                Cleanup
-              </Button>
+              <Button onClick={reset}>Cleanup</Button>
             </div>
             <div className="flex items-center justify-between">
               <div className="space-y-1">
