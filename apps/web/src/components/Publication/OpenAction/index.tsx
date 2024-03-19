@@ -10,6 +10,7 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Modal, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
+import hasOptimisticallyCollected from '@lib/optimistic/hasOptimisticallyCollected';
 import { motion } from 'framer-motion';
 import plur from 'plur';
 import { useState } from 'react';
@@ -27,7 +28,9 @@ const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
     ? publication?.mirrorOn
     : publication;
 
-  const hasActed = targetPublication.operations.hasActed.value;
+  const hasActed =
+    targetPublication.operations.hasActed.value ||
+    hasOptimisticallyCollected(targetPublication.id);
   const { countOpenActions } = targetPublication.stats;
 
   const iconClassName = showCount

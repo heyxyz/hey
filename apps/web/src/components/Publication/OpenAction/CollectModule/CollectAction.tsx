@@ -29,17 +29,20 @@ import getCollectModuleData from '@hey/lib/getCollectModuleData';
 import getOpenActionActOnKey from '@hey/lib/getOpenActionActOnKey';
 import getSignature from '@hey/lib/getSignature';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
+import { OptmisticPublicationType } from '@hey/types/enums';
 import { Button, Spinner, WarningMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import getCurrentSession from '@lib/getCurrentSession';
 import { Leafwatch } from '@lib/leafwatch';
+import hasOptimisticallyCollected from '@lib/optimistic/hasOptimisticallyCollected';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 import { formatUnits } from 'viem';
 import {
   useAccount,
@@ -76,6 +79,7 @@ const CollectAction: FC<CollectActionProps> = ({
     incrementLensHubOnchainSigNonce,
     lensHubOnchainSigNonce
   } = useNonceStore((state) => state);
+  const { addTransaction } = useTransactionStore();
 
   const { id: sessionProfileId } = getCurrentSession();
 
@@ -86,7 +90,8 @@ const CollectAction: FC<CollectActionProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [allowed, setAllowed] = useState(true);
   const [hasActed, setHasActed] = useState(
-    targetPublication.operations.hasActed.value
+    targetPublication.operations.hasActed.value ||
+      hasOptimisticallyCollected(targetPublication.id)
   );
   const { address } = useAccount();
   const handleWrongNetwork = useHandleWrongNetwork();
@@ -126,6 +131,21 @@ const CollectAction: FC<CollectActionProps> = ({
   const canCollect = forceShowCollect
     ? true
     : !hasActed || (!isFreeCollectModule && !isSimpleFreeCollectModule);
+
+  const generateOptimisticCollect = ({
+    txHash,
+    txId
+  }: {
+    txHash?: string;
+    txId?: string;
+  }) => {
+    return {
+      collectOn: targetPublication?.id,
+      txHash,
+      txId,
+      type: OptmisticPublicationType.Collect
+    };
+  };
 
   const updateCache = () => {
     cache.modify({
@@ -179,9 +199,10 @@ const CollectAction: FC<CollectActionProps> = ({
         onError(error);
         decrementLensHubOnchainSigNonce();
       },
-      onSuccess: () => {
+      onSuccess: (hash: string) => {
         onCompleted();
         incrementLensHubOnchainSigNonce();
+        addTransaction(generateOptimisticCollect({ txHash: hash }));
       }
     }
   });
@@ -232,8 +253,14 @@ const CollectAction: FC<CollectActionProps> = ({
   }
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
-    onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename)
+    onCompleted: ({ broadcastOnchain }) => {
+      if (broadcastOnchain.__typename === 'RelaySuccess') {
+        addTransaction(
+          generateOptimisticCollect({ txId: broadcastOnchain.txId })
+        );
+      }
+      onCompleted(broadcastOnchain.__typename);
+    }
   });
 
   const typedDataGenerator = async (generatedData: any) => {
@@ -274,14 +301,25 @@ const CollectAction: FC<CollectActionProps> = ({
 
   // Act
   const [actOnOpenAction] = useActOnOpenActionMutation({
-    onCompleted: ({ actOnOpenAction }) =>
-      onCompleted(actOnOpenAction.__typename),
+    onCompleted: ({ actOnOpenAction }) => {
+      if (actOnOpenAction.__typename === 'RelaySuccess') {
+        addTransaction(
+          generateOptimisticCollect({ txId: actOnOpenAction.txId })
+        );
+      }
+      onCompleted(actOnOpenAction.__typename);
+    },
     onError
   });
 
   // Legacy Collect
   const [legacyCollect] = useLegacyCollectMutation({
-    onCompleted: ({ legacyCollect }) => onCompleted(legacyCollect.__typename),
+    onCompleted: ({ legacyCollect }) => {
+      if (legacyCollect.__typename === 'RelaySuccess') {
+        addTransaction(generateOptimisticCollect({ txId: legacyCollect.txId }));
+      }
+      onCompleted(legacyCollect.__typename);
+    },
     onError
   });
 
