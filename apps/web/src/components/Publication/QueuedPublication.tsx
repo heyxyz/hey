@@ -78,6 +78,10 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
     }
   });
 
+  if (!txn.content) {
+    return null;
+  }
+
   return (
     <Card as="article" className="p-5">
       <div className="flex items-start justify-between pb-4">
