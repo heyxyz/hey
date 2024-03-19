@@ -1,6 +1,6 @@
 export enum OptmisticPublicationType {
+  Collect = 'Collect',
   Comment = 'Comment',
-  Follow = 'Follow',
   Post = 'Post',
   Quote = 'Quote'
 }
