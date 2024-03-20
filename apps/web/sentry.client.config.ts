@@ -11,6 +11,7 @@ Sentry.init({
     'wss://relay.walletconnect.org',
     'To use QR modal, please install @walletconnect/modal package',
     'No matching key',
+    'unknown ProviderEvent',
     'No internet connection detected'
   ],
   tracesSampleRate: 1
