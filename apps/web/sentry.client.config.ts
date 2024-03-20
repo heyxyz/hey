@@ -9,6 +9,8 @@ Sentry.init({
     'ResizeObserver loop limit exceeded',
     'User rejected the request',
     'wss://relay.walletconnect.org',
+    'To use QR modal, please install @walletconnect/modal package',
+    "No matching key. session topic doesn't exist",
     'No internet connection detected'
   ],
   tracesSampleRate: 1
