@@ -2,13 +2,13 @@ import type { FC } from 'react';
 
 import { Menu } from '@headlessui/react';
 import cn from '@hey/ui/cn';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import MenuTransition from '../MenuTransition';
 import Bookmarks from './NavItems/Bookmarks';
 import Support from './NavItems/Support';
 const MoreNavItems: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
 
   return (
     <Menu as="div">
@@ -16,7 +16,7 @@ const MoreNavItems: FC = () => {
         <>
           <Menu.Button
             className={cn(
-              'outline-brand-500 w-full cursor-pointer rounded-md px-2 py-1 text-left text-sm font-bold tracking-wide md:px-3',
+              'w-full cursor-pointer rounded-md px-2 py-1 text-left text-sm font-bold tracking-wide md:px-3',
               {
                 'bg-gray-200 text-black dark:bg-gray-800 dark:text-white': open,
                 'text-gray-700 hover:bg-gray-200 hover:text-black dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white':

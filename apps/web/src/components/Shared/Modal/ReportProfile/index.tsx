@@ -1,9 +1,12 @@
+import type { Profile } from '@hey/lens';
+import type { FC } from 'react';
+
 import UserProfile from '@components/Shared/UserProfile';
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data';
 import { PROFILE } from '@hey/data/tracking';
-import { type Profile, useReportProfileMutation } from '@hey/lens';
+import { useReportProfileMutation } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import {
   Button,
@@ -17,7 +20,7 @@ import {
 } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { object, string } from 'zod';
@@ -82,7 +85,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
       {submitData?.reportProfile === null ? (
         <EmptyState
           hideCard
-          icon={<CheckCircleIcon className="size-14 text-green-500" />}
+          icon={<CheckCircleIcon className="size-14" />}
           message="Profile reported successfully!"
         />
       ) : profile ? (

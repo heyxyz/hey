@@ -1,17 +1,17 @@
+import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
-import Unfollow from '@components/Shared/Profile/Unfollow';
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
-import { FollowModuleType, type Profile } from '@hey/lens';
 import formatRelativeOrAbsolute from '@hey/lib/datetime/formatRelativeOrAbsolute';
 import getAvatar from '@hey/lib/getAvatar';
 import getLennyURL from '@hey/lib/getLennyURL';
 import getMentions from '@hey/lib/getMentions';
 import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
+import humanize from '@hey/lib/humanize';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import isVerified from '@lib/isVerified';
@@ -19,9 +19,8 @@ import Link from 'next/link';
 import { memo } from 'react';
 
 import Markup from './Markup';
-import Follow from './Profile/Follow';
+import FollowUnfollowButton from './Profile/FollowUnfollowButton';
 import Slug from './Slug';
-import SuperFollow from './SuperFollow';
 import UserPreview from './UserPreview';
 
 interface UserProfileProps {
@@ -29,10 +28,10 @@ interface UserProfileProps {
   linkToProfile?: boolean;
   profile: Profile;
   showBio?: boolean;
-  showFollow?: boolean;
-  showUnfollow?: boolean;
-
+  showFollowUnfollowButton?: boolean;
+  showId?: boolean;
   showUserPreview?: boolean;
+  source?: string;
   timestamp?: Date;
 }
 
@@ -41,9 +40,10 @@ const UserProfile: FC<UserProfileProps> = ({
   linkToProfile = true,
   profile,
   showBio = false,
-  showFollow = false,
-  showUnfollow = false,
+  showFollowUnfollowButton = false,
+  showId = false,
   showUserPreview = true,
+  source,
   timestamp = ''
 }) => {
   const UserAvatar = () => (
@@ -88,6 +88,12 @@ const UserProfile: FC<UserProfileProps> = ({
             </span>
           </span>
         ) : null}
+        {showId && (
+          <span className="ld-text-gray-500">
+            <span className="mx-1.5">·</span>
+            <span className="text-xs">{humanize(parseInt(profile.id))}</span>
+          </span>
+        )}
       </div>
     </>
   );
@@ -128,26 +134,16 @@ const UserProfile: FC<UserProfileProps> = ({
     <div className="flex items-center justify-between">
       {linkToProfile && profile.id ? (
         <Link
-          className="outline-brand-500 rounded-xl outline-offset-4"
-          href={getProfile(profile).link}
+          as={getProfile(profile).link}
+          href={getProfile(profile, source).sourceLink}
         >
           <UserInfo />
         </Link>
       ) : (
         <UserInfo />
       )}
-      {showFollow ? (
-        profile.operations.isFollowedByMe.value ? null : profile?.followModule
-            ?.type === FollowModuleType.FeeFollowModule ? (
-          <SuperFollow profile={profile} />
-        ) : (
-          <Follow profile={profile} />
-        )
-      ) : null}
-      {showUnfollow ? (
-        profile.operations.isFollowedByMe.value ? (
-          <Unfollow profile={profile} />
-        ) : null
+      {showFollowUnfollowButton ? (
+        <FollowUnfollowButton profile={profile} small />
       ) : null}
     </div>
   );

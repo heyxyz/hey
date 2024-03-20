@@ -53,28 +53,26 @@ const Embed: FC<EmbedProps> = ({ og, publicationId }) => {
                 width={144}
               />
             ) : null}
-            <div className="truncate p-5">
-              <div className="space-y-1.5">
+            <div className="truncate px-5 py-4">
+              <div className="space-y-1">
                 {og.title ? (
-                  <div className="truncate font-bold">{og.title}</div>
-                ) : null}
-                {og.description ? (
-                  <div className="ld-text-gray-500 line-clamp-1 whitespace-break-spaces">
-                    {og.description}
-                  </div>
-                ) : null}
-                {og.site ? (
-                  <div className="hidden items-center space-x-2 pt-1.5 md:flex">
+                  <div className="flex items-center space-x-1.5">
                     {og.favicon ? (
                       <img
                         alt="Favicon"
                         className="size-4 rounded-full"
                         height={16}
                         src={og.favicon}
+                        title={og.site || og.url}
                         width={16}
                       />
                     ) : null}
-                    <div className="ld-text-gray-500 text-xs">{og.site}</div>
+                    <div className="truncate font-bold">{og.title}</div>
+                  </div>
+                ) : null}
+                {og.description ? (
+                  <div className="ld-text-gray-500 line-clamp-1 whitespace-break-spaces">
+                    {og.description.replace(/ +/g, ' ')}
                   </div>
                 ) : null}
               </div>

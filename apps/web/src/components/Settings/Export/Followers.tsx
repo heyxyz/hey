@@ -7,10 +7,10 @@ import downloadJson from '@hey/lib/downloadJson';
 import { Button, Card } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 const Followers: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const [followers, setFollowers] = useState<any[]>([]);
   const [exporting, setExporting] = useState(false);
   const [fetchCompleted, setFetchCompleted] = useState(false);
@@ -72,9 +72,11 @@ const Followers: FC = () => {
         </div>
       ) : null}
       {fetchCompleted ? (
-        <Button onClick={download}>Download followers</Button>
+        <Button onClick={download} outline>
+          Download followers
+        </Button>
       ) : (
-        <Button disabled={exporting} onClick={handleExportClick}>
+        <Button disabled={exporting} onClick={handleExportClick} outline>
           {exporting ? 'Exporting...' : 'Export now'}
         </Button>
       )}

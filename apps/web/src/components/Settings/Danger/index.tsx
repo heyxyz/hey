@@ -2,34 +2,31 @@ import type { NextPage } from 'next';
 
 import MetaTags from '@components/Common/MetaTags';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
+import WrongWallet from '@components/Shared/Settings/WrongWallet';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import Custom404 from 'src/pages/404';
-import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce } from 'usehooks-ts';
+import { useEffect } from 'react';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useAccount } from 'wagmi';
 
 import SettingsSidebar from '../Sidebar';
 import DeleteSettings from './Delete';
-import GuardianSettings from './Guardian';
+import HandleGuardianSettings from './HandleGuardian';
+import ProfileGuardianSettings from './ProfileGuardian';
 
 const DangerSettings: NextPage = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { address } = useAccount();
   const disabled = currentProfile?.ownedBy.address !== address;
 
-  useEffectOnce(() => {
+  useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'danger' });
-  });
+  }, []);
 
   if (!currentProfile) {
     return <NotLoggedIn />;
-  }
-
-  if (disabled) {
-    return <Custom404 />;
   }
 
   return (
@@ -39,8 +36,15 @@ const DangerSettings: NextPage = () => {
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        <GuardianSettings />
-        <DeleteSettings />
+        {disabled ? (
+          <WrongWallet />
+        ) : (
+          <>
+            <ProfileGuardianSettings />
+            <HandleGuardianSettings />
+            <DeleteSettings />
+          </>
+        )}
       </GridItemEight>
     </GridLayout>
   );

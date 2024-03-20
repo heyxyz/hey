@@ -1,15 +1,16 @@
 import type { AnyPublication } from '@hey/lens';
 
+import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 
-interface PublicationState {
+interface State {
   publicationContent: string;
   quotedPublication: AnyPublication | null;
   setPublicationContent: (publicationContent: string) => void;
   setQuotedPublication: (quotedPublication: AnyPublication | null) => void;
 }
 
-export const usePublicationStore = create<PublicationState>((set) => ({
+const store = create<State>((set) => ({
   publicationContent: '',
   quotedPublication: null,
   setPublicationContent: (publicationContent) =>
@@ -17,3 +18,5 @@ export const usePublicationStore = create<PublicationState>((set) => ({
   setQuotedPublication: (quotedPublication) =>
     set(() => ({ quotedPublication }))
 }));
+
+export const usePublicationStore = createTrackedSelector(store);

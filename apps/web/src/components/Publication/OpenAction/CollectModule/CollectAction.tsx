@@ -12,9 +12,9 @@ import AllowanceButton from '@components/Settings/Allowance/Button';
 import LoginButton from '@components/Shared/Navbar/LoginButton';
 import NoBalanceError from '@components/Shared/NoBalanceError';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
-import { LensHub, PublicAct } from '@hey/abis';
+import { LensHub } from '@hey/abis';
 import { Errors } from '@hey/data';
-import { LENSHUB_PROXY, PUBLICACT_PROXY } from '@hey/data/constants';
+import { LENS_HUB } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import {
   useActOnOpenActionMutation,
@@ -29,18 +29,21 @@ import getCollectModuleData from '@hey/lib/getCollectModuleData';
 import getOpenActionActOnKey from '@hey/lib/getOpenActionActOnKey';
 import getSignature from '@hey/lib/getSignature';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
+import { OptmisticPublicationType } from '@hey/types/enums';
 import { Button, Spinner, WarningMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import getCurrentSession from '@lib/getCurrentSession';
 import { Leafwatch } from '@lib/leafwatch';
+import hasOptimisticallyCollected from '@lib/optimistic/hasOptimisticallyCollected';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
-import useProfileStore from 'src/store/persisted/useProfileStore';
-import { formatUnits, isAddress } from 'viem';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
+import { formatUnits } from 'viem';
 import {
   useAccount,
   useBalance,
@@ -69,17 +72,16 @@ const CollectAction: FC<CollectActionProps> = ({
   openAction,
   publication
 }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
-  const lensHubOnchainSigNonce = useNonceStore(
-    (state) => state.lensHubOnchainSigNonce
-  );
-  const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce
-  );
+  const {
+    decrementLensHubOnchainSigNonce,
+    incrementLensHubOnchainSigNonce,
+    lensHubOnchainSigNonce
+  } = useNonceStore();
+  const { addTransaction } = useTransactionStore();
 
   const { id: sessionProfileId } = getCurrentSession();
-  const isWalletUser = isAddress(sessionProfileId);
 
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
@@ -88,7 +90,8 @@ const CollectAction: FC<CollectActionProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [allowed, setAllowed] = useState(true);
   const [hasActed, setHasActed] = useState(
-    targetPublication.operations.hasActed.value
+    targetPublication.operations.hasActed.value ||
+      hasOptimisticallyCollected(targetPublication.id)
   );
   const { address } = useAccount();
   const handleWrongNetwork = useHandleWrongNetwork();
@@ -108,7 +111,7 @@ const CollectAction: FC<CollectActionProps> = ({
   const isAllCollected = collectLimit
     ? countOpenActions >= collectLimit
     : false;
-  const isCollectExpired = endTimestamp
+  const isSaleEnded = endTimestamp
     ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
     : false;
   const isLegacyCollectModule =
@@ -122,13 +125,27 @@ const CollectAction: FC<CollectActionProps> = ({
   const isFreeCollectModule = !amount;
   const isSimpleFreeCollectModule =
     openAction.__typename === 'SimpleCollectOpenActionSettings';
-  const isFollowersOnly = collectModule?.followerOnly;
   const canUseManager =
     canUseLensManager && !collectModule?.followerOnly && isFreeCollectModule;
 
   const canCollect = forceShowCollect
     ? true
     : !hasActed || (!isFreeCollectModule && !isSimpleFreeCollectModule);
+
+  const generateOptimisticCollect = ({
+    txHash,
+    txId
+  }: {
+    txHash?: string;
+    txId?: string;
+  }) => {
+    return {
+      collectOn: targetPublication?.id,
+      txHash,
+      txId,
+      type: OptmisticPublicationType.Collect
+    };
+  };
 
   const updateCache = () => {
     cache.modify({
@@ -140,9 +157,7 @@ const CollectAction: FC<CollectActionProps> = ({
       id: cache.identify(targetPublication)
     });
     cache.modify({
-      fields: {
-        countOpenActions: () => countOpenActions + 1
-      },
+      fields: { countOpenActions: () => countOpenActions + 1 },
       id: cache.identify(targetPublication.stats)
     });
   };
@@ -174,36 +189,30 @@ const CollectAction: FC<CollectActionProps> = ({
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
-  const walletUserFunctionName = 'publicCollect';
   const profileUserFunctionName = isLegacyCollectModule
     ? 'collectLegacy'
     : 'act';
 
-  const { writeContract } = useWriteContract({
+  const { writeContractAsync } = useWriteContract({
     mutation: {
-      onError: (error) => {
+      onError: (error: Error) => {
         onError(error);
-        if (!isWalletUser) {
-          setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
-        }
+        decrementLensHubOnchainSigNonce();
       },
-      onSuccess: () => {
+      onSuccess: (hash: string) => {
         onCompleted();
-        if (!isWalletUser) {
-          setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
-        }
+        incrementLensHubOnchainSigNonce();
+        addTransaction(generateOptimisticCollect({ txHash: hash }));
       }
     }
   });
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
-      abi: (isWalletUser ? PublicAct : LensHub) as any,
-      address: isWalletUser ? PUBLICACT_PROXY : LENSHUB_PROXY,
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
+      abi: LensHub,
+      address: LENS_HUB,
       args,
-      functionName: isWalletUser
-        ? walletUserFunctionName
-        : profileUserFunctionName
+      functionName: profileUserFunctionName
     });
   };
 
@@ -244,12 +253,19 @@ const CollectAction: FC<CollectActionProps> = ({
   }
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
-    onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename)
+    onCompleted: ({ broadcastOnchain }) => {
+      if (broadcastOnchain.__typename === 'RelaySuccess') {
+        addTransaction(
+          generateOptimisticCollect({ txId: broadcastOnchain.txId })
+        );
+      }
+      onCompleted(broadcastOnchain.__typename);
+    }
   });
 
   const typedDataGenerator = async (generatedData: any) => {
     const { id, typedData } = generatedData;
+    await handleWrongNetwork();
 
     if (canBroadcast) {
       const signature = await signTypedDataAsync(getSignature(typedData));
@@ -257,14 +273,14 @@ const CollectAction: FC<CollectActionProps> = ({
         variables: { request: { id, signature } }
       });
       if (data?.broadcastOnchain.__typename === 'RelayError') {
-        return write({ args: [typedData.value] });
+        return await write({ args: [typedData.value] });
       }
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+      incrementLensHubOnchainSigNonce();
 
       return;
     }
 
-    return write?.({ args: [typedData.value] });
+    return await write({ args: [typedData.value] });
   };
 
   // Act Typed Data
@@ -285,14 +301,25 @@ const CollectAction: FC<CollectActionProps> = ({
 
   // Act
   const [actOnOpenAction] = useActOnOpenActionMutation({
-    onCompleted: ({ actOnOpenAction }) =>
-      onCompleted(actOnOpenAction.__typename),
+    onCompleted: ({ actOnOpenAction }) => {
+      if (actOnOpenAction.__typename === 'RelaySuccess') {
+        addTransaction(
+          generateOptimisticCollect({ txId: actOnOpenAction.txId })
+        );
+      }
+      onCompleted(actOnOpenAction.__typename);
+    },
     onError
   });
 
   // Legacy Collect
   const [legacyCollect] = useLegacyCollectMutation({
-    onCompleted: ({ legacyCollect }) => onCompleted(legacyCollect.__typename),
+    onCompleted: ({ legacyCollect }) => {
+      if (legacyCollect.__typename === 'RelaySuccess') {
+        addTransaction(generateOptimisticCollect({ txId: legacyCollect.txId }));
+      }
+      onCompleted(legacyCollect.__typename);
+    },
     onError
   });
 
@@ -333,10 +360,6 @@ const CollectAction: FC<CollectActionProps> = ({
   const createCollect = async () => {
     if (isSuspended) {
       return toast.error(Errors.Suspended);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
     }
 
     try {
@@ -390,11 +413,7 @@ const CollectAction: FC<CollectActionProps> = ({
     return null;
   }
 
-  if (isAllCollected || isCollectExpired) {
-    return null;
-  }
-
-  if (isWalletUser && isFollowersOnly) {
+  if (isAllCollected || isSaleEnded) {
     return null;
   }
 

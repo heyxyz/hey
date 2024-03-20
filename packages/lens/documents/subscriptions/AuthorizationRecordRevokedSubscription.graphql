@@ -1,3 +1,0 @@
-subscription AuthorizationRecordRevokedSubscription($authorizationId: UUID!) {
-  authorizationRecordRevoked(authorizationId: $authorizationId)
-}

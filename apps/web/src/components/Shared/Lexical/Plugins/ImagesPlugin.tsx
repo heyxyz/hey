@@ -1,19 +1,74 @@
 import type { ClipboardEvent } from 'react';
 
+import { MediaImageMimeType } from '@lens-protocol/metadata';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { DRAG_DROP_PASTE } from '@lexical/rich-text';
 import { mergeRegister } from '@lexical/utils';
-import { COMMAND_PRIORITY_NORMAL, PASTE_COMMAND } from 'lexical';
-import { useUpdateEffect } from 'usehooks-ts';
+import {
+  COMMAND_PRIORITY_LOW,
+  COMMAND_PRIORITY_NORMAL,
+  PASTE_COMMAND
+} from 'lexical';
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
+import useUploadAttachments from 'src/hooks/useUploadAttachments';
+import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 
-interface ImagesPluginProps {
-  onPaste: (files: FileList) => void;
-}
+const ImageMimeType: MediaImageMimeType[] = Object.values(MediaImageMimeType);
 
-const ImagesPlugin = (props: ImagesPluginProps): JSX.Element | null => {
-  const { onPaste } = props;
+const ImagesPlugin = (): JSX.Element | null => {
+  const { attachments } = usePublicationAttachmentStore((state) => state);
+  const { handleUploadAttachments } = useUploadAttachments();
+
   const [editor] = useLexicalComposerContext();
 
-  useUpdateEffect(() => {
+  const handlePaste = async (pastedFiles: FileList) => {
+    if (
+      attachments.length === 4 ||
+      attachments.length + pastedFiles.length > 4
+    ) {
+      return toast.error('Please choose either 1 video or up to 4 photos.');
+    }
+
+    if (pastedFiles) {
+      await handleUploadAttachments(pastedFiles);
+    }
+  };
+
+  useEffect(() => {
+    const command = (files: File[]) => {
+      // Filter files to include only those with MIME types that appear in ImageMimeType
+      const imageFiles = files.filter((file) =>
+        ImageMimeType.includes(file.type as MediaImageMimeType)
+      );
+
+      // Only proceed if there are image files
+      if (imageFiles.length > 0) {
+        const filesResult = imageFiles as unknown as FileList;
+        handlePaste(filesResult);
+
+        return true;
+      }
+
+      toast.error('Only images are allowed right now.');
+      return false;
+    };
+
+    // Register the command with the editor
+    const unregister = editor.registerCommand(
+      DRAG_DROP_PASTE,
+      command,
+      COMMAND_PRIORITY_LOW
+    );
+
+    // Cleanup function to unregister the command when the component unmounts or editor changes
+    return () => {
+      unregister();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editor]);
+
+  useEffect(() => {
     return mergeRegister(
       editor.registerCommand<InputEvent & ClipboardEvent>(
         PASTE_COMMAND,
@@ -29,7 +84,7 @@ const ImagesPlugin = (props: ImagesPluginProps): JSX.Element | null => {
             // If the clipboard data contains files, we want to handle the image paste event.
             if (dataTransfer?.files.length) {
               const { files } = dataTransfer;
-              onPaste?.(files);
+              handlePaste(files);
             }
 
             return true;
@@ -40,7 +95,8 @@ const ImagesPlugin = (props: ImagesPluginProps): JSX.Element | null => {
         COMMAND_PRIORITY_NORMAL
       )
     );
-  }, [editor, onPaste]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editor]);
 
   return null;
 };

@@ -3,10 +3,12 @@ import type {
   UnknownOpenActionModuleSettings
 } from '@hey/lens';
 import type { AllowedToken } from '@hey/types/hey';
+import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import Loader from '@components/Shared/Loader';
 import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
+import { USD_ENABLED_TOKEN_SYMBOLS } from '@hey/data/tokens-symbols';
 import { TipIcon } from '@hey/icons';
 import { useModuleMetadataQuery } from '@hey/lens';
 import getAllTokens from '@hey/lib/api/getAllTokens';
@@ -14,11 +16,10 @@ import getAssetSymbol from '@hey/lib/getAssetSymbol';
 import getRedstonePrice from '@hey/lib/getRedstonePrice';
 import { RangeSlider, Select } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
-import { type FC, useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN } from 'src/constants';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
-import { useUpdateEffect } from 'usehooks-ts';
 import { encodeAbiParameters, formatUnits, parseUnits } from 'viem';
 import { useAccount, useBalance } from 'wagmi';
 
@@ -51,8 +52,9 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
     setUsdPrice(usdPrice);
   };
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     getUsdPrice();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCurrency]);
 
   const { data: balanceData } = useBalance({
@@ -67,6 +69,14 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
   });
 
   const metadata = data?.moduleMetadata?.metadata;
+  const balance = balanceData
+    ? parseFloat(
+        formatUnits(balanceData.value, selectedCurrency?.decimals as number)
+      ).toFixed(selectedCurrency?.symbol === 'WETH' ? 4 : 2)
+    : 0;
+  const usdEnabled = USD_ENABLED_TOKEN_SYMBOLS.includes(
+    selectedCurrency?.symbol as string
+  );
 
   const { actOnUnknownOpenAction, isLoading } = useActOnUnknownOpenAction({
     signlessApproved: module.signlessApproved,
@@ -86,15 +96,11 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
   });
 
   if (loading || loadingAllowedTokens) {
-    return (
-      <div className="m-5">
-        <Loader message="Loading tip..." />
-      </div>
-    );
+    return <Loader className="m-5" message="Loading tip..." />;
   }
 
   const act = async () => {
-    if (usdPrice === 0) {
+    if (usdEnabled && usdPrice === 0) {
       return toast.error('Failed to get USD price');
     }
 
@@ -108,7 +114,7 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
     }
 
     const amount = tip.value[0];
-    const usdValue = amount / usdPrice;
+    const usdValue = usdEnabled ? amount / usdPrice : amount;
 
     const calldata = encodeAbiParameters(abi, [
       currency.contractAddress,
@@ -122,40 +128,53 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
     });
   };
 
-  const balance = balanceData
-    ? parseFloat(
-        formatUnits(balanceData.value, selectedCurrency?.decimals as number)
-      ).toFixed(selectedCurrency?.symbol === 'WETH' ? 4 : 2)
-    : 0;
-
   return (
     <div className="space-y-3 p-5">
       <div className="flex items-center justify-between">
         <div className="space-y-0.5">
           <span className="space-x-1 text-2xl">
-            <span>$</span>
-            <b>{tip.value[0]}</b>
+            {usdEnabled ? (
+              <>
+                <span>$</span>
+                <b>{tip.value[0]}</b>
+              </>
+            ) : (
+              <>
+                <b>{tip.value[0]}</b>
+                <b>{selectedCurrency?.symbol}</b>
+              </>
+            )}
           </span>
+
           <div className="ld-text-gray-500 text-sm">
-            {(tip.value[0] / usdPrice).toFixed(
-              selectedCurrency?.symbol === 'WETH' ? 4 : 2
-            )}{' '}
-            {selectedCurrency?.symbol}
+            {usdEnabled ? (
+              <>
+                {(tip.value[0] / usdPrice).toFixed(
+                  selectedCurrency?.symbol === 'WETH' ? 4 : 2
+                )}{' '}
+                {selectedCurrency?.symbol}
+              </>
+            ) : (
+              <>
+                {tip.value[0]} {selectedCurrency?.symbol}
+              </>
+            )}
           </div>
         </div>
         <div className="flex w-5/12 flex-col items-end space-y-1">
           <Select
             defaultValue={DEFAULT_COLLECT_TOKEN}
-            onChange={(e) => {
-              setTip({ ...tip, currency: e.target.value });
+            onChange={(value) => {
+              setTip({ ...tip, currency: value });
               setSelectedCurrency(
                 allowedTokens?.find(
-                  (token) => token.contractAddress === e.target.value
+                  (token) => token.contractAddress === value
                 ) as AllowedToken
               );
             }}
             options={allowedTokens?.map((token) => ({
               label: token.name,
+              selected: token.contractAddress === tip.currency,
               value: token.contractAddress
             }))}
           />

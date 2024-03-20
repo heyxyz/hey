@@ -1,18 +1,4 @@
-/**
- * A mapping of token symbols to their respective addresses.
- */
-type TokenSymbolMap = Record<string, string>;
-
-/**
- * The addresses of commonly-used tokens on the Polygon.
- */
-const TOKEN_SYMBOLS: TokenSymbolMap = {
-  DAI: 'DAI',
-  USDC: 'USDC',
-  USDT: 'USDT',
-  WETH: 'ETH',
-  WMATIC: 'MATIC'
-};
+import { TOKEN_SYMBOLS } from '@hey/data/tokens-symbols';
 
 /**
  * Returns the symbol of a given token symbol.
@@ -20,8 +6,8 @@ const TOKEN_SYMBOLS: TokenSymbolMap = {
  * @param symbol The symbol of the token.
  * @returns The symbol of the token.
  */
-const getAssetSymbol = (symbol: string): string => {
-  return TOKEN_SYMBOLS[symbol] || 'MATIC';
+const getAssetSymbol = (symbol: string): null | string => {
+  return TOKEN_SYMBOLS[symbol] || null;
 };
 
 export default getAssetSymbol;

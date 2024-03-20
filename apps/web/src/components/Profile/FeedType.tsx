@@ -1,13 +1,11 @@
 import type { FC } from 'react';
 
 import {
-  ChartBarIcon,
-  ChatBubbleLeftRightIcon,
+  ChatBubbleLeftIcon,
   FilmIcon,
   PencilSquareIcon,
   RectangleStackIcon
 } from '@heroicons/react/24/outline';
-import { IS_MAINNET } from '@hey/data/constants';
 import { PROFILE } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -17,17 +15,17 @@ import MediaFilter from './Filters/MediaFilter';
 
 interface FeedTypeProps {
   feedType: string;
+  setFeedType?: (type: ProfileFeedType) => void;
 }
 
-const FeedType: FC<FeedTypeProps> = ({ feedType }) => {
+const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
   const switchTab = (type: string) => {
-    if (type === ProfileFeedType.Stats.toLowerCase()) {
-      Leafwatch.track(PROFILE.SWITCH_PROFILE_STATS_TAB);
-    } else {
-      Leafwatch.track(PROFILE.SWITCH_PROFILE_FEED_TAB, {
-        profile_feed_type: type.toLowerCase()
-      });
+    if (setFeedType) {
+      setFeedType(type as ProfileFeedType);
     }
+    Leafwatch.track(PROFILE.SWITCH_PROFILE_FEED_TAB, {
+      profile_feed_type: type.toLowerCase()
+    });
   };
 
   return (
@@ -42,7 +40,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType }) => {
         />
         <TabButton
           active={feedType === ProfileFeedType.Replies}
-          icon={<ChatBubbleLeftRightIcon className="size-4" />}
+          icon={<ChatBubbleLeftIcon className="size-4" />}
           name="Replies"
           onClick={() => switchTab(ProfileFeedType.Replies)}
           type={ProfileFeedType.Replies.toLowerCase()}
@@ -61,15 +59,6 @@ const FeedType: FC<FeedTypeProps> = ({ feedType }) => {
           onClick={() => switchTab(ProfileFeedType.Collects)}
           type={ProfileFeedType.Collects.toLowerCase()}
         />
-        {IS_MAINNET ? (
-          <TabButton
-            active={feedType === ProfileFeedType.Stats}
-            icon={<ChartBarIcon className="size-4" />}
-            name="Stats"
-            onClick={() => switchTab(ProfileFeedType.Stats)}
-            type={ProfileFeedType.Stats.toLowerCase()}
-          />
-        ) : null}
       </div>
       {feedType === ProfileFeedType.Media ? <MediaFilter /> : null}
     </div>

@@ -6,9 +6,9 @@ import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import { NotificationFeedType } from 'src/enums';
-import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce } from 'usehooks-ts';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import FeedType from './FeedType';
 import List from './List';
@@ -18,11 +18,11 @@ const Notification: NextPage = () => {
   const {
     query: { type }
   } = useRouter();
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
 
-  useEffectOnce(() => {
+  useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'notifications' });
-  });
+  }, []);
 
   const lowerCaseNotificationFeedType = [
     NotificationFeedType.All.toLowerCase(),

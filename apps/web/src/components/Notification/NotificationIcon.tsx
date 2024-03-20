@@ -5,19 +5,15 @@ import Link from 'next/link';
 import { useNotificationStore } from 'src/store/persisted/useNotificationStore';
 
 const NotificationIcon: FC = () => {
-  const latestNotificationId = useNotificationStore(
-    (state) => state.latestNotificationId
-  );
-  const lastOpenedNotificationId = useNotificationStore(
-    (state) => state.lastOpenedNotificationId
-  );
-  const setLastOpenedNotificationId = useNotificationStore(
-    (state) => state.setLastOpenedNotificationId
-  );
+  const {
+    lastOpenedNotificationId,
+    latestNotificationId,
+    setLastOpenedNotificationId
+  } = useNotificationStore();
 
   return (
     <Link
-      className="outline-brand-500 hidden items-start justify-center rounded-md px-2 py-1 hover:bg-gray-300/20 md:flex"
+      className="hidden items-start justify-center rounded-md px-2 py-1 hover:bg-gray-300/20 md:flex"
       href="/notifications"
       onClick={() => {
         if (latestNotificationId) {

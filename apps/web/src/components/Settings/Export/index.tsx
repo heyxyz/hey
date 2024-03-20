@@ -6,8 +6,8 @@ import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce } from 'usehooks-ts';
+import { useEffect } from 'react';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import SettingsSidebar from '../Sidebar';
 import Followers from './Followers';
@@ -18,11 +18,11 @@ import Publications from './Publications';
 import Tokens from './Tokens';
 
 const ExportSettings: NextPage = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
 
-  useEffectOnce(() => {
+  useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'export' });
-  });
+  }, []);
 
   if (!currentProfile) {
     return <NotLoggedIn />;

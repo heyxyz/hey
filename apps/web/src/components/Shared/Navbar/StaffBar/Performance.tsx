@@ -1,8 +1,7 @@
 import type { FC } from 'react';
 
 import cn from '@hey/ui/cn';
-import { useState } from 'react';
-import { useEffectOnce } from 'usehooks-ts';
+import { useEffect, useState } from 'react';
 
 import { Badge } from '.';
 
@@ -10,7 +9,7 @@ const Performance: FC = () => {
   const [ttfb, setTtfb] = useState(0);
 
   // Calculate TTFB
-  useEffectOnce(() => {
+  useEffect(() => {
     new PerformanceObserver((entryList) => {
       const [pageNav] = entryList.getEntriesByType('navigation');
       setTtfb(pageNav.toJSON().responseStart.toFixed(0));
@@ -18,7 +17,7 @@ const Performance: FC = () => {
       buffered: true,
       type: 'navigation'
     });
-  });
+  }, []);
 
   return (
     <Badge>

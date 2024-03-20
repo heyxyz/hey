@@ -2,14 +2,14 @@ import type { NextPage } from 'next';
 
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
+import List from '@components/Staff/Users/List';
 import { apps as knownApps } from '@hey/data/apps';
 import { APP_NAME } from '@hey/data/constants';
 import { ModFeedType } from '@hey/data/enums';
-import { FeatureFlag } from '@hey/data/feature-flags';
 import { PAGEVIEW } from '@hey/data/tracking';
 import {
   CustomFiltersType,
-  ExplorePublicationType,
+  ModExplorePublicationType,
   PublicationMetadataMainFocusType
 } from '@hey/lens';
 import {
@@ -20,26 +20,25 @@ import {
   GridItemFour,
   GridLayout
 } from '@hey/ui';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Custom404 from 'src/pages/404';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import { useEffectOnce } from 'usehooks-ts';
 
 import FeedType from './FeedType';
 import LatestFeed from './LatestFeed';
-import ReportFeed from './ReportFeed';
+import SearchFeed from './SearchFeed';
 
 const FILTER_APPS = knownApps;
 
 const Mod: NextPage = () => {
-  const gardenerMode = useFeatureFlagsStore((state) => state.gardenerMode);
+  const { gardenerMode } = useFeatureFlagsStore();
   const [refresing, setRefreshing] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [publicationTypes, setPublicationTypes] = useState([
-    ExplorePublicationType.Post,
-    ExplorePublicationType.Quote
+    ModExplorePublicationType.Post,
+    ModExplorePublicationType.Quote,
+    ModExplorePublicationType.Comment
   ]);
   const [mainContentFocus, setMainContentFocus] = useState<
     PublicationMetadataMainFocusType[]
@@ -57,14 +56,11 @@ const Mod: NextPage = () => {
   const [apps, setApps] = useState<null | string[]>(null);
   const [feedType, setFeedType] = useState<ModFeedType>(ModFeedType.LATEST);
 
-  useEffectOnce(() => {
+  useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'mod' });
-  });
+  }, []);
 
-  if (
-    !isFeatureEnabled(FeatureFlag.Gardener) &&
-    !isFeatureEnabled(FeatureFlag.TrustedProfile)
-  ) {
+  if (!gardenerMode) {
     return <Custom404 />;
   }
 
@@ -76,7 +72,9 @@ const Mod: NextPage = () => {
     }
   };
 
-  const togglePublicationType = (publicationType: ExplorePublicationType) => {
+  const togglePublicationType = (
+    publicationType: ModExplorePublicationType
+  ) => {
     if (publicationTypes.includes(publicationType)) {
       setPublicationTypes(
         publicationTypes.filter((type) => type !== publicationType)
@@ -90,9 +88,7 @@ const Mod: NextPage = () => {
     <GridLayout>
       <MetaTags title={`Mod Center • ${APP_NAME}`} />
       <GridItemEight className="space-y-5">
-        {gardenerMode && (
-          <FeedType feedType={feedType} setFeedType={setFeedType} />
-        )}
+        <FeedType feedType={feedType} setFeedType={setFeedType} />
         {feedType === ModFeedType.LATEST && (
           <LatestFeed
             apps={apps}
@@ -103,7 +99,8 @@ const Mod: NextPage = () => {
             setRefreshing={setRefreshing}
           />
         )}
-        {feedType === ModFeedType.REPORTS && <ReportFeed />}
+        {feedType === ModFeedType.SEARCH && <SearchFeed />}
+        {feedType === ModFeedType.PROFILES && <List />}
       </GridItemEight>
       <GridItemFour>
         <Card className="p-5">
@@ -122,22 +119,32 @@ const Mod: NextPage = () => {
                 <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
                   <Checkbox
                     checked={publicationTypes.includes(
-                      ExplorePublicationType.Post
+                      ModExplorePublicationType.Post
                     )}
                     label="Posts"
                     name="posts"
                     onChange={() =>
-                      togglePublicationType(ExplorePublicationType.Post)
+                      togglePublicationType(ModExplorePublicationType.Post)
                     }
                   />
                   <Checkbox
                     checked={publicationTypes.includes(
-                      ExplorePublicationType.Quote
+                      ModExplorePublicationType.Comment
+                    )}
+                    label="Comments"
+                    name="comments"
+                    onChange={() =>
+                      togglePublicationType(ModExplorePublicationType.Comment)
+                    }
+                  />
+                  <Checkbox
+                    checked={publicationTypes.includes(
+                      ModExplorePublicationType.Quote
                     )}
                     label="Quotes"
                     name="quotes"
                     onChange={() =>
-                      togglePublicationType(ExplorePublicationType.Quote)
+                      togglePublicationType(ModExplorePublicationType.Quote)
                     }
                   />
                 </div>
@@ -252,8 +259,9 @@ const Mod: NextPage = () => {
               </div>
             </>
           )}
-          {feedType === ModFeedType.REPORTS && (
-            <div>Take action on reports</div>
+          {feedType === ModFeedType.PROFILES && <div>All the profiles</div>}
+          {feedType === ModFeedType.SEARCH && (
+            <div>Search for Publications</div>
           )}
         </Card>
         <Footer />

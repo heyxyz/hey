@@ -4,10 +4,9 @@ import type { FC } from 'react';
 import Markup from '@components/Shared/Markup';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/solid';
 import getPublicationData from '@hey/lib/getPublicationData';
-import pushToImpressions from '@lib/pushToImpressions';
 import Link from 'next/link';
 import plur from 'plur';
-import { useEffectOnce } from 'usehooks-ts';
+import usePushToImpressions from 'src/hooks/usePushToImpressions';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
@@ -29,14 +28,12 @@ const MirrorNotification: FC<MirrorNotificationProps> = ({ notification }) => {
     : 'mirrored your';
   const type = notification?.publication.__typename;
 
-  useEffectOnce(() => {
-    pushToImpressions(notification.publication.id);
-  });
+  usePushToImpressions(notification.publication.id);
 
   return (
     <div className="space-y-2">
       <div className="flex items-center space-x-3">
-        <ArrowsRightLeftIcon className="text-brand-500/70 size-6" />
+        <ArrowsRightLeftIcon className="size-6" />
         <div className="flex items-center space-x-1">
           {mirrors.slice(0, 10).map((mirror) => (
             <div key={mirror.profile.id}>

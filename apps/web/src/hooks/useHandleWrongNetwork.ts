@@ -1,22 +1,21 @@
-import { useCallback } from 'react';
 import { CHAIN } from 'src/constants';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import { useChainId } from 'wagmi';
+import { useConnections, useSwitchChain } from 'wagmi';
 
 const useHandleWrongNetwork = () => {
-  const setShowWrongNetworkModal = useGlobalModalStateStore(
-    (state) => state.setShowWrongNetworkModal
-  );
-  const chain = useChainId();
+  const activeConnection = useConnections();
+  const { switchChainAsync } = useSwitchChain();
 
-  const handleWrongNetwork = useCallback(() => {
-    if (chain !== CHAIN.id) {
-      setShowWrongNetworkModal(true);
-      return true;
+  const handleWrongNetwork = async () => {
+    if (!activeConnection[0]) {
+      return;
     }
 
-    return false;
-  }, [chain, setShowWrongNetworkModal]);
+    if (activeConnection[0]?.chainId !== CHAIN.id) {
+      return await switchChainAsync({ chainId: CHAIN.id });
+    }
+
+    return;
+  };
 
   return handleWrongNetwork;
 };

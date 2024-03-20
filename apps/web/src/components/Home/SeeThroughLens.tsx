@@ -23,19 +23,13 @@ import getProfile from '@hey/lib/getProfile';
 import { Image, Input, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { motion } from 'framer-motion';
 import { Fragment, useState } from 'react';
 import { useTimelineStore } from 'src/store/non-persisted/useTimelineStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 const SeeThroughLens: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const seeThroughProfile = useTimelineStore(
-    (state) => state.seeThroughProfile
-  );
-  const setSeeThroughProfile = useTimelineStore(
-    (state) => state.setSeeThroughProfile
-  );
+  const { currentProfile, fallbackToCuratedFeed } = useProfileStore();
+  const { seeThroughProfile, setSeeThroughProfile } = useTimelineStore();
 
   const [followingProfilesToSeeThrough, setFollowingProfilesToSeeThrough] =
     useState<Profile[]>([]);
@@ -90,7 +84,7 @@ const SeeThroughLens: FC = () => {
         <>
           <Menu.Button as={Fragment}>
             <button
-              className="outline-brand-500 flex items-center space-x-1 rounded-md p-1 text-sm hover:bg-gray-300/20"
+              className="flex items-center space-x-1 rounded-md p-1 text-sm hover:bg-gray-300/20"
               onClick={() => {
                 if (!open) {
                   fetchFollowingProfiles();
@@ -112,7 +106,9 @@ const SeeThroughLens: FC = () => {
               <span>
                 {seeThroughProfile
                   ? getProfile(profile).slugWithPrefix
-                  : 'My Feed'}
+                  : fallbackToCuratedFeed
+                    ? 'Curated Feed'
+                    : 'My Feed'}
               </span>
               <ChevronDownIcon className="size-4" />
             </button>
@@ -163,16 +159,13 @@ const SeeThroughLens: FC = () => {
                   <>
                     {profiles.map((profile: Profile) => (
                       <Menu.Item
-                        animate={{ opacity: 1 }}
-                        as={motion.div}
+                        as="div"
                         className={({ active }) =>
                           cn(
                             { 'dropdown-active': active },
                             'cursor-pointer overflow-hidden rounded-lg p-1'
                           )
                         }
-                        exit={{ opacity: 0 }}
-                        initial={{ opacity: 0 }}
                         key={profile.id}
                         onClick={() => {
                           setSeeThroughProfile(profile);
@@ -190,7 +183,9 @@ const SeeThroughLens: FC = () => {
                       </Menu.Item>
                     ))}
                     {profiles.length === 0 || error ? (
-                      <div className="py-4 text-center">No matching users</div>
+                      <div className="py-4 text-center">
+                        Not following anyone
+                      </div>
                     ) : null}
                   </>
                 )}

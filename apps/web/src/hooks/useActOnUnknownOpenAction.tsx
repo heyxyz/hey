@@ -2,7 +2,7 @@ import type { ActOnOpenActionLensManagerRequest } from '@hey/lens';
 import type { Address } from 'viem';
 
 import { LensHub } from '@hey/abis';
-import { LENSHUB_PROXY } from '@hey/data/constants';
+import { LENS_HUB } from '@hey/data/constants';
 import {
   useActOnOpenActionMutation,
   useBroadcastOnchainMutation,
@@ -14,8 +14,10 @@ import errorToast from '@lib/errorToast';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
+
+import useHandleWrongNetwork from './useHandleWrongNetwork';
 
 interface CreatePublicationProps {
   signlessApproved?: boolean;
@@ -26,14 +28,14 @@ const useActOnUnknownOpenAction = ({
   signlessApproved = false,
   successToast
 }: CreatePublicationProps) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const lensHubOnchainSigNonce = useNonceStore(
-    (state) => state.lensHubOnchainSigNonce
-  );
-  const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce
-  );
+  const { currentProfile } = useProfileStore();
+  const {
+    decrementLensHubOnchainSigNonce,
+    incrementLensHubOnchainSigNonce,
+    lensHubOnchainSigNonce
+  } = useNonceStore();
   const [isLoading, setIsLoading] = useState(false);
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const { canBroadcast, canUseLensManager } =
     checkDispatcherPermissions(currentProfile);
@@ -58,23 +60,23 @@ const useActOnUnknownOpenAction = ({
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
-  const { writeContract } = useWriteContract({
+  const { writeContractAsync } = useWriteContract({
     mutation: {
-      onError: (error) => {
+      onError: (error: Error) => {
         onError(error);
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+        decrementLensHubOnchainSigNonce();
       },
       onSuccess: () => {
         onCompleted();
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+        incrementLensHubOnchainSigNonce();
       }
     }
   });
 
-  const write = ({ args }: { args: any }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any }) => {
+    return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args,
       functionName: 'act'
     });
@@ -89,6 +91,7 @@ const useActOnUnknownOpenAction = ({
     useCreateActOnOpenActionTypedDataMutation({
       onCompleted: async ({ createActOnOpenActionTypedData }) => {
         const { id, typedData } = createActOnOpenActionTypedData;
+        await handleWrongNetwork();
 
         if (canBroadcast) {
           const signature = await signTypedDataAsync(getSignature(typedData));
@@ -96,14 +99,14 @@ const useActOnUnknownOpenAction = ({
             variables: { request: { id, signature } }
           });
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return write({ args: [typedData.value] });
+            return await write({ args: [typedData.value] });
           }
-          setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+          incrementLensHubOnchainSigNonce();
 
           return;
         }
 
-        return write({ args: [typedData.value] });
+        return await write({ args: [typedData.value] });
       },
       onError
     });

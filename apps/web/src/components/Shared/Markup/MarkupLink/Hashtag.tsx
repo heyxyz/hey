@@ -24,6 +24,7 @@ const Hashtag: FC<MarkupLinkProps> = ({ title }) => {
     <span className="inline-flex items-center space-x-1">
       <span>
         <Link
+          className="outline-none focus:underline"
           href={urlcat('/search', {
             q: title,
             src: 'link_click',

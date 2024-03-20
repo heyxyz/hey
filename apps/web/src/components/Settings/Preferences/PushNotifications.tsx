@@ -4,18 +4,17 @@ import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { BellIcon } from '@heroicons/react/24/outline';
 import { SETTINGS } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
-import { useState } from 'react';
-import { useEffectOnce } from 'usehooks-ts';
+import { useEffect, useState } from 'react';
 
 const PushNotifications: FC = () => {
   const [pushNotificationsEnabled, setPushNotificationsEnabled] =
     useState(false);
 
-  useEffectOnce(() => {
+  useEffect(() => {
     if (Notification.permission === 'granted') {
       setPushNotificationsEnabled(true);
     }
-  });
+  }, []);
 
   const togglePushNotifications = async () => {
     if (Notification.permission !== 'granted') {

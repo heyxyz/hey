@@ -8,7 +8,7 @@ interface Tokens {
   refreshToken: null | string;
 }
 
-interface AuthState {
+interface State {
   accessToken: Tokens['accessToken'];
   hydrateAuthTokens: () => Tokens;
   refreshToken: Tokens['refreshToken'];
@@ -16,8 +16,8 @@ interface AuthState {
   signOut: () => void;
 }
 
-export const useAuthStore = create(
-  persist<AuthState>(
+const store = create(
+  persist<State>(
     (set, get) => ({
       accessToken: null,
       hydrateAuthTokens: () => {
@@ -43,8 +43,7 @@ export const useAuthStore = create(
           (value) =>
             value !== IndexDB.AlgorithmStore &&
             value !== IndexDB.VerifiedMembersStore &&
-            value !== IndexDB.FeaturedGroupsStore &&
-            value !== IndexDB.TBAStore
+            value !== IndexDB.SearchStore
         );
         await delMany(allIndexedDBStores);
       }
@@ -54,7 +53,6 @@ export const useAuthStore = create(
 );
 
 export const signIn = (tokens: { accessToken: string; refreshToken: string }) =>
-  useAuthStore.getState().signIn(tokens);
-export const signOut = () => useAuthStore.getState().signOut();
-export const hydrateAuthTokens = () =>
-  useAuthStore.getState().hydrateAuthTokens();
+  store.getState().signIn(tokens);
+export const signOut = () => store.getState().signOut();
+export const hydrateAuthTokens = () => store.getState().hydrateAuthTokens();

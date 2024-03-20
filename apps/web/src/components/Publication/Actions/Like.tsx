@@ -16,12 +16,11 @@ import { Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
+import { useCounter, useToggle } from '@uidotdev/usehooks';
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface LikeProps {
   publication: MirrorablePublication;
@@ -29,14 +28,15 @@ interface LikeProps {
 }
 
 const Like: FC<LikeProps> = ({ publication, showCount }) => {
-  const { pathname } = useRouter();
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
 
-  const [hasReacted, setHasReacted] = useState(
+  const [hasReacted, toggleReact] = useToggle(
     publication.operations.hasReacted
   );
-  const [reactions, setReactions] = useState(publication.stats.reactions);
+  const [reactions, { decrement, increment }] = useCounter(
+    publication.stats.reactions
+  );
 
   const updateCache = (cache: ApolloCache<any>) => {
     cache.modify({
@@ -63,38 +63,13 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
     errorToast(error);
   };
 
-  const getLikeSource = () => {
-    if (pathname === '/') {
-      return 'home_feed';
-    }
-
-    if (pathname === '/u/[username]') {
-      return 'profile_feed';
-    }
-
-    if (pathname === '/explore') {
-      return 'explore_feed';
-    }
-
-    if (pathname === '/posts/[id]') {
-      return 'post_page';
-    }
-
-    return;
-  };
-
-  const eventProperties = {
-    publication_id: publication?.id,
-    source: getLikeSource()
-  };
+  const eventProperties = { publication_id: publication?.id };
 
   const [addReaction] = useAddReactionMutation({
-    onCompleted: () => {
-      Leafwatch.track(PUBLICATION.LIKE, eventProperties);
-    },
+    onCompleted: () => Leafwatch.track(PUBLICATION.LIKE, eventProperties),
     onError: (error) => {
-      setHasReacted(!hasReacted);
-      setReactions(reactions - 1);
+      toggleReact();
+      decrement();
       onError(error);
     },
     update: updateCache
@@ -103,8 +78,8 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
   const [removeReaction] = useRemoveReactionMutation({
     onCompleted: () => Leafwatch.track(PUBLICATION.UNLIKE, eventProperties),
     onError: (error) => {
-      setHasReacted(!hasReacted);
-      setReactions(reactions + 1);
+      toggleReact();
+      increment();
       onError(error);
     },
     update: updateCache
@@ -125,14 +100,14 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
       reaction: PublicationReactionType.Upvote
     };
 
+    toggleReact();
+
     if (hasReacted) {
-      setHasReacted(false);
-      setReactions(reactions - 1);
+      decrement();
       return await removeReaction({ variables: { request } });
     }
 
-    setHasReacted(true);
-    setReactions(reactions + 1);
+    increment();
     return await addReaction({ variables: { request } });
   };
 
@@ -150,9 +125,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
       <motion.button
         aria-label="Like"
         className={cn(
-          hasReacted
-            ? 'hover:bg-brand-300/20 outline-brand-500'
-            : 'outline-gray-400 hover:bg-gray-300/20',
+          hasReacted ? 'hover:bg-brand-300/20' : 'hover:bg-gray-300/20',
           'rounded-full p-1.5 outline-offset-2'
         )}
         onClick={createLike}

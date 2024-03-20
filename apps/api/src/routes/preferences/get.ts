@@ -19,24 +19,18 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const [preference, pro, features, killSwitches, membershipNft] =
-      await prisma.$transaction([
-        prisma.preference.findUnique({ where: { id: id as string } }),
-        prisma.pro.findFirst({ where: { profileId: id as string } }),
-        prisma.profileFeature.findMany({
-          select: { feature: { select: { key: true } } },
-          where: {
-            enabled: true,
-            feature: { enabled: true, NOT: { type: 'KILL_SWITCH' } },
-            profileId: id as string
-          }
-        }),
-        prisma.feature.findMany({
-          select: { key: true },
-          where: { enabled: true, type: 'KILL_SWITCH' }
-        }),
-        prisma.membershipNft.findUnique({ where: { id: id as string } })
-      ]);
+    const [preference, features, membershipNft] = await prisma.$transaction([
+      prisma.preference.findUnique({ where: { id: id as string } }),
+      prisma.profileFeature.findMany({
+        select: { feature: { select: { key: true } } },
+        where: {
+          enabled: true,
+          feature: { enabled: true },
+          profileId: id as string
+        }
+      }),
+      prisma.membershipNft.findUnique({ where: { id: id as string } })
+    ]);
 
     const response: Preferences = {
       features: features.map((feature: any) => feature.feature?.key),
@@ -46,9 +40,7 @@ export const get: Handler = async (req, res) => {
       highSignalNotificationFilter: Boolean(
         preference?.highSignalNotificationFilter
       ),
-      isPride: Boolean(preference?.isPride),
-      isPro: Boolean(pro),
-      switches: killSwitches.map((killSwitch: any) => killSwitch.key)
+      isPride: Boolean(preference?.isPride)
     };
 
     logger.info('Profile preferences fetched');

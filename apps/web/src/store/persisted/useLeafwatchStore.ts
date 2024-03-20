@@ -1,15 +1,16 @@
 import { Localstorage } from '@hey/data/storage';
+import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-interface LeafwatchState {
+interface State {
   anonymousId: null | string;
   hydrateLeafwatchAnonymousId: () => null | string;
   setAnonymousId: (anonymousIdId: string) => void;
 }
 
-export const useLeafwatchStore = create(
-  persist<LeafwatchState>(
+const store = create(
+  persist<State>(
     (set, get) => ({
       anonymousId: null,
       hydrateLeafwatchAnonymousId: () => {
@@ -22,4 +23,5 @@ export const useLeafwatchStore = create(
 );
 
 export const hydrateLeafwatchAnonymousId = () =>
-  useLeafwatchStore.getState().hydrateLeafwatchAnonymousId();
+  store.getState().hydrateLeafwatchAnonymousId();
+export const useLeafwatchStore = createTrackedSelector(store);

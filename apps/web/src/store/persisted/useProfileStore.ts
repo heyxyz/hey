@@ -1,21 +1,27 @@
 import type { Profile } from '@hey/lens';
 
 import { IndexDB } from '@hey/data/storage';
+import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 import createIdbStorage from '../lib/createIdbStorage';
 
-interface ProfileState {
+interface State {
   currentProfile: null | Profile;
+  fallbackToCuratedFeed: boolean;
   setCurrentProfile: (currentProfile: null | Profile) => void;
+  setFallbackToCuratedFeed: (fallbackToCuratedFeed: boolean) => void;
 }
 
-export const useProfileStore = create(
-  persist<ProfileState>(
+const store = create(
+  persist<State>(
     (set) => ({
       currentProfile: null,
-      setCurrentProfile: (currentProfile) => set(() => ({ currentProfile }))
+      fallbackToCuratedFeed: false,
+      setCurrentProfile: (currentProfile) => set(() => ({ currentProfile })),
+      setFallbackToCuratedFeed: (fallbackToCuratedFeed) =>
+        set(() => ({ fallbackToCuratedFeed }))
     }),
     {
       name: IndexDB.ProfileStore,
@@ -24,4 +30,4 @@ export const useProfileStore = create(
   )
 );
 
-export default useProfileStore;
+export const useProfileStore = createTrackedSelector(store);

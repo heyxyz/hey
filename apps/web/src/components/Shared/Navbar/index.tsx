@@ -1,16 +1,14 @@
-import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import NotificationIcon from '@components/Notification/NotificationIcon';
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import getProfile from '@hey/lib/getProfile';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import MenuItems from './MenuItems';
 import ModIcon from './ModIcon';
@@ -19,15 +17,10 @@ import Search from './Search';
 import StaffBar from './StaffBar';
 
 const Navbar: FC = () => {
-  const router = useRouter();
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const staffMode = useFeatureFlagsStore((state) => state.staffMode);
-  const isPride = usePreferencesStore((state) => state.isPride);
+  const { currentProfile } = useProfileStore();
+  const { staffMode } = useFeatureFlagsStore();
+  const { isPride } = usePreferencesStore();
   const [showSearch, setShowSearch] = useState(false);
-
-  const onProfileSelected = (profile: Profile) => {
-    router.push(getProfile(profile).link);
-  };
 
   interface NavItemProps {
     current: boolean;
@@ -39,7 +32,7 @@ const Navbar: FC = () => {
     return (
       <Link
         className={cn(
-          'outline-brand-500 cursor-pointer rounded-md px-2 py-1 text-left text-sm font-bold tracking-wide md:px-3',
+          'cursor-pointer rounded-md px-2 py-1 text-left text-sm font-bold tracking-wide md:px-3',
           {
             'bg-gray-200 text-black dark:bg-gray-800 dark:text-white': current,
             'text-gray-700 hover:bg-gray-200 hover:text-black dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white':
@@ -87,7 +80,7 @@ const Navbar: FC = () => {
               )}
             </button>
             <Link
-              className="outline-brand-500 hidden rounded-full outline-offset-8 md:block"
+              className="hidden rounded-full outline-offset-8 md:block"
               href="/"
             >
               <img
@@ -101,7 +94,7 @@ const Navbar: FC = () => {
             <div className="hidden sm:ml-6 md:block">
               <div className="flex items-center space-x-4">
                 <div className="hidden md:block">
-                  <Search onProfileSelected={onProfileSelected} />
+                  <Search />
                 </div>
                 <NavItems />
               </div>
@@ -132,7 +125,7 @@ const Navbar: FC = () => {
       </div>
       {showSearch ? (
         <div className="m-3 md:hidden">
-          <Search hideDropdown onProfileSelected={onProfileSelected} />
+          <Search />
         </div>
       ) : null}
     </header>

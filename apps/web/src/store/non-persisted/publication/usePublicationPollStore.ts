@@ -1,6 +1,7 @@
+import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 
-interface PublicationPollState {
+interface State {
   pollConfig: {
     length: number;
     options: string[];
@@ -11,7 +12,7 @@ interface PublicationPollState {
   showPollEditor: boolean;
 }
 
-export const usePublicationPollStore = create<PublicationPollState>((set) => ({
+const store = create<State>((set) => ({
   pollConfig: { length: 7, options: ['', ''] },
   resetPollConfig: () =>
     set(() => ({ pollConfig: { length: 1, options: ['', ''] } })),
@@ -19,3 +20,5 @@ export const usePublicationPollStore = create<PublicationPollState>((set) => ({
   setShowPollEditor: (showPollEditor) => set(() => ({ showPollEditor })),
   showPollEditor: false
 }));
+
+export const usePublicationPollStore = createTrackedSelector(store);

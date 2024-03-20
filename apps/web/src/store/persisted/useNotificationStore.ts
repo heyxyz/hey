@@ -1,16 +1,17 @@
 import { Localstorage } from '@hey/data/storage';
+import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-interface NotificationState {
+interface State {
   lastOpenedNotificationId: null | string;
   latestNotificationId: null | string;
   setLastOpenedNotificationId: (id: string) => void;
   setLatestNotificationId: (id: string) => void;
 }
 
-export const useNotificationStore = create(
-  persist<NotificationState>(
+const store = create(
+  persist<State>(
     (set) => ({
       lastOpenedNotificationId: null,
       latestNotificationId: null,
@@ -21,3 +22,5 @@ export const useNotificationStore = create(
     { name: Localstorage.NotificationStore }
   )
 );
+
+export const useNotificationStore = createTrackedSelector(store);

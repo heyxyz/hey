@@ -14,9 +14,7 @@ const LoginButton: FC<LoginButtonProps> = ({
   isBig = false,
   title = 'Login'
 }) => {
-  const setShowAuthModal = useGlobalModalStateStore(
-    (state) => state.setShowAuthModal
-  );
+  const { setShowAuthModal } = useGlobalModalStateStore();
 
   return (
     <Button
@@ -31,7 +29,7 @@ const LoginButton: FC<LoginButtonProps> = ({
       }
       onClick={() => {
         setShowAuthModal(true);
-        Leafwatch.track(AUTH.LOGIN);
+        Leafwatch.track(AUTH.OPEN_LOGIN);
       }}
       size={isBig ? 'lg' : 'md'}
     >

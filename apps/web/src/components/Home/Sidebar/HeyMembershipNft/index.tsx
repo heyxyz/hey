@@ -14,19 +14,17 @@ import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore
 import Mint from './Mint';
 
 const HeyMembershipNft: FC = () => {
-  const hasDismissedOrMintedMembershipNft = usePreferencesStore(
-    (state) => state.hasDismissedOrMintedMembershipNft
-  );
-  const setHasDismissedOrMintedMembershipNft = usePreferencesStore(
-    (state) => state.setHasDismissedOrMintedMembershipNft
-  );
+  const {
+    hasDismissedOrMintedMembershipNft,
+    setHasDismissedOrMintedMembershipNft
+  } = usePreferencesStore();
   const [showMintModal, setShowMintModal] = useState(false);
 
   if (hasDismissedOrMintedMembershipNft) {
     return null;
   }
 
-  const updateHeyMemberNftStatus = async () => {
+  const updateHeyMemberNftStatus = () => {
     toast.promise(
       axios.post(`${HEY_API_URL}/preferences/updateNftStatus`, undefined, {
         headers: getAuthApiHeaders()
@@ -44,23 +42,20 @@ const HeyMembershipNft: FC = () => {
   };
 
   return (
-    <Card
-      as="aside"
-      className="text-brand-500 dark:bg-brand-10/50 !border-brand-500 !bg-brand-50 mb-4"
-    >
+    <Card as="aside" className="ld-text-gray-500 mb-4">
       <img
-        alt="Gitcoin emoji"
+        alt="Hey NFT"
         className="h-48 w-full rounded-t-xl object-cover"
         src="https://ipfs.decentralized-content.com/ipfs/bafybeib6infyovvtawokys4ejjr4r3qk4soy7jqriejp2wbmttedupsy64"
       />
       <div className="p-5">
-        <div className="mb-1 font-bold">
-          Hey! Grab your special Hey NFT here.
-        </div>
-        <div className="text-brand-400 mb-4">
+        <p className="mb-1 text-lg font-bold">
+          Hey! Grab your special {APP_NAME} NFT here.
+        </p>
+        <p className="mb-4">
           New or OG, this NFT's for our epic times together. Let's keep the vibe
           alive!
-        </div>
+        </p>
         <div className="flex flex-col items-center space-y-1.5">
           <Button
             className="w-full"
@@ -70,11 +65,12 @@ const HeyMembershipNft: FC = () => {
                 from: 'mint_membership_nft'
               });
             }}
+            outline
           >
             Mint now
           </Button>
           <Modal
-            icon={<CursorArrowRaysIcon className="text-brand-500 size-5" />}
+            icon={<CursorArrowRaysIcon className="size-5" />}
             onClose={() => setShowMintModal(false)}
             show={showMintModal}
             title={`Special ${APP_NAME} NFT`}

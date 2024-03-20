@@ -20,10 +20,4 @@ describe('getAssetSymbol', () => {
     const result = getAssetSymbol(symbol);
     expect(result).toEqual('USDC');
   });
-
-  test('should return MATIC for any other symbol', () => {
-    const symbol = 'FOO';
-    const result = getAssetSymbol(symbol);
-    expect(result).toEqual('MATIC');
-  });
 });

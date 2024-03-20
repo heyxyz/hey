@@ -3,24 +3,28 @@ import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import {
-  AdjustmentsHorizontalIcon,
-  TrashIcon
-} from '@heroicons/react/24/outline';
+import { AdjustmentsHorizontalIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
+import { FeatureFlag } from '@hey/data/feature-flags';
+import { STAFFTOOLS } from '@hey/data/tracking';
 import getAllFeatureFlags from '@hey/lib/api/getAllFeatureFlags';
 import formatDate from '@hey/lib/datetime/formatDate';
 import { Badge, Button, Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
+import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 
+import Assign from './Assign';
 import Create from './Create';
 
 const List: FC = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showAssignModal, setShowAssignModal] = useState(false);
+  const [selectedFeature, setSelectedFeature] = useState<Feature | null>(null);
   const [features, setFeatures] = useState<[] | Feature[]>([]);
   const [killing, setKilling] = useState(false);
 
@@ -32,11 +36,11 @@ const List: FC = () => {
     queryKey: ['getAllFeatureFlags']
   });
 
-  const killFeatureFlag = async (id: string, enabled: boolean) => {
+  const killFeatureFlag = (id: string, enabled: boolean) => {
     setKilling(true);
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/features/kill`,
+        `${HEY_API_URL}/internal/features/toggle`,
         { enabled, id },
         { headers: getAuthApiHeaders() }
       ),
@@ -47,6 +51,7 @@ const List: FC = () => {
         },
         loading: 'Killing feature flag...',
         success: () => {
+          Leafwatch.track(STAFFTOOLS.FEATURE_FLAGS.KILL);
           setKilling(false);
           setFeatures(
             features.map((feature) =>
@@ -59,7 +64,7 @@ const List: FC = () => {
     );
   };
 
-  const deleteFeatureFlag = async (id: string) => {
+  const deleteFeatureFlag = (id: string) => {
     toast.promise(
       axios.post(
         `${HEY_API_URL}/internal/features/delete`,
@@ -70,6 +75,7 @@ const List: FC = () => {
         error: 'Failed to delete feature flag',
         loading: 'Deleting feature flag...',
         success: () => {
+          Leafwatch.track(STAFFTOOLS.FEATURE_FLAGS.DELETE);
           setFeatures(features.filter((feature) => feature.id !== id));
           return 'Feature flag deleted';
         }
@@ -94,9 +100,7 @@ const List: FC = () => {
         ) : !features.length ? (
           <EmptyState
             hideCard
-            icon={
-              <AdjustmentsHorizontalIcon className="text-brand-500 size-8" />
-            }
+            icon={<AdjustmentsHorizontalIcon className="size-8" />}
             message={<span>No feature flags found</span>}
           />
         ) : (
@@ -104,24 +108,39 @@ const List: FC = () => {
             {features?.map((feature) => (
               <div key={feature.id}>
                 <ToggleWithHelper
-                  description={`Created on ${formatDate(
-                    feature.createdAt
-                  )} with priority ${feature.priority}`}
+                  description={`Created on ${formatDate(feature.createdAt)}`}
                   disabled={killing}
                   heading={
                     <div className="flex items-center space-x-2">
-                      <b>{feature.key}</b>
+                      <b
+                        className={cn(
+                          (feature.key === FeatureFlag.Suspended ||
+                            feature.key === FeatureFlag.Flagged) &&
+                            'text-red-500'
+                        )}
+                      >
+                        {feature.key}
+                      </b>
                       <Badge variant="secondary">{feature.type}</Badge>
                     </div>
                   }
                   on={feature.enabled}
                   setOn={() => killFeatureFlag(feature.id, !feature.enabled)}
                 />
-                <div>
+                <div className="mt-2 space-x-2">
+                  <Button
+                    onClick={() => {
+                      setSelectedFeature(feature);
+                      setShowAssignModal(!showAssignModal);
+                    }}
+                    outline
+                    size="sm"
+                    variant="secondary"
+                  >
+                    Assign
+                  </Button>
                   {feature.type === 'FEATURE' && (
                     <Button
-                      className="mt-2"
-                      icon={<TrashIcon className="size-4" />}
                       onClick={() => deleteFeatureFlag(feature.id)}
                       outline
                       size="sm"
@@ -146,6 +165,18 @@ const List: FC = () => {
           setFeatures={setFeatures}
           setShowCreateModal={setShowCreateModal}
         />
+      </Modal>
+      <Modal
+        onClose={() => setShowAssignModal(!showAssignModal)}
+        show={showAssignModal}
+        title={`Assign feature flag - ${selectedFeature?.key}`}
+      >
+        {selectedFeature ? (
+          <Assign
+            feature={selectedFeature}
+            setShowAssignModal={setShowAssignModal}
+          />
+        ) : null}
       </Modal>
     </Card>
   );

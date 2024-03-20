@@ -13,8 +13,10 @@ interface MenuProps {
 const Menu: FC<MenuProps> = ({ children, current, url }) => (
   <Link
     className={cn(
-      { 'bg-brand-100 dark:bg-brand-300/20 text-brand-500 font-bold': current },
-      'hover:bg-brand-100/80 hover:text-brand-400 dark:hover:bg-brand-300/30',
+      { 'font-bold text-black dark:text-white': current },
+      { 'bg-gray-300 dark:bg-gray-300/20': current },
+      'hover:bg-gray-300 dark:hover:bg-gray-300/30',
+      'hover:text-black hover:dark:text-white',
       'flex items-center space-x-2 rounded-lg px-3 py-2'
     )}
     href={url}

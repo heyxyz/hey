@@ -1,0 +1,20 @@
+query UserRateLimit($request: UserCurrentRateLimitRequest!) {
+  userRateLimit(request: $request) {
+    momoka {
+      hourAllowanceLeft
+      hourAllowanceUsed
+      hourAllowance
+      dayAllowanceLeft
+      dayAllowanceUsed
+      dayAllowance
+    }
+    onchain {
+      hourAllowanceLeft
+      hourAllowanceUsed
+      hourAllowance
+      dayAllowanceLeft
+      dayAllowanceUsed
+      dayAllowance
+    }
+  }
+}

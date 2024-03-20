@@ -3,7 +3,8 @@ import type { ApolloCache } from '@hey/lens/apollo';
 import type { FC } from 'react';
 
 import { LensHub } from '@hey/abis';
-import { LENSHUB_PROXY } from '@hey/data/constants';
+import { Errors } from '@hey/data';
+import { LENS_HUB } from '@hey/data/constants';
 import { PROFILE } from '@hey/data/tracking';
 import {
   useBlockMutation,
@@ -23,32 +24,25 @@ import { toast } from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
 const BlockOrUnBlockProfile: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const showBlockOrUnblockAlert = useGlobalAlertStateStore(
-    (state) => state.showBlockOrUnblockAlert
-  );
-  const setShowBlockOrUnblockAlert = useGlobalAlertStateStore(
-    (state) => state.setShowBlockOrUnblockAlert
-  );
-  const blockingorUnblockingProfile = useGlobalAlertStateStore(
-    (state) => state.blockingorUnblockingProfile
-  );
-  const lensHubOnchainSigNonce = useNonceStore(
-    (state) => state.lensHubOnchainSigNonce
-  );
-  const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce
-  );
-
+  const { currentProfile } = useProfileStore();
+  const {
+    blockingorUnblockingProfile,
+    setShowBlockOrUnblockAlert,
+    showBlockOrUnblockAlert
+  } = useGlobalAlertStateStore();
+  const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
+    useNonceStore();
   const [isLoading, setIsLoading] = useState(false);
   const [hasBlocked, setHasBlocked] = useState(
     blockingorUnblockingProfile?.operations.isBlockedByMe.value
   );
 
+  const { isSuspended } = useProfileRestriction();
   const handleWrongNetwork = useHandleWrongNetwork();
   const { canBroadcast, canUseLensManager } =
     checkDispatcherPermissions(currentProfile);
@@ -114,14 +108,14 @@ const BlockOrUnBlockProfile: FC = () => {
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
-  const { writeContract } = useWriteContract({
+  const { writeContractAsync } = useWriteContract({
     mutation: { onError, onSuccess: () => onCompleted() }
   });
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args,
       functionName: 'setBlockStatus'
     });
@@ -134,20 +128,22 @@ const BlockOrUnBlockProfile: FC = () => {
 
   const typedDataGenerator = async (generatedData: any) => {
     const { id, typedData } = generatedData;
-    const signature = await signTypedDataAsync(getSignature(typedData));
-    setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+    await handleWrongNetwork();
+    incrementLensHubOnchainSigNonce();
 
     if (canBroadcast) {
+      const signature = await signTypedDataAsync(getSignature(typedData));
       const { data } = await broadcastOnchain({
         variables: { request: { id, signature } }
       });
       if (data?.broadcastOnchain.__typename === 'RelayError') {
-        return write({ args: [typedData.value] });
+        return await write({ args: [typedData.value] });
       }
+
       return;
     }
 
-    return write({ args: [typedData.value] });
+    return await write({ args: [typedData.value] });
   };
 
   const [createBlockProfilesTypedData] =
@@ -196,11 +192,11 @@ const BlockOrUnBlockProfile: FC = () => {
 
   const blockOrUnblock = async () => {
     if (!currentProfile) {
-      return;
+      return toast.error(Errors.SignWallet);
     }
 
-    if (handleWrongNetwork()) {
-      return;
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
     }
 
     try {

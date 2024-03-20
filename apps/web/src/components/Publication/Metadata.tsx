@@ -2,11 +2,9 @@ import type { PublicationMetadata } from '@hey/lens';
 import type { FC } from 'react';
 
 import { ScaleIcon } from '@heroicons/react/24/outline';
-import { FeatureFlag } from '@hey/data/feature-flags';
 import getPublicationData from '@hey/lib/getPublicationData';
 import { Card } from '@hey/ui';
 import getAssetLicense from '@lib/getAssetLicense';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { memo } from 'react';
 
 interface MetadataProps {
@@ -16,10 +14,6 @@ interface MetadataProps {
 const Metadata: FC<MetadataProps> = ({ metadata }) => {
   const filteredAsset = getPublicationData(metadata)?.asset;
   const license = getAssetLicense(filteredAsset?.license);
-
-  if (!isFeatureEnabled(FeatureFlag.Staff)) {
-    return null;
-  }
 
   if (!license) {
     return null;
@@ -31,9 +25,9 @@ const Metadata: FC<MetadataProps> = ({ metadata }) => {
       forceRounded
     >
       <div className="flex items-center space-x-2">
-        <ScaleIcon className="text-brand-500 size-4 min-w-max" />
+        <ScaleIcon className="size-4 min-w-max" />
         <div>
-          Licence: <b>{license}</b>
+          Licence: <b>{license.label}</b>
         </div>
       </div>
     </Card>

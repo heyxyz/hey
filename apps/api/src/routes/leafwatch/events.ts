@@ -94,6 +94,7 @@ export const post: Handler = async (req, res) => {
           browser_version: ua.browser.version || null,
           city: ipData?.city || null,
           country: ipData?.country || null,
+          ip: ip || null,
           name,
           os: ua.os.name || null,
           platform: platform || null,
@@ -109,6 +110,7 @@ export const post: Handler = async (req, res) => {
         }
       ]
     });
+
     logger.info('Ingested event to Leafwatch');
 
     return res.status(200).json({ id: result.query_id, success: true });

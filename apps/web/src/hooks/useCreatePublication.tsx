@@ -10,7 +10,7 @@ import type {
 
 import { useApolloClient } from '@apollo/client';
 import { LensHub } from '@hey/abis';
-import { LENSHUB_PROXY } from '@hey/data/constants';
+import { LENS_HUB } from '@hey/data/constants';
 import {
   PublicationDocument,
   useBroadcastOnchainMutation,
@@ -32,12 +32,15 @@ import {
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { OptmisticPublicationType } from '@hey/types/enums';
+import checkAndToastDispatcherError from '@lib/checkAndToastDispatcherError';
 import { useRouter } from 'next/router';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
+
+import useHandleWrongNetwork from './useHandleWrongNetwork';
 
 interface CreatePublicationProps {
   commentOn?: AnyPublication;
@@ -54,18 +57,15 @@ const useCreatePublication = ({
 }: CreatePublicationProps) => {
   const { push } = useRouter();
   const { cache } = useApolloClient();
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const lensHubOnchainSigNonce = useNonceStore(
-    (state) => state.lensHubOnchainSigNonce
-  );
-  const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce
-  );
-  const publicationContent = usePublicationStore(
-    (state) => state.publicationContent
-  );
-  const txnQueue = useTransactionStore((state) => state.txnQueue);
-  const setTxnQueue = useTransactionStore((state) => state.setTxnQueue);
+  const { currentProfile } = useProfileStore();
+  const {
+    decrementLensHubOnchainSigNonce,
+    incrementLensHubOnchainSigNonce,
+    lensHubOnchainSigNonce
+  } = useNonceStore();
+  const { publicationContent } = usePublicationStore();
+  const { addTransaction } = useTransactionStore();
+  const handleWrongNetwork = useHandleWrongNetwork();
   const { canBroadcast } = checkDispatcherPermissions(currentProfile);
 
   const isComment = Boolean(commentOn);
@@ -84,10 +84,10 @@ const useCreatePublication = ({
       txHash,
       txId,
       type: isComment
-        ? OptmisticPublicationType.NewComment
+        ? OptmisticPublicationType.Comment
         : isQuote
-          ? OptmisticPublicationType.NewQuote
-          : OptmisticPublicationType.NewPost
+          ? OptmisticPublicationType.Quote
+          : OptmisticPublicationType.Post
     };
   };
 
@@ -109,27 +109,24 @@ const useCreatePublication = ({
   });
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
-  const { error, writeContract } = useWriteContract({
+  const { error, writeContractAsync } = useWriteContract({
     mutation: {
-      onError: (error) => {
+      onError: (error: Error) => {
         onError(error);
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+        decrementLensHubOnchainSigNonce();
       },
-      onSuccess: (hash) => {
+      onSuccess: (hash: string) => {
         onCompleted();
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
-        setTxnQueue([
-          generateOptimisticPublication({ txHash: hash }),
-          ...txnQueue
-        ]);
+        incrementLensHubOnchainSigNonce();
+        addTransaction(generateOptimisticPublication({ txHash: hash }));
       }
     }
   });
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args,
       functionName: isComment ? 'comment' : isQuote ? 'quote' : 'post'
     });
@@ -150,10 +147,9 @@ const useCreatePublication = ({
     onCompleted: ({ broadcastOnchain }) => {
       onCompleted(broadcastOnchain.__typename);
       if (broadcastOnchain.__typename === 'RelaySuccess') {
-        setTxnQueue([
-          generateOptimisticPublication({ txId: broadcastOnchain.txId }),
-          ...txnQueue
-        ]);
+        addTransaction(
+          generateOptimisticPublication({ txId: broadcastOnchain.txId })
+        );
       }
     }
   });
@@ -163,6 +159,7 @@ const useCreatePublication = ({
     isMomokaPublication = false
   ) => {
     const { id, typedData } = generatedData;
+    await handleWrongNetwork();
 
     if (canBroadcast) {
       const signature = await signTypedDataAsync(getSignature(typedData));
@@ -175,14 +172,14 @@ const useCreatePublication = ({
         variables: { request: { id, signature } }
       });
       if (data?.broadcastOnchain.__typename === 'RelayError') {
-        return write({ args: [typedData.value] });
+        return await write({ args: [typedData.value] });
       }
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+      incrementLensHubOnchainSigNonce();
 
       return;
     }
 
-    return write({ args: [typedData.value] });
+    return await write({ args: [typedData.value] });
   };
 
   // On-chain typed data generation
@@ -227,10 +224,9 @@ const useCreatePublication = ({
     onCompleted: ({ postOnchain }) => {
       onCompleted(postOnchain.__typename);
       if (postOnchain.__typename === 'RelaySuccess') {
-        setTxnQueue([
-          generateOptimisticPublication({ txId: postOnchain.txId }),
-          ...txnQueue
-        ]);
+        addTransaction(
+          generateOptimisticPublication({ txId: postOnchain.txId })
+        );
       }
     },
     onError
@@ -240,12 +236,9 @@ const useCreatePublication = ({
     onCompleted: ({ commentOnchain }) => {
       onCompleted(commentOnchain.__typename);
       if (commentOnchain.__typename === 'RelaySuccess') {
-        setTxnQueue([
-          generateOptimisticPublication({
-            txId: commentOnchain.txId
-          }),
-          ...txnQueue
-        ]);
+        addTransaction(
+          generateOptimisticPublication({ txId: commentOnchain.txId })
+        );
       }
     },
     onError
@@ -255,12 +248,9 @@ const useCreatePublication = ({
     onCompleted: ({ quoteOnchain }) => {
       onCompleted(quoteOnchain.__typename);
       if (quoteOnchain.__typename === 'RelaySuccess') {
-        setTxnQueue([
-          generateOptimisticPublication({
-            txId: quoteOnchain.txId
-          }),
-          ...txnQueue
-        ]);
+        addTransaction(
+          generateOptimisticPublication({ txId: quoteOnchain.txId })
+        );
       }
     },
     onError
@@ -305,6 +295,14 @@ const useCreatePublication = ({
   const createPostOnMomka = async (request: MomokaPostRequest) => {
     const { data } = await postOnMomoka({ variables: { request } });
     if (data?.postOnMomoka?.__typename === 'LensProfileManagerRelayError') {
+      const shouldProceed = checkAndToastDispatcherError(
+        data.postOnMomoka.reason
+      );
+
+      if (!shouldProceed) {
+        return;
+      }
+
       return await createMomokaPostTypedData({ variables: { request } });
     }
   };

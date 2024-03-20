@@ -39,12 +39,7 @@ const Audio: FC<AudioProps> = ({
   src,
   title
 }) => {
-  const audioPublication = usePublicationAudioStore(
-    (state) => state.audioPublication
-  );
-  const setAudioPublication = usePublicationAudioStore(
-    (state) => state.setAudioPublication
-  );
+  const { audioPublication, setAudioPublication } = usePublicationAudioStore();
 
   const [newPreviewUri, setNewPreviewUri] = useState<null | string>(null);
   const [playing, setPlaying] = useState(false);
@@ -79,11 +74,9 @@ const Audio: FC<AudioProps> = ({
 
   return (
     <div
-      className="bg-brand-500 overflow-hidden rounded-xl border px-3.5 pt-3.5 md:p-0 dark:border-gray-700"
+      className="overflow-hidden rounded-xl border bg-gray-500 px-3.5 pt-3.5 md:p-0 dark:border-gray-700"
       onClick={stopEventPropagation}
-      style={{
-        backgroundImage: `url(${isNew ? newPreviewUri : poster})`
-      }}
+      style={{ backgroundImage: `url(${isNew ? newPreviewUri : poster})` }}
     >
       <div className="flex flex-wrap backdrop-blur-2xl backdrop-brightness-50 md:flex-nowrap md:space-x-2">
         <CoverImage

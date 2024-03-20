@@ -11,9 +11,7 @@ interface ReportProfileProps {
 }
 
 const Report: FC<ReportProfileProps> = ({ profile }) => {
-  const setShowReportProfileModal = useGlobalModalStateStore(
-    (state) => state.setShowReportProfileModal
-  );
+  const { setShowReportProfileModal } = useGlobalModalStateStore();
 
   return (
     <Menu.Item

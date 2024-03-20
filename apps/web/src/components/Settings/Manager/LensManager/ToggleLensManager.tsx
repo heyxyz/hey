@@ -4,7 +4,7 @@ import IndexStatus from '@components/Shared/IndexStatus';
 import { CheckCircleIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { Errors } from '@hey/data';
-import { LENSHUB_PROXY } from '@hey/data/constants';
+import { LENS_HUB } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
 import {
   useBroadcastOnchainMutation,
@@ -21,8 +21,7 @@ import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
-import useProfileStore from 'src/store/persisted/useProfileStore';
-import { hydrateTbaStatus } from 'src/store/persisted/useTbaStatusStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
 interface ToggleLensManagerProps {
@@ -32,18 +31,16 @@ interface ToggleLensManagerProps {
 const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   buttonSize = 'md'
 }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
-  const lensHubOnchainSigNonce = useNonceStore(
-    (state) => state.lensHubOnchainSigNonce
-  );
-  const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce
-  );
+  const {
+    decrementLensHubOnchainSigNonce,
+    incrementLensHubOnchainSigNonce,
+    lensHubOnchainSigNonce
+  } = useNonceStore();
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
 
-  const { isTba } = hydrateTbaStatus();
   const { canBroadcast, canUseSignless } =
     checkDispatcherPermissions(currentProfile);
 
@@ -63,23 +60,23 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
-  const { data: writeHash, writeContract } = useWriteContract({
+  const { data: writeHash, writeContractAsync } = useWriteContract({
     mutation: {
-      onError: (error) => {
+      onError: (error: Error) => {
         onError(error);
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+        decrementLensHubOnchainSigNonce();
       },
       onSuccess: () => {
         onCompleted();
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+        incrementLensHubOnchainSigNonce();
       }
     }
   });
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args,
       functionName: 'changeDelegatedExecutorsConfig'
     });
@@ -94,7 +91,6 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
     useCreateChangeProfileManagersTypedDataMutation({
       onCompleted: async ({ createChangeProfileManagersTypedData }) => {
         const { id, typedData } = createChangeProfileManagersTypedData;
-        const signature = await signTypedDataAsync(getSignature(typedData));
         const {
           approvals,
           configNumber,
@@ -109,18 +105,21 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
           configNumber,
           switchToGivenConfig
         ];
+        await handleWrongNetwork();
 
-        if (!isTba && canBroadcast) {
+        if (canBroadcast) {
+          const signature = await signTypedDataAsync(getSignature(typedData));
           const { data } = await broadcastOnchain({
             variables: { request: { id, signature } }
           });
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return write({ args });
+            return await write({ args });
           }
+
           return;
         }
 
-        return write({ args });
+        return await write({ args });
       },
       onError
     });
@@ -128,10 +127,6 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   const toggleDispatcher = async () => {
     if (isSuspended) {
       return toast.error(Errors.Suspended);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
     }
 
     try {

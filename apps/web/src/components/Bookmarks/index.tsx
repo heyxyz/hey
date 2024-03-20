@@ -10,19 +10,18 @@ import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { useState } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce } from 'usehooks-ts';
+import { useEffect, useState } from 'react';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Feed from './Feed';
 
 const Bookmarks: NextPage = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const [focus, setFocus] = useState<PublicationMetadataMainFocusType>();
 
-  useEffectOnce(() => {
+  useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'bookmarks' });
-  });
+  }, []);
 
   if (!currentProfile) {
     return <NotLoggedIn />;

@@ -1,7 +1,7 @@
 import type { Handler } from 'express';
 
 import { LensHub } from '@hey/abis';
-import { IPFS_GATEWAY, IS_MAINNET, LENSHUB_PROXY } from '@hey/data/constants';
+import { IPFS_GATEWAY, IS_MAINNET, LENS_HUB } from '@hey/data/constants';
 import logger from '@hey/lib/logger';
 import { CACHE_AGE_INDEFINITE_ON_DISK, RPC_URL } from 'src/lib/constants';
 import { noBody } from 'src/lib/responses';
@@ -23,7 +23,7 @@ export const get: Handler = async (req, res) => {
 
     const data: any = await client.readContract({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args: [id],
       functionName: 'tokenURI'
     });
@@ -42,7 +42,7 @@ export const get: Handler = async (req, res) => {
       .type('svg')
       .send(svgImage);
   } catch {
-    const url = `${IPFS_GATEWAY}Qmb4XppdMDCsS7KCL8nCJo8pukEWeqL4bTghURYwYiG83i/cropped_image.png`;
+    const url = `${IPFS_GATEWAY}/Qmb4XppdMDCsS7KCL8nCJo8pukEWeqL4bTghURYwYiG83i/cropped_image.png`;
     return res.status(302).redirect(url);
   }
 };

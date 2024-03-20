@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import { FlagIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import { GridItemEight, GridLayout } from '@hey/ui';
-import Link from 'next/link';
+import showCrisp from '@lib/showCrisp';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 
 const Flagged: FC = () => {
@@ -14,21 +14,21 @@ const Flagged: FC = () => {
   }
 
   return (
-    <div className="border-b border-red-300 bg-red-500/20">
+    <div className="border-b border-gray-300 bg-gray-500/20">
       <GridLayout>
         <GridItemEight className="space-y-1">
-          <div className="flex items-center space-x-2 text-red-700">
+          <div className="flex items-center space-x-2 text-gray-700">
             <FlagIcon className="size-5" />
             <div className="text-base font-bold sm:text-lg">
               Your profile has been flagged by {APP_NAME}.
             </div>
           </div>
-          <div className="text-sm text-red-500">
+          <div className="text-sm text-gray-500">
             Because of that, your profile may limit your ability to interact
             with {APP_NAME} and other users.{' '}
-            <Link className="underline" href="/support">
+            <button className="underline" onClick={showCrisp}>
               Contact us
-            </Link>{' '}
+            </button>{' '}
             if you think this is a mistake.
           </div>
         </GridItemEight>

@@ -2,7 +2,6 @@ import type { AppProps } from 'next/app';
 
 import Providers from '@components/Common/Providers';
 import { heyFont } from '@lib/fonts';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import '../styles.css';
 
@@ -15,7 +14,6 @@ const App = ({ Component, pageProps }: AppProps) => {
         }
       `}</style>
       <Component {...pageProps} />
-      <SpeedInsights sampleRate={0.1} />
     </Providers>
   );
 };
