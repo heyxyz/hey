@@ -6,16 +6,16 @@ import Link from 'next/link';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 const ModIcon: FC = () => {
-  const trusted = useFeatureFlagsStore((state) => state.trusted);
+  const { gardenerMode } = useFeatureFlagsStore();
 
-  if (!trusted) {
+  if (!gardenerMode) {
     return null;
   }
 
   return (
     <Tooltip content="Moderation" placement="bottom">
       <Link
-        className="outline-brand-500 hidden rounded-md px-2 py-1 hover:bg-gray-300/20 md:flex"
+        className="hidden rounded-md px-2 py-1 hover:bg-gray-300/20 md:flex"
         href="/mod"
       >
         <ShieldCheckIcon className="size-5 sm:size-6" />

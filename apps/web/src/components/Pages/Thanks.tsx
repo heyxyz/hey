@@ -8,8 +8,8 @@ import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
+import { useEffect } from 'react';
 import urlcat from 'urlcat';
-import { useEffectOnce } from 'usehooks-ts';
 
 interface BrandProps {
   children: ReactNode;
@@ -23,9 +23,9 @@ interface BrandProps {
 const Brand: FC<BrandProps> = ({ children, logo, name, size, type, url }) => {
   const { resolvedTheme } = useTheme();
 
-  useEffectOnce(() => {
+  useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'thanks' });
-  });
+  }, []);
 
   return (
     <div className="space-y-5 pt-10">
@@ -55,7 +55,7 @@ const Brand: FC<BrandProps> = ({ children, logo, name, size, type, url }) => {
 const Thanks: NextPage = () => {
   return (
     <>
-      <div className="bg-brand-400 flex h-48 w-full items-center justify-center">
+      <div className="flex h-48 w-full items-center justify-center bg-gray-400">
         <div className="relative text-center">
           <div className="flex items-center space-x-2 text-3xl font-bold text-white md:text-4xl">
             <div>Thank you!</div>

@@ -1,5 +1,8 @@
+import { HEY_IMAGEKIT_URL } from '@hey/data/constants';
+
 const directUrls = [
-  'zora.co/api/thumbnail' // Zora
+  'zora.co/api/thumbnail', // Zora
+  'social-images.lu.ma' // Lu.ma
 ];
 
 const getProxyUrl = (url: string, isLarge: boolean) => {
@@ -17,7 +20,7 @@ const getProxyUrl = (url: string, isLarge: boolean) => {
   const height = isSquare ? 400 : 600;
   const width = isSquare ? 400 : 'auto';
 
-  return `${process.env.IMAGEKIT_URL}/tr:di-placeholder.webp,h-${height},w-${width}/${url}`;
+  return `${HEY_IMAGEKIT_URL}/oembed/tr:di-placeholder.webp,h-${height},w-${width}/${url}`;
 };
 
 export default getProxyUrl;

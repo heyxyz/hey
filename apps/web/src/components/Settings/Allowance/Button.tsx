@@ -1,11 +1,7 @@
 import type { ApprovedAllowanceAmountResult } from '@hey/lens';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
-import {
-  ExclamationTriangleIcon,
-  MinusIcon,
-  PlusIcon
-} from '@heroicons/react/24/outline';
+import { ExclamationTriangleIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { SETTINGS } from '@hey/data/tracking';
 import {
   OpenActionModuleType,
@@ -15,10 +11,9 @@ import { Button, Modal, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import getAllowanceModule from '@lib/getAllowanceModule';
 import { Leafwatch } from '@lib/leafwatch';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useUpdateEffect } from 'usehooks-ts';
 import { useSendTransaction, useWaitForTransactionReceipt } from 'wagmi';
 
 interface AllowanceButtonProps {
@@ -59,7 +54,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
     isSuccess
   } = useWaitForTransactionReceipt({ hash: txHash });
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     if (isSuccess) {
       toast.success(
         allowed
@@ -78,6 +73,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
     if (error) {
       onError(error);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess, error]);
 
   const handleAllowance = async (
@@ -85,10 +81,6 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
     value: string,
     selectedModule: string
   ) => {
-    if (handleWrongNetwork()) {
-      return;
-    }
-
     try {
       const isUnknownModule =
         module.moduleName === OpenActionModuleType.UnknownOpenActionModule;
@@ -107,6 +99,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
           }
         }
       });
+      await handleWrongNetwork();
 
       return sendTransaction?.({
         account: data?.generateModuleCurrencyApprovalData.from,
@@ -121,13 +114,6 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
   return allowed ? (
     <Button
       className={className}
-      icon={
-        queryLoading || transactionLoading || waitLoading ? (
-          <Spinner size="xs" variant="warning" />
-        ) : (
-          <MinusIcon className="size-4" />
-        )
-      }
       onClick={() =>
         handleAllowance(
           module.allowance.asset.contract.address,
@@ -135,7 +121,6 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
           module.moduleName
         )
       }
-      variant="warning"
     >
       Revoke
     </Button>
@@ -143,13 +128,13 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
     <>
       <Button
         className={className}
-        icon={<PlusIcon className="size-4" />}
         onClick={() => setShowWarningModal(!showWarningModal)}
+        outline
       >
         {title}
       </Button>
       <Modal
-        icon={<ExclamationTriangleIcon className="size-5 text-yellow-500" />}
+        icon={<ExclamationTriangleIcon className="size-5" />}
         onClose={() => setShowWarningModal(false)}
         show={showWarningModal}
         title="Warning"

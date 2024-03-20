@@ -3,6 +3,7 @@ import type { FC } from 'react';
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data';
+import { HEY_API_URL } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import { useReportPublicationMutation } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
@@ -16,7 +17,9 @@ import {
   useZodForm
 } from '@hey/ui';
 import errorToast from '@lib/errorToast';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { Leafwatch } from '@lib/leafwatch';
+import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
@@ -48,11 +51,17 @@ const ReportPublication: FC<ReportProps> = ({ publicationId }) => {
     { data: submitData, error: submitError, loading: submitLoading }
   ] = useReportPublicationMutation({
     onCompleted: () => {
-      Leafwatch.track(PUBLICATION.REPORT, {
-        publication_id: publicationId
-      });
+      Leafwatch.track(PUBLICATION.REPORT, { publication_id: publicationId });
     }
   });
+
+  const reportPublicationOnHey = async (reason: string) => {
+    await axios.post(
+      `${HEY_API_URL}/misc/report`,
+      { id: publicationId, reason },
+      { headers: getAuthApiHeaders() }
+    );
+  };
 
   const reportPublication = async (additionalComments: null | string) => {
     if (isSuspended) {
@@ -60,6 +69,7 @@ const ReportPublication: FC<ReportProps> = ({ publicationId }) => {
     }
 
     try {
+      reportPublicationOnHey(subReason);
       return await createReport({
         variables: {
           request: {
@@ -84,7 +94,7 @@ const ReportPublication: FC<ReportProps> = ({ publicationId }) => {
       {submitData?.reportPublication === null ? (
         <EmptyState
           hideCard
-          icon={<CheckCircleIcon className="size-14 text-green-500" />}
+          icon={<CheckCircleIcon className="size-14" />}
           message="Publication reported successfully!"
         />
       ) : publicationId ? (

@@ -3,14 +3,16 @@ import type { FC } from 'react';
 
 import { Menu } from '@headlessui/react';
 import { FeatureFlag } from '@hey/data/feature-flags';
+import { KillSwitch } from '@hey/data/kill-switches';
 import getAvatar from '@hey/lib/getAvatar';
 import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import isFeatureAvailable from '@lib/isFeatureAvailable';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import MenuTransition from '../MenuTransition';
 import Slug from '../Slug';
@@ -20,8 +22,7 @@ import AppVersion from './NavItems/AppVersion';
 import GardenerMode from './NavItems/GardenerMode';
 import Invites from './NavItems/Invites';
 import Logout from './NavItems/Logout';
-import Mod from './NavItems/Mod';
-import Pro from './NavItems/Pro';
+import OptimisticTransactions from './NavItems/OptimisticTransactions';
 import Settings from './NavItems/Settings';
 import StaffMode from './NavItems/StaffMode';
 import SwitchProfile from './NavItems/SwitchProfile';
@@ -29,13 +30,8 @@ import ThemeSwitch from './NavItems/ThemeSwitch';
 import YourProfile from './NavItems/YourProfile';
 
 const SignedUser: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const setShowMobileDrawer = useGlobalModalStateStore(
-    (state) => state.setShowMobileDrawer
-  );
-  const showMobileDrawer = useGlobalModalStateStore(
-    (state) => state.showMobileDrawer
-  );
+  const { currentProfile } = useProfileStore();
+  const { setShowMobileDrawer, showMobileDrawer } = useGlobalModalStateStore();
 
   const Avatar = () => (
     <Image
@@ -63,7 +59,7 @@ const SignedUser: FC = () => {
         <Avatar />
       </button>
       <Menu as="div" className="hidden md:block">
-        <Menu.Button className="outline-brand-500 flex self-center rounded-full">
+        <Menu.Button className="flex self-center rounded-full">
           <Avatar />
         </Menu.Button>
         <MenuTransition>
@@ -117,35 +113,14 @@ const SignedUser: FC = () => {
             >
               <Settings />
             </Menu.Item>
-            {isFeatureEnabled(FeatureFlag.Gardener) ||
-            isFeatureEnabled(FeatureFlag.TrustedProfile) ? (
+            {isFeatureEnabled(KillSwitch.Invites) && (
               <Menu.Item
-                as={NextLink}
+                as="div"
                 className={({ active }: { active: boolean }) =>
-                  cn({ 'dropdown-active': active }, 'menu-item')
+                  cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
                 }
-                href="/mod"
               >
-                <Mod />
-              </Menu.Item>
-            ) : null}
-            <Menu.Item
-              as="div"
-              className={({ active }: { active: boolean }) =>
-                cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
-              }
-            >
-              <Invites />
-            </Menu.Item>
-            {isFeatureEnabled('pro') && (
-              <Menu.Item
-                as={NextLink}
-                className={({ active }: { active: boolean }) =>
-                  cn({ 'dropdown-active': active }, 'menu-item')
-                }
-                href="/pro"
-              >
-                <Pro />
+                <Invites />
               </Menu.Item>
             )}
             <Menu.Item
@@ -165,7 +140,15 @@ const SignedUser: FC = () => {
             >
               <ThemeSwitch />
             </Menu.Item>
-            {isFeatureEnabled(FeatureFlag.Gardener) ? (
+            <Menu.Item
+              as="div"
+              className={({ active }) =>
+                cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
+              }
+            >
+              <OptimisticTransactions />
+            </Menu.Item>
+            {isFeatureAvailable(FeatureFlag.Gardener) ? (
               <Menu.Item
                 as="div"
                 className={({ active }) =>
@@ -178,7 +161,7 @@ const SignedUser: FC = () => {
                 <GardenerMode />
               </Menu.Item>
             ) : null}
-            {isFeatureEnabled(FeatureFlag.Staff) ? (
+            {isFeatureAvailable(FeatureFlag.Staff) ? (
               <Menu.Item
                 as="div"
                 className={({ active }) =>

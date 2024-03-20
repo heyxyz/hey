@@ -2,17 +2,15 @@ import type { NewAttachment } from '@hey/types/misc';
 import type { FC } from 'react';
 
 import ChooseThumbnail from '@components/Composer/ChooseThumbnail';
-import { XMarkIcon } from '@heroicons/react/24/outline';
+import { XMarkIcon } from '@heroicons/react/24/solid';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Button, Image } from '@hey/ui';
+import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
-import { useUpdateEffect } from 'usehooks-ts';
 
 import Audio from '../Shared/Audio';
-import LicensePicker from './LicensePicker';
 
 const getClass = (attachments: number) => {
   if (attachments === 1) {
@@ -46,12 +44,8 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
   attachments = [],
   hideDelete = false
 }) => {
-  const setAttachments = usePublicationAttachmentStore(
-    (state) => state.setAttachments
-  );
-  const setVideoDurationInSeconds = usePublicationVideoStore(
-    (state) => state.setVideoDurationInSeconds
-  );
+  const { setAttachments } = usePublicationAttachmentStore((state) => state);
+  const { setVideoDurationInSeconds } = usePublicationVideoStore();
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const onDataLoaded = () => {
@@ -60,10 +54,11 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
     }
   };
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     if (videoRef.current) {
       videoRef.current.onloadeddata = onDataLoaded;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [videoRef, attachments]);
 
   const removeAttachment = (attachment: any) => {
@@ -84,7 +79,9 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
   const attachmentsLength = slicedAttachments?.length;
 
   return attachmentsLength !== 0 ? (
-    <div className={cn(getClass(attachmentsLength)?.row, 'mt-3 grid gap-2')}>
+    <div
+      className={cn(getClass(attachmentsLength)?.row, 'mt-3 grid gap-2', 'p-5')}
+    >
       {slicedAttachments?.map((attachment: NewAttachment, index: number) => {
         const isImage = attachment.type === 'Image';
         const isAudio = attachment.type === 'Audio';
@@ -140,30 +137,17 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
                 width={1000}
               />
             ) : null}
-            {isVideo || isAudio ? <LicensePicker /> : null}
-            {!hideDelete &&
-              (isVideo ? (
-                <Button
-                  className="mt-3"
-                  icon={<XMarkIcon className="size-4" />}
+            {!hideDelete && (
+              <div className="absolute right-0 top-0 m-3">
+                <button
+                  className="rounded-full bg-gray-900 p-1.5 opacity-75"
                   onClick={() => removeAttachment(attachment)}
-                  outline
-                  size="sm"
-                  variant="danger"
+                  type="button"
                 >
-                  Cancel Upload
-                </Button>
-              ) : (
-                <div className={cn(isAudio ? 'absolute left-2 top-2' : 'm-3')}>
-                  <button
-                    className="rounded-full bg-gray-900 p-1.5 opacity-75"
-                    onClick={() => removeAttachment(attachment)}
-                    type="button"
-                  >
-                    <XMarkIcon className="size-4 text-white" />
-                  </button>
-                </div>
-              ))}
+                  <XMarkIcon className="size-4 text-white" />
+                </button>
+              </div>
+            )}
           </div>
         );
       })}

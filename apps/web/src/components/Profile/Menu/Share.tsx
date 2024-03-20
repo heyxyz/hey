@@ -30,9 +30,7 @@ const Share: FC<ShareProps> = ({ profile }) => {
           `${location.origin}${getProfile(profile).link}`
         );
         toast.success('Copied to clipboard!');
-        Leafwatch.track(PROFILE.COPY_PROFILE_LINK, {
-          profile_id: profile.id
-        });
+        Leafwatch.track(PROFILE.COPY_PROFILE_LINK, { profile_id: profile.id });
       }}
     >
       <ClipboardDocumentIcon className="size-4" />

@@ -21,7 +21,7 @@ const Settings: FC = () => {
         </Tooltip>
       </button>
       <Modal
-        icon={<BellIcon className="text-brand-500 size-5" />}
+        icon={<BellIcon className="size-5" />}
         onClose={() => setShowNotificationSettings(false)}
         show={showNotificationSettings}
         title="Notification settings"

@@ -9,7 +9,7 @@ import { useApolloClient } from '@apollo/client';
 import { Menu } from '@headlessui/react';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
-import { LENSHUB_PROXY } from '@hey/data/constants';
+import { LENS_HUB } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
 import {
@@ -24,15 +24,19 @@ import {
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
+import { OptmisticPublicationType } from '@hey/types/enums';
 import cn from '@hey/ui/cn';
+import checkAndToastDispatcherError from '@lib/checkAndToastDispatcherError';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { useState } from 'react';
+import hasOptimisticallyMirrored from '@lib/optimistic/hasOptimisticallyMirrored';
+import { useCounter } from '@uidotdev/usehooks';
 import { toast } from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
 interface MirrorProps {
@@ -42,28 +46,45 @@ interface MirrorProps {
 }
 
 const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
-  const lensHubOnchainSigNonce = useNonceStore(
-    (state) => state.lensHubOnchainSigNonce
-  );
-  const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce
-  );
+  const {
+    decrementLensHubOnchainSigNonce,
+    incrementLensHubOnchainSigNonce,
+    lensHubOnchainSigNonce
+  } = useNonceStore();
+  const { addTransaction } = useTransactionStore();
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
-  const { hasMirrored } = targetPublication.operations;
+  const hasMirrored =
+    targetPublication.operations.hasMirrored ||
+    hasOptimisticallyMirrored(targetPublication.id);
 
-  const [shares, setShares] = useState(
+  const [shares, { increment }] = useCounter(
     targetPublication.stats.mirrors + targetPublication.stats.quotes
   );
 
   const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
 
-  const { canBroadcast, canUseLensManager, isSponsored } =
+  const { canBroadcast, canUseLensManager } =
     checkDispatcherPermissions(currentProfile);
+
+  const generateOptimisticMirror = ({
+    txHash,
+    txId
+  }: {
+    txHash?: string;
+    txId?: string;
+  }) => {
+    return {
+      mirrorOn: targetPublication?.id,
+      txHash,
+      txId,
+      type: OptmisticPublicationType.Mirror
+    };
+  };
 
   const updateCache = () => {
     cache.modify({
@@ -100,7 +121,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     }
 
     setIsLoading(false);
-    setShares(shares + 1);
+    increment();
     updateCache();
     toast.success('Post has been mirrored!');
     Leafwatch.track(PUBLICATION.MIRROR, { publication_id: publication.id });
@@ -108,37 +129,46 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
 
-  const { writeContract } = useWriteContract({
+  const { writeContractAsync } = useWriteContract({
     mutation: {
-      onError: (error) => {
+      onError: (error: Error) => {
         onError(error);
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+        decrementLensHubOnchainSigNonce();
       },
-      onSuccess: () => {
+      onSuccess: (hash: string) => {
         onCompleted();
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+        incrementLensHubOnchainSigNonce();
+        addTransaction(generateOptimisticMirror({ txHash: hash }));
       }
     }
   });
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args,
       functionName: 'mirror'
     });
   };
 
   const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
-    onCompleted: ({ broadcastOnMomoka }) =>
-      onCompleted(broadcastOnMomoka.__typename),
+    onCompleted: ({ broadcastOnMomoka }) => {
+      onCompleted(broadcastOnMomoka.__typename);
+    },
     onError
   });
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
-    onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename)
+    onCompleted: ({ broadcastOnchain }) => {
+      if (broadcastOnchain.__typename === 'RelaySuccess') {
+        addTransaction(
+          generateOptimisticMirror({ txId: broadcastOnchain.txId })
+        );
+      }
+      onCompleted(broadcastOnchain.__typename);
+    },
+    onError
   });
 
   const typedDataGenerator = async (
@@ -146,6 +176,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     isMomokaPublication = false
   ) => {
     const { id, typedData } = generatedData;
+    await handleWrongNetwork();
 
     if (canBroadcast) {
       const signature = await signTypedDataAsync(getSignature(typedData));
@@ -158,14 +189,14 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
         variables: { request: { id, signature } }
       });
       if (data?.broadcastOnchain.__typename === 'RelayError') {
-        return write({ args: [typedData.value] });
+        return await write({ args: [typedData.value] });
       }
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+      incrementLensHubOnchainSigNonce();
 
       return;
     }
 
-    return write({ args: [typedData.value] });
+    return await write({ args: [typedData.value] });
   };
 
   // On-chain typed data generation
@@ -185,7 +216,12 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
 
   // Onchain mutations
   const [mirrorOnchain] = useMirrorOnchainMutation({
-    onCompleted: ({ mirrorOnchain }) => onCompleted(mirrorOnchain.__typename),
+    onCompleted: ({ mirrorOnchain }) => {
+      if (mirrorOnchain.__typename === 'RelaySuccess') {
+        addTransaction(generateOptimisticMirror({ txId: mirrorOnchain.txId }));
+      }
+      onCompleted(mirrorOnchain.__typename);
+    },
     onError
   });
 
@@ -201,7 +237,16 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
 
   const createOnMomka = async (request: MomokaMirrorRequest) => {
     const { data } = await mirrorOnMomoka({ variables: { request } });
+
     if (data?.mirrorOnMomoka?.__typename === 'LensProfileManagerRelayError') {
+      const shouldProceed = checkAndToastDispatcherError(
+        data.mirrorOnMomoka.reason
+      );
+
+      if (!shouldProceed) {
+        return;
+      }
+
       return await createMomokaMirrorTypedData({ variables: { request } });
     }
   };
@@ -225,16 +270,6 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
 
     if (isSuspended) {
       return toast.error(Errors.Suspended);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
-    }
-
-    if (publication.momoka?.proof && !isSponsored) {
-      return toast.error(
-        'Momoka is currently in beta - during this time certain actions are not available to all profiles.'
-      );
     }
 
     try {

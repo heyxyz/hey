@@ -1,19 +1,21 @@
 import type { Comment, PublicationsRequest } from '@hey/lens';
 import type { FC } from 'react';
 
+import { useHiddenCommentFeedStore } from '@components/Publication';
 import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleLeftIcon } from '@heroicons/react/24/outline';
 import {
   CommentRankingFilterType,
   CustomFiltersType,
+  HiddenCommentsType,
   LimitType,
   usePublicationsQuery
 } from '@hey/lens';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { useInView } from 'react-cool-inview';
+import { Virtuoso } from 'react-virtuoso';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 
@@ -23,16 +25,18 @@ interface FeedProps {
 }
 
 const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
-  const txnQueue = useTransactionStore((state) => state.txnQueue);
-  const fetchAndStoreViews = useImpressionsStore(
-    (state) => state.fetchAndStoreViews
-  );
+  const { txnQueue } = useTransactionStore();
+  const { showHiddenComments } = useHiddenCommentFeedStore();
+  const { fetchAndStoreViews } = useImpressionsStore();
 
   // Variables
   const request: PublicationsRequest = {
     limit: LimitType.TwentyFive,
     where: {
       commentOn: {
+        hiddenComments: showHiddenComments
+          ? HiddenCommentsType.HiddenOnly
+          : HiddenCommentsType.Hide,
         id: publicationId,
         ranking: { filter: CommentRankingFilterType.Relevant }
       },
@@ -55,7 +59,7 @@ const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
 
   const queuedComments = txnQueue.filter(
     (o) =>
-      o.type === OptmisticPublicationType.NewComment &&
+      o.type === OptmisticPublicationType.Comment &&
       o.commentOn === publicationId
   );
   const queuedCount = queuedComments.length;
@@ -65,19 +69,17 @@ const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
   const hiddenRemovedComments = comments?.length - hiddenCount;
   const totalComments = hiddenRemovedComments + queuedCount;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      const { data } = await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } }
-      });
-      const ids = data?.publications?.items?.map((p) => p.id) || [];
-      await fetchAndStoreViews(ids);
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    const { data } = await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    });
+    const ids = data?.publications?.items?.map((p) => p.id) || [];
+    await fetchAndStoreViews(ids);
+  };
 
   if (loading) {
     return <PublicationsShimmer />;
@@ -90,7 +92,7 @@ const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
   if (!isHidden && totalComments === 0) {
     return (
       <EmptyState
-        icon={<ChatBubbleLeftRightIcon className="text-brand-500 size-8" />}
+        icon={<ChatBubbleLeftIcon className="size-8" />}
         message="Be the first one to comment!"
       />
     );
@@ -99,21 +101,27 @@ const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
   return (
     <>
       {queuedComments.map((txn) => (
-        <QueuedPublication key={txn.id} txn={txn} />
+        <QueuedPublication key={txn.txId} txn={txn} />
       ))}
-      <Card className="divide-y-[1px] dark:divide-gray-700">
-        {comments?.map((comment, index) =>
-          comment?.__typename !== 'Comment' || comment.isHidden ? null : (
-            <SinglePublication
-              isFirst={index === 0}
-              isLast={index === comments.length - 1}
-              key={`${comment.id}`}
-              publication={comment as Comment}
-              showType={false}
-            />
-          )
-        )}
-        {hasMore ? <span ref={observe} /> : null}
+      <Card>
+        <Virtuoso
+          className="virtual-divider-list-window"
+          computeItemKey={(index) => `${publicationId}_${index}`}
+          data={comments}
+          endReached={onEndReached}
+          itemContent={(index, comment) => {
+            return comment?.__typename !== 'Comment' ||
+              comment.isHidden ? null : (
+              <SinglePublication
+                isFirst={index === 0}
+                isLast={index === comments.length - 1}
+                publication={comment as Comment}
+                showType={false}
+              />
+            );
+          }}
+          useWindowScroll
+        />
       </Card>
     </>
   );

@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import { ArrowRightStartOnRectangleIcon } from '@heroicons/react/24/outline';
-import { PROFILE } from '@hey/data/tracking';
+import { AUTH } from '@hey/data/tracking';
 import { useRevokeAuthenticationMutation } from '@hey/lens';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
@@ -18,9 +18,7 @@ interface LogoutProps {
 }
 
 const Logout: FC<LogoutProps> = ({ className = '', onClick }) => {
-  const resetPreferences = usePreferencesStore(
-    (state) => state.resetPreferences
-  );
+  const { resetPreferences } = usePreferencesStore();
   const [revoking, setRevoking] = useState(false);
 
   const { disconnect } = useDisconnect();
@@ -41,7 +39,7 @@ const Logout: FC<LogoutProps> = ({ className = '', onClick }) => {
           variables: { request: { authorizationId } }
         });
       }
-      Leafwatch.track(PROFILE.LOGOUT);
+      Leafwatch.track(AUTH.LOGOUT);
       resetPreferences();
       signOut();
       disconnect?.();

@@ -8,30 +8,24 @@ import BlockOrUnBlockProfile from './Alert/BlockOrUnBlockProfile';
 import DeletePublication from './Alert/DeletePublication';
 
 const GlobalAlerts: FC = () => {
-  const showGardenerActionsAlert = useGlobalAlertStateStore(
-    (state) => state.showGardenerActionsAlert
-  );
-  const setShowGardenerActionsAlert = useGlobalAlertStateStore(
-    (state) => state.setShowGardenerActionsAlert
-  );
-  const modingPublicationId = useGlobalAlertStateStore(
-    (state) => state.modingPublicationId
-  );
-  const blockingorUnblockingProfile = useGlobalAlertStateStore(
-    (state) => state.blockingorUnblockingProfile
-  );
+  const {
+    blockingorUnblockingProfile,
+    modingPublication,
+    setShowGardenerActionsAlert,
+    showGardenerActionsAlert
+  } = useGlobalAlertStateStore();
 
   return (
     <>
       <DeletePublication />
-      {modingPublicationId ? (
+      {modingPublication ? (
         <Alert
           description="Perform mod actions on this publication."
           onClose={() => setShowGardenerActionsAlert(false, null)}
           show={showGardenerActionsAlert}
           title="Mod actions"
         >
-          <GardenerActions publicationId={modingPublicationId} />
+          <GardenerActions publication={modingPublication} />
         </Alert>
       ) : null}
       {blockingorUnblockingProfile ? <BlockOrUnBlockProfile /> : null}

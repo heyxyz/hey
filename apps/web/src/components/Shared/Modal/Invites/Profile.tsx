@@ -15,7 +15,7 @@ interface ProfileProps {
 const Profile: FC<ProfileProps> = ({ invite }) => {
   return (
     <div className="ld-text-gray-500 flex items-center space-x-2 rounded-xl border px-3 py-2.5 text-sm">
-      <CheckCircleIcon className="text-brand-500 size-5" />
+      <CheckCircleIcon className="size-5" />
       <span>
         <b>
           {invite.profileMinted ? (

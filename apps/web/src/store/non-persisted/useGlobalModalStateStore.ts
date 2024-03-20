@@ -1,50 +1,58 @@
 import type { Profile } from '@hey/lens';
 
+import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 
-interface GlobalModalState {
+export type AuthModalType = 'login' | 'signup';
+
+interface State {
+  authModalType: AuthModalType;
   reportingProfile: null | Profile;
   reportingPublicationId: null | string;
-  setShowAuthModal: (showAuthModal: boolean) => void;
+  setShowAuthModal: (
+    showAuthModal: boolean,
+    authModalType?: AuthModalType
+  ) => void;
   setShowDiscardModal: (showDiscardModal: boolean) => void;
   setShowInvitesModal: (showInvitesModal: boolean) => void;
   setShowMobileDrawer: (showMobileDrawer: boolean) => void;
   setShowNewPostModal: (showNewPostModal: boolean) => void;
+  setShowOptimisticTransactionsModal: (
+    showOptimisticTransactionsModal: boolean
+  ) => void;
   setShowProfileSwitchModal: (showProfileSwitchModal: boolean) => void;
   setShowPublicationReportModal: (
     showPublicationReportModal: boolean,
     reportingPublicationId: null | string
   ) => void;
-  setShowPublicationStatsModal: (
-    showPublicationStatsModal: boolean,
-    statsPublicationId: null | string
-  ) => void;
   setShowReportProfileModal: (
     reportProfileModal: boolean,
     reportingProfile: null | Profile
   ) => void;
-  setShowWrongNetworkModal: (showWrongNetworkModal: boolean) => void;
   showAuthModal: boolean;
   showDiscardModal: boolean;
   showInvitesModal: boolean;
   showMobileDrawer: boolean;
   showNewPostModal: boolean;
+  showOptimisticTransactionsModal: boolean;
   showProfileSwitchModal: boolean;
   showPublicationReportModal: boolean;
-  showPublicationStatsModal: boolean;
   showReportProfileModal: boolean;
-  showWrongNetworkModal: boolean;
-  statsPublicationId: null | string;
 }
 
-export const useGlobalModalStateStore = create<GlobalModalState>((set) => ({
+const store = create<State>((set) => ({
+  authModalType: 'login',
   reportingProfile: null,
   reportingPublicationId: null,
-  setShowAuthModal: (showAuthModal) => set(() => ({ showAuthModal })),
+  setShowAuthModal: (showAuthModal, authModalType) => {
+    set(() => ({ authModalType, showAuthModal }));
+  },
   setShowDiscardModal: (showDiscardModal) => set(() => ({ showDiscardModal })),
   setShowInvitesModal: (showInvitesModal) => set(() => ({ showInvitesModal })),
   setShowMobileDrawer: (showMobileDrawer) => set(() => ({ showMobileDrawer })),
   setShowNewPostModal: (showNewPostModal) => set(() => ({ showNewPostModal })),
+  setShowOptimisticTransactionsModal: (showOptimisticTransactionsModal) =>
+    set(() => ({ showOptimisticTransactionsModal })),
   setShowProfileSwitchModal: (showProfileSwitchModal) =>
     set(() => ({ showProfileSwitchModal })),
   setShowPublicationReportModal: (
@@ -55,27 +63,17 @@ export const useGlobalModalStateStore = create<GlobalModalState>((set) => ({
       reportingPublicationId,
       showPublicationReportModal
     })),
-  setShowPublicationStatsModal: (
-    showPublicationStatsModal,
-    statsPublicationId
-  ) =>
-    set(() => ({
-      showPublicationStatsModal,
-      statsPublicationId
-    })),
   setShowReportProfileModal: (showReportProfileModal, reportingProfile) =>
     set(() => ({ reportingProfile, showReportProfileModal })),
-  setShowWrongNetworkModal: (showWrongNetworkModal) =>
-    set(() => ({ showWrongNetworkModal })),
   showAuthModal: false,
   showDiscardModal: false,
   showInvitesModal: false,
   showMobileDrawer: false,
   showNewPostModal: false,
+  showOptimisticTransactionsModal: false,
   showProfileSwitchModal: false,
   showPublicationReportModal: false,
-  showPublicationStatsModal: false,
-  showReportProfileModal: false,
-  showWrongNetworkModal: false,
-  statsPublicationId: null
+  showReportProfileModal: false
 }));
+
+export const useGlobalModalStateStore = createTrackedSelector(store);

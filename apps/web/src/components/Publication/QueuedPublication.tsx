@@ -13,7 +13,7 @@ import {
 import { useApolloClient } from '@hey/lens/apollo';
 import getMentions from '@hey/lib/getMentions';
 import { Card, Tooltip } from '@hey/ui';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 
 interface QueuedPublicationProps {
@@ -21,18 +21,17 @@ interface QueuedPublicationProps {
 }
 
 const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const txnQueue = useTransactionStore((state) => state.txnQueue);
-  const setTxnQueue = useTransactionStore((state) => state.setTxnQueue);
+  const { currentProfile } = useProfileStore();
+  const { removeTransaction } = useTransactionStore();
 
   const { cache } = useApolloClient();
   const txHash = txn?.txHash;
   const txId = txn?.txId;
 
   const removeTxn = () => {
-    setTxnQueue(
-      txnQueue.filter((o) => (txHash ? o.txHash !== txHash : o.txId !== txId))
-    );
+    if (txn.txId) {
+      return removeTransaction(txn.txId);
+    }
   };
 
   const [getPublication] = usePublicationLazyQuery({
@@ -79,13 +78,17 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
     }
   });
 
+  if (!txn.content) {
+    return null;
+  }
+
   return (
     <Card as="article" className="p-5">
       <div className="flex items-start justify-between pb-4">
         <SmallUserProfile linkToProfile profile={currentProfile as Profile} />
         <Tooltip content="Indexing" placement="top">
-          <div className="bg-brand-200 flex size-4 items-center justify-center rounded-full">
-            <div className="bg-brand-500 size-2 animate-pulse rounded-full" />
+          <div className="flex size-4 items-center justify-center rounded-full bg-gray-200">
+            <div className="animate-shimmer size-2 rounded-full bg-gray-500" />
           </div>
         </Tooltip>
       </div>

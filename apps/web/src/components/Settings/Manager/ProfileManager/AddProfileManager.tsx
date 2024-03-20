@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import SearchProfiles from '@components/Shared/SearchProfiles';
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
-import { ADDRESS_PLACEHOLDER, LENSHUB_PROXY } from '@hey/data/constants';
+import { ADDRESS_PLACEHOLDER, LENS_HUB } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { SETTINGS } from '@hey/data/tracking';
 import {
@@ -21,8 +21,7 @@ import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
-import useProfileStore from 'src/store/persisted/useProfileStore';
-import { hydrateTbaStatus } from 'src/store/persisted/useTbaStatusStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { isAddress } from 'viem';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
@@ -33,20 +32,18 @@ interface AddProfileManagerProps {
 const AddProfileManager: FC<AddProfileManagerProps> = ({
   setShowAddManagerModal
 }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
-  const lensHubOnchainSigNonce = useNonceStore(
-    (state) => state.lensHubOnchainSigNonce
-  );
-  const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce
-  );
+  const {
+    decrementLensHubOnchainSigNonce,
+    incrementLensHubOnchainSigNonce,
+    lensHubOnchainSigNonce
+  } = useNonceStore();
   const [manager, setManager] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleWrongNetwork = useHandleWrongNetwork();
 
-  const { isTba } = hydrateTbaStatus();
   const { canBroadcast } = checkDispatcherPermissions(currentProfile);
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
@@ -67,23 +64,23 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
-  const { writeContract } = useWriteContract({
+  const { writeContractAsync } = useWriteContract({
     mutation: {
-      onError: (error) => {
+      onError: (error: Error) => {
         onError(error);
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+        decrementLensHubOnchainSigNonce();
       },
       onSuccess: () => {
         onCompleted();
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+        incrementLensHubOnchainSigNonce();
       }
     }
   });
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args,
       functionName: 'changeDelegatedExecutorsConfig'
     });
@@ -111,25 +108,27 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
           configNumber,
           switchToGivenConfig
         ];
+        await handleWrongNetwork();
+
         try {
-          if (!isTba && canBroadcast) {
+          if (canBroadcast) {
             const signature = await signTypedDataAsync(getSignature(typedData));
             const { data } = await broadcastOnchain({
               variables: { request: { id, signature } }
             });
             if (data?.broadcastOnchain.__typename === 'RelayError') {
-              return write({ args });
+              return await write({ args });
             }
-            setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+            incrementLensHubOnchainSigNonce();
 
             return;
           }
 
-          return write({ args });
+          return await write({ args });
         } catch {
           // Fix for Safe wallets
           // TODO: Remove this once Lens supports Safe wallets
-          return write({ args });
+          return await write({ args });
         }
       },
       onError
@@ -142,10 +141,6 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
 
     if (isSuspended) {
       return toast.error(Errors.Suspended);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
     }
 
     try {

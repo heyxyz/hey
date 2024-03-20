@@ -11,6 +11,7 @@ jobs:
   typecheck:
     name: Typecheck
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
@@ -71,6 +72,18 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
@@ -80,13 +93,21 @@ jobs:
       - name: Setup Node.js, pnpm and dependencies 🌸
         uses: ./.github/actions/setup-pnpm
 
+      - name: Migration 🚚
+        env:
+          DATABASE_URL: 'postgresql://postgres:postgres@localhost:5432/postgres'
+        run: |
+          cd apps/api
+          pnpm prisma:migrate
+          pnpm prisma:seed
+
       - name: Build 🎁
         run: pnpm build
 
       - name: Run Tests 🧪
         env:
-          NEXT_PUBLIC_LENS_NETWORK: 'staging'
-          DATABASE_URL: ${{ secrets.STAGING_DATABASE_URL }}
+          NEXT_PUBLIC_LENS_NETWORK: 'testnet'
+          DATABASE_URL: 'postgresql://postgres:postgres@localhost:5432/postgres'
           CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
           SECRET: ${{ secrets.SECRET }}
           EVER_ACCESS_KEY: ${{ secrets.EVER_ACCESS_KEY }}
@@ -94,7 +115,6 @@ jobs:
           IPAPI_KEY: ${{ secrets.IPAPI_KEY }}
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           IRYS_PRIVATE_KEY: ${{ secrets.IRYS_PRIVATE_KEY }}
-          IMAGEKIT_URL: ${{ secrets.IMAGEKIT_URL }}
         run: |
           cd apps/api
           {
@@ -107,7 +127,6 @@ jobs:
             echo "IPAPI_KEY=${IPAPI_KEY}"
             echo "GOOGLE_API_KEY=${GOOGLE_API_KEY}"
             echo "IRYS_PRIVATE_KEY=${IRYS_PRIVATE_KEY}"
-            echo "IMAGEKIT_URL=${IMAGEKIT_URL}"
           } > .env
           cd ../..
           pnpm test:e2e

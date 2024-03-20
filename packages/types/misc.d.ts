@@ -1,4 +1,5 @@
-import type { Maybe, PublicationMetadataLicenseType } from '@hey/lens';
+import type { Maybe } from '@hey/lens';
+import type { MetadataLicenseType } from '@lens-protocol/metadata';
 
 import type { OptmisticPublicationType } from './enums';
 
@@ -38,14 +39,16 @@ export interface Nft {
   sourceUrl: string;
 }
 
-export type ButtonType = 'redirect' | 'submit';
+export type ButtonType = 'link' | 'mint' | 'post_redirect' | 'post';
 
 export interface Portal {
   buttons: {
+    action: ButtonType;
     button: string;
-    type: ButtonType;
+    target?: string;
   }[];
   image: string;
+  portalUrl: string;
   postUrl: string;
   version: string;
 }
@@ -86,8 +89,10 @@ export interface MessageDescriptor {
 }
 
 export interface OptimisticTransaction {
+  collectOn?: string;
   commentOn?: string;
-  content: string;
+  content?: string;
+  mirrorOn?: string;
   txHash?: string;
   txId?: string;
   type: OptmisticPublicationType;
@@ -101,7 +106,7 @@ export interface MarkupLinkProps {
 export interface MetadataAsset {
   artist?: string;
   cover?: string;
-  license?: Maybe<PublicationMetadataLicenseType>;
+  license?: Maybe<MetadataLicenseType>;
   title?: string;
   type: 'Audio' | 'Image' | 'Video';
   uri: string;

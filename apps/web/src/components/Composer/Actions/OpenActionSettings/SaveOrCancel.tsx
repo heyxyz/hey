@@ -1,5 +1,6 @@
+import type { FC } from 'react';
+
 import { Button } from '@hey/ui';
-import { type FC } from 'react';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
 
 interface SaveOrCancelProps {

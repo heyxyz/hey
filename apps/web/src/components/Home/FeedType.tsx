@@ -1,6 +1,7 @@
 import type { Dispatch, FC, SetStateAction } from 'react';
 
 import {
+  CheckCircleIcon,
   CurrencyDollarIcon,
   LightBulbIcon,
   UserGroupIcon
@@ -10,6 +11,7 @@ import { HomeFeedType } from '@hey/data/enums';
 import { HOME } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Algorithms from './Algorithms';
 import SeeThroughLens from './SeeThroughLens';
@@ -20,13 +22,21 @@ interface FeedTypeProps {
 }
 
 const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
+  const { fallbackToCuratedFeed } = useProfileStore();
+
   return (
     <div className="flex flex-wrap items-center justify-between px-1 md:px-0">
       <div className="flex gap-3 overflow-x-auto sm:px-0">
         <TabButton
           active={feedType === HomeFeedType.FOLLOWING}
-          icon={<UserGroupIcon className="size-4" />}
-          name="Following"
+          icon={
+            fallbackToCuratedFeed ? (
+              <CheckCircleIcon className="size-4" />
+            ) : (
+              <UserGroupIcon className="size-4" />
+            )
+          }
+          name={fallbackToCuratedFeed ? 'Curated Feed' : 'Following'}
           onClick={() => {
             setFeedType(HomeFeedType.FOLLOWING);
             Leafwatch.track(HOME.SWITCH_FOLLOWING_FEED);
@@ -56,7 +66,9 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
         feedType === HomeFeedType.HIGHLIGHTS ? (
           <SeeThroughLens />
         ) : null}
-        {IS_MAINNET ? <Algorithms /> : null}
+        {IS_MAINNET ? (
+          <Algorithms feedType={feedType} setFeedType={setFeedType} />
+        ) : null}
       </div>
     </div>
   );

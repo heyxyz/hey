@@ -3,10 +3,12 @@ import type { FC } from 'react';
 import cn from '@hey/ui/cn';
 
 interface SmallUserProfileShimmerProps {
+  hideSlug?: boolean;
   smallAvatar?: boolean;
 }
 
 const SmallUserProfileShimmer: FC<SmallUserProfileShimmerProps> = ({
+  hideSlug = false,
   smallAvatar = false
 }) => {
   return (
@@ -18,7 +20,7 @@ const SmallUserProfileShimmer: FC<SmallUserProfileShimmerProps> = ({
         )}
       />
       <div className="shimmer h-3 w-28 rounded-lg" />
-      <div className="shimmer h-3 w-20 rounded-lg" />
+      {!hideSlug && <div className="shimmer h-3 w-20 rounded-lg" />}
     </div>
   );
 };

@@ -54,7 +54,7 @@ const OnchainMeta: FC<OnchainMetaProps> = ({ publication }) => {
           <Meta
             hash={hash}
             name="ARWEAVE TRANSACTION"
-            uri={urlcat(`${ARWEAVE_GATEWAY}:hash`, { hash })}
+            uri={urlcat(`${ARWEAVE_GATEWAY}/:hash`, { hash })}
           />
         ) : null}
         {publication?.momoka?.proof ? (
@@ -70,7 +70,7 @@ const OnchainMeta: FC<OnchainMetaProps> = ({ publication }) => {
           <Meta
             hash={hash}
             name="IPFS TRANSACTION"
-            uri={`${IPFS_GATEWAY}${hash}`}
+            uri={`${IPFS_GATEWAY}/${hash}`}
           />
         ) : null}
         {publication?.txHash ? (

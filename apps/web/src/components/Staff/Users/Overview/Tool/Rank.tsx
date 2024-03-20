@@ -6,6 +6,7 @@ import {
   CurrencyDollarIcon,
   HandRaisedIcon,
   UserCircleIcon,
+  UserIcon,
   UserPlusIcon
 } from '@heroicons/react/24/outline';
 import { HashtagIcon } from '@heroicons/react/24/solid';
@@ -18,10 +19,16 @@ import urlcat from 'urlcat';
 interface RankProps {
   address: string;
   handle?: string;
+  lensClassifierScore: number;
   profileId: string;
 }
 
-const Rank: FC<RankProps> = ({ address, handle, profileId }) => {
+const Rank: FC<RankProps> = ({
+  address,
+  handle,
+  lensClassifierScore,
+  profileId
+}) => {
   const getRank = async (strategy: string) => {
     try {
       const response = await axios.get(
@@ -51,22 +58,22 @@ const Rank: FC<RankProps> = ({ address, handle, profileId }) => {
   };
 
   const { data: followship, isLoading: followshipLoading } = useQuery({
-    queryFn: async () => getRank('followship'),
+    queryFn: async () => await getRank('followship'),
     queryKey: ['getRank', profileId, 'followship']
   });
 
   const { data: engagement, isLoading: engagementLoading } = useQuery({
-    queryFn: async () => getRank('engagement'),
+    queryFn: async () => await getRank('engagement'),
     queryKey: ['getRank', profileId, 'engagement']
   });
 
   const { data: influencer, isLoading: influencerLoading } = useQuery({
-    queryFn: async () => getRank('influencer'),
+    queryFn: async () => await getRank('influencer'),
     queryKey: ['getRank', profileId, 'influencer']
   });
 
   const { data: creator, isLoading: creatorLoading } = useQuery({
-    queryFn: async () => getRank('creator'),
+    queryFn: async () => await getRank('creator'),
     queryKey: ['getRank', profileId, 'creator']
   });
 
@@ -82,6 +89,12 @@ const Rank: FC<RankProps> = ({ address, handle, profileId }) => {
         <div className="text-lg font-bold">Scores</div>
       </div>
       <div className="mt-3 space-y-2">
+        <MetaDetails
+          icon={<UserIcon className="ld-text-gray-500 size-4" />}
+          title="Lens Classifier Score"
+        >
+          {lensClassifierScore}
+        </MetaDetails>
         <MetaDetails
           icon={<UserPlusIcon className="ld-text-gray-500 size-4" />}
           title="Followship Rank"

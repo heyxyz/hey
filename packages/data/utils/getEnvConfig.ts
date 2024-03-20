@@ -6,9 +6,11 @@ import LensEndpoint from '../lens-endpoints';
 const getEnvConfig = (): {
   defaultCollectToken: string;
   heyApiEndpoint: string;
+  heyLensSignup: `0x${string}`;
   lensApiEndpoint: string;
-  lensHubProxyAddress: `0x${string}`;
-  publicActProxyAddress: `0x${string}`;
+  lensHandles: `0x${string}`;
+  lensHub: `0x${string}`;
+  permissionlessCreator?: `0x${string}`;
   tokenHandleRegistry: `0x${string}`;
 } => {
   switch (LENS_NETWORK) {
@@ -16,27 +18,33 @@ const getEnvConfig = (): {
       return {
         defaultCollectToken: TestnetContracts.DefaultToken,
         heyApiEndpoint: HeyEndpoint.Testnet,
+        heyLensSignup: TestnetContracts.HeyLensSignup,
         lensApiEndpoint: LensEndpoint.Testnet,
-        lensHubProxyAddress: TestnetContracts.LensHubProxy,
-        publicActProxyAddress: TestnetContracts.PublicActProxy,
+        lensHandles: TestnetContracts.LensHandles,
+        lensHub: TestnetContracts.LensHub,
+        permissionlessCreator: TestnetContracts.PermissionlessCreator,
         tokenHandleRegistry: TestnetContracts.TokenHandleRegistry
       };
     case 'staging':
       return {
         defaultCollectToken: TestnetContracts.DefaultToken,
         heyApiEndpoint: HeyEndpoint.Staging,
+        heyLensSignup: TestnetContracts.HeyLensSignup,
         lensApiEndpoint: LensEndpoint.Staging,
-        lensHubProxyAddress: TestnetContracts.LensHubProxy,
-        publicActProxyAddress: TestnetContracts.PublicActProxy,
+        lensHandles: TestnetContracts.LensHandles,
+        lensHub: TestnetContracts.LensHub,
+        permissionlessCreator: TestnetContracts.PermissionlessCreator,
         tokenHandleRegistry: TestnetContracts.TokenHandleRegistry
       };
     default:
       return {
         defaultCollectToken: MainnetContracts.DefaultToken,
         heyApiEndpoint: HeyEndpoint.Mainnet,
+        heyLensSignup: MainnetContracts.HeyLensSignup,
         lensApiEndpoint: LensEndpoint.Mainnet,
-        lensHubProxyAddress: MainnetContracts.LensHubProxy,
-        publicActProxyAddress: MainnetContracts.PublicActProxy,
+        lensHandles: MainnetContracts.LensHandles,
+        lensHub: MainnetContracts.LensHub,
+        permissionlessCreator: MainnetContracts.PermissionlessCreator,
         tokenHandleRegistry: MainnetContracts.TokenHandleRegistry
       };
   }

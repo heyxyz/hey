@@ -2,11 +2,13 @@ import type { AllowedToken } from '@hey/types/hey';
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
-import { CurrencyDollarIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
+import { STAFFTOOLS } from '@hey/data/tracking';
 import getAllTokens from '@hey/lib/api/getAllTokens';
 import { Button, Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
+import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
@@ -23,7 +25,7 @@ const List: FC = () => {
     queryKey: ['getAllTokens']
   });
 
-  const deleteToken = async (id: string) => {
+  const deleteToken = (id: string) => {
     toast.promise(
       axios.post(
         `${HEY_API_URL}/internal/tokens/delete`,
@@ -34,6 +36,7 @@ const List: FC = () => {
         error: 'Failed to delete token',
         loading: 'Deleting token...',
         success: () => {
+          Leafwatch.track(STAFFTOOLS.TOKENS.DELETE);
           setTokens(tokens.filter((token) => token.id !== id));
           return 'Token deleted';
         }
@@ -58,7 +61,7 @@ const List: FC = () => {
         ) : !tokens.length ? (
           <EmptyState
             hideCard
-            icon={<CurrencyDollarIcon className="text-brand-500 size-8" />}
+            icon={<CurrencyDollarIcon className="size-8" />}
             message={<span>No tokens found</span>}
           />
         ) : (
@@ -77,10 +80,13 @@ const List: FC = () => {
                   </div>
                 </div>
                 <Button
-                  icon={<TrashIcon className="size-4" />}
                   onClick={() => deleteToken(token.id)}
                   outline
-                />
+                  size="sm"
+                  variant="danger"
+                >
+                  Delete
+                </Button>
               </div>
             ))}
           </div>

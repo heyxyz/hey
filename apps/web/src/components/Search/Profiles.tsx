@@ -4,13 +4,13 @@ import type { FC } from 'react';
 import UserProfilesShimmer from '@components/Shared/Shimmer/UserProfilesShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
+import { ProfileLinkSource } from '@hey/data/tracking';
 import {
   CustomFiltersType,
   LimitType,
   useSearchProfilesQuery
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { motion } from 'framer-motion';
 import { Virtuoso } from 'react-virtuoso';
 
 interface ProfilesProps {
@@ -52,7 +52,7 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
   if (profiles?.length === 0) {
     return (
       <EmptyState
-        icon={<UsersIcon className="text-brand-500 size-8" />}
+        icon={<UsersIcon className="size-8" />}
         message={
           <span>
             No profiles for <b>&ldquo;{query}&rdquo;</b>
@@ -69,19 +69,19 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
   return (
     <Virtuoso
       className="[&>div>div]:space-y-3"
+      computeItemKey={(_, profile) => profile.id}
       data={profiles}
       endReached={onEndReached}
       itemContent={(_, profile) => {
         return (
-          <motion.div
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            initial={{ opacity: 0 }}
-          >
-            <Card className="p-5" key={profile?.id}>
-              <UserProfile isBig profile={profile as Profile} showBio />
-            </Card>
-          </motion.div>
+          <Card className="p-5">
+            <UserProfile
+              isBig
+              profile={profile as Profile}
+              showBio
+              source={ProfileLinkSource.Search}
+            />
+          </Card>
         );
       }}
       useWindowScroll

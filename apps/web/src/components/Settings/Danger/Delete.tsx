@@ -7,7 +7,7 @@ import {
   TrashIcon
 } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
-import { APP_NAME, LENSHUB_PROXY } from '@hey/data/constants';
+import { APP_NAME, LENS_HUB } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { SETTINGS } from '@hey/data/tracking';
 import { Button, Card, Modal, Spinner, WarningMessage } from '@hey/ui';
@@ -17,11 +17,11 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { signOut } from 'src/store/persisted/useAuthStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useDisconnect, useWriteContract } from 'wagmi';
 
 const DeleteSettings: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { disconnect } = useDisconnect();
@@ -39,31 +39,28 @@ const DeleteSettings: FC = () => {
     errorToast(error);
   };
 
-  const { writeContract } = useWriteContract({
+  const { writeContractAsync } = useWriteContract({
     mutation: { onSuccess: onCompleted }
   });
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args,
       functionName: 'burn'
     });
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
 
-    if (handleWrongNetwork()) {
-      return;
-    }
-
     try {
       setIsLoading(true);
-      return write({ args: [currentProfile?.id] });
+      await handleWrongNetwork();
+      return await write({ args: [currentProfile?.id] });
     } catch (error) {
       onError(error);
     }
@@ -130,7 +127,7 @@ const DeleteSettings: FC = () => {
         {isLoading ? 'Deleting...' : 'Delete your account'}
       </Button>
       <Modal
-        icon={<ExclamationTriangleIcon className="size-5 text-red-500" />}
+        icon={<ExclamationTriangleIcon className="size-5" />}
         onClose={() => setShowWarningModal(false)}
         show={showWarningModal}
         title="Danger zone"

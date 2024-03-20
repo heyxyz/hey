@@ -22,19 +22,14 @@ import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
 const UnlinkHandle: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
-  const lensHubOnchainSigNonce = useNonceStore(
-    (state) => state.lensHubOnchainSigNonce
-  );
-  const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce
-  );
-
+  const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
+    useNonceStore();
   const [unlinking, setUnlinking] = useState<boolean>(false);
 
   const handleWrongNetwork = useHandleWrongNetwork();
@@ -62,12 +57,12 @@ const UnlinkHandle: FC = () => {
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
-  const { data: writeHash, writeContract } = useWriteContract({
+  const { data: writeHash, writeContractAsync } = useWriteContract({
     mutation: { onError, onSuccess: () => onCompleted() }
   });
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       abi: TokenHandleRegistry,
       address: TOKEN_HANDLE_REGISTRY,
       args,
@@ -85,6 +80,7 @@ const UnlinkHandle: FC = () => {
     useCreateUnlinkHandleFromProfileTypedDataMutation({
       onCompleted: async ({ createUnlinkHandleFromProfileTypedData }) => {
         const { id, typedData } = createUnlinkHandleFromProfileTypedData;
+        await handleWrongNetwork();
 
         if (canBroadcast) {
           const signature = await signTypedDataAsync(getSignature(typedData));
@@ -92,14 +88,14 @@ const UnlinkHandle: FC = () => {
             variables: { request: { id, signature } }
           });
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return write({ args: [typedData.value] });
+            return await write({ args: [typedData.value] });
           }
-          setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+          incrementLensHubOnchainSigNonce();
 
           return;
         }
 
-        return write({ args: [typedData.value] });
+        return await write({ args: [typedData.value] });
       },
       onError
     });
@@ -133,10 +129,6 @@ const UnlinkHandle: FC = () => {
 
     if (isSuspended) {
       return toast.error(Errors.Suspended);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
     }
 
     try {

@@ -10,7 +10,6 @@ import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
-import { useUpdateEffect } from 'usehooks-ts';
 
 const DEFAULT_THUMBNAIL_INDEX = 0;
 export const THUMBNAIL_GENERATE_COUNT = 4;
@@ -24,15 +23,8 @@ const ChooseThumbnail: FC = () => {
   const [thumbnails, setThumbnails] = useState<Thumbnail[]>([]);
   const [imageUploading, setImageUploading] = useState(false);
   const [selectedThumbnailIndex, setSelectedThumbnailIndex] = useState(-1);
-  const attachments = usePublicationAttachmentStore(
-    (state) => state.attachments
-  );
-  const videoThumbnail = usePublicationVideoStore(
-    (state) => state.videoThumbnail
-  );
-  const setVideoThumbnail = usePublicationVideoStore(
-    (state) => state.setVideoThumbnail
-  );
+  const { attachments } = usePublicationAttachmentStore((state) => state);
+  const { setVideoThumbnail, videoThumbnail } = usePublicationVideoStore();
   const { file } = attachments[0];
 
   const uploadThumbnailToIpfs = async (fileToUpload: File) => {
@@ -50,7 +42,7 @@ const ChooseThumbnail: FC = () => {
     return result;
   };
 
-  const onSelectThumbnail = async (index: number) => {
+  const onSelectThumbnail = (index: number) => {
     setSelectedThumbnailIndex(index);
     if (thumbnails[index]?.ipfsUrl === '') {
       setVideoThumbnail({ uploading: true });
@@ -95,8 +87,9 @@ const ChooseThumbnail: FC = () => {
     } catch {}
   };
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     onSelectThumbnail(selectedThumbnailIndex);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedThumbnailIndex]);
 
   useEffect(() => {
@@ -177,7 +170,7 @@ const ChooseThumbnail: FC = () => {
               />
               {ipfsUrl && isSelected && isUploaded ? (
                 <div className="absolute inset-0 grid place-items-center rounded-xl bg-gray-100/10">
-                  <CheckCircleIcon className="size-6 text-green-500" />
+                  <CheckCircleIcon className="size-6" />
                 </div>
               ) : null}
               {isUploading && isSelected && (

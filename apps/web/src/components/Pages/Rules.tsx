@@ -4,17 +4,17 @@ import Footer from '@components/Shared/Footer';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
-import Link from 'next/link';
-import { useEffectOnce } from 'usehooks-ts';
+import showCrisp from '@lib/showCrisp';
+import { useEffect } from 'react';
 
 const Rules: NextPage = () => {
-  useEffectOnce(() => {
+  useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'rules' });
-  });
+  }, []);
 
   return (
     <>
-      <div className="bg-brand-400 flex h-48 w-full items-center justify-center">
+      <div className="flex h-48 w-full items-center justify-center bg-gray-400">
         <div className="relative text-center">
           <h1 className="text-3xl font-bold text-white md:text-4xl">Rules</h1>
         </div>
@@ -32,9 +32,7 @@ const Rules: NextPage = () => {
                 </p>
               </div>
               {/* Safety beings */}
-              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
-                Safety
-              </div>
+              <div className="mb-5 mt-8 text-xl font-bold">Safety</div>
               <div className="space-y-5">
                 <p className="leading-7">
                   You are not allowed to display, share or promote any form of
@@ -52,9 +50,7 @@ const Rules: NextPage = () => {
               </div>
               {/* Safety ends */}
               {/* Nudity beings */}
-              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
-                Nudity
-              </div>
+              <div className="mb-5 mt-8 text-xl font-bold">Nudity</div>
               <div className="space-y-5">
                 <p className="leading-7">
                   {APP_NAME} is not a place to display, share or promote any
@@ -71,9 +67,7 @@ const Rules: NextPage = () => {
               </div>
               {/* Nudity ends */}
               {/* Spam beings */}
-              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
-                Spam
-              </div>
+              <div className="mb-5 mt-8 text-xl font-bold">Spam</div>
               <div className="space-y-5">
                 <p className="leading-7">
                   You are not allowed to use {APP_NAME} as a platform to
@@ -84,6 +78,7 @@ const Rules: NextPage = () => {
                   <li>
                     Share excessive amounts of content of any type ("Spam")
                   </li>
+                  <li>Airdrop farming</li>
                 </ul>
                 <p className="leading-7">
                   If your account got suspended, you are not allowed to create
@@ -92,9 +87,7 @@ const Rules: NextPage = () => {
               </div>
               {/* Spam ends */}
               {/* Impersonation beings */}
-              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
-                Impersonation
-              </div>
+              <div className="mb-5 mt-8 text-xl font-bold">Impersonation</div>
               <div className="space-y-5">
                 <p className="leading-7">
                   You are not allowed to impersonate other people on {APP_NAME}.
@@ -110,7 +103,7 @@ const Rules: NextPage = () => {
               </div>
               {/* Impersonation ends */}
               {/* Copyright and Trademarks beings */}
-              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold">
                 Copyright and Trademarks
               </div>
               <p className="leading-7">
@@ -119,12 +112,11 @@ const Rules: NextPage = () => {
               </p>
               {/* Copyright and Trademarks ends */}
               {/* Feedback beings */}
-              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
-                Feedback
-              </div>
+              <div className="mb-5 mt-8 text-xl font-bold">Feedback</div>
               <p className="linkify leading-7">
                 If you have any feedback on these rules or if you have any
-                questions, please <Link href="/support">Contact us</Link>.
+                questions, please{' '}
+                <button onClick={showCrisp}>Contact us</button>.
               </p>
               {/* Feedback ends */}
             </div>

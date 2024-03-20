@@ -1,10 +1,10 @@
+import type { Nft as INft } from '@hey/types/misc';
 import type { FC } from 'react';
 
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
 import getNftChainInfo from '@hey/lib/getNftChainInfo';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Nft } from '@hey/types/misc';
 import { Button, Card, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
@@ -12,7 +12,7 @@ import Link from 'next/link';
 import MintedBy from './MintedBy';
 
 interface NftProps {
-  nft: Nft;
+  nft: INft;
   publicationId?: string;
 }
 

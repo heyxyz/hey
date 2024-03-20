@@ -1,6 +1,7 @@
+import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 
-interface PublicationVideoState {
+interface State {
   setUploadedPercentage: (uploadedPercentage: number) => void;
   setVideoDurationInSeconds: (videoDurationInSeconds: string) => void;
   setVideoThumbnail: (videoThumbnail: {
@@ -17,15 +18,15 @@ interface PublicationVideoState {
   };
 }
 
-export const usePublicationVideoStore = create<PublicationVideoState>(
-  (set) => ({
-    setUploadedPercentage: (uploadedPercentage) =>
-      set(() => ({ uploadedPercentage })),
-    setVideoDurationInSeconds: (videoDurationInSeconds) =>
-      set(() => ({ videoDurationInSeconds })),
-    setVideoThumbnail: (videoThumbnail) => set(() => ({ videoThumbnail })),
-    uploadedPercentage: 0,
-    videoDurationInSeconds: '',
-    videoThumbnail: { type: '', uploading: false, url: '' }
-  })
-);
+const store = create<State>((set) => ({
+  setUploadedPercentage: (uploadedPercentage) =>
+    set(() => ({ uploadedPercentage })),
+  setVideoDurationInSeconds: (videoDurationInSeconds) =>
+    set(() => ({ videoDurationInSeconds })),
+  setVideoThumbnail: (videoThumbnail) => set(() => ({ videoThumbnail })),
+  uploadedPercentage: 0,
+  videoDurationInSeconds: '',
+  videoThumbnail: { type: '', uploading: false, url: '' }
+}));
+
+export const usePublicationVideoStore = createTrackedSelector(store);

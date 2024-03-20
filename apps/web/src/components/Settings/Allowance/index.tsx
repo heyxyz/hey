@@ -12,9 +12,8 @@ import {
   TabButton
 } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { useState } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce } from 'usehooks-ts';
+import { useEffect, useState } from 'react';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import SettingsSidebar from '../Sidebar';
 import CollectModules from './CollectModules';
@@ -26,12 +25,12 @@ enum Type {
 }
 
 const AllowanceSettings: NextPage = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const [type, setType] = useState<Type>(Type.COLLECT_MODULES);
 
-  useEffectOnce(() => {
+  useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'allowance' });
-  });
+  }, []);
 
   if (!currentProfile) {
     return <NotLoggedIn />;

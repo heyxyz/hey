@@ -2,6 +2,7 @@ import type { ExploreProfilesRequest, Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
+import P2PRecommendation from '@components/Shared/Profile/P2PRecommendation';
 import SearchProfiles from '@components/Shared/SearchProfiles';
 import UserProfile from '@components/Shared/UserProfile';
 import { ArrowPathIcon, UsersIcon } from '@heroicons/react/24/outline';
@@ -12,18 +13,19 @@ import {
 } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { Card, EmptyState, ErrorMessage, Select } from '@hey/ui';
-import { motion } from 'framer-motion';
+import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
 const List: FC = () => {
-  const { push } = useRouter();
+  const { pathname, push } = useRouter();
   const [orderBy, setOrderBy] = useState<ExploreProfilesOrderByType>(
     ExploreProfilesOrderByType.LatestCreated
   );
   const [value, setValue] = useState('');
+  const [refetching, setRefetching] = useState(false);
 
   // Variables
   const request: ExploreProfilesRequest = {
@@ -49,29 +51,42 @@ const List: FC = () => {
     });
   };
 
+  const onRefetch = async () => {
+    setRefetching(true);
+    await refetch();
+    setRefetching(false);
+  };
+
   return (
     <Card>
       <div className="flex items-center justify-between space-x-5 p-5">
         <SearchProfiles
           onChange={(event) => setValue(event.target.value)}
-          onProfileSelected={(profile) => push(getProfile(profile).staffLink)}
+          onProfileSelected={(profile) => {
+            if (pathname === '/mod') {
+              push(getProfile(profile).link);
+            } else {
+              push(getProfile(profile).staffLink);
+            }
+          }}
           placeholder="Search profiles..."
           skipGardeners
           value={value}
         />
         <Select
-          className="w-auto"
+          className="w-72"
           defaultValue={orderBy}
-          onChange={(e) =>
-            setOrderBy(e.target.value as ExploreProfilesOrderByType)
-          }
-          options={Object.values(ExploreProfilesOrderByType).map((orderBy) => ({
-            label: orderBy,
-            value: orderBy
+          onChange={(value) => setOrderBy(value as ExploreProfilesOrderByType)}
+          options={Object.values(ExploreProfilesOrderByType).map((type) => ({
+            label: type,
+            selected: orderBy === type,
+            value: type
           }))}
         />
-        <button onClick={() => refetch()} type="button">
-          <ArrowPathIcon className="size-5" />
+        <button onClick={onRefetch} type="button">
+          <ArrowPathIcon
+            className={cn(refetching && 'animate-spin', 'size-5')}
+          />
         </button>
       </div>
       <div className="divider" />
@@ -83,32 +98,36 @@ const List: FC = () => {
         ) : !profiles?.length ? (
           <EmptyState
             hideCard
-            icon={<UsersIcon className="text-brand-500 size-8" />}
+            icon={<UsersIcon className="size-8" />}
             message={<span>No profiles</span>}
           />
         ) : (
           <Virtuoso
+            computeItemKey={(_, profile) => profile.id}
             data={profiles}
             endReached={onEndReached}
             itemContent={(_, profile) => {
               return (
-                <motion.div
-                  animate={{ opacity: 1 }}
-                  className="pb-7"
-                  exit={{ opacity: 0 }}
-                  initial={{ opacity: 0 }}
-                >
-                  <Link href={getProfile(profile as Profile).staffLink}>
+                <div className="flex flex-wrap items-center justify-between gap-y-5 pb-7">
+                  <Link
+                    href={
+                      pathname === '/mod'
+                        ? getProfile(profile as Profile).link
+                        : getProfile(profile as Profile).staffLink
+                    }
+                  >
                     <UserProfile
                       isBig
                       linkToProfile={false}
                       profile={profile as Profile}
-                      showBio
+                      showBio={false}
+                      showId
                       showUserPreview={false}
                       timestamp={profile.createdAt}
                     />
                   </Link>
-                </motion.div>
+                  <P2PRecommendation profile={profile as Profile} />
+                </div>
               );
             }}
             useWindowScroll

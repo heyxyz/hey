@@ -1,41 +1,22 @@
+import type { PublicationStats as IPublicationStats } from '@hey/lens';
 import type { FC } from 'react';
 
-import Collectors from '@components/Shared/Modal/Collectors';
-import Likes from '@components/Shared/Modal/Likes';
-import Mirrors from '@components/Shared/Modal/Mirrors';
-import Quotes from '@components/Shared/Modal/Quotes';
-import {
-  ArrowsRightLeftIcon,
-  HeartIcon,
-  RectangleStackIcon
-} from '@heroicons/react/24/outline';
-import { PUBLICATION } from '@hey/data/tracking';
-import { PublicationStats } from '@hey/lens';
 import getPublicationsViews from '@hey/lib/getPublicationsViews';
 import nFormatter from '@hey/lib/nFormatter';
-import { Modal } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import Link from 'next/link';
 import plur from 'plur';
 import { memo, useEffect, useState } from 'react';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 
 interface PublicationStatsProps {
   publicationId: string;
-  publicationStats: PublicationStats;
+  publicationStats: IPublicationStats;
 }
 
 const PublicationStats: FC<PublicationStatsProps> = ({
   publicationId,
   publicationStats
 }) => {
-  const setShowPublicationStatsModal = useGlobalModalStateStore(
-    (state) => state.setShowPublicationStatsModal
-  );
   const [views, setViews] = useState<number>(0);
-  const [showMirrorsModal, setShowMirrorsModal] = useState(false);
-  const [showQuotesModal, setShowQuotesModal] = useState(false);
-  const [showLikesModal, setShowLikesModal] = useState(false);
-  const [showCollectorsModal, setShowCollectorsModal] = useState(false);
 
   useEffect(() => {
     // Get Views
@@ -46,12 +27,11 @@ const PublicationStats: FC<PublicationStatsProps> = ({
 
   const { bookmarks, comments, countOpenActions, mirrors, quotes, reactions } =
     publicationStats;
-  const shares = mirrors + quotes;
 
   const showStats =
     comments > 0 ||
     reactions > 0 ||
-    shares > 0 ||
+    mirrors > 0 ||
     quotes > 0 ||
     countOpenActions > 0 ||
     bookmarks > 0 ||
@@ -64,116 +44,52 @@ const PublicationStats: FC<PublicationStatsProps> = ({
   return (
     <>
       <div className="divider" />
-      <div className="ld-text-gray-500 flex flex-wrap items-center gap-6 py-3 text-sm sm:gap-8">
+      <div className="ld-text-gray-500 flex flex-wrap items-center gap-x-6 gap-y-3 py-3 text-sm">
         {comments > 0 ? (
           <span>
             <b className="text-black dark:text-white">{nFormatter(comments)}</b>{' '}
             {plur('Comment', comments)}
           </span>
         ) : null}
-        {shares > 0 ? (
-          <>
-            <button
-              className="outline-brand-500 outline-offset-2"
-              onClick={() => {
-                setShowMirrorsModal(true);
-                Leafwatch.track(PUBLICATION.OPEN_MIRRORS, {
-                  publication_id: publicationId
-                });
-              }}
-              type="button"
-            >
-              <b className="text-black dark:text-white">{nFormatter(shares)}</b>{' '}
-              {plur('Mirror', shares)}
-            </button>
-            <Modal
-              icon={<ArrowsRightLeftIcon className="text-brand-500 size-5" />}
-              onClose={() => setShowMirrorsModal(false)}
-              show={showMirrorsModal}
-              title="Mirrored by"
-            >
-              <Mirrors publicationId={publicationId} />
-            </Modal>
-          </>
+        {mirrors > 0 ? (
+          <Link
+            className="outline-offset-2"
+            href={`/posts/${publicationId}/mirrors`}
+          >
+            <b className="text-black dark:text-white">{nFormatter(mirrors)}</b>{' '}
+            {plur('Mirror', mirrors)}
+          </Link>
         ) : null}
         {quotes > 0 ? (
-          <>
-            <button
-              className="outline-brand-500 outline-offset-2"
-              onClick={() => {
-                setShowQuotesModal(true);
-                Leafwatch.track(PUBLICATION.OPEN_QUOTES, {
-                  publication_id: publicationId
-                });
-              }}
-              type="button"
-            >
-              <b className="text-black dark:text-white">{nFormatter(quotes)}</b>{' '}
-              {plur('Quote', quotes)}
-            </button>
-            <Modal
-              icon={<ArrowsRightLeftIcon className="text-brand-500 size-5" />}
-              onClose={() => setShowQuotesModal(false)}
-              show={showQuotesModal}
-              title="Quoted by"
-            >
-              <Quotes publicationId={publicationId} />
-            </Modal>
-          </>
+          <Link
+            className="outline-offset-2"
+            href={`/posts/${publicationId}/quotes`}
+          >
+            <b className="text-black dark:text-white">{nFormatter(quotes)}</b>{' '}
+            {plur('Quote', quotes)}
+          </Link>
         ) : null}
         {reactions > 0 ? (
-          <>
-            <button
-              className="outline-brand-500 outline-offset-2"
-              onClick={() => {
-                setShowLikesModal(true);
-                Leafwatch.track(PUBLICATION.OPEN_LIKES, {
-                  publication_id: publicationId
-                });
-              }}
-              type="button"
-            >
-              <b className="text-black dark:text-white">
-                {nFormatter(reactions)}
-              </b>{' '}
-              {plur('Like', reactions)}
-            </button>
-            <Modal
-              icon={<HeartIcon className="text-brand-500 size-5" />}
-              onClose={() => setShowLikesModal(false)}
-              show={showLikesModal}
-              title="Liked by"
-            >
-              <Likes publicationId={publicationId} />
-            </Modal>
-          </>
+          <Link
+            className="outline-offset-2"
+            href={`/posts/${publicationId}/likes`}
+          >
+            <b className="text-black dark:text-white">
+              {nFormatter(reactions)}
+            </b>{' '}
+            {plur('Like', reactions)}
+          </Link>
         ) : null}
         {countOpenActions > 0 ? (
-          <>
-            <button
-              className="outline-brand-500 outline-offset-2"
-              onClick={() => {
-                setShowCollectorsModal(true);
-                Leafwatch.track(PUBLICATION.OPEN_COLLECTORS, {
-                  publication_id: publicationId
-                });
-              }}
-              type="button"
-            >
-              <b className="text-black dark:text-white">
-                {nFormatter(countOpenActions)}
-              </b>{' '}
-              {plur('Collect', countOpenActions)}
-            </button>
-            <Modal
-              icon={<RectangleStackIcon className="text-brand-500 size-5" />}
-              onClose={() => setShowCollectorsModal(false)}
-              show={showCollectorsModal}
-              title="Collected by"
-            >
-              <Collectors publicationId={publicationId} />
-            </Modal>
-          </>
+          <Link
+            className="outline-offset-2"
+            href={`/posts/${publicationId}/collectors`}
+          >
+            <b className="text-black dark:text-white">
+              {nFormatter(countOpenActions)}
+            </b>{' '}
+            {plur('Collect', countOpenActions)}
+          </Link>
         ) : null}
         {bookmarks > 0 ? (
           <span>
@@ -184,19 +100,10 @@ const PublicationStats: FC<PublicationStatsProps> = ({
           </span>
         ) : null}
         {views > 0 ? (
-          <button
-            className="outline-brand-500 outline-offset-2"
-            onClick={() => {
-              setShowPublicationStatsModal(true, publicationId);
-              Leafwatch.track(PUBLICATION.OPEN_VIEWS, {
-                publication_id: publicationId
-              });
-            }}
-            type="button"
-          >
+          <span>
             <b className="text-black dark:text-white">{nFormatter(views)}</b>{' '}
             {plur('View', views)}
-          </button>
+          </span>
         ) : null}
       </div>
     </>

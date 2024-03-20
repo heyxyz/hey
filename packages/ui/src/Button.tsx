@@ -14,7 +14,7 @@ interface ButtonProps
   icon?: ReactNode;
   outline?: boolean;
   size?: 'lg' | 'md' | 'sm';
-  variant?: 'black' | 'danger' | 'primary' | 'secondary' | 'warning';
+  variant?: 'danger' | 'primary' | 'secondary' | 'warning';
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -31,18 +31,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) {
     const commonStyles = {
-      'border border-black focus:ring-black': variant === 'black',
-      'border border-gray-600 focus:ring-gray-400/50': variant === 'secondary',
-      'border border-red-600 focus:ring-red-400/50': variant === 'danger',
-      'border border-yellow-600 focus:ring-yellow-400/50':
-        variant === 'warning',
-      'border-brand-600 focus:ring-brand-400/50 border': variant === 'primary'
+      'border border-black dark:border-white': variant === 'primary',
+      'border border-gray-600': variant === 'secondary',
+      'border border-red-600': variant === 'danger',
+      'border border-yellow-600 focus:ring-yellow-400/50': variant === 'warning'
     };
 
     const nonOutlineStyles = {
-      'bg-black text-white hover:bg-gray-900 active:bg-black':
-        !outline && variant === 'black',
-      'bg-brand-500 hover:bg-brand-600 active:bg-brand-700 text-white':
+      'bg-black dark:bg-white text-white dark:text-black hover:bg-gray-900 active:bg-black':
         !outline && variant === 'primary',
       'bg-gray-500 text-white hover:bg-gray-600 active:bg-gray-700':
         !outline && variant === 'secondary',
@@ -53,9 +49,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const outlineStyles = {
-      'text-black hover:bg-gray-50 active:bg-black':
-        outline && variant === 'black',
-      'text-brand-500 hover:bg-brand-50 active:bg-brand-100':
+      'text-black hover:bg-gray-50 active:bg-gray-100 dark:text-white dark:hover:bg-gray-800 dark:active:bg-gray-700':
         outline && variant === 'primary',
       'text-gray-500 hover:bg-gray-50 active:bg-gray-100':
         outline && variant === 'secondary',
@@ -67,8 +61,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const sizeStyles = {
       'px-3 py-0.5 text-sm': size === 'sm',
-      'px-3 py-1': size === 'md',
-      'px-4 py-1.5': size === 'lg'
+      'px-4 py-1': size === 'md',
+      'px-5 py-1.5': size === 'lg'
     };
 
     return (
@@ -81,7 +75,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             ...sizeStyles,
             'inline-flex items-center space-x-1.5': icon && children
           },
-          'rounded-lg font-bold shadow-sm outline-none focus:ring-2 focus:ring-offset-1 disabled:opacity-50',
+          'rounded-full font-bold shadow-sm outline-2 outline-offset-2 focus:outline disabled:opacity-50',
           className
         )}
         ref={ref}

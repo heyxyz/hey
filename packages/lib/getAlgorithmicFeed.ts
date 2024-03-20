@@ -21,28 +21,28 @@ const getAlgorithmicFeed = async (
     case HomeFeedType.K3L_POPULAR:
     case HomeFeedType.K3L_RECENT:
     case HomeFeedType.K3L_CROWDSOURCED:
-      return getPublicationIds(
+      return await getPublicationIds(
         AlgorithmProvider.K3L,
         feedType.replace('K3L_', '').toLowerCase(),
         limit,
         offset
-      ).then((data) => data);
+      );
     case HomeFeedType.K3L_FOLLOWING:
-      return getPublicationIds(
+      return await getPublicationIds(
         AlgorithmProvider.K3L,
         feedType.replace('K3L_', '').toLowerCase(),
         limit,
         offset,
         profile?.handle?.fullHandle
-      ).then((data) => data);
+      );
     case HomeFeedType.HEY_MOSTVIEWED:
     case HomeFeedType.HEY_MOSTINTERACTED:
-      return getPublicationIds(
+      return await getPublicationIds(
         AlgorithmProvider.HEY,
         feedType.replace('HEY_', '').toLowerCase(),
         limit,
         offset
-      ).then((data) => data);
+      );
     default:
       return [];
   }

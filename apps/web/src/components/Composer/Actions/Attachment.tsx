@@ -1,4 +1,4 @@
-import type { ChangeEvent, FC } from 'react';
+import type { ChangeEvent, FC, MutableRefObject } from 'react';
 
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
@@ -13,12 +13,12 @@ import {
   MediaAudioMimeType,
   MediaImageMimeType
 } from '@lens-protocol/metadata';
+import { useClickAway } from '@uidotdev/usehooks';
 import { motion } from 'framer-motion';
-import { useId, useRef, useState } from 'react';
+import { useId, useState } from 'react';
 import toast from 'react-hot-toast';
 import useUploadAttachments from 'src/hooks/useUploadAttachments';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
-import { useOnClickOutside } from 'usehooks-ts';
 
 const ImageMimeType = Object.values(MediaImageMimeType);
 const AudioMimeType = Object.values(MediaAudioMimeType);
@@ -31,18 +31,15 @@ const VideoMimeType = [
 ];
 
 const Attachment: FC = () => {
-  const attachments = usePublicationAttachmentStore(
-    (state) => state.attachments
-  );
-  const isUploading = usePublicationAttachmentStore(
-    (state) => state.isUploading
+  const { attachments, isUploading } = usePublicationAttachmentStore(
+    (state) => state
   );
   const { handleUploadAttachments } = useUploadAttachments();
   const [showMenu, setShowMenu] = useState(false);
   const id = useId();
-  const dropdownRef = useRef(null);
-
-  useOnClickOutside(dropdownRef, () => setShowMenu(false));
+  const dropdownRef = useClickAway(() => {
+    setShowMenu(false);
+  }) as MutableRefObject<HTMLDivElement>;
 
   const isTypeAllowed = (files: FileList) => {
     const allowedTypes = [
@@ -80,10 +77,13 @@ const Attachment: FC = () => {
 
     try {
       const { files } = evt.target;
+
       if (!isUploadAllowed(files as FileList)) {
-        toast.error('Exceeded max limit of 1 audio, or 1 video, or 4 images');
-        return;
+        return toast.error(
+          'Exceeded max limit of 1 audio, or 1 video, or 4 images'
+        );
       }
+
       if (isTypeAllowed(files as FileList)) {
         await handleUploadAttachments(files);
         evt.target.value = '';
@@ -91,103 +91,103 @@ const Attachment: FC = () => {
         return toast.error('File format not allowed.');
       }
     } catch {
-      toast.error('Something went wrong while uploading!');
+      return toast.error('Something went wrong while uploading!');
     }
   };
 
   return (
-    <Menu as="div">
-      <Menu.Button
-        aria-label="More"
-        as={motion.button}
-        className="outline-brand-500 rounded-full outline-offset-8"
-        onClick={() => setShowMenu(!showMenu)}
-        whileTap={{ scale: 0.9 }}
-      >
-        {isUploading ? (
-          <Spinner size="sm" />
-        ) : (
-          <Tooltip content="Media" placement="top">
-            <PhotoIcon className="text-brand-500 size-5" />
-          </Tooltip>
-        )}
-      </Menu.Button>
-      <MenuTransition show={showMenu}>
-        <Menu.Items
-          className="absolute z-[5] mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
-          ref={dropdownRef}
-          static
+    <Tooltip content="Media" placement="top">
+      <Menu as="div">
+        <Menu.Button
+          aria-label="More"
+          as={motion.button}
+          className="rounded-full outline-offset-8"
+          onClick={() => setShowMenu(!showMenu)}
+          whileTap={{ scale: 0.9 }}
         >
-          <Menu.Item
-            as="label"
-            className={({ active }) =>
-              cn(
-                { 'dropdown-active': active },
-                'menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
-              )
-            }
-            disabled={disableImageUpload()}
-            htmlFor={`image_${id}`}
+          {isUploading ? (
+            <Spinner size="sm" />
+          ) : (
+            <PhotoIcon className="size-5" />
+          )}
+        </Menu.Button>
+        <MenuTransition show={showMenu}>
+          <Menu.Items
+            className="absolute z-[5] mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+            ref={dropdownRef}
+            static
           >
-            <PhotoIcon className="text-brand-500 size-4" />
-            <span className="text-sm">Upload image(s)</span>
-            <input
-              accept={ImageMimeType.join(',')}
-              className="hidden"
+            <Menu.Item
+              as="label"
+              className={({ active }) =>
+                cn(
+                  { 'dropdown-active': active },
+                  'menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
+                )
+              }
               disabled={disableImageUpload()}
-              id={`image_${id}`}
-              multiple
-              onChange={handleAttachment}
-              type="file"
-            />
-          </Menu.Item>
-          <Menu.Item
-            as="label"
-            className={({ active }) =>
-              cn(
-                { 'dropdown-active': active },
-                'menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
-              )
-            }
-            disabled={Boolean(attachments.length)}
-            htmlFor={`video_${id}`}
-          >
-            <VideoCameraIcon className="text-brand-500 size-4" />
-            <span className="text-sm">Upload video</span>
-            <input
-              accept={VideoMimeType.join(',')}
-              className="hidden"
+              htmlFor={`image_${id}`}
+            >
+              <PhotoIcon className="size-4" />
+              <span className="text-sm">Upload image(s)</span>
+              <input
+                accept={ImageMimeType.join(',')}
+                className="hidden"
+                disabled={disableImageUpload()}
+                id={`image_${id}`}
+                multiple
+                onChange={handleAttachment}
+                type="file"
+              />
+            </Menu.Item>
+            <Menu.Item
+              as="label"
+              className={({ active }) =>
+                cn(
+                  { 'dropdown-active': active },
+                  'menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
+                )
+              }
               disabled={Boolean(attachments.length)}
-              id={`video_${id}`}
-              onChange={handleAttachment}
-              type="file"
-            />
-          </Menu.Item>
-          <Menu.Item
-            as="label"
-            className={({ active }) =>
-              cn(
-                { 'dropdown-active': active },
-                'menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
-              )
-            }
-            disabled={Boolean(attachments.length)}
-            htmlFor={`audio_${id}`}
-          >
-            <MusicalNoteIcon className="text-brand-500 size-4" />
-            <span className="text-sm">Upload audio</span>
-            <input
-              accept={AudioMimeType.join(',')}
-              className="hidden"
+              htmlFor={`video_${id}`}
+            >
+              <VideoCameraIcon className="size-4" />
+              <span className="text-sm">Upload video</span>
+              <input
+                accept={VideoMimeType.join(',')}
+                className="hidden"
+                disabled={Boolean(attachments.length)}
+                id={`video_${id}`}
+                onChange={handleAttachment}
+                type="file"
+              />
+            </Menu.Item>
+            <Menu.Item
+              as="label"
+              className={({ active }) =>
+                cn(
+                  { 'dropdown-active': active },
+                  'menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
+                )
+              }
               disabled={Boolean(attachments.length)}
-              id={`audio_${id}`}
-              onChange={handleAttachment}
-              type="file"
-            />
-          </Menu.Item>
-        </Menu.Items>
-      </MenuTransition>
-    </Menu>
+              htmlFor={`audio_${id}`}
+            >
+              <MusicalNoteIcon className="size-4" />
+              <span className="text-sm">Upload audio</span>
+              <input
+                accept={AudioMimeType.join(',')}
+                className="hidden"
+                disabled={Boolean(attachments.length)}
+                id={`audio_${id}`}
+                onChange={handleAttachment}
+                type="file"
+              />
+            </Menu.Item>
+          </Menu.Items>
+        </MenuTransition>
+      </Menu>
+    </Tooltip>
   );
 };
 
