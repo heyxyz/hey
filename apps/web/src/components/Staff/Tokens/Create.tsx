@@ -3,8 +3,10 @@ import type { FC } from 'react';
 
 import { HEY_API_URL } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
+import { STAFFTOOLS } from '@hey/data/tracking';
 import { Button, Form, Input, useZodForm } from '@hey/ui';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
+import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -33,7 +35,7 @@ const Create: FC<CreateProps> = ({ setShowCreateModal, setTokens, tokens }) => {
     schema: createTokenSchema
   });
 
-  const create = async (
+  const create = (
     name: string,
     symbol: string,
     decimals: string,
@@ -53,6 +55,7 @@ const Create: FC<CreateProps> = ({ setShowCreateModal, setTokens, tokens }) => {
         },
         loading: 'Creating token...',
         success: ({ data }) => {
+          Leafwatch.track(STAFFTOOLS.TOKENS.CREATE);
           setTokens([...tokens, data?.token]);
           setCreating(false);
           setShowCreateModal(false);

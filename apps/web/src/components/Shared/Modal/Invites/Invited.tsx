@@ -16,7 +16,7 @@ const Invited: FC<InvitedProps> = ({ invitedProfiles }) => {
     return (
       <EmptyState
         hideCard
-        icon={<TicketIcon className="text-brand-500 size-8" />}
+        icon={<TicketIcon className="size-8" />}
         message={<div>You haven't invited anyone.</div>}
       />
     );

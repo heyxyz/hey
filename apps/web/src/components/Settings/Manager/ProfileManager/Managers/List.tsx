@@ -7,7 +7,7 @@ import WalletProfile from '@components/Shared/WalletProfile';
 import { MinusCircleIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { Errors } from '@hey/data';
-import { LENSHUB_PROXY } from '@hey/data/constants';
+import { LENS_HUB } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
 import {
   ChangeProfileManagerActionType,
@@ -22,23 +22,19 @@ import { Button, EmptyState, ErrorMessage, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
-import { useInView } from 'react-cool-inview';
 import toast from 'react-hot-toast';
+import { Virtuoso } from 'react-virtuoso';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
 const List: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
-  const lensHubOnchainSigNonce = useNonceStore(
-    (state) => state.lensHubOnchainSigNonce
-  );
-  const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce
-  );
+  const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
+    useNonceStore();
   const [removingAddress, setRemovingAddress] = useState<Address | null>(null);
 
   const handleWrongNetwork = useHandleWrongNetwork();
@@ -71,14 +67,14 @@ const List: FC = () => {
   });
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
-  const { writeContract } = useWriteContract({
+  const { writeContractAsync } = useWriteContract({
     mutation: { onError, onSuccess: () => onCompleted() }
   });
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args,
       functionName: 'changeDelegatedExecutorsConfig'
     });
@@ -92,8 +88,6 @@ const List: FC = () => {
     useCreateChangeProfileManagersTypedDataMutation({
       onCompleted: async ({ createChangeProfileManagersTypedData }) => {
         const { id, typedData } = createChangeProfileManagersTypedData;
-        const signature = await signTypedDataAsync(getSignature(typedData));
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
         const {
           approvals,
           configNumber,
@@ -108,18 +102,22 @@ const List: FC = () => {
           configNumber,
           switchToGivenConfig
         ];
+        await handleWrongNetwork();
+        incrementLensHubOnchainSigNonce();
 
         if (canBroadcast) {
+          const signature = await signTypedDataAsync(getSignature(typedData));
           const { data } = await broadcastOnchain({
             variables: { request: { id, signature } }
           });
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return write({ args });
+            return await write({ args });
           }
+
           return;
         }
 
-        return write({ args });
+        return await write({ args });
       },
       onError
     });
@@ -127,10 +125,6 @@ const List: FC = () => {
   const removeManager = async (address: Address) => {
     if (isSuspended) {
       return toast.error(Errors.Suspended);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
     }
 
     try {
@@ -156,24 +150,18 @@ const List: FC = () => {
   const pageInfo = data?.profileManagers?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      return await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } }
-      });
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    return await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    });
+  };
 
   if (loading) {
-    return (
-      <div className="pb-5">
-        <Loader />
-      </div>
-    );
+    return <Loader className="pb-5" />;
   }
 
   if (error) {
@@ -186,38 +174,40 @@ const List: FC = () => {
     return (
       <EmptyState
         hideCard
-        icon={<UserCircleIcon className="text-brand-500 size-8" />}
+        icon={<UserCircleIcon className="size-8" />}
         message="No profile managers added!"
       />
     );
   }
 
   return (
-    <div className="space-y-4">
-      {profileManagers?.map((manager) => (
-        <div
-          className="flex items-center justify-between"
-          key={manager.address}
-        >
-          <WalletProfile address={manager.address} />
-          <Button
-            disabled={removingAddress === manager.address}
-            icon={
-              removingAddress === manager.address ? (
-                <Spinner size="xs" />
-              ) : (
-                <MinusCircleIcon className="size-4" />
-              )
-            }
-            onClick={() => removeManager(manager.address)}
-            outline
-          >
-            Remove
-          </Button>
-        </div>
-      ))}
-      {hasMore ? <span ref={observe} /> : null}
-    </div>
+    <Virtuoso
+      computeItemKey={(_, manager) => manager.address}
+      data={profileManagers}
+      endReached={onEndReached}
+      itemContent={(_, manager) => {
+        return (
+          <div className="flex items-center justify-between py-2">
+            <WalletProfile address={manager.address} />
+            <Button
+              disabled={removingAddress === manager.address}
+              icon={
+                removingAddress === manager.address ? (
+                  <Spinner size="xs" />
+                ) : (
+                  <MinusCircleIcon className="size-4" />
+                )
+              }
+              onClick={() => removeManager(manager.address)}
+              outline
+            >
+              Remove
+            </Button>
+          </div>
+        );
+      }}
+      useWindowScroll
+    />
   );
 };
 

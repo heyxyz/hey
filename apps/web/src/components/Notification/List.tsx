@@ -17,12 +17,12 @@ import {
   useNotificationsQuery
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { motion } from 'framer-motion';
+import cn from '@hey/ui/cn';
+import { useEffect } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { NotificationTabType } from 'src/enums';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useNotificationStore } from 'src/store/persisted/useNotificationStore';
-import { useUpdateEffect } from 'usehooks-ts';
 
 import NotificationShimmer from './Shimmer';
 import ActedNotification from './Type/ActedNotification';
@@ -38,12 +38,8 @@ interface ListProps {
 }
 
 const List: FC<ListProps> = ({ feedType }) => {
-  const highSignalNotificationFilter = usePreferencesStore(
-    (state) => state.highSignalNotificationFilter
-  );
-  const latestNotificationId = useNotificationStore(
-    (state) => state.latestNotificationId
-  );
+  const { highSignalNotificationFilter } = usePreferencesStore();
+  const { latestNotificationId } = useNotificationStore();
 
   const getNotificationType = () => {
     switch (feedType) {
@@ -79,8 +75,9 @@ const List: FC<ListProps> = ({ feedType }) => {
   const pageInfo = data?.notifications?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     refetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [latestNotificationId]);
 
   const onEndReached = async () => {
@@ -111,7 +108,7 @@ const List: FC<ListProps> = ({ feedType }) => {
   if (notifications?.length === 0) {
     return (
       <EmptyState
-        icon={<BellIcon className="text-brand-500 size-8" />}
+        icon={<BellIcon className="size-8" />}
         message="Inbox zero!"
       />
     );
@@ -121,15 +118,15 @@ const List: FC<ListProps> = ({ feedType }) => {
     <Card>
       <Virtuoso
         className="virtual-notification-list"
+        computeItemKey={(_, notification) => notification.id}
         data={notifications}
         endReached={onEndReached}
         itemContent={(_, notification) => {
           return (
-            <motion.div
-              animate={{ opacity: 1 }}
-              className="p-5"
-              exit={{ opacity: 0 }}
-              initial={{ opacity: 0 }}
+            <div
+              className={cn({
+                'p-5': notification.__typename !== 'FollowNotification'
+              })}
             >
               {notification.__typename === 'FollowNotification' ? (
                 <FollowNotification
@@ -166,7 +163,7 @@ const List: FC<ListProps> = ({ feedType }) => {
                   notification={notification as ActedNotificationType}
                 />
               ) : null}
-            </motion.div>
+            </div>
           );
         }}
         useWindowScroll

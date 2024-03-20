@@ -1,18 +1,19 @@
-import type { AnyPublication, Profile } from '@hey/lens';
+import type { AnyPublication, MirrorablePublication, Profile } from '@hey/lens';
 
+import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 
-interface GlobalAlertState {
+interface State {
   blockingorUnblockingProfile: null | Profile;
   deletingPublication: AnyPublication | null;
-  modingPublicationId: null | string;
+  modingPublication: MirrorablePublication | null;
   setShowBlockOrUnblockAlert: (
     showBlockOrUnblockAlert: boolean,
     blockingorUnblockingProfile: null | Profile
   ) => void;
   setShowGardenerActionsAlert: (
     showGardenerActionsAlert: boolean,
-    modingPublicationId: null | string
+    modingPublication: MirrorablePublication | null
   ) => void;
   setShowPublicationDeleteAlert: (
     showPublicationDeleteAlert: boolean,
@@ -23,19 +24,17 @@ interface GlobalAlertState {
   showPublicationDeleteAlert: boolean;
 }
 
-export const useGlobalAlertStateStore = create<GlobalAlertState>((set) => ({
+const store = create<State>((set) => ({
   blockingorUnblockingProfile: null,
   deletingPublication: null,
   forceDeletePublication: false,
-  modingPublicationId: null,
+  modingPublication: null,
   setShowBlockOrUnblockAlert: (
     showBlockOrUnblockAlert,
     blockingorUnblockingProfile
   ) => set(() => ({ blockingorUnblockingProfile, showBlockOrUnblockAlert })),
-  setShowGardenerActionsAlert: (
-    showGardenerActionsAlert,
-    modingPublicationId
-  ) => set(() => ({ modingPublicationId, showGardenerActionsAlert })),
+  setShowGardenerActionsAlert: (showGardenerActionsAlert, modingPublication) =>
+    set(() => ({ modingPublication, showGardenerActionsAlert })),
   setShowPublicationDeleteAlert: (
     showPublicationDeleteAlert,
     deletingPublication
@@ -44,3 +43,5 @@ export const useGlobalAlertStateStore = create<GlobalAlertState>((set) => ({
   showGardenerActionsAlert: false,
   showPublicationDeleteAlert: false
 }));
+
+export const useGlobalAlertStateStore = createTrackedSelector(store);

@@ -13,20 +13,20 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@apollo/client": "^3.9.2",
+    "@apollo/client": "^3.9.7",
     "@hey/data": "workspace:*",
-    "axios": "^1.6.7",
-    "graphql-ws": "^5.14.3"
+    "axios": "^1.6.8",
+    "graphql-ws": "^5.15.0"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^5.0.0",
-    "@graphql-codegen/fragment-matcher": "^5.0.0",
-    "@graphql-codegen/typescript": "^4.0.1",
-    "@graphql-codegen/typescript-operations": "^4.0.1",
-    "@graphql-codegen/typescript-react-apollo": "^4.2.0",
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/fragment-matcher": "^5.0.2",
+    "@graphql-codegen/typescript": "^4.0.6",
+    "@graphql-codegen/typescript-operations": "^4.2.0",
+    "@graphql-codegen/typescript-react-apollo": "^4.3.0",
     "@hey/config": "workspace:*",
-    "@parcel/watcher": "^2.4.0",
-    "@types/node": "^20.11.16",
-    "typescript": "^5.3.3"
+    "@parcel/watcher": "^2.4.1",
+    "@types/node": "^20.11.30",
+    "typescript": "^5.4.2"
   }
 }

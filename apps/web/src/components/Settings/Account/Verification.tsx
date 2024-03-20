@@ -2,12 +2,12 @@ import type { FC } from 'react';
 
 import { CheckBadgeIcon } from '@heroicons/react/24/solid';
 import { Card } from '@hey/ui';
-import Link from 'next/link';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { Crisp } from 'crisp-sdk-web';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { hydrateVerifiedMembers } from 'src/store/persisted/useVerifiedMembersStore';
 
 const Verification: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { verifiedMembers } = hydrateVerifiedMembers();
 
   return (
@@ -19,17 +19,29 @@ const Verification: FC = () => {
           <CheckBadgeIcon className="text-brand-500 size-5" />
         </div>
       ) : (
-        <div className="linkify">
+        <div className="linkify-button">
           <span>No. </span>
-          <Link
-            href={`/-/verification-request?Lens%20Handle=${currentProfile?.handle?.suggestedFormatted.localName.replace(
-              '@',
-              ''
-            )}`}
-            target="_blank"
+          <button
+            onClick={() => {
+              Crisp.chat.show();
+              Crisp.message.show('picker', {
+                choices: [
+                  { label: 'Creator', selected: false, value: 'creator' },
+                  { label: 'Journalist', selected: false, value: 'journalist' },
+                  {
+                    label: 'Public Figure',
+                    selected: false,
+                    value: 'public-figure'
+                  },
+                  { label: 'Other', selected: false, value: 'other' }
+                ],
+                id: 'verification-request',
+                text: 'Hi, why do you think you should be verified? And tell us more about yourself.'
+              });
+            }}
           >
             Request for profile verification
-          </Link>
+          </button>
         </div>
       )}
     </Card>

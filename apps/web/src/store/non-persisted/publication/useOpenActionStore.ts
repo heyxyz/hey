@@ -1,6 +1,7 @@
 import type { OpenAction } from '@hey/data/enums';
 import type { UnknownOpenActionModuleInput } from '@hey/lens';
 
+import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 
 export enum ScreenType {
@@ -8,7 +9,7 @@ export enum ScreenType {
   List = 'LIST'
 }
 
-interface OpenActionState {
+interface State {
   openAction: null | UnknownOpenActionModuleInput;
   reset: () => void;
   screen: ScreenType;
@@ -20,7 +21,7 @@ interface OpenActionState {
   showModal: boolean;
 }
 
-export const useOpenActionStore = create<OpenActionState>((set) => ({
+const store = create<State>((set) => ({
   openAction: null,
   reset: () =>
     set({
@@ -36,3 +37,5 @@ export const useOpenActionStore = create<OpenActionState>((set) => ({
   setShowModal: (showModal) => set({ showModal }),
   showModal: false
 }));
+
+export const useOpenActionStore = createTrackedSelector(store);

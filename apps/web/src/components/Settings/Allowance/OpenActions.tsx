@@ -8,7 +8,7 @@ import getAllTokens from '@hey/lib/api/getAllTokens';
 import { ErrorMessage, Select } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Allowance from './Allowance';
 
@@ -20,7 +20,10 @@ const getAllowancePayload = (currency: string) => {
 };
 
 const OpenActions: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
+  const [selectedCurrency, setSelectedCurrency] = useState(
+    DEFAULT_COLLECT_TOKEN
+  );
   const [currencyLoading, setCurrencyLoading] = useState(false);
 
   const {
@@ -62,24 +65,24 @@ const OpenActions: FC = () => {
         <div className="divider my-5" />
         <div className="label mt-6">Select currency</div>
         <Select
-          onChange={(e) => {
+          onChange={(value) => {
             setCurrencyLoading(true);
+            setSelectedCurrency(value);
             refetch({
-              request: getAllowancePayload(e.target.value)
+              request: getAllowancePayload(value)
             }).finally(() => setCurrencyLoading(false));
           }}
           options={
             allowedTokens?.map((token) => ({
               label: token.name,
+              selected: token.contractAddress === selectedCurrency,
               value: token.contractAddress
             })) || [{ label: 'Loading...', value: 'Loading...' }]
           }
         />
       </div>
       {loading || allowedTokensLoading || currencyLoading ? (
-        <div className="py-5">
-          <Loader />
-        </div>
+        <Loader className="py-5" />
       ) : (
         <Allowance allowance={data} />
       )}

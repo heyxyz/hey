@@ -6,7 +6,7 @@ import PaidActionsShimmer from '@components/Shared/Shimmer/PaidActionsShimmer';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { LimitType, useLatestPaidActionsQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { useInView } from 'react-cool-inview';
+import { Virtuoso } from 'react-virtuoso';
 
 import OpenActionPaidAction from './OpenActionPaidAction';
 
@@ -24,17 +24,15 @@ const PaidActions: FC = () => {
   const pageInfo = data?.latestPaidActions?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } }
-      });
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    return await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    });
+  };
 
   if (loading) {
     return <PaidActionsShimmer />;
@@ -43,7 +41,7 @@ const PaidActions: FC = () => {
   if (actions?.length === 0) {
     return (
       <EmptyState
-        icon={<CurrencyDollarIcon className="text-brand-500 size-8" />}
+        icon={<CurrencyDollarIcon className="size-8" />}
         message="No paid actions yet!"
       />
     );
@@ -54,10 +52,19 @@ const PaidActions: FC = () => {
   }
 
   return (
-    <div className="space-y-5">
-      {actions?.map((action, index) =>
-        action.__typename === 'OpenActionPaidAction' ? (
-          <Card key={`${action.actedOn?.id}_${index}`}>
+    <Virtuoso
+      className="[&>div>div]:space-y-5"
+      components={{ Footer: () => <div className="pb-5" /> }}
+      computeItemKey={(index, action) =>
+        action.__typename === 'OpenActionPaidAction'
+          ? `${action.actedOn?.id}_${index}`
+          : index
+      }
+      data={actions}
+      endReached={onEndReached}
+      itemContent={(index, action) => {
+        return action.__typename === 'OpenActionPaidAction' ? (
+          <Card>
             <OpenActionPaidAction
               latestActed={action.latestActed as LatestActed[]}
               publication={action.actedOn as AnyPublication}
@@ -67,12 +74,13 @@ const PaidActions: FC = () => {
               isFirst={false}
               isLast
               publication={action.actedOn as AnyPublication}
+              showThread={false}
             />
           </Card>
-        ) : null
-      )}
-      {hasMore ? <span ref={observe} /> : null}
-    </div>
+        ) : null;
+      }}
+      useWindowScroll
+    />
   );
 };
 

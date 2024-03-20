@@ -14,7 +14,7 @@ import { OpenActionModuleType } from '@hey/lens';
 import splitNumber from '@hey/lib/splitNumber';
 import { Button, Input } from '@hey/ui';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { isAddress } from 'viem';
 
 interface SplitConfigProps {
@@ -26,8 +26,8 @@ const SplitConfig: FC<SplitConfigProps> = ({
   isRecipientsDuplicated,
   setCollectType
 }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const collectModule = useCollectModuleStore((state) => state.collectModule);
+  const { currentProfile } = useProfileStore();
+  const { collectModule } = useCollectModuleStore((state) => state);
 
   const recipients = collectModule.recipients || [];
   const hasRecipients = (recipients || []).length > 0;
@@ -140,7 +140,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
                   }}
                   type="button"
                 >
-                  <XCircleIcon className="size-5 text-red-500" />
+                  <XCircleIcon className="size-5" />
                 </button>
               </div>
             ))}

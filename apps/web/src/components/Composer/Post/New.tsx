@@ -6,26 +6,22 @@ import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import { Card, Image } from '@hey/ui';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce } from 'usehooks-ts';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 const NewPost: FC = () => {
   const { isReady, push, query } = useRouter();
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const setShowNewPostModal = useGlobalModalStateStore(
-    (state) => state.setShowNewPostModal
-  );
-  const setPublicationContent = usePublicationStore(
-    (state) => state.setPublicationContent
-  );
+  const { currentProfile } = useProfileStore();
+  const { setShowNewPostModal } = useGlobalModalStateStore();
+  const { setPublicationContent } = usePublicationStore();
 
   const openModal = () => {
     setShowNewPostModal(true);
   };
 
-  useEffectOnce(() => {
+  useEffect(() => {
     if (isReady && query.text) {
       const { hashtags, text, url, via } = query;
       let processedHashtags;
@@ -44,7 +40,8 @@ const NewPost: FC = () => {
       openModal();
       setPublicationContent(content);
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Card className="space-y-3 p-5">
@@ -61,12 +58,12 @@ const NewPost: FC = () => {
           width={44}
         />
         <button
-          className="outline-brand-500 flex w-full items-center space-x-2 rounded-xl border bg-gray-100 px-4 py-2 dark:border-gray-700 dark:bg-gray-900"
+          className="flex w-full items-center space-x-2 rounded-xl border bg-gray-100 px-4 py-2 dark:border-gray-700 dark:bg-gray-900"
           onClick={() => openModal()}
           type="button"
         >
           <PencilSquareIcon className="size-5" />
-          <span>What's happening?</span>
+          <span>What's new?!</span>
         </button>
       </div>
     </Card>

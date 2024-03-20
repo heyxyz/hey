@@ -1,11 +1,14 @@
+import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 
-interface ProfileFeedState {
+interface State {
   mediaFeedFilters: Record<string, boolean>;
   setMediaFeedFilters: (feedEventFilters: Record<string, boolean>) => void;
 }
 
-export const useProfileFeedStore = create<ProfileFeedState>((set) => ({
+const store = create<State>((set) => ({
   mediaFeedFilters: { audio: true, images: true, video: true },
   setMediaFeedFilters: (mediaFeedFilters) => set(() => ({ mediaFeedFilters }))
 }));
+
+export const useProfileFeedStore = createTrackedSelector(store);

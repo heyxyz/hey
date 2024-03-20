@@ -1,10 +1,12 @@
+const { withSentryConfig } = require('@sentry/nextjs');
+
 const allowedBots =
   '.*(bot|telegram|baidu|bing|yandex|iframely|whatsapp|facebook).*';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: { scrollRestoration: true },
-  async headers() {
+  headers() {
     return [
       {
         headers: [
@@ -17,17 +19,17 @@ const nextConfig = {
     ];
   },
   reactStrictMode: false,
-  async redirects() {
+  redirects() {
     return [
+      {
+        destination: '/?signup=true',
+        permanent: false,
+        source: '/signup'
+      },
       {
         destination: 'https://discord.com/invite/B8eKhSSUwX',
         permanent: true,
         source: '/discord'
-      },
-      {
-        destination: 'https://giveth.io/project/hey?utm_source=hey',
-        permanent: true,
-        source: '/donate'
       },
       {
         destination:
@@ -44,30 +46,31 @@ const nextConfig = {
       },
       {
         destination:
-          'https://hey.height.app/?taskForm=Verification-Request-fBxpj55hUMmf',
-        permanent: true,
-        source: '/-/verification-request'
-      },
-      {
-        destination: 'https://tally.so/r/3No6NQ',
-        permanent: true,
-        source: '/-/trusted'
-      },
-      {
-        destination:
-          'https://reflect.site/g/yoginth/-hey-changelog/c6eae172c9cd43cebfc38b5afc64e456',
+          'https://yoginth.notion.site/Hey-Changelog-eb2a41319c1b40be8e22e5deb01efd10',
         permanent: true,
         source: '/-/changelog'
       },
       {
         destination:
-          'https://reflect.site/g/yoginth/hey-portal-open-graph-spec/cd7225f128274da382f1f516e7e63f15',
+          'https://plugins.crisp.chat/urn:crisp.im:contact-form:0/contact/37355035-47aa-4f42-ad47-cffc3d1fea16',
+        permanent: true,
+        source: '/support'
+      },
+      {
+        destination:
+          'https://yoginth.notion.site/Hey-Portals-Open-Graph-Spec-ddbedce64a2d4e1a80f66db182159aff',
         permanent: true,
         source: '/-/portals'
+      },
+      {
+        destination:
+          'https://yoginth.notion.site/Hey-Moderation-Tool-Guide-ff1926a080fa44bc9d40ee534f627949',
+        permanent: true,
+        source: '/-/mod-guide'
       }
     ];
   },
-  async rewrites() {
+  rewrites() {
     return [
       {
         destination: 'https://api.hey.xyz/sitemap/:match*',
@@ -88,4 +91,15 @@ const nextConfig = {
   transpilePackages: ['data']
 };
 
-module.exports = nextConfig;
+module.exports = withSentryConfig(
+  nextConfig,
+  { org: 'heyverse', project: 'web', silent: true },
+  {
+    automaticVercelMonitors: true,
+    disableLogger: true,
+    hideSourceMaps: true,
+    transpileClientSDK: true,
+    tunnelRoute: '/monitoring',
+    widenClientFileUpload: true
+  }
+);

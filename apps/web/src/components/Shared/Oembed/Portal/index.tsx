@@ -1,26 +1,29 @@
+import type { Portal as IPortal } from '@hey/types/misc';
+import type { FC } from 'react';
+
+import { LinkIcon } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data';
 import { HEY_API_URL } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Portal } from '@hey/types/misc';
 import { Button, Card } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
-import { type FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface PortalProps {
-  portal: Portal;
+  portal: IPortal;
   publicationId?: string;
 }
 
 const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const [portalData, setPortalData] = useState<null | Portal>(null);
-  const [loading, setLoading] = useState(false);
+  const { currentProfile } = useProfileStore();
+  const [portalData, setPortalData] = useState<IPortal | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (portal) {
@@ -32,7 +35,7 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
     return null;
   }
 
-  const { buttons, image, postUrl } = portalData;
+  const { buttons, image, portalUrl, postUrl } = portalData;
 
   const onPost = async (index: number) => {
     if (!currentProfile) {
@@ -40,10 +43,10 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
     }
 
     try {
-      setLoading(true);
+      setIsLoading(true);
 
-      const { data }: { data: { portal: Portal } } = await axios.post(
-        `${HEY_API_URL}/portal/act`,
+      const { data }: { data: { portal: IPortal } } = await axios.post(
+        `${HEY_API_URL}/portal/post`,
         { buttonIndex: index + 1, postUrl, publicationId },
         { headers: getAuthApiHeaders() }
       );
@@ -56,7 +59,7 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
     } catch {
       toast.error(Errors.SomethingWrongWithPortal);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -76,26 +79,40 @@ const Portal: FC<PortalProps> = ({ portal, publicationId }) => {
           'grid gap-4 p-5 dark:border-gray-700'
         )}
       >
-        {buttons.map(({ button, type }, index) => (
+        {buttons.map(({ action, button, target }, index) => (
           <Button
-            disabled={loading || !publicationId || !currentProfile}
+            className="justify-center"
+            disabled={isLoading || !publicationId || !currentProfile}
+            icon={
+              (action === 'link' ||
+                action === 'post_redirect' ||
+                action === 'mint') && <LinkIcon className="size-4" />
+            }
             key={index}
             onClick={() => {
               Leafwatch.track(PUBLICATION.CLICK_PORTAL_BUTTON, {
-                publication_id: publicationId,
-                type
+                action,
+                publication_id: publicationId
               });
 
-              if (type === 'redirect') {
-                window.open(postUrl, '_blank');
-              } else if (type === 'submit') {
+              if (
+                action === 'link' ||
+                action === 'post_redirect' ||
+                action === 'mint'
+              ) {
+                const url = action === 'mint' ? portalUrl : target || portalUrl;
+                window.open(url, '_blank');
+              } else if (action === 'post') {
                 onPost(index);
               }
             }}
             outline
             size="lg"
-            type={type === 'submit' ? 'submit' : 'button'}
-            variant="secondary"
+            type={
+              action === 'post' || action === 'post_redirect'
+                ? 'submit'
+                : 'button'
+            }
           >
             {button}
           </Button>

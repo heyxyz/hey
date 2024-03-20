@@ -20,25 +20,11 @@ interface UsePublicationMetadataProps {
 }
 
 const usePublicationMetadata = () => {
-  const videoDurationInSeconds = usePublicationVideoStore(
-    (state) => state.videoDurationInSeconds
-  );
-  const videoThumbnail = usePublicationVideoStore(
-    (state) => state.videoThumbnail
-  );
-  const audioPublication = usePublicationAudioStore(
-    (state) => state.audioPublication
-  );
-  const license = usePublicationLicenseStore((state) => state.license);
-  const attachments = usePublicationAttachmentStore(
-    (state) => state.attachments
-  );
-  const liveVideoConfig = usePublicationLiveStore(
-    (state) => state.liveVideoConfig
-  );
-  const showLiveVideoEditor = usePublicationLiveStore(
-    (state) => state.showLiveVideoEditor
-  );
+  const { videoDurationInSeconds, videoThumbnail } = usePublicationVideoStore();
+  const { audioPublication } = usePublicationAudioStore();
+  const { license } = usePublicationLicenseStore();
+  const { attachments } = usePublicationAttachmentStore((state) => state);
+  const { liveVideoConfig, showLiveVideoEditor } = usePublicationLiveStore();
 
   const attachmentsHasAudio = attachments[0]?.type === 'Audio';
   const attachmentsHasVideo = attachments[0]?.type === 'Video';
@@ -89,6 +75,7 @@ const usePublicationMetadata = () => {
             ...localBaseMetadata,
             attachments: attachmentsToBeUploaded,
             image: {
+              ...(license && { license }),
               item: attachments[0]?.uri,
               type: attachments[0]?.mimeType
             }

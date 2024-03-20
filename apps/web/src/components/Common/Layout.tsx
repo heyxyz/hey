@@ -8,14 +8,15 @@ import PageMetatags from '@components/Shared/PageMetatags';
 import { useCurrentProfileQuery } from '@hey/lens';
 import getCurrentSession from '@lib/getCurrentSession';
 import getToastOptions from '@lib/getToastOptions';
+import { useIsClient } from '@uidotdev/usehooks';
 import { useTheme } from 'next-themes';
+import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { hydrateAuthTokens, signOut } from 'src/store/persisted/useAuthStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce, useIsMounted } from 'usehooks-ts';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { isAddress } from 'viem';
 import { useDisconnect } from 'wagmi';
 
@@ -29,19 +30,13 @@ interface LayoutProps {
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   const { resolvedTheme } = useTheme();
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const setCurrentProfile = useProfileStore((state) => state.setCurrentProfile);
-  const resetPreferences = usePreferencesStore(
-    (state) => state.resetPreferences
-  );
-  const resetFeatureFlags = useFeatureFlagsStore(
-    (state) => state.resetFeatureFlags
-  );
-  const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce
-  );
+  const { currentProfile, setCurrentProfile, setFallbackToCuratedFeed } =
+    useProfileStore();
+  const { resetPreferences } = usePreferencesStore();
+  const { resetFeatureFlags } = useFeatureFlagsStore();
+  const { setLensHubOnchainSigNonce } = useNonceStore();
 
-  const isMounted = useIsMounted();
+  const isMounted = useIsClient();
   const { disconnect } = useDisconnect();
 
   const { id: sessionProfileId } = getCurrentSession();
@@ -60,6 +55,11 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     onCompleted: ({ profile, userSigNonces }) => {
       setCurrentProfile(profile as Profile);
       setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce);
+
+      // If the user has no following, we should fallback to the curated feed
+      if (profile?.stats.followers === 0) {
+        setFallbackToCuratedFeed(true);
+      }
     },
     onError: () => logout(true),
     skip: !sessionProfileId || isAddress(sessionProfileId),
@@ -74,13 +74,14 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     }
   };
 
-  useEffectOnce(() => {
+  useEffect(() => {
     validateAuthentication();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const profileLoading = !currentProfile && loading;
 
-  if (profileLoading || !isMounted()) {
+  if (profileLoading || !isMounted) {
     return <Loading />;
   }
 

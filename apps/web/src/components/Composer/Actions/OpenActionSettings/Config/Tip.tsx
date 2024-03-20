@@ -1,3 +1,4 @@
+import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import SearchProfiles from '@components/Shared/SearchProfiles';
@@ -6,10 +7,9 @@ import { ADDRESS_PLACEHOLDER } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import formatAddress from '@hey/lib/formatAddress';
 import { Radio } from '@hey/ui';
-import { type FC } from 'react';
+import { useEffect } from 'react';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce } from 'usehooks-ts';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { encodeAbiParameters, isAddress } from 'viem';
 import { create } from 'zustand';
 
@@ -32,20 +32,19 @@ const useTipActionStore = create<TipActionState>((set) => ({
 }));
 
 const TipConfig: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
-  const openAction = useOpenActionStore((state) => state.openAction);
-  const setShowModal = useOpenActionStore((state) => state.setShowModal);
-  const setOpenAction = useOpenActionStore((state) => state.setOpenAction);
+  const { currentProfile } = useProfileStore();
+  const { openAction, setOpenAction, setShowModal } = useOpenActionStore();
   const { enabled, recipient, reset, setEnabled, setRecipient } =
     useTipActionStore();
 
   const isSelfTip = recipient === currentProfile?.ownedBy.address;
 
-  useEffectOnce(() => {
+  useEffect(() => {
     if (!openAction) {
       reset();
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onSave = () => {
     setOpenAction({

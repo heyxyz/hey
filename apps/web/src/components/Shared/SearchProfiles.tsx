@@ -7,7 +7,6 @@ import {
   useSearchProfilesLazyQuery
 } from '@hey/lens';
 import { Card, Input, Spinner } from '@hey/ui';
-import { motion } from 'framer-motion';
 
 import SmallUserProfile from './SmallUserProfile';
 
@@ -69,11 +68,8 @@ const SearchProfiles: FC<SearchProfilesProps> = ({
             ) : (
               <>
                 {profiles.slice(0, 7).map((profile) => (
-                  <motion.div
-                    animate={{ opacity: 1 }}
+                  <div
                     className="cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-                    exit={{ opacity: 0 }}
-                    initial={{ opacity: 0 }}
                     key={profile.id}
                     onClick={() => {
                       if (onProfileSelected) {
@@ -82,7 +78,7 @@ const SearchProfiles: FC<SearchProfilesProps> = ({
                     }}
                   >
                     <SmallUserProfile profile={profile} />
-                  </motion.div>
+                  </div>
                 ))}
                 {profiles.length === 0 ? (
                   <div className="px-4 py-2">No matching users</div>

@@ -10,28 +10,16 @@ const PageMetatags: FC = () => {
 
   const getOg = () => {
     switch (pathname) {
+      case '/signup': {
+        return {
+          description: `Signup on ${APP_NAME} to create, share and discover content.`,
+          title: `Signup • ${APP_NAME}`
+        };
+      }
       case '/explore': {
         return {
           description: `Explore top commented, collected and latest publications in the ${APP_NAME}.`,
           title: `Explore • ${APP_NAME}`
-        };
-      }
-      case '/new/profile': {
-        return {
-          description: `Create new Lens profile on ${APP_NAME}.`,
-          title: `Create Profile • ${APP_NAME}`
-        };
-      }
-      case '/pro': {
-        return {
-          description: `${APP_NAME} Pro is a paid subscription that gives you access to more features and benefits.`,
-          title: `Pro • ${APP_NAME}`
-        };
-      }
-      case '/support': {
-        return {
-          description: `Contact ${APP_NAME} support team.`,
-          title: `Support • ${APP_NAME}`
         };
       }
       case '/privacy': {

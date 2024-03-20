@@ -9,4 +9,5 @@ fragment PublicationOperationFields on PublicationOperations {
   canMirror
   hasMirrored
   hasQuoted
+  hasReported
 }

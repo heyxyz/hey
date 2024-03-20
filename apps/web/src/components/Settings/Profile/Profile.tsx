@@ -9,12 +9,12 @@ import type { z } from 'zod';
 
 import ChooseFile from '@components/Shared/ChooseFile';
 import ImageCropperController from '@components/Shared/ImageCropperController';
-import { PencilIcon } from '@heroicons/react/24/outline';
+import { InformationCircleIcon, PencilIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import {
   AVATAR,
   COVER,
-  LENSHUB_PROXY,
+  LENS_HUB,
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
@@ -57,7 +57,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 import { object, string, union } from 'zod';
 
@@ -81,7 +81,7 @@ const editProfileSchema = object({
 type FormData = z.infer<typeof editProfileSchema>;
 
 const ProfileSettingsForm: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -143,14 +143,14 @@ const ProfileSettingsForm: FC = () => {
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
-  const { error, writeContract } = useWriteContract({
+  const { error, writeContractAsync } = useWriteContract({
     mutation: { onError, onSuccess: () => onCompleted() }
   });
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args,
       functionName: 'setProfileMetadataURI'
     });
@@ -165,6 +165,7 @@ const ProfileSettingsForm: FC = () => {
       onCompleted: async ({ createOnchainSetProfileMetadataTypedData }) => {
         const { id, typedData } = createOnchainSetProfileMetadataTypedData;
         const { metadataURI, profileId } = typedData.value;
+        await handleWrongNetwork();
 
         if (canBroadcast) {
           const signature = await signTypedDataAsync(getSignature(typedData));
@@ -172,13 +173,13 @@ const ProfileSettingsForm: FC = () => {
             variables: { request: { id, signature } }
           });
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return write({ args: [profileId, metadataURI] });
+            return await write({ args: [profileId, metadataURI] });
           }
 
           return;
         }
 
-        return write({ args: [profileId, metadataURI] });
+        return await write({ args: [profileId, metadataURI] });
       },
       onError
     });
@@ -193,6 +194,7 @@ const ProfileSettingsForm: FC = () => {
     const { data } = await setProfileMetadata({
       variables: { request }
     });
+
     if (
       data?.setProfileMetadata?.__typename === 'LensProfileManagerRelayError'
     ) {
@@ -229,10 +231,6 @@ const ProfileSettingsForm: FC = () => {
 
     if (isSuspended) {
       return toast.error(Errors.Suspended);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
     }
 
     try {
@@ -300,14 +298,6 @@ const ProfileSettingsForm: FC = () => {
   };
 
   const uploadAndSave = async (type: 'avatar' | 'cover') => {
-    if (!currentProfile) {
-      return toast.error(Errors.SignWallet);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
-    }
-
     try {
       const croppedImage = await getCroppedImg(
         type === 'avatar' ? profilePictureSrc : coverPictureSrc,
@@ -491,29 +481,37 @@ const ProfileSettingsForm: FC = () => {
               }
         }
         show={showCoverPictureCropModal}
-        size="md"
+        size="lg"
         title="Crop cover picture"
       >
         <div className="p-5 text-right">
           <ImageCropperController
             imageSrc={coverPictureSrc}
             setCroppedAreaPixels={setCoverPictureCroppedAreaPixels}
-            targetSize={{ height: 500, width: 1500 }}
+            targetSize={{ height: 350, width: 2545 }}
           />
-          <Button
-            disabled={uploadingCoverPicture || !coverPictureSrc}
-            icon={
-              uploadingCoverPicture ? (
-                <Spinner size="xs" />
-              ) : (
-                <PencilIcon className="size-4" />
-              )
-            }
-            onClick={() => uploadAndSave('cover')}
-            type="submit"
-          >
-            Upload
-          </Button>
+          <div className="flex w-full flex-wrap items-center justify-between gap-y-3">
+            <div className="ld-text-gray-500 flex items-center space-x-1 text-left text-sm">
+              <InformationCircleIcon className="size-4" />
+              <div>
+                Optimal cover picture size is <b>2545x350</b>
+              </div>
+            </div>
+            <Button
+              disabled={uploadingCoverPicture || !coverPictureSrc}
+              icon={
+                uploadingCoverPicture ? (
+                  <Spinner size="xs" />
+                ) : (
+                  <PencilIcon className="size-4" />
+                )
+              }
+              onClick={() => uploadAndSave('cover')}
+              type="submit"
+            >
+              Upload
+            </Button>
+          </div>
         </div>
       </Modal>
       {/* Picture */}
@@ -522,7 +520,7 @@ const ProfileSettingsForm: FC = () => {
           isLoading
             ? undefined
             : () => {
-                setCoverPictureSrc('');
+                setProfilePictureSrc('');
                 setShowProfilePictureCropModal(false);
               }
         }

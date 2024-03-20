@@ -7,24 +7,21 @@ import {
   UserGroupIcon
 } from '@heroicons/react/24/outline';
 import { OpenActionModuleType } from '@hey/lens';
-import cn from '@hey/ui/cn';
 
 interface GetOpenActionModuleIconProps {
-  className?: string;
   module?: OpenActionModule;
 }
 
 const GetOpenActionModuleIcon: FC<GetOpenActionModuleIconProps> = ({
-  className = '',
   module
 }) => {
   switch (module?.type) {
     case OpenActionModuleType.SimpleCollectOpenActionModule:
-      return <DocumentPlusIcon className={cn('size-5', className)} />;
+      return <DocumentPlusIcon className="size-5" />;
     case OpenActionModuleType.MultirecipientFeeCollectOpenActionModule:
-      return <UserGroupIcon className={cn('size-5', className)} />;
+      return <UserGroupIcon className="size-5" />;
     default:
-      return <BriefcaseIcon className={cn('size-5', className)} />;
+      return <BriefcaseIcon className="size-5" />;
   }
 };
 

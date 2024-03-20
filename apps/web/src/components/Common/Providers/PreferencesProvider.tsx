@@ -11,38 +11,23 @@ import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useVerifiedMembersStore } from 'src/store/persisted/useVerifiedMembersStore';
-import { isAddress } from 'viem';
 
 const PreferencesProvider: FC = () => {
   const { id: sessionProfileId } = getCurrentSession();
-  const setVerifiedMembers = useVerifiedMembersStore(
-    (state) => state.setVerifiedMembers
-  );
-  const setHighSignalNotificationFilter = usePreferencesStore(
-    (state) => state.setHighSignalNotificationFilter
-  );
-  const setIsPride = usePreferencesStore((state) => state.setIsPride);
-  const setIsPro = usePreferencesStore((state) => state.setIsPro);
-  const setRestriction = useProfileRestriction((state) => state.setRestriction);
-  const setHasDismissedOrMintedMembershipNft = usePreferencesStore(
-    (state) => state.setHasDismissedOrMintedMembershipNft
-  );
-  const setFeatureFlags = useFeatureFlagsStore(
-    (state) => state.setFeatureFlags
-  );
-  const setKillSwitches = useFeatureFlagsStore(
-    (state) => state.setKillSwitches
-  );
-  const setTrusted = useFeatureFlagsStore((state) => state.setTrusted);
-  const setStaffMode = useFeatureFlagsStore((state) => state.setStaffMode);
-  const setGardenerMode = useFeatureFlagsStore(
-    (state) => state.setGardenerMode
-  );
+  const { setVerifiedMembers } = useVerifiedMembersStore();
+  const {
+    setHasDismissedOrMintedMembershipNft,
+    setHighSignalNotificationFilter,
+    setIsPride
+  } = usePreferencesStore();
+  const { setRestriction } = useProfileRestriction();
+  const { setFeatureFlags, setGardenerMode, setStaffMode } =
+    useFeatureFlagsStore();
 
   // Fetch preferences
   const fetchPreferences = async () => {
     try {
-      if (Boolean(sessionProfileId) && !isAddress(sessionProfileId)) {
+      if (Boolean(sessionProfileId)) {
         const preferences = await getPreferences(
           sessionProfileId,
           getAuthApiHeaders()
@@ -54,12 +39,8 @@ const PreferencesProvider: FC = () => {
         );
         setIsPride(preferences.isPride);
 
-        // Pro
-        setIsPro(preferences.isPro);
-
         // Feature flags
         setFeatureFlags(preferences.features);
-        setKillSwitches(preferences.switches);
         setStaffMode(preferences.features.includes(FeatureFlag.StaffMode));
         setGardenerMode(
           preferences?.features.includes(FeatureFlag.GardenerMode)
@@ -68,7 +49,6 @@ const PreferencesProvider: FC = () => {
           isFlagged: preferences.features.includes(FeatureFlag.Flagged),
           isSuspended: preferences.features.includes(FeatureFlag.Suspended)
         });
-        setTrusted(preferences.features.includes(FeatureFlag.TrustedProfile));
 
         // Membership NFT
         setHasDismissedOrMintedMembershipNft(

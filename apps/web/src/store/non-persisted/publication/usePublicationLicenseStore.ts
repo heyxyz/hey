@@ -1,15 +1,16 @@
 import type { MetadataLicenseType } from '@lens-protocol/metadata';
 
+import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 
-interface PublicationLicenseState {
+interface State {
   license: MetadataLicenseType | null;
   setLicense: (license: MetadataLicenseType | null) => void;
 }
 
-export const usePublicationLicenseStore = create<PublicationLicenseState>(
-  (set) => ({
-    license: null,
-    setLicense: (license) => set(() => ({ license }))
-  })
-);
+const store = create<State>((set) => ({
+  license: null,
+  setLicense: (license) => set(() => ({ license }))
+}));
+
+export const usePublicationLicenseStore = createTrackedSelector(store);

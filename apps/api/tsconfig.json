@@ -4,10 +4,7 @@
     "module": "commonjs",
     "noEmit": false,
     "outDir": "dist",
-    "baseUrl": ".",
-    "paths": {
-      "@utils*": ["src/utils*"]
-    }
+    "baseUrl": "."
   },
   "include": ["next-env.d.ts", "**/*.ts", "src"]
 }

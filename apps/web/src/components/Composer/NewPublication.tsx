@@ -17,10 +17,6 @@ import QuotedPublication from '@components/Publication/QuotedPublication';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
-import {
-  ChatBubbleLeftRightIcon,
-  PencilSquareIcon
-} from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
 import { ReferenceModuleType } from '@hey/lens';
@@ -28,24 +24,21 @@ import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import collectModuleParams from '@hey/lib/collectModuleParams';
 import getProfile from '@hey/lib/getProfile';
 import removeQuoteOn from '@hey/lib/removeQuoteOn';
-import { Button, Card, ErrorMessage, Spinner } from '@hey/ui';
+import { Button, Card, ErrorMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { MetadataAttributeType } from '@lens-protocol/metadata';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import errorToast from '@lib/errorToast';
-import getTextNftUrl from '@lib/getTextNftUrl';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
 import { useUnmountEffect } from 'framer-motion';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import useCreatePoll from 'src/hooks/useCreatePoll';
 import useCreatePublication from 'src/hooks/useCreatePublication';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import usePublicationMetadata from 'src/hooks/usePublicationMetadata';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
@@ -60,51 +53,45 @@ import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModal
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
-import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
-import LivestreamSettings from './Actions/LivestreamSettings';
 import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
 import LinkPreviews from './LinkPreviews';
 import Discard from './Post/Discard';
 
+const Shimmer = <div className="shimmer mb-1 size-5 rounded-lg" />;
+
 const Attachment = dynamic(
   () => import('@components/Composer/Actions/Attachment'),
-  {
-    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
-  }
+  { loading: () => Shimmer }
 );
 const EmojiPicker = dynamic(() => import('@components/Shared/EmojiPicker'), {
-  loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
+  loading: () => Shimmer
 });
 const Gif = dynamic(() => import('@components/Composer/Actions/Gif'), {
-  loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
+  loading: () => Shimmer
 });
 const CollectSettings = dynamic(
   () => import('@components/Composer/Actions/CollectSettings'),
-  {
-    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
-  }
+  { loading: () => Shimmer }
 );
 const OpenActionSettings = dynamic(
   () => import('@components/Composer/Actions/OpenActionSettings'),
-  {
-    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
-  }
+  { loading: () => Shimmer }
 );
 const ReferenceSettings = dynamic(
   () => import('@components/Composer/Actions/ReferenceSettings'),
-  {
-    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
-  }
+  { loading: () => Shimmer }
 );
 const PollSettings = dynamic(
   () => import('@components/Composer/Actions/PollSettings'),
-  {
-    loading: () => <div className="shimmer mb-1 size-5 rounded-lg" />
-  }
+  { loading: () => Shimmer }
+);
+const LivestreamSettings = dynamic(
+  () => import('@components/Composer/Actions/LivestreamSettings'),
+  { loading: () => Shimmer }
 );
 
 interface NewPublicationProps {
@@ -112,93 +99,56 @@ interface NewPublicationProps {
 }
 
 const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
 
-  // Modal store
-  const setShowNewPostModal = useGlobalModalStateStore(
-    (state) => state.setShowNewPostModal
-  );
-  const setShowDiscardModal = useGlobalModalStateStore(
-    (state) => state.setShowDiscardModal
-  );
+  // Global modal store
+  const { setShowDiscardModal, setShowNewPostModal } =
+    useGlobalModalStateStore();
 
   // Nonce store
-  const lensHubOnchainSigNonce = useNonceStore(
-    (state) => state.lensHubOnchainSigNonce
-  );
+  const { lensHubOnchainSigNonce } = useNonceStore();
 
   // Publication store
-  const publicationContent = usePublicationStore(
-    (state) => state.publicationContent
-  );
-  const setPublicationContent = usePublicationStore(
-    (state) => state.setPublicationContent
-  );
-  const quotedPublication = usePublicationStore(
-    (state) => state.quotedPublication
-  );
-  const setQuotedPublication = usePublicationStore(
-    (state) => state.setQuotedPublication
-  );
-  const audioPublication = usePublicationAudioStore(
-    (state) => state.audioPublication
-  );
-  const attachments = usePublicationAttachmentStore(
-    (state) => state.attachments
-  );
-  const setAttachments = usePublicationAttachmentStore(
-    (state) => state.setAttachments
-  );
-  const addAttachments = usePublicationAttachmentStore(
-    (state) => state.addAttachments
-  );
-  const isUploading = usePublicationAttachmentStore(
-    (state) => state.isUploading
-  );
-  const videoThumbnail = usePublicationVideoStore(
-    (state) => state.videoThumbnail
-  );
-  const setVideoThumbnail = usePublicationVideoStore(
-    (state) => state.setVideoThumbnail
-  );
-  const showPollEditor = usePublicationPollStore(
-    (state) => state.showPollEditor
-  );
-  const setShowPollEditor = usePublicationPollStore(
-    (state) => state.setShowPollEditor
-  );
-  const resetPollConfig = usePublicationPollStore(
-    (state) => state.resetPollConfig
-  );
-  const pollConfig = usePublicationPollStore((state) => state.pollConfig);
-  const showLiveVideoEditor = usePublicationLiveStore(
-    (state) => state.showLiveVideoEditor
-  );
-  const setShowLiveVideoEditor = usePublicationLiveStore(
-    (state) => state.setShowLiveVideoEditor
-  );
-  const resetLiveVideoConfig = usePublicationLiveStore(
-    (state) => state.resetLiveVideoConfig
-  );
-  const setLicense = usePublicationLicenseStore((state) => state.setLicense);
+  const {
+    publicationContent,
+    quotedPublication,
+    setPublicationContent,
+    setQuotedPublication
+  } = usePublicationStore();
+
+  // Audio store
+  const { audioPublication } = usePublicationAudioStore();
+
+  // Video store
+  const { setVideoThumbnail, videoThumbnail } = usePublicationVideoStore();
+
+  // Live video store
+  const { resetLiveVideoConfig, setShowLiveVideoEditor, showLiveVideoEditor } =
+    usePublicationLiveStore();
+
+  // Attachment store
+  const { addAttachments, attachments, isUploading, setAttachments } =
+    usePublicationAttachmentStore((state) => state);
+
+  // Poll store
+  const { pollConfig, resetPollConfig, setShowPollEditor, showPollEditor } =
+    usePublicationPollStore();
+
+  // License store
+  const { setLicense } = usePublicationLicenseStore();
 
   // Collect module store
-  const collectModule = useCollectModuleStore((state) => state.collectModule);
-  const resetCollectSettings = useCollectModuleStore((state) => state.reset);
+  const { collectModule, reset: resetCollectSettings } = useCollectModuleStore(
+    (state) => state
+  );
 
   // Open action store
-  const openAction = useOpenActionStore((state) => state.openAction);
-  const resetOpenActionSettings = useOpenActionStore((state) => state.reset);
+  const { openAction, reset: resetOpenActionSettings } = useOpenActionStore();
 
   // Reference module store
-  const selectedReferenceModule = useReferenceModuleStore(
-    (state) => state.selectedReferenceModule
-  );
-  const onlyFollowers = useReferenceModuleStore((state) => state.onlyFollowers);
-  const degreesOfSeparation = useReferenceModuleStore(
-    (state) => state.degreesOfSeparation
-  );
+  const { degreesOfSeparation, onlyFollowers, selectedReferenceModule } =
+    useReferenceModuleStore();
 
   // States
   const [isLoading, setIsLoading] = useState(false);
@@ -208,10 +158,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [editor] = useLexicalComposerContext();
   const createPoll = useCreatePoll();
   const getMetadata = usePublicationMetadata();
-  const handleWrongNetwork = useHandleWrongNetwork();
 
-  const { canUseLensManager, isSponsored } =
-    checkDispatcherPermissions(currentProfile);
+  const { canUseLensManager } = checkDispatcherPermissions(currentProfile);
 
   const isComment = Boolean(publication);
   const isQuote = Boolean(quotedPublication);
@@ -317,22 +265,26 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     quoteOn: quotedPublication as Quote
   });
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     setPublicationContentError('');
   }, [audioPublication]);
 
-  useEffectOnce(() => {
+  useEffect(() => {
     editor.update(() => {
       $convertFromMarkdownString(publicationContent);
     });
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const getAnimationUrl = () => {
+    const fallback =
+      'ipfs://bafkreiaoua5s4iyg4gkfjzl6mzgenw4qw7mwgxj7zf7ev7gga72o5d3lf4';
+
     if (attachments.length > 0 || hasAudio || hasVideo) {
-      return attachments[0]?.uri;
+      return attachments[0]?.uri || fallback;
     }
 
-    return null;
+    return fallback;
   };
 
   const getTitlePrefix = () => {
@@ -349,17 +301,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     }
 
     if (isSuspended) {
-      toast.error(Errors.Suspended);
-    }
-
-    if (handleWrongNetwork()) {
-      return;
-    }
-
-    if (isComment && publication.momoka?.proof && !isSponsored) {
-      return toast.error(
-        'Momoka is currently in beta - during this time certain actions are not available to all profiles.'
-      );
+      return toast.error(Errors.Suspended);
     }
 
     try {
@@ -382,14 +324,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       }
 
       setPublicationContentError('');
-      let textNftImageUrl;
-      if (!attachments.length && !useMomoka) {
-        textNftImageUrl = await getTextNftUrl(
-          publicationContent,
-          getProfile(currentProfile).slug,
-          new Date().toLocaleString()
-        );
-      }
 
       let pollId;
       if (showPollEditor) {
@@ -420,7 +354,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           ]
         }),
         marketplace: {
-          animation_url: getAnimationUrl() || textNftImageUrl,
+          animation_url: getAnimationUrl(),
           description: processedPublicationContent,
           external_url: `https://hey.xyz${getProfile(currentProfile).link}`,
           name: title
@@ -595,10 +529,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   return (
     <Card
-      className={cn(
-        { '!rounded-b-xl !rounded-t-none border-none': !isComment },
-        'pb-3'
-      )}
+      className={cn({
+        '!rounded-b-xl !rounded-t-none border-none': !isComment
+      })}
       onClick={() => setShowEmojiPicker(false)}
     >
       {error ? (
@@ -625,11 +558,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         </Wrapper>
       ) : null}
       <LinkPreviews />
-      <div className="block items-center px-5 sm:flex">
+      <NewAttachments attachments={attachments} />
+      <div className="divider mx-5" />
+      <div className="block items-center px-5 py-3 sm:flex">
         <div className="flex items-center space-x-4">
           <Attachment />
           <EmojiPicker
-            emojiClassName="text-brand-500"
             setEmoji={(emoji) => {
               setShowEmojiPicker(false);
               editor.update(() => {
@@ -657,9 +591,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             </>
           ) : null}
           <PollSettings />
-          {!isComment && isFeatureEnabled('live-stream') && (
-            <LivestreamSettings />
-          )}
+          {!isComment && <LivestreamSettings />}
         </div>
         <div className="ml-auto mt-2 sm:mt-0">
           <Button
@@ -669,23 +601,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
               isSubmitDisabledByPoll ||
               videoThumbnail.uploading
             }
-            icon={
-              isLoading ? (
-                <Spinner size="xs" />
-              ) : isComment ? (
-                <ChatBubbleLeftRightIcon className="size-4" />
-              ) : (
-                <PencilSquareIcon className="size-4" />
-              )
-            }
             onClick={createPublication}
           >
             {isComment ? 'Comment' : 'Post'}
           </Button>
         </div>
-      </div>
-      <div className="px-5">
-        <NewAttachments attachments={attachments} />
       </div>
       <Discard onDiscard={onDiscardClick} />
     </Card>

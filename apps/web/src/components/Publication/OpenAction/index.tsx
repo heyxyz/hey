@@ -10,6 +10,7 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Modal, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
+import hasOptimisticallyCollected from '@lib/optimistic/hasOptimisticallyCollected';
 import { motion } from 'framer-motion';
 import plur from 'plur';
 import { useState } from 'react';
@@ -27,7 +28,9 @@ const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
     ? publication?.mirrorOn
     : publication;
 
-  const hasActed = targetPublication.operations.hasActed.value;
+  const hasActed =
+    targetPublication.operations.hasActed.value ||
+    hasOptimisticallyCollected(targetPublication.id);
   const { countOpenActions } = targetPublication.stats;
 
   const iconClassName = showCount
@@ -45,9 +48,7 @@ const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
         <motion.button
           aria-label="Action"
           className={cn(
-            hasActed
-              ? 'hover:bg-brand-300/20 outline-brand-500'
-              : 'outline-gray-400 hover:bg-gray-300/20',
+            hasActed ? 'hover:bg-brand-300/20' : 'hover:bg-gray-300/20',
             'rounded-full p-1.5 outline-offset-2'
           )}
           onClick={() => {
@@ -80,7 +81,7 @@ const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
         ) : null}
       </div>
       <Modal
-        icon={<RectangleStackIcon className="text-brand-500 size-5" />}
+        icon={<RectangleStackIcon className="size-5" />}
         onClose={() => setShowOpenActionModal(false)}
         show={showOpenActionModal}
         title="Open Actions"

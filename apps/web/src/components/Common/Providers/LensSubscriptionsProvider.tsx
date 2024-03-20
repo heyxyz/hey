@@ -2,44 +2,32 @@ import type { Notification } from '@hey/lens';
 import type { FC } from 'react';
 
 import {
-  useAuthorizationRecordRevokedSubscriptionSubscription,
   useNewNotificationSubscriptionSubscription,
-  useUserSigNoncesQuery,
   useUserSigNoncesSubscriptionSubscription
 } from '@hey/lens';
 import { BrowserPush } from '@lib/browserPush';
 import getCurrentSession from '@lib/getCurrentSession';
 import getPushNotificationData from '@lib/getPushNotificationData';
-import { isSupported, share } from 'shared-zustand';
+import { useEffect } from 'react';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import { signOut } from 'src/store/persisted/useAuthStore';
 import { useNotificationStore } from 'src/store/persisted/useNotificationStore';
-import { useUpdateEffect } from 'usehooks-ts';
-import { isAddress } from 'viem';
 import { useAccount } from 'wagmi';
 
 const LensSubscriptionsProvider: FC = () => {
-  const setLatestNotificationId = useNotificationStore(
-    (state) => state.setLatestNotificationId
-  );
-  const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce
-  );
-  const setLensPublicActProxyOnchainSigNonce = useNonceStore(
-    (state) => state.setLensPublicActProxyOnchainSigNonce
-  );
+  const { setLatestNotificationId } = useNotificationStore();
+  const { setLensHubOnchainSigNonce } = useNonceStore();
   const { address } = useAccount();
-  const { authorizationId, id: sessionProfileId } = getCurrentSession();
+  const { id: sessionProfileId } = getCurrentSession();
   const canUseSubscriptions = Boolean(sessionProfileId) && address;
 
   // Begin: New Notification
   const { data: newNotificationData } =
     useNewNotificationSubscriptionSubscription({
-      skip: !canUseSubscriptions || isAddress(sessionProfileId),
+      skip: !canUseSubscriptions,
       variables: { for: sessionProfileId }
     });
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     const notification = newNotificationData?.newNotification as Notification;
 
     if (notification) {
@@ -49,6 +37,7 @@ const LensSubscriptionsProvider: FC = () => {
       }
       setLatestNotificationId(notification?.id);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newNotificationData]);
   // End: New Notification
 
@@ -58,51 +47,15 @@ const LensSubscriptionsProvider: FC = () => {
     variables: { address }
   });
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     const userSigNonces = userSigNoncesData?.userSigNonces;
 
     if (userSigNonces) {
       setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce);
-      setLensPublicActProxyOnchainSigNonce(
-        userSigNonces.lensPublicActProxyOnchainSigNonce
-      );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userSigNoncesData]);
   // End: User Sig Nonces
-
-  // Begin: Authorization Record Revoked
-  const { data: authorizationRecordRevokedData } =
-    useAuthorizationRecordRevokedSubscriptionSubscription({
-      skip: !canUseSubscriptions,
-      variables: { authorizationId }
-    });
-
-  useUpdateEffect(() => {
-    const authorizationRecordRevoked =
-      authorizationRecordRevokedData?.authorizationRecordRevoked;
-
-    // Using not null assertion because api returns null if revoked
-    if (!authorizationRecordRevoked) {
-      signOut();
-      location.reload();
-    }
-  }, [authorizationRecordRevokedData]);
-  // End: Authorization Record Revoked
-
-  useUserSigNoncesQuery({
-    onCompleted: (data) => {
-      setLensPublicActProxyOnchainSigNonce(
-        data.userSigNonces.lensPublicActProxyOnchainSigNonce
-      );
-    },
-    skip: sessionProfileId ? !isAddress(sessionProfileId) : true
-  });
-
-  // Sync zustand stores between tabs
-  if (isSupported()) {
-    share('lensHubOnchainSigNonce', useNonceStore);
-    share('lensPublicActProxyOnchainSigNonce', useNonceStore);
-  }
 
   return null;
 };

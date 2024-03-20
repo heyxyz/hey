@@ -2,7 +2,7 @@ import type { CommentNotification as TCommentNotification } from '@hey/lens';
 import type { FC } from 'react';
 
 import Markup from '@components/Shared/Markup';
-import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleLeftIcon } from '@heroicons/react/24/outline';
 import getPublicationData from '@hey/lib/getPublicationData';
 import Link from 'next/link';
 
@@ -27,7 +27,7 @@ const CommentNotification: FC<CommentNotificationProps> = ({
   return (
     <div className="space-y-2">
       <div className="flex items-center space-x-3">
-        <ChatBubbleLeftRightIcon className="text-brand-500/70 size-6" />
+        <ChatBubbleLeftIcon className="size-6" />
         <div className="flex items-center space-x-1">
           <NotificationProfileAvatar profile={firstProfile} />
         </div>

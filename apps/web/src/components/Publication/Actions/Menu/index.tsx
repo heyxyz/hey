@@ -7,11 +7,12 @@ import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { Fragment } from 'react';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Bookmark from './Bookmark';
 import CopyPostText from './CopyPostText';
 import Delete from './Delete';
+import HideComment from './HideComment';
 import NotInterested from './NotInterested';
 import Report from './Report';
 import Share from './Share';
@@ -22,7 +23,7 @@ interface PublicationMenuProps {
 }
 
 const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const iconClassName = 'w-[15px] sm:w-[18px]';
 
   return (
@@ -30,7 +31,7 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
       <Menu.Button as={Fragment}>
         <button
           aria-label="More"
-          className="outline-brand-500 rounded-full p-1.5 hover:bg-gray-300/20"
+          className="rounded-full p-1.5 hover:bg-gray-300/20"
           onClick={stopEventPropagation}
           type="button"
         >
@@ -52,6 +53,7 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
                 <Report publication={publication} />
               )}
               <NotInterested publication={publication} />
+              <HideComment publication={publication} />
               <Bookmark publication={publication} />
             </>
           ) : null}

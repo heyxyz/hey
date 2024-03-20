@@ -5,18 +5,18 @@ import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import { useEffectOnce } from 'usehooks-ts';
+import { useEffect } from 'react';
 
 const Privacy: NextPage = () => {
   const updatedAt = 'October 30, 2023';
 
-  useEffectOnce(() => {
+  useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'privacy' });
-  });
+  }, []);
 
   return (
     <>
-      <div className="bg-brand-400 flex h-48 w-full items-center justify-center">
+      <div className="flex h-48 w-full items-center justify-center bg-gray-400">
         <div className="relative text-center">
           <h1 className="text-3xl font-bold text-white md:text-4xl">
             Privacy Policy
@@ -33,9 +33,7 @@ const Privacy: NextPage = () => {
           <div className="max-w-3/4 relative mx-auto rounded-lg sm:w-2/4">
             <div className="ld-text-gray-500 max-w-none !p-8">
               {/* 1. Overview beings */}
-              <div className="mb-5 text-xl font-bold text-black dark:text-white">
-                1. Overview
-              </div>
+              <div className="mb-5 text-xl font-bold">1. Overview</div>
               <div className="space-y-5">
                 <p className="leading-7">
                   By accessing the Site, you agree to not only this Privacy
@@ -69,7 +67,7 @@ const Privacy: NextPage = () => {
               </div>
               {/* 1. Overview ends */}
               {/* 2. Information Collection beings */}
-              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold">
                 2. Information Collection
               </div>
               <div className="space-y-5">
@@ -111,7 +109,7 @@ const Privacy: NextPage = () => {
               </div>
               {/* 2. Information Collection ends */}
               {/* 3. Use of Information begins */}
-              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold">
                 3. Use of Information
               </div>
               <p className="leading-7">
@@ -122,7 +120,7 @@ const Privacy: NextPage = () => {
               </p>
               {/* 3. Use of Information ends */}
               {/* 4. Third-Parties begins */}
-              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold">
                 4. Third-Parties
               </div>
               <p className="leading-7">
@@ -133,9 +131,7 @@ const Privacy: NextPage = () => {
               </p>
               {/* 4. Third-Parties ends */}
               {/* 5. Analytics begins */}
-              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
-                5. Analytics
-              </div>
+              <div className="mb-5 mt-8 text-xl font-bold">5. Analytics</div>
               <div className="space-y-5">
                 <p className="leading-7">
                   We use <b>ClickHouse</b> to collect various events from user
@@ -153,7 +149,7 @@ const Privacy: NextPage = () => {
               </div>
               {/* 5. Analytics ends */}
               {/* 6. Your Rights and Choices begins */}
-              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold">
                 6. Your Rights and Choices
               </div>
               <div className="space-y-5">
@@ -190,7 +186,7 @@ const Privacy: NextPage = () => {
               </div>
               {/* 6. Your Rights and Choices ends */}
               {/* 7. Data Security begins */}
-              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold">
                 7. Data Security
               </div>
               <p className="leading-7">
@@ -203,9 +199,7 @@ const Privacy: NextPage = () => {
               </p>
               {/* 7. Data Security ends */}
               {/* 8. Children begins */}
-              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
-                8. Children
-              </div>
+              <div className="mb-5 mt-8 text-xl font-bold">8. Children</div>
               <p className="leading-7">
                 The Site is intended for general audiences and are not directed
                 at children. To use the Site, you must legally be able to enter
@@ -214,7 +208,7 @@ const Privacy: NextPage = () => {
               </p>
               {/* 8. Children ends */}
               {/* 9. Changes to Policy begins */}
-              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold">
                 9. Changes to Policy
               </div>
               <p className="leading-7">
@@ -226,9 +220,7 @@ const Privacy: NextPage = () => {
               </p>
               {/* 9. Changes to Policy ends */}
               {/* 10. Contact begins */}
-              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
-                10. Contact
-              </div>
+              <div className="mb-5 mt-8 text-xl font-bold">10. Contact</div>
               <p className="leading-7">
                 If you have any questions or comments about this Privacy Policy,
                 our data practices, or our compliance with applicable law,

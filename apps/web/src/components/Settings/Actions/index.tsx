@@ -6,18 +6,18 @@ import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import useProfileStore from 'src/store/persisted/useProfileStore';
-import { useEffectOnce } from 'usehooks-ts';
+import { useEffect } from 'react';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import SettingsSidebar from '../Sidebar';
 import List from './List';
 
 const ActionsSettings: NextPage = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
 
-  useEffectOnce(() => {
+  useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'actions' });
-  });
+  }, []);
 
   if (!currentProfile) {
     return <NotLoggedIn />;
@@ -30,12 +30,12 @@ const ActionsSettings: NextPage = () => {
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight>
-        <Card className="p-5">
-          <div className="space-y-3">
+        <Card>
+          <div className="space-y-1 p-5">
             <div className="text-lg font-bold">Actions</div>
             <p>This is a list of actions on your account.</p>
           </div>
-          <div className="divider my-5" />
+          <div className="divider" />
           <List />
         </Card>
       </GridItemEight>

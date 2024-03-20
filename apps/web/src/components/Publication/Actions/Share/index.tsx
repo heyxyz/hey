@@ -10,6 +10,7 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Spinner, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import hasOptimisticallyMirrored from '@lib/optimistic/hasOptimisticallyMirrored';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
@@ -17,19 +18,20 @@ import Mirror from './Mirror';
 import Quote from './Quote';
 import UndoMirror from './UndoMirror';
 
-interface PublicationMenuProps {
+interface ShareMenuProps {
   publication: AnyPublication;
   showCount: boolean;
 }
 
-const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
+const ShareMenu: FC<ShareMenuProps> = ({ publication, showCount }) => {
   const [isLoading, setIsLoading] = useState(false);
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
   const hasShared =
     targetPublication.operations.hasMirrored ||
-    targetPublication.operations.hasQuoted;
+    targetPublication.operations.hasQuoted ||
+    hasOptimisticallyMirrored(targetPublication.id);
   const shares =
     targetPublication.stats.mirrors + targetPublication.stats.quotes;
 
@@ -43,8 +45,8 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
           as={motion.button}
           className={cn(
             hasShared
-              ? 'text-brand-500 hover:bg-brand-300/20 outline-brand-500'
-              : 'ld-text-gray-500 outline-gray-400 hover:bg-gray-300/20',
+              ? 'text-brand-500 hover:bg-brand-300/20'
+              : 'ld-text-gray-500 hover:bg-gray-300/20',
             'rounded-full p-1.5 outline-offset-2'
           )}
           onClick={stopEventPropagation}

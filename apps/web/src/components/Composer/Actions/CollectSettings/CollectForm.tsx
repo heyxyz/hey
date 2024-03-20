@@ -1,12 +1,14 @@
 import type { CollectModuleType } from '@hey/types/hey';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
+import LicensePicker from '@components/Composer/LicensePicker';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { CollectOpenActionModuleType } from '@hey/lens';
 import getAllTokens from '@hey/lib/api/getAllTokens';
 import { Button, ErrorMessage, Spinner } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
+import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
 import { isAddress } from 'viem';
 
 import AmountConfig from './AmountConfig';
@@ -21,11 +23,10 @@ interface CollectFormProps {
 }
 
 const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
-  const collectModule = useCollectModuleStore((state) => state.collectModule);
-  const reset = useCollectModuleStore((state) => state.reset);
-  const setCollectModule = useCollectModuleStore(
-    (state) => state.setCollectModule
+  const { collectModule, reset, setCollectModule } = useCollectModuleStore(
+    (state) => state
   );
+  const { setLicense } = usePublicationLicenseStore();
 
   const { SimpleCollectOpenActionModule } = CollectOpenActionModuleType;
   const recipients = collectModule.recipients || [];
@@ -78,6 +79,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
     if (!collectModule.type) {
       setCollectType({ type: SimpleCollectOpenActionModule });
     } else {
+      setLicense(null);
       reset();
     }
   };
@@ -114,6 +116,10 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
             <FollowersConfig setCollectType={setCollectType} />
           </div>
           <div className="divider" />
+          <div className="m-5">
+            <LicensePicker />
+          </div>
+          <div className="divider" />
         </>
       ) : null}
       <div className="flex space-x-2 p-5">
@@ -121,11 +127,13 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
           className="ml-auto"
           onClick={() => {
             setShowModal(false);
+            setLicense(null);
+            reset();
           }}
           outline
           variant="danger"
         >
-          Cancel
+          {collectModule.type ? 'Reset' : 'Cancel'}
         </Button>
         <Button
           disabled={

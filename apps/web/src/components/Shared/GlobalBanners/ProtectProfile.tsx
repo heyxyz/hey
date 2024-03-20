@@ -2,7 +2,7 @@ import type { FC } from 'react';
 
 import { LockClosedIcon, LockOpenIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
-import { LENSHUB_PROXY } from '@hey/data/constants';
+import { LENS_HUB } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { SETTINGS } from '@hey/data/tracking';
 import {
@@ -17,14 +17,14 @@ import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useWriteContract } from 'wagmi';
 
 import CountdownTimer from '../CountdownTimer';
 import IndexStatus from '../IndexStatus';
 
 const ProtectProfile: FC = () => {
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
   const handleWrongNetwork = useHandleWrongNetwork();
 
   const onError = (error: any) => {
@@ -34,7 +34,7 @@ const ProtectProfile: FC = () => {
   const {
     data: writeHash,
     isPending,
-    writeContract
+    writeContractAsync
   } = useWriteContract({
     mutation: {
       onError,
@@ -42,10 +42,10 @@ const ProtectProfile: FC = () => {
     }
   });
 
-  const write = () => {
-    return writeContract({
+  const write = async () => {
+    return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       functionName: 'enableTokenGuardian'
     });
   };
@@ -60,33 +60,30 @@ const ProtectProfile: FC = () => {
   ).toISOString();
   const isCoolOffPassed = new Date(coolOffDate).getTime() < Date.now();
 
-  const handleProtect = () => {
+  const handleProtect = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
 
-    if (handleWrongNetwork()) {
-      return;
-    }
-
     try {
-      return write();
+      await handleWrongNetwork();
+      return await write();
     } catch (error) {
       onError(error);
     }
   };
 
   return (
-    <div className="border-b border-red-300 bg-red-500/20">
+    <div className="border-b border-gray-300 bg-gray-500/20">
       <GridLayout>
         <GridItemEight className="space-y-1">
-          <div className="flex items-center space-x-2 text-red-700">
+          <div className="flex items-center space-x-2 text-gray-700">
             <LockOpenIcon className="size-5" />
             <div className="text-base font-bold sm:text-lg">
               Attention! Your profile is currently unlocked.
             </div>
           </div>
-          <div className="text-red-500">
+          <div className="text-gray-500">
             {isCoolOffPassed ? (
               <>
                 Your profile protection disabled.

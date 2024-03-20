@@ -8,21 +8,15 @@ import { useState } from 'react';
 import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
 
 const PollEditor: FC = () => {
-  const setShowPollEditor = usePublicationPollStore(
-    (state) => state.setShowPollEditor
-  );
-  const pollConfig = usePublicationPollStore((state) => state.pollConfig);
-  const setPollConfig = usePublicationPollStore((state) => state.setPollConfig);
-  const resetPollConfig = usePublicationPollStore(
-    (state) => state.resetPollConfig
-  );
+  const { pollConfig, resetPollConfig, setPollConfig, setShowPollEditor } =
+    usePublicationPollStore();
   const [showPollLengthModal, setShowPollLengthModal] = useState(false);
 
   return (
     <Card className="m-5 px-5 py-3" forceRounded>
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2 text-sm">
-          <Bars3BottomLeftIcon className="text-brand-500 size-4" />
+          <Bars3BottomLeftIcon className="size-4" />
           <b>Poll</b>
         </div>
         <div className="flex items-center space-x-3">
@@ -31,12 +25,11 @@ const PollEditor: FC = () => {
             onClick={() => setShowPollLengthModal(true)}
             outline
             size="sm"
-            variant="primary"
           >
             {pollConfig.length} {plur('day', pollConfig.length)}
           </Button>
           <Modal
-            icon={<ClockIcon className="text-brand-500 size-5" />}
+            icon={<ClockIcon className="size-5" />}
             onClose={() => setShowPollLengthModal(false)}
             show={showPollLengthModal}
             title="Poll length"
@@ -70,7 +63,6 @@ const PollEditor: FC = () => {
                 <Button
                   className="ml-auto"
                   onClick={() => setShowPollLengthModal(false)}
-                  variant="primary"
                 >
                   Save
                 </Button>
@@ -122,7 +114,7 @@ const PollEditor: FC = () => {
         ))}
         {pollConfig.options.length !== 10 ? (
           <button
-            className="text-brand-500 mt-2 flex items-center space-x-2 text-sm"
+            className="mt-2 flex items-center space-x-2 text-sm"
             onClick={() => {
               const newOptions = [...pollConfig.options];
               newOptions.push('');

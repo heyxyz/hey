@@ -16,10 +16,9 @@ interface StaffModeProps {
 }
 
 const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
-  const staffMode = useFeatureFlagsStore((state) => state.staffMode);
-  const setStaffMode = useFeatureFlagsStore((state) => state.setStaffMode);
+  const { setStaffMode, staffMode } = useFeatureFlagsStore();
 
-  const toggleStaffMode = async () => {
+  const toggleStaffMode = () => {
     toast.promise(
       axios.post(
         `${HEY_API_URL}/internal/features/staffMode`,
@@ -31,7 +30,9 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
         loading: 'Toggling staff mode...',
         success: () => {
           setStaffMode(!staffMode);
-          Leafwatch.track(STAFFTOOLS.TOGGLE_MODE);
+          Leafwatch.track(STAFFTOOLS.TOGGLE_MODE, {
+            enabled: !staffMode
+          });
 
           return 'Staff mode toggled!';
         }

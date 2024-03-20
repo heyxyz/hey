@@ -12,7 +12,7 @@ const generateRandomEthereumAddress = () => {
   return address;
 };
 
-describe('internal/tokens/delete', async () => {
+describe('internal/tokens/delete', () => {
   test('should delete a token', async () => {
     const newTokenResponse = await axios.post(
       `${TEST_URL}/internal/tokens/create`,

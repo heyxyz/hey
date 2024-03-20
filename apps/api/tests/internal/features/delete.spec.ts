@@ -3,7 +3,7 @@ import axios from 'axios';
 import { TEST_URL } from 'src/lib/constants';
 import { describe, expect, test } from 'vitest';
 
-describe('internal/features/delete', async () => {
+describe('internal/features/delete', () => {
   test('should delete a feature', async () => {
     const newFeatureResponse = await axios.post(
       `${TEST_URL}/internal/features/create`,

@@ -1,17 +1,18 @@
 import { IndexDB } from '@hey/data/storage';
+import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 import createIdbStorage from '../lib/createIdbStorage';
 
-interface VerifiedMembersState {
+interface State {
   hydrateVerifiedMembers: () => { verifiedMembers: string[] };
   setVerifiedMembers: (verifiedMembers: string[]) => void;
   verifiedMembers: string[];
 }
 
-export const useVerifiedMembersStore = create(
-  persist<VerifiedMembersState>(
+const store = create(
+  persist<State>(
     (set, get) => ({
       hydrateVerifiedMembers: () => {
         return {
@@ -29,4 +30,5 @@ export const useVerifiedMembersStore = create(
 );
 
 export const hydrateVerifiedMembers = () =>
-  useVerifiedMembersStore.getState().hydrateVerifiedMembers();
+  store.getState().hydrateVerifiedMembers();
+export const useVerifiedMembersStore = createTrackedSelector(store);

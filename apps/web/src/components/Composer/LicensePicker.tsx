@@ -1,35 +1,65 @@
-import type { MetadataLicenseType } from '@lens-protocol/metadata';
 import type { FC } from 'react';
 
-import { FeatureFlag } from '@hey/data/feature-flags';
-import { PublicationMetadataLicenseType } from '@hey/lens';
-import { Select } from '@hey/ui';
+import { Select, Tooltip } from '@hey/ui';
+import { MetadataLicenseType } from '@lens-protocol/metadata';
 import getAssetLicense from '@lib/getAssetLicense';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
+import Link from 'next/link';
 import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
 
 const LicensePicker: FC = () => {
-  const setLicense = usePublicationLicenseStore((state) => state.setLicense);
+  const { license, setLicense } = usePublicationLicenseStore();
 
-  if (!isFeatureEnabled(FeatureFlag.Staff)) {
-    return null;
-  }
+  const otherOptions = Object.values(MetadataLicenseType)
+    .filter((type) => getAssetLicense(type))
+    .map((type) => ({
+      label: getAssetLicense(type)?.label as string,
+      selected: license === type,
+      value: type
+    })) as any;
+
+  const options = [
+    {
+      label: 'All rights reserved',
+      selected: license === null,
+      value: null
+    },
+    ...otherOptions
+  ];
 
   return (
-    <div className="mt-3">
+    <div className="my-5">
+      {/* <div className="divider mb-3" /> */}
+      <div className="mb-2 flex items-center justify-between">
+        <b>License</b>
+        <Tooltip
+          content={
+            <div className="max-w-xs py-2 leading-5">
+              Creator licenses dictate the use, sharing, and distribution of
+              music, art and other intellectual property - ranging from
+              restrictive to permissive. Once given, you can't change the
+              license.
+            </div>
+          }
+          placement="top"
+        >
+          <div className="ld-text-gray-500 text-sm">What's this?</div>
+        </Tooltip>
+      </div>
       <Select
-        label="Choose a license"
-        onChange={(e) => setLicense(e.target.value as MetadataLicenseType)}
-        options={
-          Object.values(PublicationMetadataLicenseType)
-            .filter((license) => getAssetLicense(license))
-            .map((license) => ({
-              label: getAssetLicense(license) as string,
-              selected: true,
-              value: license
-            })) as any
-        }
+        onChange={(value) => setLicense(value as MetadataLicenseType)}
+        options={options}
       />
+      <div className="ld-text-gray-500 linkify mt-2 text-sm">
+        {getAssetLicense(license)?.helper ||
+          'You are not granting a license to the collector and retain all rights.'}
+        <Link
+          className="ml-1.5"
+          href="https://reflect.site/g/yoginth/54ff7fa4603a4a12912990aa7355e4f6"
+          target="_blank"
+        >
+          Learn more.
+        </Link>
+      </div>
     </div>
   );
 };

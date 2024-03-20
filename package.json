@@ -1,6 +1,6 @@
 {
   "name": "hey",
-  "version": "3.0.5-beta",
+  "version": "4.0.0",
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
@@ -24,14 +24,14 @@
     "root": true
   },
   "devDependencies": {
-    "husky": "^9.0.10",
-    "prettier": "^3.2.4",
-    "prettier-plugin-tailwindcss": "^0.5.11",
+    "husky": "^9.0.11",
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.12",
     "start-server-and-test": "^2.0.0",
-    "turbo": "^1.12.2"
+    "turbo": "^1.12.5"
   },
-  "packageManager": "pnpm@8.10.5",
+  "packageManager": "pnpm@8.15.4",
   "engines": {
-    "node": "18"
+    "node": ">=16.x <=20.x"
   }
 }

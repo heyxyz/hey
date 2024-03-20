@@ -4,10 +4,9 @@ import type { FC } from 'react';
 import Markup from '@components/Shared/Markup';
 import { HeartIcon } from '@heroicons/react/24/outline';
 import getPublicationData from '@hey/lib/getPublicationData';
-import pushToImpressions from '@lib/pushToImpressions';
 import Link from 'next/link';
 import plur from 'plur';
-import { useEffectOnce } from 'usehooks-ts';
+import usePushToImpressions from 'src/hooks/usePushToImpressions';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
@@ -31,14 +30,12 @@ const ReactionNotification: FC<ReactionNotificationProps> = ({
     : 'liked your';
   const type = notification?.publication.__typename;
 
-  useEffectOnce(() => {
-    pushToImpressions(notification.publication.id);
-  });
+  usePushToImpressions(notification.publication.id);
 
   return (
     <div className="space-y-2">
       <div className="flex items-center space-x-3">
-        <HeartIcon className="text-brand-500/70 size-6" />
+        <HeartIcon className="size-6" />
         <div className="flex items-center space-x-1">
           {reactions.slice(0, 10).map((reaction) => (
             <div key={reaction.profile.id}>

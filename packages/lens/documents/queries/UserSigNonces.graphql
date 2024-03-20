@@ -1,5 +1,0 @@
-query UserSigNonces {
-  userSigNonces {
-    lensPublicActProxyOnchainSigNonce
-  }
-}

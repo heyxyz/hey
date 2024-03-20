@@ -1,12 +1,19 @@
 import type { FC } from 'react';
 
+import ProfileListShimmer from '@components/Shared/Shimmer/ProfileListShimmer';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 
-const ProfilePageShimmer: FC = () => {
+interface ProfilePageShimmerProps {
+  profileList?: boolean;
+}
+
+const ProfilePageShimmer: FC<ProfilePageShimmerProps> = ({
+  profileList = false
+}) => {
   return (
     <>
-      <div className="shimmer h-52 sm:h-80" />
+      <div className="shimmer h-52 sm:h-[350px]" />
       <GridLayout>
         <GridItemFour>
           <div className="mb-4 space-y-9 px-5 sm:px-0">
@@ -47,13 +54,19 @@ const ProfilePageShimmer: FC = () => {
           </div>
         </GridItemFour>
         <GridItemEight>
-          <div className="mb-5 mt-3 flex gap-3 px-5 sm:mt-0 sm:px-0">
-            <div className="shimmer h-8 w-14 rounded-lg sm:w-28" />
-            <div className="shimmer h-8 w-14 rounded-lg sm:w-28" />
-            <div className="shimmer h-8 w-14 rounded-lg sm:w-28" />
-            <div className="shimmer h-8 w-14 rounded-lg sm:w-28" />
-          </div>
-          <PublicationsShimmer />
+          {profileList ? (
+            <ProfileListShimmer />
+          ) : (
+            <>
+              <div className="mb-5 mt-3 flex gap-3 px-5 sm:mt-0 sm:px-0">
+                <div className="shimmer h-8 w-14 rounded-lg sm:w-28" />
+                <div className="shimmer h-8 w-14 rounded-lg sm:w-28" />
+                <div className="shimmer h-8 w-14 rounded-lg sm:w-28" />
+                <div className="shimmer h-8 w-14 rounded-lg sm:w-28" />
+              </div>
+              <PublicationsShimmer />
+            </>
+          )}
         </GridItemEight>
       </GridLayout>
     </>

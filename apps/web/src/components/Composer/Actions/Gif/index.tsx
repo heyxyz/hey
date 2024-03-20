@@ -20,9 +20,7 @@ interface GiphyProps {
 }
 
 const Gif: FC<GiphyProps> = ({ setGifAttachment }) => {
-  const attachments = usePublicationAttachmentStore(
-    (state) => state.attachments
-  );
+  const { attachments } = usePublicationAttachmentStore((state) => state);
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -30,7 +28,7 @@ const Gif: FC<GiphyProps> = ({ setGifAttachment }) => {
       <Tooltip content="GIF" placement="top">
         <motion.button
           aria-label="Choose GIFs"
-          className="outline-brand-500 rounded-full outline-offset-8"
+          className="rounded-full outline-offset-8"
           disabled={attachments.length >= 4}
           onClick={() => {
             setShowModal(!showModal);
@@ -39,11 +37,11 @@ const Gif: FC<GiphyProps> = ({ setGifAttachment }) => {
           type="button"
           whileTap={{ scale: 0.9 }}
         >
-          <GifIcon className="text-brand-500 size-5" />
+          <GifIcon className="size-5" />
         </motion.button>
       </Tooltip>
       <Modal
-        icon={<PhotoIcon className="text-brand-500 size-5" />}
+        icon={<PhotoIcon className="size-5" />}
         onClose={() => setShowModal(false)}
         show={showModal}
         title="Select GIF"

@@ -1,14 +1,15 @@
 import type { FollowingRequest, Profile } from '@hey/lens';
 import type { FC } from 'react';
 
-import Loader from '@components/Shared/Loader';
+import ProfileListShimmer from '@components/Shared/Shimmer/ProfileListShimmer';
 import UserProfile from '@components/Shared/UserProfile';
-import { UsersIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftIcon, UsersIcon } from '@heroicons/react/24/outline';
+import { ProfileLinkSource } from '@hey/data/tracking';
 import { LimitType, useFollowingQuery } from '@hey/lens';
-import { EmptyState, ErrorMessage } from '@hey/ui';
-import { motion } from 'framer-motion';
+import { Card, EmptyState, ErrorMessage } from '@hey/ui';
+import Link from 'next/link';
 import { Virtuoso } from 'react-virtuoso';
-import useProfileStore from 'src/store/persisted/useProfileStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface FollowingProps {
   handle: string;
@@ -21,7 +22,7 @@ const Following: FC<FollowingProps> = ({ handle, profileId }) => {
     for: profileId,
     limit: LimitType.TwentyFive
   };
-  const currentProfile = useProfileStore((state) => state.currentProfile);
+  const { currentProfile } = useProfileStore();
 
   const { data, error, fetchMore, loading } = useFollowingQuery({
     skip: !profileId,
@@ -43,17 +44,17 @@ const Following: FC<FollowingProps> = ({ handle, profileId }) => {
   };
 
   if (loading) {
-    return <Loader message="Loading following" />;
+    return <ProfileListShimmer />;
   }
 
   if (followings?.length === 0) {
     return (
       <EmptyState
         hideCard
-        icon={<UsersIcon className="text-brand-500 size-8" />}
+        icon={<UsersIcon className="size-8" />}
         message={
           <div>
-            <span className="mr-1 font-bold">{handle}</span>
+            <span className="mr-1 font-bold">@{handle}</span>
             <span>doesn’t follow anyone.</span>
           </div>
         }
@@ -61,37 +62,46 @@ const Following: FC<FollowingProps> = ({ handle, profileId }) => {
     );
   }
 
-  return (
-    <div className="max-h-[80vh] overflow-y-auto">
+  if (error) {
+    return (
       <ErrorMessage
         className="m-5"
         error={error}
         title="Failed to load following"
       />
+    );
+  }
+
+  return (
+    <Card>
+      <div className="flex items-center space-x-3 p-5">
+        <Link href={`/u/${handle}`}>
+          <ArrowLeftIcon className="size-5" />
+        </Link>
+        <b className="text-lg">Following</b>
+      </div>
+      <div className="divider" />
       <Virtuoso
-        className="virtual-profile-list"
+        className="virtual-divider-list-window"
+        computeItemKey={(_, following) => following.id}
         data={followings}
         endReached={onEndReached}
         itemContent={(_, following) => {
           return (
-            <motion.div
-              animate={{ opacity: 1 }}
-              className="p-5"
-              exit={{ opacity: 0 }}
-              initial={{ opacity: 0 }}
-            >
+            <div className="p-5">
               <UserProfile
                 profile={following as Profile}
                 showBio
-                showFollow={currentProfile?.id !== following.id}
-                showUnfollow={currentProfile?.id !== following.id}
+                showFollowUnfollowButton={currentProfile?.id !== following.id}
                 showUserPreview={false}
+                source={ProfileLinkSource.Following}
               />
-            </motion.div>
+            </div>
           );
         }}
+        useWindowScroll
       />
-    </div>
+    </Card>
   );
 };
 

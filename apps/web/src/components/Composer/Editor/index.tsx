@@ -1,11 +1,12 @@
 import type { FC } from 'react';
 
-import MentionsPlugin from '@components/Shared/Lexical/Plugins/AtMentionsPlugin';
 import LexicalAutoLinkPlugin from '@components/Shared/Lexical/Plugins/AutoLinkPlugin';
 import EmojiPickerPlugin from '@components/Shared/Lexical/Plugins/EmojiPicker';
 import ImagesPlugin from '@components/Shared/Lexical/Plugins/ImagesPlugin';
-import ToolbarPlugin from '@components/Shared/Lexical/Plugins/ToolbarPlugin';
+import MentionsPlugin from '@components/Shared/Lexical/Plugins/MentionsPlugin';
 import { Errors } from '@hey/data/errors';
+import getAvatar from '@hey/lib/getAvatar';
+import { Image } from '@hey/ui';
 import {
   $convertToMarkdownString,
   TEXT_FORMAT_TRANSFORMERS
@@ -23,39 +24,18 @@ import {
   INSERT_PARAGRAPH_COMMAND
 } from 'lexical';
 import { useEffect } from 'react';
-import { toast } from 'react-hot-toast';
-import useUploadAttachments from 'src/hooks/useUploadAttachments';
-import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS];
 
 const Editor: FC = () => {
-  const setPublicationContent = usePublicationStore(
-    (state) => state.setPublicationContent
-  );
-  const showPollEditor = usePublicationPollStore(
-    (state) => state.showPollEditor
-  );
-  const attachments = usePublicationAttachmentStore(
-    (state) => state.attachments
-  );
-  const { handleUploadAttachments } = useUploadAttachments();
+  const { currentProfile } = useProfileStore();
+  const { setPublicationContent } = usePublicationStore();
+  const { showPollEditor } = usePublicationPollStore();
+
   const [editor] = useLexicalComposerContext();
-
-  const handlePaste = async (pastedFiles: FileList) => {
-    if (
-      attachments.length === 4 ||
-      attachments.length + pastedFiles.length > 4
-    ) {
-      return toast.error('Please choose either 1 video or up to 4 photos.');
-    }
-
-    if (pastedFiles) {
-      await handleUploadAttachments(pastedFiles);
-    }
-  };
 
   useEffect(() => {
     return editor.registerCommand(
@@ -69,34 +49,40 @@ const Editor: FC = () => {
   }, [editor]);
 
   return (
-    <div className="relative">
-      <EmojiPickerPlugin />
-      <ToolbarPlugin />
-      <RichTextPlugin
-        contentEditable={
-          <ContentEditable className="my-4 block min-h-[65px] overflow-auto px-5 leading-6 sm:leading-[26px]" />
-        }
-        ErrorBoundary={() => <div>{Errors.SomethingWentWrong}</div>}
-        placeholder={
-          <div className="pointer-events-none absolute top-[65px] whitespace-nowrap px-5 text-gray-400">
-            {showPollEditor ? 'Ask a question...' : "What's happening?"}
-          </div>
-        }
+    <div className="item flex p-5">
+      <Image
+        alt={currentProfile?.id}
+        className="mr-3 size-11 rounded-full border bg-gray-200 dark:border-gray-700"
+        src={getAvatar(currentProfile)}
       />
-      <OnChangePlugin
-        onChange={(editorState) => {
-          editorState.read(() => {
-            const markdown = $convertToMarkdownString(TRANSFORMERS);
-            setPublicationContent(markdown);
-          });
-        }}
-      />
-      <LexicalAutoLinkPlugin />
-      <HistoryPlugin />
-      <HashtagPlugin />
-      <MentionsPlugin />
-      <ImagesPlugin onPaste={handlePaste} />
-      <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
+      <div className="relative w-full">
+        <EmojiPickerPlugin />
+        <RichTextPlugin
+          contentEditable={
+            <ContentEditable className="mt-[8.5px] min-h-[80px] overflow-auto leading-6 sm:leading-[26px]" />
+          }
+          ErrorBoundary={() => <div>{Errors.SomethingWentWrong}</div>}
+          placeholder={
+            <div className="ld-text-gray-500 pointer-events-none absolute top-2.5">
+              {showPollEditor ? 'Ask a question...' : "What's new?!"}
+            </div>
+          }
+        />
+        <OnChangePlugin
+          onChange={(editorState) => {
+            editorState.read(() => {
+              const markdown = $convertToMarkdownString(TRANSFORMERS);
+              setPublicationContent(markdown);
+            });
+          }}
+        />
+        <LexicalAutoLinkPlugin />
+        <HistoryPlugin />
+        <HashtagPlugin />
+        <MentionsPlugin />
+        <ImagesPlugin />
+        <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
+      </div>
     </div>
   );
 };

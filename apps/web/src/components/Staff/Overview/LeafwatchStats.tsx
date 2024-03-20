@@ -2,9 +2,15 @@ import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
 import { HEY_API_URL } from '@hey/data/constants';
+import {
+  ExploreProfilesOrderByType,
+  LimitType,
+  useExploreProfilesQuery
+} from '@hey/lens';
 import { ErrorMessage } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { useState } from 'react';
 
 import NumberedStat from '../UI/NumberedStat';
 import ActiveUsers from './ActiveUsers';
@@ -49,6 +55,8 @@ export interface StatsType {
 }
 
 const LeafwatchStats: FC = () => {
+  const [lensProfiles, setLensProfiles] = useState(0);
+
   const getStats = async (): Promise<StatsType> => {
     const response: {
       data: StatsType;
@@ -63,12 +71,22 @@ const LeafwatchStats: FC = () => {
     refetchInterval: 1000
   });
 
+  useExploreProfilesQuery({
+    fetchPolicy: 'no-cache',
+    notifyOnNetworkStatusChange: true,
+    onCompleted: (data) =>
+      setLensProfiles(parseInt(data.exploreProfiles.items[0].id)),
+    pollInterval: 1000,
+    variables: {
+      request: {
+        limit: LimitType.Ten,
+        orderBy: ExploreProfilesOrderByType.LatestCreated
+      }
+    }
+  });
+
   if (isLoading) {
-    return (
-      <div className="m-5">
-        <Loader message="Loading stats..." />
-      </div>
-    );
+    return <Loader className="m-5" message="Loading stats..." />;
   }
 
   if (error) {
@@ -109,6 +127,14 @@ const LeafwatchStats: FC = () => {
           <NumberedStat count={impressions.this_week} name="This week" />
           <NumberedStat count={impressions.this_month} name="This month" />
           <NumberedStat count={impressions.all_time} name="All time" />
+        </div>
+      </div>
+      <div>
+        <div className="divider" />
+        <div className="p-5 text-lg font-bold">Lens</div>
+        <div className="divider" />
+        <div className="grid grid-cols-2 gap-2 p-5 sm:grid-cols-3">
+          <NumberedStat count={lensProfiles.toString()} name="Total Profiles" />
         </div>
       </div>
       <EventsToday eventsToday={data.eventsToday} />
