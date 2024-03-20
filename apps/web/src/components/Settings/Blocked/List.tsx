@@ -9,6 +9,8 @@ import { EmptyState, ErrorMessage } from '@hey/ui';
 import { Virtuoso } from 'react-virtuoso';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
+import Unblock from './Unblock';
+
 const List: FC = () => {
   const { currentProfile } = useProfileStore();
 
@@ -61,8 +63,9 @@ const List: FC = () => {
         endReached={onEndReached}
         itemContent={(_, profile) => {
           return (
-            <div className="p-5">
+            <div className="flex items-center justify-between p-5">
               <UserProfile profile={profile as Profile} />
+              <Unblock profile={profile as Profile} />
             </div>
           );
         }}
