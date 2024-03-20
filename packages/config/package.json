@@ -6,7 +6,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^7.3.1",
     "eslint": "^8.57.0",
-    "eslint-config-next": "^14.1.3",
+    "eslint-config-next": "^14.1.4",
     "eslint-plugin-perfectionist": "^2.7.0",
     "eslint-plugin-prettier": "^5.1.3",
     "eslint-plugin-react": "^7.34.1",
