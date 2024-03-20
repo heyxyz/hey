@@ -6,7 +6,10 @@ Sentry.init({
   enabled: process.env.NODE_ENV === 'production',
   ignoreErrors: [
     'ResizeObserver loop completed with undelivered notifications.',
-    'ResizeObserver loop limit exceeded'
+    'ResizeObserver loop limit exceeded',
+    'User rejected the request',
+    'wss://relay.walletconnect.org',
+    'No internet connection detected'
   ],
   tracesSampleRate: 1
 });
