@@ -5,14 +5,14 @@ import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { NoSymbolIcon } from '@heroicons/react/24/outline';
 import { LimitType, useWhoHaveBlockedQuery } from '@hey/lens';
-import { EmptyState, ErrorMessage } from '@hey/ui';
+import { Button, EmptyState, ErrorMessage } from '@hey/ui';
 import { Virtuoso } from 'react-virtuoso';
+import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
-
-import Unblock from './Unblock';
 
 const List: FC = () => {
   const { currentProfile } = useProfileStore();
+  const { setShowBlockOrUnblockAlert } = useGlobalAlertStateStore();
 
   const request: WhoHaveBlockedRequest = { limit: LimitType.TwentyFive };
   const { data, error, fetchMore, loading } = useWhoHaveBlockedQuery({
@@ -65,7 +65,13 @@ const List: FC = () => {
           return (
             <div className="flex items-center justify-between p-5">
               <UserProfile profile={profile as Profile} />
-              <Unblock profile={profile as Profile} />
+              <Button
+                onClick={() =>
+                  setShowBlockOrUnblockAlert(true, profile as Profile)
+                }
+              >
+                Unblock
+              </Button>
             </div>
           );
         }}
