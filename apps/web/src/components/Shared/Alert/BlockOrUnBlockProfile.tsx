@@ -56,29 +56,6 @@ const BlockOrUnBlockProfile: FC = () => {
       },
       id: `ProfileOperations:${blockingorUnblockingProfile?.id}`
     });
-    cache.modify({
-      fields: {
-        whoHaveBlocked(existingValue, { readField, toReference }) {
-          const newItems = hasBlocked
-            ? existingValue.items.filter(
-                (profileRef: Parameters<typeof readField>[1]) =>
-                  readField('id', profileRef) !==
-                  blockingorUnblockingProfile?.id
-              )
-            : [
-                ...existingValue.items,
-                toReference({
-                  __typename: 'Profile',
-                  id: blockingorUnblockingProfile?.id
-                })
-              ];
-          return {
-            ...existingValue,
-            items: newItems
-          };
-        }
-      }
-    });
   };
 
   const onCompleted = (
