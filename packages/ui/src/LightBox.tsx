@@ -12,12 +12,12 @@ interface LightBoxProps {
 
 export const LightBox: FC<LightBoxProps> = ({ onClose, show, url }) => {
   return (
-    <Modal onClose={onClose} show={show}>
+    <Modal onClose={onClose} show={show} size="md">
       <img
         alt={url || ''}
-        className="max-h-screen rounded-xl"
+        className="max-h-screen cursor-pointer rounded-xl"
         height={1000}
-        onClick={onClose}
+        onClick={() => window.open(url || '', '_blank')}
         src={url || PLACEHOLDER_IMAGE}
         width={1000}
       />
