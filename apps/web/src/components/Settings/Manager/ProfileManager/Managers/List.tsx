@@ -182,7 +182,7 @@ const List: FC = () => {
 
   return (
     <Virtuoso
-      computeItemKey={(_, manager) => manager.address}
+      computeItemKey={(index, manager) => `${manager.address}-${index}`}
       data={profileManagers}
       endReached={onEndReached}
       itemContent={(_, manager) => {

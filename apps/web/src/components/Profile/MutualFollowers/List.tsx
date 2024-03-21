@@ -87,7 +87,9 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({
       <div className="divider" />
       <Virtuoso
         className="virtual-divider-list-window"
-        computeItemKey={(_, mutualFollower) => mutualFollower.id}
+        computeItemKey={(index, mutualFollower) =>
+          `${mutualFollower.id}-${index}`
+        }
         data={mutualFollowers}
         endReached={onEndReached}
         itemContent={(_, mutualFollower) => {

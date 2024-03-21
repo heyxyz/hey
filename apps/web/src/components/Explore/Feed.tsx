@@ -84,7 +84,7 @@ const Feed: FC<FeedProps> = ({
     <Card>
       <Virtuoso
         className="virtual-divider-list-window"
-        computeItemKey={(index, publication) => `${publication.id}_${index}`}
+        computeItemKey={(index, publication) => `${publication.id}-${index}`}
         data={publications}
         endReached={onEndReached}
         itemContent={(index, publication) => {
