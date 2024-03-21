@@ -106,7 +106,9 @@ const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
       <Card>
         <Virtuoso
           className="virtual-divider-list-window"
-          computeItemKey={(index) => `${publicationId}_${index}`}
+          computeItemKey={(index, comment) =>
+            `${publicationId}-${comment.id}-${index}`
+          }
           data={comments}
           endReached={onEndReached}
           itemContent={(index, comment) => {

@@ -57,7 +57,7 @@ const PaidActions: FC = () => {
       components={{ Footer: () => <div className="pb-5" /> }}
       computeItemKey={(index, action) =>
         action.__typename === 'OpenActionPaidAction'
-          ? `${action.actedOn?.id}_${index}`
+          ? `${action.actedOn?.id}-${index}`
           : index
       }
       data={actions}

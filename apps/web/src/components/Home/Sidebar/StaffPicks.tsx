@@ -44,11 +44,11 @@ const StaffPicks: FC = () => {
     return (
       <Card as="aside" className="mb-4 space-y-4 p-5">
         <Title />
-        <UserProfileShimmer />
-        <UserProfileShimmer />
-        <UserProfileShimmer />
-        <UserProfileShimmer />
-        <UserProfileShimmer />
+        <UserProfileShimmer showFollowUnfollowButton />
+        <UserProfileShimmer showFollowUnfollowButton />
+        <UserProfileShimmer showFollowUnfollowButton />
+        <UserProfileShimmer showFollowUnfollowButton />
+        <UserProfileShimmer showFollowUnfollowButton />
       </Card>
     );
   }
@@ -75,10 +75,13 @@ const StaffPicks: FC = () => {
       />
       {profiles?.profiles.items.map((profile) => (
         <div className="flex items-center space-x-3 truncate" key={profile.id}>
-          <UserProfile
-            profile={profile as Profile}
-            source={ProfileLinkSource.StaffPicks}
-          />
+          <div className="w-full">
+            <UserProfile
+              profile={profile as Profile}
+              showFollowUnfollowButton
+              source={ProfileLinkSource.StaffPicks}
+            />
+          </div>
         </div>
       ))}
     </Card>

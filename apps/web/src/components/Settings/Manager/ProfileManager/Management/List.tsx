@@ -122,7 +122,7 @@ const List: FC<ListProps> = ({ managed = false }) => {
 
   return (
     <Virtuoso
-      computeItemKey={(_, profile) => profile.id}
+      computeItemKey={(index, profile) => `${profile.id}-${index}`}
       data={profilesManaged}
       endReached={onEndReached}
       itemContent={(_, profile) => {
