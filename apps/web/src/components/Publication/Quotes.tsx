@@ -82,7 +82,7 @@ const Quotes: FC<QuotesProps> = ({ publicationId }) => {
       <div className="divider" />
       <Virtuoso
         className="virtual-divider-list-window"
-        computeItemKey={(_, quote) => quote.id}
+        computeItemKey={(index, quote) => `${quote.id}-${index}`}
         data={quotes}
         endReached={onEndReached}
         itemContent={(index, quote) => {
