@@ -1,6 +1,7 @@
 import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
+import { useProfileThemeStore } from '@components/Profile';
 import Attachments from '@components/Shared/Attachments';
 import Quote from '@components/Shared/Embed/Quote';
 import Markup from '@components/Shared/Markup';
@@ -13,7 +14,9 @@ import getURLs from '@hey/lib/getURLs';
 import isPublicationMetadataTypeAllowed from '@hey/lib/isPublicationMetadataTypeAllowed';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
+import getProfileTheme from '@lib/getProfileTheme';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { memo } from 'react';
 import { isIOS, isMobile } from 'react-device-detect';
 
@@ -35,10 +38,15 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   quoted = false,
   showMore = false
 }) => {
+  const { pathname } = useRouter();
+  const { profileTheme } = useProfileThemeStore();
   const targetPublication = isMirrorPublication(publication)
     ? publication.mirrorOn
     : publication;
   const { id, metadata } = targetPublication;
+
+  const theme =
+    pathname === '/u/[handle]' ? getProfileTheme(profileTheme) : null;
 
   const filteredContent = getPublicationData(metadata)?.content || '';
   const filteredAttachments = getPublicationData(metadata)?.attachments || [];
@@ -79,7 +87,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     !showSharingLink && hasURLs && !showLive && !showAttachments && !quoted;
 
   return (
-    <div className="break-words">
+    <div className={cn('break-words', theme?.publicationFont)}>
       <Markup
         className={cn(
           { 'line-clamp-5': canShowMore },
