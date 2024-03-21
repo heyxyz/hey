@@ -18,7 +18,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
-import { encodeAbiParameters, formatUnits } from 'viem';
+import { encodeAbiParameters, encodePacked, formatUnits } from 'viem';
 import { useAccount, useBalance } from 'wagmi';
 
 interface SwapOpenActionProps {
@@ -97,7 +97,15 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
       return toast.error('Failed to get USD price');
     }
 
-    const abi = JSON.parse(metadata?.processCalldataABI);
+    // const abi = JSON.parse(metadata?.processCalldataABI);
+    const abi = [
+      { name: 'path', type: 'bytes' },
+      { name: 'deadline', type: 'uint256' },
+      { name: 'amountIn', type: 'uint256' },
+      { name: 'amountOutMinimum', type: 'uint256' },
+      { name: 'clientAddress', type: 'address' }
+    ];
+
     // const currency = allowedTokens?.find(
     //   (token) => token.contractAddress === tip.currency
     // );
@@ -110,13 +118,16 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
     const usdValue = usdEnabled ? amount / usdPrice : amount;
 
     const calldata = encodeAbiParameters(abi, [
-      [
-        '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889',
-        10000,
-        '0x83816640bf2bb88c96b13ae73d12e0135c2b4816'
-      ],
+      encodePacked(
+        ['address', 'uint24', 'address'],
+        [
+          '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889', // From
+          10000, // Amount
+          '0x83816640bf2bb88c96b13ae73d12e0135c2b4816' // To
+        ]
+      ),
       Math.floor(Date.now() / 1000) + 20 * 60,
-      '1000000000000000000',
+      1000000000000000000,
       0,
       REWARDS_ADDRESS
     ]);
