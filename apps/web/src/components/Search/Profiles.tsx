@@ -69,7 +69,7 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
   return (
     <Virtuoso
       className="[&>div>div]:space-y-3"
-      computeItemKey={(_, profile) => profile.id}
+      computeItemKey={(index, profile) => `${profile.id}-${index}`}
       data={profiles}
       endReached={onEndReached}
       itemContent={(_, profile) => {
