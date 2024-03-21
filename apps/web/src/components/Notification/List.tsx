@@ -118,7 +118,7 @@ const List: FC<ListProps> = ({ feedType }) => {
     <Card>
       <Virtuoso
         className="virtual-notification-list"
-        computeItemKey={(_, notification) => notification.id}
+        computeItemKey={(index, notification) => `${notification.id}-${index}`}
         data={notifications}
         endReached={onEndReached}
         itemContent={(_, notification) => {
