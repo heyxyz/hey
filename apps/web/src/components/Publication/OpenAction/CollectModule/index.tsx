@@ -8,7 +8,6 @@ import type {
 } from '@hey/lens';
 import type { FC } from 'react';
 
-import Collectors from '@components/Publication/Collectors';
 import CollectWarning from '@components/Shared/CollectWarning';
 import CountdownTimer from '@components/Shared/CountdownTimer';
 import Slug from '@components/Shared/Slug';
@@ -19,7 +18,6 @@ import {
   CurrencyDollarIcon,
   PhotoIcon,
   PuzzlePieceIcon,
-  RectangleStackIcon,
   UsersIcon
 } from '@heroicons/react/24/outline';
 import { POLYGONSCAN_URL } from '@hey/data/constants';
@@ -32,7 +30,7 @@ import getRedstonePrice from '@hey/lib/getRedstonePrice';
 import getTokenImage from '@hey/lib/getTokenImage';
 import humanize from '@hey/lib/humanize';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
-import { HelpTooltip, Modal, Tooltip, WarningMessage } from '@hey/ui';
+import { HelpTooltip, Tooltip, WarningMessage } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import { useCounter } from '@uidotdev/usehooks';
 import Link from 'next/link';
@@ -183,22 +181,13 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
           <div className="block items-center space-y-1 sm:flex sm:space-x-5">
             <div className="flex items-center space-x-2">
               <UsersIcon className="ld-text-gray-500 size-4" />
-              <button
+              <Link
                 className="font-bold"
-                onClick={() => setShowCollectorsModal(!showCollectorsModal)}
-                type="button"
+                href={`/posts/${targetPublication.id}/collectors`}
               >
                 {humanize(countOpenActions)}{' '}
                 {plur('collector', countOpenActions)}
-              </button>
-              <Modal
-                icon={<RectangleStackIcon className="size-5" />}
-                onClose={() => setShowCollectorsModal(false)}
-                show={showCollectorsModal}
-                title="Collected by"
-              >
-                <Collectors publicationId={targetPublication.id} />
-              </Modal>
+              </Link>
             </div>
             {collectLimit && !isAllCollected ? (
               <div className="flex items-center space-x-2">
