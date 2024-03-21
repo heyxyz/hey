@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 
+import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { OpenAction } from '@hey/data/enums';
 import { TipIcon } from '@hey/icons';
 import {
@@ -16,12 +17,20 @@ const OpenActionsList: FC = () => {
 
   return screen === ScreenType.List ? (
     <div className="p-5">
-      <OpenActionItem
-        description="Add ability to tip"
-        icon={<TipIcon className="size-6" />}
-        title="Tipping"
-        type={OpenAction.Tip}
-      />
+      <div className="mb-5 space-y-3">
+        <OpenActionItem
+          description="Add ability to swap"
+          icon={<ArrowsRightLeftIcon className="size-6" />}
+          title="Swap"
+          type={OpenAction.Swap}
+        />
+        <OpenActionItem
+          description="Add ability to tip"
+          icon={<TipIcon className="size-6" />}
+          title="Tipping"
+          type={OpenAction.Tip}
+        />
+      </div>
       <SaveOrCancel
         onSave={() => setShowModal(false)}
         saveDisabled={selectedOpenAction === null}
