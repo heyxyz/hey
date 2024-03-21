@@ -141,7 +141,6 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
 
   return (
     <Card className="space-y-3 p-5">
-      {JSON.stringify(data)}
       <Button onClick={act}>Act</Button>
     </Card>
   );
