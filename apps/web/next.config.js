@@ -73,6 +73,10 @@ const nextConfig = {
   rewrites() {
     return [
       {
+        destination: 'https://api.hey.xyz/sitemap/profileMaps',
+        source: '/sitemaps/profiles'
+      },
+      {
         destination: 'https://api.hey.xyz/sitemap/:match*',
         source: '/sitemaps/:match*'
       },
