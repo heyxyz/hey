@@ -15,7 +15,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@apollo/client": "^3.9.7",
+    "@apollo/client": "^3.9.8",
     "@aws-sdk/client-s3": "^3.537.0",
     "@aws-sdk/lib-storage": "^3.537.0",
     "@headlessui/react": "^1.7.18",
@@ -38,8 +38,8 @@
     "@livepeer/react": "3.1.9",
     "@radix-ui/react-hover-card": "^1.0.7",
     "@sentry/nextjs": "^7.105.0",
-    "@tanstack/react-query": "^5.28.4",
-    "@thirdweb-dev/storage": "^2.0.10",
+    "@tanstack/react-query": "^5.28.6",
+    "@thirdweb-dev/storage": "^2.0.11",
     "@uidotdev/usehooks": "^2.4.1",
     "alchemy-sdk": "^3.2.0",
     "axios": "^1.6.8",
@@ -48,7 +48,7 @@
     "crisp-sdk-web": "^1.0.22",
     "dotenv": "^16.4.5",
     "esbuild": "^0.20.2",
-    "framer-motion": "^11.0.15",
+    "framer-motion": "^11.0.18",
     "graphql": "^16.8.1",
     "idb-keyval": "^6.2.1",
     "lexical": "^0.14.2",
@@ -64,15 +64,15 @@
     "react-hot-toast": "^2.4.1",
     "react-markdown": "^9.0.0",
     "react-tracked": "^1.7.14",
-    "react-virtuoso": "^4.7.3",
+    "react-virtuoso": "^4.7.4",
     "remark-breaks": "^4.0.0",
     "remark-linkify-regex": "^1.2.1",
     "strip-markdown": "^6.0.0",
     "urlcat": "^3.1.0",
     "use-resize-observer": "^9.1.0",
     "uuid": "^9.0.1",
-    "viem": "^2.8.14",
-    "wagmi": "^2.5.11",
+    "viem": "^2.8.16",
+    "wagmi": "^2.5.12",
     "zod": "^3.22.4",
     "zustand": "^4.5.2"
   },
@@ -85,9 +85,9 @@
     "@types/react": "^18.2.67",
     "@types/react-dom": "^18.2.22",
     "@types/uuid": "^9.0.8",
-    "autoprefixer": "^10.4.18",
-    "postcss": "^8.4.37",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5.4.2"
+    "typescript": "^5.4.3"
   }
 }
