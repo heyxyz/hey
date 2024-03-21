@@ -1,393 +1,455 @@
 export const LensHandles = [
   {
     inputs: [
-      { internalType: 'address', name: '_uniswapV3Router', type: 'address' },
-      { internalType: 'address', name: '_madSBT', type: 'address' },
-      { internalType: 'address', name: '_hub', type: 'address' }
+      { internalType: 'address', name: 'owner', type: 'address' },
+      { internalType: 'address', name: 'lensHub', type: 'address' },
+      {
+        internalType: 'uint256',
+        name: 'tokenGuardianCooldown',
+        type: 'uint256'
+      }
     ],
     stateMutability: 'nonpayable',
     type: 'constructor'
   },
-  {
-    inputs: [{ internalType: 'address', name: 'token', type: 'address' }],
-    name: 'BadOutputToken',
-    type: 'error'
-  },
-  {
-    inputs: [{ internalType: 'uint16', name: 'percentCap', type: 'uint16' }],
-    name: 'InvalidPercentCap',
-    type: 'error'
-  },
-  {
-    inputs: [{ internalType: 'uint16', name: 'percentReward', type: 'uint16' }],
-    name: 'InvalidPercentReward',
-    type: 'error'
-  },
-  {
-    inputs: [
-      { internalType: 'uint256', name: 'rewardsPoolId', type: 'uint256' }
-    ],
-    name: 'InvalidRewardsPoolId',
-    type: 'error'
-  },
+  { inputs: [], name: 'AlreadyEnabled', type: 'error' },
+  { inputs: [], name: 'DisablingAlreadyTriggered', type: 'error' },
+  { inputs: [], name: 'DoesNotExist', type: 'error' },
+  { inputs: [], name: 'GuardianEnabled', type: 'error' },
+  { inputs: [], name: 'HandleContainsInvalidCharacters', type: 'error' },
+  { inputs: [], name: 'HandleFirstCharInvalid', type: 'error' },
+  { inputs: [], name: 'HandleLengthInvalid', type: 'error' },
+  { inputs: [], name: 'InvalidParameter', type: 'error' },
+  { inputs: [], name: 'NotEOA', type: 'error' },
   { inputs: [], name: 'NotHub', type: 'error' },
+  { inputs: [], name: 'NotOwner', type: 'error' },
+  { inputs: [], name: 'NotOwnerNorWhitelisted', type: 'error' },
+  { inputs: [], name: 'OnlyOwner', type: 'error' },
+  { inputs: [], name: 'OnlyOwnerOrHub', type: 'error' },
   {
     anonymous: false,
     inputs: [
       {
         indexed: true,
         internalType: 'address',
-        name: 'token',
+        name: 'owner',
         type: 'address'
-      },
-      { indexed: true, internalType: 'address', name: 'to', type: 'address' }
-    ],
-    name: 'FeesWithdrawn',
-    type: 'event'
-  },
-  {
-    anonymous: false,
-    inputs: [
-      { indexed: true, internalType: 'address', name: 'user', type: 'address' },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'newOwner',
-        type: 'address'
-      }
-    ],
-    name: 'OwnershipTransferred',
-    type: 'event'
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'uint256',
-        name: 'profileId',
-        type: 'uint256'
-      },
-      {
-        indexed: true,
-        internalType: 'uint256',
-        name: 'pubId',
-        type: 'uint256'
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'rewardsPoolId',
-        type: 'uint256'
-      }
-    ],
-    name: 'PublicationActionInitialized',
-    type: 'event'
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'rewardsPoolId',
-        type: 'uint256'
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'amountOut',
-        type: 'uint256'
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'sharedReward',
-        type: 'uint256'
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'posterReward',
-        type: 'uint256'
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'referrerReward',
-        type: 'uint256'
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'clientReward',
-        type: 'uint256'
-      }
-    ],
-    name: 'RewardsPaid',
-    type: 'event'
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'uint256',
-        name: 'rewardsPoolId',
-        type: 'uint256'
       },
       {
         indexed: true,
         internalType: 'address',
-        name: 'token',
+        name: 'approved',
         type: 'address'
       },
       {
-        indexed: false,
+        indexed: true,
         internalType: 'uint256',
-        name: 'rewardsAmount',
-        type: 'uint256'
-      },
-      {
-        indexed: false,
-        internalType: 'uint16',
-        name: 'percentReward',
-        type: 'uint16'
-      },
-      { indexed: false, internalType: 'uint256', name: 'cap', type: 'uint256' },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'collectionId',
+        name: 'tokenId',
         type: 'uint256'
       }
     ],
-    name: 'RewardsPoolCreated',
+    name: 'Approval',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'owner',
+        type: 'address'
+      },
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'operator',
+        type: 'address'
+      },
+      { indexed: false, internalType: 'bool', name: 'approved', type: 'bool' }
+    ],
+    name: 'ApprovalForAll',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'fromTokenId',
+        type: 'uint256'
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'toTokenId',
+        type: 'uint256'
+      }
+    ],
+    name: 'BatchMetadataUpdate',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'string',
+        name: 'handle',
+        type: 'string'
+      },
+      {
+        indexed: false,
+        internalType: 'string',
+        name: 'namespace',
+        type: 'string'
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'handleId',
+        type: 'uint256'
+      },
+      { indexed: false, internalType: 'address', name: 'to', type: 'address' },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'timestamp',
+        type: 'uint256'
+      }
+    ],
+    name: 'HandleMinted',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'wallet',
+        type: 'address'
+      },
+      { indexed: true, internalType: 'bool', name: 'enabled', type: 'bool' },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'tokenGuardianDisablingTimestamp',
+        type: 'uint256'
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'timestamp',
+        type: 'uint256'
+      }
+    ],
+    name: 'TokenGuardianStateChanged',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, internalType: 'address', name: 'from', type: 'address' },
+      { indexed: true, internalType: 'address', name: 'to', type: 'address' },
+      {
+        indexed: true,
+        internalType: 'uint256',
+        name: 'tokenId',
+        type: 'uint256'
+      }
+    ],
+    name: 'Transfer',
     type: 'event'
   },
   {
     inputs: [],
-    name: 'CLIENT_PERCENT',
-    outputs: [{ internalType: 'uint16', name: '', type: 'uint16' }],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [],
-    name: 'DIRECT_PROMOTION_SPLIT',
-    outputs: [{ internalType: 'uint8', name: '', type: 'uint8' }],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [],
-    name: 'HUB',
-    outputs: [{ internalType: 'address', name: '', type: 'address' }],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [],
-    name: 'PROTOCOL_FEE',
-    outputs: [{ internalType: 'uint8', name: '', type: 'uint8' }],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [
-      { internalType: 'address', name: 'token', type: 'address' },
-      { internalType: 'uint256', name: 'rewardsAmount', type: 'uint256' },
-      { internalType: 'uint16', name: 'percentReward', type: 'uint16' },
-      { internalType: 'uint16', name: 'percentCap', type: 'uint16' },
-      { internalType: 'uint256', name: 'profileId', type: 'uint256' }
-    ],
-    name: 'createRewardsPool',
-    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
-    inputs: [{ internalType: 'bytes', name: 'path', type: 'bytes' }],
-    name: 'extractFinalTokenAddress',
-    outputs: [{ internalType: 'address', name: 'finalToken', type: 'address' }],
-    stateMutability: 'pure',
-    type: 'function'
-  },
-  {
-    inputs: [{ internalType: 'address', name: '', type: 'address' }],
-    name: 'feesCollected',
-    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [{ internalType: 'uint256', name: 'amountIn', type: 'uint256' }],
-    name: 'getSplitsTokenIn',
-    outputs: [{ internalType: 'uint256', name: 'protocol', type: 'uint256' }],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [
-      { internalType: 'uint256', name: 'amountOut', type: 'uint256' },
-      { internalType: 'bool', name: 'isDirectPromotion', type: 'bool' },
-      { internalType: 'uint256', name: 'percentReward', type: 'uint256' },
-      { internalType: 'uint256', name: 'cap', type: 'uint256' },
-      { internalType: 'uint256', name: 'remainingRewards', type: 'uint256' },
-      { internalType: 'uint256', name: 'sharedRewardPercent', type: 'uint256' },
-      { internalType: 'bool', name: 'isReferral', type: 'bool' },
-      { internalType: 'bool', name: 'hasClient', type: 'bool' }
-    ],
-    name: 'getSplitsTokenOut',
-    outputs: [
-      { internalType: 'uint256', name: 'poster', type: 'uint256' },
-      { internalType: 'uint256', name: 'swapper', type: 'uint256' },
-      { internalType: 'uint256', name: 'referrer', type: 'uint256' },
-      { internalType: 'uint256', name: 'client', type: 'uint256' },
-      { internalType: 'uint256', name: 'lens', type: 'uint256' }
-    ],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [],
-    name: 'hub',
-    outputs: [{ internalType: 'contract ILensHub', name: '', type: 'address' }],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [
-      { internalType: 'uint256', name: 'profileId', type: 'uint256' },
-      { internalType: 'uint256', name: 'pubId', type: 'uint256' },
-      { internalType: 'address', name: '', type: 'address' },
-      { internalType: 'bytes', name: 'data', type: 'bytes' }
-    ],
-    name: 'initializePublicationAction',
-    outputs: [{ internalType: 'bytes', name: '', type: 'bytes' }],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
-    inputs: [],
-    name: 'madSBT',
-    outputs: [{ internalType: 'contract IMadSBT', name: '', type: 'address' }],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [],
-    name: 'owner',
-    outputs: [{ internalType: 'address', name: '', type: 'address' }],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [],
-    name: 'poolCount',
-    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [
-      { internalType: 'uint256', name: '', type: 'uint256' },
-      { internalType: 'uint256', name: '', type: 'uint256' }
-    ],
-    name: 'posts',
-    outputs: [
-      { internalType: 'address', name: 'recipient', type: 'address' },
-      { internalType: 'uint256', name: 'rewardsPoolId', type: 'uint256' },
-      { internalType: 'uint16', name: 'sharedRewardPercent', type: 'uint16' },
-      { internalType: 'address', name: 'token', type: 'address' }
-    ],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [
-      {
-        components: [
-          {
-            internalType: 'uint256',
-            name: 'publicationActedProfileId',
-            type: 'uint256'
-          },
-          {
-            internalType: 'uint256',
-            name: 'publicationActedId',
-            type: 'uint256'
-          },
-          { internalType: 'uint256', name: 'actorProfileId', type: 'uint256' },
-          {
-            internalType: 'address',
-            name: 'actorProfileOwner',
-            type: 'address'
-          },
-          {
-            internalType: 'address',
-            name: 'transactionExecutor',
-            type: 'address'
-          },
-          {
-            internalType: 'uint256[]',
-            name: 'referrerProfileIds',
-            type: 'uint256[]'
-          },
-          {
-            internalType: 'uint256[]',
-            name: 'referrerPubIds',
-            type: 'uint256[]'
-          },
-          {
-            internalType: 'enum Types.PublicationType[]',
-            name: 'referrerPubTypes',
-            type: 'uint8[]'
-          },
-          { internalType: 'bytes', name: 'actionModuleData', type: 'bytes' }
-        ],
-        internalType: 'struct Types.ProcessActionParams',
-        name: 'processActionParams',
-        type: 'tuple'
-      }
-    ],
-    name: 'processPublicationAction',
-    outputs: [{ internalType: 'bytes', name: '', type: 'bytes' }],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
-    inputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-    name: 'rewardsPools',
-    outputs: [
-      { internalType: 'uint256', name: 'rewardsAmount', type: 'uint256' },
-      { internalType: 'uint16', name: 'percentReward', type: 'uint16' },
-      { internalType: 'address', name: 'token', type: 'address' },
-      { internalType: 'uint256', name: 'cap', type: 'uint256' },
-      { internalType: 'uint256', name: 'collectionId', type: 'uint256' }
-    ],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [{ internalType: 'address', name: 'newOwner', type: 'address' }],
-    name: 'transferOwnership',
+    name: 'DANGER__disableTokenGuardian',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
   },
   {
     inputs: [],
-    name: 'uniswapV3Router',
+    name: 'LENS_HUB',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'NAMESPACE',
+    outputs: [{ internalType: 'string', name: '', type: 'string' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'NAMESPACE_HASH',
+    outputs: [{ internalType: 'bytes32', name: '', type: 'bytes32' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'OWNER',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'TOKEN_GUARDIAN_COOLDOWN',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'address', name: 'to', type: 'address' },
+      { internalType: 'uint256', name: 'tokenId', type: 'uint256' }
+    ],
+    name: 'approve',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'address', name: 'owner', type: 'address' }],
+    name: 'balanceOf',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'uint256', name: 'tokenId', type: 'uint256' }],
+    name: 'burn',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'enableTokenGuardian',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'uint256', name: 'tokenId', type: 'uint256' }],
+    name: 'exists',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'uint256', name: 'tokenId', type: 'uint256' }],
+    name: 'getApproved',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'uint256', name: 'tokenId', type: 'uint256' }],
+    name: 'getHandle',
+    outputs: [{ internalType: 'string', name: '', type: 'string' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'getHandleTokenURIContract',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'uint256', name: 'tokenId', type: 'uint256' }],
+    name: 'getLocalName',
+    outputs: [{ internalType: 'string', name: '', type: 'string' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'getNamespace',
+    outputs: [{ internalType: 'string', name: '', type: 'string' }],
+    stateMutability: 'pure',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'getNamespaceHash',
+    outputs: [{ internalType: 'bytes32', name: '', type: 'bytes32' }],
+    stateMutability: 'pure',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'address', name: 'wallet', type: 'address' }],
+    name: 'getTokenGuardianDisablingTimestamp',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'string', name: 'localName', type: 'string' }],
+    name: 'getTokenId',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'pure',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'address', name: 'owner', type: 'address' },
+      { internalType: 'address', name: 'operator', type: 'address' }
+    ],
+    name: 'isApprovedForAll',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'address', name: 'to', type: 'address' },
+      { internalType: 'string', name: 'localName', type: 'string' }
+    ],
+    name: 'migrateHandle',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'address', name: 'to', type: 'address' },
+      { internalType: 'string', name: 'localName', type: 'string' }
+    ],
+    name: 'mintHandle',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'name',
+    outputs: [{ internalType: 'string', name: '', type: 'string' }],
+    stateMutability: 'pure',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'uint256', name: 'tokenId', type: 'uint256' }],
+    name: 'ownerOf',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'uint256', name: 'tokenId', type: 'uint256' },
+      { internalType: 'uint256', name: 'salePrice', type: 'uint256' }
+    ],
+    name: 'royaltyInfo',
     outputs: [
-      { internalType: 'contract ISwapRouter', name: '', type: 'address' }
+      { internalType: 'address', name: '', type: 'address' },
+      { internalType: 'uint256', name: '', type: 'uint256' }
     ],
     stateMutability: 'view',
     type: 'function'
   },
   {
-    inputs: [{ internalType: 'address', name: 'token', type: 'address' }],
-    name: 'withdrawProtocolFees',
+    inputs: [
+      { internalType: 'address', name: 'from', type: 'address' },
+      { internalType: 'address', name: 'to', type: 'address' },
+      { internalType: 'uint256', name: 'tokenId', type: 'uint256' }
+    ],
+    name: 'safeTransferFrom',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'address', name: 'from', type: 'address' },
+      { internalType: 'address', name: 'to', type: 'address' },
+      { internalType: 'uint256', name: 'tokenId', type: 'uint256' },
+      { internalType: 'bytes', name: 'data', type: 'bytes' }
+    ],
+    name: 'safeTransferFrom',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'address', name: 'operator', type: 'address' },
+      { internalType: 'bool', name: 'approved', type: 'bool' }
+    ],
+    name: 'setApprovalForAll',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'handleTokenURIContract',
+        type: 'address'
+      }
+    ],
+    name: 'setHandleTokenURIContract',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'royaltiesInBasisPoints',
+        type: 'uint256'
+      }
+    ],
+    name: 'setRoyalty',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'bytes4', name: 'interfaceId', type: 'bytes4' }],
+    name: 'supportsInterface',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'symbol',
+    outputs: [{ internalType: 'string', name: '', type: 'string' }],
+    stateMutability: 'pure',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'uint256', name: 'tokenId', type: 'uint256' }],
+    name: 'tokenURI',
+    outputs: [{ internalType: 'string', name: '', type: 'string' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'totalSupply',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'address', name: 'from', type: 'address' },
+      { internalType: 'address', name: 'to', type: 'address' },
+      { internalType: 'uint256', name: 'tokenId', type: 'uint256' }
+    ],
+    name: 'transferFrom',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
