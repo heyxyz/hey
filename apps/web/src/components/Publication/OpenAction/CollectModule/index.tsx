@@ -35,7 +35,6 @@ import { useQuery } from '@tanstack/react-query';
 import { useCounter } from '@uidotdev/usehooks';
 import Link from 'next/link';
 import plur from 'plur';
-import { useState } from 'react';
 
 import CollectAction from './CollectAction';
 import Splits from './Splits';
@@ -55,7 +54,6 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
     queryKey: ['getAllTokens']
   });
 
-  const [showCollectorsModal, setShowCollectorsModal] = useState(false);
   const [countOpenActions, { increment }] = useCounter(
     targetPublication.stats.countOpenActions
   );
