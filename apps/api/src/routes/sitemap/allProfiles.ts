@@ -13,10 +13,6 @@ const profiles = [
   '1Cl8kSYP4Tn1oI7aOANXn_vN9eSMhL8RWJHHyUWhN-q4'
 ];
 
-export const config = {
-  api: { responseLimit: '8mb' }
-};
-
 interface Url {
   loc: string;
 }
