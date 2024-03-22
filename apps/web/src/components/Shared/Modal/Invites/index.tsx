@@ -14,7 +14,7 @@ const Invites: FC = () => {
   const { data, error, loading, refetch } = useInvitedProfilesQuery();
 
   if (loading) {
-    return <Loader message="Loading invites" />;
+    return <Loader className="my-5" message="Loading invites" />;
   }
 
   if (error) {

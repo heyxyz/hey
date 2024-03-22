@@ -86,7 +86,7 @@ const LeafwatchStats: FC = () => {
   });
 
   if (isLoading) {
-    return <Loader className="m-5" message="Loading stats..." />;
+    return <Loader className="my-10" message="Loading stats..." />;
   }
 
   if (error) {
