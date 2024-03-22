@@ -118,7 +118,7 @@ const Login: FC<LoginProps> = ({ setHasProfiles }) => {
     <div className="space-y-3">
       <div className="space-y-2.5">
         {chain === CHAIN.id ? (
-          !profilesManagedLoading ? (
+          profilesManagedLoading ? (
             <Card className="w-full dark:divide-gray-700" forceRounded>
               <Loader
                 className="my-4"
