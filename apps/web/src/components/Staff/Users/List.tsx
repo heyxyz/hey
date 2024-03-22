@@ -90,7 +90,7 @@ const List: FC = () => {
         </button>
       </div>
       <div className="divider" />
-      <div className="p-5">
+      <div className="m-5">
         {loading ? (
           <Loader className="my-5" message="Loading profiles..." />
         ) : error ? (

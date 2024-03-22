@@ -56,7 +56,7 @@ const Overview: NextPage = () => {
       <GridItemFour>
         <StaffSidebar />
       </GridItemFour>
-      <GridItemEight className="space-y-5">
+      <GridItemEight>
         <Card className="border-dashed border-yellow-600 !bg-yellow-300/20 p-5">
           {loading ? (
             <Loader className="my-5" message="Loading profile" />
