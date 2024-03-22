@@ -92,9 +92,9 @@ const List: FC = () => {
         </Button>
       </div>
       <div className="divider" />
-      <div className="p-5">
+      <div className="m-5">
         {isLoading ? (
-          <Loader message="Loading feature flags..." />
+          <Loader className="my-5" message="Loading feature flags..." />
         ) : error ? (
           <ErrorMessage error={error} title="Failed to load feature flags" />
         ) : !features.length ? (

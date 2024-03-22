@@ -161,7 +161,7 @@ const List: FC = () => {
   };
 
   if (loading) {
-    return <Loader className="pb-5" />;
+    return <Loader className="my-10" />;
   }
 
   if (error) {

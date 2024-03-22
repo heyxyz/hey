@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 
+import Loader from '@components/Shared/Loader';
 import { StarIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import {
@@ -21,10 +22,10 @@ import getSignature from '@hey/lib/getSignature';
 import {
   Button,
   Card,
+  CardHeader,
   Form,
   Input,
   Select,
-  Spinner,
   useZodForm
 } from '@hey/ui';
 import errorToast from '@lib/errorToast';
@@ -183,10 +184,7 @@ const SuperFollow: FC = () => {
   if (allowedTokensLoading) {
     return (
       <Card>
-        <div className="space-y-2 p-5 py-10 text-center">
-          <Spinner className="mx-auto" size="md" />
-          <div>Loading Super follow settings</div>
-        </div>
+        <Loader className="my-10" message="Loading Super follow settings" />
       </Card>
     );
   }
@@ -195,20 +193,20 @@ const SuperFollow: FC = () => {
 
   return (
     <Card>
+      <CardHeader
+        body="Setting Super follow makes users spend crypto to follow you, and it's
+        a good way to earn it, you can change the amount and currency or
+        disable/enable it anytime."
+        title="Set Super follow"
+      />
       <Form
-        className="space-y-4 p-5"
+        className="m-5 space-y-4"
         form={form}
         onSubmit={async ({ amount, recipient }) => {
           await setSuperFollow(amount, recipient);
         }}
       >
-        <div className="text-lg font-bold">Set Super follow</div>
-        <p>
-          Setting Super follow makes users spend crypto to follow you, and it's
-          a good way to earn it, you can change the amount and currency or
-          disable/enable it anytime.
-        </p>
-        <div className="pt-2">
+        <div>
           <div className="label">Select currency</div>
           <Select
             defaultValue={

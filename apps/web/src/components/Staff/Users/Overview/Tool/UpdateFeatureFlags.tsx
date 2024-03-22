@@ -34,7 +34,7 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
   });
 
   if (isLoading) {
-    return <Loader message="Loading feature flags" />;
+    return <Loader className="my-5" message="Loading feature flags" />;
   }
 
   const availableFeatures = allFeatureFlags || [];
