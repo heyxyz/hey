@@ -10,7 +10,14 @@ import { LensHandles } from '@hey/abis';
 import { LENS_HANDLES } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { SETTINGS } from '@hey/data/tracking';
-import { Button, Card, Modal, Spinner, WarningMessage } from '@hey/ui';
+import {
+  Button,
+  Card,
+  CardHeader,
+  Modal,
+  Spinner,
+  WarningMessage
+} from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
@@ -64,68 +71,66 @@ const HandleGuardianSettings: FC = () => {
   };
 
   return (
-    <Card className="space-y-5 p-5">
-      <div className="space-y-3">
-        <div className="text-lg font-bold text-red-500">
-          {isProtected ? 'Disable' : 'Enable'} handle guardian
-        </div>
-        {isProtected ? (
-          <p>
-            This will disable the Handle Guardian and allow you to do some
-            actions like transfer, burn and approve without restrictions.
-          </p>
+    <Card>
+      <CardHeader
+        body={
+          isProtected
+            ? 'This will disable the Handle Guardian and allow you to do some actions like transfer, burn and approve without restrictions.'
+            : 'This will enable the Handle Guardian and restrict you from doing some actions like transfer, burn and approve.'
+        }
+        title={
+          <div className="text-red-500">
+            {isProtected ? 'Disable' : 'Enable'} handle guardian
+          </div>
+        }
+      />
+      <div className="m-5 space-y-5">
+        {isProtected && (
+          <>
+            <div className="text-lg font-bold">What else you should know</div>
+            <div className="ld-text-gray-500 divide-y text-sm dark:divide-gray-700">
+              <p className="pb-3">
+                A 24-hours Security Cooldown Period need to be elapsed for the
+                Handle Guardian to become effectively disabled.
+              </p>
+              <p className="py-3">
+                After the Handle Guardian is effectively disabled, you will be
+                able to execute approvals and transfers without restrictions.
+              </p>
+            </div>
+          </>
+        )}
+        {data ? (
+          <div className="mt-5">
+            <IndexStatus reload txHash={data} />
+          </div>
         ) : (
-          <p>
-            This will enable the Handle Guardian and restrict you from doing
-            some actions like transfer, burn and approve.
-          </p>
+          <Button
+            disabled={isLoading}
+            icon={
+              isLoading ? (
+                <Spinner size="xs" variant="danger" />
+              ) : isProtected ? (
+                <LockOpenIcon className="size-5" />
+              ) : (
+                <LockClosedIcon className="size-5" />
+              )
+            }
+            onClick={() =>
+              isProtected ? setShowWarningModal(true) : handleDisable()
+            }
+            variant="danger"
+          >
+            {isProtected
+              ? isLoading
+                ? 'Disabling...'
+                : 'Disable now'
+              : isLoading
+                ? 'Enabling...'
+                : 'Enable now'}
+          </Button>
         )}
       </div>
-      {isProtected && (
-        <>
-          <div className="text-lg font-bold">What else you should know</div>
-          <div className="ld-text-gray-500 divide-y text-sm dark:divide-gray-700">
-            <p className="pb-3">
-              A 24-hours Security Cooldown Period need to be elapsed for the
-              Handle Guardian to become effectively disabled.
-            </p>
-            <p className="py-3">
-              After the Handle Guardian is effectively disabled, you will be
-              able to execute approvals and transfers without restrictions.
-            </p>
-          </div>
-        </>
-      )}
-      {data ? (
-        <div className="mt-5">
-          <IndexStatus reload txHash={data} />
-        </div>
-      ) : (
-        <Button
-          disabled={isLoading}
-          icon={
-            isLoading ? (
-              <Spinner size="xs" variant="danger" />
-            ) : isProtected ? (
-              <LockOpenIcon className="size-5" />
-            ) : (
-              <LockClosedIcon className="size-5" />
-            )
-          }
-          onClick={() =>
-            isProtected ? setShowWarningModal(true) : handleDisable()
-          }
-          variant="danger"
-        >
-          {isProtected
-            ? isLoading
-              ? 'Disabling...'
-              : 'Disable now'
-            : isLoading
-              ? 'Enabling...'
-              : 'Enable now'}
-        </Button>
-      )}
       <Modal
         icon={<ExclamationTriangleIcon className="size-5" />}
         onClose={() => setShowWarningModal(false)}

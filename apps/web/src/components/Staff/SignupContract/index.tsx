@@ -2,16 +2,16 @@ import type { NextPage } from 'next';
 import type { Address } from 'viem';
 
 import MetaTags from '@components/Common/MetaTags';
-import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
-import {
-  APP_NAME,
-  HEY_LENS_SIGNUP,
-  POLYGONSCAN_URL
-} from '@hey/data/constants';
+import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import {
+  Card,
+  CardHeader,
+  GridItemEight,
+  GridItemFour,
+  GridLayout
+} from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import Link from 'next/link';
 import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
@@ -56,17 +56,8 @@ const SignupContract: NextPage = () => {
       </GridItemFour>
       <GridItemEight className="space-y-5">
         <Card>
-          <div className="flex items-center space-x-2 p-5 text-lg font-bold">
-            <div>Signup Contract</div>
-            <Link
-              href={`${POLYGONSCAN_URL}/address/${HEY_LENS_SIGNUP}`}
-              target="_blank"
-            >
-              <ArrowTopRightOnSquareIcon className="size-4" />
-            </Link>
-          </div>
-          <div className="divider" />
-          <div className="space-y-5 p-5">
+          <CardHeader title="Signup Contract" />
+          <div className="m-5 space-y-5">
             <LensCredits />
             <SignupPrice />
             <NftsMinted />

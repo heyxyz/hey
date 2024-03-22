@@ -6,18 +6,20 @@ import cn from '@hey/ui/cn';
 interface LoaderProps {
   className?: string;
   message?: string;
-  smallSpinner?: boolean;
+  small?: boolean;
 }
 
 const Loader: FC<LoaderProps> = ({
   className = '',
   message,
-  smallSpinner = false
+  small = false
 }) => {
   return (
-    <div className={cn('space-y-2 p-5 text-center font-bold', className)}>
-      <Spinner className="mx-auto" size={smallSpinner ? 'sm' : 'md'} />
-      {message ? <div>{message}</div> : null}
+    <div className={cn('space-y-2 text-center font-bold', className)}>
+      <Spinner className="mx-auto" size={small ? 'sm' : 'md'} />
+      {message ? (
+        <div className={cn({ 'text-sm': small })}>{message}</div>
+      ) : null}
     </div>
   );
 };

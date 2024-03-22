@@ -35,7 +35,7 @@ const List: FC = () => {
   };
 
   if (loading) {
-    return <Loader className="pb-5" />;
+    return <Loader className="py-10" />;
   }
 
   if (error) {

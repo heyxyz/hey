@@ -2,7 +2,7 @@ import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
 import { useUserRateLimitQuery } from '@hey/lens';
-import { Card, ErrorMessage } from '@hey/ui';
+import { Card, CardHeader, ErrorMessage } from '@hey/ui';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 const ProgressBar: FC<{ max: number; value: number }> = ({ max, value }) => {
@@ -32,14 +32,17 @@ const RateLimits: FC = () => {
   });
 
   return (
-    <Card className="space-y-2 p-5">
-      <div className="text-lg font-bold">Rate Limits</div>
+    <Card>
+      <CardHeader
+        body="Rate limits are used to prevent abuse and ensure fair usage of the platform."
+        title="Rate Limits"
+      />
       {loading ? (
-        <Loader message="Loading Rate Limits..." />
+        <Loader className="my-10" message="Loading Rate Limits..." />
       ) : error ? (
-        <ErrorMessage error={error} />
+        <ErrorMessage className="m-5" error={error} />
       ) : data ? (
-        <div>
+        <div className="m-5">
           <b>Momoka</b>
           <div className="mt-1 space-y-5">
             <div className="space-y-2">
