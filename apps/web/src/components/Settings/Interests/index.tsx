@@ -6,7 +6,13 @@ import Beta from '@components/Shared/Badges/Beta';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import {
+  Card,
+  CardHeader,
+  GridItemEight,
+  GridItemFour,
+  GridLayout
+} from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useEffect } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -31,19 +37,20 @@ const InterestsSettings: NextPage = () => {
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight>
-        <Card className="p-5">
-          <div className="space-y-3">
-            <div className="flex items-center space-x-2">
-              <div className="text-lg font-bold">Select profile interests</div>
-              <Beta />
-            </div>
-            <p>
-              Interests you select are used to personalize your experience
-              across {APP_NAME}. You can adjust your interests if something
-              doesn't look right.
-            </p>
-          </div>
-          <div className="divider my-5" />
+        <Card>
+          <CardHeader
+            body={`Interests you select are used to personalize your experience
+            across ${APP_NAME}. You can adjust your interests if something
+            doesn't look right.`}
+            title={
+              <div className="flex items-center space-x-2">
+                <div className="text-lg font-bold">
+                  Select profile interests
+                </div>
+                <Beta />
+              </div>
+            }
+          />
           <Interests />
         </Card>
       </GridItemEight>

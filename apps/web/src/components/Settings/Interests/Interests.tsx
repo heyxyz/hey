@@ -79,11 +79,11 @@ const Interests: FC = () => {
   };
 
   if (loading) {
-    return <Loader />;
+    return <Loader className="py-10" />;
   }
 
   return (
-    <div className="space-y-4">
+    <div className="m-5 space-y-4">
       {sanitizeProfileInterests(interestsData)?.map(
         ({ category, subCategories }) => (
           <div className="space-y-2" key={category.id}>

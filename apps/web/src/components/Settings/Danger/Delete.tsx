@@ -10,7 +10,14 @@ import { LensHub } from '@hey/abis';
 import { APP_NAME, LENS_HUB } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { SETTINGS } from '@hey/data/tracking';
-import { Button, Card, Modal, Spinner, WarningMessage } from '@hey/ui';
+import {
+  Button,
+  Card,
+  CardHeader,
+  Modal,
+  Spinner,
+  WarningMessage
+} from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
@@ -75,57 +82,65 @@ const DeleteSettings: FC = () => {
 
   if (!canDelete) {
     return (
-      <Card className="space-y-3 p-5">
-        <div className="text-lg font-bold text-red-500">
-          Delete Lens profile
-        </div>
-        <p>Your profile cannot be deleted while profile guardian is enabled.</p>
+      <Card>
+        <CardHeader
+          body="Your profile cannot be deleted while profile guardian is enabled."
+          hideDivider
+          title={<div className="text-red-500">Delete Lens profile</div>}
+        />
       </Card>
     );
   }
 
   return (
-    <Card className="space-y-5 p-5">
-      <UserProfile profile={currentProfile as Profile} />
-      <div className="space-y-3">
-        <div className="text-lg font-bold text-red-500">
-          Delete Lens profile
+    <Card>
+      <CardHeader
+        body={`This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including ${APP_NAME}. All your data will be wiped out immediately and you won't be able to get it back.`}
+        title={<div className="text-red-500">Delete Lens profile</div>}
+      />
+      <div className="m-5 space-y-5">
+        <UserProfile profile={currentProfile as Profile} />
+        <div className="space-y-3">
+          <div className="text-lg font-bold text-red-500">
+            Delete Lens profile
+          </div>
+          <p>
+            This will permanently delete your Profile NFT on the Lens Protocol.
+            You will not be able to use any apps built on Lens, including{' '}
+            {APP_NAME}. All your data will be wiped out immediately and you
+            won't be able to get it back.
+          </p>
         </div>
-        <p>
-          This will permanently delete your Profile NFT on the Lens Protocol.
-          You will not be able to use any apps built on Lens, including{' '}
-          {APP_NAME}. All your data will be wiped out immediately and you won't
-          be able to get it back.
-        </p>
+        <div className="text-lg font-bold">What else you should know</div>
+        <div className="ld-text-gray-500 divide-y text-sm dark:divide-gray-700">
+          <p className="pb-3">
+            You cannot restore your Lens profile if it was accidentally or
+            wrongfully deleted.
+          </p>
+          <p className="py-3">
+            Some account information may still be available in search engines,
+            such as Google or Bing.
+          </p>
+          <p className="py-3">
+            Your @handle will be released immediately after deleting the
+            account.
+          </p>
+        </div>
+        <Button
+          disabled={isLoading}
+          icon={
+            isLoading ? (
+              <Spinner size="xs" variant="danger" />
+            ) : (
+              <TrashIcon className="size-5" />
+            )
+          }
+          onClick={() => setShowWarningModal(true)}
+          variant="danger"
+        >
+          {isLoading ? 'Deleting...' : 'Delete your account'}
+        </Button>
       </div>
-      <div className="text-lg font-bold">What else you should know</div>
-      <div className="ld-text-gray-500 divide-y text-sm dark:divide-gray-700">
-        <p className="pb-3">
-          You cannot restore your Lens profile if it was accidentally or
-          wrongfully deleted.
-        </p>
-        <p className="py-3">
-          Some account information may still be available in search engines,
-          such as Google or Bing.
-        </p>
-        <p className="py-3">
-          Your @handle will be released immediately after deleting the account.
-        </p>
-      </div>
-      <Button
-        disabled={isLoading}
-        icon={
-          isLoading ? (
-            <Spinner size="xs" variant="danger" />
-          ) : (
-            <TrashIcon className="size-5" />
-          )
-        }
-        onClick={() => setShowWarningModal(true)}
-        variant="danger"
-      >
-        {isLoading ? 'Deleting...' : 'Delete your account'}
-      </Button>
       <Modal
         icon={<ExclamationTriangleIcon className="size-5" />}
         onClose={() => setShowWarningModal(false)}
