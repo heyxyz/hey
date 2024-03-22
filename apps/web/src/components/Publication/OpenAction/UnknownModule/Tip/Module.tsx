@@ -96,7 +96,7 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
   });
 
   if (loading || loadingAllowedTokens) {
-    return <Loader className="m-5" message="Loading tip..." />;
+    return <Loader className="p-10" message="Loading tip..." />;
   }
 
   const act = async () => {
