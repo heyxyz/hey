@@ -32,7 +32,7 @@ const store = create<SignupState>((set) => ({
   delegatedExecutor: '',
   mintViaCard: false,
   profileId: '',
-  screen: 'success',
+  screen: 'choose',
   setChoosedHandle: (handle) => set({ choosedHandle: handle }),
   setDelegatedExecutor: (executor) => set({ delegatedExecutor: executor }),
   setMintViaCard: (mintViaCard) => set({ mintViaCard }),

@@ -16,7 +16,7 @@ import {
   useChallengeLazyQuery,
   useProfilesManagedQuery
 } from '@hey/lens';
-import { Button, Card, Spinner } from '@hey/ui';
+import { Button, Card } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
@@ -25,6 +25,7 @@ import { CHAIN } from 'src/constants';
 import { signIn } from 'src/store/persisted/useAuthStore';
 import { useAccount, useChainId, useDisconnect, useSignMessage } from 'wagmi';
 
+import Loader from '../Loader';
 import UserProfile from '../UserProfile';
 import SignupCard from './SignupCard';
 import WalletSelector from './WalletSelector';
@@ -117,12 +118,13 @@ const Login: FC<LoginProps> = ({ setHasProfiles }) => {
     <div className="space-y-3">
       <div className="space-y-2.5">
         {chain === CHAIN.id ? (
-          profilesManagedLoading ? (
+          !profilesManagedLoading ? (
             <Card className="w-full dark:divide-gray-700" forceRounded>
-              <div className="space-y-2 p-4 text-center text-sm font-bold">
-                <Spinner className="mx-auto" size="sm" />
-                <div>Loading profiles managed by you...</div>
-              </div>
+              <Loader
+                className="my-4"
+                message="Loading profiles managed by you..."
+                small
+              />
             </Card>
           ) : profiles.length > 0 ? (
             <Card
