@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
+import { BanknotesIcon } from '@heroicons/react/24/outline';
 import { OpenAction } from '@hey/data/enums';
 import { TipIcon } from '@hey/icons';
 import isFeatureAvailable from '@lib/isFeatureAvailable';
@@ -21,9 +21,9 @@ const OpenActionsList: FC = () => {
       <div className="mb-5 space-y-3">
         {isFeatureAvailable('swap-oa') && (
           <OpenActionItem
-            description="Add ability to swap"
-            icon={<ArrowsRightLeftIcon className="size-6" />}
-            title="Swap"
+            description="Swap any ERC-20 token"
+            icon={<BanknotesIcon className="size-6" />}
+            title="Token Swap"
             type={OpenAction.Swap}
           />
         )}
