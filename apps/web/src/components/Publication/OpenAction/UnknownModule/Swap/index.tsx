@@ -2,24 +2,14 @@ import type {
   MirrorablePublication,
   UnknownOpenActionModuleSettings
 } from '@hey/lens';
-import type { AllowedToken } from '@hey/types/hey';
 import type { FC } from 'react';
-import type { Address } from 'viem';
 
-import Loader from '@components/Shared/Loader';
-import { DEFAULT_COLLECT_TOKEN, REWARDS_ADDRESS } from '@hey/data/constants';
-import { USD_ENABLED_TOKEN_SYMBOLS } from '@hey/data/tokens-symbols';
+import { REWARDS_ADDRESS } from '@hey/data/constants';
 import { useModuleMetadataQuery } from '@hey/lens';
-import getAllTokens from '@hey/lib/api/getAllTokens';
-import getAssetSymbol from '@hey/lib/getAssetSymbol';
-import getRedstonePrice from '@hey/lib/getRedstonePrice';
-import { Button, Card } from '@hey/ui';
-import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
+import { Button, Card, Spinner } from '@hey/ui';
+import isFeatureAvailable from '@lib/isFeatureAvailable';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
-import { encodeAbiParameters, encodePacked, formatUnits } from 'viem';
-import { useAccount, useBalance } from 'wagmi';
+import { encodeAbiParameters, encodePacked } from 'viem';
 
 interface SwapOpenActionProps {
   module: UnknownOpenActionModuleSettings;
@@ -27,95 +17,35 @@ interface SwapOpenActionProps {
 }
 
 const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
-  const [selectedCurrency, setSelectedCurrency] = useState<AllowedToken | null>(
-    null
-  );
-  const [usdPrice, setUsdPrice] = useState(0);
-  const [tip, setTip] = useState({
-    currency: DEFAULT_COLLECT_TOKEN,
-    value: [5]
-  });
-
-  const { address } = useAccount();
-
-  const getUsdPrice = async () => {
-    const usdPrice = await getRedstonePrice(
-      getAssetSymbol(selectedCurrency?.symbol as string)
-    );
-    setUsdPrice(usdPrice);
-  };
-
-  useEffect(() => {
-    getUsdPrice();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedCurrency]);
-
-  const { data: balanceData } = useBalance({
-    address,
-    query: { refetchInterval: 2000 },
-    token: selectedCurrency?.contractAddress as Address
-  });
-
   const { data, loading } = useModuleMetadataQuery({
     skip: !Boolean(module?.contract.address),
     variables: { request: { implementation: module?.contract.address } }
   });
 
   const metadata = data?.moduleMetadata?.metadata;
-  const balance = balanceData
-    ? parseFloat(
-        formatUnits(balanceData.value, selectedCurrency?.decimals as number)
-      ).toFixed(selectedCurrency?.symbol === 'WETH' ? 4 : 2)
-    : 0;
-  const usdEnabled = USD_ENABLED_TOKEN_SYMBOLS.includes(
-    selectedCurrency?.symbol as string
-  );
 
   const { actOnUnknownOpenAction, isLoading } = useActOnUnknownOpenAction({
     signlessApproved: module.signlessApproved,
-    successToast: "You've sent a tip!"
+    successToast: "You've successfully swapped!"
   });
 
-  const { data: allowedTokens, isLoading: loadingAllowedTokens } = useQuery({
-    queryFn: () =>
-      getAllTokens((tokens) =>
-        setSelectedCurrency(
-          tokens.find(
-            (token) => token.contractAddress === DEFAULT_COLLECT_TOKEN
-          ) as AllowedToken
-        )
-      ),
-    queryKey: ['getAllTokens']
-  });
+  if (!isFeatureAvailable('swap-oa')) {
+    return null;
+  }
 
-  if (loading || loadingAllowedTokens) {
-    return <Loader className="m-5" message="Loading tip..." />;
+  if (loading) {
+    return (
+      <Card className="p-5">
+        <div className="space-y-2 text-center text-sm font-bold">
+          <Spinner className="mx-auto" size="sm" />
+          <div>Loading swap open action...</div>
+        </div>
+      </Card>
+    );
   }
 
   const act = async () => {
-    if (usdEnabled && usdPrice === 0) {
-      return toast.error('Failed to get USD price');
-    }
-
-    // const abi = JSON.parse(metadata?.processCalldataABI);
-    const abi = [
-      { name: 'path', type: 'bytes' },
-      { name: 'deadline', type: 'uint256' },
-      { name: 'amountIn', type: 'uint256' },
-      { name: 'amountOutMinimum', type: 'uint256' },
-      { name: 'clientAddress', type: 'address' }
-    ];
-
-    // const currency = allowedTokens?.find(
-    //   (token) => token.contractAddress === tip.currency
-    // );
-
-    // if (!currency) {
-    //   return toast.error('Currency not supported');
-    // }
-
-    const amount = tip.value[0];
-    const usdValue = usdEnabled ? amount / usdPrice : amount;
+    const abi = JSON.parse(metadata?.processCalldataABI);
 
     const calldata = encodeAbiParameters(abi, [
       encodePacked(
@@ -141,7 +71,9 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
 
   return (
     <Card className="space-y-3 p-5">
-      <Button onClick={act}>Act</Button>
+      <Button disabled={isLoading} onClick={act}>
+        Act
+      </Button>
     </Card>
   );
 };

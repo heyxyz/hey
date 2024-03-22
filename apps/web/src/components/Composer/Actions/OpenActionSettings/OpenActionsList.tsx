@@ -3,6 +3,7 @@ import type { FC } from 'react';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { OpenAction } from '@hey/data/enums';
 import { TipIcon } from '@hey/icons';
+import isFeatureAvailable from '@lib/isFeatureAvailable';
 import {
   ScreenType,
   useOpenActionStore
@@ -18,12 +19,14 @@ const OpenActionsList: FC = () => {
   return screen === ScreenType.List ? (
     <div className="p-5">
       <div className="mb-5 space-y-3">
-        <OpenActionItem
-          description="Add ability to swap"
-          icon={<ArrowsRightLeftIcon className="size-6" />}
-          title="Swap"
-          type={OpenAction.Swap}
-        />
+        {isFeatureAvailable('swap-oa') && (
+          <OpenActionItem
+            description="Add ability to swap"
+            icon={<ArrowsRightLeftIcon className="size-6" />}
+            title="Swap"
+            type={OpenAction.Swap}
+          />
+        )}
         <OpenActionItem
           description="Add ability to tip"
           icon={<TipIcon className="size-6" />}
