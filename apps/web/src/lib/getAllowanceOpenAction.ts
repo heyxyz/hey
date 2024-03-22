@@ -16,6 +16,8 @@ const getAllowanceOpenAction = (
   switch (address) {
     case VerifiedOpenActionModules.Tip:
       return { name: 'Tip Open Action' };
+    case VerifiedOpenActionModules.Swap:
+      return { name: 'Swap Open Action' };
 
     default:
       return { name: 'Unknown Open Action' };
