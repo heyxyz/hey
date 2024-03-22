@@ -5,6 +5,7 @@ import type {
 } from '@hey/lens';
 import type { ChangeEvent, FC } from 'react';
 
+import Loader from '@components/Shared/Loader';
 import MenuTransition from '@components/Shared/MenuTransition';
 import UserProfile from '@components/Shared/UserProfile';
 import { Menu } from '@headlessui/react';
@@ -20,7 +21,7 @@ import {
 import getAvatar from '@hey/lib/getAvatar';
 import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
-import { Image, Input, Spinner } from '@hey/ui';
+import { Image, Input } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { Fragment, useState } from 'react';
@@ -151,10 +152,7 @@ const SeeThroughLens: FC = () => {
               )}
               <div className="mx-2 mb-2">
                 {searchUsersLoading || loading ? (
-                  <div className="space-y-2 px-4 py-2 text-center text-sm font-bold">
-                    <Spinner className="mx-auto" size="sm" />
-                    <div>Searching users</div>
-                  </div>
+                  <Loader className="my-3" message="Searching users" small />
                 ) : (
                   <>
                     {profiles.map((profile: Profile) => (
