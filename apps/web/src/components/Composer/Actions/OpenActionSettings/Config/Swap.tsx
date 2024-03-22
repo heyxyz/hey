@@ -88,7 +88,7 @@ const SwapConfig: FC = () => {
     <>
       <div className="p-5">
         <ToggleWithHelper
-          description="This will allow users to swap you on your post"
+          description="Token Swap lets you embed a swap widget in a post."
           heading="Enable swap"
           on={enabled}
           setOn={() => {
