@@ -7,7 +7,7 @@ import {
   LimitType,
   useExploreProfilesQuery
 } from '@hey/lens';
-import { ErrorMessage } from '@hey/ui';
+import { CardHeader, ErrorMessage } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
@@ -102,9 +102,8 @@ const LeafwatchStats: FC = () => {
   return (
     <>
       <div>
-        <div className="p-5 text-lg font-bold">Events</div>
-        <div className="divider" />
-        <div className="grid grid-cols-2 gap-2 p-5 sm:grid-cols-3">
+        <CardHeader title="Events" />
+        <div className="m-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
           <NumberedStat count={events.last_60_seconds} name="Last 60 seconds" />
           <NumberedStat count={events.today} name="Today" />
           <NumberedStat count={events.yesterday} name="Yesterday" />
@@ -115,9 +114,8 @@ const LeafwatchStats: FC = () => {
       </div>
       <div>
         <div className="divider" />
-        <div className="p-5 text-lg font-bold">Impressions</div>
-        <div className="divider" />
-        <div className="grid grid-cols-2 gap-2 p-5 sm:grid-cols-3">
+        <CardHeader title="Impressions" />
+        <div className="m-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
           <NumberedStat
             count={impressions.last_60_seconds}
             name="Last 60 seconds"
@@ -131,9 +129,8 @@ const LeafwatchStats: FC = () => {
       </div>
       <div>
         <div className="divider" />
-        <div className="p-5 text-lg font-bold">Lens</div>
-        <div className="divider" />
-        <div className="grid grid-cols-2 gap-2 p-5 sm:grid-cols-3">
+        <CardHeader title="Lens" />
+        <div className="m-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
           <NumberedStat count={lensProfiles.toString()} name="Total Profiles" />
         </div>
       </div>
