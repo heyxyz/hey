@@ -49,13 +49,13 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
       encodePacked(
         ['address', 'uint24', 'address'],
         [
-          '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889', // From
-          10000, // Amount
-          '0x83816640bf2bb88c96b13ae73d12e0135c2b4816' // To
+          '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889', // Input WMATIC
+          3000, // Amount
+          '0x3d2bD0e15829AA5C362a4144FdF4A1112fa29B5c' // Output BONSAI
         ]
       ),
       Math.floor(Date.now() / 1000) + 20 * 60,
-      1000000000000000000,
+      10,
       0,
       REWARDS_ADDRESS
     ]);
