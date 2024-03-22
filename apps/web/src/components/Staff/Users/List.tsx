@@ -92,7 +92,7 @@ const List: FC = () => {
       <div className="divider" />
       <div className="p-5">
         {loading ? (
-          <Loader message="Loading profiles..." />
+          <Loader className="my-5" message="Loading profiles..." />
         ) : error ? (
           <ErrorMessage error={error} title="Failed to load profiles" />
         ) : !profiles?.length ? (
