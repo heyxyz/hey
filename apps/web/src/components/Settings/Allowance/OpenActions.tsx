@@ -5,7 +5,7 @@ import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import { useApprovedModuleAllowanceAmountQuery } from '@hey/lens';
 import allowedUnknownOpenActionModules from '@hey/lib/allowedUnknownOpenActionModules';
 import getAllTokens from '@hey/lib/api/getAllTokens';
-import { ErrorMessage, Select } from '@hey/ui';
+import { CardHeader, ErrorMessage, Select } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -53,17 +53,14 @@ const OpenActions: FC = () => {
   }
 
   return (
-    <div className="mt-5">
-      <div>
-        <div className="space-y-3">
-          <div className="text-lg font-bold">Allow / revoke open actions</div>
-          <p>
-            In order to use open actions feature you need to allow the module
-            you use, you can allow and revoke the module anytime.
-          </p>
-        </div>
-        <div className="divider my-5" />
-        <div className="label mt-6">Select currency</div>
+    <div>
+      <CardHeader
+        body="In order to use open actions feature you need to allow the module
+        you use, you can allow and revoke the module anytime."
+        title="Allow / revoke open actions"
+      />
+      <div className="m-5">
+        <div className="label">Select currency</div>
         <Select
           onChange={(value) => {
             setCurrencyLoading(true);
@@ -80,12 +77,12 @@ const OpenActions: FC = () => {
             })) || [{ label: 'Loading...', value: 'Loading...' }]
           }
         />
+        {loading || allowedTokensLoading || currencyLoading ? (
+          <Loader className="py-10" />
+        ) : (
+          <Allowance allowance={data} />
+        )}
       </div>
-      {loading || allowedTokensLoading || currencyLoading ? (
-        <Loader className="py-5" />
-      ) : (
-        <Allowance allowance={data} />
-      )}
     </div>
   );
 };

@@ -21,6 +21,7 @@ import getSignature from '@hey/lib/getSignature';
 import {
   Button,
   Card,
+  CardHeader,
   Form,
   Input,
   Select,
@@ -195,20 +196,20 @@ const SuperFollow: FC = () => {
 
   return (
     <Card>
+      <CardHeader
+        body="Setting Super follow makes users spend crypto to follow you, and it's
+        a good way to earn it, you can change the amount and currency or
+        disable/enable it anytime."
+        title="Set Super follow"
+      />
       <Form
-        className="space-y-4 p-5"
+        className="m-5 space-y-4"
         form={form}
         onSubmit={async ({ amount, recipient }) => {
           await setSuperFollow(amount, recipient);
         }}
       >
-        <div className="text-lg font-bold">Set Super follow</div>
-        <p>
-          Setting Super follow makes users spend crypto to follow you, and it's
-          a good way to earn it, you can change the amount and currency or
-          disable/enable it anytime.
-        </p>
-        <div className="pt-2">
+        <div>
           <div className="label">Select currency</div>
           <Select
             defaultValue={
