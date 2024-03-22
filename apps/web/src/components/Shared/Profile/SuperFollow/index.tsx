@@ -6,17 +6,12 @@ import { PROFILE } from '@hey/data/tracking';
 import getProfile from '@hey/lib/getProfile';
 import { Button, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
-import Loader from '../../Loader';
 import Slug from '../../Slug';
-
-const FollowModule = dynamic(() => import('./FollowModule'), {
-  loading: () => <Loader message="Loading Super follow" />
-});
+import FollowModule from './FollowModule';
 
 interface SuperFollowProps {
   profile: Profile;
