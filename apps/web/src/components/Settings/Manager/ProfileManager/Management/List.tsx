@@ -72,7 +72,7 @@ const List: FC<ListProps> = ({ managed = false }) => {
   };
 
   if (loading) {
-    return <Loader className="pb-5" />;
+    return <Loader className="my-10" />;
   }
 
   if (error) {

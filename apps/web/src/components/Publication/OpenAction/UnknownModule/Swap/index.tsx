@@ -4,9 +4,10 @@ import type {
 } from '@hey/lens';
 import type { FC } from 'react';
 
+import Loader from '@components/Shared/Loader';
 import { REWARDS_ADDRESS } from '@hey/data/constants';
 import { useModuleMetadataQuery } from '@hey/lens';
-import { Button, Card, Spinner } from '@hey/ui';
+import { Button, Card } from '@hey/ui';
 import isFeatureAvailable from '@lib/isFeatureAvailable';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
 import { encodeAbiParameters, encodePacked } from 'viem';
@@ -35,11 +36,8 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
 
   if (loading) {
     return (
-      <Card className="p-5">
-        <div className="space-y-2 text-center text-sm font-bold">
-          <Spinner className="mx-auto" size="sm" />
-          <div>Loading swap open action...</div>
-        </div>
+      <Card>
+        <Loader className="p-5" message="Loading swap open action..." small />
       </Card>
     );
   }

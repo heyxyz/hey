@@ -8,7 +8,7 @@ import {
 } from '@hey/lens';
 import allowedOpenActionModules from '@hey/lib/allowedOpenActionModules';
 import getAllTokens from '@hey/lib/api/getAllTokens';
-import { ErrorMessage, Select } from '@hey/ui';
+import { CardHeader, ErrorMessage, Select } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -57,19 +57,14 @@ const CollectModules: FC = () => {
   }
 
   return (
-    <div className="mt-5">
-      <div>
-        <div className="space-y-3">
-          <div className="text-lg font-bold">
-            Allow / revoke follow or collect modules
-          </div>
-          <p>
-            In order to use collect feature you need to allow the module you
-            use, you can allow and revoke the module anytime.
-          </p>
-        </div>
-        <div className="divider my-5" />
-        <div className="label mt-6">Select currency</div>
+    <div>
+      <CardHeader
+        body="In order to use collect feature you need to allow the module you
+            use, you can allow and revoke the module anytime."
+        title="Allow / revoke follow or collect modules"
+      />
+      <div className="m-5">
+        <div className="label">Select currency</div>
         <Select
           onChange={(value) => {
             setCurrencyLoading(true);
@@ -86,12 +81,12 @@ const CollectModules: FC = () => {
             })) || [{ label: 'Loading...', value: 'Loading...' }]
           }
         />
+        {loading || allowedTokensLoading || currencyLoading ? (
+          <Loader className="py-10" />
+        ) : (
+          <Allowance allowance={data} />
+        )}
       </div>
-      {loading || allowedTokensLoading || currencyLoading ? (
-        <Loader className="py-5" />
-      ) : (
-        <Allowance allowance={data} />
-      )}
     </div>
   );
 };

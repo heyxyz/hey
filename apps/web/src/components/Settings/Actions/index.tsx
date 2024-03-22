@@ -4,7 +4,13 @@ import MetaTags from '@components/Common/MetaTags';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import {
+  Card,
+  CardHeader,
+  GridItemEight,
+  GridItemFour,
+  GridLayout
+} from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useEffect } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -31,11 +37,10 @@ const ActionsSettings: NextPage = () => {
       </GridItemFour>
       <GridItemEight>
         <Card>
-          <div className="space-y-1 p-5">
-            <div className="text-lg font-bold">Actions</div>
-            <p>This is a list of actions on your account.</p>
-          </div>
-          <div className="divider" />
+          <CardHeader
+            body="This is a list of actions on your account."
+            title="Actions"
+          />
           <List />
         </Card>
       </GridItemEight>

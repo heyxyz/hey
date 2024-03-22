@@ -245,7 +245,7 @@ const FollowModule: FC<FollowModuleProps> = ({
   };
 
   if (loading) {
-    return <Loader message="Loading Super follow" />;
+    return <Loader className="my-5" message="Loading Super follow" />;
   }
 
   return (

@@ -2,10 +2,11 @@ import type { CollectModuleType } from '@hey/types/hey';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
 import LicensePicker from '@components/Composer/LicensePicker';
+import Loader from '@components/Shared/Loader';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { CollectOpenActionModuleType } from '@hey/lens';
 import getAllTokens from '@hey/lib/api/getAllTokens';
-import { Button, ErrorMessage, Spinner } from '@hey/ui';
+import { Button, ErrorMessage } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
@@ -57,12 +58,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   });
 
   if (isLoading) {
-    return (
-      <div className="m-5 space-y-2 text-center font-bold">
-        <Spinner className="mx-auto" size="md" />
-        <div>Loading collect settings</div>
-      </div>
-    );
+    return <Loader className="my-5" message="Loading collect settings" />;
   }
 
   if (error) {
