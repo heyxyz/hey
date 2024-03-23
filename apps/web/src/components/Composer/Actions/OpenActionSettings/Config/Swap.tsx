@@ -3,7 +3,6 @@ import type { Address } from 'viem';
 
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
-import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { Input } from '@hey/ui';
 import { useEffect } from 'react';
@@ -31,13 +30,13 @@ const store = create<State>((set) => ({
     set({
       enabled: false,
       sharedRewardPercent: 0,
-      token: DEFAULT_COLLECT_TOKEN as Address
+      token: '0xa6fa4fb5f76172d178d61b04b0ecd319c5d1c0aa' as Address
     }),
   setEnabled: (enabled) => set({ enabled }),
   setSharedRewardPercent: (sharedRewardPercent) => set({ sharedRewardPercent }),
   setToken: (token) => set({ token }),
   sharedRewardPercent: 0,
-  token: DEFAULT_COLLECT_TOKEN as Address
+  token: '0xa6fa4fb5f76172d178d61b04b0ecd319c5d1c0aa' as Address
 }));
 
 export const useSwapActionStore = createTrackedSelector(store);
