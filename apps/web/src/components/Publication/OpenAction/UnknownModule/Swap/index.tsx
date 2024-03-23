@@ -6,10 +6,13 @@ import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import Loader from '@components/Shared/Loader';
+import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { REWARDS_ADDRESS } from '@hey/data/constants';
 import { useModuleMetadataQuery } from '@hey/lens';
 import { Button, Card } from '@hey/ui';
 import isFeatureAvailable from '@lib/isFeatureAvailable';
+import { CHAIN } from 'src/constants';
+import useTokenMetadata from 'src/hooks/alchemy/useTokenMetadata';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
 import {
   concat,
@@ -34,6 +37,18 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
 
   const metadata = data?.moduleMetadata?.metadata;
 
+  const decoded = decodeAbiParameters(
+    JSON.parse(metadata?.initializeCalldataABI || '{}'),
+    module.initializeCalldata
+  );
+  const outputTokenAddress = decoded[4];
+
+  const { data: targetToken } = useTokenMetadata({
+    address: outputTokenAddress,
+    chain: CHAIN.id,
+    enabled: outputTokenAddress !== undefined
+  });
+
   const { actOnUnknownOpenAction, isLoading } = useActOnUnknownOpenAction({
     signlessApproved: module.signlessApproved,
     successToast: "You've successfully swapped!"
@@ -50,13 +65,6 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
       </Card>
     );
   }
-
-  const decoded = decodeAbiParameters(
-    JSON.parse(metadata?.initializeCalldataABI || '{}'),
-    module.initializeCalldata
-  );
-
-  const outputTokenAddress = decoded[4];
 
   const act = async () => {
     const abi = JSON.parse(metadata?.processCalldataABI);
@@ -96,21 +104,40 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
       <Card forceRounded>
         <div className="flex items-center justify-between">
           <input
-            className="no-spinner ml-2 w-8/12 max-w-lg border-none py-5 outline-none focus:ring-0"
-            placeholder="0.00001"
+            className="no-spinner ml-2 w-8/12 max-w-lg border-none py-5 text-xl outline-none focus:ring-0"
+            placeholder="0"
             type="number"
           />
-          <div className="mr-5">Token</div>
+          <div className="mr-5 flex items-center space-x-1.5">
+            <img
+              alt="WMATIC"
+              className="size-5 rounded-full"
+              src="https://hey-assets.b-cdn.net/images/tokens/wmatic.svg"
+            />
+
+            <b>WMATIC</b>
+          </div>
         </div>
         <div className="divider" />
         <div className="flex items-center justify-between">
           <input
-            className="no-spinner ml-2 w-8/12 max-w-lg border-none py-5 outline-none focus:ring-0"
+            className="no-spinner ml-2 w-8/12 max-w-lg border-none py-5 text-xl outline-none focus:ring-0"
             disabled
-            placeholder="0.00001"
+            placeholder="0"
             type="number"
           />
-          <div className="mr-5">Token</div>
+          <div className="mr-5 flex items-center space-x-1.5">
+            {targetToken?.logo ? (
+              <img
+                alt={targetToken?.symbol || 'Symbol'}
+                className="size-5 rounded-full"
+                src={targetToken.logo}
+              />
+            ) : (
+              <CurrencyDollarIcon className="size-5" />
+            )}
+            <b>{targetToken?.symbol}</b>
+          </div>
         </div>
       </Card>
       <Button className="w-full" disabled={isLoading} onClick={act}>
