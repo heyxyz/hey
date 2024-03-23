@@ -62,6 +62,8 @@ const RecentProfiles: FC<RecentProfilesProps> = ({ onProfileClick }) => {
             >
               <div className="w-full">
                 <UserProfile
+                  hideFollowButton
+                  hideUnfollowButton
                   profile={profile as Profile}
                   showUserPreview={false}
                   source={ProfileLinkSource.RecentSearch}
