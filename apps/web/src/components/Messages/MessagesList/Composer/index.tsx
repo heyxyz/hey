@@ -27,6 +27,7 @@ const Composer: FC<ComposerProps> = ({ conversation }) => {
         setIsSending(true);
         await sendMessage(conversation, message);
         setIsSending(false);
+        setMessage('');
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -37,9 +38,9 @@ const Composer: FC<ComposerProps> = ({ conversation }) => {
     <form onSubmit={handleSendMessage}>
       <input
         disabled={isSending}
-        name="messageInput"
         onChange={handleMessageChange}
         type="text"
+        value={message}
       />
       <button type="submit">Send</button>
     </form>
