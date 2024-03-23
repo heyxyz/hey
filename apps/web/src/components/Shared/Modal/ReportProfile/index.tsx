@@ -91,7 +91,12 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
       ) : profile ? (
         <div className="p-5">
           <Card className="p-3">
-            <UserProfile profile={profile as Profile} showUserPreview={false} />
+            <UserProfile
+              hideFollowButton
+              hideUnfollowButton
+              profile={profile as Profile}
+              showUserPreview={false}
+            />
           </Card>
           <div className="divider my-5" />
           <Form

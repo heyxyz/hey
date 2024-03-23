@@ -76,6 +76,8 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
         return (
           <Card className="p-5">
             <UserProfile
+              hideFollowButton
+              hideUnfollowButton
               isBig
               profile={profile as Profile}
               showBio
