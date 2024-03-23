@@ -7,7 +7,7 @@ import type { Address } from 'viem';
 
 import Loader from '@components/Shared/Loader';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
-import { REWARDS_ADDRESS } from '@hey/data/constants';
+import { REWARDS_ADDRESS, WMATIC_ADDRESS } from '@hey/data/constants';
 import { useModuleMetadataQuery } from '@hey/lens';
 import { Button, Card } from '@hey/ui';
 import errorToast from '@lib/errorToast';
@@ -21,11 +21,13 @@ import {
   concat,
   decodeAbiParameters,
   encodeAbiParameters,
+  formatUnits,
   pad,
   parseEther,
   toBytes,
   toHex
 } from 'viem';
+import { useAccount, useBalance } from 'wagmi';
 
 interface SwapOpenActionProps {
   module: UnknownOpenActionModuleSettings;
@@ -34,6 +36,7 @@ interface SwapOpenActionProps {
 
 const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
   const [value, setValue] = useState<number>(0);
+  const { address } = useAccount();
 
   const { data, loading } = useModuleMetadataQuery({
     skip: !Boolean(module?.contract.address),
@@ -53,6 +56,29 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
     chain: CHAIN.id,
     enabled: outputTokenAddress !== undefined
   });
+
+  // Begin: Balance Check
+  const { data: wmaticBalanceData } = useBalance({
+    address,
+    query: { refetchInterval: 5000 },
+    token: WMATIC_ADDRESS
+  });
+  const wmaticBalance = wmaticBalanceData
+    ? parseFloat(formatUnits(wmaticBalanceData.value, 18)).toFixed(2)
+    : 0;
+
+  const { data: outputTokenBalanceData } = useBalance({
+    address,
+    query: { refetchInterval: 5000 },
+    token: outputTokenAddress
+  });
+  const outputTokenBalance = outputTokenBalanceData
+    ? parseFloat(
+        formatUnits(outputTokenBalanceData.value, targetToken?.decimals || 18)
+      ).toFixed(2)
+    : 0;
+
+  // End: Balance Check
 
   const { actOnUnknownOpenAction, isLoading } = useActOnUnknownOpenAction({
     signlessApproved: module.signlessApproved,
@@ -78,9 +104,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
 
     const abi = JSON.parse(metadata?.processCalldataABI);
 
-    const inputTokenAddress = toBytes(
-      '0x9c3c9283d3e44854697cd22d3faa240cfb032889'
-    ); // WMATIC
+    const inputTokenAddress = toBytes(WMATIC_ADDRESS);
     const tokenAddress = toBytes(outputTokenAddress);
     const fee = toBytes(pad(toHex(10000), { size: 3 }));
     const path = concat([inputTokenAddress, fee, tokenAddress]);
@@ -120,41 +144,46 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
       <Card forceRounded>
         <div className="flex items-center justify-between">
           <input
-            className="no-spinner ml-2 w-8/12 max-w-lg border-none py-5 text-xl outline-none focus:ring-0"
+            className="no-spinner ml-2 w-6/12 max-w-lg border-none py-5 text-xl outline-none focus:ring-0"
             onChange={(e) => setValue(Number(e.target.value))}
             placeholder="0"
             type="number"
             value={value || ''}
           />
-          <div className="mr-5 flex items-center space-x-1.5">
-            <img
-              alt="WMATIC"
-              className="size-5 rounded-full"
-              src="https://hey-assets.b-cdn.net/images/tokens/wmatic.svg"
-            />
-
-            <b>WMATIC</b>
+          <div className="mr-5 flex flex-col items-end space-y-0.5">
+            <div className="flex items-center space-x-1.5">
+              <img
+                alt="WMATIC"
+                className="size-5 rounded-full"
+                src="https://hey-assets.b-cdn.net/images/tokens/wmatic.svg"
+              />
+              <b>WMATIC</b>
+            </div>
+            <div className="text-xs">Balance: {wmaticBalance}</div>
           </div>
         </div>
         <div className="divider" />
         <div className="flex items-center justify-between">
           <input
-            className="no-spinner ml-2 w-8/12 max-w-lg border-none py-5 text-xl outline-none focus:ring-0"
+            className="no-spinner ml-2 w-6/12 max-w-lg border-none py-5 text-xl outline-none focus:ring-0"
             disabled
             placeholder="0"
             type="number"
           />
-          <div className="mr-5 flex items-center space-x-1.5">
-            {targetToken?.logo ? (
-              <img
-                alt={targetToken?.symbol || 'Symbol'}
-                className="size-5 rounded-full"
-                src={targetToken.logo}
-              />
-            ) : (
-              <CurrencyDollarIcon className="size-5" />
-            )}
-            <b>{targetToken?.symbol}</b>
+          <div className="mr-5 flex flex-col items-end space-y-0.5">
+            <div className="flex items-center space-x-1.5">
+              {targetToken?.logo ? (
+                <img
+                  alt={targetToken?.symbol || 'Symbol'}
+                  className="size-5 rounded-full"
+                  src={targetToken.logo}
+                />
+              ) : (
+                <CurrencyDollarIcon className="size-5" />
+              )}
+              <b>{targetToken?.symbol}</b>
+            </div>
+            <div className="text-xs">Balance: {outputTokenBalance}</div>
           </div>
         </div>
       </Card>
