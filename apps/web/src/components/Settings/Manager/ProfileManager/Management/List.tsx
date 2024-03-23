@@ -128,7 +128,11 @@ const List: FC<ListProps> = ({ managed = false }) => {
       itemContent={(_, profile) => {
         return (
           <div className="flex items-center justify-between py-2">
-            <UserProfile profile={profile as Profile} />
+            <UserProfile
+              hideFollowButton
+              hideUnfollowButton
+              profile={profile as Profile}
+            />
             {address !== profile.ownedBy.address && (
               <Button
                 disabled={hiding || unhiding}

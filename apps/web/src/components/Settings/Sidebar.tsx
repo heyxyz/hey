@@ -95,6 +95,8 @@ const SettingsSidebar: FC = () => {
     <div className="mb-4 px-3 sm:px-0">
       <div className="pb-3">
         <UserProfile
+          hideFollowButton
+          hideUnfollowButton
           profile={currentProfile as Profile}
           showUserPreview={false}
         />
