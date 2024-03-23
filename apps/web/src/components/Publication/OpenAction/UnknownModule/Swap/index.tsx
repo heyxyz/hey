@@ -13,6 +13,7 @@ import isFeatureAvailable from '@lib/isFeatureAvailable';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
 import {
   concat,
+  decodeAbiParameters,
   encodeAbiParameters,
   pad,
   parseEther,
@@ -50,13 +51,20 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
     );
   }
 
+  const decoded = decodeAbiParameters(
+    JSON.parse(metadata?.initializeCalldataABI || '{}'),
+    module.initializeCalldata
+  );
+
+  const outputTokenAddress = decoded[4];
+
   const act = async () => {
     const abi = JSON.parse(metadata?.processCalldataABI);
 
     const inputTokenAddress = toBytes(
       '0x9c3c9283d3e44854697cd22d3faa240cfb032889'
     ); // WMATIC
-    const tokenAddress = toBytes('0xa6fa4fb5f76172d178d61b04b0ecd319c5d1c0aa'); // WETH
+    const tokenAddress = toBytes(outputTokenAddress);
     const fee = toBytes(pad(toHex(10000), { size: 3 }));
     const path = concat([inputTokenAddress, fee, tokenAddress]);
 
