@@ -7,12 +7,15 @@ import { UsersIcon } from '@heroicons/react/24/outline';
 import { ProfileLinkSource } from '@hey/data/tracking';
 import { EmptyState } from '@hey/ui';
 import { Virtuoso } from 'react-virtuoso';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface SuggestedProps {
   profiles: Profile[];
 }
 
 const Suggested: FC<SuggestedProps> = ({ profiles }) => {
+  const { currentProfile } = useProfileStore();
+
   if (profiles.length === 0) {
     return (
       <EmptyState
@@ -35,9 +38,10 @@ const Suggested: FC<SuggestedProps> = ({ profiles }) => {
             <div className="flex items-center space-x-3 p-5">
               <div className="w-full">
                 <UserProfile
+                  hideFollowButton={currentProfile?.id === profile.id}
+                  hideUnfollowButton={currentProfile?.id === profile.id}
                   profile={profile as Profile}
                   showBio
-                  showFollowUnfollowButton
                   showUserPreview={false}
                   source={ProfileLinkSource.WhoToFollow}
                 />

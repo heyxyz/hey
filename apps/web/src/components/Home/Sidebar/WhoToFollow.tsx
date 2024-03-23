@@ -56,6 +56,10 @@ const WhoToFollow: FC = () => {
       !profile.operations.isFollowedByMe.value
   );
 
+  if (recommendedProfiles?.length === 0) {
+    return null;
+  }
+
   return (
     <>
       <Card as="aside" className="space-y-4 p-5">
@@ -68,8 +72,9 @@ const WhoToFollow: FC = () => {
           >
             <div className="w-full">
               <UserProfile
+                hideFollowButton={currentProfile?.id === profile.id}
+                hideUnfollowButton={currentProfile?.id === profile.id}
                 profile={profile as Profile}
-                showFollowUnfollowButton
                 source={ProfileLinkSource.WhoToFollow}
               />
             </div>
