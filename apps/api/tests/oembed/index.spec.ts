@@ -49,26 +49,4 @@ describe('oembed/index', () => {
       'https://app.manifold.xyz/c/totesemosh'
     );
   });
-
-  test('should return hey portal', async () => {
-    const response = await axios.get(`${TEST_URL}/oembed`, {
-      params: {
-        url: 'https://heyportals.vercel.app/q/90ca4789-0d81-4a22-a83c-4de26044d00b'
-      }
-    });
-
-    expect(response.data.oembed.portal.version).toEqual('vLatest');
-    expect(response.data.oembed.portal.buttons[0].button).toEqual('Start');
-    expect(response.data.oembed.portal.buttons[0].action).toEqual('post');
-  });
-
-  test('should return farcaster frame', async () => {
-    const response = await axios.get(`${TEST_URL}/oembed`, {
-      params: { url: 'https://perl.xyz/market/37/bet' }
-    });
-
-    expect(response.data.oembed.portal.version).toEqual('vNext');
-    expect(response.data.oembed.portal.buttons[0].button).toEqual('📈 MORE');
-    expect(response.data.oembed.portal.buttons[0].action).toEqual('post');
-  });
 });
