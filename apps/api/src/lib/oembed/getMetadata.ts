@@ -10,7 +10,6 @@ import getEmbedUrl from './meta/getEmbedUrl';
 import getImage from './meta/getImage';
 import getIsLarge from './meta/getIsLarge';
 import getNft from './meta/getNft';
-import getPortal from './meta/getPortal';
 import getSite from './meta/getSite';
 import getTitle from './meta/getTitle';
 
@@ -33,7 +32,6 @@ const getMetadata = async (url: string): Promise<OG> => {
     isLarge,
     lastIndexedAt: new Date().toISOString(),
     nft: getNft(document, url),
-    portal: getPortal(document, url),
     site: getSite(document),
     title: getTitle(document),
     url

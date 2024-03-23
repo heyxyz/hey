@@ -39,20 +39,6 @@ export interface Nft {
   sourceUrl: string;
 }
 
-export type ButtonType = 'link' | 'mint' | 'post_redirect' | 'post';
-
-export interface Portal {
-  buttons: {
-    action: ButtonType;
-    button: string;
-    target?: string;
-  }[];
-  image: string;
-  portalUrl: string;
-  postUrl: string;
-  version: string;
-}
-
 export interface OG {
   description: null | string;
   favicon: null | string;
@@ -61,7 +47,6 @@ export interface OG {
   isLarge: boolean | null;
   lastIndexedAt?: string;
   nft: Nft | null;
-  portal: null | Portal;
   site: null | string;
   title: null | string;
   url: string;
