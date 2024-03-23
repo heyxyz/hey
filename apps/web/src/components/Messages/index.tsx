@@ -1,9 +1,12 @@
 import type { NextPage } from 'next';
 
 import MetaTags from '@components/Common/MetaTags';
-import { APP_NAME } from '@hey/data/constants';
+import { APP_NAME, HEY_API_URL } from '@hey/data/constants';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
+import { useQuery } from '@tanstack/react-query';
 import { useClient } from '@xmtp/react-sdk';
+import axios from 'axios';
 import { Wallet } from 'ethers';
 import { useEffect } from 'react';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
@@ -16,12 +19,26 @@ const Messages: NextPage = () => {
   const { initialize, isLoading } = useClient();
   const { selectedConversation } = useMessagesStore();
 
-  const signer = new Wallet(
-    '0x6f430410c561e6f833c8406c34f6089b741728cbb4d956db587cd2994193a4e3'
-    // '0x7690a8c963e7f5f7d465f4a7b84ec72a1c585bcc1f5dc510a4a1a49a553c3c67'
-  );
+  const fetchUserKey = async (): Promise<null | string> => {
+    try {
+      const response = await axios.get(`${HEY_API_URL}/messages/key`, {
+        headers: getAuthApiHeaders()
+      });
 
-  const initXmtpWithKeys = async () => {
+      return response.data.key;
+    } catch {
+      return null;
+    }
+  };
+
+  const { data: key } = useQuery({
+    queryFn: fetchUserKey,
+    queryKey: ['fetchUserKey']
+  });
+
+  const initXmtpWithKeys = async (key: string) => {
+    const signer = new Wallet(key);
+
     await initialize({
       options: { env: 'production' },
       signer: signer as any
@@ -29,9 +46,11 @@ const Messages: NextPage = () => {
   };
 
   useEffect(() => {
-    initXmtpWithKeys();
+    if (key) {
+      initXmtpWithKeys(key);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [key]);
 
   return (
     <GridLayout>
