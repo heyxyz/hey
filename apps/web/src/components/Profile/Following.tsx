@@ -90,9 +90,10 @@ const Following: FC<FollowingProps> = ({ handle, profileId }) => {
           return (
             <div className="p-5">
               <UserProfile
+                hideFollowButton={currentProfile?.id === following.id}
+                hideUnfollowButton={currentProfile?.id === following.id}
                 profile={following as Profile}
                 showBio
-                showFollowUnfollowButton={currentProfile?.id !== following.id}
                 showUserPreview={false}
                 source={ProfileLinkSource.Following}
               />

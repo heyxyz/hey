@@ -168,11 +168,10 @@ const ViewPublication: NextPage = () => {
       <GridItemFour className="space-y-5">
         <Card as="aside" className="p-5">
           <UserProfile
+            hideFollowButton={currentProfile?.id === targetPublication.by.id}
+            hideUnfollowButton={currentProfile?.id === targetPublication.by.id}
             profile={targetPublication.by}
             showBio
-            showFollowUnfollowButton={
-              targetPublication.by.id !== currentProfile?.id
-            }
             source={ProfileLinkSource.Publication}
           />
         </Card>
