@@ -28,14 +28,8 @@ export interface UserSuggestion {
 export interface Nft {
   chain: null | string;
   collectionName: string;
-  contractAddress: `0x${string}`;
-  creatorAddress: `0x${string}`;
-  endTime: null | string;
+  creatorAddress: `0x${string}` | null;
   mediaUrl: string;
-  mintCount: null | string;
-  mintStatus: 'closed' | 'live' | null | string;
-  mintUrl: null | string;
-  schema: 'erc1155' | 'erc721' | string;
   sourceUrl: string;
 }
 
