@@ -96,6 +96,7 @@ model PollResponse {
 model PrivateKey {
   profileId String   @id
   key       String   @unique
+  address   String
   createdAt DateTime @default(now())
 }
 
