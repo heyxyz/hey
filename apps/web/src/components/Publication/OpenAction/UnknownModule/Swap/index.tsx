@@ -10,7 +10,10 @@ import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { REWARDS_ADDRESS } from '@hey/data/constants';
 import { useModuleMetadataQuery } from '@hey/lens';
 import { Button, Card } from '@hey/ui';
+import errorToast from '@lib/errorToast';
 import isFeatureAvailable from '@lib/isFeatureAvailable';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { CHAIN } from 'src/constants';
 import useTokenMetadata from 'src/hooks/alchemy/useTokenMetadata';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
@@ -30,6 +33,8 @@ interface SwapOpenActionProps {
 }
 
 const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
+  const [value, setValue] = useState<number>(0);
+
   const { data, loading } = useModuleMetadataQuery({
     skip: !Boolean(module?.contract.address),
     variables: { request: { implementation: module?.contract.address } }
@@ -67,6 +72,10 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
   }
 
   const act = async () => {
+    if (value === 0) {
+      return toast.error('Please enter a valid amount');
+    }
+
     const abi = JSON.parse(metadata?.processCalldataABI);
 
     const inputTokenAddress = toBytes(
@@ -77,7 +86,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
     const path = concat([inputTokenAddress, fee, tokenAddress]);
 
     const data = {
-      amountIn: parseEther('0.00001'),
+      amountIn: parseEther(value?.toString() || '0'),
       amountOutMinimum: 0n,
       clientAddress: REWARDS_ADDRESS as Address,
       deadline: BigInt(Math.floor(Date.now() / 1000) + 20 * 60),
@@ -92,11 +101,18 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
       data.clientAddress
     ]);
 
-    return await actOnUnknownOpenAction({
-      address: module.contract.address,
-      data: calldata,
-      publicationId: publication.id
-    });
+    try {
+      await actOnUnknownOpenAction({
+        address: module.contract.address,
+        data: calldata,
+        publicationId: publication.id
+      });
+      setValue(0);
+
+      return;
+    } catch (error) {
+      errorToast(error);
+    }
   };
 
   return (
@@ -105,8 +121,10 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
         <div className="flex items-center justify-between">
           <input
             className="no-spinner ml-2 w-8/12 max-w-lg border-none py-5 text-xl outline-none focus:ring-0"
+            onChange={(e) => setValue(Number(e.target.value))}
             placeholder="0"
             type="number"
+            value={value || ''}
           />
           <div className="mr-5 flex items-center space-x-1.5">
             <img
