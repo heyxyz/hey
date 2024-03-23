@@ -55,8 +55,8 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
 
     const inputTokenAddress = toBytes(
       '0x9c3c9283d3e44854697cd22d3faa240cfb032889'
-    );
-    const tokenAddress = toBytes('0xa6fa4fb5f76172d178d61b04b0ecd319c5d1c0aa');
+    ); // WMATIC
+    const tokenAddress = toBytes('0xa6fa4fb5f76172d178d61b04b0ecd319c5d1c0aa'); // WETH
     const fee = toBytes(pad(toHex(10000), { size: 3 }));
     const path = concat([inputTokenAddress, fee, tokenAddress]);
 
