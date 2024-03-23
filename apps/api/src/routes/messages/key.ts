@@ -7,7 +7,7 @@ import catchedError from 'src/lib/catchedError';
 import validateLensAccount from 'src/lib/middlewares/validateLensAccount';
 import prisma from 'src/lib/prisma';
 import { notAllowed } from 'src/lib/responses';
-import { generatePrivateKey } from 'viem/accounts';
+import { generatePrivateKey, privateKeyToAddress } from 'viem/accounts';
 
 export const get: Handler = async (req, res) => {
   const accessToken = req.headers['x-access-token'] as string;
@@ -20,7 +20,9 @@ export const get: Handler = async (req, res) => {
   try {
     const payload = parseJwt(accessToken);
     const profileId = payload.id;
-    const privateKey = cryptr.encrypt(await generatePrivateKey());
+    const privateKey = await generatePrivateKey();
+    const address = privateKeyToAddress(privateKey);
+    const encryptedKey = cryptr.encrypt(privateKey);
 
     const data = await prisma.privateKey.findFirst({
       where: { profileId }
@@ -28,19 +30,19 @@ export const get: Handler = async (req, res) => {
 
     if (!data) {
       const newData = await prisma.privateKey.create({
-        data: { key: privateKey, profileId }
+        data: { address, key: encryptedKey, profileId }
       });
 
       const key = cryptr.decrypt(newData.key);
       logger.info(`Generated new XMTP key for profile ${profileId}`);
 
-      return res.status(200).json({ key, success: true });
+      return res.status(200).json({ address, key, success: true });
     }
 
     const key = cryptr.decrypt(data.key);
     logger.info(`Fetched existing XMTP key for profile ${profileId}`);
 
-    return res.status(200).json({ key, success: true });
+    return res.status(200).json({ address, key, success: true });
   } catch (error) {
     return catchedError(res, error);
   }

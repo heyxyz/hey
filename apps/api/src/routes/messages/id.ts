@@ -5,22 +5,22 @@ import prisma from 'src/lib/prisma';
 import { noBody } from 'src/lib/responses';
 
 export const get: Handler = async (req, res) => {
-  const { id } = req.query;
+  const { address } = req.query;
 
-  if (!id) {
+  if (!address) {
     return noBody(res);
   }
 
   try {
     const data = await prisma.privateKey.findFirst({
-      where: { profileId: id as string }
+      where: { address: address as string }
     });
 
     if (!data) {
       return res.status(400).json({ error: 'Not found.', success: false });
     }
 
-    return res.status(200).json({ address: data.address, success: true });
+    return res.status(200).json({ id: data.profileId, success: true });
   } catch (error) {
     return catchedError(res, error);
   }
