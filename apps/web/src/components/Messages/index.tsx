@@ -18,7 +18,8 @@ import StartConversation from './MessagesList/Composer/StartConversation';
 
 const Messages: NextPage = () => {
   const { initialize, isLoading } = useClient();
-  const { selectedConversation, setXmtpAddress } = useMessagesStore();
+  const { selectedConversation, setXmtpAddress, xmtpAddress } =
+    useMessagesStore();
 
   const fetchUserKey = async (): Promise<null | string> => {
     try {
@@ -59,6 +60,7 @@ const Messages: NextPage = () => {
       <MetaTags title={`Messages • ${APP_NAME}`} />
       <GridItemFour>
         <Card className="p-5">
+          {xmtpAddress}
           {isLoading ? 'Loading XMTP...' : <Conversations />}
         </Card>
       </GridItemFour>
