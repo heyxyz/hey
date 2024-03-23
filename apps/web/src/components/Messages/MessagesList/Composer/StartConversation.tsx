@@ -1,9 +1,12 @@
+import type { CachedConversation } from '@xmtp/react-sdk';
 import type { ChangeEvent, FC } from 'react';
 
 import { isValidAddress, useStartConversation } from '@xmtp/react-sdk';
 import { useCallback, useState } from 'react';
+import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
 
 const StartConversation: FC = () => {
+  const { setSelectedConversation } = useMessagesStore();
   const [peerAddress, setPeerAddress] = useState('');
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -30,24 +33,25 @@ const StartConversation: FC = () => {
       if (peerAddress && message) {
         setIsLoading(true);
         const conversation = await startConversation(peerAddress, message);
+        setSelectedConversation(
+          conversation.cachedConversation as CachedConversation
+        );
         setIsLoading(false);
       }
     },
-    [message, peerAddress, startConversation]
+    [message, peerAddress, startConversation, setSelectedConversation]
   );
 
   return (
     <form onSubmit={handleStartConversation}>
       <input
         disabled={isLoading}
-        name="addressInput"
         onChange={handleAddressChange}
         placeholder="add"
         type="text"
       />
       <input
         disabled={isLoading || !isValidAddress(peerAddress)}
-        name="messageInput"
         onChange={handleMessageChange}
         type="text"
       />
