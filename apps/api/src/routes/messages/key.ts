@@ -1,5 +1,6 @@
 import type { Handler } from 'express';
 
+import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import Cryptr from 'cryptr';
 import catchedError from 'src/lib/catchedError';
@@ -31,10 +32,14 @@ export const get: Handler = async (req, res) => {
       });
 
       const key = cryptr.decrypt(newData.key);
+      logger.info(`Generated new XMTP key for profile ${profileId}`);
+
       return res.status(200).json({ key, success: true });
     }
 
     const key = cryptr.decrypt(data.key);
+    logger.info(`Fetched existing XMTP key for profile ${profileId}`);
+
     return res.status(200).json({ key, success: true });
   } catch (error) {
     return catchedError(res, error);
