@@ -9,12 +9,15 @@ import { LimitType, useWhoActedOnPublicationQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import Link from 'next/link';
 import { Virtuoso } from 'react-virtuoso';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface CollectorsProps {
   publicationId: string;
 }
 
 const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
+  const { currentProfile } = useProfileStore();
+
   // Variables
   const request: WhoActedOnPublicationRequest = {
     limit: LimitType.TwentyFive,
@@ -84,9 +87,10 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
           return (
             <div className="p-5">
               <UserProfile
+                hideFollowButton={currentProfile?.id === profile.id}
+                hideUnfollowButton={currentProfile?.id === profile.id}
                 profile={profile as Profile}
                 showBio
-                showFollowUnfollowButton
                 showUserPreview={false}
                 source={ProfileLinkSource.Collects}
               />

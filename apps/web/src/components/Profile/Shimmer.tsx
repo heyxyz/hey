@@ -35,7 +35,7 @@ const ProfilePageShimmer: FC<ProfilePageShimmerProps> = ({
                   <div className="shimmer h-3 w-20 rounded-lg" />
                 </div>
               </div>
-              <div className="shimmer h-[34px] w-28 rounded-lg" />
+              <div className="shimmer h-[34px] w-20 rounded-full" />
               <div className="space-y-2">
                 <div className="shimmer h-3 w-7/12 rounded-lg" />
                 <div className="shimmer h-3 w-1/3 rounded-lg" />
