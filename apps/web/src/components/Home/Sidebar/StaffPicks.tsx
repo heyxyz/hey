@@ -101,6 +101,19 @@ const StaffPicks: FC = () => {
     ...(staffPicks?.batch3?.items || [])
   ];
 
+  const filteredProfiles = profiles
+    .filter(
+      (profile) =>
+        !profile.operations.isBlockedByMe.value &&
+        !profile.operations.isFollowedByMe.value &&
+        currentProfile?.id !== profile.id
+    )
+    .slice(0, 5);
+
+  if (filteredProfiles.length === 0) {
+    return null;
+  }
+
   return (
     <Card as="aside" className="mb-4 space-y-4 p-5">
       <Title />
@@ -108,7 +121,7 @@ const StaffPicks: FC = () => {
         error={picksError || profilesError}
         title="Failed to load recommendations"
       />
-      {profiles.map((profile) => (
+      {filteredProfiles.map((profile) => (
         <div className="flex items-center space-x-3 truncate" key={profile.id}>
           <div className="w-full">
             <UserProfile
