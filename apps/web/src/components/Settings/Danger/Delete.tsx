@@ -99,7 +99,11 @@ const DeleteSettings: FC = () => {
         title={<div className="text-red-500">Delete Lens profile</div>}
       />
       <div className="m-5 space-y-5">
-        <UserProfile profile={currentProfile as Profile} />
+        <UserProfile
+          hideFollowButton
+          hideUnfollowButton
+          profile={currentProfile as Profile}
+        />
         <div className="space-y-3">
           <div className="text-lg font-bold text-red-500">
             Delete Lens profile

@@ -23,7 +23,13 @@ const LazyUserProfile: FC<LazyUserProfileProps> = ({ id }) => {
     return null;
   }
 
-  return <UserProfile profile={data.profile as Profile} />;
+  return (
+    <UserProfile
+      hideFollowButton
+      hideUnfollowButton
+      profile={data.profile as Profile}
+    />
+  );
 };
 
 export default LazyUserProfile;
