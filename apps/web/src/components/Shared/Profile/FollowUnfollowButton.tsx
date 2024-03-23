@@ -22,7 +22,7 @@ const FollowUnfollowButton: FC<FollowUnfollowButtonProps> = ({
   small = false
 }) => {
   return (
-    <div onClick={stopEventPropagation}>
+    <div className="mr-1" onClick={stopEventPropagation}>
       {!hideFollowButton &&
         (profile.operations.isFollowedByMe.value ? null : profile?.followModule
             ?.type === FollowModuleType.FeeFollowModule ? (
