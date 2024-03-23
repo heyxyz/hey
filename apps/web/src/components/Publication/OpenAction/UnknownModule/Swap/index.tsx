@@ -3,6 +3,7 @@ import type {
   UnknownOpenActionModuleSettings
 } from '@hey/lens';
 import type { FC } from 'react';
+import type { Address } from 'viem';
 
 import Loader from '@components/Shared/Loader';
 import { REWARDS_ADDRESS } from '@hey/data/constants';
@@ -10,7 +11,14 @@ import { useModuleMetadataQuery } from '@hey/lens';
 import { Button, Card } from '@hey/ui';
 import isFeatureAvailable from '@lib/isFeatureAvailable';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
-import { encodeAbiParameters, encodePacked } from 'viem';
+import {
+  concat,
+  encodeAbiParameters,
+  pad,
+  parseEther,
+  toBytes,
+  toHex
+} from 'viem';
 
 interface SwapOpenActionProps {
   module: UnknownOpenActionModuleSettings;
@@ -45,19 +53,27 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
   const act = async () => {
     const abi = JSON.parse(metadata?.processCalldataABI);
 
+    const inputTokenAddress = toBytes(
+      '0x9c3c9283d3e44854697cd22d3faa240cfb032889'
+    );
+    const tokenAddress = toBytes('0xa6fa4fb5f76172d178d61b04b0ecd319c5d1c0aa');
+    const fee = toBytes(pad(toHex(10000), { size: 3 }));
+    const path = concat([inputTokenAddress, fee, tokenAddress]);
+
+    const data = {
+      amountIn: parseEther('0.00001'),
+      amountOutMinimum: 0n,
+      clientAddress: REWARDS_ADDRESS as Address,
+      deadline: BigInt(Math.floor(Date.now() / 1000) + 20 * 60),
+      path
+    };
+
     const calldata = encodeAbiParameters(abi, [
-      encodePacked(
-        ['address', 'uint24', 'address'],
-        [
-          '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889', // Input WMATIC
-          3000, // Amount
-          '0x3d2bD0e15829AA5C362a4144FdF4A1112fa29B5c' // Output BONSAI
-        ]
-      ),
-      Math.floor(Date.now() / 1000) + 20 * 60,
-      10,
-      0,
-      REWARDS_ADDRESS
+      toHex(data.path),
+      data.deadline,
+      data.amountIn,
+      data.amountOutMinimum,
+      data.clientAddress
     ]);
 
     return await actOnUnknownOpenAction({
