@@ -59,6 +59,8 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
   return (
     <div>
       <UserProfile
+        hideFollowButton
+        hideUnfollowButton
         isBig
         linkToProfile
         profile={profile}
