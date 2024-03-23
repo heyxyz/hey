@@ -13,12 +13,15 @@ import {
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import Link from 'next/link';
 import { Virtuoso } from 'react-virtuoso';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface LikesProps {
   publicationId: string;
 }
 
 const Likes: FC<LikesProps> = ({ publicationId }) => {
+  const { currentProfile } = useProfileStore();
+
   // Variables
   const request: WhoReactedPublicationRequest = {
     for: publicationId,
@@ -88,9 +91,10 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
           return (
             <div className="p-5">
               <UserProfile
+                hideFollowButton={currentProfile?.id === like.profile.id}
+                hideUnfollowButton={currentProfile?.id === like.profile.id}
                 profile={like.profile as Profile}
                 showBio
-                showFollowUnfollowButton
                 showUserPreview={false}
                 source={ProfileLinkSource.Likes}
               />

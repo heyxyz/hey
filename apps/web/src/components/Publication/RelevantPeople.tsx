@@ -49,8 +49,9 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ profilesMentioned }) => {
       {data?.profiles?.items?.map((profile) => (
         <div className="truncate" key={profile?.id}>
           <UserProfile
+            hideFollowButton={currentProfile?.id === profile.id}
+            hideUnfollowButton={currentProfile?.id === profile.id}
             profile={profile as Profile}
-            showFollowUnfollowButton={profile?.id !== currentProfile?.id}
             showUserPreview={false}
             source={ProfileLinkSource.RelevantPeople}
           />

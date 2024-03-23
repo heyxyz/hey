@@ -11,10 +11,13 @@ import { useProfilesQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 const Title: FC = () => <p className="text-lg font-semibold">Staff Picks</p>;
 
 const StaffPicks: FC = () => {
+  const { currentProfile } = useProfileStore();
+
   const fetchStaffPicks = async (): Promise<StaffPick[]> => {
     const response: {
       data: { result: StaffPick[] };
@@ -77,8 +80,9 @@ const StaffPicks: FC = () => {
         <div className="flex items-center space-x-3 truncate" key={profile.id}>
           <div className="w-full">
             <UserProfile
+              hideFollowButton={currentProfile?.id === profile.id}
+              hideUnfollowButton
               profile={profile as Profile}
-              showFollowUnfollowButton
               source={ProfileLinkSource.StaffPicks}
             />
           </div>
