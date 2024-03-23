@@ -96,11 +96,10 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({
           return (
             <div className="p-5">
               <UserProfile
+                hideFollowButton={currentProfile?.id === mutualFollower.id}
+                hideUnfollowButton={currentProfile?.id === mutualFollower.id}
                 profile={mutualFollower as Profile}
                 showBio
-                showFollowUnfollowButton={
-                  currentProfile?.id !== mutualFollower.id
-                }
                 showUserPreview={false}
               />
             </div>
