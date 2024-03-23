@@ -92,11 +92,31 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
   };
 
   return (
-    <Card className="space-y-3 p-5">
-      <Button disabled={isLoading} onClick={act}>
-        Act
+    <div className="max-w-sm space-y-5">
+      <Card forceRounded>
+        <div className="flex items-center justify-between">
+          <input
+            className="no-spinner ml-2 w-8/12 max-w-lg border-none py-5 outline-none focus:ring-0"
+            placeholder="0.00001"
+            type="number"
+          />
+          <div className="mr-5">Token</div>
+        </div>
+        <div className="divider" />
+        <div className="flex items-center justify-between">
+          <input
+            className="no-spinner ml-2 w-8/12 max-w-lg border-none py-5 outline-none focus:ring-0"
+            disabled
+            placeholder="0.00001"
+            type="number"
+          />
+          <div className="mr-5">Token</div>
+        </div>
+      </Card>
+      <Button className="w-full" disabled={isLoading} onClick={act}>
+        Swap
       </Button>
-    </Card>
+    </div>
   );
 };
 

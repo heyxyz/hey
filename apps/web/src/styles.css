@@ -47,6 +47,12 @@ body {
   scrollbar-width: none;
 }
 
+.no-spinner::-webkit-inner-spin-button,
+.no-spinner::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .page-center {
   @apply flex h-[calc(100vh-65px)] items-center justify-center;
 }
