@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import type { Address } from 'viem';
 
 import MetaTags from '@components/Common/MetaTags';
 import { APP_NAME, HEY_API_URL } from '@hey/data/constants';
@@ -11,13 +12,13 @@ import { Wallet } from 'ethers';
 import { useEffect } from 'react';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
 
-import Composer from './Composer';
-import StartConversation from './Composer/StartConversation';
 import Conversations from './Conversations';
+import MessagesList from './MessagesList';
+import StartConversation from './MessagesList/Composer/StartConversation';
 
 const Messages: NextPage = () => {
   const { initialize, isLoading } = useClient();
-  const { selectedConversation } = useMessagesStore();
+  const { selectedConversation, setXmtpAddress } = useMessagesStore();
 
   const fetchUserKey = async (): Promise<null | string> => {
     try {
@@ -36,9 +37,10 @@ const Messages: NextPage = () => {
     queryKey: ['fetchUserKey']
   });
 
-  const initXmtpWithKeys = async (key: string) => {
+  const initXmtp = async (key: string) => {
     const signer = new Wallet(key);
 
+    setXmtpAddress(signer.address as Address);
     await initialize({
       options: { env: 'production' },
       signer: signer as any
@@ -47,7 +49,7 @@ const Messages: NextPage = () => {
 
   useEffect(() => {
     if (key) {
-      initXmtpWithKeys(key);
+      initXmtp(key);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
@@ -61,11 +63,8 @@ const Messages: NextPage = () => {
         </Card>
       </GridItemFour>
       <GridItemEight>
-        <Card className="p-5">
-          <StartConversation />
-          {selectedConversation && (
-            <Composer conversation={selectedConversation} />
-          )}
+        <Card>
+          {selectedConversation ? <MessagesList /> : <StartConversation />}
         </Card>
       </GridItemEight>
     </GridLayout>
