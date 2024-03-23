@@ -42,7 +42,6 @@ export const PUBLICATION = {
   CLICK_HASHTAG: 'Click publication hashtag',
   CLICK_MENTION: 'Click publication mention',
   CLICK_OEMBED: 'Click publication oembed',
-  CLICK_PORTAL_BUTTON: 'Click portal button',
   COLLECT_MODULE: {
     COLLECT: 'Collect publication',
     OPEN_COLLECT: 'Open collect modal',
