@@ -7,7 +7,8 @@ import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
-import { useDefaultProfileQuery } from '@hey/lens';
+import { HEY_API_URL } from '@hey/data/constants';
+import { useProfileQuery } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
 import getAvatar from '@hey/lib/getAvatar';
 import getLennyURL from '@hey/lib/getLennyURL';
@@ -16,6 +17,8 @@ import getStampFyiURL from '@hey/lib/getStampFyiURL';
 import hasMisused from '@hey/lib/hasMisused';
 import { Image } from '@hey/ui';
 import isVerified from '@lib/isVerified';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import { type FC } from 'react';
 
 import LatestMessage from './LatestMessage';
@@ -26,15 +29,33 @@ interface UserProps {
 }
 
 const User: FC<UserProps> = ({ address, conversation }) => {
-  const { data, loading } = useDefaultProfileQuery({
-    variables: { request: { for: address } }
+  const fetchUserId = async (): Promise<null | string> => {
+    try {
+      const response = await axios.get(`${HEY_API_URL}/messages/id`, {
+        params: { address }
+      });
+
+      return response.data.id;
+    } catch {
+      return null;
+    }
+  };
+
+  const { data: id } = useQuery({
+    queryFn: fetchUserId,
+    queryKey: ['fetchUserId', address]
+  });
+
+  const { data, loading } = useProfileQuery({
+    skip: !id,
+    variables: { request: { forProfileId: id } }
   });
 
   if (loading) {
     return null;
   }
 
-  const profile = data?.defaultProfile as Profile;
+  const profile = data?.profile as Profile;
 
   if (!profile) {
     return (
