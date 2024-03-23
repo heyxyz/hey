@@ -18,8 +18,6 @@ interface BatchRange {
   start: number;
 }
 
-const PROFILE_BATCH_SIZE = 50;
-
 const Title: FC = () => <p className="text-lg font-semibold">Staff Picks</p>;
 
 const StaffPicks: FC = () => {
