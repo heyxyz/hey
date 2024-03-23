@@ -174,6 +174,8 @@ const SeeThroughLens: FC = () => {
                         }}
                       >
                         <UserProfile
+                          hideFollowButton
+                          hideUnfollowButton
                           linkToProfile={false}
                           profile={profile}
                           showUserPreview={false}

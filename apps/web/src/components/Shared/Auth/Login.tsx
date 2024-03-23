@@ -137,6 +137,8 @@ const Login: FC<LoginProps> = ({ setHasProfiles }) => {
                   key={profile.id}
                 >
                   <UserProfile
+                    hideFollowButton
+                    hideUnfollowButton
                     linkToProfile={false}
                     profile={profile as Profile}
                     showUserPreview={false}
