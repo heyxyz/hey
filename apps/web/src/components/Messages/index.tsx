@@ -1,5 +1,4 @@
 import type { NextPage } from 'next';
-import type { Address } from 'viem';
 
 import MetaTags from '@components/Common/MetaTags';
 import { InboxIcon } from '@heroicons/react/24/outline';
@@ -8,7 +7,7 @@ import { EmptyState } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { loadKeys, storeKeys } from '@lib/xmtp/keys';
 import { Client, useClient } from '@xmtp/react-sdk';
-import { ethers, providers } from 'ethers';
+import { providers } from 'ethers';
 import { useEffect } from 'react';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
@@ -25,14 +24,17 @@ const Messages: NextPage = () => {
   const { address } = useAccount();
 
   const initXmtp = async () => {
+    if (!address) {
+      return;
+    }
+
     const provider = new providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner(address);
 
-    const xmtpAddress = await ethers.utils.getAddress(address as string);
-    let keys = loadKeys(xmtpAddress as Address);
+    let keys = loadKeys(address);
     if (!keys) {
       keys = await Client.getKeys(signer, { env: 'production' });
-      storeKeys(xmtpAddress as Address, keys);
+      storeKeys(address, keys);
     }
     await initialize({ keys, options: { env: 'production' }, signer });
   };
