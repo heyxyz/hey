@@ -2,15 +2,14 @@ import type { NextPage } from 'next';
 import type { Address } from 'viem';
 
 import MetaTags from '@components/Common/MetaTags';
-import { APP_NAME, HEY_API_URL } from '@hey/data/constants';
+import { APP_NAME } from '@hey/data/constants';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
-import getAuthApiHeaders from '@lib/getAuthApiHeaders';
-import { useQuery } from '@tanstack/react-query';
-import { useClient } from '@xmtp/react-sdk';
-import axios from 'axios';
-import { Wallet } from 'ethers';
+import { loadKeys, storeKeys } from '@lib/xmtp/keys';
+import { Client, useClient } from '@xmtp/react-sdk';
+import { ethers, providers } from 'ethers';
 import { useEffect } from 'react';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
+import { useAccount } from 'wagmi';
 
 import Conversations from './Conversations';
 import MessagesList from './MessagesList';
@@ -18,51 +17,32 @@ import StartConversation from './MessagesList/Composer/StartConversation';
 
 const Messages: NextPage = () => {
   const { initialize, isLoading } = useClient();
-  const { selectedConversation, setXmtpAddress, xmtpAddress } =
-    useMessagesStore();
+  const { selectedConversation } = useMessagesStore();
+  const { address } = useAccount();
 
-  const fetchUserKey = async (): Promise<null | string> => {
-    try {
-      const response = await axios.get(`${HEY_API_URL}/messages/key`, {
-        headers: getAuthApiHeaders()
-      });
+  const initXmtp = async () => {
+    const provider = new providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner(address);
 
-      return response.data.key;
-    } catch {
-      return null;
+    const xmtpAddress = await ethers.utils.getAddress(address as string);
+    let keys = loadKeys(xmtpAddress as Address);
+    if (!keys) {
+      keys = await Client.getKeys(signer, { env: 'production' });
+      storeKeys(xmtpAddress as Address, keys);
     }
-  };
-
-  const { data: key } = useQuery({
-    queryFn: fetchUserKey,
-    queryKey: ['fetchUserKey']
-  });
-
-  const initXmtp = async (key: string) => {
-    const signer = new Wallet(key);
-
-    setXmtpAddress(signer.address as Address);
-    await initialize({
-      options: { env: 'production' },
-      signer: signer as any
-    });
+    await initialize({ keys, options: { env: 'production' }, signer });
   };
 
   useEffect(() => {
-    if (key) {
-      initXmtp(key);
-    }
+    initXmtp();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [key]);
+  }, []);
 
   return (
     <GridLayout>
       <MetaTags title={`Messages • ${APP_NAME}`} />
       <GridItemFour>
-        <Card className="p-5">
-          {xmtpAddress}
-          {isLoading ? 'Loading XMTP...' : <Conversations />}
-        </Card>
+        <Card>{isLoading ? 'Loading XMTP...' : <Conversations />}</Card>
       </GridItemFour>
       <GridItemEight>
         <Card>

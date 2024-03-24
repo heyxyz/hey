@@ -7,8 +7,7 @@ import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
-import { HEY_API_URL } from '@hey/data/constants';
-import { useProfileQuery } from '@hey/lens';
+import { useDefaultProfileQuery } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
 import getAvatar from '@hey/lib/getAvatar';
 import getLennyURL from '@hey/lib/getLennyURL';
@@ -17,8 +16,7 @@ import getStampFyiURL from '@hey/lib/getStampFyiURL';
 import hasMisused from '@hey/lib/hasMisused';
 import { Image } from '@hey/ui';
 import isVerified from '@lib/isVerified';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { useIntersectionObserver } from '@uidotdev/usehooks';
 import { type FC } from 'react';
 
 import LatestMessage from './LatestMessage';
@@ -29,37 +27,26 @@ interface UserProps {
 }
 
 const User: FC<UserProps> = ({ address, conversation }) => {
-  const fetchUserId = async (): Promise<null | string> => {
-    try {
-      const response = await axios.get(`${HEY_API_URL}/messages/id`, {
-        params: { address }
-      });
-
-      return response.data.id;
-    } catch {
-      return null;
-    }
-  };
-
-  const { data: id } = useQuery({
-    queryFn: fetchUserId,
-    queryKey: ['fetchUserId', address]
+  const [ref, entry] = useIntersectionObserver({
+    root: null,
+    rootMargin: '0px',
+    threshold: 0
   });
 
-  const { data, loading } = useProfileQuery({
-    skip: !id,
-    variables: { request: { forProfileId: id } }
+  const { data, loading } = useDefaultProfileQuery({
+    skip: !address || !entry?.isIntersecting || true,
+    variables: { request: { for: address } }
   });
 
   if (loading) {
     return null;
   }
 
-  const profile = data?.profile as Profile;
+  const profile = data?.defaultProfile as Profile;
 
   if (!profile) {
     return (
-      <div className="flex items-center space-x-3">
+      <div className="flex items-center space-x-3" ref={ref}>
         <Image
           alt={address}
           className="z-[1] size-11 cursor-pointer rounded-full border bg-gray-200 dark:border-gray-700"

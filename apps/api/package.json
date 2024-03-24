@@ -31,7 +31,6 @@
     "@prisma/client": "^5.11.0",
     "axios": "^1.6.8",
     "cors": "^2.8.5",
-    "cryptr": "^6.3.0",
     "dotenv": "^16.4.5",
     "express": "^4.19.1",
     "express-file-routing": "^3.0.3",
