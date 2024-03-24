@@ -4,6 +4,7 @@ import cn from '@hey/ui/cn';
 import { useMessages } from '@xmtp/react-sdk';
 import { type FC, useEffect, useRef } from 'react';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
+import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Composer from './Composer';
@@ -11,6 +12,7 @@ import StartConversation from './Composer/StartConversation';
 
 const MessagesList: FC = () => {
   const { currentProfile } = useProfileStore();
+  const { staffMode } = useFeatureFlagsStore();
   const { selectedConversation } = useMessagesStore();
   const { messages } = useMessages(selectedConversation as CachedConversation);
   const endOfMessagesRef = useRef<HTMLDivElement | null>(null);
@@ -20,12 +22,21 @@ const MessagesList: FC = () => {
   }, [messages]);
 
   if (!selectedConversation) {
-    return <StartConversation />;
+    return (
+      <div className="flex h-full flex-col-reverse space-y-5 overflow-y-auto p-5">
+        <StartConversation />
+      </div>
+    );
   }
 
   return (
     <div>
-      <div className="flex h-[80vh] max-h-[85vh] flex-col-reverse space-y-5 overflow-y-auto p-5">
+      <div
+        className={cn(
+          staffMode ? 'h-[85vh] max-h-[85vh]' : 'h-[87vh] max-h-[87vh]',
+          'flex flex-col-reverse space-y-5 overflow-y-auto p-5'
+        )}
+      >
         <div ref={endOfMessagesRef} />
         {[...messages]
           .reverse()

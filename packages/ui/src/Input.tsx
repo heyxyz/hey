@@ -1,12 +1,10 @@
 import type { ComponentProps, ReactNode } from 'react';
 
-import dynamic from 'next/dynamic';
 import { forwardRef, useId } from 'react';
 
 import cn from '../cn';
 import { FieldError } from './Form';
-
-const HelpTooltip = dynamic(() => import('./HelpTooltip'));
+import HelpTooltip from './HelpTooltip';
 
 interface InputProps extends Omit<ComponentProps<'input'>, 'prefix'> {
   className?: string;
