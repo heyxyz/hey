@@ -1,8 +1,10 @@
 import Messages from '@components/Messages';
 import isFeatureAvailable from '@lib/isFeatureAvailable';
-import { XMTPProvider } from '@xmtp/react-sdk';
+import { reactionContentTypeConfig, XMTPProvider } from '@xmtp/react-sdk';
 
 import Custom404 from './404';
+
+const contentTypeConfigs = [reactionContentTypeConfig];
 
 const XMTPMessages = () => {
   if (!isFeatureAvailable('messages')) {
@@ -10,7 +12,7 @@ const XMTPMessages = () => {
   }
 
   return (
-    <XMTPProvider>
+    <XMTPProvider contentTypeConfigs={contentTypeConfigs}>
       <Messages />
     </XMTPProvider>
   );
