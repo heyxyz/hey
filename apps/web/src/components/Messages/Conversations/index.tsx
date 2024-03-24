@@ -33,7 +33,7 @@ const Conversations: FC<ConversationsProps> = ({ isClientLoading }) => {
 
   const { client } = useClient();
   const { conversations, isLoading } = useConversations();
-  const { consentState, isAllowed } = useConsent();
+  const { consentState, isAllowed, loadConsentList } = useConsent();
   const conversationsPerPage = 20;
 
   const getActiveConversations = async () => {
@@ -65,6 +65,11 @@ const Conversations: FC<ConversationsProps> = ({ isClientLoading }) => {
     getActiveConversations();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab, conversations]);
+
+  useEffect(() => {
+    loadConsentList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const end = page * conversationsPerPage;
