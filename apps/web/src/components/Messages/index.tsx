@@ -47,10 +47,10 @@ const Messages: NextPage = () => {
     <div className="container mx-auto max-w-screen-xl grow px-0 sm:px-5">
       <div className="grid grid-cols-11">
         <MetaTags title={`Messages • ${APP_NAME}`} />
-        <div className="col-span-11 border-x bg-white md:col-span-11 lg:col-span-4">
+        <div className="col-span-11 border-x bg-white md:col-span-11 lg:col-span-4 dark:border-gray-700 dark:bg-black">
           {isLoading ? <ConversationsShimmer /> : <Conversations />}
         </div>
-        <div className="col-span-11 border-r bg-white md:col-span-11 lg:col-span-7">
+        <div className="col-span-11 border-r bg-white md:col-span-11 lg:col-span-7 dark:border-gray-700 dark:bg-black">
           {newConversationAddress ? (
             <StartConversation />
           ) : selectedConversation ? (

@@ -38,7 +38,7 @@ const Composer: FC<ComposerProps> = ({ conversation }) => {
 
   return (
     <form
-      className="flex items-center space-x-2 border-t p-5"
+      className="flex items-center space-x-2 border-t p-5 dark:border-gray-700"
       onSubmit={handleSendMessage}
     >
       <Input

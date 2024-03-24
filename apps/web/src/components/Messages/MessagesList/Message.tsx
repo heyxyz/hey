@@ -25,7 +25,9 @@ const Messages: FC<MessagesProps> = ({ message }) => {
         <div className={cn('flex', { 'justify-end': isSender })}>
           <div
             className={cn(
-              isSender ? 'bg-gray-700 text-white' : 'bg-gray-100 text-black',
+              isSender
+                ? 'bg-gray-700 text-white dark:bg-gray-100 dark:text-black'
+                : 'bg-gray-100 dark:bg-gray-700',
               'max-w-xs break-words rounded-3xl px-4 py-2',
               isSender ? 'rounded-br-lg' : 'rounded-bl-lg'
             )}
