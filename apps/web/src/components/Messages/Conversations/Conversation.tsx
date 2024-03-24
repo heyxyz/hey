@@ -25,6 +25,7 @@ const Conversation: FC<ConversationProps> = ({ conversation }) => {
           'bg-gray-100 dark:bg-gray-800':
             selectedConversation?.id === conversation.id
         },
+        'hover:bg-gray-100 dark:hover:bg-gray-800',
         'cursor-pointer px-5 py-3'
       )}
       onClick={() => {

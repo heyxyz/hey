@@ -1,6 +1,7 @@
 import type { CachedConversation } from '@xmtp/react-sdk';
 import type { FC } from 'react';
 
+import { ArrowLeftIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
 import cn from '@hey/ui/cn';
 import { useClient, useConsent, useConversations } from '@xmtp/react-sdk';
 import { useEffect, useState } from 'react';
@@ -21,6 +22,7 @@ const Conversations: FC<ConversationsProps> = ({ isClientLoading }) => {
   const [activeTab, setActiveTab] = useState<'messages' | 'requests'>(
     'messages'
   );
+  const [requestsCount, setRequestsCount] = useState(0);
   const [filteredConversations, setFilteredConversations] = useState<
     CachedConversation[]
   >([]);
@@ -55,6 +57,7 @@ const Conversations: FC<ConversationsProps> = ({ isClientLoading }) => {
       })
     );
 
+    setRequestsCount(active.filter((c) => !c).length);
     setFilteredConversations(active.filter(Boolean) as CachedConversation[]);
   };
 
@@ -75,9 +78,36 @@ const Conversations: FC<ConversationsProps> = ({ isClientLoading }) => {
       <div className="divider" />
       <div
         className={cn(
-          staffMode ? 'h-[86vh] max-h-[86vh]' : 'h-[88.5vh] max-h-[88.5vh]'
+          staffMode ? 'h-[84vh] max-h-[80vh]' : 'h-[88.5vh] max-h-[88.5vh]'
         )}
       >
+        <button
+          className={cn(
+            { 'bg-gray-100 dark:bg-gray-800': activeTab === 'requests' },
+            'hover:bg-gray-100 hover:dark:bg-gray-800',
+            'flex w-full items-center space-x-3 px-5 py-3'
+          )}
+          onClick={() =>
+            setActiveTab(activeTab === 'messages' ? 'requests' : 'messages')
+          }
+        >
+          <div className="flex size-11 items-center justify-center rounded-full border dark:border-gray-700">
+            {activeTab === 'messages' ? (
+              <EnvelopeIcon className="size-5" />
+            ) : (
+              <ArrowLeftIcon className="size-5" />
+            )}
+          </div>
+          <div className="flex flex-col items-start space-y-1">
+            <div className="font-bold">
+              {activeTab === 'messages' ? 'Message Requests' : 'Messages'}
+            </div>
+            <div className="ld-text-gray-500 text-sm">
+              {requestsCount}{' '}
+              {activeTab === 'messages' ? 'new requests' : 'messages'}
+            </div>
+          </div>
+        </button>
         {isClientLoading || isLoading ? (
           <ConversationsShimmer />
         ) : !client?.address ? (
@@ -87,7 +117,7 @@ const Conversations: FC<ConversationsProps> = ({ isClientLoading }) => {
             computeItemKey={(_, conversation) =>
               `${conversation.id}-${conversation.peerAddress}`
             }
-            data={filteredConversations}
+            data={visibleConversations}
             endReached={() => {
               setTimeout(() => {
                 setPage((prevPage) => prevPage + 1);
