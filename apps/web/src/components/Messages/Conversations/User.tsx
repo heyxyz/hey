@@ -2,6 +2,7 @@ import type { Profile } from '@hey/lens';
 import type { CachedConversation } from '@xmtp/react-sdk';
 import type { Address } from 'viem';
 
+import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import Slug from '@components/Shared/Slug';
 import {
   CheckBadgeIcon,
@@ -16,8 +17,7 @@ import getStampFyiURL from '@hey/lib/getStampFyiURL';
 import hasMisused from '@hey/lib/hasMisused';
 import { Image } from '@hey/ui';
 import isVerified from '@lib/isVerified';
-import { useIntersectionObserver } from '@uidotdev/usehooks';
-import { type FC } from 'react';
+import { type FC, useState } from 'react';
 
 import LatestMessage from './LatestMessage';
 
@@ -27,26 +27,27 @@ interface UserProps {
 }
 
 const User: FC<UserProps> = ({ address, conversation }) => {
-  const [ref, entry] = useIntersectionObserver({
-    root: null,
-    rootMargin: '0px',
-    threshold: 0
-  });
+  const [fetchedProfile, setFetchedProfile] = useState<null | Profile>(null);
 
   const { data, loading } = useDefaultProfileQuery({
-    skip: !address || !entry?.isIntersecting || true,
+    onCompleted: (data) => {
+      if (data.defaultProfile) {
+        setFetchedProfile(data.defaultProfile as Profile);
+      }
+    },
+    skip: !address || !!fetchedProfile,
     variables: { request: { for: address } }
   });
 
   if (loading) {
-    return null;
+    return <UserProfileShimmer />;
   }
 
-  const profile = data?.defaultProfile as Profile;
+  const profile = (fetchedProfile || data?.defaultProfile) as Profile;
 
   if (!profile) {
     return (
-      <div className="flex items-center space-x-3" ref={ref}>
+      <div className="flex items-center space-x-3">
         <Image
           alt={address}
           className="z-[1] size-11 cursor-pointer rounded-full border bg-gray-200 dark:border-gray-700"
