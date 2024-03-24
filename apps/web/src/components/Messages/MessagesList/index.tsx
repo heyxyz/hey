@@ -3,7 +3,7 @@ import type { Address } from 'viem';
 
 import LazyDefaultProfile from '@components/Shared/LazyDefaultProfile';
 import cn from '@hey/ui/cn';
-import { useMessages } from '@xmtp/react-sdk';
+import { useMessages, useStreamMessages } from '@xmtp/react-sdk';
 import { type FC, useEffect, useRef } from 'react';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
@@ -21,6 +21,9 @@ const MessagesList: FC = () => {
   useEffect(() => {
     endOfMessagesRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+
+  // Void hook, were xmtp/react-sdk stream messages realtime
+  useStreamMessages(selectedConversation as CachedConversation);
 
   if (!selectedConversation) {
     return null;
