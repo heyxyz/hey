@@ -3,7 +3,7 @@ import type { Profile } from '@hey/lens';
 import SearchProfiles from '@components/Shared/SearchProfiles';
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { Modal } from '@hey/ui';
-import { useConversation } from '@xmtp/react-sdk';
+import { useClient, useConversation } from '@xmtp/react-sdk';
 import { type FC, useState } from 'react';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
 
@@ -12,6 +12,7 @@ const NewConversation: FC = () => {
     useMessagesStore();
   const [value, setValue] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const { client } = useClient();
   const { getCachedByPeerAddress } = useConversation();
 
   const onProfileSelected = async (profile: Profile) => {
@@ -30,7 +31,7 @@ const NewConversation: FC = () => {
   return (
     <div className="m-5 flex items-center justify-between">
       <div className="text-lg font-bold">Messages</div>
-      <button onClick={() => setShowModal(true)}>
+      <button disabled={!client?.address} onClick={() => setShowModal(true)}>
         <PlusCircleIcon className="size-6" />
       </button>
       <Modal
