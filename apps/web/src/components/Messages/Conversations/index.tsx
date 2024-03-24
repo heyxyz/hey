@@ -6,16 +6,18 @@ import { useConversations } from '@xmtp/react-sdk';
 import { useEffect, useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
+import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 import User from './User';
 
 const Conversations: FC = () => {
   const { setSelectedConversation } = useMessagesStore();
-  const { conversations } = useConversations();
+  const { staffMode } = useFeatureFlagsStore();
   const [visibleConversations, setVisibleConversations] = useState<
     CachedConversation[]
   >([]);
   const [page, setPage] = useState(1);
+  const { conversations } = useConversations();
   const conversationsPerPage = 20;
 
   useEffect(() => {
@@ -25,7 +27,7 @@ const Conversations: FC = () => {
   }, [page, conversations]);
 
   return (
-    <div className="h-[85vh]">
+    <div className="h-full">
       <Virtuoso
         computeItemKey={(_, conversation) =>
           `${conversation.id}-${conversation.peerAddress}`
