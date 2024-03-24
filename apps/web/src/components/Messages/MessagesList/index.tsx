@@ -9,6 +9,7 @@ import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 import Composer from '../Composer';
+import Consent from './Consent';
 import Messages from './Message';
 
 const MessagesList: FC = () => {
@@ -30,10 +31,11 @@ const MessagesList: FC = () => {
 
   return (
     <div>
-      <div className="px-5 py-2.5">
+      <div className="flex items-center justify-between px-5 py-2.5">
         <LazyDefaultProfile
           address={selectedConversation.peerAddress as Address}
         />
+        <Consent address={selectedConversation.peerAddress as Address} />
       </div>
       <div className="divider" />
       <div
