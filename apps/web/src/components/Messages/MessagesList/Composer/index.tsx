@@ -3,7 +3,7 @@ import type { ChangeEvent, FC } from 'react';
 
 import { Button, Input } from '@hey/ui';
 import { useSendMessage } from '@xmtp/react-sdk';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface ComposerProps {
   conversation: CachedConversation;
@@ -14,28 +14,17 @@ const Composer: FC<ComposerProps> = ({ conversation }) => {
   const [isSending, setIsSending] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { sendMessage } = useSendMessage({
-    onSuccess: () => {
-      setTimeout(() => {
-        if (inputRef.current) {
-          inputRef.current.focus();
-        }
-      }, 10);
-    }
-  });
+  const { sendMessage } = useSendMessage();
 
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
     }
-  }, [conversation]);
+  }, [conversation, isSending]);
 
-  const handleMessageChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      setMessage(e.target.value);
-    },
-    []
-  );
+  const handleMessageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setMessage(e.target.value);
+  };
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
