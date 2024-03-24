@@ -239,6 +239,7 @@ export const ALL_EVENTS = {
   ...EXPLORE,
   ...SETTINGS,
   ...INVITE,
+  ...MESSAGES,
   ...GARDENER,
   ...STAFFTOOLS,
   ...CREATORTOOLS,
