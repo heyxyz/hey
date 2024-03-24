@@ -150,6 +150,15 @@ export const INVITE = {
   OPEN_INVITE: 'Open invite modal'
 };
 
+export const MESSAGES = {
+  ALLOW_USER: 'Allow user',
+  BLOCK_USER: 'Block user',
+  ENABLE_MESSAGES: 'Enable messages',
+  OPEN_CONVERSATION: 'Open conversation',
+  SEND_MESSAGE: 'Send message',
+  START_CONVERSATION: 'Start conversation'
+};
+
 export const GARDENER = {
   PROFILE: {
     P2P_RECOMMEND: 'P2P recommend profile',

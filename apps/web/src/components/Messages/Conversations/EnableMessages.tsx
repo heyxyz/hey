@@ -1,9 +1,12 @@
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
+import { MESSAGES } from '@hey/data/tracking';
 import { Button, EmptyState } from '@hey/ui';
+import { Leafwatch } from '@lib/leafwatch';
 import { loadKeys, storeKeys } from '@lib/xmtp/keys';
 import { Client, useClient } from '@xmtp/react-sdk';
 import { providers } from 'ethers';
 import { type FC, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useAccount } from 'wagmi';
 
 const EnableMessages: FC = () => {
@@ -26,7 +29,10 @@ const EnableMessages: FC = () => {
         keys = await Client.getKeys(signer, { env: 'production' });
         storeKeys(address, keys);
       }
-      return await initialize({ keys, options: { env: 'production' }, signer });
+      await initialize({ keys, options: { env: 'production' }, signer });
+      Leafwatch.track(MESSAGES.ENABLE_MESSAGES);
+
+      return toast.success('Messages enabled successfully');
     } finally {
       setInitializing(false);
     }
