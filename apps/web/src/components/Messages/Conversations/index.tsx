@@ -13,7 +13,11 @@ import NewConversation from './NewConversation';
 import ConversationsShimmer from './Shimmer';
 import User from './User';
 
-const Conversations: FC = () => {
+interface ConversationsProps {
+  isClientLoading: boolean;
+}
+
+const Conversations: FC<ConversationsProps> = ({ isClientLoading }) => {
   const { staffMode } = useFeatureFlagsStore();
   const {
     selectedConversation,
@@ -33,10 +37,6 @@ const Conversations: FC = () => {
     setVisibleConversations(newConversations);
   }, [page, conversations]);
 
-  if (isLoading) {
-    return <ConversationsShimmer />;
-  }
-
   return (
     <div>
       <NewConversation />
@@ -46,39 +46,43 @@ const Conversations: FC = () => {
           staffMode ? 'h-[86vh] max-h-[86vh]' : 'h-[88.5vh] max-h-[88.5vh]'
         )}
       >
-        <Virtuoso
-          computeItemKey={(_, conversation) =>
-            `${conversation.id}-${conversation.peerAddress}`
-          }
-          data={visibleConversations}
-          endReached={() => {
-            setTimeout(() => {
-              setPage((prevPage) => prevPage + 1);
-            }, 1000);
-          }}
-          itemContent={(_, conversation) => {
-            return (
-              <div
-                className={cn(
-                  {
-                    'bg-gray-100 dark:bg-gray-800':
-                      selectedConversation?.id === conversation.id
-                  },
-                  'cursor-pointer px-5 py-3'
-                )}
-                onClick={() => {
-                  setNewConversationAddress(null);
-                  setSelectedConversation(conversation);
-                }}
-              >
-                <User
-                  address={conversation.peerAddress as Address}
-                  conversation={conversation}
-                />
-              </div>
-            );
-          }}
-        />
+        {isClientLoading || isLoading ? (
+          <ConversationsShimmer />
+        ) : (
+          <Virtuoso
+            computeItemKey={(_, conversation) =>
+              `${conversation.id}-${conversation.peerAddress}`
+            }
+            data={visibleConversations}
+            endReached={() => {
+              setTimeout(() => {
+                setPage((prevPage) => prevPage + 1);
+              }, 1000);
+            }}
+            itemContent={(_, conversation) => {
+              return (
+                <div
+                  className={cn(
+                    {
+                      'bg-gray-100 dark:bg-gray-800':
+                        selectedConversation?.id === conversation.id
+                    },
+                    'cursor-pointer px-5 py-3'
+                  )}
+                  onClick={() => {
+                    setNewConversationAddress(null);
+                    setSelectedConversation(conversation);
+                  }}
+                >
+                  <User
+                    address={conversation.peerAddress as Address}
+                    conversation={conversation}
+                  />
+                </div>
+              );
+            }}
+          />
+        )}
       </div>
     </div>
   );
