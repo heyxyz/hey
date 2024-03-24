@@ -76,38 +76,38 @@ const Conversations: FC<ConversationsProps> = ({ isClientLoading }) => {
     <div>
       <NewConversation />
       <div className="divider" />
+      <button
+        className={cn(
+          { 'bg-gray-100 dark:bg-gray-800': activeTab === 'requests' },
+          'hover:bg-gray-100 hover:dark:bg-gray-800',
+          'flex w-full items-center space-x-3 px-5 py-3'
+        )}
+        onClick={() =>
+          setActiveTab(activeTab === 'messages' ? 'requests' : 'messages')
+        }
+      >
+        <div className="flex size-11 items-center justify-center rounded-full border dark:border-gray-700">
+          {activeTab === 'messages' ? (
+            <EnvelopeIcon className="size-5" />
+          ) : (
+            <ArrowLeftIcon className="size-5" />
+          )}
+        </div>
+        <div className="flex flex-col items-start space-y-1">
+          <div className="font-bold">
+            {activeTab === 'messages' ? 'Message Requests' : 'Messages'}
+          </div>
+          <div className="ld-text-gray-500 text-sm">
+            {requestsCount}{' '}
+            {activeTab === 'messages' ? 'new requests' : 'messages'}
+          </div>
+        </div>
+      </button>
       <div
         className={cn(
-          staffMode ? 'h-[84vh] max-h-[80vh]' : 'h-[88.5vh] max-h-[88.5vh]'
+          staffMode ? 'h-[80vh] max-h-[80vh]' : 'h-[82.5vh] max-h-[82.5vh]'
         )}
       >
-        <button
-          className={cn(
-            { 'bg-gray-100 dark:bg-gray-800': activeTab === 'requests' },
-            'hover:bg-gray-100 hover:dark:bg-gray-800',
-            'flex w-full items-center space-x-3 px-5 py-3'
-          )}
-          onClick={() =>
-            setActiveTab(activeTab === 'messages' ? 'requests' : 'messages')
-          }
-        >
-          <div className="flex size-11 items-center justify-center rounded-full border dark:border-gray-700">
-            {activeTab === 'messages' ? (
-              <EnvelopeIcon className="size-5" />
-            ) : (
-              <ArrowLeftIcon className="size-5" />
-            )}
-          </div>
-          <div className="flex flex-col items-start space-y-1">
-            <div className="font-bold">
-              {activeTab === 'messages' ? 'Message Requests' : 'Messages'}
-            </div>
-            <div className="ld-text-gray-500 text-sm">
-              {requestsCount}{' '}
-              {activeTab === 'messages' ? 'new requests' : 'messages'}
-            </div>
-          </div>
-        </button>
         {isClientLoading || isLoading ? (
           <ConversationsShimmer />
         ) : !client?.address ? (
