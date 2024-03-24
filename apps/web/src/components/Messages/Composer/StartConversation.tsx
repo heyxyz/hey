@@ -1,11 +1,14 @@
 import type { CachedConversation } from '@xmtp/react-sdk';
 import type { ChangeEvent, FC } from 'react';
 
-import { ArrowRightCircleIcon } from '@heroicons/react/24/outline';
+import {
+  ArrowRightCircleIcon,
+  EnvelopeIcon
+} from '@heroicons/react/24/outline';
 import { Button, EmptyState, Input } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { useStartConversation } from '@xmtp/react-sdk';
-import { useRef, useState } from 'react';
+import { useCanMessage, useStartConversation } from '@xmtp/react-sdk';
+import { useEffect, useRef, useState } from 'react';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
@@ -17,10 +20,23 @@ const StartConversation: FC = () => {
   } = useMessagesStore();
   const [message, setMessage] = useState('');
   const [isSending, setIsSending] = useState(false);
+  const [isOnXmtp, setIsOnXmtp] = useState(true);
   const inputRef = useRef<HTMLInputElement>(null);
   const { staffMode } = useFeatureFlagsStore();
 
   const { startConversation } = useStartConversation();
+  const { canMessage } = useCanMessage();
+
+  const getIsOnXmtp = async () => {
+    if (newConversationAddress) {
+      setIsOnXmtp(await canMessage(newConversationAddress));
+    }
+  };
+
+  useEffect(() => {
+    getIsOnXmtp();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [newConversationAddress]);
 
   const handleMessageChange = (e: ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
@@ -52,8 +68,14 @@ const StartConversation: FC = () => {
       >
         <EmptyState
           hideCard
-          icon={<ArrowRightCircleIcon className="size-10" />}
-          message="Begin your conversation"
+          icon={
+            isOnXmtp ? (
+              <ArrowRightCircleIcon className="size-10" />
+            ) : (
+              <EnvelopeIcon className="size-10" />
+            )
+          }
+          message={isOnXmtp ? 'Begin your conversation' : 'User is not on XMTP'}
         />
       </div>
       <form
@@ -62,14 +84,14 @@ const StartConversation: FC = () => {
       >
         <Input
           autoFocus
-          disabled={isSending}
+          disabled={isSending || !isOnXmtp}
           onChange={handleMessageChange}
           placeholder="Type a message..."
           ref={inputRef}
           type="text"
           value={message}
         />
-        <Button disabled={isSending || !message} type="submit">
+        <Button disabled={!isOnXmtp || isSending || !message} type="submit">
           Send
         </Button>
       </form>
