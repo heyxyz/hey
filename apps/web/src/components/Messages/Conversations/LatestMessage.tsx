@@ -28,9 +28,7 @@ const LatestMessage: FC<LatestMessageProps> = ({ conversation }) => {
   }
 
   return (
-    <div className="ld-text-gray-500 max-w-60 space-y-3 truncate text-sm">
-      {message}
-    </div>
+    <div className="ld-text-gray-500 max-w-60 truncate text-sm">{message}</div>
   );
 };
 

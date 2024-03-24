@@ -56,7 +56,7 @@ const User: FC<UserProps> = ({ address, conversation }) => {
           src={getStampFyiURL(address)}
           width={44}
         />
-        <div>
+        <div className="space-y-1">
           <div className="font-semibold">{formatAddress(address)}</div>
           <LatestMessage conversation={conversation} />
         </div>
@@ -77,7 +77,7 @@ const User: FC<UserProps> = ({ address, conversation }) => {
         src={getAvatar(profile)}
         width={44}
       />
-      <div>
+      <div className="space-y-1">
         <div className="flex max-w-sm flex-wrap items-center">
           <span className="font-semibold">
             {getProfile(profile).displayName}
