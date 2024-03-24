@@ -7,8 +7,7 @@ import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
-import Composer from './Composer';
-import StartConversation from './Composer/StartConversation';
+import Composer from '../Composer';
 
 const MessagesList: FC = () => {
   const { currentProfile } = useProfileStore();
@@ -22,11 +21,7 @@ const MessagesList: FC = () => {
   }, [messages]);
 
   if (!selectedConversation) {
-    return (
-      <div className="flex h-full flex-col-reverse space-y-5 overflow-y-auto p-5">
-        <StartConversation />
-      </div>
-    );
+    return null;
   }
 
   return (
