@@ -13,7 +13,6 @@ const Composer: FC<ComposerProps> = ({ conversation }) => {
   const [message, setMessage] = useState('');
   const [isSending, setIsSending] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-
   const { sendMessage } = useSendMessage();
 
   useEffect(() => {
