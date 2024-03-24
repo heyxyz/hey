@@ -16,7 +16,6 @@ import { useAccount } from 'wagmi';
 
 import StartConversation from './Composer/StartConversation';
 import Conversations from './Conversations';
-import ConversationsShimmer from './Conversations/Shimmer';
 import MessagesList from './MessagesList';
 
 const Messages: NextPage = () => {
@@ -48,7 +47,7 @@ const Messages: NextPage = () => {
       <div className="grid grid-cols-11">
         <MetaTags title={`Messages • ${APP_NAME}`} />
         <div className="col-span-11 border-x bg-white md:col-span-11 lg:col-span-4 dark:border-gray-700 dark:bg-black">
-          {isLoading ? <ConversationsShimmer /> : <Conversations />}
+          <Conversations isClientLoading={isLoading} />
         </div>
         <div className="col-span-11 border-r bg-white md:col-span-11 lg:col-span-7 dark:border-gray-700 dark:bg-black">
           {newConversationAddress ? (
