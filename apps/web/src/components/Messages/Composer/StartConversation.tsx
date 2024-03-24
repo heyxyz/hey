@@ -5,7 +5,8 @@ import type { Address } from 'viem';
 import LazyDefaultProfile from '@components/Shared/LazyDefaultProfile';
 import {
   ArrowRightCircleIcon,
-  EnvelopeIcon
+  EnvelopeIcon,
+  NoSymbolIcon
 } from '@heroicons/react/24/outline';
 import { Button, EmptyState, Input } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -13,25 +14,28 @@ import { useCanMessage, useStartConversation } from '@xmtp/react-sdk';
 import { useEffect, useRef, useState } from 'react';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
+import { useAccount } from 'wagmi';
 
 const StartConversation: FC = () => {
+  const { address } = useAccount();
   const {
     newConversationAddress,
     setNewConversationAddress,
     setSelectedConversation
   } = useMessagesStore();
+  const { staffMode } = useFeatureFlagsStore();
   const [message, setMessage] = useState('');
   const [isSending, setIsSending] = useState(false);
-  const [isOnXmtp, setIsOnXmtp] = useState(true);
+  const [isNotOnXmtp, setIsNotOnXmtp] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { staffMode } = useFeatureFlagsStore();
+  const isSameUser = address === newConversationAddress;
 
   const { startConversation } = useStartConversation();
   const { canMessage } = useCanMessage();
 
   const getIsOnXmtp = async () => {
     if (newConversationAddress) {
-      setIsOnXmtp(await canMessage(newConversationAddress));
+      setIsNotOnXmtp(!(await canMessage(newConversationAddress)));
     }
   };
 
@@ -75,13 +79,21 @@ const StartConversation: FC = () => {
         <EmptyState
           hideCard
           icon={
-            isOnXmtp ? (
-              <ArrowRightCircleIcon className="size-10" />
-            ) : (
+            isSameUser ? (
+              <NoSymbolIcon className="size-10" />
+            ) : isNotOnXmtp ? (
               <EnvelopeIcon className="size-10" />
+            ) : (
+              <ArrowRightCircleIcon className="size-10" />
             )
           }
-          message={isOnXmtp ? 'Begin your conversation' : 'User is not on XMTP'}
+          message={
+            isSameUser
+              ? 'You cannot message yourself'
+              : isNotOnXmtp
+                ? 'User is not on XMTP'
+                : 'Begin your conversation'
+          }
         />
       </div>
       <form
@@ -90,14 +102,17 @@ const StartConversation: FC = () => {
       >
         <Input
           autoFocus
-          disabled={isSending || !isOnXmtp}
+          disabled={isSameUser || isNotOnXmtp || isSending}
           onChange={handleMessageChange}
           placeholder="Type a message..."
           ref={inputRef}
           type="text"
           value={message}
         />
-        <Button disabled={!isOnXmtp || isSending || !message} type="submit">
+        <Button
+          disabled={isSameUser || isNotOnXmtp || isSending || !message}
+          type="submit"
+        >
           Send
         </Button>
       </form>
