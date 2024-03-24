@@ -13,7 +13,6 @@ const Messages: FC<MessagesProps> = ({ message }) => {
   const { currentProfile } = useProfileStore();
   const reactions = useReactions(message);
   const messageHasReaction = hasReaction(message);
-
   const isSender = message.senderAddress === currentProfile?.ownedBy.address;
 
   if (message.contentType === ContentTypeText.toString()) {
