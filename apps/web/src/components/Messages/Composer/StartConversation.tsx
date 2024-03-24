@@ -1,6 +1,8 @@
 import type { CachedConversation } from '@xmtp/react-sdk';
 import type { ChangeEvent, FC } from 'react';
+import type { Address } from 'viem';
 
+import LazyDefaultProfile from '@components/Shared/LazyDefaultProfile';
 import {
   ArrowRightCircleIcon,
   EnvelopeIcon
@@ -60,9 +62,13 @@ const StartConversation: FC = () => {
 
   return (
     <div>
+      <div className="px-5 py-2.5">
+        <LazyDefaultProfile address={newConversationAddress as Address} />
+      </div>
+      <div className="divider" />
       <div
         className={cn(
-          staffMode ? 'h-[85vh] max-h-[85vh]' : 'h-[87vh] max-h-[87vh]',
+          staffMode ? 'h-[79vh] max-h-[79vh]' : 'h-[81.5vh] max-h-[81.5vh]',
           'flex items-center justify-center p-5'
         )}
       >
