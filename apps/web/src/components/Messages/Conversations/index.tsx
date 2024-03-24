@@ -61,7 +61,8 @@ const Conversations: FC = () => {
               <div
                 className={cn(
                   {
-                    'bg-gray-200': selectedConversation?.id === conversation.id
+                    'bg-gray-100 dark:bg-gray-800':
+                      selectedConversation?.id === conversation.id
                   },
                   'cursor-pointer px-5 py-3'
                 )}
