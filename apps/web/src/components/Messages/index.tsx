@@ -3,8 +3,10 @@ import type { NextPage } from 'next';
 import MetaTags from '@components/Common/MetaTags';
 import { InboxIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
+import { PAGEVIEW } from '@hey/data/tracking';
 import { EmptyState } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import { Leafwatch } from '@lib/leafwatch';
 import { loadKeys } from '@lib/xmtp/keys';
 import { useClient } from '@xmtp/react-sdk';
 import { providers } from 'ethers';
@@ -22,6 +24,10 @@ const Messages: NextPage = () => {
   const { newConversationAddress, selectedConversation } = useMessagesStore();
   const { initialize, isLoading } = useClient();
   const { address } = useAccount();
+
+  useEffect(() => {
+    Leafwatch.track(PAGEVIEW, { page: 'messages' });
+  }, []);
 
   const initXmtp = async () => {
     if (!address) {
