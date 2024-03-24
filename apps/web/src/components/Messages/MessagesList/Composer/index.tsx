@@ -50,7 +50,7 @@ const Composer: FC<ComposerProps> = ({ conversation }) => {
         type="text"
         value={message}
       />
-      <Button disabled={isSending} type="submit">
+      <Button disabled={isSending || !message} type="submit">
         Send
       </Button>
     </form>
