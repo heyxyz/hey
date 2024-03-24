@@ -50,7 +50,7 @@ const MessagesList: FC = () => {
                     isSender
                       ? 'bg-gray-800 text-white'
                       : 'bg-gray-300 text-black',
-                    'max-w-xs rounded-lg px-4 py-2'
+                    'max-w-xs break-words rounded-lg px-4 py-2'
                   )}
                 >
                   {message.content}
