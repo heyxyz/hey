@@ -93,13 +93,6 @@ model PollResponse {
   @@index([optionId])
 }
 
-model PrivateKey {
-  profileId String   @id
-  key       String   @unique
-  address   String
-  createdAt DateTime @default(now())
-}
-
 model AllowedToken {
   id              String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name            String

@@ -4,12 +4,14 @@ import cn from '@hey/ui/cn';
 import { useMessages } from '@xmtp/react-sdk';
 import { type FC, useEffect, useRef } from 'react';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Composer from './Composer';
 import StartConversation from './Composer/StartConversation';
 
 const MessagesList: FC = () => {
-  const { selectedConversation, xmtpAddress } = useMessagesStore();
+  const { currentProfile } = useProfileStore();
+  const { selectedConversation } = useMessagesStore();
   const { messages } = useMessages(selectedConversation as CachedConversation);
   const endOfMessagesRef = useRef<HTMLDivElement | null>(null);
 
@@ -23,10 +25,11 @@ const MessagesList: FC = () => {
 
   return (
     <div>
-      <div className="flex max-h-[80vh] flex-col-reverse space-y-5 overflow-y-auto p-5">
+      <div className="flex h-[80vh] max-h-[85vh] flex-col-reverse space-y-5 overflow-y-auto p-5">
         <div ref={endOfMessagesRef} />
         {[...messages].reverse().map((message) => {
-          const isSender = message.senderAddress === xmtpAddress;
+          const isSender =
+            message.senderAddress === currentProfile?.ownedBy.address;
 
           return (
             <div
