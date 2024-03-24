@@ -2,7 +2,7 @@ import type { CachedConversation } from '@xmtp/react-sdk';
 import type { FC } from 'react';
 
 import cn from '@hey/ui/cn';
-import { useClient, useConversations } from '@xmtp/react-sdk';
+import { useClient, useConsent, useConversations } from '@xmtp/react-sdk';
 import { useEffect, useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
@@ -18,6 +18,12 @@ interface ConversationsProps {
 
 const Conversations: FC<ConversationsProps> = ({ isClientLoading }) => {
   const { staffMode } = useFeatureFlagsStore();
+  const [activeTab, setActiveTab] = useState<'messages' | 'requests'>(
+    'messages'
+  );
+  const [filteredConversations, setFilteredConversations] = useState<
+    CachedConversation[]
+  >([]);
   const [visibleConversations, setVisibleConversations] = useState<
     CachedConversation[]
   >([]);
@@ -25,14 +31,43 @@ const Conversations: FC<ConversationsProps> = ({ isClientLoading }) => {
 
   const { client } = useClient();
   const { conversations, isLoading } = useConversations();
-
+  const { consentState, isAllowed } = useConsent();
   const conversationsPerPage = 20;
+
+  const getActiveConversations = async () => {
+    const active = await Promise.all(
+      conversations.map(async (conversation) => {
+        if (
+          activeTab === 'messages' &&
+          (await isAllowed(conversation.peerAddress))
+        ) {
+          return conversation;
+        }
+
+        if (
+          activeTab === 'requests' &&
+          (await consentState(conversation.peerAddress)) === 'unknown'
+        ) {
+          return conversation;
+        }
+
+        return null;
+      })
+    );
+
+    setFilteredConversations(active.filter(Boolean) as CachedConversation[]);
+  };
+
+  useEffect(() => {
+    getActiveConversations();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeTab, conversations]);
 
   useEffect(() => {
     const end = page * conversationsPerPage;
-    const newConversations = conversations.slice(0, end);
+    const newConversations = filteredConversations.slice(0, end);
     setVisibleConversations(newConversations);
-  }, [page, conversations]);
+  }, [page, filteredConversations]);
 
   return (
     <div>
@@ -52,7 +87,7 @@ const Conversations: FC<ConversationsProps> = ({ isClientLoading }) => {
             computeItemKey={(_, conversation) =>
               `${conversation.id}-${conversation.peerAddress}`
             }
-            data={visibleConversations}
+            data={filteredConversations}
             endReached={() => {
               setTimeout(() => {
                 setPage((prevPage) => prevPage + 1);
