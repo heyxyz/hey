@@ -11,6 +11,10 @@ const CrispProvider: FC = () => {
   const { currentProfile } = useProfileStore();
 
   useEffect(() => {
+    if (location.hostname !== 'hey.xyz') {
+      return;
+    }
+
     // Configure Crisp
     Crisp.configure(CRISP_WEBSITE_ID, { autoload: true });
     Crisp.chat.hide();
