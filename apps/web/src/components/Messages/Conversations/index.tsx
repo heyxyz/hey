@@ -11,7 +11,7 @@ const Conversations: FC = () => {
   const { conversations } = useConversations();
 
   return (
-    <div className="space-y-5">
+    <div className="h-[85vh] max-h-[85vh] space-y-5 overflow-auto p-5">
       {conversations.map((conversation) => (
         <div
           className="cursor-pointer"
