@@ -1,5 +1,6 @@
 import type { CachedMessageWithId } from '@xmtp/react-sdk';
 
+import getTimeFromNow from '@hey/lib/datetime/getTimeFromNow';
 import cn from '@hey/ui/cn';
 import { ContentTypeText, hasReaction, useReactions } from '@xmtp/react-sdk';
 import { type FC } from 'react';
@@ -33,6 +34,9 @@ const Messages: FC<MessagesProps> = ({ message }) => {
           >
             {message.content}
           </div>
+        </div>
+        <div className="ld-text-gray-500 mt-1 text-xs">
+          {getTimeFromNow(message.sentAt)}
         </div>
         {messageHasReaction && (
           <div className="mb-1 mt-1 flex w-fit space-x-2 rounded-full">
