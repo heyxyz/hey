@@ -14,12 +14,14 @@ import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useAccount } from 'wagmi';
 
+import StartConversation from './Composer/StartConversation';
 import Conversations from './Conversations';
+import ConversationsShimmer from './Conversations/Shimmer';
 import MessagesList from './MessagesList';
 
 const Messages: NextPage = () => {
   const { staffMode } = useFeatureFlagsStore();
-  const { selectedConversation } = useMessagesStore();
+  const { newConversationAddress, selectedConversation } = useMessagesStore();
   const { initialize, isLoading } = useClient();
   const { address } = useAccount();
 
@@ -45,28 +47,29 @@ const Messages: NextPage = () => {
     <div className="container mx-auto max-w-screen-xl grow px-0 sm:px-5">
       <div className="grid grid-cols-11">
         <MetaTags title={`Messages • ${APP_NAME}`} />
-        <div
-          className={cn(
-            staffMode ? 'h-[92vh] max-h-[92vh]' : 'h-[94.5vh] max-h-[94.5vh]',
-            'col-span-11 border-x bg-white md:col-span-11 lg:col-span-4'
-          )}
-        >
-          {isLoading ? 'Loading XMTP...' : <Conversations />}
+        <div className="col-span-11 border-x bg-white md:col-span-11 lg:col-span-4">
+          {isLoading ? <ConversationsShimmer /> : <Conversations />}
         </div>
-        <div
-          className={cn(
-            staffMode ? 'h-[92vh] max-h-[92vh]' : 'h-[94.5vh] max-h-[94.5vh]',
-            'col-span-11 border-r bg-white md:col-span-11 lg:col-span-7'
-          )}
-        >
-          {selectedConversation ? (
+        <div className="col-span-11 border-r bg-white md:col-span-11 lg:col-span-7">
+          {newConversationAddress ? (
+            <StartConversation />
+          ) : selectedConversation ? (
             <MessagesList />
           ) : (
-            <div className="flex h-full items-center justify-center">
+            <div
+              className={cn(
+                staffMode ? 'h-[85vh] max-h-[85vh]' : 'h-[87vh] max-h-[87vh]',
+                'flex h-full items-center justify-center'
+              )}
+            >
               <EmptyState
                 hideCard
-                icon={<InboxIcon className="size-8" />}
-                message="Select a conversation to start messaging"
+                icon={<InboxIcon className="size-10" />}
+                message={
+                  <b className="text-lg">
+                    Select a conversation to start messaging
+                  </b>
+                }
               />
             </div>
           )}
