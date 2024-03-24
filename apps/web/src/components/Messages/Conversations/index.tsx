@@ -67,9 +67,11 @@ const Conversations: FC<ConversationsProps> = ({ isClientLoading }) => {
   }, [activeTab, conversations]);
 
   useEffect(() => {
-    loadConsentList();
+    if (client?.address) {
+      loadConsentList();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [conversations]);
 
   useEffect(() => {
     const end = page * conversationsPerPage;
