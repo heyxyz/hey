@@ -1,5 +1,7 @@
 import type { CachedConversation } from '@xmtp/react-sdk';
+import type { Address } from 'viem';
 
+import LazyDefaultProfile from '@components/Shared/LazyDefaultProfile';
 import cn from '@hey/ui/cn';
 import { useMessages } from '@xmtp/react-sdk';
 import { type FC, useEffect, useRef } from 'react';
@@ -26,9 +28,15 @@ const MessagesList: FC = () => {
 
   return (
     <div>
+      <div className="px-5 py-2.5">
+        <LazyDefaultProfile
+          address={selectedConversation.peerAddress as Address}
+        />
+      </div>
+      <div className="divider" />
       <div
         className={cn(
-          staffMode ? 'h-[85vh] max-h-[85vh]' : 'h-[87vh] max-h-[87vh]',
+          staffMode ? 'h-[79vh] max-h-[79vh]' : 'h-[81.5vh] max-h-[81.5vh]',
           'flex flex-col-reverse space-y-5 overflow-y-auto p-5'
         )}
       >
