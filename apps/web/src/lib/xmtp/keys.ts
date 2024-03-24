@@ -21,8 +21,3 @@ export const storeKeys = (walletAddress: Address, keys: Uint8Array) => {
     Buffer.from(keys).toString(ENCODING)
   );
 };
-
-export const wipeKeys = (walletAddress: Address) => {
-  // This will clear the conversation cache + the private keys
-  localStorage.removeItem(buildLocalStorageKey(walletAddress));
-};

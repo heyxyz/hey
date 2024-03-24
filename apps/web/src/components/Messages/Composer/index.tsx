@@ -11,7 +11,6 @@ interface ComposerProps {
 
 const Composer: FC<ComposerProps> = ({ conversation }) => {
   const [message, setMessage] = useState('');
-  const [isSending, setIsSending] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const { sendMessage } = useSendMessage();
 
@@ -19,7 +18,7 @@ const Composer: FC<ComposerProps> = ({ conversation }) => {
     if (inputRef.current) {
       inputRef.current.focus();
     }
-  }, [conversation, isSending]);
+  }, [conversation]);
 
   const handleMessageChange = (e: ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
@@ -28,11 +27,9 @@ const Composer: FC<ComposerProps> = ({ conversation }) => {
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (conversation.peerAddress && message) {
-      setIsSending(true);
-      await sendMessage(conversation, message);
-      setIsSending(false);
       setMessage('');
       inputRef.current?.focus();
+      await sendMessage(conversation, message);
     }
   };
 
@@ -43,14 +40,13 @@ const Composer: FC<ComposerProps> = ({ conversation }) => {
     >
       <Input
         autoFocus
-        disabled={isSending}
         onChange={handleMessageChange}
         placeholder="Type a message..."
         ref={inputRef}
         type="text"
         value={message}
       />
-      <Button disabled={isSending || !message} type="submit">
+      <Button disabled={!message} type="submit">
         Send
       </Button>
     </form>
