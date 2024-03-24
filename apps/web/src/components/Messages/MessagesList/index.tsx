@@ -27,28 +27,31 @@ const MessagesList: FC = () => {
     <div>
       <div className="flex h-[80vh] max-h-[85vh] flex-col-reverse space-y-5 overflow-y-auto p-5">
         <div ref={endOfMessagesRef} />
-        {[...messages].reverse().map((message) => {
-          const isSender =
-            message.senderAddress === currentProfile?.ownedBy.address;
+        {[...messages]
+          .reverse()
+          .filter((message) => message.content?.length > 0)
+          .map((message) => {
+            const isSender =
+              message.senderAddress === currentProfile?.ownedBy.address;
 
-          return (
-            <div
-              className={cn('flex', { 'justify-end': isSender })}
-              key={message.id}
-            >
+            return (
               <div
-                className={cn(
-                  isSender
-                    ? 'bg-gray-800 text-white'
-                    : 'bg-gray-300 text-black',
-                  'max-w-xs rounded-lg px-4 py-2'
-                )}
+                className={cn('flex', { 'justify-end': isSender })}
+                key={message.id}
               >
-                {message.content}
+                <div
+                  className={cn(
+                    isSender
+                      ? 'bg-gray-800 text-white'
+                      : 'bg-gray-300 text-black',
+                    'max-w-xs rounded-lg px-4 py-2'
+                  )}
+                >
+                  {message.content}
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
       <Composer conversation={selectedConversation} />
     </div>
