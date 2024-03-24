@@ -2,22 +2,25 @@ import type { NextPage } from 'next';
 import type { Address } from 'viem';
 
 import MetaTags from '@components/Common/MetaTags';
+import { InboxIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
-import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import { EmptyState } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { loadKeys, storeKeys } from '@lib/xmtp/keys';
 import { Client, useClient } from '@xmtp/react-sdk';
 import { ethers, providers } from 'ethers';
 import { useEffect } from 'react';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
+import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useAccount } from 'wagmi';
 
 import Conversations from './Conversations';
 import MessagesList from './MessagesList';
-import StartConversation from './MessagesList/Composer/StartConversation';
 
 const Messages: NextPage = () => {
-  const { initialize, isLoading } = useClient();
+  const { staffMode } = useFeatureFlagsStore();
   const { selectedConversation } = useMessagesStore();
+  const { initialize, isLoading } = useClient();
   const { address } = useAccount();
 
   const initXmtp = async () => {
@@ -39,17 +42,37 @@ const Messages: NextPage = () => {
   }, []);
 
   return (
-    <GridLayout>
-      <MetaTags title={`Messages • ${APP_NAME}`} />
-      <GridItemFour>
-        <Card>{isLoading ? 'Loading XMTP...' : <Conversations />}</Card>
-      </GridItemFour>
-      <GridItemEight>
-        <Card>
-          {selectedConversation ? <MessagesList /> : <StartConversation />}
-        </Card>
-      </GridItemEight>
-    </GridLayout>
+    <div className="container mx-auto max-w-screen-xl grow px-0 sm:px-5">
+      <div className="grid grid-cols-11">
+        <MetaTags title={`Messages • ${APP_NAME}`} />
+        <div
+          className={cn(
+            staffMode ? 'h-[92vh] max-h-[92vh]' : 'h-[94.5vh] max-h-[94.5vh]',
+            'col-span-11 border-x bg-white md:col-span-11 lg:col-span-4'
+          )}
+        >
+          {isLoading ? 'Loading XMTP...' : <Conversations />}
+        </div>
+        <div
+          className={cn(
+            staffMode ? 'h-[92vh] max-h-[92vh]' : 'h-[94.5vh] max-h-[94.5vh]',
+            'col-span-11 border-r bg-white md:col-span-11 lg:col-span-7'
+          )}
+        >
+          {selectedConversation ? (
+            <MessagesList />
+          ) : (
+            <div className="flex h-full items-center justify-center">
+              <EmptyState
+                hideCard
+                icon={<InboxIcon className="size-8" />}
+                message="Select a conversation to start messaging"
+              />
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
   );
 };
 
