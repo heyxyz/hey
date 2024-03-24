@@ -2,7 +2,9 @@ import type { CachedConversation } from '@xmtp/react-sdk';
 import type { FC } from 'react';
 import type { Address } from 'viem';
 
+import { MESSAGES } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
+import { Leafwatch } from '@lib/leafwatch';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
 
 import User from './User';
@@ -31,6 +33,7 @@ const Conversation: FC<ConversationProps> = ({ conversation }) => {
       onClick={() => {
         setNewConversationAddress(null);
         setSelectedConversation(conversation);
+        Leafwatch.track(MESSAGES.OPEN_CONVERSATION);
       }}
     >
       <User

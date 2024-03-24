@@ -8,8 +8,10 @@ import {
   EnvelopeIcon,
   NoSymbolIcon
 } from '@heroicons/react/24/outline';
+import { MESSAGES } from '@hey/data/tracking';
 import { Button, EmptyState, Input } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import { Leafwatch } from '@lib/leafwatch';
 import {
   useCanMessage,
   useConsent,
@@ -67,6 +69,7 @@ const StartConversation: FC = () => {
         conversation.cachedConversation as CachedConversation
       );
       setIsSending(false);
+      Leafwatch.track(MESSAGES.START_CONVERSATION);
     }
   };
 

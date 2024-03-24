@@ -1,6 +1,8 @@
 import type { Address } from 'viem';
 
+import { MESSAGES } from '@hey/data/tracking';
 import { Button } from '@hey/ui';
+import { Leafwatch } from '@lib/leafwatch';
 import { useConsent } from '@xmtp/react-sdk';
 import { type FC, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -31,6 +33,7 @@ const Consent: FC<ConsentProps> = ({ address }) => {
       setAllowing(true);
       await allow([address]);
       setAllowed(true);
+      Leafwatch.track(MESSAGES.ALLOW_USER, { address });
 
       return toast.success('Allowed');
     } finally {
@@ -43,6 +46,7 @@ const Consent: FC<ConsentProps> = ({ address }) => {
       setDenying(true);
       await deny([address]);
       setAllowed(false);
+      Leafwatch.track(MESSAGES.BLOCK_USER, { address });
 
       return toast.success('Blocked');
     } finally {
