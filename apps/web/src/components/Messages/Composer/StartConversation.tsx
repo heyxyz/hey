@@ -10,7 +10,11 @@ import {
 } from '@heroicons/react/24/outline';
 import { Button, EmptyState, Input } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { useCanMessage, useStartConversation } from '@xmtp/react-sdk';
+import {
+  useCanMessage,
+  useConsent,
+  useStartConversation
+} from '@xmtp/react-sdk';
 import { useEffect, useRef, useState } from 'react';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
@@ -32,6 +36,7 @@ const StartConversation: FC = () => {
 
   const { startConversation } = useStartConversation();
   const { canMessage } = useCanMessage();
+  const { allow } = useConsent();
 
   const getIsOnXmtp = async () => {
     if (newConversationAddress) {
@@ -52,6 +57,7 @@ const StartConversation: FC = () => {
     e.preventDefault();
     if (newConversationAddress && message) {
       setIsSending(true);
+      await allow([newConversationAddress]);
       const conversation = await startConversation(
         newConversationAddress,
         message
