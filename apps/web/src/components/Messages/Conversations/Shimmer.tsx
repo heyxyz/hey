@@ -11,15 +11,6 @@ const ConversationsShimmer: FC = () => {
       <UserProfileShimmer />
       <UserProfileShimmer />
       <UserProfileShimmer />
-      <UserProfileShimmer />
-      <UserProfileShimmer />
-      <UserProfileShimmer />
-      <UserProfileShimmer />
-      <UserProfileShimmer />
-      <UserProfileShimmer />
-      <UserProfileShimmer />
-      <UserProfileShimmer />
-      <UserProfileShimmer />
     </div>
   );
 };
