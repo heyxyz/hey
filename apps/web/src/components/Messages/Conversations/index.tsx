@@ -2,17 +2,16 @@ import type { CachedConversation } from '@xmtp/react-sdk';
 import type { FC } from 'react';
 import type { Address } from 'viem';
 
+import cn from '@hey/ui/cn';
 import { useConversations } from '@xmtp/react-sdk';
 import { useEffect, useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 import User from './User';
 
 const Conversations: FC = () => {
-  const { setSelectedConversation } = useMessagesStore();
-  const { staffMode } = useFeatureFlagsStore();
+  const { selectedConversation, setSelectedConversation } = useMessagesStore();
   const [visibleConversations, setVisibleConversations] = useState<
     CachedConversation[]
   >([]);
@@ -41,7 +40,10 @@ const Conversations: FC = () => {
         itemContent={(_, conversation) => {
           return (
             <div
-              className="cursor-pointer px-5 py-3"
+              className={cn(
+                { 'bg-gray-200': selectedConversation?.id === conversation.id },
+                'cursor-pointer px-5 py-3'
+              )}
               onClick={() => setSelectedConversation(conversation)}
             >
               <User
