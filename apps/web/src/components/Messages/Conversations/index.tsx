@@ -3,12 +3,13 @@ import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import cn from '@hey/ui/cn';
-import { useConversations } from '@xmtp/react-sdk';
+import { useClient, useConversations } from '@xmtp/react-sdk';
 import { useEffect, useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
+import EnableMessages from './EnableMessages';
 import NewConversation from './NewConversation';
 import ConversationsShimmer from './Shimmer';
 import User from './User';
@@ -28,6 +29,7 @@ const Conversations: FC<ConversationsProps> = ({ isClientLoading }) => {
     CachedConversation[]
   >([]);
   const [page, setPage] = useState(1);
+  const { client } = useClient();
   const { conversations, isLoading } = useConversations();
   const conversationsPerPage = 20;
 
@@ -48,6 +50,8 @@ const Conversations: FC<ConversationsProps> = ({ isClientLoading }) => {
       >
         {isClientLoading || isLoading ? (
           <ConversationsShimmer />
+        ) : !client?.address ? (
+          <EnableMessages />
         ) : (
           <Virtuoso
             computeItemKey={(_, conversation) =>

@@ -39,8 +39,10 @@ const store = create(
         }
 
         // Clean XMTP keys
-        const keys = Object.keys(localStorage).filter((key) =>
-          key.startsWith('xmtp/production/')
+        const keys = Object.keys(localStorage).filter(
+          (key) =>
+            key.startsWith('xmtp/production/') ||
+            key.startsWith('xmtp:production:')
         );
         for (const key of keys) {
           localStorage.removeItem(key);

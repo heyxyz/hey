@@ -5,8 +5,8 @@ import { InboxIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import { EmptyState } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { loadKeys, storeKeys } from '@lib/xmtp/keys';
-import { Client, useClient } from '@xmtp/react-sdk';
+import { loadKeys } from '@lib/xmtp/keys';
+import { useClient } from '@xmtp/react-sdk';
 import { providers } from 'ethers';
 import { useEffect } from 'react';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
@@ -33,10 +33,10 @@ const Messages: NextPage = () => {
 
     let keys = loadKeys(address);
     if (!keys) {
-      keys = await Client.getKeys(signer, { env: 'production' });
-      storeKeys(address, keys);
+      return;
     }
-    await initialize({ keys, options: { env: 'production' }, signer });
+
+    return await initialize({ keys, options: { env: 'production' }, signer });
   };
 
   useEffect(() => {
