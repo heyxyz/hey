@@ -41,6 +41,7 @@
     "@tanstack/react-query": "^5.28.6",
     "@thirdweb-dev/storage": "^2.0.11",
     "@uidotdev/usehooks": "^2.4.1",
+    "@xmtp/content-type-reaction": "^1.1.7",
     "@xmtp/react-sdk": "^6.0.0",
     "alchemy-sdk": "^3.2.0",
     "axios": "^1.6.8",
