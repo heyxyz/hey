@@ -1,18 +1,16 @@
 import type { CachedConversation } from '@xmtp/react-sdk';
 import type { FC } from 'react';
-import type { Address } from 'viem';
 
 import cn from '@hey/ui/cn';
 import { useClient, useConversations } from '@xmtp/react-sdk';
 import { useEffect, useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
-import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
+import Conversation from './Conversation';
 import EnableMessages from './EnableMessages';
 import NewConversation from './NewConversation';
 import ConversationsShimmer from './Shimmer';
-import User from './User';
 
 interface ConversationsProps {
   isClientLoading: boolean;
@@ -20,17 +18,14 @@ interface ConversationsProps {
 
 const Conversations: FC<ConversationsProps> = ({ isClientLoading }) => {
   const { staffMode } = useFeatureFlagsStore();
-  const {
-    selectedConversation,
-    setNewConversationAddress,
-    setSelectedConversation
-  } = useMessagesStore();
   const [visibleConversations, setVisibleConversations] = useState<
     CachedConversation[]
   >([]);
   const [page, setPage] = useState(1);
+
   const { client } = useClient();
   const { conversations, isLoading } = useConversations();
+
   const conversationsPerPage = 20;
 
   useEffect(() => {
@@ -64,26 +59,7 @@ const Conversations: FC<ConversationsProps> = ({ isClientLoading }) => {
               }, 1000);
             }}
             itemContent={(_, conversation) => {
-              return (
-                <div
-                  className={cn(
-                    {
-                      'bg-gray-100 dark:bg-gray-800':
-                        selectedConversation?.id === conversation.id
-                    },
-                    'cursor-pointer px-5 py-3'
-                  )}
-                  onClick={() => {
-                    setNewConversationAddress(null);
-                    setSelectedConversation(conversation);
-                  }}
-                >
-                  <User
-                    address={conversation.peerAddress as Address}
-                    conversation={conversation}
-                  />
-                </div>
-              );
+              return <Conversation conversation={conversation} />;
             }}
           />
         )}
