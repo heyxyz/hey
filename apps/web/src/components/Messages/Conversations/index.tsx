@@ -3,7 +3,12 @@ import type { FC } from 'react';
 
 import { ArrowLeftIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
 import cn from '@hey/ui/cn';
-import { useClient, useConsent, useConversations } from '@xmtp/react-sdk';
+import {
+  useClient,
+  useConsent,
+  useConversations,
+  useStreamAllMessages
+} from '@xmtp/react-sdk';
 import { useEffect, useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
@@ -78,6 +83,11 @@ const Conversations: FC<ConversationsProps> = ({ isClientLoading }) => {
     const newConversations = filteredConversations.slice(0, end);
     setVisibleConversations(newConversations);
   }, [page, filteredConversations]);
+
+  // Begin: Streams
+  // Void hook, were xmtp/react-sdk stream all messages realtime
+  useStreamAllMessages();
+  // End: Streams
 
   return (
     <div>
