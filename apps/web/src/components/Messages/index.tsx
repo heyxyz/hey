@@ -34,7 +34,7 @@ const Messages: NextPage = () => {
       return;
     }
 
-    const provider = new providers.Web3Provider(window.ethereum);
+    const provider = new providers.Web3Provider(window?.ethereum);
     const signer = provider.getSigner(address);
 
     let keys = loadKeys(address);
