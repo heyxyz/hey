@@ -9,11 +9,10 @@ import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { loadKeys } from '@lib/xmtp/keys';
 import { useClient } from '@xmtp/react-sdk';
-import { providers } from 'ethers';
 import { useEffect } from 'react';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import { useAccount } from 'wagmi';
+import { useAccount, useWalletClient } from 'wagmi';
 
 import StartConversation from './Composer/StartConversation';
 import Conversations from './Conversations';
@@ -24,6 +23,7 @@ const Messages: NextPage = () => {
   const { newConversationAddress, selectedConversation } = useMessagesStore();
   const { initialize, isLoading } = useClient();
   const { address } = useAccount();
+  const { data: walletClient } = useWalletClient();
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'messages' });
@@ -34,15 +34,16 @@ const Messages: NextPage = () => {
       return;
     }
 
-    const provider = new providers.Web3Provider(window?.ethereum);
-    const signer = provider.getSigner(address);
-
     let keys = loadKeys(address);
     if (!keys) {
       return;
     }
 
-    return await initialize({ keys, options: { env: 'production' }, signer });
+    return await initialize({
+      keys,
+      options: { env: 'production' },
+      signer: walletClient as any
+    });
   };
 
   useEffect(() => {

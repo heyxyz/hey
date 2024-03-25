@@ -4,15 +4,15 @@ import { Button, EmptyState } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { loadKeys, storeKeys } from '@lib/xmtp/keys';
 import { Client, useClient } from '@xmtp/react-sdk';
-import { providers } from 'ethers';
 import { type FC, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useAccount } from 'wagmi';
+import { useAccount, useWalletClient } from 'wagmi';
 
 const EnableMessages: FC = () => {
+  const [initializeing, setInitializing] = useState(false);
   const { initialize } = useClient();
   const { address } = useAccount();
-  const [initializeing, setInitializing] = useState(false);
+  const { data: walletClient } = useWalletClient();
 
   const initXmtp = async () => {
     if (!address) {
@@ -21,15 +21,17 @@ const EnableMessages: FC = () => {
 
     try {
       setInitializing(true);
-      const provider = new providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner(address);
 
       let keys = loadKeys(address);
       if (!keys) {
-        keys = await Client.getKeys(signer, { env: 'production' });
+        keys = await Client.getKeys(walletClient as any, { env: 'production' });
         storeKeys(address, keys);
       }
-      await initialize({ keys, options: { env: 'production' }, signer });
+      await initialize({
+        keys,
+        options: { env: 'production' },
+        signer: walletClient as any
+      });
       Leafwatch.track(MESSAGES.ENABLE_MESSAGES);
 
       return toast.success('Messages enabled successfully');
