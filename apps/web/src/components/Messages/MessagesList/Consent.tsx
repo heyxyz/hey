@@ -3,7 +3,7 @@ import type { Address } from 'viem';
 import { MESSAGES } from '@hey/data/tracking';
 import { Button } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { useConsent } from '@xmtp/react-sdk';
+import { useClient, useConsent } from '@xmtp/react-sdk';
 import { type FC, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
@@ -16,6 +16,7 @@ const Consent: FC<ConsentProps> = ({ address }) => {
   const [allowing, setAllowing] = useState<boolean>(false);
   const [denying, setDenying] = useState<boolean>(false);
 
+  const { client } = useClient();
   const { allow, deny, isAllowed } = useConsent();
 
   const getIsAllowed = async () => {
@@ -24,7 +25,9 @@ const Consent: FC<ConsentProps> = ({ address }) => {
   };
 
   useEffect(() => {
-    getIsAllowed();
+    if (client?.address) {
+      getIsAllowed();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);
 
