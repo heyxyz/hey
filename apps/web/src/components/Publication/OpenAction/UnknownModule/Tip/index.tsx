@@ -15,7 +15,7 @@ import { Modal, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import TipOpenActionModule from './Module';
 
@@ -32,8 +32,6 @@ const TipOpenAction: FC<TipOpenActionProps> = ({
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
-  const [hasTipped, setHasTipped] = useState(false);
-  const [countTips, setCountTips] = useState<number>(0);
 
   const { data: tipData } = useUnknownOpenActionDataQuery({
     variables: {
@@ -42,16 +40,6 @@ const TipOpenAction: FC<TipOpenActionProps> = ({
     }
   });
 
-  useEffect(() => {
-    setHasTipped(
-      tipData?.publication?.__typename === 'Post' &&
-        Boolean(tipData.publication.operations.actedOn.length)
-    );
-    if (tipData?.publication?.__typename === 'Post') {
-      setCountTips(tipData.publication.stats.countOpenActions);
-    }
-  }, [tipData]);
-
   const module = targetPublication.openActionModules.find(
     (module) => module.contract.address === VerifiedOpenActionModules.Tip
   );
@@ -59,6 +47,15 @@ const TipOpenAction: FC<TipOpenActionProps> = ({
   if (!module) {
     return null;
   }
+
+  const hasTipped =
+    tipData?.publication?.__typename === 'Post' &&
+    Boolean(tipData.publication.operations.actedOn.length);
+
+  const countTips =
+    (tipData?.publication?.__typename === 'Post' &&
+      tipData.publication.stats.countOpenActions) ||
+    0;
 
   const iconClassName = isFullPublication
     ? 'w-[17px] sm:w-[20px]'
