@@ -21,7 +21,6 @@ const PublicationStats: FC<PublicationStatsProps> = ({
   publicationStats
 }) => {
   const [views, setViews] = useState<number>(0);
-  const [countTips, setCountTips] = useState<number>(0);
 
   const { data: tipData } = useUnknownOpenActionDataQuery({
     variables: {
@@ -30,16 +29,18 @@ const PublicationStats: FC<PublicationStatsProps> = ({
     }
   });
 
+  const countTips =
+    (tipData?.publication &&
+      'operations' in tipData.publication &&
+      tipData.publication.stats.countOpenActions) ||
+    0;
+
   useEffect(() => {
     // Get Views
     getPublicationsViews([publicationId]).then((viewsResponse) => {
       setViews(viewsResponse?.[0]?.views);
     });
-
-    if (tipData?.publication?.__typename === 'Post') {
-      setCountTips(tipData.publication.stats.countOpenActions);
-    }
-  }, [publicationId, tipData]);
+  }, [publicationId]);
 
   const { bookmarks, comments, countOpenActions, mirrors, quotes, reactions } =
     publicationStats;

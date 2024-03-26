@@ -49,11 +49,14 @@ const TipOpenAction: FC<TipOpenActionProps> = ({
   }
 
   const hasTipped =
-    tipData?.publication?.__typename === 'Post' &&
-    Boolean(tipData.publication.operations.actedOn.length);
+    (tipData?.publication &&
+      'operations' in tipData.publication &&
+      Boolean(tipData.publication?.operations.actedOn.length)) ||
+    false;
 
   const countTips =
-    (tipData?.publication?.__typename === 'Post' &&
+    (tipData?.publication &&
+      'operations' in tipData.publication &&
       tipData.publication.stats.countOpenActions) ||
     0;
 
