@@ -1,0 +1,16 @@
+query UnknownOpenActionData($module: EvmAddress!, $pubId: PublicationId!) {
+  publication(request: { forId: $pubId }) {
+    ... on Post {
+      stats {
+        countOpenActions(request: { anyOf: { address: $module } })
+      }
+      operations {
+        actedOn(request: { filter: { address: $module } }) {
+          ... on UnknownOpenActionResult {
+            address
+          }
+        }
+      }
+    }
+  }
+}
