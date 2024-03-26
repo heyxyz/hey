@@ -4,17 +4,17 @@ import getTimeFromNow from '@hey/lib/datetime/getTimeFromNow';
 import cn from '@hey/ui/cn';
 import { ContentTypeText, hasReaction, useReactions } from '@xmtp/react-sdk';
 import { type FC } from 'react';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { useAccount } from 'wagmi';
 
 interface MessagesProps {
   message: CachedMessageWithId;
 }
 
 const Messages: FC<MessagesProps> = ({ message }) => {
-  const { currentProfile } = useProfileStore();
+  const { address } = useAccount();
   const reactions = useReactions(message);
   const messageHasReaction = hasReaction(message);
-  const isSender = message.senderAddress === currentProfile?.ownedBy.address;
+  const isSender = message.senderAddress === address;
 
   if (message.contentType === ContentTypeText.toString()) {
     return (
