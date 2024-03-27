@@ -59,7 +59,8 @@ const Details: FC<DetailsProps> = ({
                 )}
               </div>
             </Disclosure.Button>
-            <Disclosure.Panel className="space-y-2 px-5 pb-3 pt-1">
+            <Disclosure.Panel className="space-y-2 px-5 pb-3">
+              <div className="divider" />
               <div className="item flex justify-between">
                 <div>Max. slippage</div>
                 <div>{calculatedQuote?.maxSlippage || quote.maxSlippage}%</div>
