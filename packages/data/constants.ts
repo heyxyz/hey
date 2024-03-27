@@ -94,7 +94,8 @@ export const S3_BUCKET = {
 export const VERIFIED_FEATURE_ID = 'a0d6d247-50ef-419f-a045-54fa96054922';
 export const STAFF_PICK_FEATURE_ID = '73d2f48d-0291-4a36-adc2-9737057ad2b7';
 
-export const KnownAttributes = {
+// Known Lens Protocol Attributes
+export const KNOWN_ATTRIBUTES = {
   POLL_ID: 'pollId',
   SWAP_OA_DEFAULT_AMOUNT: 'swapOADefaultAmount'
 };

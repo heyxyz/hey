@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { DEFAULT_COLLECT_TOKEN, KnownAttributes } from '@hey/data/constants';
+import { DEFAULT_COLLECT_TOKEN, KNOWN_ATTRIBUTES } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { useEffect } from 'react';
 import { createTrackedSelector } from 'react-tracked';
@@ -64,13 +64,13 @@ const SwapConfig: FC = () => {
   const { removeAttribute } = usePublicationAttributesStore();
 
   const resetOpenAction = () => {
-    removeAttribute(KnownAttributes.SWAP_OA_DEFAULT_AMOUNT);
+    removeAttribute(KNOWN_ATTRIBUTES.SWAP_OA_DEFAULT_AMOUNT);
     reset();
   };
 
   useEffect(() => {
     if (!openAction) {
-      removeAttribute(KnownAttributes.SWAP_OA_DEFAULT_AMOUNT);
+      removeAttribute(KNOWN_ATTRIBUTES.SWAP_OA_DEFAULT_AMOUNT);
       resetOpenAction();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

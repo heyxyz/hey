@@ -2,7 +2,7 @@ import type { FC } from 'react';
 
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
-import { KnownAttributes } from '@hey/data/constants';
+import { KNOWN_ATTRIBUTES } from '@hey/data/constants';
 import { Input } from '@hey/ui';
 import { MetadataAttributeType } from '@lens-protocol/metadata';
 import { usePublicationAttributesStore } from 'src/store/non-persisted/publication/usePublicationAttributesStore';
@@ -11,7 +11,7 @@ const DefaultAmountConfig: FC = () => {
   const { addAttribute, getAttribute, removeAttribute, updateAttribute } =
     usePublicationAttributesStore();
   const amount = Number(
-    getAttribute(KnownAttributes.SWAP_OA_DEFAULT_AMOUNT)?.value
+    getAttribute(KNOWN_ATTRIBUTES.SWAP_OA_DEFAULT_AMOUNT)?.value
   );
 
   return (
@@ -24,10 +24,10 @@ const DefaultAmountConfig: FC = () => {
         setOn={() => {
           // toggle default amount
           if (amount > 0) {
-            removeAttribute(KnownAttributes.SWAP_OA_DEFAULT_AMOUNT);
+            removeAttribute(KNOWN_ATTRIBUTES.SWAP_OA_DEFAULT_AMOUNT);
           } else {
             addAttribute({
-              key: KnownAttributes.SWAP_OA_DEFAULT_AMOUNT,
+              key: KNOWN_ATTRIBUTES.SWAP_OA_DEFAULT_AMOUNT,
               type: MetadataAttributeType.NUMBER,
               value: '1'
             });
@@ -43,9 +43,9 @@ const DefaultAmountConfig: FC = () => {
             onChange={(event) => {
               const { value } = event.target;
               if (value) {
-                updateAttribute(KnownAttributes.SWAP_OA_DEFAULT_AMOUNT, value);
+                updateAttribute(KNOWN_ATTRIBUTES.SWAP_OA_DEFAULT_AMOUNT, value);
               } else {
-                removeAttribute(KnownAttributes.SWAP_OA_DEFAULT_AMOUNT);
+                removeAttribute(KNOWN_ATTRIBUTES.SWAP_OA_DEFAULT_AMOUNT);
               }
             }}
             placeholder="5"
