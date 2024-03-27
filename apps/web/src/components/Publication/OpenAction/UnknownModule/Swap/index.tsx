@@ -8,17 +8,12 @@ import type { Address } from 'viem';
 
 import Loader from '@components/Shared/Loader';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
-import {
-  HEY_API_URL,
-  REWARDS_ADDRESS,
-  WMATIC_ADDRESS
-} from '@hey/data/constants';
+import { REWARDS_ADDRESS, WMATIC_ADDRESS } from '@hey/data/constants';
 import { useModuleMetadataQuery } from '@hey/lens';
+import getUniswapQuote from '@hey/lib/getUniswapQuote';
 import { Card } from '@hey/ui';
 import errorToast from '@lib/errorToast';
-import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import isFeatureAvailable from '@lib/isFeatureAvailable';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN } from 'src/constants';
@@ -31,7 +26,6 @@ import {
   formatUnits,
   pad,
   parseEther,
-  parseUnits,
   toBytes,
   toHex
 } from 'viem';
@@ -102,25 +96,10 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
     successToast: "You've successfully swapped!"
   });
 
-  const getSwapQuote = async (): Promise<UniswapQuote> => {
-    const response = await axios.post(
-      `${HEY_API_URL}/openaction/swap/quote`,
-      {
-        amount: parseUnits(value.toString(), 18).toString(),
-        tokenIn: WMATIC_ADDRESS,
-        tokenOut: outputTokenAddress
-      },
-      { headers: getAuthApiHeaders() }
-    );
-    const { data } = response;
-
-    return data?.quote;
-  };
-
   useEffect(() => {
     if (value > 0) {
       setQuoteLoading(true);
-      getSwapQuote()
+      getUniswapQuote(WMATIC_ADDRESS, outputTokenAddress, value, CHAIN.id)
         .then((quote) => {
           setCanSwap(true);
           setQuote(quote);
@@ -241,7 +220,6 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
       {targetToken ? (
         <Details
           calculatedQuote={quote}
-          decimals={targetToken?.decimals || 18}
           decodedCallData={decoded}
           tokenMetadata={targetToken}
           value={value}

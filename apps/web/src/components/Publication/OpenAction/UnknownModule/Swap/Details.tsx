@@ -3,16 +3,14 @@ import type { TokenMetadataResponse } from 'alchemy-sdk';
 
 import { Disclosure } from '@headlessui/react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid';
-import { HEY_API_URL, WMATIC_ADDRESS } from '@hey/data/constants';
+import { WMATIC_ADDRESS } from '@hey/data/constants';
+import getUniswapQuote from '@hey/lib/getUniswapQuote';
 import { Card, HelpTooltip } from '@hey/ui';
-import getAuthApiHeaders from '@lib/getAuthApiHeaders';
-import axios from 'axios';
 import { type FC, useEffect, useState } from 'react';
-import { parseUnits } from 'viem';
+import { CHAIN } from 'src/constants';
 
 interface DetailsProps {
   calculatedQuote: null | UniswapQuote;
-  decimals: number;
   decodedCallData: any[];
   tokenMetadata: TokenMetadataResponse;
   value: number;
@@ -20,32 +18,20 @@ interface DetailsProps {
 
 const Details: FC<DetailsProps> = ({
   calculatedQuote,
-  decimals,
   decodedCallData,
   tokenMetadata,
   value
 }) => {
   const [quote, setQuote] = useState<null | UniswapQuote>(null);
+  const [quoteFetched, setQuoteFetched] = useState<boolean>(false);
   const token = decodedCallData[4];
 
-  const getSwapQuote = async (): Promise<UniswapQuote> => {
-    const response = await axios.post(
-      `${HEY_API_URL}/openaction/swap/quote`,
-      {
-        amount: parseUnits('1', 18).toString(),
-        tokenIn: WMATIC_ADDRESS,
-        tokenOut: token
-      },
-      { headers: getAuthApiHeaders() }
-    );
-    const { data } = response;
-
-    return data?.quote;
-  };
-
   useEffect(() => {
-    if (value > 0) {
-      getSwapQuote().then((quote) => setQuote(quote));
+    if (value > 0 && !quoteFetched) {
+      getUniswapQuote(WMATIC_ADDRESS, token, 1, CHAIN.id).then((quote) => {
+        setQuoteFetched(true);
+        setQuote(quote);
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
