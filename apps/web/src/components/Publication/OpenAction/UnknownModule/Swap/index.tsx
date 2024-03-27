@@ -62,7 +62,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
   // Begin: Balance Check
   const { data: wmaticBalanceData } = useBalance({
     address,
-    query: { refetchInterval: 5000 },
+    query: { refetchInterval: 8000 },
     token: WMATIC_ADDRESS
   });
   const wmaticBalance = wmaticBalanceData
@@ -71,7 +71,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
 
   const { data: outputTokenBalanceData } = useBalance({
     address,
-    query: { refetchInterval: 5000 },
+    query: { refetchInterval: 8000 },
     token: outputTokenAddress
   });
   const outputTokenBalance = outputTokenBalanceData
