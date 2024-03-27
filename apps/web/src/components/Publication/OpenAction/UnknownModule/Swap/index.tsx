@@ -36,7 +36,7 @@ import Details from './Details';
 
 interface SwapOpenActionProps {
   module: UnknownOpenActionModuleSettings;
-  publication: MirrorablePublication;
+  publication?: MirrorablePublication;
 }
 
 const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
@@ -146,6 +146,10 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
       data.clientAddress
     ]);
 
+    if (!publication) {
+      return toast.success('Publish this publication to swap!');
+    }
+
     try {
       return await actOnUnknownOpenAction({
         address: module.contract.address,
@@ -157,12 +161,15 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
     }
   };
 
+  const inputClassName =
+    'no-spinner ml-2 w-6/12 max-w-lg border-none py-5 text-xl outline-none focus:ring-0';
+
   return (
-    <div className="max-w-sm space-y-5" onClick={stopEventPropagation}>
+    <div className="w-fit max-w-sm space-y-5" onClick={stopEventPropagation}>
       <Card forceRounded>
         <div className="flex items-center justify-between">
           <input
-            className="no-spinner ml-2 w-6/12 max-w-lg border-none py-5 text-xl outline-none focus:ring-0"
+            className={inputClassName}
             onChange={(e) => setValue(Number(e.target.value))}
             placeholder="0"
             type="number"
@@ -188,7 +195,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
         <div className="divider" />
         <div className="flex items-center justify-between">
           <input
-            className="no-spinner ml-2 w-6/12 max-w-lg border-none py-5 text-xl outline-none focus:ring-0"
+            className={inputClassName}
             disabled
             placeholder="0"
             type="number"
