@@ -94,6 +94,10 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
   // End: Balance Check
 
   const { actOnUnknownOpenAction, isLoading } = useActOnUnknownOpenAction({
+    onSuccess: () => {
+      setValue(0);
+      setQuote(null);
+    },
     signlessApproved: module.signlessApproved,
     successToast: "You've successfully swapped!"
   });
@@ -171,14 +175,11 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
     ]);
 
     try {
-      await actOnUnknownOpenAction({
+      return await actOnUnknownOpenAction({
         address: module.contract.address,
         data: calldata,
         publicationId: publication.id
       });
-      setValue(0);
-
-      return;
     } catch (error) {
       errorToast(error);
     }
