@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-sts": "^3.540.0",
-    "@clickhouse/client": "^0.3.0",
+    "@clickhouse/client": "^0.3.1",
     "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
     "@hey/lib": "workspace:*",
@@ -42,7 +42,7 @@
     "ua-parser-js": "^1.0.37",
     "urlcat": "^3.1.0",
     "uuid": "^9.0.1",
-    "viem": "^2.9.2",
+    "viem": "^2.9.3",
     "vite-express": "^0.16.0",
     "zod": "^3.22.4"
   },
