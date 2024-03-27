@@ -58,7 +58,7 @@ export const post: Handler = async (req, res) => {
     const { quote } = data;
 
     const output = {
-      amount: Number(quote.quoteDecimals).toFixed(4),
+      amountOut: Number(quote.quoteDecimals).toFixed(4),
       maxSlippage: quote.slippage.toString()
     };
 

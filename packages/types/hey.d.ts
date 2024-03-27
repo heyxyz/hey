@@ -73,3 +73,8 @@ export type Preferences = {
 export type ProfileFlags = {
   isSuspended: boolean;
 };
+
+export type UniswapQuote = {
+  amountOut: string;
+  maxSlippage: string;
+};
