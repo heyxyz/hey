@@ -21,7 +21,7 @@ const getUniswapQuote = async (
   };
 
   const { data } = await axios.post(
-    'https://worker-crimson-wood-bc24.heyxyz.workers.dev',
+    'https://quote.heyxyz.workers.dev',
     uniswapData
   );
   const { quote } = data;
