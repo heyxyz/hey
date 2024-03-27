@@ -202,7 +202,12 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
               />
               <b>WMATIC</b>
             </div>
-            <div className="text-xs">Balance: {wmaticBalance}</div>
+            <div className="flex items-center space-x-1 text-xs">
+              <div className="ld-text-gray-500">Balance: {wmaticBalance}</div>
+              <button onClick={() => setValue(Number(wmaticBalance))}>
+                Max
+              </button>
+            </div>
           </div>
         </div>
         <div className="divider" />
@@ -227,7 +232,9 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
               )}
               <b>{targetToken?.symbol}</b>
             </div>
-            <div className="text-xs">Balance: {outputTokenBalance}</div>
+            <div className="ld-text-gray-500 text-xs">
+              Balance: {outputTokenBalance}
+            </div>
           </div>
         </div>
       </Card>
