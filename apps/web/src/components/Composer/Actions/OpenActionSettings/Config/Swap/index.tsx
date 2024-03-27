@@ -11,12 +11,15 @@ import { encodeAbiParameters } from 'viem';
 import { create } from 'zustand';
 
 import SaveOrCancel from '../../SaveOrCancel';
+import PoolConfig from './PoolConfig';
 import RewardConfig from './RewardConfig';
 
 interface State {
   enabled: boolean;
   reset: () => void;
+  rewardsPoolId: null | number;
   setEnabled: (enabled: boolean) => void;
+  setRewardsPoolId: (rewardsPoolId: null | number) => void;
   setSharedRewardPercent: (sharedRewardPercent: number) => void;
   setToken: (token: Address) => void;
   sharedRewardPercent: number;
@@ -31,7 +34,9 @@ const store = create<State>((set) => ({
       sharedRewardPercent: 0,
       token: '0xa6fa4fb5f76172d178d61b04b0ecd319c5d1c0aa' as Address
     }),
+  rewardsPoolId: null,
   setEnabled: (enabled) => set({ enabled }),
+  setRewardsPoolId: (rewardsPoolId) => set({ rewardsPoolId }),
   setSharedRewardPercent: (sharedRewardPercent) => set({ sharedRewardPercent }),
   setToken: (token) => set({ token }),
   sharedRewardPercent: 0,
@@ -43,8 +48,14 @@ export const useSwapActionStore = createTrackedSelector(store);
 const SwapConfig: FC = () => {
   const { currentProfile } = useProfileStore();
   const { openAction, setOpenAction, setShowModal } = useOpenActionStore();
-  const { enabled, reset, setEnabled, sharedRewardPercent, token } =
-    useSwapActionStore();
+  const {
+    enabled,
+    reset,
+    rewardsPoolId,
+    setEnabled,
+    sharedRewardPercent,
+    token
+  } = useSwapActionStore();
 
   useEffect(() => {
     if (!openAction) {
@@ -65,10 +76,10 @@ const SwapConfig: FC = () => {
           { name: 'token', type: 'address' }
         ],
         [
-          true,
+          (rewardsPoolId || 0) <= 0,
           sharedRewardPercent * 100,
           currentProfile?.ownedBy.address as Address,
-          0n,
+          BigInt(rewardsPoolId || 0),
           token as Address
         ]
       )
@@ -96,6 +107,7 @@ const SwapConfig: FC = () => {
           <div className="divider" />
           <div className="m-5">
             <RewardConfig />
+            <PoolConfig />
           </div>
           <div className="divider" />
           <div className="m-5">
