@@ -120,6 +120,9 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
         })
         .catch(() => setCanSwap(false))
         .finally(() => setQuoteLoading(false));
+    } else {
+      setCanSwap(false);
+      setQuote(null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
