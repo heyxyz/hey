@@ -194,7 +194,11 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
         <div className="flex items-center justify-between">
           <input
             className={inputClassName}
-            onChange={(e) => setValue(Number(e.target.value))}
+            inputMode="numeric"
+            onChange={(e) => {
+              // @ts-ignore
+              setValue(e.target.value);
+            }}
             placeholder="0"
             type="number"
             value={value || ''}
