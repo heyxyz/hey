@@ -7,12 +7,13 @@ import { useEffect } from 'react';
 import { createTrackedSelector } from 'react-tracked';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { encodeAbiParameters } from 'viem';
+import { encodeAbiParameters, isAddress } from 'viem';
 import { create } from 'zustand';
 
 import SaveOrCancel from '../../SaveOrCancel';
 import PoolConfig from './PoolConfig';
 import RewardConfig from './RewardConfig';
+import TokenConfig from './TokenConfig';
 
 interface State {
   enabled: boolean;
@@ -106,12 +107,16 @@ const SwapConfig: FC = () => {
         <>
           <div className="divider" />
           <div className="m-5">
+            <TokenConfig />
             <RewardConfig />
             <PoolConfig />
           </div>
           <div className="divider" />
           <div className="m-5">
-            <SaveOrCancel onSave={onSave} saveDisabled={token.length === 0} />
+            <SaveOrCancel
+              onSave={onSave}
+              saveDisabled={token.length === 0 || !isAddress(token)}
+            />
           </div>
         </>
       )}
