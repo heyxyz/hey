@@ -6,7 +6,6 @@ import type { UniswapQuote } from '@hey/types/hey';
 import type { FC } from 'react';
 import type { Address } from 'viem';
 
-import Loader from '@components/Shared/Loader';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { REWARDS_ADDRESS, WMATIC_ADDRESS } from '@hey/data/constants';
 import { useModuleMetadataQuery } from '@hey/lens';
@@ -112,9 +111,11 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
 
   if (loading) {
     return (
-      <Card>
-        <Loader className="p-5" message="Loading swap open action..." small />
-      </Card>
+      <div className="w-[23rem]">
+        <div className="shimmer h-[68.8px] rounded-t-xl" />
+        <div className="shimmer mt-[1px] h-[68.8px] rounded-b-xl" />
+        <div className="shimmer mt-5 h-[34px] w-full rounded-full" />
+      </div>
     );
   }
 
