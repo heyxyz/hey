@@ -7,12 +7,18 @@ import type { Address } from 'viem';
 
 import Loader from '@components/Shared/Loader';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
-import { REWARDS_ADDRESS, WMATIC_ADDRESS } from '@hey/data/constants';
+import {
+  HEY_API_URL,
+  REWARDS_ADDRESS,
+  WMATIC_ADDRESS
+} from '@hey/data/constants';
 import { useModuleMetadataQuery } from '@hey/lens';
 import { Card } from '@hey/ui';
 import errorToast from '@lib/errorToast';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import isFeatureAvailable from '@lib/isFeatureAvailable';
-import { useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN } from 'src/constants';
 import useTokenMetadata from 'src/hooks/alchemy/useTokenMetadata';
@@ -24,6 +30,7 @@ import {
   formatUnits,
   pad,
   parseEther,
+  parseUnits,
   toBytes,
   toHex
 } from 'viem';
@@ -38,6 +45,7 @@ interface SwapOpenActionProps {
 
 const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
   const [value, setValue] = useState<number>(0);
+  const [outputValue, setOutputValue] = useState<string>('');
   const { address } = useAccount();
 
   const { data, loading } = useModuleMetadataQuery({
@@ -85,6 +93,34 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
     signlessApproved: module.signlessApproved,
     successToast: "You've successfully swapped!"
   });
+
+  const getSwapQuote = async (): Promise<{
+    amount: string;
+  }> => {
+    const response = await axios.post(
+      `${HEY_API_URL}/openaction/swap/quote`,
+      {
+        amount: parseUnits(value.toString(), 18).toString(),
+        tokenIn: WMATIC_ADDRESS,
+        tokenOut: outputTokenAddress
+      },
+      { headers: getAuthApiHeaders() }
+    );
+    const { data } = response;
+
+    return data?.quote;
+  };
+
+  useEffect(() => {
+    if (value > 0) {
+      setInterval(() => {
+        getSwapQuote().then((quote) => {
+          setOutputValue(quote?.amount);
+        });
+      }, 10000);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
 
   if (!isFeatureAvailable('swap-oa')) {
     return null;
@@ -170,6 +206,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
             disabled
             placeholder="0"
             type="number"
+            value={outputValue}
           />
           <div className="mr-5 flex flex-col items-end space-y-0.5">
             <div className="flex items-center space-x-1.5">
@@ -191,6 +228,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
       <ActionButton
         act={act}
         className="w-full"
+        isLoading={isLoading}
         module={module}
         moduleAmount={{
           asset: {
