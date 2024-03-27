@@ -192,7 +192,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
             disabled
             placeholder="0"
             type="number"
-            value={quote?.amountOut}
+            value={quote?.amountOut || ''}
           />
           <div className="mr-5 flex flex-col items-end space-y-0.5">
             <div className="flex items-center space-x-1.5">
