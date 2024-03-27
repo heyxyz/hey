@@ -191,14 +191,10 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
       <ActionButton
         act={act}
         className="w-full"
-        isLoading={isLoading}
         module={module}
         moduleAmount={{
           asset: {
-            contract: {
-              address: WMATIC_ADDRESS,
-              chainId: CHAIN.id
-            },
+            contract: { address: WMATIC_ADDRESS, chainId: CHAIN.id },
             decimals: 18,
             name: 'WMATIC',
             symbol: 'WMATIC'
