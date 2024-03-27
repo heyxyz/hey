@@ -106,10 +106,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
     const response = await axios.post(
       `${HEY_API_URL}/openaction/swap/quote`,
       {
-        amount: parseUnits(
-          value.toString(),
-          targetToken?.decimals || 18
-        ).toString(),
+        amount: parseUnits(value.toString(), 18).toString(),
         tokenIn: WMATIC_ADDRESS,
         tokenOut: outputTokenAddress
       },
