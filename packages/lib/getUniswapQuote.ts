@@ -21,14 +21,8 @@ const getUniswapQuote = async (
   };
 
   const { data } = await axios.post(
-    'https://interface.gateway.uniswap.org/v2/quote',
-    uniswapData,
-    {
-      headers: {
-        Origin: 'https://app.uniswap.org',
-        'X-Request-Source': 'uniswap-web'
-      }
-    }
+    'https://worker-crimson-wood-bc24.heyxyz.workers.dev',
+    uniswapData
   );
   const { quote } = data;
 
