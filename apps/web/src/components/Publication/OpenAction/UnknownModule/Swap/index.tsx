@@ -237,7 +237,6 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
         <Details
           decimals={targetToken?.decimals || 18}
           decodedCallData={decoded}
-          token={outputTokenAddress}
           tokenMetadata={targetToken}
           value={value}
         />
