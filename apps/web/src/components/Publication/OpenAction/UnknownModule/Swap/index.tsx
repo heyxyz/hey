@@ -8,7 +8,7 @@ import type { Address } from 'viem';
 
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import {
-  KnownAttributes,
+  KNOWN_ATTRIBUTES,
   REWARDS_ADDRESS,
   WMATIC_ADDRESS
 } from '@hey/data/constants';
@@ -57,7 +57,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
 
   const oADefaultAmount = getPublicationAttribute(
     publication?.metadata.attributes,
-    KnownAttributes.SWAP_OA_DEFAULT_AMOUNT
+    KNOWN_ATTRIBUTES.SWAP_OA_DEFAULT_AMOUNT
   );
   const metadata = data?.moduleMetadata?.metadata;
 
