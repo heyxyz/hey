@@ -4,7 +4,7 @@ import { Regex } from '@hey/data/regex';
 import logger from '@hey/lib/logger';
 import axios from 'axios';
 import catchedError from 'src/lib/catchedError';
-import generateIP from 'src/lib/generateIp';
+import generatePublicIP from 'src/lib/generatePublicIP';
 import { invalidBody, noBody } from 'src/lib/responses';
 import { polygon, polygonMumbai } from 'viem/chains';
 import { object, string } from 'zod';
@@ -57,7 +57,7 @@ export const post: Handler = async (req, res) => {
       {
         headers: {
           Origin: 'https://app.uniswap.org',
-          'X-Forwarded-For': generateIP(),
+          'X-Forwarded-For': generatePublicIP(),
           'X-Request-Source': 'uniswap-web'
         }
       }
