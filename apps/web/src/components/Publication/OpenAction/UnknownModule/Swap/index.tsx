@@ -6,7 +6,7 @@ import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import Loader from '@components/Shared/Loader';
-import { BanknotesIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline';
+import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { REWARDS_ADDRESS, WMATIC_ADDRESS } from '@hey/data/constants';
 import { useModuleMetadataQuery } from '@hey/lens';
 import { Card } from '@hey/ui';
@@ -190,8 +190,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
       </Card>
       <ActionButton
         act={act}
-        className="w-full justify-center"
-        icon={<BanknotesIcon className="size-4" />}
+        className="w-full"
         isLoading={isLoading}
         module={module}
         moduleAmount={{
