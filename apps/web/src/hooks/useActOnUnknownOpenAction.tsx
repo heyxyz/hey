@@ -20,11 +20,13 @@ import { useSignTypedData, useWriteContract } from 'wagmi';
 import useHandleWrongNetwork from './useHandleWrongNetwork';
 
 interface CreatePublicationProps {
+  onSuccess?: () => void;
   signlessApproved?: boolean;
   successToast?: string;
 }
 
 const useActOnUnknownOpenAction = ({
+  onSuccess,
   signlessApproved = false,
   successToast
 }: CreatePublicationProps) => {
@@ -55,6 +57,7 @@ const useActOnUnknownOpenAction = ({
       return;
     }
 
+    onSuccess?.();
     setIsLoading(false);
     toast.success(successToast || 'Success!');
   };
