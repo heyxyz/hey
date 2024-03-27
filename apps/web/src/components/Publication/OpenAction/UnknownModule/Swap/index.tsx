@@ -2,6 +2,7 @@ import type {
   MirrorablePublication,
   UnknownOpenActionModuleSettings
 } from '@hey/lens';
+import type { UniswapQuote } from '@hey/types/hey';
 import type { FC } from 'react';
 import type { Address } from 'viem';
 
@@ -45,7 +46,9 @@ interface SwapOpenActionProps {
 
 const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
   const [value, setValue] = useState<number>(0);
-  const [outputValue, setOutputValue] = useState<string>('');
+  const [amountOut, setAmountOut] = useState<string>('');
+  const [quoteLoading, setQuoteLoading] = useState<boolean>(false);
+  const [canSwap, setCanSwap] = useState<boolean>(false);
   const { address } = useAccount();
 
   const { data, loading } = useModuleMetadataQuery({
@@ -94,9 +97,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
     successToast: "You've successfully swapped!"
   });
 
-  const getSwapQuote = async (): Promise<{
-    amount: string;
-  }> => {
+  const getSwapQuote = async (): Promise<UniswapQuote> => {
     const response = await axios.post(
       `${HEY_API_URL}/openaction/swap/quote`,
       {
@@ -113,11 +114,14 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
 
   useEffect(() => {
     if (value > 0) {
-      setInterval(() => {
-        getSwapQuote().then((quote) => {
-          setOutputValue(quote?.amount);
-        });
-      }, 10000);
+      setQuoteLoading(true);
+      getSwapQuote()
+        .then((quote) => {
+          setCanSwap(true);
+          setAmountOut(quote?.amountOut);
+        })
+        .catch(() => setCanSwap(false))
+        .finally(() => setQuoteLoading(false));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
@@ -206,7 +210,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
             disabled
             placeholder="0"
             type="number"
-            value={outputValue}
+            value={amountOut}
           />
           <div className="mr-5 flex flex-col items-end space-y-0.5">
             <div className="flex items-center space-x-1.5">
@@ -228,7 +232,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
       <ActionButton
         act={act}
         className="w-full"
-        isLoading={isLoading}
+        isLoading={isLoading || quoteLoading || !canSwap}
         module={module}
         moduleAmount={{
           asset: {
