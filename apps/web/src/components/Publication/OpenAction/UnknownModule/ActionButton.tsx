@@ -39,7 +39,7 @@ const ActionButton: FC<ActionButtonProps> = ({
   const { id: sessionProfileId } = getCurrentSession();
   const { address } = useAccount();
 
-  const amount = parseInt(moduleAmount?.value || '0');
+  const amount = Number(moduleAmount?.value || '0');
   const assetAddress = moduleAmount?.asset?.contract.address;
   const assetDecimals = moduleAmount?.asset?.decimals || 18;
 
