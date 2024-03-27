@@ -51,13 +51,14 @@ export const post: Handler = async (req, res) => {
       type: 'EXACT_INPUT'
     };
 
+    const ip = generatePublicIP();
     const { data } = await axios.post(
       'https://interface.gateway.uniswap.org/v2/quote',
       uniswapData,
       {
         headers: {
           Origin: 'https://app.uniswap.org',
-          'X-Forwarded-For': generatePublicIP(),
+          'X-Forwarded-For': ip,
           'X-Request-Source': 'uniswap-web'
         }
       }
@@ -70,7 +71,7 @@ export const post: Handler = async (req, res) => {
       routeString: quote.routeString
     };
 
-    logger.info(`Fetched the quote from Uniswap for ${tokenOut}`);
+    logger.info(`Fetched the quote from Uniswap for ${tokenOut} from ${ip}`);
 
     return res.status(200).json({ quote: output, success: true });
   } catch (error) {
