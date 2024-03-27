@@ -7,8 +7,13 @@ import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
-import { REWARDS_ADDRESS, WMATIC_ADDRESS } from '@hey/data/constants';
+import {
+  KnownAttributes,
+  REWARDS_ADDRESS,
+  WMATIC_ADDRESS
+} from '@hey/data/constants';
 import { useModuleMetadataQuery } from '@hey/lens';
+import getPublicationAttribute from '@hey/lib/getPublicationAttribute';
 import getUniswapQuote from '@hey/lib/getUniswapQuote';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Card } from '@hey/ui';
@@ -50,7 +55,17 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
     variables: { request: { implementation: module?.contract.address } }
   });
 
+  const oADefaultAmount = getPublicationAttribute(
+    publication?.metadata.attributes,
+    KnownAttributes.SWAP_OA_DEFAULT_AMOUNT
+  );
   const metadata = data?.moduleMetadata?.metadata;
+
+  useEffect(() => {
+    if (oADefaultAmount) {
+      setValue(Number(oADefaultAmount));
+    }
+  }, [oADefaultAmount]);
 
   const decoded = decodeAbiParameters(
     JSON.parse(metadata?.initializeCalldataABI || '{}'),

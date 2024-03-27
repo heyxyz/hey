@@ -2,16 +2,18 @@ import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
+import { DEFAULT_COLLECT_TOKEN, KnownAttributes } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { useEffect } from 'react';
 import { createTrackedSelector } from 'react-tracked';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
+import { usePublicationAttributesStore } from 'src/store/non-persisted/publication/usePublicationAttributesStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { encodeAbiParameters, isAddress } from 'viem';
 import { create } from 'zustand';
 
 import SaveOrCancel from '../../SaveOrCancel';
+import DefaultAmountConfig from './DefaultAmountConfig';
 import PoolConfig from './PoolConfig';
 import RewardConfig from './RewardConfig';
 import TokenConfig from './TokenConfig';
@@ -59,10 +61,17 @@ const SwapConfig: FC = () => {
     sharedRewardPercent,
     token
   } = useSwapActionStore();
+  const { removeAttribute } = usePublicationAttributesStore();
+
+  const resetOpenAction = () => {
+    removeAttribute(KnownAttributes.SWAP_OA_DEFAULT_AMOUNT);
+    reset();
+  };
 
   useEffect(() => {
     if (!openAction) {
-      reset();
+      removeAttribute(KnownAttributes.SWAP_OA_DEFAULT_AMOUNT);
+      resetOpenAction();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -100,7 +109,7 @@ const SwapConfig: FC = () => {
           setOn={() => {
             setEnabled(!enabled);
             if (enabled) {
-              reset();
+              resetOpenAction();
             }
           }}
         />
@@ -112,6 +121,7 @@ const SwapConfig: FC = () => {
             <TokenConfig />
             <RewardConfig />
             <PoolConfig />
+            <DefaultAmountConfig />
           </div>
           <div className="divider" />
           <div className="m-5">
