@@ -93,7 +93,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
       <div className="divider" />
       {collectModule.type !== null ? (
         <>
-          <div className="p-5">
+          <div className="m-5">
             <AmountConfig
               allowedTokens={data}
               setCollectType={setCollectType}
