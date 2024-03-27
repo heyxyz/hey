@@ -2,9 +2,7 @@ import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
-import { Input } from '@hey/ui';
 import { useEffect } from 'react';
 import { createTrackedSelector } from 'react-tracked';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
@@ -12,7 +10,8 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { encodeAbiParameters } from 'viem';
 import { create } from 'zustand';
 
-import SaveOrCancel from '../SaveOrCancel';
+import SaveOrCancel from '../../SaveOrCancel';
+import RewardConfig from './RewardConfig';
 
 interface State {
   enabled: boolean;
@@ -44,14 +43,8 @@ export const useSwapActionStore = createTrackedSelector(store);
 const SwapConfig: FC = () => {
   const { currentProfile } = useProfileStore();
   const { openAction, setOpenAction, setShowModal } = useOpenActionStore();
-  const {
-    enabled,
-    reset,
-    setEnabled,
-    setSharedRewardPercent,
-    sharedRewardPercent,
-    token
-  } = useSwapActionStore();
+  const { enabled, reset, setEnabled, sharedRewardPercent, token } =
+    useSwapActionStore();
 
   useEffect(() => {
     if (!openAction) {
@@ -102,31 +95,7 @@ const SwapConfig: FC = () => {
         <>
           <div className="divider" />
           <div className="m-5">
-            <ToggleWithHelper
-              description="Enable swap reward for your post"
-              heading="Swap Reward"
-              icon={<ArrowsRightLeftIcon className="size-5" />}
-              on={sharedRewardPercent > 0}
-              setOn={() => setSharedRewardPercent(sharedRewardPercent ? 0 : 25)}
-            />
-            {sharedRewardPercent > 0 ? (
-              <div className="ml-8 mt-4 flex space-x-2 text-sm">
-                <Input
-                  iconRight="%"
-                  label="Reward percent"
-                  max="100"
-                  min="1"
-                  onChange={(event) => {
-                    setSharedRewardPercent(
-                      parseInt(event.target.value ? event.target.value : '0')
-                    );
-                  }}
-                  placeholder="5"
-                  type="number"
-                  value={sharedRewardPercent}
-                />
-              </div>
-            ) : null}
+            <RewardConfig />
           </div>
           <div className="divider" />
           <div className="m-5">
