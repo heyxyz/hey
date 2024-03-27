@@ -2,6 +2,7 @@ import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
+import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { useEffect } from 'react';
 import { createTrackedSelector } from 'react-tracked';
@@ -32,8 +33,9 @@ const store = create<State>((set) => ({
   reset: () =>
     set({
       enabled: false,
+      rewardsPoolId: null,
       sharedRewardPercent: 0,
-      token: '0xa6fa4fb5f76172d178d61b04b0ecd319c5d1c0aa' as Address
+      token: DEFAULT_COLLECT_TOKEN as Address
     }),
   rewardsPoolId: null,
   setEnabled: (enabled) => set({ enabled }),
@@ -41,7 +43,7 @@ const store = create<State>((set) => ({
   setSharedRewardPercent: (sharedRewardPercent) => set({ sharedRewardPercent }),
   setToken: (token) => set({ token }),
   sharedRewardPercent: 0,
-  token: '0xa6fa4fb5f76172d178d61b04b0ecd319c5d1c0aa' as Address
+  token: DEFAULT_COLLECT_TOKEN as Address
 }));
 
 export const useSwapActionStore = createTrackedSelector(store);
