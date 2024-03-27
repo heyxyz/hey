@@ -17,7 +17,7 @@ import QuotedPublication from '@components/Publication/QuotedPublication';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
-import { KnownAttributes } from '@hey/data/constants';
+import { KNOWN_ATTRIBUTES } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
 import { ReferenceModuleType } from '@hey/lens';
@@ -357,7 +357,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             ...(pollId
               ? [
                   {
-                    key: KnownAttributes.POLL_ID,
+                    key: KNOWN_ATTRIBUTES.POLL_ID,
                     type: MetadataAttributeType.STRING,
                     value: pollId
                   }
