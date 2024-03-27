@@ -114,6 +114,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
   return allowed ? (
     <Button
       className={className}
+      disabled={queryLoading || transactionLoading || waitLoading}
       onClick={() =>
         handleAllowance(
           module.allowance.asset.contract.address,
