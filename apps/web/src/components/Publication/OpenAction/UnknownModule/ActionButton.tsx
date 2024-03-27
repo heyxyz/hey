@@ -16,7 +16,7 @@ import { useState } from 'react';
 import { formatUnits } from 'viem';
 import { useAccount, useBalance } from 'wagmi';
 
-interface TipActionProps {
+interface ActionButtonProps {
   act: () => void;
   className?: string;
   icon: ReactNode;
@@ -26,7 +26,7 @@ interface TipActionProps {
   title: string;
 }
 
-const TipAction: FC<TipActionProps> = ({
+const ActionButton: FC<ActionButtonProps> = ({
   act,
   className = '',
   icon,
@@ -91,7 +91,9 @@ const TipAction: FC<TipActionProps> = ({
 
   if (allowanceLoading) {
     return (
-      <div className={cn('shimmer mt-5 h-[34px] w-28 rounded-lg', className)} />
+      <div
+        className={cn('shimmer mt-5 h-[34px] w-28 rounded-full', className)}
+      />
     );
   }
 
@@ -122,7 +124,7 @@ const TipAction: FC<TipActionProps> = ({
   return (
     <Button
       className={cn('mt-5', className)}
-      disabled={isLoading}
+      disabled={isLoading || !amount}
       icon={isLoading ? <Spinner size="xs" /> : icon}
       onClick={act}
     >
@@ -131,4 +133,4 @@ const TipAction: FC<TipActionProps> = ({
   );
 };
 
-export default TipAction;
+export default ActionButton;

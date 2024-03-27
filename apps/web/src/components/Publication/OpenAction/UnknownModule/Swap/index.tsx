@@ -6,10 +6,10 @@ import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import Loader from '@components/Shared/Loader';
-import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
+import { BanknotesIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { REWARDS_ADDRESS, WMATIC_ADDRESS } from '@hey/data/constants';
 import { useModuleMetadataQuery } from '@hey/lens';
-import { Button, Card } from '@hey/ui';
+import { Card } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { useState } from 'react';
@@ -28,6 +28,8 @@ import {
   toHex
 } from 'viem';
 import { useAccount, useBalance } from 'wagmi';
+
+import ActionButton from '../ActionButton';
 
 interface SwapOpenActionProps {
   module: UnknownOpenActionModuleSettings;
@@ -77,7 +79,6 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
         formatUnits(outputTokenBalanceData.value, targetToken?.decimals || 18)
       ).toFixed(2)
     : 0;
-
   // End: Balance Check
 
   const { actOnUnknownOpenAction, isLoading } = useActOnUnknownOpenAction({
@@ -187,9 +188,26 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
           </div>
         </div>
       </Card>
-      <Button className="w-full" disabled={isLoading} onClick={act}>
-        Swap
-      </Button>
+      <ActionButton
+        act={act}
+        className="w-full justify-center"
+        icon={<BanknotesIcon className="size-4" />}
+        isLoading={isLoading}
+        module={module}
+        moduleAmount={{
+          asset: {
+            contract: {
+              address: WMATIC_ADDRESS,
+              chainId: CHAIN.id
+            },
+            decimals: 18,
+            name: 'WMATIC',
+            symbol: 'WMATIC'
+          },
+          value: value.toString()
+        }}
+        title="Swap"
+      />
     </div>
   );
 };
