@@ -19,7 +19,7 @@ import { useAccount, useBalance } from 'wagmi';
 interface ActionButtonProps {
   act: () => void;
   className?: string;
-  icon: ReactNode;
+  icon?: ReactNode;
   isLoading?: boolean;
   module: UnknownOpenActionModuleSettings;
   moduleAmount?: Amount;
@@ -125,7 +125,7 @@ const ActionButton: FC<ActionButtonProps> = ({
     <Button
       className={cn('mt-5', className)}
       disabled={isLoading || !amount}
-      icon={isLoading ? <Spinner size="xs" /> : icon}
+      icon={icon ? isLoading ? <Spinner size="xs" /> : icon : null}
       onClick={act}
     >
       {title}
