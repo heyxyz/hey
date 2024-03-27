@@ -77,4 +77,5 @@ export type ProfileFlags = {
 export type UniswapQuote = {
   amountOut: string;
   maxSlippage: string;
+  routeString: string;
 };
