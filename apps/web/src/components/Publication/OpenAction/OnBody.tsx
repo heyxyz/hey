@@ -6,6 +6,7 @@ import type { FC } from 'react';
 
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
+import isFeatureAvailable from '@lib/isFeatureAvailable';
 
 import SwapOpenAction from './UnknownModule/Swap';
 
@@ -28,12 +29,13 @@ const OpenActionOnBody: FC<OpenActionOnBodyProps> = ({ publication }) => {
 
   return (
     <div className="mt-3">
-      {module.contract.address === VerifiedOpenActionModules.Swap && (
-        <SwapOpenAction
-          module={module as UnknownOpenActionModuleSettings}
-          publication={targetPublication}
-        />
-      )}
+      {module.contract.address === VerifiedOpenActionModules.Swap &&
+        isFeatureAvailable('swap-oa') && (
+          <SwapOpenAction
+            module={module as UnknownOpenActionModuleSettings}
+            publication={targetPublication}
+          />
+        )}
     </div>
   );
 };

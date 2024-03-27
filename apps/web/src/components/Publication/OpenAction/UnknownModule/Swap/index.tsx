@@ -11,9 +11,9 @@ import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { REWARDS_ADDRESS, WMATIC_ADDRESS } from '@hey/data/constants';
 import { useModuleMetadataQuery } from '@hey/lens';
 import getUniswapQuote from '@hey/lib/getUniswapQuote';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Card } from '@hey/ui';
 import errorToast from '@lib/errorToast';
-import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN } from 'src/constants';
@@ -110,10 +110,6 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
-  if (!isFeatureAvailable('swap-oa')) {
-    return null;
-  }
-
   if (loading) {
     return (
       <Card>
@@ -162,7 +158,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
   };
 
   return (
-    <div className="max-w-sm space-y-5">
+    <div className="max-w-sm space-y-5" onClick={stopEventPropagation}>
       <Card forceRounded>
         <div className="flex items-center justify-between">
           <input
