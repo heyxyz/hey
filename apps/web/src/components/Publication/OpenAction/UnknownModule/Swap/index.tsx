@@ -111,7 +111,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
   });
 
   useEffect(() => {
-    if (value > 0) {
+    if (value > 0 && outputTokenAddress) {
       setQuoteLoading(true);
       getUniswapQuote(WMATIC_ADDRESS, outputTokenAddress, value, CHAIN.id)
         .then((quote) => {
@@ -125,7 +125,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
       setQuote(null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
+  }, [value, outputTokenAddress]);
 
   if (loading) {
     return (
