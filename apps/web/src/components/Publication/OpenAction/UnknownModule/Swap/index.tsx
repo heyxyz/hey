@@ -38,6 +38,7 @@ import {
 import { useAccount, useBalance } from 'wagmi';
 
 import ActionButton from '../ActionButton';
+import Details from './Details';
 
 interface SwapOpenActionProps {
   module: UnknownOpenActionModuleSettings;
@@ -46,7 +47,7 @@ interface SwapOpenActionProps {
 
 const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
   const [value, setValue] = useState<number>(0);
-  const [amountOut, setAmountOut] = useState<string>('');
+  const [quote, setQuote] = useState<null | UniswapQuote>(null);
   const [quoteLoading, setQuoteLoading] = useState<boolean>(false);
   const [canSwap, setCanSwap] = useState<boolean>(false);
   const { address } = useAccount();
@@ -101,7 +102,10 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
     const response = await axios.post(
       `${HEY_API_URL}/openaction/swap/quote`,
       {
-        amount: parseUnits(value.toString(), 18).toString(),
+        amount: parseUnits(
+          value.toString(),
+          targetToken?.decimals || 18
+        ).toString(),
         tokenIn: WMATIC_ADDRESS,
         tokenOut: outputTokenAddress
       },
@@ -118,7 +122,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
       getSwapQuote()
         .then((quote) => {
           setCanSwap(true);
-          setAmountOut(quote?.amountOut);
+          setQuote(quote);
         })
         .catch(() => setCanSwap(false))
         .finally(() => setQuoteLoading(false));
@@ -210,7 +214,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
             disabled
             placeholder="0"
             type="number"
-            value={amountOut}
+            value={quote?.amountOut}
           />
           <div className="mr-5 flex flex-col items-end space-y-0.5">
             <div className="flex items-center space-x-1.5">
@@ -229,6 +233,15 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
           </div>
         </div>
       </Card>
+      {targetToken ? (
+        <Details
+          decimals={targetToken?.decimals || 18}
+          decodedCallData={decoded}
+          token={outputTokenAddress}
+          tokenMetadata={targetToken}
+          value={value}
+        />
+      ) : null}
       <ActionButton
         act={act}
         className="w-full"

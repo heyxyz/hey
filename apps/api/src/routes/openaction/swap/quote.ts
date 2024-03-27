@@ -59,7 +59,8 @@ export const post: Handler = async (req, res) => {
 
     const output = {
       amountOut: Number(quote.quoteDecimals).toFixed(4),
-      maxSlippage: quote.slippage.toString()
+      maxSlippage: quote.slippage.toString(),
+      routeString: quote.routeString
     };
 
     logger.info(`Fetched the quote from Uniswap for ${tokenOut}`);
