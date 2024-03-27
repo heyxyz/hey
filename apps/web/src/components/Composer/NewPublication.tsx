@@ -59,6 +59,7 @@ import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
 import LinkPreviews from './LinkPreviews';
+import OpenActions from './OpenActions';
 import Discard from './Post/Discard';
 
 const Shimmer = <div className="shimmer mb-1 size-5 rounded-lg" />;
@@ -558,6 +559,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         </Wrapper>
       ) : null}
       <LinkPreviews />
+      <OpenActions />
       <NewAttachments attachments={attachments} />
       <div className="divider mx-5" />
       <div className="block items-center px-5 py-3 sm:flex">
