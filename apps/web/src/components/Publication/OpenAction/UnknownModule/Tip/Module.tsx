@@ -23,7 +23,7 @@ import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
 import { encodeAbiParameters, formatUnits, parseUnits } from 'viem';
 import { useAccount, useBalance } from 'wagmi';
 
-import TipAction from './TipAction';
+import ActionButton from '../ActionButton';
 
 interface TipOpenActionModuleProps {
   module: UnknownOpenActionModuleSettings;
@@ -189,7 +189,7 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
         />
       </div>
       {selectedCurrency ? (
-        <TipAction
+        <ActionButton
           act={act}
           className="mt-5 w-full justify-center"
           icon={<TipIcon className="size-4" />}
