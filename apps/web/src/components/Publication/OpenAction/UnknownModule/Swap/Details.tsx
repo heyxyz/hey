@@ -11,6 +11,7 @@ import { type FC, useEffect, useState } from 'react';
 import { parseUnits } from 'viem';
 
 interface DetailsProps {
+  calculatedQuote: null | UniswapQuote;
   decimals: number;
   decodedCallData: any[];
   tokenMetadata: TokenMetadataResponse;
@@ -18,6 +19,7 @@ interface DetailsProps {
 }
 
 const Details: FC<DetailsProps> = ({
+  calculatedQuote,
   decimals,
   decodedCallData,
   tokenMetadata,
@@ -74,7 +76,7 @@ const Details: FC<DetailsProps> = ({
             <Disclosure.Panel className="space-y-2 px-5 pb-3 pt-1">
               <div className="item flex justify-between">
                 <div>Max. slippage</div>
-                <div>{quote.maxSlippage}%</div>
+                <div>{calculatedQuote?.maxSlippage || quote.maxSlippage}%</div>
               </div>
               <div className="item flex justify-between">
                 <div className="flex items-center space-x-1">
@@ -88,7 +90,11 @@ const Details: FC<DetailsProps> = ({
               <div className="item flex justify-between">
                 <div className="flex items-center space-x-1">
                   <span>Order Routing</span>
-                  <HelpTooltip>{quote.routeString}</HelpTooltip>
+                  <HelpTooltip>
+                    <div className="max-w-sm">
+                      {calculatedQuote?.routeString || quote.routeString}
+                    </div>
+                  </HelpTooltip>
                 </div>
                 <div>Uniswap API</div>
               </div>
