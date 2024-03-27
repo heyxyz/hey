@@ -12,12 +12,14 @@ import {
   REWARDS_ADDRESS,
   WMATIC_ADDRESS
 } from '@hey/data/constants';
+import { PUBLICATION } from '@hey/data/tracking';
 import { useModuleMetadataQuery } from '@hey/lens';
 import getPublicationAttribute from '@hey/lib/getPublicationAttribute';
 import getUniswapQuote from '@hey/lib/getUniswapQuote';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Card } from '@hey/ui';
 import errorToast from '@lib/errorToast';
+import { Leafwatch } from '@lib/leafwatch';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN } from 'src/constants';
@@ -105,6 +107,9 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
     onSuccess: () => {
       setValue(0);
       setQuote(null);
+      Leafwatch.track(PUBLICATION.OPEN_ACTIONS.SWAP.SWAP, {
+        publication_id: publication?.id
+      });
     },
     signlessApproved: module.signlessApproved,
     successToast: "You've successfully swapped!"
