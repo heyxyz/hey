@@ -17,6 +17,7 @@ import QuotedPublication from '@components/Publication/QuotedPublication';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
+import { KnownAttributes } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
 import { ReferenceModuleType } from '@hey/lens';
@@ -43,6 +44,7 @@ import usePublicationMetadata from 'src/hooks/usePublicationMetadata';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
+import { usePublicationAttributesStore } from 'src/store/non-persisted/publication/usePublicationAttributesStore';
 import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
 import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
 import { usePublicationLiveStore } from 'src/store/non-persisted/publication/usePublicationLiveStore';
@@ -151,6 +153,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { degreesOfSeparation, onlyFollowers, selectedReferenceModule } =
     useReferenceModuleStore();
 
+  // Attributes store
+  const { reset: resetAttributes } = usePublicationAttributesStore();
+
   // States
   const [isLoading, setIsLoading] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
@@ -176,6 +181,29 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       ? quotedPublication?.momoka?.proof
       : noCollect && noOpenAction;
 
+  const reset = () => {
+    editor.update(() => {
+      $getRoot().clear();
+    });
+
+    setPublicationContent('');
+    setQuotedPublication(null);
+    setShowPollEditor(false);
+    resetPollConfig();
+    setShowLiveVideoEditor(false);
+    resetLiveVideoConfig();
+    setAttachments([]);
+    setVideoThumbnail({
+      type: '',
+      uploading: false,
+      url: ''
+    });
+    setLicense(null);
+    resetAttributes();
+    resetOpenActionSettings();
+    resetCollectSettings();
+  };
+
   const onError = (error?: any) => {
     setIsLoading(false);
     errorToast(error);
@@ -196,24 +224,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     }
 
     setIsLoading(false);
-    editor.update(() => {
-      $getRoot().clear();
-    });
-    setPublicationContent('');
-    setQuotedPublication(null);
-    setShowPollEditor(false);
-    resetPollConfig();
-    setShowLiveVideoEditor(false);
-    resetLiveVideoConfig();
-    setAttachments([]);
-    setVideoThumbnail({
-      type: '',
-      uploading: false,
-      url: ''
-    });
-    resetCollectSettings();
-    resetOpenActionSettings();
-    setLicense(null);
+    reset();
 
     if (!isComment) {
       setShowNewPostModal(false);
@@ -346,7 +357,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             ...(pollId
               ? [
                   {
-                    key: 'pollId',
+                    key: KnownAttributes.POLL_ID,
                     type: MetadataAttributeType.STRING,
                     value: pollId
                   }
@@ -512,20 +523,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   };
 
   useUnmountEffect(() => {
-    setPublicationContent('');
-    setShowPollEditor(false);
-    resetPollConfig();
-    setShowLiveVideoEditor(false);
-    resetLiveVideoConfig();
-    setAttachments([]);
-    setVideoThumbnail({
-      type: '',
-      uploading: false,
-      url: ''
-    });
-    resetCollectSettings();
-    resetOpenActionSettings();
-    setLicense(null);
+    reset();
   });
 
   return (

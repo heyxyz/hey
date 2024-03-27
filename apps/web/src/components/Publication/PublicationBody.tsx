@@ -7,6 +7,7 @@ import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
 import Video from '@components/Shared/Video';
 import { EyeIcon } from '@heroicons/react/24/outline';
+import { KnownAttributes } from '@hey/data/constants';
 import getPublicationAttribute from '@hey/lib/getPublicationAttribute';
 import getPublicationData from '@hey/lib/getPublicationData';
 import getURLs from '@hey/lib/getURLs';
@@ -71,7 +72,10 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   // Show attachments if it's there
   const showAttachments = filteredAttachments.length > 0 || filteredAsset;
   // Show poll
-  const pollId = getPublicationAttribute(metadata.attributes, 'pollId');
+  const pollId = getPublicationAttribute(
+    metadata.attributes,
+    KnownAttributes.POLL_ID
+  );
   const showPoll = Boolean(pollId);
   // Show sharing link
   const showSharingLink = metadata.__typename === 'LinkMetadataV3';
