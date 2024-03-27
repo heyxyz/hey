@@ -32,7 +32,7 @@ const Details: FC<DetailsProps> = ({
     const response = await axios.post(
       `${HEY_API_URL}/openaction/swap/quote`,
       {
-        amount: parseUnits('1', decimals).toString(),
+        amount: parseUnits('1', 18).toString(),
         tokenIn: WMATIC_ADDRESS,
         tokenOut: token
       },
