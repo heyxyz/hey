@@ -10,7 +10,7 @@ const RewardConfig: FC = () => {
   const { setSharedRewardPercent, sharedRewardPercent } = useSwapActionStore();
 
   return (
-    <div>
+    <div className="mt-5">
       <ToggleWithHelper
         description="Enable swap reward for your post"
         heading="Swap Reward"
