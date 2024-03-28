@@ -6,13 +6,13 @@ import type {
 import type { FC, ReactNode } from 'react';
 
 import AllowanceButton from '@components/Settings/Allowance/Button';
-import LoginButton from '@components/Shared/Navbar/LoginButton';
 import NoBalanceError from '@components/Shared/NoBalanceError';
 import { useApprovedModuleAllowanceAmountQuery } from '@hey/lens';
 import { Button, Spinner, WarningMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import getCurrentSession from '@lib/getCurrentSession';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { formatUnits } from 'viem';
 import { useAccount, useBalance } from 'wagmi';
 
@@ -83,9 +83,13 @@ const ActionButton: FC<ActionButtonProps> = ({
 
   if (!sessionProfileId) {
     return (
-      <div className="mt-5">
-        <LoginButton title="Login to Collect" />
-      </div>
+      <Button
+        className={cn('mt-5', className)}
+        icon={icon ? isLoading ? <Spinner size="xs" /> : icon : null}
+        onClick={() => toast.error('Login to perform this action')}
+      >
+        {title}
+      </Button>
     );
   }
 
