@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Name of the branch to push
+branch="main"
+
+# Remote to check and push to
+target_remote="rad"
+
+# Check if we're pushing to origin
+remote="$1"
+if [ "$remote" = "origin" ]; then
+  # Check if the target remote exists
+  if git remote | grep -q "^${target_remote}$"; then
+    # Push the same branch to the target remote if it exists
+    git push "$target_remote" "$branch"
+  else
+    echo "Remote '$target_remote' does not exist, skipping push to it."
+  fi
+fi
