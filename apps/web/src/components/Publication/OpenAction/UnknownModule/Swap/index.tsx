@@ -26,6 +26,7 @@ import { CHAIN } from 'src/constants';
 import useTokenMetadata from 'src/hooks/alchemy/useTokenMetadata';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
 import usePreventScrollOnNumberInput from 'src/hooks/usePreventScrollOnNumberInput';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import {
   concat,
   decodeAbiParameters,
@@ -47,6 +48,7 @@ interface SwapOpenActionProps {
 }
 
 const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
+  const { currentProfile } = useProfileStore();
   const [value, setValue] = useState<number>(0);
   const [quote, setQuote] = useState<null | UniswapQuote>(null);
   const [quoteLoading, setQuoteLoading] = useState<boolean>(false);
@@ -91,7 +93,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
   const { data: wmaticBalanceData, isLoading: wmaticBalanceLoading } =
     useBalance({
       address,
-      query: { refetchInterval: 8000 },
+      query: { enabled: Boolean(currentProfile), refetchInterval: 8000 },
       token: WMATIC_ADDRESS
     });
   const wmaticBalance = wmaticBalanceData
@@ -101,7 +103,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
   const { data: outputTokenBalanceData, isLoading: outputTokenBalanceLoading } =
     useBalance({
       address,
-      query: { refetchInterval: 8000 },
+      query: { enabled: Boolean(currentProfile), refetchInterval: 8000 },
       token: outputTokenAddress
     });
   const outputTokenBalance = outputTokenBalanceData
@@ -210,6 +212,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
         <div className="flex items-center justify-between">
           <input
             className={inputClassName}
+            disabled={!currentProfile}
             inputMode="numeric"
             onChange={(e) => {
               // @ts-ignore
@@ -229,12 +232,17 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
               />
               <b>WMATIC</b>
             </div>
-            <div className="flex items-center space-x-1 text-xs">
-              <div className="ld-text-gray-500">Balance: {wmaticBalance}</div>
-              <button onClick={() => setValue(Number(wmaticBalance))}>
-                Max
-              </button>
-            </div>
+            {currentProfile ? (
+              <div className="flex items-center space-x-1 text-xs">
+                <div className="ld-text-gray-500">Balance: {wmaticBalance}</div>
+                <button
+                  disabled={!currentProfile}
+                  onClick={() => setValue(Number(wmaticBalance))}
+                >
+                  Max
+                </button>
+              </div>
+            ) : null}
           </div>
         </div>
         <div className="divider" />
@@ -259,9 +267,11 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
               )}
               <b>{outTokenMetadata?.symbol}</b>
             </div>
-            <div className="ld-text-gray-500 text-xs">
-              Balance: {outputTokenBalance}
-            </div>
+            {currentProfile ? (
+              <div className="ld-text-gray-500 text-xs">
+                Balance: {outputTokenBalance}
+              </div>
+            ) : null}
           </div>
         </div>
       </Card>
