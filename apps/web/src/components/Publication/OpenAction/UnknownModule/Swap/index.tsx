@@ -88,20 +88,22 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
     });
 
   // Begin: Balance Check
-  const { data: wmaticBalanceData } = useBalance({
-    address,
-    query: { refetchInterval: 8000 },
-    token: WMATIC_ADDRESS
-  });
+  const { data: wmaticBalanceData, isLoading: wmaticBalanceLoading } =
+    useBalance({
+      address,
+      query: { refetchInterval: 8000 },
+      token: WMATIC_ADDRESS
+    });
   const wmaticBalance = wmaticBalanceData
     ? parseFloat(formatUnits(wmaticBalanceData.value, 18)).toFixed(2)
     : 0;
 
-  const { data: outputTokenBalanceData } = useBalance({
-    address,
-    query: { refetchInterval: 8000 },
-    token: outputTokenAddress
-  });
+  const { data: outputTokenBalanceData, isLoading: outputTokenBalanceLoading } =
+    useBalance({
+      address,
+      query: { refetchInterval: 8000 },
+      token: outputTokenAddress
+    });
   const outputTokenBalance = outputTokenBalanceData
     ? parseFloat(
         formatUnits(
@@ -141,7 +143,12 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, outputTokenAddress]);
 
-  if (moduleMetadataLoading || outTokenMetadataLoading) {
+  if (
+    moduleMetadataLoading ||
+    outTokenMetadataLoading ||
+    wmaticBalanceLoading ||
+    outputTokenBalanceLoading
+  ) {
     return (
       <div className="w-[23rem]">
         <div className="shimmer h-[68.8px] rounded-t-xl" />
