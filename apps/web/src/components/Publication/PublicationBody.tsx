@@ -82,7 +82,13 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   // Show quote
   const showQuote = targetPublication.__typename === 'Quote';
   // Show oembed if no NFT, no attachments, no quoted publication
+  const hideOembed =
+    getPublicationAttribute(
+      metadata.attributes,
+      KNOWN_ATTRIBUTES.HIDE_OEMBED
+    ) === 'true';
   const showOembed =
+    !hideOembed &&
     !showSharingLink &&
     hasURLs &&
     !showLive &&

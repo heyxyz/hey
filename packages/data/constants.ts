@@ -96,6 +96,7 @@ export const STAFF_PICK_FEATURE_ID = '73d2f48d-0291-4a36-adc2-9737057ad2b7';
 
 // Known Lens Protocol Attributes
 export const KNOWN_ATTRIBUTES = {
+  HIDE_OEMBED: 'hideOembed',
   POLL_ID: 'pollId',
   SWAP_OA_DEFAULT_AMOUNT: 'swapOADefaultAmount'
 };
