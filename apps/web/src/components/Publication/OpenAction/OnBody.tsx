@@ -4,6 +4,7 @@ import type {
 } from '@hey/lens';
 import type { FC } from 'react';
 
+import { FeatureFlag } from '@hey/data/feature-flags';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import isFeatureAvailable from '@lib/isFeatureAvailable';
@@ -30,7 +31,8 @@ const OpenActionOnBody: FC<OpenActionOnBodyProps> = ({ publication }) => {
   return (
     <div className="mt-3">
       {module.contract.address === VerifiedOpenActionModules.Swap &&
-        !isFeatureAvailable('swap-oa') && (
+        (!isFeatureAvailable('swap-oa') ||
+          !isFeatureAvailable(FeatureFlag.LensTeam)) && (
           <SwapOpenAction
             module={module as UnknownOpenActionModuleSettings}
             publication={targetPublication}
