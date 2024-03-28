@@ -518,6 +518,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     : false;
 
   const onDiscardClick = () => {
+    setQuotedPublication(null);
     setShowNewPostModal(false);
     setShowDiscardModal(false);
   };
