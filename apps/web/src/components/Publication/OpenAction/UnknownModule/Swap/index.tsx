@@ -52,16 +52,17 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
   const [canSwap, setCanSwap] = useState<boolean>(false);
   const { address } = useAccount();
 
-  const { data, loading } = useModuleMetadataQuery({
-    skip: !Boolean(module?.contract.address),
-    variables: { request: { implementation: module?.contract.address } }
-  });
+  const { data: moduleMetadata, loading: moduleMetadataLoading } =
+    useModuleMetadataQuery({
+      skip: !Boolean(module?.contract.address),
+      variables: { request: { implementation: module?.contract.address } }
+    });
 
   const oADefaultAmount = getPublicationAttribute(
     publication?.metadata.attributes,
     KNOWN_ATTRIBUTES.SWAP_OA_DEFAULT_AMOUNT
   );
-  const metadata = data?.moduleMetadata?.metadata;
+  const metadata = moduleMetadata?.moduleMetadata?.metadata;
 
   useEffect(() => {
     if (oADefaultAmount) {
@@ -75,11 +76,12 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
   );
   const outputTokenAddress = decoded[4];
 
-  const { data: targetToken } = useTokenMetadata({
-    address: outputTokenAddress,
-    chain: CHAIN.id,
-    enabled: outputTokenAddress !== undefined
-  });
+  const { data: outTokenMetadata, loading: outTokenMetadataLoading } =
+    useTokenMetadata({
+      address: outputTokenAddress,
+      chain: CHAIN.id,
+      enabled: outputTokenAddress !== undefined
+    });
 
   // Begin: Balance Check
   const { data: wmaticBalanceData } = useBalance({
@@ -98,7 +100,10 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
   });
   const outputTokenBalance = outputTokenBalanceData
     ? parseFloat(
-        formatUnits(outputTokenBalanceData.value, targetToken?.decimals || 18)
+        formatUnits(
+          outputTokenBalanceData.value,
+          outTokenMetadata?.decimals || 18
+        )
       ).toFixed(2)
     : 0;
   // End: Balance Check
@@ -132,7 +137,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, outputTokenAddress]);
 
-  if (loading) {
+  if (moduleMetadataLoading || outTokenMetadataLoading) {
     return (
       <div className="w-[23rem]">
         <div className="shimmer h-[68.8px] rounded-t-xl" />
@@ -231,16 +236,16 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
           />
           <div className="mr-5 flex flex-col items-end space-y-0.5">
             <div className="flex items-center space-x-1.5">
-              {targetToken?.logo ? (
+              {outTokenMetadata?.logo ? (
                 <img
-                  alt={targetToken?.symbol || 'Symbol'}
+                  alt={outTokenMetadata?.symbol || 'Symbol'}
                   className="size-5 rounded-full"
-                  src={targetToken.logo}
+                  src={outTokenMetadata.logo}
                 />
               ) : (
                 <CurrencyDollarIcon className="size-5" />
               )}
-              <b>{targetToken?.symbol}</b>
+              <b>{outTokenMetadata?.symbol}</b>
             </div>
             <div className="ld-text-gray-500 text-xs">
               Balance: {outputTokenBalance}
@@ -248,11 +253,11 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
           </div>
         </div>
       </Card>
-      {targetToken ? (
+      {outTokenMetadata ? (
         <Details
           calculatedQuote={quote}
           decodedCallData={decoded}
-          tokenMetadata={targetToken}
+          tokenMetadata={outTokenMetadata}
           value={value}
         />
       ) : null}
