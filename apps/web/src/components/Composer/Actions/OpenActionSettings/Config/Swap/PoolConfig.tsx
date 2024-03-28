@@ -1,13 +1,15 @@
-import type { FC } from 'react';
-
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { GiftIcon } from '@heroicons/react/24/outline';
 import { Input } from '@hey/ui';
+import { type FC, useRef } from 'react';
+import usePreventScrollOnNumberInput from 'src/hooks/usePreventScrollOnNumberInput';
 
 import { useSwapActionStore } from '.';
 
 const PoolConfig: FC = () => {
   const { rewardsPoolId, setRewardsPoolId } = useSwapActionStore();
+  const inputRef = useRef<HTMLInputElement>(null);
+  usePreventScrollOnNumberInput(inputRef);
 
   return (
     <div className="mt-5">
@@ -21,6 +23,7 @@ const PoolConfig: FC = () => {
       {rewardsPoolId !== null ? (
         <div className="ml-8 mt-4 flex space-x-2 text-sm">
           <Input
+            className="no-spinner"
             label="Pool ID"
             min="1"
             onChange={(event) => {
@@ -29,6 +32,7 @@ const PoolConfig: FC = () => {
               );
             }}
             placeholder="5"
+            ref={inputRef}
             type="number"
             value={rewardsPoolId}
           />
