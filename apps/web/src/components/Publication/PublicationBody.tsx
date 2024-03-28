@@ -79,9 +79,16 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   const showPoll = Boolean(pollId);
   // Show sharing link
   const showSharingLink = metadata.__typename === 'LinkMetadataV3';
+  // Show quote
+  const showQuote = targetPublication.__typename === 'Quote';
   // Show oembed if no NFT, no attachments, no quoted publication
   const showOembed =
-    !showSharingLink && hasURLs && !showLive && !showAttachments && !quoted;
+    !showSharingLink &&
+    hasURLs &&
+    !showLive &&
+    !showAttachments &&
+    !quoted &&
+    !showQuote;
 
   return (
     <div className="break-words">
@@ -120,9 +127,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       {showSharingLink ? (
         <Oembed publicationId={publication.id} url={metadata.sharingLink} />
       ) : null}
-      {targetPublication.__typename === 'Quote' && (
-        <Quote publication={targetPublication.quoteOn} />
-      )}
+      {showQuote && <Quote publication={targetPublication.quoteOn} />}
       <Metadata metadata={targetPublication.metadata} />
     </div>
   );

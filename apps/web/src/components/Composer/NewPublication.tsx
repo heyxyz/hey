@@ -547,6 +547,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       ) : null}
       {showPollEditor ? <PollEditor /> : null}
       {showLiveVideoEditor ? <LivestreamEditor /> : null}
+      <OpenActions />
+      {!quotedPublication ? <LinkPreviews /> : null}
+      <NewAttachments attachments={attachments} />
       {quotedPublication ? (
         <Wrapper className="m-5" zeroPadding>
           <QuotedPublication
@@ -555,9 +558,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           />
         </Wrapper>
       ) : null}
-      <LinkPreviews />
-      <OpenActions />
-      <NewAttachments attachments={attachments} />
       <div className="divider mx-5" />
       <div className="block items-center px-5 py-3 sm:flex">
         <div className="flex items-center space-x-4">
