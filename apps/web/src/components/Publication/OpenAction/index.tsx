@@ -46,7 +46,7 @@ const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
         )}
       >
         <motion.button
-          aria-label="Action"
+          aria-label="Collect"
           className={cn(
             hasActed ? 'hover:bg-brand-300/20' : 'hover:bg-gray-300/20',
             'rounded-full p-1.5 outline-offset-2'
@@ -61,7 +61,7 @@ const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
         >
           <Tooltip
             content={`${humanize(countOpenActions)} ${plur(
-              'Action',
+              'Collect',
               countOpenActions
             )}`}
             placement="top"

@@ -41,6 +41,7 @@ import OnchainMeta from './OnchainMeta';
 import Quotes from './Quotes';
 import RelevantPeople from './RelevantPeople';
 import PublicationPageShimmer from './Shimmer';
+import Tippers from './Tippers';
 
 interface HiddenCommentFeedState {
   setShowHiddenComments: (show: boolean) => void;
@@ -70,6 +71,7 @@ const ViewPublication: NextPage = () => {
   const showMirrors = pathname === '/posts/[id]/mirrors';
   const showLikes = pathname === '/posts/[id]/likes';
   const showCollectors = pathname === '/posts/[id]/collectors';
+  const showTippers = pathname === '/posts/[id]/tippers';
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, {
@@ -101,7 +103,7 @@ const ViewPublication: NextPage = () => {
   if (!isReady || loading) {
     return (
       <PublicationPageShimmer
-        profileList={showMirrors || showLikes || showCollectors}
+        profileList={showMirrors || showLikes || showCollectors || showTippers}
         publicationList={showQuotes}
       />
     );
@@ -138,6 +140,8 @@ const ViewPublication: NextPage = () => {
           <Mirrors publicationId={targetPublication.id} />
         ) : showCollectors ? (
           <Collectors publicationId={targetPublication.id} />
+        ) : showTippers ? (
+          <Tippers publicationId={targetPublication.id} />
         ) : (
           <>
             <Card>

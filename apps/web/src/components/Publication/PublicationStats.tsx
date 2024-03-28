@@ -1,6 +1,10 @@
-import type { PublicationStats as IPublicationStats } from '@hey/lens';
 import type { FC } from 'react';
 
+import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
+import {
+  type PublicationStats as IPublicationStats,
+  useUnknownOpenActionDataQuery
+} from '@hey/lens';
 import getPublicationsViews from '@hey/lib/getPublicationsViews';
 import nFormatter from '@hey/lib/nFormatter';
 import Link from 'next/link';
@@ -17,6 +21,19 @@ const PublicationStats: FC<PublicationStatsProps> = ({
   publicationStats
 }) => {
   const [views, setViews] = useState<number>(0);
+
+  const { data: tipData } = useUnknownOpenActionDataQuery({
+    variables: {
+      module: VerifiedOpenActionModules.Tip,
+      pubId: publicationId
+    }
+  });
+
+  const countTips =
+    (tipData?.publication &&
+      'operations' in tipData.publication &&
+      tipData.publication.stats.countOpenActions) ||
+    0;
 
   useEffect(() => {
     // Get Views
@@ -35,7 +52,8 @@ const PublicationStats: FC<PublicationStatsProps> = ({
     quotes > 0 ||
     countOpenActions > 0 ||
     bookmarks > 0 ||
-    views > 0;
+    views > 0 ||
+    countTips > 0;
 
   if (!showStats) {
     return null;
@@ -89,6 +107,17 @@ const PublicationStats: FC<PublicationStatsProps> = ({
               {nFormatter(countOpenActions)}
             </b>{' '}
             {plur('Collect', countOpenActions)}
+          </Link>
+        ) : null}
+        {countTips > 0 ? (
+          <Link
+            className="outline-offset-2"
+            href={`/posts/${publicationId}/tippers`}
+          >
+            <b className="text-black dark:text-white">
+              {nFormatter(countTips)}
+            </b>{' '}
+            {plur('Tip', countTips)}
           </Link>
         ) : null}
         {bookmarks > 0 ? (
