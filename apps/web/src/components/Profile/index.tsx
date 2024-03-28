@@ -14,15 +14,18 @@ import { PAGEVIEW } from '@hey/data/tracking';
 import { useProfileQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { EmptyState, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import getProfileTheme from '@lib/getProfileTheme';
 import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { createTrackedSelector } from 'react-tracked';
 import { ProfileFeedType } from 'src/enums';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { create } from 'zustand';
 
 import Cover from './Cover';
 import Details from './Details';
@@ -33,6 +36,24 @@ import Following from './Following';
 import MutualFollowersList from './MutualFollowers/List';
 import ProfilePageShimmer from './Shimmer';
 
+export interface ProfileTheme {
+  backgroundColour: string;
+  bioFont: string;
+  publicationFont: string;
+}
+
+interface State {
+  profileTheme: null | ProfileTheme;
+  setProfileTheme: (profileTheme: ProfileTheme) => void;
+}
+
+const store = create<State>((set) => ({
+  profileTheme: null,
+  setProfileTheme: (profileTheme) => set(() => ({ profileTheme }))
+}));
+
+export const useProfileThemeStore = createTrackedSelector(store);
+
 const ViewProfile: NextPage = () => {
   const {
     isReady,
@@ -40,6 +61,7 @@ const ViewProfile: NextPage = () => {
     query: { handle, id, source, type }
   } = useRouter();
   const { currentProfile } = useProfileStore();
+  const { profileTheme, setProfileTheme } = useProfileThemeStore();
 
   const showFollowing = pathname === '/u/[handle]/following';
   const showFollowers = pathname === '/u/[handle]/followers';
@@ -70,6 +92,15 @@ const ViewProfile: NextPage = () => {
     : ProfileFeedType.Feed;
 
   const { data, error, loading } = useProfileQuery({
+    onCompleted: (data) => {
+      if (data.profile?.id === '0x0d') {
+        setProfileTheme({
+          backgroundColour: '#f3ecea',
+          bioFont: 'audiowide',
+          publicationFont: 'audiowide'
+        });
+      }
+    },
     skip: id ? !id : !handle,
     variables: {
       request: {
@@ -116,8 +147,10 @@ const ViewProfile: NextPage = () => {
     return <Custom500 />;
   }
 
+  const theme = getProfileTheme(profileTheme);
+
   return (
-    <>
+    <span style={{ backgroundColor: theme?.backgroundColour }}>
       <MetaTags
         title={`${getProfile(profile).displayName} (${
           getProfile(profile).slugWithPrefix
@@ -172,7 +205,7 @@ const ViewProfile: NextPage = () => {
           )}
         </GridItemEight>
       </GridLayout>
-    </>
+    </span>
   );
 };
 

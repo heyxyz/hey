@@ -8,7 +8,7 @@ import { APP_NAME, IS_MAINNET } from '@hey/data/constants';
 import { usePublicationQuery } from '@hey/lens';
 import { ErrorMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { signatureFont } from '@lib/fonts';
+import { noricanFont } from '@lib/fonts';
 import Link from 'next/link';
 
 interface MintProps {
@@ -68,7 +68,7 @@ const Mint: FC<MintProps> = ({ onCollectSuccess }) => {
         <div
           className={cn(
             'flex items-center space-x-2 pt-3 text-2xl',
-            signatureFont.className
+            noricanFont.className
           )}
         >
           <div>-</div>
