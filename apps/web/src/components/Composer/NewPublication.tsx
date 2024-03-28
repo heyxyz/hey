@@ -548,7 +548,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       {showPollEditor ? <PollEditor /> : null}
       {showLiveVideoEditor ? <LivestreamEditor /> : null}
       <OpenActions />
-      {!quotedPublication ? <LinkPreviews /> : null}
+      <LinkPreviews />
       <NewAttachments attachments={attachments} />
       {quotedPublication ? (
         <Wrapper className="m-5" zeroPadding>
