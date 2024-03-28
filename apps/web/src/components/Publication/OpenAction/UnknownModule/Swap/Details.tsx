@@ -40,8 +40,6 @@ const Details: FC<DetailsProps> = ({
     return null;
   }
 
-  const oneTokenValue = (Number(quote.amountOut) / value).toFixed(4);
-
   return (
     <Card className="ld-text-gray-500 text-sm" forceRounded>
       <Disclosure>
@@ -50,7 +48,7 @@ const Details: FC<DetailsProps> = ({
             <Disclosure.Button className="w-full px-5 py-3">
               <div className="flex items-center justify-between">
                 <div>
-                  1 WMATIC = {oneTokenValue} {tokenMetadata.symbol}
+                  1 WMATIC = {quote.amountOut} {tokenMetadata.symbol}
                 </div>
                 {open ? (
                   <ChevronUpIcon className="size-3" />
