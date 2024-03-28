@@ -66,14 +66,14 @@
     "react-hot-toast": "^2.4.1",
     "react-markdown": "^9.0.0",
     "react-tracked": "^1.7.14",
-    "react-virtuoso": "^4.7.4",
+    "react-virtuoso": "^4.7.5",
     "remark-breaks": "^4.0.0",
     "remark-linkify-regex": "^1.2.1",
     "strip-markdown": "^6.0.0",
     "urlcat": "^3.1.0",
     "use-resize-observer": "^9.1.0",
     "uuid": "^9.0.1",
-    "viem": "^2.9.3",
+    "viem": "^2.9.4",
     "wagmi": "^2.5.13",
     "zod": "^3.22.4",
     "zustand": "^4.5.2"
@@ -84,12 +84,12 @@
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.6",
     "@types/node": "^20.11.30",
-    "@types/react": "^18.2.72",
+    "@types/react": "^18.2.73",
     "@types/react-dom": "^18.2.22",
     "@types/uuid": "^9.0.8",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.38",
-    "tailwindcss": "^3.4.1",
+    "tailwindcss": "^3.4.3",
     "typescript": "^5.4.3"
   }
 }
