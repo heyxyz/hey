@@ -187,7 +187,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     });
 
     setPublicationContent('');
-    setQuotedPublication(null);
     setShowPollEditor(false);
     resetPollConfig();
     setShowLiveVideoEditor(false);
@@ -224,6 +223,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     }
 
     setIsLoading(false);
+    setQuotedPublication(null);
     reset();
 
     if (!isComment) {
