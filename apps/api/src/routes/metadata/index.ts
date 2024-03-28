@@ -13,7 +13,7 @@ export const post: Handler = async (req, res) => {
   }
 
   try {
-    const url = 'https://node2.irys.xyz';
+    const url = 'https://arweave.mainnet.irys.xyz/tx/matic';
     const token = 'matic';
     const client = new NodeIrys({
       key: process.env.IRYS_PRIVATE_KEY,
