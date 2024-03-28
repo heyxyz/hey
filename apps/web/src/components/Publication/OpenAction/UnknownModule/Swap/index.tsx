@@ -20,11 +20,12 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Card } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN } from 'src/constants';
 import useTokenMetadata from 'src/hooks/alchemy/useTokenMetadata';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
+import usePreventScrollOnNumberInput from 'src/hooks/usePreventScrollOnNumberInput';
 import {
   concat,
   decodeAbiParameters,
@@ -51,6 +52,9 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
   const [quoteLoading, setQuoteLoading] = useState<boolean>(false);
   const [canSwap, setCanSwap] = useState<boolean>(false);
   const { address } = useAccount();
+
+  const inputRef = useRef<HTMLInputElement>(null);
+  usePreventScrollOnNumberInput(inputRef);
 
   const { data: moduleMetadata, loading: moduleMetadataLoading } =
     useModuleMetadataQuery({
@@ -205,6 +209,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
               setValue(e.target.value);
             }}
             placeholder="0"
+            ref={inputRef}
             type="number"
             value={value || ''}
           />
