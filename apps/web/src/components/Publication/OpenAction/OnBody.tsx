@@ -31,8 +31,8 @@ const OpenActionOnBody: FC<OpenActionOnBodyProps> = ({ publication }) => {
   return (
     <div className="mt-3">
       {module.contract.address === VerifiedOpenActionModules.Swap &&
-        (!isFeatureAvailable('swap-oa') ||
-          !isFeatureAvailable(FeatureFlag.LensTeam)) && (
+        (isFeatureAvailable('swap-oa') ||
+          isFeatureAvailable(FeatureFlag.LensTeam)) && (
           <SwapOpenAction
             module={module as UnknownOpenActionModuleSettings}
             publication={targetPublication}
