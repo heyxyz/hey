@@ -523,9 +523,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     setShowDiscardModal(false);
   };
 
-  useUnmountEffect(() => {
-    reset();
-  });
+  useUnmountEffect(() => reset());
 
   return (
     <Card
