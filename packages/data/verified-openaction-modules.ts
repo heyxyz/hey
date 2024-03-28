@@ -2,7 +2,7 @@ import { IS_MAINNET } from './constants';
 
 export const VerifiedOpenActionModules = {
   DecentNFT: IS_MAINNET
-    ? '0x14860D0495CAF16914Db10117D4111AC4Da2F0a5'
+    ? '0xa04e00b99DD47835acfEaf4DF7f3D5afCB1F77c3'
     : '0xe310b5Ed0B3c19B1F0852Ce985a4C38BAE738FDb',
   Tip: IS_MAINNET
     ? '0x22cb67432C101a9b6fE0F9ab542c8ADD5DD48153'
