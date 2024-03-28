@@ -17,7 +17,7 @@ const OpenActions: FC = () => {
   }
 
   return (
-    <div className="relative w-fit p-5">
+    <div className="relative m-5 w-fit">
       <SwapOpenAction
         module={
           {
