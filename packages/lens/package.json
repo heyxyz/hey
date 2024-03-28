@@ -16,7 +16,7 @@
     "@apollo/client": "^3.9.9",
     "@hey/data": "workspace:*",
     "axios": "^1.6.8",
-    "graphql-ws": "^5.15.0"
+    "graphql-ws": "^5.16.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.2",
