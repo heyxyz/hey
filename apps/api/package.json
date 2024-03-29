@@ -27,7 +27,7 @@
     "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
     "@hey/lib": "workspace:*",
-    "@irys/sdk": "^0.1.20",
+    "@irys/sdk": "^0.1.21",
     "@prisma/client": "^5.11.0",
     "axios": "^1.6.8",
     "cors": "^2.8.5",
@@ -42,7 +42,7 @@
     "ua-parser-js": "^1.0.37",
     "urlcat": "^3.1.0",
     "uuid": "^9.0.1",
-    "viem": "^2.9.4",
+    "viem": "^2.9.5",
     "vite-express": "^0.16.0",
     "zod": "^3.22.4"
   },
