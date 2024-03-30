@@ -3,7 +3,11 @@ import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
-import { ArrowPathIcon, UsersIcon } from '@heroicons/react/24/outline';
+import {
+  ArrowPathIcon,
+  ArrowRightCircleIcon,
+  UsersIcon
+} from '@heroicons/react/24/outline';
 import {
   ExploreProfilesOrderByType,
   LimitType,
@@ -93,7 +97,7 @@ const Followerings: FC = () => {
                       profile={profile.follower as Profile}
                     />
                   </Link>
-                  <div className="mx-1">follows</div>
+                  <ArrowRightCircleIcon className="mx-2 size-5" />
                   <Link href={getProfile(profile.following as Profile).link}>
                     <SmallUserProfile
                       hideSlug
