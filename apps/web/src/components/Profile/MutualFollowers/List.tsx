@@ -54,7 +54,6 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({
   if (mutualFollowers?.length === 0) {
     return (
       <EmptyState
-        hideCard
         icon={<UsersIcon className="size-8" />}
         message={
           <div>
