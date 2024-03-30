@@ -6,8 +6,10 @@ import UserProfile from '@components/Shared/UserProfile';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { ProfileLinkSource, SEARCH } from '@hey/data/tracking';
 import { useProfilesQuery } from '@hey/lens';
+import getProfile from '@hey/lib/getProfile';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Leafwatch } from '@lib/leafwatch';
+import { useRouter } from 'next/router';
 import { useSearchStore } from 'src/store/persisted/useSearchStore';
 
 interface RecentProfilesProps {
@@ -15,6 +17,7 @@ interface RecentProfilesProps {
 }
 
 const RecentProfiles: FC<RecentProfilesProps> = ({ onProfileClick }) => {
+  const { push } = useRouter();
   const {
     addProfile: addToRecentProfiles,
     clearProfile,
@@ -57,6 +60,7 @@ const RecentProfiles: FC<RecentProfilesProps> = ({ onProfileClick }) => {
               key={profile.id}
               onClick={() => {
                 addToRecentProfiles(profile.id);
+                push(getProfile(profile as Profile).link);
                 onProfileClick();
               }}
             >
@@ -64,6 +68,7 @@ const RecentProfiles: FC<RecentProfilesProps> = ({ onProfileClick }) => {
                 <UserProfile
                   hideFollowButton
                   hideUnfollowButton
+                  linkToProfile={false}
                   profile={profile as Profile}
                   showUserPreview={false}
                   source={ProfileLinkSource.RecentSearch}
