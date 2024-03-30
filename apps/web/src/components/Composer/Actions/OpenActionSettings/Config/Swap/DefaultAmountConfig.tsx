@@ -17,8 +17,8 @@ const DefaultAmountConfig: FC = () => {
   return (
     <div className="mt-5">
       <ToggleWithHelper
-        description="Set a default amount for the swap action."
-        heading="Default amount"
+        description="Set a default input amount for the swap"
+        heading="Default input amount"
         icon={<CurrencyDollarIcon className="size-5" />}
         on={amount > 0}
         setOn={() => {
