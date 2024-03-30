@@ -23,7 +23,6 @@ import { Leafwatch } from '@lib/leafwatch';
 import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN } from 'src/constants';
-import useTokenMetadata from 'src/hooks/alchemy/useTokenMetadata';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
 import usePreventScrollOnNumberInput from 'src/hooks/usePreventScrollOnNumberInput';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -50,6 +49,8 @@ interface SwapOpenActionProps {
 const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
   const { currentProfile } = useProfileStore();
   const [value, setValue] = useState<number>(0);
+  const [firstQuote, setFirstQuote] = useState<null | UniswapQuote>(null);
+  const [firstQuoteLoading, setFirstQuoteLoading] = useState<boolean>(false);
   const [quote, setQuote] = useState<null | UniswapQuote>(null);
   const [quoteLoading, setQuoteLoading] = useState<boolean>(false);
   const [canSwap, setCanSwap] = useState<boolean>(false);
@@ -82,13 +83,6 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
   );
   const outputTokenAddress = decoded[4];
 
-  const { data: outTokenMetadata, loading: outTokenMetadataLoading } =
-    useTokenMetadata({
-      address: outputTokenAddress,
-      chain: CHAIN.id,
-      enabled: outputTokenAddress !== undefined
-    });
-
   // Begin: Balance Check
   const { data: wmaticBalanceData, isLoading: wmaticBalanceLoading } =
     useBalance({
@@ -110,7 +104,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
     ? parseFloat(
         formatUnits(
           outputTokenBalanceData.value,
-          outTokenMetadata?.decimals || 18
+          Number(firstQuote?.route.tokenOut.decimals) || 18
         )
       ).toFixed(2)
     : 0;
@@ -145,19 +139,34 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, outputTokenAddress]);
 
+  useEffect(() => {
+    if (outputTokenAddress) {
+      setFirstQuoteLoading(true);
+      getUniswapQuote(WMATIC_ADDRESS, outputTokenAddress, 1, CHAIN.id)
+        .then((quote) => {
+          setFirstQuote(quote);
+        })
+        .finally(() => setFirstQuoteLoading(false));
+    }
+  }, [outputTokenAddress]);
+
   if (
     moduleMetadataLoading ||
-    outTokenMetadataLoading ||
+    firstQuoteLoading ||
     wmaticBalanceLoading ||
     outputTokenBalanceLoading
   ) {
     return (
-      <div className="w-[23rem]">
+      <div className="w-[21.8rem]">
         <div className="shimmer h-[68.8px] rounded-t-xl" />
         <div className="shimmer mt-[1px] h-[68.8px] rounded-b-xl" />
         <div className="shimmer mt-5 h-[34px] w-full rounded-full" />
       </div>
     );
+  }
+
+  if (!firstQuote) {
+    return null;
   }
 
   const act = async () => {
@@ -256,16 +265,8 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
           />
           <div className="mr-5 flex flex-col items-end space-y-0.5">
             <div className="flex items-center space-x-1.5">
-              {outTokenMetadata?.logo ? (
-                <img
-                  alt={outTokenMetadata?.symbol || 'Symbol'}
-                  className="size-5 rounded-full"
-                  src={outTokenMetadata.logo}
-                />
-              ) : (
-                <CurrencyDollarIcon className="size-5" />
-              )}
-              <b>{outTokenMetadata?.symbol}</b>
+              <CurrencyDollarIcon className="size-5" />
+              <b>{firstQuote?.route.tokenOut.symbol}</b>
             </div>
             {currentProfile ? (
               <div className="ld-text-gray-500 text-xs">
@@ -275,11 +276,11 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
           </div>
         </div>
       </Card>
-      {outTokenMetadata ? (
+      {firstQuote ? (
         <Details
           calculatedQuote={quote}
           decodedCallData={decoded}
-          tokenMetadata={outTokenMetadata}
+          firstQuote={firstQuote}
           value={value}
         />
       ) : null}
