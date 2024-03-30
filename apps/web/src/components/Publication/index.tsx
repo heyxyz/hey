@@ -114,7 +114,6 @@ const ViewPublication: NextPage = () => {
   if (error) {
     return <Custom500 />;
   }
-
   const publication = data.publication as AnyPublication;
   const targetPublication = isMirrorPublication(publication)
     ? publication.mirrorOn
@@ -157,10 +156,12 @@ const ViewPublication: NextPage = () => {
                 <CommentWarning />
               )
             ) : null}
-            <Feed
-              isHidden={publication.isHidden}
-              publicationId={targetPublication.id}
-            />
+            {!publication.isHidden && (
+              <Feed
+                isHidden={publication.isHidden}
+                publicationId={targetPublication.id}
+              />
+            )}
             <NoneRelevantFeed publicationId={targetPublication.id} />
           </>
         )}

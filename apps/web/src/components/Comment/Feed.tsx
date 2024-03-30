@@ -80,7 +80,6 @@ const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
     const ids = data?.publications?.items?.map((p) => p.id) || [];
     await fetchAndStoreViews(ids);
   };
-
   if (loading) {
     return <PublicationsShimmer />;
   }
@@ -98,7 +97,7 @@ const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
     );
   }
 
-  return (
+  return isHidden ? null : (
     <>
       {queuedComments.map((txn) => (
         <QueuedPublication key={txn.txId} txn={txn} />

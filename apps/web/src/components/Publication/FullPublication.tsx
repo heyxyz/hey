@@ -46,59 +46,59 @@ const FullPublication: FC<FullPublicationProps> = ({
         <PublicationAvatar publication={publication} />
         <div className="w-[calc(100%-55px)]">
           <PublicationHeader publication={targetPublication} />
-          {targetPublication.isHidden ? (
-            <HiddenPublication type={targetPublication.__typename} />
-          ) : (
-            <>
-              <PublicationBody
-                contentClassName="full-page-publication-markup"
-                publication={targetPublication}
-              />
-              <div className="ld-text-gray-500 my-3 text-sm">
-                <span>{formatDate(createdAt, 'hh:mm A · MMM D, YYYY')}</span>
-                {publishedOn?.id ? (
-                  <span> · Posted via {getAppName(publishedOn.id)}</span>
-                ) : null}
-              </div>
-              <PublicationStats
-                publicationId={targetPublication.id}
-                publicationStats={targetPublication.stats}
-              />
-              <div className="divider" />
-              <div className="flex items-center justify-between">
-                <PublicationActions publication={targetPublication} showCount />
-                {hasHiddenComments ? (
-                  <div className="mt-2">
-                    <motion.button
-                      aria-label="Like"
-                      className={cn(
-                        showHiddenComments
-                          ? 'text-green-500 hover:bg-green-300/20'
-                          : 'ld-text-gray-500 hover:bg-gray-300/20',
-                        'rounded-full p-1.5 outline-offset-2'
-                      )}
-                      onClick={() => setShowHiddenComments(!showHiddenComments)}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      <Tooltip
-                        content={
-                          showHiddenComments
-                            ? 'Hide hidden comments'
-                            : 'Show hidden comments'
-                        }
-                        placement="top"
-                        withDelay
-                      >
-                        <QueueListIcon className="size-5" />
-                      </Tooltip>
-                    </motion.button>
-                  </div>
-                ) : null}
-              </div>
-            </>
-          )}
         </div>
       </div>
+      {targetPublication.isHidden ? ( // Check if parent is hidden
+        <HiddenPublication type={targetPublication.__typename} />
+      ) : (
+        <>
+          <PublicationBody
+            contentClassName="full-page-publication-markup"
+            publication={targetPublication}
+          />
+          <div className="ld-text-gray-500 my-3 text-sm">
+            <span>{formatDate(createdAt, 'hh:mm A · MMM D, YYYY')}</span>
+            {publishedOn?.id ? (
+              <span> · Posted via {getAppName(publishedOn.id)}</span>
+            ) : null}
+          </div>
+          <PublicationStats
+            publicationId={targetPublication.id}
+            publicationStats={targetPublication.stats}
+          />
+          <div className="divider" />
+          <div className="flex items-center justify-between">
+            <PublicationActions publication={targetPublication} showCount />
+            {hasHiddenComments ? (
+              <div className="mt-2">
+                <motion.button
+                  aria-label="Like"
+                  className={cn(
+                    showHiddenComments
+                      ? 'text-green-500 hover:bg-green-300/20'
+                      : 'ld-text-gray-500 hover:bg-gray-300/20',
+                    'rounded-full p-1.5 outline-offset-2'
+                  )}
+                  onClick={() => setShowHiddenComments(!showHiddenComments)}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <Tooltip
+                    content={
+                      showHiddenComments
+                        ? 'Hide hidden comments'
+                        : 'Show hidden comments'
+                    }
+                    placement="top"
+                    withDelay
+                  >
+                    <QueueListIcon className="size-5" />
+                  </Tooltip>
+                </motion.button>
+              </div>
+            ) : null}
+          </div>
+        </>
+      )}
     </article>
   );
 };

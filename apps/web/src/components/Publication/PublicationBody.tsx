@@ -18,6 +18,7 @@ import { memo } from 'react';
 import { isIOS, isMobile } from 'react-device-detect';
 
 import EncryptedPublication from './EncryptedPublication';
+import HiddenPublication from './HiddenPublication';
 import Metadata from './Metadata';
 import NotSupportedPublication from './NotSupportedPublication';
 import OpenActionOnBody from './OpenAction/OnBody';
@@ -58,10 +59,17 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     }
   }
 
-  if (targetPublication.isEncrypted) {
-    return <EncryptedPublication publication={targetPublication} />;
-  }
+  if ('commentOn' in targetPublication) {
+    if (targetPublication.commentOn.isHidden) {
+      return (
+        <HiddenPublication type={targetPublication.commentOn.__typename} />
+      );
+    }
 
+    if (targetPublication.commentOn.isEncrypted) {
+      return <EncryptedPublication publication={targetPublication.commentOn} />;
+    }
+  }
   if (!isPublicationMetadataTypeAllowed(metadata.__typename)) {
     return <NotSupportedPublication type={metadata.__typename} />;
   }

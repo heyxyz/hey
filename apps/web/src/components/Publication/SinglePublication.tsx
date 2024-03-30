@@ -37,7 +37,6 @@ const SinglePublication: FC<SinglePublicationProps> = ({
 }) => {
   const rootPublication = feedItem ? feedItem?.root : publication;
   usePushToImpressions(rootPublication.id);
-
   return (
     <PublicationWrapper
       className={cn(
@@ -51,7 +50,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
         <ActionType feedItem={feedItem} />
       ) : (
         <PublicationType
-          publication={publication}
+          publication={rootPublication}
           showThread={showThread}
           showType={showType}
         />
@@ -63,8 +62,8 @@ const SinglePublication: FC<SinglePublicationProps> = ({
             feedItem={feedItem}
             publication={rootPublication}
           />
-          {publication.isHidden ? (
-            <HiddenPublication type={publication.__typename} />
+          {rootPublication.isHidden ? (
+            <HiddenPublication type={rootPublication.__typename} />
           ) : (
             <>
               <PublicationBody
