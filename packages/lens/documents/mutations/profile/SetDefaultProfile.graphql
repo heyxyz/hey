@@ -1,0 +1,3 @@
+mutation SetDefaultProfile($request: SetDefaultProfileRequest!) {
+  setDefaultProfile(request: $request)
+}
