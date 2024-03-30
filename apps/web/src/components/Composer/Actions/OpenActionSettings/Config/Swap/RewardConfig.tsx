@@ -12,7 +12,7 @@ const RewardConfig: FC = () => {
   return (
     <div className="mt-5">
       <ToggleWithHelper
-        description="Add a fee on top of the swaps."
+        description="Add a fee on top of the swaps"
         heading="Charge a fee"
         icon={<ReceiptPercentIcon className="size-5" />}
         on={sharedRewardPercent > 0}
