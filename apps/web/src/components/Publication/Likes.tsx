@@ -55,7 +55,6 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
     return (
       <div className="p-5">
         <EmptyState
-          hideCard
           icon={<HeartIcon className="size-8" />}
           message="No likes."
         />

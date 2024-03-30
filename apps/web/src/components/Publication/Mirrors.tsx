@@ -54,7 +54,6 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
     return (
       <div className="p-5">
         <EmptyState
-          hideCard
           icon={<ArrowsRightLeftIcon className="size-8" />}
           message="No mirrors."
         />
