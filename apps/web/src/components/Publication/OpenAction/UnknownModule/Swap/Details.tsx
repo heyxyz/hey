@@ -1,42 +1,24 @@
 import type { UniswapQuote } from '@hey/types/hey';
-import type { TokenMetadataResponse } from 'alchemy-sdk';
 
 import { Disclosure } from '@headlessui/react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid';
-import { WMATIC_ADDRESS } from '@hey/data/constants';
-import getUniswapQuote from '@hey/lib/getUniswapQuote';
 import { Card, HelpTooltip } from '@hey/ui';
-import { type FC, useEffect, useState } from 'react';
-import { CHAIN } from 'src/constants';
+import { type FC } from 'react';
 
 interface DetailsProps {
   calculatedQuote: null | UniswapQuote;
   decodedCallData: any[];
-  tokenMetadata: TokenMetadataResponse;
+  firstQuote: null | UniswapQuote;
   value: number;
 }
 
 const Details: FC<DetailsProps> = ({
   calculatedQuote,
   decodedCallData,
-  tokenMetadata,
+  firstQuote,
   value
 }) => {
-  const [quote, setQuote] = useState<null | UniswapQuote>(null);
-  const [quoteFetched, setQuoteFetched] = useState<boolean>(false);
-  const token = decodedCallData[4];
-
-  useEffect(() => {
-    if (value > 0 && !quoteFetched) {
-      getUniswapQuote(WMATIC_ADDRESS, token, 1, CHAIN.id).then((quote) => {
-        setQuoteFetched(true);
-        setQuote(quote);
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
-
-  if (!value || !quote) {
+  if (!value || !firstQuote) {
     return null;
   }
 
@@ -48,7 +30,8 @@ const Details: FC<DetailsProps> = ({
             <Disclosure.Button className="w-full px-5 py-3">
               <div className="flex items-center justify-between">
                 <div>
-                  1 WMATIC = {quote.amountOut} {tokenMetadata.symbol}
+                  1 WMATIC = {firstQuote.amountOut}{' '}
+                  {firstQuote.route.tokenOut.symbol}
                 </div>
                 {open ? (
                   <ChevronUpIcon className="size-3" />
@@ -61,7 +44,9 @@ const Details: FC<DetailsProps> = ({
               <div className="divider" />
               <div className="item flex justify-between">
                 <div>Max. slippage</div>
-                <div>{calculatedQuote?.maxSlippage || quote.maxSlippage}%</div>
+                <div>
+                  {calculatedQuote?.maxSlippage || firstQuote.maxSlippage}%
+                </div>
               </div>
               <div className="item flex justify-between">
                 <div className="flex items-center space-x-1">
@@ -77,7 +62,7 @@ const Details: FC<DetailsProps> = ({
                   <span>Order Routing</span>
                   <HelpTooltip>
                     <div className="max-w-sm">
-                      {calculatedQuote?.routeString || quote.routeString}
+                      {calculatedQuote?.routeString || firstQuote.routeString}
                     </div>
                   </HelpTooltip>
                 </div>
