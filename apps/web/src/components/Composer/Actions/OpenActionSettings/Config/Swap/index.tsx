@@ -19,9 +19,11 @@ import RewardConfig from './RewardConfig';
 import TokenConfig from './TokenConfig';
 
 interface State {
+  canSwap: boolean;
   enabled: boolean;
   reset: () => void;
   rewardsPoolId: null | number;
+  setCanSwap: (canSwap: boolean) => void;
   setEnabled: (enabled: boolean) => void;
   setRewardsPoolId: (rewardsPoolId: null | number) => void;
   setSharedRewardPercent: (sharedRewardPercent: number) => void;
@@ -31,6 +33,7 @@ interface State {
 }
 
 const store = create<State>((set) => ({
+  canSwap: false,
   enabled: false,
   reset: () =>
     set({
@@ -40,6 +43,7 @@ const store = create<State>((set) => ({
       token: DEFAULT_COLLECT_TOKEN as Address
     }),
   rewardsPoolId: null,
+  setCanSwap: (canSwap) => set({ canSwap }),
   setEnabled: (enabled) => set({ enabled }),
   setRewardsPoolId: (rewardsPoolId) => set({ rewardsPoolId }),
   setSharedRewardPercent: (sharedRewardPercent) => set({ sharedRewardPercent }),
@@ -54,6 +58,7 @@ const SwapConfig: FC = () => {
   const { currentProfile } = useProfileStore();
   const { openAction, setOpenAction, setShowModal } = useOpenActionStore();
   const {
+    canSwap,
     enabled,
     reset,
     rewardsPoolId,
@@ -127,7 +132,7 @@ const SwapConfig: FC = () => {
           <div className="m-5">
             <SaveOrCancel
               onSave={onSave}
-              saveDisabled={token.length === 0 || !isAddress(token)}
+              saveDisabled={token.length === 0 || !isAddress(token) || !canSwap}
             />
           </div>
         </>

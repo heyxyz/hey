@@ -1,24 +1,41 @@
-import type { FC } from 'react';
+import type { UniswapQuote } from '@hey/types/hey';
 
+import { WMATIC_ADDRESS } from '@hey/data/constants';
+import getUniswapQuote from '@hey/lib/getUniswapQuote';
 import { Input } from '@hey/ui';
+import { type FC, useEffect, useState } from 'react';
 import { CHAIN } from 'src/constants';
-import useTokenMetadata from 'src/hooks/alchemy/useTokenMetadata';
 import { type Address, isAddress } from 'viem';
 
 import { useSwapActionStore } from '.';
 
 const TokenConfig: FC = () => {
-  const { setToken, token } = useSwapActionStore();
+  const { setCanSwap, setToken, token } = useSwapActionStore();
+  const [quote, setQuote] = useState<null | UniswapQuote>(null);
+  const [quoteLoading, setQuoteLoading] = useState<boolean>(false);
 
-  const { data } = useTokenMetadata({
-    address: token,
-    chain: CHAIN.id,
-    enabled: token !== undefined && isAddress(token)
-  });
+  useEffect(() => {
+    if (token) {
+      setCanSwap(false);
+      setQuoteLoading(true);
+      getUniswapQuote(WMATIC_ADDRESS, token, 1, CHAIN.id)
+        .then((quote) => {
+          setCanSwap(true);
+          setQuote(quote);
+        })
+        .catch(() => {
+          setQuote(null);
+          setCanSwap(false);
+        })
+        .finally(() => setQuoteLoading(false));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
 
   return (
     <div className="text-sm">
       <Input
+        disabled={quoteLoading}
         error={!isAddress(token)}
         label="Token address (Polygon)"
         min="1"
@@ -28,9 +45,13 @@ const TokenConfig: FC = () => {
         placeholder="0x..."
         value={token}
       />
-      {data ? (
+      {quoteLoading ? null : quote ? (
         <div className="mt-1 font-bold text-green-500">
-          {data.name} ({data.symbol})
+          {quote?.route.tokenOut.symbol}
+        </div>
+      ) : token ? (
+        <div className="mt-1 font-bold text-red-500">
+          No Uniswap Pools Available
         </div>
       ) : null}
     </div>
