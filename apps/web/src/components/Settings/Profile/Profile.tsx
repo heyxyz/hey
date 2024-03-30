@@ -439,7 +439,7 @@ const ProfileSettingsForm: FC = () => {
               <div>
                 <Image
                   alt="Cover picture crop preview"
-                  className="h-60 w-full rounded-lg object-cover"
+                  className="h-[175px] w-[675px] rounded-lg object-cover"
                   onError={({ currentTarget }) => {
                     currentTarget.src =
                       sanitizeDStorageUrl(coverPictureIpfsUrl);
@@ -488,13 +488,13 @@ const ProfileSettingsForm: FC = () => {
           <ImageCropperController
             imageSrc={coverPictureSrc}
             setCroppedAreaPixels={setCoverPictureCroppedAreaPixels}
-            targetSize={{ height: 350, width: 2545 }}
+            targetSize={{ height: 350, width: 1350 }}
           />
           <div className="flex w-full flex-wrap items-center justify-between gap-y-3">
             <div className="ld-text-gray-500 flex items-center space-x-1 text-left text-sm">
               <InformationCircleIcon className="size-4" />
               <div>
-                Optimal cover picture size is <b>2545x350</b>
+                Optimal cover picture size is <b>1350x350</b>
               </div>
             </div>
             <Button

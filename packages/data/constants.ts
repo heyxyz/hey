@@ -81,7 +81,7 @@ export const CRISP_WEBSITE_ID = '37355035-47aa-4f42-ad47-cffc3d1fea16';
 // Named transforms for ImageKit
 export const AVATAR = 'tr:w-250,h-250';
 export const EXPANDED_AVATAR = 'tr:w-1000,h-1000';
-export const COVER = 'tr:w-2545,h-350';
+export const COVER = 'tr:w-1350,h-350';
 export const VIDEO_THUMBNAIL = 'tr:h-500';
 export const ATTACHMENT = 'tr:w-500';
 
