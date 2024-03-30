@@ -9,6 +9,7 @@ import {
   LimitType,
   useSearchProfilesLazyQuery
 } from '@hey/lens';
+import getProfile from '@hey/lib/getProfile';
 import { Card, Input } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
@@ -118,12 +119,14 @@ const Search: FC<SearchProps> = ({ placeholder = 'Search…' }) => {
                     key={profile.id}
                     onClick={() => {
                       addToRecentProfiles(profile.id);
+                      push(getProfile(profile).link);
                       reset();
                     }}
                   >
                     <UserProfile
                       hideFollowButton
                       hideUnfollowButton
+                      linkToProfile={false}
                       profile={profile}
                       showUserPreview={false}
                       source={ProfileLinkSource.Search}
