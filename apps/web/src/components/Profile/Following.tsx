@@ -50,7 +50,6 @@ const Following: FC<FollowingProps> = ({ handle, profileId }) => {
   if (followings?.length === 0) {
     return (
       <EmptyState
-        hideCard
         icon={<UsersIcon className="size-8" />}
         message={
           <div>
