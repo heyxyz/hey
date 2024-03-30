@@ -9,5 +9,8 @@ query ModFollowers($request: PaginatedRequest!) {
         ...ProfileFields
       }
     }
+    pageInfo {
+      next
+    }
   }
 }

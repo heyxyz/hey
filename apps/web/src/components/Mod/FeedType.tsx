@@ -3,6 +3,7 @@ import type { Dispatch, FC, SetStateAction } from 'react';
 import {
   ClockIcon,
   MagnifyingGlassIcon,
+  UserPlusIcon,
   UsersIcon
 } from '@heroicons/react/24/outline';
 import { ModFeedType } from '@hey/data/enums';
@@ -33,6 +34,12 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
         icon={<UsersIcon className="size-4" />}
         name="Profiles"
         onClick={() => setFeedType(ModFeedType.PROFILES)}
+      />
+      <TabButton
+        active={feedType === ModFeedType.FOLLOWERINGS}
+        icon={<UserPlusIcon className="size-4" />}
+        name="Followerings"
+        onClick={() => setFeedType(ModFeedType.FOLLOWERINGS)}
       />
     </div>
   );
