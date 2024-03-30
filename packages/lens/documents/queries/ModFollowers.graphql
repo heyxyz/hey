@@ -1,0 +1,13 @@
+query ModFollowers($request: PaginatedRequest!) {
+  modFollowers(request: $request) {
+    items {
+      createdAt
+      follower {
+        ...ProfileFields
+      }
+      following {
+        ...ProfileFields
+      }
+    }
+  }
+}
