@@ -29,6 +29,10 @@ const getUniswapQuote = async (
   const output = {
     amountOut: Number(quote.quoteDecimals).toFixed(4),
     maxSlippage: quote.slippage.toString(),
+    route: {
+      tokenIn: quote.route[0][0]['tokenIn'],
+      tokenOut: quote.route[0][0]['tokenOut']
+    },
     routeString: quote.routeString
   };
 
