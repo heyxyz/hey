@@ -45,8 +45,7 @@ const nextConfig = {
         source: '/-/token-request'
       },
       {
-        destination:
-          'https://yoginth.notion.site/Hey-Changelog-eb2a41319c1b40be8e22e5deb01efd10',
+        destination: 'https://tana.pub/EltxDvrSt3Yn/hey-changelog',
         permanent: true,
         source: '/-/changelog'
       },
