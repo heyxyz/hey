@@ -9,12 +9,14 @@ import type { Address } from 'viem';
 import Loader from '@components/Shared/Loader';
 import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import { USD_ENABLED_TOKEN_SYMBOLS } from '@hey/data/tokens-symbols';
+import { PUBLICATION } from '@hey/data/tracking';
 import { TipIcon } from '@hey/icons';
 import { useModuleMetadataQuery } from '@hey/lens';
 import getAllTokens from '@hey/lib/api/getAllTokens';
 import getAssetSymbol from '@hey/lib/getAssetSymbol';
 import getRedstonePrice from '@hey/lib/getRedstonePrice';
 import { RangeSlider, Select } from '@hey/ui';
+import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -79,6 +81,11 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
   );
 
   const { actOnUnknownOpenAction, isLoading } = useActOnUnknownOpenAction({
+    onSuccess: () => {
+      Leafwatch.track(PUBLICATION.OPEN_ACTIONS.TIP.TIP, {
+        publication_id: publication.id
+      });
+    },
     signlessApproved: module.signlessApproved,
     successToast: "You've sent a tip!"
   });

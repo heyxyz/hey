@@ -2,21 +2,30 @@ import type {
   MirrorablePublication,
   UnknownOpenActionModuleSettings
 } from '@hey/lens';
+import type { UniswapQuote } from '@hey/types/hey';
 import type { FC } from 'react';
 import type { Address } from 'viem';
 
-import Loader from '@components/Shared/Loader';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
-import { REWARDS_ADDRESS, WMATIC_ADDRESS } from '@hey/data/constants';
+import {
+  KNOWN_ATTRIBUTES,
+  REWARDS_ADDRESS,
+  WMATIC_ADDRESS
+} from '@hey/data/constants';
+import { PUBLICATION } from '@hey/data/tracking';
 import { useModuleMetadataQuery } from '@hey/lens';
+import getPublicationAttribute from '@hey/lib/getPublicationAttribute';
+import getUniswapQuote from '@hey/lib/getUniswapQuote';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Card } from '@hey/ui';
 import errorToast from '@lib/errorToast';
-import isFeatureAvailable from '@lib/isFeatureAvailable';
-import { useState } from 'react';
+import { Leafwatch } from '@lib/leafwatch';
+import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN } from 'src/constants';
-import useTokenMetadata from 'src/hooks/alchemy/useTokenMetadata';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
+import usePreventScrollOnNumberInput from 'src/hooks/usePreventScrollOnNumberInput';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import {
   concat,
   decodeAbiParameters,
@@ -30,22 +39,43 @@ import {
 import { useAccount, useBalance } from 'wagmi';
 
 import ActionButton from '../ActionButton';
+import Details from './Details';
 
 interface SwapOpenActionProps {
   module: UnknownOpenActionModuleSettings;
-  publication: MirrorablePublication;
+  publication?: MirrorablePublication;
 }
 
 const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
+  const { currentProfile } = useProfileStore();
   const [value, setValue] = useState<number>(0);
+  const [firstQuote, setFirstQuote] = useState<null | UniswapQuote>(null);
+  const [firstQuoteLoading, setFirstQuoteLoading] = useState<boolean>(false);
+  const [quote, setQuote] = useState<null | UniswapQuote>(null);
+  const [quoteLoading, setQuoteLoading] = useState<boolean>(false);
+  const [canSwap, setCanSwap] = useState<boolean>(false);
   const { address } = useAccount();
 
-  const { data, loading } = useModuleMetadataQuery({
-    skip: !Boolean(module?.contract.address),
-    variables: { request: { implementation: module?.contract.address } }
-  });
+  const inputRef = useRef<HTMLInputElement>(null);
+  usePreventScrollOnNumberInput(inputRef);
 
-  const metadata = data?.moduleMetadata?.metadata;
+  const { data: moduleMetadata, loading: moduleMetadataLoading } =
+    useModuleMetadataQuery({
+      skip: !Boolean(module?.contract.address),
+      variables: { request: { implementation: module?.contract.address } }
+    });
+
+  const oADefaultAmount = getPublicationAttribute(
+    publication?.metadata.attributes,
+    KNOWN_ATTRIBUTES.SWAP_OA_DEFAULT_AMOUNT
+  );
+  const metadata = moduleMetadata?.moduleMetadata?.metadata;
+
+  useEffect(() => {
+    if (oADefaultAmount) {
+      setValue(Number(oADefaultAmount));
+    }
+  }, [oADefaultAmount]);
 
   const decoded = decodeAbiParameters(
     JSON.parse(metadata?.initializeCalldataABI || '{}'),
@@ -53,49 +83,90 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
   );
   const outputTokenAddress = decoded[4];
 
-  const { data: targetToken } = useTokenMetadata({
-    address: outputTokenAddress,
-    chain: CHAIN.id,
-    enabled: outputTokenAddress !== undefined
-  });
-
   // Begin: Balance Check
-  const { data: wmaticBalanceData } = useBalance({
-    address,
-    query: { refetchInterval: 8000 },
-    token: WMATIC_ADDRESS
-  });
+  const { data: wmaticBalanceData, isLoading: wmaticBalanceLoading } =
+    useBalance({
+      address,
+      query: { enabled: Boolean(currentProfile), refetchInterval: 8000 },
+      token: WMATIC_ADDRESS
+    });
   const wmaticBalance = wmaticBalanceData
     ? parseFloat(formatUnits(wmaticBalanceData.value, 18)).toFixed(2)
     : 0;
 
-  const { data: outputTokenBalanceData } = useBalance({
-    address,
-    query: { refetchInterval: 8000 },
-    token: outputTokenAddress
-  });
+  const { data: outputTokenBalanceData, isLoading: outputTokenBalanceLoading } =
+    useBalance({
+      address,
+      query: { enabled: Boolean(currentProfile), refetchInterval: 8000 },
+      token: outputTokenAddress
+    });
   const outputTokenBalance = outputTokenBalanceData
     ? parseFloat(
-        formatUnits(outputTokenBalanceData.value, targetToken?.decimals || 18)
+        formatUnits(
+          outputTokenBalanceData.value,
+          Number(firstQuote?.route.tokenOut.decimals) || 18
+        )
       ).toFixed(2)
     : 0;
   // End: Balance Check
 
   const { actOnUnknownOpenAction, isLoading } = useActOnUnknownOpenAction({
+    onSuccess: () => {
+      setValue(0);
+      setQuote(null);
+      Leafwatch.track(PUBLICATION.OPEN_ACTIONS.SWAP.SWAP, {
+        publication_id: publication?.id
+      });
+    },
     signlessApproved: module.signlessApproved,
     successToast: "You've successfully swapped!"
   });
 
-  if (!isFeatureAvailable('swap-oa')) {
-    return null;
+  useEffect(() => {
+    if (value > 0 && outputTokenAddress) {
+      setQuoteLoading(true);
+      getUniswapQuote(WMATIC_ADDRESS, outputTokenAddress, value, CHAIN.id)
+        .then((quote) => {
+          setCanSwap(true);
+          setQuote(quote);
+        })
+        .catch(() => setCanSwap(false))
+        .finally(() => setQuoteLoading(false));
+    } else {
+      setCanSwap(false);
+      setQuote(null);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value, outputTokenAddress]);
+
+  useEffect(() => {
+    if (outputTokenAddress) {
+      setFirstQuoteLoading(true);
+      getUniswapQuote(WMATIC_ADDRESS, outputTokenAddress, 1, CHAIN.id)
+        .then((quote) => {
+          setFirstQuote(quote);
+        })
+        .finally(() => setFirstQuoteLoading(false));
+    }
+  }, [outputTokenAddress]);
+
+  if (
+    moduleMetadataLoading ||
+    firstQuoteLoading ||
+    wmaticBalanceLoading ||
+    outputTokenBalanceLoading
+  ) {
+    return (
+      <div className="w-[21.8rem]">
+        <div className="shimmer h-[68.8px] rounded-t-xl" />
+        <div className="shimmer mt-[1px] h-[68.8px] rounded-b-xl" />
+        <div className="shimmer mt-5 h-[34px] w-full rounded-full" />
+      </div>
+    );
   }
 
-  if (loading) {
-    return (
-      <Card>
-        <Loader className="p-5" message="Loading swap open action..." small />
-      </Card>
-    );
+  if (!firstQuote) {
+    return null;
   }
 
   const act = async () => {
@@ -126,28 +197,38 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
       data.clientAddress
     ]);
 
+    if (!publication) {
+      return toast.success('Publish this publication to swap!');
+    }
+
     try {
-      await actOnUnknownOpenAction({
+      return await actOnUnknownOpenAction({
         address: module.contract.address,
         data: calldata,
         publicationId: publication.id
       });
-      setValue(0);
-
-      return;
     } catch (error) {
       errorToast(error);
     }
   };
 
+  const inputClassName =
+    'no-spinner ml-2 w-6/12 max-w-lg border-none py-5 text-xl outline-none focus:ring-0';
+
   return (
-    <div className="max-w-sm space-y-5">
+    <div className="w-fit max-w-sm space-y-5" onClick={stopEventPropagation}>
       <Card forceRounded>
         <div className="flex items-center justify-between">
           <input
-            className="no-spinner ml-2 w-6/12 max-w-lg border-none py-5 text-xl outline-none focus:ring-0"
-            onChange={(e) => setValue(Number(e.target.value))}
+            className={inputClassName}
+            disabled={!currentProfile}
+            inputMode="numeric"
+            onChange={(e) => {
+              // @ts-ignore
+              setValue(e.target.value);
+            }}
             placeholder="0"
+            ref={inputRef}
             type="number"
             value={value || ''}
           />
@@ -160,37 +241,53 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
               />
               <b>WMATIC</b>
             </div>
-            <div className="text-xs">Balance: {wmaticBalance}</div>
+            {currentProfile ? (
+              <div className="flex items-center space-x-1 text-xs">
+                <div className="ld-text-gray-500">Balance: {wmaticBalance}</div>
+                <button
+                  disabled={!currentProfile}
+                  onClick={() => setValue(Number(wmaticBalance))}
+                >
+                  Max
+                </button>
+              </div>
+            ) : null}
           </div>
         </div>
         <div className="divider" />
         <div className="flex items-center justify-between">
           <input
-            className="no-spinner ml-2 w-6/12 max-w-lg border-none py-5 text-xl outline-none focus:ring-0"
+            className={inputClassName}
             disabled
             placeholder="0"
             type="number"
+            value={quote?.amountOut || ''}
           />
           <div className="mr-5 flex flex-col items-end space-y-0.5">
             <div className="flex items-center space-x-1.5">
-              {targetToken?.logo ? (
-                <img
-                  alt={targetToken?.symbol || 'Symbol'}
-                  className="size-5 rounded-full"
-                  src={targetToken.logo}
-                />
-              ) : (
-                <CurrencyDollarIcon className="size-5" />
-              )}
-              <b>{targetToken?.symbol}</b>
+              <CurrencyDollarIcon className="size-5" />
+              <b>{firstQuote?.route.tokenOut.symbol}</b>
             </div>
-            <div className="text-xs">Balance: {outputTokenBalance}</div>
+            {currentProfile ? (
+              <div className="ld-text-gray-500 text-xs">
+                Balance: {outputTokenBalance}
+              </div>
+            ) : null}
           </div>
         </div>
       </Card>
+      {firstQuote ? (
+        <Details
+          calculatedQuote={quote}
+          decodedCallData={decoded}
+          firstQuote={firstQuote}
+          value={value}
+        />
+      ) : null}
       <ActionButton
         act={act}
         className="w-full"
+        isLoading={isLoading || quoteLoading || !canSwap}
         module={module}
         moduleAmount={{
           asset: {

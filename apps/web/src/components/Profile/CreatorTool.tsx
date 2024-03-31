@@ -10,7 +10,7 @@ import {
 import { FeatureFlag } from '@hey/data/feature-flags';
 import { CREATORTOOLS } from '@hey/data/tracking';
 import getPreferences from '@hey/lib/api/getPreferences';
-import { Card, Toggle } from '@hey/ui';
+import { Toggle } from '@hey/ui';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
@@ -75,11 +75,7 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
   };
 
   return (
-    <Card
-      as="aside"
-      className="mb-4 space-y-2.5 border-yellow-400 !bg-yellow-300/20 p-5 text-yellow-600"
-      forceRounded
-    >
+    <div className="space-y-2.5">
       <div className="font-bold">Creator Tool</div>
       <div className="space-y-2 pt-2 font-bold">
         {allowedFeatures.map((feature) => (
@@ -92,7 +88,7 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
           </ToggleWrapper>
         ))}
       </div>
-    </Card>
+    </div>
   );
 };
 

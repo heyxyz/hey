@@ -2,24 +2,28 @@ import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
+import { DEFAULT_COLLECT_TOKEN, KNOWN_ATTRIBUTES } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { useEffect } from 'react';
 import { createTrackedSelector } from 'react-tracked';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
+import { usePublicationAttributesStore } from 'src/store/non-persisted/publication/usePublicationAttributesStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { encodeAbiParameters, isAddress } from 'viem';
 import { create } from 'zustand';
 
 import SaveOrCancel from '../../SaveOrCancel';
+import DefaultAmountConfig from './DefaultAmountConfig';
 import PoolConfig from './PoolConfig';
 import RewardConfig from './RewardConfig';
 import TokenConfig from './TokenConfig';
 
 interface State {
+  canSwap: boolean;
   enabled: boolean;
   reset: () => void;
   rewardsPoolId: null | number;
+  setCanSwap: (canSwap: boolean) => void;
   setEnabled: (enabled: boolean) => void;
   setRewardsPoolId: (rewardsPoolId: null | number) => void;
   setSharedRewardPercent: (sharedRewardPercent: number) => void;
@@ -29,6 +33,7 @@ interface State {
 }
 
 const store = create<State>((set) => ({
+  canSwap: false,
   enabled: false,
   reset: () =>
     set({
@@ -38,6 +43,7 @@ const store = create<State>((set) => ({
       token: DEFAULT_COLLECT_TOKEN as Address
     }),
   rewardsPoolId: null,
+  setCanSwap: (canSwap) => set({ canSwap }),
   setEnabled: (enabled) => set({ enabled }),
   setRewardsPoolId: (rewardsPoolId) => set({ rewardsPoolId }),
   setSharedRewardPercent: (sharedRewardPercent) => set({ sharedRewardPercent }),
@@ -52,6 +58,7 @@ const SwapConfig: FC = () => {
   const { currentProfile } = useProfileStore();
   const { openAction, setOpenAction, setShowModal } = useOpenActionStore();
   const {
+    canSwap,
     enabled,
     reset,
     rewardsPoolId,
@@ -59,10 +66,17 @@ const SwapConfig: FC = () => {
     sharedRewardPercent,
     token
   } = useSwapActionStore();
+  const { removeAttribute } = usePublicationAttributesStore();
+
+  const resetOpenAction = () => {
+    removeAttribute(KNOWN_ATTRIBUTES.SWAP_OA_DEFAULT_AMOUNT);
+    reset();
+  };
 
   useEffect(() => {
     if (!openAction) {
-      reset();
+      removeAttribute(KNOWN_ATTRIBUTES.SWAP_OA_DEFAULT_AMOUNT);
+      resetOpenAction();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -100,7 +114,7 @@ const SwapConfig: FC = () => {
           setOn={() => {
             setEnabled(!enabled);
             if (enabled) {
-              reset();
+              resetOpenAction();
             }
           }}
         />
@@ -112,12 +126,13 @@ const SwapConfig: FC = () => {
             <TokenConfig />
             <RewardConfig />
             <PoolConfig />
+            <DefaultAmountConfig />
           </div>
           <div className="divider" />
           <div className="m-5">
             <SaveOrCancel
               onSave={onSave}
-              saveDisabled={token.length === 0 || !isAddress(token)}
+              saveDisabled={token.length === 0 || !isAddress(token) || !canSwap}
             />
           </div>
         </>

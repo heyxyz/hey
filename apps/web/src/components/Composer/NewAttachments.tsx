@@ -80,7 +80,7 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
 
   return attachmentsLength !== 0 ? (
     <div
-      className={cn(getClass(attachmentsLength)?.row, 'mt-3 grid gap-2', 'p-5')}
+      className={cn(getClass(attachmentsLength)?.row, 'mt-3 grid gap-2', 'm-5')}
     >
       {slicedAttachments?.map((attachment: NewAttachment, index: number) => {
         const isImage = attachment.type === 'Image';

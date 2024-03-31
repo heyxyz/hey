@@ -73,3 +73,20 @@ export type Preferences = {
 export type ProfileFlags = {
   isSuspended: boolean;
 };
+
+type UniswapToken = {
+  address: string;
+  chainId: number;
+  decimals: string;
+  symbol: string;
+};
+
+export type UniswapQuote = {
+  amountOut: string;
+  maxSlippage: string;
+  route: {
+    tokenIn: UniswapToken;
+    tokenOut: UniswapToken;
+  };
+  routeString: string;
+};
