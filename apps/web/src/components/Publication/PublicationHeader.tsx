@@ -42,6 +42,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
     >
       <PublicationProfile
         profile={profile}
+        publicationId={targetPublication.id}
         source={gardenerMode ? targetPublication.publishedOn?.id : undefined}
         timestamp={timestamp}
       />
