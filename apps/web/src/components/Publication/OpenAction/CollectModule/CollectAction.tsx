@@ -412,9 +412,10 @@ const CollectAction: FC<CollectActionProps> = ({
 
   if (!sessionProfileId) {
     return (
-      <div className="mt-5">
-        <LoginButton title="Login to Collect" />
-      </div>
+      <LoginButton
+        className="mt-5 w-full justify-center"
+        title="Login to Collect"
+      />
     );
   }
 
