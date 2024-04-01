@@ -5,6 +5,7 @@ import type {
   LegacyCollectRequest,
   OpenActionModule
 } from '@hey/lens';
+import type { OptimisticTransaction } from '@hey/types/misc';
 import type { FC, ReactNode } from 'react';
 
 import { useApolloClient } from '@apollo/client';
@@ -147,7 +148,7 @@ const CollectAction: FC<CollectActionProps> = ({
   }: {
     txHash?: string;
     txId?: string;
-  }) => {
+  }): OptimisticTransaction => {
     return {
       collectOn: targetPublication?.id,
       txHash,
@@ -209,9 +210,9 @@ const CollectAction: FC<CollectActionProps> = ({
         decrementLensHubOnchainSigNonce();
       },
       onSuccess: (hash: string) => {
-        onCompleted();
-        incrementLensHubOnchainSigNonce();
         addTransaction(generateOptimisticCollect({ txHash: hash }));
+        incrementLensHubOnchainSigNonce();
+        onCompleted();
       }
     }
   });

@@ -1,4 +1,5 @@
 import type { Profile, UnfollowRequest } from '@hey/lens';
+import type { OptimisticTransaction } from '@hey/types/misc';
 import type { FC } from 'react';
 
 import { LensHub } from '@hey/abis';
@@ -13,6 +14,7 @@ import {
 import { useApolloClient } from '@hey/lens/apollo';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
+import { OptmisticPublicationType } from '@hey/types/enums';
 import { Button } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
@@ -46,7 +48,7 @@ const Unfollow: FC<UnfollowProps> = ({
   const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
     useNonceStore();
   const { setShowAuthModal } = useGlobalModalStateStore();
-  const { isFollowPending } = useTransactionStore();
+  const { addTransaction, isFollowPending } = useTransactionStore();
 
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
@@ -54,6 +56,21 @@ const Unfollow: FC<UnfollowProps> = ({
 
   const { canBroadcast, canUseLensManager } =
     checkDispatcherPermissions(currentProfile);
+
+  const generateOptimisticUnfollow = ({
+    txHash,
+    txId
+  }: {
+    txHash?: string;
+    txId?: string;
+  }): OptimisticTransaction => {
+    return {
+      txHash,
+      txId,
+      type: OptmisticPublicationType.Unfollow,
+      unfollowOn: profile.id
+    };
+  };
 
   const updateCache = () => {
     cache.modify({
@@ -89,7 +106,13 @@ const Unfollow: FC<UnfollowProps> = ({
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const { writeContractAsync } = useWriteContract({
-    mutation: { onError, onSuccess: () => onCompleted() }
+    mutation: {
+      onError,
+      onSuccess: (hash: string) => {
+        addTransaction(generateOptimisticUnfollow({ txHash: hash }));
+        onCompleted();
+      }
+    }
   });
 
   const write = async ({ args }: { args: any[] }) => {
@@ -102,8 +125,14 @@ const Unfollow: FC<UnfollowProps> = ({
   };
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
-    onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename)
+    onCompleted: ({ broadcastOnchain }) => {
+      if (broadcastOnchain.__typename === 'RelaySuccess') {
+        addTransaction(
+          generateOptimisticUnfollow({ txId: broadcastOnchain.txId })
+        );
+      }
+      onCompleted(broadcastOnchain.__typename);
+    }
   });
   const [createUnfollowTypedData] = useCreateUnfollowTypedDataMutation({
     onCompleted: async ({ createUnfollowTypedData }) => {
@@ -131,7 +160,12 @@ const Unfollow: FC<UnfollowProps> = ({
   });
 
   const [unfollow] = useUnfollowMutation({
-    onCompleted: ({ unfollow }) => onCompleted(unfollow.__typename),
+    onCompleted: ({ unfollow }) => {
+      if (unfollow.__typename === 'RelaySuccess') {
+        addTransaction(generateOptimisticUnfollow({ txId: unfollow.txId }));
+      }
+      onCompleted(unfollow.__typename);
+    },
     onError
   });
 
