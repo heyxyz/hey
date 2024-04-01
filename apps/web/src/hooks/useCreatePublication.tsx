@@ -7,6 +7,7 @@ import type {
   OnchainPostRequest,
   OnchainQuoteRequest
 } from '@hey/lens';
+import type { OptimisticTransaction } from '@hey/types/misc';
 
 import { useApolloClient } from '@apollo/client';
 import { LensHub } from '@hey/abis';
@@ -77,7 +78,7 @@ const useCreatePublication = ({
   }: {
     txHash?: string;
     txId?: string;
-  }) => {
+  }): OptimisticTransaction => {
     return {
       ...(isComment && { commentOn: commentOn?.id }),
       content: publicationContent,
@@ -116,9 +117,9 @@ const useCreatePublication = ({
         decrementLensHubOnchainSigNonce();
       },
       onSuccess: (hash: string) => {
-        onCompleted();
-        incrementLensHubOnchainSigNonce();
         addTransaction(generateOptimisticPublication({ txHash: hash }));
+        incrementLensHubOnchainSigNonce();
+        onCompleted();
       }
     }
   });

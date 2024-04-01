@@ -76,6 +76,7 @@ export interface OptimisticTransaction {
   txHash?: string;
   txId?: string;
   type: OptmisticPublicationType;
+  unfollowOn?: string;
 }
 
 export interface MarkupLinkProps {

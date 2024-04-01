@@ -4,5 +4,6 @@ export enum OptmisticPublicationType {
   Follow = 'Follow',
   Mirror = 'Mirror',
   Post = 'Post',
-  Quote = 'Quote'
+  Quote = 'Quote',
+  Unfollow = 'Unfollow'
 }
