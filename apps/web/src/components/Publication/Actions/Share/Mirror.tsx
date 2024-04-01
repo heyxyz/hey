@@ -3,6 +3,7 @@ import type {
   MomokaMirrorRequest,
   OnchainMirrorRequest
 } from '@hey/lens';
+import type { OptimisticTransaction } from '@hey/types/misc';
 import type { FC } from 'react';
 
 import { useApolloClient } from '@apollo/client';
@@ -77,7 +78,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
   }: {
     txHash?: string;
     txId?: string;
-  }) => {
+  }): OptimisticTransaction => {
     return {
       mirrorOn: targetPublication?.id,
       txHash,
@@ -136,9 +137,9 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
         decrementLensHubOnchainSigNonce();
       },
       onSuccess: (hash: string) => {
-        onCompleted();
-        incrementLensHubOnchainSigNonce();
         addTransaction(generateOptimisticMirror({ txHash: hash }));
+        incrementLensHubOnchainSigNonce();
+        onCompleted();
       }
     }
   });

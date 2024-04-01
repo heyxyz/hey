@@ -48,7 +48,7 @@ const Follow: FC<FollowProps> = ({
   const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
     useNonceStore();
   const { setShowAuthModal } = useGlobalModalStateStore();
-  const { addTransaction } = useTransactionStore();
+  const { addTransaction, isUnfollowPending } = useTransactionStore();
 
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
@@ -106,7 +106,13 @@ const Follow: FC<FollowProps> = ({
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const { writeContractAsync } = useWriteContract({
-    mutation: { onError, onSuccess: () => onCompleted() }
+    mutation: {
+      onError,
+      onSuccess: (hash: string) => {
+        addTransaction(generateOptimisticFollow({ txHash: hash }));
+        onCompleted();
+      }
+    }
   });
 
   const write = async ({ args }: { args: any[] }) => {
@@ -214,7 +220,7 @@ const Follow: FC<FollowProps> = ({
     <Button
       aria-label={title}
       className={buttonClassName}
-      disabled={isLoading}
+      disabled={isLoading || isUnfollowPending(profile.id)}
       onClick={createFollow}
       outline
       size={small ? 'sm' : 'md'}
