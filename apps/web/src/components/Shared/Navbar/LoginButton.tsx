@@ -6,11 +6,13 @@ import { Leafwatch } from '@lib/leafwatch';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 
 interface LoginButtonProps {
+  className?: string;
   isBig?: boolean;
   title?: string;
 }
 
 const LoginButton: FC<LoginButtonProps> = ({
+  className = '',
   isBig = false,
   title = 'Login'
 }) => {
@@ -18,6 +20,7 @@ const LoginButton: FC<LoginButtonProps> = ({
 
   return (
     <Button
+      className={className}
       icon={
         <img
           alt="Lens Logo"
