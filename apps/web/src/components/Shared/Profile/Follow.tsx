@@ -29,9 +29,10 @@ import { useSignTypedData, useWriteContract } from 'wagmi';
 interface FollowProps {
   profile: Profile;
   small?: boolean;
+  title: string;
 }
 
-const Follow: FC<FollowProps> = ({ profile, small = false }) => {
+const Follow: FC<FollowProps> = ({ profile, small = false, title }) => {
   const { pathname } = useRouter();
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
@@ -174,13 +175,13 @@ const Follow: FC<FollowProps> = ({ profile, small = false }) => {
 
   return (
     <Button
-      aria-label="Follow"
+      aria-label={title}
       disabled={isLoading}
       onClick={createFollow}
       outline
       size={small ? 'sm' : 'md'}
     >
-      Follow
+      {title}
     </Button>
   );
 };

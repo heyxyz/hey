@@ -11,6 +11,7 @@ import { useApolloClient } from '@apollo/client';
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import LoginButton from '@components/Shared/Navbar/LoginButton';
 import NoBalanceError from '@components/Shared/NoBalanceError';
+import FollowUnfollowButton from '@components/Shared/Profile/FollowUnfollowButton';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { Errors } from '@hey/data';
@@ -125,9 +126,16 @@ const CollectAction: FC<CollectActionProps> = ({
   const isFreeCollectModule = !amount;
   const isSimpleFreeCollectModule =
     openAction.__typename === 'SimpleCollectOpenActionSettings';
-  const canUseManager =
-    canUseLensManager && !collectModule?.followerOnly && isFreeCollectModule;
+  const isFollowersOnly = collectModule?.followerOnly;
+  const isFollowedByMe = isFollowersOnly
+    ? targetPublication?.by.operations.isFollowedByMe.value
+    : true;
+  const isFollowFinalizedOnchain = isFollowersOnly
+    ? targetPublication?.by.operations.isFollowedByMe.isFinalisedOnchain
+    : true;
 
+  const canUseManager =
+    canUseLensManager && !isFollowersOnly && isFreeCollectModule;
   const canCollect = forceShowCollect
     ? true
     : !hasActed || (!isFreeCollectModule && !isSimpleFreeCollectModule);
@@ -455,6 +463,27 @@ const CollectAction: FC<CollectActionProps> = ({
           />
         }
       />
+    );
+  }
+
+  if (!isFollowedByMe) {
+    return (
+      <div className="mt-5">
+        <FollowUnfollowButton
+          followTitle="Follow to Collect"
+          profile={targetPublication.by}
+        />
+      </div>
+    );
+  }
+
+  if (!isFollowFinalizedOnchain) {
+    return (
+      <div className="mt-5">
+        <Button disabled outline>
+          Follow finalizing onchain...
+        </Button>
+      </div>
     );
   }
 
