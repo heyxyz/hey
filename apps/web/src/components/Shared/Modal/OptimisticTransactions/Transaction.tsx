@@ -31,6 +31,14 @@ const Transaction: FC<TransactionProps> = ({ transaction }) => {
         ) : transaction.type === OptmisticPublicationType.Post ||
           transaction.type === OptmisticPublicationType.Quote ? (
           <div className="text-sm">{transaction.type}</div>
+        ) : transaction.type === OptmisticPublicationType.Follow ? (
+          <div className="text-sm">
+            {transaction.type} on {transaction.followOn}
+          </div>
+        ) : transaction.type === OptmisticPublicationType.Unfollow ? (
+          <div className="text-sm">
+            {transaction.type} on {transaction.unfollowOn}
+          </div>
         ) : null}
       </Tooltip>
       <div className="flex items-center space-x-2">
