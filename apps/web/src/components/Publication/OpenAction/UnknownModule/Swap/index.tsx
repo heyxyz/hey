@@ -213,7 +213,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
   };
 
   const inputClassName =
-    'no-spinner ml-2 w-6/12 max-w-lg border-none py-5 text-xl outline-none focus:ring-0';
+    'no-spinner ml-2 w-6/12 max-w-lg border-none py-5 text-xl outline-none focus:ring-0 bg-white dark:bg-black';
 
   return (
     <div className="w-fit max-w-sm space-y-5" onClick={stopEventPropagation}>
