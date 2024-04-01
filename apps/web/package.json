@@ -73,7 +73,7 @@
     "urlcat": "^3.1.0",
     "use-resize-observer": "^9.1.0",
     "uuid": "^9.0.1",
-    "viem": "^2.9.5",
+    "viem": "^2.9.6",
     "wagmi": "^2.5.16",
     "zod": "^3.22.4",
     "zustand": "^4.5.2"
