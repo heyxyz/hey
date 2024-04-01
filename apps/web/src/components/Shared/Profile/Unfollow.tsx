@@ -29,9 +29,10 @@ import { useSignTypedData, useWriteContract } from 'wagmi';
 interface UnfollowProps {
   profile: Profile;
   small?: boolean;
+  title: string;
 }
 
-const Unfollow: FC<UnfollowProps> = ({ profile, small = false }) => {
+const Unfollow: FC<UnfollowProps> = ({ profile, small = false, title }) => {
   const { pathname } = useRouter();
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
@@ -163,12 +164,12 @@ const Unfollow: FC<UnfollowProps> = ({ profile, small = false }) => {
 
   return (
     <Button
-      aria-label="Following"
+      aria-label={title}
       disabled={isLoading}
       onClick={createUnfollow}
       size={small ? 'sm' : 'md'}
     >
-      Following
+      {title}
     </Button>
   );
 };
