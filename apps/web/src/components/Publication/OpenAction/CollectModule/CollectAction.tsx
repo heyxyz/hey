@@ -5,12 +5,14 @@ import type {
   LegacyCollectRequest,
   OpenActionModule
 } from '@hey/lens';
+import type { OptimisticTransaction } from '@hey/types/misc';
 import type { FC, ReactNode } from 'react';
 
 import { useApolloClient } from '@apollo/client';
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import LoginButton from '@components/Shared/Navbar/LoginButton';
 import NoBalanceError from '@components/Shared/NoBalanceError';
+import FollowUnfollowButton from '@components/Shared/Profile/FollowUnfollowButton';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { Errors } from '@hey/data';
@@ -79,7 +81,7 @@ const CollectAction: FC<CollectActionProps> = ({
     incrementLensHubOnchainSigNonce,
     lensHubOnchainSigNonce
   } = useNonceStore();
-  const { addTransaction } = useTransactionStore();
+  const { addTransaction, isFollowPending } = useTransactionStore();
 
   const { id: sessionProfileId } = getCurrentSession();
 
@@ -93,6 +95,7 @@ const CollectAction: FC<CollectActionProps> = ({
     targetPublication.operations.hasActed.value ||
       hasOptimisticallyCollected(targetPublication.id)
   );
+
   const { address } = useAccount();
   const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
@@ -125,9 +128,16 @@ const CollectAction: FC<CollectActionProps> = ({
   const isFreeCollectModule = !amount;
   const isSimpleFreeCollectModule =
     openAction.__typename === 'SimpleCollectOpenActionSettings';
-  const canUseManager =
-    canUseLensManager && !collectModule?.followerOnly && isFreeCollectModule;
+  const isFollowersOnly = collectModule?.followerOnly;
+  const isFollowedByMe = isFollowersOnly
+    ? targetPublication?.by.operations.isFollowedByMe.value
+    : true;
+  const isFollowFinalizedOnchain = isFollowersOnly
+    ? !isFollowPending(targetPublication.by.id)
+    : true;
 
+  const canUseManager =
+    canUseLensManager && !isFollowersOnly && isFreeCollectModule;
   const canCollect = forceShowCollect
     ? true
     : !hasActed || (!isFreeCollectModule && !isSimpleFreeCollectModule);
@@ -138,7 +148,7 @@ const CollectAction: FC<CollectActionProps> = ({
   }: {
     txHash?: string;
     txId?: string;
-  }) => {
+  }): OptimisticTransaction => {
     return {
       collectOn: targetPublication?.id,
       txHash,
@@ -200,9 +210,9 @@ const CollectAction: FC<CollectActionProps> = ({
         decrementLensHubOnchainSigNonce();
       },
       onSuccess: (hash: string) => {
-        onCompleted();
-        incrementLensHubOnchainSigNonce();
         addTransaction(generateOptimisticCollect({ txHash: hash }));
+        incrementLensHubOnchainSigNonce();
+        onCompleted();
       }
     }
   });
@@ -403,9 +413,10 @@ const CollectAction: FC<CollectActionProps> = ({
 
   if (!sessionProfileId) {
     return (
-      <div className="mt-5">
-        <LoginButton title="Login to Collect" />
-      </div>
+      <LoginButton
+        className="mt-5 w-full justify-center"
+        title="Login to Collect"
+      />
     );
   }
 
@@ -419,7 +430,9 @@ const CollectAction: FC<CollectActionProps> = ({
 
   if (allowanceLoading) {
     return (
-      <div className={cn('shimmer mt-5 h-[34px] w-28 rounded-lg', className)} />
+      <div
+        className={cn('shimmer mt-5 h-[34px] w-full rounded-full', className)}
+      />
     );
   }
 
@@ -427,7 +440,7 @@ const CollectAction: FC<CollectActionProps> = ({
     return (
       <AllowanceButton
         allowed={allowed}
-        className={cn('mt-5', className)}
+        className={cn('mt-5 w-full', className)}
         module={
           allowanceData
             ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult
@@ -458,9 +471,27 @@ const CollectAction: FC<CollectActionProps> = ({
     );
   }
 
+  if (!isFollowedByMe) {
+    return (
+      <FollowUnfollowButton
+        buttonClassName="w-full mt-5"
+        followTitle="Follow to collect"
+        profile={targetPublication.by}
+      />
+    );
+  }
+
+  if (!isFollowFinalizedOnchain) {
+    return (
+      <Button className="mt-5 w-full" disabled outline>
+        Follow finalizing onchain...
+      </Button>
+    );
+  }
+
   return (
     <Button
-      className={cn('mt-5', className)}
+      className={cn('mt-5 w-full justify-center', className)}
       disabled={isLoading}
       icon={
         isLoading ? (
