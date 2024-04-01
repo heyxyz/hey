@@ -1,4 +1,5 @@
 import type { FollowRequest, Profile } from '@hey/lens';
+import type { OptimisticTransaction } from '@hey/types/misc';
 import type { FC } from 'react';
 
 import { LensHub } from '@hey/abis';
@@ -13,6 +14,7 @@ import {
 import { useApolloClient } from '@hey/lens/apollo';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
+import { OptmisticPublicationType } from '@hey/types/enums';
 import { Button } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
@@ -24,6 +26,7 @@ import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModal
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
 interface FollowProps {
@@ -39,12 +42,29 @@ const Follow: FC<FollowProps> = ({ profile, small = false, title }) => {
   const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
     useNonceStore();
   const { setShowAuthModal } = useGlobalModalStateStore();
+  const { addTransaction } = useTransactionStore();
+
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
 
   const { canBroadcast, canUseLensManager } =
     checkDispatcherPermissions(currentProfile);
+
+  const generateOptimisticFollow = ({
+    txHash,
+    txId
+  }: {
+    txHash?: string;
+    txId?: string;
+  }): OptimisticTransaction => {
+    return {
+      followOn: profile.id,
+      txHash,
+      txId,
+      type: OptmisticPublicationType.Follow
+    };
+  };
 
   const updateCache = () => {
     cache.modify({
@@ -93,8 +113,14 @@ const Follow: FC<FollowProps> = ({ profile, small = false, title }) => {
   };
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
-    onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename)
+    onCompleted: ({ broadcastOnchain }) => {
+      if (broadcastOnchain.__typename === 'RelaySuccess') {
+        addTransaction(
+          generateOptimisticFollow({ txId: broadcastOnchain.txId })
+        );
+      }
+      onCompleted(broadcastOnchain.__typename);
+    }
   });
   const [createFollowTypedData] = useCreateFollowTypedDataMutation({
     onCompleted: async ({ createFollowTypedData }) => {
@@ -132,7 +158,12 @@ const Follow: FC<FollowProps> = ({ profile, small = false, title }) => {
   });
 
   const [follow] = useFollowMutation({
-    onCompleted: ({ follow }) => onCompleted(follow.__typename),
+    onCompleted: ({ follow }) => {
+      if (follow.__typename === 'RelaySuccess') {
+        addTransaction(generateOptimisticFollow({ txId: follow.txId }));
+      }
+      onCompleted(follow.__typename);
+    },
     onError
   });
 

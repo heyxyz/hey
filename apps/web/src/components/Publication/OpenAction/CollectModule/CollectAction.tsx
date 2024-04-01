@@ -80,7 +80,7 @@ const CollectAction: FC<CollectActionProps> = ({
     incrementLensHubOnchainSigNonce,
     lensHubOnchainSigNonce
   } = useNonceStore();
-  const { addTransaction } = useTransactionStore();
+  const { addTransaction, isFollowPending } = useTransactionStore();
 
   const { id: sessionProfileId } = getCurrentSession();
 
@@ -94,6 +94,7 @@ const CollectAction: FC<CollectActionProps> = ({
     targetPublication.operations.hasActed.value ||
       hasOptimisticallyCollected(targetPublication.id)
   );
+
   const { address } = useAccount();
   const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
@@ -131,7 +132,7 @@ const CollectAction: FC<CollectActionProps> = ({
     ? targetPublication?.by.operations.isFollowedByMe.value
     : true;
   const isFollowFinalizedOnchain = isFollowersOnly
-    ? targetPublication?.by.operations.isFollowedByMe.isFinalisedOnchain
+    ? !isFollowPending(targetPublication.by.id)
     : true;
 
   const canUseManager =

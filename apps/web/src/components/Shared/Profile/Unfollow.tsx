@@ -24,6 +24,7 @@ import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModal
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
 interface UnfollowProps {
@@ -39,6 +40,8 @@ const Unfollow: FC<UnfollowProps> = ({ profile, small = false, title }) => {
   const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
     useNonceStore();
   const { setShowAuthModal } = useGlobalModalStateStore();
+  const { isFollowPending } = useTransactionStore();
+
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
@@ -165,7 +168,7 @@ const Unfollow: FC<UnfollowProps> = ({ profile, small = false, title }) => {
   return (
     <Button
       aria-label={title}
-      disabled={isLoading}
+      disabled={isLoading || isFollowPending(profile.id)}
       onClick={createUnfollow}
       size={small ? 'sm' : 'md'}
     >
