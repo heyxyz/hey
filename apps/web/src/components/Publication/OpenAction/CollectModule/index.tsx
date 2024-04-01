@@ -8,7 +8,6 @@ import type {
 } from '@hey/lens';
 import type { FC } from 'react';
 
-import CollectWarning from '@components/Shared/CollectWarning';
 import CountdownTimer from '@components/Shared/CountdownTimer';
 import Slug from '@components/Shared/Slug';
 import {
@@ -123,12 +122,6 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
               </div>
             }
           />
-        ) : collectModule?.followerOnly ? (
-          <div className="mb-5">
-            <CollectWarning
-              handle={getProfile(targetPublication.by).slugWithPrefix}
-            />
-          </div>
         ) : null}
         <div className="mb-4">
           <div className="text-xl font-bold">
