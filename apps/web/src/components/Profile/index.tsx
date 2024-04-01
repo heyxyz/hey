@@ -41,15 +41,22 @@ const ViewProfile: NextPage = () => {
   } = useRouter();
   const { currentProfile } = useProfileStore();
 
-  const showFollowing = pathname === '/u/[handle]/following';
-  const showFollowers = pathname === '/u/[handle]/followers';
-  const showMutuals = pathname === '/u/[handle]/mutuals';
+  const showFollowing =
+    pathname === '/u/[handle]/following' ||
+    pathname === '/profile/[id]/following';
+  const showFollowers =
+    pathname === '/u/[handle]/followers' ||
+    pathname === '/profile/[id]/followers';
+  const showMutuals =
+    pathname === '/u/[handle]/mutuals' || pathname === '/profile/[id]/mutuals';
 
   useEffect(() => {
     if (isReady) {
       Leafwatch.track(PAGEVIEW, {
         page: 'profile',
-        subpage: pathname.replace('/u/[handle]', ''),
+        subpage: pathname
+          .replace('/u/[handle]', '')
+          .replace('/profile/[id]', ''),
         ...(source ? { source } : {})
       });
     }
