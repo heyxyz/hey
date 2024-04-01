@@ -1,4 +1,5 @@
 import {
+  AVATAR,
   HEY_API_URL,
   HEY_IMAGEKIT_URL,
   IPFS_GATEWAY
@@ -9,7 +10,7 @@ import getAvatar from './getAvatar';
 
 describe('getAvatar', () => {
   const ipfsLink = `${IPFS_GATEWAY}/bafkreianwlir2groq5l52zdnikon4rtgjcostjosaadbbfekgpzhaprmri`;
-  const imagekitUrl = `${HEY_IMAGEKIT_URL}/fallback/tr:w-250,h-250,q-80/https://gw.ipfs-lens.dev/ipfs/bafkreianwlir2groq5l52zdnikon4rtgjcostjosaadbbfekgpzhaprmri`;
+  const imagekitUrl = `${HEY_IMAGEKIT_URL}/fallback/${AVATAR},q-80/https://gw.ipfs-lens.dev/ipfs/bafkreianwlir2groq5l52zdnikon4rtgjcostjosaadbbfekgpzhaprmri`;
 
   test('should return normal profile optimized avatar url', () => {
     const profile = {
