@@ -14,12 +14,14 @@ import Slug from '../../Slug';
 import FollowModule from './FollowModule';
 
 interface SuperFollowProps {
+  buttonClassName: string;
   profile: Profile;
   small?: boolean;
   title: string;
 }
 
 const SuperFollow: FC<SuperFollowProps> = ({
+  buttonClassName,
   profile,
   small = false,
   title
@@ -32,6 +34,7 @@ const SuperFollow: FC<SuperFollowProps> = ({
     <>
       <Button
         aria-label={title}
+        className={buttonClassName}
         onClick={() => {
           if (!currentProfile) {
             setShowAuthModal(true);

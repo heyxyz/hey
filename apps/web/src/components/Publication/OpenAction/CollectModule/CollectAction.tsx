@@ -428,7 +428,9 @@ const CollectAction: FC<CollectActionProps> = ({
 
   if (allowanceLoading) {
     return (
-      <div className={cn('shimmer mt-5 h-[34px] w-28 rounded-lg', className)} />
+      <div
+        className={cn('shimmer mt-5 h-[34px] w-full rounded-full', className)}
+      />
     );
   }
 
@@ -436,7 +438,7 @@ const CollectAction: FC<CollectActionProps> = ({
     return (
       <AllowanceButton
         allowed={allowed}
-        className={cn('mt-5', className)}
+        className={cn('mt-5 w-full', className)}
         module={
           allowanceData
             ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult
@@ -469,28 +471,25 @@ const CollectAction: FC<CollectActionProps> = ({
 
   if (!isFollowedByMe) {
     return (
-      <div className="mt-5">
-        <FollowUnfollowButton
-          followTitle="Follow to Collect"
-          profile={targetPublication.by}
-        />
-      </div>
+      <FollowUnfollowButton
+        buttonClassName="w-full mt-5"
+        followTitle="Follow to collect"
+        profile={targetPublication.by}
+      />
     );
   }
 
   if (!isFollowFinalizedOnchain) {
     return (
-      <div className="mt-5">
-        <Button disabled outline>
-          Follow finalizing onchain...
-        </Button>
-      </div>
+      <Button className="mt-5 w-full" disabled outline>
+        Follow finalizing onchain...
+      </Button>
     );
   }
 
   return (
     <Button
-      className={cn('mt-5', className)}
+      className={cn('mt-5 w-full justify-center', className)}
       disabled={isLoading}
       icon={
         isLoading ? (
