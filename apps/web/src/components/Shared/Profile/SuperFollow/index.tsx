@@ -14,11 +14,18 @@ import Slug from '../../Slug';
 import FollowModule from './FollowModule';
 
 interface SuperFollowProps {
+  buttonClassName: string;
   profile: Profile;
   small?: boolean;
+  title: string;
 }
 
-const SuperFollow: FC<SuperFollowProps> = ({ profile, small = false }) => {
+const SuperFollow: FC<SuperFollowProps> = ({
+  buttonClassName,
+  profile,
+  small = false,
+  title
+}) => {
   const [showFollowModal, setShowFollowModal] = useState(false);
   const { currentProfile } = useProfileStore();
   const { setShowAuthModal } = useGlobalModalStateStore();
@@ -26,7 +33,8 @@ const SuperFollow: FC<SuperFollowProps> = ({ profile, small = false }) => {
   return (
     <>
       <Button
-        aria-label="Super follow"
+        aria-label={title}
+        className={buttonClassName}
         onClick={() => {
           if (!currentProfile) {
             setShowAuthModal(true);
@@ -38,7 +46,7 @@ const SuperFollow: FC<SuperFollowProps> = ({ profile, small = false }) => {
         outline
         size={small ? 'sm' : 'md'}
       >
-        Super follow
+        {title}
       </Button>
       <Modal
         icon={<StarIcon className="size-5" />}

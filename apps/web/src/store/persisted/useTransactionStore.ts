@@ -1,7 +1,6 @@
 import type { OptimisticTransaction } from '@hey/types/misc';
 
 import { IndexDB } from '@hey/data/storage';
-import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -10,6 +9,8 @@ import createIdbStorage from '../lib/createIdbStorage';
 interface State {
   addTransaction: (txn: OptimisticTransaction) => void;
   hydrateTxnQueue: () => OptimisticTransaction[];
+  isFollowPending: (profileId: string) => boolean;
+  isUnfollowPending: (profileId: string) => boolean;
   removeTransaction: (hashOrId: string) => void;
   reset: () => void;
   txnQueue: OptimisticTransaction[];
@@ -23,6 +24,10 @@ const store = create(
       hydrateTxnQueue: () => {
         return get().txnQueue;
       },
+      isFollowPending: (profileId) =>
+        get().txnQueue.some((txn) => txn.followOn === profileId),
+      isUnfollowPending: (profileId) =>
+        get().txnQueue.some((txn) => txn.unfollowOn === profileId),
       removeTransaction: (hashOrId) =>
         set((state) => ({
           txnQueue: state.txnQueue.filter(
@@ -40,4 +45,4 @@ const store = create(
 );
 
 export const hydrateTxnQueue = () => store.getState().hydrateTxnQueue();
-export const useTransactionStore = createTrackedSelector(store);
+export const useTransactionStore = store;
