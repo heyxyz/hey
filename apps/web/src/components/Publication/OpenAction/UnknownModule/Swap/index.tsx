@@ -298,7 +298,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
           },
           value: value.toString()
         }}
-        title="Swap"
+        title="Buy Token"
       />
     </div>
   );
