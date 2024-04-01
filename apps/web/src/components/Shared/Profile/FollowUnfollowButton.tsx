@@ -9,6 +9,7 @@ import SuperFollow from './SuperFollow';
 import Unfollow from './Unfollow';
 
 interface FollowUnfollowButtonProps {
+  buttonClassName?: string;
   followTitle?: string;
   hideFollowButton?: boolean;
   hideUnfollowButton?: boolean;
@@ -19,6 +20,7 @@ interface FollowUnfollowButtonProps {
 }
 
 const FollowUnfollowButton: FC<FollowUnfollowButtonProps> = ({
+  buttonClassName = '',
   followTitle = 'Follow',
   hideFollowButton = false,
   hideUnfollowButton = false,
@@ -28,21 +30,32 @@ const FollowUnfollowButton: FC<FollowUnfollowButtonProps> = ({
   unfollowTitle = 'Following'
 }) => {
   return (
-    <div className="mr-1" onClick={stopEventPropagation}>
+    <div className="contents" onClick={stopEventPropagation}>
       {!hideFollowButton &&
         (profile.operations.isFollowedByMe.value ? null : profile?.followModule
             ?.type === FollowModuleType.FeeFollowModule ? (
           <SuperFollow
+            buttonClassName={buttonClassName}
             profile={profile}
             small={small}
             title={superFollowTitle}
           />
         ) : (
-          <Follow profile={profile} small={small} title={followTitle} />
+          <Follow
+            buttonClassName={buttonClassName}
+            profile={profile}
+            small={small}
+            title={followTitle}
+          />
         ))}
       {!hideUnfollowButton &&
         (profile.operations.isFollowedByMe.value ? (
-          <Unfollow profile={profile} small={small} title={unfollowTitle} />
+          <Unfollow
+            buttonClassName={buttonClassName}
+            profile={profile}
+            small={small}
+            title={unfollowTitle}
+          />
         ) : null)}
     </div>
   );

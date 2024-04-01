@@ -30,12 +30,18 @@ import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
 interface FollowProps {
+  buttonClassName: string;
   profile: Profile;
   small?: boolean;
   title: string;
 }
 
-const Follow: FC<FollowProps> = ({ profile, small = false, title }) => {
+const Follow: FC<FollowProps> = ({
+  buttonClassName,
+  profile,
+  small = false,
+  title
+}) => {
   const { pathname } = useRouter();
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
@@ -207,6 +213,7 @@ const Follow: FC<FollowProps> = ({ profile, small = false, title }) => {
   return (
     <Button
       aria-label={title}
+      className={buttonClassName}
       disabled={isLoading}
       onClick={createFollow}
       outline

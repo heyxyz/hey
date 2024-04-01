@@ -28,12 +28,18 @@ import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
 interface UnfollowProps {
+  buttonClassName: string;
   profile: Profile;
   small?: boolean;
   title: string;
 }
 
-const Unfollow: FC<UnfollowProps> = ({ profile, small = false, title }) => {
+const Unfollow: FC<UnfollowProps> = ({
+  buttonClassName,
+  profile,
+  small = false,
+  title
+}) => {
   const { pathname } = useRouter();
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
@@ -168,6 +174,7 @@ const Unfollow: FC<UnfollowProps> = ({ profile, small = false, title }) => {
   return (
     <Button
       aria-label={title}
+      className={buttonClassName}
       disabled={isLoading || isFollowPending(profile.id)}
       onClick={createUnfollow}
       size={small ? 'sm' : 'md'}

@@ -120,15 +120,13 @@ const StaffPicks: FC = () => {
         title="Failed to load recommendations"
       />
       {filteredProfiles.map((profile) => (
-        <div className="flex items-center space-x-3 truncate" key={profile.id}>
-          <div className="w-full">
-            <UserProfile
-              hideFollowButton={currentProfile?.id === profile.id}
-              hideUnfollowButton
-              profile={profile as Profile}
-              source={ProfileLinkSource.StaffPicks}
-            />
-          </div>
+        <div className="w-full truncate pr-1" key={profile.id}>
+          <UserProfile
+            hideFollowButton={currentProfile?.id === profile.id}
+            hideUnfollowButton
+            profile={profile as Profile}
+            source={ProfileLinkSource.StaffPicks}
+          />
         </div>
       ))}
     </Card>
