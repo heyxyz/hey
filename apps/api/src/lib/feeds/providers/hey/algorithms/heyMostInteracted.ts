@@ -62,10 +62,10 @@ const heyMostInteracted = async (
       `
     });
 
-    const result =
-      await rows.json<
-        Array<{ publication_id: string; weighted_interaction_count: number }>
-      >();
+    const result = await rows.json<{
+      publication_id: string;
+      weighted_interaction_count: number;
+    }>();
 
     const ids = result.map((row) => row.publication_id);
     logger.info(`[Hey] Most interacted: ${ids.length} ids`);

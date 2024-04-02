@@ -25,7 +25,7 @@ const heyMostViewed = async (limit: number, offset: number): Promise<any[]> => {
       `
     });
 
-    const result = await rows.json<Array<{ id: string }>>();
+    const result = await rows.json<{ id: string }>();
 
     const ids = result.map((r) => r.id);
     logger.info(`[Hey] Most viewed: ${ids.length} ids`);
