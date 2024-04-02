@@ -47,18 +47,16 @@ export const get: Handler = async (req, res) => {
       `
     });
 
-    const result = await rows.json<
-      Array<{
-        actor: string;
-        most_common_browser: string;
-        most_common_browser_version: string;
-        most_common_city: string;
-        most_common_country: string;
-        most_common_os: string;
-        most_common_region: string;
-        number_of_events: string;
-      }>
-    >();
+    const result = await rows.json<{
+      actor: string;
+      most_common_browser: string;
+      most_common_browser_version: string;
+      most_common_city: string;
+      most_common_country: string;
+      most_common_os: string;
+      most_common_region: string;
+      number_of_events: string;
+    }>();
     logger.info(`Profile details fetched for ${id}`);
 
     return res
