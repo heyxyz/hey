@@ -6,7 +6,6 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 import PublicationMenu from './Actions/Menu';
 
@@ -24,7 +23,6 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
   quoted = false
 }) => {
   const { setQuotedPublication } = usePublicationStore();
-  const { gardenerMode } = useFeatureFlagsStore();
 
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
@@ -43,7 +41,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
       <PublicationProfile
         profile={profile}
         publicationId={targetPublication.id}
-        source={gardenerMode ? targetPublication.publishedOn?.id : undefined}
+        source={targetPublication.publishedOn?.id}
         timestamp={timestamp}
       />
       {!publication.isHidden && !quoted ? (
