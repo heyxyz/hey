@@ -19,7 +19,7 @@ export const get: Handler = async (req, res) => {
       format: 'JSONEachRow',
       query: `SELECT count(*) as count FROM events WHERE actor = '${id}';`
     });
-    const result = await rows.json<Array<{ count: number }>>();
+    const result = await rows.json<{ count: number }>();
     logger.info('Have used hey status fetched');
 
     return res

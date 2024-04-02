@@ -42,8 +42,7 @@ export const post: Handler = async (req, res) => {
       `
     });
 
-    const result =
-      await rows.json<Array<{ count: number; publication_id: string }>>();
+    const result = await rows.json<{ count: number; publication_id: string }>();
 
     const viewCounts = result.map((row) => ({
       id: row.publication_id,
