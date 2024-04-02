@@ -15,7 +15,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@apollo/client": "^3.9.9",
+    "@apollo/client": "^3.9.10",
     "@aws-sdk/client-s3": "^3.540.0",
     "@aws-sdk/lib-storage": "^3.540.0",
     "@headlessui/react": "^1.7.18",
@@ -38,7 +38,7 @@
     "@livepeer/react": "3.1.9",
     "@radix-ui/react-hover-card": "^1.0.7",
     "@sentry/nextjs": "^7.109.0",
-    "@tanstack/react-query": "^5.28.9",
+    "@tanstack/react-query": "^5.28.12",
     "@thirdweb-dev/storage": "^2.0.12",
     "@uidotdev/usehooks": "^2.4.1",
     "@xmtp/content-type-reaction": "^1.1.7",
@@ -74,7 +74,7 @@
     "use-resize-observer": "^9.1.0",
     "uuid": "^9.0.1",
     "viem": "^2.9.6",
-    "wagmi": "^2.5.16",
+    "wagmi": "^2.5.17",
     "zod": "^3.22.4",
     "zustand": "^4.5.2"
   },
@@ -84,7 +84,7 @@
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.6",
     "@types/node": "^20.12.2",
-    "@types/react": "^18.2.73",
+    "@types/react": "^18.2.74",
     "@types/react-dom": "^18.2.23",
     "@types/uuid": "^9.0.8",
     "autoprefixer": "^10.4.19",
