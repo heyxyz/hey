@@ -48,8 +48,8 @@ const Verification: FC = () => {
               <XCircleIcon className="size-5 text-red-500" />
             )}
             <div>
-              You have {hasMetFollowersRequirement ? 'met' : 'not met'} the 3000
-              followers requirement.
+              You have {hasMetFollowersRequirement ? 'met' : 'not met'} the{' '}
+              <b>3000 followers</b> requirement.
             </div>
           </div>
           <div className="flex items-center space-x-1.5">
@@ -60,7 +60,7 @@ const Verification: FC = () => {
             )}
             <div>
               You have {hasMetPublicationsRequirement ? 'met' : 'not met'} the
-              50 publications requirement.
+              <b>50 publications</b> requirement.
             </div>
           </div>
           <div className="flex items-center space-x-1.5">
@@ -70,8 +70,8 @@ const Verification: FC = () => {
               <XCircleIcon className="size-5 text-red-500" />
             )}
             <div>
-              You have {hasMetTimeRequirement ? 'met' : 'not met'} the 30 days
-              requirement.
+              You have {hasMetTimeRequirement ? 'met' : 'not met'} the{' '}
+              <b>30 days</b> requirement.
             </div>
           </div>
           <Button
