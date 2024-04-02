@@ -61,7 +61,7 @@ const DefaultProfile: FC = () => {
 
     try {
       return await setProfile({
-        variables: { request: { profileId: currentProfile.id } }
+        variables: { request: { profileId: selectedProfileId } }
       });
     } catch (error) {
       onError(error);
