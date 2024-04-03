@@ -12,7 +12,7 @@ import usePreventScrollOnNumberInput from 'src/hooks/usePreventScrollOnNumberInp
 import { useSwapActionStore } from '.';
 
 const PoolConfig: FC = () => {
-  const [rewardsPool, setRewardsPool] = useState<any>();
+  const [hasRewardsPool, setHasRewardsPool] = useState<boolean>(true);
   const { rewardsPoolId, setRewardsPoolId, setToken } = useSwapActionStore();
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef);
@@ -20,7 +20,7 @@ const PoolConfig: FC = () => {
   useEffect(() => {
     if (rewardsPoolId !== null) {
       getSwapRewardPool(rewardsPoolId).then((pool) => {
-        setRewardsPool(pool);
+        setHasRewardsPool(!!pool.token);
         setToken(pool.token || null);
       });
     }
@@ -55,7 +55,7 @@ const PoolConfig: FC = () => {
             type="number"
             value={rewardsPoolId}
           />
-          {!rewardsPool?.token ? (
+          {!hasRewardsPool ? (
             <div className="mt-1 font-bold text-red-500">
               No Pools Available
             </div>
