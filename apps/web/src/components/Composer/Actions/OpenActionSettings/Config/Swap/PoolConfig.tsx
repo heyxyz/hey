@@ -50,8 +50,11 @@ const PoolConfig: FC = () => {
               <div className="flex items-center space-x-2">
                 <span>Pool ID</span>
                 {!hasRewardsPool ? (
-                  <span className="font-bold text-red-500">
-                    No Pools Available
+                  <span>
+                    <span className="mr-2">·</span>
+                    <span className="font-bold text-red-500">
+                      No Pools Available
+                    </span>
                   </span>
                 ) : null}
               </div>
