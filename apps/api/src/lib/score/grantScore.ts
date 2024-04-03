@@ -22,19 +22,21 @@ const grantScore = ({
   event: string;
   id: string;
 }): null | string => {
-  if (!SCORABLE_EVENTS.some((e) => e.event === event)) {
+  const eventPoints = SCORABLE_EVENTS.find((e) => e.event === event)?.points;
+
+  if (!eventPoints) {
     return null;
   }
 
   stack
     .track(event, {
       account: address,
-      points: SCORABLE_EVENTS.find((e) => e.event === event)!.points,
+      points: eventPoints,
       uniqueId: id
     })
     .then(({ messageId }) => {
       logger.info(
-        `Granted ${SCORABLE_EVENTS.find((e) => e.event === event)!.points} points to ${address} for ${event} - ${messageId}`
+        `Granted ${eventPoints} points to ${address} for ${event} - ${messageId}`
       );
     });
 
