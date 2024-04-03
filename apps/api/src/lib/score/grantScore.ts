@@ -12,7 +12,6 @@ const SCORABLE_EVENTS = [
   { event: PUBLICATION.NEW_QUOTE, points: 30 },
   { event: PUBLICATION.NEW_COMMENT, points: 30 },
   { event: PUBLICATION.BOOKMARK, points: 10 },
-  { event: PUBLICATION.NEW_COMMENT, points: 30 },
   { event: PUBLICATION.UNLIKE, points: -5 },
   { event: PUBLICATION.NOT_INTERESTED, points: -10 }
 ];
@@ -28,7 +27,6 @@ const grantScore = ({
   id: string;
   pointSystemId: number;
 }): null | string => {
-  console.log(id);
   const stack = new StackClient({
     apiKey: process.env.STACK_SO_API_KEY!,
     pointSystemId
