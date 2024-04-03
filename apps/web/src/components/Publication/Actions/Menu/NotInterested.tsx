@@ -65,7 +65,7 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
       onCompleted: () => {
         toast.success('Undo Not interested');
         Leafwatch.track(
-          PUBLICATION.INTERESTED,
+          PUBLICATION.UNDO_NOT_INTERESTED,
           { publication_id: publication.id },
           publication.by.ownedBy.address
         );

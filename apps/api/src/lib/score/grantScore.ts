@@ -11,7 +11,6 @@ const SCORABLE_EVENTS = [
   { event: PUBLICATION.NEW_POST, points: 30 },
   { event: PUBLICATION.NEW_QUOTE, points: 30 },
   { event: PUBLICATION.NEW_COMMENT, points: 30 },
-  { event: PUBLICATION.INTERESTED, points: 20 },
   { event: PUBLICATION.BOOKMARK, points: 10 },
   { event: PUBLICATION.NEW_COMMENT, points: 30 },
   { event: PUBLICATION.UNLIKE, points: -5 },
