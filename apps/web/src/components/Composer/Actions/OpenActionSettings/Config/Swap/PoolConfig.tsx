@@ -55,7 +55,7 @@ const PoolConfig: FC = () => {
             type="number"
             value={rewardsPoolId}
           />
-          {!rewardsPool.token ? (
+          {!rewardsPool?.token ? (
             <div className="mt-1 font-bold text-red-500">
               No Pools Available
             </div>
