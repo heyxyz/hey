@@ -66,7 +66,12 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
   const eventProperties = { publication_id: publication?.id };
 
   const [addReaction] = useAddReactionMutation({
-    onCompleted: () => Leafwatch.track(PUBLICATION.LIKE, eventProperties),
+    onCompleted: () =>
+      Leafwatch.track(
+        PUBLICATION.LIKE,
+        eventProperties,
+        publication.by.ownedBy.address
+      ),
     onError: (error) => {
       toggleReact();
       decrement();

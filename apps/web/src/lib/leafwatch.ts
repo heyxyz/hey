@@ -12,7 +12,11 @@ if (typeof Worker !== 'undefined') {
  * Leafwatch analytics
  */
 export const Leafwatch = {
-  track: (name: string, properties?: Record<string, unknown>) => {
+  track: (
+    name: string,
+    properties?: Record<string, unknown>,
+    scoreAddress?: string
+  ) => {
     const { id: sessionProfileId } = getCurrentSession();
     const { referrer } = document;
     const referrerDomain = referrer ? new URL(referrer).hostname : null;
@@ -23,6 +27,7 @@ export const Leafwatch = {
       platform: 'web',
       properties,
       referrer: referrerDomain,
+      scoreAddress,
       url: window.location.href
     });
 
