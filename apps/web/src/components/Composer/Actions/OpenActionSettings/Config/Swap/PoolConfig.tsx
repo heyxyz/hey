@@ -1,3 +1,4 @@
+import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
@@ -5,7 +6,7 @@ import { GiftIcon } from '@heroicons/react/24/outline';
 import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import getSwapRewardPool from '@hey/lib/getSwapRewardPool';
 import { Input } from '@hey/ui';
-import { type FC, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import usePreventScrollOnNumberInput from 'src/hooks/usePreventScrollOnNumberInput';
 
 import { useSwapActionStore } from '.';
