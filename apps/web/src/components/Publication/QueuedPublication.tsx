@@ -14,7 +14,6 @@ import { useApolloClient } from '@hey/lens/apollo';
 import getMentions from '@hey/lib/getMentions';
 import { Card, Tooltip } from '@hey/ui';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 
 interface QueuedPublicationProps {
   txn: OptimisticTransaction;
@@ -22,17 +21,10 @@ interface QueuedPublicationProps {
 
 const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
   const { currentProfile } = useProfileStore();
-  const { removeTransaction } = useTransactionStore();
 
   const { cache } = useApolloClient();
   const txHash = txn?.txHash;
   const txId = txn?.txId;
-
-  const removeTxn = () => {
-    if (txn.txId) {
-      return removeTransaction(txn.txId);
-    }
-  };
 
   const [getPublication] = usePublicationLazyQuery({
     onCompleted: ({ publication }) => {
@@ -54,19 +46,13 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
   useLensTransactionStatusQuery({
     notifyOnNetworkStatusChange: true,
     onCompleted: async ({ lensTransactionStatus }) => {
-      if (lensTransactionStatus?.status === LensTransactionStatusType.Failed) {
-        return removeTxn();
-      }
-
       if (
-        lensTransactionStatus?.status === LensTransactionStatusType.Complete
+        lensTransactionStatus?.status === LensTransactionStatusType.Complete &&
+        txn.commentOn
       ) {
-        if (txn.commentOn) {
-          await getPublication({
-            variables: { request: { forTxHash: lensTransactionStatus.txHash } }
-          });
-        }
-        removeTxn();
+        await getPublication({
+          variables: { request: { forTxHash: lensTransactionStatus.txHash } }
+        });
       }
     },
     pollInterval: 1000,
