@@ -41,7 +41,20 @@ const TokenConfig: FC = () => {
       <Input
         disabled={quoteLoading}
         error={!isAddress(token)}
-        label="Token address (Polygon)"
+        label={
+          <div className="flex items-center space-x-2">
+            <span>Token address (Polygon)</span>
+            {quoteLoading ? null : quote ? (
+              <span className="font-bold text-green-500">
+                {quote?.route.tokenOut.symbol}
+              </span>
+            ) : token ? (
+              <span className="font-bold text-red-500">
+                No Uniswap Pools Available
+              </span>
+            ) : null}
+          </div>
+        }
         min="1"
         onChange={(event) => {
           setToken(event.target.value as Address);
@@ -49,15 +62,6 @@ const TokenConfig: FC = () => {
         placeholder="0x..."
         value={token}
       />
-      {quoteLoading ? null : quote ? (
-        <div className="mt-1 font-bold text-green-500">
-          {quote?.route.tokenOut.symbol}
-        </div>
-      ) : token ? (
-        <div className="mt-1 font-bold text-red-500">
-          No Uniswap Pools Available
-        </div>
-      ) : null}
     </div>
   );
 };

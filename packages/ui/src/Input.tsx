@@ -13,7 +13,7 @@ interface InputProps extends Omit<ComponentProps<'input'>, 'prefix'> {
   hideError?: boolean;
   iconLeft?: ReactNode;
   iconRight?: ReactNode;
-  label?: string;
+  label?: ReactNode;
   prefix?: ReactNode | string;
 }
 

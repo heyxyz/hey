@@ -45,7 +45,17 @@ const PoolConfig: FC = () => {
         <div className="ml-8 mt-4 text-sm">
           <Input
             className="no-spinner"
-            label="Pool ID"
+            error={!hasRewardsPool}
+            label={
+              <div className="flex items-center space-x-2">
+                <span>Pool ID</span>
+                {!hasRewardsPool ? (
+                  <span className="font-bold text-red-500">
+                    No Pools Available
+                  </span>
+                ) : null}
+              </div>
+            }
             min="1"
             onChange={(event) => {
               setRewardsPoolId(event.target.value as unknown as number);
@@ -55,11 +65,6 @@ const PoolConfig: FC = () => {
             type="number"
             value={rewardsPoolId}
           />
-          {!hasRewardsPool ? (
-            <div className="mt-1 font-bold text-red-500">
-              No Pools Available
-            </div>
-          ) : null}
         </div>
       ) : null}
     </div>
