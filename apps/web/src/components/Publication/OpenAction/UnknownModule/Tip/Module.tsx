@@ -82,9 +82,11 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
 
   const { actOnUnknownOpenAction, isLoading } = useActOnUnknownOpenAction({
     onSuccess: () => {
-      Leafwatch.track(PUBLICATION.OPEN_ACTIONS.TIP.TIP, {
-        publication_id: publication.id
-      });
+      Leafwatch.track(
+        PUBLICATION.OPEN_ACTIONS.TIP.TIP,
+        { publication_id: publication.id },
+        publication.by.ownedBy.address
+      );
     },
     signlessApproved: module.signlessApproved,
     successToast: "You've sent a tip!"
