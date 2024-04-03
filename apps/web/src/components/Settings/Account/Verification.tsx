@@ -59,7 +59,7 @@ const Verification: FC = () => {
               <XCircleIcon className="size-5 text-red-500" />
             )}
             <div>
-              You have {hasMetPublicationsRequirement ? 'met' : 'not met'} the
+              You have {hasMetPublicationsRequirement ? 'met' : 'not met'} the{' '}
               <b>50 publications</b> requirement.
             </div>
           </div>
