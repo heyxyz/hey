@@ -122,7 +122,7 @@ export const post: Handler = async (req, res) => {
 
     if (scoreAddress || payload.evmAddress) {
       const id = Buffer.from(
-        `${slugify(name)}-${scoreAddress}-${properties}`
+        `${slugify(name)}-${scoreAddress}-${JSON.stringify(properties)}`
       ).toString('base64');
       const payload = parseJwt(accessToken);
       const address = scoreAddress || payload.evmAddress;
