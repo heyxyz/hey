@@ -50,7 +50,6 @@ export const PUBLICATION = {
   },
   COPY_TEXT: 'Copy publication text',
   DELETE: 'Delete publication',
-  INTERESTED: 'Interested publication',
   LIKE: 'Like publication',
   MIRROR: 'Mirror publication',
   NEW_COMMENT: 'New comment',
@@ -58,9 +57,7 @@ export const PUBLICATION = {
   NEW_QUOTE: 'New quote',
   NOT_INTERESTED: 'Not interested publication',
   OPEN_ACTIONS: {
-    SWAP: {
-      SWAP: 'Swap OA: Swap'
-    },
+    SWAP: { SWAP: 'Swap OA: Swap' },
     TIP: {
       OPEN_TIP: 'Tip OA: Open tip modal',
       TIP: 'Tip OA: Tip a profile'
@@ -75,6 +72,7 @@ export const PUBLICATION = {
   TOGGLE_HIDE_COMMENT: 'Toggle publication hide comment',
   TRANSLATE: 'Translate publication',
   UNDO_MIRROR: 'Undo mirror publication',
+  UNDO_NOT_INTERESTED: 'Undo not interested publication',
   UNLIKE: 'Unlike publication',
   WIDGET: {
     POLL: { VOTE: 'Vote on poll' }
