@@ -39,7 +39,7 @@ const TokenConfig: FC = () => {
   return (
     <div className="mt-5 text-sm">
       <Input
-        disabled={quoteLoading}
+        disabled={quoteLoading || rewardsPoolId !== null}
         error={!isAddress(token)}
         label={
           <div className="flex items-center space-x-2">
