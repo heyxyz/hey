@@ -8,8 +8,8 @@ const createClickhouseClient = (username?: string, password?: string) => {
 
   return createClient({
     database: 'default',
-    host: CLICKHOUSE_URL,
     password,
+    url: CLICKHOUSE_URL,
     username
   });
 };
