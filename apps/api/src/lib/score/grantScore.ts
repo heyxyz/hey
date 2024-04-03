@@ -13,8 +13,8 @@ const SCORABLE_EVENTS = [
   { event: PUBLICATION.NEW_COMMENT, points: 30 },
   { event: PUBLICATION.INTERESTED, points: 10 },
   { event: PUBLICATION.BOOKMARK, points: 10 },
-  { event: PUBLICATION.NOT_INTERESTED, points: -10 },
-  { event: PUBLICATION.NEW_COMMENT, points: 30 }
+  { event: PUBLICATION.NEW_COMMENT, points: 30 },
+  { event: PUBLICATION.NOT_INTERESTED, points: -10 }
 ];
 
 const grantScore = ({
