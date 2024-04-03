@@ -38,6 +38,7 @@ export const PUBLICATION = {
       OPEN: 'Open image attachment'
     }
   },
+  BOOKMARK: 'Bookmark publication',
   CLICK_CASHTAG: 'Click publication cashtag',
   CLICK_HASHTAG: 'Click publication hashtag',
   CLICK_MENTION: 'Click publication mention',
@@ -49,11 +50,13 @@ export const PUBLICATION = {
   },
   COPY_TEXT: 'Copy publication text',
   DELETE: 'Delete publication',
+  INTERESTED: 'Interested publication',
   LIKE: 'Like publication',
   MIRROR: 'Mirror publication',
   NEW_COMMENT: 'New comment',
   NEW_POST: 'New post',
   NEW_QUOTE: 'New quote',
+  NOT_INTERESTED: 'Not interested publication',
   OPEN_ACTIONS: {
     SWAP: {
       SWAP: 'Swap OA: Swap'
@@ -66,11 +69,10 @@ export const PUBLICATION = {
   OPEN_GIFS: 'Open GIFs modal',
   OPEN_LIKES: 'Open likes modal',
   OPEN_NFT: 'Open NFT',
+  REMOVE_BOOKMARK: 'Remove bookmark publication',
   REPORT: 'Report publication',
   SHARE: 'Share publication',
-  TOGGLE_BOOKMARK: 'Toggle publication bookmark',
   TOGGLE_HIDE_COMMENT: 'Toggle publication hide comment',
-  TOGGLE_NOT_INTERESTED: 'Toggle publication not interested',
   TRANSLATE: 'Translate publication',
   UNDO_MIRROR: 'Undo mirror publication',
   UNLIKE: 'Unlike publication',
