@@ -45,12 +45,18 @@ const TokenConfig: FC = () => {
           <div className="flex items-center space-x-2">
             <span>Token address (Polygon)</span>
             {quoteLoading ? null : quote ? (
-              <span className="font-bold text-green-500">
-                {quote?.route.tokenOut.symbol}
+              <span>
+                <span className="mr-2">·</span>
+                <span className="font-bold text-green-500">
+                  {quote?.route.tokenOut.symbol}
+                </span>
               </span>
             ) : token ? (
-              <span className="font-bold text-red-500">
-                No Uniswap Pools Available
+              <span>
+                <span className="mr-2">·</span>
+                <span className="font-bold text-red-500">
+                  No Uniswap Pools Available
+                </span>
               </span>
             ) : null}
           </div>
