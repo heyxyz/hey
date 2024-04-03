@@ -26,7 +26,7 @@ const OpenActions: FC = () => {
           } as UnknownOpenActionModuleSettings
         }
       />
-      <div className="absolute right-0 top-0 m-2">
+      <div className="absolute -right-5 -top-5 m-2">
         <button
           className="rounded-full bg-gray-900 p-1.5 opacity-75"
           onClick={() => reset()}
