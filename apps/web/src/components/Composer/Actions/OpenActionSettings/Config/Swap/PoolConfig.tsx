@@ -6,6 +6,7 @@ import { GiftIcon } from '@heroicons/react/24/outline';
 import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import getSwapRewardPool from '@hey/lib/getSwapRewardPool';
 import { Input } from '@hey/ui';
+import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import usePreventScrollOnNumberInput from 'src/hooks/usePreventScrollOnNumberInput';
 
@@ -30,7 +31,14 @@ const PoolConfig: FC = () => {
   return (
     <div>
       <ToggleWithHelper
-        description="Tap into an incentive pool"
+        description={
+          <span className="linkify">
+            Tap into an incentive pool.{' '}
+            <Link href="https://madfi.xyz/bonsai/reward-swap" target="_blank">
+              Learn more.
+            </Link>
+          </span>
+        }
         heading="Use a rewards pool"
         icon={<GiftIcon className="size-5" />}
         on={rewardsPoolId !== null}
