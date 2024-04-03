@@ -126,7 +126,7 @@ export const post: Handler = async (req, res) => {
       ).toString('base64');
       const payload = parseJwt(accessToken);
       const address = scoreAddress || payload.evmAddress;
-      const pointSystemId = network === 'mainnet' ? 691 : 691;
+      const pointSystemId = network === 'mainnet' ? 1396 : 691;
 
       grantScore({ address, event: name, id, pointSystemId });
     }
