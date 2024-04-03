@@ -2,6 +2,7 @@ import type { Handler } from 'express';
 
 import { ALL_EVENTS } from '@hey/data/tracking';
 import logger from '@hey/lib/logger';
+import parseJwt from '@hey/lib/parseJwt';
 import slugify from '@hey/lib/slugify';
 import requestIp from 'request-ip';
 import catchedError from 'src/lib/catchedError';
@@ -39,6 +40,9 @@ export const post: Handler = async (req, res) => {
   if (!body) {
     return noBody(res);
   }
+
+  const accessToken = req.headers['x-access-token'] as string;
+  const network = req.headers['x-lens-network'] as string;
 
   const validation = validationSchema.safeParse(body);
 
@@ -114,11 +118,17 @@ export const post: Handler = async (req, res) => {
       ]
     });
 
-    if (scoreAddress) {
+    const payload = parseJwt(accessToken);
+
+    if (scoreAddress || payload.evmAddress) {
       const id = Buffer.from(
         `${slugify(name)}-${scoreAddress}-${properties}`
       ).toString('base64');
-      grantScore({ address: scoreAddress, event: name, id });
+      const payload = parseJwt(accessToken);
+      const address = scoreAddress || payload.evmAddress;
+      const pointSystemId = network === 'mainnet' ? 691 : 691;
+
+      grantScore({ address, event: name, id, pointSystemId });
     }
 
     logger.info('Ingested event to Leafwatch');
