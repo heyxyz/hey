@@ -11,12 +11,11 @@ import Nft from './Nft';
 import Player from './Player';
 
 interface OembedProps {
-  className?: string;
   publicationId?: string;
   url?: string;
 }
 
-const Oembed: FC<OembedProps> = ({ className = '', publicationId, url }) => {
+const Oembed: FC<OembedProps> = ({ publicationId, url }) => {
   const { data, error, isLoading } = useQuery({
     enabled: Boolean(url),
     queryFn: async () => {
@@ -50,7 +49,7 @@ const Oembed: FC<OembedProps> = ({ className = '', publicationId, url }) => {
   }
 
   return (
-    <div className={className}>
+    <div>
       {og.html ? (
         <Player og={og} />
       ) : og.nft ? (
