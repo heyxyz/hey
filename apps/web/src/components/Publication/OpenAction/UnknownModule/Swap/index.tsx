@@ -224,8 +224,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
             disabled={!currentProfile}
             inputMode="numeric"
             onChange={(e) => {
-              // @ts-ignore
-              setValue(e.target.value);
+              setValue(e.target.value as unknown as number);
             }}
             placeholder="0"
             ref={inputRef}

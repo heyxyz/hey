@@ -9,7 +9,7 @@ const getUniswapQuote = async (
   amount: number,
   chainId: number
 ): Promise<UniswapQuote> => {
-  const uniswapData = {
+  const payload = {
     amount: parseUnits(amount.toString(), 18).toString(),
     configs: [{ protocols: ['V3'], routingType: 'CLASSIC' }],
     intent: 'quote',
@@ -22,7 +22,7 @@ const getUniswapQuote = async (
 
   const { data } = await axios.post(
     'https://quote.heyxyz.workers.dev',
-    uniswapData
+    payload
   );
   const { quote } = data;
 

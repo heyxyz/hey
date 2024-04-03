@@ -10,7 +10,7 @@ import { type Address, isAddress } from 'viem';
 import { useSwapActionStore } from '.';
 
 const TokenConfig: FC = () => {
-  const { setCanSwap, setToken, token } = useSwapActionStore();
+  const { rewardsPoolId, setCanSwap, setToken, token } = useSwapActionStore();
   const [quote, setQuote] = useState<null | UniswapQuote>(null);
   const [quoteLoading, setQuoteLoading] = useState<boolean>(false);
 
@@ -32,8 +32,12 @@ const TokenConfig: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
+  if (!token) {
+    return null;
+  }
+
   return (
-    <div className="text-sm">
+    <div className="mt-5 text-sm">
       <Input
         disabled={quoteLoading}
         error={!isAddress(token)}

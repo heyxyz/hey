@@ -27,9 +27,9 @@ interface State {
   setEnabled: (enabled: boolean) => void;
   setRewardsPoolId: (rewardsPoolId: null | number) => void;
   setSharedRewardPercent: (sharedRewardPercent: number) => void;
-  setToken: (token: Address) => void;
+  setToken: (token: Address | null) => void;
   sharedRewardPercent: number;
-  token: Address;
+  token: Address | null;
 }
 
 const store = create<State>((set) => ({
@@ -123,16 +123,20 @@ const SwapConfig: FC = () => {
         <>
           <div className="divider" />
           <div className="m-5">
-            <TokenConfig />
-            <RewardConfig />
             <PoolConfig />
+            <RewardConfig />
             <DefaultAmountConfig />
+            <TokenConfig />
           </div>
           <div className="divider" />
           <div className="m-5">
             <SaveOrCancel
               onSave={onSave}
-              saveDisabled={token.length === 0 || !isAddress(token) || !canSwap}
+              saveDisabled={
+                token
+                  ? token.length === 0 || !isAddress(token) || !canSwap
+                  : true
+              }
             />
           </div>
         </>
