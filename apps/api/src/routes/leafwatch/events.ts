@@ -2,11 +2,14 @@ import type { Handler } from 'express';
 
 import { ALL_EVENTS } from '@hey/data/tracking';
 import logger from '@hey/lib/logger';
+import parseJwt from '@hey/lib/parseJwt';
+import slugify from '@hey/lib/slugify';
 import requestIp from 'request-ip';
 import catchedError from 'src/lib/catchedError';
 import createClickhouseClient from 'src/lib/createClickhouseClient';
 import checkEventExistence from 'src/lib/leafwatch/checkEventExistence';
 import { invalidBody, noBody } from 'src/lib/responses';
+import grantScore from 'src/lib/score/grantScore';
 import UAParser from 'ua-parser-js';
 import urlcat from 'urlcat';
 import { any, object, string } from 'zod';
@@ -17,8 +20,8 @@ type ExtensionRequest = {
   platform: 'mobile' | 'web';
   properties?: string;
   referrer?: string;
+  scoreAddress?: string;
   url: string;
-  user_agent?: string;
 };
 
 const validationSchema = object({
@@ -27,6 +30,7 @@ const validationSchema = object({
   platform: string(),
   properties: any(),
   referrer: string().nullable().optional(),
+  scoreAddress: string().nullable().optional(),
   url: string()
 });
 
@@ -37,13 +41,16 @@ export const post: Handler = async (req, res) => {
     return noBody(res);
   }
 
+  const accessToken = req.headers['x-access-token'] as string;
+  const network = req.headers['x-lens-network'] as string;
+
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
     return invalidBody(res);
   }
 
-  const { actor, name, platform, properties, referrer, url } =
+  const { actor, name, platform, properties, referrer, scoreAddress, url } =
     body as ExtensionRequest;
 
   if (!checkEventExistence(ALL_EVENTS, name)) {
@@ -110,6 +117,19 @@ export const post: Handler = async (req, res) => {
         }
       ]
     });
+
+    const payload = parseJwt(accessToken);
+
+    if (scoreAddress || payload.evmAddress) {
+      const id = Buffer.from(
+        `${slugify(name)}-${scoreAddress}-${properties}`
+      ).toString('base64');
+      const payload = parseJwt(accessToken);
+      const address = scoreAddress || payload.evmAddress;
+      const pointSystemId = network === 'mainnet' ? 1396 : 691;
+
+      grantScore({ address, event: name, id, pointSystemId });
+    }
 
     logger.info('Ingested event to Leafwatch');
 

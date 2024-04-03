@@ -7,13 +7,13 @@ import randomizeIds from 'src/lib/feeds/randomizeIds';
 const interactionAndWeights = {
   [PUBLICATION.ATTACHMENT.AUDIO.PLAY]: 4,
   [PUBLICATION.ATTACHMENT.IMAGE.OPEN]: 4,
+  [PUBLICATION.BOOKMARK]: 3,
   [PUBLICATION.CLICK_OEMBED]: 1,
   [PUBLICATION.COLLECT_MODULE.COLLECT]: 10,
   [PUBLICATION.COPY_TEXT]: 1,
   [PUBLICATION.LIKE]: 5,
   [PUBLICATION.MIRROR]: 8,
   [PUBLICATION.SHARE]: 6,
-  [PUBLICATION.TOGGLE_BOOKMARK]: 3,
   [PUBLICATION.TRANSLATE]: 1
 };
 const interactionEvents = Object.keys(interactionAndWeights);
