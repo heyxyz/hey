@@ -2,11 +2,13 @@ import type { Handler } from 'express';
 
 import { ALL_EVENTS } from '@hey/data/tracking';
 import logger from '@hey/lib/logger';
+import slugify from '@hey/lib/slugify';
 import requestIp from 'request-ip';
 import catchedError from 'src/lib/catchedError';
 import createClickhouseClient from 'src/lib/createClickhouseClient';
 import checkEventExistence from 'src/lib/leafwatch/checkEventExistence';
 import { invalidBody, noBody } from 'src/lib/responses';
+import grantScore from 'src/lib/score/grantScore';
 import UAParser from 'ua-parser-js';
 import urlcat from 'urlcat';
 import { any, object, string } from 'zod';
@@ -17,8 +19,8 @@ type ExtensionRequest = {
   platform: 'mobile' | 'web';
   properties?: string;
   referrer?: string;
+  scoreAddress?: string;
   url: string;
-  user_agent?: string;
 };
 
 const validationSchema = object({
@@ -27,6 +29,7 @@ const validationSchema = object({
   platform: string(),
   properties: any(),
   referrer: string().nullable().optional(),
+  scoreAddress: string().nullable().optional(),
   url: string()
 });
 
@@ -43,7 +46,7 @@ export const post: Handler = async (req, res) => {
     return invalidBody(res);
   }
 
-  const { actor, name, platform, properties, referrer, url } =
+  const { actor, name, platform, properties, referrer, scoreAddress, url } =
     body as ExtensionRequest;
 
   if (!checkEventExistence(ALL_EVENTS, name)) {
@@ -110,6 +113,13 @@ export const post: Handler = async (req, res) => {
         }
       ]
     });
+
+    if (scoreAddress) {
+      const id = Buffer.from(
+        `${slugify(name)}-${scoreAddress}-${properties}`
+      ).toString('base64');
+      grantScore({ address: scoreAddress, event: name, id });
+    }
 
     logger.info('Ingested event to Leafwatch');
 
