@@ -21,6 +21,7 @@ const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
   const targetPublication = isMirrorPublication(publication)
     ? publication.mirrorOn
     : publication;
+  console.log('targetPublication', notification);
   const { metadata } = targetPublication;
   const filteredContent = getPublicationData(metadata)?.content || '';
   const actions = notification?.actions;
