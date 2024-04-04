@@ -6,6 +6,12 @@ import { getIpByActor, getIpByWallet } from '../leafwatch/getIp';
 import prisma from '../prisma';
 import createStackClient from './createStackClient';
 
+const allowedSelfScoreEvents = ['NEW_POST', 'NEW_COMMENT', 'NEW_QUOTE'];
+
+const isSelfScoreEvent = (eventKey: string): boolean => {
+  return allowedSelfScoreEvents.includes(eventKey);
+};
+
 const findScorableEventByEventType = async (eventType: string) => {
   return await prisma.scorableEvent.findUnique({ where: { eventType } });
 };
@@ -34,11 +40,24 @@ const grantScore = async ({
     return null;
   }
 
+  // If the score address is the same as the actor, we don't grant points except for allowed self-score events
+  if (scoreAddress === profile && !isSelfScoreEvent(eventKey)) {
+    logger.info(
+      `Abuse: Actor and wallet are the same - Actor: ${profile} - Wallet: ${scoreAddress}`
+    );
+    return null;
+  }
+
   const actorIp = await getIpByActor(profile);
   const walletIp = await getIpByWallet(scoreAddress);
 
-  // To prevent abuse, we don't grant points if the actor and wallet IPs are the same
-  if (actorIp === walletIp) {
+  // To prevent abuse, we don't grant points if the actor and wallet IPs are the same except for allowed self-score events
+  if (
+    actorIp &&
+    walletIp &&
+    actorIp === walletIp &&
+    !isSelfScoreEvent(eventKey)
+  ) {
     logger.info(
       `Abuse: Actor IP and wallet IP are the same - Actor: ${profile} - ${actorIp} - Wallet: ${scoreAddress} - ${walletIp}`
     );
