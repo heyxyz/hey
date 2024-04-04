@@ -21,6 +21,7 @@ const findEventKey = (eventString: string): null | string => {
 };
 
 const grantScore = async ({
+  actorAddress,
   address,
   id,
   name,
@@ -28,6 +29,7 @@ const grantScore = async ({
   profile,
   scoreAddress
 }: {
+  actorAddress?: string;
   address: string;
   id: string;
   name: string;
@@ -41,7 +43,7 @@ const grantScore = async ({
   }
 
   // If the score address is the same as the actor, we don't grant points except for allowed self-score events
-  if (scoreAddress === address && !isSelfScoreEvent(eventKey)) {
+  if (actorAddress === scoreAddress && !isSelfScoreEvent(eventKey)) {
     logger.info(
       `Abuse: Actor and receiver are the same - Actor: ${address} - Receiver: ${scoreAddress}`
     );
