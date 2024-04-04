@@ -1,10 +1,7 @@
 import type { FC } from 'react';
 
-import {
-  CheckBadgeIcon,
-  CheckCircleIcon,
-  XCircleIcon
-} from '@heroicons/react/24/solid';
+import { MinusCircleIcon } from '@heroicons/react/24/outline';
+import { CheckBadgeIcon, CheckCircleIcon } from '@heroicons/react/24/solid';
 import getNumberOfDaysFromDate from '@hey/lib/datetime/getNumberOfDaysFromDate';
 import { Button, Card } from '@hey/ui';
 import { Crisp } from 'crisp-sdk-web';
@@ -43,9 +40,9 @@ const Verification: FC = () => {
         <div className="space-y-2">
           <div className="flex items-center space-x-1.5">
             {hasMetFollowersRequirement ? (
-              <CheckCircleIcon className="size-5 text-green-500" />
+              <CheckCircleIcon className="size-5" />
             ) : (
-              <XCircleIcon className="size-5 text-red-500" />
+              <MinusCircleIcon className="size-5" />
             )}
             <div>
               You have {hasMetFollowersRequirement ? 'met' : 'not met'} the{' '}
@@ -54,9 +51,9 @@ const Verification: FC = () => {
           </div>
           <div className="flex items-center space-x-1.5">
             {hasMetPublicationsRequirement ? (
-              <CheckCircleIcon className="size-5 text-green-500" />
+              <CheckCircleIcon className="size-5" />
             ) : (
-              <XCircleIcon className="size-5 text-red-500" />
+              <MinusCircleIcon className="size-5" />
             )}
             <div>
               You have {hasMetPublicationsRequirement ? 'met' : 'not met'} the{' '}
@@ -65,9 +62,9 @@ const Verification: FC = () => {
           </div>
           <div className="flex items-center space-x-1.5">
             {hasMetTimeRequirement ? (
-              <CheckCircleIcon className="size-5 text-green-500" />
+              <CheckCircleIcon className="size-5" />
             ) : (
-              <XCircleIcon className="size-5 text-red-500" />
+              <MinusCircleIcon className="size-5" />
             )}
             <div>
               You have {hasMetTimeRequirement ? 'met' : 'not met'} the{' '}
