@@ -58,7 +58,7 @@ const grantScore = async ({
         });
 
         logger.info(
-          `Granted ${event.points} points to ${address} for ${event.eventType} - ${messageId}`
+          `Granted ${event.points} points to ${address} for ${event.eventType} by ${profile} - ${messageId}`
         );
       } catch {
         logger.error('Error granting score on stack.so');
