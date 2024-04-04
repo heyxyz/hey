@@ -65,7 +65,7 @@ const grantScore = async ({
       }
     }
   } catch {
-    logger.error('Error finding scorable event');
+    logger.info('Error finding scorable event');
   }
 
   return id;
