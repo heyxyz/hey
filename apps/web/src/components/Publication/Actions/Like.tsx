@@ -81,7 +81,12 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
   });
 
   const [removeReaction] = useRemoveReactionMutation({
-    onCompleted: () => Leafwatch.track(PUBLICATION.UNLIKE, eventProperties),
+    onCompleted: () =>
+      Leafwatch.track(
+        PUBLICATION.UNLIKE,
+        eventProperties,
+        publication.by.ownedBy.address
+      ),
     onError: (error) => {
       toggleReact();
       increment();
