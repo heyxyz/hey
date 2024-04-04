@@ -16,5 +16,8 @@ fragment ActedNotificationFields on ActedNotification {
     ... on Mirror {
       ...MirrorFields
     }
+    ... on Quote {
+      ...QuoteBaseFields
+    }
   }
 }
