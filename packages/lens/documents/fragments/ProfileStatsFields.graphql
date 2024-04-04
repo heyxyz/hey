@@ -2,6 +2,7 @@ fragment ProfileStatsFields on ProfileStats {
   id
   followers
   following
+  publications
   comments
   posts
   mirrors
