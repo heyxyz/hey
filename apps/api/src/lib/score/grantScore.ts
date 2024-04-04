@@ -40,7 +40,7 @@ const grantScore = async ({
   // To prevent abuse, we don't grant points if the actor and wallet IPs are the same
   if (actorIp === walletIp) {
     logger.info(
-      `Abuse: Actor IP and wallet IP are the same for ${address} - ${actorIp}`
+      `Abuse: Actor IP and wallet IP are the same - Actor: ${profile} - ${actorIp} - Wallet: ${scoreAddress} - ${walletIp}`
     );
     return null;
   }
