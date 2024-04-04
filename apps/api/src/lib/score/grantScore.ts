@@ -1,15 +1,12 @@
 import { ALL_EVENTS } from '@hey/data/tracking';
 import logger from '@hey/lib/logger';
 
+import findEventKeyDeep from '../leafwatch/findEventKeyDeep';
 import prisma from '../prisma';
 import createStackClient from './createStackClient';
 
 const findEventKey = (eventString: string): null | string => {
-  const eventKey = Object.keys(ALL_EVENTS).find(
-    (key) => ALL_EVENTS[key as keyof typeof ALL_EVENTS] === eventString
-  );
-
-  return eventKey || null;
+  return findEventKeyDeep(ALL_EVENTS, eventString);
 };
 
 const grantScore = ({
