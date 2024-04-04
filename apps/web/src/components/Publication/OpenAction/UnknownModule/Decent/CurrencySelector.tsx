@@ -170,17 +170,17 @@ const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
                 />
               </div>
               <div className="flex flex-col items-start justify-center leading-none">
-                <p className="text-black">{currency.symbol}</p>
-                <p className="text-sm text-black/50">Polygon</p>
+                <p>{currency.symbol}</p>
+                <p className="text-sm opacity-50">Polygon</p>
               </div>
             </div>
 
             <div className="flex flex-col items-end justify-center leading-none">
-              <p className="text-black">
+              <p>
                 {balances[currency.symbol as keyof typeof balances].token ??
                   '--'}
               </p>
-              <p className="text-sm text-black/50">
+              <p className="text-sm opacity-50">
                 $
                 {balances[currency.symbol as keyof typeof balances].usd ?? '--'}
               </p>

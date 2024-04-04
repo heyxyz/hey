@@ -220,7 +220,7 @@ const formattedTotalFees = (
             <div>
               <h2 className="text-xl">{actionData?.uiData.nftName}</h2>
               {creatorProfileData ? (
-                <p className="text-black/50">
+                <p className="opacity-50">
                   by{' '}
                   {
                     getProfile(creatorProfileData.defaultProfile as Profile)
@@ -240,12 +240,14 @@ const formattedTotalFees = (
                   {showLongDescription
                     ? nft.description
                     : truncateByWords(nft.description, 30)}
-                  <button
-                    className="ml-1 text-black/50"
-                    onClick={() => setShowLongDescription((v) => !v)}
-                  >
-                    {showLongDescription ? 'Show less' : 'read more'}
-                  </button>
+                  {nft.description.trim().split(/\s+/).length > 30 ? (
+                    <button
+                      className="ml-1 opacity-50"
+                      onClick={() => setShowLongDescription((v) => !v)}
+                    >
+                      {showLongDescription ? 'Show less' : 'read more'}
+                    </button>
+                  ) : null}
                 </p>
               )}
             </div>
@@ -318,7 +320,7 @@ const formattedTotalFees = (
                   </div>
                 </div>
               ) : null}
-              <div className="mt-4 flex items-start justify-between space-y-0.5 text-xl text-gray-600">
+              <div className="mt-4 flex items-start justify-between space-y-0.5 text-xl text-gray-600 dark:text-gray-100">
                 <span className="flex items-baseline justify-start gap-1 space-x-1">
                   Total{' '}
                   <HelpTooltip>
