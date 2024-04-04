@@ -141,14 +141,19 @@ export const post: Handler = async (req, res) => {
       const profile = actor || payload.id;
       const pointSystemId = network === 'mainnet' ? 1464 : 691;
 
+      const sourceAddress = payload.evmAddress;
+      const targetAddress = scoreAddress;
+      const grantingAddress = actorAddress || sourceAddress;
+
       grantScore({
-        actorAddress,
         address,
+        grantingAddress,
         id,
         name,
         pointSystemId,
         profile,
-        scoreAddress
+        sourceAddress,
+        targetAddress
       });
     }
 
