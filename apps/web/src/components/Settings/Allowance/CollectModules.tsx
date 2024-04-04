@@ -35,7 +35,7 @@ const CollectModules: FC = () => {
     error: allowedTokensError,
     isLoading: allowedTokensLoading
   } = useQuery({
-    queryFn: () => getAllTokens(),
+    queryFn: getAllTokens,
     queryKey: ['getAllTokens']
   });
 

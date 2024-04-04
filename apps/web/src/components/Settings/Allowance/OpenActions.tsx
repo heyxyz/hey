@@ -31,7 +31,7 @@ const OpenActions: FC = () => {
     error: allowedTokensError,
     isLoading: allowedTokensLoading
   } = useQuery({
-    queryFn: () => getAllTokens(),
+    queryFn: getAllTokens,
     queryKey: ['getAllTokens']
   });
 

@@ -49,7 +49,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
     : publication;
 
   const { data: allowedTokens } = useQuery({
-    queryFn: () => getAllTokens(),
+    queryFn: getAllTokens,
     queryKey: ['getAllTokens']
   });
 
