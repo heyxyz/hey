@@ -18,7 +18,7 @@ export const Leafwatch = {
     properties?: Record<string, unknown>,
     scoreAddress?: string
   ) => {
-    const { id: sessionProfileId } = getCurrentSession();
+    const { evmAddress: wallet, id: sessionProfileId } = getCurrentSession();
     const { referrer } = document;
     const referrerDomain = referrer ? new URL(referrer).hostname : null;
 
@@ -31,7 +31,8 @@ export const Leafwatch = {
       properties,
       referrer: referrerDomain,
       scoreAddress,
-      url: window.location.href
+      url: window.location.href,
+      wallet
     });
 
     worker.onmessage = (event: MessageEvent) => {
