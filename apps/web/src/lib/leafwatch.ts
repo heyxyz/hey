@@ -23,16 +23,16 @@ export const Leafwatch = {
     const referrerDomain = referrer ? new URL(referrer).hostname : null;
 
     worker.postMessage({
-      accessToken: getAuthApiHeaders()['X-Access-Token'],
-      actor: sessionProfileId || null,
+      accessToken: getAuthApiHeaders()['X-Access-Token'] || undefined,
+      actor: sessionProfileId || undefined,
       name,
-      network: getAuthApiHeaders()['X-Lens-Network'],
+      network: getAuthApiHeaders()['X-Lens-Network'] || undefined,
       platform: 'web',
       properties,
       referrer: referrerDomain,
       scoreAddress,
       url: window.location.href,
-      wallet: wallet || null
+      wallet: wallet || undefined
     });
 
     worker.onmessage = (event: MessageEvent) => {
