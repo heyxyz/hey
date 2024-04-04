@@ -2,53 +2,71 @@ import { ALL_EVENTS } from '@hey/data/tracking';
 import logger from '@hey/lib/logger';
 
 import findEventKeyDeep from '../leafwatch/findEventKeyDeep';
+import { getIpByActor, getIpByWallet } from '../leafwatch/getIp';
 import prisma from '../prisma';
 import createStackClient from './createStackClient';
+
+const findScorableEventByEventType = async (eventType: string) => {
+  return await prisma.scorableEvent.findUnique({ where: { eventType } });
+};
 
 const findEventKey = (eventString: string): null | string => {
   return findEventKeyDeep(ALL_EVENTS, eventString);
 };
 
-const grantScore = ({
+const grantScore = async ({
   address,
   id,
   name,
-  pointSystemId
+  pointSystemId,
+  profile,
+  scoreAddress
 }: {
   address: string;
   id: string;
   name: string;
   pointSystemId: number;
-}): null | string => {
+  profile: string;
+  scoreAddress?: string;
+}): Promise<null | string> => {
   const eventKey = findEventKey(name);
   if (!eventKey) {
     return null;
   }
 
-  prisma.scorableEvent
-    .findUnique({ where: { eventType: eventKey } })
-    .then((event) => {
-      if (event?.points) {
-        const stack = createStackClient(pointSystemId);
-        stack
-          .track(event.eventType, {
-            account: address,
-            points: event.points,
-            uniqueId: id
-          })
-          .then(({ messageId }) => {
-            logger.info(
-              `Granted ${event.points} points to ${address} for ${event.eventType} - ${messageId}`
-            );
-          })
-          .catch((error) =>
-            logger.error(`Error tracking event: ${error.message}`)
-          );
-      }
-    })
-    .catch((error) =>
-      logger.error(`Error retrieving event points: ${error.message}`)
+  const actorIp = await getIpByActor(profile);
+  const walletIp = await getIpByWallet(scoreAddress);
+
+  // To prevent abuse, we don't grant points if the actor and wallet IPs are the same
+  if (actorIp === walletIp) {
+    logger.info(
+      `Abuse: Actor IP and wallet IP are the same for ${address} - ${actorIp}`
     );
+    return null;
+  }
+
+  try {
+    const event = await findScorableEventByEventType(eventKey);
+    if (event?.points) {
+      const stack = createStackClient(pointSystemId);
+      try {
+        const { messageId } = await stack.track(event.eventType, {
+          account: address,
+          metadata: { actor: profile },
+          points: event.points,
+          uniqueId: id
+        });
+
+        logger.info(
+          `Granted ${event.points} points to ${address} for ${event.eventType} - ${messageId}`
+        );
+      } catch {
+        logger.error('Error granting score on stack.so');
+      }
+    }
+  } catch {
+    logger.error('Error finding scorable event');
+  }
 
   return id;
 };
