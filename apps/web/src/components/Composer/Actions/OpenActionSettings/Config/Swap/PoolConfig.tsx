@@ -46,7 +46,7 @@ const PoolConfig: FC = () => {
           setToken(
             rewardsPoolId === null ? null : (DEFAULT_COLLECT_TOKEN as Address)
           );
-          setRewardsPoolId(rewardsPoolId === null ? 1 : null);
+          setRewardsPoolId(rewardsPoolId === null ? 2 : null);
         }}
       />
       {rewardsPoolId !== null ? (
