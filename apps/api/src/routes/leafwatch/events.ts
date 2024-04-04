@@ -7,7 +7,7 @@ import slugify from '@hey/lib/slugify';
 import requestIp from 'request-ip';
 import catchedError from 'src/lib/catchedError';
 import createClickhouseClient from 'src/lib/createClickhouseClient';
-import checkEventExistence from 'src/lib/leafwatch/checkEventExistence';
+import findEventKeyDeep from 'src/lib/leafwatch/findEventKeyDeep';
 import { invalidBody, noBody } from 'src/lib/responses';
 import grantScore from 'src/lib/score/grantScore';
 import UAParser from 'ua-parser-js';
@@ -53,7 +53,7 @@ export const post: Handler = async (req, res) => {
   const { actor, name, platform, properties, referrer, scoreAddress, url } =
     body as ExtensionRequest;
 
-  if (!checkEventExistence(ALL_EVENTS, name)) {
+  if (!findEventKeyDeep(ALL_EVENTS, name)?.length) {
     return res.status(400).json({ error: 'Invalid event!', success: false });
   }
 
