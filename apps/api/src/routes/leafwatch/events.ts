@@ -137,10 +137,19 @@ export const post: Handler = async (req, res) => {
       ).toString('base64');
       const payload = parseJwt(accessToken);
       const address = scoreAddress || payload.evmAddress;
+      const actorAddress = payload.evmAddress;
       const profile = actor || payload.id;
       const pointSystemId = network === 'mainnet' ? 1464 : 691;
 
-      grantScore({ address, id, name, pointSystemId, profile, scoreAddress });
+      grantScore({
+        actorAddress,
+        address,
+        id,
+        name,
+        pointSystemId,
+        profile,
+        scoreAddress
+      });
     }
 
     logger.info('Ingested event to Leafwatch');
