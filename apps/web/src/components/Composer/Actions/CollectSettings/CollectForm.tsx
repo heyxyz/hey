@@ -53,7 +53,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   };
 
   const { data, error, isLoading } = useQuery({
-    queryFn: () => getAllTokens(),
+    queryFn: getAllTokens,
     queryKey: ['getAllTokens']
   });
 

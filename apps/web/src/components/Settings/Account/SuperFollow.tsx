@@ -89,7 +89,7 @@ const SuperFollow: FC = () => {
   };
 
   const { data: allowedTokens, isLoading: allowedTokensLoading } = useQuery({
-    queryFn: () => getAllTokens(),
+    queryFn: getAllTokens,
     queryKey: ['getAllTokens']
   });
 

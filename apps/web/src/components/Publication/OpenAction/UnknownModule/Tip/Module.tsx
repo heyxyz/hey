@@ -56,6 +56,7 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
 
   useEffect(() => {
     getUsdPrice();
+    setTip({ ...tip, value: [5] });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCurrency]);
 
@@ -94,13 +95,15 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
 
   const { data: allowedTokens, isLoading: loadingAllowedTokens } = useQuery({
     queryFn: () =>
-      getAllTokens((tokens) =>
+      getAllTokens().then((tokens) => {
         setSelectedCurrency(
           tokens.find(
             (token) => token.contractAddress === DEFAULT_COLLECT_TOKEN
           ) as AllowedToken
-        )
-      ),
+        );
+
+        return tokens;
+      }),
     queryKey: ['getAllTokens']
   });
 
@@ -154,7 +157,6 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
               </>
             )}
           </span>
-
           <div className="ld-text-gray-500 text-sm">
             {usdEnabled ? (
               <>
@@ -192,6 +194,7 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
       </div>
       <div className="pb-3 pt-5">
         <RangeSlider
+          max={selectedCurrency?.maxTipAmount || 100}
           min={1}
           onValueChange={(value) => setTip({ ...tip, value })}
           value={tip.value}

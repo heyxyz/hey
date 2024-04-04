@@ -20,6 +20,7 @@ export type AllowedToken = {
   contractAddress: string;
   decimals: number;
   id: string;
+  maxTipAmount: number;
   name: string;
   symbol: string;
 };
