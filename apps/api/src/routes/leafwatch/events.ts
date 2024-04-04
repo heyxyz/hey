@@ -1,5 +1,6 @@
 import type { Handler } from 'express';
 
+import { Regex } from '@hey/data/regex';
 import { ALL_EVENTS } from '@hey/data/tracking';
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
@@ -22,6 +23,7 @@ type ExtensionRequest = {
   referrer?: string;
   scoreAddress?: string;
   url: string;
+  wallet?: string;
 };
 
 const validationSchema = object({
@@ -31,7 +33,8 @@ const validationSchema = object({
   properties: any(),
   referrer: string().nullable().optional(),
   scoreAddress: string().nullable().optional(),
-  url: string()
+  url: string(),
+  wallet: string().regex(Regex.ethereumAddress).nullable().optional()
 });
 
 export const post: Handler = async (req, res) => {
@@ -50,8 +53,16 @@ export const post: Handler = async (req, res) => {
     return invalidBody(res);
   }
 
-  const { actor, name, platform, properties, referrer, scoreAddress, url } =
-    body as ExtensionRequest;
+  const {
+    actor,
+    name,
+    platform,
+    properties,
+    referrer,
+    scoreAddress,
+    url,
+    wallet
+  } = body as ExtensionRequest;
 
   if (!findEventKeyDeep(ALL_EVENTS, name)?.length) {
     return res.status(400).json({ error: 'Invalid event!', success: false });
@@ -113,7 +124,8 @@ export const post: Handler = async (req, res) => {
           utm_content: utmContent || null,
           utm_medium: utmMedium || null,
           utm_source: utmSource || null,
-          utm_term: utmTerm || null
+          utm_term: utmTerm || null,
+          wallet: wallet || null
         }
       ]
     });
