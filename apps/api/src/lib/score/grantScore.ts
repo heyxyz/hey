@@ -50,18 +50,18 @@ const grantScore = async ({
     return null;
   }
 
-  const actorIp = await getIpByActor(sourceActor);
-  const walletIp = await getIpByWallet(targetAddress);
+  const sourceActorIp = await getIpByActor(sourceActor);
+  const targetAddressIp = await getIpByWallet(targetAddress);
 
   // To prevent abuse, we don't grant points if the actor and wallet IPs are the same except for allowed self-score events
   if (
-    actorIp &&
-    walletIp &&
-    actorIp === walletIp &&
+    sourceActorIp &&
+    targetAddressIp &&
+    sourceActorIp === targetAddressIp &&
     !isSelfScoreEvent(eventKey)
   ) {
     logger.info(
-      `Abuse: Actor IP and wallet IP are the same - Actor: ${profile} - ${actorIp} - Wallet: ${targetAddress} - ${walletIp}`
+      `Abuse: Actor IP and wallet IP are the same - Actor: ${sourceActor} - ${sourceActorIp} - Wallet: ${targetAddress} - ${targetAddressIp}`
     );
     return null;
   }
@@ -73,13 +73,13 @@ const grantScore = async ({
       try {
         const { messageId } = await stack.track(event.eventType, {
           account: grantingAddress,
-          metadata: { actor: profile },
+          metadata: { actor: sourceActor },
           points: event.points,
           uniqueId: id
         });
 
         logger.info(
-          `Granted ${event.points} points to ${grantingAddress} for ${event.eventType} by ${profile} - ${messageId}`
+          `Granted ${event.points} points to ${grantingAddress} for ${event.eventType} by ${sourceActor} - ${messageId}`
         );
       } catch {
         logger.error('Error granting score on stack.so');
