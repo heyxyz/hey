@@ -21,7 +21,11 @@ const List: FC = () => {
   const [tokens, setTokens] = useState<[] | AllowedToken[]>([]);
 
   const { error, isLoading } = useQuery({
-    queryFn: () => getAllTokens((tokens) => setTokens(tokens)),
+    queryFn: () =>
+      getAllTokens().then((tokens) => {
+        setTokens(tokens);
+        return tokens;
+      }),
     queryKey: ['getAllTokens']
   });
 
