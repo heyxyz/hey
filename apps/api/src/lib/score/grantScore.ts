@@ -25,16 +25,15 @@ const grantScore = async ({
   id,
   name,
   pointSystemId,
-  profile,
+  sourceActor,
   sourceAddress,
   targetAddress
 }: {
-  address: string;
   grantingAddress: string;
   id: string;
   name: string;
   pointSystemId: number;
-  profile: string;
+  sourceActor: string;
   sourceAddress?: string;
   targetAddress?: string;
 }): Promise<null | string> => {
@@ -51,7 +50,7 @@ const grantScore = async ({
     return null;
   }
 
-  const actorIp = await getIpByActor(profile);
+  const actorIp = await getIpByActor(sourceActor);
   const walletIp = await getIpByWallet(targetAddress);
 
   // To prevent abuse, we don't grant points if the actor and wallet IPs are the same except for allowed self-score events
