@@ -2,9 +2,7 @@ import type { FC } from 'react';
 
 import { BanknotesIcon } from '@heroicons/react/24/outline';
 import { OpenAction } from '@hey/data/enums';
-import { FeatureFlag } from '@hey/data/feature-flags';
 import { TipIcon } from '@hey/icons';
-import isFeatureAvailable from '@lib/isFeatureAvailable';
 import {
   ScreenType,
   useOpenActionStore
@@ -20,15 +18,12 @@ const OpenActionsList: FC = () => {
   return screen === ScreenType.List ? (
     <div className="p-5">
       <div className="mb-5 space-y-3">
-        {(isFeatureAvailable('swap-oa') ||
-          isFeatureAvailable(FeatureFlag.LensTeam)) && (
-          <OpenActionItem
-            description="Swap any ERC-20 token"
-            icon={<BanknotesIcon className="size-6" />}
-            title="Token Swap"
-            type={OpenAction.Swap}
-          />
-        )}
+        <OpenActionItem
+          description="Swap any ERC-20 token"
+          icon={<BanknotesIcon className="size-6" />}
+          title="Token Swap"
+          type={OpenAction.Swap}
+        />
         <OpenActionItem
           description="Add ability to tip"
           icon={<TipIcon className="size-6" />}
