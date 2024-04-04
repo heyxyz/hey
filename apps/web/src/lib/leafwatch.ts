@@ -24,7 +24,7 @@ export const Leafwatch = {
 
     worker.postMessage({
       accessToken: getAuthApiHeaders()['X-Access-Token'],
-      actor: sessionProfileId,
+      actor: sessionProfileId || null,
       name,
       network: getAuthApiHeaders()['X-Lens-Network'],
       platform: 'web',
@@ -32,7 +32,7 @@ export const Leafwatch = {
       referrer: referrerDomain,
       scoreAddress,
       url: window.location.href,
-      wallet
+      wallet: wallet || null
     });
 
     worker.onmessage = (event: MessageEvent) => {
