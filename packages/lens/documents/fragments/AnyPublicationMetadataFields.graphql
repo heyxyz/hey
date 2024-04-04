@@ -1,6 +1,6 @@
 fragment AnyPublicationMetadataFields on PublicationMetadata {
   ... on VideoMetadataV3 {
-    ...VideoMetadataV3Fields
+  ...VideoMetadataV3Fields
   }
   ... on ArticleMetadataV3 {
     ...ArticleMetadataV3Fields
