@@ -136,22 +136,18 @@ export const post: Handler = async (req, res) => {
         `${slugify(name)}-${scoreAddress}-${JSON.stringify(properties)}`
       ).toString('base64');
       const payload = parseJwt(accessToken);
-      const address = scoreAddress || payload.evmAddress;
-      const actorAddress = payload.evmAddress;
-      const profile = actor || payload.id;
       const pointSystemId = network === 'mainnet' ? 1464 : 691;
-
+      const sourceActor = actor || payload.id;
       const sourceAddress = payload.evmAddress;
       const targetAddress = scoreAddress;
-      const grantingAddress = actorAddress || sourceAddress;
+      const grantingAddress = targetAddress || sourceAddress;
 
       grantScore({
-        address,
         grantingAddress,
         id,
         name,
         pointSystemId,
-        profile,
+        sourceActor,
         sourceAddress,
         targetAddress
       });
