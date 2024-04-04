@@ -1,6 +1,7 @@
 import { PUBLICATION } from '@hey/data/tracking';
 import logger from '@hey/lib/logger';
-import { StackClient } from '@stackso/js-core';
+
+import createStackClient from './createStackClient';
 
 const SCORABLE_EVENTS = [
   { event: PUBLICATION.LIKE, points: 10 },
@@ -27,10 +28,7 @@ const grantScore = ({
   id: string;
   pointSystemId: number;
 }): null | string => {
-  const stack = new StackClient({
-    apiKey: process.env.STACK_SO_API_KEY!,
-    pointSystemId
-  });
+  const stack = createStackClient(pointSystemId);
 
   const eventPoints = SCORABLE_EVENTS.find((e) => e.event === event)?.points;
 
