@@ -46,7 +46,7 @@ const grantScore = async ({
   // If the source and target addresses are the same, we don't grant points except for allowed self-score events
   if (sourceAddress === targetAddress && !isSelfScoreEvent(eventKey)) {
     logger.info(
-      `Abuse: Source and target address are the same - Source: ${sourceAddress} - Target: ${targetAddress}`
+      `Abuse: Source and target address are the same - Source: ${sourceAddress} - Target: ${targetAddress} - Event: ${eventKey}`
     );
     return null;
   }
@@ -62,7 +62,7 @@ const grantScore = async ({
     !isSelfScoreEvent(eventKey)
   ) {
     logger.info(
-      `Abuse: Actor IP and wallet IP are the same - Actor: ${sourceActor} - ${sourceActorIp} - Wallet: ${targetAddress} - ${targetAddressIp}`
+      `Abuse: Actor IP and wallet IP are the same - Actor: ${sourceActor} - ${sourceActorIp} - Wallet: ${targetAddress} - ${targetAddressIp} - Event: ${eventKey}`
     );
     return null;
   }
