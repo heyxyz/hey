@@ -1,52 +1,58 @@
-import { PUBLICATION } from '@hey/data/tracking';
+import { ALL_EVENTS } from '@hey/data/tracking';
 import logger from '@hey/lib/logger';
 
+import prisma from '../prisma';
 import createStackClient from './createStackClient';
 
-const SCORABLE_EVENTS = [
-  { event: PUBLICATION.LIKE, points: 10 },
-  { event: PUBLICATION.MIRROR, points: 15 },
-  { event: PUBLICATION.COLLECT_MODULE.COLLECT, points: 20 },
-  { event: PUBLICATION.OPEN_ACTIONS.TIP.TIP, points: 25 },
-  { event: PUBLICATION.OPEN_ACTIONS.SWAP.SWAP, points: 25 },
-  { event: PUBLICATION.NEW_POST, points: 30 },
-  { event: PUBLICATION.NEW_QUOTE, points: 30 },
-  { event: PUBLICATION.NEW_COMMENT, points: 30 },
-  { event: PUBLICATION.BOOKMARK, points: 10 },
-  { event: PUBLICATION.UNLIKE, points: -5 },
-  { event: PUBLICATION.NOT_INTERESTED, points: -10 }
-];
+const findEventKey = (eventString: string): null | string => {
+  const eventKey = Object.keys(ALL_EVENTS).find(
+    (key) => ALL_EVENTS[key as keyof typeof ALL_EVENTS] === eventString
+  );
+
+  return eventKey || null;
+};
 
 const grantScore = ({
   address,
-  event,
   id,
+  name,
   pointSystemId
 }: {
   address: string;
-  event: string;
   id: string;
+  name: string;
   pointSystemId: number;
 }): null | string => {
-  const stack = createStackClient(pointSystemId);
-
-  const eventPoints = SCORABLE_EVENTS.find((e) => e.event === event)?.points;
-
-  if (!eventPoints) {
+  const eventKey = findEventKey(name);
+  if (!eventKey) {
+    logger.error(`Event not found for string: ${name}`);
     return null;
   }
 
-  stack
-    .track(event, {
-      account: address,
-      points: eventPoints,
-      uniqueId: id
+  prisma.scorableEvent
+    .findUnique({ where: { eventType: eventKey } })
+    .then((event) => {
+      if (event?.points) {
+        const stack = createStackClient(pointSystemId);
+        stack
+          .track(event.eventType, {
+            account: address,
+            points: event.points,
+            uniqueId: id
+          })
+          .then(({ messageId }) => {
+            logger.info(
+              `Granted ${event.points} points to ${address} for ${event.eventType} - ${messageId}`
+            );
+          })
+          .catch((error) =>
+            logger.error(`Error tracking event: ${error.message}`)
+          );
+      }
     })
-    .then(({ messageId }) => {
-      logger.info(
-        `Granted ${eventPoints} points to ${address} for ${event} - ${messageId}`
-      );
-    });
+    .catch((error) =>
+      logger.error(`Error retrieving event points: ${error.message}`)
+    );
 
   return id;
 };
