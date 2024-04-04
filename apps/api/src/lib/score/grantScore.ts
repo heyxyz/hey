@@ -37,6 +37,7 @@ const grantScore = async ({
   sourceAddress?: string;
   targetAddress?: string;
 }): Promise<null | string> => {
+  // Allow only allowed events
   const eventKey = findEventKey(name);
   if (!eventKey) {
     return null;
