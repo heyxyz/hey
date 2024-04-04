@@ -105,3 +105,8 @@ model AllowedToken {
   // Indexes
   @@index([priority])
 }
+
+model ScorableEvent {
+  eventType String @id
+  points    Int
+}
