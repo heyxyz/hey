@@ -41,9 +41,9 @@ const grantScore = async ({
   }
 
   // If the score address is the same as the actor, we don't grant points except for allowed self-score events
-  if (scoreAddress === profile && !isSelfScoreEvent(eventKey)) {
+  if (scoreAddress === address && !isSelfScoreEvent(eventKey)) {
     logger.info(
-      `Abuse: Actor and wallet are the same - Actor: ${profile} - Wallet: ${scoreAddress}`
+      `Abuse: Actor and receiver are the same - Actor: ${address} - Receiver: ${scoreAddress}`
     );
     return null;
   }
