@@ -22,7 +22,6 @@ const grantScore = ({
 }): null | string => {
   const eventKey = findEventKey(name);
   if (!eventKey) {
-    logger.error(`Event not found for string: ${name}`);
     return null;
   }
 
