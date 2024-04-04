@@ -105,12 +105,15 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
         BigInt(10 ** selectedCurrency.decimals)
       : BigInt(0)) * BigInt(selectedQuantity)
   ).toString();
-  const formattedTotalFees = (
+  /* Temporarily disabled on API endpoint and helper library  
+const formattedTotalFees = (
     actionData
       ? actionData.actArgumentsFormatted.bridgeFee.amount /
         BigInt(10 ** selectedCurrency.decimals)
-      : BigInt(0)
-  ).toString();
+      : BigInt(0) 
+      ).toString();
+      */
+  const formattedTotalFees = '0';
 
   const formattedTotalPrice = (
     BigInt(formattedPrice) + BigInt(formattedTotalFees)
