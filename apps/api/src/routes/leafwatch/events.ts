@@ -46,7 +46,6 @@ export const post: Handler = async (req, res) => {
 
   const accessToken = req.headers['x-access-token'] as string;
   const network = req.headers['x-lens-network'] as string;
-
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
