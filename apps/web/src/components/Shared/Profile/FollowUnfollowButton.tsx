@@ -3,6 +3,7 @@ import type { FC } from 'react';
 
 import { FollowModuleType } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Follow from './Follow';
 import SuperFollow from './SuperFollow';
@@ -29,6 +30,12 @@ const FollowUnfollowButton: FC<FollowUnfollowButtonProps> = ({
   superFollowTitle = 'Super Follow',
   unfollowTitle = 'Following'
 }) => {
+  const { currentProfile } = useProfileStore();
+
+  if (currentProfile?.id === profile.id) {
+    return null;
+  }
+
   return (
     <div className="contents" onClick={stopEventPropagation}>
       {!hideFollowButton &&
