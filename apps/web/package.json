@@ -16,8 +16,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.9.10",
-    "@aws-sdk/client-s3": "^3.540.0",
-    "@aws-sdk/lib-storage": "^3.540.0",
+    "@aws-sdk/client-s3": "^3.549.0",
+    "@aws-sdk/lib-storage": "^3.549.0",
     "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^2.1.3",
     "@hey/abis": "workspace:*",
@@ -43,7 +43,7 @@
     "@uidotdev/usehooks": "^2.4.1",
     "@xmtp/content-type-reaction": "^1.1.7",
     "@xmtp/react-sdk": "^6.0.0",
-    "alchemy-sdk": "^3.2.0",
+    "alchemy-sdk": "^3.2.1",
     "axios": "^1.6.8",
     "browser-image-compression": "^2.0.2",
     "chart.js": "^4.4.2",
@@ -74,7 +74,7 @@
     "use-resize-observer": "^9.1.0",
     "uuid": "^9.0.1",
     "viem": "^2.9.9",
-    "wagmi": "^2.5.18",
+    "wagmi": "^2.5.19",
     "zod": "^3.22.4",
     "zustand": "^4.5.2"
   },
@@ -90,6 +90,6 @@
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.3",
-    "typescript": "^5.4.3"
+    "typescript": "^5.4.4"
   }
 }
