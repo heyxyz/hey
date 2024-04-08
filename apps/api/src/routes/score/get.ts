@@ -6,6 +6,7 @@ import { SWR_CACHE_AGE_10_MINS_30_DAYS } from 'src/lib/constants';
 import { noBody, notAllowed } from 'src/lib/responses';
 import createStackClient from 'src/lib/score/createStackClient';
 
+// TODO: add tests
 export const get: Handler = async (req, res) => {
   const { address, skipCache } = req.query;
 
