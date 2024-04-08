@@ -24,7 +24,7 @@ const Score: FC<ScoreProps> = ({ address }) => {
         <div className="text-lg font-bold">Hey Score</div>
       </div>
       <div className="mt-3 space-y-2">
-        {!heyScoreLoading ? (
+        {heyScoreLoading ? (
           'Loading...'
         ) : heyScore !== 0 ? (
           <div className="space-y-3">
