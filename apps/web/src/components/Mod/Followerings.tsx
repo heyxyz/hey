@@ -8,25 +8,15 @@ import {
   ArrowRightCircleIcon,
   UsersIcon
 } from '@heroicons/react/24/outline';
-import {
-  ExploreProfilesOrderByType,
-  LimitType,
-  useModFollowersQuery
-} from '@hey/lens';
+import { LimitType, useModFollowersQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
 const Followerings: FC = () => {
-  const { pathname, push } = useRouter();
-  const [orderBy, setOrderBy] = useState<ExploreProfilesOrderByType>(
-    ExploreProfilesOrderByType.LatestCreated
-  );
-  const [value, setValue] = useState('');
   const [refetching, setRefetching] = useState(false);
 
   // Variables
