@@ -84,10 +84,6 @@ export const NOTIFICATION = {
 };
 
 export const HOME = {
-  ALGORITHMS: {
-    OPEN_ALGORITHMS: 'Open algorithms modal',
-    SWITCH_ALGORITHMIC_FEED: 'Switch to algorithmic feed'
-  },
   SELECT_USER_FEED: 'Select user feed',
   SWITCH_FOLLOWING_FEED: 'Switch to following feed',
   SWITCH_HIGHLIGHTS_FEED: 'Switch to highlights feed',

@@ -51,7 +51,6 @@ const store = create(
         // Clear IndexedDB
         const allIndexedDBStores = Object.values(IndexDB).filter(
           (value) =>
-            value !== IndexDB.AlgorithmStore &&
             value !== IndexDB.VerifiedMembersStore &&
             value !== IndexDB.SearchStore
         );
