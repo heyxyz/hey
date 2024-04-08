@@ -10,20 +10,18 @@ import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { Virtuoso } from 'react-virtuoso';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
-import { useTimelineStore } from 'src/store/non-persisted/useTimelineStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 
 const Highlights: FC = () => {
   const { currentProfile } = useProfileStore();
   const { txnQueue } = useTransactionStore();
-  const { seeThroughProfile } = useTimelineStore();
   const { fetchAndStoreViews } = useImpressionsStore();
 
   // Variables
   const request: FeedHighlightsRequest = {
     limit: LimitType.TwentyFive,
-    where: { for: seeThroughProfile?.id || currentProfile?.id }
+    where: { for: currentProfile?.id }
   };
 
   const { data, error, fetchMore, loading } = useFeedHighlightsQuery({
