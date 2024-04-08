@@ -43,6 +43,20 @@ import InvitedBy from './InvitedBy';
 import ProfileMenu from './Menu';
 import MutualFollowers from './MutualFollowers';
 import ScamWarning from './ScamWarning';
+import Score from './Score';
+
+export const MetaDetails = ({
+  children,
+  icon
+}: {
+  children: ReactNode;
+  icon: ReactNode;
+}) => (
+  <div className="flex items-center gap-2">
+    {icon}
+    <div className="text-md truncate">{children}</div>
+  </div>
+);
 
 interface DetailsProps {
   profile: Profile;
@@ -54,19 +68,6 @@ const Details: FC<DetailsProps> = ({ profile }) => {
   const { staffMode } = useFeatureFlagsStore();
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
   const { resolvedTheme } = useTheme();
-
-  const MetaDetails = ({
-    children,
-    icon
-  }: {
-    children: ReactNode;
-    icon: ReactNode;
-  }) => (
-    <div className="flex items-center gap-2">
-      {icon}
-      <div className="text-md truncate">{children}</div>
-    </div>
-  );
 
   const followType = profile?.followModule?.type;
   const misuseDetails = getMisuseDetails(profile.id);
@@ -165,6 +166,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
           <MetaDetails icon={<HashtagIcon className="size-4" />}>
             {parseInt(profile.id)}
           </MetaDetails>
+          <Score address={profile.ownedBy.address} />
           {getProfileAttribute('location', profile?.metadata?.attributes) ? (
             <MetaDetails icon={<MapPinIcon className="size-4" />}>
               {getProfileAttribute('location', profile?.metadata?.attributes)}
