@@ -12,14 +12,12 @@ import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { memo } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
-import { useTimelineStore } from 'src/store/non-persisted/useTimelineStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 
 const Timeline: FC = () => {
   const { currentProfile, fallbackToCuratedFeed } = useProfileStore();
   const { txnQueue } = useTransactionStore();
-  const { seeThroughProfile } = useTimelineStore();
   const { fetchAndStoreViews } = useImpressionsStore();
 
   // Variables
@@ -33,9 +31,7 @@ const Timeline: FC = () => {
         FeedEventItemType.Quote,
         FeedEventItemType.Reaction
       ],
-      for: fallbackToCuratedFeed
-        ? HEY_CURATED_ID
-        : seeThroughProfile?.id || currentProfile?.id
+      for: fallbackToCuratedFeed ? HEY_CURATED_ID : currentProfile?.id
     }
   };
 
