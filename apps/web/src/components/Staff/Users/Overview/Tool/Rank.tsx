@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 
 import MetaDetails from '@components/Shared/Staff/MetaDetails';
+import { Disclosure } from '@headlessui/react';
 import {
   CheckCircleIcon,
   CurrencyDollarIcon,
@@ -86,7 +87,7 @@ const Rank: FC<RankProps> = ({
     <>
       <div className="mt-5 flex items-center space-x-2 text-yellow-600">
         <HashtagIcon className="size-5" />
-        <div className="text-lg font-bold">Scores</div>
+        <div className="text-lg font-bold">Rankings</div>
       </div>
       <div className="mt-3 space-y-2">
         <MetaDetails
@@ -143,43 +144,50 @@ const Rank: FC<RankProps> = ({
             'Not ranked'
           )}
         </MetaDetails>
-        <MetaDetails
-          icon={<CheckCircleIcon className="ld-text-gray-500 size-4" />}
-          title="Gitcoin Score"
-        >
-          {gitcoinScoreLoading ? (
-            <div className="shimmer h-4 w-5 rounded" />
-          ) : gitcoinScore ? (
-            <span>
-              {parseInt(gitcoinScore?.evidence?.rawScore) > 0 ? (
-                <>
-                  {parseFloat(gitcoinScore?.evidence?.rawScore).toFixed(2)}
-                  <span className="ld-text-gray-500 text-xs">
-                    {' '}
-                    (Updated: {formatDate(gitcoinScore?.last_score_timestamp)})
-                  </span>
-                </>
+        <Disclosure>
+          <Disclosure.Button>
+            <MetaDetails
+              icon={<CheckCircleIcon className="ld-text-gray-500 size-4" />}
+              title="Gitcoin Score"
+            >
+              {gitcoinScoreLoading ? (
+                <div className="shimmer h-4 w-5 rounded" />
+              ) : gitcoinScore ? (
+                <span>
+                  {parseInt(gitcoinScore?.evidence?.rawScore) > 0 ? (
+                    <>
+                      {parseFloat(gitcoinScore?.evidence?.rawScore).toFixed(2)}
+                      <span className="ld-text-gray-500 text-xs">
+                        {' '}
+                        (Updated:{' '}
+                        {formatDate(gitcoinScore?.last_score_timestamp)})
+                      </span>
+                    </>
+                  ) : (
+                    'Not scored'
+                  )}
+                </span>
               ) : (
                 'Not scored'
               )}
-            </span>
-          ) : (
-            'Not scored'
-          )}
-        </MetaDetails>
-        {gitcoinScore?.stamp_scores &&
-        Object.keys(gitcoinScore?.stamp_scores).length > 0 ? (
-          <div className="ld-text-gray-500 ml-5 space-y-1 text-xs">
-            {Object.keys(gitcoinScore.stamp_scores).map((key) => {
-              return (
-                <div key={key}>
-                  <b className="ml-1">{key}: </b>
-                  {gitcoinScore?.stamp_scores[key]}
-                </div>
-              );
-            })}
-          </div>
-        ) : null}
+            </MetaDetails>
+          </Disclosure.Button>
+          <Disclosure.Panel>
+            {gitcoinScore?.stamp_scores &&
+            Object.keys(gitcoinScore?.stamp_scores).length > 0 ? (
+              <div className="ld-text-gray-500 ml-5 space-y-1 text-xs">
+                {Object.keys(gitcoinScore.stamp_scores).map((key) => {
+                  return (
+                    <div key={key}>
+                      <b className="ml-1">{key}: </b>
+                      {gitcoinScore?.stamp_scores[key]}
+                    </div>
+                  );
+                })}
+              </div>
+            ) : null}
+          </Disclosure.Panel>
+        </Disclosure>
       </div>
     </>
   );
