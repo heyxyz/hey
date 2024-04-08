@@ -51,7 +51,7 @@ interface DetailsProps {
 const Details: FC<DetailsProps> = ({ profile }) => {
   const { push } = useRouter();
   const { currentProfile } = useProfileStore();
-  const { gardenerMode, staffMode } = useFeatureFlagsStore();
+  const { staffMode } = useFeatureFlagsStore();
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
   const { resolvedTheme } = useTheme();
 
