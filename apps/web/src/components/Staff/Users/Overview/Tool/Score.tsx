@@ -24,8 +24,8 @@ const Score: FC<ScoreProps> = ({ address }) => {
         <div className="text-lg font-bold">Hey Score</div>
       </div>
       <div className="mt-3 space-y-2">
-        {heyScoreLoading ? (
-          <div className="shimmer h-4 w-5 rounded" />
+        {!heyScoreLoading ? (
+          'Loading...'
         ) : heyScore !== 0 ? (
           <div className="space-y-3">
             <div className="font-bold">{humanize(heyScore || 0)}</div>
