@@ -2,6 +2,10 @@ import { ALL_EVENTS } from '@hey/data/tracking';
 import logger from '@hey/lib/logger';
 
 import findEventKeyDeep from '../leafwatch/findEventKeyDeep';
+import {
+  getFingerprintByActor,
+  getFingerprintByWallet
+} from '../leafwatch/getFingerprint';
 import { getIpByActor, getIpByWallet } from '../leafwatch/getIp';
 import prisma from '../prisma';
 import createStackClient from './createStackClient';
@@ -51,8 +55,31 @@ const grantScore = async ({
     return null;
   }
 
-  const sourceActorIp = await getIpByActor(sourceActor);
-  const targetAddressIp = await getIpByWallet(targetAddress);
+  // Promises
+  const [
+    sourceActorFingerprint,
+    targetAddressFingerprint,
+    sourceActorIp,
+    targetAddressIp
+  ] = await Promise.all([
+    getFingerprintByActor(sourceActor),
+    getFingerprintByWallet(targetAddress),
+    getIpByActor(sourceActor),
+    getIpByWallet(targetAddress)
+  ]);
+
+  // To prevent abuse, we don't grant points if the actor and wallet fingerprints are the same except for allowed self-score events
+  if (
+    sourceActorFingerprint &&
+    targetAddressFingerprint &&
+    sourceActorFingerprint === targetAddressFingerprint &&
+    !isSelfScoreEvent(eventKey)
+  ) {
+    logger.info(
+      `Abuse: Actor fingerprint and wallet fingerprint are the same - Actor: ${sourceActor} - Wallet: ${targetAddress} - Event: ${eventKey}`
+    );
+    return null;
+  }
 
   // To prevent abuse, we don't grant points if the actor and wallet IPs are the same except for allowed self-score events
   if (
