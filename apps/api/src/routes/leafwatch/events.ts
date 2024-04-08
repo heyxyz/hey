@@ -17,6 +17,7 @@ import { any, object, string } from 'zod';
 
 type ExtensionRequest = {
   actor?: string;
+  fingerprint?: string;
   name: string;
   platform: 'mobile' | 'web';
   properties?: string;
@@ -28,6 +29,7 @@ type ExtensionRequest = {
 
 const validationSchema = object({
   actor: string().nullable().optional(),
+  fingerprint: string().nullable().optional(),
   name: string().min(1, { message: 'Name is required!' }),
   platform: string(),
   properties: any(),
@@ -54,6 +56,7 @@ export const post: Handler = async (req, res) => {
 
   const {
     actor,
+    fingerprint,
     name,
     platform,
     properties,
@@ -111,6 +114,7 @@ export const post: Handler = async (req, res) => {
           browser_version: ua.browser.version || null,
           city: ipData?.city || null,
           country: ipData?.country || null,
+          fingerprint: fingerprint || null,
           ip: ip || null,
           name,
           os: ua.os.name || null,
