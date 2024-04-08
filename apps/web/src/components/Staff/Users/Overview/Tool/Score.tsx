@@ -19,7 +19,7 @@ const Score: FC<ScoreProps> = ({ address }) => {
 
   const { isLoading: heyScoreLoading } = useQuery({
     queryFn: () =>
-      getHeyScore(address, getAuthApiHeaders(), true).then((score) =>
+      getHeyScore(address, getAuthApiHeaders()).then((score) =>
         setHeyScore(score)
       ),
     queryKey: ['getHeyScore', address]

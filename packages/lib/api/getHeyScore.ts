@@ -5,18 +5,13 @@ import axios from 'axios';
  * Get Hey score
  * @param address profile wallet address
  * @param headers auth headers
- * @param skipCache skip cache
  * @returns Hey score
  */
-const getHeyScore = async (
-  address: string,
-  headers: any,
-  skipCache = false
-): Promise<number> => {
+const getHeyScore = async (address: string, headers: any): Promise<number> => {
   try {
     const response: { data: { result: number } } = await axios.get(
       `${HEY_API_URL}/score/get`,
-      { headers, params: { address, skipCache } }
+      { headers, params: { address } }
     );
 
     return response.data.result || 0;
