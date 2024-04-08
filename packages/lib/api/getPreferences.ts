@@ -4,10 +4,10 @@ import { HEY_API_URL } from '@hey/data/constants';
 import axios from 'axios';
 
 /**
- * Get user preferences
- * @param id user id
+ * Get profile preferences
+ * @param id profile id
  * @param headers auth headers
- * @returns user preferences
+ * @returns profile preferences
  */
 const getPreferences = async (
   id: string,

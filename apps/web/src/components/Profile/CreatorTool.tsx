@@ -33,7 +33,7 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
 
   const { data: preferences, isLoading } = useQuery({
     queryFn: () => getPreferences(profile.id, getAuthApiHeaders()),
-    queryKey: ['fetchPreferences', profile.id || '']
+    queryKey: ['getPreferences', profile.id || '']
   });
 
   useEffect(() => {
