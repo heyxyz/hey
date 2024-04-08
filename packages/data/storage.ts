@@ -8,7 +8,6 @@ export const Localstorage = {
 };
 
 export const IndexDB = {
-  AlgorithmStore: 'algorithm.store',
   FeatureFlagsStore: 'featureflags.store',
   ProfileStore: 'profile.store',
   SearchStore: 'search.store',

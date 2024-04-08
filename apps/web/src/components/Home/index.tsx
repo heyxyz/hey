@@ -9,7 +9,6 @@ import { Leafwatch } from '@lib/leafwatch';
 import { useEffect, useState } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
-import AlgorithmicFeed from './AlgorithmicFeed';
 import FeedType from './FeedType';
 import Hero from './Hero';
 import Highlights from './Highlights';
@@ -44,9 +43,7 @@ const Home: NextPage = () => {
                 <Highlights />
               ) : feedType === HomeFeedType.PREMIUM ? (
                 <PaidActions />
-              ) : (
-                <AlgorithmicFeed feedType={feedType} />
-              )}
+              ) : null}
             </>
           ) : (
             <ExploreFeed />
