@@ -18,6 +18,7 @@ const validationSchema = object({
   availabePoints: number().min(0)
 });
 
+// TODO: add tests
 export const post: Handler = async (req, res) => {
   const { body } = req;
 
