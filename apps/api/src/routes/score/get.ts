@@ -7,7 +7,7 @@ import { noBody, notAllowed } from 'src/lib/responses';
 import createStackClient from 'src/lib/score/createStackClient';
 
 export const get: Handler = async (req, res) => {
-  const { address } = req.query;
+  const { address, skipCache } = req.query;
 
   if (!address) {
     return noBody(res);
@@ -28,7 +28,10 @@ export const get: Handler = async (req, res) => {
 
     return res
       .status(200)
-      .setHeader('Cache-Control', SWR_CACHE_AGE_10_MINS_30_DAYS)
+      .setHeader(
+        'Cache-Control',
+        skipCache ? 'no-cache' : SWR_CACHE_AGE_10_MINS_30_DAYS
+      )
       .json({ result: score, success: true });
   } catch (error) {
     return catchedError(res, error);
