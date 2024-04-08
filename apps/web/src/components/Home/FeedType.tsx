@@ -6,14 +6,12 @@ import {
   LightBulbIcon,
   UserGroupIcon
 } from '@heroicons/react/24/outline';
-import { IS_MAINNET } from '@hey/data/constants';
 import { HomeFeedType } from '@hey/data/enums';
 import { HOME } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
-import Algorithms from './Algorithms';
 import SeeThroughLens from './SeeThroughLens';
 
 interface FeedTypeProps {
@@ -65,9 +63,6 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
         {feedType === HomeFeedType.FOLLOWING ||
         feedType === HomeFeedType.HIGHLIGHTS ? (
           <SeeThroughLens />
-        ) : null}
-        {IS_MAINNET ? (
-          <Algorithms feedType={feedType} setFeedType={setFeedType} />
         ) : null}
       </div>
     </div>
