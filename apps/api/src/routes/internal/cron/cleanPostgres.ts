@@ -41,7 +41,14 @@ export const post: Handler = async (req, res) => {
     await prisma.preference.deleteMany({
       where: { highSignalNotificationFilter: false, isPride: false }
     });
-    logger.info('Cleaned up DB');
+    logger.info('Cleaned up Preference');
+
+    // Cleanup Email
+    const { count } = await prisma.email.updateMany({
+      data: { tokenExpiresAt: null, verificationToken: null, verified: false },
+      where: { tokenExpiresAt: { lt: new Date() } }
+    });
+    logger.info(`Cleaned up ${count} emails that are expired`);
 
     return res.status(200).json({ success: true });
   } catch (error) {

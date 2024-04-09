@@ -98,6 +98,7 @@ export const EXPLORE = {
 export const SETTINGS = {
   ACCOUNT: {
     SET_DEFAULT_PROFILE: 'Set default profile',
+    SET_EMAIL: 'Set email',
     SET_SUPER_FOLLOW: 'Set super follow'
   },
   ALLOWANCE: {
@@ -177,8 +178,7 @@ export const STAFFTOOLS = {
     KILL: 'Staff Tool: Kill feature flag'
   },
   SIGNUP_CONTRACT: {
-    REFILL: 'Staff Tool: Refill relayer',
-    WITHDRAW_FUNDS: 'Staff Tool: Withdraw funds'
+    REFILL: 'Staff Tool: Refill relayer'
   },
   STAFF_PICKS: {
     CREATE: 'Staff Tool: Create staff pick',
