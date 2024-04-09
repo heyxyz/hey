@@ -48,13 +48,16 @@ export const post: Handler = async (req, res) => {
       return res.status(200).json({ success: false });
     }
 
-    const result = await prisma.email.update({
-      data: {
-        email,
-        tokenExpiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
-        verificationToken: uuid()
-      },
+    const baseData = {
+      email,
+      tokenExpiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
+      verificationToken: uuid()
+    };
+
+    const result = await prisma.email.upsert({
+      create: { id: payload.id, ...baseData },
       select: { email: true, id: true, verified: true },
+      update: { ...baseData },
       where: { id: payload.id }
     });
 
