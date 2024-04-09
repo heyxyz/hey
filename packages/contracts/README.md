@@ -16,6 +16,22 @@ npx hardhat run script/deploy.ts --network polygon
 npx hardhat verify 0x4b8845ACb8148dE64D1D99Cf27A3890a91F55E53 --network polygon
 ```
 
+## Upgrade Contracts
+
+```sh
+# Upgrade on Mumbai
+npx hardhat run script/upgrade.ts --network polygonMumbai
+
+# Upgrade on Polygon
+npx hardhat run script/upgrade.ts --network polygon
+npx hardhat verify 0x4b8845ACb8148dE64D1D99Cf27A3890a91F55E53 --network polygon
+```
+
+## Versions
+
+- `HeyLensSignupV2` - Add direct transfer of funds to the owner and remove `withdrawFunds` function.
+- `HeyLensSignup` - Initial version of the contract.
+
 ## Contracts
 
 | Contract        | Mainnet                                                                                                                         | Mumbai                                                                                                                   |
