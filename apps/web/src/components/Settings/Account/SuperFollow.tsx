@@ -6,7 +6,8 @@ import { LensHub } from '@hey/abis';
 import {
   ADDRESS_PLACEHOLDER,
   DEFAULT_COLLECT_TOKEN,
-  LENS_HUB
+  LENS_HUB,
+  STATIC_IMAGES_URL
 } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { Regex } from '@hey/data/regex';
@@ -215,8 +216,10 @@ const SuperFollow: FC = () => {
                 ? currentProfile?.followModule?.amount.asset.contract.address
                 : undefined
             }
+            iconClassName="size-4"
             onChange={(value) => setSelectedCurrency(value)}
             options={allowedTokens?.map((token) => ({
+              icon: `${STATIC_IMAGES_URL}/tokens/${token.symbol}.svg`,
               label: token.name,
               selected: token.contractAddress === selectedCurrency,
               value: token.contractAddress
