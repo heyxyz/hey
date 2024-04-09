@@ -3,7 +3,7 @@ import type { FC } from 'react';
 
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
-import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
+import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { OpenActionModuleType } from '@hey/lens';
 import { Input, Select } from '@hey/ui';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
@@ -61,6 +61,7 @@ const AmountConfig: FC<AmountConfigProps> = ({
             <div className="w-5/6">
               <div className="label">Select currency</div>
               <Select
+                iconClassName="size-4"
                 onChange={(value) => {
                   setCollectType({
                     amount: {
@@ -70,6 +71,7 @@ const AmountConfig: FC<AmountConfigProps> = ({
                   });
                 }}
                 options={allowedTokens?.map((token) => ({
+                  icon: `${STATIC_IMAGES_URL}/tokens/${token.symbol}.svg`,
                   label: token.name,
                   selected:
                     token.contractAddress === collectModule.amount?.currency,
