@@ -51,6 +51,8 @@ const Email: FC = () => {
       );
     } catch (error) {
       onError(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
