@@ -92,3 +92,11 @@ export interface MetadataAsset {
   type: 'Audio' | 'Image' | 'Video';
   uri: string;
 }
+
+export interface RewardPool {
+  cap: string;
+  percentReward: number;
+  rewardsAmount: string;
+  rewardsPoolId: string;
+  rewardsRemaining: string;
+}
