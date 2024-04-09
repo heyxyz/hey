@@ -7,6 +7,7 @@ import getProxyUrl from './getProxyUrl';
 import generateIframe from './meta/generateIframe';
 import getDescription from './meta/getDescription';
 import getEmbedUrl from './meta/getEmbedUrl';
+import getFrame from './meta/getFrame';
 import getImage from './meta/getImage';
 import getIsLarge from './meta/getIsLarge';
 import getNft from './meta/getNft';
@@ -27,6 +28,7 @@ const getMetadata = async (url: string): Promise<OG> => {
   const metadata: OG = {
     description: getDescription(document),
     favicon: getFavicon(url),
+    frame: getFrame(document, url),
     html: generateIframe(getEmbedUrl(document), url),
     image: getProxyUrl(image, isLarge),
     isLarge,

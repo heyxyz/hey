@@ -46,6 +46,18 @@ describe('oembed/index', () => {
     );
   });
 
+  test('should return Lens frame', async () => {
+    const response = await axios.get(`${TEST_URL}/oembed`, {
+      params: {
+        url: 'https://heyportals.vercel.app/q/90ca4789-0d81-4a22-a83c-4de26044d00b'
+      }
+    });
+
+    expect(response.data.oembed.frame.version).toEqual('vLatest');
+    expect(response.data.oembed.frame.buttons[0].button).toEqual('Start');
+    expect(response.data.oembed.frame.buttons[0].action).toEqual('post');
+  });
+
   test('should return frame nft', async () => {
     const response = await axios.get(`${TEST_URL}/oembed`, {
       params: {
