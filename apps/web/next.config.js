@@ -56,6 +56,11 @@ const nextConfig = {
         source: '/support'
       },
       {
+        destination: 'https://github.com/defispartan/lens-frames',
+        permanent: true,
+        source: '/-/frames'
+      },
+      {
         destination:
           'https://yoginth.notion.site/Hey-Moderation-Tool-Guide-ff1926a080fa44bc9d40ee534f627949',
         permanent: true,
