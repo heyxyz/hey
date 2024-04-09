@@ -21,8 +21,8 @@ const ToggleWithHelper: FC<ToggleWithHelperProps> = ({
 }) => {
   return (
     <div className="flex items-center justify-between">
-      <div className="flex items-center space-x-3 space-y-1">
-        {icon}
+      <div className="flex items-start space-x-3">
+        {icon ? <span className="mt-1">{icon}</span> : null}
         <div>
           {heading ? <b>{heading}</b> : null}
           <div className="ld-text-gray-500 text-sm">{description}</div>
