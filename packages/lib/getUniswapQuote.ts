@@ -26,12 +26,16 @@ const getUniswapQuote = async (
   );
   const { quote } = data;
 
+  const lastRoute = quote.route[quote.route.length - 1];
+  const lastPool = lastRoute[lastRoute.length - 1];
+  const { tokenOut: outToken } = lastPool;
+
   const output = {
     amountOut: Number(quote.quoteDecimals).toFixed(4),
     maxSlippage: quote.slippage.toString(),
     route: {
       tokenIn: quote.route[0][0]['tokenIn'],
-      tokenOut: quote.route[0][0]['tokenOut']
+      tokenOut: outToken
     },
     routeString: quote.routeString
   };
