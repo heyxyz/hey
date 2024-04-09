@@ -52,7 +52,7 @@ export const post: Handler = async (req, res) => {
     }
 
     const baseData = {
-      email,
+      email: email.toLowerCase(),
       tokenExpiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
       verificationToken: uuid()
     };

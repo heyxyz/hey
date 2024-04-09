@@ -17,6 +17,7 @@ const PreferencesProvider: FC = () => {
   const { setVerifiedMembers } = useVerifiedMembersStore();
   const {
     setEmail,
+    setEmailVerificationTokenExpired,
     setEmailVerified,
     setHasDismissedOrMintedMembershipNft,
     setHighSignalNotificationFilter,
@@ -44,6 +45,9 @@ const PreferencesProvider: FC = () => {
         // Email preferences
         setEmail(preferences.email);
         setEmailVerified(preferences.emailVerified);
+        setEmailVerificationTokenExpired(
+          preferences.emailVerificationTokenExpired
+        );
 
         // Feature flags
         setFeatureFlags(preferences.features);
