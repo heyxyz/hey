@@ -16,6 +16,8 @@ const PreferencesProvider: FC = () => {
   const { id: sessionProfileId } = getCurrentSession();
   const { setVerifiedMembers } = useVerifiedMembersStore();
   const {
+    setEmail,
+    setEmailVerified,
     setHasDismissedOrMintedMembershipNft,
     setHighSignalNotificationFilter,
     setIsPride
@@ -38,6 +40,10 @@ const PreferencesProvider: FC = () => {
           preferences.highSignalNotificationFilter
         );
         setIsPride(preferences.isPride);
+
+        // Email preferences
+        setEmail(preferences.email);
+        setEmailVerified(preferences.emailVerified);
 
         // Feature flags
         setFeatureFlags(preferences.features);
