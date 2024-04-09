@@ -1,8 +1,10 @@
 import { Listbox, Transition } from '@headlessui/react';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon, ChevronDownIcon } from '@heroicons/react/24/solid';
-import { forwardRef, Fragment } from 'react';
+import { forwardRef, Fragment, useState } from 'react';
 
 import cn from '../cn';
+import { Input } from './Input';
 
 interface SelectProps {
   className?: string;
@@ -17,6 +19,7 @@ interface SelectProps {
     selected?: boolean;
     value: number | string;
   }[];
+  showSearch?: boolean;
 }
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
@@ -25,8 +28,10 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     defaultValue,
     iconClassName,
     onChange,
-    options
+    options,
+    showSearch = false
   }) {
+    const [searchValue, setSearchValue] = useState('');
     const selected = options?.find((option) => option.selected) || options?.[0];
 
     return (
@@ -60,44 +65,64 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
             leaveTo="transform opacity-0 scale-95"
           >
             <Listbox.Options className="no-scrollbar absolute z-[5] mt-2 max-h-60 w-full overflow-auto rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900">
-              {options?.map((option, id) => (
-                <Listbox.Option
-                  className={({ active }: { active: boolean }) =>
-                    cn(
-                      { 'dropdown-active': active },
-                      'm-2 cursor-pointer rounded-lg'
-                    )
-                  }
-                  disabled={option.disabled}
-                  key={id}
-                  value={option.value}
-                >
-                  {({ selected }) => (
-                    <div className="flex flex-col space-y-0 px-2 py-1.5">
-                      <span className="flex w-full items-center justify-between space-x-3 text-gray-700 dark:text-gray-200">
-                        <span className="flex items-center space-x-2">
-                          {option.icon && (
-                            <img
-                              alt={option.label}
-                              className={iconClassName}
-                              src={option.icon}
-                            />
-                          )}
-                          <span className="block truncate">{option.label}</span>
+              {showSearch ? (
+                <div className="mx-4 mt-4">
+                  <Input
+                    className="w-full"
+                    iconLeft={<MagnifyingGlassIcon />}
+                    onChange={(event) => {
+                      setSearchValue(event.target.value);
+                    }}
+                    placeholder="Search"
+                    type="text"
+                    value={searchValue}
+                  />
+                </div>
+              ) : null}
+              {options
+                ?.filter((option) =>
+                  option.label.toLowerCase().includes(searchValue.toLowerCase())
+                )
+                .map((option, id) => (
+                  <Listbox.Option
+                    className={({ active }: { active: boolean }) =>
+                      cn(
+                        { 'dropdown-active': active },
+                        'm-2 cursor-pointer rounded-lg'
+                      )
+                    }
+                    disabled={option.disabled}
+                    key={id}
+                    value={option.value}
+                  >
+                    {({ selected }) => (
+                      <div className="mx-2 flex flex-col space-y-0 py-1.5">
+                        <span className="flex w-full items-center justify-between space-x-3 text-gray-700 dark:text-gray-200">
+                          <span className="flex items-center space-x-2">
+                            {option.icon && (
+                              <img
+                                alt={option.label}
+                                className={iconClassName}
+                                src={option.icon}
+                              />
+                            )}
+                            <span className="block truncate">
+                              {option.label}
+                            </span>
+                          </span>
+                          {selected ? (
+                            <CheckCircleIcon className="size-5" />
+                          ) : null}
                         </span>
-                        {selected ? (
-                          <CheckCircleIcon className="size-5" />
+                        {option.helper ? (
+                          <span className="ld-text-gray-500 text-xs">
+                            {option.helper}
+                          </span>
                         ) : null}
-                      </span>
-                      {option.helper ? (
-                        <span className="ld-text-gray-500 text-xs">
-                          {option.helper}
-                        </span>
-                      ) : null}
-                    </div>
-                  )}
-                </Listbox.Option>
-              ))}
+                      </div>
+                    )}
+                  </Listbox.Option>
+                ))}
             </Listbox.Options>
           </Transition>
         </div>
