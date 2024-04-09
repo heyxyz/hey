@@ -7,7 +7,7 @@ import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore
 const Email: FC = () => {
   const { email } = usePreferencesStore();
 
-  if (email) {
+  if (email.length > 0) {
     return null;
   }
 

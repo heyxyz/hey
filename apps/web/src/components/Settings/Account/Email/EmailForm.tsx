@@ -64,7 +64,7 @@ const EmailForm: FC<EmailFormProps> = ({
         { email },
         { headers: getAuthApiHeaders() }
       );
-      setEmailState(email);
+      setEmailState(email as string);
       Leafwatch.track(SETTINGS.ACCOUNT.SET_EMAIL);
 
       return toast.success('Email verification sent to your email!');
