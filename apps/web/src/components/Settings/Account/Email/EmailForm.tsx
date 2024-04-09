@@ -4,7 +4,6 @@ import { HEY_API_URL } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { SETTINGS } from '@hey/data/tracking';
 import { Button, Form, Input, useZodForm } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { Leafwatch } from '@lib/leafwatch';
@@ -16,19 +15,11 @@ import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestric
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { object, string } from 'zod';
 
-interface EmailFormProps {
-  fullWidthButton?: boolean;
-  hideLabel?: boolean;
-}
-
 const updateEmailSchema = object({
   email: string().email()
 });
 
-const EmailForm: FC<EmailFormProps> = ({
-  fullWidthButton = false,
-  hideLabel = false
-}) => {
+const EmailForm: FC = () => {
   const { currentProfile } = useProfileStore();
   const { email, setEmail: setEmailState } = usePreferencesStore();
   const { isSuspended } = useProfileRestriction();
@@ -84,18 +75,13 @@ const EmailForm: FC<EmailFormProps> = ({
       }}
     >
       <Input
-        label={hideLabel ? null : 'Email address'}
+        label="Email address"
         placeholder="gavin@hooli.com"
         {...form.register('email')}
         type="email"
       />
-      <div className={cn(fullWidthButton && 'w-full', 'ml-auto')}>
-        <Button
-          className={cn(fullWidthButton && 'w-full')}
-          disabled={isLoading || !form.formState.isDirty}
-          outline={fullWidthButton}
-          type="submit"
-        >
+      <div className="ml-auto">
+        <Button disabled={isLoading || !form.formState.isDirty} type="submit">
           Set Email
         </Button>
       </div>

@@ -42,7 +42,7 @@ const PreferencesProvider: FC = () => {
         setIsPride(preferences.isPride);
 
         // Email preferences
-        setEmail(preferences.email || '');
+        setEmail(preferences.email);
         setEmailVerified(preferences.emailVerified);
 
         // Feature flags
