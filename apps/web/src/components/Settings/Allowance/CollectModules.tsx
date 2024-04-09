@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
-import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
+import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from '@hey/data/constants';
 import {
   FollowModuleType,
   useApprovedModuleAllowanceAmountQuery
@@ -66,6 +66,7 @@ const CollectModules: FC = () => {
       <div className="m-5">
         <div className="label">Select currency</div>
         <Select
+          iconClassName="size-4"
           onChange={(value) => {
             setCurrencyLoading(true);
             setSelectedCurrency(value);
@@ -75,6 +76,7 @@ const CollectModules: FC = () => {
           }}
           options={
             allowedTokens?.map((token) => ({
+              icon: `${STATIC_IMAGES_URL}/tokens/${token.symbol}.svg`,
               label: token.name,
               selected: token.contractAddress === selectedCurrency,
               value: token.contractAddress
