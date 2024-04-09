@@ -10,7 +10,8 @@ import { type Address, isAddress } from 'viem';
 import { useSwapActionStore } from '.';
 
 const TokenConfig: FC = () => {
-  const { rewardsPoolId, setCanSwap, setToken, token } = useSwapActionStore();
+  const { setCanSwap, setDecimals, setSymbol, setToken, token } =
+    useSwapActionStore();
   const [quote, setQuote] = useState<null | UniswapQuote>(null);
   const [quoteLoading, setQuoteLoading] = useState<boolean>(false);
 
@@ -22,6 +23,8 @@ const TokenConfig: FC = () => {
         .then((quote) => {
           setCanSwap(true);
           setQuote(quote);
+          setSymbol(quote?.route.tokenOut.symbol);
+          setDecimals(parseInt(quote?.route.tokenOut.decimals));
         })
         .catch(() => {
           setQuote(null);
@@ -32,15 +35,11 @@ const TokenConfig: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
-  if (!token) {
-    return null;
-  }
-
   return (
     <div className="mt-5 text-sm">
       <Input
-        disabled={quoteLoading || rewardsPoolId !== null}
-        error={!isAddress(token)}
+        disabled={quoteLoading}
+        error={!isAddress(token as Address)}
         label={
           <div className="flex items-center space-x-2">
             <span>Token address (Polygon)</span>
@@ -66,7 +65,7 @@ const TokenConfig: FC = () => {
           setToken(event.target.value as Address);
         }}
         placeholder="0x..."
-        value={token}
+        value={token as Address}
       />
     </div>
   );

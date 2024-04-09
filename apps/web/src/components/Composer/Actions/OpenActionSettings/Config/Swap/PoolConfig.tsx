@@ -1,83 +1,71 @@
+import type { RewardPool } from '@hey/types/misc';
 import type { FC } from 'react';
-import type { Address } from 'viem';
 
-import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { GiftIcon } from '@heroicons/react/24/outline';
-import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import getSwapRewardPool from '@hey/lib/getSwapRewardPool';
-import { Input } from '@hey/ui';
-import Link from 'next/link';
+import humanize from '@hey/lib/humanize';
 import { useEffect, useRef, useState } from 'react';
 import usePreventScrollOnNumberInput from 'src/hooks/usePreventScrollOnNumberInput';
+import { type Address, formatUnits, isAddress } from 'viem';
 
 import { useSwapActionStore } from '.';
+import RewardConfig from './RewardConfig';
 
 const PoolConfig: FC = () => {
-  const [hasRewardsPool, setHasRewardsPool] = useState<boolean>(true);
-  const { rewardsPoolId, setRewardsPoolId, setToken } = useSwapActionStore();
+  const [rewardsPool, setRewardsPool] = useState<null | RewardPool>(null);
+  const { decimals, rewardsPoolId, setRewardsPoolId, symbol, token } =
+    useSwapActionStore();
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef);
 
   useEffect(() => {
-    if (rewardsPoolId !== null) {
-      getSwapRewardPool(rewardsPoolId).then((pool) => {
-        setHasRewardsPool(!!pool.token);
-        setToken(pool.token || null);
+    if (isAddress(token as Address)) {
+      getSwapRewardPool(token as Address).then((pool) => {
+        if (pool) {
+          setRewardsPool(pool);
+          setRewardsPoolId(parseInt(pool.rewardsPoolId));
+        } else {
+          setRewardsPool(null);
+          setRewardsPoolId(null);
+        }
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rewardsPoolId]);
+  }, [token]);
+
+  if (!rewardsPool?.rewardsPoolId) {
+    return null;
+  }
+
+  const percent = rewardsPool.percentReward / 100;
+  const remaining = humanize(
+    parseFloat(formatUnits(BigInt(rewardsPool.rewardsRemaining), decimals))
+  );
+  const cap = humanize(
+    parseFloat(formatUnits(BigInt(rewardsPool.cap), decimals))
+  );
 
   return (
-    <div>
-      <ToggleWithHelper
-        description={
-          <span className="linkify">
-            Tap into an incentive pool.{' '}
-            <Link href="https://madfi.xyz/bonsai/reward-swap" target="_blank">
-              Learn more.
-            </Link>
-          </span>
-        }
-        heading="Use a rewards pool"
-        icon={<GiftIcon className="size-5" />}
-        on={rewardsPoolId !== null}
-        setOn={() => {
-          setToken(
-            rewardsPoolId === null ? null : (DEFAULT_COLLECT_TOKEN as Address)
-          );
-          setRewardsPoolId(rewardsPoolId === null ? 2 : null);
-        }}
-      />
-      {rewardsPoolId !== null ? (
-        <div className="ml-8 mt-4 text-sm">
-          <Input
-            className="no-spinner"
-            error={!hasRewardsPool}
-            label={
-              <div className="flex items-center space-x-2">
-                <span>Pool ID</span>
-                {!hasRewardsPool ? (
-                  <span>
-                    <span className="mr-2">·</span>
-                    <span className="font-bold text-red-500">
-                      No Pools Available
-                    </span>
-                  </span>
-                ) : null}
-              </div>
-            }
-            min="1"
-            onChange={(event) => {
-              setRewardsPoolId(event.target.value as unknown as number);
-            }}
-            placeholder="5"
-            ref={inputRef}
-            type="number"
-            value={rewardsPoolId}
-          />
+    <div className="mt-5">
+      <div className="flex items-start space-x-3">
+        <GiftIcon className="mt-1 size-5" />
+        <div>
+          <b>Reward pool found for ${symbol}</b>
+          <div className="ld-text-gray-500 max-w-md text-sm">
+            You will receive <b>{percent}%</b> of every swap from the rewards
+            pool.{' '}
+            <b>
+              {remaining} ${symbol}
+            </b>{' '}
+            rewards remaining, (max{' '}
+            <b>
+              {cap} ${symbol}
+            </b>{' '}
+            per swap)
+          </div>
         </div>
-      ) : null}
+      </div>
+      {rewardsPoolId !== null ? <RewardConfig /> : null}
     </div>
   );
 };

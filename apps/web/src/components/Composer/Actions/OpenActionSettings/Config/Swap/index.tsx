@@ -15,25 +15,29 @@ import { create } from 'zustand';
 import SaveOrCancel from '../../SaveOrCancel';
 import DefaultAmountConfig from './DefaultAmountConfig';
 import PoolConfig from './PoolConfig';
-import RewardConfig from './RewardConfig';
 import TokenConfig from './TokenConfig';
 
 interface State {
   canSwap: boolean;
+  decimals: number;
   enabled: boolean;
   reset: () => void;
   rewardsPoolId: null | number;
   setCanSwap: (canSwap: boolean) => void;
+  setDecimals: (decimals: number) => void;
   setEnabled: (enabled: boolean) => void;
   setRewardsPoolId: (rewardsPoolId: null | number) => void;
   setSharedRewardPercent: (sharedRewardPercent: number) => void;
+  setSymbol: (symbol: string) => void;
   setToken: (token: Address | null) => void;
   sharedRewardPercent: number;
+  symbol: string;
   token: Address | null;
 }
 
 const store = create<State>((set) => ({
   canSwap: false,
+  decimals: 18,
   enabled: false,
   reset: () =>
     set({
@@ -44,11 +48,14 @@ const store = create<State>((set) => ({
     }),
   rewardsPoolId: null,
   setCanSwap: (canSwap) => set({ canSwap }),
+  setDecimals: (decimals) => set({ decimals }),
   setEnabled: (enabled) => set({ enabled }),
   setRewardsPoolId: (rewardsPoolId) => set({ rewardsPoolId }),
   setSharedRewardPercent: (sharedRewardPercent) => set({ sharedRewardPercent }),
+  setSymbol: (symbol) => set({ symbol }),
   setToken: (token) => set({ token }),
   sharedRewardPercent: 0,
+  symbol: 'BONSAI',
   token: DEFAULT_COLLECT_TOKEN as Address
 }));
 
@@ -123,10 +130,9 @@ const SwapConfig: FC = () => {
         <>
           <div className="divider" />
           <div className="m-5">
-            <PoolConfig />
-            <RewardConfig />
-            <DefaultAmountConfig />
             <TokenConfig />
+            <PoolConfig />
+            <DefaultAmountConfig />
           </div>
           <div className="divider" />
           <div className="m-5">
