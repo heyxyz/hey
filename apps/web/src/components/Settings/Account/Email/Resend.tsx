@@ -21,7 +21,7 @@ const Resend: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [sent, setSent] = useState(false);
 
-  if (emailVerified) {
+  if (!email || emailVerified) {
     return null;
   }
 
