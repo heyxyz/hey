@@ -21,7 +21,7 @@ interface State {
 
 const store = create<State>((set) => ({
   email: null,
-  emailVerified: false,
+  emailVerified: true,
   hasDismissedOrMintedMembershipNft: true,
   highSignalNotificationFilter: false,
   isPride: false,
