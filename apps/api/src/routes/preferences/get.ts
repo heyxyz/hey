@@ -38,7 +38,7 @@ export const get: Handler = async (req, res) => {
       email: email?.email || null,
       emailVerificationTokenExpired: email?.tokenExpiresAt
         ? email?.tokenExpiresAt < new Date()
-        : false,
+        : true,
       emailVerified: Boolean(email?.verified),
       features: features.map((feature: any) => feature.feature?.key),
       hasDismissedOrMintedMembershipNft: Boolean(
