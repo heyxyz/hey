@@ -2,13 +2,13 @@ import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 
 interface State {
-  email: string;
+  email: null | string;
   emailVerified: boolean;
   hasDismissedOrMintedMembershipNft: boolean;
   highSignalNotificationFilter: boolean;
   isPride: boolean;
   resetPreferences: () => void;
-  setEmail: (email: string) => void;
+  setEmail: (email: null | string) => void;
   setEmailVerified: (emailVerified: boolean) => void;
   setHasDismissedOrMintedMembershipNft: (
     hasDismissedOrMintedMembershipNft: boolean
@@ -20,7 +20,7 @@ interface State {
 }
 
 const store = create<State>((set) => ({
-  email: '',
+  email: null,
   emailVerified: false,
   hasDismissedOrMintedMembershipNft: true,
   highSignalNotificationFilter: false,
