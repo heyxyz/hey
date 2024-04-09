@@ -9,14 +9,16 @@ import prisma from 'src/lib/prisma';
 import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
 import sendEmail from 'src/lib/sendEmail';
 import { v4 as uuid } from 'uuid';
-import { object, string } from 'zod';
+import { boolean, object, string } from 'zod';
 
 type ExtensionRequest = {
   email: string;
+  resend?: boolean;
 };
 
 const validationSchema = object({
-  email: string().email()
+  email: string().email(),
+  resend: boolean().optional()
 });
 
 // TODO: add tests
@@ -38,23 +40,26 @@ export const post: Handler = async (req, res) => {
     return notAllowed(res);
   }
 
-  const { email } = body as ExtensionRequest;
+  const { email, resend } = body as ExtensionRequest;
 
   try {
     const payload = parseJwt(accessToken);
 
-    const data = await prisma.email.findUnique({
-      where: { id: payload.id }
-    });
+    if (!resend) {
+      const data = await prisma.email.findUnique({
+        where: { id: payload.id }
+      });
 
-    if (data?.email === email) {
-      return res.status(200).json({ success: false });
+      if (data?.email === email) {
+        return res.status(200).json({ success: false });
+      }
     }
 
     const baseData = {
       email: email.toLowerCase(),
       tokenExpiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
-      verificationToken: uuid()
+      verificationToken: uuid(),
+      verified: false
     };
 
     const result = await prisma.email.upsert({
