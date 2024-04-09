@@ -36,6 +36,9 @@ export const get: Handler = async (req, res) => {
 
     const response: Preferences = {
       email: email?.email || null,
+      emailVerificationTokenExpired: email?.tokenExpiresAt
+        ? email?.tokenExpiresAt < new Date()
+        : false,
       emailVerified: Boolean(email?.verified),
       features: features.map((feature: any) => feature.feature?.key),
       hasDismissedOrMintedMembershipNft: Boolean(
