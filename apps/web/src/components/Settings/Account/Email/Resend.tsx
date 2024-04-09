@@ -16,12 +16,7 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 const Resend: FC = () => {
   const { currentProfile } = useProfileStore();
-  const {
-    email,
-    emailVerificationTokenExpired,
-    emailVerified,
-    setEmailVerificationTokenExpired
-  } = usePreferencesStore();
+  const { email, emailVerified } = usePreferencesStore();
   const { isSuspended } = useProfileRestriction();
   const [isLoading, setIsLoading] = useState(false);
   const [sent, setSent] = useState(false);
@@ -52,7 +47,6 @@ const Resend: FC = () => {
         { headers: getAuthApiHeaders() }
       );
       setSent(true);
-      setEmailVerificationTokenExpired(false);
       Leafwatch.track(SETTINGS.ACCOUNT.RESEND_EMAIL_VERIFICATION);
 
       return toast.success('Email verification sent to your email!');
@@ -66,11 +60,7 @@ const Resend: FC = () => {
   return (
     <div className="mb-5 space-y-1 rounded-xl border-2 border-gray-500/50 bg-gray-50 p-4 text-sm dark:bg-gray-900/10">
       <div className="flex flex-wrap items-center gap-2">
-        <h3 className="font-medium">
-          {emailVerificationTokenExpired
-            ? 'Resend verification email, your token is expired'
-            : 'Resend verification email'}
-        </h3>
+        <h3 className="font-medium">Resend verification email</h3>
       </div>
       <div className="ld-text-gray-500 break-words">
         You will receive an email with a verification link to confirm your email
