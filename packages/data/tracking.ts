@@ -40,6 +40,7 @@ export const PUBLICATION = {
   },
   BOOKMARK: 'Bookmark publication',
   CLICK_CASHTAG: 'Click publication cashtag',
+  CLICK_FRAME_BUTTON: 'Click frame button',
   CLICK_HASHTAG: 'Click publication hashtag',
   CLICK_MENTION: 'Click publication mention',
   CLICK_OEMBED: 'Click publication oembed',
