@@ -9,7 +9,7 @@ import errorToast from '@lib/errorToast';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
@@ -34,10 +34,14 @@ const EmailForm: FC<EmailFormProps> = ({
   const { isSuspended } = useProfileRestriction();
   const [isLoading, setIsLoading] = useState(false);
 
-  const form = useZodForm({
-    defaultValues: { email: email! },
-    schema: updateEmailSchema
-  });
+  const form = useZodForm({ schema: updateEmailSchema });
+
+  useEffect(() => {
+    if (email) {
+      form.setValue('email', email);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [email]);
 
   const onError = (error: any) => {
     setIsLoading(false);
