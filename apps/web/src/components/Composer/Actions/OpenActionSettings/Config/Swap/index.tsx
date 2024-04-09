@@ -15,7 +15,6 @@ import { create } from 'zustand';
 import SaveOrCancel from '../../SaveOrCancel';
 import DefaultAmountConfig from './DefaultAmountConfig';
 import PoolConfig from './PoolConfig';
-import RewardConfig from './RewardConfig';
 import TokenConfig from './TokenConfig';
 
 interface State {
@@ -133,7 +132,6 @@ const SwapConfig: FC = () => {
           <div className="m-5">
             <TokenConfig />
             <PoolConfig />
-            <RewardConfig />
             <DefaultAmountConfig />
           </div>
           <div className="divider" />

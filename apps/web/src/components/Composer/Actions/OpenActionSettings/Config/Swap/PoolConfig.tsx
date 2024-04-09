@@ -9,6 +9,7 @@ import usePreventScrollOnNumberInput from 'src/hooks/usePreventScrollOnNumberInp
 import { type Address, formatUnits, isAddress } from 'viem';
 
 import { useSwapActionStore } from '.';
+import RewardConfig from './RewardConfig';
 
 const PoolConfig: FC = () => {
   const [rewardsPool, setRewardsPool] = useState<null | RewardPool>(null);
@@ -23,6 +24,9 @@ const PoolConfig: FC = () => {
         if (pool) {
           setRewardsPool(pool);
           setRewardsPoolId(parseInt(pool.rewardsPoolId));
+        } else {
+          setRewardsPool(null);
+          setRewardsPoolId(null);
         }
       });
     }
@@ -46,7 +50,7 @@ const PoolConfig: FC = () => {
       <div className="flex items-start space-x-3">
         <GiftIcon className="mt-1 size-5" />
         <div>
-          <b>Reward pool found for $BONSAI</b>
+          <b>Reward pool found for ${symbol}</b>
           <div className="ld-text-gray-500 max-w-md text-sm">
             You will receive <b>{percent}%</b> of every swap from the rewards
             pool.{' '}
@@ -61,9 +65,7 @@ const PoolConfig: FC = () => {
           </div>
         </div>
       </div>
-      {rewardsPoolId !== null ? (
-        <div className="ml-8 mt-4 text-sm">gm</div>
-      ) : null}
+      {rewardsPoolId !== null ? <RewardConfig /> : null}
     </div>
   );
 };
