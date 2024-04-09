@@ -8,6 +8,7 @@ import { ONBOARDING } from '@hey/data/tracking';
 import { Card } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
+import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface StatusProps {
@@ -28,11 +29,14 @@ const Status: FC<StatusProps> = ({ finished, title }) => (
 
 const SetProfile: FC = () => {
   const { currentProfile } = useProfileStore();
+  const { email } = usePreferencesStore();
+
   const doneSetup =
     Boolean(currentProfile?.metadata?.displayName) &&
     Boolean(currentProfile?.metadata?.bio) &&
     Boolean(currentProfile?.metadata?.picture) &&
-    Boolean(currentProfile?.interests?.length);
+    Boolean(currentProfile?.interests?.length) &&
+    Boolean(email);
 
   if (doneSetup) {
     return null;
@@ -40,7 +44,7 @@ const SetProfile: FC = () => {
 
   return (
     <Card as="aside" className="mb-4 space-y-4 p-5">
-      <p className="text-lg font-bold">Setup your {APP_NAME} profile</p>
+      <p className="text-lg font-semibold">Setup your {APP_NAME} profile</p>
       <div className="space-y-1 text-sm leading-5">
         <Status
           finished={Boolean(currentProfile?.metadata?.displayName)}
@@ -54,6 +58,7 @@ const SetProfile: FC = () => {
           finished={Boolean(currentProfile?.metadata?.picture)}
           title="Set your avatar"
         />
+        <Status finished={Boolean(email)} title="Set your email" />
         <div>
           <Link
             className="flex items-center space-x-2"

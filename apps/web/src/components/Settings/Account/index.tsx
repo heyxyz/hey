@@ -12,6 +12,7 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import SettingsSidebar from '../Sidebar';
 import DefaultProfile from './DefaultProfile';
+import Email from './Email';
 import RateLimits from './RateLimits';
 import Verification from './Verification';
 
@@ -33,6 +34,7 @@ const AccountSettings: NextPage = () => {
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
+        <Email />
         <SuperFollow />
         <DefaultProfile />
         <RateLimits />

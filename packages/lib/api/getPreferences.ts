@@ -22,6 +22,8 @@ const getPreferences = async (
     return response.data.result;
   } catch {
     return {
+      email: null,
+      emailVerified: false,
       features: [],
       hasDismissedOrMintedMembershipNft: true,
       highSignalNotificationFilter: false,
