@@ -98,6 +98,7 @@ export const EXPLORE = {
 export const SETTINGS = {
   ACCOUNT: {
     SET_DEFAULT_PROFILE: 'Set default profile',
+    SET_EMAIL: 'Set email',
     SET_SUPER_FOLLOW: 'Set super follow'
   },
   ALLOWANCE: {
