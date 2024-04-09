@@ -65,6 +65,8 @@ export type Poll = {
 };
 
 export type Preferences = {
+  email: null | string;
+  emailVerified: boolean;
   features: string[];
   hasDismissedOrMintedMembershipNft: boolean;
   highSignalNotificationFilter: boolean;
