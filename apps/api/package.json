@@ -22,6 +22,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
+    "@aws-sdk/client-ses": "^3.549.0",
     "@aws-sdk/client-sts": "^3.549.0",
     "@clickhouse/client": "^1.0.1",
     "@hey/abis": "workspace:*",
