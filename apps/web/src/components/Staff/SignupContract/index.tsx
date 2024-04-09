@@ -18,7 +18,6 @@ import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import StaffSidebar from '../Sidebar';
-import Balance from './Balance';
 import LensCredits from './LensCredits';
 import Mint from './Mint';
 import NftsMinted from './NftsMinted';
@@ -62,7 +61,6 @@ const SignupContract: NextPage = () => {
             <SignupPrice />
             <NftsMinted />
             <ProfilesCreated />
-            <Balance />
           </div>
         </Card>
         <Card className="space-y-5 p-5">

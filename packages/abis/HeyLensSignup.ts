@@ -245,12 +245,5 @@ export const HeyLensSignup = [
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
-  },
-  {
-    inputs: [],
-    name: 'withdrawFunds',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
   }
 ];
