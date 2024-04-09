@@ -5,6 +5,7 @@ import Footer from '@components/Shared/Footer';
 import { memo } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
+import Email from './Email';
 import EnableLensManager from './EnableLensManager';
 import HeyMembershipNft from './HeyMembershipNft';
 import SetProfile from './SetProfile';
@@ -26,6 +27,7 @@ const Sidebar: FC = () => {
         <>
           <EnableLensManager />
           <SetProfile />
+          <Email />
         </>
       )}
       {/* Recommendations */}
