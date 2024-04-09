@@ -7,10 +7,12 @@ import cn from '../cn';
 interface SelectProps {
   className?: string;
   defaultValue?: string;
+  iconClassName?: string;
   onChange: (value: any) => any;
   options?: {
     disabled?: boolean;
     helper?: string;
+    icon?: string;
     label: string;
     selected?: boolean;
     value: number | string;
@@ -18,7 +20,13 @@ interface SelectProps {
 }
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
-  function Select({ className, defaultValue, onChange, options }) {
+  function Select({
+    className,
+    defaultValue,
+    iconClassName,
+    onChange,
+    options
+  }) {
     const selected = options?.find((option) => option.selected) || options?.[0];
 
     return (
@@ -30,7 +38,16 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
               className
             )}
           >
-            <span className="text-md">{selected?.label}</span>
+            <span className="flex items-center space-x-2">
+              {selected?.icon && (
+                <img
+                  alt={selected?.label}
+                  className={iconClassName}
+                  src={selected?.icon}
+                />
+              )}
+              <span className="text-md">{selected?.label}</span>
+            </span>
             <ChevronDownIcon className="mr-1 size-5 text-gray-400" />
           </Listbox.Button>
           <Transition
@@ -58,7 +75,16 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
                   {({ selected }) => (
                     <div className="flex flex-col space-y-0 px-2 py-1.5">
                       <span className="flex w-full items-center justify-between space-x-3 text-gray-700 dark:text-gray-200">
-                        <span className="block truncate">{option.label}</span>
+                        <span className="flex items-center space-x-2">
+                          {option.icon && (
+                            <img
+                              alt={option.label}
+                              className={iconClassName}
+                              src={option.icon}
+                            />
+                          )}
+                          <span className="block truncate">{option.label}</span>
+                        </span>
                         {selected ? (
                           <CheckCircleIcon className="size-5" />
                         ) : null}
