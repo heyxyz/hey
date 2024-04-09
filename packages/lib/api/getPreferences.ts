@@ -23,7 +23,7 @@ const getPreferences = async (
   } catch {
     return {
       email: null,
-      emailVerified: true,
+      emailVerified: false,
       features: [],
       hasDismissedOrMintedMembershipNft: true,
       highSignalNotificationFilter: false,
