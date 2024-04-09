@@ -4,6 +4,7 @@ import logger from '@hey/lib/logger';
 import prisma from 'src/lib/prisma';
 import { noBody } from 'src/lib/responses';
 
+// TODO: add tests
 export const get: Handler = async (req, res) => {
   const { token } = req.query;
 

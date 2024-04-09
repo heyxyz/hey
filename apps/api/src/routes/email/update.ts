@@ -19,6 +19,7 @@ const validationSchema = object({
   email: string().email()
 });
 
+// TODO: add tests
 export const post: Handler = async (req, res) => {
   const { body } = req;
 
