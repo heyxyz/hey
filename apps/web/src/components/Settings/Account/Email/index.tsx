@@ -4,6 +4,7 @@ import { APP_NAME } from '@hey/data/constants';
 import { Card, CardHeader } from '@hey/ui';
 
 import EmailForm from './EmailForm';
+import Resend from './Resend';
 
 const Email: FC = () => {
   return (
@@ -13,6 +14,7 @@ const Email: FC = () => {
         title="Set Email"
       />
       <div className="m-5">
+        <Resend />
         <EmailForm />
       </div>
     </Card>
