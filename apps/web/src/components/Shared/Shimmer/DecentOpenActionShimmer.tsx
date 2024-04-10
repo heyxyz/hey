@@ -15,7 +15,7 @@ const DecentOpenActionShimmer: FC = () => {
             </div>
             <div className="shimmer mt-2 h-3 w-12 rounded-lg" />
           </div>
-          <div className="shimmer h-10 w-24 rounded-lg bg-red-500" />
+          <div className="shimmer h-10 w-24 rounded-full bg-red-500" />
         </div>
       </div>
     </div>
