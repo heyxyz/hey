@@ -28,6 +28,7 @@ import getProfile from '@hey/lib/getProfile';
 import getRedstonePrice from '@hey/lib/getRedstonePrice';
 import getTokenImage from '@hey/lib/getTokenImage';
 import humanize from '@hey/lib/humanize';
+import nFormatter from '@hey/lib/nFormatter';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { HelpTooltip, Tooltip, WarningMessage } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
@@ -223,6 +224,22 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
                 >
                   {formatAddress(collectModule.collectNft)}
                 </Link>
+              </div>
+            </div>
+          ) : null}
+          {amount ? (
+            <div className="flex items-center space-x-2">
+              <CurrencyDollarIcon className="ld-text-gray-500 size-4" />
+              <div className="space-x-1.5">
+                <span>Revenue:</span>
+                <Tooltip
+                  content={`${humanize(amount * countOpenActions)} ${currency}`}
+                  placement="top"
+                >
+                  <span className="font-bold text-gray-600">
+                    {nFormatter(amount * countOpenActions)} {currency}
+                  </span>
+                </Tooltip>
               </div>
             </div>
           ) : null}
