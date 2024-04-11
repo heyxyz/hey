@@ -4,3 +4,4 @@ export * from './HeyLensSignup';
 export * from './PermissionlessCreator';
 export * from './HeyMembershipNft';
 export * from './LensHandles';
+export * from './Permit2';
