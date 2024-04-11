@@ -2,13 +2,13 @@ import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 
 interface VideoThumbnail {
-  type?: string;
-  uploading?: boolean;
-  url?: string;
+  mimeType: string;
+  uploading: boolean;
+  url: string;
 }
 
 export const DEFAULT_VIDEO_THUMBNAIL: VideoThumbnail = {
-  type: '',
+  mimeType: '',
   uploading: false,
   url: ''
 };
