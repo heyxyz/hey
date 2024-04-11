@@ -7,9 +7,9 @@ Try running some of the following tasks:
 ```sh
 npx hardhat compile
 
-# Deploy to Mumbai
-npx hardhat run script/deploy.ts --network polygonMumbai
-npx hardhat verify 0x6d131f44fBB08D463D18394Ada64BE59519339e3 --network polygonMumbai
+# Deploy to Amoy
+npx hardhat run script/deploy.ts --network polygonAmoy
+npx hardhat verify 0x82Bcb5DA51c6F3D0Ce942bDBEbb0B8A7774d62e8 --network polygonAmoy
 
 # Deploy to Polygon
 npx hardhat run script/deploy.ts --network polygon
@@ -19,8 +19,8 @@ npx hardhat verify 0x4b8845ACb8148dE64D1D99Cf27A3890a91F55E53 --network polygon
 ## Upgrade Contracts
 
 ```sh
-# Upgrade on Mumbai
-npx hardhat run script/upgrade.ts --network polygonMumbai
+# Upgrade on Amoy
+npx hardhat run script/upgrade.ts --network polygonAmoy
 
 # Upgrade on Polygon
 npx hardhat run script/upgrade.ts --network polygon
@@ -34,6 +34,6 @@ npx hardhat verify 0x4b8845ACb8148dE64D1D99Cf27A3890a91F55E53 --network polygon
 
 ## Contracts
 
-| Contract        | Mainnet                                                                                                                         | Mumbai                                                                                                                   |
+| Contract        | Mainnet                                                                                                                         | Amoy                                                                                                                     |
 | --------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `HeyLensSignup` | [0x6d131f44fBB08D463D18394Ada64BE59519339e3](https://mumbai.polygonscan.com/address/0x6d131f44fBB08D463D18394Ada64BE59519339e3) | [0x4b8845ACb8148dE64D1D99Cf27A3890a91F55E53](https://polygonscan.com/address/0x4b8845ACb8148dE64D1D99Cf27A3890a91F55E53) |
+| `HeyLensSignup` | [0x82Bcb5DA51c6F3D0Ce942bDBEbb0B8A7774d62e8](https://www.oklink.com/amoy/address/0x82bcb5da51c6f3d0ce942bdbebb0b8a7774d62e8) | [0x4b8845ACb8148dE64D1D99Cf27A3890a91F55E53](https://www.oklink.com/polygon/address/0x4b8845ACb8148dE64D1D99Cf27A3890a91F55E53) |
