@@ -1,4 +1,7 @@
 fragment AmountFields on Amount {
+  rate(request: { for: USD }) {
+    value
+  }
   asset {
     ...Erc20Fields
   }
