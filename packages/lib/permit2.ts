@@ -1,5 +1,4 @@
 import type { Address, Hex } from 'viem';
-import type { GetWalletClientResult } from 'wagmi/actions';
 
 import { IS_MAINNET } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
@@ -262,7 +261,7 @@ export const constructPermit2Sig = async ({
   token: Address;
 }) => {
   const spender = VerifiedOpenActionModules.DecentNFT;
-  const [_, nonce, _] = await getAllowanceData({
+  const allowanceData = await getAllowanceData({
     owner: from,
     spender: spender as `0x${string}`,
     token
@@ -294,7 +293,7 @@ export const constructPermit2Sig = async ({
   const PERMIT_SIG_EXPIRATION = timeToMilliseconds(30, 'min');
   const permitTransfer = {
     deadline: toDeadline(PERMIT_SIG_EXPIRATION),
-    nonce,
+    nonce: allowanceData[1],
     permitted: {
       amount,
       token
@@ -305,7 +304,7 @@ export const constructPermit2Sig = async ({
 };
 
 export const signPermitSignature = async (
-  walletClient: GetWalletClientResult,
+  walletClient: any,
   amount: bigint,
   token: `0x${string}`
 ) => {

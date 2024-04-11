@@ -18,21 +18,24 @@ import {
   Squares2X2Icon,
   UserIcon
 } from '@heroicons/react/24/outline';
+import { IS_MAINNET } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
-import {
-  useApprovedModuleAllowanceAmountQuery,
-  useDefaultProfileQuery
-} from '@hey/lens';
+import { useDefaultProfileQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import getRedstonePrice from '@hey/lib/getRedstonePrice';
+import {
+  getAllowanceData,
+  signPermitSignature,
+  updateWraperParams
+} from '@hey/lib/permit2';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import truncateByWords from '@hey/lib/truncateByWords';
 import { HelpTooltip, Modal } from '@hey/ui';
-import getCurrentSession from '@lib/getCurrentSession';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { CHAIN } from 'src/constants';
+import { CHAIN, PERMIT_2_ADDRESS } from 'src/constants';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
+import { useAccount, useWalletClient } from 'wagmi';
 
 import CurrencySelector from './CurrencySelector';
 import DecentAction from './DecentAction';
@@ -54,6 +57,12 @@ interface DecentOpenActionModuleProps {
   show: boolean;
 }
 
+interface Permit2Data {
+  deadline: number;
+  nonce: number;
+  signature: string;
+}
+
 const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   actionData,
   module,
@@ -67,6 +76,8 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   show
 }) => {
   const [usdPrice, setUsdPrice] = useState(0);
+  const { data: walletClient } = useWalletClient();
+  const { address } = useAccount();
 
   const getUsdPrice = async () => {
     const usdPrice = await getRedstonePrice('MATIC');
@@ -83,16 +94,6 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
       signlessApproved: module.signlessApproved,
       successToast: 'Initiated cross-chain NFT mint'
     });
-
-  const act = async () => {
-    if (actionData && publication) {
-      await actOnUnknownOpenAction({
-        address: VerifiedOpenActionModules.DecentNFT as `0x${string}`,
-        data: actionData.actArguments.actionModuleData,
-        publicationId: publication.id
-      });
-    }
-  };
 
   const { data: creatorProfileData } = useDefaultProfileQuery({
     skip: !actionData?.uiData.nftCreatorAddress,
@@ -128,41 +129,93 @@ const formattedTotalFees = (
 
   const [isModalCollapsed, setIsModalCollapsed] = useState(false);
 
-  // TODO: fetch permit2 allowance status and update with useEffect depending on currency
   const [permit2Allowed, setPermit2Allowed] = useState(false);
-
-  const approvePermit2 = (token: AllowedToken) => {
-    console.log(`${token} approved for permit2`);
-    setPermit2Allowed(true);
-  };
-
-  const [allowed, setAllowed] = useState(true);
-  const { id: sessionProfileId } = getCurrentSession();
+  const [permit2Data, setPermit2Data] = useState<Permit2Data | undefined>();
 
   const amount = parseInt(formattedTotalPrice) || 0;
   const assetAddress = selectedCurrency.contractAddress;
 
-  const { data: allowanceData, loading: allowanceLoading } =
-    useApprovedModuleAllowanceAmountQuery({
-      fetchPolicy: 'no-cache',
-      onCompleted: ({ approvedModuleAllowanceAmount }) => {
-        if (!amount) {
-          return;
-        }
+  const approvePermit2 = async () => {
+    if (!!walletClient) {
+      console.log('`SIGNING APPROVAL TRANSACTION');
+      await walletClient.sendTransaction({
+        account: address,
+        args: [
+          PERMIT_2_ADDRESS,
+          57896044618658097711785492504343953926634992332820282019728792003956564819967
+        ],
+        function: 'approve',
+        to: assetAddress as `0x${string}`
+      });
+      const allowanceData = await getAllowanceData({
+        owner: address as `0x${string}`,
+        spender: PERMIT_2_ADDRESS,
+        token: assetAddress as `0x${string}`
+      });
+      const approvedAmount = allowanceData[0].toString();
+      if (Number(approvedAmount) > amount) {
+        setPermit2Allowed(true);
+      } else {
+        setPermit2Allowed(false);
+      }
+    }
+  };
 
-        const allowedAmount = parseFloat(
-          approvedModuleAllowanceAmount[0]?.allowance.value
-        );
-        setAllowed(allowedAmount > amount);
-      },
-      skip: !amount || !sessionProfileId || !assetAddress,
-      variables: {
-        request: {
-          currencies: [assetAddress],
-          unknownOpenActionModules: [module.contract.address]
+  const approveOA = async () => {
+    console.log(`SIGNING PERMIT SIGNATURE FOR AMOUNT ${amount}`);
+    const permit2Signature = await signPermitSignature(
+      walletClient,
+      BigInt(amount),
+      assetAddress as `0x${string}`
+    );
+    setPermit2Data({
+      deadline: permit2Signature.deadline,
+      nonce: permit2Signature.nonce,
+      signature: permit2Signature.signature
+    });
+    setIsModalCollapsed(false);
+  };
+
+  const act = async () => {
+    if (actionData && !!publication && !!permit2Data) {
+      const updatedCalldata = await updateWraperParams({
+        chainId: IS_MAINNET ? 137 : 80001,
+        data: actionData.actArguments.actionModuleData,
+        deadline: BigInt(permit2Data.deadline),
+        nonce: BigInt(permit2Data.nonce),
+        signature: permit2Data.signature as `0x${string}`
+      });
+      console.log('UPDATED ALLDATA');
+      console.log(updatedCalldata);
+      await actOnUnknownOpenAction({
+        address: VerifiedOpenActionModules.DecentNFT as `0x${string}`,
+        data: updatedCalldata,
+        publicationId: publication.id
+      });
+    }
+  };
+
+  useEffect(() => {
+    const fetchPermit2Allowance = async () => {
+      if (address && !!tokenAddress) {
+        const allowanceData = await getAllowanceData({
+          owner: address as `0x${string}`,
+          spender: PERMIT_2_ADDRESS,
+          token: assetAddress as `0x${string}`
+        });
+        console.log('ALLOWANCE DATA');
+        console.log(allowanceData);
+        const approvedAmount = allowanceData[0].toString();
+        if (Number(approvedAmount) > amount) {
+          setPermit2Allowed(true);
+        } else {
+          setPermit2Allowed(false);
         }
       }
-    });
+    };
+
+    fetchPermit2Allowance();
+  }, [amount, assetAddress, address]);
 
   return (
     <Modal
@@ -200,8 +253,8 @@ const formattedTotalFees = (
         />
       ) : isModalCollapsed ? (
         <StepperApprovals
-          allowanceData={allowanceData}
-          approvePermit2={() => approvePermit2(selectedCurrency)}
+          approveOA={() => approveOA()}
+          approvePermit2={() => approvePermit2()}
           nftDetails={{
             creator: getProfile(creatorProfileData?.defaultProfile as Profile)
               .slug,
@@ -211,7 +264,6 @@ const formattedTotalFees = (
             uri: sanitizeDStorageUrl(actionData?.uiData.nftUri)
           }}
           selectedCurrencySymbol={selectedCurrency.symbol}
-          setAllowed={setAllowed}
           step={!permit2Allowed ? 'Permit2' : 'Allowance'}
         />
       ) : (
@@ -345,11 +397,10 @@ const formattedTotalFees = (
             {selectedCurrency ? (
               <DecentAction
                 act={
-                  permit2Allowed && allowed
+                  permit2Allowed && !!permit2Data
                     ? act
                     : () => setIsModalCollapsed(!isModalCollapsed)
                 }
-                allowanceLoading={allowanceLoading}
                 className="w-full justify-center"
                 isLoading={isLoading}
                 moduleAmount={{

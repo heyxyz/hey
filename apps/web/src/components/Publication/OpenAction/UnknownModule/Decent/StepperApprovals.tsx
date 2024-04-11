@@ -1,20 +1,7 @@
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { FC } from 'react';
 
-import { SETTINGS } from '@hey/data/tracking';
-import {
-  type ApprovedAllowanceAmountResult,
-  type ApprovedModuleAllowanceAmountQuery,
-  OpenActionModuleType,
-  useGenerateModuleCurrencyApprovalDataLazyQuery
-} from '@hey/lens';
-import { Button, Spinner, WarningMessage } from '@hey/ui';
-import errorToast from '@lib/errorToast';
-import getAllowanceModule from '@lib/getAllowanceModule';
-import { Leafwatch } from '@lib/leafwatch';
-import React, { useEffect } from 'react';
-import toast from 'react-hot-toast';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useSendTransaction, useWaitForTransactionReceipt } from 'wagmi';
+import { Button, WarningMessage } from '@hey/ui';
+import React from 'react';
 
 // TODO: change copy
 const permit2Copy = (selectedCurrencySymbol: string) =>
@@ -25,7 +12,7 @@ const approveTokenCopy = (selectedCurrencySymbol: string) =>
   `You'll be approving the token allowance for the ${selectedCurrencySymbol} token with a signature.`;
 
 type StepperApprovalsProps = {
-  allowanceData?: ApprovedModuleAllowanceAmountQuery;
+  approveOA: () => void;
   approvePermit2: () => void;
   nftDetails: {
     creator: string;
@@ -35,95 +22,16 @@ type StepperApprovalsProps = {
     uri: string;
   };
   selectedCurrencySymbol: string;
-  setAllowed: Dispatch<SetStateAction<boolean>>;
   step: 'Allowance' | 'Permit2';
 };
 
 const StepperApprovals: FC<StepperApprovalsProps> = ({
-  allowanceData,
+  approveOA,
   approvePermit2,
   nftDetails,
   selectedCurrencySymbol,
-  setAllowed,
   step
 }) => {
-  const module = allowanceData
-    ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult;
-
-  const [generateModuleCurrencyApprovalData, { loading: queryLoading }] =
-    useGenerateModuleCurrencyApprovalDataLazyQuery();
-  const handleWrongNetwork = useHandleWrongNetwork();
-
-  const onError = (error: any) => {
-    errorToast(error);
-  };
-
-  const {
-    data: txHash,
-    isPending: transactionLoading,
-    sendTransaction
-  } = useSendTransaction({
-    mutation: { onError }
-  });
-
-  const {
-    error,
-    isLoading: waitLoading,
-    isSuccess
-  } = useWaitForTransactionReceipt({ hash: txHash });
-
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success('Module enabled successfully!');
-      setAllowed(true);
-      Leafwatch.track(SETTINGS.ALLOWANCE.TOGGLE, {
-        allowed: true,
-        currency: module.allowance.asset.symbol,
-        module: module.moduleName
-      });
-    }
-
-    if (error) {
-      onError(error);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuccess, error]);
-
-  const handleAllowance = async (
-    contract: string,
-    value: string,
-    selectedModule: string
-  ) => {
-    try {
-      const isUnknownModule =
-        module.moduleName === OpenActionModuleType.UnknownOpenActionModule;
-
-      const { data } = await generateModuleCurrencyApprovalData({
-        variables: {
-          request: {
-            allowance: { currency: contract, value: value },
-            module: {
-              [isUnknownModule
-                ? 'unknownOpenActionModule'
-                : getAllowanceModule(module.moduleName).field]: isUnknownModule
-                ? module.moduleContract.address
-                : selectedModule
-            }
-          }
-        }
-      });
-      await handleWrongNetwork();
-
-      return sendTransaction?.({
-        account: data?.generateModuleCurrencyApprovalData.from,
-        data: data?.generateModuleCurrencyApprovalData.data,
-        to: data?.generateModuleCurrencyApprovalData.to
-      });
-    } catch (error) {
-      onError(error);
-    }
-  };
-
   return (
     <div className="flex w-full flex-col items-center justify-center gap-4 p-4">
       <div className="flex w-full items-start justify-between">
@@ -168,22 +76,7 @@ const StepperApprovals: FC<StepperApprovalsProps> = ({
       />
 
       {step === 'Allowance' ? (
-        <Button
-          className="w-full justify-center"
-          disabled={queryLoading || transactionLoading || waitLoading}
-          icon={
-            queryLoading || transactionLoading || waitLoading ? (
-              <Spinner size="xs" />
-            ) : null
-          }
-          onClick={() =>
-            handleAllowance(
-              module.allowance.asset.contract.address,
-              Number.MAX_SAFE_INTEGER.toString(),
-              module.moduleName
-            )
-          }
-        >
+        <Button className="w-full justify-center" onClick={approveOA}>
           Approve
         </Button>
       ) : (
