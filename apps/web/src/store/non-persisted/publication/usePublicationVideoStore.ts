@@ -1,21 +1,25 @@
 import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 
+interface VideoThumbnail {
+  type?: string;
+  uploading?: boolean;
+  url?: string;
+}
+
+export const DEFAULT_VIDEO_THUMBNAIL: VideoThumbnail = {
+  type: '',
+  uploading: false,
+  url: ''
+};
+
 interface State {
   setUploadedPercentage: (uploadedPercentage: number) => void;
   setVideoDurationInSeconds: (videoDurationInSeconds: string) => void;
-  setVideoThumbnail: (videoThumbnail: {
-    type?: string;
-    uploading?: boolean;
-    url?: string;
-  }) => void;
+  setVideoThumbnail: (videoThumbnail: VideoThumbnail) => void;
   uploadedPercentage: number;
   videoDurationInSeconds: string;
-  videoThumbnail: {
-    type?: string;
-    uploading?: boolean;
-    url?: string;
-  };
+  videoThumbnail: VideoThumbnail;
 }
 
 const store = create<State>((set) => ({
@@ -26,7 +30,7 @@ const store = create<State>((set) => ({
   setVideoThumbnail: (videoThumbnail) => set(() => ({ videoThumbnail })),
   uploadedPercentage: 0,
   videoDurationInSeconds: '',
-  videoThumbnail: { type: '', uploading: false, url: '' }
+  videoThumbnail: DEFAULT_VIDEO_THUMBNAIL
 }));
 
 export const usePublicationVideoStore = createTrackedSelector(store);

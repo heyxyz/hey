@@ -53,7 +53,10 @@ import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/
 import { usePublicationLiveStore } from 'src/store/non-persisted/publication/usePublicationLiveStore';
 import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
-import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
+import {
+  DEFAULT_VIDEO_THUMBNAIL,
+  usePublicationVideoStore
+} from 'src/store/non-persisted/publication/usePublicationVideoStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
@@ -195,11 +198,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     setShowLiveVideoEditor(false);
     resetLiveVideoConfig();
     setAttachments([]);
-    setVideoThumbnail({
-      type: '',
-      uploading: false,
-      url: ''
-    });
+    setVideoThumbnail(DEFAULT_VIDEO_THUMBNAIL);
     setAudioPublication(DEFAULT_AUDIO_PUBLICATION);
     setLicense(null);
     resetAttributes();
