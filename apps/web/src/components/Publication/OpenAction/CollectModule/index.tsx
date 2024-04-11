@@ -144,7 +144,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
                 <>
                   <span className="ld-text-gray-500 px-0.5">·</span>
                   <span className="ld-text-gray-500 text-xs font-bold">
-                    ${(amount * usdPrice).toFixed(2)}
+                    ${usdPrice.toFixed(2)}
                   </span>
                 </>
               ) : null}
