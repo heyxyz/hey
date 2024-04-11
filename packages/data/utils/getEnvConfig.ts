@@ -8,7 +8,8 @@ const getEnvConfig = (): {
   heyApiEndpoint: string;
   heyLensSignup: `0x${string}`;
   lensApiEndpoint: string;
-  lensHubProxyAddress: `0x${string}`;
+  lensHandles: `0x${string}`;
+  lensHub: `0x${string}`;
   permissionlessCreator?: `0x${string}`;
   tokenHandleRegistry: `0x${string}`;
 } => {
@@ -19,7 +20,8 @@ const getEnvConfig = (): {
         heyApiEndpoint: HeyEndpoint.Testnet,
         heyLensSignup: TestnetContracts.HeyLensSignup,
         lensApiEndpoint: LensEndpoint.Testnet,
-        lensHubProxyAddress: TestnetContracts.LensHubProxy,
+        lensHandles: TestnetContracts.LensHandles,
+        lensHub: TestnetContracts.LensHub,
         permissionlessCreator: TestnetContracts.PermissionlessCreator,
         tokenHandleRegistry: TestnetContracts.TokenHandleRegistry
       };
@@ -29,7 +31,8 @@ const getEnvConfig = (): {
         heyApiEndpoint: HeyEndpoint.Staging,
         heyLensSignup: TestnetContracts.HeyLensSignup,
         lensApiEndpoint: LensEndpoint.Staging,
-        lensHubProxyAddress: TestnetContracts.LensHubProxy,
+        lensHandles: TestnetContracts.LensHandles,
+        lensHub: TestnetContracts.LensHub,
         permissionlessCreator: TestnetContracts.PermissionlessCreator,
         tokenHandleRegistry: TestnetContracts.TokenHandleRegistry
       };
@@ -39,7 +42,8 @@ const getEnvConfig = (): {
         heyApiEndpoint: HeyEndpoint.Mainnet,
         heyLensSignup: MainnetContracts.HeyLensSignup,
         lensApiEndpoint: LensEndpoint.Mainnet,
-        lensHubProxyAddress: MainnetContracts.LensHubProxy,
+        lensHandles: MainnetContracts.LensHandles,
+        lensHub: MainnetContracts.LensHub,
         permissionlessCreator: MainnetContracts.PermissionlessCreator,
         tokenHandleRegistry: MainnetContracts.TokenHandleRegistry
       };

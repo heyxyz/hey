@@ -7,12 +7,14 @@ import { Leafwatch } from '@lib/leafwatch';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 
 interface LoginButtonProps {
+  className?: string;
   isBig?: boolean;
   isFullWidth?: boolean;
   title?: string;
 }
 
 const LoginButton: FC<LoginButtonProps> = ({
+  className = '',
   isBig = false,
   isFullWidth = false,
   title = 'Login'
@@ -22,7 +24,7 @@ const LoginButton: FC<LoginButtonProps> = ({
   return (
     <Button
       className={cn(
-        isFullWidth ? 'flex w-full items-center justify-center' : ''
+        isFullWidth ? 'flex w-full items-center justify-center' : className
       )}
       icon={
         <img

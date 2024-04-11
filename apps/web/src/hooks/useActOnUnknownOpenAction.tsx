@@ -2,7 +2,7 @@ import type { ActOnOpenActionLensManagerRequest } from '@hey/lens';
 import type { Address } from 'viem';
 
 import { LensHub } from '@hey/abis';
-import { LENSHUB_PROXY } from '@hey/data/constants';
+import { LENS_HUB } from '@hey/data/constants';
 import {
   useActOnOpenActionMutation,
   useBroadcastOnchainMutation,
@@ -20,18 +20,22 @@ import { useSignTypedData, useWriteContract } from 'wagmi';
 import useHandleWrongNetwork from './useHandleWrongNetwork';
 
 interface CreatePublicationProps {
+  onSuccess?: () => void;
   signlessApproved?: boolean;
   successToast?: string;
 }
 
 const useActOnUnknownOpenAction = ({
+  onSuccess,
   signlessApproved = false,
   successToast
 }: CreatePublicationProps) => {
   const { currentProfile } = useProfileStore();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
-    (state) => state
-  );
+  const {
+    decrementLensHubOnchainSigNonce,
+    incrementLensHubOnchainSigNonce,
+    lensHubOnchainSigNonce
+  } = useNonceStore();
   const [isLoading, setIsLoading] = useState(false);
   const [txHash, setTxHash] = useState<`0x${string}` | undefined>();
   const [relayStatus, setRelayStatus] = useState<string | undefined>();
@@ -55,6 +59,7 @@ const useActOnUnknownOpenAction = ({
       return;
     }
 
+    onSuccess?.();
     setIsLoading(false);
     toast.success(successToast || 'Success!');
   };
@@ -64,11 +69,11 @@ const useActOnUnknownOpenAction = ({
     mutation: {
       onError: (error: Error) => {
         onError(error);
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+        decrementLensHubOnchainSigNonce();
       },
       onSuccess: () => {
         onCompleted();
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+        incrementLensHubOnchainSigNonce();
       }
     }
   });
@@ -76,7 +81,7 @@ const useActOnUnknownOpenAction = ({
   const write = async ({ args }: { args: any }) => {
     return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args,
       functionName: 'act'
     });
@@ -106,8 +111,8 @@ const useActOnUnknownOpenAction = ({
           if (data?.broadcastOnchain.__typename === 'RelaySuccess') {
             setRelayStatus(data?.broadcastOnchain.txId);
           }
+          incrementLensHubOnchainSigNonce();
 
-          setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
           return;
         }
 

@@ -5,9 +5,13 @@ import List from './List';
 const Managers: FC = () => {
   return (
     <div className="pt-2">
-      <div>Accounts with control over your profile can act on your behalf.</div>
-      <div className="divider my-5" />
-      <List />
+      <div className="mx-5 mb-5">
+        Accounts with control over your profile can act on your behalf.
+      </div>
+      <div className="divider" />
+      <div className="mx-5 my-3">
+        <List />
+      </div>
     </div>
   );
 };

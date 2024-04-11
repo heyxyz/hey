@@ -3,13 +3,14 @@ import type {
   MomokaMirrorRequest,
   OnchainMirrorRequest
 } from '@hey/lens';
+import type { OptimisticTransaction } from '@hey/types/misc';
 import type { FC } from 'react';
 
 import { useApolloClient } from '@apollo/client';
 import { Menu } from '@headlessui/react';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
-import { LENSHUB_PROXY } from '@hey/data/constants';
+import { LENS_HUB } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
 import {
@@ -24,16 +25,19 @@ import {
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
+import { OptmisticPublicationType } from '@hey/types/enums';
 import cn from '@hey/ui/cn';
 import checkAndToastDispatcherError from '@lib/checkAndToastDispatcherError';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { useState } from 'react';
+import hasOptimisticallyMirrored from '@lib/optimistic/hasOptimisticallyMirrored';
+import { useCounter } from '@uidotdev/usehooks';
 import { toast } from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
 interface MirrorProps {
@@ -45,15 +49,20 @@ interface MirrorProps {
 const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
-    (state) => state
-  );
+  const {
+    decrementLensHubOnchainSigNonce,
+    incrementLensHubOnchainSigNonce,
+    lensHubOnchainSigNonce
+  } = useNonceStore();
+  const { addTransaction } = useTransactionStore();
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
-  const { hasMirrored } = targetPublication.operations;
+  const hasMirrored =
+    targetPublication.operations.hasMirrored ||
+    hasOptimisticallyMirrored(targetPublication.id);
 
-  const [shares, setShares] = useState(
+  const [shares, { increment }] = useCounter(
     targetPublication.stats.mirrors + targetPublication.stats.quotes
   );
 
@@ -62,6 +71,21 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
 
   const { canBroadcast, canUseLensManager } =
     checkDispatcherPermissions(currentProfile);
+
+  const generateOptimisticMirror = ({
+    txHash,
+    txId
+  }: {
+    txHash?: string;
+    txId?: string;
+  }): OptimisticTransaction => {
+    return {
+      mirrorOn: targetPublication?.id,
+      txHash,
+      txId,
+      type: OptmisticPublicationType.Mirror
+    };
+  };
 
   const updateCache = () => {
     cache.modify({
@@ -98,10 +122,14 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     }
 
     setIsLoading(false);
-    setShares(shares + 1);
+    increment();
     updateCache();
     toast.success('Post has been mirrored!');
-    Leafwatch.track(PUBLICATION.MIRROR, { publication_id: publication.id });
+    Leafwatch.track(
+      PUBLICATION.MIRROR,
+      { publication_id: publication.id },
+      publication.by.ownedBy.address
+    );
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
@@ -110,11 +138,12 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     mutation: {
       onError: (error: Error) => {
         onError(error);
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+        decrementLensHubOnchainSigNonce();
       },
-      onSuccess: () => {
+      onSuccess: (hash: string) => {
+        addTransaction(generateOptimisticMirror({ txHash: hash }));
+        incrementLensHubOnchainSigNonce();
         onCompleted();
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
       }
     }
   });
@@ -122,21 +151,28 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
   const write = async ({ args }: { args: any[] }) => {
     return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args,
       functionName: 'mirror'
     });
   };
 
   const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
-    onCompleted: ({ broadcastOnMomoka }) =>
-      onCompleted(broadcastOnMomoka.__typename),
+    onCompleted: ({ broadcastOnMomoka }) => {
+      onCompleted(broadcastOnMomoka.__typename);
+    },
     onError
   });
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
-    onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename),
+    onCompleted: ({ broadcastOnchain }) => {
+      if (broadcastOnchain.__typename === 'RelaySuccess') {
+        addTransaction(
+          generateOptimisticMirror({ txId: broadcastOnchain.txId })
+        );
+      }
+      onCompleted(broadcastOnchain.__typename);
+    },
     onError
   });
 
@@ -160,7 +196,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
       if (data?.broadcastOnchain.__typename === 'RelayError') {
         return await write({ args: [typedData.value] });
       }
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+      incrementLensHubOnchainSigNonce();
 
       return;
     }
@@ -185,7 +221,12 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
 
   // Onchain mutations
   const [mirrorOnchain] = useMirrorOnchainMutation({
-    onCompleted: ({ mirrorOnchain }) => onCompleted(mirrorOnchain.__typename),
+    onCompleted: ({ mirrorOnchain }) => {
+      if (mirrorOnchain.__typename === 'RelaySuccess') {
+        addTransaction(generateOptimisticMirror({ txId: mirrorOnchain.txId }));
+      }
+      onCompleted(mirrorOnchain.__typename);
+    },
     onError
   });
 

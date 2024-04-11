@@ -6,14 +6,16 @@ import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
 import { ProfileLinkSource } from '@hey/data/tracking';
 import { EmptyState } from '@hey/ui';
-import { motion } from 'framer-motion';
 import { Virtuoso } from 'react-virtuoso';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface SuggestedProps {
   profiles: Profile[];
 }
 
 const Suggested: FC<SuggestedProps> = ({ profiles }) => {
+  const { currentProfile } = useProfileStore();
+
   if (profiles.length === 0) {
     return (
       <EmptyState
@@ -28,26 +30,24 @@ const Suggested: FC<SuggestedProps> = ({ profiles }) => {
     <div className="max-h-[80vh] overflow-y-auto">
       <Virtuoso
         className="virtual-profile-list"
-        data={profiles}
+        computeItemKey={(index, profile) => `${profile.id}-${index}`}
+        // remove the first 5 profiles from the list because they are already shown in the sidebar
+        data={profiles.slice(5)}
         itemContent={(_, profile) => {
           return (
-            <motion.div
-              animate={{ opacity: 1 }}
-              className="flex items-center space-x-3 p-5"
-              exit={{ opacity: 0 }}
-              initial={{ opacity: 0 }}
-            >
+            <div className="flex items-center space-x-3 p-5">
               <div className="w-full">
                 <UserProfile
+                  hideFollowButton={currentProfile?.id === profile.id}
+                  hideUnfollowButton={currentProfile?.id === profile.id}
                   profile={profile as Profile}
                   showBio
-                  showFollowUnfollowButton
                   showUserPreview={false}
                   source={ProfileLinkSource.WhoToFollow}
                 />
               </div>
               <DismissRecommendedProfile profile={profile as Profile} />
-            </motion.div>
+            </div>
           );
         }}
       />

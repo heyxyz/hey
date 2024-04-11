@@ -5,11 +5,13 @@ import { Modal, Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
+import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
 
 import CollectForm from './CollectForm';
 
 const CollectSettings: FC = () => {
   const { reset } = useCollectModuleStore((state) => state);
+  const { setLicense } = usePublicationLicenseStore();
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -29,6 +31,7 @@ const CollectSettings: FC = () => {
         icon={<RectangleStackIcon className="size-5" />}
         onClose={() => {
           setShowModal(false);
+          setLicense(null);
           reset();
         }}
         show={showModal}

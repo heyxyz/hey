@@ -1,8 +1,10 @@
+import type { FC, ReactNode } from 'react';
+
 import { Menu } from '@headlessui/react';
 import { Card } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useRouter } from 'next/router';
-import { type FC, type ReactNode, useState } from 'react';
+import { useState } from 'react';
 
 import MenuTransition from '../MenuTransition';
 import { NextLink } from '../Navbar/MenuItems';

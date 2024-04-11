@@ -1,4 +1,5 @@
-import type { Maybe, PublicationMetadataLicenseType } from '@hey/lens';
+import type { Maybe } from '@hey/lens';
+import type { MetadataLicenseType } from '@lens-protocol/metadata';
 
 import type { OptmisticPublicationType } from './enums';
 
@@ -27,7 +28,7 @@ export interface UserSuggestion {
 export interface Nft {
   chain: null | string;
   collectionName: string;
-  contractAddress: `0x${string}`;
+  contractAddress: `0x${string}` | null;
   creatorAddress: `0x${string}`;
   description: string;
   endTime: null | string;
@@ -39,20 +40,6 @@ export interface Nft {
   sourceUrl: string;
 }
 
-export type ButtonType = 'link' | 'mint' | 'post_redirect' | 'post';
-
-export interface Portal {
-  buttons: {
-    action: ButtonType;
-    button: string;
-    target?: string;
-  }[];
-  image: string;
-  portalUrl: string;
-  postUrl: string;
-  version: string;
-}
-
 export interface OG {
   description: null | string;
   favicon: null | string;
@@ -61,7 +48,6 @@ export interface OG {
   isLarge: boolean | null;
   lastIndexedAt?: string;
   nft: Nft | null;
-  portal: null | Portal;
   site: null | string;
   title: null | string;
   url: string;
@@ -89,11 +75,15 @@ export interface MessageDescriptor {
 }
 
 export interface OptimisticTransaction {
+  collectOn?: string;
   commentOn?: string;
-  content: string;
+  content?: string;
+  followOn?: string;
+  mirrorOn?: string;
   txHash?: string;
   txId?: string;
   type: OptmisticPublicationType;
+  unfollowOn?: string;
 }
 
 export interface MarkupLinkProps {
@@ -104,8 +94,16 @@ export interface MarkupLinkProps {
 export interface MetadataAsset {
   artist?: string;
   cover?: string;
-  license?: Maybe<PublicationMetadataLicenseType>;
+  license?: Maybe<MetadataLicenseType>;
   title?: string;
   type: 'Audio' | 'Image' | 'Video';
   uri: string;
+}
+
+export interface RewardPool {
+  cap: string;
+  percentReward: number;
+  rewardsAmount: string;
+  rewardsPoolId: string;
+  rewardsRemaining: string;
 }

@@ -14,7 +14,6 @@ import { useApolloClient } from '@hey/lens/apollo';
 import getMentions from '@hey/lib/getMentions';
 import { Card, Tooltip } from '@hey/ui';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 
 interface QueuedPublicationProps {
   txn: OptimisticTransaction;
@@ -22,17 +21,10 @@ interface QueuedPublicationProps {
 
 const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
   const { currentProfile } = useProfileStore();
-  const { setTxnQueue, txnQueue } = useTransactionStore();
 
   const { cache } = useApolloClient();
   const txHash = txn?.txHash;
   const txId = txn?.txId;
-
-  const removeTxn = () => {
-    setTxnQueue(
-      txnQueue.filter((o) => (txHash ? o.txHash !== txHash : o.txId !== txId))
-    );
-  };
 
   const [getPublication] = usePublicationLazyQuery({
     onCompleted: ({ publication }) => {
@@ -54,19 +46,13 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
   useLensTransactionStatusQuery({
     notifyOnNetworkStatusChange: true,
     onCompleted: async ({ lensTransactionStatus }) => {
-      if (lensTransactionStatus?.status === LensTransactionStatusType.Failed) {
-        return removeTxn();
-      }
-
       if (
-        lensTransactionStatus?.status === LensTransactionStatusType.Complete
+        lensTransactionStatus?.status === LensTransactionStatusType.Complete &&
+        txn.commentOn
       ) {
-        if (txn.commentOn) {
-          await getPublication({
-            variables: { request: { forTxHash: lensTransactionStatus.txHash } }
-          });
-        }
-        removeTxn();
+        await getPublication({
+          variables: { request: { forTxHash: lensTransactionStatus.txHash } }
+        });
       }
     },
     pollInterval: 1000,
@@ -77,6 +63,10 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
       }
     }
   });
+
+  if (!txn.content) {
+    return null;
+  }
 
   return (
     <Card as="article" className="p-5">

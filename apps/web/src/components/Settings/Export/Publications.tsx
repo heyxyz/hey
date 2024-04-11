@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import { SETTINGS } from '@hey/data/tracking';
 import { LimitType, usePublicationsLazyQuery } from '@hey/lens';
 import downloadJson from '@hey/lib/downloadJson';
-import { Button, Card } from '@hey/ui';
+import { Button, Card, CardHeader } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -67,25 +67,27 @@ const Publications: FC = () => {
   };
 
   return (
-    <Card className="space-y-2 p-5">
-      <div className="text-lg font-bold">Export publications</div>
-      <div className="pb-2">
-        Export all your posts, comments and mirrors to a JSON file.
+    <Card>
+      <CardHeader
+        body="Export all your posts, comments and mirrors to a JSON file."
+        title="Export publications"
+      />
+      <div className="m-5">
+        {publications.length > 0 ? (
+          <div className="pb-2">
+            Exported <b>{publications.length}</b> publications
+          </div>
+        ) : null}
+        {fetchCompleted ? (
+          <Button onClick={download} outline>
+            Download publications
+          </Button>
+        ) : (
+          <Button disabled={exporting} onClick={handleExportClick} outline>
+            {exporting ? 'Exporting...' : 'Export now'}
+          </Button>
+        )}
       </div>
-      {publications.length > 0 ? (
-        <div className="pb-2">
-          Exported <b>{publications.length}</b> publications
-        </div>
-      ) : null}
-      {fetchCompleted ? (
-        <Button onClick={download} outline>
-          Download publications
-        </Button>
-      ) : (
-        <Button disabled={exporting} onClick={handleExportClick} outline>
-          {exporting ? 'Exporting...' : 'Export now'}
-        </Button>
-      )}
     </Card>
   );
 };

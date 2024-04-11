@@ -2,6 +2,7 @@ import type {
   MirrorablePublication,
   ReportPublicationRequest
 } from '@hey/lens';
+import type { FC, ReactNode } from 'react';
 
 import P2PRecommendation from '@components/Shared/Profile/P2PRecommendation';
 import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
@@ -13,7 +14,7 @@ import {
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC, type ReactNode, useState } from 'react';
+import { useToggle } from '@uidotdev/usehooks';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 
@@ -23,7 +24,7 @@ interface GardenerActionsProps {
 
 const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
   const { setShowGardenerActionsAlert } = useGlobalAlertStateStore();
-  const [hasReported, setHasReported] = useState(
+  const [hasReported, toggletHasReported] = useToggle(
     publication.operations?.hasReported
   );
   const [createReport, { loading }] = useReportPublicationMutation();
@@ -81,7 +82,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
             error: 'Error reporting publication',
             loading: 'Reporting publication...',
             success: () => {
-              setHasReported(true);
+              toggletHasReported();
               return 'Publication reported successfully';
             }
           }

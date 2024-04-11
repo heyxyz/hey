@@ -26,12 +26,11 @@ const Reason: FC<ReasonProps> = ({
       <div>
         <div className="label">Type</div>
         <Select
-          onChange={(e) => setType(e.target.value)}
+          onChange={(value) => setType(value)}
           options={[
             {
               disabled: true,
               label: 'Select type',
-              selected: true,
               value: 'Select type'
             },
             {
@@ -61,12 +60,11 @@ const Reason: FC<ReasonProps> = ({
         <div>
           <div className="label">Reason</div>
           <Select
-            onChange={(e) => setSubReason(e.target.value)}
+            onChange={(value) => setSubReason(value)}
             options={[
               {
                 disabled: true,
                 label: 'Select reason',
-                selected: true,
                 value: 'Select reason'
               },
               ...(type === 'illegalReason'

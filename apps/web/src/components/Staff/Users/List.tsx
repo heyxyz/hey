@@ -12,15 +12,12 @@ import {
   useExploreProfilesQuery
 } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
-import { Button, Card, EmptyState, ErrorMessage, Modal, Select } from '@hey/ui';
+import { Card, EmptyState, ErrorMessage, Select } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
-
-import ProfileFeed from './ProfileFeed';
 
 const List: FC = () => {
   const { pathname, push } = useRouter();
@@ -29,8 +26,6 @@ const List: FC = () => {
   );
   const [value, setValue] = useState('');
   const [refetching, setRefetching] = useState(false);
-  const [showPublicationsModal, setShowPublicationsModal] = useState(false);
-  const [selectedProfile, setSelectedProfile] = useState<null | Profile>(null);
 
   // Variables
   const request: ExploreProfilesRequest = {
@@ -69,9 +64,7 @@ const List: FC = () => {
           onChange={(event) => setValue(event.target.value)}
           onProfileSelected={(profile) => {
             if (pathname === '/mod') {
-              setShowPublicationsModal(true);
-              setSelectedProfile(profile as Profile);
-              setValue('');
+              push(getProfile(profile).link);
             } else {
               push(getProfile(profile).staffLink);
             }
@@ -81,14 +74,13 @@ const List: FC = () => {
           value={value}
         />
         <Select
-          className="w-auto"
+          className="w-72"
           defaultValue={orderBy}
-          onChange={(e) =>
-            setOrderBy(e.target.value as ExploreProfilesOrderByType)
-          }
-          options={Object.values(ExploreProfilesOrderByType).map((orderBy) => ({
-            label: orderBy,
-            value: orderBy
+          onChange={(value) => setOrderBy(value as ExploreProfilesOrderByType)}
+          options={Object.values(ExploreProfilesOrderByType).map((type) => ({
+            label: type,
+            selected: orderBy === type,
+            value: type
           }))}
         />
         <button onClick={onRefetch} type="button">
@@ -98,9 +90,9 @@ const List: FC = () => {
         </button>
       </div>
       <div className="divider" />
-      <div className="p-5">
+      <div className="m-5">
         {loading ? (
-          <Loader message="Loading profiles..." />
+          <Loader className="my-5" message="Loading profiles..." />
         ) : error ? (
           <ErrorMessage error={error} title="Failed to load profiles" />
         ) : !profiles?.length ? (
@@ -111,16 +103,12 @@ const List: FC = () => {
           />
         ) : (
           <Virtuoso
+            computeItemKey={(index, profile) => `${profile.id}-${index}`}
             data={profiles}
             endReached={onEndReached}
             itemContent={(_, profile) => {
               return (
-                <motion.div
-                  animate={{ opacity: 1 }}
-                  className="flex flex-wrap items-center justify-between gap-y-5 pb-7"
-                  exit={{ opacity: 0 }}
-                  initial={{ opacity: 0 }}
-                >
+                <div className="flex flex-wrap items-center justify-between gap-y-5 pb-7">
                   <Link
                     href={
                       pathname === '/mod'
@@ -129,6 +117,8 @@ const List: FC = () => {
                     }
                   >
                     <UserProfile
+                      hideFollowButton
+                      hideUnfollowButton
                       isBig
                       linkToProfile={false}
                       profile={profile as Profile}
@@ -138,42 +128,14 @@ const List: FC = () => {
                       timestamp={profile.createdAt}
                     />
                   </Link>
-                  <div className="flex items-center space-x-1">
-                    <Button
-                      onClick={() => {
-                        setShowPublicationsModal(true);
-                        setSelectedProfile(profile as Profile);
-                      }}
-                      outline
-                      size="sm"
-                      variant="secondary"
-                    >
-                      Publications
-                    </Button>
-                    <P2PRecommendation profile={profile as Profile} />
-                  </div>
-                </motion.div>
+                  <P2PRecommendation profile={profile as Profile} />
+                </div>
               );
             }}
             useWindowScroll
           />
         )}
       </div>
-      <Modal
-        onClose={() => {
-          setShowPublicationsModal(false);
-          setSelectedProfile(null);
-        }}
-        show={showPublicationsModal}
-        size="md"
-        title={`Publications by ${getProfile(selectedProfile).slugWithPrefix}`}
-      >
-        <div className="max-h-[80vh] overflow-y-auto">
-          {selectedProfile?.id ? (
-            <ProfileFeed profileId={selectedProfile.id} />
-          ) : null}
-        </div>
-      </Modal>
     </Card>
   );
 };

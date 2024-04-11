@@ -1,6 +1,7 @@
+import type { FC } from 'react';
+
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import { useGenerateLensApiRelayAddressQuery } from '@hey/lens';
-import { type FC } from 'react';
 import { createTrackedSelector } from 'react-tracked';
 import { CHAIN } from 'src/constants';
 import { useAccount, useChainId } from 'wagmi';
@@ -31,7 +32,7 @@ const store = create<SignupState>((set) => ({
   delegatedExecutor: '',
   mintViaCard: false,
   profileId: '',
-  screen: 'success',
+  screen: 'choose',
   setChoosedHandle: (handle) => set({ choosedHandle: handle }),
   setDelegatedExecutor: (executor) => set({ delegatedExecutor: executor }),
   setMintViaCard: (mintViaCard) => set({ mintViaCard }),

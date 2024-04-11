@@ -1,8 +1,10 @@
+const { withSentryConfig } = require('@sentry/nextjs');
+
 const allowedBots =
   '.*(bot|telegram|baidu|bing|yandex|iframely|whatsapp|facebook).*';
 
 /** @type {import('next').NextConfig} */
-module.exports = {
+const nextConfig = {
   experimental: { scrollRestoration: true },
   headers() {
     return [
@@ -43,22 +45,15 @@ module.exports = {
         source: '/-/token-request'
       },
       {
-        destination:
-          'https://hey.height.app/?taskForm=Verification-Request-fBxpj55hUMmf',
-        permanent: true,
-        source: '/-/verification-request'
-      },
-      {
-        destination:
-          'https://yoginth.notion.site/Hey-Changelog-eb2a41319c1b40be8e22e5deb01efd10',
+        destination: 'https://tana.pub/EltxDvrSt3Yn/hey-changelog',
         permanent: true,
         source: '/-/changelog'
       },
       {
         destination:
-          'https://yoginth.notion.site/Hey-Portals-Open-Graph-Spec-ddbedce64a2d4e1a80f66db182159aff',
+          'https://plugins.crisp.chat/urn:crisp.im:contact-form:0/contact/37355035-47aa-4f42-ad47-cffc3d1fea16',
         permanent: true,
-        source: '/-/portals'
+        source: '/support'
       },
       {
         destination:
@@ -70,6 +65,10 @@ module.exports = {
   },
   rewrites() {
     return [
+      {
+        destination: 'https://api.hey.xyz/sitemap/allProfiles',
+        source: '/sitemaps/all-profiles'
+      },
       {
         destination: 'https://api.hey.xyz/sitemap/:match*',
         source: '/sitemaps/:match*'
@@ -88,3 +87,16 @@ module.exports = {
   },
   transpilePackages: ['data']
 };
+
+module.exports = withSentryConfig(
+  nextConfig,
+  { org: 'heyverse', project: 'web', silent: true },
+  {
+    automaticVercelMonitors: true,
+    disableLogger: true,
+    hideSourceMaps: true,
+    transpileClientSDK: true,
+    tunnelRoute: '/monitoring',
+    widenClientFileUpload: true
+  }
+);

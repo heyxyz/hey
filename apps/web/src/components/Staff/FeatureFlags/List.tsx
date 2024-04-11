@@ -92,9 +92,9 @@ const List: FC = () => {
         </Button>
       </div>
       <div className="divider" />
-      <div className="p-5">
+      <div className="m-5">
         {isLoading ? (
-          <Loader message="Loading feature flags..." />
+          <Loader className="my-5" message="Loading feature flags..." />
         ) : error ? (
           <ErrorMessage error={error} title="Failed to load feature flags" />
         ) : !features.length ? (
@@ -108,9 +108,7 @@ const List: FC = () => {
             {features?.map((feature) => (
               <div key={feature.id}>
                 <ToggleWithHelper
-                  description={`Created on ${formatDate(
-                    feature.createdAt
-                  )} with priority ${feature.priority}`}
+                  description={`Created on ${formatDate(feature.createdAt)}`}
                   disabled={killing}
                   heading={
                     <div className="flex items-center space-x-2">

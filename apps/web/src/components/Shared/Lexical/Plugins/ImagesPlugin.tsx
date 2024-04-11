@@ -1,3 +1,5 @@
+import type { ClipboardEvent } from 'react';
+
 import { MediaImageMimeType } from '@lens-protocol/metadata';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { DRAG_DROP_PASTE } from '@lexical/rich-text';
@@ -7,7 +9,7 @@ import {
   COMMAND_PRIORITY_NORMAL,
   PASTE_COMMAND
 } from 'lexical';
-import { type ClipboardEvent, useEffect } from 'react';
+import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import useUploadAttachments from 'src/hooks/useUploadAttachments';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';

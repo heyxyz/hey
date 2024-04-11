@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import { SETTINGS } from '@hey/data/tracking';
 import { LimitType, useFollowingLazyQuery } from '@hey/lens';
 import downloadJson from '@hey/lib/downloadJson';
-import { Button, Card } from '@hey/ui';
+import { Button, Card, CardHeader } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -65,23 +65,27 @@ const Following: FC = () => {
   };
 
   return (
-    <Card className="space-y-2 p-5">
-      <div className="text-lg font-bold">Export following</div>
-      <div className="pb-2">Export all your following to a JSON file.</div>
-      {following.length > 0 ? (
-        <div className="pb-2">
-          Exported <b>{following.length}</b> following
-        </div>
-      ) : null}
-      {fetchCompleted ? (
-        <Button onClick={download} outline>
-          Download following
-        </Button>
-      ) : (
-        <Button disabled={exporting} onClick={handleExportClick} outline>
-          {exporting ? 'Exporting...' : 'Export now'}
-        </Button>
-      )}
+    <Card>
+      <CardHeader
+        body="Export all your following to a JSON file."
+        title="Export following"
+      />
+      <div className="m-5">
+        {following.length > 0 ? (
+          <div className="pb-2">
+            Exported <b>{following.length}</b> following
+          </div>
+        ) : null}
+        {fetchCompleted ? (
+          <Button onClick={download} outline>
+            Download following
+          </Button>
+        ) : (
+          <Button disabled={exporting} onClick={handleExportClick} outline>
+            {exporting ? 'Exporting...' : 'Export now'}
+          </Button>
+        )}
+      </div>
     </Card>
   );
 };

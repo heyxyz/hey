@@ -22,6 +22,7 @@ import AppVersion from './NavItems/AppVersion';
 import GardenerMode from './NavItems/GardenerMode';
 import Invites from './NavItems/Invites';
 import Logout from './NavItems/Logout';
+import OptimisticTransactions from './NavItems/OptimisticTransactions';
 import Settings from './NavItems/Settings';
 import StaffMode from './NavItems/StaffMode';
 import SwitchProfile from './NavItems/SwitchProfile';
@@ -138,6 +139,14 @@ const SignedUser: FC = () => {
               }
             >
               <ThemeSwitch />
+            </Menu.Item>
+            <Menu.Item
+              as="div"
+              className={({ active }) =>
+                cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
+              }
+            >
+              <OptimisticTransactions />
             </Menu.Item>
             {isFeatureAvailable(FeatureFlag.Gardener) ? (
               <Menu.Item

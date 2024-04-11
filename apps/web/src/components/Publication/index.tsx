@@ -33,8 +33,12 @@ import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { create } from 'zustand';
 
+import Collectors from './Collectors';
 import FullPublication from './FullPublication';
+import Likes from './Likes';
+import Mirrors from './Mirrors';
 import OnchainMeta from './OnchainMeta';
+import Quotes from './Quotes';
 import RelevantPeople from './RelevantPeople';
 import PublicationPageShimmer from './Shimmer';
 
@@ -51,18 +55,28 @@ const store = create<HiddenCommentFeedState>((set) => ({
 export const useHiddenCommentFeedStore = createTrackedSelector(store);
 
 const ViewPublication: NextPage = () => {
+  const {
+    isReady,
+    pathname,
+    query: { id }
+  } = useRouter();
+
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
   const { staffMode } = useFeatureFlagsStore();
   const { showNewPostModal } = useGlobalModalStateStore();
 
-  const {
-    isReady,
-    query: { id }
-  } = useRouter();
+  const showQuotes = pathname === '/posts/[id]/quotes';
+  const showMirrors = pathname === '/posts/[id]/mirrors';
+  const showLikes = pathname === '/posts/[id]/likes';
+  const showCollectors = pathname === '/posts/[id]/collectors';
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'publication' });
+    Leafwatch.track(PAGEVIEW, {
+      page: 'publication',
+      subpage: pathname.replace('/posts/[id]', '')
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { data, error, loading } = usePublicationQuery({
@@ -76,10 +90,7 @@ const ViewPublication: NextPage = () => {
       request: {
         limit: LimitType.Ten,
         where: {
-          commentOn: {
-            hiddenComments: HiddenCommentsType.HiddenOnly,
-            id
-          }
+          commentOn: { hiddenComments: HiddenCommentsType.HiddenOnly, id }
         }
       }
     }
@@ -88,7 +99,12 @@ const ViewPublication: NextPage = () => {
   const hasHiddenComments = (comments?.publications.items.length || 0) > 0;
 
   if (!isReady || loading) {
-    return <PublicationPageShimmer />;
+    return (
+      <PublicationPageShimmer
+        profileList={showMirrors || showLikes || showCollectors}
+        publicationList={showQuotes}
+      />
+    );
   }
 
   if (!data?.publication) {
@@ -114,37 +130,48 @@ const ViewPublication: NextPage = () => {
         } • ${APP_NAME}`}
       />
       <GridItemEight className="space-y-5">
-        <Card>
-          <FullPublication
-            hasHiddenComments={hasHiddenComments}
-            key={publication?.id}
-            publication={publication}
-          />
-        </Card>
-        {currentProfile &&
-        !publication.isHidden &&
-        !showNewPostModal &&
-        !isSuspended ? (
-          canComment ? (
-            <NewPublication publication={targetPublication} />
-          ) : (
-            <CommentWarning />
-          )
-        ) : null}
-        <Feed
-          isHidden={publication.isHidden}
-          publicationId={targetPublication.id}
-        />
-        <NoneRelevantFeed publicationId={targetPublication.id} />
+        {showQuotes ? (
+          <Quotes publicationId={targetPublication.id} />
+        ) : showLikes ? (
+          <Likes publicationId={targetPublication.id} />
+        ) : showMirrors ? (
+          <Mirrors publicationId={targetPublication.id} />
+        ) : showCollectors ? (
+          <Collectors publicationId={targetPublication.id} />
+        ) : (
+          <>
+            <Card>
+              <FullPublication
+                hasHiddenComments={hasHiddenComments}
+                key={publication?.id}
+                publication={publication}
+              />
+            </Card>
+            {currentProfile &&
+            !publication.isHidden &&
+            !showNewPostModal &&
+            !isSuspended ? (
+              canComment ? (
+                <NewPublication publication={targetPublication} />
+              ) : (
+                <CommentWarning />
+              )
+            ) : null}
+            <Feed
+              isHidden={publication.isHidden}
+              publicationId={targetPublication.id}
+            />
+            <NoneRelevantFeed publicationId={targetPublication.id} />
+          </>
+        )}
       </GridItemEight>
       <GridItemFour className="space-y-5">
         <Card as="aside" className="p-5">
           <UserProfile
+            hideFollowButton={currentProfile?.id === targetPublication.by.id}
+            hideUnfollowButton={currentProfile?.id === targetPublication.by.id}
             profile={targetPublication.by}
             showBio
-            showFollowUnfollowButton={
-              targetPublication.by.id !== currentProfile?.id
-            }
             source={ProfileLinkSource.Publication}
           />
         </Card>

@@ -16,8 +16,8 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
+import { useCounter, useToggle } from '@uidotdev/usehooks';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 
 interface BookmarkProps {
@@ -30,10 +30,12 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
     ? publication?.mirrorOn
     : publication;
 
-  const [hasBookmarked, setHasBookmarked] = useState(
+  const [hasBookmarked, toggleHasBookmarked] = useToggle(
     targetPublication.operations.hasBookmarked
   );
-  const [bookmarks, setBookmarks] = useState(targetPublication.stats.bookmarks);
+  const [bookmarks, { decrement, increment }] = useCounter(
+    targetPublication.stats.bookmarks
+  );
 
   const updateCache = (cache: ApolloCache<any>) => {
     cache.modify({
@@ -66,14 +68,15 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
   const [addPublicationBookmark] = useAddPublicationBookmarkMutation({
     onCompleted: () => {
       toast.success('Publication bookmarked!');
-      Leafwatch.track(PUBLICATION.TOGGLE_BOOKMARK, {
-        bookmarked: true,
-        publication_id: targetPublication.id
-      });
+      Leafwatch.track(
+        PUBLICATION.BOOKMARK,
+        { publication_id: targetPublication.id },
+        targetPublication.by.ownedBy.address
+      );
     },
     onError: (error) => {
-      setHasBookmarked(!hasBookmarked);
-      setBookmarks(bookmarks - 1);
+      toggleHasBookmarked();
+      decrement();
       onError(error);
     },
     update: updateCache,
@@ -83,14 +86,13 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
   const [removePublicationBookmark] = useRemovePublicationBookmarkMutation({
     onCompleted: () => {
       toast.success('Removed publication bookmark!');
-      Leafwatch.track(PUBLICATION.TOGGLE_BOOKMARK, {
-        bookmarked: false,
+      Leafwatch.track(PUBLICATION.REMOVE_BOOKMARK, {
         publication_id: targetPublication.id
       });
     },
     onError: (error) => {
-      setHasBookmarked(!hasBookmarked);
-      setBookmarks(bookmarks + 1);
+      toggleHasBookmarked();
+      increment();
       onError(error);
     },
     update: updateCache,
@@ -98,14 +100,14 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
   });
 
   const togglePublicationProfileBookmark = async () => {
+    toggleHasBookmarked();
+
     if (hasBookmarked) {
-      setHasBookmarked(false);
-      setBookmarks(bookmarks - 1);
+      decrement();
       return await removePublicationBookmark();
     }
 
-    setHasBookmarked(true);
-    setBookmarks(bookmarks + 1);
+    increment();
     return await addPublicationBookmark();
   };
 

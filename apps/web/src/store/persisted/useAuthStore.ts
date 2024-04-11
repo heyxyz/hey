@@ -8,7 +8,7 @@ interface Tokens {
   refreshToken: null | string;
 }
 
-interface AuthState {
+interface State {
   accessToken: Tokens['accessToken'];
   hydrateAuthTokens: () => Tokens;
   refreshToken: Tokens['refreshToken'];
@@ -17,7 +17,7 @@ interface AuthState {
 }
 
 const store = create(
-  persist<AuthState>(
+  persist<State>(
     (set, get) => ({
       accessToken: null,
       hydrateAuthTokens: () => {
@@ -38,11 +38,21 @@ const store = create(
           localStorage.removeItem(store);
         }
 
+        // Clean XMTP keys
+        const keys = Object.keys(localStorage).filter(
+          (key) =>
+            key.startsWith('xmtp/production/') ||
+            key.startsWith('xmtp:production:')
+        );
+        for (const key of keys) {
+          localStorage.removeItem(key);
+        }
+
         // Clear IndexedDB
         const allIndexedDBStores = Object.values(IndexDB).filter(
           (value) =>
-            value !== IndexDB.AlgorithmStore &&
-            value !== IndexDB.VerifiedMembersStore
+            value !== IndexDB.VerifiedMembersStore &&
+            value !== IndexDB.SearchStore
         );
         await delMany(allIndexedDBStores);
       }

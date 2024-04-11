@@ -1,7 +1,7 @@
 import type {
   LastLoggedInProfileRequest,
   Profile,
-  ProfileManagersRequest
+  ProfilesManagedRequest
 } from '@hey/lens';
 import type { FC } from 'react';
 
@@ -11,11 +11,12 @@ import { XCircleIcon } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data/errors';
 import { AUTH } from '@hey/data/tracking';
 import {
+  ManagedProfileVisibility,
   useAuthenticateMutation,
   useChallengeLazyQuery,
   useProfilesManagedQuery
 } from '@hey/lens';
-import { Button, Card, Spinner } from '@hey/ui';
+import { Button, Card } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
@@ -24,6 +25,7 @@ import { CHAIN } from 'src/constants';
 import { signIn } from 'src/store/persisted/useAuthStore';
 import { useAccount, useChainId, useDisconnect, useSignMessage } from 'wagmi';
 
+import Loader from '../Loader';
 import UserProfile from '../UserProfile';
 import SignupCard from './SignupCard';
 import WalletSelector from './WalletSelector';
@@ -52,19 +54,23 @@ const Login: FC<LoginProps> = ({ setHasProfiles }) => {
   });
   const [authenticate, { error: errorAuthenticate }] =
     useAuthenticateMutation();
-  const request: LastLoggedInProfileRequest | ProfileManagersRequest = {
+
+  const lastLoggedInProfileRequest: LastLoggedInProfileRequest = {
     for: address
   };
+
+  const profilesManagedRequest: ProfilesManagedRequest = {
+    for: address,
+    hiddenFilter: ManagedProfileVisibility.NoneHidden
+  };
+
   const { data: profilesManaged, loading: profilesManagedLoading } =
     useProfilesManagedQuery({
       onCompleted: (data) => {
         setHasProfiles(data?.profilesManaged.items.length > 0);
       },
       skip: !address,
-      variables: {
-        lastLoggedInProfileRequest: request,
-        profilesManagedRequest: request
-      }
+      variables: { lastLoggedInProfileRequest, profilesManagedRequest }
     });
 
   const handleSign = async (id?: string) => {
@@ -114,10 +120,11 @@ const Login: FC<LoginProps> = ({ setHasProfiles }) => {
         {chain === CHAIN.id ? (
           profilesManagedLoading ? (
             <Card className="w-full dark:divide-gray-700" forceRounded>
-              <div className="space-y-2 p-4 text-center text-sm font-bold">
-                <Spinner className="mx-auto" size="sm" />
-                <div>Loading profiles managed by you...</div>
-              </div>
+              <Loader
+                className="my-4"
+                message="Loading profiles managed by you..."
+                small
+              />
             </Card>
           ) : profiles.length > 0 ? (
             <Card
@@ -130,6 +137,8 @@ const Login: FC<LoginProps> = ({ setHasProfiles }) => {
                   key={profile.id}
                 >
                   <UserProfile
+                    hideFollowButton
+                    hideUnfollowButton
                     linkToProfile={false}
                     profile={profile as Profile}
                     showUserPreview={false}

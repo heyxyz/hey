@@ -17,8 +17,6 @@ export const PROFILE = {
   COPY_PROFILE_LINK: 'Copy profile link',
   DISMISS_RECOMMENDED_PROFILE: 'Dismiss recommended profile',
   FOLLOW: 'Follow profile',
-  OPEN_FOLLOWERS: 'Open followers modal',
-  OPEN_FOLLOWING: 'Open following modal',
   OPEN_RECOMMENDED_PROFILES: 'Open recommended profiles modal',
   OPEN_SUPER_FOLLOW: 'Open super follow modal',
   REPORT: 'Report profile',
@@ -40,10 +38,11 @@ export const PUBLICATION = {
       OPEN: 'Open image attachment'
     }
   },
+  BOOKMARK: 'Bookmark publication',
+  CLICK_CASHTAG: 'Click publication cashtag',
   CLICK_HASHTAG: 'Click publication hashtag',
   CLICK_MENTION: 'Click publication mention',
   CLICK_OEMBED: 'Click publication oembed',
-  CLICK_PORTAL_BUTTON: 'Click portal button',
   COLLECT_MODULE: {
     COLLECT: 'Collect publication',
     OPEN_COLLECT: 'Open collect modal',
@@ -56,28 +55,28 @@ export const PUBLICATION = {
   NEW_COMMENT: 'New comment',
   NEW_POST: 'New post',
   NEW_QUOTE: 'New quote',
+  NOT_INTERESTED: 'Not interested publication',
   OPEN_ACTIONS: {
     DECENT: {
       OPEN_DECENT: 'Open decent.xyz open action modal',
       TIP: 'Execute decent.xyz open action'
     },
+    SWAP: { SWAP: 'Swap OA: Swap' },
     TIP: {
-      OPEN_TIP: 'Open tip modal',
-      TIP: 'Tip publication'
+      OPEN_TIP: 'Tip OA: Open tip modal',
+      TIP: 'Tip OA: Tip a profile'
     }
   },
-  OPEN_COLLECTORS: 'Open collectors modal',
   OPEN_GIFS: 'Open GIFs modal',
   OPEN_LIKES: 'Open likes modal',
-  OPEN_MIRRORS: 'Open mirrors modal',
   OPEN_NFT: 'Open NFT',
+  REMOVE_BOOKMARK: 'Remove bookmark publication',
   REPORT: 'Report publication',
   SHARE: 'Share publication',
-  TOGGLE_BOOKMARK: 'Toggle publication bookmark',
   TOGGLE_HIDE_COMMENT: 'Toggle publication hide comment',
-  TOGGLE_NOT_INTERESTED: 'Toggle publication not interested',
   TRANSLATE: 'Translate publication',
   UNDO_MIRROR: 'Undo mirror publication',
+  UNDO_NOT_INTERESTED: 'Undo not interested publication',
   UNLIKE: 'Unlike publication',
   WIDGET: {
     POLL: { VOTE: 'Vote on poll' }
@@ -89,11 +88,6 @@ export const NOTIFICATION = {
 };
 
 export const HOME = {
-  ALGORITHMS: {
-    OPEN_ALGORITHMS: 'Open algorithms modal',
-    SWITCH_ALGORITHMIC_FEED: 'Switch to algorithmic feed',
-    TOGGLE_ALGORITHM: 'Toggle algorithm'
-  },
   SELECT_USER_FEED: 'Select user feed',
   SWITCH_FOLLOWING_FEED: 'Switch to following feed',
   SWITCH_HIGHLIGHTS_FEED: 'Switch to highlights feed',
@@ -107,7 +101,9 @@ export const EXPLORE = {
 
 export const SETTINGS = {
   ACCOUNT: {
+    RESEND_EMAIL_VERIFICATION: 'Resend email verification',
     SET_DEFAULT_PROFILE: 'Set default profile',
+    SET_EMAIL: 'Set email',
     SET_SUPER_FOLLOW: 'Set super follow'
   },
   ALLOWANCE: {
@@ -116,6 +112,7 @@ export const SETTINGS = {
   DANGER: {
     DELETE_PROFILE: 'Delete profile',
     PROTECT_PROFILE: 'Protect profile',
+    UNPROTECT_HANDLE: 'Unprotect handle',
     UNPROTECT_PROFILE: 'Unprotect profile'
   },
   EXPORT: {
@@ -159,6 +156,15 @@ export const INVITE = {
   OPEN_INVITE: 'Open invite modal'
 };
 
+export const MESSAGES = {
+  ALLOW_USER: 'Allow user',
+  BLOCK_USER: 'Block user',
+  ENABLE_MESSAGES: 'Enable messages',
+  OPEN_CONVERSATION: 'Open conversation',
+  SEND_MESSAGE: 'Send message',
+  START_CONVERSATION: 'Start conversation'
+};
+
 export const GARDENER = {
   PROFILE: {
     P2P_RECOMMEND: 'P2P recommend profile',
@@ -177,8 +183,7 @@ export const STAFFTOOLS = {
     KILL: 'Staff Tool: Kill feature flag'
   },
   SIGNUP_CONTRACT: {
-    REFILL: 'Staff Tool: Refill relayer',
-    WITHDRAW_FUNDS: 'Staff Tool: Withdraw funds'
+    REFILL: 'Staff Tool: Refill relayer'
   },
   STAFF_PICKS: {
     CREATE: 'Staff Tool: Create staff pick',
@@ -198,6 +203,12 @@ export const CREATORTOOLS = {
   ASSIGN_FEATURE_FLAG: 'Creator Tool: Assign feature flag'
 };
 
+export const SEARCH = {
+  CLEAR_ALL_RECENT_SEARCH: 'Clear all recent search',
+  CLEAR_RECENT_SEARCH: 'Clear recent search',
+  SEARCH: 'Search'
+};
+
 export const SYSTEM = {
   SWITCH_NETWORK: 'Switch network',
   SWITCH_THEME: 'Switch theme'
@@ -213,8 +224,7 @@ export const MISCELLANEOUS = {
     OPEN_SUPPORT: 'Open support',
     OPEN_VERCEL: 'Open Vercel'
   },
-  OPEN_GITCOIN: 'Open Gitcoin',
-  SEARCH: 'Search'
+  OPEN_GITCOIN: 'Open Gitcoin'
 };
 
 export const ONBOARDING = {
@@ -234,9 +244,11 @@ export const ALL_EVENTS = {
   ...EXPLORE,
   ...SETTINGS,
   ...INVITE,
+  ...MESSAGES,
   ...GARDENER,
   ...STAFFTOOLS,
   ...CREATORTOOLS,
+  ...SEARCH,
   ...SYSTEM,
   ...MISCELLANEOUS,
   ...ONBOARDING
@@ -250,6 +262,7 @@ export enum ProfileLinkSource {
   Mirrors = 'mirrors',
   Publication = 'publication',
   Quotes = 'quotes',
+  RecentSearch = 'recent-search',
   RelevantPeople = 'relevant-people',
   Search = 'search',
   StaffPicks = 'staff-picks',

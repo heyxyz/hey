@@ -13,13 +13,13 @@ const INITIAL_COLLECT_MODULE: CollectModuleType = {
   type: null
 };
 
-interface CollectModuleState {
+interface State {
   collectModule: CollectModuleType;
   reset: () => void;
   setCollectModule: (collectModule: CollectModuleType) => void;
 }
 
-const store = create<CollectModuleState>((set) => ({
+const store = create<State>((set) => ({
   collectModule: INITIAL_COLLECT_MODULE,
   reset: () => set(() => ({ collectModule: INITIAL_COLLECT_MODULE })),
   setCollectModule: (collectModule) => set(() => ({ collectModule }))

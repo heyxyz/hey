@@ -1,7 +1,7 @@
 import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 
-interface PublicationVideoState {
+interface State {
   setUploadedPercentage: (uploadedPercentage: number) => void;
   setVideoDurationInSeconds: (videoDurationInSeconds: string) => void;
   setVideoThumbnail: (videoThumbnail: {
@@ -18,7 +18,7 @@ interface PublicationVideoState {
   };
 }
 
-const store = create<PublicationVideoState>((set) => ({
+const store = create<State>((set) => ({
   setUploadedPercentage: (uploadedPercentage) =>
     set(() => ({ uploadedPercentage })),
   setVideoDurationInSeconds: (videoDurationInSeconds) =>

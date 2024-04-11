@@ -117,6 +117,8 @@ export default async function Page({ params }: Props) {
     return <h1>{params.id}</h1>;
   }
 
+  const postUrl = `https://hey.xyz/posts/${metadata.other?.['lens:id']}`;
+
   return (
     <>
       <h1>{metadata.title?.toString()}</h1>
@@ -124,11 +126,27 @@ export default async function Page({ params }: Props) {
       <div>
         <b>Stats</b>
         <ul>
-          <li>Actions: {metadata.other?.['count:actions']}</li>
+          <li>
+            <a href={`${postUrl}/collectors`}>
+              Actions: {metadata.other?.['count:actions']}
+            </a>
+          </li>
           <li>Comments: {metadata.other?.['count:comments']}</li>
-          <li>Likes: {metadata.other?.['count:likes']}</li>
-          <li>Mirrors: {metadata.other?.['count:mirrors']}</li>
-          <li>Quotes: {metadata.other?.['count:quotes']}</li>
+          <li>
+            <a href={`${postUrl}/likes`}>
+              Likes: {metadata.other?.['count:likes']}
+            </a>
+          </li>
+          <li>
+            <a href={`${postUrl}/mirrors`}>
+              Mirrors: {metadata.other?.['count:mirrors']}
+            </a>
+          </li>
+          <li>
+            <a href={`${postUrl}/quotes`}>
+              Quotes: {metadata.other?.['count:quotes']}
+            </a>
+          </li>
         </ul>
       </div>
       <div>

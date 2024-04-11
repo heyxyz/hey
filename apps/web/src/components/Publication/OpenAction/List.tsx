@@ -10,7 +10,8 @@ import UnknownModulePreview from './UnknownModule/Preview';
 
 const IgnoredModules = [
   VerifiedOpenActionModules.Tip,
-  VerifiedOpenActionModules.DecentNFT
+  VerifiedOpenActionModules.DecentNFT,
+  VerifiedOpenActionModules.Swap
 ];
 
 interface ListProps {

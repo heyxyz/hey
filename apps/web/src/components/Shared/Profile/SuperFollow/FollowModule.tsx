@@ -8,7 +8,7 @@ import type { Dispatch, FC, SetStateAction } from 'react';
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import { StarIcon, UserIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
-import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@hey/data/constants';
+import { LENS_HUB, POLYGONSCAN_URL } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { PROFILE } from '@hey/data/tracking';
 import {
@@ -43,20 +43,20 @@ import NoBalanceError from '../../NoBalanceError';
 import Slug from '../../Slug';
 
 interface FollowModuleProps {
-  again: boolean;
   profile: Profile;
   setShowFollowModal: Dispatch<SetStateAction<boolean>>;
 }
 
 const FollowModule: FC<FollowModuleProps> = ({
-  again,
   profile,
   setShowFollowModal
 }) => {
   const { pathname } = useRouter();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
-    (state) => state
-  );
+  const {
+    decrementLensHubOnchainSigNonce,
+    incrementLensHubOnchainSigNonce,
+    lensHubOnchainSigNonce
+  } = useNonceStore();
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
   const [isLoading, setIsLoading] = useState(false);
@@ -103,11 +103,11 @@ const FollowModule: FC<FollowModuleProps> = ({
     mutation: {
       onError: (error: Error) => {
         onError(error);
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+        decrementLensHubOnchainSigNonce();
       },
       onSuccess: () => {
         onCompleted();
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+        incrementLensHubOnchainSigNonce();
       }
     }
   });
@@ -115,7 +115,7 @@ const FollowModule: FC<FollowModuleProps> = ({
   const write = async ({ args }: { args: any[] }) => {
     return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args,
       functionName: 'follow'
     });
@@ -245,18 +245,17 @@ const FollowModule: FC<FollowModuleProps> = ({
   };
 
   if (loading) {
-    return <Loader message="Loading Super follow" />;
+    return <Loader className="my-5" message="Loading Super follow" />;
   }
 
   return (
     <div className="p-5">
       <div className="space-y-1.5 pb-2">
         <div className="text-lg font-bold">
-          Super follow <Slug slug={getProfile(profile).slugWithPrefix} />{' '}
-          {again ? 'again' : ''}
+          Super follow <Slug slug={getProfile(profile).slugWithPrefix} />
         </div>
         <div className="ld-text-gray-500">
-          Follow {again ? 'again' : ''} and get some awesome perks!
+          Follow and get some awesome perks!
         </div>
       </div>
       <div className="flex items-center space-x-1.5 py-2">
@@ -313,12 +312,6 @@ const FollowModule: FC<FollowModuleProps> = ({
           </li>
           <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
-            <div>
-              You will have high voting power if you followed multiple times
-            </div>
-          </li>
-          <li className="flex space-x-2 leading-6 tracking-normal">
-            <div>•</div>
             <div>More coming soon™</div>
           </li>
         </ul>
@@ -341,7 +334,7 @@ const FollowModule: FC<FollowModuleProps> = ({
               onClick={createFollow}
               outline
             >
-              {again ? 'Super follow again' : 'Super follow now'}
+              Super follow now
             </Button>
           ) : (
             <WarningMessage

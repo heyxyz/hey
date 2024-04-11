@@ -1,9 +1,7 @@
-import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import NotificationIcon from '@components/Notification/NotificationIcon';
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import getProfile from '@hey/lib/getProfile';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -13,21 +11,17 @@ import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import MenuItems from './MenuItems';
+import MessagesIcon from './MessagesIcon';
 import ModIcon from './ModIcon';
 import MoreNavItems from './MoreNavItems';
 import Search from './Search';
 import StaffBar from './StaffBar';
 
 const Navbar: FC = () => {
-  const router = useRouter();
   const { currentProfile } = useProfileStore();
   const { staffMode } = useFeatureFlagsStore();
   const { isPride } = usePreferencesStore();
   const [showSearch, setShowSearch] = useState(false);
-
-  const onProfileSelected = (profile: Profile) => {
-    router.push(getProfile(profile).link);
-  };
 
   interface NavItemProps {
     current: boolean;
@@ -101,7 +95,7 @@ const Navbar: FC = () => {
             <div className="hidden sm:ml-6 md:block">
               <div className="flex items-center space-x-4">
                 <div className="hidden md:block">
-                  <Search onProfileSelected={onProfileSelected} />
+                  <Search />
                 </div>
                 <NavItems />
               </div>
@@ -123,6 +117,7 @@ const Navbar: FC = () => {
             {currentProfile ? (
               <>
                 <ModIcon />
+                <MessagesIcon />
                 <NotificationIcon />
               </>
             ) : null}
@@ -132,7 +127,7 @@ const Navbar: FC = () => {
       </div>
       {showSearch ? (
         <div className="m-3 md:hidden">
-          <Search hideDropdown onProfileSelected={onProfileSelected} />
+          <Search />
         </div>
       ) : null}
     </header>

@@ -1,24 +1,21 @@
 import type { Notification } from '@hey/lens';
+import type { FC } from 'react';
 
 import {
   useNewNotificationSubscriptionSubscription,
-  useUserSigNoncesQuery,
   useUserSigNoncesSubscriptionSubscription
 } from '@hey/lens';
 import { BrowserPush } from '@lib/browserPush';
 import getCurrentSession from '@lib/getCurrentSession';
 import getPushNotificationData from '@lib/getPushNotificationData';
-import { type FC, useEffect } from 'react';
-import { isSupported, share } from 'shared-zustand';
+import { useEffect } from 'react';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useNotificationStore } from 'src/store/persisted/useNotificationStore';
-import { isAddress } from 'viem';
 import { useAccount } from 'wagmi';
 
 const LensSubscriptionsProvider: FC = () => {
   const { setLatestNotificationId } = useNotificationStore();
-  const { setLensHubOnchainSigNonce, setLensPublicActProxyOnchainSigNonce } =
-    useNonceStore((state) => state);
+  const { setLensHubOnchainSigNonce } = useNonceStore();
   const { address } = useAccount();
   const { id: sessionProfileId } = getCurrentSession();
   const canUseSubscriptions = Boolean(sessionProfileId) && address;
@@ -55,28 +52,10 @@ const LensSubscriptionsProvider: FC = () => {
 
     if (userSigNonces) {
       setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce);
-      setLensPublicActProxyOnchainSigNonce(
-        userSigNonces.lensPublicActProxyOnchainSigNonce
-      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userSigNoncesData]);
   // End: User Sig Nonces
-
-  useUserSigNoncesQuery({
-    onCompleted: (data) => {
-      setLensPublicActProxyOnchainSigNonce(
-        data.userSigNonces.lensPublicActProxyOnchainSigNonce
-      );
-    },
-    skip: sessionProfileId ? !isAddress(sessionProfileId) : true
-  });
-
-  // Sync zustand stores between tabs
-  if (isSupported()) {
-    share('lensHubOnchainSigNonce', useNonceStore);
-    share('lensPublicActProxyOnchainSigNonce', useNonceStore);
-  }
 
   return null;
 };

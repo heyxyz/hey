@@ -1,3 +1,4 @@
+import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import { CheckCircleIcon, XMarkIcon } from '@heroicons/react/24/solid';
@@ -7,7 +8,7 @@ import { STAFFTOOLS } from '@hey/data/tracking';
 import { Button } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { formatUnits, parseEther } from 'viem';
 import { useBalance, useReadContract, useSendTransaction } from 'wagmi';
@@ -20,7 +21,7 @@ interface RelayerBalanceProps {
 }
 
 const RelayerBalance: FC<RelayerBalanceProps> = ({ address, index }) => {
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
 
   const { data } = useBalance({
@@ -42,7 +43,7 @@ const RelayerBalance: FC<RelayerBalanceProps> = ({ address, index }) => {
         Leafwatch.track(STAFFTOOLS.SIGNUP_CONTRACT.REFILL, {
           relayer: index + 1
         });
-        setLoading(true);
+        setIsLoading(true);
       }
     }
   });
@@ -51,7 +52,7 @@ const RelayerBalance: FC<RelayerBalanceProps> = ({ address, index }) => {
 
   const refill = async () => {
     try {
-      setLoading(true);
+      setIsLoading(true);
       await handleWrongNetwork();
 
       // Refill balance to 10 MATIC
@@ -62,7 +63,7 @@ const RelayerBalance: FC<RelayerBalanceProps> = ({ address, index }) => {
     } catch (error) {
       errorToast(error);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -72,7 +73,7 @@ const RelayerBalance: FC<RelayerBalanceProps> = ({ address, index }) => {
         index !== 0 && (
           <Button
             className="w-full justify-center"
-            disabled={loading}
+            disabled={isLoading}
             onClick={refill}
             outline
             size="sm"
@@ -81,7 +82,7 @@ const RelayerBalance: FC<RelayerBalanceProps> = ({ address, index }) => {
           </Button>
         )
       }
-      count={balance.toString()}
+      count={balance.toFixed(3).toString()}
       name={
         <div className="flex items-center space-x-2">
           <span>{index === 0 ? 'Root Relayer' : `Relayer ${index}`}</span>

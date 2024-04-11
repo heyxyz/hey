@@ -4,7 +4,7 @@ import type { FC } from 'react';
 
 import { LensHub } from '@hey/abis';
 import { Errors } from '@hey/data';
-import { LENSHUB_PROXY } from '@hey/data/constants';
+import { LENS_HUB } from '@hey/data/constants';
 import { PROFILE } from '@hey/data/tracking';
 import {
   useBlockMutation,
@@ -35,9 +35,8 @@ const BlockOrUnBlockProfile: FC = () => {
     setShowBlockOrUnblockAlert,
     showBlockOrUnblockAlert
   } = useGlobalAlertStateStore();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
-    (state) => state
-  );
+  const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
+    useNonceStore();
   const [isLoading, setIsLoading] = useState(false);
   const [hasBlocked, setHasBlocked] = useState(
     blockingorUnblockingProfile?.operations.isBlockedByMe.value
@@ -93,7 +92,7 @@ const BlockOrUnBlockProfile: FC = () => {
   const write = async ({ args }: { args: any[] }) => {
     return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args,
       functionName: 'setBlockStatus'
     });
@@ -107,7 +106,7 @@ const BlockOrUnBlockProfile: FC = () => {
   const typedDataGenerator = async (generatedData: any) => {
     const { id, typedData } = generatedData;
     await handleWrongNetwork();
-    setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+    incrementLensHubOnchainSigNonce();
 
     if (canBroadcast) {
       const signature = await signTypedDataAsync(getSignature(typedData));

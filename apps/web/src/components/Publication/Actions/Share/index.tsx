@@ -10,6 +10,7 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Spinner, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import hasOptimisticallyMirrored from '@lib/optimistic/hasOptimisticallyMirrored';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
@@ -29,7 +30,8 @@ const ShareMenu: FC<ShareMenuProps> = ({ publication, showCount }) => {
     : publication;
   const hasShared =
     targetPublication.operations.hasMirrored ||
-    targetPublication.operations.hasQuoted;
+    targetPublication.operations.hasQuoted ||
+    hasOptimisticallyMirrored(targetPublication.id);
   const shares =
     targetPublication.stats.mirrors + targetPublication.stats.quotes;
 

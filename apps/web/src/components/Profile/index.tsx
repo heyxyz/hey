@@ -3,16 +3,20 @@ import type { NextPage } from 'next';
 
 import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
+import { NoSymbolIcon } from '@heroicons/react/24/outline';
 import {
   APP_NAME,
   HANDLE_PREFIX,
+  HEY_API_URL,
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { useProfileQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
-import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import { EmptyState, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { ProfileFeedType } from 'src/enums';
@@ -24,19 +28,35 @@ import Cover from './Cover';
 import Details from './Details';
 import Feed from './Feed';
 import FeedType from './FeedType';
+import Followers from './Followers';
+import Following from './Following';
+import MutualFollowersList from './MutualFollowers/List';
 import ProfilePageShimmer from './Shimmer';
 
 const ViewProfile: NextPage = () => {
   const {
     isReady,
+    pathname,
     query: { handle, id, source, type }
   } = useRouter();
   const { currentProfile } = useProfileStore();
+
+  const showFollowing =
+    pathname === '/u/[handle]/following' ||
+    pathname === '/profile/[id]/following';
+  const showFollowers =
+    pathname === '/u/[handle]/followers' ||
+    pathname === '/profile/[id]/followers';
+  const showMutuals =
+    pathname === '/u/[handle]/mutuals' || pathname === '/profile/[id]/mutuals';
 
   useEffect(() => {
     if (isReady) {
       Leafwatch.track(PAGEVIEW, {
         page: 'profile',
+        subpage: pathname
+          .replace('/u/[handle]', '')
+          .replace('/profile/[id]', ''),
         ...(source ? { source } : {})
       });
     }
@@ -69,8 +89,30 @@ const ViewProfile: NextPage = () => {
 
   const profile = data?.profile as Profile;
 
+  const fetchProfileFlags = async () => {
+    try {
+      const response = await axios.get(`${HEY_API_URL}/profile/flags`, {
+        params: { id: profile.id }
+      });
+
+      return response.data.result;
+    } catch {
+      return false;
+    }
+  };
+
+  const { data: profileFlags } = useQuery({
+    enabled: Boolean(profile?.id),
+    queryFn: fetchProfileFlags,
+    queryKey: ['fetchProfileFlags', id]
+  });
+
   if (!isReady || loading) {
-    return <ProfilePageShimmer />;
+    return (
+      <ProfilePageShimmer
+        profileList={showFollowing || showFollowers || showMutuals}
+      />
+    );
   }
 
   if (!data?.profile) {
@@ -99,18 +141,42 @@ const ViewProfile: NextPage = () => {
           <Details profile={profile as Profile} />
         </GridItemFour>
         <GridItemEight className="space-y-5">
-          <FeedType feedType={feedType} />
-          {currentProfile?.id === profile?.id ? <NewPost /> : null}
-          {feedType === ProfileFeedType.Feed ||
-          feedType === ProfileFeedType.Replies ||
-          feedType === ProfileFeedType.Media ||
-          feedType === ProfileFeedType.Collects ? (
-            <Feed
-              handle={getProfile(profile).slugWithPrefix}
-              profileId={profile.id}
-              type={feedType}
+          {profileFlags?.isSuspended ? (
+            <EmptyState
+              icon={<NoSymbolIcon className="size-8" />}
+              message="Profile Suspended"
             />
-          ) : null}
+          ) : showFollowing ? (
+            <Following
+              handle={getProfile(profile).slug}
+              profileId={profile.id}
+            />
+          ) : showFollowers ? (
+            <Followers
+              handle={getProfile(profile).slug}
+              profileId={profile.id}
+            />
+          ) : showMutuals ? (
+            <MutualFollowersList
+              handle={getProfile(profile).slug}
+              profileId={profile.id}
+            />
+          ) : (
+            <>
+              <FeedType feedType={feedType} />
+              {currentProfile?.id === profile?.id ? <NewPost /> : null}
+              {feedType === ProfileFeedType.Feed ||
+              feedType === ProfileFeedType.Replies ||
+              feedType === ProfileFeedType.Media ||
+              feedType === ProfileFeedType.Collects ? (
+                <Feed
+                  handle={getProfile(profile).slugWithPrefix}
+                  profileId={profile.id}
+                  type={feedType}
+                />
+              ) : null}
+            </>
+          )}
         </GridItemEight>
       </GridLayout>
     </>

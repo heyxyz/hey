@@ -28,6 +28,7 @@ const Status: FC<StatusProps> = ({ finished, title }) => (
 
 const SetProfile: FC = () => {
   const { currentProfile } = useProfileStore();
+
   const doneSetup =
     Boolean(currentProfile?.metadata?.displayName) &&
     Boolean(currentProfile?.metadata?.bio) &&
@@ -40,7 +41,7 @@ const SetProfile: FC = () => {
 
   return (
     <Card as="aside" className="mb-4 space-y-4 p-5">
-      <p className="text-lg font-bold">Setup your {APP_NAME} profile</p>
+      <p className="text-lg font-semibold">Setup your {APP_NAME} profile</p>
       <div className="space-y-1 text-sm leading-5">
         <Status
           finished={Boolean(currentProfile?.metadata?.displayName)}

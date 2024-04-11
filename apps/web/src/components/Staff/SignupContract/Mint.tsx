@@ -1,9 +1,11 @@
+import type { FC } from 'react';
+
 import { HeyLensSignup } from '@hey/abis';
 import { HEY_LENS_SIGNUP, ZERO_ADDRESS } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
 import { Button, Card, Form, Input, useZodForm } from '@hey/ui';
 import errorToast from '@lib/errorToast';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useWriteContract } from 'wagmi';
 import { object, string } from 'zod';
@@ -17,7 +19,7 @@ const newProfileSchema = object({
 });
 
 const Mint: FC = () => {
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const form = useZodForm({ mode: 'onChange', schema: newProfileSchema });
 
   const { writeContractAsync } = useWriteContract({
@@ -32,7 +34,7 @@ const Mint: FC = () => {
 
   const handleMint = async (handle: string, address: string) => {
     try {
-      setLoading(true);
+      setIsLoading(true);
       return await writeContractAsync({
         abi: HeyLensSignup,
         address: HEY_LENS_SIGNUP,
@@ -46,7 +48,7 @@ const Mint: FC = () => {
     } catch (error) {
       errorToast(error);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -67,7 +69,7 @@ const Mint: FC = () => {
         <Input placeholder="To Address" {...form.register('address')} />
         <Button
           className="w-full justify-center"
-          disabled={loading}
+          disabled={isLoading}
           type="submit"
         >
           Mint

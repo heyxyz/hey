@@ -13,7 +13,6 @@ import axios from 'axios';
 import Embed from './Embed';
 import Nft from './Nft';
 import Player from './Player';
-import Portal from './Portal';
 
 interface OembedProps {
   className?: string;
@@ -53,13 +52,12 @@ const Oembed: FC<OembedProps> = ({
     image: data?.image,
     isLarge: data?.isLarge,
     nft: data?.nft,
-    portal: data?.portal,
     site: data?.site,
     title: data?.title,
     url: url as string
   };
 
-  if (!og.title && !og.html && !og.nft && !og.portal) {
+  if (!og.title && !og.html && !og.nft) {
     return null;
   }
 
@@ -92,8 +90,6 @@ const Oembed: FC<OembedProps> = ({
         <Player og={og} />
       ) : og.nft ? (
         <Nft nft={og.nft} publicationId={publication?.id} />
-      ) : og.portal ? (
-        <Portal portal={og.portal} publicationId={publication?.id} />
       ) : (
         <Embed og={og} publicationId={publication?.id} />
       )}

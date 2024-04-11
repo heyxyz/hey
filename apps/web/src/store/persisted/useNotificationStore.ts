@@ -3,7 +3,7 @@ import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-interface NotificationState {
+interface State {
   lastOpenedNotificationId: null | string;
   latestNotificationId: null | string;
   setLastOpenedNotificationId: (id: string) => void;
@@ -11,7 +11,7 @@ interface NotificationState {
 }
 
 const store = create(
-  persist<NotificationState>(
+  persist<State>(
     (set) => ({
       lastOpenedNotificationId: null,
       latestNotificationId: null,

@@ -3,16 +3,18 @@ import type { FC } from 'react';
 import cn from '@hey/ui/cn';
 
 interface UserProfileShimmerProps {
+  className?: string;
   isBig?: boolean;
   showFollowUnfollowButton?: boolean;
 }
 
 const UserProfileShimmer: FC<UserProfileShimmerProps> = ({
+  className = '',
   isBig = false,
   showFollowUnfollowButton = false
 }) => {
   return (
-    <div className="flex items-center justify-between">
+    <div className={cn('flex items-center justify-between', className)}>
       <div className="flex items-center space-x-3">
         <div
           className={cn(isBig ? 'size-14' : 'size-11', 'shimmer rounded-full')}

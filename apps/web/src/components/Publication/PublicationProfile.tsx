@@ -1,3 +1,4 @@
+import type { Profile } from '@hey/lens';
 import type { FC, ReactNode } from 'react';
 
 import Source from '@components/Publication/Source';
@@ -6,7 +7,6 @@ import {
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
 import { apps } from '@hey/data/apps';
-import { type Profile } from '@hey/lens';
 import formatRelativeOrAbsolute from '@hey/lib/datetime/formatRelativeOrAbsolute';
 import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
@@ -19,12 +19,14 @@ import UserPreview from '../Shared/UserPreview';
 
 interface FeedUserProfileProps {
   profile: Profile;
+  publicationId: string;
   source?: string;
   timestamp: Date;
 }
 
 const PublicationProfile: FC<FeedUserProfileProps> = ({
   profile,
+  publicationId,
   source,
   timestamp
 }) => {
@@ -63,7 +65,12 @@ const PublicationProfile: FC<FeedUserProfileProps> = ({
       {timestamp ? (
         <span className="ld-text-gray-500 truncate">
           <span className="mx-1">·</span>
-          <span className="text-xs">{formatRelativeOrAbsolute(timestamp)}</span>
+          <Link
+            className="text-xs hover:underline"
+            href={`/posts/${publicationId}`}
+          >
+            {formatRelativeOrAbsolute(timestamp)}
+          </Link>
         </span>
       ) : null}
       {source && apps.includes(source) ? (

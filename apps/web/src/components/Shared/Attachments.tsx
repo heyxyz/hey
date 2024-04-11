@@ -15,10 +15,7 @@ import Video from './Video';
 
 const getClass = (attachments: number) => {
   if (attachments === 1) {
-    return {
-      aspect: '',
-      row: 'grid-cols-1 grid-rows-1'
-    };
+    return { aspect: '', row: 'grid-cols-1 grid-rows-1' };
   }
 
   if (attachments === 2) {
@@ -97,9 +94,7 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
       loading="lazy"
       onClick={() => {
         setExpandedImage(uri);
-        Leafwatch.track(PUBLICATION.ATTACHMENT.IMAGE.OPEN, {
-          // publication_id: publication?.id
-        });
+        Leafwatch.track(PUBLICATION.ATTACHMENT.IMAGE.OPEN);
       }}
       onError={({ currentTarget }) => {
         currentTarget.src = uri;

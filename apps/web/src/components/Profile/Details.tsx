@@ -9,15 +9,13 @@ import {
   Cog6ToothIcon,
   HashtagIcon,
   MapPinIcon,
-  ShieldCheckIcon,
-  UsersIcon
+  ShieldCheckIcon
 } from '@heroicons/react/24/outline';
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
 import { EXPANDED_AVATAR, STATIC_IMAGES_URL } from '@hey/data/constants';
-import { FeatureFlag } from '@hey/data/feature-flags';
 import { FollowModuleType } from '@hey/lens';
 import formatDate from '@hey/lib/datetime/formatDate';
 import getAvatar from '@hey/lib/getAvatar';
@@ -28,8 +26,7 @@ import getMisuseDetails from '@hey/lib/getMisuseDetails';
 import getProfile from '@hey/lib/getProfile';
 import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import hasMisused from '@hey/lib/hasMisused';
-import { Button, Image, LightBox, Modal, Tooltip } from '@hey/ui';
-import isFeatureAvailable from '@lib/isFeatureAvailable';
+import { Button, Image, LightBox, Tooltip } from '@hey/ui';
 import isVerified from '@lib/isVerified';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
@@ -40,15 +37,26 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import urlcat from 'urlcat';
 
 import Badges from './Badges';
-import CreatorTool from './CreatorTool';
 import Followerings from './Followerings';
-import GardenerTool from './GardenerTool';
+import InternalTools from './InternalTools';
 import InvitedBy from './InvitedBy';
 import ProfileMenu from './Menu';
 import MutualFollowers from './MutualFollowers';
-import MutualFollowersList from './MutualFollowers/List';
 import ScamWarning from './ScamWarning';
-import TbaBadge from './TbaBadge';
+import Score from './Score';
+
+export const MetaDetails = ({
+  children,
+  icon
+}: {
+  children: ReactNode;
+  icon: ReactNode;
+}) => (
+  <div className="flex items-center gap-2">
+    {icon}
+    <div className="text-md truncate">{children}</div>
+  </div>
+);
 
 interface DetailsProps {
   profile: Profile;
@@ -57,24 +65,9 @@ interface DetailsProps {
 const Details: FC<DetailsProps> = ({ profile }) => {
   const { push } = useRouter();
   const { currentProfile } = useProfileStore();
-  const { gardenerMode, staffMode } = useFeatureFlagsStore();
-  const [showMutualFollowersModal, setShowMutualFollowersModal] =
-    useState(false);
+  const { staffMode } = useFeatureFlagsStore();
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
   const { resolvedTheme } = useTheme();
-
-  const MetaDetails = ({
-    children,
-    icon
-  }: {
-    children: ReactNode;
-    icon: ReactNode;
-  }) => (
-    <div className="flex items-center gap-2">
-      {icon}
-      <div className="text-md truncate">{children}</div>
-    </div>
-  );
 
   const followType = profile?.followModule?.type;
   const misuseDetails = getMisuseDetails(profile.id);
@@ -107,7 +100,6 @@ const Details: FC<DetailsProps> = ({ profile }) => {
               <CheckBadgeIcon className="text-brand-500 size-6" />
             </Tooltip>
           ) : null}
-          <TbaBadge address={profile.ownedBy.address} />
           {hasMisused(profile.id) ? (
             <Tooltip content={misuseDetails?.type}>
               <ExclamationCircleIcon className="size-6" />
@@ -152,23 +144,10 @@ const Details: FC<DetailsProps> = ({ profile }) => {
           <ProfileMenu profile={profile} />
         </div>
         {currentProfile?.id !== profile.id ? (
-          <>
-            <MutualFollowers
-              profileId={profile.id}
-              setShowMutualFollowersModal={setShowMutualFollowersModal}
-            />
-            <Modal
-              icon={<UsersIcon className="size-5" />}
-              onClose={() => setShowMutualFollowersModal(false)}
-              show={showMutualFollowersModal}
-              title="Followers you know"
-            >
-              <MutualFollowersList
-                handle={getProfile(profile).slugWithPrefix}
-                profileId={profile.id}
-              />
-            </Modal>
-          </>
+          <MutualFollowers
+            handle={getProfile(profile).slug}
+            profileId={profile.id}
+          />
         ) : null}
         <div className="divider w-full" />
         <div className="space-y-2">
@@ -187,6 +166,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
           <MetaDetails icon={<HashtagIcon className="size-4" />}>
             {parseInt(profile.id)}
           </MetaDetails>
+          <Score address={profile.ownedBy.address} />
           {getProfileAttribute('location', profile?.metadata?.attributes) ? (
             <MetaDetails icon={<MapPinIcon className="size-4" />}>
               {getProfileAttribute('location', profile?.metadata?.attributes)}
@@ -287,10 +267,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
         id={profile.id}
         onchainIdentity={profile.onchainIdentity}
       />
-      {gardenerMode && <GardenerTool profile={profile} />}
-      {isFeatureAvailable(FeatureFlag.Staff) && (
-        <CreatorTool profile={profile} />
-      )}
+      <InternalTools profile={profile} />
     </div>
   );
 };

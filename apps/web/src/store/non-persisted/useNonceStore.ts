@@ -1,20 +1,25 @@
+import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
-import { subscribeWithSelector } from 'zustand/middleware';
 
-interface NonceState {
+interface State {
+  decrementLensHubOnchainSigNonce: () => void;
+  incrementLensHubOnchainSigNonce: () => void;
   lensHubOnchainSigNonce: number;
-  lensPublicActProxyOnchainSigNonce: number;
-  setLensHubOnchainSigNonce: (nonce: number) => void;
-  setLensPublicActProxyOnchainSigNonce: (nonce: number) => void;
+  setLensHubOnchainSigNonce: (lensHubOnchainSigNonce: number) => void;
 }
 
-export const useNonceStore = create(
-  subscribeWithSelector<NonceState>((set) => ({
-    lensHubOnchainSigNonce: 0,
-    lensPublicActProxyOnchainSigNonce: 0,
-    setLensHubOnchainSigNonce: (nonce: number) =>
-      set(() => ({ lensHubOnchainSigNonce: nonce })),
-    setLensPublicActProxyOnchainSigNonce: (nonce: number) =>
-      set(() => ({ lensPublicActProxyOnchainSigNonce: nonce }))
-  }))
-);
+const store = create<State>((set) => ({
+  decrementLensHubOnchainSigNonce: () =>
+    set((state) => ({
+      lensHubOnchainSigNonce: state.lensHubOnchainSigNonce - 1
+    })),
+  incrementLensHubOnchainSigNonce: () =>
+    set((state) => ({
+      lensHubOnchainSigNonce: state.lensHubOnchainSigNonce + 1
+    })),
+  lensHubOnchainSigNonce: 0,
+  setLensHubOnchainSigNonce: (lensHubOnchainSigNonce) =>
+    set(() => ({ lensHubOnchainSigNonce }))
+}));
+
+export const useNonceStore = createTrackedSelector(store);

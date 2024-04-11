@@ -5,12 +5,14 @@ import { Button, Card, Modal, TabButton } from '@hey/ui';
 import { useState } from 'react';
 
 import AddProfileManager from './AddProfileManager';
-import Managed from './Managed';
+import Managed from './Management/Managed';
+import Unmanaged from './Management/Unmanaged';
 import Managers from './Managers';
 
 enum Type {
   MANAGED = 'MANAGED',
-  MANAGERS = 'MANAGERS'
+  MANAGERS = 'MANAGERS',
+  UNMANAGED = 'UNMANAGED'
 }
 
 const ProfileManager: FC = () => {
@@ -18,8 +20,8 @@ const ProfileManager: FC = () => {
   const [showAddManagerModal, setShowAddManagerModal] = useState(false);
 
   return (
-    <Card className="linkify space-y-2 p-5">
-      <div className="flex items-center justify-between">
+    <Card className="linkify space-y-2">
+      <div className="mx-5 mt-5 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <TabButton
             active={type === Type.MANAGERS}
@@ -31,6 +33,12 @@ const ProfileManager: FC = () => {
             active={type === Type.MANAGED}
             name="Managed"
             onClick={() => setType(Type.MANAGED)}
+            showOnSm
+          />
+          <TabButton
+            active={type === Type.UNMANAGED}
+            name="Un-managed"
+            onClick={() => setType(Type.UNMANAGED)}
             showOnSm
           />
         </div>
@@ -56,6 +64,7 @@ const ProfileManager: FC = () => {
       </div>
       {type === Type.MANAGERS && <Managers />}
       {type === Type.MANAGED && <Managed />}
+      {type === Type.UNMANAGED && <Unmanaged />}
     </Card>
   );
 };

@@ -42,10 +42,11 @@ export const get: Handler = async (req, res) => {
       `
     });
 
-    const result =
-      await rows.json<
-        Array<{ day: number; impressions: number; totalImpressions: number }>
-      >();
+    const result = await rows.json<{
+      day: number;
+      impressions: number;
+      totalImpressions: number;
+    }>();
     logger.info(`Profile impressions fetched for ${id}`);
 
     return res

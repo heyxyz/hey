@@ -1,4 +1,4 @@
-import { type Maybe, type OpenActionModule } from '@hey/lens';
+import type { Maybe, OpenActionModule } from '@hey/lens';
 
 import allowedOpenActionModules from './allowedOpenActionModules';
 

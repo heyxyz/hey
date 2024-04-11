@@ -1,12 +1,15 @@
 import type { CollectModuleType } from '@hey/types/hey';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
+import LicensePicker from '@components/Composer/LicensePicker';
+import Loader from '@components/Shared/Loader';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { CollectOpenActionModuleType } from '@hey/lens';
 import getAllTokens from '@hey/lib/api/getAllTokens';
-import { Button, ErrorMessage, Spinner } from '@hey/ui';
+import { Button, ErrorMessage } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
+import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
 import { isAddress } from 'viem';
 
 import AmountConfig from './AmountConfig';
@@ -24,6 +27,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   const { collectModule, reset, setCollectModule } = useCollectModuleStore(
     (state) => state
   );
+  const { setLicense } = usePublicationLicenseStore();
 
   const { SimpleCollectOpenActionModule } = CollectOpenActionModuleType;
   const recipients = collectModule.recipients || [];
@@ -49,17 +53,12 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   };
 
   const { data, error, isLoading } = useQuery({
-    queryFn: () => getAllTokens(),
+    queryFn: getAllTokens,
     queryKey: ['getAllTokens']
   });
 
   if (isLoading) {
-    return (
-      <div className="m-5 space-y-2 text-center font-bold">
-        <Spinner className="mx-auto" size="md" />
-        <div>Loading collect settings</div>
-      </div>
-    );
+    return <Loader className="my-5" message="Loading collect settings" />;
   }
 
   if (error) {
@@ -76,6 +75,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
     if (!collectModule.type) {
       setCollectType({ type: SimpleCollectOpenActionModule });
     } else {
+      setLicense(null);
       reset();
     }
   };
@@ -93,7 +93,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
       <div className="divider" />
       {collectModule.type !== null ? (
         <>
-          <div className="p-5">
+          <div className="m-5">
             <AmountConfig
               allowedTokens={data}
               setCollectType={setCollectType}
@@ -112,6 +112,10 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
             <FollowersConfig setCollectType={setCollectType} />
           </div>
           <div className="divider" />
+          <div className="m-5">
+            <LicensePicker />
+          </div>
+          <div className="divider" />
         </>
       ) : null}
       <div className="flex space-x-2 p-5">
@@ -119,11 +123,13 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
           className="ml-auto"
           onClick={() => {
             setShowModal(false);
+            setLicense(null);
+            reset();
           }}
           outline
           variant="danger"
         >
-          Cancel
+          {collectModule.type ? 'Reset' : 'Cancel'}
         </Button>
         <Button
           disabled={

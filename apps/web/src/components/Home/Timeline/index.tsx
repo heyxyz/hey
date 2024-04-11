@@ -10,16 +10,14 @@ import { FeedEventItemType, useFeedQuery } from '@hey/lens';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { memo } from 'react';
-import { useInView } from 'react-cool-inview';
+import { Virtuoso } from 'react-virtuoso';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
-import { useTimelineStore } from 'src/store/non-persisted/useTimelineStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 
 const Timeline: FC = () => {
   const { currentProfile, fallbackToCuratedFeed } = useProfileStore();
   const { txnQueue } = useTransactionStore();
-  const { seeThroughProfile } = useTimelineStore();
   const { fetchAndStoreViews } = useImpressionsStore();
 
   // Variables
@@ -33,13 +31,12 @@ const Timeline: FC = () => {
         FeedEventItemType.Quote,
         FeedEventItemType.Reaction
       ],
-      for: fallbackToCuratedFeed
-        ? HEY_CURATED_ID
-        : seeThroughProfile?.id || currentProfile?.id
+      for: fallbackToCuratedFeed ? HEY_CURATED_ID : currentProfile?.id
     }
   };
 
   const { data, error, fetchMore, loading } = useFeedQuery({
+    fetchPolicy: 'cache-and-network',
     onCompleted: async ({ feed }) => {
       const ids =
         feed?.items?.flatMap((p) => {
@@ -56,22 +53,20 @@ const Timeline: FC = () => {
   const pageInfo = data?.feed?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      const { data } = await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } }
-      });
-      const ids =
-        data.feed?.items?.flatMap((p) => {
-          return [p.root.id].filter((id) => id);
-        }) || [];
-      await fetchAndStoreViews(ids);
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    const { data } = await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    });
+    const ids =
+      data.feed?.items?.flatMap((p) => {
+        return [p.root.id].filter((id) => id);
+      }) || [];
+    await fetchAndStoreViews(ids);
+  };
 
   if (loading) {
     return <PublicationsShimmer />;
@@ -93,21 +88,28 @@ const Timeline: FC = () => {
   return (
     <>
       {txnQueue.map((txn) =>
-        txn?.type !== OptmisticPublicationType.NewComment ? (
-          <QueuedPublication key={txn.id} txn={txn} />
+        txn?.type !== OptmisticPublicationType.Comment ? (
+          <QueuedPublication key={txn.txId} txn={txn} />
         ) : null
       )}
-      <Card className="divide-y-[1px] dark:divide-gray-700">
-        {feed?.map((feedItem, index) => (
-          <SinglePublication
-            feedItem={feedItem as FeedItem}
-            isFirst={index === 0}
-            isLast={index === feed.length - 1}
-            key={feedItem.id}
-            publication={feedItem.root as AnyPublication}
-          />
-        ))}
-        {hasMore ? <span ref={observe} /> : null}
+      <Card>
+        <Virtuoso
+          className="virtual-divider-list-window"
+          computeItemKey={(index, feedItem) => `${feedItem.id}-${index}`}
+          data={feed}
+          endReached={onEndReached}
+          itemContent={(index, feedItem) => {
+            return (
+              <SinglePublication
+                feedItem={feedItem as FeedItem}
+                isFirst={index === 0}
+                isLast={index === (feed?.length || 0) - 1}
+                publication={feedItem.root as AnyPublication}
+              />
+            );
+          }}
+          useWindowScroll
+        />
       </Card>
     </>
   );

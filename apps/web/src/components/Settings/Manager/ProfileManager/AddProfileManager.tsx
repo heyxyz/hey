@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import SearchProfiles from '@components/Shared/SearchProfiles';
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
-import { ADDRESS_PLACEHOLDER, LENSHUB_PROXY } from '@hey/data/constants';
+import { ADDRESS_PLACEHOLDER, LENS_HUB } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { SETTINGS } from '@hey/data/tracking';
 import {
@@ -22,7 +22,6 @@ import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { hydrateTbaStatus } from 'src/store/persisted/useTbaStatusStore';
 import { isAddress } from 'viem';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
@@ -35,15 +34,16 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
 }) => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
-    (state) => state
-  );
+  const {
+    decrementLensHubOnchainSigNonce,
+    incrementLensHubOnchainSigNonce,
+    lensHubOnchainSigNonce
+  } = useNonceStore();
   const [manager, setManager] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleWrongNetwork = useHandleWrongNetwork();
 
-  const { isTba } = hydrateTbaStatus();
   const { canBroadcast } = checkDispatcherPermissions(currentProfile);
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
@@ -68,11 +68,11 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
     mutation: {
       onError: (error: Error) => {
         onError(error);
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+        decrementLensHubOnchainSigNonce();
       },
       onSuccess: () => {
         onCompleted();
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+        incrementLensHubOnchainSigNonce();
       }
     }
   });
@@ -80,7 +80,7 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
   const write = async ({ args }: { args: any[] }) => {
     return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args,
       functionName: 'changeDelegatedExecutorsConfig'
     });
@@ -111,7 +111,7 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
         await handleWrongNetwork();
 
         try {
-          if (!isTba && canBroadcast) {
+          if (canBroadcast) {
             const signature = await signTypedDataAsync(getSignature(typedData));
             const { data } = await broadcastOnchain({
               variables: { request: { id, signature } }
@@ -119,7 +119,7 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
             if (data?.broadcastOnchain.__typename === 'RelayError') {
               return await write({ args });
             }
-            setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+            incrementLensHubOnchainSigNonce();
 
             return;
           }

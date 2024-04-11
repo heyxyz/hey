@@ -5,16 +5,18 @@ import type {
   LegacyCollectRequest,
   OpenActionModule
 } from '@hey/lens';
+import type { OptimisticTransaction } from '@hey/types/misc';
 import type { FC, ReactNode } from 'react';
 
 import { useApolloClient } from '@apollo/client';
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import LoginButton from '@components/Shared/Navbar/LoginButton';
 import NoBalanceError from '@components/Shared/NoBalanceError';
+import FollowUnfollowButton from '@components/Shared/Profile/FollowUnfollowButton';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { Errors } from '@hey/data';
-import { LENSHUB_PROXY } from '@hey/data/constants';
+import { LENS_HUB } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import {
   useActOnOpenActionMutation,
@@ -29,17 +31,20 @@ import getCollectModuleData from '@hey/lib/getCollectModuleData';
 import getOpenActionActOnKey from '@hey/lib/getOpenActionActOnKey';
 import getSignature from '@hey/lib/getSignature';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
+import { OptmisticPublicationType } from '@hey/types/enums';
 import { Button, Spinner, WarningMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import getCurrentSession from '@lib/getCurrentSession';
 import { Leafwatch } from '@lib/leafwatch';
+import hasOptimisticallyCollected from '@lib/optimistic/hasOptimisticallyCollected';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 import { formatUnits } from 'viem';
 import {
   useAccount,
@@ -71,9 +76,12 @@ const CollectAction: FC<CollectActionProps> = ({
 }) => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
-    (state) => state
-  );
+  const {
+    decrementLensHubOnchainSigNonce,
+    incrementLensHubOnchainSigNonce,
+    lensHubOnchainSigNonce
+  } = useNonceStore();
+  const { addTransaction, isFollowPending } = useTransactionStore();
 
   const { id: sessionProfileId } = getCurrentSession();
 
@@ -84,8 +92,10 @@ const CollectAction: FC<CollectActionProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [allowed, setAllowed] = useState(true);
   const [hasActed, setHasActed] = useState(
-    targetPublication.operations.hasActed.value
+    targetPublication.operations.hasActed.value ||
+      hasOptimisticallyCollected(targetPublication.id)
   );
+
   const { address } = useAccount();
   const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
@@ -118,12 +128,34 @@ const CollectAction: FC<CollectActionProps> = ({
   const isFreeCollectModule = !amount;
   const isSimpleFreeCollectModule =
     openAction.__typename === 'SimpleCollectOpenActionSettings';
-  const canUseManager =
-    canUseLensManager && !collectModule?.followerOnly && isFreeCollectModule;
+  const isFollowersOnly = collectModule?.followerOnly;
+  const isFollowedByMe = isFollowersOnly
+    ? targetPublication?.by.operations.isFollowedByMe.value
+    : true;
+  const isFollowFinalizedOnchain = isFollowersOnly
+    ? !isFollowPending(targetPublication.by.id)
+    : true;
 
+  const canUseManager =
+    canUseLensManager && !isFollowersOnly && isFreeCollectModule;
   const canCollect = forceShowCollect
     ? true
     : !hasActed || (!isFreeCollectModule && !isSimpleFreeCollectModule);
+
+  const generateOptimisticCollect = ({
+    txHash,
+    txId
+  }: {
+    txHash?: string;
+    txId?: string;
+  }): OptimisticTransaction => {
+    return {
+      collectOn: targetPublication?.id,
+      txHash,
+      txId,
+      type: OptmisticPublicationType.Collect
+    };
+  };
 
   const updateCache = () => {
     cache.modify({
@@ -135,9 +167,7 @@ const CollectAction: FC<CollectActionProps> = ({
       id: cache.identify(targetPublication)
     });
     cache.modify({
-      fields: {
-        countOpenActions: () => countOpenActions + 1
-      },
+      fields: { countOpenActions: () => countOpenActions + 1 },
       id: cache.identify(targetPublication.stats)
     });
   };
@@ -162,10 +192,14 @@ const CollectAction: FC<CollectActionProps> = ({
     onCollectSuccess?.();
     updateCache();
     toast.success('Collected successfully!');
-    Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
-      collect_module: openAction?.type,
-      publication_id: targetPublication?.id
-    });
+    Leafwatch.track(
+      PUBLICATION.COLLECT_MODULE.COLLECT,
+      {
+        collect_module: openAction?.type,
+        publication_id: targetPublication?.id
+      },
+      targetPublication.by.ownedBy.address
+    );
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
@@ -177,11 +211,12 @@ const CollectAction: FC<CollectActionProps> = ({
     mutation: {
       onError: (error: Error) => {
         onError(error);
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+        decrementLensHubOnchainSigNonce();
       },
-      onSuccess: () => {
+      onSuccess: (hash: string) => {
+        addTransaction(generateOptimisticCollect({ txHash: hash }));
+        incrementLensHubOnchainSigNonce();
         onCompleted();
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
       }
     }
   });
@@ -189,7 +224,7 @@ const CollectAction: FC<CollectActionProps> = ({
   const write = async ({ args }: { args: any[] }) => {
     return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args,
       functionName: profileUserFunctionName
     });
@@ -232,8 +267,14 @@ const CollectAction: FC<CollectActionProps> = ({
   }
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
-    onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename)
+    onCompleted: ({ broadcastOnchain }) => {
+      if (broadcastOnchain.__typename === 'RelaySuccess') {
+        addTransaction(
+          generateOptimisticCollect({ txId: broadcastOnchain.txId })
+        );
+      }
+      onCompleted(broadcastOnchain.__typename);
+    }
   });
 
   const typedDataGenerator = async (generatedData: any) => {
@@ -248,7 +289,7 @@ const CollectAction: FC<CollectActionProps> = ({
       if (data?.broadcastOnchain.__typename === 'RelayError') {
         return await write({ args: [typedData.value] });
       }
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+      incrementLensHubOnchainSigNonce();
 
       return;
     }
@@ -274,14 +315,25 @@ const CollectAction: FC<CollectActionProps> = ({
 
   // Act
   const [actOnOpenAction] = useActOnOpenActionMutation({
-    onCompleted: ({ actOnOpenAction }) =>
-      onCompleted(actOnOpenAction.__typename),
+    onCompleted: ({ actOnOpenAction }) => {
+      if (actOnOpenAction.__typename === 'RelaySuccess') {
+        addTransaction(
+          generateOptimisticCollect({ txId: actOnOpenAction.txId })
+        );
+      }
+      onCompleted(actOnOpenAction.__typename);
+    },
     onError
   });
 
   // Legacy Collect
   const [legacyCollect] = useLegacyCollectMutation({
-    onCompleted: ({ legacyCollect }) => onCompleted(legacyCollect.__typename),
+    onCompleted: ({ legacyCollect }) => {
+      if (legacyCollect.__typename === 'RelaySuccess') {
+        addTransaction(generateOptimisticCollect({ txId: legacyCollect.txId }));
+      }
+      onCompleted(legacyCollect.__typename);
+    },
     onError
   });
 
@@ -365,9 +417,10 @@ const CollectAction: FC<CollectActionProps> = ({
 
   if (!sessionProfileId) {
     return (
-      <div className="mt-5">
-        <LoginButton title="Login to Collect" />
-      </div>
+      <LoginButton
+        className="mt-5 w-full justify-center"
+        title="Login to Collect"
+      />
     );
   }
 
@@ -381,7 +434,9 @@ const CollectAction: FC<CollectActionProps> = ({
 
   if (allowanceLoading) {
     return (
-      <div className={cn('shimmer mt-5 h-[34px] w-28 rounded-lg', className)} />
+      <div
+        className={cn('shimmer mt-5 h-[34px] w-full rounded-full', className)}
+      />
     );
   }
 
@@ -389,7 +444,7 @@ const CollectAction: FC<CollectActionProps> = ({
     return (
       <AllowanceButton
         allowed={allowed}
-        className={cn('mt-5', className)}
+        className={cn('mt-5 w-full', className)}
         module={
           allowanceData
             ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult
@@ -420,9 +475,27 @@ const CollectAction: FC<CollectActionProps> = ({
     );
   }
 
+  if (!isFollowedByMe) {
+    return (
+      <FollowUnfollowButton
+        buttonClassName="w-full mt-5"
+        followTitle="Follow to collect"
+        profile={targetPublication.by}
+      />
+    );
+  }
+
+  if (!isFollowFinalizedOnchain) {
+    return (
+      <Button className="mt-5 w-full" disabled outline>
+        Follow finalizing onchain...
+      </Button>
+    );
+  }
+
   return (
     <Button
-      className={cn('mt-5', className)}
+      className={cn('mt-5 w-full justify-center', className)}
       disabled={isLoading}
       icon={
         isLoading ? (

@@ -4,6 +4,7 @@ import { APP_NAME } from '@hey/data/constants';
 import { MISCELLANEOUS } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
+import showCrisp from '@lib/showCrisp';
 import Link from 'next/link';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import urlcat from 'urlcat';
@@ -62,13 +63,9 @@ const Footer: FC = () => {
         >
           GitHub
         </Link>
-        <Link
-          className="outline-offset-4"
-          href="/support"
-          onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_SUPPORT)}
-        >
+        <button className="outline-offset-4" onClick={showCrisp}>
           Support
-        </Link>
+        </button>
       </div>
       <div className="mt-4">
         <Link

@@ -1,12 +1,12 @@
 import type { MutualFollowersRequest, Profile } from '@hey/lens';
 import type { FC } from 'react';
 
-import Loader from '@components/Shared/Loader';
+import ProfileListShimmer from '@components/Shared/Shimmer/ProfileListShimmer';
 import UserProfile from '@components/Shared/UserProfile';
-import { UsersIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { LimitType, useMutualFollowersQuery } from '@hey/lens';
-import { EmptyState, ErrorMessage } from '@hey/ui';
-import { motion } from 'framer-motion';
+import { Card, EmptyState, ErrorMessage } from '@hey/ui';
+import Link from 'next/link';
 import { Virtuoso } from 'react-virtuoso';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
@@ -48,13 +48,12 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({
   };
 
   if (loading) {
-    return <Loader message="Loading mutual followers" />;
+    return <ProfileListShimmer />;
   }
 
   if (mutualFollowers?.length === 0) {
     return (
       <EmptyState
-        hideCard
         icon={<UsersIcon className="size-8" />}
         message={
           <div>
@@ -66,38 +65,48 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({
     );
   }
 
-  return (
-    <div className="max-h-[80vh] overflow-y-auto">
+  if (error) {
+    return (
       <ErrorMessage
         className="m-5"
         error={error}
         title="Failed to load mutual followers"
       />
+    );
+  }
+
+  return (
+    <Card>
+      <div className="flex items-center space-x-3 p-5">
+        <Link href={`/u/${handle}`}>
+          <ArrowLeftIcon className="size-5" />
+        </Link>
+        <b className="text-lg">Mutual Followers</b>
+      </div>
+      <div className="divider" />
       <Virtuoso
-        className="virtual-profile-list"
+        className="virtual-divider-list-window"
+        computeItemKey={(index, mutualFollower) =>
+          `${mutualFollower.id}-${index}`
+        }
         data={mutualFollowers}
         endReached={onEndReached}
         itemContent={(_, mutualFollower) => {
           return (
-            <motion.div
-              animate={{ opacity: 1 }}
-              className="p-5"
-              exit={{ opacity: 0 }}
-              initial={{ opacity: 0 }}
-            >
+            <div className="p-5">
               <UserProfile
+                hideFollowButton={currentProfile?.id === mutualFollower.id}
+                hideUnfollowButton={currentProfile?.id === mutualFollower.id}
                 profile={mutualFollower as Profile}
                 showBio
-                showFollowUnfollowButton={
-                  currentProfile?.id !== mutualFollower.id
-                }
                 showUserPreview={false}
               />
-            </motion.div>
+            </div>
           );
         }}
+        useWindowScroll
       />
-    </div>
+    </Card>
   );
 };
 

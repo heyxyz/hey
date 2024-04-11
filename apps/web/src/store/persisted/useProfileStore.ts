@@ -7,7 +7,7 @@ import { persist } from 'zustand/middleware';
 
 import createIdbStorage from '../lib/createIdbStorage';
 
-interface ProfileState {
+interface State {
   currentProfile: null | Profile;
   fallbackToCuratedFeed: boolean;
   setCurrentProfile: (currentProfile: null | Profile) => void;
@@ -15,7 +15,7 @@ interface ProfileState {
 }
 
 const store = create(
-  persist<ProfileState>(
+  persist<State>(
     (set) => ({
       currentProfile: null,
       fallbackToCuratedFeed: false,

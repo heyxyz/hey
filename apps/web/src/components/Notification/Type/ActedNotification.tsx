@@ -1,13 +1,13 @@
 import type { ActedNotification as TActedNotification } from '@hey/lens';
+import type { FC } from 'react';
 
 import Markup from '@components/Shared/Markup';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import getPublicationData from '@hey/lib/getPublicationData';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
-import pushToImpressions from '@lib/pushToImpressions';
 import Link from 'next/link';
 import plur from 'plur';
-import { type FC, useEffect } from 'react';
+import usePushToImpressions from 'src/hooks/usePushToImpressions';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
@@ -33,10 +33,7 @@ const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
     : 'acted on your';
   const type = notification?.publication.__typename;
 
-  useEffect(() => {
-    pushToImpressions(notification.publication.id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  usePushToImpressions(notification.publication.id);
 
   return (
     <div className="space-y-2">

@@ -1,5 +1,6 @@
+import type { FC } from 'react';
+
 import { Button } from '@hey/ui';
-import { type FC } from 'react';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
 
 interface SaveOrCancelProps {
@@ -14,7 +15,7 @@ const SaveOrCancel: FC<SaveOrCancelProps> = ({
   const { reset, setShowModal } = useOpenActionStore();
 
   return (
-    <div className="mt-5 flex space-x-2">
+    <div className="flex space-x-2">
       <Button
         className="ml-auto"
         onClick={() => {

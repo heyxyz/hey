@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 
 import formatDate from '@hey/lib/datetime/formatDate';
+import { CardHeader } from '@hey/ui';
 import {
   CategoryScale,
   Chart as ChartJS,
@@ -39,9 +40,8 @@ const ImpressionsToday: FC<ImpressionsTodayProps> = ({ impressionsToday }) => {
   return (
     <>
       <div className="divider" />
-      <div className="p-5 text-lg font-bold">Impressions Today</div>
-      <div className="divider" />
-      <div className="p-5">
+      <CardHeader title="Impressions Today" />
+      <div className="m-5">
         <Line
           data={{
             datasets: [

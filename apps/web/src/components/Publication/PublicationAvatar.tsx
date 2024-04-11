@@ -1,4 +1,5 @@
 import type { AnyPublication, FeedItem } from '@hey/lens';
+import type { FC } from 'react';
 
 import getAvatar from '@hey/lib/getAvatar';
 import getLennyURL from '@hey/lib/getLennyURL';
@@ -9,7 +10,7 @@ import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { type FC, memo } from 'react';
+import { memo } from 'react';
 
 interface PublicationAvatarProps {
   feedItem?: FeedItem;

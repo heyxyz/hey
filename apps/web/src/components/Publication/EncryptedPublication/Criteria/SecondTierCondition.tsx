@@ -36,7 +36,7 @@ const SecondTierCondition: FC<SecondTierConditionProps> = ({ condition }) => {
           <div className="font-bold">
             Should match any one of the following conditions:
           </div>
-          <div className="ml-5 space-y-1.5">
+          <div className="space-y-1.5">
             {condition.criteria.map((criterion, index) => (
               <ThirdTierCondition
                 condition={criterion}

@@ -10,6 +10,7 @@ export const GARDENER_FEATURE_ID = '0a441129-182a-4a3f-83cf-a13c5ad8282b';
 export const GARDENER_MODE_FEATURE_ID = '9f66a465-e1d7-4123-b329-ddd14fd85510';
 export const VERIFIED_FEATURE_ID = 'a0d6d247-50ef-419f-a045-54fa96054922';
 export const STAFF_PICK_FEATURE_ID = '73d2f48d-0291-4a36-adc2-9737057ad2b7';
+export const SUSPENDED_FEATURE_ID = '8ed8b26a-279d-4111-9d39-a40164b273a0';
 
 // Cache
 // Cache for 1 second, stale for 30 days

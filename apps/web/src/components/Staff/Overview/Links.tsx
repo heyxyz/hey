@@ -33,6 +33,10 @@ const Links: FC = () => {
             link="https://railway.app/project/659c7f82-0d18-4593-807f-5348c495e3ef/logs"
             title="Live Railway Logs"
           />
+          <ListItem
+            link="https://heyverse.sentry.io/issues/?project=4506721358512128"
+            title="Sentry Errors"
+          />
         </ul>
       </div>
       <div>
@@ -43,8 +47,8 @@ const Links: FC = () => {
             title="Lemon Squeezy"
           />
           <ListItem
-            link="https://heyxyz.zendesk.com/agent/dashboard"
-            title="Zendesk Tickets"
+            link="https://app.crisp.chat/website/37355035-47aa-4f42-ad47-cffc3d1fea16/inbox"
+            title="Crisp Tickets"
           />
           <ListItem
             link="https://railway.app/project/659c7f82-0d18-4593-807f-5348c495e3ef"
@@ -62,10 +66,6 @@ const Links: FC = () => {
           <ListItem
             link="https://hey.xyz/-/token-request"
             title="Token Allowlist Request"
-          />
-          <ListItem
-            link="https://hey.xyz/-/verification-request"
-            title="Verification Request"
           />
         </ul>
       </div>

@@ -7,10 +7,11 @@ import type {
   OnchainPostRequest,
   OnchainQuoteRequest
 } from '@hey/lens';
+import type { OptimisticTransaction } from '@hey/types/misc';
 
 import { useApolloClient } from '@apollo/client';
 import { LensHub } from '@hey/abis';
-import { LENSHUB_PROXY } from '@hey/data/constants';
+import { LENS_HUB } from '@hey/data/constants';
 import {
   PublicationDocument,
   useBroadcastOnchainMutation,
@@ -58,11 +59,13 @@ const useCreatePublication = ({
   const { push } = useRouter();
   const { cache } = useApolloClient();
   const { currentProfile } = useProfileStore();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
-    (state) => state
-  );
+  const {
+    decrementLensHubOnchainSigNonce,
+    incrementLensHubOnchainSigNonce,
+    lensHubOnchainSigNonce
+  } = useNonceStore();
   const { publicationContent } = usePublicationStore();
-  const { setTxnQueue, txnQueue } = useTransactionStore();
+  const { addTransaction } = useTransactionStore();
   const handleWrongNetwork = useHandleWrongNetwork();
   const { canBroadcast } = checkDispatcherPermissions(currentProfile);
 
@@ -75,17 +78,17 @@ const useCreatePublication = ({
   }: {
     txHash?: string;
     txId?: string;
-  }) => {
+  }): OptimisticTransaction => {
     return {
       ...(isComment && { commentOn: commentOn?.id }),
       content: publicationContent,
       txHash,
       txId,
       type: isComment
-        ? OptmisticPublicationType.NewComment
+        ? OptmisticPublicationType.Comment
         : isQuote
-          ? OptmisticPublicationType.NewQuote
-          : OptmisticPublicationType.NewPost
+          ? OptmisticPublicationType.Quote
+          : OptmisticPublicationType.Post
     };
   };
 
@@ -111,15 +114,12 @@ const useCreatePublication = ({
     mutation: {
       onError: (error: Error) => {
         onError(error);
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+        decrementLensHubOnchainSigNonce();
       },
       onSuccess: (hash: string) => {
+        addTransaction(generateOptimisticPublication({ txHash: hash }));
+        incrementLensHubOnchainSigNonce();
         onCompleted();
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
-        setTxnQueue([
-          generateOptimisticPublication({ txHash: hash }),
-          ...txnQueue
-        ]);
       }
     }
   });
@@ -127,7 +127,7 @@ const useCreatePublication = ({
   const write = async ({ args }: { args: any[] }) => {
     return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args,
       functionName: isComment ? 'comment' : isQuote ? 'quote' : 'post'
     });
@@ -148,10 +148,9 @@ const useCreatePublication = ({
     onCompleted: ({ broadcastOnchain }) => {
       onCompleted(broadcastOnchain.__typename);
       if (broadcastOnchain.__typename === 'RelaySuccess') {
-        setTxnQueue([
-          generateOptimisticPublication({ txId: broadcastOnchain.txId }),
-          ...txnQueue
-        ]);
+        addTransaction(
+          generateOptimisticPublication({ txId: broadcastOnchain.txId })
+        );
       }
     }
   });
@@ -176,7 +175,7 @@ const useCreatePublication = ({
       if (data?.broadcastOnchain.__typename === 'RelayError') {
         return await write({ args: [typedData.value] });
       }
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+      incrementLensHubOnchainSigNonce();
 
       return;
     }
@@ -226,10 +225,9 @@ const useCreatePublication = ({
     onCompleted: ({ postOnchain }) => {
       onCompleted(postOnchain.__typename);
       if (postOnchain.__typename === 'RelaySuccess') {
-        setTxnQueue([
-          generateOptimisticPublication({ txId: postOnchain.txId }),
-          ...txnQueue
-        ]);
+        addTransaction(
+          generateOptimisticPublication({ txId: postOnchain.txId })
+        );
       }
     },
     onError
@@ -239,12 +237,9 @@ const useCreatePublication = ({
     onCompleted: ({ commentOnchain }) => {
       onCompleted(commentOnchain.__typename);
       if (commentOnchain.__typename === 'RelaySuccess') {
-        setTxnQueue([
-          generateOptimisticPublication({
-            txId: commentOnchain.txId
-          }),
-          ...txnQueue
-        ]);
+        addTransaction(
+          generateOptimisticPublication({ txId: commentOnchain.txId })
+        );
       }
     },
     onError
@@ -254,12 +249,9 @@ const useCreatePublication = ({
     onCompleted: ({ quoteOnchain }) => {
       onCompleted(quoteOnchain.__typename);
       if (quoteOnchain.__typename === 'RelaySuccess') {
-        setTxnQueue([
-          generateOptimisticPublication({
-            txId: quoteOnchain.txId
-          }),
-          ...txnQueue
-        ]);
+        addTransaction(
+          generateOptimisticPublication({ txId: quoteOnchain.txId })
+        );
       }
     },
     onError

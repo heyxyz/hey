@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import { FlagIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import { GridItemEight, GridLayout } from '@hey/ui';
-import Link from 'next/link';
+import showCrisp from '@lib/showCrisp';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 
 const Flagged: FC = () => {
@@ -26,9 +26,9 @@ const Flagged: FC = () => {
           <div className="text-sm text-gray-500">
             Because of that, your profile may limit your ability to interact
             with {APP_NAME} and other users.{' '}
-            <Link className="underline" href="/support">
+            <button className="underline" onClick={showCrisp}>
               Contact us
-            </Link>{' '}
+            </button>{' '}
             if you think this is a mistake.
           </div>
         </GridItemEight>

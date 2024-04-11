@@ -3,6 +3,7 @@ import type { Dispatch, FC, SetStateAction } from 'react';
 import {
   ClockIcon,
   MagnifyingGlassIcon,
+  UserPlusIcon,
   UsersIcon
 } from '@heroicons/react/24/outline';
 import { ModFeedType } from '@hey/data/enums';
@@ -15,7 +16,7 @@ interface FeedTypeProps {
 
 const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
   return (
-    <div className="flex gap-3 overflow-x-auto sm:px-0">
+    <div className="flex gap-3 overflow-x-auto px-5 sm:px-0">
       <TabButton
         active={feedType === ModFeedType.LATEST}
         icon={<ClockIcon className="size-4" />}
@@ -33,6 +34,12 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
         icon={<UsersIcon className="size-4" />}
         name="Profiles"
         onClick={() => setFeedType(ModFeedType.PROFILES)}
+      />
+      <TabButton
+        active={feedType === ModFeedType.FOLLOWERINGS}
+        icon={<UserPlusIcon className="size-4" />}
+        name="Followerings"
+        onClick={() => setFeedType(ModFeedType.FOLLOWERINGS)}
       />
     </div>
   );

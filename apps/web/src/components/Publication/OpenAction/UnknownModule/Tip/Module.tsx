@@ -3,26 +3,29 @@ import type {
   UnknownOpenActionModuleSettings
 } from '@hey/lens';
 import type { AllowedToken } from '@hey/types/hey';
+import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import Loader from '@components/Shared/Loader';
 import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import { USD_ENABLED_TOKEN_SYMBOLS } from '@hey/data/tokens-symbols';
+import { PUBLICATION } from '@hey/data/tracking';
 import { TipIcon } from '@hey/icons';
 import { useModuleMetadataQuery } from '@hey/lens';
 import getAllTokens from '@hey/lib/api/getAllTokens';
 import getAssetSymbol from '@hey/lib/getAssetSymbol';
 import getRedstonePrice from '@hey/lib/getRedstonePrice';
 import { RangeSlider, Select } from '@hey/ui';
+import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
-import { type FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN } from 'src/constants';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
 import { encodeAbiParameters, formatUnits, parseUnits } from 'viem';
 import { useAccount, useBalance } from 'wagmi';
 
-import TipAction from './TipAction';
+import ActionButton from '../ActionButton';
 
 interface TipOpenActionModuleProps {
   module: UnknownOpenActionModuleSettings;
@@ -53,6 +56,7 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
 
   useEffect(() => {
     getUsdPrice();
+    setTip({ ...tip, value: [5] });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCurrency]);
 
@@ -78,28 +82,33 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
   );
 
   const { actOnUnknownOpenAction, isLoading } = useActOnUnknownOpenAction({
+    onSuccess: () => {
+      Leafwatch.track(
+        PUBLICATION.OPEN_ACTIONS.TIP.TIP,
+        { publication_id: publication.id },
+        publication.by.ownedBy.address
+      );
+    },
     signlessApproved: module.signlessApproved,
     successToast: "You've sent a tip!"
   });
 
   const { data: allowedTokens, isLoading: loadingAllowedTokens } = useQuery({
     queryFn: () =>
-      getAllTokens((tokens) =>
+      getAllTokens().then((tokens) => {
         setSelectedCurrency(
           tokens.find(
             (token) => token.contractAddress === DEFAULT_COLLECT_TOKEN
           ) as AllowedToken
-        )
-      ),
+        );
+
+        return tokens;
+      }),
     queryKey: ['getAllTokens']
   });
 
   if (loading || loadingAllowedTokens) {
-    return (
-      <div className="m-5">
-        <Loader message="Loading tip..." />
-      </div>
-    );
+    return <Loader className="p-10" message="Loading tip..." />;
   }
 
   const act = async () => {
@@ -148,7 +157,6 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
               </>
             )}
           </span>
-
           <div className="ld-text-gray-500 text-sm">
             {usdEnabled ? (
               <>
@@ -167,16 +175,17 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
         <div className="flex w-5/12 flex-col items-end space-y-1">
           <Select
             defaultValue={DEFAULT_COLLECT_TOKEN}
-            onChange={(e) => {
-              setTip({ ...tip, currency: e.target.value });
+            onChange={(value) => {
+              setTip({ ...tip, currency: value });
               setSelectedCurrency(
                 allowedTokens?.find(
-                  (token) => token.contractAddress === e.target.value
+                  (token) => token.contractAddress === value
                 ) as AllowedToken
               );
             }}
             options={allowedTokens?.map((token) => ({
               label: token.name,
+              selected: token.contractAddress === tip.currency,
               value: token.contractAddress
             }))}
           />
@@ -185,13 +194,14 @@ const TipOpenActionModule: FC<TipOpenActionModuleProps> = ({
       </div>
       <div className="pb-3 pt-5">
         <RangeSlider
+          max={selectedCurrency?.maxTipAmount || 100}
           min={1}
           onValueChange={(value) => setTip({ ...tip, value })}
           value={tip.value}
         />
       </div>
       {selectedCurrency ? (
-        <TipAction
+        <ActionButton
           act={act}
           className="mt-5 w-full justify-center"
           icon={<TipIcon className="size-4" />}

@@ -1,8 +1,5 @@
 import type { FC } from 'react';
 
-import { LifebuoyIcon } from '@heroicons/react/24/outline';
-import Link from 'next/link';
-
 import cn from '../cn';
 
 interface ErrorMessageProps {
@@ -29,12 +26,6 @@ export const ErrorMessage: FC<ErrorMessageProps> = ({
     >
       <div className="flex flex-wrap items-center gap-2">
         {title ? <h3 className="font-medium">{title}</h3> : null}
-        <div className="flex items-center space-x-1 text-xs">
-          <LifebuoyIcon className="size-4" />
-          <Link className="font-bold underline" href="/support">
-            Contact Support
-          </Link>
-        </div>
       </div>
       <div className="ld-text-gray-500 break-words">{error?.message}</div>
     </div>

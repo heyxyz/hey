@@ -36,9 +36,8 @@ import { useSignTypedData, useWriteContract } from 'wagmi';
 const LinkHandle: FC = () => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
-    (state) => state
-  );
+  const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
+    useNonceStore();
   const [linkingHandle, setLinkingHandle] = useState<null | string>(null);
 
   const handleWrongNetwork = useHandleWrongNetwork();
@@ -95,7 +94,7 @@ const LinkHandle: FC = () => {
         const { id, typedData } = createLinkHandleToProfileTypedData;
         const signature = await signTypedDataAsync(getSignature(typedData));
         await handleWrongNetwork();
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+        incrementLensHubOnchainSigNonce();
 
         if (canBroadcast) {
           const { data } = await broadcastOnchain({
@@ -169,7 +168,7 @@ const LinkHandle: FC = () => {
   };
 
   if (loading) {
-    return <Loader />;
+    return <Loader className="py-10" />;
   }
 
   const ownedHandles = data?.ownedHandles.items.filter(
@@ -194,7 +193,7 @@ const LinkHandle: FC = () => {
     broadcastData.broadcastOnchain.txId;
 
   return (
-    <div className="space-y-6">
+    <div className="m-5 space-y-6">
       {ownedHandles?.map((handle) => (
         <div
           className="flex flex-wrap items-center justify-between gap-3"

@@ -1,19 +1,37 @@
 import type { FC } from 'react';
 
 import Footer from '@components/Shared/Footer';
+import ProfileListShimmer from '@components/Shared/Shimmer/ProfileListShimmer';
+import PublicationListShimmer from '@components/Shared/Shimmer/PublicationListShimmer';
 import PublicationShimmer from '@components/Shared/Shimmer/PublicationShimmer';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 
-const PublicationPageShimmer: FC = () => {
+interface PublicationPageShimmerProps {
+  profileList?: boolean;
+  publicationList?: boolean;
+}
+
+const PublicationPageShimmer: FC<PublicationPageShimmerProps> = ({
+  profileList = false,
+  publicationList = false
+}) => {
   return (
     <GridLayout>
       <GridItemEight className="space-y-5">
-        <Card>
-          <PublicationShimmer />
-        </Card>
-        <PublicationsShimmer />
+        {profileList ? (
+          <ProfileListShimmer />
+        ) : publicationList ? (
+          <PublicationListShimmer />
+        ) : (
+          <>
+            <Card>
+              <PublicationShimmer />
+            </Card>
+            <PublicationsShimmer />
+          </>
+        )}
       </GridItemEight>
       <GridItemFour className="space-y-5">
         <Card className="p-5">

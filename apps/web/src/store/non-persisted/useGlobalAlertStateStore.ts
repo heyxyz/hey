@@ -3,7 +3,7 @@ import type { AnyPublication, MirrorablePublication, Profile } from '@hey/lens';
 import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 
-interface GlobalAlertState {
+interface State {
   blockingorUnblockingProfile: null | Profile;
   deletingPublication: AnyPublication | null;
   modingPublication: MirrorablePublication | null;
@@ -24,7 +24,7 @@ interface GlobalAlertState {
   showPublicationDeleteAlert: boolean;
 }
 
-const store = create<GlobalAlertState>((set) => ({
+const store = create<State>((set) => ({
   blockingorUnblockingProfile: null,
   deletingPublication: null,
   forceDeletePublication: false,

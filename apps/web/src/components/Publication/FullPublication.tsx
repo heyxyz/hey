@@ -1,4 +1,5 @@
 import type { AnyPublication } from '@hey/lens';
+import type { FC } from 'react';
 
 import { QueueListIcon } from '@heroicons/react/24/outline';
 import formatDate from '@hey/lib/datetime/formatDate';
@@ -6,9 +7,8 @@ import getAppName from '@hey/lib/getAppName';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import pushToImpressions from '@lib/pushToImpressions';
 import { motion } from 'framer-motion';
-import { type FC, useEffect } from 'react';
+import usePushToImpressions from 'src/hooks/usePushToImpressions';
 
 import { useHiddenCommentFeedStore } from '.';
 import PublicationActions from './Actions';
@@ -37,10 +37,7 @@ const FullPublication: FC<FullPublicationProps> = ({
 
   const { createdAt, publishedOn } = targetPublication;
 
-  useEffect(() => {
-    pushToImpressions(targetPublication.id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  usePushToImpressions(targetPublication.id);
 
   return (
     <article className="p-5">

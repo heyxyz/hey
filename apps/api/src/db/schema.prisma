@@ -14,6 +14,15 @@ model Preference {
   createdAt                    DateTime @default(now())
 }
 
+model Email {
+  id                String    @id
+  email             String    @unique
+  verified          Boolean   @default(false)
+  verificationToken String?   @unique
+  tokenExpiresAt    DateTime?
+  createdAt         DateTime  @default(now())
+}
+
 model MembershipNft {
   id                String   @id
   dismissedOrMinted Boolean  @default(false)
@@ -39,6 +48,7 @@ model Feature {
 enum FeatureType {
   FEATURE
   PERMISSION
+  COHORT
   MODE
 }
 
@@ -98,5 +108,15 @@ model AllowedToken {
   symbol          String
   decimals        Int      @default(18)
   contractAddress String   @unique
+  maxTipAmount    Int      @default(100)
+  priority        Int      @default(0)
   createdAt       DateTime @default(now())
+
+  // Indexes
+  @@index([priority])
+}
+
+model ScorableEvent {
+  eventType String @id
+  points    Int
 }

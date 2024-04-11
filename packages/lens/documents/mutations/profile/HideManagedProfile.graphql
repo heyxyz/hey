@@ -1,0 +1,3 @@
+mutation HideManagedProfile($request: HideManagedProfileRequest!) {
+  hideManagedProfile(request: $request)
+}

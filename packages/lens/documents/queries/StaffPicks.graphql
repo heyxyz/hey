@@ -1,0 +1,21 @@
+query StaffPicks(
+  $batch1: [ProfileId!]
+  $batch2: [ProfileId!]
+  $batch3: [ProfileId!]
+) {
+  batch1: profiles(request: { where: { profileIds: $batch1 } }) {
+    items {
+      ...ProfileFields
+    }
+  }
+  batch2: profiles(request: { where: { profileIds: $batch2 } }) {
+    items {
+      ...ProfileFields
+    }
+  }
+  batch3: profiles(request: { where: { profileIds: $batch3 } }) {
+    items {
+      ...ProfileFields
+    }
+  }
+}

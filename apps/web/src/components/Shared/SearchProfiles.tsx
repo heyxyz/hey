@@ -6,9 +6,9 @@ import {
   LimitType,
   useSearchProfilesLazyQuery
 } from '@hey/lens';
-import { Card, Input, Spinner } from '@hey/ui';
-import { motion } from 'framer-motion';
+import { Card, Input } from '@hey/ui';
 
+import Loader from './Loader';
 import SmallUserProfile from './SmallUserProfile';
 
 interface SearchProfilesProps {
@@ -62,18 +62,12 @@ const SearchProfiles: FC<SearchProfilesProps> = ({
         <div className="absolute mt-2 flex w-[94%] max-w-md flex-col">
           <Card className="z-[2] max-h-[80vh] overflow-y-auto py-2">
             {loading ? (
-              <div className="space-y-2 px-4 py-2 text-center text-sm font-bold">
-                <Spinner className="mx-auto" size="sm" />
-                <div>Searching users</div>
-              </div>
+              <Loader className="my-3" message="Searching users" small />
             ) : (
               <>
                 {profiles.slice(0, 7).map((profile) => (
-                  <motion.div
-                    animate={{ opacity: 1 }}
+                  <div
                     className="cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-                    exit={{ opacity: 0 }}
-                    initial={{ opacity: 0 }}
                     key={profile.id}
                     onClick={() => {
                       if (onProfileSelected) {
@@ -82,7 +76,7 @@ const SearchProfiles: FC<SearchProfilesProps> = ({
                     }}
                   >
                     <SmallUserProfile profile={profile} />
-                  </motion.div>
+                  </div>
                 ))}
                 {profiles.length === 0 ? (
                   <div className="px-4 py-2">No matching users</div>

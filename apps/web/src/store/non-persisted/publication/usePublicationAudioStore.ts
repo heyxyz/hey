@@ -1,7 +1,7 @@
 import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 
-interface PublicationAudioState {
+interface State {
   audioPublication: {
     artist: string;
     cover: string;
@@ -16,7 +16,7 @@ interface PublicationAudioState {
   }) => void;
 }
 
-const store = create<PublicationAudioState>((set) => ({
+const store = create<State>((set) => ({
   audioPublication: {
     artist: '',
     cover: '',

@@ -31,7 +31,7 @@ const Users: NextPage = () => {
       <GridItemFour>
         <StaffSidebar />
       </GridItemFour>
-      <GridItemEight className="space-y-5">
+      <GridItemEight>
         <List />
       </GridItemEight>
     </GridLayout>

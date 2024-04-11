@@ -8,7 +8,7 @@ import prisma from 'src/lib/prisma';
 export const get: Handler = async (_, res) => {
   try {
     const data = await prisma.allowedToken.findMany({
-      orderBy: { createdAt: 'asc' }
+      orderBy: { priority: 'desc' }
     });
     logger.info('All tokens fetched');
 

@@ -3,14 +3,14 @@ import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-interface LeafwatchState {
+interface State {
   anonymousId: null | string;
   hydrateLeafwatchAnonymousId: () => null | string;
   setAnonymousId: (anonymousIdId: string) => void;
 }
 
 const store = create(
-  persist<LeafwatchState>(
+  persist<State>(
     (set, get) => ({
       anonymousId: null,
       hydrateLeafwatchAnonymousId: () => {

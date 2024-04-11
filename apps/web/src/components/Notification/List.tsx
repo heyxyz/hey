@@ -8,6 +8,7 @@ import type {
   QuoteNotification as QuoteNotificationType,
   ReactionNotification as ReactionNotificationType
 } from '@hey/lens';
+import type { FC } from 'react';
 
 import { BellIcon } from '@heroicons/react/24/outline';
 import {
@@ -16,8 +17,8 @@ import {
   useNotificationsQuery
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { motion } from 'framer-motion';
-import { type FC, useEffect } from 'react';
+import cn from '@hey/ui/cn';
+import { useEffect } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { NotificationTabType } from 'src/enums';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
@@ -117,15 +118,15 @@ const List: FC<ListProps> = ({ feedType }) => {
     <Card>
       <Virtuoso
         className="virtual-notification-list"
+        computeItemKey={(index, notification) => `${notification.id}-${index}`}
         data={notifications}
         endReached={onEndReached}
         itemContent={(_, notification) => {
           return (
-            <motion.div
-              animate={{ opacity: 1 }}
-              className="p-5"
-              exit={{ opacity: 0 }}
-              initial={{ opacity: 0 }}
+            <div
+              className={cn({
+                'p-5': notification.__typename !== 'FollowNotification'
+              })}
             >
               {notification.__typename === 'FollowNotification' ? (
                 <FollowNotification
@@ -162,7 +163,7 @@ const List: FC<ListProps> = ({ feedType }) => {
                   notification={notification as ActedNotificationType}
                 />
               ) : null}
-            </motion.div>
+            </div>
           );
         }}
         useWindowScroll

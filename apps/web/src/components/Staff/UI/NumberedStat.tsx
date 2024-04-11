@@ -23,7 +23,7 @@ const NumberedStat: FC<NumberedStatsProps> = ({
         {action && <div>{action}</div>}
       </div>
       <div className="text-xl font-bold tracking-wide">
-        {humanize(parseInt(count))} <span className="text-sm">{suffix}</span>
+        {humanize(Number(count))} <span className="text-sm">{suffix}</span>
       </div>
     </Card>
   );

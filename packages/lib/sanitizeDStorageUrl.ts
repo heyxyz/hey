@@ -11,11 +11,14 @@ const sanitizeDStorageUrl = (hash?: string): string => {
     return '';
   }
 
-  let link = hash.replace(/^Qm[1-9A-Za-z]{44}/gm, `${IPFS_GATEWAY}${hash}`);
-  link = link.replace('https://ipfs.io/ipfs/', IPFS_GATEWAY);
-  link = link.replace('ipfs://ipfs/', IPFS_GATEWAY);
-  link = link.replace('ipfs://', IPFS_GATEWAY);
-  link = link.replace('ar://', ARWEAVE_GATEWAY);
+  const ipfsGateway = `${IPFS_GATEWAY}/`;
+  const arweaveGateway = `${ARWEAVE_GATEWAY}/`;
+
+  let link = hash.replace(/^Qm[1-9A-Za-z]{44}/gm, `${IPFS_GATEWAY}/${hash}`);
+  link = link.replace('https://ipfs.io/ipfs/', ipfsGateway);
+  link = link.replace('ipfs://ipfs/', ipfsGateway);
+  link = link.replace('ipfs://', ipfsGateway);
+  link = link.replace('ar://', arweaveGateway);
 
   return link;
 };

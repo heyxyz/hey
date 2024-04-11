@@ -1,4 +1,5 @@
 import {
+  IPFS_GATEWAY,
   LENS_MEDIA_SNAPSHOT_URL,
   PLACEHOLDER_IMAGE
 } from '@hey/data/constants';
@@ -38,5 +39,13 @@ describe('imageKit', () => {
     const originalUrl = 'https://hey.com/some-image.jpg';
 
     expect(imageKit(originalUrl)).toBe(originalUrl);
+  });
+
+  test('should return the imagekit fallback url if direct ipfs gateway is passed', () => {
+    const originalUrl = `${IPFS_GATEWAY}/bafkreianwlir2groq5l52zdnikon4rtgjcostjosaadbbfekgpzhaprmri`;
+
+    expect(imageKit(originalUrl, 'transformed')).toBe(
+      'https://ik.imagekit.io/lensterimg/fallback/transformed,q-80/https://gw.ipfs-lens.dev/ipfs/bafkreianwlir2groq5l52zdnikon4rtgjcostjosaadbbfekgpzhaprmri'
+    );
   });
 });

@@ -4,7 +4,7 @@ import Footer from '@components/Shared/Footer';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
-import Link from 'next/link';
+import showCrisp from '@lib/showCrisp';
 import { useEffect } from 'react';
 
 const Rules: NextPage = () => {
@@ -78,6 +78,7 @@ const Rules: NextPage = () => {
                   <li>
                     Share excessive amounts of content of any type ("Spam")
                   </li>
+                  <li>Airdrop farming</li>
                 </ul>
                 <p className="leading-7">
                   If your account got suspended, you are not allowed to create
@@ -114,7 +115,8 @@ const Rules: NextPage = () => {
               <div className="mb-5 mt-8 text-xl font-bold">Feedback</div>
               <p className="linkify leading-7">
                 If you have any feedback on these rules or if you have any
-                questions, please <Link href="/support">Contact us</Link>.
+                questions, please{' '}
+                <button onClick={showCrisp}>Contact us</button>.
               </p>
               {/* Feedback ends */}
             </div>

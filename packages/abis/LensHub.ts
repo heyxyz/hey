@@ -57,6 +57,7 @@ export const LensHub = [
   { inputs: [], name: 'InvalidOwner', type: 'error' },
   { inputs: [], name: 'InvalidParameter', type: 'error' },
   { inputs: [], name: 'NonERC721ReceiverImplementer', type: 'error' },
+  { inputs: [], name: 'NotAllowed', type: 'error' },
   { inputs: [], name: 'NotEOA', type: 'error' },
   { inputs: [], name: 'NotGovernance', type: 'error' },
   { inputs: [], name: 'NotHub', type: 'error' },
@@ -1824,6 +1825,17 @@ export const LensHub = [
       { internalType: 'uint256', name: 'tokenId', type: 'uint256' }
     ],
     name: 'transferFrom',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'address', name: 'from', type: 'address' },
+      { internalType: 'address', name: 'to', type: 'address' },
+      { internalType: 'uint256', name: 'tokenId', type: 'uint256' }
+    ],
+    name: 'transferFromKeepingDelegates',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'

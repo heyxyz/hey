@@ -4,7 +4,7 @@ import IndexStatus from '@components/Shared/IndexStatus';
 import { CheckCircleIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { Errors } from '@hey/data';
-import { LENSHUB_PROXY } from '@hey/data/constants';
+import { LENS_HUB } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
 import {
   useBroadcastOnchainMutation,
@@ -22,7 +22,6 @@ import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { hydrateTbaStatus } from 'src/store/persisted/useTbaStatusStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
 interface ToggleLensManagerProps {
@@ -34,13 +33,14 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
 }) => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore(
-    (state) => state
-  );
+  const {
+    decrementLensHubOnchainSigNonce,
+    incrementLensHubOnchainSigNonce,
+    lensHubOnchainSigNonce
+  } = useNonceStore();
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
 
-  const { isTba } = hydrateTbaStatus();
   const { canBroadcast, canUseSignless } =
     checkDispatcherPermissions(currentProfile);
 
@@ -64,11 +64,11 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
     mutation: {
       onError: (error: Error) => {
         onError(error);
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+        decrementLensHubOnchainSigNonce();
       },
       onSuccess: () => {
         onCompleted();
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+        incrementLensHubOnchainSigNonce();
       }
     }
   });
@@ -76,7 +76,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   const write = async ({ args }: { args: any[] }) => {
     return await writeContractAsync({
       abi: LensHub,
-      address: LENSHUB_PROXY,
+      address: LENS_HUB,
       args,
       functionName: 'changeDelegatedExecutorsConfig'
     });
@@ -107,7 +107,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
         ];
         await handleWrongNetwork();
 
-        if (!isTba && canBroadcast) {
+        if (canBroadcast) {
           const signature = await signTypedDataAsync(getSignature(typedData));
           const { data } = await broadcastOnchain({
             variables: { request: { id, signature } }
