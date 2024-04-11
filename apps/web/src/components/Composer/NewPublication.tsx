@@ -329,6 +329,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       }
 
       if (publicationContent.length === 0 && attachments.length === 0) {
+        setIsLoading(false);
         return setPublicationContentError(
           `${
             isComment ? 'Comment' : isQuote ? 'Quote' : 'Post'
