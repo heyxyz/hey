@@ -18,8 +18,8 @@ const getNftChainId = (id: string): string => {
       return 'base-testnet';
     case '137':
       return 'polygon';
-    case '80001':
-      return 'mumbai';
+    case '80002':
+      return 'amoy';
     default:
       return 'ethereum';
   }
