@@ -11,7 +11,7 @@ interface AudioPublication {
 export const DEFAULT_AUDIO_PUBLICATION: AudioPublication = {
   artist: '',
   cover: '',
-  coverMimeType: 'image/jpeg',
+  coverMimeType: '',
   title: ''
 };
 
