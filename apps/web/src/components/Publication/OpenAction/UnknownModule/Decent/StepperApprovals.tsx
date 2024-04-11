@@ -46,7 +46,9 @@ const StepperApprovals: FC<StepperApprovalsProps> = ({
             <p className="text-sm">{nftDetails.creator}</p>
           </div>
         </div>
-        <div className="text-gray-600">{nftDetails.price}</div>
+        <div className="text-gray-600 dark:text-gray-100">
+          {nftDetails.price}
+        </div>
       </div>
       <WarningMessage
         message={

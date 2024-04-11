@@ -66,11 +66,11 @@ const ActionInfo: FC<ActionInfoProps> = ({
           <h2 className="hidden sm:block">
             {truncateByWords(collectionName, 5)}
           </h2>
-          <p className="text-black/50">
+          <p className="opacity-50">
             by {getProfile(data.defaultProfile as Profile).slug}
           </p>
         </span>
-        <p className="text-black/50">
+        <p className="opacity-50">
           {formattedPrice} {defaultCurrency.symbol}
         </p>
       </div>
