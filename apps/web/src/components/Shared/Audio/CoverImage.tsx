@@ -15,7 +15,7 @@ interface CoverImageProps {
   expandCover: (url: string) => void;
   imageRef: Ref<HTMLImageElement>;
   isNew: boolean;
-  setCover: (previewUri: string, url: string) => void;
+  setCover: (previewUri: string, url: string, mimeType: string) => void;
 }
 
 const CoverImage: FC<CoverImageProps> = ({
@@ -38,7 +38,7 @@ const CoverImage: FC<CoverImageProps> = ({
         setIsLoading(true);
         const file = event.target.files[0];
         const attachment = await uploadFileToIPFS(file);
-        setCover(URL.createObjectURL(file), attachment.uri);
+        setCover(URL.createObjectURL(file), attachment.uri, file.type);
       } catch (error) {
         onError(error);
       }
