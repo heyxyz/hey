@@ -1,5 +1,5 @@
 fragment AmountFields on Amount {
-  rate(request: { for: USD }) {
+  asFiat(request: { for: USD }) {
     value
   }
   asset {
