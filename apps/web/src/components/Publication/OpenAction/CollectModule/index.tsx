@@ -65,7 +65,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
   const endTimestamp = collectModule?.endsAt;
   const collectLimit = parseInt(collectModule?.collectLimit || '0');
   const amount = parseFloat(collectModule?.amount?.value || '0');
-  const usdPrice = parseFloat(collectModule?.amount?.rate?.value || '0');
+  const usdPrice = collectModule?.amount?.asFiat?.value;
   const currency = collectModule?.amount?.asset?.symbol;
   const referralFee = collectModule?.referralFee;
   const isMultirecipientFeeCollectModule =
@@ -144,7 +144,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
                 <>
                   <span className="ld-text-gray-500 px-0.5">·</span>
                   <span className="ld-text-gray-500 text-xs font-bold">
-                    ${(amount * usdPrice).toFixed(2)}
+                    ${usdPrice}
                   </span>
                 </>
               ) : null}
