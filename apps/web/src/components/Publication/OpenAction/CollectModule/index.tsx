@@ -23,9 +23,7 @@ import { POLYGONSCAN_URL } from '@hey/data/constants';
 import getAllTokens from '@hey/lib/api/getAllTokens';
 import formatDate from '@hey/lib/datetime/formatDate';
 import formatAddress from '@hey/lib/formatAddress';
-import getAssetSymbol from '@hey/lib/getAssetSymbol';
 import getProfile from '@hey/lib/getProfile';
-import getRedstonePrice from '@hey/lib/getRedstonePrice';
 import getTokenImage from '@hey/lib/getTokenImage';
 import humanize from '@hey/lib/humanize';
 import nFormatter from '@hey/lib/nFormatter';
@@ -67,6 +65,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
   const endTimestamp = collectModule?.endsAt;
   const collectLimit = parseInt(collectModule?.collectLimit || '0');
   const amount = parseFloat(collectModule?.amount?.value || '0');
+  const usdPrice = parseFloat(collectModule?.amount?.rate?.value || '0');
   const currency = collectModule?.amount?.asset?.symbol;
   const referralFee = collectModule?.referralFee;
   const isMultirecipientFeeCollectModule =
@@ -80,12 +79,6 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
   const isAllCollected = collectLimit
     ? countOpenActions >= collectLimit
     : false;
-
-  const { data: usdPrice } = useQuery({
-    enabled: Boolean(amount),
-    queryFn: async () => await getRedstonePrice(getAssetSymbol(currency)),
-    queryKey: ['getRedstonePrice', currency]
-  });
 
   return (
     <>
