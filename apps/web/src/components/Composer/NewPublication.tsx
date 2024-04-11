@@ -323,6 +323,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         const parsedData = AudioPublicationSchema.safeParse(audioPublication);
         if (!parsedData.success) {
           const issue = parsedData.error.issues[0];
+          setIsLoading(false);
           return setPublicationContentError(issue.message);
         }
       }
