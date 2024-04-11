@@ -84,9 +84,9 @@ const Audio: FC<AudioProps> = ({
           expandCover={expandCover}
           imageRef={imageRef}
           isNew={isNew}
-          setCover={(previewUri, cover, coverMimeType) => {
+          setCover={(previewUri, cover, mimeType) => {
             setNewPreviewUri(previewUri);
-            setAudioPublication({ ...audioPublication, cover, coverMimeType });
+            setAudioPublication({ ...audioPublication, cover, mimeType });
           }}
         />
         <div className="flex w-full flex-col justify-between truncate py-1 md:px-3">
