@@ -4,14 +4,14 @@ import { create } from 'zustand';
 interface AudioPublication {
   artist: string;
   cover: string;
-  coverMimeType: string;
+  mimeType: string;
   title: string;
 }
 
 export const DEFAULT_AUDIO_PUBLICATION: AudioPublication = {
   artist: '',
   cover: '',
-  coverMimeType: '',
+  mimeType: '',
   title: ''
 };
 
