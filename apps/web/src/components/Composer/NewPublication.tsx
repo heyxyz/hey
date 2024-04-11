@@ -45,7 +45,10 @@ import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCo
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationAttributesStore } from 'src/store/non-persisted/publication/usePublicationAttributesStore';
-import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
+import {
+  DEFAULT_AUDIO_PUBLICATION,
+  usePublicationAudioStore
+} from 'src/store/non-persisted/publication/usePublicationAudioStore';
 import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
 import { usePublicationLiveStore } from 'src/store/non-persisted/publication/usePublicationLiveStore';
 import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
@@ -121,7 +124,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   } = usePublicationStore();
 
   // Audio store
-  const { audioPublication } = usePublicationAudioStore();
+  const { audioPublication, setAudioPublication } = usePublicationAudioStore();
 
   // Video store
   const { setVideoThumbnail, videoThumbnail } = usePublicationVideoStore();
@@ -197,6 +200,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       uploading: false,
       url: ''
     });
+    setAudioPublication(DEFAULT_AUDIO_PUBLICATION);
     setLicense(null);
     resetAttributes();
     resetOpenActionSettings();

@@ -1,28 +1,27 @@
 import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 
+interface AudioPublication {
+  artist: string;
+  cover: string;
+  coverMimeType: string;
+  title: string;
+}
+
+export const DEFAULT_AUDIO_PUBLICATION: AudioPublication = {
+  artist: '',
+  cover: '',
+  coverMimeType: 'image/jpeg',
+  title: ''
+};
+
 interface State {
-  audioPublication: {
-    artist: string;
-    cover: string;
-    coverMimeType: string;
-    title: string;
-  };
-  setAudioPublication: (audioPublication: {
-    artist: string;
-    cover: string;
-    coverMimeType: string;
-    title: string;
-  }) => void;
+  audioPublication: AudioPublication;
+  setAudioPublication: (audioPublication: AudioPublication) => void;
 }
 
 const store = create<State>((set) => ({
-  audioPublication: {
-    artist: '',
-    cover: '',
-    coverMimeType: 'image/jpeg',
-    title: ''
-  },
+  audioPublication: DEFAULT_AUDIO_PUBLICATION,
   setAudioPublication: (audioPublication) => set(() => ({ audioPublication }))
 }));
 
