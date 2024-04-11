@@ -8,8 +8,8 @@ const getAlchemyNetwork = (chain: number): Network => {
       return Network.ETH_GOERLI;
     case 137:
       return Network.MATIC_MAINNET;
-    case 80001:
-      return Network.MATIC_MUMBAI;
+    case 80002:
+      return Network.MATIC_AMOY;
     default:
       return Network.ETH_MAINNET;
   }

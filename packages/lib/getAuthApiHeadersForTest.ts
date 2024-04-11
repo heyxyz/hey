@@ -8,7 +8,7 @@ import LensEndpoint from '@hey/data/lens-endpoints';
 import { AuthenticateDocument, ChallengeDocument } from '@hey/lens';
 import { createWalletClient, http } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
-import { polygonMumbai } from 'viem/chains';
+import { polygonAmoy } from 'viem/chains';
 
 const httpLink = new HttpLink({
   fetch,
@@ -26,7 +26,7 @@ const getAuthApiHeadersForTest = async () => {
   const account = privateKeyToAccount(TEST_PK);
   const client = createWalletClient({
     account,
-    chain: polygonMumbai,
+    chain: polygonAmoy,
     transport: http()
   });
 
