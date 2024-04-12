@@ -17,6 +17,14 @@ runs:
       shell: bash
       run: pnpm install --frozen-lockfile
 
+    - name: Setup Env 🌐
+      shell: bash
+      run: |
+        cd apps/web; cp .env.example .env
+        cd ../../
+        cd apps/api; cp .env.example .env
+        cd ../../
+
     - name: Codgen 🧬
       shell: bash
       run: pnpm codegen
