@@ -69,7 +69,7 @@ const Tip: FC<TipProps> = ({ publication, showCount }) => {
         </Popover.Button>
         <MenuTransition>
           <Popover.Panel
-            className="absolute z-[5] mt-1 w-max rounded-xl border bg-white p-5 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+            className="absolute z-[5] mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
             static
           >
             {({ close }) => (
