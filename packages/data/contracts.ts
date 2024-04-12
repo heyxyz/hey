@@ -10,8 +10,8 @@ export enum MainnetContracts {
 export enum TestnetContracts {
   DefaultToken = '0x3d2bD0e15829AA5C362a4144FdF4A1112fa29B5c',
   HeyLensSignup = '0x82Bcb5DA51c6F3D0Ce942bDBEbb0B8A7774d62e8',
-  LensHandles = '0x44e1668150A154f01D53d1f05B8Fa0d8f3f341a9',
-  LensHub = '0x4fbffF20302F3326B20052ab9C217C44F6480900',
-  PermissionlessCreator = '0x1f31b40cc73be8364e9ab7bbd7728621265fbb16',
-  TokenHandleRegistry = '0x66cA05cAc4e8D543028192dD28C0570a0b6e3413'
+  LensHandles = '0xf6fDD7932219D64f267E4BfaF8d19774526d31D9',
+  LensHub = '0xA2574D9DdB6A325Ad2Be838Bd854228B80215148',
+  PermissionlessCreator = '0x36440da1D98FF46637f0b98AAA082bc77977B49B',
+  TokenHandleRegistry = '0x24360dc6Af3c0b37baA8B0aaDD5BcA11C1a1389A'
 }

@@ -2,7 +2,7 @@ const hre = require('hardhat');
 
 async function deployProxy() {
   const owner = '0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF';
-  // Amoy: 0x1F31b40cc73bE8364E9AB7Bbd7728621265FBB16
+  // Amoy: 0x36440da1D98FF46637f0b98AAA082bc77977B49B
   // Mainnet: 0x0b5e6100243f793e480DE6088dE6bA70aA9f3872
   const lensPermissionlessCreator =
     '0x0b5e6100243f793e480DE6088dE6bA70aA9f3872';
