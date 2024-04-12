@@ -6,9 +6,10 @@ import usePreventScrollOnNumberInput from 'src/hooks/usePreventScrollOnNumberInp
 
 interface ActionProps {
   publication: AnyPublication;
+  triggerConfetti: () => void;
 }
 
-const Action: FC<ActionProps> = ({ publication }) => {
+const Action: FC<ActionProps> = ({ publication, triggerConfetti }) => {
   const [amount, setAmount] = useState(50);
   const [other, setOther] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -72,7 +73,11 @@ const Action: FC<ActionProps> = ({ publication }) => {
           />
         </div>
       ) : null}
-      <Button className="w-full" disabled={amount <= 0}>
+      <Button
+        className="w-full"
+        disabled={amount <= 0}
+        onClick={triggerConfetti}
+      >
         Tip {amount} BONSAI
       </Button>
     </div>
