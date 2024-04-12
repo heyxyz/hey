@@ -10,7 +10,7 @@ import createClickhouseClient from 'src/lib/createClickhouseClient';
 import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
 import { createWalletClient, http } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
-import { polygon, polygonMumbai } from 'viem/chains';
+import { polygon, polygonAmoy } from 'viem/chains';
 import { boolean, number, object, string } from 'zod';
 
 type ExtensionRequest = {
@@ -95,7 +95,7 @@ export const post: Handler = async (req, res) => {
 
     const client = createWalletClient({
       account,
-      chain: test_mode ? polygonMumbai : polygon,
+      chain: test_mode ? polygonAmoy : polygon,
       transport: http()
     });
 
