@@ -9,14 +9,14 @@ describe('frame/post', () => {
       `${TEST_URL}/frame/post`,
       {
         buttonIndex: 1,
-        postUrl: '', // TODO: Lens Open Frame with of:accepts:lens tag
+        postUrl:
+          'https://lens-guestbook-frame.vercel.app/guestbooks/ee8486ff-57bd-4549-8576-d44bae2526b0',
         publicationId: '0x00-0x00'
       },
       { headers: await getAuthApiHeadersForTest() }
     );
 
-    expect(response.data.portal.version).toEqual('vLatest');
-    expect(response.data.portal.buttons[0].button).toEqual('A');
-    expect(response.data.portal.buttons[0].action).toEqual('post');
+    expect(response.data.frame.version).toEqual('1.0.0');
+    expect(response.data.frame.buttons[0].button).toEqual('Sign Guestbook');
   });
 });
