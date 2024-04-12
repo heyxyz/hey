@@ -12,7 +12,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@apollo/client": "^3.9.10",
+    "@apollo/client": "^3.9.11",
     "@hey/data": "workspace:*",
     "@hey/lens": "workspace:*",
     "@hey/types": "workspace:*",
@@ -20,12 +20,12 @@
     "dayjs": "^1.11.10",
     "omit-deep": "^0.3.0",
     "urlcat": "^3.1.0",
-    "viem": "^2.9.13"
+    "viem": "^2.9.16"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
     "@types/omit-deep": "^0.3.2",
-    "typescript": "^5.4.4",
-    "vitest": "^1.4.0"
+    "typescript": "^5.4.5",
+    "vitest": "^1.5.0"
   }
 }
