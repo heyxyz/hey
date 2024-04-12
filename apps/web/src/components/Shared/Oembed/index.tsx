@@ -55,7 +55,7 @@ const Oembed: FC<OembedProps> = ({ publicationId, url }) => {
         <Player og={og} />
       ) : og.nft ? (
         <Nft nft={og.nft} publicationId={publicationId} />
-      ) : og.portal ? (
+      ) : og.frame ? (
         <Frame frame={og.frame} publicationId={publicationId} />
       ) : (
         <Embed og={og} publicationId={publicationId} />

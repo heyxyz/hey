@@ -66,7 +66,7 @@ export const post: Handler = async (req, res) => {
 
     const { document } = parseHTML(data);
 
-    logger.info(`Portal button clicked by ${id} on ${postUrl}`);
+    logger.info(`Open frame button clicked by ${id} on ${postUrl}`);
 
     return res.status(200).json({ frame: getFrame(document), success: true });
   } catch (error) {
