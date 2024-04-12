@@ -188,7 +188,29 @@ const bridgeAbi = [
   { internalType: 'bytes', name: 'signature', type: 'bytes' }
 ] as const;
 
-export const updateWraperParams = ({
+export const permit2SignatureAmount = ({
+  chainId,
+  data
+}: {
+  chainId: number;
+  data: Hex;
+}) => {
+  console.log('BRIDGEABI');
+  console.log(bridgeAbi);
+  console.log('DATA');
+  console.log(data);
+  if (chainId != polygon.id) {
+    const decoded = decodeAbiParameters(bridgeAbi, data);
+    const tokenWrapperInstructions = decoded[0];
+    return tokenWrapperInstructions.amountIn;
+  } else {
+    const decoded = decodeAbiParameters(swapAbi, data);
+    const tokenWrapperInstructions = decoded[0];
+    return tokenWrapperInstructions.amountIn;
+  }
+};
+
+export const updateWrapperParams = ({
   chainId,
   data,
   deadline,
@@ -203,24 +225,24 @@ export const updateWraperParams = ({
 }) => {
   if (chainId != polygon.id) {
     const decoded = decodeAbiParameters(bridgeAbi, data);
-    const tokenWraperInstructions = decoded[0];
-    tokenWraperInstructions.nonce = nonce;
-    tokenWraperInstructions.signature = signature;
-    tokenWraperInstructions.deadline = deadline;
+    const tokenWrapperInstructions = decoded[0];
+    tokenWrapperInstructions.nonce = nonce;
+    tokenWrapperInstructions.signature = signature;
+    tokenWrapperInstructions.deadline = deadline;
     return encodeAbiParameters(bridgeAbi, [
-      tokenWraperInstructions,
+      tokenWrapperInstructions,
       decoded[1],
       decoded[2],
       decoded[3]
     ]);
   } else {
     const decoded = decodeAbiParameters(swapAbi, data);
-    const tokenWraperInstructions = decoded[0];
-    tokenWraperInstructions.nonce = nonce;
-    tokenWraperInstructions.signature = signature;
-    tokenWraperInstructions.deadline = deadline;
+    const tokenWrapperInstructions = decoded[0];
+    tokenWrapperInstructions.nonce = nonce;
+    tokenWrapperInstructions.signature = signature;
+    tokenWrapperInstructions.deadline = deadline;
     return encodeAbiParameters(swapAbi, [
-      tokenWraperInstructions,
+      tokenWrapperInstructions,
       decoded[1],
       decoded[2],
       decoded[3]

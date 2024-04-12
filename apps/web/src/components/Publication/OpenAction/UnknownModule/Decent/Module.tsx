@@ -24,8 +24,9 @@ import getProfile from '@hey/lib/getProfile';
 import getRedstonePrice from '@hey/lib/getRedstonePrice';
 import {
   getPermit2Allowance,
+  permit2SignatureAmount,
   signPermitSignature,
-  updateWraperParams
+  updateWrapperParams
 } from '@hey/lib/permit2';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import truncateByWords from '@hey/lib/truncateByWords';
@@ -161,22 +162,28 @@ const formattedTotalFees = (
   };
 
   const approveOA = async () => {
-    const permit2Signature = await signPermitSignature(
-      walletClient,
-      BigInt(Math.floor(amount * 1.1 * 10 ** selectedCurrency.decimals)),
-      assetAddress as `0x${string}`
-    );
-    setPermit2Data({
-      deadline: permit2Signature.deadline,
-      nonce: permit2Signature.nonce,
-      signature: permit2Signature.signature
-    });
-    setIsModalCollapsed(false);
+    if (!!walletClient && !!actionData) {
+      const signatureAmount = permit2SignatureAmount({
+        chainId: 10, // TODO: dstChainID, fetch from actionData bridge out token
+        data: actionData.actArguments.actionModuleData
+      });
+      const permit2Signature = await signPermitSignature(
+        walletClient,
+        signatureAmount,
+        assetAddress as `0x${string}`
+      );
+      setPermit2Data({
+        deadline: permit2Signature.deadline,
+        nonce: permit2Signature.nonce,
+        signature: permit2Signature.signature
+      });
+      setIsModalCollapsed(false);
+    }
   };
 
   const act = async () => {
     if (actionData && !!publication && !!permit2Data) {
-      const updatedCalldata = await updateWraperParams({
+      const updatedCalldata = await updateWrapperParams({
         chainId: 10, // TODO: dstChainID, fetch from actionData bridge out token
         data: actionData.actArguments.actionModuleData,
         deadline: BigInt(permit2Data.deadline),
