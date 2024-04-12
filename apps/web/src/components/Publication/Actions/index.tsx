@@ -1,12 +1,14 @@
 import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
+import getPublicationTipCountById from '@hey/lib/getPublicationTipCountById';
 import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
 import isOpenActionAllowed from '@hey/lib/isOpenActionAllowed';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { memo } from 'react';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
+import { useTipsStore } from 'src/store/non-persisted/useTipsStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
@@ -33,6 +35,7 @@ const PublicationActions: FC<PublicationActionsProps> = ({
   const { currentProfile } = useProfileStore();
   const { gardenerMode } = useFeatureFlagsStore();
   const { publicationViews } = useImpressionsStore();
+  const { publicationTips } = useTipsStore();
   const hasOpenAction = (targetPublication.openActionModules?.length || 0) > 0;
 
   const canMirror = currentProfile
@@ -42,6 +45,10 @@ const PublicationActions: FC<PublicationActionsProps> = ({
     hasOpenAction && isOpenActionAllowed(targetPublication.openActionModules);
   const views = getPublicationViewCountById(
     publicationViews,
+    targetPublication.id
+  );
+  const tips = getPublicationTipCountById(
+    publicationTips,
     targetPublication.id
   );
 
@@ -58,7 +65,7 @@ const PublicationActions: FC<PublicationActionsProps> = ({
       {canAct ? (
         <OpenAction publication={publication} showCount={showCount} />
       ) : null}
-      <Tip publication={publication} showCount={showCount} />
+      <Tip publication={publication} showCount={showCount} tips={tips} />
       {views > 0 ? <Views showCount={showCount} views={views} /> : null}
       {gardenerMode ? (
         <Mod isFullPublication={showCount} publication={targetPublication} />
