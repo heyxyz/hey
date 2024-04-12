@@ -10,7 +10,6 @@ import type { Address } from 'viem';
 
 import ActionInfo from '@components/Shared/Oembed/Nft/ActionInfo';
 import DecentOpenActionShimmer from '@components/Shared/Shimmer/DecentOpenActionShimmer';
-import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import getNftChainInfo from '@hey/lib/getNftChainInfo';
@@ -66,7 +65,7 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({
   const [actionData, setActionData] = useState<ActionData>();
   const [showOpenActionModal, setShowOpenActionModal] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState<AllowedToken>({
-    contractAddress: DEFAULT_COLLECT_TOKEN,
+    contractAddress: '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270',
     decimals: 18,
     id: 'WMATIC',
     name: 'Wrapped MATIC',
