@@ -12,6 +12,7 @@ import { LimitType, usePublicationBookmarksQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { Virtuoso } from 'react-virtuoso';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
+import { useTipsStore } from 'src/store/non-persisted/useTipsStore';
 
 interface FeedProps {
   focus?: PublicationMetadataMainFocusType;
@@ -19,6 +20,7 @@ interface FeedProps {
 
 const Feed: FC<FeedProps> = ({ focus }) => {
   const { fetchAndStoreViews } = useImpressionsStore();
+  const { fetchAndStoreTips } = useTipsStore();
 
   // Variables
   const request: PublicationBookmarksRequest = {
@@ -33,6 +35,7 @@ const Feed: FC<FeedProps> = ({ focus }) => {
           return p.__typename === 'Mirror' ? p.mirrorOn?.id : p.id;
         }) || [];
       await fetchAndStoreViews(ids);
+      await fetchAndStoreTips(ids);
     },
     variables: { request }
   });
@@ -54,6 +57,7 @@ const Feed: FC<FeedProps> = ({ focus }) => {
         return p.__typename === 'Mirror' ? p.mirrorOn?.id : p.id;
       }) || [];
     await fetchAndStoreViews(ids);
+    await fetchAndStoreTips(ids);
   };
 
   if (loading) {

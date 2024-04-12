@@ -17,6 +17,7 @@ import {
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { Virtuoso } from 'react-virtuoso';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
+import { useTipsStore } from 'src/store/non-persisted/useTipsStore';
 
 interface FeedProps {
   feedType?: ExplorePublicationsOrderByType;
@@ -28,6 +29,7 @@ const Feed: FC<FeedProps> = ({
   focus
 }) => {
   const { fetchAndStoreViews } = useImpressionsStore();
+  const { fetchAndStoreTips } = useTipsStore();
 
   // Variables
   const request: ExplorePublicationRequest = {
@@ -43,6 +45,7 @@ const Feed: FC<FeedProps> = ({
     onCompleted: async ({ explorePublications }) => {
       const ids = explorePublications?.items?.map((p) => p.id) || [];
       await fetchAndStoreViews(ids);
+      await fetchAndStoreTips(ids);
     },
     variables: { request }
   });
@@ -61,6 +64,7 @@ const Feed: FC<FeedProps> = ({
     });
     const ids = data?.explorePublications?.items?.map((p) => p.id) || [];
     await fetchAndStoreViews(ids);
+    await fetchAndStoreTips(ids);
   };
 
   if (loading) {
