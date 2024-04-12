@@ -238,6 +238,12 @@ importers:
       '@livepeer/react':
         specifier: 3.1.9
         version: 3.1.9(@types/react-dom@18.2.25)(@types/react@18.2.77)(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)
+      '@prosekit/lit':
+        specifier: ^0.2.8
+        version: 0.2.8
+      '@prosekit/react':
+        specifier: ^0.2.7
+        version: 0.2.7(@types/react@18.2.77)(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-hover-card':
         specifier: ^1.0.7
         version: 1.0.7(@types/react-dom@18.2.25)(@types/react@18.2.77)(react-dom@18.2.0)(react@18.2.0)
@@ -307,6 +313,9 @@ importers:
       plyr-react:
         specifier: ^5.3.0
         version: 5.3.0(plyr@3.7.8)(react@18.2.0)
+      prosekit:
+        specifier: ^0.5.3
+        version: 0.5.3(@types/react@18.2.77)(react-dom@18.2.0)(react@18.2.0)
       rc-slider:
         specifier: ^10.5.0
         version: 10.5.0(react-dom@18.2.0)(react@18.2.0)
@@ -851,6 +860,38 @@ packages:
     transitivePeerDependencies:
       - encoding
     dev: true
+
+  /@aria-ui/core@0.0.9:
+    resolution: {integrity: sha512-kRVa9SvPzA+MttSK8L83FUsxZ+FVA07ui0udLrKqfHIo6Ved2C1EIwJwOwODZjUQTxAa4s7N5j9CrEEARTJWXw==}
+    dependencies:
+      '@dddstack/ariatype-aria-attributes': 2.0.0
+      '@dddstack/ariatype-aria-roles': 2.0.0
+      '@preact/signals-core': 1.6.0
+    dev: false
+
+  /@aria-ui/overlay@0.0.9:
+    resolution: {integrity: sha512-BRBIg3xb47JZjJjK4jhimLbv3it2LeM+75MA/RRQNtab+nMylm7BcjxJEWHcyd47KXlX9bEbLvjiOB2XuLaq9A==}
+    dependencies:
+      '@aria-ui/core': 0.0.9
+      '@floating-ui/dom': 1.6.3
+      '@zag-js/dom-query': 0.41.0
+    dev: false
+
+  /@aria-ui/popover@0.0.7:
+    resolution: {integrity: sha512-JrPUXe/6RH0qj2bKk3yQAa9ENGfU1lLjnTpW/IThyr5qp+nCGI5zLyl9DlJNIQHEFCA+36Sj7h8W3sT0+LU9qA==}
+    dependencies:
+      '@aria-ui/core': 0.0.9
+      '@aria-ui/overlay': 0.0.9
+      '@aria-ui/presence': 0.0.4
+      '@zag-js/dismissable': 0.41.0
+      '@zag-js/tabbable': 0.41.0
+    dev: false
+
+  /@aria-ui/presence@0.0.4:
+    resolution: {integrity: sha512-yxBZBh6TXWJ598KrrhSWTBf1uiOqMnSc6m7MCiSrNeDv040UeGG0eQOFWUU/CRHs5NIhVBaW/LggFThzUczB8A==}
+    dependencies:
+      '@aria-ui/core': 0.0.9
+    dev: false
 
   /@aws-crypto/crc32@3.0.0:
     resolution: {integrity: sha512-IzSgsrxUcsrejQbPVilIKy16kAT52EwB6zSaI+M3xxIhKh5+aldEyvI+z6erM7TCLB2BJsFrtHjp6/4/sr+3dA==}
@@ -2982,6 +3023,88 @@ packages:
       '@jridgewell/trace-mapping': 0.3.9
     dev: true
 
+  /@dddstack/ariatype-aria-attributes-drag-and-drop@2.0.0:
+    resolution: {integrity: sha512-sPtyhpHfnxWhzuK6oIWddX32Sirfi74LOaMdQ2x/LkphQe1STvEe7jnSD+k3SWQ8gv/DzFhacS/OwyMXlc6lnA==}
+    dev: false
+
+  /@dddstack/ariatype-aria-attributes-global@2.0.0:
+    resolution: {integrity: sha512-4pNlL89Gj7IgLBnDJAw8EhCTPSefV3zcejXCwikRob6WlDlKI2zQRbKynzmKqK1V3VFkyCX662FBpUWm3p1gEg==}
+    dev: false
+
+  /@dddstack/ariatype-aria-attributes-live-region@2.0.0:
+    resolution: {integrity: sha512-sTMnDbgDFcY/WB8sQdqH6vurd2dt+SnoV1rgzqZh8QlOAbaVtzJuPpXV39SnhUBKlBOV2hC23XLelki5jOplWA==}
+    dev: false
+
+  /@dddstack/ariatype-aria-attributes-relationship@2.0.0:
+    resolution: {integrity: sha512-4G5EI9iJ6KJnR038kYiyj5veunXx0zDo/6mlZnkZ4lI2qafVTAmoyUEYRuvMQEkaUBGb2CeDRK4UX036DV/Xwg==}
+    dev: false
+
+  /@dddstack/ariatype-aria-attributes-widget@2.0.0:
+    resolution: {integrity: sha512-ILeZ94JgQ0nzpaVsc0iyTdGf8bjqF2UAJ0W+So2lRl9iLmtmt2HGnNJMysj+s4YCempun5NN8xvjpyI21lhvoQ==}
+    dev: false
+
+  /@dddstack/ariatype-aria-attributes@2.0.0:
+    resolution: {integrity: sha512-LaTn6dfD3wBQB39lbBA7zc7eAX6e10yFPnvH/I0CkX72JqfXaybme/mn6t0vwNwNtGOpWxoD9JISuAwtX/uFhA==}
+    dependencies:
+      '@dddstack/ariatype-aria-attributes-drag-and-drop': 2.0.0
+      '@dddstack/ariatype-aria-attributes-global': 2.0.0
+      '@dddstack/ariatype-aria-attributes-live-region': 2.0.0
+      '@dddstack/ariatype-aria-attributes-relationship': 2.0.0
+      '@dddstack/ariatype-aria-attributes-widget': 2.0.0
+    dev: false
+
+  /@dddstack/ariatype-aria-roles-composite@2.0.0:
+    resolution: {integrity: sha512-NKb3ZtoZXQvwH7YbpoW/OW0oLNFlynOYiNSd+o4LIfKydBNPy1qHVc6XPerAocSGwWR3gef/NqGg+F1Pb89/Ig==}
+    dependencies:
+      '@dddstack/ariatype-aria-roles-generic': 2.0.0
+    dev: false
+
+  /@dddstack/ariatype-aria-roles-document-structure@2.0.0:
+    resolution: {integrity: sha512-Bcx30ymR40Ry8QvxL1au4OKggDesE2NcQ070teLdFNy44GFrNRjsZEbuLBklRxny8rmusoaDPRdaeX7FvXBUyg==}
+    dependencies:
+      '@dddstack/ariatype-aria-roles-generic': 2.0.0
+    dev: false
+
+  /@dddstack/ariatype-aria-roles-generic@2.0.0:
+    resolution: {integrity: sha512-FmPtcV5bYdYRgQAEMoWDJb7yJVQtt2XxDVPWjEllb3ClEMzo/WTSztFaEBZyU60JxhDDqmdcRAwpV8aZVRBBNQ==}
+    dev: false
+
+  /@dddstack/ariatype-aria-roles-landmark@2.0.0:
+    resolution: {integrity: sha512-jMulAkMBoxpkcaax7jp22tUOSLWPX+27fRZ40VlI2J5BM7/su9rVEqaAlZY7A7l+p3qq90Xc1XC3yMusxKmtsQ==}
+    dependencies:
+      '@dddstack/ariatype-aria-roles-generic': 2.0.0
+    dev: false
+
+  /@dddstack/ariatype-aria-roles-live-region@2.0.0:
+    resolution: {integrity: sha512-9lFnJeHu0c+U5Fz7S2qhzp1dvRbRAqQFi+9Gxx3ENvWOGYYAvDOa9zXyyVDMSj5G9MmLFulRCf6Awe90ISy+Jg==}
+    dependencies:
+      '@dddstack/ariatype-aria-roles-generic': 2.0.0
+    dev: false
+
+  /@dddstack/ariatype-aria-roles-widget@2.0.0:
+    resolution: {integrity: sha512-Alxl7cvfOLi1fpfk5PENjzeyY6hbSsr44+xIPpd7+VHdee0qpDI0x92sLiXcCTCsOR5KpGBCkOHQxOqUCUoWIQ==}
+    dependencies:
+      '@dddstack/ariatype-aria-roles-generic': 2.0.0
+    dev: false
+
+  /@dddstack/ariatype-aria-roles-window@2.0.0:
+    resolution: {integrity: sha512-PHyVqw32xnXsxGp4DSHiii0L6HxLblmCkRrnvI/LykzZtQ0EeCYE3VAMzx1XG/BGl/oKQJP/my0K2D6ZknMFpg==}
+    dependencies:
+      '@dddstack/ariatype-aria-roles-generic': 2.0.0
+    dev: false
+
+  /@dddstack/ariatype-aria-roles@2.0.0:
+    resolution: {integrity: sha512-/TOgMxehpTq3+kBoYvnG53iAeJH3y9TWlMO8Aroc19P4zqq8OHYlJzIQxMtKa9LhvdK7Z8Kcr1f4WDhW7Rd4dw==}
+    dependencies:
+      '@dddstack/ariatype-aria-roles-composite': 2.0.0
+      '@dddstack/ariatype-aria-roles-document-structure': 2.0.0
+      '@dddstack/ariatype-aria-roles-generic': 2.0.0
+      '@dddstack/ariatype-aria-roles-landmark': 2.0.0
+      '@dddstack/ariatype-aria-roles-live-region': 2.0.0
+      '@dddstack/ariatype-aria-roles-widget': 2.0.0
+      '@dddstack/ariatype-aria-roles-window': 2.0.0
+    dev: false
+
   /@emotion/babel-plugin@11.11.0:
     resolution: {integrity: sha512-m4HEDZleaaCH+XgDDsPF15Ht6wTLsgDTeR3WYj9Q/k76JtWhrJjcP4+/XlG8LGT/Rol9qUfOIztXeA84ATpqPQ==}
     dependencies:
@@ -5044,8 +5167,28 @@ packages:
     resolution: {integrity: sha512-yWJKmpGE6lUURKAaIltoPIE/wrbY3TEkqQt+X0m+7fQNnAv0keydnYvbiJFP1PnMhizmIWRWOG5KLhYyc/xl+g==}
     dev: false
 
+  /@lit/context@1.1.0:
+    resolution: {integrity: sha512-fCyv4dsH05wCNm3AKbB+PdYbXGJd/XT8OOwo4hVmD4COq5wOWJlQreGAMDvmHZ7osqxuu06Y4nmP6ooXpN7ErA==}
+    dependencies:
+      '@lit/reactive-element': 2.0.4
+    dev: false
+
+  /@lit/react@1.0.4(@types/react@18.2.77):
+    resolution: {integrity: sha512-6HBvk3AwF46z17fTkZp5F7/EdCJW9xqqQgYKr3sQGgoEJv0TKV1voWydG4UQQA2RWkoD4SHjy08snSpzyoyd0w==}
+    peerDependencies:
+      '@types/react': 17 || 18
+    dependencies:
+      '@types/react': 18.2.77
+    dev: false
+
   /@lit/reactive-element@1.6.3:
     resolution: {integrity: sha512-QuTgnG52Poic7uM1AN5yJ09QMe0O28e10XzSvWDz02TJiiKee4stsiownEIadWm8nYzyDAyT+gKzUoZmiWQtsQ==}
+    dependencies:
+      '@lit-labs/ssr-dom-shim': 1.2.0
+    dev: false
+
+  /@lit/reactive-element@2.0.4:
+    resolution: {integrity: sha512-GFn91inaUa2oHLak8awSIigYz0cU0Payr1rcFsrkf5OJ5eSPxElyZfKh0f2p9FsTiZWXQdWGJeXZICEfXXYSXQ==}
     dependencies:
       '@lit-labs/ssr-dom-shim': 1.2.0
     dev: false
@@ -6289,6 +6432,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
+      napi-wasm: 1.1.0
     dev: false
     bundledDependencies:
       - napi-wasm
@@ -6377,6 +6521,10 @@ packages:
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
     dev: true
 
+  /@preact/signals-core@1.6.0:
+    resolution: {integrity: sha512-O/XGxwP85h1F7+ouqTMOIZ3+V1whfaV9ToIVcuyGriD4JkSD00cQo54BKdqjvBJxbenvp7ynfqRHEwI6e+NIhw==}
+    dev: false
+
   /@prisma/client@5.12.1(prisma@5.12.1):
     resolution: {integrity: sha512-6/JnizEdlSBxDIdiLbrBdMW5NqDxOmhXAJaNXiPpgzAPr/nLZResT6MMpbOHLo5yAbQ1Vv5UU8PTPRzb0WIxdA==}
     engines: {node: '>=16.13'}
@@ -6416,6 +6564,225 @@ packages:
     resolution: {integrity: sha512-pgIR+pSvhYHiUcqXVEZS31NrFOTENC9yFUdEAcx7cdQBoZPmHVjtjN4Ss6NzVDMYPrKJJ51U14EhEoeuBlMioQ==}
     dependencies:
       '@prisma/debug': 5.12.1
+
+  /@prosekit/basic@0.3.4:
+    resolution: {integrity: sha512-75aezW5iEiwOnWhF0gRdI1XoYpH/gKbxitEAFIlpJgoiu5OC8HnOd8qIdoXYWoBKcPsFg6kBlaGE0ct1K52DaA==}
+    dependencies:
+      '@prosekit/core': 0.4.0
+      '@prosekit/extensions': 0.4.2
+      '@prosekit/pm': 0.1.2
+    transitivePeerDependencies:
+      - '@types/hast'
+      - highlight.js
+      - lowlight
+      - prosemirror-model
+      - prosemirror-state
+      - prosemirror-transform
+      - prosemirror-view
+      - refractor
+      - shikiji
+    dev: false
+
+  /@prosekit/core@0.4.0:
+    resolution: {integrity: sha512-gqTGk3gH44O2tJ+qY2pyoy+aCt13KnzrtYAMpti2yciuHfCX/mhUFD8hlqbbzA3Na2HX8S8SI2x2/F2vzlI+dg==}
+    dependencies:
+      '@prosekit/pm': 0.1.2
+      clsx: 2.1.0
+      orderedmap: 2.1.1
+      type-fest: 4.15.0
+    dev: false
+
+  /@prosekit/extensions@0.4.2:
+    resolution: {integrity: sha512-4kXQx7ahUQUC6c4XA8jrKFDbqj5yqXtE+RaBC5f6o+sQmeLTn+0KGVz2Am+EZC77EeoDZk4s063hCMzeQnqYsg==}
+    dependencies:
+      '@prosekit/core': 0.4.0
+      '@prosekit/pm': 0.1.2
+      prosemirror-dropcursor: 1.8.1
+      prosemirror-flat-list: 0.4.6
+      prosemirror-highlight: 0.5.0(shiki@1.3.0)
+      prosemirror-tables: 1.3.7
+      shiki: 1.3.0
+    transitivePeerDependencies:
+      - '@types/hast'
+      - highlight.js
+      - lowlight
+      - prosemirror-model
+      - prosemirror-state
+      - prosemirror-transform
+      - prosemirror-view
+      - refractor
+      - shikiji
+    dev: false
+
+  /@prosekit/lit@0.2.8:
+    resolution: {integrity: sha512-fJWXias3uJl59rkWSZDJcHEOsSegOs6yZoHHfp0y77jLcwrcQST85QOviMoQsDb9+sJ4Mj3kX0zxakIAg/MxUA==}
+    dependencies:
+      '@aria-ui/core': 0.0.9
+      '@aria-ui/popover': 0.0.7
+      '@floating-ui/dom': 1.6.3
+      '@lit/context': 1.1.0
+      '@prosekit/core': 0.4.0
+      '@prosekit/extensions': 0.4.2
+      '@prosekit/pm': 0.1.2
+      '@superhuman/command-score': 0.5.0
+      '@zag-js/dismissable': 0.41.0
+      '@zag-js/dom-query': 0.41.0
+      '@zag-js/utils': 0.41.0
+      lit: 3.1.2
+    transitivePeerDependencies:
+      - '@types/hast'
+      - highlight.js
+      - lowlight
+      - prosemirror-model
+      - prosemirror-state
+      - prosemirror-transform
+      - prosemirror-view
+      - refractor
+      - shikiji
+    dev: false
+
+  /@prosekit/pm@0.1.2:
+    resolution: {integrity: sha512-g/3RLma8EH8RTI77xGFLW7OQKr9SXAs3MglOJny0OGGZhmimijZlJiS0c5f2KhJkU0C2uJyet1pYbtJWejdWiA==}
+    dependencies:
+      prosemirror-commands: 1.5.2
+      prosemirror-history: 1.4.0
+      prosemirror-inputrules: 1.4.0
+      prosemirror-keymap: 1.2.2
+      prosemirror-model: 1.20.0
+      prosemirror-state: 1.4.3
+      prosemirror-transform: 1.8.0
+      prosemirror-view: 1.33.4
+    dev: false
+
+  /@prosekit/preact@0.2.7:
+    resolution: {integrity: sha512-PNfUC8N7zUAV7fbtY16iE5YR3ADOBBO6qRgXUbZhNa/r9W2tU471ZRJk3JZT33nFmUGAvAf+TUGiBE2UdDwVqQ==}
+    peerDependencies:
+      preact: '>= 9.0.0'
+    peerDependenciesMeta:
+      preact:
+        optional: true
+    dependencies:
+      '@prosekit/core': 0.4.0
+      '@prosekit/lit': 0.2.8
+      '@prosekit/pm': 0.1.2
+    transitivePeerDependencies:
+      - '@types/hast'
+      - highlight.js
+      - lowlight
+      - prosemirror-model
+      - prosemirror-state
+      - prosemirror-transform
+      - prosemirror-view
+      - refractor
+      - shikiji
+    dev: false
+
+  /@prosekit/react@0.2.7(@types/react@18.2.77)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-pFfCNbWko9Ci/32CXiYG9vGxgaUsOQ+MUu4oosStos9E+Fr/z7ouH5YHs5OR65B9oayLuA4drILNlCyY3271xg==}
+    peerDependencies:
+      react: '>= 17.0.0'
+      react-dom: '>= 17.0.0'
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      '@lit/react': 1.0.4(@types/react@18.2.77)
+      '@prosekit/core': 0.4.0
+      '@prosekit/lit': 0.2.8
+      '@prosekit/pm': 0.1.2
+      '@prosemirror-adapter/core': 0.2.6
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    transitivePeerDependencies:
+      - '@types/hast'
+      - '@types/react'
+      - highlight.js
+      - lowlight
+      - prosemirror-model
+      - prosemirror-state
+      - prosemirror-transform
+      - prosemirror-view
+      - refractor
+      - shikiji
+    dev: false
+
+  /@prosekit/solid@0.2.7:
+    resolution: {integrity: sha512-vi0OK7RT1Ontq3G5zGv8DlristNoirXuLbtQ081x6Vg126zM71WJxkQtuzsPLvy2IK6nUuXisM5pOeTsoL3bPg==}
+    peerDependencies:
+      solid-js: '>= 1.7.0'
+    peerDependenciesMeta:
+      solid-js:
+        optional: true
+    dependencies:
+      '@prosekit/core': 0.4.0
+      '@prosekit/lit': 0.2.8
+      '@prosekit/pm': 0.1.2
+    transitivePeerDependencies:
+      - '@types/hast'
+      - highlight.js
+      - lowlight
+      - prosemirror-model
+      - prosemirror-state
+      - prosemirror-transform
+      - prosemirror-view
+      - refractor
+      - shikiji
+    dev: false
+
+  /@prosekit/svelte@0.2.7:
+    resolution: {integrity: sha512-2PJCSXJJdG/RIEMbvazu2SERaJ76v/UIq+jLvOTtpH9mMNsr13RFegUDPv21Hhyvr7gQWKDkec/5gSivcly8gw==}
+    peerDependencies:
+      svelte: '>= 3.0.0'
+    peerDependenciesMeta:
+      svelte:
+        optional: true
+    dependencies:
+      '@prosekit/core': 0.4.0
+      '@prosekit/lit': 0.2.8
+      '@prosekit/pm': 0.1.2
+    transitivePeerDependencies:
+      - '@types/hast'
+      - highlight.js
+      - lowlight
+      - prosemirror-model
+      - prosemirror-state
+      - prosemirror-transform
+      - prosemirror-view
+      - refractor
+      - shikiji
+    dev: false
+
+  /@prosekit/vue@0.2.7:
+    resolution: {integrity: sha512-6b5yCK4u7cTs0a4RcWCshIqhg51FOrFS6EK06bUbongeVUToQSDcWaosc6goPyJJhznZuJ7IRcWQsQW+oA11AQ==}
+    peerDependencies:
+      vue: '>= 3.0.0'
+    peerDependenciesMeta:
+      vue:
+        optional: true
+    dependencies:
+      '@prosekit/core': 0.4.0
+      '@prosekit/lit': 0.2.8
+      '@prosekit/pm': 0.1.2
+      '@prosemirror-adapter/core': 0.2.6
+    transitivePeerDependencies:
+      - '@types/hast'
+      - highlight.js
+      - lowlight
+      - prosemirror-model
+      - prosemirror-state
+      - prosemirror-transform
+      - prosemirror-view
+      - refractor
+      - shikiji
+    dev: false
+
+  /@prosemirror-adapter/core@0.2.6:
+    resolution: {integrity: sha512-7GXWQBR/bd6ngvek8SgtlEVC0x3KL7LKZ5cxyZl4IBAlRDbITQWsuKLChEXNan9A6+9Ry4a46crbDGTQlzooOg==}
+    dependencies:
+      tslib: 2.6.2
+    dev: false
 
   /@protobufjs/aspromise@1.1.2:
     resolution: {integrity: sha512-j+gKExEuLmKwvz3OgROXtrJ2UG2x8Ch2YZUxahh+s1F2HZ+wAceUNLkvy6zKCPVRkU++ZWQrdxsUeQXmcg4uoQ==}
@@ -8066,6 +8433,10 @@ packages:
       - supports-color
     dev: false
 
+  /@shikijs/core@1.3.0:
+    resolution: {integrity: sha512-7fedsBfuILDTBmrYZNFI8B6ATTxhQAasUHllHmjvSZPnoq4bULWoTpHwmuQvZ8Aq03/tAa2IGo6RXqWtHdWaCA==}
+    dev: false
+
   /@sideway/address@4.1.5:
     resolution: {integrity: sha512-IqO/DUQHUkPeixNQ8n0JA6102hT9CmaljNTPmQ1u8MEhBo/R4Q8eKLN/vGZxuebwOroDB4cbpjheD4+/sKFK4Q==}
     dependencies:
@@ -8740,6 +9111,10 @@ packages:
   /@supercharge/promise-pool@3.2.0:
     resolution: {integrity: sha512-pj0cAALblTZBPtMltWOlZTQSLT07jIaFNeM8TWoJD1cQMgDB9mcMlVMoetiB35OzNJpqQ2b+QEtwiR9f20mADg==}
     engines: {node: '>=8'}
+    dev: false
+
+  /@superhuman/command-score@0.5.0:
+    resolution: {integrity: sha512-Et940NvqU74IZauOWQdLW0dNGNL67OYSL/ULcM+I62WUmpvsAEKPR3DF0YCut6bNcN5TK67rOC1mPjiNK2O80w==}
     dev: false
 
   /@swc/counter@0.1.3:
@@ -10207,6 +10582,57 @@ packages:
       - typescript
       - utf-8-validate
       - zod
+    dev: false
+
+  /@zag-js/dismissable@0.41.0:
+    resolution: {integrity: sha512-NrjFpPaM4kTGMdNTyQKdP9x0eLWx6XufH+JX9aOAF3HF+bEjG7SYiPJp5L066JLQCayJupkbpxxz5Yia9rfrvQ==}
+    dependencies:
+      '@zag-js/dom-event': 0.41.0
+      '@zag-js/dom-query': 0.41.0
+      '@zag-js/interact-outside': 0.41.0
+      '@zag-js/utils': 0.41.0
+    dev: false
+
+  /@zag-js/dom-event@0.41.0:
+    resolution: {integrity: sha512-MlUoLLUreyi5qgejjsDbtGOFN9KrPvaD9UyJ0fLF4+Dz7KC7nn33nh50rNpH+OSyBCZzeap4YT07FKkKBCr9pA==}
+    dependencies:
+      '@zag-js/text-selection': 0.41.0
+      '@zag-js/types': 0.41.0
+    dev: false
+
+  /@zag-js/dom-query@0.41.0:
+    resolution: {integrity: sha512-+wcn1ziDydOfesNPBVSGcx2/pMbD4y9Oa7mna6RjCuGZ9XAR7ngt4arMLZ2Qa3I9fEYRxH3H/EAp+j5D9VvV7g==}
+    dev: false
+
+  /@zag-js/interact-outside@0.41.0:
+    resolution: {integrity: sha512-OlAdKa1XnYCCuiPev7a89DhFqgLQUsK4CdZ1Iqae16Hb/+TW+ZoX24ar54mVxrPgK7kUbYEU2i6qV0w2DaWEBA==}
+    dependencies:
+      '@zag-js/dom-event': 0.41.0
+      '@zag-js/dom-query': 0.41.0
+      '@zag-js/tabbable': 0.41.0
+      '@zag-js/utils': 0.41.0
+    dev: false
+
+  /@zag-js/tabbable@0.41.0:
+    resolution: {integrity: sha512-jaNmhpUSvDqm3iFV23dweF1lqgUXXu8lcSyKRsS6KqNJlrJO/uZZFJkrF4MwY/dkFis3ShG4lLZr69pZV/aHuQ==}
+    dependencies:
+      '@zag-js/dom-query': 0.41.0
+    dev: false
+
+  /@zag-js/text-selection@0.41.0:
+    resolution: {integrity: sha512-J29NCY7S8G8fjAwM7BIY2kISSB9ol2YKetPSEF8uLsuw+miLsEZD+VY9uo2sVEGyDs8CGgYT5spiYzXRldmRYA==}
+    dependencies:
+      '@zag-js/dom-query': 0.41.0
+    dev: false
+
+  /@zag-js/types@0.41.0:
+    resolution: {integrity: sha512-q6rOZmTe/9BqxnJyu4z6OWqdrdiPB9p9LVWQtDa01KBZzr4ICbx3S4Yg5lfBVvVlTFUfhu//hPBDOgkuCZeriQ==}
+    dependencies:
+      csstype: 3.1.3
+    dev: false
+
+  /@zag-js/utils@0.41.0:
+    resolution: {integrity: sha512-27if0UnlG2qn33jsiy9BIqRTKWrBxiaVYgoJRTkAmmNdVICTNY0Ddl1gZ39BmccJwIh7Ua2fHypJY2eyLrNtAQ==}
     dev: false
 
   /JSONStream@1.3.5:
@@ -15928,8 +16354,22 @@ packages:
       lit-html: 2.8.0
     dev: false
 
+  /lit-element@4.0.4:
+    resolution: {integrity: sha512-98CvgulX6eCPs6TyAIQoJZBCQPo80rgXR+dVBs61cstJXqtI+USQZAbA4gFHh6L/mxBx9MrgPLHLsUgDUHAcCQ==}
+    dependencies:
+      '@lit-labs/ssr-dom-shim': 1.2.0
+      '@lit/reactive-element': 2.0.4
+      lit-html: 3.1.2
+    dev: false
+
   /lit-html@2.8.0:
     resolution: {integrity: sha512-o9t+MQM3P4y7M7yNzqAyjp7z+mQGa4NS4CxiyLqFPyFWyc4O+nodLrkrxSaCTrla6M5YOLaT3RpbbqjszB5g3Q==}
+    dependencies:
+      '@types/trusted-types': 2.0.7
+    dev: false
+
+  /lit-html@3.1.2:
+    resolution: {integrity: sha512-3OBZSUrPnAHoKJ9AMjRL/m01YJxQMf+TMHanNtTHG68ubjnZxK0RFl102DPzsw4mWnHibfZIBJm3LWCZ/LmMvg==}
     dependencies:
       '@types/trusted-types': 2.0.7
     dev: false
@@ -15940,6 +16380,14 @@ packages:
       '@lit/reactive-element': 1.6.3
       lit-element: 3.3.3
       lit-html: 2.8.0
+    dev: false
+
+  /lit@3.1.2:
+    resolution: {integrity: sha512-VZx5iAyMtX7CV4K8iTLdCkMaYZ7ipjJZ0JcSdJ0zIdGxxyurjIn7yuuSxNBD7QmjvcNJwr0JS4cAdAtsy7gZ6w==}
+    dependencies:
+      '@lit/reactive-element': 2.0.4
+      lit-element: 4.0.4
+      lit-html: 3.1.2
     dev: false
 
   /loadjs@4.3.0:
@@ -17037,6 +17485,10 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
+  /napi-wasm@1.1.0:
+    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
+    dev: false
+
   /natural-compare-lite@1.4.0:
     resolution: {integrity: sha512-Tj+HTDSJJKaZnfiuw+iaF9skdPpTo2GtEly5JHnWV/hfv2Qj/9RKsGISQtLh2ox3l5EAGw487hnBee0sIJ6v2g==}
     dev: true
@@ -17246,7 +17698,7 @@ packages:
     resolution: {integrity: sha512-4GUt3kSEYmk4ITxzB/b9vaIDfUVWN/Ml1Fwl11IlnIG2iaJ9O6WXZ9SrYM9NLI8OCBieN2Y8SWC2oJV0RQ7qYg==}
     hasBin: true
     dependencies:
-      abbrev: 1.0.9
+      abbrev: 1.1.1
     dev: true
 
   /normalize-package-data@2.5.0:
@@ -17532,6 +17984,10 @@ packages:
       log-symbols: 4.1.0
       strip-ansi: 6.0.1
       wcwidth: 1.0.1
+
+  /orderedmap@2.1.1:
+    resolution: {integrity: sha512-TvAWxi0nDe1j/rtMcWcIj94+Ffe6n7zhow33h40SKxmsmozs6dz/e+EajymfoFcHd7sxNn8yHM8839uixMOV6g==}
+    dev: false
 
   /ordinal@1.0.3:
     resolution: {integrity: sha512-cMddMgb2QElm8G7vdaa02jhUNbTSrhsgAGUz1OokD83uJTwSUn+nKoNoKVVaRa08yF6sgfO7Maou1+bgLd9rdQ==}
@@ -18134,6 +18590,180 @@ packages:
 
   /property-information@6.5.0:
     resolution: {integrity: sha512-PgTgs/BlvHxOu8QuEN7wi5A0OmXaBcHpmCSTehcs6Uuu9IkDIEo13Hy7n898RHfrQ49vKCoGeWZSaAK01nwVig==}
+    dev: false
+
+  /prosekit@0.5.3(@types/react@18.2.77)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-sGFgIZBEupbbv2gJI34WYE8hSHEImrcNRHPOgHW+7peVnzn7ii8uI53rSYqXHe9zcp5g+9cWNJRnm3wyL1tEuw==}
+    peerDependencies:
+      preact: '>= 9.0.0'
+      react: '>= 17.0.0'
+      react-dom: '>= 17.0.0'
+      solid-js: '>= 1.7.0'
+      svelte: '>= 3.0.0'
+      vue: '>= 3.0.0'
+    peerDependenciesMeta:
+      preact:
+        optional: true
+      react:
+        optional: true
+      react-dom:
+        optional: true
+      solid-js:
+        optional: true
+      svelte:
+        optional: true
+      vue:
+        optional: true
+    dependencies:
+      '@prosekit/basic': 0.3.4
+      '@prosekit/core': 0.4.0
+      '@prosekit/extensions': 0.4.2
+      '@prosekit/lit': 0.2.8
+      '@prosekit/pm': 0.1.2
+      '@prosekit/preact': 0.2.7
+      '@prosekit/react': 0.2.7(@types/react@18.2.77)(react-dom@18.2.0)(react@18.2.0)
+      '@prosekit/solid': 0.2.7
+      '@prosekit/svelte': 0.2.7
+      '@prosekit/vue': 0.2.7
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    transitivePeerDependencies:
+      - '@types/hast'
+      - '@types/react'
+      - highlight.js
+      - lowlight
+      - prosemirror-model
+      - prosemirror-state
+      - prosemirror-transform
+      - prosemirror-view
+      - refractor
+      - shikiji
+    dev: false
+
+  /prosemirror-commands@1.5.2:
+    resolution: {integrity: sha512-hgLcPaakxH8tu6YvVAaILV2tXYsW3rAdDR8WNkeKGcgeMVQg3/TMhPdVoh7iAmfgVjZGtcOSjKiQaoeKjzd2mQ==}
+    dependencies:
+      prosemirror-model: 1.20.0
+      prosemirror-state: 1.4.3
+      prosemirror-transform: 1.8.0
+    dev: false
+
+  /prosemirror-dropcursor@1.8.1:
+    resolution: {integrity: sha512-M30WJdJZLyXHi3N8vxN6Zh5O8ZBbQCz0gURTfPmTIBNQ5pxrdU7A58QkNqfa98YEjSAL1HUyyU34f6Pm5xBSGw==}
+    dependencies:
+      prosemirror-state: 1.4.3
+      prosemirror-transform: 1.8.0
+      prosemirror-view: 1.33.4
+    dev: false
+
+  /prosemirror-flat-list@0.4.6:
+    resolution: {integrity: sha512-ffVygLOfKWrzvwZHNJI7oCk3qQVBUSKqAGRfkiVmSoegwWYDLMWUppGc2FkZ6YO+vRKqgmqr2CAI93vHPAzqgg==}
+    dependencies:
+      prosemirror-commands: 1.5.2
+      prosemirror-inputrules: 1.4.0
+      prosemirror-model: 1.20.0
+      prosemirror-state: 1.4.3
+      prosemirror-transform: 1.8.0
+      prosemirror-view: 1.33.4
+    dev: false
+
+  /prosemirror-highlight@0.5.0(shiki@1.3.0):
+    resolution: {integrity: sha512-jGj2E3WHoh6N85nlCyjjpFNsv3a6pvMXVpiz9hJfHDYmUtnSyWZNXB0rQabHOKdBYfynsbhy1SUiRRNdni0woA==}
+    peerDependencies:
+      '@types/hast': ^3.0.0
+      highlight.js: ^11.9.0
+      lowlight: ^3.1.0
+      prosemirror-model: ^1.19.3
+      prosemirror-state: ^1.4.3
+      prosemirror-transform: ^1.8.0
+      prosemirror-view: ^1.32.4
+      refractor: ^4.8.1
+      shiki: ^1.0.0
+      shikiji: ^0.8.0 || ^0.9.0 || ^0.10.0
+    peerDependenciesMeta:
+      '@types/hast':
+        optional: true
+      highlight.js:
+        optional: true
+      lowlight:
+        optional: true
+      prosemirror-model:
+        optional: true
+      prosemirror-state:
+        optional: true
+      prosemirror-transform:
+        optional: true
+      prosemirror-view:
+        optional: true
+      refractor:
+        optional: true
+      shiki:
+        optional: true
+      shikiji:
+        optional: true
+    dependencies:
+      shiki: 1.3.0
+    dev: false
+
+  /prosemirror-history@1.4.0:
+    resolution: {integrity: sha512-UUiGzDVcqo1lovOPdi9YxxUps3oBFWAIYkXLu3Ot+JPv1qzVogRbcizxK3LhHmtaUxclohgiOVesRw5QSlMnbQ==}
+    dependencies:
+      prosemirror-state: 1.4.3
+      prosemirror-transform: 1.8.0
+      prosemirror-view: 1.33.4
+      rope-sequence: 1.3.4
+    dev: false
+
+  /prosemirror-inputrules@1.4.0:
+    resolution: {integrity: sha512-6ygpPRuTJ2lcOXs9JkefieMst63wVJBgHZGl5QOytN7oSZs3Co/BYbc3Yx9zm9H37Bxw8kVzCnDsihsVsL4yEg==}
+    dependencies:
+      prosemirror-state: 1.4.3
+      prosemirror-transform: 1.8.0
+    dev: false
+
+  /prosemirror-keymap@1.2.2:
+    resolution: {integrity: sha512-EAlXoksqC6Vbocqc0GtzCruZEzYgrn+iiGnNjsJsH4mrnIGex4qbLdWWNza3AW5W36ZRrlBID0eM6bdKH4OStQ==}
+    dependencies:
+      prosemirror-state: 1.4.3
+      w3c-keyname: 2.2.8
+    dev: false
+
+  /prosemirror-model@1.20.0:
+    resolution: {integrity: sha512-q7AY7vMjKYqDCeoedgUiAgrLabliXxndJuuFmcmc2+YU1SblvnOiG2WEACF2lwAZsMlfLpiAilA3L+TWlDqIsQ==}
+    dependencies:
+      orderedmap: 2.1.1
+    dev: false
+
+  /prosemirror-state@1.4.3:
+    resolution: {integrity: sha512-goFKORVbvPuAQaXhpbemJFRKJ2aixr+AZMGiquiqKxaucC6hlpHNZHWgz5R7dS4roHiwq9vDctE//CZ++o0W1Q==}
+    dependencies:
+      prosemirror-model: 1.20.0
+      prosemirror-transform: 1.8.0
+      prosemirror-view: 1.33.4
+    dev: false
+
+  /prosemirror-tables@1.3.7:
+    resolution: {integrity: sha512-oEwX1wrziuxMtwFvdDWSFHVUWrFJWt929kVVfHvtTi8yvw+5ppxjXZkMG/fuTdFo+3DXyIPSKfid+Be1npKXDA==}
+    dependencies:
+      prosemirror-keymap: 1.2.2
+      prosemirror-model: 1.20.0
+      prosemirror-state: 1.4.3
+      prosemirror-transform: 1.8.0
+      prosemirror-view: 1.33.4
+    dev: false
+
+  /prosemirror-transform@1.8.0:
+    resolution: {integrity: sha512-BaSBsIMv52F1BVVMvOmp1yzD3u65uC3HTzCBQV1WDPqJRQ2LuHKcyfn0jwqodo8sR9vVzMzZyI+Dal5W9E6a9A==}
+    dependencies:
+      prosemirror-model: 1.20.0
+    dev: false
+
+  /prosemirror-view@1.33.4:
+    resolution: {integrity: sha512-xQqAhH8/HGleVpKDhQsrd+oqdyeKMxFtdCWDxWMmP+n0k27fBpyUqa8pA+RB5cFY8rqDDc1hll69aRZQa7UaAw==}
+    dependencies:
+      prosemirror-model: 1.20.0
+      prosemirror-state: 1.4.3
+      prosemirror-transform: 1.8.0
     dev: false
 
   /protobufjs@7.2.6:
@@ -19100,6 +19730,10 @@ packages:
       fsevents: 2.3.3
     dev: true
 
+  /rope-sequence@1.3.4:
+    resolution: {integrity: sha512-UT5EDe2cu2E/6O4igUr5PSFs23nvvukicWHx6GnOPlHAiiYbzNuCRQCuiUdHJQcqKalLKlrYJnjY0ySGsXNQXQ==}
+    dev: false
+
   /rpc-websockets@7.9.0:
     resolution: {integrity: sha512-DwKewQz1IUA5wfLvgM8wDpPRcr+nWSxuFxx5CbrI2z/MyyZ4nXLM86TvIA+cI1ZAdqC8JIBR1mZR55dzaLU+Hw==}
     dependencies:
@@ -19360,6 +19994,12 @@ packages:
       interpret: 1.4.0
       rechoir: 0.6.2
     dev: true
+
+  /shiki@1.3.0:
+    resolution: {integrity: sha512-9aNdQy/etMXctnPzsje1h1XIGm9YfRcSksKOGqZWXA/qP9G18/8fpz5Bjpma8bOgz3tqIpjERAd6/lLjFyzoww==}
+    dependencies:
+      '@shikijs/core': 1.3.0
+    dev: false
 
   /side-channel@1.0.6:
     resolution: {integrity: sha512-fDW/EZ6Q9RiO8eFG8Hj+7u/oW+XrPTIChwCOM2+th2A6OblDtYYIpve9m+KvI9Z4C9qSEXlaGR6bTEYHReuglA==}
@@ -20447,6 +21087,11 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /type-fest@4.15.0:
+    resolution: {integrity: sha512-tB9lu0pQpX5KJq54g+oHOLumOx+pMep4RaM6liXh2PKmVRFF+/vAtUP0ZaJ0kOySfVNjF6doBWPHhBhISKdlIA==}
+    engines: {node: '>=16'}
+    dev: false
+
   /type-is@1.6.18:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==}
     engines: {node: '>= 0.6'}
@@ -21255,6 +21900,10 @@ packages:
   /void-elements@3.1.0:
     resolution: {integrity: sha512-Dhxzh5HZuiHQhbvTW9AMetFfBHDMYpo23Uo9btPXgdYP+3T5S+p+jgNy7spra+veYhBP2dCSgxR/i2Y02h5/6w==}
     engines: {node: '>=0.10.0'}
+    dev: false
+
+  /w3c-keyname@2.2.8:
+    resolution: {integrity: sha512-dpojBhNsCNN7T82Tm7k26A6G9ML3NkhDsnw9n/eoxSRlVBB4CEtIQ/KTCLI2Fwf3ataSXRhYFkQi3SlnFwPvPQ==}
     dev: false
 
   /wagmi@2.5.19(@tanstack/react-query@5.29.2)(@types/react@18.2.77)(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)(typescript@5.4.5)(viem@2.9.16)(zod@3.22.4):
