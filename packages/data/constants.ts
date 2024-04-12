@@ -45,7 +45,7 @@ export const TEST_PK =
 export const TEST_LENS_ID = '0x0383';
 export const HEY_CURATED_ID = '0x0214f6';
 export const ZERO_PUBLICATION_ID = '0x00-0x00';
-export const HANDLE_PREFIX = IS_MAINNET ? 'lens/' : 'test/';
+export const HANDLE_PREFIX = 'lens/';
 export const SIGNUP_PRICE = IS_MAINNET ? 8 : 1;
 export const HEY_MEMBERSHIP_NFT = IS_MAINNET
   ? '0x100372BBF7f975f6b1448fB11AB0F814b2740EEd'
