@@ -5,17 +5,17 @@ import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 
 interface State {
-  allowanceLeft: number;
-  allowanceResetsAt: Date;
+  allowanceLeft: null | number;
+  allowanceResetsAt: Date | null;
   fetchAndStoreTips: (ids: string[]) => void;
   publicationTips: PublicationViewCount[];
-  setAllowance: (allowance: number) => void;
-  setAllowanceResetsAt: (allowanceResetsAt: Date) => void;
+  setAllowance: (allowance: null | number) => void;
+  setAllowanceResetsAt: (allowanceResetsAt: Date | null) => void;
 }
 
 const store = create<State>((set) => ({
-  allowanceLeft: 0,
-  allowanceResetsAt: new Date(),
+  allowanceLeft: null,
+  allowanceResetsAt: null,
   fetchAndStoreTips: async (ids) => {
     if (!ids.length) {
       return;
