@@ -36,7 +36,7 @@ const Tip: FC<TipProps> = ({ publication, showCount }) => {
   const iconClassName = 'w-[15px] sm:w-[18px]';
 
   const triggerConfetti = () => {
-    party.resolvableShapes['moneybag'] = `<span>💰</span>`;
+    party.resolvableShapes['moneybag'] = '<span>💰</span>';
     party.sparkles(confettiDom.current as any, {
       lifetime: 2,
       shapes: ['moneybag']
