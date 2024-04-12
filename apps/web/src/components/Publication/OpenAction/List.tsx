@@ -8,10 +8,7 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import CollectModule from './CollectModule';
 import UnknownModulePreview from './UnknownModule/Preview';
 
-const IgnoredModules = [
-  VerifiedOpenActionModules.Tip,
-  VerifiedOpenActionModules.Swap
-];
+const IgnoredModules = [VerifiedOpenActionModules.Swap];
 
 interface ListProps {
   publication: AnyPublication;

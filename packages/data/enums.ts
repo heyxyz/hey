@@ -11,6 +11,5 @@ export enum ModFeedType {
 }
 
 export enum OpenAction {
-  Swap = 'Swap',
-  Tip = 'Tip'
+  Swap = 'Swap'
 }
