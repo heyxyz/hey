@@ -42,7 +42,7 @@ export const REWARDS_ADDRESS = '0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF';
 export const TEST_WALLET_ADDRESS = '0xb9C6e304545386E95d5c4ab183EE97A13555A49d';
 export const TEST_PK =
   '0x8b33302ca865bc1ed65bc02b71dd02067bd3dae3da2f8bb0d95b16509e9ac71e';
-export const TEST_LENS_ID = '0x0383';
+export const TEST_LENS_ID = '0x43';
 export const HEY_CURATED_ID = '0x0214f6';
 export const ZERO_PUBLICATION_ID = '0x00-0x00';
 export const HANDLE_PREFIX = 'lens/';
