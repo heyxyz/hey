@@ -78,11 +78,14 @@ const StepperApprovals: FC<StepperApprovalsProps> = ({
       />
 
       {step === 'Allowance' ? (
-        <Button className="w-full justify-center" onClick={approveOA}>
+        <Button className="w-full justify-center" onClick={() => approveOA()}>
           Approve
         </Button>
       ) : (
-        <Button className="w-full justify-center" onClick={approvePermit2}>
+        <Button
+          className="w-full justify-center"
+          onClick={() => approvePermit2()}
+        >
           <div>Approve</div>
         </Button>
       )}

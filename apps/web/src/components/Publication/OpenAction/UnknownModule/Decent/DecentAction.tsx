@@ -10,11 +10,10 @@ import {
   getMessagesBySrcTxHash,
   MessageStatus
 } from '@layerzerolabs/scan-client';
-import getCurrentSession from '@lib/getCurrentSession';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useTransactionStatus } from 'src/hooks/useIndexStatus';
-import { formatUnits, isAddress } from 'viem';
+import { formatUnits } from 'viem';
 import { useAccount, useBalance } from 'wagmi';
 
 interface DecentActionProps {
@@ -37,9 +36,6 @@ const DecentAction: FC<DecentActionProps> = ({
   txHash
 }) => {
   const [pending, setPending] = useState(false);
-  const { id: sessionProfileId } = getCurrentSession();
-  const isWalletUser = isAddress(sessionProfileId);
-
   const { address } = useAccount();
 
   const amount = parseInt(moduleAmount?.value || '0');
@@ -95,27 +91,12 @@ const DecentAction: FC<DecentActionProps> = ({
     return () => clearInterval(interval);
   }, [transactionStatusData]);
 
-  // TODO: Remove test condition
-  // if (true) {
-  //   return (
-  //     <Button className={className} onClick={act}>
-  //       <div>
-  //         {`Mint for ${moduleAmount?.value} ${moduleAmount?.asset.symbol}`}
-  //       </div>
-  //     </Button>
-  //   );
-  // }
-
-  if (!sessionProfileId) {
+  if (!address) {
     return (
       <div className="w-full">
         <LoginButton isBig isFullWidth title="Login to Mint" />
       </div>
     );
-  }
-
-  if (isWalletUser) {
-    return null;
   }
 
   if (allowanceLoading) {

@@ -18,13 +18,12 @@ import {
   Squares2X2Icon,
   UserIcon
 } from '@heroicons/react/24/outline';
-import { IS_MAINNET } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { useDefaultProfileQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import getRedstonePrice from '@hey/lib/getRedstonePrice';
 import {
-  getAllowanceData,
+  getPermit2Allowance,
   signPermitSignature,
   updateWraperParams
 } from '@hey/lib/permit2';
@@ -35,6 +34,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { CHAIN, PERMIT_2_ADDRESS } from 'src/constants';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
+import { parseAbi } from 'viem';
 import { useAccount, useWalletClient } from 'wagmi';
 
 import CurrencySelector from './CurrencySelector';
@@ -137,22 +137,21 @@ const formattedTotalFees = (
 
   const approvePermit2 = async () => {
     if (!!walletClient) {
-      console.log('`SIGNING APPROVAL TRANSACTION');
-      await walletClient.sendTransaction({
-        account: address,
+      await walletClient.writeContract({
+        abi: parseAbi(['function approve(address, uint256) returns (bool)']),
+        address: assetAddress as `0x${string}`,
         args: [
           PERMIT_2_ADDRESS,
-          57896044618658097711785492504343953926634992332820282019728792003956564819967
+          57896044618658097711785492504343953926634992332820282019728792003956564819967n
         ],
-        function: 'approve',
-        to: assetAddress as `0x${string}`
+        functionName: 'approve'
       });
-      const allowanceData = await getAllowanceData({
+      const allowanceData = await getPermit2Allowance({
         owner: address as `0x${string}`,
         spender: PERMIT_2_ADDRESS,
         token: assetAddress as `0x${string}`
       });
-      const approvedAmount = allowanceData[0].toString();
+      const approvedAmount = allowanceData;
       if (Number(approvedAmount) > amount) {
         setPermit2Allowed(true);
       } else {
@@ -162,10 +161,9 @@ const formattedTotalFees = (
   };
 
   const approveOA = async () => {
-    console.log(`SIGNING PERMIT SIGNATURE FOR AMOUNT ${amount}`);
     const permit2Signature = await signPermitSignature(
       walletClient,
-      BigInt(amount),
+      BigInt(Math.floor(amount * 1.1 * 10 ** selectedCurrency.decimals)),
       assetAddress as `0x${string}`
     );
     setPermit2Data({
@@ -179,14 +177,12 @@ const formattedTotalFees = (
   const act = async () => {
     if (actionData && !!publication && !!permit2Data) {
       const updatedCalldata = await updateWraperParams({
-        chainId: IS_MAINNET ? 137 : 80001,
+        chainId: 10, // TODO: dstChainID, fetch from actionData bridge out token
         data: actionData.actArguments.actionModuleData,
         deadline: BigInt(permit2Data.deadline),
         nonce: BigInt(permit2Data.nonce),
         signature: permit2Data.signature as `0x${string}`
       });
-      console.log('UPDATED ALLDATA');
-      console.log(updatedCalldata);
       await actOnUnknownOpenAction({
         address: VerifiedOpenActionModules.DecentNFT as `0x${string}`,
         data: updatedCalldata,
@@ -197,15 +193,13 @@ const formattedTotalFees = (
 
   useEffect(() => {
     const fetchPermit2Allowance = async () => {
-      if (address && !!tokenAddress) {
-        const allowanceData = await getAllowanceData({
+      if (address && !!assetAddress) {
+        const allowanceData = await getPermit2Allowance({
           owner: address as `0x${string}`,
           spender: PERMIT_2_ADDRESS,
           token: assetAddress as `0x${string}`
         });
-        console.log('ALLOWANCE DATA');
-        console.log(allowanceData);
-        const approvedAmount = allowanceData[0].toString();
+        const approvedAmount = allowanceData;
         if (Number(approvedAmount) > amount) {
           setPermit2Allowed(true);
         } else {
