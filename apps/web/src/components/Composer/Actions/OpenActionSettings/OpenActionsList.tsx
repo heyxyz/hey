@@ -2,7 +2,6 @@ import type { FC } from 'react';
 
 import { BanknotesIcon } from '@heroicons/react/24/outline';
 import { OpenAction } from '@hey/data/enums';
-import { TipIcon } from '@hey/icons';
 import {
   ScreenType,
   useOpenActionStore
@@ -23,12 +22,6 @@ const OpenActionsList: FC = () => {
           icon={<BanknotesIcon className="size-6" />}
           title="Token Swap"
           type={OpenAction.Swap}
-        />
-        <OpenActionItem
-          description="Add ability to tip"
-          icon={<TipIcon className="size-6" />}
-          title="Tipping"
-          type={OpenAction.Tip}
         />
       </div>
       <SaveOrCancel
