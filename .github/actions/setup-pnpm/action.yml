@@ -13,6 +13,6 @@ runs:
         node-version-file: '.nvmrc'
         cache: 'pnpm'
 
-    - name: Bootstrap 📦
+    - name: Install dependencies 📦
       shell: bash
-      run: script/bootstrap
+      run: pnpm install --frozen-lockfile
