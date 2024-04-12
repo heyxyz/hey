@@ -6,7 +6,8 @@ import {
   createPublicClient,
   decodeAbiParameters,
   encodeAbiParameters,
-  http
+  http,
+  parseAbi
 } from 'viem';
 import { polygon, polygonMumbai } from 'viem/chains';
 
@@ -227,7 +228,31 @@ export const updateWraperParams = ({
   }
 };
 
-export const getAllowanceData = async ({
+export const getPermit2Allowance = async ({
+  owner,
+  spender,
+  token
+}: {
+  owner: Address;
+  spender: Address;
+  token: Address;
+}) => {
+  const client = createPublicClient({
+    chain: IS_MAINNET ? polygon : polygonMumbai,
+    transport: http(RPC_URL)
+  });
+
+  const allowanceData = await client.readContract({
+    abi: parseAbi(['function allowance(address, address) returns (uint256)']),
+    address: token,
+    args: [owner, spender],
+    functionName: 'allowance'
+  });
+
+  return allowanceData;
+};
+
+const getAllowanceData = async ({
   owner,
   spender,
   token
