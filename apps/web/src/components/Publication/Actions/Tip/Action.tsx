@@ -25,11 +25,11 @@ const Action: FC<ActionProps> = ({ publication, triggerConfetti }) => {
   };
 
   return (
-    <div className="space-y-3">
+    <div className="m-5 space-y-3">
       <div className="ld-text-gray-500 text-right text-xs">
         Allowance: 1000 BONSAI
       </div>
-      <div className="space-x-3">
+      <div className="space-x-2">
         <Button onClick={() => setAmount(50)} outline={amount !== 50} size="sm">
           50
         </Button>
