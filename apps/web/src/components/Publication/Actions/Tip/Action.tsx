@@ -1,19 +1,35 @@
 import type { AnyPublication } from '@hey/lens';
 
+import { Errors } from '@hey/data';
 import { Button, Input } from '@hey/ui';
+import errorToast from '@lib/errorToast';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
+import axios from 'axios';
 import { type FC, useRef, useState } from 'react';
+import toast from 'react-hot-toast';
 import usePreventScrollOnNumberInput from 'src/hooks/usePreventScrollOnNumberInput';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface ActionProps {
+  closePopover: () => void;
   publication: AnyPublication;
   triggerConfetti: () => void;
 }
 
-const Action: FC<ActionProps> = ({ publication, triggerConfetti }) => {
+const Action: FC<ActionProps> = ({
+  closePopover,
+  publication,
+  triggerConfetti
+}) => {
+  const { currentProfile } = useProfileStore();
+  const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(50);
   const [other, setOther] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef);
+
+  const { isSuspended } = useProfileRestriction();
 
   const onSetAmount = (amount: number) => {
     setAmount(amount);
@@ -22,6 +38,33 @@ const Action: FC<ActionProps> = ({ publication, triggerConfetti }) => {
 
   const onOtherAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(event.target.value as unknown as number);
+  };
+
+  const handleTip = async () => {
+    if (!currentProfile) {
+      return toast.error(Errors.SignWallet);
+    }
+
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
+    }
+
+    try {
+      setIsLoading(true);
+      await axios.put(
+        'https://dummyjson.com/posts/1',
+        {
+          amount: amount,
+          title: 'I think I should shift to the moon'
+        },
+        { headers: getAuthApiHeaders() }
+      );
+      closePopover();
+      triggerConfetti();
+      setIsLoading(false);
+    } catch (error) {
+      errorToast(error);
+    }
   };
 
   return (
@@ -75,8 +118,8 @@ const Action: FC<ActionProps> = ({ publication, triggerConfetti }) => {
       ) : null}
       <Button
         className="w-full"
-        disabled={amount <= 0}
-        onClick={triggerConfetti}
+        disabled={amount <= 0 || isLoading}
+        onClick={handleTip}
       >
         Tip {amount} BONSAI
       </Button>

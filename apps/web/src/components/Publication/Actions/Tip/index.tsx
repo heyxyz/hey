@@ -74,11 +74,9 @@ const Tip: FC<TipProps> = ({ publication, showCount }) => {
           >
             {({ close }) => (
               <Action
+                closePopover={close}
                 publication={targetPublication}
-                triggerConfetti={() => {
-                  triggerConfetti();
-                  close();
-                }}
+                triggerConfetti={triggerConfetti}
               />
             )}
           </Popover.Panel>
