@@ -1,5 +1,5 @@
 import type { AnyPublication, PublicationSearchRequest } from '@hey/lens';
-import type { FC } from 'react';
+import type { StateSnapshot, VirtuosoHandle } from 'react-virtuoso';
 
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
@@ -10,8 +10,11 @@ import {
   useSearchPublicationsQuery
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
+import { type FC, useRef } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
+
+let virtuosoState: any = { ranges: [], screenTop: 0 };
 
 interface PublicationsProps {
   query: string;
@@ -19,6 +22,7 @@ interface PublicationsProps {
 
 const Publications: FC<PublicationsProps> = ({ query }) => {
   const { fetchAndStoreViews } = useImpressionsStore();
+  const virtuoso = useRef<VirtuosoHandle>(null);
 
   // Variables
   const request: PublicationSearchRequest = {
@@ -39,6 +43,14 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
   const publications = search?.items as AnyPublication[];
   const pageInfo = search?.pageInfo;
   const hasMore = pageInfo?.next;
+
+  const onScrolling = (scrolling: boolean) => {
+    virtuoso?.current?.getState((state: StateSnapshot) => {
+      if (!scrolling) {
+        virtuosoState = { ...state };
+      }
+    });
+  };
 
   const onEndReached = async () => {
     if (!hasMore) {
@@ -80,6 +92,7 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
         computeItemKey={(index, publication) => `${publication?.id}-${index}`}
         data={publications}
         endReached={onEndReached}
+        isScrolling={(scrolling) => onScrolling(scrolling)}
         itemContent={(index, publication) => {
           return (
             <SinglePublication
@@ -89,6 +102,12 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
             />
           );
         }}
+        ref={virtuoso}
+        restoreStateFrom={
+          virtuosoState.ranges.length === 0
+            ? virtuosoState?.current?.getState((state: StateSnapshot) => state)
+            : virtuosoState
+        }
         useWindowScroll
       />
     </Card>
