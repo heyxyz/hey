@@ -1,5 +1,6 @@
 import type { AnyPublication, FeedItem, FeedRequest } from '@hey/lens';
 import type { FC } from 'react';
+import type { StateSnapshot, VirtuosoHandle } from 'react-virtuoso';
 
 import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
@@ -9,18 +10,21 @@ import { HEY_CURATED_ID } from '@hey/data/constants';
 import { FeedEventItemType, useFeedQuery } from '@hey/lens';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { memo } from 'react';
+import { memo, useRef } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
 import { useTipsStore } from 'src/store/non-persisted/useTipsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 
+let virtuosoState: any = { ranges: [], screenTop: 0 };
+
 const Timeline: FC = () => {
   const { currentProfile, fallbackToCuratedFeed } = useProfileStore();
   const { txnQueue } = useTransactionStore();
   const { fetchAndStoreViews } = useImpressionsStore();
   const { fetchAndStoreTips } = useTipsStore();
+  const virtuoso = useRef<VirtuosoHandle>(null);
 
   // Variables
   const request: FeedRequest = {
@@ -55,6 +59,14 @@ const Timeline: FC = () => {
   );
   const pageInfo = data?.feed?.pageInfo;
   const hasMore = pageInfo?.next;
+
+  const onScrolling = (scrolling: boolean) => {
+    if (!scrolling) {
+      virtuoso?.current?.getState((state: StateSnapshot) => {
+        virtuosoState = { ...state };
+      });
+    }
+  };
 
   const onEndReached = async () => {
     if (!hasMore) {
@@ -102,6 +114,7 @@ const Timeline: FC = () => {
           computeItemKey={(index, feedItem) => `${feedItem.id}-${index}`}
           data={feed}
           endReached={onEndReached}
+          isScrolling={onScrolling}
           itemContent={(index, feedItem) => {
             return (
               <SinglePublication
@@ -112,6 +125,14 @@ const Timeline: FC = () => {
               />
             );
           }}
+          ref={virtuoso}
+          restoreStateFrom={
+            virtuosoState.ranges.length === 0
+              ? virtuosoState?.current?.getState(
+                  (state: StateSnapshot) => state
+                )
+              : virtuosoState
+          }
           useWindowScroll
         />
       </Card>
