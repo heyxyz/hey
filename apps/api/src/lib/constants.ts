@@ -32,7 +32,7 @@ export const CACHE_AGE_INDEFINITE_ON_DISK =
 
 // RPC
 export const RPC_URL = IS_MAINNET
-  ? 'https://polygon-rpc.com'
+  ? 'https://1rpc.io/matic'
   : 'https://rpc-amoy.polygon.technology';
 
 // Tests
