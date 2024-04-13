@@ -55,7 +55,7 @@
     "graphql": "^16.8.1",
     "idb-keyval": "^6.2.1",
     "lexical": "^0.14.3",
-    "next": "^14.2.0",
+    "next": "^14.2.1",
     "next-themes": "^0.3.0",
     "party-js": "^2.2.0",
     "plur": "^5.1.0",
