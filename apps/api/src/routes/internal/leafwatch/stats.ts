@@ -58,7 +58,7 @@ export const get: Handler = async (_, res) => {
       `
         SELECT
           CAST(created AS date) AS date,
-          COUNT(DISTINCT actor) AS dau,
+          COUNT(DISTINCT COALESCE(actor, fingerprint, ip)) AS dau,
           COUNT(*) AS events
         FROM
           events
