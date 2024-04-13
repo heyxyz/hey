@@ -45,11 +45,11 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
   const hasMore = pageInfo?.next;
 
   const onScrolling = (scrolling: boolean) => {
-    virtuoso?.current?.getState((state: StateSnapshot) => {
-      if (!scrolling) {
+    if (!scrolling) {
+      virtuoso?.current?.getState((state: StateSnapshot) => {
         virtuosoState = { ...state };
-      }
-    });
+      });
+    }
   };
 
   const onEndReached = async () => {
@@ -92,7 +92,7 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
         computeItemKey={(index, publication) => `${publication?.id}-${index}`}
         data={publications}
         endReached={onEndReached}
-        isScrolling={(scrolling) => onScrolling(scrolling)}
+        isScrolling={onScrolling}
         itemContent={(index, publication) => {
           return (
             <SinglePublication
