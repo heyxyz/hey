@@ -1,5 +1,3 @@
-import { IS_MAINNET } from '@hey/data/constants';
-
 // DB URLs
 export const CLICKHOUSE_URL = 'http://clickhouse.hey.xyz:8123';
 
@@ -29,11 +27,6 @@ export const CACHE_AGE_INDEFINITE = 'public, max-age=31536000, immutable';
 // Cache indefinitely on Disk
 export const CACHE_AGE_INDEFINITE_ON_DISK =
   'public, s-maxage=31536000, max-age=31536000, must-revalidate';
-
-// RPC
-export const RPC_URL = IS_MAINNET
-  ? 'https://polygon-rpc.com'
-  : 'https://rpc-amoy.polygon.technology';
 
 // Tests
 export const TEST_URL = 'http://127.0.0.1:4784';
