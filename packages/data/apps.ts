@@ -9,5 +9,6 @@ export const apps = [
   't2.world',
   'yup',
   'focalize',
-  'bloomers.tv'
+  'bloomers.tv',
+  'kaira'
 ];
