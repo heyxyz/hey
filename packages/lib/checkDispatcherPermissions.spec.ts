@@ -11,7 +11,7 @@ describe('checkDispatcherPermissions', () => {
     expect(result.canBroadcast).toBe(false);
   });
 
-  // TODO: fix this after confirming the expected behavior
+  // TODO: don't skip this test
   test.skip('should return correct permissions when profile has signless and is sponsored', () => {
     const profile: any = { signless: true, sponsor: true };
     const result = checkDispatcherPermissions(profile);
