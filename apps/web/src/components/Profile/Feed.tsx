@@ -173,6 +173,7 @@ const Feed: FC<FeedProps> = ({ handle, profileId, type }) => {
             />
           );
         }}
+        ref={virtuoso}
         restoreStateFrom={
           virtuosoState.ranges.length === 0
             ? virtuosoState?.current?.getState((state: StateSnapshot) => state)
