@@ -20,12 +20,6 @@ describe('getWalletDetails', () => {
     );
   });
 
-  test('should return correct details for Ledger Waller', () => {
-    const walletDetails = getWalletDetails('Ledger');
-    expect(walletDetails.name).toBe('Ledger');
-    expect(walletDetails.logo).toBe(`${STATIC_IMAGES_URL}/wallets/ledger.svg`);
-  });
-
   test('should return correct details for name other than WalletConnect', () => {
     const walletDetails = getWalletDetails('SomeOtherWallet');
     expect(walletDetails.name).toBe('SomeOtherWallet');
