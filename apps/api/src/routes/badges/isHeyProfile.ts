@@ -6,11 +6,11 @@ import logger from '@hey/lib/logger';
 import catchedError from 'src/lib/catchedError';
 import {
   CACHE_AGE_INDEFINITE,
-  RPC_URL,
   SWR_CACHE_AGE_10_MINS_30_DAYS
 } from 'src/lib/constants';
+import getRpc from 'src/lib/getRpc';
 import { noBody } from 'src/lib/responses';
-import { createPublicClient, http } from 'viem';
+import { createPublicClient } from 'viem';
 import { polygon } from 'viem/chains';
 
 // TODO: add tests
@@ -24,7 +24,7 @@ export const get: Handler = async (req, res) => {
   try {
     const client = createPublicClient({
       chain: polygon,
-      transport: http(RPC_URL)
+      transport: getRpc({ mainnet: true })
     });
 
     const isHeyProfile = await client.readContract({

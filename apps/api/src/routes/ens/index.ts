@@ -4,7 +4,7 @@ import logger from '@hey/lib/logger';
 import catchedError from 'src/lib/catchedError';
 import { resolverAbi } from 'src/lib/ens/resolverAbi';
 import { invalidBody, noBody } from 'src/lib/responses';
-import { createPublicClient, http } from 'viem';
+import { createPublicClient, fallback, http } from 'viem';
 import { mainnet } from 'viem/chains';
 import { array, object, string } from 'zod';
 
@@ -36,7 +36,12 @@ export const post: Handler = async (req, res) => {
   try {
     const client = createPublicClient({
       chain: mainnet,
-      transport: http('https://ethereum.publicnode.com')
+      transport: fallback([
+        http('https://ethereum.publicnode.com'),
+        http('https://rpc.ankr.com/eth'),
+        http('https://cloudflare-eth.com'),
+        http('https://eth.merkle.io')
+      ])
     });
 
     const result = await client.readContract({
