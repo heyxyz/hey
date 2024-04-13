@@ -58,11 +58,11 @@ const Timeline: FC = () => {
   const hasMore = pageInfo?.next;
 
   const onScrolling = (scrolling: boolean) => {
-    virtuoso?.current?.getState((state: StateSnapshot) => {
-      if (!scrolling) {
+    if (!scrolling) {
+      virtuoso?.current?.getState((state: StateSnapshot) => {
         virtuosoState = { ...state };
-      }
-    });
+      });
+    }
   };
 
   const onEndReached = async () => {
@@ -110,7 +110,7 @@ const Timeline: FC = () => {
           computeItemKey={(index, feedItem) => `${feedItem.id}-${index}`}
           data={feed}
           endReached={onEndReached}
-          isScrolling={(scrolling) => onScrolling(scrolling)}
+          isScrolling={onScrolling}
           itemContent={(index, feedItem) => {
             return (
               <SinglePublication
