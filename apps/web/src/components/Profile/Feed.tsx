@@ -1,5 +1,5 @@
 import type { AnyPublication, PublicationsRequest } from '@hey/lens';
-import type { FC } from 'react';
+import type { StateSnapshot, VirtuosoHandle } from 'react-virtuoso';
 
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
@@ -11,10 +11,13 @@ import {
   usePublicationsQuery
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
+import { type FC, useRef } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { ProfileFeedType } from 'src/enums';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
 import { useProfileFeedStore } from 'src/store/non-persisted/useProfileFeedStore';
+
+let virtuosoState: any = { ranges: [], screenTop: 0 };
 
 interface FeedProps {
   handle: string;
@@ -29,6 +32,7 @@ interface FeedProps {
 const Feed: FC<FeedProps> = ({ handle, profileId, type }) => {
   const { mediaFeedFilters } = useProfileFeedStore();
   const { fetchAndStoreViews } = useImpressionsStore();
+  const virtuoso = useRef<VirtuosoHandle>(null);
 
   const getMediaFilters = () => {
     const filters: PublicationMetadataMainFocusType[] = [];
@@ -92,6 +96,14 @@ const Feed: FC<FeedProps> = ({ handle, profileId, type }) => {
   const pageInfo = data?.publications?.pageInfo;
   const hasMore = pageInfo?.next;
 
+  const onScrolling = (scrolling: boolean) => {
+    virtuoso?.current?.getState((state: StateSnapshot) => {
+      if (!scrolling) {
+        virtuosoState = { ...state };
+      }
+    });
+  };
+
   const onEndReached = async () => {
     if (!hasMore) {
       return;
@@ -147,6 +159,7 @@ const Feed: FC<FeedProps> = ({ handle, profileId, type }) => {
         computeItemKey={(index, publication) => `${publication.id}-${index}`}
         data={publications}
         endReached={onEndReached}
+        isScrolling={(scrolling) => onScrolling(scrolling)}
         itemContent={(index, publication) => {
           return (
             <SinglePublication
@@ -160,6 +173,12 @@ const Feed: FC<FeedProps> = ({ handle, profileId, type }) => {
             />
           );
         }}
+        ref={virtuoso}
+        restoreStateFrom={
+          virtuosoState.ranges.length === 0
+            ? virtuosoState?.current?.getState((state: StateSnapshot) => state)
+            : virtuosoState
+        }
         useWindowScroll
       />
     </Card>
