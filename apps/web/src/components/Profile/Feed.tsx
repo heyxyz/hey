@@ -11,7 +11,7 @@ import {
   usePublicationsQuery
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { type FC, useRef } from 'react';
+import { type FC, useEffect, useRef } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { ProfileFeedType } from 'src/enums';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
@@ -33,6 +33,10 @@ const Feed: FC<FeedProps> = ({ handle, profileId, type }) => {
   const { mediaFeedFilters } = useProfileFeedStore();
   const { fetchAndStoreViews } = useImpressionsStore();
   const virtuoso = useRef<VirtuosoHandle>(null);
+
+  useEffect(() => {
+    virtuosoState = { ranges: [], screenTop: 0 };
+  }, [profileId, handle]);
 
   const getMediaFilters = () => {
     const filters: PublicationMetadataMainFocusType[] = [];
