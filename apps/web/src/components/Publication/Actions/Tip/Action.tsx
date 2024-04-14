@@ -2,6 +2,7 @@ import type { AnyPublication } from '@hey/lens';
 
 import { Errors } from '@hey/data';
 import { TIP_API_URL } from '@hey/data/constants';
+import humanize from '@hey/lib/humanize';
 import { Button, Input } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
@@ -10,6 +11,7 @@ import { type FC, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import usePreventScrollOnNumberInput from 'src/hooks/usePreventScrollOnNumberInput';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
+import { useTipsStore } from 'src/store/non-persisted/useTipsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface ActionProps {
@@ -24,6 +26,7 @@ const Action: FC<ActionProps> = ({
   triggerConfetti
 }) => {
   const { currentProfile } = useProfileStore();
+  const { allowanceLeft, setAllowance } = useTipsStore();
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(50);
   const [other, setOther] = useState(false);
@@ -62,6 +65,9 @@ const Action: FC<ActionProps> = ({
         },
         { headers: getAuthApiHeaders() }
       );
+      if (allowanceLeft) {
+        setAllowance(allowanceLeft - amount);
+      }
       closePopover();
       triggerConfetti();
     } catch (error) {
@@ -73,9 +79,11 @@ const Action: FC<ActionProps> = ({
 
   return (
     <div className="m-5 space-y-3">
-      <div className="ld-text-gray-500 text-right text-xs">
-        Allowance: 1000 BONSAI
-      </div>
+      {allowanceLeft ? (
+        <div className="ld-text-gray-500 text-right text-xs">
+          Allowance: {humanize(allowanceLeft)} BONSAI
+        </div>
+      ) : null}
       <div className="space-x-2">
         <Button onClick={() => setAmount(50)} outline={amount !== 50} size="sm">
           50
