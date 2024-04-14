@@ -1,4 +1,4 @@
-import type { PublicationViewCount } from '@hey/types/hey';
+import type { TipsCount } from '@hey/types/hey';
 
 /**
  * Get the number of tips of a publication
@@ -6,11 +6,8 @@ import type { PublicationViewCount } from '@hey/types/hey';
  * @param id The publication id
  * @returns The number of tips of the publication
  */
-const getPublicationTipCountById = (
-  tips: PublicationViewCount[],
-  id: string
-) => {
-  return tips.find((v) => v.id === id)?.views || 0;
+const getPublicationTipCountById = (tips: TipsCount[], id: string) => {
+  return tips.find((v) => v.publicationId === id)?.tips || 0;
 };
 
 export default getPublicationTipCountById;
