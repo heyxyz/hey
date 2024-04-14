@@ -50,6 +50,12 @@ export type PublicationViewCount = {
   views: number;
 };
 
+export type TipsCount = {
+  amount: number;
+  publicationId: string;
+  tips: number;
+};
+
 export type PollOption = {
   id: string;
   option: string;

@@ -1,6 +1,7 @@
 import type { AnyPublication } from '@hey/lens';
 
 import { Errors } from '@hey/data';
+import { TIP_API_URL } from '@hey/data/constants';
 import { Button, Input } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
@@ -52,18 +53,21 @@ const Action: FC<ActionProps> = ({
     try {
       setIsLoading(true);
       await axios.put(
-        'https://dummyjson.com/posts/1',
+        `${TIP_API_URL}/tip`,
         {
-          amount: amount,
-          title: 'I think I should shift to the moon'
+          amount,
+          publicationId: publication.id,
+          toAddress: publication.by.ownedBy.address,
+          toProfileId: publication.by.id
         },
         { headers: getAuthApiHeaders() }
       );
       closePopover();
       triggerConfetti();
-      setIsLoading(false);
     } catch (error) {
       errorToast(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 

@@ -1,4 +1,4 @@
-import { HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
+import { IS_MAINNET, TIP_API_URL } from '@hey/data/constants';
 import axios from 'axios';
 
 /**
@@ -12,12 +12,11 @@ const getPublicationsTips = async (ids: string[]) => {
   }
 
   try {
-    const response = await axios.post(
-      `${HEY_API_URL}/stats/publication/views`,
-      { ids }
-    );
+    const response = await axios.post(`${TIP_API_URL}/publications`, {
+      publicationIds: ids
+    });
 
-    return response.data?.views;
+    return response.data;
   } catch {
     return [];
   }
