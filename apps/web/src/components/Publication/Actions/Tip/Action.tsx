@@ -26,7 +26,7 @@ const Action: FC<ActionProps> = ({
   triggerConfetti
 }) => {
   const { currentProfile } = useProfileStore();
-  const { allowanceLeft, setAllowance } = useTipsStore();
+  const { allowanceLeft, decreaseAllowance, hasAllowance } = useTipsStore();
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(50);
   const [other, setOther] = useState(false);
@@ -65,9 +65,7 @@ const Action: FC<ActionProps> = ({
         },
         { headers: getAuthApiHeaders() }
       );
-      if (allowanceLeft) {
-        setAllowance(allowanceLeft - amount);
-      }
+      decreaseAllowance(amount);
       closePopover();
       triggerConfetti();
     } catch (error) {
@@ -130,10 +128,10 @@ const Action: FC<ActionProps> = ({
       ) : null}
       <Button
         className="w-full"
-        disabled={amount <= 0 || isLoading}
+        disabled={amount <= 0 || isLoading || !hasAllowance()}
         onClick={handleTip}
       >
-        Tip {amount} BONSAI
+        {hasAllowance() ? `Tip ${amount} BONSAI` : 'No Allowance'}
       </Button>
     </div>
   );
