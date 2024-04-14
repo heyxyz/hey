@@ -7,8 +7,9 @@ import logger from '@hey/lib/logger';
 import crypto from 'crypto';
 import catchedError from 'src/lib/catchedError';
 import createClickhouseClient from 'src/lib/createClickhouseClient';
+import getRpc from 'src/lib/getRpc';
 import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
-import { createWalletClient, http } from 'viem';
+import { createWalletClient } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
 import { polygon, polygonAmoy } from 'viem/chains';
 import { boolean, number, object, string } from 'zod';
@@ -96,7 +97,7 @@ export const post: Handler = async (req, res) => {
     const client = createWalletClient({
       account,
       chain: test_mode ? polygonAmoy : polygon,
-      transport: http()
+      transport: getRpc({ mainnet: !test_mode })
     });
 
     const hash = await client.writeContract({
