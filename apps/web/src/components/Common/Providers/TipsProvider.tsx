@@ -16,7 +16,7 @@ const TipsProvider: FC = () => {
         params: { profileId: sessionProfileId }
       });
       const { data } = response;
-      setAllowance(data?.allowance || 0);
+      setAllowance(data?.allowance || null);
       return true;
     } catch {
       return false;

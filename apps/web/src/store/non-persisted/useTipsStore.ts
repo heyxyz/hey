@@ -6,16 +6,13 @@ import { create } from 'zustand';
 
 interface State {
   allowanceLeft: null | number;
-  allowanceResetsAt: Date | null;
   fetchAndStoreTips: (ids: string[]) => void;
   publicationTips: TipsCount[];
   setAllowance: (allowance: null | number) => void;
-  setAllowanceResetsAt: (allowanceResetsAt: Date | null) => void;
 }
 
 const store = create<State>((set) => ({
   allowanceLeft: null,
-  allowanceResetsAt: null,
   fetchAndStoreTips: async (ids) => {
     if (!ids.length) {
       return;
@@ -27,8 +24,7 @@ const store = create<State>((set) => ({
     }));
   },
   publicationTips: [],
-  setAllowance: (allowance) => set({ allowanceLeft: allowance }),
-  setAllowanceResetsAt: (allowanceResetsAt) => set({ allowanceResetsAt })
+  setAllowance: (allowance) => set({ allowanceLeft: allowance })
 }));
 
 export const useTipsStore = createTrackedSelector(store);
