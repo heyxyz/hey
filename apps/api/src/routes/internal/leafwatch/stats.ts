@@ -72,13 +72,22 @@ export const get: Handler = async (_, res) => {
         SELECT
           CAST(viewed_at AS date) AS date,
           COUNT(*) AS impressions
-        FROM
-          impressions
+        FROM impressions
         WHERE
           viewed_at >= DATE_SUB(NOW(), INTERVAL 10 DAY)
           AND viewed_at < NOW()
         GROUP BY CAST(viewed_at AS date)
         ORDER BY CAST(viewed_at AS date) DESC    
+      `,
+      `
+        SELECT
+          referrer,
+          COUNT(DISTINCT COALESCE(actor, fingerprint, ip)) AS count
+        FROM events
+        WHERE toDate(created) = today() AND referrer IS NOT NULL AND actor IS NOT NULL
+        GROUP BY referrer
+        ORDER BY count DESC
+        LIMIT 10
       `
     ];
 
@@ -104,6 +113,7 @@ export const get: Handler = async (_, res) => {
       eventsToday: results[3],
       impressions: results[1][0],
       impressionsToday: results[4],
+      referrers: results[7],
       success: true,
       topEvents: results[2]
     });
