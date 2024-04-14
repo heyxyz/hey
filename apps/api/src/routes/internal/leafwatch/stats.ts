@@ -86,7 +86,7 @@ export const get: Handler = async (_, res) => {
         WHERE toDate(created) = today() AND referrer IS NOT NULL
         GROUP BY referrer
         ORDER BY count DESC
-        LIMIT 15
+        LIMIT 10
       `
     ];
 
