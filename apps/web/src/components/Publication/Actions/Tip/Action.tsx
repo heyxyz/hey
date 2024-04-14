@@ -70,13 +70,13 @@ const Action: FC<ActionProps> = ({
         },
         { headers: getAuthApiHeaders() }
       );
+      addOrUpdatePublicationTip({ amount, publicationId: publication.id });
       decreaseAllowance(amount);
       closePopover();
       triggerConfetti();
     } catch (error) {
       errorToast(error);
     } finally {
-      addOrUpdatePublicationTip({ amount, publicationId: publication.id });
       setIsLoading(false);
     }
   };
