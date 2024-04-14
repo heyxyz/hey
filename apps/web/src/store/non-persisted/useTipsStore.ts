@@ -1,4 +1,4 @@
-import type { PublicationViewCount } from '@hey/types/hey';
+import type { TipsCount } from '@hey/types/hey';
 
 import getPublicationsTips from '@hey/lib/getPublicationsTips';
 import { createTrackedSelector } from 'react-tracked';
@@ -8,7 +8,7 @@ interface State {
   allowanceLeft: null | number;
   allowanceResetsAt: Date | null;
   fetchAndStoreTips: (ids: string[]) => void;
-  publicationTips: PublicationViewCount[];
+  publicationTips: TipsCount[];
   setAllowance: (allowance: null | number) => void;
   setAllowanceResetsAt: (allowanceResetsAt: Date | null) => void;
 }
