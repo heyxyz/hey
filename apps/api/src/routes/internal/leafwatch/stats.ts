@@ -79,6 +79,14 @@ export const get: Handler = async (_, res) => {
           AND viewed_at < NOW()
         GROUP BY CAST(viewed_at AS date)
         ORDER BY CAST(viewed_at AS date) DESC    
+      `,
+      `
+        SELECT referrer, count(*) AS count
+        FROM events
+        WHERE toDate(created) = today() AND referrer IS NOT NULL
+        GROUP BY referrer
+        ORDER BY count DESC
+        LIMIT 15
       `
     ];
 
@@ -104,6 +112,7 @@ export const get: Handler = async (_, res) => {
       eventsToday: results[3],
       impressions: results[1][0],
       impressionsToday: results[4],
+      referrers: results[7],
       success: true,
       topEvents: results[2]
     });
