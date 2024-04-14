@@ -21,9 +21,6 @@ interface State {
 }
 
 const store = create<State>((set, get) => ({
-  // Add or update a publication tip
-  // if id is not found, add a new tip with the given amount and publication id and tips as 1
-  // if id is found, update the tips = tips + 1 and amount = amount + previous amount
   addOrUpdatePublicationTip: ({ amount, publicationId }) => {
     const tips = get().publicationTips;
     const tip = tips.find((tip) => tip.publicationId === publicationId);
