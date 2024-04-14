@@ -72,8 +72,7 @@ export const get: Handler = async (_, res) => {
         SELECT
           CAST(viewed_at AS date) AS date,
           COUNT(*) AS impressions
-        FROM
-          impressions
+        FROM impressions
         WHERE
           viewed_at >= DATE_SUB(NOW(), INTERVAL 10 DAY)
           AND viewed_at < NOW()
