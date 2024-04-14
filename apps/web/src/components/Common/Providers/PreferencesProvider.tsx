@@ -29,38 +29,32 @@ const PreferencesProvider: FC = () => {
   // Fetch preferences
   const fetchPreferences = async () => {
     try {
-      if (Boolean(sessionProfileId)) {
-        const preferences = await getPreferences(
-          sessionProfileId,
-          getAuthApiHeaders()
-        );
+      const preferences = await getPreferences(
+        sessionProfileId,
+        getAuthApiHeaders()
+      );
 
-        // Profile preferences
-        setHighSignalNotificationFilter(
-          preferences.highSignalNotificationFilter
-        );
-        setIsPride(preferences.isPride);
+      // Profile preferences
+      setHighSignalNotificationFilter(preferences.highSignalNotificationFilter);
+      setIsPride(preferences.isPride);
 
-        // Email preferences
-        setEmail(preferences.email);
-        setEmailVerified(preferences.emailVerified);
+      // Email preferences
+      setEmail(preferences.email);
+      setEmailVerified(preferences.emailVerified);
 
-        // Feature flags
-        setFeatureFlags(preferences.features);
-        setStaffMode(preferences.features.includes(FeatureFlag.StaffMode));
-        setGardenerMode(
-          preferences?.features.includes(FeatureFlag.GardenerMode)
-        );
-        setRestriction({
-          isFlagged: preferences.features.includes(FeatureFlag.Flagged),
-          isSuspended: preferences.features.includes(FeatureFlag.Suspended)
-        });
+      // Feature flags
+      setFeatureFlags(preferences.features);
+      setStaffMode(preferences.features.includes(FeatureFlag.StaffMode));
+      setGardenerMode(preferences?.features.includes(FeatureFlag.GardenerMode));
+      setRestriction({
+        isFlagged: preferences.features.includes(FeatureFlag.Flagged),
+        isSuspended: preferences.features.includes(FeatureFlag.Suspended)
+      });
 
-        // Membership NFT
-        setHasDismissedOrMintedMembershipNft(
-          preferences.hasDismissedOrMintedMembershipNft
-        );
-      }
+      // Membership NFT
+      setHasDismissedOrMintedMembershipNft(
+        preferences.hasDismissedOrMintedMembershipNft
+      );
       return true;
     } catch {
       return false;
@@ -68,6 +62,7 @@ const PreferencesProvider: FC = () => {
   };
 
   useQuery({
+    enabled: Boolean(sessionProfileId),
     queryFn: fetchPreferences,
     queryKey: ['fetchPreferences', sessionProfileId || '']
   });

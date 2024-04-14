@@ -20,6 +20,7 @@ import LensSubscriptionsProvider from './LensSubscriptionsProvider';
 import OptimisticTransactionsProvider from './OptimisticTransactionsProvider';
 import PreferencesProvider from './PreferencesProvider';
 import ServiceWorkerProvider from './ServiceWorkerProvider';
+import TipsProvider from './TipsProvider';
 import Web3Provider from './Web3Provider';
 
 const lensApolloClient = apolloClient(authLink);
@@ -42,6 +43,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
           <OptimisticTransactionsProvider />
           <QueryClientProvider client={queryClient}>
             <PreferencesProvider />
+            <TipsProvider />
             <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
               <ThemeProvider attribute="class" defaultTheme="light">
                 <Layout>{children}</Layout>
