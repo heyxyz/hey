@@ -26,7 +26,12 @@ const Action: FC<ActionProps> = ({
   triggerConfetti
 }) => {
   const { currentProfile } = useProfileStore();
-  const { allowanceLeft, decreaseAllowance, hasAllowance } = useTipsStore();
+  const {
+    addOrUpdatePublicationTip,
+    allowanceLeft,
+    decreaseAllowance,
+    hasAllowance
+  } = useTipsStore();
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(50);
   const [other, setOther] = useState(false);
@@ -71,6 +76,7 @@ const Action: FC<ActionProps> = ({
     } catch (error) {
       errorToast(error);
     } finally {
+      addOrUpdatePublicationTip({ amount, publicationId: publication.id });
       setIsLoading(false);
     }
   };
