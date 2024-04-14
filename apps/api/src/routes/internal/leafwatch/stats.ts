@@ -81,9 +81,9 @@ export const get: Handler = async (_, res) => {
         ORDER BY CAST(viewed_at AS date) DESC    
       `,
       `
-        SELECT referrer, count(*) AS count
+        SELECT referrer, COUNT(DISTINCT actor) AS count
         FROM events
-        WHERE toDate(created) = today() AND referrer IS NOT NULL
+        WHERE toDate(created) = today() AND referrer IS NOT NULL AND actor IS NOT NULL
         GROUP BY referrer
         ORDER BY count DESC
         LIMIT 10
