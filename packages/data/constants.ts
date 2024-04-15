@@ -1,4 +1,5 @@
 import packageJson from '../../package.json';
+import { TipEndpoint } from './endpoints';
 import LensEndpoint from './lens-endpoints';
 import getEnvConfig from './utils/getEnvConfig';
 
@@ -69,6 +70,9 @@ export const MOONPAY_URL = IS_MAINNET
   ? 'https://buy.moonpay.com'
   : 'https://buy-sandbox.moonpay.com';
 export const HEY_IMAGEKIT_URL = 'https://ik.imagekit.io/lensterimg';
+export const TIP_API_URL = IS_MAINNET
+  ? TipEndpoint.Mainnet
+  : TipEndpoint.Testnet;
 
 // Tokens / Keys
 export const WALLETCONNECT_PROJECT_ID = 'cd542acc70c2b548030f9901a52e70c8';

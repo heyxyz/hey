@@ -57,6 +57,7 @@
     "lexical": "^0.14.3",
     "next": "^14.2.1",
     "next-themes": "^0.3.0",
+    "party-js": "^2.2.0",
     "plur": "^5.1.0",
     "plyr-react": "^5.3.0",
     "rc-slider": "^10.5.0",
