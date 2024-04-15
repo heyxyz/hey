@@ -11,4 +11,15 @@ describe('internal/features/all', () => {
 
     expect(response.data.features).toBeInstanceOf(Array);
   });
+
+  test('should fail if not authenticated', async () => {
+    try {
+      const response = await axios.get(`${TEST_URL}/internal/features/all`);
+      expect(response.status).toEqual(401);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        expect(error.response?.status).toEqual(401);
+      }
+    }
+  });
 });
