@@ -21,7 +21,6 @@ const validationSchema = object({
   resend: boolean().optional()
 });
 
-// TODO: add tests
 export const post: Handler = async (req, res) => {
   const { body } = req;
 
