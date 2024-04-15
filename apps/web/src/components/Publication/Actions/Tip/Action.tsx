@@ -93,6 +93,7 @@ const Action: FC<ActionProps> = ({
       ) : null}
       <div className="space-x-2">
         <Button
+          disabled={!currentProfile}
           onClick={() => onSetAmount(50)}
           outline={amount !== 50}
           size="sm"
@@ -100,6 +101,7 @@ const Action: FC<ActionProps> = ({
           50
         </Button>
         <Button
+          disabled={!currentProfile}
           onClick={() => onSetAmount(100)}
           outline={amount !== 100}
           size="sm"
@@ -107,6 +109,7 @@ const Action: FC<ActionProps> = ({
           100
         </Button>
         <Button
+          disabled={!currentProfile}
           onClick={() => onSetAmount(200)}
           outline={amount !== 200}
           size="sm"
@@ -114,6 +117,7 @@ const Action: FC<ActionProps> = ({
           200
         </Button>
         <Button
+          disabled={!currentProfile}
           onClick={() => {
             onSetAmount(other ? 50 : 300);
             setOther(!other);
