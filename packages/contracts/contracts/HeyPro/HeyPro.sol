@@ -16,7 +16,6 @@ contract HeyPro is Initializable, OwnableUpgradeable {
 
   error InvalidFunds();
   error NotAllowed();
-  error WithdrawalFailed();
   error TransferFailed();
 
   // Initializer instead of constructor for upgradeable contracts
@@ -59,44 +58,16 @@ contract HeyPro is Initializable, OwnableUpgradeable {
     _transferFunds();
   }
 
-  function isProMonthly(uint256 profileId) public view returns (bool) {
-    return
-      proExpiresAt[profileId] >= block.timestamp &&
-      proExpiresAt[profileId] <= block.timestamp + MONTH;
-  }
-
-  function isProYearly(uint256 profileId) public view returns (bool) {
-    return
-      proExpiresAt[profileId] >= block.timestamp &&
-      proExpiresAt[profileId] > block.timestamp + MONTH;
-  }
-
-  function refund(uint256 profileId) public {
-    if (proExpiresAt[profileId] <= block.timestamp) revert NotAllowed();
-
-    uint256 remainingTime = proExpiresAt[profileId] - block.timestamp;
-    uint256 refundAmount;
-
-    if (remainingTime > MONTH) {
-      refundAmount = (remainingTime / YEAR) * yearlyPrice;
-    } else {
-      refundAmount = (remainingTime / MONTH) * monthlyPrice;
-    }
-
-    proExpiresAt[profileId] = block.timestamp; // Ends the subscription
-
-    (bool sent, ) = msg.sender.call{ value: refundAmount }('');
-    if (!sent) revert WithdrawalFailed();
+  // Only owner can extend subscription for pro to any profile for any duration
+  function subscribePro(
+    uint256 profileId,
+    uint256 duration
+  ) external onlyOwner {
+    extendSubscription(profileId, duration);
   }
 
   function _transferFunds() private {
     (bool sent, ) = owner().call{ value: msg.value }('');
     if (!sent) revert TransferFailed();
   }
-
-  // Function to receive Ether. msg.data must be empty
-  receive() external payable {}
-
-  // Fallback function is called when msg.data is not empty
-  fallback() external payable {}
 }
