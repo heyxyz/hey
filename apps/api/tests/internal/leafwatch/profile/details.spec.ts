@@ -21,4 +21,27 @@ describe('internal/leafwatch/profile/details', () => {
 
     expect(response.data.result).toBeNull();
   });
+
+  test('should fail if not staff', async () => {
+    try {
+      const response = await axios.get(
+        `${TEST_URL}/internal/leafwatch/profile/details`,
+        {
+          headers: await getAuthApiHeadersForTest({ staff: false }),
+          params: { id: '0x0d' }
+        }
+      );
+      expect(response.status).toEqual(401);
+    } catch {}
+  });
+
+  test('should fail if not authenticated', async () => {
+    try {
+      const response = await axios.get(
+        `${TEST_URL}/internal/leafwatch/profile/details`,
+        { params: { id: '0x0d' } }
+      );
+      expect(response.status).toEqual(401);
+    } catch {}
+  });
 });
