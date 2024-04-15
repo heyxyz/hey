@@ -8,7 +8,7 @@ import { useTipsStore } from 'src/store/non-persisted/useTipsStore';
 
 const TipsProvider: FC = () => {
   const { id: sessionProfileId } = getCurrentSession();
-  const { setAllowance } = useTipsStore();
+  const { setAllowance, setAllowanceResetsAt } = useTipsStore();
 
   const fetchTipsAllowance = async () => {
     try {
@@ -17,6 +17,7 @@ const TipsProvider: FC = () => {
       });
       const { data } = response;
       setAllowance(data?.allowance || null);
+      setAllowanceResetsAt(new Date(data?.resetAt * 1000));
       return true;
     } catch {
       return false;

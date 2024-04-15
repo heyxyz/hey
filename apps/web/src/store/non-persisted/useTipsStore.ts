@@ -13,11 +13,13 @@ interface State {
     publicationId: string;
   }) => void;
   allowanceLeft: null | number;
+  allowanceResetsAt: Date | null;
   decreaseAllowance: (amount: number) => void;
   fetchAndStoreTips: (ids: string[]) => void;
   hasAllowance: () => boolean;
   publicationTips: TipsCount[];
   setAllowance: (allowance: null | number) => void;
+  setAllowanceResetsAt: (allowanceResetsAt: Date) => void;
 }
 
 const store = create<State>((set, get) => ({
@@ -42,6 +44,7 @@ const store = create<State>((set, get) => ({
     }
   },
   allowanceLeft: null,
+  allowanceResetsAt: null,
   decreaseAllowance: (amount) => {
     const { allowanceLeft } = get();
     if (allowanceLeft) {
@@ -60,7 +63,9 @@ const store = create<State>((set, get) => ({
   },
   hasAllowance: () => Boolean(get().allowanceLeft),
   publicationTips: [],
-  setAllowance: (allowance) => set({ allowanceLeft: allowance })
+  setAllowance: (allowance) => set({ allowanceLeft: allowance }),
+  setAllowanceResetsAt: (allowanceResetsAt) =>
+    set(() => ({ allowanceResetsAt }))
 }));
 
 export const useTipsStore = createTrackedSelector(store);
