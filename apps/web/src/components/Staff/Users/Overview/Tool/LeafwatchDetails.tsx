@@ -10,6 +10,7 @@ import {
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
 import { HEY_API_URL } from '@hey/data/constants';
 import humanize from '@hey/lib/humanize';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
@@ -32,7 +33,7 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
     try {
       const response = await axios.get(
         `${HEY_API_URL}/internal/leafwatch/profile/details`,
-        { params: { id: profileId } }
+        { headers: getAuthApiHeaders(), params: { id: profileId } }
       );
       const { data } = response;
 

@@ -3,36 +3,26 @@ import axios from 'axios';
 import { TEST_URL } from 'src/lib/constants';
 import { describe, expect, test } from 'vitest';
 
-describe('internal/features/toggle', () => {
+describe('internal/score/reset', () => {
   const payload = {
-    enabled: false,
-    id: '8ed8b26a-279d-4111-9d39-a40164b273a0'
+    address: '0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF',
+    availabePoints: 1
   };
 
-  test('should kill a feature', async () => {
+  test('should enable features for a profile', async () => {
     const response = await axios.post(
-      `${TEST_URL}/internal/features/toggle`,
+      `${TEST_URL}/internal/score/reset`,
       payload,
       { headers: await getAuthApiHeadersForTest() }
     );
 
-    expect(response.data.enabled).toBeFalsy();
-  });
-
-  test('should un-kill a feature', async () => {
-    const response = await axios.post(
-      `${TEST_URL}/internal/features/toggle`,
-      { enabled: true, id: '8ed8b26a-279d-4111-9d39-a40164b273a0' },
-      { headers: await getAuthApiHeadersForTest() }
-    );
-
-    expect(response.data.enabled).toBeTruthy();
+    expect(response.data.success).toBeTruthy();
   });
 
   test('should fail if not staff', async () => {
     try {
       const response = await axios.post(
-        `${TEST_URL}/internal/features/toggle`,
+        `${TEST_URL}/internal/score/reset`,
         payload,
         { headers: await getAuthApiHeadersForTest({ staff: false }) }
       );
@@ -42,10 +32,7 @@ describe('internal/features/toggle', () => {
 
   test('should fail if not authenticated', async () => {
     try {
-      const response = await axios.post(
-        `${TEST_URL}/internal/features/toggle`,
-        payload
-      );
+      const response = await axios.post(`${TEST_URL}/email/update`, payload);
       expect(response.status).toEqual(401);
     } catch {}
   });
