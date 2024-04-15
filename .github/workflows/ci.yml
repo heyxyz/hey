@@ -127,6 +127,7 @@ jobs:
             echo "IPAPI_KEY=${IPAPI_KEY}"
             echo "GOOGLE_API_KEY=${GOOGLE_API_KEY}"
             echo "IRYS_PRIVATE_KEY=${IRYS_PRIVATE_KEY}"
+            echo "STACK_SO_API_KEY=${STACK_SO_API_KEY}"
           } > .env
           cd ../..
           pnpm test:e2e
