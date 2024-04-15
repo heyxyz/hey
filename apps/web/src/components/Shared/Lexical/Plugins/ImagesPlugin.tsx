@@ -70,7 +70,7 @@ const ImagesPlugin = (): JSX.Element | null => {
 
   useEffect(() => {
     return mergeRegister(
-      editor.registerCommand<InputEvent & ClipboardEvent>(
+      editor.registerCommand<ClipboardEvent & InputEvent>(
         PASTE_COMMAND,
         (event) => {
           if (event) {
