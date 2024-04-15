@@ -49,7 +49,7 @@ npx hardhat compile
 
 # Deploy to Amoy
 npx hardhat run script/HeyPro/deploy.ts --network polygonAmoy
-npx hardhat verify 0x093F9ddED8a0E18d7d4483cf9902aA46628F4fb8 --network polygonAmoy
+npx hardhat verify 0x16Ecb44Ad912A7F161e72eea49ca11F31784cB1d --network polygonAmoy
 
 # Deploy to Polygon
 npx hardhat run script/HeyPro/deploy.ts --network polygon
@@ -64,4 +64,4 @@ npx hardhat verify 0xB8f609AA9fAe54F6963567571dd6449Af22d73cC --network polygon
 
 | Contract | Mainnet                                                                                                                      | Amoy                                                                                                                            |
 | -------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `HeyPro` | [0x093F9ddED8a0E18d7d4483cf9902aA46628F4fb8](https://www.oklink.com/amoy/address/0x093F9ddED8a0E18d7d4483cf9902aA46628F4fb8) | [0xB8f609AA9fAe54F6963567571dd6449Af22d73cC](https://www.oklink.com/polygon/address/0xB8f609AA9fAe54F6963567571dd6449Af22d73cC) |
+| `HeyPro` | [0x16Ecb44Ad912A7F161e72eea49ca11F31784cB1d](https://www.oklink.com/amoy/address/0x16Ecb44Ad912A7F161e72eea49ca11F31784cB1d) | [0xB8f609AA9fAe54F6963567571dd6449Af22d73cC](https://www.oklink.com/polygon/address/0xB8f609AA9fAe54F6963567571dd6449Af22d73cC) |
