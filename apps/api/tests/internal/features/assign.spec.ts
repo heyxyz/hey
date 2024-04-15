@@ -5,14 +5,16 @@ import { TEST_URL } from 'src/lib/constants';
 import { describe, expect, test } from 'vitest';
 
 describe('internal/features/assign', () => {
+  const payload = {
+    enabled: true,
+    id: '8ed8b26a-279d-4111-9d39-a40164b273a0',
+    profile_id: TEST_LENS_ID
+  };
+
   test('should enable features for a profile', async () => {
     const response = await axios.post(
       `${TEST_URL}/internal/features/assign`,
-      {
-        enabled: true,
-        id: '8ed8b26a-279d-4111-9d39-a40164b273a0',
-        profile_id: TEST_LENS_ID
-      },
+      payload,
       { headers: await getAuthApiHeadersForTest() }
     );
 
@@ -31,5 +33,26 @@ describe('internal/features/assign', () => {
     );
 
     expect(response.data.enabled).toBeFalsy();
+  });
+
+  test('should fail if not staff', async () => {
+    try {
+      const response = await axios.post(
+        `${TEST_URL}/internal/features/assign`,
+        payload,
+        { headers: await getAuthApiHeadersForTest({ staff: false }) }
+      );
+      expect(response.status).toEqual(401);
+    } catch {}
+  });
+
+  test('should fail if not authenticated', async () => {
+    try {
+      const response = await axios.post(
+        `${TEST_URL}/internal/features/assign`,
+        payload
+      );
+      expect(response.status).toEqual(401);
+    } catch {}
   });
 });
