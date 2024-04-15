@@ -19,7 +19,7 @@ const validateLensAccount = async (request: Request) => {
 
   const isMainnet = network === 'mainnet';
   try {
-    const lensResponse = await axios.post(
+    const { data } = await axios.post(
       isMainnet ? LensEndpoint.Mainnet : LensEndpoint.Testnet,
       {
         query: `
@@ -37,7 +37,7 @@ const validateLensAccount = async (request: Request) => {
       }
     );
 
-    if (!lensResponse.data.verify) {
+    if (data.data.verify) {
       return true;
     }
   } catch {
