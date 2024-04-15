@@ -4,6 +4,7 @@ import { HeyPro } from '@hey/abis';
 import { HEY_PRO, IS_MAINNET } from '@hey/data/constants';
 import logger from '@hey/lib/logger';
 import catchedError from 'src/lib/catchedError';
+import { SWR_CACHE_AGE_10_MINS_30_DAYS } from 'src/lib/constants';
 import getRpc from 'src/lib/getRpc';
 import { noBody } from 'src/lib/responses';
 import { createPublicClient } from 'viem';
@@ -41,7 +42,10 @@ export const get: Handler = async (req, res) => {
 
     logger.info(`Fetched pro status for ${id}`);
 
-    return res.status(200).json({ result, success: true });
+    return res
+      .status(200)
+      .setHeader('Cache-Control', SWR_CACHE_AGE_10_MINS_30_DAYS)
+      .json({ result, success: true });
   } catch (error) {
     return catchedError(res, error);
   }
