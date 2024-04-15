@@ -101,12 +101,14 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     variables: { request: { for: actionData?.uiData.nftCreatorAddress } }
   });
 
-  const formattedPrice = (
-    (actionData
-      ? actionData.actArgumentsFormatted.paymentToken.amount /
-        BigInt(10 ** selectedCurrency.decimals)
-      : BigInt(0)) * BigInt(selectedQuantity)
-  ).toString();
+  const totalAmount = actionData
+    ? BigInt(actionData.actArgumentsFormatted.paymentToken.amount) *
+      BigInt(selectedQuantity)
+    : BigInt(0);
+
+  // Convert totalAmount to a number with decimals
+  const { decimals } = selectedCurrency;
+  const formattedPrice = Number(totalAmount) / Math.pow(10, decimals);
   /* Temporarily disabled on API endpoint and helper library  
 const formattedTotalFees = (
     actionData
@@ -115,11 +117,11 @@ const formattedTotalFees = (
       : BigInt(0) 
       ).toString();
       */
-  const formattedTotalFees = '0';
+  const formattedTotalFees = 0.0;
 
-  const formattedTotalPrice = (
-    BigInt(formattedPrice) + BigInt(formattedTotalFees)
-  ).toString();
+  const formattedTotalPrice = (formattedPrice + formattedTotalFees)
+    .toFixed(4)
+    .toString();
 
   const formattedNftSchema = nft.schema === 'erc1155' ? 'ERC-1155' : 'ERC-721';
 
@@ -351,7 +353,7 @@ const formattedTotalFees = (
               <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
                 <span className="space-x-1">Price</span>
                 <div>
-                  {formattedPrice} {selectedCurrency?.symbol}
+                  {formattedPrice.toFixed(8)} {selectedCurrency?.symbol}
                 </div>
               </div>
               <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">

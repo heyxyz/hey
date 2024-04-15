@@ -1,4 +1,5 @@
 export const TOKEN_SYMBOLS: Record<string, string> = {
+  BONSAI: 'BONSAI',
   DAI: 'DAI',
   USDC: 'USDC',
   USDT: 'USDT',

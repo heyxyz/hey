@@ -32,6 +32,13 @@ const SUPPORTED_CURRENCIES = [
     id: 'USDC',
     name: 'USD Coin',
     symbol: 'USDC'
+  },
+  {
+    contractAddress: '0x3d2bD0e15829AA5C362a4144FdF4A1112fa29B5c',
+    decimals: 18,
+    id: 'BONSAI',
+    name: 'Bonsai Token',
+    symbol: 'BONSAI'
   }
 ];
 
@@ -63,6 +70,13 @@ const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
     token: TokenContracts['USDC'] as Address
   });
 
+  const { data: bonsaiBalanceData } = useBalance({
+    address,
+    chainId: 137,
+    query: { refetchInterval: 10000 },
+    token: TokenContracts['BONSAI'] as Address
+  });
+
   const { data: wmaticPriceUsd } = useQuery({
     enabled: Boolean(wmaticBalanceData),
     queryFn: async () => await getRedstonePrice(getAssetSymbol('WMATIC')),
@@ -81,7 +95,32 @@ const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
     queryKey: ['getRedstonePrice', 'USDC']
   });
 
+  const { data: bonsaiPriceUsd } = useQuery({
+    enabled: Boolean(bonsaiBalanceData),
+    queryFn: async () => await getRedstonePrice(getAssetSymbol('BONSAI')),
+    queryKey: ['getRedstonePrice', 'BONSAI']
+  });
+
   const balances = {
+    BONSAI:
+      bonsaiBalanceData && bonsaiPriceUsd
+        ? {
+            token: parseFloat(
+              formatUnits(
+                bonsaiBalanceData?.value as bigint,
+                bonsaiBalanceData?.decimals as number
+              )
+            ).toFixed(2),
+            usd: (
+              parseFloat(
+                formatUnits(
+                  bonsaiBalanceData?.value as bigint,
+                  bonsaiBalanceData?.decimals as number
+                )
+              ) * wmaticPriceUsd
+            ).toFixed(2)
+          }
+        : { token: 0, usd: 0 },
     USDC:
       usdcBalanceData && usdcPriceUsd
         ? {
