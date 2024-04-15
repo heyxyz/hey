@@ -3,7 +3,7 @@ import { TEST_URL } from 'src/lib/constants';
 import { describe, expect, test } from 'vitest';
 
 describe('score/get', () => {
-  test('should return ens names', async () => {
+  test('should return a profile score', async () => {
     const response = await axios.get(`${TEST_URL}/score/get`, {
       headers: { 'x-lens-network': 'testnet' },
       params: { address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045' }
