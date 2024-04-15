@@ -3,7 +3,7 @@ import axios from 'axios';
 import { TEST_URL } from 'src/lib/constants';
 import { describe, expect, test } from 'vitest';
 
-describe('internal/features/delete', () => {
+describe('internal/features/delete', async () => {
   const createNewFeature = async () => {
     const response = await axios.post(
       `${TEST_URL}/internal/features/create`,
@@ -14,12 +14,12 @@ describe('internal/features/delete', () => {
     return response.data.feature.id;
   };
 
-  test('should delete a feature', async () => {
-    const newFeature = await createNewFeature();
+  const payload = { id: await createNewFeature() };
 
+  test('should delete a feature', async () => {
     const response = await axios.post(
       `${TEST_URL}/internal/features/delete`,
-      { id: newFeature },
+      payload,
       { headers: await getAuthApiHeadersForTest() }
     );
 
@@ -28,11 +28,9 @@ describe('internal/features/delete', () => {
 
   test('should fail if not staff', async () => {
     try {
-      const newFeature = await createNewFeature();
-
       const response = await axios.post(
         `${TEST_URL}/internal/features/delete`,
-        { id: newFeature },
+        payload,
         { headers: await getAuthApiHeadersForTest({ staff: false }) }
       );
       expect(response.status).toEqual(401);
@@ -41,11 +39,9 @@ describe('internal/features/delete', () => {
 
   test('should fail if not authenticated', async () => {
     try {
-      const newFeature = await createNewFeature();
-
       const response = await axios.post(
         `${TEST_URL}/internal/features/delete`,
-        { id: newFeature }
+        payload
       );
       expect(response.status).toEqual(401);
     } catch {}

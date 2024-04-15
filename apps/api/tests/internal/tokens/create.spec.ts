@@ -13,18 +13,41 @@ const generateRandomEthereumAddress = () => {
 };
 
 describe('internal/tokens/create', () => {
+  const payload = {
+    contractAddress: generateRandomEthereumAddress(),
+    decimals: 18,
+    name: 'Wrapped Matic',
+    symbol: 'WMATIC'
+  };
+
   test('should create a token', async () => {
     const response = await axios.post(
       `${TEST_URL}/internal/tokens/create`,
-      {
-        contractAddress: generateRandomEthereumAddress(),
-        decimals: 18,
-        name: 'Wrapped Matic',
-        symbol: 'WMATIC'
-      },
+      payload,
       { headers: await getAuthApiHeadersForTest() }
     );
 
     expect(response.data.token.id).toHaveLength(36);
+  });
+
+  test('should fail if not staff', async () => {
+    try {
+      const response = await axios.post(
+        `${TEST_URL}/internal/tokens/create`,
+        payload,
+        { headers: await getAuthApiHeadersForTest({ staff: false }) }
+      );
+      expect(response.status).toEqual(401);
+    } catch {}
+  });
+
+  test('should fail if not authenticated', async () => {
+    try {
+      const response = await axios.post(
+        `${TEST_URL}/internal/tokens/create`,
+        payload
+      );
+      expect(response.status).toEqual(401);
+    } catch {}
   });
 });
