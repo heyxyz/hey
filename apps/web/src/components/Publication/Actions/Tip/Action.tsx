@@ -89,7 +89,11 @@ const Action: FC<ActionProps> = ({
         </div>
       ) : null}
       <div className="space-x-2">
-        <Button onClick={() => setAmount(50)} outline={amount !== 50} size="sm">
+        <Button
+          onClick={() => onSetAmount(50)}
+          outline={amount !== 50}
+          size="sm"
+        >
           50
         </Button>
         <Button
@@ -121,7 +125,6 @@ const Action: FC<ActionProps> = ({
         <div>
           <Input
             className="no-spinner"
-            // Max to allowance
             max="1000"
             min="1"
             onChange={onOtherAmount}
@@ -137,7 +140,11 @@ const Action: FC<ActionProps> = ({
         disabled={amount <= 0 || isLoading || !hasAllowance()}
         onClick={handleTip}
       >
-        {hasAllowance() ? `Tip ${amount} BONSAI` : 'No Allowance'}
+        {currentProfile
+          ? hasAllowance()
+            ? `Tip ${amount} BONSAI`
+            : 'No Allowance'
+          : 'Log in to tip'}
       </Button>
     </div>
   );
