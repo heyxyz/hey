@@ -5,7 +5,6 @@ import catchedError from 'src/lib/catchedError';
 import { notAllowed } from 'src/lib/responses';
 import createStackClient from 'src/lib/score/createStackClient';
 
-// TODO: add tests
 export const get: Handler = async (req, res) => {
   const network = req.headers['x-lens-network'] as string;
 
