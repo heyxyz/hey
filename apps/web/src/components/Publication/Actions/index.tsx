@@ -43,6 +43,7 @@ const PublicationActions: FC<PublicationActionsProps> = ({
     : true;
   const canAct =
     hasOpenAction && isOpenActionAllowed(targetPublication.openActionModules);
+  const canTip = currentProfile?.id !== targetPublication.by.id;
   const views = getPublicationViewCountById(
     publicationViews,
     targetPublication.id
@@ -65,7 +66,9 @@ const PublicationActions: FC<PublicationActionsProps> = ({
       {canAct ? (
         <OpenAction publication={publication} showCount={showCount} />
       ) : null}
-      <Tip publication={publication} showCount={showCount} tips={tips} />
+      {canTip ? (
+        <Tip publication={publication} showCount={showCount} tips={tips} />
+      ) : null}
       {views > 0 ? <Views showCount={showCount} views={views} /> : null}
       {gardenerMode ? (
         <Mod isFullPublication={showCount} publication={targetPublication} />
