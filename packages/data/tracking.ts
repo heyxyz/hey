@@ -57,11 +57,7 @@ export const PUBLICATION = {
   NEW_QUOTE: 'New quote',
   NOT_INTERESTED: 'Not interested publication',
   OPEN_ACTIONS: {
-    SWAP: { SWAP: 'Swap OA: Swap' },
-    TIP: {
-      OPEN_TIP: 'Tip OA: Open tip modal',
-      TIP: 'Tip OA: Tip a profile'
-    }
+    SWAP: { SWAP: 'Swap OA: Swap' }
   },
   OPEN_GIFS: 'Open GIFs modal',
   OPEN_LIKES: 'Open likes modal',
