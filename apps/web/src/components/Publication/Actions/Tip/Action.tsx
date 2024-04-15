@@ -50,6 +50,12 @@ const Action: FC<ActionProps> = ({
   };
 
   const onOtherAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value as unknown as number;
+
+    if (value > (allowanceLeft || 0)) {
+      return;
+    }
+
     setAmount(event.target.value as unknown as number);
   };
 
@@ -69,7 +75,7 @@ const Action: FC<ActionProps> = ({
       await axios.put(
         `${TIP_API_URL}/tip`,
         {
-          amount,
+          amount: parseFloat(amount.toString()),
           publicationId: publication.id,
           toAddress: publication.by.ownedBy.address,
           toProfileId: publication.by.id
@@ -150,8 +156,8 @@ const Action: FC<ActionProps> = ({
         <div>
           <Input
             className="no-spinner"
-            max="1000"
-            min="1"
+            max={allowanceLeft || 0}
+            min={1}
             onChange={onOtherAmount}
             placeholder="300"
             ref={inputRef}
@@ -163,7 +169,7 @@ const Action: FC<ActionProps> = ({
       {currentProfile ? (
         <Button
           className="w-full"
-          disabled={amount <= 0 || isLoading || !hasAllowance()}
+          disabled={amount < 1 || isLoading || !hasAllowance()}
           onClick={handleTip}
         >
           {hasAllowance() ? `Tip ${amount} Points` : 'No Allowance'}
