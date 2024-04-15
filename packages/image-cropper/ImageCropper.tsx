@@ -31,11 +31,11 @@ type State = {
   hasWheelJustStarted: boolean;
 };
 
-type GestureEvent = UIEvent & {
+type GestureEvent = {
   clientX: number;
   clientY: number;
   scale: number;
-};
+} & UIEvent;
 
 class ImageCropper extends Component<CropperProps, State> {
   static defaultProps = {
