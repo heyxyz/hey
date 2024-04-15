@@ -53,6 +53,7 @@ const Action: FC<ActionProps> = ({
 
   const handleTip = async () => {
     if (!currentProfile) {
+      closePopover();
       setShowAuthModal(true);
       return;
     }

@@ -1,7 +1,7 @@
 import type { AnyPublication } from '@hey/lens';
 
 import MenuTransition from '@components/Shared/MenuTransition';
-import { Popover } from '@headlessui/react';
+import { Menu } from '@headlessui/react';
 import { TipIcon } from '@hey/icons';
 import humanize from '@hey/lib/humanize';
 import nFormatter from '@hey/lib/nFormatter';
@@ -38,8 +38,8 @@ const Tip: FC<TipProps> = ({ publication, showCount, tips }) => {
 
   return (
     <div className="flex items-center space-x-1">
-      <Popover as="div" className="relative">
-        <Popover.Button
+      <Menu as="div" className="relative">
+        <Menu.Button
           aria-label="Tip"
           as={motion.button}
           className="ld-text-gray-500 rounded-full p-1.5 outline-offset-2 hover:bg-gray-300/20"
@@ -54,22 +54,24 @@ const Tip: FC<TipProps> = ({ publication, showCount, tips }) => {
           >
             <TipIcon className={iconClassName} />
           </Tooltip>
-        </Popover.Button>
+        </Menu.Button>
         <MenuTransition>
-          <Popover.Panel
+          <Menu.Items
             className="absolute z-[5] mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
             static
           >
-            {({ close }) => (
-              <Action
-                closePopover={close}
-                publication={targetPublication}
-                triggerConfetti={triggerConfetti}
-              />
-            )}
-          </Popover.Panel>
+            <Menu.Item>
+              {({ close }) => (
+                <Action
+                  closePopover={close}
+                  publication={targetPublication}
+                  triggerConfetti={triggerConfetti}
+                />
+              )}
+            </Menu.Item>
+          </Menu.Items>
         </MenuTransition>
-      </Popover>
+      </Menu>
       {tips > 0 && !showCount ? (
         <span className="ld-text-gray-500 text-[11px] sm:text-xs">
           {nFormatter(tips)}
