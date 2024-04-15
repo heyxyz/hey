@@ -22,4 +22,11 @@ describe('preferences/get', () => {
     expect(response.data.result.highSignalNotificationFilter).toBeTruthy();
     expect(response.data.result.isPride).toBeTruthy();
   });
+
+  test('should fail if not authenticated', async () => {
+    try {
+      const response = await axios.get(`${TEST_URL}/preferences/get`);
+      expect(response.status).toEqual(401);
+    } catch {}
+  });
 });

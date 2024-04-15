@@ -13,4 +13,13 @@ describe('live/create', () => {
 
     expect(response.data.result.createdByTokenName).toEqual('Hey Live');
   });
+
+  test('should fail if not authenticated', async () => {
+    try {
+      const response = await axios.post(`${TEST_URL}/live/create`, {
+        record: true
+      });
+      expect(response.status).toEqual(401);
+    } catch {}
+  });
 });
