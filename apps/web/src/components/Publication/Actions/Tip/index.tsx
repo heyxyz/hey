@@ -8,6 +8,7 @@ import nFormatter from '@hey/lib/nFormatter';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Tooltip } from '@hey/ui';
+import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { motion } from 'framer-motion';
 import party from 'party-js';
 import { type FC, useRef } from 'react';
@@ -25,6 +26,10 @@ const Tip: FC<TipProps> = ({ publication, showCount, tips }) => {
     ? publication?.mirrorOn
     : publication;
   const confettiDom = useRef<HTMLDivElement>(null);
+
+  if (!isFeatureAvailable('gpb')) {
+    return null;
+  }
 
   const triggerConfetti = () => {
     party.resolvableShapes['moneybag'] = '<span>💰</span>';
