@@ -4,8 +4,15 @@ pragma solidity ^0.8.23;
 
 import '@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol';
 import '@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol';
+import '@openzeppelin/contracts-upgradeable/utils/ReentrancyGuardUpgradeable.sol';
+import '@openzeppelin/contracts-upgradeable/utils/PausableUpgradeable.sol';
 
-contract HeyPro is Initializable, OwnableUpgradeable {
+contract HeyPro is
+  Initializable,
+  OwnableUpgradeable,
+  ReentrancyGuardUpgradeable,
+  PausableUpgradeable
+{
   uint256 constant MONTH = 30 days;
   uint256 constant YEAR = 365 days;
   uint256 public monthlyPrice;
@@ -14,9 +21,8 @@ contract HeyPro is Initializable, OwnableUpgradeable {
 
   event SubscriptionUpdated(uint256 profileId, uint256 newExpiryDate);
 
-  error InvalidFunds();
-  error NotAllowed();
-  error TransferFailed();
+  error InvalidFunds(string message);
+  error TransferFailed(string message);
 
   // Initializer instead of constructor for upgradeable contracts
   function initialize(
@@ -25,8 +31,18 @@ contract HeyPro is Initializable, OwnableUpgradeable {
     uint256 _yearlyPrice
   ) public initializer {
     __Ownable_init(owner);
+    __ReentrancyGuard_init();
+    __Pausable_init();
     monthlyPrice = _monthlyPrice;
     yearlyPrice = _yearlyPrice;
+  }
+
+  function pause() public onlyOwner {
+    _pause();
+  }
+
+  function unpause() public onlyOwner {
+    _unpause();
   }
 
   function setMonthlyPrice(uint256 _monthlyPrice) external onlyOwner {
@@ -46,14 +62,20 @@ contract HeyPro is Initializable, OwnableUpgradeable {
     emit SubscriptionUpdated(profileId, proExpiresAt[profileId]);
   }
 
-  function subscribeMonthly(uint256 profileId) public payable {
-    if (msg.value != monthlyPrice) revert InvalidFunds();
+  function subscribeMonthly(
+    uint256 profileId
+  ) external payable whenNotPaused nonReentrant {
+    if (msg.value != monthlyPrice)
+      revert InvalidFunds('Monthly subscription funds are incorrect');
     extendSubscription(profileId, MONTH);
     _transferFunds();
   }
 
-  function subscribeYearly(uint256 profileId) public payable {
-    if (msg.value != yearlyPrice) revert InvalidFunds();
+  function subscribeYearly(
+    uint256 profileId
+  ) external payable whenNotPaused nonReentrant {
+    if (msg.value != yearlyPrice)
+      revert InvalidFunds('Yearly subscription funds are incorrect');
     extendSubscription(profileId, YEAR);
     _transferFunds();
   }
@@ -62,12 +84,12 @@ contract HeyPro is Initializable, OwnableUpgradeable {
   function subscribePro(
     uint256 profileId,
     uint256 duration
-  ) external onlyOwner {
+  ) external onlyOwner whenNotPaused nonReentrant {
     extendSubscription(profileId, duration);
   }
 
   function _transferFunds() private {
     (bool sent, ) = owner().call{ value: msg.value }('');
-    if (!sent) revert TransferFailed();
+    if (!sent) revert TransferFailed('Failed to transfer funds to owner');
   }
 }

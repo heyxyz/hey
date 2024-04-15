@@ -133,6 +133,7 @@ contract HeyLensSignup is Initializable, OwnableUpgradeable {
     return (profileId, handleId);
   }
 
+  // Remove this function on V2 and add direct transfer of funds to the owner
   function withdrawFunds() external onlyOwner {
     (bool sent, ) = payable(owner()).call{ value: address(this).balance }('');
     if (!sent) {
