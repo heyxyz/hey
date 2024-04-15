@@ -23,14 +23,14 @@ export const get: Handler = async (req, res) => {
       transport: getRpc({ mainnet: IS_MAINNET })
     });
 
-    const data: any = await client.readContract({
+    const data = await client.readContract({
       abi: HeyPro,
       address: HEY_PRO,
       args: [id],
       functionName: 'proExpiresAt'
     });
 
-    const jsonData = JSON.parse(data);
+    const jsonData = JSON.parse(data as string);
     const expiresAt = new Date(jsonData * 1000);
     const expired = expiresAt < new Date();
 
