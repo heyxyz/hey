@@ -2,6 +2,7 @@ import type { Handler } from 'express';
 
 import { HeyPro } from '@hey/abis';
 import { HEY_PRO, IS_MAINNET } from '@hey/data/constants';
+import logger from '@hey/lib/logger';
 import catchedError from 'src/lib/catchedError';
 import getRpc from 'src/lib/getRpc';
 import { noBody } from 'src/lib/responses';
@@ -37,6 +38,8 @@ export const get: Handler = async (req, res) => {
       expiresAt: expired ? null : expiresAt,
       isPro: expired ? false : true
     };
+
+    logger.info(`Fetched pro status for ${id}`);
 
     return res.status(200).json({ result, success: true });
   } catch (error) {
