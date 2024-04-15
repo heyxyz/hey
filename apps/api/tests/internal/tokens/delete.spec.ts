@@ -12,9 +12,9 @@ const generateRandomEthereumAddress = () => {
   return address;
 };
 
-describe('internal/tokens/delete', () => {
-  test('should delete a token', async () => {
-    const newTokenResponse = await axios.post(
+describe('internal/tokens/delete', async () => {
+  const createNewToken = async () => {
+    const response = await axios.post(
       `${TEST_URL}/internal/tokens/create`,
       {
         contractAddress: generateRandomEthereumAddress(),
@@ -25,12 +25,41 @@ describe('internal/tokens/delete', () => {
       { headers: await getAuthApiHeadersForTest() }
     );
 
+    return response.data.token.id;
+  };
+
+  const payload = {
+    id: await createNewToken()
+  };
+
+  test('should delete a token', async () => {
     const response = await axios.post(
       `${TEST_URL}/internal/tokens/delete`,
-      { id: newTokenResponse.data.token.id },
+      payload,
       { headers: await getAuthApiHeadersForTest() }
     );
 
     expect(response.data.success).toBeTruthy();
+  });
+
+  test('should fail if not staff', async () => {
+    try {
+      const response = await axios.post(
+        `${TEST_URL}/internal/tokens/delete`,
+        payload,
+        { headers: await getAuthApiHeadersForTest({ staff: false }) }
+      );
+      expect(response.status).toEqual(401);
+    } catch {}
+  });
+
+  test('should fail if not authenticated', async () => {
+    try {
+      const response = await axios.post(
+        `${TEST_URL}/internal/tokens/delete`,
+        payload
+      );
+      expect(response.status).toEqual(401);
+    } catch {}
   });
 });

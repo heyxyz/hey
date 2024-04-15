@@ -23,4 +23,25 @@ describe('internal/features/staffMode', () => {
 
     expect(response.data.enabled).toBeFalsy();
   });
+
+  test('should fail if not staff', async () => {
+    try {
+      const response = await axios.post(
+        `${TEST_URL}/internal/features/staffMode`,
+        { enabled: true },
+        { headers: await getAuthApiHeadersForTest({ staff: false }) }
+      );
+      expect(response.status).toEqual(401);
+    } catch {}
+  });
+
+  test('should fail if not authenticated', async () => {
+    try {
+      const response = await axios.post(
+        `${TEST_URL}/internal/features/staffMode`,
+        { enabled: true }
+      );
+      expect(response.status).toEqual(401);
+    } catch {}
+  });
 });

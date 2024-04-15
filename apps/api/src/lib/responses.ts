@@ -4,7 +4,7 @@ import { Errors } from '@hey/data';
 
 export const notAllowed = (response: Response) => {
   return response
-    .status(400)
+    .status(401)
     .json({ error: Errors.NotAllowed, success: false });
 };
 
