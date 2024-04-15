@@ -2,8 +2,9 @@ import type { AnyPublication } from '@hey/lens';
 
 import { Errors } from '@hey/data';
 import { TIP_API_URL } from '@hey/data/constants';
+import formatDate from '@hey/lib/datetime/formatDate';
 import humanize from '@hey/lib/humanize';
-import { Button, Input } from '@hey/ui';
+import { Button, HelpTooltip, Input } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import axios from 'axios';
@@ -31,6 +32,7 @@ const Action: FC<ActionProps> = ({
   const {
     addOrUpdatePublicationTip,
     allowanceLeft,
+    allowanceResetsAt,
     decreaseAllowance,
     hasAllowance
   } = useTipsStore();
@@ -88,8 +90,23 @@ const Action: FC<ActionProps> = ({
   return (
     <div className="m-5 space-y-3">
       {allowanceLeft ? (
-        <div className="ld-text-gray-500 text-right text-xs">
-          Allowance: {humanize(allowanceLeft)} BONSAI
+        <div className="flex items-center space-x-1">
+          <div className="ld-text-gray-500 ml-auto text-xs">
+            Allowance: {humanize(allowanceLeft)} Points
+          </div>
+          <HelpTooltip>
+            <b>Good BONSAI Points</b>
+            <div className="w-52">
+              <div className="flex items-start justify-between">
+                <div>Allowance</div>
+                <b>{humanize(allowanceLeft)} GBP</b>
+              </div>
+              <div className="flex items-start justify-between">
+                <div>Resets At</div>
+                <b>{formatDate(allowanceResetsAt?.toString() as string)}</b>
+              </div>
+            </div>
+          </HelpTooltip>
         </div>
       ) : null}
       <div className="space-x-2">
@@ -149,7 +166,7 @@ const Action: FC<ActionProps> = ({
           disabled={amount <= 0 || isLoading || !hasAllowance()}
           onClick={handleTip}
         >
-          {hasAllowance() ? `Tip ${amount} BONSAI` : 'No Allowance'}
+          {hasAllowance() ? `Tip ${amount} Points` : 'No Allowance'}
         </Button>
       ) : (
         <Button className="w-full" onClick={handleTip}>
