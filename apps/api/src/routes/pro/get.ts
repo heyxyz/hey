@@ -30,8 +30,14 @@ export const get: Handler = async (req, res) => {
     });
 
     const jsonData = JSON.parse(data);
+    const expiresAt = jsonData ? new Date(jsonData * 1000) : null;
 
-    return res.status(200).json({ result: jsonData, success: true });
+    const result = {
+      expiresAt,
+      isPro: expiresAt ? expiresAt > new Date() : false
+    };
+
+    return res.status(200).json({ result, success: true });
   } catch (error) {
     return catchedError(res, error);
   }
