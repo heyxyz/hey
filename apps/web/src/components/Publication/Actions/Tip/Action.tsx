@@ -10,6 +10,7 @@ import axios from 'axios';
 import { type FC, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import usePreventScrollOnNumberInput from 'src/hooks/usePreventScrollOnNumberInput';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useTipsStore } from 'src/store/non-persisted/useTipsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -26,6 +27,7 @@ const Action: FC<ActionProps> = ({
   triggerConfetti
 }) => {
   const { currentProfile } = useProfileStore();
+  const { setShowAuthModal } = useGlobalModalStateStore();
   const {
     addOrUpdatePublicationTip,
     allowanceLeft,
@@ -51,7 +53,8 @@ const Action: FC<ActionProps> = ({
 
   const handleTip = async () => {
     if (!currentProfile) {
-      return toast.error(Errors.SignWallet);
+      setShowAuthModal(true);
+      return;
     }
 
     if (isSuspended) {
@@ -135,17 +138,19 @@ const Action: FC<ActionProps> = ({
           />
         </div>
       ) : null}
-      <Button
-        className="w-full"
-        disabled={amount <= 0 || isLoading || !hasAllowance()}
-        onClick={handleTip}
-      >
-        {currentProfile
-          ? hasAllowance()
-            ? `Tip ${amount} BONSAI`
-            : 'No Allowance'
-          : 'Log in to tip'}
-      </Button>
+      {currentProfile ? (
+        <Button
+          className="w-full"
+          disabled={amount <= 0 || isLoading || !hasAllowance()}
+          onClick={handleTip}
+        >
+          {hasAllowance() ? `Tip ${amount} BONSAI` : 'No Allowance'}
+        </Button>
+      ) : (
+        <Button className="w-full" onClick={handleTip}>
+          Log in to tip
+        </Button>
+      )}
     </div>
   );
 };
