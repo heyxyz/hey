@@ -6,6 +6,7 @@ import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
 import isOpenActionAllowed from '@hey/lib/isOpenActionAllowed';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { memo } from 'react';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
 import { useTipsStore } from 'src/store/non-persisted/useTipsStore';
@@ -43,7 +44,8 @@ const PublicationActions: FC<PublicationActionsProps> = ({
     : true;
   const canAct =
     hasOpenAction && isOpenActionAllowed(targetPublication.openActionModules);
-  const canTip = currentProfile?.id !== targetPublication.by.id;
+  const canTip =
+    isFeatureAvailable('gpb') && currentProfile?.id !== targetPublication.by.id;
   const views = getPublicationViewCountById(
     publicationViews,
     targetPublication.id
