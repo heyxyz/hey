@@ -36,6 +36,7 @@ contract HeyLensSignupV2 is Initializable, OwnableUpgradeable {
 
   error InvalidFunds();
   error NotAllowed();
+  // Rename to TransferFailed with custom message in V3
   error WithdrawalFailed();
 
   // Initializer instead of constructor for upgradeable contracts
@@ -127,6 +128,7 @@ contract HeyLensSignupV2 is Initializable, OwnableUpgradeable {
     profileCreated[profileId] = true;
     profilesCreatedViaCrypto++;
 
+    // Remove this on V3 and move to _transferFunds function
     // Transfer the funds to the owner
     (bool sent, ) = payable(owner()).call{ value: msg.value }('');
 
