@@ -5,7 +5,11 @@ import ProfileListShimmer from '@components/Shared/Shimmer/ProfileListShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { ArrowLeftIcon, RectangleStackIcon } from '@heroicons/react/24/outline';
 import { ProfileLinkSource } from '@hey/data/tracking';
-import { LimitType, useWhoActedOnPublicationQuery } from '@hey/lens';
+import {
+  LimitType,
+  OpenActionCategoryType,
+  useWhoActedOnPublicationQuery
+} from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import Link from 'next/link';
 import { Virtuoso } from 'react-virtuoso';
@@ -21,7 +25,8 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
   // Variables
   const request: WhoActedOnPublicationRequest = {
     limit: LimitType.TwentyFive,
-    on: publicationId
+    on: publicationId,
+    where: { anyOf: [{ category: OpenActionCategoryType.Collect }] }
   };
 
   const { data, error, fetchMore, loading } = useWhoActedOnPublicationQuery({
