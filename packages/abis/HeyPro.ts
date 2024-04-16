@@ -77,6 +77,19 @@ export const HeyPro = [
         internalType: 'uint256',
         name: 'profileId',
         type: 'uint256'
+      }
+    ],
+    name: 'SubscriptionCancelled',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'profileId',
+        type: 'uint256'
       },
       {
         indexed: false,
@@ -102,14 +115,10 @@ export const HeyPro = [
     type: 'event'
   },
   {
-    inputs: [
-      { internalType: 'uint256[]', name: 'profileIds', type: 'uint256[]' }
-    ],
-    name: 'bulkGetExpiresAt',
-    outputs: [
-      { internalType: 'uint256[]', name: 'expiresAt', type: 'uint256[]' }
-    ],
-    stateMutability: 'view',
+    inputs: [{ internalType: 'uint256', name: 'profileId', type: 'uint256' }],
+    name: 'cancelSubscription',
+    outputs: [],
+    stateMutability: 'nonpayable',
     type: 'function'
   },
   {
@@ -155,6 +164,13 @@ export const HeyPro = [
     inputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     name: 'proExpiresAt',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    name: 'profileToAddress',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function'
   },
