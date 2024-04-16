@@ -46,7 +46,7 @@ const Pro: NextPage = () => {
   }, []);
 
   return (
-    <div className="relative isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
+    <div className="relative isolate px-6 py-24 sm:py-32 lg:px-8">
       <div className="absolute inset-x-0 -z-10 overflow-hidden px-36 blur-3xl">
         <div
           className="from-brand-300 mx-auto aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr to-purple-300 opacity-30"
@@ -74,8 +74,8 @@ const Pro: NextPage = () => {
           <div
             className={cn(
               tier.featured
-                ? 'relative bg-white shadow-2xl'
-                : 'bg-white/60 sm:mx-8 lg:mx-0',
+                ? 'relative bg-white shadow-2xl dark:bg-black'
+                : 'bg-white/60 sm:mx-8 lg:mx-0 dark:bg-black/60',
               tier.featured
                 ? ''
                 : tierIdx === 0
@@ -85,7 +85,7 @@ const Pro: NextPage = () => {
             )}
             key={tier.id}
           >
-            <h3 className="text-base font-bold leading-7" id={tier.id}>
+            <h3 className="font-bold leading-7" id={tier.id}>
               {tier.name}
             </h3>
             <p className="mt-4 flex items-baseline space-x-3">
@@ -94,18 +94,15 @@ const Pro: NextPage = () => {
                 className="size-7"
                 src={`${STATIC_IMAGES_URL}/tokens/matic.svg`}
               />
-              <span className="text-5xl font-bold tracking-tight text-gray-900">
+              <span className="text-5xl font-bold tracking-tight text-gray-900 dark:text-white">
                 {tier.price}
               </span>
-              <span className="text-base text-gray-500">/month</span>
+              <span className="ld-text-gray-500">/month</span>
             </p>
-            <p className="mt-6 text-base leading-7 text-gray-600">
+            <p className="ld-text-gray-500 mt-6 leading-7">
               {tier.description}
             </p>
-            <ul
-              className="mt-8 space-y-3 text-sm leading-6 text-gray-600 sm:mt-10"
-              role="list"
-            >
+            <ul className="ld-text-gray-500 mt-8 space-y-3 text-sm leading-6 sm:mt-10">
               {tier.features.map((feature) => (
                 <li className="flex items-center space-x-3" key={feature}>
                   <CheckIcon aria-hidden="true" className="size-5" />
