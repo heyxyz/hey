@@ -86,11 +86,13 @@ const RelayerBalance: FC<RelayerBalanceProps> = ({ address, index }) => {
       name={
         <div className="flex items-center space-x-2">
           <span>{index === 0 ? 'Root Relayer' : `Relayer ${index}`}</span>
-          {allowed && index !== 0 ? (
-            <CheckCircleIcon className="size-4 text-green-500" />
-          ) : (
-            <XMarkIcon className="size-4 text-red-500" />
-          )}
+          {index !== 0 ? (
+            allowed ? (
+              <CheckCircleIcon className="size-4 text-green-500" />
+            ) : (
+              <XMarkIcon className="size-4 text-red-500" />
+            )
+          ) : null}
         </div>
       }
       suffix="MATIC"
