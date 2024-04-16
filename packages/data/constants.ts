@@ -50,6 +50,10 @@ export const HEY_CURATED_ID = '0x0214f6';
 export const ZERO_PUBLICATION_ID = '0x00-0x00';
 export const HANDLE_PREFIX = 'lens/';
 export const SIGNUP_PRICE = IS_MAINNET ? 8 : 1;
+export const PRO_TIER_PRICES = {
+  annually: 0.5,
+  monthly: 0.1
+};
 export const HEY_MEMBERSHIP_NFT = IS_MAINNET
   ? '0x100372BBF7f975f6b1448fB11AB0F814b2740EEd'
   : '0x75120677aBF34ae95a916C6E9DbB610a06536CC3';
