@@ -17,9 +17,11 @@ contract HeyPro is
   uint256 constant YEAR = 365 days;
   uint256 public monthlyPrice;
   uint256 public yearlyPrice;
+  mapping(uint256 => address) public profileToAddress;
   mapping(uint256 => uint256) public proExpiresAt;
 
   event SubscriptionUpdated(uint256 profileId, uint256 newExpiryDate);
+  event SubscriptionCancelled(uint256 profileId);
 
   error InvalidFunds(string message);
   error TransferFailed(string message);
@@ -59,6 +61,7 @@ contract HeyPro is
     } else {
       proExpiresAt[profileId] = block.timestamp + duration;
     }
+    profileToAddress[profileId] = msg.sender;
     emit SubscriptionUpdated(profileId, proExpiresAt[profileId]);
   }
 
@@ -88,15 +91,17 @@ contract HeyPro is
     extendSubscription(profileId, duration);
   }
 
-  function bulkGetExpiresAt(
-    uint256[] memory profileIds
-  ) public view returns (uint256[] memory expiresAt) {
-    expiresAt = new uint256[](profileIds.length);
-    for (uint256 i = 0; i < profileIds.length; i++) {
-      expiresAt[i] = proExpiresAt[profileIds[i]];
-    }
-
-    return expiresAt;
+  function cancelSubscription(uint256 profileId) external {
+    require(
+      msg.sender == profileToAddress[profileId],
+      'Unauthorized: caller is not the subscriber'
+    );
+    require(
+      proExpiresAt[profileId] > block.timestamp,
+      'Subscription is not active'
+    );
+    proExpiresAt[profileId] = 0;
+    emit SubscriptionCancelled(profileId);
   }
 
   function _transferFunds() private {
