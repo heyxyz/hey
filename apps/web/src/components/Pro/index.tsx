@@ -60,7 +60,7 @@ const Pro: NextPage = () => {
         <h2 className="text-brand-500 text-2xl font-bold leading-7 sm:text-3xl">
           Upgrade to Pro
         </h2>
-        <p className="mt-5 text-lg font-bold sm:text-xl">
+        <p className="mt-4 text-lg font-bold sm:text-xl">
           Enjoy an enhanced experience of {APP_NAME}, exclusive creator tools,
           and more.
         </p>
@@ -79,9 +79,9 @@ const Pro: NextPage = () => {
               tier.featured
                 ? ''
                 : tierIdx === 0
-                  ? 'rounded-t-3xl sm:rounded-b-none lg:rounded-bl-3xl lg:rounded-tr-none'
-                  : 'sm:rounded-t-none lg:rounded-bl-none lg:rounded-tr-3xl',
-              'rounded-3xl p-8 ring-1 ring-gray-900/10 sm:p-10'
+                  ? 'rounded-t-2xl sm:rounded-b-none lg:rounded-bl-2xl lg:rounded-tr-none'
+                  : 'sm:rounded-t-none lg:rounded-bl-none lg:rounded-tr-2xl',
+              'rounded-2xl p-8 ring-1 ring-gray-900/10 sm:p-10 dark:ring-gray-100/20'
             )}
             key={tier.id}
           >
