@@ -21,7 +21,7 @@ import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestric
 import { useProStore } from 'src/store/non-persisted/useProStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { parseEther } from 'viem';
-import { useAccount, useBalance, useWriteContract } from 'wagmi';
+import { useTransaction, useWriteContract } from 'wagmi';
 
 const tiers = [
   {
@@ -60,9 +60,10 @@ const Pro: NextPage = () => {
   const { isPro } = useProStore();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [transactionHash, setTransactionHash] = useState('');
+  const [transactionHash, setTransactionHash] = useState<`0x${string}` | null>(
+    null
+  );
 
-  const { address } = useAccount();
   const { isSuspended } = useProfileRestriction();
   const handleWrongNetwork = useHandleWrongNetwork();
 
@@ -70,17 +71,23 @@ const Pro: NextPage = () => {
     Leafwatch.track(PAGEVIEW, { page: 'pro' });
   }, []);
 
-  const { data } = useBalance({
-    address: address,
-    query: { refetchInterval: 5000 }
+  const { isFetching: transactionLoading, isSuccess } = useTransaction({
+    hash: transactionHash as `0x${string}`,
+    query: { enabled: Boolean(transactionHash) }
   });
+
+  useEffect(() => {
+    if (isSuccess) {
+      location.reload();
+    }
+  }, [isSuccess]);
 
   const { writeContractAsync } = useWriteContract({
     mutation: {
       onError: errorToast,
       onSuccess: (hash: string) => {
         // Leafwatch.track(AUTH.SIGNUP, { price: SIGNUP_PRICE, via: 'crypto' });
-        setTransactionHash(hash);
+        setTransactionHash(hash as `0x${string}`);
       }
     }
   });
@@ -180,14 +187,16 @@ const Pro: NextPage = () => {
             </ul>
             <Button
               className="mt-3 w-full"
-              disabled={isLoading}
+              disabled={isLoading || transactionLoading}
               onClick={() => upgrade(tier.id as 'annually' | 'monthly')}
               outline={!tier.featured}
               size="lg"
             >
-              {isPro
-                ? `Extend a ${tier.id === 'monthly' ? 'Month' : 'Year'}`
-                : 'Upgrade to Pro'}
+              {transactionLoading
+                ? 'Transaction pending...'
+                : isPro
+                  ? `Extend a ${tier.id === 'monthly' ? 'Month' : 'Year'}`
+                  : 'Upgrade to Pro'}
             </Button>
           </div>
         ))}

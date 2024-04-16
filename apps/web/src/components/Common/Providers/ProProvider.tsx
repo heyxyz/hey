@@ -16,8 +16,9 @@ const ProProvider: FC = () => {
         params: { id: sessionProfileId }
       });
       const { data } = response;
-      setIsPro(data?.isPro);
-      setProExpiresAt(data?.expiresAt);
+      setIsPro(data?.result?.isPro);
+      setProExpiresAt(data?.result?.expiresAt);
+
       return true;
     } catch {
       return false;
