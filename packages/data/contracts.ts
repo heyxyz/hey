@@ -11,7 +11,7 @@ export enum MainnetContracts {
 export enum TestnetContracts {
   DefaultToken = '0x3d2bD0e15829AA5C362a4144FdF4A1112fa29B5c',
   HeyLensSignup = '0x82Bcb5DA51c6F3D0Ce942bDBEbb0B8A7774d62e8',
-  HeyPro = '0x16Ecb44Ad912A7F161e72eea49ca11F31784cB1d',
+  HeyPro = '0x6024Af3AA67C8f95f4A60fAdA33a1cC4c36927FF',
   LensHandles = '0xf6fDD7932219D64f267E4BfaF8d19774526d31D9',
   LensHub = '0xA2574D9DdB6A325Ad2Be838Bd854228B80215148',
   PermissionlessCreator = '0x36440da1D98FF46637f0b98AAA082bc77977B49B',
