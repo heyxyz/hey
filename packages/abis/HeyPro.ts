@@ -103,6 +103,17 @@ export const HeyPro = [
   },
   {
     inputs: [
+      { internalType: 'uint256[]', name: 'profileIds', type: 'uint256[]' }
+    ],
+    name: 'bulkGetExpiresAt',
+    outputs: [
+      { internalType: 'uint256[]', name: 'expiresAt', type: 'uint256[]' }
+    ],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
       { internalType: 'address', name: 'owner', type: 'address' },
       { internalType: 'uint256', name: '_monthlyPrice', type: 'uint256' },
       { internalType: 'uint256', name: '_yearlyPrice', type: 'uint256' }
