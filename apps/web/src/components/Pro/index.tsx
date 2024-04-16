@@ -10,6 +10,7 @@ import {
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
+import formatDate from '@hey/lib/datetime/formatDate';
 import { Button } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
@@ -57,7 +58,7 @@ const tiers = [
 
 const Pro: NextPage = () => {
   const { currentProfile } = useProfileStore();
-  const { isPro } = useProStore();
+  const { isPro, proExpiresAt } = useProStore();
 
   const [isLoading, setIsLoading] = useState(false);
   const [transactionHash, setTransactionHash] = useState<`0x${string}` | null>(
@@ -100,6 +101,7 @@ const Pro: NextPage = () => {
     if (isSuspended) {
       return toast.error(Errors.Suspended);
     }
+
     try {
       setIsLoading(true);
       await handleWrongNetwork();
@@ -114,6 +116,28 @@ const Pro: NextPage = () => {
             ? PRO_TIER_PRICES.monthly.toString()
             : PRO_TIER_PRICES.annually.toString()
         )
+      });
+    } catch (error) {
+      errorToast(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const cancel = async () => {
+    if (!currentProfile) {
+      return toast.error(Errors.SignWallet);
+    }
+
+    try {
+      setIsLoading(true);
+      await handleWrongNetwork();
+
+      return await writeContractAsync({
+        abi: HeyPro,
+        address: HEY_PRO,
+        args: [currentProfile.id],
+        functionName: 'cancelSubscription'
       });
     } catch (error) {
       errorToast(error);
@@ -185,6 +209,11 @@ const Pro: NextPage = () => {
                 </li>
               ))}
             </ul>
+            {proExpiresAt ? (
+              <div className="mb-2 mt-6 text-sm">
+                Your Pro expires at <b>{formatDate(proExpiresAt)}</b>
+              </div>
+            ) : null}
             <Button
               className="mt-3 w-full"
               disabled={isLoading || transactionLoading}
@@ -198,6 +227,18 @@ const Pro: NextPage = () => {
                   ? `Extend a ${tier.id === 'monthly' ? 'Month' : 'Year'}`
                   : 'Upgrade to Pro'}
             </Button>
+            {isPro ? (
+              <Button
+                className="mt-3 w-full"
+                disabled={isLoading || transactionLoading}
+                onClick={cancel}
+                outline
+                size="lg"
+                variant="danger"
+              >
+                Cancel Subscription
+              </Button>
+            ) : null}
           </div>
         ))}
       </div>
