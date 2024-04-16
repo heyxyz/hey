@@ -4,6 +4,7 @@ import type { FC } from 'react';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { RectangleStackIcon as RectangleStackIconSolid } from '@heroicons/react/24/solid';
 import { PUBLICATION } from '@hey/data/tracking';
+import allowedOpenActionModules from '@hey/lib/allowedOpenActionModules';
 import humanize from '@hey/lib/humanize';
 import nFormatter from '@hey/lib/nFormatter';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
@@ -15,7 +16,7 @@ import { motion } from 'framer-motion';
 import plur from 'plur';
 import { useState } from 'react';
 
-import List from './List';
+import CollectModule from './CollectModule';
 
 interface OpenActionProps {
   publication: AnyPublication;
@@ -27,6 +28,9 @@ const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
+  const openActions = targetPublication.openActionModules.filter((module) =>
+    allowedOpenActionModules.includes(module.type)
+  );
 
   const hasActed =
     targetPublication.operations.hasActed.value ||
@@ -86,7 +90,13 @@ const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
         show={showOpenActionModal}
         title="Open Actions"
       >
-        <List publication={publication} />
+        {openActions?.map((action) => (
+          <CollectModule
+            key={action.type}
+            openAction={action}
+            publication={publication}
+          />
+        ))}
       </Modal>
     </>
   );

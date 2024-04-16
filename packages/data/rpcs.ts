@@ -1,4 +1,5 @@
 export const POLYGON_RPCS = [
+  'https://polygon.drpc.org',
   'https://rpc.ankr.com/polygon',
   'https://lb.nodies.app/v1/975f16c52f5f4732b20b6692137eec17',
   'https://polygon-bor-rpc.publicnode.com',
