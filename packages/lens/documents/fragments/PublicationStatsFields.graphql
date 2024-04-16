@@ -4,6 +4,6 @@ fragment PublicationStatsFields on PublicationStats {
   mirrors
   quotes
   reactions(request: { type: UPVOTE })
-  countOpenActions
+  countOpenActions(request: { anyOf: [{ category: COLLECT }] })
   bookmarks
 }
