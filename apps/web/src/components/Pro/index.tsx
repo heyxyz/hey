@@ -201,7 +201,7 @@ const Pro: NextPage = () => {
               <span className="ld-text-gray-500">/month</span>
             </p>
             <p className="ld-text-gray-500 mt-6">{tier.description}</p>
-            <ul className="ld-text-gray-500 mt-8 space-y-3 text-sm sm:mt-10">
+            <ul className="ld-text-gray-500 mt-8 space-y-1 text-sm sm:mt-10">
               {tier.features.map((feature) => (
                 <li className="flex items-center space-x-3" key={feature}>
                   <CheckIcon aria-hidden="true" className="size-5" />
