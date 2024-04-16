@@ -27,7 +27,7 @@ const Tip: FC<TipProps> = ({ publication, showCount, tips }) => {
     : publication;
   const confettiDom = useRef<HTMLDivElement>(null);
 
-  if (!isFeatureAvailable('gpb')) {
+  if (!isFeatureAvailable('gbp')) {
     return null;
   }
 
