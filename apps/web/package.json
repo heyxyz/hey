@@ -51,7 +51,7 @@
     "crisp-sdk-web": "^1.0.25",
     "dotenv": "^16.4.5",
     "esbuild": "^0.20.2",
-    "framer-motion": "^11.0.28",
+    "framer-motion": "^11.1.1",
     "graphql": "^16.8.1",
     "idb-keyval": "^6.2.1",
     "lexical": "^0.14.3",
