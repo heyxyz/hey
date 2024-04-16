@@ -95,30 +95,34 @@ const useActOnUnknownOpenAction = ({
   const [createActOnOpenActionTypedData] =
     useCreateActOnOpenActionTypedDataMutation({
       onCompleted: async ({ createActOnOpenActionTypedData }) => {
-        const { id, typedData } = createActOnOpenActionTypedData;
-        await handleWrongNetwork();
+        try {
+          const { id, typedData } = createActOnOpenActionTypedData;
+          await handleWrongNetwork();
 
-        if (canBroadcast) {
-          const signature = await signTypedDataAsync(getSignature(typedData));
-          const { data } = await broadcastOnchain({
-            variables: { request: { id, signature } }
-          });
-          if (data?.broadcastOnchain.__typename === 'RelayError') {
-            const txResult = await write({ args: [typedData.value] });
-            setTxHash(txResult);
-            return txResult;
-          }
-          if (data?.broadcastOnchain.__typename === 'RelaySuccess') {
-            setRelayStatus(data?.broadcastOnchain.txId);
-          }
-          incrementLensHubOnchainSigNonce();
+          if (canBroadcast) {
+            const signature = await signTypedDataAsync(getSignature(typedData));
+            const { data } = await broadcastOnchain({
+              variables: { request: { id, signature } }
+            });
+            if (data?.broadcastOnchain.__typename === 'RelayError') {
+              const txResult = await write({ args: [typedData.value] });
+              setTxHash(txResult);
+              return txResult;
+            }
+            if (data?.broadcastOnchain.__typename === 'RelaySuccess') {
+              setRelayStatus(data?.broadcastOnchain.txId);
+            }
+            incrementLensHubOnchainSigNonce();
 
-          return;
+            return;
+          }
+
+          const txResult = await write({ args: [typedData.value] });
+          setTxHash(txResult);
+          return txResult;
+        } catch (error) {
+          onError(error);
         }
-
-        const txResult = await write({ args: [typedData.value] });
-        setTxHash(txResult);
-        return txResult;
       },
       onError
     });

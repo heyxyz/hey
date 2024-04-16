@@ -14,6 +14,8 @@ const approveTokenCopy = (selectedCurrencySymbol: string) =>
 type StepperApprovalsProps = {
   approveOA: () => void;
   approvePermit2: () => void;
+  isApprovalLoading: boolean;
+  isPermit2Loading: boolean;
   nftDetails: {
     creator: string;
     name: string;
@@ -28,6 +30,8 @@ type StepperApprovalsProps = {
 const StepperApprovals: FC<StepperApprovalsProps> = ({
   approveOA,
   approvePermit2,
+  isApprovalLoading,
+  isPermit2Loading,
   nftDetails,
   selectedCurrencySymbol,
   step
@@ -78,15 +82,20 @@ const StepperApprovals: FC<StepperApprovalsProps> = ({
       />
 
       {step === 'Allowance' ? (
-        <Button className="w-full justify-center" onClick={() => approveOA()}>
-          Approve
+        <Button
+          className="w-full justify-center"
+          disabled={isApprovalLoading}
+          onClick={() => approveOA()}
+        >
+          {isApprovalLoading ? 'Approving...' : 'Approve Module'}
         </Button>
       ) : (
         <Button
           className="w-full justify-center"
+          disabled={isPermit2Loading}
           onClick={() => approvePermit2()}
         >
-          <div>Approve</div>
+          <div>{isPermit2Loading ? 'Approving...' : 'Approve Permit2'}</div>
         </Button>
       )}
     </div>

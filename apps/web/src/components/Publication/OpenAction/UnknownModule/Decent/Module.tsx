@@ -33,6 +33,7 @@ import truncateByWords from '@hey/lib/truncateByWords';
 import { HelpTooltip, Modal } from '@hey/ui';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { CHAIN, PERMIT_2_ADDRESS } from 'src/constants';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
 import { parseAbi } from 'viem';
@@ -138,65 +139,87 @@ const formattedTotalFees = (
   const amount = parseInt(formattedTotalPrice) || 0;
   const assetAddress = selectedCurrency.contractAddress;
 
+  const [isPermit2Loading, setIsPermit2Loading] = useState(false);
+
   const approvePermit2 = async () => {
     if (!!walletClient) {
-      await walletClient.writeContract({
-        abi: parseAbi(['function approve(address, uint256) returns (bool)']),
-        address: assetAddress as `0x${string}`,
-        args: [
-          PERMIT_2_ADDRESS,
-          57896044618658097711785492504343953926634992332820282019728792003956564819967n
-        ],
-        functionName: 'approve'
-      });
-      const allowanceData = await getPermit2Allowance({
-        owner: address as `0x${string}`,
-        spender: PERMIT_2_ADDRESS,
-        token: assetAddress as `0x${string}`
-      });
-      const approvedAmount = allowanceData;
-      if (Number(approvedAmount) > amount) {
-        setPermit2Allowed(true);
-      } else {
-        setPermit2Allowed(false);
+      setIsPermit2Loading(true);
+      try {
+        await walletClient.writeContract({
+          abi: parseAbi(['function approve(address, uint256) returns (bool)']),
+          address: assetAddress as `0x${string}`,
+          args: [
+            PERMIT_2_ADDRESS,
+            57896044618658097711785492504343953926634992332820282019728792003956564819967n
+          ],
+          functionName: 'approve'
+        });
+        const allowanceData = await getPermit2Allowance({
+          owner: address as `0x${string}`,
+          spender: PERMIT_2_ADDRESS,
+          token: assetAddress as `0x${string}`
+        });
+        const approvedAmount = allowanceData;
+        if (Number(approvedAmount) > amount) {
+          setPermit2Allowed(true);
+        } else {
+          setPermit2Allowed(false);
+        }
+        setIsPermit2Loading(false);
+      } catch (error) {
+        toast.error('Failed to approve Permit2');
+        setIsPermit2Loading(false);
       }
     }
   };
 
+  const [isApprovalLoading, setIsApprovalLoading] = useState(false);
+
   const approveOA = async () => {
     if (!!walletClient && !!actionData) {
-      const signatureAmount = permit2SignatureAmount({
-        chainId: 10, // TODO: dstChainID, fetch from actionData bridge out token
-        data: actionData.actArguments.actionModuleData
-      });
-      const permit2Signature = await signPermitSignature(
-        walletClient,
-        signatureAmount,
-        assetAddress as `0x${string}`
-      );
-      setPermit2Data({
-        deadline: permit2Signature.deadline,
-        nonce: permit2Signature.nonce,
-        signature: permit2Signature.signature
-      });
-      setIsModalCollapsed(false);
+      setIsApprovalLoading(true);
+      try {
+        const signatureAmount = permit2SignatureAmount({
+          chainId: 10, // TODO: dstChainID, fetch from actionData bridge out token
+          data: actionData.actArguments.actionModuleData
+        });
+        const permit2Signature = await signPermitSignature(
+          walletClient,
+          signatureAmount,
+          assetAddress as `0x${string}`
+        );
+        setPermit2Data({
+          deadline: permit2Signature.deadline,
+          nonce: permit2Signature.nonce,
+          signature: permit2Signature.signature
+        });
+        setIsModalCollapsed(false);
+        setIsApprovalLoading(false);
+      } catch (error) {
+        toast.error('Failed to approve module');
+        setIsApprovalLoading(false);
+      }
     }
   };
 
   const act = async () => {
     if (actionData && !!publication && !!permit2Data) {
-      const updatedCalldata = await updateWrapperParams({
-        chainId: 10, // TODO: dstChainID, fetch from actionData bridge out token
-        data: actionData.actArguments.actionModuleData,
-        deadline: BigInt(permit2Data.deadline),
-        nonce: BigInt(permit2Data.nonce),
-        signature: permit2Data.signature as `0x${string}`
-      });
-      await actOnUnknownOpenAction({
-        address: VerifiedOpenActionModules.DecentNFT as `0x${string}`,
-        data: updatedCalldata,
-        publicationId: publication.id
-      });
+      try {
+        const updatedCalldata = await updateWrapperParams({
+          chainId: 10, // TODO: dstChainID, fetch from actionData bridge out token
+          data: actionData.actArguments.actionModuleData,
+          deadline: BigInt(permit2Data.deadline),
+          nonce: BigInt(permit2Data.nonce),
+          signature: permit2Data.signature as `0x${string}`
+        });
+        await actOnUnknownOpenAction({
+          address: VerifiedOpenActionModules.DecentNFT as `0x${string}`,
+          data: updatedCalldata,
+          publicationId: publication.id
+        });
+      } catch (error) {
+        toast.error('Failed to mint NFT');
+      }
     }
   };
 
@@ -258,6 +281,8 @@ const formattedTotalFees = (
         <StepperApprovals
           approveOA={() => approveOA()}
           approvePermit2={() => approvePermit2()}
+          isApprovalLoading={isApprovalLoading}
+          isPermit2Loading={isPermit2Loading}
           nftDetails={{
             creator: getProfile(creatorProfileData?.defaultProfile as Profile)
               .slug,
