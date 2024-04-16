@@ -32,6 +32,7 @@ import Followers from './Followers';
 import Following from './Following';
 import MutualFollowersList from './MutualFollowers/List';
 import ProfilePageShimmer from './Shimmer';
+import Stats from './Stats';
 
 const ViewProfile: NextPage = () => {
   const {
@@ -67,7 +68,8 @@ const ViewProfile: NextPage = () => {
     ProfileFeedType.Feed.toLowerCase(),
     ProfileFeedType.Replies.toLowerCase(),
     ProfileFeedType.Media.toLowerCase(),
-    ProfileFeedType.Collects.toLowerCase()
+    ProfileFeedType.Collects.toLowerCase(),
+    ProfileFeedType.Stats.toLowerCase()
   ];
 
   const feedType = type
@@ -174,6 +176,8 @@ const ViewProfile: NextPage = () => {
                   profileId={profile.id}
                   type={feedType}
                 />
+              ) : feedType === ProfileFeedType.Stats ? (
+                <Stats profileId={profile.id} />
               ) : null}
             </>
           )}
