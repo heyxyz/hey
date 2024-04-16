@@ -1,12 +1,27 @@
 import type { NextPage } from 'next';
 
 import { CheckIcon } from '@heroicons/react/24/outline';
-import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
+import { HeyPro } from '@hey/abis';
+import { Errors } from '@hey/data';
+import {
+  APP_NAME,
+  HEY_PRO,
+  PRO_TIER_PRICES,
+  STATIC_IMAGES_URL
+} from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Button } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
+import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
+import { useProStore } from 'src/store/non-persisted/useProStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { parseEther } from 'viem';
+import { useAccount, useBalance, useWriteContract } from 'wagmi';
 
 const tiers = [
   {
@@ -22,7 +37,7 @@ const tiers = [
     ],
     id: 'annually',
     name: 'Annually',
-    price: '4.5'
+    price: (PRO_TIER_PRICES.annually / 12).toFixed(2)
   },
   {
     description: 'Billed monthly',
@@ -36,14 +51,69 @@ const tiers = [
     ],
     id: 'monthly',
     name: 'Monthly',
-    price: '5'
+    price: PRO_TIER_PRICES.monthly
   }
 ];
 
 const Pro: NextPage = () => {
+  const { currentProfile } = useProfileStore();
+  const { isPro } = useProStore();
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [transactionHash, setTransactionHash] = useState('');
+
+  const { address } = useAccount();
+  const { isSuspended } = useProfileRestriction();
+  const handleWrongNetwork = useHandleWrongNetwork();
+
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'pro' });
   }, []);
+
+  const { data } = useBalance({
+    address: address,
+    query: { refetchInterval: 5000 }
+  });
+
+  const { writeContractAsync } = useWriteContract({
+    mutation: {
+      onError: errorToast,
+      onSuccess: (hash: string) => {
+        // Leafwatch.track(AUTH.SIGNUP, { price: SIGNUP_PRICE, via: 'crypto' });
+        setTransactionHash(hash);
+      }
+    }
+  });
+
+  const upgrade = async (id: 'annually' | 'monthly') => {
+    if (!currentProfile) {
+      return toast.error(Errors.SignWallet);
+    }
+
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
+    }
+    try {
+      setIsLoading(true);
+      await handleWrongNetwork();
+
+      return await writeContractAsync({
+        abi: HeyPro,
+        address: HEY_PRO,
+        args: [currentProfile.id],
+        functionName: id === 'monthly' ? 'subscribeMonthly' : 'subscribeYearly',
+        value: parseEther(
+          id === 'monthly'
+            ? PRO_TIER_PRICES.monthly.toString()
+            : PRO_TIER_PRICES.annually.toString()
+        )
+      });
+    } catch (error) {
+      errorToast(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="relative isolate px-6 py-24 sm:py-32 lg:px-8">
@@ -108,8 +178,16 @@ const Pro: NextPage = () => {
                 </li>
               ))}
             </ul>
-            <Button className="mt-3 w-full" outline={!tier.featured} size="lg">
-              Get started today
+            <Button
+              className="mt-3 w-full"
+              disabled={isLoading}
+              onClick={() => upgrade(tier.id as 'annually' | 'monthly')}
+              outline={!tier.featured}
+              size="lg"
+            >
+              {isPro
+                ? `Extend a ${tier.id === 'monthly' ? 'Month' : 'Year'}`
+                : 'Upgrade to Pro'}
             </Button>
           </div>
         ))}

@@ -24,6 +24,7 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import Script from 'next/script';
 import { useState } from 'react';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import urlcat from 'urlcat';
 import { formatUnits, parseEther } from 'viem';
 import { useAccount, useBalance, useWriteContract } from 'wagmi';
@@ -74,6 +75,7 @@ const ChooseHandle: FC = () => {
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { address } = useAccount();
+  const handleWrongNetwork = useHandleWrongNetwork();
   const { data: balanceData } = useBalance({
     address,
     query: { refetchInterval: 2000 }
@@ -109,6 +111,8 @@ const ChooseHandle: FC = () => {
   const handleMint = async (handle: string) => {
     try {
       setIsLoading(true);
+      await handleWrongNetwork();
+
       return await writeContractAsync({
         abi: HeyLensSignup,
         address: HEY_LENS_SIGNUP,
