@@ -88,6 +88,17 @@ contract HeyPro is
     extendSubscription(profileId, duration);
   }
 
+  function bulkGetExpiresAt(
+    uint256[] memory profileIds
+  ) public view returns (uint256[] memory expiresAt) {
+    expiresAt = new uint256[](profileIds.length);
+    for (uint256 i = 0; i < profileIds.length; i++) {
+      expiresAt[i] = proExpiresAt[profileIds[i]];
+    }
+
+    return expiresAt;
+  }
+
   function _transferFunds() private {
     (bool sent, ) = owner().call{ value: msg.value }('');
     if (!sent) revert TransferFailed('Failed to transfer funds to owner');
