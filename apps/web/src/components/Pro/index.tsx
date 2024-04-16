@@ -57,7 +57,7 @@ const Pro: NextPage = () => {
         />
       </div>
       <div className="mx-auto max-w-2xl text-center lg:max-w-4xl">
-        <h2 className="text-brand-500 text-2xl font-bold leading-7 sm:text-3xl">
+        <h2 className="text-brand-500 text-2xl font-bold sm:text-3xl">
           Upgrade to Pro
         </h2>
         <p className="mt-4 text-lg font-bold sm:text-xl">
@@ -85,7 +85,7 @@ const Pro: NextPage = () => {
             )}
             key={tier.id}
           >
-            <h3 className="font-bold leading-7" id={tier.id}>
+            <h3 className="font-bold" id={tier.id}>
               {tier.name}
             </h3>
             <p className="mt-4 flex items-baseline space-x-3">
@@ -99,10 +99,8 @@ const Pro: NextPage = () => {
               </span>
               <span className="ld-text-gray-500">/month</span>
             </p>
-            <p className="ld-text-gray-500 mt-6 leading-7">
-              {tier.description}
-            </p>
-            <ul className="ld-text-gray-500 mt-8 space-y-3 text-sm leading-6 sm:mt-10">
+            <p className="ld-text-gray-500 mt-6">{tier.description}</p>
+            <ul className="ld-text-gray-500 mt-8 space-y-3 text-sm sm:mt-10">
               {tier.features.map((feature) => (
                 <li className="flex items-center space-x-3" key={feature}>
                   <CheckIcon aria-hidden="true" className="size-5" />
