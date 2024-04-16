@@ -147,8 +147,8 @@ const Pro: NextPage = () => {
   };
 
   return (
-    <div className="relative isolate px-6 py-24 sm:py-32 lg:px-8">
-      <div className="absolute inset-x-0 -z-10 overflow-hidden px-36 blur-3xl">
+    <div className="px-6 py-20">
+      <div className="absolute inset-x-0 -z-10 blur-3xl">
         <div
           className="from-brand-300 mx-auto aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr to-purple-300 opacity-30"
           style={{
@@ -157,11 +157,9 @@ const Pro: NextPage = () => {
           }}
         />
       </div>
-      <div className="mx-auto max-w-2xl text-center lg:max-w-4xl">
-        <h2 className="text-brand-500 text-2xl font-bold sm:text-3xl">
-          Upgrade to Pro
-        </h2>
-        <p className="mt-4 text-lg font-bold sm:text-xl">
+      <div className="text-center font-bold">
+        <h2 className="text-brand-500 text-2xl sm:text-3xl">Upgrade to Pro</h2>
+        <p className="mt-4 text-lg sm:text-xl">
           Enjoy an enhanced experience of {APP_NAME}, exclusive creator tools,
           and more.
         </p>
