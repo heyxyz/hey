@@ -6,13 +6,7 @@ import MetaDetails from '@components/Shared/Staff/MetaDetails';
 import { LinkIcon } from '@heroicons/react/24/outline';
 import { Button, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import {
-  getMessagesBySrcTxHash,
-  MessageStatus
-} from '@layerzerolabs/scan-client';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { useTransactionStatus } from 'src/hooks/useIndexStatus';
 import { formatUnits } from 'viem';
 import { useAccount, useBalance } from 'wagmi';
 
@@ -22,7 +16,6 @@ interface DecentActionProps {
   className?: string;
   isLoading?: boolean;
   moduleAmount?: Amount;
-  relayStatus?: string;
   txHash?: string;
 }
 
@@ -32,28 +25,20 @@ const DecentAction: FC<DecentActionProps> = ({
   className = '',
   isLoading = false,
   moduleAmount,
-  relayStatus,
   txHash
 }) => {
-  const [pending, setPending] = useState(false);
   const { address } = useAccount();
 
   const amount = parseInt(moduleAmount?.value || '0');
   const assetAddress = moduleAmount?.asset?.contract.address;
   const assetDecimals = moduleAmount?.asset?.decimals || 18;
   const assetSymbol = moduleAmount?.asset?.symbol;
-  const polygonLayerZeroChainId = 109;
-  const loadingState: boolean = isLoading || pending;
+  const loadingState: boolean = isLoading;
 
   const { data: balanceData } = useBalance({
     address,
     query: { refetchInterval: 2000 },
     token: assetAddress
-  });
-
-  const { data: transactionStatusData } = useTransactionStatus({
-    txHash: !!txHash ? (txHash as `0x${string}`) : undefined,
-    txId: relayStatus
   });
 
   let hasAmount = false;
@@ -65,31 +50,6 @@ const DecentAction: FC<DecentActionProps> = ({
   } else {
     hasAmount = true;
   }
-
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (
-      transactionStatusData &&
-      !!transactionStatusData.lensTransactionStatus &&
-      !!transactionStatusData.lensTransactionStatus.txHash
-    ) {
-      setPending(true);
-      const fetchCrossChainStatus = async () => {
-        const { messages } = await getMessagesBySrcTxHash(
-          polygonLayerZeroChainId,
-          transactionStatusData!.lensTransactionStatus!.txHash
-        );
-        const lastStatus = messages[messages.length - 1]?.status;
-        if (lastStatus === MessageStatus.DELIVERED) {
-          setPending(false);
-          clearInterval(interval);
-        }
-      };
-
-      interval = setInterval(fetchCrossChainStatus, 10000);
-    }
-    return () => clearInterval(interval);
-  }, [transactionStatusData]);
 
   if (!address) {
     return (

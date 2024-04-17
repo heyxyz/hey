@@ -36,6 +36,7 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN, PERMIT_2_ADDRESS } from 'src/constants';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
+import { useOaTransactionStore } from 'src/store/persisted/useOaTransactionStore';
 import { parseAbi } from 'viem';
 import { useAccount, useWalletClient } from 'wagmi';
 
@@ -96,6 +97,17 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
       signlessApproved: module.signlessApproved,
       successToast: 'Initiated cross-chain NFT mint'
     });
+
+  useEffect(() => {
+    if (relayStatus && !relayStatus.startsWith('0x')) {
+      useOaTransactionStore.getState().addTransaction({
+        platformName: actionData?.uiData.platformName,
+        status: 'pending',
+        txHash: relayStatus
+      });
+      onClose();
+    }
+  }, [relayStatus, onClose]);
 
   const { data: creatorProfileData } = useDefaultProfileQuery({
     skip: !actionData?.uiData.nftCreatorAddress,
@@ -202,6 +214,20 @@ const formattedTotalFees = (
     }
   };
 
+  const [relayStatusTx, setRelayStatusTx] = useState<string | undefined>(
+    localStorage.getItem('pendingTx') || 'PENDING'
+  );
+
+  useEffect(() => {
+    if (!!relayStatus) {
+      localStorage.setItem(`pendingTx`, relayStatus);
+    }
+  }, [relayStatus]);
+
+  const handleCloseOaToast = () => {
+    setRelayStatusTx('NONE'); // Set a state that won't be re-saved in local storage
+  };
+
   const act = async () => {
     if (actionData && !!publication && !!permit2Data) {
       try {
@@ -243,6 +269,38 @@ const formattedTotalFees = (
     fetchPermit2Allowance();
   }, [amount, assetAddress, address]);
 
+  // const polygonLayerZeroChainId = 109;
+
+  // const { data: transactionStatusData } = useTransactionStatus({
+  //   txHash: !!txHash ? (txHash as `0x${string}`) : undefined,
+  //   txId: relayStatus
+  // });
+
+  // useEffect(() => {
+  //   let interval: NodeJS.Timeout;
+  //   if (
+  //     transactionStatusData &&
+  //     !!transactionStatusData.lensTransactionStatus &&
+  //     !!transactionStatusData.lensTransactionStatus.txHash
+  //   ) {
+  //     setPending(true);
+  //     const fetchCrossChainStatus = async () => {
+  //       const { messages } = await getMessagesBySrcTxHash(
+  //         polygonLayerZeroChainId,
+  //         transactionStatusData!.lensTransactionStatus!.txHash
+  //       );
+  //       const lastStatus = messages[messages.length - 1]?.status;
+  //       if (lastStatus === MessageStatus.DELIVERED) {
+  //         setPending(false);
+  //         clearInterval(interval);
+  //       }
+  //     };
+
+  //     interval = setInterval(fetchCrossChainStatus, 10000);
+  //   }
+  //   return () => clearInterval(interval);
+  // }, [transactionStatusData]);
+
   return (
     <Modal
       icon={
@@ -269,7 +327,6 @@ const formattedTotalFees = (
             : 'Mint NFT'
       }
     >
-      {' '}
       {showCurrencySelector ? (
         <CurrencySelector
           onSelectCurrency={(currency) => {
@@ -443,7 +500,6 @@ const formattedTotalFees = (
                   },
                   value: formattedTotalPrice
                 }}
-                relayStatus={relayStatus}
                 txHash={txHash}
               />
             ) : null}
