@@ -5,7 +5,7 @@ interface State {
   isPro: boolean;
   proExpiresAt: Date | null;
   setIsPro: (isPro: boolean) => void;
-  setProExpiresAt: (proExpiresAt: Date) => void;
+  setProExpiresAt: (proExpiresAt: Date | null) => void;
 }
 
 const store = create<State>((set) => ({
