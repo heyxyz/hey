@@ -12,7 +12,6 @@ import {
 import { polygon, polygonMumbai } from 'viem/chains';
 
 import { PERMIT_2_ADDRESS } from '../../apps/web/src/constants';
-import { Permit2 } from '../abis';
 
 const RPC_URL = IS_MAINNET
   ? 'https://polygon-rpc.com'
@@ -274,45 +273,14 @@ export const getPermit2Allowance = async ({
   return allowanceData;
 };
 
-const getAllowanceData = async ({
-  owner,
-  spender,
-  token
-}: {
-  owner: Address;
-  spender: Address;
-  token: Address;
-}) => {
-  const client = createPublicClient({
-    chain: IS_MAINNET ? polygon : polygonMumbai,
-    transport: http(RPC_URL)
-  });
-
-  const allowanceData = await client.readContract({
-    abi: Permit2,
-    address: PERMIT_2_ADDRESS,
-    args: [owner, token, spender],
-    functionName: 'allowance'
-  });
-
-  return allowanceData;
-};
-
-export const constructPermit2Sig = async ({
+export const constructPermit2Sig = ({
   amount,
-  from,
   token
 }: {
   amount: bigint;
-  from: Address;
   token: Address;
 }) => {
   const spender = VerifiedOpenActionModules.DecentNFT;
-  const allowanceData = await getAllowanceData({
-    owner: from,
-    spender: spender as `0x${string}`,
-    token
-  });
 
   const PERMIT2_DOMAIN_NAME = 'Permit2';
   const permit2Address = PERMIT_2_ADDRESS;
@@ -340,7 +308,7 @@ export const constructPermit2Sig = async ({
   const PERMIT_SIG_EXPIRATION = timeToMilliseconds(30, 'min');
   const permitTransfer = {
     deadline: toDeadline(PERMIT_SIG_EXPIRATION),
-    nonce: allowanceData[1],
+    nonce: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER) + 1,
     permitted: {
       amount,
       token
@@ -358,10 +326,8 @@ export const signPermitSignature = async (
   if (walletClient == null) {
     throw new Error('no wallet client found');
   }
-  const from = walletClient.account.address;
-  const { domain, types, values } = await constructPermit2Sig({
+  const { domain, types, values } = constructPermit2Sig({
     amount,
-    from,
     token
   });
 
