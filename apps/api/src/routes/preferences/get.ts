@@ -35,6 +35,7 @@ export const get: Handler = async (req, res) => {
       ]);
 
     const response: Preferences = {
+      appIcon: preference?.appIcon || 0,
       email: email?.email || null,
       emailVerified: Boolean(email?.verified),
       features: features.map((feature: any) => feature.feature?.key),
@@ -43,8 +44,7 @@ export const get: Handler = async (req, res) => {
       ),
       highSignalNotificationFilter: Boolean(
         preference?.highSignalNotificationFilter
-      ),
-      isPride: Boolean(preference?.isPride)
+      )
     };
 
     logger.info('Profile preferences fetched');

@@ -9,7 +9,6 @@ generator client {
 
 model Preference {
   id                           String   @id
-  isPride                      Boolean  @default(false)
   appIcon                      Int?     @default(0)
   highSignalNotificationFilter Boolean  @default(false)
   createdAt                    DateTime @default(now())

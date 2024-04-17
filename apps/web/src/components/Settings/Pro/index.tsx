@@ -4,22 +4,15 @@ import MetaTags from '@components/Common/MetaTags';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import {
-  Card,
-  CardHeader,
-  GridItemEight,
-  GridItemFour,
-  GridLayout
-} from '@hey/ui';
+import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useEffect } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import SettingsSidebar from '../Sidebar';
-import HighSignalNotificationFilter from './HighSignalNotificationFilter';
-import PushNotifications from './PushNotifications';
+import AppIcon from './AppIcon';
 
-const PreferencesSettings: NextPage = () => {
+const ProSettings: NextPage = () => {
   const { currentProfile } = useProfileStore();
 
   useEffect(() => {
@@ -32,25 +25,15 @@ const PreferencesSettings: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Preferences settings • ${APP_NAME}`} />
+      <MetaTags title={`Pro settings • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight>
-        <Card>
-          <CardHeader
-            body={`Update your preferences to control how you can change your
-            experience on ${APP_NAME}.`}
-            title="Your Preferences"
-          />
-          <div className="m-5 space-y-6">
-            <HighSignalNotificationFilter />
-            <PushNotifications />
-          </div>
-        </Card>
+        <AppIcon />
       </GridItemEight>
     </GridLayout>
   );
 };
 
-export default PreferencesSettings;
+export default ProSettings;

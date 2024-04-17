@@ -22,12 +22,12 @@ const getPreferences = async (
     return response.data.result;
   } catch {
     return {
+      appIcon: 0,
       email: null,
       emailVerified: false,
       features: [],
       hasDismissedOrMintedMembershipNft: true,
-      highSignalNotificationFilter: false,
-      isPride: false
+      highSignalNotificationFilter: false
     };
   }
 };

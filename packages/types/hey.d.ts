@@ -71,12 +71,12 @@ export type Poll = {
 };
 
 export type Preferences = {
+  appIcon: number;
   email: null | string;
   emailVerified: boolean;
   features: string[];
   hasDismissedOrMintedMembershipNft: boolean;
   highSignalNotificationFilter: boolean;
-  isPride: boolean;
 };
 
 export type ProfileFlags = {

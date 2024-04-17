@@ -39,7 +39,7 @@ export const post: Handler = async (req, res) => {
   try {
     // Cleanup Preference
     await prisma.preference.deleteMany({
-      where: { highSignalNotificationFilter: false, isPride: false }
+      where: { appIcon: 0, highSignalNotificationFilter: false }
     });
     logger.info('Cleaned up Preference');
 
