@@ -58,11 +58,7 @@ export const PUBLICATION = {
   NEW_QUOTE: 'New quote',
   NOT_INTERESTED: 'Not interested publication',
   OPEN_ACTIONS: {
-    SWAP: { SWAP: 'Swap OA: Swap' },
-    TIP: {
-      OPEN_TIP: 'Tip OA: Open tip modal',
-      TIP: 'Tip OA: Tip a profile'
-    }
+    SWAP: { SWAP: 'Swap OA: Swap' }
   },
   OPEN_GIFS: 'Open GIFs modal',
   OPEN_LIKES: 'Open likes modal',
@@ -85,10 +81,6 @@ export const NOTIFICATION = {
 };
 
 export const HOME = {
-  ALGORITHMS: {
-    OPEN_ALGORITHMS: 'Open algorithms modal',
-    SWITCH_ALGORITHMIC_FEED: 'Switch to algorithmic feed'
-  },
   SELECT_USER_FEED: 'Select user feed',
   SWITCH_FOLLOWING_FEED: 'Switch to following feed',
   SWITCH_HIGHLIGHTS_FEED: 'Switch to highlights feed',
@@ -102,7 +94,9 @@ export const EXPLORE = {
 
 export const SETTINGS = {
   ACCOUNT: {
+    RESEND_EMAIL_VERIFICATION: 'Resend email verification',
     SET_DEFAULT_PROFILE: 'Set default profile',
+    SET_EMAIL: 'Set email',
     SET_SUPER_FOLLOW: 'Set super follow'
   },
   ALLOWANCE: {
@@ -182,8 +176,7 @@ export const STAFFTOOLS = {
     KILL: 'Staff Tool: Kill feature flag'
   },
   SIGNUP_CONTRACT: {
-    REFILL: 'Staff Tool: Refill relayer',
-    WITHDRAW_FUNDS: 'Staff Tool: Withdraw funds'
+    REFILL: 'Staff Tool: Refill relayer'
   },
   STAFF_PICKS: {
     CREATE: 'Staff Tool: Create staff pick',

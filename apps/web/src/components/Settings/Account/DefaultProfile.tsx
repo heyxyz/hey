@@ -9,6 +9,7 @@ import {
   useProfilesQuery,
   useSetDefaultProfileMutation
 } from '@hey/lens';
+import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { Button, Card, CardHeader, Select } from '@hey/ui';
 import errorToast from '@lib/errorToast';
@@ -89,8 +90,10 @@ const DefaultProfile: FC = () => {
           <div className="label">Select Profile</div>
           <Select
             defaultValue={defaultProfileData?.defaultProfile?.id}
+            iconClassName="size-5 rounded-full border bg-gray-200 dark:border-gray-700"
             onChange={(value) => setSelectedProfileId(value)}
             options={profiles?.map((profile) => ({
+              icon: getAvatar(profile),
               label: getProfile(profile).slugWithPrefix,
               selected:
                 profile.id ===

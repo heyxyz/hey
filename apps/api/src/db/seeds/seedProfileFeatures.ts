@@ -1,3 +1,5 @@
+import { TEST_LENS_ID } from '@hey/data/constants';
+
 import {
   GARDENER_FEATURE_ID,
   STAFF_FEATURE_ID,
@@ -7,7 +9,7 @@ import {
 import { prisma } from '../seed';
 
 const seedProfileFeatures = async (): Promise<number> => {
-  const profileIds = ['0x0d', '0x06', '0x0383', '0x01', '0x02', '0x03'];
+  const profileIds = ['0x0d', '0x06', '0x01', '0x02', '0x03', TEST_LENS_ID];
 
   const data = profileIds.map((profileId) => {
     return [

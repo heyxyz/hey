@@ -14,8 +14,6 @@ const getAllowanceOpenAction = (
   name: string;
 } => {
   switch (address) {
-    case VerifiedOpenActionModules.Tip:
-      return { name: 'Tip Open Action' };
     case VerifiedOpenActionModules.Swap:
       return { name: 'Swap Open Action' };
 

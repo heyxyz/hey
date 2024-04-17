@@ -1,0 +1,9 @@
+query FollowRevenues($request: FollowRevenueRequest!) {
+  followRevenues(request: $request) {
+    revenues {
+      total {
+        ...AmountFields
+      }
+    }
+  }
+}

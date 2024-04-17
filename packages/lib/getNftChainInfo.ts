@@ -32,10 +32,10 @@ const getNftChainInfo = (
         name: chain === 'base' ? 'Base' : 'Base Testnet'
       };
     case 'polygon':
-    case 'mumbai':
+    case 'amoy':
       return {
         logo: `${STATIC_IMAGES_URL}/chains/polygon.svg`,
-        name: chain === 'polygon' ? 'Polygon' : 'Polygon Mumbai'
+        name: chain === 'polygon' ? 'Polygon' : 'Polygon Amoy'
       };
     default:
       return {

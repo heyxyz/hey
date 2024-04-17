@@ -45,12 +45,18 @@ import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCo
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationAttributesStore } from 'src/store/non-persisted/publication/usePublicationAttributesStore';
-import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
+import {
+  DEFAULT_AUDIO_PUBLICATION,
+  usePublicationAudioStore
+} from 'src/store/non-persisted/publication/usePublicationAudioStore';
 import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
 import { usePublicationLiveStore } from 'src/store/non-persisted/publication/usePublicationLiveStore';
 import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
-import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
+import {
+  DEFAULT_VIDEO_THUMBNAIL,
+  usePublicationVideoStore
+} from 'src/store/non-persisted/publication/usePublicationVideoStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
@@ -121,7 +127,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   } = usePublicationStore();
 
   // Audio store
-  const { audioPublication } = usePublicationAudioStore();
+  const { audioPublication, setAudioPublication } = usePublicationAudioStore();
 
   // Video store
   const { setVideoThumbnail, videoThumbnail } = usePublicationVideoStore();
@@ -192,11 +198,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     setShowLiveVideoEditor(false);
     resetLiveVideoConfig();
     setAttachments([]);
-    setVideoThumbnail({
-      type: '',
-      uploading: false,
-      url: ''
-    });
+    setVideoThumbnail(DEFAULT_VIDEO_THUMBNAIL);
+    setAudioPublication(DEFAULT_AUDIO_PUBLICATION);
     setLicense(null);
     resetAttributes();
     resetOpenActionSettings();
@@ -323,11 +326,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         const parsedData = AudioPublicationSchema.safeParse(audioPublication);
         if (!parsedData.success) {
           const issue = parsedData.error.issues[0];
+          setIsLoading(false);
           return setPublicationContentError(issue.message);
         }
       }
 
       if (publicationContent.length === 0 && attachments.length === 0) {
+        setIsLoading(false);
         return setPublicationContentError(
           `${
             isComment ? 'Comment' : isQuote ? 'Quote' : 'Post'

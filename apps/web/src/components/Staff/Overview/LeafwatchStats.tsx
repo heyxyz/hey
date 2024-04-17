@@ -16,6 +16,7 @@ import NumberedStat from '../UI/NumberedStat';
 import ActiveUsers from './ActiveUsers';
 import EventsToday from './EventsToday';
 import ImpressionsToday from './ImpressionsToday';
+import Referrers from './Referrers';
 
 export interface StatsType {
   dau: {
@@ -47,6 +48,10 @@ export interface StatsType {
   impressionsToday: {
     count: string;
     timestamp: string;
+  }[];
+  referrers: {
+    count: string;
+    referrer: string;
   }[];
   topEvents: {
     count: string;
@@ -137,6 +142,7 @@ const LeafwatchStats: FC = () => {
       <EventsToday eventsToday={data.eventsToday} />
       <ImpressionsToday impressionsToday={data.impressionsToday} />
       <ActiveUsers activeUsers={data.dau} />
+      <Referrers referrers={data.referrers} />
     </>
   );
 };

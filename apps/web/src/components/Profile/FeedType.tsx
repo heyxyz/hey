@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 
 import {
+  ChartBarIcon,
   ChatBubbleLeftIcon,
   FilmIcon,
   PencilSquareIcon,
@@ -10,6 +11,7 @@ import { PROFILE } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { ProfileFeedType } from 'src/enums';
+import { useProStore } from 'src/store/non-persisted/useProStore';
 
 import MediaFilter from './Filters/MediaFilter';
 
@@ -19,6 +21,8 @@ interface FeedTypeProps {
 }
 
 const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
+  const { isPro } = useProStore();
+
   const switchTab = (type: string) => {
     if (setFeedType) {
       setFeedType(type as ProfileFeedType);
@@ -59,6 +63,15 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
           onClick={() => switchTab(ProfileFeedType.Collects)}
           type={ProfileFeedType.Collects.toLowerCase()}
         />
+        {isPro && (
+          <TabButton
+            active={feedType === ProfileFeedType.Stats}
+            icon={<ChartBarIcon className="size-4" />}
+            name="Stats"
+            onClick={() => switchTab(ProfileFeedType.Stats)}
+            type={ProfileFeedType.Stats.toLowerCase()}
+          />
+        )}
       </div>
       {feedType === ProfileFeedType.Media ? <MediaFilter /> : null}
     </div>

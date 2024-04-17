@@ -11,8 +11,16 @@ const getUniswapQuote = async (
 ): Promise<UniswapQuote> => {
   const payload = {
     amount: parseUnits(amount.toString(), 18).toString(),
-    configs: [{ protocols: ['V3'], routingType: 'CLASSIC' }],
+    configs: [
+      {
+        enableFeeOnTransferFeeFetching: true,
+        enableUniversalRouter: true,
+        protocols: ['V2', 'V3', 'MIXED'],
+        routingType: 'CLASSIC'
+      }
+    ],
     intent: 'quote',
+    sendPortionEnabled: true,
     tokenIn,
     tokenInChainId: chainId,
     tokenOut,
@@ -26,12 +34,19 @@ const getUniswapQuote = async (
   );
   const { quote } = data;
 
+  const lastRoute = quote.route[quote.route.length - 1];
+  const lastPool = lastRoute[lastRoute.length - 1];
+  const { tokenOut: outToken } = lastPool;
+
   const output = {
-    amountOut: Number(quote.quoteDecimals).toFixed(4),
+    amountOut: (
+      Number(quote.quoteGasAndPortionAdjustedDecimals) +
+      Number(quote.gasUseEstimateQuoteDecimals)
+    ).toFixed(4),
     maxSlippage: quote.slippage.toString(),
     route: {
       tokenIn: quote.route[0][0]['tokenIn'],
-      tokenOut: quote.route[0][0]['tokenOut']
+      tokenOut: outToken
     },
     routeString: quote.routeString
   };

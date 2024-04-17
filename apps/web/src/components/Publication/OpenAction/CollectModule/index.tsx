@@ -23,11 +23,10 @@ import { POLYGONSCAN_URL } from '@hey/data/constants';
 import getAllTokens from '@hey/lib/api/getAllTokens';
 import formatDate from '@hey/lib/datetime/formatDate';
 import formatAddress from '@hey/lib/formatAddress';
-import getAssetSymbol from '@hey/lib/getAssetSymbol';
 import getProfile from '@hey/lib/getProfile';
-import getRedstonePrice from '@hey/lib/getRedstonePrice';
 import getTokenImage from '@hey/lib/getTokenImage';
 import humanize from '@hey/lib/humanize';
+import nFormatter from '@hey/lib/nFormatter';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { HelpTooltip, Tooltip, WarningMessage } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
@@ -66,6 +65,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
   const endTimestamp = collectModule?.endsAt;
   const collectLimit = parseInt(collectModule?.collectLimit || '0');
   const amount = parseFloat(collectModule?.amount?.value || '0');
+  const usdPrice = collectModule?.amount?.asFiat?.value;
   const currency = collectModule?.amount?.asset?.symbol;
   const referralFee = collectModule?.referralFee;
   const isMultirecipientFeeCollectModule =
@@ -79,12 +79,6 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
   const isAllCollected = collectLimit
     ? countOpenActions >= collectLimit
     : false;
-
-  const { data: usdPrice } = useQuery({
-    enabled: Boolean(amount),
-    queryFn: async () => await getRedstonePrice(getAssetSymbol(currency)),
-    queryKey: ['getRedstonePrice', currency]
-  });
 
   return (
     <>
@@ -150,7 +144,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
                 <>
                   <span className="ld-text-gray-500 px-0.5">·</span>
                   <span className="ld-text-gray-500 text-xs font-bold">
-                    ${(amount * usdPrice).toFixed(2)}
+                    ${usdPrice}
                   </span>
                 </>
               ) : null}
@@ -223,6 +217,22 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
                 >
                   {formatAddress(collectModule.collectNft)}
                 </Link>
+              </div>
+            </div>
+          ) : null}
+          {amount ? (
+            <div className="flex items-center space-x-2">
+              <CurrencyDollarIcon className="ld-text-gray-500 size-4" />
+              <div className="space-x-1.5">
+                <span>Revenue:</span>
+                <Tooltip
+                  content={`${humanize(amount * countOpenActions)} ${currency}`}
+                  placement="top"
+                >
+                  <span className="font-bold text-gray-600">
+                    {nFormatter(amount * countOpenActions)} {currency}
+                  </span>
+                </Tooltip>
               </div>
             </div>
           ) : null}

@@ -89,7 +89,9 @@ const usePublicationMetadata = () => {
             ...localBaseMetadata,
             attachments: attachmentsToBeUploaded,
             audio: {
-              artist: audioPublication.artist,
+              ...(audioPublication.artist && {
+                artist: audioPublication.artist
+              }),
               cover: audioPublication.cover,
               item: attachments[0]?.uri,
               type: attachments[0]?.mimeType,
