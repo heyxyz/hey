@@ -49,7 +49,7 @@ const AppIcon: FC = () => {
   return (
     <Card>
       <CardHeader
-        body={`Update your ${APP_NAME} app icon`}
+        body={`Choose a custom app icon for ${APP_NAME}, that will be used everywhere on the app.`}
         title="Choose App Icon"
       />
       <div className="m-5 flex flex-wrap items-center gap-x-8">
