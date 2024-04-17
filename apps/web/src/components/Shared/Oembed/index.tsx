@@ -9,15 +9,13 @@ import axios from 'axios';
 import Embed from './Embed';
 import Nft from './Nft';
 import Player from './Player';
-import Portal from './Portal';
 
 interface OembedProps {
-  className?: string;
   publicationId?: string;
   url?: string;
 }
 
-const Oembed: FC<OembedProps> = ({ className = '', publicationId, url }) => {
+const Oembed: FC<OembedProps> = ({ publicationId, url }) => {
   const { data, error, isLoading } = useQuery({
     enabled: Boolean(url),
     queryFn: async () => {
@@ -41,24 +39,21 @@ const Oembed: FC<OembedProps> = ({ className = '', publicationId, url }) => {
     image: data?.image,
     isLarge: data?.isLarge,
     nft: data?.nft,
-    portal: data?.portal,
     site: data?.site,
     title: data?.title,
     url: url as string
   };
 
-  if (!og.title && !og.html && !og.nft && !og.portal) {
+  if (!og.title && !og.html && !og.nft) {
     return null;
   }
 
   return (
-    <div className={className}>
+    <div>
       {og.html ? (
         <Player og={og} />
       ) : og.nft ? (
         <Nft nft={og.nft} publicationId={publicationId} />
-      ) : og.portal ? (
-        <Portal portal={og.portal} publicationId={publicationId} />
       ) : (
         <Embed og={og} publicationId={publicationId} />
       )}

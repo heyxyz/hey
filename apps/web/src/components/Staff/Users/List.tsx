@@ -90,9 +90,9 @@ const List: FC = () => {
         </button>
       </div>
       <div className="divider" />
-      <div className="p-5">
+      <div className="m-5">
         {loading ? (
-          <Loader message="Loading profiles..." />
+          <Loader className="my-5" message="Loading profiles..." />
         ) : error ? (
           <ErrorMessage error={error} title="Failed to load profiles" />
         ) : !profiles?.length ? (
@@ -103,7 +103,7 @@ const List: FC = () => {
           />
         ) : (
           <Virtuoso
-            computeItemKey={(_, profile) => profile.id}
+            computeItemKey={(index, profile) => `${profile.id}-${index}`}
             data={profiles}
             endReached={onEndReached}
             itemContent={(_, profile) => {
@@ -117,6 +117,8 @@ const List: FC = () => {
                     }
                   >
                     <UserProfile
+                      hideFollowButton
+                      hideUnfollowButton
                       isBig
                       linkToProfile={false}
                       profile={profile as Profile}

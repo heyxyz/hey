@@ -9,6 +9,7 @@ import {
 import getUserLocale from '@lib/getUserLocale';
 import { useCallback } from 'react';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
+import { usePublicationAttributesStore } from 'src/store/non-persisted/publication/usePublicationAttributesStore';
 import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
 import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
 import { usePublicationLiveStore } from 'src/store/non-persisted/publication/usePublicationLiveStore';
@@ -25,6 +26,7 @@ const usePublicationMetadata = () => {
   const { license } = usePublicationLicenseStore();
   const { attachments } = usePublicationAttachmentStore((state) => state);
   const { liveVideoConfig, showLiveVideoEditor } = usePublicationLiveStore();
+  const { attributes } = usePublicationAttributesStore();
 
   const attachmentsHasAudio = attachments[0]?.type === 'Audio';
   const attachmentsHasVideo = attachments[0]?.type === 'Video';
@@ -45,6 +47,7 @@ const usePublicationMetadata = () => {
 
       const localBaseMetadata = {
         appId: APP_NAME,
+        attributes: attributes?.length ? attributes : undefined,
         id: uuid(),
         locale: getUserLocale()
       };
@@ -86,7 +89,9 @@ const usePublicationMetadata = () => {
             ...localBaseMetadata,
             attachments: attachmentsToBeUploaded,
             audio: {
-              artist: audioPublication.artist,
+              ...(audioPublication.artist && {
+                artist: audioPublication.artist
+              }),
               cover: audioPublication.cover,
               item: attachments[0]?.uri,
               type: attachments[0]?.mimeType,
@@ -110,6 +115,7 @@ const usePublicationMetadata = () => {
       }
     },
     [
+      attributes,
       attachments,
       videoDurationInSeconds,
       audioPublication,

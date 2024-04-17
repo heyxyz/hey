@@ -160,7 +160,7 @@ const UnlinkHandle: FC = () => {
     broadcastData.broadcastOnchain.txId;
 
   return (
-    <div>
+    <div className="m-5">
       {lensManegaerTxId || broadcastTxId || writeHash ? (
         <div className="mt-2">
           <IndexStatus

@@ -12,6 +12,7 @@ import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import Link from 'next/link';
 import { Virtuoso } from 'react-virtuoso';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
+import { useTipsStore } from 'src/store/non-persisted/useTipsStore';
 
 interface QuotesProps {
   publicationId: string;
@@ -19,6 +20,7 @@ interface QuotesProps {
 
 const Quotes: FC<QuotesProps> = ({ publicationId }) => {
   const { fetchAndStoreViews } = useImpressionsStore();
+  const { fetchAndStoreTips } = useTipsStore();
 
   // Variables
   const request: PublicationsRequest = {
@@ -33,6 +35,7 @@ const Quotes: FC<QuotesProps> = ({ publicationId }) => {
     onCompleted: async ({ publications }) => {
       const ids = publications?.items?.map((p) => p.id) || [];
       await fetchAndStoreViews(ids);
+      await fetchAndStoreTips(ids);
     },
     skip: !publicationId,
     variables: { request }
@@ -52,6 +55,7 @@ const Quotes: FC<QuotesProps> = ({ publicationId }) => {
     });
     const ids = data?.publications?.items?.map((p) => p.id) || [];
     await fetchAndStoreViews(ids);
+    await fetchAndStoreTips(ids);
   };
 
   if (loading) {
@@ -82,7 +86,7 @@ const Quotes: FC<QuotesProps> = ({ publicationId }) => {
       <div className="divider" />
       <Virtuoso
         className="virtual-divider-list-window"
-        computeItemKey={(_, quote) => quote.id}
+        computeItemKey={(index, quote) => `${quote.id}-${index}`}
         data={quotes}
         endReached={onEndReached}
         itemContent={(index, quote) => {

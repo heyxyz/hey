@@ -11,6 +11,8 @@ import validateIsStaff from './validateIsStaff';
  * @returns Response
  */
 const validateIsOwnerOrStaff = async (request: Request, id: string) => {
+  // Add validateLensAccount middleware to validate the access token
+
   const accessToken = request.headers['x-access-token'] as string;
 
   if (!accessToken) {

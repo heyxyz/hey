@@ -1,33 +1,42 @@
 import type { Handler } from 'express';
 
+import { Regex } from '@hey/data/regex';
 import { ALL_EVENTS } from '@hey/data/tracking';
 import logger from '@hey/lib/logger';
+import parseJwt from '@hey/lib/parseJwt';
+import slugify from '@hey/lib/slugify';
 import requestIp from 'request-ip';
 import catchedError from 'src/lib/catchedError';
 import createClickhouseClient from 'src/lib/createClickhouseClient';
-import checkEventExistence from 'src/lib/leafwatch/checkEventExistence';
+import findEventKeyDeep from 'src/lib/leafwatch/findEventKeyDeep';
 import { invalidBody, noBody } from 'src/lib/responses';
+import grantScore from 'src/lib/score/grantScore';
 import UAParser from 'ua-parser-js';
 import urlcat from 'urlcat';
 import { any, object, string } from 'zod';
 
 type ExtensionRequest = {
   actor?: string;
+  fingerprint?: string;
   name: string;
   platform: 'mobile' | 'web';
   properties?: string;
   referrer?: string;
+  scoreAddress?: string;
   url: string;
-  user_agent?: string;
+  wallet?: string;
 };
 
 const validationSchema = object({
   actor: string().nullable().optional(),
+  fingerprint: string().nullable().optional(),
   name: string().min(1, { message: 'Name is required!' }),
   platform: string(),
   properties: any(),
   referrer: string().nullable().optional(),
-  url: string()
+  scoreAddress: string().nullable().optional(),
+  url: string(),
+  wallet: string().regex(Regex.ethereumAddress).nullable().optional()
 });
 
 export const post: Handler = async (req, res) => {
@@ -37,16 +46,27 @@ export const post: Handler = async (req, res) => {
     return noBody(res);
   }
 
+  const accessToken = req.headers['x-access-token'] as string;
+  const network = req.headers['x-lens-network'] as string;
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
     return invalidBody(res);
   }
 
-  const { actor, name, platform, properties, referrer, url } =
-    body as ExtensionRequest;
+  const {
+    actor,
+    fingerprint,
+    name,
+    platform,
+    properties,
+    referrer,
+    scoreAddress,
+    url,
+    wallet
+  } = body as ExtensionRequest;
 
-  if (!checkEventExistence(ALL_EVENTS, name)) {
+  if (!findEventKeyDeep(ALL_EVENTS, name)?.length) {
     return res.status(400).json({ error: 'Invalid event!', success: false });
   }
 
@@ -94,6 +114,7 @@ export const post: Handler = async (req, res) => {
           browser_version: ua.browser.version || null,
           city: ipData?.city || null,
           country: ipData?.country || null,
+          fingerprint: fingerprint || null,
           ip: ip || null,
           name,
           os: ua.os.name || null,
@@ -106,10 +127,35 @@ export const post: Handler = async (req, res) => {
           utm_content: utmContent || null,
           utm_medium: utmMedium || null,
           utm_source: utmSource || null,
-          utm_term: utmTerm || null
+          utm_term: utmTerm || null,
+          wallet: wallet || null
         }
       ]
     });
+
+    const payload = parseJwt(accessToken);
+
+    if (scoreAddress || payload.evmAddress) {
+      const id = Buffer.from(
+        `${slugify(name)}-${scoreAddress}-${JSON.stringify(properties)}`
+      ).toString('base64');
+      const payload = parseJwt(accessToken);
+      const pointSystemId = network === 'mainnet' ? 1464 : 691;
+      const sourceActor = actor || payload.id;
+      const sourceAddress = payload.evmAddress;
+      const targetAddress = scoreAddress;
+      const grantingAddress = targetAddress || sourceAddress;
+
+      grantScore({
+        grantingAddress,
+        id,
+        name,
+        pointSystemId,
+        sourceActor,
+        sourceAddress,
+        targetAddress
+      });
+    }
 
     logger.info('Ingested event to Leafwatch');
 

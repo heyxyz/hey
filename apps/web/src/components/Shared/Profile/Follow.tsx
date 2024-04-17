@@ -1,4 +1,5 @@
 import type { FollowRequest, Profile } from '@hey/lens';
+import type { OptimisticTransaction } from '@hey/types/misc';
 import type { FC } from 'react';
 
 import { LensHub } from '@hey/abis';
@@ -13,6 +14,7 @@ import {
 import { useApolloClient } from '@hey/lens/apollo';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
+import { OptmisticPublicationType } from '@hey/types/enums';
 import { Button } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
@@ -24,26 +26,51 @@ import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModal
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
 interface FollowProps {
+  buttonClassName: string;
   profile: Profile;
   small?: boolean;
+  title: string;
 }
 
-const Follow: FC<FollowProps> = ({ profile, small = false }) => {
+const Follow: FC<FollowProps> = ({
+  buttonClassName,
+  profile,
+  small = false,
+  title
+}) => {
   const { pathname } = useRouter();
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
   const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
     useNonceStore();
   const { setShowAuthModal } = useGlobalModalStateStore();
+  const { addTransaction, isUnfollowPending } = useTransactionStore();
+
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
 
   const { canBroadcast, canUseLensManager } =
     checkDispatcherPermissions(currentProfile);
+
+  const generateOptimisticFollow = ({
+    txHash,
+    txId
+  }: {
+    txHash?: string;
+    txId?: string;
+  }): OptimisticTransaction => {
+    return {
+      followOn: profile.id,
+      txHash,
+      txId,
+      type: OptmisticPublicationType.Follow
+    };
+  };
 
   const updateCache = () => {
     cache.modify({
@@ -79,7 +106,13 @@ const Follow: FC<FollowProps> = ({ profile, small = false }) => {
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const { writeContractAsync } = useWriteContract({
-    mutation: { onError, onSuccess: () => onCompleted() }
+    mutation: {
+      onError,
+      onSuccess: (hash: string) => {
+        addTransaction(generateOptimisticFollow({ txHash: hash }));
+        onCompleted();
+      }
+    }
   });
 
   const write = async ({ args }: { args: any[] }) => {
@@ -92,8 +125,14 @@ const Follow: FC<FollowProps> = ({ profile, small = false }) => {
   };
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
-    onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename)
+    onCompleted: ({ broadcastOnchain }) => {
+      if (broadcastOnchain.__typename === 'RelaySuccess') {
+        addTransaction(
+          generateOptimisticFollow({ txId: broadcastOnchain.txId })
+        );
+      }
+      onCompleted(broadcastOnchain.__typename);
+    }
   });
   const [createFollowTypedData] = useCreateFollowTypedDataMutation({
     onCompleted: async ({ createFollowTypedData }) => {
@@ -131,7 +170,12 @@ const Follow: FC<FollowProps> = ({ profile, small = false }) => {
   });
 
   const [follow] = useFollowMutation({
-    onCompleted: ({ follow }) => onCompleted(follow.__typename),
+    onCompleted: ({ follow }) => {
+      if (follow.__typename === 'RelaySuccess') {
+        addTransaction(generateOptimisticFollow({ txId: follow.txId }));
+      }
+      onCompleted(follow.__typename);
+    },
     onError
   });
 
@@ -174,13 +218,14 @@ const Follow: FC<FollowProps> = ({ profile, small = false }) => {
 
   return (
     <Button
-      aria-label="Follow"
-      disabled={isLoading}
+      aria-label={title}
+      className={buttonClassName}
+      disabled={isLoading || isUnfollowPending(profile.id)}
       onClick={createFollow}
       outline
       size={small ? 'sm' : 'md'}
     >
-      Follow
+      {title}
     </Button>
   );
 };

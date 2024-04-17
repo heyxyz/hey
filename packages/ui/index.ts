@@ -2,6 +2,7 @@ export { Alert } from './src/Alert';
 export { Badge } from './src/Badge';
 export { Button } from './src/Button';
 export { Card } from './src/Card';
+export { default as CardHeader } from './src/CardHeader';
 export { Checkbox } from './src/Checkbox';
 export { EmptyState } from './src/EmptyState';
 export { ErrorMessage } from './src/ErrorMessage';

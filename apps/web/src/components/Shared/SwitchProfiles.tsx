@@ -63,7 +63,7 @@ const SwitchProfiles: FC = () => {
   const [authenticate] = useAuthenticateMutation();
 
   if (loading) {
-    return <Loader message="Loading Profiles" />;
+    return <Loader className="my-5" message="Loading Profiles" />;
   }
 
   const profiles = data?.profilesManaged.items || [];

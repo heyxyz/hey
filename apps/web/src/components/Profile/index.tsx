@@ -35,6 +35,7 @@ import Followers from './Followers';
 import Following from './Following';
 import MutualFollowersList from './MutualFollowers/List';
 import ProfilePageShimmer from './Shimmer';
+import Stats from './Stats';
 
 export interface ProfileTheme {
   backgroundColour: string;
@@ -63,15 +64,22 @@ const ViewProfile: NextPage = () => {
   const { currentProfile } = useProfileStore();
   const { profileTheme, setProfileTheme } = useProfileThemeStore();
 
-  const showFollowing = pathname === '/u/[handle]/following';
-  const showFollowers = pathname === '/u/[handle]/followers';
-  const showMutuals = pathname === '/u/[handle]/mutuals';
+  const showFollowing =
+    pathname === '/u/[handle]/following' ||
+    pathname === '/profile/[id]/following';
+  const showFollowers =
+    pathname === '/u/[handle]/followers' ||
+    pathname === '/profile/[id]/followers';
+  const showMutuals =
+    pathname === '/u/[handle]/mutuals' || pathname === '/profile/[id]/mutuals';
 
   useEffect(() => {
     if (isReady) {
       Leafwatch.track(PAGEVIEW, {
         page: 'profile',
-        subpage: pathname.replace('/u/[handle]', ''),
+        subpage: pathname
+          .replace('/u/[handle]', '')
+          .replace('/profile/[id]', ''),
         ...(source ? { source } : {})
       });
     }
@@ -82,7 +90,8 @@ const ViewProfile: NextPage = () => {
     ProfileFeedType.Feed.toLowerCase(),
     ProfileFeedType.Replies.toLowerCase(),
     ProfileFeedType.Media.toLowerCase(),
-    ProfileFeedType.Collects.toLowerCase()
+    ProfileFeedType.Collects.toLowerCase(),
+    ProfileFeedType.Stats.toLowerCase()
   ];
 
   const feedType = type
@@ -200,6 +209,8 @@ const ViewProfile: NextPage = () => {
                   profileId={profile.id}
                   type={feedType}
                 />
+              ) : feedType === ProfileFeedType.Stats ? (
+                <Stats profileId={profile.id} />
               ) : null}
             </>
           )}

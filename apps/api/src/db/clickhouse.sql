@@ -2,6 +2,8 @@
 CREATE TABLE events (
   id UUID DEFAULT generateUUIDv4(),
   actor Nullable(String),
+  wallet Nullable(String),
+  fingerprint Nullable(String),
   name String,
   properties Nullable(String),
   referrer Nullable(String),

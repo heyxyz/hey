@@ -8,6 +8,7 @@ import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
 import Video from '@components/Shared/Video';
 import { EyeIcon } from '@heroicons/react/24/outline';
+import { KNOWN_ATTRIBUTES } from '@hey/data/constants';
 import getPublicationAttribute from '@hey/lib/getPublicationAttribute';
 import getPublicationData from '@hey/lib/getPublicationData';
 import getURLs from '@hey/lib/getURLs';
@@ -23,6 +24,7 @@ import { isIOS, isMobile } from 'react-device-detect';
 import EncryptedPublication from './EncryptedPublication';
 import Metadata from './Metadata';
 import NotSupportedPublication from './NotSupportedPublication';
+import OpenActionOnBody from './OpenAction/OnBody';
 import Poll from './Poll';
 
 interface PublicationBodyProps {
@@ -78,13 +80,29 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   // Show attachments if it's there
   const showAttachments = filteredAttachments.length > 0 || filteredAsset;
   // Show poll
-  const pollId = getPublicationAttribute(metadata.attributes, 'pollId');
+  const pollId = getPublicationAttribute(
+    metadata.attributes,
+    KNOWN_ATTRIBUTES.POLL_ID
+  );
   const showPoll = Boolean(pollId);
   // Show sharing link
   const showSharingLink = metadata.__typename === 'LinkMetadataV3';
+  // Show quote
+  const showQuote = targetPublication.__typename === 'Quote';
   // Show oembed if no NFT, no attachments, no quoted publication
+  const hideOembed =
+    getPublicationAttribute(
+      metadata.attributes,
+      KNOWN_ATTRIBUTES.HIDE_OEMBED
+    ) === 'true';
   const showOembed =
-    !showSharingLink && hasURLs && !showLive && !showAttachments && !quoted;
+    !hideOembed &&
+    !showSharingLink &&
+    hasURLs &&
+    !showLive &&
+    !showAttachments &&
+    !quoted &&
+    !showQuote;
 
   return (
     <div className={cn('break-words', theme?.publicationFont)}>
@@ -104,6 +122,8 @@ const PublicationBody: FC<PublicationBodyProps> = ({
           <Link href={`/posts/${id}`}>Show more</Link>
         </div>
       ) : null}
+      {/* Open Action */}
+      <OpenActionOnBody publication={targetPublication} />
       {/* Attachments and Quotes */}
       {showAttachments ? (
         <Attachments asset={filteredAsset} attachments={filteredAttachments} />
@@ -121,9 +141,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       {showSharingLink ? (
         <Oembed publicationId={publication.id} url={metadata.sharingLink} />
       ) : null}
-      {targetPublication.__typename === 'Quote' && (
-        <Quote publication={targetPublication.quoteOn} />
-      )}
+      {showQuote && <Quote publication={targetPublication.quoteOn} />}
       <Metadata metadata={targetPublication.metadata} />
     </div>
   );

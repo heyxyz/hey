@@ -12,12 +12,15 @@ import { LimitType, useProfilesQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import Link from 'next/link';
 import { Virtuoso } from 'react-virtuoso';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface MirrorsProps {
   publicationId: string;
 }
 
 const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
+  const { currentProfile } = useProfileStore();
+
   // Variables
   const request: ProfilesRequest = {
     limit: LimitType.TwentyFive,
@@ -51,7 +54,6 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
     return (
       <div className="p-5">
         <EmptyState
-          hideCard
           icon={<ArrowsRightLeftIcon className="size-8" />}
           message="No mirrors."
         />
@@ -80,16 +82,17 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
       <div className="divider" />
       <Virtuoso
         className="virtual-divider-list-window"
-        computeItemKey={(_, profile) => profile.id}
+        computeItemKey={(index, profile) => `${profile.id}-${index}`}
         data={profiles}
         endReached={onEndReached}
         itemContent={(_, profile) => {
           return (
             <div className="p-5">
               <UserProfile
+                hideFollowButton={currentProfile?.id === profile.id}
+                hideUnfollowButton={currentProfile?.id === profile.id}
                 profile={profile as Profile}
                 showBio
-                showFollowUnfollowButton
                 showUserPreview={false}
                 source={ProfileLinkSource.Mirrors}
               />

@@ -35,7 +35,7 @@ const List: FC = () => {
   };
 
   if (loading) {
-    return <Loader className="pb-5" />;
+    return <Loader className="py-10" />;
   }
 
   if (error) {
@@ -58,13 +58,17 @@ const List: FC = () => {
     <div className="space-y-4">
       <Virtuoso
         className="virtual-divider-list-window"
-        computeItemKey={(_, profile) => profile.id}
+        computeItemKey={(index, profile) => `${profile.id}-${index}`}
         data={whoHaveBlocked}
         endReached={onEndReached}
         itemContent={(_, profile) => {
           return (
             <div className="flex items-center justify-between p-5">
-              <UserProfile profile={profile as Profile} />
+              <UserProfile
+                hideFollowButton
+                hideUnfollowButton
+                profile={profile as Profile}
+              />
               <Button
                 onClick={() =>
                   setShowBlockOrUnblockAlert(true, profile as Profile)

@@ -3,6 +3,7 @@ import type {
   MomokaMirrorRequest,
   OnchainMirrorRequest
 } from '@hey/lens';
+import type { OptimisticTransaction } from '@hey/types/misc';
 import type { FC } from 'react';
 
 import { useApolloClient } from '@apollo/client';
@@ -77,7 +78,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
   }: {
     txHash?: string;
     txId?: string;
-  }) => {
+  }): OptimisticTransaction => {
     return {
       mirrorOn: targetPublication?.id,
       txHash,
@@ -124,7 +125,11 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     increment();
     updateCache();
     toast.success('Post has been mirrored!');
-    Leafwatch.track(PUBLICATION.MIRROR, { publication_id: publication.id });
+    Leafwatch.track(
+      PUBLICATION.MIRROR,
+      { publication_id: publication.id },
+      publication.by.ownedBy.address
+    );
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
@@ -136,9 +141,9 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
         decrementLensHubOnchainSigNonce();
       },
       onSuccess: (hash: string) => {
-        onCompleted();
-        incrementLensHubOnchainSigNonce();
         addTransaction(generateOptimisticMirror({ txHash: hash }));
+        incrementLensHubOnchainSigNonce();
+        onCompleted();
       }
     }
   });

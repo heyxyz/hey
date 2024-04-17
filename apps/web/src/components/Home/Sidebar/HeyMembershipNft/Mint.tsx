@@ -23,7 +23,7 @@ const Mint: FC<MintProps> = ({ onCollectSuccess }) => {
   });
 
   if (loading) {
-    return <Loader className="m-5" message="Loading NFT" />;
+    return <Loader className="p-10" message="Loading NFT" />;
   }
 
   if (!data?.publication || error) {

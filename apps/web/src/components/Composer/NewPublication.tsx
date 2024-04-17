@@ -17,6 +17,7 @@ import QuotedPublication from '@components/Publication/QuotedPublication';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
+import { KNOWN_ATTRIBUTES } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
 import { ReferenceModuleType } from '@hey/lens';
@@ -43,12 +44,19 @@ import usePublicationMetadata from 'src/hooks/usePublicationMetadata';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
-import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
+import { usePublicationAttributesStore } from 'src/store/non-persisted/publication/usePublicationAttributesStore';
+import {
+  DEFAULT_AUDIO_PUBLICATION,
+  usePublicationAudioStore
+} from 'src/store/non-persisted/publication/usePublicationAudioStore';
 import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
 import { usePublicationLiveStore } from 'src/store/non-persisted/publication/usePublicationLiveStore';
 import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
-import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
+import {
+  DEFAULT_VIDEO_THUMBNAIL,
+  usePublicationVideoStore
+} from 'src/store/non-persisted/publication/usePublicationVideoStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
@@ -59,6 +67,7 @@ import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
 import LinkPreviews from './LinkPreviews';
+import OpenActions from './OpenActions';
 import Discard from './Post/Discard';
 
 const Shimmer = <div className="shimmer mb-1 size-5 rounded-lg" />;
@@ -118,7 +127,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   } = usePublicationStore();
 
   // Audio store
-  const { audioPublication } = usePublicationAudioStore();
+  const { audioPublication, setAudioPublication } = usePublicationAudioStore();
 
   // Video store
   const { setVideoThumbnail, videoThumbnail } = usePublicationVideoStore();
@@ -150,6 +159,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { degreesOfSeparation, onlyFollowers, selectedReferenceModule } =
     useReferenceModuleStore();
 
+  // Attributes store
+  const { reset: resetAttributes } = usePublicationAttributesStore();
+
   // States
   const [isLoading, setIsLoading] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
@@ -175,6 +187,25 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       ? quotedPublication?.momoka?.proof
       : noCollect && noOpenAction;
 
+  const reset = () => {
+    editor.update(() => {
+      $getRoot().clear();
+    });
+
+    setPublicationContent('');
+    setShowPollEditor(false);
+    resetPollConfig();
+    setShowLiveVideoEditor(false);
+    resetLiveVideoConfig();
+    setAttachments([]);
+    setVideoThumbnail(DEFAULT_VIDEO_THUMBNAIL);
+    setAudioPublication(DEFAULT_AUDIO_PUBLICATION);
+    setLicense(null);
+    resetAttributes();
+    resetOpenActionSettings();
+    resetCollectSettings();
+  };
+
   const onError = (error?: any) => {
     setIsLoading(false);
     errorToast(error);
@@ -195,24 +226,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     }
 
     setIsLoading(false);
-    editor.update(() => {
-      $getRoot().clear();
-    });
-    setPublicationContent('');
     setQuotedPublication(null);
-    setShowPollEditor(false);
-    resetPollConfig();
-    setShowLiveVideoEditor(false);
-    resetLiveVideoConfig();
-    setAttachments([]);
-    setVideoThumbnail({
-      type: '',
-      uploading: false,
-      url: ''
-    });
-    resetCollectSettings();
-    resetOpenActionSettings();
-    setLicense(null);
+    reset();
 
     if (!isComment) {
       setShowNewPostModal(false);
@@ -311,11 +326,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         const parsedData = AudioPublicationSchema.safeParse(audioPublication);
         if (!parsedData.success) {
           const issue = parsedData.error.issues[0];
+          setIsLoading(false);
           return setPublicationContentError(issue.message);
         }
       }
 
       if (publicationContent.length === 0 && attachments.length === 0) {
+        setIsLoading(false);
         return setPublicationContentError(
           `${
             isComment ? 'Comment' : isQuote ? 'Quote' : 'Post'
@@ -345,7 +362,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             ...(pollId
               ? [
                   {
-                    key: 'pollId',
+                    key: KNOWN_ATTRIBUTES.POLL_ID,
                     type: MetadataAttributeType.STRING,
                     value: pollId
                   }
@@ -506,26 +523,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     : false;
 
   const onDiscardClick = () => {
+    setQuotedPublication(null);
     setShowNewPostModal(false);
     setShowDiscardModal(false);
   };
 
-  useUnmountEffect(() => {
-    setPublicationContent('');
-    setShowPollEditor(false);
-    resetPollConfig();
-    setShowLiveVideoEditor(false);
-    resetLiveVideoConfig();
-    setAttachments([]);
-    setVideoThumbnail({
-      type: '',
-      uploading: false,
-      url: ''
-    });
-    resetCollectSettings();
-    resetOpenActionSettings();
-    setLicense(null);
-  });
+  useUnmountEffect(() => reset());
 
   return (
     <Card
@@ -549,6 +552,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       ) : null}
       {showPollEditor ? <PollEditor /> : null}
       {showLiveVideoEditor ? <LivestreamEditor /> : null}
+      <OpenActions />
+      <LinkPreviews />
+      <NewAttachments attachments={attachments} />
       {quotedPublication ? (
         <Wrapper className="m-5" zeroPadding>
           <QuotedPublication
@@ -557,8 +563,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           />
         </Wrapper>
       ) : null}
-      <LinkPreviews />
-      <NewAttachments attachments={attachments} />
       <div className="divider mx-5" />
       <div className="block items-center px-5 py-3 sm:flex">
         <div className="flex items-center space-x-4">

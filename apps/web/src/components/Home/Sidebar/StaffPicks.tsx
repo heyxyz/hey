@@ -7,14 +7,22 @@ import UserProfile from '@components/Shared/UserProfile';
 import { CursorArrowRippleIcon as CursorArrowRippleIconOutline } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import { ProfileLinkSource } from '@hey/data/tracking';
-import { useProfilesQuery } from '@hey/lens';
+import { useStaffPicksQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
+
+interface BatchRange {
+  end: number;
+  start: number;
+}
 
 const Title: FC = () => <p className="text-lg font-semibold">Staff Picks</p>;
 
 const StaffPicks: FC = () => {
+  const { currentProfile } = useProfileStore();
+
   const fetchStaffPicks = async (): Promise<StaffPick[]> => {
     const response: {
       data: { result: StaffPick[] };
@@ -29,14 +37,33 @@ const StaffPicks: FC = () => {
     isLoading: picksLoading
   } = useQuery({ queryFn: fetchStaffPicks, queryKey: ['fetchStaffPicks'] });
 
+  const dividePicks = (
+    picks: StaffPick[],
+    totalBatches: number
+  ): BatchRange[] => {
+    const perBatch = Math.ceil(picks.length / totalBatches);
+    return Array.from({ length: totalBatches }, (_, index) => ({
+      end: Math.min((index + 1) * perBatch, picks.length),
+      start: index * perBatch
+    }));
+  };
+
+  const batchRanges = dividePicks(picks || [], 3); // We want to divide into three batches
+
+  const batchVariables = batchRanges.map((range) =>
+    picks?.slice(range.start, range.end).map((pick) => pick.profileId)
+  );
+
   const {
-    data: profiles,
+    data: staffPicks,
     error: profilesError,
     loading: profilesLoading
-  } = useProfilesQuery({
+  } = useStaffPicksQuery({
     skip: picks?.length === 0,
     variables: {
-      request: { where: { profileIds: picks?.map((pick) => pick.profileId) } }
+      batch1: batchVariables[0] || [],
+      batch2: batchVariables[1] || [],
+      batch3: batchVariables[2] || []
     }
   });
 
@@ -44,11 +71,11 @@ const StaffPicks: FC = () => {
     return (
       <Card as="aside" className="mb-4 space-y-4 p-5">
         <Title />
-        <UserProfileShimmer />
-        <UserProfileShimmer />
-        <UserProfileShimmer />
-        <UserProfileShimmer />
-        <UserProfileShimmer />
+        <UserProfileShimmer showFollowUnfollowButton />
+        <UserProfileShimmer showFollowUnfollowButton />
+        <UserProfileShimmer showFollowUnfollowButton />
+        <UserProfileShimmer showFollowUnfollowButton />
+        <UserProfileShimmer showFollowUnfollowButton />
       </Card>
     );
   }
@@ -66,6 +93,25 @@ const StaffPicks: FC = () => {
     );
   }
 
+  const profiles = [
+    ...(staffPicks?.batch1?.items || []),
+    ...(staffPicks?.batch2?.items || []),
+    ...(staffPicks?.batch3?.items || [])
+  ];
+
+  const filteredProfiles = profiles
+    .filter(
+      (profile) =>
+        !profile.operations.isBlockedByMe.value &&
+        !profile.operations.isFollowedByMe.value &&
+        currentProfile?.id !== profile.id
+    )
+    .slice(0, 5);
+
+  if (filteredProfiles.length === 0) {
+    return null;
+  }
+
   return (
     <Card as="aside" className="mb-4 space-y-4 p-5">
       <Title />
@@ -73,9 +119,11 @@ const StaffPicks: FC = () => {
         error={picksError || profilesError}
         title="Failed to load recommendations"
       />
-      {profiles?.profiles.items.map((profile) => (
-        <div className="flex items-center space-x-3 truncate" key={profile.id}>
+      {filteredProfiles.map((profile) => (
+        <div className="w-full truncate pr-1" key={profile.id}>
           <UserProfile
+            hideFollowButton={currentProfile?.id === profile.id}
+            hideUnfollowButton
             profile={profile as Profile}
             source={ProfileLinkSource.StaffPicks}
           />

@@ -18,11 +18,12 @@ const seedAllowedTokens = async (): Promise<number> => {
         symbol: 'DAI'
       },
       {
-        contractAddress: '0x9b8cc6320f22325759b7d2ca5cd27347bb4ecd86',
+        contractAddress: '0x3d2bD0e15829AA5C362a4144FdF4A1112fa29B5c',
         createdAt: new Date('2024-02-12 13:45:28.937'),
         decimals: 18,
-        name: 'Pointless',
-        symbol: 'pointless'
+        maxTipAmount: 1000,
+        name: 'Bonsai',
+        symbol: 'BONSAI'
       },
       {
         contractAddress: '0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359',

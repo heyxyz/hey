@@ -21,7 +21,11 @@ const List: FC = () => {
   const [tokens, setTokens] = useState<[] | AllowedToken[]>([]);
 
   const { error, isLoading } = useQuery({
-    queryFn: () => getAllTokens((tokens) => setTokens(tokens)),
+    queryFn: () =>
+      getAllTokens().then((tokens) => {
+        setTokens(tokens);
+        return tokens;
+      }),
     queryKey: ['getAllTokens']
   });
 
@@ -53,9 +57,9 @@ const List: FC = () => {
         </Button>
       </div>
       <div className="divider" />
-      <div className="p-5">
+      <div className="m-5">
         {isLoading ? (
-          <Loader message="Loading tokens..." />
+          <Loader className="my-5" message="Loading tokens..." />
         ) : error ? (
           <ErrorMessage error={error} title="Failed to load tokens" />
         ) : !tokens.length ? (

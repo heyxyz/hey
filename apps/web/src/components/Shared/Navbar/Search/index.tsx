@@ -1,6 +1,7 @@
 import type { Profile, ProfileSearchRequest } from '@hey/lens';
 import type { ChangeEvent, FC, MutableRefObject } from 'react';
 
+import Loader from '@components/Shared/Loader';
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ProfileLinkSource, SEARCH } from '@hey/data/tracking';
 import {
@@ -8,7 +9,8 @@ import {
   LimitType,
   useSearchProfilesLazyQuery
 } from '@hey/lens';
-import { Card, Input, Spinner } from '@hey/ui';
+import getProfile from '@hey/lib/getProfile';
+import { Card, Input } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { useClickAway, useDebounce } from '@uidotdev/usehooks';
@@ -108,10 +110,7 @@ const Search: FC<SearchProps> = ({ placeholder = 'Search…' }) => {
           <Card className="z-[2] max-h-[80vh] overflow-y-auto py-2">
             {!debouncedSearchText && <RecentProfiles onProfileClick={reset} />}
             {searchUsersLoading ? (
-              <div className="space-y-2 px-4 py-2 text-center text-sm font-bold">
-                <Spinner className="mx-auto" size="sm" />
-                <div>Searching users</div>
-              </div>
+              <Loader className="my-3" message="Searching users" small />
             ) : (
               <>
                 {profiles.map((profile) => (
@@ -120,10 +119,14 @@ const Search: FC<SearchProps> = ({ placeholder = 'Search…' }) => {
                     key={profile.id}
                     onClick={() => {
                       addToRecentProfiles(profile.id);
+                      push(getProfile(profile).link);
                       reset();
                     }}
                   >
                     <UserProfile
+                      hideFollowButton
+                      hideUnfollowButton
+                      linkToProfile={false}
                       profile={profile}
                       showUserPreview={false}
                       source={ProfileLinkSource.Search}

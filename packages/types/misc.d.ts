@@ -28,29 +28,9 @@ export interface UserSuggestion {
 export interface Nft {
   chain: null | string;
   collectionName: string;
-  contractAddress: `0x${string}`;
-  creatorAddress: `0x${string}`;
-  endTime: null | string;
+  creatorAddress: `0x${string}` | null;
   mediaUrl: string;
-  mintCount: null | string;
-  mintStatus: 'closed' | 'live' | null | string;
-  mintUrl: null | string;
-  schema: 'erc1155' | 'erc721' | string;
   sourceUrl: string;
-}
-
-export type ButtonType = 'link' | 'mint' | 'post_redirect' | 'post';
-
-export interface Portal {
-  buttons: {
-    action: ButtonType;
-    button: string;
-    target?: string;
-  }[];
-  image: string;
-  portalUrl: string;
-  postUrl: string;
-  version: string;
 }
 
 export interface OG {
@@ -61,7 +41,6 @@ export interface OG {
   isLarge: boolean | null;
   lastIndexedAt?: string;
   nft: Nft | null;
-  portal: null | Portal;
   site: null | string;
   title: null | string;
   url: string;
@@ -92,10 +71,12 @@ export interface OptimisticTransaction {
   collectOn?: string;
   commentOn?: string;
   content?: string;
+  followOn?: string;
   mirrorOn?: string;
   txHash?: string;
   txId?: string;
   type: OptmisticPublicationType;
+  unfollowOn?: string;
 }
 
 export interface MarkupLinkProps {
@@ -110,4 +91,12 @@ export interface MetadataAsset {
   title?: string;
   type: 'Audio' | 'Image' | 'Video';
   uri: string;
+}
+
+export interface RewardPool {
+  cap: string;
+  percentReward: number;
+  rewardsAmount: string;
+  rewardsPoolId: string;
+  rewardsRemaining: string;
 }

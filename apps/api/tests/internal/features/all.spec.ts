@@ -11,4 +11,20 @@ describe('internal/features/all', () => {
 
     expect(response.data.features).toBeInstanceOf(Array);
   });
+
+  test('should fail if not staff', async () => {
+    try {
+      const response = await axios.get(`${TEST_URL}/internal/features/all`, {
+        headers: await getAuthApiHeadersForTest({ staff: false })
+      });
+      expect(response.status).toEqual(401);
+    } catch {}
+  });
+
+  test('should fail if not authenticated', async () => {
+    try {
+      const response = await axios.get(`${TEST_URL}/internal/features/all`);
+      expect(response.status).toEqual(401);
+    } catch {}
+  });
 });

@@ -161,7 +161,7 @@ const List: FC = () => {
   };
 
   if (loading) {
-    return <Loader className="pb-5" />;
+    return <Loader className="my-10" />;
   }
 
   if (error) {
@@ -182,7 +182,7 @@ const List: FC = () => {
 
   return (
     <Virtuoso
-      computeItemKey={(_, manager) => manager.address}
+      computeItemKey={(index, manager) => `${manager.address}-${index}`}
       data={profileManagers}
       endReached={onEndReached}
       itemContent={(_, manager) => {

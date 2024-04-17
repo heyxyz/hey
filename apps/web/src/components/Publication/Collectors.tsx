@@ -5,20 +5,28 @@ import ProfileListShimmer from '@components/Shared/Shimmer/ProfileListShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { ArrowLeftIcon, RectangleStackIcon } from '@heroicons/react/24/outline';
 import { ProfileLinkSource } from '@hey/data/tracking';
-import { LimitType, useWhoActedOnPublicationQuery } from '@hey/lens';
+import {
+  LimitType,
+  OpenActionCategoryType,
+  useWhoActedOnPublicationQuery
+} from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import Link from 'next/link';
 import { Virtuoso } from 'react-virtuoso';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface CollectorsProps {
   publicationId: string;
 }
 
 const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
+  const { currentProfile } = useProfileStore();
+
   // Variables
   const request: WhoActedOnPublicationRequest = {
     limit: LimitType.TwentyFive,
-    on: publicationId
+    on: publicationId,
+    where: { anyOf: [{ category: OpenActionCategoryType.Collect }] }
   };
 
   const { data, error, fetchMore, loading } = useWhoActedOnPublicationQuery({
@@ -48,7 +56,6 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
     return (
       <div className="p-5">
         <EmptyState
-          hideCard
           icon={<RectangleStackIcon className="size-8" />}
           message="No collectors."
         />
@@ -77,16 +84,17 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
       <div className="divider" />
       <Virtuoso
         className="virtual-divider-list-window"
-        computeItemKey={(_, profile) => profile.id}
+        computeItemKey={(index, profile) => `${profile.id}-${index}`}
         data={profiles}
         endReached={onEndReached}
         itemContent={(_, profile) => {
           return (
             <div className="p-5">
               <UserProfile
+                hideFollowButton={currentProfile?.id === profile.id}
+                hideUnfollowButton={currentProfile?.id === profile.id}
                 profile={profile as Profile}
                 showBio
-                showFollowUnfollowButton
                 showUserPreview={false}
                 source={ProfileLinkSource.Collects}
               />

@@ -57,7 +57,7 @@ const List: FC<ListProps> = ({ setEmoji }) => {
   }
 
   if (isLoading) {
-    return <Loader message="Loading emojis" />;
+    return <Loader className="my-5" message="Loading emojis" />;
   }
 
   return (

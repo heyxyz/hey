@@ -6,21 +6,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  web:
-    name: Web
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout 🚪
-        uses: actions/checkout@v4
-
-      - name: Build and push Web image 🚀
-        uses: ./.github/actions/docker
-        with:
-          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
-          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
-          image_name: web
-          docker_file: ./apps/web/Dockerfile
-
   api:
     name: API
     runs-on: ubuntu-latest
@@ -43,18 +28,3 @@ jobs:
           method: 'POST'
           body: '{ "secret": "${{ secrets.SECRET }}", "serviceId": "4a2a1bfb-e499-4c71-bf7f-d9ad47443c31" }'
           headers: '{ "Content-Type": "application/json", "Referer": "https://hey.xyz" }'
-
-  og:
-    name: OG
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout 🚪
-        uses: actions/checkout@v4
-
-      - name: Build and push OG image 🚀
-        uses: ./.github/actions/docker
-        with:
-          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
-          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
-          image_name: og
-          docker_file: ./apps/og/Dockerfile

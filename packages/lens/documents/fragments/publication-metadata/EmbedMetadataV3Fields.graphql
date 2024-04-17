@@ -1,3 +1,4 @@
 fragment EmbedMetadataV3Fields on EmbedMetadataV3 {
   id
+  appId
 }

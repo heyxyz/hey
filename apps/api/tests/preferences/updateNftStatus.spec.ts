@@ -13,4 +13,13 @@ describe('preferences/updateNftStatus', () => {
 
     expect(response.data.result.dismissedOrMinted).toBeTypeOf('boolean');
   });
+
+  test('should fail if not authenticated', async () => {
+    try {
+      const response = await axios.post(
+        `${TEST_URL}/preferences/updateNftStatus`
+      );
+      expect(response.status).toEqual(401);
+    } catch {}
+  });
 });

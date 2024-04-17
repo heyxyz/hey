@@ -245,7 +245,7 @@ const FollowModule: FC<FollowModuleProps> = ({
   };
 
   if (loading) {
-    return <Loader message="Loading Super follow" />;
+    return <Loader className="my-5" message="Loading Super follow" />;
   }
 
   return (
@@ -308,12 +308,6 @@ const FollowModule: FC<FollowModuleProps> = ({
             <div>
               You will get Super follow badge in{' '}
               {getProfile(profile).slugWithPrefix}'s profile
-            </div>
-          </li>
-          <li className="flex space-x-2 leading-6 tracking-normal">
-            <div>•</div>
-            <div>
-              You will have high voting power if you followed multiple times
             </div>
           </li>
           <li className="flex space-x-2 leading-6 tracking-normal">

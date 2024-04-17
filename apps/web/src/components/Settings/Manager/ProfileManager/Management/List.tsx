@@ -72,7 +72,7 @@ const List: FC<ListProps> = ({ managed = false }) => {
   };
 
   if (loading) {
-    return <Loader className="pb-5" />;
+    return <Loader className="my-10" />;
   }
 
   if (error) {
@@ -122,13 +122,17 @@ const List: FC<ListProps> = ({ managed = false }) => {
 
   return (
     <Virtuoso
-      computeItemKey={(_, profile) => profile.id}
+      computeItemKey={(index, profile) => `${profile.id}-${index}`}
       data={profilesManaged}
       endReached={onEndReached}
       itemContent={(_, profile) => {
         return (
           <div className="flex items-center justify-between py-2">
-            <UserProfile profile={profile as Profile} />
+            <UserProfile
+              hideFollowButton
+              hideUnfollowButton
+              profile={profile as Profile}
+            />
             {address !== profile.ownedBy.address && (
               <Button
                 disabled={hiding || unhiding}

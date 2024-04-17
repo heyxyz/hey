@@ -102,7 +102,7 @@ const SearchFeed: FC = () => {
       <Virtuoso
         className="[&>div>div]:space-y-5"
         components={{ Footer: () => <div className="pb-5" /> }}
-        computeItemKey={(index, publication) => `${publication.id}_${index}`}
+        computeItemKey={(index, publication) => `${publication.id}-${index}`}
         data={publications}
         endReached={onEndReached}
         itemContent={(index, publication) => {

@@ -38,10 +38,19 @@ const store = create(
           localStorage.removeItem(store);
         }
 
+        // Clean XMTP keys
+        const keys = Object.keys(localStorage).filter(
+          (key) =>
+            key.startsWith('xmtp/production/') ||
+            key.startsWith('xmtp:production:')
+        );
+        for (const key of keys) {
+          localStorage.removeItem(key);
+        }
+
         // Clear IndexedDB
         const allIndexedDBStores = Object.values(IndexDB).filter(
           (value) =>
-            value !== IndexDB.AlgorithmStore &&
             value !== IndexDB.VerifiedMembersStore &&
             value !== IndexDB.SearchStore
         );

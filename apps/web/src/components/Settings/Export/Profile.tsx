@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import { SETTINGS } from '@hey/data/tracking';
 import { useProfileLazyQuery } from '@hey/lens';
 import downloadJson from '@hey/lib/downloadJson';
-import { Button, Card } from '@hey/ui';
+import { Button, Card, CardHeader } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -44,18 +44,22 @@ const Profile: FC = () => {
   };
 
   return (
-    <Card className="space-y-2 p-5">
-      <div className="text-lg font-bold">Export profile</div>
-      <div className="pb-2">Export all your profile data to a JSON file.</div>
-      {fetchCompleted ? (
-        <Button onClick={download} outline>
-          Download profile
-        </Button>
-      ) : (
-        <Button disabled={exporting} onClick={handleExportClick} outline>
-          {exporting ? 'Exporting...' : 'Export now'}
-        </Button>
-      )}
+    <Card>
+      <CardHeader
+        body="Export all your profile data to a JSON file."
+        title="Export profile"
+      />
+      <div className="m-5">
+        {fetchCompleted ? (
+          <Button onClick={download} outline>
+            Download profile
+          </Button>
+        ) : (
+          <Button disabled={exporting} onClick={handleExportClick} outline>
+            {exporting ? 'Exporting...' : 'Export now'}
+          </Button>
+        )}
+      </div>
     </Card>
   );
 };

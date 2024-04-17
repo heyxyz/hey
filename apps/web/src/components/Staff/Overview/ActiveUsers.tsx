@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 
 import formatDate from '@hey/lib/datetime/formatDate';
+import { CardHeader } from '@hey/ui';
 
 import type { StatsType } from './LeafwatchStats';
 
@@ -12,9 +13,8 @@ const ActiveUsers: FC<ActiveUsersProps> = ({ activeUsers }) => {
   return (
     <>
       <div className="divider" />
-      <div className="p-5 text-lg font-bold">Daily Active Users</div>
-      <div className="divider" />
-      <div className="p-5">
+      <CardHeader title="Daily Active Users" />
+      <div className="m-5">
         <table className="w-full border-x border-t">
           <thead>
             <tr className="border-b">

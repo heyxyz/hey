@@ -68,13 +68,15 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
     }
   };
 
+  const isPollLive = new Date(endsAt) > new Date();
+
   return (
     <Card className="mt-3" onClick={stopEventPropagation}>
       <div className="space-y-1 p-3">
         {options.map(({ id, option, percentage, voted }) => (
           <button
             className="flex w-full items-center space-x-2.5 rounded-xl p-2 text-left text-xs hover:bg-gray-100 sm:text-sm dark:hover:bg-gray-900"
-            disabled={pollSubmitting}
+            disabled={!isPollLive || pollSubmitting}
             key={id}
             onClick={() => votePoll(id)}
             type="button"
@@ -115,7 +117,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
             {humanize(totalResponses || 0)} {plur('vote', totalResponses || 0)}
           </span>
           <span>·</span>
-          {new Date(endsAt) > new Date() ? (
+          {isPollLive ? (
             <span>{getTimetoNow(new Date(endsAt))} left</span>
           ) : (
             <span>Poll ended</span>

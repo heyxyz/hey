@@ -4,13 +4,18 @@ import logger from '@hey/lib/logger';
 import catchedError from 'src/lib/catchedError';
 import { SWR_CACHE_AGE_1_SEC_30_DAYS } from 'src/lib/constants';
 import createClickhouseClient from 'src/lib/createClickhouseClient';
-import { noBody } from 'src/lib/responses';
+import validateIsStaff from 'src/lib/middlewares/validateIsStaff';
+import { noBody, notAllowed } from 'src/lib/responses';
 
 export const get: Handler = async (req, res) => {
   const { id } = req.query;
 
   if (!id) {
     return noBody(res);
+  }
+
+  if (!(await validateIsStaff(req))) {
+    return notAllowed(res);
   }
 
   try {
@@ -47,18 +52,16 @@ export const get: Handler = async (req, res) => {
       `
     });
 
-    const result = await rows.json<
-      Array<{
-        actor: string;
-        most_common_browser: string;
-        most_common_browser_version: string;
-        most_common_city: string;
-        most_common_country: string;
-        most_common_os: string;
-        most_common_region: string;
-        number_of_events: string;
-      }>
-    >();
+    const result = await rows.json<{
+      actor: string;
+      most_common_browser: string;
+      most_common_browser_version: string;
+      most_common_city: string;
+      most_common_country: string;
+      most_common_os: string;
+      most_common_region: string;
+      number_of_events: string;
+    }>();
     logger.info(`Profile details fetched for ${id}`);
 
     return res

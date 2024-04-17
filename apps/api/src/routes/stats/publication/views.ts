@@ -2,7 +2,7 @@ import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
 import catchedError from 'src/lib/catchedError';
-import { SWR_CACHE_AGE_1_SEC_30_DAYS } from 'src/lib/constants';
+import { SWR_CACHE_AGE_10_MINS_30_DAYS } from 'src/lib/constants';
 import createClickhouseClient from 'src/lib/createClickhouseClient';
 import { invalidBody, noBody } from 'src/lib/responses';
 import { array, object, string } from 'zod';
@@ -42,8 +42,7 @@ export const post: Handler = async (req, res) => {
       `
     });
 
-    const result =
-      await rows.json<Array<{ count: number; publication_id: string }>>();
+    const result = await rows.json<{ count: number; publication_id: string }>();
 
     const viewCounts = result.map((row) => ({
       id: row.publication_id,
@@ -53,7 +52,7 @@ export const post: Handler = async (req, res) => {
 
     return res
       .status(200)
-      .setHeader('Cache-Control', SWR_CACHE_AGE_1_SEC_30_DAYS)
+      .setHeader('Cache-Control', SWR_CACHE_AGE_10_MINS_30_DAYS)
       .json({ success: true, views: viewCounts });
   } catch (error) {
     return catchedError(res, error);

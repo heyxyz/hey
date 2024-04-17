@@ -13,12 +13,15 @@ import {
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import Link from 'next/link';
 import { Virtuoso } from 'react-virtuoso';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface LikesProps {
   publicationId: string;
 }
 
 const Likes: FC<LikesProps> = ({ publicationId }) => {
+  const { currentProfile } = useProfileStore();
+
   // Variables
   const request: WhoReactedPublicationRequest = {
     for: publicationId,
@@ -52,7 +55,6 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
     return (
       <div className="p-5">
         <EmptyState
-          hideCard
           icon={<HeartIcon className="size-8" />}
           message="No likes."
         />
@@ -81,16 +83,17 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
       <div className="divider" />
       <Virtuoso
         className="virtual-divider-list-window"
-        computeItemKey={(_, like) => like.profile.id}
+        computeItemKey={(index, like) => `${like.profile.id}-${index}`}
         data={profiles}
         endReached={onEndReached}
         itemContent={(_, like) => {
           return (
             <div className="p-5">
               <UserProfile
+                hideFollowButton={currentProfile?.id === like.profile.id}
+                hideUnfollowButton={currentProfile?.id === like.profile.id}
                 profile={like.profile as Profile}
                 showBio
-                showFollowUnfollowButton
                 showUserPreview={false}
                 source={ProfileLinkSource.Likes}
               />

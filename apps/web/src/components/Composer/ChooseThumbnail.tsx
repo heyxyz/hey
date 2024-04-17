@@ -28,13 +28,13 @@ const ChooseThumbnail: FC = () => {
   const { file } = attachments[0];
 
   const uploadThumbnailToIpfs = async (fileToUpload: File) => {
-    setVideoThumbnail({ uploading: true });
+    setVideoThumbnail({ ...videoThumbnail, uploading: true });
     const result = await uploadFileToIPFS(fileToUpload);
     if (!result.uri) {
       toast.error('Failed to upload thumbnail');
     }
     setVideoThumbnail({
-      type: fileToUpload.type || 'image/jpeg',
+      mimeType: fileToUpload.type || 'image/jpeg',
       uploading: false,
       url: result.uri
     });
@@ -45,7 +45,7 @@ const ChooseThumbnail: FC = () => {
   const onSelectThumbnail = (index: number) => {
     setSelectedThumbnailIndex(index);
     if (thumbnails[index]?.ipfsUrl === '') {
-      setVideoThumbnail({ uploading: true });
+      setVideoThumbnail({ ...videoThumbnail, uploading: true });
       getFileFromDataURL(
         thumbnails[index].blobUrl,
         'thumbnail.jpeg',
@@ -66,6 +66,7 @@ const ChooseThumbnail: FC = () => {
       );
     } else {
       setVideoThumbnail({
+        ...videoThumbnail,
         uploading: false,
         url: thumbnails[index]?.ipfsUrl
       });

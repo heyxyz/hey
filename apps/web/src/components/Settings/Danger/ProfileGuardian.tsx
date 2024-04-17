@@ -9,7 +9,14 @@ import { LensHub } from '@hey/abis';
 import { LENS_HUB } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { SETTINGS } from '@hey/data/tracking';
-import { Button, Card, Modal, Spinner, WarningMessage } from '@hey/ui';
+import {
+  Button,
+  Card,
+  CardHeader,
+  Modal,
+  Spinner,
+  WarningMessage
+} from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
@@ -63,47 +70,44 @@ const ProfileGuardianSettings: FC = () => {
   }
 
   return (
-    <Card className="space-y-5 p-5">
-      <div className="space-y-3">
-        <div className="text-lg font-bold text-red-500">
-          Disable profile guardian
+    <Card>
+      <CardHeader
+        body="This will disable the Profile Guardian and allow you to do some actions like transfer, burn and approve without restrictions."
+        title={<div className="text-red-500">Disable profile guardian</div>}
+      />
+      <div className="m-5 space-y-5">
+        <div className="text-lg font-bold">What else you should know</div>
+        <div className="ld-text-gray-500 divide-y text-sm dark:divide-gray-700">
+          <p className="pb-3">
+            A 7-day Security Cooldown Period need to be elapsed for the Profile
+            Guardian to become effectively disabled.
+          </p>
+          <p className="py-3">
+            After the Profile Guardian is effectively disabled, you will be able
+            to execute approvals and transfers without restrictions.
+          </p>
         </div>
-        <p>
-          This will disable the Profile Guardian and allow you to do some
-          actions like transfer, burn and approve without restrictions.
-        </p>
+        {data ? (
+          <div className="mt-5">
+            <IndexStatus reload txHash={data} />
+          </div>
+        ) : (
+          <Button
+            disabled={isLoading}
+            icon={
+              isLoading ? (
+                <Spinner size="xs" variant="danger" />
+              ) : (
+                <LockOpenIcon className="size-5" />
+              )
+            }
+            onClick={() => setShowWarningModal(true)}
+            variant="danger"
+          >
+            {isLoading ? 'Disabling...' : 'Disable now'}
+          </Button>
+        )}
       </div>
-      <div className="text-lg font-bold">What else you should know</div>
-      <div className="ld-text-gray-500 divide-y text-sm dark:divide-gray-700">
-        <p className="pb-3">
-          A 7-day Security Cooldown Period need to be elapsed for the Profile
-          Guardian to become effectively disabled.
-        </p>
-        <p className="py-3">
-          After the Profile Guardian is effectively disabled, you will be able
-          to execute approvals and transfers without restrictions.
-        </p>
-      </div>
-      {data ? (
-        <div className="mt-5">
-          <IndexStatus reload txHash={data} />
-        </div>
-      ) : (
-        <Button
-          disabled={isLoading}
-          icon={
-            isLoading ? (
-              <Spinner size="xs" variant="danger" />
-            ) : (
-              <LockOpenIcon className="size-5" />
-            )
-          }
-          onClick={() => setShowWarningModal(true)}
-          variant="danger"
-        >
-          {isLoading ? 'Disabling...' : 'Disable now'}
-        </Button>
-      )}
       <Modal
         icon={<ExclamationTriangleIcon className="size-5" />}
         onClose={() => setShowWarningModal(false)}

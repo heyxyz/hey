@@ -17,6 +17,7 @@ import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { Virtuoso } from 'react-virtuoso';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
+import { useTipsStore } from 'src/store/non-persisted/useTipsStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 
 interface FeedProps {
@@ -28,6 +29,7 @@ const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
   const { txnQueue } = useTransactionStore();
   const { showHiddenComments } = useHiddenCommentFeedStore();
   const { fetchAndStoreViews } = useImpressionsStore();
+  const { fetchAndStoreTips } = useTipsStore();
 
   // Variables
   const request: PublicationsRequest = {
@@ -48,6 +50,7 @@ const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
     onCompleted: async ({ publications }) => {
       const ids = publications?.items?.map((p) => p.id) || [];
       await fetchAndStoreViews(ids);
+      await fetchAndStoreTips(ids);
     },
     skip: !publicationId,
     variables: { request }
@@ -79,6 +82,7 @@ const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
     });
     const ids = data?.publications?.items?.map((p) => p.id) || [];
     await fetchAndStoreViews(ids);
+    await fetchAndStoreTips(ids);
   };
 
   if (loading) {
@@ -106,7 +110,9 @@ const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
       <Card>
         <Virtuoso
           className="virtual-divider-list-window"
-          computeItemKey={(index) => `${publicationId}_${index}`}
+          computeItemKey={(index, comment) =>
+            `${publicationId}-${comment.id}-${index}`
+          }
           data={comments}
           endReached={onEndReached}
           itemContent={(index, comment) => {

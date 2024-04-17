@@ -20,8 +20,8 @@ const ProfileManager: FC = () => {
   const [showAddManagerModal, setShowAddManagerModal] = useState(false);
 
   return (
-    <Card className="linkify space-y-2 p-5">
-      <div className="flex items-center justify-between">
+    <Card className="linkify space-y-2">
+      <div className="mx-5 mt-5 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <TabButton
             active={type === Type.MANAGERS}

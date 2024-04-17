@@ -38,11 +38,11 @@ export const PUBLICATION = {
       OPEN: 'Open image attachment'
     }
   },
+  BOOKMARK: 'Bookmark publication',
   CLICK_CASHTAG: 'Click publication cashtag',
   CLICK_HASHTAG: 'Click publication hashtag',
   CLICK_MENTION: 'Click publication mention',
   CLICK_OEMBED: 'Click publication oembed',
-  CLICK_PORTAL_BUTTON: 'Click portal button',
   COLLECT_MODULE: {
     COLLECT: 'Collect publication',
     OPEN_COLLECT: 'Open collect modal',
@@ -55,22 +55,20 @@ export const PUBLICATION = {
   NEW_COMMENT: 'New comment',
   NEW_POST: 'New post',
   NEW_QUOTE: 'New quote',
+  NOT_INTERESTED: 'Not interested publication',
   OPEN_ACTIONS: {
-    TIP: {
-      OPEN_TIP: 'Open tip modal',
-      TIP: 'Tip publication'
-    }
+    SWAP: { SWAP: 'Swap OA: Swap' }
   },
   OPEN_GIFS: 'Open GIFs modal',
   OPEN_LIKES: 'Open likes modal',
   OPEN_NFT: 'Open NFT',
+  REMOVE_BOOKMARK: 'Remove bookmark publication',
   REPORT: 'Report publication',
   SHARE: 'Share publication',
-  TOGGLE_BOOKMARK: 'Toggle publication bookmark',
   TOGGLE_HIDE_COMMENT: 'Toggle publication hide comment',
-  TOGGLE_NOT_INTERESTED: 'Toggle publication not interested',
   TRANSLATE: 'Translate publication',
   UNDO_MIRROR: 'Undo mirror publication',
+  UNDO_NOT_INTERESTED: 'Undo not interested publication',
   UNLIKE: 'Unlike publication',
   WIDGET: {
     POLL: { VOTE: 'Vote on poll' }
@@ -82,10 +80,6 @@ export const NOTIFICATION = {
 };
 
 export const HOME = {
-  ALGORITHMS: {
-    OPEN_ALGORITHMS: 'Open algorithms modal',
-    SWITCH_ALGORITHMIC_FEED: 'Switch to algorithmic feed'
-  },
   SELECT_USER_FEED: 'Select user feed',
   SWITCH_FOLLOWING_FEED: 'Switch to following feed',
   SWITCH_HIGHLIGHTS_FEED: 'Switch to highlights feed',
@@ -99,6 +93,9 @@ export const EXPLORE = {
 
 export const SETTINGS = {
   ACCOUNT: {
+    RESEND_EMAIL_VERIFICATION: 'Resend email verification',
+    SET_DEFAULT_PROFILE: 'Set default profile',
+    SET_EMAIL: 'Set email',
     SET_SUPER_FOLLOW: 'Set super follow'
   },
   ALLOWANCE: {
@@ -151,6 +148,15 @@ export const INVITE = {
   OPEN_INVITE: 'Open invite modal'
 };
 
+export const MESSAGES = {
+  ALLOW_USER: 'Allow user',
+  BLOCK_USER: 'Block user',
+  ENABLE_MESSAGES: 'Enable messages',
+  OPEN_CONVERSATION: 'Open conversation',
+  SEND_MESSAGE: 'Send message',
+  START_CONVERSATION: 'Start conversation'
+};
+
 export const GARDENER = {
   PROFILE: {
     P2P_RECOMMEND: 'P2P recommend profile',
@@ -169,8 +175,7 @@ export const STAFFTOOLS = {
     KILL: 'Staff Tool: Kill feature flag'
   },
   SIGNUP_CONTRACT: {
-    REFILL: 'Staff Tool: Refill relayer',
-    WITHDRAW_FUNDS: 'Staff Tool: Withdraw funds'
+    REFILL: 'Staff Tool: Refill relayer'
   },
   STAFF_PICKS: {
     CREATE: 'Staff Tool: Create staff pick',
@@ -231,6 +236,7 @@ export const ALL_EVENTS = {
   ...EXPLORE,
   ...SETTINGS,
   ...INVITE,
+  ...MESSAGES,
   ...GARDENER,
   ...STAFFTOOLS,
   ...CREATORTOOLS,

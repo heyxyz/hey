@@ -1,13 +1,15 @@
 import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
+import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { ProfileLinkSource, SEARCH } from '@hey/data/tracking';
 import { useProfilesQuery } from '@hey/lens';
+import getProfile from '@hey/lib/getProfile';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Spinner } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
+import { useRouter } from 'next/router';
 import { useSearchStore } from 'src/store/persisted/useSearchStore';
 
 interface RecentProfilesProps {
@@ -15,6 +17,7 @@ interface RecentProfilesProps {
 }
 
 const RecentProfiles: FC<RecentProfilesProps> = ({ onProfileClick }) => {
+  const { push } = useRouter();
   const {
     addProfile: addToRecentProfiles,
     clearProfile,
@@ -36,10 +39,7 @@ const RecentProfiles: FC<RecentProfilesProps> = ({ onProfileClick }) => {
   return (
     <div>
       {loading ? (
-        <div className="space-y-2 px-4 py-2 text-center text-sm font-bold">
-          <Spinner className="mx-auto" size="sm" />
-          <div>Loading recent profiles</div>
-        </div>
+        <Loader className="my-3" message="Loading recent profiles" small />
       ) : (
         <div>
           <div className="flex items-center justify-between px-4 pb-2 pt-1">
@@ -60,11 +60,15 @@ const RecentProfiles: FC<RecentProfilesProps> = ({ onProfileClick }) => {
               key={profile.id}
               onClick={() => {
                 addToRecentProfiles(profile.id);
+                push(getProfile(profile as Profile).link);
                 onProfileClick();
               }}
             >
               <div className="w-full">
                 <UserProfile
+                  hideFollowButton
+                  hideUnfollowButton
+                  linkToProfile={false}
                   profile={profile as Profile}
                   showUserPreview={false}
                   source={ProfileLinkSource.RecentSearch}

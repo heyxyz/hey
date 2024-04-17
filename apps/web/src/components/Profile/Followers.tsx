@@ -51,7 +51,6 @@ const Followers: FC<FollowersProps> = ({ handle, profileId }) => {
   if (followers?.length === 0) {
     return (
       <EmptyState
-        hideCard
         icon={<UsersIcon className="size-8" />}
         message={
           <div>
@@ -84,16 +83,17 @@ const Followers: FC<FollowersProps> = ({ handle, profileId }) => {
       <div className="divider" />
       <Virtuoso
         className="virtual-divider-list-window"
-        computeItemKey={(_, follower) => follower.id}
+        computeItemKey={(index, follower) => `${follower.id}-${index}`}
         data={followers}
         endReached={onEndReached}
         itemContent={(_, follower) => {
           return (
             <div className="p-5">
               <UserProfile
+                hideFollowButton={currentProfile?.id === follower.id}
+                hideUnfollowButton={currentProfile?.id === follower.id}
                 profile={follower as Profile}
                 showBio
-                showFollowUnfollowButton={currentProfile?.id !== follower.id}
                 showUserPreview={false}
                 source={ProfileLinkSource.Followers}
               />

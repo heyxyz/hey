@@ -20,6 +20,7 @@ export type AllowedToken = {
   contractAddress: string;
   decimals: number;
   id: string;
+  maxTipAmount: number;
   name: string;
   symbol: string;
 };
@@ -49,6 +50,12 @@ export type PublicationViewCount = {
   views: number;
 };
 
+export type TipsCount = {
+  amount: number;
+  publicationId: string;
+  tips: number;
+};
+
 export type PollOption = {
   id: string;
   option: string;
@@ -64,6 +71,8 @@ export type Poll = {
 };
 
 export type Preferences = {
+  email: null | string;
+  emailVerified: boolean;
   features: string[];
   hasDismissedOrMintedMembershipNft: boolean;
   highSignalNotificationFilter: boolean;
@@ -72,4 +81,21 @@ export type Preferences = {
 
 export type ProfileFlags = {
   isSuspended: boolean;
+};
+
+type UniswapToken = {
+  address: string;
+  chainId: number;
+  decimals: string;
+  symbol: string;
+};
+
+export type UniswapQuote = {
+  amountOut: string;
+  maxSlippage: string;
+  route: {
+    tokenIn: UniswapToken;
+    tokenOut: UniswapToken;
+  };
+  routeString: string;
 };

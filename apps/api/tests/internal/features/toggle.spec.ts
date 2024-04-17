@@ -4,10 +4,15 @@ import { TEST_URL } from 'src/lib/constants';
 import { describe, expect, test } from 'vitest';
 
 describe('internal/features/toggle', () => {
+  const payload = {
+    enabled: false,
+    id: '8ed8b26a-279d-4111-9d39-a40164b273a0'
+  };
+
   test('should kill a feature', async () => {
     const response = await axios.post(
       `${TEST_URL}/internal/features/toggle`,
-      { enabled: false, id: '8ed8b26a-279d-4111-9d39-a40164b273a0' },
+      payload,
       { headers: await getAuthApiHeadersForTest() }
     );
 
@@ -22,5 +27,26 @@ describe('internal/features/toggle', () => {
     );
 
     expect(response.data.enabled).toBeTruthy();
+  });
+
+  test('should fail if not staff', async () => {
+    try {
+      const response = await axios.post(
+        `${TEST_URL}/internal/features/toggle`,
+        payload,
+        { headers: await getAuthApiHeadersForTest({ staff: false }) }
+      );
+      expect(response.status).toEqual(401);
+    } catch {}
+  });
+
+  test('should fail if not authenticated', async () => {
+    try {
+      const response = await axios.post(
+        `${TEST_URL}/internal/features/toggle`,
+        payload
+      );
+      expect(response.status).toEqual(401);
+    } catch {}
   });
 });

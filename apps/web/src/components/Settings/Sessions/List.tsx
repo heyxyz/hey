@@ -89,7 +89,7 @@ const List: FC = () => {
   };
 
   if (loading) {
-    return <Loader className="pb-5" />;
+    return <Loader className="my-10" />;
   }
 
   if (error) {
@@ -109,7 +109,7 @@ const List: FC = () => {
   return (
     <Virtuoso
       className="virtual-divider-list-window"
-      computeItemKey={(_, session) => session.authorizationId}
+      computeItemKey={(index, session) => `${session.authorizationId}-${index}`}
       data={approvedAuthentications}
       endReached={onEndReached}
       itemContent={(_, session) => {

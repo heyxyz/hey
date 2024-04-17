@@ -16,7 +16,7 @@ export const get: Handler = async (_, res) => {
     });
 
     const random = data.sort(() => Math.random() - Math.random());
-    const picks = random.slice(0, 5);
+    const picks = random.slice(0, 150);
 
     logger.info('Staff picks fetched');
 

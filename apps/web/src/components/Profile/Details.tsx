@@ -16,7 +16,6 @@ import {
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
 import { EXPANDED_AVATAR, STATIC_IMAGES_URL } from '@hey/data/constants';
-import { FeatureFlag } from '@hey/data/feature-flags';
 import { FollowModuleType } from '@hey/lens';
 import formatDate from '@hey/lib/datetime/formatDate';
 import getAvatar from '@hey/lib/getAvatar';
@@ -28,7 +27,6 @@ import getProfile from '@hey/lib/getProfile';
 import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import hasMisused from '@hey/lib/hasMisused';
 import { Button, Image, LightBox, Tooltip } from '@hey/ui';
-import isFeatureAvailable from '@lib/isFeatureAvailable';
 import isVerified from '@lib/isVerified';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
@@ -39,13 +37,26 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import urlcat from 'urlcat';
 
 import Badges from './Badges';
-import CreatorTool from './CreatorTool';
 import Followerings from './Followerings';
-import GardenerTool from './GardenerTool';
+import InternalTools from './InternalTools';
 import InvitedBy from './InvitedBy';
 import ProfileMenu from './Menu';
 import MutualFollowers from './MutualFollowers';
 import ScamWarning from './ScamWarning';
+import Score from './Score';
+
+export const MetaDetails = ({
+  children,
+  icon
+}: {
+  children: ReactNode;
+  icon: ReactNode;
+}) => (
+  <div className="flex items-center gap-2">
+    {icon}
+    <div className="text-md truncate">{children}</div>
+  </div>
+);
 
 interface DetailsProps {
   profile: Profile;
@@ -54,22 +65,9 @@ interface DetailsProps {
 const Details: FC<DetailsProps> = ({ profile }) => {
   const { push } = useRouter();
   const { currentProfile } = useProfileStore();
-  const { gardenerMode, staffMode } = useFeatureFlagsStore();
+  const { staffMode } = useFeatureFlagsStore();
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
   const { resolvedTheme } = useTheme();
-
-  const MetaDetails = ({
-    children,
-    icon
-  }: {
-    children: ReactNode;
-    icon: ReactNode;
-  }) => (
-    <div className="flex items-center gap-2">
-      {icon}
-      <div className="text-md truncate">{children}</div>
-    </div>
-  );
 
   const followType = profile?.followModule?.type;
   const misuseDetails = getMisuseDetails(profile.id);
@@ -168,6 +166,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
           <MetaDetails icon={<HashtagIcon className="size-4" />}>
             {parseInt(profile.id)}
           </MetaDetails>
+          <Score address={profile.ownedBy.address} />
           {getProfileAttribute('location', profile?.metadata?.attributes) ? (
             <MetaDetails icon={<MapPinIcon className="size-4" />}>
               {getProfileAttribute('location', profile?.metadata?.attributes)}
@@ -268,10 +267,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
         id={profile.id}
         onchainIdentity={profile.onchainIdentity}
       />
-      {gardenerMode && <GardenerTool profile={profile} />}
-      {isFeatureAvailable(FeatureFlag.Staff) && (
-        <CreatorTool profile={profile} />
-      )}
+      <InternalTools profile={profile} />
     </div>
   );
 };

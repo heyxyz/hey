@@ -24,11 +24,12 @@ import Slug from './Slug';
 import UserPreview from './UserPreview';
 
 interface UserProfileProps {
+  hideFollowButton?: boolean;
+  hideUnfollowButton?: boolean;
   isBig?: boolean;
   linkToProfile?: boolean;
   profile: Profile;
   showBio?: boolean;
-  showFollowUnfollowButton?: boolean;
   showId?: boolean;
   showUserPreview?: boolean;
   source?: string;
@@ -36,11 +37,12 @@ interface UserProfileProps {
 }
 
 const UserProfile: FC<UserProfileProps> = ({
+  hideFollowButton = false,
+  hideUnfollowButton = false,
   isBig = false,
   linkToProfile = true,
   profile,
   showBio = false,
-  showFollowUnfollowButton = false,
   showId = false,
   showUserPreview = true,
   source,
@@ -142,9 +144,12 @@ const UserProfile: FC<UserProfileProps> = ({
       ) : (
         <UserInfo />
       )}
-      {showFollowUnfollowButton ? (
-        <FollowUnfollowButton profile={profile} small />
-      ) : null}
+      <FollowUnfollowButton
+        hideFollowButton={hideFollowButton}
+        hideUnfollowButton={hideUnfollowButton}
+        profile={profile}
+        small
+      />
     </div>
   );
 };

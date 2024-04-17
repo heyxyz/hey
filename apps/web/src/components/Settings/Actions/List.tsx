@@ -36,7 +36,7 @@ const List: FC = () => {
   };
 
   if (loading) {
-    return <Loader className="pb-5" />;
+    return <Loader className="py-10" />;
   }
 
   if (error) {
@@ -58,7 +58,7 @@ const List: FC = () => {
   return (
     <Virtuoso
       className="virtual-divider-list-window"
-      computeItemKey={(_, action) => action.id}
+      computeItemKey={(index, action) => `${action.id}-${index}`}
       data={profileActionHistory}
       endReached={onEndReached}
       itemContent={(_, action) => {

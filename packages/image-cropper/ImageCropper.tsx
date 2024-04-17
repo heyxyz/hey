@@ -31,11 +31,11 @@ type State = {
   hasWheelJustStarted: boolean;
 };
 
-type GestureEvent = UIEvent & {
+type GestureEvent = {
   clientX: number;
   clientY: number;
   scale: number;
-};
+} & UIEvent;
 
 class ImageCropper extends Component<CropperProps, State> {
   static defaultProps = {
@@ -496,7 +496,7 @@ class ImageCropper extends Component<CropperProps, State> {
             className={cn('reactEasyCrop_Container')}
             onMouseDown={this.onMouseDown}
             onTouchStart={this.onTouchStart}
-            ref={(el) => (this.containerRef = el)}
+            ref={(el) => (this.containerRef = el) as any}
           >
             {image && (
               <img

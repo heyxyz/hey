@@ -168,7 +168,7 @@ const LinkHandle: FC = () => {
   };
 
   if (loading) {
-    return <Loader />;
+    return <Loader className="py-10" />;
   }
 
   const ownedHandles = data?.ownedHandles.items.filter(
@@ -193,7 +193,7 @@ const LinkHandle: FC = () => {
     broadcastData.broadcastOnchain.txId;
 
   return (
-    <div className="space-y-6">
+    <div className="m-5 space-y-6">
       {ownedHandles?.map((handle) => (
         <div
           className="flex flex-wrap items-center justify-between gap-3"

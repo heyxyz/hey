@@ -54,7 +54,6 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({
   if (mutualFollowers?.length === 0) {
     return (
       <EmptyState
-        hideCard
         icon={<UsersIcon className="size-8" />}
         message={
           <div>
@@ -87,18 +86,19 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({
       <div className="divider" />
       <Virtuoso
         className="virtual-divider-list-window"
-        computeItemKey={(_, mutualFollower) => mutualFollower.id}
+        computeItemKey={(index, mutualFollower) =>
+          `${mutualFollower.id}-${index}`
+        }
         data={mutualFollowers}
         endReached={onEndReached}
         itemContent={(_, mutualFollower) => {
           return (
             <div className="p-5">
               <UserProfile
+                hideFollowButton={currentProfile?.id === mutualFollower.id}
+                hideUnfollowButton={currentProfile?.id === mutualFollower.id}
                 profile={mutualFollower as Profile}
                 showBio
-                showFollowUnfollowButton={
-                  currentProfile?.id !== mutualFollower.id
-                }
                 showUserPreview={false}
               />
             </div>

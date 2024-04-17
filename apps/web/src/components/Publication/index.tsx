@@ -41,6 +41,7 @@ import OnchainMeta from './OnchainMeta';
 import Quotes from './Quotes';
 import RelevantPeople from './RelevantPeople';
 import PublicationPageShimmer from './Shimmer';
+import TippedBy from './TippedBy';
 
 interface HiddenCommentFeedState {
   setShowHiddenComments: (show: boolean) => void;
@@ -168,14 +169,14 @@ const ViewPublication: NextPage = () => {
       <GridItemFour className="space-y-5">
         <Card as="aside" className="p-5">
           <UserProfile
+            hideFollowButton={currentProfile?.id === targetPublication.by.id}
+            hideUnfollowButton={currentProfile?.id === targetPublication.by.id}
             profile={targetPublication.by}
             showBio
-            showFollowUnfollowButton={
-              targetPublication.by.id !== currentProfile?.id
-            }
             source={ProfileLinkSource.Publication}
           />
         </Card>
+        <TippedBy id={targetPublication.id} />
         <RelevantPeople
           profilesMentioned={targetPublication.profilesMentioned}
         />

@@ -41,11 +41,13 @@ const Nft: FC<NftProps> = ({ nft, publicationId }) => {
               />
             </Tooltip>
           ) : null}
-          <div className="text-sm font-bold">{nft.collectionName}</div>
+          <div className="line-clamp-1 text-sm font-bold">
+            {nft.collectionName}
+          </div>
         </div>
         <Link href={nft.sourceUrl} rel="noopener noreferrer" target="_blank">
           <Button
-            className="text-sm"
+            className="ml-5 text-sm"
             icon={<CursorArrowRaysIcon className="size-4" />}
             onClick={() =>
               Leafwatch.track(PUBLICATION.OPEN_NFT, {

@@ -62,7 +62,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: 'profile',
       url: `https://hey.xyz${link}`
     },
-    other: { 'lens:id': profile.id },
+    other: {
+      'count:followers': profile.stats.followers,
+      'count:following': profile.stats.following,
+      'lens:handle': handle,
+      'lens:id': profile.id
+    },
     publisher: displayName,
     title: title,
     twitter: { card: 'summary', site: '@heydotxyz' }
@@ -92,10 +97,27 @@ export default async function Page({ params }: Props) {
     return <h1>{params.handle}</h1>;
   }
 
+  const profileUrl = `https://hey.xyz/u/${metadata.other?.['lens:handle']}`;
+
   return (
     <>
       <h1>{metadata.title?.toString()}</h1>
       <h2>{metadata.description?.toString()}</h2>
+      <div>
+        <b>Stats</b>
+        <ul>
+          <li>
+            <a href={`${profileUrl}/following`}>
+              Following: {metadata.other?.['count:following']}
+            </a>
+          </li>
+          <li>
+            <a href={`${profileUrl}/followers`}>
+              Followers: {metadata.other?.['count:followers']}
+            </a>
+          </li>
+        </ul>
+      </div>
       <div>
         <h3>Publications</h3>
         <ul>

@@ -35,7 +35,7 @@ const ReferralConfig: FC<ReferralConfigProps> = ({ setCollectType }) => {
             iconRight="%"
             label="Referral fee"
             max="100"
-            min="0"
+            min="1"
             onChange={(event) => {
               setCollectType({
                 referralFee: parseInt(
