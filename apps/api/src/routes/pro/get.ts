@@ -9,7 +9,6 @@ import { noBody } from 'src/lib/responses';
 import { createPublicClient } from 'viem';
 import { polygon, polygonAmoy } from 'viem/chains';
 
-// TODO: add tests
 export const get: Handler = async (req, res) => {
   const { id } = req.query;
 
