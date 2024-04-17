@@ -15,10 +15,7 @@ const getPro = async (
 
     return data?.result;
   } catch {
-    return {
-      isPro: false,
-      proExpiresAt: null
-    };
+    return { isPro: false, proExpiresAt: null };
   }
 };
 
