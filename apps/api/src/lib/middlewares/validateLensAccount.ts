@@ -37,8 +37,6 @@ const validateLensAccount = async (request: Request) => {
       }
     );
 
-    console.log(data);
-
     if (data.data.verify) {
       return true;
     }
