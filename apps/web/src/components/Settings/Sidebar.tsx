@@ -40,8 +40,8 @@ const SettingsSidebar: FC = () => {
     },
     {
       enabled: isPro,
-      icon: <StarIcon className="size-4" />,
-      title: 'Pro',
+      icon: <StarIcon className="size-4 text-yellow-500" />,
+      title: <div className="text-yellow-500">Pro</div>,
       url: '/settings/pro'
     },
     {
