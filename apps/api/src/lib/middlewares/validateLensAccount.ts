@@ -32,8 +32,7 @@ const validateLensAccount = async (request: Request) => {
         headers: {
           'Content-Type': 'application/json',
           'User-agent': 'Hey.xyz'
-        },
-        withCredentials: true
+        }
       }
     );
 
