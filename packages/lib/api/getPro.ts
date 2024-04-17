@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const getPro = async (
   id: string
-): Promise<{ isPro: boolean; proExpiresAt: Date | null }> => {
+): Promise<{ expiresAt: Date | null; isPro: boolean }> => {
   try {
     const response = await axios.get(`${HEY_API_URL}/pro/get`, {
       params: { id }
@@ -12,7 +12,7 @@ const getPro = async (
 
     return data?.result;
   } catch {
-    return { isPro: false, proExpiresAt: null };
+    return { expiresAt: null, isPro: false };
   }
 };
 
