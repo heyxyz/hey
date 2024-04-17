@@ -30,7 +30,7 @@ const List: FC = () => {
 
   const { error, isLoading } = useQuery({
     queryFn: () =>
-      getAllFeatureFlags(getAuthApiHeaders(), (features) =>
+      getAllFeatureFlags(getAuthApiHeaders()).then((features) =>
         setFeatures(features)
       ),
     queryKey: ['getAllFeatureFlags']
