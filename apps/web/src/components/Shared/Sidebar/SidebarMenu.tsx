@@ -1,4 +1,4 @@
-import type { FC, ReactNode } from 'react';
+import type { FC } from 'react';
 
 import { Menu } from '@headlessui/react';
 import { Card } from '@hey/ui';
@@ -6,25 +6,14 @@ import cn from '@hey/ui/cn';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
+import type { SidebarProps } from '.';
+
 import MenuTransition from '../MenuTransition';
 import { NextLink } from '../Navbar/MenuItems';
 
-interface SidebarProps {
-  items: {
-    active?: boolean;
-    enabled?: boolean;
-    icon: ReactNode;
-    title: ReactNode;
-    url: string;
-  }[];
-}
-
 const SidebarMenu: FC<SidebarProps> = ({ items }) => {
   const { pathname } = useRouter();
-  const menuItems = items.map((item) => ({
-    ...item,
-    enabled: item.enabled || true
-  }));
+  const menuItems = items.filter((item) => item?.enabled !== false);
   const [selectedItem, setSelectedItem] = useState(
     menuItems.find((item) => item.url === pathname) || menuItems[0]
   );
