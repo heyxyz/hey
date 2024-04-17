@@ -22,15 +22,15 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-ses": "^3.554.0",
-    "@aws-sdk/client-sts": "^3.554.0",
+    "@aws-sdk/client-ses": "^3.556.0",
+    "@aws-sdk/client-sts": "^3.556.0",
     "@clickhouse/client": "^1.0.1",
     "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
     "@hey/lib": "workspace:*",
     "@irys/sdk": "^0.1.22",
     "@prisma/client": "^5.12.1",
-    "@stackso/js-core": "^0.2.21",
+    "@stackso/js-core": "^0.2.22",
     "axios": "^1.6.8",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
@@ -44,7 +44,7 @@
     "ua-parser-js": "^1.0.37",
     "urlcat": "^3.1.0",
     "uuid": "^9.0.1",
-    "viem": "^2.9.19",
+    "viem": "^2.9.20",
     "vite-express": "^0.16.0",
     "zod": "^3.22.4"
   },
