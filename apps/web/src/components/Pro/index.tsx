@@ -33,6 +33,7 @@ const tiers = [
       'Profile Analytics',
       'Publication Analytics',
       'Early access to new features',
+      'Choose your app icon',
       'Pro Badge on your profile',
       'Priority support'
     ],
@@ -47,6 +48,7 @@ const tiers = [
       'Profile Analytics',
       'Publication Analytics',
       'Early access to new features',
+      'Choose your app icon',
       'Pro Badge on your profile',
       'Priority support'
     ],
