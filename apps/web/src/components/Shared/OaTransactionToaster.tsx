@@ -1,5 +1,9 @@
 import type { FC } from 'react';
 
+import {
+  getMessagesBySrcTxHash,
+  MessageStatus
+} from '@layerzerolabs/scan-client';
 import getToastOptions from '@lib/getToastOptions';
 import { useTheme } from 'next-themes';
 import React, { useEffect } from 'react';
@@ -18,6 +22,7 @@ const OaTransactionToaster: FC<OaTransactionToasterProps> = ({
   txHash
 }) => {
   const { resolvedTheme } = useTheme();
+  const polygonLayerZeroChainId = 109;
 
   useEffect(() => {
     const toastId = toast.loading(
@@ -46,10 +51,27 @@ const OaTransactionToaster: FC<OaTransactionToasterProps> = ({
       }
     );
 
-    return () => {
-      toast.dismiss(toastId); // Ensure clean up if the component unmounts
+    let interval: NodeJS.Timeout;
+    const fetchCrossChainStatus = async () => {
+      const { messages } = await getMessagesBySrcTxHash(
+        polygonLayerZeroChainId,
+        txHash
+      );
+      const lastStatus = messages[messages.length - 1]?.status;
+      if (lastStatus === MessageStatus.DELIVERED) {
+        toast.dismiss(toastId);
+        onClose(); // Clean up
+        clearInterval(interval);
+      }
     };
-  }, [txHash, onClose, resolvedTheme]);
+
+    interval = setInterval(fetchCrossChainStatus, 10000);
+
+    return () => {
+      clearInterval(interval);
+      toast.dismiss(toastId);
+    };
+  }, [txHash, onClose, platformName, resolvedTheme]);
 
   return null;
 };

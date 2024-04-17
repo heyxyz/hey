@@ -20,6 +20,8 @@ export function useTransactionStatus({
   const [hide, setHide] = useState(false);
   const [pollInterval, setPollInterval] = useState(500);
 
+  const shouldSkip = !txHash && !txId;
+
   const { data, loading } = useLensTransactionStatusQuery({
     notifyOnNetworkStatusChange: true,
     onCompleted: ({ lensTransactionStatus }) => {
@@ -36,6 +38,7 @@ export function useTransactionStatus({
       }
     },
     pollInterval,
+    skip: shouldSkip,
     variables: {
       request: {
         ...(txHash && { forTxHash: txHash }),

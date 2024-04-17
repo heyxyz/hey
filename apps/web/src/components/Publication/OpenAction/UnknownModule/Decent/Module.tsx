@@ -36,6 +36,7 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN, PERMIT_2_ADDRESS } from 'src/constants';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
+import { useTransactionStatus } from 'src/hooks/useIndexStatus';
 import { useOaTransactionStore } from 'src/store/persisted/useOaTransactionStore';
 import { parseAbi } from 'viem';
 import { useAccount, useWalletClient } from 'wagmi';
@@ -98,16 +99,27 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
       successToast: 'Initiated cross-chain NFT mint'
     });
 
+  const { data: transactionStatusData } = useTransactionStatus({
+    txId: relayStatus
+  });
+
   useEffect(() => {
-    if (relayStatus && !relayStatus.startsWith('0x')) {
+    if (
+      relayStatus &&
+      !relayStatus.startsWith('0x') &&
+      transactionStatusData &&
+      transactionStatusData.lensTransactionStatus &&
+      transactionStatusData.lensTransactionStatus.txHash
+    ) {
+      const txHashFromStatus =
+        transactionStatusData.lensTransactionStatus.txHash;
       useOaTransactionStore.getState().addTransaction({
         platformName: actionData?.uiData.platformName,
         status: 'pending',
-        txHash: relayStatus
+        txHash: txHashFromStatus
       });
-      onClose();
     }
-  }, [relayStatus, onClose]);
+  }, [transactionStatusData]);
 
   const { data: creatorProfileData } = useDefaultProfileQuery({
     skip: !actionData?.uiData.nftCreatorAddress,
@@ -268,38 +280,6 @@ const formattedTotalFees = (
 
     fetchPermit2Allowance();
   }, [amount, assetAddress, address]);
-
-  // const polygonLayerZeroChainId = 109;
-
-  // const { data: transactionStatusData } = useTransactionStatus({
-  //   txHash: !!txHash ? (txHash as `0x${string}`) : undefined,
-  //   txId: relayStatus
-  // });
-
-  // useEffect(() => {
-  //   let interval: NodeJS.Timeout;
-  //   if (
-  //     transactionStatusData &&
-  //     !!transactionStatusData.lensTransactionStatus &&
-  //     !!transactionStatusData.lensTransactionStatus.txHash
-  //   ) {
-  //     setPending(true);
-  //     const fetchCrossChainStatus = async () => {
-  //       const { messages } = await getMessagesBySrcTxHash(
-  //         polygonLayerZeroChainId,
-  //         transactionStatusData!.lensTransactionStatus!.txHash
-  //       );
-  //       const lastStatus = messages[messages.length - 1]?.status;
-  //       if (lastStatus === MessageStatus.DELIVERED) {
-  //         setPending(false);
-  //         clearInterval(interval);
-  //       }
-  //     };
-
-  //     interval = setInterval(fetchCrossChainStatus, 10000);
-  //   }
-  //   return () => clearInterval(interval);
-  // }, [transactionStatusData]);
 
   return (
     <Modal
