@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import SidebarMenu from '@components/Shared/Sidebar/SidebarMenu';
 import SidebarTabs from '@components/Shared/Sidebar/SidebarTabs';
 
-interface SidebarProps {
+export interface SidebarProps {
   items: {
     active?: boolean;
     enabled?: boolean;
