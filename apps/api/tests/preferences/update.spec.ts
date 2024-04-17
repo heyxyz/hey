@@ -4,17 +4,17 @@ import { TEST_URL } from 'src/lib/constants';
 import { describe, expect, test } from 'vitest';
 
 describe('preferences/update', () => {
-  const payload = { highSignalNotificationFilter: true, isPride: true };
+  const payload = { appIcon: 1, highSignalNotificationFilter: true };
 
   test('should update profile preferences', async () => {
     const response = await axios.post(
       `${TEST_URL}/preferences/update`,
-      { highSignalNotificationFilter: true, isPride: true },
+      { appIcon: 1, highSignalNotificationFilter: true },
       { headers: await getAuthApiHeadersForTest() }
     );
 
     expect(response.data.result.highSignalNotificationFilter).toBeTruthy();
-    expect(response.data.result.isPride).toBeTruthy();
+    expect(response.data.result.appIcon).toEqual(1);
   });
 
   test('should fail if not authenticated', async () => {

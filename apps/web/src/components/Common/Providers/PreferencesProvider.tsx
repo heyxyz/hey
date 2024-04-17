@@ -16,11 +16,11 @@ const PreferencesProvider: FC = () => {
   const { id: sessionProfileId } = getCurrentSession();
   const { setVerifiedMembers } = useVerifiedMembersStore();
   const {
+    setAppIcon,
     setEmail,
     setEmailVerified,
     setHasDismissedOrMintedMembershipNft,
-    setHighSignalNotificationFilter,
-    setIsPride
+    setHighSignalNotificationFilter
   } = usePreferencesStore();
   const { setRestriction } = useProfileRestriction();
   const { setFeatureFlags, setGardenerMode, setStaffMode } =
@@ -36,7 +36,7 @@ const PreferencesProvider: FC = () => {
 
       // Profile preferences
       setHighSignalNotificationFilter(preferences.highSignalNotificationFilter);
-      setIsPride(preferences.isPride);
+      setAppIcon(preferences.appIcon);
 
       // Email preferences
       setEmail(preferences.email);
