@@ -37,6 +37,7 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import urlcat from 'urlcat';
 
 import Badges from './Badges';
+import Pro from './Badges/Pro';
 import Followerings from './Followerings';
 import InternalTools from './InternalTools';
 import InvitedBy from './InvitedBy';
@@ -105,6 +106,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
               <ExclamationCircleIcon className="size-6" />
             </Tooltip>
           ) : null}
+          <Pro id={profile.id} />
         </div>
         <div className="flex items-center space-x-3">
           <Slug
