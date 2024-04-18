@@ -6,6 +6,7 @@ import { Fragment } from 'react';
 import { Button } from './Button';
 
 interface AlertProps {
+  cancelText?: string;
   children?: ReactNode;
   confirmText?: string;
   description: ReactNode;
@@ -18,6 +19,7 @@ interface AlertProps {
 }
 
 export const Alert: FC<AlertProps> = ({
+  cancelText = 'Cancel',
   children,
   confirmText,
   description,
@@ -77,12 +79,13 @@ export const Alert: FC<AlertProps> = ({
                 ) : null}
                 <Button
                   className="w-full"
+                  disabled={isPerformingAction}
                   onClick={onClose}
                   outline
                   size="lg"
                   variant="secondary"
                 >
-                  Cancel
+                  {cancelText}
                 </Button>
               </div>
             </div>

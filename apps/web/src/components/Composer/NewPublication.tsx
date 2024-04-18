@@ -60,6 +60,7 @@ import {
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
+import { useProStore } from 'src/store/non-persisted/useProStore';
 import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
@@ -102,6 +103,10 @@ const LivestreamSettings = dynamic(
   () => import('@components/Composer/Actions/LivestreamSettings'),
   { loading: () => Shimmer }
 );
+const DraftSettings = dynamic(
+  () => import('@components/Composer/Actions/DraftSettings'),
+  { loading: () => Shimmer }
+);
 
 interface NewPublicationProps {
   publication: MirrorablePublication;
@@ -110,6 +115,7 @@ interface NewPublicationProps {
 const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
+  const { isPro } = useProStore();
 
   // Global modal store
   const { setShowDiscardModal, setShowNewPostModal } =
@@ -526,6 +532,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     setQuotedPublication(null);
     setShowNewPostModal(false);
     setShowDiscardModal(false);
+    reset();
   };
 
   useUnmountEffect(() => reset());
@@ -596,6 +603,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           ) : null}
           <PollSettings />
           {!isComment && <LivestreamSettings />}
+          {isPro && <DraftSettings />}
         </div>
         <div className="ml-auto mt-2 sm:mt-0">
           <Button
