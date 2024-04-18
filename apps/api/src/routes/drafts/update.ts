@@ -9,18 +9,14 @@ import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
 import { object, string } from 'zod';
 
 type ExtensionRequest = {
-  attachments: null | string;
   collectModule: null | string;
   content: string;
   id: null | string;
-  openActionModules: null | string;
 };
 
 const validationSchema = object({
-  attachments: string().nullable(),
   collectModule: string().nullable(),
-  content: string().min(1).max(100000),
-  openActionModules: string().nullable()
+  content: string().min(1).max(100000)
 });
 
 export const post: Handler = async (req, res) => {
@@ -41,17 +37,14 @@ export const post: Handler = async (req, res) => {
     return notAllowed(res);
   }
 
-  const { attachments, collectModule, content, id, openActionModules } =
-    body as ExtensionRequest;
+  const { collectModule, content, id } = body as ExtensionRequest;
 
   try {
     const payload = parseJwt(accessToken);
 
     const baseData = {
-      ...(attachments && { attachments }),
       ...(collectModule && { collectModule }),
-      content,
-      ...(openActionModules && { openActionModules })
+      content
     };
 
     if (id) {
