@@ -526,6 +526,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     setQuotedPublication(null);
     setShowNewPostModal(false);
     setShowDiscardModal(false);
+    reset();
   };
 
   useUnmountEffect(() => reset());
