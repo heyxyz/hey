@@ -120,3 +120,18 @@ model ScorableEvent {
   eventType String @id
   points    Int
 }
+
+model DraftPublication {
+  id                String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  profileId         String
+  content           String
+  openActionModules Json?
+  collectModule     Json?
+  attachments       String[]
+  updatedAt         DateTime @default(now())
+  createdAt         DateTime @default(now())
+
+  // Indexes
+  @@index([profileId])
+  @@index([createdAt, updatedAt])
+}
