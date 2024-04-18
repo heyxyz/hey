@@ -19,6 +19,7 @@ const validationSchema = object({
   content: string().min(1).max(100000)
 });
 
+// TODO: add tests
 export const post: Handler = async (req, res) => {
   const { body } = req;
 
