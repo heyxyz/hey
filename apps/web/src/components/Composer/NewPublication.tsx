@@ -63,6 +63,7 @@ import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestric
 import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
+import DraftSettings from './Actions/DraftSettings';
 import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
@@ -597,6 +598,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           ) : null}
           <PollSettings />
           {!isComment && <LivestreamSettings />}
+          <DraftSettings />
         </div>
         <div className="ml-auto mt-2 sm:mt-0">
           <Button

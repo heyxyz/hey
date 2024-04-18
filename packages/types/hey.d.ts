@@ -99,3 +99,11 @@ export type UniswapQuote = {
   };
   routeString: string;
 };
+
+export type Draft = {
+  collectModule: null | string;
+  content: string;
+  createdAt: Date;
+  id: string;
+  updatedAt: Date;
+};
