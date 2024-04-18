@@ -9,10 +9,12 @@ import createIdbStorage from '../lib/createIdbStorage';
 interface State {
   addTransaction: (txn: OptimisticTransaction) => void;
   hydrateTxnQueue: () => OptimisticTransaction[];
+  indexedPostHash: null | string;
   isFollowPending: (profileId: string) => boolean;
   isUnfollowPending: (profileId: string) => boolean;
   removeTransaction: (hashOrId: string) => void;
   reset: () => void;
+  setIndexedPostHash: (hash: string) => void;
   txnQueue: OptimisticTransaction[];
 }
 
@@ -24,6 +26,7 @@ const store = create(
       hydrateTxnQueue: () => {
         return get().txnQueue;
       },
+      indexedPostHash: null,
       isFollowPending: (profileId) =>
         get().txnQueue.some((txn) => txn.followOn === profileId),
       isUnfollowPending: (profileId) =>
@@ -35,6 +38,7 @@ const store = create(
           )
         })),
       reset: () => set({ txnQueue: [] }),
+      setIndexedPostHash: (hash) => set({ indexedPostHash: hash }),
       txnQueue: []
     }),
     {
