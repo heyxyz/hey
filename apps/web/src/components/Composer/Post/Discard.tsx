@@ -8,12 +8,14 @@ import toast from 'react-hot-toast';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import { useProStore } from 'src/store/non-persisted/useProStore';
 
 interface DiscardProps {
   onDiscard: () => void;
 }
 
 const Discard: FC<DiscardProps> = ({ onDiscard }) => {
+  const { isPro } = useProStore();
   const { setShowDiscardModal, showDiscardModal } = useGlobalModalStateStore();
   const { publicationContent } = usePublicationStore();
   const { collectModule } = useCollectModuleStore((state) => state);
@@ -21,7 +23,7 @@ const Discard: FC<DiscardProps> = ({ onDiscard }) => {
   const canBeDrafted = publicationContent.length > 0;
 
   const updateDraft = async () => {
-    if (!canBeDrafted) {
+    if (!canBeDrafted || !isPro) {
       setShowDiscardModal(false);
       return;
     }
@@ -46,12 +48,15 @@ const Discard: FC<DiscardProps> = ({ onDiscard }) => {
 
   return (
     <Alert
-      cancelText={canBeDrafted ? 'Save as draft' : 'Cancel'}
+      cancelText={canBeDrafted && isPro ? 'Save as draft' : 'Cancel'}
       confirmText="Discard"
       description="You can save this to send later from your drafts."
       isDestructive
       onClose={updateDraft}
-      onConfirm={() => setShowDiscardModal(false)}
+      onConfirm={() => {
+        onDiscard();
+        setShowDiscardModal(false);
+      }}
       show={showDiscardModal}
       title="Discard Post"
     />
