@@ -2,6 +2,7 @@ import type {
   MirrorablePublication,
   ReportPublicationRequest
 } from '@hey/lens';
+import type { ApolloCache } from '@hey/lens/apollo';
 import type { FC, ReactNode } from 'react';
 
 import P2PRecommendation from '@components/Shared/Profile/P2PRecommendation';
@@ -15,6 +16,7 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useToggle } from '@uidotdev/usehooks';
+import { useRouter } from 'next/router';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 
@@ -23,11 +25,18 @@ interface GardenerActionsProps {
 }
 
 const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
+  const { pathname } = useRouter();
   const { setShowGardenerActionsAlert } = useGlobalAlertStateStore();
   const [hasReported, toggletHasReported] = useToggle(
     publication.operations?.hasReported
   );
   const [createReport, { loading }] = useReportPublicationMutation();
+
+  const updateCache = (cache: ApolloCache<any>) => {
+    if (pathname === '/mod') {
+      cache.evict({ id: cache.identify(publication) });
+    }
+  };
 
   const reportPublication = async ({
     subreason,
@@ -46,6 +55,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
 
     return await createReport({
       onCompleted: () => setShowGardenerActionsAlert(false, null),
+      update: updateCache,
       variables: { request }
     });
   };
