@@ -10,5 +10,6 @@ export const apps = [
   'yup',
   'focalize',
   'bloomers.tv',
-  'kaira'
+  'kaira',
+  'orna.art'
 ];
