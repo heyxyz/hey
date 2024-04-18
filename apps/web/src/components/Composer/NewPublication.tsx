@@ -41,6 +41,7 @@ import dynamic from 'next/dynamic';
 import { NftOpenActionKit } from 'nft-openaction-kit';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { HEY_REFERRAL_PROFILE_ID } from 'src/constants';
 import useCreatePoll from 'src/hooks/useCreatePoll';
 import useCreatePublication from 'src/hooks/useCreatePublication';
 import usePublicationMetadata from 'src/hooks/usePublicationMetadata';
@@ -299,9 +300,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       const publicationContentUrls = getURLs(publicationContent);
 
       try {
-        const calldata = await nftOpenActionKit.detectAndReturnCalldata(
-          publicationContentUrls[0]
-        );
+        const calldata = await nftOpenActionKit.detectAndReturnCalldata({
+          contentURI: publicationContentUrls[0],
+          publishingClientProfileId: HEY_REFERRAL_PROFILE_ID
+        });
         if (calldata) {
           setOpenActionEmbed({
             unknownOpenAction: {

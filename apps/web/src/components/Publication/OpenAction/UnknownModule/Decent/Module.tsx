@@ -253,7 +253,10 @@ const formattedTotalFees = (
         await actOnUnknownOpenAction({
           address: VerifiedOpenActionModules.DecentNFT as `0x${string}`,
           data: updatedCalldata,
-          publicationId: publication.id
+          publicationId: publication.id,
+          referrers: actionData.actArguments.referrerProfileIds.map((id) => ({
+            profileId: '0x' + id.toString(16).padStart(2, '0')
+          }))
         });
       } catch (error) {
         toast.error('Failed to mint NFT');

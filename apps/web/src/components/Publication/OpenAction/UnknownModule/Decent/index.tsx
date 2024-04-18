@@ -20,6 +20,7 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { NftOpenActionKit } from 'nft-openaction-kit';
 import { type FC, useEffect, useRef, useState } from 'react';
+import { HEY_REFERRAL_PROFILE_ID } from 'src/constants';
 import { useAccount } from 'wagmi';
 
 import DecentOpenActionModule from './Module';
@@ -28,6 +29,7 @@ const OPEN_ACTION_EMBED_TOOLTIP = 'Open action embedded';
 
 interface DecentOpenActionProps {
   isFullPublication?: boolean;
+  mirrorPublication?: AnyPublication;
   og: OG;
   openActionEmbed: boolean;
   openActionEmbedLoading: boolean;
@@ -57,6 +59,7 @@ function formatPublicationData(
 }
 
 const DecentOpenAction: FC<DecentOpenActionProps> = ({
+  mirrorPublication,
   og,
   openActionEmbed,
   openActionEmbedLoading,
@@ -119,15 +122,22 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({
         try {
           const pubInfo = formatPublicationData(targetPublication);
           const actionDataResult: ActionData =
-            await nftOpenActionKit.actionDataFromPost(
-              pubInfo,
-              targetPublication.by.id,
-              targetPublication.by.ownedBy.address,
-              addressParameter as Address,
-              '137', // srcChainId, only supported on Polygon POS for now
-              selectedQuantity !== 1 ? BigInt(selectedQuantity) : 1n,
-              selectedCurrency.contractAddress
-            );
+            await nftOpenActionKit.actionDataFromPost({
+              executingClientProfileId: HEY_REFERRAL_PROFILE_ID,
+              mirrorerProfileId: !!mirrorPublication
+                ? mirrorPublication.by.id
+                : undefined,
+              mirrorPubId: !!mirrorPublication
+                ? mirrorPublication.id
+                : undefined,
+              paymentToken: selectedCurrency.contractAddress,
+              post: pubInfo,
+              profileId: targetPublication.by.id,
+              profileOwnerAddress: targetPublication.by.ownedBy.address,
+              quantity: selectedQuantity !== 1 ? selectedQuantity : 1,
+              senderAddress: addressParameter as Address,
+              srcChainId: '137' // srcChainId, only supported on Polygon POS for now
+            });
           if (actionDataResult) {
             setActionData(actionDataResult);
           }

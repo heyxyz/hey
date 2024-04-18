@@ -194,10 +194,6 @@ export const permit2SignatureAmount = ({
   chainId: number;
   data: Hex;
 }) => {
-  console.log('BRIDGEABI');
-  console.log(bridgeAbi);
-  console.log('DATA');
-  console.log(data);
   if (chainId != polygon.id) {
     const decoded = decodeAbiParameters(bridgeAbi, data);
     const tokenWrapperInstructions = decoded[0];

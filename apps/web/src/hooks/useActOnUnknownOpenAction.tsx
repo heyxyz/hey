@@ -1,4 +1,7 @@
-import type { ActOnOpenActionLensManagerRequest } from '@hey/lens';
+import type {
+  ActOnOpenActionLensManagerRequest,
+  OnchainReferrer
+} from '@hey/lens';
 import type { Address } from 'viem';
 
 import { LensHub } from '@hey/abis';
@@ -155,18 +158,21 @@ const useActOnUnknownOpenAction = ({
   const actOnUnknownOpenAction = async ({
     address,
     data,
-    publicationId
+    publicationId,
+    referrers
   }: {
     address: Address;
     data: string;
     publicationId: string;
+    referrers?: OnchainReferrer[];
   }) => {
     try {
       setIsLoading(true);
 
       const actOnRequest: ActOnOpenActionLensManagerRequest = {
         actOn: { unknownOpenAction: { address, data } },
-        for: publicationId
+        for: publicationId,
+        referrers
       };
 
       if (canUseLensManager && signlessApproved) {
