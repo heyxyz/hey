@@ -17,6 +17,8 @@ import { ProfileFeedType } from 'src/enums';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
 import { useProfileFeedStore } from 'src/store/non-persisted/useProfileFeedStore';
 import { useTipsStore } from 'src/store/non-persisted/useTipsStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
@@ -31,9 +33,11 @@ interface FeedProps {
 }
 
 const Feed: FC<FeedProps> = ({ handle, profileId, type }) => {
+  const { currentProfile } = useProfileStore();
   const { mediaFeedFilters } = useProfileFeedStore();
   const { fetchAndStoreViews } = useImpressionsStore();
   const { fetchAndStoreTips } = useTipsStore();
+  const { indexedPostHash } = useTransactionStore();
   const virtuoso = useRef<VirtuosoHandle>(null);
 
   useEffect(() => {
@@ -86,7 +90,7 @@ const Feed: FC<FeedProps> = ({ handle, profileId, type }) => {
     }
   };
 
-  const { data, error, fetchMore, loading } = usePublicationsQuery({
+  const { data, error, fetchMore, loading, refetch } = usePublicationsQuery({
     onCompleted: async ({ publications }) => {
       const ids =
         publications?.items?.map((p) => {
@@ -102,6 +106,13 @@ const Feed: FC<FeedProps> = ({ handle, profileId, type }) => {
   const publications = data?.publications?.items;
   const pageInfo = data?.publications?.pageInfo;
   const hasMore = pageInfo?.next;
+
+  useEffect(() => {
+    if (indexedPostHash && currentProfile?.id === profileId) {
+      refetch();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [indexedPostHash]);
 
   const onScrolling = (scrolling: boolean) => {
     if (!scrolling) {
