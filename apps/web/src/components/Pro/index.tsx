@@ -26,35 +26,31 @@ import { useTransaction, useWriteContract } from 'wagmi';
 
 const tiers = [
   {
-    description: 'Billed annually',
+    description: 'Billed monthly',
     featured: true,
     features: [
-      'Free 2 months of Pro',
       'Profile Analytics',
-      'Publication Analytics',
-      'Early access to new features',
+      'Publication Drafts',
       'Choose your app icon',
       'Pro Badge on your profile',
-      'Priority support'
-    ],
-    id: 'annually',
-    name: 'Annually',
-    price: (PRO_TIER_PRICES.annually / 12).toFixed(2)
-  },
-  {
-    description: 'Billed monthly',
-    featured: false,
-    features: [
-      'Profile Analytics',
-      'Publication Analytics',
       'Early access to new features',
-      'Choose your app icon',
-      'Pro Badge on your profile',
       'Priority support'
     ],
     id: 'monthly',
     name: 'Monthly',
     price: PRO_TIER_PRICES.monthly
+  },
+  {
+    description: 'Billed annually',
+    featured: false,
+    features: [
+      'All features, plus',
+      'Free 2 months of Pro',
+      'Support indie team 💖'
+    ],
+    id: 'annually',
+    name: 'Annually',
+    price: (PRO_TIER_PRICES.annually / 12).toFixed(2)
   }
 ];
 
