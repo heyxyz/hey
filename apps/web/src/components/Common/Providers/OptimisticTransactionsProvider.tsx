@@ -5,10 +5,12 @@ import {
   LensTransactionStatusType,
   useLensTransactionStatusQuery
 } from '@hey/lens';
+import { OptmisticPublicationType } from '@hey/types/enums';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 
 const OptimisticTransactionsProvider: FC = () => {
-  const { removeTransaction, txnQueue } = useTransactionStore();
+  const { removeTransaction, setIndexedPostHash, txnQueue } =
+    useTransactionStore();
 
   const Transaction = ({
     transaction
@@ -23,6 +25,14 @@ const OptimisticTransactionsProvider: FC = () => {
           lensTransactionStatus?.status === LensTransactionStatusType.Failed ||
           lensTransactionStatus?.status === LensTransactionStatusType.Complete
         ) {
+          // Trigger Profile feed refetch
+          if (
+            transaction.type === OptmisticPublicationType.Post &&
+            lensTransactionStatus.txHash
+          ) {
+            setIndexedPostHash(lensTransactionStatus.txHash);
+          }
+
           return removeTransaction(
             (transaction.txId || transaction.txHash) as string
           );
