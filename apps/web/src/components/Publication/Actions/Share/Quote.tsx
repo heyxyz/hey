@@ -11,13 +11,15 @@ import toast from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface QuoteProps {
   publication: AnyPublication;
 }
 
 const Quote: FC<QuoteProps> = ({ publication }) => {
-  const { setShowNewPostModal } = useGlobalModalStateStore();
+  const { currentProfile } = useProfileStore();
+  const { setShowAuthModal, setShowNewPostModal } = useGlobalModalStateStore();
   const { setQuotedPublication } = usePublicationStore();
   const { isSuspended } = useProfileRestriction();
 
@@ -40,6 +42,11 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
         )
       }
       onClick={() => {
+        if (!currentProfile) {
+          setShowAuthModal(true);
+          return;
+        }
+
         if (isSuspended) {
           return toast.error(Errors.Suspended);
         }
