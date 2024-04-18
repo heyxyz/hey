@@ -7,6 +7,7 @@ import validateLensAccount from 'src/lib/middlewares/validateLensAccount';
 import prisma from 'src/lib/prisma';
 import { notAllowed } from 'src/lib/responses';
 
+// TODO: add tests
 export const get: Handler = async (req, res) => {
   const accessToken = req.headers['x-access-token'] as string;
 
