@@ -37,11 +37,12 @@ export const post: Handler = async (req, res) => {
   }
 
   try {
-    // Cleanup Preference
-    await prisma.preference.deleteMany({
-      where: { appIcon: 0, highSignalNotificationFilter: false }
+    // Cleanup Email Tokens
+    const { count } = await prisma.email.updateMany({
+      data: { tokenExpiresAt: null, verificationToken: null, verified: false },
+      where: { tokenExpiresAt: { lt: new Date() } }
     });
-    logger.info('Cleaned up Preference');
+    logger.info(`Cleaned up ${count} email tokens that are expired`);
 
     return res.status(200).json({ success: true });
   } catch (error) {
