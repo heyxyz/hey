@@ -127,7 +127,7 @@ model DraftPublication {
   content           String
   openActionModules Json?
   collectModule     Json?
-  attachments       String[]
+  attachments       Json?
   updatedAt         DateTime @default(now())
   createdAt         DateTime @default(now())
 
