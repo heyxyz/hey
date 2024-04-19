@@ -41,7 +41,6 @@ import OnchainMeta from './OnchainMeta';
 import Quotes from './Quotes';
 import RelevantPeople from './RelevantPeople';
 import PublicationPageShimmer from './Shimmer';
-import TippedBy from './TippedBy';
 
 interface HiddenCommentFeedState {
   setShowHiddenComments: (show: boolean) => void;
@@ -176,7 +175,6 @@ const ViewPublication: NextPage = () => {
             source={ProfileLinkSource.Publication}
           />
         </Card>
-        <TippedBy id={targetPublication.id} />
         <RelevantPeople
           profilesMentioned={targetPublication.profilesMentioned}
         />
