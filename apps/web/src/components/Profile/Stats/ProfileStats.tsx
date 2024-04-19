@@ -59,10 +59,10 @@ const ProfileStats: FC<ProfileStatsProps> = ({ profileId }) => {
         <NumberedStat count={data.total_comments.toString()} name="Comments" />
         <NumberedStat count={data.total_mirrors.toString()} name="Mirrors" />
         <NumberedStat count={data.total_quotes.toString()} name="Quotes" />
-        <NumberedStat count={data.total_reacted.toString()} name="Reacted" />
+        <NumberedStat count={data.total_reacted.toString()} name="Likes" />
         <NumberedStat
           count={data.total_reactions.toString()}
-          name="Reactions Received"
+          name="Likes Received"
         />
         <NumberedStat count={data.total_collects.toString()} name="Collects" />
         <NumberedStat
