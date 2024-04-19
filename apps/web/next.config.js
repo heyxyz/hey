@@ -67,11 +67,11 @@ const nextConfig = {
     return [
       {
         destination: 'https://api.hey.xyz/sitemap/allProfiles',
-        source: '/sitemaps/all-profiles'
+        source: '/sitemaps/sitemap-profiles'
       },
       {
         destination: 'https://api.hey.xyz/sitemap/allPublications',
-        source: '/sitemaps/all-publications'
+        source: '/sitemaps/sitemap-publications'
       },
       {
         destination: 'https://api.hey.xyz/sitemap/:match*',
