@@ -54,7 +54,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
 
   const { data: preferences } = useQuery({
     queryFn: () => getPreferences(profile.id, getAuthApiHeaders()),
-    queryKey: ['fetchPreferences', profile.id || '']
+    queryKey: ['getPreferences', profile.id || '']
   });
 
   return (
