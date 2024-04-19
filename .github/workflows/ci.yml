@@ -98,8 +98,8 @@ jobs:
           DATABASE_URL: 'postgresql://postgres:postgres@localhost:5432/postgres'
         run: |
           cd apps/api
-          pnpm prisma:migrate
-          pnpm prisma:seed
+          pnpm hey:prisma:migrate
+          pnpm hey:prisma:seed
 
       - name: Build 🎁
         run: pnpm build
