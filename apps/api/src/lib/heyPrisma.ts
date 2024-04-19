@@ -1,19 +1,17 @@
-import { PrismaClient } from 'src/db/generated/hey';
+import { PrismaClient as HeyPrismaClient } from 'src/db/generated/hey';
 
-const prismaClientSingleton = () => {
-  return new PrismaClient();
+const heyPrismaClientSingleton = (): HeyPrismaClient => {
+  return new HeyPrismaClient();
 };
 
-type PrismaClientSingleton = ReturnType<typeof prismaClientSingleton>;
+type HeyPrismaClientSingleton = ReturnType<typeof heyPrismaClientSingleton>;
 
-const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClientSingleton | undefined;
-};
+const globalForHeyPrisma = globalThis as any;
 
-const heyPrisma = globalForPrisma.prisma ?? prismaClientSingleton();
+if (!globalForHeyPrisma.heyPrisma) {
+  globalForHeyPrisma.heyPrisma = heyPrismaClientSingleton();
+}
+
+const heyPrisma: HeyPrismaClientSingleton = globalForHeyPrisma?.heyPrisma;
 
 export default heyPrisma;
-
-if (process.env.NODE_ENV !== 'production') {
-  globalForPrisma.prisma = heyPrisma;
-}
