@@ -13,7 +13,6 @@ import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { memo, useRef } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
-import { useTipsStore } from 'src/store/non-persisted/useTipsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 
@@ -23,7 +22,6 @@ const Timeline: FC = () => {
   const { currentProfile, fallbackToCuratedFeed } = useProfileStore();
   const { txnQueue } = useTransactionStore();
   const { fetchAndStoreViews } = useImpressionsStore();
-  const { fetchAndStoreTips } = useTipsStore();
   const virtuoso = useRef<VirtuosoHandle>(null);
 
   // Variables
@@ -49,7 +47,6 @@ const Timeline: FC = () => {
           return [p.root.id].filter((id) => id);
         }) || [];
       await fetchAndStoreViews(ids);
-      await fetchAndStoreTips(ids);
     },
     variables: { request }
   });
@@ -81,7 +78,6 @@ const Timeline: FC = () => {
         return [p.root.id].filter((id) => id);
       }) || [];
     await fetchAndStoreViews(ids);
-    await fetchAndStoreTips(ids);
   };
 
   if (loading) {
