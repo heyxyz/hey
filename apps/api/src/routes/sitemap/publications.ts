@@ -40,22 +40,26 @@ export const get: Handler = async (req, res) => {
   try {
     const offset = (Number(batch) - 1) * SITEMAP_BATCH_SIZE;
 
-    const response = await lensPrisma.$queryRaw<{ local_name: string }[]>`
-      SELECT local_name FROM namespace.handle
+    const response = await lensPrisma.$queryRaw<
+      { block_timestamp: string; publication_id: string }[]
+    >`
+      SELECT publication_id, block_timestamp FROM publication.record
+      WHERE publication_type IN ('POST', 'QUOTE')
       ORDER BY block_timestamp ASC
       LIMIT ${SITEMAP_BATCH_SIZE}
       OFFSET ${offset};
     `;
 
-    const entries: Url[] = response.map((handle) => ({
+    const entries: Url[] = response.map((publication) => ({
       changefreq: 'weekly',
-      loc: `https://hey.xyz/u/${handle.local_name}`,
+      lastmod: new Date(Number(publication.block_timestamp)).toISOString(),
+      loc: `https://hey.xyz/posts/${publication.publication_id}`,
       priority: '1.0'
     }));
 
     const xml = buildSitemapXml(entries);
     logger.info(
-      `Lens: Fetched profiles sitemap for batch ${batch} having ${response.length} entries`
+      `Lens: Fetched publications sitemap for batch ${batch} having ${response.length} entries`
     );
 
     return res
