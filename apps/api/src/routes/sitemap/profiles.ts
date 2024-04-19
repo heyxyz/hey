@@ -37,6 +37,8 @@ export const get: Handler = async (req, res) => {
     return noBody(res);
   }
 
+  const user_agent = req.headers['user-agent'];
+
   try {
     const offset = (Number(batch) - 1) * SITEMAP_BATCH_SIZE;
 
@@ -55,7 +57,7 @@ export const get: Handler = async (req, res) => {
 
     const xml = buildSitemapXml(entries);
     logger.info(
-      `Lens: Fetched profiles sitemap for batch ${batch} having ${response.length} entries`
+      `Lens: Fetched profiles sitemap for batch ${batch} having ${response.length} entries from user-agent: ${user_agent}`
     );
 
     return res
