@@ -3,7 +3,7 @@ import type { Handler } from 'express';
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import catchedError from 'src/lib/catchedError';
-import prisma from 'src/lib/prisma';
+import heyPrisma from 'src/lib/heyPrisma';
 import { noBody } from 'src/lib/responses';
 
 export const get: Handler = async (req, res) => {
@@ -18,7 +18,7 @@ export const get: Handler = async (req, res) => {
   try {
     const payload = parseJwt(accessToken);
 
-    const data = await prisma.poll.findUnique({
+    const data = await heyPrisma.poll.findUnique({
       select: {
         endsAt: true,
         id: true,
