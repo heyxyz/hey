@@ -42,10 +42,8 @@ export const get: Handler = async (req, res) => {
   try {
     const offset = (Number(batch) - 1) * SITEMAP_BATCH_SIZE;
 
-    const response = await lensPrisma.$queryRaw<
-      { block_timestamp: string; publication_id: string }[]
-    >`
-      SELECT publication_id, block_timestamp FROM publication.record
+    const response = await lensPrisma.$queryRaw<{ publication_id: string }[]>`
+      SELECT publication_id FROM publication.record
       WHERE publication_type IN ('POST', 'QUOTE')
       ORDER BY block_timestamp ASC
       LIMIT ${SITEMAP_BATCH_SIZE}
@@ -54,7 +52,6 @@ export const get: Handler = async (req, res) => {
 
     const entries: Url[] = response.map((publication) => ({
       changefreq: 'weekly',
-      lastmod: new Date(Number(publication.block_timestamp)).toISOString(),
       loc: `https://hey.xyz/posts/${publication.publication_id}`,
       priority: '1.0'
     }));
