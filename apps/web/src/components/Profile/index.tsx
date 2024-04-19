@@ -91,7 +91,7 @@ const ViewProfile: NextPage = () => {
 
   const profile = data?.profile as Profile;
 
-  const fetchProfileFlags = async () => {
+  const getProfileFlags = async () => {
     try {
       const response = await axios.get(`${HEY_API_URL}/profile/flags`, {
         params: { id: profile.id }
@@ -105,8 +105,8 @@ const ViewProfile: NextPage = () => {
 
   const { data: profileFlags } = useQuery({
     enabled: Boolean(profile?.id),
-    queryFn: fetchProfileFlags,
-    queryKey: ['fetchProfileFlags', id]
+    queryFn: getProfileFlags,
+    queryKey: ['getProfileFlags', id]
   });
 
   if (!isReady || loading) {
