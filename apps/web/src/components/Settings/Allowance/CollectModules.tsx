@@ -9,7 +9,7 @@ import {
 import allowedOpenActionModules from '@hey/lib/allowedOpenActionModules';
 import { CardHeader, ErrorMessage, Select } from '@hey/ui';
 import { useState } from 'react';
-import { useAllowedTokens } from 'src/store/persisted/useAllowedTokens';
+import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokens';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Allowance from './Allowance';
@@ -24,7 +24,7 @@ const getAllowancePayload = (currency: string) => {
 
 const CollectModules: FC = () => {
   const { currentProfile } = useProfileStore();
-  const { allowedTokens } = useAllowedTokens();
+  const { allowedTokens } = useAllowedTokensStore();
   const [selectedCurrency, setSelectedCurrency] = useState(
     DEFAULT_COLLECT_TOKEN
   );
