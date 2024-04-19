@@ -1,7 +1,6 @@
 import type { PublicationStats as IPublicationStats } from '@hey/lens';
 import type { FC } from 'react';
 
-import getPublicationsTips from '@hey/lib/getPublicationsTips';
 import getPublicationsViews from '@hey/lib/getPublicationsViews';
 import nFormatter from '@hey/lib/nFormatter';
 import Link from 'next/link';
@@ -18,15 +17,11 @@ const PublicationStats: FC<PublicationStatsProps> = ({
   publicationStats
 }) => {
   const [views, setViews] = useState<number>(0);
-  const [tips, setTips] = useState<number>(0);
 
   useEffect(() => {
     // Get Views
     getPublicationsViews([publicationId]).then((viewsResponse) => {
       setViews(viewsResponse?.[0]?.views);
-    });
-    getPublicationsTips([publicationId]).then((tipsResponse) => {
-      setTips(tipsResponse?.[0]?.tips);
     });
   }, [publicationId]);
 
@@ -108,12 +103,6 @@ const PublicationStats: FC<PublicationStatsProps> = ({
           <span>
             <b className="text-black dark:text-white">{nFormatter(views)}</b>{' '}
             {plur('View', views)}
-          </span>
-        ) : null}
-        {tips > 0 ? (
-          <span>
-            <b className="text-black dark:text-white">{nFormatter(tips)}</b>{' '}
-            {plur('Tip', tips)}
           </span>
         ) : null}
       </div>
