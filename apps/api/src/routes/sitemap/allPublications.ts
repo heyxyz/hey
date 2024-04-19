@@ -26,7 +26,9 @@ const buildSitemapXml = (url: Url[]): string => {
   });
 };
 
-export const get: Handler = async (_, res) => {
+export const get: Handler = async (req, res) => {
+  const user_agent = req.headers['user-agent'];
+
   try {
     const response = await lensPrisma.$queryRaw<{ count: number }[]>`
       SELECT COUNT(*) as count
@@ -43,7 +45,7 @@ export const get: Handler = async (_, res) => {
 
     const xml = buildSitemapXml(entries);
     logger.info(
-      `Lens: Fetched all publications sitemap having ${totalBatches} batches`
+      `Lens: Fetched all publications sitemap having ${totalBatches} batches from user-agent: ${user_agent}`
     );
 
     return res
