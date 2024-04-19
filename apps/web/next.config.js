@@ -70,6 +70,10 @@ const nextConfig = {
         source: '/sitemaps/all-profiles'
       },
       {
+        destination: 'https://api.hey.xyz/sitemap/allPublications',
+        source: '/sitemaps/all-publications'
+      },
+      {
         destination: 'https://api.hey.xyz/sitemap/:match*',
         source: '/sitemaps/:match*'
       },

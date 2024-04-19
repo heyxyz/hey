@@ -29,19 +29,21 @@ const buildSitemapXml = (url: Url[]): string => {
 export const get: Handler = async (_, res) => {
   try {
     const response = await lensPrisma.$queryRaw<{ count: number }[]>`
-      SELECT COUNT(*) as count FROM namespace.handle;
+      SELECT COUNT(*) as count
+      FROM publication.record
+      WHERE publication_type IN ('POST', 'QUOTE');
     `;
 
-    const totalHandles = Number(response[0]?.count) || 0;
-    const totalBatches = Math.ceil(totalHandles / SITEMAP_BATCH_SIZE);
+    const totalPublications = Number(response[0]?.count) || 0;
+    const totalBatches = Math.ceil(totalPublications / SITEMAP_BATCH_SIZE);
 
     const entries: Url[] = Array.from({ length: totalBatches }, (_, index) => ({
-      loc: `https://hey.xyz/sitemaps/profiles?batch=${index + 1}`
+      loc: `https://hey.xyz/sitemaps/publications?batch=${index + 1}`
     }));
 
     const xml = buildSitemapXml(entries);
     logger.info(
-      `Lens: Fetched all profiles sitemap having ${totalBatches} batches`
+      `Lens: Fetched all publications sitemap having ${totalBatches} batches`
     );
 
     return res
