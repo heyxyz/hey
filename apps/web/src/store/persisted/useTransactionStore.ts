@@ -41,10 +41,7 @@ const store = create(
       setIndexedPostHash: (hash) => set({ indexedPostHash: hash }),
       txnQueue: []
     }),
-    {
-      name: IndexDB.TransactionStore,
-      storage: createIdbStorage()
-    }
+    { name: IndexDB.TransactionStore, storage: createIdbStorage() }
   )
 );
 

@@ -7,10 +7,9 @@ import {
   useApprovedModuleAllowanceAmountQuery
 } from '@hey/lens';
 import allowedOpenActionModules from '@hey/lib/allowedOpenActionModules';
-import getAllTokens from '@hey/lib/api/getAllTokens';
 import { CardHeader, ErrorMessage, Select } from '@hey/ui';
-import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
+import { useAllowedTokens } from 'src/store/persisted/useAllowedTokens';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Allowance from './Allowance';
@@ -25,32 +24,24 @@ const getAllowancePayload = (currency: string) => {
 
 const CollectModules: FC = () => {
   const { currentProfile } = useProfileStore();
+  const { allowedTokens } = useAllowedTokens();
   const [selectedCurrency, setSelectedCurrency] = useState(
     DEFAULT_COLLECT_TOKEN
   );
   const [currencyLoading, setCurrencyLoading] = useState(false);
 
-  const {
-    data: allowedTokens,
-    error: allowedTokensError,
-    isLoading: allowedTokensLoading
-  } = useQuery({
-    queryFn: getAllTokens,
-    queryKey: ['getAllTokens']
-  });
-
   const { data, error, loading, refetch } =
     useApprovedModuleAllowanceAmountQuery({
       fetchPolicy: 'no-cache',
-      skip: !currentProfile?.id || allowedTokensLoading,
+      skip: !currentProfile?.id,
       variables: { request: getAllowancePayload(DEFAULT_COLLECT_TOKEN) }
     });
 
-  if (error || allowedTokensError) {
+  if (error) {
     return (
       <ErrorMessage
         className="mt-5"
-        error={(error || allowedTokensError) as Error}
+        error={error}
         title="Failed to load data"
       />
     );
@@ -83,7 +74,7 @@ const CollectModules: FC = () => {
             })) || [{ label: 'Loading...', value: 'Loading...' }]
           }
         />
-        {loading || allowedTokensLoading || currencyLoading ? (
+        {loading || currencyLoading ? (
           <Loader className="py-10" />
         ) : (
           <Allowance allowance={data} />

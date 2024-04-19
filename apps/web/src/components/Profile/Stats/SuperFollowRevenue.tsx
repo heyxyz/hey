@@ -4,17 +4,17 @@ import Loader from '@components/Shared/Loader';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { useFollowRevenuesQuery } from '@hey/lens';
-import getAllTokens from '@hey/lib/api/getAllTokens';
 import humanize from '@hey/lib/humanize';
 import { Card, CardHeader, ErrorMessage } from '@hey/ui';
-import { useQuery } from '@tanstack/react-query';
 import { type FC } from 'react';
+import { useAllowedTokens } from 'src/store/persisted/useAllowedTokens';
 
 interface SuperFollowRevenueProps {
   profileId: string;
 }
 
 const SuperFollowRevenue: FC<SuperFollowRevenueProps> = ({ profileId }) => {
+  const { allowedTokens } = useAllowedTokens();
   const request: FollowRevenueRequest = { for: profileId };
 
   const { data, error, loading } = useFollowRevenuesQuery({
@@ -22,16 +22,7 @@ const SuperFollowRevenue: FC<SuperFollowRevenueProps> = ({ profileId }) => {
     variables: { request }
   });
 
-  const {
-    data: allowedTokens,
-    error: allowedTokensError,
-    isLoading: allowedTokensLoading
-  } = useQuery({
-    queryFn: getAllTokens,
-    queryKey: ['getAllTokens']
-  });
-
-  if (loading || allowedTokensLoading) {
+  if (loading) {
     return (
       <Card>
         <Loader className="my-10" message="Loading Super follow revenue..." />
@@ -43,7 +34,7 @@ const SuperFollowRevenue: FC<SuperFollowRevenueProps> = ({ profileId }) => {
     return null;
   }
 
-  if (error || allowedTokensError) {
+  if (error) {
     return (
       <ErrorMessage error={error} title="Failed to load super follow revenue" />
     );
