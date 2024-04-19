@@ -30,3 +30,4 @@ export const CACHE_AGE_INDEFINITE_ON_DISK =
 
 // Tests
 export const TEST_URL = 'http://127.0.0.1:4784';
+export const SITEMAP_BATCH_SIZE = 25000;
