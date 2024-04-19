@@ -3,7 +3,7 @@ import type { Handler } from 'express';
 import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import catchedError from 'src/lib/catchedError';
-import prisma from 'src/lib/prisma';
+import heyPrisma from 'src/lib/heyPrisma';
 import { invalidBody, noBody } from 'src/lib/responses';
 import { object, string } from 'zod';
 
@@ -38,7 +38,7 @@ export const post: Handler = async (req, res) => {
 
   try {
     // Cleanup Preference
-    await prisma.preference.deleteMany({
+    await heyPrisma.preference.deleteMany({
       where: { appIcon: 0, highSignalNotificationFilter: false }
     });
     logger.info('Cleaned up Preference');

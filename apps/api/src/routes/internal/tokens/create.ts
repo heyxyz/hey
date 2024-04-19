@@ -3,8 +3,8 @@ import type { Handler } from 'express';
 import { Regex } from '@hey/data/regex';
 import logger from '@hey/lib/logger';
 import catchedError from 'src/lib/catchedError';
+import heyPrisma from 'src/lib/heyPrisma';
 import validateIsStaff from 'src/lib/middlewares/validateIsStaff';
-import prisma from 'src/lib/prisma';
 import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
 import { number, object, string } from 'zod';
 
@@ -45,7 +45,7 @@ export const post: Handler = async (req, res) => {
   const { contractAddress, decimals, name, symbol } = body as ExtensionRequest;
 
   try {
-    const token = await prisma.allowedToken.create({
+    const token = await heyPrisma.allowedToken.create({
       data: { contractAddress, decimals, name, symbol }
     });
     logger.info(`Created a token ${token.id}`);

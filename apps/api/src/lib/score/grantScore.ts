@@ -1,13 +1,13 @@
 import { ALL_EVENTS } from '@hey/data/tracking';
 import logger from '@hey/lib/logger';
 
+import heyPrisma from '../heyPrisma';
 import findEventKeyDeep from '../leafwatch/findEventKeyDeep';
 import {
   getFingerprintByActor,
   getFingerprintByWallet
 } from '../leafwatch/getFingerprint';
 import { getIpByActor, getIpByWallet } from '../leafwatch/getIp';
-import prisma from '../prisma';
 import createStackClient from './createStackClient';
 
 const allowedSelfScoreEvents = ['NEW_POST', 'NEW_COMMENT', 'NEW_QUOTE'];
@@ -17,7 +17,7 @@ const isSelfScoreEvent = (eventKey: string): boolean => {
 };
 
 const findScorableEventByEventType = async (eventType: string) => {
-  return await prisma.scorableEvent.findUnique({ where: { eventType } });
+  return await heyPrisma.scorableEvent.findUnique({ where: { eventType } });
 };
 
 const findEventKey = (eventString: string): null | string => {
