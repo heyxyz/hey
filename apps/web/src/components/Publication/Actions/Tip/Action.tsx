@@ -113,31 +113,34 @@ const Action: FC<ActionProps> = ({
 
   return (
     <div className="m-5 space-y-3">
-      <Select
-        className="py-1.5 text-sm"
-        iconClassName="size-4"
-        onChange={(value) => {
-          setSelectedCurrency(
-            allowedTokens?.find((token) => token.contractAddress === value) ||
-              null
-          );
-        }}
-        options={allowedTokens?.map((token) => ({
-          icon: `${STATIC_IMAGES_URL}/tokens/${token.symbol}.svg`,
-          label: token.name,
-          selected: token.contractAddress === selectedCurrency?.contractAddress,
-          value: token.contractAddress
-        }))}
-      />
-      <div className="ld-text-gray-500 flex items-center space-x-1 text-xs">
-        <span>Balance:</span>
-        <span>
-          {balanceData ? (
-            `${balance} ${selectedCurrency?.symbol}`
-          ) : (
-            <div className="shimmer h-2.5 w-14 rounded-full" />
-          )}
-        </span>
+      <div className="space-y-2">
+        <Select
+          className="py-1.5 text-sm"
+          iconClassName="size-4"
+          onChange={(value) => {
+            setSelectedCurrency(
+              allowedTokens?.find((token) => token.contractAddress === value) ||
+                null
+            );
+          }}
+          options={allowedTokens?.map((token) => ({
+            icon: `${STATIC_IMAGES_URL}/tokens/${token.symbol}.svg`,
+            label: token.name,
+            selected:
+              token.contractAddress === selectedCurrency?.contractAddress,
+            value: token.contractAddress
+          }))}
+        />
+        <div className="ld-text-gray-500 flex items-center space-x-1 text-xs">
+          <span>Balance:</span>
+          <span>
+            {balanceData ? (
+              `${balance} ${selectedCurrency?.symbol}`
+            ) : (
+              <div className="shimmer h-2.5 w-14 rounded-full" />
+            )}
+          </span>
+        </div>
       </div>
       <div className="space-x-2">
         <Button
