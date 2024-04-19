@@ -23,10 +23,7 @@ const store = create(
       setFallbackToCuratedFeed: (fallbackToCuratedFeed) =>
         set(() => ({ fallbackToCuratedFeed }))
     }),
-    {
-      name: IndexDB.ProfileStore,
-      storage: createIdbStorage()
-    }
+    { name: IndexDB.ProfileStore, storage: createIdbStorage() }
   )
 );
 

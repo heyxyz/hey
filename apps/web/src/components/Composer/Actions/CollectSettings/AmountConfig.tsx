@@ -1,4 +1,3 @@
-import type { AllowedToken } from '@hey/types/hey';
 import type { FC } from 'react';
 
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
@@ -7,17 +6,15 @@ import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { OpenActionModuleType } from '@hey/lens';
 import { Input, Select } from '@hey/ui';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
+import { useAllowedTokens } from 'src/store/persisted/useAllowedTokens';
 
 interface AmountConfigProps {
-  allowedTokens?: AllowedToken[];
   setCollectType: (data: any) => void;
 }
 
-const AmountConfig: FC<AmountConfigProps> = ({
-  allowedTokens,
-  setCollectType
-}) => {
+const AmountConfig: FC<AmountConfigProps> = ({ setCollectType }) => {
   const { collectModule } = useCollectModuleStore((state) => state);
+  const { allowedTokens } = useAllowedTokens();
 
   return (
     <div>

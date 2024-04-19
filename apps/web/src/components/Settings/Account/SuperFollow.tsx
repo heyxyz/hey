@@ -1,6 +1,5 @@
 import type { FC } from 'react';
 
-import Loader from '@components/Shared/Loader';
 import { StarIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import {
@@ -17,7 +16,6 @@ import {
   useBroadcastOnchainMutation,
   useCreateSetFollowModuleTypedDataMutation
 } from '@hey/lens';
-import getAllTokens from '@hey/lib/api/getAllTokens';
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import {
@@ -31,12 +29,12 @@ import {
 } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
+import { useAllowedTokens } from 'src/store/persisted/useAllowedTokens';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 import { object, string } from 'zod';
@@ -50,6 +48,7 @@ const newSuperFollowSchema = object({
 
 const SuperFollow: FC = () => {
   const { currentProfile } = useProfileStore();
+  const { allowedTokens } = useAllowedTokens();
   const { isSuspended } = useProfileRestriction();
   const {
     decrementLensHubOnchainSigNonce,
@@ -88,11 +87,6 @@ const SuperFollow: FC = () => {
     setIsLoading(false);
     errorToast(error);
   };
-
-  const { data: allowedTokens, isLoading: allowedTokensLoading } = useQuery({
-    queryFn: getAllTokens,
-    queryKey: ['getAllTokens']
-  });
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
 
@@ -181,14 +175,6 @@ const SuperFollow: FC = () => {
       onError(error);
     }
   };
-
-  if (allowedTokensLoading) {
-    return (
-      <Card>
-        <Loader className="my-10" message="Loading Super follow settings" />
-      </Card>
-    );
-  }
 
   const followType = currentProfile?.followModule?.type;
 

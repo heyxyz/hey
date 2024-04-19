@@ -25,7 +25,7 @@ const List: FC<ListProps> = ({ setEmoji }) => {
       const response = await axios.get(`${STATIC_ASSETS_URL}/emoji.json`);
       return response.data;
     },
-    queryKey: ['emojisData']
+    queryKey: ['getEmojis']
   });
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {

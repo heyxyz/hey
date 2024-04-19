@@ -22,7 +22,7 @@ const List: FC<ListProps> = ({ setShowModal }) => {
   const { setCollectModule } = useCollectModuleStore((state) => state);
   const [editor] = useLexicalComposerContext();
 
-  const fetchDrafts = async (): Promise<Draft[] | null> => {
+  const getDrafts = async (): Promise<Draft[] | null> => {
     try {
       const { data } = await axios.get(`${HEY_API_URL}/drafts/all`, {
         headers: getAuthApiHeaders()
@@ -35,8 +35,8 @@ const List: FC<ListProps> = ({ setShowModal }) => {
   };
 
   const { data, error, isLoading } = useQuery({
-    queryFn: fetchDrafts,
-    queryKey: ['fetchDrafts']
+    queryFn: getDrafts,
+    queryKey: ['getDrafts']
   });
 
   if (isLoading) {
