@@ -2,4 +2,7 @@
   <sitemap>
     <loc>https://hey.xyz/sitemaps/all-profiles</loc>
   </sitemap>
+  <sitemap>
+    <loc>https://hey.xyz/sitemaps/all-publications</loc>
+  </sitemap>
 </sitemapindex>
