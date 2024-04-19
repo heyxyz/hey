@@ -29,10 +29,7 @@ const store = create(
       clearProfiles: () => set({ profiles: [] }),
       profiles: []
     }),
-    {
-      name: IndexDB.SearchStore,
-      storage: createIdbStorage()
-    }
+    { name: IndexDB.SearchStore, storage: createIdbStorage() }
   )
 );
 
