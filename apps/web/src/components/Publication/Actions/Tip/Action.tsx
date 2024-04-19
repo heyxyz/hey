@@ -2,8 +2,8 @@ import type { MirrorablePublication } from '@hey/lens';
 import type { AllowedToken } from '@hey/types/hey';
 
 import { Errors } from '@hey/data';
-import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
-import { Button, Input } from '@hey/ui';
+import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from '@hey/data/constants';
+import { Button, Input, Select } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { type FC, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -56,6 +56,7 @@ const Action: FC<ActionProps> = ({
         formatUnits(balanceData.value, selectedCurrency?.decimals || 18)
       ).toFixed(3)
     : 0;
+  const canTip = Number(balance) >= amount;
 
   const onSetAmount = (amount: number) => {
     setAmount(amount);
@@ -112,9 +113,34 @@ const Action: FC<ActionProps> = ({
 
   return (
     <div className="m-5 space-y-3">
-      <div className="ld-text-gray-500 ml-auto text-xs">
-        Balance:{' '}
-        {balanceData ? `${balance} ${selectedCurrency?.symbol}` : '....'}
+      <div className="space-y-2">
+        <Select
+          className="py-1.5 text-sm"
+          iconClassName="size-4"
+          onChange={(value) => {
+            setSelectedCurrency(
+              allowedTokens?.find((token) => token.contractAddress === value) ||
+                null
+            );
+          }}
+          options={allowedTokens?.map((token) => ({
+            icon: `${STATIC_IMAGES_URL}/tokens/${token.symbol}.svg`,
+            label: token.name,
+            selected:
+              token.contractAddress === selectedCurrency?.contractAddress,
+            value: token.contractAddress
+          }))}
+        />
+        <div className="ld-text-gray-500 flex items-center space-x-1 text-xs">
+          <span>Balance:</span>
+          <span>
+            {balanceData ? (
+              `${balance} ${selectedCurrency?.symbol}`
+            ) : (
+              <div className="shimmer h-2.5 w-14 rounded-full" />
+            )}
+          </span>
+        </div>
       </div>
       <div className="space-x-2">
         <Button
@@ -170,7 +196,7 @@ const Action: FC<ActionProps> = ({
       {currentProfile ? (
         <Button
           className="w-full"
-          disabled={amount < 1 || isLoading}
+          disabled={amount < 1 || isLoading || !canTip}
           onClick={handleTip}
         >
           Tip {amount} {selectedCurrency?.symbol}
