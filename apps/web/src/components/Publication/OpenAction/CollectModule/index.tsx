@@ -20,7 +20,6 @@ import {
   UsersIcon
 } from '@heroicons/react/24/outline';
 import { POLYGONSCAN_URL } from '@hey/data/constants';
-import getAllTokens from '@hey/lib/api/getAllTokens';
 import formatDate from '@hey/lib/datetime/formatDate';
 import formatAddress from '@hey/lib/formatAddress';
 import getProfile from '@hey/lib/getProfile';
@@ -29,10 +28,10 @@ import humanize from '@hey/lib/humanize';
 import nFormatter from '@hey/lib/nFormatter';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { HelpTooltip, Tooltip, WarningMessage } from '@hey/ui';
-import { useQuery } from '@tanstack/react-query';
 import { useCounter } from '@uidotdev/usehooks';
 import Link from 'next/link';
 import plur from 'plur';
+import { useAllowedTokens } from 'src/store/persisted/useAllowedTokens';
 
 import CollectAction from './CollectAction';
 import Splits from './Splits';
@@ -43,14 +42,10 @@ interface CollectModuleProps {
 }
 
 const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
+  const { allowedTokens } = useAllowedTokens();
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
-
-  const { data: allowedTokens } = useQuery({
-    queryFn: getAllTokens,
-    queryKey: ['getAllTokens']
-  });
 
   const [countOpenActions, { increment }] = useCounter(
     targetPublication.stats.countOpenActions
