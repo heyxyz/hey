@@ -6,6 +6,7 @@ import { SWR_CACHE_AGE_10_MINS_30_DAYS } from 'src/lib/constants';
 import lensPrisma from 'src/lib/lensPrisma';
 import { noBody } from 'src/lib/responses';
 
+// TODO: add tests
 export const get: Handler = async (req, res) => {
   const { id } = req.query;
 
