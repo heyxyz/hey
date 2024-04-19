@@ -33,10 +33,7 @@ const store = create(
       setStaffMode: (staffMode) => set(() => ({ staffMode })),
       staffMode: false
     }),
-    {
-      name: IndexDB.FeatureFlagsStore,
-      storage: createIdbStorage()
-    }
+    { name: IndexDB.FeatureFlagsStore, storage: createIdbStorage() }
   )
 );
 

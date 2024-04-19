@@ -2,12 +2,9 @@ import type { CollectModuleType } from '@hey/types/hey';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
 import LicensePicker from '@components/Composer/LicensePicker';
-import Loader from '@components/Shared/Loader';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { CollectOpenActionModuleType } from '@hey/lens';
-import getAllTokens from '@hey/lib/api/getAllTokens';
-import { Button, ErrorMessage } from '@hey/ui';
-import { useQuery } from '@tanstack/react-query';
+import { Button } from '@hey/ui';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
 import { isAddress } from 'viem';
@@ -52,25 +49,6 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
     });
   };
 
-  const { data, error, isLoading } = useQuery({
-    queryFn: getAllTokens,
-    queryKey: ['getAllTokens']
-  });
-
-  if (isLoading) {
-    return <Loader className="my-5" message="Loading collect settings" />;
-  }
-
-  if (error) {
-    return (
-      <ErrorMessage
-        className="m-5"
-        error={error}
-        title="Failed to load modules"
-      />
-    );
-  }
-
   const toggleCollect = () => {
     if (!collectModule.type) {
       setCollectType({ type: SimpleCollectOpenActionModule });
@@ -94,10 +72,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
       {collectModule.type !== null ? (
         <>
           <div className="m-5">
-            <AmountConfig
-              allowedTokens={data}
-              setCollectType={setCollectType}
-            />
+            <AmountConfig setCollectType={setCollectType} />
             {collectModule.amount?.value ? (
               <>
                 <ReferralConfig setCollectType={setCollectType} />
