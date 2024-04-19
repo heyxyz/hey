@@ -13,7 +13,6 @@ import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { type FC, useRef } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
-import { useTipsStore } from 'src/store/non-persisted/useTipsStore';
 
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
@@ -23,7 +22,6 @@ interface PublicationsProps {
 
 const Publications: FC<PublicationsProps> = ({ query }) => {
   const { fetchAndStoreViews } = useImpressionsStore();
-  const { fetchAndStoreTips } = useTipsStore();
   const virtuoso = useRef<VirtuosoHandle>(null);
 
   // Variables
@@ -37,7 +35,6 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
     onCompleted: async ({ searchPublications }) => {
       const ids = searchPublications?.items?.map((p) => p.id) || [];
       await fetchAndStoreViews(ids);
-      await fetchAndStoreTips(ids);
     },
     variables: { request }
   });
@@ -65,7 +62,6 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
     });
     const ids = data?.searchPublications?.items?.map((p) => p.id) || [];
     await fetchAndStoreViews(ids);
-    await fetchAndStoreTips(ids);
   };
 
   if (loading) {
