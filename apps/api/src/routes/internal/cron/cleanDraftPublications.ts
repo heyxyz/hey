@@ -3,7 +3,7 @@ import type { Handler } from 'express';
 import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import catchedError from 'src/lib/catchedError';
-import prisma from 'src/lib/prisma';
+import heyPrisma from 'src/lib/heyPrisma';
 import { invalidBody, noBody } from 'src/lib/responses';
 import { object, string } from 'zod';
 
@@ -38,7 +38,7 @@ export const post: Handler = async (req, res) => {
 
   try {
     // Cleanup Draft Publications that are older than 30 days
-    const { count } = await prisma.draftPublication.deleteMany({
+    const { count } = await heyPrisma.draftPublication.deleteMany({
       where: {
         updatedAt: { lt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) }
       }

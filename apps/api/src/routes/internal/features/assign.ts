@@ -2,8 +2,8 @@ import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
 import catchedError from 'src/lib/catchedError';
+import heyPrisma from 'src/lib/heyPrisma';
 import validateIsStaff from 'src/lib/middlewares/validateIsStaff';
-import prisma from 'src/lib/prisma';
 import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
 import { boolean, object, string } from 'zod';
 
@@ -40,7 +40,7 @@ export const post: Handler = async (req, res) => {
 
   try {
     if (enabled) {
-      await prisma.profileFeature.create({
+      await heyPrisma.profileFeature.create({
         data: { featureId: id, profileId: profile_id }
       });
       logger.info(`Enabled features for ${profile_id}`);
@@ -48,7 +48,7 @@ export const post: Handler = async (req, res) => {
       return res.status(200).json({ enabled, success: true });
     }
 
-    await prisma.profileFeature.delete({
+    await heyPrisma.profileFeature.delete({
       where: { profileId_featureId: { featureId: id, profileId: profile_id } }
     });
     logger.info(`Disabled features for ${profile_id}`);

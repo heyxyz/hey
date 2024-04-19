@@ -3,8 +3,8 @@ import type { Handler } from 'express';
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import catchedError from 'src/lib/catchedError';
+import heyPrisma from 'src/lib/heyPrisma';
 import validateLensAccount from 'src/lib/middlewares/validateLensAccount';
-import prisma from 'src/lib/prisma';
 import { notAllowed } from 'src/lib/responses';
 
 // TODO: add tests
@@ -17,7 +17,7 @@ export const get: Handler = async (req, res) => {
 
   try {
     const payload = parseJwt(accessToken);
-    const result = await prisma.draftPublication.findMany({
+    const result = await heyPrisma.draftPublication.findMany({
       orderBy: { updatedAt: 'desc' },
       where: { profileId: payload.id }
     });

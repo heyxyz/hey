@@ -1,12 +1,12 @@
 import type { Handler } from 'express';
 
 import createClickhouseClient from 'src/lib/createClickhouseClient';
-import prisma from 'src/lib/prisma';
+import heyPrisma from 'src/lib/heyPrisma';
 
 export const get: Handler = async (_, res) => {
   try {
     // Postgres
-    const db = await prisma.feature.count();
+    const db = await heyPrisma.feature.count();
 
     // Clickhouse
     const clickhouse = createClickhouseClient();
