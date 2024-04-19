@@ -16,7 +16,6 @@ import { Virtuoso } from 'react-virtuoso';
 import { ProfileFeedType } from 'src/enums';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
 import { useProfileFeedStore } from 'src/store/non-persisted/useProfileFeedStore';
-import { useTipsStore } from 'src/store/non-persisted/useTipsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 
@@ -36,7 +35,6 @@ const Feed: FC<FeedProps> = ({ handle, profileId, type }) => {
   const { currentProfile } = useProfileStore();
   const { mediaFeedFilters } = useProfileFeedStore();
   const { fetchAndStoreViews } = useImpressionsStore();
-  const { fetchAndStoreTips } = useTipsStore();
   const { indexedPostHash } = useTransactionStore();
   const virtuoso = useRef<VirtuosoHandle>(null);
 
@@ -97,7 +95,6 @@ const Feed: FC<FeedProps> = ({ handle, profileId, type }) => {
           return p.__typename === 'Mirror' ? p.mirrorOn?.id : p.id;
         }) || [];
       await fetchAndStoreViews(ids);
-      await fetchAndStoreTips(ids);
     },
     skip: !profileId,
     variables: { request }
@@ -135,7 +132,6 @@ const Feed: FC<FeedProps> = ({ handle, profileId, type }) => {
         return p.__typename === 'Mirror' ? p.mirrorOn?.id : p.id;
       }) || [];
     await fetchAndStoreViews(ids);
-    await fetchAndStoreTips(ids);
   };
 
   if (loading) {
