@@ -1,7 +1,8 @@
 import type { FC, ReactNode } from 'react';
 
 import humanize from '@hey/lib/humanize';
-import { Card } from '@hey/ui';
+
+import { Card } from './Card';
 
 interface NumberedStatsProps {
   action?: ReactNode;
