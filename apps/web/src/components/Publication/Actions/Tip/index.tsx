@@ -1,3 +1,5 @@
+import type { MirrorablePublication } from '@hey/lens';
+
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import { TipIcon } from '@hey/icons';
@@ -10,7 +12,11 @@ import { type FC, useRef } from 'react';
 
 import Action from './Action';
 
-const Tip: FC = () => {
+interface TipProps {
+  publication: MirrorablePublication;
+}
+
+const Tip: FC<TipProps> = ({ publication }) => {
   const confettiDom = useRef<HTMLDivElement>(null);
 
   if (!isFeatureAvailable('gbp')) {
@@ -48,7 +54,11 @@ const Tip: FC = () => {
         >
           <Menu.Item>
             {({ close }) => (
-              <Action closePopover={close} triggerConfetti={triggerConfetti} />
+              <Action
+                closePopover={close}
+                publication={publication}
+                triggerConfetti={triggerConfetti}
+              />
             )}
           </Menu.Item>
         </Menu.Items>

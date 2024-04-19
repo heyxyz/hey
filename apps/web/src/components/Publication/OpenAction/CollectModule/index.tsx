@@ -31,7 +31,7 @@ import { HelpTooltip, Tooltip, WarningMessage } from '@hey/ui';
 import { useCounter } from '@uidotdev/usehooks';
 import Link from 'next/link';
 import plur from 'plur';
-import { useAllowedTokens } from 'src/store/persisted/useAllowedTokens';
+import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokens';
 
 import CollectAction from './CollectAction';
 import Splits from './Splits';
@@ -42,7 +42,7 @@ interface CollectModuleProps {
 }
 
 const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
-  const { allowedTokens } = useAllowedTokens();
+  const { allowedTokens } = useAllowedTokensStore();
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
