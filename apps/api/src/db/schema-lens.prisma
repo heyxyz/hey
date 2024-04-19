@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/lens"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("LENS_DATABASE_URL")
+}
+
+model AllowedToken {
+  id              String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name            String
+  symbol          String
+  contractAddress String   @unique
+  createdAt       DateTime @default(now())
+  decimals        Int      @default(18)
+  priority        Int      @default(0)
+  maxTipAmount    Int      @default(100)
+
+  @@index([priority])
+}
