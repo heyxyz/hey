@@ -2,9 +2,8 @@ import type { FC } from 'react';
 
 import { HeyMembershipNft } from '@hey/abis';
 import { HEY_MEMBERSHIP_NFT } from '@hey/data/constants';
+import { NumberedStat } from '@hey/ui';
 import { useReadContract } from 'wagmi';
-
-import NumberedStat from '../UI/NumberedStat';
 
 const NftsMinted: FC = () => {
   const { data: totalSupply } = useReadContract({

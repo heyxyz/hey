@@ -1,6 +1,6 @@
 import type { FollowRevenueRequest } from '@hey/lens';
 
-import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
+import Loader from '@components/Shared/Loader';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { useFollowRevenuesQuery } from '@hey/lens';
@@ -32,7 +32,11 @@ const SuperFollowRevenue: FC<SuperFollowRevenueProps> = ({ profileId }) => {
   });
 
   if (loading || allowedTokensLoading) {
-    return <PublicationsShimmer />;
+    return (
+      <Card>
+        <Loader className="my-10" message="Loading Super follow revenue..." />
+      </Card>
+    );
   }
 
   if (data?.followRevenues.revenues.length === 0) {
@@ -40,7 +44,9 @@ const SuperFollowRevenue: FC<SuperFollowRevenueProps> = ({ profileId }) => {
   }
 
   if (error || allowedTokensError) {
-    return <ErrorMessage error={error} title="Failed to load profile stats" />;
+    return (
+      <ErrorMessage error={error} title="Failed to load super follow revenue" />
+    );
   }
 
   const tokensAvailable = allowedTokens?.map((token) => token.symbol);
