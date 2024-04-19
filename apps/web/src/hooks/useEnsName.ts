@@ -16,14 +16,13 @@ const useEnsName = ({
 } => {
   const getEnsDetails = async () => {
     const { result } = await resolveEns([address]);
-
     return result[0].length ? result[0] : address;
   };
 
   const { data, error, isLoading } = useQuery({
     enabled,
     queryFn: getEnsDetails,
-    queryKey: ['ensName', address]
+    queryKey: ['getEnsDetails', address]
   });
 
   return { ens: data, error, loading: isLoading };
