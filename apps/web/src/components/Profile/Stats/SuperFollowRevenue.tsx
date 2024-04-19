@@ -7,14 +7,14 @@ import { useFollowRevenuesQuery } from '@hey/lens';
 import humanize from '@hey/lib/humanize';
 import { Card, CardHeader, ErrorMessage } from '@hey/ui';
 import { type FC } from 'react';
-import { useAllowedTokens } from 'src/store/persisted/useAllowedTokens';
+import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokens';
 
 interface SuperFollowRevenueProps {
   profileId: string;
 }
 
 const SuperFollowRevenue: FC<SuperFollowRevenueProps> = ({ profileId }) => {
-  const { allowedTokens } = useAllowedTokens();
+  const { allowedTokens } = useAllowedTokensStore();
   const request: FollowRevenueRequest = { for: profileId };
 
   const { data, error, loading } = useFollowRevenuesQuery({

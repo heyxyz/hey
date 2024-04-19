@@ -10,14 +10,14 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
-import { useAllowedTokens } from 'src/store/persisted/useAllowedTokens';
+import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokens';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useVerifiedMembersStore } from 'src/store/persisted/useVerifiedMembersStore';
 
 const PreferencesProvider: FC = () => {
   const { id: sessionProfileId } = getCurrentSession();
   const { setVerifiedMembers } = useVerifiedMembersStore();
-  const { setAllowedTokens } = useAllowedTokens();
+  const { setAllowedTokens } = useAllowedTokensStore();
   const {
     setAppIcon,
     setEmail,
@@ -86,7 +86,7 @@ const PreferencesProvider: FC = () => {
 
   // Fetch allowed tokens
   useQuery({
-    queryFn: getAllTokens,
+    queryFn: () => getAllTokens().then((tokens) => setAllowedTokens(tokens)),
     queryKey: ['getAllTokens']
   });
 

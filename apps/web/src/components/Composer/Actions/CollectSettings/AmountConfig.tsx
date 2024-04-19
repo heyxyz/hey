@@ -6,7 +6,7 @@ import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { OpenActionModuleType } from '@hey/lens';
 import { Input, Select } from '@hey/ui';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
-import { useAllowedTokens } from 'src/store/persisted/useAllowedTokens';
+import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokens';
 
 interface AmountConfigProps {
   setCollectType: (data: any) => void;
@@ -14,7 +14,7 @@ interface AmountConfigProps {
 
 const AmountConfig: FC<AmountConfigProps> = ({ setCollectType }) => {
   const { collectModule } = useCollectModuleStore((state) => state);
-  const { allowedTokens } = useAllowedTokens();
+  const { allowedTokens } = useAllowedTokensStore();
 
   return (
     <div>

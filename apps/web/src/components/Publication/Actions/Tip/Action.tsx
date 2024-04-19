@@ -1,4 +1,8 @@
+import type { MirrorablePublication } from '@hey/lens';
+import type { AllowedToken } from '@hey/types/hey';
+
 import { Errors } from '@hey/data';
+import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import { Button, Input } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { type FC, useRef, useState } from 'react';
@@ -6,23 +10,52 @@ import toast from 'react-hot-toast';
 import usePreventScrollOnNumberInput from 'src/hooks/usePreventScrollOnNumberInput';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
+import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokens';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { type Address, formatUnits } from 'viem';
+import { useAccount, useBalance, useWriteContract } from 'wagmi';
 
 interface ActionProps {
   closePopover: () => void;
+  publication: MirrorablePublication;
   triggerConfetti: () => void;
 }
 
-const Action: FC<ActionProps> = ({ closePopover, triggerConfetti }) => {
+const Action: FC<ActionProps> = ({
+  closePopover,
+  publication,
+  triggerConfetti
+}) => {
   const { currentProfile } = useProfileStore();
+  const { allowedTokens } = useAllowedTokensStore();
   const { setShowAuthModal } = useGlobalModalStateStore();
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(50);
   const [other, setOther] = useState(false);
+  const [selectedCurrency, setSelectedCurrency] = useState<AllowedToken | null>(
+    allowedTokens.find(
+      (token) => token.contractAddress === DEFAULT_COLLECT_TOKEN
+    ) || null
+  );
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef);
 
   const { isSuspended } = useProfileRestriction();
+
+  const { address } = useAccount();
+  const { data: balanceData } = useBalance({
+    address,
+    query: { refetchInterval: 2000 },
+    token: selectedCurrency?.contractAddress as Address
+  });
+
+  const { writeContractAsync } = useWriteContract();
+
+  const balance = balanceData
+    ? parseFloat(
+        formatUnits(balanceData.value, selectedCurrency?.decimals || 18)
+      ).toFixed(3)
+    : 0;
 
   const onSetAmount = (amount: number) => {
     setAmount(amount);
@@ -34,7 +67,7 @@ const Action: FC<ActionProps> = ({ closePopover, triggerConfetti }) => {
     setAmount(value);
   };
 
-  const handleTip = () => {
+  const handleTip = async () => {
     if (!currentProfile) {
       closePopover();
       setShowAuthModal(true);
@@ -47,7 +80,27 @@ const Action: FC<ActionProps> = ({ closePopover, triggerConfetti }) => {
 
     try {
       setIsLoading(true);
-      alert('Coming soon!');
+
+      await writeContractAsync({
+        abi: [
+          {
+            inputs: [
+              { internalType: 'address', type: 'address' },
+              { internalType: 'uint256', type: 'uint256' }
+            ],
+            name: 'transfer',
+            outputs: [{ internalType: 'bool', type: 'bool' }],
+            type: 'function'
+          }
+        ],
+        address: selectedCurrency?.contractAddress as Address,
+        args: [
+          publication.by.ownedBy.address,
+          amount * 10 ** (selectedCurrency?.decimals || 18)
+        ],
+        functionName: 'transfer'
+      });
+
       closePopover();
       triggerConfetti();
     } catch (error) {
@@ -59,9 +112,10 @@ const Action: FC<ActionProps> = ({ closePopover, triggerConfetti }) => {
 
   return (
     <div className="m-5 space-y-3">
-      {true ? (
-        <div className="ld-text-gray-500 ml-auto text-xs">Balance: 1 MATIC</div>
-      ) : null}
+      <div className="ld-text-gray-500 ml-auto text-xs">
+        Balance:{' '}
+        {balanceData ? `${balance} ${selectedCurrency?.symbol}` : '....'}
+      </div>
       <div className="space-x-2">
         <Button
           disabled={!currentProfile}
@@ -119,7 +173,7 @@ const Action: FC<ActionProps> = ({ closePopover, triggerConfetti }) => {
           disabled={amount < 1 || isLoading}
           onClick={handleTip}
         >
-          Tip {amount} MATIC
+          Tip {amount} {selectedCurrency?.symbol}
         </Button>
       ) : (
         <Button className="w-full" onClick={handleTip}>

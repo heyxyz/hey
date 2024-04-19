@@ -22,4 +22,4 @@ const store = create(
   )
 );
 
-export const useAllowedTokens = createTrackedSelector(store);
+export const useAllowedTokensStore = createTrackedSelector(store);
