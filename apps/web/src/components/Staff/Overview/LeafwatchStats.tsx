@@ -7,12 +7,11 @@ import {
   LimitType,
   useExploreProfilesQuery
 } from '@hey/lens';
-import { CardHeader, ErrorMessage } from '@hey/ui';
+import { CardHeader, ErrorMessage, NumberedStat } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
 
-import NumberedStat from '../UI/NumberedStat';
 import ActiveUsers from './ActiveUsers';
 import EventsToday from './EventsToday';
 import ImpressionsToday from './ImpressionsToday';

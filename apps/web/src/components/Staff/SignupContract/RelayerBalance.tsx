@@ -5,15 +5,13 @@ import { CheckCircleIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import { HeyLensSignup } from '@hey/abis';
 import { HEY_LENS_SIGNUP } from '@hey/data/constants';
 import { STAFFTOOLS } from '@hey/data/tracking';
-import { Button } from '@hey/ui';
+import { Button, NumberedStat } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { formatUnits, parseEther } from 'viem';
 import { useBalance, useReadContract, useSendTransaction } from 'wagmi';
-
-import NumberedStat from '../UI/NumberedStat';
 
 interface RelayerBalanceProps {
   address: Address;

@@ -37,7 +37,7 @@ export const get: Handler = async (req, res) => {
 
     const result = response[0];
 
-    logger.info(`Lens: Profile likes stats fetched for ${id}`);
+    logger.info(`Lens: Fetched global profile stats for ${id}`);
 
     return res
       .status(200)
