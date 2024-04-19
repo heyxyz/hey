@@ -3,7 +3,8 @@ import type { Handler } from 'express';
 import logger from '@hey/lib/logger';
 import { XMLBuilder } from 'fast-xml-parser';
 import catchedError from 'src/lib/catchedError';
-import { CACHE_AGE_INDEFINITE } from 'src/lib/constants';
+import { CACHE_AGE_30_DAYS, SITEMAP_BATCH_SIZE } from 'src/lib/constants';
+import lensPrisma from 'src/lib/lensPrisma';
 import { noBody } from 'src/lib/responses';
 
 export const config = {
@@ -30,37 +31,37 @@ const buildSitemapXml = (url: Url[]): string => {
 };
 
 export const get: Handler = async (req, res) => {
-  const { id } = req.query;
+  const { batch } = req.query;
 
-  if (!id) {
+  if (!batch) {
     return noBody(res);
   }
 
   try {
-    const range = 'A1:B50000';
-    const apiKey = process.env.GOOGLE_API_KEY;
+    const offset = (Number(batch) - 1) * SITEMAP_BATCH_SIZE;
 
-    const sheetsResponse = await fetch(
-      `https://sheets.googleapis.com/v4/spreadsheets/${id}/values/${range}?key=${apiKey}`
-    );
+    const response = await lensPrisma.$queryRaw<{ local_name: string }[]>`
+      SELECT local_name FROM namespace.handle
+      ORDER BY block_timestamp ASC
+      LIMIT ${SITEMAP_BATCH_SIZE}
+      OFFSET ${offset};
+    `;
 
-    const json: {
-      values: string[][];
-    } = await sheetsResponse.json();
-    const handles = json.values.map((row) => row[0]);
-    const entries: Url[] = handles.map((handle) => ({
+    const entries: Url[] = response.map((handle) => ({
       changefreq: 'weekly',
-      loc: `https://hey.xyz/u/${handle}`,
+      loc: `https://hey.xyz/u/${handle.local_name}`,
       priority: '1.0'
     }));
 
     const xml = buildSitemapXml(entries);
-    logger.info('Sitemap fetched from Google Sheets');
+    logger.info(
+      `Lens: Profiles sitemap fetched for batch ${batch} having ${response.length} entries`
+    );
 
     return res
       .status(200)
       .setHeader('Content-Type', 'text/xml')
-      .setHeader('Cache-Control', CACHE_AGE_INDEFINITE)
+      .setHeader('Cache-Control', CACHE_AGE_30_DAYS)
       .send(xml);
   } catch (error) {
     return catchedError(res, error);
