@@ -1,19 +1,17 @@
-import { PrismaClient } from 'src/db/generated/lens';
+import { PrismaClient as LensPrismaClient } from 'src/db/generated/lens';
 
-const prismaClientSingleton = () => {
-  return new PrismaClient();
+const lensPrismaClientSingleton = (): LensPrismaClient => {
+  return new LensPrismaClient();
 };
 
-type PrismaClientSingleton = ReturnType<typeof prismaClientSingleton>;
+type LensPrismaClientSingleton = ReturnType<typeof lensPrismaClientSingleton>;
 
-const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClientSingleton | undefined;
-};
+const globalForLensPrisma = globalThis as any;
 
-const lensPrisma = globalForPrisma.prisma ?? prismaClientSingleton();
+if (!globalForLensPrisma.lensPrisma) {
+  globalForLensPrisma.lensPrisma = lensPrismaClientSingleton();
+}
+
+const lensPrisma: LensPrismaClientSingleton = globalForLensPrisma?.lensPrisma;
 
 export default lensPrisma;
-
-if (process.env.NODE_ENV !== 'production') {
-  globalForPrisma.prisma = lensPrisma;
-}
