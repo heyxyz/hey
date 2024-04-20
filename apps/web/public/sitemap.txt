@@ -1,8 +1,0 @@
-https://hey.xyz/sitemaps/profiles.txt
-https://hey.xyz/sitemaps/publications.txt
-https://hey.xyz/explore
-https://hey.xyz/terms
-https://hey.xyz/privacy
-https://hey.xyz/rules
-https://hey.xyz/thanks
-https://hey.xyz/pro
