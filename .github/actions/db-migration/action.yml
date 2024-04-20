@@ -28,4 +28,4 @@ runs:
       working-directory: ./apps/api
       env:
         DATABASE_URL: ${{ inputs.database_url }}
-      run: pnpm hey:prisma:migrate
+      run: pnpm prisma:migrate
