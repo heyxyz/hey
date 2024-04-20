@@ -9,3 +9,11 @@ export type GlobalProfileStats = {
   total_reacted: number;
   total_reactions: number;
 };
+
+export type FiatRate = {
+  address: string;
+  decimals: number;
+  fiat: number;
+  name: string;
+  symbol: string;
+};
