@@ -17,7 +17,7 @@ const Views: FC<ViewsProps> = ({ showCount, views }) => {
   }
 
   return (
-    <div className="ld-text-gray-500 flex items-center space-x-1">
+    <div className="ld-text-gray-500 flex items-center space-x-1 cursor-default">
       <motion.button
         aria-label="Views"
         className="rounded-full p-1.5 outline-offset-2 hover:bg-gray-300/20"
