@@ -109,7 +109,6 @@ model AllowedToken {
   symbol          String
   decimals        Int      @default(18)
   contractAddress String   @unique
-  maxTipAmount    Int      @default(100)
   priority        Int      @default(0)
   createdAt       DateTime @default(now())
 
