@@ -22,7 +22,7 @@ jobs:
       - name: Setup Node.js, pnpm and dependencies 🌸
         uses: ./.github/actions/setup-pnpm
 
-      - name: Cleanup Draft Publications
+      - name: Delete duplicate Publication from Clickhouse
         env:
           CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
         run: |
@@ -44,7 +44,7 @@ jobs:
       - name: Setup Node.js, pnpm and dependencies 🌸
         uses: ./.github/actions/setup-pnpm
 
-      - name: Cleanup Draft Publications
+      - name: Replicate Publication to Clickhouse
         env:
           CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
           LENS_DATABASE_URL: ${{ secrets.LENS_DATABASE_URL }}

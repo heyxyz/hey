@@ -62,7 +62,9 @@ const main = async () => {
     // Create the data object for each row
     const value = {
       block_number: row.block_number,
-      block_timestamp: row.block_timestamp,
+      block_timestamp: new Date(row.block_timestamp)
+        .toISOString()
+        .replace('.000Z', ''),
       content: row.content,
       content_vector: row.content_vector,
       id: row.publication_id
@@ -94,7 +96,7 @@ const main = async () => {
       })
       .then((result) =>
         console.log(
-          `Inserted batch of ${batch.length} publications, last ID: ${batch[batch.length - 1].id}, last block: ${batch[batch.length - 1].block_number} - ${result.query_id}`
+          `Inserted batch of ${batch.length} publications, last block: ${batch[batch.length - 1].block_number}, last ID: ${batch[batch.length - 1].id} - ${result.query_id}`
         )
       );
   });
