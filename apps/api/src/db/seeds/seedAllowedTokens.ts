@@ -21,7 +21,6 @@ const seedAllowedTokens = async (): Promise<number> => {
         contractAddress: '0x3d2bD0e15829AA5C362a4144FdF4A1112fa29B5c',
         createdAt: new Date('2024-02-12 13:45:28.937'),
         decimals: 18,
-        maxTipAmount: 1000,
         name: 'Bonsai',
         symbol: 'BONSAI'
       },
