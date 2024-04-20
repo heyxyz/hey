@@ -6,7 +6,7 @@ import { useApprovedModuleAllowanceAmountQuery } from '@hey/lens';
 import allowedUnknownOpenActionModules from '@hey/lib/allowedUnknownOpenActionModules';
 import { CardHeader, ErrorMessage, Select } from '@hey/ui';
 import { useState } from 'react';
-import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokens';
+import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Allowance from './Allowance';
