@@ -68,6 +68,9 @@ importers:
       express-file-routing:
         specifier: ^3.0.3
         version: 3.0.3(express@4.19.2)
+      fast-xml-parser:
+        specifier: ^4.3.6
+        version: 4.3.6
       linkedom:
         specifier: ^0.16.11
         version: 0.16.11
