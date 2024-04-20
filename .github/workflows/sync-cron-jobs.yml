@@ -10,6 +10,14 @@ jobs:
     name: Delete duplicate Publication from Clickhouse
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js, pnpm and dependencies 🌸
+        uses: ./.github/actions/setup-pnpm
+
       - name: Cleanup Draft Publications
         env:
           CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
@@ -24,6 +32,14 @@ jobs:
     name: Replicate Publication to Clickhouse
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js, pnpm and dependencies 🌸
+        uses: ./.github/actions/setup-pnpm
+
       - name: Cleanup Draft Publications
         env:
           CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
