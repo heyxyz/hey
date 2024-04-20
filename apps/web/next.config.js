@@ -65,16 +65,16 @@ const nextConfig = {
   rewrites() {
     return [
       {
-        destination: 'https://api.hey.xyz/sitemap/allProfiles',
-        source: '/sitemaps/sitemap-profiles'
+        destination: `https://api.hey.xyz/sitemap/profileBatches`,
+        source: '/sitemaps/profiles.txt'
       },
       {
-        destination: 'https://api.hey.xyz/sitemap/allPublications',
-        source: '/sitemaps/sitemap-publications'
+        destination: `https://api.hey.xyz/sitemap/publicationBatches`,
+        source: '/sitemaps/publications.txt'
       },
       {
-        destination: 'https://api.hey.xyz/sitemap/:match*',
-        source: '/sitemaps/:match*'
+        destination: `https://api.hey.xyz/sitemap/:match*`,
+        source: '/sitemaps/:match*.txt'
       },
       {
         destination: `${process.env.NEXT_PUBLIC_OG_URL}/u/:match*`,
