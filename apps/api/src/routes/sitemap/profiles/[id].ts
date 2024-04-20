@@ -1,7 +1,6 @@
 import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
-import { XMLBuilder } from 'fast-xml-parser';
 import catchedError from 'src/lib/catchedError';
 import { CACHE_AGE_30_DAYS, SITEMAP_BATCH_SIZE } from 'src/lib/constants';
 import lensPrisma from 'src/lib/lensPrisma';
@@ -11,27 +10,8 @@ export const config = {
   api: { responseLimit: '8mb' }
 };
 
-interface Url {
-  changefreq: string;
-  loc: string;
-  priority: string;
-}
-
-const buildSitemapXml = (url: Url[]): string => {
-  const builder = new XMLBuilder({
-    format: true,
-    ignoreAttributes: false,
-    processEntities: true,
-    suppressEmptyNode: true
-  });
-
-  return builder.build({
-    urlset: { '@_xmlns': 'https://www.sitemaps.org/schemas/sitemap/0.9', url }
-  });
-};
-
 export const get: Handler = async (req, res) => {
-  const { batch } = req.query;
+  const batch = req.path.replace('/sitemap/profiles/', '');
 
   if (!batch) {
     return noBody(res);
@@ -49,22 +29,19 @@ export const get: Handler = async (req, res) => {
       OFFSET ${offset};
     `;
 
-    const entries: Url[] = response.map((handle) => ({
-      changefreq: 'weekly',
-      loc: `https://hey.xyz/u/${handle.local_name}`,
-      priority: '1.0'
-    }));
+    const entries = response
+      .map((handle) => `https://hey.xyz/u/${handle.local_name}`)
+      .join('\n');
 
-    const xml = buildSitemapXml(entries);
     logger.info(
       `Lens: Fetched profiles sitemap for batch ${batch} having ${response.length} entries from user-agent: ${user_agent}`
     );
 
     return res
       .status(200)
-      .setHeader('Content-Type', 'text/xml')
       .setHeader('Cache-Control', CACHE_AGE_30_DAYS)
-      .send(xml);
+      .setHeader('Content-Type', 'text/plain')
+      .send(entries);
   } catch (error) {
     return catchedError(res, error);
   }
