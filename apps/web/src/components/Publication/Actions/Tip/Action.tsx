@@ -126,6 +126,7 @@ const Action: FC<ActionProps> = ({
           className="py-1.5 text-sm"
           iconClassName="size-4"
           onChange={(value) => {
+            setAmount(2);
             setSelectedCurrency(
               allowedTokens?.find((token) => token.contractAddress === value) ||
                 null
