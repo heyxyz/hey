@@ -69,14 +69,6 @@ const nextConfig = {
         source: '/sitemap.xml'
       },
       {
-        destination: `https://api.hey.xyz/sitemap/profiles`,
-        source: '/sitemap/profiles.xml'
-      },
-      {
-        destination: `https://api.hey.xyz/sitemap/publications`,
-        source: '/sitemap/publications.xml'
-      },
-      {
         destination: `https://api.hey.xyz/sitemap/:match*`,
         source: '/sitemap/:match*.xml'
       },
