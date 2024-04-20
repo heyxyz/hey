@@ -5,7 +5,6 @@ const allowedBots =
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: { scrollRestoration: true },
   headers() {
     return [
       {
