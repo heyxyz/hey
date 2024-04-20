@@ -31,7 +31,7 @@ import { HelpTooltip, Tooltip, WarningMessage } from '@hey/ui';
 import { useCounter } from '@uidotdev/usehooks';
 import Link from 'next/link';
 import plur from 'plur';
-import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokens';
+import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
 
 import CollectAction from './CollectAction';
 import Splits from './Splits';

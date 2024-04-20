@@ -12,13 +12,20 @@ export const get: Handler = async (req, res) => {
       SELECT ec.name AS name,
         ec.symbol AS symbol,
         ec.decimals AS decimals,
+        ec.currency AS address,
         fc.price AS fiat
       FROM fiat.conversion AS fc
       JOIN enabled.currency AS ec ON fc.currency = ec.currency
       WHERE fc.fiatsymbol = 'usd';
     `;
 
-    const result = response;
+    const result = response.map((row: any) => ({
+      address: row.address.toLowerCase(),
+      decimals: row.decimals,
+      fiat: Number(row.fiat),
+      name: row.name,
+      symbol: row.symbol
+    }));
 
     logger.info('Lens: Fetched USD conversion rates');
 
