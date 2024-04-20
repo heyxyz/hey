@@ -65,11 +65,11 @@ const nextConfig = {
   rewrites() {
     return [
       {
-        destination: `https://api.hey.xyz/sitemap/profileBatches`,
+        destination: `https://api.hey.xyz/sitemap/profiles`,
         source: '/sitemaps/profiles.txt'
       },
       {
-        destination: `https://api.hey.xyz/sitemap/publicationBatches`,
+        destination: `https://api.hey.xyz/sitemap/publications`,
         source: '/sitemaps/publications.txt'
       },
       {
