@@ -1,0 +1,2 @@
+https://hey.xyz/sitemaps/profiles.txt 
+https://hey.xyz/sitemaps/publications.txt
