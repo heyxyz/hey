@@ -7,7 +7,7 @@ import { useFollowRevenuesQuery } from '@hey/lens';
 import humanize from '@hey/lib/humanize';
 import { Card, CardHeader, ErrorMessage } from '@hey/ui';
 import { type FC } from 'react';
-import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokens';
+import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
 
 interface SuperFollowRevenueProps {
   profileId: string;
