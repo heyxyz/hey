@@ -65,14 +65,6 @@ const nextConfig = {
   rewrites() {
     return [
       {
-        destination: `https://api.hey.xyz/sitemap`,
-        source: '/sitemap.xml'
-      },
-      {
-        destination: `https://api.hey.xyz/sitemap/:match*`,
-        source: '/sitemap/:match*.xml'
-      },
-      {
         destination: `${process.env.NEXT_PUBLIC_OG_URL}/u/:match*`,
         has: [{ key: 'user-agent', type: 'header', value: allowedBots }],
         source: '/u/:match*'
