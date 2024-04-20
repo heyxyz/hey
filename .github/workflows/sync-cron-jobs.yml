@@ -1,0 +1,37 @@
+name: Sync Cron Jobs
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+jobs:
+  delete-publication-clickhouse:
+    name: Delete duplicate Publication from Clickhouse
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cleanup Draft Publications
+        env:
+          CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
+        run: |
+          cd packages/cron
+          {
+            echo "CLICKHOUSE_PASSWORD=${CLICKHOUSE_PASSWORD}"
+          } > .env
+          pnpm delete-publication-clickhouse
+
+  replicate-publication-clickhouse:
+    name: Replicate Publication to Clickhouse
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cleanup Draft Publications
+        env:
+          CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
+          LENS_DATABASE_URL: ${{ secrets.LENS_DATABASE_URL }}
+        run: |
+          cd packages/cron
+          {
+            echo "CLICKHOUSE_PASSWORD=${CLICKHOUSE_PASSWORD}"
+            echo "LENS_DATABASE_URL=${LENS_DATABASE_URL}"
+          } > .env
+          pnpm replicate-publication-clickhouse

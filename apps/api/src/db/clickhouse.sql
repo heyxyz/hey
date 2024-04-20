@@ -51,3 +51,13 @@ CREATE TABLE signups (
   created DateTime DEFAULT now()
 ) ENGINE = MergeTree
 ORDER BY created;
+
+-- Publications
+CREATE TABLE publications (
+  id String,
+  block_timestamp String,
+  block_number Float32,
+  content String,
+  content_vector String
+) ENGINE = MergeTree
+ORDER BY block_number;
