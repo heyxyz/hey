@@ -55,7 +55,7 @@ ORDER BY created;
 -- Publications
 CREATE TABLE publications (
   id String,
-  block_timestamp String,
+  block_timestamp DateTime,
   block_number Float32,
   content String,
   content_vector String
