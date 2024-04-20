@@ -1,3 +1,4 @@
+import type { FiatRate } from '@hey/types/lens';
 import type { FC } from 'react';
 
 import { HEY_API_URL } from '@hey/data/constants';
@@ -10,14 +11,16 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
-import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokens';
+import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
+import { useRatesStore } from 'src/store/persisted/useRatesStore';
 import { useVerifiedMembersStore } from 'src/store/persisted/useVerifiedMembersStore';
 
 const PreferencesProvider: FC = () => {
   const { id: sessionProfileId } = getCurrentSession();
   const { setVerifiedMembers } = useVerifiedMembersStore();
   const { setAllowedTokens } = useAllowedTokensStore();
+  const { setFiatRates } = useRatesStore();
   const {
     setAppIcon,
     setEmail,
@@ -88,6 +91,22 @@ const PreferencesProvider: FC = () => {
   useQuery({
     queryFn: () => getAllTokens().then((tokens) => setAllowedTokens(tokens)),
     queryKey: ['getAllTokens']
+  });
+
+  const getFiatRates = async (): Promise<FiatRate[]> => {
+    try {
+      const response = await axios.get(`${HEY_API_URL}/lens/rate`);
+      const { data } = response;
+      return data.result || [];
+    } catch {
+      return [];
+    }
+  };
+
+  // Fetch fiat rates
+  useQuery({
+    queryFn: () => getFiatRates().then((rates) => setFiatRates(rates)),
+    queryKey: ['getFiatRates']
   });
 
   return null;

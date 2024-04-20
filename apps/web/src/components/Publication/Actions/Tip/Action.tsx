@@ -10,8 +10,9 @@ import toast from 'react-hot-toast';
 import usePreventScrollOnNumberInput from 'src/hooks/usePreventScrollOnNumberInput';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
-import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokens';
+import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { useRatesStore } from 'src/store/persisted/useRatesStore';
 import { type Address, formatUnits } from 'viem';
 import { useAccount, useBalance, useWriteContract } from 'wagmi';
 
@@ -28,9 +29,10 @@ const Action: FC<ActionProps> = ({
 }) => {
   const { currentProfile } = useProfileStore();
   const { allowedTokens } = useAllowedTokensStore();
+  const { fiatRates } = useRatesStore();
   const { setShowAuthModal } = useGlobalModalStateStore();
   const [isLoading, setIsLoading] = useState(false);
-  const [amount, setAmount] = useState(50);
+  const [amount, setAmount] = useState(2);
   const [other, setOther] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState<AllowedToken | null>(
     allowedTokens.find(
@@ -51,12 +53,18 @@ const Action: FC<ActionProps> = ({
 
   const { writeContractAsync } = useWriteContract();
 
+  const usdRate =
+    fiatRates.find(
+      (rate) => rate.address === selectedCurrency?.contractAddress.toLowerCase()
+    )?.fiat || 0;
+  const cryptoRate = !usdRate ? amount : Number((amount / usdRate).toFixed(2));
+
   const balance = balanceData
     ? parseFloat(
         formatUnits(balanceData.value, selectedCurrency?.decimals || 18)
       ).toFixed(3)
     : 0;
-  const canTip = Number(balance) >= amount;
+  const canTip = Number(balance) >= cryptoRate;
 
   const onSetAmount = (amount: number) => {
     setAmount(amount);
@@ -142,35 +150,35 @@ const Action: FC<ActionProps> = ({
           </span>
         </div>
       </div>
-      <div className="space-x-2">
+      <div className="space-x-4">
         <Button
           disabled={!currentProfile}
-          onClick={() => onSetAmount(50)}
-          outline={amount !== 50}
+          onClick={() => onSetAmount(2)}
+          outline={amount !== 2}
           size="sm"
         >
-          50
+          {usdRate ? '$' : ''}2
         </Button>
         <Button
           disabled={!currentProfile}
-          onClick={() => onSetAmount(100)}
-          outline={amount !== 100}
+          onClick={() => onSetAmount(5)}
+          outline={amount !== 5}
           size="sm"
         >
-          100
+          {usdRate ? '$' : ''}5
         </Button>
         <Button
           disabled={!currentProfile}
-          onClick={() => onSetAmount(200)}
-          outline={amount !== 200}
+          onClick={() => onSetAmount(10)}
+          outline={amount !== 10}
           size="sm"
         >
-          200
+          {usdRate ? '$' : ''}10
         </Button>
         <Button
           disabled={!currentProfile}
           onClick={() => {
-            onSetAmount(other ? 50 : 300);
+            onSetAmount(other ? 2 : 20);
             setOther(!other);
           }}
           outline={!other}
@@ -195,11 +203,22 @@ const Action: FC<ActionProps> = ({
       ) : null}
       {currentProfile ? (
         <Button
-          className="w-full"
+          className="w-full py-2 text-sm font-semibold"
           disabled={amount < 1 || isLoading || !canTip}
           onClick={handleTip}
         >
-          Tip {amount} {selectedCurrency?.symbol}
+          {usdRate ? (
+            <>
+              <b>Tip ${amount}</b>{' '}
+              <span className="font-light">
+                ({cryptoRate} {selectedCurrency?.symbol})
+              </span>
+            </>
+          ) : (
+            <b>
+              Tip {amount} {selectedCurrency?.symbol}
+            </b>
+          )}
         </Button>
       ) : (
         <Button className="w-full" onClick={handleTip}>
