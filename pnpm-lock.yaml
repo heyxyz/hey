@@ -51,8 +51,8 @@ importers:
         specifier: ^5.12.1
         version: 5.12.1(prisma@5.12.1)
       '@stackso/js-core':
-        specifier: ^0.2.25
-        version: 0.2.25(typescript@5.4.5)(zod@3.22.5)
+        specifier: ^0.2.27
+        version: 0.2.27(typescript@5.4.5)(zod@3.22.5)
       axios:
         specifier: ^1.6.8
         version: 1.6.8(debug@4.3.4)
@@ -284,8 +284,8 @@ importers:
         specifier: ^0.20.2
         version: 0.20.2
       framer-motion:
-        specifier: ^11.1.5
-        version: 11.1.5(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^11.1.7
+        version: 11.1.7(react-dom@18.2.0)(react@18.2.0)
       graphql:
         specifier: ^16.8.1
         version: 16.8.1
@@ -696,8 +696,8 @@ importers:
         specifier: ^7.51.3
         version: 7.51.3(react@18.2.0)
       tailwind-merge:
-        specifier: ^2.2.2
-        version: 2.2.2
+        specifier: ^2.3.0
+        version: 2.3.0
       zod:
         specifier: ^3.22.5
         version: 3.22.5
@@ -829,8 +829,8 @@ packages:
       - debug
     dev: false
 
-  /@aptos-labs/ts-sdk@1.12.2:
-    resolution: {integrity: sha512-AjKkM5mc5Qx5W5uRFK0R3/PXNnBBheHm2qZwWsvFkhVv2WbHDwvZ/e3httcR1f1grM6VMIALpjqBKkq4WQE/SQ==}
+  /@aptos-labs/ts-sdk@1.13.0:
+    resolution: {integrity: sha512-AUMcaJStPlVHbz7IJrDtj7NHqTobmLbiZFmMPkpHwGxQBm0So4z1NXV0W2R6f5x0oWicAhQhIWw/PImG06FRRQ==}
     engines: {node: '>=11.0.0'}
     dependencies:
       '@aptos-labs/aptos-client': 0.1.0
@@ -840,7 +840,6 @@ packages:
       '@scure/bip39': 1.3.0
       eventemitter3: 5.0.1
       form-data: 4.0.0
-      tweetnacl: 1.0.3
     transitivePeerDependencies:
       - debug
     dev: false
@@ -4724,7 +4723,7 @@ packages:
     engines: {node: '>=16.10.0'}
     hasBin: true
     dependencies:
-      '@aptos-labs/ts-sdk': 1.12.2
+      '@aptos-labs/ts-sdk': 1.13.0
       '@ethersproject/bignumber': 5.7.0
       '@ethersproject/contracts': 5.7.0
       '@ethersproject/providers': 5.7.2
@@ -6333,7 +6332,6 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
-      napi-wasm: 1.1.0
     dev: false
     bundledDependencies:
       - napi-wasm
@@ -7800,7 +7798,7 @@ packages:
   /@safe-global/safe-apps-sdk@8.1.0(typescript@5.4.5)(zod@3.22.5):
     resolution: {integrity: sha512-XJbEPuaVc7b9n23MqlF6c+ToYIS3f7P2Sel8f3cSBQ9WORE4xrSuvhMpK9fDSFqJ7by/brc+rmJR/5HViRr0/w==}
     dependencies:
-      '@safe-global/safe-gateway-typescript-sdk': 3.19.0
+      '@safe-global/safe-gateway-typescript-sdk': 3.20.0
       viem: 1.21.4(typescript@5.4.5)(zod@3.22.5)
     transitivePeerDependencies:
       - bufferutil
@@ -7809,8 +7807,8 @@ packages:
       - zod
     dev: false
 
-  /@safe-global/safe-gateway-typescript-sdk@3.19.0:
-    resolution: {integrity: sha512-TRlP05KY6t3wjLJ74FiirWlEt3xTclnUQM2YdYto1jx5G1o0meMnugIUZXhzm7Bs3rDEDNhz/aDf2KMSZtoCFg==}
+  /@safe-global/safe-gateway-typescript-sdk@3.20.0:
+    resolution: {integrity: sha512-BUvzWY4gHBiIZv2e6EVPtv/ur7OuJuyEiiXa0qylpHQ5a9oR2yUjqtZwnFaunyNIkD98vyR/F/ql40JWn1OrTA==}
     engines: {node: '>=16'}
     dev: false
 
@@ -8766,8 +8764,8 @@ packages:
       '@stablelib/wipe': 1.0.1
     dev: false
 
-  /@stackso/js-core@0.2.25(typescript@5.4.5)(zod@3.22.5):
-    resolution: {integrity: sha512-b6CV1zOKdU+aZQeWxb3p/PTDv4QgTkiP7OiXsjcTEaapYiXU5YXbhbTKwWN+g6VIu2KAns041ywxPv6ob/mEHA==}
+  /@stackso/js-core@0.2.27(typescript@5.4.5)(zod@3.22.5):
+    resolution: {integrity: sha512-M1DMn8m3PeOkbu7Y+vd2RtljmSCtD/kWA4ziOkB2fp7IkCWoTW5nnD5nJReLcUE0VeENyGFrFNuaskoP83c1ow==}
     dependencies:
       axios: 1.6.8(debug@4.3.4)
       viem: 2.9.23(typescript@5.4.5)(zod@3.22.5)
@@ -9747,7 +9745,7 @@ packages:
       '@walletconnect/jsonrpc-ws-connection': 1.0.14
       '@walletconnect/keyvaluestorage': 1.1.1
       '@walletconnect/logger': 2.1.2
-      '@walletconnect/relay-api': 1.0.9
+      '@walletconnect/relay-api': 1.0.10
       '@walletconnect/relay-auth': 1.0.4
       '@walletconnect/safe-json': 1.0.2
       '@walletconnect/time': 1.0.2
@@ -9944,11 +9942,10 @@ packages:
       - react
     dev: false
 
-  /@walletconnect/relay-api@1.0.9:
-    resolution: {integrity: sha512-Q3+rylJOqRkO1D9Su0DPE3mmznbAalYapJ9qmzDgK28mYF9alcP3UwG/og5V7l7CFOqzCLi7B8BvcBUrpDj0Rg==}
+  /@walletconnect/relay-api@1.0.10:
+    resolution: {integrity: sha512-tqrdd4zU9VBNqUaXXQASaexklv6A54yEyQQEXYOCr+Jz8Ket0dmPBDyg19LVSNUN2cipAghQc45/KVmfFJ0cYw==}
     dependencies:
       '@walletconnect/jsonrpc-types': 1.0.3
-      tslib: 1.14.1
     dev: false
 
   /@walletconnect/relay-auth@1.0.4:
@@ -10072,7 +10069,7 @@ packages:
       '@stablelib/random': 1.0.2
       '@stablelib/sha256': 1.0.1
       '@stablelib/x25519': 1.0.3
-      '@walletconnect/relay-api': 1.0.9
+      '@walletconnect/relay-api': 1.0.10
       '@walletconnect/safe-json': 1.0.2
       '@walletconnect/time': 1.0.2
       '@walletconnect/types': 2.11.2
@@ -10351,7 +10348,7 @@ packages:
       '@xmtp/xmtp-js': ^11.1.1
     dependencies:
       '@noble/secp256k1': 1.7.1
-      '@xmtp/proto': 3.51.0
+      '@xmtp/proto': 3.52.0
       '@xmtp/xmtp-js': 11.5.0(typescript@5.4.5)(zod@3.22.5)
     dev: false
 
@@ -10360,7 +10357,7 @@ packages:
     peerDependencies:
       '@xmtp/xmtp-js': ^11.1.1
     dependencies:
-      '@xmtp/proto': 3.51.0
+      '@xmtp/proto': 3.52.0
       '@xmtp/xmtp-js': 11.5.0(typescript@5.4.5)(zod@3.22.5)
     dev: false
 
@@ -10373,8 +10370,8 @@ packages:
       undici: 5.28.4
     dev: false
 
-  /@xmtp/proto@3.51.0:
-    resolution: {integrity: sha512-voY4m0YmRkVvxof9ahwrRKNMB2GrxoU4cG/Q+GccgihFabHZi1xoFTeGRKLmxGdk55nt4PmlOs2IVA78LzaTwg==}
+  /@xmtp/proto@3.52.0:
+    resolution: {integrity: sha512-prQxV4sJ5Vx9QO1sapVzvrNt/sf/kIg6lPOKPV60FMiu3ktsgST67cSqk0D8dRW3a+CpryQVpopiCajC2dLlDg==}
     dependencies:
       long: 5.2.3
       protobufjs: 7.2.6
@@ -11387,7 +11384,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001611
-      electron-to-chromium: 1.4.744
+      electron-to-chromium: 1.4.745
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.23.0)
 
@@ -12758,8 +12755,8 @@ packages:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
     dev: false
 
-  /electron-to-chromium@1.4.744:
-    resolution: {integrity: sha512-nAGcF0yeKKfrP13LMFr5U1eghfFSvFLg302VUFzWlcjPOnUYd52yU5x6PBYrujhNbc4jYmZFrGZFK+xasaEzVA==}
+  /electron-to-chromium@1.4.745:
+    resolution: {integrity: sha512-tRbzkaRI5gbUn5DEvF0dV4TQbMZ5CLkWeTAXmpC9IrYT+GE+x76i9p+o3RJ5l9XmdQlI1pPhVtE9uNcJJ0G0EA==}
 
   /elliptic@6.5.4:
     resolution: {integrity: sha512-iLhC6ULemrljPZb+QutR5TQGB+pdW6KGD5RSegS+8sorOZT+rdQFbsQFJgvN3eRqNALqJer4oQ16YvJHlU8hzQ==}
@@ -14261,8 +14258,8 @@ packages:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
     dev: true
 
-  /framer-motion@11.1.5(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-ogK5fc0GBUT3AjzMXPx7f74m5V1ByRqkKQARBVHpdkYTNDxb/WriANYD+5JBo1wklQQJ1HayDZtmofQLqZFcbw==}
+  /framer-motion@11.1.7(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-cW11Pu53eDAXUEhv5hEiWuIXWhfkbV32PlgVISn7jRdcAiVrJ1S03YQQ0/DzoswGYYwKi4qYmHHjCzAH52eSdQ==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0
@@ -17337,10 +17334,6 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
-  /napi-wasm@1.1.0:
-    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
-    dev: false
-
   /natural-compare-lite@1.4.0:
     resolution: {integrity: sha512-Tj+HTDSJJKaZnfiuw+iaF9skdPpTo2GtEly5JHnWV/hfv2Qj/9RKsGISQtLh2ox3l5EAGw487hnBee0sIJ6v2g==}
     dev: true
@@ -17550,7 +17543,7 @@ packages:
     resolution: {integrity: sha512-4GUt3kSEYmk4ITxzB/b9vaIDfUVWN/Ml1Fwl11IlnIG2iaJ9O6WXZ9SrYM9NLI8OCBieN2Y8SWC2oJV0RQ7qYg==}
     hasBin: true
     dependencies:
-      abbrev: 1.1.1
+      abbrev: 1.0.9
     dev: true
 
   /normalize-package-data@2.5.0:
@@ -20483,8 +20476,8 @@ packages:
       strip-ansi: 6.0.1
     dev: true
 
-  /tailwind-merge@2.2.2:
-    resolution: {integrity: sha512-tWANXsnmJzgw6mQ07nE3aCDkCK4QdT3ThPMCzawoYA2Pws7vSTCvz3Vrjg61jVUGfFZPJzxEP+NimbcW+EdaDw==}
+  /tailwind-merge@2.3.0:
+    resolution: {integrity: sha512-vkYrLpIP+lgR0tQCG6AP7zZXCTLc1Lnv/CCRT3BqJ9CZ3ui2++GPaGb1x/ILsINIMSYqqvrpqjUFsMNLlW99EA==}
     dependencies:
       '@babel/runtime': 7.24.4
     dev: false
