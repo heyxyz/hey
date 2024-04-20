@@ -18,4 +18,4 @@ Allow: /*
 Disallow: /_next/*
 Disallow: /settings/*
 
-Sitemap: https://hey.xyz/sitemap.xml
+Sitemap: https://api.hey.xyz/sitemap

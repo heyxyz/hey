@@ -9,8 +9,8 @@ export const get: Handler = (req, res) => {
 
   try {
     const sitemaps = [
-      'https://hey.xyz/sitemap/profiles.xml',
-      'https://hey.xyz/sitemap/publications.xml'
+      'https://api.hey.xyz/sitemap/profiles',
+      'https://api.hey.xyz/sitemap/publications'
     ];
 
     const entries = sitemaps.map((sitemap) => ({
