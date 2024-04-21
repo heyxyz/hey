@@ -18,4 +18,10 @@ Allow: /*
 Disallow: /_next/*
 Disallow: /settings/*
 
+User-Agent: GPTBot
+Disallow: /
+
+User-agent: nsa
+Disallow: /
+
 Sitemap: https://api.hey.xyz/sitemap/sitemap.xml
