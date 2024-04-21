@@ -65,12 +65,20 @@ body {
   @apply bg-gray-100 dark:bg-gray-800;
 }
 
+.focusable-dropdown-item[data-focused] {
+  @apply bg-gray-200 dark:bg-gray-700;
+}
+
 .divider {
   @apply border-b dark:border-gray-700;
 }
 
 .ld-text-gray-500 {
   @apply text-gray-500 dark:text-gray-200;
+}
+
+.ProseMirror .prosekit-placeholder::before {
+  @apply opacity-50;
 }
 
 .text-md {

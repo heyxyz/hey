@@ -64,7 +64,7 @@ const Editor: FC = () => {
           ErrorBoundary={() => <div>{Errors.SomethingWentWrong}</div>}
           placeholder={
             <div className="ld-text-gray-500 pointer-events-none absolute top-2.5">
-              {showPollEditor ? 'Ask a question...' : "What's new?!"}
+              {showPollEditor ? 'Ask a question...' : "What's Lexical?!"}
             </div>
           }
         />
