@@ -6,6 +6,7 @@ import { SITEMAP_BATCH_SIZE } from 'src/lib/constants';
 import lensPrisma from 'src/lib/lensPrisma';
 import { noBody } from 'src/lib/responses';
 import { buildUrlsetXml } from 'src/lib/sitemap/buildSitemap';
+import getLastModDate from 'src/lib/sitemap/getLastModDate';
 
 export const config = {
   api: { responseLimit: '8mb' }
@@ -34,6 +35,7 @@ export const get: Handler = async (req, res) => {
 
     const entries = response.map((handle) => ({
       changefreq: 'daily',
+      lastmod: getLastModDate(handle.block_timestamp),
       loc: `https://hey.xyz/u/${handle.local_name}`,
       priority: 0.5
     }));
