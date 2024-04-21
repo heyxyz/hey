@@ -70,6 +70,7 @@ import Editor from './Editor';
 import LinkPreviews from './LinkPreviews';
 import OpenActions from './OpenActions';
 import Discard from './Post/Discard';
+import TextEditor from './TextEditor';
 
 const Shimmer = <div className="shimmer mb-1 size-5 rounded-lg" />;
 
@@ -551,6 +552,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           title="Transaction failed!"
         />
       ) : null}
+      <TextEditor />
       <Editor />
       {publicationContentError ? (
         <div className="mt-1 px-5 pb-3 text-sm font-bold text-red-500">
