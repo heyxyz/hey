@@ -50,7 +50,7 @@ const tiers = [
     ],
     id: 'annually',
     name: 'Annually',
-    price: (PRO_TIER_PRICES.annually / 12).toFixed(2)
+    price: (PRO_TIER_PRICES.annually / 12).toFixed(1)
   }
 ];
 
