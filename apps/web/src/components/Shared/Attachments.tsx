@@ -59,8 +59,8 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
     | 'displayAudioAsset'
     | 'displayImageAsset'
     | 'displayVideoAsset'
-    | MetadataAttachment[]
-    | null => {
+    | null
+    | string[] => {
     if (assetIsVideo) {
       return 'displayVideoAsset';
     }
@@ -73,8 +73,14 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
       const imageAttachments = processedAttachments.filter(
         (attachment) => attachment.type === 'Image'
       );
+      const assetImage = asset?.uri;
 
-      return imageAttachments;
+      const finalAttachments = imageAttachments
+        .map((attachment) => attachment.uri)
+        .concat(assetImage!);
+      const attachmentsWithoutDuplicates = [...new Set(finalAttachments)];
+
+      return attachmentsWithoutDuplicates;
     }
 
     if (assetIsImage) {
@@ -129,10 +135,10 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
                   }`,
                   { 'w-2/3': displayDecision.length === 1 }
                 )}
-                key={attachment.uri}
+                key={attachment}
                 onClick={stopEventPropagation}
               >
-                <ImageComponent uri={attachment.uri} />
+                <ImageComponent uri={attachment} />
               </div>
             );
           })}
