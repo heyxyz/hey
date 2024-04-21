@@ -20,7 +20,7 @@ export const get: Handler = async (req, res) => {
     const totalBatches = Math.ceil(totalPublications / SITEMAP_BATCH_SIZE);
 
     const entries = Array.from({ length: totalBatches }, (_, index) => ({
-      loc: `https://api.hey.xyz/publications/${index + 1}.xml`
+      loc: `https://api.hey.xyz/sitemap/publications/${index + 1}.xml`
     }));
     const xml = buildSitemapXml(entries);
 
