@@ -18,44 +18,6 @@ import type { MentionProfile } from './useMentionQuery';
 
 import { useMentionQuery } from './useMentionQuery';
 
-export default function MentionPicker() {
-  const editor = useEditor<TextEditorExtension>();
-
-  const handleUserInsert = (profile: MentionProfile) => {
-    editor.commands.insertMention({
-      // TODO: improve this
-      id: profile.id.toString(),
-      kind: 'user',
-      value: '@' + profile.name
-    });
-    editor.commands.insertText({ text: ' ' });
-  };
-
-  const [queryString, setQueryString] = useState<string>('');
-  const results = useMentionQuery(queryString);
-
-  return (
-    <AutocompletePopover
-      className="bg-brand sticky z-40 m-0 block w-52 rounded-xl border bg-white p-0 shadow-sm dark:border-gray-700 dark:bg-gray-900"
-      offset={10}
-      onQueryChange={setQueryString}
-      regex={/@\w*$/}
-    >
-      <AutocompleteList className="divide-y dark:divide-gray-700" filter={null}>
-        {results.length === 0 ? <MentionEmpty /> : null}
-
-        {results.map((user) => (
-          <MentionItem
-            key={user.id}
-            onSelect={() => handleUserInsert(user)}
-            user={user}
-          />
-        ))}
-      </AutocompleteList>
-    </AutocompletePopover>
-  );
-}
-
 function MentionEmpty() {
   return (
     <AutocompleteEmpty className="m-1.5 flex items-center space-x-2 rounded-xl px-3 py-1 dark:text-white">
@@ -98,5 +60,43 @@ function MentionItem({
         </div>
       </AutocompleteItem>
     </div>
+  );
+}
+
+export default function MentionPicker() {
+  const editor = useEditor<TextEditorExtension>();
+
+  const handleUserInsert = (profile: MentionProfile) => {
+    editor.commands.insertMention({
+      // TODO: improve this
+      id: profile.id.toString(),
+      kind: 'user',
+      value: '@' + profile.name
+    });
+    editor.commands.insertText({ text: ' ' });
+  };
+
+  const [queryString, setQueryString] = useState<string>('');
+  const results = useMentionQuery(queryString);
+
+  return (
+    <AutocompletePopover
+      className="bg-brand sticky z-40 m-0 block w-52 rounded-xl border bg-white p-0 shadow-sm dark:border-gray-700 dark:bg-gray-900"
+      offset={10}
+      onQueryChange={setQueryString}
+      regex={/@\w*$/}
+    >
+      <AutocompleteList className="divide-y dark:divide-gray-700" filter={null}>
+        {results.length === 0 ? <MentionEmpty /> : null}
+
+        {results.map((user) => (
+          <MentionItem
+            key={user.id}
+            onSelect={() => handleUserInsert(user)}
+            user={user}
+          />
+        ))}
+      </AutocompleteList>
+    </AutocompletePopover>
   );
 }
