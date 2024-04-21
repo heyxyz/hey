@@ -74,9 +74,11 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
       );
       const assetImage = asset?.uri;
 
-      const finalAttachments = imageAttachments
-        .map((attachment) => attachment.uri)
-        .concat(assetImage!);
+      const finalAttachments = imageAttachments.map(
+        (attachment) => attachment.uri
+      );
+      finalAttachments.unshift(assetImage!);
+
       const attachmentsWithoutDuplicates = [...new Set(finalAttachments)];
 
       return attachmentsWithoutDuplicates;
