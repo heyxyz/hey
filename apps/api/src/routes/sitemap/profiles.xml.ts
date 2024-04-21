@@ -23,7 +23,7 @@ export const get: Handler = async (req, res) => {
     const xml = buildSitemapXml(entries);
 
     logger.info(
-      `Lens: Fetched all profiles sitemap having ${totalBatches} batches from user-agent: ${user_agent}`
+      `Lens: Fetched all profiles sitemap index having ${totalBatches} batches from user-agent: ${user_agent}`
     );
 
     return res.status(200).setHeader('Content-Type', 'text/xml').send(xml);

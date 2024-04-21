@@ -25,7 +25,7 @@ export const get: Handler = async (req, res) => {
     const xml = buildSitemapXml(entries);
 
     logger.info(
-      `Lens: Fetched all publications sitemap having ${totalBatches} batches from user-agent: ${user_agent}`
+      `Lens: Fetched all publications sitemap index having ${totalBatches} batches from user-agent: ${user_agent}`
     );
 
     return res
