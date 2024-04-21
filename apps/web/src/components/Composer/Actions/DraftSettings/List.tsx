@@ -74,15 +74,15 @@ const List: FC<ListProps> = ({ setShowModal }) => {
   };
 
   return (
-    <div className="flex max-h-[80vh] flex-col divide-y overflow-y-auto dark:divide-gray-700">
+    <div className="max-h-[80vh] divide-y overflow-y-auto dark:divide-gray-700">
       {data?.map((draft) => (
         <div
           className="flex items-center justify-between space-x-5 p-5"
           key={draft.id}
         >
           <button onClick={() => onSelectDraft(draft)}>
-            <div className="flex items-center space-x-2">
-              <div className="line-clamp-3 text-sm">{draft.content}</div>
+            <div className="line-clamp-3 text-left text-sm">
+              {draft.content}
             </div>
           </button>
           <Button outline size="sm" variant="danger">
