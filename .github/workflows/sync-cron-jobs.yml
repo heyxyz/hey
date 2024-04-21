@@ -10,8 +10,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  delete-publication-clickhouse:
-    name: Delete duplicate Publication from Clickhouse
+  delete-publications-clickhouse:
+    name: Delete duplicate publications from Clickhouse
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
@@ -22,7 +22,7 @@ jobs:
       - name: Setup Node.js, pnpm and dependencies 🌸
         uses: ./.github/actions/setup-pnpm
 
-      - name: Delete duplicate Publication from Clickhouse
+      - name: Delete duplicate publications from Clickhouse
         env:
           CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
         run: |
@@ -30,10 +30,10 @@ jobs:
           {
             echo "CLICKHOUSE_PASSWORD=${CLICKHOUSE_PASSWORD}"
           } > .env
-          pnpm delete-publication-clickhouse
+          pnpm delete-publications-clickhouse
 
-  replicate-publication-clickhouse:
-    name: Replicate Publication to Clickhouse
+  replicate-publications-clickhouse:
+    name: Replicate publications to Clickhouse
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
@@ -44,7 +44,7 @@ jobs:
       - name: Setup Node.js, pnpm and dependencies 🌸
         uses: ./.github/actions/setup-pnpm
 
-      - name: Replicate Publication to Clickhouse
+      - name: Replicate publications to Clickhouse
         env:
           CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
           LENS_DATABASE_URL: ${{ secrets.LENS_DATABASE_URL }}
@@ -54,4 +54,4 @@ jobs:
             echo "CLICKHOUSE_PASSWORD=${CLICKHOUSE_PASSWORD}"
             echo "LENS_DATABASE_URL=${LENS_DATABASE_URL}"
           } > .env
-          pnpm replicate-publication-clickhouse
+          pnpm replicate-publications-clickhouse

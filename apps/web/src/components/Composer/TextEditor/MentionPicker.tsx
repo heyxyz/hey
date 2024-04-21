@@ -1,5 +1,3 @@
-import type { FC } from 'react';
-
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon

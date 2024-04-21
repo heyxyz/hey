@@ -10,7 +10,8 @@ export const get: Handler = (req, res) => {
   try {
     const sitemaps = [
       'https://api.hey.xyz/sitemap/profiles.xml',
-      'https://api.hey.xyz/sitemap/publications.xml'
+      'https://api.hey.xyz/sitemap/publications.xml',
+      'https://api.hey.xyz/sitemap/others.xml'
     ];
 
     const entries = sitemaps.map((sitemap) => ({
@@ -18,7 +19,9 @@ export const get: Handler = (req, res) => {
     }));
     const xml = buildSitemapXml(entries);
 
-    logger.info(`Lens: Fetched all sitemaps from user-agent: ${user_agent}`);
+    logger.info(
+      `Lens: Fetched all sitemaps index from user-agent: ${user_agent}`
+    );
 
     return res.status(200).setHeader('Content-Type', 'text/xml').send(xml);
   } catch (error) {

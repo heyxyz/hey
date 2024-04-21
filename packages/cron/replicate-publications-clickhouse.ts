@@ -22,7 +22,7 @@ const getLastBlockNumber = async () => {
 
 const main = async () => {
   const START_BLOCK_NUMBER = await getLastBlockNumber();
-  const END_BLOCK_NUMBER = START_BLOCK_NUMBER + 5000000;
+  const END_BLOCK_NUMBER = START_BLOCK_NUMBER + 50000;
 
   await client.connect();
 
