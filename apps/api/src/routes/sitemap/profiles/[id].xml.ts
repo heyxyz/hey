@@ -6,7 +6,6 @@ import { SITEMAP_BATCH_SIZE } from 'src/lib/constants';
 import lensPrisma from 'src/lib/lensPrisma';
 import { noBody } from 'src/lib/responses';
 import { buildUrlsetXml } from 'src/lib/sitemap/buildSitemap';
-import getLastModDate from 'src/lib/sitemap/getLastModDate';
 
 export const config = {
   api: { responseLimit: '8mb' }
@@ -24,20 +23,15 @@ export const get: Handler = async (req, res) => {
   try {
     const offset = (Number(batch) - 1) * SITEMAP_BATCH_SIZE;
 
-    const response = await lensPrisma.$queryRaw<
-      { block_timestamp: Date; local_name: string }[]
-    >`
-      SELECT local_name, block_timestamp FROM namespace.handle
+    const response = await lensPrisma.$queryRaw<{ local_name: string }[]>`
+      SELECT local_name FROM namespace.handle
       ORDER BY block_timestamp ASC
       LIMIT ${SITEMAP_BATCH_SIZE}
       OFFSET ${offset};
     `;
 
     const entries = response.map((handle) => ({
-      changefreq: 'daily',
-      lastmod: getLastModDate(handle.block_timestamp),
-      loc: `https://hey.xyz/u/${handle.local_name}`,
-      priority: 0.5
+      loc: `https://hey.xyz/u/${handle.local_name}`
     }));
 
     const xml = buildUrlsetXml(entries);

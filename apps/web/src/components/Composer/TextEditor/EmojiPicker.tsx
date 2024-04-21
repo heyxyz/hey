@@ -1,5 +1,4 @@
 import type { Emoji } from '@hey/types/misc';
-import type { FC } from 'react';
 
 import { useEditor } from 'prosekit/react';
 import {
