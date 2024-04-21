@@ -10,6 +10,8 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 
@@ -20,9 +22,13 @@ interface ListProps {
 const List: FC<ListProps> = ({ setShowModal }) => {
   const { setPublicationContent } = usePublicationStore();
   const { setCollectModule } = useCollectModuleStore((state) => state);
+
+  const [drafts, setDrafts] = useState<Draft[]>([]);
+  const [deleting, setDeleting] = useState(false);
+
   const [editor] = useLexicalComposerContext();
 
-  const getDrafts = async (): Promise<Draft[] | null> => {
+  const getDrafts = async (): Promise<[] | Draft[]> => {
     try {
       const { data } = await axios.get(`${HEY_API_URL}/drafts/all`, {
         headers: getAuthApiHeaders()
@@ -30,12 +36,16 @@ const List: FC<ListProps> = ({ setShowModal }) => {
 
       return data.result;
     } catch {
-      return null;
+      return [];
     }
   };
 
-  const { data, error, isLoading } = useQuery({
-    queryFn: getDrafts,
+  const { error, isLoading } = useQuery({
+    queryFn: () =>
+      getDrafts().then((drafts) => {
+        setDrafts(drafts);
+        return drafts;
+      }),
     queryKey: ['getDrafts']
   });
 
@@ -44,10 +54,16 @@ const List: FC<ListProps> = ({ setShowModal }) => {
   }
 
   if (error) {
-    return <ErrorMessage error={error} title="Failed to load drafts" />;
+    return (
+      <ErrorMessage
+        className="m-5"
+        error={error}
+        title="Failed to load drafts"
+      />
+    );
   }
 
-  if (!data?.length) {
+  if (!drafts.length) {
     return (
       <div className="my-5">
         <EmptyState
@@ -58,6 +74,24 @@ const List: FC<ListProps> = ({ setShowModal }) => {
       </div>
     );
   }
+
+  const onDeleteDraft = async (draft: Draft) => {
+    try {
+      setDeleting(true);
+      await axios.post(
+        `${HEY_API_URL}/drafts/delete`,
+        { id: draft.id },
+        { headers: getAuthApiHeaders() }
+      );
+      setDrafts((drafts) => drafts.filter((d) => d.id !== draft.id));
+
+      return toast.success('Draft deleted successfully');
+    } catch {
+      return toast.error('Failed to delete draft');
+    } finally {
+      setDeleting(false);
+    }
+  };
 
   const onSelectDraft = (draft: Draft) => {
     editor.update(() => {
@@ -75,7 +109,7 @@ const List: FC<ListProps> = ({ setShowModal }) => {
 
   return (
     <div className="max-h-[80vh] divide-y overflow-y-auto dark:divide-gray-700">
-      {data?.map((draft) => (
+      {drafts.map((draft) => (
         <div
           className="flex items-center justify-between space-x-5 p-5"
           key={draft.id}
@@ -85,7 +119,13 @@ const List: FC<ListProps> = ({ setShowModal }) => {
               {draft.content}
             </div>
           </button>
-          <Button outline size="sm" variant="danger">
+          <Button
+            disabled={deleting}
+            onClick={() => onDeleteDraft(draft)}
+            outline
+            size="sm"
+            variant="danger"
+          >
             Delete
           </Button>
         </div>
