@@ -18,12 +18,7 @@ export const get: Handler = (req, res) => {
       'https://hey.xyz/rules'
     ];
 
-    const entries = sitemaps.map((sitemap) => ({
-      changefreq: 'daily',
-      lastmod: new Date().toISOString(),
-      loc: sitemap,
-      priority: 0.5
-    }));
+    const entries = sitemaps.map((sitemap) => ({ loc: sitemap }));
     const xml = buildUrlsetXml(entries);
 
     logger.info(`Lens: Fetched other sitemaps from user-agent: ${user_agent}`);
