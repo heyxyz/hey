@@ -22,6 +22,7 @@ import { useEffect } from 'react';
 import { ProfileFeedType } from 'src/enums';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
+import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Cover from './Cover';
@@ -33,6 +34,7 @@ import Following from './Following';
 import MutualFollowersList from './MutualFollowers/List';
 import ProfilePageShimmer from './Shimmer';
 import Stats from './Stats';
+import SuspendedDetails from './SuspendedDetails';
 
 const ViewProfile: NextPage = () => {
   const {
@@ -41,6 +43,7 @@ const ViewProfile: NextPage = () => {
     query: { handle, id, source, type }
   } = useRouter();
   const { currentProfile } = useProfileStore();
+  const { staffMode } = useFeatureFlagsStore();
 
   const showFollowing =
     pathname === '/u/[handle]/following' ||
@@ -125,6 +128,8 @@ const ViewProfile: NextPage = () => {
     return <Custom500 />;
   }
 
+  const isSuspended = staffMode ? false : profileFlags?.isSuspended;
+
   return (
     <>
       <MetaTags
@@ -136,16 +141,25 @@ const ViewProfile: NextPage = () => {
       />
       <Cover
         cover={
-          profile?.metadata?.coverPicture?.optimized?.uri ||
-          `${STATIC_IMAGES_URL}/patterns/2.svg`
+          isSuspended
+            ? `${STATIC_IMAGES_URL}/patterns/2.svg`
+            : profile?.metadata?.coverPicture?.optimized?.uri ||
+              `${STATIC_IMAGES_URL}/patterns/2.svg`
         }
       />
       <GridLayout>
         <GridItemFour>
-          <Details profile={profile as Profile} />
+          {isSuspended ? (
+            <SuspendedDetails profile={profile as Profile} />
+          ) : (
+            <Details
+              isSuspended={profileFlags.isSuspended}
+              profile={profile as Profile}
+            />
+          )}
         </GridItemFour>
         <GridItemEight className="space-y-5">
-          {profileFlags?.isSuspended ? (
+          {isSuspended ? (
             <EmptyState
               icon={<NoSymbolIcon className="size-8" />}
               message="Profile Suspended"
