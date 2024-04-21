@@ -28,15 +28,6 @@ const usePublicationMetadata = () => {
   const { liveVideoConfig, showLiveVideoEditor } = usePublicationLiveStore();
   const { attributes } = usePublicationAttributesStore();
 
-  const attachmentsHasAudio = attachments[0]?.type === 'Audio';
-  const attachmentsHasVideo = attachments[0]?.type === 'Video';
-
-  const cover = attachmentsHasAudio
-    ? audioPublication.cover
-    : attachmentsHasVideo
-      ? videoThumbnail.url
-      : attachments[0]?.uri;
-
   const getMetadata = useCallback(
     ({ baseMetadata }: UsePublicationMetadataProps) => {
       const hasAttachments = attachments.length;
@@ -55,7 +46,6 @@ const usePublicationMetadata = () => {
       // Slice the first attachment because we upload the asset
       const attachmentsToBeUploaded = attachments
         .map((attachment) => ({
-          cover: cover,
           item: attachment.uri,
           type: attachment.mimeType
         }))
@@ -79,7 +69,9 @@ const usePublicationMetadata = () => {
           return image({
             ...baseMetadata,
             ...localBaseMetadata,
-            attachments: attachmentsToBeUploaded,
+            ...(attachmentsToBeUploaded.length > 0 && {
+              attachments: attachmentsToBeUploaded
+            }),
             image: {
               ...(license && { license }),
               item: attachments[0]?.uri,
@@ -90,7 +82,9 @@ const usePublicationMetadata = () => {
           return audio({
             ...baseMetadata,
             ...localBaseMetadata,
-            attachments: attachmentsToBeUploaded,
+            ...(attachmentsToBeUploaded.length > 0 && {
+              attachments: attachmentsToBeUploaded
+            }),
             audio: {
               ...(audioPublication.artist && {
                 artist: audioPublication.artist
@@ -105,8 +99,11 @@ const usePublicationMetadata = () => {
           return video({
             ...baseMetadata,
             ...localBaseMetadata,
-            attachments: attachmentsToBeUploaded,
+            ...(attachmentsToBeUploaded.length > 0 && {
+              attachments: attachmentsToBeUploaded
+            }),
             video: {
+              cover: videoThumbnail.url,
               duration: parseInt(videoDurationInSeconds),
               item: attachments[0]?.uri,
               type: attachments[0]?.mimeType,
@@ -122,7 +119,7 @@ const usePublicationMetadata = () => {
       attachments,
       videoDurationInSeconds,
       audioPublication,
-      cover,
+      videoThumbnail,
       showLiveVideoEditor,
       liveVideoConfig,
       license
