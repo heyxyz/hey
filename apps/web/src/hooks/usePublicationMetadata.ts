@@ -76,7 +76,7 @@ const usePublicationMetadata = () => {
           return image({
             ...baseMetadata,
             ...localBaseMetadata,
-            attachments: attachmentsToBeUploaded,
+            attachments: attachmentsToBeUploaded.slice(1),
             image: {
               ...(license && { license }),
               item: attachments[0]?.uri,
