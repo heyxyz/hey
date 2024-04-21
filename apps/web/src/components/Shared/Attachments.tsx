@@ -51,13 +51,12 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
   const assetIsVideo = asset?.type === 'Video';
   const assetIsAudio = asset?.type === 'Audio';
 
-  const attachmentsHasImage = processedAttachments.some(
-    (attachment) => attachment.type === 'Image'
-  );
+  const attachmentsHasImage =
+    processedAttachments.some((attachment) => attachment.type === 'Image') ||
+    assetIsImage;
 
   const determineDisplay = ():
     | 'displayAudioAsset'
-    | 'displayImageAsset'
     | 'displayVideoAsset'
     | null
     | string[] => {
@@ -81,10 +80,6 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
       const attachmentsWithoutDuplicates = [...new Set(finalAttachments)];
 
       return attachmentsWithoutDuplicates;
-    }
-
-    if (assetIsImage) {
-      return 'displayImageAsset';
     }
 
     return null;
@@ -112,14 +107,6 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
 
   return (
     <div className="mt-3">
-      {displayDecision === 'displayImageAsset' && assetIsImage && (
-        <div
-          className={cn(getClass(1)?.aspect, 'w-2/3')}
-          onClick={stopEventPropagation}
-        >
-          <ImageComponent uri={asset.uri} />
-        </div>
-      )}
       {Array.isArray(displayDecision) && (
         <div
           className={cn('grid gap-2', getClass(displayDecision.length)?.row)}
@@ -128,11 +115,9 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
             return (
               <div
                 className={cn(
-                  `${getClass(displayDecision.length)?.aspect} ${
-                    displayDecision.length === 3 && index === 0
-                      ? 'row-span-2'
-                      : ''
-                  }`,
+                  getClass(displayDecision.length)?.aspect,
+                  { 'row-span-2': displayDecision.length === 3 && index === 0 },
+                  { 'col-span-2': displayDecision.length === 5 && index === 0 },
                   { 'w-2/3': displayDecision.length === 1 }
                 )}
                 key={attachment}
