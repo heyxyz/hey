@@ -35,7 +35,13 @@ Disallow: /notifications/*
 Disallow: /search?q=
 
 User-Agent: GPTBot
-Disallow: /
+Allow: /*
+Disallow: /settings/*
+Disallow: /mod/*
+Disallow: /staff/*
+Disallow: /bookmarks/*
+Disallow: /notifications/*
+Disallow: /search?q=
 
 User-agent: nsa
 Disallow: /
