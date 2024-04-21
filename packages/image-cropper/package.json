@@ -13,7 +13,7 @@
   "dependencies": {
     "@hey/ui": "workspace:*",
     "normalize-wheel": "^1.0.1",
-    "rc-slider": "10.6.1",
+    "rc-slider": "10.6.2",
     "react": "^18.2.0"
   },
   "devDependencies": {
