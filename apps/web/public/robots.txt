@@ -1,25 +1,12 @@
-User-agent: Googlebot
-Allow: /*
-Disallow: /settings/*
-Disallow: /search?q=
-
-User-agent: Yandex
-Allow: /*
-Disallow: /settings/*
-Disallow: /search?q=
-
-User-agent: bingbot
-Allow: /*
-Disallow: /settings/*
-Disallow: /search?q=
-
 User-agent: *
 Allow: /*
 Disallow: /settings/*
+Disallow: /staff/*
+Disallow: /mod
+Disallow: /bookmarks
+Disallow: /notifications
+Disallow: /messages
 Disallow: /search?q=
-
-User-Agent: GPTBot
-Disallow: /
 
 User-agent: nsa
 Disallow: /
