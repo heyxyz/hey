@@ -16,7 +16,8 @@ type ExtensionRequest = {
 
 const validationSchema = object({
   collectModule: string().nullable(),
-  content: string().min(1).max(100000)
+  content: string().min(1).max(100000),
+  id: string().nullable()
 });
 
 // TODO: add tests

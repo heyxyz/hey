@@ -17,7 +17,7 @@ interface DiscardProps {
 const Discard: FC<DiscardProps> = ({ onDiscard }) => {
   const { isPro } = useProStore();
   const { setShowDiscardModal, showDiscardModal } = useGlobalModalStateStore();
-  const { publicationContent } = usePublicationStore();
+  const { draftId, publicationContent, setDraftId } = usePublicationStore();
   const { collectModule } = useCollectModuleStore((state) => state);
 
   const canBeDrafted = publicationContent.length > 0;
@@ -33,7 +33,8 @@ const Discard: FC<DiscardProps> = ({ onDiscard }) => {
         collectModule: collectModule.type
           ? JSON.stringify(collectModule)
           : null,
-        content: publicationContent
+        content: publicationContent,
+        id: draftId
       };
 
       await axios.post(`${HEY_API_URL}/drafts/update`, draft, {
@@ -41,14 +42,26 @@ const Discard: FC<DiscardProps> = ({ onDiscard }) => {
       });
       onDiscard();
       setShowDiscardModal(false);
+
+      return toast.success(
+        `Draft ${draftId ? 'updated' : 'saved'} successfully`
+      );
     } catch {
-      return toast.error('Error saving draft');
+      return toast.error(`Error ${draftId ? 'updating' : 'saving'} draft`);
+    } finally {
+      setDraftId(null);
     }
   };
 
   return (
     <Alert
-      cancelText={canBeDrafted && isPro ? 'Save as draft' : 'Cancel'}
+      cancelText={
+        canBeDrafted && isPro
+          ? draftId
+            ? 'Update draft'
+            : 'Save as draft'
+          : 'Cancel'
+      }
       confirmText="Discard"
       description="You can save this to send later from your drafts."
       isDestructive
