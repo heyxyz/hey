@@ -52,11 +52,14 @@ const usePublicationMetadata = () => {
         locale: getUserLocale()
       };
 
-      const attachmentsToBeUploaded = attachments.map((attachment) => ({
-        cover: cover,
-        item: attachment.uri,
-        type: attachment.mimeType
-      }));
+      // Slice the first attachment because we upload the asset
+      const attachmentsToBeUploaded = attachments
+        .map((attachment) => ({
+          cover: cover,
+          item: attachment.uri,
+          type: attachment.mimeType
+        }))
+        .slice(1);
 
       switch (true) {
         case isLiveStream:
@@ -76,7 +79,7 @@ const usePublicationMetadata = () => {
           return image({
             ...baseMetadata,
             ...localBaseMetadata,
-            attachments: attachmentsToBeUploaded.slice(1),
+            attachments: attachmentsToBeUploaded,
             image: {
               ...(license && { license }),
               item: attachments[0]?.uri,
