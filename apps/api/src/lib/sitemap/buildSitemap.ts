@@ -8,10 +8,7 @@ const builder = new XMLBuilder({
 });
 
 interface Url {
-  changefreq: string;
-  lastmod: string;
   loc: string;
-  priority: number;
 }
 
 export const buildUrlsetXml = (url: Url[]): string => {
