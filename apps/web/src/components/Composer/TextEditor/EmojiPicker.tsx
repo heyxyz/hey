@@ -13,6 +13,34 @@ import type { TextEditorExtension } from './extension';
 
 import { useEmojiQuery } from './useEmojiQuery';
 
+function EmojiEmpty() {
+  return (
+    <AutocompleteEmpty className="m-2 block cursor-pointer rounded-lg p-2 outline-none">
+      No results
+    </AutocompleteEmpty>
+  );
+}
+
+function EmojiItem({
+  emoji,
+  onSelect
+}: {
+  emoji: Emoji;
+  onSelect: VoidFunction;
+}) {
+  return (
+    <AutocompleteItem
+      className="focusable-dropdown-item m-2 block cursor-pointer rounded-lg p-2 outline-none"
+      onSelect={onSelect}
+    >
+      <div className="flex items-center space-x-2">
+        <span className="text-base">{emoji.emoji}</span>
+        <span className="text-sm capitalize">{emoji.aliases[0]}</span>
+      </div>
+    </AutocompleteItem>
+  );
+}
+
 export default function EmojiPicker() {
   const editor = useEditor<TextEditorExtension>();
 
@@ -48,33 +76,5 @@ export default function EmojiPicker() {
         ))}
       </AutocompleteList>
     </AutocompletePopover>
-  );
-}
-
-function EmojiEmpty() {
-  return (
-    <AutocompleteEmpty className="m-2 block cursor-pointer rounded-lg p-2 outline-none">
-      No results
-    </AutocompleteEmpty>
-  );
-}
-
-function EmojiItem({
-  emoji,
-  onSelect
-}: {
-  emoji: Emoji;
-  onSelect: VoidFunction;
-}) {
-  return (
-    <AutocompleteItem
-      className="focusable-dropdown-item m-2 block cursor-pointer rounded-lg p-2 outline-none"
-      onSelect={onSelect}
-    >
-      <div className="flex items-center space-x-2">
-        <span className="text-base">{emoji.emoji}</span>
-        <span className="text-sm capitalize">{emoji.aliases[0]}</span>
-      </div>
-    </AutocompleteItem>
   );
 }
