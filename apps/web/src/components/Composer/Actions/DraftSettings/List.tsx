@@ -4,6 +4,7 @@ import type { FC } from 'react';
 import Loader from '@components/Shared/Loader';
 import { ArchiveBoxArrowDownIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button, EmptyState, ErrorMessage } from '@hey/ui';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -20,7 +21,7 @@ interface ListProps {
 }
 
 const List: FC<ListProps> = ({ setShowModal }) => {
-  const { setPublicationContent } = usePublicationStore();
+  const { setDraftId, setPublicationContent } = usePublicationStore();
   const { setCollectModule } = useCollectModuleStore((state) => state);
 
   const [drafts, setDrafts] = useState<Draft[]>([]);
@@ -40,7 +41,7 @@ const List: FC<ListProps> = ({ setShowModal }) => {
     }
   };
 
-  const { error, isLoading } = useQuery({
+  const { error, isLoading, isRefetching } = useQuery({
     queryFn: () =>
       getDrafts().then((drafts) => {
         setDrafts(drafts);
@@ -49,7 +50,7 @@ const List: FC<ListProps> = ({ setShowModal }) => {
     queryKey: ['getDrafts']
   });
 
-  if (isLoading) {
+  if (isLoading || isRefetching) {
     return <Loader className="my-10" message="Loading drafts..." />;
   }
 
@@ -104,6 +105,7 @@ const List: FC<ListProps> = ({ setShowModal }) => {
       setCollectModule(JSON.parse(draft.collectModule as any));
     }
 
+    setDraftId(draft.id);
     setShowModal(false);
   };
 
@@ -111,17 +113,17 @@ const List: FC<ListProps> = ({ setShowModal }) => {
     <div className="max-h-[80vh] divide-y overflow-y-auto dark:divide-gray-700">
       {drafts.map((draft) => (
         <div
-          className="flex items-center justify-between space-x-5 p-5"
+          className="flex cursor-pointer items-center justify-between space-x-5 p-5"
           key={draft.id}
+          onClick={() => onSelectDraft(draft)}
         >
-          <button onClick={() => onSelectDraft(draft)}>
-            <div className="line-clamp-3 text-left text-sm">
-              {draft.content}
-            </div>
-          </button>
+          <div className="line-clamp-3 text-left text-sm">{draft.content}</div>
           <Button
             disabled={deleting}
-            onClick={() => onDeleteDraft(draft)}
+            onClick={(event) => {
+              stopEventPropagation(event);
+              onDeleteDraft(draft);
+            }}
             outline
             size="sm"
             variant="danger"
