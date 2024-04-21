@@ -13,7 +13,8 @@ import {
 } from '@heroicons/react/24/outline';
 import {
   CheckBadgeIcon,
-  ExclamationCircleIcon
+  ExclamationCircleIcon,
+  EyeSlashIcon
 } from '@heroicons/react/24/solid';
 import { EXPANDED_AVATAR, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { FollowModuleType } from '@hey/lens';
@@ -60,10 +61,11 @@ export const MetaDetails = ({
 );
 
 interface DetailsProps {
+  isSuspended: boolean;
   profile: Profile;
 }
 
-const Details: FC<DetailsProps> = ({ profile }) => {
+const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
   const { push } = useRouter();
   const { currentProfile } = useProfileStore();
   const { staffMode } = useFeatureFlagsStore();
@@ -103,7 +105,12 @@ const Details: FC<DetailsProps> = ({ profile }) => {
           ) : null}
           {hasMisused(profile.id) ? (
             <Tooltip content={misuseDetails?.type}>
-              <ExclamationCircleIcon className="size-6" />
+              <ExclamationCircleIcon className="text-brand-500 size-6" />
+            </Tooltip>
+          ) : null}
+          {isSuspended ? (
+            <Tooltip content="Suspended">
+              <EyeSlashIcon className="text-brand-500 size-6" />
             </Tooltip>
           ) : null}
           <Pro id={profile.id} />
