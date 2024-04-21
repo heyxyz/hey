@@ -128,6 +128,8 @@ const ViewProfile: NextPage = () => {
   return (
     <>
       <MetaTags
+        creator={getProfile(profile).displayName}
+        description={profile.metadata?.bio}
         title={`${getProfile(profile).displayName} (${
           getProfile(profile).slugWithPrefix
         }) • ${APP_NAME}`}
