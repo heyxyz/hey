@@ -9,7 +9,7 @@ const builder = new XMLBuilder({
 
 interface Url {
   changefreq: string;
-  lastmod?: string;
+  lastmod: string;
   loc: string;
   priority: number;
 }
