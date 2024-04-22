@@ -175,8 +175,7 @@ const Action: FC<ActionProps> = ({
       });
       closePopover();
       triggerConfetti();
-
-      return toast.success('Tipped successfully!');
+      return;
     } catch (error) {
       errorToast(error);
     } finally {
