@@ -2,6 +2,7 @@ import type { ApprovedAllowanceAmountResult } from '@hey/lens';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
 import { ExclamationTriangleIcon, PlusIcon } from '@heroicons/react/24/outline';
+import { MAX_UINT256 } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
 import {
   OpenActionModuleType,
@@ -163,7 +164,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
             onClick={() =>
               handleAllowance(
                 module.allowance.asset.contract.address,
-                Number.MAX_SAFE_INTEGER.toString(),
+                MAX_UINT256.toString(),
                 module.moduleName
               )
             }

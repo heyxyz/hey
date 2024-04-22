@@ -65,6 +65,10 @@ export const PUBLICATION = {
   REMOVE_BOOKMARK: 'Remove bookmark publication',
   REPORT: 'Report publication',
   SHARE: 'Share publication',
+  TIP: {
+    ENABLE: 'Tipping enabled',
+    TIP: 'Tip'
+  },
   TOGGLE_HIDE_COMMENT: 'Toggle publication hide comment',
   TRANSLATE: 'Translate publication',
   UNDO_MIRROR: 'Undo mirror publication',
