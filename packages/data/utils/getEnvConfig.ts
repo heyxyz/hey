@@ -8,6 +8,7 @@ const getEnvConfig = (): {
   heyApiEndpoint: string;
   heyLensSignup: `0x${string}`;
   heyPro: `0x${string}`;
+  heyTipping: `0x${string}`;
   lensApiEndpoint: string;
   lensHandles: `0x${string}`;
   lensHub: `0x${string}`;
@@ -22,6 +23,7 @@ const getEnvConfig = (): {
         heyApiEndpoint: HeyEndpoint.Staging,
         heyLensSignup: TestnetContracts.HeyLensSignup,
         heyPro: TestnetContracts.HeyPro,
+        heyTipping: TestnetContracts.HeyTipping,
         lensApiEndpoint: LensEndpoint.Staging,
         lensHandles: TestnetContracts.LensHandles,
         lensHub: TestnetContracts.LensHub,
@@ -34,6 +36,7 @@ const getEnvConfig = (): {
         heyApiEndpoint: HeyEndpoint.Mainnet,
         heyLensSignup: MainnetContracts.HeyLensSignup,
         heyPro: MainnetContracts.HeyPro,
+        heyTipping: MainnetContracts.HeyTipping,
         lensApiEndpoint: LensEndpoint.Mainnet,
         lensHandles: MainnetContracts.LensHandles,
         lensHub: MainnetContracts.LensHub,
