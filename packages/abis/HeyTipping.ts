@@ -89,7 +89,13 @@ export const HeyTipping = [
       {
         indexed: false,
         internalType: 'string',
-        name: 'profileId',
+        name: 'fromProfileId',
+        type: 'string'
+      },
+      {
+        indexed: false,
+        internalType: 'string',
+        name: 'toProfileId',
         type: 'string'
       },
       {
@@ -202,7 +208,8 @@ export const HeyTipping = [
       { internalType: 'address', name: 'tokenAddress', type: 'address' },
       { internalType: 'address', name: 'recipient', type: 'address' },
       { internalType: 'uint256', name: 'amount', type: 'uint256' },
-      { internalType: 'string', name: 'profileId', type: 'string' },
+      { internalType: 'string', name: 'fromProfileId', type: 'string' },
+      { internalType: 'string', name: 'toProfileId', type: 'string' },
       { internalType: 'string', name: 'publicationId', type: 'string' }
     ],
     name: 'tip',
