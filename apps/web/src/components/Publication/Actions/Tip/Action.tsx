@@ -133,8 +133,7 @@ const Action: FC<ActionProps> = ({
         address,
         currency: selectedCurrency?.symbol
       });
-
-      return toast.success('Tipping enabled!');
+      return;
     } catch (error) {
       errorToast(error);
     } finally {
