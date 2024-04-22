@@ -22,7 +22,8 @@ contract HeyTipping is
     address indexed from,
     address indexed to,
     uint256 amount,
-    string profileId,
+    string fromProfileId,
+    string toProfileId,
     string publicationId
   );
 
@@ -71,10 +72,11 @@ contract HeyTipping is
     address tokenAddress,
     address recipient,
     uint256 amount,
-    string calldata profileId,
+    string calldata fromProfileId,
+    string calldata toProfileId,
     string calldata publicationId
   ) public whenNotPaused nonReentrant {
-    bytes32 profileHash = keccak256(abi.encodePacked(profileId));
+    bytes32 fromProfileHash = keccak256(abi.encodePacked(fromProfileId));
     bytes32 publicationHash = keccak256(abi.encodePacked(publicationId));
     IERC20 token = IERC20(tokenAddress);
 
@@ -95,13 +97,14 @@ contract HeyTipping is
       revert TipFailed('Transfer failed');
     }
 
-    hasTipped[profileHash][publicationHash] = true;
+    hasTipped[fromProfileHash][publicationHash] = true;
     emit TipSent(
       tokenAddress,
       msg.sender,
       recipient,
       netAmount,
-      profileId,
+      fromProfileId,
+      toProfileId,
       publicationId
     );
   }

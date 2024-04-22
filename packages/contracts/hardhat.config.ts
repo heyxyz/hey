@@ -24,7 +24,10 @@ const config: HardhatUserConfig = {
       url: `https://polygon-amoy.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`
     }
   },
-  solidity: '0.8.23',
+  solidity: {
+    settings: { optimizer: { enabled: true }, viaIR: true },
+    version: '0.8.23'
+  },
   sourcify: { enabled: true }
 };
 
