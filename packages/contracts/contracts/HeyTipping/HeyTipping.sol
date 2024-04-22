@@ -24,7 +24,9 @@ contract HeyTipping is
     string profileId,
     string publicationId
   );
+
   error TipFailed(string message);
+  error InsufficientAllowance(string message);
 
   // Initializer instead of constructor for upgradeable contracts
   function initialize(address owner) public initializer {
@@ -68,8 +70,13 @@ contract HeyTipping is
   ) public whenNotPaused onlyOwner {
     bytes32 profileHash = keccak256(abi.encodePacked(profileId));
     bytes32 publicationHash = keccak256(abi.encodePacked(publicationId));
-
     IERC20 token = IERC20(tokenAddress);
+
+    // Check if the contract has enough allowance
+    uint256 allowed = token.allowance(msg.sender, address(this));
+    if (allowed < amount) {
+      revert InsufficientAllowance('Not enough allowance');
+    }
 
     bool success = token.transferFrom(msg.sender, recipient, amount);
     if (!success) {
