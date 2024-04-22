@@ -7,11 +7,11 @@ npx hardhat compile
 
 # Deploy to Amoy
 npx hardhat run script/HeyTipping/deploy.ts --network polygonAmoy
-npx hardhat verify 0xF56BEA166561D3dC30e594efae23E0BB8B65188e --network polygonAmoy
+npx hardhat verify 0xAadeC94DCD26555F464455d309a5E896f78cC65f --network polygonAmoy
 
 # Deploy to Polygon
 npx hardhat run script/HeyTipping/deploy.ts --network polygon
-npx hardhat verify 0x94fD8D9d2DC6D937E7e78E3204Cb76cE732505Fa --network polygon
+npx hardhat verify 0x264a366e6F639868c1A44D445334f92E3cdF3644 --network polygon
 ```
 
 ## Versions
@@ -20,6 +20,6 @@ npx hardhat verify 0x94fD8D9d2DC6D937E7e78E3204Cb76cE732505Fa --network polygon
 
 ## Contracts
 
-| Contract     | Mainnet                                                                                                                      | Amoy                                                                                                                            |
-| ------------ | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `HeyTipping` | [0x94fD8D9d2DC6D937E7e78E3204Cb76cE732505Fa](https://www.oklink.com/amoy/address/0x94fD8D9d2DC6D937E7e78E3204Cb76cE732505Fa) | [0xF56BEA166561D3dC30e594efae23E0BB8B65188e](https://www.oklink.com/polygon/address/0xF56BEA166561D3dC30e594efae23E0BB8B65188e) |
+| Contract     | Mainnet                                                                                                                         | Amoy                                                                                                                         |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `HeyTipping` | [0x264a366e6F639868c1A44D445334f92E3cdF3644](https://www.oklink.com/polygon/address/0x264a366e6F639868c1A44D445334f92E3cdF3644) | [0xAadeC94DCD26555F464455d309a5E896f78cC65f](https://www.oklink.com/amoy/address/0xAadeC94DCD26555F464455d309a5E896f78cC65f) |
