@@ -11,7 +11,7 @@ npx hardhat verify 0x6024Af3AA67C8f95f4A60fAdA33a1cC4c36927FF --network polygonA
 
 # Deploy to Polygon
 npx hardhat run script/HeyTipping/deploy.ts --network polygon
-npx hardhat verify 0xbacd292CbF060F8C1f07cB86D92cAF6118753E8C --network polygon
+npx hardhat verify 0x94fD8D9d2DC6D937E7e78E3204Cb76cE732505Fa --network polygon
 ```
 
 ## Versions

@@ -74,7 +74,8 @@ const Action: FC<ActionProps> = ({
   const { data: txHash, writeContractAsync } = useWriteContract();
 
   const { isLoading: isWaitingForTransaction } = useWaitForTransactionReceipt({
-    hash: txHash
+    hash: txHash,
+    query: { enabled: Boolean(txHash) }
   });
 
   const allowance = parseFloat(data?.toString() || '0');
