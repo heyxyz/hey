@@ -9,8 +9,10 @@ import {
   MAX_UINT256,
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
+import { PUBLICATION } from '@hey/data/tracking';
 import { Button, Input, Select } from '@hey/ui';
 import errorToast from '@lib/errorToast';
+import { Leafwatch } from '@lib/leafwatch';
 import { type FC, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import usePreventScrollOnNumberInput from 'src/hooks/usePreventScrollOnNumberInput';
@@ -127,6 +129,12 @@ const Action: FC<ActionProps> = ({
         args: [HEY_TIPPING, MAX_UINT256],
         functionName: 'approve'
       });
+      Leafwatch.track(PUBLICATION.TIP.ENABLE, {
+        address,
+        currency: selectedCurrency?.symbol
+      });
+
+      return toast.success('Tipping enabled!');
     } catch (error) {
       errorToast(error);
     } finally {
@@ -160,9 +168,15 @@ const Action: FC<ActionProps> = ({
         ],
         functionName: 'tip'
       });
-
+      Leafwatch.track(PUBLICATION.TIP.TIP, {
+        address,
+        amount,
+        currency: selectedCurrency?.symbol
+      });
       closePopover();
       triggerConfetti();
+
+      return toast.success('Tipped successfully!');
     } catch (error) {
       errorToast(error);
     } finally {
