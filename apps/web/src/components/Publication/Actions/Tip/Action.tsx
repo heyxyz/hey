@@ -171,6 +171,7 @@ const Action: FC<ActionProps> = ({
           publication.by.ownedBy.address,
           finalRate,
           currentProfile?.id,
+          publication.by.id,
           publication.id
         ],
         functionName: 'tip'
