@@ -80,6 +80,14 @@ const Action: FC<ActionProps> = ({
     query: { enabled: Boolean(txHash) }
   });
 
+  if (address !== currentProfile?.ownedBy.address) {
+    return (
+      <div className="m-5 space-y-3 text-sm font-bold">
+        Switch to correct wallet to tip!
+      </div>
+    );
+  }
+
   const allowance = parseFloat(data?.toString() || '0');
   const usdRate =
     fiatRates.find(
