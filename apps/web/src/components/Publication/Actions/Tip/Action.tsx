@@ -1,10 +1,18 @@
 import type { MirrorablePublication } from '@hey/lens';
 import type { AllowedToken } from '@hey/types/hey';
 
+import { HeyTipping } from '@hey/abis';
 import { Errors } from '@hey/data';
-import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from '@hey/data/constants';
+import {
+  DEFAULT_COLLECT_TOKEN,
+  HEY_TIPPING,
+  MAX_UINT256,
+  STATIC_IMAGES_URL
+} from '@hey/data/constants';
+import { PUBLICATION } from '@hey/data/tracking';
 import { Button, Input, Select } from '@hey/ui';
 import errorToast from '@lib/errorToast';
+import { Leafwatch } from '@lib/leafwatch';
 import { type FC, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import usePreventScrollOnNumberInput from 'src/hooks/usePreventScrollOnNumberInput';
@@ -14,7 +22,13 @@ import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useRatesStore } from 'src/store/persisted/useRatesStore';
 import { type Address, formatUnits } from 'viem';
-import { useAccount, useBalance, useWriteContract } from 'wagmi';
+import {
+  useAccount,
+  useBalance,
+  useReadContract,
+  useWaitForTransactionReceipt,
+  useWriteContract
+} from 'wagmi';
 
 interface ActionProps {
   closePopover: () => void;
@@ -51,13 +65,36 @@ const Action: FC<ActionProps> = ({
     token: selectedCurrency?.contractAddress as Address
   });
 
-  const { writeContractAsync } = useWriteContract();
+  const { data, isLoading: isGettingAllowance } = useReadContract({
+    abi: HeyTipping,
+    address: HEY_TIPPING,
+    args: [selectedCurrency?.contractAddress, address],
+    functionName: 'checkAllowance',
+    query: { refetchInterval: 2000 }
+  });
 
+  const { data: txHash, writeContractAsync } = useWriteContract();
+
+  const { isLoading: isWaitingForTransaction } = useWaitForTransactionReceipt({
+    hash: txHash,
+    query: { enabled: Boolean(txHash) }
+  });
+
+  if (address !== currentProfile?.ownedBy.address) {
+    return (
+      <div className="m-5 space-y-3 text-sm font-bold">
+        Switch to correct wallet to tip!
+      </div>
+    );
+  }
+
+  const allowance = parseFloat(data?.toString() || '0');
   const usdRate =
     fiatRates.find(
       (rate) => rate.address === selectedCurrency?.contractAddress.toLowerCase()
     )?.fiat || 0;
   const cryptoRate = !usdRate ? amount : Number((amount / usdRate).toFixed(2));
+  const finalRate = cryptoRate * 10 ** (selectedCurrency?.decimals || 18);
 
   const balance = balanceData
     ? parseFloat(
@@ -76,6 +113,42 @@ const Action: FC<ActionProps> = ({
     setAmount(value);
   };
 
+  const enableTipping = async () => {
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
+    }
+
+    try {
+      setIsLoading(true);
+
+      await writeContractAsync({
+        abi: [
+          {
+            inputs: [
+              { internalType: 'address', type: 'address' },
+              { internalType: 'uint256', type: 'uint256' }
+            ],
+            name: 'approve',
+            outputs: [{ internalType: 'bool', type: 'bool' }],
+            type: 'function'
+          }
+        ],
+        address: selectedCurrency?.contractAddress as Address,
+        args: [HEY_TIPPING, MAX_UINT256],
+        functionName: 'approve'
+      });
+      Leafwatch.track(PUBLICATION.TIP.ENABLE, {
+        address,
+        currency: selectedCurrency?.symbol
+      });
+      return;
+    } catch (error) {
+      errorToast(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleTip = async () => {
     if (!currentProfile) {
       closePopover();
@@ -91,33 +164,39 @@ const Action: FC<ActionProps> = ({
       setIsLoading(true);
 
       await writeContractAsync({
-        abi: [
-          {
-            inputs: [
-              { internalType: 'address', type: 'address' },
-              { internalType: 'uint256', type: 'uint256' }
-            ],
-            name: 'transfer',
-            outputs: [{ internalType: 'bool', type: 'bool' }],
-            type: 'function'
-          }
-        ],
-        address: selectedCurrency?.contractAddress as Address,
+        abi: HeyTipping,
+        address: HEY_TIPPING,
         args: [
+          selectedCurrency?.contractAddress,
           publication.by.ownedBy.address,
-          amount * 10 ** (selectedCurrency?.decimals || 18)
+          finalRate,
+          currentProfile?.id,
+          publication.id
         ],
-        functionName: 'transfer'
+        functionName: 'tip'
       });
-
+      Leafwatch.track(PUBLICATION.TIP.TIP, {
+        address,
+        amount,
+        currency: selectedCurrency?.symbol
+      });
       closePopover();
       triggerConfetti();
+      return;
     } catch (error) {
       errorToast(error);
     } finally {
       setIsLoading(false);
     }
   };
+
+  const hasAllowance = allowance >= finalRate;
+  const amountDisabled =
+    !currentProfile ||
+    !hasAllowance ||
+    isWaitingForTransaction ||
+    isGettingAllowance;
+  const submitButtonClassName = 'w-full py-1.5 text-sm font-semibold';
 
   return (
     <div className="m-5 space-y-3">
@@ -153,7 +232,7 @@ const Action: FC<ActionProps> = ({
       </div>
       <div className="space-x-4">
         <Button
-          disabled={!currentProfile}
+          disabled={amountDisabled}
           onClick={() => onSetAmount(2)}
           outline={amount !== 2}
           size="sm"
@@ -161,7 +240,7 @@ const Action: FC<ActionProps> = ({
           {usdRate ? '$' : ''}2
         </Button>
         <Button
-          disabled={!currentProfile}
+          disabled={amountDisabled}
           onClick={() => onSetAmount(5)}
           outline={amount !== 5}
           size="sm"
@@ -169,7 +248,7 @@ const Action: FC<ActionProps> = ({
           {usdRate ? '$' : ''}5
         </Button>
         <Button
-          disabled={!currentProfile}
+          disabled={amountDisabled}
           onClick={() => onSetAmount(10)}
           outline={amount !== 10}
           size="sm"
@@ -177,7 +256,7 @@ const Action: FC<ActionProps> = ({
           {usdRate ? '$' : ''}10
         </Button>
         <Button
-          disabled={!currentProfile}
+          disabled={amountDisabled}
           onClick={() => {
             onSetAmount(other ? 2 : 20);
             setOther(!other);
@@ -203,26 +282,44 @@ const Action: FC<ActionProps> = ({
         </div>
       ) : null}
       {currentProfile ? (
-        <Button
-          className="w-full py-2 text-sm font-semibold"
-          disabled={amount < 1 || isLoading || !canTip}
-          onClick={handleTip}
-        >
-          {usdRate ? (
-            <>
-              <b>Tip ${amount}</b>{' '}
-              <span className="font-light">
-                ({cryptoRate} {selectedCurrency?.symbol})
-              </span>
-            </>
-          ) : (
-            <b>
-              Tip {amount} {selectedCurrency?.symbol}
-            </b>
-          )}
-        </Button>
+        isWaitingForTransaction ? (
+          <Button className={submitButtonClassName} disabled>
+            Enabling tipping...
+          </Button>
+        ) : isGettingAllowance ? (
+          <Button className={submitButtonClassName} disabled>
+            Loading...
+          </Button>
+        ) : !hasAllowance ? (
+          <Button
+            className={submitButtonClassName}
+            disabled={isLoading}
+            onClick={enableTipping}
+          >
+            Enable tipping for {selectedCurrency?.symbol}
+          </Button>
+        ) : (
+          <Button
+            className={submitButtonClassName}
+            disabled={amount < 1 || isLoading || !canTip}
+            onClick={handleTip}
+          >
+            {usdRate ? (
+              <>
+                <b>Tip ${amount}</b>{' '}
+                <span className="font-light">
+                  ({cryptoRate} {selectedCurrency?.symbol})
+                </span>
+              </>
+            ) : (
+              <b>
+                Tip {amount} {selectedCurrency?.symbol}
+              </b>
+            )}
+          </Button>
+        )
       ) : (
-        <Button className="w-full" onClick={handleTip}>
+        <Button className={submitButtonClassName} onClick={handleTip}>
           Log in to tip
         </Button>
       )}
