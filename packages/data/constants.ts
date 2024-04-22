@@ -20,6 +20,7 @@ export const HEY_LENS_SIGNUP = getEnvConfig().heyLensSignup;
 export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 export const PERMISSIONLESS_CREATOR = getEnvConfig().permissionlessCreator;
 export const HEY_PRO = getEnvConfig().heyPro;
+export const HEY_TIPPING = getEnvConfig().heyTipping;
 
 export const IS_MAINNET = LENS_API_URL === LensEndpoint.Mainnet;
 export const ADDRESS_PLACEHOLDER = '0x03Ba3...7EF';
@@ -29,6 +30,7 @@ export const APP_NAME = 'Hey';
 export const DESCRIPTION = `${APP_NAME}.xyz is a decentralized, and permissionless social media app built with Lens Protocol 🌿`;
 export const APP_VERSION = packageJson.version;
 export const BRAND_COLOR = '#FB3A5D';
+export const MAX_UINT256 = 2n ** 256n - 1n;
 
 // Git
 export const GIT_COMMIT_SHA =
