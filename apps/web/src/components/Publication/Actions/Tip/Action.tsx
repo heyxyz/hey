@@ -11,6 +11,7 @@ import {
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
+import formatAddress from '@hey/lib/formatAddress';
 import { Button, HelpTooltip, Input, Select } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
@@ -30,6 +31,8 @@ import {
   useWaitForTransactionReceipt,
   useWriteContract
 } from 'wagmi';
+
+const submitButtonClassName = 'w-full py-1.5 text-sm font-semibold';
 
 interface ActionProps {
   closePopover: () => void;
@@ -81,10 +84,32 @@ const Action: FC<ActionProps> = ({
     query: { enabled: Boolean(txHash) }
   });
 
-  if (address !== currentProfile?.ownedBy.address) {
+  if (!currentProfile) {
+    return (
+      <div className="m-5">
+        <Button
+          className={submitButtonClassName}
+          onClick={() => {
+            if (!currentProfile) {
+              closePopover();
+              setShowAuthModal(true);
+              return;
+            }
+          }}
+        >
+          Log in to tip
+        </Button>
+      </div>
+    );
+  }
+
+  if (!address) {
     return (
       <div className="m-5 space-y-3 text-sm font-bold">
-        Switch to correct wallet to tip!
+        <div>Connect to correct wallet to tip!</div>
+        <div className="ld-text-gray-500">
+          Switch to: {formatAddress(currentProfile?.ownedBy.address)}
+        </div>
       </div>
     );
   }
@@ -151,12 +176,6 @@ const Action: FC<ActionProps> = ({
   };
 
   const handleTip = async () => {
-    if (!currentProfile) {
-      closePopover();
-      setShowAuthModal(true);
-      return;
-    }
-
     if (isSuspended) {
       return toast.error(Errors.Suspended);
     }
@@ -198,7 +217,6 @@ const Action: FC<ActionProps> = ({
     !hasAllowance ||
     isWaitingForTransaction ||
     isGettingAllowance;
-  const submitButtonClassName = 'w-full py-1.5 text-sm font-semibold';
 
   return (
     <div className="m-5 space-y-3">
@@ -302,46 +320,40 @@ const Action: FC<ActionProps> = ({
           />
         </div>
       ) : null}
-      {currentProfile ? (
-        isWaitingForTransaction ? (
-          <Button className={submitButtonClassName} disabled>
-            Enabling tipping...
-          </Button>
-        ) : isGettingAllowance ? (
-          <Button className={submitButtonClassName} disabled>
-            Loading...
-          </Button>
-        ) : !hasAllowance ? (
-          <Button
-            className={submitButtonClassName}
-            disabled={isLoading}
-            onClick={enableTipping}
-          >
-            Enable tipping for {selectedCurrency?.symbol}
-          </Button>
-        ) : (
-          <Button
-            className={submitButtonClassName}
-            disabled={!amount || isLoading || !canTip}
-            onClick={handleTip}
-          >
-            {usdRate ? (
-              <>
-                <b>Tip ${amount}</b>{' '}
-                <span className="font-light">
-                  ({cryptoRate} {selectedCurrency?.symbol})
-                </span>
-              </>
-            ) : (
-              <b>
-                Tip {amount} {selectedCurrency?.symbol}
-              </b>
-            )}
-          </Button>
-        )
+      {isWaitingForTransaction ? (
+        <Button className={submitButtonClassName} disabled>
+          Enabling tipping...
+        </Button>
+      ) : isGettingAllowance ? (
+        <Button className={submitButtonClassName} disabled>
+          Loading...
+        </Button>
+      ) : !hasAllowance ? (
+        <Button
+          className={submitButtonClassName}
+          disabled={isLoading}
+          onClick={enableTipping}
+        >
+          Enable tipping for {selectedCurrency?.symbol}
+        </Button>
       ) : (
-        <Button className={submitButtonClassName} onClick={handleTip}>
-          Log in to tip
+        <Button
+          className={submitButtonClassName}
+          disabled={!amount || isLoading || !canTip}
+          onClick={handleTip}
+        >
+          {usdRate ? (
+            <>
+              <b>Tip ${amount}</b>{' '}
+              <span className="font-light">
+                ({cryptoRate} {selectedCurrency?.symbol})
+              </span>
+            </>
+          ) : (
+            <b>
+              Tip {amount} {selectedCurrency?.symbol}
+            </b>
+          )}
         </Button>
       )}
     </div>
