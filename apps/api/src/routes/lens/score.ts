@@ -23,13 +23,13 @@ export const get: Handler = async (req, res) => {
           notification_receiving_profile_id AS profile_id,
           SUM(
             CASE 
-              WHEN notification_type = 'ACTED' THEN 5
-              WHEN notification_type = 'COMMENTED' THEN 3
-              WHEN notification_type = 'FOLLOWED' THEN 10
-              WHEN notification_type = 'MENTIONED' THEN 2
-              WHEN notification_type = 'MIRRORED' THEN 4
-              WHEN notification_type = 'QUOTED' THEN 6
               WHEN notification_type = 'REACTED' THEN 1
+              WHEN notification_type = 'COMMENTED' THEN 2
+              WHEN notification_type = 'MENTIONED' THEN 3
+              WHEN notification_type = 'MIRRORED' THEN 4
+              WHEN notification_type = 'ACTED' THEN 4
+              WHEN notification_type = 'FOLLOWED' THEN 5
+              WHEN notification_type = 'QUOTED' THEN 5
               ELSE 0
             END
           ) AS score
