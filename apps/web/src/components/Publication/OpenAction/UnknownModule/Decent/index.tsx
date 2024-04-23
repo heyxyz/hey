@@ -105,9 +105,12 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({
         sourceUrl: og.url
       };
 
+  const [loadingCurrency, setLoadingCurrency] = useState(false);
+
   useEffect(
     () => {
       const actionDataFromPost = async () => {
+        setLoadingCurrency(true);
         const nftOpenActionKit = new NftOpenActionKit({
           decentApiKey: process.env.NEXT_PUBLIC_DECENT_API_KEY || '',
           openSeaApiKey: process.env.NEXT_PUBLIC_OPENSEA_API_KEY || '',
@@ -138,11 +141,13 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({
               senderAddress: addressParameter as Address,
               srcChainId: '137' // srcChainId, only supported on Polygon POS for now
             });
+          setLoadingCurrency(false);
           if (actionDataResult) {
             setActionData(actionDataResult);
           }
         } catch (error) {
           errorToast(error);
+          setLoadingCurrency(false);
         }
       };
 
@@ -234,6 +239,7 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({
       </Card>
       <DecentOpenActionModule
         actionData={actionData}
+        loadingCurrency={loadingCurrency}
         module={module as UnknownOpenActionModuleSettings}
         nft={nft}
         onClose={() => setShowOpenActionModal(false)}

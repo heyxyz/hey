@@ -15,6 +15,7 @@ interface DecentActionProps {
   allowanceLoading?: boolean;
   className?: string;
   isLoading?: boolean;
+  loadingCurrency?: boolean;
   moduleAmount?: Amount;
   txHash?: string;
 }
@@ -24,6 +25,7 @@ const DecentAction: FC<DecentActionProps> = ({
   allowanceLoading,
   className = '',
   isLoading = false,
+  loadingCurrency,
   moduleAmount,
   txHash
 }) => {
@@ -55,6 +57,19 @@ const DecentAction: FC<DecentActionProps> = ({
     return (
       <div className="w-full">
         <LoginButton isBig isFullWidth title="Login to Mint" />
+      </div>
+    );
+  }
+
+  if (loadingCurrency) {
+    return (
+      <div
+        className={cn(
+          'shimmer flex h-[34px] w-28 items-center justify-center rounded-lg',
+          className
+        )}
+      >
+        <p>Switching currencies</p>
       </div>
     );
   }

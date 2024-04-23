@@ -50,6 +50,7 @@ const TOOLTIP_PRICE_HELP =
   'You don’t have enough native Zora ETH so we switched you to the next token with the lowest gas that you have enough of (lol)';
 interface DecentOpenActionModuleProps {
   actionData?: ActionData;
+  loadingCurrency?: boolean;
   module: UnknownOpenActionModuleSettings;
   nft: Nft;
   onClose: () => void;
@@ -69,6 +70,7 @@ interface Permit2Data {
 
 const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   actionData,
+  loadingCurrency,
   module,
   nft,
   onClose,
@@ -413,7 +415,8 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
               <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
                 <span className="space-x-1">Price</span>
                 <div>
-                  {formattedPrice.toFixed(8)} {selectedCurrency?.symbol}
+                  {loadingCurrency ? '--' : formattedPrice.toFixed(8)}{' '}
+                  {selectedCurrency?.symbol}
                 </div>
               </div>
               <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
@@ -423,17 +426,26 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                 >
                   Fees <ChevronDownIcon className="w-2" strokeWidth={3} />
                 </button>
-                <div>{formattedTotalFees.toFixed(2)} USD</div>
+                <div>
+                  {loadingCurrency ? '--' : formattedTotalFees.toFixed(2)} USD
+                </div>
               </div>
               {showFees ? (
                 <>
                   <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
                     <span className="space-x-1">Bridge Fee</span>
-                    <div>{bridgeFee.toFixed(2)} USD</div>
+                    <div>
+                      {loadingCurrency ? '--' : bridgeFee.toFixed(2)} USD
+                    </div>
                   </div>
                   <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
                     <span className="space-x-1">Lens Creator Fee</span>
-                    <div>{(formattedPrice * 0.05).toFixed(2)} USD</div>
+                    <div>
+                      {loadingCurrency
+                        ? '--'
+                        : (formattedPrice * 0.05).toFixed(2)}{' '}
+                      USD
+                    </div>
                   </div>
                 </>
               ) : null}
@@ -448,13 +460,16 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                 </span>
                 <div className="flex flex-col items-end">
                   <p>
-                    {formattedTotalPrice} {selectedCurrency?.symbol}
+                    {loadingCurrency ? '--' : formattedTotalPrice}{' '}
+                    {selectedCurrency?.symbol}
                   </p>
                   <div className="ld-text-gray-500 text-sm">
                     ~$
-                    {(Number(formattedTotalPrice) * usdPrice).toFixed(
-                      selectedCurrency?.symbol === 'WETH' ? 4 : 2
-                    )}{' '}
+                    {loadingCurrency
+                      ? '--'
+                      : (Number(formattedTotalPrice) * usdPrice).toFixed(
+                          selectedCurrency?.symbol === 'WETH' ? 4 : 2
+                        )}{' '}
                   </div>
                 </div>
               </div>
@@ -467,7 +482,8 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                     : () => setIsModalCollapsed(!isModalCollapsed)
                 }
                 className="w-full justify-center"
-                isLoading={isLoading}
+                isLoading={isLoading || loadingCurrency}
+                loadingCurrency={loadingCurrency}
                 moduleAmount={{
                   asset: {
                     contract: {
