@@ -192,15 +192,11 @@ const CollectAction: FC<CollectActionProps> = ({
     onCollectSuccess?.();
     updateCache();
     toast.success('Collected successfully!');
-    Leafwatch.track(
-      PUBLICATION.COLLECT_MODULE.COLLECT,
-      {
-        amount,
-        collect_module: openAction?.type,
-        publication_id: targetPublication?.id
-      },
-      targetPublication.by.ownedBy.address
-    );
+    Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
+      amount,
+      collect_module: openAction?.type,
+      publication_id: targetPublication?.id
+    });
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });

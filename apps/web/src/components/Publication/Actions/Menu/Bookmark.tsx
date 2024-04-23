@@ -68,11 +68,9 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
   const [addPublicationBookmark] = useAddPublicationBookmarkMutation({
     onCompleted: () => {
       toast.success('Publication bookmarked!');
-      Leafwatch.track(
-        PUBLICATION.BOOKMARK,
-        { publication_id: targetPublication.id },
-        targetPublication.by.ownedBy.address
-      );
+      Leafwatch.track(PUBLICATION.BOOKMARK, {
+        publication_id: targetPublication.id
+      });
     },
     onError: (error) => {
       toggleHasBookmarked();
