@@ -11,7 +11,7 @@ npx hardhat verify 0xAadeC94DCD26555F464455d309a5E896f78cC65f --network polygonA
 
 # Deploy to Polygon
 npx hardhat run script/HeyTipping/deploy.ts --network polygon
-npx hardhat verify 0xeaa840189D8266A7452e8003ab06110E0027079d --network polygon
+npx hardhat verify 0xCFeB907551c3C7E4Df2627B2Ed3D0C782702785B --network polygon
 ```
 
 ## Versions
@@ -22,4 +22,4 @@ npx hardhat verify 0xeaa840189D8266A7452e8003ab06110E0027079d --network polygon
 
 | Contract     | Mainnet                                                                                                                         | Amoy                                                                                                                         |
 | ------------ | ------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `HeyTipping` | [0xeaa840189D8266A7452e8003ab06110E0027079d](https://www.oklink.com/polygon/address/0xeaa840189D8266A7452e8003ab06110E0027079d) | [0xAadeC94DCD26555F464455d309a5E896f78cC65f](https://www.oklink.com/amoy/address/0xAadeC94DCD26555F464455d309a5E896f78cC65f) |
+| `HeyTipping` | [0xCFeB907551c3C7E4Df2627B2Ed3D0C782702785B](https://www.oklink.com/polygon/address/0xCFeB907551c3C7E4Df2627B2Ed3D0C782702785B) | [0xAadeC94DCD26555F464455d309a5E896f78cC65f](https://www.oklink.com/amoy/address/0xAadeC94DCD26555F464455d309a5E896f78cC65f) |
