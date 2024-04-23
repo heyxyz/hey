@@ -10,7 +10,7 @@ import {
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
-import { Button, Input, Select } from '@hey/ui';
+import { Button, HelpTooltip, Input, Select } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { type FC, useRef, useState } from 'react';
@@ -220,15 +220,26 @@ const Action: FC<ActionProps> = ({
             value: token.contractAddress
           }))}
         />
-        <div className="ld-text-gray-500 flex items-center space-x-1 text-xs">
-          <span>Balance:</span>
-          <span>
-            {balanceData ? (
-              `${balance} ${selectedCurrency?.symbol}`
-            ) : (
-              <div className="shimmer h-2.5 w-14 rounded-full" />
-            )}
-          </span>
+        <div className="ld-text-gray-500 flex items-center justify-between text-xs">
+          <div className="flex items-center space-x-1">
+            <span>Balance:</span>
+            <span>
+              {balanceData ? (
+                `${balance} ${selectedCurrency?.symbol}`
+              ) : (
+                <div className="shimmer h-2.5 w-14 rounded-full" />
+              )}
+            </span>
+          </div>
+          <HelpTooltip>
+            <b>Fees</b>
+            <div className="flex items-start space-x-10">
+              <div>Lens Protocol</div>
+              <b>
+                {(cryptoRate * 0.05).toFixed(2)} {selectedCurrency?.symbol} (5%)
+              </b>
+            </div>
+          </HelpTooltip>
         </div>
       </div>
       <div className="space-x-4">
@@ -273,7 +284,6 @@ const Action: FC<ActionProps> = ({
           <Input
             className="no-spinner"
             max={1000 || 0}
-            min={1}
             onChange={onOtherAmount}
             placeholder="300"
             ref={inputRef}
@@ -302,7 +312,7 @@ const Action: FC<ActionProps> = ({
         ) : (
           <Button
             className={submitButtonClassName}
-            disabled={amount < 1 || isLoading || !canTip}
+            disabled={!amount || isLoading || !canTip}
             onClick={handleTip}
           >
             {usdRate ? (
