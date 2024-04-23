@@ -20,7 +20,7 @@
     "dayjs": "^1.11.10",
     "omit-deep": "^0.3.0",
     "urlcat": "^3.1.0",
-    "viem": "^2.9.23"
+    "viem": "^2.9.25"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
