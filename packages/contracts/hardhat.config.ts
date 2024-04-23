@@ -9,8 +9,18 @@ const config: HardhatUserConfig = {
   etherscan: {
     apiKey: {
       polygon: process.env.POLYGON_ETHERSCAN_API_KEY!,
-      polygonAmoy: process.env.OKLINK_API_KEY!
-    }
+      polygonAmoy: process.env.POLYGON_ETHERSCAN_API_KEY!
+    },
+    customChains: [
+      {
+        chainId: 80002,
+        network: 'polygonAmoy',
+        urls: {
+          apiURL: 'https://api-amoy.polygonscan.com/api',
+          browserURL: 'https://amoy.polygonscan.com'
+        }
+      }
+    ]
   },
   networks: {
     polygon: {

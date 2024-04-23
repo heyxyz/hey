@@ -22,4 +22,4 @@ npx hardhat verify 0xCFeB907551c3C7E4Df2627B2Ed3D0C782702785B --network polygon
 
 | Contract     | Mainnet                                                                                                                         | Amoy                                                                                                                         |
 | ------------ | ------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `HeyTipping` | [0xCFeB907551c3C7E4Df2627B2Ed3D0C782702785B](https://www.oklink.com/polygon/address/0xCFeB907551c3C7E4Df2627B2Ed3D0C782702785B) | [0xAadeC94DCD26555F464455d309a5E896f78cC65f](https://www.oklink.com/amoy/address/0xAadeC94DCD26555F464455d309a5E896f78cC65f) |
+| `HeyTipping` | [0xCFeB907551c3C7E4Df2627B2Ed3D0C782702785B](https://polygonscan.com/address/0xCFeB907551c3C7E4Df2627B2Ed3D0C782702785B) | [0xAadeC94DCD26555F464455d309a5E896f78cC65f](https://amoy.polygonscan.com/amoy/address/0xAadeC94DCD26555F464455d309a5E896f78cC65f) |
