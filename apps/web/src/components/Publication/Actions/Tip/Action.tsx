@@ -172,7 +172,7 @@ const Action: FC<ActionProps> = ({
           finalRate,
           currentProfile?.id,
           publication.by.id,
-          publication.id
+          publication.id.split('-')[1]
         ],
         functionName: 'tip'
       });

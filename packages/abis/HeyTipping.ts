@@ -1,6 +1,18 @@
 export const HeyTipping = [
+  {
+    inputs: [{ internalType: 'address', name: 'target', type: 'address' }],
+    name: 'AddressEmptyCode',
+    type: 'error'
+  },
+  {
+    inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
+    name: 'AddressInsufficientBalance',
+    type: 'error'
+  },
   { inputs: [], name: 'EnforcedPause', type: 'error' },
   { inputs: [], name: 'ExpectedPause', type: 'error' },
+  { inputs: [], name: 'FailedInnerCall', type: 'error' },
+  { inputs: [], name: 'FeesBpsTooHigh', type: 'error' },
   {
     inputs: [{ internalType: 'string', name: 'message', type: 'string' }],
     name: 'InsufficientAllowance',
@@ -19,6 +31,11 @@ export const HeyTipping = [
     type: 'error'
   },
   { inputs: [], name: 'ReentrancyGuardReentrantCall', type: 'error' },
+  {
+    inputs: [{ internalType: 'address', name: 'token', type: 'address' }],
+    name: 'SafeERC20FailedOperation',
+    type: 'error'
+  },
   {
     inputs: [{ internalType: 'string', name: 'message', type: 'string' }],
     name: 'TipFailed',
@@ -74,35 +91,40 @@ export const HeyTipping = [
     inputs: [
       {
         indexed: true,
+        internalType: 'uint256',
+        name: 'fromProfileId',
+        type: 'uint256'
+      },
+      {
+        indexed: true,
+        internalType: 'uint256',
+        name: 'toProfileId',
+        type: 'uint256'
+      },
+      {
+        indexed: true,
+        internalType: 'uint256',
+        name: 'publicationId',
+        type: 'uint256'
+      },
+      {
+        indexed: false,
         internalType: 'address',
         name: 'token',
         type: 'address'
       },
-      { indexed: true, internalType: 'address', name: 'from', type: 'address' },
-      { indexed: true, internalType: 'address', name: 'to', type: 'address' },
+      {
+        indexed: false,
+        internalType: 'address',
+        name: 'from',
+        type: 'address'
+      },
+      { indexed: false, internalType: 'address', name: 'to', type: 'address' },
       {
         indexed: false,
         internalType: 'uint256',
         name: 'amount',
         type: 'uint256'
-      },
-      {
-        indexed: false,
-        internalType: 'string',
-        name: 'fromProfileId',
-        type: 'string'
-      },
-      {
-        indexed: false,
-        internalType: 'string',
-        name: 'toProfileId',
-        type: 'string'
-      },
-      {
-        indexed: false,
-        internalType: 'string',
-        name: 'publicationId',
-        type: 'string'
       }
     ],
     name: 'TipSent',
@@ -132,29 +154,9 @@ export const HeyTipping = [
     type: 'function'
   },
   {
-    inputs: [
-      { internalType: 'string', name: 'profileId', type: 'string' },
-      { internalType: 'string', name: 'publicationId', type: 'string' }
-    ],
-    name: 'checkIfTipped',
-    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
     inputs: [],
     name: 'feesBps',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [
-      { internalType: 'bytes32', name: '', type: 'bytes32' },
-      { internalType: 'bytes32', name: '', type: 'bytes32' }
-    ],
-    name: 'hasTipped',
-    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function'
   },
@@ -208,9 +210,9 @@ export const HeyTipping = [
       { internalType: 'address', name: 'tokenAddress', type: 'address' },
       { internalType: 'address', name: 'recipient', type: 'address' },
       { internalType: 'uint256', name: 'amount', type: 'uint256' },
-      { internalType: 'string', name: 'fromProfileId', type: 'string' },
-      { internalType: 'string', name: 'toProfileId', type: 'string' },
-      { internalType: 'string', name: 'publicationId', type: 'string' }
+      { internalType: 'uint256', name: 'fromProfileId', type: 'uint256' },
+      { internalType: 'uint256', name: 'toProfileId', type: 'uint256' },
+      { internalType: 'uint256', name: 'publicationId', type: 'uint256' }
     ],
     name: 'tip',
     outputs: [],
