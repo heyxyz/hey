@@ -134,19 +134,14 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   // Convert totalAmount to a number with decimals
   const { decimals } = selectedCurrency;
   const formattedPrice = Number(totalAmount) / Math.pow(10, decimals);
-  /* Temporarily disabled on API endpoint and helper library  
-const formattedTotalFees = (
-    actionData
-      ? actionData.actArgumentsFormatted.bridgeFee.amount /
-        BigInt(10 ** selectedCurrency.decimals)
-      : BigInt(0) 
-      ).toString();
-      */
-  const formattedTotalFees = 0.0;
 
-  const formattedTotalPrice = (formattedPrice + formattedTotalFees)
-    .toFixed(4)
-    .toString();
+  const formattedTotalPrice = formattedPrice.toFixed(4);
+
+  const bridgeFee = actionData
+    ? actionData.actArgumentsFormatted.bridgeFeeNative * usdPrice
+    : 0;
+
+  const formattedTotalFees = bridgeFee + formattedPrice * 0.05;
 
   const formattedNftSchema = nft.schema === 'erc1155' ? 'ERC-1155' : 'ERC-721';
 
@@ -428,17 +423,19 @@ const formattedTotalFees = (
                 >
                   Fees <ChevronDownIcon className="w-2" strokeWidth={3} />
                 </button>
-                <div>
-                  {formattedTotalFees} {selectedCurrency?.symbol}
-                </div>
+                <div>{formattedTotalFees.toFixed(2)} USD</div>
               </div>
               {showFees ? (
-                <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
-                  <span className="space-x-1">Bridge Fee</span>
-                  <div>
-                    {formattedTotalFees} {selectedCurrency?.symbol}
+                <>
+                  <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
+                    <span className="space-x-1">Bridge Fee</span>
+                    <div>{bridgeFee.toFixed(2)} USD</div>
                   </div>
-                </div>
+                  <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
+                    <span className="space-x-1">Lens Creator Fee</span>
+                    <div>{(formattedPrice * 0.05).toFixed(2)} USD</div>
+                  </div>
+                </>
               ) : null}
               <div className="mt-4 flex items-start justify-between space-y-0.5 text-xl text-gray-600 dark:text-gray-100">
                 <span className="flex items-baseline justify-start gap-1 space-x-1">
