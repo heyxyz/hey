@@ -1,42 +1,33 @@
 import type { Handler } from 'express';
 
-import { Regex } from '@hey/data/regex';
 import { ALL_EVENTS } from '@hey/data/tracking';
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
-import slugify from '@hey/lib/slugify';
 import requestIp from 'request-ip';
 import catchedError from 'src/lib/catchedError';
 import createClickhouseClient from 'src/lib/createClickhouseClient';
 import findEventKeyDeep from 'src/lib/leafwatch/findEventKeyDeep';
 import { invalidBody, noBody } from 'src/lib/responses';
-import grantScore from 'src/lib/score/grantScore';
 import UAParser from 'ua-parser-js';
 import urlcat from 'urlcat';
 import { any, object, string } from 'zod';
 
 type ExtensionRequest = {
-  actor?: string;
   fingerprint?: string;
   name: string;
   platform: 'mobile' | 'web';
   properties?: string;
   referrer?: string;
-  scoreAddress?: string;
   url: string;
-  wallet?: string;
 };
 
 const validationSchema = object({
-  actor: string().nullable().optional(),
   fingerprint: string().nullable().optional(),
   name: string().min(1, { message: 'Name is required!' }),
   platform: string(),
   properties: any(),
   referrer: string().nullable().optional(),
-  scoreAddress: string().nullable().optional(),
-  url: string(),
-  wallet: string().regex(Regex.ethereumAddress).nullable().optional()
+  url: string()
 });
 
 export const post: Handler = async (req, res) => {
@@ -47,24 +38,14 @@ export const post: Handler = async (req, res) => {
   }
 
   const accessToken = req.headers['x-access-token'] as string;
-  const network = req.headers['x-lens-network'] as string;
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
     return invalidBody(res);
   }
 
-  const {
-    actor,
-    fingerprint,
-    name,
-    platform,
-    properties,
-    referrer,
-    scoreAddress,
-    url,
-    wallet
-  } = body as ExtensionRequest;
+  const { fingerprint, name, platform, properties, referrer, url } =
+    body as ExtensionRequest;
 
   if (!findEventKeyDeep(ALL_EVENTS, name)?.length) {
     return res.status(400).json({ error: 'Invalid event!', success: false });
@@ -102,6 +83,7 @@ export const post: Handler = async (req, res) => {
     const utmCampaign = parsedUrl.searchParams.get('utm_campaign') || null;
     const utmTerm = parsedUrl.searchParams.get('utm_term') || null;
     const utmContent = parsedUrl.searchParams.get('utm_content') || null;
+    const payload = parseJwt(accessToken);
 
     const client = createClickhouseClient();
     const result = await client.insert({
@@ -109,7 +91,7 @@ export const post: Handler = async (req, res) => {
       table: 'events',
       values: [
         {
-          actor: actor || null,
+          actor: payload.id || null,
           browser: ua.browser.name || null,
           browser_version: ua.browser.version || null,
           city: ipData?.city || null,
@@ -128,34 +110,10 @@ export const post: Handler = async (req, res) => {
           utm_medium: utmMedium || null,
           utm_source: utmSource || null,
           utm_term: utmTerm || null,
-          wallet: wallet || null
+          wallet: payload.evmAddress || null
         }
       ]
     });
-
-    const payload = parseJwt(accessToken);
-
-    if (scoreAddress || payload.evmAddress) {
-      const id = Buffer.from(
-        `${slugify(name)}-${scoreAddress}-${JSON.stringify(properties)}`
-      ).toString('base64');
-      const payload = parseJwt(accessToken);
-      const pointSystemId = network === 'mainnet' ? 1464 : 691;
-      const sourceActor = actor || payload.id;
-      const sourceAddress = payload.evmAddress;
-      const targetAddress = scoreAddress;
-      const grantingAddress = targetAddress || sourceAddress;
-
-      grantScore({
-        grantingAddress,
-        id,
-        name,
-        pointSystemId,
-        sourceActor,
-        sourceAddress,
-        targetAddress
-      });
-    }
 
     logger.info('Ingested event to Leafwatch');
 
