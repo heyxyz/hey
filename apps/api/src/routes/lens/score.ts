@@ -2,7 +2,7 @@ import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
 import catchedError from 'src/lib/catchedError';
-import { SWR_CACHE_AGE_10_MINS_30_DAYS } from 'src/lib/constants';
+import { CACHE_AGE_1_DAY } from 'src/lib/constants';
 import lensPrisma from 'src/lib/lensPrisma';
 import { noBody } from 'src/lib/responses';
 
@@ -15,7 +15,7 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const scores = await lensPrisma.$queryRaw<any>`
+    const scores = await lensPrisma.$queryRaw<{ score: number }[]>`
       SELECT profile_id, SUM(score) AS score
       FROM (
         -- Scores from notifications
@@ -84,8 +84,8 @@ export const get: Handler = async (req, res) => {
 
     return res
       .status(200)
-      .setHeader('Cache-Control', SWR_CACHE_AGE_10_MINS_30_DAYS)
-      .json({ score, success: true });
+      .setHeader('Cache-Control', CACHE_AGE_1_DAY)
+      .json({ cached: new Date().toISOString(), score, success: true });
   } catch (error) {
     catchedError(res, error);
   }
