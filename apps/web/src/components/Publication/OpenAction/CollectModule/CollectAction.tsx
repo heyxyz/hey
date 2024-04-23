@@ -195,6 +195,7 @@ const CollectAction: FC<CollectActionProps> = ({
     Leafwatch.track(
       PUBLICATION.COLLECT_MODULE.COLLECT,
       {
+        amount,
         collect_module: openAction?.type,
         publication_id: targetPublication?.id
       },
