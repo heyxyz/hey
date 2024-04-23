@@ -73,26 +73,13 @@ export const HeyPro = [
     anonymous: false,
     inputs: [
       {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'profileId',
-        type: 'uint256'
-      }
-    ],
-    name: 'SubscriptionCancelled',
-    type: 'event'
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
+        indexed: true,
         internalType: 'uint256',
         name: 'profileId',
         type: 'uint256'
       },
       {
-        indexed: false,
+        indexed: true,
         internalType: 'uint256',
         name: 'newExpiryDate',
         type: 'uint256'
@@ -113,13 +100,6 @@ export const HeyPro = [
     ],
     name: 'Unpaused',
     type: 'event'
-  },
-  {
-    inputs: [{ internalType: 'uint256', name: 'profileId', type: 'uint256' }],
-    name: 'cancelSubscription',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
   },
   {
     inputs: [

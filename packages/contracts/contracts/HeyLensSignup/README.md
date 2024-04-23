@@ -33,6 +33,6 @@ npx hardhat verify 0x4b8845ACb8148dE64D1D99Cf27A3890a91F55E53 --network polygon
 
 ## Contracts
 
-| Contract        | Mainnet                                                                                                                         | Amoy                                                                                                                         |
-| --------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `HeyLensSignup` | [0x4b8845ACb8148dE64D1D99Cf27A3890a91F55E53](https://polygonscan.com/address/0x4b8845ACb8148dE64D1D99Cf27A3890a91F55E53) | [0x82Bcb5DA51c6F3D0Ce942bDBEbb0B8A7774d62e8](https://amoy.polygonscan.com/amoy/address/0x82Bcb5DA51c6F3D0Ce942bDBEbb0B8A7774d62e8) |
+| Contract | Amoy                                         | Mainnet                                      |
+|----------|----------------------------------------------|----------------------------------------------|
+| `HeyPro` | `0x82Bcb5DA51c6F3D0Ce942bDBEbb0B8A7774d62e8` | `0x4b8845ACb8148dE64D1D99Cf27A3890a91F55E53` |
