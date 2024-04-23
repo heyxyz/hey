@@ -30,7 +30,7 @@
     "@hey/lib": "workspace:*",
     "@irys/sdk": "^0.1.22",
     "@prisma/client": "^5.12.1",
-    "@stackso/js-core": "^0.2.27",
+    "@stackso/js-core": "^0.2.28",
     "axios": "^1.6.8",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
@@ -44,9 +44,9 @@
     "ua-parser-js": "^1.0.37",
     "urlcat": "^3.1.0",
     "uuid": "^9.0.1",
-    "viem": "^2.9.23",
+    "viem": "^2.9.25",
     "vite-express": "^0.16.0",
-    "zod": "^3.22.5"
+    "zod": "^3.23.3"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
