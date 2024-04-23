@@ -7,11 +7,11 @@ npx hardhat compile
 
 # Deploy to Amoy
 npx hardhat run script/HeyPro/deploy.ts --network polygonAmoy
-npx hardhat verify 0x6024Af3AA67C8f95f4A60fAdA33a1cC4c36927FF --network polygonAmoy
+npx hardhat verify 0x8f5C228E4b9C4Ff01e84C0C4DBDdFe969F6Ca0Ed --network polygonAmoy
 
 # Deploy to Polygon
 npx hardhat run script/HeyPro/deploy.ts --network polygon
-npx hardhat verify 0x69A31eA6Af50AcB3ea662e348F9F34b8517743dc --network polygon
+npx hardhat verify 0x4D5b616163387fA1Eb26bd1e84bd61C6fdA18C3a --network polygon
 ```
 
 ## Versions
@@ -20,6 +20,6 @@ npx hardhat verify 0x69A31eA6Af50AcB3ea662e348F9F34b8517743dc --network polygon
 
 ## Contracts
 
-| Contract | Mainnet                                                                                                                         | Amoy                                                                                                                         |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `HeyPro` | [0x69A31eA6Af50AcB3ea662e348F9F34b8517743dc](https://polygonscan.com/address/0x69A31eA6Af50AcB3ea662e348F9F34b8517743dc) | [0x6024Af3AA67C8f95f4A60fAdA33a1cC4c36927FF](https://amoy.polygonscan.com/amoy/address/0x6024Af3AA67C8f95f4A60fAdA33a1cC4c36927FF) |
+| Contract | Amoy                                         | Mainnet                                      |
+|----------|----------------------------------------------|----------------------------------------------|
+| `HeyPro` | `0x8f5C228E4b9C4Ff01e84C0C4DBDdFe969F6Ca0Ed` | `0x4D5b616163387fA1Eb26bd1e84bd61C6fdA18C3a` |

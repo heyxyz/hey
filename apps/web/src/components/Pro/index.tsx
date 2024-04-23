@@ -122,28 +122,6 @@ const Pro: NextPage = () => {
     }
   };
 
-  const cancel = async () => {
-    if (!currentProfile) {
-      return toast.error(Errors.SignWallet);
-    }
-
-    try {
-      setIsLoading(true);
-      await handleWrongNetwork();
-
-      return await writeContractAsync({
-        abi: HeyPro,
-        address: HEY_PRO,
-        args: [currentProfile.id],
-        functionName: 'cancelSubscription'
-      });
-    } catch (error) {
-      errorToast(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   return (
     <div className="px-6 py-20">
       <div className="absolute inset-x-0 -z-10 blur-3xl">
@@ -223,18 +201,6 @@ const Pro: NextPage = () => {
                   ? `Extend a ${tier.id === 'monthly' ? 'Month' : 'Year'}`
                   : 'Upgrade to Pro'}
             </Button>
-            {isPro ? (
-              <Button
-                className="mt-3 w-full"
-                disabled={isLoading || transactionLoading}
-                onClick={cancel}
-                outline
-                size="lg"
-                variant="danger"
-              >
-                Cancel Subscription
-              </Button>
-            ) : null}
           </div>
         ))}
       </div>
