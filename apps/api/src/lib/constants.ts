@@ -20,6 +20,8 @@ export const SWR_CACHE_AGE_10_SECS_30_DAYS =
 // Cache for 10 minutes, stale for 30 days
 export const SWR_CACHE_AGE_10_MINS_30_DAYS =
   'public, s-maxage=600, stale-while-revalidate=2592000';
+// Cache for 1 day
+export const CACHE_AGE_1_DAY = 'public, s-maxage=86400';
 // Cache for 30 days
 export const CACHE_AGE_30_DAYS = 'public, s-maxage=2592000';
 // Cache indefinitely
