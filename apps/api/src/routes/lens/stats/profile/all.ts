@@ -15,7 +15,7 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const [globalStats, notificationStats] = await Promise.all([
+    const [globalStats, notificationStats] = await lensPrisma.$transaction([
       // Get global stats
       lensPrisma.$queryRaw<any>`
         SELECT 
