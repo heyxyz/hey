@@ -4,6 +4,7 @@ import type { AllowedToken } from '@hey/types/hey';
 import { HeyTipping } from '@hey/abis';
 import { Errors } from '@hey/data';
 import {
+  APP_NAME,
   DEFAULT_COLLECT_TOKEN,
   HEY_TIPPING,
   MAX_UINT256,
@@ -232,12 +233,21 @@ const Action: FC<ActionProps> = ({
             </span>
           </div>
           <HelpTooltip>
-            <b>Fees</b>
-            <div className="flex items-start space-x-10">
-              <div>Lens Protocol</div>
-              <b>
-                {(cryptoRate * 0.05).toFixed(2)} {selectedCurrency?.symbol} (5%)
-              </b>
+            <div className="py-1">
+              <b>Fees</b>
+              <div className="flex items-start space-x-10">
+                <div className="flex items-center space-x-2">
+                  <img
+                    className="size-3"
+                    src={`${STATIC_IMAGES_URL}/app-icon/0.png`}
+                  />
+                  <span>{APP_NAME}</span>
+                </div>
+                <b>
+                  {(cryptoRate * 0.05).toFixed(2)} {selectedCurrency?.symbol}{' '}
+                  (5%)
+                </b>
+              </div>
             </div>
           </HelpTooltip>
         </div>

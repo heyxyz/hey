@@ -146,12 +146,14 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
             </span>
             <div className="mt-2">
               <HelpTooltip>
-                <b>Collect Fees</b>
-                <div className="flex items-start space-x-10">
-                  <div>Lens Protocol</div>
-                  <b>
-                    {(amount * 0.05).toFixed(2)} {currency} (5%)
-                  </b>
+                <div className="py-1">
+                  <b>Collect Fees</b>
+                  <div className="flex items-start space-x-10">
+                    <div>Lens Protocol</div>
+                    <b>
+                      {(amount * 0.05).toFixed(2)} {currency} (5%)
+                    </b>
+                  </div>
                 </div>
               </HelpTooltip>
             </div>
