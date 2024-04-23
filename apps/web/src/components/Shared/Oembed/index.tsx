@@ -89,7 +89,7 @@ const Oembed: FC<OembedProps> = ({
       ) : og.html ? (
         <Player og={og} />
       ) : og.nft ? (
-        <Nft nft={og.nft} publicationId={publication?.id} />
+        <Nft nft={og.nft} />
       ) : (
         <Embed og={og} publicationId={publication?.id} />
       )}

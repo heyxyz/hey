@@ -1,22 +1,25 @@
 import type { Nft as INft } from '@hey/types/misc';
 import type { FC } from 'react';
 
-import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
-import { PUBLICATION } from '@hey/data/tracking';
+import { useDefaultProfileQuery } from '@hey/lens';
+import getAvatar from '@hey/lib/getAvatar';
+import getLennyURL from '@hey/lib/getLennyURL';
 import getNftChainInfo from '@hey/lib/getNftChainInfo';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Button, Card, Tooltip } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
-import Link from 'next/link';
-
-import MintedBy from './MintedBy';
+import { Button, Card, Image, Tooltip } from '@hey/ui';
 
 interface NftProps {
   nft: INft;
-  publicationId?: string;
 }
 
-const Nft: FC<NftProps> = ({ nft, publicationId }) => {
+const OPEN_ACTION_EMBED_TOOLTIP = 'Open action embedded';
+
+const Nft: FC<NftProps> = ({ nft }) => {
+  const { data, loading } = useDefaultProfileQuery({
+    skip: !nft.creatorAddress,
+    variables: { request: { for: nft.creatorAddress } }
+  });
+
   return (
     <Card className="mt-3" forceRounded onClick={stopEventPropagation}>
       <div className="relative">
@@ -25,9 +28,8 @@ const Nft: FC<NftProps> = ({ nft, publicationId }) => {
           className="h-[350px] max-h-[350px] w-full rounded-t-xl object-cover"
           src={nft.mediaUrl}
         />
-        {nft.creatorAddress ? <MintedBy address={nft.creatorAddress} /> : null}
       </div>
-      <div className="flex items-center justify-between border-t px-3 py-2 dark:border-gray-700">
+      <div className="flex items-center justify-between border-t p-3 dark:border-gray-700">
         <div className="flex items-center space-x-2">
           {nft.chain ? (
             <Tooltip
@@ -41,24 +43,34 @@ const Nft: FC<NftProps> = ({ nft, publicationId }) => {
               />
             </Tooltip>
           ) : null}
-          <div className="line-clamp-1 text-sm font-bold">
-            {nft.collectionName}
+          <div className="flex items-start justify-start gap-2">
+            <Image
+              alt={data?.defaultProfile?.id}
+              className="size-6 rounded-full border bg-gray-200 dark:border-gray-700"
+              height={24}
+              loading="lazy"
+              onError={({ currentTarget }) => {
+                currentTarget.src = getLennyURL(data?.defaultProfile?.id);
+              }}
+              src={getAvatar(data?.defaultProfile)}
+              width={24}
+            />
+            <div className="flex flex-col items-start justify-start">
+              <p className="line-clamp-1 text-sm">{nft.collectionName}</p>
+              <p className="line-clamp-1 text-sm opacity-50">
+                by {data?.defaultProfile?.handle?.localName}
+              </p>
+            </div>
           </div>
         </div>
-        <Link href={nft.sourceUrl} rel="noopener noreferrer" target="_blank">
-          <Button
-            className="ml-5 text-sm"
-            icon={<CursorArrowRaysIcon className="size-4" />}
-            onClick={() =>
-              Leafwatch.track(PUBLICATION.OPEN_NFT, {
-                publication_id: publicationId
-              })
-            }
-            size="md"
-          >
+        <Tooltip
+          content={<span>{OPEN_ACTION_EMBED_TOOLTIP}</span>}
+          placement="top"
+        >
+          <Button className="text-base font-normal" size="lg">
             Mint
           </Button>
-        </Link>
+        </Tooltip>
       </div>
     </Card>
   );
