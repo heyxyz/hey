@@ -149,7 +149,6 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         </div>
       </div>
       <div className="divider my-5 border-dashed border-yellow-600" />
-      <div className="divider my-5 border-dashed border-yellow-600" />
       <OnchainIdentities onchainIdentity={profile.onchainIdentity} />
       {IS_MAINNET ? (
         <>
