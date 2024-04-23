@@ -39,7 +39,7 @@
     "@radix-ui/react-hover-card": "^1.0.7",
     "@rajesh896/broprint.js": "^2.1.1",
     "@sentry/nextjs": "^7.111.0",
-    "@tanstack/react-query": "^5.29.2",
+    "@tanstack/react-query": "^5.31.0",
     "@thirdweb-dev/storage": "^2.0.14",
     "@uidotdev/usehooks": "^2.4.1",
     "@xmtp/content-type-reaction": "^1.1.7",
@@ -75,9 +75,9 @@
     "urlcat": "^3.1.0",
     "use-resize-observer": "^9.1.0",
     "uuid": "^9.0.1",
-    "viem": "^2.9.23",
+    "viem": "^2.9.25",
     "wagmi": "^2.5.20",
-    "zod": "^3.22.5",
+    "zod": "^3.23.3",
     "zustand": "^4.5.2"
   },
   "devDependencies": {

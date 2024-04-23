@@ -26,7 +26,7 @@ const config: HardhatUserConfig = {
   },
   solidity: {
     settings: { optimizer: { enabled: true }, viaIR: true },
-    version: '0.8.23'
+    version: '0.8.24'
   },
   sourcify: { enabled: true }
 };
