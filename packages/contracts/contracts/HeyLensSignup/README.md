@@ -19,6 +19,7 @@ npx hardhat verify 0x4b8845ACb8148dE64D1D99Cf27A3890a91F55E53 --network polygon
 ```sh
 # Upgrade on Amoy
 npx hardhat run script/HeyLensSignup/upgrade.ts --network polygonAmoy
+npx hardhat verify 0x82Bcb5DA51c6F3D0Ce942bDBEbb0B8A7774d62e8 --network polygonAmoy
 
 # Upgrade on Polygon
 npx hardhat run script/HeyLensSignup/upgrade.ts --network polygon
@@ -34,4 +35,4 @@ npx hardhat verify 0x4b8845ACb8148dE64D1D99Cf27A3890a91F55E53 --network polygon
 
 | Contract        | Mainnet                                                                                                                         | Amoy                                                                                                                         |
 | --------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `HeyLensSignup` | [0x4b8845ACb8148dE64D1D99Cf27A3890a91F55E53](https://www.oklink.com/polygon/address/0x4b8845ACb8148dE64D1D99Cf27A3890a91F55E53) | [0x82Bcb5DA51c6F3D0Ce942bDBEbb0B8A7774d62e8](https://www.oklink.com/amoy/address/0x82Bcb5DA51c6F3D0Ce942bDBEbb0B8A7774d62e8) |
+| `HeyLensSignup` | [0x4b8845ACb8148dE64D1D99Cf27A3890a91F55E53](https://polygonscan.com/address/0x4b8845ACb8148dE64D1D99Cf27A3890a91F55E53) | [0x82Bcb5DA51c6F3D0Ce942bDBEbb0B8A7774d62e8](https://amoy.polygonscan.com/amoy/address/0x82Bcb5DA51c6F3D0Ce942bDBEbb0B8A7774d62e8) |

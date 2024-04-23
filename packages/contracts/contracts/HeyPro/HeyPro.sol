@@ -39,11 +39,11 @@ contract HeyPro is
     yearlyPrice = _yearlyPrice;
   }
 
-  function pause() public onlyOwner {
+  function pause() external onlyOwner {
     _pause();
   }
 
-  function unpause() public onlyOwner {
+  function unpause() external onlyOwner {
     _unpause();
   }
 

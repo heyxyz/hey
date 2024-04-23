@@ -65,8 +65,8 @@ export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
 export const LENS_MEDIA_SNAPSHOT_URL =
   'https://ik.imagekit.io/lens/media-snapshot';
 export const POLYGONSCAN_URL = IS_MAINNET
-  ? 'https://www.oklink.com/polygon'
-  : 'https://www.oklink.com/amoy';
+  ? 'https://polygonscan.com/'
+  : 'https://amoy.polygonscan.com/';
 export const IPFS_GATEWAY = 'https://gw.ipfs-lens.dev/ipfs';
 export const ARWEAVE_GATEWAY = 'https://gateway.irys.xyz';
 export const EVER_API = 'https://endpoint.4everland.co';
