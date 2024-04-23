@@ -3,6 +3,7 @@ export type GlobalProfileStats = {
   total_collects: number;
   total_comments: number;
   total_mirrors: number;
+  total_notifications: number;
   total_posts: number;
   total_publications: number;
   total_quotes: number;
