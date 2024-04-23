@@ -6,7 +6,6 @@ import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { TipIcon } from '@hey/icons';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Tooltip } from '@hey/ui';
-import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { motion } from 'framer-motion';
 import party from 'party-js';
 import { type FC, useRef } from 'react';
@@ -19,10 +18,6 @@ interface TipProps {
 
 const Tip: FC<TipProps> = ({ publication }) => {
   const confettiDom = useRef<HTMLDivElement>(null);
-
-  if (!isFeatureAvailable('gbp')) {
-    return null;
-  }
 
   const triggerConfetti = () => {
     party.resolvableShapes['moneybag'] =
