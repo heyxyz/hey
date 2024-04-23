@@ -15,28 +15,38 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const response = await lensPrisma.$queryRaw<any>`
-      SELECT 
-        total_posts,
-        total_comments,
-        total_mirrors,
-        total_quotes,
-        total_publications,
-        total_reacted,
-        total_reactions,
-        total_collects,
-        total_acted
-      FROM
-        global_stats.profile
-      WHERE 
-        profile_id = ${id};
-    `;
+    const [globalStats, notificationStats] = await Promise.all([
+      // Get global stats
+      lensPrisma.$queryRaw<any>`
+        SELECT 
+          total_posts,
+          total_comments,
+          total_mirrors,
+          total_quotes,
+          total_publications,
+          total_reacted,
+          total_reactions,
+          total_collects,
+          total_acted
+        FROM global_stats.profile
+        WHERE profile_id = ${id}
+      `,
+      // Get notifications received count
+      lensPrisma.$queryRaw<any>`
+        SELECT COUNT(*) as total_notifications
+        FROM notification.record
+        WHERE notification_receiving_profile_id = ${id}
+      `
+    ]);
 
-    if (!response[0]) {
+    if (!globalStats[0]) {
       return res.status(404).json({ success: false });
     }
 
-    const result = response[0];
+    const result = {
+      ...globalStats[0],
+      total_notifications: Number(notificationStats[0]?.total_notifications)
+    };
 
     logger.info(`Lens: Fetched global profile stats for ${id}`);
 
