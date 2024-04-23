@@ -27,7 +27,6 @@ import LeafwatchDetails from './LeafwatchDetails';
 import ManagedProfiles from './ManagedProfiles';
 import OnchainIdentities from './OnchainIdentities';
 import Rank from './Rank';
-import Score from './Score';
 
 interface ProfileStaffToolProps {
   profile: Profile;
@@ -150,7 +149,6 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         </div>
       </div>
       <div className="divider my-5 border-dashed border-yellow-600" />
-      <Score address={profile.ownedBy.address} />
       <div className="divider my-5 border-dashed border-yellow-600" />
       <OnchainIdentities onchainIdentity={profile.onchainIdentity} />
       {IS_MAINNET ? (
