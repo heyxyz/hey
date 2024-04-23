@@ -175,7 +175,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
           <MetaDetails icon={<HashtagIcon className="size-4" />}>
             {parseInt(profile.id)}
           </MetaDetails>
-          <Score address={profile.ownedBy.address} />
+          <Score id={profile.id} />
           {getProfileAttribute('location', profile?.metadata?.attributes) ? (
             <MetaDetails icon={<MapPinIcon className="size-4" />}>
               {getProfileAttribute('location', profile?.metadata?.attributes)}
