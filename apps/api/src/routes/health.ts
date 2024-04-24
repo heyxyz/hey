@@ -1,26 +1,66 @@
 import type { Handler } from 'express';
 
+import catchedError from 'src/lib/catchedError';
 import createClickhouseClient from 'src/lib/createClickhouseClient';
 import heyPrisma from 'src/lib/heyPrisma';
+import lensPrisma from 'src/lib/lensPrisma';
+
+const measureQueryTime = async (
+  queryFunction: () => Promise<any>
+): Promise<[any, bigint]> => {
+  const startTime = process.hrtime.bigint();
+  const result = await queryFunction();
+  const endTime = process.hrtime.bigint();
+  return [result, endTime - startTime];
+};
 
 export const get: Handler = async (_, res) => {
   try {
-    // Postgres
-    const db = await heyPrisma.feature.count();
+    // Prepare promises with timings embedded
+    const heyPromise = measureQueryTime(
+      () => heyPrisma.$queryRaw<{ count: number }[]>`SELECT 1 as count`
+    );
+    const lensPromise = measureQueryTime(
+      () => lensPrisma.$queryRaw<{ count: number }[]>`SELECT 1 as count`
+    );
+    const clickhouseClient = createClickhouseClient();
+    const clickhousePromise = measureQueryTime(() =>
+      clickhouseClient.query({
+        format: 'JSONEachRow',
+        query: 'SELECT 1 as count'
+      })
+    );
 
-    // Clickhouse
-    const clickhouse = createClickhouseClient();
-    const rows = await clickhouse.query({
-      format: 'JSONEachRow',
-      query: 'SELECT count(*) from events;'
-    });
+    // Execute all promises simultaneously
+    const [heyResult, lensResult, clickhouseResult] = await Promise.all([
+      heyPromise,
+      lensPromise,
+      clickhousePromise
+    ]);
 
-    if (db <= 0 || !rows.json) {
+    // Check responses
+    const [hey, heyTime] = heyResult;
+    const [lens, lensTime] = lensResult;
+    const [clickhouseRows, clickhouseTime] = clickhouseResult;
+
+    if (
+      Number(hey[0].count) !== 1 ||
+      Number(lens[0].count) !== 1 ||
+      !clickhouseRows.json
+    ) {
       return res.status(500).json({ success: false });
     }
 
-    return res.status(200).json({ ping: 'pong' });
-  } catch {
-    return res.status(500).json({ success: false });
+    // Format response times in milliseconds and return
+    return res.status(200).json({
+      ping: 'pong',
+      responseTimes: {
+        clickhouse: `${Number(clickhouseTime / BigInt(1000000))}ms`,
+        hey: `${Number(heyTime / BigInt(1000000))}ms`,
+        lens: `${Number(lensTime / BigInt(1000000))}ms`
+      }
+    });
+  } catch (error) {
+    return catchedError(res, error);
   }
 };
