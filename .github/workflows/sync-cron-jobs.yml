@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  delete-publications-clickhouse:
+  delete-publications:
     name: Delete duplicate publications from Clickhouse
     runs-on: ubuntu-latest
     steps:
@@ -30,9 +30,9 @@ jobs:
           {
             echo "CLICKHOUSE_PASSWORD=${CLICKHOUSE_PASSWORD}"
           } > .env
-          pnpm delete-publications-clickhouse
+          pnpm delete-publications
 
-  replicate-publications-clickhouse:
+  replicate-publications:
     name: Replicate publications to Clickhouse
     runs-on: ubuntu-latest
     steps:
@@ -54,4 +54,30 @@ jobs:
             echo "CLICKHOUSE_PASSWORD=${CLICKHOUSE_PASSWORD}"
             echo "LENS_DATABASE_URL=${LENS_DATABASE_URL}"
           } > .env
-          pnpm replicate-publications-clickhouse
+          pnpm replicate-publications
+
+  replicate-gardeners:
+    name: Replicate gardeners to Postgres
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js, pnpm and dependencies 🌸
+        uses: ./.github/actions/setup-pnpm
+
+      - name: Replicate gardeners to Postgres
+        env:
+          CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
+          LENS_DATABASE_URL: ${{ secrets.LENS_DATABASE_URL }}
+          DATABASE_URL: ${{ secrets.MAINNET_DATABASE_URL }}
+        run: |
+          cd packages/cron
+          {
+            echo "CLICKHOUSE_PASSWORD=${CLICKHOUSE_PASSWORD}"
+            echo "LENS_DATABASE_URL=${LENS_DATABASE_URL}"
+            echo "DATABASE_URL=${DATABASE_URL}"
+          } > .env
+          pnpm replicate-gardeners
