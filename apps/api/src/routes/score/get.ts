@@ -3,6 +3,7 @@ import type { Handler } from 'express';
 import logger from '@hey/lib/logger';
 import axios from 'axios';
 import catchedError from 'src/lib/catchedError';
+import { SCORE_WORKER_URL } from 'src/lib/constants';
 import heyPrisma from 'src/lib/heyPrisma';
 import lensPrisma from 'src/lib/lensPrisma';
 import { noBody } from 'src/lib/responses';
@@ -38,10 +39,9 @@ export const get: Handler = async (req, res) => {
       });
     }
 
-    const scoreQueryRequest = await axios.get(
-      'https://score.heyxyz.workers.dev',
-      { params: { id, secret: process.env.SECRET } }
-    );
+    const scoreQueryRequest = await axios.get(SCORE_WORKER_URL, {
+      params: { id, secret: process.env.SECRET }
+    });
     const scoreQuery = scoreQueryRequest.data.toString();
     const scores = await lensPrisma.$queryRaw<any>(
       toTemplateStringsArray([scoreQuery])

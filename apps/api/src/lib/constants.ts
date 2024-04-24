@@ -1,6 +1,9 @@
 // DB URLs
 export const CLICKHOUSE_URL = 'http://clickhouse.hey.xyz:8123';
 
+// API URLs
+export const SCORE_WORKER_URL = 'https://score.heyxyz.workers.dev';
+
 // DB Feature IDs
 export const STAFF_FEATURE_ID = 'eea3b2d2-a60c-4e41-8130-1cb34cc37810';
 export const STAFF_MODE_FEATURE_ID = '0e588583-b347-4752-9e1e-0ad4128348e8';
