@@ -54,9 +54,9 @@ export const get: Handler = async (req, res) => {
     const score = Number(scores[0].score);
 
     const baseData = {
-      expiresAt: new Date(Date.now() + 12 * 60 * 60 * 1000), // 12 hours
+      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
       id: id as string,
-      score
+      score: score < 0 ? 0 : score
     };
 
     const newCachedProfile = await heyPrisma.cachedProfileScore.upsert({
@@ -66,10 +66,12 @@ export const get: Handler = async (req, res) => {
     });
 
     logger.info(
-      `Lens: Fetched profile score for ${id} - ${score} - Expires at: ${newCachedProfile.expiresAt}`
+      `Lens: Fetched profile score for ${id} - ${newCachedProfile.score} - Expires at: ${newCachedProfile.expiresAt}`
     );
 
-    return res.status(200).json({ score, success: true });
+    return res
+      .status(200)
+      .json({ score: newCachedProfile.score, success: true });
   } catch (error) {
     catchedError(res, error);
   }
