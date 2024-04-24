@@ -14,7 +14,7 @@ export const get: Handler = async (req, res) => {
     return res.status(200).json({
       cached: score._count.score,
       success: true,
-      volume: score._sum.score
+      volume: score._sum.score || 0
     });
   } catch (error) {
     catchedError(res, error);
