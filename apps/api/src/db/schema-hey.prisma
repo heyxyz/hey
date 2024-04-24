@@ -133,3 +133,9 @@ model DraftPublication {
   @@index([profileId])
   @@index([createdAt, updatedAt])
 }
+
+model CachedProfileScore {
+  id        String   @id
+  score     Int
+  expiresAt DateTime
+}
