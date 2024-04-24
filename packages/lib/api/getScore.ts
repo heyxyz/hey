@@ -9,7 +9,7 @@ import axios from 'axios';
 const getScore = async (id: string): Promise<number> => {
   try {
     const response: { data: { score: number } } = await axios.get(
-      `${HEY_API_URL}/lens/score`,
+      `${HEY_API_URL}/score/get`,
       { params: { id } }
     );
 
