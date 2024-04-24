@@ -45,7 +45,7 @@
     "uuid": "^9.0.1",
     "viem": "^2.9.25",
     "vite-express": "^0.16.0",
-    "zod": "^3.23.3"
+    "zod": "^3.23.4"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
