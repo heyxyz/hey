@@ -1,3 +1,4 @@
+import logger from '@hey/lib/logger';
 import * as dotenv from 'dotenv';
 import pg from 'pg';
 
@@ -49,7 +50,7 @@ const main = async () => {
 
   await client.end();
 
-  console.log(
+  logger.info(
     `Inserting ${res.rows.length} publications - From block ${START_BLOCK_NUMBER} to ${END_BLOCK_NUMBER}`
   );
 
@@ -95,7 +96,7 @@ const main = async () => {
         values: batch
       })
       .then((result) =>
-        console.log(
+        logger.info(
           `Inserted batch of ${batch.length} publications, last block: ${batch[batch.length - 1].block_number}, last ID: ${batch[batch.length - 1].id} - ${result.query_id}`
         )
       );
@@ -103,10 +104,10 @@ const main = async () => {
 
   Promise.all(insertPromises)
     .then(() => {
-      console.log('All batches have been inserted successfully.');
+      logger.info('All batches have been inserted successfully.');
     })
     .catch((error) => {
-      console.error('Error inserting batches:', error);
+      logger.error(`Error inserting batches: ${error}`);
     });
 };
 
