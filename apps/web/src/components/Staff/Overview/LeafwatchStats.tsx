@@ -158,6 +158,7 @@ const LeafwatchStats: FC = () => {
           <NumberedStat
             count={scoreVolumeData?.cached.toString() || '0'}
             name="Score cached for"
+            suffix="profiles"
           />
         </div>
       </div>
