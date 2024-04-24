@@ -1,3 +1,4 @@
+import logger from '@hey/lib/logger';
 import * as dotenv from 'dotenv';
 
 import createClickhouseClient from './createClickhouseClient';
@@ -27,11 +28,11 @@ const main = async () => {
   const duplicates = await getAllDuplicatePublications();
 
   if (duplicates.length === 0) {
-    console.log('No duplicate publications found.');
+    logger.info('No duplicate publications found.');
     return;
   }
 
-  console.log(`Found ${duplicates.length} duplicate publications`);
+  logger.info(`Found ${duplicates.length} duplicate publications`);
 
   duplicates.map(async (duplicate) => {
     const res = await clickhouse.query({
@@ -39,7 +40,7 @@ const main = async () => {
       query: `ALTER TABLE publications DELETE WHERE id = '${duplicate}'`
     });
 
-    console.log(`Deleted publication with id ${duplicate} - ${res.query_id}`);
+    logger.info(`Deleted publication with id ${duplicate} - ${res.query_id}`);
   });
 };
 
