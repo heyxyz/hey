@@ -6,12 +6,13 @@
   "main": "index.ts",
   "types": "index.ts",
   "scripts": {
-    "delete-publications-clickhouse": "ts-node delete-publications-clickhouse.ts",
+    "delete-publications": "ts-node delete-publications.ts",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
-    "replicate-publications-clickhouse": "ts-node replicate-publications-clickhouse.ts",
+    "replicate-gardeners": "ts-node replicate-gardeners.ts",
+    "replicate-publications": "ts-node replicate-publications.ts",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
