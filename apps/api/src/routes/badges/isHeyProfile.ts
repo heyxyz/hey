@@ -1,38 +1,33 @@
 import type { Handler } from 'express';
 
-import { HeyLensSignup } from '@hey/abis';
 import { HEY_LENS_SIGNUP } from '@hey/data/constants';
 import logger from '@hey/lib/logger';
 import catchedError from 'src/lib/catchedError';
-import {
-  CACHE_AGE_INDEFINITE,
-  SWR_CACHE_AGE_10_MINS_30_DAYS
-} from 'src/lib/constants';
-import getRpc from 'src/lib/getRpc';
+import { CACHE_AGE_INDEFINITE } from 'src/lib/constants';
+import lensPrisma from 'src/lib/lensPrisma';
 import { noBody } from 'src/lib/responses';
-import { createPublicClient } from 'viem';
-import { polygon } from 'viem/chains';
 
 // TODO: add tests
 export const get: Handler = async (req, res) => {
-  const { id } = req.query;
+  const { address, id } = req.query;
 
-  if (!id) {
+  if (!id && !address) {
     return noBody(res);
   }
 
   try {
-    const client = createPublicClient({
-      chain: polygon,
-      transport: getRpc({ mainnet: true })
-    });
+    const data = await lensPrisma.$queryRaw<{ result: boolean }[]>`
+      SELECT EXISTS (
+        SELECT 1
+        FROM profile.record p
+        JOIN app.onboarding_profile o ON p.profile_id = o.profile_id
+        WHERE 
+          (p.profile_id = ${id} OR p.owned_by = ${address})
+          AND o.onboarded_by_address = ${HEY_LENS_SIGNUP}
+      ) AS result;  
+    `;
 
-    const isHeyProfile = await client.readContract({
-      abi: HeyLensSignup,
-      address: HEY_LENS_SIGNUP,
-      args: [id],
-      functionName: 'profileCreated'
-    });
+    const isHeyProfile = data[0].result;
 
     logger.info(`Hey profile badge fetched for ${id}`);
 
@@ -40,7 +35,7 @@ export const get: Handler = async (req, res) => {
       .status(200)
       .setHeader(
         'Cache-Control',
-        isHeyProfile ? CACHE_AGE_INDEFINITE : SWR_CACHE_AGE_10_MINS_30_DAYS
+        isHeyProfile ? CACHE_AGE_INDEFINITE : 'no-cache'
       )
       .json({ isHeyProfile, success: true });
   } catch (error) {
