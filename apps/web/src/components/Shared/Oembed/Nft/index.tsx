@@ -12,13 +12,15 @@ interface NftProps {
   nft: INft;
 }
 
-const OPEN_ACTION_EMBED_TOOLTIP = 'Open action embedded';
+const OPEN_ACTION_EMBED_TOOLTIP = 'NFT Open Action unavailable';
 
 const Nft: FC<NftProps> = ({ nft }) => {
   const { data, loading } = useDefaultProfileQuery({
     skip: !nft.creatorAddress,
     variables: { request: { for: nft.creatorAddress } }
   });
+
+  const byName = data?.defaultProfile?.handle?.localName ?? nft.creatorAddress;
 
   return (
     <Card className="mt-3" forceRounded onClick={stopEventPropagation}>
@@ -44,22 +46,22 @@ const Nft: FC<NftProps> = ({ nft }) => {
             </Tooltip>
           ) : null}
           <div className="flex items-start justify-start gap-2">
-            <Image
-              alt={data?.defaultProfile?.id}
-              className="size-6 rounded-full border bg-gray-200 dark:border-gray-700"
-              height={24}
-              loading="lazy"
-              onError={({ currentTarget }) => {
-                currentTarget.src = getLennyURL(data?.defaultProfile?.id);
-              }}
-              src={getAvatar(data?.defaultProfile)}
-              width={24}
-            />
+            {!!data && !!data.defaultProfile && (
+              <Image
+                alt={data?.defaultProfile?.id}
+                className="size-6 rounded-full border bg-gray-200 dark:border-gray-700"
+                height={24}
+                loading="lazy"
+                onError={({ currentTarget }) => {
+                  currentTarget.src = getLennyURL(data?.defaultProfile?.id);
+                }}
+                src={getAvatar(data?.defaultProfile)}
+                width={24}
+              />
+            )}
             <div className="flex flex-col items-start justify-start">
               <p className="line-clamp-1 text-sm">{nft.collectionName}</p>
-              <p className="line-clamp-1 text-sm opacity-50">
-                by {data?.defaultProfile?.handle?.localName}
-              </p>
+              <p className="line-clamp-1 text-sm opacity-50">by {byName}</p>
             </div>
           </div>
         </div>
@@ -67,7 +69,7 @@ const Nft: FC<NftProps> = ({ nft }) => {
           content={<span>{OPEN_ACTION_EMBED_TOOLTIP}</span>}
           placement="top"
         >
-          <Button className="text-base font-normal" size="lg">
+          <Button className="text-base font-normal" disabled={true} size="lg">
             Mint
           </Button>
         </Tooltip>
