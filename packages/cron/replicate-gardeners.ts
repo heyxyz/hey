@@ -1,3 +1,4 @@
+import logger from '@hey/lib/logger';
 import * as dotenv from 'dotenv';
 import pg from 'pg';
 
@@ -16,7 +17,7 @@ const main = async () => {
   );
   await lensClient.end();
 
-  console.log(`Inserting / Updating ${profiles.rows.length} profiles...`);
+  logger.info(`Inserting / Updating ${profiles.rows.length} profiles...`);
 
   await heyClient.connect();
   for (const profile of profiles.rows) {
@@ -29,10 +30,10 @@ const main = async () => {
       `,
       [profile.profile_id, '0a441129-182a-4a3f-83cf-a13c5ad8282b', true]
     );
-    console.log(`Inserted profile ${profile.profile_id}`);
+    logger.info(`Inserted profile ${profile.profile_id}`);
   }
 
-  console.log(
+  logger.info(
     'Deleting old profiles that are not in the gardener list anymore...'
   );
 
@@ -47,7 +48,7 @@ const main = async () => {
       '0a441129-182a-4a3f-83cf-a13c5ad8282b'
     ]
   );
-  console.log(
+  logger.info(
     `Deleted ${deletedProfiles.rowCount} old profiles that are no longer a gardener`
   );
 

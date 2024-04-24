@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@clickhouse/client": "^1.0.1",
+    "@hey/lib": "workspace:*",
     "dotenv": "^16.4.5",
     "pg": "^8.11.5",
     "ts-node": "^10.9.2"
