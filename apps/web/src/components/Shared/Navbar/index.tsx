@@ -2,6 +2,7 @@ import type { FC } from 'react';
 
 import NotificationIcon from '@components/Notification/NotificationIcon';
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -20,7 +21,7 @@ import StaffBar from './StaffBar';
 const Navbar: FC = () => {
   const { currentProfile } = useProfileStore();
   const { staffMode } = useFeatureFlagsStore();
-  const { isPride } = usePreferencesStore();
+  const { appIcon } = usePreferencesStore();
   const [showSearch, setShowSearch] = useState(false);
 
   interface NavItemProps {
@@ -88,7 +89,7 @@ const Navbar: FC = () => {
                 alt="Logo"
                 className="size-8"
                 height={32}
-                src={isPride ? '/pride.png' : '/logo.png'}
+                src={`${STATIC_IMAGES_URL}/app-icon/${appIcon}.png`}
                 width={32}
               />
             </Link>
@@ -109,7 +110,7 @@ const Navbar: FC = () => {
               alt="Logo"
               className="size-7"
               height={32}
-              src={isPride ? '/pride.png' : '/logo.png'}
+              src={`${STATIC_IMAGES_URL}/app-icon/${appIcon}.png`}
               width={32}
             />
           </Link>

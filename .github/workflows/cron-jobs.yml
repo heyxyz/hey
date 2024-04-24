@@ -30,14 +30,26 @@ jobs:
           body: '{ "secret": "${{ secrets.SECRET }}" }'
           headers: '{ "Content-Type": "application/json", "Referer": "https://hey.xyz" }'
 
-  downgrade-profiles:
-    name: Downgrade Profiles
+  cleanup-email-tokens:
+    name: Cleanup Email Tokens
     runs-on: ubuntu-latest
     steps:
-      - name: Downgrade Profiles
+      - name: Cleanup Email Tokens
         uses: indiesdev/curl@v1.1
         with:
-          url: https://api.hey.xyz/internal/cron/downgradePro
+          url: https://api.hey.xyz/internal/cron/cleanEmailTokens
+          method: 'POST'
+          body: '{ "secret": "${{ secrets.SECRET }}" }'
+          headers: '{ "Content-Type": "application/json", "Referer": "https://hey.xyz" }'
+
+  clean-draft-publications:
+    name: Cleanup Draft Publications
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cleanup Draft Publications
+        uses: indiesdev/curl@v1.1
+        with:
+          url: https://api.hey.xyz/internal/cron/cleanDraftPublications
           method: 'POST'
           body: '{ "secret": "${{ secrets.SECRET }}" }'
           headers: '{ "Content-Type": "application/json", "Referer": "https://hey.xyz" }'

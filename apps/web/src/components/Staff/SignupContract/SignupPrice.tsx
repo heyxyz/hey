@@ -2,9 +2,8 @@ import type { FC } from 'react';
 
 import { HeyLensSignup } from '@hey/abis';
 import { HEY_LENS_SIGNUP } from '@hey/data/constants';
+import { NumberedStat } from '@hey/ui';
 import { useReadContract } from 'wagmi';
-
-import NumberedStat from '../UI/NumberedStat';
 
 const SignupPrice: FC = () => {
   const { data } = useReadContract({

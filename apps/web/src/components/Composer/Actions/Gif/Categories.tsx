@@ -10,7 +10,7 @@ interface CategoriesProps {
 }
 
 const Categories: FC<CategoriesProps> = ({ setSearchText }) => {
-  const fetchGiphyCategories = async () => {
+  const getGiphyCategories = async () => {
     try {
       const response = await axios.get(
         'https://api.giphy.com/v1/gifs/categories',
@@ -24,8 +24,8 @@ const Categories: FC<CategoriesProps> = ({ setSearchText }) => {
   };
 
   const { data: categories } = useQuery({
-    queryFn: fetchGiphyCategories,
-    queryKey: ['fetchGiphyCategories']
+    queryFn: getGiphyCategories,
+    queryKey: ['getGiphyCategories']
   });
 
   return (

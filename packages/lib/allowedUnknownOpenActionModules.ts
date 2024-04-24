@@ -1,9 +1,8 @@
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 
 const allowedUnknownOpenActionModules = [
-  VerifiedOpenActionModules.Tip,
-  VerifiedOpenActionModules.DecentNFT,
-  VerifiedOpenActionModules.Swap
+  VerifiedOpenActionModules.Swap,
+  VerifiedOpenActionModules.DecentNFT
 ];
 
 export default allowedUnknownOpenActionModules;

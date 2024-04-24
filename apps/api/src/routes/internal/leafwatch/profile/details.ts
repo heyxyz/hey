@@ -4,13 +4,18 @@ import logger from '@hey/lib/logger';
 import catchedError from 'src/lib/catchedError';
 import { SWR_CACHE_AGE_1_SEC_30_DAYS } from 'src/lib/constants';
 import createClickhouseClient from 'src/lib/createClickhouseClient';
-import { noBody } from 'src/lib/responses';
+import validateIsStaff from 'src/lib/middlewares/validateIsStaff';
+import { noBody, notAllowed } from 'src/lib/responses';
 
 export const get: Handler = async (req, res) => {
   const { id } = req.query;
 
   if (!id) {
     return noBody(res);
+  }
+
+  if (!(await validateIsStaff(req))) {
+    return notAllowed(res);
   }
 
   try {

@@ -74,19 +74,19 @@ const Audio: FC<AudioProps> = ({
 
   return (
     <div
-      className="overflow-hidden rounded-xl border bg-gray-500 px-3.5 pt-3.5 md:p-0 dark:border-gray-700"
+      className="overflow-hidden rounded-xl border bg-gray-500 p-0 dark:border-gray-700"
       onClick={stopEventPropagation}
       style={{ backgroundImage: `url(${isNew ? newPreviewUri : poster})` }}
     >
-      <div className="flex flex-wrap backdrop-blur-2xl backdrop-brightness-50 md:flex-nowrap md:space-x-2">
+      <div className="flex flex-wrap p-5 backdrop-blur-2xl backdrop-brightness-50 md:flex-nowrap md:space-x-2 md:p-0">
         <CoverImage
           cover={isNew ? (newPreviewUri as string) : poster}
           expandCover={expandCover}
           imageRef={imageRef}
           isNew={isNew}
-          setCover={(previewUri, url) => {
+          setCover={(previewUri, cover, mimeType) => {
             setNewPreviewUri(previewUri);
-            setAudioPublication({ ...audioPublication, cover: url });
+            setAudioPublication({ ...audioPublication, cover, mimeType });
           }}
         />
         <div className="flex w-full flex-col justify-between truncate py-1 md:px-3">

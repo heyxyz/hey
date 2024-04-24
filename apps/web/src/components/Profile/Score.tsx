@@ -1,9 +1,8 @@
 import { FireIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
-import getHeyScore from '@hey/lib/api/getHeyScore';
+import getScore from '@hey/lib/api/getScore';
 import humanize from '@hey/lib/humanize';
 import { Button, Modal } from '@hey/ui';
-import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { useQuery } from '@tanstack/react-query';
 import { type FC, useState } from 'react';
@@ -11,15 +10,15 @@ import { type FC, useState } from 'react';
 import { MetaDetails } from './Details';
 
 interface ScoreProps {
-  address: string;
+  id: string;
 }
 
-const Score: FC<ScoreProps> = ({ address }) => {
+const Score: FC<ScoreProps> = ({ id }) => {
   const [showModal, setShowModal] = useState(false);
 
   const { data: score, isLoading } = useQuery({
-    queryFn: () => getHeyScore(address, getAuthApiHeaders()),
-    queryKey: ['getHeyScore', address || '']
+    queryFn: () => getScore(id),
+    queryKey: ['getScore', id]
   });
 
   if (!isFeatureAvailable('hey-score')) {

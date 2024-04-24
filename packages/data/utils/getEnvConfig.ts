@@ -7,6 +7,8 @@ const getEnvConfig = (): {
   defaultCollectToken: string;
   heyApiEndpoint: string;
   heyLensSignup: `0x${string}`;
+  heyPro: `0x${string}`;
+  heyTipping: `0x${string}`;
   lensApiEndpoint: string;
   lensHandles: `0x${string}`;
   lensHub: `0x${string}`;
@@ -15,21 +17,13 @@ const getEnvConfig = (): {
 } => {
   switch (LENS_NETWORK) {
     case 'testnet':
-      return {
-        defaultCollectToken: TestnetContracts.DefaultToken,
-        heyApiEndpoint: HeyEndpoint.Testnet,
-        heyLensSignup: TestnetContracts.HeyLensSignup,
-        lensApiEndpoint: LensEndpoint.Testnet,
-        lensHandles: TestnetContracts.LensHandles,
-        lensHub: TestnetContracts.LensHub,
-        permissionlessCreator: TestnetContracts.PermissionlessCreator,
-        tokenHandleRegistry: TestnetContracts.TokenHandleRegistry
-      };
     case 'staging':
       return {
         defaultCollectToken: TestnetContracts.DefaultToken,
         heyApiEndpoint: HeyEndpoint.Staging,
         heyLensSignup: TestnetContracts.HeyLensSignup,
+        heyPro: TestnetContracts.HeyPro,
+        heyTipping: TestnetContracts.HeyTipping,
         lensApiEndpoint: LensEndpoint.Staging,
         lensHandles: TestnetContracts.LensHandles,
         lensHub: TestnetContracts.LensHub,
@@ -41,6 +35,8 @@ const getEnvConfig = (): {
         defaultCollectToken: MainnetContracts.DefaultToken,
         heyApiEndpoint: HeyEndpoint.Mainnet,
         heyLensSignup: MainnetContracts.HeyLensSignup,
+        heyPro: MainnetContracts.HeyPro,
+        heyTipping: MainnetContracts.HeyTipping,
         lensApiEndpoint: LensEndpoint.Mainnet,
         lensHandles: MainnetContracts.LensHandles,
         lensHub: MainnetContracts.LensHub,

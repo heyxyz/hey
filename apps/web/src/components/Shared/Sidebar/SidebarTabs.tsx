@@ -4,6 +4,8 @@ import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+import type { SidebarProps } from '.';
+
 interface MenuProps {
   children: ReactNode;
   current: boolean;
@@ -25,37 +27,22 @@ const Menu: FC<MenuProps> = ({ children, current, url }) => (
   </Link>
 );
 
-interface SidebarTabsProps {
-  items: {
-    active?: boolean;
-    enabled?: boolean;
-    icon: ReactNode;
-    title: ReactNode;
-    url: string;
-  }[];
-}
-
-const SidebarTabs: FC<SidebarTabsProps> = ({ items }) => {
+const SidebarTabs: FC<SidebarProps> = ({ items }) => {
   const { pathname } = useRouter();
-  const menuItems = items.map((item) => ({
-    ...item,
-    enabled: item.enabled || true
-  }));
+  const menuItems = items.filter((item) => item?.enabled !== false);
 
   return (
     <div className="mb-4 space-y-2 px-3 sm:px-0">
-      {menuItems.map((item: any) =>
-        item?.enabled ? (
-          <Menu
-            current={pathname === item.url || item.active}
-            key={item.title}
-            url={item.url}
-          >
-            {item.icon}
-            <div>{item.title}</div>
-          </Menu>
-        ) : null
-      )}
+      {menuItems.map((item: any) => (
+        <Menu
+          current={pathname === item.url || item.active}
+          key={item.title}
+          url={item.url}
+        >
+          {item.icon}
+          <div>{item.title}</div>
+        </Menu>
+      ))}
     </div>
   );
 };

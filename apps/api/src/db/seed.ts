@@ -1,5 +1,4 @@
-import { PrismaClient } from '@prisma/client';
-
+import { PrismaClient } from './generated/hey';
 import seedAllowedTokens from './seeds/seedAllowedTokens';
 import seedFeatureFlags from './seeds/seedFeatureFlags';
 import seedMembershipNfts from './seeds/seedMembershipNfts';

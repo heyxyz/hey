@@ -27,7 +27,6 @@ import LeafwatchDetails from './LeafwatchDetails';
 import ManagedProfiles from './ManagedProfiles';
 import OnchainIdentities from './OnchainIdentities';
 import Rank from './Rank';
-import Score from './Score';
 
 interface ProfileStaffToolProps {
   profile: Profile;
@@ -54,7 +53,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
 
   const { data: preferences } = useQuery({
     queryFn: () => getPreferences(profile.id, getAuthApiHeaders()),
-    queryKey: ['fetchPreferences', profile.id || '']
+    queryKey: ['getPreferences', profile.id || '']
   });
 
   return (
@@ -149,8 +148,6 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           <P2PRecommendation profile={profile} />
         </div>
       </div>
-      <div className="divider my-5 border-dashed border-yellow-600" />
-      <Score address={profile.ownedBy.address} />
       <div className="divider my-5 border-dashed border-yellow-600" />
       <OnchainIdentities onchainIdentity={profile.onchainIdentity} />
       {IS_MAINNET ? (

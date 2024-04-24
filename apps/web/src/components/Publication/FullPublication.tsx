@@ -2,13 +2,16 @@ import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import { QueueListIcon } from '@heroicons/react/24/outline';
+import getProfileFlags from '@hey/lib/api/getProfileFlags';
 import formatDate from '@hey/lib/datetime/formatDate';
 import getAppName from '@hey/lib/getAppName';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
-import { Tooltip } from '@hey/ui';
+import { Card, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import usePushToImpressions from 'src/hooks/usePushToImpressions';
+import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 import { useHiddenCommentFeedStore } from '.';
 import PublicationActions from './Actions';
@@ -28,6 +31,7 @@ const FullPublication: FC<FullPublicationProps> = ({
   hasHiddenComments,
   publication
 }) => {
+  const { staffMode } = useFeatureFlagsStore();
   const { setShowHiddenComments, showHiddenComments } =
     useHiddenCommentFeedStore();
 
@@ -35,9 +39,27 @@ const FullPublication: FC<FullPublicationProps> = ({
     ? publication?.mirrorOn
     : publication;
 
-  const { createdAt, publishedOn } = targetPublication;
+  const { by, createdAt, publishedOn } = targetPublication;
 
   usePushToImpressions(targetPublication.id);
+
+  const { data: profileFlags } = useQuery({
+    enabled: Boolean(by.id),
+    queryFn: () => getProfileFlags(by.id || ''),
+    queryKey: ['getProfileFlags', by.id]
+  });
+
+  const isSuspended = staffMode ? false : profileFlags?.isSuspended;
+
+  if (isSuspended) {
+    return (
+      <Card className="m-5 !bg-gray-100 dark:!bg-gray-800" forceRounded>
+        <div className="px-4 py-3 text-sm">
+          Author Profile has been suspended!
+        </div>
+      </Card>
+    );
+  }
 
   return (
     <article className="p-5">

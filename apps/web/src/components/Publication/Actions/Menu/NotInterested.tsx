@@ -49,11 +49,9 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
   const [addPublicationNotInterested] = useAddPublicationNotInterestedMutation({
     onCompleted: () => {
       toast.success('Marked as not Interested');
-      Leafwatch.track(
-        PUBLICATION.NOT_INTERESTED,
-        { publication_id: publication.id },
-        publication.by.ownedBy.address
-      );
+      Leafwatch.track(PUBLICATION.NOT_INTERESTED, {
+        publication_id: publication.id
+      });
     },
     onError,
     update: (cache) => updateCache(cache, true),
@@ -64,11 +62,9 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
     useUndoPublicationNotInterestedMutation({
       onCompleted: () => {
         toast.success('Undo Not interested');
-        Leafwatch.track(
-          PUBLICATION.UNDO_NOT_INTERESTED,
-          { publication_id: publication.id },
-          publication.by.ownedBy.address
-        );
+        Leafwatch.track(PUBLICATION.UNDO_NOT_INTERESTED, {
+          publication_id: publication.id
+        });
       },
       onError,
       update: (cache) => updateCache(cache, false),

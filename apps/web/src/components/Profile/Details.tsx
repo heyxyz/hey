@@ -13,7 +13,8 @@ import {
 } from '@heroicons/react/24/outline';
 import {
   CheckBadgeIcon,
-  ExclamationCircleIcon
+  ExclamationCircleIcon,
+  EyeSlashIcon
 } from '@heroicons/react/24/solid';
 import { EXPANDED_AVATAR, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { FollowModuleType } from '@hey/lens';
@@ -37,6 +38,7 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import urlcat from 'urlcat';
 
 import Badges from './Badges';
+import Pro from './Badges/Pro';
 import Followerings from './Followerings';
 import InternalTools from './InternalTools';
 import InvitedBy from './InvitedBy';
@@ -59,10 +61,11 @@ export const MetaDetails = ({
 );
 
 interface DetailsProps {
+  isSuspended: boolean;
   profile: Profile;
 }
 
-const Details: FC<DetailsProps> = ({ profile }) => {
+const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
   const { push } = useRouter();
   const { currentProfile } = useProfileStore();
   const { staffMode } = useFeatureFlagsStore();
@@ -102,9 +105,15 @@ const Details: FC<DetailsProps> = ({ profile }) => {
           ) : null}
           {hasMisused(profile.id) ? (
             <Tooltip content={misuseDetails?.type}>
-              <ExclamationCircleIcon className="size-6" />
+              <ExclamationCircleIcon className="text-brand-500 size-6" />
             </Tooltip>
           ) : null}
+          {isSuspended ? (
+            <Tooltip content="Suspended">
+              <EyeSlashIcon className="text-brand-500 size-6" />
+            </Tooltip>
+          ) : null}
+          <Pro id={profile.id} />
         </div>
         <div className="flex items-center space-x-3">
           <Slug
@@ -166,7 +175,7 @@ const Details: FC<DetailsProps> = ({ profile }) => {
           <MetaDetails icon={<HashtagIcon className="size-4" />}>
             {parseInt(profile.id)}
           </MetaDetails>
-          <Score address={profile.ownedBy.address} />
+          <Score id={profile.id} />
           {getProfileAttribute('location', profile?.metadata?.attributes) ? (
             <MetaDetails icon={<MapPinIcon className="size-4" />}>
               {getProfileAttribute('location', profile?.metadata?.attributes)}
