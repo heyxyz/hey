@@ -1,4 +1,5 @@
 import type { Handler } from 'express';
+import type { Address } from 'viem';
 
 import { HEY_LENS_SIGNUP } from '@hey/data/constants';
 import logger from '@hey/lib/logger';
@@ -6,6 +7,7 @@ import catchedError from 'src/lib/catchedError';
 import { CACHE_AGE_INDEFINITE } from 'src/lib/constants';
 import lensPrisma from 'src/lib/lensPrisma';
 import { noBody } from 'src/lib/responses';
+import { getAddress } from 'viem';
 
 // TODO: add tests
 export const get: Handler = async (req, res) => {
@@ -16,6 +18,9 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
+    const formattedAddress = address
+      ? getAddress(address as Address).toLowerCase()
+      : undefined;
     const data = await lensPrisma.$queryRaw<{ result: boolean }[]>`
       SELECT EXISTS (
         SELECT 1
@@ -29,7 +34,7 @@ export const get: Handler = async (req, res) => {
 
     const isHeyProfile = data[0].result;
 
-    logger.info(`Hey profile badge fetched for ${id}`);
+    logger.info(`Hey profile badge fetched for ${id || formattedAddress}`);
 
     return res
       .status(200)
