@@ -3,7 +3,7 @@ import type { Handler } from 'express';
 import logger from '@hey/lib/logger';
 import axios from 'axios';
 import catchedError from 'src/lib/catchedError';
-import { CACHE_AGE_1_DAY } from 'src/lib/constants';
+import heyPrisma from 'src/lib/heyPrisma';
 import lensPrisma from 'src/lib/lensPrisma';
 import { noBody } from 'src/lib/responses';
 
@@ -22,6 +22,22 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
+    const cachedProfile = await heyPrisma.cachedProfileScore.findUnique({
+      where: { id: id as string }
+    });
+
+    if (cachedProfile?.expiresAt && new Date() < cachedProfile.expiresAt) {
+      logger.info(
+        `Lens: Fetched profile score from cache for ${id} - ${cachedProfile.score}`
+      );
+
+      return res.status(200).json({
+        expiresAt: cachedProfile.expiresAt,
+        score: cachedProfile.score,
+        success: true
+      });
+    }
+
     const scoreQueryRequest = await axios.get(
       'https://score.heyxyz.workers.dev',
       { params: { id, secret: process.env.SECRET } }
@@ -37,12 +53,23 @@ export const get: Handler = async (req, res) => {
 
     const score = Number(scores[0].score);
 
-    logger.info(`Lens: Fetched profile score for ${id} - ${score}`);
+    const baseData = {
+      expiresAt: new Date(Date.now() + 12 * 60 * 60 * 1000), // 12 hours
+      id: id as string,
+      score
+    };
 
-    return res
-      .status(200)
-      .setHeader('Cache-Control', CACHE_AGE_1_DAY)
-      .json({ cached: new Date().toISOString(), score, success: true });
+    const newCachedProfile = await heyPrisma.cachedProfileScore.upsert({
+      create: baseData,
+      update: baseData,
+      where: { id: id as string }
+    });
+
+    logger.info(
+      `Lens: Fetched profile score for ${id} - ${score} - Expires at: ${newCachedProfile.expiresAt}`
+    );
+
+    return res.status(200).json({ score, success: true });
   } catch (error) {
     catchedError(res, error);
   }
