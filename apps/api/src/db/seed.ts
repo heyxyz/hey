@@ -1,3 +1,5 @@
+import logger from '@hey/lib/logger';
+
 import { PrismaClient } from './generated/hey';
 import seedAllowedTokens from './seeds/seedAllowedTokens';
 import seedFeatureFlags from './seeds/seedFeatureFlags';
@@ -11,25 +13,25 @@ export const prisma = new PrismaClient();
 
 async function main() {
   const featureFlags = await seedFeatureFlags();
-  console.log(`Seeded ${featureFlags} feature flags`);
+  logger.info(`Seeded ${featureFlags} feature flags`);
 
   const profileFeatures = await seedProfileFeatures();
-  console.log(`Seeded ${profileFeatures} profile features`);
+  logger.info(`Seeded ${profileFeatures} profile features`);
 
   const preferences = await seedPreferences();
-  console.log(`Seeded ${preferences} preferences`);
+  logger.info(`Seeded ${preferences} preferences`);
 
   const allowedTokens = await seedAllowedTokens();
-  console.log(`Seeded ${allowedTokens} allowed tokens`);
+  logger.info(`Seeded ${allowedTokens} allowed tokens`);
 
   const poll = await seedPolls();
-  console.log(`Seeded ${poll} poll`);
+  logger.info(`Seeded ${poll} poll`);
 
   const membershipNft = await seedMembershipNfts();
-  console.log(`Seeded ${membershipNft} membership nft`);
+  logger.info(`Seeded ${membershipNft} membership nft`);
 
   const scorableEvents = await seedScorableEvents();
-  console.log(`Seeded ${scorableEvents} scorable events`);
+  logger.info(`Seeded ${scorableEvents} scorable events`);
 }
 
 main()
