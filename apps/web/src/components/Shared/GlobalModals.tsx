@@ -5,9 +5,11 @@ import ReportPublication from '@components/Shared/Modal/ReportPublication';
 import {
   ArrowRightCircleIcon,
   CircleStackIcon,
+  FireIcon,
   ShieldCheckIcon,
   TicketIcon
 } from '@heroicons/react/24/outline';
+import { APP_NAME } from '@hey/data/constants';
 import { Modal } from '@hey/ui';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
@@ -23,6 +25,7 @@ import GlobalModalsFromUrl from './GlobalModalsFromUrl';
 import Invites from './Modal/Invites';
 import OptimisticTransactions from './Modal/OptimisticTransactions';
 import ReportProfile from './Modal/ReportProfile';
+import Score from './Modal/Score';
 import SwitchProfiles from './SwitchProfiles';
 
 const GlobalModals: FC = () => {
@@ -31,6 +34,8 @@ const GlobalModals: FC = () => {
     authModalType,
     reportingProfile,
     reportingPublicationId,
+    score,
+    scoreExpiresAt,
     setShowAuthModal,
     setShowDiscardModal,
     setShowInvitesModal,
@@ -39,13 +44,15 @@ const GlobalModals: FC = () => {
     setShowProfileSwitchModal,
     setShowPublicationReportModal,
     setShowReportProfileModal,
+    setShowScoreModal,
     showAuthModal,
     showInvitesModal,
     showNewPostModal,
     showOptimisticTransactionsModal,
     showProfileSwitchModal,
     showPublicationReportModal,
-    showReportProfileModal
+    showReportProfileModal,
+    showScoreModal
   } = useGlobalModalStateStore();
   const { publicationContent, quotedPublication } = usePublicationStore();
   const { attachments, isUploading } = usePublicationAttachmentStore(
@@ -147,6 +154,15 @@ const GlobalModals: FC = () => {
         title="Optimistic Transactions"
       >
         <OptimisticTransactions />
+      </Modal>
+      <Modal
+        icon={<FireIcon className="size-5" />}
+        onClose={() => setShowScoreModal(false, null, null)}
+        show={showScoreModal}
+        size="xs"
+        title={`${APP_NAME} score`}
+      >
+        <Score />
       </Modal>
     </>
   );
