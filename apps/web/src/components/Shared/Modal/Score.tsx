@@ -14,7 +14,7 @@ const Score: FC = () => {
         className="size-14"
         src={`${STATIC_IMAGES_URL}/app-icon/2.png`}
       />
-      <div className="space-y-2">
+      <div className="flex flex-col items-center space-y-2">
         <div className="font-bold">Your Score</div>
         <div className="w-fit rounded-full bg-gradient-to-r from-green-500 to-cyan-500 px-4 py-0.5 !text-lg font-bold text-white">
           {score ? humanize(score) : '...'}
