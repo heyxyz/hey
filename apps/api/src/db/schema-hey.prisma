@@ -139,3 +139,16 @@ model CachedProfileScore {
   score     Int
   expiresAt DateTime
 }
+
+model Tip {
+  id            String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  publicationId String
+  fromProfileId String
+  fromAddress   String
+  toProfileId   String
+  toAddress     String
+  tokenAddress  String
+  amount        Int
+  txHash        String
+  createdAt     DateTime @default(now())
+}
