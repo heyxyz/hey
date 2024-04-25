@@ -184,7 +184,7 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({
       <Card className="mt-3" forceRounded onClick={stopEventPropagation}>
         <div className="relative">
           <img
-            alt={nft.collectionName}
+            alt={nft.mediaUrl !== '' ? nft.collectionName : undefined}
             className="h-[350px] max-h-[350px] w-full rounded-t-xl object-cover"
             src={nft.mediaUrl !== '' ? nft.mediaUrl : undefined}
           />
