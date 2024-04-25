@@ -12,7 +12,7 @@ interface ScoreProps {
 }
 
 const Score: FC<ScoreProps> = ({ className = '', onClick }) => {
-  const { expiresAt, score } = useScoreStore();
+  const { score } = useScoreStore();
   const { setShowScoreModal } = useGlobalModalStateStore();
 
   return (
@@ -22,7 +22,7 @@ const Score: FC<ScoreProps> = ({ className = '', onClick }) => {
         className
       )}
       onClick={() => {
-        setShowScoreModal(true, score, expiresAt);
+        setShowScoreModal(true, score);
         onClick?.();
       }}
       type="button"
