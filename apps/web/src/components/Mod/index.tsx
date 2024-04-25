@@ -27,6 +27,7 @@ import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 import FeedType from './FeedType';
 import LatestFeed from './LatestFeed';
+import ReportsFeed from './ReportsFeed';
 import SearchFeed from './SearchFeed';
 
 const FILTER_APPS = knownApps;
@@ -101,6 +102,7 @@ const Mod: NextPage = () => {
         )}
         {feedType === ModFeedType.SEARCH && <SearchFeed />}
         {feedType === ModFeedType.PROFILES && <List />}
+        {feedType === ModFeedType.REPORTS && <ReportsFeed />}
       </GridItemEight>
       <GridItemFour>
         <Card className="p-5">
