@@ -116,7 +116,7 @@ const P2PRecommendation: FC<P2PRecommendationProps> = ({ profile }) => {
       outline={!hasRecommended}
       size="sm"
     >
-      {hasRecommended ? 'Recommend' : 'Unrecommend'}
+      {hasRecommended ? 'Unrecommend' : 'Recommend'}
     </Button>
   );
 };
