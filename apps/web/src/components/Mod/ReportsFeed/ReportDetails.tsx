@@ -13,10 +13,14 @@ import { type FC, useState } from 'react';
 import Dispute from './Dispute';
 
 interface ReportDetailsProps {
+  hideViewReportsButton?: boolean;
   report: ModReport;
 }
 
-const ReportDetails: FC<ReportDetailsProps> = ({ report }) => {
+const ReportDetails: FC<ReportDetailsProps> = ({
+  hideViewReportsButton = false,
+  report
+}) => {
   const [showReportsModal, setShowReportsModal] = useState(false);
   const [showDisputeModal, setShowDisputeModal] = useState(false);
 
@@ -43,14 +47,16 @@ const ReportDetails: FC<ReportDetailsProps> = ({ report }) => {
         </div>
       </div>
       <div className="flex flex-col space-y-3">
-        <Button onClick={() => setShowReportsModal(true)} outline size="sm">
-          View other reports
-        </Button>
+        {!hideViewReportsButton ? (
+          <Button onClick={() => setShowReportsModal(true)} outline size="sm">
+            View other reports
+          </Button>
+        ) : null}
         <Modal
           icon={<FlagIcon className="size-5 text-red-500" />}
           onClose={() => setShowReportsModal(false)}
           show={showReportsModal}
-          size="lg"
+          size="md"
           title="Reports"
         >
           <Reports
@@ -66,9 +72,7 @@ const ReportDetails: FC<ReportDetailsProps> = ({ report }) => {
           Dispute this report
         </Button>
         <Modal
-          icon={
-            <ChatBubbleOvalLeftEllipsisIcon className="size-5 text-red-500" />
-          }
+          icon={<ChatBubbleOvalLeftEllipsisIcon className="size-5" />}
           onClose={() => setShowDisputeModal(false)}
           show={showDisputeModal}
           title="Dispute this report"
