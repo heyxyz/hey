@@ -42,11 +42,17 @@ const Reports: FC<ReportsProps> = ({ publication }) => {
   };
 
   if (loading) {
-    return <Loader message="Loading reports..." />;
+    return <Loader className="my-10" message="Loading reports..." />;
   }
 
   if (error) {
-    return <ErrorMessage error={error} title="Failed to load reports" />;
+    return (
+      <ErrorMessage
+        className="m-5"
+        error={error}
+        title="Failed to load reports"
+      />
+    );
   }
 
   return (
