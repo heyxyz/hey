@@ -3,21 +3,27 @@ import type {
   ReportPublicationRequest
 } from '@hey/lens';
 import type { ApolloCache } from '@hey/lens/apollo';
-import type { FC, ReactNode } from 'react';
 
-import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
+import {
+  BanknotesIcon,
+  DocumentTextIcon,
+  FlagIcon
+} from '@heroicons/react/24/outline';
 import { GARDENER } from '@hey/data/tracking';
 import {
   PublicationReportingSpamSubreason,
   useReportPublicationMutation
 } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Button } from '@hey/ui';
+import { Button, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useToggle } from '@uidotdev/usehooks';
 import { useRouter } from 'next/router';
+import { type FC, type ReactNode, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
+
+import Reports from './Reports';
 
 interface GardenerActionsProps {
   publication: MirrorablePublication;
@@ -29,6 +35,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
   const [hasReported, toggletHasReported] = useToggle(
     publication.operations?.hasReported
   );
+  const [showModal, setShowModal] = useState(false);
   const [createReport, { loading }] = useReportPublicationMutation();
 
   const updateCache = (cache: ApolloCache<any>) => {
@@ -147,6 +154,18 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
         label="Both"
         type="both"
       />
+      <Button onClick={() => setShowModal(true)} outline size="sm">
+        View Reports
+      </Button>
+      <Modal
+        icon={<FlagIcon className="size-5 text-red-500" />}
+        onClose={() => setShowModal(false)}
+        show={showModal}
+        size="lg"
+        title="Reports"
+      >
+        <Reports publication={publication} />
+      </Modal>
     </span>
   );
 };
