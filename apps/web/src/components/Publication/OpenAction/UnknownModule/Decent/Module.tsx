@@ -224,7 +224,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
       setIsApprovalLoading(true);
       try {
         const signatureAmount = permit2SignatureAmount({
-          chainId: actionData.actArgumentsFormatted.dstChainId,
+          chainId: actionData.uiData.dstChainId,
           data: actionData.actArguments.actionModuleData
         });
         const permit2Signature = await signPermitSignature(
@@ -264,7 +264,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     if (actionData && !!publication && !!permit2Data) {
       try {
         const updatedCalldata = await updateWrapperParams({
-          chainId: actionData.actArgumentsFormatted.dstChainId,
+          chainId: actionData.uiData.dstChainId,
           data: actionData.actArguments.actionModuleData,
           deadline: BigInt(permit2Data.deadline),
           nonce: BigInt(permit2Data.nonce),
