@@ -2,6 +2,7 @@ import type { Dispatch, FC, SetStateAction } from 'react';
 
 import {
   ClockIcon,
+  FlagIcon,
   MagnifyingGlassIcon,
   UsersIcon
 } from '@heroicons/react/24/outline';
@@ -21,6 +22,12 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
         icon={<ClockIcon className="size-4" />}
         name="Latest"
         onClick={() => setFeedType(ModFeedType.LATEST)}
+      />
+      <TabButton
+        active={feedType === ModFeedType.REPORTS}
+        icon={<FlagIcon className="size-4" />}
+        name="Reports"
+        onClick={() => setFeedType(ModFeedType.REPORTS)}
       />
       <TabButton
         active={feedType === ModFeedType.SEARCH}
