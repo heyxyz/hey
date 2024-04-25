@@ -93,7 +93,7 @@ const PreferencesProvider: FC = () => {
         setScore(score.score);
         setExpiresAt(score.expiresAt);
       }),
-    queryKey: ['getFiatRates']
+    queryKey: ['getScore', sessionProfileId]
   });
 
   useQuery({
