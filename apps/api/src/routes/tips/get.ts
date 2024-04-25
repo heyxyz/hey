@@ -56,8 +56,8 @@ export const post: Handler = async (req, res) => {
     const result = tipCounts.map(({ _count, publicationId }) => ({
       // @ts-ignore
       count: _count.publicationId,
-      hasTipped: hasTippedMap.has(publicationId),
-      id: publicationId
+      id: publicationId,
+      tipped: hasTippedMap.has(publicationId)
     }));
 
     logger.info(`Fetched tips for ${ids.length} publications`);
