@@ -10,10 +10,11 @@ import type { Address } from 'viem';
 
 import ActionInfo from '@components/Shared/Oembed/Nft/ActionInfo';
 import DecentOpenActionShimmer from '@components/Shared/Shimmer/DecentOpenActionShimmer';
+import { ZERO_ADDRESS } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
-import getNftChainInfo from '@hey/lib/getNftChainInfo';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
+import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button, Card, Spinner, Tooltip } from '@hey/ui';
 import errorToast from '@lib/errorToast';
@@ -88,22 +89,29 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({
 
   const prevCurrencyRef = useRef(selectedCurrency);
 
-  const nft: Nft = og.nft
-    ? og.nft
-    : {
-        chain: null,
-        collectionName: '',
-        contractAddress: '0x0000000000000000000000000000000000000000',
-        creatorAddress: '0x0000000000000000000000000000000000000000',
-        description: og.description || '',
-        endTime: null,
-        mediaUrl: og.image || '',
-        mintCount: null,
-        mintStatus: null,
-        mintUrl: null,
-        schema: 'erc721',
-        sourceUrl: og.url
-      };
+  const nft: Nft = {
+    chain:
+      actionData?.actArgumentsFormatted.dstChainId.toString() ??
+      og.nft?.chain ??
+      null,
+    collectionName: actionData?.uiData.nftName ?? og.nft?.collectionName ?? '',
+    contractAddress: og.nft?.contractAddress ?? ZERO_ADDRESS,
+    creatorAddress: (actionData?.uiData.nftCreatorAddress ??
+      og.nft?.creatorAddress ??
+      ZERO_ADDRESS) as `0x${string}`,
+    description: og.description || '',
+    endTime: null,
+    mediaUrl:
+      sanitizeDStorageUrl(actionData?.uiData.nftUri) ??
+      og.nft?.mediaUrl ??
+      og.image ??
+      '',
+    mintCount: og.nft?.mintCount ?? null,
+    mintStatus: og.nft?.mintStatus ?? null,
+    mintUrl: og.nft?.mintUrl ?? null,
+    schema: actionData?.uiData.tokenStandard ?? og.nft?.schema ?? '',
+    sourceUrl: og.url
+  };
 
   useEffect(
     () => {
@@ -114,9 +122,7 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({
           raribleApiKey: process.env.NEXT_PUBLIC_RARIBLE_API_KEY || ''
         });
 
-        const addressParameter = address
-          ? address
-          : '0x0000000000000000000000000000000000000000';
+        const addressParameter = address ? address : ZERO_ADDRESS;
 
         // Call the async function and pass the link
         try {
@@ -175,24 +181,12 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({
           <img
             alt={nft.collectionName}
             className="h-[350px] max-h-[350px] w-full rounded-t-xl object-cover"
-            src={nft.mediaUrl}
+            src={nft.mediaUrl !== '' ? nft.mediaUrl : undefined}
           />
         </div>
         {!!actionData && nft ? (
           <div className="flex items-center justify-between border-t p-4 dark:border-gray-700">
             <div className="flex items-center space-x-2">
-              {nft.chain ? (
-                <Tooltip
-                  content={getNftChainInfo(nft.chain).name}
-                  placement="right"
-                >
-                  <img
-                    alt={getNftChainInfo(nft.chain).name}
-                    className="size-5"
-                    src={getNftChainInfo(nft.chain).logo}
-                  />
-                </Tooltip>
-              ) : null}
               {nft.creatorAddress ? (
                 <ActionInfo
                   actionData={actionData}

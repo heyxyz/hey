@@ -18,6 +18,7 @@ import {
   Squares2X2Icon,
   UserIcon
 } from '@heroicons/react/24/outline';
+import { ZERO_ADDRESS } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { useDefaultProfileQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
@@ -125,6 +126,10 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     skip: !actionData?.uiData.nftCreatorAddress,
     variables: { request: { for: actionData?.uiData.nftCreatorAddress } }
   });
+
+  const creatorProfileExists =
+    !!creatorProfileData && !!creatorProfileData.defaultProfile;
+  const creatorAddress = actionData?.uiData.nftCreatorAddress ?? ZERO_ADDRESS;
 
   const totalAmount = actionData
     ? BigInt(actionData.actArgumentsFormatted.paymentToken.amount) *
@@ -337,10 +342,10 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
               {creatorProfileData ? (
                 <p className="opacity-50">
                   by{' '}
-                  {
-                    getProfile(creatorProfileData.defaultProfile as Profile)
-                      .slug
-                  }
+                  {creatorProfileExists
+                    ? getProfile(creatorProfileData.defaultProfile as Profile)
+                        .slug
+                    : `${creatorAddress.slice(0, 6)}...${creatorAddress.slice(-4)}`}
                 </p>
               ) : null}
             </div>
@@ -371,14 +376,16 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                 <Squares2X2Icon className="w-5" />
                 <p>{formattedNftSchema}</p>
               </div>
-              <div className="flex items-center gap-2">
-                <UserIcon className="w-5" />
-                <p>{nft.mintCount} minted</p>
-              </div>
+              {nft.mintCount && (
+                <div className="flex items-center gap-2">
+                  <UserIcon className="w-5" />
+                  <p>{nft.mintCount} minted</p>
+                </div>
+              )}
               <div className="flex items-center gap-2">
                 <ArrowTopRightOnSquareIcon className="w-5" />
                 <Link
-                  href={nft.mintUrl ?? ''}
+                  href={nft.mintUrl ?? nft.sourceUrl}
                   rel="noreferrer noopener"
                   target="_blank"
                 >
