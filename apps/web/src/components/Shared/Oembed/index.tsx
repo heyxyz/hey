@@ -66,10 +66,6 @@ const Oembed: FC<OembedProps> = ({
     url: url as string
   };
 
-  if (!og.title && !og.html && !og.nft) {
-    return null;
-  }
-
   const targetPublication =
     currentPublication && isMirrorPublication(currentPublication)
       ? currentPublication.mirrorOn
@@ -85,6 +81,10 @@ const Oembed: FC<OembedProps> = ({
 
   const embedDecentOpenAction: boolean =
     canPerformDecentAction || !!openActionEmbed;
+
+  if (!og.title && !og.html && !og.nft && !embedDecentOpenAction) {
+    return null;
+  }
 
   return (
     <div className={className}>
