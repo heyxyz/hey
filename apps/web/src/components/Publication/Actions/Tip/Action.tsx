@@ -6,6 +6,7 @@ import { Errors } from '@hey/data';
 import {
   APP_NAME,
   DEFAULT_COLLECT_TOKEN,
+  DEFAULT_LOGO_URL,
   HEY_TIPPING,
   MAX_UINT256,
   STATIC_IMAGES_URL
@@ -255,10 +256,7 @@ const Action: FC<ActionProps> = ({
               <b>Fees</b>
               <div className="flex items-start space-x-10">
                 <div className="flex items-center space-x-2">
-                  <img
-                    className="size-3"
-                    src={`${STATIC_IMAGES_URL}/app-icon/0.png`}
-                  />
+                  <img className="size-3" src={DEFAULT_LOGO_URL} />
                   <span>{APP_NAME}</span>
                 </div>
                 <b>

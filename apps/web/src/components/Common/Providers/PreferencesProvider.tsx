@@ -5,12 +5,14 @@ import { HEY_API_URL } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import getAllTokens from '@hey/lib/api/getAllTokens';
 import getPreferences from '@hey/lib/api/getPreferences';
+import getScore from '@hey/lib/api/getScore';
 import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import getCurrentSession from '@lib/getCurrentSession';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
+import { useScoreStore } from 'src/store/non-persisted/useScoreStore';
 import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useRatesStore } from 'src/store/persisted/useRatesStore';
@@ -21,6 +23,7 @@ const PreferencesProvider: FC = () => {
   const { setVerifiedMembers } = useVerifiedMembersStore();
   const { setAllowedTokens } = useAllowedTokensStore();
   const { setFiatRates } = useRatesStore();
+  const { setExpiresAt, setScore } = useScoreStore();
   const {
     setAppIcon,
     setEmail,
@@ -81,6 +84,17 @@ const PreferencesProvider: FC = () => {
       return false;
     }
   };
+
+  // Fetch score
+  useQuery({
+    enabled: Boolean(sessionProfileId),
+    queryFn: () =>
+      getScore(sessionProfileId).then((score) => {
+        setScore(score.score);
+        setExpiresAt(score.expiresAt);
+      }),
+    queryKey: ['getFiatRates']
+  });
 
   useQuery({
     queryFn: getVerifiedMembers,
