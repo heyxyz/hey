@@ -1,6 +1,5 @@
 import type { AnyPublication } from '@hey/lens';
 import type { OG } from '@hey/types/misc';
-import type { FC } from 'react';
 
 import DecentOpenAction from '@components/Publication/OpenAction/UnknownModule/Decent';
 import { HEY_API_URL } from '@hey/data/constants';
@@ -9,6 +8,7 @@ import getFavicon from '@hey/lib/getFavicon';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { type FC, useEffect, useState } from 'react';
 
 import Embed from './Embed';
 import Nft from './Nft';
@@ -41,6 +41,15 @@ const Oembed: FC<OembedProps> = ({
     refetchOnMount: false
   });
 
+  const [currentPublication, setCurrentPublication] =
+    useState<AnyPublication>();
+
+  useEffect(() => {
+    if (publication) {
+      setCurrentPublication(publication);
+    }
+  }, [publication]);
+
   if (isLoading || error || !data) {
     return null;
   }
@@ -62,9 +71,9 @@ const Oembed: FC<OembedProps> = ({
   }
 
   const targetPublication =
-    publication && isMirrorPublication(publication)
-      ? publication.mirrorOn
-      : publication;
+    currentPublication && isMirrorPublication(currentPublication)
+      ? currentPublication.mirrorOn
+      : currentPublication;
 
   // Check if the publication has an NFT minting open action module
   const canPerformDecentAction: boolean =
@@ -79,19 +88,19 @@ const Oembed: FC<OembedProps> = ({
 
   return (
     <div className={className}>
-      {embedDecentOpenAction && !!publication ? (
+      {embedDecentOpenAction && !!currentPublication ? (
         <DecentOpenAction
           og={og}
           openActionEmbed={!!openActionEmbed}
           openActionEmbedLoading={!!openActionEmbedLoading}
-          publication={publication}
+          publication={currentPublication}
         />
       ) : og.html ? (
         <Player og={og} />
       ) : og.nft ? (
         <Nft nft={og.nft} />
       ) : (
-        <Embed og={og} publicationId={publication?.id} />
+        <Embed og={og} publicationId={currentPublication?.id} />
       )}
     </div>
   );
