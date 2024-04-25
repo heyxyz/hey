@@ -9,7 +9,6 @@ import nFormatter from '@hey/lib/nFormatter';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { motion } from 'framer-motion';
 import party from 'party-js';
 import { type FC, useRef } from 'react';
@@ -26,10 +25,6 @@ const Tip: FC<TipProps> = ({ publication, showCount }) => {
   const { publicationTips } = useTipsStore();
   const tip = getPublicationTipById(publicationTips, publication.id);
   const confettiDom = useRef<HTMLDivElement>(null);
-
-  if (!isFeatureAvailable('gbp')) {
-    return null;
-  }
 
   const triggerConfetti = () => {
     party.resolvableShapes['moneybag'] =
