@@ -25,7 +25,7 @@ const Score: FC<ScoreProps> = ({ id }) => {
     return null;
   }
 
-  if (isLoading || !score) {
+  if (isLoading || !score?.score) {
     return null;
   }
 
@@ -38,7 +38,7 @@ const Score: FC<ScoreProps> = ({ id }) => {
           size="sm"
           variant="secondary"
         >
-          {humanize(score)}
+          {humanize(score.score)}
         </Button>
       </MetaDetails>
       <Modal

@@ -23,6 +23,7 @@ import GardenerMode from './NavItems/GardenerMode';
 import Invites from './NavItems/Invites';
 import Logout from './NavItems/Logout';
 import OptimisticTransactions from './NavItems/OptimisticTransactions';
+import Score from './NavItems/Score';
 import Settings from './NavItems/Settings';
 import StaffMode from './NavItems/StaffMode';
 import SwitchProfile from './NavItems/SwitchProfile';
@@ -172,6 +173,17 @@ const SignedUser: FC = () => {
                 }
               >
                 <StaffMode />
+              </Menu.Item>
+            ) : null}
+            <div className="divider" />
+            {isFeatureAvailable('hey-score') ? (
+              <Menu.Item
+                as="div"
+                className={({ active }) =>
+                  cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
+                }
+              >
+                <Score />
               </Menu.Item>
             ) : null}
             <div className="divider" />
