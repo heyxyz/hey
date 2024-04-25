@@ -1,8 +1,4 @@
-import type {
-  MirrorablePublication,
-  ModReport,
-  ModReportsRequest
-} from '@hey/lens';
+import type { ModReport, ModReportsRequest } from '@hey/lens';
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
@@ -13,13 +9,15 @@ import { Virtuoso } from 'react-virtuoso';
 import ReportDetails from './ReportDetails';
 
 interface ReportsProps {
-  publication: MirrorablePublication;
+  profileId?: string;
+  publicationId?: string;
 }
 
-const Reports: FC<ReportsProps> = ({ publication }) => {
+const Reports: FC<ReportsProps> = ({ profileId, publicationId }) => {
   // Variables
   const request: ModReportsRequest = {
-    forPublication: publication.id,
+    ...(profileId && { forProfile: profileId }),
+    ...(publicationId && { forPublication: publicationId }),
     limit: LimitType.Fifty
   };
 
