@@ -16,7 +16,7 @@ const Score: FC<ScoreProps> = ({ className = '', onClick }) => {
   return (
     <button
       className={cn(
-        'flex w-full items-center space-x-1.5 px-2 py-1.5 text-left text-sm text-gray-700 dark:text-gray-200',
+        'flex w-full items-center space-x-1.5 p-2 text-left font-mono text-xs text-gray-700 dark:text-gray-200',
         className
       )}
       onClick={() => {
