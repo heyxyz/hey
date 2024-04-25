@@ -1,4 +1,4 @@
-import type { MirrorablePublication, ModReport, Profile } from '@hey/lens';
+import type { ModReport, Profile } from '@hey/lens';
 
 import Reports from '@components/Mod/ReportsFeed/Reports';
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
@@ -59,9 +59,7 @@ const ReportDetails: FC<ReportDetailsProps> = ({
           size="md"
           title="Reports"
         >
-          <Reports
-            publication={report.reportedPublication as MirrorablePublication}
-          />
+          <Reports publicationId={report.reportedPublication?.id} />
         </Modal>
         <Button
           onClick={() => setShowDisputeModal(true)}

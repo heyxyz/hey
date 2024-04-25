@@ -24,6 +24,8 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
+import ViewReports from './ViewReports';
+
 const List: FC = () => {
   const { pathname } = useRouter();
   const [orderBy, setOrderBy] = useState<ExploreProfilesOrderByType>(
@@ -31,6 +33,7 @@ const List: FC = () => {
   );
   const [searchText, setSearchText] = useState('');
   const [refetching, setRefetching] = useState(false);
+  const [showReportsModal, setShowReportsModal] = useState(false);
   const debouncedSearchText = useDebounce<string>(searchText, 500);
 
   // Variables
@@ -95,24 +98,28 @@ const List: FC = () => {
           value={searchText}
         />
         {!searchText ? (
-          <Select
-            className="w-72"
-            defaultValue={orderBy}
-            onChange={(value) =>
-              setOrderBy(value as ExploreProfilesOrderByType)
-            }
-            options={Object.values(ExploreProfilesOrderByType).map((type) => ({
-              label: type,
-              selected: orderBy === type,
-              value: type
-            }))}
-          />
+          <>
+            <Select
+              className="w-72"
+              defaultValue={orderBy}
+              onChange={(value) =>
+                setOrderBy(value as ExploreProfilesOrderByType)
+              }
+              options={Object.values(ExploreProfilesOrderByType).map(
+                (type) => ({
+                  label: type,
+                  selected: orderBy === type,
+                  value: type
+                })
+              )}
+            />
+            <button onClick={onRefetch} type="button">
+              <ArrowPathIcon
+                className={cn(refetching && 'animate-spin', 'size-5')}
+              />
+            </button>
+          </>
         ) : null}
-        <button onClick={onRefetch} type="button">
-          <ArrowPathIcon
-            className={cn(refetching && 'animate-spin', 'size-5')}
-          />
-        </button>
       </div>
       <div className="divider" />
       <div className="m-5">
@@ -153,7 +160,10 @@ const List: FC = () => {
                       timestamp={profile.createdAt}
                     />
                   </Link>
-                  <P2PRecommendation profile={profile as Profile} />
+                  <div className="flex space-x-3">
+                    <ViewReports id={profile.id} />
+                    <P2PRecommendation profile={profile as Profile} />
+                  </div>
                 </div>
               );
             }}
