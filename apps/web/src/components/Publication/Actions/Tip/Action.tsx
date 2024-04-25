@@ -7,15 +7,19 @@ import {
   APP_NAME,
   DEFAULT_COLLECT_TOKEN,
   DEFAULT_LOGO_URL,
+  HEY_API_URL,
   HEY_TIPPING,
   MAX_UINT256,
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import formatAddress from '@hey/lib/formatAddress';
-import { Button, HelpTooltip, Input, Select } from '@hey/ui';
+import { Button, HelpTooltip, Input, Select, Spinner } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
+import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { Leafwatch } from '@lib/leafwatch';
+import axios from 'axios';
 import { type FC, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import usePreventScrollOnNumberInput from 'src/hooks/usePreventScrollOnNumberInput';
@@ -184,7 +188,7 @@ const Action: FC<ActionProps> = ({
     try {
       setIsLoading(true);
 
-      await writeContractAsync({
+      const hash = await writeContractAsync({
         abi: HeyTipping,
         address: HEY_TIPPING,
         args: [
@@ -197,6 +201,20 @@ const Action: FC<ActionProps> = ({
         ],
         functionName: 'tip'
       });
+
+      await axios.post(
+        `${HEY_API_URL}/tips/create`,
+        {
+          amount: cryptoRate - cryptoRate * 0.05,
+          fromAddress: address,
+          id: publication.id,
+          toAddress: publication.by.ownedBy.address,
+          tokenAddress: selectedCurrency?.contractAddress,
+          txHash: hash
+        },
+        { headers: getAuthApiHeaders() }
+      );
+
       Leafwatch.track(PUBLICATION.TIP.TIP, {
         address,
         amount,
@@ -214,6 +232,7 @@ const Action: FC<ActionProps> = ({
 
   const hasAllowance = allowance >= finalRate;
   const amountDisabled =
+    isLoading ||
     !currentProfile ||
     !hasAllowance ||
     isWaitingForTransaction ||
@@ -260,7 +279,7 @@ const Action: FC<ActionProps> = ({
                   <span>{APP_NAME}</span>
                 </div>
                 <b>
-                  {(cryptoRate * 0.05).toFixed(2)} {selectedCurrency?.symbol}{' '}
+                  {(cryptoRate * 0.05).toFixed(3)} {selectedCurrency?.symbol}{' '}
                   (5%)
                 </b>
               </div>
@@ -318,14 +337,12 @@ const Action: FC<ActionProps> = ({
           />
         </div>
       ) : null}
-      {isWaitingForTransaction ? (
-        <Button className={submitButtonClassName} disabled>
-          Enabling tipping...
-        </Button>
-      ) : isGettingAllowance ? (
-        <Button className={submitButtonClassName} disabled>
-          Loading...
-        </Button>
+      {isLoading || isWaitingForTransaction || isGettingAllowance ? (
+        <Button
+          className={cn('flex justify-center', submitButtonClassName)}
+          disabled
+          icon={<Spinner className="my-0.5" size="xs" />}
+        />
       ) : !hasAllowance ? (
         <Button
           className={submitButtonClassName}
