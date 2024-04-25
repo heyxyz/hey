@@ -3,8 +3,8 @@ import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
 import catchedError from 'src/lib/catchedError';
+import heyPrisma from 'src/lib/heyPrisma';
 import validateIsOwnerOrStaff from 'src/lib/middlewares/validateIsOwnerOrStaff';
-import prisma from 'src/lib/prisma';
 import { noBody, notAllowed } from 'src/lib/responses';
 
 export const get: Handler = async (req, res) => {
@@ -20,9 +20,9 @@ export const get: Handler = async (req, res) => {
 
   try {
     const [preference, features, email, membershipNft] =
-      await prisma.$transaction([
-        prisma.preference.findUnique({ where: { id: id as string } }),
-        prisma.profileFeature.findMany({
+      await heyPrisma.$transaction([
+        heyPrisma.preference.findUnique({ where: { id: id as string } }),
+        heyPrisma.profileFeature.findMany({
           select: { feature: { select: { key: true } } },
           where: {
             enabled: true,
@@ -30,11 +30,12 @@ export const get: Handler = async (req, res) => {
             profileId: id as string
           }
         }),
-        prisma.email.findUnique({ where: { id: id as string } }),
-        prisma.membershipNft.findUnique({ where: { id: id as string } })
+        heyPrisma.email.findUnique({ where: { id: id as string } }),
+        heyPrisma.membershipNft.findUnique({ where: { id: id as string } })
       ]);
 
     const response: Preferences = {
+      appIcon: preference?.appIcon || 0,
       email: email?.email || null,
       emailVerified: Boolean(email?.verified),
       features: features.map((feature: any) => feature.feature?.key),
@@ -43,8 +44,7 @@ export const get: Handler = async (req, res) => {
       ),
       highSignalNotificationFilter: Boolean(
         preference?.highSignalNotificationFilter
-      ),
-      isPride: Boolean(preference?.isPride)
+      )
     };
 
     logger.info('Profile preferences fetched');

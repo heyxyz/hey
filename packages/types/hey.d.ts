@@ -20,7 +20,6 @@ export type AllowedToken = {
   contractAddress: string;
   decimals: number;
   id: string;
-  maxTipAmount?: number;
   name: string;
   symbol: string;
 };
@@ -65,12 +64,12 @@ export type Poll = {
 };
 
 export type Preferences = {
+  appIcon: number;
   email: null | string;
   emailVerified: boolean;
   features: string[];
   hasDismissedOrMintedMembershipNft: boolean;
   highSignalNotificationFilter: boolean;
-  isPride: boolean;
 };
 
 export type ProfileFlags = {
@@ -92,4 +91,12 @@ export type UniswapQuote = {
     tokenOut: UniswapToken;
   };
   routeString: string;
+};
+
+export type Draft = {
+  collectModule: null | string;
+  content: string;
+  createdAt: Date;
+  id: string;
+  updatedAt: Date;
 };

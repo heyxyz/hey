@@ -19,7 +19,7 @@ const validateLensAccount = async (request: Request) => {
 
   const isMainnet = network === 'mainnet';
   try {
-    const lensResponse = await axios.post(
+    const { data } = await axios.post(
       isMainnet ? LensEndpoint.Mainnet : LensEndpoint.Testnet,
       {
         query: `
@@ -32,12 +32,11 @@ const validateLensAccount = async (request: Request) => {
         headers: {
           'Content-Type': 'application/json',
           'User-agent': 'Hey.xyz'
-        },
-        withCredentials: true
+        }
       }
     );
 
-    if (!lensResponse.data.verify) {
+    if (data.data.verify) {
       return true;
     }
   } catch {

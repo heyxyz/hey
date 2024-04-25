@@ -5,7 +5,6 @@ const allowedBots =
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: { scrollRestoration: true },
   headers() {
     return [
       {
@@ -33,7 +32,7 @@ const nextConfig = {
       },
       {
         destination:
-          'https://explorer.gitcoin.co/#/round/424/0xd4cc0dd193c7dc1d665ae244ce12d7fab337a008/0xd4cc0dd193c7dc1d665ae244ce12d7fab337a008-4',
+          'https://explorer.gitcoin.co/#/round/42161/25/1?utm_source=hey.xyz',
         permanent: true,
         source: '/gitcoin'
       },
@@ -65,14 +64,6 @@ const nextConfig = {
   },
   rewrites() {
     return [
-      {
-        destination: 'https://api.hey.xyz/sitemap/allProfiles',
-        source: '/sitemaps/all-profiles'
-      },
-      {
-        destination: 'https://api.hey.xyz/sitemap/:match*',
-        source: '/sitemaps/:match*'
-      },
       {
         destination: `${process.env.NEXT_PUBLIC_OG_URL}/u/:match*`,
         has: [{ key: 'user-agent', type: 'header', value: allowedBots }],

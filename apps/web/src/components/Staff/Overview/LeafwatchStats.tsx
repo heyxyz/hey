@@ -7,15 +7,15 @@ import {
   LimitType,
   useExploreProfilesQuery
 } from '@hey/lens';
-import { CardHeader, ErrorMessage } from '@hey/ui';
+import { CardHeader, ErrorMessage, NumberedStat } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
 
-import NumberedStat from '../UI/NumberedStat';
 import ActiveUsers from './ActiveUsers';
 import EventsToday from './EventsToday';
 import ImpressionsToday from './ImpressionsToday';
+import Referrers from './Referrers';
 
 export interface StatsType {
   dau: {
@@ -48,6 +48,10 @@ export interface StatsType {
     count: string;
     timestamp: string;
   }[];
+  referrers: {
+    count: string;
+    referrer: string;
+  }[];
   topEvents: {
     count: string;
     name: string;
@@ -68,6 +72,21 @@ const LeafwatchStats: FC = () => {
   const { data, error, isLoading } = useQuery({
     queryFn: getStats,
     queryKey: ['getStats'],
+    refetchInterval: 1000
+  });
+
+  const getScoreVolume = async (): Promise<{
+    cached: number;
+    volume: number;
+  }> => {
+    const response = await axios.get(`${HEY_API_URL}/internal/score/volume`);
+
+    return response.data;
+  };
+
+  const { data: scoreVolumeData } = useQuery({
+    queryFn: getScoreVolume,
+    queryKey: ['getScoreVolume'],
     refetchInterval: 1000
   });
 
@@ -129,14 +148,23 @@ const LeafwatchStats: FC = () => {
       </div>
       <div>
         <div className="divider" />
-        <CardHeader title="Lens" />
+        <CardHeader title="Others" />
         <div className="m-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
           <NumberedStat count={lensProfiles.toString()} name="Total Profiles" />
+          <NumberedStat
+            count={scoreVolumeData?.volume.toString() || '0'}
+            name="Score Volume"
+          />
+          <NumberedStat
+            count={scoreVolumeData?.cached.toString() || '0'}
+            name="Score cached for"
+          />
         </div>
       </div>
       <EventsToday eventsToday={data.eventsToday} />
       <ImpressionsToday impressionsToday={data.impressionsToday} />
       <ActiveUsers activeUsers={data.dau} />
+      <Referrers referrers={data.referrers} />
     </>
   );
 };

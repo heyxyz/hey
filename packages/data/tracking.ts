@@ -58,14 +58,9 @@ export const PUBLICATION = {
   NOT_INTERESTED: 'Not interested publication',
   OPEN_ACTIONS: {
     DECENT: {
-      OPEN_DECENT: 'Open decent.xyz open action modal',
-      TIP: 'Execute decent.xyz open action'
+      OPEN_DECENT: 'Open decent.xyz open action modal'
     },
-    SWAP: { SWAP: 'Swap OA: Swap' },
-    TIP: {
-      OPEN_TIP: 'Tip OA: Open tip modal',
-      TIP: 'Tip OA: Tip a profile'
-    }
+    SWAP: { SWAP: 'Swap OA: Swap' }
   },
   OPEN_GIFS: 'Open GIFs modal',
   OPEN_LIKES: 'Open likes modal',
@@ -73,6 +68,10 @@ export const PUBLICATION = {
   REMOVE_BOOKMARK: 'Remove bookmark publication',
   REPORT: 'Report publication',
   SHARE: 'Share publication',
+  TIP: {
+    ENABLE: 'Tipping enabled',
+    TIP: 'Tip'
+  },
   TOGGLE_HIDE_COMMENT: 'Toggle publication hide comment',
   TRANSLATE: 'Translate publication',
   UNDO_MIRROR: 'Undo mirror publication',
@@ -139,8 +138,10 @@ export const SETTINGS = {
   PREFERENCES: {
     TOGGLE_HIGH_SIGNAL_NOTIFICATION_FILTER:
       'Toggle high signal notification filter',
-    TOGGLE_IS_PRIDE: 'Toggle is pride',
     TOGGLE_PUSH_NOTIFICATIONS: 'Toggle push notifications'
+  },
+  PRO: {
+    APP_ICON: 'Update app icon'
   },
   PROFILE: {
     SET_PICTURE: 'Set profile picture',

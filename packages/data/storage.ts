@@ -9,8 +9,10 @@ export const Localstorage = {
 };
 
 export const IndexDB = {
+  AllowedTokensStore: 'allowedtokens.store',
   FeatureFlagsStore: 'featureflags.store',
   ProfileStore: 'profile.store',
+  RateStore: 'rate.store',
   SearchStore: 'search.store',
   TransactionStore: 'transaction.store',
   VerifiedMembersStore: 'verifiedmembers.store'

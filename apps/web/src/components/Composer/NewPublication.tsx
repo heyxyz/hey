@@ -49,15 +49,22 @@ import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCo
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationAttributesStore } from 'src/store/non-persisted/publication/usePublicationAttributesStore';
-import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
+import {
+  DEFAULT_AUDIO_PUBLICATION,
+  usePublicationAudioStore
+} from 'src/store/non-persisted/publication/usePublicationAudioStore';
 import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
 import { usePublicationLiveStore } from 'src/store/non-persisted/publication/usePublicationLiveStore';
 import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
-import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
+import {
+  DEFAULT_VIDEO_THUMBNAIL,
+  usePublicationVideoStore
+} from 'src/store/non-persisted/publication/usePublicationVideoStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
+import { useProStore } from 'src/store/non-persisted/useProStore';
 import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
@@ -100,6 +107,10 @@ const LivestreamSettings = dynamic(
   () => import('@components/Composer/Actions/LivestreamSettings'),
   { loading: () => Shimmer }
 );
+const DraftSettings = dynamic(
+  () => import('@components/Composer/Actions/DraftSettings'),
+  { loading: () => Shimmer }
+);
 
 interface NewPublicationProps {
   publication: MirrorablePublication;
@@ -114,6 +125,7 @@ const nftOpenActionKit = new NftOpenActionKit({
 const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
+  const { isPro } = useProStore();
 
   // Global modal store
   const { setShowDiscardModal, setShowNewPostModal } =
@@ -131,7 +143,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   } = usePublicationStore();
 
   // Audio store
-  const { audioPublication } = usePublicationAudioStore();
+  const { audioPublication, setAudioPublication } = usePublicationAudioStore();
 
   // Video store
   const { setVideoThumbnail, videoThumbnail } = usePublicationVideoStore();
@@ -205,11 +217,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     setShowLiveVideoEditor(false);
     resetLiveVideoConfig();
     setAttachments([]);
-    setVideoThumbnail({
-      type: '',
-      uploading: false,
-      url: ''
-    });
+    setVideoThumbnail(DEFAULT_VIDEO_THUMBNAIL);
+    setAudioPublication(DEFAULT_AUDIO_PUBLICATION);
     setLicense(null);
     resetAttributes();
     resetOpenActionSettings();
@@ -366,11 +375,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         const parsedData = AudioPublicationSchema.safeParse(audioPublication);
         if (!parsedData.success) {
           const issue = parsedData.error.issues[0];
+          setIsLoading(false);
           return setPublicationContentError(issue.message);
         }
       }
 
       if (publicationContent.length === 0 && attachments.length === 0) {
+        setIsLoading(false);
         return setPublicationContentError(
           `${
             isComment ? 'Comment' : isQuote ? 'Quote' : 'Post'
@@ -569,6 +580,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     setQuotedPublication(null);
     setShowNewPostModal(false);
     setShowDiscardModal(false);
+    reset();
   };
 
   useUnmountEffect(() => reset());
@@ -642,6 +654,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           ) : null}
           <PollSettings />
           {!isComment && <LivestreamSettings />}
+          {isPro && <DraftSettings />}
         </div>
         <div className="ml-auto mt-2 sm:mt-0">
           <Button

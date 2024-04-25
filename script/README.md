@@ -2,7 +2,6 @@
 
 ## Available Scripts
 
-- `bootstrap` - Install all dependencies and setup the project.
 - `clean` - Remove all dependencies and caches.
 - `clean-branches` - Remove all local branches except protected ones.
 - `sort-package-json` - Sort package.json file.

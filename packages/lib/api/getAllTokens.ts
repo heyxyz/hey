@@ -5,14 +5,17 @@ import axios from 'axios';
 
 /**
  * Get all allowed tokens
- * @param callbackFn callback function
  * @returns all allowed tokens
  */
 const getAllTokens = async (): Promise<AllowedToken[]> => {
-  const response = await axios.get(`${HEY_API_URL}/tokens/all`);
-  const { data } = response;
+  try {
+    const response = await axios.get(`${HEY_API_URL}/tokens/all`);
+    const { data } = response;
 
-  return data?.tokens || [];
+    return data?.tokens || [];
+  } catch {
+    return [];
+  }
 };
 
 export default getAllTokens;

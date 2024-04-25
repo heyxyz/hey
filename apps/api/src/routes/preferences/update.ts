@@ -3,21 +3,21 @@ import type { Handler } from 'express';
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import catchedError from 'src/lib/catchedError';
+import heyPrisma from 'src/lib/heyPrisma';
 import validateLensAccount from 'src/lib/middlewares/validateLensAccount';
-import prisma from 'src/lib/prisma';
 import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
-import { boolean, object, string } from 'zod';
+import { boolean, number, object, string } from 'zod';
 
 type ExtensionRequest = {
+  appIcon?: number;
   highSignalNotificationFilter?: boolean;
   id?: string;
-  isPride?: boolean;
 };
 
 const validationSchema = object({
+  appIcon: number().optional(),
   highSignalNotificationFilter: boolean().optional(),
-  id: string().optional(),
-  isPride: boolean().optional()
+  id: string().optional()
 });
 
 export const post: Handler = async (req, res) => {
@@ -38,14 +38,14 @@ export const post: Handler = async (req, res) => {
     return notAllowed(res);
   }
 
-  const { highSignalNotificationFilter, isPride } = body as ExtensionRequest;
+  const { appIcon, highSignalNotificationFilter } = body as ExtensionRequest;
 
   try {
     const payload = parseJwt(accessToken);
 
-    const data = await prisma.preference.upsert({
-      create: { highSignalNotificationFilter, id: payload.id, isPride },
-      update: { highSignalNotificationFilter, isPride },
+    const data = await heyPrisma.preference.upsert({
+      create: { appIcon, highSignalNotificationFilter, id: payload.id },
+      update: { appIcon, highSignalNotificationFilter },
       where: { id: payload.id }
     });
 

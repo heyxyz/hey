@@ -4,7 +4,6 @@ import type { Address } from 'viem';
 
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { TokenContracts } from '@hey/data/contracts';
-import getAssetSymbol from '@hey/lib/getAssetSymbol';
 import getRedstonePrice from '@hey/lib/getRedstonePrice';
 import getTokenImage from '@hey/lib/getTokenImage';
 import { useQuery } from '@tanstack/react-query';
@@ -81,25 +80,25 @@ const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
 
   const { data: wmaticPriceUsd, isLoading: wmaticPriceLoading } = useQuery({
     enabled: Boolean(wmaticBalanceData),
-    queryFn: async () => await getRedstonePrice(getAssetSymbol('WMATIC')),
+    queryFn: async () => await getRedstonePrice('MATIC'),
     queryKey: ['getRedstonePrice', 'WMATIC']
   });
 
   const { data: wethPriceUsd, isLoading: wethPriceLoading } = useQuery({
     enabled: Boolean(wethBalanceData),
-    queryFn: async () => await getRedstonePrice(getAssetSymbol('WETH')),
+    queryFn: async () => await getRedstonePrice('ETH'),
     queryKey: ['getRedstonePrice', 'WETH']
   });
 
   const { data: usdcPriceUsd, isLoading: usdcPriceLoading } = useQuery({
     enabled: Boolean(usdcBalanceData),
-    queryFn: async () => await getRedstonePrice(getAssetSymbol('USDC')),
+    queryFn: async () => await getRedstonePrice('USDC'),
     queryKey: ['getRedstonePrice', 'USDC']
   });
 
   const { data: bonsaiPriceUsd, isLoading: bonsaiPriceLoading } = useQuery({
     enabled: Boolean(bonsaiBalanceData),
-    queryFn: async () => await getRedstonePrice(getAssetSymbol('BONSAI')),
+    queryFn: async () => await getRedstonePrice('BONSAI'),
     queryKey: ['getRedstonePrice', 'BONSAI']
   });
 

@@ -19,6 +19,7 @@ import {
   usePublicationsQuery
 } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
+import getPublicationData from '@hey/lib/getPublicationData';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -125,6 +126,8 @@ const ViewPublication: NextPage = () => {
   return (
     <GridLayout>
       <MetaTags
+        creator={getProfile(targetPublication.by).displayName}
+        description={getPublicationData(targetPublication.metadata)?.content}
         title={`${targetPublication.__typename} by ${
           getProfile(targetPublication.by).slugWithPrefix
         } • ${APP_NAME}`}

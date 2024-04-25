@@ -3,7 +3,7 @@ import type { ActionData } from 'nft-openaction-kit';
 import type { FC } from 'react';
 import type { Address } from 'viem';
 
-import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
+import { WMATIC_ADDRESS } from '@hey/data/constants';
 import { useDefaultProfileQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import truncateByWords from '@hey/lib/truncateByWords';
@@ -11,7 +11,7 @@ import { Image } from '@hey/ui';
 
 // TODO: take into account other currencies
 const defaultCurrency = {
-  contractAddress: DEFAULT_COLLECT_TOKEN,
+  contractAddress: WMATIC_ADDRESS,
   decimals: 18,
   id: 'WMATIC',
   name: 'Wrapped MATIC',
@@ -43,9 +43,7 @@ const ActionInfo: FC<ActionInfoProps> = ({
     return null;
   }
 
-  if (!data?.defaultProfile) {
-    return null;
-  }
+  const profileExists = !!data && !!data.defaultProfile;
 
   return (
     <div className="flex items-start gap-4">
@@ -67,7 +65,10 @@ const ActionInfo: FC<ActionInfoProps> = ({
             {truncateByWords(collectionName, 5)}
           </h2>
           <p className="opacity-50">
-            by {getProfile(data.defaultProfile as Profile).slug}
+            by{' '}
+            {profileExists
+              ? getProfile(data.defaultProfile as Profile).slug
+              : `${creatorAddress.slice(0, 6)}...${creatorAddress.slice(-4)}`}
           </p>
         </span>
         <p className="opacity-50">

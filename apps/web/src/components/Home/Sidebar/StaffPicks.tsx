@@ -23,7 +23,7 @@ const Title: FC = () => <p className="text-lg font-semibold">Staff Picks</p>;
 const StaffPicks: FC = () => {
   const { currentProfile } = useProfileStore();
 
-  const fetchStaffPicks = async (): Promise<StaffPick[]> => {
+  const getStaffPicks = async (): Promise<StaffPick[]> => {
     const response: {
       data: { result: StaffPick[] };
     } = await axios.get(`${HEY_API_URL}/staff-picks`);
@@ -35,7 +35,7 @@ const StaffPicks: FC = () => {
     data: picks,
     error: picksError,
     isLoading: picksLoading
-  } = useQuery({ queryFn: fetchStaffPicks, queryKey: ['fetchStaffPicks'] });
+  } = useQuery({ queryFn: getStaffPicks, queryKey: ['getStaffPicks'] });
 
   const dividePicks = (
     picks: StaffPick[],

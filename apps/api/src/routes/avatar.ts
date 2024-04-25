@@ -3,10 +3,11 @@ import type { Handler } from 'express';
 import { LensHub } from '@hey/abis';
 import { IPFS_GATEWAY, IS_MAINNET, LENS_HUB } from '@hey/data/constants';
 import logger from '@hey/lib/logger';
-import { CACHE_AGE_INDEFINITE_ON_DISK, RPC_URL } from 'src/lib/constants';
+import { CACHE_AGE_INDEFINITE_ON_DISK } from 'src/lib/constants';
+import getRpc from 'src/lib/getRpc';
 import { noBody } from 'src/lib/responses';
-import { createPublicClient, http } from 'viem';
-import { polygon, polygonMumbai } from 'viem/chains';
+import { createPublicClient } from 'viem';
+import { polygon, polygonAmoy } from 'viem/chains';
 
 export const get: Handler = async (req, res) => {
   const { id } = req.query;
@@ -17,8 +18,8 @@ export const get: Handler = async (req, res) => {
 
   try {
     const client = createPublicClient({
-      chain: IS_MAINNET ? polygon : polygonMumbai,
-      transport: http(RPC_URL)
+      chain: IS_MAINNET ? polygon : polygonAmoy,
+      transport: getRpc({ mainnet: IS_MAINNET })
     });
 
     const data: any = await client.readContract({

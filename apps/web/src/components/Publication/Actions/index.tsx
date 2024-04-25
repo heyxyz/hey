@@ -1,7 +1,6 @@
 import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
-import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
 import isOpenActionAllowed from '@hey/lib/isOpenActionAllowed';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
@@ -12,11 +11,11 @@ import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import OpenAction from '../OpenAction';
-import TipOpenAction from '../OpenAction/UnknownModule/Tip';
 import Comment from './Comment';
 import Like from './Like';
 import Mod from './Mod';
 import ShareMenu from './Share';
+import Tip from './Tip';
 import Views from './Views';
 
 interface PublicationActionsProps {
@@ -41,14 +40,10 @@ const PublicationActions: FC<PublicationActionsProps> = ({
     : true;
   const canAct =
     hasOpenAction && isOpenActionAllowed(targetPublication.openActionModules);
+  const canTip = currentProfile?.id !== targetPublication.by.id;
   const views = getPublicationViewCountById(
     publicationViews,
     targetPublication.id
-  );
-
-  // Check if the publication has a tip module
-  const canTip = targetPublication.openActionModules.some(
-    (module) => module.contract.address === VerifiedOpenActionModules.Tip
   );
 
   return (
@@ -64,12 +59,7 @@ const PublicationActions: FC<PublicationActionsProps> = ({
       {canAct ? (
         <OpenAction publication={publication} showCount={showCount} />
       ) : null}
-      {canTip ? (
-        <TipOpenAction
-          isFullPublication={showCount}
-          publication={publication}
-        />
-      ) : null}
+      {canTip ? <Tip publication={targetPublication} /> : null}
       {views > 0 ? <Views showCount={showCount} views={views} /> : null}
       {gardenerMode ? (
         <Mod isFullPublication={showCount} publication={targetPublication} />

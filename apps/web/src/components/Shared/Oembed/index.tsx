@@ -37,7 +37,7 @@ const Oembed: FC<OembedProps> = ({
       });
       return response.data.oembed;
     },
-    queryKey: ['oembed', url],
+    queryKey: ['getOembed', url],
     refetchOnMount: false
   });
 

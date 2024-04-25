@@ -1,4 +1,7 @@
 fragment AmountFields on Amount {
+  asFiat(request: { for: USD }) {
+    value
+  }
   asset {
     ...Erc20Fields
   }

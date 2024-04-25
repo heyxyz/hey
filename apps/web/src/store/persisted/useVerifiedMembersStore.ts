@@ -22,10 +22,7 @@ const store = create(
       setVerifiedMembers: (verifiedMembers) => set(() => ({ verifiedMembers })),
       verifiedMembers: []
     }),
-    {
-      name: IndexDB.VerifiedMembersStore,
-      storage: createIdbStorage()
-    }
+    { name: IndexDB.VerifiedMembersStore, storage: createIdbStorage() }
   )
 );
 

@@ -1,5 +1,3 @@
-import { IS_MAINNET } from '@hey/data/constants';
-
 // DB URLs
 export const CLICKHOUSE_URL = 'http://clickhouse.hey.xyz:8123';
 
@@ -22,6 +20,8 @@ export const SWR_CACHE_AGE_10_SECS_30_DAYS =
 // Cache for 10 minutes, stale for 30 days
 export const SWR_CACHE_AGE_10_MINS_30_DAYS =
   'public, s-maxage=600, stale-while-revalidate=2592000';
+// Cache for 1 day
+export const CACHE_AGE_1_DAY = 'public, s-maxage=86400';
 // Cache for 30 days
 export const CACHE_AGE_30_DAYS = 'public, s-maxage=2592000';
 // Cache indefinitely
@@ -30,10 +30,6 @@ export const CACHE_AGE_INDEFINITE = 'public, max-age=31536000, immutable';
 export const CACHE_AGE_INDEFINITE_ON_DISK =
   'public, s-maxage=31536000, max-age=31536000, must-revalidate';
 
-// RPC
-export const RPC_URL = IS_MAINNET
-  ? 'https://polygon-rpc.com'
-  : 'https://rpc.ankr.com/polygon_mumbai';
-
 // Tests
 export const TEST_URL = 'http://127.0.0.1:4784';
+export const SITEMAP_BATCH_SIZE = 50000;

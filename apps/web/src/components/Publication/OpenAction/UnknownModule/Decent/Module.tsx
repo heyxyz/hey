@@ -18,6 +18,7 @@ import {
   Squares2X2Icon,
   UserIcon
 } from '@heroicons/react/24/outline';
+import { ZERO_ADDRESS } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { useDefaultProfileQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
@@ -45,9 +46,6 @@ import CurrencySelector from './CurrencySelector';
 import DecentAction from './DecentAction';
 import StepperApprovals from './StepperApprovals';
 
-// TODO: change copy
-const TOOLTIP_PRICE_HELP =
-  'You don’t have enough native Zora ETH so we switched you to the next token with the lowest gas that you have enough of (lol)';
 interface DecentOpenActionModuleProps {
   actionData?: ActionData;
   loadingCurrency?: boolean;
@@ -68,6 +66,16 @@ interface Permit2Data {
   signature: string;
 }
 
+const getTokenSymbol = (symbol: string): string => {
+  if (symbol === 'WMATIC') {
+    return 'MATIC';
+  } else if (symbol === 'WETH') {
+    return 'ETH';
+  } else {
+    return symbol;
+  }
+};
+
 const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   actionData,
   loadingCurrency,
@@ -82,18 +90,30 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   show
 }) => {
   const [usdPrice, setUsdPrice] = useState(0);
+  const [maticUsdPrice, setMaticUsdPrice] = useState(0);
   const { data: walletClient } = useWalletClient();
   const { address } = useAccount();
 
   const getUsdPrice = async () => {
-    const usdPrice = await getRedstonePrice('MATIC');
+    const usdPrice = await getRedstonePrice(
+      getTokenSymbol(selectedCurrency.symbol)
+    );
     setUsdPrice(usdPrice);
+  };
+
+  const getMaticUsdPrice = async () => {
+    const maticPrice = await getRedstonePrice('MATIC');
+    setMaticUsdPrice(maticPrice);
   };
 
   useEffect(() => {
     getUsdPrice();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCurrency]);
+
+  useEffect(() => {
+    getMaticUsdPrice();
+  }, []);
 
   const { actOnUnknownOpenAction, isLoading, relayStatus, txHash } =
     useActOnUnknownOpenAction({
@@ -128,6 +148,10 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     variables: { request: { for: actionData?.uiData.nftCreatorAddress } }
   });
 
+  const creatorProfileExists =
+    !!creatorProfileData && !!creatorProfileData.defaultProfile;
+  const creatorAddress = actionData?.uiData.nftCreatorAddress ?? ZERO_ADDRESS;
+
   const totalAmount = actionData
     ? BigInt(actionData.actArgumentsFormatted.paymentToken.amount) *
       BigInt(selectedQuantity)
@@ -135,15 +159,14 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
 
   // Convert totalAmount to a number with decimals
   const { decimals } = selectedCurrency;
-  const formattedPrice = Number(totalAmount) / Math.pow(10, decimals);
-
-  const formattedTotalPrice = formattedPrice.toFixed(4);
+  const formattedTotalAmount = Number(totalAmount) / Math.pow(10, decimals);
 
   const bridgeFee = actionData
-    ? actionData.actArgumentsFormatted.bridgeFeeNative * usdPrice
+    ? (actionData.actArgumentsFormatted.bridgeFeeNative * maticUsdPrice) /
+      usdPrice
     : 0;
 
-  const formattedTotalFees = bridgeFee + formattedPrice * 0.05;
+  const formattedTotalFees = bridgeFee + formattedTotalAmount * 0.05;
 
   const formattedNftSchema = nft.schema === 'erc1155' ? 'ERC-1155' : 'ERC-721';
 
@@ -157,7 +180,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   const [permit2Allowed, setPermit2Allowed] = useState(false);
   const [permit2Data, setPermit2Data] = useState<Permit2Data | undefined>();
 
-  const amount = parseInt(formattedTotalPrice) || 0;
+  const amount = formattedTotalAmount || 0;
   const assetAddress = selectedCurrency.contractAddress;
 
   const [isPermit2Loading, setIsPermit2Loading] = useState(false);
@@ -201,7 +224,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
       setIsApprovalLoading(true);
       try {
         const signatureAmount = permit2SignatureAmount({
-          chainId: 10, // TODO: dstChainID, fetch from actionData bridge out token
+          chainId: actionData.actArgumentsFormatted.dstChainId,
           data: actionData.actArguments.actionModuleData
         });
         const permit2Signature = await signPermitSignature(
@@ -241,7 +264,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     if (actionData && !!publication && !!permit2Data) {
       try {
         const updatedCalldata = await updateWrapperParams({
-          chainId: 10, // TODO: dstChainID, fetch from actionData bridge out token
+          chainId: actionData.actArgumentsFormatted.dstChainId,
           data: actionData.actArguments.actionModuleData,
           deadline: BigInt(permit2Data.deadline),
           nonce: BigInt(permit2Data.nonce),
@@ -324,7 +347,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
             creator: getProfile(creatorProfileData?.defaultProfile as Profile)
               .slug,
             name: actionData?.uiData.nftName ?? '',
-            price: formattedTotalPrice + selectedCurrency.symbol,
+            price: formattedTotalAmount.toFixed(4) + selectedCurrency.symbol,
             schema: formattedNftSchema,
             uri: sanitizeDStorageUrl(actionData?.uiData.nftUri)
           }}
@@ -339,10 +362,10 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
               {creatorProfileData ? (
                 <p className="opacity-50">
                   by{' '}
-                  {
-                    getProfile(creatorProfileData.defaultProfile as Profile)
-                      .slug
-                  }
+                  {creatorProfileExists
+                    ? getProfile(creatorProfileData.defaultProfile as Profile)
+                        .slug
+                    : `${creatorAddress.slice(0, 6)}...${creatorAddress.slice(-4)}`}
                 </p>
               ) : null}
             </div>
@@ -373,14 +396,16 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                 <Squares2X2Icon className="w-5" />
                 <p>{formattedNftSchema}</p>
               </div>
-              <div className="flex items-center gap-2">
-                <UserIcon className="w-5" />
-                <p>{nft.mintCount} minted</p>
-              </div>
+              {nft.mintCount && (
+                <div className="flex items-center gap-2">
+                  <UserIcon className="w-5" />
+                  <p>{nft.mintCount} minted</p>
+                </div>
+              )}
               <div className="flex items-center gap-2">
                 <ArrowTopRightOnSquareIcon className="w-5" />
                 <Link
-                  href={nft.mintUrl ?? ''}
+                  href={nft.mintUrl ?? nft.sourceUrl}
                   rel="noreferrer noopener"
                   target="_blank"
                 >
@@ -415,7 +440,11 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
               <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
                 <span className="space-x-1">Price</span>
                 <div>
-                  {loadingCurrency ? '--' : formattedPrice.toFixed(8)}{' '}
+                  {loadingCurrency
+                    ? '--'
+                    : (formattedTotalAmount - formattedTotalFees).toFixed(
+                        4
+                      )}{' '}
                   {selectedCurrency?.symbol}
                 </div>
               </div>
@@ -427,7 +456,8 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                   Fees <ChevronDownIcon className="w-2" strokeWidth={3} />
                 </button>
                 <div>
-                  {loadingCurrency ? '--' : formattedTotalFees.toFixed(2)} USD
+                  {loadingCurrency ? '--' : formattedTotalFees.toFixed(4)}{' '}
+                  {selectedCurrency?.symbol}
                 </div>
               </div>
               {showFees ? (
@@ -435,41 +465,42 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                   <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
                     <span className="space-x-1">Bridge Fee</span>
                     <div>
-                      {loadingCurrency ? '--' : bridgeFee.toFixed(2)} USD
+                      {bridgeFee.toFixed(4)} {selectedCurrency?.symbol}
                     </div>
                   </div>
                   <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
-                    <span className="space-x-1">Lens Creator Fee</span>
+                    <span className="inline-flex items-center space-x-1">
+                      Lens Creator Fee{'  '}
+                      <HelpTooltip>
+                        <div className="w-[210px] px-2 py-3 leading-tight">
+                          Lens creator fee is distributed between publication
+                          creator, application, Lens treasury, and mirror (if
+                          applicable)
+                        </div>
+                      </HelpTooltip>
+                    </span>
                     <div>
                       {loadingCurrency
                         ? '--'
-                        : (formattedPrice * 0.05).toFixed(2)}{' '}
-                      USD
+                        : (formattedTotalAmount * 0.05).toFixed(4)}{' '}
+                      {selectedCurrency?.symbol}
                     </div>
                   </div>
                 </>
               ) : null}
               <div className="mt-4 flex items-start justify-between space-y-0.5 text-xl text-gray-600 dark:text-gray-100">
                 <span className="flex items-baseline justify-start gap-1 space-x-1">
-                  Total{' '}
-                  <HelpTooltip>
-                    <div className="w-[210px] px-2 py-3 leading-tight">
-                      {TOOLTIP_PRICE_HELP}
-                    </div>
-                  </HelpTooltip>
+                  Total
                 </span>
                 <div className="flex flex-col items-end">
                   <p>
-                    {loadingCurrency ? '--' : formattedTotalPrice}{' '}
-                    {selectedCurrency?.symbol}
+                    {formattedTotalAmount.toFixed(4)} {selectedCurrency?.symbol}
                   </p>
                   <div className="ld-text-gray-500 text-sm">
                     ~$
                     {loadingCurrency
                       ? '--'
-                      : (Number(formattedTotalPrice) * usdPrice).toFixed(
-                          selectedCurrency?.symbol === 'WETH' ? 4 : 2
-                        )}{' '}
+                      : (formattedTotalAmount * usdPrice).toFixed(4)}{' '}
                   </div>
                 </div>
               </div>
@@ -494,7 +525,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                     name: selectedCurrency.name,
                     symbol: selectedCurrency.symbol
                   },
-                  value: formattedTotalPrice
+                  value: formattedTotalAmount.toFixed(4)
                 }}
                 txHash={txHash}
               />

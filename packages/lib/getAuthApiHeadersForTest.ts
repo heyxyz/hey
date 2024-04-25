@@ -1,6 +1,7 @@
 import { ApolloClient, from, HttpLink, InMemoryCache } from '@apollo/client';
 import {
   TEST_LENS_ID,
+  TEST_NON_STAFF_LENS_ID,
   TEST_PK,
   TEST_WALLET_ADDRESS
 } from '@hey/data/constants';
@@ -8,7 +9,7 @@ import LensEndpoint from '@hey/data/lens-endpoints';
 import { AuthenticateDocument, ChallengeDocument } from '@hey/lens';
 import { createWalletClient, http } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
-import { polygonMumbai } from 'viem/chains';
+import { polygonAmoy } from 'viem/chains';
 
 const httpLink = new HttpLink({
   fetch,
@@ -22,18 +23,23 @@ const apolloClient = () =>
     link: from([httpLink])
   });
 
-const getAuthApiHeadersForTest = async () => {
+const getAuthApiHeadersForTest = async ({ staff = true } = {}) => {
   const account = privateKeyToAccount(TEST_PK);
   const client = createWalletClient({
     account,
-    chain: polygonMumbai,
+    chain: polygonAmoy,
     transport: http()
   });
 
   // Get challenge
   const { data: challenge } = await apolloClient().query({
     query: ChallengeDocument,
-    variables: { request: { for: TEST_LENS_ID, signedBy: TEST_WALLET_ADDRESS } }
+    variables: {
+      request: {
+        for: staff ? TEST_LENS_ID : TEST_NON_STAFF_LENS_ID,
+        signedBy: TEST_WALLET_ADDRESS
+      }
+    }
   });
 
   if (!challenge?.challenge?.text) {
