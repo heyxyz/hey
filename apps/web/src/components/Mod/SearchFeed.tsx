@@ -119,11 +119,9 @@ const SearchFeed: FC = () => {
                 showActions={false}
                 showThread={false}
               />
-              <div>
-                <div className="divider" />
-                <div className="m-5">
-                  <GardenerActions publication={targetPublication} />
-                </div>
+              <div className="divider" />
+              <div className="m-5">
+                <GardenerActions publication={targetPublication} />
               </div>
             </Card>
           );
