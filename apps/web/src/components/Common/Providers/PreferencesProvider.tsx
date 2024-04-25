@@ -23,7 +23,7 @@ const PreferencesProvider: FC = () => {
   const { setVerifiedMembers } = useVerifiedMembersStore();
   const { setAllowedTokens } = useAllowedTokensStore();
   const { setFiatRates } = useRatesStore();
-  const { setExpiresAt, setScore } = useScoreStore();
+  const { setScore } = useScoreStore();
   const {
     setAppIcon,
     setEmail,
@@ -91,7 +91,6 @@ const PreferencesProvider: FC = () => {
     queryFn: () =>
       getScore(sessionProfileId).then((score) => {
         setScore(score.score);
-        setExpiresAt(score.expiresAt);
       }),
     queryKey: ['getScore', sessionProfileId]
   });
