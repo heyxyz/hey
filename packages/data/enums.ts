@@ -4,7 +4,6 @@ export enum HomeFeedType {
   PREMIUM = 'PREMIUM'
 }
 export enum ModFeedType {
-  FOLLOWERINGS = 'FOLLOWERINGS',
   LATEST = 'LATEST',
   PROFILES = 'PROFILES',
   SEARCH = 'SEARCH'

@@ -26,7 +26,6 @@ import Custom404 from 'src/pages/404';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 import FeedType from './FeedType';
-import Followerings from './Followerings';
 import LatestFeed from './LatestFeed';
 import SearchFeed from './SearchFeed';
 
@@ -102,7 +101,6 @@ const Mod: NextPage = () => {
         )}
         {feedType === ModFeedType.SEARCH && <SearchFeed />}
         {feedType === ModFeedType.PROFILES && <List />}
-        {feedType === ModFeedType.FOLLOWERINGS && <Followerings />}
       </GridItemEight>
       <GridItemFour>
         <Card className="p-5">
