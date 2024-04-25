@@ -38,12 +38,12 @@
     "fast-xml-parser": "^4.3.6",
     "linkedom": "^0.16.11",
     "request-ip": "^3.3.0",
-    "tsx": "^4.7.2",
+    "tsx": "^4.7.3",
     "typescript": "^5.4.5",
     "ua-parser-js": "^1.0.37",
     "urlcat": "^3.1.0",
     "uuid": "^9.0.1",
-    "viem": "^2.9.25",
+    "viem": "^2.9.26",
     "vite-express": "^0.16.0",
     "zod": "^3.23.4"
   },
@@ -61,6 +61,6 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.3.2",
     "vite": "^5.2.10",
-    "vitest": "^1.5.0"
+    "vitest": "^1.5.2"
   }
 }
