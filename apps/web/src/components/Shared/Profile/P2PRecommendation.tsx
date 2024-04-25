@@ -23,15 +23,9 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface P2PRecommendationProps {
   profile: Profile;
-  recommendTitle?: string;
-  unrecommendTitle?: string;
 }
 
-const P2PRecommendation: FC<P2PRecommendationProps> = ({
-  profile,
-  recommendTitle = 'Recommend',
-  unrecommendTitle = 'Unrecommend'
-}) => {
+const P2PRecommendation: FC<P2PRecommendationProps> = ({ profile }) => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
 
@@ -122,7 +116,7 @@ const P2PRecommendation: FC<P2PRecommendationProps> = ({
       outline={!hasRecommended}
       size="sm"
     >
-      {hasRecommended ? unrecommendTitle : recommendTitle}
+      {hasRecommended ? 'Recommend' : 'Unrecommend'}
     </Button>
   );
 };

@@ -5,7 +5,6 @@ import type {
 import type { ApolloCache } from '@hey/lens/apollo';
 import type { FC, ReactNode } from 'react';
 
-import P2PRecommendation from '@components/Shared/Profile/P2PRecommendation';
 import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
 import { GARDENER } from '@hey/data/tracking';
 import {
@@ -147,11 +146,6 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
         icon={<BanknotesIcon className="size-4" />}
         label="Both"
         type="both"
-      />
-      <P2PRecommendation
-        profile={publication.by}
-        recommendTitle="Recommend Profile"
-        unrecommendTitle="Unrecommend Profile"
       />
     </span>
   );
