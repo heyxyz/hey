@@ -59,7 +59,9 @@ const PublicationActions: FC<PublicationActionsProps> = ({
       {canAct ? (
         <OpenAction publication={publication} showCount={showCount} />
       ) : null}
-      {canTip ? <Tip publication={targetPublication} /> : null}
+      {canTip ? (
+        <Tip publication={targetPublication} showCount={showCount} />
+      ) : null}
       {views > 0 ? <Views showCount={showCount} views={views} /> : null}
       {gardenerMode ? (
         <Mod isFullPublication={showCount} publication={targetPublication} />
