@@ -5,7 +5,7 @@ import humanize from '@hey/lib/humanize';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 
 const Score: FC = () => {
-  const { score, scoreExpiresAt } = useGlobalModalStateStore();
+  const { score } = useGlobalModalStateStore();
 
   return (
     <div className="flex flex-col items-center space-y-5 p-5">

@@ -34,8 +34,6 @@ const GlobalModals: FC = () => {
     authModalType,
     reportingProfile,
     reportingPublicationId,
-    score,
-    scoreExpiresAt,
     setShowAuthModal,
     setShowDiscardModal,
     setShowInvitesModal,
@@ -157,7 +155,7 @@ const GlobalModals: FC = () => {
       </Modal>
       <Modal
         icon={<FireIcon className="size-5" />}
-        onClose={() => setShowScoreModal(false, null, null)}
+        onClose={() => setShowScoreModal(false, null)}
         show={showScoreModal}
         size="xs"
         title={`${APP_NAME} score`}
