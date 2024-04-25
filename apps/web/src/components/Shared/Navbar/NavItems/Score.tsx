@@ -1,8 +1,9 @@
 import type { FC } from 'react';
 
-import { DEFAULT_LOGO_URL } from '@hey/data/constants';
+import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import humanize from '@hey/lib/humanize';
 import cn from '@hey/ui/cn';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useScoreStore } from 'src/store/non-persisted/useScoreStore';
 
 interface ScoreProps {
@@ -11,7 +12,8 @@ interface ScoreProps {
 }
 
 const Score: FC<ScoreProps> = ({ className = '', onClick }) => {
-  const { score } = useScoreStore();
+  const { expiresAt, score } = useScoreStore();
+  const { setShowScoreModal } = useGlobalModalStateStore();
 
   return (
     <button
@@ -20,11 +22,15 @@ const Score: FC<ScoreProps> = ({ className = '', onClick }) => {
         className
       )}
       onClick={() => {
+        setShowScoreModal(true, score, expiresAt);
         onClick?.();
       }}
       type="button"
     >
-      <img className="mr-0.5 size-3.5" src={DEFAULT_LOGO_URL} />
+      <img
+        className="mr-0.5 size-3.5"
+        src={`${STATIC_IMAGES_URL}/app-icon/2.png`}
+      />
       <div>{humanize(score)}</div>
     </button>
   );

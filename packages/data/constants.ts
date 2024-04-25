@@ -62,7 +62,6 @@ export const HEY_MEMBERSHIP_NFT = IS_MAINNET
 // URLs
 export const STATIC_ASSETS_URL = 'https://hey-assets.b-cdn.net';
 export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
-export const DEFAULT_LOGO_URL = `${STATIC_IMAGES_URL}/app-icon/0.png`;
 export const LENS_MEDIA_SNAPSHOT_URL =
   'https://ik.imagekit.io/lens/media-snapshot';
 export const POLYGONSCAN_URL = IS_MAINNET

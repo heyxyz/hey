@@ -9,6 +9,8 @@ interface State {
   authModalType: AuthModalType;
   reportingProfile: null | Profile;
   reportingPublicationId: null | string;
+  score: null | number;
+  scoreExpiresAt: Date | null;
   setShowAuthModal: (
     showAuthModal: boolean,
     authModalType?: AuthModalType
@@ -29,6 +31,11 @@ interface State {
     reportProfileModal: boolean,
     reportingProfile: null | Profile
   ) => void;
+  setShowScoreModal: (
+    showScoreModal: boolean,
+    score: null | number,
+    scoreExpiresAt: Date | null
+  ) => void;
   showAuthModal: boolean;
   showDiscardModal: boolean;
   showInvitesModal: boolean;
@@ -38,12 +45,15 @@ interface State {
   showProfileSwitchModal: boolean;
   showPublicationReportModal: boolean;
   showReportProfileModal: boolean;
+  showScoreModal: boolean;
 }
 
 const store = create<State>((set) => ({
   authModalType: 'login',
   reportingProfile: null,
   reportingPublicationId: null,
+  score: null,
+  scoreExpiresAt: null,
   setShowAuthModal: (showAuthModal, authModalType) => {
     set(() => ({ authModalType, showAuthModal }));
   },
@@ -65,6 +75,8 @@ const store = create<State>((set) => ({
     })),
   setShowReportProfileModal: (showReportProfileModal, reportingProfile) =>
     set(() => ({ reportingProfile, showReportProfileModal })),
+  setShowScoreModal: (showScoreModal, score, scoreExpiresAt) =>
+    set(() => ({ score, scoreExpiresAt, showScoreModal })),
   showAuthModal: false,
   showDiscardModal: false,
   showInvitesModal: false,
@@ -73,7 +85,8 @@ const store = create<State>((set) => ({
   showOptimisticTransactionsModal: false,
   showProfileSwitchModal: false,
   showPublicationReportModal: false,
-  showReportProfileModal: false
+  showReportProfileModal: false,
+  showScoreModal: false
 }));
 
 export const useGlobalModalStateStore = createTrackedSelector(store);
