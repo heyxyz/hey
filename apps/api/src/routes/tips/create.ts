@@ -1,17 +1,12 @@
 import type { Handler } from 'express';
-import type { Address } from 'viem';
 
-import { HEY_TIPPING, IS_MAINNET } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import catchedError from 'src/lib/catchedError';
-import getRpc from 'src/lib/getRpc';
 import heyPrisma from 'src/lib/heyPrisma';
 import validateLensAccount from 'src/lib/middlewares/validateLensAccount';
 import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
-import { createPublicClient, getAddress } from 'viem';
-import { polygon, polygonAmoy } from 'viem/chains';
 import { number, object, string } from 'zod';
 
 type ExtensionRequest = {
@@ -55,24 +50,6 @@ export const post: Handler = async (req, res) => {
 
   try {
     const payload = parseJwt(accessToken);
-
-    const client = createPublicClient({
-      chain: IS_MAINNET ? polygon : polygonAmoy,
-      transport: getRpc({ mainnet: IS_MAINNET })
-    });
-
-    const transaction = await client.getTransactionReceipt({
-      hash: txHash as `0x${string}`
-    });
-
-    if (
-      getAddress(transaction.from as Address) !== fromAddress ||
-      getAddress(transaction.to as Address) !== HEY_TIPPING
-    ) {
-      return res.status(400).json({ error: 'Invalid transaction' });
-    }
-
-    console.log(transaction);
 
     const data = await heyPrisma.tip.create({
       data: {
