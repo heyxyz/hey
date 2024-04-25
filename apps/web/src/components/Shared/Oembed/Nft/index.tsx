@@ -1,6 +1,7 @@
 import type { Nft as INft } from '@hey/types/misc';
 import type { FC } from 'react';
 
+import { OPEN_ACTION_NO_EMBED_TOOLTIP } from '@components/Publication/OpenAction/UnknownModule/Decent';
 import { useDefaultProfileQuery } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
 import getLennyURL from '@hey/lib/getLennyURL';
@@ -12,10 +13,8 @@ interface NftProps {
   nft: INft;
 }
 
-const OPEN_ACTION_EMBED_TOOLTIP = 'NFT Open Action unavailable';
-
 const Nft: FC<NftProps> = ({ nft }) => {
-  const { data, loading } = useDefaultProfileQuery({
+  const { data } = useDefaultProfileQuery({
     skip: !nft.creatorAddress,
     variables: { request: { for: nft.creatorAddress } }
   });
@@ -66,7 +65,7 @@ const Nft: FC<NftProps> = ({ nft }) => {
           </div>
         </div>
         <Tooltip
-          content={<span>{OPEN_ACTION_EMBED_TOOLTIP}</span>}
+          content={<span>{OPEN_ACTION_NO_EMBED_TOOLTIP}</span>}
           placement="top"
         >
           <Button className="text-base font-normal" disabled={true} size="lg">

@@ -88,7 +88,7 @@ const Oembed: FC<OembedProps> = ({
 
   return (
     <div className={className}>
-      {embedDecentOpenAction && !!currentPublication ? (
+      {embedDecentOpenAction ? (
         <DecentOpenAction
           og={og}
           openActionEmbed={!!openActionEmbed}
