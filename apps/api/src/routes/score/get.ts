@@ -23,9 +23,10 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const cachedProfile = await heyPrisma.cachedProfileScore.findUnique({
-      where: { id: id as string }
-    });
+    const [cachedProfile, pro] = await heyPrisma.$transaction([
+      heyPrisma.cachedProfileScore.findUnique({ where: { id: id as string } }),
+      heyPrisma.pro.findUnique({ where: { id: id as string } })
+    ]);
 
     if (cachedProfile?.expiresAt && new Date() < cachedProfile.expiresAt) {
       logger.info(
@@ -40,7 +41,7 @@ export const get: Handler = async (req, res) => {
     }
 
     const scoreQueryRequest = await axios.get(SCORE_WORKER_URL, {
-      params: { id, secret: process.env.SECRET }
+      params: { id, pro: pro?.id === id, secret: process.env.SECRET }
     });
     const scoreQuery = scoreQueryRequest.data.toString();
     const scores = await lensPrisma.$queryRaw<any>(
