@@ -2,10 +2,15 @@ import type { MirrorablePublication, ModReport, Profile } from '@hey/lens';
 
 import Reports from '@components/Mod/ReportsFeed/Reports';
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
-import { FlagIcon } from '@heroicons/react/24/outline';
+import {
+  ChatBubbleOvalLeftEllipsisIcon,
+  FlagIcon
+} from '@heroicons/react/24/outline';
 import formatDate from '@hey/lib/datetime/formatDate';
 import { Button, Modal } from '@hey/ui';
 import { type FC, useState } from 'react';
+
+import Dispute from './Dispute';
 
 interface ReportDetailsProps {
   report: ModReport;
@@ -60,6 +65,16 @@ const ReportDetails: FC<ReportDetailsProps> = ({ report }) => {
         >
           Dispute this report
         </Button>
+        <Modal
+          icon={
+            <ChatBubbleOvalLeftEllipsisIcon className="size-5 text-red-500" />
+          }
+          onClose={() => setShowDisputeModal(false)}
+          show={showDisputeModal}
+          title="Dispute this report"
+        >
+          <Dispute report={report} setShowDisputeModal={setShowDisputeModal} />
+        </Modal>
       </div>
     </div>
   );
