@@ -265,6 +265,7 @@ const Mod: NextPage = () => {
           {feedType === ModFeedType.SEARCH && (
             <div>Search for Publications</div>
           )}
+          {feedType === ModFeedType.REPORTS && <div>Reported Publications</div>}
         </Card>
         <Footer />
       </GridItemFour>
