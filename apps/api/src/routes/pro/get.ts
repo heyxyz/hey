@@ -5,6 +5,7 @@ import { HEY_PRO, IS_MAINNET } from '@hey/data/constants';
 import logger from '@hey/lib/logger';
 import catchedError from 'src/lib/catchedError';
 import getRpc from 'src/lib/getRpc';
+import heyPrisma from 'src/lib/heyPrisma';
 import { noBody } from 'src/lib/responses';
 import { createPublicClient } from 'viem';
 import { polygon, polygonAmoy } from 'viem/chains';
@@ -17,6 +18,20 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
+    const pro = await heyPrisma.pro.findUnique({
+      where: { id: id as string }
+    });
+
+    if (pro?.expiresAt && new Date() < pro.expiresAt) {
+      logger.info(`Fetched pro status from cache for ${id}`);
+
+      return res.status(200).json({
+        cached: true,
+        result: { expiresAt: pro.expiresAt, isPro: true },
+        success: true
+      });
+    }
+
     const client = createPublicClient({
       chain: IS_MAINNET ? polygon : polygonAmoy,
       transport: getRpc({ mainnet: IS_MAINNET })
@@ -33,10 +48,20 @@ export const get: Handler = async (req, res) => {
     const expiresAt = new Date(jsonData * 1000);
     const expired = expiresAt < new Date();
 
-    const result = {
-      expiresAt: expired ? null : expiresAt,
-      isPro: expired ? false : true
-    };
+    if (expired) {
+      return res
+        .status(404)
+        .json({ result: { expiresAt: null, isPro: false }, success: true });
+    }
+
+    const baseData = { expiresAt: new Date(expiresAt), id: id as string };
+    const newPro = await heyPrisma.pro.upsert({
+      create: baseData,
+      update: baseData,
+      where: { id: id as string }
+    });
+
+    const result = { expiresAt: newPro.expiresAt, isPro: true };
 
     logger.info(`Fetched pro status for ${id}`);
 

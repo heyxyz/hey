@@ -140,6 +140,11 @@ model CachedProfileScore {
   expiresAt DateTime
 }
 
+model Pro {
+  id        String   @id
+  expiresAt DateTime
+}
+
 model Tip {
   id            String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   publicationId String
