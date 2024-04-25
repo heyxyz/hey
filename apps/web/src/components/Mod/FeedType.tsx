@@ -26,7 +26,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
       <TabButton
         active={feedType === ModFeedType.REPORTS}
         icon={<FlagIcon className="size-4" />}
-        name="Leates Reports"
+        name="Latest Reports"
         onClick={() => setFeedType(ModFeedType.REPORTS)}
       />
       <TabButton
