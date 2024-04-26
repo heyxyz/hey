@@ -9,6 +9,7 @@ import Loader from '@components/Shared/Loader';
 import P2PRecommendation from '@components/Shared/Profile/P2PRecommendation';
 import UserProfile from '@components/Shared/UserProfile';
 import { ArrowPathIcon, UsersIcon } from '@heroicons/react/24/outline';
+import { SUPER_ADMIN } from '@hey/data/constants';
 import {
   ExploreProfilesOrderByType,
   LimitType,
@@ -23,17 +24,19 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
+import LoadScore from './LoadScore';
 import ViewReports from './ViewReports';
 
 const List: FC = () => {
   const { pathname } = useRouter();
+  const { currentProfile } = useProfileStore();
   const [orderBy, setOrderBy] = useState<ExploreProfilesOrderByType>(
     ExploreProfilesOrderByType.LatestCreated
   );
   const [searchText, setSearchText] = useState('');
   const [refetching, setRefetching] = useState(false);
-  const [showReportsModal, setShowReportsModal] = useState(false);
   const debouncedSearchText = useDebounce<string>(searchText, 500);
 
   // Variables
@@ -148,6 +151,9 @@ const List: FC = () => {
                         : getProfile(profile as Profile).staffLink
                     }
                   >
+                    {currentProfile?.id === SUPER_ADMIN ? (
+                      <LoadScore profileId={profile.id} />
+                    ) : null}
                     <UserProfile
                       hideFollowButton
                       hideUnfollowButton
