@@ -5,6 +5,10 @@ on:
     - cron: '*/30 * * * *'
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   cleanup-preferences:
     name: Cleanup Preferences
