@@ -1,8 +1,8 @@
 import type { FC } from 'react';
 
 import Markup from '@components/Shared/Markup';
-import getMentions from '@hey/lib/getMentions';
-import getMisuseDetails from '@hey/lib/getMisuseDetails';
+import getMentions from '@hey/helpers/getMentions';
+import getMisuseDetails from '@hey/helpers/getMisuseDetails';
 import { Card } from '@hey/ui';
 
 interface ScamWarningProps {

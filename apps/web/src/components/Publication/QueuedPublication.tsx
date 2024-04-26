@@ -4,6 +4,7 @@ import type { FC } from 'react';
 
 import Markup from '@components/Shared/Markup';
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
+import getMentions from '@hey/helpers/getMentions';
 import {
   LensTransactionStatusType,
   PublicationDocument,
@@ -11,7 +12,6 @@ import {
   usePublicationLazyQuery
 } from '@hey/lens';
 import { useApolloClient } from '@hey/lens/apollo';
-import getMentions from '@hey/lib/getMentions';
 import { Card, Tooltip } from '@hey/ui';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 

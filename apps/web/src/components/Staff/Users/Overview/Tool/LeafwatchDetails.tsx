@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 
+import MetaDetails from '@components/Shared/Staff/MetaDetails';
 import {
   ComputerDesktopIcon,
   CursorArrowRaysIcon,
@@ -9,12 +10,10 @@ import {
 } from '@heroicons/react/24/outline';
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
 import { HEY_API_URL } from '@hey/data/constants';
-import humanize from '@hey/lib/humanize';
+import humanize from '@hey/helpers/humanize';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import getAuthApiHeaders from 'src/helpers/getAuthApiHeaders';
-
-import MetaDetails from '../../../../Shared/Staff/MetaDetails';
 
 interface LeafwatchDetailsProps {
   profileId: string;

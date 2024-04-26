@@ -3,7 +3,7 @@ import type { FC } from 'react';
 
 import ChooseThumbnail from '@components/Composer/ChooseThumbnail';
 import { XMarkIcon } from '@heroicons/react/24/solid';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useEffect, useRef } from 'react';

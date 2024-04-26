@@ -25,7 +25,7 @@
     "@hey/icons": "workspace:*",
     "@hey/image-cropper": "workspace:*",
     "@hey/lens": "workspace:*",
-    "@hey/lib": "workspace:*",
+    "@hey/helpers": "workspace:*",
     "@hey/ui": "workspace:*",
     "@lens-protocol/metadata": "^1.1.6",
     "@lexical/code": "^0.14.5",

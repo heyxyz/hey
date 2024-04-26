@@ -2,7 +2,7 @@ import type { IDatabase, IFormatting, IHelpers, IMain } from 'pg-promise';
 import type { IConnectionParameters } from 'pg-promise/typescript/pg-subset';
 import type pg from 'pg-promise/typescript/pg-subset';
 
-import logger from '@hey/lib/logger';
+import logger from '@hey/helpers/logger';
 import pgPromise from 'pg-promise';
 
 type DatabaseInstance = IDatabase<unknown, pg.IClient>;

@@ -3,8 +3,8 @@ import type { FC } from 'react';
 
 import { ATTACHMENT } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
-import imageKit from '@hey/lib/imageKit';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import imageKit from '@hey/helpers/imageKit';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Card, Image } from '@hey/ui';
 import Link from 'next/link';
 import { Leafwatch } from 'src/helpers/leafwatch';

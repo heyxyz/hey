@@ -3,7 +3,7 @@ import type { Address } from 'viem';
 
 import { HeyLensSignup } from '@hey/abis';
 import { HEY_LENS_SIGNUP, ZERO_ADDRESS } from '@hey/data/constants';
-import logger from '@hey/lib/logger';
+import logger from '@hey/helpers/logger';
 import crypto from 'crypto';
 import catchedError from 'src/helpers/catchedError';
 import createClickhouseClient from 'src/helpers/createClickhouseClient';

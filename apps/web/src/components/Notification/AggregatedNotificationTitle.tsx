@@ -1,7 +1,7 @@
 import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import Link from 'next/link';
 
 import { NotificationProfileName } from './Profile';

@@ -1,6 +1,7 @@
 import type { ProfileOnchainIdentity } from '@hey/lens';
 import type { FC } from 'react';
 
+import MetaDetails from '@components/Shared/Staff/MetaDetails';
 import {
   GlobeAltIcon,
   HashtagIcon,
@@ -8,8 +9,6 @@ import {
   UserCircleIcon
 } from '@heroicons/react/24/outline';
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
-
-import MetaDetails from '../../../../Shared/Staff/MetaDetails';
 
 interface OnchainIdentitiesProps {
   onchainIdentity: ProfileOnchainIdentity;

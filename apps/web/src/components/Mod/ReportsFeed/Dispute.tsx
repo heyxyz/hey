@@ -1,12 +1,12 @@
 import type { FC } from 'react';
 
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
+import formatDate from '@hey/helpers/datetime/formatDate';
 import {
   type ModReport,
   type Profile,
   useModDisputeReportMutation
 } from '@hey/lens';
-import formatDate from '@hey/lib/datetime/formatDate';
 import { Button, Form, TextArea, useZodForm } from '@hey/ui';
 import toast from 'react-hot-toast';
 import errorToast from 'src/helpers/errorToast';

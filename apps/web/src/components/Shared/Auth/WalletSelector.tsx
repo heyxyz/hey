@@ -4,7 +4,7 @@ import type { Connector } from 'wagmi';
 import { KeyIcon } from '@heroicons/react/24/outline';
 import { XCircleIcon } from '@heroicons/react/24/solid';
 import { AUTH } from '@hey/data/tracking';
-import getWalletDetails from '@hey/lib/getWalletDetails';
+import getWalletDetails from '@hey/helpers/getWalletDetails';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from 'src/helpers/leafwatch';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';

@@ -3,13 +3,13 @@ import type { Address } from 'viem';
 
 import { LensHub } from '@hey/abis';
 import { LENS_HUB } from '@hey/data/constants';
+import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
+import getSignature from '@hey/helpers/getSignature';
 import {
   useActOnOpenActionMutation,
   useBroadcastOnchainMutation,
   useCreateActOnOpenActionTypedDataMutation
 } from '@hey/lens';
-import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
-import getSignature from '@hey/lib/getSignature';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import errorToast from 'src/helpers/errorToast';

@@ -1,4 +1,4 @@
-import logger from '@hey/lib/logger';
+import logger from '@hey/helpers/logger';
 import * as dotenv from 'dotenv';
 import pg from 'pg';
 

@@ -1,7 +1,7 @@
 import type { EoaOwnershipCondition as EoaOwnershipConditionType } from '@hey/lens';
 import type { FC } from 'react';
 
-import formatAddress from '@hey/lib/formatAddress';
+import formatAddress from '@hey/helpers/formatAddress';
 import { Tooltip } from '@hey/ui';
 import useEnsName from 'src/hooks/useEnsName';
 
