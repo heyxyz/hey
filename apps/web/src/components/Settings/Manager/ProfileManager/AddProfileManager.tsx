@@ -14,10 +14,10 @@ import {
 import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { Button, Spinner } from '@hey/ui';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import errorToast from 'src/helpers/errorToast';
+import { Leafwatch } from 'src/helpers/leafwatch';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';

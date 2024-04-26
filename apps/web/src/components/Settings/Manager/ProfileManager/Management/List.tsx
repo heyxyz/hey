@@ -14,10 +14,10 @@ import {
   useUnhideManagedProfileMutation
 } from '@hey/lens';
 import { Button, EmptyState, ErrorMessage } from '@hey/ui';
-import errorToast from '@lib/errorToast';
 import { type FC, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { Virtuoso } from 'react-virtuoso';
+import errorToast from 'src/helpers/errorToast';
 import { useAccount } from 'wagmi';
 
 interface ListProps {

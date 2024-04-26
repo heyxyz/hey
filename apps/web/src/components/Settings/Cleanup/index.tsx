@@ -13,9 +13,9 @@ import {
   GridItemFour,
   GridLayout
 } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
+import { Leafwatch } from 'src/helpers/leafwatch';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 

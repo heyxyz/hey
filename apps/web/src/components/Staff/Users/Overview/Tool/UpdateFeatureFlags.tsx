@@ -6,12 +6,12 @@ import { HEY_API_URL } from '@hey/data/constants';
 import { STAFFTOOLS } from '@hey/data/tracking';
 import getAllFeatureFlags from '@hey/lib/api/getAllFeatureFlags';
 import { Toggle } from '@hey/ui';
-import getAuthApiHeaders from '@lib/getAuthApiHeaders';
-import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import getAuthApiHeaders from 'src/helpers/getAuthApiHeaders';
+import { Leafwatch } from 'src/helpers/leafwatch';
 
 import ToggleWrapper from './ToggleWrapper';
 

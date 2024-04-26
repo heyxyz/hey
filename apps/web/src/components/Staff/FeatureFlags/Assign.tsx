@@ -4,11 +4,11 @@ import type { FC } from 'react';
 import { HEY_API_URL } from '@hey/data/constants';
 import { STAFFTOOLS } from '@hey/data/tracking';
 import { Button, Form, TextArea, useZodForm } from '@hey/ui';
-import getAuthApiHeaders from '@lib/getAuthApiHeaders';
-import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import getAuthApiHeaders from 'src/helpers/getAuthApiHeaders';
+import { Leafwatch } from 'src/helpers/leafwatch';
 import { object, string } from 'zod';
 
 const assignFeatureSchema = object({

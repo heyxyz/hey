@@ -7,8 +7,8 @@ import { PROFILE } from '@hey/data/tracking';
 import getProfile from '@hey/lib/getProfile';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
-import { Leafwatch } from '@lib/leafwatch';
 import toast from 'react-hot-toast';
+import { Leafwatch } from 'src/helpers/leafwatch';
 
 interface ShareProps {
   profile: Profile;

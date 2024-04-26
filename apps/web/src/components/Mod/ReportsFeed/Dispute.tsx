@@ -8,8 +8,8 @@ import {
 } from '@hey/lens';
 import formatDate from '@hey/lib/datetime/formatDate';
 import { Button, Form, TextArea, useZodForm } from '@hey/ui';
-import errorToast from '@lib/errorToast';
 import toast from 'react-hot-toast';
+import errorToast from 'src/helpers/errorToast';
 import { object, string } from 'zod';
 
 const disputeSchema = object({

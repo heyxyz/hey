@@ -16,9 +16,9 @@ import {
   GridItemFour,
   GridLayout
 } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { Leafwatch } from 'src/helpers/leafwatch';
 import Custom404 from 'src/pages/404';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
