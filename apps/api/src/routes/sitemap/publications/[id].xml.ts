@@ -30,7 +30,7 @@ export const get: Handler = async (req, res) => {
         AND is_hidden = false AND gardener_flagged = false
         ORDER BY block_timestamp ASC
         LIMIT $1
-        OFFSET $2
+        OFFSET $2;
       `,
       [SITEMAP_BATCH_SIZE, offset]
     );
