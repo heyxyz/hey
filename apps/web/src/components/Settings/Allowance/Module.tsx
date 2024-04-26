@@ -6,10 +6,10 @@ import {
   OpenActionModuleType
 } from '@hey/lens';
 import { Card } from '@hey/ui';
-import getAllowanceModule from '@lib/getAllowanceModule';
-import getAllowanceOpenAction from '@lib/getAllowanceOpenAction';
 import Link from 'next/link';
 import { useState } from 'react';
+import getAllowanceModule from 'src/helpers/getAllowanceModule';
+import getAllowanceOpenAction from 'src/helpers/getAllowanceOpenAction';
 
 import AllowanceButton from './Button';
 

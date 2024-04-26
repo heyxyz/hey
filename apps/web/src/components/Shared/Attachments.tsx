@@ -7,8 +7,8 @@ import imageKit from '@hey/lib/imageKit';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Image, LightBox } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { Leafwatch } from '@lib/leafwatch';
 import { memo, useState } from 'react';
+import { Leafwatch } from 'src/helpers/leafwatch';
 
 import Audio from './Audio';
 import Video from './Video';

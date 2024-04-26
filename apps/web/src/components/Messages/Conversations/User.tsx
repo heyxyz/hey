@@ -16,8 +16,8 @@ import getProfile from '@hey/lib/getProfile';
 import getStampFyiURL from '@hey/lib/getStampFyiURL';
 import hasMisused from '@hey/lib/hasMisused';
 import { Image } from '@hey/ui';
-import isVerified from '@lib/isVerified';
 import { type FC, useState } from 'react';
+import isVerified from 'src/helpers/isVerified';
 
 import LatestMessage from './LatestMessage';
 

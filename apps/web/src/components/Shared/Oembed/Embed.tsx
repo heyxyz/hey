@@ -6,8 +6,8 @@ import { PUBLICATION } from '@hey/data/tracking';
 import imageKit from '@hey/lib/imageKit';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Card, Image } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
+import { Leafwatch } from 'src/helpers/leafwatch';
 
 interface EmbedProps {
   og: OG;

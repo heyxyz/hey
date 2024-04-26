@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { AUTH } from '@hey/data/tracking';
 import { Button, Card } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { Leafwatch } from 'src/helpers/leafwatch';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 
 import { useSignupStore } from './Signup';

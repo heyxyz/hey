@@ -3,7 +3,7 @@ import type { Dispatch, FC, SetStateAction } from 'react';
 import { EXPLORE } from '@hey/data/tracking';
 import { PublicationMetadataMainFocusType } from '@hey/lens';
 import cn from '@hey/ui/cn';
-import { Leafwatch } from '@lib/leafwatch';
+import { Leafwatch } from 'src/helpers/leafwatch';
 
 interface FeedLinkProps {
   name: string;

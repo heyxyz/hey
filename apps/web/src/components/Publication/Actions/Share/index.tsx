@@ -10,9 +10,9 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Spinner, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import hasOptimisticallyMirrored from '@lib/optimistic/hasOptimisticallyMirrored';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import hasOptimisticallyMirrored from 'src/helpers/optimistic/hasOptimisticallyMirrored';
 
 import Mirror from './Mirror';
 import Quote from './Quote';

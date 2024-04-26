@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import { FlagIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import { GridItemEight, GridLayout } from '@hey/ui';
-import showCrisp from '@lib/showCrisp';
+import showCrisp from 'src/helpers/showCrisp';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 
 const Flagged: FC = () => {

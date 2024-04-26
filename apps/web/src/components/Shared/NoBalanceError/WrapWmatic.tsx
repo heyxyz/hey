@@ -3,8 +3,8 @@ import type { FC, ReactNode } from 'react';
 
 import { InboxIcon } from '@heroicons/react/24/outline';
 import { Button, Spinner } from '@hey/ui';
-import errorToast from '@lib/errorToast';
 import { useState } from 'react';
+import errorToast from 'src/helpers/errorToast';
 import { parseEther } from 'viem';
 import { useWriteContract } from 'wagmi';
 

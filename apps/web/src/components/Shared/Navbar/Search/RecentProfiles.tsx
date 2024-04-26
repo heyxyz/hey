@@ -8,8 +8,8 @@ import { ProfileLinkSource, SEARCH } from '@hey/data/tracking';
 import { useProfilesQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
+import { Leafwatch } from 'src/helpers/leafwatch';
 import { useSearchStore } from 'src/store/persisted/useSearchStore';
 
 interface RecentProfilesProps {

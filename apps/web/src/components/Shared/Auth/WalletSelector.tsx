@@ -6,7 +6,7 @@ import { XCircleIcon } from '@heroicons/react/24/solid';
 import { AUTH } from '@hey/data/tracking';
 import getWalletDetails from '@hey/lib/getWalletDetails';
 import cn from '@hey/ui/cn';
-import { Leafwatch } from '@lib/leafwatch';
+import { Leafwatch } from 'src/helpers/leafwatch';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
 
 const WalletSelector: FC = () => {
