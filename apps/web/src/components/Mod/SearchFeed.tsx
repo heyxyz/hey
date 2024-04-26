@@ -4,6 +4,7 @@ import type { FC } from 'react';
 import GardenerActions from '@components/Publication/Actions/GardenerActions';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
+import { Leafwatch } from '@helpers/leafwatch';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { GARDENER } from '@hey/data/tracking';
 import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
@@ -15,7 +16,6 @@ import {
 import { Button, Card, EmptyState, ErrorMessage, Input } from '@hey/ui';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
-import { Leafwatch } from 'src/helpers/leafwatch';
 
 const SearchFeed: FC = () => {
   const [query, setQuery] = useState('');

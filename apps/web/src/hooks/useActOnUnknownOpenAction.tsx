@@ -1,6 +1,7 @@
 import type { ActOnOpenActionLensManagerRequest } from '@hey/lens';
 import type { Address } from 'viem';
 
+import errorToast from '@helpers/errorToast';
 import { LensHub } from '@hey/abis';
 import { LENS_HUB } from '@hey/data/constants';
 import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
@@ -12,7 +13,6 @@ import {
 } from '@hey/lens';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import errorToast from 'src/helpers/errorToast';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';

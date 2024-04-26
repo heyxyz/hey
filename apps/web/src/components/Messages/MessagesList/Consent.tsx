@@ -1,11 +1,11 @@
 import type { Address } from 'viem';
 
+import { Leafwatch } from '@helpers/leafwatch';
 import { MESSAGES } from '@hey/data/tracking';
 import { Button } from '@hey/ui';
 import { useClient, useConsent } from '@xmtp/react-sdk';
 import { type FC, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { Leafwatch } from 'src/helpers/leafwatch';
 
 interface ConsentProps {
   address: Address;

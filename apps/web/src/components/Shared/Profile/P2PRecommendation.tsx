@@ -2,6 +2,8 @@ import type { ApolloCache } from '@apollo/client';
 import type { PeerToPeerRecommendRequest, Profile } from '@hey/lens';
 import type { FC } from 'react';
 
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import {
   ArrowDownCircleIcon,
   ArrowUpCircleIcon
@@ -16,8 +18,6 @@ import {
 import { Button } from '@hey/ui';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import errorToast from 'src/helpers/errorToast';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 

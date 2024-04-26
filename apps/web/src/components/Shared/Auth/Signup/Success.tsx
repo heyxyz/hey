@@ -1,5 +1,7 @@
 import type { FC } from 'react';
 
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { Errors } from '@hey/data';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { AUTH } from '@hey/data/tracking';
@@ -7,8 +9,6 @@ import { useAuthenticateMutation, useChallengeLazyQuery } from '@hey/lens';
 import { Button, Spinner } from '@hey/ui';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import errorToast from 'src/helpers/errorToast';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import { signIn } from 'src/store/persisted/useAuthStore';
 import { useAccount, useSignMessage } from 'wagmi';
 

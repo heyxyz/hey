@@ -1,6 +1,8 @@
 import type { FiatRate } from '@hey/types/lens';
 import type { FC } from 'react';
 
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import getCurrentSession from '@helpers/getCurrentSession';
 import { HEY_API_URL } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import getAllTokens from '@hey/helpers/api/getAllTokens';
@@ -8,8 +10,6 @@ import getPreferences from '@hey/helpers/api/getPreferences';
 import getScore from '@hey/helpers/api/getScore';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import getAuthApiHeaders from 'src/helpers/getAuthApiHeaders';
-import getCurrentSession from 'src/helpers/getCurrentSession';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useScoreStore } from 'src/store/non-persisted/useScoreStore';

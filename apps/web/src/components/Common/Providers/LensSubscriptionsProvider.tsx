@@ -1,14 +1,14 @@
 import type { Notification } from '@hey/lens';
 import type { FC } from 'react';
 
+import { BrowserPush } from '@helpers/browserPush';
+import getCurrentSession from '@helpers/getCurrentSession';
+import getPushNotificationData from '@helpers/getPushNotificationData';
 import {
   useNewNotificationSubscriptionSubscription,
   useUserSigNoncesSubscriptionSubscription
 } from '@hey/lens';
 import { useEffect } from 'react';
-import { BrowserPush } from 'src/helpers/browserPush';
-import getCurrentSession from 'src/helpers/getCurrentSession';
-import getPushNotificationData from 'src/helpers/getPushNotificationData';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useNotificationStore } from 'src/store/persisted/useNotificationStore';
 import { useAccount } from 'wagmi';
