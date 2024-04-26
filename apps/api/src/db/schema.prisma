@@ -139,6 +139,18 @@ model CachedProfileScore {
   expiresAt DateTime
 }
 
+model AdjustedProfileScore {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  profileId String
+  score     Int
+  reason    String?
+  createdAt DateTime @default(now())
+
+  // Indexes
+  @@index([profileId])
+  @@index([createdAt])
+}
+
 model Pro {
   id        String   @id
   expiresAt DateTime
