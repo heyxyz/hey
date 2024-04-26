@@ -3,9 +3,9 @@ import type { FC } from 'react';
 
 import { HEY_API_URL } from '@hey/data/constants';
 import { Spinner } from '@hey/ui';
-import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import getAuthApiHeaders from 'src/helpers/getAuthApiHeaders';
 
 import Wrapper from '../../Shared/Embed/Wrapper';
 import Choices from './Choices';

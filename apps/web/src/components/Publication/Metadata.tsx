@@ -4,8 +4,8 @@ import type { FC } from 'react';
 import { ScaleIcon } from '@heroicons/react/24/outline';
 import getPublicationData from '@hey/lib/getPublicationData';
 import { Card } from '@hey/ui';
-import getAssetLicense from '@lib/getAssetLicense';
 import { memo } from 'react';
+import getAssetLicense from 'src/helpers/getAssetLicense';
 
 interface MetadataProps {
   metadata: PublicationMetadata;

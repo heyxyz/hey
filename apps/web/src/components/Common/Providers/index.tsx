@@ -2,8 +2,6 @@ import type { ReactNode } from 'react';
 
 import { LIVEPEER_KEY } from '@hey/data/constants';
 import { apolloClient, ApolloProvider } from '@hey/lens/apollo';
-import authLink from '@lib/authLink';
-import getLivepeerTheme from '@lib/getLivepeerTheme';
 import {
   createReactClient,
   LivepeerConfig,
@@ -11,6 +9,8 @@ import {
 } from '@livepeer/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from 'next-themes';
+import authLink from 'src/helpers/authLink';
+import getLivepeerTheme from 'src/helpers/getLivepeerTheme';
 
 import ErrorBoundary from '../ErrorBoundary';
 import Layout from '../Layout';

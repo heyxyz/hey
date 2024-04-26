@@ -49,12 +49,12 @@ import {
   MetadataAttributeType,
   profile as profileMetadata
 } from '@lens-protocol/metadata';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
-import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
-import uploadToArweave from '@lib/uploadToArweave';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import errorToast from 'src/helpers/errorToast';
+import { Leafwatch } from 'src/helpers/leafwatch';
+import uploadCroppedImage, { readFile } from 'src/helpers/profilePictureUtils';
+import uploadToArweave from 'src/helpers/uploadToArweave';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';

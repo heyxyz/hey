@@ -18,9 +18,9 @@ import {
   MenuOption,
   useBasicTypeaheadTriggerMatch
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
-import isVerified from '@lib/isVerified';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';
+import isVerified from 'src/helpers/isVerified';
 
 import { $createMentionNode } from '../Nodes/MentionsNode';
 

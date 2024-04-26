@@ -10,9 +10,9 @@ import NoBalanceError from '@components/Shared/NoBalanceError';
 import { useApprovedModuleAllowanceAmountQuery } from '@hey/lens';
 import { Button, Spinner, WarningMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import getCurrentSession from '@lib/getCurrentSession';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import getCurrentSession from 'src/helpers/getCurrentSession';
 import { formatUnits } from 'viem';
 import { useAccount, useBalance } from 'wagmi';
 
