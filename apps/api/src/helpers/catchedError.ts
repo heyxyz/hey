@@ -1,7 +1,7 @@
 import type { Response } from 'express';
 
 import { Errors } from '@hey/data/errors';
-import logger from '@hey/lib/logger';
+import logger from '@hey/helpers/logger';
 
 const catchedError = (res: Response, error: any) => {
   logger.error(error);

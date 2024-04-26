@@ -5,13 +5,13 @@ import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
-import formatRelativeOrAbsolute from '@hey/lib/datetime/formatRelativeOrAbsolute';
-import getAvatar from '@hey/lib/getAvatar';
-import getLennyURL from '@hey/lib/getLennyURL';
-import getMentions from '@hey/lib/getMentions';
-import getProfile from '@hey/lib/getProfile';
-import hasMisused from '@hey/lib/hasMisused';
-import humanize from '@hey/lib/humanize';
+import formatRelativeOrAbsolute from '@hey/helpers/datetime/formatRelativeOrAbsolute';
+import getAvatar from '@hey/helpers/getAvatar';
+import getLennyURL from '@hey/helpers/getLennyURL';
+import getMentions from '@hey/helpers/getMentions';
+import getProfile from '@hey/helpers/getProfile';
+import hasMisused from '@hey/helpers/hasMisused';
+import humanize from '@hey/helpers/humanize';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';

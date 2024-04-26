@@ -6,12 +6,12 @@ import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { GARDENER } from '@hey/data/tracking';
+import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import {
   CustomFiltersType,
   LimitType,
   useSearchPublicationsQuery
 } from '@hey/lens';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Button, Card, EmptyState, ErrorMessage, Input } from '@hey/ui';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';

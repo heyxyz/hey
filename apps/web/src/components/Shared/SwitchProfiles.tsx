@@ -8,15 +8,15 @@ import type { FC } from 'react';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data/errors';
 import { PROFILE } from '@hey/data/tracking';
+import getAvatar from '@hey/helpers/getAvatar';
+import getLennyURL from '@hey/helpers/getLennyURL';
+import getProfile from '@hey/helpers/getProfile';
 import {
   ManagedProfileVisibility,
   useAuthenticateMutation,
   useChallengeLazyQuery,
   useProfilesManagedQuery
 } from '@hey/lens';
-import getAvatar from '@hey/lib/getAvatar';
-import getLennyURL from '@hey/lib/getLennyURL';
-import getProfile from '@hey/lib/getProfile';
 import { ErrorMessage, Image, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useState } from 'react';

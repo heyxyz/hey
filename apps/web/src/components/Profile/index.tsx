@@ -10,9 +10,9 @@ import {
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
+import getProfileFlags from '@hey/helpers/api/getProfileFlags';
+import getProfile from '@hey/helpers/getProfile';
 import { useProfileQuery } from '@hey/lens';
-import getProfileFlags from '@hey/lib/api/getProfileFlags';
-import getProfile from '@hey/lib/getProfile';
 import { EmptyState, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';

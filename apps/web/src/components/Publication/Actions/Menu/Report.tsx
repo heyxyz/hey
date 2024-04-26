@@ -3,7 +3,7 @@ import type { FC } from 'react';
 
 import { Menu } from '@headlessui/react';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 

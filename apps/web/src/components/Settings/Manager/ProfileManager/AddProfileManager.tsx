@@ -6,13 +6,13 @@ import { LensHub } from '@hey/abis';
 import { ADDRESS_PLACEHOLDER, LENS_HUB } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { SETTINGS } from '@hey/data/tracking';
+import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
+import getSignature from '@hey/helpers/getSignature';
 import {
   ChangeProfileManagerActionType,
   useBroadcastOnchainMutation,
   useCreateChangeProfileManagersTypedDataMutation
 } from '@hey/lens';
-import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
-import getSignature from '@hey/lib/getSignature';
 import { Button, Spinner } from '@hey/ui';
 import { useState } from 'react';
 import toast from 'react-hot-toast';

@@ -8,11 +8,11 @@ import {
 } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data/errors';
 import { GARDENER } from '@hey/data/tracking';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import {
   usePeerToPeerRecommendMutation,
   usePeerToPeerUnrecommendMutation
 } from '@hey/lens';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button } from '@hey/ui';
 import { useState } from 'react';
 import toast from 'react-hot-toast';

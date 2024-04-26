@@ -5,7 +5,7 @@ import Loader from '@components/Shared/Loader';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import { STAFFTOOLS } from '@hey/data/tracking';
-import getAllTokens from '@hey/lib/api/getAllTokens';
+import getAllTokens from '@hey/helpers/api/getAllTokens';
 import { Button, Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';

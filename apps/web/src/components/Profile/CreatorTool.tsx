@@ -9,7 +9,7 @@ import {
 } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import { CREATORTOOLS } from '@hey/data/tracking';
-import getPreferences from '@hey/lib/api/getPreferences';
+import getPreferences from '@hey/helpers/api/getPreferences';
 import { Toggle } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';

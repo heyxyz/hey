@@ -5,7 +5,7 @@ import type {
 import type { FC } from 'react';
 
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
+import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 
 import SwapOpenAction from './UnknownModule/Swap';
 

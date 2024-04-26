@@ -6,7 +6,7 @@ import {
   ChatBubbleOvalLeftEllipsisIcon,
   FlagIcon
 } from '@heroicons/react/24/outline';
-import formatDate from '@hey/lib/datetime/formatDate';
+import formatDate from '@hey/helpers/datetime/formatDate';
 import { Button, Modal } from '@hey/ui';
 import { type FC, useState } from 'react';
 

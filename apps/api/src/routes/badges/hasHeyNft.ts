@@ -3,7 +3,7 @@ import type { Address } from 'viem';
 
 import { HeyMembershipNft } from '@hey/abis';
 import { HEY_MEMBERSHIP_NFT } from '@hey/data/constants';
-import logger from '@hey/lib/logger';
+import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import {
   CACHE_AGE_INDEFINITE,

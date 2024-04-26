@@ -1,8 +1,8 @@
 import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
-import getProfile from '@hey/lib/getProfile';
-import humanize from '@hey/lib/humanize';
+import getProfile from '@hey/helpers/getProfile';
+import humanize from '@hey/helpers/humanize';
 import Link from 'next/link';
 import plur from 'plur';
 

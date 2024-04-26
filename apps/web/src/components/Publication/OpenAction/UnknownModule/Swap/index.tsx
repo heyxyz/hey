@@ -13,10 +13,10 @@ import {
   WMATIC_ADDRESS
 } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
+import getPublicationAttribute from '@hey/helpers/getPublicationAttribute';
+import getUniswapQuote from '@hey/helpers/getUniswapQuote';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { useModuleMetadataQuery } from '@hey/lens';
-import getPublicationAttribute from '@hey/lib/getPublicationAttribute';
-import getUniswapQuote from '@hey/lib/getUniswapQuote';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Card } from '@hey/ui';
 import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';

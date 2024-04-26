@@ -4,13 +4,13 @@ import type { FC } from 'react';
 import Loader from '@components/Shared/Loader';
 import { Errors } from '@hey/data/errors';
 import { SETTINGS } from '@hey/data/tracking';
+import getAvatar from '@hey/helpers/getAvatar';
+import getProfile from '@hey/helpers/getProfile';
 import {
   useDefaultProfileQuery,
   useProfilesQuery,
   useSetDefaultProfileMutation
 } from '@hey/lens';
-import getAvatar from '@hey/lib/getAvatar';
-import getProfile from '@hey/lib/getProfile';
 import { Button, Card, CardHeader, Select } from '@hey/ui';
 import { useState } from 'react';
 import toast from 'react-hot-toast';

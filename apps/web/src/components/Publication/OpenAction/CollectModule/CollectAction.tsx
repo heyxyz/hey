@@ -18,6 +18,11 @@ import { LensHub } from '@hey/abis';
 import { Errors } from '@hey/data';
 import { LENS_HUB } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
+import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
+import getCollectModuleData from '@hey/helpers/getCollectModuleData';
+import getOpenActionActOnKey from '@hey/helpers/getOpenActionActOnKey';
+import getSignature from '@hey/helpers/getSignature';
+import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import {
   useActOnOpenActionMutation,
   useApprovedModuleAllowanceAmountQuery,
@@ -26,11 +31,6 @@ import {
   useCreateLegacyCollectTypedDataMutation,
   useLegacyCollectMutation
 } from '@hey/lens';
-import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
-import getCollectModuleData from '@hey/lib/getCollectModuleData';
-import getOpenActionActOnKey from '@hey/lib/getOpenActionActOnKey';
-import getSignature from '@hey/lib/getSignature';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Button, Spinner, WarningMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';

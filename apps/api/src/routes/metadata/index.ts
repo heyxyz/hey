@@ -1,6 +1,6 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/lib/logger';
+import logger from '@hey/helpers/logger';
 import { NodeIrys } from '@irys/sdk';
 import catchedError from 'src/helpers/catchedError';
 import { noBody } from 'src/helpers/responses';

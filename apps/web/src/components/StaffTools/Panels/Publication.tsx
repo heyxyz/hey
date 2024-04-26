@@ -1,6 +1,7 @@
 import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
+import MetaDetails from '@components/Shared/Staff/MetaDetails';
 import {
   HashtagIcon,
   RectangleStackIcon,
@@ -10,10 +11,8 @@ import { ShieldCheckIcon } from '@heroicons/react/24/solid';
 import {
   isCommentPublication,
   isMirrorPublication
-} from '@hey/lib/publicationHelpers';
+} from '@hey/helpers/publicationHelpers';
 import { Card } from '@hey/ui';
-
-import MetaDetails from '../../Shared/Staff/MetaDetails';
 
 interface PublicationStaffToolProps {
   publication: AnyPublication;
