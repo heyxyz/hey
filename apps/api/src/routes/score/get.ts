@@ -3,7 +3,10 @@ import type { Handler } from 'express';
 import logger from '@hey/lib/logger';
 import axios from 'axios';
 import catchedError from 'src/lib/catchedError';
-import { SCORE_WORKER_URL } from 'src/lib/constants';
+import {
+  SCORE_WORKER_URL,
+  SWR_CACHE_AGE_10_MINS_30_DAYS
+} from 'src/lib/constants';
 import createClickhouseClient from 'src/lib/createClickhouseClient';
 import heyPrisma from 'src/lib/heyPrisma';
 import lensPrisma from 'src/lib/lensPrisma';
@@ -32,11 +35,14 @@ export const get: Handler = async (req, res) => {
       logger.info(
         `Lens: Fetched profile score from cache for ${id} - ${cachedProfile.score}`
       );
-      return res.status(200).json({
-        expiresAt: cachedProfile.expiresAt,
-        score: cachedProfile.score,
-        success: true
-      });
+      return res
+        .status(200)
+        .setHeader('Cache-Control', SWR_CACHE_AGE_10_MINS_30_DAYS)
+        .json({
+          expiresAt: cachedProfile.expiresAt,
+          score: cachedProfile.score,
+          success: true
+        });
     }
 
     const client = createClickhouseClient();
