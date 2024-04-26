@@ -6,6 +6,7 @@
   "main": "index.ts",
   "types": "index.ts",
   "scripts": {
+    "adjust-profile-score": "ts-node adjust-profile-score.ts",
     "delete-publications": "ts-node delete-publications.ts",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
