@@ -24,10 +24,12 @@ export const get: Handler = async (req, res) => {
     const offset = (Number(batch) - 1) * SITEMAP_BATCH_SIZE;
 
     const response = await lensPrisma.$queryRaw<{ local_name: string }[]>`
-      SELECT local_name FROM namespace.handle
-      ORDER BY block_timestamp ASC
+      SELECT h.local_name
+      FROM namespace.handle_link hl
+      JOIN namespace.handle h ON hl.handle_id = h.handle_id
+      ORDER BY h.block_timestamp
       LIMIT ${SITEMAP_BATCH_SIZE}
-      OFFSET ${offset};
+      OFFSET ${offset}
     `;
 
     const entries = response.map((handle) => ({
