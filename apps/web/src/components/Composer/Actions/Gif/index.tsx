@@ -4,9 +4,9 @@ import type { FC } from 'react';
 import { GifIcon, PhotoIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
 import { Modal, Tooltip } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { Leafwatch } from 'src/helpers/leafwatch';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 
 import GifSelector from './GifSelector';

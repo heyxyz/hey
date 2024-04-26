@@ -3,7 +3,7 @@ import type { FC } from 'react';
 
 import { FeatureFlag } from '@hey/data/feature-flags';
 import { Card } from '@hey/ui';
-import isFeatureAvailable from '@lib/isFeatureAvailable';
+import isFeatureAvailable from 'src/helpers/isFeatureAvailable';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 import CreatorTool from './CreatorTool';

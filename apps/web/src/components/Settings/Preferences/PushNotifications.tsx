@@ -3,8 +3,8 @@ import type { FC } from 'react';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { BellIcon } from '@heroicons/react/24/outline';
 import { SETTINGS } from '@hey/data/tracking';
-import { Leafwatch } from '@lib/leafwatch';
 import { useEffect, useState } from 'react';
+import { Leafwatch } from 'src/helpers/leafwatch';
 
 const PushNotifications: FC = () => {
   const [pushNotificationsEnabled, setPushNotificationsEnabled] =

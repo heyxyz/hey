@@ -15,10 +15,10 @@ import hasMisused from '@hey/lib/hasMisused';
 import nFormatter from '@hey/lib/nFormatter';
 import truncateByWords from '@hey/lib/truncateByWords';
 import { Card, Image } from '@hey/ui';
-import isVerified from '@lib/isVerified';
 import * as HoverCard from '@radix-ui/react-hover-card';
 import plur from 'plur';
 import { useState } from 'react';
+import isVerified from 'src/helpers/isVerified';
 
 import Markup from './Markup';
 import FollowUnfollowButton from './Profile/FollowUnfollowButton';

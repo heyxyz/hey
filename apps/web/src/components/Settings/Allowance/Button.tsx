@@ -9,11 +9,11 @@ import {
   useGenerateModuleCurrencyApprovalDataLazyQuery
 } from '@hey/lens';
 import { Button, Modal, Spinner, WarningMessage } from '@hey/ui';
-import errorToast from '@lib/errorToast';
-import getAllowanceModule from '@lib/getAllowanceModule';
-import { Leafwatch } from '@lib/leafwatch';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import errorToast from 'src/helpers/errorToast';
+import getAllowanceModule from 'src/helpers/getAllowanceModule';
+import { Leafwatch } from 'src/helpers/leafwatch';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useSendTransaction, useWaitForTransactionReceipt } from 'wagmi';
 

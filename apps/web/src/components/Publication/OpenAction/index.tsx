@@ -10,11 +10,11 @@ import nFormatter from '@hey/lib/nFormatter';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Modal, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { Leafwatch } from '@lib/leafwatch';
-import hasOptimisticallyCollected from '@lib/optimistic/hasOptimisticallyCollected';
 import { motion } from 'framer-motion';
 import plur from 'plur';
 import { useState } from 'react';
+import { Leafwatch } from 'src/helpers/leafwatch';
+import hasOptimisticallyCollected from 'src/helpers/optimistic/hasOptimisticallyCollected';
 
 import CollectModule from './CollectModule';
 

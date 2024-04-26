@@ -7,8 +7,8 @@ import { prideHashtags } from '@hey/data/pride-hashtags';
 import { PUBLICATION } from '@hey/data/tracking';
 import isPrideMonth from '@hey/lib/isPrideMonth';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
+import { Leafwatch } from 'src/helpers/leafwatch';
 import urlcat from 'urlcat';
 
 const Hashtag: FC<MarkupLinkProps> = ({ title }) => {

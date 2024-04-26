@@ -6,8 +6,8 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { APP_NAME } from '@hey/data/constants';
 import { ONBOARDING } from '@hey/data/tracking';
 import { Card } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
+import { Leafwatch } from 'src/helpers/leafwatch';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface StatusProps {

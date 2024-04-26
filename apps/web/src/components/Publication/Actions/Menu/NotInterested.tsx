@@ -13,9 +13,9 @@ import {
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import { toast } from 'react-hot-toast';
+import errorToast from 'src/helpers/errorToast';
+import { Leafwatch } from 'src/helpers/leafwatch';
 
 interface NotInterestedProps {
   publication: AnyPublication;

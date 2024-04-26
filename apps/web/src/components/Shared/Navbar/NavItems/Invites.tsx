@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import { TicketIcon } from '@heroicons/react/24/outline';
 import { INVITE } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
-import { Leafwatch } from '@lib/leafwatch';
+import { Leafwatch } from 'src/helpers/leafwatch';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 
 interface InvitesProps {

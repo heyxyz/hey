@@ -14,11 +14,11 @@ import {
 import nFormatter from '@hey/lib/nFormatter';
 import { Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import { useCounter, useToggle } from '@uidotdev/usehooks';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
+import errorToast from 'src/helpers/errorToast';
+import { Leafwatch } from 'src/helpers/leafwatch';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 

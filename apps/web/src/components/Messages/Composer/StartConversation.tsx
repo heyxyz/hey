@@ -11,13 +11,13 @@ import {
 import { MESSAGES } from '@hey/data/tracking';
 import { Button, EmptyState, Input } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { Leafwatch } from '@lib/leafwatch';
 import {
   useCanMessage,
   useConsent,
   useStartConversation
 } from '@xmtp/react-sdk';
 import { useEffect, useRef, useState } from 'react';
+import { Leafwatch } from 'src/helpers/leafwatch';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useAccount } from 'wagmi';

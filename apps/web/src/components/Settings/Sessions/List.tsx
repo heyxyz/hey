@@ -12,11 +12,11 @@ import {
 } from '@hey/lens';
 import formatDate from '@hey/lib/datetime/formatDate';
 import { Button, EmptyState, ErrorMessage } from '@hey/ui';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { Virtuoso } from 'react-virtuoso';
+import errorToast from 'src/helpers/errorToast';
+import { Leafwatch } from 'src/helpers/leafwatch';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 

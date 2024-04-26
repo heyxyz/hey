@@ -5,8 +5,8 @@ import { SETTINGS } from '@hey/data/tracking';
 import { useProfileLazyQuery } from '@hey/lens';
 import downloadJson from '@hey/lib/downloadJson';
 import { Button, Card, CardHeader } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
+import { Leafwatch } from 'src/helpers/leafwatch';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 const Profile: FC = () => {

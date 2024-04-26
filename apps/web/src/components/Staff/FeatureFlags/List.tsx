@@ -11,12 +11,12 @@ import getAllFeatureFlags from '@hey/lib/api/getAllFeatureFlags';
 import formatDate from '@hey/lib/datetime/formatDate';
 import { Badge, Button, Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import getAuthApiHeaders from '@lib/getAuthApiHeaders';
-import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import getAuthApiHeaders from 'src/helpers/getAuthApiHeaders';
+import { Leafwatch } from 'src/helpers/leafwatch';
 
 import Assign from './Assign';
 import Create from './Create';

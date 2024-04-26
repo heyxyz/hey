@@ -9,7 +9,7 @@ import {
 import { HomeFeedType } from '@hey/data/enums';
 import { HOME } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { Leafwatch } from 'src/helpers/leafwatch';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface FeedTypeProps {

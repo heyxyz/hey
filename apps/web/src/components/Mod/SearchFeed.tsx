@@ -13,9 +13,9 @@ import {
 } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Button, Card, EmptyState, ErrorMessage, Input } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
+import { Leafwatch } from 'src/helpers/leafwatch';
 
 const SearchFeed: FC = () => {
   const [query, setQuery] = useState('');

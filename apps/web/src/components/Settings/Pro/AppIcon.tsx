@@ -5,11 +5,11 @@ import { CheckCircleIcon as CheckCircleIconSolid } from '@heroicons/react/24/sol
 import { APP_NAME, HEY_API_URL, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
 import { Card, CardHeader, Tooltip } from '@hey/ui';
-import getAuthApiHeaders from '@lib/getAuthApiHeaders';
-import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import getAuthApiHeaders from 'src/helpers/getAuthApiHeaders';
+import { Leafwatch } from 'src/helpers/leafwatch';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 
 const icons = [
