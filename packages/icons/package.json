@@ -12,11 +12,11 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "react": "^18.2.0"
+    "react": "^18.3.0"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "@types/react": "^18.2.79",
+    "@types/react": "^18.3.0",
     "typescript": "^5.4.5"
   }
 }
