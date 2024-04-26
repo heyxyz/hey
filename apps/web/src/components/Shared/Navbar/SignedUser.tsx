@@ -176,16 +176,14 @@ const SignedUser: FC = () => {
               </Menu.Item>
             ) : null}
             <div className="divider" />
-            {isFeatureAvailable('hey-score') ? (
-              <Menu.Item
-                as="div"
-                className={({ active }) =>
-                  cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
-                }
-              >
-                <Score />
-              </Menu.Item>
-            ) : null}
+            <Menu.Item
+              as="div"
+              className={({ active }) =>
+                cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
+              }
+            >
+              <Score />
+            </Menu.Item>
             <div className="divider" />
             <AppVersion />
           </Menu.Items>

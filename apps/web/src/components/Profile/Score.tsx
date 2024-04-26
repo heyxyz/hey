@@ -1,7 +1,6 @@
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import getScore from '@hey/lib/api/getScore';
 import humanize from '@hey/lib/humanize';
-import isFeatureAvailable from '@lib/isFeatureAvailable';
 import { useQuery } from '@tanstack/react-query';
 import { type FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
@@ -19,10 +18,6 @@ const Score: FC<ScoreProps> = ({ id }) => {
     queryFn: () => getScore(id),
     queryKey: ['getScore', id]
   });
-
-  if (!isFeatureAvailable('hey-score')) {
-    return null;
-  }
 
   if (isLoading || !score?.score) {
     return null;
