@@ -5,6 +5,8 @@ import IndexStatus from '@components/Shared/IndexStatus';
 import LazySmallUserProfile from '@components/Shared/LazySmallUserProfile';
 import Loader from '@components/Shared/Loader';
 import Slug from '@components/Shared/Slug';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import {
   AtSymbolIcon,
   MinusCircleIcon,
@@ -25,8 +27,6 @@ import {
 import { Button, EmptyState, Spinner } from '@hey/ui';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import errorToast from 'src/helpers/errorToast';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';

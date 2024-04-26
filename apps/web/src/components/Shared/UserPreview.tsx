@@ -2,6 +2,7 @@ import type { Profile } from '@hey/lens';
 import type { FC, ReactNode } from 'react';
 
 import MutualFollowers from '@components/Profile/MutualFollowers';
+import isVerified from '@helpers/isVerified';
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
@@ -18,7 +19,6 @@ import { Card, Image } from '@hey/ui';
 import * as HoverCard from '@radix-ui/react-hover-card';
 import plur from 'plur';
 import { useState } from 'react';
-import isVerified from 'src/helpers/isVerified';
 
 import Markup from './Markup';
 import FollowUnfollowButton from './Profile/FollowUnfollowButton';

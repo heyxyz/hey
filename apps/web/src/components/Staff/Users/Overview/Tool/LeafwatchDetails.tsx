@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 
 import MetaDetails from '@components/Shared/Staff/MetaDetails';
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import {
   ComputerDesktopIcon,
   CursorArrowRaysIcon,
@@ -13,7 +14,6 @@ import { HEY_API_URL } from '@hey/data/constants';
 import humanize from '@hey/helpers/humanize';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import getAuthApiHeaders from 'src/helpers/getAuthApiHeaders';
 
 interface LeafwatchDetailsProps {
   profileId: string;

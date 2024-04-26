@@ -1,5 +1,7 @@
 import type { FC } from 'react';
 
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data';
@@ -17,8 +19,6 @@ import {
 } from '@hey/ui';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import errorToast from 'src/helpers/errorToast';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { object, string } from 'zod';
 

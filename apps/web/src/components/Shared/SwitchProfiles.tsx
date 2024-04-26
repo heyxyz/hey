@@ -5,6 +5,8 @@ import type {
 } from '@hey/lens';
 import type { FC } from 'react';
 
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data/errors';
 import { PROFILE } from '@hey/data/tracking';
@@ -21,8 +23,6 @@ import { ErrorMessage, Image, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import errorToast from 'src/helpers/errorToast';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import { signIn, signOut } from 'src/store/persisted/useAuthStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useAccount, useSignMessage } from 'wagmi';

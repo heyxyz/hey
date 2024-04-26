@@ -4,6 +4,7 @@ import type { Address } from 'viem';
 
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import Slug from '@components/Shared/Slug';
+import isVerified from '@helpers/isVerified';
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
@@ -17,7 +18,6 @@ import hasMisused from '@hey/helpers/hasMisused';
 import { useDefaultProfileQuery } from '@hey/lens';
 import { Image } from '@hey/ui';
 import { type FC, useState } from 'react';
-import isVerified from 'src/helpers/isVerified';
 
 import LatestMessage from './LatestMessage';
 

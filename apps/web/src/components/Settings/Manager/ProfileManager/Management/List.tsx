@@ -6,6 +6,7 @@ import type {
 
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
+import errorToast from '@helpers/errorToast';
 import { UsersIcon } from '@heroicons/react/24/outline';
 import {
   ManagedProfileVisibility,
@@ -17,7 +18,6 @@ import { Button, EmptyState, ErrorMessage } from '@hey/ui';
 import { type FC, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { Virtuoso } from 'react-virtuoso';
-import errorToast from 'src/helpers/errorToast';
 import { useAccount } from 'wagmi';
 
 interface ListProps {

@@ -1,10 +1,9 @@
 import type { MirrorablePublication } from '@hey/lens';
 
+import getPublicationOGImages from '@helpers/getPublicationOGImages';
 import { APP_NAME } from '@hey/data/constants';
 import allowedOpenActionModules from '@hey/helpers/allowedOpenActionModules';
 import getProfile from '@hey/helpers/getProfile';
-
-import getPublicationOGImages from './getPublicationOGImages';
 
 const getCollectModuleMetadata = (publication: MirrorablePublication) => {
   const { openActionModules } = publication;

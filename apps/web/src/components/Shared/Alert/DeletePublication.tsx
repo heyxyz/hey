@@ -1,12 +1,12 @@
 import type { FC } from 'react';
 
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { Errors } from '@hey/data';
 import { PUBLICATION } from '@hey/data/tracking';
 import { useHidePublicationMutation } from '@hey/lens';
 import { Alert } from '@hey/ui';
 import { toast } from 'react-hot-toast';
-import errorToast from 'src/helpers/errorToast';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 

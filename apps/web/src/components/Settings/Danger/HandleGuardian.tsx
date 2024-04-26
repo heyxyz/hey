@@ -1,6 +1,8 @@
 import type { FC } from 'react';
 
 import IndexStatus from '@components/Shared/IndexStatus';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import {
   ExclamationTriangleIcon,
   LockClosedIcon,
@@ -20,8 +22,6 @@ import {
 } from '@hey/ui';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import errorToast from 'src/helpers/errorToast';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useWriteContract } from 'wagmi';

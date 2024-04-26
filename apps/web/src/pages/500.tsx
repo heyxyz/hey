@@ -1,12 +1,12 @@
 import type { FC } from 'react';
 
 import MetaTags from '@components/Common/MetaTags';
+import { heyFont } from '@helpers/fonts';
 import { HomeIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import { Button } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
-import { heyFont } from 'src/helpers/fonts';
 
 const Custom500: FC = () => {
   return (

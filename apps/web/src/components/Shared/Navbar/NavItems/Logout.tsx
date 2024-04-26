@@ -1,13 +1,13 @@
 import type { FC } from 'react';
 
+import errorToast from '@helpers/errorToast';
+import getCurrentSession from '@helpers/getCurrentSession';
+import { Leafwatch } from '@helpers/leafwatch';
 import { ArrowRightStartOnRectangleIcon } from '@heroicons/react/24/outline';
 import { AUTH } from '@hey/data/tracking';
 import { useRevokeAuthenticationMutation } from '@hey/lens';
 import cn from '@hey/ui/cn';
 import { useState } from 'react';
-import errorToast from 'src/helpers/errorToast';
-import getCurrentSession from 'src/helpers/getCurrentSession';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { signOut } from 'src/store/persisted/useAuthStore';
 import { useDisconnect } from 'wagmi';

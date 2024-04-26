@@ -3,6 +3,7 @@ import type { NextPage } from 'next';
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import List from '@components/Staff/Users/List';
+import { Leafwatch } from '@helpers/leafwatch';
 import { apps as knownApps } from '@hey/data/apps';
 import { APP_NAME } from '@hey/data/constants';
 import { ModFeedType } from '@hey/data/enums';
@@ -21,7 +22,6 @@ import {
   GridLayout
 } from '@hey/ui';
 import { useEffect, useState } from 'react';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import Custom404 from 'src/pages/404';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 

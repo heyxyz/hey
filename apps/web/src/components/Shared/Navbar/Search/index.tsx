@@ -3,6 +3,7 @@ import type { ChangeEvent, FC, MutableRefObject } from 'react';
 
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
+import { Leafwatch } from '@helpers/leafwatch';
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ProfileLinkSource, SEARCH } from '@hey/data/tracking';
 import getProfile from '@hey/helpers/getProfile';
@@ -16,7 +17,6 @@ import cn from '@hey/ui/cn';
 import { useClickAway, useDebounce } from '@uidotdev/usehooks';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import { useSearchStore } from 'src/store/persisted/useSearchStore';
 
 import RecentProfiles from './RecentProfiles';

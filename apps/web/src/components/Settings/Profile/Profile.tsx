@@ -9,6 +9,10 @@ import type { z } from 'zod';
 
 import ChooseFile from '@components/Shared/ChooseFile';
 import ImageCropperController from '@components/Shared/ImageCropperController';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
+import uploadCroppedImage, { readFile } from '@helpers/profilePictureUtils';
+import uploadToArweave from '@helpers/uploadToArweave';
 import { InformationCircleIcon, PencilIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import {
@@ -51,10 +55,6 @@ import {
 } from '@lens-protocol/metadata';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import errorToast from 'src/helpers/errorToast';
-import { Leafwatch } from 'src/helpers/leafwatch';
-import uploadCroppedImage, { readFile } from 'src/helpers/profilePictureUtils';
-import uploadToArweave from 'src/helpers/uploadToArweave';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';

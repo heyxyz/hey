@@ -1,5 +1,7 @@
 import type { FC } from 'react';
 
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { Leafwatch } from '@helpers/leafwatch';
 import { BoltIcon as BoltIconOutline } from '@heroicons/react/24/outline';
 import { BoltIcon as BoltIconSolid } from '@heroicons/react/24/solid';
 import { HEY_API_URL } from '@hey/data/constants';
@@ -7,8 +9,6 @@ import { GARDENER } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
-import getAuthApiHeaders from 'src/helpers/getAuthApiHeaders';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 interface ModModeProps {
