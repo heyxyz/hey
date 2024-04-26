@@ -44,13 +44,21 @@ export const get: Handler = async (req, res) => {
       params: { id, pro: pro?.id === id, secret: process.env.SECRET }
     });
     const scoreQuery = scoreQueryRequest.data.toString();
-    const scores = await lensPg.query(scoreQuery);
+
+    const [scores, adjustedScores] = await Promise.all([
+      lensPg.query(scoreQuery),
+      prisma.adjustedProfileScore.findMany({
+        where: { profileId: id as string }
+      })
+    ]);
+
+    const sum = adjustedScores.reduce((acc, score) => acc + score.score, 0);
 
     if (!scores[0]) {
       return res.status(404).json({ success: false });
     }
 
-    const score = Number(scores[0].score);
+    const score = Number(scores[0].score) + sum;
 
     const baseData = {
       expiresAt: new Date(Date.now() + 12 * 60 * 60 * 1000), // 12 hours
