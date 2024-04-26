@@ -65,18 +65,18 @@ export const get: Handler = async (req, res) => {
 
     const lensScore =
       results[0].status === 'fulfilled' && results[0].value[0]
-        ? Number(results[0].value[0].score)
+        ? Number(results[0].value[0]?.score)
         : 0;
     const heyScore =
       results[1].status === 'fulfilled' && results[1].value
-        ? Number(results[1].value[0].score)
+        ? Number(results[1].value[0]?.score)
         : 0;
 
     if (lensScore === 0 && heyScore === 0) {
       return res.status(404).json({ success: false });
     }
 
-    const score = lensScore + heyScore;
+    const score = lensScore + heyScore || 0;
     const baseData = {
       expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
       id: id as string,
