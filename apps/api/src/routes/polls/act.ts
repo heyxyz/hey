@@ -2,10 +2,10 @@ import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
-import catchedError from 'src/lib/catchedError';
-import validateLensAccount from 'src/lib/middlewares/validateLensAccount';
-import prisma from 'src/lib/prisma';
-import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
+import catchedError from 'src/helpers/catchedError';
+import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
+import prisma from 'src/helpers/prisma';
+import { invalidBody, noBody, notAllowed } from 'src/helpers/responses';
 import { object, string } from 'zod';
 
 type ExtensionRequest = {

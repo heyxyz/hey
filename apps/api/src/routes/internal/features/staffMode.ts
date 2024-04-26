@@ -2,11 +2,11 @@ import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
-import catchedError from 'src/lib/catchedError';
-import { STAFF_MODE_FEATURE_ID } from 'src/lib/constants';
-import validateIsStaff from 'src/lib/middlewares/validateIsStaff';
-import prisma from 'src/lib/prisma';
-import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
+import catchedError from 'src/helpers/catchedError';
+import { STAFF_MODE_FEATURE_ID } from 'src/helpers/constants';
+import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
+import prisma from 'src/helpers/prisma';
+import { invalidBody, noBody, notAllowed } from 'src/helpers/responses';
 import { boolean, object } from 'zod';
 
 type ExtensionRequest = {

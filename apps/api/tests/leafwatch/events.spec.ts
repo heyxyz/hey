@@ -1,6 +1,6 @@
 import { PAGEVIEW } from '@hey/data/tracking';
 import axios from 'axios';
-import { TEST_URL } from 'src/lib/constants';
+import { TEST_URL } from 'src/helpers/constants';
 import { describe, expect, test } from 'vitest';
 
 describe('leafwatch/events', () => {

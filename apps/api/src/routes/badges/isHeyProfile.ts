@@ -4,9 +4,9 @@ import type { Address } from 'viem';
 import { HEY_LENS_SIGNUP } from '@hey/data/constants';
 import logger from '@hey/lib/logger';
 import lensPg from 'src/db/lensPg';
-import catchedError from 'src/lib/catchedError';
-import { CACHE_AGE_INDEFINITE } from 'src/lib/constants';
-import { noBody } from 'src/lib/responses';
+import catchedError from 'src/helpers/catchedError';
+import { CACHE_AGE_INDEFINITE } from 'src/helpers/constants';
+import { noBody } from 'src/helpers/responses';
 import { getAddress } from 'viem';
 
 // TODO: add tests
