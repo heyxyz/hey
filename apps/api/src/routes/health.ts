@@ -56,7 +56,7 @@ export const get: Handler = async (_, res) => {
     if (
       Number(hey[0].count) !== 1 ||
       Number(lens[0].count) !== 1 ||
-      scoreWorker.data.split(' ')[0] !== 'WITH' ||
+      scoreWorker.data.length !== 2 ||
       !clickhouseRows.json
     ) {
       return res.status(500).json({ success: false });
