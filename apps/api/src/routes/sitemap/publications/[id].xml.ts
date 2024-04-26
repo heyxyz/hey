@@ -26,9 +26,10 @@ export const get: Handler = async (req, res) => {
     const response = await lensPrisma.$queryRaw<{ publication_id: string }[]>`
       SELECT publication_id FROM publication.record
       WHERE publication_type IN ('POST', 'QUOTE')
+      AND is_hidden = false AND gardener_flagged = false
       ORDER BY block_timestamp ASC
       LIMIT ${SITEMAP_BATCH_SIZE}
-      OFFSET ${offset};
+      OFFSET ${offset}
     `;
 
     const entries = response.map((publication) => ({
