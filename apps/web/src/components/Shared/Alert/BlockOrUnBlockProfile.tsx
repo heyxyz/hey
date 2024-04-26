@@ -2,6 +2,8 @@ import type { BlockRequest, UnblockRequest } from '@hey/lens';
 import type { ApolloCache } from '@hey/lens/apollo';
 import type { FC } from 'react';
 
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { LensHub } from '@hey/abis';
 import { Errors } from '@hey/data';
 import { LENS_HUB } from '@hey/data/constants';
@@ -19,8 +21,6 @@ import {
 import { Alert } from '@hey/ui';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import errorToast from 'src/helpers/errorToast';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';

@@ -1,6 +1,8 @@
 import type { NextPage } from 'next';
 
 import MetaTags from '@components/Common/MetaTags';
+import { Leafwatch } from '@helpers/leafwatch';
+import { loadKeys } from '@helpers/xmtp/keys';
 import { InboxIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
@@ -8,8 +10,6 @@ import { EmptyState } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useClient } from '@xmtp/react-sdk';
 import { useEffect } from 'react';
-import { Leafwatch } from 'src/helpers/leafwatch';
-import { loadKeys } from 'src/helpers/xmtp/keys';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useAccount, useWalletClient } from 'wagmi';

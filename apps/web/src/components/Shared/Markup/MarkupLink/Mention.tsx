@@ -3,10 +3,10 @@ import type { FC } from 'react';
 
 import Slug from '@components/Shared/Slug';
 import UserPreview from '@components/Shared/UserPreview';
+import { Leafwatch } from '@helpers/leafwatch';
 import { PUBLICATION } from '@hey/data/tracking';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import Link from 'next/link';
-import { Leafwatch } from 'src/helpers/leafwatch';
 
 const Mention: FC<MarkupLinkProps> = ({ mentions, title }) => {
   const handle = title?.slice(1);

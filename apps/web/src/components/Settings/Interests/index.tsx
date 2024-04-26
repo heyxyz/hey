@@ -4,6 +4,7 @@ import MetaTags from '@components/Common/MetaTags';
 import Interests from '@components/Settings/Interests/Interests';
 import Beta from '@components/Shared/Badges/Beta';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
+import { Leafwatch } from '@helpers/leafwatch';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import {
@@ -14,7 +15,6 @@ import {
   GridLayout
 } from '@hey/ui';
 import { useEffect } from 'react';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import SettingsSidebar from '../Sidebar';

@@ -4,6 +4,7 @@ import type { FC, ReactNode } from 'react';
 import Markup from '@components/Shared/Markup';
 import FollowUnfollowButton from '@components/Shared/Profile/FollowUnfollowButton';
 import Slug from '@components/Shared/Slug';
+import isVerified from '@helpers/isVerified';
 import {
   ClockIcon,
   Cog6ToothIcon,
@@ -32,7 +33,6 @@ import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import isVerified from 'src/helpers/isVerified';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import urlcat from 'urlcat';

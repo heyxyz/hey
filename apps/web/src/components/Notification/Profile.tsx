@@ -2,6 +2,7 @@ import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import UserPreview from '@components/Shared/UserPreview';
+import isVerified from '@helpers/isVerified';
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
@@ -13,7 +14,6 @@ import hasMisused from '@hey/helpers/hasMisused';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Image } from '@hey/ui';
 import Link from 'next/link';
-import isVerified from 'src/helpers/isVerified';
 
 interface NotificationProfileProps {
   profile: Profile;

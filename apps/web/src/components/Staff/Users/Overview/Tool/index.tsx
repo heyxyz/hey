@@ -4,6 +4,7 @@ import type { FC } from 'react';
 import P2PRecommendation from '@components/Shared/Profile/P2PRecommendation';
 import MetaDetails from '@components/Shared/Staff/MetaDetails';
 import UserProfile from '@components/Shared/UserProfile';
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import {
   BanknotesIcon,
   HandRaisedIcon,
@@ -20,7 +21,6 @@ import getFollowModule from '@hey/helpers/getFollowModule';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Link from 'next/link';
-import getAuthApiHeaders from 'src/helpers/getAuthApiHeaders';
 
 import FeatureFlags from './FeatureFlags';
 import LeafwatchDetails from './LeafwatchDetails';

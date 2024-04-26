@@ -1,5 +1,8 @@
 import type { FC } from 'react';
 
+import errorToast from '@helpers/errorToast';
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { Leafwatch } from '@helpers/leafwatch';
 import { HEY_API_URL } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { SETTINGS } from '@hey/data/tracking';
@@ -7,9 +10,6 @@ import { Button, Form, Input, useZodForm } from '@hey/ui';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import errorToast from 'src/helpers/errorToast';
-import getAuthApiHeaders from 'src/helpers/getAuthApiHeaders';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';

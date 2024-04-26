@@ -1,7 +1,7 @@
 import { InMemoryCache } from '@apollo/client';
 
 import result from '../../generated';
-import { profilesManagedKeyFields } from '../lib/keyFields';
+import { profilesManagedKeyFields } from '../helpers/keyFields';
 import createActedOnPublicationFieldPolicy from './createActedOnPublicationFieldPolicy';
 import createApprovedAuthenticationsFieldPolicy from './createApprovedAuthenticationsFieldPolicy';
 import createExploreProfilesFieldPolicy from './createExploreProfilesFieldPolicy';

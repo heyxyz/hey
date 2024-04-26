@@ -3,6 +3,7 @@ import type { MenuTextMatch } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import type { TextNode } from 'lexical';
 import type { FC } from 'react';
 
+import isVerified from '@helpers/isVerified';
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
@@ -20,7 +21,6 @@ import {
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';
-import isVerified from 'src/helpers/isVerified';
 
 import { $createMentionNode } from '../Nodes/MentionsNode';
 
