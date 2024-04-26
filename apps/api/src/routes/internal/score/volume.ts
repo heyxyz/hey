@@ -1,7 +1,7 @@
 import type { Handler } from 'express';
 
-import catchedError from 'src/lib/catchedError';
-import prisma from 'src/lib/prisma';
+import catchedError from 'src/helpers/catchedError';
+import prisma from 'src/helpers/prisma';
 
 // TODO: add tests
 export const get: Handler = async (req, res) => {

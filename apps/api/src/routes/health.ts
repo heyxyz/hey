@@ -2,10 +2,10 @@ import type { Handler } from 'express';
 
 import axios from 'axios';
 import lensPg from 'src/db/lensPg';
-import catchedError from 'src/lib/catchedError';
-import { SCORE_WORKER_URL } from 'src/lib/constants';
-import createClickhouseClient from 'src/lib/createClickhouseClient';
-import prisma from 'src/lib/prisma';
+import catchedError from 'src/helpers/catchedError';
+import { SCORE_WORKER_URL } from 'src/helpers/constants';
+import createClickhouseClient from 'src/helpers/createClickhouseClient';
+import prisma from 'src/helpers/prisma';
 
 const measureQueryTime = async (
   queryFunction: () => Promise<any>

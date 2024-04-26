@@ -2,9 +2,9 @@ import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
-import catchedError from 'src/lib/catchedError';
-import prisma from 'src/lib/prisma';
-import { invalidBody, noBody } from 'src/lib/responses';
+import catchedError from 'src/helpers/catchedError';
+import prisma from 'src/helpers/prisma';
+import { invalidBody, noBody } from 'src/helpers/responses';
 import { array, object, string } from 'zod';
 
 type ExtensionRequest = {
