@@ -2,20 +2,14 @@ import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
 import axios from 'axios';
+import lensPg from 'src/db/lensPg';
 import catchedError from 'src/lib/catchedError';
 import {
   SCORE_WORKER_URL,
   SWR_CACHE_AGE_1_HOUR_12_HRS
 } from 'src/lib/constants';
 import heyPrisma from 'src/lib/heyPrisma';
-import lensPrisma from 'src/lib/lensPrisma';
 import { noBody } from 'src/lib/responses';
-
-const toTemplateStringsArray = (array: string[]) => {
-  const stringsArray: any = [...array];
-  stringsArray.raw = array;
-  return stringsArray;
-};
 
 // TODO: add tests
 export const get: Handler = async (req, res) => {
@@ -50,9 +44,7 @@ export const get: Handler = async (req, res) => {
       params: { id, pro: pro?.id === id, secret: process.env.SECRET }
     });
     const scoreQuery = scoreQueryRequest.data.toString();
-    const scores = await lensPrisma.$queryRaw<any>(
-      toTemplateStringsArray([scoreQuery])
-    );
+    const scores = await lensPg.query(scoreQuery);
 
     if (!scores[0]) {
       return res.status(404).json({ success: false });
