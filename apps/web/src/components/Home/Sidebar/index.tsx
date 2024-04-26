@@ -7,7 +7,6 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import EnableLensManager from './EnableLensManager';
 import Gitcoin from './Gitcoin';
-import HeyMembershipNft from './HeyMembershipNft';
 import SetProfile from './SetProfile';
 import StaffPicks from './StaffPicks';
 import WhoToFollow from './WhoToFollow';
@@ -21,7 +20,7 @@ const Sidebar: FC = () => {
     <>
       <Gitcoin />
       {loggedOut && <SignupCard />}
-      {loggedInWithProfile && <HeyMembershipNft />}
+      {/* {loggedInWithProfile && <HeyMembershipNft />} */}
       {/* Onboarding steps */}
       {loggedInWithProfile && (
         <>
