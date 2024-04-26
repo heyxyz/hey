@@ -4,6 +4,7 @@ import logger from '@hey/lib/logger';
 import axios from 'axios';
 import catchedError from 'src/lib/catchedError';
 import { SCORE_WORKER_URL } from 'src/lib/constants';
+import createClickhouseClient from 'src/lib/createClickhouseClient';
 import heyPrisma from 'src/lib/heyPrisma';
 import lensPrisma from 'src/lib/lensPrisma';
 import { noBody } from 'src/lib/responses';
@@ -14,7 +15,6 @@ const toTemplateStringsArray = (array: string[]) => {
   return stringsArray;
 };
 
-// TODO: add tests
 export const get: Handler = async (req, res) => {
   const { id } = req.query;
 
@@ -32,7 +32,6 @@ export const get: Handler = async (req, res) => {
       logger.info(
         `Lens: Fetched profile score from cache for ${id} - ${cachedProfile.score}`
       );
-
       return res.status(200).json({
         expiresAt: cachedProfile.expiresAt,
         score: cachedProfile.score,
@@ -40,20 +39,44 @@ export const get: Handler = async (req, res) => {
       });
     }
 
-    const scoreQueryRequest = await axios.get(SCORE_WORKER_URL, {
+    const client = createClickhouseClient();
+    const scoreQueryResponse = await axios.get(SCORE_WORKER_URL, {
       params: { id, pro: pro?.id === id, secret: process.env.SECRET }
     });
-    const scoreQuery = scoreQueryRequest.data.toString();
-    const scores = await lensPrisma.$queryRaw<any>(
-      toTemplateStringsArray([scoreQuery])
+
+    const lensScoreQuery = scoreQueryResponse.data[0].toString();
+    const lensScorePromise = lensPrisma.$queryRaw<any>(
+      toTemplateStringsArray([lensScoreQuery])
     );
 
-    if (!scores[0]) {
+    const heyScoreQuery = scoreQueryResponse.data[1].toString();
+    const heyScorePromise = client
+      .query({
+        format: 'JSONEachRow',
+        query: heyScoreQuery
+      })
+      .then((result) => result.json<{ score: number }>())
+      .catch(() => null);
+
+    const results = await Promise.allSettled([
+      lensScorePromise,
+      heyScorePromise
+    ]);
+
+    const lensScore =
+      results[0].status === 'fulfilled' && results[0].value[0]
+        ? Number(results[0].value[0].score)
+        : 0;
+    const heyScore =
+      results[1].status === 'fulfilled' && results[1].value
+        ? Number(results[1].value[0].score)
+        : 0;
+
+    if (lensScore === 0 && heyScore === 0) {
       return res.status(404).json({ success: false });
     }
 
-    const score = Number(scores[0].score);
-
+    const score = lensScore + heyScore;
     const baseData = {
       expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
       id: id as string,
@@ -69,7 +92,6 @@ export const get: Handler = async (req, res) => {
     logger.info(
       `Lens: Fetched profile score for ${id} - ${newCachedProfile.score} - Expires at: ${newCachedProfile.expiresAt}`
     );
-
     return res
       .status(200)
       .json({ score: newCachedProfile.score, success: true });
