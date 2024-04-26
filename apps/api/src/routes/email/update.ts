@@ -3,11 +3,11 @@ import type { Handler } from 'express';
 import { APP_NAME } from '@hey/data/constants';
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
-import catchedError from 'src/lib/catchedError';
-import validateLensAccount from 'src/lib/middlewares/validateLensAccount';
-import prisma from 'src/lib/prisma';
-import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
-import sendEmail from 'src/lib/sendEmail';
+import catchedError from 'src/helpers/catchedError';
+import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
+import prisma from 'src/helpers/prisma';
+import { invalidBody, noBody, notAllowed } from 'src/helpers/responses';
+import sendEmail from 'src/helpers/sendEmail';
 import { v4 as uuid } from 'uuid';
 import { boolean, object, string } from 'zod';
 
