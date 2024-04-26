@@ -13,7 +13,8 @@ export const get: Handler = async (req, res) => {
     const response = await lensPrisma.$queryRaw<{ count: number }[]>`
       SELECT COUNT(*) as count
       FROM publication.record
-      WHERE publication_type IN ('POST', 'QUOTE');
+      WHERE publication_type IN ('POST', 'QUOTE')
+      AND is_hidden = false AND gardener_flagged = false
     `;
 
     const totalPublications = Number(response[0]?.count) || 0;
