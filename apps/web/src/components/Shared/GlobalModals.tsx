@@ -5,7 +5,6 @@ import ReportPublication from '@components/Shared/Modal/ReportPublication';
 import {
   ArrowRightCircleIcon,
   CircleStackIcon,
-  FireIcon,
   ShieldCheckIcon,
   TicketIcon
 } from '@heroicons/react/24/outline';
@@ -154,7 +153,6 @@ const GlobalModals: FC = () => {
         <OptimisticTransactions />
       </Modal>
       <Modal
-        icon={<FireIcon className="size-5" />}
         onClose={() => setShowScoreModal(false, null)}
         show={showScoreModal}
         size="xs"
