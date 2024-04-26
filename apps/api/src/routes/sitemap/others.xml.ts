@@ -1,8 +1,8 @@
 import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
-import catchedError from 'src/lib/catchedError';
-import { buildUrlsetXml } from 'src/lib/sitemap/buildSitemap';
+import catchedError from 'src/helpers/catchedError';
+import { buildUrlsetXml } from 'src/helpers/sitemap/buildSitemap';
 
 export const get: Handler = (req, res) => {
   const user_agent = req.headers['user-agent'];

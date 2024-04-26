@@ -1,8 +1,8 @@
 import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
-import prisma from 'src/lib/prisma';
-import { noBody } from 'src/lib/responses';
+import prisma from 'src/helpers/prisma';
+import { noBody } from 'src/helpers/responses';
 
 export const get: Handler = async (req, res) => {
   const { token } = req.query;

@@ -1,10 +1,10 @@
 import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
-import catchedError from 'src/lib/catchedError';
-import { SWR_CACHE_AGE_10_MINS_30_DAYS } from 'src/lib/constants';
-import createClickhouseClient from 'src/lib/createClickhouseClient';
-import { invalidBody, noBody } from 'src/lib/responses';
+import catchedError from 'src/helpers/catchedError';
+import { SWR_CACHE_AGE_10_MINS_30_DAYS } from 'src/helpers/constants';
+import createClickhouseClient from 'src/helpers/createClickhouseClient';
+import { invalidBody, noBody } from 'src/helpers/responses';
 import { array, object, string } from 'zod';
 
 type ExtensionRequest = {

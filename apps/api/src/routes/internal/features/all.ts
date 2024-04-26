@@ -1,10 +1,10 @@
 import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
-import catchedError from 'src/lib/catchedError';
-import validateIsStaff from 'src/lib/middlewares/validateIsStaff';
-import prisma from 'src/lib/prisma';
-import { notAllowed } from 'src/lib/responses';
+import catchedError from 'src/helpers/catchedError';
+import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
+import prisma from 'src/helpers/prisma';
+import { notAllowed } from 'src/helpers/responses';
 
 export const get: Handler = async (req, res) => {
   if (!(await validateIsStaff(req))) {
