@@ -63,7 +63,7 @@ export const get: Handler = async (req, res) => {
     const baseData = {
       expiresAt: new Date(Date.now() + 12 * 60 * 60 * 1000), // 12 hours
       id: id as string,
-      score: score < 0 ? 0 : score
+      score: score < 100 ? 100 : score
     };
 
     const newCachedProfile = await heyPrisma.cachedProfileScore.upsert({
