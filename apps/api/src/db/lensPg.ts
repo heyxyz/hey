@@ -57,11 +57,6 @@ class Database {
     };
   }
 
-  /**
-   * Base query method that executes a generic query
-   * @param query The query
-   * @param params The parameters
-   */
   public query(
     query: DatabaseQuery,
     params: DatabaseParams = null
