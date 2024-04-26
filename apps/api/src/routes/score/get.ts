@@ -8,7 +8,7 @@ import {
   SCORE_WORKER_URL,
   SWR_CACHE_AGE_1_HOUR_12_HRS
 } from 'src/lib/constants';
-import heyPrisma from 'src/lib/heyPrisma';
+import prisma from 'src/lib/prisma';
 import { noBody } from 'src/lib/responses';
 
 // TODO: add tests
@@ -20,9 +20,9 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const [cachedProfile, pro] = await heyPrisma.$transaction([
-      heyPrisma.cachedProfileScore.findUnique({ where: { id: id as string } }),
-      heyPrisma.pro.findUnique({ where: { id: id as string } })
+    const [cachedProfile, pro] = await prisma.$transaction([
+      prisma.cachedProfileScore.findUnique({ where: { id: id as string } }),
+      prisma.pro.findUnique({ where: { id: id as string } })
     ]);
 
     if (cachedProfile?.expiresAt && new Date() < cachedProfile.expiresAt) {
@@ -58,7 +58,7 @@ export const get: Handler = async (req, res) => {
       score: score < 0 ? 0 : score
     };
 
-    const newCachedProfile = await heyPrisma.cachedProfileScore.upsert({
+    const newCachedProfile = await prisma.cachedProfileScore.upsert({
       create: baseData,
       update: baseData,
       where: { id: id as string }

@@ -3,7 +3,7 @@ import type { Handler } from 'express';
 import { Errors } from '@hey/data/errors';
 import logger from '@hey/lib/logger';
 import catchedError from 'src/lib/catchedError';
-import heyPrisma from 'src/lib/heyPrisma';
+import prisma from 'src/lib/prisma';
 import { invalidBody, noBody } from 'src/lib/responses';
 import { object, string } from 'zod';
 
@@ -38,7 +38,7 @@ export const post: Handler = async (req, res) => {
 
   try {
     // Cleanup Expired Score
-    const { count } = await heyPrisma.cachedProfileScore.deleteMany({
+    const { count } = await prisma.cachedProfileScore.deleteMany({
       where: { expiresAt: { lt: new Date() } }
     });
     logger.info(`Cleaned up ${count} scores that are expired`);
