@@ -3,8 +3,8 @@ import type { Address } from 'viem';
 
 import { HEY_LENS_SIGNUP } from '@hey/data/constants';
 import logger from '@hey/lib/logger';
+import lensPg from 'src/db/lensPg';
 import catchedError from 'src/lib/catchedError';
-import lensPrisma from 'src/lib/lensPrisma';
 import { noBody } from 'src/lib/responses';
 import { getAddress } from 'viem';
 
@@ -20,18 +20,21 @@ export const get: Handler = async (req, res) => {
     const formattedAddress = address
       ? getAddress(address as Address)
       : undefined;
-    const data = await lensPrisma.$queryRaw<{ result: boolean }[]>`
-      SELECT EXISTS (
-        SELECT 1
-        FROM profile.record p
-        JOIN app.onboarding_profile o ON p.profile_id = o.profile_id
-        WHERE 
-          (p.profile_id = ${id} OR p.owned_by = ${formattedAddress})
-          AND o.onboarded_by_address = ${HEY_LENS_SIGNUP}
-      ) AS result;  
-    `;
+    const data = await lensPg.query(
+      `
+        SELECT EXISTS (
+          SELECT 1
+          FROM profile.record p
+          JOIN app.onboarding_profile o ON p.profile_id = o.profile_id
+          WHERE 
+            (p.profile_id = $1 OR p.owned_by = $2)
+            AND o.onboarded_by_address = $3
+        ) AS result;  
+      `,
+      [id, formattedAddress, HEY_LENS_SIGNUP]
+    );
 
-    const isHeyProfile = data[0].result;
+    const isHeyProfile = data[0]?.result;
 
     logger.info(`Hey profile badge fetched for ${id || formattedAddress}`);
 

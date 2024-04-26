@@ -2,8 +2,8 @@ import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
 import catchedError from 'src/lib/catchedError';
-import heyPrisma from 'src/lib/heyPrisma';
 import validateIsStaff from 'src/lib/middlewares/validateIsStaff';
+import prisma from 'src/lib/prisma';
 import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
 import { object, string } from 'zod';
 
@@ -35,7 +35,7 @@ export const post: Handler = async (req, res) => {
   const { key } = body as ExtensionRequest;
 
   try {
-    const feature = await heyPrisma.feature.create({ data: { key } });
+    const feature = await prisma.feature.create({ data: { key } });
     logger.info(`Created a feature flag ${feature.id}`);
 
     return res.status(200).json({ feature, success: true });

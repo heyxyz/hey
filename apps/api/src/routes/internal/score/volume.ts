@@ -1,12 +1,12 @@
 import type { Handler } from 'express';
 
 import catchedError from 'src/lib/catchedError';
-import heyPrisma from 'src/lib/heyPrisma';
+import prisma from 'src/lib/prisma';
 
 // TODO: add tests
 export const get: Handler = async (req, res) => {
   try {
-    const score = await heyPrisma.cachedProfileScore.aggregate({
+    const score = await prisma.cachedProfileScore.aggregate({
       _count: { score: true },
       _sum: { score: true }
     });

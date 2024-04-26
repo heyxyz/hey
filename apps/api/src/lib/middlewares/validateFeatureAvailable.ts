@@ -1,7 +1,7 @@
 import type { Request } from 'express';
 
 import parseJwt from '@hey/lib/parseJwt';
-import heyPrisma from 'src/lib/heyPrisma';
+import prisma from 'src/lib/prisma';
 
 import validateLensAccount from './validateLensAccount';
 
@@ -24,7 +24,7 @@ const validateFeatureAvailable = async (request: Request, id: string) => {
     }
 
     const payload = parseJwt(accessToken);
-    const data = await heyPrisma.profileFeature.findFirst({
+    const data = await prisma.profileFeature.findFirst({
       where: { enabled: true, featureId: id, profileId: payload.id }
     });
 

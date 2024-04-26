@@ -4,8 +4,8 @@ import { Regex } from '@hey/data/regex';
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import catchedError from 'src/lib/catchedError';
-import heyPrisma from 'src/lib/heyPrisma';
 import validateLensAccount from 'src/lib/middlewares/validateLensAccount';
+import prisma from 'src/lib/prisma';
 import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
 import { number, object, string } from 'zod';
 
@@ -51,7 +51,7 @@ export const post: Handler = async (req, res) => {
   try {
     const payload = parseJwt(accessToken);
 
-    const data = await heyPrisma.tip.create({
+    const data = await prisma.tip.create({
       data: {
         amount,
         fromAddress,

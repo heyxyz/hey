@@ -1,20 +1,20 @@
 import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
+import lensPg from 'src/db/lensPg';
 import catchedError from 'src/lib/catchedError';
 import { SITEMAP_BATCH_SIZE } from 'src/lib/constants';
-import lensPrisma from 'src/lib/lensPrisma';
 import { buildSitemapXml } from 'src/lib/sitemap/buildSitemap';
 
 export const get: Handler = async (req, res) => {
   const user_agent = req.headers['user-agent'];
 
   try {
-    const response = await lensPrisma.$queryRaw<{ count: number }[]>`
+    const response = await lensPg.query(`
       SELECT COUNT(DISTINCT h.local_name)
       FROM namespace.handle_link hl
       JOIN namespace.handle h ON hl.handle_id = h.handle_id
-    `;
+    `);
 
     const totalHandles = Number(response[0]?.count) || 0;
     const totalBatches = Math.ceil(totalHandles / SITEMAP_BATCH_SIZE);
