@@ -30,7 +30,7 @@ export const get: Handler = async (req, res) => {
         JOIN namespace.handle h ON hl.handle_id = h.handle_id
         ORDER BY h.block_timestamp
         LIMIT $1
-        OFFSET $2
+        OFFSET $2;
       `,
       [SITEMAP_BATCH_SIZE, offset]
     );

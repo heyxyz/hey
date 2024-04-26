@@ -13,7 +13,7 @@ export const get: Handler = async (req, res) => {
     const response = await lensPg.query(`
       SELECT COUNT(DISTINCT h.local_name)
       FROM namespace.handle_link hl
-      JOIN namespace.handle h ON hl.handle_id = h.handle_id
+      JOIN namespace.handle h ON hl.handle_id = h.handle_id;
     `);
 
     const totalHandles = Number(response[0]?.count) || 0;

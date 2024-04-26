@@ -30,7 +30,7 @@ export const get: Handler = async (req, res) => {
             total_collects,
             total_acted
           FROM global_stats.profile
-          WHERE profile_id = $1
+          WHERE profile_id = $1;
         `,
         [id]
       ),
@@ -39,7 +39,7 @@ export const get: Handler = async (req, res) => {
         `
           SELECT COUNT(*) as total_notifications
           FROM notification.record
-          WHERE notification_receiving_profile_id = $1
+          WHERE notification_receiving_profile_id = $1;
         `,
         [id]
       )
