@@ -17,11 +17,11 @@ import {
   useProfilesManagedQuery
 } from '@hey/lens';
 import { Button, Card } from '@hey/ui';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN } from 'src/constants';
+import errorToast from 'src/helpers/errorToast';
+import { Leafwatch } from 'src/helpers/leafwatch';
 import { signIn } from 'src/store/persisted/useAuthStore';
 import { useAccount, useChainId, useDisconnect, useSignMessage } from 'wagmi';
 

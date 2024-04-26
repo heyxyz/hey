@@ -8,8 +8,8 @@ import { APP_NAME, IS_MAINNET } from '@hey/data/constants';
 import { usePublicationQuery } from '@hey/lens';
 import { ErrorMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { signatureFont } from '@lib/fonts';
 import Link from 'next/link';
+import { signatureFont } from 'src/helpers/fonts';
 
 interface MintProps {
   onCollectSuccess: () => void;

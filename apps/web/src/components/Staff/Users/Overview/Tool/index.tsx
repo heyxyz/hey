@@ -16,10 +16,10 @@ import { APP_NAME, HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
 import getPreferences from '@hey/lib/api/getPreferences';
 import formatAddress from '@hey/lib/formatAddress';
 import getFollowModule from '@hey/lib/getFollowModule';
-import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Link from 'next/link';
+import getAuthApiHeaders from 'src/helpers/getAuthApiHeaders';
 
 import MetaDetails from '../../../../Shared/Staff/MetaDetails';
 import FeatureFlags from './FeatureFlags';

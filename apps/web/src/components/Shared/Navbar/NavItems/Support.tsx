@@ -5,7 +5,7 @@ import {
   HandRaisedIcon
 } from '@heroicons/react/24/outline';
 import cn from '@hey/ui/cn';
-import showCrisp from '@lib/showCrisp';
+import showCrisp from 'src/helpers/showCrisp';
 
 interface SupportProps {
   className?: string;

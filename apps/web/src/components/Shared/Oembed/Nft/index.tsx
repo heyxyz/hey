@@ -6,8 +6,8 @@ import { PUBLICATION } from '@hey/data/tracking';
 import getNftChainInfo from '@hey/lib/getNftChainInfo';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button, Card, Tooltip } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
+import { Leafwatch } from 'src/helpers/leafwatch';
 
 import MintedBy from './MintedBy';
 

@@ -4,11 +4,11 @@ import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import { APP_NAME, HEY_API_URL } from '@hey/data/constants';
 import { MISCELLANEOUS, PUBLICATION } from '@hey/data/tracking';
 import { Button, Card, Modal } from '@hey/ui';
-import getAuthApiHeaders from '@lib/getAuthApiHeaders';
-import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { memo, useState } from 'react';
 import toast from 'react-hot-toast';
+import getAuthApiHeaders from 'src/helpers/getAuthApiHeaders';
+import { Leafwatch } from 'src/helpers/leafwatch';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 
 import Mint from './Mint';

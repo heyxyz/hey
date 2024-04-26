@@ -10,9 +10,9 @@ import { apps } from '@hey/data/apps';
 import formatRelativeOrAbsolute from '@hey/lib/datetime/formatRelativeOrAbsolute';
 import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
-import isVerified from '@lib/isVerified';
 import Link from 'next/link';
 import { memo } from 'react';
+import isVerified from 'src/helpers/isVerified';
 
 import Slug from '../Shared/Slug';
 import UserPreview from '../Shared/UserPreview';

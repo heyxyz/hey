@@ -9,8 +9,8 @@ import {
 } from '@heroicons/react/24/outline';
 import { NOTIFICATION } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import { NotificationTabType } from 'src/enums';
+import { Leafwatch } from 'src/helpers/leafwatch';
 
 interface FeedTypeProps {
   feedType: string;

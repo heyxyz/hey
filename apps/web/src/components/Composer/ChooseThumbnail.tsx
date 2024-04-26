@@ -5,9 +5,9 @@ import { CheckCircleIcon, PhotoIcon } from '@heroicons/react/24/outline';
 import { generateVideoThumbnails } from '@hey/lib/generateVideoThumbnails';
 import getFileFromDataURL from '@hey/lib/getFileFromDataURL';
 import { Spinner } from '@hey/ui';
-import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { uploadFileToIPFS } from 'src/helpers/uploadToIPFS';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
 
