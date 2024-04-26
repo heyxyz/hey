@@ -22,14 +22,14 @@
     "@radix-ui/react-tooltip": "^1.0.7",
     "clsx": "^2.1.1",
     "next": "^14.2.3",
-    "react": "^18.2.0",
+    "react": "^18.3.0",
     "react-hook-form": "^7.51.3",
     "tailwind-merge": "^2.3.0",
     "zod": "^3.23.4"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "@types/react": "^18.2.79",
+    "@types/react": "^18.3.0",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.4.5"
   }
