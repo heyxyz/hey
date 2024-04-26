@@ -1,8 +1,8 @@
 import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { FollowModuleType } from '@hey/lens';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Follow from './Follow';

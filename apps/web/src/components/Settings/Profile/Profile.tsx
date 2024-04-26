@@ -20,19 +20,19 @@ import {
 import { Errors } from '@hey/data/errors';
 import { Regex } from '@hey/data/regex';
 import { SETTINGS } from '@hey/data/tracking';
+import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
+import getAvatar from '@hey/helpers/getAvatar';
+import getProfileAttribute from '@hey/helpers/getProfileAttribute';
+import getSignature from '@hey/helpers/getSignature';
+import imageKit from '@hey/helpers/imageKit';
+import sanitizeDStorageUrl from '@hey/helpers/sanitizeDStorageUrl';
+import trimify from '@hey/helpers/trimify';
 import { getCroppedImg } from '@hey/image-cropper/cropUtils';
 import {
   useBroadcastOnchainMutation,
   useCreateOnchainSetProfileMetadataTypedDataMutation,
   useSetProfileMetadataMutation
 } from '@hey/lens';
-import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
-import getAvatar from '@hey/lib/getAvatar';
-import getProfileAttribute from '@hey/lib/getProfileAttribute';
-import getSignature from '@hey/lib/getSignature';
-import imageKit from '@hey/lib/imageKit';
-import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
-import trimify from '@hey/lib/trimify';
 import {
   Button,
   Card,

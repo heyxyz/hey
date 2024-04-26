@@ -2,7 +2,7 @@ import type { Handler } from 'express';
 
 import { HeyPro } from '@hey/abis';
 import { HEY_PRO, IS_MAINNET } from '@hey/data/constants';
-import logger from '@hey/lib/logger';
+import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import getRpc from 'src/helpers/getRpc';
 import prisma from 'src/helpers/prisma';

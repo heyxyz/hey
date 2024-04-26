@@ -3,9 +3,9 @@ import type { FC } from 'react';
 
 import { HEY_API_URL } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
-import getAllTokens from '@hey/lib/api/getAllTokens';
-import getPreferences from '@hey/lib/api/getPreferences';
-import getScore from '@hey/lib/api/getScore';
+import getAllTokens from '@hey/helpers/api/getAllTokens';
+import getPreferences from '@hey/helpers/api/getPreferences';
+import getScore from '@hey/helpers/api/getScore';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import getAuthApiHeaders from 'src/helpers/getAuthApiHeaders';

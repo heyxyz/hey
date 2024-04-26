@@ -5,7 +5,7 @@ import EmojiPickerPlugin from '@components/Shared/Lexical/Plugins/EmojiPicker';
 import ImagesPlugin from '@components/Shared/Lexical/Plugins/ImagesPlugin';
 import MentionsPlugin from '@components/Shared/Lexical/Plugins/MentionsPlugin';
 import { Errors } from '@hey/data/errors';
-import getAvatar from '@hey/lib/getAvatar';
+import getAvatar from '@hey/helpers/getAvatar';
 import { Image } from '@hey/ui';
 import {
   $convertToMarkdownString,

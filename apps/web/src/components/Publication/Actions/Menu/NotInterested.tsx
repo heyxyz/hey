@@ -4,14 +4,14 @@ import type { FC } from 'react';
 import { Menu } from '@headlessui/react';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
+import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import {
   type AnyPublication,
   type PublicationNotInterestedRequest,
   useAddPublicationNotInterestedMutation,
   useUndoPublicationNotInterestedMutation
 } from '@hey/lens';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { toast } from 'react-hot-toast';
 import errorToast from 'src/helpers/errorToast';

@@ -6,8 +6,8 @@ import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data';
 import { PROFILE } from '@hey/data/tracking';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { useReportProfileMutation } from '@hey/lens';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import {
   Button,
   Card,

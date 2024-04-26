@@ -1,7 +1,7 @@
 import type { UniswapQuote } from '@hey/types/hey';
 
 import { WMATIC_ADDRESS } from '@hey/data/constants';
-import getUniswapQuote from '@hey/lib/getUniswapQuote';
+import getUniswapQuote from '@hey/helpers/getUniswapQuote';
 import { Input } from '@hey/ui';
 import { type FC, useEffect, useState } from 'react';
 import { CHAIN } from 'src/constants';

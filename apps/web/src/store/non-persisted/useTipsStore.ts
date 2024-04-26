@@ -1,6 +1,6 @@
 import type { PublicationTip } from '@hey/types/hey';
 
-import getPublicationsTips from '@hey/lib/api/getPublicationsTips';
+import getPublicationsTips from '@hey/helpers/api/getPublicationsTips';
 import { createTrackedSelector } from 'react-tracked';
 import getAuthApiHeaders from 'src/helpers/getAuthApiHeaders';
 import { create } from 'zustand';

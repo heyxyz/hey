@@ -1,7 +1,7 @@
 import type { Handler } from 'express';
 
 import { Errors } from '@hey/data/errors';
-import logger from '@hey/lib/logger';
+import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import createClickhouseClient from 'src/helpers/createClickhouseClient';
 import { invalidBody, noBody } from 'src/helpers/responses';

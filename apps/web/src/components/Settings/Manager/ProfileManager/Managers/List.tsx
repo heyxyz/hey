@@ -9,6 +9,8 @@ import { LensHub } from '@hey/abis';
 import { Errors } from '@hey/data';
 import { LENS_HUB } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
+import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
+import getSignature from '@hey/helpers/getSignature';
 import {
   ChangeProfileManagerActionType,
   useBroadcastOnchainMutation,
@@ -16,8 +18,6 @@ import {
   useProfileManagersQuery
 } from '@hey/lens';
 import { useApolloClient } from '@hey/lens/apollo';
-import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
-import getSignature from '@hey/lib/getSignature';
 import { Button, EmptyState, ErrorMessage, Spinner } from '@hey/ui';
 import { useState } from 'react';
 import toast from 'react-hot-toast';

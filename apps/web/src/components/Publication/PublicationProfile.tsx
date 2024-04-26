@@ -7,9 +7,9 @@ import {
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
 import { apps } from '@hey/data/apps';
-import formatRelativeOrAbsolute from '@hey/lib/datetime/formatRelativeOrAbsolute';
-import getProfile from '@hey/lib/getProfile';
-import hasMisused from '@hey/lib/hasMisused';
+import formatRelativeOrAbsolute from '@hey/helpers/datetime/formatRelativeOrAbsolute';
+import getProfile from '@hey/helpers/getProfile';
+import hasMisused from '@hey/helpers/hasMisused';
 import Link from 'next/link';
 import { memo } from 'react';
 import isVerified from 'src/helpers/isVerified';

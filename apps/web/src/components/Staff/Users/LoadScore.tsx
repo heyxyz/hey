@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import getScore from '@hey/lib/api/getScore';
+import getScore from '@hey/helpers/api/getScore';
 import { useQuery } from '@tanstack/react-query';
 
 interface LoadScoreProps {
