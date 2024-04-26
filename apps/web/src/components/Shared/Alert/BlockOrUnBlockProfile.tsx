@@ -6,6 +6,9 @@ import { LensHub } from '@hey/abis';
 import { Errors } from '@hey/data';
 import { LENS_HUB } from '@hey/data/constants';
 import { PROFILE } from '@hey/data/tracking';
+import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
+import getProfile from '@hey/helpers/getProfile';
+import getSignature from '@hey/helpers/getSignature';
 import {
   useBlockMutation,
   useBroadcastOnchainMutation,
@@ -13,9 +16,6 @@ import {
   useCreateUnblockProfilesTypedDataMutation,
   useUnblockMutation
 } from '@hey/lens';
-import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
-import getProfile from '@hey/lib/getProfile';
-import getSignature from '@hey/lib/getSignature';
 import { Alert } from '@hey/ui';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';

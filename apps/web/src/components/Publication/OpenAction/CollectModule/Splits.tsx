@@ -3,11 +3,11 @@ import type { FC } from 'react';
 
 import Slug from '@components/Shared/Slug';
 import { POLYGONSCAN_URL } from '@hey/data/constants';
+import formatAddress from '@hey/helpers/formatAddress';
+import getAvatar from '@hey/helpers/getAvatar';
+import getProfile from '@hey/helpers/getProfile';
+import getStampFyiURL from '@hey/helpers/getStampFyiURL';
 import { useProfilesQuery } from '@hey/lens';
-import formatAddress from '@hey/lib/formatAddress';
-import getAvatar from '@hey/lib/getAvatar';
-import getProfile from '@hey/lib/getProfile';
-import getStampFyiURL from '@hey/lib/getStampFyiURL';
 import Link from 'next/link';
 
 interface SplitsProps {

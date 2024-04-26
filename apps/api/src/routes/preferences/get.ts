@@ -1,7 +1,7 @@
 import type { Preferences } from '@hey/types/hey';
 import type { Handler } from 'express';
 
-import logger from '@hey/lib/logger';
+import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import validateIsOwnerOrStaff from 'src/helpers/middlewares/validateIsOwnerOrStaff';
 import prisma from 'src/helpers/prisma';

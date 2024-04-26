@@ -1,6 +1,6 @@
 import type { OG } from '@hey/types/misc';
 
-import getFavicon from '@hey/lib/getFavicon';
+import getFavicon from '@hey/helpers/getFavicon';
 import { parseHTML } from 'linkedom';
 
 import getProxyUrl from './getProxyUrl';

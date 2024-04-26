@@ -12,7 +12,7 @@ import {
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
-import formatAddress from '@hey/lib/formatAddress';
+import formatAddress from '@hey/helpers/formatAddress';
 import { Button, HelpTooltip, Input, Select, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import axios from 'axios';

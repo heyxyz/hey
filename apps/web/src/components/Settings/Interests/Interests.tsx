@@ -1,6 +1,7 @@
 import type { ProfileInterestsRequest, ProfileInterestTypes } from '@hey/lens';
 import type { FC } from 'react';
 
+import Loader from '@components/Shared/Loader';
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data';
@@ -18,8 +19,6 @@ import { Leafwatch } from 'src/helpers/leafwatch';
 import sanitizeProfileInterests from 'src/helpers/sanitizeProfileInterests';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
-
-import Loader from '../../Shared/Loader';
 
 const MAX_TOPICS_ALLOWED = 12;
 

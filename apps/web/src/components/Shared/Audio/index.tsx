@@ -4,8 +4,8 @@ import type { ChangeEvent, FC } from 'react';
 
 import { PauseIcon, PlayIcon } from '@heroicons/react/24/solid';
 import { PUBLICATION } from '@hey/data/tracking';
-import getProfile from '@hey/lib/getProfile';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import getProfile from '@hey/helpers/getProfile';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { useRef, useState } from 'react';
 import { Leafwatch } from 'src/helpers/leafwatch';
 import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';

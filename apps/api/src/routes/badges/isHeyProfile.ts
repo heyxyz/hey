@@ -2,7 +2,7 @@ import type { Handler } from 'express';
 import type { Address } from 'viem';
 
 import { HEY_LENS_SIGNUP } from '@hey/data/constants';
-import logger from '@hey/lib/logger';
+import logger from '@hey/helpers/logger';
 import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
 import { CACHE_AGE_INDEFINITE } from 'src/helpers/constants';

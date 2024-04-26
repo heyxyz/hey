@@ -1,6 +1,6 @@
 import type { CachedMessageWithId } from '@xmtp/react-sdk';
 
-import getTimeFromNow from '@hey/lib/datetime/getTimeFromNow';
+import getTimeFromNow from '@hey/helpers/datetime/getTimeFromNow';
 import cn from '@hey/ui/cn';
 import { ContentTypeText, hasReaction, useReactions } from '@xmtp/react-sdk';
 import { type FC } from 'react';

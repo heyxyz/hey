@@ -2,7 +2,7 @@ import type { PublicationMetadata } from '@hey/lens';
 import type { FC } from 'react';
 
 import { ScaleIcon } from '@heroicons/react/24/outline';
-import getPublicationData from '@hey/lib/getPublicationData';
+import getPublicationData from '@hey/helpers/getPublicationData';
 import { Card } from '@hey/ui';
 import { memo } from 'react';
 import getAssetLicense from 'src/helpers/getAssetLicense';

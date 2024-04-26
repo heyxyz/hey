@@ -2,10 +2,10 @@ import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import { QueueListIcon } from '@heroicons/react/24/outline';
-import getProfileFlags from '@hey/lib/api/getProfileFlags';
-import formatDate from '@hey/lib/datetime/formatDate';
-import getAppName from '@hey/lib/getAppName';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
+import getProfileFlags from '@hey/helpers/api/getProfileFlags';
+import formatDate from '@hey/helpers/datetime/formatDate';
+import getAppName from '@hey/helpers/getAppName';
+import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import { Card, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useQuery } from '@tanstack/react-query';

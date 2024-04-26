@@ -2,9 +2,9 @@ import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import Slug from '@components/Shared/Slug';
-import getAvatar from '@hey/lib/getAvatar';
-import getLennyURL from '@hey/lib/getLennyURL';
-import getProfile from '@hey/lib/getProfile';
+import getAvatar from '@hey/helpers/getAvatar';
+import getLennyURL from '@hey/helpers/getLennyURL';
+import getProfile from '@hey/helpers/getProfile';
 import { Image } from '@hey/ui';
 import Link from 'next/link';
 

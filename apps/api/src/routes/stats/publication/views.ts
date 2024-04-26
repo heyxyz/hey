@@ -1,6 +1,6 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/lib/logger';
+import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import { SWR_CACHE_AGE_10_MINS_30_DAYS } from 'src/helpers/constants';
 import createClickhouseClient from 'src/helpers/createClickhouseClient';

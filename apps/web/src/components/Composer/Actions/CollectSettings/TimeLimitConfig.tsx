@@ -3,8 +3,8 @@ import type { FC } from 'react';
 
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { ClockIcon } from '@heroicons/react/24/outline';
-import getNumberOfDaysFromDate from '@hey/lib/datetime/getNumberOfDaysFromDate';
-import getTimeAddedNDay from '@hey/lib/datetime/getTimeAddedNDay';
+import getNumberOfDaysFromDate from '@hey/helpers/datetime/getNumberOfDaysFromDate';
+import getTimeAddedNDay from '@hey/helpers/datetime/getTimeAddedNDay';
 import { Input } from '@hey/ui';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 

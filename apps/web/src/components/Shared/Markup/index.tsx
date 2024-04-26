@@ -2,7 +2,7 @@ import type { ProfileMentioned } from '@hey/lens';
 import type { FC } from 'react';
 
 import { Regex } from '@hey/data/regex';
-import trimify from '@hey/lib/trimify';
+import trimify from '@hey/helpers/trimify';
 import ReactMarkdown from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
 // @ts-expect-error

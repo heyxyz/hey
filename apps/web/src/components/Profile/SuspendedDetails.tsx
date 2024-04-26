@@ -3,7 +3,7 @@ import type { FC, ReactNode } from 'react';
 
 import Slug from '@components/Shared/Slug';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import getProfile from '@hey/lib/getProfile';
+import getProfile from '@hey/helpers/getProfile';
 import { Image } from '@hey/ui';
 
 export const MetaDetails = ({

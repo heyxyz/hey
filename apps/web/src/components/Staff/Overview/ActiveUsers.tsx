@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import formatDate from '@hey/lib/datetime/formatDate';
+import formatDate from '@hey/helpers/datetime/formatDate';
 import { CardHeader } from '@hey/ui';
 
 import type { StatsType } from './LeafwatchStats';

@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import { APP_NAME } from '@hey/data/constants';
-import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
+import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
 import { Card, CardHeader } from '@hey/ui';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 

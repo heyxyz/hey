@@ -5,12 +5,12 @@ import Loader from '@components/Shared/Loader';
 import { ComputerDesktopIcon, GlobeAltIcon } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data';
 import { SETTINGS } from '@hey/data/tracking';
+import formatDate from '@hey/helpers/datetime/formatDate';
 import {
   LimitType,
   useApprovedAuthenticationsQuery,
   useRevokeAuthenticationMutation
 } from '@hey/lens';
-import formatDate from '@hey/lib/datetime/formatDate';
 import { Button, EmptyState, ErrorMessage } from '@hey/ui';
 import { useState } from 'react';
 import toast from 'react-hot-toast';

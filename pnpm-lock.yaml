@@ -41,9 +41,9 @@ importers:
       '@hey/data':
         specifier: workspace:*
         version: link:../../packages/data
-      '@hey/lib':
+      '@hey/helpers':
         specifier: workspace:*
-        version: link:../../packages/lib
+        version: link:../../packages/helpers
       '@irys/sdk':
         specifier: ^0.1.22
         version: 0.1.22(arweave@1.15.0)
@@ -150,12 +150,12 @@ importers:
       '@hey/data':
         specifier: workspace:*
         version: link:../../packages/data
+      '@hey/helpers':
+        specifier: workspace:*
+        version: link:../../packages/helpers
       '@hey/lens':
         specifier: workspace:*
         version: link:../../packages/lens
-      '@hey/lib':
-        specifier: workspace:*
-        version: link:../../packages/lib
       next:
         specifier: ^14.2.3
         version: 14.2.3(@babel/core@7.24.4)(react-dom@18.3.0)(react@18.3.0)
@@ -196,6 +196,9 @@ importers:
       '@hey/data':
         specifier: workspace:*
         version: link:../../packages/data
+      '@hey/helpers':
+        specifier: workspace:*
+        version: link:../../packages/helpers
       '@hey/icons':
         specifier: workspace:*
         version: link:../../packages/icons
@@ -205,9 +208,6 @@ importers:
       '@hey/lens':
         specifier: workspace:*
         version: link:../../packages/lens
-      '@hey/lib':
-        specifier: workspace:*
-        version: link:../../packages/lib
       '@hey/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -473,9 +473,9 @@ importers:
       '@clickhouse/client':
         specifier: ^1.0.1
         version: 1.0.1
-      '@hey/lib':
+      '@hey/helpers':
         specifier: workspace:*
-        version: link:../lib
+        version: link:../helpers
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
@@ -507,6 +507,49 @@ importers:
       '@types/node':
         specifier: ^20.12.7
         version: 20.12.7
+      typescript:
+        specifier: ^5.4.5
+        version: 5.4.5
+      vitest:
+        specifier: ^1.5.2
+        version: 1.5.2(@types/node@20.12.7)
+
+  packages/helpers:
+    dependencies:
+      '@apollo/client':
+        specifier: ^3.10.1
+        version: 3.10.1(graphql-ws@5.16.0)(graphql@16.8.1)
+      '@hey/data':
+        specifier: workspace:*
+        version: link:../data
+      '@hey/lens':
+        specifier: workspace:*
+        version: link:../lens
+      '@hey/types':
+        specifier: workspace:*
+        version: link:../types
+      axios:
+        specifier: ^1.6.8
+        version: 1.6.8(debug@4.3.4)
+      dayjs:
+        specifier: ^1.11.10
+        version: 1.11.10
+      omit-deep:
+        specifier: ^0.3.0
+        version: 0.3.0
+      urlcat:
+        specifier: ^3.1.0
+        version: 3.1.0
+      viem:
+        specifier: ^2.9.27
+        version: 2.9.27(typescript@5.4.5)(zod@3.23.4)
+    devDependencies:
+      '@hey/config':
+        specifier: workspace:*
+        version: link:../config
+      '@types/omit-deep':
+        specifier: ^0.3.2
+        version: 0.3.2
       typescript:
         specifier: ^5.4.5
         version: 5.4.5
@@ -601,49 +644,6 @@ importers:
         specifier: ^5.4.5
         version: 5.4.5
 
-  packages/lib:
-    dependencies:
-      '@apollo/client':
-        specifier: ^3.10.1
-        version: 3.10.1(graphql-ws@5.16.0)(graphql@16.8.1)
-      '@hey/data':
-        specifier: workspace:*
-        version: link:../data
-      '@hey/lens':
-        specifier: workspace:*
-        version: link:../lens
-      '@hey/types':
-        specifier: workspace:*
-        version: link:../types
-      axios:
-        specifier: ^1.6.8
-        version: 1.6.8(debug@4.3.4)
-      dayjs:
-        specifier: ^1.11.10
-        version: 1.11.10
-      omit-deep:
-        specifier: ^0.3.0
-        version: 0.3.0
-      urlcat:
-        specifier: ^3.1.0
-        version: 3.1.0
-      viem:
-        specifier: ^2.9.27
-        version: 2.9.27(typescript@5.4.5)(zod@3.23.4)
-    devDependencies:
-      '@hey/config':
-        specifier: workspace:*
-        version: link:../config
-      '@types/omit-deep':
-        specifier: ^0.3.2
-        version: 0.3.2
-      typescript:
-        specifier: ^5.4.5
-        version: 5.4.5
-      vitest:
-        specifier: ^1.5.2
-        version: 1.5.2(@types/node@20.12.7)
-
   packages/types:
     dependencies:
       '@hey/lens':
@@ -671,9 +671,9 @@ importers:
       '@hey/data':
         specifier: workspace:*
         version: link:../data
-      '@hey/lib':
+      '@hey/helpers':
         specifier: workspace:*
-        version: link:../lib
+        version: link:../helpers
       '@hookform/resolvers':
         specifier: ^3.3.4
         version: 3.3.4(react-hook-form@7.51.3)

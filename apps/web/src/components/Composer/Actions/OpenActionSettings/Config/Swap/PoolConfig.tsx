@@ -2,8 +2,8 @@ import type { RewardPool } from '@hey/types/misc';
 import type { FC } from 'react';
 
 import { GiftIcon } from '@heroicons/react/24/outline';
-import getSwapRewardPool from '@hey/lib/getSwapRewardPool';
-import humanize from '@hey/lib/humanize';
+import getSwapRewardPool from '@hey/helpers/getSwapRewardPool';
+import humanize from '@hey/helpers/humanize';
 import { useEffect, useRef, useState } from 'react';
 import usePreventScrollOnNumberInput from 'src/hooks/usePreventScrollOnNumberInput';
 import { type Address, formatUnits, isAddress } from 'viem';

@@ -3,6 +3,7 @@ import type { NextPage } from 'next';
 
 import MetaTags from '@components/Common/MetaTags';
 import Loader from '@components/Shared/Loader';
+import StaffSidebar from '@components/Staff/Sidebar';
 import ProfileStaffTool from '@components/Staff/Users/Overview/Tool';
 import { UserIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
@@ -22,8 +23,6 @@ import { Leafwatch } from 'src/helpers/leafwatch';
 import Custom404 from 'src/pages/404';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
-
-import StaffSidebar from '../../Sidebar';
 
 const Overview: NextPage = () => {
   const {
