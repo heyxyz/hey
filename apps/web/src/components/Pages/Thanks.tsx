@@ -5,10 +5,10 @@ import Footer from '@components/Shared/Footer';
 import { HeartIcon } from '@heroicons/react/24/outline';
 import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import { Leafwatch } from '@lib/leafwatch';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useEffect } from 'react';
+import { Leafwatch } from 'src/helpers/leafwatch';
 import urlcat from 'urlcat';
 
 interface BrandProps {

@@ -11,8 +11,8 @@ import {
   GridLayout,
   TabButton
 } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import { useEffect, useState } from 'react';
+import { Leafwatch } from 'src/helpers/leafwatch';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import SettingsSidebar from '../Sidebar';

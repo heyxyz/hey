@@ -12,10 +12,10 @@ import {
 import getProfile from '@hey/lib/getProfile';
 import { Card, Input } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { Leafwatch } from '@lib/leafwatch';
 import { useClickAway, useDebounce } from '@uidotdev/usehooks';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { Leafwatch } from 'src/helpers/leafwatch';
 import { useSearchStore } from 'src/store/persisted/useSearchStore';
 
 import UserProfile from '../../UserProfile';

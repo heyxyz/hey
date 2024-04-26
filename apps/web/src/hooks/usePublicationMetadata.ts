@@ -6,8 +6,8 @@ import {
   textOnly,
   video
 } from '@lens-protocol/metadata';
-import getUserLocale from '@lib/getUserLocale';
 import { useCallback } from 'react';
+import getUserLocale from 'src/helpers/getUserLocale';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationAttributesStore } from 'src/store/non-persisted/publication/usePublicationAttributesStore';
 import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';

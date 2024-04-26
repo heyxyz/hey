@@ -12,11 +12,11 @@ import {
 } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import { useToggle } from '@uidotdev/usehooks';
 import { useRouter } from 'next/router';
 import { type FC, type ReactNode } from 'react';
 import { toast } from 'react-hot-toast';
+import { Leafwatch } from 'src/helpers/leafwatch';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 
 interface GardenerActionsProps {

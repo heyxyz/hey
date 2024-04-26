@@ -14,12 +14,12 @@ import humanize from '@hey/lib/humanize';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Card, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import getAuthApiHeaders from '@lib/getAuthApiHeaders';
-import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import plur from 'plur';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import getAuthApiHeaders from 'src/helpers/getAuthApiHeaders';
+import { Leafwatch } from 'src/helpers/leafwatch';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 

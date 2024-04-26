@@ -6,8 +6,8 @@ import { PauseIcon, PlayIcon } from '@heroicons/react/24/solid';
 import { PUBLICATION } from '@hey/data/tracking';
 import getProfile from '@hey/lib/getProfile';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Leafwatch } from '@lib/leafwatch';
 import { useRef, useState } from 'react';
+import { Leafwatch } from 'src/helpers/leafwatch';
 import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
 import { object, string } from 'zod';
 

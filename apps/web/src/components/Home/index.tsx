@@ -5,8 +5,8 @@ import ExploreFeed from '@components/Explore/Feed';
 import { HomeFeedType } from '@hey/data/enums';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import { useEffect, useState } from 'react';
+import { Leafwatch } from 'src/helpers/leafwatch';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import FeedType from './FeedType';

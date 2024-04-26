@@ -3,8 +3,8 @@ import type { FC } from 'react';
 
 import { PUBLICATION } from '@hey/data/tracking';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
+import { Leafwatch } from 'src/helpers/leafwatch';
 
 import Slug from '../../Slug';
 import UserPreview from '../../UserPreview';

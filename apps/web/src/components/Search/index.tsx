@@ -4,9 +4,9 @@ import Sidebar from '@components/Shared/Sidebar';
 import { PencilSquareIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { Leafwatch } from 'src/helpers/leafwatch';
 import Custom404 from 'src/pages/404';
 
 import Profiles from './Profiles';

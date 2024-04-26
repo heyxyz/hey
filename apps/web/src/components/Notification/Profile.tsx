@@ -12,8 +12,8 @@ import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Image } from '@hey/ui';
-import isVerified from '@lib/isVerified';
 import Link from 'next/link';
+import isVerified from 'src/helpers/isVerified';
 
 interface NotificationProfileProps {
   profile: Profile;

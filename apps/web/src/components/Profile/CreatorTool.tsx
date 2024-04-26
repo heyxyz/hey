@@ -11,12 +11,12 @@ import { FeatureFlag } from '@hey/data/feature-flags';
 import { CREATORTOOLS } from '@hey/data/tracking';
 import getPreferences from '@hey/lib/api/getPreferences';
 import { Toggle } from '@hey/ui';
-import getAuthApiHeaders from '@lib/getAuthApiHeaders';
-import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import getAuthApiHeaders from 'src/helpers/getAuthApiHeaders';
+import { Leafwatch } from 'src/helpers/leafwatch';
 
 interface CreatorToolProps {
   profile: Profile;

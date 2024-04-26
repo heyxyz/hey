@@ -10,9 +10,9 @@ import {
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
 import { HEY_API_URL } from '@hey/data/constants';
 import humanize from '@hey/lib/humanize';
-import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import getAuthApiHeaders from 'src/helpers/getAuthApiHeaders';
 
 import MetaDetails from '../../../../Shared/Staff/MetaDetails';
 

@@ -10,10 +10,10 @@ import {
 import { XCircleIcon } from '@heroicons/react/24/solid';
 import { HEY_API_URL } from '@hey/data/constants';
 import { Card, Spinner, Tooltip } from '@hey/ui';
-import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import getAuthApiHeaders from 'src/helpers/getAuthApiHeaders';
 import { usePublicationLiveStore } from 'src/store/non-persisted/publication/usePublicationLiveStore';
 
 interface WrapperProps {

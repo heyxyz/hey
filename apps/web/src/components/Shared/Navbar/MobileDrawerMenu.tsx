@@ -9,9 +9,9 @@ import getLennyURL from '@hey/lib/getLennyURL';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import isFeatureAvailable from '@lib/isFeatureAvailable';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import Link from 'next/link';
+import isFeatureAvailable from 'src/helpers/isFeatureAvailable';
+import isFeatureEnabled from 'src/helpers/isFeatureEnabled';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
