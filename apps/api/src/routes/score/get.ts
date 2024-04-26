@@ -5,7 +5,7 @@ import axios from 'axios';
 import catchedError from 'src/lib/catchedError';
 import {
   SCORE_WORKER_URL,
-  SWR_CACHE_AGE_1_HOUR_24_HRS
+  SWR_CACHE_AGE_1_HOUR_12_HRS
 } from 'src/lib/constants';
 import heyPrisma from 'src/lib/heyPrisma';
 import lensPrisma from 'src/lib/lensPrisma';
@@ -38,7 +38,7 @@ export const get: Handler = async (req, res) => {
 
       return res
         .status(200)
-        .setHeader('Cache-Control', SWR_CACHE_AGE_1_HOUR_24_HRS)
+        .setHeader('Cache-Control', SWR_CACHE_AGE_1_HOUR_12_HRS)
         .json({
           expiresAt: cachedProfile.expiresAt,
           score: cachedProfile.score,
@@ -61,7 +61,7 @@ export const get: Handler = async (req, res) => {
     const score = Number(scores[0].score);
 
     const baseData = {
-      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
+      expiresAt: new Date(Date.now() + 12 * 60 * 60 * 1000), // 12 hours
       id: id as string,
       score: score < 0 ? 0 : score
     };
