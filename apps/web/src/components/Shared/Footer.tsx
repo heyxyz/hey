@@ -1,11 +1,11 @@
 import type { FC } from 'react';
 
+import { Leafwatch } from '@helpers/leafwatch';
+import showCrisp from '@helpers/showCrisp';
 import { APP_NAME } from '@hey/data/constants';
 import { MISCELLANEOUS } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
-import { Leafwatch } from 'src/helpers/leafwatch';
-import showCrisp from 'src/helpers/showCrisp';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import urlcat from 'urlcat';
 

@@ -1,5 +1,7 @@
 import type { FC } from 'react';
 
+import getAllowanceModule from '@helpers/getAllowanceModule';
+import getAllowanceOpenAction from '@helpers/getAllowanceOpenAction';
 import { POLYGONSCAN_URL } from '@hey/data/constants';
 import {
   type ApprovedAllowanceAmountResult,
@@ -8,8 +10,6 @@ import {
 import { Card } from '@hey/ui';
 import Link from 'next/link';
 import { useState } from 'react';
-import getAllowanceModule from 'src/helpers/getAllowanceModule';
-import getAllowanceOpenAction from 'src/helpers/getAllowanceOpenAction';
 
 import AllowanceButton from './Button';
 

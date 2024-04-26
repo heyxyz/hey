@@ -1,6 +1,7 @@
 import type { MarkupLinkProps } from '@hey/types/misc';
 import type { FC } from 'react';
 
+import { Leafwatch } from '@helpers/leafwatch';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { hashflags } from '@hey/data/hashflags';
 import { prideHashtags } from '@hey/data/pride-hashtags';
@@ -8,7 +9,6 @@ import { PUBLICATION } from '@hey/data/tracking';
 import isPrideMonth from '@hey/helpers/isPrideMonth';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import Link from 'next/link';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import urlcat from 'urlcat';
 
 const Hashtag: FC<MarkupLinkProps> = ({ title }) => {

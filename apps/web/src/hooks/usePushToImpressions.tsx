@@ -1,5 +1,5 @@
+import pushToImpressions from '@helpers/pushToImpressions';
 import { useEffect } from 'react';
-import pushToImpressions from 'src/helpers/pushToImpressions';
 
 const usePushToImpressions = (id: string): void => {
   useEffect(() => {

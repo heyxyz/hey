@@ -1,10 +1,10 @@
 import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
+import { Leafwatch } from '@helpers/leafwatch';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { PROFILE } from '@hey/data/tracking';
 import { useDismissRecommendedProfilesMutation } from '@hey/lens';
-import { Leafwatch } from 'src/helpers/leafwatch';
 
 interface DismissRecommendedProfileProps {
   profile: Profile;
