@@ -20,16 +20,16 @@ export const get: Handler = async (_, res) => {
   try {
     // Prepare promises with timings embedded
     const heyPromise = measureQueryTime(
-      () => prisma.$queryRaw<{ count: number }[]>`SELECT 1 as count`
+      () => prisma.$queryRaw<{ count: number }[]>`SELECT 1 as count;`
     );
     const lensPromise = measureQueryTime(() =>
-      lensPg.query(`SELECT 1 as count`)
+      lensPg.query(`SELECT 1 as count;`)
     );
     const clickhouseClient = createClickhouseClient();
     const clickhousePromise = measureQueryTime(() =>
       clickhouseClient.query({
         format: 'JSONEachRow',
-        query: 'SELECT 1 as count'
+        query: 'SELECT 1 as count;'
       })
     );
     const scoreWorkerPromise = measureQueryTime(() =>
