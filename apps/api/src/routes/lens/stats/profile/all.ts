@@ -15,35 +15,26 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const [globalStats, notificationStats] = await Promise.all([
-      // Get global stats
-      lensPg.query(
-        `
-          SELECT 
-            total_posts,
-            total_comments,
-            total_mirrors,
-            total_quotes,
-            total_publications,
-            total_reacted,
-            total_reactions,
-            total_collects,
-            total_acted
-          FROM global_stats.profile
-          WHERE profile_id = $1;
-        `,
-        [id]
-      ),
-      // Get notifications received count
-      lensPg.query(
-        `
-          SELECT COUNT(*) as total_notifications
-          FROM notification.record
-          WHERE notification_receiving_profile_id = $1;
-        `,
-        [id]
-      )
-    ]);
+    const [globalStats, notificationStats] = await lensPg.multi(
+      `
+        SELECT 
+          total_posts,
+          total_comments,
+          total_mirrors,
+          total_quotes,
+          total_publications,
+          total_reacted,
+          total_reactions,
+          total_collects,
+          total_acted
+        FROM global_stats.profile
+        WHERE profile_id = $1;
+        SELECT COUNT(*) as total_notifications
+        FROM notification.record
+        WHERE notification_receiving_profile_id = $1;
+      `,
+      [id]
+    );
 
     if (!globalStats[0]) {
       return res.status(404).json({ success: false });

@@ -57,6 +57,13 @@ class Database {
     };
   }
 
+  public multi(
+    query: DatabaseQuery,
+    params: DatabaseParams = null
+  ): Promise<any[][]> {
+    return this._readDb.multi(query, params);
+  }
+
   public query(
     query: DatabaseQuery,
     params: DatabaseParams = null
