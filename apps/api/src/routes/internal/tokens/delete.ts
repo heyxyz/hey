@@ -2,8 +2,8 @@ import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
 import catchedError from 'src/lib/catchedError';
-import heyPrisma from 'src/lib/heyPrisma';
 import validateIsStaff from 'src/lib/middlewares/validateIsStaff';
+import prisma from 'src/lib/prisma';
 import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
 import { object, string } from 'zod';
 
@@ -35,7 +35,7 @@ export const post: Handler = async (req, res) => {
   const { id } = body as ExtensionRequest;
 
   try {
-    await heyPrisma.allowedToken.delete({ where: { id } });
+    await prisma.allowedToken.delete({ where: { id } });
     logger.info(`Deleted a token ${id}`);
 
     return res.status(200).json({ success: true });

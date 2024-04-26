@@ -1,6 +1,6 @@
 import logger from '@hey/lib/logger';
+import prisma from 'src/lib/prisma';
 
-import { PrismaClient } from './generated/hey';
 import seedAllowedTokens from './seeds/seedAllowedTokens';
 import seedFeatureFlags from './seeds/seedFeatureFlags';
 import seedMembershipNfts from './seeds/seedMembershipNfts';
@@ -8,8 +8,6 @@ import seedPolls from './seeds/seedPolls';
 import seedPreferences from './seeds/seedPreferences';
 import seedProfileFeatures from './seeds/seedProfileFeatures';
 import seedScorableEvents from './seeds/seedScorableEvents';
-
-export const prisma = new PrismaClient();
 
 async function main() {
   const featureFlags = await seedFeatureFlags();

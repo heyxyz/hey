@@ -7,7 +7,7 @@ import {
   SUSPENDED_FEATURE_ID,
   SWR_CACHE_AGE_10_MINS_30_DAYS
 } from 'src/lib/constants';
-import heyPrisma from 'src/lib/heyPrisma';
+import prisma from 'src/lib/prisma';
 import { noBody } from 'src/lib/responses';
 
 export const get: Handler = async (req, res) => {
@@ -18,7 +18,7 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const profileFeature = await heyPrisma.profileFeature.findFirst({
+    const profileFeature = await prisma.profileFeature.findFirst({
       select: { feature: { select: { id: true } } },
       where: {
         enabled: true,

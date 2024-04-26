@@ -1,21 +1,21 @@
 import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
+import lensPg from 'src/db/lensPg';
 import catchedError from 'src/lib/catchedError';
 import { CACHE_AGE_30_DAYS, SITEMAP_BATCH_SIZE } from 'src/lib/constants';
-import lensPrisma from 'src/lib/lensPrisma';
 import { buildSitemapXml } from 'src/lib/sitemap/buildSitemap';
 
 export const get: Handler = async (req, res) => {
   const user_agent = req.headers['user-agent'];
 
   try {
-    const response = await lensPrisma.$queryRaw<{ count: number }[]>`
+    const response = await lensPg.query(`
       SELECT COUNT(*) as count
       FROM publication.record
       WHERE publication_type IN ('POST', 'QUOTE')
       AND is_hidden = false AND gardener_flagged = false
-    `;
+    `);
 
     const totalPublications = Number(response[0]?.count) || 0;
     const totalBatches = Math.ceil(totalPublications / SITEMAP_BATCH_SIZE);

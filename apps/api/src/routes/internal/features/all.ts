@@ -2,8 +2,8 @@ import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
 import catchedError from 'src/lib/catchedError';
-import heyPrisma from 'src/lib/heyPrisma';
 import validateIsStaff from 'src/lib/middlewares/validateIsStaff';
+import prisma from 'src/lib/prisma';
 import { notAllowed } from 'src/lib/responses';
 
 export const get: Handler = async (req, res) => {
@@ -12,7 +12,7 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const data = await heyPrisma.feature.findMany({
+    const data = await prisma.feature.findMany({
       orderBy: { priority: 'desc' }
     });
     logger.info('All features fetched');
