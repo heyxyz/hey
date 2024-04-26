@@ -1,7 +1,7 @@
 import type { Request } from 'express';
 
 import parseJwt from '@hey/lib/parseJwt';
-import heyPrisma from 'src/lib/heyPrisma';
+import prisma from 'src/lib/prisma';
 
 import { GARDENER_FEATURE_ID } from '../constants';
 import validateLensAccount from './validateLensAccount';
@@ -24,7 +24,7 @@ const validateIsGardener = async (request: Request) => {
     }
 
     const payload = parseJwt(accessToken);
-    const data = await heyPrisma.profileFeature.findFirst({
+    const data = await prisma.profileFeature.findFirst({
       where: {
         enabled: true,
         featureId: GARDENER_FEATURE_ID,

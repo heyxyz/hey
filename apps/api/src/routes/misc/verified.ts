@@ -6,11 +6,11 @@ import {
   SWR_CACHE_AGE_10_MINS_30_DAYS,
   VERIFIED_FEATURE_ID
 } from 'src/lib/constants';
-import heyPrisma from 'src/lib/heyPrisma';
+import prisma from 'src/lib/prisma';
 
 export const get: Handler = async (_, res) => {
   try {
-    const data = await heyPrisma.profileFeature.findMany({
+    const data = await prisma.profileFeature.findMany({
       select: { profileId: true },
       where: { enabled: true, featureId: VERIFIED_FEATURE_ID }
     });

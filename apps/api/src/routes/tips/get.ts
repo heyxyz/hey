@@ -3,7 +3,7 @@ import type { Handler } from 'express';
 import logger from '@hey/lib/logger';
 import parseJwt from '@hey/lib/parseJwt';
 import catchedError from 'src/lib/catchedError';
-import heyPrisma from 'src/lib/heyPrisma';
+import prisma from 'src/lib/prisma';
 import { invalidBody, noBody } from 'src/lib/responses';
 import { array, object, string } from 'zod';
 
@@ -35,15 +35,15 @@ export const post: Handler = async (req, res) => {
     const payload = parseJwt(accessToken);
     const profileId = payload.id;
 
-    const [hasTipped, tipCounts] = await heyPrisma.$transaction([
-      heyPrisma.tip.findMany({
+    const [hasTipped, tipCounts] = await prisma.$transaction([
+      prisma.tip.findMany({
         select: { publicationId: true },
         where: {
           fromProfileId: profileId,
           publicationId: { in: ids }
         }
       }),
-      heyPrisma.tip.groupBy({
+      prisma.tip.groupBy({
         _count: { publicationId: true },
         by: ['publicationId'],
         orderBy: { publicationId: 'asc' },
