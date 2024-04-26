@@ -1,6 +1,8 @@
 import type { AnyPublication } from '@hey/lens';
 import type { Metadata } from 'next';
 
+import getCollectModuleMetadata from '@helpers/getCollectModuleMetadata';
+import getPublicationOGImages from '@helpers/getPublicationOGImages';
 import { APP_NAME } from '@hey/data/constants';
 import getProfile from '@hey/helpers/getProfile';
 import getPublicationData from '@hey/helpers/getPublicationData';
@@ -12,8 +14,6 @@ import {
 } from '@hey/lens';
 import { apolloClient } from '@hey/lens/apollo';
 import defaultMetadata from 'src/defaultMetadata';
-import getCollectModuleMetadata from 'src/lib/getCollectModuleMetadata';
-import getPublicationOGImages from 'src/lib/getPublicationOGImages';
 
 interface Props {
   params: { id: string };

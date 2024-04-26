@@ -2,6 +2,8 @@ import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import ToggleWrapper from '@components/Staff/Users/Overview/Tool/ToggleWrapper';
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { Leafwatch } from '@helpers/leafwatch';
 import {
   HEY_API_URL,
   STAFF_PICK_FEATURE_ID,
@@ -15,8 +17,6 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import getAuthApiHeaders from 'src/helpers/getAuthApiHeaders';
-import { Leafwatch } from 'src/helpers/leafwatch';
 
 interface CreatorToolProps {
   profile: Profile;

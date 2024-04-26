@@ -3,6 +3,7 @@ import type { NextPage } from 'next';
 
 import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
+import { Leafwatch } from '@helpers/leafwatch';
 import { NoSymbolIcon } from '@heroicons/react/24/outline';
 import {
   APP_NAME,
@@ -18,7 +19,6 @@ import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { ProfileFeedType } from 'src/enums';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';

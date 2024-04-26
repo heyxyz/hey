@@ -2,13 +2,13 @@ import type { NextPage } from 'next';
 import type { FC, ReactNode } from 'react';
 
 import Footer from '@components/Shared/Footer';
+import { Leafwatch } from '@helpers/leafwatch';
 import { HeartIcon } from '@heroicons/react/24/outline';
 import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useEffect } from 'react';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import urlcat from 'urlcat';
 
 interface BrandProps {

@@ -3,6 +3,7 @@ import type { ChangeEvent, FC } from 'react';
 import type { Address } from 'viem';
 
 import LazyDefaultProfile from '@components/Shared/LazyDefaultProfile';
+import { Leafwatch } from '@helpers/leafwatch';
 import {
   ArrowRightCircleIcon,
   EnvelopeIcon,
@@ -17,7 +18,6 @@ import {
   useStartConversation
 } from '@xmtp/react-sdk';
 import { useEffect, useRef, useState } from 'react';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useAccount } from 'wagmi';

@@ -1,12 +1,12 @@
 import type { FollowingRequest } from '@hey/lens';
 import type { FC } from 'react';
 
+import { Leafwatch } from '@helpers/leafwatch';
 import { SETTINGS } from '@hey/data/tracking';
 import downloadJson from '@hey/helpers/downloadJson';
 import { LimitType, useFollowingLazyQuery } from '@hey/lens';
 import { Button, Card, CardHeader } from '@hey/ui';
 import { useState } from 'react';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 const Following: FC = () => {

@@ -1,7 +1,7 @@
 import type { AppProps } from 'next/app';
 
 import Providers from '@components/Common/Providers';
-import { heyFont } from 'src/helpers/fonts';
+import { heyFont } from '@helpers/fonts';
 
 import '../styles.css';
 

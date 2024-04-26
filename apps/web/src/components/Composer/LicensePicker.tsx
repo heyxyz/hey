@@ -1,9 +1,9 @@
 import type { FC } from 'react';
 
+import getAssetLicense from '@helpers/getAssetLicense';
 import { Select, Tooltip } from '@hey/ui';
 import { MetadataLicenseType } from '@lens-protocol/metadata';
 import Link from 'next/link';
-import getAssetLicense from 'src/helpers/getAssetLicense';
 import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
 
 const LicensePicker: FC = () => {
