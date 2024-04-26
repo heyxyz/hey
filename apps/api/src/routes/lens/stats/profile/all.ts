@@ -2,9 +2,9 @@ import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
 import lensPg from 'src/db/lensPg';
-import catchedError from 'src/lib/catchedError';
-import { SWR_CACHE_AGE_10_MINS_30_DAYS } from 'src/lib/constants';
-import { noBody } from 'src/lib/responses';
+import catchedError from 'src/helpers/catchedError';
+import { SWR_CACHE_AGE_10_MINS_30_DAYS } from 'src/helpers/constants';
+import { noBody } from 'src/helpers/responses';
 
 // TODO: add tests
 export const get: Handler = async (req, res) => {

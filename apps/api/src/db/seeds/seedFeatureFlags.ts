@@ -7,7 +7,7 @@ import {
   STAFF_MODE_FEATURE_ID,
   STAFF_PICK_FEATURE_ID,
   VERIFIED_FEATURE_ID
-} from '../../lib/constants';
+} from '../../helpers/constants';
 import { prisma } from '../seed';
 
 const seedFeatureFlags = async (): Promise<number> => {

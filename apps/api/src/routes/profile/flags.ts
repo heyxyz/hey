@@ -2,13 +2,13 @@ import type { ProfileFlags } from '@hey/types/hey';
 import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
-import catchedError from 'src/lib/catchedError';
+import catchedError from 'src/helpers/catchedError';
 import {
   SUSPENDED_FEATURE_ID,
   SWR_CACHE_AGE_10_MINS_30_DAYS
-} from 'src/lib/constants';
-import prisma from 'src/lib/prisma';
-import { noBody } from 'src/lib/responses';
+} from 'src/helpers/constants';
+import prisma from 'src/helpers/prisma';
+import { noBody } from 'src/helpers/responses';
 
 export const get: Handler = async (req, res) => {
   const { id } = req.query;

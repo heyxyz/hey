@@ -3,13 +3,13 @@ import type { Handler } from 'express';
 import logger from '@hey/lib/logger';
 import axios from 'axios';
 import lensPg from 'src/db/lensPg';
-import catchedError from 'src/lib/catchedError';
+import catchedError from 'src/helpers/catchedError';
 import {
   SCORE_WORKER_URL,
   SWR_CACHE_AGE_1_HOUR_12_HRS
-} from 'src/lib/constants';
-import prisma from 'src/lib/prisma';
-import { noBody } from 'src/lib/responses';
+} from 'src/helpers/constants';
+import prisma from 'src/helpers/prisma';
+import { noBody } from 'src/helpers/responses';
 
 // TODO: add tests
 export const get: Handler = async (req, res) => {
