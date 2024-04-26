@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import { Menu } from '@headlessui/react';
 import { ClipboardDocumentIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import toast from 'react-hot-toast';
 import { Leafwatch } from 'src/helpers/leafwatch';

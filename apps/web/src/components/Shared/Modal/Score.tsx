@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
-import humanize from '@hey/lib/humanize';
+import humanize from '@hey/helpers/humanize';
 import Link from 'next/link';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 

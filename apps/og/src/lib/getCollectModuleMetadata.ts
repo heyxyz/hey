@@ -1,8 +1,8 @@
 import type { MirrorablePublication } from '@hey/lens';
 
 import { APP_NAME } from '@hey/data/constants';
-import allowedOpenActionModules from '@hey/lib/allowedOpenActionModules';
-import getProfile from '@hey/lib/getProfile';
+import allowedOpenActionModules from '@hey/helpers/allowedOpenActionModules';
+import getProfile from '@hey/helpers/getProfile';
 
 import getPublicationOGImages from './getPublicationOGImages';
 

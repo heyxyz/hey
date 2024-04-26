@@ -8,13 +8,13 @@ import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
+import formatAddress from '@hey/helpers/formatAddress';
+import getAvatar from '@hey/helpers/getAvatar';
+import getLennyURL from '@hey/helpers/getLennyURL';
+import getProfile from '@hey/helpers/getProfile';
+import getStampFyiURL from '@hey/helpers/getStampFyiURL';
+import hasMisused from '@hey/helpers/hasMisused';
 import { useDefaultProfileQuery } from '@hey/lens';
-import formatAddress from '@hey/lib/formatAddress';
-import getAvatar from '@hey/lib/getAvatar';
-import getLennyURL from '@hey/lib/getLennyURL';
-import getProfile from '@hey/lib/getProfile';
-import getStampFyiURL from '@hey/lib/getStampFyiURL';
-import hasMisused from '@hey/lib/hasMisused';
 import { Image } from '@hey/ui';
 import { type FC, useState } from 'react';
 import isVerified from 'src/helpers/isVerified';

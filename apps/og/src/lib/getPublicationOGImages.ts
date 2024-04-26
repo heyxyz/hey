@@ -1,6 +1,6 @@
 import type { PublicationMetadata } from '@hey/lens';
 
-import getPublicationData from '@hey/lib/getPublicationData';
+import getPublicationData from '@hey/helpers/getPublicationData';
 
 const getPublicationOGImages = (metadata: PublicationMetadata) => {
   const filteredAttachments = getPublicationData(metadata)?.attachments || [];

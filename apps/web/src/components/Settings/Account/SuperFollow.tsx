@@ -11,13 +11,13 @@ import {
 import { Errors } from '@hey/data/errors';
 import { Regex } from '@hey/data/regex';
 import { SETTINGS } from '@hey/data/tracking';
+import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
+import getSignature from '@hey/helpers/getSignature';
 import {
   FollowModuleType,
   useBroadcastOnchainMutation,
   useCreateSetFollowModuleTypedDataMutation
 } from '@hey/lens';
-import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
-import getSignature from '@hey/lib/getSignature';
 import {
   Button,
   Card,

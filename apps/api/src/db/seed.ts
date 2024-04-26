@@ -1,4 +1,4 @@
-import logger from '@hey/lib/logger';
+import logger from '@hey/helpers/logger';
 import { PrismaClient } from '@prisma/client';
 
 import seedAllowedTokens from './seeds/seedAllowedTokens';

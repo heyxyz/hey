@@ -3,8 +3,8 @@ import type { FC } from 'react';
 
 import PublicationProfile from '@components/Publication/PublicationProfile';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 
 import PublicationMenu from './Actions/Menu';

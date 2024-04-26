@@ -1,4 +1,4 @@
-import logger from '@hey/lib/logger';
+import logger from '@hey/helpers/logger';
 import cors from 'cors';
 import * as dotenv from 'dotenv';
 import express from 'express';

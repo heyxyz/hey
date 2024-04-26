@@ -12,6 +12,8 @@ import type { OptimisticTransaction } from '@hey/types/misc';
 import { useApolloClient } from '@apollo/client';
 import { LensHub } from '@hey/abis';
 import { LENS_HUB } from '@hey/data/constants';
+import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
+import getSignature from '@hey/helpers/getSignature';
 import {
   PublicationDocument,
   useBroadcastOnchainMutation,
@@ -30,8 +32,6 @@ import {
   useQuoteOnchainMutation,
   useQuoteOnMomokaMutation
 } from '@hey/lens';
-import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
-import getSignature from '@hey/lib/getSignature';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { useRouter } from 'next/router';
 import checkAndToastDispatcherError from 'src/helpers/checkAndToastDispatcherError';

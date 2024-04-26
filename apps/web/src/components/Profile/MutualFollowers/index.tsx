@@ -1,9 +1,9 @@
 import type { Profile } from '@hey/lens';
 import type { FC, ReactNode } from 'react';
 
+import getAvatar from '@hey/helpers/getAvatar';
+import getProfile from '@hey/helpers/getProfile';
 import { LimitType, useMutualFollowersQuery } from '@hey/lens';
-import getAvatar from '@hey/lib/getAvatar';
-import getProfile from '@hey/lib/getProfile';
 import { StackedAvatars } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';

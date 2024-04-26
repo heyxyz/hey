@@ -6,14 +6,14 @@ import { LensHub } from '@hey/abis';
 import { Errors } from '@hey/data';
 import { LENS_HUB } from '@hey/data/constants';
 import { PROFILE } from '@hey/data/tracking';
+import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
+import getSignature from '@hey/helpers/getSignature';
 import {
   useBroadcastOnchainMutation,
   useCreateFollowTypedDataMutation,
   useFollowMutation
 } from '@hey/lens';
 import { useApolloClient } from '@hey/lens/apollo';
-import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
-import getSignature from '@hey/lib/getSignature';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Button } from '@hey/ui';
 import { useRouter } from 'next/router';

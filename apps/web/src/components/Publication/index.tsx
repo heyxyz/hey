@@ -11,6 +11,9 @@ import UserProfile from '@components/Shared/UserProfile';
 import PublicationStaffTool from '@components/StaffTools/Panels/Publication';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW, ProfileLinkSource } from '@hey/data/tracking';
+import getProfile from '@hey/helpers/getProfile';
+import getPublicationData from '@hey/helpers/getPublicationData';
+import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import {
   HiddenCommentsType,
   LimitType,
@@ -18,9 +21,6 @@ import {
   usePublicationQuery,
   usePublicationsQuery
 } from '@hey/lens';
-import getProfile from '@hey/lib/getProfile';
-import getPublicationData from '@hey/lib/getPublicationData';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';

@@ -2,7 +2,7 @@ import type { MarkupLinkProps } from '@hey/types/misc';
 import type { FC } from 'react';
 
 import { PUBLICATION } from '@hey/data/tracking';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import Link from 'next/link';
 import { Leafwatch } from 'src/helpers/leafwatch';
 import urlcat from 'urlcat';

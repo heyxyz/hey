@@ -1,6 +1,6 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/lib/logger';
+import logger from '@hey/helpers/logger';
 import prisma from 'src/helpers/prisma';
 import { noBody } from 'src/helpers/responses';
 

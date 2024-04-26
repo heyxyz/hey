@@ -1,5 +1,5 @@
 import { SendEmailCommand, SESClient } from '@aws-sdk/client-ses';
-import logger from '@hey/lib/logger';
+import logger from '@hey/helpers/logger';
 
 const sesClient = new SESClient({
   credentials: {

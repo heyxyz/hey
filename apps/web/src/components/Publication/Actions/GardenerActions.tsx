@@ -6,11 +6,11 @@ import type { ApolloCache } from '@hey/lens/apollo';
 
 import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
 import { GARDENER } from '@hey/data/tracking';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import {
   PublicationReportingSpamSubreason,
   useReportPublicationMutation
 } from '@hey/lens';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button } from '@hey/ui';
 import { useToggle } from '@uidotdev/usehooks';
 import { useRouter } from 'next/router';
