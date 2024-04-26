@@ -54,7 +54,7 @@ const LicensePicker: FC = () => {
           'You are not granting a license to the collector and retain all rights.'}
         <Link
           className="ml-1.5"
-          href="https://reflect.site/g/yoginth/54ff7fa4603a4a12912990aa7355e4f6"
+          href="https://yoginth.notion.site/60f9d82c5a274a88b8444611c7a8a94a"
           target="_blank"
         >
           Learn more.
