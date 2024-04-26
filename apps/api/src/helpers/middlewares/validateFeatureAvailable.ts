@@ -1,17 +1,17 @@
 import type { Request } from 'express';
 
 import parseJwt from '@hey/lib/parseJwt';
-import prisma from 'src/lib/prisma';
+import prisma from 'src/helpers/prisma';
 
-import { GARDENER_FEATURE_ID } from '../constants';
 import validateLensAccount from './validateLensAccount';
 
 /**
- * Middleware to validate if the profile is gardener
+ * Middleware to validate if the feature is available for the user
  * @param request Incoming request
+ * @param id Feature ID
  * @returns Response
  */
-const validateIsGardener = async (request: Request) => {
+const validateFeatureAvailable = async (request: Request, id: string) => {
   if (!(await validateLensAccount(request))) {
     return false;
   }
@@ -25,11 +25,7 @@ const validateIsGardener = async (request: Request) => {
 
     const payload = parseJwt(accessToken);
     const data = await prisma.profileFeature.findFirst({
-      where: {
-        enabled: true,
-        featureId: GARDENER_FEATURE_ID,
-        profileId: payload.id
-      }
+      where: { enabled: true, featureId: id, profileId: payload.id }
     });
 
     if (data?.enabled) {
@@ -42,4 +38,4 @@ const validateIsGardener = async (request: Request) => {
   }
 };
 
-export default validateIsGardener;
+export default validateFeatureAvailable;

@@ -3,10 +3,10 @@ import type { Handler } from 'express';
 import { HeyPro } from '@hey/abis';
 import { HEY_PRO, IS_MAINNET } from '@hey/data/constants';
 import logger from '@hey/lib/logger';
-import catchedError from 'src/lib/catchedError';
-import getRpc from 'src/lib/getRpc';
-import prisma from 'src/lib/prisma';
-import { noBody } from 'src/lib/responses';
+import catchedError from 'src/helpers/catchedError';
+import getRpc from 'src/helpers/getRpc';
+import prisma from 'src/helpers/prisma';
+import { noBody } from 'src/helpers/responses';
 import { createPublicClient } from 'viem';
 import { polygon, polygonAmoy } from 'viem/chains';
 

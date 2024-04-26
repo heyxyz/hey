@@ -2,10 +2,10 @@ import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
 import lensPg from 'src/db/lensPg';
-import catchedError from 'src/lib/catchedError';
-import { SITEMAP_BATCH_SIZE } from 'src/lib/constants';
-import { noBody } from 'src/lib/responses';
-import { buildUrlsetXml } from 'src/lib/sitemap/buildSitemap';
+import catchedError from 'src/helpers/catchedError';
+import { SITEMAP_BATCH_SIZE } from 'src/helpers/constants';
+import { noBody } from 'src/helpers/responses';
+import { buildUrlsetXml } from 'src/helpers/sitemap/buildSitemap';
 
 export const config = {
   api: { responseLimit: '8mb' }

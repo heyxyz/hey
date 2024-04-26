@@ -2,10 +2,10 @@ import type { Preferences } from '@hey/types/hey';
 import type { Handler } from 'express';
 
 import logger from '@hey/lib/logger';
-import catchedError from 'src/lib/catchedError';
-import validateIsOwnerOrStaff from 'src/lib/middlewares/validateIsOwnerOrStaff';
-import prisma from 'src/lib/prisma';
-import { noBody, notAllowed } from 'src/lib/responses';
+import catchedError from 'src/helpers/catchedError';
+import validateIsOwnerOrStaff from 'src/helpers/middlewares/validateIsOwnerOrStaff';
+import prisma from 'src/helpers/prisma';
+import { noBody, notAllowed } from 'src/helpers/responses';
 
 export const get: Handler = async (req, res) => {
   const { id } = req.query;
