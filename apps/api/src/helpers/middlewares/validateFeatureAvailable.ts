@@ -1,6 +1,6 @@
 import type { Request } from 'express';
 
-import parseJwt from '@hey/lib/parseJwt';
+import parseJwt from '@hey/helpers/parseJwt';
 import prisma from 'src/helpers/prisma';
 
 import validateLensAccount from './validateLensAccount';

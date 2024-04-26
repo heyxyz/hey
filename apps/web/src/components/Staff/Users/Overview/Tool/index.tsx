@@ -2,6 +2,7 @@ import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import P2PRecommendation from '@components/Shared/Profile/P2PRecommendation';
+import MetaDetails from '@components/Shared/Staff/MetaDetails';
 import UserProfile from '@components/Shared/UserProfile';
 import {
   BanknotesIcon,
@@ -13,15 +14,14 @@ import {
 } from '@heroicons/react/24/outline';
 import { ShieldCheckIcon } from '@heroicons/react/24/solid';
 import { APP_NAME, HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
-import getPreferences from '@hey/lib/api/getPreferences';
-import formatAddress from '@hey/lib/formatAddress';
-import getFollowModule from '@hey/lib/getFollowModule';
+import getPreferences from '@hey/helpers/api/getPreferences';
+import formatAddress from '@hey/helpers/formatAddress';
+import getFollowModule from '@hey/helpers/getFollowModule';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Link from 'next/link';
 import getAuthApiHeaders from 'src/helpers/getAuthApiHeaders';
 
-import MetaDetails from '../../../../Shared/Staff/MetaDetails';
 import FeatureFlags from './FeatureFlags';
 import LeafwatchDetails from './LeafwatchDetails';
 import ManagedProfiles from './ManagedProfiles';

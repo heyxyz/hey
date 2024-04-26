@@ -1,7 +1,7 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/lib/logger';
-import parseJwt from '@hey/lib/parseJwt';
+import logger from '@hey/helpers/logger';
+import parseJwt from '@hey/helpers/parseJwt';
 import catchedError from 'src/helpers/catchedError';
 import { STAFF_MODE_FEATURE_ID } from 'src/helpers/constants';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';

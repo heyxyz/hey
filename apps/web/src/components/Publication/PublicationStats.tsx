@@ -1,8 +1,8 @@
 import type { PublicationStats as IPublicationStats } from '@hey/lens';
 import type { FC } from 'react';
 
-import getPublicationsViews from '@hey/lib/getPublicationsViews';
-import nFormatter from '@hey/lib/nFormatter';
+import getPublicationsViews from '@hey/helpers/getPublicationsViews';
+import nFormatter from '@hey/helpers/nFormatter';
 import Link from 'next/link';
 import plur from 'plur';
 import { memo, useEffect, useState } from 'react';

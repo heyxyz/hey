@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Fragment } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 

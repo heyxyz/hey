@@ -13,6 +13,9 @@ import { LensHub } from '@hey/abis';
 import { LENS_HUB } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
+import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
+import getSignature from '@hey/helpers/getSignature';
+import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import {
   TriStateValue,
   useBroadcastOnchainMutation,
@@ -22,9 +25,6 @@ import {
   useMirrorOnchainMutation,
   useMirrorOnMomokaMutation
 } from '@hey/lens';
-import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
-import getSignature from '@hey/lib/getSignature';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import cn from '@hey/ui/cn';
 import { useCounter } from '@uidotdev/usehooks';

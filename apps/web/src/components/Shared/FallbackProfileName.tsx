@@ -1,7 +1,7 @@
 import type { Profile } from '@hey/lens';
 import type { FC, ReactNode } from 'react';
 
-import getProfile from '@hey/lib/getProfile';
+import getProfile from '@hey/helpers/getProfile';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
 

@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import { StarIcon } from '@heroicons/react/24/solid';
-import getPro from '@hey/lib/api/getPro';
+import getPro from '@hey/helpers/api/getPro';
 import { Tooltip } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 

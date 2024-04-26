@@ -10,7 +10,7 @@ import {
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import formatDate from '@hey/lib/datetime/formatDate';
+import formatDate from '@hey/helpers/datetime/formatDate';
 import { Button } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useEffect, useState } from 'react';

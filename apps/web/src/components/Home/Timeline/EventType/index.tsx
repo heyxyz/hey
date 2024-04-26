@@ -1,7 +1,7 @@
 import type { FeedItem } from '@hey/lens';
 import type { FC } from 'react';
 
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 
 import Acted from './Acted';
 import Combined from './Combined';

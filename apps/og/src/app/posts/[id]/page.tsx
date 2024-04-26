@@ -2,15 +2,15 @@ import type { AnyPublication } from '@hey/lens';
 import type { Metadata } from 'next';
 
 import { APP_NAME } from '@hey/data/constants';
+import getProfile from '@hey/helpers/getProfile';
+import getPublicationData from '@hey/helpers/getPublicationData';
+import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import {
   LimitType,
   PublicationDocument,
   PublicationsDocument
 } from '@hey/lens';
 import { apolloClient } from '@hey/lens/apollo';
-import getProfile from '@hey/lib/getProfile';
-import getPublicationData from '@hey/lib/getPublicationData';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import defaultMetadata from 'src/defaultMetadata';
 import getCollectModuleMetadata from 'src/lib/getCollectModuleMetadata';
 import getPublicationOGImages from 'src/lib/getPublicationOGImages';

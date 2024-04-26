@@ -4,6 +4,7 @@ import type { FC } from 'react';
 import { useHiddenCommentFeedStore } from '@components/Publication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
+import getAvatar from '@hey/helpers/getAvatar';
 import {
   CommentRankingFilterType,
   CustomFiltersType,
@@ -11,7 +12,6 @@ import {
   LimitType,
   usePublicationsQuery
 } from '@hey/lens';
-import getAvatar from '@hey/lib/getAvatar';
 import { Card, StackedAvatars } from '@hey/ui';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';

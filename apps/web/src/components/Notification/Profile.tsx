@@ -6,11 +6,11 @@ import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
-import getAvatar from '@hey/lib/getAvatar';
-import getLennyURL from '@hey/lib/getLennyURL';
-import getProfile from '@hey/lib/getProfile';
-import hasMisused from '@hey/lib/hasMisused';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import getAvatar from '@hey/helpers/getAvatar';
+import getLennyURL from '@hey/helpers/getLennyURL';
+import getProfile from '@hey/helpers/getProfile';
+import hasMisused from '@hey/helpers/hasMisused';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Image } from '@hey/ui';
 import Link from 'next/link';
 import isVerified from 'src/helpers/isVerified';

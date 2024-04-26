@@ -6,12 +6,12 @@ import { HeartIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
+import nFormatter from '@hey/helpers/nFormatter';
 import {
   PublicationReactionType,
   useAddReactionMutation,
   useRemoveReactionMutation
 } from '@hey/lens';
-import nFormatter from '@hey/lib/nFormatter';
 import { Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useCounter, useToggle } from '@uidotdev/usehooks';

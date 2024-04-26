@@ -1,6 +1,6 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/lib/logger';
+import logger from '@hey/helpers/logger';
 import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
 import { SWR_CACHE_AGE_10_SECS_30_DAYS } from 'src/helpers/constants';

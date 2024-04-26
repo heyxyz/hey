@@ -2,8 +2,8 @@ import type { ChangeEvent, FC } from 'react';
 
 import ThumbnailsShimmer from '@components/Shared/Shimmer/ThumbnailsShimmer';
 import { CheckCircleIcon, PhotoIcon } from '@heroicons/react/24/outline';
-import { generateVideoThumbnails } from '@hey/lib/generateVideoThumbnails';
-import getFileFromDataURL from '@hey/lib/getFileFromDataURL';
+import { generateVideoThumbnails } from '@hey/helpers/generateVideoThumbnails';
+import getFileFromDataURL from '@hey/helpers/getFileFromDataURL';
 import { Spinner } from '@hey/ui';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';

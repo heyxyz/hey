@@ -3,8 +3,8 @@ import type { FC } from 'react';
 
 import { Menu } from '@headlessui/react';
 import { NoSymbolIcon } from '@heroicons/react/24/outline';
-import getProfile from '@hey/lib/getProfile';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import getProfile from '@hey/helpers/getProfile';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 

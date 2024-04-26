@@ -6,12 +6,12 @@ import { LensHub } from '@hey/abis';
 import { Errors } from '@hey/data';
 import { LENS_HUB } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
+import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
+import getSignature from '@hey/helpers/getSignature';
 import {
   useBroadcastOnchainMutation,
   useCreateChangeProfileManagersTypedDataMutation
 } from '@hey/lens';
-import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
-import getSignature from '@hey/lib/getSignature';
 import { Button, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useState } from 'react';

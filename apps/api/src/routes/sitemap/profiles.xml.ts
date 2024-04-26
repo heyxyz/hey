@@ -1,6 +1,6 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/lib/logger';
+import logger from '@hey/helpers/logger';
 import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
 import { SITEMAP_BATCH_SIZE } from 'src/helpers/constants';
