@@ -24,7 +24,7 @@ import { type FC, useEffect, useRef, useState } from 'react';
 import { HEY_REFERRAL_PROFILE_ID } from 'src/constants';
 import { useAccount } from 'wagmi';
 
-import { OPEN_ACTION_EMBED_TOOLTIP } from '.';
+import { OPEN_ACTION_EMBED_TOOLTIP, openActionCTA } from '.';
 import DecentOpenActionModule from './Module';
 
 interface DecentOpenActionProps {
@@ -206,7 +206,7 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
                 placement="top"
               >
                 <Button className="text-base font-normal" size="lg">
-                  Mint
+                  {openActionCTA(actionData.uiData.platformName)}
                 </Button>
               </Tooltip>
             ) : (
@@ -220,7 +220,7 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
                 }}
                 size="lg"
               >
-                Mint
+                {openActionCTA(actionData.uiData.platformName)}
               </Button>
             )}
           </div>

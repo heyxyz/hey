@@ -18,6 +18,13 @@ interface DecentOpenActionProps {
 export const OPEN_ACTION_EMBED_TOOLTIP = 'Open action embedded';
 export const OPEN_ACTION_NO_EMBED_TOOLTIP = 'Unable to embed open action';
 
+export const openActionCTA = (platformName: string): string => {
+  const platform = platformName.toLowerCase();
+  return ['opensea', 'rarible', 'superrare'].includes(platform)
+    ? 'Buy'
+    : 'Mint';
+};
+
 const DecentOpenAction: FC<DecentOpenActionProps> = ({
   mirrorPublication,
   og,

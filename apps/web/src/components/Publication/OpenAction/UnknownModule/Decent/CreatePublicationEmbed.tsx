@@ -11,7 +11,11 @@ import errorToast from '@lib/errorToast';
 import { NftOpenActionKit } from 'nft-openaction-kit';
 import { type FC, useEffect, useState } from 'react';
 
-import { OPEN_ACTION_EMBED_TOOLTIP, OPEN_ACTION_NO_EMBED_TOOLTIP } from '.';
+import {
+  OPEN_ACTION_EMBED_TOOLTIP,
+  OPEN_ACTION_NO_EMBED_TOOLTIP,
+  openActionCTA
+} from '.';
 
 interface CreatePublicationEmbedProps {
   og: OG;
@@ -97,7 +101,7 @@ const CreatePublicationEmbed: FC<CreatePublicationEmbedProps> = ({
               placement="top"
             >
               <Button className="text-base font-normal" size="lg">
-                Mint
+                {openActionCTA(uiData.platformName)}
               </Button>
             </Tooltip>
           ) : (
@@ -110,7 +114,7 @@ const CreatePublicationEmbed: FC<CreatePublicationEmbedProps> = ({
                 disabled={true}
                 size="lg"
               >
-                Mint
+                {openActionCTA(uiData.platformName)}
               </Button>
             </Tooltip>
           )}
