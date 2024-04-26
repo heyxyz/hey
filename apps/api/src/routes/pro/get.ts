@@ -5,7 +5,7 @@ import { HEY_PRO, IS_MAINNET } from '@hey/data/constants';
 import logger from '@hey/lib/logger';
 import catchedError from 'src/lib/catchedError';
 import getRpc from 'src/lib/getRpc';
-import heyPrisma from 'src/lib/heyPrisma';
+import prisma from 'src/lib/prisma';
 import { noBody } from 'src/lib/responses';
 import { createPublicClient } from 'viem';
 import { polygon, polygonAmoy } from 'viem/chains';
@@ -18,7 +18,7 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const pro = await heyPrisma.pro.findUnique({
+    const pro = await prisma.pro.findUnique({
       where: { id: id as string }
     });
 
@@ -55,7 +55,7 @@ export const get: Handler = async (req, res) => {
     }
 
     const baseData = { expiresAt: new Date(expiresAt), id: id as string };
-    const newPro = await heyPrisma.pro.upsert({
+    const newPro = await prisma.pro.upsert({
       create: baseData,
       update: baseData,
       where: { id: id as string }
