@@ -2,6 +2,8 @@ import type { Poll } from '@hey/types/hey';
 import type { FC } from 'react';
 
 import Beta from '@components/Shared/Badges/Beta';
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { Leafwatch } from '@helpers/leafwatch';
 import {
   Bars3BottomLeftIcon,
   CheckCircleIcon
@@ -18,8 +20,6 @@ import axios from 'axios';
 import plur from 'plur';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import getAuthApiHeaders from 'src/helpers/getAuthApiHeaders';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 

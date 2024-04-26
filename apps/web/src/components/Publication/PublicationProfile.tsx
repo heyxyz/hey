@@ -2,6 +2,7 @@ import type { Profile } from '@hey/lens';
 import type { FC, ReactNode } from 'react';
 
 import Source from '@components/Publication/Source';
+import isVerified from '@helpers/isVerified';
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
@@ -12,7 +13,6 @@ import getProfile from '@hey/helpers/getProfile';
 import hasMisused from '@hey/helpers/hasMisused';
 import Link from 'next/link';
 import { memo } from 'react';
-import isVerified from 'src/helpers/isVerified';
 
 import Slug from '../Shared/Slug';
 import UserPreview from '../Shared/UserPreview';

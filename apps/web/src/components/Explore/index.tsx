@@ -5,13 +5,13 @@ import WhoToFollow from '@components/Home/Sidebar/WhoToFollow';
 import FeedFocusType from '@components/Shared/FeedFocusType';
 import Footer from '@components/Shared/Footer';
 import { Tab } from '@headlessui/react';
+import { Leafwatch } from '@helpers/leafwatch';
 import { EXPLORE, PAGEVIEW } from '@hey/data/tracking';
 import { ExplorePublicationsOrderByType } from '@hey/lens';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Feed from './Feed';

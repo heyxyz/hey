@@ -2,19 +2,10 @@
   "extends": "@hey/config/react.tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ESNext",
-      "webworker"
-    ],
+    "lib": ["DOM", "DOM.Iterable", "ESNext", "webworker"],
     "paths": {
-      "@components*": [
-        "src/components*"
-      ],
-      "@lib*": [
-        "src/lib*"
-      ]
+      "@components*": ["src/components*"],
+      "@helpers*": ["src/helpers*"]
     },
     "plugins": [
       {
@@ -22,10 +13,5 @@
       }
     ]
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"]
 }

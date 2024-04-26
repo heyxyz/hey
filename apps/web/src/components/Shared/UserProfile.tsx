@@ -1,6 +1,7 @@
 import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
+import isVerified from '@helpers/isVerified';
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
@@ -16,7 +17,6 @@ import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import { memo } from 'react';
-import isVerified from 'src/helpers/isVerified';
 
 import Markup from './Markup';
 import FollowUnfollowButton from './Profile/FollowUnfollowButton';

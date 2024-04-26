@@ -3,6 +3,7 @@ import type { FC } from 'react';
 
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
+import hasOptimisticallyMirrored from '@helpers/optimistic/hasOptimisticallyMirrored';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import humanize from '@hey/helpers/humanize';
 import nFormatter from '@hey/helpers/nFormatter';
@@ -12,7 +13,6 @@ import { Spinner, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import hasOptimisticallyMirrored from 'src/helpers/optimistic/hasOptimisticallyMirrored';
 
 import Mirror from './Mirror';
 import Quote from './Quote';

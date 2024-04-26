@@ -1,13 +1,13 @@
 import type { OG } from '@hey/types/misc';
 import type { FC } from 'react';
 
+import { Leafwatch } from '@helpers/leafwatch';
 import { ATTACHMENT } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import imageKit from '@hey/helpers/imageKit';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Card, Image } from '@hey/ui';
 import Link from 'next/link';
-import { Leafwatch } from 'src/helpers/leafwatch';
 
 interface EmbedProps {
   og: OG;

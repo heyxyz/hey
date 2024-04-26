@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
+import errorToast from '@helpers/errorToast';
 import formatDate from '@hey/helpers/datetime/formatDate';
 import {
   type ModReport,
@@ -9,7 +10,6 @@ import {
 } from '@hey/lens';
 import { Button, Form, TextArea, useZodForm } from '@hey/ui';
 import toast from 'react-hot-toast';
-import errorToast from 'src/helpers/errorToast';
 import { object, string } from 'zod';
 
 const disputeSchema = object({

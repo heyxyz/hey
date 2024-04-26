@@ -6,6 +6,8 @@ import type { UniswapQuote } from '@hey/types/hey';
 import type { FC } from 'react';
 import type { Address } from 'viem';
 
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import {
   KNOWN_ATTRIBUTES,
@@ -21,8 +23,6 @@ import { Card } from '@hey/ui';
 import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN } from 'src/constants';
-import errorToast from 'src/helpers/errorToast';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
 import usePreventScrollOnNumberInput from 'src/hooks/usePreventScrollOnNumberInput';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';

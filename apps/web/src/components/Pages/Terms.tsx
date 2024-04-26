@@ -1,11 +1,11 @@
 import type { NextPage } from 'next';
 
 import Footer from '@components/Shared/Footer';
+import { Leafwatch } from '@helpers/leafwatch';
+import showCrisp from '@helpers/showCrisp';
 import { PAGEVIEW } from '@hey/data/tracking';
 import Link from 'next/link';
 import { useEffect } from 'react';
-import { Leafwatch } from 'src/helpers/leafwatch';
-import showCrisp from 'src/helpers/showCrisp';
 
 const Terms: NextPage = () => {
   const updatedAt = 'February 15, 2024';

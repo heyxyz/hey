@@ -2,6 +2,8 @@ import type { UnlinkHandleFromProfileRequest } from '@hey/lens';
 import type { FC } from 'react';
 
 import IndexStatus from '@components/Shared/IndexStatus';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { MinusCircleIcon } from '@heroicons/react/24/outline';
 import { TokenHandleRegistry } from '@hey/abis';
 import { Errors } from '@hey/data';
@@ -17,8 +19,6 @@ import {
 import { Button, Spinner } from '@hey/ui';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import errorToast from 'src/helpers/errorToast';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';

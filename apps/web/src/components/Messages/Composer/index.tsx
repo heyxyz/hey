@@ -1,11 +1,11 @@
 import type { CachedConversation } from '@xmtp/react-sdk';
 import type { ChangeEvent, FC } from 'react';
 
+import { Leafwatch } from '@helpers/leafwatch';
 import { MESSAGES } from '@hey/data/tracking';
 import { Button, Input } from '@hey/ui';
 import { useSendMessage } from '@xmtp/react-sdk';
 import { useEffect, useRef, useState } from 'react';
-import { Leafwatch } from 'src/helpers/leafwatch';
 
 interface ComposerProps {
   conversation: CachedConversation;

@@ -1,5 +1,7 @@
 import type { FC } from 'react';
 
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { LockClosedIcon, LockOpenIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { LENS_HUB } from '@hey/data/constants';
@@ -14,8 +16,6 @@ import {
 } from '@hey/ui';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
-import errorToast from 'src/helpers/errorToast';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useWriteContract } from 'wagmi';

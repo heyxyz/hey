@@ -8,6 +8,8 @@ import type { FC } from 'react';
 
 import { useHiddenCommentFeedStore } from '@components/Publication';
 import { Menu } from '@headlessui/react';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { CheckCircleIcon, NoSymbolIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
 import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
@@ -15,8 +17,6 @@ import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { useHideCommentMutation, useUnhideCommentMutation } from '@hey/lens';
 import cn from '@hey/ui/cn';
 import { toast } from 'react-hot-toast';
-import errorToast from 'src/helpers/errorToast';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface HideCommentProps {

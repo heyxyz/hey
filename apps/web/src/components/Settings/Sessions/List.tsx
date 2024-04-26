@@ -2,6 +2,8 @@ import type { ApprovedAuthenticationRequest } from '@hey/lens';
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { ComputerDesktopIcon, GlobeAltIcon } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data';
 import { SETTINGS } from '@hey/data/tracking';
@@ -15,8 +17,6 @@ import { Button, EmptyState, ErrorMessage } from '@hey/ui';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { Virtuoso } from 'react-virtuoso';
-import errorToast from 'src/helpers/errorToast';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 

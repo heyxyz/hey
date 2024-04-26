@@ -5,6 +5,7 @@ import MetaTags from '@components/Common/MetaTags';
 import Loader from '@components/Shared/Loader';
 import StaffSidebar from '@components/Staff/Sidebar';
 import ProfileStaffTool from '@components/Staff/Users/Overview/Tool';
+import { Leafwatch } from '@helpers/leafwatch';
 import { UserIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
@@ -19,7 +20,6 @@ import {
 } from '@hey/ui';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import Custom404 from 'src/pages/404';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';

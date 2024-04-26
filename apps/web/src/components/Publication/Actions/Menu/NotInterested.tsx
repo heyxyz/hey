@@ -2,6 +2,8 @@ import type { ApolloCache } from '@hey/lens/apollo';
 import type { FC } from 'react';
 
 import { Menu } from '@headlessui/react';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
 import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
@@ -14,8 +16,6 @@ import {
 } from '@hey/lens';
 import cn from '@hey/ui/cn';
 import { toast } from 'react-hot-toast';
-import errorToast from 'src/helpers/errorToast';
-import { Leafwatch } from 'src/helpers/leafwatch';
 
 interface NotInterestedProps {
   publication: AnyPublication;

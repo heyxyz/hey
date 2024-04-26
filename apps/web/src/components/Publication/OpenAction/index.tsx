@@ -1,6 +1,8 @@
 import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
+import { Leafwatch } from '@helpers/leafwatch';
+import hasOptimisticallyCollected from '@helpers/optimistic/hasOptimisticallyCollected';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { RectangleStackIcon as RectangleStackIconSolid } from '@heroicons/react/24/solid';
 import { PUBLICATION } from '@hey/data/tracking';
@@ -13,8 +15,6 @@ import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
 import plur from 'plur';
 import { useState } from 'react';
-import { Leafwatch } from 'src/helpers/leafwatch';
-import hasOptimisticallyCollected from 'src/helpers/optimistic/hasOptimisticallyCollected';
 
 import CollectModule from './CollectModule';
 

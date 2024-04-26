@@ -1,13 +1,13 @@
 import type { Nft as INft } from '@hey/types/misc';
 import type { FC } from 'react';
 
+import { Leafwatch } from '@helpers/leafwatch';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
 import getNftChainInfo from '@hey/helpers/getNftChainInfo';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Button, Card, Tooltip } from '@hey/ui';
 import Link from 'next/link';
-import { Leafwatch } from 'src/helpers/leafwatch';
 
 import MintedBy from './MintedBy';
 

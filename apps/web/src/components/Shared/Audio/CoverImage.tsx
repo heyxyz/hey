@@ -1,5 +1,7 @@
 import type { ChangeEvent, FC, Ref } from 'react';
 
+import errorToast from '@helpers/errorToast';
+import { uploadFileToIPFS } from '@helpers/uploadToIPFS';
 import { PhotoIcon } from '@heroicons/react/24/outline';
 import { ATTACHMENT } from '@hey/data/constants';
 import imageKit from '@hey/helpers/imageKit';
@@ -7,8 +9,6 @@ import sanitizeDStorageUrl from '@hey/helpers/sanitizeDStorageUrl';
 import { Image, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useState } from 'react';
-import errorToast from 'src/helpers/errorToast';
-import { uploadFileToIPFS } from 'src/helpers/uploadToIPFS';
 
 interface CoverImageProps {
   cover: string;

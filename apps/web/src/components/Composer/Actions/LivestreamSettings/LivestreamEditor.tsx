@@ -1,6 +1,7 @@
 import type { FC, ReactNode } from 'react';
 
 import Video from '@components/Shared/Video';
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import {
   ClipboardDocumentIcon,
   SignalIcon,
@@ -13,7 +14,6 @@ import { Card, Spinner, Tooltip } from '@hey/ui';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import getAuthApiHeaders from 'src/helpers/getAuthApiHeaders';
 import { usePublicationLiveStore } from 'src/store/non-persisted/publication/usePublicationLiveStore';
 
 interface WrapperProps {

@@ -1,11 +1,11 @@
 import type { NextPage } from 'next';
 
 import Footer from '@components/Shared/Footer';
+import { Leafwatch } from '@helpers/leafwatch';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import Link from 'next/link';
 import { useEffect } from 'react';
-import { Leafwatch } from 'src/helpers/leafwatch';
 
 const Privacy: NextPage = () => {
   const updatedAt = 'October 30, 2023';

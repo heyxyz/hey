@@ -1,5 +1,7 @@
 import type { NextPage } from 'next';
 
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { CheckIcon } from '@heroicons/react/24/outline';
 import { HeyPro } from '@hey/abis';
 import { Errors } from '@hey/data';
@@ -15,8 +17,6 @@ import { Button } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import errorToast from 'src/helpers/errorToast';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useProStore } from 'src/store/non-persisted/useProStore';

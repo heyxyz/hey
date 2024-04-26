@@ -1,6 +1,9 @@
 import type { ApprovedAllowanceAmountResult } from '@hey/lens';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
+import errorToast from '@helpers/errorToast';
+import getAllowanceModule from '@helpers/getAllowanceModule';
+import { Leafwatch } from '@helpers/leafwatch';
 import { ExclamationTriangleIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { MAX_UINT256 } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
@@ -11,9 +14,6 @@ import {
 import { Button, Modal, Spinner, WarningMessage } from '@hey/ui';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import errorToast from 'src/helpers/errorToast';
-import getAllowanceModule from 'src/helpers/getAllowanceModule';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useSendTransaction, useWaitForTransactionReceipt } from 'wagmi';
 

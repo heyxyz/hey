@@ -2,6 +2,8 @@ import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import { Menu } from '@headlessui/react';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
@@ -10,8 +12,6 @@ import { useHidePublicationMutation } from '@hey/lens';
 import { useApolloClient } from '@hey/lens/apollo';
 import cn from '@hey/ui/cn';
 import { toast } from 'react-hot-toast';
-import errorToast from 'src/helpers/errorToast';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface MirrorProps {

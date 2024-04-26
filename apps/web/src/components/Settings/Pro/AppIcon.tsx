@@ -1,5 +1,7 @@
 import type { FC } from 'react';
 
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { Leafwatch } from '@helpers/leafwatch';
 import { CheckCircleIcon as CheckCircleIconOutline } from '@heroicons/react/24/outline';
 import { CheckCircleIcon as CheckCircleIconSolid } from '@heroicons/react/24/solid';
 import { APP_NAME, HEY_API_URL, STATIC_IMAGES_URL } from '@hey/data/constants';
@@ -8,8 +10,6 @@ import { Card, CardHeader, Tooltip } from '@hey/ui';
 import axios from 'axios';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import getAuthApiHeaders from 'src/helpers/getAuthApiHeaders';
-import { Leafwatch } from 'src/helpers/leafwatch';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 
 const icons = [

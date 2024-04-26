@@ -1,10 +1,10 @@
 import type { FC } from 'react';
 
+import { Leafwatch } from '@helpers/leafwatch';
 import { MoonIcon, SunIcon } from '@heroicons/react/24/outline';
 import { SYSTEM } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
 import { useTheme } from 'next-themes';
-import { Leafwatch } from 'src/helpers/leafwatch';
 
 interface ThemeSwitchProps {
   className?: string;
