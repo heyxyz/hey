@@ -11,7 +11,7 @@ export const get: Handler = async (req, res) => {
 
   try {
     const response = await lensPg.query(`
-      SELECT COUNT(h.handle) AS count
+      SELECT COUNT(h.handle_id) AS count
       FROM namespace.handle h
       JOIN namespace.handle_link hl ON h.handle_id = hl.handle_id
       JOIN profile.record p ON hl.token_id = p.profile_id
