@@ -311,8 +311,8 @@ importers:
         specifier: ^5.3.0
         version: 5.3.0(plyr@3.7.8)(react@18.3.1)
       prosekit:
-        specifier: ^0.6.5
-        version: 0.6.5(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^0.6.6
+        version: 0.6.6(react-dom@18.3.1)(react@18.3.1)
       rc-slider:
         specifier: 10.6.2
         version: 10.6.2(react-dom@18.3.1)(react@18.3.1)
@@ -6560,8 +6560,8 @@ packages:
   /@prosekit/basic@0.3.4:
     resolution: {integrity: sha512-75aezW5iEiwOnWhF0gRdI1XoYpH/gKbxitEAFIlpJgoiu5OC8HnOd8qIdoXYWoBKcPsFg6kBlaGE0ct1K52DaA==}
     dependencies:
-      '@prosekit/core': 0.4.0
-      '@prosekit/extensions': 0.4.3
+      '@prosekit/core': 0.4.1
+      '@prosekit/extensions': 0.4.4
       '@prosekit/pm': 0.1.3
     transitivePeerDependencies:
       - '@types/hast'
@@ -6575,8 +6575,8 @@ packages:
       - shikiji
     dev: false
 
-  /@prosekit/core@0.4.0:
-    resolution: {integrity: sha512-gqTGk3gH44O2tJ+qY2pyoy+aCt13KnzrtYAMpti2yciuHfCX/mhUFD8hlqbbzA3Na2HX8S8SI2x2/F2vzlI+dg==}
+  /@prosekit/core@0.4.1:
+    resolution: {integrity: sha512-zpWD8XEH1JmApomUApPgbCtsGhId5/vPZhMbc4U0BQC1zgjQ/z0j6bJhgJliR7CNiyL1hgkDESBS0o3m1LybDQ==}
     dependencies:
       '@prosekit/pm': 0.1.3
       clsx: 2.1.1
@@ -6584,10 +6584,10 @@ packages:
       type-fest: 4.17.0
     dev: false
 
-  /@prosekit/extensions@0.4.3:
-    resolution: {integrity: sha512-oJTgpxa+1TCUB3AyRbLreQWPxH9XEKQvQ/3Gzqd9Z0ns3t5auNLltbP5X5km1Sef3wSuu5YK8cg30Lj+vzs+rA==}
+  /@prosekit/extensions@0.4.4:
+    resolution: {integrity: sha512-8JqO4JNJUB9EEVKS6YOw2CAxN88fjyWw+LA5ZRVsIavBy0zxDc/NJ22yzKbELKzYf2L+oUJBMT5zbg+rVzZyAA==}
     dependencies:
-      '@prosekit/core': 0.4.0
+      '@prosekit/core': 0.4.1
       '@prosekit/pm': 0.1.3
       prosemirror-dropcursor: 1.8.1
       prosemirror-flat-list: 0.5.0
@@ -6643,7 +6643,7 @@ packages:
       preact:
         optional: true
     dependencies:
-      '@prosekit/core': 0.4.0
+      '@prosekit/core': 0.4.1
       '@prosekit/pm': 0.1.3
       '@prosekit/web': 0.1.2
       react-merge-refs: 2.1.1
@@ -6670,7 +6670,7 @@ packages:
       react-dom:
         optional: true
     dependencies:
-      '@prosekit/core': 0.4.0
+      '@prosekit/core': 0.4.1
       '@prosekit/pm': 0.1.3
       '@prosekit/web': 0.1.2
       '@prosemirror-adapter/core': 0.2.6
@@ -6697,7 +6697,7 @@ packages:
       solid-js:
         optional: true
     dependencies:
-      '@prosekit/core': 0.4.0
+      '@prosekit/core': 0.4.1
       '@prosekit/pm': 0.1.3
       '@prosekit/web': 0.1.2
     transitivePeerDependencies:
@@ -6720,7 +6720,7 @@ packages:
       svelte:
         optional: true
     dependencies:
-      '@prosekit/core': 0.4.0
+      '@prosekit/core': 0.4.1
       '@prosekit/pm': 0.1.3
       '@prosekit/web': 0.1.2
     transitivePeerDependencies:
@@ -6743,7 +6743,7 @@ packages:
       vue:
         optional: true
     dependencies:
-      '@prosekit/core': 0.4.0
+      '@prosekit/core': 0.4.1
       '@prosekit/pm': 0.1.3
       '@prosekit/web': 0.1.2
       '@prosemirror-adapter/core': 0.2.6
@@ -6770,8 +6770,8 @@ packages:
       '@aria-ui/presence': 0.0.7
       '@aria-ui/tooltip': 0.0.13
       '@floating-ui/dom': 1.6.3
-      '@prosekit/core': 0.4.0
-      '@prosekit/extensions': 0.4.3
+      '@prosekit/core': 0.4.1
+      '@prosekit/extensions': 0.4.4
       '@prosekit/pm': 0.1.3
       '@zag-js/dom-query': 0.47.0
     transitivePeerDependencies:
@@ -18823,8 +18823,8 @@ packages:
     resolution: {integrity: sha512-PgTgs/BlvHxOu8QuEN7wi5A0OmXaBcHpmCSTehcs6Uuu9IkDIEo13Hy7n898RHfrQ49vKCoGeWZSaAK01nwVig==}
     dev: false
 
-  /prosekit@0.6.5(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-PcBACmtZncQgFXKYSG50KSzaJ/uebbjijpjL9D5UxPh7CgjSwhYpzhg+440unqxklyzlUGA2O2e0wZ9RJlGBoA==}
+  /prosekit@0.6.6(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-w9duNEE4Y5yK4Uz71kQIfXz7a7g49xPTWJFRbuizOdbiMGj86tZKm7uC1na2D7rSUcpFbDDqTjSW+Cp3aPz1YQ==}
     peerDependencies:
       preact: '>= 10.11.0'
       react: '>= 18.2.0'
@@ -18847,8 +18847,8 @@ packages:
         optional: true
     dependencies:
       '@prosekit/basic': 0.3.4
-      '@prosekit/core': 0.4.0
-      '@prosekit/extensions': 0.4.3
+      '@prosekit/core': 0.4.1
+      '@prosekit/extensions': 0.4.4
       '@prosekit/lit': 0.3.1
       '@prosekit/pm': 0.1.3
       '@prosekit/preact': 0.3.3
