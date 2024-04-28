@@ -20,7 +20,7 @@ class Database {
     database: 'social_production_lens_v2_polygon',
     host: 'lens.hey.xyz',
     idleTimeoutMillis: 30000,
-    max: 800,
+    max: 1500,
     password: process.env.LENS_DATABASE_PASSWORD,
     port: 6969,
     user: 'hey'
