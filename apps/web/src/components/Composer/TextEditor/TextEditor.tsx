@@ -11,6 +11,7 @@ import { defineTextEditorExtension } from './extension';
 import InlineMenu from './InlineMenu';
 import MentionPicker from './MentionPicker';
 import { useContentChange } from './useContentChange';
+import { usePaste } from './usePaste';
 
 export default function Editor() {
   const { currentProfile } = useProfileStore();
@@ -20,6 +21,7 @@ export default function Editor() {
   }, []);
 
   useContentChange(editor);
+  usePaste(editor);
 
   return (
     <ProseKit editor={editor}>
