@@ -20,6 +20,9 @@ import { definePlaceholder } from 'prosekit/extensions/placeholder';
 import { defineUnderline } from 'prosekit/extensions/underline';
 import { defineVirtualSelection } from 'prosekit/extensions/virtual-selection';
 
+const EMAIL_MATCHER =
+  /(([^\s"(),.:;<>@[\\\]]+(\.[^\s"(),.:;<>@[\\\]]+)*)|(".+"))@((\[(?:\d{1,3}\.){3}\d{1,3}])|(([\dA-Za-z\-]+\.)+[A-Za-z]{2,}))/g;
+
 function defineHashtag() {
   return union([
     defineMarkSpec({
@@ -46,8 +49,16 @@ function defineCashtag() {
   ]);
 }
 
-function defineLink() {
-  return union([defineLinkMarkRule(), defineLinkSpec()]);
+function defineEmailMarkRule() {
+  return defineMarkRule({
+    attrs: (match) => ({ href: match[1] }),
+    regex: EMAIL_MATCHER,
+    type: 'link'
+  });
+}
+
+function defineAutoLink() {
+  return union([defineLinkSpec(), defineLinkMarkRule(), defineEmailMarkRule()]);
 }
 
 export function defineTextEditorExtension() {
@@ -65,7 +76,7 @@ export function defineTextEditorExtension() {
     defineCode(),
     defineHashtag(),
     defineCashtag(),
-    defineLink(),
+    defineAutoLink(),
     defineVirtualSelection(),
     defineMention(),
     definePlaceholder({ placeholder: "What's ProseKit?!", strategy: 'doc' })
