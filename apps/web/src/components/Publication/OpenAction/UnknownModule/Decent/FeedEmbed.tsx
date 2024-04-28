@@ -186,7 +186,7 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
           />
         </div>
         {!!actionData && nft ? (
-          <div className="flex items-center justify-between border-t p-4 dark:border-gray-700">
+          <div className="flex flex-col items-start justify-between gap-4 border-t p-4 sm:flex-row sm:items-center sm:gap-0 dark:border-gray-700">
             <div className="flex items-center space-x-2">
               {nft.creatorAddress ? (
                 <ActionInfo
@@ -205,13 +205,16 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
                 content={<span>{OPEN_ACTION_EMBED_TOOLTIP}</span>}
                 placement="top"
               >
-                <Button className="text-base font-normal" size="lg">
+                <Button
+                  className="w-full text-base font-normal sm:w-auto"
+                  size="lg"
+                >
                   {openActionCTA(actionData.uiData.platformName)}
                 </Button>
               </Tooltip>
             ) : (
               <Button
-                className="text-base font-normal"
+                className="w-full text-base font-normal sm:w-auto"
                 onClick={() => {
                   setShowOpenActionModal(true);
                   Leafwatch.track(PUBLICATION.OPEN_ACTIONS.DECENT.OPEN_DECENT, {

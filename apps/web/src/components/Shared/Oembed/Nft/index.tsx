@@ -31,7 +31,7 @@ const Nft: FC<NftProps> = ({ nft }) => {
         />
       </div>
       <div className="flex items-center justify-between border-t p-3 dark:border-gray-700">
-        <div className="flex items-center space-x-2">
+        <div className="flex w-full items-center space-x-2">
           {nft.chain ? (
             <Tooltip
               content={getNftChainInfo(nft.chain).name}
@@ -44,34 +44,42 @@ const Nft: FC<NftProps> = ({ nft }) => {
               />
             </Tooltip>
           ) : null}
-          <div className="flex items-start justify-start gap-2">
-            {!!data && !!data.defaultProfile && (
-              <Image
-                alt={data?.defaultProfile?.id}
-                className="size-6 rounded-full border bg-gray-200 dark:border-gray-700"
-                height={24}
-                loading="lazy"
-                onError={({ currentTarget }) => {
-                  currentTarget.src = getLennyURL(data?.defaultProfile?.id);
-                }}
-                src={getAvatar(data?.defaultProfile)}
-                width={24}
-              />
-            )}
-            <div className="flex flex-col items-start justify-start">
-              <p className="line-clamp-1 text-sm">{nft.collectionName}</p>
-              <p className="line-clamp-1 text-sm opacity-50">by {byName}</p>
+          <div className="flex w-full flex-col items-start justify-between gap-2 sm:flex-row">
+            <div className="flex items-center gap-2">
+              {!!data && !!data.defaultProfile && (
+                <Image
+                  alt={data?.defaultProfile?.id}
+                  className="size-6 rounded-full border bg-gray-200 dark:border-gray-700"
+                  height={24}
+                  loading="lazy"
+                  onError={({ currentTarget }) => {
+                    currentTarget.src = getLennyURL(data?.defaultProfile?.id);
+                  }}
+                  src={getAvatar(data?.defaultProfile)}
+                  width={24}
+                />
+              )}
+              <div className="flex flex-col items-start justify-start">
+                <p className="line-clamp-1 text-sm">{nft.collectionName}</p>
+                <p className="line-clamp-1 text-sm opacity-50">by {byName}</p>
+              </div>
             </div>
+
+            <Tooltip
+              className="w-full sm:w-auto"
+              content={<span>{OPEN_ACTION_NO_EMBED_TOOLTIP}</span>}
+              placement="top"
+            >
+              <Button
+                className="w-full text-base font-normal sm:w-auto"
+                disabled={true}
+                size="lg"
+              >
+                Mint
+              </Button>
+            </Tooltip>
           </div>
         </div>
-        <Tooltip
-          content={<span>{OPEN_ACTION_NO_EMBED_TOOLTIP}</span>}
-          placement="top"
-        >
-          <Button className="text-base font-normal" disabled={true} size="lg">
-            Mint
-          </Button>
-        </Tooltip>
       </div>
     </Card>
   );

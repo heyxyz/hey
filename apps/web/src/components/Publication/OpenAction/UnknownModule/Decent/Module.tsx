@@ -372,7 +372,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
             <div className="pt-2">
               <img
                 alt={actionData?.uiData.nftName}
-                className="aspect-[1.5] max-h-[350px] w-full rounded-xl object-cover"
+                className="aspect-[1.5] max-h-[350px] w-full rounded-xl object-contain"
                 src={sanitizeDStorageUrl(actionData?.uiData.nftUri)}
               />
               {nft.description && (
@@ -494,7 +494,8 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                 </span>
                 <div className="flex flex-col items-end">
                   <p>
-                    {formattedTotalAmount.toFixed(4)} {selectedCurrency?.symbol}
+                    {loadingCurrency ? '--' : formattedTotalAmount.toFixed(4)}{' '}
+                    {selectedCurrency?.symbol}
                   </p>
                   <div className="ld-text-gray-500 text-sm">
                     ~$
