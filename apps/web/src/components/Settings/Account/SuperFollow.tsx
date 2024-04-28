@@ -1,5 +1,7 @@
 import type { FC } from 'react';
 
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { StarIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import {
@@ -11,13 +13,13 @@ import {
 import { Errors } from '@hey/data/errors';
 import { Regex } from '@hey/data/regex';
 import { SETTINGS } from '@hey/data/tracking';
+import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
+import getSignature from '@hey/helpers/getSignature';
 import {
   FollowModuleType,
   useBroadcastOnchainMutation,
   useCreateSetFollowModuleTypedDataMutation
 } from '@hey/lens';
-import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
-import getSignature from '@hey/lib/getSignature';
 import {
   Button,
   Card,
@@ -27,8 +29,6 @@ import {
   Select,
   useZodForm
 } from '@hey/ui';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';

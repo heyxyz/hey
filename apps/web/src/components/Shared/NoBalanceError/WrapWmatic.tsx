@@ -1,9 +1,9 @@
 import type { Amount } from '@hey/lens';
 import type { FC, ReactNode } from 'react';
 
+import errorToast from '@helpers/errorToast';
 import { InboxIcon } from '@heroicons/react/24/outline';
 import { Button, Spinner } from '@hey/ui';
-import errorToast from '@lib/errorToast';
 import { useState } from 'react';
 import { parseEther } from 'viem';
 import { useWriteContract } from 'wagmi';

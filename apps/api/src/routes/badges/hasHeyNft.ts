@@ -3,14 +3,14 @@ import type { Address } from 'viem';
 
 import { HeyMembershipNft } from '@hey/abis';
 import { HEY_MEMBERSHIP_NFT } from '@hey/data/constants';
-import logger from '@hey/lib/logger';
-import catchedError from 'src/lib/catchedError';
+import logger from '@hey/helpers/logger';
+import catchedError from 'src/helpers/catchedError';
 import {
   CACHE_AGE_INDEFINITE,
   SWR_CACHE_AGE_10_MINS_30_DAYS
-} from 'src/lib/constants';
-import getRpc from 'src/lib/getRpc';
-import { noBody } from 'src/lib/responses';
+} from 'src/helpers/constants';
+import getRpc from 'src/helpers/getRpc';
+import { noBody } from 'src/helpers/responses';
 import { createPublicClient } from 'viem';
 import { polygon } from 'viem/chains';
 

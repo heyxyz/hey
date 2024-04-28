@@ -5,22 +5,22 @@ import type {
 } from '@hey/lens';
 import type { FC } from 'react';
 
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data/errors';
 import { PROFILE } from '@hey/data/tracking';
+import getAvatar from '@hey/helpers/getAvatar';
+import getLennyURL from '@hey/helpers/getLennyURL';
+import getProfile from '@hey/helpers/getProfile';
 import {
   ManagedProfileVisibility,
   useAuthenticateMutation,
   useChallengeLazyQuery,
   useProfilesManagedQuery
 } from '@hey/lens';
-import getAvatar from '@hey/lib/getAvatar';
-import getLennyURL from '@hey/lib/getLennyURL';
-import getProfile from '@hey/lib/getProfile';
 import { ErrorMessage, Image, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { signIn, signOut } from 'src/store/persisted/useAuthStore';

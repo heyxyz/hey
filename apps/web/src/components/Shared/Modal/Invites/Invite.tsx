@@ -1,13 +1,13 @@
 import type { FC } from 'react';
 
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { Errors } from '@hey/data';
 import { ADDRESS_PLACEHOLDER, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
 import { INVITE } from '@hey/data/tracking';
 import { useInviteMutation } from '@hey/lens';
 import { Button, Form, Input, useZodForm } from '@hey/ui';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import plur from 'plur';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';

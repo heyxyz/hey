@@ -1,10 +1,10 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/lib/logger';
-import catchedError from 'src/lib/catchedError';
-import heyPrisma from 'src/lib/heyPrisma';
-import validateLensAccount from 'src/lib/middlewares/validateLensAccount';
-import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
+import logger from '@hey/helpers/logger';
+import catchedError from 'src/helpers/catchedError';
+import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
+import prisma from 'src/helpers/prisma';
+import { invalidBody, noBody, notAllowed } from 'src/helpers/responses';
 import { object, string } from 'zod';
 
 type ExtensionRequest = {
@@ -36,7 +36,7 @@ export const post: Handler = async (req, res) => {
   const { id } = body as ExtensionRequest;
 
   try {
-    const result = await heyPrisma.draftPublication.delete({
+    const result = await prisma.draftPublication.delete({
       where: { id: id as string }
     });
 

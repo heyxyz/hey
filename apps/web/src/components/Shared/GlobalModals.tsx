@@ -8,6 +8,7 @@ import {
   ShieldCheckIcon,
   TicketIcon
 } from '@heroicons/react/24/outline';
+import { APP_NAME } from '@hey/data/constants';
 import { Modal } from '@hey/ui';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
@@ -23,6 +24,7 @@ import GlobalModalsFromUrl from './GlobalModalsFromUrl';
 import Invites from './Modal/Invites';
 import OptimisticTransactions from './Modal/OptimisticTransactions';
 import ReportProfile from './Modal/ReportProfile';
+import Score from './Modal/Score';
 import SwitchProfiles from './SwitchProfiles';
 
 const GlobalModals: FC = () => {
@@ -39,13 +41,15 @@ const GlobalModals: FC = () => {
     setShowProfileSwitchModal,
     setShowPublicationReportModal,
     setShowReportProfileModal,
+    setShowScoreModal,
     showAuthModal,
     showInvitesModal,
     showNewPostModal,
     showOptimisticTransactionsModal,
     showProfileSwitchModal,
     showPublicationReportModal,
-    showReportProfileModal
+    showReportProfileModal,
+    showScoreModal
   } = useGlobalModalStateStore();
   const { publicationContent, quotedPublication } = usePublicationStore();
   const { attachments, isUploading } = usePublicationAttachmentStore(
@@ -147,6 +151,14 @@ const GlobalModals: FC = () => {
         title="Optimistic Transactions"
       >
         <OptimisticTransactions />
+      </Modal>
+      <Modal
+        onClose={() => setShowScoreModal(false, null)}
+        show={showScoreModal}
+        size="xs"
+        title={`${APP_NAME} score`}
+      >
+        <Score />
       </Modal>
     </>
   );

@@ -1,61 +1,41 @@
-import { FireIcon } from '@heroicons/react/24/outline';
-import { APP_NAME } from '@hey/data/constants';
-import getHeyScore from '@hey/lib/api/getHeyScore';
-import humanize from '@hey/lib/humanize';
-import { Button, Modal } from '@hey/ui';
-import getAuthApiHeaders from '@lib/getAuthApiHeaders';
-import isFeatureAvailable from '@lib/isFeatureAvailable';
+import { STATIC_IMAGES_URL } from '@hey/data/constants';
+import getScore from '@hey/helpers/api/getScore';
+import humanize from '@hey/helpers/humanize';
 import { useQuery } from '@tanstack/react-query';
-import { type FC, useState } from 'react';
+import { type FC } from 'react';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 
 import { MetaDetails } from './Details';
 
 interface ScoreProps {
-  address: string;
+  id: string;
 }
 
-const Score: FC<ScoreProps> = ({ address }) => {
-  const [showModal, setShowModal] = useState(false);
+const Score: FC<ScoreProps> = ({ id }) => {
+  const { setShowScoreModal } = useGlobalModalStateStore();
 
   const { data: score, isLoading } = useQuery({
-    queryFn: () => getHeyScore(address, getAuthApiHeaders()),
-    queryKey: ['getHeyScore', address || '']
+    queryFn: () => getScore(id),
+    queryKey: ['getScore', id]
   });
 
-  if (!isFeatureAvailable('hey-score')) {
-    return null;
-  }
-
-  if (isLoading || !score) {
+  if (isLoading || !score?.score) {
     return null;
   }
 
   return (
-    <>
-      <MetaDetails icon={<FireIcon className="size-4" />}>
-        <Button
-          className="text-xs font-medium"
-          onClick={() => setShowModal(true)}
-          size="sm"
-          variant="secondary"
-        >
-          {humanize(score)}
-        </Button>
-      </MetaDetails>
-      <Modal
-        icon={<FireIcon className="size-5" />}
-        onClose={() => setShowModal(false)}
-        show={showModal}
-        size="xs"
-        title={`${APP_NAME} score`}
+    <MetaDetails
+      icon={
+        <img className="size-4" src={`${STATIC_IMAGES_URL}/app-icon/2.png`} />
+      }
+    >
+      <button
+        className="font-mono text-xs font-bold"
+        onClick={() => setShowScoreModal(true, score.score)}
       >
-        <div className="p-5 text-center leading-7">
-          Your <b>{APP_NAME} score</b> is determined by a super-secret algorithm
-          that combines the number of likes, collects you've received, the
-          publications you've posted, and lot other factors 🤓
-        </div>
-      </Modal>
-    </>
+        {humanize(score.score)}
+      </button>
+    </MetaDetails>
   );
 };
 

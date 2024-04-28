@@ -3,6 +3,7 @@ import type { NextPage } from 'next';
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import List from '@components/Staff/Users/List';
+import { Leafwatch } from '@helpers/leafwatch';
 import { apps as knownApps } from '@hey/data/apps';
 import { APP_NAME } from '@hey/data/constants';
 import { ModFeedType } from '@hey/data/enums';
@@ -20,14 +21,13 @@ import {
   GridItemFour,
   GridLayout
 } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import { useEffect, useState } from 'react';
 import Custom404 from 'src/pages/404';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 import FeedType from './FeedType';
-import Followerings from './Followerings';
 import LatestFeed from './LatestFeed';
+import ReportsFeed from './ReportsFeed';
 import SearchFeed from './SearchFeed';
 
 const FILTER_APPS = knownApps;
@@ -102,7 +102,7 @@ const Mod: NextPage = () => {
         )}
         {feedType === ModFeedType.SEARCH && <SearchFeed />}
         {feedType === ModFeedType.PROFILES && <List />}
-        {feedType === ModFeedType.FOLLOWERINGS && <Followerings />}
+        {feedType === ModFeedType.REPORTS && <ReportsFeed />}
       </GridItemEight>
       <GridItemFour>
         <Card className="p-5">
@@ -265,6 +265,7 @@ const Mod: NextPage = () => {
           {feedType === ModFeedType.SEARCH && (
             <div>Search for Publications</div>
           )}
+          {feedType === ModFeedType.REPORTS && <div>Reported Publications</div>}
         </Card>
         <Footer />
       </GridItemFour>

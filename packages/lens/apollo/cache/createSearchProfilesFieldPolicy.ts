@@ -1,6 +1,6 @@
 import type { FieldPolicy } from '@apollo/client';
 
-import { cursorBasedPagination } from '../lib';
+import { cursorBasedPagination } from '../helpers';
 
 const createSearchProfilesFieldPolicy = (): FieldPolicy => {
   return cursorBasedPagination([['request', ['where', 'query']]]);

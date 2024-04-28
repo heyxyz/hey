@@ -1,12 +1,12 @@
 import type { AllowedToken } from '@hey/types/hey';
 import type { FC } from 'react';
 
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { Leafwatch } from '@helpers/leafwatch';
 import { HEY_API_URL } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
 import { STAFFTOOLS } from '@hey/data/tracking';
 import { Button, Form, Input, useZodForm } from '@hey/ui';
-import getAuthApiHeaders from '@lib/getAuthApiHeaders';
-import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';

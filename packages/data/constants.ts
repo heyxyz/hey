@@ -20,6 +20,7 @@ export const HEY_LENS_SIGNUP = getEnvConfig().heyLensSignup;
 export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 export const PERMISSIONLESS_CREATOR = getEnvConfig().permissionlessCreator;
 export const HEY_PRO = getEnvConfig().heyPro;
+export const HEY_TIPPING = getEnvConfig().heyTipping;
 
 export const IS_MAINNET = LENS_API_URL === LensEndpoint.Mainnet;
 export const ADDRESS_PLACEHOLDER = '0x03Ba3...7EF';
@@ -29,6 +30,7 @@ export const APP_NAME = 'Hey';
 export const DESCRIPTION = `${APP_NAME}.xyz is a decentralized, and permissionless social media app built with Lens Protocol 🌿`;
 export const APP_VERSION = packageJson.version;
 export const BRAND_COLOR = '#FB3A5D';
+export const MAX_UINT256 = 2n ** 256n - 1n;
 
 // Git
 export const GIT_COMMIT_SHA =
@@ -56,6 +58,7 @@ export const PRO_TIER_PRICES = {
 export const HEY_MEMBERSHIP_NFT = IS_MAINNET
   ? '0x100372BBF7f975f6b1448fB11AB0F814b2740EEd'
   : '0x75120677aBF34ae95a916C6E9DbB610a06536CC3';
+export const SUPER_ADMIN = '0x0d';
 
 // URLs
 export const STATIC_ASSETS_URL = 'https://hey-assets.b-cdn.net';
@@ -63,8 +66,8 @@ export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
 export const LENS_MEDIA_SNAPSHOT_URL =
   'https://ik.imagekit.io/lens/media-snapshot';
 export const POLYGONSCAN_URL = IS_MAINNET
-  ? 'https://www.oklink.com/polygon'
-  : 'https://www.oklink.com/amoy';
+  ? 'https://polygonscan.com/'
+  : 'https://amoy.polygonscan.com/';
 export const IPFS_GATEWAY = 'https://gw.ipfs-lens.dev/ipfs';
 export const ARWEAVE_GATEWAY = 'https://gateway.irys.xyz';
 export const EVER_API = 'https://endpoint.4everland.co';

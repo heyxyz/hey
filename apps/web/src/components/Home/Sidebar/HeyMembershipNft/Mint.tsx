@@ -3,12 +3,12 @@ import type { FC } from 'react';
 
 import CollectAction from '@components/Publication/OpenAction/CollectModule/CollectAction';
 import Loader from '@components/Shared/Loader';
+import { signatureFont } from '@helpers/fonts';
 import { Errors } from '@hey/data';
 import { APP_NAME, IS_MAINNET } from '@hey/data/constants';
 import { usePublicationQuery } from '@hey/lens';
 import { ErrorMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { signatureFont } from '@lib/fonts';
 import Link from 'next/link';
 
 interface MintProps {

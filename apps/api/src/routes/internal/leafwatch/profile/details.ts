@@ -1,11 +1,11 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/lib/logger';
-import catchedError from 'src/lib/catchedError';
-import { SWR_CACHE_AGE_1_SEC_30_DAYS } from 'src/lib/constants';
-import createClickhouseClient from 'src/lib/createClickhouseClient';
-import validateIsStaff from 'src/lib/middlewares/validateIsStaff';
-import { noBody, notAllowed } from 'src/lib/responses';
+import logger from '@hey/helpers/logger';
+import catchedError from 'src/helpers/catchedError';
+import { SWR_CACHE_AGE_1_SEC_30_DAYS } from 'src/helpers/constants';
+import createClickhouseClient from 'src/helpers/createClickhouseClient';
+import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
+import { noBody, notAllowed } from 'src/helpers/responses';
 
 export const get: Handler = async (req, res) => {
   const { id } = req.query;

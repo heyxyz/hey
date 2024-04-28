@@ -2,21 +2,21 @@ import type { UnlinkHandleFromProfileRequest } from '@hey/lens';
 import type { FC } from 'react';
 
 import IndexStatus from '@components/Shared/IndexStatus';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { MinusCircleIcon } from '@heroicons/react/24/outline';
 import { TokenHandleRegistry } from '@hey/abis';
 import { Errors } from '@hey/data';
 import { TOKEN_HANDLE_REGISTRY } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
+import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
+import getSignature from '@hey/helpers/getSignature';
 import {
   useBroadcastOnchainMutation,
   useCreateUnlinkHandleFromProfileTypedDataMutation,
   useUnlinkHandleFromProfileMutation
 } from '@hey/lens';
-import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
-import getSignature from '@hey/lib/getSignature';
 import { Button, Spinner } from '@hey/ui';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';

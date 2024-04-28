@@ -10,8 +10,8 @@ import {
   XCircleIcon
 } from '@heroicons/react/24/outline';
 import { ADDRESS_PLACEHOLDER } from '@hey/data/constants';
+import splitNumber from '@hey/helpers/splitNumber';
 import { OpenActionModuleType } from '@hey/lens';
-import splitNumber from '@hey/lib/splitNumber';
 import { Button, Input } from '@hey/ui';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';

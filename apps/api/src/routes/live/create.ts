@@ -1,10 +1,10 @@
 import type { Handler } from 'express';
 
 import { LIVEPEER_KEY } from '@hey/data/constants';
-import logger from '@hey/lib/logger';
-import parseJwt from '@hey/lib/parseJwt';
-import catchedError from 'src/lib/catchedError';
-import { invalidBody, noBody } from 'src/lib/responses';
+import logger from '@hey/helpers/logger';
+import parseJwt from '@hey/helpers/parseJwt';
+import catchedError from 'src/helpers/catchedError';
+import { invalidBody, noBody } from 'src/helpers/responses';
 import { v4 as uuid } from 'uuid';
 import { boolean, object } from 'zod';
 

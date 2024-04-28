@@ -1,14 +1,14 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/lib/logger';
-import catchedError from 'src/lib/catchedError';
-import { SWR_CACHE_AGE_10_SECS_30_DAYS } from 'src/lib/constants';
-import lensPrisma from 'src/lib/lensPrisma';
+import logger from '@hey/helpers/logger';
+import lensPg from 'src/db/lensPg';
+import catchedError from 'src/helpers/catchedError';
+import { SWR_CACHE_AGE_10_SECS_30_DAYS } from 'src/helpers/constants';
 
 // TODO: add tests
 export const get: Handler = async (req, res) => {
   try {
-    const response = await lensPrisma.$queryRaw<any>`
+    const response = await lensPg.query(`
       SELECT ec.name AS name,
         ec.symbol AS symbol,
         ec.decimals AS decimals,
@@ -17,7 +17,7 @@ export const get: Handler = async (req, res) => {
       FROM fiat.conversion AS fc
       JOIN enabled.currency AS ec ON fc.currency = ec.currency
       WHERE fc.fiatsymbol = 'usd';
-    `;
+    `);
 
     const result = response.map((row: any) => ({
       address: row.address.toLowerCase(),

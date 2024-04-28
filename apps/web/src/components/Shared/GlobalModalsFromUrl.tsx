@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
+import { Leafwatch } from '@helpers/leafwatch';
 import { AUTH } from '@hey/data/tracking';
-import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';

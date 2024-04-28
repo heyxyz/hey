@@ -4,6 +4,7 @@ import MetaTags from '@components/Common/MetaTags';
 import Interests from '@components/Settings/Interests/Interests';
 import Beta from '@components/Shared/Badges/Beta';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
+import { Leafwatch } from '@helpers/leafwatch';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import {
@@ -13,7 +14,6 @@ import {
   GridItemFour,
   GridLayout
 } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import { useEffect } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 

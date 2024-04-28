@@ -2,13 +2,13 @@ import type { Draft } from '@hey/types/hey';
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { ArchiveBoxArrowDownIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Button, EmptyState, ErrorMessage } from '@hey/ui';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';

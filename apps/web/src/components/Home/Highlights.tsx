@@ -10,6 +10,7 @@ import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { Virtuoso } from 'react-virtuoso';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
+import { useTipsStore } from 'src/store/non-persisted/useTipsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 
@@ -17,6 +18,7 @@ const Highlights: FC = () => {
   const { currentProfile } = useProfileStore();
   const { txnQueue } = useTransactionStore();
   const { fetchAndStoreViews } = useImpressionsStore();
+  const { fetchAndStoreTips } = useTipsStore();
 
   // Variables
   const request: FeedHighlightsRequest = {
@@ -28,6 +30,7 @@ const Highlights: FC = () => {
     onCompleted: async ({ feedHighlights }) => {
       const ids = feedHighlights?.items?.map((p) => p.id) || [];
       await fetchAndStoreViews(ids);
+      await fetchAndStoreTips(ids);
     },
     variables: { request }
   });
@@ -46,6 +49,7 @@ const Highlights: FC = () => {
     });
     const ids = data?.feedHighlights?.items?.map((p) => p.id) || [];
     await fetchAndStoreViews(ids);
+    await fetchAndStoreTips(ids);
   };
 
   if (loading) {

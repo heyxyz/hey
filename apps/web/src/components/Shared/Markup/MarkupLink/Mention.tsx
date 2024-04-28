@@ -1,13 +1,12 @@
 import type { MarkupLinkProps } from '@hey/types/misc';
 import type { FC } from 'react';
 
+import Slug from '@components/Shared/Slug';
+import UserPreview from '@components/Shared/UserPreview';
+import { Leafwatch } from '@helpers/leafwatch';
 import { PUBLICATION } from '@hey/data/tracking';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Leafwatch } from '@lib/leafwatch';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import Link from 'next/link';
-
-import Slug from '../../Slug';
-import UserPreview from '../../UserPreview';
 
 const Mention: FC<MarkupLinkProps> = ({ mentions, title }) => {
   const handle = title?.slice(1);

@@ -1,9 +1,9 @@
 import type { Preferences } from '@hey/types/hey';
 
 import { TEST_LENS_ID } from '@hey/data/constants';
-import getAuthApiHeadersForTest from '@hey/lib/getAuthApiHeadersForTest';
+import getAuthApiHeadersForTest from '@hey/helpers/getAuthApiHeadersForTest';
 import axios from 'axios';
-import { TEST_URL } from 'src/lib/constants';
+import { TEST_URL } from 'src/helpers/constants';
 import { describe, expect, test } from 'vitest';
 
 describe('preferences/get', () => {

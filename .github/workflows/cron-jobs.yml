@@ -5,27 +5,19 @@ on:
     - cron: '*/30 * * * *'
   workflow_dispatch:
 
-jobs:
-  cleanup-postgres:
-    name: Cleanup Postgres
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cleanup Postgres
-        uses: indiesdev/curl@v1.1
-        with:
-          url: https://api.hey.xyz/internal/cron/cleanPostgres
-          method: 'POST'
-          body: '{ "secret": "${{ secrets.SECRET }}" }'
-          headers: '{ "Content-Type": "application/json", "Referer": "https://hey.xyz" }'
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
-  cleanup-clickhouse:
-    name: Cleanup Clickhouse
+jobs:
+  cleanup-preferences:
+    name: Cleanup Preferences
     runs-on: ubuntu-latest
     steps:
-      - name: Cleanup Clickhouse
+      - name: Cleanup Preferences
         uses: indiesdev/curl@v1.1
         with:
-          url: https://api.hey.xyz/internal/cron/cleanClickhouse
+          url: https://api.hey.xyz/internal/cron/cleanPreferences
           method: 'POST'
           body: '{ "secret": "${{ secrets.SECRET }}" }'
           headers: '{ "Content-Type": "application/json", "Referer": "https://hey.xyz" }'
@@ -50,6 +42,18 @@ jobs:
         uses: indiesdev/curl@v1.1
         with:
           url: https://api.hey.xyz/internal/cron/cleanDraftPublications
+          method: 'POST'
+          body: '{ "secret": "${{ secrets.SECRET }}" }'
+          headers: '{ "Content-Type": "application/json", "Referer": "https://hey.xyz" }'
+
+  cleanup-clickhouse:
+    name: Cleanup Clickhouse
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cleanup Clickhouse
+        uses: indiesdev/curl@v1.1
+        with:
+          url: https://api.hey.xyz/internal/cron/cleanClickhouse
           method: 'POST'
           body: '{ "secret": "${{ secrets.SECRET }}" }'
           headers: '{ "Content-Type": "application/json", "Referer": "https://hey.xyz" }'

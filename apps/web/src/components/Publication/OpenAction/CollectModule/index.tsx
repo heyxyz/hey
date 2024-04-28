@@ -20,13 +20,13 @@ import {
   UsersIcon
 } from '@heroicons/react/24/outline';
 import { POLYGONSCAN_URL } from '@hey/data/constants';
-import formatDate from '@hey/lib/datetime/formatDate';
-import formatAddress from '@hey/lib/formatAddress';
-import getProfile from '@hey/lib/getProfile';
-import getTokenImage from '@hey/lib/getTokenImage';
-import humanize from '@hey/lib/humanize';
-import nFormatter from '@hey/lib/nFormatter';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
+import formatDate from '@hey/helpers/datetime/formatDate';
+import formatAddress from '@hey/helpers/formatAddress';
+import getProfile from '@hey/helpers/getProfile';
+import getTokenImage from '@hey/helpers/getTokenImage';
+import humanize from '@hey/helpers/humanize';
+import nFormatter from '@hey/helpers/nFormatter';
+import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import { HelpTooltip, Tooltip, WarningMessage } from '@hey/ui';
 import { useCounter } from '@uidotdev/usehooks';
 import Link from 'next/link';
@@ -146,12 +146,14 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
             </span>
             <div className="mt-2">
               <HelpTooltip>
-                <b>Collect Fees</b>
-                <div className="flex items-start space-x-10">
-                  <div>Lens Protocol</div>
-                  <b>
-                    {(amount * 0.05).toFixed(2)} {currency} (5%)
-                  </b>
+                <div className="py-1">
+                  <b>Collect Fees</b>
+                  <div className="flex items-start space-x-10">
+                    <div>Lens Protocol</div>
+                    <b>
+                      {(amount * 0.05).toFixed(2)} {currency} (5%)
+                    </b>
+                  </div>
                 </div>
               </HelpTooltip>
             </div>

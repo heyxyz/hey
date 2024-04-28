@@ -3,6 +3,7 @@ import type { ChangeEvent, FC } from 'react';
 import type { Address } from 'viem';
 
 import LazyDefaultProfile from '@components/Shared/LazyDefaultProfile';
+import { Leafwatch } from '@helpers/leafwatch';
 import {
   ArrowRightCircleIcon,
   EnvelopeIcon,
@@ -11,7 +12,6 @@ import {
 import { MESSAGES } from '@hey/data/tracking';
 import { Button, EmptyState, Input } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { Leafwatch } from '@lib/leafwatch';
 import {
   useCanMessage,
   useConsent,

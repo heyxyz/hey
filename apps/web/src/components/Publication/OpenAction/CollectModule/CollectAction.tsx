@@ -13,11 +13,20 @@ import AllowanceButton from '@components/Settings/Allowance/Button';
 import LoginButton from '@components/Shared/Navbar/LoginButton';
 import NoBalanceError from '@components/Shared/NoBalanceError';
 import FollowUnfollowButton from '@components/Shared/Profile/FollowUnfollowButton';
+import errorToast from '@helpers/errorToast';
+import getCurrentSession from '@helpers/getCurrentSession';
+import { Leafwatch } from '@helpers/leafwatch';
+import hasOptimisticallyCollected from '@helpers/optimistic/hasOptimisticallyCollected';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { Errors } from '@hey/data';
 import { LENS_HUB } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
+import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
+import getCollectModuleData from '@hey/helpers/getCollectModuleData';
+import getOpenActionActOnKey from '@hey/helpers/getOpenActionActOnKey';
+import getSignature from '@hey/helpers/getSignature';
+import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import {
   useActOnOpenActionMutation,
   useApprovedModuleAllowanceAmountQuery,
@@ -26,18 +35,9 @@ import {
   useCreateLegacyCollectTypedDataMutation,
   useLegacyCollectMutation
 } from '@hey/lens';
-import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
-import getCollectModuleData from '@hey/lib/getCollectModuleData';
-import getOpenActionActOnKey from '@hey/lib/getOpenActionActOnKey';
-import getSignature from '@hey/lib/getSignature';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Button, Spinner, WarningMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import errorToast from '@lib/errorToast';
-import getCurrentSession from '@lib/getCurrentSession';
-import { Leafwatch } from '@lib/leafwatch';
-import hasOptimisticallyCollected from '@lib/optimistic/hasOptimisticallyCollected';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
@@ -192,14 +192,11 @@ const CollectAction: FC<CollectActionProps> = ({
     onCollectSuccess?.();
     updateCache();
     toast.success('Collected successfully!');
-    Leafwatch.track(
-      PUBLICATION.COLLECT_MODULE.COLLECT,
-      {
-        collect_module: openAction?.type,
-        publication_id: targetPublication?.id
-      },
-      targetPublication.by.ownedBy.address
-    );
+    Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
+      amount,
+      collect_module: openAction?.type,
+      publication_id: targetPublication?.id
+    });
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });

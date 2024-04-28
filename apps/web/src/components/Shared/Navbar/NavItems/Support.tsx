@@ -1,11 +1,11 @@
 import type { FC } from 'react';
 
+import showCrisp from '@helpers/showCrisp';
 import {
   ArrowTopRightOnSquareIcon,
   HandRaisedIcon
 } from '@heroicons/react/24/outline';
 import cn from '@hey/ui/cn';
-import showCrisp from '@lib/showCrisp';
 
 interface SupportProps {
   className?: string;
