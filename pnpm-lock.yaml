@@ -311,8 +311,8 @@ importers:
         specifier: ^5.3.0
         version: 5.3.0(plyr@3.7.8)(react@18.2.0)
       prosekit:
-        specifier: ^0.6.3
-        version: 0.6.3(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^0.6.5
+        version: 0.6.5(react-dom@18.2.0)(react@18.2.0)
       rc-slider:
         specifier: 10.6.2
         version: 10.6.2(react-dom@18.2.0)(react@18.2.0)
@@ -6671,8 +6671,8 @@ packages:
     resolution: {integrity: sha512-75aezW5iEiwOnWhF0gRdI1XoYpH/gKbxitEAFIlpJgoiu5OC8HnOd8qIdoXYWoBKcPsFg6kBlaGE0ct1K52DaA==}
     dependencies:
       '@prosekit/core': 0.4.0
-      '@prosekit/extensions': 0.4.2
-      '@prosekit/pm': 0.1.2
+      '@prosekit/extensions': 0.4.3
+      '@prosekit/pm': 0.1.3
     transitivePeerDependencies:
       - '@types/hast'
       - highlight.js
@@ -6688,19 +6688,19 @@ packages:
   /@prosekit/core@0.4.0:
     resolution: {integrity: sha512-gqTGk3gH44O2tJ+qY2pyoy+aCt13KnzrtYAMpti2yciuHfCX/mhUFD8hlqbbzA3Na2HX8S8SI2x2/F2vzlI+dg==}
     dependencies:
-      '@prosekit/pm': 0.1.2
-      clsx: 2.1.0
+      '@prosekit/pm': 0.1.3
+      clsx: 2.1.1
       orderedmap: 2.1.1
-      type-fest: 4.15.0
+      type-fest: 4.17.0
     dev: false
 
-  /@prosekit/extensions@0.4.2:
-    resolution: {integrity: sha512-4kXQx7ahUQUC6c4XA8jrKFDbqj5yqXtE+RaBC5f6o+sQmeLTn+0KGVz2Am+EZC77EeoDZk4s063hCMzeQnqYsg==}
+  /@prosekit/extensions@0.4.3:
+    resolution: {integrity: sha512-oJTgpxa+1TCUB3AyRbLreQWPxH9XEKQvQ/3Gzqd9Z0ns3t5auNLltbP5X5km1Sef3wSuu5YK8cg30Lj+vzs+rA==}
     dependencies:
       '@prosekit/core': 0.4.0
-      '@prosekit/pm': 0.1.2
+      '@prosekit/pm': 0.1.3
       prosemirror-dropcursor: 1.8.1
-      prosemirror-flat-list: 0.4.6
+      prosemirror-flat-list: 0.5.0
       prosemirror-highlight: 0.5.0(shiki@1.3.0)
       prosemirror-tables: 1.3.7
       shiki: 1.3.0
@@ -6732,8 +6732,8 @@ packages:
       - shikiji
     dev: false
 
-  /@prosekit/pm@0.1.2:
-    resolution: {integrity: sha512-g/3RLma8EH8RTI77xGFLW7OQKr9SXAs3MglOJny0OGGZhmimijZlJiS0c5f2KhJkU0C2uJyet1pYbtJWejdWiA==}
+  /@prosekit/pm@0.1.3:
+    resolution: {integrity: sha512-wvW+ajPxX8UjIEBFVWL5Kqrn+ktH8FEvWZS25GqkEgLhd/QQZU9JTOBVXNOlYX/1ENmXmootE51t136HXtGOjg==}
     dependencies:
       prosemirror-commands: 1.5.2
       prosemirror-history: 1.4.0
@@ -6742,19 +6742,19 @@ packages:
       prosemirror-model: 1.20.0
       prosemirror-state: 1.4.3
       prosemirror-transform: 1.8.0
-      prosemirror-view: 1.33.4
+      prosemirror-view: 1.33.5
     dev: false
 
-  /@prosekit/preact@0.3.2:
-    resolution: {integrity: sha512-xpILP8gY7kProE1GrgH3jU+R9xmfk11flcG40QdgGNyZz0TqtSjxmm//Chv/kQBjIN1EJYtFBqanUaSagjcnlA==}
+  /@prosekit/preact@0.3.3:
+    resolution: {integrity: sha512-V+fbXWTUmIb8Oy9pPq83FoZlzmbM0RAnZjz+gx57f0KYb8sIwqjCIIHn9iNEJSk48lxjG2Jq8/i6Fpo7CemrPg==}
     peerDependencies:
-      preact: '>= 9.0.0'
+      preact: '>= 10.11.0'
     peerDependenciesMeta:
       preact:
         optional: true
     dependencies:
       '@prosekit/core': 0.4.0
-      '@prosekit/pm': 0.1.2
+      '@prosekit/pm': 0.1.3
       '@prosekit/web': 0.1.2
       react-merge-refs: 2.1.1
     transitivePeerDependencies:
@@ -6769,11 +6769,11 @@ packages:
       - shikiji
     dev: false
 
-  /@prosekit/react@0.3.3(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-NMLGAJFz/grLgUx0Ks1s08xS3EZgbb4XL95qOFND8pmR+P/tWguQ4+VaPZ3mKqfE4pL7t3dYdy5K2JMTjByLgA==}
+  /@prosekit/react@0.3.4(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-6C6pRWIA+pap+ISDMmI22f2GbIlJbUZLKK0z0QZFWMxkKNA1V3AbuQ8cVLSmt9VajhwveRI91kd234thrvKvJA==}
     peerDependencies:
-      react: '>= 17.0.0'
-      react-dom: '>= 17.0.0'
+      react: '>= 18.2.0'
+      react-dom: '>= 18.2.0'
     peerDependenciesMeta:
       react:
         optional: true
@@ -6781,7 +6781,7 @@ packages:
         optional: true
     dependencies:
       '@prosekit/core': 0.4.0
-      '@prosekit/pm': 0.1.2
+      '@prosekit/pm': 0.1.3
       '@prosekit/web': 0.1.2
       '@prosemirror-adapter/core': 0.2.6
       react: 18.2.0
@@ -6808,7 +6808,7 @@ packages:
         optional: true
     dependencies:
       '@prosekit/core': 0.4.0
-      '@prosekit/pm': 0.1.2
+      '@prosekit/pm': 0.1.3
       '@prosekit/web': 0.1.2
     transitivePeerDependencies:
       - '@types/hast'
@@ -6831,7 +6831,7 @@ packages:
         optional: true
     dependencies:
       '@prosekit/core': 0.4.0
-      '@prosekit/pm': 0.1.2
+      '@prosekit/pm': 0.1.3
       '@prosekit/web': 0.1.2
     transitivePeerDependencies:
       - '@types/hast'
@@ -6854,7 +6854,7 @@ packages:
         optional: true
     dependencies:
       '@prosekit/core': 0.4.0
-      '@prosekit/pm': 0.1.2
+      '@prosekit/pm': 0.1.3
       '@prosekit/web': 0.1.2
       '@prosemirror-adapter/core': 0.2.6
     transitivePeerDependencies:
@@ -6881,8 +6881,8 @@ packages:
       '@aria-ui/tooltip': 0.0.13
       '@floating-ui/dom': 1.6.3
       '@prosekit/core': 0.4.0
-      '@prosekit/extensions': 0.4.2
-      '@prosekit/pm': 0.1.2
+      '@prosekit/extensions': 0.4.3
+      '@prosekit/pm': 0.1.3
       '@zag-js/dom-query': 0.47.0
     transitivePeerDependencies:
       - '@types/hast'
@@ -12441,6 +12441,11 @@ packages:
 
   /clsx@2.1.0:
     resolution: {integrity: sha512-m3iNNWpd9rl3jvvcBnu70ylMdrXt8Vlq4HYadnU5fwcOtvkSQWPmj7amUcDT2qYI7risszBjI5AUIUox9D16pg==}
+    engines: {node: '>=6'}
+    dev: false
+
+  /clsx@2.1.1:
+    resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==}
     engines: {node: '>=6'}
     dev: false
 
@@ -19254,12 +19259,12 @@ packages:
     resolution: {integrity: sha512-PgTgs/BlvHxOu8QuEN7wi5A0OmXaBcHpmCSTehcs6Uuu9IkDIEo13Hy7n898RHfrQ49vKCoGeWZSaAK01nwVig==}
     dev: false
 
-  /prosekit@0.6.3(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-TWR8yANp2mNJK0X49prHIInDGlY18W1SbSE4e0aedCS5Z0S/Ks4FPMAoOrKMCx3t1WfFl1NfSoBll/uynstSfA==}
+  /prosekit@0.6.5(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-PcBACmtZncQgFXKYSG50KSzaJ/uebbjijpjL9D5UxPh7CgjSwhYpzhg+440unqxklyzlUGA2O2e0wZ9RJlGBoA==}
     peerDependencies:
-      preact: '>= 9.0.0'
-      react: '>= 17.0.0'
-      react-dom: '>= 17.0.0'
+      preact: '>= 10.11.0'
+      react: '>= 18.2.0'
+      react-dom: '>= 18.2.0'
       solid-js: '>= 1.7.0'
       svelte: '>= 3.0.0'
       vue: '>= 3.0.0'
@@ -19279,11 +19284,11 @@ packages:
     dependencies:
       '@prosekit/basic': 0.3.4
       '@prosekit/core': 0.4.0
-      '@prosekit/extensions': 0.4.2
+      '@prosekit/extensions': 0.4.3
       '@prosekit/lit': 0.3.1
-      '@prosekit/pm': 0.1.2
-      '@prosekit/preact': 0.3.2
-      '@prosekit/react': 0.3.3(react-dom@18.2.0)(react@18.2.0)
+      '@prosekit/pm': 0.1.3
+      '@prosekit/preact': 0.3.3
+      '@prosekit/react': 0.3.4(react-dom@18.2.0)(react@18.2.0)
       '@prosekit/solid': 0.3.2
       '@prosekit/svelte': 0.3.2
       '@prosekit/vue': 0.3.2
@@ -19315,18 +19320,18 @@ packages:
     dependencies:
       prosemirror-state: 1.4.3
       prosemirror-transform: 1.8.0
-      prosemirror-view: 1.33.4
+      prosemirror-view: 1.33.5
     dev: false
 
-  /prosemirror-flat-list@0.4.6:
-    resolution: {integrity: sha512-ffVygLOfKWrzvwZHNJI7oCk3qQVBUSKqAGRfkiVmSoegwWYDLMWUppGc2FkZ6YO+vRKqgmqr2CAI93vHPAzqgg==}
+  /prosemirror-flat-list@0.5.0:
+    resolution: {integrity: sha512-atRnGz7OPOw+NTc+D/RBjG5xL/UhiVI3dhkMtevNKw2lokHq5aRKJnDEcy02u25vP8MBwbugQxhvBoZrA6/ynw==}
     dependencies:
       prosemirror-commands: 1.5.2
       prosemirror-inputrules: 1.4.0
       prosemirror-model: 1.20.0
       prosemirror-state: 1.4.3
       prosemirror-transform: 1.8.0
-      prosemirror-view: 1.33.4
+      prosemirror-view: 1.33.5
     dev: false
 
   /prosemirror-highlight@0.5.0(shiki@1.3.0):
@@ -19372,7 +19377,7 @@ packages:
     dependencies:
       prosemirror-state: 1.4.3
       prosemirror-transform: 1.8.0
-      prosemirror-view: 1.33.4
+      prosemirror-view: 1.33.5
       rope-sequence: 1.3.4
     dev: false
 
@@ -19401,7 +19406,7 @@ packages:
     dependencies:
       prosemirror-model: 1.20.0
       prosemirror-transform: 1.8.0
-      prosemirror-view: 1.33.4
+      prosemirror-view: 1.33.5
     dev: false
 
   /prosemirror-tables@1.3.7:
@@ -19411,7 +19416,7 @@ packages:
       prosemirror-model: 1.20.0
       prosemirror-state: 1.4.3
       prosemirror-transform: 1.8.0
-      prosemirror-view: 1.33.4
+      prosemirror-view: 1.33.5
     dev: false
 
   /prosemirror-transform@1.8.0:
@@ -19420,8 +19425,8 @@ packages:
       prosemirror-model: 1.20.0
     dev: false
 
-  /prosemirror-view@1.33.4:
-    resolution: {integrity: sha512-xQqAhH8/HGleVpKDhQsrd+oqdyeKMxFtdCWDxWMmP+n0k27fBpyUqa8pA+RB5cFY8rqDDc1hll69aRZQa7UaAw==}
+  /prosemirror-view@1.33.5:
+    resolution: {integrity: sha512-AbYYLgg2h5CLARLcTtbNrMARlMwV51jTrezcJkV0NS9J4vi28+rhJ45iIWVSjCcRY209BoySDuJ58b8wIFqdmQ==}
     dependencies:
       prosemirror-model: 1.20.0
       prosemirror-state: 1.4.3
@@ -21844,8 +21849,8 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /type-fest@4.15.0:
-    resolution: {integrity: sha512-tB9lu0pQpX5KJq54g+oHOLumOx+pMep4RaM6liXh2PKmVRFF+/vAtUP0ZaJ0kOySfVNjF6doBWPHhBhISKdlIA==}
+  /type-fest@4.17.0:
+    resolution: {integrity: sha512-9flrz1zkfLRH3jO3bLflmTxryzKMxVa7841VeMgBaNQGY6vH4RCcpN/sQLB7mQQYh1GZ5utT2deypMuCy4yicw==}
     engines: {node: '>=16'}
     dev: false
 
