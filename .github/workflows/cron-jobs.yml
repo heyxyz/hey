@@ -46,18 +46,6 @@ jobs:
           body: '{ "secret": "${{ secrets.SECRET }}" }'
           headers: '{ "Content-Type": "application/json", "Referer": "https://hey.xyz" }'
 
-  clean-expired-score:
-    name: Cleanup Expired Score
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cleanup Expired Score
-        uses: indiesdev/curl@v1.1
-        with:
-          url: https://api.hey.xyz/internal/cron/cleanExpiredScore
-          method: 'POST'
-          body: '{ "secret": "${{ secrets.SECRET }}" }'
-          headers: '{ "Content-Type": "application/json", "Referer": "https://hey.xyz" }'
-
   cleanup-clickhouse:
     name: Cleanup Clickhouse
     runs-on: ubuntu-latest
