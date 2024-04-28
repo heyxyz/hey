@@ -7,11 +7,12 @@ const builder = new XMLBuilder({
   suppressEmptyNode: true
 });
 
-interface Url {
+interface Urlset {
+  lastmod?: string;
   loc: string;
 }
 
-export const buildUrlsetXml = (url: Url[]): string => {
+export const buildUrlsetXml = (url: Urlset[]): string => {
   return builder.build({
     urlset: {
       '@_xmlns': 'http://www.sitemaps.org/schemas/sitemap/0.9',
