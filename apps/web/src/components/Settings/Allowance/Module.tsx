@@ -1,13 +1,13 @@
 import type { FC } from 'react';
 
+import getAllowanceModule from '@helpers/getAllowanceModule';
+import getAllowanceOpenAction from '@helpers/getAllowanceOpenAction';
 import { POLYGONSCAN_URL } from '@hey/data/constants';
 import {
   type ApprovedAllowanceAmountResult,
   OpenActionModuleType
 } from '@hey/lens';
 import { Card } from '@hey/ui';
-import getAllowanceModule from '@lib/getAllowanceModule';
-import getAllowanceOpenAction from '@lib/getAllowanceOpenAction';
 import Link from 'next/link';
 import { useState } from 'react';
 

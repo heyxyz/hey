@@ -2,9 +2,9 @@ import type { CachedConversation } from '@xmtp/react-sdk';
 import type { FC } from 'react';
 import type { Address } from 'viem';
 
+import { Leafwatch } from '@helpers/leafwatch';
 import { MESSAGES } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
-import { Leafwatch } from '@lib/leafwatch';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
 
 import User from './User';

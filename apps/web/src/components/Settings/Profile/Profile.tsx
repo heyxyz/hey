@@ -9,6 +9,10 @@ import type { z } from 'zod';
 
 import ChooseFile from '@components/Shared/ChooseFile';
 import ImageCropperController from '@components/Shared/ImageCropperController';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
+import uploadCroppedImage, { readFile } from '@helpers/profilePictureUtils';
+import uploadToArweave from '@helpers/uploadToArweave';
 import { InformationCircleIcon, PencilIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import {
@@ -20,19 +24,19 @@ import {
 import { Errors } from '@hey/data/errors';
 import { Regex } from '@hey/data/regex';
 import { SETTINGS } from '@hey/data/tracking';
+import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
+import getAvatar from '@hey/helpers/getAvatar';
+import getProfileAttribute from '@hey/helpers/getProfileAttribute';
+import getSignature from '@hey/helpers/getSignature';
+import imageKit from '@hey/helpers/imageKit';
+import sanitizeDStorageUrl from '@hey/helpers/sanitizeDStorageUrl';
+import trimify from '@hey/helpers/trimify';
 import { getCroppedImg } from '@hey/image-cropper/cropUtils';
 import {
   useBroadcastOnchainMutation,
   useCreateOnchainSetProfileMetadataTypedDataMutation,
   useSetProfileMetadataMutation
 } from '@hey/lens';
-import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
-import getAvatar from '@hey/lib/getAvatar';
-import getProfileAttribute from '@hey/lib/getProfileAttribute';
-import getSignature from '@hey/lib/getSignature';
-import imageKit from '@hey/lib/imageKit';
-import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
-import trimify from '@hey/lib/trimify';
 import {
   Button,
   Card,
@@ -49,10 +53,6 @@ import {
   MetadataAttributeType,
   profile as profileMetadata
 } from '@lens-protocol/metadata';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
-import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
-import uploadToArweave from '@lib/uploadToArweave';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';

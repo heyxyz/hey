@@ -3,14 +3,15 @@ import type { MenuTextMatch } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import type { TextNode } from 'lexical';
 import type { FC } from 'react';
 
+import isVerified from '@helpers/isVerified';
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
+import getAvatar from '@hey/helpers/getAvatar';
+import getProfile from '@hey/helpers/getProfile';
+import hasMisused from '@hey/helpers/hasMisused';
 import { LimitType, useSearchProfilesLazyQuery } from '@hey/lens';
-import getAvatar from '@hey/lib/getAvatar';
-import getProfile from '@hey/lib/getProfile';
-import hasMisused from '@hey/lib/hasMisused';
 import cn from '@hey/ui/cn';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import {
@@ -18,7 +19,6 @@ import {
   MenuOption,
   useBasicTypeaheadTriggerMatch
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
-import isVerified from '@lib/isVerified';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';
 

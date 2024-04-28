@@ -1,5 +1,7 @@
 import type { FC } from 'react';
 
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import {
   CheckIcon,
   CreditCardIcon,
@@ -20,8 +22,6 @@ import { Regex } from '@hey/data/regex';
 import { AUTH } from '@hey/data/tracking';
 import { useHandleToAddressQuery } from '@hey/lens';
 import { Button, Form, Input, Spinner, useZodForm } from '@hey/ui';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import Script from 'next/script';
 import { useState } from 'react';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';

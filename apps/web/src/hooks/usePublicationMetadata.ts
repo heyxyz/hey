@@ -1,3 +1,4 @@
+import getUserLocale from '@helpers/getUserLocale';
 import { APP_NAME } from '@hey/data/constants';
 import {
   audio,
@@ -6,7 +7,6 @@ import {
   textOnly,
   video
 } from '@lens-protocol/metadata';
-import getUserLocale from '@lib/getUserLocale';
 import { useCallback } from 'react';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationAttributesStore } from 'src/store/non-persisted/publication/usePublicationAttributesStore';

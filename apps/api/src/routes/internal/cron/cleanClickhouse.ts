@@ -1,10 +1,10 @@
 import type { Handler } from 'express';
 
 import { Errors } from '@hey/data/errors';
-import logger from '@hey/lib/logger';
-import catchedError from 'src/lib/catchedError';
-import createClickhouseClient from 'src/lib/createClickhouseClient';
-import { invalidBody, noBody } from 'src/lib/responses';
+import logger from '@hey/helpers/logger';
+import catchedError from 'src/helpers/catchedError';
+import createClickhouseClient from 'src/helpers/createClickhouseClient';
+import { invalidBody, noBody } from 'src/helpers/responses';
 import { object, string } from 'zod';
 
 type ExtensionRequest = {

@@ -1,8 +1,8 @@
 import type { FC } from 'react';
 
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { HEY_API_URL } from '@hey/data/constants';
 import { Alert } from '@hey/ui';
-import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';

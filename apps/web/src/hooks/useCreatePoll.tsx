@@ -1,5 +1,5 @@
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { HEY_API_URL } from '@hey/data/constants';
-import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import axios from 'axios';
 import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
 

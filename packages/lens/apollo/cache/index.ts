@@ -1,7 +1,7 @@
 import { InMemoryCache } from '@apollo/client';
 
 import result from '../../generated';
-import { profilesManagedKeyFields } from '../lib/keyFields';
+import { profilesManagedKeyFields } from '../helpers/keyFields';
 import createActedOnPublicationFieldPolicy from './createActedOnPublicationFieldPolicy';
 import createApprovedAuthenticationsFieldPolicy from './createApprovedAuthenticationsFieldPolicy';
 import createExploreProfilesFieldPolicy from './createExploreProfilesFieldPolicy';
@@ -11,6 +11,7 @@ import createFeedHighlightsFieldPolicy from './createFeedHighlightsFieldPolicy';
 import createFollowersFieldPolicy from './createFollowersFieldPolicy';
 import createFollowingFieldPolicy from './createFollowingFieldPolicy';
 import createLatestPaidActionsFieldPolicy from './createLatestPaidActionsFieldPolicy';
+import createModLatestReportsFieldPolicy from './createModLatestReportsFieldPolicy';
 import createMutualFollowersProfilesFieldPolicy from './createMutualFollowersProfilesFieldPolicy';
 import createNftsFieldPolicy from './createNftsFieldPolicy';
 import createNotificationsFieldPolicy from './createNotificationsFieldPolicy';
@@ -39,6 +40,7 @@ const cache = new InMemoryCache({
         latestPaidActions: createLatestPaidActionsFieldPolicy(),
         modExplorePublications: createExplorePublicationsFieldPolicy(),
         modFollowers: createFollowersFieldPolicy(),
+        modLatestReports: createModLatestReportsFieldPolicy(),
         mutualFollowersProfiles: createMutualFollowersProfilesFieldPolicy(),
         nfts: createNftsFieldPolicy(),
         notifications: createNotificationsFieldPolicy(),

@@ -1,13 +1,13 @@
 import type { Handler } from 'express';
 
 import { APP_NAME } from '@hey/data/constants';
-import logger from '@hey/lib/logger';
-import parseJwt from '@hey/lib/parseJwt';
-import catchedError from 'src/lib/catchedError';
-import heyPrisma from 'src/lib/heyPrisma';
-import validateLensAccount from 'src/lib/middlewares/validateLensAccount';
-import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
-import sendEmail from 'src/lib/sendEmail';
+import logger from '@hey/helpers/logger';
+import parseJwt from '@hey/helpers/parseJwt';
+import catchedError from 'src/helpers/catchedError';
+import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
+import prisma from 'src/helpers/prisma';
+import { invalidBody, noBody, notAllowed } from 'src/helpers/responses';
+import sendEmail from 'src/helpers/sendEmail';
 import { v4 as uuid } from 'uuid';
 import { boolean, object, string } from 'zod';
 
@@ -45,7 +45,7 @@ export const post: Handler = async (req, res) => {
     const payload = parseJwt(accessToken);
 
     if (!resend) {
-      const data = await heyPrisma.email.findUnique({
+      const data = await prisma.email.findUnique({
         where: { id: payload.id }
       });
 
@@ -61,7 +61,7 @@ export const post: Handler = async (req, res) => {
       verified: false
     };
 
-    const result = await heyPrisma.email.upsert({
+    const result = await prisma.email.upsert({
       create: { id: payload.id, ...baseData },
       update: { ...baseData },
       where: { id: payload.id }

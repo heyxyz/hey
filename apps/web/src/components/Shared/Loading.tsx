@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import isPrideMonth from '@hey/lib/isPrideMonth';
+import isPrideMonth from '@hey/helpers/isPrideMonth';
 
 import PageMetatags from './PageMetatags';
 

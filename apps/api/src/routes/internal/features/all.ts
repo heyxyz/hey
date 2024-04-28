@@ -1,10 +1,10 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/lib/logger';
-import catchedError from 'src/lib/catchedError';
-import heyPrisma from 'src/lib/heyPrisma';
-import validateIsStaff from 'src/lib/middlewares/validateIsStaff';
-import { notAllowed } from 'src/lib/responses';
+import logger from '@hey/helpers/logger';
+import catchedError from 'src/helpers/catchedError';
+import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
+import prisma from 'src/helpers/prisma';
+import { notAllowed } from 'src/helpers/responses';
 
 export const get: Handler = async (req, res) => {
   if (!(await validateIsStaff(req))) {
@@ -12,7 +12,7 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const data = await heyPrisma.feature.findMany({
+    const data = await prisma.feature.findMany({
       orderBy: { priority: 'desc' }
     });
     logger.info('All features fetched');

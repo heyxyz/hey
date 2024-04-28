@@ -69,6 +69,10 @@ const ProfileStats: FC<ProfileStatsProps> = ({ profileId }) => {
           count={data.total_acted.toString()}
           name="Actions on Open Actions"
         />
+        <NumberedStat
+          count={data.total_notifications.toString()}
+          name="Notifications Received"
+        />
       </div>
     </Card>
   );

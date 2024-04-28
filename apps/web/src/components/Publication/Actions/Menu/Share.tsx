@@ -2,11 +2,11 @@ import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import { Menu } from '@headlessui/react';
+import { Leafwatch } from '@helpers/leafwatch';
 import { ClipboardDocumentIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import cn from '@hey/ui/cn';
-import { Leafwatch } from '@lib/leafwatch';
 import toast from 'react-hot-toast';
 
 interface ShareProps {

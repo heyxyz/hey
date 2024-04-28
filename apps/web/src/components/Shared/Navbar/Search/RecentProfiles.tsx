@@ -3,12 +3,12 @@ import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
+import { Leafwatch } from '@helpers/leafwatch';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { ProfileLinkSource, SEARCH } from '@hey/data/tracking';
+import getProfile from '@hey/helpers/getProfile';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { useProfilesQuery } from '@hey/lens';
-import getProfile from '@hey/lib/getProfile';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
 import { useSearchStore } from 'src/store/persisted/useSearchStore';
 

@@ -5,9 +5,9 @@ import {
   IPFS_GATEWAY,
   VIDEO_THUMBNAIL
 } from '@hey/data/constants';
-import imageKit from '@hey/lib/imageKit';
-import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import imageKit from '@hey/helpers/imageKit';
+import sanitizeDStorageUrl from '@hey/helpers/sanitizeDStorageUrl';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { Player } from '@livepeer/react';
 import { memo } from 'react';

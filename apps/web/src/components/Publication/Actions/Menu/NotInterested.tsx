@@ -2,19 +2,19 @@ import type { ApolloCache } from '@hey/lens/apollo';
 import type { FC } from 'react';
 
 import { Menu } from '@headlessui/react';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
+import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import {
   type AnyPublication,
   type PublicationNotInterestedRequest,
   useAddPublicationNotInterestedMutation,
   useUndoPublicationNotInterestedMutation
 } from '@hey/lens';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import { toast } from 'react-hot-toast';
 
 interface NotInterestedProps {
@@ -49,11 +49,9 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
   const [addPublicationNotInterested] = useAddPublicationNotInterestedMutation({
     onCompleted: () => {
       toast.success('Marked as not Interested');
-      Leafwatch.track(
-        PUBLICATION.NOT_INTERESTED,
-        { publication_id: publication.id },
-        publication.by.ownedBy.address
-      );
+      Leafwatch.track(PUBLICATION.NOT_INTERESTED, {
+        publication_id: publication.id
+      });
     },
     onError,
     update: (cache) => updateCache(cache, true),
@@ -64,11 +62,9 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
     useUndoPublicationNotInterestedMutation({
       onCompleted: () => {
         toast.success('Undo Not interested');
-        Leafwatch.track(
-          PUBLICATION.UNDO_NOT_INTERESTED,
-          { publication_id: publication.id },
-          publication.by.ownedBy.address
-        );
+        Leafwatch.track(PUBLICATION.UNDO_NOT_INTERESTED, {
+          publication_id: publication.id
+        });
       },
       onError,
       update: (cache) => updateCache(cache, false),

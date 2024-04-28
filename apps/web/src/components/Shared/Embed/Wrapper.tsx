@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from 'react';
 
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Card } from '@hey/ui';
 import cn from '@hey/ui/cn';
 

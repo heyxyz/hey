@@ -1,12 +1,12 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/lib/logger';
-import parseJwt from '@hey/lib/parseJwt';
-import catchedError from 'src/lib/catchedError';
-import { GARDENER_MODE_FEATURE_ID } from 'src/lib/constants';
-import heyPrisma from 'src/lib/heyPrisma';
-import validateIsGardener from 'src/lib/middlewares/validateIsGardener';
-import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
+import logger from '@hey/helpers/logger';
+import parseJwt from '@hey/helpers/parseJwt';
+import catchedError from 'src/helpers/catchedError';
+import { GARDENER_MODE_FEATURE_ID } from 'src/helpers/constants';
+import validateIsGardener from 'src/helpers/middlewares/validateIsGardener';
+import prisma from 'src/helpers/prisma';
+import { invalidBody, noBody, notAllowed } from 'src/helpers/responses';
 import { boolean, object } from 'zod';
 
 type ExtensionRequest = {
@@ -42,7 +42,7 @@ export const post: Handler = async (req, res) => {
     const profile_id = payload.id;
 
     if (enabled) {
-      await heyPrisma.profileFeature.create({
+      await prisma.profileFeature.create({
         data: { featureId: GARDENER_MODE_FEATURE_ID, profileId: profile_id }
       });
       logger.info(`Enabled gardener mode for ${profile_id}`);
@@ -50,7 +50,7 @@ export const post: Handler = async (req, res) => {
       return res.status(200).json({ enabled, success: true });
     }
 
-    await heyPrisma.profileFeature.delete({
+    await prisma.profileFeature.delete({
       where: {
         profileId_featureId: {
           featureId: GARDENER_MODE_FEATURE_ID,

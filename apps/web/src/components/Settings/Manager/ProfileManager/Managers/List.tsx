@@ -4,11 +4,15 @@ import type { Address } from 'viem';
 
 import Loader from '@components/Shared/Loader';
 import WalletProfile from '@components/Shared/WalletProfile';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { MinusCircleIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { Errors } from '@hey/data';
 import { LENS_HUB } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
+import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
+import getSignature from '@hey/helpers/getSignature';
 import {
   ChangeProfileManagerActionType,
   useBroadcastOnchainMutation,
@@ -16,11 +20,7 @@ import {
   useProfileManagersQuery
 } from '@hey/lens';
 import { useApolloClient } from '@hey/lens/apollo';
-import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
-import getSignature from '@hey/lib/getSignature';
 import { Button, EmptyState, ErrorMessage, Spinner } from '@hey/ui';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { Virtuoso } from 'react-virtuoso';

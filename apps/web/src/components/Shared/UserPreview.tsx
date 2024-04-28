@@ -2,20 +2,20 @@ import type { Profile } from '@hey/lens';
 import type { FC, ReactNode } from 'react';
 
 import MutualFollowers from '@components/Profile/MutualFollowers';
+import isVerified from '@helpers/isVerified';
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
+import getAvatar from '@hey/helpers/getAvatar';
+import getLennyURL from '@hey/helpers/getLennyURL';
+import getMentions from '@hey/helpers/getMentions';
+import getProfile from '@hey/helpers/getProfile';
+import hasMisused from '@hey/helpers/hasMisused';
+import nFormatter from '@hey/helpers/nFormatter';
+import truncateByWords from '@hey/helpers/truncateByWords';
 import { useProfileLazyQuery } from '@hey/lens';
-import getAvatar from '@hey/lib/getAvatar';
-import getLennyURL from '@hey/lib/getLennyURL';
-import getMentions from '@hey/lib/getMentions';
-import getProfile from '@hey/lib/getProfile';
-import hasMisused from '@hey/lib/hasMisused';
-import nFormatter from '@hey/lib/nFormatter';
-import truncateByWords from '@hey/lib/truncateByWords';
 import { Card, Image } from '@hey/ui';
-import isVerified from '@lib/isVerified';
 import * as HoverCard from '@radix-ui/react-hover-card';
 import plur from 'plur';
 import { useState } from 'react';

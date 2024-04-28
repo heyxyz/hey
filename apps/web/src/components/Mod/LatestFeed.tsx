@@ -117,13 +117,11 @@ const LatestFeed: FC<LatestFeedProps> = ({
               showActions={false}
               showThread={false}
             />
-            <div>
-              <div className="divider" />
-              <div className="m-5">
-                <GardenerActions
-                  publication={publication as MirrorablePublication}
-                />
-              </div>
+            <div className="divider" />
+            <div className="m-5">
+              <GardenerActions
+                publication={publication as MirrorablePublication}
+              />
             </div>
           </Card>
         );

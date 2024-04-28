@@ -2,11 +2,11 @@ import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
 import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from '@hey/data/constants';
+import allowedOpenActionModules from '@hey/helpers/allowedOpenActionModules';
 import {
   FollowModuleType,
   useApprovedModuleAllowanceAmountQuery
 } from '@hey/lens';
-import allowedOpenActionModules from '@hey/lib/allowedOpenActionModules';
 import { CardHeader, ErrorMessage, Select } from '@hey/ui';
 import { useState } from 'react';
 import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';

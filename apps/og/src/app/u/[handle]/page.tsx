@@ -2,6 +2,10 @@ import type { AnyPublication, Profile } from '@hey/lens';
 import type { Metadata } from 'next';
 
 import { APP_NAME, HANDLE_PREFIX } from '@hey/data/constants';
+import getAvatar from '@hey/helpers/getAvatar';
+import getProfile from '@hey/helpers/getProfile';
+import getPublicationData from '@hey/helpers/getPublicationData';
+import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import {
   LimitType,
   ProfileDocument,
@@ -9,10 +13,6 @@ import {
   PublicationType
 } from '@hey/lens';
 import { apolloClient } from '@hey/lens/apollo';
-import getAvatar from '@hey/lib/getAvatar';
-import getProfile from '@hey/lib/getProfile';
-import getPublicationData from '@hey/lib/getPublicationData';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import defaultMetadata from 'src/defaultMetadata';
 
 interface Props {
@@ -46,6 +46,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       'social media profile',
       'social media',
       'lenster',
+      'polygon',
       'user profile',
       'lens',
       'lens protocol',

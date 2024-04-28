@@ -1,12 +1,12 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/lib/logger';
-import parseJwt from '@hey/lib/parseJwt';
-import catchedError from 'src/lib/catchedError';
-import { STAFF_MODE_FEATURE_ID } from 'src/lib/constants';
-import heyPrisma from 'src/lib/heyPrisma';
-import validateIsStaff from 'src/lib/middlewares/validateIsStaff';
-import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
+import logger from '@hey/helpers/logger';
+import parseJwt from '@hey/helpers/parseJwt';
+import catchedError from 'src/helpers/catchedError';
+import { STAFF_MODE_FEATURE_ID } from 'src/helpers/constants';
+import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
+import prisma from 'src/helpers/prisma';
+import { invalidBody, noBody, notAllowed } from 'src/helpers/responses';
 import { boolean, object } from 'zod';
 
 type ExtensionRequest = {
@@ -42,7 +42,7 @@ export const post: Handler = async (req, res) => {
     const profile_id = payload.id;
 
     if (enabled) {
-      await heyPrisma.profileFeature.create({
+      await prisma.profileFeature.create({
         data: { featureId: STAFF_MODE_FEATURE_ID, profileId: profile_id }
       });
       logger.info(`Enabled staff mode for ${profile_id}`);
@@ -50,7 +50,7 @@ export const post: Handler = async (req, res) => {
       return res.status(200).json({ enabled, success: true });
     }
 
-    await heyPrisma.profileFeature.delete({
+    await prisma.profileFeature.delete({
       where: {
         profileId_featureId: {
           featureId: STAFF_MODE_FEATURE_ID,

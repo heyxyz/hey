@@ -1,8 +1,8 @@
 import type { FC } from 'react';
 
 import { CRISP_WEBSITE_ID } from '@hey/data/constants';
-import getAvatar from '@hey/lib/getAvatar';
-import getProfile from '@hey/lib/getProfile';
+import getAvatar from '@hey/helpers/getAvatar';
+import getProfile from '@hey/helpers/getProfile';
 import { Crisp } from 'crisp-sdk-web';
 import { useEffect } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';

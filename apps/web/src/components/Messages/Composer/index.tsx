@@ -1,9 +1,9 @@
 import type { CachedConversation } from '@xmtp/react-sdk';
 import type { ChangeEvent, FC } from 'react';
 
+import { Leafwatch } from '@helpers/leafwatch';
 import { MESSAGES } from '@hey/data/tracking';
 import { Button, Input } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import { useSendMessage } from '@xmtp/react-sdk';
 import { useEffect, useRef, useState } from 'react';
 

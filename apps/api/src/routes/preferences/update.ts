@@ -1,11 +1,11 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/lib/logger';
-import parseJwt from '@hey/lib/parseJwt';
-import catchedError from 'src/lib/catchedError';
-import heyPrisma from 'src/lib/heyPrisma';
-import validateLensAccount from 'src/lib/middlewares/validateLensAccount';
-import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
+import logger from '@hey/helpers/logger';
+import parseJwt from '@hey/helpers/parseJwt';
+import catchedError from 'src/helpers/catchedError';
+import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
+import prisma from 'src/helpers/prisma';
+import { invalidBody, noBody, notAllowed } from 'src/helpers/responses';
 import { boolean, number, object, string } from 'zod';
 
 type ExtensionRequest = {
@@ -43,7 +43,7 @@ export const post: Handler = async (req, res) => {
   try {
     const payload = parseJwt(accessToken);
 
-    const data = await heyPrisma.preference.upsert({
+    const data = await prisma.preference.upsert({
       create: { appIcon, highSignalNotificationFilter, id: payload.id },
       update: { appIcon, highSignalNotificationFilter },
       where: { id: payload.id }

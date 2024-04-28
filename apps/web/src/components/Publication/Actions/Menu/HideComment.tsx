@@ -8,14 +8,14 @@ import type { FC } from 'react';
 
 import { useHiddenCommentFeedStore } from '@components/Publication';
 import { Menu } from '@headlessui/react';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { CheckCircleIcon, NoSymbolIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
+import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { useHideCommentMutation, useUnhideCommentMutation } from '@hey/lens';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import { toast } from 'react-hot-toast';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 

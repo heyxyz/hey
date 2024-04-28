@@ -6,6 +6,8 @@ import type { UniswapQuote } from '@hey/types/hey';
 import type { FC } from 'react';
 import type { Address } from 'viem';
 
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import {
   KNOWN_ATTRIBUTES,
@@ -13,13 +15,11 @@ import {
   WMATIC_ADDRESS
 } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
+import getPublicationAttribute from '@hey/helpers/getPublicationAttribute';
+import getUniswapQuote from '@hey/helpers/getUniswapQuote';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { useModuleMetadataQuery } from '@hey/lens';
-import getPublicationAttribute from '@hey/lib/getPublicationAttribute';
-import getUniswapQuote from '@hey/lib/getUniswapQuote';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Card } from '@hey/ui';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN } from 'src/constants';

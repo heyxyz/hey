@@ -3,9 +3,9 @@ import type { Address } from 'viem';
 
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import { POLYGONSCAN_URL } from '@hey/data/constants';
-import formatAddress from '@hey/lib/formatAddress';
-import getStampFyiURL from '@hey/lib/getStampFyiURL';
-import imageKit from '@hey/lib/imageKit';
+import formatAddress from '@hey/helpers/formatAddress';
+import getStampFyiURL from '@hey/helpers/getStampFyiURL';
+import imageKit from '@hey/helpers/imageKit';
 import { Image } from '@hey/ui';
 import Link from 'next/link';
 import useEnsName from 'src/hooks/useEnsName';

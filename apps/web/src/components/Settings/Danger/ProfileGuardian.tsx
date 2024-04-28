@@ -1,6 +1,8 @@
 import type { FC } from 'react';
 
 import IndexStatus from '@components/Shared/IndexStatus';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import {
   ExclamationTriangleIcon,
   LockOpenIcon
@@ -17,8 +19,6 @@ import {
   Spinner,
   WarningMessage
 } from '@hey/ui';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';

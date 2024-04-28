@@ -1,10 +1,10 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/lib/logger';
+import logger from '@hey/helpers/logger';
 import requestIp from 'request-ip';
-import catchedError from 'src/lib/catchedError';
-import createClickhouseClient from 'src/lib/createClickhouseClient';
-import { invalidBody, noBody } from 'src/lib/responses';
+import catchedError from 'src/helpers/catchedError';
+import createClickhouseClient from 'src/helpers/createClickhouseClient';
+import { invalidBody, noBody } from 'src/helpers/responses';
 import urlcat from 'urlcat';
 import { array, object, string } from 'zod';
 

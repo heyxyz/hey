@@ -2,15 +2,15 @@ import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import { Menu } from '@headlessui/react';
+import isFeatureAvailable from '@helpers/isFeatureAvailable';
+import isFeatureEnabled from '@helpers/isFeatureEnabled';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import { KillSwitch } from '@hey/data/kill-switches';
-import getAvatar from '@hey/lib/getAvatar';
-import getLennyURL from '@hey/lib/getLennyURL';
-import getProfile from '@hey/lib/getProfile';
+import getAvatar from '@hey/helpers/getAvatar';
+import getLennyURL from '@hey/helpers/getLennyURL';
+import getProfile from '@hey/helpers/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import isFeatureAvailable from '@lib/isFeatureAvailable';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
@@ -23,6 +23,7 @@ import GardenerMode from './NavItems/GardenerMode';
 import Invites from './NavItems/Invites';
 import Logout from './NavItems/Logout';
 import OptimisticTransactions from './NavItems/OptimisticTransactions';
+import Score from './NavItems/Score';
 import Settings from './NavItems/Settings';
 import StaffMode from './NavItems/StaffMode';
 import SwitchProfile from './NavItems/SwitchProfile';
@@ -174,6 +175,15 @@ const SignedUser: FC = () => {
                 <StaffMode />
               </Menu.Item>
             ) : null}
+            <div className="divider" />
+            <Menu.Item
+              as="div"
+              className={({ active }) =>
+                cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
+              }
+            >
+              <Score />
+            </Menu.Item>
             <div className="divider" />
             <AppVersion />
           </Menu.Items>

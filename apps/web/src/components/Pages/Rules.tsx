@@ -1,10 +1,10 @@
 import type { NextPage } from 'next';
 
 import Footer from '@components/Shared/Footer';
+import { Leafwatch } from '@helpers/leafwatch';
+import showCrisp from '@helpers/showCrisp';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import { Leafwatch } from '@lib/leafwatch';
-import showCrisp from '@lib/showCrisp';
 import { useEffect } from 'react';
 
 const Rules: NextPage = () => {

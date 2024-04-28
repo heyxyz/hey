@@ -4,6 +4,7 @@ import type { FC, ReactNode } from 'react';
 import Markup from '@components/Shared/Markup';
 import FollowUnfollowButton from '@components/Shared/Profile/FollowUnfollowButton';
 import Slug from '@components/Shared/Slug';
+import isVerified from '@helpers/isVerified';
 import {
   ClockIcon,
   Cog6ToothIcon,
@@ -17,18 +18,17 @@ import {
   EyeSlashIcon
 } from '@heroicons/react/24/solid';
 import { EXPANDED_AVATAR, STATIC_IMAGES_URL } from '@hey/data/constants';
+import formatDate from '@hey/helpers/datetime/formatDate';
+import getAvatar from '@hey/helpers/getAvatar';
+import getFavicon from '@hey/helpers/getFavicon';
+import getLennyURL from '@hey/helpers/getLennyURL';
+import getMentions from '@hey/helpers/getMentions';
+import getMisuseDetails from '@hey/helpers/getMisuseDetails';
+import getProfile from '@hey/helpers/getProfile';
+import getProfileAttribute from '@hey/helpers/getProfileAttribute';
+import hasMisused from '@hey/helpers/hasMisused';
 import { FollowModuleType } from '@hey/lens';
-import formatDate from '@hey/lib/datetime/formatDate';
-import getAvatar from '@hey/lib/getAvatar';
-import getFavicon from '@hey/lib/getFavicon';
-import getLennyURL from '@hey/lib/getLennyURL';
-import getMentions from '@hey/lib/getMentions';
-import getMisuseDetails from '@hey/lib/getMisuseDetails';
-import getProfile from '@hey/lib/getProfile';
-import getProfileAttribute from '@hey/lib/getProfileAttribute';
-import hasMisused from '@hey/lib/hasMisused';
 import { Button, Image, LightBox, Tooltip } from '@hey/ui';
-import isVerified from '@lib/isVerified';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -175,7 +175,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
           <MetaDetails icon={<HashtagIcon className="size-4" />}>
             {parseInt(profile.id)}
           </MetaDetails>
-          <Score address={profile.ownedBy.address} />
+          <Score id={profile.id} />
           {getProfileAttribute('location', profile?.metadata?.attributes) ? (
             <MetaDetails icon={<MapPinIcon className="size-4" />}>
               {getProfileAttribute('location', profile?.metadata?.attributes)}

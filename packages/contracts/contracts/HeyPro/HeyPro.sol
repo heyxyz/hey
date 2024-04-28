@@ -20,8 +20,10 @@ contract HeyPro is
   mapping(uint256 => address) public profileToAddress;
   mapping(uint256 => uint256) public proExpiresAt;
 
-  event SubscriptionUpdated(uint256 profileId, uint256 newExpiryDate);
-  event SubscriptionCancelled(uint256 profileId);
+  event SubscriptionUpdated(
+    uint256 indexed profileId,
+    uint256 indexed newExpiryDate
+  );
 
   error InvalidFunds(string message);
   error TransferFailed(string message);
@@ -39,11 +41,11 @@ contract HeyPro is
     yearlyPrice = _yearlyPrice;
   }
 
-  function pause() public onlyOwner {
+  function pause() external onlyOwner {
     _pause();
   }
 
-  function unpause() public onlyOwner {
+  function unpause() external onlyOwner {
     _unpause();
   }
 
@@ -62,14 +64,16 @@ contract HeyPro is
       proExpiresAt[profileId] = block.timestamp + duration;
     }
     profileToAddress[profileId] = msg.sender;
+
     emit SubscriptionUpdated(profileId, proExpiresAt[profileId]);
   }
 
   function subscribeMonthly(
     uint256 profileId
   ) external payable whenNotPaused nonReentrant {
-    if (msg.value != monthlyPrice)
+    if (msg.value != monthlyPrice) {
       revert InvalidFunds('Monthly subscription funds are incorrect');
+    }
     extendSubscription(profileId, MONTH);
     _transferFunds();
   }
@@ -77,8 +81,9 @@ contract HeyPro is
   function subscribeYearly(
     uint256 profileId
   ) external payable whenNotPaused nonReentrant {
-    if (msg.value != yearlyPrice)
+    if (msg.value != yearlyPrice) {
       revert InvalidFunds('Yearly subscription funds are incorrect');
+    }
     extendSubscription(profileId, YEAR);
     _transferFunds();
   }
@@ -91,21 +96,10 @@ contract HeyPro is
     extendSubscription(profileId, duration);
   }
 
-  function cancelSubscription(uint256 profileId) external {
-    require(
-      msg.sender == profileToAddress[profileId],
-      'Unauthorized: caller is not the subscriber'
-    );
-    require(
-      proExpiresAt[profileId] > block.timestamp,
-      'Subscription is not active'
-    );
-    proExpiresAt[profileId] = 0;
-    emit SubscriptionCancelled(profileId);
-  }
-
   function _transferFunds() private {
     (bool sent, ) = owner().call{ value: msg.value }('');
-    if (!sent) revert TransferFailed('Failed to transfer funds to owner');
+    if (!sent) {
+      revert TransferFailed('Failed to transfer funds to owner');
+    }
   }
 }

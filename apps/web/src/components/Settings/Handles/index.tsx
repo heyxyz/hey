@@ -3,6 +3,7 @@ import type { NextPage } from 'next';
 import MetaTags from '@components/Common/MetaTags';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import Slug from '@components/Shared/Slug';
+import { Leafwatch } from '@helpers/leafwatch';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import {
@@ -12,7 +13,6 @@ import {
   GridItemFour,
   GridLayout
 } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import { useEffect } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 

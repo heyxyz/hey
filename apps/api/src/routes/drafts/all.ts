@@ -1,11 +1,11 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/lib/logger';
-import parseJwt from '@hey/lib/parseJwt';
-import catchedError from 'src/lib/catchedError';
-import heyPrisma from 'src/lib/heyPrisma';
-import validateLensAccount from 'src/lib/middlewares/validateLensAccount';
-import { notAllowed } from 'src/lib/responses';
+import logger from '@hey/helpers/logger';
+import parseJwt from '@hey/helpers/parseJwt';
+import catchedError from 'src/helpers/catchedError';
+import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
+import prisma from 'src/helpers/prisma';
+import { notAllowed } from 'src/helpers/responses';
 
 // TODO: add tests
 export const get: Handler = async (req, res) => {
@@ -17,7 +17,7 @@ export const get: Handler = async (req, res) => {
 
   try {
     const payload = parseJwt(accessToken);
-    const result = await heyPrisma.draftPublication.findMany({
+    const result = await prisma.draftPublication.findMany({
       orderBy: { updatedAt: 'desc' },
       where: { profileId: payload.id }
     });

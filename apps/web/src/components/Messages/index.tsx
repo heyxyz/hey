@@ -1,13 +1,13 @@
 import type { NextPage } from 'next';
 
 import MetaTags from '@components/Common/MetaTags';
+import { Leafwatch } from '@helpers/leafwatch';
+import { loadKeys } from '@helpers/xmtp/keys';
 import { InboxIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { EmptyState } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { Leafwatch } from '@lib/leafwatch';
-import { loadKeys } from '@lib/xmtp/keys';
 import { useClient } from '@xmtp/react-sdk';
 import { useEffect } from 'react';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
