@@ -87,7 +87,9 @@ const StepperApprovals: FC<StepperApprovalsProps> = ({
           disabled={isApprovalLoading}
           onClick={() => approveOA()}
         >
-          {isApprovalLoading ? 'Approving...' : 'Approve Module'}
+          {isApprovalLoading
+            ? 'Approving...'
+            : 'Approve Module - Sign in your wallet'}
         </Button>
       ) : (
         <Button
@@ -95,7 +97,11 @@ const StepperApprovals: FC<StepperApprovalsProps> = ({
           disabled={isPermit2Loading}
           onClick={() => approvePermit2()}
         >
-          <div>{isPermit2Loading ? 'Approving...' : 'Approve Permit2'}</div>
+          <div>
+            {isPermit2Loading
+              ? 'Approving...'
+              : 'Approve Permit2 - Sign in your wallet'}
+          </div>
         </Button>
       )}
     </div>
