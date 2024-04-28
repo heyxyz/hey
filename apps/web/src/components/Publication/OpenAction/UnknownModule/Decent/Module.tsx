@@ -476,7 +476,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                     </div>
                   </div>
                   <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
-                    <span className="inline-flex items-center space-x-1">
+                    <span className="inline-flex items-center gap-1 space-x-1">
                       Lens Creator Fee{'  '}
                       <HelpTooltip>
                         <div className="w-[210px] px-2 py-3 leading-tight">
