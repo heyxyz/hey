@@ -23,7 +23,7 @@ import { defineVirtualSelection } from 'prosekit/extensions/virtual-selection';
 function defineHashtag() {
   return union([
     defineMarkSpec({
-      name: 'hashtag',
+      name: 'hashtag' as const,
       toDOM: () => ['span', { class: 'text-brand-500' }, 0]
     }),
     defineMarkRule({
@@ -36,7 +36,7 @@ function defineHashtag() {
 function defineCashtag() {
   return union([
     defineMarkSpec({
-      name: 'cashtag',
+      name: 'cashtag' as const,
       toDOM: () => ['span', { class: 'text-brand-500' }, 0]
     }),
     defineMarkRule({

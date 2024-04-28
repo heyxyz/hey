@@ -1,4 +1,4 @@
-import getAvatar from '@hey/lib/getAvatar';
+import getAvatar from '@hey/helpers/getAvatar';
 import { Image } from '@hey/ui';
 import 'prosekit/basic/style.css';
 import { createEditor } from 'prosekit/core';

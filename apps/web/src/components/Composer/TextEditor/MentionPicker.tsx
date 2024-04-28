@@ -1,9 +1,9 @@
+import isVerified from '@helpers/isVerified';
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
-import hasMisused from '@hey/lib/hasMisused';
-import isVerified from '@lib/isVerified';
+import hasMisused from '@hey/helpers/hasMisused';
 import { useEditor } from 'prosekit/react';
 import {
   AutocompleteEmpty,
