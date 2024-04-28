@@ -11,8 +11,6 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx",
-    "src/components/Messages/Conversations/NewConversation.tss",
-    "../../packages/ui/src/NumberedStat.tsx"
+    "**/*.tsx"
   ]
 }

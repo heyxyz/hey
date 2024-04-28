@@ -1,8 +1,8 @@
 import type { Profile, ProfileSearchRequest } from '@hey/lens';
 
+import getAvatar from '@hey/helpers/getAvatar';
+import getProfile from '@hey/helpers/getProfile';
 import { LimitType, useSearchProfilesLazyQuery } from '@hey/lens';
-import getAvatar from '@hey/lib/getAvatar';
-import getProfile from '@hey/lib/getProfile';
 import { useEffect, useState } from 'react';
 
 const SUGGESTION_LIST_LENGTH_LIMIT = 5;
