@@ -305,11 +305,21 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     <Modal
       icon={
         showCurrencySelector ? (
-          <button onClick={() => setShowCurrencySelector(false)}>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowCurrencySelector(false);
+            }}
+          >
             <ChevronLeftIcon className="mt-[2px] w-4" strokeWidth={3} />
           </button>
         ) : isModalCollapsed ? (
-          <button onClick={() => setIsModalCollapsed(false)}>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsModalCollapsed(false);
+            }}
+          >
             <ChevronLeftIcon className="mt-[2px] w-4" strokeWidth={3} />
           </button>
         ) : null
@@ -531,7 +541,10 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
             <div className="flex w-full items-center justify-center text-center text-sm">
               <button
                 className="lg-text-gray-500 flex items-baseline justify-center gap-1"
-                onClick={() => setShowCurrencySelector(true)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowCurrencySelector(true);
+                }}
               >
                 Select another token{' '}
                 <ChevronRightIcon className="w-2" strokeWidth={3} />

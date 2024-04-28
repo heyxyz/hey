@@ -35,7 +35,8 @@ const LoginButton: FC<LoginButtonProps> = ({
           width={19}
         />
       }
-      onClick={() => {
+      onClick={(e) => {
+        e.stopPropagation();
         setShowAuthModal(true);
         Leafwatch.track(AUTH.OPEN_LOGIN);
       }}

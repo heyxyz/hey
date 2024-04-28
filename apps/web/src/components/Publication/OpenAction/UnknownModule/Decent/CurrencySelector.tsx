@@ -198,7 +198,10 @@ const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
           <div
             className="hover:bg-brand-500/10 flex w-full cursor-pointer items-center justify-between rounded-lg p-2"
             key={currency.symbol}
-            onClick={() => onSelectCurrency(currency)}
+            onClick={(e) => {
+              e.stopPropagation();
+              onSelectCurrency(currency);
+            }}
           >
             <div className="flex items-center gap-2">
               <div className="relative">

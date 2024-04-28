@@ -98,7 +98,10 @@ const DecentAction: FC<DecentActionProps> = ({
         className={className}
         disabled={loadingState}
         icon={loadingState ? <Spinner size="xs" /> : null}
-        onClick={act}
+        onClick={(e) => {
+          e.stopPropagation();
+          act();
+        }}
       >
         <div>
           {loadingState
