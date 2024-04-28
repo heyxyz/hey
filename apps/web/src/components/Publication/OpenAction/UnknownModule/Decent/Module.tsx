@@ -3,10 +3,9 @@ import type {
   Profile,
   UnknownOpenActionModuleSettings
 } from '@hey/lens';
-import type { AllowedToken } from '@hey/types/hey';
 import type { Nft } from '@hey/types/misc';
 import type { ActionData } from 'nft-openaction-kit';
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { Dispatch, FC } from 'react';
 
 import {
   ArrowTopRightOnSquareIcon,
@@ -38,6 +37,7 @@ import toast from 'react-hot-toast';
 import { CHAIN, PERMIT_2_ADDRESS } from 'src/constants';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
 import { useTransactionStatus } from 'src/hooks/useIndexStatus';
+import { useOaCurrency } from 'src/store/persisted/useOaCurrency';
 import { useOaTransactionStore } from 'src/store/persisted/useOaTransactionStore';
 import { parseAbi } from 'viem';
 import { useAccount, useWalletClient } from 'wagmi';
@@ -53,9 +53,7 @@ interface DecentOpenActionModuleProps {
   nft: Nft;
   onClose: () => void;
   publication: MirrorablePublication;
-  selectedCurrency: AllowedToken;
   selectedQuantity: number;
-  setSelectedCurrency: Dispatch<SetStateAction<AllowedToken>>;
   setSelectedQuantity: Dispatch<number>;
   show: boolean;
 }
@@ -83,12 +81,11 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   nft,
   onClose,
   publication,
-  selectedCurrency,
   selectedQuantity,
-  setSelectedCurrency,
   setSelectedQuantity,
   show
 }) => {
+  const { selectedCurrency, setSelectedCurrency } = useOaCurrency();
   const [usdPrice, setUsdPrice] = useState(0);
   const [maticUsdPrice, setMaticUsdPrice] = useState(0);
   const { data: walletClient } = useWalletClient();

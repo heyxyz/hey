@@ -3,7 +3,6 @@ import type {
   MirrorablePublication,
   UnknownOpenActionModuleSettings
 } from '@hey/lens';
-import type { AllowedToken } from '@hey/types/hey';
 import type { Nft, OG } from '@hey/types/misc';
 import type { ActionData, PublicationInfo } from 'nft-openaction-kit';
 import type { Address } from 'viem';
@@ -22,6 +21,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { NftOpenActionKit } from 'nft-openaction-kit';
 import { type FC, useEffect, useRef, useState } from 'react';
 import { HEY_REFERRAL_PROFILE_ID } from 'src/constants';
+import { useOaCurrency } from 'src/store/persisted/useOaCurrency';
 import { useAccount } from 'wagmi';
 
 import { OPEN_ACTION_EMBED_TOOLTIP, openActionCTA } from '.';
@@ -67,13 +67,7 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
 }) => {
   const [actionData, setActionData] = useState<ActionData>();
   const [showOpenActionModal, setShowOpenActionModal] = useState(false);
-  const [selectedCurrency, setSelectedCurrency] = useState<AllowedToken>({
-    contractAddress: '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270',
-    decimals: 18,
-    id: 'WMATIC',
-    name: 'Wrapped MATIC',
-    symbol: 'WMATIC'
-  });
+  const { selectedCurrency } = useOaCurrency();
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
@@ -162,13 +156,7 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [
-      address,
-      module,
-      targetPublication,
-      selectedQuantity,
-      selectedCurrency.contractAddress
-    ]
+    [address, module, targetPublication, selectedQuantity, selectedCurrency]
   );
 
   if (!module) {
@@ -181,7 +169,7 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
         <div className="relative">
           <img
             alt={nft.mediaUrl !== '' ? nft.collectionName : undefined}
-            className="h-[350px] max-h-[350px] w-full rounded-t-xl object-cover"
+            className="h-[350px] max-h-[350px] w-full rounded-t-xl object-contain"
             src={nft.mediaUrl !== '' ? nft.mediaUrl : undefined}
           />
         </div>
@@ -238,9 +226,7 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
         nft={nft}
         onClose={() => setShowOpenActionModal(false)}
         publication={targetPublication}
-        selectedCurrency={selectedCurrency}
         selectedQuantity={selectedQuantity}
-        setSelectedCurrency={setSelectedCurrency}
         setSelectedQuantity={setSelectedQuantity}
         show={showOpenActionModal}
       />

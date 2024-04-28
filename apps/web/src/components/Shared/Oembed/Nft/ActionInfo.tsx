@@ -3,20 +3,11 @@ import type { ActionData, UIData } from 'nft-openaction-kit';
 import type { FC } from 'react';
 import type { Address } from 'viem';
 
-import { WMATIC_ADDRESS } from '@hey/data/constants';
 import { useDefaultProfileQuery } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import truncateByWords from '@hey/lib/truncateByWords';
 import { Image } from '@hey/ui';
-
-// TODO: take into account other currencies
-const defaultCurrency = {
-  contractAddress: WMATIC_ADDRESS,
-  decimals: 18,
-  id: 'WMATIC',
-  name: 'Wrapped MATIC',
-  symbol: 'WMATIC'
-};
+import { useOaCurrency } from 'src/store/persisted/useOaCurrency';
 
 interface ActionInfoProps {
   actionData?: ActionData;
@@ -31,6 +22,8 @@ const ActionInfo: FC<ActionInfoProps> = ({
   creatorAddress,
   uiData
 }) => {
+  const { selectedCurrency } = useOaCurrency();
+
   const { data, loading } = useDefaultProfileQuery({
     skip: !creatorAddress,
     variables: { request: { for: creatorAddress } }
@@ -40,7 +33,7 @@ const ActionInfo: FC<ActionInfoProps> = ({
     ? undefined
     : (
         actionData.actArgumentsFormatted.paymentToken.amount /
-        BigInt(10 ** defaultCurrency.decimals)
+        BigInt(10 ** selectedCurrency.decimals)
       ).toString();
 
   if (!creatorAddress && loading) {
@@ -77,7 +70,7 @@ const ActionInfo: FC<ActionInfoProps> = ({
         </span>
         {!!formattedPrice && (
           <p className="opacity-50">
-            {formattedPrice} {defaultCurrency.symbol}
+            {formattedPrice} {selectedCurrency.symbol}
           </p>
         )}
       </div>
