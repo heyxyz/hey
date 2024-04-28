@@ -2,20 +2,20 @@ import type { ApolloCache } from '@apollo/client';
 import type { PeerToPeerRecommendRequest, Profile } from '@hey/lens';
 import type { FC } from 'react';
 
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import {
   ArrowDownCircleIcon,
   ArrowUpCircleIcon
 } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data/errors';
 import { GARDENER } from '@hey/data/tracking';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import {
   usePeerToPeerRecommendMutation,
   usePeerToPeerUnrecommendMutation
 } from '@hey/lens';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button } from '@hey/ui';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
@@ -23,15 +23,9 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface P2PRecommendationProps {
   profile: Profile;
-  recommendTitle?: string;
-  unrecommendTitle?: string;
 }
 
-const P2PRecommendation: FC<P2PRecommendationProps> = ({
-  profile,
-  recommendTitle = 'Recommend',
-  unrecommendTitle = 'Unrecommend'
-}) => {
+const P2PRecommendation: FC<P2PRecommendationProps> = ({ profile }) => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
 
@@ -122,7 +116,7 @@ const P2PRecommendation: FC<P2PRecommendationProps> = ({
       outline={!hasRecommended}
       size="sm"
     >
-      {hasRecommended ? unrecommendTitle : recommendTitle}
+      {hasRecommended ? 'Unrecommend' : 'Recommend'}
     </Button>
   );
 };

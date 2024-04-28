@@ -2,20 +2,20 @@ import type { ApolloCache } from '@hey/lens/apollo';
 import type { FC } from 'react';
 
 import { Menu } from '@headlessui/react';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { BookmarkIcon as BookmarkIconOutline } from '@heroicons/react/24/outline';
 import { BookmarkIcon as BookmarkIconSolid } from '@heroicons/react/24/solid';
 import { PUBLICATION } from '@hey/data/tracking';
+import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import {
   type AnyPublication,
   type PublicationBookmarkRequest,
   useAddPublicationBookmarkMutation,
   useRemovePublicationBookmarkMutation
 } from '@hey/lens';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import { useCounter, useToggle } from '@uidotdev/usehooks';
 import { useRouter } from 'next/router';
 import { toast } from 'react-hot-toast';
@@ -68,11 +68,9 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
   const [addPublicationBookmark] = useAddPublicationBookmarkMutation({
     onCompleted: () => {
       toast.success('Publication bookmarked!');
-      Leafwatch.track(
-        PUBLICATION.BOOKMARK,
-        { publication_id: targetPublication.id },
-        targetPublication.by.ownedBy.address
-      );
+      Leafwatch.track(PUBLICATION.BOOKMARK, {
+        publication_id: targetPublication.id
+      });
     },
     onError: (error) => {
       toggleHasBookmarked();

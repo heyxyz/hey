@@ -1,16 +1,18 @@
 import type { FiatRate } from '@hey/types/lens';
 import type { FC } from 'react';
 
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import getCurrentSession from '@helpers/getCurrentSession';
 import { HEY_API_URL } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
-import getAllTokens from '@hey/lib/api/getAllTokens';
-import getPreferences from '@hey/lib/api/getPreferences';
-import getAuthApiHeaders from '@lib/getAuthApiHeaders';
-import getCurrentSession from '@lib/getCurrentSession';
+import getAllTokens from '@hey/helpers/api/getAllTokens';
+import getPreferences from '@hey/helpers/api/getPreferences';
+import getScore from '@hey/helpers/api/getScore';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
+import { useScoreStore } from 'src/store/non-persisted/useScoreStore';
 import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useRatesStore } from 'src/store/persisted/useRatesStore';
@@ -21,6 +23,7 @@ const PreferencesProvider: FC = () => {
   const { setVerifiedMembers } = useVerifiedMembersStore();
   const { setAllowedTokens } = useAllowedTokensStore();
   const { setFiatRates } = useRatesStore();
+  const { setScore } = useScoreStore();
   const {
     setAppIcon,
     setEmail,
@@ -81,6 +84,16 @@ const PreferencesProvider: FC = () => {
       return false;
     }
   };
+
+  // Fetch score
+  useQuery({
+    enabled: Boolean(sessionProfileId),
+    queryFn: () =>
+      getScore(sessionProfileId).then((score) => {
+        setScore(score.score);
+      }),
+    queryKey: ['getScore', sessionProfileId]
+  });
 
   useQuery({
     queryFn: getVerifiedMembers,

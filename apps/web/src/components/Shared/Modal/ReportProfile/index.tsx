@@ -2,12 +2,14 @@ import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import UserProfile from '@components/Shared/UserProfile';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data';
 import { PROFILE } from '@hey/data/tracking';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { useReportProfileMutation } from '@hey/lens';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import {
   Button,
   Card,
@@ -18,8 +20,6 @@ import {
   TextArea,
   useZodForm
 } from '@hey/ui';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';

@@ -3,12 +3,12 @@ import type { Address } from 'viem';
 
 import { HeyLensSignup } from '@hey/abis';
 import { HEY_LENS_SIGNUP, ZERO_ADDRESS } from '@hey/data/constants';
-import logger from '@hey/lib/logger';
+import logger from '@hey/helpers/logger';
 import crypto from 'crypto';
-import catchedError from 'src/lib/catchedError';
-import createClickhouseClient from 'src/lib/createClickhouseClient';
-import getRpc from 'src/lib/getRpc';
-import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
+import catchedError from 'src/helpers/catchedError';
+import createClickhouseClient from 'src/helpers/createClickhouseClient';
+import getRpc from 'src/helpers/getRpc';
+import { invalidBody, noBody, notAllowed } from 'src/helpers/responses';
 import { createWalletClient } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
 import { polygon, polygonAmoy } from 'viem/chains';

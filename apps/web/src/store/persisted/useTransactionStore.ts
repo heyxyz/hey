@@ -4,7 +4,7 @@ import { IndexDB } from '@hey/data/storage';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import createIdbStorage from '../lib/createIdbStorage';
+import createIdbStorage from '../helpers/createIdbStorage';
 
 interface State {
   addTransaction: (txn: OptimisticTransaction) => void;

@@ -10,8 +10,11 @@ import type {
 import type { OptimisticTransaction } from '@hey/types/misc';
 
 import { useApolloClient } from '@apollo/client';
+import checkAndToastDispatcherError from '@helpers/checkAndToastDispatcherError';
 import { LensHub } from '@hey/abis';
 import { LENS_HUB } from '@hey/data/constants';
+import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
+import getSignature from '@hey/helpers/getSignature';
 import {
   PublicationDocument,
   useBroadcastOnchainMutation,
@@ -30,10 +33,7 @@ import {
   useQuoteOnchainMutation,
   useQuoteOnMomokaMutation
 } from '@hey/lens';
-import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
-import getSignature from '@hey/lib/getSignature';
 import { OptmisticPublicationType } from '@hey/types/enums';
-import checkAndToastDispatcherError from '@lib/checkAndToastDispatcherError';
 import { useRouter } from 'next/router';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';

@@ -1,13 +1,13 @@
 import type { FC } from 'react';
 import type { Address } from 'viem';
 
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { CheckCircleIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import { HeyLensSignup } from '@hey/abis';
 import { HEY_LENS_SIGNUP } from '@hey/data/constants';
 import { STAFFTOOLS } from '@hey/data/tracking';
 import { Button, NumberedStat } from '@hey/ui';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { formatUnits, parseEther } from 'viem';

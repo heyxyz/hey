@@ -1,0 +1,27 @@
+query ModLatestReports($request: ModReportsRequest!) {
+  modLatestReports(request: $request) {
+    items {
+      reason
+      subreason
+      additionalInfo
+      createdAt
+      reporter {
+        ...ProfileFields
+      }
+      reportedPublication {
+        ... on Post {
+          ...PostFields
+        }
+        ... on Comment {
+          ...CommentFields
+        }
+        ... on Quote {
+          ...QuoteFields
+        }
+      }
+    }
+    pageInfo {
+      next
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 
+import { Leafwatch } from '@helpers/leafwatch';
 import {
   ChartBarIcon,
   ChatBubbleLeftIcon,
@@ -9,7 +10,6 @@ import {
 } from '@heroicons/react/24/outline';
 import { PROFILE } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import { ProfileFeedType } from 'src/enums';
 import { useProStore } from 'src/store/non-persisted/useProStore';
 

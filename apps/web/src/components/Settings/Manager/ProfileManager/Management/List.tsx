@@ -6,6 +6,7 @@ import type {
 
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
+import errorToast from '@helpers/errorToast';
 import { UsersIcon } from '@heroicons/react/24/outline';
 import {
   ManagedProfileVisibility,
@@ -14,7 +15,6 @@ import {
   useUnhideManagedProfileMutation
 } from '@hey/lens';
 import { Button, EmptyState, ErrorMessage } from '@hey/ui';
-import errorToast from '@lib/errorToast';
 import { type FC, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { Virtuoso } from 'react-virtuoso';

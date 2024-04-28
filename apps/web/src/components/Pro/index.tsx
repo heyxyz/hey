@@ -1,5 +1,7 @@
 import type { NextPage } from 'next';
 
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { CheckIcon } from '@heroicons/react/24/outline';
 import { HeyPro } from '@hey/abis';
 import { Errors } from '@hey/data';
@@ -10,11 +12,9 @@ import {
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import formatDate from '@hey/lib/datetime/formatDate';
+import formatDate from '@hey/helpers/datetime/formatDate';
 import { Button } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
@@ -122,28 +122,6 @@ const Pro: NextPage = () => {
     }
   };
 
-  const cancel = async () => {
-    if (!currentProfile) {
-      return toast.error(Errors.SignWallet);
-    }
-
-    try {
-      setIsLoading(true);
-      await handleWrongNetwork();
-
-      return await writeContractAsync({
-        abi: HeyPro,
-        address: HEY_PRO,
-        args: [currentProfile.id],
-        functionName: 'cancelSubscription'
-      });
-    } catch (error) {
-      errorToast(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   return (
     <div className="px-6 py-20">
       <div className="absolute inset-x-0 -z-10 blur-3xl">
@@ -223,18 +201,6 @@ const Pro: NextPage = () => {
                   ? `Extend a ${tier.id === 'monthly' ? 'Month' : 'Year'}`
                   : 'Upgrade to Pro'}
             </Button>
-            {isPro ? (
-              <Button
-                className="mt-3 w-full"
-                disabled={isLoading || transactionLoading}
-                onClick={cancel}
-                outline
-                size="lg"
-                variant="danger"
-              >
-                Cancel Subscription
-              </Button>
-            ) : null}
           </div>
         ))}
       </div>

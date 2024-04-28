@@ -14,9 +14,9 @@ import type {
 import type { FC } from 'react';
 
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
-import getCollectModuleData from '@hey/lib/getCollectModuleData';
-import getTokenImage from '@hey/lib/getTokenImage';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
+import getCollectModuleData from '@hey/helpers/getCollectModuleData';
+import getTokenImage from '@hey/helpers/getTokenImage';
+import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 
 interface OpenActionPaidActionProps {
   latestActed: LatestActed[];

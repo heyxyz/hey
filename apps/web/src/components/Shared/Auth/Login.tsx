@@ -6,6 +6,8 @@ import type {
 import type { FC } from 'react';
 
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { KeyIcon } from '@heroicons/react/24/outline';
 import { XCircleIcon } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data/errors';
@@ -17,8 +19,6 @@ import {
   useProfilesManagedQuery
 } from '@hey/lens';
 import { Button, Card } from '@hey/ui';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN } from 'src/constants';

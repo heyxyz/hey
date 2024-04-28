@@ -2,20 +2,20 @@ import type { ApolloCache } from '@apollo/client';
 import type { MirrorablePublication, ReactionRequest } from '@hey/lens';
 import type { FC } from 'react';
 
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { HeartIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
+import nFormatter from '@hey/helpers/nFormatter';
 import {
   PublicationReactionType,
   useAddReactionMutation,
   useRemoveReactionMutation
 } from '@hey/lens';
-import nFormatter from '@hey/lib/nFormatter';
 import { Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import { useCounter, useToggle } from '@uidotdev/usehooks';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
@@ -66,12 +66,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
   const eventProperties = { publication_id: publication?.id };
 
   const [addReaction] = useAddReactionMutation({
-    onCompleted: () =>
-      Leafwatch.track(
-        PUBLICATION.LIKE,
-        eventProperties,
-        publication.by.ownedBy.address
-      ),
+    onCompleted: () => Leafwatch.track(PUBLICATION.LIKE, eventProperties),
     onError: (error) => {
       toggleReact();
       decrement();
@@ -81,12 +76,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
   });
 
   const [removeReaction] = useRemoveReactionMutation({
-    onCompleted: () =>
-      Leafwatch.track(
-        PUBLICATION.UNLIKE,
-        eventProperties,
-        publication.by.ownedBy.address
-      ),
+    onCompleted: () => Leafwatch.track(PUBLICATION.UNLIKE, eventProperties),
     onError: (error) => {
       toggleReact();
       increment();

@@ -8,11 +8,18 @@ import type { FC } from 'react';
 
 import { useApolloClient } from '@apollo/client';
 import { Menu } from '@headlessui/react';
+import checkAndToastDispatcherError from '@helpers/checkAndToastDispatcherError';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
+import hasOptimisticallyMirrored from '@helpers/optimistic/hasOptimisticallyMirrored';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { LENS_HUB } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
+import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
+import getSignature from '@hey/helpers/getSignature';
+import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import {
   TriStateValue,
   useBroadcastOnchainMutation,
@@ -22,15 +29,8 @@ import {
   useMirrorOnchainMutation,
   useMirrorOnMomokaMutation
 } from '@hey/lens';
-import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
-import getSignature from '@hey/lib/getSignature';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import cn from '@hey/ui/cn';
-import checkAndToastDispatcherError from '@lib/checkAndToastDispatcherError';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
-import hasOptimisticallyMirrored from '@lib/optimistic/hasOptimisticallyMirrored';
 import { useCounter } from '@uidotdev/usehooks';
 import { toast } from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
@@ -125,11 +125,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     increment();
     updateCache();
     toast.success('Post has been mirrored!');
-    Leafwatch.track(
-      PUBLICATION.MIRROR,
-      { publication_id: publication.id },
-      publication.by.ownedBy.address
-    );
+    Leafwatch.track(PUBLICATION.MIRROR, { publication_id: publication.id });
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });

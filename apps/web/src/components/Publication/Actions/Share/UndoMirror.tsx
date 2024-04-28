@@ -2,15 +2,15 @@ import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import { Menu } from '@headlessui/react';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
+import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import { useHidePublicationMutation } from '@hey/lens';
 import { useApolloClient } from '@hey/lens/apollo';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import { toast } from 'react-hot-toast';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 

@@ -6,7 +6,7 @@ import { memo } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import EnableLensManager from './EnableLensManager';
-import HeyMembershipNft from './HeyMembershipNft';
+import Gitcoin from './Gitcoin';
 import SetProfile from './SetProfile';
 import StaffPicks from './StaffPicks';
 import WhoToFollow from './WhoToFollow';
@@ -18,9 +18,9 @@ const Sidebar: FC = () => {
 
   return (
     <>
-      {/* <Gitcoin /> */}
+      <Gitcoin />
       {loggedOut && <SignupCard />}
-      {loggedInWithProfile && <HeyMembershipNft />}
+      {/* {loggedInWithProfile && <HeyMembershipNft />} */}
       {/* Onboarding steps */}
       {loggedInWithProfile && (
         <>

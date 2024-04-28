@@ -2,7 +2,9 @@ import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import P2PRecommendation from '@components/Shared/Profile/P2PRecommendation';
+import MetaDetails from '@components/Shared/Staff/MetaDetails';
 import UserProfile from '@components/Shared/UserProfile';
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import {
   BanknotesIcon,
   HandRaisedIcon,
@@ -13,21 +15,18 @@ import {
 } from '@heroicons/react/24/outline';
 import { ShieldCheckIcon } from '@heroicons/react/24/solid';
 import { APP_NAME, HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
-import getPreferences from '@hey/lib/api/getPreferences';
-import formatAddress from '@hey/lib/formatAddress';
-import getFollowModule from '@hey/lib/getFollowModule';
-import getAuthApiHeaders from '@lib/getAuthApiHeaders';
+import getPreferences from '@hey/helpers/api/getPreferences';
+import formatAddress from '@hey/helpers/formatAddress';
+import getFollowModule from '@hey/helpers/getFollowModule';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Link from 'next/link';
 
-import MetaDetails from '../../../../Shared/Staff/MetaDetails';
 import FeatureFlags from './FeatureFlags';
 import LeafwatchDetails from './LeafwatchDetails';
 import ManagedProfiles from './ManagedProfiles';
 import OnchainIdentities from './OnchainIdentities';
 import Rank from './Rank';
-import Score from './Score';
 
 interface ProfileStaffToolProps {
   profile: Profile;
@@ -149,8 +148,6 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           <P2PRecommendation profile={profile} />
         </div>
       </div>
-      <div className="divider my-5 border-dashed border-yellow-600" />
-      <Score address={profile.ownedBy.address} />
       <div className="divider my-5 border-dashed border-yellow-600" />
       <OnchainIdentities onchainIdentity={profile.onchainIdentity} />
       {IS_MAINNET ? (

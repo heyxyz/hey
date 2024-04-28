@@ -1,11 +1,11 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/lib/logger';
-import parseJwt from '@hey/lib/parseJwt';
-import catchedError from 'src/lib/catchedError';
-import heyPrisma from 'src/lib/heyPrisma';
-import validateLensAccount from 'src/lib/middlewares/validateLensAccount';
-import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
+import logger from '@hey/helpers/logger';
+import parseJwt from '@hey/helpers/parseJwt';
+import catchedError from 'src/helpers/catchedError';
+import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
+import prisma from 'src/helpers/prisma';
+import { invalidBody, noBody, notAllowed } from 'src/helpers/responses';
 import { object, string } from 'zod';
 
 type ExtensionRequest = {
@@ -42,7 +42,7 @@ export const post: Handler = async (req, res) => {
     const payload = parseJwt(accessToken);
 
     // Begin: Check if the poll expired
-    const pollData = await heyPrisma.poll.findUnique({
+    const pollData = await prisma.poll.findUnique({
       where: { id: poll }
     });
 
@@ -52,7 +52,7 @@ export const post: Handler = async (req, res) => {
     // End: Check if the poll expired
 
     // Begin: Check if the poll exists and delete the existing response
-    const existingResponse = await heyPrisma.pollResponse.findFirst({
+    const existingResponse = await prisma.pollResponse.findFirst({
       where: {
         option: { pollId: poll },
         profileId: payload.id
@@ -60,13 +60,13 @@ export const post: Handler = async (req, res) => {
     });
 
     if (existingResponse) {
-      await heyPrisma.pollResponse.delete({
+      await prisma.pollResponse.delete({
         where: { id: existingResponse.id }
       });
     }
     // End: Check if the poll exists and delete the existing response
 
-    const data = await heyPrisma.pollResponse.create({
+    const data = await prisma.pollResponse.create({
       data: { optionId: option, profileId: payload.id }
     });
 

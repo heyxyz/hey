@@ -104,6 +104,14 @@ const Reason: FC<ReasonProps> = ({
                         subReason ===
                         PublicationReportingIllegalSubreason.Violence,
                       value: PublicationReportingIllegalSubreason.Violence
+                    },
+                    {
+                      label: 'Intellectual property',
+                      selected:
+                        subReason ===
+                        PublicationReportingIllegalSubreason.IntEllEctualProperty,
+                      value:
+                        PublicationReportingIllegalSubreason.IntEllEctualProperty
                     }
                   ]
                 : []),

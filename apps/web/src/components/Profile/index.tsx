@@ -3,6 +3,7 @@ import type { NextPage } from 'next';
 
 import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
+import { Leafwatch } from '@helpers/leafwatch';
 import { NoSymbolIcon } from '@heroicons/react/24/outline';
 import {
   APP_NAME,
@@ -10,11 +11,10 @@ import {
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
+import getProfileFlags from '@hey/helpers/api/getProfileFlags';
+import getProfile from '@hey/helpers/getProfile';
 import { useProfileQuery } from '@hey/lens';
-import getProfileFlags from '@hey/lib/api/getProfileFlags';
-import getProfile from '@hey/lib/getProfile';
 import { EmptyState, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';

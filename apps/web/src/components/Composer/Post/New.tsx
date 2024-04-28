@@ -1,9 +1,9 @@
 import type { FC } from 'react';
 
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
-import getAvatar from '@hey/lib/getAvatar';
-import getLennyURL from '@hey/lib/getLennyURL';
-import getProfile from '@hey/lib/getProfile';
+import getAvatar from '@hey/helpers/getAvatar';
+import getLennyURL from '@hey/helpers/getLennyURL';
+import getProfile from '@hey/helpers/getProfile';
 import { Card, Image } from '@hey/ui';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';

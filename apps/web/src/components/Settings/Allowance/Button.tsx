@@ -1,16 +1,17 @@
 import type { ApprovedAllowanceAmountResult } from '@hey/lens';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
+import errorToast from '@helpers/errorToast';
+import getAllowanceModule from '@helpers/getAllowanceModule';
+import { Leafwatch } from '@helpers/leafwatch';
 import { ExclamationTriangleIcon, PlusIcon } from '@heroicons/react/24/outline';
+import { MAX_UINT256 } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
 import {
   OpenActionModuleType,
   useGenerateModuleCurrencyApprovalDataLazyQuery
 } from '@hey/lens';
 import { Button, Modal, Spinner, WarningMessage } from '@hey/ui';
-import errorToast from '@lib/errorToast';
-import getAllowanceModule from '@lib/getAllowanceModule';
-import { Leafwatch } from '@lib/leafwatch';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
@@ -163,7 +164,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
             onClick={() =>
               handleAllowance(
                 module.allowance.asset.contract.address,
-                Number.MAX_SAFE_INTEGER.toString(),
+                MAX_UINT256.toString(),
                 module.moduleName
               )
             }

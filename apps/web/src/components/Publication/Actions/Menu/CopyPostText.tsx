@@ -2,13 +2,13 @@ import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import { Menu } from '@headlessui/react';
+import { Leafwatch } from '@helpers/leafwatch';
 import { ClipboardDocumentIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
-import getPublicationData from '@hey/lib/getPublicationData';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import getPublicationData from '@hey/helpers/getPublicationData';
+import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import cn from '@hey/ui/cn';
-import { Leafwatch } from '@lib/leafwatch';
 import toast from 'react-hot-toast';
 
 interface CopyPostTextProps {

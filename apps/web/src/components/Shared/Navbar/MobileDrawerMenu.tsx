@@ -1,16 +1,16 @@
 import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
+import isFeatureAvailable from '@helpers/isFeatureAvailable';
+import isFeatureEnabled from '@helpers/isFeatureEnabled';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import { KillSwitch } from '@hey/data/kill-switches';
-import getAvatar from '@hey/lib/getAvatar';
-import getLennyURL from '@hey/lib/getLennyURL';
-import getProfile from '@hey/lib/getProfile';
+import getAvatar from '@hey/helpers/getAvatar';
+import getLennyURL from '@hey/helpers/getLennyURL';
+import getProfile from '@hey/helpers/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import isFeatureAvailable from '@lib/isFeatureAvailable';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import Link from 'next/link';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
