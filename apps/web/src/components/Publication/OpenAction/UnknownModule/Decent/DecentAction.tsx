@@ -15,6 +15,7 @@ interface DecentActionProps {
   allowanceLoading?: boolean;
   className?: string;
   isLoading?: boolean;
+  isReadyToMint?: boolean;
   loadingCurrency?: boolean;
   moduleAmount?: Amount;
   txHash?: string;
@@ -25,6 +26,7 @@ const DecentAction: FC<DecentActionProps> = ({
   allowanceLoading,
   className = '',
   isLoading = false,
+  isReadyToMint,
   loadingCurrency,
   moduleAmount,
   txHash
@@ -106,7 +108,9 @@ const DecentAction: FC<DecentActionProps> = ({
         <div>
           {loadingState
             ? 'Pending'
-            : `Mint for ${moduleAmount?.value} ${moduleAmount?.asset.symbol}`}
+            : !isReadyToMint
+              ? `Approve minting for ${moduleAmount?.value} ${moduleAmount?.asset.symbol}`
+              : `Mint for ${moduleAmount?.value} ${moduleAmount?.asset.symbol}`}
         </div>
       </Button>
       {txHash ? (

@@ -215,6 +215,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   };
 
   const [isApprovalLoading, setIsApprovalLoading] = useState(false);
+  const [isApproved, setIsApproved] = useState(false);
 
   const approveOA = async () => {
     if (!!walletClient && !!actionData) {
@@ -236,6 +237,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
         });
         setIsModalCollapsed(false);
         setIsApprovalLoading(false);
+        setIsApproved(true);
       } catch (error) {
         toast.error('Failed to approve module');
         setIsApprovalLoading(false);
@@ -243,19 +245,11 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     }
   };
 
-  const [relayStatusTx, setRelayStatusTx] = useState<string | undefined>(
-    localStorage.getItem('pendingTx') || 'PENDING'
-  );
-
   useEffect(() => {
     if (!!relayStatus) {
       localStorage.setItem(`pendingTx`, relayStatus);
     }
   }, [relayStatus]);
-
-  const handleCloseOaToast = () => {
-    setRelayStatusTx('NONE'); // Set a state that won't be re-saved in local storage
-  };
 
   const act = async () => {
     if (actionData && !!publication && !!permit2Data) {
@@ -522,6 +516,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                 }
                 className="w-full justify-center"
                 isLoading={isLoading || loadingCurrency}
+                isReadyToMint={isApproved && permit2Allowed}
                 loadingCurrency={loadingCurrency}
                 moduleAmount={{
                   asset: {
