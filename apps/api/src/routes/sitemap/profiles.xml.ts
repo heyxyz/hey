@@ -11,9 +11,11 @@ export const get: Handler = async (req, res) => {
 
   try {
     const response = await lensPg.query(`
-      SELECT COUNT(DISTINCT h.local_name)
-      FROM namespace.handle_link hl
-      JOIN namespace.handle h ON hl.handle_id = h.handle_id;
+      SELECT COUNT(h.handle_id) AS count
+      FROM namespace.handle h
+      JOIN namespace.handle_link hl ON h.handle_id = hl.handle_id
+      JOIN profile.record p ON hl.token_id = p.profile_id
+      WHERE p.is_burnt = false;
     `);
 
     const totalHandles = Number(response[0]?.count) || 0;
