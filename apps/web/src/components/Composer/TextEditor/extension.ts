@@ -17,6 +17,7 @@ import { defineLinkMarkRule, defineLinkSpec } from 'prosekit/extensions/link';
 import { defineMarkRule } from 'prosekit/extensions/mark-rule';
 import { defineMention } from 'prosekit/extensions/mention';
 import { definePlaceholder } from 'prosekit/extensions/placeholder';
+import { defineStrike } from 'prosekit/extensions/strike';
 import { defineUnderline } from 'prosekit/extensions/underline';
 import { defineVirtualSelection } from 'prosekit/extensions/virtual-selection';
 
@@ -72,6 +73,7 @@ export function defineTextEditorExtension() {
     defineBaseCommands(),
     defineItalic(),
     defineBold(),
+    defineStrike(),
     defineUnderline(),
     defineCode(),
     defineHashtag(),
