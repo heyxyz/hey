@@ -13,7 +13,7 @@ import MentionPicker from './MentionPicker';
 import { useContentChange } from './useContentChange';
 import { usePaste } from './usePaste';
 
-export default function Editor() {
+const Editor = () => {
   const { currentProfile } = useProfileStore();
   const editor = useMemo(() => {
     const extension = defineTextEditorExtension();
@@ -43,4 +43,6 @@ export default function Editor() {
       </div>
     </ProseKit>
   );
-}
+};
+
+export default Editor;

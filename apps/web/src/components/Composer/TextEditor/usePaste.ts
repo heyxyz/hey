@@ -10,7 +10,7 @@ import type { TextEditorExtension } from './extension';
 /**
  * Define a ProseKit extension for handling drop and paste events.
  */
-function definePasteDropExtension(onPaste: (files: FileList) => void) {
+const definePasteDropExtension = (onPaste: (files: FileList) => void) => {
   const handleFiles = (event: Event, files: FileList | null | undefined) => {
     if (files && files.length) {
       event.preventDefault();
@@ -40,9 +40,9 @@ function definePasteDropExtension(onPaste: (files: FileList) => void) {
   );
 
   return union([dropExtension, pasteExtension]);
-}
+};
 
-export function usePaste(editor: Editor<TextEditorExtension>) {
+export const usePaste = (editor: Editor<TextEditorExtension>) => {
   const { attachments } = usePublicationAttachmentStore((state) => state);
   const { handleUploadAttachments } = useUploadAttachments();
 
@@ -77,4 +77,4 @@ export function usePaste(editor: Editor<TextEditorExtension>) {
   }, []);
 
   useExtension(extension, { editor });
-}
+};

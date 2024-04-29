@@ -13,21 +13,21 @@ import type { TextEditorExtension } from './extension';
 
 import { useEmojiQuery } from './useEmojiQuery';
 
-function EmojiEmpty() {
+const EmojiEmpty = () => {
   return (
     <AutocompleteEmpty className="m-2 block cursor-pointer rounded-lg p-2 outline-none">
       No results
     </AutocompleteEmpty>
   );
-}
+};
 
-function EmojiItem({
+const EmojiItem = ({
   emoji,
   onSelect
 }: {
   emoji: Emoji;
   onSelect: VoidFunction;
-}) {
+}) => {
   return (
     <AutocompleteItem
       className="focusable-dropdown-item m-2 block cursor-pointer rounded-lg p-2 outline-none"
@@ -39,9 +39,9 @@ function EmojiItem({
       </div>
     </AutocompleteItem>
   );
-}
+};
 
-export default function EmojiPicker() {
+const EmojiPicker = () => {
   const editor = useEditor<TextEditorExtension>();
 
   const handleInsert = (emoji: Emoji) => {
@@ -77,4 +77,6 @@ export default function EmojiPicker() {
       </AutocompleteList>
     </AutocompletePopover>
   );
-}
+};
+
+export default EmojiPicker;

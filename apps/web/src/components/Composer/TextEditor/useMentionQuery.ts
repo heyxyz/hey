@@ -15,7 +15,7 @@ export type MentionProfile = {
   picture: string;
 };
 
-export function useMentionQuery(query: string): MentionProfile[] {
+export const useMentionQuery = (query: string): MentionProfile[] => {
   const [results, setResults] = useState<MentionProfile[]>([]);
   const [searchUsers] = useSearchProfilesLazyQuery();
 
@@ -55,4 +55,4 @@ export function useMentionQuery(query: string): MentionProfile[] {
   }, [query, searchUsers]);
 
   return results;
-}
+};
