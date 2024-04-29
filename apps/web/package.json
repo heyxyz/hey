@@ -55,6 +55,7 @@
     "graphql": "^16.8.1",
     "idb-keyval": "^6.2.1",
     "lexical": "^0.14.5",
+    "lucide-react": "^0.376.0",
     "next": "^14.2.3",
     "next-themes": "^0.3.0",
     "party-js": "^2.2.0",
@@ -73,6 +74,7 @@
     "rehype-parse": "^9.0.0",
     "rehype-remark": "^10.0.0",
     "remark-breaks": "^4.0.0",
+    "remark-gfm": "^4.0.0",
     "remark-linkify-regex": "^1.2.1",
     "remark-stringify": "^11.0.0",
     "strip-markdown": "^6.0.0",
@@ -86,10 +88,8 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
-    "@egoist/tailwindcss-icons": "^1.7.4",
     "@hey/config": "workspace:*",
     "@hey/types": "workspace:*",
-    "@iconify-json/lucide": "^1.1.183",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.6",
     "@types/node": "^20.12.7",
