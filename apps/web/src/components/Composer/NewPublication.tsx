@@ -36,7 +36,7 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { useUnmountEffect } from 'framer-motion';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import useCreatePoll from 'src/hooks/useCreatePoll';
 import useCreatePublication from 'src/hooks/useCreatePublication';
@@ -63,6 +63,8 @@ import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestric
 import { useProStore } from 'src/store/non-persisted/useProStore';
 import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
+
+import type { TextEditorHandle } from './TextEditor';
 
 import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
@@ -173,6 +175,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
   const [publicationContentError, setPublicationContentError] = useState('');
+
+  const editorRef = useRef<TextEditorHandle>(null);
 
   const [editor] = useLexicalComposerContext();
   const createPoll = useCreatePoll();
@@ -552,7 +556,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           title="Transaction failed!"
         />
       ) : null}
-      <TextEditor />
+      <TextEditor editorRef={editorRef} />
       <Editor />
       {publicationContentError ? (
         <div className="mt-1 px-5 pb-3 text-sm font-bold text-red-500">
@@ -577,20 +581,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         <div className="flex items-center space-x-4">
           <Attachment />
           <EmojiPicker
-            setEmoji={(emoji) => {
+            setEmoji={(emoji: string) => {
               setShowEmojiPicker(false);
-              editor.update(() => {
-                // @ts-ignore
-                const index = editor?._editorState?._selection?.focus?.offset;
-                const updatedContent =
-                  publicationContent.substring(0, index) +
-                  emoji +
-                  publicationContent.substring(
-                    index,
-                    publicationContent.length
-                  );
-                $convertFromMarkdownString(updatedContent);
-              });
+              editorRef.current?.insertText(emoji);
             }}
             setShowEmojiPicker={setShowEmojiPicker}
             showEmojiPicker={showEmojiPicker}
