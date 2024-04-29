@@ -36,7 +36,7 @@ export default function Editor() {
           <MentionPicker />
           <EmojiPicker />
           <div
-            className='[&_span[data-mention="user"]]:text-brand-500 [&_a]:text-brand-500 relative mt-[8.5px] box-border h-full min-h-[80px] flex-1 overflow-auto bg-white leading-6 outline-0 sm:leading-[26px] dark:bg-neutral-900 [&_pre]:bg-zinc-800'
+            className="relative mt-[8.5px] box-border h-full min-h-[80px] flex-1 overflow-auto leading-6 outline-0 sm:leading-[26px]"
             ref={editor.mount}
           />
         </div>
