@@ -1,9 +1,9 @@
 import type { Emoji } from '@hey/types/misc';
 
 import { STATIC_ASSETS_URL } from '@hey/data/constants';
-import { useEffect, useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { useMemo } from 'react';
 
 const MAX_EMOJI_SUGGESTION_COUNT = 5;
 

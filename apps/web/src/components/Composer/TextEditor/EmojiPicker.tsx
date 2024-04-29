@@ -1,8 +1,8 @@
 import type { Emoji } from '@hey/types/misc';
 
+import cn from '@hey/ui/cn';
 import { useEditor } from 'prosekit/react';
 import {
-  AutocompleteEmpty,
   AutocompleteItem,
   AutocompleteList,
   AutocompletePopover
@@ -12,15 +12,6 @@ import { useState } from 'react';
 import type { TextEditorExtension } from './extension';
 
 import { useEmojiQuery } from './useEmojiQuery';
-import cn from '@hey/ui/cn';
-
-const EmojiEmpty = () => {
-  return (
-    <AutocompleteEmpty className="m-2 block cursor-pointer rounded-lg p-2 outline-none">
-      No results
-    </AutocompleteEmpty>
-  );
-};
 
 const EmojiItem = ({
   emoji,
@@ -67,8 +58,6 @@ const EmojiPicker = () => {
       regex={/:\w*$/}
     >
       <AutocompleteList filter={null}>
-        {emojis.length === 0 ? <EmojiEmpty /> : null}
-
         {emojis.map((emoji) => (
           <EmojiItem
             emoji={emoji}

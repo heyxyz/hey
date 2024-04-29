@@ -20,34 +20,37 @@ export const useMentionQuery = (query: string): MentionProfile[] => {
   const [searchUsers] = useSearchProfilesLazyQuery();
 
   useEffect(() => {
+    if (!query) {
+      setResults([]);
+      return;
+    }
+
     let cancelled = false;
 
-    if (query) {
-      const request: ProfileSearchRequest = {
-        limit: LimitType.Ten,
-        query
-      };
+    const request: ProfileSearchRequest = {
+      limit: LimitType.Ten,
+      query
+    };
 
-      searchUsers({ variables: { request } }).then(({ data }) => {
-        if (cancelled) {
-          return;
-        }
+    searchUsers({ variables: { request } }).then(({ data }) => {
+      if (cancelled) {
+        return;
+      }
 
-        const search = data?.searchProfiles;
-        const profileSearchResult = search;
-        const profiles = profileSearchResult?.items as Profile[];
-        const profilesResults = (profiles ?? []).map(
-          (user): MentionProfile => ({
-            displayHandle: getProfile(user).slugWithPrefix,
-            handle: user.handle?.fullHandle,
-            id: user?.id,
-            name: getProfile(user).displayName,
-            picture: getAvatar(user)
-          })
-        );
-        setResults(profilesResults.slice(0, SUGGESTION_LIST_LENGTH_LIMIT));
-      });
-    }
+      const search = data?.searchProfiles;
+      const profileSearchResult = search;
+      const profiles = profileSearchResult?.items as Profile[];
+      const profilesResults = (profiles ?? []).map(
+        (user): MentionProfile => ({
+          displayHandle: getProfile(user).slugWithPrefix,
+          handle: user.handle?.fullHandle,
+          id: user?.id,
+          name: getProfile(user).displayName,
+          picture: getAvatar(user)
+        })
+      );
+      setResults(profilesResults.slice(0, SUGGESTION_LIST_LENGTH_LIMIT));
+    });
 
     return () => {
       cancelled = true;
