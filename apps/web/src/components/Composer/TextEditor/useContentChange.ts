@@ -11,7 +11,7 @@ import type { TextEditorExtension } from './extension';
 
 import { markdownFromHTML } from './markdown';
 
-export function useContentChange(editor: Editor<TextEditorExtension>) {
+export const useContentChange = (editor: Editor<TextEditorExtension>) => {
   const { setPublicationContent } = usePublicationStore();
 
   const setContent = useCallback(() => {
@@ -24,4 +24,4 @@ export function useContentChange(editor: Editor<TextEditorExtension>) {
   const debouncedSetContent = useDebouncedCallback(setContent, 500);
 
   useDocChange(debouncedSetContent, { editor });
-}
+};

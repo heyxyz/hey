@@ -18,21 +18,21 @@ import type { MentionProfile } from './useMentionQuery';
 
 import { useMentionQuery } from './useMentionQuery';
 
-function MentionEmpty() {
+const MentionEmpty = () => {
   return (
     <AutocompleteEmpty className="m-1.5 flex items-center space-x-2 rounded-xl px-3 py-1 dark:text-white">
       No results
     </AutocompleteEmpty>
   );
-}
+};
 
-function MentionItem({
+const MentionItem = ({
   onSelect,
   user
 }: {
   onSelect: VoidFunction;
   user: MentionProfile;
-}) {
+}) => {
   return (
     <div className="m-0 p-0">
       <AutocompleteItem
@@ -61,9 +61,9 @@ function MentionItem({
       </AutocompleteItem>
     </div>
   );
-}
+};
 
-export default function MentionPicker() {
+const MentionPicker = () => {
   const editor = useEditor<TextEditorExtension>();
 
   const handleUserInsert = (profile: MentionProfile) => {
@@ -98,4 +98,6 @@ export default function MentionPicker() {
       </AutocompleteList>
     </AutocompletePopover>
   );
-}
+};
+
+export default MentionPicker;

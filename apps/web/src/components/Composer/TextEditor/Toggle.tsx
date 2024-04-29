@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 
 import { Tooltip } from '@hey/ui';
 
-export default function Toggle({
+const Toggle = ({
   children,
   disabled,
   onClick,
@@ -14,7 +14,7 @@ export default function Toggle({
   onClick?: VoidFunction;
   pressed: boolean;
   tooltip?: string;
-}) {
+}) => {
   return (
     <Tooltip content={tooltip} placement="top">
       <button
@@ -28,4 +28,6 @@ export default function Toggle({
       </button>
     </Tooltip>
   );
-}
+};
+
+export default Toggle;

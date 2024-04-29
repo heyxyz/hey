@@ -12,7 +12,7 @@ import type { TextEditorExtension } from './extension';
 
 import Toggle from './Toggle';
 
-export default function InlineMenu() {
+const InlineMenu = () => {
   const editor = useEditor<TextEditorExtension>({ update: true });
 
   return (
@@ -63,4 +63,6 @@ export default function InlineMenu() {
       </Toggle>
     </InlinePopover>
   );
-}
+};
+
+export default InlineMenu;
