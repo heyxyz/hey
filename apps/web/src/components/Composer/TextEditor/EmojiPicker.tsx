@@ -12,6 +12,7 @@ import { useState } from 'react';
 import type { TextEditorExtension } from './extension';
 
 import { useEmojiQuery } from './useEmojiQuery';
+import cn from '@hey/ui/cn';
 
 const EmojiEmpty = () => {
   return (
@@ -53,14 +54,15 @@ const EmojiPicker = () => {
   };
 
   const [query, setQuery] = useState('');
-  const [open, setOpen] = useState(false);
-  const emojis = useEmojiQuery(open, query);
+  const emojis = useEmojiQuery(query);
 
   return (
     <AutocompletePopover
-      className="relative z-10 box-border block w-52 select-none overflow-auto whitespace-nowrap rounded-xl border bg-white p-1 shadow-sm dark:border-gray-700 dark:bg-gray-900"
+      className={cn(
+        'relative z-10 box-border block w-52 select-none overflow-auto whitespace-nowrap rounded-xl border bg-white p-1 shadow-sm dark:border-gray-700 dark:bg-gray-900',
+        emojis.length === 0 && 'hidden'
+      )}
       offset={10}
-      onOpenChange={setOpen}
       onQueryChange={setQuery}
       regex={/:\w*$/}
     >
