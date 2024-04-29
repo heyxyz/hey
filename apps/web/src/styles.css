@@ -82,11 +82,10 @@ body {
     @apply rounded-lg bg-gray-300 px-[5px] py-[2px] text-sm dark:bg-gray-700;
   }
 
-  & a {
-    @apply text-brand-500;
-  }
-
-  & span[data-mention='user'] {
+  & a,
+  span[data-hashtag],
+  span[data-cashtag],
+  span[data-mention='user'] {
     @apply text-brand-500;
   }
 
