@@ -24,7 +24,7 @@ import { defineVirtualSelection } from 'prosekit/extensions/virtual-selection';
 const EMAIL_MATCHER =
   /(([^\s"(),.:;<>@[\\\]]+(\.[^\s"(),.:;<>@[\\\]]+)*)|(".+"))@((\[(?:\d{1,3}\.){3}\d{1,3}])|(([\dA-Za-z\-]+\.)+[A-Za-z]{2,}))/g;
 
-function defineHashtag() {
+const defineHashtag = () => {
   return union([
     defineMarkSpec({
       name: 'hashtag' as const,
@@ -35,9 +35,9 @@ function defineHashtag() {
       type: 'hashtag'
     })
   ]);
-}
+};
 
-function defineCashtag() {
+const defineCashtag = () => {
   return union([
     defineMarkSpec({
       name: 'cashtag' as const,
@@ -48,21 +48,21 @@ function defineCashtag() {
       type: 'cashtag'
     })
   ]);
-}
+};
 
-function defineEmailMarkRule() {
+const defineEmailMarkRule = () => {
   return defineMarkRule({
     attrs: (match) => ({ href: match[1] }),
     regex: EMAIL_MATCHER,
     type: 'link'
   });
-}
+};
 
-function defineAutoLink() {
+const defineAutoLink = () => {
   return union([defineLinkSpec(), defineLinkMarkRule(), defineEmailMarkRule()]);
-}
+};
 
-export function defineTextEditorExtension() {
+export const defineTextEditorExtension = () => {
   return union([
     defineDoc(),
     defineText(),
@@ -83,6 +83,6 @@ export function defineTextEditorExtension() {
     defineMention(),
     definePlaceholder({ placeholder: "What's ProseKit?!", strategy: 'doc' })
   ]);
-}
+};
 
 export type TextEditorExtension = ReturnType<typeof defineTextEditorExtension>;

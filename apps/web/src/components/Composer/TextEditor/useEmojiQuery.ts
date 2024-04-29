@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 const MAX_EMOJI_SUGGESTION_COUNT = 5;
 
-export function useEmojiQuery(load: boolean, query: string): Emoji[] {
+export const useEmojiQuery = (load: boolean, query: string): Emoji[] => {
   const [emojis, setEmojis] = useState<Emoji[]>([]);
   const [loaded, setLoaded] = useState(false);
 
@@ -32,4 +32,4 @@ export function useEmojiQuery(load: boolean, query: string): Emoji[] {
       })
       .slice(0, MAX_EMOJI_SUGGESTION_COUNT);
   }, [query, emojis]);
-}
+};
