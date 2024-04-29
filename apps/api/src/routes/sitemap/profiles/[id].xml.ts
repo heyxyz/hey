@@ -25,10 +25,12 @@ export const get: Handler = async (req, res) => {
 
     const response = await lensPg.query(
       `
-        SELECT h.local_name
-        FROM namespace.handle_link hl
-        JOIN namespace.handle h ON hl.handle_id = h.handle_id
-        ORDER BY h.block_timestamp
+        SELECT h.local_name, hl.block_timestamp
+        FROM namespace.handle h
+        JOIN namespace.handle_link hl ON h.handle_id = hl.handle_id
+        JOIN profile.record p ON hl.token_id = p.profile_id
+        WHERE p.is_burnt = false
+        ORDER BY p.block_timestamp
         LIMIT $1
         OFFSET $2;
       `,
@@ -36,6 +38,11 @@ export const get: Handler = async (req, res) => {
     );
 
     const entries = response.map((handle) => ({
+      lastmod: handle.block_timestamp
+        .toISOString()
+        .replace('T', ' ')
+        .replace('.000Z', '')
+        .split(' ')[0],
       loc: `https://hey.xyz/u/${handle.local_name}`
     }));
 
