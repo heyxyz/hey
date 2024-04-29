@@ -21,9 +21,6 @@ import { defineStrike } from 'prosekit/extensions/strike';
 import { defineUnderline } from 'prosekit/extensions/underline';
 import { defineVirtualSelection } from 'prosekit/extensions/virtual-selection';
 
-const EMAIL_MATCHER =
-  /(([^\s"(),.:;<>@[\\\]]+(\.[^\s"(),.:;<>@[\\\]]+)*)|(".+"))@((\[(?:\d{1,3}\.){3}\d{1,3}])|(([\dA-Za-z\-]+\.)+[A-Za-z]{2,}))/g;
-
 const defineHashtag = () => {
   return union([
     defineMarkSpec({
@@ -50,16 +47,8 @@ const defineCashtag = () => {
   ]);
 };
 
-const defineEmailMarkRule = () => {
-  return defineMarkRule({
-    attrs: (match) => ({ href: match[1] }),
-    regex: EMAIL_MATCHER,
-    type: 'link'
-  });
-};
-
 const defineAutoLink = () => {
-  return union([defineLinkSpec(), defineLinkMarkRule(), defineEmailMarkRule()]);
+  return union([defineLinkSpec(), defineLinkMarkRule()]);
 };
 
 export const defineTextEditorExtension = () => {
