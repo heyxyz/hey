@@ -1,15 +1,15 @@
+import { useEditor } from 'prosekit/react';
+import { InlinePopover } from 'prosekit/react/inline-popover';
+
+import type { TextEditorExtension } from './extension';
+
 import {
   BoldIcon,
   CodeIcon,
   ItalicIcon,
   StrikethroughIcon,
   UnderlineIcon
-} from 'lucide-react';
-import { useEditor } from 'prosekit/react';
-import { InlinePopover } from 'prosekit/react/inline-popover';
-
-import type { TextEditorExtension } from './extension';
-
+} from './icons';
 import Toggle from './Toggle';
 
 const InlineMenu = () => {

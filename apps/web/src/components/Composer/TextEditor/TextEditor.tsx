@@ -1,19 +1,27 @@
 import getAvatar from '@hey/helpers/getAvatar';
 import { Image } from '@hey/ui';
+import dynamic from 'next/dynamic';
 import 'prosekit/basic/style.css';
 import { createEditor } from 'prosekit/core';
 import { ProseKit } from 'prosekit/react';
 import { useMemo } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
-import EmojiPicker from './EmojiPicker';
+import type { TextEditorHandle } from './useEditorHandle';
+
 import { defineTextEditorExtension } from './extension';
-import InlineMenu from './InlineMenu';
-import MentionPicker from './MentionPicker';
 import { useContentChange } from './useContentChange';
+import { useEditorHandle } from './useEditorHandle';
 import { usePaste } from './usePaste';
 
-const Editor = () => {
+// Some components use DOM API (e.g. class CustomElement extends HTMLElement).
+// It would throw error when importing in server-side. We only import it in
+// client-side.
+const TextEditorMenus = dynamic(() => import('./TextEditorMenus'), {
+  ssr: false
+});
+
+const TextEditor = (props: { editorRef: React.Ref<TextEditorHandle> }) => {
   const { currentProfile } = useProfileStore();
   const editor = useMemo(() => {
     const extension = defineTextEditorExtension();
@@ -22,6 +30,7 @@ const Editor = () => {
 
   useContentChange(editor);
   usePaste(editor);
+  useEditorHandle(editor, props.editorRef);
 
   return (
     <ProseKit editor={editor}>
@@ -32,9 +41,7 @@ const Editor = () => {
           src={getAvatar(currentProfile)}
         />
         <div className="flex flex-1 flex-col">
-          <InlineMenu />
-          <MentionPicker />
-          <EmojiPicker />
+          <TextEditorMenus />
           <div
             className="relative mt-[8.5px] box-border h-full min-h-[80px] flex-1 overflow-auto leading-6 outline-0 sm:leading-[26px]"
             ref={editor.mount}
@@ -45,4 +52,4 @@ const Editor = () => {
   );
 };
 
-export default Editor;
+export default TextEditor;

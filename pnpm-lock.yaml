@@ -295,9 +295,6 @@ importers:
       lexical:
         specifier: ^0.14.5
         version: 0.14.5
-      lucide-react:
-        specifier: ^0.376.0
-        version: 0.376.0(react@18.3.1)
       next:
         specifier: ^14.2.3
         version: 14.2.3(@babel/core@7.24.4)(react-dom@18.3.1)(react@18.3.1)
@@ -314,8 +311,8 @@ importers:
         specifier: ^5.3.0
         version: 5.3.0(plyr@3.7.8)(react@18.3.1)
       prosekit:
-        specifier: ^0.6.7
-        version: 0.6.7(react-dom@18.3.1)(react@18.3.1)
+        specifier: 0.6.8
+        version: 0.6.8(react-dom@18.3.1)(react@18.3.1)
       rc-slider:
         specifier: 10.6.2
         version: 10.6.2(react-dom@18.3.1)(react@18.3.1)
@@ -6515,7 +6512,7 @@ packages:
     resolution: {integrity: sha512-75aezW5iEiwOnWhF0gRdI1XoYpH/gKbxitEAFIlpJgoiu5OC8HnOd8qIdoXYWoBKcPsFg6kBlaGE0ct1K52DaA==}
     dependencies:
       '@prosekit/core': 0.4.2
-      '@prosekit/extensions': 0.4.5
+      '@prosekit/extensions': 0.4.6
       '@prosekit/pm': 0.1.3
     transitivePeerDependencies:
       - '@types/hast'
@@ -6538,8 +6535,8 @@ packages:
       type-fest: 4.17.0
     dev: false
 
-  /@prosekit/extensions@0.4.5:
-    resolution: {integrity: sha512-VDMpHnf/btOAi4sfD8Lf/LRc+/u/clxF+r5ZIQerY8mrA+v4bqlqGxx2iu7CK47M1wu9h/iSgW4DHZPP1lvKAQ==}
+  /@prosekit/extensions@0.4.6:
+    resolution: {integrity: sha512-epB9SmNCCKkUxeV+K/k4cHVrChTrv/Bi76ookzKZ5jUzWK/9ajxC4yNYydF8W+YNQvGzE1UTy5pL3YB4xF8G4w==}
     dependencies:
       '@prosekit/core': 0.4.2
       '@prosekit/pm': 0.1.3
@@ -6563,7 +6560,7 @@ packages:
   /@prosekit/lit@0.3.1:
     resolution: {integrity: sha512-bMec3TxaTXwinJC3bgsn1yJh9YIO2O7aMaTuuYzYsyVw5bq+chZC0tXlnDTxZjVAAZTZG1VUJtzgifOIML41vg==}
     dependencies:
-      '@prosekit/web': 0.1.2
+      '@prosekit/web': 0.1.3
     transitivePeerDependencies:
       - '@types/hast'
       - highlight.js
@@ -6599,7 +6596,7 @@ packages:
     dependencies:
       '@prosekit/core': 0.4.2
       '@prosekit/pm': 0.1.3
-      '@prosekit/web': 0.1.2
+      '@prosekit/web': 0.1.3
       react-merge-refs: 2.1.1
     transitivePeerDependencies:
       - '@types/hast'
@@ -6626,7 +6623,7 @@ packages:
     dependencies:
       '@prosekit/core': 0.4.2
       '@prosekit/pm': 0.1.3
-      '@prosekit/web': 0.1.2
+      '@prosekit/web': 0.1.3
       '@prosemirror-adapter/core': 0.2.6
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -6653,7 +6650,7 @@ packages:
     dependencies:
       '@prosekit/core': 0.4.2
       '@prosekit/pm': 0.1.3
-      '@prosekit/web': 0.1.2
+      '@prosekit/web': 0.1.3
     transitivePeerDependencies:
       - '@types/hast'
       - highlight.js
@@ -6676,7 +6673,7 @@ packages:
     dependencies:
       '@prosekit/core': 0.4.2
       '@prosekit/pm': 0.1.3
-      '@prosekit/web': 0.1.2
+      '@prosekit/web': 0.1.3
     transitivePeerDependencies:
       - '@types/hast'
       - highlight.js
@@ -6699,7 +6696,7 @@ packages:
     dependencies:
       '@prosekit/core': 0.4.2
       '@prosekit/pm': 0.1.3
-      '@prosekit/web': 0.1.2
+      '@prosekit/web': 0.1.3
       '@prosemirror-adapter/core': 0.2.6
     transitivePeerDependencies:
       - '@types/hast'
@@ -6713,8 +6710,8 @@ packages:
       - shikiji
     dev: false
 
-  /@prosekit/web@0.1.2:
-    resolution: {integrity: sha512-/4Pff5lnSFVsFQ2FQMsYfdBKf1q26YPBjllpBeYt56+9ihQTdqB7i0n3zJRVOiGUfTKuUO91ZJijLd10fLje+Q==}
+  /@prosekit/web@0.1.3:
+    resolution: {integrity: sha512-CfXd32V4BGiJM+ZC3RlUSnHkNMweUci0PsS9AsLIIM/o9EGvDNmGRjg1Z7rVzu8GXVc69bR3Lfb0yuQqeiTtcw==}
     dependencies:
       '@aria-ui/collection': 0.0.3
       '@aria-ui/core': 0.0.12
@@ -6725,9 +6722,9 @@ packages:
       '@aria-ui/tooltip': 0.0.13
       '@floating-ui/dom': 1.6.3
       '@prosekit/core': 0.4.2
-      '@prosekit/extensions': 0.4.5
+      '@prosekit/extensions': 0.4.6
       '@prosekit/pm': 0.1.3
-      '@zag-js/dom-query': 0.47.0
+      '@zag-js/dom-query': 0.48.0
     transitivePeerDependencies:
       - '@types/hast'
       - highlight.js
@@ -10570,8 +10567,8 @@ packages:
     resolution: {integrity: sha512-aUZsDq22ibtYK2Pp/h6J3c9fZvKyQOn/BnVRO3rmAShC8JSZajElRPkTpRNWJiFErP2uMGPrjjkmlhKh2J0Yew==}
     dev: false
 
-  /@zag-js/dom-query@0.47.0:
-    resolution: {integrity: sha512-B1wZ3o/8uHOn75BkfcT45zwc23hqZJ/gUF7Z6UrmxWFNpr6JKiDNvOW+QaAKzYNEpvz3NnUOB4tEY0IhDms7Sg==}
+  /@zag-js/dom-query@0.48.0:
+    resolution: {integrity: sha512-pUM+BHOZIWPtHgqEqBXN+1YJzhYhn6F8er3Rfr27chlgE+76bLkT8k7FRnp2TQW30uur9TqM2RTdWlvpw7Wjrw==}
     dev: false
 
   /@zag-js/interact-outside@0.46.0:
@@ -16623,14 +16620,6 @@ packages:
     resolution: {integrity: sha512-Pn9cox5CsMYngeDbmChANltQl+5pi6XmTrraMSzhPmMBbmgcxmqWry0U3PGapCU1yB4/LqCcom7qhHZiF/jGfQ==}
     dev: true
 
-  /lucide-react@0.376.0(react@18.3.1):
-    resolution: {integrity: sha512-g91IX3ERD6yUR1TL2dsL4BkcGygpZz/EsqjAeL/kcRQV0EApIOr/9eBfKhYOVyQIcGGuotFGjF3xKLHMEz+b7g==}
-    peerDependencies:
-      react: ^16.5.1 || ^17.0.0 || ^18.0.0
-    dependencies:
-      react: 18.3.1
-    dev: false
-
   /magic-string@0.27.0:
     resolution: {integrity: sha512-8UnnX2PeRAPZuN12svgR9j7M1uWMovg/CEnIwIG0LFkXSJJe4PdfUGiTGl8V9bsBHFUtfVINcSyYxd7q+kx9fA==}
     engines: {node: '>=12'}
@@ -18926,8 +18915,8 @@ packages:
     resolution: {integrity: sha512-PgTgs/BlvHxOu8QuEN7wi5A0OmXaBcHpmCSTehcs6Uuu9IkDIEo13Hy7n898RHfrQ49vKCoGeWZSaAK01nwVig==}
     dev: false
 
-  /prosekit@0.6.7(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-Dbs5Vdz+v0M7jb3EnKgdYX3UabocQZjTXTdrCVuMenkWO60/oclW1/pyPmajPVEg0EHYRZG4WSvLYGUfFPoUzQ==}
+  /prosekit@0.6.8(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-c4t3ofWJp2TuK9UAbLpJ2cPw/tmC6M7d3h2kvo/g8HMxuKxaz01xk5psmcjSiLFwPGbRkDQSNov5aa1EpbzORA==}
     peerDependencies:
       preact: '>= 10.11.0'
       react: '>= 18.2.0'
@@ -18951,7 +18940,7 @@ packages:
     dependencies:
       '@prosekit/basic': 0.3.4
       '@prosekit/core': 0.4.2
-      '@prosekit/extensions': 0.4.5
+      '@prosekit/extensions': 0.4.6
       '@prosekit/lit': 0.3.1
       '@prosekit/pm': 0.1.3
       '@prosekit/preact': 0.3.3
@@ -18959,7 +18948,7 @@ packages:
       '@prosekit/solid': 0.3.2
       '@prosekit/svelte': 0.3.2
       '@prosekit/vue': 0.3.2
-      '@prosekit/web': 0.1.2
+      '@prosekit/web': 0.1.3
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
     transitivePeerDependencies:
