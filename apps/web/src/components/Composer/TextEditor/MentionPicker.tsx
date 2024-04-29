@@ -68,7 +68,6 @@ export default function MentionPicker() {
 
   const handleUserInsert = (profile: MentionProfile) => {
     editor.commands.insertMention({
-      // TODO: improve this
       id: profile.id.toString(),
       kind: 'user',
       value: '@' + profile.name

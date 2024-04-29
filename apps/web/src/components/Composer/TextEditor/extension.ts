@@ -28,7 +28,7 @@ function defineHashtag() {
   return union([
     defineMarkSpec({
       name: 'hashtag' as const,
-      toDOM: () => ['span', { class: 'text-brand-500' }, 0]
+      toDOM: () => ['span', { 'data-hashtag': '' }, 0]
     }),
     defineMarkRule({
       regex: Regex.hashtag,
@@ -41,7 +41,7 @@ function defineCashtag() {
   return union([
     defineMarkSpec({
       name: 'cashtag' as const,
-      toDOM: () => ['span', { class: 'text-brand-500' }, 0]
+      toDOM: () => ['span', { 'data-cashtag': '' }, 0]
     }),
     defineMarkRule({
       regex: Regex.cashtag,
