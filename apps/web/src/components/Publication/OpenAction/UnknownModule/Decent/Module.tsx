@@ -36,6 +36,7 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN, PERMIT_2_ADDRESS } from 'src/constants';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useTransactionStatus } from 'src/hooks/useIndexStatus';
 import { useOaCurrency } from 'src/store/persisted/useOaCurrency';
 import { useOaTransactionStore } from 'src/store/persisted/useOaTransactionStore';
@@ -90,6 +91,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   const [maticUsdPrice, setMaticUsdPrice] = useState(0);
   const { data: walletClient } = useWalletClient();
   const { address } = useAccount();
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const getUsdPrice = async () => {
     const usdPrice = await getRedstonePrice(
@@ -186,6 +188,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     if (!!walletClient) {
       setIsPermit2Loading(true);
       try {
+        await handleWrongNetwork();
         await walletClient.writeContract({
           abi: parseAbi(['function approve(address, uint256) returns (bool)']),
           address: assetAddress as `0x${string}`,
@@ -225,6 +228,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
           chainId: actionData.uiData.dstChainId,
           data: actionData.actArguments.actionModuleData
         });
+        await handleWrongNetwork();
         const permit2Signature = await signPermitSignature(
           walletClient,
           signatureAmount,
