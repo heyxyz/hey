@@ -10,6 +10,7 @@ interface State {
   reportingProfile: null | Profile;
   reportingPublicationId: null | string;
   score: null | number;
+  scoreViewerProfileId: null | string;
   setShowAuthModal: (
     showAuthModal: boolean,
     authModalType?: AuthModalType
@@ -30,7 +31,11 @@ interface State {
     reportProfileModal: boolean,
     reportingProfile: null | Profile
   ) => void;
-  setShowScoreModal: (showScoreModal: boolean, score: null | number) => void;
+  setShowScoreModal: (
+    showScoreModal: boolean,
+    score: null | number,
+    scoreViewerProfileId: null | string
+  ) => void;
   showAuthModal: boolean;
   showDiscardModal: boolean;
   showInvitesModal: boolean;
@@ -48,6 +53,7 @@ const store = create<State>((set) => ({
   reportingProfile: null,
   reportingPublicationId: null,
   score: null,
+  scoreViewerProfileId: null,
   setShowAuthModal: (showAuthModal, authModalType) => {
     set(() => ({ authModalType, showAuthModal }));
   },
@@ -69,8 +75,8 @@ const store = create<State>((set) => ({
     })),
   setShowReportProfileModal: (showReportProfileModal, reportingProfile) =>
     set(() => ({ reportingProfile, showReportProfileModal })),
-  setShowScoreModal: (showScoreModal, score) =>
-    set(() => ({ score, showScoreModal })),
+  setShowScoreModal: (showScoreModal, score, scoreViewerProfileId) =>
+    set(() => ({ score, scoreViewerProfileId, showScoreModal })),
   showAuthModal: false,
   showDiscardModal: false,
   showInvitesModal: false,

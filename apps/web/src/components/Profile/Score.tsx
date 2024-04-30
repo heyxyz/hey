@@ -31,7 +31,7 @@ const Score: FC<ScoreProps> = ({ id }) => {
     >
       <button
         className="font-mono text-xs font-bold"
-        onClick={() => setShowScoreModal(true, score.score)}
+        onClick={() => setShowScoreModal(true, score.score, id)}
       >
         {humanize(score.score)}
       </button>

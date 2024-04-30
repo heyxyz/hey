@@ -16,6 +16,7 @@ export const get: Handler = async (req, res) => {
 
   try {
     const adjustedProfileScore = await prisma.adjustedProfileScore.findMany({
+      orderBy: { createdAt: 'desc' },
       where: {
         profileId: id as string,
         reason: { in: allocations.map((allocation) => allocation.id) }
