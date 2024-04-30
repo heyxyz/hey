@@ -153,7 +153,7 @@ const GlobalModals: FC = () => {
         <OptimisticTransactions />
       </Modal>
       <Modal
-        onClose={() => setShowScoreModal(false, null)}
+        onClose={() => setShowScoreModal(false, null, null)}
         show={showScoreModal}
         size="xs"
         title={`${APP_NAME} score`}
