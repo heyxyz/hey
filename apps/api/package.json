@@ -21,8 +21,8 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-ses": "^3.564.0",
-    "@aws-sdk/client-sts": "^3.556.0",
+    "@aws-sdk/client-ses": "^3.565.0",
+    "@aws-sdk/client-sts": "^3.565.0",
     "@clickhouse/client": "^1.0.1",
     "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
@@ -43,9 +43,9 @@
     "ua-parser-js": "^1.0.37",
     "urlcat": "^3.1.0",
     "uuid": "^9.0.1",
-    "viem": "^2.9.28",
+    "viem": "^2.9.29",
     "vite-express": "^0.16.0",
-    "zod": "^3.23.4"
+    "zod": "^3.23.5"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
