@@ -135,6 +135,7 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
               profileOwnerAddress: targetPublication.by.ownedBy.address,
               quantity: selectedQuantity !== 1 ? selectedQuantity : 1,
               senderAddress: addressParameter as Address,
+              sourceUrl: nft.sourceUrl,
               srcChainId: '137' // srcChainId, only supported on Polygon POS for now
             });
           setLoadingCurrency(false);
