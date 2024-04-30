@@ -5,6 +5,7 @@ import humanize from '@hey/helpers/humanize';
 import cn from '@hey/ui/cn';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useScoreStore } from 'src/store/non-persisted/useScoreStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface ScoreProps {
   className?: string;
@@ -12,6 +13,7 @@ interface ScoreProps {
 }
 
 const Score: FC<ScoreProps> = ({ className = '', onClick }) => {
+  const { currentProfile } = useProfileStore();
   const { score } = useScoreStore();
   const { setShowScoreModal } = useGlobalModalStateStore();
 
@@ -22,7 +24,7 @@ const Score: FC<ScoreProps> = ({ className = '', onClick }) => {
         className
       )}
       onClick={() => {
-        setShowScoreModal(true, score);
+        setShowScoreModal(true, score, currentProfile?.id);
         onClick?.();
       }}
       type="button"
