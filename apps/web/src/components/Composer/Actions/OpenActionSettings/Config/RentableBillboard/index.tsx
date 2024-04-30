@@ -10,40 +10,56 @@ import { encodeAbiParameters, isAddress } from 'viem';
 import { create } from 'zustand';
 
 import SaveOrCancel from '../../SaveOrCancel';
+import CostConfig from './CostConfig';
 import TimeConfig from './TimeConfig';
 import TokenConfig from './TokenConfig';
 
 interface State {
+  costPerSecond: number;
+  currency: {
+    decimals: number;
+    token: Address;
+  };
   enabled: boolean;
   expiresAt: Date;
   reset: () => void;
+  setCostPerSecond: (costPerSecond: number) => void;
+  setCurrency: (currency: Address, decimals: number) => void;
   setEnabled: (enabled: boolean) => void;
   setExpiresAt: (expiresAt: Date) => void;
-  setToken: (token: Address | null) => void;
-  token: Address | null;
 }
 
 const store = create<State>((set) => ({
+  costPerSecond: 0.5,
+  currency: {
+    decimals: 18,
+    token: DEFAULT_COLLECT_TOKEN as Address
+  },
   enabled: false,
   expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
   reset: () =>
     set({
+      costPerSecond: 0.5,
+      currency: {
+        decimals: 18,
+        token: DEFAULT_COLLECT_TOKEN as Address
+      },
       enabled: false,
-      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
-      token: DEFAULT_COLLECT_TOKEN as Address
+      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000)
     }),
   rewardsPoolId: null,
+  setCostPerSecond: (costPerSecond) => set({ costPerSecond }),
+  setCurrency: (currency, decimals) =>
+    set({ currency: { decimals, token: currency } }),
   setEnabled: (enabled) => set({ enabled }),
-  setExpiresAt: (expiresAt) => set({ expiresAt }),
-  setToken: (token) => set({ token }),
-  token: DEFAULT_COLLECT_TOKEN as Address
+  setExpiresAt: (expiresAt) => set({ expiresAt })
 }));
 
 export const useRentableBillboardActionStore = createTrackedSelector(store);
 
 const RentableBillboardConfig: FC = () => {
   const { setOpenAction, setShowModal } = useOpenActionStore();
-  const { enabled, expiresAt, reset, setEnabled, token } =
+  const { costPerSecond, currency, enabled, expiresAt, reset, setEnabled } =
     useRentableBillboardActionStore();
 
   const onSave = () => {
@@ -54,10 +70,18 @@ const RentableBillboardConfig: FC = () => {
           { name: 'currency', type: 'address' },
           { name: 'allowOpenAction', type: 'bool' },
           { name: 'expireAt', type: 'uint16' },
+          { name: 'costPerSecond', type: 'uint256' },
           { name: 'clientFeePerActBps', type: 'uint16' },
           { name: 'referralFeePerActBps', type: 'uint16' }
         ],
-        [token as Address, false, expiresAt.getTime() / 1000, 0, 0]
+        [
+          currency.token as Address,
+          false,
+          expiresAt.getTime() / 1000,
+          BigInt(costPerSecond * 10 ** currency.decimals),
+          0,
+          0
+        ]
       )
     });
     setShowModal(false);
@@ -83,6 +107,7 @@ const RentableBillboardConfig: FC = () => {
           <div className="divider" />
           <div className="m-5">
             <TokenConfig />
+            <CostConfig />
             <TimeConfig />
           </div>
           <div className="divider" />
@@ -90,8 +115,9 @@ const RentableBillboardConfig: FC = () => {
             <SaveOrCancel
               onSave={onSave}
               saveDisabled={
-                (token ? token.length === 0 || !isAddress(token) : true) ||
-                expiresAt.getTime() < Date.now()
+                !isAddress(currency.token) ||
+                expiresAt.getTime() < Date.now() ||
+                costPerSecond <= 0
               }
             />
           </div>
