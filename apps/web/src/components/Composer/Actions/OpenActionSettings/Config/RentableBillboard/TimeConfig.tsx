@@ -1,13 +1,10 @@
 import { Input } from '@hey/ui';
 import { type FC } from 'react';
-import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
 
 import { useRentableBillboardActionStore } from '.';
 
 const TimeConfig: FC = () => {
-  const { expiresAt, setExpiresAt, setToken } =
-    useRentableBillboardActionStore();
-  const { allowedTokens } = useAllowedTokensStore();
+  const { expiresAt, setExpiresAt } = useRentableBillboardActionStore();
 
   const getFormattedDateTimeLocal = () => {
     const now = new Date();
@@ -15,6 +12,7 @@ const TimeConfig: FC = () => {
     const localISO = new Date(Number(expiresAt) - offset)
       .toISOString()
       .slice(0, 16);
+
     return localISO;
   };
 
