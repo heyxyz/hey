@@ -112,6 +112,7 @@ jobs:
         env:
           NEXT_PUBLIC_LENS_NETWORK: 'testnet'
           DATABASE_URL: 'postgresql://postgres:postgres@localhost:5432/postgres'
+          LENS_DATABASE_PASSWORD: ${{ secrets.LENS_DATABASE_PASSWORD }}
           CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
           SECRET: ${{ secrets.SECRET }}
           EVER_ACCESS_KEY: ${{ secrets.EVER_ACCESS_KEY }}
@@ -124,6 +125,7 @@ jobs:
           {
             echo "NEXT_PUBLIC_LENS_NETWORK=${NEXT_PUBLIC_LENS_NETWORK}"
             echo "DATABASE_URL=${DATABASE_URL}"
+            echo "LENS_DATABASE_PASSWORD=${LENS_DATABASE_PASSWORD}"
             echo "CLICKHOUSE_PASSWORD=${CLICKHOUSE_PASSWORD}"
             echo "SECRET=${SECRET}"
             echo "EVER_ACCESS_KEY=${EVER_ACCESS_KEY}"
