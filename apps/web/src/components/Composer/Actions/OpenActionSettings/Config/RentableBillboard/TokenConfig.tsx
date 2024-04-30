@@ -1,3 +1,5 @@
+import type { Address } from 'viem';
+
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { Select } from '@hey/ui';
 import { type FC } from 'react';
@@ -6,7 +8,7 @@ import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore
 import { useRentableBillboardActionStore } from '.';
 
 const TokenConfig: FC = () => {
-  const { setToken, token: currency } = useRentableBillboardActionStore();
+  const { currency, setCurrency } = useRentableBillboardActionStore();
   const { allowedTokens } = useAllowedTokensStore();
 
   return (
@@ -14,11 +16,16 @@ const TokenConfig: FC = () => {
       <div className="label">Select currency</div>
       <Select
         iconClassName="size-4"
-        onChange={(value) => setToken(value)}
+        onChange={(value) => {
+          setCurrency(
+            value as Address,
+            allowedTokens?.find((t) => t.symbol === value)?.decimals || 18
+          );
+        }}
         options={allowedTokens?.map((token) => ({
           icon: `${STATIC_IMAGES_URL}/tokens/${token.symbol}.svg`,
           label: token.name,
-          selected: token.contractAddress === currency,
+          selected: token.contractAddress === currency.token,
           value: token.contractAddress
         }))}
       />
