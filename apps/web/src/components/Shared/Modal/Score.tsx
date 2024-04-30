@@ -49,9 +49,9 @@ const Score: FC = () => {
       </div>
       <div className="flex flex-col items-center space-y-2">
         <div className="text-center leading-7">
-          <b>{APP_NAME} score</b> is determined by a super-secret algorithm that
-          combines the number of crucial interactions you've received, the
-          publications you've posted, and lot other factors 🤓
+          <b>{APP_NAME} score</b> is determined based on the number reactions,
+          mirrors, collects, and comments, follows, and other actions on your
+          profile.
         </div>
         <Link
           className="text-brand-500 underline"
