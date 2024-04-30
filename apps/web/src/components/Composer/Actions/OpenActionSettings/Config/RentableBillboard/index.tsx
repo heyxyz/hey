@@ -3,9 +3,10 @@ import type { Address } from 'viem';
 
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
+import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { createTrackedSelector } from 'react-tracked';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
-import { isAddress } from 'viem';
+import { encodeAbiParameters, isAddress } from 'viem';
 import { create } from 'zustand';
 
 import SaveOrCancel from '../../SaveOrCancel';
@@ -41,15 +42,24 @@ const store = create<State>((set) => ({
 export const useRentableBillboardActionStore = createTrackedSelector(store);
 
 const RentableBillboardConfig: FC = () => {
-  const { setShowModal } = useOpenActionStore();
+  const { setOpenAction, setShowModal } = useOpenActionStore();
   const { enabled, expiresAt, reset, setEnabled, token } =
     useRentableBillboardActionStore();
 
   const onSave = () => {
-    // setOpenAction({
-    //   address: VerifiedOpenActionModules.RentableBillboard,
-    //   data: encodeAbiParameters([])
-    // });
+    setOpenAction({
+      address: VerifiedOpenActionModules.RentableBillboard,
+      data: encodeAbiParameters(
+        [
+          { name: 'currency', type: 'address' },
+          { name: 'allowOpenAction', type: 'bool' },
+          { name: 'expireAt', type: 'uint16' },
+          { name: 'clientFeePerActBps', type: 'uint16' },
+          { name: 'referralFeePerActBps', type: 'uint16' }
+        ],
+        [token as Address, false, expiresAt.getTime() / 1000, 0, 0]
+      )
+    });
     setShowModal(false);
   };
 
