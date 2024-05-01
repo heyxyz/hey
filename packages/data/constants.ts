@@ -30,7 +30,7 @@ export const APP_NAME = 'Hey';
 export const DESCRIPTION = `${APP_NAME}.xyz is a decentralized, and permissionless social media app built with Lens Protocol 🌿`;
 export const APP_VERSION = packageJson.version;
 export const BRAND_COLOR = '#FB3A5D';
-export const MAX_UINT256 = 2n ** 256n - 1n;
+export const { MAX_SAFE_INTEGER } = Number;
 
 // Git
 export const GIT_COMMIT_SHA =
