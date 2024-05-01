@@ -468,7 +468,11 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
               {showFees ? (
                 <>
                   <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
-                    <span className="space-x-1">Bridge Fee</span>
+                    <span className="space-x-1">
+                      {actionData?.actArgumentsFormatted.dstChainId === 137
+                        ? 'Transaction Fee'
+                        : 'Bridge Fee'}
+                    </span>
                     <div>
                       {bridgeFee.toFixed(4)} {selectedCurrency?.symbol}
                     </div>
