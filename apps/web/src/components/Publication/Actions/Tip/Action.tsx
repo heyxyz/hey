@@ -11,7 +11,7 @@ import {
   DEFAULT_COLLECT_TOKEN,
   HEY_API_URL,
   HEY_TIPPING,
-  MAX_UINT256,
+  MAX_SAFE_INTEGER,
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
@@ -166,7 +166,7 @@ const Action: FC<ActionProps> = ({
           }
         ],
         address: selectedCurrency?.contractAddress as Address,
-        args: [HEY_TIPPING, MAX_UINT256],
+        args: [HEY_TIPPING, MAX_SAFE_INTEGER],
         functionName: 'approve'
       });
       Leafwatch.track(PUBLICATION.TIP.ENABLE, {
