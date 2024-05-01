@@ -20,6 +20,8 @@ import {
 import { ZERO_ADDRESS } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { useDefaultProfileQuery } from '@hey/lens';
+import getNftChainId from '@hey/lib/getNftChainId';
+import getNftChainInfo from '@hey/lib/getNftChainInfo';
 import getProfile from '@hey/lib/getProfile';
 import getRedstonePrice from '@hey/lib/getRedstonePrice';
 import {
@@ -168,6 +170,17 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   const formattedTotalFees = bridgeFee + formattedTotalAmount * 0.05;
 
   const formattedNftSchema = nft.schema === 'erc1155' ? 'ERC-1155' : 'ERC-721';
+
+  const nftChainInfo = actionData?.uiData.dstChainId
+    ? {
+        logo: getNftChainInfo(
+          getNftChainId(actionData.uiData.dstChainId.toString())
+        ).logo,
+        name: getNftChainInfo(
+          getNftChainId(actionData.uiData.dstChainId.toString())
+        ).name
+      }
+    : null;
 
   const [showLongDescription, setShowLongDescription] = useState(false);
   const [showFees, setShowFees] = useState(false);
@@ -418,6 +431,16 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                 </Link>
               </div>
             </div>
+            {nftChainInfo ? (
+              <div className="ld-text-gray-500 flex items-center justify-start gap-1 text-base">
+                <img
+                  alt={nftChainInfo.name}
+                  className="h-4 w-4 rounded-full"
+                  src={nftChainInfo.logo}
+                />
+                <p>Minted on {nftChainInfo.name}</p>
+              </div>
+            ) : null}
           </div>
           {nft.schema === 'erc1155' ? (
             <div className="flex items-center justify-between border-y border-zinc-200 px-5 py-4">
@@ -440,7 +463,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
               </div>
             </div>
           ) : null}
-          <div className="space-y-5 p-5">
+          <div className="space-y-5 p-5 pt-0">
             <div>
               <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
                 <span className="space-x-1">Price</span>

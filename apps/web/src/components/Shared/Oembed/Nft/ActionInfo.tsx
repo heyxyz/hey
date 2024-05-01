@@ -4,6 +4,8 @@ import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import { useDefaultProfileQuery } from '@hey/lens';
+import getNftChainId from '@hey/lib/getNftChainId';
+import getNftChainInfo from '@hey/lib/getNftChainInfo';
 import getProfile from '@hey/lib/getProfile';
 import truncateByWords from '@hey/lib/truncateByWords';
 import { Image } from '@hey/ui';
@@ -51,6 +53,17 @@ const ActionInfo: FC<ActionInfoProps> = ({
 
   const profileExists = !!data && !!data.defaultProfile;
 
+  const nftChainInfo = actionData?.uiData.dstChainId
+    ? {
+        logo: getNftChainInfo(
+          getNftChainId(actionData.uiData.dstChainId.toString())
+        ).logo,
+        name: getNftChainInfo(
+          getNftChainId(actionData.uiData.dstChainId.toString())
+        ).name
+      }
+    : null;
+
   return (
     <div className="flex items-start gap-4">
       <div className="flex flex-col items-start justify-start">
@@ -68,7 +81,7 @@ const ActionInfo: FC<ActionInfoProps> = ({
         <span className="block sm:inline-flex sm:gap-2">
           <h2 className="sm:hidden">{truncateByWords(collectionName, 3)}</h2>
           <h2 className="hidden sm:block">
-            {truncateByWords(collectionName, 5)}
+            {truncateByWords(collectionName, 4)}
           </h2>
           <p className="opacity-50">
             by{' '}
@@ -82,6 +95,16 @@ const ActionInfo: FC<ActionInfoProps> = ({
             {formattedPrice} {selectedCurrency.symbol}
           </p>
         )}
+        {nftChainInfo ? (
+          <div className="flex items-center justify-start gap-1 text-xs">
+            <img
+              alt={nftChainInfo.name}
+              className="h-3 w-3 rounded-full"
+              src={nftChainInfo.logo}
+            />
+            <p className="opacity-50">On {nftChainInfo.name}</p>
+          </div>
+        ) : null}
       </div>
     </div>
   );
