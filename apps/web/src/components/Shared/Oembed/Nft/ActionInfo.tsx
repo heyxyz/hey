@@ -9,6 +9,17 @@ import truncateByWords from '@hey/lib/truncateByWords';
 import { Image } from '@hey/ui';
 import { useOaCurrency } from 'src/store/persisted/useOaCurrency';
 
+const formatPrice = (value: Number) => {
+  const num = Number(value);
+  if (num < 1) {
+    if (num < 0.0001) {
+      return '<0.0001';
+    }
+    return num.toFixed(3);
+  }
+  return Math.round(num).toString();
+};
+
 interface ActionInfoProps {
   actionData?: ActionData;
   collectionName: string;
@@ -29,12 +40,10 @@ const ActionInfo: FC<ActionInfoProps> = ({
     variables: { request: { for: creatorAddress } }
   });
 
-  const formattedPrice: string | undefined = !actionData
-    ? undefined
-    : (
-        actionData.actArgumentsFormatted.paymentToken.amount /
-        BigInt(10 ** selectedCurrency.decimals)
-      ).toString();
+  const formattedPrice = formatPrice(
+    Number(actionData?.actArgumentsFormatted.paymentToken.amount) /
+      Math.pow(10, selectedCurrency.decimals)
+  );
 
   if (!creatorAddress && loading) {
     return null;
