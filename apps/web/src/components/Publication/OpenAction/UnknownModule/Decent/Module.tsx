@@ -117,7 +117,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   const { actOnUnknownOpenAction, isLoading, relayStatus, txHash } =
     useActOnUnknownOpenAction({
       signlessApproved: module.signlessApproved,
-      successToast: 'Initiated cross-chain NFT mint'
+      successToast: 'Initiated transaction'
     });
 
   const { data: transactionStatusData } = useTransactionStatus({
