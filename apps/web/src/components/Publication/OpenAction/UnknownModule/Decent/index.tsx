@@ -6,15 +6,6 @@ import { type FC } from 'react';
 import CreatePublicationEmbed from './CreatePublicationEmbed';
 import FeedEmbed from './FeedEmbed';
 
-interface DecentOpenActionProps {
-  isFullPublication?: boolean;
-  mirrorPublication?: AnyPublication;
-  og: OG;
-  openActionEmbed: boolean;
-  openActionEmbedLoading: boolean;
-  publication?: AnyPublication;
-}
-
 export const OPEN_ACTION_EMBED_TOOLTIP = 'Open action embedded';
 export const OPEN_ACTION_NO_EMBED_TOOLTIP = 'Unable to embed open action';
 
@@ -25,6 +16,14 @@ export const openActionCTA = (platformName?: string): string => {
     ? 'Buy'
     : 'Mint';
 };
+interface DecentOpenActionProps {
+  isFullPublication?: boolean;
+  mirrorPublication?: AnyPublication;
+  og: OG;
+  openActionEmbed: boolean;
+  openActionEmbedLoading: boolean;
+  publication?: AnyPublication;
+}
 
 const DecentOpenAction: FC<DecentOpenActionProps> = ({
   mirrorPublication,
