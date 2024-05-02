@@ -31,7 +31,7 @@ const FeesDisclosure: FC<FeesDisclosureProps> = ({
             e.stopPropagation();
           }}
         >
-          Fees <ChevronDownIcon className="w-2" strokeWidth={3} />
+          Fees <ChevronDownIcon className="size-3" strokeWidth={3} />
         </Disclosure.Button>
         <div>
           {loadingCurrencyDetails ? '--' : formattedTotalFees.toFixed(4)}{' '}
@@ -50,15 +50,14 @@ const FeesDisclosure: FC<FeesDisclosureProps> = ({
           </span>
         </div>
         <div className="ld-text-gray-500 flex items-center justify-between">
-          <span className="inline-flex items-center gap-1 space-x-1">
-            Lens Creator Fee{' '}
+          <div className="flex items-center gap-1 space-x-1">
+            <span>Lens Creator Fee</span>
             <HelpTooltip>
-              <div className="w-[210px] px-2 py-3 leading-tight">
-                Lens creator fee is distributed between publication creator,
-                application, Lens treasury, and mirror (if applicable)
+              <div className="whitespace-pre-wrap px-2 py-3 leading-tight">
+                {`Lens creator fee is distributed between publication creator,\napplication, Lens treasury, and mirror (if applicable)`}
               </div>
             </HelpTooltip>
-          </span>
+          </div>
           <span>
             {loadingCurrencyDetails
               ? '--'

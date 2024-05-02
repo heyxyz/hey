@@ -475,7 +475,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                 </div>
               )}
               <div className="flex items-center gap-2">
-                <ArrowTopRightOnSquareIcon className="w-5" />
+                <ArrowTopRightOnSquareIcon className="size-5" />
                 <Link
                   href={nft.mintUrl ?? nft.sourceUrl}
                   rel="noreferrer noopener"
@@ -489,7 +489,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
               <div className="ld-text-gray-500 flex items-center justify-start gap-1 text-base">
                 <img
                   alt={nftChainInfo.name}
-                  className="h-4 w-4 rounded-full"
+                  className="size-4 rounded-full"
                   src={nftChainInfo.logo}
                 />
                 <p>Minted on {nftChainInfo.name}</p>

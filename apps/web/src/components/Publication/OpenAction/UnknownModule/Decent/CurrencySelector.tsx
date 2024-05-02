@@ -138,7 +138,7 @@ const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
         .map((token) => {
           return (
             <div
-              className="hover:bg-brand-500/10 flex w-full cursor-pointer items-center justify-between rounded-lg p-2"
+              className="flex w-full cursor-pointer items-center justify-between rounded-lg p-2 hover:bg-gray-500/10"
               key={token.symbol}
               onClick={(e) => {
                 e.stopPropagation();
