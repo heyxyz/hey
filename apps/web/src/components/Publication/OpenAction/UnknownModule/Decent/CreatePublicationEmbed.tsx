@@ -84,7 +84,7 @@ const CreatePublicationEmbed: FC<CreatePublicationEmbedProps> = ({
           src={nft.mediaUrl.length ? nft.mediaUrl : undefined}
         />
       </div>
-      {!!uiData && !!nft ? (
+      {Boolean(uiData) && Boolean(nft) ? (
         <div className="flex items-center justify-between border-t p-4 dark:border-gray-700">
           <div className="flex items-center space-x-2">
             {uiData && nft.creatorAddress ? (
@@ -104,7 +104,7 @@ const CreatePublicationEmbed: FC<CreatePublicationEmbedProps> = ({
               content={<span>{OPEN_ACTION_EMBED_TOOLTIP}</span>}
               placement="top"
             >
-              <Button size="lg">{openActionCTA(uiData.platformName)}</Button>
+              <Button size="lg">{openActionCTA(uiData?.platformName)}</Button>
             </Tooltip>
           ) : (
             <Tooltip
@@ -112,7 +112,7 @@ const CreatePublicationEmbed: FC<CreatePublicationEmbedProps> = ({
               placement="top"
             >
               <Button disabled={true} size="lg">
-                {openActionCTA(uiData.platformName)}
+                {openActionCTA(uiData?.platformName)}
               </Button>
             </Tooltip>
           )}
