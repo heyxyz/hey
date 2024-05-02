@@ -83,7 +83,10 @@ const StepperApprovals: FC<StepperApprovalsProps> = ({
         <Button
           className="w-full justify-center"
           disabled={isApprovalLoading}
-          onClick={() => approveOA()}
+          onClick={(e) => {
+            e.stopPropagation();
+            approveOA();
+          }}
         >
           {isApprovalLoading
             ? 'Approving...'
@@ -93,7 +96,10 @@ const StepperApprovals: FC<StepperApprovalsProps> = ({
         <Button
           className="w-full justify-center"
           disabled={isPermit2Loading}
-          onClick={() => approvePermit2()}
+          onClick={(e) => {
+            e.stopPropagation();
+            approvePermit2();
+          }}
         >
           <div>
             {isPermit2Loading

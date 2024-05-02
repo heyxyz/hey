@@ -18,6 +18,7 @@ import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import sanitizeDStorageUrl from '@hey/helpers/sanitizeDStorageUrl';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Button, Card, Spinner, Tooltip } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { NftOpenActionKit } from 'nft-openaction-kit';
 import { type FC, useEffect, useRef, useState } from 'react';
 import { HEY_REFERRAL_PROFILE_ID } from 'src/constants';
@@ -160,6 +161,8 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
     [address, module, targetPublication, selectedQuantity, selectedCurrency]
   );
 
+  const [isNftCoverLoaded, setIsNftCoverLoaded] = useState(false);
+
   if (!module) {
     return null;
   }
@@ -170,7 +173,11 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
         <div className="relative">
           <img
             alt={nft.mediaUrl !== '' ? nft.collectionName : undefined}
-            className="h-[350px] max-h-[350px] w-full rounded-t-xl object-contain"
+            className={cn(
+              'h-[350px] max-h-[350px] w-full rounded-t-xl object-contain',
+              isNftCoverLoaded ? 'visible' : 'invisible'
+            )}
+            onLoad={() => setIsNftCoverLoaded(true)}
             src={nft.mediaUrl !== '' ? nft.mediaUrl : undefined}
           />
         </div>

@@ -402,7 +402,10 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                   {nft.description.trim().split(/\s+/).length > 30 ? (
                     <button
                       className="ml-1 opacity-50"
-                      onClick={() => setShowLongDescription((v) => !v)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setShowLongDescription((v) => !v);
+                      }}
                     >
                       {showLongDescription ? 'Show less' : 'read more'}
                     </button>
@@ -450,14 +453,20 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                 <button
                   className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 disabled:opacity-50"
                   disabled={selectedQuantity === 1}
-                  onClick={() => setSelectedQuantity(selectedQuantity - 1)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedQuantity(selectedQuantity - 1);
+                  }}
                 >
                   <MinusIcon className="w-3 text-gray-600" strokeWidth={3} />
                 </button>
                 <span className="w-4 text-center">{selectedQuantity}</span>
                 <button
                   className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 disabled:opacity-40"
-                  onClick={() => setSelectedQuantity(selectedQuantity + 1)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedQuantity(selectedQuantity + 1);
+                  }}
                 >
                   <PlusIcon className="w-3 text-gray-600" strokeWidth={3} />
                 </button>
@@ -480,7 +489,10 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
               <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
                 <button
                   className="flex items-baseline gap-1 space-x-1"
-                  onClick={() => setShowFees((v) => !v)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowFees((v) => !v);
+                  }}
                 >
                   Fees <ChevronDownIcon className="w-2" strokeWidth={3} />
                 </button>

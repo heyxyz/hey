@@ -2,7 +2,7 @@ import type { FC } from 'react';
 
 const DecentOpenActionShimmer: FC = () => {
   return (
-    <div className="flex items-start space-x-3 px-5 py-4">
+    <div className="flex items-start space-x-3 border-t px-5 py-4 dark:border-gray-700">
       <div>
         <div className="shimmer size-6 rounded-full" />
       </div>

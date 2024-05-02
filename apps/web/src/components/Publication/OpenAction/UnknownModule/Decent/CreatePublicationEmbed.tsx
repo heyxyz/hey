@@ -8,6 +8,7 @@ import { ZERO_ADDRESS } from '@hey/data/constants';
 import sanitizeDStorageUrl from '@hey/helpers/sanitizeDStorageUrl';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Button, Card, Spinner, Tooltip } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { NftOpenActionKit } from 'nft-openaction-kit';
 import { type FC, useEffect, useState } from 'react';
 
@@ -72,12 +73,18 @@ const CreatePublicationEmbed: FC<CreatePublicationEmbedProps> = ({
     sourceUrl: og.url
   };
 
+  const [isNftCoverLoaded, setIsNftCoverLoaded] = useState(false);
+
   return (
     <Card className="mt-3" forceRounded onClick={stopEventPropagation}>
       <div className="relative">
         <img
           alt={nft.mediaUrl !== '' ? nft.collectionName : undefined}
-          className="h-[350px] max-h-[350px] w-full rounded-t-xl object-cover"
+          className={cn(
+            'h-[350px] max-h-[350px] w-full rounded-t-xl object-contain',
+            isNftCoverLoaded ? 'visible' : 'invisible'
+          )}
+          onLoad={() => setIsNftCoverLoaded(true)}
           src={nft.mediaUrl !== '' ? nft.mediaUrl : undefined}
         />
       </div>
