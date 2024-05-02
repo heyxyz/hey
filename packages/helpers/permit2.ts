@@ -16,10 +16,6 @@ import { polygon, polygonAmoy } from 'viem/chains';
 
 import { PERMIT_2_ADDRESS } from '../../apps/web/src/constants';
 
-interface IDecoded {
-  amountIn: number;
-}
-
 function timeToMilliseconds(
   value: number,
   unit: 'd' | 'h' | 'min' | 'ms' | 's'

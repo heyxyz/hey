@@ -1,4 +1,5 @@
 import type { Profile } from '@hey/lens';
+import type { AllowedToken } from '@hey/types/hey';
 import type { ActionData, UIData } from 'nft-openaction-kit';
 import type { FC } from 'react';
 import type { Address } from 'viem';
@@ -7,6 +8,7 @@ import getProfile from '@hey/helpers/getProfile';
 import truncateByWords from '@hey/helpers/truncateByWords';
 import { useDefaultProfileQuery } from '@hey/lens';
 import { Image } from '@hey/ui';
+import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
 import { useNftOaCurrencyStore } from 'src/store/persisted/useNftOaCurrencyStore';
 
 const formatPrice = (value: Number) => {
@@ -35,7 +37,9 @@ const ActionInfo: FC<ActionInfoProps> = ({
   hidePrice,
   uiData
 }) => {
-  const { selectedCurrency } = useNftOaCurrencyStore();
+  const { selectedNftOaCurrency } = useNftOaCurrencyStore();
+
+  const { allowedTokens } = useAllowedTokensStore();
 
   const { data, loading } = useDefaultProfileQuery({
     skip: !creatorAddress,
@@ -44,7 +48,11 @@ const ActionInfo: FC<ActionInfoProps> = ({
 
   const formattedPrice = formatPrice(
     Number(actionData?.actArgumentsFormatted.paymentToken.amount) /
-      Math.pow(10, selectedCurrency.decimals)
+      Math.pow(
+        10,
+        allowedTokens?.find((t) => t.contractAddress === selectedNftOaCurrency)
+          ?.decimals ?? 18
+      )
   );
 
   if (!creatorAddress && loading) {
@@ -80,7 +88,10 @@ const ActionInfo: FC<ActionInfoProps> = ({
         </span>
         {!!formattedPrice && !hidePrice && (
           <p className="opacity-50">
-            {formattedPrice} {selectedCurrency.symbol}
+            {formattedPrice}{' '}
+            {allowedTokens?.find(
+              (t) => t.contractAddress === selectedNftOaCurrency
+            )?.symbol ?? 'WMATIC'}
           </p>
         )}
       </div>

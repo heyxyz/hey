@@ -1,66 +1,48 @@
-import type { AllowedToken } from '@hey/types/hey';
 import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import { TokenContracts } from '@hey/data/contracts';
 import getRedstonePrice from '@hey/helpers/getRedstonePrice';
 import getTokenImage from '@hey/helpers/getTokenImage';
 import { useQuery } from '@tanstack/react-query';
+import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
 import { formatUnits } from 'viem';
 import { useAccount, useBalance } from 'wagmi';
 
-const SUPPORTED_CURRENCIES = [
-  {
-    contractAddress: '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270',
-    decimals: 18,
-    id: 'WMATIC',
-    name: 'Wrapped MATIC',
-    symbol: 'WMATIC'
-  },
-  {
-    contractAddress: '0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619',
-    decimals: 18,
-    id: 'WETH',
-    name: 'Wrapped ETH',
-    symbol: 'WETH'
-  },
-  {
-    contractAddress: '0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359',
-    decimals: 6,
-    id: 'USDC',
-    name: 'USD Coin',
-    symbol: 'USDC'
-  }
-];
+const OA_SUPPORTED_CURRENCIES = ['USDC', 'WETH', 'WMATIC'];
 
 interface CurrencySelectorProps {
-  onSelectCurrency: (currency: AllowedToken) => void;
+  onSelectCurrency: (currency: Address) => void;
 }
 
 const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
   const { address } = useAccount();
+
+  const { allowedTokens } = useAllowedTokensStore();
 
   const { data: wmaticBalanceData, isLoading: wmaticBalanceLoading } =
     useBalance({
       address,
       chainId: 137,
       query: { refetchInterval: 10000 },
-      token: TokenContracts['WMATIC'] as Address
+      token: allowedTokens.find((token) => token.symbol === 'WMATIC')
+        ?.contractAddress as Address
     });
 
   const { data: wethBalanceData, isLoading: wethBalanceLoading } = useBalance({
     address,
     chainId: 137,
     query: { refetchInterval: 10000 },
-    token: TokenContracts['WETH'] as Address
+    token: allowedTokens.find((token) => token.symbol === 'WETH')
+      ?.contractAddress as Address
   });
 
   const { data: usdcBalanceData, isLoading: usdcBalanceLoading } = useBalance({
     address,
     chainId: 137,
     query: { refetchInterval: 10000 },
-    token: TokenContracts['USDC'] as Address
+    token: allowedTokens.find((token) => token.symbol === 'USDC')
+      ?.contractAddress as Address
   });
 
   const { data: wmaticPriceUsd, isLoading: wmaticPriceLoading } = useQuery({
@@ -151,63 +133,65 @@ const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
 
   return (
     <div className="flex h-[80vh] w-full flex-col gap-2 p-5">
-      {SUPPORTED_CURRENCIES.map((currency) => {
-        return (
-          <div
-            className="hover:bg-brand-500/10 flex w-full cursor-pointer items-center justify-between rounded-lg p-2"
-            key={currency.symbol}
-            onClick={(e) => {
-              e.stopPropagation();
-              onSelectCurrency(currency);
-            }}
-          >
-            <div className="flex items-center gap-2">
-              <div className="relative">
-                <img
-                  alt={currency.symbol}
-                  className="size-10"
-                  height={40}
-                  src={getTokenImage(currency.symbol)}
-                  title={currency.name}
-                  width={40}
-                />
-                <img
-                  alt="Polygon"
-                  className="absolute bottom-0 right-0"
-                  height={16}
-                  src={`${STATIC_IMAGES_URL}/chains/polygon.svg`}
-                  title="Polygon"
-                  width={16}
-                />
+      {allowedTokens
+        .filter((t) => OA_SUPPORTED_CURRENCIES.includes(t.symbol))
+        .map((token) => {
+          return (
+            <div
+              className="hover:bg-brand-500/10 flex w-full cursor-pointer items-center justify-between rounded-lg p-2"
+              key={token.symbol}
+              onClick={(e) => {
+                e.stopPropagation();
+                onSelectCurrency(token.contractAddress as Address);
+              }}
+            >
+              <div className="flex items-center gap-2">
+                <div className="relative">
+                  <img
+                    alt={token.symbol}
+                    className="size-10"
+                    height={40}
+                    src={getTokenImage(token.symbol)}
+                    title={token.name}
+                    width={40}
+                  />
+                  <img
+                    alt="Polygon"
+                    className="absolute bottom-0 right-0"
+                    height={16}
+                    src={`${STATIC_IMAGES_URL}/chains/polygon.svg`}
+                    title="Polygon"
+                    width={16}
+                  />
+                </div>
+                <div className="flex flex-col items-start justify-center leading-none">
+                  <p>{token.symbol}</p>
+                  <p className="text-sm opacity-50">Polygon</p>
+                </div>
               </div>
-              <div className="flex flex-col items-start justify-center leading-none">
-                <p>{currency.symbol}</p>
-                <p className="text-sm opacity-50">Polygon</p>
-              </div>
-            </div>
 
-            <div className="flex flex-col items-end justify-center gap-1 leading-none">
-              {isLoading ? (
-                <div className="animate-shimmer h-4 w-16 rounded-lg bg-gray-200" />
-              ) : (
-                <p>
-                  {balances[currency.symbol as keyof typeof balances].token ??
-                    '--'}
-                </p>
-              )}
-              {isLoading ? (
-                <div className="animate-shimmer h-4 w-12 rounded-lg bg-gray-200" />
-              ) : (
-                <p className="text-sm opacity-50">
-                  $
-                  {balances[currency.symbol as keyof typeof balances].usd ??
-                    '--'}
-                </p>
-              )}
+              <div className="flex flex-col items-end justify-center gap-1 leading-none">
+                {isLoading ? (
+                  <div className="animate-shimmer h-4 w-16 rounded-lg bg-gray-200" />
+                ) : (
+                  <p>
+                    {balances[token.symbol as keyof typeof balances]?.token ??
+                      '--'}
+                  </p>
+                )}
+                {isLoading ? (
+                  <div className="animate-shimmer h-4 w-12 rounded-lg bg-gray-200" />
+                ) : (
+                  <p className="text-sm opacity-50">
+                    $
+                    {balances[token.symbol as keyof typeof balances]?.usd ??
+                      '--'}
+                  </p>
+                )}
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
     </div>
   );
 };

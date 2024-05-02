@@ -19,10 +19,3 @@ export enum TestnetContracts {
   PermissionlessCreator = '0x36440da1D98FF46637f0b98AAA082bc77977B49B',
   TokenHandleRegistry = '0x24360dc6Af3c0b37baA8B0aaDD5BcA11C1a1389A'
 }
-
-export enum TokenContracts {
-  BONSAI = '0x3d2bD0e15829AA5C362a4144FdF4A1112fa29B5c',
-  USDC = '0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359',
-  WETH = '0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619',
-  WMATIC = '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270'
-}

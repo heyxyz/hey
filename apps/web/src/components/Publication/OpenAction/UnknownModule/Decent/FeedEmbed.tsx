@@ -68,7 +68,7 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
 }) => {
   const [actionData, setActionData] = useState<ActionData>();
   const [showOpenActionModal, setShowOpenActionModal] = useState(false);
-  const { selectedCurrency } = useNftOaCurrencyStore();
+  const { selectedNftOaCurrency } = useNftOaCurrencyStore();
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
@@ -81,7 +81,7 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
 
   const { address } = useAccount();
 
-  const prevCurrencyRef = useRef(selectedCurrency);
+  const prevCurrencyRef = useRef(selectedNftOaCurrency);
 
   const nft: Nft = {
     chain: actionData?.uiData.dstChainId.toString() ?? og.nft?.chain ?? null,
@@ -130,7 +130,7 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
               mirrorPubId: !!mirrorPublication
                 ? mirrorPublication.id
                 : undefined,
-              paymentToken: selectedCurrency.contractAddress,
+              paymentToken: selectedNftOaCurrency,
               post: pubInfo,
               profileId: targetPublication.by.id,
               profileOwnerAddress: targetPublication.by.ownedBy.address,
@@ -150,15 +150,20 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
       };
 
       const isCurrencyChanged =
-        prevCurrencyRef.current.contractAddress !==
-        selectedCurrency.contractAddress;
+        prevCurrencyRef.current !== selectedNftOaCurrency;
       if ((module && !actionData) || isCurrencyChanged) {
         actionDataFromPost();
-        prevCurrencyRef.current = selectedCurrency;
+        prevCurrencyRef.current = selectedNftOaCurrency;
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [address, module, targetPublication, selectedQuantity, selectedCurrency]
+    [
+      address,
+      module,
+      targetPublication,
+      selectedQuantity,
+      selectedNftOaCurrency
+    ]
   );
 
   const [isNftCoverLoaded, setIsNftCoverLoaded] = useState(false);
