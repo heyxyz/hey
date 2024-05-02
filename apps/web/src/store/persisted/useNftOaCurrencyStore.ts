@@ -5,13 +5,13 @@ import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-interface OaCurrencyState {
+interface NftOaCurrencyState {
   selectedCurrency: AllowedToken;
   setSelectedCurrency: (currency: AllowedToken) => void;
 }
 
 const store = create(
-  persist<OaCurrencyState>(
+  persist<NftOaCurrencyState>(
     (set) => ({
       selectedCurrency: {
         contractAddress: '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270',
@@ -22,8 +22,8 @@ const store = create(
       },
       setSelectedCurrency: (currency) => set({ selectedCurrency: currency })
     }),
-    { name: Localstorage.OaCurrencyStore }
+    { name: Localstorage.NftOaCurrencyStore }
   )
 );
 
-export const useOaCurrency = createTrackedSelector(store);
+export const useNftOaCurrencyStore = createTrackedSelector(store);

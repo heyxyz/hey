@@ -22,7 +22,7 @@ import cn from '@hey/ui/cn';
 import { NftOpenActionKit } from 'nft-openaction-kit';
 import { type FC, useEffect, useRef, useState } from 'react';
 import { HEY_REFERRAL_PROFILE_ID } from 'src/constants';
-import { useOaCurrency } from 'src/store/persisted/useOaCurrency';
+import { useNftOaCurrencyStore } from 'src/store/persisted/useNftOaCurrencyStore';
 import { useAccount } from 'wagmi';
 
 import { OPEN_ACTION_EMBED_TOOLTIP, openActionCTA } from '.';
@@ -68,7 +68,7 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
 }) => {
   const [actionData, setActionData] = useState<ActionData>();
   const [showOpenActionModal, setShowOpenActionModal] = useState(false);
-  const { selectedCurrency } = useOaCurrency();
+  const { selectedCurrency } = useNftOaCurrencyStore();
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;

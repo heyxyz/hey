@@ -41,7 +41,7 @@ import { CHAIN, PERMIT_2_ADDRESS } from 'src/constants';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useTransactionStatus } from 'src/hooks/useIndexStatus';
-import { useOaCurrency } from 'src/store/persisted/useOaCurrency';
+import { useNftOaCurrencyStore } from 'src/store/persisted/useNftOaCurrencyStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 import { parseAbi } from 'viem';
 import { useAccount, useWalletClient } from 'wagmi';
@@ -88,7 +88,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   setSelectedQuantity,
   show
 }) => {
-  const { selectedCurrency, setSelectedCurrency } = useOaCurrency();
+  const { selectedCurrency, setSelectedCurrency } = useNftOaCurrencyStore();
   const [usdPrice, setUsdPrice] = useState(0);
   const [maticUsdPrice, setMaticUsdPrice] = useState(0);
   const { data: walletClient } = useWalletClient();

@@ -4,8 +4,8 @@ export const Localstorage = {
   FingerprintStore: 'fingerprint.store',
   LeafwatchStore: 'leafwatch.store',
   ModeStore: 'mode.store',
+  NftOaCurrencyStore: 'nftoacurrency.store',
   NotificationStore: 'notification.store',
-  OaCurrencyStore: 'oacurrency.store',
   TimelineStore: 'timeline.store'
 };
 

@@ -7,7 +7,7 @@ import getProfile from '@hey/helpers/getProfile';
 import truncateByWords from '@hey/helpers/truncateByWords';
 import { useDefaultProfileQuery } from '@hey/lens';
 import { Image } from '@hey/ui';
-import { useOaCurrency } from 'src/store/persisted/useOaCurrency';
+import { useNftOaCurrencyStore } from 'src/store/persisted/useNftOaCurrencyStore';
 
 const formatPrice = (value: Number) => {
   const num = Number(value);
@@ -35,7 +35,7 @@ const ActionInfo: FC<ActionInfoProps> = ({
   hidePrice,
   uiData
 }) => {
-  const { selectedCurrency } = useOaCurrency();
+  const { selectedCurrency } = useNftOaCurrencyStore();
 
   const { data, loading } = useDefaultProfileQuery({
     skip: !creatorAddress,
