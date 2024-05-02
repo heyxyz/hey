@@ -1,21 +1,19 @@
 import type { Address, Hex } from 'viem';
 
 import { IS_MAINNET } from '@hey/data/constants';
+import { POLYGON_AMOY_RPCS, POLYGON_RPCS } from '@hey/data/rpcs';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import {
   createPublicClient,
   decodeAbiParameters,
   encodeAbiParameters,
+  fallback,
   http,
   parseAbi
 } from 'viem';
 import { polygon, polygonAmoy } from 'viem/chains';
 
 import { PERMIT_2_ADDRESS } from '../../apps/web/src/constants';
-
-const RPC_URL = IS_MAINNET
-  ? 'https://polygon-rpc.com'
-  : 'https://rpc.ankr.com/polygon_mumbai';
 
 function timeToMilliseconds(
   value: number,
@@ -258,7 +256,9 @@ export const getPermit2Allowance = async ({
 }) => {
   const client = createPublicClient({
     chain: IS_MAINNET ? polygon : polygonAmoy,
-    transport: http(RPC_URL)
+    transport: IS_MAINNET
+      ? fallback(POLYGON_RPCS.map((rpc) => http(rpc)))
+      : fallback(POLYGON_AMOY_RPCS.map((rpc) => http(rpc)))
   });
 
   if (hash) {
