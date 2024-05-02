@@ -147,6 +147,10 @@ const useActOnUnknownOpenAction = ({
       return;
     }
 
+    if (data?.actOnOpenAction.__typename === 'RelaySuccess') {
+      setRelayStatus(data?.actOnOpenAction.txId);
+    }
+
     if (
       !data?.actOnOpenAction ||
       data?.actOnOpenAction.__typename === 'LensProfileManagerRelayError'

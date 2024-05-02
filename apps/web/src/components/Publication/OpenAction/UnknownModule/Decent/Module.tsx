@@ -118,7 +118,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
 
   const { actOnUnknownOpenAction, isLoading, relayStatus, txHash } =
     useActOnUnknownOpenAction({
-      signlessApproved: module.signlessApproved,
+      signlessApproved: true,
       successToast: 'Initiated transaction'
     });
 
@@ -562,6 +562,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                   value: formattedTotalAmount.toFixed(4)
                 }}
                 txHash={txHash}
+                uiData={actionData?.uiData}
               />
             ) : null}
             <div className="flex w-full items-center justify-center text-center text-sm">
