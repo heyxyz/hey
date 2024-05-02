@@ -9,7 +9,7 @@ import {
   http,
   parseAbi
 } from 'viem';
-import { polygon, polygonMumbai } from 'viem/chains';
+import { polygon, polygonAmoy } from 'viem/chains';
 
 import { PERMIT_2_ADDRESS } from '../../apps/web/src/constants';
 
@@ -246,18 +246,26 @@ export const updateWrapperParams = ({
 };
 
 export const getPermit2Allowance = async ({
+  hash,
   owner,
   spender,
   token
 }: {
+  hash?: `0x${string}`;
   owner: Address;
   spender: Address;
   token: Address;
 }) => {
   const client = createPublicClient({
-    chain: IS_MAINNET ? polygon : polygonMumbai,
+    chain: IS_MAINNET ? polygon : polygonAmoy,
     transport: http(RPC_URL)
   });
+
+  if (hash) {
+    await client.waitForTransactionReceipt({
+      hash
+    });
+  }
 
   const allowanceData = await client.readContract({
     abi: parseAbi(['function allowance(address, address) returns (uint256)']),

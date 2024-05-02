@@ -80,7 +80,6 @@ const getTokenSymbol = (symbol: string): string => {
 const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   actionData,
   loadingCurrency,
-  module,
   nft,
   onClose,
   publication,
@@ -202,7 +201,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
       setIsPermit2Loading(true);
       try {
         await handleWrongNetwork();
-        await walletClient.writeContract({
+        const hash = await walletClient.writeContract({
           abi: parseAbi(['function approve(address, uint256) returns (bool)']),
           address: assetAddress as `0x${string}`,
           args: [
@@ -212,6 +211,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
           functionName: 'approve'
         });
         const allowanceData = await getPermit2Allowance({
+          hash,
           owner: address as `0x${string}`,
           spender: PERMIT_2_ADDRESS,
           token: assetAddress as `0x${string}`
@@ -294,6 +294,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
 
   useEffect(() => {
     const fetchPermit2Allowance = async () => {
+      setPermit2Data(undefined);
       if (address && !!assetAddress) {
         const allowanceData = await getPermit2Allowance({
           owner: address as `0x${string}`,
