@@ -75,13 +75,13 @@ const CreatePublicationEmbed: FC<CreatePublicationEmbedProps> = ({
     <Card className="mt-3" forceRounded onClick={stopEventPropagation}>
       <div className="relative">
         <img
-          alt={nft.mediaUrl !== '' ? nft.collectionName : undefined}
+          alt={nft.mediaUrl.length ? nft.collectionName : undefined}
           className={cn(
             'h-[350px] max-h-[350px] w-full rounded-t-xl object-contain',
             isNftCoverLoaded ? 'visible' : 'invisible'
           )}
           onLoad={() => setIsNftCoverLoaded(true)}
-          src={nft.mediaUrl !== '' ? nft.mediaUrl : undefined}
+          src={nft.mediaUrl.length ? nft.mediaUrl : undefined}
         />
       </div>
       {!!uiData && !!nft ? (
