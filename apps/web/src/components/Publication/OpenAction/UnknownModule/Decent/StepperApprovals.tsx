@@ -3,13 +3,11 @@ import type { FC } from 'react';
 import { Button, WarningMessage } from '@hey/ui';
 import React from 'react';
 
-// TODO: change copy
 const permit2Copy = (selectedCurrencySymbol: string) =>
-  `You'll be doing a tx to enable the Permit2 contract for the ${selectedCurrencySymbol} token.`;
+  `Approve ${selectedCurrencySymbol} token allowance to Permit2 contract with transaction.`;
 
-// TODO: change copy
 const approveTokenCopy = (selectedCurrencySymbol: string) =>
-  `You'll be approving the token allowance for the ${selectedCurrencySymbol} token with a signature.`;
+  `Approve ${selectedCurrencySymbol} token allowance to cross-chain NFT open action contract with signature.`;
 
 type StepperApprovalsProps = {
   approveOA: () => void;
