@@ -62,7 +62,7 @@ const MentionPicker = () => {
     editor.commands.insertMention({
       id: profile.id.toString(),
       kind: 'user',
-      value: '@' + profile.name
+      value: profile.name
     });
     editor.commands.insertText({ text: ' ' });
   };
