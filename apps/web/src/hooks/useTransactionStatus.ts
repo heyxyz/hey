@@ -12,11 +12,11 @@ interface TransactionStatusProps {
   txId?: string;
 }
 
-export function useTransactionStatus({
+const useTransactionStatus = ({
   reload,
   txHash,
   txId
-}: TransactionStatusProps) {
+}: TransactionStatusProps) => {
   const [hide, setHide] = useState(false);
   const [pollInterval, setPollInterval] = useState(500);
 
@@ -48,4 +48,6 @@ export function useTransactionStatus({
   });
 
   return { data, hide, loading };
-}
+};
+
+export default useTransactionStatus;

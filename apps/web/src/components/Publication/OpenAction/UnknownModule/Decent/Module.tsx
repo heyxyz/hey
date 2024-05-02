@@ -40,7 +40,7 @@ import toast from 'react-hot-toast';
 import { CHAIN, PERMIT_2_ADDRESS } from 'src/constants';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useTransactionStatus } from 'src/hooks/useIndexStatus';
+import useTransactionStatus from 'src/hooks/useTransactionStatus';
 import { useNftOaCurrencyStore } from 'src/store/persisted/useNftOaCurrencyStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 import { parseAbi } from 'viem';

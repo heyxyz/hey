@@ -5,7 +5,7 @@ import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { LensTransactionStatusType } from '@hey/lens';
 import { Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { useTransactionStatus } from 'src/hooks/useIndexStatus';
+import useTransactionStatus from 'src/hooks/useTransactionStatus';
 
 interface IndexStatusProps {
   message?: string;
