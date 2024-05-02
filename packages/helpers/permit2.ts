@@ -1,5 +1,6 @@
 import type { Address, Hex } from 'viem';
 
+import { Bridge, Swap } from '@hey/abis';
 import { IS_MAINNET } from '@hey/data/constants';
 import { POLYGON_AMOY_RPCS, POLYGON_RPCS } from '@hey/data/rpcs';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
@@ -14,6 +15,10 @@ import {
 import { polygon, polygonAmoy } from 'viem/chains';
 
 import { PERMIT_2_ADDRESS } from '../../apps/web/src/constants';
+
+interface IDecoded {
+  amountIn: number;
+}
 
 function timeToMilliseconds(
   value: number,
@@ -51,140 +56,6 @@ function toDeadline(expiration: number): number {
   return Math.floor((Date.now() + expiration) / 1000);
 }
 
-const swapAbi = [
-  {
-    components: [
-      { internalType: 'address', name: 'from', type: 'address' },
-      { internalType: 'address', name: 'srcToken', type: 'address' },
-      { internalType: 'uint256', name: 'amountIn', type: 'uint256' },
-      { internalType: 'uint256', name: 'erc20ForFee', type: 'uint256' },
-      { internalType: 'uint256', name: 'erc20Needed', type: 'uint256' },
-      { internalType: 'uint256', name: 'nativeNeeded', type: 'uint256' },
-      { internalType: 'uint256', name: 'deadline', type: 'uint256' },
-      { internalType: 'uint256', name: 'nonce', type: 'uint256' },
-      { internalType: 'bytes', name: 'signature', type: 'bytes' },
-      { internalType: 'bytes', name: 'swapPath', type: 'bytes' }
-    ],
-    internalType: 'struct TokenWrapperInstructions',
-    name: 'wrapperInstructions',
-    type: 'tuple'
-  },
-  {
-    components: [
-      {
-        components: [
-          { internalType: 'uint8', name: 'swapperId', type: 'uint8' },
-          { internalType: 'bytes', name: 'swapPayload', type: 'bytes' }
-        ],
-        internalType: 'struct SwapInstructions',
-        name: 'swapInstructions',
-        type: 'tuple'
-      },
-      { internalType: 'address', name: 'target', type: 'address' },
-      { internalType: 'address', name: 'paymentOperator', type: 'address' },
-      { internalType: 'address', name: 'refund', type: 'address' },
-      { internalType: 'bytes', name: 'payload', type: 'bytes' }
-    ],
-    internalType: 'struct SwapAndExecuteInstructions',
-    name: 'instructions',
-    type: 'tuple'
-  },
-  {
-    components: [
-      { internalType: 'bytes4', name: 'appId', type: 'bytes4' },
-      { internalType: 'bytes4', name: 'affiliateId', type: 'bytes4' },
-      { internalType: 'uint256', name: 'bridgeFee', type: 'uint256' },
-      {
-        components: [
-          { internalType: 'address', name: 'recipient', type: 'address' },
-          { internalType: 'address', name: 'token', type: 'address' },
-          { internalType: 'uint256', name: 'amount', type: 'uint256' }
-        ],
-        internalType: 'struct Fee[]',
-        name: 'appFees',
-        type: 'tuple[]'
-      }
-    ],
-    internalType: 'struct FeeData',
-    name: 'feeData',
-    type: 'tuple'
-  },
-  { internalType: 'bytes', name: 'signature', type: 'bytes' }
-] as const;
-
-const bridgeAbi = [
-  {
-    components: [
-      { internalType: 'address', name: 'from', type: 'address' },
-      { internalType: 'address', name: 'srcToken', type: 'address' },
-      { internalType: 'uint256', name: 'amountIn', type: 'uint256' },
-      { internalType: 'uint256', name: 'erc20ForFee', type: 'uint256' },
-      { internalType: 'uint256', name: 'erc20Needed', type: 'uint256' },
-      { internalType: 'uint256', name: 'nativeNeeded', type: 'uint256' },
-      { internalType: 'uint256', name: 'deadline', type: 'uint256' },
-      { internalType: 'uint256', name: 'nonce', type: 'uint256' },
-      { internalType: 'bytes', name: 'signature', type: 'bytes' },
-      { internalType: 'bytes', name: 'swapPath', type: 'bytes' }
-    ],
-    internalType: 'struct TokenWrapperInstructions',
-    name: 'wrapperInstructions',
-    type: 'tuple'
-  },
-  {
-    components: [
-      {
-        components: [
-          { internalType: 'uint8', name: 'swapperId', type: 'uint8' },
-          { internalType: 'bytes', name: 'swapPayload', type: 'bytes' }
-        ],
-        internalType: 'struct SwapInstructions',
-        name: 'preBridge',
-        type: 'tuple'
-      },
-      {
-        components: [
-          { internalType: 'uint8', name: 'swapperId', type: 'uint8' },
-          { internalType: 'bytes', name: 'swapPayload', type: 'bytes' }
-        ],
-        internalType: 'struct SwapInstructions',
-        name: 'postBridge',
-        type: 'tuple'
-      },
-      { internalType: 'uint8', name: 'bridgeId', type: 'uint8' },
-      { internalType: 'uint256', name: 'dstChainId', type: 'uint256' },
-      { internalType: 'address', name: 'target', type: 'address' },
-      { internalType: 'address', name: 'paymentOperator', type: 'address' },
-      { internalType: 'address', name: 'refund', type: 'address' },
-      { internalType: 'bytes', name: 'payload', type: 'bytes' },
-      { internalType: 'bytes', name: 'additionalArgs', type: 'bytes' }
-    ],
-    internalType: 'struct BridgeInstructions',
-    name: 'instructions',
-    type: 'tuple'
-  },
-  {
-    components: [
-      { internalType: 'bytes4', name: 'appId', type: 'bytes4' },
-      { internalType: 'bytes4', name: 'affiliateId', type: 'bytes4' },
-      { internalType: 'uint256', name: 'bridgeFee', type: 'uint256' },
-      {
-        components: [
-          { internalType: 'address', name: 'recipient', type: 'address' },
-          { internalType: 'address', name: 'token', type: 'address' },
-          { internalType: 'uint256', name: 'amount', type: 'uint256' }
-        ],
-        internalType: 'struct Fee[]',
-        name: 'appFees',
-        type: 'tuple[]'
-      }
-    ],
-    internalType: 'struct FeeData',
-    name: 'feeData',
-    type: 'tuple'
-  },
-  { internalType: 'bytes', name: 'signature', type: 'bytes' }
-] as const;
-
 export const permit2SignatureAmount = ({
   chainId,
   data
@@ -193,11 +64,11 @@ export const permit2SignatureAmount = ({
   data: Hex;
 }) => {
   if (chainId != polygon.id) {
-    const decoded = decodeAbiParameters(bridgeAbi, data);
+    const decoded = decodeAbiParameters(Bridge, data);
     const tokenWrapperInstructions = decoded[0];
     return tokenWrapperInstructions.amountIn;
   } else {
-    const decoded = decodeAbiParameters(swapAbi, data);
+    const decoded = decodeAbiParameters(Swap, data);
     const tokenWrapperInstructions = decoded[0];
     return tokenWrapperInstructions.amountIn;
   }
@@ -217,24 +88,24 @@ export const updateWrapperParams = ({
   signature: Hex;
 }) => {
   if (chainId != polygon.id) {
-    const decoded = decodeAbiParameters(bridgeAbi, data);
+    const decoded = decodeAbiParameters(Bridge, data);
     const tokenWrapperInstructions = decoded[0];
     tokenWrapperInstructions.nonce = nonce;
     tokenWrapperInstructions.signature = signature;
     tokenWrapperInstructions.deadline = deadline;
-    return encodeAbiParameters(bridgeAbi, [
+    return encodeAbiParameters(Bridge, [
       tokenWrapperInstructions,
       decoded[1],
       decoded[2],
       decoded[3]
     ]);
   } else {
-    const decoded = decodeAbiParameters(swapAbi, data);
+    const decoded = decodeAbiParameters(Swap, data);
     const tokenWrapperInstructions = decoded[0];
     tokenWrapperInstructions.nonce = nonce;
     tokenWrapperInstructions.signature = signature;
     tokenWrapperInstructions.deadline = deadline;
-    return encodeAbiParameters(swapAbi, [
+    return encodeAbiParameters(Swap, [
       tokenWrapperInstructions,
       decoded[1],
       decoded[2],

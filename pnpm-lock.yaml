@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@hey/abis':
+        specifier: workspace:^
+        version: link:packages/abis
     devDependencies:
       husky:
         specifier: ^9.0.11
@@ -339,7 +343,7 @@ importers:
         version: 9.0.1(@types/react@18.3.1)(react@18.3.1)
       react-tracked:
         specifier: ^1.7.14
-        version: 1.7.14(react-dom@18.3.1)(react-native@0.74.0)(react@18.3.1)(scheduler@0.23.0)
+        version: 1.7.14(react-dom@18.3.1)(react-native@0.74.0)(react@18.3.1)(scheduler@0.23.2)
       react-virtuoso:
         specifier: ^4.7.10
         version: 4.7.10(react-dom@18.3.1)(react@18.3.1)
@@ -18726,7 +18730,7 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /react-tracked@1.7.14(react-dom@18.3.1)(react-native@0.74.0)(react@18.3.1)(scheduler@0.23.0):
+  /react-tracked@1.7.14(react-dom@18.3.1)(react-native@0.74.0)(react@18.3.1)(scheduler@0.23.2):
     resolution: {integrity: sha512-6UMlgQeRAGA+uyYzuQGm7kZB6ZQYFhc7sntgP7Oxwwd6M0Ud/POyb4K3QWT1eXvoifSa80nrAWnXWFGpOvbwkw==}
     peerDependencies:
       react: '>=16.8.0'
@@ -18743,8 +18747,8 @@ packages:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       react-native: 0.74.0(@babel/core@7.24.4)(@babel/preset-env@7.24.4)(@types/react@18.3.1)(react@18.3.1)
-      scheduler: 0.23.0
-      use-context-selector: 1.4.4(react-dom@18.3.1)(react-native@0.74.0)(react@18.3.1)(scheduler@0.23.0)
+      scheduler: 0.23.2
+      use-context-selector: 1.4.4(react-dom@18.3.1)(react-native@0.74.0)(react@18.3.1)(scheduler@0.23.2)
     dev: false
 
   /react-virtuoso@4.7.10(react-dom@18.3.1)(react@18.3.1):
@@ -19295,12 +19299,6 @@ packages:
       which: 1.3.1
       wordwrap: 1.0.0
     dev: true
-
-  /scheduler@0.23.0:
-    resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
-    dependencies:
-      loose-envify: 1.4.0
-    dev: false
 
   /scheduler@0.23.2:
     resolution: {integrity: sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==}
@@ -21052,7 +21050,7 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /use-context-selector@1.4.4(react-dom@18.3.1)(react-native@0.74.0)(react@18.3.1)(scheduler@0.23.0):
+  /use-context-selector@1.4.4(react-dom@18.3.1)(react-native@0.74.0)(react@18.3.1)(scheduler@0.23.2):
     resolution: {integrity: sha512-pS790zwGxxe59GoBha3QYOwk8AFGp4DN6DOtH+eoqVmgBBRXVx4IlPDhJmmMiNQAgUaLlP+58aqRC3A4rdaSjg==}
     peerDependencies:
       react: '>=16.8.0'
@@ -21068,7 +21066,7 @@ packages:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       react-native: 0.74.0(@babel/core@7.24.4)(@babel/preset-env@7.24.4)(@types/react@18.3.1)(react@18.3.1)
-      scheduler: 0.23.0
+      scheduler: 0.23.2
     dev: false
 
   /use-resize-observer@9.1.0(react-dom@18.3.1)(react@18.3.1):
