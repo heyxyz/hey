@@ -1,3 +1,5 @@
+import type { EditorRef } from '@components/Composer/TextEditor';
+
 import { ArchiveBoxArrowDownIcon } from '@heroicons/react/24/outline';
 import { Modal, Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
@@ -5,7 +7,7 @@ import { type FC, useState } from 'react';
 
 import List from './List';
 
-const DraftSettings: FC = () => {
+const DraftSettings: FC<{ editorRef: EditorRef }> = ({ editorRef }) => {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -28,7 +30,7 @@ const DraftSettings: FC = () => {
         size="md"
         title="Drafts"
       >
-        <List setShowModal={setShowModal} />
+        <List editorRef={editorRef} setShowModal={setShowModal} />
       </Modal>
     </>
   );

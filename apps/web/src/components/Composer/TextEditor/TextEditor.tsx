@@ -4,12 +4,13 @@ import dynamic from 'next/dynamic';
 import 'prosekit/basic/style.css';
 import { createEditor } from 'prosekit/core';
 import { ProseKit } from 'prosekit/react';
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import type { TextEditorHandle } from './useEditorHandle';
 
 import { defineTextEditorExtension } from './extension';
+import { htmlFromMarkdown } from './markdown';
 import { useContentChange } from './useContentChange';
 import { useEditorHandle } from './useEditorHandle';
 import { usePaste } from './usePaste';
@@ -21,12 +22,30 @@ const TextEditorMenus = dynamic(() => import('./TextEditorMenus'), {
   ssr: false
 });
 
-const TextEditor = (props: { editorRef: React.Ref<TextEditorHandle> }) => {
+const TextEditor = (props: {
+  /**
+   * The initial content of the editor in Markdown format.
+   */
+  defaultMarkdown?: string;
+
+  /**
+   * An imperative handle to operate the editor.
+   */
+  editorRef: React.Ref<TextEditorHandle>;
+}) => {
   const { currentProfile } = useProfileStore();
+
+  const defaultMarkdownRef = useRef(props.defaultMarkdown);
+
+  const defaultHTML = useMemo(() => {
+    const markdown = defaultMarkdownRef.current;
+    return markdown ? htmlFromMarkdown(markdown) : undefined;
+  }, []);
+
   const editor = useMemo(() => {
     const extension = defineTextEditorExtension();
-    return createEditor({ extension });
-  }, []);
+    return createEditor({ defaultHTML, extension });
+  }, [defaultHTML]);
 
   useContentChange(editor);
   usePaste(editor);

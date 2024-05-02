@@ -1,3 +1,4 @@
+import type { EditorRef } from '@components/Composer/TextEditor';
 import type { Draft } from '@hey/types/hey';
 import type { FC } from 'react';
 
@@ -17,10 +18,11 @@ import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCo
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 
 interface ListProps {
+  editorRef: EditorRef;
   setShowModal: (showModal: boolean) => void;
 }
 
-const List: FC<ListProps> = ({ setShowModal }) => {
+const List: FC<ListProps> = ({ editorRef, setShowModal }) => {
   const { setDraftId, setPublicationContent } = usePublicationStore();
   const { setCollectModule } = useCollectModuleStore((state) => state);
 
@@ -98,6 +100,8 @@ const List: FC<ListProps> = ({ setShowModal }) => {
     editor.update(() => {
       $convertFromMarkdownString(draft.content);
     });
+
+    editorRef.current?.setMarkdown(draft.content);
 
     setPublicationContent(draft.content);
 

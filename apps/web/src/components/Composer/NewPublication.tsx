@@ -556,7 +556,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           title="Transaction failed!"
         />
       ) : null}
-      <TextEditor editorRef={editorRef} />
+      <TextEditor defaultMarkdown={publicationContent} editorRef={editorRef} />
       <Editor />
       {publicationContentError ? (
         <div className="mt-1 px-5 pb-3 text-sm font-bold text-red-500">
@@ -598,7 +598,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           ) : null}
           <PollSettings />
           {!isComment && <LivestreamSettings />}
-          {isPro && <DraftSettings />}
+          {isPro && <DraftSettings editorRef={editorRef} />}
         </div>
         <div className="ml-auto mt-2 sm:mt-0">
           <Button
