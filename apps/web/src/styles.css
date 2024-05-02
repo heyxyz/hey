@@ -125,10 +125,6 @@ iframe {
   @apply !text-white;
 }
 
-div[data-lexical-editor='true'] {
-  @apply outline-none;
-}
-
 .pb-safe {
   padding-bottom: env(safe-area-inset-bottom);
 }
