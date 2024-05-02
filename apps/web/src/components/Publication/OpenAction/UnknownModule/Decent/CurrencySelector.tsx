@@ -175,7 +175,7 @@ const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
                   <div className="animate-shimmer h-4 w-16 rounded-lg bg-gray-200" />
                 ) : (
                   <p>
-                    {balances[token.symbol as keyof typeof balances]?.token ??
+                    {balances[token.symbol as keyof typeof balances]?.token ||
                       '--'}
                   </p>
                 )}
@@ -184,7 +184,7 @@ const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
                 ) : (
                   <p className="text-sm opacity-50">
                     $
-                    {balances[token.symbol as keyof typeof balances]?.usd ??
+                    {balances[token.symbol as keyof typeof balances]?.usd ||
                       '--'}
                   </p>
                 )}

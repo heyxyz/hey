@@ -111,7 +111,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
 
   const getTokenDetails = (currencyAddress: Address) => {
     return (
-      allowedTokens?.find((t) => t.contractAddress === currencyAddress) ??
+      allowedTokens?.find((t) => t.contractAddress === currencyAddress) ||
       DEFAULT_TOKEN
     );
   };
@@ -132,7 +132,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     const usdPrice = await getRedstonePrice(
       getTokenSymbol(
         allowedTokens?.find((t) => t.contractAddress === selectedNftOaCurrency)
-          ?.symbol ?? 'WMATIC'
+          ?.symbol || 'WMATIC'
       )
     );
     setUsdPrice(usdPrice);
@@ -198,7 +198,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
 
   const creatorProfileExists =
     !!creatorProfileData && !!creatorProfileData.defaultProfile;
-  const creatorAddress = actionData?.uiData.nftCreatorAddress ?? ZERO_ADDRESS;
+  const creatorAddress = actionData?.uiData.nftCreatorAddress || ZERO_ADDRESS;
 
   const totalAmount = actionData
     ? BigInt(actionData.actArgumentsFormatted.paymentToken.amount) *
@@ -413,7 +413,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
           nftDetails={{
             creator: getProfile(creatorProfileData?.defaultProfile as Profile)
               .slug,
-            name: actionData?.uiData.nftName ?? '',
+            name: actionData?.uiData.nftName || '',
             price:
               formattedTotalAmount.toFixed(4) +
               getTokenDetails(selectedNftOaCurrency).symbol,
@@ -477,7 +477,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
               <div className="flex items-center gap-2">
                 <ArrowTopRightOnSquareIcon className="size-5" />
                 <Link
-                  href={nft.mintUrl ?? nft.sourceUrl}
+                  href={nft.mintUrl || nft.sourceUrl}
                   rel="noreferrer noopener"
                   target="_blank"
                 >

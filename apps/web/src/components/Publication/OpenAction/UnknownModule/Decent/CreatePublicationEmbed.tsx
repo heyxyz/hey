@@ -52,20 +52,20 @@ const CreatePublicationEmbed: FC<CreatePublicationEmbedProps> = ({
   }, [og]);
 
   const nft: Nft = {
-    chain: uiData?.dstChainId.toString() ?? og.nft?.chain ?? null,
-    collectionName: uiData?.nftName ?? og.nft?.collectionName ?? '',
-    contractAddress: og.nft?.contractAddress ?? ZERO_ADDRESS,
-    creatorAddress: (uiData?.nftCreatorAddress ??
-      og.nft?.creatorAddress ??
+    chain: uiData?.dstChainId.toString() || og.nft?.chain || null,
+    collectionName: uiData?.nftName || og.nft?.collectionName || '',
+    contractAddress: og.nft?.contractAddress || ZERO_ADDRESS,
+    creatorAddress: (uiData?.nftCreatorAddress ||
+      og.nft?.creatorAddress ||
       ZERO_ADDRESS) as `0x${string}`,
     description: og.description || '',
     endTime: null,
     mediaUrl:
-      sanitizeDStorageUrl(uiData?.nftUri) ?? og.nft?.mediaUrl ?? og.image ?? '',
-    mintCount: og.nft?.mintCount ?? null,
-    mintStatus: og.nft?.mintStatus ?? null,
-    mintUrl: og.nft?.mintUrl ?? null,
-    schema: uiData?.tokenStandard ?? og.nft?.schema ?? '',
+      sanitizeDStorageUrl(uiData?.nftUri) || og.nft?.mediaUrl || og.image || '',
+    mintCount: og.nft?.mintCount || null,
+    mintStatus: og.nft?.mintStatus || null,
+    mintUrl: og.nft?.mintUrl || null,
+    schema: uiData?.tokenStandard || og.nft?.schema || '',
     sourceUrl: og.url
   };
 

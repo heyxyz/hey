@@ -19,7 +19,7 @@ const Nft: FC<NftProps> = ({ nft }) => {
     variables: { request: { for: nft.creatorAddress } }
   });
 
-  const byName = data?.defaultProfile?.handle?.localName ?? nft.creatorAddress;
+  const byName = data?.defaultProfile?.handle?.localName || nft.creatorAddress;
 
   return (
     <Card className="mt-3" forceRounded onClick={stopEventPropagation}>

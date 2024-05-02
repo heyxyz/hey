@@ -84,23 +84,23 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
   const prevCurrencyRef = useRef(selectedNftOaCurrency);
 
   const nft: Nft = {
-    chain: actionData?.uiData.dstChainId.toString() ?? og.nft?.chain ?? null,
-    collectionName: actionData?.uiData.nftName ?? og.nft?.collectionName ?? '',
-    contractAddress: og.nft?.contractAddress ?? ZERO_ADDRESS,
-    creatorAddress: (actionData?.uiData.nftCreatorAddress ??
-      og.nft?.creatorAddress ??
+    chain: actionData?.uiData.dstChainId.toString() || og.nft?.chain || null,
+    collectionName: actionData?.uiData.nftName || og.nft?.collectionName || '',
+    contractAddress: og.nft?.contractAddress || ZERO_ADDRESS,
+    creatorAddress: (actionData?.uiData.nftCreatorAddress ||
+      og.nft?.creatorAddress ||
       ZERO_ADDRESS) as `0x${string}`,
     description: og.description || '',
     endTime: null,
     mediaUrl:
-      sanitizeDStorageUrl(actionData?.uiData.nftUri) ??
-      og.nft?.mediaUrl ??
-      og.image ??
+      sanitizeDStorageUrl(actionData?.uiData.nftUri) ||
+      og.nft?.mediaUrl ||
+      og.image ||
       '',
-    mintCount: og.nft?.mintCount ?? null,
-    mintStatus: og.nft?.mintStatus ?? null,
-    mintUrl: og.nft?.mintUrl ?? null,
-    schema: actionData?.uiData.tokenStandard ?? og.nft?.schema ?? '',
+    mintCount: og.nft?.mintCount || null,
+    mintStatus: og.nft?.mintStatus || null,
+    mintUrl: og.nft?.mintUrl || null,
+    schema: actionData?.uiData.tokenStandard || og.nft?.schema || '',
     sourceUrl: og.url
   };
 

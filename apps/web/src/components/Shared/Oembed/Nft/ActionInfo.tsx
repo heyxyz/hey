@@ -50,7 +50,7 @@ const ActionInfo: FC<ActionInfoProps> = ({
       Math.pow(
         10,
         allowedTokens?.find((t) => t.contractAddress === selectedNftOaCurrency)
-          ?.decimals ?? 18
+          ?.decimals || 18
       )
   );
 
@@ -90,7 +90,7 @@ const ActionInfo: FC<ActionInfoProps> = ({
             {formattedPrice}{' '}
             {allowedTokens?.find(
               (t) => t.contractAddress === selectedNftOaCurrency
-            )?.symbol ?? 'WMATIC'}
+            )?.symbol || 'WMATIC'}
           </p>
         )}
       </div>
