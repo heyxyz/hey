@@ -11,7 +11,6 @@ import type { Address } from 'viem';
 
 import {
   ArrowTopRightOnSquareIcon,
-  ChevronDownIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   MinusIcon,
@@ -35,7 +34,7 @@ import sanitizeDStorageUrl from '@hey/helpers/sanitizeDStorageUrl';
 import truncateByWords from '@hey/helpers/truncateByWords';
 import { useDefaultProfileQuery } from '@hey/lens';
 import { OptmisticPublicationType } from '@hey/types/enums';
-import { HelpTooltip, Modal } from '@hey/ui';
+import { Modal } from '@hey/ui';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -51,6 +50,7 @@ import { useAccount, useWalletClient } from 'wagmi';
 
 import CurrencySelector from './CurrencySelector';
 import DecentAction from './DecentAction';
+import FeesDisclosure from './FeesDisclosure';
 import StepperApprovals from './StepperApprovals';
 
 const DEFAULT_TOKEN: AllowedToken = {
@@ -523,7 +523,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
               </div>
             </div>
           ) : null}
-          <div className="space-y-5 p-5 pt-0">
+          <div className="space-y-5 p-5 pt-2">
             <div>
               <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
                 <span className="space-x-1">Price</span>
@@ -536,56 +536,14 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                   {getTokenDetails(selectedNftOaCurrency).symbol}
                 </div>
               </div>
-              <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
-                <button
-                  className="flex items-baseline gap-1 space-x-1"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setShowFees((v) => !v);
-                  }}
-                >
-                  Fees <ChevronDownIcon className="w-2" strokeWidth={3} />
-                </button>
-                <div>
-                  {loadingCurrencyDetails
-                    ? '--'
-                    : formattedTotalFees.toFixed(4)}{' '}
-                  {getTokenDetails(selectedNftOaCurrency).symbol}
-                </div>
-              </div>
-              {showFees ? (
-                <>
-                  <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
-                    <span className="space-x-1">
-                      {actionData?.actArgumentsFormatted.dstChainId === 137
-                        ? 'Transaction Fee'
-                        : 'Bridge Fee'}
-                    </span>
-                    <div>
-                      {bridgeFee.toFixed(4)}{' '}
-                      {getTokenDetails(selectedNftOaCurrency).symbol}
-                    </div>
-                  </div>
-                  <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
-                    <span className="inline-flex items-center gap-1 space-x-1">
-                      Lens Creator Fee{'  '}
-                      <HelpTooltip>
-                        <div className="w-[210px] px-2 py-3 leading-tight">
-                          Lens creator fee is distributed between publication
-                          creator, application, Lens treasury, and mirror (if
-                          applicable)
-                        </div>
-                      </HelpTooltip>
-                    </span>
-                    <div>
-                      {loadingCurrencyDetails
-                        ? '--'
-                        : (formattedTotalAmount * 0.05).toFixed(4)}{' '}
-                      {getTokenDetails(selectedNftOaCurrency).symbol}
-                    </div>
-                  </div>
-                </>
-              ) : null}
+              <FeesDisclosure
+                actionData={actionData}
+                bridgeFee={bridgeFee}
+                formattedTotalAmount={formattedTotalAmount}
+                formattedTotalFees={formattedTotalFees}
+                loadingCurrencyDetails={loadingCurrencyDetails}
+                tokenSymbol={getTokenDetails(selectedNftOaCurrency).symbol}
+              />
               <div className="mt-4 flex items-start justify-between space-y-0.5 text-xl text-gray-600 dark:text-gray-100">
                 <span className="flex items-baseline justify-start gap-1 space-x-1">
                   Total
