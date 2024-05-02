@@ -18,6 +18,7 @@ import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import errorToast from '@helpers/errorToast';
+import getNftOpenActionKit from '@helpers/getNftOpenActionKit';
 import { Leafwatch } from '@helpers/leafwatch';
 import uploadToArweave from '@helpers/uploadToArweave';
 import { KNOWN_ATTRIBUTES } from '@hey/data/constants';
@@ -38,7 +39,6 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { useUnmountEffect } from 'framer-motion';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
-import { NftOpenActionKit } from 'nft-openaction-kit';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { HEY_REFERRAL_PROFILE_ID } from 'src/constants';
@@ -116,11 +116,7 @@ interface NewPublicationProps {
   publication: MirrorablePublication;
 }
 
-const nftOpenActionKit = new NftOpenActionKit({
-  decentApiKey: process.env.NEXT_PUBLIC_DECENT_API_KEY || '',
-  openSeaApiKey: process.env.NEXT_PUBLIC_OPENSEA_API_KEY || '',
-  raribleApiKey: process.env.NEXT_PUBLIC_RARIBLE_API_KEY || ''
-});
+const nftOpenActionKit = getNftOpenActionKit();
 
 const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { currentProfile } = useProfileStore();

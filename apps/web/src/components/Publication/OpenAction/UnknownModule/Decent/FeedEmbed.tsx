@@ -10,6 +10,7 @@ import type { Address } from 'viem';
 import ActionInfo from '@components/Shared/Oembed/Nft/ActionInfo';
 import DecentOpenActionShimmer from '@components/Shared/Shimmer/DecentOpenActionShimmer';
 import errorToast from '@helpers/errorToast';
+import getNftOpenActionKit from '@helpers/getNftOpenActionKit';
 import { Leafwatch } from '@helpers/leafwatch';
 import { ZERO_ADDRESS } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
@@ -19,7 +20,6 @@ import sanitizeDStorageUrl from '@hey/helpers/sanitizeDStorageUrl';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Button, Card, Spinner, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { NftOpenActionKit } from 'nft-openaction-kit';
 import { type FC, useEffect, useRef, useState } from 'react';
 import { HEY_REFERRAL_PROFILE_ID } from 'src/constants';
 import { useNftOaCurrencyStore } from 'src/store/persisted/useNftOaCurrencyStore';
@@ -110,11 +110,7 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
     () => {
       const actionDataFromPost = async () => {
         setLoadingCurrency(true);
-        const nftOpenActionKit = new NftOpenActionKit({
-          decentApiKey: process.env.NEXT_PUBLIC_DECENT_API_KEY || '',
-          openSeaApiKey: process.env.NEXT_PUBLIC_OPENSEA_API_KEY || '',
-          raribleApiKey: process.env.NEXT_PUBLIC_RARIBLE_API_KEY || ''
-        });
+        const nftOpenActionKit = getNftOpenActionKit();
 
         const addressParameter = address ? address : ZERO_ADDRESS;
 

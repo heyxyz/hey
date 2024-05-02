@@ -4,12 +4,12 @@ import type { UIData } from 'nft-openaction-kit';
 import ActionInfo from '@components/Shared/Oembed/Nft/ActionInfo';
 import DecentOpenActionShimmer from '@components/Shared/Shimmer/DecentOpenActionShimmer';
 import errorToast from '@helpers/errorToast';
+import getNftOpenActionKit from '@helpers/getNftOpenActionKit';
 import { ZERO_ADDRESS } from '@hey/data/constants';
 import sanitizeDStorageUrl from '@hey/helpers/sanitizeDStorageUrl';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Button, Card, Spinner, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { NftOpenActionKit } from 'nft-openaction-kit';
 import { type FC, useEffect, useState } from 'react';
 
 import {
@@ -33,11 +33,7 @@ const CreatePublicationEmbed: FC<CreatePublicationEmbedProps> = ({
 
   useEffect(() => {
     const generateUiData = async () => {
-      const nftOpenActionKit = new NftOpenActionKit({
-        decentApiKey: process.env.NEXT_PUBLIC_DECENT_API_KEY || '',
-        openSeaApiKey: process.env.NEXT_PUBLIC_OPENSEA_API_KEY || '',
-        raribleApiKey: process.env.NEXT_PUBLIC_RARIBLE_API_KEY || ''
-      });
+      const nftOpenActionKit = getNftOpenActionKit();
 
       // Call the async function and pass the link
       try {
