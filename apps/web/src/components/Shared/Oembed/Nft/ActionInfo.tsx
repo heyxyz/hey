@@ -1,5 +1,4 @@
 import type { Profile } from '@hey/lens';
-import type { AllowedToken } from '@hey/types/hey';
 import type { ActionData, UIData } from 'nft-openaction-kit';
 import type { FC } from 'react';
 import type { Address } from 'viem';
