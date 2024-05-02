@@ -1,5 +1,4 @@
 import type { Nft, OG } from '@hey/types/misc';
-import type { UIData } from 'nft-openaction-kit';
 
 import ActionInfo from '@components/Shared/Oembed/Nft/ActionInfo';
 import DecentOpenActionShimmer from '@components/Shared/Shimmer/DecentOpenActionShimmer';
@@ -10,7 +9,8 @@ import sanitizeDStorageUrl from '@hey/helpers/sanitizeDStorageUrl';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Button, Card, Spinner, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { type FC, useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { type FC, useState } from 'react';
 
 import {
   OPEN_ACTION_EMBED_TOOLTIP,
@@ -29,27 +29,24 @@ const CreatePublicationEmbed: FC<CreatePublicationEmbedProps> = ({
   openActionEmbed,
   openActionEmbedLoading
 }) => {
-  const [uiData, setUiData] = useState<UIData>();
+  const fetchUiData = async () => {
+    const nftOpenActionKit = getNftOpenActionKit();
+    try {
+      const uiDataResult = await nftOpenActionKit.generateUiData({
+        contentURI: og.url
+      });
+      return uiDataResult;
+    } catch (error) {
+      errorToast(error);
+      return null;
+    }
+  };
 
-  useEffect(() => {
-    const generateUiData = async () => {
-      const nftOpenActionKit = getNftOpenActionKit();
-
-      // Call the async function and pass the link
-      try {
-        const uiDataResult: UIData = await nftOpenActionKit.generateUiData({
-          contentURI: og.url
-        });
-
-        if (uiDataResult) {
-          setUiData(uiDataResult);
-        }
-      } catch (error) {
-        errorToast(error);
-      }
-    };
-    generateUiData();
-  }, [og]);
+  const { data: uiData } = useQuery({
+    enabled: Boolean(og.url),
+    queryFn: fetchUiData,
+    queryKey: ['fetchUiData', og.url]
+  });
 
   const nft: Nft = {
     chain: uiData?.dstChainId.toString() || og.nft?.chain || null,
