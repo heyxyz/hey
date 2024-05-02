@@ -41,7 +41,6 @@ import toast from 'react-hot-toast';
 import { CHAIN, PERMIT_2_ADDRESS } from 'src/constants';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import useTransactionStatus from 'src/hooks/useTransactionStatus';
 import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
 import { useNftOaCurrencyStore } from 'src/store/persisted/useNftOaCurrencyStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
@@ -158,10 +157,6 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
       successToast: 'Initiated transaction'
     });
 
-  const { data: transactionStatusData } = useTransactionStatus({
-    txId: relayStatus
-  });
-
   const { addTransaction } = useTransactionStore();
 
   const generateOptimisticNftMintOA = ({
@@ -177,19 +172,11 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   };
 
   useEffect(() => {
-    if (
-      relayStatus &&
-      !relayStatus.startsWith('0x') &&
-      transactionStatusData &&
-      transactionStatusData.lensTransactionStatus &&
-      transactionStatusData.lensTransactionStatus.txHash
-    ) {
-      const txHashFromStatus =
-        transactionStatusData.lensTransactionStatus.txHash;
-      addTransaction(generateOptimisticNftMintOA({ txHash: txHashFromStatus }));
+    if (relayStatus && !relayStatus.startsWith('0x')) {
+      addTransaction(generateOptimisticNftMintOA({ txId: relayStatus }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [transactionStatusData]);
+  }, [relayStatus]);
 
   const { data: creatorProfileData } = useDefaultProfileQuery({
     skip: !actionData?.uiData.nftCreatorAddress,
