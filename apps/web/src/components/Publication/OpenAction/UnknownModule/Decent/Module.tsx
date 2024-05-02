@@ -3,7 +3,7 @@ import type {
   Profile,
   UnknownOpenActionModuleSettings
 } from '@hey/lens';
-import type { Nft } from '@hey/types/misc';
+import type { Nft, OptimisticTransaction } from '@hey/types/misc';
 import type { ActionData } from 'nft-openaction-kit';
 import type { Dispatch, FC } from 'react';
 
@@ -32,6 +32,7 @@ import {
 import sanitizeDStorageUrl from '@hey/helpers/sanitizeDStorageUrl';
 import truncateByWords from '@hey/helpers/truncateByWords';
 import { useDefaultProfileQuery } from '@hey/lens';
+import { OptmisticPublicationType } from '@hey/types/enums';
 import { HelpTooltip, Modal } from '@hey/ui';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -41,7 +42,7 @@ import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useTransactionStatus } from 'src/hooks/useIndexStatus';
 import { useOaCurrency } from 'src/store/persisted/useOaCurrency';
-import { useOaTransactionStore } from 'src/store/persisted/useOaTransactionStore';
+import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 import { parseAbi } from 'viem';
 import { useAccount, useWalletClient } from 'wagmi';
 
@@ -125,6 +126,20 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     txId: relayStatus
   });
 
+  const { addTransaction } = useTransactionStore();
+
+  const generateOptimisticNftMintOA = ({
+    txHash
+  }: {
+    txHash?: string;
+    txId?: string;
+  }): OptimisticTransaction => {
+    return {
+      txHash,
+      type: OptmisticPublicationType.NftMintOA
+    };
+  };
+
   useEffect(() => {
     if (
       relayStatus &&
@@ -135,12 +150,9 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     ) {
       const txHashFromStatus =
         transactionStatusData.lensTransactionStatus.txHash;
-      useOaTransactionStore.getState().addTransaction({
-        platformName: actionData?.uiData.platformName,
-        status: 'pending',
-        txHash: txHashFromStatus
-      });
+      addTransaction(generateOptimisticNftMintOA({ txHash: txHashFromStatus }));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [transactionStatusData]);
 
   const { data: creatorProfileData } = useDefaultProfileQuery({

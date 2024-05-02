@@ -4,7 +4,6 @@ import type { FC, ReactNode } from 'react';
 import GlobalAlerts from '@components/Shared/GlobalAlerts';
 import GlobalBanners from '@components/Shared/GlobalBanners';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
-import OaTransactionToaster from '@components/Shared/OaTransactionToaster';
 import PageMetatags from '@components/Shared/PageMetatags';
 import getCurrentSession from '@helpers/getCurrentSession';
 import getToastOptions from '@helpers/getToastOptions';
@@ -17,7 +16,6 @@ import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { hydrateAuthTokens, signOut } from 'src/store/persisted/useAuthStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import { useOaTransactionStore } from 'src/store/persisted/useOaTransactionStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { isAddress } from 'viem';
 import { useDisconnect } from 'wagmi';
@@ -83,8 +81,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   const profileLoading = !currentProfile && loading;
 
-  const transactions = useOaTransactionStore((state) => state.transactions);
-
   if (profileLoading || !isMounted) {
     return <Loading />;
   }
@@ -97,14 +93,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         position="bottom-right"
         toastOptions={getToastOptions(resolvedTheme)}
       />
-      {transactions.map((tx) => (
-        <OaTransactionToaster
-          key={tx.txHash}
-          onClose={() => {}}
-          platformName={tx.platformName}
-          txHash={tx.txHash}
-        />
-      ))}
       <GlobalModals />
       <GlobalAlerts />
       <div className="flex min-h-screen flex-col pb-14 md:pb-0">
