@@ -26,6 +26,7 @@ interface ActionInfoProps {
   actionData?: ActionData;
   collectionName: string;
   creatorAddress: Address;
+  hidePrice?: boolean;
   uiData: UIData;
 }
 
@@ -33,6 +34,7 @@ const ActionInfo: FC<ActionInfoProps> = ({
   actionData,
   collectionName,
   creatorAddress,
+  hidePrice,
   uiData
 }) => {
   const { selectedCurrency } = useOaCurrency();
@@ -72,7 +74,6 @@ const ActionInfo: FC<ActionInfoProps> = ({
           className="size-6 rounded-full border bg-gray-200 dark:border-gray-700"
           height={24}
           loading="lazy"
-          // TODO: manage on platform image onError
           src={uiData.platformLogoUrl}
           width={24}
         />
@@ -90,7 +91,7 @@ const ActionInfo: FC<ActionInfoProps> = ({
               : `${creatorAddress.slice(0, 6)}...${creatorAddress.slice(-4)}`}
           </p>
         </span>
-        {!!formattedPrice && (
+        {!!formattedPrice && !hidePrice && (
           <p className="opacity-50">
             {formattedPrice} {selectedCurrency.symbol}
           </p>

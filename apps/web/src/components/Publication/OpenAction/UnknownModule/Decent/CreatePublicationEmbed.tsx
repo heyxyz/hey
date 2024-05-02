@@ -88,6 +88,7 @@ const CreatePublicationEmbed: FC<CreatePublicationEmbedProps> = ({
               <ActionInfo
                 collectionName={nft.collectionName}
                 creatorAddress={nft.creatorAddress}
+                hidePrice
                 uiData={uiData}
               />
             ) : null}
