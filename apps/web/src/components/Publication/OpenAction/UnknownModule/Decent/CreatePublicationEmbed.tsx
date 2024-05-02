@@ -108,20 +108,14 @@ const CreatePublicationEmbed: FC<CreatePublicationEmbedProps> = ({
               content={<span>{OPEN_ACTION_EMBED_TOOLTIP}</span>}
               placement="top"
             >
-              <Button className="text-base font-normal" size="lg">
-                {openActionCTA(uiData.platformName)}
-              </Button>
+              <Button size="lg">{openActionCTA(uiData.platformName)}</Button>
             </Tooltip>
           ) : (
             <Tooltip
               content={<span>{OPEN_ACTION_NO_EMBED_TOOLTIP}</span>}
               placement="top"
             >
-              <Button
-                className="text-base font-normal"
-                disabled={true}
-                size="lg"
-              >
+              <Button disabled={true} size="lg">
                 {openActionCTA(uiData.platformName)}
               </Button>
             </Tooltip>
