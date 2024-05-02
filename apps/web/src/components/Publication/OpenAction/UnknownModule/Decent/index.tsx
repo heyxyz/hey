@@ -32,17 +32,7 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({
   openActionEmbedLoading,
   publication
 }) => {
-  if (publication) {
-    return (
-      <FeedEmbed
-        mirrorPublication={mirrorPublication}
-        og={og}
-        openActionEmbed={openActionEmbed}
-        openActionEmbedLoading={openActionEmbedLoading}
-        publication={publication}
-      />
-    );
-  } else {
+  if (!publication) {
     return (
       <CreatePublicationEmbed
         og={og}
@@ -51,6 +41,15 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({
       />
     );
   }
+  return (
+    <FeedEmbed
+      mirrorPublication={mirrorPublication}
+      og={og}
+      openActionEmbed={openActionEmbed}
+      openActionEmbedLoading={openActionEmbedLoading}
+      publication={publication}
+    />
+  );
 };
 
 export default DecentOpenAction;
