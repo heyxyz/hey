@@ -3,13 +3,11 @@ import type {
   MirrorablePublication,
   UnknownOpenActionModuleSettings
 } from '@hey/lens';
-import type { Nft, OG } from '@hey/types/misc';
-import type { ActionData, PublicationInfo } from 'nft-openaction-kit';
-import type { Address } from 'viem';
+import type { OG } from '@hey/types/misc';
+import type { PublicationInfo } from 'nft-openaction-kit';
 
 import ActionInfo from '@components/Shared/Oembed/Nft/ActionInfo';
 import DecentOpenActionShimmer from '@components/Shared/Shimmer/DecentOpenActionShimmer';
-import errorToast from '@helpers/errorToast';
 import getNftOpenActionKit from '@helpers/getNftOpenActionKit';
 import { Leafwatch } from '@helpers/leafwatch';
 import { ZERO_ADDRESS } from '@hey/data/constants';
@@ -20,7 +18,8 @@ import sanitizeDStorageUrl from '@hey/helpers/sanitizeDStorageUrl';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Button, Card, Spinner, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { type FC, useEffect, useRef, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { type FC, useEffect, useState } from 'react';
 import { HEY_REFERRAL_PROFILE_ID } from 'src/constants';
 import { useNftOaCurrencyStore } from 'src/store/persisted/useNftOaCurrencyStore';
 import { useAccount } from 'wagmi';
@@ -66,7 +65,6 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
   openActionEmbedLoading,
   publication
 }) => {
-  const [actionData, setActionData] = useState<ActionData>();
   const [showOpenActionModal, setShowOpenActionModal] = useState(false);
   const { selectedNftOaCurrency } = useNftOaCurrencyStore();
   const targetPublication = isMirrorPublication(publication)
@@ -81,91 +79,77 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
 
   const { address } = useAccount();
 
-  const prevCurrencyRef = useRef(selectedNftOaCurrency);
-
-  const nft: Nft = {
-    chain: actionData?.uiData.dstChainId.toString() || og.nft?.chain || null,
-    collectionName: actionData?.uiData.nftName || og.nft?.collectionName || '',
+  const [nft, setNft] = useState({
+    chain: og.nft?.chain || null,
+    collectionName: og.nft?.collectionName || '',
     contractAddress: og.nft?.contractAddress || ZERO_ADDRESS,
-    creatorAddress: (actionData?.uiData.nftCreatorAddress ||
-      og.nft?.creatorAddress ||
-      ZERO_ADDRESS) as `0x${string}`,
+    creatorAddress: og.nft?.creatorAddress || ZERO_ADDRESS,
     description: og.description || '',
     endTime: null,
-    mediaUrl:
-      sanitizeDStorageUrl(actionData?.uiData.nftUri) ||
-      og.nft?.mediaUrl ||
-      og.image ||
-      '',
-    mintCount: og.nft?.mintCount || null,
-    mintStatus: og.nft?.mintStatus || null,
-    mintUrl: og.nft?.mintUrl || null,
-    schema: actionData?.uiData.tokenStandard || og.nft?.schema || '',
+    mediaUrl: og.nft?.mediaUrl || og.image || '',
+    mintCount: null,
+    mintStatus: null,
+    mintUrl: null,
+    schema: og.nft?.schema || '',
     sourceUrl: og.url
+  });
+
+  const fetchActionData = async () => {
+    const nftOpenActionKit = getNftOpenActionKit();
+    const pubInfo = formatPublicationData(targetPublication);
+
+    const actionDataResult = await nftOpenActionKit.actionDataFromPost({
+      executingClientProfileId: HEY_REFERRAL_PROFILE_ID,
+      mirrorerProfileId: mirrorPublication?.by.id,
+      mirrorPubId: mirrorPublication?.id,
+      paymentToken: selectedNftOaCurrency,
+      post: pubInfo,
+      profileId: targetPublication.by.id,
+      profileOwnerAddress: targetPublication.by.ownedBy.address,
+      quantity: selectedQuantity,
+      senderAddress: address || ZERO_ADDRESS,
+      sourceUrl: og.url,
+      srcChainId: '137'
+    });
+
+    return actionDataResult;
   };
 
-  const [loadingCurrency, setLoadingCurrency] = useState(false);
-
-  const [loadingActionData, setLoadingActionData] = useState(false);
-
-  useEffect(
-    () => {
-      const actionDataFromPost = async () => {
-        setLoadingCurrency(true);
-        setLoadingActionData(true);
-        const nftOpenActionKit = getNftOpenActionKit();
-
-        const addressParameter = address ? address : ZERO_ADDRESS;
-
-        // Call the async function and pass the link
-        try {
-          const pubInfo = formatPublicationData(targetPublication);
-          const actionDataResult: ActionData =
-            await nftOpenActionKit.actionDataFromPost({
-              executingClientProfileId: HEY_REFERRAL_PROFILE_ID,
-              mirrorerProfileId: !!mirrorPublication
-                ? mirrorPublication.by.id
-                : undefined,
-              mirrorPubId: !!mirrorPublication
-                ? mirrorPublication.id
-                : undefined,
-              paymentToken: selectedNftOaCurrency,
-              post: pubInfo,
-              profileId: targetPublication.by.id,
-              profileOwnerAddress: targetPublication.by.ownedBy.address,
-              quantity: selectedQuantity !== 1 ? selectedQuantity : 1,
-              senderAddress: addressParameter as Address,
-              sourceUrl: nft.sourceUrl,
-              srcChainId: '137' // srcChainId, only supported on Polygon POS for now
-            });
-          setLoadingCurrency(false);
-          if (actionDataResult) {
-            setActionData(actionDataResult);
-          }
-          setLoadingActionData(false);
-        } catch (error) {
-          errorToast(error);
-          setLoadingCurrency(false);
-          setLoadingActionData(false);
-        }
-      };
-
-      const isCurrencyChanged =
-        prevCurrencyRef.current !== selectedNftOaCurrency;
-      if ((module && !actionData) || isCurrencyChanged) {
-        actionDataFromPost();
-        prevCurrencyRef.current = selectedNftOaCurrency;
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [
-      address,
-      module,
-      targetPublication,
+  const {
+    data: actionData,
+    isLoading: loadingActionData,
+    refetch
+  } = useQuery({
+    enabled:
+      !!module && !!selectedNftOaCurrency && !!address && !!targetPublication,
+    queryFn: fetchActionData,
+    queryKey: [
+      'actionData',
+      selectedNftOaCurrency,
       selectedQuantity,
-      selectedNftOaCurrency
+      address,
+      targetPublication?.id
     ]
-  );
+  });
+
+  useEffect(() => {
+    if (actionData) {
+      setNft((prevNft) => ({
+        ...prevNft,
+        chain: actionData.uiData.dstChainId.toString() || prevNft.chain,
+        collectionName: actionData.uiData.nftName || prevNft.collectionName,
+        creatorAddress:
+          `0x${actionData.uiData.nftCreatorAddress}` || prevNft.creatorAddress,
+        mediaUrl:
+          sanitizeDStorageUrl(actionData.uiData.nftUri) || prevNft.mediaUrl,
+        schema: actionData.uiData.tokenStandard || prevNft.schema
+      }));
+    }
+  }, [actionData]);
+
+  useEffect(() => {
+    refetch();
+  }, [selectedNftOaCurrency, address, refetch]);
 
   const [isNftCoverLoaded, setIsNftCoverLoaded] = useState(false);
 
@@ -235,7 +219,7 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
       </Card>
       <DecentOpenActionModule
         actionData={actionData}
-        loadingCurrency={loadingCurrency}
+        loadingCurrency={loadingActionData}
         module={module as UnknownOpenActionModuleSettings}
         nft={nft}
         onClose={() => setShowOpenActionModal(false)}

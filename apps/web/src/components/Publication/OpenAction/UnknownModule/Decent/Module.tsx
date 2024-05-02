@@ -230,7 +230,6 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     : null;
 
   const [showLongDescription, setShowLongDescription] = useState(false);
-  const [showFees, setShowFees] = useState(false);
 
   const [showCurrencySelector, setShowCurrencySelector] = useState(false);
 
@@ -361,6 +360,28 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     fetchPermit2Allowance();
   }, [amount, assetAddress, address]);
 
+  const [currentImageUrl, setCurrentImageUrl] = useState('');
+  const [prevImageUrl, setPrevImageUrl] = useState('');
+
+  const [isImageLoading, setImageLoading] = useState(false);
+
+  useEffect(() => {
+    if (actionData?.uiData.nftUri) {
+      const newImageUrl = sanitizeDStorageUrl(actionData.uiData.nftUri);
+      if (newImageUrl !== currentImageUrl) {
+        setImageLoading(true);
+        setPrevImageUrl(currentImageUrl);
+        setCurrentImageUrl(newImageUrl);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [actionData]);
+
+  const handleImageLoaded = () => {
+    setImageLoading(false);
+    setPrevImageUrl('');
+  };
+
   return (
     <Modal
       icon={
@@ -439,11 +460,26 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
               ) : null}
             </div>
             <div className="pt-2">
-              <img
-                alt={actionData?.uiData.nftName}
-                className="aspect-[1.5] max-h-[350px] w-full rounded-xl object-contain"
-                src={sanitizeDStorageUrl(actionData?.uiData.nftUri)}
-              />
+              <div className="relative">
+                {isImageLoading && prevImageUrl && (
+                  <img
+                    alt="Loading..."
+                    className="absolute aspect-[1.5] max-h-[350px] w-full rounded-xl object-contain"
+                    src={prevImageUrl}
+                  />
+                )}
+                <img
+                  alt={actionData?.uiData.nftName}
+                  className={`aspect-[1.5] max-h-[350px] w-full rounded-xl object-contain ${isImageLoading ? 'invisible' : 'visible'}`}
+                  onLoad={handleImageLoaded}
+                  src={currentImageUrl}
+                />
+                {isImageLoading && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="spinner">Loading...</div>{' '}
+                  </div>
+                )}
+              </div>
               {nft.description && (
                 <p className="my-5">
                   {showLongDescription
