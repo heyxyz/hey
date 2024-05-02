@@ -42,7 +42,7 @@ const CreatePublicationEmbed: FC<CreatePublicationEmbedProps> = ({
     }
   };
 
-  const { data: uiData } = useQuery({
+  const { data: uiData, isLoading } = useQuery({
     enabled: Boolean(og.url),
     queryFn: fetchUiData,
     queryKey: ['fetchUiData', og.url]
@@ -81,7 +81,7 @@ const CreatePublicationEmbed: FC<CreatePublicationEmbedProps> = ({
           src={nft.mediaUrl.length ? nft.mediaUrl : undefined}
         />
       </div>
-      {Boolean(uiData) && Boolean(nft) ? (
+      {Boolean(uiData) && Boolean(nft) && !isLoading ? (
         <div className="flex items-center justify-between border-t p-4 dark:border-gray-700">
           <div className="flex items-center space-x-2">
             {uiData && nft.creatorAddress ? (
@@ -114,9 +114,9 @@ const CreatePublicationEmbed: FC<CreatePublicationEmbedProps> = ({
             </Tooltip>
           )}
         </div>
-      ) : (
+      ) : isLoading ? (
         <DecentOpenActionShimmer />
-      )}
+      ) : null}
     </Card>
   );
 };

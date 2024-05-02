@@ -106,10 +106,13 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
 
   const [loadingCurrency, setLoadingCurrency] = useState(false);
 
+  const [loadingActionData, setLoadingActionData] = useState(false);
+
   useEffect(
     () => {
       const actionDataFromPost = async () => {
         setLoadingCurrency(true);
+        setLoadingActionData(true);
         const nftOpenActionKit = getNftOpenActionKit();
 
         const addressParameter = address ? address : ZERO_ADDRESS;
@@ -139,9 +142,11 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
           if (actionDataResult) {
             setActionData(actionDataResult);
           }
+          setLoadingActionData(false);
         } catch (error) {
           errorToast(error);
           setLoadingCurrency(false);
+          setLoadingActionData(false);
         }
       };
 
@@ -182,7 +187,7 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
             src={nft.mediaUrl.length ? nft.mediaUrl : undefined}
           />
         </div>
-        {!!actionData && nft ? (
+        {!!actionData && nft && !loadingActionData ? (
           <div className="flex flex-col items-start justify-between gap-4 border-t p-4 sm:flex-row sm:items-center sm:gap-0 dark:border-gray-700">
             <div className="flex items-center space-x-2">
               {nft.creatorAddress ? (
@@ -224,9 +229,9 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
               </Button>
             )}
           </div>
-        ) : (
+        ) : loadingActionData ? (
           <DecentOpenActionShimmer />
-        )}
+        ) : null}
       </Card>
       <DecentOpenActionModule
         actionData={actionData}
