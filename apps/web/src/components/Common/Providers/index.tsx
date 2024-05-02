@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react';
 
+import authLink from '@helpers/authLink';
+import getLivepeerTheme from '@helpers/getLivepeerTheme';
 import { LIVEPEER_KEY } from '@hey/data/constants';
 import { apolloClient, ApolloProvider } from '@hey/lens/apollo';
-import authLink from '@lib/authLink';
-import getLivepeerTheme from '@lib/getLivepeerTheme';
 import {
   createReactClient,
   LivepeerConfig,

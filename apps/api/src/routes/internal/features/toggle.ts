@@ -1,10 +1,10 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/lib/logger';
-import catchedError from 'src/lib/catchedError';
-import heyPrisma from 'src/lib/heyPrisma';
-import validateIsStaff from 'src/lib/middlewares/validateIsStaff';
-import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
+import logger from '@hey/helpers/logger';
+import catchedError from 'src/helpers/catchedError';
+import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
+import prisma from 'src/helpers/prisma';
+import { invalidBody, noBody, notAllowed } from 'src/helpers/responses';
 import { boolean, object, string } from 'zod';
 
 type ExtensionRequest = {
@@ -37,7 +37,7 @@ export const post: Handler = async (req, res) => {
   const { enabled, id } = body as ExtensionRequest;
 
   try {
-    await heyPrisma.feature.update({ data: { enabled }, where: { id } });
+    await prisma.feature.update({ data: { enabled }, where: { id } });
     logger.info(`Killed feature ${id}`);
 
     return res.status(200).json({ enabled, success: true });

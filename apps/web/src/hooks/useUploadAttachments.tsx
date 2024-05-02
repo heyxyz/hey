@@ -1,6 +1,6 @@
 import type { NewAttachment } from '@hey/types/misc';
 
-import uploadToIPFS from '@lib/uploadToIPFS';
+import uploadToIPFS from '@helpers/uploadToIPFS';
 import imageCompression from 'browser-image-compression';
 import { useCallback } from 'react';
 import { toast } from 'react-hot-toast';

@@ -4,12 +4,13 @@ export enum HomeFeedType {
   PREMIUM = 'PREMIUM'
 }
 export enum ModFeedType {
-  FOLLOWERINGS = 'FOLLOWERINGS',
   LATEST = 'LATEST',
   PROFILES = 'PROFILES',
+  REPORTS = 'REPORTS',
   SEARCH = 'SEARCH'
 }
 
 export enum OpenAction {
+  RentableBillboard = 'Rentable Billboard',
   Swap = 'Swap'
 }

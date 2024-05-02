@@ -2,11 +2,11 @@ import type { Nft as INft } from '@hey/types/misc';
 import type { FC } from 'react';
 
 import { OPEN_ACTION_NO_EMBED_TOOLTIP } from '@components/Publication/OpenAction/UnknownModule/Decent';
+import getAvatar from '@hey/helpers/getAvatar';
+import getLennyURL from '@hey/helpers/getLennyURL';
+import getNftChainInfo from '@hey/helpers/getNftChainInfo';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { useDefaultProfileQuery } from '@hey/lens';
-import getAvatar from '@hey/lib/getAvatar';
-import getLennyURL from '@hey/lib/getLennyURL';
-import getNftChainInfo from '@hey/lib/getNftChainInfo';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button, Card, Image, Tooltip } from '@hey/ui';
 
 interface NftProps {

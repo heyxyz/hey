@@ -1,5 +1,7 @@
 import type { NextPage } from 'next';
 
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { CheckIcon } from '@heroicons/react/24/outline';
 import { HeyPro } from '@hey/abis';
 import { Errors } from '@hey/data';
@@ -10,11 +12,9 @@ import {
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import formatDate from '@hey/lib/datetime/formatDate';
+import formatDate from '@hey/helpers/datetime/formatDate';
 import { Button } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';

@@ -1,10 +1,10 @@
 import type { FC } from 'react';
 
+import getToastOptions from '@helpers/getToastOptions';
 import {
   getMessagesBySrcTxHash,
   MessageStatus
 } from '@layerzerolabs/scan-client';
-import getToastOptions from '@lib/getToastOptions';
 import { useTheme } from 'next-themes';
 import React, { useEffect } from 'react';
 import toast from 'react-hot-toast';

@@ -2,6 +2,8 @@ import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import UserProfile from '@components/Shared/UserProfile';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import {
   ExclamationTriangleIcon,
   TrashIcon
@@ -18,8 +20,6 @@ import {
   Spinner,
   WarningMessage
 } from '@hey/ui';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';

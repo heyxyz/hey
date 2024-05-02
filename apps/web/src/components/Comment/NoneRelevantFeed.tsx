@@ -4,6 +4,7 @@ import type { FC } from 'react';
 import { useHiddenCommentFeedStore } from '@components/Publication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
+import getAvatar from '@hey/helpers/getAvatar';
 import {
   CommentRankingFilterType,
   CustomFiltersType,
@@ -11,11 +12,11 @@ import {
   LimitType,
   usePublicationsQuery
 } from '@hey/lens';
-import getAvatar from '@hey/lib/getAvatar';
 import { Card, StackedAvatars } from '@hey/ui';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
+import { useTipsStore } from 'src/store/non-persisted/useTipsStore';
 
 interface NoneRelevantFeedProps {
   publicationId: string;
@@ -25,6 +26,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publicationId }) => {
   const { showHiddenComments } = useHiddenCommentFeedStore();
   const [showMore, setShowMore] = useState(false);
   const { fetchAndStoreViews } = useImpressionsStore();
+  const { fetchAndStoreTips } = useTipsStore();
 
   // Variables
   const request: PublicationsRequest = {
@@ -45,6 +47,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publicationId }) => {
     onCompleted: async ({ publications }) => {
       const ids = publications?.items?.map((p) => p.id) || [];
       await fetchAndStoreViews(ids);
+      await fetchAndStoreTips(ids);
     },
     skip: !publicationId,
     variables: { request }
@@ -65,6 +68,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publicationId }) => {
     });
     const ids = data?.publications?.items?.map((p) => p.id) || [];
     await fetchAndStoreViews(ids);
+    await fetchAndStoreTips(ids);
   };
 
   if (totalComments === 0) {

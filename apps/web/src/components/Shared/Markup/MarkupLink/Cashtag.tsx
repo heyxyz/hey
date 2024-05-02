@@ -1,9 +1,9 @@
 import type { MarkupLinkProps } from '@hey/types/misc';
 import type { FC } from 'react';
 
+import { Leafwatch } from '@helpers/leafwatch';
 import { PUBLICATION } from '@hey/data/tracking';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Leafwatch } from '@lib/leafwatch';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import Link from 'next/link';
 import urlcat from 'urlcat';
 

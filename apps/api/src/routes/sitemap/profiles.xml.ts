@@ -1,18 +1,22 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/lib/logger';
-import catchedError from 'src/lib/catchedError';
-import { SITEMAP_BATCH_SIZE } from 'src/lib/constants';
-import lensPrisma from 'src/lib/lensPrisma';
-import { buildSitemapXml } from 'src/lib/sitemap/buildSitemap';
+import logger from '@hey/helpers/logger';
+import lensPg from 'src/db/lensPg';
+import catchedError from 'src/helpers/catchedError';
+import { SITEMAP_BATCH_SIZE } from 'src/helpers/constants';
+import { buildSitemapXml } from 'src/helpers/sitemap/buildSitemap';
 
 export const get: Handler = async (req, res) => {
   const user_agent = req.headers['user-agent'];
 
   try {
-    const response = await lensPrisma.$queryRaw<{ count: number }[]>`
-      SELECT COUNT(*) as count FROM namespace.handle;
-    `;
+    const response = await lensPg.query(`
+      SELECT COUNT(h.handle_id) AS count
+      FROM namespace.handle h
+      JOIN namespace.handle_link hl ON h.handle_id = hl.handle_id
+      JOIN profile.record p ON hl.token_id = p.profile_id
+      WHERE p.is_burnt = false;
+    `);
 
     const totalHandles = Number(response[0]?.count) || 0;
     const totalBatches = Math.ceil(totalHandles / SITEMAP_BATCH_SIZE);

@@ -4,8 +4,8 @@ import type { Address } from 'viem';
 
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { TokenContracts } from '@hey/data/contracts';
-import getRedstonePrice from '@hey/lib/getRedstonePrice';
-import getTokenImage from '@hey/lib/getTokenImage';
+import getRedstonePrice from '@hey/helpers/getRedstonePrice';
+import getTokenImage from '@hey/helpers/getTokenImage';
 import { useQuery } from '@tanstack/react-query';
 import { formatUnits } from 'viem';
 import { useAccount, useBalance } from 'wagmi';

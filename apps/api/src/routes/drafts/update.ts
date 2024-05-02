@@ -1,11 +1,11 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/lib/logger';
-import parseJwt from '@hey/lib/parseJwt';
-import catchedError from 'src/lib/catchedError';
-import heyPrisma from 'src/lib/heyPrisma';
-import validateLensAccount from 'src/lib/middlewares/validateLensAccount';
-import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
+import logger from '@hey/helpers/logger';
+import parseJwt from '@hey/helpers/parseJwt';
+import catchedError from 'src/helpers/catchedError';
+import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
+import prisma from 'src/helpers/prisma';
+import { invalidBody, noBody, notAllowed } from 'src/helpers/responses';
 import { object, string } from 'zod';
 
 type ExtensionRequest = {
@@ -50,7 +50,7 @@ export const post: Handler = async (req, res) => {
     };
 
     if (id) {
-      const result = await heyPrisma.draftPublication.update({
+      const result = await prisma.draftPublication.update({
         data: baseData,
         where: { id: id as string }
       });
@@ -59,7 +59,7 @@ export const post: Handler = async (req, res) => {
 
       return res.status(200).json({ result, success: true });
     } else {
-      const result = await heyPrisma.draftPublication.create({
+      const result = await prisma.draftPublication.create({
         data: { profileId: payload.id, ...baseData }
       });
 

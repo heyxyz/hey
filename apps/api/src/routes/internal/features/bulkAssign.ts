@@ -1,10 +1,10 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/lib/logger';
-import catchedError from 'src/lib/catchedError';
-import heyPrisma from 'src/lib/heyPrisma';
-import validateIsStaff from 'src/lib/middlewares/validateIsStaff';
-import { invalidBody, noBody, notAllowed } from 'src/lib/responses';
+import logger from '@hey/helpers/logger';
+import catchedError from 'src/helpers/catchedError';
+import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
+import prisma from 'src/helpers/prisma';
+import { invalidBody, noBody, notAllowed } from 'src/helpers/responses';
 import { object, string } from 'zod';
 
 type ExtensionRequest = {
@@ -42,7 +42,7 @@ export const post: Handler = async (req, res) => {
     const parsedIds = JSON.parse(ids) as string[];
 
     // remove duplicates that already have the feature
-    const profiles = await heyPrisma.profileFeature.findMany({
+    const profiles = await prisma.profileFeature.findMany({
       where: { featureId, profileId: { in: parsedIds } }
     });
 
@@ -51,7 +51,7 @@ export const post: Handler = async (req, res) => {
         !profiles.some((profile) => profile.profileId === profile_id)
     );
 
-    const result = await heyPrisma.profileFeature.createMany({
+    const result = await prisma.profileFeature.createMany({
       data: idsToAssign.map((profileId) => ({ featureId, profileId })),
       skipDuplicates: true
     });

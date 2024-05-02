@@ -5,6 +5,8 @@ import IndexStatus from '@components/Shared/IndexStatus';
 import LazySmallUserProfile from '@components/Shared/LazySmallUserProfile';
 import Loader from '@components/Shared/Loader';
 import Slug from '@components/Shared/Slug';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import {
   AtSymbolIcon,
   MinusCircleIcon,
@@ -14,17 +16,15 @@ import { TokenHandleRegistry } from '@hey/abis';
 import { Errors } from '@hey/data';
 import { TOKEN_HANDLE_REGISTRY } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
+import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
+import getSignature from '@hey/helpers/getSignature';
 import {
   useBroadcastOnchainMutation,
   useCreateLinkHandleToProfileTypedDataMutation,
   useLinkHandleToProfileMutation,
   useOwnedHandlesQuery
 } from '@hey/lens';
-import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
-import getSignature from '@hey/lib/getSignature';
 import { Button, EmptyState, Spinner } from '@hey/ui';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';

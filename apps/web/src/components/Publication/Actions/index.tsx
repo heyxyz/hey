@@ -1,10 +1,10 @@
 import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
-import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
-import isOpenActionAllowed from '@hey/lib/isOpenActionAllowed';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import getPublicationViewCountById from '@hey/helpers/getPublicationViewCountById';
+import isOpenActionAllowed from '@hey/helpers/isOpenActionAllowed';
+import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { memo } from 'react';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
@@ -59,7 +59,9 @@ const PublicationActions: FC<PublicationActionsProps> = ({
       {canAct ? (
         <OpenAction publication={publication} showCount={showCount} />
       ) : null}
-      {canTip ? <Tip publication={targetPublication} /> : null}
+      {canTip ? (
+        <Tip publication={targetPublication} showCount={showCount} />
+      ) : null}
       {views > 0 ? <Views showCount={showCount} views={views} /> : null}
       {gardenerMode ? (
         <Mod isFullPublication={showCount} publication={targetPublication} />

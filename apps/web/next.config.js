@@ -56,7 +56,7 @@ const nextConfig = {
       },
       {
         destination:
-          'https://yoginth.notion.site/Hey-Moderation-Tool-Guide-ff1926a080fa44bc9d40ee534f627949',
+          'https://yoginth.notion.site/ff1926a080fa44bc9d40ee534f627949',
         permanent: true,
         source: '/-/mod-guide'
       }

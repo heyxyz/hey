@@ -2,8 +2,8 @@ import type { Handler } from 'express';
 
 import { AssumeRoleCommand, STSClient } from '@aws-sdk/client-sts';
 import { EVER_API, S3_BUCKET } from '@hey/data/constants';
-import logger from '@hey/lib/logger';
-import catchedError from 'src/lib/catchedError';
+import logger from '@hey/helpers/logger';
+import catchedError from 'src/helpers/catchedError';
 
 const params = {
   DurationSeconds: 900,

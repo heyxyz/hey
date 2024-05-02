@@ -2,10 +2,9 @@ import type { RewardPool } from '@hey/types/misc';
 import type { FC } from 'react';
 
 import { GiftIcon } from '@heroicons/react/24/outline';
-import getSwapRewardPool from '@hey/lib/getSwapRewardPool';
-import humanize from '@hey/lib/humanize';
-import { useEffect, useRef, useState } from 'react';
-import usePreventScrollOnNumberInput from 'src/hooks/usePreventScrollOnNumberInput';
+import getSwapRewardPool from '@hey/helpers/getSwapRewardPool';
+import humanize from '@hey/helpers/humanize';
+import { useEffect, useState } from 'react';
 import { type Address, formatUnits, isAddress } from 'viem';
 
 import { useSwapActionStore } from '.';
@@ -15,8 +14,6 @@ const PoolConfig: FC = () => {
   const [rewardsPool, setRewardsPool] = useState<null | RewardPool>(null);
   const { decimals, rewardsPoolId, setRewardsPoolId, symbol, token } =
     useSwapActionStore();
-  const inputRef = useRef<HTMLInputElement>(null);
-  usePreventScrollOnNumberInput(inputRef);
 
   useEffect(() => {
     if (isAddress(token as Address)) {

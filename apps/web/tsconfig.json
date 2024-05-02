@@ -5,14 +5,8 @@
     "lib": ["DOM", "DOM.Iterable", "ESNext", "webworker"],
     "paths": {
       "@components*": ["src/components*"],
-      "@lib*": ["src/lib*"]
+      "@helpers*": ["src/helpers*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "src/components/Messages/Conversations/NewConversation.tss",
-    "../../packages/ui/src/NumberedStat.tsx"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

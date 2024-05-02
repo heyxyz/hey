@@ -1,13 +1,13 @@
 import type { Poll as TPoll } from '@hey/types/hey';
 import type { FC } from 'react';
 
+import Wrapper from '@components/Shared/Embed/Wrapper';
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { HEY_API_URL } from '@hey/data/constants';
 import { Spinner } from '@hey/ui';
-import getAuthApiHeaders from '@lib/getAuthApiHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-import Wrapper from '../../Shared/Embed/Wrapper';
 import Choices from './Choices';
 
 interface SnapshotProps {

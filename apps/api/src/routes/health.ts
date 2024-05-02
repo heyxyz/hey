@@ -1,9 +1,11 @@
 import type { Handler } from 'express';
 
-import catchedError from 'src/lib/catchedError';
-import createClickhouseClient from 'src/lib/createClickhouseClient';
-import heyPrisma from 'src/lib/heyPrisma';
-import lensPrisma from 'src/lib/lensPrisma';
+import axios from 'axios';
+import lensPg from 'src/db/lensPg';
+import catchedError from 'src/helpers/catchedError';
+import { SCORE_WORKER_URL } from 'src/helpers/constants';
+import createClickhouseClient from 'src/helpers/createClickhouseClient';
+import prisma from 'src/helpers/prisma';
 
 const measureQueryTime = async (
   queryFunction: () => Promise<any>
@@ -18,34 +20,43 @@ export const get: Handler = async (_, res) => {
   try {
     // Prepare promises with timings embedded
     const heyPromise = measureQueryTime(
-      () => heyPrisma.$queryRaw<{ count: number }[]>`SELECT 1 as count`
+      () => prisma.$queryRaw<{ count: number }[]>`SELECT 1 as count;`
     );
-    const lensPromise = measureQueryTime(
-      () => lensPrisma.$queryRaw<{ count: number }[]>`SELECT 1 as count`
+    const lensPromise = measureQueryTime(() =>
+      lensPg.query(`SELECT 1 as count;`)
     );
     const clickhouseClient = createClickhouseClient();
     const clickhousePromise = measureQueryTime(() =>
       clickhouseClient.query({
         format: 'JSONEachRow',
-        query: 'SELECT 1 as count'
+        query: 'SELECT 1 as count;'
+      })
+    );
+    const scoreWorkerPromise = measureQueryTime(() =>
+      axios.get(SCORE_WORKER_URL, {
+        params: { id: '0x0d', secret: process.env.SECRET }
       })
     );
 
     // Execute all promises simultaneously
-    const [heyResult, lensResult, clickhouseResult] = await Promise.all([
-      heyPromise,
-      lensPromise,
-      clickhousePromise
-    ]);
+    const [heyResult, lensResult, clickhouseResult, scoreWorkerResult] =
+      await Promise.all([
+        heyPromise,
+        lensPromise,
+        clickhousePromise,
+        scoreWorkerPromise
+      ]);
 
     // Check responses
     const [hey, heyTime] = heyResult;
     const [lens, lensTime] = lensResult;
     const [clickhouseRows, clickhouseTime] = clickhouseResult;
+    const [scoreWorker, scoreWorkerTime] = scoreWorkerResult;
 
     if (
       Number(hey[0].count) !== 1 ||
       Number(lens[0].count) !== 1 ||
+      scoreWorker.data.split(' ')[0] !== 'WITH' ||
       !clickhouseRows.json
     ) {
       return res.status(500).json({ success: false });
@@ -57,7 +68,8 @@ export const get: Handler = async (_, res) => {
       responseTimes: {
         clickhouse: `${Number(clickhouseTime / BigInt(1000000))}ms`,
         hey: `${Number(heyTime / BigInt(1000000))}ms`,
-        lens: `${Number(lensTime / BigInt(1000000))}ms`
+        lens: `${Number(lensTime / BigInt(1000000))}ms`,
+        scoreWorker: `${Number(scoreWorkerTime / BigInt(1000000))}ms`
       }
     });
   } catch (error) {

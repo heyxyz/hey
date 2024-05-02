@@ -19,19 +19,19 @@ import {
 } from '@heroicons/react/24/outline';
 import { ZERO_ADDRESS } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
-import { useDefaultProfileQuery } from '@hey/lens';
-import getNftChainId from '@hey/lib/getNftChainId';
-import getNftChainInfo from '@hey/lib/getNftChainInfo';
-import getProfile from '@hey/lib/getProfile';
-import getRedstonePrice from '@hey/lib/getRedstonePrice';
+import getNftChainId from '@hey/helpers/getNftChainId';
+import getNftChainInfo from '@hey/helpers/getNftChainInfo';
+import getProfile from '@hey/helpers/getProfile';
+import getRedstonePrice from '@hey/helpers/getRedstonePrice';
 import {
   getPermit2Allowance,
   permit2SignatureAmount,
   signPermitSignature,
   updateWrapperParams
-} from '@hey/lib/permit2';
-import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
-import truncateByWords from '@hey/lib/truncateByWords';
+} from '@hey/helpers/permit2';
+import sanitizeDStorageUrl from '@hey/helpers/sanitizeDStorageUrl';
+import truncateByWords from '@hey/helpers/truncateByWords';
+import { useDefaultProfileQuery } from '@hey/lens';
 import { HelpTooltip, Modal } from '@hey/ui';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';

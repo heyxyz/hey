@@ -3,11 +3,11 @@ import type { UIData } from 'nft-openaction-kit';
 
 import ActionInfo from '@components/Shared/Oembed/Nft/ActionInfo';
 import DecentOpenActionShimmer from '@components/Shared/Shimmer/DecentOpenActionShimmer';
+import errorToast from '@helpers/errorToast';
 import { ZERO_ADDRESS } from '@hey/data/constants';
-import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import sanitizeDStorageUrl from '@hey/helpers/sanitizeDStorageUrl';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Button, Card, Spinner, Tooltip } from '@hey/ui';
-import errorToast from '@lib/errorToast';
 import { NftOpenActionKit } from 'nft-openaction-kit';
 import { type FC, useEffect, useState } from 'react';
 

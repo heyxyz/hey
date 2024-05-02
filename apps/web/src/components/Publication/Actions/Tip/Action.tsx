@@ -1,25 +1,30 @@
 import type { MirrorablePublication } from '@hey/lens';
 import type { AllowedToken } from '@hey/types/hey';
 
+import errorToast from '@helpers/errorToast';
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { Leafwatch } from '@helpers/leafwatch';
 import { HeyTipping } from '@hey/abis';
 import { Errors } from '@hey/data';
 import {
   APP_NAME,
   DEFAULT_COLLECT_TOKEN,
+  HEY_API_URL,
   HEY_TIPPING,
   MAX_UINT256,
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
-import formatAddress from '@hey/lib/formatAddress';
-import { Button, HelpTooltip, Input, Select } from '@hey/ui';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
+import formatAddress from '@hey/helpers/formatAddress';
+import { Button, HelpTooltip, Input, Select, Spinner } from '@hey/ui';
+import cn from '@hey/ui/cn';
+import axios from 'axios';
 import { type FC, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import usePreventScrollOnNumberInput from 'src/hooks/usePreventScrollOnNumberInput';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
+import { useTipsStore } from 'src/store/non-persisted/useTipsStore';
 import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useRatesStore } from 'src/store/persisted/useRatesStore';
@@ -47,6 +52,7 @@ const Action: FC<ActionProps> = ({
 }) => {
   const { currentProfile } = useProfileStore();
   const { allowedTokens } = useAllowedTokensStore();
+  const { addTip } = useTipsStore();
   const { fiatRates } = useRatesStore();
   const { setShowAuthModal } = useGlobalModalStateStore();
   const [isLoading, setIsLoading] = useState(false);
@@ -183,7 +189,7 @@ const Action: FC<ActionProps> = ({
     try {
       setIsLoading(true);
 
-      await writeContractAsync({
+      const hash = await writeContractAsync({
         abi: HeyTipping,
         address: HEY_TIPPING,
         args: [
@@ -196,11 +202,26 @@ const Action: FC<ActionProps> = ({
         ],
         functionName: 'tip'
       });
+
+      await axios.post(
+        `${HEY_API_URL}/tips/create`,
+        {
+          amount: cryptoRate - cryptoRate * 0.05,
+          fromAddress: address,
+          id: publication.id,
+          toAddress: publication.by.ownedBy.address,
+          tokenAddress: selectedCurrency?.contractAddress,
+          txHash: hash
+        },
+        { headers: getAuthApiHeaders() }
+      );
+
       Leafwatch.track(PUBLICATION.TIP.TIP, {
         address,
         amount,
         currency: selectedCurrency?.symbol
       });
+      addTip(publication.id);
       closePopover();
       triggerConfetti();
       return;
@@ -213,6 +234,7 @@ const Action: FC<ActionProps> = ({
 
   const hasAllowance = allowance >= finalRate;
   const amountDisabled =
+    isLoading ||
     !currentProfile ||
     !hasAllowance ||
     isWaitingForTransaction ||
@@ -262,7 +284,7 @@ const Action: FC<ActionProps> = ({
                   <span>{APP_NAME}</span>
                 </div>
                 <b>
-                  {(cryptoRate * 0.05).toFixed(2)} {selectedCurrency?.symbol}{' '}
+                  {(cryptoRate * 0.05).toFixed(3)} {selectedCurrency?.symbol}{' '}
                   (5%)
                 </b>
               </div>
@@ -320,14 +342,12 @@ const Action: FC<ActionProps> = ({
           />
         </div>
       ) : null}
-      {isWaitingForTransaction ? (
-        <Button className={submitButtonClassName} disabled>
-          Enabling tipping...
-        </Button>
-      ) : isGettingAllowance ? (
-        <Button className={submitButtonClassName} disabled>
-          Loading...
-        </Button>
+      {isLoading || isWaitingForTransaction || isGettingAllowance ? (
+        <Button
+          className={cn('flex justify-center', submitButtonClassName)}
+          disabled
+          icon={<Spinner className="my-0.5" size="xs" />}
+        />
       ) : !hasAllowance ? (
         <Button
           className={submitButtonClassName}

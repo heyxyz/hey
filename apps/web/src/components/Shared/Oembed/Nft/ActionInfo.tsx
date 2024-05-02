@@ -3,11 +3,11 @@ import type { ActionData, UIData } from 'nft-openaction-kit';
 import type { FC } from 'react';
 import type { Address } from 'viem';
 
+import getNftChainId from '@hey/helpers/getNftChainId';
+import getNftChainInfo from '@hey/helpers/getNftChainInfo';
+import getProfile from '@hey/helpers/getProfile';
+import truncateByWords from '@hey/helpers/truncateByWords';
 import { useDefaultProfileQuery } from '@hey/lens';
-import getNftChainId from '@hey/lib/getNftChainId';
-import getNftChainInfo from '@hey/lib/getNftChainInfo';
-import getProfile from '@hey/lib/getProfile';
-import truncateByWords from '@hey/lib/truncateByWords';
 import { Image } from '@hey/ui';
 import { useOaCurrency } from 'src/store/persisted/useOaCurrency';
 

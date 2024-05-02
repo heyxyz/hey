@@ -30,6 +30,7 @@ export const APP_NAME = 'Hey';
 export const DESCRIPTION = `${APP_NAME}.xyz is a decentralized, and permissionless social media app built with Lens Protocol 🌿`;
 export const APP_VERSION = packageJson.version;
 export const BRAND_COLOR = '#FB3A5D';
+export const { MAX_SAFE_INTEGER } = Number;
 export const MAX_UINT256 = 2n ** 256n - 1n;
 
 // Git
@@ -58,6 +59,7 @@ export const PRO_TIER_PRICES = {
 export const HEY_MEMBERSHIP_NFT = IS_MAINNET
   ? '0x100372BBF7f975f6b1448fB11AB0F814b2740EEd'
   : '0x75120677aBF34ae95a916C6E9DbB610a06536CC3';
+export const SUPER_ADMIN = '0x0d';
 
 // URLs
 export const STATIC_ASSETS_URL = 'https://hey-assets.b-cdn.net';

@@ -2,6 +2,8 @@ import type { Poll } from '@hey/types/hey';
 import type { FC } from 'react';
 
 import Beta from '@components/Shared/Badges/Beta';
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { Leafwatch } from '@helpers/leafwatch';
 import {
   Bars3BottomLeftIcon,
   CheckCircleIcon
@@ -9,13 +11,11 @@ import {
 import { HEY_API_URL } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
-import getTimetoNow from '@hey/lib/datetime/getTimetoNow';
-import humanize from '@hey/lib/humanize';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import getTimetoNow from '@hey/helpers/datetime/getTimetoNow';
+import humanize from '@hey/helpers/humanize';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Card, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import getAuthApiHeaders from '@lib/getAuthApiHeaders';
-import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import plur from 'plur';
 import { useState } from 'react';

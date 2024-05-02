@@ -1,8 +1,8 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/lib/logger';
-import heyPrisma from 'src/lib/heyPrisma';
-import { noBody } from 'src/lib/responses';
+import logger from '@hey/helpers/logger';
+import prisma from 'src/helpers/prisma';
+import { noBody } from 'src/helpers/responses';
 
 export const get: Handler = async (req, res) => {
   const { token } = req.query;
@@ -12,7 +12,7 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const result = await heyPrisma.email.update({
+    const result = await prisma.email.update({
       data: { tokenExpiresAt: null, verificationToken: null, verified: true },
       where: { verificationToken: token as string }
     });

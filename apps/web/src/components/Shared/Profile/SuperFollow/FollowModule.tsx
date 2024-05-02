@@ -6,11 +6,21 @@ import type {
 import type { Dispatch, FC, SetStateAction } from 'react';
 
 import AllowanceButton from '@components/Settings/Allowance/Button';
+import Loader from '@components/Shared/Loader';
+import NoBalanceError from '@components/Shared/NoBalanceError';
+import Slug from '@components/Shared/Slug';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { StarIcon, UserIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { LENS_HUB, POLYGONSCAN_URL } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { PROFILE } from '@hey/data/tracking';
+import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
+import formatAddress from '@hey/helpers/formatAddress';
+import getProfile from '@hey/helpers/getProfile';
+import getSignature from '@hey/helpers/getSignature';
+import getTokenImage from '@hey/helpers/getTokenImage';
 import {
   FollowModuleType,
   useApprovedModuleAllowanceAmountQuery,
@@ -19,14 +29,7 @@ import {
   useProfileQuery
 } from '@hey/lens';
 import { useApolloClient } from '@hey/lens/apollo';
-import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
-import formatAddress from '@hey/lib/formatAddress';
-import getProfile from '@hey/lib/getProfile';
-import getSignature from '@hey/lib/getSignature';
-import getTokenImage from '@hey/lib/getTokenImage';
 import { Button, Spinner, WarningMessage } from '@hey/ui';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -37,10 +40,6 @@ import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestric
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { formatUnits } from 'viem';
 import { useBalance, useSignTypedData, useWriteContract } from 'wagmi';
-
-import Loader from '../../Loader';
-import NoBalanceError from '../../NoBalanceError';
-import Slug from '../../Slug';
 
 interface FollowModuleProps {
   profile: Profile;

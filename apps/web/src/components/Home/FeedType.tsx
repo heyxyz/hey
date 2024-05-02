@@ -1,5 +1,6 @@
 import type { Dispatch, FC, SetStateAction } from 'react';
 
+import { Leafwatch } from '@helpers/leafwatch';
 import {
   CheckCircleIcon,
   CurrencyDollarIcon,
@@ -9,7 +10,6 @@ import {
 import { HomeFeedType } from '@hey/data/enums';
 import { HOME } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface FeedTypeProps {

@@ -1,10 +1,10 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/lib/logger';
-import catchedError from 'src/lib/catchedError';
-import { SWR_CACHE_AGE_10_MINS_30_DAYS } from 'src/lib/constants';
-import lensPrisma from 'src/lib/lensPrisma';
-import { noBody } from 'src/lib/responses';
+import logger from '@hey/helpers/logger';
+import lensPg from 'src/db/lensPg';
+import catchedError from 'src/helpers/catchedError';
+import { SWR_CACHE_AGE_10_MINS_30_DAYS } from 'src/helpers/constants';
+import { noBody } from 'src/helpers/responses';
 
 // TODO: add tests
 export const get: Handler = async (req, res) => {
@@ -15,9 +15,8 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const [globalStats, notificationStats] = await lensPrisma.$transaction([
-      // Get global stats
-      lensPrisma.$queryRaw<any>`
+    const [globalStats, notificationStats] = await lensPg.multi(
+      `
         SELECT 
           total_posts,
           total_comments,
@@ -29,15 +28,13 @@ export const get: Handler = async (req, res) => {
           total_collects,
           total_acted
         FROM global_stats.profile
-        WHERE profile_id = ${id}
-      `,
-      // Get notifications received count
-      lensPrisma.$queryRaw<any>`
+        WHERE profile_id = $1;
         SELECT COUNT(*) as total_notifications
         FROM notification.record
-        WHERE notification_receiving_profile_id = ${id}
-      `
-    ]);
+        WHERE notification_receiving_profile_id = $1;
+      `,
+      [id]
+    );
 
     if (!globalStats[0]) {
       return res.status(404).json({ success: false });

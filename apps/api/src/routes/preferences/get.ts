@@ -1,11 +1,11 @@
 import type { Preferences } from '@hey/types/hey';
 import type { Handler } from 'express';
 
-import logger from '@hey/lib/logger';
-import catchedError from 'src/lib/catchedError';
-import heyPrisma from 'src/lib/heyPrisma';
-import validateIsOwnerOrStaff from 'src/lib/middlewares/validateIsOwnerOrStaff';
-import { noBody, notAllowed } from 'src/lib/responses';
+import logger from '@hey/helpers/logger';
+import catchedError from 'src/helpers/catchedError';
+import validateIsOwnerOrStaff from 'src/helpers/middlewares/validateIsOwnerOrStaff';
+import prisma from 'src/helpers/prisma';
+import { noBody, notAllowed } from 'src/helpers/responses';
 
 export const get: Handler = async (req, res) => {
   const { id } = req.query;
@@ -20,9 +20,9 @@ export const get: Handler = async (req, res) => {
 
   try {
     const [preference, features, email, membershipNft] =
-      await heyPrisma.$transaction([
-        heyPrisma.preference.findUnique({ where: { id: id as string } }),
-        heyPrisma.profileFeature.findMany({
+      await prisma.$transaction([
+        prisma.preference.findUnique({ where: { id: id as string } }),
+        prisma.profileFeature.findMany({
           select: { feature: { select: { key: true } } },
           where: {
             enabled: true,
@@ -30,8 +30,8 @@ export const get: Handler = async (req, res) => {
             profileId: id as string
           }
         }),
-        heyPrisma.email.findUnique({ where: { id: id as string } }),
-        heyPrisma.membershipNft.findUnique({ where: { id: id as string } })
+        prisma.email.findUnique({ where: { id: id as string } }),
+        prisma.membershipNft.findUnique({ where: { id: id as string } })
       ]);
 
     const response: Preferences = {

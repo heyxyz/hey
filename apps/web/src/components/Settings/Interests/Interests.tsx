@@ -1,6 +1,10 @@
 import type { ProfileInterestsRequest, ProfileInterestTypes } from '@hey/lens';
 import type { FC } from 'react';
 
+import Loader from '@components/Shared/Loader';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
+import sanitizeProfileInterests from '@helpers/sanitizeProfileInterests';
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data';
@@ -12,14 +16,9 @@ import {
 } from '@hey/lens';
 import { useApolloClient } from '@hey/lens/apollo';
 import { Button } from '@hey/ui';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
-import sanitizeProfileInterests from '@lib/sanitizeProfileInterests';
 import toast from 'react-hot-toast';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
-
-import Loader from '../../Shared/Loader';
 
 const MAX_TOPICS_ALLOWED = 12;
 

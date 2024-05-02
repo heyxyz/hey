@@ -49,6 +49,12 @@ export type PublicationViewCount = {
   views: number;
 };
 
+export type PublicationTip = {
+  count: number;
+  id: string;
+  tipped: boolean;
+};
+
 export type PollOption = {
   id: string;
   option: string;
@@ -99,4 +105,12 @@ export type Draft = {
   createdAt: Date;
   id: string;
   updatedAt: Date;
+};
+
+export type ScoreAllocation = {
+  description: string;
+  icon: string;
+  id: string;
+  name: string;
+  score: number;
 };

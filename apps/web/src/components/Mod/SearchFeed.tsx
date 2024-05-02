@@ -4,16 +4,16 @@ import type { FC } from 'react';
 import GardenerActions from '@components/Publication/Actions/GardenerActions';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
+import { Leafwatch } from '@helpers/leafwatch';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { GARDENER } from '@hey/data/tracking';
+import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import {
   CustomFiltersType,
   LimitType,
   useSearchPublicationsQuery
 } from '@hey/lens';
-import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Button, Card, EmptyState, ErrorMessage, Input } from '@hey/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
@@ -119,11 +119,9 @@ const SearchFeed: FC = () => {
                 showActions={false}
                 showThread={false}
               />
-              <div>
-                <div className="divider" />
-                <div className="m-5">
-                  <GardenerActions publication={targetPublication} />
-                </div>
+              <div className="divider" />
+              <div className="m-5">
+                <GardenerActions publication={targetPublication} />
               </div>
             </Card>
           );

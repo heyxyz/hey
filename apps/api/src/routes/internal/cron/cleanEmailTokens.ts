@@ -1,10 +1,10 @@
 import type { Handler } from 'express';
 
 import { Errors } from '@hey/data/errors';
-import logger from '@hey/lib/logger';
-import catchedError from 'src/lib/catchedError';
-import heyPrisma from 'src/lib/heyPrisma';
-import { invalidBody, noBody } from 'src/lib/responses';
+import logger from '@hey/helpers/logger';
+import catchedError from 'src/helpers/catchedError';
+import prisma from 'src/helpers/prisma';
+import { invalidBody, noBody } from 'src/helpers/responses';
 import { object, string } from 'zod';
 
 type ExtensionRequest = {
@@ -38,7 +38,7 @@ export const post: Handler = async (req, res) => {
 
   try {
     // Cleanup Email Tokens
-    const { count } = await heyPrisma.email.updateMany({
+    const { count } = await prisma.email.updateMany({
       data: { tokenExpiresAt: null, verificationToken: null, verified: false },
       where: { tokenExpiresAt: { lt: new Date() } }
     });
