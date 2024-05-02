@@ -1,4 +1,5 @@
 import type { Amount } from '@hey/lens';
+import type { UIData } from 'nft-openaction-kit';
 import type { FC } from 'react';
 
 import LoginButton from '@components/Shared/Navbar/LoginButton';
@@ -10,6 +11,8 @@ import Link from 'next/link';
 import { formatUnits } from 'viem';
 import { useAccount, useBalance } from 'wagmi';
 
+import { openActionCTA } from '.';
+
 interface DecentActionProps {
   act: () => void;
   allowanceLoading?: boolean;
@@ -19,6 +22,7 @@ interface DecentActionProps {
   loadingCurrency?: boolean;
   moduleAmount?: Amount;
   txHash?: string;
+  uiData?: UIData;
 }
 
 const DecentAction: FC<DecentActionProps> = ({
@@ -29,7 +33,8 @@ const DecentAction: FC<DecentActionProps> = ({
   isReadyToMint,
   loadingCurrency,
   moduleAmount,
-  txHash
+  txHash,
+  uiData
 }) => {
   const { address } = useAccount();
 
@@ -109,8 +114,8 @@ const DecentAction: FC<DecentActionProps> = ({
           {loadingState
             ? 'Pending'
             : !isReadyToMint
-              ? `Approve minting for ${moduleAmount?.value} ${moduleAmount?.asset.symbol}`
-              : `Mint for ${moduleAmount?.value} ${moduleAmount?.asset.symbol}`}
+              ? `Approve ${moduleAmount?.value} ${moduleAmount?.asset.symbol}`
+              : `${openActionCTA(uiData?.platformName)} for ${moduleAmount?.value} ${moduleAmount?.asset.symbol}`}
         </div>
       </Button>
       {txHash ? (
