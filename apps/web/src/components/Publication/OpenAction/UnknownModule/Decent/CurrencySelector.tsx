@@ -16,9 +16,8 @@ interface CurrencySelectorProps {
 }
 
 const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
-  const { address } = useAccount();
-
   const { allowedTokens } = useAllowedTokensStore();
+  const { address } = useAccount();
 
   const { data: wmaticBalanceData, isLoading: wmaticBalanceLoading } =
     useBalance({
