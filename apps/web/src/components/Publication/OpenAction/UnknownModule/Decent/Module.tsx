@@ -23,7 +23,6 @@ import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules
 import getNftChainId from '@hey/helpers/getNftChainId';
 import getNftChainInfo from '@hey/helpers/getNftChainInfo';
 import getProfile from '@hey/helpers/getProfile';
-import getRedstonePrice from '@hey/helpers/getRedstonePrice';
 import {
   getPermit2Allowance,
   permit2SignatureAmount,
@@ -43,6 +42,7 @@ import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
 import { useNftOaCurrencyStore } from 'src/store/persisted/useNftOaCurrencyStore';
+import { useRatesStore } from 'src/store/persisted/useRatesStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 import { parseAbi } from 'viem';
 import { useAccount, useWalletClient } from 'wagmi';
@@ -78,16 +78,6 @@ interface Permit2Data {
   signature: string;
 }
 
-const getTokenSymbol = (symbol: string): string => {
-  if (symbol === 'WMATIC') {
-    return 'MATIC';
-  } else if (symbol === 'WETH') {
-    return 'ETH';
-  } else {
-    return symbol;
-  }
-};
-
 const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   actionData,
   loadingCurrency,
@@ -100,9 +90,8 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
 }) => {
   const { selectedNftOaCurrency, setSelectedNftOaCurrency } =
     useNftOaCurrencyStore();
-  const [usdPrice, setUsdPrice] = useState(0);
-  const [maticUsdPrice, setMaticUsdPrice] = useState(0);
   const { data: walletClient } = useWalletClient();
+  const { fiatRates } = useRatesStore();
   const { address } = useAccount();
   const handleWrongNetwork = useHandleWrongNetwork();
 
@@ -127,29 +116,14 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     }
   }, [allowedTokens, loadingCurrency]);
 
-  const getUsdPrice = async () => {
-    const usdPrice = await getRedstonePrice(
-      getTokenSymbol(
-        allowedTokens?.find((t) => t.contractAddress === selectedNftOaCurrency)
-          ?.symbol || 'WMATIC'
-      )
-    );
-    setUsdPrice(usdPrice);
-  };
+  const usdPrice =
+    fiatRates.find(
+      (rate) => rate.address === selectedNftOaCurrency?.toLowerCase()
+    )?.fiat || 0;
 
-  const getMaticUsdPrice = async () => {
-    const maticPrice = await getRedstonePrice('MATIC');
-    setMaticUsdPrice(maticPrice);
-  };
-
-  useEffect(() => {
-    getUsdPrice();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedNftOaCurrency]);
-
-  useEffect(() => {
-    getMaticUsdPrice();
-  }, []);
+  // fees are always priced in MATIC
+  const maticUsdPrice =
+    fiatRates.find((rate) => rate.symbol === 'WMATIC')?.fiat || 0;
 
   const { actOnUnknownOpenAction, isLoading, relayStatus, txHash } =
     useActOnUnknownOpenAction({

@@ -2,14 +2,17 @@ import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import getRedstonePrice from '@hey/helpers/getRedstonePrice';
+import formatTokenBalances from '@hey/helpers/formatTokenBalances';
 import getTokenImage from '@hey/helpers/getTokenImage';
-import { useQuery } from '@tanstack/react-query';
 import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
-import { formatUnits } from 'viem';
+import { useRatesStore } from 'src/store/persisted/useRatesStore';
 import { useAccount, useBalance } from 'wagmi';
 
-const OA_SUPPORTED_CURRENCIES = ['USDC', 'WETH', 'WMATIC'];
+const OA_SUPPORTED_CURRENCY_ADDRESSES: Record<string, `0x${string}`> = {
+  USDC: '0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359',
+  WETH: '0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619',
+  WMATIC: '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270'
+};
 
 interface CurrencySelectorProps {
   onSelectCurrency: (currency: Address) => void;
@@ -18,122 +21,80 @@ interface CurrencySelectorProps {
 const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
   const { allowedTokens } = useAllowedTokensStore();
   const { address } = useAccount();
+  const { fiatRates } = useRatesStore();
 
   const { data: wmaticBalanceData, isLoading: wmaticBalanceLoading } =
     useBalance({
       address,
       chainId: 137,
       query: { refetchInterval: 10000 },
-      token: allowedTokens.find((token) => token.symbol === 'WMATIC')
-        ?.contractAddress as Address
+      token: OA_SUPPORTED_CURRENCY_ADDRESSES.WMATIC
     });
+
+  const wmaticPriceUsd =
+    fiatRates.find(
+      (rate) =>
+        rate.address === OA_SUPPORTED_CURRENCY_ADDRESSES.WMATIC.toLowerCase()
+    )?.fiat || 0;
 
   const { data: wethBalanceData, isLoading: wethBalanceLoading } = useBalance({
     address,
     chainId: 137,
     query: { refetchInterval: 10000 },
-    token: allowedTokens.find((token) => token.symbol === 'WETH')
-      ?.contractAddress as Address
+    token: OA_SUPPORTED_CURRENCY_ADDRESSES.WETH
   });
+
+  const wethPriceUsd =
+    fiatRates.find(
+      (rate) =>
+        rate.address === OA_SUPPORTED_CURRENCY_ADDRESSES.WETH.toLowerCase()
+    )?.fiat || 0;
 
   const { data: usdcBalanceData, isLoading: usdcBalanceLoading } = useBalance({
     address,
     chainId: 137,
     query: { refetchInterval: 10000 },
-    token: allowedTokens.find((token) => token.symbol === 'USDC')
-      ?.contractAddress as Address
+    token: OA_SUPPORTED_CURRENCY_ADDRESSES.USDC
   });
 
-  const { data: wmaticPriceUsd, isLoading: wmaticPriceLoading } = useQuery({
-    enabled: Boolean(wmaticBalanceData),
-    queryFn: async () => await getRedstonePrice('MATIC'),
-    queryKey: ['getRedstonePrice', 'WMATIC']
-  });
+  const usdcPriceUsd =
+    fiatRates.find(
+      (rate) =>
+        rate.address === OA_SUPPORTED_CURRENCY_ADDRESSES.USDC.toLowerCase()
+    )?.fiat || 0;
 
-  const { data: wethPriceUsd, isLoading: wethPriceLoading } = useQuery({
-    enabled: Boolean(wethBalanceData),
-    queryFn: async () => await getRedstonePrice('ETH'),
-    queryKey: ['getRedstonePrice', 'WETH']
-  });
-
-  const { data: usdcPriceUsd, isLoading: usdcPriceLoading } = useQuery({
-    enabled: Boolean(usdcBalanceData),
-    queryFn: async () => await getRedstonePrice('USDC'),
-    queryKey: ['getRedstonePrice', 'USDC']
-  });
-
-  const balances = {
-    USDC:
-      usdcBalanceData && usdcPriceUsd
-        ? {
-            token: parseFloat(
-              formatUnits(
-                usdcBalanceData?.value as bigint,
-                usdcBalanceData?.decimals as number
-              )
-            ).toFixed(2),
-            usd: (
-              parseFloat(
-                formatUnits(
-                  usdcBalanceData?.value as bigint,
-                  usdcBalanceData?.decimals as number
-                )
-              ) * usdcPriceUsd
-            ).toFixed(2)
-          }
-        : { token: 0, usd: 0 },
-    WETH:
-      wethBalanceData && wethPriceUsd
-        ? {
-            token: parseFloat(
-              formatUnits(
-                wethBalanceData?.value as bigint,
-                wethBalanceData?.decimals as number
-              )
-            ).toFixed(2),
-            usd: (
-              parseFloat(
-                formatUnits(
-                  wethBalanceData?.value as bigint,
-                  wethBalanceData?.decimals as number
-                )
-              ) * wethPriceUsd
-            ).toFixed(2)
-          }
-        : { token: 0, usd: 0 },
-    WMATIC:
-      wmaticBalanceData && wmaticPriceUsd
-        ? {
-            token: parseFloat(
-              formatUnits(
-                wmaticBalanceData?.value as bigint,
-                wmaticBalanceData?.decimals as number
-              )
-            ).toFixed(2),
-            usd: (
-              parseFloat(
-                formatUnits(
-                  wmaticBalanceData?.value as bigint,
-                  wmaticBalanceData?.decimals as number
-                )
-              ) * wmaticPriceUsd
-            ).toFixed(2)
-          }
-        : { token: 0, usd: 0 }
+  const balanceData = {
+    USDC: {
+      decimals: usdcBalanceData?.decimals || 0,
+      fiatRate: usdcPriceUsd,
+      value: usdcBalanceData?.value || BigInt(0),
+      visibleDecimals: 2
+    },
+    WETH: {
+      decimals: wethBalanceData?.decimals || 0,
+      fiatRate: wethPriceUsd,
+      value: wethBalanceData?.value || BigInt(0),
+      visibleDecimals: 4
+    },
+    WMATIC: {
+      decimals: wmaticBalanceData?.decimals || 0,
+      fiatRate: wmaticPriceUsd,
+      value: wmaticBalanceData?.value || BigInt(0),
+      visibleDecimals: 2
+    }
   };
 
+  const balances = formatTokenBalances(balanceData);
+
   const isLoading =
-    wmaticBalanceLoading ||
-    wethBalanceLoading ||
-    usdcBalanceLoading ||
-    wmaticPriceLoading ||
-    wethPriceLoading ||
-    usdcPriceLoading;
+    wmaticBalanceLoading || wethBalanceLoading || usdcBalanceLoading;
 
   return (
     <div className="flex h-[80vh] w-full flex-col gap-2 p-5">
       {allowedTokens
-        .filter((t) => OA_SUPPORTED_CURRENCIES.includes(t.symbol))
+        .filter((t) =>
+          Object.keys(OA_SUPPORTED_CURRENCY_ADDRESSES).includes(t.symbol)
+        )
         .map((token) => {
           return (
             <div
