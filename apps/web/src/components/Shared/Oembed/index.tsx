@@ -5,17 +5,19 @@ import { HEY_API_URL } from '@hey/data/constants';
 import getFavicon from '@hey/helpers/getFavicon';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { useEffect } from 'react';
 
 import Embed from './Embed';
 import Nft from './Nft';
 import Player from './Player';
 
 interface OembedProps {
+  onLoad?: (og: OG) => void;
   publicationId?: string;
   url?: string;
 }
 
-const Oembed: FC<OembedProps> = ({ publicationId, url }) => {
+const Oembed: FC<OembedProps> = ({ onLoad, publicationId, url }) => {
   const { data, error, isLoading } = useQuery({
     enabled: Boolean(url),
     queryFn: async () => {
@@ -28,6 +30,13 @@ const Oembed: FC<OembedProps> = ({ publicationId, url }) => {
     refetchOnMount: false
   });
 
+  useEffect(() => {
+    if (onLoad) {
+      onLoad(data as OG);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+
   if (isLoading || error || !data) {
     return null;
   }
@@ -37,7 +46,6 @@ const Oembed: FC<OembedProps> = ({ publicationId, url }) => {
     favicon: getFavicon(data.url),
     html: data?.html,
     image: data?.image,
-    isLarge: data?.isLarge,
     nft: data?.nft,
     site: data?.site,
     title: data?.title,
