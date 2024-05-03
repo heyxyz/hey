@@ -65,6 +65,7 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
   openActionEmbedLoading,
   publication
 }) => {
+  const { address } = useAccount();
   const { selectedNftOaCurrency } = useNftOaCurrencyStore();
 
   const [showOpenActionModal, setShowOpenActionModal] = useState(false);
@@ -83,8 +84,7 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
     schema: og.nft?.schema || '',
     sourceUrl: og.url
   });
-
-  const { address } = useAccount();
+  const [isNftCoverLoaded, setIsNftCoverLoaded] = useState(false);
 
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
@@ -152,8 +152,6 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
   useEffect(() => {
     refetch();
   }, [selectedNftOaCurrency, address, refetch]);
-
-  const [isNftCoverLoaded, setIsNftCoverLoaded] = useState(false);
 
   if (!module) {
     return null;
