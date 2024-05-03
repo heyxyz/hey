@@ -97,21 +97,35 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
     const nftOpenActionKit = getNftOpenActionKit();
     const pubInfo = formatPublicationData(targetPublication);
 
-    const actionDataResult = await nftOpenActionKit.actionDataFromPost({
-      executingClientProfileId: HEY_REFERRAL_PROFILE_ID,
-      mirrorerProfileId: mirrorPublication?.by.id,
-      mirrorPubId: mirrorPublication?.id,
-      paymentToken: selectedNftOaCurrency,
-      post: pubInfo,
-      profileId: targetPublication.by.id,
-      profileOwnerAddress: targetPublication.by.ownedBy.address,
-      quantity: selectedQuantity,
-      senderAddress: address || ZERO_ADDRESS,
-      sourceUrl: og.url,
-      srcChainId: CHAIN.id.toString()
-    });
-
-    return actionDataResult;
+    return await nftOpenActionKit
+      .actionDataFromPost({
+        executingClientProfileId: HEY_REFERRAL_PROFILE_ID,
+        mirrorerProfileId: mirrorPublication?.by.id,
+        mirrorPubId: mirrorPublication?.id,
+        paymentToken: selectedNftOaCurrency,
+        post: pubInfo,
+        profileId: targetPublication.by.id,
+        profileOwnerAddress: targetPublication.by.ownedBy.address,
+        quantity: selectedQuantity,
+        senderAddress: address || ZERO_ADDRESS,
+        sourceUrl: og.url,
+        srcChainId: CHAIN.id.toString()
+      })
+      .then((actionData) => {
+        console.log(actionData);
+        setNft((prevNft) => ({
+          ...prevNft,
+          chain: actionData.uiData.dstChainId.toString() || prevNft.chain,
+          collectionName: actionData.uiData.nftName || prevNft.collectionName,
+          creatorAddress:
+            `0x${actionData.uiData.nftCreatorAddress}` ||
+            prevNft.creatorAddress,
+          mediaUrl:
+            sanitizeDStorageUrl(actionData.uiData.nftUri) || prevNft.mediaUrl,
+          schema: actionData.uiData.tokenStandard || prevNft.schema
+        }));
+        return actionData;
+      });
   };
 
   const {
@@ -133,21 +147,6 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
       targetPublication?.id
     ]
   });
-
-  useEffect(() => {
-    if (actionData) {
-      setNft((prevNft) => ({
-        ...prevNft,
-        chain: actionData.uiData.dstChainId.toString() || prevNft.chain,
-        collectionName: actionData.uiData.nftName || prevNft.collectionName,
-        creatorAddress:
-          `0x${actionData.uiData.nftCreatorAddress}` || prevNft.creatorAddress,
-        mediaUrl:
-          sanitizeDStorageUrl(actionData.uiData.nftUri) || prevNft.mediaUrl,
-        schema: actionData.uiData.tokenStandard || prevNft.schema
-      }));
-    }
-  }, [actionData]);
 
   useEffect(() => {
     refetch();
