@@ -5,6 +5,7 @@ import type { FC } from 'react';
 import LoginButton from '@components/Shared/Navbar/LoginButton';
 import MetaDetails from '@components/Shared/Staff/MetaDetails';
 import { LinkIcon } from '@heroicons/react/24/outline';
+import { POLYGONSCAN_URL } from '@hey/data/constants';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Button, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -124,10 +125,10 @@ const DecentAction: FC<DecentActionProps> = ({
           <MetaDetails
             icon={<LinkIcon className="ld-text-gray-500 size-4" />}
             title="PolygonScan"
-            value={`https://polygonscan.com/tx/${txHash}`}
+            value={`${POLYGONSCAN_URL}/tx/${txHash}`}
           >
             <Link
-              href={`https://polygonscan.com/tx/${txHash}`}
+              href={`${POLYGONSCAN_URL}/tx/${txHash}`}
               rel="noreferrer"
               target="_blank"
             >
