@@ -4,8 +4,14 @@ import type { Address } from 'viem';
 
 import getNftChainId from '@hey/helpers/getNftChainId';
 
+const IGNORED_HOSTS = ['hey.xyz'];
+
 // https://reflect.site/g/yoginth/hey-nft-extended-open-graph-spec/780502f3c8a3404bb2d7c39ec091602e
 const getNft = (document: Document, sourceUrl: string): Nft | null => {
+  if (IGNORED_HOSTS.includes(new URL(sourceUrl).hostname)) {
+    return null;
+  }
+
   const getMeta = (key: string) => {
     const selector = `meta[name="${key}"], meta[property="${key}"]`;
     const metaTag = document.querySelector(selector);
