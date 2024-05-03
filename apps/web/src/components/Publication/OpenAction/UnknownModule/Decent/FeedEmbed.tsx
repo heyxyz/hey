@@ -16,7 +16,7 @@ import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules
 import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import sanitizeDStorageUrl from '@hey/helpers/sanitizeDStorageUrl';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { Button, Card, Spinner, Tooltip } from '@hey/ui';
+import { Button, Card, Image, Spinner, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useQuery } from '@tanstack/react-query';
 import { type FC, useEffect, useState } from 'react';
@@ -161,7 +161,7 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
     <>
       <Card className="mt-3" forceRounded onClick={stopEventPropagation}>
         <div className="relative">
-          <img
+          <Image
             alt={nft.mediaUrl.length ? nft.collectionName : undefined}
             className={cn(
               'h-[350px] max-h-[350px] w-full rounded-t-xl object-contain',

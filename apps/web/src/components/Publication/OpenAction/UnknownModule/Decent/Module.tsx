@@ -34,7 +34,7 @@ import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import truncateByWords from '@hey/helpers/truncateByWords';
 import { useDefaultProfileQuery } from '@hey/lens';
 import { OptmisticPublicationType } from '@hey/types/enums';
-import { Modal } from '@hey/ui';
+import { Image, Modal } from '@hey/ui';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -408,13 +408,13 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
             <div className="pt-2">
               <div className="relative">
                 {isImageLoading && prevImageUrl && (
-                  <img
+                  <Image
                     alt="Loading..."
                     className="absolute aspect-[1.5] max-h-[350px] w-full rounded-xl object-contain"
                     src={prevImageUrl}
                   />
                 )}
-                <img
+                <Image
                   alt={actionData?.uiData.nftName}
                   className={`aspect-[1.5] max-h-[350px] w-full rounded-xl object-contain ${isImageLoading ? 'invisible' : 'visible'}`}
                   onLoad={handleImageLoaded}
