@@ -264,8 +264,8 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
         }
         setIsPermit2Loading(false);
       } catch (error) {
-        toast.error('Failed to approve Permit2');
         setIsPermit2Loading(false);
+        return toast.error('Failed to approve Permit2');
       }
     }
   };
@@ -293,8 +293,8 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
         setIsApprovalLoading(false);
         setIsApproved(true);
       } catch (error) {
-        toast.error('Failed to approve module');
         setIsApprovalLoading(false);
+        return toast.error('Failed to approve module');
       }
     }
   };
@@ -318,7 +318,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
           }))
         });
       } catch (error) {
-        toast.error('Failed to mint NFT');
+        return toast.error('Failed to mint NFT');
       }
     }
   };
