@@ -173,16 +173,14 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
         </div>
         {actionData && Boolean(nft) && !loadingActionData ? (
           <div className="flex flex-col items-start justify-between gap-4 border-t p-4 sm:flex-row sm:items-center sm:gap-0 dark:border-gray-700">
-            <div className="flex items-center space-x-2">
-              {nft.creatorAddress ? (
-                <ActionInfo
-                  actionData={actionData}
-                  collectionName={nft.collectionName}
-                  creatorAddress={nft.creatorAddress}
-                  uiData={actionData?.uiData}
-                />
-              ) : null}
-            </div>
+            {nft.creatorAddress ? (
+              <ActionInfo
+                actionData={actionData}
+                collectionName={nft.collectionName}
+                creatorAddress={nft.creatorAddress}
+                uiData={actionData?.uiData}
+              />
+            ) : null}
 
             {openActionEmbedLoading ? (
               <Spinner size="xs" />
