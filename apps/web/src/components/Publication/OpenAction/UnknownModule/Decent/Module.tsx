@@ -53,6 +53,18 @@ import DecentAction from './DecentAction';
 import FeesDisclosure from './FeesDisclosure';
 import StepperApprovals from './StepperApprovals';
 
+const generateOptimisticNftMintOA = ({
+  txHash
+}: {
+  txHash?: string;
+  txId?: string;
+}): OptimisticTransaction => {
+  return {
+    txHash,
+    type: OptmisticPublicationType.NftMintOA
+  };
+};
+
 const DEFAULT_TOKEN: AllowedToken = {
   contractAddress: '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270',
   decimals: 18,
@@ -91,12 +103,31 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
 }) => {
   const { selectedNftOaCurrency, setSelectedNftOaCurrency } =
     useNftOaCurrencyStore();
-  const { data: walletClient } = useWalletClient();
+  const { addTransaction } = useTransactionStore();
+  const { allowedTokens } = useAllowedTokensStore();
   const { fiatRates } = useRatesStore();
+
+  const [isApprovalLoading, setIsApprovalLoading] = useState(false);
+  const [isApproved, setIsApproved] = useState(false);
+  const [loadingCurrencyDetails, setLoadingCurrencyDetails] = useState(
+    loadingCurrency || !allowedTokens || !allowedTokens.length
+  );
+  const [showLongDescription, setShowLongDescription] = useState(false);
+  const [showCurrencySelector, setShowCurrencySelector] = useState(false);
+  const [isModalCollapsed, setIsModalCollapsed] = useState(false);
+  const [permit2Allowed, setPermit2Allowed] = useState(false);
+  const [permit2Data, setPermit2Data] = useState<Permit2Data | undefined>();
+  const [isPermit2Loading, setIsPermit2Loading] = useState(false);
+
+  const { data: walletClient } = useWalletClient();
   const { address } = useAccount();
   const handleWrongNetwork = useHandleWrongNetwork();
 
-  const { allowedTokens } = useAllowedTokensStore();
+  const { actOnUnknownOpenAction, isLoading, relayStatus, txHash } =
+    useActOnUnknownOpenAction({
+      signlessApproved: true,
+      successToast: 'Initiated transaction'
+    });
 
   const getTokenDetails = (currencyAddress: Address) => {
     return (
@@ -104,10 +135,6 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
       DEFAULT_TOKEN
     );
   };
-
-  const [loadingCurrencyDetails, setLoadingCurrencyDetails] = useState(
-    loadingCurrency || !allowedTokens || !allowedTokens.length
-  );
 
   useEffect(() => {
     if (allowedTokens && allowedTokens.length && !loadingCurrency) {
@@ -126,26 +153,6 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   const maticUsdPrice =
     fiatRates.find((rate) => rate.symbol === 'WMATIC')?.fiat || 0;
 
-  const { actOnUnknownOpenAction, isLoading, relayStatus, txHash } =
-    useActOnUnknownOpenAction({
-      signlessApproved: true,
-      successToast: 'Initiated transaction'
-    });
-
-  const { addTransaction } = useTransactionStore();
-
-  const generateOptimisticNftMintOA = ({
-    txHash
-  }: {
-    txHash?: string;
-    txId?: string;
-  }): OptimisticTransaction => {
-    return {
-      txHash,
-      type: OptmisticPublicationType.NftMintOA
-    };
-  };
-
   useEffect(() => {
     if (relayStatus && !relayStatus.startsWith('0x')) {
       addTransaction(generateOptimisticNftMintOA({ txId: relayStatus }));
@@ -159,7 +166,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   });
 
   const creatorProfileExists =
-    !!creatorProfileData && !!creatorProfileData.defaultProfile;
+    creatorProfileData && creatorProfileData.defaultProfile;
   const creatorAddress = actionData?.uiData.nftCreatorAddress || ZERO_ADDRESS;
 
   const totalAmount = actionData
@@ -191,22 +198,11 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
       }
     : null;
 
-  const [showLongDescription, setShowLongDescription] = useState(false);
-
-  const [showCurrencySelector, setShowCurrencySelector] = useState(false);
-
-  const [isModalCollapsed, setIsModalCollapsed] = useState(false);
-
-  const [permit2Allowed, setPermit2Allowed] = useState(false);
-  const [permit2Data, setPermit2Data] = useState<Permit2Data | undefined>();
-
   const amount = formattedTotalAmount || 0;
   const assetAddress = selectedNftOaCurrency;
 
-  const [isPermit2Loading, setIsPermit2Loading] = useState(false);
-
   const approvePermit2 = async () => {
-    if (!!walletClient) {
+    if (walletClient) {
       setIsPermit2Loading(true);
       try {
         await handleWrongNetwork();
@@ -239,11 +235,8 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     }
   };
 
-  const [isApprovalLoading, setIsApprovalLoading] = useState(false);
-  const [isApproved, setIsApproved] = useState(false);
-
   const approveOA = async () => {
-    if (!!walletClient && !!actionData) {
+    if (walletClient && actionData) {
       setIsApprovalLoading(true);
       try {
         const signatureAmount = permit2SignatureAmount({
@@ -272,13 +265,13 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   };
 
   useEffect(() => {
-    if (!!relayStatus) {
+    if (relayStatus) {
       localStorage.setItem(`pendingTx`, relayStatus);
     }
   }, [relayStatus]);
 
   const act = async () => {
-    if (actionData && !!publication && !!permit2Data) {
+    if (actionData && permit2Data) {
       try {
         const updatedCalldata = await updateWrapperParams({
           chainId: actionData.uiData.dstChainId,
@@ -304,7 +297,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   useEffect(() => {
     const fetchPermit2Allowance = async () => {
       setPermit2Data(undefined);
-      if (address && !!assetAddress) {
+      if (address && Boolean(assetAddress)) {
         const allowanceData = await getPermit2Allowance({
           owner: address as `0x${string}`,
           spender: PERMIT_2_ADDRESS,
@@ -565,7 +558,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
             {selectedNftOaCurrency ? (
               <DecentAction
                 act={
-                  permit2Allowed && !!permit2Data
+                  permit2Allowed && Boolean(permit2Data)
                     ? act
                     : () => setIsModalCollapsed(!isModalCollapsed)
                 }
