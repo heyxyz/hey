@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Button, WarningMessage } from '@hey/ui';
 import React from 'react';
 
@@ -84,7 +85,7 @@ const StepperApprovals: FC<StepperApprovalsProps> = ({
           className="w-full justify-center"
           disabled={isApprovalLoading}
           onClick={(e) => {
-            e.stopPropagation();
+            stopEventPropagation(e);
             approveOA();
           }}
         >
@@ -97,7 +98,7 @@ const StepperApprovals: FC<StepperApprovalsProps> = ({
           className="w-full justify-center"
           disabled={isPermit2Loading}
           onClick={(e) => {
-            e.stopPropagation();
+            stopEventPropagation(e);
             approvePermit2();
           }}
         >

@@ -30,6 +30,7 @@ import {
   updateWrapperParams
 } from '@hey/helpers/permit2';
 import sanitizeDStorageUrl from '@hey/helpers/sanitizeDStorageUrl';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import truncateByWords from '@hey/helpers/truncateByWords';
 import { useDefaultProfileQuery } from '@hey/lens';
 import { OptmisticPublicationType } from '@hey/types/enums';
@@ -349,7 +350,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
         showCurrencySelector ? (
           <button
             onClick={(e) => {
-              e.stopPropagation();
+              stopEventPropagation(e);
               setShowCurrencySelector(false);
             }}
           >
@@ -358,7 +359,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
         ) : isModalCollapsed ? (
           <button
             onClick={(e) => {
-              e.stopPropagation();
+              stopEventPropagation(e);
               setIsModalCollapsed(false);
             }}
           >
@@ -450,7 +451,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                     <button
                       className="ml-1 opacity-50"
                       onClick={(e) => {
-                        e.stopPropagation();
+                        stopEventPropagation(e);
                         setShowLongDescription((v) => !v);
                       }}
                     >
@@ -501,7 +502,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                   className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 disabled:opacity-50"
                   disabled={selectedQuantity === 1}
                   onClick={(e) => {
-                    e.stopPropagation();
+                    stopEventPropagation(e);
                     setSelectedQuantity(selectedQuantity - 1);
                   }}
                 >
@@ -511,7 +512,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                 <button
                   className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 disabled:opacity-40"
                   onClick={(e) => {
-                    e.stopPropagation();
+                    stopEventPropagation(e);
                     setSelectedQuantity(selectedQuantity + 1);
                   }}
                 >
@@ -592,7 +593,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
               <button
                 className="lg-text-gray-500 flex items-baseline justify-center gap-1"
                 onClick={(e) => {
-                  e.stopPropagation();
+                  stopEventPropagation(e);
                   setShowCurrencySelector(true);
                 }}
               >

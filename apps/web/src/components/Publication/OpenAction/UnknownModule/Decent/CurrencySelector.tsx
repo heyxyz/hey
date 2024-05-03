@@ -4,6 +4,7 @@ import type { Address } from 'viem';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import formatTokenBalances from '@hey/helpers/formatTokenBalances';
 import getTokenImage from '@hey/helpers/getTokenImage';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
 import { useRatesStore } from 'src/store/persisted/useRatesStore';
 import { useAccount, useBalance } from 'wagmi';
@@ -101,7 +102,7 @@ const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
               className="flex w-full cursor-pointer items-center justify-between rounded-lg p-2 hover:bg-gray-500/10"
               key={token.symbol}
               onClick={(e) => {
-                e.stopPropagation();
+                stopEventPropagation(e);
                 onSelectCurrency(token.contractAddress as Address);
               }}
             >

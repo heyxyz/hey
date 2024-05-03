@@ -5,6 +5,7 @@ import type { FC } from 'react';
 import LoginButton from '@components/Shared/Navbar/LoginButton';
 import MetaDetails from '@components/Shared/Staff/MetaDetails';
 import { LinkIcon } from '@heroicons/react/24/outline';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Button, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
@@ -106,7 +107,7 @@ const DecentAction: FC<DecentActionProps> = ({
         disabled={loadingState}
         icon={loadingState ? <Spinner size="xs" /> : null}
         onClick={(e) => {
-          e.stopPropagation();
+          stopEventPropagation(e);
           act();
         }}
       >
