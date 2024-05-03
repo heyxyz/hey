@@ -13,7 +13,7 @@ interface BalanceData {
  * @param balances - The raw balance data for tokens.
  * @returns An object with token symbols as keys and formatted balances and USD equivalents as values.
  */
-function formatTokenBalances(balances: Record<string, BalanceData>) {
+const formatTokenBalances = (balances: Record<string, BalanceData>) => {
   const formattedBalances: Record<string, { token: string; usd: string }> = {};
 
   for (const [token, data] of Object.entries(balances)) {
@@ -25,6 +25,6 @@ function formatTokenBalances(balances: Record<string, BalanceData>) {
   }
 
   return formattedBalances;
-}
+};
 
 export default formatTokenBalances;

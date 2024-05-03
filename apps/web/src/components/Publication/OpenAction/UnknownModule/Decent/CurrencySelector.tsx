@@ -133,7 +133,7 @@ const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
 
               <div className="flex flex-col items-end justify-center gap-1 leading-none">
                 {isLoading ? (
-                  <div className="animate-shimmer h-4 w-16 rounded-lg bg-gray-200" />
+                  <div className="shimmer h-4 w-16 rounded-lg bg-gray-200" />
                 ) : (
                   <p>
                     {balances[token.symbol as keyof typeof balances]?.token ||
@@ -141,7 +141,7 @@ const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
                   </p>
                 )}
                 {isLoading ? (
-                  <div className="animate-shimmer h-4 w-12 rounded-lg bg-gray-200" />
+                  <div className="shimmer h-4 w-12 rounded-lg bg-gray-200" />
                 ) : (
                   <p className="text-sm opacity-50">
                     $

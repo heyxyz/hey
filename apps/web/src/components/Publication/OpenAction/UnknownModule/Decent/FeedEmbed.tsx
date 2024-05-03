@@ -27,19 +27,10 @@ import { useAccount } from 'wagmi';
 import { OPEN_ACTION_EMBED_TOOLTIP, openActionCTA } from '.';
 import DecentOpenActionModule from './Module';
 
-interface DecentOpenActionProps {
-  isFullPublication?: boolean;
-  mirrorPublication?: AnyPublication;
-  og: OG;
-  openActionEmbed: boolean;
-  openActionEmbedLoading: boolean;
-  publication: AnyPublication;
-}
-
-function formatPublicationData(
+const formatPublicationData = (
   targetPublication: MirrorablePublication
-): PublicationInfo {
-  const [profileHex, pubHex] = targetPublication.id.split('-');
+): PublicationInfo => {
+  const [profileId, pubId] = targetPublication.id.split('-');
 
   const unknownModules =
     targetPublication.openActionModules as UnknownOpenActionModuleSettings[];
@@ -53,9 +44,18 @@ function formatPublicationData(
   return {
     actionModules,
     actionModulesInitDatas,
-    profileId: parseInt(profileHex, 16).toString(),
-    pubId: parseInt(pubHex, 16).toString()
+    profileId: parseInt(profileId, 16).toString(),
+    pubId: parseInt(pubId, 16).toString()
   };
+};
+
+interface DecentOpenActionProps {
+  isFullPublication?: boolean;
+  mirrorPublication?: AnyPublication;
+  og: OG;
+  openActionEmbed: boolean;
+  openActionEmbedLoading: boolean;
+  publication: AnyPublication;
 }
 
 const FeedEmbed: FC<DecentOpenActionProps> = ({

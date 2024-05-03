@@ -16,10 +16,10 @@ import { polygon, polygonAmoy } from 'viem/chains';
 
 import { PERMIT_2_ADDRESS } from '../../apps/web/src/constants';
 
-function timeToMilliseconds(
+const timeToMilliseconds = (
   value: number,
   unit: 'd' | 'h' | 'min' | 'ms' | 's'
-): number {
+): number => {
   const timeInMilliseconds = new Date();
   switch (unit) {
     case 'ms':
@@ -41,16 +41,16 @@ function timeToMilliseconds(
       throw new Error('Invalid time unit');
   }
   return timeInMilliseconds.getTime();
-}
+};
 
 /**
  * Converts an expiration (in milliseconds) to a deadline (in seconds) suitable for the EVM.
  * Permit2 expresses expirations as deadlines, but JavaScript usually uses milliseconds,
  * so this is provided as a convenience function.
  */
-function toDeadline(expiration: number): number {
+const toDeadline = (expiration: number): number => {
   return Math.floor((Date.now() + expiration) / 1000);
-}
+};
 
 export const permit2SignatureAmount = ({
   chainId,
