@@ -9,7 +9,6 @@ import {
   SCORE_WORKER_URL,
   SWR_CACHE_AGE_1_HOUR_12_HRS
 } from 'src/helpers/constants';
-import prisma from 'src/helpers/prisma';
 import { noBody } from 'src/helpers/responses';
 
 // TODO: add tests
@@ -21,28 +20,39 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const [cachedProfile, pro] = await prisma.$transaction([
-      prisma.cachedProfileScore.findUnique({ where: { id: id as string } }),
-      prisma.pro.findUnique({ where: { id: id as string } })
-    ]);
+    const [cachedProfile, pro] = await heyPg.multi(
+      `
+        SELECT * FROM "CachedProfileScore"
+        WHERE "id" = $1
+        LIMIT 1;
 
-    if (cachedProfile?.expiresAt && new Date() < cachedProfile.expiresAt) {
+        SELECT * FROM "Pro"
+        WHERE "id" = $1
+        LIMIT 1;
+      `,
+      [id as string]
+    );
+
+    if (
+      cachedProfile[0]?.expiresAt &&
+      new Date() < cachedProfile[0].expiresAt
+    ) {
       logger.info(
-        `Lens: Fetched profile score from cache for ${id} - ${cachedProfile.score}`
+        `Lens: Fetched profile score from cache for ${id} - ${cachedProfile[0].score}`
       );
 
       return res
         .status(200)
         .setHeader('Cache-Control', SWR_CACHE_AGE_1_HOUR_12_HRS)
         .json({
-          expiresAt: cachedProfile.expiresAt,
-          score: cachedProfile.score,
+          expiresAt: cachedProfile[0].expiresAt,
+          score: cachedProfile[0].score,
           success: true
         });
     }
 
     const scoreQueryRequest = await axios.get(SCORE_WORKER_URL, {
-      params: { id, pro: pro?.id === id, secret: process.env.SECRET }
+      params: { id, pro: pro[0]?.id === id, secret: process.env.SECRET }
     });
     const scoreQuery = scoreQueryRequest.data.toString();
 
@@ -62,25 +72,28 @@ export const get: Handler = async (req, res) => {
 
     const score = Number(scores[0].score) + sum;
 
-    const baseData = {
-      expiresAt: new Date(Date.now() + 12 * 60 * 60 * 1000), // 12 hours
-      id: id as string,
-      score: score < 0 ? 0 : score
-    };
-
-    const newCachedProfile = await prisma.cachedProfileScore.upsert({
-      create: baseData,
-      update: baseData,
-      where: { id: id as string }
-    });
+    const newCachedProfile = await heyPg.query(
+      `
+        INSERT INTO "CachedProfileScore" ("id", "score", "expiresAt")
+        VALUES ($1, $2, $3)
+        ON CONFLICT ("id")
+        DO UPDATE SET "score" = $2, "expiresAt" = $3
+        RETURNING *;
+      `,
+      [
+        id as string,
+        score < 0 ? 0 : score,
+        new Date(Date.now() + 12 * 60 * 60 * 1000) // 12 hours
+      ]
+    );
 
     logger.info(
-      `Lens: Fetched profile score for ${id} - ${newCachedProfile.score} - Expires at: ${newCachedProfile.expiresAt}`
+      `Lens: Fetched profile score for ${id} - ${newCachedProfile[0]?.score} - Expires at: ${newCachedProfile[0]?.expiresAt}`
     );
 
     return res
       .status(200)
-      .json({ score: newCachedProfile.score, success: true });
+      .json({ score: newCachedProfile[0]?.score, success: true });
   } catch (error) {
     catchedError(res, error);
   }
