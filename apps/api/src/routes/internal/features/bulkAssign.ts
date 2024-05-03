@@ -41,7 +41,6 @@ export const post: Handler = async (req, res) => {
 
   try {
     const parsedIds = JSON.parse(ids) as string[];
-
     const profiles = await heyPg.query(
       `
         SELECT *
