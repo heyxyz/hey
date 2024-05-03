@@ -3,6 +3,7 @@ import type { Handler } from 'express';
 import { HeyPro } from '@hey/abis';
 import { HEY_PRO, IS_MAINNET } from '@hey/data/constants';
 import logger from '@hey/helpers/logger';
+import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import getRpc from 'src/helpers/getRpc';
 import prisma from 'src/helpers/prisma';
@@ -18,16 +19,16 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const pro = await prisma.pro.findUnique({
-      where: { id: id as string }
-    });
+    const pro = await heyPg.query(`SELECT * FROM "Pro" WHERE "id" = $1;`, [
+      id as string
+    ]);
 
-    if (pro?.expiresAt && new Date() < pro.expiresAt) {
+    if (pro[0]?.expiresAt && new Date() < pro[0]?.expiresAt) {
       logger.info(`Fetched pro status from cache for ${id}`);
 
       return res.status(200).json({
         cached: true,
-        result: { expiresAt: pro.expiresAt, isPro: true },
+        result: { expiresAt: pro[0].expiresAt, isPro: true },
         success: true
       });
     }
