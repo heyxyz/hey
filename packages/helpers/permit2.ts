@@ -1,4 +1,4 @@
-import type { Address, Hex } from 'viem';
+import type { Address, Hex, WalletClient } from 'viem';
 
 import { Bridge, Swap } from '@hey/abis';
 import { IS_MAINNET } from '@hey/data/constants';
@@ -190,12 +190,12 @@ export const constructPermit2Sig = ({
 };
 
 export const signPermitSignature = async (
-  walletClient: any,
+  walletClient: WalletClient,
   amount: bigint,
   token: `0x${string}`
 ) => {
-  if (walletClient == null) {
-    throw new Error('no wallet client found');
+  if (!walletClient.account) {
+    throw new Error('no account attached to wallet client');
   }
   const { domain, types, values } = constructPermit2Sig({
     amount,
@@ -203,6 +203,7 @@ export const signPermitSignature = async (
   });
 
   const signature = await walletClient.signTypedData({
+    account: walletClient.account,
     domain,
     message: values,
     primaryType: 'PermitTransferFrom',

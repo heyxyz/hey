@@ -1,3 +1,5 @@
+import type { WalletClient } from 'viem';
+
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -126,8 +128,9 @@ describe('constructPermit2Sig', () => {
 describe('signPermitSignature', () => {
   it('signs data correctly using the wallet client', async () => {
     const walletClient = {
+      account: '0x0',
       signTypedData: vi.fn().mockResolvedValue('signature')
-    };
+    } as unknown as WalletClient;
     const signature = await signPermitSignature(
       walletClient,
       BigInt(100),
@@ -136,8 +139,17 @@ describe('signPermitSignature', () => {
     expect(signature).toHaveProperty('signature');
   });
 
-  it('throws an error when no wallet client is found', async () => {
-    const callWithoutClient = signPermitSignature(null, BigInt(100), '0x1');
-    await expect(callWithoutClient).rejects.toThrow('no wallet client found');
+  it('throws an error when wallet client has no account attached', async () => {
+    const walletClient = {
+      signTypedData: vi.fn().mockResolvedValue('signature')
+    } as unknown as WalletClient;
+    const callWithoutClient = signPermitSignature(
+      walletClient,
+      BigInt(100),
+      '0x1'
+    );
+    await expect(callWithoutClient).rejects.toThrow(
+      'no account attached to wallet client'
+    );
   });
 });
