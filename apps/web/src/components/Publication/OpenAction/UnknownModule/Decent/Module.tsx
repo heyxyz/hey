@@ -18,7 +18,7 @@ import {
   Squares2X2Icon,
   UserIcon
 } from '@heroicons/react/24/outline';
-import { ZERO_ADDRESS } from '@hey/data/constants';
+import { MAX_UINT256, ZERO_ADDRESS } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import getNftChainId from '@hey/helpers/getNftChainId';
 import getNftChainInfo from '@hey/helpers/getNftChainInfo';
@@ -209,10 +209,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
         const hash = await walletClient.writeContract({
           abi: parseAbi(['function approve(address, uint256) returns (bool)']),
           address: assetAddress as `0x${string}`,
-          args: [
-            PERMIT_2_ADDRESS,
-            57896044618658097711785492504343953926634992332820282019728792003956564819967n
-          ],
+          args: [PERMIT_2_ADDRESS, MAX_UINT256],
           functionName: 'approve'
         });
         const allowanceData = await getPermit2Allowance({
