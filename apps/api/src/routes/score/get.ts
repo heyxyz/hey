@@ -2,6 +2,7 @@ import type { Handler } from 'express';
 
 import logger from '@hey/helpers/logger';
 import axios from 'axios';
+import heyPg from 'src/db/heyPg';
 import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
 import {
@@ -47,9 +48,10 @@ export const get: Handler = async (req, res) => {
 
     const [scores, adjustedScores] = await Promise.all([
       lensPg.query(scoreQuery),
-      prisma.adjustedProfileScore.findMany({
-        where: { profileId: id as string }
-      })
+      heyPg.query(
+        `SELECT * FROM "AdjustedProfileScore" WHERE "profileId" = $1`,
+        [id as string]
+      )
     ]);
 
     const sum = adjustedScores.reduce((acc, score) => acc + score.score, 0);
