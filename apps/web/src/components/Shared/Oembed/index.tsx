@@ -72,12 +72,13 @@ const Oembed: FC<OembedProps> = ({
       : currentPublication;
 
   // Check if the publication has an NFT minting open action module
-  const canPerformDecentAction: boolean =
-    !!targetPublication &&
-    targetPublication.openActionModules.some(
-      (module) =>
-        module.contract.address === VerifiedOpenActionModules.DecentNFT
-    );
+  const canPerformDecentAction: boolean = Boolean(
+    targetPublication &&
+      targetPublication.openActionModules.some(
+        (module) =>
+          module.contract.address === VerifiedOpenActionModules.DecentNFT
+      )
+  );
 
   // display NFT mint / purchase embed if open action is attached to publication or new publication is being created with action attached
   // action is only available on Polygon mainnet
@@ -93,8 +94,8 @@ const Oembed: FC<OembedProps> = ({
       {embedDecentOpenAction ? (
         <DecentOpenAction
           og={og}
-          openActionEmbed={!!openActionEmbed}
-          openActionEmbedLoading={!!openActionEmbedLoading}
+          openActionEmbed={Boolean(openActionEmbed)}
+          openActionEmbedLoading={Boolean(openActionEmbedLoading)}
           publication={currentPublication}
         />
       ) : og.html ? (

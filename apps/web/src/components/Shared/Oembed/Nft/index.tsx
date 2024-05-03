@@ -46,7 +46,7 @@ const Nft: FC<NftProps> = ({ nft }) => {
           ) : null}
           <div className="flex w-full flex-col items-start justify-between gap-2 sm:flex-row">
             <div className="flex items-center gap-2">
-              {!!data && !!data.defaultProfile && (
+              {data?.defaultProfile && (
                 <Image
                   alt={data?.defaultProfile?.id}
                   className="size-6 rounded-full border bg-gray-200 dark:border-gray-700"

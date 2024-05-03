@@ -112,13 +112,11 @@ const DecentAction: FC<DecentActionProps> = ({
           act();
         }}
       >
-        <div>
-          {loadingState
-            ? 'Pending'
-            : !isReadyToMint
-              ? `Approve ${moduleAmount?.value} ${moduleAmount?.asset.symbol}`
-              : `${openActionCTA(uiData?.platformName)} for ${moduleAmount?.value} ${moduleAmount?.asset.symbol}`}
-        </div>
+        {loadingState
+          ? 'Pending'
+          : !isReadyToMint
+            ? `Approve ${moduleAmount?.value} ${moduleAmount?.asset.symbol}`
+            : `${openActionCTA(uiData?.platformName)} for ${moduleAmount?.value} ${moduleAmount?.asset.symbol}`}
       </Button>
       {txHash ? (
         <>

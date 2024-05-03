@@ -5,6 +5,8 @@ import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { HelpTooltip } from '@hey/ui'; // Assuming HelpTooltip is from @hey/ui
 import type { ActionData } from 'nft-openaction-kit';
 
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
+
 interface FeesDisclosureProps {
   actionData?: ActionData;
   bridgeFee: number;
@@ -28,7 +30,7 @@ const FeesDisclosure: FC<FeesDisclosureProps> = ({
         <Disclosure.Button
           className="flex items-baseline gap-1 space-x-1"
           onClick={(e) => {
-            e.stopPropagation();
+            stopEventPropagation(e);
           }}
         >
           Fees <ChevronDownIcon className="size-3" strokeWidth={3} />

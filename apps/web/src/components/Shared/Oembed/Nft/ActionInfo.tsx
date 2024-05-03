@@ -58,7 +58,7 @@ const ActionInfo: FC<ActionInfoProps> = ({
     return null;
   }
 
-  const profileExists = !!data && !!data.defaultProfile;
+  const profileExists = Boolean(data?.defaultProfile);
 
   return (
     <div className="flex items-start gap-4">
@@ -81,11 +81,11 @@ const ActionInfo: FC<ActionInfoProps> = ({
           <p className="opacity-50">
             by{' '}
             {profileExists
-              ? getProfile(data.defaultProfile as Profile).slug
+              ? getProfile(data?.defaultProfile as Profile).slug
               : `${creatorAddress.slice(0, 6)}...${creatorAddress.slice(-4)}`}
           </p>
         </span>
-        {!!formattedPrice && !hidePrice && (
+        {formattedPrice && !hidePrice && (
           <p className="opacity-50">
             {formattedPrice}{' '}
             {allowedTokens?.find(
