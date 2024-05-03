@@ -38,7 +38,6 @@ export interface OG {
   favicon: null | string;
   html: null | string;
   image: null | string;
-  isLarge: boolean | null;
   lastIndexedAt?: string;
   nft: Nft | null;
   site: null | string;

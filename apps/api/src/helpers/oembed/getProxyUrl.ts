@@ -6,7 +6,7 @@ const directUrls = [
   'drips.network' // Drips
 ];
 
-const getProxyUrl = (url: string, isLarge: boolean) => {
+const getProxyUrl = (url: string) => {
   if (!url) {
     return null;
   }
@@ -17,11 +17,7 @@ const getProxyUrl = (url: string, isLarge: boolean) => {
     return url;
   }
 
-  const isSquare = !isLarge;
-  const height = isSquare ? 400 : 600;
-  const width = isSquare ? 400 : 'auto';
-
-  return `${HEY_IMAGEKIT_URL}/oembed/tr:di-placeholder.webp,h-${height},w-${width}/${url}`;
+  return `${HEY_IMAGEKIT_URL}/oembed/tr:di-placeholder.webp,h-400,w-400/${url}`;
 };
 
 export default getProxyUrl;
