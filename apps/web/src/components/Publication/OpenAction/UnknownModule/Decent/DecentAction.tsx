@@ -5,7 +5,7 @@ import type { FC } from 'react';
 import LoginButton from '@components/Shared/Navbar/LoginButton';
 import MetaDetails from '@components/Shared/Staff/MetaDetails';
 import { LinkIcon } from '@heroicons/react/24/outline';
-import { POLYGONSCAN_URL } from '@hey/data/constants';
+import { LAYERZEROSCAN_URL, POLYGONSCAN_URL } from '@hey/data/constants';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Button, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -136,10 +136,10 @@ const DecentAction: FC<DecentActionProps> = ({
           <MetaDetails
             icon={<LinkIcon className="ld-text-gray-500 size-4" />}
             title="LayerZeroScan"
-            value={`https://layerzeroscan.com/tx/${txHash}`}
+            value={`${LAYERZEROSCAN_URL}/tx/${txHash}`}
           >
             <Link
-              href={`https://layerzeroscan.com/tx/${txHash}`}
+              href={`${LAYERZEROSCAN_URL}tx/${txHash}`}
               rel="noreferrer"
               target="_blank"
             >

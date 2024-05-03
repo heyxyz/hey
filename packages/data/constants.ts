@@ -69,6 +69,9 @@ export const LENS_MEDIA_SNAPSHOT_URL =
 export const POLYGONSCAN_URL = IS_MAINNET
   ? 'https://polygonscan.com/'
   : 'https://amoy.polygonscan.com/';
+export const LAYERZEROSCAN_URL = IS_MAINNET
+  ? 'https://layerzeroscan.com/'
+  : 'https://testnet.layerzeroscan.com/';
 export const IPFS_GATEWAY = 'https://gw.ipfs-lens.dev/ipfs';
 export const ARWEAVE_GATEWAY = 'https://gateway.irys.xyz';
 export const EVER_API = 'https://endpoint.4everland.co';
