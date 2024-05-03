@@ -1,9 +1,9 @@
 import type { Handler } from 'express';
 
 import logger from '@hey/helpers/logger';
+import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
-import prisma from 'src/helpers/prisma';
 import { invalidBody, noBody, notAllowed } from 'src/helpers/responses';
 import { object, string } from 'zod';
 
@@ -36,9 +36,14 @@ export const post: Handler = async (req, res) => {
   const { id } = body as ExtensionRequest;
 
   try {
-    const result = await prisma.draftPublication.delete({
-      where: { id: id as string }
-    });
+    const result = await heyPg.query(
+      `
+        DELETE FROM "DraftPublication"
+        WHERE "id" = $1
+        RETURNING *;
+      `,
+      [id]
+    );
 
     logger.info(`Draft publication deleted for ${id}`);
 
