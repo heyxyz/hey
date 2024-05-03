@@ -91,11 +91,7 @@ const DecentAction: FC<DecentActionProps> = ({
 
   if (!hasAmount) {
     return (
-      <Button
-        className="w-full border-gray-300 bg-gray-300 text-gray-600 hover:bg-gray-300 hover:text-gray-600"
-        disabled={true}
-        size="lg"
-      >
+      <Button className="w-full" disabled={true} size="lg">
         {`Insufficient ${assetSymbol} balance`}
       </Button>
     );
