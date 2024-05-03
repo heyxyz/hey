@@ -2,12 +2,12 @@ import type { ProfileFlags } from '@hey/types/hey';
 import type { Handler } from 'express';
 
 import logger from '@hey/helpers/logger';
+import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import {
   SUSPENDED_FEATURE_ID,
   SWR_CACHE_AGE_10_MINS_30_DAYS
 } from 'src/helpers/constants';
-import prisma from 'src/helpers/prisma';
 import { noBody } from 'src/helpers/responses';
 
 export const get: Handler = async (req, res) => {
@@ -18,17 +18,18 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const profileFeature = await prisma.profileFeature.findFirst({
-      select: { feature: { select: { id: true } } },
-      where: {
-        enabled: true,
-        featureId: SUSPENDED_FEATURE_ID,
-        profileId: id as string
-      }
-    });
+    const profileFeature = await heyPg.query(
+      `
+        SELECT * FROM "ProfileFeature"
+        WHERE enabled = TRUE
+        AND "featureId" = $1
+        AND "profileId" = $2;
+      `,
+      [SUSPENDED_FEATURE_ID, id as string]
+    );
 
     const response: ProfileFlags = {
-      isSuspended: profileFeature?.feature.id === SUSPENDED_FEATURE_ID
+      isSuspended: profileFeature[0]?.featureId === SUSPENDED_FEATURE_ID
     };
 
     logger.info('Profile flags fetched');
