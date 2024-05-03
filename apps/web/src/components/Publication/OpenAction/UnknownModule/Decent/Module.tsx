@@ -118,6 +118,9 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   const [permit2Allowed, setPermit2Allowed] = useState(false);
   const [permit2Data, setPermit2Data] = useState<Permit2Data | undefined>();
   const [isPermit2Loading, setIsPermit2Loading] = useState(false);
+  const [currentImageUrl, setCurrentImageUrl] = useState('');
+  const [prevImageUrl, setPrevImageUrl] = useState('');
+  const [isImageLoading, setImageLoading] = useState(false);
 
   const { data: walletClient } = useWalletClient();
   const { address } = useAccount();
@@ -129,12 +132,10 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
       successToast: 'Initiated transaction'
     });
 
-  const getTokenDetails = (currencyAddress: Address) => {
-    return (
-      allowedTokens?.find((t) => t.contractAddress === currencyAddress) ||
-      DEFAULT_TOKEN
-    );
-  };
+  const { data: creatorProfileData } = useDefaultProfileQuery({
+    skip: !actionData?.uiData.nftCreatorAddress,
+    variables: { request: { for: actionData?.uiData.nftCreatorAddress } }
+  });
 
   useEffect(() => {
     if (allowedTokens && allowedTokens.length && !loadingCurrency) {
@@ -144,6 +145,28 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     }
   }, [allowedTokens, loadingCurrency]);
 
+  useEffect(() => {
+    if (relayStatus) {
+      if (!relayStatus.startsWith('0x')) {
+        addTransaction(generateOptimisticNftMintOA({ txId: relayStatus }));
+      }
+      localStorage.setItem(`pendingTx`, relayStatus);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [relayStatus]);
+
+  useEffect(() => {
+    if (actionData?.uiData.nftUri) {
+      const newImageUrl = sanitizeDStorageUrl(actionData.uiData.nftUri);
+      if (newImageUrl !== currentImageUrl) {
+        setImageLoading(true);
+        setPrevImageUrl(currentImageUrl);
+        setCurrentImageUrl(newImageUrl);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [actionData]);
+
   const usdPrice =
     fiatRates.find(
       (rate) => rate.address === selectedNftOaCurrency?.toLowerCase()
@@ -152,18 +175,6 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   // fees are always priced in MATIC
   const maticUsdPrice =
     fiatRates.find((rate) => rate.symbol === 'WMATIC')?.fiat || 0;
-
-  useEffect(() => {
-    if (relayStatus && !relayStatus.startsWith('0x')) {
-      addTransaction(generateOptimisticNftMintOA({ txId: relayStatus }));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [relayStatus]);
-
-  const { data: creatorProfileData } = useDefaultProfileQuery({
-    skip: !actionData?.uiData.nftCreatorAddress,
-    variables: { request: { for: actionData?.uiData.nftCreatorAddress } }
-  });
 
   const creatorProfileExists =
     creatorProfileData && creatorProfileData.defaultProfile;
@@ -175,6 +186,12 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     : BigInt(0);
 
   // Convert totalAmount to a number with decimals
+  const getTokenDetails = (currencyAddress: Address) => {
+    return (
+      allowedTokens?.find((t) => t.contractAddress === currencyAddress) ||
+      DEFAULT_TOKEN
+    );
+  };
   const { decimals } = getTokenDetails(selectedNftOaCurrency);
   const formattedTotalAmount = Number(totalAmount) / Math.pow(10, decimals);
 
@@ -200,6 +217,27 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
 
   const amount = formattedTotalAmount || 0;
   const assetAddress = selectedNftOaCurrency;
+
+  useEffect(() => {
+    const fetchPermit2Allowance = async () => {
+      setPermit2Data(undefined);
+      if (address && Boolean(assetAddress)) {
+        const allowanceData = await getPermit2Allowance({
+          owner: address as `0x${string}`,
+          spender: PERMIT_2_ADDRESS,
+          token: assetAddress as `0x${string}`
+        });
+        const approvedAmount = allowanceData;
+        if (Number(approvedAmount) > amount) {
+          setPermit2Allowed(true);
+        } else {
+          setPermit2Allowed(false);
+        }
+      }
+    };
+
+    fetchPermit2Allowance();
+  }, [amount, assetAddress, address]);
 
   const approvePermit2 = async () => {
     if (walletClient) {
@@ -261,12 +299,6 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     }
   };
 
-  useEffect(() => {
-    if (relayStatus) {
-      localStorage.setItem(`pendingTx`, relayStatus);
-    }
-  }, [relayStatus]);
-
   const act = async () => {
     if (actionData && permit2Data) {
       try {
@@ -290,44 +322,6 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
       }
     }
   };
-
-  useEffect(() => {
-    const fetchPermit2Allowance = async () => {
-      setPermit2Data(undefined);
-      if (address && Boolean(assetAddress)) {
-        const allowanceData = await getPermit2Allowance({
-          owner: address as `0x${string}`,
-          spender: PERMIT_2_ADDRESS,
-          token: assetAddress as `0x${string}`
-        });
-        const approvedAmount = allowanceData;
-        if (Number(approvedAmount) > amount) {
-          setPermit2Allowed(true);
-        } else {
-          setPermit2Allowed(false);
-        }
-      }
-    };
-
-    fetchPermit2Allowance();
-  }, [amount, assetAddress, address]);
-
-  const [currentImageUrl, setCurrentImageUrl] = useState('');
-  const [prevImageUrl, setPrevImageUrl] = useState('');
-
-  const [isImageLoading, setImageLoading] = useState(false);
-
-  useEffect(() => {
-    if (actionData?.uiData.nftUri) {
-      const newImageUrl = sanitizeDStorageUrl(actionData.uiData.nftUri);
-      if (newImageUrl !== currentImageUrl) {
-        setImageLoading(true);
-        setPrevImageUrl(currentImageUrl);
-        setCurrentImageUrl(newImageUrl);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [actionData]);
 
   const handleImageLoaded = () => {
     setImageLoading(false);
