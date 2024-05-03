@@ -47,9 +47,9 @@ export const post: Handler = async (req, res) => {
         SELECT *
         FROM "ProfileFeature"
         WHERE "featureId" = $1
-        AND "profileId" = ANY($2);
+        AND "profileId" IN (${parsedIds.map((id) => `'${id}'`).join(',')});
       `,
-      [featureId, parsedIds]
+      [featureId]
     );
 
     const idsToAssign = parsedIds.filter(
