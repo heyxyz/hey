@@ -2,13 +2,12 @@ import type { Nft } from '@hey/types/misc';
 import type { Document } from 'linkedom';
 import type { Address } from 'viem';
 
+import { IGNORED_NFT_HOSTS } from '@hey/data/og';
 import getNftChainId from '@hey/helpers/getNftChainId';
-
-const IGNORED_HOSTS = ['hey.xyz'];
 
 // https://reflect.site/g/yoginth/hey-nft-extended-open-graph-spec/780502f3c8a3404bb2d7c39ec091602e
 const getNft = (document: Document, sourceUrl: string): Nft | null => {
-  if (IGNORED_HOSTS.includes(new URL(sourceUrl).hostname)) {
+  if (IGNORED_NFT_HOSTS.includes(new URL(sourceUrl).hostname)) {
     return null;
   }
 

@@ -2,19 +2,21 @@ import type { OG } from '@hey/types/misc';
 import type { FC } from 'react';
 
 import { HEY_API_URL } from '@hey/data/constants';
+import { ALLOWED_HTML_HOSTS } from '@hey/data/og';
 import getFavicon from '@hey/helpers/getFavicon';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useEffect } from 'react';
 
 import Embed from './Embed';
+import EmptyOembed from './EmptyOembed';
 import Nft from './Nft';
 import Player from './Player';
 
 interface OembedProps {
   onLoad?: (og: OG) => void;
   publicationId?: string;
-  url?: string;
+  url: string;
 }
 
 const Oembed: FC<OembedProps> = ({ onLoad, publicationId, url }) => {
@@ -38,7 +40,17 @@ const Oembed: FC<OembedProps> = ({ onLoad, publicationId, url }) => {
   }, [data]);
 
   if (isLoading || error || !data) {
-    return null;
+    if (error) {
+      return null;
+    }
+
+    const hostname = new URL(url).hostname.replace('www.', '');
+
+    if (ALLOWED_HTML_HOSTS.includes(hostname)) {
+      return <div className="shimmer h-[415px] w-full rounded-xl" />;
+    }
+
+    return <EmptyOembed url={url} />;
   }
 
   const og: OG = {
@@ -56,17 +68,15 @@ const Oembed: FC<OembedProps> = ({ onLoad, publicationId, url }) => {
     return null;
   }
 
-  return (
-    <div>
-      {og.html ? (
-        <Player og={og} />
-      ) : og.nft ? (
-        <Nft nft={og.nft} publicationId={publicationId} />
-      ) : (
-        <Embed og={og} publicationId={publicationId} />
-      )}
-    </div>
-  );
+  if (og.html) {
+    return <Player og={og} />;
+  }
+
+  if (og.nft) {
+    return <Nft nft={og.nft} publicationId={publicationId} />;
+  }
+
+  return <Embed og={og} publicationId={publicationId} />;
 };
 
 export default Oembed;
