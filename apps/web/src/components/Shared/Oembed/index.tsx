@@ -2,7 +2,7 @@ import type { AnyPublication } from '@hey/lens';
 import type { OG } from '@hey/types/misc';
 
 import DecentOpenAction from '@components/Publication/OpenAction/UnknownModule/Decent';
-import { HEY_API_URL } from '@hey/data/constants';
+import { HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import getFavicon from '@hey/helpers/getFavicon';
 import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
@@ -79,8 +79,10 @@ const Oembed: FC<OembedProps> = ({
         module.contract.address === VerifiedOpenActionModules.DecentNFT
     );
 
+  // display NFT mint / purchase embed if open action is attached to publication or new publication is being created with action attached
+  // action is only available on Polygon mainnet
   const embedDecentOpenAction: boolean =
-    canPerformDecentAction || !!openActionEmbed;
+    IS_MAINNET && (canPerformDecentAction || Boolean(openActionEmbed));
 
   if (!og.title && !og.html && !og.nft && !embedDecentOpenAction) {
     return null;
