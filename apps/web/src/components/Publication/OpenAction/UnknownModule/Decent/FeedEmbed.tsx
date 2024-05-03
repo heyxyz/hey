@@ -20,7 +20,7 @@ import { Button, Card, Spinner, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useQuery } from '@tanstack/react-query';
 import { type FC, useEffect, useState } from 'react';
-import { HEY_REFERRAL_PROFILE_ID } from 'src/constants';
+import { CHAIN, HEY_REFERRAL_PROFILE_ID } from 'src/constants';
 import { useNftOaCurrencyStore } from 'src/store/persisted/useNftOaCurrencyStore';
 import { useAccount } from 'wagmi';
 
@@ -65,20 +65,10 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
   openActionEmbedLoading,
   publication
 }) => {
-  const [showOpenActionModal, setShowOpenActionModal] = useState(false);
   const { selectedNftOaCurrency } = useNftOaCurrencyStore();
-  const targetPublication = isMirrorPublication(publication)
-    ? publication?.mirrorOn
-    : publication;
 
-  const module = targetPublication.openActionModules.find(
-    (module) => module.contract.address === VerifiedOpenActionModules.DecentNFT
-  );
-
+  const [showOpenActionModal, setShowOpenActionModal] = useState(false);
   const [selectedQuantity, setSelectedQuantity] = useState(1);
-
-  const { address } = useAccount();
-
   const [nft, setNft] = useState({
     chain: og.nft?.chain || null,
     collectionName: og.nft?.collectionName || '',
@@ -93,6 +83,15 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
     schema: og.nft?.schema || '',
     sourceUrl: og.url
   });
+
+  const { address } = useAccount();
+
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
+  const module = targetPublication.openActionModules.find(
+    (module) => module.contract.address === VerifiedOpenActionModules.DecentNFT
+  );
 
   const fetchActionData = async () => {
     const nftOpenActionKit = getNftOpenActionKit();
@@ -109,7 +108,7 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
       quantity: selectedQuantity,
       senderAddress: address || ZERO_ADDRESS,
       sourceUrl: og.url,
-      srcChainId: '137'
+      srcChainId: CHAIN.id.toString()
     });
 
     return actionDataResult;
@@ -121,10 +120,13 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
     refetch
   } = useQuery({
     enabled:
-      !!module && !!selectedNftOaCurrency && !!address && !!targetPublication,
+      Boolean(module) &&
+      Boolean(selectedNftOaCurrency) &&
+      Boolean(address) &&
+      Boolean(targetPublication),
     queryFn: fetchActionData,
     queryKey: [
-      'actionData',
+      'fetchActionData',
       selectedNftOaCurrency,
       selectedQuantity,
       address,
@@ -171,7 +173,7 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
             src={nft.mediaUrl.length ? nft.mediaUrl : undefined}
           />
         </div>
-        {!!actionData && nft && !loadingActionData ? (
+        {actionData && Boolean(nft) && !loadingActionData ? (
           <div className="flex flex-col items-start justify-between gap-4 border-t p-4 sm:flex-row sm:items-center sm:gap-0 dark:border-gray-700">
             <div className="flex items-center space-x-2">
               {nft.creatorAddress ? (
@@ -179,7 +181,7 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
                   actionData={actionData}
                   collectionName={nft.collectionName}
                   creatorAddress={nft.creatorAddress}
-                  uiData={actionData.uiData}
+                  uiData={actionData?.uiData}
                 />
               ) : null}
             </div>
@@ -187,20 +189,14 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
             {openActionEmbedLoading ? (
               <Spinner size="xs" />
             ) : openActionEmbed ? (
-              <Tooltip
-                content={<span>{OPEN_ACTION_EMBED_TOOLTIP}</span>}
-                placement="top"
-              >
-                <Button
-                  className="w-full text-base font-normal sm:w-auto"
-                  size="lg"
-                >
+              <Tooltip content={OPEN_ACTION_EMBED_TOOLTIP} placement="top">
+                <Button className="w-full sm:w-auto" size="lg">
                   {openActionCTA(actionData.uiData.platformName)}
                 </Button>
               </Tooltip>
             ) : (
               <Button
-                className="w-full text-base font-normal sm:w-auto"
+                className="w-full sm:w-auto"
                 onClick={() => {
                   setShowOpenActionModal(true);
                   Leafwatch.track(PUBLICATION.OPEN_ACTIONS.DECENT.OPEN_DECENT, {
