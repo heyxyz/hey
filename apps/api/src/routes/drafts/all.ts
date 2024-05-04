@@ -2,9 +2,9 @@ import type { Handler } from 'express';
 
 import logger from '@hey/helpers/logger';
 import parseJwt from '@hey/helpers/parseJwt';
+import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
-import prisma from 'src/helpers/prisma';
 import { notAllowed } from 'src/helpers/responses';
 
 // TODO: add tests
@@ -17,10 +17,16 @@ export const get: Handler = async (req, res) => {
 
   try {
     const payload = parseJwt(accessToken);
-    const result = await prisma.draftPublication.findMany({
-      orderBy: { updatedAt: 'desc' },
-      where: { profileId: payload.id }
-    });
+
+    const result = await heyPg.query(
+      `
+        SELECT *
+        FROM "DraftPublication"
+        WHERE "profileId" = $1
+        ORDER BY "updatedAt" DESC;
+      `,
+      [payload.id]
+    );
 
     logger.info(`Drafts fetched for ${payload.id}`);
 

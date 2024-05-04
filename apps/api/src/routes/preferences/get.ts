@@ -2,9 +2,9 @@ import type { Preferences } from '@hey/types/hey';
 import type { Handler } from 'express';
 
 import logger from '@hey/helpers/logger';
+import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import validateIsOwnerOrStaff from 'src/helpers/middlewares/validateIsOwnerOrStaff';
-import prisma from 'src/helpers/prisma';
 import { noBody, notAllowed } from 'src/helpers/responses';
 
 export const get: Handler = async (req, res) => {
@@ -19,31 +19,36 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const [preference, features, email, membershipNft] =
-      await prisma.$transaction([
-        prisma.preference.findUnique({ where: { id: id as string } }),
-        prisma.profileFeature.findMany({
-          select: { feature: { select: { key: true } } },
-          where: {
-            enabled: true,
-            feature: { enabled: true },
-            profileId: id as string
-          }
-        }),
-        prisma.email.findUnique({ where: { id: id as string } }),
-        prisma.membershipNft.findUnique({ where: { id: id as string } })
-      ]);
+    const [preference, features, email, membershipNft] = await heyPg.multi(
+      `
+        SELECT * FROM "Preference" WHERE id = $1;
+
+        SELECT f.key
+        FROM "ProfileFeature" AS pf
+        JOIN "Feature" AS f ON pf."featureId" = f.id
+        WHERE pf.enabled = TRUE
+        AND f.enabled = TRUE
+        AND pf."profileId" = $1;
+
+        SELECT * FROM "Email" WHERE id = $1;
+
+        SELECT * FROM "MembershipNft" WHERE id = $1;
+      `,
+      [id as string]
+    );
+
+    console.log(features);
 
     const response: Preferences = {
-      appIcon: preference?.appIcon || 0,
-      email: email?.email || null,
-      emailVerified: Boolean(email?.verified),
-      features: features.map((feature: any) => feature.feature?.key),
+      appIcon: preference[0]?.appIcon || 0,
+      email: email[0]?.email || null,
+      emailVerified: Boolean(email[0]?.verified),
+      features: features.map((feature: any) => feature?.key),
       hasDismissedOrMintedMembershipNft: Boolean(
-        membershipNft?.dismissedOrMinted
+        membershipNft[0]?.dismissedOrMinted
       ),
       highSignalNotificationFilter: Boolean(
-        preference?.highSignalNotificationFilter
+        preference[0]?.highSignalNotificationFilter
       )
     };
 

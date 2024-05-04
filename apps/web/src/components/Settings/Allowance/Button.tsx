@@ -5,7 +5,6 @@ import errorToast from '@helpers/errorToast';
 import getAllowanceModule from '@helpers/getAllowanceModule';
 import { Leafwatch } from '@helpers/leafwatch';
 import { ExclamationTriangleIcon, PlusIcon } from '@heroicons/react/24/outline';
-import { MAX_SAFE_INTEGER } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
 import {
   OpenActionModuleType,
@@ -164,7 +163,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
             onClick={() =>
               handleAllowance(
                 module.allowance.asset.contract.address,
-                MAX_SAFE_INTEGER.toString(),
+                Number.MAX_SAFE_INTEGER.toString(),
                 module.moduleName
               )
             }

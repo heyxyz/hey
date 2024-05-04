@@ -1,7 +1,7 @@
 import type { Request } from 'express';
 
 import parseJwt from '@hey/helpers/parseJwt';
-import prisma from 'src/helpers/prisma';
+import heyPg from 'src/db/heyPg';
 
 import validateLensAccount from './validateLensAccount';
 
@@ -24,11 +24,19 @@ const validateFeatureAvailable = async (request: Request, id: string) => {
     }
 
     const payload = parseJwt(accessToken);
-    const data = await prisma.profileFeature.findFirst({
-      where: { enabled: true, featureId: id, profileId: payload.id }
-    });
+    const data = await heyPg.query(
+      `
+        SELECT enabled
+        FROM "ProfileFeature"
+        WHERE enabled = TRUE
+        AND "featureId" = $1
+        AND "profileId" = $2
+        LIMIT 1;
+      `,
+      [id, payload.id]
+    );
 
-    if (data?.enabled) {
+    if (data[0]?.enabled) {
       return true;
     }
 
