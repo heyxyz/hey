@@ -1,11 +1,11 @@
 import type { Handler } from 'express';
 
 import axios from 'axios';
+import heyPg from 'src/db/heyPg';
 import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
 import { SCORE_WORKER_URL } from 'src/helpers/constants';
 import createClickhouseClient from 'src/helpers/createClickhouseClient';
-import prisma from 'src/helpers/prisma';
 
 const measureQueryTime = async (
   queryFunction: () => Promise<any>
@@ -19,8 +19,8 @@ const measureQueryTime = async (
 export const get: Handler = async (_, res) => {
   try {
     // Prepare promises with timings embedded
-    const heyPromise = measureQueryTime(
-      () => prisma.$queryRaw<{ count: number }[]>`SELECT 1 as count;`
+    const heyPromise = measureQueryTime(() =>
+      heyPg.query(`SELECT 1 as count;`)
     );
     const lensPromise = measureQueryTime(() =>
       lensPg.query(`SELECT 1 as count;`)

@@ -17,13 +17,9 @@ type DatabaseQuery = string;
 
 class Database {
   private _connectionBase: IConnectionParameters = {
-    database: 'social_production_lens_v2_polygon',
-    host: 'lens.hey.xyz',
+    connectionString: process.env.DATABASE_URL,
     idleTimeoutMillis: 30000,
-    max: 1500,
-    password: process.env.LENS_DATABASE_PASSWORD,
-    port: 6969,
-    user: 'hey'
+    max: 100
   };
 
   private _readDb: DatabaseInstance;
@@ -47,7 +43,7 @@ class Database {
     const pgp = pgPromise({
       error: (error: any) => {
         const errorMessage = error.message || error;
-        logger.error(`LENS POSTGRES ERROR WITH TRACE: ${errorMessage}`);
+        logger.error(`HEY POSTGRES ERROR WITH TRACE: ${errorMessage}`);
       }
     });
 

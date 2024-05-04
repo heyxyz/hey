@@ -6,7 +6,7 @@ import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { createTrackedSelector } from 'react-tracked';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
-import { encodeAbiParameters, isAddress } from 'viem';
+import { encodeAbiParameters, isAddress, toBytes, toHex } from 'viem';
 import { create } from 'zustand';
 
 import SaveOrCancel from '../../SaveOrCancel';
@@ -72,15 +72,17 @@ const RentableBillboardConfig: FC = () => {
           { name: 'expireAt', type: 'uint16' },
           { name: 'costPerSecond', type: 'uint256' },
           { name: 'clientFeePerActBps', type: 'uint16' },
-          { name: 'referralFeePerActBps', type: 'uint16' }
+          { name: 'referralFeePerActBps', type: 'uint16' },
+          { name: 'interestMerkleRoot', type: 'bytes32' }
         ],
         [
           currency.token as Address,
           false,
-          expiresAt.getTime() / 1000,
-          BigInt(costPerSecond * 10 ** currency.decimals),
           0,
-          0
+          10n,
+          0,
+          0,
+          toHex(toBytes('', { size: 32 }))
         ]
       )
     });
