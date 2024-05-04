@@ -19,6 +19,7 @@ import { defineItalic } from 'prosekit/extensions/italic';
 import { defineLinkMarkRule, defineLinkSpec } from 'prosekit/extensions/link';
 import { defineMarkRule } from 'prosekit/extensions/mark-rule';
 import { defineMentionCommands } from 'prosekit/extensions/mention';
+import { defineModClickPrevention } from 'prosekit/extensions/mod-click-prevention';
 import { definePlaceholder } from 'prosekit/extensions/placeholder';
 import { defineStrike } from 'prosekit/extensions/strike';
 import { defineUnderline } from 'prosekit/extensions/underline';
@@ -124,6 +125,7 @@ export const defineEditorExtension = () => {
     defineAutoLink(),
     defineVirtualSelection(),
     defineMention(),
+    defineModClickPrevention(),
     definePlaceholder({ placeholder: "What's new?!", strategy: 'doc' })
   ]);
 };
