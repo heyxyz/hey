@@ -3,6 +3,7 @@ import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
+import { Regex } from '@hey/data/regex';
 import hasMisused from '@hey/helpers/hasMisused';
 import cn from '@hey/ui/cn';
 import { useEditor } from 'prosekit/react';
@@ -78,7 +79,7 @@ const MentionPicker = () => {
       )}
       offset={10}
       onQueryChange={setQueryString}
-      regex={/@\w*$/}
+      regex={Regex.editorMention}
     >
       <AutocompleteList className="divide-y dark:divide-gray-700" filter={null}>
         {results.map((user) => (
