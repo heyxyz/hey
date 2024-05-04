@@ -13,12 +13,8 @@ import { htmlFromMarkdown } from './markdown';
 import { useContentChange } from './useContentChange';
 import { usePaste } from './usePaste';
 
-// Some components use DOM API (e.g. class CustomElement extends HTMLElement).
-// It would throw error when importing in server-side. We only import it in
-// client-side.
-const EditorMenus = dynamic(() => import('./EditorMenus'), {
-  ssr: false
-});
+// Lazy load EditorMenus to reduce bundle size
+const EditorMenus = dynamic(() => import('./EditorMenus'), { ssr: false });
 
 const Editor = (props: {
   /**
