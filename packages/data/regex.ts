@@ -21,7 +21,7 @@ export const Regex = {
     'g'
   ),
   // Match string like @someone.
-  mentionEditor: new RegExp(`${MATCH_BEHIND}@$${MENTION_BODY}`, 'g'),
+  mentionEditor: new RegExp(`${MATCH_BEHIND}@${MENTION_BODY}`, 'g'),
   profileNameFilter: new RegExp(`[${RESTRICTED_SYMBOLS}]`, 'gu'),
   profileNameValidator: new RegExp(`^[^${RESTRICTED_SYMBOLS}]+$`),
   txHash: /^0x[\dA-Fa-f]{64}$/,
