@@ -23,7 +23,7 @@ const EmojiItem = ({
 }) => {
   return (
     <AutocompleteItem
-      className="focusable-dropdown-item m-2 block cursor-pointer rounded-lg p-2 outline-none"
+      className="focusable-dropdown-item m-1 block cursor-pointer rounded-lg p-2 outline-none"
       onSelect={onSelect}
     >
       <div className="flex items-center space-x-2">
