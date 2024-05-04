@@ -21,8 +21,8 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-ses": "^3.568.0",
-    "@aws-sdk/client-sts": "^3.568.0",
+    "@aws-sdk/client-ses": "^3.569.0",
+    "@aws-sdk/client-sts": "^3.569.0",
     "@clickhouse/client": "^1.0.1",
     "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
@@ -38,7 +38,7 @@
     "linkedom": "^0.16.11",
     "pg-promise": "^11.6.0",
     "request-ip": "^3.3.0",
-    "tsx": "^4.8.2",
+    "tsx": "^4.9.0",
     "typescript": "^5.4.5",
     "ua-parser-js": "^1.0.37",
     "urlcat": "^3.1.0",
@@ -61,6 +61,6 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.3.2",
     "vite": "^5.2.11",
-    "vitest": "^1.5.3"
+    "vitest": "^1.6.0"
   }
 }
