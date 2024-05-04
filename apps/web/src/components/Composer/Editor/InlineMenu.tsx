@@ -1,7 +1,7 @@
 import { useEditor } from 'prosekit/react';
 import { InlinePopover } from 'prosekit/react/inline-popover';
 
-import type { TextEditorExtension } from './extension';
+import type { EditorExtension } from './extension';
 
 import {
   BoldIcon,
@@ -13,7 +13,7 @@ import {
 import Toggle from './Toggle';
 
 const InlineMenu = () => {
-  const editor = useEditor<TextEditorExtension>({ update: true });
+  const editor = useEditor<EditorExtension>({ update: true });
 
   return (
     <InlinePopover className="relative z-10 box-border flex min-w-[120px] space-x-1 overflow-auto whitespace-nowrap rounded-md border border-gray-200 bg-white p-1 shadow-lg dark:border-gray-800 dark:bg-neutral-900">

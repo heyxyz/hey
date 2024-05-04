@@ -62,14 +62,10 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
+import { Editor, useEditorContext, withEditorContext } from './Editor';
 import LinkPreviews from './LinkPreviews';
 import OpenActions from './OpenActions';
 import Discard from './Post/Discard';
-import {
-  TextEditor,
-  useTextEditorContext,
-  withTextEditorContext
-} from './TextEditor';
 
 const Shimmer = <div className="shimmer mb-1 size-5 rounded-lg" />;
 
@@ -173,7 +169,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
   const [publicationContentError, setPublicationContentError] = useState('');
 
-  const editor = useTextEditorContext();
+  const editor = useEditorContext();
 
   const createPoll = useCreatePoll();
   const getMetadata = usePublicationMetadata();
@@ -541,7 +537,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           title="Transaction failed!"
         />
       ) : null}
-      <TextEditor defaultMarkdown={publicationContent} />
+      <Editor defaultMarkdown={publicationContent} />
       {publicationContentError ? (
         <div className="mt-1 px-5 pb-3 text-sm font-bold text-red-500">
           {publicationContentError}
@@ -603,4 +599,4 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   );
 };
 
-export default withTextEditorContext(NewPublication);
+export default withEditorContext(NewPublication);

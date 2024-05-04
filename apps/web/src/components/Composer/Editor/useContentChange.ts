@@ -7,11 +7,11 @@ import { useCallback } from 'react';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { useDebouncedCallback } from 'src/store/non-persisted/useDebouncedCallback';
 
-import type { TextEditorExtension } from './extension';
+import type { EditorExtension } from './extension';
 
 import { markdownFromHTML } from './markdown';
 
-export const useContentChange = (editor: Editor<TextEditorExtension>) => {
+export const useContentChange = (editor: Editor<EditorExtension>) => {
   const { setPublicationContent } = usePublicationStore();
 
   const setContent = useCallback(() => {

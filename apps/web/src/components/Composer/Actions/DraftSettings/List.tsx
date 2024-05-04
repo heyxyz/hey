@@ -1,7 +1,7 @@
 import type { Draft } from '@hey/types/hey';
 import type { FC } from 'react';
 
-import { useTextEditorContext } from '@components/Composer/TextEditor';
+import { useEditorContext } from '@components/Composer/Editor';
 import Loader from '@components/Shared/Loader';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { ArchiveBoxArrowDownIcon } from '@heroicons/react/24/outline';
@@ -26,7 +26,7 @@ const List: FC<ListProps> = ({ setShowModal }) => {
   const [drafts, setDrafts] = useState<Draft[]>([]);
   const [deleting, setDeleting] = useState(false);
 
-  const editor = useTextEditorContext();
+  const editor = useEditorContext();
 
   const getDrafts = async (): Promise<[] | Draft[]> => {
     try {

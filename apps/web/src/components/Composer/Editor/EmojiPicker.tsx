@@ -10,7 +10,7 @@ import {
 } from 'prosekit/react/autocomplete';
 import { useState } from 'react';
 
-import type { TextEditorExtension } from './extension';
+import type { EditorExtension } from './extension';
 
 import { useEmojiQuery } from './useEmojiQuery';
 
@@ -35,7 +35,7 @@ const EmojiItem = ({
 };
 
 const EmojiPicker = () => {
-  const editor = useEditor<TextEditorExtension>();
+  const editor = useEditor<EditorExtension>();
 
   const handleInsert = (emoji: Emoji) => {
     editor.commands.insertMention({
